@@ -224,7 +224,10 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
             if (gtasksMetadata == null) {
                 gtasksMetadata = new GoogleTask(task.getId(), listId);
             }
-            listId = gtasksMetadata.getListId();
+            String selectedList = gtasksMetadata.getListId();
+            if (!Strings.isNullOrEmpty(selectedList)) {
+                listId = selectedList;
+            }
             remoteModel = new com.google.api.services.tasks.model.Task();
             newlyCreated = true;
         } else { //update case

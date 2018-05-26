@@ -9,7 +9,6 @@ import android.support.annotation.NonNull;
 import com.todoroo.andlib.data.Table;
 
 import org.tasks.backup.XmlReader;
-import org.tasks.backup.XmlWriter;
 
 @Entity(tableName = "tags")
 public class Tag {
@@ -21,10 +20,10 @@ public class Tag {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
-    private long id;
+    private transient long id;
 
     @ColumnInfo(name = "task")
-    private long task;
+    private transient long task;
 
     @ColumnInfo(name = "name")
     private String name;
@@ -33,7 +32,7 @@ public class Tag {
     private String tagUid;
 
     @ColumnInfo(name = "task_uid")
-    private String taskUid;
+    private transient String taskUid;
 
     public Tag() {
 
@@ -52,12 +51,6 @@ public class Tag {
         xmlReader.readString("name", this::setName);
         xmlReader.readString("tag_uid", this::setTagUid);
         xmlReader.readString("task_uid", this::setTaskUid);
-    }
-
-    public void writeToXml(XmlWriter xmlWriter) {
-        xmlWriter.writeString("name", name);
-        xmlWriter.writeString("tag_uid", tagUid);
-        xmlWriter.writeString("task_uid", taskUid);
     }
 
     public long getId() {

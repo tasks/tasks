@@ -16,7 +16,7 @@ public abstract class UserActivityDao {
     @Insert
     public abstract void insert(UserActivity userActivity);
 
-    @Query("SELECT * FROM userActivity WHERE `action` = 'task_comment' AND target_id = :taskUuid AND deleted_at = 0 ORDER BY created_at DESC ")
+    @Query("SELECT * FROM userActivity WHERE target_id = :taskUuid ORDER BY created_at DESC ")
     public abstract List<UserActivity> getCommentsForTask(String taskUuid);
 
     public void createNew(UserActivity item) {

@@ -5,7 +5,9 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
-import com.todoroo.astrid.backup.TasksXmlExporter;
+import org.tasks.analytics.Tracker;
+import org.tasks.analytics.Tracking;
+import org.tasks.backup.TasksJsonExporter;
 
 import org.tasks.injection.InjectingNativeDialogFragment;
 import org.tasks.injection.NativeDialogFragmentComponent;
@@ -19,7 +21,8 @@ public class ExportTasksDialog extends InjectingNativeDialogFragment {
     }
 
     @Inject DialogBuilder dialogBuilder;
-    @Inject TasksXmlExporter tasksXmlExporter;
+    @Inject TasksJsonExporter tasksJsonExporter;
+    @Inject Tracker tracker;
 
     private ProgressDialog progressDialog;
 
@@ -34,7 +37,8 @@ public class ExportTasksDialog extends InjectingNativeDialogFragment {
         progressDialog.show();
 
         setCancelable(false);
-        tasksXmlExporter.exportTasks(getActivity(), TasksXmlExporter.ExportType.EXPORT_TYPE_MANUAL, progressDialog);
+        tasksJsonExporter.exportTasks(getActivity(), TasksJsonExporter.ExportType.EXPORT_TYPE_MANUAL, progressDialog);
+        tracker.reportEvent(Tracking.Events.EXPORT);
         return progressDialog;
     }
 

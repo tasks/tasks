@@ -187,13 +187,13 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
         if (isNewTag) {
             tagData.setName(newName);
             tagData.setColor(selectedTheme);
-            tagDataDao.persist(tagData);
+            tagDataDao.createNew(tagData);
             setResult(RESULT_OK, new Intent().putExtra(TaskListActivity.OPEN_FILTER, new TagFilter(tagData)));
         } else if (hasChanges()) {
             tagData.setName(newName);
             tagData.setColor(selectedTheme);
             tagService.rename(tagData.getRemoteId(), newName);
-            tagDataDao.persist(tagData);
+            tagDataDao.update(tagData);
             tagDao.rename(tagData.getRemoteId(), newName);
             setResult(RESULT_OK, new Intent(ACTION_RELOAD).putExtra(TaskListActivity.OPEN_FILTER, new TagFilter(tagData)));
         }

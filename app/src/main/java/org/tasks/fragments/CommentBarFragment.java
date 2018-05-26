@@ -56,7 +56,7 @@ public class CommentBarFragment extends TaskEditControlFragment {
     public static final int TAG = R.string.TEA_ctrl_comments;
 
     public interface CommentBarFragmentCallback {
-        void addComment(String message, String actionCode, String picture);
+        void addComment(String message, String picture);
     }
 
     public interface ClearImageCallback {
@@ -199,7 +199,7 @@ public class CommentBarFragment extends TaskEditControlFragment {
     }
 
     private void addComment() {
-        addComment(commentField.getText().toString(), UserActivity.ACTION_TASK_COMMENT);
+        addComment(commentField.getText().toString());
         AndroidUtilities.hideSoftInputForViews(activity, commentField);
     }
 
@@ -210,7 +210,7 @@ public class CommentBarFragment extends TaskEditControlFragment {
         commentButton.setVisibility(View.VISIBLE);
     }
 
-    private void addComment(String message, String actionCode) {
+    private void addComment(String message) {
         // Allow for users to just add picture
         if (TextUtils.isEmpty(message)) {
             message = " ";
@@ -229,7 +229,7 @@ public class CommentBarFragment extends TaskEditControlFragment {
 
         pendingCommentPicture = null;
         resetPictureButton();
-        callback.addComment(message, actionCode, picture);
+        callback.addComment(message, picture);
     }
 
     private static JSONObject savePictureJson(final Uri uri) {

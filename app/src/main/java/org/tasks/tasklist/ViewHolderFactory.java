@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.DisplayMetrics;
 import android.view.ViewGroup;
 
-import com.bignerdranch.android.multiselector.MultiSelector;
 import com.todoroo.astrid.dao.TaskDao;
 
 import org.tasks.R;
@@ -57,9 +56,9 @@ public class ViewHolderFactory {
         rowPadding = convertDpToPixels(metrics, preferences.getInt(R.string.p_rowPadding, 16));
     }
 
-    ViewHolder newViewHolder(ViewGroup viewGroup, ViewHolder.ViewHolderCallbacks callbacks, MultiSelector multiSelector) {
+    ViewHolder newViewHolder(ViewGroup viewGroup, ViewHolder.ViewHolderCallbacks callbacks) {
         return new ViewHolder(context, viewGroup, showFullTaskTitle, fontSize, checkBoxes,
                 tagFormatter, textColorOverdue, textColorSecondary, textColorHint, taskDao,
-                dialogBuilder, callbacks, metrics, background, selectedColor, multiSelector, rowPadding);
+                dialogBuilder, callbacks, metrics, background, selectedColor, rowPadding);
     }
 }

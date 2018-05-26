@@ -6,6 +6,7 @@
 package com.todoroo.astrid.activity;
 
 import android.app.Activity;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +17,6 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -48,7 +48,6 @@ import org.tasks.R;
 import org.tasks.activities.FilterSettingsActivity;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
-import org.tasks.data.TaskListDataProvider;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.SortDialog;
 import org.tasks.gtasks.SyncAdapterHelper;
@@ -62,6 +61,7 @@ import org.tasks.tasklist.ViewHolderFactory;
 import org.tasks.ui.CheckBoxes;
 import org.tasks.ui.MenuColorizer;
 import org.tasks.ui.ProgressDialogAsyncTask;
+import org.tasks.ui.TaskListViewModel;
 
 import java.util.List;
 
@@ -106,7 +106,6 @@ public class TaskListFragment extends InjectingFragment implements
     @Inject DialogBuilder dialogBuilder;
     @Inject CheckBoxes checkBoxes;
     @Inject TaskCreator taskCreator;
-    @Inject protected TaskListDataProvider taskListDataProvider;
     @Inject TimerPlugin timerPlugin;
     @Inject ViewHolderFactory viewHolderFactory;
     @Inject protected Tracker tracker;
@@ -118,6 +117,8 @@ public class TaskListFragment extends InjectingFragment implements
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.task_list_coordinator) CoordinatorLayout coordinatorLayout;
     @BindView(R.id.recycler_view) RecyclerView recyclerView;
+
+    private TaskListViewModel taskListViewModel;
 
     private TaskAdapter taskAdapter = null;
     private TaskListRecyclerAdapter recyclerAdapter;
@@ -170,6 +171,8 @@ public class TaskListFragment extends InjectingFragment implements
 
     @Override
     public void onAttach(Activity activity) {
+        taskListViewModel = ViewModelProviders.of(getActivity()).get(TaskListViewModel.class);
+
         super.onAttach(activity);
 
         callbacks = (TaskListFragmentCallbackHandler) activity;
@@ -348,6 +351,23 @@ public class TaskListFragment extends InjectingFragment implements
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        taskListViewModel.getTasks(filter, taskProperties()).observe(getActivity(), list -> {
+            if (list.isEmpty()) {
+                swipeRefreshLayout.setVisibility(View.GONE);
+                emptyRefreshLayout.setVisibility(View.VISIBLE);
+            } else {
+                swipeRefreshLayout.setVisibility(View.VISIBLE);
+                emptyRefreshLayout.setVisibility(View.GONE);
+            }
+
+            // stash selected items
+            Bundle saveState = recyclerAdapter.getSaveState();
+
+            recyclerAdapter.setList(list);
+
+            recyclerAdapter.restoreSaveState(saveState);
+        });
+
         ((DefaultItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
         recyclerAdapter.applyToRecyclerView(recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -394,6 +414,7 @@ public class TaskListFragment extends InjectingFragment implements
      * broadcast. Subclasses should override this.
      */
     private void refresh() {
+        // TODO: compare indents in diff callback, then animate this
         loadTaskListContent(!(this instanceof GtasksSubtaskListFragment));
 
         setSyncOngoing(gtasksPreferenceService.isOngoing());
@@ -405,68 +426,14 @@ public class TaskListFragment extends InjectingFragment implements
      * ======================================================================
      */
 
-    private static class DiffUtilCallback extends DiffUtil.Callback {
-
-        private final List<Task> oldTasks;
-        private final List<Task> newTasks;
-
-        public DiffUtilCallback(List<Task> oldTasks, List<Task> newTasks) {
-            this.oldTasks = oldTasks;
-            this.newTasks = newTasks;
-        }
-
-        @Override
-        public int getOldListSize() {
-            return oldTasks.size();
-        }
-
-        @Override
-        public int getNewListSize() {
-            return newTasks.size();
-        }
-
-        @Override
-        public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-            return oldTasks.get(oldItemPosition).getId() == newTasks.get(newItemPosition).getId();
-        }
-
-        @Override
-        public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-            return oldTasks.get(oldItemPosition).equals(newTasks.get(newItemPosition));
-        }
-    }
-
     public void loadTaskListContent() {
         loadTaskListContent(true);
     }
 
     public void loadTaskListContent(boolean animate) {
-        if (taskAdapter == null) {
-            return;
-        }
-        // stash selected items
-        Bundle saveState = recyclerAdapter.getSaveState();
+        recyclerAdapter.setAnimate(animate);
 
-        List<Task> oldTasks = taskAdapter.getTasks();
-        List<Task> newTasks = taskListDataProvider.toList(filter, taskProperties());
-        taskAdapter.setTasks(newTasks);
-
-        if (animate) {
-            DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffUtilCallback(oldTasks, newTasks), true);
-            diffResult.dispatchUpdatesTo(recyclerAdapter);
-        } else {
-            recyclerAdapter.notifyDataSetChanged();
-        }
-
-        recyclerAdapter.restoreSaveState(saveState);
-
-        if (newTasks.isEmpty()) {
-            swipeRefreshLayout.setVisibility(View.GONE);
-            emptyRefreshLayout.setVisibility(View.VISIBLE);
-        } else {
-            swipeRefreshLayout.setVisibility(View.VISIBLE);
-            emptyRefreshLayout.setVisibility(View.GONE);
-        }
+        taskListViewModel.invalidate();
     }
 
     protected TaskAdapter createTaskAdapter() {
@@ -489,6 +456,7 @@ public class TaskListFragment extends InjectingFragment implements
         taskAdapter = createTaskAdapter();
         recyclerAdapter = new TaskListRecyclerAdapter(getActivity(), taskAdapter, viewHolderFactory,
                 this, taskDeleter, taskDuplicator, tracker, dialogBuilder);
+        taskAdapter.setHelper(recyclerAdapter.getHelper());
     }
 
     public Property<?>[] taskProperties() {
@@ -513,6 +481,10 @@ public class TaskListFragment extends InjectingFragment implements
     }
 
     public void onTaskCreated(String uuid) {
+    }
+
+    public void onTaskSaved() {
+        recyclerAdapter.onTaskSaved();
     }
 
     public void onTaskDelete(List<Task> tasks) {

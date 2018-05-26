@@ -11,7 +11,7 @@ package com.todoroo.astrid.backup;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-class BackupConstants {
+public class BackupConstants {
 
     // Do NOT edit the constants in this file! You will break compatibility with old backups
 
@@ -37,24 +37,14 @@ class BackupConstants {
     /** Tag containing a metadata item */
     public static final String METADATA_TAG = "metadata";
 
-    public static final String ALARM_TAG = "alarm";
-
-    public static final String LOCATION_TAG = "location";
-
-    public static final String TAG_TAG = "tag";
-
-    public static final String GOOGLE_TASKS_TAG = "googletasks";
-
     /** Tag containing a tagdata item */
     public static final String TAGDATA_TAG = "tagdata";
 
     // --- general
 
-    public static final String XML_ENCODING = "utf-8";
+    public static final String EXPORT_FILE_NAME = "user.%s.json";
 
-    public static final String EXPORT_FILE_NAME = "user.%s.xml";
+    public static final String BACKUP_FILE_NAME = "auto.%s.json";
 
-    public static final String BACKUP_FILE_NAME = "auto.%s.xml";
-
-    public static final String UPGRADE_FILE_NAME = "upgradefrom.%s.xml";
+    public static final String UPGRADE_FILE_NAME = "upgradefrom.%s.json";
 }

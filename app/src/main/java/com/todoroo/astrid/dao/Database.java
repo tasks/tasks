@@ -11,6 +11,8 @@ import android.database.Cursor;
 
 import com.todoroo.astrid.data.Task;
 
+import org.tasks.analytics.Tracker;
+import org.tasks.analytics.Tracking;
 import org.tasks.data.Alarm;
 import org.tasks.data.AlarmDao;
 import org.tasks.data.Filter;
@@ -59,7 +61,7 @@ import timber.log.Timber;
                 Filter.class,
                 GoogleTaskList.class
         },
-        version = 52)
+        version = 54)
 public abstract class Database extends RoomDatabase {
 
     public abstract NotificationDao notificationDao();
@@ -78,6 +80,7 @@ public abstract class Database extends RoomDatabase {
     public static final String NAME = "database";
 
     private SupportSQLiteDatabase database;
+    private Tracker tracker;
     private Runnable onDatabaseUpdated;
 
     // --- implementation
@@ -86,7 +89,8 @@ public abstract class Database extends RoomDatabase {
         return NAME;
     }
 
-    public Database setOnDatabaseUpdated(Runnable onDatabaseUpdated) {
+    public Database init(Tracker tracker, Runnable onDatabaseUpdated) {
+        this.tracker = tracker;
         this.onDatabaseUpdated = onDatabaseUpdated;
         return this;
     }
@@ -108,19 +112,10 @@ public abstract class Database extends RoomDatabase {
 
         try {
             database = getOpenHelper().getWritableDatabase();
-        } catch (NullPointerException e) {
+        } catch (Exception e) {
+            tracker.reportEvent(Tracking.Events.DB_OPEN_FAILED, e.getMessage());
             Timber.e(e, e.getMessage());
             throw new IllegalStateException(e);
-        } catch (final RuntimeException original) {
-            Timber.e(original, original.getMessage());
-            try {
-                // provide read-only database
-                openForReading();
-            } catch (Exception readException) {
-                Timber.e(readException, readException.getMessage());
-                // throw original write exception
-                throw original;
-            }
         }
     }
 

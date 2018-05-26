@@ -466,4 +466,5 @@
 	<string name="repeat_monthly_third_week">dritte</string>
 	<string name="repeat_monthly_fourth_week">vierte</string>
 	<string name="repeat_monthly_last_week">Nachname</string>
+	<string name="help">Hilfe</string>
 </resources>

@@ -10,7 +10,6 @@ import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.utility.DateUtilities;
 
 import org.tasks.backup.XmlReader;
-import org.tasks.backup.XmlWriter;
 
 @Entity(tableName = "google_tasks")
 public class GoogleTask {
@@ -25,10 +24,10 @@ public class GoogleTask {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
-    private long id;
+    private transient long id;
 
     @ColumnInfo(name = "task")
-    private long task;
+    private transient long task;
 
     @ColumnInfo(name = "remote_id")
     private String remoteId = "";
@@ -55,7 +54,7 @@ public class GoogleTask {
     private long deleted;
 
     @Ignore
-    private boolean suppressSync;
+    private transient boolean suppressSync;
 
     public GoogleTask() {
 
@@ -66,29 +65,6 @@ public class GoogleTask {
         this.task = task;
         this.order = DateUtilities.now();
         this.listId = listId;
-    }
-
-    @Ignore
-    public GoogleTask(XmlReader xml) {
-        remoteId = xml.readString("remote_id");
-        listId = xml.readString("list_id");
-        parent = xml.readLong("parent");
-        indent = xml.readInteger("indent");
-        order = xml.readLong("order");
-        remoteOrder = xml.readLong("remote_order");
-        lastSync = xml.readLong("last_sync");
-        deleted = xml.readLong("deleted");
-    }
-
-    public void writeToXml(XmlWriter xml) {
-        xml.writeString("remote_id", remoteId);
-        xml.writeString("list_id", listId);
-        xml.writeLong("parent", parent);
-        xml.writeInteger("indent", indent);
-        xml.writeLong("order", order);
-        xml.writeLong("remote_order", remoteOrder);
-        xml.writeLong("last_sync", lastSync);
-        xml.writeLong("deleted", deleted);
     }
 
     public long getId() {

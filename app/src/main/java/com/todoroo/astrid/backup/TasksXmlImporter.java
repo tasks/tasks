@@ -51,7 +51,7 @@ public class TasksXmlImporter {
     private final LocalBroadcastManager localBroadcastManager;
     private final AlarmDao alarmDao;
     private final TagDao tagDao;
-    private GoogleTaskDao googleTaskDao;
+    private final GoogleTaskDao googleTaskDao;
     private final LocationDao locationDao;
 
     private Activity activity;
@@ -117,7 +117,7 @@ public class TasksXmlImporter {
                         String format = xpp.getAttributeValue(null, BackupConstants.ASTRID_ATTR_FORMAT);
                         if(TextUtils.equals(format, FORMAT2)) {
                             new Format2TaskImporter(xpp);
-                        } else if(TextUtils.equals(format, FORMAT3) || TextUtils.equals(format, FORMAT4)) {
+                        } else if(TextUtils.equals(format, FORMAT3)) {
                             new Format3TaskImporter(xpp);
                         } else {
                             throw new UnsupportedOperationException(
@@ -162,8 +162,9 @@ public class TasksXmlImporter {
         XmlPullParser xpp;
         Task currentTask;
 
-        public Format2TaskImporter() { }
-        public Format2TaskImporter(XmlPullParser xpp) throws XmlPullParserException, IOException {
+        Format2TaskImporter() { }
+
+        Format2TaskImporter(XmlPullParser xpp) throws XmlPullParserException, IOException {
             this.xpp = xpp;
 
             while (xpp.next() != XmlPullParser.END_DOCUMENT) {
@@ -219,46 +220,6 @@ public class TasksXmlImporter {
             userActivityDao.createNew(userActivity);
         }
 
-        void parseAlarm() {
-            if (!currentTask.isSaved()) {
-                return;
-            }
-
-            Alarm alarm = new Alarm(new XmlReader(xpp));
-            alarm.setTask(currentTask.getId());
-            alarmDao.insert(alarm);
-        }
-
-        void parseLocation() {
-            if (!currentTask.isSaved()) {
-                return;
-            }
-
-            Location location = new Location(new XmlReader(xpp));
-            location.setTask(currentTask.getId());
-            locationDao.insert(location);
-        }
-
-        void parseTag() {
-            if (!currentTask.isSaved()) {
-                return;
-            }
-
-            Tag tag = new Tag(new XmlReader(xpp));
-            tag.setTask(currentTask.getId());
-            tagDao.insert(tag);
-        }
-
-        void parseGoogleTask() {
-            if (!currentTask.isSaved()) {
-                return;
-            }
-
-            GoogleTask googleTask = new GoogleTask(new XmlReader(xpp));
-            googleTask.setTask(currentTask.getId());
-            googleTaskDao.insert(googleTask);
-        }
-
         void parseMetadata(int format) {
             if(!currentTask.isSaved()) {
                 return;
@@ -292,7 +253,7 @@ public class TasksXmlImporter {
                         tagData = new TagData();
                         tagData.setRemoteId(tagUid);
                         tagData.setName(name);
-                        tagDataDao.insert(tagData);
+                        tagDataDao.createNew(tagData);
                     }
                 }
             } else if ("gtasks".equals(key)) {
@@ -314,10 +275,8 @@ public class TasksXmlImporter {
     // =============================================================== FORMAT3
 
     private static final String FORMAT3 = "3"; //$NON-NLS-1$
-    private static final String FORMAT4 = "4"; //$NON-NLS-1$
     private class Format3TaskImporter extends Format2TaskImporter {
-
-        public Format3TaskImporter(XmlPullParser xpp) throws XmlPullParserException, IOException {
+        Format3TaskImporter(XmlPullParser xpp) throws XmlPullParserException, IOException {
             this.xpp = xpp;
             while (xpp.next() != XmlPullParser.END_DOCUMENT) {
                 String tag = xpp.getName();
@@ -339,18 +298,6 @@ public class TasksXmlImporter {
                         case BackupConstants.TAGDATA_TAG:
                             parseTagdata();
                             break;
-                        case BackupConstants.ALARM_TAG:
-                            parseAlarm();
-                            break;
-                        case BackupConstants.LOCATION_TAG:
-                            parseLocation();
-                            break;
-                        case BackupConstants.TAG_TAG:
-                            parseTag();
-                            break;
-                        case BackupConstants.GOOGLE_TASKS_TAG:
-                            parseGoogleTask();
-                            break;
                     }
                 } catch (Exception e) {
                     errorCount++;
@@ -362,7 +309,7 @@ public class TasksXmlImporter {
         private void parseTagdata() {
             TagData tagData = new TagData(new XmlReader(xpp));
             if (tagDataDao.getByUuid(tagData.getRemoteId()) == null) {
-                tagDataDao.insert(tagData);
+                tagDataDao.createNew(tagData);
             }
         }
     }

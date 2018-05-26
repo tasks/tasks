@@ -138,7 +138,7 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
 
     private void resetPastNotifications() {
         taskDao.resetPastNotifications();
-        reminderService.scheduleAllAlarms(taskDao);
+        reminderService.scheduleAllAlarms();
         alarmService.scheduleAllAlarms();
 
         Toast.makeText(this, getString(R.string.rmd_EPr_reset_past_notifications_status), Toast.LENGTH_LONG).show();

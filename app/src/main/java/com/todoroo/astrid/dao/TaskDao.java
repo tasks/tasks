@@ -21,6 +21,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.UUIDHelper;
 
 import org.tasks.BuildConfig;
+import org.tasks.data.LimitOffsetDataSource;
 import org.tasks.jobs.AfterSaveIntentService;
 
 import java.util.ArrayList;
@@ -166,6 +167,9 @@ public abstract class TaskDao {
     @android.arch.persistence.room.Query("DELETE FROM tasks WHERE _id = :id")
     public abstract int deleteById(long id);
 
+    @android.arch.persistence.room.Query("SELECT tasks.* FROM tasks INNER JOIN google_tasks ON google_tasks.task = tasks._id WHERE google_tasks.list_id = :googleTaskList")
+    public abstract List<Task> getGoogleTasks(String googleTaskList);
+
     // --- save
 
     /**
@@ -234,24 +238,20 @@ public abstract class TaskDao {
     }
 
     public int count(Filter filter) {
-        return fetchFiltered(filter.getSqlQuery()).size();
+        Cursor cursor = getCursor(filter.getSqlQuery());
+        try {
+            return cursor.getCount();
+        } finally {
+            cursor.close();
+        }
     }
 
     public List<Task> fetchFiltered(Filter filter) {
         return fetchFiltered(filter.getSqlQuery());
     }
 
-    public List<Task> fetchFiltered(String query) {
-        return fetchFiltered(query, Task.PROPERTIES);
-    }
-
-    public List<Task> fetchFiltered(String queryTemplate, Property<?>... properties) {
-        Query query = Query.select(properties).withQueryTemplate(PermaSql.replacePlaceholders(queryTemplate));
-        String queryString = query.from(Task.TABLE).toString();
-        if (BuildConfig.DEBUG) {
-            Timber.v(queryString);
-        }
-        Cursor cursor = database.rawQuery(queryString);
+    public List<Task> fetchFiltered(String queryTemplate) {
+        Cursor cursor = getCursor(queryTemplate);
         List<Task> result = new ArrayList<>();
         try {
             for (cursor.moveToFirst() ; !cursor.isAfterLast() ; cursor.moveToNext()) {
@@ -261,6 +261,23 @@ public abstract class TaskDao {
         } finally {
             cursor.close();
         }
+    }
+
+    public Cursor getCursor(String queryTemplate) {
+        Query query = Query.select(Task.PROPERTIES).withQueryTemplate(PermaSql.replacePlaceholders(queryTemplate));
+        String queryString = query.from(Task.TABLE).toString();
+        if (BuildConfig.DEBUG) {
+            Timber.v(queryString);
+        }
+        return database.rawQuery(queryString);
+    }
+
+    public LimitOffsetDataSource getLimitOffsetDataSource(String queryTemplate, Property<?>... properties) {
+        String query = Query
+                .select(properties)
+                .withQueryTemplate(PermaSql.replacePlaceholders(queryTemplate))
+                .from(Task.TABLE).toString();
+        return new LimitOffsetDataSource(database, query);
     }
 }
 

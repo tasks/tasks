@@ -8,7 +8,7 @@ import android.arch.persistence.room.PrimaryKey;
 public class Filter {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
-    private long id;
+    private transient long id;
 
     @ColumnInfo(name = "title")
     private String title;

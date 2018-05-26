@@ -4,7 +4,7 @@ jdk: oraclejdk8
 env:
   global:
     - TARGET_API=27
-    - BUILD_TOOLS=27.0.0
+    - BUILD_TOOLS=27.0.3
   matrix:
     - EMULATOR_API=21 ANDROID_ABI=armeabi-v7a
 android:

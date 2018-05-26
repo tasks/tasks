@@ -38,9 +38,9 @@ public class TaskDuplicator {
         this.googleTaskDao = googleTaskDao;
     }
 
-    public List<Task> duplicate(List<Task> tasks) {
+    public List<Task> duplicate(List<Long> taskIds) {
         List<Task> result = new ArrayList<>();
-        for (Task task : tasks) {
+        for (Task task : taskDao.fetch(taskIds)) {
             result.add(clone(task));
         }
         localBroadcastManager.broadcastRefresh();

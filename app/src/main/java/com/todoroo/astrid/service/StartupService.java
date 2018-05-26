@@ -21,6 +21,8 @@ import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
+import org.tasks.data.Filter;
+import org.tasks.data.FilterDao;
 import org.tasks.data.Tag;
 import org.tasks.data.TagDao;
 import org.tasks.data.TagData;
@@ -40,6 +42,7 @@ public class StartupService {
 
     private static final int V4_8_0 = 380;
     private static final int V4_9_5 = 434;
+    private static final int V5_3_0 = 491;
 
     private final Database database;
     private final Preferences preferences;
@@ -49,12 +52,13 @@ public class StartupService {
     private final LocalBroadcastManager localBroadcastManager;
     private final Context context;
     private final TagDao tagDao;
+    private final FilterDao filterDao;
 
     @Inject
     public StartupService(Database database, Preferences preferences, Tracker tracker,
                           TagDataDao tagDataDao, TagService tagService,
                           LocalBroadcastManager localBroadcastManager,
-                          @ForApplication Context context, TagDao tagDao) {
+                          @ForApplication Context context, TagDao tagDao, FilterDao filterDao) {
         this.database = database;
         this.preferences = preferences;
         this.tracker = tracker;
@@ -63,6 +67,7 @@ public class StartupService {
         this.localBroadcastManager = localBroadcastManager;
         this.context = context;
         this.tagDao = tagDao;
+        this.filterDao = filterDao;
     }
 
     /** Called when this application is started up */
@@ -82,12 +87,7 @@ public class StartupService {
 
         // invoke upgrade service
         if(lastVersion != currentVersion) {
-            new Thread() {
-                @Override
-                public void run() {
-                    upgrade(lastVersion, currentVersion);
-                }
-            }.start();
+            upgrade(lastVersion, currentVersion);
             preferences.setDefaults();
         }
 
@@ -102,6 +102,9 @@ public class StartupService {
                 }
                 if (from < V4_9_5) {
                     removeDuplicateTags();
+                }
+                if (from < V5_3_0) {
+                    migrateFilters();
                 }
                 tracker.reportEvent(Tracking.Events.UPGRADE, Integer.toString(from));
             }
@@ -136,6 +139,23 @@ public class StartupService {
             removeDuplicateTagMetadata(uuid);
         }
         localBroadcastManager.broadcastRefresh();
+    }
+
+    private void migrateFilters() {
+        for (Filter filter : filterDao.getFilters()) {
+            filter.setSql(migrate(filter.getSql()));
+            filter.setCriterion(migrate(filter.getCriterion()));
+            filterDao.update(filter);
+        }
+    }
+
+    private String migrate(String input) {
+        return input
+                .replaceAll("SELECT metadata\\.task AS task FROM metadata INNER JOIN tasks ON \\(\\(metadata\\.task=tasks\\._id\\)\\) WHERE \\(\\(\\(tasks\\.completed=0\\) AND \\(tasks\\.deleted=0\\) AND \\(tasks\\.hideUntil<\\(strftime\\(\\'%s\\',\\'now\\'\\)\\*1000\\)\\)\\) AND \\(metadata\\.key=\\'tags-tag\\'\\) AND \\(metadata\\.value",
+                "SELECT tags.task AS task FROM tags INNER JOIN tasks ON ((tags.task=tasks._id)) WHERE (((tasks.completed=0) AND (tasks.deleted=0) AND (tasks.hideUntil<(strftime('%s','now')*1000))) AND (tags.name")
+                .replaceAll("SELECT metadata\\.task AS task FROM metadata INNER JOIN tasks ON \\(\\(metadata\\.task=tasks\\._id\\)\\) WHERE \\(\\(\\(tasks\\.completed=0\\) AND \\(tasks\\.deleted=0\\) AND \\(tasks\\.hideUntil<\\(strftime\\(\\'%s\\',\\'now\\'\\)\\*1000\\)\\)\\) AND \\(metadata\\.key=\\'gtasks\\'\\) AND \\(metadata\\.value2",
+                        "SELECT google_tasks.task AS task FROM google_tasks INNER JOIN tasks ON ((google_tasks.task=tasks._id)) WHERE (((tasks.completed=0) AND (tasks.deleted=0) AND (tasks.hideUntil<(strftime('%s','now')*1000))) AND (google_tasks.list_id")
+                .replaceAll("AND \\(metadata\\.deleted=0\\)", "");
     }
 
     private void removeDuplicateTagData(List<TagData> tagData) {

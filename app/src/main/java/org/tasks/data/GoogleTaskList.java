@@ -11,7 +11,7 @@ import android.os.Parcelable;
 public class GoogleTaskList implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
-    private long id;
+    private transient long id;
 
     @ColumnInfo(name = "remote_id")
     private String remoteId;

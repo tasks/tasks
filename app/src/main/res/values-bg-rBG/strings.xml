@@ -374,13 +374,13 @@
 	<string name="privacy">Поверителност</string>
 	<string name="privacy_policy">Декларация за поверителност</string>
 	<string name="send_anonymous_statistics">Подобряване на Tasks</string>
-	<string name="send_anonymous_statistics_summary">Изпрати анонимна статистика за използването и отчети за грешки за да помогнеш да се подобри Tasks. Няма да бъдат събирани персонални данни.</string>
+	<string name="send_anonymous_statistics_summary">Изпращане на анонимна статистика за използването и отчети за грешки, за да се подпомогне подобряването на Tasks. Няма да бъдат събирани персонални данни.</string>
 	<string name="tag_already_exists">Този таг вече съществува</string>
 	<string name="name_cannot_be_empty">Името не може да е празно</string>
 	<string name="no_title">(Без заглавие)</string>
 	<string name="back_button_saves_task">Бутон \"Назад\" запазва задачата</string>
 	<string name="default_list">Списък по подразбиране</string>
-	<string name="plugin_description">Tasks е проект с отворен код, поддържан от един разработчик. Някои функции се предлагат както покупки в приложението за да се подпомогне процеса на разработка.</string>
+	<string name="plugin_description">Tasks е проект с отворен код поддържан от един разработчик. Някои от функциите се предлагат като покупки в приложението за да се подпомогне процеса на разработка.</string>
 	<string name="themes_purchase_description">Отключете всички теми и да добавите малко цвят към Tasks</string>
 	<string name="tasker_description">Context-Aware списък уведомления. Изисква Tasker или Locale</string>
 	<string name="donate_summary">Даренията са добре дошли</string>

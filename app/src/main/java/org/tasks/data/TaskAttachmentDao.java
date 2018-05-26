@@ -15,7 +15,7 @@ import java.util.List;
 @Dao
 public abstract class TaskAttachmentDao {
 
-    @Query("SELECT * FROM task_attachments WHERE task_id = :taskUuid AND deleted_at = 0")
+    @Query("SELECT * FROM task_attachments WHERE task_id = :taskUuid")
     public abstract List<TaskAttachment> getAttachments(String taskUuid);
 
     @Delete

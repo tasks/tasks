@@ -77,12 +77,12 @@ class AstridOrderedListFragmentHelper {
             if (!Task.isValidUuid(targetTaskId)) {
                 return; // This can happen with gestures on empty parts of the list (e.g. extra space below tasks)
             }
-            String destinationTaskId = taskAdapter.getItemUuid(to);
 
             try {
                 if(to >= taskAdapter.getCount()) {
                     updater.moveTo(list, fragment.getFilter(), targetTaskId, "-1"); //$NON-NLS-1$
                 } else {
+                    String destinationTaskId = taskAdapter.getItemUuid(to);
                     updater.moveTo(list, fragment.getFilter(), targetTaskId, destinationTaskId);
                 }
             } catch (Exception e) {

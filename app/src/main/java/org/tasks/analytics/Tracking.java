@@ -27,13 +27,18 @@ public class Tracking {
         MULTISELECT_CLONE(R.string.tracking_category_event, R.string.tracking_event_multiselect_clone),
         CLEAR_COMPLETED(R.string.tracking_category_event, R.string.tracking_action_clear_completed),
         UPGRADE(R.string.tracking_category_event, R.string.tracking_event_upgrade),
+        DB_OPEN_FAILED(R.string.tracking_category_error, R.string.tracking_event_db_open),
+        TASK_CREATION_FAILED(R.string.tracking_category_error, R.string.tracking_event_task_creation),
         NIGHT_MODE_MISMATCH(R.string.tracking_category_event, R.string.tracking_event_night_mode_mismatch),
         SET_PREFERENCE(R.string.tracking_category_preferences, 0),
         PLAY_SERVICES_WARNING(R.string.tracking_category_event, R.string.tracking_event_play_services_error),
         RECURRENCE_CUSTOM(R.string.tracking_category_recurrence, R.string.tracking_action_custom),
         RECURRENCE_PRESET(R.string.tracking_category_recurrence, R.string.tracking_action_preset),
         TASKER_CREATE(R.string.tracking_category_tasker, R.string.tracking_action_task_created),
-        TASKER_LIST_NOTIFICATION(R.string.tracking_category_tasker, R.string.tracking_action_list_notification);
+        TASKER_LIST_NOTIFICATION(R.string.tracking_category_tasker, R.string.tracking_action_list_notification),
+        IMPORT_XML(R.string.tracking_category_backup, R.string.tracking_action_import_xml),
+        IMPORT_JSON(R.string.tracking_category_backup, R.string.tracking_action_import_json),
+        EXPORT(R.string.tracking_category_backup, R.string.tracking_action_export);
 
         public final int category;
         public final int action;

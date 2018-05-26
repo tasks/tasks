@@ -59,7 +59,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
     private ListView mDrawerListView;
     private View mFragmentContainerView;
 
-    private int mCurrentSelectedPosition = 0;
+    private Filter selected = null;
 
     @Inject FilterCounter filterCounter;
     @Inject FilterProvider filterProvider;
@@ -73,7 +73,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState != null) {
-            mCurrentSelectedPosition = savedInstanceState.getInt(TOKEN_LAST_SELECTED);
+             selected = savedInstanceState.getParcelable(TOKEN_LAST_SELECTED);
         }
     }
 
@@ -124,7 +124,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
             });
             close();
         });
-        mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
+
         return layout;
     }
 
@@ -152,6 +152,10 @@ public class NavigationDrawerFragment extends InjectingFragment {
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
     }
 
+    public void setSelected(Filter selected) {
+        this.selected = selected;
+    }
+
     @Override
     public void onPause() {
         super.onPause();
@@ -169,12 +173,11 @@ public class NavigationDrawerFragment extends InjectingFragment {
     private void selectItem(int position) {
         FilterListItem item = adapter.getItem(position);
         if (item instanceof Filter) {
-            mCurrentSelectedPosition = position;
-            if (mDrawerListView != null) {
-                mDrawerListView.setItemChecked(position, true);
-            }
-            if (mCallbacks != null) {
-                mCallbacks.onFilterItemClicked(item);
+            if (!item.equals(selected)) {
+                selected = (Filter) item;
+                if (mCallbacks != null) {
+                    mCallbacks.onFilterItemClicked(item);
+                }
             }
         } else if (item instanceof NavigationDrawerAction) {
             NavigationDrawerAction action = (NavigationDrawerAction) item;
@@ -206,7 +209,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(TOKEN_LAST_SELECTED, mCurrentSelectedPosition);
+        outState.putParcelable(TOKEN_LAST_SELECTED, selected);
     }
 
     public void closeDrawer() {

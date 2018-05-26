@@ -6,7 +6,7 @@
 package com.todoroo.astrid.gtasks;
 
 import com.google.api.services.tasks.model.TaskList;
-import com.todoroo.astrid.api.GtasksFilter;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskDeleter;
 
@@ -14,7 +14,6 @@ import org.tasks.LocalBroadcastManager;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
-import org.tasks.data.TaskListDataProvider;
 
 import java.util.HashSet;
 import java.util.List;
@@ -30,20 +29,20 @@ import static org.tasks.time.DateTimeUtils.printTimestamp;
 public class GtasksListService {
 
     private final GoogleTaskListDao googleTaskListDao;
-    private final TaskListDataProvider taskListDataProvider;
     private final TaskDeleter taskDeleter;
     private final LocalBroadcastManager localBroadcastManager;
     private final GoogleTaskDao googleTaskDao;
+    private final TaskDao taskDao;
 
     @Inject
-    public GtasksListService(GoogleTaskListDao googleTaskListDao, TaskListDataProvider taskListDataProvider,
+    public GtasksListService(GoogleTaskListDao googleTaskListDao,
                              TaskDeleter taskDeleter, LocalBroadcastManager localBroadcastManager,
-                             GoogleTaskDao googleTaskDao) {
+                             GoogleTaskDao googleTaskDao, TaskDao taskDao) {
         this.googleTaskListDao = googleTaskListDao;
-        this.taskListDataProvider = taskListDataProvider;
         this.taskDeleter = taskDeleter;
         this.localBroadcastManager = localBroadcastManager;
         this.googleTaskDao = googleTaskDao;
+        this.taskDao = taskDao;
     }
 
     public List<GoogleTaskList> getLists() {
@@ -101,9 +100,7 @@ public class GtasksListService {
     }
 
     public void deleteList(GoogleTaskList gtasksList) {
-        List<Task> tasks = taskListDataProvider
-                .toList(new GtasksFilter(gtasksList));
-        for (Task task : tasks) {
+        for (Task task : taskDao.getGoogleTasks(gtasksList.getRemoteId())) {
             taskDeleter.markDeleted(task);
         }
         googleTaskDao.deleteList(gtasksList.getRemoteId());

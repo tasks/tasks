@@ -474,4 +474,6 @@
 	<string name="repeat_monthly_third_week">derde</string>
 	<string name="repeat_monthly_fourth_week">vierde</string>
 	<string name="repeat_monthly_last_week">laatste</string>
+	<string name="tasker_create_task">Taak maken</string>
+	<string name="tasker_list_notification">Notificatie lijst</string>
 </resources>

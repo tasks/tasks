@@ -5,18 +5,15 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
-import org.tasks.backup.XmlReader;
-import org.tasks.backup.XmlWriter;
-
 @Entity(tableName = "alarms")
 public class Alarm {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
-    private long id;
+    private transient long id;
 
     @ColumnInfo(name = "task")
-    private long task;
+    private transient long task;
 
     @ColumnInfo(name = "time")
     private long time;
@@ -29,15 +26,6 @@ public class Alarm {
     public Alarm(long task, long time) {
         this.task = task;
         this.time = time;
-    }
-
-    @Ignore
-    public Alarm(XmlReader xml) {
-        xml.readLong("time", this::setTime);
-    }
-
-    public void writeToXml(XmlWriter writer) {
-        writer.writeLong("time", time);
     }
 
     public long getId() {
