@@ -8,9 +8,7 @@ package com.todoroo.astrid.dao;
 import static com.todoroo.andlib.utility.DateUtilities.now;
 
 import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
-import android.arch.persistence.room.Transaction;
 import android.arch.persistence.room.Update;
 import android.content.Context;
 import android.database.Cursor;
@@ -25,9 +23,6 @@ import com.todoroo.astrid.helper.UUIDHelper;
 import java.util.ArrayList;
 import java.util.List;
 import org.tasks.BuildConfig;
-import org.tasks.data.GoogleTaskAccount;
-import org.tasks.data.GoogleTaskList;
-import org.tasks.data.LimitOffsetDataSource;
 import org.tasks.jobs.AfterSaveIntentService;
 import timber.log.Timber;
 
@@ -239,16 +234,6 @@ public abstract class TaskDao {
       Timber.v(queryString);
     }
     return database.rawQuery(queryString);
-  }
-
-  public LimitOffsetDataSource getLimitOffsetDataSource(
-      String queryTemplate, Property<?>... properties) {
-    String query =
-        Query.select(properties)
-            .withQueryTemplate(PermaSql.replacePlaceholdersForQuery(queryTemplate))
-            .from(Task.TABLE)
-            .toString();
-    return new LimitOffsetDataSource(database, query);
   }
 
   /** Generates SQL clauses */

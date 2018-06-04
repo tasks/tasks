@@ -14,12 +14,14 @@ import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
+import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.api.TagFilter;
 import com.todoroo.astrid.core.SortHelper;
-import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
 import javax.inject.Inject;
 import org.tasks.data.CaldavTask;
@@ -31,8 +33,8 @@ import org.tasks.preferences.Preferences;
 
 public class TaskListViewModel extends ViewModel {
 
-  @Inject TaskDao taskDao;
   @Inject Preferences preferences;
+  @Inject Database database;
 
   private LimitOffsetDataSource latest;
   private LiveData<PagedList<Task>> tasks;
@@ -116,7 +118,17 @@ public class TaskListViewModel extends ViewModel {
       groupedQuery = query + " GROUP BY " + Task.ID;
     }
 
-    return taskDao.getLimitOffsetDataSource(groupedQuery, properties);
+    return getLimitOffsetDataSource(groupedQuery, properties);
+  }
+
+  private LimitOffsetDataSource getLimitOffsetDataSource(
+      String queryTemplate, Property<?>... properties) {
+    String query =
+        Query.select(properties)
+            .withQueryTemplate(PermaSql.replacePlaceholdersForQuery(queryTemplate))
+            .from(Task.TABLE)
+            .toString();
+    return new LimitOffsetDataSource(database, query);
   }
 
   public void invalidate() {
