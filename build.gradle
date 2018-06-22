@@ -1,5 +1,6 @@
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.5'
+wrapper {
+    gradleVersion = "4.6"
+    distributionType = Wrapper.DistributionType.ALL
 }
 
 buildscript {
@@ -12,7 +13,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.2'
+        classpath 'com.android.tools.build:gradle:3.2.0-beta01'
         classpath 'com.google.gms:google-services:3.2.0'
         classpath 'io.fabric.tools:gradle:1.25.1'
     }
