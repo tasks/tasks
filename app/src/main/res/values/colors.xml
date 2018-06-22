@@ -118,5 +118,17 @@
   <!-- deprecated -->
   <color name="reminder_background">#262626</color>
 
+  <!-- Day colors -->
+
+  <color name="window_background">@color/grey_50</color>
+  <color name="content_background">@android:color/white</color>
+  <color name="dialog_background">@android:color/white</color>
+  <color name="icon_tint">@color/icon_tint_light</color>
+  <color name="drawer_color">@color/drawer_background_light</color>
+  <color name="drawer_color_selected">@color/drawer_background_light_selected</color>
+  <color name="text_secondary">@color/black_54</color>
+  <color name="text_tertiary">@color/black_38</color>
+  <color name="divider">@color/black_12</color>
+
 </resources>
 
