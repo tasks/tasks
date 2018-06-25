@@ -93,7 +93,7 @@ task checkstyle(type: Checkstyle) {
     reports {
         xml.enabled = true
         html.enabled = true
-        html.destination = "$project.buildDir/reports/checkstyle/checkstyle.html"
+        html.destination = project.file("$buildDir/reports/checkstyle/checkstyle.html")
     }
 }
 
