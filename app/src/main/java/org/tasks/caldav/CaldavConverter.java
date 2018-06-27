@@ -4,11 +4,9 @@ import static com.todoroo.astrid.data.Task.URGENCY_SPECIFIC_DAY;
 import static com.todoroo.astrid.data.Task.URGENCY_SPECIFIC_DAY_TIME;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
-import at.bitfire.ical4android.InvalidCalendarException;
 import com.google.common.base.Strings;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Task.Priority;
-import java.io.IOException;
 import java.io.StringReader;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -94,14 +92,14 @@ public class CaldavConverter {
     return remotePriority > 5 ? Math.min(9, remotePriority) : 9;
   }
 
-  public static at.bitfire.ical4android.Task toCaldav(CaldavTask caldavTask, Task task) {
+  static at.bitfire.ical4android.Task toCaldav(CaldavTask caldavTask, Task task) {
     at.bitfire.ical4android.Task remote = null;
     try {
       if (!Strings.isNullOrEmpty(caldavTask.getVtodo())) {
         remote =
-            at.bitfire.ical4android.Task.fromReader(new StringReader(caldavTask.getVtodo())).get(0);
+            at.bitfire.ical4android.Task.Companion.fromReader(new StringReader(caldavTask.getVtodo())).get(0);
       }
-    } catch (IOException | InvalidCalendarException e) {
+    } catch (Exception e) {
       Timber.e(e);
     }
     if (remote == null) {

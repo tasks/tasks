@@ -8,7 +8,7 @@ import static java.util.Arrays.asList;
 
 import at.bitfire.dav4android.BasicDigestAuthHandler;
 import at.bitfire.dav4android.DavResource;
-import at.bitfire.dav4android.PropertyCollection;
+import at.bitfire.dav4android.DavResponse;
 import at.bitfire.dav4android.XmlUtils;
 import at.bitfire.dav4android.exception.DavException;
 import at.bitfire.dav4android.exception.HttpException;
@@ -36,13 +36,15 @@ import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
 import org.tasks.security.Encryption;
 import org.tasks.ui.DisplayableException;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 import timber.log.Timber;
 
 class CaldavClient {
 
-  private final DavResource davResource;
-  private HttpUrl httpUrl;
+  private final OkHttpClient httpClient;
+  private final HttpUrl httpUrl;
 
   CaldavClient(CaldavAccount caldavAccount, Encryption encryption) {
     this(
@@ -61,7 +63,7 @@ class CaldavClient {
   CaldavClient(String url, String username, String password) {
     BasicDigestAuthHandler basicDigestAuthHandler =
         new BasicDigestAuthHandler(null, username, password);
-    OkHttpClient httpClient =
+    httpClient =
         new OkHttpClient()
             .newBuilder()
             .addNetworkInterceptor(basicDigestAuthHandler)
@@ -73,18 +75,18 @@ class CaldavClient {
             .build();
     URI uri = URI.create(url);
     httpUrl = HttpUrl.get(uri);
-    davResource = new DavResource(httpClient, httpUrl);
   }
 
-  private String tryFindPrincipal() throws DavException, IOException, HttpException {
+  private String tryFindPrincipal() throws DavException, IOException {
     for (String link : asList("", "/.well-known/caldav")) {
       HttpUrl url = httpUrl.resolve(link);
       Timber.d("Checking for principal: %s", url);
-      davResource.setLocation(url);
+      DavResource davResource = new DavResource(httpClient, url);
+      DavResponse response = null;
       try {
-        davResource.propfind(0, CurrentUserPrincipal.NAME);
+        response = davResource.propfind(0, CurrentUserPrincipal.NAME);
       } catch (HttpException e) {
-        switch (e.getStatus()) {
+        switch (e.getCode()) {
           case 405:
             Timber.w(e);
             break;
@@ -92,22 +94,23 @@ class CaldavClient {
             throw e;
         }
       }
-      PropertyCollection properties = davResource.getProperties();
-      CurrentUserPrincipal currentUserPrincipal = properties.get(CurrentUserPrincipal.class);
-      if (currentUserPrincipal != null) {
-        String href = currentUserPrincipal.getHref();
-        if (!isEmpty(href)) {
-          return href;
+      if (response != null) {
+        CurrentUserPrincipal currentUserPrincipal = response.get(CurrentUserPrincipal.class);
+        if (currentUserPrincipal != null) {
+          String href = currentUserPrincipal.getHref();
+          if (!isEmpty(href)) {
+            return href;
+          }
         }
       }
     }
     return null;
   }
 
-  private String findHomeset() throws DavException, IOException, HttpException {
-    davResource.propfind(0, CalendarHomeSet.NAME);
-    PropertyCollection properties = davResource.getProperties();
-    CalendarHomeSet calendarHomeSet = properties.get(CalendarHomeSet.class);
+  private String findHomeset(HttpUrl httpUrl) throws DavException, IOException {
+    DavResource davResource = new DavResource(httpClient, httpUrl);
+    DavResponse response = davResource.propfind(0, CalendarHomeSet.NAME);
+    CalendarHomeSet calendarHomeSet = response.get(CalendarHomeSet.class);
     if (calendarHomeSet == null) {
       throw new DisplayableException(R.string.caldav_home_set_not_found);
     }
@@ -122,32 +125,35 @@ class CaldavClient {
     return davResource.getLocation().resolve(homeSet).toString();
   }
 
-  public Single<String> getHomeSet() {
+  Single<String> getHomeSet() {
     return Single.fromCallable(
             () -> {
               String principal = tryFindPrincipal();
-              if (!isEmpty(principal)) {
-                davResource.setLocation(httpUrl.resolve(principal));
-              }
-              return findHomeset();
+              return findHomeset(isEmpty(principal) ? httpUrl : httpUrl.resolve(principal));
             })
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread());
   }
 
-  public List<DavResource> getCalendars() throws IOException, HttpException, DavException {
-    davResource.propfind(
-        1, ResourceType.NAME, DisplayName.NAME, SupportedCalendarComponentSet.NAME, GetCTag.NAME);
-    List<DavResource> urls = new ArrayList<>();
-    for (DavResource member : davResource.getMembers()) {
-      PropertyCollection properties = member.getProperties();
-      ResourceType resourceType = properties.get(ResourceType.class);
-      if (resourceType == null || !resourceType.getTypes().contains(ResourceType.CALENDAR)) {
+  public List<DavResponse> getCalendars() throws IOException, DavException {
+    DavResource davResource = new DavResource(httpClient, httpUrl);
+    DavResponse response =
+        davResource.propfind(
+            1,
+            ResourceType.NAME,
+            DisplayName.NAME,
+            SupportedCalendarComponentSet.NAME,
+            GetCTag.NAME);
+    List<DavResponse> urls = new ArrayList<>();
+    for (DavResponse member : response.getMembers()) {
+      ResourceType resourceType = member.get(ResourceType.class);
+      if (resourceType == null
+          || !resourceType.getTypes().contains(ResourceType.Companion.getCALENDAR())) {
         Timber.d("%s is not a calendar", member);
         continue;
       }
       SupportedCalendarComponentSet supportedCalendarComponentSet =
-          properties.get(SupportedCalendarComponentSet.class);
+          member.get(SupportedCalendarComponentSet.class);
       if (supportedCalendarComponentSet == null
           || !supportedCalendarComponentSet.getSupportsTasks()) {
         Timber.d("%s does not support tasks", member);
@@ -158,17 +164,17 @@ class CaldavClient {
     return urls;
   }
 
-  public Completable deleteCollection() {
-    return Completable.fromAction(() -> davResource.delete(null))
+  Completable deleteCollection() {
+    return Completable.fromAction(() -> new DavResource(httpClient, httpUrl).delete(null))
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread());
   }
 
-  public Single<String> makeCollection(String displayName) {
+  Single<String> makeCollection(String displayName) {
     return Single.fromCallable(
             () -> {
-              davResource.setLocation(
-                  davResource.getLocation().resolve(UUIDHelper.newUUID() + "/"));
+              DavResource davResource =
+                  new DavResource(httpClient, httpUrl.resolve(UUIDHelper.newUUID() + "/"));
               String mkcolString = getMkcolString(displayName);
               davResource.mkCol(mkcolString);
               return davResource.getLocation().toString();
@@ -177,9 +183,10 @@ class CaldavClient {
         .observeOn(AndroidSchedulers.mainThread());
   }
 
-  private String getMkcolString(String displayName) throws IOException {
+  private String getMkcolString(String displayName) throws IOException, XmlPullParserException {
+    XmlPullParserFactory xmlPullParserFactory = XmlPullParserFactory.newInstance();
+    XmlSerializer xml = xmlPullParserFactory.newSerializer();
     StringWriter stringWriter = new StringWriter();
-    XmlSerializer xml = XmlUtils.newSerializer();
     xml.setOutput(stringWriter);
     xml.startDocument("UTF-8", null);
     xml.setPrefix("", NS_WEBDAV);
@@ -208,5 +215,9 @@ class CaldavClient {
     xml.endDocument();
     xml.flush();
     return stringWriter.toString();
+  }
+
+  public OkHttpClient getHttpClient() {
+    return httpClient;
   }
 }

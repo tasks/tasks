@@ -116,8 +116,10 @@ final STETHO_VERSION = '1.5.0'
 final TESTING_SUPPORT_VERSION = '1.0.0'
 
 dependencies {
-    implementation project(':ical4android')
-    implementation project(':dav4android')
+    implementation ":dav4android:"
+    implementation (":ical4android:") {
+        exclude group: 'org.threeten', module: 'threetenbp'
+    }
 
     annotationProcessor "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
     implementation "com.google.dagger:dagger:${DAGGER_VERSION}"

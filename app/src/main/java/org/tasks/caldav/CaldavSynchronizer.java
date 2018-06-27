@@ -3,7 +3,6 @@ package org.tasks.caldav;
 import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.collect.Iterables.filter;
 import static com.google.common.collect.Iterables.partition;
-import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 import static com.google.common.collect.Sets.difference;
@@ -13,15 +12,14 @@ import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 import android.content.Context;
 import at.bitfire.dav4android.DavCalendar;
 import at.bitfire.dav4android.DavResource;
-import at.bitfire.dav4android.PropertyCollection;
+import at.bitfire.dav4android.DavResponse;
 import at.bitfire.dav4android.exception.DavException;
 import at.bitfire.dav4android.exception.HttpException;
 import at.bitfire.dav4android.property.CalendarData;
 import at.bitfire.dav4android.property.DisplayName;
 import at.bitfire.dav4android.property.GetCTag;
 import at.bitfire.dav4android.property.GetETag;
-import at.bitfire.ical4android.InvalidCalendarException;
-import at.bitfire.ical4android.iCalendar;
+import at.bitfire.ical4android.ICalendar;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
@@ -61,7 +59,7 @@ import timber.log.Timber;
 public class CaldavSynchronizer {
 
   static {
-    iCalendar.Companion.setProdId(
+    ICalendar.Companion.setProdId(
         new ProdId("+//IDN tasks.org//android-" + BuildConfig.VERSION_CODE + "//EN"));
   }
 
@@ -112,35 +110,35 @@ public class CaldavSynchronizer {
         continue;
       }
       CaldavClient caldavClient = new CaldavClient(account, encryption);
-      List<DavResource> resources;
+      List<DavResponse> resources;
       try {
         resources = caldavClient.getCalendars();
-      } catch (IOException | DavException | HttpException e) {
+      } catch (IOException | DavException e) {
         account.setError(e.getMessage());
         caldavDao.update(account);
         localBroadcastManager.broadcastRefreshList();
         Timber.e(e);
         continue;
       }
-      Set<String> urls = newHashSet(transform(resources, c -> c.getLocation().toString()));
+      Set<String> urls = newHashSet(transform(resources, c -> c.getUrl().toString()));
       Timber.d("Found calendars: %s", urls);
       for (CaldavCalendar calendar :
           caldavDao.findDeletedCalendars(account.getUuid(), newArrayList(urls))) {
         taskDeleter.delete(calendar);
       }
-      for (DavResource resource : resources) {
-        String url = resource.getLocation().toString();
-        PropertyCollection properties = resource.getProperties();
+      for (DavResponse resource : resources) {
+        String url = resource.getUrl().toString();
+
         CaldavCalendar calendar = caldavDao.getCalendarByUrl(account.getUuid(), url);
         if (calendar == null) {
           calendar = new CaldavCalendar();
-          calendar.setName(properties.get(DisplayName.class).getDisplayName());
+          calendar.setName(resource.get(DisplayName.class).getDisplayName());
           calendar.setAccount(account.getUuid());
           calendar.setUrl(url);
           calendar.setUuid(UUIDHelper.newUUID());
           calendar.setId(caldavDao.insert(calendar));
         }
-        sync(calendar, resource);
+        sync(calendar, resource, caldavClient.getHttpClient());
       }
       account.setError("");
       caldavDao.update(account);
@@ -148,15 +146,13 @@ public class CaldavSynchronizer {
     }
   }
 
-  private void sync(CaldavCalendar caldavCalendar, DavResource resource) {
+  private void sync(CaldavCalendar caldavCalendar, DavResponse resource, OkHttpClient httpClient) {
     Timber.d("sync(%s)", caldavCalendar);
-    OkHttpClient httpClient = resource.getHttpClient();
-    HttpUrl httpUrl = resource.getLocation();
+    HttpUrl httpUrl = resource.getUrl();
     try {
       pushLocalChanges(caldavCalendar, httpClient, httpUrl);
 
-      PropertyCollection properties = resource.getProperties();
-      String remoteName = properties.get(DisplayName.class).getDisplayName();
+      String remoteName = resource.get(DisplayName.class).getDisplayName();
       if (!caldavCalendar.getName().equals(remoteName)) {
         Timber.d("%s -> %s", caldavCalendar.getName(), remoteName);
         caldavCalendar.setName(remoteName);
@@ -164,7 +160,7 @@ public class CaldavSynchronizer {
         localBroadcastManager.broadcastRefreshList();
       }
 
-      String remoteCtag = properties.get(GetCTag.class).getCTag();
+      String remoteCtag = resource.get(GetCTag.class).getCTag();
       String localCtag = caldavCalendar.getCtag();
 
       if (localCtag != null && localCtag.equals(remoteCtag)) {
@@ -174,16 +170,15 @@ public class CaldavSynchronizer {
 
       DavCalendar davCalendar = new DavCalendar(httpClient, httpUrl);
 
-      davCalendar.calendarQuery("VTODO", null, null);
+      List<DavResponse> members = davCalendar.calendarQuery("VTODO", null, null).getMembers();
 
-      Set<String> remoteObjects =
-          newHashSet(transform(davCalendar.getMembers(), DavResource::fileName));
+      Set<String> remoteObjects = newHashSet(transform(members, DavResponse::fileName));
 
-      Iterable<DavResource> changed =
+      Iterable<DavResponse> changed =
           filter(
-              ImmutableSet.copyOf(davCalendar.getMembers()),
+              ImmutableSet.copyOf(members),
               vCard -> {
-                GetETag eTag = (GetETag) vCard.getProperties().get(GetETag.NAME);
+                GetETag eTag = vCard.get(GetETag.class);
                 if (eTag == null || isNullOrEmpty(eTag.getETag())) {
                   return false;
                 }
@@ -192,17 +187,17 @@ public class CaldavSynchronizer {
                 return caldavTask == null || !eTag.getETag().equals(caldavTask.getEtag());
               });
 
-      for (List<DavResource> items : partition(changed, 30)) {
+      for (List<DavResponse> items : partition(changed, 30)) {
         if (items.size() == 1) {
-          DavResource vCard = items.get(0);
-          PropertyCollection vcardProperties = vCard.getProperties();
-          GetETag eTag = (GetETag) vcardProperties.get(GetETag.NAME);
+          DavResponse vCard = items.get(0);
+          GetETag eTag = vCard.get(GetETag.class);
           if (eTag == null || isNullOrEmpty(eTag.getETag())) {
             throw new DavException(
-                "Received CalDAV GET response without ETag for " + vCard.getLocation());
+                "Received CalDAV GET response without ETag for " + vCard.getUrl());
           }
-          Timber.d("SINGLE %s", vCard.getLocation());
-          ResponseBody responseBody = vCard.get("text/calendar");
+          Timber.d("SINGLE %s", vCard.getUrl());
+          DavResponse response = new DavResource(httpClient, vCard.getUrl()).get("text/calendar");
+          ResponseBody responseBody = response.getBody();
           Reader reader = null;
           try {
             reader = responseBody.charStream();
@@ -215,23 +210,21 @@ public class CaldavSynchronizer {
           }
         } else {
           ArrayList<HttpUrl> urls =
-              newArrayList(Iterables.transform(items, DavResource::getLocation));
-          davCalendar.multiget(urls);
+              newArrayList(Iterables.transform(items, DavResponse::getUrl));
+          DavResponse response = davCalendar.multiget(urls);
 
           Timber.d("MULTI %s", urls);
 
-          for (DavResource vCard : davCalendar.getMembers()) {
-            PropertyCollection vcardProperties = vCard.getProperties();
-
-            GetETag eTag = (GetETag) vcardProperties.get(GetETag.NAME);
+          for (DavResponse vCard : response.getMembers()) {
+            GetETag eTag = vCard.get(GetETag.class);
             if (eTag == null || isNullOrEmpty(eTag.getETag())) {
               throw new DavException(
-                  "Received CalDAV GET response without ETag for " + vCard.getLocation());
+                  "Received CalDAV GET response without ETag for " + vCard.getUrl());
             }
-            CalendarData calendarData = (CalendarData) vcardProperties.get(CalendarData.NAME);
+            CalendarData calendarData = vCard.get(CalendarData.class);
             if (calendarData == null || isNullOrEmpty(calendarData.getICalendar())) {
               throw new DavException(
-                  "Received CalDAV GET response without CalendarData for " + vCard.getLocation());
+                  "Received CalDAV GET response without CalendarData for " + vCard.getUrl());
             }
 
             processVTodo(
@@ -253,7 +246,7 @@ public class CaldavSynchronizer {
       caldavCalendar.setCtag(remoteCtag);
       Timber.d("UPDATE %s", caldavCalendar);
       caldavDao.update(caldavCalendar);
-    } catch (IOException | HttpException | DavException e) {
+    } catch (IOException | DavException e) {
       Timber.e(e);
     } catch (Exception e) {
       Timber.e(e);
@@ -284,7 +277,7 @@ public class CaldavSynchronizer {
         remote.delete(null);
       }
     } catch (HttpException e) {
-      if (e.getStatus() != 404) {
+      if (e.getCode() != 404) {
         Timber.e(e);
         return false;
       }
@@ -334,14 +327,14 @@ public class CaldavSynchronizer {
     ByteArrayOutputStream os = new ByteArrayOutputStream();
     remoteModel.write(os);
     byte[] data = os.toByteArray();
-    RequestBody requestBody = RequestBody.create(DavCalendar.MIME_ICALENDAR, data);
+    RequestBody requestBody = RequestBody.create(DavCalendar.Companion.getMIME_ICALENDAR(), data);
 
     try {
       DavResource remote =
           new DavResource(
               httpClient, httpUrl.newBuilder().addPathSegment(caldavTask.getObject()).build());
-      remote.put(requestBody, null, false);
-      GetETag getETag = remote.getProperties().get(GetETag.class);
+      DavResponse response = remote.put(requestBody, null, false);
+      GetETag getETag = response.get(GetETag.class);
       if (getETag != null && !isNullOrEmpty(getETag.getETag())) {
         caldavTask.setEtag(getETag.getETag());
         caldavTask.setVtodo(new String(data));
@@ -357,12 +350,11 @@ public class CaldavSynchronizer {
   }
 
   private void processVTodo(
-      String fileName, CaldavCalendar caldavCalendar, String eTag, String vtodo)
-      throws IOException {
+      String fileName, CaldavCalendar caldavCalendar, String eTag, String vtodo) {
     List<at.bitfire.ical4android.Task> tasks;
     try {
-      tasks = at.bitfire.ical4android.Task.fromReader(new StringReader(vtodo));
-    } catch (InvalidCalendarException e) {
+      tasks = at.bitfire.ical4android.Task.Companion.fromReader(new StringReader(vtodo));
+    } catch (Exception e) {
       Timber.e(e);
       return;
     }

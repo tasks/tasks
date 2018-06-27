@@ -5,7 +5,7 @@
   package="org.tasks">
 
 
-  <uses-sdk tools:overrideLibrary="timber.log"/>
+  <uses-sdk tools:overrideLibrary="timber.log, at.bitfire.ical4android"/>
 
   <!-- ================================================== Used Permissions = -->
 
