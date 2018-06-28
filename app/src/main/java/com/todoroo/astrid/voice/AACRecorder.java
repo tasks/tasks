@@ -1,23 +1,30 @@
 package com.todoroo.astrid.voice;
 
-import android.annotation.TargetApi;
+import android.arch.lifecycle.ViewModel;
 import android.media.MediaRecorder;
-import android.os.Build;
+import android.os.SystemClock;
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicReference;
+import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
-public class AACRecorder {
+public class AACRecorder extends ViewModel {
 
   private MediaRecorder mediaRecorder;
+  private final AtomicReference<String> nameRef = new AtomicReference<>();
 
   private boolean recording;
   private AACRecorderCallbacks listener;
+  private Preferences preferences;
+  private long base;
+  private String tempFile;
 
-  @TargetApi(Build.VERSION_CODES.GINGERBREAD_MR1)
-  public synchronized void startRecording(final String tempFile) {
+  public synchronized void startRecording() {
     if (recording) {
       return;
     }
+
+    tempFile = preferences.getNewAudioAttachmentPath(nameRef);
 
     mediaRecorder = new MediaRecorder();
     mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -36,6 +43,7 @@ public class AACRecorder {
     }
 
     recording = true;
+    base = SystemClock.elapsedRealtime();
     mediaRecorder.start();
   }
 
@@ -55,16 +63,21 @@ public class AACRecorder {
     mediaRecorder.release();
     recording = false;
     if (listener != null) {
-      listener.encodingFinished();
+      listener.encodingFinished(tempFile);
     }
   }
 
-  public void setListener(AACRecorderCallbacks listener) {
+  public long getBase() {
+    return base;
+  }
+
+  public void init(AACRecorderCallbacks listener, Preferences preferences) {
     this.listener = listener;
+    this.preferences = preferences;
   }
 
   public interface AACRecorderCallbacks {
 
-    void encodingFinished();
+    void encodingFinished(String path);
   }
 }

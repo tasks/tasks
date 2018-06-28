@@ -1,41 +1,54 @@
 package org.tasks.dialogs;
 
-import android.app.Activity;
+import static android.app.Activity.RESULT_OK;
+import static org.tasks.PermissionUtil.verifyPermissions;
+import static org.tasks.dialogs.AddAttachmentDialog.EXTRA_PATH;
+import static org.tasks.dialogs.AddAttachmentDialog.EXTRA_TYPE;
+
 import android.app.Dialog;
+import android.arch.lifecycle.ViewModelProviders;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Chronometer;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.voice.AACRecorder;
-import java.util.concurrent.atomic.AtomicReference;
 import javax.inject.Inject;
 import org.tasks.R;
+import org.tasks.data.TaskAttachment;
 import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.InjectingDialogFragment;
+import org.tasks.preferences.FragmentPermissionRequestor;
+import org.tasks.preferences.PermissionChecker;
+import org.tasks.preferences.PermissionRequestor;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.Theme;
 
 public class RecordAudioDialog extends InjectingDialogFragment
     implements AACRecorder.AACRecorderCallbacks {
 
-  private final AtomicReference<String> nameRef = new AtomicReference<>();
   @Inject Preferences preferences;
   @Inject DialogBuilder dialogBuilder;
   @Inject Theme theme;
+  @Inject FragmentPermissionRequestor permissionRequestor;
+  @Inject PermissionChecker permissionChecker;
 
   @BindView(R.id.timer)
   Chronometer timer;
 
   private AACRecorder recorder;
-  private String tempFile;
-  private RecordAudioDialogCallback callback;
 
-  public static RecordAudioDialog newRecordAudioDialog() {
-    return new RecordAudioDialog();
+  public static RecordAudioDialog newRecordAudioDialog(FilesControlSet target, int requestCode) {
+    RecordAudioDialog dialog = new RecordAudioDialog();
+    dialog.setTargetFragment(target, requestCode);
+    return dialog;
   }
 
   @NonNull
@@ -45,7 +58,14 @@ public class RecordAudioDialog extends InjectingDialogFragment
     View view = layoutInflater.inflate(R.layout.aac_record_activity, null);
     ButterKnife.bind(this, view);
 
-    startRecording();
+    recorder = ViewModelProviders.of(this).get(AACRecorder.class);
+    recorder.init(this, preferences);
+
+    if (permissionChecker.canAccessMic()) {
+      startRecording();
+    } else if (savedInstanceState == null) {
+      permissionRequestor.requestMic();
+    }
 
     return dialogBuilder
         .newDialog()
@@ -54,34 +74,23 @@ public class RecordAudioDialog extends InjectingDialogFragment
         .create();
   }
 
-  @Override
-  public void onAttach(Activity activity) {
-    super.onAttach(activity);
-
-    callback = (RecordAudioDialogCallback) activity;
+  private void startRecording() {
+    recorder.startRecording();
+    timer.setBase(recorder.getBase());
+    timer.start();
   }
 
   @Override
-  public void onPause() {
-    super.onPause();
+  public void onCancel(DialogInterface dialog) {
+    super.onCancel(dialog);
 
     stopRecording();
   }
 
   @OnClick(R.id.stop_recording)
   void stopRecording() {
-    if (recorder != null) {
-      recorder.stopRecording();
-      timer.stop();
-    }
-  }
-
-  private void startRecording() {
-    tempFile = preferences.getNewAudioAttachmentPath(nameRef);
-    recorder = new AACRecorder();
-    recorder.setListener(this);
-    recorder.startRecording(tempFile);
-    timer.start();
+    recorder.stopRecording();
+    timer.stop();
   }
 
   @Override
@@ -90,12 +99,29 @@ public class RecordAudioDialog extends InjectingDialogFragment
   }
 
   @Override
-  public void encodingFinished() {
-    callback.finished(tempFile);
+  public void encodingFinished(String path) {
+    final String extension = path.substring(path.lastIndexOf('.') + 1);
+    Intent intent = new Intent();
+    intent.putExtra(EXTRA_PATH, path);
+    intent.putExtra(EXTRA_TYPE, TaskAttachment.FILE_TYPE_AUDIO + extension);
+    Fragment target = getTargetFragment();
+    if (target != null) {
+      target.onActivityResult(getTargetRequestCode(), RESULT_OK, intent);
+    }
+    dismiss();
   }
 
-  public interface RecordAudioDialogCallback {
-
-    void finished(String path);
+  @Override
+  public void onRequestPermissionsResult(
+      int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    if (requestCode == PermissionRequestor.REQUEST_MIC) {
+      if (verifyPermissions(grantResults)) {
+        startRecording();
+      } else {
+        dismiss();
+      }
+    } else {
+      super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
   }
 }

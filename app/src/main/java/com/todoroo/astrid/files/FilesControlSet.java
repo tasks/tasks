@@ -5,12 +5,19 @@
  */
 package com.todoroo.astrid.files;
 
+import static android.app.Activity.RESULT_OK;
+import static com.google.common.base.Strings.isNullOrEmpty;
+import static org.tasks.dialogs.AddAttachmentDialog.REQUEST_STORAGE;
+import static org.tasks.dialogs.AddAttachmentDialog.newAddAttachmentDialog;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -27,17 +34,24 @@ import com.google.common.base.Strings;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.data.Task;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.activities.AddAttachmentActivity;
+import org.tasks.activities.CameraActivity;
 import org.tasks.data.TaskAttachment;
 import org.tasks.data.TaskAttachmentDao;
+import org.tasks.dialogs.AddAttachmentDialog;
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.files.FileExplore;
 import org.tasks.files.FileHelper;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
+import org.tasks.preferences.Preferences;
 import org.tasks.ui.TaskEditControlFragment;
 import timber.log.Timber;
 
@@ -45,12 +59,13 @@ public class FilesControlSet extends TaskEditControlFragment {
 
   public static final int TAG = R.string.TEA_ctrl_files_pref;
 
+  private static final String FRAG_TAG_ADD_ATTACHMENT_DIALOG = "frag_tag_add_attachment_dialog";
   private static final char LEFT_TO_RIGHT_MARK = '\u200e';
-  private static final int REQUEST_ADD_ATTACHMENT = 50;
 
   @Inject TaskAttachmentDao taskAttachmentDao;
   @Inject DialogBuilder dialogBuilder;
   @Inject @ForActivity Context context;
+  @Inject Preferences preferences;
 
   @BindView(R.id.attachment_container)
   LinearLayout attachmentContainer;
@@ -92,8 +107,8 @@ public class FilesControlSet extends TaskEditControlFragment {
 
   @OnClick(R.id.add_attachment)
   void addAttachment(View view) {
-    startActivityForResult(
-        new Intent(context, AddAttachmentActivity.class), REQUEST_ADD_ATTACHMENT);
+    newAddAttachmentDialog(this)
+        .show(getFragmentManager(), FRAG_TAG_ADD_ATTACHMENT_DIALOG);
   }
 
   @Override
@@ -116,12 +131,46 @@ public class FilesControlSet extends TaskEditControlFragment {
 
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    if (requestCode == REQUEST_ADD_ATTACHMENT) {
+    if (requestCode == AddAttachmentDialog.REQUEST_CAMERA) {
+      if (resultCode == RESULT_OK) {
+        Uri uri = data.getParcelableExtra(CameraActivity.EXTRA_URI);
+        final File file = new File(uri.getPath());
+        String path = file.getPath();
+        Timber.i("Saved %s", file.getAbsolutePath());
+        final String extension = path.substring(path.lastIndexOf('.') + 1);
+        createNewFileAttachment(file, TaskAttachment.FILE_TYPE_IMAGE + extension);
+      }
+    } else if (requestCode == AddAttachmentDialog.REQUEST_AUDIO) {
       if (resultCode == Activity.RESULT_OK) {
-        String path = data.getStringExtra(AddAttachmentActivity.EXTRA_PATH);
-        String type = data.getStringExtra(AddAttachmentActivity.EXTRA_TYPE);
-        File file = new File(path);
-        createNewFileAttachment(path, file.getName(), type);
+        String path = data.getStringExtra(AddAttachmentDialog.EXTRA_PATH);
+        String type = data.getStringExtra(AddAttachmentDialog.EXTRA_TYPE);
+        createNewFileAttachment(new File(path), type);
+      }
+    } else if (requestCode == AddAttachmentDialog.REQUEST_GALLERY) {
+      if (resultCode == RESULT_OK) {
+        Uri uri = data.getData();
+        ContentResolver contentResolver = context.getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        final String extension = mime.getExtensionFromMimeType(contentResolver.getType(uri));
+        final File tempFile = getFilename(extension);
+        Timber.i("Writing %s to %s", uri, tempFile);
+        try {
+          InputStream inputStream = contentResolver.openInputStream(uri);
+          copyFile(inputStream, tempFile.getPath());
+        } catch (IOException e) {
+          throw new RuntimeException(e);
+        }
+        createNewFileAttachment(tempFile, TaskAttachment.FILE_TYPE_IMAGE + extension);
+      }
+    } else if (requestCode == REQUEST_STORAGE) {
+      if (resultCode == RESULT_OK) {
+        String path = data.getStringExtra(FileExplore.EXTRA_FILE);
+        final String destination = copyToAttachmentDirectory(path);
+        if (destination != null) {
+          Timber.i("Copied %s to %s", path, destination);
+          final String extension = destination.substring(path.lastIndexOf('.') + 1);
+          createNewFileAttachment(new File(path), TaskAttachment.FILE_TYPE_IMAGE + extension);
+        }
       }
     } else {
       super.onActivityResult(requestCode, resultCode, data);
@@ -234,11 +283,62 @@ public class FilesControlSet extends TaskEditControlFragment {
     }
   }
 
-  private void createNewFileAttachment(String path, String fileName, String fileType) {
+  private void createNewFileAttachment(File file, String fileType) {
     TaskAttachment attachment =
-        TaskAttachment.createNewAttachment(taskUuid, path, fileName, fileType);
+        TaskAttachment.createNewAttachment(
+            taskUuid, file.getAbsolutePath(), file.getName(), fileType);
     taskAttachmentDao.createNew(attachment);
     addAttachment(attachment);
+  }
+
+  private File getFilename(String extension) {
+    AtomicReference<String> nameRef = new AtomicReference<>();
+    if (isNullOrEmpty(extension)) {
+      extension = "";
+    } else if (!extension.startsWith(".")) {
+      extension = "." + extension;
+    }
+    try {
+      String path = preferences.getNewAttachmentPath(extension, nameRef);
+      File file = new File(path);
+      file.getParentFile().mkdirs();
+      if (!file.createNewFile()) {
+        throw new RuntimeException("Failed to create " + file.getPath());
+      }
+      return file;
+    } catch (IOException e) {
+      Timber.e(e);
+    }
+    return null;
+  }
+
+  private void copyFile(InputStream inputStream, String to) throws IOException {
+    FileOutputStream fos = new FileOutputStream(to);
+    byte[] buf = new byte[1024];
+    int len;
+    while ((len = inputStream.read(buf)) != -1) {
+      fos.write(buf, 0, len);
+    }
+    fos.close();
+  }
+
+  private String copyToAttachmentDirectory(String file) {
+    File src = new File(file);
+    if (!src.exists()) {
+      Toast.makeText(context, R.string.file_err_copy, Toast.LENGTH_LONG).show();
+      return null;
+    }
+
+    File dst = new File(preferences.getAttachmentsDirectory() + File.separator + src.getName());
+    try {
+      AndroidUtilities.copyFile(src, dst);
+    } catch (Exception e) {
+      Timber.e(e);
+      Toast.makeText(context, R.string.file_err_copy, Toast.LENGTH_LONG).show();
+      return null;
+    }
+
+    return dst.getAbsolutePath();
   }
 
   interface PlaybackExceptionHandler {

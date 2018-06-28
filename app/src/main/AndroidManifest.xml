@@ -120,10 +120,6 @@
       android:theme="@style/TranslucentDialog"/>
 
     <activity
-      android:name=".activities.AddAttachmentActivity"
-      android:theme="@style/TranslucentDialog"/>
-
-    <activity
       android:name=".activities.CameraActivity"
       android:theme="@style/TranslucentDialog"/>
 
@@ -323,13 +319,6 @@
       android:label="@string/EPr_manage_header"
       android:name="com.todoroo.astrid.core.OldTaskPreferences"
       android:theme="@style/Tasks"/>
-
-    <!-- premium -->
-    <activity
-      android:configChanges="orientation|screenSize"
-      android:name="com.todoroo.astrid.files.AACRecordingActivity"
-      android:screenOrientation="portrait"
-      android:theme="@style/TranslucentDialog"/>
 
     <activity
       android:label="@string/app_name"
