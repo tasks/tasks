@@ -12,6 +12,7 @@ android:
     - tools # https://github.com/travis-ci/travis-ci/issues/5049
     - tools # https://github.com/travis-ci/travis-ci/issues/6040
     - android-$TARGET_API
+    - android-27 # dav4android, ical4android
     - android-$EMULATOR_API
     - sys-img-$ANDROID_ABI-android-$EMULATOR_API
     - platform-tools
