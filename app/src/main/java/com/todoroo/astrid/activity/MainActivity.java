@@ -308,10 +308,7 @@ public class MainActivity extends InjectingAppCompatActivity
   }
 
   public void restart() {
-    Intent intent = getIntent();
-    intent.putExtra(MainActivity.OPEN_FILTER, filter);
-    finish();
-    startActivity(intent);
+    recreate();
   }
 
   private int getNightMode() {
