@@ -55,8 +55,6 @@ public class PurchaseActivity extends ThemedInjectingAppCompatActivity
   @Inject Inventory inventory;
   @Inject LocalBroadcastManager localBroadcastManager;
 
-  private SkusAdapter adapter;
-
   @BindView(R.id.toolbar)
   Toolbar toolbar;
 
@@ -68,6 +66,15 @@ public class PurchaseActivity extends ThemedInjectingAppCompatActivity
 
   @BindView(R.id.error_textview)
   TextView errorTextView;
+
+  private SkusAdapter adapter;
+  private BroadcastReceiver purchaseReceiver =
+      new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+          querySkuDetails();
+        }
+      };
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -225,14 +232,6 @@ public class PurchaseActivity extends ThemedInjectingAppCompatActivity
       billingClient.initiatePurchaseFlow(this, sku, skuType);
     }
   }
-
-  private BroadcastReceiver purchaseReceiver =
-      new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-          querySkuDetails();
-        }
-      };
 
   @Override
   public boolean onMenuItemClick(MenuItem item) {

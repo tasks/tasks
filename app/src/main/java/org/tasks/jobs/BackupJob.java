@@ -32,6 +32,14 @@ public class BackupJob extends InjectingJob {
   @Inject TasksJsonExporter tasksJsonExporter;
   @Inject Preferences preferences;
 
+  public BackupJob() {}
+
+  BackupJob(Context context, TasksJsonExporter tasksJsonExporter, Preferences preferences) {
+    this.context = context;
+    this.tasksJsonExporter = tasksJsonExporter;
+    this.preferences = preferences;
+  }
+
   static List<File> getDeleteList(File[] fileArray, int keepNewest) {
     if (fileArray == null) {
       return emptyList();
@@ -40,16 +48,6 @@ public class BackupJob extends InjectingJob {
     List<File> files = Arrays.asList(fileArray);
     Collections.sort(files, BY_LAST_MODIFIED);
     return newArrayList(skip(files, keepNewest));
-  }
-
-  public BackupJob() {
-
-  }
-
-  BackupJob(Context context, TasksJsonExporter tasksJsonExporter, Preferences preferences) {
-    this.context = context;
-    this.tasksJsonExporter = tasksJsonExporter;
-    this.preferences = preferences;
   }
 
   @NonNull

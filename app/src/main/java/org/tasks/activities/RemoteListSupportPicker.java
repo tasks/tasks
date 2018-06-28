@@ -77,7 +77,8 @@ public class RemoteListSupportPicker extends InjectingDialogFragment {
     Bundle arguments = getArguments();
     int selected =
         arguments.getBoolean(EXTRA_NO_SELECTION, false)
-            ? -1 : filterAdapter.indexOf(arguments.getParcelable(EXTRA_SELECTED_FILTER), 0);
+            ? -1
+            : filterAdapter.indexOf(arguments.getParcelable(EXTRA_SELECTED_FILTER), 0);
     return createDialog(filterAdapter, dialogBuilder, selected, this::selected);
   }
 

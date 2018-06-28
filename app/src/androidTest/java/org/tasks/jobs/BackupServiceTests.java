@@ -17,7 +17,6 @@ import java.io.File;
 import java.io.IOException;
 import javax.inject.Inject;
 import org.junit.After;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.tasks.R;

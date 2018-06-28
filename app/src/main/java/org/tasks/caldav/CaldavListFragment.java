@@ -20,7 +20,8 @@ public class CaldavListFragment extends TaskListFragment {
   private static final int REQUEST_ACCOUNT_SETTINGS = 10101;
   private CaldavCalendar calendar;
 
-  public static TaskListFragment newCaldavListFragment(CaldavFilter filter, CaldavCalendar calendar) {
+  public static TaskListFragment newCaldavListFragment(
+      CaldavFilter filter, CaldavCalendar calendar) {
     CaldavListFragment fragment = new CaldavListFragment();
     fragment.filter = filter;
     fragment.calendar = calendar;

@@ -99,7 +99,7 @@ task checkstyle(type: Checkstyle) {
 
 checkstyle {
     configFile project.file('google_checks.xml')
-    toolVersion = '8.8'
+    toolVersion = '8.10.1'
 }
 
 configurations {

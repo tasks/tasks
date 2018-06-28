@@ -30,7 +30,10 @@ public class GtasksFilterExposer {
   private final GoogleTaskListDao googleTaskListDao;
 
   @Inject
-  public GtasksFilterExposer(GtasksListService gtasksListService, SyncAdapters syncAdapters, GoogleTaskListDao googleTaskListDao) {
+  public GtasksFilterExposer(
+      GtasksListService gtasksListService,
+      SyncAdapters syncAdapters,
+      GoogleTaskListDao googleTaskListDao) {
     this.gtasksListService = gtasksListService;
     this.syncAdapters = syncAdapters;
     this.googleTaskListDao = googleTaskListDao;

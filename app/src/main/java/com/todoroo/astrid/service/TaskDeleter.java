@@ -27,7 +27,11 @@ public class TaskDeleter {
   private final DeletionDao deletionDao;
 
   @Inject
-  public TaskDeleter(DeletionDao deletionDao, JobManager jobManager, TaskDao taskDao, LocalBroadcastManager localBroadcastManager) {
+  public TaskDeleter(
+      DeletionDao deletionDao,
+      JobManager jobManager,
+      TaskDao taskDao,
+      LocalBroadcastManager localBroadcastManager) {
     this.deletionDao = deletionDao;
     this.jobManager = jobManager;
     this.taskDao = taskDao;

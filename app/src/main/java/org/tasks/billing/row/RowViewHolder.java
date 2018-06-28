@@ -13,12 +13,6 @@ public final class RowViewHolder extends RecyclerView.ViewHolder {
   public final Button subscribeButton;
   public final Button auxiliaryButton;
 
-  public interface ButtonClick {
-    void onAuxiliaryClick(int row);
-
-    void onClick(int row);
-  }
-
   public RowViewHolder(final View itemView, final ButtonClick onClick) {
     super(itemView);
     title = itemView.findViewById(R.id.title);
@@ -32,5 +26,11 @@ public final class RowViewHolder extends RecyclerView.ViewHolder {
     if (subscribeButton != null) {
       subscribeButton.setOnClickListener(view -> onClick.onClick(getAdapterPosition()));
     }
+  }
+
+  public interface ButtonClick {
+    void onAuxiliaryClick(int row);
+
+    void onClick(int row);
   }
 }

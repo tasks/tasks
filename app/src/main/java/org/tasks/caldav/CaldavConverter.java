@@ -97,7 +97,9 @@ public class CaldavConverter {
     try {
       if (!Strings.isNullOrEmpty(caldavTask.getVtodo())) {
         remote =
-            at.bitfire.ical4android.Task.Companion.fromReader(new StringReader(caldavTask.getVtodo())).get(0);
+            at.bitfire.ical4android.Task.Companion.fromReader(
+                    new StringReader(caldavTask.getVtodo()))
+                .get(0);
       }
     } catch (Exception e) {
       Timber.e(e);

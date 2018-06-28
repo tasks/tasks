@@ -60,7 +60,8 @@ public class ThunderbirdTests {
 
   @Test
   public void repeatDaily() {
-    assertEquals("RRULE:FREQ=DAILY;INTERVAL=1", vtodo("thunderbird/repeat_daily.txt").getRecurrence());
+    assertEquals(
+        "RRULE:FREQ=DAILY;INTERVAL=1", vtodo("thunderbird/repeat_daily.txt").getRecurrence());
   }
 
   @Test

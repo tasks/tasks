@@ -118,9 +118,7 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
 
     final boolean backButtonSavesTask = preferences.backButtonSavesTask();
     toolbar.setTitle(
-        caldavCalendar == null
-            ? getString(R.string.new_list)
-            : caldavCalendar.getName());
+        caldavCalendar == null ? getString(R.string.new_list) : caldavCalendar.getName());
     toolbar.setNavigationIcon(
         ContextCompat.getDrawable(
             this, backButtonSavesTask ? R.drawable.ic_close_24dp : R.drawable.ic_save_24dp));
@@ -359,7 +357,8 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
             (dialog, which) -> {
               CaldavClient caldavClient =
                   new CaldavClient(caldavAccount, caldavCalendar, encryption);
-              ProgressDialog progressDialog = dialogBuilder.newProgressDialog(R.string.contacting_server);
+              ProgressDialog progressDialog =
+                  dialogBuilder.newProgressDialog(R.string.contacting_server);
               progressDialog.show();
               caldavClient
                   .deleteCollection()

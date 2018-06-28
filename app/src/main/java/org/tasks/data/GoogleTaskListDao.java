@@ -1,11 +1,9 @@
 package org.tasks.data;
 
 import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
-import android.arch.persistence.room.Transaction;
 import android.arch.persistence.room.Update;
 import java.util.List;
 
@@ -27,7 +25,8 @@ public abstract class GoogleTaskListDao {
   @Query("SELECT * FROM google_task_lists WHERE remote_id = :remoteId LIMIT 1")
   public abstract GoogleTaskList getByRemoteId(String remoteId);
 
-  @Query("SELECT * FROM google_task_lists WHERE remote_id = :remoteId AND IFNULL(account, '') = '' LIMIT 1")
+  @Query(
+      "SELECT * FROM google_task_lists WHERE remote_id = :remoteId AND IFNULL(account, '') = '' LIMIT 1")
   public abstract GoogleTaskList findExistingList(String remoteId);
 
   @Query("SELECT * FROM google_task_lists")

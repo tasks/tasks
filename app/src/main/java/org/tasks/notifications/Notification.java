@@ -6,9 +6,8 @@ import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
 @Entity(
-  tableName = "notification",
-  indices = {@Index(value = "task", unique = true)}
-)
+    tableName = "notification",
+    indices = {@Index(value = "task", unique = true)})
 public class Notification {
 
   @PrimaryKey(autoGenerate = true)

@@ -15,12 +15,7 @@
  */
 package org.tasks.billing.row;
 
-
-
-/**
- * Provider for data that corresponds to a particular row
- */
+/** Provider for data that corresponds to a particular row */
 public interface RowDataProvider {
-    SkuRowData getData(int position);
+  SkuRowData getData(int position);
 }
-

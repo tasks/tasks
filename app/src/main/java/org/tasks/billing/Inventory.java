@@ -15,12 +15,11 @@ import timber.log.Timber;
 @ApplicationScope
 public class Inventory {
 
-  private static final String SKU_PRO = "annual_499";
   static final String SKU_VIP = "vip";
   static final String SKU_TASKER = "tasker";
   static final String SKU_THEMES = "themes";
   static final String SKU_DASHCLOCK = "dashclock";
-
+  private static final String SKU_PRO = "annual_499";
   public static final List<String> SKU_SUBS = ImmutableList.of(SKU_PRO);
 
   private final Preferences preferences;

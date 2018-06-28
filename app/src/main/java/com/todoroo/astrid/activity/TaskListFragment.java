@@ -82,13 +82,12 @@ public class TaskListFragment extends InjectingFragment
   public static final String GTASK_METADATA_JOIN = "for_gtask"; // $NON-NLS-1$
   public static final String CALDAV_METADATA_JOIN = "for_caldav"; // $NON-NLS-1$
   public static final String FILE_METADATA_JOIN = "for_actions"; // $NON-NLS-1$
+  public static final int REQUEST_MOVE_TASKS = 11545;
   private static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
   private static final String EXTRA_FILTER = "extra_filter";
   private static final String FRAG_TAG_SORT_DIALOG = "frag_tag_sort_dialog";
-
   // --- instance variables
   private static final int REQUEST_EDIT_FILTER = 11544;
-  public static final int REQUEST_MOVE_TASKS = 11545;
   private final RefreshReceiver refreshReceiver = new RefreshReceiver();
   @Inject protected Tracker tracker;
   protected Filter filter;
@@ -446,11 +445,7 @@ public class TaskListFragment extends InjectingFragment
     // set up list adapters
     taskAdapter = createTaskAdapter();
     recyclerAdapter =
-        new TaskListRecyclerAdapter(
-            taskAdapter,
-            viewHolderFactory,
-            this,
-            actionModeProvider);
+        new TaskListRecyclerAdapter(taskAdapter, viewHolderFactory, this, actionModeProvider);
     taskAdapter.setHelper(recyclerAdapter.getAsyncPagedListDiffer());
   }
 

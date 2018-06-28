@@ -189,8 +189,7 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity
       tagData.setName(newName);
       tagData.setColor(selectedTheme);
       tagDataDao.createNew(tagData);
-      setResult(
-          RESULT_OK, new Intent().putExtra(MainActivity.OPEN_FILTER, new TagFilter(tagData)));
+      setResult(RESULT_OK, new Intent().putExtra(MainActivity.OPEN_FILTER, new TagFilter(tagData)));
     } else if (hasChanges()) {
       tagData.setName(newName);
       tagData.setColor(selectedTheme);

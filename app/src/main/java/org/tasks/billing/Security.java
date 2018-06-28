@@ -40,17 +40,17 @@ public class Security {
   private static final String SIGNATURE_ALGORITHM = "SHA1withRSA";
 
   /**
-   * Verifies that the data was signed with the given signature, and returns the verified
-   * purchase.
+   * Verifies that the data was signed with the given signature, and returns the verified purchase.
+   *
    * @param base64PublicKey the base64-encoded public key to use for verifying.
    * @param signedData the signed JSON string (signed, not encrypted)
    * @param signature the signature for the data, signed with the private key
-   * @throws IOException if encoding algorithm is not supported or key specification
-   * is invalid
+   * @throws IOException if encoding algorithm is not supported or key specification is invalid
    */
-  public static boolean verifyPurchase(String base64PublicKey, String signedData,
-      String signature) throws IOException {
-    if (TextUtils.isEmpty(signedData) || TextUtils.isEmpty(base64PublicKey)
+  public static boolean verifyPurchase(String base64PublicKey, String signedData, String signature)
+      throws IOException {
+    if (TextUtils.isEmpty(signedData)
+        || TextUtils.isEmpty(base64PublicKey)
         || TextUtils.isEmpty(signature)) {
       BillingHelper.logWarn(TAG, "Purchase verification failed: missing data.");
       return false;
@@ -64,8 +64,7 @@ public class Security {
    * Generates a PublicKey instance from a string containing the Base64-encoded public key.
    *
    * @param encodedPublicKey Base64-encoded public key
-   * @throws IOException if encoding algorithm is not supported or key specification
-   * is invalid
+   * @throws IOException if encoding algorithm is not supported or key specification is invalid
    */
   public static PublicKey generatePublicKey(String encodedPublicKey) throws IOException {
     try {
@@ -83,8 +82,8 @@ public class Security {
   }
 
   /**
-   * Verifies that the signature from the server matches the computed signature on the data.
-   * Returns true if the data is correctly signed.
+   * Verifies that the signature from the server matches the computed signature on the data. Returns
+   * true if the data is correctly signed.
    *
    * @param publicKey public key associated with the developer account
    * @param signedData signed data from server

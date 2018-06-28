@@ -127,8 +127,7 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
         .setPositiveButton(
             R.string.restart_now,
             (dialogInterface, i) -> {
-              Intent nextIntent =
-                  new Intent(InjectingPreferenceActivity.this, MainActivity.class);
+              Intent nextIntent = new Intent(InjectingPreferenceActivity.this, MainActivity.class);
               nextIntent.putExtra(MainActivity.OPEN_FILTER, (Filter) null);
               ProcessPhoenix.triggerRebirth(InjectingPreferenceActivity.this, nextIntent);
             })

@@ -10,8 +10,7 @@ public class FlavorSetup {
   private final BillingClient billingClient;
 
   @Inject
-  public FlavorSetup(PlayServices playServices,
-      BillingClient billingClient) {
+  public FlavorSetup(PlayServices playServices, BillingClient billingClient) {
     this.playServices = playServices;
     this.billingClient = billingClient;
   }

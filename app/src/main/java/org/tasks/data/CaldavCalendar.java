@@ -140,15 +140,27 @@ public final class CaldavCalendar implements Parcelable {
 
   @Override
   public String toString() {
-    return "CaldavCalendar{" +
-        "id=" + id +
-        ", account='" + account + '\'' +
-        ", uuid='" + uuid + '\'' +
-        ", name='" + name + '\'' +
-        ", color=" + color +
-        ", ctag='" + ctag + '\'' +
-        ", url='" + url + '\'' +
-        '}';
+    return "CaldavCalendar{"
+        + "id="
+        + id
+        + ", account='"
+        + account
+        + '\''
+        + ", uuid='"
+        + uuid
+        + '\''
+        + ", name='"
+        + name
+        + '\''
+        + ", color="
+        + color
+        + ", ctag='"
+        + ctag
+        + '\''
+        + ", url='"
+        + url
+        + '\''
+        + '}';
   }
 
   @Override

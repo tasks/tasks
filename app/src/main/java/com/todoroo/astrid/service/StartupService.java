@@ -8,7 +8,6 @@ package com.todoroo.astrid.service;
 import static com.google.common.base.Strings.isNullOrEmpty;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteException;
 import android.os.Environment;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableListMultimap;

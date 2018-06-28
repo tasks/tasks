@@ -23,7 +23,7 @@ public class TestUtilities {
     }
   }
 
-  public static  Task vtodo(String path) {
+  public static Task vtodo(String path) {
     Task task = new Task();
 
     CaldavConverter.apply(task, fromResource(path));

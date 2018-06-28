@@ -16,7 +16,6 @@ import com.google.api.services.tasks.model.TaskLists;
 import java.io.IOException;
 import java.util.Collections;
 import org.tasks.BuildConfig;
-import org.tasks.data.GoogleTaskAccount;
 import org.tasks.gtasks.GoogleTasksUnsuccessfulResponseHandler;
 import org.tasks.gtasks.PlayServices;
 import timber.log.Timber;

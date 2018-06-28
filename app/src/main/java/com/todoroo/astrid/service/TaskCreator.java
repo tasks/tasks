@@ -127,8 +127,7 @@ public class TaskCreator {
     task.setUuid(UUIDHelper.newUUID());
 
     task.setPriority(
-        preferences.getIntegerFromString(
-            R.string.p_default_importance_key, Priority.LOW));
+        preferences.getIntegerFromString(R.string.p_default_importance_key, Priority.LOW));
     task.setDueDate(
         Task.createDueDate(
             preferences.getIntegerFromString(R.string.p_default_urgency_key, Task.URGENCY_NONE),

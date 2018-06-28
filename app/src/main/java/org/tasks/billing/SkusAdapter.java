@@ -38,8 +38,8 @@ import org.tasks.billing.row.RowViewHolder;
 import org.tasks.billing.row.RowViewHolder.ButtonClick;
 import org.tasks.billing.row.SkuRowData;
 
-public class SkusAdapter extends RecyclerView.Adapter<RowViewHolder> implements RowDataProvider,
-    ButtonClick {
+public class SkusAdapter extends RecyclerView.Adapter<RowViewHolder>
+    implements RowDataProvider, ButtonClick {
 
   public static final int TYPE_HEADER = 0;
   public static final int TYPE_NORMAL = 1;

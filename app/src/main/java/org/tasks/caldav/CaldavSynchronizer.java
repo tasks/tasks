@@ -209,8 +209,7 @@ public class CaldavSynchronizer {
             }
           }
         } else {
-          ArrayList<HttpUrl> urls =
-              newArrayList(Iterables.transform(items, DavResponse::getUrl));
+          ArrayList<HttpUrl> urls = newArrayList(Iterables.transform(items, DavResponse::getUrl));
           DavResponse response = davCalendar.multiget(urls);
 
           Timber.d("MULTI %s", urls);

@@ -191,9 +191,7 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
 
   private String getNewPassword() {
     String input = password.getText().toString().trim();
-    return PASSWORD_MASK.equals(input)
-        ? encryption.decrypt(caldavAccount.getPassword())
-        : input;
+    return PASSWORD_MASK.equals(input) ? encryption.decrypt(caldavAccount.getPassword()) : input;
   }
 
   private void save() {

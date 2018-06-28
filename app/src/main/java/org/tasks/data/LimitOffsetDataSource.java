@@ -29,7 +29,7 @@ public class LimitOffsetDataSource extends PositionalDataSource<Task> {
   private int countItems() {
     Cursor cursor;
     try {
-    cursor = mDb.query(mCountQuery, null);
+      cursor = mDb.query(mCountQuery, null);
     } catch (Exception e) {
       Timber.e(e);
       Tracker.report(e);

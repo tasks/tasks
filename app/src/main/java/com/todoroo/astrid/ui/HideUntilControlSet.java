@@ -241,7 +241,12 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
                 new HideUntilValue(labelsSpinner[1], labelsDisplay[1], Task.HIDE_UNTIL_DUE_TIME),
                 new HideUntilValue(labelsSpinner[2], labelsDisplay[2], Task.HIDE_UNTIL_DAY_BEFORE),
                 new HideUntilValue(labelsSpinner[3], labelsDisplay[3], Task.HIDE_UNTIL_WEEK_BEFORE),
-                new HideUntilValue(labelsSpinner[4], "", Task.HIDE_UNTIL_SPECIFIC_DAY, -1)))); // no need for a string for display here, since the chosen day will be displayed
+                new HideUntilValue(
+                    labelsSpinner[4],
+                    "",
+                    Task.HIDE_UNTIL_SPECIFIC_DAY,
+                    -1)))); // no need for a string for display here, since the chosen day will be
+    // displayed
 
     if (specificDate > 0) {
       spinnerItems.add(0, getHideUntilValue(specificDate));

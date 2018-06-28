@@ -159,17 +159,19 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
     addGoogleTaskAccount.setKey(KEY_ADD_GOOGLE_TASKS);
     addGoogleTaskAccount.setTitle(R.string.add_account);
     if (inventory.hasPro() || googleTaskListDao.getAccounts().isEmpty()) {
-      addGoogleTaskAccount.setOnPreferenceClickListener(preference -> {
-        addGoogleTaskAccount();
-        return false;
-      });
+      addGoogleTaskAccount.setOnPreferenceClickListener(
+          preference -> {
+            addGoogleTaskAccount();
+            return false;
+          });
     } else {
       addGoogleTaskAccount.setSummary(R.string.requires_pro_subscription);
-      addGoogleTaskAccount.setOnPreferenceClickListener(preference -> {
-        startActivityForResult(
-            new Intent(this, PurchaseActivity.class), REQUEST_GOOGLE_TASKS_SUBSCRIBE);
-        return false;
-      });
+      addGoogleTaskAccount.setOnPreferenceClickListener(
+          preference -> {
+            startActivityForResult(
+                new Intent(this, PurchaseActivity.class), REQUEST_GOOGLE_TASKS_SUBSCRIBE);
+            return false;
+          });
     }
     googleTaskPreferences.addPreference(addGoogleTaskAccount);
   }

@@ -99,15 +99,6 @@ public class Task implements Parcelable {
   /** reminder mode five times (exclusive with non-stop) */
   public static final int NOTIFY_MODE_FIVE = 1 << 4;
 
-  @Retention(SOURCE)
-  @IntDef({Priority.HIGH, Priority.MEDIUM, Priority.LOW, Priority.NONE})
-  public @interface Priority {
-    int HIGH = 0;
-    int MEDIUM = 1;
-    int LOW = 2;
-    int NONE = 3;
-  }
-
   public static final Creator<Task> CREATOR =
       new Creator<Task>() {
         @Override
@@ -132,24 +123,22 @@ public class Task implements Parcelable {
   public static final int HIDE_UNTIL_DAY_BEFORE = 2;
   public static final int HIDE_UNTIL_WEEK_BEFORE = 3;
   public static final int HIDE_UNTIL_SPECIFIC_DAY = 4;
-
   // --- for astrid.com
   public static final int HIDE_UNTIL_SPECIFIC_DAY_TIME = 5;
   public static final int HIDE_UNTIL_DUE_TIME = 6;
   static final int URGENCY_TODAY = 1;
   static final int URGENCY_TOMORROW = 2;
-
   // --- notification flags
   static final int URGENCY_DAY_AFTER = 3;
   static final int URGENCY_NEXT_WEEK = 4;
   static final int URGENCY_IN_TWO_WEEKS = 5;
   static final int URGENCY_NEXT_MONTH = 6;
-
-  // --- importance settings (note: importance > 3 are supported via plugin)
   /** ID */
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "_id")
   public transient Long id = NO_ID;
+
+  // --- importance settings (note: importance > 3 are supported via plugin)
   /** Name of Task */
   @ColumnInfo(name = "title")
   public String title = "";
@@ -171,12 +160,11 @@ public class Task implements Parcelable {
   /** Unixtime Task was completed. 0 means active */
   @ColumnInfo(name = "completed")
   public Long completed = 0L;
-
-  // --- data access boilerplate
   /** Unixtime Task was deleted. 0 means not deleted */
   @ColumnInfo(name = "deleted")
   public Long deleted = 0L;
 
+  // --- data access boilerplate
   @ColumnInfo(name = "notes")
   public String notes = "";
 
@@ -191,16 +179,16 @@ public class Task implements Parcelable {
   /** Flags for when to send reminders */
   @ColumnInfo(name = "notificationFlags")
   public Integer notificationFlags = 0;
-
-  // --- parcelable helpers
   /** Reminder period, in milliseconds. 0 means disabled */
   @ColumnInfo(name = "notifications")
   public Long notifications = 0L;
 
-  // --- data access methods
+  // --- parcelable helpers
   /** Unixtime the last reminder was triggered */
   @ColumnInfo(name = "lastNotified")
   public Long lastNotified = 0L;
+
+  // --- data access methods
   /** Unixtime snooze is set (0 -> no snooze) */
   @ColumnInfo(name = "snoozeTime")
   public Long snoozeTime = 0L;
@@ -213,12 +201,11 @@ public class Task implements Parcelable {
 
   @ColumnInfo(name = "calendarUri")
   public String calendarUri = "";
-
-  // --- due and hide until date management
   /** Remote id */
   @ColumnInfo(name = "remoteId")
   public String remoteId = NO_UUID;
 
+  // --- due and hide until date management
   @Ignore private transient int indent;
   @Ignore private transient String tags;
   @Ignore private transient String googleTaskList;
@@ -1214,5 +1201,14 @@ public class Task implements Parcelable {
 
   public boolean hasFiles() {
     return hasFiles;
+  }
+
+  @Retention(SOURCE)
+  @IntDef({Priority.HIGH, Priority.MEDIUM, Priority.LOW, Priority.NONE})
+  public @interface Priority {
+    int HIGH = 0;
+    int MEDIUM = 1;
+    int LOW = 2;
+    int NONE = 3;
   }
 }

@@ -1,7 +1,6 @@
 package org.tasks.filters;
 
 import android.support.v4.util.Pair;
-import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.core.CustomFilterExposer;
@@ -10,7 +9,6 @@ import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.timers.TimerFilterExposer;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import javax.inject.Inject;
 import org.tasks.caldav.CaldavFilterExposer;
 import org.tasks.data.CaldavAccount;

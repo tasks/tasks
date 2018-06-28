@@ -9,6 +9,19 @@ import android.os.Parcelable;
 
 @Entity(tableName = "google_task_accounts")
 public class GoogleTaskAccount implements Parcelable {
+  public static final Creator<GoogleTaskAccount> CREATOR =
+      new Creator<GoogleTaskAccount>() {
+        @Override
+        public GoogleTaskAccount createFromParcel(Parcel source) {
+          return new GoogleTaskAccount(source);
+        }
+
+        @Override
+        public GoogleTaskAccount[] newArray(int size) {
+          return new GoogleTaskAccount[size];
+        }
+      };
+
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "_id")
   private transient long id;
@@ -98,19 +111,6 @@ public class GoogleTaskAccount implements Parcelable {
         + '\''
         + '}';
   }
-
-  public static final Creator<GoogleTaskAccount> CREATOR =
-      new Creator<GoogleTaskAccount>() {
-        @Override
-        public GoogleTaskAccount createFromParcel(Parcel source) {
-          return new GoogleTaskAccount(source);
-        }
-
-        @Override
-        public GoogleTaskAccount[] newArray(int size) {
-          return new GoogleTaskAccount[size];
-        }
-      };
 
   @Override
   public int describeContents() {

@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.GoogleTaskList;
@@ -92,27 +91,6 @@ public class TagFormatter {
     }
     for (GoogleTaskList list : googleTaskListDao.getAllLists()) {
       googleTaskLists.put(list.getRemoteId(), new ColoredString(list));
-    }
-  }
-
-  private class ColoredString {
-
-    final String name;
-    final int color;
-
-    ColoredString(TagData tagData) {
-      name = tagData.getName();
-      color = tagData.getColor();
-    }
-
-    ColoredString(GoogleTaskList googleTaskList) {
-      name = googleTaskList.getTitle();
-      color = googleTaskList.getColor();
-    }
-
-    ColoredString(CaldavCalendar caldavCalendar) {
-      name = caldavCalendar.getName();
-      color = caldavCalendar.getColor();
     }
   }
 
@@ -216,5 +194,26 @@ public class TagFormatter {
       tagMap.put(uuid, tagData);
     }
     return tagData;
+  }
+
+  private class ColoredString {
+
+    final String name;
+    final int color;
+
+    ColoredString(TagData tagData) {
+      name = tagData.getName();
+      color = tagData.getColor();
+    }
+
+    ColoredString(GoogleTaskList googleTaskList) {
+      name = googleTaskList.getTitle();
+      color = googleTaskList.getColor();
+    }
+
+    ColoredString(CaldavCalendar caldavCalendar) {
+      name = caldavCalendar.getName();
+      color = caldavCalendar.getColor();
+    }
   }
 }

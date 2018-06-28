@@ -46,8 +46,7 @@ public class ActionModeProvider {
       TaskDuplicator taskDuplicator,
       TaskMover taskMover,
       Tracker tracker,
-      SyncAdapters syncAdapters
-  ) {
+      SyncAdapters syncAdapters) {
     this.context = context;
     this.dialogBuilder = dialogBuilder;
     this.taskDeleter = taskDeleter;
@@ -87,7 +86,8 @@ public class ActionModeProvider {
                     Filter singleFilter = taskMover.getSingleFilter(adapter.getSelected());
                     (singleFilter == null
                             ? newRemoteListSupportPicker(taskList, REQUEST_MOVE_TASKS)
-                            : newRemoteListSupportPicker(singleFilter, taskList, REQUEST_MOVE_TASKS))
+                            : newRemoteListSupportPicker(
+                                singleFilter, taskList, REQUEST_MOVE_TASKS))
                         .show(taskList.getFragmentManager(), FRAG_TAG_REMOTE_LIST_PICKER);
                     return true;
                   case R.id.delete:

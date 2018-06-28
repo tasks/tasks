@@ -47,6 +47,35 @@ public class BillingClient implements PurchasesUpdatedListener {
         com.android.billingclient.api.BillingClient.newBuilder(context).setListener(this).build();
   }
 
+  public static String BillingResponseToString(@BillingResponse int response) {
+    switch (response) {
+      case BillingResponse.FEATURE_NOT_SUPPORTED:
+        return "FEATURE_NOT_SUPPORTED";
+      case BillingResponse.SERVICE_DISCONNECTED:
+        return "SERVICE_DISCONNECTED";
+      case BillingResponse.OK:
+        return "OK";
+      case BillingResponse.USER_CANCELED:
+        return "USER_CANCELED";
+      case BillingResponse.SERVICE_UNAVAILABLE:
+        return "SERVICE_UNAVAILABLE";
+      case BillingResponse.BILLING_UNAVAILABLE:
+        return "BILLING_UNAVAILABLE";
+      case BillingResponse.ITEM_UNAVAILABLE:
+        return "ITEM_UNAVAILABLE";
+      case BillingResponse.DEVELOPER_ERROR:
+        return "DEVELOPER_ERROR";
+      case BillingResponse.ERROR:
+        return "ERROR";
+      case BillingResponse.ITEM_ALREADY_OWNED:
+        return "ITEM_ALREADY_OWNED";
+      case BillingResponse.ITEM_NOT_OWNED:
+        return "ITEM_NOT_OWNED";
+      default:
+        return "Unknown";
+    }
+  }
+
   public void initialize() {
     startServiceConnection(this::queryPurchases);
   }
@@ -232,34 +261,5 @@ public class BillingClient implements PurchasesUpdatedListener {
 
   public int getBillingClientResponseCode() {
     return billingClientResponseCode;
-  }
-
-  public static String BillingResponseToString(@BillingResponse int response) {
-    switch (response) {
-      case BillingResponse.FEATURE_NOT_SUPPORTED:
-        return "FEATURE_NOT_SUPPORTED";
-      case BillingResponse.SERVICE_DISCONNECTED:
-        return "SERVICE_DISCONNECTED";
-      case BillingResponse.OK:
-        return "OK";
-      case BillingResponse.USER_CANCELED:
-        return "USER_CANCELED";
-      case BillingResponse.SERVICE_UNAVAILABLE:
-        return "SERVICE_UNAVAILABLE";
-      case BillingResponse.BILLING_UNAVAILABLE:
-        return "BILLING_UNAVAILABLE";
-      case BillingResponse.ITEM_UNAVAILABLE:
-        return "ITEM_UNAVAILABLE";
-      case BillingResponse.DEVELOPER_ERROR:
-        return "DEVELOPER_ERROR";
-      case BillingResponse.ERROR:
-        return "ERROR";
-      case BillingResponse.ITEM_ALREADY_OWNED:
-        return "ITEM_ALREADY_OWNED";
-      case BillingResponse.ITEM_NOT_OWNED:
-        return "ITEM_NOT_OWNED";
-      default:
-        return "Unknown";
-    }
   }
 }

@@ -204,5 +204,4 @@ public class GtasksIndentActionTest extends InjectingTestCase {
     taskDao.createNew(task);
     return task;
   }
-
 }

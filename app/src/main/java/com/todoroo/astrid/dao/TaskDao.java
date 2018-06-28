@@ -57,7 +57,8 @@ public abstract class TaskDao {
   @android.arch.persistence.room.Query("SELECT * FROM tasks WHERE _id IN (:taskIds)")
   public abstract List<Task> fetch(List<Long> taskIds);
 
-  @android.arch.persistence.room.Query("SELECT COUNT(1) FROM tasks WHERE timerStart > 0 AND deleted = 0")
+  @android.arch.persistence.room.Query(
+      "SELECT COUNT(1) FROM tasks WHERE timerStart > 0 AND deleted = 0")
   public abstract int activeTimers();
 
   @android.arch.persistence.room.Query(

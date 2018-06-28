@@ -11,7 +11,6 @@ import android.database.Cursor;
 import com.todoroo.astrid.data.Task;
 import java.io.IOException;
 import org.tasks.analytics.Tracker;
-import org.tasks.analytics.Tracking;
 import org.tasks.data.Alarm;
 import org.tasks.data.AlarmDao;
 import org.tasks.data.CaldavAccount;
@@ -43,26 +42,25 @@ import org.tasks.notifications.NotificationDao;
 import timber.log.Timber;
 
 @android.arch.persistence.room.Database(
-  entities = {
-    Notification.class,
-    TagData.class,
-    UserActivity.class,
-    TaskAttachment.class,
-    TaskListMetadata.class,
-    Task.class,
-    Alarm.class,
-    Location.class,
-    Tag.class,
-    GoogleTask.class,
-    Filter.class,
-    GoogleTaskList.class,
-    CaldavCalendar.class,
-    CaldavTask.class,
-    CaldavAccount.class,
-    GoogleTaskAccount.class
-  },
-  version = 59
-)
+    entities = {
+      Notification.class,
+      TagData.class,
+      UserActivity.class,
+      TaskAttachment.class,
+      TaskListMetadata.class,
+      Task.class,
+      Alarm.class,
+      Location.class,
+      Tag.class,
+      GoogleTask.class,
+      Filter.class,
+      GoogleTaskList.class,
+      CaldavCalendar.class,
+      CaldavTask.class,
+      CaldavAccount.class,
+      GoogleTaskAccount.class
+    },
+    version = 59)
 public abstract class Database extends RoomDatabase {
 
   public static final String NAME = "database";

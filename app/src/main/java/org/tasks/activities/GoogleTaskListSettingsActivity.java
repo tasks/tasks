@@ -172,7 +172,8 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
     }
 
     if (isNewList) {
-      newCreateListDialog(gtasksList.getAccount(), newName).show(getSupportFragmentManager(), FRAG_TAG_CREATE_LIST_DIALOG);
+      newCreateListDialog(gtasksList.getAccount(), newName)
+          .show(getSupportFragmentManager(), FRAG_TAG_CREATE_LIST_DIALOG);
     } else if (nameChanged()) {
       newRenameListDialog(gtasksList, newName)
           .show(getSupportFragmentManager(), FRAG_TAG_RENAME_LIST_DIALOG);
@@ -267,8 +268,7 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
     gtasksList.setColor(selectedTheme);
     gtasksList.setId(googleTaskListDao.insertOrReplace(gtasksList));
     setResult(
-        RESULT_OK,
-        new Intent().putExtra(MainActivity.OPEN_FILTER, new GtasksFilter(gtasksList)));
+        RESULT_OK, new Intent().putExtra(MainActivity.OPEN_FILTER, new GtasksFilter(gtasksList)));
     finish();
   }
 
@@ -288,8 +288,7 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
     googleTaskListDao.insertOrReplace(gtasksList);
     setResult(
         RESULT_OK,
-        new Intent(ACTION_RELOAD)
-            .putExtra(MainActivity.OPEN_FILTER, new GtasksFilter(gtasksList)));
+        new Intent(ACTION_RELOAD).putExtra(MainActivity.OPEN_FILTER, new GtasksFilter(gtasksList)));
     finish();
   }
 

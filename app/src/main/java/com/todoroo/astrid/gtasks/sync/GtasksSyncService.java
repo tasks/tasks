@@ -166,8 +166,8 @@ public class GtasksSyncService {
 
   private class MoveOp implements SyncOnSaveOperation {
 
-    private final GoogleTaskList googleTaskList;
     final GoogleTask googleTask;
+    private final GoogleTaskList googleTaskList;
 
     MoveOp(GoogleTaskList googleTaskList, GoogleTask googleTask) {
       this.googleTaskList = googleTaskList;

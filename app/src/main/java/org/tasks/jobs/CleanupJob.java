@@ -29,7 +29,7 @@ public class CleanupJob extends InjectingJob {
 
     PersistableBundleCompat extras = params.getExtras();
     long[] tasks = extras.getLongArray(EXTRA_TASK_IDS);
-    if (tasks  == null) {
+    if (tasks == null) {
       Timber.e("No task ids provided");
       return Result.FAILURE;
     }

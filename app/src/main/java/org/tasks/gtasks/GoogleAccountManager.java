@@ -20,8 +20,7 @@ public class GoogleAccountManager {
 
   @Inject
   public GoogleAccountManager(
-      @ForApplication Context context,
-      PermissionChecker permissionChecker) {
+      @ForApplication Context context, PermissionChecker permissionChecker) {
     this.permissionChecker = permissionChecker;
 
     accountManager = android.accounts.AccountManager.get(context);
