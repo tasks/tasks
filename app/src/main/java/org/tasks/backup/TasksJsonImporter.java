@@ -128,7 +128,7 @@ public class TasksJsonImporter {
     try {
       JsonElement data = input.get("data");
       BackupContainer backupContainer = gson.fromJson(data, BackupContainer.class);
-      for (TagData tagData : backupContainer.tags) {
+      for (TagData tagData : backupContainer.getTags()) {
         if (tagDataDao.getByUuid(tagData.getRemoteId()) == null) {
           tagDataDao.createNew(tagData);
         }
@@ -138,12 +138,12 @@ public class TasksJsonImporter {
           googleTaskListDao.insert(googleTaskAccount);
         }
       }
-      for (GoogleTaskList googleTaskList : backupContainer.googleTaskLists) {
+      for (GoogleTaskList googleTaskList : backupContainer.getGoogleTaskLists()) {
         if (googleTaskListDao.getByRemoteId(googleTaskList.getRemoteId()) == null) {
           googleTaskListDao.insert(googleTaskList);
         }
       }
-      for (Filter filter : backupContainer.filters) {
+      for (Filter filter : backupContainer.getFilters()) {
         if (filterDao.getByName(filter.getTitle()) == null) {
           filterDao.insert(filter);
         }
@@ -158,7 +158,7 @@ public class TasksJsonImporter {
           caldavDao.insert(calendar);
         }
       }
-      for (BackupContainer.TaskBackup backup : backupContainer.tasks) {
+      for (BackupContainer.TaskBackup backup : backupContainer.getTasks()) {
         taskCount++;
         setProgressMessage(activity.getString(R.string.import_progress_read, taskCount));
         Task task = backup.task;

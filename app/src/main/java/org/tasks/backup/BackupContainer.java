@@ -20,10 +20,10 @@ import org.tasks.data.UserActivity;
 
 class BackupContainer {
 
-  final List<TaskBackup> tasks;
-  final List<TagData> tags;
-  final List<Filter> filters;
-  final List<GoogleTaskList> googleTaskLists;
+  private final List<TaskBackup> tasks;
+  private final List<TagData> tags;
+  private final List<Filter> filters;
+  private final List<GoogleTaskList> googleTaskLists;
   private final List<GoogleTaskAccount> googleTaskAccounts;
   private final List<CaldavAccount> caldavAccounts;
   private final List<CaldavCalendar> caldavCalendars;
@@ -43,6 +43,22 @@ class BackupContainer {
     this.googleTaskLists = googleTaskLists;
     this.caldavAccounts = caldavAccounts;
     this.caldavCalendars = caldavCalendars;
+  }
+
+  public List<TaskBackup> getTasks() {
+    return tasks == null ? emptyList() : tasks;
+  }
+
+  public List<TagData> getTags() {
+    return tags == null ? emptyList() : tags;
+  }
+
+  public List<Filter> getFilters() {
+    return filters == null ? emptyList() : filters;
+  }
+
+  public List<GoogleTaskList> getGoogleTaskLists() {
+    return googleTaskLists == null ? emptyList() : googleTaskLists;
   }
 
   public List<CaldavAccount> getCaldavAccounts() {
