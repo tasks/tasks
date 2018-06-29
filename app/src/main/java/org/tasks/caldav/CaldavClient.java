@@ -25,7 +25,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -73,8 +72,7 @@ class CaldavClient {
             .followSslRedirects(true)
             .readTimeout(30, TimeUnit.SECONDS)
             .build();
-    URI uri = URI.create(url);
-    httpUrl = HttpUrl.get(uri);
+    httpUrl = HttpUrl.parse(url);
   }
 
   private String tryFindPrincipal() throws DavException, IOException {
