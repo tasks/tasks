@@ -1,18 +1,13 @@
 package org.tasks.activities;
 
-import static org.tasks.PermissionUtil.verifyPermissions;
 import static org.tasks.activities.CalendarSelectionDialog.newCalendarSelectionDialog;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
-import javax.inject.Inject;
 import org.tasks.calendars.AndroidCalendar;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
-import org.tasks.preferences.ActivityPermissionRequestor;
-import org.tasks.preferences.PermissionRequestor;
 
 public class CalendarSelectionActivity extends ThemedInjectingAppCompatActivity
     implements CalendarSelectionDialog.CalendarSelectionHandler {
@@ -21,18 +16,11 @@ public class CalendarSelectionActivity extends ThemedInjectingAppCompatActivity
   public static final String EXTRA_CALENDAR_NAME = "extra_calendar_name";
   private static final String FRAG_TAG_CALENDAR_PREFERENCE_SELECTION =
       "frag_tag_calendar_preference_selection";
-  @Inject ActivityPermissionRequestor permissionRequestor;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    if (permissionRequestor.requestCalendarPermissions()) {
-      showDialog();
-    }
-  }
-
-  private void showDialog() {
     FragmentManager fragmentManager = getSupportFragmentManager();
     if (fragmentManager.findFragmentByTag(FRAG_TAG_CALENDAR_PREFERENCE_SELECTION) == null) {
       Intent intent = getIntent();
@@ -61,16 +49,9 @@ public class CalendarSelectionActivity extends ThemedInjectingAppCompatActivity
   }
 
   @Override
-  public void onRequestPermissionsResult(
-      int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-    if (requestCode == PermissionRequestor.REQUEST_CALENDAR) {
-      if (verifyPermissions(grantResults)) {
-        showDialog();
-      } else {
-        finish();
-      }
-    } else {
-      super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
+  public void finish() {
+    super.finish();
+
+    overridePendingTransition(0, 0);
   }
 }
