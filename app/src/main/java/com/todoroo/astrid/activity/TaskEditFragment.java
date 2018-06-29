@@ -136,7 +136,7 @@ public final class TaskEditFragment extends InjectingFragment
 
     FragmentManager fragmentManager = getChildFragmentManager();
     List<TaskEditControlFragment> taskEditControlFragments =
-        taskEditControlSetFragmentManager.getOrCreateFragments(fragmentManager, model);
+        taskEditControlSetFragmentManager.getOrCreateFragments(this, model);
 
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
     for (int i = 0; i < taskEditControlFragments.size(); i++) {

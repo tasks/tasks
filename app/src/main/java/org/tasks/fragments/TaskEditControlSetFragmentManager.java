@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import com.todoroo.astrid.activity.BeastModePreferences;
+import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.repeats.RepeatControlSet;
@@ -64,6 +65,7 @@ public class TaskEditControlSetFragmentManager {
       };
 
   static {
+    //noinspection ConstantConditions
     if (BuildConfig.DEBUG
         && TASK_EDIT_CONTROL_FRAGMENT_ROWS.length != TASK_EDIT_CONTROL_SET_FRAGMENTS.length) {
       throw new AssertionError();
@@ -106,11 +108,12 @@ public class TaskEditControlSetFragmentManager {
   }
 
   public List<TaskEditControlFragment> getOrCreateFragments(
-      FragmentManager fragmentManager, Task task) {
+      TaskEditFragment taskEditFragment, Task task) {
     Bundle arguments = new Bundle();
     arguments.putParcelable(TaskEditControlFragment.EXTRA_TASK, task);
 
     List<TaskEditControlFragment> fragments = new ArrayList<>();
+    FragmentManager fragmentManager = taskEditFragment.getChildFragmentManager();
     for (int i = 0; i < numRows; i++) {
       String tag = displayOrder.get(i);
       TaskEditControlFragment fragment =

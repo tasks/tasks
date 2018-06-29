@@ -27,7 +27,6 @@ import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,6 +51,7 @@ import com.google.ical.values.Weekday;
 import com.google.ical.values.WeekdayNum;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.repeats.RepeatControlSet;
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -60,6 +60,8 @@ import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.activities.DatePickerActivity;
+import org.tasks.analytics.Tracker;
+import org.tasks.analytics.Tracking;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.ForActivity;
@@ -80,6 +82,7 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
   @Inject @ForActivity Context context;
   @Inject DialogBuilder dialogBuilder;
   @Inject Locale locale;
+  @Inject Tracker tracker;
 
   @BindView(R.id.weekGroup)
   LinearLayout weekGroup1;
@@ -144,7 +147,7 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
   private RRule rrule;
 
   public static CustomRecurrenceDialog newCustomRecurrenceDialog(
-      Fragment target, RRule rrule, long dueDate) {
+      RepeatControlSet target, RRule rrule, long dueDate) {
     CustomRecurrenceDialog dialog = new CustomRecurrenceDialog();
     dialog.setTargetFragment(target, 0);
     Bundle arguments = new Bundle();
@@ -379,7 +382,11 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
     } else {
       rrule.setByDay(Collections.emptyList());
     }
-    ((CustomRecurrenceCallback) getTargetFragment()).onSelected(rrule);
+    tracker.reportEvent(Tracking.Events.RECURRENCE_CUSTOM, rrule.toIcal());
+    RepeatControlSet target = (RepeatControlSet) getTargetFragment();
+    if (target != null) {
+      target.onSelected(rrule);
+    }
     dismiss();
   }
 
@@ -562,10 +569,5 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
   @Override
   protected void inject(DialogFragmentComponent component) {
     component.inject(this);
-  }
-
-  public interface CustomRecurrenceCallback {
-
-    void onSelected(RRule rrule);
   }
 }

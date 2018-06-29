@@ -13,6 +13,7 @@ import org.tasks.gtasks.RenameListDialog;
 import org.tasks.reminders.MissedCallDialog;
 import org.tasks.reminders.NotificationDialog;
 import org.tasks.reminders.SnoozeDialog;
+import org.tasks.repeats.BasicRecurrenceDialog;
 import org.tasks.repeats.CustomRecurrenceDialog;
 
 @Subcomponent(modules = DialogFragmentModule.class)
@@ -43,4 +44,6 @@ public interface DialogFragmentComponent {
   void inject(RenameListDialog renameListDialog);
 
   void inject(CustomRecurrenceDialog customRecurrenceDialog);
+
+  void inject(BasicRecurrenceDialog basicRecurrenceDialog);
 }

@@ -33,7 +33,6 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.gtasks.GtasksSubtaskListFragment;
-import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
@@ -76,7 +75,6 @@ public class MainActivity extends InjectingAppCompatActivity
         TaskListFragment.TaskListFragmentCallbackHandler,
         PriorityControlSet.OnPriorityChanged,
         TimerControlSet.TimerControlSetCallback,
-        RepeatControlSet.RepeatChangedListener,
         DeadlineControlSet.DueDateChangeListener,
         TaskEditFragment.TaskEditFragmentCallbackHandler,
         CommentBarFragment.CommentBarFragmentCallback,
@@ -429,11 +427,6 @@ public class MainActivity extends InjectingAppCompatActivity
   @Override
   public void onPriorityChange(int priority) {
     getTaskEditFragment().onPriorityChange(priority);
-  }
-
-  @Override
-  public void repeatChanged(boolean repeat) {
-    getTaskEditFragment().onRepeatChanged(repeat);
   }
 
   @Override

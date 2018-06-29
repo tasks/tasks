@@ -7,16 +7,10 @@ package com.todoroo.astrid.repeats;
 
 import static android.support.v4.content.ContextCompat.getColor;
 import static com.google.common.collect.Lists.newArrayList;
-import static com.google.ical.values.Frequency.DAILY;
-import static com.google.ical.values.Frequency.HOURLY;
-import static com.google.ical.values.Frequency.MINUTELY;
 import static com.google.ical.values.Frequency.MONTHLY;
-import static com.google.ical.values.Frequency.WEEKLY;
-import static com.google.ical.values.Frequency.YEARLY;
-import static org.tasks.repeats.CustomRecurrenceDialog.newCustomRecurrenceDialog;
+import static org.tasks.repeats.BasicRecurrenceDialog.newBasicRecurrenceDialog;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -36,9 +30,9 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnItemSelected;
 import com.google.common.base.Strings;
-import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.google.ical.values.WeekdayNum;
+import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.data.Task;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -47,16 +41,13 @@ import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
-import org.tasks.analytics.Tracking;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
-import org.tasks.repeats.CustomRecurrenceDialog;
 import org.tasks.repeats.RepeatRuleToString;
 import org.tasks.themes.Theme;
 import org.tasks.time.DateTime;
 import org.tasks.ui.HiddenTopArrayAdapter;
-import org.tasks.ui.SingleCheckedArrayAdapter;
 import org.tasks.ui.TaskEditControlFragment;
 
 /**
@@ -64,13 +55,12 @@ import org.tasks.ui.TaskEditControlFragment;
  *
  * @author Tim Su <tim@todoroo.com>
  */
-public class RepeatControlSet extends TaskEditControlFragment
-    implements CustomRecurrenceDialog.CustomRecurrenceCallback {
+public class RepeatControlSet extends TaskEditControlFragment {
 
   public static final int TAG = R.string.TEA_ctrl_repeat_pref;
   private static final int TYPE_DUE_DATE = 1;
   private static final int TYPE_COMPLETION_DATE = 2;
-  private static final String FRAG_TAG_CUSTOM_RECURRENCE = "frag_tag_custom_recurrence";
+  private static final String FRAG_TAG_BASIC_RECURRENCE = "frag_tag_basic_recurrence";
   private static final String EXTRA_RECURRENCE = "extra_recurrence";
   private static final String EXTRA_DUE_DATE = "extra_due_date";
   private static final String EXTRA_REPEAT_AFTER_COMPLETION = "extra_repeat_after_completion";
@@ -93,13 +83,10 @@ public class RepeatControlSet extends TaskEditControlFragment
   private RRule rrule;
   private HiddenTopArrayAdapter<String> typeAdapter;
   private long dueDate;
-  private RepeatChangedListener callback;
   private boolean repeatAfterCompletion;
 
-  @Override
   public void onSelected(RRule rrule) {
     this.rrule = rrule;
-    tracker.reportEvent(Tracking.Events.RECURRENCE_CUSTOM, rrule.toIcal());
     refreshDisplayView();
   }
 
@@ -200,108 +187,14 @@ public class RepeatControlSet extends TaskEditControlFragment
   }
 
   @Override
-  public void onAttach(Activity activity) {
-    super.onAttach(activity);
-
-    callback = (RepeatChangedListener) activity;
-  }
-
-  @Override
   protected void inject(FragmentComponent component) {
     component.inject(this);
   }
 
-  private boolean isCustomValue() {
-    if (rrule == null) {
-      return false;
-    }
-    Frequency frequency = rrule.getFreq();
-    return (frequency == WEEKLY || frequency == MONTHLY) && !rrule.getByDay().isEmpty()
-        || frequency == HOURLY
-        || frequency == MINUTELY
-        || rrule.getUntil() != null
-        || rrule.getInterval() != 1
-        || rrule.getCount() != 0;
-  }
-
   @OnClick(R.id.display_row_edit)
   void openPopup(View view) {
-    boolean customPicked = isCustomValue();
-    List<String> repeatOptions =
-        newArrayList(context.getResources().getStringArray(R.array.repeat_options));
-    SingleCheckedArrayAdapter adapter =
-        new SingleCheckedArrayAdapter(context, repeatOptions, theme.getThemeAccent());
-    int selected = 0;
-    if (customPicked) {
-      adapter.insert(repeatRuleToString.toString(rrule), 0);
-    } else if (rrule != null) {
-      switch (rrule.getFreq()) {
-        case DAILY:
-          selected = 1;
-          break;
-        case WEEKLY:
-          selected = 2;
-          break;
-        case MONTHLY:
-          selected = 3;
-          break;
-        case YEARLY:
-          selected = 4;
-          break;
-        default:
-          selected = 0;
-          break;
-      }
-    }
-    dialogBuilder
-        .newDialog()
-        .setSingleChoiceItems(
-            adapter,
-            selected,
-            (dialogInterface, i) -> {
-              if (customPicked) {
-                if (i == 0) {
-                  dialogInterface.dismiss();
-                  return;
-                }
-                i--;
-              }
-              if (i == 0) {
-                rrule = null;
-              } else if (i == 5) {
-                newCustomRecurrenceDialog(this, rrule, dueDate)
-                    .show(getFragmentManager(), FRAG_TAG_CUSTOM_RECURRENCE);
-                dialogInterface.dismiss();
-                return;
-              } else {
-                rrule = new RRule();
-                rrule.setInterval(1);
-                repeatAfterCompletion = false;
-
-                switch (i) {
-                  case 1:
-                    rrule.setFreq(DAILY);
-                    break;
-                  case 2:
-                    rrule.setFreq(WEEKLY);
-                    break;
-                  case 3:
-                    rrule.setFreq(MONTHLY);
-                    break;
-                  case 4:
-                    rrule.setFreq(YEARLY);
-                    break;
-                }
-
-                tracker.reportEvent(Tracking.Events.RECURRENCE_PRESET, rrule.toIcal());
-              }
-
-              callback.repeatChanged(rrule != null);
-              refreshDisplayView();
-              dialogInterface.dismiss();
-            })
-        .setOnCancelListener(d -> refreshDisplayView())
-        .show();
+    newBasicRecurrenceDialog(this, rrule, dueDate)
+        .show(getFragmentManager(), FRAG_TAG_BASIC_RECURRENCE);
   }
 
   @Override
@@ -359,10 +252,9 @@ public class RepeatControlSet extends TaskEditControlFragment
       displayView.setText(repeatRuleToString.toString(rrule));
       repeatTypeContainer.setVisibility(View.VISIBLE);
     }
-  }
-
-  public interface RepeatChangedListener {
-
-    void repeatChanged(boolean repeat);
+    TaskEditFragment targetFragment = (TaskEditFragment) getParentFragment();
+    if (targetFragment != null) {
+      targetFragment.onRepeatChanged(rrule != null);
+    }
   }
 }
