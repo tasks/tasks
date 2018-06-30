@@ -277,7 +277,7 @@ public class MainActivity extends InjectingAppCompatActivity
         .beginTransaction()
         .replace(R.id.detail, taskEditFragment, TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
         .addToBackStack(TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
-        .commit();
+        .commitAllowingStateLoss();
 
     getSupportFragmentManager().executePendingTransactions();
 
