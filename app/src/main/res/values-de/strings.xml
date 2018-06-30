@@ -117,7 +117,7 @@
 	<string name="EPr_default_urgency_title">Standard-Fälligkeit</string>
 	<string name="EPr_default_importance_title">Standard-Priorität</string>
 	<string name="EPr_default_hideUntil_title">Standardmäßig verstecken bis</string>
-	<string name="EPr_default_reminders_title">Standard-Erinnerungen</string>
+	<string name="EPr_default_reminders_title">Standarderinnerungen</string>
 	<string name="EPr_default_reminders_mode_title">Standard-Alarm/Vibrationssignal</string>
 	<string name="priority_high">Hoch</string>
 	<string name="priority_medium">Mittel</string>
@@ -183,7 +183,7 @@
 	<string name="snooze_all">Alle schlummern</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Beginn der Ruhezeit</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Ende der Ruhezeit</string>
-	<string name="rmd_EPr_rmd_time_title">Standard-Erinnerung</string>
+	<string name="rmd_EPr_rmd_time_title">Standarderinnerumg</string>
 	<string name="rmd_EPr_rmd_time_desc">Benachrichtigungen für Aufgaben ohne Fälligkeit werden um %s angezeigt</string>
 	<string name="persistent_notifications">Hartnäckige Benachrichtigungen</string>
 	<string name="persistent_notifications_description">Hartnäckige Benachrichtigungen können nicht einfach gelöscht werden</string>
@@ -270,7 +270,7 @@
 	<string name="repeat_until">Wiederhole bis %s</string>
 	<string name="repeat_number_of_times">Wiederhole n-mal</string>
 	<string name="repeat_occurs">Tritt ein</string>
-	<string name="repeat_snackbar">%1$s verschoben um %2$s</string>
+	<string name="repeat_snackbar">%1$s neu geplant für %2$s</string>
 	<string comment="display new due date and time in snackbar after completing repeating task, e.g. \'Tomorrow at 8 AM\' or \'21 May at 8 AM\'" name="repeat_snackbar_time">%1$s um %2$s</string>
 	<string name="new_tag">Neues Stichwort erstellen</string>
 	<string name="new_list">Neue Liste erstellen</string>
@@ -473,13 +473,14 @@
 	<string name="repeat_monthly_every_day_of_nth_week">jeden %1$s %2$s</string>
 	<string name="repeat_monthly_on_every_day_of_nth_week">an jedem %1$s %2$s</string>
 	<string name="repeat_monthly_first_week">ersten</string>
-	<string name="repeat_monthly_second_week">1 Sekunde</string>
+	<string name="repeat_monthly_second_week">zweiten</string>
 	<string name="repeat_monthly_third_week">dritten</string>
 	<string name="repeat_monthly_fourth_week">vierten</string>
-	<string name="repeat_monthly_last_week">Nachname</string>
+	<string name="repeat_monthly_last_week">letzen</string>
 	<string name="tasker_create_task">Aufgabe erstellen</string>
 	<string name="tasker_list_notification">Listenbenachrichtigung</string>
 	<string name="help">Hilfe</string>
+	<string name="caldav_home_set_not_found">CalDAV-Home-Set nicht gefunden</string>
 	<string name="network_error">Verbindung fehlgeschlagen</string>
 	<string name="background_sync_unmetered_only">Nur bei unbeschränkter Verbindung</string>
 	<string name="upgrade">Verbessern</string>
@@ -492,9 +493,9 @@
 	<string name="error_billing_unavailable">Abrechnung nicht verfügbar. Stelle sicher, dass deine Google Play App korrekt installiert ist</string>
 	<string name="error_billing_default">Abrechnung nicht verfügbar. Bitte überprüfe dein Gerät.</string>
 	<string name="about">Über</string>
-	<string name="license_summary">Tasks ist freie, quelloffene Software, die unter der GNU General Public License v3.0 lizenziert ist</string>
+	<string name="license_summary">Tasks ist freie, quelloffene Software, die unter der GNU General Public License v3.0 lizenziert ist.</string>
 	<string name="themes">Zusätzliche Themes</string>
-	<string name="pro_caldav_sync">CalDAV Synchronisierung</string>
+	<string name="pro_caldav_sync">CalDAV-Synchronisierung</string>
 	<string name="pro_multiple_google_task_accounts">Mehrere Google-Tasks-Konten</string>
 	<string name="pro_tasker_plugins">Tasker Plugins</string>
 	<string name="pro_dashclock_extension">Dashclock-Erweiterung</string>

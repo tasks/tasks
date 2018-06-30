@@ -1,27 +1,34 @@
 Change Log
 ---
 
-### 6.1 (2018-05-24)
+### 6.1 (2018-06-30)
 
 * Customize launcher icon
 * Customize shortcut widget icon and label
 * Add custom text selection action (Android 6+)
-* Fix localization issues - marmo
+* Target Android P
+* Remove 'Tasks' from notification body
+* Fix localization issues - @marmo
 * Fix crash when calendar permissions are revoked
 * Fix crash when opening task from widget
-* Remove 'Tasks' from notification body
+* Fix crash when recording audio note
+* Fix crash when dismissing dialogs
+* Fix crash in backup import
+* Fix crash on invalid URL during CalDAV setup
+* Fix crash when editing task
 * Update translations
-  * German - marmo, Strubbl
-  * Spanish - i2nm7s
+  * Brazilian Portuguese - douglaslmr
+  * Bulgarian - ddmdima96
+  * Dutch - revdbrink
   * French - Florian_Dubois, MystEre84
+  * German - @marmo, sNiXx, Strubbl
   * Hungarian - kaciokos
   * Italian - dfdario
   * Korean - timeforwarp
   * Lithuanian - gacuxz
-  * Dutch - revdbrink
   * Polish - hadogenes
-  * Brazilian Portuguese - douglaslmr
-  * Russian - uryevich
+  * Russian - @uryevich
+  * Spanish - i2nm7s
   * Turkish - etc
 
 ### 6.0.6 (2018-04-28)

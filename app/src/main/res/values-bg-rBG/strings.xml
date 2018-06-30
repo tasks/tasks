@@ -61,6 +61,10 @@
 	<string name="due_time">До време</string>
 	<string name="day_before_due">Ден преди крайния срок</string>
 	<string name="week_before_due">Седмица преди крайния срок</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization." name="TEA_hideUntil_due_date">до дата</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization." name="TEA_hideUntil_due_time">до време</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization." name="TEA_hideUntil_day_before_due">ден преди крайния срок</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization." name="TEA_hideUntil_week_before_due">седмица преди крайния срок</string>
 	<string name="TEA_control_when">Кога</string>
 	<string name="TEA_control_repeat">Повторение</string>
 	<string name="TEA_control_gcal">Календар</string>
@@ -159,6 +163,7 @@
 	<string name="gcal_completed_title">%s (завършено)</string>
 	<string name="CFC_gtasks_list_text">В списък: ?</string>
 	<string name="CFC_gtasks_list_name">В списък GTasks...</string>
+	<string name="CFC_caldav_list_name">В CalDAV списък…</string>
 	<string name="gtasks_GTA_clear_completed">Изчисти Завършени</string>
 	<string name="gtasks_GLA_authenticating">Удостоверява се...</string>
 	<string name="gtasks_GLA_errorIOAuth">Съжаляваме, ние имахме проблем с комуникацията със сървърите на Google. Моля, опитайте отново по-късно.</string>
@@ -271,6 +276,7 @@
 	<string name="repeat_number_of_times">Повтаряй брой пъти</string>
 	<string name="repeat_occurs">Възниква</string>
 	<string name="repeat_snackbar">%1$s е насрочено за %2$s</string>
+	<string comment="display new due date and time in snackbar after completing repeating task, e.g. \'Tomorrow at 8 AM\' or \'21 May at 8 AM\'" name="repeat_snackbar_time">%1$s в %2$s</string>
 	<string name="new_tag">Нов таг</string>
 	<string name="new_list">Създаване на нов списък</string>
 	<string name="tag_FEx_untagged">Без категория</string>
@@ -384,6 +390,7 @@
 	<string name="theme">Тема</string>
 	<string name="color">Цвят</string>
 	<string name="accent">Акцент</string>
+	<string name="launcher_icon">Иконка на лаунчера</string>
 	<string name="theme_red">Червен</string>
 	<string name="theme_pink">Розов</string>
 	<string name="theme_purple">Лилав</string>
@@ -504,4 +511,9 @@
 	<string name="pro_tasker_plugins">Tasker добавки</string>
 	<string name="pro_dashclock_extension">Dashclock  разширение</string>
 	<string name="requires_pro_subscription">Изисква pro абонамент</string>
+	<string name="logout">Излизане</string>
+	<string name="logout_warning">Разлогване от %s? Всички данни за този акаунт ще бъдат изтрити от Вашето устройство</string>
+	<string name="cannot_access_account">Няма достъп до акаунт</string>
+	<string name="reinitialize_account">Реинициализиране</string>
+	<string name="action_create_new_task">Създай нова задача</string>
 </resources>
