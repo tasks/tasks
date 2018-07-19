@@ -56,10 +56,10 @@ public class CaldavConverter {
     } else {
       Date dueDate = due.getDate();
       if (dueDate instanceof DateTime) {
-        local.setDueDate(Task.createDueDate(URGENCY_SPECIFIC_DAY_TIME, dueDate.getTime()));
+        local.setDueDateAdjustingHideUntil(Task.createDueDate(URGENCY_SPECIFIC_DAY_TIME, dueDate.getTime()));
       } else {
         try {
-          local.setDueDate(
+          local.setDueDateAdjustingHideUntil(
               Task.createDueDate(
                   URGENCY_SPECIFIC_DAY, DUE_DATE_FORMAT.parse(due.getValue()).getTime()));
         } catch (ParseException e) {
