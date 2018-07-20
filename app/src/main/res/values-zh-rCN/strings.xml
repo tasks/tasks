@@ -58,6 +58,10 @@
 	<string name="due_time">到期时间</string>
 	<string name="day_before_due">截止期前一天</string>
 	<string name="week_before_due">截止期前一周</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization." name="TEA_hideUntil_due_date">截止日期</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization." name="TEA_hideUntil_due_time">截止时间</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization." name="TEA_hideUntil_day_before_due">截止期前一天</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization." name="TEA_hideUntil_week_before_due">截止期前一周</string>
 	<string name="TEA_control_when">时间</string>
 	<string name="TEA_control_repeat">重复</string>
 	<string name="TEA_control_gcal">日历</string>
@@ -156,6 +160,7 @@
 	<string name="gcal_completed_title">%s (已完成)</string>
 	<string name="CFC_gtasks_list_text">列表内容: ?</string>
 	<string name="CFC_gtasks_list_name">在GTasks列表…</string>
+	<string name="CFC_caldav_list_name">在 CalDAV 列表…</string>
 	<string name="gtasks_GTA_clear_completed">清除已完成项</string>
 	<string name="gtasks_GLA_authenticating">正在认证...</string>
 	<string name="gtasks_GLA_errorIOAuth">对不起，我们在与 Google 服务器通讯时遇到了问题。请稍后再尝试。</string>
@@ -268,8 +273,9 @@
 	<string name="repeat_number_of_times">重复多次</string>
 	<string name="repeat_occurs">发生</string>
 	<string name="repeat_snackbar">%1$s 重新安排在 %2$s</string>
+	<string comment="display new due date and time in snackbar after completing repeating task, e.g. \'Tomorrow at 8 AM\' or \'21 May at 8 AM\'" name="repeat_snackbar_time">%1$s 的 %2$s</string>
 	<string name="new_tag">新建标签</string>
-	<string name="new_list">创建列表</string>
+	<string name="new_list">新建列表</string>
 	<string name="tag_FEx_untagged">未分类</string>
 	<string name="delete_tag_confirmation">删除 %s？</string>
 	<string name="TPl_notification">秒表启动了 %s！</string>
@@ -350,6 +356,7 @@
 	<string name="list_settings">列表设置</string>
 	<string name="delete">删除</string>
 	<string name="copy">拷贝</string>
+	<string name="move">移动</string>
 	<string name="filter_settings">过滤器设置</string>
 	<string name="show_hidden">显示隐藏的任务</string>
 	<string name="show_completed">显示已完成任务</string>
@@ -364,6 +371,7 @@
 	<string name="send_anonymous_statistics">改进Tasks</string>
 	<string name="send_anonymous_statistics_summary">发送匿名使用情况统计信息和崩溃报告，以帮助改进Tasks。不会收集个人资料。</string>
 	<string name="tag_already_exists">标签已存在</string>
+	<string name="duplicate_name">重复名字</string>
 	<string name="name_cannot_be_empty">名字不能为空</string>
 	<string name="username_required">请填用户名</string>
 	<string name="password_required">请填密码</string>
@@ -379,6 +387,7 @@
 	<string name="theme">主题</string>
 	<string name="color">颜色</string>
 	<string name="accent">强调色</string>
+	<string name="launcher_icon">启动器图标</string>
 	<string name="theme_red">红色</string>
 	<string name="theme_pink">粉色</string>
 	<string name="theme_purple">紫色</string>
@@ -421,6 +430,7 @@
 	<string name="widget_row_settings">行设置</string>
 	<string name="sync_error_permissions">Tasks 需要权限</string>
 	<string name="creating_new_list">正在创建新列表</string>
+	<string name="contacting_server">正在连接服务器</string>
 	<string name="deleting_list">正在删除列表</string>
 	<string name="renaming_list">正在重命名列表</string>
 	<string name="clear_completed_tasks_confirmation">清除完成的任务？</string>
@@ -437,6 +447,7 @@
 	<string name="password">密码</string>
 	<string name="url">网址</string>
 	<string name="error_adding_account">添加帐号错误</string>
+	<string name="calendar_settings">日历设置</string>
 	<string name="notification_channel_settings">管理通知</string>
 	<string name="battery_optimization_settings">电池优化管理</string>
 	<string name="notification_disable_battery_optimizations_description">电池优化可能会延迟通知</string>
@@ -478,5 +489,29 @@
 	<string name="tasker_create_task">创建任务</string>
 	<string name="tasker_list_notification">列出通知</string>
 	<string name="help">帮助</string>
+	<string name="caldav_home_set_not_found">未设置CalDAVHome</string>
+	<string name="network_error">连接失败</string>
+	<string name="background_sync_unmetered_only">仅于不计费的连接</string>
+	<string name="upgrade">升级</string>
+	<string name="upgrade_to_pro">升级至专业版</string>
+	<string name="refresh_purchases">刷新购买</string>
+	<string name="button_subscribed">已订购</string>
+	<string name="button_subscribe">订购</string>
+	<string name="button_more_info">更多信息</string>
+	<string name="owned">已拥有</string>
+	<string name="error_billing_unavailable">帐单不可用。确保你的Google Play应用已正确设置</string>
+	<string name="error_billing_default">帐单不可用。请检查你的设备。</string>
+	<string name="about">关于</string>
+	<string name="license_summary">Tasks是免费的开源软件，根据GNU通用公共许可证v3.0获得许可</string>
 	<string name="themes">其他主题</string>
+	<string name="pro_caldav_sync">CalDAV同步</string>
+	<string name="pro_multiple_google_task_accounts">多Google Taks帐户</string>
+	<string name="pro_tasker_plugins">Tasker插件</string>
+	<string name="pro_dashclock_extension">Dashclock扩展</string>
+	<string name="requires_pro_subscription">需要订阅专业版</string>
+	<string name="logout">登出</string>
+	<string name="logout_warning">登出 %s? 此帐户的所有数据都将从您的设备中删除</string>
+	<string name="cannot_access_account">无法访问帐户</string>
+	<string name="reinitialize_account">重新初始化</string>
+	<string name="action_create_new_task">新建任务</string>
 </resources>

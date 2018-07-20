@@ -1,6 +1,13 @@
 Change Log
 ---
 
+### 6.1.1 (2018-07-20)
+
+* Fix TeslaUnread issues
+* Allow non-SSL connections
+* Allow user-defined certificate authorities
+* Update Chinese translations (Atlantids)
+
 ### 6.1 (2018-06-30)
 
 * Customize launcher icon
