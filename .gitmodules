@@ -6,4 +6,4 @@
 	url = https://gitlab.com/tasks.org/dav4android.git
 [submodule "ShortcutBadger"]
 	path = ShortcutBadger
-	url = git@github.com:tasks/ShortcutBadger.git
+	url = https://github.com/tasks/ShortcutBadger.git

@@ -3,7 +3,7 @@ Change Log
 
 ### 6.1.1 (2018-07-20)
 
-* Fix TeslaUnread issues
+* Fix notification badge issues
 * Allow non-SSL connections
 * Allow user-defined certificate authorities
 * Update Chinese translations (Atlantids)
