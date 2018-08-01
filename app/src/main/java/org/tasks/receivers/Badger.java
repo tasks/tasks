@@ -6,7 +6,6 @@ import android.content.Intent;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import javax.inject.Inject;
-import me.leolin.shortcutbadger.ShortcutBadger;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.ForApplication;
