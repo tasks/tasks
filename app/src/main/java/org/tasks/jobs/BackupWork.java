@@ -5,7 +5,6 @@ import static com.google.common.collect.Lists.newArrayList;
 import static java.util.Collections.emptyList;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import java.io.File;
 import java.io.FileFilter;
 import java.util.Arrays;
@@ -15,12 +14,11 @@ import java.util.List;
 import javax.inject.Inject;
 import org.tasks.backup.TasksJsonExporter;
 import org.tasks.injection.ForApplication;
-import org.tasks.injection.InjectingJob;
 import org.tasks.injection.JobComponent;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
-public class BackupJob extends InjectingJob {
+public class BackupWork extends DailyWork {
 
   static final String BACKUP_FILE_NAME_REGEX = "auto\\.[-\\d]+\\.json";
   static final FileFilter FILE_FILTER = f -> f.getName().matches(BACKUP_FILE_NAME_REGEX);
@@ -31,13 +29,25 @@ public class BackupJob extends InjectingJob {
   @Inject @ForApplication Context context;
   @Inject TasksJsonExporter tasksJsonExporter;
   @Inject Preferences preferences;
+  @Inject WorkManager workManager;
 
-  public BackupJob() {}
+  public BackupWork() {}
 
-  BackupJob(Context context, TasksJsonExporter tasksJsonExporter, Preferences preferences) {
+  BackupWork(Context context, TasksJsonExporter tasksJsonExporter, Preferences preferences) {
     this.context = context;
     this.tasksJsonExporter = tasksJsonExporter;
     this.preferences = preferences;
+  }
+
+  @Override
+  protected Result doDailyWork() {
+    startBackup(context);
+    return Result.SUCCESS;
+  }
+
+  @Override
+  protected void scheduleNext() {
+    workManager.scheduleBackup();
   }
 
   static List<File> getDeleteList(File[] fileArray, int keepNewest) {
@@ -48,15 +58,6 @@ public class BackupJob extends InjectingJob {
     List<File> files = Arrays.asList(fileArray);
     Collections.sort(files, BY_LAST_MODIFIED);
     return newArrayList(skip(files, keepNewest));
-  }
-
-  @NonNull
-  @Override
-  protected Result onRunJob(@NonNull Params params) {
-    super.onRunJob(params);
-
-    startBackup(context);
-    return Result.SUCCESS;
   }
 
   @Override

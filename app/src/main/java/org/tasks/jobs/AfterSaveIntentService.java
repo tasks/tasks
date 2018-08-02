@@ -45,7 +45,7 @@ public class AfterSaveIntentService extends InjectingJobIntentService {
     intent.putExtra(EXTRA_CURRENT, current);
     intent.putExtra(EXTRA_ORIGINAL, original);
     AfterSaveIntentService.enqueueWork(
-        context, AfterSaveIntentService.class, JobManager.JOB_ID_TASK_STATUS_CHANGE, intent);
+        context, AfterSaveIntentService.class, InjectingJobIntentService.JOB_ID_TASK_STATUS_CHANGE, intent);
   }
 
   @Override

@@ -4,7 +4,6 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
-import com.evernote.android.job.JobManager;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
@@ -144,12 +143,6 @@ public class ApplicationModule {
   @ApplicationScope
   public DeletionDao getDeletionDao(Database database) {
     return database.getDeletionDao();
-  }
-
-  @Provides
-  @ApplicationScope
-  public JobManager getJobManager() {
-    return JobManager.create(context);
   }
 
   @Provides

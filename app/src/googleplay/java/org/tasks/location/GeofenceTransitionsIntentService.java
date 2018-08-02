@@ -13,7 +13,6 @@ import org.tasks.data.Location;
 import org.tasks.data.LocationDao;
 import org.tasks.injection.InjectingJobIntentService;
 import org.tasks.injection.IntentServiceComponent;
-import org.tasks.jobs.JobManager;
 import timber.log.Timber;
 
 public class GeofenceTransitionsIntentService extends InjectingJobIntentService {
@@ -65,7 +64,7 @@ public class GeofenceTransitionsIntentService extends InjectingJobIntentService 
       JobIntentService.enqueueWork(
           context,
           GeofenceTransitionsIntentService.class,
-          JobManager.JOB_ID_GEOFENCE_TRANSITION,
+          InjectingJobIntentService.JOB_ID_GEOFENCE_TRANSITION,
           intent);
     }
   }

@@ -1,15 +1,15 @@
 package org.tasks.injection;
 
 import android.support.annotation.NonNull;
-import com.evernote.android.job.Job;
+import androidx.work.Worker;
 
-public abstract class InjectingJob extends Job {
+public abstract class InjectingWorker extends Worker {
 
   @NonNull
   @Override
-  protected Result onRunJob(@NonNull Params params) {
+  public Result doWork() {
     JobComponent component =
-        Dagger.get(getContext()).getApplicationComponent().plus(new JobModule());
+        ((InjectingApplication) getApplicationContext()).getComponent().plus(new WorkModule());
     inject(component);
     return Result.SUCCESS;
   }

@@ -35,7 +35,7 @@ import org.tasks.gtasks.GtaskSyncAdapterHelper;
 import org.tasks.gtasks.PlayServices;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
-import org.tasks.jobs.JobManager;
+import org.tasks.jobs.WorkManager;
 import org.tasks.preferences.ActivityPermissionRequestor;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.PermissionRequestor;
@@ -61,7 +61,7 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
   @Inject GoogleTaskListDao googleTaskListDao;
   @Inject GoogleAccountManager googleAccountManager;
   @Inject Preferences preferences;
-  @Inject JobManager jobManager;
+  @Inject WorkManager workManager;
   @Inject CaldavDao caldavDao;
   @Inject Inventory inventory;
   @Inject TaskDeleter taskDeleter;
@@ -81,13 +81,13 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
     findPreference(getString(R.string.p_background_sync_unmetered_only))
         .setOnPreferenceChangeListener(
             (preference, o) -> {
-              jobManager.updateBackgroundSync(null, null, (Boolean) o);
+              workManager.updateBackgroundSync(null, null, (Boolean) o);
               return true;
             });
     findPreference(getString(R.string.p_background_sync))
         .setOnPreferenceChangeListener(
             (preference, o) -> {
-              jobManager.updateBackgroundSync(null, (Boolean) o, null);
+              workManager.updateBackgroundSync(null, (Boolean) o, null);
               return true;
             });
   }
@@ -234,12 +234,12 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
       boolean enabled = resultCode == RESULT_OK;
       if (enabled) {
         tracker.reportEvent(Tracking.Events.GTASK_ENABLED);
-        jobManager.updateBackgroundSync();
+        workManager.updateBackgroundSync();
         restart();
       }
     } else if (requestCode == REQUEST_CALDAV_SETTINGS) {
       if (resultCode == RESULT_OK) {
-        jobManager.updateBackgroundSync();
+        workManager.updateBackgroundSync();
         restart();
       }
     } else if (requestCode == REQUEST_CALDAV_SUBSCRIBE) {

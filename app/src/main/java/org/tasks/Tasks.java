@@ -1,12 +1,12 @@
 package org.tasks;
 
+import com.jakewharton.processphoenix.ProcessPhoenix;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.todoroo.astrid.service.StartupService;
 import javax.inject.Inject;
 import org.tasks.injection.ApplicationComponent;
 import org.tasks.injection.InjectingApplication;
-import org.tasks.jobs.JobCreator;
-import org.tasks.jobs.JobManager;
+import org.tasks.jobs.WorkManager;
 import org.tasks.preferences.Preferences;
 import org.tasks.receivers.Badger;
 import org.tasks.themes.ThemeCache;
@@ -19,22 +19,21 @@ public class Tasks extends InjectingApplication {
   @Inject BuildSetup buildSetup;
   @Inject ThemeCache themeCache;
   @Inject Badger badger;
-  @Inject JobManager jobManager;
-  @Inject JobCreator jobCreator;
+  @Inject WorkManager workManager;
 
   @Override
   public void onCreate() {
     super.onCreate();
 
-    if (!buildSetup.setup()) {
+    if (!buildSetup.setup() || ProcessPhoenix.isPhoenixProcess(this)) {
       return;
     }
+
+    workManager.init();
 
     AndroidThreeTen.init(this);
 
     preferences.setSyncOngoing(false);
-
-    jobManager.addJobCreator(jobCreator);
 
     flavorSetup.setup();
 
@@ -44,9 +43,7 @@ public class Tasks extends InjectingApplication {
 
     startupService.onStartupApplication();
 
-    jobManager.updateBackgroundSync();
-    jobManager.scheduleMidnightRefresh();
-    jobManager.scheduleBackup();
+    workManager.onStartup();
   }
 
   @Override

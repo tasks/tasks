@@ -81,7 +81,7 @@ public class BackupServiceTests extends InjectingTestCase {
     assertEquals(0, temporaryDirectory.list().length);
 
     // create a backup
-    BackupJob service = new BackupJob(getTargetContext(), jsonExporter, preferences);
+    BackupWork service = new BackupWork(getTargetContext(), jsonExporter, preferences);
     service.startBackup(getTargetContext());
 
     AndroidUtilities.sleepDeep(BACKUP_WAIT_TIME);
@@ -89,6 +89,6 @@ public class BackupServiceTests extends InjectingTestCase {
     // assert file created
     File[] files = temporaryDirectory.listFiles();
     assertEquals(1, files.length);
-    assertTrue(files[0].getName().matches(BackupJob.BACKUP_FILE_NAME_REGEX));
+    assertTrue(files[0].getName().matches(BackupWork.BACKUP_FILE_NAME_REGEX));
   }
 }

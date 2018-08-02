@@ -5,7 +5,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.JobIntentService;
-import org.tasks.jobs.JobManager;
+import org.tasks.injection.InjectingJobIntentService;
 import timber.log.Timber;
 
 public final class FireReceiver extends BroadcastReceiver {
@@ -42,6 +42,6 @@ public final class FireReceiver extends BroadcastReceiver {
     }
 
     JobIntentService.enqueueWork(
-        context, TaskerIntentService.class, JobManager.JOB_ID_TASKER, intent);
+        context, TaskerIntentService.class, InjectingJobIntentService.JOB_ID_TASKER, intent);
   }
 }

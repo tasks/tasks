@@ -17,11 +17,11 @@ import org.tasks.data.CaldavCalendar;
 import org.tasks.data.DeletionDao;
 import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskList;
-import org.tasks.jobs.JobManager;
+import org.tasks.jobs.WorkManager;
 
 public class TaskDeleter {
 
-  private final JobManager jobManager;
+  private final WorkManager workManager;
   private final TaskDao taskDao;
   private final LocalBroadcastManager localBroadcastManager;
   private final DeletionDao deletionDao;
@@ -29,11 +29,11 @@ public class TaskDeleter {
   @Inject
   public TaskDeleter(
       DeletionDao deletionDao,
-      JobManager jobManager,
+      WorkManager workManager,
       TaskDao taskDao,
       LocalBroadcastManager localBroadcastManager) {
     this.deletionDao = deletionDao;
-    this.jobManager = jobManager;
+    this.workManager = workManager;
     this.taskDao = taskDao;
     this.localBroadcastManager = localBroadcastManager;
   }
@@ -50,8 +50,8 @@ public class TaskDeleter {
 
   public List<Task> markDeleted(List<Long> taskIds) {
     deletionDao.markDeleted(taskIds);
-    jobManager.cleanup(taskIds);
-    jobManager.syncNow();
+    workManager.cleanup(taskIds);
+    workManager.syncNow();
     localBroadcastManager.broadcastRefresh();
     return taskDao.fetch(taskIds);
   }
@@ -62,7 +62,7 @@ public class TaskDeleter {
 
   public void delete(List<Long> tasks) {
     deletionDao.delete(tasks);
-    jobManager.cleanup(tasks);
+    workManager.cleanup(tasks);
     localBroadcastManager.broadcastRefresh();
   }
 
@@ -84,28 +84,28 @@ public class TaskDeleter {
 
   public void delete(GoogleTaskList googleTaskList) {
     List<Long> ids = deletionDao.delete(googleTaskList);
-    jobManager.cleanup(ids);
+    workManager.cleanup(ids);
     localBroadcastManager.broadcastRefresh();
     localBroadcastManager.broadcastRefreshList();
   }
 
   public void delete(GoogleTaskAccount googleTaskAccount) {
     List<Long> ids = deletionDao.delete(googleTaskAccount);
-    jobManager.cleanup(ids);
+    workManager.cleanup(ids);
     localBroadcastManager.broadcastRefresh();
     localBroadcastManager.broadcastRefreshList();
   }
 
   public void delete(CaldavCalendar caldavCalendar) {
     List<Long> ids = deletionDao.delete(caldavCalendar);
-    jobManager.cleanup(ids);
+    workManager.cleanup(ids);
     localBroadcastManager.broadcastRefresh();
     localBroadcastManager.broadcastRefreshList();
   }
 
   public void delete(CaldavAccount caldavAccount) {
     List<Long> ids = deletionDao.delete(caldavAccount);
-    jobManager.cleanup(ids);
+    workManager.cleanup(ids);
     localBroadcastManager.broadcastRefresh();
     localBroadcastManager.broadcastRefreshList();
   }

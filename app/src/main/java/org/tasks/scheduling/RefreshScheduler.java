@@ -9,17 +9,17 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import javax.inject.Inject;
 import org.tasks.injection.ApplicationScope;
-import org.tasks.jobs.JobManager;
+import org.tasks.jobs.WorkManager;
 
 @ApplicationScope
 public class RefreshScheduler {
 
-  private final JobManager jobManager;
+  private final WorkManager workManager;
   private final SortedSet<Long> jobs = new TreeSet<>();
 
   @Inject
-  public RefreshScheduler(JobManager jobManager) {
-    this.jobManager = jobManager;
+  public RefreshScheduler(WorkManager workManager) {
+    this.workManager = workManager;
   }
 
   public void scheduleRefresh(Task task) {
@@ -46,6 +46,7 @@ public class RefreshScheduler {
     boolean reschedule = upcoming.isEmpty() || timestamp < upcoming.first();
     jobs.add(timestamp);
     if (reschedule) {
+      workManager.cancelRefresh();
       scheduleNext();
     }
   }
@@ -54,7 +55,7 @@ public class RefreshScheduler {
     long now = currentTimeMillis();
     jobs.removeAll(newArrayList(jobs.headSet(now + 1)));
     if (!jobs.isEmpty()) {
-      jobManager.scheduleRefresh(jobs.first());
+      workManager.scheduleRefresh(jobs.first());
     }
   }
 }

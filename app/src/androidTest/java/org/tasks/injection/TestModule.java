@@ -2,7 +2,6 @@ package org.tasks.injection;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
-import com.evernote.android.job.JobManager;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao;
 import dagger.Module;
@@ -28,7 +27,7 @@ public class TestModule {
 
   private final Context context;
 
-  public TestModule(Context context) {
+  TestModule(Context context) {
     this.context = context;
   }
 
@@ -122,11 +121,5 @@ public class TestModule {
   @Provides
   public PermissionChecker getPermissionChecker() {
     return new PermissivePermissionChecker(context);
-  }
-
-  @ApplicationScope
-  @Provides
-  public JobManager getJobManager() {
-    return JobManager.create(context);
   }
 }

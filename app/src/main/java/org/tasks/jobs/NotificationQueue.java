@@ -19,12 +19,12 @@ public class NotificationQueue {
   private final TreeMultimap<Long, NotificationQueueEntry> jobs =
       TreeMultimap.create(Ordering.natural(), (l, r) -> Ints.compare(l.hashCode(), r.hashCode()));
   private final Preferences preferences;
-  private final JobManager jobManager;
+  private final WorkManager workManager;
 
   @Inject
-  public NotificationQueue(Preferences preferences, JobManager jobManager) {
+  public NotificationQueue(Preferences preferences, WorkManager workManager) {
     this.preferences = preferences;
-    this.jobManager = jobManager;
+    this.workManager = workManager;
   }
 
   public synchronized <T extends NotificationQueueEntry> void add(T entry) {
@@ -37,7 +37,7 @@ public class NotificationQueue {
 
   public synchronized void clear() {
     jobs.clear();
-    jobManager.cancelNotifications();
+    workManager.cancelNotifications();
   }
 
   public synchronized void cancelAlarm(long alarmId) {
@@ -78,10 +78,10 @@ public class NotificationQueue {
   private void scheduleNext(boolean cancelCurrent) {
     if (jobs.isEmpty()) {
       if (cancelCurrent) {
-        jobManager.cancelNotifications();
+        workManager.cancelNotifications();
       }
     } else {
-      jobManager.scheduleNotification(nextScheduledTime());
+      workManager.scheduleNotification(nextScheduledTime(), cancelCurrent);
     }
   }
 

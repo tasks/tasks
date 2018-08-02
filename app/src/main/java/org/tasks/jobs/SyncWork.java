@@ -5,12 +5,12 @@ import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.caldav.CaldavSynchronizer;
 import org.tasks.gtasks.GoogleTaskSynchronizer;
-import org.tasks.injection.InjectingJob;
+import org.tasks.injection.InjectingWorker;
 import org.tasks.injection.JobComponent;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
-public class SyncJob extends InjectingJob {
+public class SyncWork extends InjectingWorker {
 
   private static final Object LOCK = new Object();
 
@@ -21,12 +21,12 @@ public class SyncJob extends InjectingJob {
 
   @NonNull
   @Override
-  protected Result onRunJob(@NonNull Params params) {
-    super.onRunJob(params);
+  public Result doWork() {
+    super.doWork();
 
     synchronized (LOCK) {
       if (preferences.isSyncOngoing()) {
-        return Result.RESCHEDULE;
+        return Result.RETRY;
       }
     }
 

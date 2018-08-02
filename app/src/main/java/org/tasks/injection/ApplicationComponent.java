@@ -21,5 +21,5 @@ public interface ApplicationComponent {
 
   IntentServiceComponent plus(IntentServiceModule module);
 
-  JobComponent plus(JobModule module);
+  JobComponent plus(WorkModule module);
 }

@@ -8,7 +8,6 @@ import com.todoroo.astrid.reminders.ReminderService;
 import javax.inject.Inject;
 import org.tasks.injection.InjectingJobIntentService;
 import org.tasks.injection.IntentServiceComponent;
-import org.tasks.jobs.JobManager;
 import org.tasks.jobs.NotificationQueue;
 import org.tasks.notifications.NotificationManager;
 import timber.log.Timber;
@@ -28,7 +27,7 @@ public class NotificationSchedulerIntentService extends InjectingJobIntentServic
     JobIntentService.enqueueWork(
         context,
         NotificationSchedulerIntentService.class,
-        JobManager.JOB_ID_NOTIFICATION_SCHEDULER,
+        InjectingJobIntentService.JOB_ID_NOTIFICATION_SCHEDULER,
         intent);
   }
 

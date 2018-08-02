@@ -4,25 +4,25 @@ import android.app.Activity;
 import javax.inject.Inject;
 import org.tasks.data.CaldavDao;
 import org.tasks.gtasks.GtaskSyncAdapterHelper;
-import org.tasks.jobs.JobManager;
+import org.tasks.jobs.WorkManager;
 
 public class SyncAdapters {
 
   private final GtaskSyncAdapterHelper gtaskSyncAdapterHelper;
-  private final JobManager jobManager;
+  private final WorkManager workManager;
   private final CaldavDao caldavDao;
 
   @Inject
   public SyncAdapters(
-      GtaskSyncAdapterHelper gtaskSyncAdapterHelper, JobManager jobManager, CaldavDao caldavDao) {
+      GtaskSyncAdapterHelper gtaskSyncAdapterHelper, WorkManager workManager, CaldavDao caldavDao) {
     this.gtaskSyncAdapterHelper = gtaskSyncAdapterHelper;
-    this.jobManager = jobManager;
+    this.workManager = workManager;
     this.caldavDao = caldavDao;
   }
 
   public boolean syncNow() {
     if (isGoogleTaskSyncEnabled() || isCaldavSyncEnabled()) {
-      jobManager.syncNow();
+      workManager.syncNow();
       return true;
     }
     return false;

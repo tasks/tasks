@@ -1,22 +1,25 @@
 package org.tasks.injection;
 
 import dagger.Subcomponent;
-import org.tasks.jobs.BackupJob;
-import org.tasks.jobs.CleanupJob;
-import org.tasks.jobs.NotificationJob;
-import org.tasks.jobs.RefreshJob;
-import org.tasks.jobs.SyncJob;
+import org.tasks.jobs.BackupWork;
+import org.tasks.jobs.CleanupWork;
+import org.tasks.jobs.MidnightRefreshWork;
+import org.tasks.jobs.NotificationWork;
+import org.tasks.jobs.RefreshWork;
+import org.tasks.jobs.SyncWork;
 
-@Subcomponent(modules = JobModule.class)
+@Subcomponent(modules = WorkModule.class)
 public interface JobComponent {
 
-  void inject(SyncJob syncJob);
+  void inject(SyncWork syncWork);
 
-  void inject(NotificationJob notificationJob);
+  void inject(NotificationWork notificationWork);
 
-  void inject(BackupJob backupJob);
+  void inject(BackupWork backupWork);
 
-  void inject(RefreshJob refreshJob);
+  void inject(RefreshWork refreshWork);
 
-  void inject(CleanupJob cleanupJob);
+  void inject(CleanupWork cleanupWork);
+
+  void inject(MidnightRefreshWork midnightRefreshWork);
 }

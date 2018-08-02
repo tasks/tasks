@@ -3,19 +3,19 @@ package org.tasks.receivers;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import javax.inject.Inject;
-import org.tasks.jobs.JobManager;
+import org.tasks.jobs.WorkManager;
 import org.tasks.sync.SyncAdapters;
 import timber.log.Timber;
 
 public class PushReceiver {
 
   private final SyncAdapters syncAdapters;
-  private final JobManager jobManager;
+  private final WorkManager workManager;
 
   @Inject
-  public PushReceiver(SyncAdapters syncAdapters, JobManager jobManager) {
+  public PushReceiver(SyncAdapters syncAdapters, WorkManager workManager) {
     this.syncAdapters = syncAdapters;
-    this.jobManager = jobManager;
+    this.workManager = workManager;
   }
 
   public void push(Task task, Task original) {
@@ -31,7 +31,7 @@ public class PushReceiver {
     if (task.checkAndClearTransitory(SyncFlags.FORCE_SYNC)
         || (googleTaskSyncEnabled && !task.googleTaskUpToDate(original))
         || (caldavSyncEnabled && !task.caldavUpToDate(original))) {
-      jobManager.syncNow();
+      workManager.syncNow();
     }
   }
 }

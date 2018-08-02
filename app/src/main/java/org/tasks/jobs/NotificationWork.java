@@ -5,11 +5,11 @@ import java.util.List;
 import javax.inject.Inject;
 import org.tasks.BuildConfig;
 import org.tasks.Notifier;
-import org.tasks.injection.InjectingJob;
+import org.tasks.injection.InjectingWorker;
 import org.tasks.injection.JobComponent;
 import org.tasks.preferences.Preferences;
 
-public class NotificationJob extends InjectingJob {
+public class NotificationWork extends InjectingWorker {
 
   @Inject Preferences preferences;
   @Inject Notifier notifier;
@@ -17,9 +17,8 @@ public class NotificationJob extends InjectingJob {
 
   @NonNull
   @Override
-  protected Result onRunJob(@NonNull Params params) {
-    super.onRunJob(params);
-
+  public Result doWork() {
+    super.doWork();
     if (!preferences.isCurrentlyQuietHours()) {
       List<? extends NotificationQueueEntry> overdueJobs = notificationQueue.getOverdueJobs();
       notifier.triggerTaskNotifications(overdueJobs);
