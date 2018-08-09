@@ -4,13 +4,13 @@ import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.injection.JobComponent;
 
-public class MidnightRefreshWork extends DailyWork {
+public class MidnightRefreshWork extends RepeatingWorker {
 
   @Inject WorkManager workManager;
   @Inject LocalBroadcastManager localBroadcastManager;
 
   @Override
-  protected Result doDailyWork() {
+  protected Result run() {
     localBroadcastManager.broadcastRefresh();
     return Result.SUCCESS;
   }

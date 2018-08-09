@@ -23,9 +23,7 @@ public class CleanupWork extends InjectingWorker {
 
   @NonNull
   @Override
-  public Result doWork() {
-    super.doWork();
-
+  public Result run() {
     long[] tasks = getInputData().getLongArray(EXTRA_TASK_IDS);
     if (tasks == null) {
       Timber.e("No task ids provided");

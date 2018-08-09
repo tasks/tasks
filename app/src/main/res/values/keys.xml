@@ -292,4 +292,5 @@
   <string name="p_background_sync_unmetered_only">background_sync_unmetered_only</string>
   <string name="p_purchases">purchases</string>
   <string name="p_sync_ongoing">sync_ongoing</string>
+  <string name="p_last_backup">last_backup</string>
 </resources>

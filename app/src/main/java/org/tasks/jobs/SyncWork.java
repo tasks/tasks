@@ -21,9 +21,7 @@ public class SyncWork extends InjectingWorker {
 
   @NonNull
   @Override
-  public Result doWork() {
-    super.doWork();
-
+  public Result run() {
     synchronized (LOCK) {
       if (preferences.isSyncOngoing()) {
         return Result.RETRY;

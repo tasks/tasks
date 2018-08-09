@@ -46,7 +46,6 @@ public class RefreshScheduler {
     boolean reschedule = upcoming.isEmpty() || timestamp < upcoming.first();
     jobs.add(timestamp);
     if (reschedule) {
-      workManager.cancelRefresh();
       scheduleNext();
     }
   }

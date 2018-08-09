@@ -18,6 +18,10 @@ public class DateTimeUtils {
     return new DateTime();
   }
 
+  public static long midnight() {
+    return newDateTime().plusDays(1).startOfDay().getMillis();
+  }
+
   public static DateTime newDateTime(long timestamp) {
     return new DateTime(timestamp);
   }

@@ -2,6 +2,7 @@ package org.tasks.jobs;
 
 import static com.google.common.collect.Iterables.skip;
 import static com.google.common.collect.Lists.newArrayList;
+import static com.todoroo.andlib.utility.DateUtilities.now;
 import static java.util.Collections.emptyList;
 
 import android.content.Context;
@@ -12,13 +13,14 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import javax.inject.Inject;
+import org.tasks.R;
 import org.tasks.backup.TasksJsonExporter;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.JobComponent;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
-public class BackupWork extends DailyWork {
+public class BackupWork extends RepeatingWorker {
 
   static final String BACKUP_FILE_NAME_REGEX = "auto\\.[-\\d]+\\.json";
   static final FileFilter FILE_FILTER = f -> f.getName().matches(BACKUP_FILE_NAME_REGEX);
@@ -31,6 +33,7 @@ public class BackupWork extends DailyWork {
   @Inject Preferences preferences;
   @Inject WorkManager workManager;
 
+  @SuppressWarnings("unused")
   public BackupWork() {}
 
   BackupWork(Context context, TasksJsonExporter tasksJsonExporter, Preferences preferences) {
@@ -40,8 +43,9 @@ public class BackupWork extends DailyWork {
   }
 
   @Override
-  protected Result doDailyWork() {
+  protected Result run() {
     startBackup(context);
+    preferences.setLong(R.string.p_last_backup, now());
     return Result.SUCCESS;
   }
 

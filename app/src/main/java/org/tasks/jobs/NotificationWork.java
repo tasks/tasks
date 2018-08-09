@@ -9,7 +9,7 @@ import org.tasks.injection.InjectingWorker;
 import org.tasks.injection.JobComponent;
 import org.tasks.preferences.Preferences;
 
-public class NotificationWork extends InjectingWorker {
+public class NotificationWork extends RepeatingWorker {
 
   @Inject Preferences preferences;
   @Inject Notifier notifier;
@@ -17,8 +17,7 @@ public class NotificationWork extends InjectingWorker {
 
   @NonNull
   @Override
-  public Result doWork() {
-    super.doWork();
+  public Result run() {
     if (!preferences.isCurrentlyQuietHours()) {
       List<? extends NotificationQueueEntry> overdueJobs = notificationQueue.getOverdueJobs();
       notifier.triggerTaskNotifications(overdueJobs);
@@ -27,12 +26,16 @@ public class NotificationWork extends InjectingWorker {
         throw new RuntimeException("Failed to remove jobs from queue");
       }
     }
-    notificationQueue.scheduleNext();
     return Result.SUCCESS;
   }
 
   @Override
   protected void inject(JobComponent component) {
     component.inject(this);
+  }
+
+  @Override
+  protected void scheduleNext() {
+    notificationQueue.scheduleNext();
   }
 }

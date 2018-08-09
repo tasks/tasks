@@ -81,7 +81,7 @@ public class NotificationQueue {
         workManager.cancelNotifications();
       }
     } else {
-      workManager.scheduleNotification(nextScheduledTime(), cancelCurrent);
+      workManager.scheduleNotification(nextScheduledTime());
     }
   }
 
