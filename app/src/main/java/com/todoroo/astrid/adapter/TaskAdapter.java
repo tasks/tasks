@@ -66,6 +66,10 @@ public class TaskAdapter {
     this.helper = helper;
   }
 
+  public int getNumSelected() {
+    return selected.size();
+  }
+
   public List<Long> getSelected() {
     return newArrayList(selected);
   }

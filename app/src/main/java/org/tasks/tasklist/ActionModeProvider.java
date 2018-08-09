@@ -113,8 +113,11 @@ public class ActionModeProvider {
 
               @Override
               public void onDestroyActionMode(ActionMode actionMode) {
-                adapter.clearSelections();
                 taskListRecyclerAdapter.onDestroyActionMode();
+                if (adapter.getNumSelected() > 0) {
+                  adapter.clearSelections();
+                  taskListRecyclerAdapter.notifyDataSetChanged();
+                }
               }
 
               private void deleteSelectedItems() {

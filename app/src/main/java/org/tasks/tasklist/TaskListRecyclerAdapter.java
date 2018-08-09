@@ -110,35 +110,39 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
 
   @Override
   public boolean onLongPress(ViewHolder viewHolder) {
-    toggle(viewHolder);
+    if (!adapter.isManuallySorted()) {
+      startActionMode();
+    }
+    if (mode != null) {
+      toggle(viewHolder);
+    }
     return true;
   }
 
-  private void toggle(ViewHolder viewHolder) {
+  void startActionMode() {
+    if (mode == null) {
+      mode = actionModeProvider.startActionMode(adapter, taskList, this);
+      updateModeTitle();
+      if (adapter.isManuallySorted()) {
+        Flags.set(Flags.TLFP_NO_INTERCEPT_TOUCH);
+      }
+    }
+  }
+
+  void toggle(ViewHolder viewHolder) {
     adapter.toggleSelection(viewHolder.task);
     notifyItemChanged(viewHolder.getAdapterPosition());
     if (adapter.getSelected().isEmpty()) {
-      itemTouchHelperCallback.setDragging(false);
       finishActionMode();
     } else {
-      if (mode == null) {
-        mode = actionModeProvider.startActionMode(adapter, taskList, this);
-        if (adapter.isManuallySorted()) {
-          itemTouchHelperCallback.setDragging(true);
-          Flags.set(Flags.TLFP_NO_INTERCEPT_TOUCH);
-        } else {
-          itemTouchHelperCallback.setDragging(false);
-        }
-      } else {
-        itemTouchHelperCallback.setDragging(false);
-      }
       updateModeTitle();
     }
   }
 
   private void updateModeTitle() {
     if (mode != null) {
-      mode.setTitle(Integer.toString(adapter.getSelected().size()));
+      int count = Math.max(1, adapter.getNumSelected());
+      mode.setTitle(Integer.toString(count));
     }
   }
 
@@ -197,14 +201,11 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
     return asyncPagedListDiffer;
   }
 
-  public boolean isActionModeActive() {
+  boolean isActionModeActive() {
     return mode != null;
   }
 
   void onDestroyActionMode() {
     mode = null;
-    if (!itemTouchHelperCallback.isDragging()) {
-      notifyDataSetChanged();
-    }
   }
 }
