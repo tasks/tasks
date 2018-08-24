@@ -58,6 +58,10 @@
 	<string name="due_time">מועד הביצוע</string>
 	<string name="day_before_due">יום לפני מועד היעד</string>
 	<string name="week_before_due">שבוע לפני מועד היעד</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization." name="TEA_hideUntil_due_date">תאריך יעד</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization." name="TEA_hideUntil_due_time">זמן יעד</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization." name="TEA_hideUntil_day_before_due">ימים לפני מועד יעד</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization." name="TEA_hideUntil_week_before_due">שבוע לפני מועד יעד</string>
 	<string name="TEA_control_when">מתי</string>
 	<string name="TEA_control_repeat">חזרה</string>
 	<string name="TEA_control_gcal">יומן</string>
@@ -149,6 +153,7 @@
 	<string name="gcal_completed_title">%s (בוצעה)</string>
 	<string name="CFC_gtasks_list_text">ברשימה: ?</string>
 	<string name="CFC_gtasks_list_name">ברשימה של ״משימות גוגל״</string>
+	<string name="CFC_caldav_list_name">ברשימת CalDAV</string>
 	<string name="gtasks_GTA_clear_completed">נקה משימות שבוצעו</string>
 	<string name="gtasks_GLA_authenticating">מאמת...</string>
 	<string name="gtasks_GLA_errorIOAuth">בעיה בהתחברות לשרתי גוגל. נא נסה שוב מאוחר יותר.</string>
@@ -171,6 +176,7 @@
 	<string name="random_reminder_two_months">חדשיים</string>
 	<string name="rmd_NoA_done">בוצעה</string>
 	<string name="rmd_NoA_snooze">נודניק</string>
+	<string name="snooze_all">נדנד על כולם</string>
 	<string name="rmd_EPr_quiet_hours_start_title">תחילת שעות השקט</string>
 	<string name="rmd_EPr_quiet_hours_end_title">סיום שעות השקט</string>
 	<string name="rmd_EPr_rmd_time_title">תזכורת ברירת מחדל</string>
@@ -185,33 +191,71 @@
 	<string name="default_random_reminder_bi_weekly">דו שבועי</string>
 	<string name="default_random_reminder_monthly">חודשי</string>
 	<string name="default_random_reminder_bi_monthly">דו חודשי</string>
+	<string name="repeat_option_does_not_repeat">לא חוזר</string>
+	<string name="repeat_option_every_day">כל יום</string>
+	<string name="repeat_option_every_week">כל שבוע</string>
+	<string name="repeat_option_every_month">כל חודש</string>
+	<string name="repeat_option_every_year">כל שנה</string>
+	<string name="repeat_option_custom">מותאם אישית...</string>
+	<plurals name="task_count">
+		<item quantity="one">%d משימה</item>
+		<item quantity="other">%d tasks</item>
+	</plurals>
 	<plurals name="repeat_minutes">
 		<item quantity="one">דקה</item>
 		<item quantity="other">דקות</item>
+	</plurals>
+	<plurals name="repeat_n_minutes">
+		<item quantity="one">%d דקה</item>
+		<item quantity="other">%d דקות</item>
 	</plurals>
 	<plurals name="repeat_hours">
 		<item quantity="one">שעה</item>
 		<item quantity="other">שעות</item>
 	</plurals>
+	<plurals name="repeat_n_hours">
+		<item quantity="one">%d שעה</item>
+		<item quantity="other">%d שעות</item>
+	</plurals>
 	<plurals name="repeat_days">
 		<item quantity="one">יום</item>
 		<item quantity="other">ימים</item>
+	</plurals>
+	<plurals name="repeat_n_days">
+		<item quantity="one">%d יום</item>
+		<item quantity="other">%d ימים</item>
 	</plurals>
 	<plurals name="repeat_weeks">
 		<item quantity="one">שבוע</item>
 		<item quantity="other">שבועות</item>
 	</plurals>
+	<plurals name="repeat_n_weeks">
+		<item quantity="one">%d שבוע</item>
+		<item quantity="other">%d שבועות</item>
+	</plurals>
 	<plurals name="repeat_months">
 		<item quantity="one">חודש</item>
 		<item quantity="other">חודשים</item>
+	</plurals>
+	<plurals name="repeat_n_months">
+		<item quantity="one">%d חודש</item>
+		<item quantity="other">%d חודשים</item>
 	</plurals>
 	<plurals name="repeat_years">
 		<item quantity="one">שנה</item>
 		<item quantity="other">שנים</item>
 	</plurals>
+	<plurals name="repeat_n_years">
+		<item quantity="one">%d שנה</item>
+		<item quantity="other">%d שנים</item>
+	</plurals>
+	<string name="repeat_type_due">תאריך יעד</string>
+	<string name="repeat_type_completion">תאריך סיום</string>
 	<string name="repeat_forever">חזור לנצח</string>
 	<string name="repeat_until">חזרה עד %s</string>
+	<string name="repeat_number_of_times">חוזר מספר פעמים</string>
 	<string name="repeat_snackbar">%1$s תזמן מחדש משימה חוזרת זו ל־%2$s</string>
+	<string comment="display new due date and time in snackbar after completing repeating task, e.g. \'Tomorrow at 8 AM\' or \'21 May at 8 AM\'" name="repeat_snackbar_time">%1$s בשעה %2$s</string>
 	<string name="new_tag">יצירת תגית חדשה</string>
 	<string name="new_list">יצירת רשימה חדשה</string>
 	<string name="tag_FEx_untagged">ללא קיטלוג</string>
@@ -294,6 +338,7 @@
 	<string name="list_settings">הגדרות רשימה</string>
 	<string name="delete">מחק</string>
 	<string name="copy">העתק</string>
+	<string name="move">הזז</string>
 	<string name="filter_settings">הגדרות מסנן</string>
 	<string name="show_hidden">הצגת משימות נסתרות</string>
 	<string name="show_completed">הצגת משימות שבוצעו</string>
@@ -308,6 +353,7 @@
 	<string name="send_anonymous_statistics">שיפור Tasks</string>
 	<string name="send_anonymous_statistics_summary">שליחת סטסיטיקות ודיווחי קריסה של האפליקציה באופן אנונימי. מידע אישי לא נאסף כלל.</string>
 	<string name="tag_already_exists">תגית כבר קיימת</string>
+	<string name="duplicate_name">שכפל שם</string>
 	<string name="name_cannot_be_empty">השם לא יכול להיות ריק</string>
 	<string name="username_required">נדרש שם משתמש</string>
 	<string name="password_required">נדרשת סיסמא</string>
@@ -323,6 +369,7 @@
 	<string name="theme">ערכת נושא</string>
 	<string name="color">צבע</string>
 	<string name="accent">צבע משני</string>
+	<string name="launcher_icon">צלמית משגר</string>
 	<string name="theme_red">אדום</string>
 	<string name="theme_pink">ורוד</string>
 	<string name="theme_purple">סגול</string>
@@ -381,13 +428,20 @@
 	<string name="password">סיסמא</string>
 	<string name="url">כתובת URL</string>
 	<string name="error_adding_account">שגיאה בהוספת חשבון</string>
+	<string name="calendar_settings">הגדרות יומן</string>
 	<string name="notification_channel_settings">נהל התראות</string>
 	<string name="battery_optimization_settings">נהל חיסכון בסוללה</string>
 	<string name="notification_disable_battery_optimizations_description">חיסכון בסוללה עלול לעכב התראות</string>
+	<string name="bundle_notifications">חבילת התראות</string>
+	<string name="badges">תגים</string>
+	<string name="list">רשימה</string>
+	<string name="repeats_from">חוזר החל מ-</string>
 	<string name="repeats_single">חזרות %s</string>
 	<string name="repeats_single_on">חזרות %1$s ב- %2$s</string>
 	<string name="repeats_single_until">חוזר %1$s  עד %2$s</string>
 	<string name="repeats_single_number_of_times">חוזר %1$s, , חל ב-%2$d %3$s</string>
+	<string name="repeats_single_on_until">חוזר %1$s ב-%2$s עד %3$s</string>
+	<string name="repeats_single_on_number_of_times">חוזר %1$s ב-%2$s, מתרחש %3$d %4$s</string>
 	<string name="repeats_minutely">בכל דקה</string>
 	<string name="repeats_hourly">בכל שעה</string>
 	<string name="repeats_daily">בכל יום</string>
@@ -395,7 +449,51 @@
 	<string name="repeats_monthly">בכל חודש</string>
 	<string name="repeats_yearly">בכל שנה</string>
 	<string name="repeats_plural">חוזר כל %s</string>
+	<string name="repeats_plural_on">חוזר כל %1$s ב-%2$s</string>
+	<string name="repeats_plural_until">חוזר כל %1$s עד %2$s</string>
+	<string name="repeats_plural_number_of_times">חוזר כל %1$s, קורה %2$d %3$s</string>
+	<string name="repeats_plural_on_until">חוזר %1$s ב-%2$s עד %3$s</string>
+	<string name="repeats_plural_on_number_of_times">חוזר %1$s ב-%2$s, מתרחש %3$d %4$s</string>
+	<string name="dont_add_to_calendar">אל תוסיף ליומן</string>
+	<string name="default_calendar">יומן ברירת מחדל</string>
+	<string name="badges_description">הצג מספר משימות על סמליל משגר Tasks. לא כל המשגרים תומכים בתגים.</string>
+	<string name="bundle_notifications_summary">שלב מספר התראות בהתראה אחת</string>
+	<string name="repeat_monthly_same_day_each_month">באותו היום בכל חודש</string>
 	<string name="dont_sync">ללא סנכרון</string>
+	<string name="repeat_monthly_every_day_of_nth_week">בכל %1$s %2$s</string>
+	<string name="repeat_monthly_on_every_day_of_nth_week">בכל %1$s %2$s</string>
+	<string name="repeat_monthly_first_week">ראשון</string>
+	<string name="repeat_monthly_second_week">שני</string>
+	<string name="repeat_monthly_third_week">שלישי</string>
+	<string name="repeat_monthly_fourth_week">רביעי</string>
+	<string name="repeat_monthly_last_week">אחרון</string>
+	<string name="tasker_create_task">יצירת משימה</string>
+	<string name="tasker_list_notification">הצג רשימת התראות</string>
+	<string name="help">עזרה</string>
+	<string name="caldav_home_set_not_found">קבוצת הבית לא נמצאה</string>
 	<string name="network_error">החיבור נכשל</string>
+	<string name="background_sync_unmetered_only">רק בחיבורים לא מוגבלי נפח</string>
+	<string name="upgrade">שידרוג</string>
+	<string name="upgrade_to_pro">שידרוג לגירסת pro</string>
+	<string name="refresh_purchases">עדכן רכישות</string>
+	<string name="button_subscribed">מנוי רשום</string>
+	<string name="button_subscribe">רישום כמנוי</string>
+	<string name="button_more_info">עוד מידע</string>
+	<string name="owned">בבעלות</string>
+	<string name="error_billing_unavailable">חיוב לא זמין. 
+וודא שיישומון Google Play מוגדר נכון</string>
+	<string name="error_billing_default">חיוב לא זמין. בדוק את מכשירך.</string>
+	<string name="about">אודות</string>
+	<string name="license_summary">Tasks הוא חופשי ובקוד פתוח, תחת רישיון GNU General Public License גירסה 3.0</string>
 	<string name="themes">ערכות נושא נוספות</string>
+	<string name="pro_caldav_sync">סינכרון CalDAV</string>
+	<string name="pro_multiple_google_task_accounts">ריבוי חשבונות Google Task</string>
+	<string name="pro_tasker_plugins">תוסף Tasker</string>
+	<string name="pro_dashclock_extension">הרחבת Dashclock</string>
+	<string name="requires_pro_subscription">לא דורש הרשמה</string>
+	<string name="logout">התנתקות מהחשבון</string>
+	<string name="logout_warning">להתנתק מ-%s? כל המידע של חשבון זה יימחק מהמכשיר שלך</string>
+	<string name="cannot_access_account">לא ניתן לגשת לחשבון</string>
+	<string name="reinitialize_account">איתחול מחדש</string>
+	<string name="action_create_new_task">יצירת משימה חדשה</string>
 </resources>

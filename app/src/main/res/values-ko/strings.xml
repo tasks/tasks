@@ -61,6 +61,10 @@
 	<string name="due_time">마감 시간</string>
 	<string name="day_before_due">마감 하루 전</string>
 	<string name="week_before_due">마감 일주일 전</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization." name="TEA_hideUntil_due_date">마감일</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization." name="TEA_hideUntil_due_time">마감시간</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization." name="TEA_hideUntil_day_before_due">마감 하루 전</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization." name="TEA_hideUntil_week_before_due">마감 일주일 전</string>
 	<string name="TEA_control_when">언제</string>
 	<string name="TEA_control_repeat">반복</string>
 	<string name="TEA_control_gcal">달력</string>
@@ -267,6 +271,7 @@
 	<string name="repeat_number_of_times">여러회 반복</string>
 	<string name="repeat_occurs">반복횟수</string>
 	<string name="repeat_snackbar">%1$s 이 %2$s 로 변경되었습니다</string>
+	<string comment="display new due date and time in snackbar after completing repeating task, e.g. \'Tomorrow at 8 AM\' or \'21 May at 8 AM\'" name="repeat_snackbar_time">%1$s $s%2</string>
 	<string name="new_tag">새 태그 만들기</string>
 	<string name="new_list">새 목록 만들기</string>
 	<string name="tag_FEx_untagged">미분류 할일</string>
@@ -380,6 +385,7 @@
 	<string name="theme">테마</string>
 	<string name="color">색상</string>
 	<string name="accent">강조</string>
+	<string name="launcher_icon">런처 아이콘</string>
 	<string name="theme_red">빨강</string>
 	<string name="theme_pink">분홍</string>
 	<string name="theme_purple">보라</string>
@@ -502,4 +508,5 @@
 	<string name="logout_warning">%s로부터 로그아웃할까요? 이 계정의 모든 정보가 기기에서 삭제됩니다. </string>
 	<string name="cannot_access_account">계정에 접근할 수 없습니다. </string>
 	<string name="reinitialize_account">다시 초기화하기</string>
+	<string name="action_create_new_task">새 할일 만들기</string>
 </resources>

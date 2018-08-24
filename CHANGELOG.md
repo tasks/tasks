@@ -1,6 +1,18 @@
 Change Log
 ---
 
+### 6.1.2 (2018-10-18)
+
+* Remove missed call functionality due to Google Play Developer policy change
+* Fix manual sort issue affecting Samsung Oreo devices
+* Fix refresh issue affecting Pure Calendar Widget
+* Fix memory leak
+* Schedule jobs with WorkManager instead of android-job
+* Update translations
+  * French - Fabeuss, primokorn
+  * Hebrew - elazar
+  * Korean - timeforwarp
+
 ### 6.1.1 (2018-07-20)
 
 * Fix notification badge issues
