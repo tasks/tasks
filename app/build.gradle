@@ -32,7 +32,7 @@ android {
     buildToolsVersion '28.0.2'
 
     defaultConfig {
-        applicationId 'org.tasks'
+        applicationId 'com.bmaehr.tasks'
         versionCode 458
         versionName '4.9.15'
         targetSdkVersion 27
