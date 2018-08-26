@@ -1,3 +1,5 @@
-include 'app'
-includeBuild 'dav4android'
-includeBuild 'ical4android'
+rootProject.name='tasks'
+
+include ':app'
+include ':dav4android'
+include ':ical4android'
