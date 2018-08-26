@@ -3,6 +3,7 @@ apply plugin: 'checkstyle'
 apply plugin: 'io.fabric'
 
 repositories {
+    mavenLocal()
     jcenter()
     google()
 }
