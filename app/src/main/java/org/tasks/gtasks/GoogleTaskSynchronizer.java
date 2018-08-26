@@ -11,6 +11,7 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecovera
 import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
 import com.google.api.services.tasks.model.Tasks;
+import com.google.gson.JsonSyntaxException;
 import com.google.common.base.Strings;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
@@ -20,6 +21,7 @@ import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
+import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.api.HttpNotFoundException;
@@ -41,6 +43,10 @@ import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
+import org.tasks.data.TagDao;
+import org.tasks.data.Tag;
+import org.tasks.data.TagData;
+import org.tasks.data.TagDataDao;
 import org.tasks.injection.ForApplication;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.DefaultFilterProvider;
@@ -49,9 +55,22 @@ import org.tasks.preferences.Preferences;
 import org.tasks.time.DateTime;
 import timber.log.Timber;
 
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 public class GoogleTaskSynchronizer {
 
   private static final String DEFAULT_LIST = "@default"; // $NON-NLS-1$
+  private static final String NOTE_METADATA_KEYWORD = "tasks:additionalMetadata";
+  private static final Pattern PATTERN_NOTES_METADATA = Pattern.compile("(.*)\\{" + NOTE_METADATA_KEYWORD + "(\\{.*\\})\\}\\s*", Pattern.DOTALL);
+  public static final String LINE_FEED = "\n";
+  private static final int NOTE_MAX_LENGTH = 8100; // seams to be 8192
+  private Gson gsonBulider = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
+
 
   private final Context context;
   private final GoogleTaskListDao googleTaskListDao;
@@ -59,7 +78,10 @@ public class GoogleTaskSynchronizer {
   private final GtasksListService gtasksListService;
   private final GtasksTaskListUpdater gtasksTaskListUpdater;
   private final Preferences preferences;
+  private final GtasksPreferenceService gtasksPreferenceService;
   private final TaskDao taskDao;
+  private final TagDao tagDao;
+  private final TagDataDao tagDataDao;
   private final Tracker tracker;
   private final NotificationManager notificationManager;
   private final GoogleTaskDao googleTaskDao;
@@ -80,7 +102,10 @@ public class GoogleTaskSynchronizer {
       GtasksListService gtasksListService,
       GtasksTaskListUpdater gtasksTaskListUpdater,
       Preferences preferences,
+      GtasksPreferenceService gtasksPreferenceService,
       TaskDao taskDao,
+      TagDao tagDao,
+      TagDataDao tagDataDao,
       Tracker tracker,
       NotificationManager notificationManager,
       GoogleTaskDao googleTaskDao,
@@ -98,7 +123,10 @@ public class GoogleTaskSynchronizer {
     this.gtasksListService = gtasksListService;
     this.gtasksTaskListUpdater = gtasksTaskListUpdater;
     this.preferences = preferences;
+    this.gtasksPreferenceService = gtasksPreferenceService;
     this.taskDao = taskDao;
+    this.tagDao = tagDao;
+    this.tagDataDao = tagDataDao;
     this.tracker = tracker;
     this.notificationManager = notificationManager;
     this.googleTaskDao = googleTaskDao;
@@ -276,7 +304,7 @@ public class GoogleTaskSynchronizer {
     }
 
     remoteModel.setTitle(task.getTitle());
-    remoteModel.setNotes(task.getNotes());
+    writeNotesIfNecessary(task, remoteModel);
     if (task.hasDueDate()) {
       remoteModel.setDue(GtasksApiUtilities.unixTimeToGtasksDueDate(task.getDueDate()));
     }
@@ -323,6 +351,162 @@ public class GoogleTaskSynchronizer {
     task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
     taskDao.save(task);
   }
+
+  void writeNotesIfNecessary(Task task, com.google.api.services.tasks.model.Task remoteModel) {
+    String additionalMetadata = null;
+    if (gtasksPreferenceService.getUseNoteForMetadataSync()) {
+      GoogleTaskAdditionalMetadata additionalMetadataObject = new GoogleTaskAdditionalMetadata();
+      List<String> tags = createTagList(task);
+      if (tags.size() > 0) {
+        additionalMetadataObject.setTags(tags);
+      }
+      int defaultPriority = preferences.getIntegerFromString(R.string.p_default_importance_key, Task.Priority.LOW);
+      if (task.getPriority() != defaultPriority) {
+        additionalMetadataObject.setImportance(GoogleTaskAdditionalMetadata.Importance.valueOf(task.getPriority()));
+      }
+      if (task.getHideUntil()>0) {
+        additionalMetadataObject.setHideUntil(GtasksApiUtilities.unixTimeToDateTime(task.getHideUntil()));
+      }
+      int defaultReminderFlags = preferences.getIntegerFromString(R.string.p_default_reminders_key, Task.NOTIFY_AT_DEADLINE | Task.NOTIFY_AFTER_DEADLINE);
+      if ((defaultReminderFlags & Task.NOTIFY_AT_DEADLINE) != (task.getReminderFlags() & Task.NOTIFY_AT_DEADLINE)) {
+        additionalMetadataObject.setNotifyAtDeadline(task.isNotifyAtDeadline());
+      }
+      if ((defaultReminderFlags & Task.NOTIFY_AFTER_DEADLINE) != (task.getReminderFlags() & Task.NOTIFY_AFTER_DEADLINE)) {
+        additionalMetadataObject.setNotifyAfterDeadline(task.isNotifyAfterDeadline());
+      }
+      if (task.isNotifyModeNonstop()) {
+        additionalMetadataObject.setNotifyModeNonstop(task.isNotifyModeNonstop());
+      }
+      if (task.isNotifyModeFive()) {
+        additionalMetadataObject.setNotifyModeFive(task.isNotifyModeFive());
+      }
+      if (task.getRecurrence()!=null && task.getRecurrence().trim().length()>0) {
+        additionalMetadataObject.setRecurrence(task.getRecurrence());
+        if (task.getRepeatUntil() > 0) {
+          additionalMetadataObject.setRepeatUntil(GtasksApiUtilities.unixTimeToDateTime(task.getRepeatUntil()));
+        }
+      }
+      additionalMetadata = gsonBulider.toJson(additionalMetadataObject);
+    }
+    if (additionalMetadata==null || additionalMetadata.trim().length()<=2) {
+      if (task.getNotes()!=null && task.getNotes().trim().length()>0) {
+        remoteModel.setNotes(task.getNotes());
+      }
+    } else {
+      StringBuilder notes = new StringBuilder();
+      if (task.getNotes()!=null && task.getNotes().trim().length()>0) {
+        notes.append(task.getNotes());
+      }
+      if (notes.length() + additionalMetadata.length() < NOTE_MAX_LENGTH) {
+        notes.append(LINE_FEED);
+        notes.append(LINE_FEED);
+        notes.append("{");
+        notes.append(NOTE_METADATA_KEYWORD);
+        notes.append(additionalMetadata);
+        notes.append("}");
+      }
+      remoteModel.setNotes(notes.toString());
+    }
+  }
+
+  private List<String> createTagList(Task task) {
+    Set<String> tags = new TreeSet<>();
+    for(String tagName: task.getTags()) {
+        // Skip empty tags or tags containig { } , ; [ ] # ' \
+        if (tagName!=null && tagName.trim().length()>0 && tagName.indexOf('{')<0 && tagName.indexOf('}')<0 && tagName.indexOf('[')<0 && tagName.indexOf(']')<0 && tagName.indexOf(',')<0 && tagName.indexOf(';')<0 && tagName.indexOf('"')<0 && tagName.indexOf('\'')<0 && tagName.indexOf('\\')<0) {
+          tags.add(tagName.trim());
+        }
+    }
+    return new ArrayList<>(tags);
+  }
+
+  void processNotes(Task task) {
+    String notes = task.getNotes();
+    Matcher m = PATTERN_NOTES_METADATA.matcher(notes);
+    if(m.matches()) {
+      notes = m.group(1).trim();
+      String gson = m.group(2);
+      try {
+        GoogleTaskAdditionalMetadata additionalMetadataObject = gsonBulider.fromJson(gson, GoogleTaskAdditionalMetadata.class);
+        List<String> tags = additionalMetadataObject.getTags();
+        if (tags!=null && tags.size() > 0) {
+          for(String tag: tags) {
+            createLink(task, tag);
+          }
+        }
+        if (additionalMetadataObject.getHideUntil()!=null) {
+          task.setHideUntil(GtasksApiUtilities.dateTimeToUnixTime(additionalMetadataObject.getHideUntil()));
+        }
+        if (additionalMetadataObject.getRecurrence()!=null) {
+          task.setRecurrence(additionalMetadataObject.getRecurrence());
+        }
+        if (additionalMetadataObject.getRepeatUntil()!=null) {
+          task.setRepeatUntil(GtasksApiUtilities.dateTimeToUnixTime(additionalMetadataObject.getRepeatUntil()));
+        }
+        int defaultImportance = preferences.getIntegerFromString(R.string.p_default_importance_key, Task.Priority.LOW);
+        if (additionalMetadataObject.getImportance()!=null && additionalMetadataObject.getImportance().getTaskImportance()!=defaultImportance) {
+          task.setPriority(additionalMetadataObject.getImportance().getTaskImportance());
+        }
+        int defaultReminderFlags = preferences.getIntegerFromString(R.string.p_default_reminders_key, Task.NOTIFY_AT_DEADLINE | Task.NOTIFY_AFTER_DEADLINE);
+        int reminderFlags = defaultReminderFlags;
+        boolean setRemindeFlags = false;
+        if (isSetAndNotDefault(additionalMetadataObject.isNotifyAtDeadline(), Task.NOTIFY_AT_DEADLINE, defaultReminderFlags)) {
+          setRemindeFlags = true;
+          if(additionalMetadataObject.isNotifyAtDeadline()) {
+            reminderFlags |= Task.NOTIFY_AT_DEADLINE;
+          } else {
+            reminderFlags &= ~Task.NOTIFY_AT_DEADLINE;
+          }
+        }
+        if (isSetAndNotDefault(additionalMetadataObject.isNotifyAfterDeadline(), Task.NOTIFY_AFTER_DEADLINE, defaultReminderFlags)) {
+          setRemindeFlags = true;
+          if(additionalMetadataObject.isNotifyAfterDeadline()) {
+            reminderFlags |= Task.NOTIFY_AFTER_DEADLINE;
+          } else {
+            reminderFlags &= ~Task.NOTIFY_AFTER_DEADLINE;
+          }
+        }
+        if (additionalMetadataObject.isNotifyModeFive()!=null) {
+          setRemindeFlags = true;
+          reminderFlags |= Task.NOTIFY_MODE_FIVE;
+        }
+        if (additionalMetadataObject.isNotifyModeNonstop()!=null) {
+          setRemindeFlags = true;
+          reminderFlags |= Task.NOTIFY_MODE_NONSTOP;
+        }
+        if (setRemindeFlags) {
+          task.setReminderFlags(reminderFlags);
+        }
+      } catch (JsonSyntaxException ex) {
+        // Ignore corrupt JSON
+      }
+    }
+    task.setNotes(notes);
+  }
+
+  private boolean isSetAndNotDefault(Boolean reminderFlag, int reminderFlagConstant, int defaultReminderFlags) {
+    return reminderFlag!=null &&
+            (
+                    (reminderFlag && (defaultReminderFlags & reminderFlagConstant)==0) ||
+                            (!reminderFlag && (defaultReminderFlags & reminderFlagConstant)!=0)
+            );
+  }
+
+  private void createLink(Task task, String tagName) {
+    TagData tagData = tagDataDao.getTagByName(tagName);
+    if (tagData == null) {
+      tagData = new TagData();
+      tagData.setName(tagName);
+      tagDataDao.createNew(tagData);
+    }
+    createLink(task, tagData);
+  }
+
+  private void createLink(Task task, TagData tagData) {
+    Tag link = new Tag(task.getId(), task.getUuid(), tagData.getName(), tagData.getRemoteId());
+    tagDao.insert(link);
+  }
+
 
   private synchronized void fetchAndApplyRemoteChanges(
       GtasksInvoker gtasksInvoker, GoogleTaskList list) throws UserRecoverableAuthIOException {
@@ -407,6 +591,7 @@ public class GoogleTaskSynchronizer {
       if (task.task.isNew()) {
         taskDao.createNew(task.task);
       }
+      processNotes(task.getTask());
       taskDao.save(task.task);
       synchronizeMetadata(task.task.getId(), task.metadata);
     }

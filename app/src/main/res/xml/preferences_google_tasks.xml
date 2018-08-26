@@ -7,6 +7,43 @@
 
   <PreferenceCategory
     android:key="@string/gtasks_GPr_header"
-    android:title="@string/gtasks_GPr_header"/>
+    android:title="@string/gtasks_GPr_header">
+
+    <com.todoroo.astrid.ui.MultilineCheckboxPreference
+        android:defaultValue="false"
+        android:key="@string/sync_gtasks"
+        android:title="@string/enabled" />
+
+    <Preference
+        android:dependency="@string/sync_gtasks"
+        android:key="@string/p_gtasks_default_list"
+        android:title="@string/default_list" />
+
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:dependency="@string/sync_gtasks"
+        android:key="@string/p_background_sync"
+        android:title="@string/sync_SPr_interval_title"/>
+    <com.todoroo.astrid.ui.MultilineCheckboxPreference
+        android:defaultValue="true"
+        android:dependency="@string/sync_gtasks"
+        android:key="@string/gtasks_sync_metadata_using_note_key"
+        android:summaryOff="@string/sync_metadata_using_note_off"
+        android:summaryOn="@string/sync_metadata_using_note_on"
+        android:title="@string/sync_metadata_using_note" />
+    <com.todoroo.astrid.ui.MultilinePreference
+        android:dependency="@string/sync_gtasks"
+        android:key="@string/sync_force"
+        android:title="@string/sync_force">
+    </com.todoroo.astrid.ui.MultilinePreference>
+    <com.todoroo.astrid.ui.MultilinePreference
+        android:dependency="@string/sync_gtasks"
+        android:key="@string/sync_SPr_forget_key"
+        android:summary="@string/sync_SPr_forget_description"
+        android:title="@string/sync_SPr_forget">
+    </com.todoroo.astrid.ui.MultilinePreference>
+
+  </PreferenceCategory>
+
 
 </PreferenceScreen>

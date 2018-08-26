@@ -149,6 +149,11 @@
   <!-- on calendar end at dealline if true, start at deadline if false -->
   <string name="p_end_at_deadline">p_end_at_deadline</string>
 
+  <string name="sync_gtasks">sync_gtasks</string>
+  <string name="sync_SPr_forget_key">sync_forget</string>
+  <string name="p_gtasks_default_list">default_gtasks_list</string>
+
+  <string name="gtasks_sync_metadata_using_note_key">gtasks_noteMetadataSync</string>
   <!-- ============================================================ OTHER == -->
 
   <!-- Default Calendar Preference Key (do not translate) -->
@@ -237,6 +242,7 @@
   <string name="tracking_action_delete_list">Delete List</string>
   <string name="tracking_action_on">On</string>
   <string name="tracking_action_off">Off</string>
+  <string name="tracking_action_clear">Clear</string>
   <string name="tracking_action_clear_completed">Clear completed</string>
   <string name="tracking_action_custom">Custom</string>
   <string name="tracking_action_preset">Preset</string>

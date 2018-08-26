@@ -16,10 +16,10 @@ import org.tasks.data.GoogleTask;
 
 public class GtasksTaskContainer {
 
-  public final Task task;
+    public final Task task;
   public final ArrayList<GoogleTask> metadata;
   public final GoogleTask gtaskMetadata;
-  private final long updateTime;
+    private final long updateTime;
 
   public GtasksTaskContainer(
       com.google.api.services.tasks.model.Task remoteTask,
@@ -27,30 +27,34 @@ public class GtasksTaskContainer {
       String listId,
       GoogleTask metadata) {
     task = localTask;
-    this.metadata = new ArrayList<>();
-    this.gtaskMetadata = metadata;
+        this.metadata = new ArrayList<>();
+        this.gtaskMetadata = metadata;
 
-    task.setTitle(remoteTask.getTitle());
-    task.setCreationDate(DateUtilities.now());
+        task.setTitle(remoteTask.getTitle());
+        task.setCreationDate(DateUtilities.now());
     task.setCompletionDate(
         GtasksApiUtilities.gtasksCompletedTimeToUnixTime(remoteTask.getCompleted()));
 
-    long dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.getDue());
+        long dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.getDue());
     mergeDates(Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate), task);
-    task.setNotes(remoteTask.getNotes());
+        task.setNotes(remoteTask.getNotes());
 
     gtaskMetadata.setRemoteId(remoteTask.getId());
     gtaskMetadata.setListId(listId);
 
-    DateTime updated = remoteTask.getUpdated();
-    updateTime = updated == null ? 0 : updated.getValue();
-  }
+        DateTime updated = remoteTask.getUpdated();
+        updateTime = updated == null ? 0 : updated.getValue();
+    }
 
-  public long getUpdateTime() {
-    return updateTime;
-  }
+    public Task getTask() {
+        return task;
+    }
 
-  public void prepareForSaving() {
-    metadata.add(gtaskMetadata);
-  }
+    public long getUpdateTime() {
+        return updateTime;
+    }
+
+    public void prepareForSaving() {
+        metadata.add(gtaskMetadata);
+    }
 }

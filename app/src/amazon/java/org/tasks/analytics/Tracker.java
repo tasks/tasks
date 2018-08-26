@@ -29,7 +29,7 @@ public class Tracker {
   public Tracker(@ForApplication Context context) {
     this.context = context;
     analytics = GoogleAnalytics.getInstance(context);
-    tracker = analytics.newTracker(R.xml.google_analytics);
+    tracker = analytics.newTracker(0x7f120001); //TODO
     tracker.setAppVersion(Integer.toString(BuildConfig.VERSION_CODE));
     final StandardExceptionParser standardExceptionParser =
         new StandardExceptionParser(context, null);

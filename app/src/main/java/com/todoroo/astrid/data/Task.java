@@ -54,6 +54,8 @@ public class Task implements Parcelable {
   public static final LongProperty ID = new LongProperty(TABLE, "_id");
   public static final StringProperty TITLE = new StringProperty(TABLE, "title");
   public static final IntegerProperty IMPORTANCE = new IntegerProperty(TABLE, "importance");
+  public static final StringProperty RECURRENCE = new StringProperty(TABLE, "recurrence");
+  public static final LongProperty REPEAT_UNTIL = new LongProperty(TABLE, "repeatUntil");
   public static final LongProperty DUE_DATE = new LongProperty(TABLE, "dueDate");
   public static final LongProperty HIDE_UNTIL = new LongProperty(TABLE, "hideUntil");
   public static final LongProperty MODIFICATION_DATE = new LongProperty(TABLE, "modified");
@@ -80,12 +82,12 @@ public class Task implements Parcelable {
         IMPORTANCE,
         MODIFICATION_DATE,
         NOTES,
-        new StringProperty(TABLE, "recurrence"),
+        RECURRENCE,
         new IntegerProperty(TABLE, "notificationFlags"),
         new LongProperty(TABLE, "lastNotified"),
         new LongProperty(TABLE, "notifications"),
         new LongProperty(TABLE, "snoozeTime"),
-        new LongProperty(TABLE, "repeatUntil"),
+        REPEAT_UNTIL,
         TIMER_START,
         TITLE,
         UUID

@@ -9,16 +9,18 @@ repositories {
 
 android {
     lintOptions {
-        lintConfig file("lint.xml")
+        lintConfig file('lint.xml')
         textOutput 'stdout'
         textReport true
+        abortOnError false
     }
 
     compileSdkVersion 28
+    buildToolsVersion '28.0.2'
 
     defaultConfig {
-        testApplicationId "org.tasks.test"
-        applicationId "org.tasks"
+        applicationId 'com.bmaehr.tasks'
+        testApplicationId 'com.bmaehr.tasks.test'
         versionCode 535
         versionName "6.1.1"
         targetSdkVersion 28
@@ -112,7 +114,7 @@ final SUPPORT_VERSION = '28.0.0-rc01'
 final ROOM_VERSION = '1.1.1'
 final STETHO_VERSION = '1.5.0'
 final TESTING_SUPPORT_VERSION = '1.0.0'
-final WORK_VERSION = '1.0.0-alpha06'
+final WORK_VERSION = '1.0.0-alpha07'
 final LEAKCANARY_VERSION = '1.6.1'
 
 dependencies {
@@ -155,6 +157,7 @@ dependencies {
     implementation 'com.jakewharton.threetenabp:threetenabp:1.1.0'
     //noinspection GradleDependency
     implementation 'com.google.guava:guava:20.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.jakewharton:process-phoenix:2.0.0'
     implementation 'com.google.android.apps.dashclock:dashclock-api:2.0.0'
     implementation 'com.twofortyfouram:android-plugin-api-for-locale:1.0.2'
@@ -174,13 +177,13 @@ dependencies {
     implementation "android.arch.work:work-runtime:${WORK_VERSION}"
 
     googleplayImplementation "android.arch.work:work-firebase:${WORK_VERSION}"
-    googleplayImplementation 'com.crashlytics.sdk.android:crashlytics:2.9.4'
-    googleplayImplementation "com.google.firebase:firebase-core:16.0.1"
+    googleplayImplementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
+    googleplayImplementation "com.google.firebase:firebase-core:16.0.3"
     googleplayImplementation "com.google.android.gms:play-services-location:15.0.1"
-    googleplayImplementation "com.google.android.gms:play-services-auth:15.0.1"
+    googleplayImplementation "com.google.android.gms:play-services-auth:16.0.0"
     googleplayImplementation "com.google.android.gms:play-services-places:15.0.1"
 
-    amazonImplementation "com.google.android.gms:play-services-analytics:16.0.1"
+    amazonImplementation "com.google.android.gms:play-services-analytics:16.0.3"
 
     androidTestAnnotationProcessor "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
     androidTestAnnotationProcessor "com.jakewharton:butterknife-compiler:${BUTTERKNIFE_VERSION}"

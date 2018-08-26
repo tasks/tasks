@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:363426363175:android:9bc4739db40ecb39",
         "android_client_info": {
-          "package_name": "org.tasks"
+          "package_name": "com.bmaehr.tasks"
         }
       },
       "oauth_client": [

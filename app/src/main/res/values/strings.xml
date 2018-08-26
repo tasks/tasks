@@ -676,6 +676,25 @@ File %1$s contained %2$s.\n\n
 
   <!-- Preference: Synchronization Interval Title -->
   <string name="sync_SPr_interval_title">Background sync</string>
+    <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->
+    <string name="sync_status_success">Last sync:\n%s</string>
+
+    <string name="sync_metadata_using_note_off">The note field is not modified.</string>
+    <string name="sync_metadata_using_note_on">The note field is used to sync additional information.</string>
+    <string name="sync_metadata_using_note">Sync additional information with note field?</string>
+
+    <string name="sync_force">Overwrite all tasks on Google</string>
+    <string name="sync_force_add">Add additional information to all tasks</string>
+    <string name="sync_force_delete">Remove additional information from all tasks</string>
+
+    <!-- Sync: Clear Data Title -->
+    <string name="sync_SPr_forget">Log out</string>
+    <!-- Sync: Clear Data Description -->
+    <string name="sync_SPr_forget_description">Clears all synchronization data</string>
+    <string name="master_sync_warning">Automatic synchronization is currently disabled by Android</string>
+
+    <!-- confirmation dialog for sync log out -->
+    <string name="sync_forget_confirm">Log out/clear synchronization data?</string>
 
   <string name="widget_show_due_date">Show due dates</string>
   <string name="widget_show_checkboxes">Show checkboxes</string>
