@@ -120,7 +120,9 @@ final LEAKCANARY_VERSION = '1.6.1'
 
 dependencies {
     implementation project(":dav4android")
-    implementation project(":ical4android")
+    implementation (project(":ical4android")) {
+        exclude group: 'org.threeten', module: 'threetenbp'
+    }
 
     annotationProcessor "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
     implementation "com.google.dagger:dagger:${DAGGER_VERSION}"
