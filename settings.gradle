@@ -1,4 +1,1 @@
-include 'app'
-
-includeBuild 'dav4android'
-includeBuild 'ical4android'
+include 'dav4android', 'ical4android', 'app'
