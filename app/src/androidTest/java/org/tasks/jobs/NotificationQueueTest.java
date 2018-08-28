@@ -57,7 +57,7 @@ public class NotificationQueueTest {
     queue.add(new ReminderEntry(1, now, TYPE_DUE));
     queue.add(new AlarmEntry(1, 1, now));
 
-    verify(workManager).scheduleNotification(now, true);
+    verify(workManager).scheduleNotification(now);
 
     Freeze.freezeAt(now)
         .thawAfter(
@@ -77,7 +77,7 @@ public class NotificationQueueTest {
     queue.add(new ReminderEntry(1, now, TYPE_DUE));
     queue.add(new AlarmEntry(1, 1, now));
 
-    verify(workManager).scheduleNotification(now, true);
+    verify(workManager).scheduleNotification(now);
 
     queue.remove(singletonList(new AlarmEntry(1, 1, now)));
 
@@ -98,7 +98,7 @@ public class NotificationQueueTest {
     queue.add(new ReminderEntry(1, now, TYPE_DUE));
     queue.add(new AlarmEntry(1, 1, now));
 
-    verify(workManager).scheduleNotification(now, true);
+    verify(workManager).scheduleNotification(now);
 
     queue.remove(singletonList(new ReminderEntry(1, now, TYPE_DUE)));
 
@@ -116,7 +116,7 @@ public class NotificationQueueTest {
     queue.add(new ReminderEntry(1, 1, 0));
     queue.add(new ReminderEntry(2, 1, 0));
 
-    verify(workManager).scheduleNotification(1, true);
+    verify(workManager).scheduleNotification(1);
 
     assertEquals(2, queue.size());
   }
@@ -125,7 +125,7 @@ public class NotificationQueueTest {
   public void rescheduleForFirstJob() {
     queue.add(new ReminderEntry(1, 1, 0));
 
-    verify(workManager).scheduleNotification(1, true);
+    verify(workManager).scheduleNotification(1);
   }
 
   @Test
@@ -133,7 +133,7 @@ public class NotificationQueueTest {
     queue.add(new ReminderEntry(1, 1, 0));
     queue.add(new ReminderEntry(2, 2, 0));
 
-    verify(workManager).scheduleNotification(1, true);
+    verify(workManager).scheduleNotification(1);
   }
 
   @Test
@@ -142,8 +142,8 @@ public class NotificationQueueTest {
     queue.add(new ReminderEntry(1, 1, 0));
 
     InOrder order = inOrder(workManager);
-    order.verify(workManager).scheduleNotification(2, true);
-    order.verify(workManager).scheduleNotification(1, true);
+    order.verify(workManager).scheduleNotification(2);
+    order.verify(workManager).scheduleNotification(1);
   }
 
   @Test
@@ -152,7 +152,7 @@ public class NotificationQueueTest {
     queue.cancelReminder(1);
 
     InOrder order = inOrder(workManager);
-    order.verify(workManager).scheduleNotification(2, true);
+    order.verify(workManager).scheduleNotification(2);
     order.verify(workManager).cancelNotifications();
   }
 
@@ -164,8 +164,8 @@ public class NotificationQueueTest {
     queue.cancelReminder(1);
 
     InOrder order = inOrder(workManager);
-    order.verify(workManager).scheduleNotification(1, true);
-    order.verify(workManager).scheduleNotification(2, true);
+    order.verify(workManager).scheduleNotification(1);
+    order.verify(workManager).scheduleNotification(2);
   }
 
   @Test
@@ -175,7 +175,7 @@ public class NotificationQueueTest {
 
     queue.cancelReminder(2);
 
-    verify(workManager).scheduleNotification(1, true);
+    verify(workManager).scheduleNotification(1);
   }
 
   @Test
@@ -190,7 +190,7 @@ public class NotificationQueueTest {
     when(preferences.adjustForQuietHours(anyLong())).thenReturn(1234L);
     queue.add(new ReminderEntry(1, 1, 1));
 
-    verify(workManager).scheduleNotification(1234, true);
+    verify(workManager).scheduleNotification(1234);
   }
 
   @Test
@@ -200,7 +200,7 @@ public class NotificationQueueTest {
     queue.add(new ReminderEntry(1, now, TYPE_DUE));
     queue.add(new ReminderEntry(2, now + ONE_MINUTE, TYPE_DUE));
 
-    verify(workManager).scheduleNotification(now, true);
+    verify(workManager).scheduleNotification(now);
 
     Freeze.freezeAt(now)
         .thawAfter(
@@ -219,7 +219,7 @@ public class NotificationQueueTest {
     queue.add(new ReminderEntry(1, now, TYPE_DUE));
     queue.add(new ReminderEntry(2, now, TYPE_DUE));
 
-    verify(workManager).scheduleNotification(now, true);
+    verify(workManager).scheduleNotification(now);
 
     Freeze.freezeAt(now)
         .thawAfter(
@@ -240,7 +240,7 @@ public class NotificationQueueTest {
     queue.add(new ReminderEntry(1, now, TYPE_DUE));
     queue.add(new ReminderEntry(2, now + ONE_MINUTE, TYPE_DUE));
 
-    verify(workManager).scheduleNotification(now, true);
+    verify(workManager).scheduleNotification(now);
 
     Freeze.freezeAt(now + 2 * ONE_MINUTE)
         .thawAfter(
@@ -262,7 +262,7 @@ public class NotificationQueueTest {
     queue.add(new ReminderEntry(1, now, TYPE_DUE));
     queue.add(new ReminderEntry(2, now + ONE_MINUTE, TYPE_DUE));
 
-    verify(workManager).scheduleNotification(now, true);
+    verify(workManager).scheduleNotification(now);
 
     Freeze.freezeAt(now)
         .thawAfter(
@@ -283,7 +283,7 @@ public class NotificationQueueTest {
     queue.add(new ReminderEntry(2, now + ONE_MINUTE, TYPE_DUE));
     queue.add(new ReminderEntry(3, now + 2 * ONE_MINUTE, TYPE_DUE));
 
-    verify(workManager).scheduleNotification(now, true);
+    verify(workManager).scheduleNotification(now);
 
     Freeze.freezeAt(now + ONE_MINUTE)
         .thawAfter(
@@ -304,7 +304,7 @@ public class NotificationQueueTest {
     queue.clear();
 
     InOrder order = inOrder(workManager);
-    order.verify(workManager).scheduleNotification(1, true);
+    order.verify(workManager).scheduleNotification(1);
     order.verify(workManager).cancelNotifications();
     assertEquals(0, queue.size());
   }
@@ -316,7 +316,7 @@ public class NotificationQueueTest {
     queue.add(new ReminderEntry(1, now, TYPE_DUE));
     queue.cancelReminder(2);
 
-    verify(workManager).scheduleNotification(now, true);
+    verify(workManager).scheduleNotification(now);
   }
 
   @Test
@@ -329,7 +329,7 @@ public class NotificationQueueTest {
     queue.add(new ReminderEntry(2, snooze.getMillis(), TYPE_SNOOZE));
     queue.add(new ReminderEntry(3, due.plusMinutes(1).getMillis(), TYPE_DUE));
 
-    verify(workManager).scheduleNotification(due.getMillis(), true);
+    verify(workManager).scheduleNotification(due.getMillis());
 
     Freeze.freezeAt(now)
         .thawAfter(
