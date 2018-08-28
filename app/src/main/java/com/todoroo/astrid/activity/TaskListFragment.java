@@ -358,7 +358,7 @@ public class TaskListFragment extends InjectingFragment
     taskListViewModel
         .getTasks(filter, taskProperties())
         .observe(
-            getActivity(),
+            this,
             list -> {
               if (list.isEmpty()) {
                 swipeRefreshLayout.setVisibility(View.GONE);
