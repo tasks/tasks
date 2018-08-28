@@ -130,7 +130,8 @@ public class WorkManager {
     enqueueUnique(TAG_MIDNIGHT_REFRESH, MidnightRefreshWork.class, midnight());
   }
 
-  void scheduleNotification(long time) {
+  @SuppressWarnings("WeakerAccess")
+  public void scheduleNotification(long time) {
     enqueueUnique(TAG_NOTIFICATION, NotificationWork.class, time);
   }
 
@@ -152,7 +153,8 @@ public class WorkManager {
     workManager.beginUniqueWork(key, ExistingWorkPolicy.REPLACE, builder.build()).enqueue();
   }
 
-  void cancelNotifications() {
+  @SuppressWarnings("WeakerAccess")
+  public void cancelNotifications() {
     Timber.d("cancelNotifications");
     workManager.cancelAllWorkByTag(TAG_NOTIFICATION);
   }
