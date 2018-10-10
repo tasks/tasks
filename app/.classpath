@@ -1,69 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-
-	<classpathentry kind="src" output="bin/main" path="src/main/java">
+	<classpathentry output="bin/main" kind="src" path="src/main/java">
 		<attributes>
 			<attribute name="gradle_scope" value="main"/>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" output="bin/main" path="src/generic/java">
+	<classpathentry output="bin/main" kind="src" path="src/generic/java">
 		<attributes>
 			<attribute name="gradle_scope" value="main"/>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" output="bin/main" path="src/googleplay/java">
+	<classpathentry output="bin/main" kind="src" path="src/googleplay/java">
 		<attributes>
 			<attribute name="gradle_scope" value="main"/>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" output="bin/main" path="src/amazon/java">
+	<classpathentry output="bin/main" kind="src" path="src/amazon/java">
 		<attributes>
 			<attribute name="gradle_scope" value="main"/>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" output="bin/main" path="src/debug/java">
+	<classpathentry output="bin/main" kind="src" path="src/debug/java">
 		<attributes>
 			<attribute name="gradle_scope" value="main"/>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" output="bin/main" path="src/release/java">
+	<classpathentry output="bin/main" kind="src" path="src/release/java">
 		<attributes>
 			<attribute name="gradle_scope" value="main"/>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-
-	<classpathentry kind="src" output="bin/test" path="src/androidTest/java">
+	<classpathentry output="bin/test" kind="src" path="src/androidTest/java">
 		<attributes>
 			<attribute name="gradle_scope" value="test"/>
 			<attribute name="gradle_used_by_scope" value="test"/>
 		</attributes>
-	</classpathentry>	
-	<classpathentry kind="src" output="bin/test" path="src/androidTestGeneric/java">
+	</classpathentry>
+	<classpathentry output="bin/test" kind="src" path="src/androidTestGeneric/java">
 		<attributes>
 			<attribute name="gradle_scope" value="test"/>
 			<attribute name="gradle_used_by_scope" value="test"/>
 		</attributes>
-	</classpathentry>	
-	<classpathentry kind="src" output="bin/test" path="src/androidTestGoogleplay/java">
+	</classpathentry>
+	<classpathentry output="bin/test" kind="src" path="src/androidTestGoogleplay/java">
 		<attributes>
 			<attribute name="gradle_scope" value="test"/>
 			<attribute name="gradle_used_by_scope" value="test"/>
 		</attributes>
-	</classpathentry>	
-	<classpathentry kind="src" output="bin/test" path="src/androidTestAmazon/java">
+	</classpathentry>
+	<classpathentry output="bin/test" kind="src" path="src/androidTestAmazon/java">
 		<attributes>
 			<attribute name="gradle_scope" value="test"/>
 			<attribute name="gradle_used_by_scope" value="test"/>
 		</attributes>
-	</classpathentry>	
-	
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-10/"/>
+	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
+	<classpathentry output="bin/main" kind="src" path="build/generated/source/r/debug"/>
+	<classpathentry output="bin/main" kind="src" path="build/generated/source/buildConfig/debug"/>
+	<classpathentry output="bin/main" kind="src" path="build/generated/source/aidl/debug"/>
 	<classpathentry kind="output" path="bin/default"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-10/"/>
+	<classpathentry sourcepath="ANDROID_HOME/sources/android-28" kind="var" path="ANDROID_HOME/platforms/android-28/android.jar"/>
 </classpath>
