@@ -66,5 +66,317 @@
 	<classpathentry output="bin/main" kind="src" path="build/generated/source/aidl/debug"/>
 	<classpathentry kind="output" path="bin/default"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-10/"/>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.google.dagger/dagger/2.16/ec3a4ce62e7e75a5cba2fe04820b6cfe12003ddd/dagger-2.16-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.google.dagger/dagger/2.16/a54ab49a739fd87e31be49c6179a0e9a135a7f39/dagger-2.16.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/android.arch.persistence.room/rxjava2/1.1.1/30be6db010126a6f2f5547fc854d479f3e22ac6b/rxjava2-1.1.1-sources.jar" kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/rxjava2-1.1.1.aar/classes.jar"/>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/android.arch.work/work-firebase/1.0.0-alpha08/3769618261c331a1d8670e44877fac3d7196fdb3/work-firebase-1.0.0-alpha08-sources.jar" kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/work-firebase-1.0.0-alpha08.aar/classes.jar"/>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/android.arch.work/work-runtime/1.0.0-alpha08/7466192d00f263e6e1e56efa43a77842e0193b73/work-runtime-1.0.0-alpha08-sources.jar" kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/work-runtime-1.0.0-alpha08.aar/classes.jar"/>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/android.arch.lifecycle/extensions/1.1.1/d654e6aa2f4a7c33f2dfe6c8465ee9ad2a81c1aa/extensions-1.1.1-sources.jar" kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/extensions-1.1.1.aar/classes.jar"/>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/io.reactivex.rxjava2/rxandroid/2.0.1/67244b35fe87c5899f87151f8b63981b7c9b37db/rxandroid-2.0.1-sources.jar" kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/rxandroid-2.0.1.aar/classes.jar"/>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/android.arch.paging/runtime/1.0.1/320e79a3372aa41b0355e92a77d2699446bae42c/runtime-1.0.1-sources.jar" kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/runtime-1.0.1.aar/classes.jar"/>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife/8.8.1/1de300f9b877d30cea69c2ba84a450549f023ab8/butterknife-8.8.1-sources.jar" kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/butterknife-8.8.1.aar/classes.jar"/>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife/8.8.1/1de300f9b877d30cea69c2ba84a450549f023ab8/butterknife-8.8.1-sources.jar" kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/butterknife-8.8.1.aar/lint.jar"/>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.facebook.stetho/stetho/1.5.0/527b79d1251cdd97e540e7745120abef00e4a39e/stetho-1.5.0-sources.jar" kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/stetho-1.5.0.aar/classes.jar"/>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.facebook.stetho/stetho-timber/1.5.0/992f20d13f65f19a8259894d74a98b955241673a/stetho-timber-1.5.0-sources.jar" kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/stetho-timber-1.5.0.aar/classes.jar"/>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.squareup.leakcanary/leakcanary-support-fragment/1.6.1/8db7b6b2988ddf4d21074e7941c3fd061db9a3a6/leakcanary-support-fragment-1.6.1-sources.jar" kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/leakcanary-support-fragment-1.6.1.aar/classes.jar"/>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.squareup.leakcanary/leakcanary-android/1.6.1/8bc289d3c80225b522446cbebacbd1bfabd36b56/leakcanary-android-1.6.1-sources.jar" kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/leakcanary-android-1.6.1.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/multidex-1.0.3.aar/classes.jar"/>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.10.0/e99b7b608968f16b07104b93e62cb90701174d0/okhttp-3.10.0-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.10.0/7ef0f1d95bf4c0b3ba30bbae25e0e562b05cf75e/okhttp-3.10.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.8.5/c5b4c491aecb72e7c32a78da0b5c6b9cda8dee0f/gson-2.8.5-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.8.5/f645ed69d595b24d4cf8b3fbb64cc505bede8829/gson-2.8.5.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.github.rey5137/material/1.2.5/be2302ef50866e466aebb43473c7a1c4a1358b38/material-1.2.5-sources.jar" kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/material-1.2.5.aar/classes.jar"/>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.nononsenseapps/filepicker/4.2.1/9980397875de37c18d15991c36ed6aae5180e43a/filepicker-4.2.1-sources.jar" kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/filepicker-4.2.1.aar/classes.jar"/>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.wdullaer/materialdatetimepicker/3.6.1/ed0d2a60a84ae025e71705954d0b91b79afb5b0b/materialdatetimepicker-3.6.1-sources.jar" kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/materialdatetimepicker-3.6.1.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/design-28.0.0-rc02.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/cardview-v7-28.0.0-rc02.aar/classes.jar"/>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.twofortyfouram/android-plugin-api-for-locale/1.0.2/912fdb5e4a2df83510909cab3cf193ca216d6eea/android-plugin-api-for-locale-1.0.2-sources.jar" kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/android-plugin-api-for-locale-1.0.2.aar/classes.jar"/>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.android.billingclient/billing/1.1/c80a746a62cc15beeec666390968a5ddc1c43b31/billing-1.1-sources.jar" kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/billing-1.1.aar/classes.jar"/>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.android.support.test/rules/1.0.0/881440d3b61dd57034b861fe26b0b171e7f7147/rules-1.0.0-sources.jar" kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/rules-1.0.0.aar/classes.jar"/>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.android.support.test/runner/1.0.0/beb78fb691e7544877f13b13c398b331939548bc/runner-1.0.0-sources.jar" kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/runner-1.0.0.aar/classes.jar"/>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/android.arch.persistence.room/runtime/1.1.1/ba5dd1320b8a0e9a5beb32eaa163a49abbe83e02/runtime-1.1.1-sources.jar" kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/runtime-1.1.1.aar/classes.jar"/>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/android.arch.persistence.room/common/1.1.1/f8a350afcb2385f4fef5394897364edfdebd4929/common-1.1.1-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/android.arch.persistence.room/common/1.1.1/8094cc50760b9ac665a8ea76b51888f70042e2b5/common-1.1.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/android.arch.lifecycle/livedata/1.1.1/bf27acaa4953c98cd519756ed7b7caacf94407d4/livedata-1.1.1-sources.jar" kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/livedata-1.1.1.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/appcompat-v7-28.0.0-rc02.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/support-v13-28.0.0-rc02.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/play-services-location-15.0.1.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/play-services-auth-16.0.0.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/play-services-places-15.0.1.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/play-services-analytics-16.0.3.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/firebase-core-16.0.3.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/firebase-measurement-connector-impl-17.0.1.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/firebase-analytics-16.0.3.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/play-services-auth-api-phone-15.0.1.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/play-services-auth-base-15.1.0.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/play-services-maps-15.0.1.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/play-services-tagmanager-v4-impl-16.0.3.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/play-services-analytics-impl-16.0.3.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/play-services-measurement-api-16.0.1.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/firebase-analytics-impl-16.2.1.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/firebase-iid-16.0.0.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/firebase-iid-interop-16.0.0.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/play-services-base-15.0.1.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/play-services-places-placereport-15.0.1.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/firebase-common-16.0.1.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/play-services-tasks-15.0.1.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/play-services-stats-15.0.1.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/firebase-measurement-connector-17.0.0.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/play-services-ads-identifier-15.0.1.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/play-services-basement-15.0.1.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/support-v4-28.0.0-rc02.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/support-fragment-28.0.0-rc02.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/recyclerview-v7-28.0.0-rc02.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/animated-vector-drawable-28.0.0-rc02.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/support-core-ui-28.0.0-rc02.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/support-core-utils-28.0.0-rc02.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/loader-28.0.0-rc02.aar/classes.jar"/>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/android.arch.lifecycle/livedata-core/1.1.1/c38818e006ea7a408c05e3090364332d46494ef/livedata-core-1.1.1-sources.jar" kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/livedata-core-1.1.1.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/transition-28.0.0-rc02.aar/classes.jar"/>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.firebase/firebase-jobdispatcher/0.8.5/77cd9cca5bdf7487dfde23e74929ed63416606e3/firebase-jobdispatcher-0.8.5-sources.jar" kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/firebase-jobdispatcher-0.8.5.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/support-vector-drawable-28.0.0-rc02.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/viewpager-28.0.0-rc02.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/coordinatorlayout-28.0.0-rc02.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/drawerlayout-28.0.0-rc02.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/slidingpanelayout-28.0.0-rc02.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/customview-28.0.0-rc02.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/swiperefreshlayout-28.0.0-rc02.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/asynclayoutinflater-28.0.0-rc02.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/support-media-compat-28.0.0-rc02.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/support-compat-28.0.0-rc02.aar/classes.jar"/>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/android.arch.paging/common/1.0.1/71a48e2090721f1a6b30de79cd07cc81a728bd37/common-1.0.1-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/android.arch.paging/common/1.0.1/f4fb10f7f5e73ce69d461ddde4ab222ef920607d/common-1.0.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/android.arch.core/common/1.1.1/ae9b923fc99c1fc5a7a9b6cedc6df8b2b8529c54/common-1.1.1-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/android.arch.core/common/1.1.1/e55b70d1f5620db124b3e85a7f4bdc7bd48d9f95/common-1.1.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/android.arch.lifecycle/common/1.1.1/bcdaa509a856d1430e736b102f899aa9870a8f83/common-1.1.1-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/android.arch.lifecycle/common/1.1.1/207a6efae6a3555e326de41f76bdadd9a239cbce/common-1.1.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/android.arch.lifecycle/viewmodel/1.1.1/d1cc8e805317f171be63c68341f499acda7e42d6/viewmodel-1.1.1-sources.jar" kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/viewmodel-1.1.1.aar/classes.jar"/>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife-annotations/8.8.1/4f68b7085132dfeb48a0473bc589fdee8a3de757/butterknife-annotations-8.8.1-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife-annotations/8.8.1/bc373fb6bc7bca3035041b924f158fd2b946ee8d/butterknife-annotations-8.8.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/android.arch.persistence/db-framework/1.1.1/8fde33a013eb00f3d84cd130e5f87267d3faee1b/db-framework-1.1.1-sources.jar" kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/db-framework-1.1.1.aar/classes.jar"/>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/android.arch.persistence/db/1.1.1/f248f3c30720922f8e6d8e159b1ac1e8e94b5c43/db-1.1.1-sources.jar" kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/db-1.1.1.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/versionedparcelable-28.0.0-rc02.aar/classes.jar"/>
+	<classpathentry kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.android.support/collections/28.0.0-rc02/9b8a0db9ca147cfe2c2d603d0a1ad6021543eb1f/collections-28.0.0-rc02.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/documentfile-28.0.0-rc02.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/localbroadcastmanager-28.0.0-rc02.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/print-28.0.0-rc02.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/cursoradapter-28.0.0-rc02.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/interpolator-28.0.0-rc02.aar/classes.jar"/>
+	<classpathentry kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.android.support/support-annotations/28.0.0-rc02/326b0d8c3d8dfe86ed237f0a74395ca8d347e561/support-annotations-28.0.0-rc02.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/constraint-layout-1.1.3.aar/classes.jar"/>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.jakewharton.timber/timber/4.7.1/8426e1daf26a6f9adef55a150f3d3ee944da39d/timber-4.7.1-sources.jar" kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/timber-4.7.1.aar/classes.jar"/>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.jakewharton.timber/timber/4.7.1/8426e1daf26a6f9adef55a150f3d3ee944da39d/timber-4.7.1-sources.jar" kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/timber-4.7.1.aar/lint.jar"/>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.jakewharton.threetenabp/threetenabp/1.1.0/308f6c56516ed30447fd548a1dd2649676b511f3/threetenabp-1.1.0-sources.jar" kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/threetenabp-1.1.0.aar/classes.jar"/>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/20.0/9c8493c7991464839b612d7547d6c263adf08f75/guava-20.0-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/20.0/89507701249388e1ed5ddcf8c41f4ce1be7831ef/guava-20.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.jakewharton/process-phoenix/2.0.0/15933ad11df589877c4b67799a75c8539f80b9f9/process-phoenix-2.0.0-sources.jar" kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/process-phoenix-2.0.0.aar/classes.jar"/>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.google.android.apps.dashclock/dashclock-api/2.0.0/ce76fed095cf56f18146bf2d598264518e05746/dashclock-api-2.0.0-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.google.android.apps.dashclock/dashclock-api/2.0.0/fe40ba5457e17502d11114f39b45e9dfe3f51c6d/dashclock-api-2.0.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.rubiconproject.oss/jchronic/0.2.6/fc1f1ed3bbe62ce029642fb2ee9d3bc9bfc3c8ef/jchronic-0.2.6-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.rubiconproject.oss/jchronic/0.2.6/5463c6e888c7b5fbcfa2a907a43c1822f3ee9bd9/jchronic-0.2.6.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/org.scala-saddle/google-rfc-2445/20110304/732d1fa4b92f019cec9a431d85c0ac179a3cdf34/google-rfc-2445-20110304-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/org.scala-saddle/google-rfc-2445/20110304/3f07b9c8c990f22b0040c6ad4987348c4f9f8136/google-rfc-2445-20110304.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/me.leolin/ShortcutBadger/1.1.22/614ef59fdccd8e121fa40ba7d454307025f8f0fe/ShortcutBadger-1.1.22-sources.jar" kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/ShortcutBadger-1.1.22.aar/classes.jar"/>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.google.apis/google-api-services-tasks/v1-rev52-1.23.0/f736fef59204ff2b074293856eab63af71328ea0/google-api-services-tasks-v1-rev52-1.23.0-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.google.apis/google-api-services-tasks/v1-rev52-1.23.0/a21aba1b98414f86bbcf13cf91e4131be737178d/google-api-services-tasks-v1-rev52-1.23.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.google.api-client/google-api-client-android/1.23.0/6b910c90ff678197ff1167cc992816f767e0478c/google-api-client-android-1.23.0-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.google.api-client/google-api-client-android/1.23.0/b95521559faf49989ff036a5b15fd16476bdc955/google-api-client-android-1.23.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/crashlytics-2.9.5.aar/classes.jar"/>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.google.dexmaker/dexmaker-mockito/1.2/639cf8b7d498623a654ffbc388476a48435698fc/dexmaker-mockito-1.2-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.google.dexmaker/dexmaker-mockito/1.2/b99884a4c6ef6335ba376f79aa79632b2421c17c/dexmaker-mockito-1.2.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.natpryce/make-it-easy/4.0.1/6ccfa12d7d1c84e15489591d6bd091b334eb0d82/make-it-easy-4.0.1-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.natpryce/make-it-easy/4.0.1/bf39ec8bdb99a048afaa2cd5b0208d5166fe191/make-it-easy-4.0.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/javax.inject/javax.inject/1/a00123f261762a7c5e0ec916a2c7c8298d29c400/javax.inject-1-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/javax.inject/javax.inject/1/6975da39a7040257bd51d21a231b76c915872d38/javax.inject-1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/io.reactivex.rxjava2/rxjava/2.0.6/b65373443c52d95b6ccb0e83f303f6a6d438fbc0/rxjava-2.0.6-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/io.reactivex.rxjava2/rxjava/2.0.6/b0100ee9ceee5d1861371aefc814cee3e78ed23b/rxjava-2.0.6.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/commons-cli/commons-cli/1.2/6c5459816530a1962ac18cd315cc775b1b384329/commons-cli-1.2-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/commons-cli/commons-cli/1.2/2bf96b7aa8b611c177d329452af1dc933e14501c/commons-cli-1.2.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.squareup.leakcanary/leakcanary-analyzer/1.6.1/c79f25b98dd491f6cf81fa0edb215a7062da7e4a/leakcanary-analyzer-1.6.1-sources.jar" kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/leakcanary-analyzer-1.6.1.aar/classes.jar"/>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.14.0/e7c96b4fe5651490d8f3c022042940d743a3bdd9/okio-1.14.0-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.14.0/102d7be47241d781ef95f1581d414b0943053130/okio-1.14.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.android.support.constraint/constraint-layout-solver/1.1.3/bde0667d7414c16ed62d3cfe993cff7f9d732373/constraint-layout-solver-1.1.3.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/16.0.1/a726adbee50e3aa4d3d2f987a694e780c35ca67d/annotations-16.0.1-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/16.0.1/c1a6655cebcac68e63e4c24d23f573035032eb2a/annotations-16.0.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/org.threeten/threetenbp/1.3.6/aa8db2269c2794f6e000c4ec526e1ce6ff8ffddd/threetenbp-1.3.6-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/org.threeten/threetenbp/1.3.6/f1e223783a2046337be2d9333c304522854fde9b/threetenbp-1.3.6-no-tzdb.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/net.jcip/jcip-annotations/1.0/d853625d8001c00d40abed553e670279504699f9/jcip-annotations-1.0-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/net.jcip/jcip-annotations/1.0/afba4942caaeaf46aab0b976afd57cc7c181467e/jcip-annotations-1.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.google.api-client/google-api-client/1.23.0/1da1acc283f4ff3ae0b67bc5ca25b6e387f3afa9/google-api-client-1.23.0-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.google.api-client/google-api-client/1.23.0/522ea860eb48dee71dfe2c61a1fd09663539f556/google-api-client-1.23.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.google.http-client/google-http-client-android/1.23.0/4877bc62c8084281326741767a872e6986c59dca/google-http-client-android-1.23.0-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.google.http-client/google-http-client-android/1.23.0/1bbe77a8594d7892571266392b8a7dd0a5980664/google-http-client-android-1.23.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/crashlytics-core-2.6.4.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/answers-1.4.3.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/beta-1.2.10.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/fabric-1.4.4.aar/classes.jar"/>
+	<classpathentry kind="lib" path="D:/projekte/tasks/app/build/exploded-aars/play-services-measurement-base-16.0.2.aar/classes.jar"/>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.google.dexmaker/dexmaker/1.2/aa5a9096b8ad6cd779fd979bd1077b53dd09a6cd/dexmaker-1.2-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.google.dexmaker/dexmaker/1.2/4d5045fefa6d286c5ddf733e321fe6e5e632efb6/dexmaker-1.2.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/org.mockito/mockito-core/1.9.5/46f703fb4266140c544d48a189cb25947eb6333e/mockito-core-1.9.5-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/org.mockito/mockito-core/1.9.5/c3264abeea62c4d2f367e21484fbb40c7e256393/mockito-core-1.9.5.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/org.pcollections/pcollections/2.1.2/58d97dc66c40a0062a0894a0eb787e60d1975731/pcollections-2.1.2-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/org.pcollections/pcollections/2.1.2/15925fd6c32a29fe3f40a048d238c5ca58cb8362/pcollections-2.1.2.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/junit/junit/4.12/a6c32b40bf3d76eca54e3c601e5d1470c86fcdfa/junit-4.12-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/junit/junit/4.12/2973d150c0dc1fefe998f834810d68f278ea58ec/junit-4.12.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/net.sf.kxml/kxml2/2.3.0/309cd2cff7260e465792fda3dcbb063b730d8050/kxml2-2.3.0-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/net.sf.kxml/kxml2/2.3.0/ccbc77a5fd907ef863c29f3596c6f54ffa4e9442/kxml2-2.3.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/org.reactivestreams/reactive-streams/1.0.0/5be7bd3f38e43c8fc83699bbb5328c62adb95bbf/reactive-streams-1.0.0-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/org.reactivestreams/reactive-streams/1.0.0/14b8c877d98005ba3941c9257cfe09f6ed0e0d74/reactive-streams-1.0.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.squareup.leakcanary/leakcanary-watcher/1.6.1/919782fbcc01d56829c4a10918d8dea566050f91/leakcanary-watcher-1.6.1-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.squareup.leakcanary/leakcanary-watcher/1.6.1/525aa64b206d926d83bfad3c1d3f773e4123a320/leakcanary-watcher-1.6.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.squareup.haha/haha/2.0.4/8e7d04c859ba34baacda00ca23fd1b410c7953b3/haha-2.0.4-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.squareup.haha/haha/2.0.4/4dbe9405e87aa52687c692740253c0ef93dbad9b/haha-2.0.4.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.google.oauth-client/google-oauth-client/1.23.0/9030ee2be9844eb8c87c851ecf4c05f79b02e023/google-oauth-client-1.23.0-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.google.oauth-client/google-oauth-client/1.23.0/e57ea1e2220bda5a2bd24ff17860212861f3c5cf/google-oauth-client-1.23.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.google.http-client/google-http-client-jackson2/1.23.0/7472d2eeee59d3fbc255acb45ba1a692f61bef61/google-http-client-jackson2-1.23.0-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.google.http-client/google-http-client-jackson2/1.23.0/fd6761f4046a8cb0455e6fa5f58e12b061e9826e/google-http-client-jackson2-1.23.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.google.http-client/google-http-client/1.23.0/fb386c0b92d0adff70acc4a88e5b8b624f26f798/google-http-client-1.23.0-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.google.http-client/google-http-client/1.23.0/8e86c84ff3c98eca6423e97780325b299133d858/google-http-client-1.23.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/1dc37250fbc78e23a65a67fbbaf71d2e9cbc3c0b/hamcrest-core-1.3-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/42a25dc3219429f0e5d060061f71acb49bf010a0/hamcrest-core-1.3.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/org.objenesis/objenesis/1.0/b10c90e57b7bb985a7b6a704769428fe5c2a732c/objenesis-1.0-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/org.objenesis/objenesis/1.0/9b473564e792c2bdf1449da1f0b1b5bff9805704/objenesis-1.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/org.jetbrains.trove4j/trove4j/20160824/33c3e174a9c8368d93761d3d12712db18e903959/trove4j-20160824.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/1.3.9/40719ea6961c0cb6afaeb6a921eaa1f6afd4cfdf/jsr305-1.3.9.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.1.3/d313b1839906da7422387b180a124c81e13e65a2/jackson-core-2.1.3-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.1.3/f6c3aed1cdfa21b5c1737c915186ea93a95a58bd/jackson-core-2.1.3.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry sourcepath="ANDROID_HOME/sources/android-28" kind="var" path="ANDROID_HOME/platforms/android-28/android.jar"/>
 </classpath>
