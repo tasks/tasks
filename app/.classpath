@@ -64,6 +64,7 @@
 	<classpathentry output="bin/main" kind="src" path="build/generated/source/r/debug"/>
 	<classpathentry output="bin/main" kind="src" path="build/generated/source/buildConfig/debug"/>
 	<classpathentry output="bin/main" kind="src" path="build/generated/source/aidl/debug"/>
+	<classpathentry output="bin/main" kind="src" path="build/generated/not_namespaced_r_class_sources/debug/processDebugResources/r"/>
 	<classpathentry kind="output" path="bin/default"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-10/"/>
 	<classpathentry sourcepath="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.google.dagger/dagger/2.16/ec3a4ce62e7e75a5cba2fe04820b6cfe12003ddd/dagger-2.16-sources.jar" kind="lib" path="C:/Users/bmaehr/.gradle/caches/modules-2/files-2.1/com.google.dagger/dagger/2.16/a54ab49a739fd87e31be49c6179a0e9a135a7f39/dagger-2.16.jar">
