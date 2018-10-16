@@ -68,13 +68,6 @@
 	<string name="TEA_control_timer">Inställningar för tidtagarur</string>
 	<string name="TEA_control_hidden_section">----Göm alltid----</string>
 	<string name="TEA_load_more">Ladda mer...</string>
-	<string name="missed_call">Missat samtal från %s</string>
-	<string name="MCA_return_call">Ring nu</string>
-	<string name="MCA_add_task">Ring senare</string>
-	<string name="MCA_ignore">Ignorera</string>
-	<string name="missed_calls">Missade samtal</string>
-	<string name="MCA_task_title_name">Ring %1$s tillbaka kl %2$s</string>
-	<string name="MCA_task_title_no_name">Ring %s tillbaka</string>
 	<string name="CRA_ignore">Ignorera</string>
 	<string name="CRA_title">Behöver du en lista över möten?</string>
 	<string name="CRA_ignore_body">Du har ignorerat flera kalenderhändelser. Vill du att Tasks slutar fråga dig om dem?</string>

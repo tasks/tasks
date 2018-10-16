@@ -71,13 +71,6 @@
 	<string name="TEA_control_timer">Управління таймером</string>
 	<string name="TEA_control_hidden_section">----Приховувати завжди----</string>
 	<string name="TEA_load_more">Завантажити більше...</string>
-	<string name="missed_call">Пропущений дзвінок від %s</string>
-	<string name="MCA_return_call">Зателефонувати зараз</string>
-	<string name="MCA_add_task">Зателефонувати пізніше</string>
-	<string name="MCA_ignore">Ігнорувати</string>
-	<string name="missed_calls">Пропущені виклики</string>
-	<string name="MCA_task_title_name">Перетелефонувати  %1$s о %2$s</string>
-	<string name="MCA_task_title_no_name">Перетелефонувати %s </string>
 	<string name="CRA_ignore">Ігнорувати</string>
 	<string name="CRA_title">Потрібен список для зустрічі?</string>
 	<string name="CRA_ignore_body">Ви проігнорували декілька календарних подій. Більше не запитувати про них?</string>

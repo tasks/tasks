@@ -72,13 +72,6 @@
 	<string name="TEA_control_timer">定时器控件</string>
 	<string name="TEA_control_hidden_section">----始终隐藏----</string>
 	<string name="TEA_load_more">加载更多……</string>
-	<string name="missed_call">来自 %s 的未接来电</string>
-	<string name="MCA_return_call">现在回电</string>
-	<string name="MCA_add_task">稍后回电</string>
-	<string name="MCA_ignore">忽略</string>
-	<string name="missed_calls">未接来电</string>
-	<string name="MCA_task_title_name">请回电给 %1$s，电话是 %2$s</string>
-	<string name="MCA_task_title_no_name">请回电给 %s</string>
 	<string name="CRA_ignore">忽略</string>
 	<string name="CRA_title">需要会议列表？</string>
 	<string name="CRA_ignore_body">您已经忽略了几个日历事件。对于这些事件，清单小助理是否应该不再询问您呢？</string>

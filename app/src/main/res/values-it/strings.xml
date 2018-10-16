@@ -72,13 +72,6 @@
 	<string name="TEA_control_timer">Regolazioni Tempo</string>
 	<string name="TEA_control_hidden_section">----Nascondi Sempre----</string>
 	<string name="TEA_load_more">Caricane altri...</string>
-	<string name="missed_call">Chiamate perse da %s</string>
-	<string name="MCA_return_call">Chiama ora</string>
-	<string name="MCA_add_task">Chiama più tardi</string>
-	<string name="MCA_ignore">Ignora</string>
-	<string name="missed_calls">Chiamate perse</string>
-	<string name="MCA_task_title_name">Richiama %1$s al %2$s</string>
-	<string name="MCA_task_title_no_name">Richiama %s</string>
 	<string name="CRA_ignore">Ignora</string>
 	<string name="CRA_title">Hai bisogno di una lista per le riunioni?</string>
 	<string name="CRA_ignore_body">Hai ignorato diverse chiamate perse. Vuoi che Tasks smetta di notificartele?</string>

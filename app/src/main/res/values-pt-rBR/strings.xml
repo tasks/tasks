@@ -66,13 +66,6 @@
 	<string name="TEA_control_timer">Temporizador</string>
 	<string name="TEA_control_hidden_section">----Esconder Sempre---</string>
 	<string name="TEA_load_more">Carregar mais...</string>
-	<string name="missed_call">Chamada perdida de %s</string>
-	<string name="MCA_return_call">Ligar agora</string>
-	<string name="MCA_add_task">Ligar mais tarde</string>
-	<string name="MCA_ignore">Ignorar</string>
-	<string name="missed_calls">Chamadas perdidas</string>
-	<string name="MCA_task_title_name">Retornar ligação de %1$s às %2$s</string>
-	<string name="MCA_task_title_no_name">Retornar ligação de %s</string>
 	<string name="CRA_ignore">Ignorar</string>
 	<string name="CRA_title">Precisa de uma lista de reuniões?</string>
 	<string name="CRA_ignore_body">Você ignorou vários eventos do calendário. O Tasks deve parar de lhe perguntar sobre eles?</string>

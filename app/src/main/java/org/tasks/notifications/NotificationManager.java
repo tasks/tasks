@@ -53,7 +53,6 @@ public class NotificationManager {
 
   public static final String NOTIFICATION_CHANNEL_DEFAULT = "notifications";
   public static final String NOTIFICATION_CHANNEL_TASKER = "notifications_tasker";
-  public static final String NOTIFICATION_CHANNEL_CALLS = "notifications_calls";
   public static final String NOTIFICATION_CHANNEL_TIMERS = "notifications_timers";
   static final String EXTRA_NOTIFICATION_ID = "extra_notification_id";
   private static final String GROUP_KEY = "tasks";
@@ -83,8 +82,6 @@ public class NotificationManager {
           (android.app.NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
       notificationManager.createNotificationChannel(
           createNotificationChannel(NOTIFICATION_CHANNEL_DEFAULT, R.string.notifications));
-      notificationManager.createNotificationChannel(
-          createNotificationChannel(NOTIFICATION_CHANNEL_CALLS, R.string.missed_calls));
       notificationManager.createNotificationChannel(
           createNotificationChannel(NOTIFICATION_CHANNEL_TASKER, R.string.tasker_locale));
       notificationManager.createNotificationChannel(

@@ -47,9 +47,6 @@
 	<string name="TEA_control_files">Filer</string>
 	<string name="TEA_control_reminders">Påminnelser</string>
 	<string name="TEA_control_hidden_section">----Skjul alltid----</string>
-	<string name="MCA_return_call">Ring nå</string>
-	<string name="MCA_add_task">Ring senere</string>
-	<string name="MCA_ignore">Ignorer</string>
 	<string name="EPr_appearance_header">Utseende</string>
 	<string name="EPr_default_urgency_title">Standardfrist</string>
 	<string name="EPr_default_importance_title">Standardviktighet</string>

@@ -194,27 +194,6 @@ File %1$s contained %2$s.\n\n
   <!-- Text to load more activity -->
   <string name="TEA_load_more">Load more…</string>
 
-  <!-- ===================================================== MissedCallActivity == -->
-
-  <string name="missed_call">Missed call from %s</string>
-
-  <!-- Missed call: return call -->
-  <string name="MCA_return_call">Call now</string>
-
-  <!-- Missed call: return call -->
-  <string name="MCA_add_task">Call later</string>
-
-  <!-- Missed call: return call -->
-  <string name="MCA_ignore">Ignore</string>
-
-  <string name="missed_calls">Missed calls</string>
-
-  <!-- Missed call: task title with name (%1$s -> name, %2$s -> number)-->
-  <string name="MCA_task_title_name">Call %1$s back at %2$s</string>
-
-  <!-- Missed call: task title no name (%s -> number)-->
-  <string name="MCA_task_title_no_name">Call %s back</string>
-
   <!-- ======================================= Calendar reminder activity == -->
 
   <!-- Calendar remindeer ignore button -->

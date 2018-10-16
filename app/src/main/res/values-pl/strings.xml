@@ -68,13 +68,6 @@
 	<string name="TEA_control_timer">Sterowanie zegara</string>
 	<string name="TEA_control_hidden_section">----Zawsze Ukryte----</string>
 	<string name="TEA_load_more">Wczytaj więcej...</string>
-	<string name="missed_call">Nieodebrane  połączenie od %s</string>
-	<string name="MCA_return_call">Zadzwoń teraz</string>
-	<string name="MCA_add_task">Zadzwoń później</string>
-	<string name="MCA_ignore">Ignoruj</string>
-	<string name="missed_calls">Nieodebrane połączenia</string>
-	<string name="MCA_task_title_name">Oddzwoń do %1$s o %2$s</string>
-	<string name="MCA_task_title_no_name">Oddzwoń do %s</string>
 	<string name="CRA_ignore">Ignoruj</string>
 	<string name="CRA_title">Czy potrzebujesz listy spotkań?</string>
 	<string name="CRA_ignore_body">Zignorowałeś kilka wydarzeń z kalendarza. Czy Tasks powinien przestać cię o nie pytać?</string>

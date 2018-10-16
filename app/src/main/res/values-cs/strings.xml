@@ -65,13 +65,6 @@
 	<string name="TEA_control_timer">Ovladač časovače</string>
 	<string name="TEA_control_hidden_section">-----Vždy skrývat----</string>
 	<string name="TEA_load_more">Více...</string>
-	<string name="missed_call">Zmeškaný hovor od %s</string>
-	<string name="MCA_return_call">Hned zavolat</string>
-	<string name="MCA_add_task">Zavolat později</string>
-	<string name="MCA_ignore">Ignorovat</string>
-	<string name="missed_calls">Zmeškané hovory</string>
-	<string name="MCA_task_title_name">Zavolat %1$s zpět v %2$s</string>
-	<string name="MCA_task_title_no_name">Zavolat %s zpět</string>
 	<string name="CRA_ignore">Ignorovat</string>
 	<string name="CRA_title">Potřebujete seznam schůze?</string>
 	<string name="CRA_ignore_body">Ignoroval jste několik událostí v kalendáři. Mám Vás přestat informovat i o úkolech?</string>

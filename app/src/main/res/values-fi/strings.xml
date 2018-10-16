@@ -71,13 +71,6 @@
 	<string name="TEA_control_timer">Ajastuksen säätimet</string>
 	<string name="TEA_control_hidden_section">----Piilota aina----</string>
 	<string name="TEA_load_more">Lataa lisää...</string>
-	<string name="missed_call">Vastaamaton puhelu: %s</string>
-	<string name="MCA_return_call">Soita heti</string>
-	<string name="MCA_add_task">Soita myöhemmin</string>
-	<string name="MCA_ignore">Ohita</string>
-	<string name="missed_calls">Vastaamattomat puhelut</string>
-	<string name="MCA_task_title_name">Soita %1$s takaisin %2$s</string>
-	<string name="MCA_task_title_no_name">Soita %s takaisin</string>
 	<string name="CRA_ignore">Ohita</string>
 	<string name="CRA_title">Tarvitaanko listaa tapaamisista?</string>
 	<string name="CRA_ignore_body">Olet ohittanut useita kalenteritapahtumia. Lopettaako Tasks niistä kyselemisen?</string>

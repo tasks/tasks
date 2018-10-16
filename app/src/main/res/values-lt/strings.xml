@@ -72,13 +72,6 @@
 	<string name="TEA_control_timer">Laikmačio nustatymai</string>
 	<string name="TEA_control_hidden_section">----Visada slėpti----</string>
 	<string name="TEA_load_more">Užkrauti daugiau...</string>
-	<string name="missed_call">Praleistas skambutis nuo: %s</string>
-	<string name="MCA_return_call">Paskambinti dabar</string>
-	<string name="MCA_add_task">Paskambinti vėliau</string>
-	<string name="MCA_ignore">Ignoruoti</string>
-	<string name="missed_calls">Praleisti skambučiai</string>
-	<string name="MCA_task_title_name">Perskambinti %1$s šiuo metu: %2$s</string>
-	<string name="MCA_task_title_no_name">Perskambinti %s</string>
 	<string name="CRA_ignore">Ignoruoti</string>
 	<string name="CRA_title">Reikia susitikimų sąrašo?</string>
 	<string name="CRA_ignore_body">Jūs ignoravote kelis kalendoriaus įvykius. Ar Tasks turėtų nustoti apie juos klausti?</string>

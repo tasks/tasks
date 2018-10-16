@@ -75,13 +75,6 @@
 	<string name="TEA_control_timer">Időzítő Beállítása</string>
 	<string name="TEA_control_hidden_section">---Elrejtve---</string>
 	<string name="TEA_load_more">Továbbiak betöltése...</string>
-	<string name="missed_call">Nem fogadott hívás tőle: %s</string>
-	<string name="MCA_return_call">Hívás most</string>
-	<string name="MCA_add_task">Hívás később</string>
-	<string name="MCA_ignore">Kihagy</string>
-	<string name="missed_calls">Nem fogadott hívások</string>
-	<string name="MCA_task_title_name">%1$s visszahívása ekkor: %2$s</string>
-	<string name="MCA_task_title_no_name">%s visszahívása</string>
 	<string name="CRA_ignore">Kihagy</string>
 	<string name="CRA_title">Szeretne egy listát a találkozókról?</string>
 	<string name="CRA_ignore_body">Kihagytál jónéhány naptáreseményt. Ne kérdezzen rá többet a Tasks?</string>

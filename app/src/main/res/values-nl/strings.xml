@@ -72,13 +72,6 @@
 	<string name="TEA_control_timer">Tijd Controlers</string>
 	<string name="TEA_control_hidden_section">----Altijd Verbergen----</string>
 	<string name="TEA_load_more">Laad meer...</string>
-	<string name="missed_call">Gemiste oproepen van %s</string>
-	<string name="MCA_return_call">Bel nu</string>
-	<string name="MCA_add_task">Bel later</string>
-	<string name="MCA_ignore">Negeren</string>
-	<string name="missed_calls">Gemiste oproepen</string>
-	<string name="MCA_task_title_name">Bel %1$s terug op %2$s</string>
-	<string name="MCA_task_title_no_name">Bel %s terug</string>
 	<string name="CRA_ignore">Negeren</string>
 	<string name="CRA_title">Heb je een bijeenkomst lijst nodig? </string>
 	<string name="CRA_ignore_body">Je hebt meerdere agenda gebeurtenissen genegeerd. Moet Tasks je er niet meer naar vragen?</string>

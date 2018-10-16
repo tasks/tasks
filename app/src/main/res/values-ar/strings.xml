@@ -45,9 +45,6 @@
 	<string name="TEA_control_files">الملفات</string>
 	<string name="TEA_control_reminders">مذكرات المهام</string>
 	<string name="TEA_control_hidden_section">---إخفاء دائما---</string>
-	<string name="MCA_return_call">اتصل الان</string>
-	<string name="MCA_add_task">اتصل لاحقاً</string>
-	<string name="MCA_ignore">تجاهل</string>
 	<string name="CRA_ignore">تجاهل</string>
 	<string name="CRA_title">تريد قائمة للمقابلات؟</string>
 	<string name="CRA_ignore_all">تجاهل جميع الأحداث</string>

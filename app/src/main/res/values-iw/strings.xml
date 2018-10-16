@@ -68,13 +68,6 @@
 	<string name="TEA_control_timer">הערכת זמן</string>
 	<string name="TEA_control_hidden_section">----מוסתר תמיד----</string>
 	<string name="TEA_load_more">טען עוד...</string>
-	<string name="missed_call">שיחה שלא נענתה מ%s</string>
-	<string name="MCA_return_call">התקשר כעת</string>
-	<string name="MCA_add_task">התקשר מאוחר יותר</string>
-	<string name="MCA_ignore">התעלם</string>
-	<string name="missed_calls">שיחות שלא נענו</string>
-	<string name="MCA_task_title_name">\"החזר שיחה ל־%1$s  ב־%2$s\"</string>
-	<string name="MCA_task_title_no_name">החזר שיחה ל־%s</string>
 	<string name="CRA_ignore">התעלם</string>
 	<string name="CRA_title">צריך רשימה לפגישה?</string>
 	<string name="CRA_ignore_body">התעלמת ממספר אירועי יומן. האם עלי לחדול מלהזכיר לך אירועי יומן?</string>

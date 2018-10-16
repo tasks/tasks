@@ -44,9 +44,6 @@
   <!-- default random reminder setting (in hours) -->
   <string name="p_rmd_default_random_hours">notif_default_reminder</string>
 
-  <!-- field missed calls preference -->
-  <string name="p_field_missed_calls">field_missed_calls</string>
-
   <!-- calendar reminders preference -->
   <string name="p_calendar_reminders">p_calendar_reminder</string>
 

@@ -56,11 +56,6 @@
 	<string name="TEA_control_timer">定時器控件</string>
 	<string name="TEA_control_hidden_section">----始終隱藏----</string>
 	<string name="TEA_load_more">加載更多……</string>
-	<string name="MCA_return_call">現在回電</string>
-	<string name="MCA_add_task">稍後回電</string>
-	<string name="MCA_ignore">忽略</string>
-	<string name="MCA_task_title_name">請回電給 %1$s，電話是 %2$s</string>
-	<string name="MCA_task_title_no_name">請回電給 %s</string>
 	<string name="CRA_ignore">忽略</string>
 	<string name="CRA_title">需要一個會議列表嗎？</string>
 	<string name="CRA_ignore_body">您已經忽略了好幾個月曆上的事件， 之後 Tasks 是不是不要再詢問您了呢？</string>

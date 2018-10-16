@@ -76,13 +76,6 @@
 	<string name="TEA_control_timer">Kronometre Denetimleri</string>
 	<string name="TEA_control_hidden_section">----Her Zaman Gizle----</string>
 	<string name="TEA_load_more">Daha yükle...</string>
-	<string name="missed_call">%s kişisinden yanıtsız çağrı</string>
-	<string name="MCA_return_call">Şimdi ara</string>
-	<string name="MCA_add_task">Sonra ara</string>
-	<string name="MCA_ignore">Yoksay</string>
-	<string name="missed_calls">Yanıtsız çağrılar</string>
-	<string name="MCA_task_title_name">%1$s kişisini geri ara: %2$s</string>
-	<string name="MCA_task_title_no_name">%s kişisini geri ara</string>
 	<string name="CRA_ignore">Yoksay</string>
 	<string name="CRA_title">Bir toplantı listesine mi ihtiyacınız var?</string>
 	<string name="CRA_ignore_body">Bir kaç tane takvim etkinliğini yok saydınız. Tasks\'in size bunlar hakkında sormayı kesmesini ister misiniz?</string>

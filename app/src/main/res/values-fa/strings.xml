@@ -56,10 +56,6 @@
 	<string name="TEA_control_timer">کنترل تایمر</string>
 	<string name="TEA_control_hidden_section">----همیشه مخفی----</string>
 	<string name="TEA_load_more">بارگزاری بیشتر</string>
-	<string name="MCA_return_call">اکنون تماس بگیر</string>
-	<string name="MCA_add_task">بعدا تماس بگیر</string>
-	<string name="MCA_ignore">رد کردن</string>
-	<string name="missed_calls">تماس های از دست داده</string>
 	<string name="CRA_ignore">رد کردن</string>
 	<string name="CRA_title">نیاز به لیست ملاقات دارید ؟</string>
 	<string name="CRA_ignore_all">نادیده گرفتن تمام رویداد ها</string>

@@ -61,11 +61,6 @@
 	<string name="TEA_control_timer">Χειριστήρια χρονοδιακόπτη</string>
 	<string name="TEA_control_hidden_section">-----Απόκρυψη πάντα-----</string>
 	<string name="TEA_load_more">Φόρτωση περισσότερων</string>
-	<string name="MCA_return_call">Κάλεσε τώρα</string>
-	<string name="MCA_add_task">Κάλεσε αργότερα</string>
-	<string name="MCA_ignore">Αγνοήστε</string>
-	<string name="MCA_task_title_name">Ξανακαλέστε %1$s στίς %2$s</string>
-	<string name="MCA_task_title_no_name">Ξανακαλέστε %s</string>
 	<string name="CRA_ignore">Αγνοήστε</string>
 	<string name="CRA_title">Χρειάζεστε λίστα για συνάντηση?</string>
 	<string name="CRA_ignore_body">Αγνοήσατε αρκετές κλήσεις. Να σταματήσουμε να ρωτάμε για αυτές;</string>

@@ -52,11 +52,6 @@
     android:key="@string/p_led_notification"
     android:summary="@string/hardware_support_required"
     android:title="@string/led_notification"/>
-  <CheckBoxPreference
-    android:defaultValue="false"
-    android:dependency="@string/p_rmd_enabled"
-    android:key="@string/p_field_missed_calls"
-    android:title="@string/missed_calls"/>
   <org.tasks.ui.TimePreference
     android:defaultValue="@integer/default_remind_time"
     android:dependency="@string/p_rmd_enabled"

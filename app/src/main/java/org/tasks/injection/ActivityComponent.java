@@ -32,7 +32,6 @@ import org.tasks.preferences.AppearancePreferences;
 import org.tasks.preferences.BasicPreferences;
 import org.tasks.preferences.DateTimePreferences;
 import org.tasks.preferences.MiscellaneousPreferences;
-import org.tasks.reminders.MissedCallActivity;
 import org.tasks.reminders.NotificationActivity;
 import org.tasks.reminders.SnoozeActivity;
 import org.tasks.sync.SynchronizationPreferences;
@@ -79,8 +78,6 @@ public interface ActivityComponent {
   void inject(NotificationActivity notificationActivity);
 
   void inject(SnoozeActivity snoozeActivity);
-
-  void inject(MissedCallActivity missedCallActivity);
 
   void inject(FileExplore fileExplore);
 

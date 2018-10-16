@@ -62,11 +62,6 @@
 	<string name="TEA_control_timer">Upravljanje s štoparico</string>
 	<string name="TEA_control_hidden_section">----Vedno skrij----</string>
 	<string name="TEA_load_more">Naloži še...</string>
-	<string name="MCA_return_call">Kliči zdaj</string>
-	<string name="MCA_add_task">Kliči kasneje</string>
-	<string name="MCA_ignore">Ignoriraj</string>
-	<string name="MCA_task_title_name">%1$s pokliči nazaj ob %2$s</string>
-	<string name="MCA_task_title_no_name">Vrni klic %s </string>
 	<string name="CRA_ignore">Ignoriraj</string>
 	<string name="CRA_title">Potrebujete seznam sestankov?</string>
 	<string name="CRA_ignore_body">Ignorirali ste številne dogodke na koledarju. Naj vas aplikacija Opravki neha spraševati o njih?</string>
