@@ -113,7 +113,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
     if (!adapter.isManuallySorted()) {
       startActionMode();
     }
-    if (mode != null) {
+    if (mode != null && !viewHolder.isMoving()) {
       toggle(viewHolder);
     }
     return true;

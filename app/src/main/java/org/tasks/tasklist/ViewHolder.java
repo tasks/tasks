@@ -143,6 +143,10 @@ class ViewHolder extends RecyclerView.ViewHolder {
     updateBackground();
   }
 
+  boolean isMoving() {
+    return moving;
+  }
+
   private void updateBackground() {
     if (selected || moving) {
       rowBody.setBackgroundColor(selectedColor);
