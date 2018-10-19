@@ -118,36 +118,39 @@ public class TasksJsonExporter {
     this.latestSetVersionName = null;
     this.progressDialog = progressDialog;
 
-    handler = exportType == ExportType.EXPORT_TYPE_MANUAL ? new Handler() : null;
+    if (exportType == ExportType.EXPORT_TYPE_MANUAL) {
+      handler = new Handler();
+      new Thread(() -> runBackup(exportType)).start();
+    } else {
+      runBackup(exportType);
+    }
+  }
 
-    new Thread(
-            () -> {
-              try {
-                String output = setupFile(backupDirectory, exportType);
+  private void runBackup(ExportType exportType) {
+    try {
+      String output = setupFile(backupDirectory, exportType);
 
-                List<Task> tasks = taskDao.getAll();
+      List<Task> tasks = taskDao.getAll();
 
-                if (tasks.size() > 0) {
-                  doTasksExport(output, tasks);
-                }
+      if (tasks.size() > 0) {
+        doTasksExport(output, tasks);
+      }
 
-                if (exportType == ExportType.EXPORT_TYPE_MANUAL) {
-                  onFinishExport(output);
-                }
-              } catch (IOException e) {
-                Timber.e(e);
-              } finally {
-                post(
-                    () -> {
-                      if (progressDialog != null
-                          && progressDialog.isShowing()
-                          && context instanceof Activity) {
-                        DialogUtilities.dismissDialog((Activity) context, progressDialog);
-                      }
-                    });
-              }
-            })
-        .start();
+      if (exportType == ExportType.EXPORT_TYPE_MANUAL) {
+        onFinishExport(output);
+      }
+    } catch (IOException e) {
+      Timber.e(e);
+    } finally {
+      post(
+          () -> {
+            if (progressDialog != null
+                && progressDialog.isShowing()
+                && context instanceof Activity) {
+              DialogUtilities.dismissDialog((Activity) context, progressDialog);
+            }
+          });
+    }
   }
 
   private void doTasksExport(String output, List<Task> tasks) throws IOException {

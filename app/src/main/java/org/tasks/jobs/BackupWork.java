@@ -6,6 +6,8 @@ import static com.todoroo.andlib.utility.DateUtilities.now;
 import static java.util.Collections.emptyList;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import androidx.work.WorkerParameters;
 import java.io.File;
 import java.io.FileFilter;
 import java.util.Arrays;
@@ -33,13 +35,8 @@ public class BackupWork extends RepeatingWorker {
   @Inject Preferences preferences;
   @Inject WorkManager workManager;
 
-  @SuppressWarnings("unused")
-  public BackupWork() {}
-
-  BackupWork(Context context, TasksJsonExporter tasksJsonExporter, Preferences preferences) {
-    this.context = context;
-    this.tasksJsonExporter = tasksJsonExporter;
-    this.preferences = preferences;
+  public BackupWork(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+    super(context, workerParams);
   }
 
   @Override

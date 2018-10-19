@@ -10,7 +10,6 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 
 import android.support.test.runner.AndroidJUnit4;
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import java.io.File;
@@ -21,6 +20,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.tasks.R;
 import org.tasks.backup.TasksJsonExporter;
+import org.tasks.backup.TasksJsonExporter.ExportType;
 import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
 import org.tasks.preferences.Preferences;
@@ -28,7 +28,6 @@ import org.tasks.preferences.Preferences;
 @RunWith(AndroidJUnit4.class)
 public class BackupServiceTests extends InjectingTestCase {
 
-  private static final long BACKUP_WAIT_TIME = 500L;
   @Inject TasksJsonExporter jsonExporter;
   @Inject TaskDao taskDao;
   @Inject Preferences preferences;
@@ -80,11 +79,7 @@ public class BackupServiceTests extends InjectingTestCase {
   public void testBackup() {
     assertEquals(0, temporaryDirectory.list().length);
 
-    // create a backup
-    BackupWork service = new BackupWork(getTargetContext(), jsonExporter, preferences);
-    service.startBackup(getTargetContext());
-
-    AndroidUtilities.sleepDeep(BACKUP_WAIT_TIME);
+    jsonExporter.exportTasks(getTargetContext(), ExportType.EXPORT_TYPE_SERVICE, null);
 
     // assert file created
     File[] files = temporaryDirectory.listFiles();

@@ -1,6 +1,8 @@
 package org.tasks.jobs;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
+import androidx.work.WorkerParameters;
 import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.caldav.CaldavSynchronizer;
@@ -18,6 +20,10 @@ public class SyncWork extends InjectingWorker {
   @Inject GoogleTaskSynchronizer googleTaskSynchronizer;
   @Inject LocalBroadcastManager localBroadcastManager;
   @Inject Preferences preferences;
+
+  public SyncWork(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+    super(context, workerParams);
+  }
 
   @NonNull
   @Override

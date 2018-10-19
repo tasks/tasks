@@ -1,7 +1,9 @@
 package org.tasks.injection;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import androidx.work.Worker;
+import androidx.work.WorkerParameters;
 import javax.inject.Inject;
 import org.tasks.analytics.Tracker;
 import timber.log.Timber;
@@ -9,6 +11,10 @@ import timber.log.Timber;
 public abstract class InjectingWorker extends Worker {
 
   @Inject Tracker tracker;
+
+  public InjectingWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+    super(context, workerParams);
+  }
 
   @NonNull
   @Override
