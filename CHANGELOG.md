@@ -1,6 +1,10 @@
 Change Log
 ---
 
+### 6.1.3 (2018-10-22)
+
+* Fix translation error
+
 ### 6.1.2 (2018-10-18)
 
 * Remove missed call functionality due to Google Play Developer policy change
