@@ -276,6 +276,7 @@
 
   <string name="debug_consume">Consume</string>
   <string name="debug_strict_mode">Strict mode</string>
+  <string name="debug_leak_canary">LeakCanary</string>
   <string name="debug_pro">Unlock pro</string>
   <string name="debug_buy">Buy</string>
   <string name="debug">Debug</string>
@@ -284,6 +285,7 @@
   <string name="p_background_sync">gtask_background_sync</string>
   <string name="p_bundle_notifications">bundle_notifications</string>
   <string name="p_strict_mode">strict_mode</string>
+  <string name="p_leak_canary">leak_canary</string>
   <string name="p_debug_pro">debug_pro</string>
   <string name="warned_play_services">warned_play_services</string>
   <string name="p_background_sync_unmetered_only">background_sync_unmetered_only</string>

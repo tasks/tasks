@@ -30,7 +30,9 @@ public class BuildSetup {
     if (LeakCanary.isInAnalyzerProcess(context)) {
       return false;
     }
-    LeakCanary.install(application);
+    if (preferences.getBoolean(R.string.p_leak_canary, false)) {
+      LeakCanary.install(application);
+    }
     if (preferences.getBoolean(R.string.p_strict_mode, false)) {
       StrictMode.setThreadPolicy(
           new StrictMode.ThreadPolicy.Builder()
