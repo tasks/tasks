@@ -1,6 +1,6 @@
 package org.tasks.injection;
 
-import static android.support.test.InstrumentationRegistry.getTargetContext;
+import static androidx.test.InstrumentationRegistry.getTargetContext;
 import static org.tasks.TestUtilities.initializeMockito;
 
 import org.junit.Before;

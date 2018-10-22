@@ -1,7 +1,7 @@
 package org.tasks;
 
 import android.content.Context;
-import android.support.test.InstrumentationRegistry;
+import androidx.test.InstrumentationRegistry;
 import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;
 import com.todoroo.astrid.data.Task;

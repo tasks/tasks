@@ -1,6 +1,6 @@
 package org.tasks.filters;
 
-import android.support.v4.util.Pair;
+import androidx.core.util.Pair;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.core.CustomFilterExposer;

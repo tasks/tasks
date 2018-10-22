@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Build.VERSION_CODES;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 import android.util.Base64;
 import java.io.IOException;
 import java.nio.charset.Charset;

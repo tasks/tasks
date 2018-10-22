@@ -5,14 +5,14 @@
  */
 package com.todoroo.andlib.test;
 
-import static android.support.test.InstrumentationRegistry.getTargetContext;
+import static androidx.test.InstrumentationRegistry.getTargetContext;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.support.test.runner.AndroidJUnit4;
+import androidx.test.runner.AndroidJUnit4;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;

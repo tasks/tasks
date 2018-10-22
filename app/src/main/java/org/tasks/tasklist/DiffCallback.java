@@ -1,7 +1,7 @@
 package org.tasks.tasklist;
 
-import android.support.annotation.NonNull;
-import android.support.v7.util.DiffUtil.ItemCallback;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil.ItemCallback;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.data.Task;
 

@@ -5,7 +5,7 @@
  */
 package com.todoroo.astrid.repeats;
 
-import static android.support.v4.content.ContextCompat.getColor;
+import static androidx.core.content.ContextCompat.getColor;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.ical.values.Frequency.MONTHLY;
 import static org.tasks.repeats.BasicRecurrenceDialog.newBasicRecurrenceDialog;
@@ -14,10 +14,10 @@ import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;

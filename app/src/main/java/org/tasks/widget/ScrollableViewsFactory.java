@@ -1,6 +1,6 @@
 package org.tasks.widget;
 
-import static android.support.v4.content.ContextCompat.getColor;
+import static androidx.core.content.ContextCompat.getColor;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 
 import android.appwidget.AppWidgetManager;

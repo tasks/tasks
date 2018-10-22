@@ -10,7 +10,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import android.support.v4.text.TextUtilsCompat;
+import androidx.core.text.TextUtilsCompat;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.ViewParent;

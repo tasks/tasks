@@ -1,7 +1,7 @@
 package org.tasks.injection;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import org.tasks.locale.Locale;
 
 public abstract class InjectingAppCompatActivity extends AppCompatActivity

@@ -1,9 +1,9 @@
 package org.tasks.db;
 
-import android.arch.persistence.db.SupportSQLiteDatabase;
-import android.arch.persistence.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
+import androidx.room.migration.Migration;
 import android.database.sqlite.SQLiteException;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import timber.log.Timber;
 
 public class Migrations {

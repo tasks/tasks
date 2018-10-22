@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.JobIntentService;
+import androidx.core.app.JobIntentService;
 import org.tasks.injection.InjectingJobIntentService;
 import timber.log.Timber;
 

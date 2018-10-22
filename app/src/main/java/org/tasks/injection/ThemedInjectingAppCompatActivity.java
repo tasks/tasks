@@ -1,7 +1,7 @@
 package org.tasks.injection;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import javax.inject.Inject;
 import org.tasks.locale.Locale;
 import org.tasks.themes.Theme;

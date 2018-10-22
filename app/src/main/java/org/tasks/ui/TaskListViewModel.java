@@ -5,11 +5,11 @@ import static com.todoroo.astrid.activity.TaskListFragment.FILE_METADATA_JOIN;
 import static com.todoroo.astrid.activity.TaskListFragment.GTASK_METADATA_JOIN;
 import static com.todoroo.astrid.activity.TaskListFragment.TAGS_METADATA_JOIN;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.ViewModel;
-import android.arch.paging.LivePagedListBuilder;
-import android.arch.paging.LivePagedListProvider;
-import android.arch.paging.PagedList;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
+import androidx.paging.DataSource.Factory;
+import androidx.paging.LivePagedListBuilder;
+import androidx.paging.PagedList;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
@@ -56,9 +56,9 @@ public class TaskListViewModel extends ViewModel {
 
   private LiveData<PagedList<Task>> getLiveData(Filter filter, Property<?>[] properties) {
     return new LivePagedListBuilder<>(
-            new LivePagedListProvider<Integer, Task>() {
+            new Factory<Integer, Task>() {
               @Override
-              protected LimitOffsetDataSource createDataSource() {
+              public LimitOffsetDataSource create() {
                 latest = toDataSource(filter, properties);
                 return latest;
               }

@@ -5,8 +5,8 @@
  */
 package com.todoroo.astrid.dao;
 
-import android.arch.persistence.db.SupportSQLiteDatabase;
-import android.arch.persistence.room.RoomDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
+import androidx.room.RoomDatabase;
 import android.database.Cursor;
 import com.todoroo.astrid.data.Task;
 import java.io.IOException;
@@ -41,7 +41,7 @@ import org.tasks.notifications.Notification;
 import org.tasks.notifications.NotificationDao;
 import timber.log.Timber;
 
-@android.arch.persistence.room.Database(
+@androidx.room.Database(
     entities = {
       Notification.class,
       TagData.class,

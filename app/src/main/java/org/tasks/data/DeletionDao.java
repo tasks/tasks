@@ -3,10 +3,10 @@ package org.tasks.data;
 import static com.google.common.collect.Iterables.partition;
 import static com.todoroo.andlib.utility.DateUtilities.now;
 
-import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Delete;
-import android.arch.persistence.room.Query;
-import android.arch.persistence.room.Transaction;
+import androidx.room.Dao;
+import androidx.room.Delete;
+import androidx.room.Query;
+import androidx.room.Transaction;
 import com.todoroo.astrid.dao.Database;
 import java.util.ArrayList;
 import java.util.List;

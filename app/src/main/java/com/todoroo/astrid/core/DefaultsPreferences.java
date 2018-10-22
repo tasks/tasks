@@ -11,7 +11,7 @@ import static org.tasks.activities.RemoteListNativePicker.newRemoteListNativePic
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;

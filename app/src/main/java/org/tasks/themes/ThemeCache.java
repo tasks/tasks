@@ -1,11 +1,11 @@
 package org.tasks.themes;
 
-import static android.support.v4.content.ContextCompat.getColor;
+import static androidx.core.content.ContextCompat.getColor;
 import static com.google.common.collect.ImmutableList.copyOf;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.support.v7.app.AppCompatDelegate;
+import androidx.appcompat.app.AppCompatDelegate;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import java.util.ArrayList;

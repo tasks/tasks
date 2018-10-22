@@ -3,7 +3,7 @@ package org.tasks.location;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.JobIntentService;
+import androidx.core.app.JobIntentService;
 import com.google.android.gms.location.GeofencingEvent;
 import com.todoroo.astrid.reminders.ReminderService;
 import java.util.List;

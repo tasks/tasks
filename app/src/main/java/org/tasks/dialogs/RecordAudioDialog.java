@@ -6,12 +6,12 @@ import static org.tasks.dialogs.AddAttachmentDialog.EXTRA_PATH;
 import static org.tasks.dialogs.AddAttachmentDialog.EXTRA_TYPE;
 
 import android.app.Dialog;
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Chronometer;

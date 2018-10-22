@@ -8,7 +8,7 @@ import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.NotificationCompat;
+import androidx.core.app.NotificationCompat;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.api.Filter;

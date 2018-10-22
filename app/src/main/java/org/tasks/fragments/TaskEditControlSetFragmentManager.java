@@ -2,7 +2,7 @@ package org.tasks.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
+import androidx.fragment.app.FragmentManager;
 import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.data.Task;

@@ -20,11 +20,11 @@
       android:focusableInTouchMode="true"
       android:orientation="vertical">
 
-      <android.support.design.widget.TextInputLayout
+      <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/name_layout"
         style="@style/TagSettingsRow">
 
-        <android.support.design.widget.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/name"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -33,13 +33,13 @@
           android:inputType="textCapSentences|textAutoCorrect"
           android:textColor="?attr/asTextColor"/>
 
-      </android.support.design.widget.TextInputLayout>
+      </com.google.android.material.textfield.TextInputLayout>
 
-      <android.support.design.widget.TextInputLayout
+      <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/url_layout"
         style="@style/TagSettingsRow">
 
-        <android.support.design.widget.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/url"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -47,13 +47,13 @@
           android:imeOptions="flagNoExtractUi"
           android:textColor="?attr/asTextColor"/>
 
-      </android.support.design.widget.TextInputLayout>
+      </com.google.android.material.textfield.TextInputLayout>
 
-      <android.support.design.widget.TextInputLayout
+      <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/user_layout"
         style="@style/TagSettingsRow">
 
-        <android.support.design.widget.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/user"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -61,14 +61,14 @@
           android:imeOptions="flagNoExtractUi"
           android:textColor="?attr/asTextColor"/>
 
-      </android.support.design.widget.TextInputLayout>
+      </com.google.android.material.textfield.TextInputLayout>
 
-      <android.support.design.widget.TextInputLayout
+      <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/password_layout"
         style="@style/TagSettingsRow"
         app:passwordToggleEnabled="true">
 
-        <android.support.design.widget.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/password"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -77,7 +77,7 @@
           android:inputType="textPassword"
           android:textColor="?attr/asTextColor"/>
 
-      </android.support.design.widget.TextInputLayout>
+      </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 

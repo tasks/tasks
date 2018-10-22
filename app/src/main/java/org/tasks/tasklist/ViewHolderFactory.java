@@ -1,6 +1,6 @@
 package org.tasks.tasklist;
 
-import static android.support.v4.content.ContextCompat.getColor;
+import static androidx.core.content.ContextCompat.getColor;
 import static com.todoroo.andlib.utility.AndroidUtilities.convertDpToPixels;
 import static org.tasks.preferences.ResourceResolver.getData;
 import static org.tasks.preferences.ResourceResolver.getResourceId;

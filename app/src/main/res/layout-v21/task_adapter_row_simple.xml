@@ -3,7 +3,7 @@
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/row"
   android:layout_width="fill_parent"
@@ -16,4 +16,4 @@
 
   <include layout="@layout/task_adapter_row_body"/>
 
-</android.support.v7.widget.CardView>
+</androidx.cardview.widget.CardView>

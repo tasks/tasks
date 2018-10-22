@@ -1,6 +1,6 @@
 package com.todoroo.astrid.voice;
 
-import android.arch.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModel;
 import android.media.MediaRecorder;
 import android.os.SystemClock;
 import java.io.IOException;

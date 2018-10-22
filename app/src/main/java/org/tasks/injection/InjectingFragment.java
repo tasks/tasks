@@ -1,7 +1,7 @@
 package org.tasks.injection;
 
 import android.app.Activity;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 
 public abstract class InjectingFragment extends Fragment {
 
