@@ -8,5 +8,5 @@
   android:elevation="@dimen/elevation_toolbar"
   app:popupTheme="@style/popup_overlay"
   app:theme="?attr/overlay_theme"
-  app:toolbarStyle="@style/Widget.AppCompat.Toolbar"
+  app:toolbarStyle="@style/Widget.MaterialComponents.Toolbar"
   tools:ignore="UnusedAttribute"/>

@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <style name="TasksBase" parent="Theme.AppCompat.DayNight.NoActionBar">
+  <style name="DayNight" parent="Theme.MaterialComponents.Light.NoActionBar" />
+
+  <style name="DayNightDialog" parent="Theme.MaterialComponents.Light.Dialog" />
+
+  <style name="DayNightAlert" parent="Theme.MaterialComponents.Light.Dialog.Alert" />
+
+  <style name="TasksBase" parent="DayNight">
     <item name="android:windowBackground">@null</item>
     <item name="windowActionModeOverlay">true</item>
     <item name="asWindowBackground">@color/window_background</item>
@@ -27,14 +33,14 @@
 
   <style name="Tasks" parent="TasksBase"/>
 
-  <style name="TasksDialogAlert" parent="@style/Theme.AppCompat.DayNight.Dialog.Alert">
+  <style name="TasksDialogAlert" parent="DayNightAlert">
     <item name="android:windowBackground">@color/dialog_background</item>
     <item name="colorAccent">?attr/colorAccentDialog</item>
     <item name="asTextColor">@color/text_primary</item>
     <item name="icon_tint">@color/icon_tint</item>
   </style>
 
-  <style name="TasksDialog" parent="@style/Theme.AppCompat.DayNight.Dialog">
+  <style name="TasksDialog" parent="DayNightDialog">
     <item name="android:windowBackground">@color/dialog_background</item>
     <item name="colorAccent">?attr/colorAccentDialog</item>
     <item name="asTextColor">@color/text_primary</item>
