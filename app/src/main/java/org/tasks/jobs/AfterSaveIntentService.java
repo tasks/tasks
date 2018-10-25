@@ -8,8 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.CalendarContract;
-import androidx.annotation.NonNull;
 import android.text.TextUtils;
+import androidx.annotation.NonNull;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.repeats.RepeatTaskHelper;
@@ -41,11 +41,14 @@ public class AfterSaveIntentService extends InjectingJobIntentService {
   @Inject PushReceiver pushReceiver;
 
   public static void enqueue(Context context, Task current, Task original) {
-    Intent intent = new Intent();
+    Intent intent = new Intent(context, AfterSaveIntentService.class);
     intent.putExtra(EXTRA_CURRENT, current);
     intent.putExtra(EXTRA_ORIGINAL, original);
     AfterSaveIntentService.enqueueWork(
-        context, AfterSaveIntentService.class, InjectingJobIntentService.JOB_ID_TASK_STATUS_CHANGE, intent);
+        context,
+        AfterSaveIntentService.class,
+        InjectingJobIntentService.JOB_ID_TASK_STATUS_CHANGE,
+        intent);
   }
 
   @Override

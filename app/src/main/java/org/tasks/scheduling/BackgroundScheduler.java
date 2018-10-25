@@ -21,7 +21,10 @@ public class BackgroundScheduler extends InjectingJobIntentService {
 
   public static void enqueueWork(Context context) {
     BackgroundScheduler.enqueueWork(
-        context, BackgroundScheduler.class, InjectingJobIntentService.JOB_ID_BACKGROUND_SCHEDULER, new Intent());
+        context,
+        BackgroundScheduler.class,
+        InjectingJobIntentService.JOB_ID_BACKGROUND_SCHEDULER,
+        new Intent(context, BackgroundScheduler.class));
   }
 
   @Override

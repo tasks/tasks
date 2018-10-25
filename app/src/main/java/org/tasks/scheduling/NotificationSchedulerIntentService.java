@@ -22,7 +22,7 @@ public class NotificationSchedulerIntentService extends InjectingJobIntentServic
   @Inject NotificationManager notificationManager;
 
   public static void enqueueWork(Context context, boolean cancelNotifications) {
-    Intent intent = new Intent();
+    Intent intent = new Intent(context, NotificationSchedulerIntentService.class);
     intent.putExtra(EXTRA_CANCEL_EXISTING_NOTIFICATIONS, cancelNotifications);
     JobIntentService.enqueueWork(
         context,

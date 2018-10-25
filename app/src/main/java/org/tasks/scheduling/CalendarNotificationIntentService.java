@@ -34,7 +34,7 @@ public class CalendarNotificationIntentService extends RecurringIntervalIntentSe
         context,
         CalendarNotificationIntentService.class,
         InjectingJobIntentService.JOB_ID_CALENDAR_NOTIFICATION,
-        new Intent());
+        new Intent(context, CalendarNotificationIntentService.class));
   }
 
   @Override
