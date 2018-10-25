@@ -16,20 +16,11 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.appcompat.app.AlertDialog;
 import android.text.Editable;
-import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
 import android.text.TextWatcher;
-import android.text.style.BackgroundColorSpan;
-import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
@@ -38,9 +29,15 @@ import android.widget.CheckedTextView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import butterknife.BindView;
 import butterknife.OnClick;
-import com.google.common.base.Function;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.google.common.base.Strings;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Ordering;
@@ -61,6 +58,7 @@ import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
+import org.tasks.ui.ChipProvider;
 import org.tasks.ui.TaskEditControlFragment;
 
 /**
@@ -72,26 +70,22 @@ public final class TagsControlSet extends TaskEditControlFragment {
 
   public static final int TAG = R.string.TEA_ctrl_lists_pref;
 
-  private static final char SPACE = '\u0020';
-  private static final char NO_BREAK_SPACE = '\u00a0';
   private static final String EXTRA_NEW_TAGS = "extra_new_tags";
   private static final String EXTRA_ORIGINAL_TAGS = "extra_original_tags";
   private static final String EXTRA_SELECTED_TAGS = "extra_selected_tags";
-  private final Ordering<TagData> orderByName =
-      new Ordering<TagData>() {
-        @Override
-        public int compare(TagData left, TagData right) {
-          return left.getName().compareTo(right.getName());
-        }
-      };
+
   @Inject TagDao tagDao;
   @Inject TagDataDao tagDataDao;
   @Inject TagService tagService;
   @Inject DialogBuilder dialogBuilder;
   @Inject ThemeCache themeCache;
+  @Inject ChipProvider chipProvider;
 
-  @BindView(R.id.display_row_edit)
+  @BindView(R.id.no_tags)
   TextView tagsDisplay;
+
+  @BindView(R.id.chip_group)
+  ChipGroup chipGroup;
 
   private LinearLayout newTagLayout;
   private ListView tagListView;
@@ -100,44 +94,13 @@ public final class TagsControlSet extends TaskEditControlFragment {
   private List<TagData> allTags;
   private ArrayList<TagData> originalTags;
   private ArrayList<TagData> selectedTags;
-
-  private Function<TagData, SpannableString> tagToString(final float maxLength) {
-    return tagData -> {
-      String tagName = tagData.getName();
-      tagName =
-          tagName
-              .substring(0, Math.min(tagName.length(), (int) maxLength))
-              .replace(' ', NO_BREAK_SPACE);
-      SpannableString string = new SpannableString(NO_BREAK_SPACE + tagName + NO_BREAK_SPACE);
-      int themeIndex = tagData.getColor();
-      ThemeColor color =
-          themeIndex >= 0 ? themeCache.getThemeColor(themeIndex) : themeCache.getUntaggedColor();
-      string.setSpan(
-          new BackgroundColorSpan(color.getPrimaryColor()),
-          0,
-          string.length(),
-          Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-      string.setSpan(
-          new ForegroundColorSpan(color.getActionBarTint()),
-          0,
-          string.length(),
-          Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-      return string;
-    };
-  }
-
-  private CharSequence buildTagString() {
-    List<TagData> sortedTagData = orderByName.sortedCopy(selectedTags);
-    List<SpannableString> tagStrings = transform(sortedTagData, tagToString(Float.MAX_VALUE));
-    SpannableStringBuilder builder = new SpannableStringBuilder();
-    for (SpannableString tagString : tagStrings) {
-      if (builder.length() > 0) {
-        builder.append(SPACE);
-      }
-      builder.append(tagString);
-    }
-    return builder;
-  }
+  private final Ordering<TagData> orderByName =
+      new Ordering<TagData>() {
+        @Override
+        public int compare(TagData left, TagData right) {
+          return left.getName().compareTo(right.getName());
+        }
+      };
 
   @Nullable
   @Override
@@ -190,7 +153,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
     }
     addTag("");
     for (TagData tag : selectedTags) {
-      setTagSelected(tag);
+      setTagSelected(tag, true);
     }
     refreshDisplayView();
     return view;
@@ -218,8 +181,8 @@ public final class TagsControlSet extends TaskEditControlFragment {
     }
   }
 
-  @OnClick(R.id.display_row_edit)
-  void openPopup(View view) {
+  @OnClick(R.id.tag_row)
+  void onClickRow() {
     if (dialog == null) {
       dialog = buildDialog();
     }
@@ -234,10 +197,10 @@ public final class TagsControlSet extends TaskEditControlFragment {
         .create();
   }
 
-  private void setTagSelected(TagData tag) {
+  private void setTagSelected(TagData tag, boolean selected) {
     int index = allTags.indexOf(tag);
     if (index >= 0) {
-      tagListView.setItemChecked(index, true);
+      tagListView.setItemChecked(index, selected);
     }
   }
 
@@ -261,7 +224,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
       TagData tagByName = tagDataDao.getTagByName(text);
       if (tagByName != null) {
         if (!isSelected(tags, text)) {
-          setTagSelected(tagByName);
+          setTagSelected(tagByName, true);
           tags.add(tagByName);
         }
         newTagLayout.removeViewAt(i);
@@ -387,7 +350,26 @@ public final class TagsControlSet extends TaskEditControlFragment {
 
   private void refreshDisplayView() {
     selectedTags = getSelectedTags();
-    tagsDisplay.setText(buildTagString());
+    if (selectedTags.isEmpty()) {
+      chipGroup.setVisibility(View.GONE);
+      tagsDisplay.setVisibility(View.VISIBLE);
+    } else {
+      tagsDisplay.setVisibility(View.GONE);
+      chipGroup.setVisibility(View.VISIBLE);
+      chipGroup.removeAllViews();
+      for (TagData tagData : orderByName.sortedCopy(selectedTags)) {
+        Chip chip = chipProvider.getChip(tagData);
+        chip.setOnClickListener(view -> {
+          onClickRow();
+        });
+        chip.setOnCloseIconClickListener(
+            view -> {
+              setTagSelected(tagData, false);
+              refreshDisplayView();
+            });
+        chipGroup.addView(chip);
+      }
+    }
   }
 
   private boolean synchronizeTags(long taskId, String taskUuid) {
