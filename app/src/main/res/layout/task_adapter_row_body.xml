@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/rowBody"
-  android:layout_width="fill_parent"
+  android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:background="?attr/selectableItemBackground"
   android:clickable="true"
@@ -23,22 +24,38 @@
       android:paddingStart="@dimen/keyline_first"
       android:paddingEnd="@dimen/keyline_second"
       android:paddingLeft="@dimen/keyline_first"
-      android:paddingRight="@dimen/keyline_second"
-      android:scaleType="center"/>
+      android:paddingRight="@dimen/keyline_second"/>
 
     <TextView
-      android:id="@+id/title"
-      android:layout_width="fill_parent"
+      android:id="@+id/due_date"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_centerVertical="true"
-      android:layout_toEndOf="@id/completeBox"
-      android:layout_toRightOf="@id/completeBox"
+      android:layout_alignBaseline="@id/title"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentRight="true"
       android:paddingStart="0dp"
       android:paddingEnd="@dimen/keyline_first"
       android:paddingLeft="0dp"
       android:paddingRight="@dimen/keyline_first"
       android:ellipsize="end"
-      android:gravity="start|center_vertical"
+      android:singleLine="true"
+      android:textSize="14sp"/>
+
+    <TextView
+      android:id="@+id/title"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+
+      android:layout_toEndOf="@id/completeBox"
+      android:layout_toLeftOf="@id/due_date"
+      android:layout_toRightOf="@id/completeBox"
+      android:layout_toStartOf="@id/due_date"
+      android:paddingStart="0dp"
+      android:paddingEnd="@dimen/keyline_first"
+      android:paddingLeft="0dp"
+      android:paddingRight="@dimen/keyline_first"
+      android:ellipsize="end"
+      android:gravity="start|top"
       android:maxLines="1"
       android:singleLine="true"
       android:textAlignment="viewStart"
@@ -71,24 +88,7 @@
       android:ellipsize="none"
       android:singleLine="true"
       android:textSize="14sp"/>
-
-    <TextView
-      android:id="@+id/due_date"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignLeft="@id/tag_block"
-      android:layout_alignParentLeft="true"
-      android:layout_alignParentStart="true"
-      android:layout_alignStart="@id/tag_block"
-      android:paddingStart="0dp"
-      android:paddingEnd="@dimen/keyline_first"
-      android:paddingLeft="0dp"
-      android:paddingRight="@dimen/keyline_first"
-      android:ellipsize="end"
-      android:gravity="center_vertical"
-      android:singleLine="true"
-      android:textSize="14sp"/>
-
+    
   </RelativeLayout>
 
 </LinearLayout>
