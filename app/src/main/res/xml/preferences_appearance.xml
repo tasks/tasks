@@ -23,6 +23,17 @@
       android:key="@string/p_fullTaskTitle"
       android:title="@string/EPr_fullTask_title"/>
 
+    <CheckBoxPreference
+      android:defaultValue="true"
+      android:key="@string/p_show_description"
+      android:title="@string/show_description" />
+
+    <CheckBoxPreference
+      android:defaultValue="false"
+      android:key="@string/p_show_full_description"
+      android:dependency="@string/p_show_description"
+      android:title="@string/show_full_description" />
+
   </PreferenceCategory>
 
   <PreferenceCategory android:title="@string/EPr_edit_screen_options">

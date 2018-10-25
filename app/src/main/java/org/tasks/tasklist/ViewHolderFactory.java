@@ -23,13 +23,13 @@ public class ViewHolderFactory {
   private final Context context;
   private final CheckBoxes checkBoxes;
   private final TagFormatter tagFormatter;
-  private final boolean showFullTaskTitle;
   private final int fontSize;
   private final TaskDao taskDao;
   private final DisplayMetrics metrics;
   private final int background;
   private final int selectedColor;
   private final int rowPadding;
+  private final Preferences preferences;
 
   @Inject
   public ViewHolderFactory(
@@ -42,11 +42,11 @@ public class ViewHolderFactory {
     this.checkBoxes = checkBoxes;
     this.tagFormatter = tagFormatter;
     this.taskDao = taskDao;
+    this.preferences = preferences;
     textColorSecondary = getData(context, android.R.attr.textColorSecondary);
     textColorOverdue = getColor(context, R.color.overdue);
     background = getResourceId(context, R.attr.selectableItemBackground);
     selectedColor = getData(context, R.attr.colorControlHighlight);
-    showFullTaskTitle = preferences.getBoolean(R.string.p_fullTaskTitle, false);
     fontSize = preferences.getFontSize();
     metrics = context.getResources().getDisplayMetrics();
     rowPadding = convertDpToPixels(metrics, preferences.getInt(R.string.p_rowPadding, 16));
@@ -57,7 +57,7 @@ public class ViewHolderFactory {
         context,
         (ViewGroup)
             LayoutInflater.from(context).inflate(R.layout.task_adapter_row_simple, parent, false),
-        showFullTaskTitle,
+        preferences,
         fontSize,
         checkBoxes,
         tagFormatter,

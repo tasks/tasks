@@ -9,8 +9,6 @@
   android:focusable="true"
   android:orientation="vertical">
 
-  <!-- row 1 -->
-
   <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -64,7 +62,17 @@
 
   </RelativeLayout>
 
-  <!-- row 2 -->
+  <TextView
+    android:id="@+id/description"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/keyline_content_inset"
+    android:paddingEnd="@dimen/keyline_first"
+    android:paddingLeft="@dimen/keyline_content_inset"
+    android:paddingRight="@dimen/keyline_first"
+    android:ellipsize="end"
+    android:maxLines="2"
+    android:textColor="@color/text_secondary"/>
 
   <RelativeLayout
     android:layout_width="match_parent"

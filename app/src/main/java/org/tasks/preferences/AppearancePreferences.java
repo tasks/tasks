@@ -49,6 +49,8 @@ public class AppearancePreferences extends InjectingPreferenceActivity
     setExtraOnChange(R.string.p_fontSize, EXTRA_RESTART);
     setExtraOnChange(R.string.p_rowPadding, EXTRA_RESTART);
     setExtraOnChange(R.string.p_fullTaskTitle, EXTRA_RESTART);
+    setExtraOnChange(R.string.p_show_description, EXTRA_RESTART);
+    setExtraOnChange(R.string.p_show_full_description, EXTRA_RESTART);
     setExtraOnChange(R.string.p_show_today_filter, EXTRA_FILTERS_CHANGED);
     setExtraOnChange(R.string.p_show_recently_modified_filter, EXTRA_FILTERS_CHANGED);
     setExtraOnChange(R.string.p_show_not_in_list_filter, EXTRA_FILTERS_CHANGED);

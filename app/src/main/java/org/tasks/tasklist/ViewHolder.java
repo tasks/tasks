@@ -24,11 +24,13 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.ui.CheckableImageView;
 import java.util.List;
 import org.tasks.R;
+import org.tasks.preferences.Preferences;
 import org.tasks.ui.CheckBoxes;
 
 class ViewHolder extends RecyclerView.ViewHolder {
 
   private final Context context;
+  private final Preferences preferences;
   private final CheckBoxes checkBoxes;
   private final TagFormatter tagFormatter;
   private final int textColorSecondary;
@@ -53,6 +55,9 @@ class ViewHolder extends RecyclerView.ViewHolder {
   @BindView(R.id.title)
   TextView nameView;
 
+  @BindView(R.id.description)
+  TextView description;
+
   @BindView(R.id.completeBox)
   CheckableImageView completeBox;
 
@@ -66,7 +71,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
   ViewHolder(
       Context context,
       ViewGroup view,
-      boolean showFullTaskTitle,
+      Preferences preferences,
       int fontSize,
       CheckBoxes checkBoxes,
       TagFormatter tagFormatter,
@@ -80,6 +85,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
       int rowPadding) {
     super(view);
     this.context = context;
+    this.preferences = preferences;
     this.checkBoxes = checkBoxes;
     this.tagFormatter = tagFormatter;
     this.textColorOverdue = textColorOverdue;
@@ -91,10 +97,16 @@ class ViewHolder extends RecyclerView.ViewHolder {
     this.selectedColor = selectedColor;
     ButterKnife.bind(this, view);
 
-    if (showFullTaskTitle) {
+    if (preferences.getBoolean(R.string.p_fullTaskTitle, false)) {
       nameView.setMaxLines(Integer.MAX_VALUE);
       nameView.setSingleLine(false);
       nameView.setEllipsize(null);
+    }
+
+    if (preferences.getBoolean(R.string.p_show_full_description, false)) {
+      description.setMaxLines(Integer.MAX_VALUE);
+      description.setSingleLine(false);
+      description.setEllipsize(null);
     }
 
     if (atLeastKitKat()) {
@@ -166,11 +178,14 @@ class ViewHolder extends RecyclerView.ViewHolder {
   }
 
   void bindView(Task task) {
-    // TODO: see if this is a performance issue
     this.task = task;
 
     setFieldContentsAndVisibility();
     setTaskAppearance();
+    if (preferences.getBoolean(R.string.p_show_description, true)) {
+      description.setText(task.getNotes());
+      description.setVisibility(task.hasNotes() ? View.VISIBLE : View.GONE);
+    }
   }
 
   /** Helper method to set the contents and visibility of each field */
