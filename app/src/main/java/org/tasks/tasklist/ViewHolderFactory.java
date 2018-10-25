@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import com.todoroo.astrid.dao.TaskDao;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForActivity;
 import org.tasks.preferences.Preferences;
 import org.tasks.ui.CheckBoxes;
@@ -28,7 +27,6 @@ public class ViewHolderFactory {
   private final boolean showFullTaskTitle;
   private final int fontSize;
   private final TaskDao taskDao;
-  private final DialogBuilder dialogBuilder;
   private final DisplayMetrics metrics;
   private final int background;
   private final int selectedColor;
@@ -40,13 +38,11 @@ public class ViewHolderFactory {
       Preferences preferences,
       CheckBoxes checkBoxes,
       TagFormatter tagFormatter,
-      TaskDao taskDao,
-      DialogBuilder dialogBuilder) {
+      TaskDao taskDao) {
     this.context = context;
     this.checkBoxes = checkBoxes;
     this.tagFormatter = tagFormatter;
     this.taskDao = taskDao;
-    this.dialogBuilder = dialogBuilder;
     textColorSecondary = getData(context, android.R.attr.textColorSecondary);
     textColorHint = getData(context, android.R.attr.textColorTertiary);
     textColorOverdue = getColor(context, R.color.overdue);
@@ -71,7 +67,6 @@ public class ViewHolderFactory {
         textColorSecondary,
         textColorHint,
         taskDao,
-        dialogBuilder,
         callbacks,
         metrics,
         background,

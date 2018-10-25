@@ -5,38 +5,26 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastKitKat;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 
 import android.annotation.SuppressLint;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.graphics.Paint;
-import androidx.appcompat.app.AlertDialog;
-import androidx.recyclerview.widget.RecyclerView;
-import android.text.SpannableString;
 import android.text.TextUtils;
-import android.text.method.LinkMovementMethod;
-import android.text.util.Linkify;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
 import com.google.common.collect.Lists;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.api.TaskAction;
-import com.todoroo.astrid.core.LinkActionExposer;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.files.FilesAction;
-import com.todoroo.astrid.notes.NotesAction;
 import com.todoroo.astrid.ui.CheckableImageView;
 import java.util.List;
 import org.tasks.R;
-import org.tasks.dialogs.DialogBuilder;
 import org.tasks.ui.CheckBoxes;
-import timber.log.Timber;
 
 class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -46,7 +34,6 @@ class ViewHolder extends RecyclerView.ViewHolder {
   private final int textColorSecondary;
   private final int textColorHint;
   private final TaskDao taskDao;
-  private final DialogBuilder dialogBuilder;
   private final ViewHolderCallbacks callback;
   private final DisplayMetrics metrics;
   private final int background;
@@ -73,9 +60,6 @@ class ViewHolder extends RecyclerView.ViewHolder {
   @BindView(R.id.tag_block)
   TextView tagBlock;
 
-  @BindView(R.id.taskActionIcon)
-  ImageView taskActionIcon;
-
   private int indent;
   private boolean selected;
   private boolean moving;
@@ -91,7 +75,6 @@ class ViewHolder extends RecyclerView.ViewHolder {
       int textColorSecondary,
       int textColorHint,
       TaskDao taskDao,
-      DialogBuilder dialogBuilder,
       ViewHolderCallbacks callback,
       DisplayMetrics metrics,
       int background,
@@ -105,7 +88,6 @@ class ViewHolder extends RecyclerView.ViewHolder {
     this.textColorSecondary = textColorSecondary;
     this.textColorHint = textColorHint;
     this.taskDao = taskDao;
-    this.dialogBuilder = dialogBuilder;
     this.callback = callback;
     this.metrics = metrics;
     this.background = background;
@@ -205,24 +187,6 @@ class ViewHolder extends RecyclerView.ViewHolder {
     nameView.setText(nameValue);
 
     setupDueDateAndTags();
-
-    // Task action
-    TaskAction action = getTaskAction(task, task.hasFiles());
-    if (action != null) {
-      taskActionIcon.setVisibility(View.VISIBLE);
-      taskActionIcon.setImageResource(action.icon);
-      taskActionIcon.setTag(action);
-    } else {
-      taskActionIcon.setVisibility(View.GONE);
-      taskActionIcon.setTag(null);
-    }
-  }
-
-  private TaskAction getTaskAction(Task task, boolean hasFiles) {
-    if (task.isCompleted()) {
-      return null;
-    }
-    return LinkActionExposer.getActionsForTask(context, task, hasFiles);
   }
 
   private void setTaskAppearance() {
@@ -322,50 +286,6 @@ class ViewHolder extends RecyclerView.ViewHolder {
 
     // set check box to actual action item state
     setTaskAppearance();
-  }
-
-  @OnClick(R.id.taskActionIcon)
-  void onTaskActionClick() {
-    TaskAction action = (TaskAction) taskActionIcon.getTag();
-    if (action instanceof NotesAction) {
-      showEditNotesDialog(task);
-    } else if (action instanceof FilesAction) {
-      showFilesDialog(task);
-    } else if (action != null) {
-      try {
-        action.intent.send();
-      } catch (PendingIntent.CanceledException e) {
-        // Oh well
-        Timber.e(e);
-      }
-    }
-  }
-
-  private void showEditNotesDialog(final Task task) {
-    Task t = taskDao.fetch(task.getId());
-    if (t == null || !t.hasNotes()) {
-      return;
-    }
-    SpannableString description = new SpannableString(t.getNotes());
-    Linkify.addLinks(description, Linkify.ALL);
-    AlertDialog dialog =
-        dialogBuilder
-            .newDialog()
-            .setMessage(description)
-            .setPositiveButton(android.R.string.ok, null)
-            .show();
-    View message = dialog.findViewById(android.R.id.message);
-    if (message != null && message instanceof TextView) {
-      ((TextView) message).setMovementMethod(LinkMovementMethod.getInstance());
-    }
-  }
-
-  private void showFilesDialog(Task task) {
-    // TODO: reimplement this
-    //        FilesControlSet filesControlSet = new FilesControlSet();
-    //        filesControlSet.hideAddAttachmentButton();
-    //        filesControlSet.readFromTask(task);
-    //        filesControlSet.getView().performClick();
   }
 
   interface ViewHolderCallbacks {

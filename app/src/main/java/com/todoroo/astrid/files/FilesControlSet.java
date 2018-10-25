@@ -225,10 +225,6 @@ public class FilesControlSet extends TaskEditControlFragment {
     }
   }
 
-  public void hideAddAttachmentButton() {
-    addAttachment.setVisibility(View.GONE);
-  }
-
   @Override
   protected void inject(FragmentComponent component) {
     component.inject(this);

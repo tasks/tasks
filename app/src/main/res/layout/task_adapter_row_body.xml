@@ -26,30 +26,13 @@
       android:paddingRight="@dimen/keyline_second"
       android:scaleType="center"/>
 
-    <ImageView
-      android:id="@+id/taskActionIcon"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignParentEnd="true"
-      android:layout_alignParentRight="true"
-      android:paddingStart="0dp"
-      android:paddingEnd="@dimen/keyline_first"
-      android:paddingLeft="0dp"
-      android:paddingRight="@dimen/keyline_first"
-      android:alpha="?attr/alpha_secondary"
-      android:gravity="end|center_vertical"
-      android:scaleType="center"
-      android:tint="?attr/icon_tint"/>
-
     <TextView
       android:id="@+id/title"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
       android:layout_centerVertical="true"
       android:layout_toEndOf="@id/completeBox"
-      android:layout_toLeftOf="@id/taskActionIcon"
       android:layout_toRightOf="@id/completeBox"
-      android:layout_toStartOf="@id/taskActionIcon"
       android:paddingStart="0dp"
       android:paddingEnd="@dimen/keyline_first"
       android:paddingLeft="0dp"
