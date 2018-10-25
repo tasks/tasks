@@ -11,13 +11,17 @@ import android.widget.EditText;
 import butterknife.BindView;
 import butterknife.OnTextChanged;
 import com.todoroo.astrid.data.Task;
+import javax.inject.Inject;
 import org.tasks.R;
+import org.tasks.dialogs.Linkify;
 import org.tasks.injection.FragmentComponent;
 
 public class DescriptionControlSet extends TaskEditControlFragment {
 
   public static final int TAG = R.string.TEA_ctrl_notes_pref;
   private static final String EXTRA_DESCRIPTION = "extra_description";
+
+  @Inject Linkify linkify;
 
   @BindView(R.id.notes)
   EditText editText;
@@ -37,6 +41,9 @@ public class DescriptionControlSet extends TaskEditControlFragment {
     if (!isNullOrEmpty(description)) {
       editText.setTextKeepState(description);
     }
+
+    linkify.linkify(editText);
+
     return view;
   }
 

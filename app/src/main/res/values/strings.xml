@@ -102,6 +102,8 @@ File %1$s contained %2$s.\n\n
 
   <!-- slide 15a: Action Button: edit task -->
   <string name="TAd_actionEditTask">Edit</string>
+  <string name="action_call">Call</string>
+  <string name="action_open">Open</string>
 
   <!-- ============================================== SortSelectionDialog == -->
 
