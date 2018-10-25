@@ -10,8 +10,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import android.view.ViewGroup;
 import com.google.common.primitives.Longs;
+import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
+import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.utility.Flags;
 import java.util.List;
@@ -105,6 +107,14 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
       taskList.onTaskListItemClicked(viewHolder.task);
     } else {
       toggle(viewHolder);
+    }
+  }
+
+  @Override
+  public void onClick(Filter filter) {
+    if (mode == null) {
+      MainActivity activity = (MainActivity) taskList.getActivity();
+      activity.onFilterItemClicked(filter);
     }
   }
 

@@ -15,6 +15,7 @@ import org.tasks.R;
 import org.tasks.injection.ForActivity;
 import org.tasks.preferences.Preferences;
 import org.tasks.ui.CheckBoxes;
+import org.tasks.ui.ChipProvider;
 
 public class ViewHolderFactory {
 
@@ -22,7 +23,7 @@ public class ViewHolderFactory {
   private final int textColorOverdue;
   private final Context context;
   private final CheckBoxes checkBoxes;
-  private final TagFormatter tagFormatter;
+  private final ChipProvider chipProvider;
   private final int fontSize;
   private final TaskDao taskDao;
   private final DisplayMetrics metrics;
@@ -36,11 +37,11 @@ public class ViewHolderFactory {
       @ForActivity Context context,
       Preferences preferences,
       CheckBoxes checkBoxes,
-      TagFormatter tagFormatter,
+      ChipProvider chipProvider,
       TaskDao taskDao) {
     this.context = context;
     this.checkBoxes = checkBoxes;
-    this.tagFormatter = tagFormatter;
+    this.chipProvider = chipProvider;
     this.taskDao = taskDao;
     this.preferences = preferences;
     textColorSecondary = getData(context, android.R.attr.textColorSecondary);
@@ -60,7 +61,7 @@ public class ViewHolderFactory {
         preferences,
         fontSize,
         checkBoxes,
-        tagFormatter,
+        chipProvider,
         textColorOverdue,
         textColorSecondary,
         taskDao,

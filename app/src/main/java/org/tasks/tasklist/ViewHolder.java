@@ -10,15 +10,21 @@ import android.graphics.Paint;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.HorizontalScrollView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.google.common.collect.Lists;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.activity.MainActivity;
+import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.ui.CheckableImageView;
@@ -26,13 +32,13 @@ import java.util.List;
 import org.tasks.R;
 import org.tasks.preferences.Preferences;
 import org.tasks.ui.CheckBoxes;
+import org.tasks.ui.ChipProvider;
 
 class ViewHolder extends RecyclerView.ViewHolder {
 
   private final Context context;
   private final Preferences preferences;
   private final CheckBoxes checkBoxes;
-  private final TagFormatter tagFormatter;
   private final int textColorSecondary;
   private final TaskDao taskDao;
   private final ViewHolderCallbacks callback;
@@ -40,6 +46,8 @@ class ViewHolder extends RecyclerView.ViewHolder {
   private final int background;
   private final int selectedColor;
   private final int textColorOverdue;
+  private final ChipProvider chipProvider;
+  private final int fontSizeDetails;
 
   @BindView(R.id.row)
   public ViewGroup row;
@@ -61,8 +69,11 @@ class ViewHolder extends RecyclerView.ViewHolder {
   @BindView(R.id.completeBox)
   CheckableImageView completeBox;
 
-  @BindView(R.id.tag_block)
-  TextView tagBlock;
+  @BindView(R.id.chip_scroll)
+  HorizontalScrollView chipScroll;
+
+  @BindView(R.id.chip_group)
+  ChipGroup chipGroup;
 
   private int indent;
   private boolean selected;
@@ -74,7 +85,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
       Preferences preferences,
       int fontSize,
       CheckBoxes checkBoxes,
-      TagFormatter tagFormatter,
+      ChipProvider chipProvider,
       int textColorOverdue,
       int textColorSecondary,
       TaskDao taskDao,
@@ -87,7 +98,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
     this.context = context;
     this.preferences = preferences;
     this.checkBoxes = checkBoxes;
-    this.tagFormatter = tagFormatter;
+    this.chipProvider = chipProvider;
     this.textColorOverdue = textColorOverdue;
     this.textColorSecondary = textColorSecondary;
     this.taskDao = taskDao;
@@ -119,9 +130,9 @@ class ViewHolder extends RecyclerView.ViewHolder {
     }
 
     nameView.setTextSize(fontSize);
-    int fontSizeDetails = Math.max(10, fontSize - 2);
+    description.setTextSize(fontSize);
+    fontSizeDetails = Math.max(10, fontSize - 2);
     dueDate.setTextSize(fontSizeDetails);
-    tagBlock.setTextSize(fontSizeDetails);
 
     view.setTag(this);
     for (int i = 0; i < view.getChildCount(); i++) {
@@ -248,19 +259,20 @@ class ViewHolder extends RecyclerView.ViewHolder {
       dueDateView.setVisibility(View.GONE);
     }
 
-    if (task.isCompleted()) {
-      tagBlock.setVisibility(View.GONE);
+    String tags = task.getTagsString();
+    List<String> tagUuids = tags != null ? newArrayList(tags.split(",")) : Lists.newArrayList();
+
+    List<Chip> chips = chipProvider.getChips(task.getCaldav(), task.getGoogleTaskList(), tagUuids);
+    if (chips.isEmpty()) {
+      chipScroll.setVisibility(View.GONE);
     } else {
-      String tags = task.getTagsString();
-      List<String> tagUuids = tags != null ? newArrayList(tags.split(",")) : Lists.newArrayList();
-      CharSequence tagString =
-          tagFormatter.getTagString(task.getCaldav(), task.getGoogleTaskList(), tagUuids);
-      if (TextUtils.isEmpty(tagString)) {
-        tagBlock.setVisibility(View.GONE);
-      } else {
-        tagBlock.setText(tagString);
-        tagBlock.setVisibility(View.VISIBLE);
+      chipGroup.removeAllViews();
+      for (Chip chip : chips) {
+        chip.setTextSize(fontSizeDetails);
+        chip.setOnClickListener(view -> callback.onClick((Filter) view.getTag()));
+        chipGroup.addView(chip);
       }
+      chipScroll.setVisibility(View.VISIBLE);
     }
   }
 
@@ -296,6 +308,8 @@ class ViewHolder extends RecyclerView.ViewHolder {
     void onCompletedTask(Task task, boolean newState);
 
     void onClick(ViewHolder viewHolder);
+
+    void onClick(Filter filter);
 
     boolean onLongPress(ViewHolder viewHolder);
   }

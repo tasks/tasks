@@ -74,29 +74,30 @@
     android:maxLines="2"
     android:textColor="@color/text_secondary"/>
 
-  <RelativeLayout
-    android:layout_width="match_parent"
+  <HorizontalScrollView
+    android:id="@+id/chip_scroll"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingStart="@dimen/keyline_content_inset"
-    android:paddingEnd="0dp"
-    android:paddingLeft="@dimen/keyline_content_inset"
-    android:paddingRight="0dp"
-    android:orientation="horizontal">
+    android:layout_gravity="end"
+    android:clipChildren="false"
+    android:scrollbarThumbHorizontal="@android:color/transparent">
 
-    <TextView
-      android:id="@+id/tag_block"
+    <com.google.android.material.chip.ChipGroup
+      android:id="@+id/chip_group"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_alignParentEnd="true"
-      android:layout_alignParentRight="true"
-      android:paddingStart="0dp"
-      android:paddingEnd="@dimen/keyline_first"
-      android:paddingLeft="0dp"
-      android:paddingRight="@dimen/keyline_first"
-      android:ellipsize="none"
-      android:singleLine="true"
-      android:textSize="14sp"/>
-    
-  </RelativeLayout>
+      android:layout_marginStart="0dp"
+
+      android:layout_marginEnd="@dimen/keyline_first"
+      android:layout_marginLeft="0dp"
+      android:layout_marginRight="@dimen/keyline_first"
+      android:layout_gravity="end"
+      android:paddingStart="@dimen/keyline_content_inset"
+      android:paddingLeft="@dimen/keyline_content_inset"
+      android:clipToPadding="false"
+      app:singleLine="true">
+
+    </com.google.android.material.chip.ChipGroup>
+  </HorizontalScrollView>
 
 </LinearLayout>
