@@ -31,7 +31,6 @@
 	<string name="TLA_menu_sort">Sortera</string>
 	<string name="TLA_menu_search">Sök</string>
 	<string name="TLA_menu_settings">Inställningar</string>
-	<string name="TAd_hiddenFormat">%s [dold]</string>
 	<string name="TAd_completed">Avslutad\n%s</string>
 	<string name="TAd_actionEditTask">Redigera</string>
 	<string name="SSD_sort_drag">Manuell sortering med underuppgifter</string>

@@ -31,7 +31,6 @@
 	<string name="TLA_menu_sort">Sorteren</string>
 	<string name="TLA_menu_search">Zoek</string>
 	<string name="TLA_menu_settings">Instellingen</string>
-	<string name="TAd_hiddenFormat">%s [verborgen]</string>
 	<string name="TAd_completed">Afgerond\n%s</string>
 	<string name="TAd_actionEditTask">Bewerken</string>
 	<string name="SSD_sort_drag">Handmatige volgorde met subtaken</string>

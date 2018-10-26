@@ -92,11 +92,6 @@ File %1$s contained %2$s.\n\n
   <!-- Menu: Settings -->
   <string name="TLA_menu_settings">Settings</string>
 
-  <!-- ====================================================== TaskAdapter == -->
-
-  <!-- Format string to indicate task is hidden (%s => task name) -->
-  <string name="TAd_hiddenFormat">%s [hidden]</string>
-
   <!-- slide 15a: Action Button: edit task -->
   <string name="TAd_actionEditTask">Edit</string>
   <string name="action_call">Call</string>

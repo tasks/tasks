@@ -31,7 +31,6 @@
 	<string name="TLA_menu_sort">Triediť</string>
 	<string name="TLA_menu_search">Hľadať</string>
 	<string name="TLA_menu_settings">Nastavenia</string>
-	<string name="TAd_hiddenFormat">%s [skryté]</string>
 	<string name="TAd_completed">Dokončené\n%s</string>
 	<string name="TAd_actionEditTask">Upraviť</string>
 	<string name="SSD_sort_drag">Ručne triediť s podúlohami</string>

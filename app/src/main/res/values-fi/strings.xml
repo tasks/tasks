@@ -34,7 +34,6 @@
 	<string name="TLA_menu_sort">Järjestä</string>
 	<string name="TLA_menu_search">Etsi</string>
 	<string name="TLA_menu_settings">Asetukset</string>
-	<string name="TAd_hiddenFormat">%s (piilotettu)</string>
 	<string name="TAd_completed">Lopetettu\n%s</string>
 	<string name="TAd_actionEditTask">Muokkaa</string>
 	<string name="SSD_sort_drag">Manuaalinen järjestys osatehtäviin</string>

@@ -31,7 +31,6 @@
 	<string name="TLA_menu_sort">ソート</string>
 	<string name="TLA_menu_search">検索</string>
 	<string name="TLA_menu_settings">設定</string>
-	<string name="TAd_hiddenFormat">%s [非表示]</string>
 	<string name="TAd_completed">%s\nに完了</string>
 	<string name="TAd_actionEditTask">編集する</string>
 	<string name="SSD_sort_drag">サブタスクの手動設定順</string>

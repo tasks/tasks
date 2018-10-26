@@ -39,14 +39,28 @@
       android:singleLine="true"
       android:textSize="14sp"/>
 
+    <ImageView
+      android:id="@+id/hidden_status"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="start"
+      android:layout_toEndOf="@id/completeBox"
+      android:layout_toRightOf="@id/completeBox"
+      android:paddingEnd="2dp"
+      android:paddingRight="2dp"
+      android:alpha="?attr/alpha_secondary"
+      android:src="@drawable/ic_visibility_off_24dp"
+      android:tint="@color/icon_tint"
+      android:visibility="gone"/>
+
     <TextView
       android:id="@+id/title"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
 
-      android:layout_toEndOf="@id/completeBox"
+      android:layout_toEndOf="@id/hidden_status"
       android:layout_toLeftOf="@id/due_date"
-      android:layout_toRightOf="@id/completeBox"
+      android:layout_toRightOf="@id/hidden_status"
       android:layout_toStartOf="@id/due_date"
       android:paddingStart="0dp"
       android:paddingEnd="@dimen/keyline_first"
@@ -98,6 +112,7 @@
       app:singleLine="true">
 
     </com.google.android.material.chip.ChipGroup>
+
   </HorizontalScrollView>
 
 </LinearLayout>

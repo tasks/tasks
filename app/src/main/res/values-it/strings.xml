@@ -31,7 +31,6 @@
 	<string name="TLA_menu_sort">Ordinamento</string>
 	<string name="TLA_menu_search">Cerca</string>
 	<string name="TLA_menu_settings">Impostazioni</string>
-	<string name="TAd_hiddenFormat">%s [Nascosto]</string>
 	<string name="TAd_completed">Terminata\n%s</string>
 	<string name="TAd_actionEditTask">Modifica</string>
 	<string name="SSD_sort_drag">Ordinamento manuale con attività correlate</string>

@@ -34,7 +34,6 @@
 	<string name="TLA_menu_sort">Rendezés</string>
 	<string name="TLA_menu_search">Keresés</string>
 	<string name="TLA_menu_settings">Beállítások</string>
-	<string name="TAd_hiddenFormat">%s [rejtett]</string>
 	<string name="TAd_completed">Befejezve\n%s</string>
 	<string name="TAd_actionEditTask">Szerkesztés</string>
 	<string name="SSD_sort_drag">Manuális sorrend részfeladatokkal</string>

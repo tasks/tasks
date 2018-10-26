@@ -31,7 +31,6 @@
 	<string name="TLA_menu_sort">Eiliškumas</string>
 	<string name="TLA_menu_search">Ieškoti</string>
 	<string name="TLA_menu_settings">Nustatymai</string>
-	<string name="TAd_hiddenFormat">%s [paslėpta]</string>
 	<string name="TAd_completed">Užbaigta\n%s</string>
 	<string name="TAd_actionEditTask">Redaguoti</string>
 	<string name="SSD_sort_drag">Rankinis eiliškumas su sub-užduotimis</string>

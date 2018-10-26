@@ -34,7 +34,6 @@
 	<string name="TLA_menu_sort">정렬</string>
 	<string name="TLA_menu_search">검색</string>
 	<string name="TLA_menu_settings">설정</string>
-	<string name="TAd_hiddenFormat">%s [숨김]</string>
 	<string name="TAd_completed">일정 완료\n%s</string>
 	<string name="TAd_actionEditTask">편집</string>
 	<string name="SSD_sort_drag">수동 정렬 (하위할일 포함)</string>

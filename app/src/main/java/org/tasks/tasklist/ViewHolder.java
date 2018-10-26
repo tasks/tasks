@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -40,6 +41,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
   private final Preferences preferences;
   private final CheckBoxes checkBoxes;
   private final int textColorSecondary;
+  private final int textColorPrimary;
   private final TaskDao taskDao;
   private final ViewHolderCallbacks callback;
   private final DisplayMetrics metrics;
@@ -75,6 +77,9 @@ class ViewHolder extends RecyclerView.ViewHolder {
   @BindView(R.id.chip_group)
   ChipGroup chipGroup;
 
+  @BindView(R.id.hidden_status)
+  ImageView hidden;
+
   private int indent;
   private boolean selected;
   private boolean moving;
@@ -88,6 +93,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
       ChipProvider chipProvider,
       int textColorOverdue,
       int textColorSecondary,
+      int textColorPrimary,
       TaskDao taskDao,
       ViewHolderCallbacks callback,
       DisplayMetrics metrics,
@@ -101,6 +107,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
     this.chipProvider = chipProvider;
     this.textColorOverdue = textColorOverdue;
     this.textColorSecondary = textColorSecondary;
+    this.textColorPrimary = textColorPrimary;
     this.taskDao = taskDao;
     this.callback = callback;
     this.metrics = metrics;
@@ -201,22 +208,17 @@ class ViewHolder extends RecyclerView.ViewHolder {
 
   /** Helper method to set the contents and visibility of each field */
   private synchronized void setFieldContentsAndVisibility() {
-    String nameValue = task.getTitle();
-
-    long hiddenUntil = task.getHideUntil();
-    if (hiddenUntil > DateUtilities.now()) {
-      nameValue = context.getResources().getString(R.string.TAd_hiddenFormat, nameValue);
-    }
-    nameView.setText(nameValue);
-
+    nameView.setText(task.getTitle());
+    hidden.setVisibility(task.isHidden() ? View.VISIBLE : View.GONE);
     setupDueDateAndTags();
   }
 
   private void setTaskAppearance() {
     if (task.isCompleted()) {
-      nameView.setEnabled(false);
+      nameView.setTextColor(textColorSecondary);
       nameView.setPaintFlags(nameView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
     } else {
+      nameView.setTextColor(task.isHidden() ? textColorSecondary : textColorPrimary);
       nameView.setEnabled(true);
       nameView.setPaintFlags(nameView.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
     }
@@ -244,19 +246,17 @@ class ViewHolder extends RecyclerView.ViewHolder {
 
   private void setupDueDateAndTags() {
     // due date / completion date
-    final TextView dueDateView = dueDate;
     if (!task.isCompleted() && task.hasDueDate()) {
-      long dueDate = task.getDueDate();
       if (task.isOverdue()) {
-        dueDateView.setTextColor(textColorOverdue);
+        dueDate.setTextColor(textColorOverdue);
       } else {
-        dueDateView.setTextColor(textColorSecondary);
+        dueDate.setTextColor(textColorSecondary);
       }
-      String dateValue = DateUtilities.getRelativeDateStringWithTime(context, dueDate);
-      dueDateView.setText(dateValue);
-      dueDateView.setVisibility(View.VISIBLE);
+      String dateValue = DateUtilities.getRelativeDateStringWithTime(context, task.getDueDate());
+      dueDate.setText(dateValue);
+      dueDate.setVisibility(View.VISIBLE);
     } else {
-      dueDateView.setVisibility(View.GONE);
+      dueDate.setVisibility(View.GONE);
     }
 
     String tags = task.getTagsString();
