@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.reminders;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybean;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
 import static com.todoroo.andlib.utility.AndroidUtilities.preOreo;
@@ -115,7 +114,6 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
     requires(atLeastMarshmallow(), R.string.battery_optimization_settings);
     requires(
         preOreo(), R.string.p_rmd_ringtone, R.string.p_rmd_vibrate, R.string.p_led_notification);
-    requires(atLeastJellybean(), R.string.p_bundle_notifications);
   }
 
   @TargetApi(Build.VERSION_CODES.O)

@@ -3,7 +3,6 @@ package org.tasks.preferences;
 import static android.content.SharedPreferences.Editor;
 import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Sets.newHashSet;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybean;
 import static java.util.Collections.emptySet;
 
 import android.content.Context;
@@ -438,7 +437,7 @@ public class Preferences {
   }
 
   public boolean bundleNotifications() {
-    return atLeastJellybean() && getBoolean(R.string.p_bundle_notifications, true);
+    return getBoolean(R.string.p_bundle_notifications, true);
   }
 
   public boolean usePersistentReminders() {
