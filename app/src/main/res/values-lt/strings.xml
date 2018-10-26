@@ -32,6 +32,8 @@
 	<string name="TLA_menu_search">Ieškoti</string>
 	<string name="TLA_menu_settings">Nustatymai</string>
 	<string name="TAd_actionEditTask">Redaguoti</string>
+	<string name="action_call">Skambinti</string>
+	<string name="action_open">Atidaryti</string>
 	<string name="SSD_sort_drag">Rankinis eiliškumas su sub-užduotimis</string>
 	<string name="SSD_sort_auto">Gudrus eiliškumas</string>
 	<string name="SSD_sort_alpha">Pagal pavadinimą</string>
@@ -504,4 +506,9 @@ sukonfigūruota tinkamai.</string>
 	<string name="cannot_access_account">Paskyra nepasiekiama.</string>
 	<string name="reinitialize_account">Inicijuoti iš naujo</string>
 	<string name="action_create_new_task">Sukurti naują užduotį</string>
+	<string name="show_description">Rodyti aprašymą</string>
+	<string name="show_full_description">Rodyti pilną aprašymą</string>
+	<string name="linkify">Rodyti nuorodas</string>
+	<string name="linkify_description">Pridėti nuorodas į puslapius, adresus ir telefono numerius</string>
+	<string name="show_list_indicators">Rodyti sąrašą lustų</string>
 </resources>

@@ -32,6 +32,8 @@
 	<string name="TLA_menu_search">Rechercher</string>
 	<string name="TLA_menu_settings">Paramètres</string>
 	<string name="TAd_actionEditTask">Modifier</string>
+	<string name="action_call">Appeler</string>
+	<string name="action_open">Ouvrir</string>
 	<string name="SSD_sort_drag">Ordonner manuellement avec les sous-tâches</string>
 	<string name="SSD_sort_auto">Tri intelligent Tasks</string>
 	<string name="SSD_sort_alpha">Par titre</string>
@@ -487,4 +489,9 @@ est configuré correctement</string>
 	<string name="cannot_access_account">Impossible d\'accéder au compte</string>
 	<string name="reinitialize_account">Réinitialiser</string>
 	<string name="action_create_new_task">Créer une nouvelle tâche</string>
+	<string name="show_description">Montrer la description</string>
+	<string name="show_full_description">Montrer la description complète</string>
+	<string name="linkify">Afficher les liens</string>
+	<string name="linkify_description">Ajouter des liens vers des sites Web, des adresses et des numéros de téléphone</string>
+	<string name="show_list_indicators">Afficher la liste des puces</string>
 </resources>

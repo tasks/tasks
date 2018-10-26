@@ -35,6 +35,8 @@
 	<string name="TLA_menu_search">Търсене</string>
 	<string name="TLA_menu_settings">Настройки</string>
 	<string name="TAd_actionEditTask">Редактирай</string>
+	<string name="action_call">Обади се</string>
+	<string name="action_open">Отвори</string>
 	<string name="SSD_sort_drag">Ръчно подреждане с подзадачи</string>
 	<string name="SSD_sort_auto">Умно сортиране</string>
 	<string name="SSD_sort_alpha">По име</string>
@@ -507,4 +509,9 @@
 	<string name="cannot_access_account">Няма достъп до акаунт</string>
 	<string name="reinitialize_account">Реинициализиране</string>
 	<string name="action_create_new_task">Създай нова задача</string>
+	<string name="show_description">Покажи описание</string>
+	<string name="show_full_description">Покажи пълното описание</string>
+	<string name="linkify">Покажи линкове</string>
+	<string name="linkify_description">Добавете връзки към уебсайтове, адреси и телефонни номера</string>
+	<string name="show_list_indicators">Показване на индикатори в списъци</string>
 </resources>

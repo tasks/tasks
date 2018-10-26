@@ -36,6 +36,8 @@
 	<string name="TLA_menu_search">Ara</string>
 	<string name="TLA_menu_settings">Ayarlar</string>
 	<string name="TAd_actionEditTask">Düzenle</string>
+	<string name="action_call">Ara</string>
+	<string name="action_open">Aç</string>
 	<string name="SSD_sort_drag">Alt görevleri elle sırala</string>
 	<string name="SSD_sort_auto">Tasks akıllı sıralama</string>
 	<string name="SSD_sort_alpha">Başlığa göre</string>
@@ -510,4 +512,6 @@ uygulamanızın doğru kurulduğundan emin olun.</string>
 	<string name="cannot_access_account">Hesaba erişilemedi</string>
 	<string name="reinitialize_account">Yeniden başlat</string>
 	<string name="action_create_new_task">Yeni görev oluştur</string>
+	<string name="show_description">Açıklamayı göster</string>
+	<string name="show_full_description">Tam açıklamayı göster</string>
 </resources>

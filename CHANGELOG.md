@@ -1,6 +1,32 @@
 Change Log
 ---
 
+### 6.2 (2018-10-29)
+
+* New white theme color
+* New icons
+* New list and tag chips
+* Linkify text when editing tasks
+* Option to linkify text on task list
+* Show description on task list
+* Move due date next to title
+* Updated hidden task visualization
+* No longer require contacts permission (Oreo+)
+* Dropped support for Android 4.0
+* Update translations
+  * Brazilian Portuguese - douglaslmr
+  * Bulgarian - ddmdima96
+  * Chinese - Atlantids
+  * Dutch - revdbrink
+  * French - Florian_Dubois
+  * German - marmo
+  * Hebrew - elazar
+  * Hungarian - kaciokos
+  * Italian - dfdario, passero
+  * Lithuanian - gacuxz
+  * Spanish - i2nm7s
+  * Turkish - etc
+
 ### 6.1.3 (2018-10-22)
 
 * Fix translation error

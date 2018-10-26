@@ -35,6 +35,8 @@
 	<string name="TLA_menu_search">Keresés</string>
 	<string name="TLA_menu_settings">Beállítások</string>
 	<string name="TAd_actionEditTask">Szerkesztés</string>
+	<string name="action_call">Hívás</string>
+	<string name="action_open">Megnyitás</string>
 	<string name="SSD_sort_drag">Manuális sorrend részfeladatokkal</string>
 	<string name="SSD_sort_auto">Intelligens rendezés</string>
 	<string name="SSD_sort_alpha">Név alapján</string>
@@ -507,4 +509,8 @@
 	<string name="cannot_access_account">Fiók nem elérhető</string>
 	<string name="reinitialize_account">Újrainicializálás</string>
 	<string name="action_create_new_task">Új feladat létrehozása</string>
+	<string name="show_description">Leírás megjelenítése</string>
+	<string name="show_full_description">Teljes leírás megjelenítése</string>
+	<string name="linkify">Linkek megjelenítése</string>
+	<string name="linkify_description">Weboldalakra, címekre és telefonszámokra mutató linkek hozzáadása</string>
 </resources>

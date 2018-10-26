@@ -496,4 +496,6 @@
 	<string name="cannot_access_account">Auf das Konto kann nicht zugegriffen werden</string>
 	<string name="reinitialize_account">Neu initialisieren</string>
 	<string name="action_create_new_task">Neue Aufgabe erstellen</string>
+	<string name="show_description">Beschreibung anzeigen</string>
+	<string name="show_full_description">Gesamte Beschreibung anzeigen</string>
 </resources>

@@ -32,6 +32,8 @@
 	<string name="TLA_menu_search">חיפוש</string>
 	<string name="TLA_menu_settings">הגדרות</string>
 	<string name="TAd_actionEditTask">עריכה</string>
+	<string name="action_call">התקשר</string>
+	<string name="action_open">פתח</string>
 	<string name="SSD_sort_drag">סידור ידני עם תתי-משימות</string>
 	<string name="SSD_sort_auto">מיון חכם</string>
 	<string name="SSD_sort_alpha">ע״פ כותרת</string>
@@ -189,15 +191,26 @@
 	<string name="default_random_reminder_bi_weekly">דו שבועי</string>
 	<string name="default_random_reminder_monthly">חודשי</string>
 	<string name="default_random_reminder_bi_monthly">דו חודשי</string>
+	<string name="repeat_every">כל</string>
 	<string name="repeat_option_does_not_repeat">לא חוזר</string>
 	<string name="repeat_option_every_day">כל יום</string>
 	<string name="repeat_option_every_week">כל שבוע</string>
 	<string name="repeat_option_every_month">כל חודש</string>
 	<string name="repeat_option_every_year">כל שנה</string>
 	<string name="repeat_option_custom">מותאם אישית...</string>
+	<string name="repeat_minutely">חזרה בדקות</string>
+	<string name="repeat_hourly">חזרה בשעות</string>
+	<string name="repeat_daily">חזרה בימים</string>
+	<string name="repeat_weekly">חזרה בשבועות</string>
+	<string name="repeat_monthly">חזרה בחודשים</string>
+	<string name="repeat_yearly">חזרה בשנים</string>
 	<plurals name="task_count">
 		<item quantity="one">%d משימה</item>
-		<item quantity="other">%d tasks</item>
+		<item quantity="other">%d משימות</item>
+	</plurals>
+	<plurals name="repeat_times">
+		<item quantity="one">זמן</item>
+		<item quantity="other">פעמים</item>
 	</plurals>
 	<plurals name="repeat_minutes">
 		<item quantity="one">דקה</item>
@@ -252,6 +265,7 @@
 	<string name="repeat_forever">חזור לנצח</string>
 	<string name="repeat_until">חזרה עד %s</string>
 	<string name="repeat_number_of_times">חוזר מספר פעמים</string>
+	<string name="repeat_occurs">קורה</string>
 	<string name="repeat_snackbar">%1$s תזמן מחדש משימה חוזרת זו ל־%2$s</string>
 	<string comment="display new due date and time in snackbar after completing repeating task, e.g. \'Tomorrow at 8 AM\' or \'21 May at 8 AM\'" name="repeat_snackbar_time">%1$s בשעה %2$s</string>
 	<string name="new_tag">יצירת תגית חדשה</string>
@@ -420,6 +434,7 @@
 	<string name="copy_selected_tasks">להעתיק משימות?</string>
 	<string name="date_and_time">תאריך וושעה</string>
 	<string name="start_of_week">תחילת השבוע</string>
+	<string name="use_locale_default">השתמש באזור גיאוגרפי ברירת מחדל</string>
 	<string name="use_native_datetime_pickers">השתמש בממשק תאריך ושעה של המערכת</string>
 	<string name="add_account">הוסף חשבון</string>
 	<string name="user">משתמש</string>
@@ -470,7 +485,7 @@
 	<string name="help">עזרה</string>
 	<string name="caldav_home_set_not_found">קבוצת הבית לא נמצאה</string>
 	<string name="network_error">החיבור נכשל</string>
-	<string name="background_sync_unmetered_only">רק בחיבורים לא מוגבלי נפח</string>
+	<string name="background_sync_unmetered_only">רק בחיבורים ללא חיוב לפי נפח גלישה</string>
 	<string name="upgrade">שידרוג</string>
 	<string name="upgrade_to_pro">שידרוג לגירסת pro</string>
 	<string name="refresh_purchases">עדכן רכישות</string>
@@ -494,4 +509,9 @@
 	<string name="cannot_access_account">לא ניתן לגשת לחשבון</string>
 	<string name="reinitialize_account">איתחול מחדש</string>
 	<string name="action_create_new_task">יצירת משימה חדשה</string>
+	<string name="show_description">הצג תיאור</string>
+	<string name="show_full_description">הצג תיאור מלא</string>
+	<string name="linkify">הצג קישורים</string>
+	<string name="linkify_description">הוסף קישורים לאתרים, כתובות, ומספרי טלפון</string>
+	<string name="show_list_indicators">הצג שבבי רשימה</string>
 </resources>

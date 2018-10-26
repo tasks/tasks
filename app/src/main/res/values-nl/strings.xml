@@ -32,6 +32,7 @@
 	<string name="TLA_menu_search">Zoek</string>
 	<string name="TLA_menu_settings">Instellingen</string>
 	<string name="TAd_actionEditTask">Bewerken</string>
+	<string name="action_call">Bel</string>
 	<string name="SSD_sort_drag">Handmatige volgorde met subtaken</string>
 	<string name="SSD_sort_auto">Slim Sorteren</string>
 	<string name="SSD_sort_alpha">Op titel</string>
@@ -494,4 +495,6 @@
 	<string name="cannot_access_account">Geen toegang tot account</string>
 	<string name="reinitialize_account">Herinitialiseren</string>
 	<string name="action_create_new_task">Nieuwe taak maken</string>
+	<string name="show_description">Toon beschrijving</string>
+	<string name="show_full_description">Toon volledige beschrijving</string>
 </resources>

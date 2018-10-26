@@ -32,6 +32,8 @@
 	<string name="TLA_menu_search">搜索</string>
 	<string name="TLA_menu_settings">设置</string>
 	<string name="TAd_actionEditTask">编辑</string>
+	<string name="action_call">通话</string>
+	<string name="action_open">打开</string>
 	<string name="SSD_sort_drag">手动指定来显示子任务</string>
 	<string name="SSD_sort_auto">清单小助理智能排序</string>
 	<string name="SSD_sort_alpha">按标题</string>
@@ -505,4 +507,9 @@
 	<string name="cannot_access_account">无法访问帐户</string>
 	<string name="reinitialize_account">重新初始化</string>
 	<string name="action_create_new_task">新建任务</string>
+	<string name="show_description">显示描述</string>
+	<string name="show_full_description">显示完整描述</string>
+	<string name="linkify">显示链接</string>
+	<string name="linkify_description">增加链接至网站，地址，电话号码</string>
+	<string name="show_list_indicators">显示列表芯片</string>
 </resources>
