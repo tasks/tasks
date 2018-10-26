@@ -37,12 +37,13 @@ public class TimePickerActivity extends InjectingAppCompatActivity
 
     initial = new DateTime(getIntent().getLongExtra(EXTRA_TIMESTAMP, currentTimeMillis()));
 
-    FragmentManager fragmentManager = getFragmentManager();
     if (preferences.getBoolean(R.string.p_use_native_datetime_pickers, false)) {
+      FragmentManager fragmentManager = getFragmentManager();
       if (fragmentManager.findFragmentByTag(FRAG_TAG_TIME_PICKER) == null) {
         newNativeTimePickerDialog(initial).show(fragmentManager, FRAG_TAG_TIME_PICKER);
       }
     } else {
+      androidx.fragment.app.FragmentManager fragmentManager = getSupportFragmentManager();
       MyTimePickerDialog dialog =
           (MyTimePickerDialog) fragmentManager.findFragmentByTag(FRAG_TAG_TIME_PICKER);
       if (dialog == null) {

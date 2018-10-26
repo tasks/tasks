@@ -9,7 +9,8 @@
     <item name="android:paddingRight">0dp</item>
   </style>
 
-  <style name="TranslucentDialog" parent="Theme.MaterialComponents.Light.Dialog">
+  <style name="TranslucentDialog" parent="DayNightDialog">
+    <item name="viewInflaterClass">androidx.appcompat.app.AppCompatViewInflater</item>
     <item name="android:windowNoTitle">true</item>
     <item name="android:windowBackground">@android:color/transparent</item>
     <item name="android:colorBackgroundCacheHint">@null</item>

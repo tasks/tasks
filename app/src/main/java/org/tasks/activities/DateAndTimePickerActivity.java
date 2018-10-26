@@ -47,12 +47,13 @@ public class DateAndTimePickerActivity extends InjectingAppCompatActivity
       }
     }
 
-    FragmentManager fragmentManager = getFragmentManager();
     if (preferences.getBoolean(R.string.p_use_native_datetime_pickers, false)) {
+      FragmentManager fragmentManager = getFragmentManager();
       if (fragmentManager.findFragmentByTag(FRAG_TAG_DATE_PICKER) == null) {
         newNativeDatePickerDialog(initial).show(fragmentManager, FRAG_TAG_DATE_PICKER);
       }
     } else {
+      androidx.fragment.app.FragmentManager fragmentManager = getSupportFragmentManager();
       MyDatePickerDialog datePickerDialog =
           (MyDatePickerDialog) fragmentManager.findFragmentByTag(FRAG_TAG_DATE_PICKER);
       if (datePickerDialog == null) {

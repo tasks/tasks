@@ -5,5 +5,5 @@
 
   <style name="DayNightAlert" parent="Theme.MaterialComponents.Dialog.Alert"/>
 
-  <style name="popup_overlay" parent="ThemeOverlay.AppCompat"/>
+  <style name="popup_overlay" parent="ThemeOverlay.MaterialComponents"/>
 </resources>

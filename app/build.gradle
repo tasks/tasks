@@ -160,9 +160,7 @@ dependencies {
     implementation('org.scala-saddle:google-rfc-2445:20110304') {
         transitive = false
     }
-    implementation('com.wdullaer:materialdatetimepicker:3.6.1') {
-        exclude group: 'com.android.support', module: 'support-v4'
-    }
+    implementation('com.wdullaer:materialdatetimepicker:4.0.1')
     implementation "me.leolin:ShortcutBadger:1.1.22@aar"
     implementation 'com.google.apis:google-api-services-tasks:v1-rev52-1.23.0'
     implementation 'com.google.api-client:google-api-client-android:1.23.0'
