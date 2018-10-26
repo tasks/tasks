@@ -31,7 +31,6 @@
 	<string name="TLA_menu_sort">Trier</string>
 	<string name="TLA_menu_search">Rechercher</string>
 	<string name="TLA_menu_settings">Paramètres</string>
-	<string name="TAd_completed">Accomplie\n%s</string>
 	<string name="TAd_actionEditTask">Modifier</string>
 	<string name="SSD_sort_drag">Ordonner manuellement avec les sous-tâches</string>
 	<string name="SSD_sort_auto">Tri intelligent Tasks</string>

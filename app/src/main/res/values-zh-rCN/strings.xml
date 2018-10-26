@@ -31,7 +31,6 @@
 	<string name="TLA_menu_sort">排序</string>
 	<string name="TLA_menu_search">搜索</string>
 	<string name="TLA_menu_settings">设置</string>
-	<string name="TAd_completed">完成\n%s 项</string>
 	<string name="TAd_actionEditTask">编辑</string>
 	<string name="SSD_sort_drag">手动指定来显示子任务</string>
 	<string name="SSD_sort_auto">清单小助理智能排序</string>

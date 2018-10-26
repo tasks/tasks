@@ -29,7 +29,6 @@
 	<string name="TLA_menu_sort">Razvrsti</string>
 	<string name="TLA_menu_search">Iskanje</string>
 	<string name="TLA_menu_settings">Nastavitve</string>
-	<string name="TAd_completed">Opravljen\n%s</string>
 	<string name="TAd_actionEditTask">Uredi</string>
 	<string name="SSD_sort_drag">Ročna nastavitev s podopravki</string>
 	<string name="SSD_sort_auto">Pametno razvrščanje</string>

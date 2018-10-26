@@ -31,7 +31,6 @@
 	<string name="TLA_menu_sort">מיון</string>
 	<string name="TLA_menu_search">חיפוש</string>
 	<string name="TLA_menu_settings">הגדרות</string>
-	<string name="TAd_completed">הסתיימה\n%s</string>
 	<string name="TAd_actionEditTask">עריכה</string>
 	<string name="SSD_sort_drag">סידור ידני עם תתי-משימות</string>
 	<string name="SSD_sort_auto">מיון חכם</string>

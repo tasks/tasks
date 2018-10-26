@@ -246,7 +246,6 @@
   <string name="tracking_event_night_mode_mismatch">Night Mismatch</string>
   <string name="tracking_event_play_services_error">Play Services Error</string>
   <string name="tracking_event_upgrade">Upgrade</string>
-  <string name="tracking_event_db_open">DB open</string>
   <string name="tracking_event_task_creation">Task creation</string>
   <string name="tracking_event_multiselect_delete">Multiselect delete</string>
   <string name="tracking_event_multiselect_clone">Multiselect clone</string>

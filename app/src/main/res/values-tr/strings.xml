@@ -35,7 +35,6 @@
 	<string name="TLA_menu_sort">Sırala</string>
 	<string name="TLA_menu_search">Ara</string>
 	<string name="TLA_menu_settings">Ayarlar</string>
-	<string name="TAd_completed">Bitti\n%s</string>
 	<string name="TAd_actionEditTask">Düzenle</string>
 	<string name="SSD_sort_drag">Alt görevleri elle sırala</string>
 	<string name="SSD_sort_auto">Tasks akıllı sıralama</string>

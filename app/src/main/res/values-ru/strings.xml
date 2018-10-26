@@ -31,7 +31,6 @@
 	<string name="TLA_menu_sort">Сортировка</string>
 	<string name="TLA_menu_search">Поиск</string>
 	<string name="TLA_menu_settings">Настройки</string>
-	<string name="TAd_completed">Завершено\n%s</string>
 	<string name="TAd_actionEditTask">Редактировать</string>
 	<string name="SSD_sort_drag">Ручная сортировка с подзадачами</string>
 	<string name="SSD_sort_auto">Умная сортировка</string>
