@@ -32,7 +32,6 @@ class ViewHolder extends RecyclerView.ViewHolder {
   private final CheckBoxes checkBoxes;
   private final TagFormatter tagFormatter;
   private final int textColorSecondary;
-  private final int textColorHint;
   private final TaskDao taskDao;
   private final ViewHolderCallbacks callback;
   private final DisplayMetrics metrics;
@@ -73,7 +72,6 @@ class ViewHolder extends RecyclerView.ViewHolder {
       TagFormatter tagFormatter,
       int textColorOverdue,
       int textColorSecondary,
-      int textColorHint,
       TaskDao taskDao,
       ViewHolderCallbacks callback,
       DisplayMetrics metrics,
@@ -86,7 +84,6 @@ class ViewHolder extends RecyclerView.ViewHolder {
     this.tagFormatter = tagFormatter;
     this.textColorOverdue = textColorOverdue;
     this.textColorSecondary = textColorSecondary;
-    this.textColorHint = textColorHint;
     this.taskDao = taskDao;
     this.callback = callback;
     this.metrics = metrics;
@@ -190,15 +187,12 @@ class ViewHolder extends RecyclerView.ViewHolder {
   }
 
   private void setTaskAppearance() {
-    boolean completed = task.isCompleted();
-
-    TextView name = nameView;
-    if (completed) {
-      name.setEnabled(false);
-      name.setPaintFlags(name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+    if (task.isCompleted()) {
+      nameView.setEnabled(false);
+      nameView.setPaintFlags(nameView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
     } else {
-      name.setEnabled(true);
-      name.setPaintFlags(name.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+      nameView.setEnabled(true);
+      nameView.setPaintFlags(nameView.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
     }
 
     setupDueDateAndTags();
@@ -234,12 +228,6 @@ class ViewHolder extends RecyclerView.ViewHolder {
       }
       String dateValue = DateUtilities.getRelativeDateStringWithTime(context, dueDate);
       dueDateView.setText(dateValue);
-      dueDateView.setVisibility(View.VISIBLE);
-    } else if (task.isCompleted()) {
-      String dateValue =
-          DateUtilities.getRelativeDateStringWithTime(context, task.getCompletionDate());
-      dueDateView.setText(context.getResources().getString(R.string.TAd_completed, dateValue));
-      dueDateView.setTextColor(textColorHint);
       dueDateView.setVisibility(View.VISIBLE);
     } else {
       dueDateView.setVisibility(View.GONE);

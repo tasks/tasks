@@ -19,7 +19,6 @@ import org.tasks.ui.CheckBoxes;
 public class ViewHolderFactory {
 
   private final int textColorSecondary;
-  private final int textColorHint;
   private final int textColorOverdue;
   private final Context context;
   private final CheckBoxes checkBoxes;
@@ -44,7 +43,6 @@ public class ViewHolderFactory {
     this.tagFormatter = tagFormatter;
     this.taskDao = taskDao;
     textColorSecondary = getData(context, android.R.attr.textColorSecondary);
-    textColorHint = getData(context, android.R.attr.textColorTertiary);
     textColorOverdue = getColor(context, R.color.overdue);
     background = getResourceId(context, R.attr.selectableItemBackground);
     selectedColor = getData(context, R.attr.colorControlHighlight);
@@ -65,7 +63,6 @@ public class ViewHolderFactory {
         tagFormatter,
         textColorOverdue,
         textColorSecondary,
-        textColorHint,
         taskDao,
         callbacks,
         metrics,

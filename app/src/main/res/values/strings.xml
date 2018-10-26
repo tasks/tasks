@@ -97,9 +97,6 @@ File %1$s contained %2$s.\n\n
   <!-- Format string to indicate task is hidden (%s => task name) -->
   <string name="TAd_hiddenFormat">%s [hidden]</string>
 
-  <!-- slide 22b: indicates task was completed. %s => date or time ago -->
-  <string name="TAd_completed">Finished\n%s</string>
-
   <!-- slide 15a: Action Button: edit task -->
   <string name="TAd_actionEditTask">Edit</string>
   <string name="action_call">Call</string>
