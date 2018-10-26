@@ -13,6 +13,7 @@ import com.todoroo.astrid.dao.TaskDao;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.injection.ForActivity;
+import org.tasks.locale.Locale;
 import org.tasks.preferences.Preferences;
 import org.tasks.ui.CheckBoxes;
 import org.tasks.ui.ChipProvider;
@@ -23,6 +24,7 @@ public class ViewHolderFactory {
   private final int textColorSecondary;
   private final int textColorOverdue;
   private final Context context;
+  private final Locale locale;
   private final CheckBoxes checkBoxes;
   private final ChipProvider chipProvider;
   private final int fontSize;
@@ -36,11 +38,13 @@ public class ViewHolderFactory {
   @Inject
   public ViewHolderFactory(
       @ForActivity Context context,
+      Locale locale,
       Preferences preferences,
       CheckBoxes checkBoxes,
       ChipProvider chipProvider,
       TaskDao taskDao) {
     this.context = context;
+    this.locale = locale;
     this.checkBoxes = checkBoxes;
     this.chipProvider = chipProvider;
     this.taskDao = taskDao;
@@ -58,6 +62,7 @@ public class ViewHolderFactory {
   ViewHolder newViewHolder(ViewGroup parent, ViewHolder.ViewHolderCallbacks callbacks) {
     return new ViewHolder(
         context,
+        locale,
         (ViewGroup)
             LayoutInflater.from(context).inflate(R.layout.task_adapter_row_simple, parent, false),
         preferences,

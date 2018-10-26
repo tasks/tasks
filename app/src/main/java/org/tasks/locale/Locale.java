@@ -241,4 +241,8 @@ public class Locale {
   public String getCountry() {
     return appLocale.getCountry();
   }
+
+  public boolean isRtl() {
+    return appDirectionality == View.LAYOUT_DIRECTION_RTL;
+  }
 }

@@ -1,6 +1,7 @@
 package org.tasks.tasklist;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastKitKat;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 
@@ -10,9 +11,8 @@ import android.graphics.Paint;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.HorizontalScrollView;
+import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,13 +24,13 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.common.collect.Lists;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.ui.CheckableImageView;
 import java.util.List;
 import org.tasks.R;
+import org.tasks.locale.Locale;
 import org.tasks.preferences.Preferences;
 import org.tasks.ui.CheckBoxes;
 import org.tasks.ui.ChipProvider;
@@ -71,9 +71,6 @@ class ViewHolder extends RecyclerView.ViewHolder {
   @BindView(R.id.completeBox)
   CheckableImageView completeBox;
 
-  @BindView(R.id.chip_scroll)
-  HorizontalScrollView chipScroll;
-
   @BindView(R.id.chip_group)
   ChipGroup chipGroup;
 
@@ -86,6 +83,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
 
   ViewHolder(
       Context context,
+      Locale locale,
       ViewGroup view,
       Preferences preferences,
       int fontSize,
@@ -130,16 +128,22 @@ class ViewHolder extends RecyclerView.ViewHolder {
     if (atLeastKitKat()) {
       rowBody.setPadding(0, rowPadding, 0, rowPadding);
     } else {
-      ViewGroup.MarginLayoutParams layoutParams =
-          (ViewGroup.MarginLayoutParams) rowBody.getLayoutParams();
-      layoutParams.setMargins(
-          layoutParams.leftMargin, rowPadding, layoutParams.rightMargin, rowPadding);
+      MarginLayoutParams lp = (MarginLayoutParams) rowBody.getLayoutParams();
+      lp.setMargins(lp.leftMargin, rowPadding, lp.rightMargin, rowPadding);
     }
 
     nameView.setTextSize(fontSize);
     description.setTextSize(fontSize);
     fontSizeDetails = Math.max(10, fontSize - 2);
     dueDate.setTextSize(fontSizeDetails);
+
+    if (atLeastJellybeanMR1()) {
+      chipGroup.setLayoutDirection(
+          locale.isRtl() ? View.LAYOUT_DIRECTION_LTR : View.LAYOUT_DIRECTION_RTL);
+    } else {
+      MarginLayoutParams lp = (MarginLayoutParams) chipGroup.getLayoutParams();
+      lp.setMargins(lp.rightMargin, lp.topMargin, lp.leftMargin, lp.bottomMargin);
+    }
 
     view.setTag(this);
     for (int i = 0; i < view.getChildCount(); i++) {
@@ -175,8 +179,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
     this.indent = indent;
     int indentSize = getIndentSize(indent);
     if (atLeastLollipop()) {
-      ViewGroup.MarginLayoutParams layoutParams =
-          (ViewGroup.MarginLayoutParams) row.getLayoutParams();
+      MarginLayoutParams layoutParams = (MarginLayoutParams) row.getLayoutParams();
       layoutParams.setMarginStart(indentSize);
     } else {
       rowBody.setPadding(indentSize, rowBody.getPaddingTop(), 0, rowBody.getPaddingBottom());
@@ -264,7 +267,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
 
     List<Chip> chips = chipProvider.getChips(task.getCaldav(), task.getGoogleTaskList(), tagUuids);
     if (chips.isEmpty()) {
-      chipScroll.setVisibility(View.GONE);
+      chipGroup.setVisibility(View.GONE);
     } else {
       chipGroup.removeAllViews();
       for (Chip chip : chips) {
@@ -272,7 +275,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
         chip.setOnClickListener(view -> callback.onClick((Filter) view.getTag()));
         chipGroup.addView(chip);
       }
-      chipScroll.setVisibility(View.VISIBLE);
+      chipGroup.setVisibility(View.VISIBLE);
     }
   }
 
