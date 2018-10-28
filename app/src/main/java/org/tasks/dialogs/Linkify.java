@@ -26,12 +26,17 @@ public class Linkify {
   }
 
   public void linkify(TextView textView) {
-    linkify(textView, () -> {});
+    linkify(textView, () -> {}, () -> {});
   }
 
-  public void linkify(TextView textView, Runnable onEdit) {
+  public void linkify(TextView textView, Runnable onClick, Runnable onLongClick) {
     BetterLinkMovementMethod.linkify(android.text.util.Linkify.ALL, textView)
-        .setOnLinkClickListener((tv, url) -> handleLink(url, onEdit));
+        .setOnLinkClickListener((tv, url) -> handleLink(url, onClick))
+        .setOnLinkLongClickListener(
+            (tv, url) -> {
+              onLongClick.run();
+              return true;
+            });
   }
 
   private boolean handleLink(String url, Runnable onEdit) {

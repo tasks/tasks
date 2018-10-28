@@ -212,8 +212,12 @@ class ViewHolder extends RecyclerView.ViewHolder {
       description.setVisibility(task.hasNotes() ? View.VISIBLE : View.GONE);
     }
     if (preferences.getBoolean(R.string.p_linkify_task_list, false)) {
-      linkify.linkify(nameView, this::onRowBodyClick);
-      linkify.linkify(description, this::onRowBodyClick);
+      linkify.linkify(nameView, this::onRowBodyClick, this::onRowBodyLongClick);
+      linkify.linkify(description, this::onRowBodyClick, this::onRowBodyLongClick);
+      nameView.setOnClickListener(view -> onRowBodyClick());
+      nameView.setOnLongClickListener(view -> onRowBodyLongClick());
+      description.setOnClickListener(view -> onRowBodyClick());
+      description.setOnLongClickListener(view -> onRowBodyLongClick());
     }
   }
 
@@ -274,7 +278,8 @@ class ViewHolder extends RecyclerView.ViewHolder {
       String tags = task.getTagsString();
       List<String> tagUuids = tags != null ? newArrayList(tags.split(",")) : Lists.newArrayList();
 
-      List<Chip> chips = chipProvider.getChips(task.getCaldav(), task.getGoogleTaskList(), tagUuids);
+      List<Chip> chips =
+          chipProvider.getChips(task.getCaldav(), task.getGoogleTaskList(), tagUuids);
       if (chips.isEmpty()) {
         chipGroup.setVisibility(View.GONE);
       } else {
