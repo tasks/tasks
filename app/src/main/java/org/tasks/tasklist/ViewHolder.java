@@ -270,20 +270,22 @@ class ViewHolder extends RecyclerView.ViewHolder {
       dueDate.setVisibility(View.GONE);
     }
 
-    String tags = task.getTagsString();
-    List<String> tagUuids = tags != null ? newArrayList(tags.split(",")) : Lists.newArrayList();
+    if (preferences.getBoolean(R.string.p_show_list_indicators, true)) {
+      String tags = task.getTagsString();
+      List<String> tagUuids = tags != null ? newArrayList(tags.split(",")) : Lists.newArrayList();
 
-    List<Chip> chips = chipProvider.getChips(task.getCaldav(), task.getGoogleTaskList(), tagUuids);
-    if (chips.isEmpty()) {
-      chipGroup.setVisibility(View.GONE);
-    } else {
-      chipGroup.removeAllViews();
-      for (Chip chip : chips) {
-        chip.setTextSize(fontSizeDetails);
-        chip.setOnClickListener(view -> callback.onClick((Filter) view.getTag()));
-        chipGroup.addView(chip);
+      List<Chip> chips = chipProvider.getChips(task.getCaldav(), task.getGoogleTaskList(), tagUuids);
+      if (chips.isEmpty()) {
+        chipGroup.setVisibility(View.GONE);
+      } else {
+        chipGroup.removeAllViews();
+        for (Chip chip : chips) {
+          chip.setTextSize(fontSizeDetails);
+          chip.setOnClickListener(view -> callback.onClick((Filter) view.getTag()));
+          chipGroup.addView(chip);
+        }
+        chipGroup.setVisibility(View.VISIBLE);
       }
-      chipGroup.setVisibility(View.VISIBLE);
     }
   }
 

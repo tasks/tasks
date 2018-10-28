@@ -96,6 +96,7 @@
     android:layout_marginStart="@dimen/keyline_first"
     android:layout_marginLeft="@dimen/keyline_first"
     android:layout_marginRight="@dimen/keyline_content_inset"
-    android:layout_marginEnd="@dimen/keyline_content_inset"/>
+    android:layout_marginEnd="@dimen/keyline_content_inset"
+    android:visibility="gone"/>
 
 </LinearLayout>

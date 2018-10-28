@@ -35,6 +35,11 @@
       android:title="@string/show_full_description" />
 
     <CheckBoxPreference
+      android:defaultValue="true"
+      android:key="@string/p_show_list_indicators"
+      android:title="@string/show_list_indicators" />
+
+    <CheckBoxPreference
       android:defaultValue="false"
       android:key="@string/p_linkify_task_list"
       android:title="@string/linkify"

@@ -53,7 +53,8 @@ public class AppearancePreferences extends InjectingPreferenceActivity
         R.string.p_fullTaskTitle,
         R.string.p_show_description,
         R.string.p_show_full_description,
-        R.string.p_linkify_task_list);
+        R.string.p_linkify_task_list,
+        R.string.p_show_list_indicators);
     setExtraOnChange(R.string.p_show_today_filter, EXTRA_FILTERS_CHANGED);
     setExtraOnChange(R.string.p_show_recently_modified_filter, EXTRA_FILTERS_CHANGED);
     setExtraOnChange(R.string.p_show_not_in_list_filter, EXTRA_FILTERS_CHANGED);
