@@ -185,7 +185,7 @@ public class ReminderControlSet extends TaskEditControlFragment {
 
   @Override
   public int getIcon() {
-    return R.drawable.ic_notifications_24dp;
+    return R.drawable.ic_outline_notifications_24px;
   }
 
   @Override

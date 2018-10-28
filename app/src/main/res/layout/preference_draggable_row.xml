@@ -27,6 +27,6 @@
     android:layout_height="match_parent"
     android:layout_gravity="center_vertical|end"
     android:scaleType="center"
-    android:src="@drawable/ic_drag_handle_black_24dp"
+    android:src="@drawable/ic_outline_drag_handle_24px"
     android:tint="?attr/icon_tint"/>
 </androidx.cardview.widget.CardView>

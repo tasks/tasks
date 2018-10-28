@@ -55,7 +55,7 @@
     android:layout_marginStart="3dp"
     android:layout_marginLeft="3dip"
     android:scaleType="center"
-    android:src="@drawable/ic_add_24dp"
+    android:src="@drawable/ic_outline_add_24px"
     android:tint="?attr/actionBarPrimaryText"
     android:visibility="gone"/>
 

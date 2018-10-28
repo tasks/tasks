@@ -63,7 +63,7 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity
     final boolean backButtonSavesTask = preferences.backButtonSavesTask();
     toolbar.setNavigationIcon(
         ContextCompat.getDrawable(
-            this, backButtonSavesTask ? R.drawable.ic_close_24dp : R.drawable.ic_save_24dp));
+            this, backButtonSavesTask ? R.drawable.ic_outline_clear_24px : R.drawable.ic_outline_save_24px));
     toolbar.setTitle(filter.listingTitle);
     toolbar.setNavigationOnClickListener(
         v -> {

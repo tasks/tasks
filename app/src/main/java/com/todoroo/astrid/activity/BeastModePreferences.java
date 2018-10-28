@@ -90,7 +90,7 @@ public class BeastModePreferences extends ThemedInjectingAppCompatActivity
     setContentView(R.layout.beast_mode_pref_activity);
     ButterKnife.bind(this);
 
-    toolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_24dp));
+    toolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_outline_arrow_back_24px));
     toolbar.setNavigationOnClickListener(v -> finish());
     toolbar.inflateMenu(R.menu.beast_mode);
     toolbar.setOnMenuItemClickListener(this);

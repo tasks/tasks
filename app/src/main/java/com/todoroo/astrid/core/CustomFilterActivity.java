@@ -121,7 +121,7 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity
     setContentView(R.layout.custom_filter_activity);
     ButterKnife.bind(this);
 
-    toolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_close_24dp));
+    toolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_outline_clear_24px));
     toolbar.setTitle(R.string.FLA_new_filter);
     toolbar.inflateMenu(R.menu.menu_custom_filter_activity);
     toolbar.setOnMenuItemClickListener(this);

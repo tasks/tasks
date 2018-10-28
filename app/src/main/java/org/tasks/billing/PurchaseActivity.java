@@ -85,7 +85,7 @@ public class PurchaseActivity extends ThemedInjectingAppCompatActivity
     ButterKnife.bind(this);
 
     toolbar.setTitle(R.string.upgrade);
-    toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
+    toolbar.setNavigationIcon(R.drawable.ic_outline_arrow_back_24px);
     toolbar.setNavigationOnClickListener(v -> onBackPressed());
     toolbar.inflateMenu(R.menu.menu_purchase_activity);
     toolbar.setOnMenuItemClickListener(this);

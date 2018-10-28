@@ -118,7 +118,7 @@ public class FilesControlSet extends TaskEditControlFragment {
 
   @Override
   public int getIcon() {
-    return R.drawable.ic_attachment_24dp;
+    return R.drawable.ic_outline_attachment_24px;
   }
 
   @Override

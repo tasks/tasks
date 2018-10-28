@@ -112,7 +112,7 @@ public final class TaskEditFragment extends InjectingFragment
     final boolean backButtonSavesTask = preferences.backButtonSavesTask();
     toolbar.setNavigationIcon(
         ContextCompat.getDrawable(
-            context, backButtonSavesTask ? R.drawable.ic_close_24dp : R.drawable.ic_save_24dp));
+            context, backButtonSavesTask ? R.drawable.ic_outline_clear_24px : R.drawable.ic_outline_save_24px));
     toolbar.setNavigationOnClickListener(
         v -> {
           if (backButtonSavesTask) {

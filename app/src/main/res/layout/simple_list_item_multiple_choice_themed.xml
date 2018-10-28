@@ -12,8 +12,8 @@
   android:paddingLeft="@dimen/keyline_first"
   android:paddingRight="@dimen/keyline_first"
   android:checkMark="?android:attr/listChoiceIndicatorMultiple"
-  android:drawableLeft="@drawable/ic_label_24dp"
+  android:drawableLeft="@drawable/ic_outline_label_24px"
   android:drawablePadding="@dimen/keyline_second"
-  android:drawableStart="@drawable/ic_label_24dp"
+  android:drawableStart="@drawable/ic_outline_label_24px"
   android:gravity="center_vertical"
   android:textColor="?attr/asTextColor"/>

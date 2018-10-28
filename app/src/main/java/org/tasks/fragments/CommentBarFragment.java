@@ -241,7 +241,7 @@ public class CommentBarFragment extends TaskEditControlFragment {
     getActivity().getTheme().resolveAttribute(R.attr.actionBarPrimaryText, typedValue, true);
     Drawable drawable =
         DrawableCompat.wrap(
-            ContextCompat.getDrawable(getContext(), R.drawable.ic_camera_alt_black_24dp));
+            ContextCompat.getDrawable(getContext(), R.drawable.ic_outline_photo_camera_24px));
     drawable.mutate();
     DrawableCompat.setTint(drawable, typedValue.data);
     pictureButton.setImageDrawable(drawable);

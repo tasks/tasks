@@ -113,7 +113,7 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
         caldavAccount == null ? getString(R.string.add_account) : caldavAccount.getName());
     toolbar.setNavigationIcon(
         ContextCompat.getDrawable(
-            this, backButtonSavesTask ? R.drawable.ic_close_24dp : R.drawable.ic_save_24dp));
+            this, backButtonSavesTask ? R.drawable.ic_outline_clear_24px : R.drawable.ic_outline_save_24px));
     toolbar.setNavigationOnClickListener(
         v -> {
           if (backButtonSavesTask) {

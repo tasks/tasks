@@ -279,7 +279,7 @@ public class DeadlineControlSet extends TaskEditControlFragment {
 
   @Override
   protected int getIcon() {
-    return R.drawable.ic_schedule_24dp;
+    return R.drawable.ic_outline_schedule_24px;
   }
 
   @Override

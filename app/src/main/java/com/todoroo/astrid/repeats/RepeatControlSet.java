@@ -204,7 +204,7 @@ public class RepeatControlSet extends TaskEditControlFragment {
 
   @Override
   public int getIcon() {
-    return R.drawable.ic_repeat_24dp;
+    return R.drawable.ic_outline_repeat_24px;
   }
 
   @Override

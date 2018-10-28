@@ -58,7 +58,7 @@ public class CalendarSelectionDialog extends InjectingDialogFragment {
         new SingleCheckedArrayAdapter(getActivity(), calendarNames, theme.getThemeAccent()) {
           @Override
           protected int getDrawable(int position) {
-            return R.drawable.ic_event_24dp;
+            return R.drawable.ic_outline_event_24px;
           }
 
           @Override

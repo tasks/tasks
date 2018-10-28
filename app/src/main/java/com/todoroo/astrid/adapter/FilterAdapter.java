@@ -151,7 +151,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
                           activity.getResources(), android.R.color.transparent, null),
                       theme.getThemeAccent().getAccentColor()
                     });
-            Drawable original = ContextCompat.getDrawable(activity, R.drawable.ic_check_black_24dp);
+            Drawable original = ContextCompat.getDrawable(activity, R.drawable.ic_outline_done_24px);
             Drawable wrapped = DrawableCompat.wrap(original.mutate());
             DrawableCompat.setTintList(wrapped, tintList);
             viewHolder.name.setCheckMarkDrawable(wrapped);
@@ -262,7 +262,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     clear();
 
     Filter item = new Filter(activity.getString(R.string.dont_sync), null);
-    item.icon = R.drawable.ic_cloud_off_black_24dp;
+    item.icon = R.drawable.ic_outline_cloud_off_24px;
     add(item);
 
     for (Pair<GoogleTaskAccount, List<Filter>> filters : filterProvider.getGoogleTaskFilters()) {
@@ -289,7 +289,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
       add(
           new NavigationDrawerAction(
               activity.getResources().getString(R.string.FLA_new_filter),
-              R.drawable.ic_add_24dp,
+              R.drawable.ic_outline_add_24px,
               new Intent(activity, CustomFilterActivity.class),
               NavigationDrawerFragment.ACTIVITY_REQUEST_NEW_FILTER));
     }
@@ -300,7 +300,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
       add(
           new NavigationDrawerAction(
               activity.getResources().getString(R.string.new_tag),
-              R.drawable.ic_add_24dp,
+              R.drawable.ic_outline_add_24px,
               new Intent(activity, TagSettingsActivity.class),
               NavigationDrawerFragment.REQUEST_NEW_LIST));
     }
@@ -317,7 +317,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
         add(
             new NavigationDrawerAction(
                 activity.getResources().getString(R.string.new_list),
-                R.drawable.ic_add_24dp,
+                R.drawable.ic_outline_add_24px,
                 new Intent(activity, GoogleTaskListSettingsActivity.class)
                     .putExtra(GoogleTaskListSettingsActivity.EXTRA_ACCOUNT, account),
                 NavigationDrawerFragment.REQUEST_NEW_GTASK_LIST));
@@ -333,7 +333,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
         add(
             new NavigationDrawerAction(
                 activity.getString(R.string.new_list),
-                R.drawable.ic_add_24dp,
+                R.drawable.ic_outline_add_24px,
                 new Intent(activity, CaldavCalendarSettingsActivity.class)
                     .putExtra(EXTRA_CALDAV_ACCOUNT, account),
                 NavigationDrawerFragment.REQUEST_NEW_CALDAV_COLLECTION));
@@ -348,14 +348,14 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
         add(
             new NavigationDrawerAction(
                 activity.getResources().getString(R.string.TLA_menu_donate),
-                R.drawable.ic_attach_money_black_24dp,
+                R.drawable.ic_outline_attach_money_24px,
                 new Intent(Intent.ACTION_VIEW, Uri.parse("http://tasks.org/donate")),
                 REQUEST_PURCHASE));
       } else if (!inventory.hasPro()) {
         add(
             new NavigationDrawerAction(
                 activity.getResources().getString(R.string.upgrade_to_pro),
-                R.drawable.ic_attach_money_black_24dp,
+                R.drawable.ic_outline_attach_money_24px,
                 new Intent(activity, PurchaseActivity.class),
                 REQUEST_PURCHASE));
       }
@@ -363,7 +363,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
       add(
           new NavigationDrawerAction(
               activity.getResources().getString(R.string.TLA_menu_settings),
-              R.drawable.ic_settings_24dp,
+              R.drawable.ic_outline_settings_24px,
               new Intent(activity, BasicPreferences.class),
               REQUEST_SETTINGS));
     }

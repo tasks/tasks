@@ -129,7 +129,7 @@ public class RemoteListFragment extends TaskEditControlFragment {
 
   @Override
   protected int getIcon() {
-    return R.drawable.ic_cloud_black_24dp;
+    return R.drawable.ic_outline_cloud_24px;
   }
 
   @Override

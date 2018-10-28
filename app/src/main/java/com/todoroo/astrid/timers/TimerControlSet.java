@@ -151,7 +151,7 @@ public class TimerControlSet extends TaskEditControlFragment {
 
   @Override
   public int getIcon() {
-    return R.drawable.ic_timer_24dp;
+    return R.drawable.ic_outline_timer_24px;
   }
 
   @Override
@@ -205,7 +205,7 @@ public class TimerControlSet extends TaskEditControlFragment {
 
   private void updateChronometer() {
     timerButton.setImageResource(
-        timerActive() ? R.drawable.ic_pause_24dp : R.drawable.ic_play_arrow_24dp);
+        timerActive() ? R.drawable.ic_outline_pause_24px: R.drawable.ic_outline_play_arrow_24px);
 
     long elapsed = this.elapsed.getTimeDurationInSeconds() * 1000L;
     if (timerActive()) {

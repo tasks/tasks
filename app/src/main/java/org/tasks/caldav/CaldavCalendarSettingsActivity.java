@@ -121,7 +121,7 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
         caldavCalendar == null ? getString(R.string.new_list) : caldavCalendar.getName());
     toolbar.setNavigationIcon(
         ContextCompat.getDrawable(
-            this, backButtonSavesTask ? R.drawable.ic_close_24dp : R.drawable.ic_save_24dp));
+            this, backButtonSavesTask ? R.drawable.ic_outline_clear_24px : R.drawable.ic_outline_save_24px));
     toolbar.setNavigationOnClickListener(
         v -> {
           if (backButtonSavesTask) {

@@ -34,7 +34,7 @@
       android:paddingRight="@dimen/widget_padding"
       android:background="@android:color/transparent"
       android:scaleType="fitCenter"
-      android:src="@drawable/ic_add_24dp"
+      android:src="@drawable/ic_outline_add_24px"
       android:tint="@android:color/white"/>
 
     <ImageButton
@@ -50,7 +50,7 @@
       android:paddingRight="0dp"
       android:background="@android:color/transparent"
       android:scaleType="fitCenter"
-      android:src="@drawable/ic_settings_24dp"
+      android:src="@drawable/ic_outline_settings_24px"
       android:tint="@android:color/white"/>
 
     <TextView

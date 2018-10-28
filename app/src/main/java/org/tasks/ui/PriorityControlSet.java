@@ -101,7 +101,7 @@ public class PriorityControlSet extends TaskEditControlFragment {
 
   @Override
   protected int getIcon() {
-    return R.drawable.ic_flag_24dp;
+    return R.drawable.ic_outline_flag_24px;
   }
 
   @Override

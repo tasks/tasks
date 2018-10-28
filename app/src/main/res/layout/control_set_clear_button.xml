@@ -10,5 +10,5 @@
   android:alpha="?attr/alpha_secondary"
   android:background="?attr/selectableItemBackgroundBorderless"
   android:clickable="true"
-  android:src="@drawable/ic_cancel_24dp"
+  android:src="@drawable/ic_outline_clear_24px"
   android:tint="?attr/icon_tint"/>

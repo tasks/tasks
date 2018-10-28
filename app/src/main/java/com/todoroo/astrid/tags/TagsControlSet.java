@@ -137,7 +137,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
             ThemeColor themeColor =
                 themeCache.getThemeColor(tagData.getColor() >= 0 ? tagData.getColor() : 19);
             view.setText(tagData.getName());
-            Drawable original = ContextCompat.getDrawable(getContext(), R.drawable.ic_label_24dp);
+            Drawable original = ContextCompat.getDrawable(getContext(), R.drawable.ic_outline_label_24px);
             Drawable wrapped = DrawableCompat.wrap(original.mutate());
             DrawableCompat.setTint(wrapped, themeColor.getPrimaryColor());
             if (atLeastJellybeanMR1()) {
@@ -333,7 +333,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
 
   @Override
   public int getIcon() {
-    return R.drawable.ic_label_24dp;
+    return R.drawable.ic_outline_label_24px;
   }
 
   @Override

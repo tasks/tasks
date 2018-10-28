@@ -35,7 +35,7 @@ public class TagFilter extends Filter {
         }
       };
 
-  private static final int TAG = R.drawable.ic_label_24dp;
+  private static final int TAG = R.drawable.ic_outline_label_24px;
   private String uuid;
 
   private TagFilter() {

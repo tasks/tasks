@@ -51,7 +51,7 @@ public class SingleCheckedArrayAdapter extends ArrayAdapter<String> {
                 ResourcesCompat.getColor(context.getResources(), android.R.color.transparent, null),
                 accent.getAccentColor()
               });
-      Drawable original = ContextCompat.getDrawable(context, R.drawable.ic_check_black_24dp);
+      Drawable original = ContextCompat.getDrawable(context, R.drawable.ic_outline_done_24px);
       Drawable wrapped = DrawableCompat.wrap(original.mutate());
       DrawableCompat.setTintList(wrapped, tintList);
       view.setCheckMarkDrawable(wrapped);

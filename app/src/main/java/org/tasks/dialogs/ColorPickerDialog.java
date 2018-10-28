@@ -62,8 +62,8 @@ public class ColorPickerDialog extends InjectingDialogFragment {
           @Override
           protected int getDrawable(int position) {
             return inventory.purchasedThemes() || items.get(position).isFree()
-                ? R.drawable.ic_lens_black_24dp
-                : R.drawable.ic_vpn_key_black_24dp;
+                ? R.drawable.ic_outline_lens_24px
+                : R.drawable.ic_outline_vpn_key_24px;
           }
 
           @Override

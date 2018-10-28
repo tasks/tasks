@@ -68,7 +68,7 @@ public class ShortcutConfigActivity extends InjectingAppCompatActivity {
     ButterKnife.bind(this);
 
     toolbar.setTitle(R.string.FSA_label);
-    toolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_save_24dp));
+    toolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_outline_save_24px));
     toolbar.setNavigationOnClickListener(v -> save());
     MenuColorizer.colorToolbar(this, toolbar);
 

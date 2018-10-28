@@ -43,7 +43,7 @@ public final class TimerFilterExposer {
             r.getString(R.string.TFE_workingOn),
             new QueryTemplate()
                 .where(Criterion.and(Task.TIMER_START.gt(0), Task.DELETION_DATE.eq(0))));
-    filter.icon = R.drawable.ic_timer_24dp;
+    filter.icon = R.drawable.ic_outline_timer_24px;
     return filter;
   }
 

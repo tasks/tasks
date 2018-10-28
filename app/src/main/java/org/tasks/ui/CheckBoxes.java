@@ -27,9 +27,9 @@ public class CheckBoxes {
 
   @Inject
   public CheckBoxes(@ForApplication Context context) {
-    checkboxes = wrapDrawable(context, R.drawable.ic_check_box_outline_blank_24dp);
-    repeatingCheckboxes = wrapDrawable(context, R.drawable.ic_repeat_24dp);
-    completedCheckboxes = wrapDrawable(context, R.drawable.ic_check_box_24dp);
+    checkboxes = wrapDrawable(context, R.drawable.ic_outline_check_box_outline_blank_24px);
+    repeatingCheckboxes = wrapDrawable(context, R.drawable.ic_outline_repeat_24px);
+    completedCheckboxes = wrapDrawable(context, R.drawable.ic_outline_check_box_24px);
     priorityColors =
         ImmutableList.of(
             getColor(context, R.color.priority_1),

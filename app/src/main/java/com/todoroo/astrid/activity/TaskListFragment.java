@@ -213,7 +213,7 @@ public class TaskListFragment extends InjectingFragment
     setupRefresh(emptyRefreshLayout);
 
     toolbar.setTitle(filter.listingTitle);
-    toolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
+    toolbar.setNavigationIcon(R.drawable.ic_outline_menu_24px);
     toolbar.setNavigationOnClickListener(v -> callbacks.onNavigationIconClicked());
     inflateMenu(toolbar);
     setupMenu(toolbar.getMenu());

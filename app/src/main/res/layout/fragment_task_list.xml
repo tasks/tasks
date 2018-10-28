@@ -51,7 +51,7 @@
     android:layout_margin="@dimen/task_list_fab_margin"
     android:layout_gravity="end|bottom"
     android:padding="0dp"
-    android:src="@drawable/ic_add_24dp"
+    android:src="@drawable/ic_outline_add_24px"
     android:tint="?attr/fab_text"
     app:borderWidth="0dp"/>
 

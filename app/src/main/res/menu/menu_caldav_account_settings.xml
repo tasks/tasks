@@ -4,13 +4,13 @@
 
   <item
     android:id="@+id/help"
-    android:icon="@drawable/ic_help_24dp"
+    android:icon="@drawable/ic_outline_help_outline_24px"
     android:title="@string/help"
     app:showAsAction="ifRoom"/>
 
   <item
     android:id="@+id/remove"
-    android:icon="@drawable/ic_delete_24dp"
+    android:icon="@drawable/ic_outline_delete_24px"
     android:title="@string/remove"
     app:showAsAction="ifRoom"/>
 

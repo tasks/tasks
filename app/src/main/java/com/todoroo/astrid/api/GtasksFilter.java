@@ -35,7 +35,7 @@ public class GtasksFilter extends Filter {
         }
       };
 
-  private static final int CLOUD = R.drawable.ic_cloud_black_24dp;
+  private static final int CLOUD = R.drawable.ic_outline_cloud_24px;
   private GoogleTaskList list;
 
   private GtasksFilter() {
