@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.todoroo.astrid.dao.TaskDao;
 import javax.inject.Inject;
 import org.tasks.R;
+import org.tasks.dialogs.Linkify;
 import org.tasks.injection.ForActivity;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.Preferences;
@@ -33,6 +34,7 @@ public class ViewHolderFactory {
   private final int background;
   private final int selectedColor;
   private final int rowPadding;
+  private final Linkify linkify;
   private final Preferences preferences;
 
   @Inject
@@ -42,13 +44,15 @@ public class ViewHolderFactory {
       Preferences preferences,
       CheckBoxes checkBoxes,
       ChipProvider chipProvider,
-      TaskDao taskDao) {
+      TaskDao taskDao,
+      Linkify linkify) {
     this.context = context;
     this.locale = locale;
     this.checkBoxes = checkBoxes;
     this.chipProvider = chipProvider;
     this.taskDao = taskDao;
     this.preferences = preferences;
+    this.linkify = linkify;
     textColorPrimary = getColor(context, R.color.text_primary);
     textColorSecondary = getData(context, android.R.attr.textColorSecondary);
     textColorOverdue = getColor(context, R.color.overdue);
@@ -77,6 +81,7 @@ public class ViewHolderFactory {
         metrics,
         background,
         selectedColor,
-        rowPadding);
+        rowPadding,
+        linkify);
   }
 }

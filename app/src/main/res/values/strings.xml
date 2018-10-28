@@ -871,4 +871,6 @@ File %1$s contained %2$s.\n\n
   <string name="action_create_new_task">Create new task</string>
   <string name="show_description">Show description</string>
   <string name="show_full_description">Show full description</string>
+  <string name="linkify">Show links</string>
+  <string name="linkify_description">Add links to websites, addresses, and phone numbers</string>
 </resources>

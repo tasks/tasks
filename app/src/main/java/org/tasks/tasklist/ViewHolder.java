@@ -30,6 +30,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.ui.CheckableImageView;
 import java.util.List;
 import org.tasks.R;
+import org.tasks.dialogs.Linkify;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.Preferences;
 import org.tasks.ui.CheckBoxes;
@@ -47,6 +48,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
   private final DisplayMetrics metrics;
   private final int background;
   private final int selectedColor;
+  private final Linkify linkify;
   private final int textColorOverdue;
   private final ChipProvider chipProvider;
   private final int fontSizeDetails;
@@ -97,7 +99,8 @@ class ViewHolder extends RecyclerView.ViewHolder {
       DisplayMetrics metrics,
       int background,
       int selectedColor,
-      int rowPadding) {
+      int rowPadding,
+      Linkify linkify) {
     super(view);
     this.context = context;
     this.preferences = preferences;
@@ -111,6 +114,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
     this.metrics = metrics;
     this.background = background;
     this.selectedColor = selectedColor;
+    this.linkify = linkify;
     ButterKnife.bind(this, view);
 
     if (preferences.getBoolean(R.string.p_fullTaskTitle, false)) {
@@ -206,6 +210,10 @@ class ViewHolder extends RecyclerView.ViewHolder {
     if (preferences.getBoolean(R.string.p_show_description, true)) {
       description.setText(task.getNotes());
       description.setVisibility(task.hasNotes() ? View.VISIBLE : View.GONE);
+    }
+    if (preferences.getBoolean(R.string.p_linkify_task_list, false)) {
+      linkify.linkify(nameView, this::onRowBodyClick);
+      linkify.linkify(description, this::onRowBodyClick);
     }
   }
 

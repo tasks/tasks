@@ -34,6 +34,12 @@
       android:dependency="@string/p_show_description"
       android:title="@string/show_full_description" />
 
+    <CheckBoxPreference
+      android:defaultValue="false"
+      android:key="@string/p_linkify_task_list"
+      android:title="@string/linkify"
+      android:summary="@string/linkify_description"/>
+
   </PreferenceCategory>
 
   <PreferenceCategory android:title="@string/EPr_edit_screen_options">

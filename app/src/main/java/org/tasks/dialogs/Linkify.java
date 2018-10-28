@@ -26,11 +26,15 @@ public class Linkify {
   }
 
   public void linkify(TextView textView) {
-    BetterLinkMovementMethod.linkify(android.text.util.Linkify.ALL, textView)
-        .setOnLinkClickListener(this::handleLink);
+    linkify(textView, () -> {});
   }
 
-  private boolean handleLink(TextView textView, String url) {
+  public void linkify(TextView textView, Runnable onEdit) {
+    BetterLinkMovementMethod.linkify(android.text.util.Linkify.ALL, textView)
+        .setOnLinkClickListener((tv, url) -> handleLink(url, onEdit));
+  }
+
+  private boolean handleLink(String url, Runnable onEdit) {
     String title;
     String edit = context.getString(R.string.TAd_actionEditTask);
     String action;
@@ -71,6 +75,8 @@ public class Linkify {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(uri);
                 context.startActivity(intent);
+              } else {
+                onEdit.run();
               }
             })
         .show();
