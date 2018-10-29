@@ -262,7 +262,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
 
   private void setupDueDateAndTags() {
     // due date / completion date
-    if (!task.isCompleted() && task.hasDueDate()) {
+    if (task.hasDueDate()) {
       if (task.isOverdue()) {
         dueDate.setTextColor(textColorOverdue);
       } else {
