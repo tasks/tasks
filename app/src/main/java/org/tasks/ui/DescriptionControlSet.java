@@ -61,7 +61,7 @@ public class DescriptionControlSet extends TaskEditControlFragment {
 
   @Override
   protected int getIcon() {
-    return R.drawable.ic_outline_event_note_24px;
+    return R.drawable.ic_outline_notes_24px;
   }
 
   @Override
