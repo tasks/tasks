@@ -163,11 +163,27 @@ public class DateUtilities {
     return string;
   }
 
+  public static String getAbbreviatedRelativeDateWithTime(Context context, long date) {
+    long startOfToday = getStartOfDay(currentTimeMillis());
+    long startOfDate = getStartOfDay(date);
+    String day = getRelativeDay(context, date, startOfDate, startOfToday, true);
+    if (Task.hasDueTime(date)) {
+      String time = getTimeString(context, date);
+      return startOfToday == startOfDate ? time : String.format("%s %s", day, time);
+    }
+    return day;
+  }
+
   /** @return yesterday, today, tomorrow, or null */
   public static String getRelativeDay(Context context, long date, boolean abbreviated) {
     long today = getStartOfDay(currentTimeMillis());
     long input = getStartOfDay(date);
 
+    return getRelativeDay(context, date, input, today, abbreviated);
+  }
+
+  private static String getRelativeDay(
+      Context context, long date, long input, long today, boolean abbreviated) {
     if (today == input) {
       return context.getString(R.string.today);
     }
@@ -180,7 +196,8 @@ public class DateUtilities {
       return context.getString(abbreviated ? R.string.yest : R.string.yesterday);
     }
 
-    if (today + abbreviationLimit >= input && today - abbreviationLimit <= input) {
+    if (today + abbreviationLimit >= input
+        && today - abbreviationLimit <= input) {
       return abbreviated
           ? DateUtilities.getWeekdayShort(newDateTime(date))
           : DateUtilities.getWeekday(newDateTime(date));

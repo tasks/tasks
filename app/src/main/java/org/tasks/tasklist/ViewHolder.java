@@ -4,6 +4,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastKitKat;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
+import static com.todoroo.andlib.utility.DateUtilities.getAbbreviatedRelativeDateWithTime;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -267,7 +268,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
       } else {
         dueDate.setTextColor(textColorSecondary);
       }
-      String dateValue = DateUtilities.getRelativeDateStringWithTime(context, task.getDueDate());
+      String dateValue = getAbbreviatedRelativeDateWithTime(context, task.getDueDate());
       dueDate.setText(dateValue);
       dueDate.setVisibility(View.VISIBLE);
     } else {
