@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="White" parent="BlackToolbarTheme">
+    <item name="colorPrimary">@color/white_100</item>
+    <item name="colorPrimaryDark">@color/white_100</item>
+  </style>
+
+</resources>

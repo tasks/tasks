@@ -757,6 +757,7 @@ File %1$s contained %2$s.\n\n
   <string name="theme_blue_grey">Blue grey</string>
   <string name="theme_black">Black</string>
   <string name="theme_dark_grey">Dark grey</string>
+  <string name="theme_white">White</string>
   <string name="theme_light">Light</string>
   <string name="theme_dark">Dark</string>
   <string name="theme_wallpaper">Wallpaper</string>

@@ -81,6 +81,7 @@
     <item>@string/theme_deep_orange</item>
     <item>@string/theme_brown</item>
     <item>@string/theme_grey</item>
+    <item>@string/theme_white</item>
   </string-array>
 
   <string-array name="accents">

@@ -21,8 +21,6 @@ import org.tasks.ui.MenuColorizer;
 
 public class ThemeColor implements ColorPickerDialog.Pickable {
 
-  public static final int DEFAULT = 7;
-
   public static final int[] ICONS =
       new int[] {
         R.mipmap.ic_launcher_blue_grey,
@@ -92,7 +90,8 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
         R.style.Orange,
         R.style.DeepOrange,
         R.style.Brown,
-        R.style.Grey
+        R.style.Grey,
+        R.style.White
       };
 
   public static Creator<ThemeColor> CREATOR =

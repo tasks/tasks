@@ -1,6 +1,8 @@
 package org.tasks.dialogs;
 
+import static androidx.core.content.ContextCompat.getColor;
 import static com.google.common.collect.Lists.transform;
+import static org.tasks.preferences.ResourceResolver.getData;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -68,7 +70,8 @@ public class ColorPickerDialog extends InjectingDialogFragment {
 
           @Override
           protected int getDrawableColor(int position) {
-            return items.get(position).getPickerColor();
+            int pickerColor = items.get(position).getPickerColor();
+            return pickerColor == -1 ? getColor(context, R.color.grey_50) : pickerColor;
           }
         };
 

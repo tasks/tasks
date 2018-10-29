@@ -58,8 +58,9 @@ public class ColorPickerActivity extends ThemedInjectingAppCompatActivity
       case ACCENTS:
         return themeCache.getAccents();
       case COLORS:
-      case LAUNCHER:
         return themeCache.getColors();
+      case LAUNCHER:
+        return themeCache.getColors().subList(0, themeCache.getColors().size() - 1);
       case THEMES:
         return themeCache.getThemes();
       case WIDGET_BACKGROUND:
