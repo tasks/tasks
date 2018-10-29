@@ -336,7 +336,7 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
       color.setText(themeColor.getName());
     }
     themeColor.apply(toolbar);
-    themeColor.applyToStatusBar(this);
+    themeColor.applyToSystemBars(this);
   }
 
   @Override

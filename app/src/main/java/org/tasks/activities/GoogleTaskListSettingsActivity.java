@@ -321,6 +321,6 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
       color.setText(themeColor.getName());
     }
     themeColor.apply(toolbar);
-    themeColor.applyToStatusBar(this);
+    themeColor.applyToSystemBars(this);
   }
 }

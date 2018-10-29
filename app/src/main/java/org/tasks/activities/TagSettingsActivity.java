@@ -281,7 +281,7 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity
       color.setText(themeColor.getName());
     }
     themeColor.apply(toolbar);
-    themeColor.applyToStatusBar(this);
+    themeColor.applyToSystemBars(this);
   }
 
   @Override

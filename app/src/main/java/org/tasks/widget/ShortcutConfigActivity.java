@@ -158,7 +158,7 @@ public class ShortcutConfigActivity extends InjectingAppCompatActivity {
     ThemeColor color = themeCache.getThemeColor(getThemeIndex());
     shortcutColor.setText(color.getName());
     color.apply(toolbar);
-    color.applyToStatusBar(this);
+    color.applyToSystemBars(this);
   }
 
   private int getThemeIndex() {

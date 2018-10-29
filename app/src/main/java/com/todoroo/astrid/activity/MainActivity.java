@@ -260,6 +260,7 @@ public class MainActivity extends InjectingAppCompatActivity
     ThemeColor filterColor = getFilterColor();
 
     filterColor.applyToStatusBar(drawerLayout);
+    filterColor.applyToNavigationBar(this);
     filterColor.applyTaskDescription(this, filter.listingTitle);
     theme.withThemeColor(filterColor).applyToContext(this);
   }

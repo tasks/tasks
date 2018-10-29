@@ -54,7 +54,7 @@ public class Theme {
   }
 
   public void applyStatusBarColor(Activity activity) {
-    themeColor.applyToStatusBar(activity);
+    themeColor.applyToSystemBars(activity);
     themeColor.applyTaskDescription(activity, activity.getString(R.string.app_name));
   }
 
