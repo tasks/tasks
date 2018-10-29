@@ -58,7 +58,7 @@
       android:title="@string/back_button_saves_task"/>
 
     <com.todoroo.astrid.ui.MultilineCheckboxPreference
-      android:defaultValue="true"
+      android:defaultValue="false"
       android:key="@string/p_show_task_edit_comments"
       android:title="@string/EPr_show_task_edit_comments"/>
 
