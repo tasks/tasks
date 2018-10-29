@@ -62,10 +62,14 @@
 
   <style name="WhiteToolbarOverlay" parent="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
     <item name="colorControlNormal">@color/white_100</item>
+    <item name="android:textColorHint">@color/white_100</item>
+    <item name="android:editTextColor">@color/white_100</item>
   </style>
 
   <style name="BlackToolbarOverlay" parent="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
     <item name="colorControlNormal">@color/black_87</item>
+    <item name="android:textColorHint">@color/black_87</item>
+    <item name="android:editTextColor">@color/black_87</item>
   </style>
 
   <style name="TagSettingsRow">
