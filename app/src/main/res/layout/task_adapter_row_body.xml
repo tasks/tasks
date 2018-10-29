@@ -85,7 +85,8 @@
     android:paddingRight="@dimen/keyline_first"
     android:ellipsize="end"
     android:maxLines="2"
-    android:textColor="@color/text_secondary"/>
+    android:textColor="@color/text_secondary"
+    android:visibility="gone"/>
 
   <com.google.android.material.chip.ChipGroup
     android:id="@+id/chip_group"
