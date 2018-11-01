@@ -18,6 +18,7 @@ import com.todoroo.astrid.api.Filter;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.activities.ColorPickerActivity;
+import org.tasks.activities.ColorPickerActivity.ColorPalette;
 import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
@@ -138,7 +139,7 @@ public class ShortcutConfigActivity extends InjectingAppCompatActivity {
   @OnClick(R.id.shortcut_color)
   void showThemePicker() {
     Intent intent = new Intent(this, ColorPickerActivity.class);
-    intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerActivity.ColorPalette.COLORS);
+    intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPalette.LAUNCHER);
     intent.putExtra(ColorPickerActivity.EXTRA_SHOW_NONE, false);
     intent.putExtra(ColorPickerActivity.EXTRA_THEME_INDEX, selectedTheme);
     startActivityForResult(intent, REQUEST_COLOR_PICKER);
