@@ -128,8 +128,13 @@ public class CaldavConverter {
     } else {
       remote.setDue(null);
     }
-    remote.setCompletedAt(
-        task.isCompleted() ? new Completed(new DateTime(task.getCompletionDate())) : null);
+    if (task.isCompleted()) {
+      remote.setCompletedAt(new Completed(new DateTime(task.getCompletionDate())));
+      remote.setPercentComplete(100);
+    } else if (remote.getCompletedAt() != null) {
+      remote.setCompletedAt(null);
+      remote.setPercentComplete(0);
+    }
     if (task.isRecurring()) {
       try {
         String rrule = task.getRecurrenceWithoutFrom().replace("RRULE:", "");
