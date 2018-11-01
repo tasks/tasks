@@ -18,6 +18,7 @@ import net.fortuna.ical4j.model.Recur;
 import net.fortuna.ical4j.model.property.Completed;
 import net.fortuna.ical4j.model.property.Due;
 import net.fortuna.ical4j.model.property.RRule;
+import net.fortuna.ical4j.model.property.Status;
 import org.tasks.data.CaldavTask;
 import timber.log.Timber;
 
@@ -130,10 +131,12 @@ public class CaldavConverter {
     }
     if (task.isCompleted()) {
       remote.setCompletedAt(new Completed(new DateTime(task.getCompletionDate())));
+      remote.setStatus(Status.VTODO_COMPLETED);
       remote.setPercentComplete(100);
     } else if (remote.getCompletedAt() != null) {
       remote.setCompletedAt(null);
-      remote.setPercentComplete(0);
+      remote.setStatus(null);
+      remote.setPercentComplete(null);
     }
     if (task.isRecurring()) {
       try {
