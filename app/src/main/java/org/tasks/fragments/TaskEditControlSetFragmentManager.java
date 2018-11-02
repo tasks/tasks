@@ -1,6 +1,6 @@
 package org.tasks.fragments;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import androidx.fragment.app.FragmentManager;
 import com.todoroo.astrid.activity.BeastModePreferences;
@@ -12,6 +12,7 @@ import com.todoroo.astrid.tags.TagsControlSet;
 import com.todoroo.astrid.timers.TimerControlSet;
 import com.todoroo.astrid.ui.EditTitleControlSet;
 import com.todoroo.astrid.ui.HideUntilControlSet;
+import org.tasks.ui.LocationControlSet;
 import com.todoroo.astrid.ui.ReminderControlSet;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import org.tasks.BuildConfig;
 import org.tasks.R;
+import org.tasks.preferences.Device;
 import org.tasks.preferences.Preferences;
 import org.tasks.sync.SyncAdapters;
 import org.tasks.ui.CalendarControlSet;
@@ -44,7 +46,8 @@ public class TaskEditControlSetFragmentManager {
         R.id.row_8,
         R.id.row_9,
         R.id.row_10,
-        R.id.row_11
+        R.id.row_11,
+        R.id.row_12
       };
 
   private static final int[] TASK_EDIT_CONTROL_SET_FRAGMENTS =
@@ -57,6 +60,7 @@ public class TaskEditControlSetFragmentManager {
         PriorityControlSet.TAG,
         HideUntilControlSet.TAG,
         ReminderControlSet.TAG,
+        LocationControlSet.TAG,
         FilesControlSet.TAG,
         TagsControlSet.TAG,
         RepeatControlSet.TAG,
@@ -73,17 +77,19 @@ public class TaskEditControlSetFragmentManager {
   }
 
   private final Map<String, Integer> controlSetFragments = new LinkedHashMap<>();
+  private final Context context;
   private final List<String> displayOrder;
   private final SyncAdapters syncAdapters;
   private int numRows;
 
   public TaskEditControlSetFragmentManager(
-      Activity activity, Preferences preferences, SyncAdapters syncAdapters) {
+      Context context, Preferences preferences, SyncAdapters syncAdapters) {
+    this.context = context;
     this.syncAdapters = syncAdapters;
-    displayOrder = BeastModePreferences.constructOrderedControlList(preferences, activity);
-    displayOrder.add(0, activity.getString(EditTitleControlSet.TAG));
-    displayOrder.add(1, activity.getString(CommentBarFragment.TAG));
-    String hideAlwaysTrigger = activity.getString(R.string.TEA_ctrl_hide_section_pref);
+    displayOrder = BeastModePreferences.constructOrderedControlList(preferences, context);
+    displayOrder.add(0, context.getString(EditTitleControlSet.TAG));
+    displayOrder.add(1, context.getString(CommentBarFragment.TAG));
+    String hideAlwaysTrigger = context.getString(R.string.TEA_ctrl_hide_section_pref);
     for (numRows = 0; numRows < displayOrder.size(); numRows++) {
       if (displayOrder.get(numRows).equals(hideAlwaysTrigger)) {
         break;
@@ -91,7 +97,7 @@ public class TaskEditControlSetFragmentManager {
     }
 
     for (int resId : TASK_EDIT_CONTROL_SET_FRAGMENTS) {
-      controlSetFragments.put(activity.getString(resId), resId);
+      controlSetFragments.put(context.getString(resId), resId);
     }
   }
 
@@ -147,6 +153,8 @@ public class TaskEditControlSetFragmentManager {
         return new HideUntilControlSet();
       case ReminderControlSet.TAG:
         return new ReminderControlSet();
+      case LocationControlSet.TAG:
+        return Device.SupportsLocationServices(context) ? new LocationControlSet() : null;
       case FilesControlSet.TAG:
         return new FilesControlSet();
       case TimerControlSet.TAG:

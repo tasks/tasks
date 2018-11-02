@@ -115,7 +115,6 @@
 	<string name="day_after_tomorrow">Pozajtra</string>
 	<string name="next_week">Nasledujúci týždeň</string>
 	<string name="dont_hide">Neskrývať</string>
-	<string name="no_deadline_reminder">Žiadne pripomienky v termíne</string>
 	<string name="at_deadline">V termíne</string>
 	<string name="at_deadline_or_overdue">V termíne alebo po termíne</string>
 	<string name="BFE_Active">Moje Úlohy</string>
@@ -319,7 +318,6 @@
 	<string name="pick_a_date">Vybrať dátum</string>
 	<string name="pick_a_time">Vybrať čas</string>
 	<string name="pick_a_date_and_time">Vybrať dátum a čas</string>
-	<string name="pick_a_location">Vybrať miesto</string>
 	<string name="when_overdue">Keď po termíne</string>
 	<string name="when_due">Keď v termíne</string>
 	<string name="geofence_radius_title">Okruh (v metroch)</string>

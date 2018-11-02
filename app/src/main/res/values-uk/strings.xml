@@ -118,7 +118,6 @@
 	<string name="day_after_tomorrow">Післязавтра</string>
 	<string name="next_week">Наступного тижня</string>
 	<string name="dont_hide">Не приховувати</string>
-	<string name="no_deadline_reminder">Нема нагадувань</string>
 	<string name="at_deadline">Під час дедлайну</string>
 	<string name="at_deadline_or_overdue">Вчасно або прострочено</string>
 	<string name="BFE_Active">Мої завдання</string>
@@ -246,7 +245,6 @@
 	<string name="pick_a_date">Обрати дату</string>
 	<string name="pick_a_time">Обрати час</string>
 	<string name="pick_a_date_and_time">Обрати дату та час</string>
-	<string name="pick_a_location">Обрати місцезнаходження</string>
 	<string name="when_overdue">Коли прострочено</string>
 	<string name="when_due">Коли заплановано час</string>
 	<string name="geofence_radius_title">Радіус (метри)</string>

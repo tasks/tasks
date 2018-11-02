@@ -1,9 +1,9 @@
 package org.tasks.db;
 
-import androidx.sqlite.db.SupportSQLiteDatabase;
-import androidx.room.migration.Migration;
 import android.database.sqlite.SQLiteException;
 import androidx.annotation.NonNull;
+import androidx.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 import timber.log.Timber;
 
 public class Migrations {
@@ -203,6 +203,19 @@ public class Migrations {
         }
       };
 
+  private static final Migration MIGRATION_59_60 =
+      new Migration(59, 60) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+          database.execSQL("ALTER TABLE `locations` ADD COLUMN `address` TEXT");
+          database.execSQL("ALTER TABLE `locations` ADD COLUMN `phone` TEXT");
+          database.execSQL("ALTER TABLE `locations` ADD COLUMN `url` TEXT");
+          database.execSQL("ALTER TABLE `locations` ADD COLUMN `arrival` INTEGER DEFAULT 1 NOT NULL");
+          database.execSQL("ALTER TABLE `locations` ADD COLUMN `departure` INTEGER DEFAULT 0 NOT NULL");
+          database.execSQL("ALTER TABLE `notification` ADD COLUMN `location` INTEGER");
+        }
+      };
+
   public static final Migration[] MIGRATIONS =
       new Migration[] {
         MIGRATION_35_36,
@@ -219,7 +232,8 @@ public class Migrations {
         MIGRATION_52_53,
         MIGRATION_53_54,
         MIGRATION_54_58,
-        MIGRATION_58_59
+        MIGRATION_58_59,
+        MIGRATION_59_60
       };
 
   private static Migration NOOP(int from, int to) {

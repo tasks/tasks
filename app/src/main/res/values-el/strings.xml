@@ -99,7 +99,6 @@
 	<string name="day_after_tomorrow">Μεθαύριο</string>
 	<string name="next_week">Επόμενη εβδομάδα</string>
 	<string name="dont_hide">Μη απόκρυψη</string>
-	<string name="no_deadline_reminder">Όχι υπενθυμίσεις προθεσμίας</string>
 	<string name="at_deadline">Στην προθεσμία</string>
 	<string name="at_deadline_or_overdue">Στην λήξη η και μετά</string>
 	<string name="CFA_type_add">ή</string>

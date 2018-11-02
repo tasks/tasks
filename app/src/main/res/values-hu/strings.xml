@@ -124,7 +124,6 @@
 	<string name="day_after_tomorrow">Holnapután</string>
 	<string name="next_week">Következő hét</string>
 	<string name="dont_hide">Nem rejtett</string>
-	<string name="no_deadline_reminder">Határidő emlékeztetők nélkül</string>
 	<string name="at_deadline">Határidő bekövetkeztekor</string>
 	<string name="at_deadline_or_overdue">Határidő bekövetkeztekor vagy túllépésekor</string>
 	<string name="BFE_Active">Saját Feladatok</string>
@@ -329,7 +328,6 @@
 	<string name="pick_a_date">Dátum kiválasztása</string>
 	<string name="pick_a_time">Időpont kiválasztása</string>
 	<string name="pick_a_date_and_time">Válasszon dátumot és időpontot</string>
-	<string name="pick_a_location">Válassza ki a helyet</string>
 	<string name="when_overdue">Határidő lejárta után</string>
 	<string name="when_due">Határidő elérésekor</string>
 	<string name="geofence_radius_title">Távolság (méterben)</string>

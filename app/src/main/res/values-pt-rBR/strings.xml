@@ -119,7 +119,6 @@
 	<string name="day_after_tomorrow">Depois de amanhã</string>
 	<string name="next_week">Próxima semana</string>
 	<string name="dont_hide">Não ocultar</string>
-	<string name="no_deadline_reminder">Sem lembretes no vencimento</string>
 	<string name="at_deadline">No vencimento</string>
 	<string name="at_deadline_or_overdue">No prazo ou vencidas</string>
 	<string name="BFE_Active">Minhas Tarefas</string>
@@ -324,7 +323,6 @@
 	<string name="pick_a_date">Escolha uma data</string>
 	<string name="pick_a_time">Escolha uma hora</string>
 	<string name="pick_a_date_and_time">Escolha data e horário</string>
-	<string name="pick_a_location">Escolher lugar</string>
 	<string name="when_overdue">Quando vencida</string>
 	<string name="when_due">Quando vencer</string>
 	<string name="geofence_radius_title">Raio (metros)</string>

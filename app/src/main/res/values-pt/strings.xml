@@ -116,7 +116,6 @@
 	<string name="day_after_tomorrow">Depois de amanhã</string>
 	<string name="next_week">Próxima semana</string>
 	<string name="dont_hide">Não ocultar</string>
-	<string name="no_deadline_reminder">Sem lembrete de data limite</string>
 	<string name="at_deadline">Na data limite</string>
 	<string name="at_deadline_or_overdue">Na data limite ou ultrapassada</string>
 	<string name="BFE_Active">Minhas tarefas</string>
@@ -319,7 +318,6 @@
 	<string name="pick_a_date">Escolha a data</string>
 	<string name="pick_a_time">Escolha a hora</string>
 	<string name="pick_a_date_and_time">Escolha a data e a hora</string>
-	<string name="pick_a_location">Escolha o local</string>
 	<string name="when_overdue">Se data limite ultrapassada</string>
 	<string name="when_due">Na data limite</string>
 	<string name="geofence_radius_title">Raio (metros)</string>

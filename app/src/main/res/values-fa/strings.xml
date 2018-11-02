@@ -85,7 +85,6 @@
 	<string name="day_after_tomorrow">پس فردا</string>
 	<string name="next_week">هفته بعد</string>
 	<string name="dont_hide">مخفی نکن</string>
-	<string name="no_deadline_reminder">بدون یادآور موعود</string>
 	<string name="at_deadline">روز موعود</string>
 	<string name="at_deadline_or_overdue">در روز موعد یا پس از موعود</string>
 	<string name="BFE_Active">وظایف من</string>
@@ -218,7 +217,6 @@
 	<string name="pick_a_date">یک تاریخ انتخاب کنید</string>
 	<string name="pick_a_time">یک زمان انتخاب کنید</string>
 	<string name="pick_a_date_and_time">انتخاب یک تاریخ و زمان</string>
-	<string name="pick_a_location">انتخاب یک موقعیت</string>
 	<string name="when_overdue">پس از موعود</string>
 	<string name="when_due">روز موعود</string>
 	<string name="geofence_radius_title">شعاع (متر)</string>

@@ -125,7 +125,6 @@
 	<string name="day_after_tomorrow">Yarından Sonra</string>
 	<string name="next_week">Gelecek Hafta</string>
 	<string name="dont_hide">Gizleme</string>
-	<string name="no_deadline_reminder">Son gün hatırlatması yok</string>
 	<string name="at_deadline">Son tarihte</string>
 	<string name="at_deadline_or_overdue">Son tarihte ya da aşıldığında</string>
 	<string name="BFE_Active">Görevlerim</string>
@@ -331,7 +330,6 @@
 	<string name="pick_a_date">Bir tarih seç</string>
 	<string name="pick_a_time">Bir zaman seç</string>
 	<string name="pick_a_date_and_time">Bir tarih ve zaman seç</string>
-	<string name="pick_a_location">Bir konum seç</string>
 	<string name="when_overdue">Geciktiğinde</string>
 	<string name="when_due">Zamanı geldiğinde</string>
 	<string name="geofence_radius_title">Yarıçap (metre)</string>

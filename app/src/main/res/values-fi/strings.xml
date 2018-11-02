@@ -118,7 +118,6 @@
 	<string name="day_after_tomorrow">Ylihuomenna</string>
 	<string name="next_week">Ensi viikko</string>
 	<string name="dont_hide">Älä piilota</string>
-	<string name="no_deadline_reminder">Ei määräpäivämuistutusta</string>
 	<string name="at_deadline">Määräaikana</string>
 	<string name="at_deadline_or_overdue">Määräpäivänä tai yliajalla</string>
 	<string name="BFE_Active">Omat tehtävät</string>
@@ -322,7 +321,6 @@
 	<string name="pick_a_date">Valitse päivä</string>
 	<string name="pick_a_time">Valitse aika</string>
 	<string name="pick_a_date_and_time">Valitse päivä ja aika</string>
-	<string name="pick_a_location">Valitse sijainti</string>
 	<string name="when_overdue">Kunnes yliajalla</string>
 	<string name="when_due">Milloin määräaika</string>
 	<string name="geofence_radius_title">Säde (metriä)</string>

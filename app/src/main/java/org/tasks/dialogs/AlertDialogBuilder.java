@@ -145,4 +145,9 @@ public class AlertDialogBuilder {
     locale.applyDirectionality(dialog);
     return dialog;
   }
+
+  public AlertDialogBuilder setCancelable(boolean cancelable) {
+    builder.setCancelable(cancelable);
+    return this;
+  }
 }

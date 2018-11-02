@@ -23,6 +23,9 @@ public class Notification {
   @ColumnInfo(name = "type")
   public int type;
 
+  @ColumnInfo(name = "location")
+  public Long location;
+
   @Override
   public String toString() {
     return "Notification{"
@@ -34,6 +37,8 @@ public class Notification {
         + timestamp
         + ", type="
         + type
+        + ", location="
+        + location
         + '}';
   }
 }

@@ -31,7 +31,7 @@ import org.tasks.ui.MenuColorizer;
 public class BeastModePreferences extends ThemedInjectingAppCompatActivity
     implements Toolbar.OnMenuItemClickListener {
 
-  private static final String BEAST_MODE_ORDER_PREF = "beast_mode_order_v3"; // $NON-NLS-1$
+  private static final String BEAST_MODE_ORDER_PREF = "beast_mode_order_v4"; // $NON-NLS-1$
   private static final String BEAST_MODE_PREF_ITEM_SEPARATOR = ";";
 
   @BindView(R.id.toolbar)

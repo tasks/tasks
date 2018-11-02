@@ -124,7 +124,6 @@
 	<string name="day_after_tomorrow">Ден след утрешния</string>
 	<string name="next_week">Следваща седмица</string>
 	<string name="dont_hide">Не скривай</string>
-	<string name="no_deadline_reminder">Няма напомняния за краен срок</string>
 	<string name="at_deadline">При краен срок</string>
 	<string name="at_deadline_or_overdue">При крайния срок или просрочване</string>
 	<string name="BFE_Active">Моите задачи</string>
@@ -329,7 +328,6 @@
 	<string name="pick_a_date">Избери дата</string>
 	<string name="pick_a_time">Избери време</string>
 	<string name="pick_a_date_and_time">Избери дата и време</string>
-	<string name="pick_a_location">Избери местоположение</string>
 	<string name="when_overdue">След крайния срок</string>
 	<string name="when_due">При краен срок</string>
 	<string name="geofence_radius_title">Радиус (метри)</string>

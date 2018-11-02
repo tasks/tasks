@@ -117,7 +117,6 @@
 	<string name="day_after_tomorrow">Übermorgen</string>
 	<string name="next_week">Nächste Woche</string>
 	<string name="dont_hide">Nicht verstecken</string>
-	<string name="no_deadline_reminder">Keine Fälligkeits-Erinnerungen</string>
 	<string name="at_deadline">Am Stichtag</string>
 	<string name="at_deadline_or_overdue">Zur Fälligkeit oder überfällig</string>
 	<string name="BFE_Active">Meine Aufgaben</string>
@@ -321,7 +320,6 @@
 	<string name="pick_a_date">Datum auswählen</string>
 	<string name="pick_a_time">Uhrzeit auswählen</string>
 	<string name="pick_a_date_and_time">Tag und Uhrzeit auswählen</string>
-	<string name="pick_a_location">Ort auswählen</string>
 	<string name="when_overdue">Wenn überfällig</string>
 	<string name="when_due">Wenn fällig</string>
 	<string name="geofence_radius_title">Radius (Meter)</string>

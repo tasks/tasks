@@ -110,7 +110,6 @@
 	<string name="day_after_tomorrow">Pozítří</string>
 	<string name="next_week">Příští týden</string>
 	<string name="dont_hide">Neskrývat</string>
-	<string name="no_deadline_reminder">Žádné upomínky v termínu</string>
 	<string name="at_deadline">V termínu</string>
 	<string name="at_deadline_or_overdue">V termínu nebo po něm</string>
 	<string name="BFE_Active">Aktivní úkoly</string>

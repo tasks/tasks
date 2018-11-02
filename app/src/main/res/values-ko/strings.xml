@@ -123,7 +123,6 @@
 	<string name="day_after_tomorrow">모레</string>
 	<string name="next_week">다음 주</string>
 	<string name="dont_hide">숨기지 않기</string>
-	<string name="no_deadline_reminder">기한 알림 없음</string>
 	<string name="at_deadline">완료일에</string>
 	<string name="at_deadline_or_overdue">마감일이나 그 이후</string>
 	<string name="BFE_Active">나의 할일</string>
@@ -329,7 +328,6 @@
 	<string name="pick_a_date">날짜 선택</string>
 	<string name="pick_a_time">시간 선택</string>
 	<string name="pick_a_date_and_time">날짜와 시간 선택</string>
-	<string name="pick_a_location">위치 선택</string>
 	<string name="when_overdue">일정 마감일이 지났을 때</string>
 	<string name="when_due">일정 마감일에</string>
 	<string name="geofence_radius_title">반경 (미터 단위)</string>

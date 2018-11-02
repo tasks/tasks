@@ -121,7 +121,6 @@
 	<string name="day_after_tomorrow">Dopodomani</string>
 	<string name="next_week">Settimana successiva</string>
 	<string name="dont_hide">Non nascondere</string>
-	<string name="no_deadline_reminder">Nessun promemoria scadenza</string>
 	<string name="at_deadline">Alla scadenza</string>
 	<string name="at_deadline_or_overdue">Alla scadenza o già scaduta</string>
 	<string name="BFE_Active">Le mie attività</string>
@@ -326,7 +325,6 @@
 	<string name="pick_a_date">Scegli una data</string>
 	<string name="pick_a_time">Scegli un\'ora</string>
 	<string name="pick_a_date_and_time">Scegli data e ora</string>
-	<string name="pick_a_location">Seleziona una posizione</string>
 	<string name="when_overdue">Quando scaduta</string>
 	<string name="when_due">Alla scadenza</string>
 	<string name="geofence_radius_title">Raggio (metri)</string>

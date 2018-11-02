@@ -23,6 +23,10 @@ public class Device {
   private final Context context;
   private final Locale locale;
 
+  public static boolean SupportsLocationServices(Context context) {
+    return context.getResources().getBoolean(R.bool.location_enabled);
+  }
+
   @Inject
   public Device(@ForApplication Context context, Locale locale) {
     this.context = context;
@@ -44,7 +48,7 @@ public class Device {
   }
 
   public boolean supportsLocationServices() {
-    return context.getResources().getBoolean(R.bool.location_enabled);
+    return SupportsLocationServices(context);
   }
 
   public boolean voiceInputAvailable() {

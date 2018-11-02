@@ -6,7 +6,7 @@
   android:layout_weight="1"
   android:layout_alignParentEnd="true"
   android:layout_alignParentRight="true"
-  android:layout_gravity="center"
+  android:layout_gravity="top|center"
   android:alpha="?attr/alpha_secondary"
   android:background="?attr/selectableItemBackgroundBorderless"
   android:clickable="true"

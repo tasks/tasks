@@ -169,7 +169,7 @@
   </string-array>
 
   <string-array name="EPr_default_reminders">
-    <item>@string/no_deadline_reminder</item>
+    <item>@string/no_reminders</item>
     <item>@string/at_deadline</item>
     <item>@string/when_overdue</item>
     <item>@string/at_deadline_or_overdue</item>
@@ -239,5 +239,19 @@
     <item>@string/pro_multiple_google_task_accounts</item>
     <item>@string/pro_tasker_plugins</item>
     <item>@string/pro_dashclock_extension</item>
+  </string-array>
+
+  <string-array name="EPr_default_location_reminder">
+    <item>@string/no_reminders</item>
+    <item>@string/default_location_reminder_on_arrival</item>
+    <item>@string/default_location_reminder_on_departure</item>
+    <item>@string/default_location_reminder_on_arrival_or_departure</item>
+  </string-array>
+
+  <string-array name="EPR_default_location_reminder_values">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
   </string-array>
 </resources>

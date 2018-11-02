@@ -115,7 +115,6 @@
 	<string name="day_after_tomorrow">Pojutrze</string>
 	<string name="next_week">Przyszły tydzień</string>
 	<string name="dont_hide">Nie ukrywaj</string>
-	<string name="no_deadline_reminder">Brak przypomnień dla terminu nieprzekraczalnego</string>
 	<string name="at_deadline">W dniu terminu nieprzekraczalnego</string>
 	<string name="at_deadline_or_overdue">W nieprzekraczalnym terminie lub gdy zaległe</string>
 	<string name="BFE_Active">Moje zadania</string>
@@ -310,7 +309,6 @@
 	<string name="pick_a_date">Wybierz datę</string>
 	<string name="pick_a_time">Wybierz czas</string>
 	<string name="pick_a_date_and_time">Wybierz datę i czas</string>
-	<string name="pick_a_location">Wybierz lokalizację</string>
 	<string name="when_overdue">Gdy zaległe</string>
 	<string name="when_due">Gdy w terminie</string>
 	<string name="geofence_radius_title">Zasięg (metrów)</string>

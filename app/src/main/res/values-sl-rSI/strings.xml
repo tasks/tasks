@@ -99,7 +99,6 @@
 	<string name="day_after_tomorrow">Pojutrišnjem</string>
 	<string name="next_week">Naslednji teden</string>
 	<string name="dont_hide">Ne skrij</string>
-	<string name="no_deadline_reminder">Brez opomnikov o dospelosti</string>
 	<string name="at_deadline">Ob dospelosti</string>
 	<string name="at_deadline_or_overdue">Ob dospelosti ali potem</string>
 	<string name="BFE_Active">Moji Opravki</string>

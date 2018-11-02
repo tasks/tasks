@@ -8,6 +8,8 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastNougat;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
+import static com.todoroo.astrid.reminders.ReminderService.TYPE_GEOFENCE_ENTER;
+import static com.todoroo.astrid.reminders.ReminderService.TYPE_GEOFENCE_EXIT;
 
 import android.annotation.TargetApi;
 import android.app.Notification;
@@ -16,9 +18,9 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.text.TextUtils;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
-import android.text.TextUtils;
 import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
 import com.todoroo.andlib.sql.QueryTemplate;
@@ -35,6 +37,8 @@ import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
+import org.tasks.data.Location;
+import org.tasks.data.LocationDao;
 import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.ForApplication;
 import org.tasks.intents.TaskIntents;
@@ -58,6 +62,7 @@ public class NotificationManager {
   private static final String GROUP_KEY = "tasks";
   private static final int SUMMARY_NOTIFICATION_ID = 0;
   private final NotificationManagerCompat notificationManagerCompat;
+  private final LocationDao locationDao;
   private final NotificationDao notificationDao;
   private final TaskDao taskDao;
   private final Context context;
@@ -70,12 +75,14 @@ public class NotificationManager {
       Preferences preferences,
       NotificationDao notificationDao,
       TaskDao taskDao,
-      CheckBoxes checkBoxes) {
+      CheckBoxes checkBoxes,
+      LocationDao locationDao) {
     this.context = context;
     this.preferences = preferences;
     this.notificationDao = notificationDao;
     this.taskDao = taskDao;
     this.checkBoxes = checkBoxes;
+    this.locationDao = locationDao;
     notificationManagerCompat = NotificationManagerCompat.from(context);
     if (atLeastOreo()) {
       android.app.NotificationManager notificationManager =
@@ -384,11 +391,22 @@ public class NotificationManager {
     builder.setContentIntent(
         PendingIntent.getActivity(context, (int) id, intent, PendingIntent.FLAG_UPDATE_CURRENT));
 
-    if (!Strings.isNullOrEmpty(taskDescription)) {
+    if (type == TYPE_GEOFENCE_ENTER || type == TYPE_GEOFENCE_EXIT) {
+      Location location = locationDao.getGeofence(notification.location);
+      if (location != null) {
+        builder.setContentText(
+            context.getString(
+                type == TYPE_GEOFENCE_ENTER
+                    ? R.string.location_arrived
+                    : R.string.location_departed,
+                location.getDisplayName()));
+      }
+    } else if (!Strings.isNullOrEmpty(taskDescription)) {
       builder
           .setContentText(taskDescription)
           .setStyle(new NotificationCompat.BigTextStyle().bigText(taskDescription));
     }
+
     Intent completeIntent = new Intent(context, CompleteTaskReceiver.class);
     completeIntent.putExtra(CompleteTaskReceiver.TASK_ID, id);
     PendingIntent completePendingIntent =

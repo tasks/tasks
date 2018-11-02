@@ -120,7 +120,6 @@
 	<string name="day_after_tomorrow">Overmorgen</string>
 	<string name="next_week">Volgende week</string>
 	<string name="dont_hide">Niet verbergen</string>
-	<string name="no_deadline_reminder">Herinneringen zonder einddatum</string>
 	<string name="at_deadline">Op de einddatum</string>
 	<string name="at_deadline_or_overdue">Op of na de einddatum</string>
 	<string name="BFE_Active">Mijn taken</string>
@@ -324,7 +323,6 @@
 	<string name="pick_a_date">Kies een datum</string>
 	<string name="pick_a_time">Kies een tijd</string>
 	<string name="pick_a_date_and_time">Kies een datum en tijd</string>
-	<string name="pick_a_location">Kies een locatie</string>
 	<string name="when_overdue">Na de einddatum</string>
 	<string name="when_due">Op de eindtijd</string>
 	<string name="geofence_responsiveness_title">Antwoord tijd (hogere waarde verbruikt meer batterij)</string>

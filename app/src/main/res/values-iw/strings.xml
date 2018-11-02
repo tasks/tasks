@@ -121,7 +121,6 @@
 	<string name="day_after_tomorrow">מחרתיים</string>
 	<string name="next_week">בשבוע הבא</string>
 	<string name="dont_hide">אל תסתיר</string>
-	<string name="no_deadline_reminder">ללא תזכורות במועד הסף</string>
 	<string name="at_deadline">במועד הסף</string>
 	<string name="at_deadline_or_overdue">במועד היעד או לאחריו</string>
 	<string name="BFE_Active">המשימות שלי</string>
@@ -327,7 +326,6 @@
 	<string name="pick_a_date">בחר/י בתאריך</string>
 	<string name="pick_a_time">בחר שעה</string>
 	<string name="pick_a_date_and_time">בחר תאריך ושעה</string>
-	<string name="pick_a_location">בחר מיקום</string>
 	<string name="when_overdue">לאחר מועד היעד</string>
 	<string name="when_due">במועד היעד</string>
 	<string name="geofence_radius_title">רדיוס (במטרים)</string>

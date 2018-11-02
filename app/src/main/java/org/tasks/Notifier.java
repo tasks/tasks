@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
+import org.tasks.data.Location;
 import org.tasks.injection.ForApplication;
 import org.tasks.jobs.NotificationQueueEntry;
 import org.tasks.notifications.AudioManager;
@@ -103,11 +104,13 @@ public class Notifier {
     notificationManager.notify(filter.listingTitle.hashCode(), builder, true, false, false);
   }
 
-  public void triggerTaskNotification(long id, int type) {
+  public void triggerTaskNotification(Location location, boolean arrival) {
     org.tasks.notifications.Notification notification = new org.tasks.notifications.Notification();
-    notification.taskId = id;
-    notification.type = type;
+    notification.taskId = location.getTask();
+    notification.type =
+        arrival ? ReminderService.TYPE_GEOFENCE_ENTER : ReminderService.TYPE_GEOFENCE_EXIT;
     notification.timestamp = currentTimeMillis();
+    notification.location = location.getId();
     triggerNotifications(Collections.singletonList(notification), true);
   }
 

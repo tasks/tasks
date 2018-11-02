@@ -115,7 +115,6 @@
 	<string name="day_after_tomorrow">I övermorgon</string>
 	<string name="next_week">Nästa vecka</string>
 	<string name="dont_hide">Dölj inte</string>
-	<string name="no_deadline_reminder">Inga varsel om förfall</string>
 	<string name="at_deadline">Vid förfallodagen</string>
 	<string name="at_deadline_or_overdue">Vid eller efter förfallodagen</string>
 	<string name="BFE_Active">Mina Uppgifter</string>
@@ -243,7 +242,6 @@
 	<string name="pick_a_date">Ställ in datum</string>
 	<string name="pick_a_time">Ställ in tid</string>
 	<string name="pick_a_date_and_time">Ställ in datum och tid</string>
-	<string name="pick_a_location">Välj en plats</string>
 	<string name="when_overdue">Efter förfallotid</string>
 	<string name="when_due">Vid förfallotid</string>
 	<string name="geofence_radius_title">Radie (meter)</string>

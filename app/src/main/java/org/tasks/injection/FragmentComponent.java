@@ -11,6 +11,7 @@ import com.todoroo.astrid.tags.TagsControlSet;
 import com.todoroo.astrid.timers.TimerControlSet;
 import com.todoroo.astrid.ui.EditTitleControlSet;
 import com.todoroo.astrid.ui.HideUntilControlSet;
+import org.tasks.ui.LocationControlSet;
 import com.todoroo.astrid.ui.ReminderControlSet;
 import dagger.Subcomponent;
 import org.tasks.caldav.CaldavListFragment;
@@ -70,4 +71,6 @@ public interface FragmentComponent {
   void inject(GtasksListFragment gtasksListFragment);
 
   void inject(CaldavListFragment caldavListFragment);
+
+  void inject(LocationControlSet locationControlSet);
 }

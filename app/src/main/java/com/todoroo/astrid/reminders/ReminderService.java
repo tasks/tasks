@@ -20,16 +20,13 @@ import org.tasks.time.DateTime;
 @ApplicationScope
 public final class ReminderService {
 
-  /** flag for due date reminder */
   public static final int TYPE_DUE = 0;
-  /** flag for overdue reminder */
   public static final int TYPE_OVERDUE = 1;
-  /** flag for random reminder */
   public static final int TYPE_RANDOM = 2;
-  /** flag for a snoozed reminder */
   public static final int TYPE_SNOOZE = 3;
-  /** flag for an alarm reminder */
   public static final int TYPE_ALARM = 4;
+  public static final int TYPE_GEOFENCE_ENTER = 5;
+  public static final int TYPE_GEOFENCE_EXIT = 6;
 
   private static final long NO_ALARM = Long.MAX_VALUE;
 

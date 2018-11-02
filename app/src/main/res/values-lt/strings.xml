@@ -121,7 +121,6 @@
 	<string name="day_after_tomorrow">Poryt</string>
 	<string name="next_week">Kitą savaitę</string>
 	<string name="dont_hide">Neslėpti</string>
-	<string name="no_deadline_reminder">Be termino pabaigos priminimų</string>
 	<string name="at_deadline">Atėjus terminui</string>
 	<string name="at_deadline_or_overdue">Atėjus terminui arba po jo</string>
 	<string name="BFE_Active">Mano užduotys</string>
@@ -326,7 +325,6 @@
 	<string name="pick_a_date">Pasirinkti datą</string>
 	<string name="pick_a_time">Pasirinkti laiką</string>
 	<string name="pick_a_date_and_time">Pasirinkti datą ir laiką</string>
-	<string name="pick_a_location">Parinkti vietą</string>
 	<string name="when_overdue">Terminui pasibaigus</string>
 	<string name="when_due">Atėjus terminui</string>
 	<string name="geofence_radius_title">Spindulys (metrais)</string>

@@ -27,6 +27,7 @@ import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.preferences.ActivityPermissionRequestor;
 import org.tasks.preferences.DefaultFilterProvider;
+import org.tasks.preferences.Device;
 import org.tasks.preferences.PermissionRequestor;
 import org.tasks.preferences.Preferences;
 import org.tasks.sync.SyncAdapters;
@@ -67,18 +68,17 @@ public class DefaultsPreferences extends InjectingPreferenceActivity
             ? getString(R.string.dont_add_to_calendar)
             : defaultCalendarName);
 
-    if (syncAdapters.isSyncEnabled()) {
-      findPreference(R.string.p_default_remote_list)
-          .setOnPreferenceClickListener(
-              preference -> {
-                newRemoteListNativePicker(defaultFilterProvider.getDefaultRemoteList())
-                    .show(getFragmentManager(), FRAG_TAG_REMOTE_LIST_SELECTION);
-                return false;
-              });
-      updateRemoteListSummary();
-    } else {
-      remove(R.string.p_default_remote_list);
-    }
+    findPreference(R.string.p_default_remote_list)
+        .setOnPreferenceClickListener(
+            preference -> {
+              newRemoteListNativePicker(defaultFilterProvider.getDefaultRemoteList())
+                  .show(getFragmentManager(), FRAG_TAG_REMOTE_LIST_SELECTION);
+              return false;
+            });
+    updateRemoteListSummary();
+
+    requires(syncAdapters.isSyncEnabled(), R.string.p_default_remote_list);
+    requires(Device.SupportsLocationServices(this), R.string.p_default_location_reminder_key);
   }
 
   private void startCalendarSelectionActivity() {

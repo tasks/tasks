@@ -120,7 +120,6 @@
 	<string name="day_after_tomorrow">Pasado mañana</string>
 	<string name="next_week">Semana siguiente</string>
 	<string name="dont_hide">No ocultar</string>
-	<string name="no_deadline_reminder">Sin recordatorios del vencimiento</string>
 	<string name="at_deadline">En la fecha de vencimiento</string>
 	<string name="at_deadline_or_overdue">En la fecha de vencimiento o ya vencida</string>
 	<string name="BFE_Active">Mis Tareas</string>
@@ -325,7 +324,6 @@
 	<string name="pick_a_date">Elegir fecha</string>
 	<string name="pick_a_time">Elegir hora</string>
 	<string name="pick_a_date_and_time">Elegir fecha y hora</string>
-	<string name="pick_a_location">Elegir ubicación</string>
 	<string name="when_overdue">Si está atrasada</string>
 	<string name="when_due">Al vencimiento</string>
 	<string name="geofence_radius_title">Radio (metros)</string>

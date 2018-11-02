@@ -120,7 +120,6 @@
 	<string name="day_after_tomorrow">Послезавтра</string>
 	<string name="next_week">Следующая неделя</string>
 	<string name="dont_hide">Не скрывать</string>
-	<string name="no_deadline_reminder">Нет напоминаний</string>
 	<string name="at_deadline">В срок</string>
 	<string name="at_deadline_or_overdue">Вовремя или просрочена</string>
 	<string name="BFE_Active">Мои задачи</string>
@@ -325,7 +324,6 @@
 	<string name="pick_a_date">Дата</string>
 	<string name="pick_a_time">Время</string>
 	<string name="pick_a_date_and_time">Дата и время</string>
-	<string name="pick_a_location">По местонахождению</string>
 	<string name="when_overdue">Когда просрочено</string>
 	<string name="when_due">В срок</string>
 	<string name="geofence_radius_title">Радиус (в метрах)</string>

@@ -94,7 +94,6 @@
 	<string name="day_after_tomorrow">後天</string>
 	<string name="next_week">下週</string>
 	<string name="dont_hide">不隱藏</string>
-	<string name="no_deadline_reminder">無截止期限提醒</string>
 	<string name="at_deadline">在截止期限時</string>
 	<string name="at_deadline_or_overdue">在截止期限或過期時</string>
 	<string name="BFE_Active">我的工作</string>
