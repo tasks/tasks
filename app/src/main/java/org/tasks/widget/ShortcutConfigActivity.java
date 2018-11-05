@@ -166,9 +166,13 @@ public class ShortcutConfigActivity extends InjectingAppCompatActivity {
     if (selectedTheme >= 0) {
       return selectedTheme;
     }
-    return selectedFilter == null || selectedFilter.tint == -1
+    int index = selectedFilter == null || selectedFilter.tint == -1
         ? themeColor.getIndex()
         : selectedFilter.tint;
+    if (index >= ThemeColor.ICONS.length - 1) {
+      return 7; // use blue theme until white icon is available
+    }
+    return index;
   }
 
   private String getShortcutName() {
