@@ -113,6 +113,7 @@
 	<string name="EPr_default_importance_title">Numatytasis prioritetas</string>
 	<string name="EPr_default_hideUntil_title">Įprastai slėpti iki</string>
 	<string name="EPr_default_reminders_title">Numatytieji priminimai</string>
+	<string name="EPr_default_location_reminder_title">Numatytieji vietų priminimai</string>
 	<string name="EPr_default_reminders_mode_title">Numatytasis skambučio/vibracijos tipas</string>
 	<string name="priority_high">Aukštas</string>
 	<string name="priority_medium">Vidutinis</string>
@@ -123,6 +124,10 @@
 	<string name="dont_hide">Neslėpti</string>
 	<string name="at_deadline">Atėjus terminui</string>
 	<string name="at_deadline_or_overdue">Atėjus terminui arba po jo</string>
+	<string name="no_reminders">Jokių priminimų</string>
+	<string name="default_location_reminder_on_arrival">Atvykus</string>
+	<string name="default_location_reminder_on_departure">Išvykstant</string>
+	<string name="default_location_reminder_on_arrival_or_departure">Atvykus ir išvykstant</string>
 	<string name="BFE_Active">Mano užduotys</string>
 	<string name="BFE_Recent">Neseniai redaguoti</string>
 	<string name="CFA_universe_all">Aktyvios užduotys</string>
@@ -319,6 +324,7 @@
 	<string name="quiet_hours_summary">Tylos valandomis - be priminimų</string>
 	<string name="TLA_menu_donate">Paaukoti</string>
 	<string name="add_reminder">Pridėti priminimą</string>
+	<string name="add_location">Pridėti vietą</string>
 	<string name="remove">Išmesti</string>
 	<string name="randomly_once">Atsitiktinai vieną kartą</string>
 	<string name="randomly">Atsitiktinai</string>
@@ -396,6 +402,7 @@
 	<string name="theme_blue_grey">Mėlynai pilka</string>
 	<string name="theme_black">Juoda</string>
 	<string name="theme_dark_grey">Tamsiai pilka</string>
+	<string name="theme_white">Balta</string>
 	<string name="theme_light">Šviesi</string>
 	<string name="theme_dark">Tamsi</string>
 	<string name="theme_wallpaper">Fono vaizdas</string>
@@ -506,4 +513,10 @@ sukonfigūruota tinkamai.</string>
 	<string name="linkify">Rodyti nuorodas</string>
 	<string name="linkify_description">Pridėti nuorodas į puslapius, adresus ir telefono numerius</string>
 	<string name="show_list_indicators">Rodyti sąrašą lustų</string>
+	<string name="location_remind_arrival">Priminti atvykus</string>
+	<string name="location_remind_departure">Priminti išvykstant</string>
+	<string name="call_number">Skambinti %s</string>
+	<string name="open_url">Atidaryti %s</string>
+	<string name="location_arrived">Atvykta į %s</string>
+	<string name="location_departed">Išvykta iš %s</string>
 </resources>

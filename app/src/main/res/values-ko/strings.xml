@@ -400,6 +400,7 @@
 	<string name="theme_blue_grey">회청색</string>
 	<string name="theme_black">검정</string>
 	<string name="theme_dark_grey">어두운 회색</string>
+	<string name="theme_white">흰색</string>
 	<string name="theme_light">밝게</string>
 	<string name="theme_dark">어둡게</string>
 	<string name="theme_wallpaper">바탕화면</string>

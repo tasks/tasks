@@ -30,6 +30,8 @@
 	<string name="TLA_menu_search">Suchen</string>
 	<string name="TLA_menu_settings">Einstellungen</string>
 	<string name="TAd_actionEditTask">Bearbeiten</string>
+	<string name="action_call">Anrufen</string>
+	<string name="action_open">Öffnen</string>
 	<string name="SSD_sort_drag">Manuelle Sortierung mit Unteraufgaben</string>
 	<string name="SSD_sort_auto">Smarte Sortierung</string>
 	<string name="SSD_sort_alpha">Nach Titel</string>
@@ -109,6 +111,8 @@
 	<string name="EPr_default_importance_title">Standard-Priorität</string>
 	<string name="EPr_default_hideUntil_title">Standardmäßig verstecken bis</string>
 	<string name="EPr_default_reminders_title">Standarderinnerungen</string>
+	<string name="EPr_default_location_reminder_title">Ortsbasierte Standarderinnerungen</string>
+	<string name="EPr_default_location_radius">Standardradius</string>
 	<string name="EPr_default_reminders_mode_title">Standard-Alarm/Vibrationssignal</string>
 	<string name="priority_high">Hoch</string>
 	<string name="priority_medium">Mittel</string>
@@ -119,6 +123,10 @@
 	<string name="dont_hide">Nicht verstecken</string>
 	<string name="at_deadline">Am Stichtag</string>
 	<string name="at_deadline_or_overdue">Zur Fälligkeit oder überfällig</string>
+	<string name="no_reminders">Keine Erinnerungen</string>
+	<string name="default_location_reminder_on_arrival">Bei Ankunft</string>
+	<string name="default_location_reminder_on_departure">Bei Abreise</string>
+	<string name="default_location_reminder_on_arrival_or_departure">Bei Ankunft und Abreise</string>
 	<string name="BFE_Active">Meine Aufgaben</string>
 	<string name="BFE_Recent">Kürzlich bearbeitet</string>
 	<string name="CFA_universe_all">Aktuelle Aufgaben</string>
@@ -314,6 +322,7 @@
 	<string name="quiet_hours_summary">Keine Erinnerungen während der Ruhezeit</string>
 	<string name="TLA_menu_donate">Spenden</string>
 	<string name="add_reminder">Erinnerung hinzufügen</string>
+	<string name="add_location">Ort hinzufügen</string>
 	<string name="remove">Entfernen</string>
 	<string name="randomly_once">Einmal zufällig</string>
 	<string name="randomly">Zufällig</string>
@@ -387,6 +396,7 @@
 	<string name="theme_blue_grey">Blaugrau</string>
 	<string name="theme_black">Schwarz</string>
 	<string name="theme_dark_grey">Dunkelgrau</string>
+	<string name="theme_white">Weiß</string>
 	<string name="theme_light">Hell</string>
 	<string name="theme_dark">Dunkel</string>
 	<string name="theme_wallpaper">Hintergrundbild</string>
@@ -425,8 +435,8 @@
 	<string name="password">Passwort</string>
 	<string name="error_adding_account">Fehler beim Hinzufügen des Accounts</string>
 	<string name="calendar_settings">Kalendereinstellungen</string>
-	<string name="notification_channel_settings">Verwalte Benachrichtigungen</string>
-	<string name="battery_optimization_settings">Energiespar-Optionen verwalten</string>
+	<string name="notification_channel_settings">Benachrichtigungen verwalten</string>
+	<string name="battery_optimization_settings">Energiesparmodus verwalten</string>
 	<string name="notification_disable_battery_optimizations_description">Energiesparmodus kann Benachrichtigungen verzögern</string>
 	<string name="bundle_notifications">Benachrichtigungen zusammenfassen</string>
 	<string name="badges">Button</string>
@@ -488,9 +498,18 @@
 	<string name="requires_pro_subscription">Pro-Freischaltung benötigt</string>
 	<string name="logout">Abmelden</string>
 	<string name="logout_warning">Von %s abmelden? Das wird alle Daten dieses Kontos von deinem Gerät löschen.</string>
-	<string name="cannot_access_account">Auf das Konto kann nicht zugegriffen werden</string>
+	<string name="cannot_access_account">Zugriff auf Konto fehlgeschlagen</string>
 	<string name="reinitialize_account">Neu initialisieren</string>
 	<string name="action_create_new_task">Neue Aufgabe erstellen</string>
 	<string name="show_description">Beschreibung anzeigen</string>
 	<string name="show_full_description">Gesamte Beschreibung anzeigen</string>
+	<string name="linkify">Links anzeigen</string>
+	<string name="linkify_description">Füge Links zu Websites, Adressen und Telefonnummern hinzu</string>
+	<string name="show_list_indicators">Stichworte und Listen anzeigen</string>
+	<string name="location_remind_arrival">Bei Ankunft erinnern</string>
+	<string name="location_remind_departure">Bei Abreise erinnern</string>
+	<string name="call_number">%s anrufen</string>
+	<string name="open_url">%s öffnen</string>
+	<string name="location_arrived">Angekommen um %s</string>
+	<string name="location_departed">Abgereist um %s</string>
 </resources>

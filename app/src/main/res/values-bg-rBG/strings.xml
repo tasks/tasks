@@ -116,6 +116,8 @@
 	<string name="EPr_default_importance_title">Приоритет по подразбиране</string>
 	<string name="EPr_default_hideUntil_title">Скрий до - по подразбиране </string>
 	<string name="EPr_default_reminders_title">Напомняния по подразбиране</string>
+	<string name="EPr_default_location_reminder_title">Напомняния за местоположение по подразбиране</string>
+	<string name="EPr_default_location_radius">Радиус по подразбиране</string>
 	<string name="EPr_default_reminders_mode_title">Тон на звънене/вибрация по подразбиране</string>
 	<string name="priority_high">Висок</string>
 	<string name="priority_medium">Среден</string>
@@ -126,6 +128,10 @@
 	<string name="dont_hide">Не скривай</string>
 	<string name="at_deadline">При краен срок</string>
 	<string name="at_deadline_or_overdue">При крайния срок или просрочване</string>
+	<string name="no_reminders">Няма напомняния</string>
+	<string name="default_location_reminder_on_arrival">При пристигане</string>
+	<string name="default_location_reminder_on_departure">При заминаване</string>
+	<string name="default_location_reminder_on_arrival_or_departure">При пристигане и заминаване</string>
 	<string name="BFE_Active">Моите задачи</string>
 	<string name="BFE_Recent">Наскоро променени</string>
 	<string name="CFA_universe_all">Активни Задачи</string>
@@ -322,6 +328,7 @@
 	<string name="quiet_hours_summary">Без напомняния по време на тихи часове</string>
 	<string name="TLA_menu_donate">Дарете</string>
 	<string name="add_reminder">Добави напомняне</string>
+	<string name="add_location">Добави местоположение</string>
 	<string name="remove">Изтрий</string>
 	<string name="randomly_once">Произволно веднъж</string>
 	<string name="randomly">Произволно</string>
@@ -330,6 +337,8 @@
 	<string name="pick_a_date_and_time">Избери дата и време</string>
 	<string name="when_overdue">След крайния срок</string>
 	<string name="when_due">При краен срок</string>
+	<string name="geofence_radius">Радиус</string>
+	<string name="location_radius_meters">%s м</string>
 	<string name="tags">Тагове</string>
 	<string name="filters">Филтри</string>
 	<string name="date_shortcut_hour">За час</string>
@@ -400,6 +409,7 @@
 	<string name="theme_blue_grey">Синьо-сив</string>
 	<string name="theme_black">Черен</string>
 	<string name="theme_dark_grey">Тъмно сива</string>
+	<string name="theme_white">Бяла</string>
 	<string name="theme_light">Светла</string>
 	<string name="theme_dark">Тъмна</string>
 	<string name="theme_wallpaper">Тапет</string>
@@ -509,4 +519,10 @@
 	<string name="linkify">Покажи линкове</string>
 	<string name="linkify_description">Добавете връзки към уебсайтове, адреси и телефонни номера</string>
 	<string name="show_list_indicators">Показване на индикатори в списъци</string>
+	<string name="location_remind_arrival">Напомни при пристигане</string>
+	<string name="location_remind_departure">Напомни при заминаване</string>
+	<string name="call_number">Обади се на %s </string>
+	<string name="open_url">Отвори %s</string>
+	<string name="location_arrived">Пристигнал на %s</string>
+	<string name="location_departed">Заминал %s</string>
 </resources>

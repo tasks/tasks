@@ -116,6 +116,8 @@
 	<string name="EPr_default_importance_title">Alapértelmezett prioritás</string>
 	<string name="EPr_default_hideUntil_title">Alapértelmezett elrejtési idő</string>
 	<string name="EPr_default_reminders_title">Alapértelmezett emlékeztetők</string>
+	<string name="EPr_default_location_reminder_title">Alapértelmezett hely emlékeztetők</string>
+	<string name="EPr_default_location_radius">Alapértelmezett távolság</string>
 	<string name="EPr_default_reminders_mode_title">Alapértelmezett csengetés/rezgés típusa</string>
 	<string name="priority_high">Magas</string>
 	<string name="priority_medium">Közepes</string>
@@ -126,6 +128,10 @@
 	<string name="dont_hide">Nem rejtett</string>
 	<string name="at_deadline">Határidő bekövetkeztekor</string>
 	<string name="at_deadline_or_overdue">Határidő bekövetkeztekor vagy túllépésekor</string>
+	<string name="no_reminders">Nincs emlékeztető</string>
+	<string name="default_location_reminder_on_arrival">Megérkezéskor</string>
+	<string name="default_location_reminder_on_departure">Elinduláskor</string>
+	<string name="default_location_reminder_on_arrival_or_departure">Megérkezéskor és elinduláskor</string>
 	<string name="BFE_Active">Saját Feladatok</string>
 	<string name="BFE_Recent">Nemrég módosítva</string>
 	<string name="CFA_universe_all">Aktív feladatok</string>
@@ -322,6 +328,7 @@
 	<string name="quiet_hours_summary">Emlékeztetők mellőzése csendes órák alatt</string>
 	<string name="TLA_menu_donate">Adakozás</string>
 	<string name="add_reminder">Emlékeztető hozzáadása</string>
+	<string name="add_location">Hely hozzáadása</string>
 	<string name="remove">Eltávolítás</string>
 	<string name="randomly_once">Véletlenszerűen egyszer</string>
 	<string name="randomly">Véletlenszerűen</string>
@@ -330,6 +337,7 @@
 	<string name="pick_a_date_and_time">Válasszon dátumot és időpontot</string>
 	<string name="when_overdue">Határidő lejárta után</string>
 	<string name="when_due">Határidő elérésekor</string>
+	<string name="geofence_radius">Távolság</string>
 	<string name="tags">Címkék</string>
 	<string name="filters">Szűrők</string>
 	<string name="date_shortcut_hour">Egy órára</string>
@@ -400,6 +408,7 @@
 	<string name="theme_blue_grey">Szürkéskék</string>
 	<string name="theme_black">Fekete</string>
 	<string name="theme_dark_grey">Sötétszürke</string>
+	<string name="theme_white">Fehér</string>
 	<string name="theme_light">Világos</string>
 	<string name="theme_dark">Sötét</string>
 	<string name="theme_wallpaper">Háttérkép</string>
@@ -508,4 +517,11 @@
 	<string name="show_full_description">Teljes leírás megjelenítése</string>
 	<string name="linkify">Linkek megjelenítése</string>
 	<string name="linkify_description">Weboldalakra, címekre és telefonszámokra mutató linkek hozzáadása</string>
+	<string name="show_list_indicators">Listajelölők megjelenítése</string>
+	<string name="location_remind_arrival">Induláskor emlékeztet</string>
+	<string name="location_remind_departure">Érkezéskor emlékeztet</string>
+	<string name="call_number">%s hívása</string>
+	<string name="open_url">%s megnyitása</string>
+	<string name="location_arrived">Megérkezett ekkor: %s</string>
+	<string name="location_departed">Elindult ekkor: %s</string>
 </resources>

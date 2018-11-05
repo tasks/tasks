@@ -299,6 +299,7 @@
 	<string name="theme_blue_grey">Blågrå</string>
 	<string name="theme_black">Svart</string>
 	<string name="theme_dark_grey">Mörkgrå</string>
+	<string name="theme_white">Vit</string>
 	<string name="theme_light">Ljust</string>
 	<string name="theme_dark">Mörkt</string>
 	<string name="theme_wallpaper">Bakgrundsbild</string>

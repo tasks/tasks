@@ -155,6 +155,7 @@
 	<string name="show_hidden">عرض المهام المخفية</string>
 	<string name="show_completed">إظهار المكتملة</string>
 	<string name="opacity">التعتيم</string>
+	<string name="theme_white">أبيض</string>
 	<string name="settings_localization">تخصيص اللغة و الجهة</string>
 	<string name="layout_direction">إتجاه التنسيق</string>
 	<string name="layout_direction_left_to_right">من اليمين إلى اليسار</string>

@@ -1,6 +1,27 @@
 Change Log
 ---
 
+### 6.3 (2018-11-06)
+
+* New location row in task edit screen
+* Add location departure notifications
+* Set CalDAV completion percentage and status
+* Bug fixes
+* Update translations
+  * Brazilian Portuguese - douglaslmr
+  * Bulgarian - ddmdima96
+  * Dutch - revdbrink
+  * French - Florian_Dubois
+  * German - marmo, sNiXx, Strubbl
+  * Hebrew - elazar
+  * Hungarian - kaciokos
+  * Italian - dfdario
+  * Japanese - naofumi
+  * Lithuanian - gacuxz
+  * Polish - bilbolodz, hadogenes
+  * Spanish - i2nm7s
+  * Turkish - etc
+
 ### 6.2 (2018-10-29)
 
 * New white theme color

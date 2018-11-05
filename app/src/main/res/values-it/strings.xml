@@ -113,6 +113,8 @@
 	<string name="EPr_default_importance_title">Priorità predefinita</string>
 	<string name="EPr_default_hideUntil_title">Nascondi Fino Predefinito</string>
 	<string name="EPr_default_reminders_title">Promemoria predefiniti</string>
+	<string name="EPr_default_location_reminder_title">Posizione promemoria predefinita</string>
+	<string name="EPr_default_location_radius">Raggio predefinito</string>
 	<string name="EPr_default_reminders_mode_title">Tipo di squillo/vibrazione predefinito</string>
 	<string name="priority_high">Alta</string>
 	<string name="priority_medium">Media</string>
@@ -123,6 +125,10 @@
 	<string name="dont_hide">Non nascondere</string>
 	<string name="at_deadline">Alla scadenza</string>
 	<string name="at_deadline_or_overdue">Alla scadenza o già scaduta</string>
+	<string name="no_reminders">Nessun promemoria</string>
+	<string name="default_location_reminder_on_arrival">All\'arrivo</string>
+	<string name="default_location_reminder_on_departure">Alla partenza</string>
+	<string name="default_location_reminder_on_arrival_or_departure">Su arrivo e partenza</string>
 	<string name="BFE_Active">Le mie attività</string>
 	<string name="BFE_Recent">Modificate di recente</string>
 	<string name="CFA_universe_all">Attività in corso</string>
@@ -319,6 +325,7 @@
 	<string name="quiet_hours_summary">Non notificare durante le ore di riposo</string>
 	<string name="TLA_menu_donate">Dona</string>
 	<string name="add_reminder">Aggiungi promemoria</string>
+	<string name="add_location">Aggiungi posizione</string>
 	<string name="remove">Elimina</string>
 	<string name="randomly_once">In modo casuale</string>
 	<string name="randomly">Casualmente</string>
@@ -327,6 +334,7 @@
 	<string name="pick_a_date_and_time">Scegli data e ora</string>
 	<string name="when_overdue">Quando scaduta</string>
 	<string name="when_due">Alla scadenza</string>
+	<string name="geofence_radius">Raggio</string>
 	<string name="tags">Etichette</string>
 	<string name="filters">Filtri</string>
 	<string name="date_shortcut_hour">Per un\'ora</string>
@@ -397,6 +405,7 @@
 	<string name="theme_blue_grey">Grigio-Blu</string>
 	<string name="theme_black">Nero</string>
 	<string name="theme_dark_grey">Grigio scuro</string>
+	<string name="theme_white">Bianco</string>
 	<string name="theme_light">Chiaro</string>
 	<string name="theme_dark">Scuro</string>
 	<string name="theme_wallpaper">Sfondo</string>
@@ -507,4 +516,10 @@ Google Play app sia impostata correttamente</string>
 	<string name="linkify">Mostra link</string>
 	<string name="linkify_description">Aggiungi link a siti web, indirizzi, numeri telefonici</string>
 	<string name="show_list_indicators">Mostra lista chip</string>
+	<string name="location_remind_arrival">Ricorda all\'arrivo</string>
+	<string name="location_remind_departure">Ricorda alla partenza</string>
+	<string name="call_number">Chiama %s</string>
+	<string name="open_url">Apri %s</string>
+	<string name="location_arrived">Arrivato alle %s</string>
+	<string name="location_departed">Partito alle %s</string>
 </resources>

@@ -266,6 +266,7 @@
 	<string name="theme_grey">Šedá</string>
 	<string name="theme_blue_grey">Modrošedá</string>
 	<string name="theme_black">Černá</string>
+	<string name="theme_white">Bílý</string>
 	<string name="theme_light">Světlý</string>
 	<string name="theme_dark">Tmavý</string>
 	<string name="theme_wallpaper">Tapeta</string>

@@ -112,6 +112,7 @@
 	<string name="EPr_default_importance_title">Standaard prioriteit</string>
 	<string name="EPr_default_hideUntil_title">Standaard verbergen tot</string>
 	<string name="EPr_default_reminders_title">Standaard herinneringen</string>
+	<string name="EPr_default_location_reminder_title">Standaard locatie herinneringen</string>
 	<string name="EPr_default_reminders_mode_title">Standaard toon/tril type</string>
 	<string name="priority_high">Hoog</string>
 	<string name="priority_medium">Middelmatig</string>
@@ -122,6 +123,10 @@
 	<string name="dont_hide">Niet verbergen</string>
 	<string name="at_deadline">Op de einddatum</string>
 	<string name="at_deadline_or_overdue">Op of na de einddatum</string>
+	<string name="no_reminders">Geen herinneringen</string>
+	<string name="default_location_reminder_on_arrival">Bij aankomst</string>
+	<string name="default_location_reminder_on_departure">Bij vertrek</string>
+	<string name="default_location_reminder_on_arrival_or_departure">Bij aankomst en vertrek</string>
 	<string name="BFE_Active">Mijn taken</string>
 	<string name="BFE_Recent">Onlangs aangepast</string>
 	<string name="CFA_universe_all">Actieve taken</string>
@@ -317,6 +322,7 @@
 	<string name="quiet_hours_summary">Geen herinneringen tijdens stille uren</string>
 	<string name="TLA_menu_donate">Doneer</string>
 	<string name="add_reminder">Voeg herinnering toe</string>
+	<string name="add_location">Voeg locatie toe</string>
 	<string name="remove">Verwijder</string>
 	<string name="randomly_once">Willekeurig eenmalig</string>
 	<string name="randomly">Willekeurig</string>
@@ -390,6 +396,7 @@
 	<string name="theme_blue_grey">Blauwgrijs</string>
 	<string name="theme_black">Zwart</string>
 	<string name="theme_dark_grey">Donker Groen</string>
+	<string name="theme_white">Wit</string>
 	<string name="theme_light">Licht</string>
 	<string name="theme_dark">Donker</string>
 	<string name="theme_wallpaper">Achtergrond</string>
@@ -493,4 +500,12 @@
 	<string name="action_create_new_task">Nieuwe taak maken</string>
 	<string name="show_description">Toon beschrijving</string>
 	<string name="show_full_description">Toon volledige beschrijving</string>
+	<string name="linkify">Toon links</string>
+	<string name="linkify_description">Voeg links toe nar websites, adressen en telefoonnummers</string>
+	<string name="show_list_indicators">Toon lijst indicatie</string>
+	<string name="location_remind_arrival">Herinner bij aankomst</string>
+	<string name="location_remind_departure">Herinner bij vertrek</string>
+	<string name="call_number">Bel %s</string>
+	<string name="location_arrived">Aangekomen on %s</string>
+	<string name="location_departed">Vetrokken om %s</string>
 </resources>

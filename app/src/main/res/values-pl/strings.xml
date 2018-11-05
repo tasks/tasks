@@ -32,6 +32,8 @@
 	<string name="TLA_menu_search">Szukaj</string>
 	<string name="TLA_menu_settings">Ustawienia</string>
 	<string name="TAd_actionEditTask">Edytuj</string>
+	<string name="action_call">Zadzwoń</string>
+	<string name="action_open">Otwórz</string>
 	<string name="SSD_sort_drag">Ręczne z podzadaniami</string>
 	<string name="SSD_sort_auto">Automatyczne</string>
 	<string name="SSD_sort_alpha">Wg tytułu</string>
@@ -56,6 +58,9 @@
 	<string name="due_time">Dokładnie w terminie</string>
 	<string name="day_before_due">Dzień przed terminem</string>
 	<string name="week_before_due">Tydzień przed terminem</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization." name="TEA_hideUntil_due_date">w terminie</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization." name="TEA_hideUntil_day_before_due">Dzień przed terminem</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization." name="TEA_hideUntil_week_before_due">tydzień przed terminem</string>
 	<string name="TEA_control_when">Kiedy</string>
 	<string name="TEA_control_repeat">Powtórz</string>
 	<string name="TEA_control_gcal">Kalendarz</string>
@@ -117,6 +122,7 @@
 	<string name="dont_hide">Nie ukrywaj</string>
 	<string name="at_deadline">W dniu terminu nieprzekraczalnego</string>
 	<string name="at_deadline_or_overdue">W nieprzekraczalnym terminie lub gdy zaległe</string>
+	<string name="no_reminders">Brak przypomnień</string>
 	<string name="BFE_Active">Moje zadania</string>
 	<string name="BFE_Recent">Niedawno zmodyfikowane</string>
 	<string name="CFA_universe_all">Aktywne zadania</string>
@@ -196,6 +202,14 @@
 	<string name="repeat_weekly">Powtarzaj co ileś tygodni</string>
 	<string name="repeat_monthly">Powtarzaj co ileś miesięcy</string>
 	<string name="repeat_yearly">Powtarzaj co ileś lat</string>
+	<plurals name="task_count">
+		<item quantity="one">%d zadań</item>
+		<item quantity="other">%d zadań</item>
+	</plurals>
+	<plurals name="repeat_times">
+		<item quantity="one">czas</item>
+		<item quantity="other">times</item>
+	</plurals>
 	<plurals name="repeat_minutes">
 		<item quantity="one">minuta</item>
 		<item quantity="other">minut</item>
@@ -303,6 +317,7 @@
 	<string name="quiet_hours_summary">Brak przypomnień w czasie wyciszenia</string>
 	<string name="TLA_menu_donate">Wesprzyj</string>
 	<string name="add_reminder">Dodaj przypomnienie</string>
+	<string name="add_location">Dodaj lokalizację</string>
 	<string name="remove">Usuń</string>
 	<string name="randomly_once">Losowo raz</string>
 	<string name="randomly">Losowo</string>
@@ -358,6 +373,7 @@
 	<string name="theme">Motyw</string>
 	<string name="color">Kolor</string>
 	<string name="accent">Akcent</string>
+	<string name="launcher_icon">Ikona programu startowego</string>
 	<string name="theme_red">Czerwony</string>
 	<string name="theme_pink">Różowy</string>
 	<string name="theme_purple">Fioletowy</string>
@@ -379,6 +395,7 @@
 	<string name="theme_blue_grey">Niebieskoszary</string>
 	<string name="theme_black">Czarny</string>
 	<string name="theme_dark_grey">Ciemnoszary</string>
+	<string name="theme_white">Biały</string>
 	<string name="theme_light">Jasny</string>
 	<string name="theme_dark">Ciemny</string>
 	<string name="theme_wallpaper">Tapeta</string>
@@ -415,15 +432,18 @@
 	<string name="user">Użytkownik</string>
 	<string name="password">Hasło</string>
 	<string name="error_adding_account">Błąd przy dodawaniu konta</string>
+	<string name="calendar_settings">Ustawienia kalendarza</string>
 	<string name="notification_channel_settings">Zarządzaj powiadamieniami</string>
 	<string name="battery_optimization_settings">Zarządzaj zużyciem energii</string>
 	<string name="notification_disable_battery_optimizations_description">Optymalizacja zużycia energii może opóźniać powiadomienia</string>
 	<string name="bundle_notifications">Zarządzaj powiadomieniami</string>
+	<string name="badges">Plakietki</string>
 	<string name="list">Lista</string>
 	<string name="repeats_from">Powtarzaj od</string>
 	<string name="repeats_single">Powtarza się %s</string>
 	<string name="repeats_single_on">Powtarza się %1$s w: %2$s</string>
 	<string name="repeats_single_until">Powtarza się %1$s do %2$s</string>
+	<string name="repeats_single_on_until">Powtarza się %1$s w %2$s do %3$s</string>
 	<string name="repeats_minutely">co minutę</string>
 	<string name="repeats_hourly">co godzinę</string>
 	<string name="repeats_daily">raz dziennie</string>
@@ -433,6 +453,7 @@
 	<string name="repeats_plural">Powtarzaj co %s</string>
 	<string name="dont_add_to_calendar">Nie dodawaj do kalendarza</string>
 	<string name="default_calendar">Domyślny kalendarz</string>
+	<string name="badges_description">Wyświetl liczbę zadań na ikonie Tasks. Nie wszystkie programy wspierają plakietki.</string>
 	<string name="repeat_monthly_same_day_each_month">tego samego dnia każdego miesiąca</string>
 	<string name="dont_sync">Nie synchronizowane</string>
 	<string name="repeat_monthly_every_day_of_nth_week">każdy %1$s %2$s</string>
@@ -441,9 +462,28 @@
 	<string name="repeat_monthly_third_week">trzeci</string>
 	<string name="repeat_monthly_fourth_week">czwarty</string>
 	<string name="repeat_monthly_last_week">ostatni</string>
+	<string name="tasker_create_task">Stwórz zadanie</string>
+	<string name="tasker_list_notification">Lista powiadomień</string>
 	<string name="help">Pomoc</string>
+	<string name="network_error">Błąd połączenia</string>
+	<string name="background_sync_unmetered_only">Tylko niezliczane połączenia</string>
+	<string name="upgrade_to_pro">Upgrade do pro</string>
+	<string name="refresh_purchases">Odśwież zakupy</string>
+	<string name="button_subscribed">Subskrybowane</string>
+	<string name="button_subscribe">Zasubskrybuj</string>
+	<string name="button_more_info">Więcej informacji</string>
+	<string name="owned">Posiadane</string>
+	<string name="about">O</string>
 	<string name="themes">Dodatkowe motywy</string>
+	<string name="pro_caldav_sync">Synchronizacja CalDAV</string>
+	<string name="pro_multiple_google_task_accounts">Wiele kont Google Task</string>
+	<string name="requires_pro_subscription">Wymaga subskrypcji pro</string>
 	<string name="logout">Wyloguj</string>
 	<string name="logout_warning">Wyloguj z %s? Wszystkie dane z tego konta zostaną usunięte z urządzenia</string>
 	<string name="cannot_access_account">Brak dostępu do konta</string>
+	<string name="action_create_new_task">Stwórz nowe zadanie</string>
+	<string name="show_description">Pokaż opis</string>
+	<string name="show_full_description">Pokaż pełen opis</string>
+	<string name="linkify">Pokaż linki</string>
+	<string name="linkify_description">Dodaj linki do stron WWW, adresów i numerów telefonów</string>
 </resources>

@@ -12,10 +12,13 @@
 	<string name="enter_filter_name">Digite o nome do filtro</string>
 	<string name="backup_BAc_import">Importar tarefas</string>
 	<string name="backup_BAc_export">Exportar tarefas</string>
-	<string name="export_toast">Backups feitos: de %1$s para %2$s.</string>
+	<string name="export_toast">Feito backup de %1$s para %2$s.</string>
 	<string name="export_toast_no_tasks">Nenhuma tarefa para exportar.</string>
 	<string name="import_summary_title">Sumário da restauração</string>
-	<string name="import_summary_message">Arquivo %1$s contendo %2$s.\n\n %3$s importada(s),\n %4$s já existia(m)\n %5$s tinha(m) erro(s)\n</string>
+	<string name="import_summary_message">Arquivo %1$s continha %2$s.\n\n
+%3$s importadas,\n
+%4$s já existiam\n
+%5$s tinham erros\n</string>
 	<string name="import_progress_read">Lendo tarefa %d...</string>
 	<string name="DLG_error_sdcard">Não foi possível acessar a pasta: %s</string>
 	<string name="DLG_error_sdcard_general">Não foi possível acessar seu cartão SD!</string>
@@ -23,7 +26,7 @@
 	<string name="discard_confirmation">Você tem certeza que deseja descartar suas mudanças?</string>
 	<string name="keep_editing">Continuar editando</string>
 	<string name="DLG_delete_this_task_question">Excluir esta tarefa?</string>
-	<string name="DLG_hour_minutes">Horário (horas:minutos)</string>
+	<string name="DLG_hour_minutes">Horário (horas : minutos)</string>
 	<string name="DLG_undo">Desfazer</string>
 	<string name="WID_dateButtonUnset">Toque para definir</string>
 	<string name="TLA_no_items">Não há tarefas aqui.</string>
@@ -34,7 +37,7 @@
 	<string name="action_call">Chamar</string>
 	<string name="action_open">Abrir</string>
 	<string name="SSD_sort_drag">Ordem manual com subtarefas</string>
-	<string name="SSD_sort_auto">Ordenação inteligente Tasks</string>
+	<string name="SSD_sort_auto">Ordenação inteligente</string>
 	<string name="SSD_sort_alpha">Por título</string>
 	<string name="SSD_sort_due">Por data de vencimento</string>
 	<string name="SSD_sort_importance">Por prioridade</string>
@@ -45,10 +48,10 @@
 	<string name="TEA_importance_label">Prioridade</string>
 	<string name="TEA_no_date">Sem data</string>
 	<string name="TEA_hideUntil_label">Ocultar até</string>
-	<string name="TEA_hideUntil_display">Esconder até %s</string>
+	<string name="TEA_hideUntil_display">Ocultar até %s</string>
 	<string name="TEA_note_label">Descrição</string>
 	<string name="TEA_estimatedDuration_label">Quanto tempo isto vai levar?</string>
-	<string name="TEA_elapsedDuration_label">Tempo já gasto na tarefa</string>
+	<string name="TEA_elapsedDuration_label">Tempo já gasto</string>
 	<string name="save">Salvar</string>
 	<string name="TEA_timer_elap">Decorrido %s</string>
 	<string name="TEA_no_time">Sem horário</string>
@@ -68,7 +71,7 @@
 	<string name="TEA_control_files">Arquivos</string>
 	<string name="TEA_control_reminders">Lembretes</string>
 	<string name="TEA_control_timer">Temporizador</string>
-	<string name="TEA_control_hidden_section">----Esconder Sempre---</string>
+	<string name="TEA_control_hidden_section">----Sempre Ocultar----</string>
 	<string name="TEA_load_more">Carregar mais...</string>
 	<string name="CRA_ignore">Ignorar</string>
 	<string name="CRA_title">Precisa de uma lista de reuniões?</string>
@@ -79,19 +82,19 @@
 	<string name="CRA_speech_bubble_end">Parece que você acabou de terminar com %s. Quer criar uma lista para itens de ação?</string>
 	<string name="CRA_postpone">Talvez depois</string>
 	<string name="CRA_calendar_reminders_pref_title">Assistente de calendário</string>
-	<string name="CRA_calendar_reminders_pref_desc_enabled">O Tasks irá lembrá-lo de futuros eventos do calendário e pedir-lhe para se preparar para eles.</string>
+	<string name="CRA_calendar_reminders_pref_desc_enabled">O Tasks irá lembrá-lo de futuros eventos do calendário e te pedir para se preparar para eles</string>
 	<string name="CRA_default_list_name">Itens de ação: %s</string>
 	<string name="none">Nenhuma</string>
 	<string name="EPr_appearance_header">Aparência</string>
 	<string name="EPr_filters_to_show_title">Filtros a mostrar</string>
 	<string name="EPr_edit_screen_options">Opções da tela de edição</string>
 	<string name="EPr_beastMode_reset">Restaurar valores padrões</string>
-	<string name="EPr_fullTask_title">Exibir título completo</string>
+	<string name="EPr_fullTask_title">Exibir título completo da tarefa</string>
 	<string name="EPr_show_task_edit_comments">Mostrar comentários na edição de tarefas</string>
 	<string name="task_list_options">Opções da lista de tarefas</string>
-	<string name="EPr_cal_end_or_start_at_due_time">Hora do evento</string>
-	<string name="EPr_cal_end_at_due_time">Eventos da agenda terminou no devido tempo</string>
-	<string name="EPr_cal_start_at_due_time">Eventos da agenda iniciaram no devido tempo</string>
+	<string name="EPr_cal_end_or_start_at_due_time">Hora do evento do calendário</string>
+	<string name="EPr_cal_end_at_due_time">Finalizar eventos do calendário no horário de vencimento</string>
+	<string name="EPr_cal_start_at_due_time">Iniciar eventos do calendário no horário de vencimento</string>
 	<string name="EPr_manage_header">Gerenciar tarefas antigas</string>
 	<string name="EPr_manage_purge_deleted">Limpar tarefas excluídas</string>
 	<string name="EPr_manage_purge_deleted_message">Você realmente deseja limpar todas as suas tarefas excluídas?\n\nEstas tarefas irão desaparecer para sempre!</string>
@@ -100,10 +103,10 @@
 	<string name="EPr_reset_preferences_warning">As preferências serão restauradas para os valores padrões</string>
 	<string name="EPr_delete_task_data">Limpar todos os dados</string>
 	<string name="EPr_delete_task_data_warning">Todas as tarefas serão permanentemente apagadas</string>
-	<string name="EPr_manage_delete_completed_gcal">Apaga eventos do calendário para tarefas concluídas</string>
+	<string name="EPr_manage_delete_completed_gcal">Apagar eventos do calendário para tarefas concluídas</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Você quer mesmo apagar todos os seus eventos de tarefas concluídas?</string>
 	<string name="EPr_manage_delete_completed_gcal_status">%d eventos de agenda apagados!</string>
-	<string name="EPr_manage_delete_all_gcal">Apaga todos os eventos de calendário das tarefas</string>
+	<string name="EPr_manage_delete_all_gcal">Apagar todos os eventos de calendário das tarefas</string>
 	<string name="EPr_manage_delete_all_gcal_message">Você quer mesmo apagar todos os eventos de calendário das tarefas?</string>
 	<string name="EPr_manage_delete_all_gcal_status">%d eventos de agenda apagados!</string>
 	<string name="task_defaults">Padrões de tarefa</string>
@@ -111,6 +114,8 @@
 	<string name="EPr_default_importance_title">Prioridade padrão</string>
 	<string name="EPr_default_hideUntil_title">Padrão de Ocultar até</string>
 	<string name="EPr_default_reminders_title">Lembretes padrões</string>
+	<string name="EPr_default_location_reminder_title">Lembretes de localização padrão</string>
+	<string name="EPr_default_location_radius">Raio padrão</string>
 	<string name="EPr_default_reminders_mode_title">Tipo de toque/vibração padrão</string>
 	<string name="priority_high">Alta</string>
 	<string name="priority_medium">Média</string>
@@ -121,16 +126,20 @@
 	<string name="dont_hide">Não ocultar</string>
 	<string name="at_deadline">No vencimento</string>
 	<string name="at_deadline_or_overdue">No prazo ou vencidas</string>
+	<string name="no_reminders">Sem lembretes</string>
+	<string name="default_location_reminder_on_arrival">Ao chegar</string>
+	<string name="default_location_reminder_on_departure">Ao sair</string>
+	<string name="default_location_reminder_on_arrival_or_departure">Ao chegar e ao sair</string>
 	<string name="BFE_Active">Minhas Tarefas</string>
 	<string name="BFE_Recent">Modificadas recentemente</string>
 	<string name="CFA_universe_all">Tarefas ativas</string>
 	<string name="CFA_type_add">ou</string>
-	<string name="CFA_type_subtract">NÃO</string>
-	<string name="CFA_type_intersect">E TAMBÉM</string>
-	<string name="CFA_context_chain">%s tem</string>
+	<string name="CFA_type_subtract">não</string>
+	<string name="CFA_type_intersect">e também</string>
+	<string name="CFA_context_chain">%s tem critério</string>
 	<string name="CFA_context_delete">Remover critério</string>
 	<string name="CFA_help">Pressione e segure um item para mais opções</string>
-	<string name="CFA_button_add">Adicionar critério</string>
+	<string name="CFA_button_add">Adicionar Critério</string>
 	<string name="CFC_dueBefore_text">Vencimento: ?</string>
 	<string name="CFC_dueBefore_name">Vencimento...</string>
 	<string name="no_due_date">Sem data de vencimento</string>
@@ -141,7 +150,7 @@
 	<string name="CFC_tag_contains_name">Nome da tag contém...</string>
 	<string name="CFC_tag_contains_text">Nome da tag contém: ?</string>
 	<string name="CFC_title_contains_name">Título...</string>
-	<string name="CFC_title_contains_text">Título contêm: ?</string>
+	<string name="CFC_title_contains_text">Título contem: ?</string>
 	<string name="gcal_TEA_error">Erro ao inserir a tarefa no calendário!</string>
 	<string name="gcal_TEA_showCalendar_label">Abrir evento no calendário</string>
 	<string name="delete_calendar_event_confirmation">Excluir evento no calendário?</string>
@@ -150,7 +159,7 @@
 	<string name="CFC_gtasks_list_text">Na lista: ?</string>
 	<string name="CFC_gtasks_list_name">No Google Tasks...</string>
 	<string name="CFC_caldav_list_name">Na lista CalDAV...</string>
-	<string name="gtasks_GTA_clear_completed">Limpeza concluída</string>
+	<string name="gtasks_GTA_clear_completed">Limpar Concluídas</string>
 	<string name="gtasks_GLA_authenticating">Autenticando ...</string>
 	<string name="gtasks_GLA_errorIOAuth">Desculpe-nos, tivemos problemas de comunicação com os servidores do Google. Tente mais tarde.</string>
 	<string name="gtasks_GPr_header">Google Tarefas</string>
@@ -173,14 +182,14 @@
 	<string name="rmd_NoA_done">Concluída</string>
 	<string name="rmd_NoA_snooze">Adiar</string>
 	<string name="snooze_all">Adiar todos</string>
-	<string name="rmd_EPr_quiet_hours_start_title">Começam as horas calmas</string>
-	<string name="rmd_EPr_quiet_hours_end_title">Fim das horas calmas</string>
+	<string name="rmd_EPr_quiet_hours_start_title">Começo das horas quietas</string>
+	<string name="rmd_EPr_quiet_hours_end_title">Fim das horas quietas</string>
 	<string name="rmd_EPr_rmd_time_title">Lembrete padrão</string>
 	<string name="rmd_EPr_rmd_time_desc">Notificações de tarefas sem tempo de vencimento vão aparecer em %s</string>
 	<string name="persistent_notifications">Notificações persistentes</string>
 	<string name="persistent_notifications_description">Notificações persistentes não podem ser removidas</string>
 	<string name="rmd_EPr_defaultRemind_title">Lembretes aleatórios</string>
-	<string name="default_random_reminder_disabled">desabilitado</string>
+	<string name="default_random_reminder_disabled">Desabilitado</string>
 	<string name="default_random_reminder_hourly">de hora em hora</string>
 	<string name="default_random_reminder_daily">diariamente</string>
 	<string name="default_random_reminder_weekly">semanalmente</string>
@@ -210,7 +219,7 @@
 	</plurals>
 	<plurals name="repeat_minutes">
 		<item quantity="one">minuto</item>
-		<item quantity="other">%d Minutos</item>
+		<item quantity="other">minutos</item>
 	</plurals>
 	<plurals name="repeat_n_minutes">
 		<item quantity="one">%d minuto</item>
@@ -271,8 +280,8 @@
 	<string name="TPl_notification">Temporizador ativado para %s!</string>
 	<string name="TFE_workingOn">Tarefas com contagem de tempo</string>
 	<string name="TEA_timer_controls">Temporizador</string>
-	<string name="TEA_timer_comment_started">iniciou a tarefa</string>
-	<string name="TEA_timer_comment_stopped">parou a tarefa:</string>
+	<string name="TEA_timer_comment_started">iniciou essa tarefa:</string>
+	<string name="TEA_timer_comment_stopped">parou esta tarefa:</string>
 	<string name="TEA_timer_comment_spent">Tempo gasto:</string>
 	<string name="voice_create_prompt">Fale para criar uma tarefa</string>
 	<string name="EPr_voiceInputEnabled_title">Entrada de voz</string>
@@ -280,7 +289,7 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks irá falar o nome das tarefas durante os lembretes</string>
 	<string name="delete_task">Excluir tarefa</string>
 	<string name="voice_command_added_task">Tarefa adicionada</string>
-	<string name="external_storage_unavailable">Não é possível acessar Cartão SD</string>
+	<string name="external_storage_unavailable">Não é possível acessar armazenamento externo</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 tarefa</item>
 		<item quantity="other">%d tarefas</item>
@@ -289,8 +298,8 @@
 	<string name="tomorrow">Amanhã</string>
 	<string name="next">Próximo %s</string>
 	<string name="yesterday">Ontem</string>
-	<string name="tmrw">amanhã</string>
-	<string name="yest">ontem</string>
+	<string name="tmrw">Amanhã</string>
+	<string name="yest">Ontem</string>
 	<string name="DLG_wait">Por favor, aguarde...</string>
 	<string name="sync_SPr_interval_title">Sincronização em segundo plano</string>
 	<string name="widget_show_due_date">Mostrar vencimentos</string>
@@ -301,9 +310,9 @@
 	<string name="silent">Silencioso</string>
 	<string name="sound">Som</string>
 	<string name="vibrations">Vibrações</string>
-	<string name="quiet_hours">Horas calmas</string>
-	<string name="attachment_directory">Diretório para anexos</string>
-	<string name="backup_directory">Diretório de backup</string>
+	<string name="quiet_hours">Horas silenciosas</string>
+	<string name="attachment_directory">Pasta de anexos</string>
+	<string name="backup_directory">Pasta de backups</string>
 	<string name="miscellaneous">Miscelânea</string>
 	<string name="synchronization">Sincronização</string>
 	<string name="enabled">Ativado</string>
@@ -317,6 +326,7 @@
 	<string name="quiet_hours_summary">Sem lembretes durante as horas calmas</string>
 	<string name="TLA_menu_donate">Doar</string>
 	<string name="add_reminder">Adicionar lembrete</string>
+	<string name="add_location">Adicionar localização</string>
 	<string name="remove">Remover</string>
 	<string name="randomly_once">Aleatoriamente uma vez</string>
 	<string name="randomly">Aleatoriamente</string>
@@ -325,13 +335,14 @@
 	<string name="pick_a_date_and_time">Escolha data e horário</string>
 	<string name="when_overdue">Quando vencida</string>
 	<string name="when_due">Quando vencer</string>
+	<string name="geofence_radius">Raio</string>
 	<string name="tags">Etiquetas</string>
 	<string name="filters">Filtros</string>
 	<string name="date_shortcut_hour">Por uma hora</string>
 	<string name="date_shortcut_morning">Manhã</string>
 	<string name="date_shortcut_afternoon">Tarde</string>
-	<string name="date_shortcut_evening">Noite</string>
-	<string name="date_shortcut_night">Noite</string>
+	<string name="date_shortcut_evening">Noite (Cedo)</string>
+	<string name="date_shortcut_night">Noite (Tarde)</string>
 	<string name="date_shortcut_tomorrow_morning">Amanhã de manhã</string>
 	<string name="date_shortcut_tomorrow_afternoon">Amanhã de tarde</string>
 	<string name="date_shortcut_must_come_before">%1$s deve vir antes de %2$s</string>
@@ -345,7 +356,7 @@
 	<string name="move">Mover</string>
 	<string name="filter_settings">Configurações de filtro</string>
 	<string name="show_hidden">Mostrar ocultas</string>
-	<string name="show_completed">Mostrar completas</string>
+	<string name="show_completed">Mostrar concluídas</string>
 	<string name="reverse">Reverso</string>
 	<string name="no_application_found">Nenhuma aplicação encontrada para abrir o anexo</string>
 	<string name="add_attachment">Adicionar anexo</string>
@@ -395,6 +406,7 @@
 	<string name="theme_blue_grey">Azul Acinzentado</string>
 	<string name="theme_black">Preto</string>
 	<string name="theme_dark_grey">Cinza escuro</string>
+	<string name="theme_white">Branco</string>
 	<string name="theme_light">Claro</string>
 	<string name="theme_dark">Escuro</string>
 	<string name="theme_wallpaper">Plano de fundo</string>
@@ -502,4 +514,13 @@ aplicativo Google Play está configurado corretamente</string>
 	<string name="action_create_new_task">Criar nova tarefa</string>
 	<string name="show_description">Mostrar descrição</string>
 	<string name="show_full_description">Mostrar descrição completa</string>
+	<string name="linkify">Mostrar links</string>
+	<string name="linkify_description">Adicionar links para websites, endereços e números de telefone</string>
+	<string name="show_list_indicators">Mostrar fichas de listas</string>
+	<string name="location_remind_arrival">Lembrar ao chegar</string>
+	<string name="location_remind_departure">Lembrar ao sair</string>
+	<string name="call_number">Chamar %s</string>
+	<string name="open_url">Abrir %s</string>
+	<string name="location_arrived">Chegou às %s</string>
+	<string name="location_departed">Saiu às %s</string>
 </resources>

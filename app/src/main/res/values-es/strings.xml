@@ -112,6 +112,8 @@
 	<string name="EPr_default_importance_title">Prioridad predeterminada</string>
 	<string name="EPr_default_hideUntil_title">Ocultar por defecto hasta</string>
 	<string name="EPr_default_reminders_title">Recordatorios por defecto</string>
+	<string name="EPr_default_location_reminder_title">Recordatorios de ubicación predeterminados</string>
+	<string name="EPr_default_location_radius">Radio predeterminado</string>
 	<string name="EPr_default_reminders_mode_title">Tipo predeterminado de timbre/vibración</string>
 	<string name="priority_high">Alta</string>
 	<string name="priority_medium">Media</string>
@@ -122,6 +124,10 @@
 	<string name="dont_hide">No ocultar</string>
 	<string name="at_deadline">En la fecha de vencimiento</string>
 	<string name="at_deadline_or_overdue">En la fecha de vencimiento o ya vencida</string>
+	<string name="no_reminders">Sin recordatorio</string>
+	<string name="default_location_reminder_on_arrival">A la llegada</string>
+	<string name="default_location_reminder_on_departure">A la salida</string>
+	<string name="default_location_reminder_on_arrival_or_departure">A la salida y llegada</string>
 	<string name="BFE_Active">Mis Tareas</string>
 	<string name="BFE_Recent">Recién modificadas</string>
 	<string name="CFA_universe_all">Tareas activas</string>
@@ -318,6 +324,7 @@
 	<string name="quiet_hours_summary">Sin avisos en horario silencioso</string>
 	<string name="TLA_menu_donate">Haz una donación</string>
 	<string name="add_reminder">Añadir recordatorio</string>
+	<string name="add_location">Añadir ubicación</string>
 	<string name="remove">Eliminar</string>
 	<string name="randomly_once">Aleatorio, una sola vez</string>
 	<string name="randomly">Aleatoriamente</string>
@@ -326,6 +333,7 @@
 	<string name="pick_a_date_and_time">Elegir fecha y hora</string>
 	<string name="when_overdue">Si está atrasada</string>
 	<string name="when_due">Al vencimiento</string>
+	<string name="geofence_radius">Radio</string>
 	<string name="tags">Etiquetas</string>
 	<string name="filters">Filtros</string>
 	<string name="date_shortcut_hour">Por una hora</string>
@@ -395,6 +403,7 @@
 	<string name="theme_blue_grey">Gris azulado</string>
 	<string name="theme_black">Negro</string>
 	<string name="theme_dark_grey">Gris oscuro</string>
+	<string name="theme_white">Blanco</string>
 	<string name="theme_light">Claro</string>
 	<string name="theme_dark">Oscuro</string>
 	<string name="theme_wallpaper">Fondo de pantalla</string>
@@ -502,4 +511,11 @@
 	<string name="show_full_description">Mostrar descripción completa</string>
 	<string name="linkify">Mostrar enlaces</string>
 	<string name="linkify_description">Añade enlaces a sitios web, direcciones y número de teléfono</string>
+	<string name="show_list_indicators">Mostrar fichas de lista</string>
+	<string name="location_remind_arrival">Recordar a la llegada</string>
+	<string name="location_remind_departure">Recordar a la salida</string>
+	<string name="call_number">Llamar a %s</string>
+	<string name="open_url">Abrir %s</string>
+	<string name="location_arrived">Llegada a %s</string>
+	<string name="location_departed">Salida de %s</string>
 </resources>

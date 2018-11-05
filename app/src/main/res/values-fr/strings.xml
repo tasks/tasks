@@ -111,6 +111,8 @@
 	<string name="EPr_default_importance_title">Priorité par défaut</string>
 	<string name="EPr_default_hideUntil_title">Masquer par défaut jusqu\'à</string>
 	<string name="EPr_default_reminders_title">Rappels par défaut</string>
+	<string name="EPr_default_location_reminder_title">Rappels d\'emplacement par défaut</string>
+	<string name="EPr_default_location_radius">Rayon par défaut</string>
 	<string name="EPr_default_reminders_mode_title">Type de sonnerie/vibration par défaut</string>
 	<string name="priority_high">Haute</string>
 	<string name="priority_medium">Moyenne</string>
@@ -121,6 +123,10 @@
 	<string name="dont_hide">Ne pas masquer</string>
 	<string name="at_deadline">À la date limite</string>
 	<string name="at_deadline_or_overdue">À la date limite ou après</string>
+	<string name="no_reminders">Aucun rappel</string>
+	<string name="default_location_reminder_on_arrival">A l\'arrivée</string>
+	<string name="default_location_reminder_on_departure">Au départ</string>
+	<string name="default_location_reminder_on_arrival_or_departure">A l\'arrivée et au départ</string>
 	<string name="BFE_Active">Mes tâches</string>
 	<string name="BFE_Recent">Récemment modifié</string>
 	<string name="CFA_universe_all">Tâches actives</string>
@@ -306,6 +312,7 @@
 	<string name="quiet_hours_summary">Pas de rappels pendant les heures silencieuses</string>
 	<string name="TLA_menu_donate">Remercier</string>
 	<string name="add_reminder">Ajouter un rappel</string>
+	<string name="add_location">Ajouter une localisation</string>
 	<string name="remove">Supprimer</string>
 	<string name="randomly_once">Une fois aléatoirement</string>
 	<string name="randomly">Aléatoirement</string>
@@ -314,6 +321,7 @@
 	<string name="pick_a_date_and_time">Choisir date et heure</string>
 	<string name="when_overdue">En cas de retard</string>
 	<string name="when_due">A l\'échéance</string>
+	<string name="geofence_radius">Rayon</string>
 	<string name="filters">Filtres</string>
 	<string name="date_shortcut_hour">Pour une heure</string>
 	<string name="date_shortcut_morning">Matin</string>
@@ -379,6 +387,7 @@
 	<string name="theme_blue_grey">Bleu gris</string>
 	<string name="theme_black">Noir</string>
 	<string name="theme_dark_grey">Gris sombre</string>
+	<string name="theme_white">Blanc</string>
 	<string name="theme_light">Lumineux</string>
 	<string name="theme_dark">Sombre</string>
 	<string name="theme_wallpaper">Fond d\'écran</string>
@@ -489,4 +498,10 @@ est configuré correctement</string>
 	<string name="linkify">Afficher les liens</string>
 	<string name="linkify_description">Ajouter des liens vers des sites Web, des adresses et des numéros de téléphone</string>
 	<string name="show_list_indicators">Afficher la liste des puces</string>
+	<string name="location_remind_arrival">Rappel à l\'arrivée</string>
+	<string name="location_remind_departure">Rappel au départ</string>
+	<string name="call_number">Appeler %s</string>
+	<string name="open_url">Ouvrir %s</string>
+	<string name="location_arrived">Arrivé à %s</string>
+	<string name="location_departed">Départ %s</string>
 </resources>

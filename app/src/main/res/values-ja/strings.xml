@@ -32,6 +32,8 @@
 	<string name="TLA_menu_search">検索</string>
 	<string name="TLA_menu_settings">設定</string>
 	<string name="TAd_actionEditTask">編集する</string>
+	<string name="action_call">呼び出し</string>
+	<string name="action_open">開く</string>
 	<string name="SSD_sort_drag">サブタスクの手動設定順</string>
 	<string name="SSD_sort_auto">自動</string>
 	<string name="SSD_sort_alpha">タイトル順</string>
@@ -56,6 +58,10 @@
 	<string name="due_time">期限時間</string>
 	<string name="day_before_due">期限の前日から</string>
 	<string name="week_before_due">期限の一週間前から</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization." name="TEA_hideUntil_due_date">期限日</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization." name="TEA_hideUntil_due_time">期限時間</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization." name="TEA_hideUntil_day_before_due">期限までの日</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization." name="TEA_hideUntil_week_before_due">期限までの週</string>
 	<string name="TEA_control_when">いつ</string>
 	<string name="TEA_control_repeat">繰り返し</string>
 	<string name="TEA_control_gcal">カレンダー</string>
@@ -146,6 +152,7 @@
 	<string name="gcal_completed_title">%s（完了）</string>
 	<string name="CFC_gtasks_list_text">リストにありますか ?</string>
 	<string name="CFC_gtasks_list_name">GTasks リストに...</string>
+	<string name="CFC_caldav_list_name">CalDAV リスト内…</string>
 	<string name="gtasks_GTA_clear_completed">クリアが完了しました</string>
 	<string name="gtasks_GLA_authenticating">認証中...</string>
 	<string name="gtasks_GLA_errorIOAuth">すみません、Googleのサーバとの通信で問題が発生しました。しばらくしてから再度やり直してください。</string>
@@ -259,6 +266,7 @@
 	<string name="repeat_number_of_times">繰り返し回数</string>
 	<string name="repeat_occurs">発生</string>
 	<string name="repeat_snackbar">%1$s を %2$s にスケジュール変更しました</string>
+	<string comment="display new due date and time in snackbar after completing repeating task, e.g. \'Tomorrow at 8 AM\' or \'21 May at 8 AM\'" name="repeat_snackbar_time">%1$s %2$s</string>
 	<string name="new_tag">新しいタグを作成</string>
 	<string name="new_list">新しいリストを作成</string>
 	<string name="tag_FEx_untagged">未分類</string>
@@ -312,6 +320,7 @@
 	<string name="quiet_hours_summary">消音時間の間はリマインダーは動作しません</string>
 	<string name="TLA_menu_donate">寄付</string>
 	<string name="add_reminder">リマインダーを追加</string>
+	<string name="add_location">場所を追加</string>
 	<string name="remove">削除</string>
 	<string name="randomly_once">1回ランダムに</string>
 	<string name="randomly">ランダムに</string>
@@ -337,6 +346,7 @@
 	<string name="list_settings">リスト設定</string>
 	<string name="delete">削除</string>
 	<string name="copy">コピー</string>
+	<string name="move">移動</string>
 	<string name="filter_settings">フィルター設定</string>
 	<string name="show_hidden">非表示を表示</string>
 	<string name="show_completed">完了を表示</string>
@@ -351,6 +361,7 @@
 	<string name="send_anonymous_statistics">Tasks を改善</string>
 	<string name="send_anonymous_statistics_summary">Tasks を改善するために、匿名で使用状況データとクラッシュレポートを送信します。個人情報は収集されません。</string>
 	<string name="tag_already_exists">タグは既に存在します</string>
+	<string name="duplicate_name">名前を複製</string>
 	<string name="name_cannot_be_empty">名前は空にできません。</string>
 	<string name="username_required">ユーザー名が必要です</string>
 	<string name="password_required">パスワードが必要です</string>
@@ -366,6 +377,7 @@
 	<string name="theme">テーマ</string>
 	<string name="color">色</string>
 	<string name="accent">アクセント</string>
+	<string name="launcher_icon">ランチャーアイコン</string>
 	<string name="theme_red">赤</string>
 	<string name="theme_pink">ピンク</string>
 	<string name="theme_purple">紫</string>
@@ -387,6 +399,7 @@
 	<string name="theme_blue_grey">灰青</string>
 	<string name="theme_black">黒</string>
 	<string name="theme_dark_grey">ダークグレー</string>
+	<string name="theme_white">白</string>
 	<string name="theme_light">ライト</string>
 	<string name="theme_dark">ダーク</string>
 	<string name="theme_wallpaper">壁紙</string>
@@ -424,6 +437,7 @@
 	<string name="user">ユーザー</string>
 	<string name="password">パスワード</string>
 	<string name="error_adding_account">アカウントの追加時にエラーが発生しました</string>
+	<string name="calendar_settings">カレンダー設定</string>
 	<string name="notification_channel_settings">通知を管理</string>
 	<string name="battery_optimization_settings">バッテリー最適化を管理</string>
 	<string name="notification_disable_battery_optimizations_description">バッテリー最適化をすると通知が遅れることがあります</string>
@@ -465,7 +479,35 @@
 	<string name="tasker_create_task">タスクを作成</string>
 	<string name="tasker_list_notification">通知のリスト</string>
 	<string name="help">ヘルプ</string>
+	<string name="caldav_home_set_not_found">ホームの設定が見つかりません</string>
 	<string name="network_error">接続に失敗しました</string>
 	<string name="background_sync_unmetered_only">定額の接続時のみ</string>
+	<string name="upgrade">アップグレード</string>
+	<string name="upgrade_to_pro">プロ版にアップグレード</string>
+	<string name="refresh_purchases">購入を更新</string>
+	<string name="button_subscribed">購入済</string>
+	<string name="button_subscribe">購入</string>
+	<string name="button_more_info">詳細情報</string>
+	<string name="owned">所有</string>
+	<string name="error_billing_unavailable">支払が利用できません。 Google Play アプリが
+正しく設定されていることを確認してください</string>
+	<string name="error_billing_default">支払がりようできません。お使いの端末を確認してください</string>
+	<string name="about">アプリについて</string>
+	<string name="license_summary">Tasks は、GNU General Public License v3.0 でライセンスされているフリーでオープンソースのソフトウェアです</string>
 	<string name="themes">追加のテーマ</string>
+	<string name="pro_caldav_sync">CalDAV 同期</string>
+	<string name="pro_multiple_google_task_accounts">複数の Google ToDo リストカウント</string>
+	<string name="pro_tasker_plugins">Tasker プラグイン</string>
+	<string name="pro_dashclock_extension">Dashclock 拡張</string>
+	<string name="requires_pro_subscription">プロ版のサブスクリプションが必要です</string>
+	<string name="logout">ログアウト</string>
+	<string name="logout_warning">%s をログアウトしますか? このアカウントのデータがお使いの端末からすべて削除されます</string>
+	<string name="cannot_access_account">アカウントにアクセスできません</string>
+	<string name="reinitialize_account">再初期化</string>
+	<string name="action_create_new_task">新しいタスクを作成</string>
+	<string name="show_description">説明を表示</string>
+	<string name="show_full_description">すべての説明を表示</string>
+	<string name="linkify">リンクを表示</string>
+	<string name="linkify_description">ウェブサイト、住所、電話番号へのリンクを追加</string>
+	<string name="show_list_indicators">リストチップを表示</string>
 </resources>
