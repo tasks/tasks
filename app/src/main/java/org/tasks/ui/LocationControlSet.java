@@ -79,15 +79,14 @@ public class LocationControlSet extends TaskEditControlFragment {
 
     taskId = task.getId();
     if (savedInstanceState == null) {
-      setup(geofenceService.getGeofences(taskId));
+      locations.addAll(geofenceService.getGeofences(taskId));
     } else {
-      List<Location> locations = new ArrayList<>();
       List<Parcelable> geofenceArray = savedInstanceState.getParcelableArrayList(EXTRA_GEOFENCES);
       for (Parcelable geofence : geofenceArray) {
         locations.add((Location) geofence);
       }
-      setup(locations);
     }
+    setup(locations);
 
     return view;
   }
