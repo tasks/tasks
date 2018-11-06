@@ -7,11 +7,10 @@ package com.todoroo.astrid.dao;
 
 import static com.todoroo.andlib.utility.DateUtilities.now;
 
+import android.database.Cursor;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Update;
-import android.content.Context;
-import android.database.Cursor;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
@@ -23,7 +22,7 @@ import com.todoroo.astrid.helper.UUIDHelper;
 import java.util.ArrayList;
 import java.util.List;
 import org.tasks.BuildConfig;
-import org.tasks.jobs.AfterSaveIntentService;
+import org.tasks.jobs.WorkManager;
 import timber.log.Timber;
 
 @Dao
@@ -33,14 +32,14 @@ public abstract class TaskDao {
 
   private final Database database;
 
-  private Context context;
+  private WorkManager workManager;
 
   public TaskDao(Database database) {
     this.database = database;
   }
 
-  public void initialize(Context context) {
-    this.context = context;
+  public void initialize(WorkManager workManager) {
+    this.workManager = workManager;
   }
 
   public List<Task> needsRefresh() {
@@ -144,7 +143,7 @@ public abstract class TaskDao {
   // TODO: get rid of this super-hack
   public void save(Task task, Task original) {
     if (saveExisting(task, original)) {
-      AfterSaveIntentService.enqueue(context, task, original);
+      workManager.afterSave(task, original);
     }
   }
 

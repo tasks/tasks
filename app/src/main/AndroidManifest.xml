@@ -357,10 +357,6 @@
 
     <service
       android:exported="false"
-      android:name=".jobs.AfterSaveIntentService"
-      android:permission="android.permission.BIND_JOB_SERVICE"/>
-    <service
-      android:exported="false"
       android:name=".scheduling.GeofenceSchedulingIntentService"
       android:permission="android.permission.BIND_JOB_SERVICE"/>
     <service

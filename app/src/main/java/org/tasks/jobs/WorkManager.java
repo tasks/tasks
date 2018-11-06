@@ -16,6 +16,7 @@ import androidx.work.OneTimeWorkRequest.Builder;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.Worker;
 import com.google.common.primitives.Longs;
+import com.todoroo.astrid.data.Task;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.Nullable;
@@ -52,6 +53,13 @@ public class WorkManager {
 
   public void init() {
     workManager = androidx.work.WorkManager.getInstance();
+  }
+
+  public void afterSave(Task current, Task original) {
+    workManager.enqueue(
+        new OneTimeWorkRequest.Builder(AfterSaveWork.class)
+            .setInputData(AfterSaveWork.getInputData(current, original))
+            .build());
   }
 
   public void cleanup(List<Long> ids) {

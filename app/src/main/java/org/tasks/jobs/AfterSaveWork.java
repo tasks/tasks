@@ -5,11 +5,15 @@ import static com.todoroo.astrid.dao.TaskDao.TRANS_SUPPRESS_REFRESH;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.provider.CalendarContract;
 import android.text.TextUtils;
 import androidx.annotation.NonNull;
+import androidx.work.Data;
+import androidx.work.Data.Builder;
+import androidx.work.WorkerParameters;
+import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.repeats.RepeatTaskHelper;
@@ -18,18 +22,22 @@ import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
-import org.tasks.injection.InjectingJobIntentService;
-import org.tasks.injection.IntentServiceComponent;
+import org.tasks.injection.InjectingWorker;
+import org.tasks.injection.JobComponent;
 import org.tasks.location.GeofenceService;
 import org.tasks.notifications.NotificationManager;
-import org.tasks.receivers.PushReceiver;
 import org.tasks.scheduling.RefreshScheduler;
+import org.tasks.sync.SyncAdapters;
 import timber.log.Timber;
 
-public class AfterSaveIntentService extends InjectingJobIntentService {
+public class AfterSaveWork extends InjectingWorker {
 
-  private static final String EXTRA_CURRENT = "extra_current";
-  private static final String EXTRA_ORIGINAL = "extra_original";
+  private static final String EXTRA_ID = "extra_id";
+  private static final String EXTRA_ORIG_COMPLETED = "extra_was_completed";
+  private static final String EXTRA_ORIG_DELETED = "extra_was_deleted";
+  private static final String EXTRA_PUSH_GTASKS = "extra_push_gtasks";
+  private static final String EXTRA_PUSH_CALDAV = "extra_push_caldav";
+
   @Inject RepeatTaskHelper repeatTaskHelper;
   @Inject @ForApplication Context context;
   @Inject NotificationManager notificationManager;
@@ -38,42 +46,48 @@ public class AfterSaveIntentService extends InjectingJobIntentService {
   @Inject ReminderService reminderService;
   @Inject RefreshScheduler refreshScheduler;
   @Inject LocalBroadcastManager localBroadcastManager;
-  @Inject PushReceiver pushReceiver;
+  @Inject TaskDao taskDao;
+  @Inject SyncAdapters syncAdapters;
+  @Inject WorkManager workManager;
 
-  public static void enqueue(Context context, Task current, Task original) {
-    Intent intent = new Intent(context, AfterSaveIntentService.class);
-    intent.putExtra(EXTRA_CURRENT, current);
-    intent.putExtra(EXTRA_ORIGINAL, original);
-    AfterSaveIntentService.enqueueWork(
-        context,
-        AfterSaveIntentService.class,
-        InjectingJobIntentService.JOB_ID_TASK_STATUS_CHANGE,
-        intent);
+  static Data getInputData(Task current, Task original) {
+    boolean suppress = current.checkTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC);
+    boolean force = current.checkTransitory(SyncFlags.FORCE_SYNC);
+    Builder builder =
+        new Builder()
+            .putLong(EXTRA_ID, current.getId())
+            .putBoolean(
+                EXTRA_PUSH_GTASKS, !suppress && (force || !current.googleTaskUpToDate(original)))
+            .putBoolean(
+                EXTRA_PUSH_CALDAV, !suppress && (force || !current.caldavUpToDate(original)));
+    if (original != null) {
+      builder
+          .putLong(EXTRA_ORIG_DELETED, original.getCompletionDate())
+          .putLong(EXTRA_ORIG_DELETED, original.getDeletionDate());
+    }
+    return builder.build();
+  }
+
+  public AfterSaveWork(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+    super(context, workerParams);
   }
 
   @Override
-  protected void doWork(@NonNull Intent intent) {
-    Task task = intent.getParcelableExtra(EXTRA_CURRENT);
+  protected Result run() {
+    Data data = getInputData();
+    long taskId = data.getLong(EXTRA_ID, -1);
+    Task task = taskDao.fetch(taskId);
     if (task == null) {
       Timber.e("Missing saved task");
-      return;
+      return Result.FAILURE;
     }
-    long taskId = task.getId();
 
-    Task original = intent.getParcelableExtra(EXTRA_ORIGINAL);
-    if (original == null
-        || !task.getDueDate().equals(original.getDueDate())
-        || !task.getReminderFlags().equals(original.getReminderFlags())
-        || !task.getReminderPeriod().equals(original.getReminderPeriod())
-        || !task.getReminderLast().equals(original.getReminderLast())
-        || !task.getReminderSnooze().equals(original.getReminderSnooze())) {
-      reminderService.scheduleAlarm(task);
-    }
+    reminderService.scheduleAlarm(task);
 
     boolean completionDateModified =
-        original == null || !task.getCompletionDate().equals(original.getCompletionDate());
+        !task.getCompletionDate().equals(data.getLong(EXTRA_ORIG_COMPLETED, 0));
     boolean deletionDateModified =
-        original != null && !task.getDeletionDate().equals(original.getDeletionDate());
+        !task.getDeletionDate().equals(data.getLong(EXTRA_ORIG_DELETED, 0));
 
     boolean justCompleted = completionDateModified && task.isCompleted();
     boolean justDeleted = deletionDateModified && task.isDeleted();
@@ -93,11 +107,17 @@ public class AfterSaveIntentService extends InjectingJobIntentService {
       }
     }
 
-    pushReceiver.push(task, original);
+    if ((data.getBoolean(EXTRA_PUSH_GTASKS, false) && syncAdapters.isGoogleTaskSyncEnabled())
+        || (data.getBoolean(EXTRA_PUSH_CALDAV, false) && syncAdapters.isCaldavSyncEnabled())) {
+      workManager.syncNow();
+    }
+
     refreshScheduler.scheduleRefresh(task);
     if (!task.checkAndClearTransitory(TRANS_SUPPRESS_REFRESH)) {
       localBroadcastManager.broadcastRefresh();
     }
+
+    return Result.SUCCESS;
   }
 
   private void updateCalendarTitle(Task task) {
@@ -118,7 +138,7 @@ public class AfterSaveIntentService extends InjectingJobIntentService {
   }
 
   @Override
-  protected void inject(IntentServiceComponent component) {
+  protected void inject(JobComponent component) {
     component.inject(this);
   }
 }
