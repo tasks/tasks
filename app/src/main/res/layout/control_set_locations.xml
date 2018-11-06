@@ -17,6 +17,7 @@
   <TextView
     android:id="@+id/alarms_add"
     style="@style/TaskEditTextPrimary"
+    android:background="?attr/selectableItemBackgroundBorderless"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:hint="@string/add_location"/>

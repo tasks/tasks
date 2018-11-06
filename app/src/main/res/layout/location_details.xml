@@ -67,9 +67,9 @@
       android:layout_width="match_parent"
       android:layout_height="?android:attr/listPreferredItemHeightSmall"
       android:paddingStart="@dimen/keyline_second"
-      android:paddingEnd="@dimen/keyline_second"
+      android:paddingEnd="@dimen/keyline_first"
       android:paddingLeft="@dimen/keyline_second"
-      android:paddingRight="@dimen/keyline_second">
+      android:paddingRight="@dimen/keyline_first">
 
       <TextView
         android:id="@+id/location_radius_value"

@@ -28,6 +28,7 @@ import com.google.common.base.Strings;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -64,6 +65,9 @@ public class LocationControlSet extends TaskEditControlFragment {
 
   @BindView(R.id.alert_container)
   LinearLayout alertContainer;
+
+  @BindView(R.id.alarms_add)
+  View addLocation;
 
   private long taskId;
 
@@ -110,10 +114,17 @@ public class LocationControlSet extends TaskEditControlFragment {
     return TAG;
   }
 
-  private void setup(Iterable<Location> locations) {
-    alertContainer.removeAllViews();
-    for (Location location : locations) {
-      addGeolocationReminder(location);
+  private void setup(Collection<Location> locations) {
+    if (locations.isEmpty()) {
+      alertContainer.setVisibility(View.GONE);
+      addLocation.setVisibility(View.VISIBLE);
+    } else {
+      addLocation.setVisibility(View.GONE);
+      alertContainer.setVisibility(View.VISIBLE);
+      alertContainer.removeAllViews();
+      for (Location location : locations) {
+        addGeolocationReminder(location);
+      }
     }
   }
 
@@ -145,7 +156,8 @@ public class LocationControlSet extends TaskEditControlFragment {
             preferences.getIntegerFromString(R.string.p_default_location_reminder_key, 1);
         place.setArrival(defaultReminders == 1 || defaultReminders == 3);
         place.setDeparture(defaultReminders == 2 || defaultReminders == 3);
-        addGeolocationReminder(place);
+        locations.add(place);
+        setup(locations);
       }
     } else if (requestCode == REQUEST_LOCATION_DETAILS) {
       if (resultCode == Activity.RESULT_OK) {
@@ -183,18 +195,8 @@ public class LocationControlSet extends TaskEditControlFragment {
   }
 
   private void addGeolocationReminder(final Location location) {
-    addAlarmRow(location);
-    locations.add(location);
-  }
-
-  private View addAlarmRow(Location location) {
     final View alertItem = getActivity().getLayoutInflater().inflate(R.layout.location_row, null);
     alertContainer.addView(alertItem);
-    addAlarmRow(alertItem, location);
-    return alertItem;
-  }
-
-  private void addAlarmRow(View alertItem, Location location) {
     String name = location.getDisplayName();
     String address = location.getAddress();
     if (!Strings.isNullOrEmpty(address) && !address.equals(name)) {
