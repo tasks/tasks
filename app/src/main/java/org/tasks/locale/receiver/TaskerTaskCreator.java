@@ -30,7 +30,7 @@ public class TaskerTaskCreator {
   }
 
   public void handle(TaskCreationBundle bundle) {
-    Task task = taskCreator.createWithValues(null, bundle.getTitle());
+    Task task = taskCreator.basicQuickAddTask(bundle.getTitle());
 
     String dueDateString = bundle.getDueDate();
     if (!isNullOrEmpty(dueDateString)) {
@@ -72,8 +72,7 @@ public class TaskerTaskCreator {
 
     task.setNotes(bundle.getDescription());
 
-    taskDao.createNew(task);
-    taskDao.save(task, null); // TODO: delete me
+    taskDao.save(task);
 
     taskCreator.createTags(task);
   }

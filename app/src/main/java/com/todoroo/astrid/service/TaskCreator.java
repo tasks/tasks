@@ -80,17 +80,9 @@ public class TaskCreator {
   }
 
   public Task basicQuickAddTask(String title) {
-    return createWithValues(null, title);
-  }
-
-  /**
-   * Create task from the given content values, saving it. This version doesn't need to start with a
-   * base task model.
-   */
-  public Task createWithValues(Map<String, Object> values, String title) {
     title = title.trim();
 
-    Task task = create(values, title);
+    Task task = createWithValues(null, title);
     taskDao.createNew(task);
 
     boolean gcalCreateEventEnabled =
@@ -123,7 +115,11 @@ public class TaskCreator {
     return task;
   }
 
-  private Task create(Map<String, Object> values, String title) {
+  /**
+   * Create task from the given content values, saving it. This version doesn't need to start with a
+   * base task model.
+   */
+  public Task createWithValues(Map<String, Object> values, String title) {
     Task task = new Task();
     task.setCreationDate(now());
     task.setModificationDate(now());
