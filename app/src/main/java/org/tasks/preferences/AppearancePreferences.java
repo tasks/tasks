@@ -1,6 +1,6 @@
 package org.tasks.preferences;
 
-import static org.tasks.dialogs.SeekBarDialog.newSeekBarDialog;
+import static org.tasks.dialogs.NativeSeekBarDialog.newSeekBarDialog;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,13 +13,13 @@ import org.tasks.R;
 import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
-import org.tasks.dialogs.SeekBarDialog;
+import org.tasks.dialogs.NativeSeekBarDialog;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.locale.Locale;
 
 public class AppearancePreferences extends InjectingPreferenceActivity
-    implements SeekBarDialog.SeekBarCallback {
+    implements NativeSeekBarDialog.SeekBarCallback {
 
   public static final String EXTRA_RESTART = "extra_restart";
   private static final String EXTRA_FILTERS_CHANGED = "extra_filters_changed";

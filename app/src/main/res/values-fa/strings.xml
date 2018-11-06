@@ -219,9 +219,6 @@
 	<string name="pick_a_date_and_time">انتخاب یک تاریخ و زمان</string>
 	<string name="when_overdue">پس از موعود</string>
 	<string name="when_due">روز موعود</string>
-	<string name="geofence_radius_title">شعاع (متر)</string>
-	<string name="geofence_responsiveness_title">زمان پاسخگویی (مقدار بالاتر مصرف کمتر باتری)</string>
-	<string name="geolocation_reminders">یادآوری‌های وابسته به مکان</string>
 	<string name="tags">برچسب ها</string>
 	<string name="filters">فیلترها</string>
 	<string name="date_shortcut_hour">برای یک ساعت</string>

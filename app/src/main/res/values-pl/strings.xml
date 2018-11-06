@@ -311,9 +311,6 @@
 	<string name="pick_a_date_and_time">Wybierz datę i czas</string>
 	<string name="when_overdue">Gdy zaległe</string>
 	<string name="when_due">Gdy w terminie</string>
-	<string name="geofence_radius_title">Zasięg (metrów)</string>
-	<string name="geofence_responsiveness_title">Czas reakcji (wyższa wartość oszczędza baterię)</string>
-	<string name="geolocation_reminders">Przypomnienie geolokacyjne</string>
 	<string name="tags">Tagi</string>
 	<string name="filters">Filtry</string>
 	<string name="date_shortcut_hour">Na godzinę</string>

@@ -247,9 +247,6 @@
 	<string name="pick_a_date_and_time">Обрати дату та час</string>
 	<string name="when_overdue">Коли прострочено</string>
 	<string name="when_due">Коли заплановано час</string>
-	<string name="geofence_radius_title">Радіус (метри)</string>
-	<string name="geofence_responsiveness_title">Час відклику (вище значення зберігає заряд батареї)</string>
-	<string name="geolocation_reminders">Геолокаційні нагадування</string>
 	<string name="tags">Теги</string>
 	<string name="filters">Фільтри</string>
 	<string name="date_shortcut_hour">На годину</string>

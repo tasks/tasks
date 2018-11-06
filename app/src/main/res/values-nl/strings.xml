@@ -325,8 +325,6 @@
 	<string name="pick_a_date_and_time">Kies een datum en tijd</string>
 	<string name="when_overdue">Na de einddatum</string>
 	<string name="when_due">Op de eindtijd</string>
-	<string name="geofence_responsiveness_title">Antwoord tijd (hogere waarde verbruikt meer batterij)</string>
-	<string name="geolocation_reminders">Geolocatie Herinneringen</string>
 	<string name="tags">Labels</string>
 	<string name="date_shortcut_hour">Voor een uur</string>
 	<string name="date_shortcut_morning">Ochtend</string>

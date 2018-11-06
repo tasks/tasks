@@ -322,9 +322,6 @@
 	<string name="pick_a_date_and_time">Tag und Uhrzeit auswählen</string>
 	<string name="when_overdue">Wenn überfällig</string>
 	<string name="when_due">Wenn fällig</string>
-	<string name="geofence_radius_title">Radius (Meter)</string>
-	<string name="geofence_responsiveness_title">Antwortzeit (Größere Werte sparen Akkuleistung)</string>
-	<string name="geolocation_reminders">Geo-/Ortsbasierte Erinnerungen</string>
 	<string name="tags">Schlagworte</string>
 	<string name="filters">Filter</string>
 	<string name="date_shortcut_hour">Für eine Stunde</string>

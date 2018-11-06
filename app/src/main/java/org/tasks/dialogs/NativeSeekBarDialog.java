@@ -2,8 +2,6 @@ package org.tasks.dialogs;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,17 +12,18 @@ import butterknife.ButterKnife;
 import com.rey.material.widget.Slider;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.injection.DialogFragmentComponent;
-import org.tasks.injection.InjectingDialogFragment;
+import org.tasks.injection.InjectingNativeDialogFragment;
+import org.tasks.injection.NativeDialogFragmentComponent;
 import org.tasks.locale.Locale;
 import org.tasks.themes.Theme;
 
-public class SeekBarDialog extends InjectingDialogFragment {
+public class NativeSeekBarDialog extends InjectingNativeDialogFragment {
 
   private static final String EXTRA_LAYOUT = "extra_layout";
-  public static final String EXTRA_VALUE = "extra_value";
+  private static final String EXTRA_INITIAL_VALUE = "extra_initial_value";
   private static final String EXTRA_MIN = "extra_min";
   private static final String EXTRA_MAX = "extra_max";
+  private static final String EXTRA_REQUEST_CODE = "extra_request_code";
 
   @BindView(R.id.slider)
   Slider slider;
@@ -38,14 +37,18 @@ public class SeekBarDialog extends InjectingDialogFragment {
   @Inject DialogBuilder dialogBuilder;
   @Inject Theme theme;
   @Inject Locale locale;
+  private int requestCode;
+  private SeekBarCallback callback;
 
-  static SeekBarDialog newSeekBarDialog(int layout, int min, int max, int initial) {
-    SeekBarDialog dialog = new SeekBarDialog();
+  public static NativeSeekBarDialog newSeekBarDialog(
+      int layout, int min, int max, int initial, int requestCode) {
+    NativeSeekBarDialog dialog = new NativeSeekBarDialog();
     Bundle args = new Bundle();
     args.putInt(EXTRA_LAYOUT, layout);
     args.putInt(EXTRA_MIN, min);
     args.putInt(EXTRA_MAX, max);
-    args.putInt(EXTRA_VALUE, initial);
+    args.putInt(EXTRA_INITIAL_VALUE, initial);
+    args.putInt(EXTRA_REQUEST_CODE, requestCode);
     dialog.setArguments(args);
     return dialog;
   }
@@ -54,10 +57,11 @@ public class SeekBarDialog extends InjectingDialogFragment {
   @Override
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     Bundle arguments = getArguments();
+    requestCode = arguments.getInt(EXTRA_REQUEST_CODE);
     int initial =
         savedInstanceState == null
-            ? arguments.getInt(EXTRA_VALUE)
-            : savedInstanceState.getInt(EXTRA_VALUE);
+            ? arguments.getInt(EXTRA_INITIAL_VALUE)
+            : savedInstanceState.getInt(EXTRA_INITIAL_VALUE);
     int layout = arguments.getInt(EXTRA_LAYOUT);
 
     LayoutInflater layoutInflater = theme.getLayoutInflater(getActivity());
@@ -72,32 +76,34 @@ public class SeekBarDialog extends InjectingDialogFragment {
     return dialogBuilder
         .newDialog()
         .setView(view)
-        .setOnCancelListener(this::sendResult)
-        .setPositiveButton(android.R.string.ok, this::sendResult)
+        .setPositiveButton(
+            android.R.string.ok,
+            (dialogInterface, i) -> callback.valueSelected(slider.getValue(), requestCode))
         .setNegativeButton(android.R.string.cancel, null)
-        .show();
+        .create();
   }
 
   @Override
-  public void onCancel(DialogInterface dialog) {
-    sendResult(dialog);
-  }
+  public void onAttach(Activity activity) {
+    super.onAttach(activity);
 
-  private void sendResult(DialogInterface d, int... i) {
-    Intent data = new Intent();
-    data.putExtra(EXTRA_VALUE, slider.getValue());
-    getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, data);
+    callback = (SeekBarCallback) activity;
   }
 
   @Override
   public void onSaveInstanceState(Bundle outState) {
     super.onSaveInstanceState(outState);
 
-    outState.putInt(EXTRA_VALUE, slider.getValue());
+    outState.putInt(EXTRA_INITIAL_VALUE, slider.getValue());
   }
 
   @Override
-  protected void inject(DialogFragmentComponent component) {
+  protected void inject(NativeDialogFragmentComponent component) {
     component.inject(this);
+  }
+
+  public interface SeekBarCallback {
+
+    void valueSelected(int value, int requestCode);
   }
 }

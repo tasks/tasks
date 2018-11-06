@@ -244,9 +244,6 @@
 	<string name="pick_a_date_and_time">Ställ in datum och tid</string>
 	<string name="when_overdue">Efter förfallotid</string>
 	<string name="when_due">Vid förfallotid</string>
-	<string name="geofence_radius_title">Radie (meter)</string>
-	<string name="geofence_responsiveness_title">Svarstid (högre värde sparar batteri)</string>
-	<string name="geolocation_reminders">Platsbaserade påminnelser</string>
 	<string name="tags">Etiketter</string>
 	<string name="filters">Filter</string>
 	<string name="date_shortcut_hour">En timme</string>

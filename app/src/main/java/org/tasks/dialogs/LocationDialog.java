@@ -1,6 +1,8 @@
 package org.tasks.dialogs;
 
-import android.app.Activity;
+import static android.app.Activity.RESULT_OK;
+import static org.tasks.dialogs.SeekBarDialog.newSeekBarDialog;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -24,14 +26,19 @@ import org.tasks.data.Location;
 import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.InjectingDialogFragment;
+import org.tasks.locale.Locale;
 
 public class LocationDialog extends InjectingDialogFragment {
 
   public static final String EXTRA_LOCATION = "extra_location";
   public static final String EXTRA_ORIGINAL = "extra_original";
 
+  private static final String FRAG_TAG_SEEKBAR = "frag_tag_seekbar";
+  private static final int REQUEST_RADIUS = 10101;
+
   @Inject DialogBuilder dialogBuilder;
   @Inject @ForActivity Context context;
+  @Inject Locale locale;
 
   @BindView(R.id.location_arrival)
   Switch arrivalView;
@@ -44,6 +51,9 @@ public class LocationDialog extends InjectingDialogFragment {
 
   @BindView(R.id.location_url)
   TextView urlView;
+
+  @BindView(R.id.location_radius_value)
+  TextView radiusValue;
 
   public static LocationDialog newLocationDialog(Location location) {
     LocationDialog dialog = new LocationDialog();
@@ -66,6 +76,7 @@ public class LocationDialog extends InjectingDialogFragment {
     ButterKnife.bind(this, view);
     arrivalView.setChecked(location.isArrival());
     departureView.setChecked(location.isDeparture());
+    updateRadius(location.getRadius());
     String phone = location.getPhone();
     if (!Strings.isNullOrEmpty(phone)) {
       callView.setVisibility(View.VISIBLE);
@@ -96,6 +107,7 @@ public class LocationDialog extends InjectingDialogFragment {
     Location result = getOriginal();
     result.setArrival(arrivalView.isChecked());
     result.setDeparture(departureView.isChecked());
+    result.setRadius((int) radiusValue.getTag());
     return result;
   }
 
@@ -115,7 +127,7 @@ public class LocationDialog extends InjectingDialogFragment {
     Intent data = new Intent();
     data.putExtra(EXTRA_ORIGINAL, (Parcelable) getOriginal());
     data.putExtra(EXTRA_LOCATION, (Parcelable) result);
-    getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, data);
+    getTargetFragment().onActivityResult(getTargetRequestCode(), RESULT_OK, data);
     dismiss();
   }
 
@@ -124,6 +136,17 @@ public class LocationDialog extends InjectingDialogFragment {
     super.onSaveInstanceState(outState);
 
     outState.putParcelable(EXTRA_LOCATION, toLocation());
+  }
+
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    if (requestCode == REQUEST_RADIUS) {
+      if (resultCode == RESULT_OK) {
+        updateRadius(data.getIntExtra(SeekBarDialog.EXTRA_VALUE, 250));
+      }
+    } else {
+      super.onActivityResult(requestCode, resultCode, data);
+    }
   }
 
   @OnClick(R.id.location_url)
@@ -138,6 +161,19 @@ public class LocationDialog extends InjectingDialogFragment {
     Intent intent = new Intent(Intent.ACTION_DIAL);
     intent.setData(Uri.parse("tel:" + getOriginal().getPhone()));
     startActivity(intent);
+  }
+
+  @OnClick(R.id.location_radius)
+  void selectRadius() {
+    SeekBarDialog seekBarDialog =
+        newSeekBarDialog(R.layout.dialog_radius_seekbar, 75, 1000, toLocation().getRadius());
+    seekBarDialog.setTargetFragment(this, REQUEST_RADIUS);
+    seekBarDialog.show(getFragmentManager(), FRAG_TAG_SEEKBAR);
+  }
+
+  private void updateRadius(int radius) {
+    radiusValue.setText(getString(R.string.location_radius_meters, locale.formatNumber(radius)));
+    radiusValue.setTag(radius);
   }
 
   @Override

@@ -327,9 +327,6 @@
 	<string name="pick_a_date_and_time">Scegli data e ora</string>
 	<string name="when_overdue">Quando scaduta</string>
 	<string name="when_due">Alla scadenza</string>
-	<string name="geofence_radius_title">Raggio (metri)</string>
-	<string name="geofence_responsiveness_title">Tempo di risposta (valore elevato preserva batteria)</string>
-	<string name="geolocation_reminders">Promemoria Geolocalizzazione</string>
 	<string name="tags">Etichette</string>
 	<string name="filters">Filtri</string>
 	<string name="date_shortcut_hour">Per un\'ora</string>

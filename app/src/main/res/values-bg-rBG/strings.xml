@@ -330,9 +330,6 @@
 	<string name="pick_a_date_and_time">Избери дата и време</string>
 	<string name="when_overdue">След крайния срок</string>
 	<string name="when_due">При краен срок</string>
-	<string name="geofence_radius_title">Радиус (метри)</string>
-	<string name="geofence_responsiveness_title">Време за отговор (по-голяма стойност запазва батерията)</string>
-	<string name="geolocation_reminders">Напомняния за геолокация</string>
 	<string name="tags">Тагове</string>
 	<string name="filters">Филтри</string>
 	<string name="date_shortcut_hour">За час</string>

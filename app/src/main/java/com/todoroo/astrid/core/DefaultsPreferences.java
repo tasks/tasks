@@ -7,6 +7,7 @@ package com.todoroo.astrid.core;
 
 import static org.tasks.PermissionUtil.verifyPermissions;
 import static org.tasks.activities.RemoteListNativePicker.newRemoteListNativePicker;
+import static org.tasks.dialogs.NativeSeekBarDialog.newSeekBarDialog;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,9 +23,11 @@ import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.calendars.AndroidCalendar;
 import org.tasks.calendars.CalendarProvider;
+import org.tasks.dialogs.NativeSeekBarDialog;
 import org.tasks.gtasks.RemoteListSelectionHandler;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
+import org.tasks.locale.Locale;
 import org.tasks.preferences.ActivityPermissionRequestor;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Device;
@@ -33,9 +36,10 @@ import org.tasks.preferences.Preferences;
 import org.tasks.sync.SyncAdapters;
 
 public class DefaultsPreferences extends InjectingPreferenceActivity
-    implements RemoteListSelectionHandler {
+    implements RemoteListSelectionHandler, NativeSeekBarDialog.SeekBarCallback {
 
   private static final String FRAG_TAG_REMOTE_LIST_SELECTION = "frag_tag_remote_list_selection";
+  private static final String FRAG_TAG_RADIUS_PICKER = "frag_tag_radius_picker";
 
   private static final int REQUEST_CALENDAR_SELECTION = 10412;
 
@@ -45,8 +49,10 @@ public class DefaultsPreferences extends InjectingPreferenceActivity
   @Inject Tracker tracker;
   @Inject DefaultFilterProvider defaultFilterProvider;
   @Inject SyncAdapters syncAdapters;
+  @Inject Locale locale;
 
   private Preference defaultCalendarPref;
+  private Preference defaultRadiusPref;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -76,6 +82,19 @@ public class DefaultsPreferences extends InjectingPreferenceActivity
               return false;
             });
     updateRemoteListSummary();
+    defaultRadiusPref = findPreference(R.string.p_default_location_radius);
+    defaultRadiusPref.setOnPreferenceClickListener(
+        preference -> {
+          newSeekBarDialog(
+                  R.layout.dialog_radius_seekbar,
+                  75,
+                  1000,
+                  preferences.getInt(R.string.p_default_location_radius, 250),
+                  0)
+              .show(getFragmentManager(), FRAG_TAG_RADIUS_PICKER);
+          return false;
+        });
+    updateRadius();
 
     requires(syncAdapters.isSyncEnabled(), R.string.p_default_remote_list);
     requires(Device.SupportsLocationServices(this), R.string.p_default_location_reminder_key);
@@ -138,8 +157,20 @@ public class DefaultsPreferences extends InjectingPreferenceActivity
             defaultFilter == null ? getString(R.string.dont_sync) : defaultFilter.listingTitle);
   }
 
+  private void updateRadius() {
+    String radius =
+        locale.formatNumber(preferences.getInt(R.string.p_default_location_radius, 250));
+    defaultRadiusPref.setSummary(getString(R.string.location_radius_meters, radius));
+  }
+
   @Override
   public void inject(ActivityComponent component) {
     component.inject(this);
+  }
+
+  @Override
+  public void valueSelected(int radius, int requestCode) {
+    preferences.setInt(R.string.p_default_location_radius, radius);
+    updateRadius();
   }
 }

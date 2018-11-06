@@ -1,6 +1,6 @@
 package org.tasks.widget;
 
-import static org.tasks.dialogs.SeekBarDialog.newSeekBarDialog;
+import static org.tasks.dialogs.NativeSeekBarDialog.newSeekBarDialog;
 
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
@@ -15,7 +15,7 @@ import org.tasks.activities.ColorPickerActivity;
 import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.analytics.Tracker;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.dialogs.SeekBarDialog;
+import org.tasks.dialogs.NativeSeekBarDialog;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.locale.Locale;
@@ -26,7 +26,7 @@ import org.tasks.themes.ThemeColor;
 import org.tasks.themes.WidgetTheme;
 
 public class WidgetConfigActivity extends InjectingPreferenceActivity
-    implements SeekBarDialog.SeekBarCallback {
+    implements NativeSeekBarDialog.SeekBarCallback {
 
   private static final String FRAG_TAG_OPACITY_SEEKBAR = "frag_tag_opacity_seekbar";
   private static final String FRAG_TAG_FONT_SIZE_SEEKBAR = "frag_tag_font_size_seekbar";

@@ -328,9 +328,6 @@
 	<string name="pick_a_date_and_time">בחר תאריך ושעה</string>
 	<string name="when_overdue">לאחר מועד היעד</string>
 	<string name="when_due">במועד היעד</string>
-	<string name="geofence_radius_title">רדיוס (במטרים)</string>
-	<string name="geofence_responsiveness_title">זמן תגובה (ערך גבוה חוסך בסוללה)</string>
-	<string name="geolocation_reminders">התראות מיקום</string>
 	<string name="tags">תגיות</string>
 	<string name="filters">פילטרים</string>
 	<string name="date_shortcut_hour">בעוד שעה</string>

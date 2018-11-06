@@ -326,9 +326,6 @@
 	<string name="pick_a_date_and_time">Дата и время</string>
 	<string name="when_overdue">Когда просрочено</string>
 	<string name="when_due">В срок</string>
-	<string name="geofence_radius_title">Радиус (в метрах)</string>
-	<string name="geofence_responsiveness_title">Период отслеживания (чем выше, тем меньше расход батареи)</string>
-	<string name="geolocation_reminders">Напоминания по местонахождению</string>
 	<string name="tags">Теги</string>
 	<string name="filters">Фильтры</string>
 	<string name="date_shortcut_hour">На час</string>

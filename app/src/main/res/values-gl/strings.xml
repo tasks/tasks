@@ -245,9 +245,6 @@
 	<string name="pick_a_date_and_time">Elegir fecha y hora</string>
 	<string name="when_overdue">Si está atrasada</string>
 	<string name="when_due">Al vencimiento</string>
-	<string name="geofence_radius_title">Radio (metros)</string>
-	<string name="geofence_responsiveness_title">Tiempo de respuesta (valores altos mejoran autonomía de batería)</string>
-	<string name="geolocation_reminders">Recordatorios de Geolocalización</string>
 	<string name="tags">Etiquetas</string>
 	<string name="filters">Filtros</string>
 	<string name="date_shortcut_hour">Por una hora</string>

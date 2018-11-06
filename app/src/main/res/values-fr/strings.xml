@@ -314,9 +314,6 @@
 	<string name="pick_a_date_and_time">Choisir date et heure</string>
 	<string name="when_overdue">En cas de retard</string>
 	<string name="when_due">A l\'échéance</string>
-	<string name="geofence_radius_title">Rayon (mètres)</string>
-	<string name="geofence_responsiveness_title">Temps de réponse (les valeurs élevées améliorent l\'autonomie)</string>
-	<string name="geolocation_reminders">Rappels géolocalisés</string>
 	<string name="filters">Filtres</string>
 	<string name="date_shortcut_hour">Pour une heure</string>
 	<string name="date_shortcut_morning">Matin</string>

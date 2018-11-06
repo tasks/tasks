@@ -285,6 +285,7 @@ File %1$s contained %2$s.\n\n
   <!-- slide 43e: Preference: Default Reminders Title -->
   <string name="EPr_default_reminders_title">Default reminders</string>
   <string name="EPr_default_location_reminder_title">Default location reminders</string>
+  <string name="EPr_default_location_radius">Default radius</string>
 
   <!-- slide 45d: Reminder Mode Preference: Default Reminders Duration -->
   <string name="EPr_default_reminders_mode_title">Default ring/vibrate type</string>
@@ -687,9 +688,8 @@ File %1$s contained %2$s.\n\n
   <string name="pick_a_date_and_time">Pick a date and time</string>
   <string name="when_overdue">When overdue</string>
   <string name="when_due">When due</string>
-  <string name="geofence_radius_title">Radius (meters)</string>
-  <string name="geofence_responsiveness_title">Response time (higher value conserves battery)</string>
-  <string name="geolocation_reminders">Geolocation Reminders</string>
+  <string name="geofence_radius">Radius</string>
+  <string name="location_radius_meters">%s m</string>
   <string name="tags">Tags</string>
   <string name="filters">Filters</string>
   <string name="date_shortcut_hour">For an hour</string>

@@ -197,8 +197,6 @@
 	<string name="translations">貢獻翻譯</string>
 	<string name="rate_tasks">為 Tasks 評分</string>
 	<string name="TLA_menu_donate">贊助</string>
-	<string name="geofence_radius_title">半徑 (公尺)</string>
-	<string name="geolocation_reminders">地理位置提醒</string>
 	<string name="tags">標籤</string>
 	<string name="filters">過濾</string>
 	<string name="date_shortcut_tomorrow_morning">明天早上</string>

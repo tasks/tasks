@@ -1,30 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <string-array name="geofence_radius_values">
-    <item>75</item>
-    <item>125</item>
-    <item>250</item>
-    <item>500</item>
-    <item>1000</item>
-  </string-array>
-
-  <string-array name="geofence_responsiveness">
-    <item>00:15</item>
-    <item>00:30</item>
-    <item>01:00</item>
-    <item>05:00</item>
-    <item>10:00</item>
-  </string-array>
-
-  <string-array name="geofence_responsiveness_values">
-    <item>15</item>
-    <item>30</item>
-    <item>60</item>
-    <item>300</item>
-    <item>600</item>
-  </string-array>
-
   <string-array name="TEA_hideUntil_spinner">
     <item>@string/due_date</item>
     <item>@string/due_time</item>

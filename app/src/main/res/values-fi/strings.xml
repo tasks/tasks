@@ -323,9 +323,6 @@
 	<string name="pick_a_date_and_time">Valitse päivä ja aika</string>
 	<string name="when_overdue">Kunnes yliajalla</string>
 	<string name="when_due">Milloin määräaika</string>
-	<string name="geofence_radius_title">Säde (metriä)</string>
-	<string name="geofence_responsiveness_title">Vasteaika (korkeampi arvo kuluttaa enemmän akkua)</string>
-	<string name="geolocation_reminders">Paikannuksen muistutukset</string>
 	<string name="tags">Tunnisteet</string>
 	<string name="filters">Suodattimet</string>
 	<string name="date_shortcut_hour">Tunnin verran</string>

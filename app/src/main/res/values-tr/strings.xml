@@ -332,9 +332,6 @@
 	<string name="pick_a_date_and_time">Bir tarih ve zaman seç</string>
 	<string name="when_overdue">Geciktiğinde</string>
 	<string name="when_due">Zamanı geldiğinde</string>
-	<string name="geofence_radius_title">Yarıçap (metre)</string>
-	<string name="geofence_responsiveness_title">Yanıt süresi (yüksek değer pili korur)</string>
-	<string name="geolocation_reminders">Coğrafi Konum Hatırlatmaları</string>
 	<string name="tags">Etiketler</string>
 	<string name="filters">Süzgeçler</string>
 	<string name="date_shortcut_hour">Bir saatliğine</string>

@@ -330,9 +330,6 @@
 	<string name="pick_a_date_and_time">Válasszon dátumot és időpontot</string>
 	<string name="when_overdue">Határidő lejárta után</string>
 	<string name="when_due">Határidő elérésekor</string>
-	<string name="geofence_radius_title">Távolság (méterben)</string>
-	<string name="geofence_responsiveness_title">Válaszidő (magasabb érték kíméli az akkumulátort)</string>
-	<string name="geolocation_reminders">Helyhez kötött Emlékeztetők</string>
 	<string name="tags">Címkék</string>
 	<string name="filters">Szűrők</string>
 	<string name="date_shortcut_hour">Egy órára</string>

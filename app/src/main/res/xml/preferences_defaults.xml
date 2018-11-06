@@ -38,6 +38,10 @@
     android:entryValues="@array/EPR_default_location_reminder_values"
     android:key="@string/p_default_location_reminder_key"
     android:title="@string/EPr_default_location_reminder_title" />
+  <com.todoroo.astrid.ui.MultilinePreference
+    android:defaultValue="250"
+    android:key="@string/p_default_location_radius"
+    android:title="@string/EPr_default_location_radius" />
   <com.todoroo.astrid.ui.MultilineListPreference
     android:defaultValue="0"
     android:entries="@array/EPr_reminder_random"

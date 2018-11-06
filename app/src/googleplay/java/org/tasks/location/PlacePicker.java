@@ -52,7 +52,7 @@ public class PlacePicker {
     }
     location.setLatitude(latLng.latitude);
     location.setLongitude(latLng.longitude);
-    location.setRadius(preferences.getIntegerFromString(R.string.p_geofence_radius, 250));
+    location.setRadius(preferences.getInt(R.string.p_default_location_radius, 250));
     Timber.i("Picked %s", location);
     return location;
   }

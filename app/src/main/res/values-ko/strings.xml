@@ -330,9 +330,6 @@
 	<string name="pick_a_date_and_time">날짜와 시간 선택</string>
 	<string name="when_overdue">일정 마감일이 지났을 때</string>
 	<string name="when_due">일정 마감일에</string>
-	<string name="geofence_radius_title">반경 (미터 단위)</string>
-	<string name="geofence_responsiveness_title">반응 속도 (높은 수치일수록 배터리 절약)</string>
-	<string name="geolocation_reminders">위치정보 알림</string>
 	<string name="tags">태그</string>
 	<string name="filters">필터</string>
 	<string name="date_shortcut_hour">한 시간동안</string>

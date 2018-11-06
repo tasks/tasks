@@ -108,7 +108,6 @@
 	<string name="translations">Contribuir traduccions</string>
 	<string name="contact_developer">Contacta amb el desenvolupador</string>
 	<string name="quiet_hours_summary">Sense recordatoris durant les hores de silenci</string>
-	<string name="geofence_radius_title">Radi (metres)</string>
 	<string name="filters">Filtres</string>
 	<string name="filter_settings">Configuració dels filtres</string>
 	<string name="show_hidden">Mostra ocultes</string>

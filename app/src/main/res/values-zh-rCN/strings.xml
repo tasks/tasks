@@ -327,9 +327,6 @@
 	<string name="pick_a_date_and_time">选个日期和时间</string>
 	<string name="when_overdue">过期时</string>
 	<string name="when_due">到期时</string>
-	<string name="geofence_radius_title">半径（米）</string>
-	<string name="geofence_responsiveness_title">响应时间（更高的节电值）</string>
-	<string name="geolocation_reminders">地理位置提醒</string>
 	<string name="tags">标签</string>
 	<string name="filters">过滤器</string>
 	<string name="date_shortcut_hour">一个小时</string>

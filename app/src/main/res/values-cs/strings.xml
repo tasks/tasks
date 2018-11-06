@@ -221,9 +221,6 @@
 	<string name="randomly">Náhodně</string>
 	<string name="pick_a_date">Vybrat datum</string>
 	<string name="pick_a_time">Vybrat čas</string>
-	<string name="geofence_radius_title">Okruh (v metrech)</string>
-	<string name="geofence_responsiveness_title">Doba odezvy (vyšší hodnota šetří baterii)</string>
-	<string name="geolocation_reminders">Geolokační upomínky</string>
 	<string name="tags">Tagy</string>
 	<string name="filters">Filtry</string>
 	<string name="date_shortcut_morning">Ráno</string>

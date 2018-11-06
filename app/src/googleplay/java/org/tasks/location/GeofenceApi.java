@@ -17,9 +17,7 @@ import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.common.collect.Lists;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
-import org.tasks.R;
 import org.tasks.data.Location;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.PermissionChecker;
@@ -29,7 +27,6 @@ import timber.log.Timber;
 public class GeofenceApi {
 
   private final Context context;
-  private final Preferences preferences;
   private final PermissionChecker permissionChecker;
 
   @Inject
@@ -38,7 +35,6 @@ public class GeofenceApi {
       Preferences preferences,
       PermissionChecker permissionChecker) {
     this.context = context;
-    this.preferences = preferences;
     this.permissionChecker = permissionChecker;
   }
 
@@ -115,11 +111,6 @@ public class GeofenceApi {
   }
 
   private com.google.android.gms.location.Geofence toGoogleGeofence(Location location) {
-    int radius = preferences.getIntegerFromString(R.string.p_geofence_radius, 250);
-    int responsiveness =
-        (int)
-            TimeUnit.SECONDS.toMillis(
-                preferences.getIntegerFromString(R.string.p_geofence_responsiveness, 60));
     int transitionTypes = 0;
     if (location.isArrival()) {
       transitionTypes |= GeofencingRequest.INITIAL_TRIGGER_ENTER;
@@ -128,8 +119,7 @@ public class GeofenceApi {
       transitionTypes |= GeofencingRequest.INITIAL_TRIGGER_EXIT;
     }
     return new com.google.android.gms.location.Geofence.Builder()
-        .setCircularRegion(location.getLatitude(), location.getLongitude(), radius)
-        .setNotificationResponsiveness(responsiveness)
+        .setCircularRegion(location.getLatitude(), location.getLongitude(), location.getRadius())
         .setRequestId(Long.toString(location.getId()))
         .setTransitionTypes(transitionTypes)
         .setExpirationDuration(NEVER_EXPIRE)

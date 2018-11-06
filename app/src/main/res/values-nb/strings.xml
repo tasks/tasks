@@ -139,9 +139,6 @@
 	<string name="source_code">Kildekode</string>
 	<string name="contact_developer">Kontakt utvikler</string>
 	<string name="rate_tasks">Gi Tasks din vurdering</string>
-	<string name="geofence_radius_title">Radius (meter)</string>
-	<string name="geofence_responsiveness_title">Responstid (høyere verdi bruker mindre batteri)</string>
-	<string name="geolocation_reminders">Geolokasjonsvarsler</string>
 	<string name="tags">Tagger</string>
 	<string name="filters">Filtere</string>
 	<string name="filter_settings">Filtreringsinnstillinger</string>

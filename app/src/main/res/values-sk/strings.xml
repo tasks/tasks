@@ -320,9 +320,6 @@
 	<string name="pick_a_date_and_time">Vybrať dátum a čas</string>
 	<string name="when_overdue">Keď po termíne</string>
 	<string name="when_due">Keď v termíne</string>
-	<string name="geofence_radius_title">Okruh (v metroch)</string>
-	<string name="geofence_responsiveness_title">Doba odozvy (vyššia hodnota šetrí batériu)</string>
-	<string name="geolocation_reminders">Pripomienky polohy</string>
 	<string name="tags">Štítky</string>
 	<string name="filters">Filtre</string>
 	<string name="date_shortcut_hour">Za hodinu</string>

@@ -327,9 +327,6 @@
 	<string name="pick_a_date_and_time">Pasirinkti datą ir laiką</string>
 	<string name="when_overdue">Terminui pasibaigus</string>
 	<string name="when_due">Atėjus terminui</string>
-	<string name="geofence_radius_title">Spindulys (metrais)</string>
-	<string name="geofence_responsiveness_title">Reakcijos laikas (didesnis taupys bateriją)</string>
-	<string name="geolocation_reminders">Geolokaciniai priminimai</string>
 	<string name="tags">Etiketė</string>
 	<string name="filters">Filtrai</string>
 	<string name="date_shortcut_hour">Valandai</string>

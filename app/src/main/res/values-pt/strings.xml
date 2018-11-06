@@ -320,9 +320,6 @@
 	<string name="pick_a_date_and_time">Escolha a data e a hora</string>
 	<string name="when_overdue">Se data limite ultrapassada</string>
 	<string name="when_due">Na data limite</string>
-	<string name="geofence_radius_title">Raio (metros)</string>
-	<string name="geofence_responsiveness_title">Tempo de resposta (valores maiores poupam bateria)</string>
-	<string name="geolocation_reminders">Lembretes de geolocalização</string>
 	<string name="tags">Etiquetas</string>
 	<string name="filters">Filtros</string>
 	<string name="date_shortcut_hour">Por uma hora</string>
