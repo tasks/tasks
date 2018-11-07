@@ -30,6 +30,10 @@ public class Linkify {
   }
 
   public void linkify(TextView textView, Runnable onClick, Runnable onLongClick) {
+    if (textView.length() == 0) {
+      return;
+    }
+
     BetterLinkMovementMethod.linkify(android.text.util.Linkify.ALL, textView)
         .setOnLinkClickListener((tv, url) -> handleLink(url, onClick))
         .setOnLinkLongClickListener(
