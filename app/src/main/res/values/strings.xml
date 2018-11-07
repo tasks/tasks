@@ -175,6 +175,7 @@ File %1$s contained %2$s.\n\n
   <string name="TEA_control_repeat">Repeat</string>
   <string name="TEA_control_gcal">Calendar</string>
   <string name="TEA_control_importance">Priority</string>
+  <string name="TEA_control_location">Location</string>
   <string name="TEA_control_notes">Description</string>
 
   <string name="TEA_control_files">Files</string>
