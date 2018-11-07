@@ -1,7 +1,7 @@
 Change Log
 ---
 
-### 6.3 (2018-11-06)
+### 6.3.1 (2018-11-07)
 
 * New location row in task edit screen
 * Add location departure notifications

@@ -62,7 +62,7 @@ public class AfterSaveWork extends InjectingWorker {
                 EXTRA_PUSH_CALDAV, !suppress && (force || !current.caldavUpToDate(original)));
     if (original != null) {
       builder
-          .putLong(EXTRA_ORIG_DELETED, original.getCompletionDate())
+          .putLong(EXTRA_ORIG_COMPLETED, original.getCompletionDate())
           .putLong(EXTRA_ORIG_DELETED, original.getDeletionDate());
     }
     return builder.build();
