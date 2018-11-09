@@ -1,6 +1,5 @@
 package org.tasks.scheduling;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static com.todoroo.andlib.utility.DateUtilities.ONE_MINUTE;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
@@ -22,7 +21,7 @@ public class RefreshScheduler {
     this.workManager = workManager;
   }
 
-  public void scheduleRefresh(Task task) {
+  public synchronized void scheduleRefresh(Task task) {
     if (task.isCompleted()) {
       scheduleRefresh(task.getCompletionDate() + ONE_MINUTE);
     } else if (task.hasDueDate()) {
@@ -33,26 +32,21 @@ public class RefreshScheduler {
     }
   }
 
-  private void scheduleRefresh(Long refreshTime) {
+  private void scheduleRefresh(Long timestamp) {
     long now = currentTimeMillis();
-    if (now < refreshTime) {
-      refreshTime += 1000; // this is ghetto
-      schedule(refreshTime);
+    if (now < timestamp) {
+      SortedSet<Long> upcoming = jobs.tailSet(now);
+      boolean reschedule = upcoming.isEmpty() || timestamp < upcoming.first();
+      jobs.add(timestamp);
+      if (reschedule) {
+        scheduleNext();
+      }
     }
   }
 
-  private void schedule(long timestamp) {
-    SortedSet<Long> upcoming = jobs.tailSet(currentTimeMillis());
-    boolean reschedule = upcoming.isEmpty() || timestamp < upcoming.first();
-    jobs.add(timestamp);
-    if (reschedule) {
-      scheduleNext();
-    }
-  }
-
-  public void scheduleNext() {
-    long now = currentTimeMillis();
-    jobs.removeAll(newArrayList(jobs.headSet(now + 1)));
+  public synchronized void scheduleNext() {
+    SortedSet<Long> lapsed = jobs.headSet(currentTimeMillis() + 1);
+    jobs.removeAll(lapsed);
     if (!jobs.isEmpty()) {
       workManager.scheduleRefresh(jobs.first());
     }
