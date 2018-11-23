@@ -297,6 +297,7 @@
 	<string name="widget_show_checkboxes">Pokaż przyciski wyboru</string>
 	<string name="widget_show_header">Pokaż nagłówek</string>
 	<string name="widget_show_settings">Pokaż ustawienia</string>
+	<string name="widget_show_clear">Pokaż przycisk wyczyść</string>
 	<string name="notifications">Powiadomienia</string>
 	<string name="silent">Cichy</string>
 	<string name="sound">Dźwięk</string>

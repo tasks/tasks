@@ -21,8 +21,24 @@
       android:layout_height="fill_parent"
       android:scaleType="fitXY"/>
 
+      <ImageButton
+          android:id="@+id/widget_clear_button"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_centerVertical="true"
+          android:layout_toLeftOf="@id/widget_reconfigure_button"
+          android:layout_toStartOf="@id/widget_reconfigure_button"
+          android:paddingStart="@dimen/widget_padding"
+          android:paddingEnd="0dp"
+          android:paddingLeft="@dimen/widget_padding"
+          android:paddingRight="0dp"
+          android:background="@android:color/transparent"
+          android:scaleType="fitCenter"
+          android:src="@drawable/ic_outline_sync_24px"
+          android:tint="@android:color/white"/>
+
     <ImageButton
-      android:id="@+id/widget_button"
+      android:id="@+id/widget_add_button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignParentEnd="true"
@@ -38,12 +54,12 @@
       android:tint="@android:color/white"/>
 
     <ImageButton
-      android:id="@+id/widget_reconfigure"
+      android:id="@+id/widget_reconfigure_button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_centerVertical="true"
-      android:layout_toLeftOf="@id/widget_button"
-      android:layout_toStartOf="@id/widget_button"
+      android:layout_toLeftOf="@id/widget_add_button"
+      android:layout_toStartOf="@id/widget_add_button"
       android:paddingStart="@dimen/widget_padding"
       android:paddingEnd="0dp"
       android:paddingLeft="@dimen/widget_padding"
@@ -60,8 +76,8 @@
       android:layout_alignParentLeft="true"
       android:layout_alignParentStart="true"
       android:layout_centerVertical="true"
-      android:layout_toLeftOf="@id/widget_reconfigure"
-      android:layout_toStartOf="@id/widget_reconfigure"
+      android:layout_toLeftOf="@id/widget_clear_button"
+      android:layout_toStartOf="@id/widget_clear_button"
       android:paddingStart="@dimen/widget_padding"
       android:paddingEnd="0dp"
       android:paddingLeft="@dimen/widget_padding"

@@ -73,7 +73,9 @@ public class WidgetConfigActivity extends InjectingPreferenceActivity
     setupCheckbox(R.string.p_widget_show_checkboxes);
     CheckBoxPreference showHeader = setupCheckbox(R.string.p_widget_show_header);
     CheckBoxPreference showSettings = setupCheckbox(R.string.p_widget_show_settings);
+    CheckBoxPreference showClear = setupCheckbox(R.string.p_widget_show_clear);
     showSettings.setDependency(showHeader.getKey());
+    showClear.setDependency(showHeader.getKey());
 
     findPreference(R.string.p_widget_filter)
         .setOnPreferenceClickListener(

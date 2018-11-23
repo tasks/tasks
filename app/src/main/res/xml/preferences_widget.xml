@@ -28,6 +28,10 @@
       android:key="@string/p_widget_show_settings"
       android:title="@string/widget_show_settings"/>
 
+    <CheckBoxPreference
+        android:key="@string/p_widget_show_clear"
+        android:title="@string/widget_show_clear"/>
+
   </PreferenceCategory>
 
   <PreferenceCategory

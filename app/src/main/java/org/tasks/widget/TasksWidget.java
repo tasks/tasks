@@ -18,6 +18,8 @@ import android.view.View;
 import android.widget.RemoteViews;
 import com.google.common.base.Strings;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.service.TaskDeleter;
+
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.injection.BroadcastComponent;
@@ -37,13 +39,16 @@ public class TasksWidget extends InjectingAppWidgetProvider {
 
   public static final String COMPLETE_TASK = "COMPLETE_TASK";
   public static final String EDIT_TASK = "EDIT_TASK";
+  public static final String CLEAR_LIST = "CLEAR_LIST";
   public static final String EXTRA_FILTER_ID = "extra_filter_id";
+  public static final String EXTRA_FILTER = "extra_filter";
   public static final String EXTRA_ID = "extra_id"; // $NON-NLS-1$
   private static final int flags = FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TOP;
   @Inject Preferences preferences;
   @Inject DefaultFilterProvider defaultFilterProvider;
   @Inject ThemeCache themeCache;
   @Inject Locale locale;
+  @Inject TaskDeleter taskDeleter;
   @Inject @ForApplication Context context;
 
   private static Bitmap getSolidBackground(int bgColor) {
@@ -76,6 +81,12 @@ public class TasksWidget extends InjectingAppWidgetProvider {
         editTaskIntent.setFlags(flags);
         context.startActivity(editTaskIntent);
         break;
+      case CLEAR_LIST:
+        if (intent.hasExtra(EXTRA_FILTER)){
+          Filter filter = (Filter) intent.getExtras().get(EXTRA_FILTER);
+          taskDeleter.clearCompleted(filter);
+        }
+        break;
     }
   }
 
@@ -91,11 +102,15 @@ public class TasksWidget extends InjectingAppWidgetProvider {
 
       ComponentName thisWidget = new ComponentName(context, TasksWidget.class);
       int[] ids = appWidgetManager.getAppWidgetIds(thisWidget);
-      for (int id : ids) {
-        appWidgetManager.updateAppWidget(id, createScrollableWidget(context, id));
-      }
+      updateWidget(context, appWidgetManager, ids);
     } catch (Exception e) {
       Timber.e(e);
+    }
+  }
+
+  private void updateWidget(Context context, AppWidgetManager appWidgetManager, int[] ids) {
+    for (int id : ids) {
+      appWidgetManager.updateAppWidget(id, createScrollableWidget(context, id));
     }
   }
 
@@ -114,10 +129,13 @@ public class TasksWidget extends InjectingAppWidgetProvider {
     if (widgetPreferences.showHeader()) {
       remoteViews.setViewVisibility(R.id.widget_header, View.VISIBLE);
       remoteViews.setViewVisibility(
-          R.id.widget_reconfigure, widgetPreferences.showSettings() ? View.VISIBLE : View.GONE);
+          R.id.widget_reconfigure_button, widgetPreferences.showSettings() ? View.VISIBLE : View.GONE);
+      remoteViews.setViewVisibility(
+              R.id.widget_clear_button, widgetPreferences.showClear() ? View.VISIBLE : View.GONE);
       remoteViews.setInt(R.id.widget_title, "setTextColor", color.getActionBarTint());
-      remoteViews.setInt(R.id.widget_button, "setColorFilter", color.getActionBarTint());
-      remoteViews.setInt(R.id.widget_reconfigure, "setColorFilter", color.getActionBarTint());
+      remoteViews.setInt(R.id.widget_add_button, "setColorFilter", color.getActionBarTint());
+      remoteViews.setInt(R.id.widget_reconfigure_button, "setColorFilter", color.getActionBarTint());
+      remoteViews.setInt(R.id.widget_clear_button, "setColorFilter", color.getActionBarTint());
     } else {
       remoteViews.setViewVisibility(R.id.widget_header, View.GONE);
     }
@@ -137,11 +155,20 @@ public class TasksWidget extends InjectingAppWidgetProvider {
     remoteViews.setOnClickPendingIntent(
         R.id.widget_title, getOpenListIntent(context, filterId, id));
     remoteViews.setOnClickPendingIntent(
-        R.id.widget_button, getNewTaskIntent(context, filterId, id));
+        R.id.widget_add_button, getNewTaskIntent(context, filterId, id));
     remoteViews.setOnClickPendingIntent(
-        R.id.widget_reconfigure, getWidgetConfigIntent(context, id));
+        R.id.widget_reconfigure_button, getWidgetConfigIntent(context, id));
+
+    remoteViews.setOnClickPendingIntent(R.id.widget_clear_button, getClearListIntent(context, filter));
     remoteViews.setPendingIntentTemplate(R.id.list_view, getPendingIntentTemplate(context));
     return remoteViews;
+  }
+
+  private PendingIntent getClearListIntent(Context context, Filter filter){
+    Intent intent = new Intent(context, TasksWidget.class);
+    intent.setAction(CLEAR_LIST);
+    intent.putExtra(EXTRA_FILTER, filter);
+    return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
   }
 
   private PendingIntent getPendingIntentTemplate(Context context) {

@@ -32,6 +32,10 @@ class WidgetPreferences {
     return preferences.getBoolean(getKey(R.string.p_widget_show_settings), true);
   }
 
+  boolean showClear() {
+    return preferences.getBoolean(getKey(R.string.p_widget_show_clear), true);
+  }
+
   int getFontSize() {
     return preferences.getInt(getKey(R.string.p_widget_font_size), 16);
   }
