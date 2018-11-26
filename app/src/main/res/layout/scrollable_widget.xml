@@ -21,21 +21,21 @@
       android:layout_height="fill_parent"
       android:scaleType="fitXY"/>
 
-      <ImageButton
-          android:id="@+id/widget_clear_button"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_centerVertical="true"
-          android:layout_toLeftOf="@id/widget_reconfigure_button"
-          android:layout_toStartOf="@id/widget_reconfigure_button"
-          android:paddingStart="@dimen/widget_padding"
-          android:paddingEnd="0dp"
-          android:paddingLeft="@dimen/widget_padding"
-          android:paddingRight="0dp"
-          android:background="@android:color/transparent"
-          android:scaleType="fitCenter"
-          android:src="@drawable/ic_outline_sync_24px"
-          android:tint="@android:color/white"/>
+    <ImageButton
+      android:id="@+id/widget_clear_button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerVertical="true"
+      android:layout_toLeftOf="@id/widget_reconfigure_button"
+      android:layout_toStartOf="@id/widget_reconfigure_button"
+      android:paddingStart="@dimen/widget_padding"
+      android:paddingEnd="0dp"
+      android:paddingLeft="@dimen/widget_padding"
+      android:paddingRight="0dp"
+      android:background="@android:color/transparent"
+      android:scaleType="fitCenter"
+      android:src="@drawable/ic_outline_clear_tasks_24px"
+      android:tint="@android:color/white"/>
 
     <ImageButton
       android:id="@+id/widget_add_button"
