@@ -21,8 +21,6 @@
 %4$s 개 이미 존재,\n
 %5$s 개 에러 발생\n</string>
 	<string name="import_progress_read">할일 %d 읽는 중...</string>
-	<string name="DLG_error_sdcard">폴더에 접근 불가: %s</string>
-	<string name="DLG_error_sdcard_general">SD 카드에 접근할 수 없습니다!</string>
 	<string name="read_permission_label">Tasks 권한</string>
 	<string name="discard_confirmation">변경 사항을 버리시겠습니까?</string>
 	<string name="keep_editing">계속 편집</string>

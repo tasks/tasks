@@ -19,8 +19,6 @@
 %4$s υπάρχει ήδηt\n
 %5$s έχει σφάλματα\n</string>
 	<string name="import_progress_read">Ανάγνωση εργασίας %d...</string>
-	<string name="DLG_error_sdcard">Δεν υπάρχει πρόσβαση στον φάκελο: %s</string>
-	<string name="DLG_error_sdcard_general">Δεν υπάρχει πρόσβαση στην SD κάρτα!</string>
 	<string name="read_permission_label">Άδεια εργασιών</string>
 	<string name="DLG_delete_this_task_question">Διαγραφή εργασίας;</string>
 	<string name="DLG_hour_minutes">Ώρα (ώρες : λεπτά)</string>

@@ -18,8 +18,6 @@
 	<string name="import_summary_title">Ripristina sommario</string>
 	<string name="import_summary_message">Il File %1$s contiene %2$s.\n\n %3$s importati\n %4$s esiste già\n %5$s contiene errori\n</string>
 	<string name="import_progress_read">Lettura compito %d...</string>
-	<string name="DLG_error_sdcard">Impossibile accedere alla cartella: %s</string>
-	<string name="DLG_error_sdcard_general">Impossibile accedere alla scheda SD!</string>
 	<string name="read_permission_label">Permessi attività</string>
 	<string name="discard_confirmation">Sicuro di voler annullare tutte le modifiche?</string>
 	<string name="keep_editing">Continua modifica</string>

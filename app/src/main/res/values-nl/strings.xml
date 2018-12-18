@@ -18,8 +18,6 @@
 	<string name="import_summary_title">Samenvatting herstellen</string>
 	<string name="import_summary_message">Bestand %1$s bevat %2$s.\n\n %3$s geïmporteerd,\n %4$s bestaan al\n %5$s had fouten\n</string>
 	<string name="import_progress_read">Taak %d lezen...</string>
-	<string name="DLG_error_sdcard">Toegang geweigerd tot map: %s</string>
-	<string name="DLG_error_sdcard_general">Toegang tot SD-kaart geweigerd!</string>
 	<string name="read_permission_label">Taak toestemmingen</string>
 	<string name="discard_confirmation">Weet u zeker dat u de wijzigingen niet wilt opslaan?</string>
 	<string name="keep_editing">Blijf editen</string>

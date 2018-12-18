@@ -20,8 +20,6 @@
 %4$s já existiam\n
 %5$s possuem erros\n</string>
 	<string name="import_progress_read">A ler tarefa %d...</string>
-	<string name="DLG_error_sdcard">Não é possível aceder à pasta: %s</string>
-	<string name="DLG_error_sdcard_general">Não é possível aceder ao seu cartão SD!</string>
 	<string name="read_permission_label">Permissões do Tasks</string>
 	<string name="discard_confirmation">Tem a certeza que deseja descartar as alterações?</string>
 	<string name="keep_editing">Continuar a editar</string>

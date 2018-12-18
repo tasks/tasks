@@ -18,8 +18,6 @@
 	<string name="import_summary_title">Résumé de la restauration</string>
 	<string name="import_summary_message">Le fichier %1$s contenait %2$s.\n\n %3$s importées,\n %4$s existent déjà\n %5$s avaient des erreurs\n</string>
 	<string name="import_progress_read">Lecture de la tâche %d…</string>
-	<string name="DLG_error_sdcard">Impossible d\'accéder au dossier : %s</string>
-	<string name="DLG_error_sdcard_general">Impossible d\'accéder à la carte SD !</string>
 	<string name="read_permission_label">Permissions de Tasks</string>
 	<string name="discard_confirmation">Êtes-vous sûr de vouloir annuler vos modifications ?</string>
 	<string name="keep_editing">Continuer l\'édition</string>

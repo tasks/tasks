@@ -18,8 +18,6 @@
 	<string name="import_summary_title">Återställningssammanfattning</string>
 	<string name="import_summary_message">Filen %1$s innehöll %2$s.\n\n %3$s importerade,\n %4$s existerar redan\n %5$s hade fel\n</string>
 	<string name="import_progress_read">Läser uppgift %d...</string>
-	<string name="DLG_error_sdcard">Mappåtkomst nekad: %s</string>
-	<string name="DLG_error_sdcard_general">SD-kort ej tillgängligt!</string>
 	<string name="read_permission_label">Tasks Tillstånd</string>
 	<string name="discard_confirmation">Är du säker på att du inte vill spara dina ändringar?</string>
 	<string name="keep_editing">Fortsätt redigera</string>

@@ -9,8 +9,6 @@
 	<string name="actfm_picture_clear">ล้างภาพ</string>
 	<string name="backup_BPr_header">สำรองข้อมูล</string>
 	<string name="import_progress_read">กำลังอ่านแผนงาน %d...</string>
-	<string name="DLG_error_sdcard">ไม่สามารถเข้าถึงแฟ้ม: %s</string>
-	<string name="DLG_error_sdcard_general">ไม่สามารถเข้าถึง SD Card ได้!</string>
 	<string name="DLG_delete_this_task_question">ลบงานนี้?</string>
 	<string name="DLG_hour_minutes">เวลา (ชั่วโมง : นาที)</string>
 	<string name="WID_dateButtonUnset">คลิก เพื่อตั้งค่า</string>

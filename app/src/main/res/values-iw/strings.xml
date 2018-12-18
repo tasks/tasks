@@ -18,8 +18,6 @@
 	<string name="import_summary_title">סיכום פעולת השחזור</string>
 	<string name="import_summary_message">\"הקובץ \' %1$s\' הכיל  %2$s משימות: \n\n %3$s יובאו,\n %4$s היו קיימות כבר,\nוב־%5$s היו שגיאות.\n\"</string>
 	<string name="import_progress_read">קוראת משימה %d...</string>
-	<string name="DLG_error_sdcard">לא ניתן לגשת לתיקיה: %s</string>
-	<string name="DLG_error_sdcard_general">לא ניתן לגשת לכרטיס ה־SD שלך!</string>
 	<string name="read_permission_label">הרשאות אסטריד</string>
 	<string name="discard_confirmation">להתעלם מהשינויים ?</string>
 	<string name="keep_editing">המשך לערוך</string>

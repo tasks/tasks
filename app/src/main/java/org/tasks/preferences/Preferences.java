@@ -1,35 +1,46 @@
 package org.tasks.preferences;
 
-import static android.content.SharedPreferences.Editor;
-import static com.google.common.collect.Iterables.transform;
-import static com.google.common.collect.Sets.newHashSet;
-import static java.util.Collections.emptySet;
-
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Binder;
 import android.preference.PreferenceManager;
-import androidx.core.app.NotificationCompat;
 import android.text.TextUtils;
+
 import com.android.billingclient.api.Purchase;
+import com.google.common.base.Strings;
 import com.google.gson.GsonBuilder;
 import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.data.Task;
-import java.io.File;
-import java.util.Collection;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicReference;
-import javax.inject.Inject;
+
 import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.data.TaskAttachment;
 import org.tasks.injection.ForApplication;
 import org.tasks.time.DateTime;
+
+import java.io.File;
+import java.util.Collection;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
+
+import javax.inject.Inject;
+
+import androidx.core.app.NotificationCompat;
+import androidx.documentfile.provider.DocumentFile;
 import timber.log.Timber;
+
+import static android.content.SharedPreferences.Editor;
+import static com.google.common.collect.Iterables.transform;
+import static com.google.common.collect.Sets.newHashSet;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastKitKat;
+import static java.util.Collections.emptySet;
 
 public class Preferences {
 
@@ -259,6 +270,19 @@ public class Preferences {
     }
   }
 
+  public Uri getUri(int key) {
+    String uri = getStringValue(key);
+    return Strings.isNullOrEmpty(uri) ? null : Uri.parse(uri);
+  }
+
+  public void setUri(int key, java.net.URI uri) {
+    setString(key, uri.toString());
+  }
+
+  public void setUri(int key, Uri uri) {
+    setString(key, uri.toString());
+  }
+
   public void setString(int key, String newValue) {
     setString(context.getString(key), newValue);
   }
@@ -405,18 +429,43 @@ public class Preferences {
     return dir + File.separator + name;
   }
 
-  public File getBackupDirectory() {
-    File directory = null;
-    String customDir = getStringValue(R.string.p_backup_dir);
-    if (permissionChecker.canWriteToExternalStorage() && !TextUtils.isEmpty(customDir)) {
-      directory = new File(customDir);
+  public Uri getBackupDirectory() {
+    Uri uri = getUri(R.string.p_backup_dir);
+    if (uri != null) {
+      switch (uri.getScheme()) {
+        case "file":
+          File file = new File(uri.getPath());
+          try {
+            if (file.canWrite()) {
+              return uri;
+            }
+          } catch (SecurityException ignored) {
+          }
+          break;
+        case "content":
+          if (hasWritePermission(context, uri)) {
+            return uri;
+          }
+          break;
+      }
     }
 
-    if (directory == null || !directory.exists()) {
-      directory = getDefaultFileLocation("backups");
+    if (atLeastKitKat()) {
+      return DocumentFile.fromFile(context.getExternalFilesDir(null))
+          .createDirectory("backups")
+          .getUri();
+    } else {
+      return Uri.fromFile(getDefaultFileLocation("backups"));
     }
+  }
 
-    return directory;
+  private boolean hasWritePermission(Context context, Uri uri) {
+    return PackageManager.PERMISSION_GRANTED
+        == context.checkUriPermission(
+            uri,
+            Binder.getCallingPid(),
+            Binder.getCallingUid(),
+            Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
   }
 
   public int getNotificationDefaults() {

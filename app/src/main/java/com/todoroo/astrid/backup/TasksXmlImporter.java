@@ -8,14 +8,14 @@ package com.todoroo.astrid.backup;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Handler;
 import android.text.TextUtils;
+
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import java.io.FileReader;
-import java.io.IOException;
-import javax.inject.Inject;
+
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.backup.XmlReader;
@@ -35,7 +35,17 @@ import org.tasks.dialogs.DialogBuilder;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringReader;
+
+import javax.inject.Inject;
+
 import timber.log.Timber;
+
+import static org.tasks.files.FileHelper.fromUri;
 
 public class TasksXmlImporter {
 
@@ -57,7 +67,7 @@ public class TasksXmlImporter {
   private int skipCount = 0;
   private int errorCount = 0;
   private ProgressDialog progressDialog;
-  private String input;
+  private Uri input;
 
   @Inject
   public TasksXmlImporter(
@@ -85,7 +95,7 @@ public class TasksXmlImporter {
     handler.post(() -> progressDialog.setMessage(message));
   }
 
-  public void importTasks(Activity activity, String input, ProgressDialog progressDialog) {
+  public void importTasks(Activity activity, Uri input, ProgressDialog progressDialog) {
     this.activity = activity;
     this.input = input;
     this.progressDialog = progressDialog;
@@ -110,7 +120,9 @@ public class TasksXmlImporter {
   private void performImport() throws IOException, XmlPullParserException {
     XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
     XmlPullParser xpp = factory.newPullParser();
-    xpp.setInput(new FileReader(input));
+    InputStream inputStream = fromUri(activity, input);
+    InputStreamReader reader = new InputStreamReader(inputStream);
+    xpp.setInput(reader);
 
     try {
       while (xpp.next() != XmlPullParser.END_DOCUMENT) {
@@ -135,6 +147,8 @@ public class TasksXmlImporter {
         }
       }
     } finally {
+      reader.close();
+      inputStream.close();
       localBroadcastManager.broadcastRefresh();
       handler.post(
           () -> {
@@ -154,7 +168,7 @@ public class TasksXmlImporter {
         .setMessage(
             activity.getString(
                 R.string.import_summary_message,
-                input,
+                "",
                 r.getQuantityString(R.plurals.Ntasks, taskCount, taskCount),
                 r.getQuantityString(R.plurals.Ntasks, importCount, importCount),
                 r.getQuantityString(R.plurals.Ntasks, skipCount, skipCount),

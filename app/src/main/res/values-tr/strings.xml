@@ -22,8 +22,6 @@
  %5$s hatalar var
 </string>
 	<string name="import_progress_read">%d görev okunuyor..</string>
-	<string name="DLG_error_sdcard">%s dizinine erişilemedi.</string>
-	<string name="DLG_error_sdcard_general">Bellek kartınıza erişilemiyor!</string>
 	<string name="read_permission_label">Tasks İzni</string>
 	<string name="discard_confirmation">Değişikliklerinizi gözden çıkarmak istediğinize emin misiniz?</string>
 	<string name="keep_editing">Düzenlemeyi sürdür</string>

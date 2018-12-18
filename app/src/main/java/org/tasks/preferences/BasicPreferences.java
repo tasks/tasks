@@ -1,22 +1,17 @@
 package org.tasks.preferences;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
-import static org.tasks.dialogs.ExportTasksDialog.newExportTasksDialog;
-import static org.tasks.dialogs.ImportTasksDialog.newImportTasksDialog;
-import static org.tasks.locale.LocalePickerDialog.newLocalePickerDialog;
-import static org.tasks.themes.ThemeColor.LAUNCHERS;
-
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
+
 import com.google.common.base.Strings;
 import com.todoroo.astrid.core.OldTaskPreferences;
 import com.todoroo.astrid.reminders.ReminderPreferences;
-import java.io.File;
-import javax.inject.Inject;
+
 import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.activities.ColorPickerActivity;
@@ -28,6 +23,7 @@ import org.tasks.billing.BillingClient;
 import org.tasks.billing.Inventory;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.files.FileExplore;
+import org.tasks.files.FileHelper;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.locale.Locale;
@@ -36,6 +32,18 @@ import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeBase;
 import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
+
+import java.io.File;
+
+import javax.inject.Inject;
+
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastKitKat;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
+import static org.tasks.dialogs.ExportTasksDialog.newExportTasksDialog;
+import static org.tasks.dialogs.ImportTasksDialog.newImportTasksDialog;
+import static org.tasks.locale.LocalePickerDialog.newLocalePickerDialog;
+import static org.tasks.themes.ThemeColor.LAUNCHERS;
 
 public class BasicPreferences extends InjectingPreferenceActivity
     implements LocalePickerDialog.LocaleSelectionHandler {
@@ -146,10 +154,7 @@ public class BasicPreferences extends InjectingPreferenceActivity
     findPreference(R.string.backup_BAc_import)
         .setOnPreferenceClickListener(
             preference -> {
-              Intent intent = new Intent(BasicPreferences.this, FileExplore.class);
-              intent.putExtra(
-                  FileExplore.EXTRA_START_PATH, preferences.getBackupDirectory().getAbsolutePath());
-              startActivityForResult(intent, REQUEST_PICKER);
+              FileHelper.newFilePicker(BasicPreferences.this, REQUEST_PICKER, preferences.getBackupDirectory());
               return false;
             });
 
@@ -230,13 +235,19 @@ public class BasicPreferences extends InjectingPreferenceActivity
       }
     } else if (requestCode == REQUEST_CODE_BACKUP_DIR) {
       if (resultCode == RESULT_OK && data != null) {
-        String dir = data.getStringExtra(FileExplore.EXTRA_DIRECTORY);
-        preferences.setString(R.string.p_backup_dir, dir);
+        Uri dir = data.getData();
+        if (atLeastLollipop()) {
+          getContentResolver()
+              .takePersistableUriPermission(
+                  dir,
+                  Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        }
+        preferences.setString(R.string.p_backup_dir, dir.toString());
         updateBackupDirectory();
       }
     } else if (requestCode == REQUEST_PICKER) {
       if (resultCode == RESULT_OK) {
-        newImportTasksDialog(data.getStringExtra(FileExplore.EXTRA_FILE))
+        newImportTasksDialog(data.getData())
             .show(getFragmentManager(), FRAG_TAG_IMPORT_TASKS);
       }
     } else {
@@ -278,10 +289,8 @@ public class BasicPreferences extends InjectingPreferenceActivity
     findPreference(getString(R.string.p_backup_dir))
         .setOnPreferenceClickListener(
             p -> {
-              Intent filesDir = new Intent(BasicPreferences.this, FileExplore.class);
-              filesDir.putExtra(FileExplore.EXTRA_DIRECTORY_MODE, true);
-              startActivityForResult(filesDir, REQUEST_CODE_BACKUP_DIR);
-              return true;
+              FileHelper.newDirectoryPicker(this, REQUEST_CODE_BACKUP_DIR, preferences.getBackupDirectory());
+              return false;
             });
     updateBackupDirectory();
   }
@@ -291,8 +300,10 @@ public class BasicPreferences extends InjectingPreferenceActivity
   }
 
   private String getBackupDirectory() {
-    File dir = preferences.getBackupDirectory();
-    return dir == null ? "" : dir.getAbsolutePath();
+    Uri uri = preferences.getBackupDirectory();
+    return uri.getScheme().equals("file")
+        ? new File(uri.getPath()).getAbsolutePath()
+        : uri.toString();
   }
 
   private void setLauncherIcon(int index) {

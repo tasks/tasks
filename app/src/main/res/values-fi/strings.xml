@@ -21,8 +21,6 @@
 %4$s jo olemassa\n
 %5$s virheitä\n</string>
 	<string name="import_progress_read">Luetaan tehtävää %d...</string>
-	<string name="DLG_error_sdcard">Ei pääsyä kansioon: %s</string>
-	<string name="DLG_error_sdcard_general">Ei pääsyä SD kortillesi!</string>
 	<string name="read_permission_label">Tasks käyttöoikeus</string>
 	<string name="discard_confirmation">Oletko varma että haluat hylätä muutokset?</string>
 	<string name="keep_editing">Jatka muokkausta</string>

@@ -21,8 +21,6 @@
 %4$s вече съществуват\n
 %5$s имат грешки\n</string>
 	<string name="import_progress_read">Прочитане на задачи %d...</string>
-	<string name="DLG_error_sdcard">Нямате достъп до папка: %s</string>
-	<string name="DLG_error_sdcard_general">SD картата не може да бъде достъпена!</string>
 	<string name="read_permission_label">Tasks Разрешение</string>
 	<string name="discard_confirmation">Сигурни ли сте че искате да отхвърлите промените си?</string>
 	<string name="keep_editing">Продължаване на редактиране</string>

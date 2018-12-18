@@ -9,6 +9,8 @@ import static com.google.common.base.Strings.isNullOrEmpty;
 
 import android.content.Context;
 import android.os.Environment;
+
+import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.ListMultimap;
@@ -46,6 +48,7 @@ public class StartupService {
   private static final int V5_3_0 = 491;
   private static final int V6_0_beta_1 = 522;
   private static final int V6_0_beta_2 = 523;
+  private static final int V6_4 = 546;
 
   private final Database database;
   private final Preferences preferences;
@@ -122,6 +125,9 @@ public class StartupService {
         if (from < V6_0_beta_2) {
           migrateGoogleTaskAccount();
         }
+        if (from < V6_4) {
+          migrateUris();
+        }
         tracker.reportEvent(Tracking.Events.UPGRADE, Integer.toString(from));
       }
       preferences.setCurrentVersion(to);
@@ -188,6 +194,22 @@ public class StartupService {
       GoogleTaskAccount googleTaskAccount = new GoogleTaskAccount();
       googleTaskAccount.setAccount(account);
       googleTaskListDao.insert(googleTaskAccount);
+    }
+  }
+
+  private void migrateUris() {
+    String backupDirectory = preferences.getStringValue(R.string.p_backup_dir);
+    if (!Strings.isNullOrEmpty(backupDirectory)) {
+      File file = new File(backupDirectory);
+      try {
+        if (file.canWrite()) {
+          preferences.setUri(R.string.p_backup_dir, file.toURI());
+        } else {
+          preferences.remove(R.string.p_backup_dir);
+        }
+      } catch (SecurityException ignored) {
+        preferences.remove(R.string.p_backup_dir);
+      }
     }
   }
 

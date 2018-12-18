@@ -1,28 +1,19 @@
 package org.tasks.backup;
 
-import static org.tasks.date.DateTimeUtils.newDateTime;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Handler;
-import androidx.annotation.Nullable;
 import android.widget.Toast;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.backup.BackupConstants;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.inject.Inject;
+
 import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.data.AlarmDao;
@@ -35,8 +26,23 @@ import org.tasks.data.TagDao;
 import org.tasks.data.TagDataDao;
 import org.tasks.data.TaskAttachmentDao;
 import org.tasks.data.UserActivityDao;
+import org.tasks.files.FileHelper;
 import org.tasks.preferences.Preferences;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.inject.Inject;
+
+import androidx.annotation.Nullable;
 import timber.log.Timber;
+
+import static org.tasks.date.DateTimeUtils.newDateTime;
 
 public class TasksJsonExporter {
 
@@ -59,7 +65,7 @@ public class TasksJsonExporter {
   private int exportCount = 0;
   private ProgressDialog progressDialog;
   private Handler handler;
-  private File backupDirectory;
+  private Uri backupDirectory;
   private String latestSetVersionName;
 
   @Inject
@@ -128,16 +134,18 @@ public class TasksJsonExporter {
 
   private void runBackup(ExportType exportType) {
     try {
-      String output = setupFile(backupDirectory, exportType);
-
+      String filename = getFileName(exportType);
       List<Task> tasks = taskDao.getAll();
 
       if (tasks.size() > 0) {
-        doTasksExport(output, tasks);
+        Uri uri = FileHelper.newFile(context, backupDirectory, "application/json", filename);
+        OutputStream os = context.getContentResolver().openOutputStream(uri);
+        doTasksExport(os, tasks);
+        os.close();
       }
 
       if (exportType == ExportType.EXPORT_TYPE_MANUAL) {
-        onFinishExport(output);
+        onFinishExport(filename);
       }
     } catch (IOException e) {
       Timber.e(e);
@@ -153,7 +161,7 @@ public class TasksJsonExporter {
     }
   }
 
-  private void doTasksExport(String output, List<Task> tasks) throws IOException {
+  private void doTasksExport(OutputStream os, List<Task> tasks) throws IOException {
 
     List<BackupContainer.TaskBackup> taskBackups = new ArrayList<>();
 
@@ -186,14 +194,10 @@ public class TasksJsonExporter {
             caldavDao.getAccounts(),
             caldavDao.getCalendars()));
 
-    File file = new File(output);
-    file.createNewFile();
-    FileOutputStream fos = new FileOutputStream(file);
-    OutputStreamWriter out = new OutputStreamWriter(fos);
+    OutputStreamWriter out = new OutputStreamWriter(os);
     Gson gson = BuildConfig.DEBUG ? new GsonBuilder().setPrettyPrinting().create() : new Gson();
     out.write(gson.toJson(data));
     out.close();
-    fos.close();
     exportCount = taskBackups.size();
   }
 
@@ -217,38 +221,16 @@ public class TasksJsonExporter {
         });
   }
 
-  /**
-   * Creates directories if necessary and returns fully qualified file
-   *
-   * @return output file name
-   */
-  private String setupFile(File directory, ExportType exportType) throws IOException {
-    if (directory != null) {
-      // Check for /sdcard/astrid directory. If it doesn't exist, make it.
-      if (directory.exists() || directory.mkdir()) {
-        String fileName;
-        switch (exportType) {
-          case EXPORT_TYPE_SERVICE:
-            fileName = String.format(BackupConstants.BACKUP_FILE_NAME, getDateForExport());
-            break;
-          case EXPORT_TYPE_MANUAL:
-            fileName = String.format(BackupConstants.EXPORT_FILE_NAME, getDateForExport());
-            break;
-          case EXPORT_TYPE_ON_UPGRADE:
-            fileName = String.format(BackupConstants.UPGRADE_FILE_NAME, latestSetVersionName);
-            break;
-          default:
-            throw new IllegalArgumentException("Invalid export type"); // $NON-NLS-1$
-        }
-        return directory.getAbsolutePath() + File.separator + fileName;
-      } else {
-        // Unable to make the /sdcard/astrid directory.
-        throw new IOException(
-            context.getString(R.string.DLG_error_sdcard, directory.getAbsolutePath()));
-      }
-    } else {
-      // Unable to access the sdcard because it's not in the mounted state.
-      throw new IOException(context.getString(R.string.DLG_error_sdcard_general));
+  private String getFileName(ExportType type) {
+    switch (type) {
+      case EXPORT_TYPE_SERVICE:
+        return String.format(BackupConstants.BACKUP_FILE_NAME, getDateForExport());
+      case EXPORT_TYPE_MANUAL:
+        return String.format(BackupConstants.EXPORT_FILE_NAME, getDateForExport());
+      case EXPORT_TYPE_ON_UPGRADE:
+        return String.format(BackupConstants.UPGRADE_FILE_NAME, latestSetVersionName);
+      default:
+        throw new UnsupportedOperationException("Unhandled export type");
     }
   }
 

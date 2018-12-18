@@ -21,8 +21,6 @@
 %4$s már létezett\n
 %5$s hibás\n</string>
 	<string name="import_progress_read">%d feladat olvasása...</string>
-	<string name="DLG_error_sdcard">Könyvtár nem elérhető: %s</string>
-	<string name="DLG_error_sdcard_general">SD kártya nem elérhető</string>
 	<string name="read_permission_label">Tasks Engedélyek</string>
 	<string name="discard_confirmation">Biztosan el akarja vetni a változtatásokat?</string>
 	<string name="keep_editing">Vissza a szerkesztéshez</string>

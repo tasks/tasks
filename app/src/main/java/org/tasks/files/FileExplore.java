@@ -93,6 +93,7 @@ public class FileExplore extends InjectingAppCompatActivity {
         File file = com.nononsenseapps.filepicker.Utils.getFileForUri(uri);
         Intent intent = new Intent();
         intent.putExtra(directoryMode ? EXTRA_DIRECTORY : EXTRA_FILE, file.getAbsolutePath());
+        intent.setData(uri);
         setResult(Activity.RESULT_OK, intent);
       }
       finish();

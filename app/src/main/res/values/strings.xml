@@ -46,12 +46,6 @@ File %1$s contained %2$s.\n\n
   <!-- Progress Dialog text for import reading task (%d -> task number)-->
   <string name="import_progress_read">Reading task %d…</string>
 
-  <!-- Backup: Dialog when unable to open SD card folder (%s => folder) -->
-  <string name="DLG_error_sdcard">Cannot access folder: %s</string>
-
-  <!-- Backup: Dialog when unable to open SD card in general -->
-  <string name="DLG_error_sdcard_general">Cannot access your SD card!</string>
-
   <!-- ================================================== AndroidManifest == -->
 
   <!-- permission title for READ_TASKS -->
