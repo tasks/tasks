@@ -1,0 +1,6 @@
+[submodule "dav4android"]
+	path = dav4android
+	url = http://git.bmaehr.com/open-source/dav4android.git
+[submodule "ical4android"]
+	path = ical4android
+	url = http://git.bmaehr.com/open-source/ical4android.git
