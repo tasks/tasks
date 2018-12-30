@@ -1,4 +1,4 @@
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/swipe_layout_empty"
   style="@style/task_list_container"
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:alpha="?attr/alpha_disabled"
-        android:src="@drawable/ic_inbox_168px"
+        android:src="@drawable/ic_outline_inbox_168px"
         android:tint="?attr/icon_tint"/>
 
       <TextView
@@ -39,4 +39,4 @@
 
   </ScrollView>
 
-</android.support.v4.widget.SwipeRefreshLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

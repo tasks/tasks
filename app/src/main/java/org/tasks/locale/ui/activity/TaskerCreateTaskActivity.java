@@ -3,9 +3,9 @@ package org.tasks.locale.ui.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.TextInputEditText;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.Toolbar;
+import com.google.android.material.textfield.TextInputEditText;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,7 +63,7 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
     final boolean backButtonSavesTask = preferences.backButtonSavesTask();
     toolbar.setNavigationIcon(
         ContextCompat.getDrawable(
-            this, backButtonSavesTask ? R.drawable.ic_close_24dp : R.drawable.ic_save_24dp));
+            this, backButtonSavesTask ? R.drawable.ic_outline_clear_24px : R.drawable.ic_outline_save_24px));
     toolbar.setNavigationOnClickListener(
         v -> {
           if (backButtonSavesTask) {

@@ -8,11 +8,11 @@ import static org.tasks.preferences.ResourceResolver.getDimen;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -51,7 +51,7 @@ public class SingleCheckedArrayAdapter extends ArrayAdapter<String> {
                 ResourcesCompat.getColor(context.getResources(), android.R.color.transparent, null),
                 accent.getAccentColor()
               });
-      Drawable original = ContextCompat.getDrawable(context, R.drawable.ic_check_black_24dp);
+      Drawable original = ContextCompat.getDrawable(context, R.drawable.ic_outline_done_24px);
       Drawable wrapped = DrawableCompat.wrap(original.mutate());
       DrawableCompat.setTintList(wrapped, tintList);
       view.setCheckMarkDrawable(wrapped);

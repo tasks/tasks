@@ -3,7 +3,6 @@ package org.tasks.preferences;
 import static android.content.SharedPreferences.Editor;
 import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Sets.newHashSet;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybean;
 import static java.util.Collections.emptySet;
 
 import android.content.Context;
@@ -12,7 +11,7 @@ import android.content.res.Resources;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.preference.PreferenceManager;
-import android.support.v4.app.NotificationCompat;
+import androidx.core.app.NotificationCompat;
 import android.text.TextUtils;
 import com.android.billingclient.api.Purchase;
 import com.google.gson.GsonBuilder;
@@ -285,16 +284,6 @@ public class Preferences {
     }
   }
 
-  private boolean notificationsEnabled() {
-    return getBoolean(R.string.p_rmd_enabled, true);
-  }
-
-  public boolean fieldMissedPhoneCalls() {
-    return getBoolean(R.string.p_field_missed_calls, true)
-        && notificationsEnabled()
-        && permissionChecker.canAccessMissedCallPermissions();
-  }
-
   public boolean getBoolean(int keyResources, boolean defValue) {
     return getBoolean(context.getString(keyResources), defValue);
   }
@@ -448,7 +437,7 @@ public class Preferences {
   }
 
   public boolean bundleNotifications() {
-    return atLeastJellybean() && getBoolean(R.string.p_bundle_notifications, true);
+    return getBoolean(R.string.p_bundle_notifications, true);
   }
 
   public boolean usePersistentReminders() {

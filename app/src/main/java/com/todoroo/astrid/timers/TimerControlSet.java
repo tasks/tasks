@@ -9,8 +9,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
@@ -151,7 +151,7 @@ public class TimerControlSet extends TaskEditControlFragment {
 
   @Override
   public int getIcon() {
-    return R.drawable.ic_timer_24dp;
+    return R.drawable.ic_outline_timer_24px;
   }
 
   @Override
@@ -205,7 +205,7 @@ public class TimerControlSet extends TaskEditControlFragment {
 
   private void updateChronometer() {
     timerButton.setImageResource(
-        timerActive() ? R.drawable.ic_pause_24dp : R.drawable.ic_play_arrow_24dp);
+        timerActive() ? R.drawable.ic_outline_pause_24px: R.drawable.ic_outline_play_arrow_24px);
 
     long elapsed = this.elapsed.getTimeDurationInSeconds() * 1000L;
     if (timerActive()) {

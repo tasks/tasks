@@ -34,8 +34,6 @@
 	<string name="TLA_menu_sort">정렬</string>
 	<string name="TLA_menu_search">검색</string>
 	<string name="TLA_menu_settings">설정</string>
-	<string name="TAd_hiddenFormat">%s [숨김]</string>
-	<string name="TAd_completed">일정 완료\n%s</string>
 	<string name="TAd_actionEditTask">편집</string>
 	<string name="SSD_sort_drag">수동 정렬 (하위할일 포함)</string>
 	<string name="SSD_sort_auto">Tasks 스마트 정렬</string>
@@ -61,6 +59,10 @@
 	<string name="due_time">마감 시간</string>
 	<string name="day_before_due">마감 하루 전</string>
 	<string name="week_before_due">마감 일주일 전</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization." name="TEA_hideUntil_due_date">마감일</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization." name="TEA_hideUntil_due_time">마감시간</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization." name="TEA_hideUntil_day_before_due">마감 하루 전</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization." name="TEA_hideUntil_week_before_due">마감 일주일 전</string>
 	<string name="TEA_control_when">언제</string>
 	<string name="TEA_control_repeat">반복</string>
 	<string name="TEA_control_gcal">달력</string>
@@ -71,13 +73,6 @@
 	<string name="TEA_control_timer">타이머 조절</string>
 	<string name="TEA_control_hidden_section">----항상 숨김----</string>
 	<string name="TEA_load_more">더 불러오기...</string>
-	<string name="missed_call">%s (으)로부터의 부재중 전화</string>
-	<string name="MCA_return_call">지금 전화하기</string>
-	<string name="MCA_add_task">나중에 전화하기</string>
-	<string name="MCA_ignore">무시하기</string>
-	<string name="missed_calls">부재중 전화</string>
-	<string name="MCA_task_title_name">%1$s 님에게 %2$s 에 다시 연락하세요</string>
-	<string name="MCA_task_title_no_name">%s 님에게 다시 연락하세요</string>
 	<string name="CRA_ignore">무시하기</string>
 	<string name="CRA_title">모임 목록이 필요하세요?</string>
 	<string name="CRA_ignore_body">당신은 몇몇의 달력 이벤트를 무시했습니다. Tasks가 이것을 더이상 알려드리지 않도록 할까요?</string>
@@ -128,7 +123,6 @@
 	<string name="day_after_tomorrow">모레</string>
 	<string name="next_week">다음 주</string>
 	<string name="dont_hide">숨기지 않기</string>
-	<string name="no_deadline_reminder">기한 알림 없음</string>
 	<string name="at_deadline">완료일에</string>
 	<string name="at_deadline_or_overdue">마감일이나 그 이후</string>
 	<string name="BFE_Active">나의 할일</string>
@@ -274,6 +268,7 @@
 	<string name="repeat_number_of_times">여러회 반복</string>
 	<string name="repeat_occurs">반복횟수</string>
 	<string name="repeat_snackbar">%1$s 이 %2$s 로 변경되었습니다</string>
+	<string comment="display new due date and time in snackbar after completing repeating task, e.g. \'Tomorrow at 8 AM\' or \'21 May at 8 AM\'" name="repeat_snackbar_time">%1$s %2$s</string>
 	<string name="new_tag">새 태그 만들기</string>
 	<string name="new_list">새 목록 만들기</string>
 	<string name="tag_FEx_untagged">미분류 할일</string>
@@ -333,12 +328,8 @@
 	<string name="pick_a_date">날짜 선택</string>
 	<string name="pick_a_time">시간 선택</string>
 	<string name="pick_a_date_and_time">날짜와 시간 선택</string>
-	<string name="pick_a_location">위치 선택</string>
 	<string name="when_overdue">일정 마감일이 지났을 때</string>
 	<string name="when_due">일정 마감일에</string>
-	<string name="geofence_radius_title">반경 (미터 단위)</string>
-	<string name="geofence_responsiveness_title">반응 속도 (높은 수치일수록 배터리 절약)</string>
-	<string name="geolocation_reminders">위치정보 알림</string>
 	<string name="tags">태그</string>
 	<string name="filters">필터</string>
 	<string name="date_shortcut_hour">한 시간동안</string>
@@ -387,6 +378,7 @@
 	<string name="theme">테마</string>
 	<string name="color">색상</string>
 	<string name="accent">강조</string>
+	<string name="launcher_icon">런처 아이콘</string>
 	<string name="theme_red">빨강</string>
 	<string name="theme_pink">분홍</string>
 	<string name="theme_purple">보라</string>
@@ -408,6 +400,7 @@
 	<string name="theme_blue_grey">회청색</string>
 	<string name="theme_black">검정</string>
 	<string name="theme_dark_grey">어두운 회색</string>
+	<string name="theme_white">흰색</string>
 	<string name="theme_light">밝게</string>
 	<string name="theme_dark">어둡게</string>
 	<string name="theme_wallpaper">바탕화면</string>
@@ -509,4 +502,5 @@
 	<string name="logout_warning">%s로부터 로그아웃할까요? 이 계정의 모든 정보가 기기에서 삭제됩니다. </string>
 	<string name="cannot_access_account">계정에 접근할 수 없습니다. </string>
 	<string name="reinitialize_account">다시 초기화하기</string>
+	<string name="action_create_new_task">새 할일 만들기</string>
 </resources>

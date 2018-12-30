@@ -17,16 +17,16 @@ android {
     }
 
     compileSdkVersion 28
-    buildToolsVersion '28.0.2'
+    buildToolsVersion '28.0.3'
 
     defaultConfig {
         applicationId 'com.bmaehr.tasks'
         testApplicationId 'com.bmaehr.tasks.test'
-        versionCode 535
-        versionName '6.1.1'
+        versionCode 545
+        versionName '6.3.1'
         targetSdkVersion 28
-        minSdkVersion 15
-        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+        minSdkVersion 19
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -111,12 +111,11 @@ configurations {
 
 final DAGGER_VERSION = '2.16'
 final BUTTERKNIFE_VERSION = '8.8.1'
-final SUPPORT_VERSION = '28.0.0'
-final ROOM_VERSION = '1.1.1'
 final STETHO_VERSION = '1.5.0'
-final TESTING_SUPPORT_VERSION = '1.0.2'
+final SUPPORT_VERSION = '28.0.0'
+final TESTING_SUPPORT_VERSION = '1.1.1'
 final WORK_VERSION = '1.0.0-alpha11'
-final LEAKCANARY_VERSION = '1.6.1'
+final LEAKCANARY_VERSION = '1.6.2'
 
 dependencies {
     implementation project(':dav4android')
@@ -126,12 +125,9 @@ dependencies {
 
     annotationProcessor "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
     implementation "com.google.dagger:dagger:${DAGGER_VERSION}"
-
-    implementation "android.arch.persistence.room:rxjava2:${ROOM_VERSION}"
-    annotationProcessor "android.arch.persistence.room:compiler:${ROOM_VERSION}"
-    implementation 'android.arch.lifecycle:extensions:1.1.1'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    implementation 'android.arch.paging:runtime:1.0.1'
+    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
+    implementation "io.reactivex.rxjava2:rxandroid:2.0.2"
+    implementation "androidx.paging:paging-runtime:2.1.0-rc01"
 
     annotationProcessor "com.jakewharton:butterknife-compiler:${BUTTERKNIFE_VERSION}"
     implementation "com.jakewharton:butterknife:${BUTTERKNIFE_VERSION}"
@@ -143,17 +139,25 @@ dependencies {
     //noinspection GradleDependency
     debugImplementation "com.squareup.leakcanary:leakcanary-android:${LEAKCANARY_VERSION}"
     debugImplementation "com.squareup.leakcanary:leakcanary-support-fragment:${LEAKCANARY_VERSION}"
-    debugImplementation 'com.android.support:multidex:1.0.3'
+    debugImplementation 'androidx.multidex:multidex:2.0.1'
 
-    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation 'me.saket:better-link-movement-method:2.2.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.github.rey5137:material:1.2.5'
     implementation 'com.nononsenseapps:filepicker:4.2.1'
+
     implementation "com.android.support:design:${SUPPORT_VERSION}"
     implementation "com.android.support:support-annotations:${SUPPORT_VERSION}"
     implementation "com.android.support:support-v13:${SUPPORT_VERSION}"
     implementation "com.android.support:cardview-v7:${SUPPORT_VERSION}"
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.annotation:annotation:1.0.1'
+    implementation 'androidx.legacy:legacy-support-v13:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
+
     implementation 'com.jakewharton.timber:timber:4.7.1'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.1.0'
     //noinspection GradleDependency
@@ -168,16 +172,22 @@ dependencies {
     implementation('org.scala-saddle:google-rfc-2445:20110304') {
         transitive = false
     }
-    implementation('com.wdullaer:materialdatetimepicker:3.6.1') {
+    implementation('com.wdullaer:materialdatetimepicker:4.0.1') {
         exclude group: 'com.android.support', module: 'support-v4'
     }
     implementation 'me.leolin:ShortcutBadger:1.1.22@aar'
     implementation 'com.google.apis:google-api-services-tasks:v1-rev52-1.23.0'
     implementation 'com.google.api-client:google-api-client-android:1.23.0'
     implementation 'com.android.billingclient:billing:1.1'
-    implementation "android.arch.work:work-runtime:${WORK_VERSION}"
+    implementation("android.arch.work:work-runtime:${WORK_VERSION}") {
+        // https://groups.google.com/forum/#!topic/guava-announce/Km82fZG68Sw
+        exclude group: 'com.google.guava', module: 'listenablefuture'
+    }
 
-    googleplayImplementation "android.arch.work:work-firebase:${WORK_VERSION}"
+    googleplayImplementation ("android.arch.work:work-firebase:${WORK_VERSION}") {
+        // https://groups.google.com/forum/#!topic/guava-announce/Km82fZG68Sw
+        exclude group: 'com.google.guava', module: 'listenablefuture'
+    }
     googleplayImplementation 'com.crashlytics.sdk.android:crashlytics:2.9.8'
     googleplayImplementation 'com.google.firebase:firebase-core:16.0.6'
     googleplayImplementation 'com.google.android.gms:play-services-location:16.0.0'
@@ -190,9 +200,9 @@ dependencies {
     androidTestAnnotationProcessor "com.jakewharton:butterknife-compiler:${BUTTERKNIFE_VERSION}"
     androidTestImplementation 'com.google.dexmaker:dexmaker-mockito:1.2'
     androidTestImplementation 'com.natpryce:make-it-easy:4.0.1'
-    androidTestImplementation "com.android.support.test:runner:${TESTING_SUPPORT_VERSION}"
-    androidTestImplementation "com.android.support.test:rules:${TESTING_SUPPORT_VERSION}"
-    androidTestImplementation "com.android.support:support-annotations:${SUPPORT_VERSION}"
+    androidTestImplementation "androidx.test:runner:${TESTING_SUPPORT_VERSION}"
+    androidTestImplementation "androidx.test:rules:${TESTING_SUPPORT_VERSION}"
+    androidTestImplementation 'androidx.annotation:annotation:1.0.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

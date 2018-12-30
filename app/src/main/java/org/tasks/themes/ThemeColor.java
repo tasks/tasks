@@ -2,6 +2,7 @@ package org.tasks.themes;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreoMR1;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -9,17 +10,16 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.res.Resources;
 import android.os.Build;
+import android.os.Build.VERSION_CODES;
 import android.os.Parcel;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import org.tasks.R;
 import org.tasks.dialogs.ColorPickerDialog;
 import org.tasks.ui.MenuColorizer;
 
 public class ThemeColor implements ColorPickerDialog.Pickable {
-
-  public static final int DEFAULT = 7;
 
   public static final int[] ICONS =
       new int[] {
@@ -90,7 +90,8 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
         R.style.Orange,
         R.style.DeepOrange,
         R.style.Brown,
-        R.style.Grey
+        R.style.Grey,
+        R.style.White
       };
 
   public static Creator<ThemeColor> CREATOR =
@@ -140,7 +141,7 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
   }
 
   @SuppressLint("NewApi")
-  public void applyToStatusBar(Activity activity) {
+  public void applyToSystemBars(Activity activity) {
     setStatusBarColor(activity);
 
     if (atLeastMarshmallow()) {
@@ -148,6 +149,8 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
       int systemUiVisibility = applyLightStatusBarFlag(decorView.getSystemUiVisibility());
       decorView.setSystemUiVisibility(systemUiVisibility);
     }
+
+    applyToNavigationBar(activity);
   }
 
   @SuppressLint("NewApi")
@@ -168,11 +171,28 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
     }
   }
 
+  public void applyToNavigationBar(Activity activity) {
+    if (atLeastOreoMR1()) {
+      activity.getWindow().setNavigationBarColor(getPrimaryColor());
+
+      View decorView = activity.getWindow().getDecorView();
+      int systemUiVisibility = applyLightNavigationBar(decorView.getSystemUiVisibility());
+      decorView.setSystemUiVisibility(systemUiVisibility);
+    }
+  }
+
   @TargetApi(Build.VERSION_CODES.M)
   private int applyLightStatusBarFlag(int flag) {
     return isDark
         ? flag | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         : flag & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+  }
+
+  @TargetApi(VERSION_CODES.O_MR1)
+  private int applyLightNavigationBar(int flag) {
+    return isDark
+        ? flag | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+        : flag & ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
   }
 
   public void applyStyle(Resources.Theme theme) {

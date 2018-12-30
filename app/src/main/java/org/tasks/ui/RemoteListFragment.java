@@ -5,13 +5,14 @@ import static org.tasks.activities.RemoteListSupportPicker.newRemoteListSupportP
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.OnClick;
+import com.google.android.material.chip.Chip;
 import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
@@ -39,14 +40,18 @@ public class RemoteListFragment extends TaskEditControlFragment {
   private static final String EXTRA_SELECTED_LIST = "extra_selected_list";
   private static final int REQUEST_CODE_SELECT_LIST = 10101;
 
-  @BindView(R.id.google_task_list)
+  @BindView(R.id.dont_sync)
   TextView textView;
+
+  @BindView(R.id.chip)
+  Chip chip;
 
   @Inject GtasksListService gtasksListService;
   @Inject GoogleTaskDao googleTaskDao;
   @Inject CaldavDao caldavDao;
   @Inject DefaultFilterProvider defaultFilterProvider;
   @Inject TaskMover taskMover;
+  @Inject ChipProvider chipProvider;
 
   @Nullable private Filter originalList;
   @Nullable private Filter selectedList;
@@ -94,8 +99,15 @@ public class RemoteListFragment extends TaskEditControlFragment {
       selectedList = originalList;
     }
 
+    chip.setOnCloseIconClickListener(this::clearSelected);
+
     refreshView();
     return view;
+  }
+
+  private void clearSelected(View ignored) {
+    selectedList = null;
+    refreshView();
   }
 
   @Override
@@ -117,7 +129,7 @@ public class RemoteListFragment extends TaskEditControlFragment {
 
   @Override
   protected int getIcon() {
-    return R.drawable.ic_cloud_black_24dp;
+    return R.drawable.ic_outline_cloud_24px;
   }
 
   @Override
@@ -125,7 +137,7 @@ public class RemoteListFragment extends TaskEditControlFragment {
     return TAG;
   }
 
-  @OnClick(R.id.google_task_list)
+  @OnClick({R.id.remote_list_row, R.id.chip})
   void clickGoogleTaskList(View view) {
     newRemoteListSupportPicker(selectedList, this, REQUEST_CODE_SELECT_LIST)
         .show(getFragmentManager(), FRAG_TAG_GOOGLE_TASK_LIST_SELECTION);
@@ -169,6 +181,13 @@ public class RemoteListFragment extends TaskEditControlFragment {
   }
 
   private void refreshView() {
-    textView.setText(selectedList == null ? null : selectedList.listingTitle);
+    if (selectedList == null) {
+      textView.setVisibility(View.VISIBLE);
+      chip.setVisibility(View.GONE);
+    } else {
+      textView.setVisibility(View.GONE);
+      chip.setVisibility(View.VISIBLE);
+      chipProvider.apply(chip, selectedList);
+    }
   }
 }

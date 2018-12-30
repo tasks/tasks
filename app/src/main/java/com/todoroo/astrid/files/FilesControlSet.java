@@ -19,7 +19,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -118,7 +118,7 @@ public class FilesControlSet extends TaskEditControlFragment {
 
   @Override
   public int getIcon() {
-    return R.drawable.ic_attachment_24dp;
+    return R.drawable.ic_outline_attachment_24px;
   }
 
   @Override
@@ -223,10 +223,6 @@ public class FilesControlSet extends TaskEditControlFragment {
         }
       }
     }
-  }
-
-  public void hideAddAttachmentButton() {
-    addAttachment.setVisibility(View.GONE);
   }
 
   @Override

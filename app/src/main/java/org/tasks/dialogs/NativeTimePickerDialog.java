@@ -40,8 +40,9 @@ public class NativeTimePickerDialog extends InjectingNativeDialogFragment
 
   @Override
   public Dialog onCreateDialog(Bundle savedInstanceState) {
-    Context context = theme.wrap(getActivity());
     Bundle args = getArguments();
+    Context context = getActivity();
+    theme.applyToContext(context);
     TimePickerDialog timePickerDialog =
         new TimePickerDialog(
             context,

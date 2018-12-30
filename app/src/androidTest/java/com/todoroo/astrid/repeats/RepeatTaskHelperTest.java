@@ -13,7 +13,7 @@ import static org.tasks.makers.TaskMaker.RRULE;
 import static org.tasks.makers.TaskMaker.newTask;
 
 import android.annotation.SuppressLint;
-import android.support.test.runner.AndroidJUnit4;
+import androidx.test.runner.AndroidJUnit4;
 import com.google.ical.values.RRule;
 import com.todoroo.astrid.alarms.AlarmService;
 import com.todoroo.astrid.dao.TaskDao;

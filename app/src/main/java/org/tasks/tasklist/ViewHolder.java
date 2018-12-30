@@ -1,57 +1,58 @@
 package org.tasks.tasklist;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastKitKat;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
+import static com.todoroo.andlib.utility.DateUtilities.getAbbreviatedRelativeDateWithTime;
 
 import android.annotation.SuppressLint;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.graphics.Paint;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.RecyclerView;
-import android.text.SpannableString;
 import android.text.TextUtils;
-import android.text.method.LinkMovementMethod;
-import android.text.util.Linkify;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.google.common.collect.Lists;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.api.TaskAction;
-import com.todoroo.astrid.core.LinkActionExposer;
+import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.files.FilesAction;
-import com.todoroo.astrid.notes.NotesAction;
 import com.todoroo.astrid.ui.CheckableImageView;
 import java.util.List;
 import org.tasks.R;
-import org.tasks.dialogs.DialogBuilder;
+import org.tasks.dialogs.Linkify;
+import org.tasks.locale.Locale;
+import org.tasks.preferences.Preferences;
 import org.tasks.ui.CheckBoxes;
-import timber.log.Timber;
+import org.tasks.ui.ChipProvider;
 
 class ViewHolder extends RecyclerView.ViewHolder {
 
   private final Context context;
+  private final Preferences preferences;
   private final CheckBoxes checkBoxes;
-  private final TagFormatter tagFormatter;
   private final int textColorSecondary;
-  private final int textColorHint;
+  private final int textColorPrimary;
   private final TaskDao taskDao;
-  private final DialogBuilder dialogBuilder;
   private final ViewHolderCallbacks callback;
   private final DisplayMetrics metrics;
   private final int background;
   private final int selectedColor;
+  private final Linkify linkify;
   private final int textColorOverdue;
+  private final ChipProvider chipProvider;
+  private final int fontSizeDetails;
 
   @BindView(R.id.row)
   public ViewGroup row;
@@ -67,14 +68,17 @@ class ViewHolder extends RecyclerView.ViewHolder {
   @BindView(R.id.title)
   TextView nameView;
 
+  @BindView(R.id.description)
+  TextView description;
+
   @BindView(R.id.completeBox)
   CheckableImageView completeBox;
 
-  @BindView(R.id.tag_block)
-  TextView tagBlock;
+  @BindView(R.id.chip_group)
+  ChipGroup chipGroup;
 
-  @BindView(R.id.taskActionIcon)
-  ImageView taskActionIcon;
+  @BindView(R.id.hidden_status)
+  ImageView hidden;
 
   private int indent;
   private boolean selected;
@@ -82,55 +86,69 @@ class ViewHolder extends RecyclerView.ViewHolder {
 
   ViewHolder(
       Context context,
+      Locale locale,
       ViewGroup view,
-      boolean showFullTaskTitle,
+      Preferences preferences,
       int fontSize,
       CheckBoxes checkBoxes,
-      TagFormatter tagFormatter,
+      ChipProvider chipProvider,
       int textColorOverdue,
       int textColorSecondary,
-      int textColorHint,
+      int textColorPrimary,
       TaskDao taskDao,
-      DialogBuilder dialogBuilder,
       ViewHolderCallbacks callback,
       DisplayMetrics metrics,
       int background,
       int selectedColor,
-      int rowPadding) {
+      int rowPadding,
+      Linkify linkify) {
     super(view);
     this.context = context;
+    this.preferences = preferences;
     this.checkBoxes = checkBoxes;
-    this.tagFormatter = tagFormatter;
+    this.chipProvider = chipProvider;
     this.textColorOverdue = textColorOverdue;
     this.textColorSecondary = textColorSecondary;
-    this.textColorHint = textColorHint;
+    this.textColorPrimary = textColorPrimary;
     this.taskDao = taskDao;
-    this.dialogBuilder = dialogBuilder;
     this.callback = callback;
     this.metrics = metrics;
     this.background = background;
     this.selectedColor = selectedColor;
+    this.linkify = linkify;
     ButterKnife.bind(this, view);
 
-    if (showFullTaskTitle) {
+    if (preferences.getBoolean(R.string.p_fullTaskTitle, false)) {
       nameView.setMaxLines(Integer.MAX_VALUE);
       nameView.setSingleLine(false);
       nameView.setEllipsize(null);
     }
 
+    if (preferences.getBoolean(R.string.p_show_full_description, false)) {
+      description.setMaxLines(Integer.MAX_VALUE);
+      description.setSingleLine(false);
+      description.setEllipsize(null);
+    }
+
     if (atLeastKitKat()) {
       rowBody.setPadding(0, rowPadding, 0, rowPadding);
     } else {
-      ViewGroup.MarginLayoutParams layoutParams =
-          (ViewGroup.MarginLayoutParams) rowBody.getLayoutParams();
-      layoutParams.setMargins(
-          layoutParams.leftMargin, rowPadding, layoutParams.rightMargin, rowPadding);
+      MarginLayoutParams lp = (MarginLayoutParams) rowBody.getLayoutParams();
+      lp.setMargins(lp.leftMargin, rowPadding, lp.rightMargin, rowPadding);
     }
 
     nameView.setTextSize(fontSize);
-    int fontSizeDetails = Math.max(10, fontSize - 2);
+    description.setTextSize(fontSize);
+    fontSizeDetails = Math.max(10, fontSize - 2);
     dueDate.setTextSize(fontSizeDetails);
-    tagBlock.setTextSize(fontSizeDetails);
+
+    if (atLeastJellybeanMR1()) {
+      chipGroup.setLayoutDirection(
+          locale.isRtl() ? View.LAYOUT_DIRECTION_LTR : View.LAYOUT_DIRECTION_RTL);
+    } else {
+      MarginLayoutParams lp = (MarginLayoutParams) chipGroup.getLayoutParams();
+      lp.setMargins(lp.rightMargin, lp.topMargin, lp.leftMargin, lp.bottomMargin);
+    }
 
     view.setTag(this);
     for (int i = 0; i < view.getChildCount(); i++) {
@@ -141,6 +159,10 @@ class ViewHolder extends RecyclerView.ViewHolder {
   void setMoving(boolean moving) {
     this.moving = moving;
     updateBackground();
+  }
+
+  boolean isMoving() {
+    return moving;
   }
 
   private void updateBackground() {
@@ -162,8 +184,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
     this.indent = indent;
     int indentSize = getIndentSize(indent);
     if (atLeastLollipop()) {
-      ViewGroup.MarginLayoutParams layoutParams =
-          (ViewGroup.MarginLayoutParams) row.getLayoutParams();
+      MarginLayoutParams layoutParams = (MarginLayoutParams) row.getLayoutParams();
       layoutParams.setMarginStart(indentSize);
     } else {
       rowBody.setPadding(indentSize, rowBody.getPaddingTop(), 0, rowBody.getPaddingBottom());
@@ -183,54 +204,39 @@ class ViewHolder extends RecyclerView.ViewHolder {
   }
 
   void bindView(Task task) {
-    // TODO: see if this is a performance issue
     this.task = task;
 
     setFieldContentsAndVisibility();
     setTaskAppearance();
+    if (preferences.getBoolean(R.string.p_show_description, true)) {
+      description.setText(task.getNotes());
+      description.setVisibility(task.hasNotes() ? View.VISIBLE : View.GONE);
+    }
+    if (preferences.getBoolean(R.string.p_linkify_task_list, false)) {
+      linkify.linkify(nameView, this::onRowBodyClick, this::onRowBodyLongClick);
+      linkify.linkify(description, this::onRowBodyClick, this::onRowBodyLongClick);
+      nameView.setOnClickListener(view -> onRowBodyClick());
+      nameView.setOnLongClickListener(view -> onRowBodyLongClick());
+      description.setOnClickListener(view -> onRowBodyClick());
+      description.setOnLongClickListener(view -> onRowBodyLongClick());
+    }
   }
 
   /** Helper method to set the contents and visibility of each field */
   private synchronized void setFieldContentsAndVisibility() {
-    String nameValue = task.getTitle();
-
-    long hiddenUntil = task.getHideUntil();
-    if (hiddenUntil > DateUtilities.now()) {
-      nameValue = context.getResources().getString(R.string.TAd_hiddenFormat, nameValue);
-    }
-    nameView.setText(nameValue);
-
+    nameView.setText(task.getTitle());
+    hidden.setVisibility(task.isHidden() ? View.VISIBLE : View.GONE);
     setupDueDateAndTags();
-
-    // Task action
-    TaskAction action = getTaskAction(task, task.hasFiles());
-    if (action != null) {
-      taskActionIcon.setVisibility(View.VISIBLE);
-      taskActionIcon.setImageResource(action.icon);
-      taskActionIcon.setTag(action);
-    } else {
-      taskActionIcon.setVisibility(View.GONE);
-      taskActionIcon.setTag(null);
-    }
-  }
-
-  private TaskAction getTaskAction(Task task, boolean hasFiles) {
-    if (task.isCompleted()) {
-      return null;
-    }
-    return LinkActionExposer.getActionsForTask(context, task, hasFiles);
   }
 
   private void setTaskAppearance() {
-    boolean completed = task.isCompleted();
-
-    TextView name = nameView;
-    if (completed) {
-      name.setEnabled(false);
-      name.setPaintFlags(name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+    if (task.isCompleted()) {
+      nameView.setTextColor(textColorSecondary);
+      nameView.setPaintFlags(nameView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
     } else {
-      name.setEnabled(true);
-      name.setPaintFlags(name.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+      nameView.setTextColor(task.isHidden() ? textColorSecondary : textColorPrimary);
+      nameView.setEnabled(true);
+      nameView.setPaintFlags(nameView.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
     }
 
     setupDueDateAndTags();
@@ -256,39 +262,35 @@ class ViewHolder extends RecyclerView.ViewHolder {
 
   private void setupDueDateAndTags() {
     // due date / completion date
-    final TextView dueDateView = dueDate;
-    if (!task.isCompleted() && task.hasDueDate()) {
-      long dueDate = task.getDueDate();
+    if (task.hasDueDate()) {
       if (task.isOverdue()) {
-        dueDateView.setTextColor(textColorOverdue);
+        dueDate.setTextColor(textColorOverdue);
       } else {
-        dueDateView.setTextColor(textColorSecondary);
+        dueDate.setTextColor(textColorSecondary);
       }
-      String dateValue = DateUtilities.getRelativeDateStringWithTime(context, dueDate);
-      dueDateView.setText(dateValue);
-      dueDateView.setVisibility(View.VISIBLE);
-    } else if (task.isCompleted()) {
-      String dateValue =
-          DateUtilities.getRelativeDateStringWithTime(context, task.getCompletionDate());
-      dueDateView.setText(context.getResources().getString(R.string.TAd_completed, dateValue));
-      dueDateView.setTextColor(textColorHint);
-      dueDateView.setVisibility(View.VISIBLE);
+      String dateValue = getAbbreviatedRelativeDateWithTime(context, task.getDueDate());
+      dueDate.setText(dateValue);
+      dueDate.setVisibility(View.VISIBLE);
     } else {
-      dueDateView.setVisibility(View.GONE);
+      dueDate.setVisibility(View.GONE);
     }
 
-    if (task.isCompleted()) {
-      tagBlock.setVisibility(View.GONE);
-    } else {
+    if (preferences.getBoolean(R.string.p_show_list_indicators, true)) {
       String tags = task.getTagsString();
       List<String> tagUuids = tags != null ? newArrayList(tags.split(",")) : Lists.newArrayList();
-      CharSequence tagString =
-          tagFormatter.getTagString(task.getCaldav(), task.getGoogleTaskList(), tagUuids);
-      if (TextUtils.isEmpty(tagString)) {
-        tagBlock.setVisibility(View.GONE);
+
+      List<Chip> chips =
+          chipProvider.getChips(task.getCaldav(), task.getGoogleTaskList(), tagUuids);
+      if (chips.isEmpty()) {
+        chipGroup.setVisibility(View.GONE);
       } else {
-        tagBlock.setText(tagString);
-        tagBlock.setVisibility(View.VISIBLE);
+        chipGroup.removeAllViews();
+        for (Chip chip : chips) {
+          chip.setTextSize(fontSizeDetails);
+          chip.setOnClickListener(view -> callback.onClick((Filter) view.getTag()));
+          chipGroup.addView(chip);
+        }
+        chipGroup.setVisibility(View.VISIBLE);
       }
     }
   }
@@ -320,55 +322,13 @@ class ViewHolder extends RecyclerView.ViewHolder {
     setTaskAppearance();
   }
 
-  @OnClick(R.id.taskActionIcon)
-  void onTaskActionClick() {
-    TaskAction action = (TaskAction) taskActionIcon.getTag();
-    if (action instanceof NotesAction) {
-      showEditNotesDialog(task);
-    } else if (action instanceof FilesAction) {
-      showFilesDialog(task);
-    } else if (action != null) {
-      try {
-        action.intent.send();
-      } catch (PendingIntent.CanceledException e) {
-        // Oh well
-        Timber.e(e);
-      }
-    }
-  }
-
-  private void showEditNotesDialog(final Task task) {
-    Task t = taskDao.fetch(task.getId());
-    if (t == null || !t.hasNotes()) {
-      return;
-    }
-    SpannableString description = new SpannableString(t.getNotes());
-    Linkify.addLinks(description, Linkify.ALL);
-    AlertDialog dialog =
-        dialogBuilder
-            .newDialog()
-            .setMessage(description)
-            .setPositiveButton(android.R.string.ok, null)
-            .show();
-    View message = dialog.findViewById(android.R.id.message);
-    if (message != null && message instanceof TextView) {
-      ((TextView) message).setMovementMethod(LinkMovementMethod.getInstance());
-    }
-  }
-
-  private void showFilesDialog(Task task) {
-    // TODO: reimplement this
-    //        FilesControlSet filesControlSet = new FilesControlSet();
-    //        filesControlSet.hideAddAttachmentButton();
-    //        filesControlSet.readFromTask(task);
-    //        filesControlSet.getView().performClick();
-  }
-
   interface ViewHolderCallbacks {
 
     void onCompletedTask(Task task, boolean newState);
 
     void onClick(ViewHolder viewHolder);
+
+    void onClick(Filter filter);
 
     boolean onLongPress(ViewHolder viewHolder);
   }

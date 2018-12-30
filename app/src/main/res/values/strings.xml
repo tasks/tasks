@@ -92,16 +92,10 @@ File %1$s contained %2$s.\n\n
   <!-- Menu: Settings -->
   <string name="TLA_menu_settings">Settings</string>
 
-  <!-- ====================================================== TaskAdapter == -->
-
-  <!-- Format string to indicate task is hidden (%s => task name) -->
-  <string name="TAd_hiddenFormat">%s [hidden]</string>
-
-  <!-- slide 22b: indicates task was completed. %s => date or time ago -->
-  <string name="TAd_completed">Finished\n%s</string>
-
   <!-- slide 15a: Action Button: edit task -->
   <string name="TAd_actionEditTask">Edit</string>
+  <string name="action_call">Call</string>
+  <string name="action_open">Open</string>
 
   <!-- ============================================== SortSelectionDialog == -->
 
@@ -181,6 +175,7 @@ File %1$s contained %2$s.\n\n
   <string name="TEA_control_repeat">Repeat</string>
   <string name="TEA_control_gcal">Calendar</string>
   <string name="TEA_control_importance">Priority</string>
+  <string name="TEA_control_location">Location</string>
   <string name="TEA_control_notes">Description</string>
 
   <string name="TEA_control_files">Files</string>
@@ -193,27 +188,6 @@ File %1$s contained %2$s.\n\n
 
   <!-- Text to load more activity -->
   <string name="TEA_load_more">Load more…</string>
-
-  <!-- ===================================================== MissedCallActivity == -->
-
-  <string name="missed_call">Missed call from %s</string>
-
-  <!-- Missed call: return call -->
-  <string name="MCA_return_call">Call now</string>
-
-  <!-- Missed call: return call -->
-  <string name="MCA_add_task">Call later</string>
-
-  <!-- Missed call: return call -->
-  <string name="MCA_ignore">Ignore</string>
-
-  <string name="missed_calls">Missed calls</string>
-
-  <!-- Missed call: task title with name (%1$s -> name, %2$s -> number)-->
-  <string name="MCA_task_title_name">Call %1$s back at %2$s</string>
-
-  <!-- Missed call: task title no name (%s -> number)-->
-  <string name="MCA_task_title_no_name">Call %s back</string>
 
   <!-- ======================================= Calendar reminder activity == -->
 
@@ -311,6 +285,8 @@ File %1$s contained %2$s.\n\n
 
   <!-- slide 43e: Preference: Default Reminders Title -->
   <string name="EPr_default_reminders_title">Default reminders</string>
+  <string name="EPr_default_location_reminder_title">Default location reminders</string>
+  <string name="EPr_default_location_radius">Default radius</string>
 
   <!-- slide 45d: Reminder Mode Preference: Default Reminders Duration -->
   <string name="EPr_default_reminders_mode_title">Default ring/vibrate type</string>
@@ -325,9 +301,12 @@ File %1$s contained %2$s.\n\n
 
   <string name="dont_hide">Don\'t hide</string>
 
-  <string name="no_deadline_reminder">No deadline reminders</string>
   <string name="at_deadline">At deadline</string>
   <string name="at_deadline_or_overdue">At deadline or overdue</string>
+  <string name="no_reminders">No reminders</string>
+  <string name="default_location_reminder_on_arrival">On arrival</string>
+  <string name="default_location_reminder_on_departure">On departure</string>
+  <string name="default_location_reminder_on_arrival_or_departure">On arrival and departure</string>
 
   <!-- ================================================= Filter Exposer == -->
 
@@ -720,18 +699,17 @@ File %1$s contained %2$s.\n\n
   <string name="quiet_hours_summary">No reminders during quiet hours</string>
   <string name="TLA_menu_donate">Donate</string>
   <string name="add_reminder">Add reminder</string>
+  <string name="add_location">Add location</string>
   <string name="remove">Remove</string>
   <string name="randomly_once">Randomly once</string>
   <string name="randomly">Randomly</string>
   <string name="pick_a_date">Pick a date</string>
   <string name="pick_a_time">Pick a time</string>
   <string name="pick_a_date_and_time">Pick a date and time</string>
-  <string name="pick_a_location">Pick a location</string>
   <string name="when_overdue">When overdue</string>
   <string name="when_due">When due</string>
-  <string name="geofence_radius_title">Radius (meters)</string>
-  <string name="geofence_responsiveness_title">Response time (higher value conserves battery)</string>
-  <string name="geolocation_reminders">Geolocation Reminders</string>
+  <string name="geofence_radius">Radius</string>
+  <string name="location_radius_meters">%s m</string>
   <string name="tags">Tags</string>
   <string name="filters">Filters</string>
   <string name="date_shortcut_hour">For an hour</string>
@@ -803,6 +781,7 @@ File %1$s contained %2$s.\n\n
   <string name="theme_blue_grey">Blue grey</string>
   <string name="theme_black">Black</string>
   <string name="theme_dark_grey">Dark grey</string>
+  <string name="theme_white">White</string>
   <string name="theme_light">Light</string>
   <string name="theme_dark">Dark</string>
   <string name="theme_wallpaper">Wallpaper</string>
@@ -915,4 +894,15 @@ File %1$s contained %2$s.\n\n
   <string name="cannot_access_account">Cannot access account</string>
   <string name="reinitialize_account">Reinitialize</string>
   <string name="action_create_new_task">Create new task</string>
+  <string name="show_description">Show description</string>
+  <string name="show_full_description">Show full description</string>
+  <string name="linkify">Show links</string>
+  <string name="linkify_description">Add links to websites, addresses, and phone numbers</string>
+  <string name="show_list_indicators">Show list chips</string>
+  <string name="location_remind_arrival">Remind on arrival</string>
+  <string name="location_remind_departure">Remind on departure</string>
+  <string name="call_number">Call %s</string>
+  <string name="open_url">Open %s</string>
+  <string name="location_arrived">Arrived at %s</string>
+  <string name="location_departed">Departed %s</string>
 </resources>

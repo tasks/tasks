@@ -52,11 +52,6 @@
     android:key="@string/p_led_notification"
     android:summary="@string/hardware_support_required"
     android:title="@string/led_notification"/>
-  <CheckBoxPreference
-    android:defaultValue="false"
-    android:dependency="@string/p_rmd_enabled"
-    android:key="@string/p_field_missed_calls"
-    android:title="@string/missed_calls"/>
   <org.tasks.ui.TimePreference
     android:defaultValue="@integer/default_remind_time"
     android:dependency="@string/p_rmd_enabled"
@@ -74,25 +69,6 @@
       android:dependency="@string/p_badges_enabled"
       android:key="@string/p_badge_list"
       android:title="@string/list"/>
-  </PreferenceCategory>
-
-  <PreferenceCategory
-    android:key="@string/geolocation_reminders"
-    android:title="@string/geolocation_reminders">
-    <com.todoroo.astrid.ui.MultilineListPreference
-      android:defaultValue="250"
-      android:dependency="@string/p_rmd_enabled"
-      android:entries="@array/geofence_radius_values"
-      android:entryValues="@array/geofence_radius_values"
-      android:key="@string/p_geofence_radius"
-      android:title="@string/geofence_radius_title"/>
-    <com.todoroo.astrid.ui.MultilineListPreference
-      android:defaultValue="60"
-      android:dependency="@string/p_rmd_enabled"
-      android:entries="@array/geofence_responsiveness"
-      android:entryValues="@array/geofence_responsiveness_values"
-      android:key="@string/p_geofence_responsiveness"
-      android:title="@string/geofence_responsiveness_title"/>
   </PreferenceCategory>
 
   <PreferenceCategory android:title="@string/quiet_hours">

@@ -6,25 +6,25 @@
 package com.todoroo.astrid.activity;
 
 import static android.app.Activity.RESULT_OK;
-import static android.support.v4.content.ContextCompat.getColor;
+import static androidx.core.content.ContextCompat.getColor;
 
 import android.app.Activity;
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProviders;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
-import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.core.view.MenuItemCompat;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,6 +46,9 @@ import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.service.TaskMover;
 import com.todoroo.astrid.timers.TimerPlugin;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.subjects.PublishSubject;
+import java.util.concurrent.TimeUnit;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
@@ -88,6 +91,7 @@ public class TaskListFragment extends InjectingFragment
   private static final String FRAG_TAG_SORT_DIALOG = "frag_tag_sort_dialog";
   // --- instance variables
   private static final int REQUEST_EDIT_FILTER = 11544;
+  private static final int SEARCH_DEBOUNCE_TIMEOUT = 300;
   private final RefreshReceiver refreshReceiver = new RefreshReceiver();
   @Inject protected Tracker tracker;
   protected Filter filter;
@@ -124,7 +128,10 @@ public class TaskListFragment extends InjectingFragment
   private TaskAdapter taskAdapter = null;
   private TaskListRecyclerAdapter recyclerAdapter;
 
-  /*
+  private PublishSubject<String> searchSubject;
+  private Disposable searchDisposable;
+
+    /*
    * ======================================================================
    * ======================================================= initialization
    * ======================================================================
@@ -213,7 +220,7 @@ public class TaskListFragment extends InjectingFragment
     setupRefresh(emptyRefreshLayout);
 
     toolbar.setTitle(filter.listingTitle);
-    toolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
+    toolbar.setNavigationIcon(R.drawable.ic_outline_menu_24px);
     toolbar.setNavigationOnClickListener(v -> callbacks.onNavigationIconClicked());
     inflateMenu(toolbar);
     setupMenu(toolbar.getMenu());
@@ -247,34 +254,53 @@ public class TaskListFragment extends InjectingFragment
     }
 
     menu.findItem(R.id.menu_voice_add).setVisible(device.voiceInputAvailable());
+    setupSearchView(menu);
+  }
+
+  private void setupSearchView(Menu menu) {
     final MenuItem item = menu.findItem(R.id.menu_search);
     final SearchView actionView = (SearchView) MenuItemCompat.getActionView(item);
+    searchSubject = PublishSubject.create();
+    searchDisposable = searchSubject
+            .debounce(SEARCH_DEBOUNCE_TIMEOUT, TimeUnit.MILLISECONDS)
+            .subscribe(query -> searchByQuery(query));
+
     actionView.setOnQueryTextListener(
-        new SearchView.OnQueryTextListener() {
-          @Override
-          public boolean onQueryTextSubmit(String query) {
-            query = query.trim();
-            String title = getString(R.string.FLA_search_filter, query);
-            Filter savedFilter =
-                new Filter(
-                    title,
-                    new QueryTemplate()
-                        .where(
-                            Criterion.and(
-                                Task.DELETION_DATE.eq(0),
-                                Criterion.or(
+            new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String query) {
+                    searchSubject.onNext(query);
+                    return true;
+                }
+            });
+    }
+
+  private void searchByQuery(String query) {
+    query = query.trim();
+    if (!query.isEmpty()) {
+        Filter savedFilter = createSearchFilter(query);
+            taskListViewModel.searchByFilter(savedFilter);
+    } else {
+        MainActivity activity = (MainActivity) getActivity();
+        taskListViewModel.searchByFilter(activity.defaultFilterProvider.getDefaultFilter());
+    }
+  }
+
+  private Filter createSearchFilter(String query){
+    String title = getString(R.string.FLA_search_filter, query);
+    return new Filter(
+    title, new QueryTemplate()
+            .where(
+                    Criterion.and(
+                            Task.DELETION_DATE.eq(0),
+                            Criterion.or(
                                     Task.NOTES.like("%" + query + "%"),
                                     Task.TITLE.like("%" + query + "%")))));
-            ((MainActivity) getActivity()).onFilterItemClicked(savedFilter);
-            MenuItemCompat.collapseActionView(item);
-            return true;
-          }
-
-          @Override
-          public boolean onQueryTextChange(String query) {
-            return false;
-          }
-        });
   }
 
   @Override
@@ -405,7 +431,13 @@ public class TaskListFragment extends InjectingFragment
     localBroadcastManager.unregisterReceiver(refreshReceiver);
   }
 
-  /**
+  @Override
+  public void onDestroyView() {
+    super.onDestroyView();
+    searchDisposable.dispose();
+  }
+
+    /**
    * Called by the RefreshReceiver when the task list receives a refresh broadcast. Subclasses
    * should override this.
    */

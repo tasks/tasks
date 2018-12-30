@@ -24,7 +24,6 @@
 	<string name="WID_dateButtonUnset">Tryk for at indstille</string>
 	<string name="TLA_menu_sort">Sorter &amp; skjulte</string>
 	<string name="TLA_menu_settings">Opsætning</string>
-	<string name="TAd_hiddenFormat">%s [skjult]</string>
 	<string name="TAd_actionEditTask">Rediger</string>
 	<string name="SSD_sort_drag">Manuel ordre med delopgaver</string>
 	<string name="SSD_sort_auto">Tasks Intelligent sortering</string>

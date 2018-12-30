@@ -29,8 +29,6 @@
 	<string name="TLA_menu_sort">Razvrsti</string>
 	<string name="TLA_menu_search">Iskanje</string>
 	<string name="TLA_menu_settings">Nastavitve</string>
-	<string name="TAd_hiddenFormat">%s [skrit]</string>
-	<string name="TAd_completed">Opravljen\n%s</string>
 	<string name="TAd_actionEditTask">Uredi</string>
 	<string name="SSD_sort_drag">Ročna nastavitev s podopravki</string>
 	<string name="SSD_sort_auto">Pametno razvrščanje</string>
@@ -62,11 +60,6 @@
 	<string name="TEA_control_timer">Upravljanje s štoparico</string>
 	<string name="TEA_control_hidden_section">----Vedno skrij----</string>
 	<string name="TEA_load_more">Naloži še...</string>
-	<string name="MCA_return_call">Kliči zdaj</string>
-	<string name="MCA_add_task">Kliči kasneje</string>
-	<string name="MCA_ignore">Ignoriraj</string>
-	<string name="MCA_task_title_name">%1$s pokliči nazaj ob %2$s</string>
-	<string name="MCA_task_title_no_name">Vrni klic %s </string>
 	<string name="CRA_ignore">Ignoriraj</string>
 	<string name="CRA_title">Potrebujete seznam sestankov?</string>
 	<string name="CRA_ignore_body">Ignorirali ste številne dogodke na koledarju. Naj vas aplikacija Opravki neha spraševati o njih?</string>
@@ -106,7 +99,6 @@
 	<string name="day_after_tomorrow">Pojutrišnjem</string>
 	<string name="next_week">Naslednji teden</string>
 	<string name="dont_hide">Ne skrij</string>
-	<string name="no_deadline_reminder">Brez opomnikov o dospelosti</string>
 	<string name="at_deadline">Ob dospelosti</string>
 	<string name="at_deadline_or_overdue">Ob dospelosti ali potem</string>
 	<string name="BFE_Active">Moji Opravki</string>

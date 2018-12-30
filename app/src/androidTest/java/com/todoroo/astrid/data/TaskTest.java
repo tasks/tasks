@@ -19,7 +19,7 @@ import static org.tasks.Freeze.thaw;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
-import android.support.test.runner.AndroidJUnit4;
+import androidx.test.runner.AndroidJUnit4;
 import com.todoroo.astrid.data.Task.Priority;
 import java.util.ArrayList;
 import java.util.TreeSet;

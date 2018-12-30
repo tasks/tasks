@@ -2,7 +2,7 @@ package org.tasks.data;
 
 import static com.google.common.collect.Lists.newArrayList;
 
-import android.support.test.runner.AndroidJUnit4;
+import androidx.test.runner.AndroidJUnit4;
 import com.google.common.collect.ContiguousSet;
 import com.google.common.collect.DiscreteDomain;
 import com.google.common.collect.Range;

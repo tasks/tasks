@@ -11,7 +11,7 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.google.common.base.Joiner;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;

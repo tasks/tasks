@@ -1,10 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-  android:id="@+id/google_task_list"
-  style="@style/TaskEditTextPrimary"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/remote_list_row"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:layout_gravity="top"
-  android:gravity="start"
-  android:hint="@string/dont_sync"
-  android:textAlignment="viewStart"/>
+  android:orientation="vertical">
+
+  <TextView
+    android:id="@+id/dont_sync"
+    style="@style/TaskEditTextPrimary"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="top"
+    android:gravity="start"
+    android:hint="@string/dont_sync"
+    android:textAlignment="viewStart"/>
+
+  <com.google.android.material.chip.Chip
+    android:id="@+id/chip"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:visibility="gone"
+    app:closeIconEnabled="true"/>
+</LinearLayout>

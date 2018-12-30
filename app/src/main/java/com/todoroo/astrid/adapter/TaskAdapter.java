@@ -8,7 +8,7 @@ package com.todoroo.astrid.adapter;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.primitives.Longs.asList;
 
-import android.arch.paging.AsyncPagedListDiffer;
+import androidx.paging.AsyncPagedListDiffer;
 import com.google.common.collect.ObjectArrays;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.LongProperty;

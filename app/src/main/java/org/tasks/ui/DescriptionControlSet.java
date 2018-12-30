@@ -3,7 +3,7 @@ package org.tasks.ui;
 import static com.google.common.base.Strings.isNullOrEmpty;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +11,17 @@ import android.widget.EditText;
 import butterknife.BindView;
 import butterknife.OnTextChanged;
 import com.todoroo.astrid.data.Task;
+import javax.inject.Inject;
 import org.tasks.R;
+import org.tasks.dialogs.Linkify;
 import org.tasks.injection.FragmentComponent;
 
 public class DescriptionControlSet extends TaskEditControlFragment {
 
   public static final int TAG = R.string.TEA_ctrl_notes_pref;
   private static final String EXTRA_DESCRIPTION = "extra_description";
+
+  @Inject Linkify linkify;
 
   @BindView(R.id.notes)
   EditText editText;
@@ -37,6 +41,9 @@ public class DescriptionControlSet extends TaskEditControlFragment {
     if (!isNullOrEmpty(description)) {
       editText.setTextKeepState(description);
     }
+
+    linkify.linkify(editText);
+
     return view;
   }
 
@@ -54,7 +61,7 @@ public class DescriptionControlSet extends TaskEditControlFragment {
 
   @Override
   protected int getIcon() {
-    return R.drawable.ic_event_note_24dp;
+    return R.drawable.ic_outline_notes_24px;
   }
 
   @Override

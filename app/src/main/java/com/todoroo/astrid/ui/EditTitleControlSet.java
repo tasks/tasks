@@ -8,13 +8,13 @@ package com.todoroo.astrid.ui;
 import android.content.Context;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -24,6 +24,7 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import javax.inject.Inject;
 import org.tasks.R;
+import org.tasks.dialogs.Linkify;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.ui.CheckBoxes;
 import org.tasks.ui.TaskEditControlFragment;
@@ -44,6 +45,7 @@ public class EditTitleControlSet extends TaskEditControlFragment {
 
   @Inject TaskDao taskDao;
   @Inject CheckBoxes checkBoxes;
+  @Inject Linkify linkify;
 
   @BindView(R.id.title)
   EditText editText;
@@ -85,6 +87,9 @@ public class EditTitleControlSet extends TaskEditControlFragment {
     editText.setHorizontallyScrolling(false);
     editText.setLines(1);
     editText.setMaxLines(Integer.MAX_VALUE);
+
+    linkify.linkify(editText);
+
     updateCompleteBox();
     return view;
   }

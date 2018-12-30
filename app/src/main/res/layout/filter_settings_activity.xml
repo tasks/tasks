@@ -19,11 +19,11 @@
       android:focusableInTouchMode="true"
       android:orientation="vertical">
 
-      <android.support.design.widget.TextInputLayout
+      <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/name_layout"
         style="@style/TagSettingsRow">
 
-        <android.support.design.widget.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/name"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
           android:inputType="textCapSentences|textFilter"
           android:maxLines="1"
           android:textColor="?attr/asTextColor"/>
-      </android.support.design.widget.TextInputLayout>
+      </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 

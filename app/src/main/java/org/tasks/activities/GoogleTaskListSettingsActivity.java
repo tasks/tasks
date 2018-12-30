@@ -8,9 +8,9 @@ import static org.tasks.gtasks.RenameListDialog.newRenameListDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TextInputEditText;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.Toolbar;
+import com.google.android.material.textfield.TextInputEditText;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.widget.Toolbar;
 import android.text.InputType;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
@@ -105,7 +105,7 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
     toolbar.setTitle(isNewList ? getString(R.string.new_list) : gtasksList.getTitle());
     toolbar.setNavigationIcon(
         ContextCompat.getDrawable(
-            this, backButtonSavesTask ? R.drawable.ic_close_24dp : R.drawable.ic_save_24dp));
+            this, backButtonSavesTask ? R.drawable.ic_outline_clear_24px : R.drawable.ic_outline_save_24px));
     toolbar.setNavigationOnClickListener(
         v -> {
           if (backButtonSavesTask) {
@@ -321,6 +321,6 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
       color.setText(themeColor.getName());
     }
     themeColor.apply(toolbar);
-    themeColor.applyToStatusBar(this);
+    themeColor.applyToSystemBars(this);
   }
 }

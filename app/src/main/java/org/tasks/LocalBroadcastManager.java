@@ -16,13 +16,13 @@ public class LocalBroadcastManager {
   private static final String REPEAT = BuildConfig.APPLICATION_ID + ".REPEAT";
   private static final String REFRESH_PURCHASES = BuildConfig.APPLICATION_ID + ".REFRESH_PURCHASES";
 
-  private final android.support.v4.content.LocalBroadcastManager localBroadcastManager;
+  private final androidx.localbroadcastmanager.content.LocalBroadcastManager localBroadcastManager;
   private final AppWidgetManager appWidgetManager;
 
   @Inject
   public LocalBroadcastManager(@ForApplication Context context, AppWidgetManager appWidgetManager) {
     this.appWidgetManager = appWidgetManager;
-    localBroadcastManager = android.support.v4.content.LocalBroadcastManager.getInstance(context);
+    localBroadcastManager = androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(context);
   }
 
   public void registerRefreshReceiver(BroadcastReceiver broadcastReceiver) {

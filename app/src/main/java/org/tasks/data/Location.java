@@ -1,16 +1,22 @@
 package org.tasks.data;
 
-import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Ignore;
-import android.arch.persistence.room.PrimaryKey;
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+import com.google.common.base.Strings;
 import java.io.Serializable;
+import java.util.regex.Pattern;
 import org.tasks.backup.XmlReader;
 
 @Entity(tableName = "locations")
 public class Location implements Serializable, Parcelable {
+
+  private static final Pattern COORDS =
+      Pattern.compile("^\\d+°\\d+'\\d+\\.\\d+\"[NS] \\d+°\\d+'\\d+\\.\\d+\"[EW]$");
 
   public static final Parcelable.Creator<Location> CREATOR =
       new Parcelable.Creator<Location>() {
@@ -35,6 +41,15 @@ public class Location implements Serializable, Parcelable {
   @ColumnInfo(name = "name")
   private String name;
 
+  @ColumnInfo(name = "address")
+  private String address;
+
+  @ColumnInfo(name = "phone")
+  private String phone;
+
+  @ColumnInfo(name = "url")
+  private String url;
+
   @ColumnInfo(name = "latitude")
   private double latitude;
 
@@ -44,16 +59,42 @@ public class Location implements Serializable, Parcelable {
   @ColumnInfo(name = "radius")
   private int radius;
 
+  @ColumnInfo(name = "arrival")
+  private boolean arrival;
+
+  @ColumnInfo(name = "departure")
+  private boolean departure;
+
   public Location() {}
+
+  @Ignore
+  public Location(Location o) {
+    id = o.id;
+    task = o.task;
+    name = o.name;
+    address = o.address;
+    phone = o.phone;
+    url = o.url;
+    latitude = o.latitude;
+    longitude = o.longitude;
+    radius = o.radius;
+    arrival = o.arrival;
+    departure = o.departure;
+  }
 
   @Ignore
   public Location(Parcel parcel) {
     id = parcel.readLong();
     task = parcel.readLong();
     name = parcel.readString();
+    address = parcel.readString();
+    phone = parcel.readString();
+    url = parcel.readString();
     latitude = parcel.readDouble();
     longitude = parcel.readDouble();
     radius = parcel.readInt();
+    arrival = parcel.readInt() == 1;
+    departure = parcel.readInt() == 1;
   }
 
   @Ignore
@@ -112,12 +153,70 @@ public class Location implements Serializable, Parcelable {
     this.radius = radius;
   }
 
+  public String getAddress() {
+    return address;
+  }
+
+  public void setAddress(String address) {
+    this.address = address;
+  }
+
+  public String getPhone() {
+    return phone;
+  }
+
+  public void setPhone(String phone) {
+    this.phone = phone;
+  }
+
+  public String getUrl() {
+    return url;
+  }
+
+  public void setUrl(String url) {
+    this.url = url;
+  }
+
+  public boolean isArrival() {
+    return arrival;
+  }
+
+  public void setArrival(boolean arrival) {
+    this.arrival = arrival;
+  }
+
+  public boolean isDeparture() {
+    return departure;
+  }
+
+  public void setDeparture(boolean departure) {
+    this.departure = departure;
+  }
+
+  public String getDisplayName() {
+    if (Strings.isNullOrEmpty(address)) {
+      return name;
+    }
+    if (COORDS.matcher(name).matches()) {
+      return address;
+    }
+    if (address.startsWith(name)) {
+      return address;
+    }
+    return name;
+  }
+
+  public String getGeoUri() {
+    return String.format("geo:%s,%s?q=%s", latitude, longitude,
+        Uri.encode(Strings.isNullOrEmpty(address) ? name : address));
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof Location)) {
       return false;
     }
 
@@ -138,7 +237,22 @@ public class Location implements Serializable, Parcelable {
     if (radius != location.radius) {
       return false;
     }
-    return name != null ? name.equals(location.name) : location.name == null;
+    if (arrival != location.arrival) {
+      return false;
+    }
+    if (departure != location.departure) {
+      return false;
+    }
+    if (name != null ? !name.equals(location.name) : location.name != null) {
+      return false;
+    }
+    if (address != null ? !address.equals(location.address) : location.address != null) {
+      return false;
+    }
+    if (phone != null ? !phone.equals(location.phone) : location.phone != null) {
+      return false;
+    }
+    return url != null ? url.equals(location.url) : location.url == null;
   }
 
   @Override
@@ -148,11 +262,16 @@ public class Location implements Serializable, Parcelable {
     result = (int) (id ^ (id >>> 32));
     result = 31 * result + (int) (task ^ (task >>> 32));
     result = 31 * result + (name != null ? name.hashCode() : 0);
+    result = 31 * result + (address != null ? address.hashCode() : 0);
+    result = 31 * result + (phone != null ? phone.hashCode() : 0);
+    result = 31 * result + (url != null ? url.hashCode() : 0);
     temp = Double.doubleToLongBits(latitude);
     result = 31 * result + (int) (temp ^ (temp >>> 32));
     temp = Double.doubleToLongBits(longitude);
     result = 31 * result + (int) (temp ^ (temp >>> 32));
     result = 31 * result + radius;
+    result = 31 * result + (arrival ? 1 : 0);
+    result = 31 * result + (departure ? 1 : 0);
     return result;
   }
 
@@ -166,12 +285,25 @@ public class Location implements Serializable, Parcelable {
         + ", name='"
         + name
         + '\''
+        + ", address='"
+        + address
+        + '\''
+        + ", phone='"
+        + phone
+        + '\''
+        + ", url='"
+        + url
+        + '\''
         + ", latitude="
         + latitude
         + ", longitude="
         + longitude
         + ", radius="
         + radius
+        + ", arrival="
+        + arrival
+        + ", departure="
+        + departure
         + '}';
   }
 
@@ -185,8 +317,13 @@ public class Location implements Serializable, Parcelable {
     out.writeLong(id);
     out.writeLong(task);
     out.writeString(name);
+    out.writeString(address);
+    out.writeString(phone);
+    out.writeString(url);
     out.writeDouble(latitude);
     out.writeDouble(longitude);
     out.writeInt(radius);
+    out.writeInt(arrival ? 1 : 0);
+    out.writeInt(departure ? 1 : 0);
   }
 }

@@ -1,11 +1,12 @@
 package org.tasks.jobs;
 
-import android.support.annotation.NonNull;
+import android.content.Context;
+import androidx.annotation.NonNull;
+import androidx.work.WorkerParameters;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.BuildConfig;
 import org.tasks.Notifier;
-import org.tasks.injection.InjectingWorker;
 import org.tasks.injection.JobComponent;
 import org.tasks.preferences.Preferences;
 
@@ -14,6 +15,10 @@ public class NotificationWork extends RepeatingWorker {
   @Inject Preferences preferences;
   @Inject Notifier notifier;
   @Inject NotificationQueue notificationQueue;
+
+  public NotificationWork(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+    super(context, workerParams);
+  }
 
   @NonNull
   @Override

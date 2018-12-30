@@ -3,11 +3,23 @@
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-  android:id="@+id/display_row_edit"
-  style="@style/TaskEditTextPrimary"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/tag_row"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:gravity="start"
-  android:hint="@string/tag_FEx_untagged"
-  android:textAlignment="viewStart"/>
+  android:orientation="vertical">
+
+  <TextView
+    android:id="@+id/no_tags"
+    style="@style/TaskEditTextPrimary"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="start"
+    android:hint="@string/tag_FEx_untagged"
+    android:textAlignment="viewStart"/>
+
+  <com.google.android.material.chip.ChipGroup
+    android:id="@+id/chip_group"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+</LinearLayout>

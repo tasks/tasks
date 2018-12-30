@@ -4,7 +4,7 @@ jdk: oraclejdk8
 env:
   global:
     - TARGET_API=28
-    - BUILD_TOOLS=27.0.3
+    - BUILD_TOOLS=28.0.3
   matrix:
     - EMULATOR_API=21 ANDROID_ABI=armeabi-v7a
 android:
@@ -19,9 +19,6 @@ android:
     - build-tools-$BUILD_TOOLS
     - extra-android-m2repository
     - extra-google-m2repository
-  licenses:
-    - 'android-sdk-preview-license-.+'
-    - 'android-sdk-license-.+'
 
 before_install:
   - echo no | android create avd --force -n test -t android-$EMULATOR_API --abi $ANDROID_ABI

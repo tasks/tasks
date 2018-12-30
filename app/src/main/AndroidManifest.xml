@@ -5,7 +5,7 @@
   package="org.tasks">
 
 
-  <uses-sdk tools:overrideLibrary="timber.log, at.bitfire.ical4android"/>
+  <uses-sdk tools:overrideLibrary="at.bitfire.ical4android"/>
 
   <!-- ================================================== Used Permissions = -->
 
@@ -29,13 +29,6 @@
   <!-- write backups and attachments to storage -->
   <!-- **************************************** -->
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
-  <!-- ********************* -->
-  <!-- missed call reminders -->
-  <!-- ********************* -->
-  <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-  <uses-permission android:name="android.permission.READ_CALL_LOG"/>
-  <uses-permission android:name="android.permission.READ_CONTACTS"/>
 
   <!-- ******************************************* -->
   <!-- scheduling reminders after rebooting device -->
@@ -210,12 +203,6 @@
         android:resource="@xml/scrollable_widget_provider_info"/>
     </receiver>
 
-    <receiver android:name="com.todoroo.astrid.calls.PhoneStateChangedReceiver">
-      <intent-filter>
-        <action android:name="android.intent.action.PHONE_STATE"/>
-      </intent-filter>
-    </receiver>
-
     <!-- ======================================================== Services = -->
 
     <service
@@ -236,7 +223,7 @@
       android:authorities="${applicationId}.provider"
       android:exported="false"
       android:grantUriPermissions="true"
-      android:name="android.support.v4.content.FileProvider">
+      android:name="androidx.core.content.FileProvider">
       <meta-data
         android:name="android.support.FILE_PROVIDER_PATHS"
         android:resource="@xml/file_provider_paths"/>
@@ -262,13 +249,6 @@
     <activity
       android:name="com.todoroo.astrid.activity.BeastModePreferences"
       android:theme="@style/Tasks"/>
-
-    <activity
-      android:excludeFromRecents="true"
-      android:launchMode="singleTask"
-      android:name=".reminders.MissedCallActivity"
-      android:taskAffinity=""
-      android:theme="@style/TranslucentDialog"/>
 
     <activity
       android:excludeFromRecents="true"
@@ -375,10 +355,6 @@
       </intent-filter>
     </receiver>
 
-    <service
-      android:exported="false"
-      android:name=".jobs.AfterSaveIntentService"
-      android:permission="android.permission.BIND_JOB_SERVICE"/>
     <service
       android:exported="false"
       android:name=".scheduling.GeofenceSchedulingIntentService"

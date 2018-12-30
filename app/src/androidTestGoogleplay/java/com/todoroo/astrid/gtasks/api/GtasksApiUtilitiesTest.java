@@ -7,7 +7,7 @@ import static com.todoroo.astrid.gtasks.api.GtasksApiUtilities.unixTimeToGtasksD
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNull;
 
-import android.support.test.runner.AndroidJUnit4;
+import androidx.test.runner.AndroidJUnit4;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;

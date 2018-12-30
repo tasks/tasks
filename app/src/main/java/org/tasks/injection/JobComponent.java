@@ -1,6 +1,7 @@
 package org.tasks.injection;
 
 import dagger.Subcomponent;
+import org.tasks.jobs.AfterSaveWork;
 import org.tasks.jobs.BackupWork;
 import org.tasks.jobs.CleanupWork;
 import org.tasks.jobs.MidnightRefreshWork;
@@ -22,4 +23,6 @@ public interface JobComponent {
   void inject(CleanupWork cleanupWork);
 
   void inject(MidnightRefreshWork midnightRefreshWork);
+
+  void inject(AfterSaveWork afterSaveWork);
 }

@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.PixelFormat;
-import android.support.v7.app.AppCompatDelegate;
+import androidx.appcompat.app.AppCompatDelegate;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import javax.inject.Inject;
@@ -54,7 +54,7 @@ public class Theme {
   }
 
   public void applyStatusBarColor(Activity activity) {
-    themeColor.applyToStatusBar(activity);
+    themeColor.applyToSystemBars(activity);
     themeColor.applyTaskDescription(activity, activity.getString(R.string.app_name));
   }
 

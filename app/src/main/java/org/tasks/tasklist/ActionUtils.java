@@ -1,8 +1,8 @@
 package org.tasks.tasklist;
 
-import android.support.v7.app.WindowDecorActionBar;
-import android.support.v7.view.StandaloneActionMode;
-import android.support.v7.widget.ActionBarContextView;
+import androidx.appcompat.app.WindowDecorActionBar;
+import androidx.appcompat.view.StandaloneActionMode;
+import androidx.appcompat.widget.ActionBarContextView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,7 +14,7 @@ public class ActionUtils {
 
   // cribbed from Twittnuker
   public static void applySupportActionModeColor(
-      ThemeColor themeColor, final android.support.v7.view.ActionMode modeCompat) {
+      ThemeColor themeColor, final androidx.appcompat.view.ActionMode modeCompat) {
     // Very dirty implementation
     // This call ensures TitleView created
     modeCompat.setTitle(modeCompat.getTitle());

@@ -1,6 +1,6 @@
 package org.tasks.preferences;
 
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import javax.inject.Inject;
 
 public class FragmentPermissionRequestor extends PermissionRequestor {

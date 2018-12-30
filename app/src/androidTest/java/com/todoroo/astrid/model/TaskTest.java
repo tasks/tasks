@@ -4,7 +4,7 @@ import static junit.framework.Assert.assertEquals;
 import static org.tasks.Freeze.freezeClock;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
-import android.support.test.runner.AndroidJUnit4;
+import androidx.test.runner.AndroidJUnit4;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import javax.inject.Inject;

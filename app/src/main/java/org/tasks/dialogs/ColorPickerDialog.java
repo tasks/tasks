@@ -1,6 +1,8 @@
 package org.tasks.dialogs;
 
+import static androidx.core.content.ContextCompat.getColor;
 import static com.google.common.collect.Lists.transform;
+import static org.tasks.preferences.ResourceResolver.getData;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -8,8 +10,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -62,13 +64,14 @@ public class ColorPickerDialog extends InjectingDialogFragment {
           @Override
           protected int getDrawable(int position) {
             return inventory.purchasedThemes() || items.get(position).isFree()
-                ? R.drawable.ic_lens_black_24dp
-                : R.drawable.ic_vpn_key_black_24dp;
+                ? R.drawable.ic_baseline_lens_24px
+                : R.drawable.ic_outline_vpn_key_24px;
           }
 
           @Override
           protected int getDrawableColor(int position) {
-            return items.get(position).getPickerColor();
+            int pickerColor = items.get(position).getPickerColor();
+            return pickerColor == -1 ? getColor(context, R.color.grey_50) : pickerColor;
           }
         };
 

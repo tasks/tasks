@@ -2,7 +2,7 @@ package org.tasks.injection;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
 
-import android.arch.persistence.room.Room;
+import androidx.room.Room;
 import android.content.Context;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao;
@@ -23,6 +23,7 @@ import org.tasks.data.TaskAttachmentDao;
 import org.tasks.data.TaskListMetadataDao;
 import org.tasks.data.UserActivityDao;
 import org.tasks.db.Migrations;
+import org.tasks.jobs.WorkManager;
 import org.tasks.locale.Locale;
 import org.tasks.notifications.NotificationDao;
 import org.tasks.security.Encryption;
@@ -133,9 +134,9 @@ public class ApplicationModule {
 
   @Provides
   @ApplicationScope
-  public TaskDao getTaskDao(Database database) {
+  public TaskDao getTaskDao(Database database, WorkManager workManager) {
     TaskDao taskDao = database.getTaskDao();
-    taskDao.initialize(context);
+    taskDao.initialize(workManager);
     return taskDao;
   }
 

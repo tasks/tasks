@@ -31,9 +31,9 @@
 	<string name="TLA_menu_sort">排序</string>
 	<string name="TLA_menu_search">搜索</string>
 	<string name="TLA_menu_settings">设置</string>
-	<string name="TAd_hiddenFormat">%s [已隐藏]</string>
-	<string name="TAd_completed">完成\n%s 项</string>
 	<string name="TAd_actionEditTask">编辑</string>
+	<string name="action_call">通话</string>
+	<string name="action_open">打开</string>
 	<string name="SSD_sort_drag">手动指定来显示子任务</string>
 	<string name="SSD_sort_auto">清单小助理智能排序</string>
 	<string name="SSD_sort_alpha">按标题</string>
@@ -72,13 +72,6 @@
 	<string name="TEA_control_timer">定时器控件</string>
 	<string name="TEA_control_hidden_section">----始终隐藏----</string>
 	<string name="TEA_load_more">加载更多……</string>
-	<string name="missed_call">来自 %s 的未接来电</string>
-	<string name="MCA_return_call">现在回电</string>
-	<string name="MCA_add_task">稍后回电</string>
-	<string name="MCA_ignore">忽略</string>
-	<string name="missed_calls">未接来电</string>
-	<string name="MCA_task_title_name">请回电给 %1$s，电话是 %2$s</string>
-	<string name="MCA_task_title_no_name">请回电给 %s</string>
 	<string name="CRA_ignore">忽略</string>
 	<string name="CRA_title">需要会议列表？</string>
 	<string name="CRA_ignore_body">您已经忽略了几个日历事件。对于这些事件，清单小助理是否应该不再询问您呢？</string>
@@ -128,7 +121,6 @@
 	<string name="day_after_tomorrow">后天</string>
 	<string name="next_week">下周</string>
 	<string name="dont_hide">不隐藏</string>
-	<string name="no_deadline_reminder">无截止期限提醒</string>
 	<string name="at_deadline">截止期限时</string>
 	<string name="at_deadline_or_overdue">截止期限或过期时</string>
 	<string name="BFE_Active">我的任务</string>
@@ -333,12 +325,8 @@
 	<string name="pick_a_date">选个日期</string>
 	<string name="pick_a_time">选个时间</string>
 	<string name="pick_a_date_and_time">选个日期和时间</string>
-	<string name="pick_a_location">选个地址</string>
 	<string name="when_overdue">过期时</string>
 	<string name="when_due">到期时</string>
-	<string name="geofence_radius_title">半径（米）</string>
-	<string name="geofence_responsiveness_title">响应时间（更高的节电值）</string>
-	<string name="geolocation_reminders">地理位置提醒</string>
 	<string name="tags">标签</string>
 	<string name="filters">过滤器</string>
 	<string name="date_shortcut_hour">一个小时</string>
@@ -514,4 +502,9 @@
 	<string name="cannot_access_account">无法访问帐户</string>
 	<string name="reinitialize_account">重新初始化</string>
 	<string name="action_create_new_task">新建任务</string>
+	<string name="show_description">显示描述</string>
+	<string name="show_full_description">显示完整描述</string>
+	<string name="linkify">显示链接</string>
+	<string name="linkify_description">增加链接至网站，地址，电话号码</string>
+	<string name="show_list_indicators">显示列表芯片</string>
 </resources>

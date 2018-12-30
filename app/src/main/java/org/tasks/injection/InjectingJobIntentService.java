@@ -1,20 +1,19 @@
 package org.tasks.injection;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v4.app.JobIntentService;
+import androidx.annotation.NonNull;
+import androidx.core.app.JobIntentService;
 import javax.annotation.Nonnull;
 import timber.log.Timber;
 
 public abstract class InjectingJobIntentService extends JobIntentService {
 
-  public static final int JOB_ID_BACKGROUND_SCHEDULER = 2;
-  public static final int JOB_ID_GEOFENCE_TRANSITION = 4;
-  public static final int JOB_ID_GEOFENCE_SCHEDULING = 5;
-  public static final int JOB_ID_TASK_STATUS_CHANGE = 8;
-  public static final int JOB_ID_NOTIFICATION_SCHEDULER = 9;
-  public static final int JOB_ID_CALENDAR_NOTIFICATION = 10;
-  public static final int JOB_ID_TASKER = 11;
+  public static final int JOB_ID_BACKGROUND_SCHEDULER = 1080;
+  public static final int JOB_ID_GEOFENCE_TRANSITION = 1081;
+  public static final int JOB_ID_GEOFENCE_SCHEDULING = 1082;
+  public static final int JOB_ID_NOTIFICATION_SCHEDULER = 1084;
+  public static final int JOB_ID_CALENDAR_NOTIFICATION = 1085;
+  public static final int JOB_ID_TASKER = 1086;
 
   @Override
   protected final void onHandleWork(@NonNull Intent intent) {

@@ -5,7 +5,7 @@
  */
 package com.todoroo.andlib.utility;
 
-import static android.support.test.InstrumentationRegistry.getTargetContext;
+import static androidx.test.InstrumentationRegistry.getTargetContext;
 import static com.todoroo.andlib.utility.DateUtilities.addCalendarMonthsToUnixtime;
 import static com.todoroo.andlib.utility.DateUtilities.getDateString;
 import static com.todoroo.andlib.utility.DateUtilities.getStartOfDay;
@@ -19,7 +19,7 @@ import static org.tasks.date.DateTimeUtils.newDate;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
 import android.content.res.Configuration;
-import android.support.test.runner.AndroidJUnit4;
+import androidx.test.runner.AndroidJUnit4;
 import android.util.DisplayMetrics;
 import java.util.Locale;
 import org.junit.After;

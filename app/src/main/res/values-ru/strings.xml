@@ -31,8 +31,6 @@
 	<string name="TLA_menu_sort">Сортировка</string>
 	<string name="TLA_menu_search">Поиск</string>
 	<string name="TLA_menu_settings">Настройки</string>
-	<string name="TAd_hiddenFormat">%s [скрыто]</string>
-	<string name="TAd_completed">Завершено\n%s</string>
 	<string name="TAd_actionEditTask">Редактировать</string>
 	<string name="SSD_sort_drag">Ручная сортировка с подзадачами</string>
 	<string name="SSD_sort_auto">Умная сортировка</string>
@@ -72,13 +70,6 @@
 	<string name="TEA_control_timer">Учет времени</string>
 	<string name="TEA_control_hidden_section">Всегда скрывать</string>
 	<string name="TEA_load_more">Загрузить больше...</string>
-	<string name="missed_call">Пропущенный звонок от %s</string>
-	<string name="MCA_return_call">Позвонить сейчас</string>
-	<string name="MCA_add_task">Позвонить позже</string>
-	<string name="MCA_ignore">Игнорировать</string>
-	<string name="missed_calls">Пропущенные звонки</string>
-	<string name="MCA_task_title_name">Перезвонить %1$s в %2$s</string>
-	<string name="MCA_task_title_no_name">Перезвонить %s</string>
 	<string name="CRA_ignore">Игнорировать</string>
 	<string name="CRA_title">Необходим список встреч?</string>
 	<string name="CRA_ignore_body">Вы пропустили несколько событий календаря. Прекратить спрашивать о них?</string>
@@ -129,7 +120,6 @@
 	<string name="day_after_tomorrow">Послезавтра</string>
 	<string name="next_week">Следующая неделя</string>
 	<string name="dont_hide">Не скрывать</string>
-	<string name="no_deadline_reminder">Нет напоминаний</string>
 	<string name="at_deadline">В срок</string>
 	<string name="at_deadline_or_overdue">Вовремя или просрочена</string>
 	<string name="BFE_Active">Мои задачи</string>
@@ -334,12 +324,8 @@
 	<string name="pick_a_date">Дата</string>
 	<string name="pick_a_time">Время</string>
 	<string name="pick_a_date_and_time">Дата и время</string>
-	<string name="pick_a_location">По местонахождению</string>
 	<string name="when_overdue">Когда просрочено</string>
 	<string name="when_due">В срок</string>
-	<string name="geofence_radius_title">Радиус (в метрах)</string>
-	<string name="geofence_responsiveness_title">Период отслеживания (чем выше, тем меньше расход батареи)</string>
-	<string name="geolocation_reminders">Напоминания по местонахождению</string>
 	<string name="tags">Теги</string>
 	<string name="filters">Фильтры</string>
 	<string name="date_shortcut_hour">На час</string>
@@ -409,6 +395,7 @@
 	<string name="theme_blue_grey">Серо-голубой</string>
 	<string name="theme_black">Чёрная</string>
 	<string name="theme_dark_grey">Тёмно-серый</string>
+	<string name="theme_white">Белый</string>
 	<string name="theme_light">Светлая</string>
 	<string name="theme_dark">Тёмная</string>
 	<string name="theme_wallpaper">Как обои</string>

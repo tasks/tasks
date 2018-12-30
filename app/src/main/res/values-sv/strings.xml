@@ -31,8 +31,6 @@
 	<string name="TLA_menu_sort">Sortera</string>
 	<string name="TLA_menu_search">Sök</string>
 	<string name="TLA_menu_settings">Inställningar</string>
-	<string name="TAd_hiddenFormat">%s [dold]</string>
-	<string name="TAd_completed">Avslutad\n%s</string>
 	<string name="TAd_actionEditTask">Redigera</string>
 	<string name="SSD_sort_drag">Manuell sortering med underuppgifter</string>
 	<string name="SSD_sort_auto">Tasks intelligent sortering</string>
@@ -68,13 +66,6 @@
 	<string name="TEA_control_timer">Inställningar för tidtagarur</string>
 	<string name="TEA_control_hidden_section">----Göm alltid----</string>
 	<string name="TEA_load_more">Ladda mer...</string>
-	<string name="missed_call">Missat samtal från %s</string>
-	<string name="MCA_return_call">Ring nu</string>
-	<string name="MCA_add_task">Ring senare</string>
-	<string name="MCA_ignore">Ignorera</string>
-	<string name="missed_calls">Missade samtal</string>
-	<string name="MCA_task_title_name">Ring %1$s tillbaka kl %2$s</string>
-	<string name="MCA_task_title_no_name">Ring %s tillbaka</string>
 	<string name="CRA_ignore">Ignorera</string>
 	<string name="CRA_title">Behöver du en lista över möten?</string>
 	<string name="CRA_ignore_body">Du har ignorerat flera kalenderhändelser. Vill du att Tasks slutar fråga dig om dem?</string>
@@ -124,7 +115,6 @@
 	<string name="day_after_tomorrow">I övermorgon</string>
 	<string name="next_week">Nästa vecka</string>
 	<string name="dont_hide">Dölj inte</string>
-	<string name="no_deadline_reminder">Inga varsel om förfall</string>
 	<string name="at_deadline">Vid förfallodagen</string>
 	<string name="at_deadline_or_overdue">Vid eller efter förfallodagen</string>
 	<string name="BFE_Active">Mina Uppgifter</string>
@@ -252,12 +242,8 @@
 	<string name="pick_a_date">Ställ in datum</string>
 	<string name="pick_a_time">Ställ in tid</string>
 	<string name="pick_a_date_and_time">Ställ in datum och tid</string>
-	<string name="pick_a_location">Välj en plats</string>
 	<string name="when_overdue">Efter förfallotid</string>
 	<string name="when_due">Vid förfallotid</string>
-	<string name="geofence_radius_title">Radie (meter)</string>
-	<string name="geofence_responsiveness_title">Svarstid (högre värde sparar batteri)</string>
-	<string name="geolocation_reminders">Platsbaserade påminnelser</string>
 	<string name="tags">Etiketter</string>
 	<string name="filters">Filter</string>
 	<string name="date_shortcut_hour">En timme</string>
@@ -313,6 +299,7 @@
 	<string name="theme_blue_grey">Blågrå</string>
 	<string name="theme_black">Svart</string>
 	<string name="theme_dark_grey">Mörkgrå</string>
+	<string name="theme_white">Vit</string>
 	<string name="theme_light">Ljust</string>
 	<string name="theme_dark">Mörkt</string>
 	<string name="theme_wallpaper">Bakgrundsbild</string>

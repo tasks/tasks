@@ -3,7 +3,7 @@
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/task_list_coordinator"
   android:layout_width="fill_parent"
@@ -44,15 +44,15 @@
 
   </LinearLayout>
 
-  <android.support.design.widget.FloatingActionButton
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
     android:id="@+id/fab"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/task_list_fab_margin"
     android:layout_gravity="end|bottom"
     android:padding="0dp"
-    android:src="@drawable/ic_add_24dp"
+    android:src="@drawable/ic_outline_add_24px"
     android:tint="?attr/fab_text"
     app:borderWidth="0dp"/>
 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

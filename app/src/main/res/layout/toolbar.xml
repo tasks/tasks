@@ -1,4 +1,4 @@
-<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/toolbar"
@@ -8,5 +8,5 @@
   android:elevation="@dimen/elevation_toolbar"
   app:popupTheme="@style/popup_overlay"
   app:theme="?attr/overlay_theme"
-  app:toolbarStyle="@style/Widget.AppCompat.Toolbar"
+  app:toolbarStyle="@style/Widget.MaterialComponents.Toolbar"
   tools:ignore="UnusedAttribute"/>

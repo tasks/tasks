@@ -1,9 +1,9 @@
 package org.tasks.notifications;
 
-import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Index;
-import android.arch.persistence.room.PrimaryKey;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
 
 @Entity(
     tableName = "notification",
@@ -23,6 +23,9 @@ public class Notification {
   @ColumnInfo(name = "type")
   public int type;
 
+  @ColumnInfo(name = "location")
+  public Long location;
+
   @Override
   public String toString() {
     return "Notification{"
@@ -34,6 +37,8 @@ public class Notification {
         + timestamp
         + ", type="
         + type
+        + ", location="
+        + location
         + '}';
   }
 }

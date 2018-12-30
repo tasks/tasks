@@ -23,6 +23,28 @@
       android:key="@string/p_fullTaskTitle"
       android:title="@string/EPr_fullTask_title"/>
 
+    <CheckBoxPreference
+      android:defaultValue="true"
+      android:key="@string/p_show_description"
+      android:title="@string/show_description" />
+
+    <CheckBoxPreference
+      android:defaultValue="false"
+      android:key="@string/p_show_full_description"
+      android:dependency="@string/p_show_description"
+      android:title="@string/show_full_description" />
+
+    <CheckBoxPreference
+      android:defaultValue="true"
+      android:key="@string/p_show_list_indicators"
+      android:title="@string/show_list_indicators" />
+
+    <CheckBoxPreference
+      android:defaultValue="false"
+      android:key="@string/p_linkify_task_list"
+      android:title="@string/linkify"
+      android:summary="@string/linkify_description"/>
+
   </PreferenceCategory>
 
   <PreferenceCategory android:title="@string/EPr_edit_screen_options">
@@ -36,7 +58,7 @@
       android:title="@string/back_button_saves_task"/>
 
     <com.todoroo.astrid.ui.MultilineCheckboxPreference
-      android:defaultValue="true"
+      android:defaultValue="false"
       android:key="@string/p_show_task_edit_comments"
       android:title="@string/EPr_show_task_edit_comments"/>
 

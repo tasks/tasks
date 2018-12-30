@@ -2,7 +2,7 @@ package org.tasks.scheduling;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.JobIntentService;
+import androidx.core.app.JobIntentService;
 import com.todoroo.astrid.alarms.AlarmService;
 import com.todoroo.astrid.reminders.ReminderService;
 import javax.inject.Inject;
@@ -22,7 +22,7 @@ public class NotificationSchedulerIntentService extends InjectingJobIntentServic
   @Inject NotificationManager notificationManager;
 
   public static void enqueueWork(Context context, boolean cancelNotifications) {
-    Intent intent = new Intent();
+    Intent intent = new Intent(context, NotificationSchedulerIntentService.class);
     intent.putExtra(EXTRA_CANCEL_EXISTING_NOTIFICATIONS, cancelNotifications);
     JobIntentService.enqueueWork(
         context,

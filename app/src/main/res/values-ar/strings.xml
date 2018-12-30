@@ -45,9 +45,6 @@
 	<string name="TEA_control_files">الملفات</string>
 	<string name="TEA_control_reminders">مذكرات المهام</string>
 	<string name="TEA_control_hidden_section">---إخفاء دائما---</string>
-	<string name="MCA_return_call">اتصل الان</string>
-	<string name="MCA_add_task">اتصل لاحقاً</string>
-	<string name="MCA_ignore">تجاهل</string>
 	<string name="CRA_ignore">تجاهل</string>
 	<string name="CRA_title">تريد قائمة للمقابلات؟</string>
 	<string name="CRA_ignore_all">تجاهل جميع الأحداث</string>
@@ -153,12 +150,12 @@
 	<string name="remove">حذف</string>
 	<string name="randomly">عشوائياً</string>
 	<string name="pick_a_date_and_time">اختر تاريخ و وقت</string>
-	<string name="pick_a_location">أختر الموقع</string>
 	<string name="filters">تصفيات</string>
 	<string name="filter_settings">إعدادات التصفية</string>
 	<string name="show_hidden">عرض المهام المخفية</string>
 	<string name="show_completed">إظهار المكتملة</string>
 	<string name="opacity">التعتيم</string>
+	<string name="theme_white">أبيض</string>
 	<string name="settings_localization">تخصيص اللغة و الجهة</string>
 	<string name="layout_direction">إتجاه التنسيق</string>
 	<string name="layout_direction_left_to_right">من اليمين إلى اليسار</string>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:baselineAligned="false"
+  android:orientation="horizontal">
+
+  <LinearLayout
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="100"
+    android:orientation="vertical">
+
+    <TextView
+      android:id="@+id/location_name"
+      style="@style/TaskEditTextPrimary"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textColor="?attr/asTextColor"/>
+
+    <TextView
+      android:id="@+id/location_address"
+      style="@style/TaskEditTextPrimary"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textColor="?attr/asTextColorHint"
+      android:visibility="gone"
+      android:maxLines="1"
+      android:singleLine="true"
+      android:ellipsize="end"/>
+
+  </LinearLayout>
+
+  <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/location_more"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentRight="true"
+    android:layout_gravity="top|center"
+    android:alpha="?attr/alpha_secondary"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    android:clickable="true"
+    android:src="@drawable/ic_outline_more_vert_24px"
+    android:tint="?attr/icon_tint"/>
+
+</LinearLayout>

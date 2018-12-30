@@ -7,8 +7,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import android.widget.ListView;
 import android.widget.Toast;
 import com.google.common.base.Strings;
@@ -58,7 +58,7 @@ public class CalendarSelectionDialog extends InjectingDialogFragment {
         new SingleCheckedArrayAdapter(getActivity(), calendarNames, theme.getThemeAccent()) {
           @Override
           protected int getDrawable(int position) {
-            return R.drawable.ic_event_24dp;
+            return R.drawable.ic_outline_event_24px;
           }
 
           @Override

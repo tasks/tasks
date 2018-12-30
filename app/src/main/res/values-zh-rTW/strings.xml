@@ -26,8 +26,6 @@
 	<string name="TLA_menu_sort">排序</string>
 	<string name="TLA_menu_search">搜索</string>
 	<string name="TLA_menu_settings">設定</string>
-	<string name="TAd_hiddenFormat">%s [隱藏]</string>
-	<string name="TAd_completed">%s\n完成</string>
 	<string name="TAd_actionEditTask">編輯</string>
 	<string name="SSD_sort_auto">Tasks智慧排序</string>
 	<string name="SSD_sort_alpha">依主旨</string>
@@ -56,11 +54,6 @@
 	<string name="TEA_control_timer">定時器控件</string>
 	<string name="TEA_control_hidden_section">----始終隱藏----</string>
 	<string name="TEA_load_more">加載更多……</string>
-	<string name="MCA_return_call">現在回電</string>
-	<string name="MCA_add_task">稍後回電</string>
-	<string name="MCA_ignore">忽略</string>
-	<string name="MCA_task_title_name">請回電給 %1$s，電話是 %2$s</string>
-	<string name="MCA_task_title_no_name">請回電給 %s</string>
 	<string name="CRA_ignore">忽略</string>
 	<string name="CRA_title">需要一個會議列表嗎？</string>
 	<string name="CRA_ignore_body">您已經忽略了好幾個月曆上的事件， 之後 Tasks 是不是不要再詢問您了呢？</string>
@@ -101,7 +94,6 @@
 	<string name="day_after_tomorrow">後天</string>
 	<string name="next_week">下週</string>
 	<string name="dont_hide">不隱藏</string>
-	<string name="no_deadline_reminder">無截止期限提醒</string>
 	<string name="at_deadline">在截止期限時</string>
 	<string name="at_deadline_or_overdue">在截止期限或過期時</string>
 	<string name="BFE_Active">我的工作</string>
@@ -205,8 +197,6 @@
 	<string name="translations">貢獻翻譯</string>
 	<string name="rate_tasks">為 Tasks 評分</string>
 	<string name="TLA_menu_donate">贊助</string>
-	<string name="geofence_radius_title">半徑 (公尺)</string>
-	<string name="geolocation_reminders">地理位置提醒</string>
 	<string name="tags">標籤</string>
 	<string name="filters">過濾</string>
 	<string name="date_shortcut_tomorrow_morning">明天早上</string>

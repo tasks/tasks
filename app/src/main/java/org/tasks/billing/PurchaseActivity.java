@@ -16,10 +16,10 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.support.v7.widget.Toolbar.OnMenuItemClickListener;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -85,7 +85,7 @@ public class PurchaseActivity extends ThemedInjectingAppCompatActivity
     ButterKnife.bind(this);
 
     toolbar.setTitle(R.string.upgrade);
-    toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
+    toolbar.setNavigationIcon(R.drawable.ic_outline_arrow_back_24px);
     toolbar.setNavigationOnClickListener(v -> onBackPressed());
     toolbar.inflateMenu(R.menu.menu_purchase_activity);
     toolbar.setOnMenuItemClickListener(this);

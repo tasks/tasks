@@ -22,7 +22,6 @@
 	<string name="WID_dateButtonUnset">Klikk for å sette</string>
 	<string name="TLA_menu_sort">Sorter &amp; Skjult</string>
 	<string name="TLA_menu_settings">Innstillinger</string>
-	<string name="TAd_hiddenFormat">%s [skjult]</string>
 	<string name="TAd_actionEditTask">Rediger</string>
 	<string name="SSD_sort_drag">Manuell rekkefølge med underoppgaver</string>
 	<string name="SSD_sort_auto">Tasks intelligent sortering</string>
@@ -47,9 +46,6 @@
 	<string name="TEA_control_files">Filer</string>
 	<string name="TEA_control_reminders">Påminnelser</string>
 	<string name="TEA_control_hidden_section">----Skjul alltid----</string>
-	<string name="MCA_return_call">Ring nå</string>
-	<string name="MCA_add_task">Ring senere</string>
-	<string name="MCA_ignore">Ignorer</string>
 	<string name="EPr_appearance_header">Utseende</string>
 	<string name="EPr_default_urgency_title">Standardfrist</string>
 	<string name="EPr_default_importance_title">Standardviktighet</string>
@@ -143,9 +139,6 @@
 	<string name="source_code">Kildekode</string>
 	<string name="contact_developer">Kontakt utvikler</string>
 	<string name="rate_tasks">Gi Tasks din vurdering</string>
-	<string name="geofence_radius_title">Radius (meter)</string>
-	<string name="geofence_responsiveness_title">Responstid (høyere verdi bruker mindre batteri)</string>
-	<string name="geolocation_reminders">Geolokasjonsvarsler</string>
 	<string name="tags">Tagger</string>
 	<string name="filters">Filtere</string>
 	<string name="filter_settings">Filtreringsinnstillinger</string>

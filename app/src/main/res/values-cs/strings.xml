@@ -28,8 +28,6 @@
 	<string name="TLA_menu_sort">Třídit</string>
 	<string name="TLA_menu_search">Hledat</string>
 	<string name="TLA_menu_settings">Nastavení</string>
-	<string name="TAd_hiddenFormat">%s [skrytý]</string>
-	<string name="TAd_completed">Dokončeno\n%s</string>
 	<string name="TAd_actionEditTask">Upravit</string>
 	<string name="SSD_sort_drag">Ručně nebo s podúkoly</string>
 	<string name="SSD_sort_auto">Chytré třídění</string>
@@ -65,13 +63,6 @@
 	<string name="TEA_control_timer">Ovladač časovače</string>
 	<string name="TEA_control_hidden_section">-----Vždy skrývat----</string>
 	<string name="TEA_load_more">Více...</string>
-	<string name="missed_call">Zmeškaný hovor od %s</string>
-	<string name="MCA_return_call">Hned zavolat</string>
-	<string name="MCA_add_task">Zavolat později</string>
-	<string name="MCA_ignore">Ignorovat</string>
-	<string name="missed_calls">Zmeškané hovory</string>
-	<string name="MCA_task_title_name">Zavolat %1$s zpět v %2$s</string>
-	<string name="MCA_task_title_no_name">Zavolat %s zpět</string>
 	<string name="CRA_ignore">Ignorovat</string>
 	<string name="CRA_title">Potřebujete seznam schůze?</string>
 	<string name="CRA_ignore_body">Ignoroval jste několik událostí v kalendáři. Mám Vás přestat informovat i o úkolech?</string>
@@ -119,7 +110,6 @@
 	<string name="day_after_tomorrow">Pozítří</string>
 	<string name="next_week">Příští týden</string>
 	<string name="dont_hide">Neskrývat</string>
-	<string name="no_deadline_reminder">Žádné upomínky v termínu</string>
 	<string name="at_deadline">V termínu</string>
 	<string name="at_deadline_or_overdue">V termínu nebo po něm</string>
 	<string name="BFE_Active">Aktivní úkoly</string>
@@ -231,9 +221,6 @@
 	<string name="randomly">Náhodně</string>
 	<string name="pick_a_date">Vybrat datum</string>
 	<string name="pick_a_time">Vybrat čas</string>
-	<string name="geofence_radius_title">Okruh (v metrech)</string>
-	<string name="geofence_responsiveness_title">Doba odezvy (vyšší hodnota šetří baterii)</string>
-	<string name="geolocation_reminders">Geolokační upomínky</string>
 	<string name="tags">Tagy</string>
 	<string name="filters">Filtry</string>
 	<string name="date_shortcut_morning">Ráno</string>
@@ -279,6 +266,7 @@
 	<string name="theme_grey">Šedá</string>
 	<string name="theme_blue_grey">Modrošedá</string>
 	<string name="theme_black">Černá</string>
+	<string name="theme_white">Bílý</string>
 	<string name="theme_light">Světlý</string>
 	<string name="theme_dark">Tmavý</string>
 	<string name="theme_wallpaper">Tapeta</string>

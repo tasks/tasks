@@ -1,7 +1,7 @@
 package org.tasks.injection;
 
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 import dagger.Module;
 import dagger.Provides;
 

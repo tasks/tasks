@@ -5,7 +5,7 @@ import static java.util.Arrays.asList;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;

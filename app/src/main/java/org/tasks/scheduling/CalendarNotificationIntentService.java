@@ -5,7 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v4.app.JobIntentService;
+import androidx.core.app.JobIntentService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.gcal.CalendarAlarmReceiver;
 import java.util.concurrent.TimeUnit;
@@ -34,7 +34,7 @@ public class CalendarNotificationIntentService extends RecurringIntervalIntentSe
         context,
         CalendarNotificationIntentService.class,
         InjectingJobIntentService.JOB_ID_CALENDAR_NOTIFICATION,
-        new Intent());
+        new Intent(context, CalendarNotificationIntentService.class));
   }
 
   @Override

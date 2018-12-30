@@ -20,7 +20,7 @@
   <!-- google task sync -->
   <!-- **************** -->
   <uses-permission android:name="com.google.android.googleapps.permission.GOOGLE_AUTH"/>
-  <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+  <uses-permission android:name="android.permission.GET_ACCOUNTS" android:maxSdkVersion="25"/>
 
   <application tools:ignore="GoogleAppIndexingWarning">
 

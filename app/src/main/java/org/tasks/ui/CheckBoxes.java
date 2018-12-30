@@ -1,11 +1,11 @@
 package org.tasks.ui;
 
-import static android.support.v4.content.ContextCompat.getColor;
+import static androidx.core.content.ContextCompat.getColor;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import com.google.common.collect.ImmutableList;
 import com.google.common.primitives.Ints;
 import java.util.List;
@@ -27,9 +27,9 @@ public class CheckBoxes {
 
   @Inject
   public CheckBoxes(@ForApplication Context context) {
-    checkboxes = wrapDrawable(context, R.drawable.ic_check_box_outline_blank_24dp);
-    repeatingCheckboxes = wrapDrawable(context, R.drawable.ic_repeat_24dp);
-    completedCheckboxes = wrapDrawable(context, R.drawable.ic_check_box_24dp);
+    checkboxes = wrapDrawable(context, R.drawable.ic_outline_check_box_outline_blank_24px);
+    repeatingCheckboxes = wrapDrawable(context, R.drawable.ic_outline_repeat_24px);
+    completedCheckboxes = wrapDrawable(context, R.drawable.ic_outline_check_box_24px);
     priorityColors =
         ImmutableList.of(
             getColor(context, R.color.priority_1),

@@ -24,7 +24,7 @@ import static org.tasks.makers.TaskMaker.REMINDER_LAST;
 import static org.tasks.makers.TaskMaker.SNOOZE_TIME;
 import static org.tasks.makers.TaskMaker.newTask;
 
-import android.support.test.runner.AndroidJUnit4;
+import androidx.test.runner.AndroidJUnit4;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import java.util.concurrent.TimeUnit;

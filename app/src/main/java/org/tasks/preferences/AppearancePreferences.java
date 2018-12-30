@@ -1,6 +1,6 @@
 package org.tasks.preferences;
 
-import static org.tasks.dialogs.SeekBarDialog.newSeekBarDialog;
+import static org.tasks.dialogs.NativeSeekBarDialog.newSeekBarDialog;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,13 +13,13 @@ import org.tasks.R;
 import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
-import org.tasks.dialogs.SeekBarDialog;
+import org.tasks.dialogs.NativeSeekBarDialog;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.locale.Locale;
 
 public class AppearancePreferences extends InjectingPreferenceActivity
-    implements SeekBarDialog.SeekBarCallback {
+    implements NativeSeekBarDialog.SeekBarCallback {
 
   public static final String EXTRA_RESTART = "extra_restart";
   private static final String EXTRA_FILTERS_CHANGED = "extra_filters_changed";
@@ -46,9 +46,15 @@ public class AppearancePreferences extends InjectingPreferenceActivity
 
     addPreferencesFromResource(R.xml.preferences_appearance);
 
-    setExtraOnChange(R.string.p_fontSize, EXTRA_RESTART);
-    setExtraOnChange(R.string.p_rowPadding, EXTRA_RESTART);
-    setExtraOnChange(R.string.p_fullTaskTitle, EXTRA_RESTART);
+    setExtraOnChange(
+        EXTRA_RESTART,
+        R.string.p_fontSize,
+        R.string.p_rowPadding,
+        R.string.p_fullTaskTitle,
+        R.string.p_show_description,
+        R.string.p_show_full_description,
+        R.string.p_linkify_task_list,
+        R.string.p_show_list_indicators);
     setExtraOnChange(R.string.p_show_today_filter, EXTRA_FILTERS_CHANGED);
     setExtraOnChange(R.string.p_show_recently_modified_filter, EXTRA_FILTERS_CHANGED);
     setExtraOnChange(R.string.p_show_not_in_list_filter, EXTRA_FILTERS_CHANGED);
@@ -143,6 +149,12 @@ public class AppearancePreferences extends InjectingPreferenceActivity
               result.putBoolean(extra, true);
               return true;
             });
+  }
+
+  private void setExtraOnChange(final String extra, final int... resIds) {
+    for (int resId : resIds) {
+      setExtraOnChange(resId, extra);
+    }
   }
 
   @Override

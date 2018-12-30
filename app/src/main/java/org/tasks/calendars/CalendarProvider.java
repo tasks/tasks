@@ -7,7 +7,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.CalendarContract;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import com.google.common.base.Strings;
 import java.util.ArrayList;
 import java.util.Collections;

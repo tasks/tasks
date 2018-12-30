@@ -22,6 +22,9 @@ import org.tasks.preferences.Preferences;
  */
 public class SortHelper {
 
+  private static final String ADJUSTED_DUE_DATE =
+      "(CASE WHEN (dueDate / 1000) % 60 > 0 THEN dueDate ELSE (dueDate + 43140000) END)";
+
   public static final int SORT_AUTO = 0;
   public static final int SORT_ALPHA = 1;
   public static final int SORT_DUE = 2;
@@ -76,7 +79,7 @@ public class SortHelper {
       case SORT_DUE:
         order =
             Order.asc(
-                "(CASE WHEN (dueDate=0) THEN (strftime('%s','now')*1000)*2 ELSE (CASE WHEN (dueDate / 60000) > 0 THEN dueDate ELSE (dueDate + 43140000) END) END)+importance");
+                "(CASE WHEN (dueDate=0) THEN (strftime('%s','now')*1000)*2 ELSE " + ADJUSTED_DUE_DATE + " END)+importance");
         break;
       case SORT_IMPORTANCE:
         order =
@@ -95,7 +98,7 @@ public class SortHelper {
                     "THEN (strftime('%s','now')*1000)*2 "
                     + // then now * 2
                     "ELSE ("
-                    + adjustedDueDateFunction()
+                    + ADJUSTED_DUE_DATE
                     + ") END) "
                     + // else due time
                     "+ 172800000 * importance"); // add 2 days * importance
@@ -105,10 +108,5 @@ public class SortHelper {
     }
 
     return order;
-  }
-
-  private static String adjustedDueDateFunction() {
-    // if no due time use 11:59AM
-    return "(CASE WHEN (dueDate / 60000) > 0 THEN dueDate ELSE (dueDate + 43140000) END)";
   }
 }

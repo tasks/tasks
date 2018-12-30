@@ -2,7 +2,7 @@ package com.todoroo.astrid.subtasks;
 
 import static junit.framework.Assert.assertEquals;
 
-import android.support.test.runner.AndroidJUnit4;
+import androidx.test.runner.AndroidJUnit4;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import javax.inject.Inject;

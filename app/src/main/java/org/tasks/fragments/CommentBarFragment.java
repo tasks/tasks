@@ -10,9 +10,9 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.KeyEvent;
@@ -241,7 +241,7 @@ public class CommentBarFragment extends TaskEditControlFragment {
     getActivity().getTheme().resolveAttribute(R.attr.actionBarPrimaryText, typedValue, true);
     Drawable drawable =
         DrawableCompat.wrap(
-            ContextCompat.getDrawable(getContext(), R.drawable.ic_camera_alt_black_24dp));
+            ContextCompat.getDrawable(getContext(), R.drawable.ic_outline_photo_camera_24px));
     drawable.mutate();
     DrawableCompat.setTint(drawable, typedValue.data);
     pictureButton.setImageDrawable(drawable);

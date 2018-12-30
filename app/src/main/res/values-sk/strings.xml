@@ -31,8 +31,6 @@
 	<string name="TLA_menu_sort">Triediť</string>
 	<string name="TLA_menu_search">Hľadať</string>
 	<string name="TLA_menu_settings">Nastavenia</string>
-	<string name="TAd_hiddenFormat">%s [skryté]</string>
-	<string name="TAd_completed">Dokončené\n%s</string>
 	<string name="TAd_actionEditTask">Upraviť</string>
 	<string name="SSD_sort_drag">Ručne triediť s podúlohami</string>
 	<string name="SSD_sort_auto">Chytré triedenie</string>
@@ -68,13 +66,6 @@
 	<string name="TEA_control_timer">Stopky - nastavenie</string>
 	<string name="TEA_control_hidden_section">----Skryť vždy----</string>
 	<string name="TEA_load_more">Načítať viac...</string>
-	<string name="missed_call">Zmeškaný hovor od %s</string>
-	<string name="MCA_return_call">Volať teraz</string>
-	<string name="MCA_add_task">Volať neskôr</string>
-	<string name="MCA_ignore">Ignorovať</string>
-	<string name="missed_calls">Zmeškané hovory</string>
-	<string name="MCA_task_title_name">Zavolať %1$s späť o %2$s</string>
-	<string name="MCA_task_title_no_name">Zavolať %s späť</string>
 	<string name="CRA_ignore">Ignorovať</string>
 	<string name="CRA_title">Potrebuješ zoznam na stretnutie?</string>
 	<string name="CRA_ignore_body">Nevenoval si pozornosť niekoľkým udalostiam kalendára. Chceš, aby sa Úlohy na ne prestali pýtať?</string>
@@ -124,7 +115,6 @@
 	<string name="day_after_tomorrow">Pozajtra</string>
 	<string name="next_week">Nasledujúci týždeň</string>
 	<string name="dont_hide">Neskrývať</string>
-	<string name="no_deadline_reminder">Žiadne pripomienky v termíne</string>
 	<string name="at_deadline">V termíne</string>
 	<string name="at_deadline_or_overdue">V termíne alebo po termíne</string>
 	<string name="BFE_Active">Moje Úlohy</string>
@@ -328,12 +318,8 @@
 	<string name="pick_a_date">Vybrať dátum</string>
 	<string name="pick_a_time">Vybrať čas</string>
 	<string name="pick_a_date_and_time">Vybrať dátum a čas</string>
-	<string name="pick_a_location">Vybrať miesto</string>
 	<string name="when_overdue">Keď po termíne</string>
 	<string name="when_due">Keď v termíne</string>
-	<string name="geofence_radius_title">Okruh (v metroch)</string>
-	<string name="geofence_responsiveness_title">Doba odozvy (vyššia hodnota šetrí batériu)</string>
-	<string name="geolocation_reminders">Pripomienky polohy</string>
 	<string name="tags">Štítky</string>
 	<string name="filters">Filtre</string>
 	<string name="date_shortcut_hour">Za hodinu</string>

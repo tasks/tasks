@@ -119,7 +119,7 @@ class OrderedMetadataListFragmentHelper {
     @Override
     public boolean canIndent(int position, Task task) {
       Task parent = taskAdapter.getTask(position - 1);
-      return parent != null && getIndent(task) <= parent.getIndent();
+      return parent != null && getIndent(task) == 0;
     }
 
     @Override

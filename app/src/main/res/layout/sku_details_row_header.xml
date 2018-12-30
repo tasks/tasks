@@ -14,10 +14,9 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-<android.support.v7.widget.CardView
+<androidx.cardview.widget.CardView
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:id="@+id/card_view"
   style="@style/CardViewStyle"
   android:layout_height="wrap_content"
   android:focusable="true"
@@ -36,4 +35,4 @@
     android:textSize="@dimen/sku_details_row_text_size"
     app:fontFamily="sans-serif-medium"/>
 
-</android.support.v7.widget.CardView>
+</androidx.cardview.widget.CardView>

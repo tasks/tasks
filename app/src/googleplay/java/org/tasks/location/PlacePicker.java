@@ -3,6 +3,7 @@ package org.tasks.location;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.widget.Toast;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -37,9 +38,21 @@ public class PlacePicker {
     LatLng latLng = place.getLatLng();
     Location location = new Location();
     location.setName(place.getName().toString());
+    CharSequence address = place.getAddress();
+    if (address != null) {
+      location.setAddress(place.getAddress().toString());
+    }
+    CharSequence phoneNumber = place.getPhoneNumber();
+    if (phoneNumber != null) {
+      location.setPhone(phoneNumber.toString());
+    }
+    Uri uri = place.getWebsiteUri();
+    if (uri != null) {
+      location.setUrl(uri.toString());
+    }
     location.setLatitude(latLng.latitude);
     location.setLongitude(latLng.longitude);
-    location.setRadius(preferences.getIntegerFromString(R.string.p_geofence_radius, 250));
+    location.setRadius(preferences.getInt(R.string.p_default_location_radius, 250));
     Timber.i("Picked %s", location);
     return location;
   }

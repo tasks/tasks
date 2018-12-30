@@ -29,7 +29,6 @@
 	<string name="TLA_menu_sort">Ταξινόμηση</string>
 	<string name="TLA_menu_search">Αναζήτηση</string>
 	<string name="TLA_menu_settings">Ρυθμίσεις</string>
-	<string name="TAd_hiddenFormat">%s [κρυφό]</string>
 	<string name="TAd_actionEditTask">Επεξεργασία</string>
 	<string name="SSD_sort_drag">Χειροκίνητη κατάταξη με υποκαθήκοντα</string>
 	<string name="SSD_sort_auto">Έξυπνη ταξινόμηση</string>
@@ -61,11 +60,6 @@
 	<string name="TEA_control_timer">Χειριστήρια χρονοδιακόπτη</string>
 	<string name="TEA_control_hidden_section">-----Απόκρυψη πάντα-----</string>
 	<string name="TEA_load_more">Φόρτωση περισσότερων</string>
-	<string name="MCA_return_call">Κάλεσε τώρα</string>
-	<string name="MCA_add_task">Κάλεσε αργότερα</string>
-	<string name="MCA_ignore">Αγνοήστε</string>
-	<string name="MCA_task_title_name">Ξανακαλέστε %1$s στίς %2$s</string>
-	<string name="MCA_task_title_no_name">Ξανακαλέστε %s</string>
 	<string name="CRA_ignore">Αγνοήστε</string>
 	<string name="CRA_title">Χρειάζεστε λίστα για συνάντηση?</string>
 	<string name="CRA_ignore_body">Αγνοήσατε αρκετές κλήσεις. Να σταματήσουμε να ρωτάμε για αυτές;</string>
@@ -105,7 +99,6 @@
 	<string name="day_after_tomorrow">Μεθαύριο</string>
 	<string name="next_week">Επόμενη εβδομάδα</string>
 	<string name="dont_hide">Μη απόκρυψη</string>
-	<string name="no_deadline_reminder">Όχι υπενθυμίσεις προθεσμίας</string>
 	<string name="at_deadline">Στην προθεσμία</string>
 	<string name="at_deadline_or_overdue">Στην λήξη η και μετά</string>
 	<string name="CFA_type_add">ή</string>

@@ -1,11 +1,13 @@
 package org.tasks.location;
 
+import static com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER;
+import static com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_EXIT;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.JobIntentService;
+import androidx.core.app.JobIntentService;
 import com.google.android.gms.location.GeofencingEvent;
-import com.todoroo.astrid.reminders.ReminderService;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.Notifier;
@@ -33,9 +35,9 @@ public class GeofenceTransitionsIntentService extends InjectingJobIntentService 
     List<com.google.android.gms.location.Geofence> triggeringGeofences =
         geofencingEvent.getTriggeringGeofences();
     Timber.i("Received geofence transition: %s, %s", transitionType, triggeringGeofences);
-    if (transitionType == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER) {
+    if (transitionType == GEOFENCE_TRANSITION_ENTER || transitionType == GEOFENCE_TRANSITION_EXIT) {
       for (com.google.android.gms.location.Geofence triggerGeofence : triggeringGeofences) {
-        triggerNotification(triggerGeofence);
+        triggerNotification(triggerGeofence, transitionType == GEOFENCE_TRANSITION_ENTER);
       }
     } else {
       Timber.w("invalid geofence transition type: %s", transitionType);
@@ -47,11 +49,12 @@ public class GeofenceTransitionsIntentService extends InjectingJobIntentService 
     component.inject(this);
   }
 
-  private void triggerNotification(com.google.android.gms.location.Geofence triggeringGeofence) {
+  private void triggerNotification(
+      com.google.android.gms.location.Geofence triggeringGeofence, boolean arrival) {
     String requestId = triggeringGeofence.getRequestId();
     try {
       Location location = locationDao.getGeofence(Long.parseLong(requestId));
-      notifier.triggerTaskNotification(location.getTask(), ReminderService.TYPE_ALARM);
+      notifier.triggerTaskNotification(location, arrival);
     } catch (Exception e) {
       Timber.e(e, "Error triggering geofence %s: %s", requestId, e.getMessage());
     }

@@ -31,9 +31,9 @@
 	<string name="TLA_menu_sort">מיון</string>
 	<string name="TLA_menu_search">חיפוש</string>
 	<string name="TLA_menu_settings">הגדרות</string>
-	<string name="TAd_hiddenFormat">%s [מוסתרת]</string>
-	<string name="TAd_completed">הסתיימה\n%s</string>
 	<string name="TAd_actionEditTask">עריכה</string>
+	<string name="action_call">התקשר</string>
+	<string name="action_open">פתח</string>
 	<string name="SSD_sort_drag">סידור ידני עם תתי-משימות</string>
 	<string name="SSD_sort_auto">מיון חכם</string>
 	<string name="SSD_sort_alpha">ע״פ כותרת</string>
@@ -58,6 +58,10 @@
 	<string name="due_time">מועד הביצוע</string>
 	<string name="day_before_due">יום לפני מועד היעד</string>
 	<string name="week_before_due">שבוע לפני מועד היעד</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization." name="TEA_hideUntil_due_date">תאריך יעד</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization." name="TEA_hideUntil_due_time">זמן יעד</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization." name="TEA_hideUntil_day_before_due">ימים לפני מועד יעד</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization." name="TEA_hideUntil_week_before_due">שבוע לפני מועד יעד</string>
 	<string name="TEA_control_when">מתי</string>
 	<string name="TEA_control_repeat">חזרה</string>
 	<string name="TEA_control_gcal">יומן</string>
@@ -68,13 +72,6 @@
 	<string name="TEA_control_timer">הערכת זמן</string>
 	<string name="TEA_control_hidden_section">----מוסתר תמיד----</string>
 	<string name="TEA_load_more">טען עוד...</string>
-	<string name="missed_call">שיחה שלא נענתה מ%s</string>
-	<string name="MCA_return_call">התקשר כעת</string>
-	<string name="MCA_add_task">התקשר מאוחר יותר</string>
-	<string name="MCA_ignore">התעלם</string>
-	<string name="missed_calls">שיחות שלא נענו</string>
-	<string name="MCA_task_title_name">\"החזר שיחה ל־%1$s  ב־%2$s\"</string>
-	<string name="MCA_task_title_no_name">החזר שיחה ל־%s</string>
 	<string name="CRA_ignore">התעלם</string>
 	<string name="CRA_title">צריך רשימה לפגישה?</string>
 	<string name="CRA_ignore_body">התעלמת ממספר אירועי יומן. האם עלי לחדול מלהזכיר לך אירועי יומן?</string>
@@ -124,7 +121,6 @@
 	<string name="day_after_tomorrow">מחרתיים</string>
 	<string name="next_week">בשבוע הבא</string>
 	<string name="dont_hide">אל תסתיר</string>
-	<string name="no_deadline_reminder">ללא תזכורות במועד הסף</string>
 	<string name="at_deadline">במועד הסף</string>
 	<string name="at_deadline_or_overdue">במועד היעד או לאחריו</string>
 	<string name="BFE_Active">המשימות שלי</string>
@@ -137,7 +133,7 @@
 	<string name="CFA_context_delete">מחק שורה</string>
 	<string name="CFA_help">לחיצה ארוכה על פריטים כדי לקבל אפשרויות נוספות</string>
 	<string name="CFA_button_add">הוסף קריטריון</string>
-	<string name="CFC_dueBefore_text">תאריך יעד: ?</string>
+	<string name="CFC_dueBefore_text">תאריך יעד לפי: ?</string>
 	<string name="CFC_dueBefore_name">מועד יעד...</string>
 	<string name="no_due_date">ללא תאריך יעד</string>
 	<string name="next_month">בחודש הבא</string>
@@ -156,6 +152,7 @@
 	<string name="gcal_completed_title">%s (בוצעה)</string>
 	<string name="CFC_gtasks_list_text">ברשימה: ?</string>
 	<string name="CFC_gtasks_list_name">ברשימה של ״משימות גוגל״</string>
+	<string name="CFC_caldav_list_name">ברשימת CalDAV</string>
 	<string name="gtasks_GTA_clear_completed">נקה משימות שבוצעו</string>
 	<string name="gtasks_GLA_authenticating">מאמת...</string>
 	<string name="gtasks_GLA_errorIOAuth">בעיה בהתחברות לשרתי גוגל. נא נסה שוב מאוחר יותר.</string>
@@ -178,6 +175,7 @@
 	<string name="random_reminder_two_months">חדשיים</string>
 	<string name="rmd_NoA_done">בוצעה</string>
 	<string name="rmd_NoA_snooze">נודניק</string>
+	<string name="snooze_all">נדנד על כולם</string>
 	<string name="rmd_EPr_quiet_hours_start_title">תחילת שעות השקט</string>
 	<string name="rmd_EPr_quiet_hours_end_title">סיום שעות השקט</string>
 	<string name="rmd_EPr_rmd_time_title">תזכורת ברירת מחדל</string>
@@ -192,33 +190,83 @@
 	<string name="default_random_reminder_bi_weekly">דו שבועי</string>
 	<string name="default_random_reminder_monthly">חודשי</string>
 	<string name="default_random_reminder_bi_monthly">דו חודשי</string>
+	<string name="repeat_every">כל</string>
+	<string name="repeat_option_does_not_repeat">לא חוזר</string>
+	<string name="repeat_option_every_day">כל יום</string>
+	<string name="repeat_option_every_week">כל שבוע</string>
+	<string name="repeat_option_every_month">כל חודש</string>
+	<string name="repeat_option_every_year">כל שנה</string>
+	<string name="repeat_option_custom">מותאם אישית...</string>
+	<string name="repeat_minutely">חזרה בדקות</string>
+	<string name="repeat_hourly">חזרה בשעות</string>
+	<string name="repeat_daily">חזרה בימים</string>
+	<string name="repeat_weekly">חזרה בשבועות</string>
+	<string name="repeat_monthly">חזרה בחודשים</string>
+	<string name="repeat_yearly">חזרה בשנים</string>
+	<plurals name="task_count">
+		<item quantity="one">%d משימה</item>
+		<item quantity="other">%d משימות</item>
+	</plurals>
+	<plurals name="repeat_times">
+		<item quantity="one">זמן</item>
+		<item quantity="other">פעמים</item>
+	</plurals>
 	<plurals name="repeat_minutes">
 		<item quantity="one">דקה</item>
 		<item quantity="other">דקות</item>
+	</plurals>
+	<plurals name="repeat_n_minutes">
+		<item quantity="one">%d דקה</item>
+		<item quantity="other">%d דקות</item>
 	</plurals>
 	<plurals name="repeat_hours">
 		<item quantity="one">שעה</item>
 		<item quantity="other">שעות</item>
 	</plurals>
+	<plurals name="repeat_n_hours">
+		<item quantity="one">%d שעה</item>
+		<item quantity="other">%d שעות</item>
+	</plurals>
 	<plurals name="repeat_days">
 		<item quantity="one">יום</item>
 		<item quantity="other">ימים</item>
+	</plurals>
+	<plurals name="repeat_n_days">
+		<item quantity="one">%d יום</item>
+		<item quantity="other">%d ימים</item>
 	</plurals>
 	<plurals name="repeat_weeks">
 		<item quantity="one">שבוע</item>
 		<item quantity="other">שבועות</item>
 	</plurals>
+	<plurals name="repeat_n_weeks">
+		<item quantity="one">%d שבוע</item>
+		<item quantity="other">%d שבועות</item>
+	</plurals>
 	<plurals name="repeat_months">
 		<item quantity="one">חודש</item>
 		<item quantity="other">חודשים</item>
+	</plurals>
+	<plurals name="repeat_n_months">
+		<item quantity="one">%d חודש</item>
+		<item quantity="other">%d חודשים</item>
 	</plurals>
 	<plurals name="repeat_years">
 		<item quantity="one">שנה</item>
 		<item quantity="other">שנים</item>
 	</plurals>
+	<plurals name="repeat_n_years">
+		<item quantity="one">%d שנה</item>
+		<item quantity="other">%d שנים</item>
+	</plurals>
+	<string name="repeat_type_due">תאריך יעד</string>
+	<string name="repeat_type_completion">תאריך סיום</string>
 	<string name="repeat_forever">חזור לנצח</string>
 	<string name="repeat_until">חזרה עד %s</string>
+	<string name="repeat_number_of_times">חוזר מספר פעמים</string>
+	<string name="repeat_occurs">קורה</string>
 	<string name="repeat_snackbar">%1$s תזמן מחדש משימה חוזרת זו ל־%2$s</string>
+	<string comment="display new due date and time in snackbar after completing repeating task, e.g. \'Tomorrow at 8 AM\' or \'21 May at 8 AM\'" name="repeat_snackbar_time">%1$s בשעה %2$s</string>
 	<string name="new_tag">יצירת תגית חדשה</string>
 	<string name="new_list">יצירת רשימה חדשה</string>
 	<string name="tag_FEx_untagged">ללא קיטלוג</string>
@@ -272,18 +320,15 @@
 	<string name="quiet_hours_summary">ללא התראות בשעות השקטות</string>
 	<string name="TLA_menu_donate">לתרומה</string>
 	<string name="add_reminder">הוסף תזכורת</string>
+	<string name="add_location">הוסף מיקום</string>
 	<string name="remove">הסר</string>
 	<string name="randomly_once">אקראי יחיד</string>
 	<string name="randomly">אקראי</string>
 	<string name="pick_a_date">בחר/י בתאריך</string>
 	<string name="pick_a_time">בחר שעה</string>
 	<string name="pick_a_date_and_time">בחר תאריך ושעה</string>
-	<string name="pick_a_location">בחר מיקום</string>
 	<string name="when_overdue">לאחר מועד היעד</string>
 	<string name="when_due">במועד היעד</string>
-	<string name="geofence_radius_title">רדיוס (במטרים)</string>
-	<string name="geofence_responsiveness_title">זמן תגובה (ערך גבוה חוסך בסוללה)</string>
-	<string name="geolocation_reminders">התראות מיקום</string>
 	<string name="tags">תגיות</string>
 	<string name="filters">פילטרים</string>
 	<string name="date_shortcut_hour">בעוד שעה</string>
@@ -301,6 +346,7 @@
 	<string name="list_settings">הגדרות רשימה</string>
 	<string name="delete">מחק</string>
 	<string name="copy">העתק</string>
+	<string name="move">הזז</string>
 	<string name="filter_settings">הגדרות מסנן</string>
 	<string name="show_hidden">הצגת משימות נסתרות</string>
 	<string name="show_completed">הצגת משימות שבוצעו</string>
@@ -315,6 +361,7 @@
 	<string name="send_anonymous_statistics">שיפור Tasks</string>
 	<string name="send_anonymous_statistics_summary">שליחת סטסיטיקות ודיווחי קריסה של האפליקציה באופן אנונימי. מידע אישי לא נאסף כלל.</string>
 	<string name="tag_already_exists">תגית כבר קיימת</string>
+	<string name="duplicate_name">שכפל שם</string>
 	<string name="name_cannot_be_empty">השם לא יכול להיות ריק</string>
 	<string name="username_required">נדרש שם משתמש</string>
 	<string name="password_required">נדרשת סיסמא</string>
@@ -330,6 +377,7 @@
 	<string name="theme">ערכת נושא</string>
 	<string name="color">צבע</string>
 	<string name="accent">צבע משני</string>
+	<string name="launcher_icon">צלמית משגר</string>
 	<string name="theme_red">אדום</string>
 	<string name="theme_pink">ורוד</string>
 	<string name="theme_purple">סגול</string>
@@ -351,17 +399,18 @@
 	<string name="theme_blue_grey">כחול אפור</string>
 	<string name="theme_black">שחור</string>
 	<string name="theme_dark_grey">אפור כהה</string>
+	<string name="theme_white">לבן</string>
 	<string name="theme_light">בהיר</string>
 	<string name="theme_dark">כהה</string>
 	<string name="theme_wallpaper">תמונת רקע</string>
 	<string name="theme_day_night">יום / לילה</string>
 	<string name="settings_general">כללי</string>
 	<string name="language">שפה</string>
-	<string name="restart_required">יש לאתחל את האפליקציה כדי לגרום לשינוי להשפיע</string>
+	<string name="restart_required">יש לאתחל את האפליקציה כדי להחיל את השינוי</string>
 	<string name="restart_now">אתחל כעת</string>
 	<string name="restart_later">מאוחר יותר</string>
 	<string name="settings_localization">לוקאליזציה</string>
-	<string name="layout_direction">כיוון הממשק</string>
+	<string name="layout_direction">כיוון הפריסה</string>
 	<string name="layout_direction_left_to_right">משמאל לימין</string>
 	<string name="layout_direction_right_to_left">מימין לשמאל</string>
 	<string name="led_notification">תאורת התראות</string>
@@ -382,19 +431,27 @@
 	<string name="copy_selected_tasks">להעתיק משימות?</string>
 	<string name="date_and_time">תאריך וושעה</string>
 	<string name="start_of_week">תחילת השבוע</string>
+	<string name="use_locale_default">השתמש באזור גיאוגרפי ברירת מחדל</string>
 	<string name="use_native_datetime_pickers">השתמש בממשק תאריך ושעה של המערכת</string>
 	<string name="add_account">הוסף חשבון</string>
 	<string name="user">משתמש</string>
 	<string name="password">סיסמא</string>
 	<string name="url">כתובת URL</string>
 	<string name="error_adding_account">שגיאה בהוספת חשבון</string>
+	<string name="calendar_settings">הגדרות יומן</string>
 	<string name="notification_channel_settings">נהל התראות</string>
 	<string name="battery_optimization_settings">נהל חיסכון בסוללה</string>
 	<string name="notification_disable_battery_optimizations_description">חיסכון בסוללה עלול לעכב התראות</string>
+	<string name="bundle_notifications">חבילת התראות</string>
+	<string name="badges">תגים</string>
+	<string name="list">רשימה</string>
+	<string name="repeats_from">חוזר החל מ-</string>
 	<string name="repeats_single">חזרות %s</string>
 	<string name="repeats_single_on">חזרות %1$s ב- %2$s</string>
 	<string name="repeats_single_until">חוזר %1$s  עד %2$s</string>
 	<string name="repeats_single_number_of_times">חוזר %1$s, , חל ב-%2$d %3$s</string>
+	<string name="repeats_single_on_until">חוזר %1$s ב-%2$s עד %3$s</string>
+	<string name="repeats_single_on_number_of_times">חוזר %1$s ב-%2$s, מתרחש %3$d %4$s</string>
 	<string name="repeats_minutely">בכל דקה</string>
 	<string name="repeats_hourly">בכל שעה</string>
 	<string name="repeats_daily">בכל יום</string>
@@ -402,7 +459,56 @@
 	<string name="repeats_monthly">בכל חודש</string>
 	<string name="repeats_yearly">בכל שנה</string>
 	<string name="repeats_plural">חוזר כל %s</string>
+	<string name="repeats_plural_on">חוזר כל %1$s ב-%2$s</string>
+	<string name="repeats_plural_until">חוזר כל %1$s עד %2$s</string>
+	<string name="repeats_plural_number_of_times">חוזר כל %1$s, קורה %2$d %3$s</string>
+	<string name="repeats_plural_on_until">חוזר %1$s ב-%2$s עד %3$s</string>
+	<string name="repeats_plural_on_number_of_times">חוזר %1$s ב-%2$s, מתרחש %3$d %4$s</string>
+	<string name="dont_add_to_calendar">אל תוסיף ליומן</string>
+	<string name="default_calendar">יומן ברירת מחדל</string>
+	<string name="badges_description">הצג מספר משימות על סמליל משגר Tasks. לא כל המשגרים תומכים בתגים.</string>
+	<string name="bundle_notifications_summary">שלב מספר התראות בהתראה אחת</string>
+	<string name="repeat_monthly_same_day_each_month">באותו היום בכל חודש</string>
 	<string name="dont_sync">ללא סנכרון</string>
+	<string name="repeat_monthly_every_day_of_nth_week">בכל %1$s %2$s</string>
+	<string name="repeat_monthly_on_every_day_of_nth_week">בכל %1$s %2$s</string>
+	<string name="repeat_monthly_first_week">ראשון</string>
+	<string name="repeat_monthly_second_week">שני</string>
+	<string name="repeat_monthly_third_week">שלישי</string>
+	<string name="repeat_monthly_fourth_week">רביעי</string>
+	<string name="repeat_monthly_last_week">אחרון</string>
+	<string name="tasker_create_task">יצירת משימה</string>
+	<string name="tasker_list_notification">הצג רשימת התראות</string>
+	<string name="help">עזרה</string>
+	<string name="caldav_home_set_not_found">קבוצת הבית לא נמצאה</string>
 	<string name="network_error">החיבור נכשל</string>
+	<string name="background_sync_unmetered_only">רק בחיבורים ללא חיוב לפי נפח גלישה</string>
+	<string name="upgrade">שידרוג</string>
+	<string name="upgrade_to_pro">שידרוג לגירסת pro</string>
+	<string name="refresh_purchases">עדכן רכישות</string>
+	<string name="button_subscribed">מנוי רשום</string>
+	<string name="button_subscribe">רישום כמנוי</string>
+	<string name="button_more_info">עוד מידע</string>
+	<string name="owned">בבעלות</string>
+	<string name="error_billing_unavailable">חיוב לא זמין. 
+וודא שיישומון Google Play מוגדר נכון</string>
+	<string name="error_billing_default">חיוב לא זמין. בדוק את מכשירך.</string>
+	<string name="about">אודות</string>
+	<string name="license_summary">Tasks הוא חופשי ובקוד פתוח, תחת רישיון GNU General Public License גירסה 3.0</string>
 	<string name="themes">ערכות נושא נוספות</string>
+	<string name="pro_caldav_sync">סינכרון CalDAV</string>
+	<string name="pro_multiple_google_task_accounts">ריבוי חשבונות Google Task</string>
+	<string name="pro_tasker_plugins">תוסף Tasker</string>
+	<string name="pro_dashclock_extension">הרחבת Dashclock</string>
+	<string name="requires_pro_subscription">לא דורש הרשמה</string>
+	<string name="logout">התנתקות מהחשבון</string>
+	<string name="logout_warning">להתנתק מ-%s? כל המידע של חשבון זה יימחק מהמכשיר שלך</string>
+	<string name="cannot_access_account">לא ניתן לגשת לחשבון</string>
+	<string name="reinitialize_account">איתחול מחדש</string>
+	<string name="action_create_new_task">יצירת משימה חדשה</string>
+	<string name="show_description">הצג תיאור</string>
+	<string name="show_full_description">הצג תיאור מלא</string>
+	<string name="linkify">הצג קישורים</string>
+	<string name="linkify_description">הוסף קישורים לאתרים, כתובות, ומספרי טלפון</string>
+	<string name="show_list_indicators">הצג שבבי רשימה</string>
 </resources>

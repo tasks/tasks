@@ -12,8 +12,8 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -112,7 +112,7 @@ public class CalendarControlSet extends TaskEditControlFragment {
 
   @Override
   protected int getIcon() {
-    return R.drawable.ic_event_24dp;
+    return R.drawable.ic_outline_event_24px;
   }
 
   @Override

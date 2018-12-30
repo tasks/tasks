@@ -56,10 +56,6 @@
 	<string name="TEA_control_timer">کنترل تایمر</string>
 	<string name="TEA_control_hidden_section">----همیشه مخفی----</string>
 	<string name="TEA_load_more">بارگزاری بیشتر</string>
-	<string name="MCA_return_call">اکنون تماس بگیر</string>
-	<string name="MCA_add_task">بعدا تماس بگیر</string>
-	<string name="MCA_ignore">رد کردن</string>
-	<string name="missed_calls">تماس های از دست داده</string>
 	<string name="CRA_ignore">رد کردن</string>
 	<string name="CRA_title">نیاز به لیست ملاقات دارید ؟</string>
 	<string name="CRA_ignore_all">نادیده گرفتن تمام رویداد ها</string>
@@ -89,7 +85,6 @@
 	<string name="day_after_tomorrow">پس فردا</string>
 	<string name="next_week">هفته بعد</string>
 	<string name="dont_hide">مخفی نکن</string>
-	<string name="no_deadline_reminder">بدون یادآور موعود</string>
 	<string name="at_deadline">روز موعود</string>
 	<string name="at_deadline_or_overdue">در روز موعد یا پس از موعود</string>
 	<string name="BFE_Active">وظایف من</string>
@@ -222,12 +217,8 @@
 	<string name="pick_a_date">یک تاریخ انتخاب کنید</string>
 	<string name="pick_a_time">یک زمان انتخاب کنید</string>
 	<string name="pick_a_date_and_time">انتخاب یک تاریخ و زمان</string>
-	<string name="pick_a_location">انتخاب یک موقعیت</string>
 	<string name="when_overdue">پس از موعود</string>
 	<string name="when_due">روز موعود</string>
-	<string name="geofence_radius_title">شعاع (متر)</string>
-	<string name="geofence_responsiveness_title">زمان پاسخگویی (مقدار بالاتر مصرف کمتر باتری)</string>
-	<string name="geolocation_reminders">یادآوری‌های وابسته به مکان</string>
 	<string name="tags">برچسب ها</string>
 	<string name="filters">فیلترها</string>
 	<string name="date_shortcut_hour">برای یک ساعت</string>
@@ -263,6 +254,7 @@
 	<string name="theme_orange">نارنجی</string>
 	<string name="theme_brown">قهوه ای</string>
 	<string name="theme_grey">خاکستری</string>
+	<string name="theme_white">سفید</string>
 	<string name="theme_light">روشن</string>
 	<string name="theme_dark">تیره</string>
 	<string name="settings_general">عمومی</string>

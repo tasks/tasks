@@ -8,7 +8,7 @@ package com.todoroo.astrid.gtasks;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 
-import android.support.v4.util.Pair;
+import androidx.core.util.Pair;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
 import java.util.List;

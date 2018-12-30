@@ -34,7 +34,7 @@ public class CaldavFilter extends Filter {
         }
       };
 
-  private static final int TAG = R.drawable.ic_cloud_black_24dp;
+  private static final int TAG = R.drawable.ic_outline_cloud_24px;
   private CaldavCalendar calendar;
 
   private CaldavFilter() {

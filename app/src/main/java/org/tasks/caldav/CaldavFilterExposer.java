@@ -2,7 +2,7 @@ package org.tasks.caldav;
 
 import static com.google.common.collect.Lists.transform;
 
-import android.support.v4.util.Pair;
+import androidx.core.util.Pair;
 import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
 import java.util.ArrayList;

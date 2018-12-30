@@ -8,7 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore.Images.Media;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.todoroo.astrid.files.FilesControlSet;
 import java.util.List;
 import javax.inject.Inject;

@@ -94,7 +94,9 @@
   <color name="white_50">#80ffffff</color>
   <color name="white_12">#1fffffff</color>
 
-  <color name="overdue">@color/red_500</color>
+  <color name="overdue_100">@color/red_500</color>
+  <color name="overdue_87">#def44336</color>
+  <color name="overdue">@color/overdue_87</color>
 
   <color name="md_background_dark">#303030</color>
   <color name="widget_background_black">#000000</color>

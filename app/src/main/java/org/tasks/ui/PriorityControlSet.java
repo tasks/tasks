@@ -5,9 +5,9 @@ import static com.todoroo.andlib.utility.AndroidUtilities.preLollipop;
 import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.widget.CompoundButtonCompat;
-import android.support.v7.widget.AppCompatRadioButton;
+import androidx.annotation.Nullable;
+import androidx.core.widget.CompoundButtonCompat;
+import androidx.appcompat.widget.AppCompatRadioButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -101,7 +101,7 @@ public class PriorityControlSet extends TaskEditControlFragment {
 
   @Override
   protected int getIcon() {
-    return R.drawable.ic_flag_24dp;
+    return R.drawable.ic_outline_flag_24px;
   }
 
   @Override

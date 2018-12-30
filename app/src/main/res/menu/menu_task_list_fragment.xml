@@ -5,18 +5,18 @@
 
   <item
     android:id="@+id/menu_voice_add"
-    android:icon="@drawable/ic_mic_24dp"
+    android:icon="@drawable/ic_outline_mic_none_24px"
     android:title="@string/EPr_voiceInputEnabled_title"
-    app:showAsAction="ifRoom"/>
+    app:showAsAction="always"/>
   <item
     android:id="@+id/menu_search"
-    android:icon="@drawable/ic_search_24dp"
+    android:icon="@drawable/ic_outline_search_24px"
     android:title="@string/TLA_menu_search"
-    app:actionViewClass="android.support.v7.widget.SearchView"
-    app:showAsAction="ifRoom|collapseActionView"/>
+    app:actionViewClass="androidx.appcompat.widget.SearchView"
+    app:showAsAction="always|collapseActionView"/>
   <item
     android:id="@+id/menu_sort"
-    android:icon="@drawable/ic_sort_24dp"
+    android:icon="@drawable/ic_outline_sort_24px"
     android:title="@string/TLA_menu_sort"
     app:showAsAction="ifRoom"/>
   <group

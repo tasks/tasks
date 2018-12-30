@@ -1,7 +1,5 @@
 package org.tasks.preferences;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybean;
-
 import android.Manifest;
 
 public abstract class PermissionRequestor {
@@ -11,7 +9,6 @@ public abstract class PermissionRequestor {
   public static final int REQUEST_MIC = 52;
   public static final int REQUEST_GOOGLE_ACCOUNTS = 53;
   public static final int REQUEST_LOCATION = 54;
-  public static final int REQUEST_CONTACTS = 55;
 
   private final PermissionChecker permissionChecker;
 
@@ -62,24 +59,6 @@ public abstract class PermissionRequestor {
       return true;
     }
     requestPermission(Manifest.permission.ACCESS_FINE_LOCATION, REQUEST_LOCATION);
-    return false;
-  }
-
-  public boolean requestMissedCallPermissions() {
-    if (permissionChecker.canAccessMissedCallPermissions()) {
-      return true;
-    }
-    String[] permissions =
-        atLeastJellybean()
-            ? new String[] {
-              Manifest.permission.READ_CONTACTS,
-              Manifest.permission.READ_PHONE_STATE,
-              Manifest.permission.READ_CALL_LOG
-            }
-            : new String[] {
-              Manifest.permission.READ_CONTACTS, Manifest.permission.READ_PHONE_STATE
-            };
-    requestPermissions(permissions, REQUEST_CONTACTS);
     return false;
   }
 

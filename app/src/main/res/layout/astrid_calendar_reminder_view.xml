@@ -37,7 +37,7 @@
       android:layout_width="25dip"
       android:layout_height="25dip"
       android:scaleType="fitCenter"
-      android:src="@drawable/ic_close_24dp"
+      android:src="@drawable/ic_outline_clear_24px"
       android:tint="@android:color/white"/>
 
   </LinearLayout>
@@ -134,7 +134,7 @@
       android:padding="4dip"
       android:background="@android:color/transparent"
       android:scaleType="fitCenter"
-      android:src="@drawable/ic_settings_24dp"
+      android:src="@drawable/ic_outline_settings_24px"
       android:tint="@android:color/white"/>
   </RelativeLayout>
 

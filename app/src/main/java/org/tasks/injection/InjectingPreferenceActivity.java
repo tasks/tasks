@@ -8,9 +8,9 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.Toolbar;
-import android.support.v7.widget.Toolbar.OnMenuItemClickListener;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,7 +70,7 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
       Timber.e(e);
       toolbar.setTitle(getTitle());
     }
-    toolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_24dp));
+    toolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_outline_arrow_back_24px));
     toolbar.setNavigationOnClickListener(v -> finish());
     toolbar.inflateMenu(R.menu.menu_preferences);
     toolbar.setOnMenuItemClickListener(this);

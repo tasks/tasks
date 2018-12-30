@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.speech.tts.TextToSpeech;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.todoroo.astrid.voice.VoiceOutputAssistant;
 import java.io.File;
 import javax.inject.Inject;

@@ -1,10 +1,10 @@
 package org.tasks.preferences;
 
-import static android.support.test.InstrumentationRegistry.getTargetContext;
+import static androidx.test.InstrumentationRegistry.getTargetContext;
 import static junit.framework.Assert.assertEquals;
 
 import android.annotation.SuppressLint;
-import android.support.test.runner.AndroidJUnit4;
+import androidx.test.runner.AndroidJUnit4;
 import java.util.concurrent.TimeUnit;
 import org.junit.Before;
 import org.junit.Test;

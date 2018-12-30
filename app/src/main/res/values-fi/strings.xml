@@ -34,8 +34,6 @@
 	<string name="TLA_menu_sort">Järjestä</string>
 	<string name="TLA_menu_search">Etsi</string>
 	<string name="TLA_menu_settings">Asetukset</string>
-	<string name="TAd_hiddenFormat">%s (piilotettu)</string>
-	<string name="TAd_completed">Lopetettu\n%s</string>
 	<string name="TAd_actionEditTask">Muokkaa</string>
 	<string name="SSD_sort_drag">Manuaalinen järjestys osatehtäviin</string>
 	<string name="SSD_sort_auto">Älykäs järjestely</string>
@@ -71,13 +69,6 @@
 	<string name="TEA_control_timer">Ajastuksen säätimet</string>
 	<string name="TEA_control_hidden_section">----Piilota aina----</string>
 	<string name="TEA_load_more">Lataa lisää...</string>
-	<string name="missed_call">Vastaamaton puhelu: %s</string>
-	<string name="MCA_return_call">Soita heti</string>
-	<string name="MCA_add_task">Soita myöhemmin</string>
-	<string name="MCA_ignore">Ohita</string>
-	<string name="missed_calls">Vastaamattomat puhelut</string>
-	<string name="MCA_task_title_name">Soita %1$s takaisin %2$s</string>
-	<string name="MCA_task_title_no_name">Soita %s takaisin</string>
 	<string name="CRA_ignore">Ohita</string>
 	<string name="CRA_title">Tarvitaanko listaa tapaamisista?</string>
 	<string name="CRA_ignore_body">Olet ohittanut useita kalenteritapahtumia. Lopettaako Tasks niistä kyselemisen?</string>
@@ -127,7 +118,6 @@
 	<string name="day_after_tomorrow">Ylihuomenna</string>
 	<string name="next_week">Ensi viikko</string>
 	<string name="dont_hide">Älä piilota</string>
-	<string name="no_deadline_reminder">Ei määräpäivämuistutusta</string>
 	<string name="at_deadline">Määräaikana</string>
 	<string name="at_deadline_or_overdue">Määräpäivänä tai yliajalla</string>
 	<string name="BFE_Active">Omat tehtävät</string>
@@ -331,12 +321,8 @@
 	<string name="pick_a_date">Valitse päivä</string>
 	<string name="pick_a_time">Valitse aika</string>
 	<string name="pick_a_date_and_time">Valitse päivä ja aika</string>
-	<string name="pick_a_location">Valitse sijainti</string>
 	<string name="when_overdue">Kunnes yliajalla</string>
 	<string name="when_due">Milloin määräaika</string>
-	<string name="geofence_radius_title">Säde (metriä)</string>
-	<string name="geofence_responsiveness_title">Vasteaika (korkeampi arvo kuluttaa enemmän akkua)</string>
-	<string name="geolocation_reminders">Paikannuksen muistutukset</string>
 	<string name="tags">Tunnisteet</string>
 	<string name="filters">Suodattimet</string>
 	<string name="date_shortcut_hour">Tunnin verran</string>
@@ -399,6 +385,7 @@
 	<string name="theme_blue_grey">Siniharmaa</string>
 	<string name="theme_black">Musta</string>
 	<string name="theme_dark_grey">Tumma harmaa</string>
+	<string name="theme_white">Valkoinen</string>
 	<string name="theme_light">Vaalea</string>
 	<string name="theme_dark">Tumma</string>
 	<string name="theme_wallpaper">Taustakuva</string>

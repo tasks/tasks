@@ -44,9 +44,6 @@
   <!-- default random reminder setting (in hours) -->
   <string name="p_rmd_default_random_hours">notif_default_reminder</string>
 
-  <!-- field missed calls preference -->
-  <string name="p_field_missed_calls">field_missed_calls</string>
-
   <!-- calendar reminders preference -->
   <string name="p_calendar_reminders">p_calendar_reminder</string>
 
@@ -142,6 +139,8 @@
 
   <!-- default reminders setting (corresponds to reminder flags) -->
   <string name="p_default_reminders_key">p_def_reminders</string>
+  <string name="p_default_location_reminder_key">p_def_location_reminders</string>
+  <string name="p_default_location_radius">p_def_location_radius</string>
 
   <!-- default reminder mode setting (corresponds to entry in TEA_reminder_mode_once, TEA_reminder_mode_five, TEA_reminder_mode_nonstop) -->
   <string name="p_default_reminders_mode_key">rmd_default_reminder_mode</string>
@@ -163,6 +162,7 @@
     <item>@string/TEA_control_when</item>
     <item>@string/TEA_control_repeat</item>
     <item>@string/TEA_control_importance</item>
+    <item>@string/TEA_control_location</item>
     <item>@string/tags</item>
     <item>@string/synchronization</item>
     <item>@string/TEA_control_reminders</item>
@@ -183,13 +183,12 @@
   <string name="TEA_ctrl_files_pref">TEA_ctrl_files_pref</string>
   <string name="TEA_ctrl_hide_until_pref">TEA_ctrl_hide_until_pref</string>
   <string name="TEA_ctrl_hide_section_pref">TEA_ctrl_hide_section_pref</string>
+  <string name="TEA_ctrl_locations_pref">TEA_ctrl_locations_pref</string>
   <string name="TEA_ctrl_reminders_pref">TEA_ctrl_reminders_pref</string>
   <string name="TEA_ctrl_timer_pref">TEA_ctrl_timer_pref</string>
   <string name="TEA_ctrl_comments">TEA_ctrl_comments</string>
   <string name="TEA_ctrl_gcal">TEA_ctrl_gcal</string>
   <string name="TEA_ctrl_google_task_list">TEA_ctrl_gtask</string>
-  <string name="p_geofence_radius">geolocation_radius</string>
-  <string name="p_geofence_responsiveness">geofence_responsiveness</string>
   <string name="p_show_hidden_tasks">show_hidden_tasks</string>
   <string name="p_show_completed_tasks">show_completed_tasks</string>
   <string name="p_reverse_sort">reverse_sort</string>
@@ -199,6 +198,7 @@
     <item>@string/TEA_ctrl_when_pref</item>
     <item>@string/TEA_ctrl_repeat_pref</item>
     <item>@string/TEA_ctrl_importance_pref</item>
+    <item>@string/TEA_ctrl_locations_pref</item>
     <item>@string/TEA_ctrl_lists_pref</item>
     <item>@string/TEA_ctrl_google_task_list</item>
     <item>@string/TEA_ctrl_reminders_pref</item>
@@ -255,7 +255,6 @@
   <string name="tracking_event_night_mode_mismatch">Night Mismatch</string>
   <string name="tracking_event_play_services_error">Play Services Error</string>
   <string name="tracking_event_upgrade">Upgrade</string>
-  <string name="tracking_event_db_open">DB open</string>
   <string name="tracking_event_task_creation">Task creation</string>
   <string name="tracking_event_multiselect_delete">Multiselect delete</string>
   <string name="tracking_event_multiselect_clone">Multiselect clone</string>
@@ -285,6 +284,7 @@
 
   <string name="debug_consume">Consume</string>
   <string name="debug_strict_mode">Strict mode</string>
+  <string name="debug_leak_canary">LeakCanary</string>
   <string name="debug_pro">Unlock pro</string>
   <string name="debug_buy">Buy</string>
   <string name="debug">Debug</string>
@@ -293,10 +293,15 @@
   <string name="p_background_sync">gtask_background_sync</string>
   <string name="p_bundle_notifications">bundle_notifications</string>
   <string name="p_strict_mode">strict_mode</string>
+  <string name="p_leak_canary">leak_canary</string>
   <string name="p_debug_pro">debug_pro</string>
   <string name="warned_play_services">warned_play_services</string>
   <string name="p_background_sync_unmetered_only">background_sync_unmetered_only</string>
   <string name="p_purchases">purchases</string>
   <string name="p_sync_ongoing">sync_ongoing</string>
   <string name="p_last_backup">last_backup</string>
+  <string name="p_show_description">show_description</string>
+  <string name="p_show_full_description">show_full_description</string>
+  <string name="p_linkify_task_list">linkify_task_list</string>
+  <string name="p_show_list_indicators">show_list_indicators</string>
 </resources>

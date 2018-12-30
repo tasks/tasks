@@ -33,9 +33,4 @@ public class PermissivePermissionChecker extends PermissionChecker {
   public boolean canAccessMic() {
     return true;
   }
-
-  @Override
-  public boolean canAccessMissedCallPermissions() {
-    return true;
-  }
 }

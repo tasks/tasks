@@ -1,12 +1,11 @@
 package org.tasks.widget;
 
-import static android.support.v4.content.ContextCompat.getColor;
+import static androidx.core.content.ContextCompat.getColor;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
@@ -238,15 +237,10 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
   private void formatDueDate(RemoteViews row, Task task) {
     if (task.hasDueDate()) {
-      Resources resources = context.getResources();
       row.setViewVisibility(R.id.widget_due_date, View.VISIBLE);
       row.setTextViewText(
           R.id.widget_due_date,
-          task.isCompleted()
-              ? resources.getString(
-                  R.string.TAd_completed,
-                  DateUtilities.getRelativeDateStringWithTime(context, task.getCompletionDate()))
-              : DateUtilities.getRelativeDateStringWithTime(context, task.getDueDate()));
+          DateUtilities.getRelativeDateStringWithTime(context, task.getDueDate()));
       //noinspection ResourceAsColor
       row.setTextColor(
           R.id.widget_due_date,

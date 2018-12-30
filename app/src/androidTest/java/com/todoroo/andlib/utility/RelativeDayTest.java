@@ -1,12 +1,12 @@
 package com.todoroo.andlib.utility;
 
-import static android.support.test.InstrumentationRegistry.getTargetContext;
+import static androidx.test.InstrumentationRegistry.getTargetContext;
 import static com.todoroo.andlib.utility.DateUtilities.getRelativeDay;
 import static junit.framework.Assert.assertEquals;
 import static org.tasks.Freeze.freezeAt;
 import static org.tasks.Freeze.thaw;
 
-import android.support.test.runner.AndroidJUnit4;
+import androidx.test.runner.AndroidJUnit4;
 import java.util.Locale;
 import org.junit.After;
 import org.junit.Before;

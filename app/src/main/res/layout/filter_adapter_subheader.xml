@@ -27,7 +27,7 @@
     android:focusable="true"
     android:clickable="true"
     android:scaleType="center"
-    android:src="@drawable/ic_sync_problem_black_24dp"
+    android:src="@drawable/ic_outline_sync_problem_24px"
     android:tint="?attr/icon_tint"
     android:visibility="visible"/>
 

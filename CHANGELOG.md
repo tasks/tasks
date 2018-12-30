@@ -1,6 +1,69 @@
 Change Log
 ---
 
+### 6.3.1 (2018-11-07)
+
+* New location row in task edit screen
+* Add location departure notifications
+* Set CalDAV completion percentage and status
+* Bug fixes
+* Update translations
+  * Brazilian Portuguese - douglaslmr
+  * Bulgarian - ddmdima96
+  * Dutch - revdbrink
+  * French - Florian_Dubois
+  * German - marmo, sNiXx, Strubbl
+  * Hebrew - elazar
+  * Hungarian - kaciokos
+  * Italian - dfdario
+  * Japanese - naofumi
+  * Lithuanian - gacuxz
+  * Polish - bilbolodz, hadogenes
+  * Spanish - i2nm7s
+  * Turkish - etc
+
+### 6.2 (2018-10-29)
+
+* New white theme color
+* New icons
+* New list and tag chips
+* Linkify text when editing tasks
+* Option to linkify text on task list
+* Show description on task list
+* Move due date next to title
+* Updated hidden task visualization
+* No longer require contacts permission (Oreo+)
+* Dropped support for Android 4.0
+* Update translations
+  * Brazilian Portuguese - douglaslmr
+  * Bulgarian - ddmdima96
+  * Chinese - Atlantids
+  * Dutch - revdbrink
+  * French - Florian_Dubois
+  * German - marmo
+  * Hebrew - elazar
+  * Hungarian - kaciokos
+  * Italian - dfdario, passero
+  * Lithuanian - gacuxz
+  * Spanish - i2nm7s
+  * Turkish - etc
+
+### 6.1.3 (2018-10-22)
+
+* Fix translation error
+
+### 6.1.2 (2018-10-18)
+
+* Remove missed call functionality due to Google Play Developer policy change
+* Fix manual sort issue affecting Samsung Oreo devices
+* Fix refresh issue affecting Pure Calendar Widget
+* Fix memory leak
+* Schedule jobs with WorkManager instead of android-job
+* Update translations
+  * French - Fabeuss, primokorn
+  * Hebrew - elazar
+  * Korean - timeforwarp
+
 ### 6.1.1 (2018-07-20)
 
 * Fix notification badge issues

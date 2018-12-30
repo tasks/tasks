@@ -3,7 +3,7 @@ package org.tasks.locale.receiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.todoroo.astrid.api.Filter;
 import javax.inject.Inject;
 import org.tasks.Notifier;

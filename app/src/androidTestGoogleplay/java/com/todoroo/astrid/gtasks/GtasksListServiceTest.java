@@ -13,7 +13,7 @@ import static org.tasks.makers.GtaskListMaker.newGtaskList;
 import static org.tasks.makers.RemoteGtaskListMaker.newRemoteList;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
-import android.support.test.runner.AndroidJUnit4;
+import androidx.test.runner.AndroidJUnit4;
 import com.google.api.client.util.DateTime;
 import com.google.api.services.tasks.model.TaskList;
 import com.todoroo.astrid.dao.TaskDao;

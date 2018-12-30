@@ -3,7 +3,7 @@ package org.tasks.dialogs;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import javax.inject.Inject;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;

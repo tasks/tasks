@@ -5,10 +5,10 @@ import android.content.Intent;
 import android.content.Intent.ShortcutIconResource;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.Toolbar;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -18,6 +18,7 @@ import com.todoroo.astrid.api.Filter;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.activities.ColorPickerActivity;
+import org.tasks.activities.ColorPickerActivity.ColorPalette;
 import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
@@ -68,7 +69,7 @@ public class ShortcutConfigActivity extends InjectingAppCompatActivity {
     ButterKnife.bind(this);
 
     toolbar.setTitle(R.string.FSA_label);
-    toolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_save_24dp));
+    toolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_outline_save_24px));
     toolbar.setNavigationOnClickListener(v -> save());
     MenuColorizer.colorToolbar(this, toolbar);
 
@@ -138,7 +139,7 @@ public class ShortcutConfigActivity extends InjectingAppCompatActivity {
   @OnClick(R.id.shortcut_color)
   void showThemePicker() {
     Intent intent = new Intent(this, ColorPickerActivity.class);
-    intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerActivity.ColorPalette.COLORS);
+    intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPalette.LAUNCHER);
     intent.putExtra(ColorPickerActivity.EXTRA_SHOW_NONE, false);
     intent.putExtra(ColorPickerActivity.EXTRA_THEME_INDEX, selectedTheme);
     startActivityForResult(intent, REQUEST_COLOR_PICKER);
@@ -158,16 +159,20 @@ public class ShortcutConfigActivity extends InjectingAppCompatActivity {
     ThemeColor color = themeCache.getThemeColor(getThemeIndex());
     shortcutColor.setText(color.getName());
     color.apply(toolbar);
-    color.applyToStatusBar(this);
+    color.applyToSystemBars(this);
   }
 
   private int getThemeIndex() {
     if (selectedTheme >= 0) {
       return selectedTheme;
     }
-    return selectedFilter == null || selectedFilter.tint == -1
+    int index = selectedFilter == null || selectedFilter.tint == -1
         ? themeColor.getIndex()
         : selectedFilter.tint;
+    if (index >= ThemeColor.ICONS.length - 1) {
+      return 7; // use blue theme until white icon is available
+    }
+    return index;
   }
 
   private String getShortcutName() {

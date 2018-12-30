@@ -33,8 +33,6 @@
 	<string name="TLA_menu_sort">Ordenação</string>
 	<string name="TLA_menu_search">Procura</string>
 	<string name="TLA_menu_settings">Definições</string>
-	<string name="TAd_hiddenFormat">%s [oculta]</string>
-	<string name="TAd_completed">Terminada\n%s</string>
 	<string name="TAd_actionEditTask">Editar</string>
 	<string name="SSD_sort_drag">Ordem manual com subtarefas</string>
 	<string name="SSD_sort_auto">Ordenação Inteligente Tasks</string>
@@ -69,13 +67,6 @@
 	<string name="TEA_control_timer">Controlos temporais</string>
 	<string name="TEA_control_hidden_section">----Ocultar sempre----</string>
 	<string name="TEA_load_more">Carregar mais...</string>
-	<string name="missed_call">Chamada perdida de %s</string>
-	<string name="MCA_return_call">Chamar agora</string>
-	<string name="MCA_add_task">Chamar mais tarde</string>
-	<string name="MCA_ignore">Ignorar</string>
-	<string name="missed_calls">Chamadas perdidas</string>
-	<string name="MCA_task_title_name">Ligar a %1$s às %2$s</string>
-	<string name="MCA_task_title_no_name">Ligar a %s</string>
 	<string name="CRA_ignore">Ignorar</string>
 	<string name="CRA_title">Precisa de uma lista de encontros?</string>
 	<string name="CRA_ignore_body">Você ignorou vários eventos de calendário. Pretende que o Tasks não o notifique novamente?</string>
@@ -125,7 +116,6 @@
 	<string name="day_after_tomorrow">Depois de amanhã</string>
 	<string name="next_week">Próxima semana</string>
 	<string name="dont_hide">Não ocultar</string>
-	<string name="no_deadline_reminder">Sem lembrete de data limite</string>
 	<string name="at_deadline">Na data limite</string>
 	<string name="at_deadline_or_overdue">Na data limite ou ultrapassada</string>
 	<string name="BFE_Active">Minhas tarefas</string>
@@ -328,12 +318,8 @@
 	<string name="pick_a_date">Escolha a data</string>
 	<string name="pick_a_time">Escolha a hora</string>
 	<string name="pick_a_date_and_time">Escolha a data e a hora</string>
-	<string name="pick_a_location">Escolha o local</string>
 	<string name="when_overdue">Se data limite ultrapassada</string>
 	<string name="when_due">Na data limite</string>
-	<string name="geofence_radius_title">Raio (metros)</string>
-	<string name="geofence_responsiveness_title">Tempo de resposta (valores maiores poupam bateria)</string>
-	<string name="geolocation_reminders">Lembretes de geolocalização</string>
 	<string name="tags">Etiquetas</string>
 	<string name="filters">Filtros</string>
 	<string name="date_shortcut_hour">Por uma hora</string>

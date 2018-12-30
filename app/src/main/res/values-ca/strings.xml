@@ -24,8 +24,6 @@
 	<string name="TLA_menu_sort">Ordenació i subtasques</string>
 	<string name="TLA_menu_search">Cerca</string>
 	<string name="TLA_menu_settings">Paràmetres</string>
-	<string name="TAd_hiddenFormat">%s [ocult]</string>
-	<string name="TAd_completed">Acabat fa\n%s</string>
 	<string name="TAd_actionEditTask">Edita</string>
 	<string name="SSD_sort_drag">Ordre manual amb subtasques</string>
 	<string name="SSD_sort_auto">Classificació intel·ligent Tasks</string>
@@ -53,11 +51,6 @@
 	<string name="TEA_control_timer">Controls de temporització</string>
 	<string name="TEA_control_hidden_section">----Oculta-ho sempre----</string>
 	<string name="TEA_load_more">Carrega més...</string>
-	<string name="MCA_return_call">Truca ara</string>
-	<string name="MCA_add_task">Truca després</string>
-	<string name="MCA_ignore">Ignora</string>
-	<string name="MCA_task_title_name">Retorna la trucada a en/na %1$s a %2$s</string>
-	<string name="MCA_task_title_no_name">Retorna la trucada a %s</string>
 	<string name="EPr_appearance_header">Aparença</string>
 	<string name="EPr_beastMode_reset">Restableix els valors predeterminats</string>
 	<string name="EPr_fullTask_title">Mostra el títol sencer de la tasca</string>
@@ -115,12 +108,12 @@
 	<string name="translations">Contribuir traduccions</string>
 	<string name="contact_developer">Contacta amb el desenvolupador</string>
 	<string name="quiet_hours_summary">Sense recordatoris durant les hores de silenci</string>
-	<string name="geofence_radius_title">Radi (metres)</string>
 	<string name="filters">Filtres</string>
 	<string name="filter_settings">Configuració dels filtres</string>
 	<string name="show_hidden">Mostra ocultes</string>
 	<string name="show_completed">Mostra completades</string>
 	<string name="reverse">Ordenació inversa</string>
+	<string name="theme_white">Blanc</string>
 	<string name="language">Idioma</string>
 	<string name="settings_localization">Localització</string>
 	<string name="layout_direction_left_to_right">D\'esquerra a dreta</string>

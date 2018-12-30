@@ -1,4 +1,9 @@
 <resources>
+  <style name="DayNight" parent="Theme.MaterialComponents.NoActionBar"/>
 
-  <style name="popup_overlay" parent="ThemeOverlay.AppCompat"/>
+  <style name="DayNightDialog" parent="Theme.MaterialComponents.Dialog"/>
+
+  <style name="DayNightAlert" parent="Theme.MaterialComponents.Dialog.Alert"/>
+
+  <style name="popup_overlay" parent="ThemeOverlay.MaterialComponents"/>
 </resources>

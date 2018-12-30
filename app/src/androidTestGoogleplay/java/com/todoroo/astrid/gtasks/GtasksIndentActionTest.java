@@ -8,7 +8,7 @@ package com.todoroo.astrid.gtasks;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
 
-import android.support.test.runner.AndroidJUnit4;
+import androidx.test.runner.AndroidJUnit4;
 import com.google.api.services.tasks.model.TaskList;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;

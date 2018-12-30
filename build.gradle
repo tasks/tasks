@@ -1,6 +1,8 @@
+apply plugin: "com.github.ben-manes.versions"
+
 wrapper {
-    gradleVersion = "4.10.1"
     distributionType = Wrapper.DistributionType.ALL
+    gradleVersion = "4.10.3"
 }
 
 buildscript {
@@ -16,5 +18,6 @@ buildscript {
         classpath 'com.android.tools.build:gradle:3.3.0-alpha10'
         classpath 'com.google.gms:google-services:4.2.0'
         classpath 'io.fabric.tools:gradle:1.25.4'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.20.0'
     }
 }

@@ -4,7 +4,7 @@ import static org.tasks.activities.CalendarSelectionDialog.newCalendarSelectionD
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
+import androidx.fragment.app.FragmentManager;
 import org.tasks.calendars.AndroidCalendar;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;

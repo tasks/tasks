@@ -5,6 +5,10 @@
     android:title="@string/debug">
 
     <CheckBoxPreference
+      android:key="@string/p_leak_canary"
+      android:title="@string/debug_leak_canary" />
+
+    <CheckBoxPreference
       android:key="@string/p_strict_mode"
       android:title="@string/debug_strict_mode"/>
 
