@@ -33,7 +33,7 @@ public abstract class TagDataDao {
   public abstract void update(TagData tagData);
 
   @Insert
-  abstract long insert(TagData tag);
+  public abstract long insert(TagData tag);
 
   public void createNew(TagData tag) {
     if (Task.isUuidEmpty(tag.getRemoteId())) {
