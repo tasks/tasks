@@ -419,63 +419,65 @@ public class GoogleTaskSynchronizer {
 
   void processNotes(Task task) {
     String notes = task.getNotes();
-    Matcher m = PATTERN_NOTES_METADATA.matcher(notes);
-    if(m.matches()) {
-      notes = m.group(1).trim();
-      String gson = m.group(2);
-      try {
-        GoogleTaskAdditionalMetadata additionalMetadataObject = gsonBulider.fromJson(gson, GoogleTaskAdditionalMetadata.class);
-        List<String> tags = additionalMetadataObject.getTags();
-        if (tags!=null && tags.size() > 0) {
-          for(String tag: tags) {
-            createLink(task, tag);
+    if (notes != null) {
+      Matcher m = PATTERN_NOTES_METADATA.matcher(notes);
+      if (m.matches()) {
+        notes = m.group(1).trim();
+        String gson = m.group(2);
+        try {
+          GoogleTaskAdditionalMetadata additionalMetadataObject = gsonBulider.fromJson(gson, GoogleTaskAdditionalMetadata.class);
+          List<String> tags = additionalMetadataObject.getTags();
+          if (tags != null && tags.size() > 0) {
+            for (String tag : tags) {
+              createLink(task, tag);
+            }
           }
-        }
-        if (additionalMetadataObject.getHideUntil()!=null) {
-          task.setHideUntil(GtasksApiUtilities.dateTimeToUnixTime(additionalMetadataObject.getHideUntil()));
-        }
-        if (additionalMetadataObject.getRecurrence()!=null) {
-          task.setRecurrence(additionalMetadataObject.getRecurrence());
-        }
-        if (additionalMetadataObject.getRepeatUntil()!=null) {
-          task.setRepeatUntil(GtasksApiUtilities.dateTimeToUnixTime(additionalMetadataObject.getRepeatUntil()));
-        }
-        int defaultImportance = preferences.getIntegerFromString(R.string.p_default_importance_key, Task.Priority.LOW);
-        if (additionalMetadataObject.getImportance()!=null && additionalMetadataObject.getImportance().getTaskImportance()!=defaultImportance) {
-          task.setPriority(additionalMetadataObject.getImportance().getTaskImportance());
-        }
-        int defaultReminderFlags = preferences.getIntegerFromString(R.string.p_default_reminders_key, Task.NOTIFY_AT_DEADLINE | Task.NOTIFY_AFTER_DEADLINE);
-        int reminderFlags = defaultReminderFlags;
-        boolean setRemindeFlags = false;
-        if (isSetAndNotDefault(additionalMetadataObject.isNotifyAtDeadline(), Task.NOTIFY_AT_DEADLINE, defaultReminderFlags)) {
-          setRemindeFlags = true;
-          if(additionalMetadataObject.isNotifyAtDeadline()) {
-            reminderFlags |= Task.NOTIFY_AT_DEADLINE;
-          } else {
-            reminderFlags &= ~Task.NOTIFY_AT_DEADLINE;
+          if (additionalMetadataObject.getHideUntil() != null) {
+            task.setHideUntil(GtasksApiUtilities.dateTimeToUnixTime(additionalMetadataObject.getHideUntil()));
           }
-        }
-        if (isSetAndNotDefault(additionalMetadataObject.isNotifyAfterDeadline(), Task.NOTIFY_AFTER_DEADLINE, defaultReminderFlags)) {
-          setRemindeFlags = true;
-          if(additionalMetadataObject.isNotifyAfterDeadline()) {
-            reminderFlags |= Task.NOTIFY_AFTER_DEADLINE;
-          } else {
-            reminderFlags &= ~Task.NOTIFY_AFTER_DEADLINE;
+          if (additionalMetadataObject.getRecurrence() != null) {
+            task.setRecurrence(additionalMetadataObject.getRecurrence());
           }
+          if (additionalMetadataObject.getRepeatUntil() != null) {
+            task.setRepeatUntil(GtasksApiUtilities.dateTimeToUnixTime(additionalMetadataObject.getRepeatUntil()));
+          }
+          int defaultImportance = preferences.getIntegerFromString(R.string.p_default_importance_key, Task.Priority.LOW);
+          if (additionalMetadataObject.getImportance() != null && additionalMetadataObject.getImportance().getTaskImportance() != defaultImportance) {
+            task.setPriority(additionalMetadataObject.getImportance().getTaskImportance());
+          }
+          int defaultReminderFlags = preferences.getIntegerFromString(R.string.p_default_reminders_key, Task.NOTIFY_AT_DEADLINE | Task.NOTIFY_AFTER_DEADLINE);
+          int reminderFlags = defaultReminderFlags;
+          boolean setRemindeFlags = false;
+          if (isSetAndNotDefault(additionalMetadataObject.isNotifyAtDeadline(), Task.NOTIFY_AT_DEADLINE, defaultReminderFlags)) {
+            setRemindeFlags = true;
+            if (additionalMetadataObject.isNotifyAtDeadline()) {
+              reminderFlags |= Task.NOTIFY_AT_DEADLINE;
+            } else {
+              reminderFlags &= ~Task.NOTIFY_AT_DEADLINE;
+            }
+          }
+          if (isSetAndNotDefault(additionalMetadataObject.isNotifyAfterDeadline(), Task.NOTIFY_AFTER_DEADLINE, defaultReminderFlags)) {
+            setRemindeFlags = true;
+            if (additionalMetadataObject.isNotifyAfterDeadline()) {
+              reminderFlags |= Task.NOTIFY_AFTER_DEADLINE;
+            } else {
+              reminderFlags &= ~Task.NOTIFY_AFTER_DEADLINE;
+            }
+          }
+          if (additionalMetadataObject.isNotifyModeFive() != null) {
+            setRemindeFlags = true;
+            reminderFlags |= Task.NOTIFY_MODE_FIVE;
+          }
+          if (additionalMetadataObject.isNotifyModeNonstop() != null) {
+            setRemindeFlags = true;
+            reminderFlags |= Task.NOTIFY_MODE_NONSTOP;
+          }
+          if (setRemindeFlags) {
+            task.setReminderFlags(reminderFlags);
+          }
+        } catch (JsonSyntaxException ex) {
+          // Ignore corrupt JSON
         }
-        if (additionalMetadataObject.isNotifyModeFive()!=null) {
-          setRemindeFlags = true;
-          reminderFlags |= Task.NOTIFY_MODE_FIVE;
-        }
-        if (additionalMetadataObject.isNotifyModeNonstop()!=null) {
-          setRemindeFlags = true;
-          reminderFlags |= Task.NOTIFY_MODE_NONSTOP;
-        }
-        if (setRemindeFlags) {
-          task.setReminderFlags(reminderFlags);
-        }
-      } catch (JsonSyntaxException ex) {
-        // Ignore corrupt JSON
       }
     }
     task.setNotes(notes);
