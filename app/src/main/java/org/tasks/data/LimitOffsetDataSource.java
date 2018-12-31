@@ -10,7 +10,7 @@ import com.todoroo.astrid.data.Task;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import org.tasks.analytics.Tracker;
+// import org.tasks.analytics.Tracker;
 import timber.log.Timber;
 
 public class LimitOffsetDataSource extends PositionalDataSource<Task> {
@@ -32,7 +32,7 @@ public class LimitOffsetDataSource extends PositionalDataSource<Task> {
       cursor = mDb.query(mCountQuery, null);
     } catch (Exception e) {
       Timber.e(e);
-      Tracker.report(e);
+      // Tracker.report(e);
       return 0;
     }
     try {
