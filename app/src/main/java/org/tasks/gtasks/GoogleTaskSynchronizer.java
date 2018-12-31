@@ -389,9 +389,7 @@ public class GoogleTaskSynchronizer {
       additionalMetadata = gsonBulider.toJson(additionalMetadataObject);
     }
     if (additionalMetadata==null || additionalMetadata.trim().length()<=2) {
-      if (task.getNotes()!=null && task.getNotes().trim().length()>0) {
-        remoteModel.setNotes(task.getNotes());
-      }
+       remoteModel.setNotes(task.getNotes());
     } else {
       StringBuilder notes = new StringBuilder();
       if (task.getNotes()!=null && task.getNotes().trim().length()>0) {

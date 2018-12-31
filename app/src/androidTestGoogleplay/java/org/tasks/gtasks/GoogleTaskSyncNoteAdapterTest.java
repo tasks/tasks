@@ -1,18 +1,30 @@
 package org.tasks.gtasks;
 
 import android.content.Context;
-import android.support.test.runner.AndroidJUnit4;
+import androidx.test.runner.AndroidJUnit4;
 
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.astrid.dao.Database;
-import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.dao.TagDataDao;
-import com.todoroo.astrid.data.Metadata;
-import com.todoroo.astrid.data.TagData;
+
+import org.tasks.LocalBroadcastManager;
+import org.tasks.billing.Inventory;
+import org.tasks.data.GoogleTask;
+import org.tasks.data.GoogleTaskDao;
+import org.tasks.data.GoogleTaskListDao;
+import org.tasks.data.TagDao;
+import org.tasks.data.TagData;
+import org.tasks.data.TagDataDao;
+
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
+import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
+import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
+import com.todoroo.astrid.service.TaskCreator;
+import com.todoroo.astrid.service.TaskDeleter;
 
 import junit.framework.Assert; 
 
@@ -23,111 +35,151 @@ import org.mockito.Matchers;
 import org.mockito.Mockito;
 import org.tasks.R;
 import org.tasks.injection.ApplicationComponent;
+import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingApplication;
-import org.tasks.injection.SyncAdapterComponent;
-import org.tasks.injection.SyncAdapterModule;
+import org.tasks.notifications.NotificationManager;
+import org.tasks.preferences.DefaultFilterProvider;
+import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.Preferences;
+import org.tasks.analytics.Tracker;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
-
-import static com.natpryce.makeiteasy.MakeItEasy.with;
-import static junit.framework.Assert.assertEquals;
+import java.util.List;
 
 @RunWith(AndroidJUnit4.class)
 public class GoogleTaskSyncNoteAdapterTest {
 
-    private static int DEFAULT_WRITE_IMPORTANCE = Task.IMPORTANCE_SHOULD_DO;
+    private static int DEFAULT_WRITE_IMPORTANCE = Task.Priority.LOW;
     private static int DEFAULT_WRITE_REMINDER_FLAGS = Task.NOTIFY_AT_DEADLINE |  Task.NOTIFY_AFTER_DEADLINE;
-    private static int DEFAULT_READ_IMPORTANCE = Task.IMPORTANCE_SHOULD_DO;
+    private static int DEFAULT_READ_IMPORTANCE = Task.Priority.LOW;
     private static int DEFAULT_READ_REMINDER_FLAGS = Task.NOTIFY_AT_DEADLINE |  Task.NOTIFY_AFTER_DEADLINE;
 
-    private GoogleTaskSyncAdapter adapter;
-    private TagDataDao tagDataDao;
+    private GoogleTaskSynchronizer adapter;
     private Task task;
-    private List<Metadata> inputMetadata;
     private Map<String, TagData> inputTags;
     private Set<String> persistedTags;
     private com.google.api.services.tasks.model.Task remoteModel;
     private String enhancedNotes;
     private boolean enableNoteMetadataSync = true;
 
-
+    private Context context;
+    private GoogleTaskListDao googleTaskListDao;
+    private GtasksSyncService gtasksSyncService;
+    private GtasksListService gtasksListService;
+    private GtasksTaskListUpdater gtasksTaskListUpdater;
+    private Preferences preferences;
+    private GtasksPreferenceService gtasksPreferenceService;
+    private TaskDao taskDao;
+    private TagDao tagDao;
+    private TagDataDao tagDataDao;
+    private Tracker tracker;
+    private NotificationManager notificationManager;
+    private GoogleTaskDao googleTaskDao;
+    private TaskCreator taskCreator;
+    private DefaultFilterProvider defaultFilterProvider;
+    private PlayServices playServices;
+    private PermissionChecker permissionChecker;
+    private GoogleAccountManager googleAccountManager;
+    private LocalBroadcastManager localBroadcastManager;
+    private Inventory inventory;
+    private TaskDeleter taskDeleter;
 
     @Before
     public void setup() {
-        SyncAdapterComponent syncAdapterComponent = Mockito.mock(SyncAdapterComponent.class);
         ApplicationComponent applicationComponent = Mockito.mock(ApplicationComponent.class);
-        Mockito.when(applicationComponent.plus(Mockito.any(SyncAdapterModule.class))).thenReturn(syncAdapterComponent);
         InjectingApplication injectingApplication = Mockito.mock(InjectingApplication.class);
         Mockito.when(injectingApplication.getComponent()).thenReturn(applicationComponent);
-        Context context = Mockito.mock(Context.class);
+        context = Mockito.mock(Context.class);
         Mockito.when(context.getApplicationContext()).thenReturn(injectingApplication);
-        adapter = new GoogleTaskSyncAdapter(context, false);
 
-
-        Preferences preferences = Mockito.mock(Preferences.class);
+        preferences = Mockito.mock(Preferences.class);
         Mockito.when(preferences.getIntegerFromString(Matchers.eq(R.string.p_default_importance_key), Mockito.anyInt())).thenReturn(DEFAULT_WRITE_IMPORTANCE);
         Mockito.when(preferences.getIntegerFromString(Matchers.eq(R.string.p_default_reminders_key), Mockito.anyInt())).thenReturn(DEFAULT_WRITE_REMINDER_FLAGS);
-        adapter.preferences = preferences;
-        GtasksPreferenceService gtasksPreferenceService = new GtasksPreferenceService(preferences) {
+
+        gtasksPreferenceService = new GtasksPreferenceService(preferences) {
             public boolean getUseNoteForMetadataSync() {
                 return enableNoteMetadataSync;
             }
         };
-        adapter.gtasksPreferenceService = gtasksPreferenceService;
 
+        googleTaskDao = Mockito.mock(GoogleTaskDao.class);
+        tagDao = Mockito.mock(TagDao.class);
 
-        MetadataDao metadataDao = Mockito.mock(MetadataDao.class);
-        adapter.metadataDao = metadataDao;
-
-        Database database = Mockito.mock(Database.class);
         inputTags = new HashMap<>();
         persistedTags = new HashSet<>();
-        tagDataDao = new TagDataDao(database) {
+        tagDataDao = new TagDataDao() {
 
-            public TagData getTagByName(String name, Property<?>... properties) {
+            public TagData getTagByName(String name) {
                 return null;
             }
 
-            public void persist(TagData tagData) {
+            public List<TagData> getAll() { return null; }
+
+            public List<TagData> tagDataOrderedByName() { return getAll(); }
+
+            public long insert(TagData tagData) {
+                persistedTags.add(tagData.getName());
+                return 0;
+            }
+
+            public void update(TagData tagData) {
                 persistedTags.add(tagData.getName());
             }
 
-            public TagData getByUuid(String uuid, Property<?>... properties) {
+            public void rename(String remoteId, String name) {}
+
+            public void delete(Long id) {}
+
+            public TagData getByUuid(String uuid) {
                 return inputTags.get(uuid);
             }
+
         };
-        adapter.tagDataDao = tagDataDao;
 
-        inputMetadata = new ArrayList<>();
-        Mockito.when(metadataDao.byTaskAndKey(Mockito.anyLong(), Mockito.anyString())).thenReturn(inputMetadata);
-
+        adapter = new GoogleTaskSynchronizer(context,
+                googleTaskListDao,
+                gtasksSyncService,
+                gtasksListService,
+                gtasksTaskListUpdater,
+                preferences,
+                gtasksPreferenceService,
+                taskDao,
+                tagDao,
+                tagDataDao,
+                tracker,
+                notificationManager,
+                googleTaskDao,
+                taskCreator,
+                defaultFilterProvider,
+                playServices,
+                permissionChecker,
+                googleAccountManager,
+                localBroadcastManager,
+                inventory,
+                taskDeleter);
 
         task = new Task();
-        task.setImportance(DEFAULT_WRITE_IMPORTANCE);
+        task.setTags(new ArrayList<>());
+        task.setPriority(DEFAULT_WRITE_IMPORTANCE);
         task.setReminderFlags(DEFAULT_WRITE_REMINDER_FLAGS);
         remoteModel = new com.google.api.services.tasks.model.Task();
         remoteModel.setNotes(null);
-
     }
 
     private void addTag(String tagName) {
         String uuid = UUID.randomUUID().toString();
-        Metadata md = new Metadata();
-        md.setValue(Metadata.VALUE2, uuid);
-        inputMetadata.add(md);
+        task.getTags().add(tagName);
         TagData tag = new TagData();
         tag.setName(tagName);
-        tag.setUUID(uuid);
+        tag.setRemoteId(uuid);
         inputTags.put(uuid, tag);
     }
-
 
     @Test
     public void testEmptyDisabled() {
@@ -146,7 +198,7 @@ public class GoogleTaskSyncNoteAdapterTest {
         addTag("test");
         adapter.writeNotesIfNecessary(task, remoteModel);
         enhancedNotes = remoteModel.getNotes(); 
-        Assert.assertEquals("", enhancedNotes);
+        Assert.assertEquals(null, enhancedNotes);
     }
 
     @Test
@@ -189,7 +241,7 @@ public class GoogleTaskSyncNoteAdapterTest {
         task.setNotes(null);
         adapter.writeNotesIfNecessary(task, remoteModel);
         enhancedNotes = remoteModel.getNotes();
-        Assert.assertEquals("", enhancedNotes);
+        Assert.assertEquals(null, enhancedNotes);
     }
 
     @Test
@@ -205,7 +257,7 @@ public class GoogleTaskSyncNoteAdapterTest {
         addTag("test");
         adapter.writeNotesIfNecessary(task, remoteModel);
         enhancedNotes = remoteModel.getNotes();
-        Assert.assertEquals("xxx" + GoogleTaskSyncAdapter.LINE_FEED + "" + GoogleTaskSyncAdapter.LINE_FEED + "{tasks:additionalMetadata{\"tags\":[\"test\"]}}", enhancedNotes);
+        Assert.assertEquals("xxx" + GoogleTaskSynchronizer.LINE_FEED + "" + GoogleTaskSynchronizer.LINE_FEED + "{tasks:additionalMetadata{\"tags\":[\"test\"]}}", enhancedNotes);
     }
 
     @Test
@@ -213,7 +265,7 @@ public class GoogleTaskSyncNoteAdapterTest {
         addTag("test");
         adapter.writeNotesIfNecessary(task, remoteModel);
         enhancedNotes = remoteModel.getNotes();
-        Assert.assertEquals(GoogleTaskSyncAdapter.LINE_FEED + GoogleTaskSyncAdapter.LINE_FEED  + "{tasks:additionalMetadata{\"tags\":[\"test\"]}}", enhancedNotes);
+        Assert.assertEquals(GoogleTaskSynchronizer.LINE_FEED + GoogleTaskSynchronizer.LINE_FEED  + "{tasks:additionalMetadata{\"tags\":[\"test\"]}}", enhancedNotes);
     }
 
 
@@ -223,25 +275,25 @@ public class GoogleTaskSyncNoteAdapterTest {
         task.setHideUntil(0l);
         adapter.writeNotesIfNecessary(task, remoteModel);
         enhancedNotes = remoteModel.getNotes();
-        Assert.assertEquals(GoogleTaskSyncAdapter.LINE_FEED + GoogleTaskSyncAdapter.LINE_FEED  + "{tasks:additionalMetadata{\"tags\":[\"test\"]}}", enhancedNotes);
+        Assert.assertEquals(GoogleTaskSynchronizer.LINE_FEED + GoogleTaskSynchronizer.LINE_FEED  + "{tasks:additionalMetadata{\"tags\":[\"test\"]}}", enhancedNotes);
     }
 
     @Test
     public void testStoreMetadataImportanceDefault() {
         addTag("test");
-        task.setImportance(DEFAULT_WRITE_IMPORTANCE);
+        task.setPriority(DEFAULT_WRITE_IMPORTANCE);
         adapter.writeNotesIfNecessary(task, remoteModel);
         enhancedNotes = remoteModel.getNotes();
-        Assert.assertEquals(GoogleTaskSyncAdapter.LINE_FEED + GoogleTaskSyncAdapter.LINE_FEED  + "{tasks:additionalMetadata{\"tags\":[\"test\"]}}", enhancedNotes);
+        Assert.assertEquals(GoogleTaskSynchronizer.LINE_FEED + GoogleTaskSynchronizer.LINE_FEED  + "{tasks:additionalMetadata{\"tags\":[\"test\"]}}", enhancedNotes);
     }
 
     @Test
     public void testStoreMetadataImportanceLow() {
         addTag("test");
-        task.setImportance(Task.IMPORTANCE_NONE);
+        task.setPriority(Task.Priority.NONE);
         adapter.writeNotesIfNecessary(task, remoteModel);
         enhancedNotes = remoteModel.getNotes();
-        Assert.assertEquals(GoogleTaskSyncAdapter.LINE_FEED + GoogleTaskSyncAdapter.LINE_FEED  + "{tasks:additionalMetadata{\"importance\":\"LOW\",\"tags\":[\"test\"]}}", enhancedNotes);
+        Assert.assertEquals(GoogleTaskSynchronizer.LINE_FEED + GoogleTaskSynchronizer.LINE_FEED  + "{tasks:additionalMetadata{\"importance\":\"LOW\",\"tags\":[\"test\"]}}", enhancedNotes);
     }
 
     @Test
@@ -250,7 +302,7 @@ public class GoogleTaskSyncNoteAdapterTest {
         task.setReminderFlags(0);
         adapter.writeNotesIfNecessary(task, remoteModel);
         enhancedNotes = remoteModel.getNotes();
-        Assert.assertEquals(GoogleTaskSyncAdapter.LINE_FEED + GoogleTaskSyncAdapter.LINE_FEED  + "{tasks:additionalMetadata{\"notifyAfterDeadline\":false,\"notifyAtDeadline\":false,\"tags\":[\"test\"]}}", enhancedNotes);
+        Assert.assertEquals(GoogleTaskSynchronizer.LINE_FEED + GoogleTaskSynchronizer.LINE_FEED  + "{tasks:additionalMetadata{\"notifyAfterDeadline\":false,\"notifyAtDeadline\":false,\"tags\":[\"test\"]}}", enhancedNotes);
     }
 
     @Test
@@ -259,7 +311,7 @@ public class GoogleTaskSyncNoteAdapterTest {
         task.setReminderFlags(DEFAULT_WRITE_REMINDER_FLAGS);
         adapter.writeNotesIfNecessary(task, remoteModel);
         enhancedNotes = remoteModel.getNotes();
-        Assert.assertEquals(GoogleTaskSyncAdapter.LINE_FEED + GoogleTaskSyncAdapter.LINE_FEED  + "{tasks:additionalMetadata{\"tags\":[\"test\"]}}", enhancedNotes);
+        Assert.assertEquals(GoogleTaskSynchronizer.LINE_FEED + GoogleTaskSynchronizer.LINE_FEED  + "{tasks:additionalMetadata{\"tags\":[\"test\"]}}", enhancedNotes);
     }
 
     @Test
@@ -277,10 +329,10 @@ public class GoogleTaskSyncNoteAdapterTest {
         task.setRecurrence(recurrence);
         task.setRepeatUntil(123456789l);
         task.setHideUntil(1111111111l);
-        task.setImportance(Task.IMPORTANCE_DO_OR_DIE);
+        task.setPriority(Task.Priority.HIGH);
         adapter.writeNotesIfNecessary(task, remoteModel);
         enhancedNotes = remoteModel.getNotes();
-        Assert.assertEquals("xxx" + GoogleTaskSyncAdapter.LINE_FEED + "" + GoogleTaskSyncAdapter.LINE_FEED + "{tasks:additionalMetadata{\"hideUntil\":\"1970-01-13T20:38:31\",\"importance\":\"MUST\",\"notifyModeFive\":true,\"recurrence\":\"RRULE:FREQ\\u003dMONTHLY;INTERVAL\\u003d1\",\"repeatUntil\":\"1970-01-02T10:17:36\",\"tags\":[\"test\",\"test2\",\"test3\"]}}", enhancedNotes);
+        Assert.assertEquals("xxx" + GoogleTaskSynchronizer.LINE_FEED + "" + GoogleTaskSynchronizer.LINE_FEED + "{tasks:additionalMetadata{\"hideUntil\":\"1970-01-13T20:38:31\",\"importance\":\"MUST\",\"notifyModeFive\":true,\"recurrence\":\"RRULE:FREQ\\u003dMONTHLY;INTERVAL\\u003d1\",\"repeatUntil\":\"1970-01-02T10:17:36\",\"tags\":[\"test\",\"test2\",\"test3\"]}}", enhancedNotes);
     }
 
     @Test
@@ -300,7 +352,7 @@ public class GoogleTaskSyncNoteAdapterTest {
         addTag("test");
         adapter.writeNotesIfNecessary(task, remoteModel);
         enhancedNotes = remoteModel.getNotes();
-        Assert.assertEquals("xxx" + GoogleTaskSyncAdapter.LINE_FEED + "" + GoogleTaskSyncAdapter.LINE_FEED + "{tasks:additionalMetadata{\"tags\":[\"test\",\"test2\",\"test3\"]}}", enhancedNotes);
+        Assert.assertEquals("xxx" + GoogleTaskSynchronizer.LINE_FEED + "" + GoogleTaskSynchronizer.LINE_FEED + "{tasks:additionalMetadata{\"tags\":[\"test\",\"test2\",\"test3\"]}}", enhancedNotes);
     }
 
     @Test
@@ -338,24 +390,24 @@ public class GoogleTaskSyncNoteAdapterTest {
     public void testReadMetadataImportanceDefault() {
         testStoreMetadataImportanceDefault();
         task = new Task();
-        task.setImportance(DEFAULT_READ_IMPORTANCE);
+        task.setPriority(DEFAULT_READ_IMPORTANCE);
         task.setNotes(enhancedNotes);
         adapter.processNotes(task);
         Assert.assertEquals("", task.getNotes());
         Assert.assertTrue(persistedTags.contains("test"));
-        Assert.assertEquals(DEFAULT_READ_IMPORTANCE, (int)task.getImportance());
+        Assert.assertEquals(DEFAULT_READ_IMPORTANCE, (int)task.getPriority());
     }
 
     @Test
     public void testReadMetadataImportanceLow() {
         testStoreMetadataImportanceLow();
         task = new Task();
-        task.setImportance(DEFAULT_READ_IMPORTANCE);
+        task.setPriority(DEFAULT_READ_IMPORTANCE);
         task.setNotes(enhancedNotes);
         adapter.processNotes(task);
         Assert.assertEquals("", task.getNotes());
         Assert.assertTrue(persistedTags.contains("test"));
-        Assert.assertEquals(Task.IMPORTANCE_NONE, (int)task.getImportance());
+        Assert.assertEquals(Task.Priority.NONE, (int)task.getPriority());
     }
 
     @Test
@@ -399,12 +451,12 @@ public class GoogleTaskSyncNoteAdapterTest {
         Assert.assertEquals("RRULE:FREQ=MONTHLY;INTERVAL=1", task.getRecurrence());
         Assert.assertEquals(123456000l, (long)task.getRepeatUntil());
         Assert.assertEquals(1111111000l, (long)task.getHideUntil());
-        Assert.assertEquals(Task.IMPORTANCE_DO_OR_DIE, (long)task.getImportance());
+        Assert.assertEquals(Task.Priority.HIGH, (long)task.getPriority());
     }
 
     @Test
     public void testReadMetadataFromNoteRecurrenceWithoutRepeatUntil() {
-        enhancedNotes = "xxx" + GoogleTaskSyncAdapter.LINE_FEED + "" + GoogleTaskSyncAdapter.LINE_FEED +  "{tasks:additionalMetadata{\"recurrence\":\"RRULE:FREQ=MONTHLY;INTERVAL=1\"}}";
+        enhancedNotes = "xxx" + GoogleTaskSynchronizer.LINE_FEED + "" + GoogleTaskSynchronizer.LINE_FEED +  "{tasks:additionalMetadata{\"recurrence\":\"RRULE:FREQ=MONTHLY;INTERVAL=1\"}}";
         task = new Task();
         task.setNotes(enhancedNotes);
         adapter.processNotes(task);
@@ -415,7 +467,7 @@ public class GoogleTaskSyncNoteAdapterTest {
 
     @Test
     public void testReadMetadataFromNoteCorruptJSON() {
-        enhancedNotes = "xxx" + GoogleTaskSyncAdapter.LINE_FEED + "" + GoogleTaskSyncAdapter.LINE_FEED +  "{tasks:additionalMetadata{\"recurrence\":\"}}";
+        enhancedNotes = "xxx" + GoogleTaskSynchronizer.LINE_FEED + "" + GoogleTaskSynchronizer.LINE_FEED +  "{tasks:additionalMetadata{\"recurrence\":\"}}";
         task = new Task();
         task.setNotes(enhancedNotes);
         adapter.processNotes(task);
