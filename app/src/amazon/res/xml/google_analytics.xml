@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--suppress XmlUnboundNsPrefix -->
+<resources>
+  <string name="ga_trackingId">UA-43015607-3</string>
+
+  <bool name="ga_autoActivityTracking">true</bool>
+  <screenName name="com.todoroo.astrid.activity.TaskEditActivity">TaskEditActivity</screenName>
+  <screenName name="com.todoroo.astrid.files.AACRecordingActivity">AACRecordingActivity</screenName>
+  <screenName name="org.tasks.activities.AddAttachmentActivity">AddAttachmentActivity</screenName>
+  <screenName name="org.tasks.widget.ShortcutConfigActivity">ShortcutConfigActivity</screenName>
+  <screenName name="com.todoroo.astrid.activity.ShareLinkActivity">ShareLinkActivity</screenName>
+  <screenName name="org.tasks.reminders.NotificationActivity">NotificationActivity</screenName>
+  <screenName name="org.tasks.files.MyFilePickerActivity">MyFilePickerActivity</screenName>
+  <screenName name="org.tasks.reminders.MissedCallActivity">MissedCallActivity</screenName>
+  <screenName name="com.todoroo.astrid.gtasks.auth.GtasksLoginActivity">GtasksLoginActivity
+  </screenName>
+  <screenName name="org.tasks.voice.VoiceCommandActivity">VoiceCommandActivity</screenName>
+  <screenName name="org.tasks.locale.ui.activity.TaskerSettingsActivity">TaskerSettingsActivity
+  </screenName>
+  <screenName name="com.todoroo.astrid.activity.TaskListActivity">TaskListActivity</screenName>
+  <screenName name="org.tasks.activities.TagSettingsActivity">TagSettingsActivity</screenName>
+  <screenName name="org.tasks.reminders.SnoozeActivity">SnoozeActivity</screenName>
+  <screenName name="com.todoroo.astrid.core.CustomFilterActivity">CustomFilterActivity</screenName>
+  <screenName name="org.tasks.activities.CameraActivity">CameraActivity</screenName>
+  <screenName name="org.tasks.activities.CalendarSelectionActivity">CalendarSelectionActivity
+  </screenName>
+  <screenName name="com.todoroo.astrid.gcal.CalendarReminderActivity">CalendarReminderActivity
+  </screenName>
+  <screenName name="com.todoroo.astrid.activity.BeastModePreferences">BeastModePreferences
+  </screenName>
+  <screenName name="org.tasks.activities.FilterSettingsActivity">FilterSettingsActivity</screenName>
+  <screenName name="org.tasks.activities.ColorPickerActivity">ColorPickerActivity</screenName>
+  <screenName name="org.tasks.activities.DateAndTimePickerActivity">DateAndTimePickerActivity
+  </screenName>
+  <screenName name="org.tasks.activities.DatePickerActivity">DatePickerActivity</screenName>
+  <screenName name="org.tasks.activities.FilterSelectionActivity">FilterSelectionActivity
+  </screenName>
+  <screenName name="org.tasks.activities.TimePickerActivity">TimePickerActivity</screenName>
+  <screenName name="org.tasks.files.FileExplore">FileExplore</screenName>
+  <screenName name="org.tasks.sync.SynchronizationPreferences">GtasksPreferences</screenName>
+  <screenName name="org.tasks.dashclock.DashClockSettings">DashClockSettings</screenName>
+  <screenName name="com.todoroo.astrid.core.DefaultsPreferences">DefaultsPreferences</screenName>
+  <screenName name="com.todoroo.astrid.core.OldTaskPreferences">OldTaskPreferences</screenName>
+  <screenName name="com.todoroo.astrid.reminders.ReminderPreferences">ReminderPreferences
+  </screenName>
+  <screenName name="org.tasks.preferences.AppearancePreferences">AppearancePreferences</screenName>
+  <screenName name="org.tasks.preferences.BackupPreferences">BackupPreferences</screenName>
+  <screenName name="org.tasks.preferences.BasicPreferences">BasicPreferences</screenName>
+  <screenName name="org.tasks.preferences.DateTimePreferences">DateShortcutPreferences</screenName>
+  <screenName name="org.tasks.preferences.HelpAndFeedbackActivity">HelpAndFeedbackActivity
+  </screenName>
+  <screenName name="org.tasks.preferences.MiscellaneousPreferences">MiscellaneousPreferences
+  </screenName>
+  <screenName name="org.tasks.widget.WidgetConfigActivity">WidgetConfigActivity</screenName>
+  <screenName name="org.tasks.caldav.CaldavCalendarSettingsActivity">CaldavSettingsActivity
+  </screenName>
+  <screenName name="org.tasks.caldav.CaldavAccountSettingsActivity">CaldavAccountSettingsActivity
+  </screenName>
+  <screenName name="org.tasks.billing.PurchaseActivity">PurchaseActivity</screenName>
+</resources>

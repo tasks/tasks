@@ -60,11 +60,11 @@
   <permission
     android:description="@string/read_permission_desc"
     android:label="@string/read_permission_label"
-    android:name="org.tasks.permission.READ_TASKS"
+    android:name="com.bmaehr.tasks.permission.READ_TASKS"
     android:permissionGroup="android.permission-group.MESSAGES"
     android:protectionLevel="normal"/>
 
-  <uses-permission android:name="org.tasks.permission.READ_TASKS"/>
+  <uses-permission android:name="com.bmaehr.tasks.permission.READ_TASKS"/>
 
   <!-- ========================================================== Metadata = -->
 
@@ -217,7 +217,7 @@
       android:grantUriPermissions="true"
       android:multiprocess="true"
       android:name="com.todoroo.astrid.provider.Astrid2TaskProvider"
-      android:readPermission="org.tasks.permission.READ_TASKS"/>
+      android:readPermission="com.bmaehr.tasks.permission.READ_TASKS"/>
 
     <provider
       android:authorities="${applicationId}.provider"
