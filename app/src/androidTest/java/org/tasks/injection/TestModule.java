@@ -21,14 +21,17 @@ import org.tasks.data.UserActivityDao;
 import org.tasks.notifications.NotificationDao;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.PermissivePermissionChecker;
+import org.tasks.jobs.WorkManager;
 
 @Module
 public class TestModule {
 
   private final Context context;
+  private final WorkManager workManager;
 
-  TestModule(Context context) {
+  TestModule(Context context, WorkManager workManager) {
     this.context = context;
+    this.workManager = workManager;
   }
 
   @Provides
@@ -87,7 +90,7 @@ public class TestModule {
   @Provides
   public TaskDao getTaskDao(Database database) {
     TaskDao taskDao = database.getTaskDao();
-    taskDao.initialize(context);
+    taskDao.initialize(workManager);
     return taskDao;
   }
 
