@@ -7,7 +7,6 @@ import com.todoroo.astrid.core.CustomFilterActivity;
 import com.todoroo.astrid.core.DefaultsPreferences;
 import com.todoroo.astrid.core.OldTaskPreferences;
 import com.todoroo.astrid.gcal.CalendarReminderActivity;
-import com.todoroo.astrid.gtasks.GtasksPreferences;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import com.todoroo.astrid.reminders.ReminderPreferences;
 import dagger.Subcomponent;
@@ -117,8 +116,6 @@ public interface ActivityComponent {
   void inject(ColorPickerActivity colorPickerActivity);
 
   void inject(BasicPreferences basicPreferences);
-
-  void inject(GtasksPreferences googleTasksPreferences);
 
   void inject(GoogleTaskListSettingsActivity googleTaskListSettingsActivity);
 

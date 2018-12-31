@@ -14,6 +14,7 @@ import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import com.todoroo.astrid.service.TaskDeleter;
 import javax.inject.Inject;
@@ -90,6 +91,12 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
               workManager.updateBackgroundSync(null, (Boolean) o, null);
               return true;
             });
+    findPreference(getString(R.string.gtasks_sync_metadata_using_note_key))
+            .setOnPreferenceChangeListener(
+                    (preference, o) -> {
+                      gtaskSyncAdapterHelper.setUseNoteForMetadataSync((Boolean) o);
+                      return true;
+                    });
   }
 
   private void logoutConfirmation(GoogleTaskAccount account) {
@@ -130,6 +137,7 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
   private void addGoogleTasksAccounts() {
     PreferenceCategory googleTaskPreferences =
         (PreferenceCategory) findPreference(getString(R.string.gtasks_GPr_header));
+    Preference useNotePreference = findPreference(getString(R.string.gtasks_sync_metadata_using_note_key));
     googleTaskPreferences.removeAll();
     for (GoogleTaskAccount googleTaskAccount : googleTaskListDao.getAccounts()) {
       String account = googleTaskAccount.getAccount();
@@ -174,6 +182,7 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
           });
     }
     googleTaskPreferences.addPreference(addGoogleTaskAccount);
+    googleTaskPreferences.addPreference(useNotePreference);
   }
 
   private void addGoogleTaskAccount() {

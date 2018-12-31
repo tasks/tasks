@@ -20,7 +20,6 @@ import org.tasks.data.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksListService;
-import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.service.TaskCreator;
@@ -74,7 +73,7 @@ public class GoogleTaskSyncNoteAdapterTest {
     private GtasksListService gtasksListService;
     private GtasksTaskListUpdater gtasksTaskListUpdater;
     private Preferences preferences;
-    private GtasksPreferenceService gtasksPreferenceService;
+    private GtaskSyncAdapterHelper gtasksSyncAdapterHelper;
     private TaskDao taskDao;
     private TagDao tagDao;
     private TagDataDao tagDataDao;
@@ -102,7 +101,7 @@ public class GoogleTaskSyncNoteAdapterTest {
         Mockito.when(preferences.getIntegerFromString(Matchers.eq(R.string.p_default_importance_key), Mockito.anyInt())).thenReturn(DEFAULT_WRITE_IMPORTANCE);
         Mockito.when(preferences.getIntegerFromString(Matchers.eq(R.string.p_default_reminders_key), Mockito.anyInt())).thenReturn(DEFAULT_WRITE_REMINDER_FLAGS);
 
-        gtasksPreferenceService = new GtasksPreferenceService(preferences) {
+        gtasksSyncAdapterHelper = new GtaskSyncAdapterHelper(googleAccountManager, preferences, playServices, googleTaskListDao, tracker) {
             public boolean getUseNoteForMetadataSync() {
                 return enableNoteMetadataSync;
             }
@@ -148,7 +147,7 @@ public class GoogleTaskSyncNoteAdapterTest {
                 gtasksListService,
                 gtasksTaskListUpdater,
                 preferences,
-                gtasksPreferenceService,
+                gtasksSyncAdapterHelper,
                 taskDao,
                 tagDao,
                 tagDataDao,

@@ -21,7 +21,6 @@ import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
-import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.api.HttpNotFoundException;
@@ -78,7 +77,7 @@ public class GoogleTaskSynchronizer {
   private final GtasksListService gtasksListService;
   private final GtasksTaskListUpdater gtasksTaskListUpdater;
   private final Preferences preferences;
-  private final GtasksPreferenceService gtasksPreferenceService;
+  private final GtaskSyncAdapterHelper gtasksSyncAdapterHelper;
   private final TaskDao taskDao;
   private final TagDao tagDao;
   private final TagDataDao tagDataDao;
@@ -102,7 +101,7 @@ public class GoogleTaskSynchronizer {
       GtasksListService gtasksListService,
       GtasksTaskListUpdater gtasksTaskListUpdater,
       Preferences preferences,
-      GtasksPreferenceService gtasksPreferenceService,
+      GtaskSyncAdapterHelper gtasksSyncAdapterHelper,
       TaskDao taskDao,
       TagDao tagDao,
       TagDataDao tagDataDao,
@@ -123,7 +122,7 @@ public class GoogleTaskSynchronizer {
     this.gtasksListService = gtasksListService;
     this.gtasksTaskListUpdater = gtasksTaskListUpdater;
     this.preferences = preferences;
-    this.gtasksPreferenceService = gtasksPreferenceService;
+    this.gtasksSyncAdapterHelper = gtasksSyncAdapterHelper;
     this.taskDao = taskDao;
     this.tagDao = tagDao;
     this.tagDataDao = tagDataDao;
@@ -354,7 +353,7 @@ public class GoogleTaskSynchronizer {
 
   void writeNotesIfNecessary(Task task, com.google.api.services.tasks.model.Task remoteModel) {
     String additionalMetadata = null;
-    if (gtasksPreferenceService.getUseNoteForMetadataSync()) {
+    if (gtasksSyncAdapterHelper.getUseNoteForMetadataSync()) {
       GoogleTaskAdditionalMetadata additionalMetadataObject = new GoogleTaskAdditionalMetadata();
       List<String> tags = createTagList(task);
       if (tags.size() > 0) {
