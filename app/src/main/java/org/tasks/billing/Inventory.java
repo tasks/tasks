@@ -73,10 +73,13 @@ public class Inventory {
 
   public boolean hasPro() {
     //noinspection ConstantConditions
+    return true;
+    /*
     return purchases.containsKey(SKU_PRO)
         || purchases.containsKey(SKU_VIP)
         || BuildConfig.FLAVOR.equals("generic")
         || (BuildConfig.DEBUG && preferences.getBoolean(R.string.p_debug_pro, false));
+     */
   }
 
   public boolean purchased(String sku) {

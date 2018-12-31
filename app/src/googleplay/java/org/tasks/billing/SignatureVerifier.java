@@ -18,7 +18,6 @@ public class SignatureVerifier {
   }
 
   public boolean verifySignature(Purchase purchase) {
-    /*
     try {
       return Security.verifyPurchase(
           billingKey, purchase.getOriginalJson(), purchase.getSignature());
@@ -26,7 +25,5 @@ public class SignatureVerifier {
       Timber.e(e);
       return false;
     }
-    */
-    return true;
   }
 }
