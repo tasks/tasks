@@ -85,6 +85,16 @@ public final class TagService {
     return tag;
   }
 
+  public TagData getOrCreateTag(String tagName) {
+    TagData tagData = tagDataDao.getTagByName(tagName);
+    if (tagData == null) {
+      tagData = new TagData();
+      tagData.setName(tagName);
+      tagDataDao.createNew(tagData);
+    }
+    return tagData;
+  }
+
   public void rename(String uuid, String newName) {
     tagDataDao.rename(uuid, newName);
     tagDao.rename(uuid, newName);

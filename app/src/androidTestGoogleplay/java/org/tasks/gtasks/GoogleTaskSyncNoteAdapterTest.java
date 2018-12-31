@@ -5,12 +5,9 @@ import androidx.test.runner.AndroidJUnit4;
 
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
-import com.todoroo.andlib.data.Property;
-import com.todoroo.astrid.dao.Database;
 
 import org.tasks.LocalBroadcastManager;
 import org.tasks.billing.Inventory;
-import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskListDao;
 import org.tasks.data.TagDao;
@@ -34,15 +31,14 @@ import org.mockito.Matchers;
 import org.mockito.Mockito;
 import org.tasks.R;
 import org.tasks.injection.ApplicationComponent;
-import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingApplication;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.Preferences;
 import org.tasks.analytics.Tracker;
+import com.todoroo.astrid.tags.TagService;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -62,6 +58,7 @@ public class GoogleTaskSyncNoteAdapterTest {
     private GoogleTaskSynchronizer adapter;
     private Task task;
     private Map<String, TagData> inputTags;
+    private List<String> tagUuids;
     private Set<String> persistedTags;
     private com.google.api.services.tasks.model.Task remoteModel;
     private String enhancedNotes;
@@ -77,6 +74,7 @@ public class GoogleTaskSyncNoteAdapterTest {
     private TaskDao taskDao;
     private TagDao tagDao;
     private TagDataDao tagDataDao;
+    private TagService tagService;
     private Tracker tracker;
     private NotificationManager notificationManager;
     private GoogleTaskDao googleTaskDao;
@@ -108,7 +106,10 @@ public class GoogleTaskSyncNoteAdapterTest {
         };
 
         googleTaskDao = Mockito.mock(GoogleTaskDao.class);
+
+        tagUuids = new ArrayList<>();
         tagDao = Mockito.mock(TagDao.class);
+        Mockito.when(tagDao.getTagUids(Mockito.anyLong())).thenReturn(tagUuids);
 
         inputTags = new HashMap<>();
         persistedTags = new HashSet<>();
@@ -141,6 +142,8 @@ public class GoogleTaskSyncNoteAdapterTest {
 
         };
 
+        tagService = new TagService(tagDataDao, tagDao);
+
         adapter = new GoogleTaskSynchronizer(context,
                 googleTaskListDao,
                 gtasksSyncService,
@@ -150,7 +153,7 @@ public class GoogleTaskSyncNoteAdapterTest {
                 gtasksSyncAdapterHelper,
                 taskDao,
                 tagDao,
-                tagDataDao,
+                tagService,
                 tracker,
                 notificationManager,
                 googleTaskDao,
@@ -173,12 +176,12 @@ public class GoogleTaskSyncNoteAdapterTest {
 
     private void addTag(String tagName) {
         String uuid = UUID.randomUUID().toString();
-        task.getTags().add(tagName);
+        tagUuids.add(uuid);
         TagData tag = new TagData();
         tag.setName(tagName);
         tag.setRemoteId(uuid);
         inputTags.put(uuid, tag);
-    }
+     }
 
     @Test
     public void testEmptyDisabled() {

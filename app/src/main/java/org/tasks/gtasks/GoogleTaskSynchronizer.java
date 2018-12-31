@@ -45,7 +45,7 @@ import org.tasks.data.GoogleTaskListDao;
 import org.tasks.data.TagDao;
 import org.tasks.data.Tag;
 import org.tasks.data.TagData;
-import org.tasks.data.TagDataDao;
+import com.todoroo.astrid.tags.TagService;
 import org.tasks.injection.ForApplication;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.DefaultFilterProvider;
@@ -80,7 +80,7 @@ public class GoogleTaskSynchronizer {
   private final GtaskSyncAdapterHelper gtasksSyncAdapterHelper;
   private final TaskDao taskDao;
   private final TagDao tagDao;
-  private final TagDataDao tagDataDao;
+  private final TagService tagService;
   private final Tracker tracker;
   private final NotificationManager notificationManager;
   private final GoogleTaskDao googleTaskDao;
@@ -104,7 +104,7 @@ public class GoogleTaskSynchronizer {
       GtaskSyncAdapterHelper gtasksSyncAdapterHelper,
       TaskDao taskDao,
       TagDao tagDao,
-      TagDataDao tagDataDao,
+      TagService tagService,
       Tracker tracker,
       NotificationManager notificationManager,
       GoogleTaskDao googleTaskDao,
@@ -125,7 +125,7 @@ public class GoogleTaskSynchronizer {
     this.gtasksSyncAdapterHelper = gtasksSyncAdapterHelper;
     this.taskDao = taskDao;
     this.tagDao = tagDao;
-    this.tagDataDao = tagDataDao;
+    this.tagService = tagService;
     this.tracker = tracker;
     this.notificationManager = notificationManager;
     this.googleTaskDao = googleTaskDao;
@@ -411,14 +411,16 @@ public class GoogleTaskSynchronizer {
 
   private List<String> createTagList(Task task) {
     Set<String> tags = new TreeSet<>();
-    for(String tagName: task.getTags()) {
-       Timber.i("Tag '" + tagName + "' found.");
-       // Skip empty tags or tags containig { } , ; [ ] # ' \
-        if (tagName!=null && tagName.trim().length()>0 && tagName.indexOf('{')<0 && tagName.indexOf('}')<0 && tagName.indexOf('[')<0 && tagName.indexOf(']')<0 && tagName.indexOf(',')<0 && tagName.indexOf(';')<0 && tagName.indexOf('"')<0 && tagName.indexOf('\'')<0 && tagName.indexOf('\\')<0) {
-          tags.add(tagName.trim());
-        } else {
-          Timber.w("Tag '" + tagName + "' skipped.");
-        }
+    List<TagData> tagDatas = tagService.getTagDataForTask(task.getId());
+    for(TagData tagData: tagDatas) {
+      String tagName = tagData.getName();
+      Timber.i("Tag '" + tagName + "' found.");
+      // Skip empty tags or tags containig { } , ; [ ] # ' \
+      if (tagName!=null && tagName.trim().length()>0 && tagName.indexOf('{')<0 && tagName.indexOf('}')<0 && tagName.indexOf('[')<0 && tagName.indexOf(']')<0 && tagName.indexOf(',')<0 && tagName.indexOf(';')<0 && tagName.indexOf('"')<0 && tagName.indexOf('\'')<0 && tagName.indexOf('\\')<0) {
+        tags.add(tagName.trim());
+      } else {
+        Timber.w("Tag '" + tagName + "' skipped.");
+      }
     }
     return new ArrayList<>(tags);
   }
@@ -498,12 +500,7 @@ public class GoogleTaskSynchronizer {
   }
 
   private void createLink(Task task, String tagName) {
-    TagData tagData = tagDataDao.getTagByName(tagName);
-    if (tagData == null) {
-      tagData = new TagData();
-      tagData.setName(tagName);
-      tagDataDao.createNew(tagData);
-    }
+    TagData tagData = tagService.getOrCreateTag(tagName);
     createLink(task, tagData);
   }
 
