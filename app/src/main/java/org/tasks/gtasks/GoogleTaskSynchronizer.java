@@ -386,6 +386,9 @@ public class GoogleTaskSynchronizer {
         }
       }
       additionalMetadata = gsonBulider.toJson(additionalMetadataObject);
+      Timber.i("Additional metadata is: " + additionalMetadata);
+    } else {
+      Timber.w("No synchronication of additional metadata with notes.");
     }
     if (additionalMetadata==null || additionalMetadata.trim().length()<=2) {
        remoteModel.setNotes(task.getNotes());
@@ -409,9 +412,12 @@ public class GoogleTaskSynchronizer {
   private List<String> createTagList(Task task) {
     Set<String> tags = new TreeSet<>();
     for(String tagName: task.getTags()) {
-        // Skip empty tags or tags containig { } , ; [ ] # ' \
+       Timber.i("Tag '" + tagName + "' found.");
+       // Skip empty tags or tags containig { } , ; [ ] # ' \
         if (tagName!=null && tagName.trim().length()>0 && tagName.indexOf('{')<0 && tagName.indexOf('}')<0 && tagName.indexOf('[')<0 && tagName.indexOf(']')<0 && tagName.indexOf(',')<0 && tagName.indexOf(';')<0 && tagName.indexOf('"')<0 && tagName.indexOf('\'')<0 && tagName.indexOf('\\')<0) {
           tags.add(tagName.trim());
+        } else {
+          Timber.w("Tag '" + tagName + "' skipped.");
         }
     }
     return new ArrayList<>(tags);
