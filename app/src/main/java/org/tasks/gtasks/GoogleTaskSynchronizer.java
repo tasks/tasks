@@ -501,14 +501,11 @@ public class GoogleTaskSynchronizer {
 
   private void createLink(Task task, String tagName) {
     TagData tagData = tagService.getOrCreateTag(tagName);
-    createLink(task, tagData);
+    if (tagData.getRemoteId() == null || tagDao.getTagByTaskAndTagUid(task.getId(), tagData.getRemoteId()) == null) {
+      Tag link = new Tag(task.getId(), task.getUuid(), tagData.getName(), tagData.getRemoteId());
+      tagDao.insert(link);
+    }
   }
-
-  private void createLink(Task task, TagData tagData) {
-    Tag link = new Tag(task.getId(), task.getUuid(), tagData.getName(), tagData.getRemoteId());
-    tagDao.insert(link);
-  }
-
 
   private synchronized void fetchAndApplyRemoteChanges(
       GtasksInvoker gtasksInvoker, GoogleTaskList list) throws UserRecoverableAuthIOException {

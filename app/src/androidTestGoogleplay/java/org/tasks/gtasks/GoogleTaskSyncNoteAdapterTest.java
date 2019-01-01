@@ -334,7 +334,7 @@ public class GoogleTaskSyncNoteAdapterTest {
         task.setPriority(Task.Priority.HIGH);
         adapter.writeNotesIfNecessary(task, remoteModel);
         enhancedNotes = remoteModel.getNotes();
-        Assert.assertEquals("xxx" + GoogleTaskSynchronizer.LINE_FEED + "" + GoogleTaskSynchronizer.LINE_FEED + "{tasks:additionalMetadata{\"hideUntil\":\"1970-01-13T20:38:31\",\"importance\":\"MUST\",\"notifyModeFive\":true,\"recurrence\":\"RRULE:FREQ\\u003dMONTHLY;INTERVAL\\u003d1\",\"repeatUntil\":\"1970-01-02T10:17:36\",\"tags\":[\"test\",\"test2\",\"test3\"]}}", enhancedNotes);
+        Assert.assertEquals("xxx" + GoogleTaskSynchronizer.LINE_FEED + "" + GoogleTaskSynchronizer.LINE_FEED + "{tasks:additionalMetadata{\"hideUntil\":\"1970-01-13T21:38:31\",\"importance\":\"MUST\",\"notifyModeFive\":true,\"recurrence\":\"RRULE:FREQ\\u003dMONTHLY;INTERVAL\\u003d1\",\"repeatUntil\":\"1970-01-02T11:17:36\",\"tags\":[\"test\",\"test2\",\"test3\"]}}", enhancedNotes);
     }
 
     @Test
