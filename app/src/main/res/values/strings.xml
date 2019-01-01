@@ -634,6 +634,16 @@ File %1$s contained %2$s.\n\n
 
   <!-- tomorrow -->
   <string name="tomorrow">Tomorrow</string>
+  <string name="twoDaysLater">Day after tomorrow</string>
+  <string name="nextWeekend">Next Weekend</string>
+  <string name="aWeekLater">In a week</string>
+  <string name="twoWeeksLater">Two weeks later</string>
+  <string name="aMonthLater">In a month</string>
+  <string name="twoMonthsLater">In two months</string>
+  <string name="threeMonthsLater">In three months</string>
+  <string name="halfAYearLater">In half a year</string>
+  <string name="aYearLater">In a year</string>
+  <string name="twoYearsLater">In two years</string>
 
   <string name="next">Next %s</string>
 

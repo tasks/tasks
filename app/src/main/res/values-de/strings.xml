@@ -292,6 +292,16 @@
 	</plurals>
 	<string name="today">Heute</string>
 	<string name="tomorrow">Morgen</string>
+	<string name="twoDaysLater">Übermorgen</string>
+	<string name="nextWeekend">Kommendes Wochenende</string>
+	<string name="aWeekLater">In einer Woche</string>
+	<string name="twoWeeksLater">In zwei Wochen</string>
+	<string name="aMonthLater">In einem Monat</string>
+	<string name="twoMonthsLater">In zwei Monaten</string>
+	<string name="threeMonthsLater">In drei Monaten</string>
+	<string name="halfAYearLater">In einem halben Jahr</string>
+	<string name="aYearLater">In einem Jahr</string>
+	<string name="twoYearsLater">In zwei Jahren</string>
 	<string name="next">Nächster %s</string>
 	<string name="yesterday">Gestern</string>
 	<string name="tmrw">Morg.</string>

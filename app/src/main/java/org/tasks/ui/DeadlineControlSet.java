@@ -29,6 +29,7 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
@@ -76,6 +77,16 @@ public class DeadlineControlSet extends TaskEditControlFragment {
   private String noTimeString;
   private String todayString;
   private String tomorrowString;
+  private String inTwoDaysString;
+  private String nextWeekendString;
+  private String inAWeekString;
+  private String inTwoWeeksString;
+  private String inAMonthString;
+  private String inTwoMonthsString;
+  private String inThreeMonthsString;
+  private String inHalfAYearString;
+  private String inAYearString;
+  private String inTwoYearsString;
   private ArrayAdapter<String> dueDateAdapter;
   private ArrayAdapter<String> dueTimeAdapter;
   private long date = 0;
@@ -106,8 +117,19 @@ public class DeadlineControlSet extends TaskEditControlFragment {
     noTimeString = activity.getString(R.string.TEA_no_time);
     todayString = activity.getString(R.string.today);
     tomorrowString = activity.getString(R.string.tomorrow);
+    inTwoDaysString = activity.getString(R.string.twoDaysLater);
+    nextWeekendString = activity.getString(R.string.nextWeekend);
+    inAWeekString = activity.getString(R.string.aWeekLater);
+    inTwoWeeksString = activity.getString(R.string.twoWeeksLater);
+    inAMonthString = activity.getString(R.string.aMonthLater);
+    inTwoMonthsString = activity.getString(R.string.twoMonthsLater);
+    inThreeMonthsString = activity.getString(R.string.threeMonthsLater);
+    inHalfAYearString = activity.getString(R.string.halfAYearLater);
+    inAYearString = activity.getString(R.string.aYearLater);
+    inTwoYearsString = activity.getString(R.string.twoYearsLater);
+
     dueDateOptions =
-        newArrayList("", todayString, tomorrowString, "", activity.getString(R.string.pick_a_date));
+        newArrayList("", activity.getString(R.string.pick_a_date), todayString, tomorrowString, inTwoDaysString, nextWeekendString, inAWeekString, inTwoWeeksString, inAMonthString, inTwoMonthsString, inThreeMonthsString, inHalfAYearString, inAYearString, inTwoYearsString);
     dueTimeOptions =
         newArrayList(
             "",
@@ -226,19 +248,47 @@ public class DeadlineControlSet extends TaskEditControlFragment {
       case 0:
         return;
       case 1:
-        setDate(today.getMillis());
-        break;
-      case 2:
-        setDate(today.plusDays(1).getMillis());
-        break;
-      case 3:
-        setDate(today.plusWeeks(1).getMillis());
-        break;
-      case 4:
         Intent intent = new Intent(context, DatePickerActivity.class);
         intent.putExtra(DatePickerActivity.EXTRA_TIMESTAMP, date);
         startActivityForResult(intent, REQUEST_DATE);
         updateDueDateOptions();
+        break;
+      case 2:
+        setDate(today.getMillis());
+        break;
+      case 3:
+        setDate(today.plusDays(1).getMillis());
+        break;
+      case 4:
+        setDate(today.plusDays(2).getMillis());
+        break;
+      case 5:
+        setDate(today.plusDays((Calendar.FRIDAY + 7 - today.getDayOfWeek()) % 7).getMillis());
+        setTime(dateShortcutEvening);
+        break;
+      case 6:
+        setDate(today.plusWeeks(1).getMillis());
+        break;
+      case 7:
+        setDate(today.plusWeeks(2).getMillis());
+        break;
+      case 8:
+        setDate(today.plusMonths(1).getMillis());
+        break;
+      case 9:
+        setDate(today.plusMonths(2).getMillis());
+        break;
+      case 10:
+        setDate(today.plusMonths(3).getMillis());
+        break;
+      case 11:
+        setDate(today.plusMonths(6).getMillis());
+        break;
+      case 12:
+        setDate(today.plusMonths(12).getMillis());
+        break;
+      case 13:
+        setDate(today.plusMonths(24).getMillis());
         break;
     }
   }
@@ -366,7 +416,7 @@ public class DeadlineControlSet extends TaskEditControlFragment {
         dueDateOptions.set(0, DateUtilities.getLongDateString(newDateTime(date)));
       }
     }
-    dueDateOptions.set(3, nextWeekString);
+    dueDateOptions.set(6, nextWeekString);
     dueDateAdapter.notifyDataSetChanged();
     dueDateSpinner.setSelection(0);
   }
