@@ -437,7 +437,7 @@ public class GoogleTaskSynchronizer {
           List<String> tags = additionalMetadataObject.getTags();
           if (tags != null && tags.size() > 0) {
             for (String tag : tags) {
-              createLink(task, tag);
+              tagService.ensureTag(task, tag);
             }
           }
           if (additionalMetadataObject.getHideUntil() != null) {
@@ -497,14 +497,6 @@ public class GoogleTaskSynchronizer {
                     (reminderFlag && (defaultReminderFlags & reminderFlagConstant)==0) ||
                             (!reminderFlag && (defaultReminderFlags & reminderFlagConstant)!=0)
             );
-  }
-
-  private void createLink(Task task, String tagName) {
-    TagData tagData = tagService.getOrCreateTag(tagName);
-    if (tagData.getRemoteId() == null || tagDao.getTagByTaskAndTagUid(task.getId(), tagData.getRemoteId()) == null) {
-      Tag link = new Tag(task.getId(), task.getUuid(), tagData.getName(), tagData.getRemoteId());
-      tagDao.insert(link);
-    }
   }
 
   private synchronized void fetchAndApplyRemoteChanges(

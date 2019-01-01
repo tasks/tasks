@@ -9,9 +9,14 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 
 import android.text.TextUtils;
+
+import com.todoroo.astrid.data.Task;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
+
+import org.tasks.data.Tag;
 import org.tasks.data.TagDao;
 import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
@@ -85,18 +90,22 @@ public final class TagService {
     return tag;
   }
 
-  public TagData getOrCreateTag(String tagName) {
+  public void ensureTag(Task task, String tagName) {
     TagData tagData = tagDataDao.getTagByName(tagName);
     if (tagData == null) {
       tagData = new TagData();
       tagData.setName(tagName);
       tagDataDao.createNew(tagData);
     }
-    return tagData;
+    if (tagData.getRemoteId() == null || tagDao.getTagByTaskAndTagUid(task.getId(), tagData.getRemoteId()) == null) {
+      Tag link = new Tag(task.getId(), task.getUuid(), tagData.getName(), tagData.getRemoteId());
+      tagDao.insert(link);
+    }
   }
 
   public void rename(String uuid, String newName) {
     tagDataDao.rename(uuid, newName);
     tagDao.rename(uuid, newName);
   }
+
 }

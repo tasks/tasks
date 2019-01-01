@@ -31,6 +31,8 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskDeleter;
+import com.todoroo.astrid.tags.TagService;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.Reader;
@@ -38,6 +40,8 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
+
 import javax.inject.Inject;
 import net.fortuna.ical4j.model.property.ProdId;
 import okhttp3.HttpUrl;
@@ -52,6 +56,8 @@ import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.CaldavTask;
+import org.tasks.data.Tag;
+import org.tasks.data.TagData;
 import org.tasks.injection.ForApplication;
 import org.tasks.security.Encryption;
 import timber.log.Timber;
@@ -65,6 +71,7 @@ public class CaldavSynchronizer {
 
   private final CaldavDao caldavDao;
   private final TaskDao taskDao;
+  private final TagService tagService;
   private final LocalBroadcastManager localBroadcastManager;
   private final TaskCreator taskCreator;
   private final TaskDeleter taskDeleter;
@@ -77,6 +84,7 @@ public class CaldavSynchronizer {
       @ForApplication Context context,
       CaldavDao caldavDao,
       TaskDao taskDao,
+      TagService tagService,
       LocalBroadcastManager localBroadcastManager,
       TaskCreator taskCreator,
       TaskDeleter taskDeleter,
@@ -85,6 +93,7 @@ public class CaldavSynchronizer {
     this.context = context;
     this.caldavDao = caldavDao;
     this.taskDao = taskDao;
+    this.tagService = tagService;
     this.localBroadcastManager = localBroadcastManager;
     this.taskCreator = taskCreator;
     this.taskDeleter = taskDeleter;
@@ -314,6 +323,10 @@ public class CaldavSynchronizer {
     }
 
     at.bitfire.ical4android.Task remoteModel = CaldavConverter.toCaldav(caldavTask, task);
+    List<String> tags = createTagList(task);
+    if (tags.size() > 0) {
+      remoteModel.setCategories(tags);
+    }
 
     if (Strings.isNullOrEmpty(caldavTask.getRemoteId())) {
       String caldavUid = UUIDHelper.newUUID();
@@ -371,6 +384,12 @@ public class CaldavSynchronizer {
         task = taskDao.fetch(caldavTask.getTask());
       }
       CaldavConverter.apply(task, remote);
+      List<String> tags = remote.getCategories();
+      if (tags != null && tags.size() > 0) {
+        for (String tag : tags) {
+          tagService.ensureTag(task, tag);
+        }
+      }
       task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
       taskDao.save(task);
       caldavTask.setVtodo(vtodo);
@@ -387,4 +406,19 @@ public class CaldavSynchronizer {
       Timber.e("Received VCALENDAR with %s VTODOs; ignoring %s", tasks.size(), fileName);
     }
   }
+
+  private List<String> createTagList(Task task) {
+    Set<String> tags = new TreeSet<>();
+    List<TagData> tagDatas = tagService.getTagDataForTask(task.getId());
+    for(TagData tagData: tagDatas) {
+      String tagName = tagData.getName();
+      if (tagName!=null && tagName.trim().length()>0 && tagName.indexOf('{')<0 && tagName.indexOf('}')<0 && tagName.indexOf('[')<0 && tagName.indexOf(']')<0 && tagName.indexOf(',')<0 && tagName.indexOf(';')<0 && tagName.indexOf('"')<0 && tagName.indexOf('\'')<0 && tagName.indexOf('\\')<0) {
+        tags.add(tagName.trim());
+      } else {
+        Timber.w("Tag '" + tagName + "' skipped.");
+      }
+    }
+    return new ArrayList<>(tags);
+  }
+
 }

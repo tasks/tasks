@@ -16,6 +16,7 @@ import net.fortuna.ical4j.model.Date;
 import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.Recur;
 import net.fortuna.ical4j.model.property.Completed;
+import net.fortuna.ical4j.model.property.DtStart;
 import net.fortuna.ical4j.model.property.Due;
 import net.fortuna.ical4j.model.property.RRule;
 import net.fortuna.ical4j.model.property.Status;
@@ -67,6 +68,10 @@ public class CaldavConverter {
           Timber.e(e);
         }
       }
+    }
+    DtStart dtStart = remote.getDtStart();
+    if (dtStart!=null) {
+        local.setHideUntil(dtStart.getDate().getTime());
     }
   }
 
@@ -147,6 +152,9 @@ public class CaldavConverter {
       }
     } else {
       remote.setRRule(null);
+    }
+    if (task.hasHideUntilDate()) {
+      remote.setDtStart(new DtStart(new DateTime(task.getCompletionDate())));
     }
     remote.setLastModified(newDateTime(task.getModificationDate()).toUTC().getMillis());
     remote.setPriority(toRemote(remote.getPriority(), task.getPriority()));
