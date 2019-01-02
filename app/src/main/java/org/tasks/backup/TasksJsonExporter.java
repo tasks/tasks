@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.widget.Toast;
 
+import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.todoroo.andlib.utility.DialogUtilities;
@@ -138,7 +139,8 @@ public class TasksJsonExporter {
       List<Task> tasks = taskDao.getAll();
 
       if (tasks.size() > 0) {
-        Uri uri = FileHelper.newFile(context, backupDirectory, "application/json", filename);
+        String basename = Files.getNameWithoutExtension(filename);
+        Uri uri = FileHelper.newFile(context, backupDirectory, "application/json", basename, ".json");
         OutputStream os = context.getContentResolver().openOutputStream(uri);
         doTasksExport(os, tasks);
         os.close();

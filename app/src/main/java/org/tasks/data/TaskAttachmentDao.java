@@ -16,6 +16,9 @@ public abstract class TaskAttachmentDao {
   @Query("SELECT * FROM task_attachments WHERE task_id = :taskUuid")
   public abstract List<TaskAttachment> getAttachments(String taskUuid);
 
+  @Query("SELECT * FROM task_attachments")
+  public abstract List<TaskAttachment> getAttachments();
+
   @Delete
   public abstract void delete(TaskAttachment taskAttachment);
 

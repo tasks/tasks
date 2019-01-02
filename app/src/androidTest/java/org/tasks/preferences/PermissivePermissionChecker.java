@@ -15,11 +15,6 @@ public class PermissivePermissionChecker extends PermissionChecker {
   }
 
   @Override
-  public boolean canWriteToExternalStorage() {
-    return true;
-  }
-
-  @Override
   public boolean canAccessAccounts() {
     return true;
   }

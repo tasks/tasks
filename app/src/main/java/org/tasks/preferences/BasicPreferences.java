@@ -42,6 +42,7 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastKitKat;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static org.tasks.dialogs.ExportTasksDialog.newExportTasksDialog;
 import static org.tasks.dialogs.ImportTasksDialog.newImportTasksDialog;
+import static org.tasks.files.FileHelper.newFilePickerIntent;
 import static org.tasks.locale.LocalePickerDialog.newLocalePickerDialog;
 import static org.tasks.themes.ThemeColor.LAUNCHERS;
 
@@ -154,7 +155,7 @@ public class BasicPreferences extends InjectingPreferenceActivity
     findPreference(R.string.backup_BAc_import)
         .setOnPreferenceClickListener(
             preference -> {
-              FileHelper.newFilePicker(BasicPreferences.this, REQUEST_PICKER, preferences.getBackupDirectory());
+              startActivityForResult(newFilePickerIntent(BasicPreferences.this, preferences.getBackupDirectory()), REQUEST_PICKER);
               return false;
             });
 
@@ -235,14 +236,14 @@ public class BasicPreferences extends InjectingPreferenceActivity
       }
     } else if (requestCode == REQUEST_CODE_BACKUP_DIR) {
       if (resultCode == RESULT_OK && data != null) {
-        Uri dir = data.getData();
+        Uri uri = data.getData();
         if (atLeastLollipop()) {
           getContentResolver()
               .takePersistableUriPermission(
-                  dir,
+                  uri,
                   Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         }
-        preferences.setString(R.string.p_backup_dir, dir.toString());
+        preferences.setUri(R.string.p_backup_dir, uri);
         updateBackupDirectory();
       }
     } else if (requestCode == REQUEST_PICKER) {

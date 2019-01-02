@@ -1,36 +1,49 @@
 package com.todoroo.astrid.voice;
 
 import androidx.lifecycle.ViewModel;
+
+import android.content.Context;
 import android.media.MediaRecorder;
+import android.net.Uri;
 import android.os.SystemClock;
 import java.io.IOException;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
+
+import org.tasks.files.FileHelper;
 import org.tasks.preferences.Preferences;
+import org.tasks.time.DateTime;
+
 import timber.log.Timber;
 
 public class AACRecorder extends ViewModel {
 
   private MediaRecorder mediaRecorder;
-  private final AtomicReference<String> nameRef = new AtomicReference<>();
 
   private boolean recording;
   private AACRecorderCallbacks listener;
   private Preferences preferences;
   private long base;
-  private String tempFile;
+  private Uri uri;
 
-  public synchronized void startRecording() {
+  public synchronized void startRecording(Context context) throws IOException {
     if (recording) {
       return;
     }
 
-    tempFile = preferences.getNewAudioAttachmentPath(nameRef);
+    uri =
+        FileHelper.newFile(
+            context,
+            preferences.getCacheDirectory(),
+            "audio/m4a",
+            new DateTime().toString("yyyyMMddHHmm"),
+            ".m4a");
 
     mediaRecorder = new MediaRecorder();
     mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
     mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
     mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
-    mediaRecorder.setOutputFile(tempFile);
+    mediaRecorder.setOutputFile(uri.getPath());
     mediaRecorder.setOnErrorListener(
         (mr, what, extra) -> Timber.e("mediaRecorder.onError(mr, %s, %s)", what, extra));
     mediaRecorder.setOnInfoListener(
@@ -63,7 +76,7 @@ public class AACRecorder extends ViewModel {
     mediaRecorder.release();
     recording = false;
     if (listener != null) {
-      listener.encodingFinished(tempFile);
+      listener.encodingFinished(uri);
     }
   }
 
@@ -78,6 +91,6 @@ public class AACRecorder extends ViewModel {
 
   public interface AACRecorderCallbacks {
 
-    void encodingFinished(String path);
+    void encodingFinished(Uri uri);
   }
 }

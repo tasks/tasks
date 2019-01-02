@@ -163,8 +163,6 @@
 	<string name="premium_remove_file_confirm">Sind Sie sicher? Das kann nicht rückgängig gemacht werden</string>
 	<string name="audio_recording_title">Audio aufnehmen</string>
 	<string name="audio_stop_recording">Aufnahme stoppen</string>
-	<string name="file_type_unhandled">Tut mir leid! Dieser Dateityp kann nicht geöffnet werden.</string>
-	<string name="file_err_copy">Fehler beim Kopieren der anzuhängenden Datei</string>
 	<string name="ring_once">Einmal klingeln</string>
 	<string name="ring_five_times">Fünfmal klingeln</string>
 	<string name="ring_nonstop">Ununterbrochen klingeln</string>
@@ -283,7 +281,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks wird Aufgabennamen bei der Erinnerung aussprechen</string>
 	<string name="delete_task">Aufgabe löschen</string>
 	<string name="voice_command_added_task">Hinzugefügte Aufgabe</string>
-	<string name="external_storage_unavailable">Kein Zugriff auf externen Speicher</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 Aufgabe</item>
 		<item quantity="other">%d Aufgaben</item>

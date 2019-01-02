@@ -134,40 +134,6 @@ public class AndroidUtilities {
     }
   }
 
-  /** Copy a file from one place to another */
-  public static void copyFile(File in, File out) throws Exception {
-    FileInputStream fis = new FileInputStream(in);
-    FileOutputStream fos = new FileOutputStream(out);
-    try {
-      copyStream(fis, fos);
-    } finally {
-      fis.close();
-      fos.close();
-    }
-  }
-
-  /** Copy stream from source to destination */
-  private static void copyStream(InputStream source, OutputStream dest) throws IOException {
-    int bytes;
-    byte[] buffer;
-    int BUFFER_SIZE = 1024;
-    buffer = new byte[BUFFER_SIZE];
-    while ((bytes = source.read(buffer)) != -1) {
-      if (bytes == 0) {
-        bytes = source.read();
-        if (bytes < 0) {
-          break;
-        }
-        dest.write(bytes);
-        dest.flush();
-        continue;
-      }
-
-      dest.write(buffer, 0, bytes);
-      dest.flush();
-    }
-  }
-
   public static int convertDpToPixels(DisplayMetrics displayMetrics, int dp) {
     // developer.android.com/guide/practices/screens_support.html#dips-pels
     return (int) (dp * displayMetrics.density + 0.5f);

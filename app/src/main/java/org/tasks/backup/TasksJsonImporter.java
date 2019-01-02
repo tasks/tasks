@@ -40,6 +40,7 @@ import org.tasks.data.UserActivity;
 import org.tasks.data.UserActivityDao;
 import org.tasks.dialogs.DialogBuilder;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -47,8 +48,6 @@ import java.io.InputStreamReader;
 import javax.inject.Inject;
 
 import timber.log.Timber;
-
-import static org.tasks.files.FileHelper.fromUri;
 
 public class TasksJsonImporter {
 
@@ -120,12 +119,18 @@ public class TasksJsonImporter {
 
   private void performImport() {
     Gson gson = new Gson();
-    InputStream is = fromUri(activity, this.input);
+    InputStream is;
+    try {
+      is = activity.getContentResolver().openInputStream(this.input);
+    } catch (FileNotFoundException e) {
+      throw new IllegalStateException(e);
+    }
     InputStreamReader reader = new InputStreamReader(is);
     JsonObject input = gson.fromJson(reader, JsonObject.class);
 
     try {
       JsonElement data = input.get("data");
+      int version = input.get("version").getAsInt();
       BackupContainer backupContainer = gson.fromJson(data, BackupContainer.class);
       for (TagData tagData : backupContainer.getTags()) {
         if (tagDataDao.getByUuid(tagData.getRemoteId()) == null) {
@@ -174,6 +179,9 @@ public class TasksJsonImporter {
         }
         for (UserActivity comment : backup.comments) {
           comment.setTargetId(taskUuid);
+          if (version < 546) {
+            comment.convertPictureUri();
+          }
           userActivityDao.createNew(comment);
         }
         for (GoogleTask googleTask : backup.google) {
@@ -191,6 +199,9 @@ public class TasksJsonImporter {
         }
         for (TaskAttachment attachment : backup.getAttachments()) {
           attachment.setTaskId(taskUuid);
+          if (version < 546) {
+            attachment.convertPathUri();
+          }
           taskAttachmentDao.insert(attachment);
         }
         for (CaldavTask caldavTask : backup.getCaldavTasks()) {

@@ -166,8 +166,6 @@
 	<string name="premium_remove_file_confirm">Se sicuro? Non può essere eseguito</string>
 	<string name="audio_recording_title">Registrazione Audio</string>
 	<string name="audio_stop_recording">Fine Registrazione</string>
-	<string name="file_type_unhandled">Spiacente! Non è stata trovata nessuna applicazione per gestire questo tipo di file</string>
-	<string name="file_err_copy">Errore di copia dei file da allegare</string>
 	<string name="ring_once">Suona una volta</string>
 	<string name="ring_five_times">Suona cinque volte</string>
 	<string name="ring_nonstop">Suono continuo</string>
@@ -286,7 +284,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks pronuncerà il nome dell\'attività durante i promemoria</string>
 	<string name="delete_task">Elimina attività</string>
 	<string name="voice_command_added_task">Attività aggiunta</string>
-	<string name="external_storage_unavailable">Non posso accedere alla memoria esterna</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 attività</item>
 		<item quantity="other">%d attività</item>

@@ -1,11 +1,17 @@
 package org.tasks.data;
 
+import android.net.Uri;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import com.google.common.base.Strings;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Table;
 import com.todoroo.astrid.data.Task;
+
+import java.io.File;
 
 @Entity(tableName = "task_attachments")
 public final class TaskAttachment {
@@ -16,11 +22,6 @@ public final class TaskAttachment {
   public static final Property.LongProperty ID = new Property.LongProperty(TABLE, "_id");
   /** default directory for files on external storage */
   public static final String FILES_DIRECTORY_DEFAULT = "attachments"; // $NON-NLS-1$
-  /** Constants for file types */
-  public static final String FILE_TYPE_AUDIO = "audio/"; // $NON-NLS-1$
-
-  public static final String FILE_TYPE_IMAGE = "image/"; // $NON-NLS-1$
-  public static final String FILE_TYPE_OTHER = "application/octet-stream"; // $NON-NLS-1$
 
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "_id")
@@ -37,18 +38,16 @@ public final class TaskAttachment {
   private String name = "";
 
   @ColumnInfo(name = "path")
-  private String path = "";
+  private String uri = "";
 
   @ColumnInfo(name = "content_type")
   private String contentType = "";
 
-  public static TaskAttachment createNewAttachment(
-      String taskUuid, String filePath, String fileName, String fileType) {
+  public static TaskAttachment createNewAttachment(String taskUuid, Uri uri, String fileName) {
     TaskAttachment attachment = new TaskAttachment();
     attachment.setTaskId(taskUuid);
     attachment.setName(fileName);
-    attachment.setPath(filePath);
-    attachment.setContentType(fileType);
+    attachment.setUri(uri);
     return attachment;
   }
 
@@ -84,12 +83,12 @@ public final class TaskAttachment {
     this.name = name;
   }
 
-  public String getPath() {
-    return path;
+  public String getUri() {
+    return uri;
   }
 
-  public void setPath(String path) {
-    this.path = path;
+  public void setUri(String uri) {
+    this.uri = uri;
   }
 
   public String getContentType() {
@@ -98,5 +97,17 @@ public final class TaskAttachment {
 
   public void setContentType(String contentType) {
     this.contentType = contentType;
+  }
+
+  public void convertPathUri() {
+    setUri(Uri.fromFile(new File(uri)).toString());
+  }
+
+  public void setUri(Uri uri) {
+    setUri(uri == null ? null : uri.toString());
+  }
+
+  public Uri parseUri() {
+    return Strings.isNullOrEmpty(uri) ? null : Uri.parse(uri);
   }
 }

@@ -131,8 +131,6 @@
 	<string name="premium_remove_file_confirm">Ste prepričani? Tega ni mogoče razveljaviti</string>
 	<string name="audio_recording_title">Snemam zvok</string>
 	<string name="audio_stop_recording">Prekini snemanje</string>
-	<string name="file_type_unhandled">Žal nobena aplikacija ne ustreza takim datotekam.</string>
-	<string name="file_err_copy">Napaka pri kopiranju datoteke za priponko</string>
 	<string name="random_reminder_hour">na uro</string>
 	<string name="random_reminder_day">dan</string>
 	<string name="random_reminder_week">na teden</string>

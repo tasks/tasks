@@ -152,8 +152,6 @@
 	<string name="premium_remove_file_confirm">Está seguro? No se puede deshacer</string>
 	<string name="audio_recording_title">Grabando Audio</string>
 	<string name="audio_stop_recording">Detener grabación</string>
-	<string name="file_type_unhandled">Lo sentimos! No se encontró ninguna aplicación para abrir este tipo de archivo.</string>
-	<string name="file_err_copy">Error al copiar el archivo a adjuntar</string>
 	<string name="ring_once">Sonar una vez</string>
 	<string name="ring_five_times">Sonar cinco veces</string>
 	<string name="ring_nonstop">Sonar sin parar</string>
@@ -198,7 +196,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks dirá los nombres de las tareas durante los avisos</string>
 	<string name="delete_task">Eliminar tarefa</string>
 	<string name="voice_command_added_task">Tarea agregada</string>
-	<string name="external_storage_unavailable">Almacenamiento externo inaccesible</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 tarea</item>
 		<item quantity="other">%d tareas</item>

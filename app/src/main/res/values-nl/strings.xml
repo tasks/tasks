@@ -164,8 +164,6 @@
 	<string name="premium_remove_file_confirm">Weet je het zeker? Dit kan niet ongedaan gemaakt worden</string>
 	<string name="audio_recording_title">Bezig met opname</string>
 	<string name="audio_stop_recording">Opname stoppen</string>
-	<string name="file_type_unhandled">Sorry! Er is geen applicatie gevonden die dit bestandtype ondersteunt.</string>
-	<string name="file_err_copy">Fout bij kopiëren toe te voegen bestand</string>
 	<string name="ring_once">Ring eenmalig</string>
 	<string name="ring_five_times">Ring vijf keer</string>
 	<string name="ring_nonstop">Ring continue</string>
@@ -284,7 +282,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Bij herinneringen zullen de taaknamen uitgesproken worden</string>
 	<string name="delete_task">Verwijder taak</string>
 	<string name="voice_command_added_task">Toegevoegde taak</string>
-	<string name="external_storage_unavailable">Geen toegang tot externe opslag</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 taak</item>
 		<item quantity="other">%d taken</item>

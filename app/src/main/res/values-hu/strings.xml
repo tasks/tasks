@@ -168,8 +168,6 @@
 	<string name="premium_remove_file_confirm">Biztos benne? A művelet nem visszavonható</string>
 	<string name="audio_recording_title">Hang rögzítése</string>
 	<string name="audio_stop_recording">Hangrögzítés leállítása</string>
-	<string name="file_type_unhandled">Sajnáljuk, az adott file megnyitására képes alkalmazás nem található.</string>
-	<string name="file_err_copy">Hiba lépett fel a file csatolásakor</string>
 	<string name="ring_once">Egy csengés</string>
 	<string name="ring_five_times">Öt csengés</string>
 	<string name="ring_nonstop">Folyamatos csengés</string>
@@ -289,7 +287,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">A Tasks kimondja a feladatcímeket emlékeztetőkor</string>
 	<string name="delete_task">Feladat törlése</string>
 	<string name="voice_command_added_task">Hozzáadott feladat</string>
-	<string name="external_storage_unavailable">Külső tárhely nem elérhető</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 feladat</item>
 		<item quantity="other">%d feladat</item>

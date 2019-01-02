@@ -156,8 +156,6 @@
 	<string name="premium_remove_file_confirm">Oletko varma? Ei voi peruuttaa</string>
 	<string name="audio_recording_title">Tallentaa ääntä</string>
 	<string name="audio_stop_recording">Lopeta tallennus</string>
-	<string name="file_type_unhandled">Pahoittelen! Ei sopivaa sovelllusta tämän tiedostotyypin käsittelyyn.</string>
-	<string name="file_err_copy">Virhe tiedoston kopioimisessa liitteeseen</string>
 	<string name="ring_once">Soi kerran</string>
 	<string name="ring_five_times">Soi viisi kertaa</string>
 	<string name="ring_nonstop">Soi jatkuvasti</string>
@@ -276,7 +274,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks kertoo tehtävien nimet muistutusten aikana</string>
 	<string name="delete_task">Poista tehtävä</string>
 	<string name="voice_command_added_task">Lisätty tehtävä</string>
-	<string name="external_storage_unavailable">Eii pääsyä ulkoiseen muistiin</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 tehtävä</item>
 		<item quantity="other">%d tehtävät</item>

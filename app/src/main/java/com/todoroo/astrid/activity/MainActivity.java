@@ -14,6 +14,7 @@ import android.annotation.SuppressLint;
 import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
@@ -464,7 +465,7 @@ public class MainActivity extends InjectingAppCompatActivity
   }
 
   @Override
-  public void addComment(String message, String picture) {
+  public void addComment(String message, Uri picture) {
     TaskEditFragment taskEditFragment = getTaskEditFragment();
     if (taskEditFragment != null) {
       taskEditFragment.addComment(message, picture);

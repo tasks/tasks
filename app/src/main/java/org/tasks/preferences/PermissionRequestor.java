@@ -4,7 +4,6 @@ import android.Manifest;
 
 public abstract class PermissionRequestor {
 
-  public static final int REQUEST_FILE_WRITE = 50;
   public static final int REQUEST_CALENDAR = 51;
   public static final int REQUEST_MIC = 52;
   public static final int REQUEST_GOOGLE_ACCOUNTS = 53;
@@ -21,14 +20,6 @@ public abstract class PermissionRequestor {
       return true;
     }
     requestPermission(Manifest.permission.RECORD_AUDIO, REQUEST_MIC);
-    return false;
-  }
-
-  public boolean requestFileWritePermission() {
-    if (permissionChecker.canWriteToExternalStorage()) {
-      return true;
-    }
-    requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, REQUEST_FILE_WRITE);
     return false;
   }
 

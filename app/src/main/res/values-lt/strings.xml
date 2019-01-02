@@ -164,8 +164,6 @@
 	<string name="premium_remove_file_confirm">Ar tikrai? Nebegalės būti atstatyta</string>
 	<string name="audio_recording_title">Įrašyti garsą</string>
 	<string name="audio_stop_recording">Stabdyti įrašą</string>
-	<string name="file_type_unhandled">Atsiprašome! Nerasta programa, galinti atidaryti šio tipo failus.</string>
-	<string name="file_err_copy">Klaida bandant pridėti failą</string>
 	<string name="ring_once">Suskambėti vieną kartą</string>
 	<string name="ring_five_times">Suskambėti penkis kartus</string>
 	<string name="ring_nonstop">Skambėti nepaliaujant</string>
@@ -285,7 +283,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks garsu praneš užduoties pavadinimą per priminimus</string>
 	<string name="delete_task">Ištrinti užduotį</string>
 	<string name="voice_command_added_task">Pridėtos užduotys</string>
-	<string name="external_storage_unavailable">Nėra prieigos prie išorinės laikmenos</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 užduotis</item>
 		<item quantity="other">%d užduotys(-čių)</item>

@@ -159,8 +159,6 @@
 	<string name="premium_remove_file_confirm">您确定吗？无法恢复的喔</string>
 	<string name="audio_recording_title">正在录制音频</string>
 	<string name="audio_stop_recording">停止录制</string>
-	<string name="file_type_unhandled">对不起！找不到应用程序处理这种文件类型。</string>
-	<string name="file_err_copy">复制文件添加附件时出错</string>
 	<string name="ring_once">响铃一次</string>
 	<string name="ring_five_times">响铃五次</string>
 	<string name="ring_nonstop">响个不停</string>
@@ -280,7 +278,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks会在任务提醒时读出任务名</string>
 	<string name="delete_task">删除任务</string>
 	<string name="voice_command_added_task">已添加的任务</string>
-	<string name="external_storage_unavailable">无法访问外部存储</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 个任务</item>
 		<item quantity="other">%d 个任务</item>

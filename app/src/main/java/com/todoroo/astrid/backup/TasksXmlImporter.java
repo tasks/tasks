@@ -39,13 +39,10 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.StringReader;
 
 import javax.inject.Inject;
 
 import timber.log.Timber;
-
-import static org.tasks.files.FileHelper.fromUri;
 
 public class TasksXmlImporter {
 
@@ -120,7 +117,7 @@ public class TasksXmlImporter {
   private void performImport() throws IOException, XmlPullParserException {
     XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
     XmlPullParser xpp = factory.newPullParser();
-    InputStream inputStream = fromUri(activity, input);
+    InputStream inputStream = activity.getContentResolver().openInputStream(input);
     InputStreamReader reader = new InputStreamReader(inputStream);
     xpp.setInput(reader);
 

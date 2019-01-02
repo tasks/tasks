@@ -158,8 +158,6 @@
 	<string name="premium_remove_file_confirm">Вы уверены? Действие нельзя отменить</string>
 	<string name="audio_recording_title">Запись голоса</string>
 	<string name="audio_stop_recording">Остановить запись</string>
-	<string name="file_type_unhandled">Извините! Не найдена программа для просмотра файлов этого типа.</string>
-	<string name="file_err_copy">Ошибка копирования прикрепляемого файла.</string>
 	<string name="ring_once">1 раз</string>
 	<string name="ring_five_times">5 раз</string>
 	<string name="ring_nonstop">Пока не выкл.</string>
@@ -279,7 +277,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks должен произносить название задач во время напоминаний</string>
 	<string name="delete_task">Удалить задачу</string>
 	<string name="voice_command_added_task">Добавленная задача</string>
-	<string name="external_storage_unavailable">Нет доступа к внешнему хранилищу</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 задача</item>
 		<item quantity="other">%d задач(а/и)</item>

@@ -162,8 +162,6 @@
 	<string name="premium_remove_file_confirm">Êtes-vous certain(e)? Cette opération est irréversible</string>
 	<string name="audio_recording_title">Enregistrement Audio</string>
 	<string name="audio_stop_recording">Arrêter l\'enregistrement</string>
-	<string name="file_type_unhandled">Désolé ! Aucune application n\'a été trouvé pour gérer ce type de fichier.</string>
-	<string name="file_err_copy">Erreur lors de la copie du fichier à joindre</string>
 	<string name="ring_once">Sonner une fois</string>
 	<string name="ring_five_times">Sonner cinq fois</string>
 	<string name="ring_nonstop">Sonner en continu</string>
@@ -275,7 +273,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks donnera le nom de la tâche</string>
 	<string name="delete_task">Supprimer la tâche ? </string>
 	<string name="voice_command_added_task">Tâche ajoutée</string>
-	<string name="external_storage_unavailable">Impossible d\'accéder au stockage externe</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 tâche</item>
 		<item quantity="other">%d tâches</item>

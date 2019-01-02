@@ -5,23 +5,17 @@
  */
 package com.todoroo.astrid.activity;
 
-import static org.tasks.date.DateTimeUtils.newDateTime;
-
 import android.app.Activity;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.widget.Toolbar;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao;
@@ -33,8 +27,7 @@ import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.timers.TimerPlugin;
 import com.todoroo.astrid.ui.EditTitleControlSet;
 import com.todoroo.astrid.utility.Flags;
-import java.util.List;
-import javax.inject.Inject;
+
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
@@ -49,6 +42,22 @@ import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.Preferences;
 import org.tasks.ui.MenuColorizer;
 import org.tasks.ui.TaskEditControlFragment;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import timber.log.Timber;
+
+import static org.tasks.date.DateTimeUtils.newDateTime;
+import static org.tasks.files.FileHelper.copyToUri;
 
 public final class TaskEditFragment extends InjectingFragment
     implements Toolbar.OnMenuItemClickListener {
@@ -320,14 +329,15 @@ public final class TaskEditFragment extends InjectingFragment
     }
   }
 
-  public void addComment(String message, String picture) {
+  void addComment(String message, Uri picture) {
     UserActivity userActivity = new UserActivity();
+    if (picture != null) {
+      Uri output = copyToUri(context, preferences.getAttachmentsDirectory(), picture);
+      userActivity.setPicture(output);
+    }
     userActivity.setMessage(message);
     userActivity.setTargetId(model.getUuid());
     userActivity.setCreated(DateUtilities.now());
-    if (picture != null) {
-      userActivity.setPicture(picture);
-    }
     userActivityDao.createNew(userActivity);
     commentsController.reloadView();
   }

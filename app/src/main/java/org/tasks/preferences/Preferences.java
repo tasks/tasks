@@ -28,7 +28,6 @@ import org.tasks.time.DateTime;
 import java.io.File;
 import java.util.Collection;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
 
@@ -49,29 +48,15 @@ public class Preferences {
   private static final String PREF_SORT_SORT = "sort_sort"; // $NON-NLS-1$
 
   private final Context context;
-  private final PermissionChecker permissionChecker;
   private final SharedPreferences prefs;
   private final SharedPreferences publicPrefs;
 
   @Inject
-  public Preferences(@ForApplication Context context, PermissionChecker permissionChecker) {
+  public Preferences(@ForApplication Context context) {
     this.context = context;
-    this.permissionChecker = permissionChecker;
     prefs = PreferenceManager.getDefaultSharedPreferences(context);
     publicPrefs =
         context.getSharedPreferences(AstridApiConstants.PUBLIC_PREFS, Context.MODE_PRIVATE);
-  }
-
-  private static String getNonCollidingFileName(String dir, String baseName, String extension) {
-    int tries = 1;
-    File f = new File(dir + File.separator + baseName + extension);
-    String tempName = baseName;
-    while (f.exists()) {
-      tempName = baseName + "-" + tries; // $NON-NLS-1$
-      f = new File(dir + File.separator + tempName + extension);
-      tries++;
-    }
-    return tempName + extension;
   }
 
   public boolean backButtonSavesTask() {
@@ -389,18 +374,34 @@ public class Preferences {
     }
   }
 
-  public File getAttachmentsDirectory() {
-    File directory = null;
-    String customDir = getStringValue(R.string.p_attachment_dir);
-    if (permissionChecker.canWriteToExternalStorage() && !TextUtils.isEmpty(customDir)) {
-      directory = new File(customDir);
+  public Uri getAttachmentsDirectory() {
+    Uri uri = getUri(R.string.p_attachment_dir);
+    if (uri != null) {
+      switch (uri.getScheme()) {
+        case "file":
+          File file = new File(uri.getPath());
+          try {
+            if (file.canWrite()) {
+              return uri;
+            }
+          } catch (SecurityException ignored) {
+          }
+          break;
+        case "content":
+          if (hasWritePermission(context, uri)) {
+            return uri;
+          }
+          break;
+      }
     }
 
-    if (directory == null || !directory.exists()) {
-      directory = getDefaultFileLocation(TaskAttachment.FILES_DIRECTORY_DEFAULT);
+    if (atLeastKitKat()) {
+      return DocumentFile.fromFile(context.getExternalFilesDir(null))
+          .createDirectory(TaskAttachment.FILES_DIRECTORY_DEFAULT)
+          .getUri();
+    } else {
+      return Uri.fromFile(getDefaultFileLocation(TaskAttachment.FILES_DIRECTORY_DEFAULT));
     }
-
-    return directory;
   }
 
   private File getDefaultFileLocation(String type) {
@@ -413,20 +414,12 @@ public class Preferences {
     return file.isDirectory() || file.mkdirs() ? file : null;
   }
 
-  public String getNewAudioAttachmentPath(AtomicReference<String> nameReference) {
-    return getNewAttachmentPath(".m4a", nameReference); // $NON-NLS-1$
-  }
-
-  public String getNewAttachmentPath(String extension, AtomicReference<String> nameReference) {
-    String dir = getAttachmentsDirectory().getAbsolutePath();
-
-    String name = getNonCollidingFileName(dir, new DateTime().toString("yyyyMMddHHmm"), extension);
-
-    if (nameReference != null) {
-      nameReference.set(name);
+  public Uri getCacheDirectory() {
+    if (atLeastKitKat()) {
+      return DocumentFile.fromFile(context.getCacheDir()).getUri();
+    } else {
+      return Uri.fromFile(context.getCacheDir());
     }
-
-    return dir + File.separator + name;
   }
 
   public Uri getBackupDirectory() {

@@ -153,8 +153,6 @@
 	<string name="premium_remove_file_confirm">Naozaj? Nedá sa vrátiť</string>
 	<string name="audio_recording_title">Nahrávanie zvuku</string>
 	<string name="audio_stop_recording">Zastaviť nahrávanie</string>
-	<string name="file_type_unhandled">Pre tento typ súboru nebola nájdená žiadna aplikácia</string>
-	<string name="file_err_copy">Chyba pri kopírovaní súboru do prílohy</string>
 	<string name="ring_once">Zvoniť raz</string>
 	<string name="ring_five_times">Zvoniť päť krát</string>
 	<string name="ring_nonstop">Zvoniť neustále</string>
@@ -273,7 +271,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Úlohy vyslovia názov úlohy počas pripomineky</string>
 	<string name="delete_task">Zmazať úlohu</string>
 	<string name="voice_command_added_task">Pridaná úloha</string>
-	<string name="external_storage_unavailable">Nemožno získať prístup k externej pamäti</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 úloha</item>
 		<item quantity="other">%d úlohy</item>

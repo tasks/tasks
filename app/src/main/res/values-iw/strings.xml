@@ -160,8 +160,6 @@
 	<string name="premium_remove_file_confirm">בטוח? לא ניתן לבטל את הפעולה</string>
 	<string name="audio_recording_title">מקליטה שֵׁמַע</string>
 	<string name="audio_stop_recording">הפסק הקלטה</string>
-	<string name="file_type_unhandled">\"מצטערת! לא מצאתי ישום שיכול  לטפל בקבצים מסוג זה\"</string>
-	<string name="file_err_copy">שגיאה בהעתקת הקובץ המצורף</string>
 	<string name="ring_once">צלצל פעם אחת</string>
 	<string name="ring_five_times">צלצל חמש פעמים</string>
 	<string name="ring_nonstop">צלצל ללא הפסקה</string>
@@ -281,7 +279,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">אסטריד תאמר את שם המשימה כחלק מהתזכורת</string>
 	<string name="delete_task">מחק משימה</string>
 	<string name="voice_command_added_task">משימות שנוצרו</string>
-	<string name="external_storage_unavailable">לא ניתן לגשת לאחסון חיצוני</string>
 	<plurals name="Ntasks">
 		<item quantity="one">משימה אחת</item>
 		<item quantity="other">%d משימות</item>

@@ -144,8 +144,6 @@
 	<string name="premium_remove_file_confirm">Skutečně? Nebude cesty zpět</string>
 	<string name="audio_recording_title">Nahrávám zvuk</string>
 	<string name="audio_stop_recording">Ukončit záznam</string>
-	<string name="file_type_unhandled">Pro tento typ souborů nebyla nalezena žádná aplikace.</string>
-	<string name="file_err_copy">Chyba při kopírování souboru jako přílohy</string>
 	<string name="random_reminder_hour">hodina</string>
 	<string name="random_reminder_day">den</string>
 	<string name="random_reminder_week">týden</string>
@@ -182,7 +180,6 @@
 	<string name="EPr_voiceRemindersEnabled_title">Hlasové upomínky</string>
 	<string name="delete_task">Smazat úkol</string>
 	<string name="voice_command_added_task">Přidán úkol</string>
-	<string name="external_storage_unavailable">Není přístup k externí databázi</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 úkol</item>
 		<item quantity="other">%d úkolů</item>

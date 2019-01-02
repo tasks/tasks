@@ -1,8 +1,10 @@
 package org.tasks.preferences;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static org.tasks.PermissionUtil.verifyPermissions;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.speech.tts.TextToSpeech;
@@ -12,6 +14,7 @@ import java.io.File;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.files.FileExplore;
+import org.tasks.files.FileHelper;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.scheduling.CalendarNotificationIntentService;
@@ -45,31 +48,37 @@ public class MiscellaneousPreferences extends InjectingPreferenceActivity {
 
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    if (requestCode == REQUEST_CODE_FILES_DIR && resultCode == RESULT_OK) {
-      if (data != null) {
-        String dir = data.getStringExtra(FileExplore.EXTRA_DIRECTORY);
-        preferences.setString(R.string.p_attachment_dir, dir);
+    if (requestCode == REQUEST_CODE_FILES_DIR) {
+      if (resultCode == RESULT_OK) {
+        Uri uri = data.getData();
+        if (atLeastLollipop()) {
+          getContentResolver()
+              .takePersistableUriPermission(
+                  uri,
+                  Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        }
+        preferences.setUri(R.string.p_attachment_dir, uri);
         updateAttachmentDirectory();
       }
-      return;
-    }
-    try {
-      if (requestCode == REQUEST_CODE_TTS_CHECK) {
-        if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
-          // success, create the TTS instance
-          voiceOutputAssistant.initTTS();
-        } else {
-          // missing data, install it
-          Intent installIntent = new Intent();
-          installIntent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
-          startActivity(installIntent);
+    } else {
+      try {
+        if (requestCode == REQUEST_CODE_TTS_CHECK) {
+          if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
+            // success, create the TTS instance
+            voiceOutputAssistant.initTTS();
+          } else {
+            // missing data, install it
+            Intent installIntent = new Intent();
+            installIntent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
+            startActivity(installIntent);
+          }
         }
+      } catch (VerifyError e) {
+        // unavailable
+        Timber.e(e);
       }
-    } catch (VerifyError e) {
-      // unavailable
-      Timber.e(e);
+      super.onActivityResult(requestCode, resultCode, data);
     }
-    super.onActivityResult(requestCode, resultCode, data);
   }
 
   @Override
@@ -83,10 +92,8 @@ public class MiscellaneousPreferences extends InjectingPreferenceActivity {
     findPreference(getString(R.string.p_attachment_dir))
         .setOnPreferenceClickListener(
             p -> {
-              Intent filesDir = new Intent(MiscellaneousPreferences.this, FileExplore.class);
-              filesDir.putExtra(FileExplore.EXTRA_DIRECTORY_MODE, true);
-              startActivityForResult(filesDir, REQUEST_CODE_FILES_DIR);
-              return true;
+              FileHelper.newDirectoryPicker(this, REQUEST_CODE_FILES_DIR, preferences.getAttachmentsDirectory());
+              return false;
             });
     updateAttachmentDirectory();
   }
@@ -96,8 +103,10 @@ public class MiscellaneousPreferences extends InjectingPreferenceActivity {
   }
 
   private String getAttachmentDirectory() {
-    File dir = preferences.getAttachmentsDirectory();
-    return dir == null ? "" : dir.getAbsolutePath();
+    Uri uri = preferences.getAttachmentsDirectory();
+    return uri.getScheme().equals("file")
+        ? new File(uri.getPath()).getAbsolutePath()
+        : uri.toString();
   }
 
   private void initializeCalendarReminderPreference() {
