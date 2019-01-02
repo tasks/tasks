@@ -84,6 +84,17 @@ public class FilterCriteriaProvider {
     return result;
   }
 
+  public CustomFilterCriterion getByIdentifier(String identifier) {
+    for(CustomFilterCriterion c: getAll()) {
+      if(identifier!=null && identifier.equals(c.identifier)) {
+        return c;
+      }
+    }
+    return null;
+  }
+
+
+
   private CustomFilterCriterion getTagFilter() {
     // TODO: adding to hash set because duplicate tag name bug hasn't been fixed yet
     List<String> tags =

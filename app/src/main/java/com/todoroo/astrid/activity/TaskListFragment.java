@@ -40,6 +40,7 @@ import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
+import com.todoroo.astrid.core.CustomFilterActivity;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksSubtaskListFragment;
 import com.todoroo.astrid.service.TaskCreator;
@@ -53,7 +54,6 @@ import java.util.List;
 import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
-import org.tasks.activities.FilterSettingsActivity;
 import org.tasks.activities.RemoteListSupportPicker;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
@@ -332,8 +332,8 @@ public class TaskListFragment extends InjectingFragment
         localBroadcastManager.broadcastRefresh();
         return true;
       case R.id.menu_filter_settings:
-        Intent intent = new Intent(getActivity(), FilterSettingsActivity.class);
-        intent.putExtra(FilterSettingsActivity.TOKEN_FILTER, filter);
+        Intent intent = new Intent(getActivity(), CustomFilterActivity.class);
+        intent.putExtra(CustomFilterActivity.TOKEN_FILTER, filter);
         startActivityForResult(intent, REQUEST_EDIT_FILTER);
         return true;
       case R.id.menu_clear_completed:
@@ -543,14 +543,14 @@ public class TaskListFragment extends InjectingFragment
       if (resultCode == RESULT_OK) {
         String action = data.getAction();
         MainActivity activity = (MainActivity) getActivity();
-        if (FilterSettingsActivity.ACTION_FILTER_DELETED.equals(action)) {
+        if (CustomFilterActivity.ACTION_FILTER_DELETED.equals(action)) {
           activity.onFilterItemClicked(null);
-        } else if (FilterSettingsActivity.ACTION_FILTER_RENAMED.equals(action)) {
+        } else if (CustomFilterActivity.ACTION_FILTER_RENAMED.equals(action)) {
           activity
               .getIntent()
               .putExtra(
                   MainActivity.OPEN_FILTER,
-                  (Filter) data.getParcelableExtra(FilterSettingsActivity.TOKEN_FILTER));
+                  (Filter) data.getParcelableExtra(CustomFilterActivity.TOKEN_FILTER));
           activity.recreate();
         }
       }

@@ -10,7 +10,6 @@ import static com.todoroo.andlib.utility.AndroidUtilities.mapToSerializedString;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.widget.Toolbar;
@@ -23,25 +22,14 @@ import android.widget.EditText;
 import android.widget.ListView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.todoroo.andlib.data.Property.CountProperty;
-import com.todoroo.andlib.sql.Query;
-import com.todoroo.andlib.sql.UnaryCriterion;
-import com.todoroo.andlib.utility.AndroidUtilities;
+import butterknife.OnTextChanged;
+
 import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.CustomFilterCriterion;
-import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.MultipleSelectCriterion;
-import com.todoroo.astrid.api.PermaSql;
-import com.todoroo.astrid.api.TextInputCriterion;
 import com.todoroo.astrid.dao.Database;
-import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
-import com.todoroo.astrid.data.Task;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.data.FilterDao;
@@ -50,6 +38,7 @@ import org.tasks.filters.FilterCriteriaProvider;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.locale.Locale;
+import org.tasks.preferences.Preferences;
 import org.tasks.ui.MenuColorizer;
 
 /**
@@ -60,83 +49,74 @@ import org.tasks.ui.MenuColorizer;
 public class CustomFilterActivity extends ThemedInjectingAppCompatActivity
     implements Toolbar.OnMenuItemClickListener {
 
+  public static final String TOKEN_FILTER = "token_filter";
+  public static final String ACTION_FILTER_RENAMED = "filterRenamed";
+  public static final String ACTION_FILTER_DELETED = "filterDeleted";
+
   static final int MENU_GROUP_CONTEXT_TYPE = 1;
   static final int MENU_GROUP_CONTEXT_DELETE = 2;
-  private static final String IDENTIFIER_UNIVERSE = "active"; // $NON-NLS-1$
   private static final int MENU_GROUP_FILTER = 0;
 
   // --- hierarchy of filter classes
-  @Inject Database database;
-  @Inject FilterDao filterDao;
-  @Inject DialogBuilder dialogBuilder;
+  @Inject
+  Database database;
+  @Inject
+  protected FilterDao filterDao;
+  @Inject
+  protected DialogBuilder dialogBuilder;
+  @Inject
+  Preferences preferences;
 
   // --- activity
-  @Inject FilterCriteriaProvider filterCriteriaProvider;
-  @Inject Locale locale;
+  @Inject
+  FilterCriteriaProvider filterCriteriaProvider;
+  @Inject
+  Locale locale;
 
   @BindView(R.id.tag_name)
-  EditText filterName;
+  protected EditText filterName;
 
   @BindView(R.id.toolbar)
-  Toolbar toolbar;
+  protected Toolbar toolbar;
 
   private ListView listView;
   private CustomFilterAdapter adapter;
-
-  private static String serializeFilters(CustomFilterAdapter adapter) {
-    StringBuilder values = new StringBuilder();
-    for (int i = 0; i < adapter.getCount(); i++) {
-      CriterionInstance item = adapter.getItem(i);
-
-      // criterion|entry|text|type|sql
-      values
-          .append(escape(item.criterion.identifier))
-          .append(AndroidUtilities.SERIALIZATION_SEPARATOR);
-      values
-          .append(escape(item.getValueFromCriterion()))
-          .append(AndroidUtilities.SERIALIZATION_SEPARATOR);
-      values.append(escape(item.criterion.text)).append(AndroidUtilities.SERIALIZATION_SEPARATOR);
-      values.append(item.type).append(AndroidUtilities.SERIALIZATION_SEPARATOR);
-      if (item.criterion.sql != null) {
-        values.append(item.criterion.sql);
-      }
-      values.append('\n');
-    }
-
-    return values.toString();
-  }
-
-  private static String escape(String item) {
-    if (item == null) {
-      return ""; // $NON-NLS-1$
-    }
-    return item.replace(
-        AndroidUtilities.SERIALIZATION_SEPARATOR, AndroidUtilities.SEPARATOR_ESCAPE);
-  }
+  protected CustomFilter filter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
     setContentView(R.layout.custom_filter_activity);
     ButterKnife.bind(this);
 
-    toolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_outline_clear_24px));
-    toolbar.setTitle(R.string.FLA_new_filter);
-    toolbar.inflateMenu(R.menu.menu_custom_filter_activity);
+    final boolean backButtonSavesTask = preferences.backButtonSavesTask();
+    toolbar.setNavigationIcon(
+            ContextCompat.getDrawable(
+                    this, backButtonSavesTask ? R.drawable.ic_outline_clear_24px : R.drawable.ic_outline_save_24px));
+    toolbar.setNavigationOnClickListener(
+            v -> {
+              if (backButtonSavesTask) {
+                discard();
+              } else {
+                save();
+              }
+            });
+
     toolbar.setOnMenuItemClickListener(this);
-    toolbar.setNavigationOnClickListener(view -> discard());
+    database.openForReading();
+    filter = getIntent().getParcelableExtra(TOKEN_FILTER);
+    if (filter==null) {
+      toolbar.setTitle(R.string.FLA_new_filter);
+      adapter = new CustomFilterAdapter(this, database, filterCriteriaProvider, dialogBuilder, locale);
+    } else {
+      toolbar.setTitle(filter.listingTitle);
+      toolbar.inflateMenu(R.menu.menu_tag_settings);
+      filterName.setText(filter.listingTitle);
+      adapter = new CustomFilterAdapter(this, database, filterCriteriaProvider, filter.getCriterion(), dialogBuilder, locale);
+    }
     MenuColorizer.colorToolbar(this, toolbar);
     listView = findViewById(android.R.id.list);
-
-    database.openForReading();
-
-    List<CriterionInstance> startingCriteria = new ArrayList<>();
-    startingCriteria.add(getStartingUniverse());
-    adapter = new CustomFilterAdapter(this, dialogBuilder, startingCriteria, locale);
     listView.setAdapter(adapter);
-    updateList();
-
     setUpListeners();
   }
 
@@ -145,21 +125,6 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity
     component.inject(this);
   }
 
-  private CriterionInstance getStartingUniverse() {
-    CriterionInstance instance = new CriterionInstance();
-    instance.criterion =
-        new MultipleSelectCriterion(
-            IDENTIFIER_UNIVERSE,
-            getString(R.string.CFA_universe_all),
-            null,
-            null,
-            null,
-            null,
-            null,
-            null);
-    instance.type = CriterionInstance.TYPE_UNIVERSE;
-    return instance;
-  }
 
   private void setUpListeners() {
     findViewById(R.id.add).setOnClickListener(v -> listView.showContextMenu());
@@ -203,134 +168,86 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity
     }
   }
 
-  private void saveAndView() {
-    String title = filterName.getText().toString().trim();
+  @OnTextChanged(R.id.tag_name)
+  void onTextChanged(CharSequence ignored) {
+    filterName.setError(null);
+  }
 
+
+  protected void save() {
+    String title = filterName.getText().toString().trim();
     if (isEmpty(title)) {
+      filterName.setError(getString(R.string.name_cannot_be_empty));
       return;
     }
+    boolean nameChanged = filter!=null && !filter.listingTitle.equals(filterName.getText().toString().trim());
 
-    StringBuilder sql = new StringBuilder(" WHERE ");
     Map<String, Object> values = new HashMap<>();
-    for (int i = 0; i < adapter.getCount(); i++) {
-      CriterionInstance instance = adapter.getItem(i);
-      String value = instance.getValueFromCriterion();
-      if (value == null && instance.criterion.sql != null && instance.criterion.sql.contains("?")) {
-        value = "";
-      }
+    String sql = adapter.toSql(values);
 
-      switch (instance.type) {
-        case CriterionInstance.TYPE_ADD:
-          sql.append("OR ");
-          break;
-        case CriterionInstance.TYPE_SUBTRACT:
-          sql.append("AND NOT ");
-          break;
-        case CriterionInstance.TYPE_INTERSECT:
-          sql.append("AND ");
-          break;
-        case CriterionInstance.TYPE_UNIVERSE:
-      }
+    org.tasks.data.Filter storeObject = persist(filter!=null?filter.getId():null, title, sql, values);
+    filter = new CustomFilter(title, sql, values, storeObject.getId(), storeObject.getCriterion());
 
-      // special code for all tasks universe
-      if (instance.criterion.sql == null) {
-        sql.append(TaskCriteria.activeAndVisible()).append(' ');
-      } else {
-        String subSql = instance.criterion.sql.replace("?", UnaryCriterion.sanitize(value));
-        sql.append(Task.ID).append(" IN (").append(subSql).append(") ");
-      }
-
-      if (instance.criterion.valuesForNewTasks != null
-          && instance.type == CriterionInstance.TYPE_INTERSECT) {
-        for (Entry<String, Object> entry : instance.criterion.valuesForNewTasks.entrySet()) {
-          values.put(
-              entry.getKey().replace("?", value), entry.getValue().toString().replace("?", value));
-        }
-      }
+    if (nameChanged) {
+      setResult(RESULT_OK, new Intent(CustomFilterActivity.ACTION_FILTER_RENAMED).putExtra(CustomFilterActivity.TOKEN_FILTER, filter));
+    } else {
+      setResult(RESULT_OK, new Intent().putExtra(MainActivity.OPEN_FILTER, filter));
     }
 
-    org.tasks.data.Filter storeObject = persist(title, sql.toString(), values);
-    Filter filter =
-        new CustomFilter(
-            title, sql.toString(), values, storeObject.getId(), storeObject.getCriterion());
-    setResult(RESULT_OK, new Intent().putExtra(MainActivity.OPEN_FILTER, filter));
     finish();
   }
 
-  /** Recalculate all sizes */
-  void updateList() {
-    int max = 0, last = -1;
 
-    StringBuilder sql =
-        new StringBuilder(Query.select(new CountProperty()).from(Task.TABLE).toString())
-            .append(" WHERE ");
-
-    for (int i = 0; i < adapter.getCount(); i++) {
-      CriterionInstance instance = adapter.getItem(i);
-      String value = instance.getValueFromCriterion();
-      if (value == null && instance.criterion.sql != null && instance.criterion.sql.contains("?")) {
-        value = "";
-      }
-
-      switch (instance.type) {
-        case CriterionInstance.TYPE_ADD:
-          sql.append("OR ");
-          break;
-        case CriterionInstance.TYPE_SUBTRACT:
-          sql.append("AND NOT ");
-          break;
-        case CriterionInstance.TYPE_INTERSECT:
-          sql.append("AND ");
-          break;
-        case CriterionInstance.TYPE_UNIVERSE:
-      }
-
-      // special code for all tasks universe
-      if (instance.criterion.sql == null) {
-        sql.append(TaskCriteria.activeAndVisible()).append(' ');
-      } else {
-        String subSql = instance.criterion.sql.replace("?", UnaryCriterion.sanitize(value));
-        subSql = PermaSql.replacePlaceholdersForQuery(subSql);
-        sql.append(Task.ID).append(" IN (").append(subSql).append(") ");
-      }
-
-      Cursor cursor = database.rawQuery(sql.toString());
-      try {
-        cursor.moveToNext();
-        instance.start = last == -1 ? cursor.getInt(0) : last;
-        instance.end = cursor.getInt(0);
-        last = instance.end;
-        max = Math.max(max, last);
-      } finally {
-        cursor.close();
-      }
-    }
-
-    for (int i = 0; i < adapter.getCount(); i++) {
-      CriterionInstance instance = adapter.getItem(i);
-      instance.max = max;
-    }
-
-    adapter.notifyDataSetInvalidated();
-  }
 
   @Override
   public boolean onMenuItemClick(MenuItem item) {
     switch (item.getItemId()) {
-      case R.id.menu_save:
-        saveAndView();
-        return true;
+      case R.id.delete:
+        if (filter==null) {
+          discard();
+        } else {
+          delete();
+        }
+        break;
     }
     return super.onOptionsItemSelected(item);
   }
 
   @Override
   public void onBackPressed() {
-    discard();
+    if (preferences.backButtonSavesTask()) {
+      save();
+    } else {
+      discard();
+    }
+  }
+
+  protected boolean isUnchanged() {
+    boolean result = true;
+    if (filter!=null) {
+      result = filter.listingTitle.equals(this.filterName.getText().toString().trim());
+    }
+    return result && filterName.getText().toString().trim().isEmpty() && adapter.getCount() <= 1;
+  }
+
+  protected void delete() {
+      dialogBuilder
+              .newMessageDialog(R.string.delete_tag_confirmation, filter.listingTitle)
+              .setPositiveButton(
+                      R.string.delete,
+                      (dialog, which) -> {
+                        filterDao.delete(filter.getId());
+                        setResult(
+                                RESULT_OK, new Intent(ACTION_FILTER_DELETED).putExtra(TOKEN_FILTER, filter));
+                        finish();
+                      })
+              .setNegativeButton(android.R.string.cancel, null)
+              .show();
+
   }
 
   private void discard() {
-    if (filterName.getText().toString().trim().isEmpty() && adapter.getCount() <= 1) {
+    if (isUnchanged()) {
       finish();
     } else {
       dialogBuilder
@@ -345,54 +262,40 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity
   public boolean onContextItemSelected(android.view.MenuItem item) {
     if (item.getGroupId() == MENU_GROUP_FILTER) {
       // give an initial value for the row before adding it
-      CustomFilterCriterion criterion = filterCriteriaProvider.getAll().get(item.getItemId());
-      final CriterionInstance instance = new CriterionInstance();
-      instance.criterion = criterion;
-      adapter.showOptionsFor(
-          instance,
-          () -> {
-            adapter.add(instance);
-            updateList();
-          });
+      adapter.addItem(item.getItemId());
       return true;
     }
 
     // item type context item
     else if (item.getGroupId() == MENU_GROUP_CONTEXT_TYPE) {
-      CriterionInstance instance = adapter.getItem(item.getOrder());
-      instance.type = item.getItemId();
-      updateList();
+      adapter.setItemType(item.getOrder(), item.getItemId());
     }
 
     // delete context item
     else if (item.getGroupId() == MENU_GROUP_CONTEXT_DELETE) {
-      CriterionInstance instance = adapter.getItem(item.getOrder());
-      adapter.remove(instance);
-      updateList();
+      adapter.removeItem(item.getOrder());
     }
 
     return super.onContextItemSelected(item);
   }
 
-  private org.tasks.data.Filter persist(String title, String sql, Map<String, Object> values) {
-    if (title == null || title.length() == 0) {
-      return null;
-    }
-
+  private org.tasks.data.Filter persist(Long filterId, String title, String sql, Map<String, Object> values) {
     // if filter of this name exists, edit it
-    org.tasks.data.Filter storeObject = filterDao.getByName(title);
-    if (storeObject == null) {
-      storeObject = new org.tasks.data.Filter();
+    final org.tasks.data.Filter filter;
+    if (filterId == null) {
+      filter = new org.tasks.data.Filter();
+    } else {
+      filter = filterDao.getById(filterId);
     }
 
     // populate saved filter properties
-    storeObject.setTitle(title);
-    storeObject.setSql(sql);
-    storeObject.setValues(values == null ? "" : mapToSerializedString(values));
-    storeObject.setCriterion(serializeFilters(adapter));
+    filter.setTitle(title);
+    filter.setSql(sql);
+    filter.setValues(values == null ? "" : mapToSerializedString(values));
+    filter.setCriterion(adapter.serializeFilters());
 
-    storeObject.setId(filterDao.insertOrUpdate(storeObject));
-    return storeObject.getId() >= 0 ? storeObject : null;
+    filter.setId(filterDao.insertOrUpdate(filter));
+    return filter.getId() >= 0 ? filter : null;
   }
 
   public static class CriterionInstance {
@@ -414,45 +317,10 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity
     /** type of join */
     public int type = TYPE_INTERSECT;
 
-    public int end;
     /** statistics for filter count */
-    int start;
-
-    int max;
-
-    public String getTitleFromCriterion() {
-      if (criterion instanceof MultipleSelectCriterion) {
-        if (selectedIndex >= 0
-            && ((MultipleSelectCriterion) criterion).entryTitles != null
-            && selectedIndex < ((MultipleSelectCriterion) criterion).entryTitles.length) {
-          String title = ((MultipleSelectCriterion) criterion).entryTitles[selectedIndex];
-          return criterion.text.replace("?", title);
-        }
-        return criterion.text;
-      } else if (criterion instanceof TextInputCriterion) {
-        if (selectedText == null) {
-          return criterion.text;
-        }
-        return criterion.text.replace("?", selectedText);
-      }
-      throw new UnsupportedOperationException("Unknown criterion type"); // $NON-NLS-1$
-    }
-
-    String getValueFromCriterion() {
-      if (type == TYPE_UNIVERSE) {
-        return null;
-      }
-      if (criterion instanceof MultipleSelectCriterion) {
-        if (selectedIndex >= 0
-            && ((MultipleSelectCriterion) criterion).entryValues != null
-            && selectedIndex < ((MultipleSelectCriterion) criterion).entryValues.length) {
-          return ((MultipleSelectCriterion) criterion).entryValues[selectedIndex];
-        }
-        return criterion.text;
-      } else if (criterion instanceof TextInputCriterion) {
-        return selectedText;
-      }
-      throw new UnsupportedOperationException("Unknown criterion type"); // $NON-NLS-1$
-    }
+    public int end;
+    public int start;
+    public int max;
   }
+
 }

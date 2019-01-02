@@ -39,6 +39,10 @@ public class CustomFilter extends Filter {
     readFromParcel(parcel);
   }
 
+  public String getCriterion() {
+    return criterion;
+  }
+
   public org.tasks.data.Filter toStoreObject() {
     org.tasks.data.Filter filter = new org.tasks.data.Filter();
     filter.setId(id);

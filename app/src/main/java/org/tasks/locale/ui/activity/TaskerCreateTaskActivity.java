@@ -165,9 +165,6 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
   @Override
   public boolean onMenuItemClick(MenuItem item) {
     switch (item.getItemId()) {
-      case R.id.menu_save:
-        save();
-        return true;
       case R.id.menu_help:
         startActivity(
             new Intent(Intent.ACTION_VIEW).setData(Uri.parse("http://tasks.org/help/tasker")));

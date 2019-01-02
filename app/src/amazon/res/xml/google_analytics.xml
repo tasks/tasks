@@ -28,7 +28,6 @@
   </screenName>
   <screenName name="com.todoroo.astrid.activity.BeastModePreferences">BeastModePreferences
   </screenName>
-  <screenName name="org.tasks.activities.FilterSettingsActivity">FilterSettingsActivity</screenName>
   <screenName name="org.tasks.activities.ColorPickerActivity">ColorPickerActivity</screenName>
   <screenName name="org.tasks.activities.DateAndTimePickerActivity">DateAndTimePickerActivity
   </screenName>
