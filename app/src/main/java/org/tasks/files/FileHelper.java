@@ -97,8 +97,22 @@ public class FileHelper {
         documentFile.delete();
         break;
       case "file":
-        new File(uri.getPath()).delete();
+        delete(new File(uri.getPath()));
         break;
+    }
+  }
+
+  private static void delete(File... files) {
+    if (files == null) {
+      return;
+    }
+
+    for (File file : files) {
+      if (file.isDirectory()) {
+        delete(file.listFiles());
+      } else {
+        file.delete();
+      }
     }
   }
 

@@ -103,10 +103,13 @@ public class FilesControlSet extends TaskEditControlFragment {
 
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    if (requestCode == REQUEST_CAMERA
-        || requestCode == REQUEST_STORAGE
-        || requestCode == REQUEST_GALLERY
-        || requestCode == REQUEST_AUDIO) {
+    if (requestCode == REQUEST_CAMERA || requestCode == REQUEST_AUDIO) {
+      if (resultCode == RESULT_OK) {
+        Uri uri = data.getData();
+        copyToAttachmentDirectory(uri);
+        FileHelper.delete(context, uri);
+      }
+    } else if (requestCode == REQUEST_STORAGE || requestCode == REQUEST_GALLERY) {
       if (resultCode == RESULT_OK) {
         copyToAttachmentDirectory(data.getData());
       }
