@@ -28,6 +28,8 @@ import org.tasks.injection.FragmentComponent;
 import org.tasks.preferences.Preferences;
 import org.tasks.ui.TaskEditControlFragment;
 
+import java.util.ArrayList;
+
 import javax.inject.Inject;
 
 import androidx.annotation.Nullable;
@@ -77,7 +79,9 @@ public class FilesControlSet extends TaskEditControlFragment {
 
     if (savedInstanceState == null) {
       if (task.hasTransitory(TaskAttachment.KEY)) {
-        copyToAttachmentDirectory(task.getTransitory(TaskAttachment.KEY));
+        for (Uri uri : (ArrayList<Uri>) task.getTransitory(TaskAttachment.KEY)) {
+          copyToAttachmentDirectory(uri);
+        }
       }
     }
 
