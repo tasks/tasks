@@ -15,12 +15,10 @@ public abstract class PermissionRequestor {
     this.permissionChecker = permissionChecker;
   }
 
-  public boolean requestMic() {
-    if (permissionChecker.canAccessMic()) {
-      return true;
+  public void requestMic() {
+    if (!permissionChecker.canAccessMic()) {
+      requestPermission(Manifest.permission.RECORD_AUDIO, REQUEST_MIC);
     }
-    requestPermission(Manifest.permission.RECORD_AUDIO, REQUEST_MIC);
-    return false;
   }
 
   public boolean requestCalendarPermissions() {

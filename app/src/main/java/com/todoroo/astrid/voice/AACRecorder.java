@@ -7,8 +7,6 @@ import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.SystemClock;
 import java.io.IOException;
-import java.util.UUID;
-import java.util.concurrent.atomic.AtomicReference;
 
 import org.tasks.files.FileHelper;
 import org.tasks.preferences.Preferences;

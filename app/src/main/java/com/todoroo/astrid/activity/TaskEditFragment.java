@@ -20,7 +20,6 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.notes.CommentsController;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.TaskDeleter;
@@ -43,7 +42,6 @@ import org.tasks.preferences.Preferences;
 import org.tasks.ui.MenuColorizer;
 import org.tasks.ui.TaskEditControlFragment;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -54,7 +52,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import timber.log.Timber;
 
 import static org.tasks.date.DateTimeUtils.newDateTime;
 import static org.tasks.files.FileHelper.copyToUri;
@@ -244,10 +241,6 @@ public final class TaskEditFragment extends InjectingFragment
 
   private RepeatControlSet getRepeatControlSet() {
     return getFragment(RepeatControlSet.TAG);
-  }
-
-  private FilesControlSet getFilesControlSet() {
-    return getFragment(FilesControlSet.TAG);
   }
 
   @SuppressWarnings("unchecked")

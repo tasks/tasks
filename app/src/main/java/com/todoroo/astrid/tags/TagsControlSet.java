@@ -20,7 +20,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
@@ -359,9 +358,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
       chipGroup.removeAllViews();
       for (TagData tagData : orderByName.sortedCopy(selectedTags)) {
         Chip chip = chipProvider.getChip(tagData);
-        chip.setOnClickListener(view -> {
-          onClickRow();
-        });
+        chip.setOnClickListener(view -> onClickRow());
         chip.setOnCloseIconClickListener(
             view -> {
               setTagSelected(tagData, false);

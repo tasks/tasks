@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.Uri;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.Lists;
 
 import org.tasks.R;
 import org.tasks.backup.TasksJsonExporter;

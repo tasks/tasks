@@ -160,6 +160,6 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity
         deleteTag();
         break;
     }
-    return super.onOptionsItemSelected(item);
+    return onOptionsItemSelected(item);
   }
 }

@@ -263,7 +263,7 @@ public class TaskListFragment extends InjectingFragment
     searchSubject = PublishSubject.create();
     searchDisposable = searchSubject
             .debounce(SEARCH_DEBOUNCE_TIMEOUT, TimeUnit.MILLISECONDS)
-            .subscribe(query -> searchByQuery(query));
+            .subscribe(this::searchByQuery);
 
     actionView.setOnQueryTextListener(
             new SearchView.OnQueryTextListener() {

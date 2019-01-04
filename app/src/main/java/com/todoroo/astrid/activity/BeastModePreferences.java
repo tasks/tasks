@@ -115,7 +115,7 @@ public class BeastModePreferences extends ThemedInjectingAppCompatActivity
         adapter.setItems(asList(prefsArray));
         return true;
       default:
-        return super.onOptionsItemSelected(item);
+        return onOptionsItemSelected(item);
     }
   }
 

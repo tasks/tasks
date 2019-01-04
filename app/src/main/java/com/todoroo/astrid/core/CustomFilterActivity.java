@@ -321,7 +321,7 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity
         saveAndView();
         return true;
     }
-    return super.onOptionsItemSelected(item);
+    return onOptionsItemSelected(item);
   }
 
   @Override

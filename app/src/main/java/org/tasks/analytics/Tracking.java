@@ -16,7 +16,6 @@ public class Tracking {
     WIDGET_ADD(R.string.tracking_category_widget, R.string.tracking_action_add),
     TIMER_START(R.string.tracking_category_timer, R.string.tracking_action_start),
     GTASK_ENABLED(R.string.tracking_category_google_tasks, R.string.tracking_action_on),
-    GTASK_DISABLED(R.string.tracking_category_google_tasks, R.string.tracking_action_off),
     GTASK_NEW_LIST(R.string.tracking_category_google_tasks, R.string.tracking_action_new_list),
     GTASK_RENAME_LIST(
         R.string.tracking_category_google_tasks, R.string.tracking_action_rename_list),

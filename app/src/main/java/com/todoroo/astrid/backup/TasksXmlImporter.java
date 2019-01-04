@@ -193,15 +193,16 @@ public class TasksXmlImporter {
         }
 
         try {
-          if (tag.equals(BackupConstants.TASK_TAG)) {
-            // Parse <task ... >
-            parseTask();
-          } else if (tag.equals(BackupConstants.COMMENT_TAG)) {
-            // Process <comment ... >
-            parseComment();
-          } else if (tag.equals(BackupConstants.METADATA_TAG)) {
-            // Process <metadata ... >
-            parseMetadata(2);
+          switch (tag) {
+            case BackupConstants.TASK_TAG:
+              parseTask();
+              break;
+            case BackupConstants.COMMENT_TAG:
+              parseComment();
+              break;
+            case BackupConstants.METADATA_TAG:
+              parseMetadata(2);
+              break;
           }
         } catch (Exception e) {
           errorCount++;

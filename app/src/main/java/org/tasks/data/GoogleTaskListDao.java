@@ -42,8 +42,5 @@ public abstract class GoogleTaskListDao {
   public abstract void insert(GoogleTaskAccount googleTaskAccount);
 
   @Update
-  public abstract void update(GoogleTaskList googleTaskList);
-
-  @Update
   public abstract void update(GoogleTaskAccount account);
 }

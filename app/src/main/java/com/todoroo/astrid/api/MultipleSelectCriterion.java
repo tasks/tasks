@@ -81,6 +81,6 @@ public class MultipleSelectCriterion extends CustomFilterCriterion implements Pa
   public void writeToParcel(Parcel dest, int flags) {
     dest.writeStringArray(entryTitles);
     dest.writeStringArray(entryValues);
-    super.writeToParcel(dest);
+    writeToParcel(dest);
   }
 }

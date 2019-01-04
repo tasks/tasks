@@ -1,18 +1,15 @@
-/** TODO: make this lightweight, don't extend the entire MainActivity */
 package com.todoroo.astrid.activity;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
-import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskCreator;
 
 import org.tasks.data.TaskAttachment;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
-import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
 
@@ -31,8 +28,6 @@ import static org.tasks.intents.TaskIntents.getEditTaskStack;
 public final class ShareLinkActivity extends InjectingAppCompatActivity {
 
   @Inject TaskCreator taskCreator;
-  @Inject TaskDao taskDao;
-  @Inject Preferences preferences;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {

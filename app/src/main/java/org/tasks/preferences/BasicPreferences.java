@@ -22,7 +22,6 @@ import org.tasks.analytics.Tracking.Events;
 import org.tasks.billing.BillingClient;
 import org.tasks.billing.Inventory;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.files.FileExplore;
 import org.tasks.files.FileHelper;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
@@ -38,7 +37,6 @@ import java.io.File;
 import javax.inject.Inject;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastKitKat;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static org.tasks.dialogs.ExportTasksDialog.newExportTasksDialog;
 import static org.tasks.dialogs.ImportTasksDialog.newImportTasksDialog;

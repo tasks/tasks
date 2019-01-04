@@ -225,7 +225,7 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
         deleteTag();
         break;
     }
-    return super.onOptionsItemSelected(item);
+    return onOptionsItemSelected(item);
   }
 
   private void discard() {

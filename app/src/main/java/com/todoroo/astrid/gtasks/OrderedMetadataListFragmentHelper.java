@@ -29,7 +29,7 @@ class OrderedMetadataListFragmentHelper {
 
   private final TaskDao taskDao;
   private final Map<Long, ArrayList<Long>> chainedCompletions =
-      Collections.synchronizedMap(new HashMap<Long, ArrayList<Long>>());
+      Collections.synchronizedMap(new HashMap<>());
   private DraggableTaskAdapter taskAdapter;
   private TaskListFragment fragment;
   private GoogleTaskList list;

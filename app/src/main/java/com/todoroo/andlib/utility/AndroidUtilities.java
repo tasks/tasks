@@ -15,15 +15,11 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import timber.log.Timber;
 
 /**
@@ -216,19 +212,6 @@ public class AndroidUtilities {
     for (View v : views) {
       imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
-  }
-
-  /** Returns the final word characters after the last '.' */
-  public static String getFileExtension(String file) {
-    int index = file.lastIndexOf('.');
-    String extension = "";
-    if (index > 0) {
-      extension = file.substring(index + 1);
-      if (!extension.matches("\\w+")) {
-        extension = "";
-      }
-    }
-    return extension;
   }
 
   interface SerializedPut<T> {

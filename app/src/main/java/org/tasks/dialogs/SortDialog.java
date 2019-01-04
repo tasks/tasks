@@ -40,7 +40,7 @@ public class SortDialog extends InjectingDialogFragment {
   @NonNull
   @Override
   public Dialog onCreateDialog(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
+    onCreate(savedInstanceState);
 
     if (savedInstanceState != null) {
       manualEnabled = savedInstanceState.getBoolean(EXTRA_MANUAL_ENABLED);

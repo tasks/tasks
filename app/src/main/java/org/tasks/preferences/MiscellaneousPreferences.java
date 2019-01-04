@@ -13,7 +13,6 @@ import com.todoroo.astrid.voice.VoiceOutputAssistant;
 import java.io.File;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.files.FileExplore;
 import org.tasks.files.FileHelper;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;

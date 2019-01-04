@@ -22,6 +22,7 @@ import org.apache.commons.collections4.map.MultiKeyMap;
  * Primitive cookie store that stores cookies in a (volatile) hash map. Will be sufficient for
  * session cookies.
  */
+@SuppressWarnings("all")
 class MemoryCookieStore implements CookieJar {
 
   /**

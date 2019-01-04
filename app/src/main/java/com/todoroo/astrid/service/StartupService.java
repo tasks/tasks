@@ -6,7 +6,6 @@
 package com.todoroo.astrid.service;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Environment;
 
 import com.google.common.base.Strings;
