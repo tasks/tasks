@@ -31,6 +31,7 @@ import org.tasks.data.Tag;
 import org.tasks.data.TagDao;
 import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
+import org.tasks.data.TaskAttachment;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
@@ -151,9 +152,8 @@ public class TaskCreator {
             tags.add((String) value);
             break;
           case GoogleTask.KEY:
-            task.putTransitory(key, value);
-            break;
           case CaldavTask.KEY:
+          case TaskAttachment.KEY:
             task.putTransitory(key, value);
             break;
           default:

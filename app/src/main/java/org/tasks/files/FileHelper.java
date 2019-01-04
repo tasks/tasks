@@ -135,6 +135,10 @@ public class FileHelper {
   }
 
   public static void startActionView(Activity context, Uri uri) {
+    if (uri == null) {
+      return;
+    }
+
     MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
     String filename = getFilename(context, uri);
     String extension = Files.getFileExtension(filename);

@@ -18,6 +18,8 @@ public final class TaskAttachment {
 
   @Deprecated public static final Table TABLE = new Table("task_attachments");
 
+  public static final String KEY = "attachment";
+
   @Deprecated
   public static final Property.LongProperty ID = new Property.LongProperty(TABLE, "_id");
   /** default directory for files on external storage */

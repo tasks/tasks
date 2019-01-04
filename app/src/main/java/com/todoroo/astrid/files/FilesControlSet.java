@@ -74,6 +74,13 @@ public class FilesControlSet extends TaskEditControlFragment {
     for (TaskAttachment attachment : taskAttachmentDao.getAttachments(taskUuid)) {
       addAttachment(attachment);
     }
+
+    if (savedInstanceState == null) {
+      if (task.hasTransitory(TaskAttachment.KEY)) {
+        copyToAttachmentDirectory(task.getTransitory(TaskAttachment.KEY));
+      }
+    }
+
     return view;
   }
 
@@ -154,10 +161,7 @@ public class FilesControlSet extends TaskEditControlFragment {
 
   @SuppressLint("NewApi")
   private void showFile(final TaskAttachment m) {
-    final Uri uri = m.parseUri();
-    if (uri != null) {
-      FileHelper.startActionView(getActivity(), uri);
-    }
+    FileHelper.startActionView(getActivity(), m.parseUri());
   }
 
   private void copyToAttachmentDirectory(Uri input) {

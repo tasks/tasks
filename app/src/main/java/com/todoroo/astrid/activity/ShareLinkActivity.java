@@ -5,13 +5,19 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
 import static org.tasks.intents.TaskIntents.getEditTaskStack;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskCreator;
 import javax.inject.Inject;
+
+import org.tasks.data.TaskAttachment;
+import org.tasks.files.FileHelper;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
+import org.tasks.preferences.Preferences;
+
 import timber.log.Timber;
 
 /**
@@ -22,6 +28,7 @@ public final class ShareLinkActivity extends InjectingAppCompatActivity {
 
   @Inject TaskCreator taskCreator;
   @Inject TaskDao taskDao;
+  @Inject Preferences preferences;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -46,21 +53,23 @@ public final class ShareLinkActivity extends InjectingAppCompatActivity {
 
   private void readIntent() {
     Intent intent = getIntent();
+    String action = intent.getAction();
+    String type = intent.getType();
 
-    if (atLeastMarshmallow() && Intent.ACTION_PROCESS_TEXT.equals(intent.getAction())) {
+    if (atLeastMarshmallow() && Intent.ACTION_PROCESS_TEXT.equals(action)) {
       CharSequence text = intent.getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT);
       if (text != null) {
         Task task = taskCreator.createWithValues(null, text.toString());
         getEditTaskStack(this, null, task).startActivities();
       }
-    } else if (Intent.ACTION_SEND.equals(intent.getAction())) {
+    } else if (Intent.ACTION_SEND.equals(action)) {
       String subject = intent.getStringExtra(Intent.EXTRA_SUBJECT);
-      if (subject == null) {
-        subject = "";
-      }
-
       Task task = taskCreator.createWithValues(null, subject);
       task.setNotes(intent.getStringExtra(Intent.EXTRA_TEXT));
+      if (type.startsWith("image/")) {
+        Uri uri = intent.getParcelableExtra(Intent.EXTRA_STREAM);
+        task.putTransitory(TaskAttachment.KEY, uri);
+      }
       getEditTaskStack(this, null, task).startActivities();
     } else {
       Timber.e("Unhandled intent: %s", intent);
