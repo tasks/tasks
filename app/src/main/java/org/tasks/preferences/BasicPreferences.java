@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.Preference;
+import android.widget.CheckBox;
 
 import com.google.common.base.Strings;
 import com.todoroo.astrid.core.OldTaskPreferences;
@@ -22,7 +24,9 @@ import org.tasks.analytics.Tracking.Events;
 import org.tasks.billing.BillingClient;
 import org.tasks.billing.Inventory;
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.drive.DriveLoginActivity;
 import org.tasks.files.FileHelper;
+import org.tasks.gtasks.PlayServices;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.locale.Locale;
@@ -58,6 +62,7 @@ public class BasicPreferences extends InjectingPreferenceActivity
   private static final int REQUEST_CODE_BACKUP_DIR = 10005;
   private static final int REQUEST_PICKER = 10006;
   private static final int REQUEST_LAUNCHER_PICKER = 10007;
+  private static final int RC_DRIVE_BACKUP = 10008;
   @Inject Tracker tracker;
   @Inject Preferences preferences;
   @Inject ThemeBase themeBase;
@@ -68,6 +73,7 @@ public class BasicPreferences extends InjectingPreferenceActivity
   @Inject ThemeCache themeCache;
   @Inject BillingClient billingClient;
   @Inject Inventory inventory;
+  @Inject PlayServices playServices;
 
   private Bundle result;
 
@@ -166,6 +172,21 @@ public class BasicPreferences extends InjectingPreferenceActivity
 
     initializeBackupDirectory();
 
+    CheckBoxPreference googleDriveBackup = (CheckBoxPreference) findPreference(R.string.p_google_drive_backup);
+    googleDriveBackup.setChecked(preferences.getBoolean(R.string.p_google_drive_backup, false));
+    googleDriveBackup
+        .setOnPreferenceChangeListener(
+            (preference, newValue) -> {
+              if (newValue != null && (Boolean) newValue) {
+                if (!playServices.refreshAndCheck()) {
+                  playServices.resolve(this);
+                } else {
+                  requestLogin();
+                }
+              }
+              return false;
+            });
+
     requires(
         R.string.settings_localization,
         atLeastJellybeanMR1(),
@@ -174,8 +195,13 @@ public class BasicPreferences extends InjectingPreferenceActivity
 
     //noinspection ConstantConditions
     if (!BuildConfig.FLAVOR.equals("googleplay")) {
+      remove(R.string.p_google_drive_backup);
       requires(R.string.privacy, false, R.string.p_collect_statistics);
     }
+  }
+
+  private void requestLogin() {
+    startActivityForResult(new Intent(this, DriveLoginActivity.class), RC_DRIVE_BACKUP);
   }
 
   private void setupActivity(int key, final Class<?> target) {
@@ -249,6 +275,9 @@ public class BasicPreferences extends InjectingPreferenceActivity
         newImportTasksDialog(data.getData())
             .show(getFragmentManager(), FRAG_TAG_IMPORT_TASKS);
       }
+    } else if (requestCode == RC_DRIVE_BACKUP) {
+      ((CheckBoxPreference) findPreference(R.string.p_google_drive_backup))
+          .setChecked(resultCode == RESULT_OK);
     } else {
       super.onActivityResult(requestCode, resultCode, data);
     }

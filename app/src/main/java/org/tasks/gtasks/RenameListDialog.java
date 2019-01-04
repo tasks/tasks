@@ -6,18 +6,23 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+
 import com.google.api.services.tasks.model.TaskList;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
-import java.io.IOException;
-import javax.inject.Inject;
+
 import org.tasks.R;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingDialogFragment;
+
+import java.io.IOException;
+
+import javax.inject.Inject;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import timber.log.Timber;
 
 public class RenameListDialog extends InjectingDialogFragment {
@@ -26,7 +31,6 @@ public class RenameListDialog extends InjectingDialogFragment {
   private static final String EXTRA_LIST = "extra_list";
   @Inject @ForApplication Context context;
   @Inject DialogBuilder dialogBuilder;
-  @Inject PlayServices playServices;
   private RenameListDialogCallback callback;
   private ProgressDialog dialog;
   private GoogleTaskList googleTaskList;
@@ -75,7 +79,7 @@ public class RenameListDialog extends InjectingDialogFragment {
       @Override
       protected TaskList doInBackground(Void... voids) {
         try {
-          return new GtasksInvoker(context, playServices, googleTaskList.getAccount())
+          return new GtasksInvoker(context, googleTaskList.getAccount())
               .renameGtaskList(googleTaskList.getRemoteId(), name);
         } catch (IOException e) {
           Timber.e(e);

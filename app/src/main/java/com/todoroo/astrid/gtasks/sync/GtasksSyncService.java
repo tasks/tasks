@@ -7,6 +7,7 @@ package com.todoroo.astrid.gtasks.sync;
 
 import android.content.Context;
 import android.text.TextUtils;
+
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.dao.TaskDao;
@@ -14,23 +15,26 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.api.MoveRequest;
-import java.io.IOException;
-import java.util.List;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
-import java.util.concurrent.atomic.AtomicReference;
-import javax.inject.Inject;
+
 import org.tasks.analytics.Tracker;
 import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
 import org.tasks.gtasks.GtaskSyncAdapterHelper;
-import org.tasks.gtasks.PlayServices;
 import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicReference;
+
+import javax.inject.Inject;
+
 import timber.log.Timber;
 
 @ApplicationScope
@@ -44,7 +48,6 @@ public class GtasksSyncService {
   private final GtaskSyncAdapterHelper gtaskSyncAdapterHelper;
   private final Tracker tracker;
   private final GoogleTaskDao googleTaskDao;
-  private final PlayServices playServices;
 
   @Inject
   public GtasksSyncService(
@@ -54,15 +57,13 @@ public class GtasksSyncService {
       GtaskSyncAdapterHelper gtaskSyncAdapterHelper,
       Tracker tracker,
       GoogleTaskDao googleTaskDao,
-      GoogleTaskListDao googleTaskListDao,
-      PlayServices playServices) {
+      GoogleTaskListDao googleTaskListDao) {
     this.context = context;
     this.taskDao = taskDao;
     this.preferences = preferences;
     this.gtaskSyncAdapterHelper = gtaskSyncAdapterHelper;
     this.tracker = tracker;
     this.googleTaskDao = googleTaskDao;
-    this.playServices = playServices;
     new OperationPushThread(operationQueue).start();
   }
 
@@ -176,7 +177,7 @@ public class GtasksSyncService {
 
     @Override
     public void op() throws IOException {
-      GtasksInvoker invoker = new GtasksInvoker(context, playServices, googleTaskList.getAccount());
+      GtasksInvoker invoker = new GtasksInvoker(context, googleTaskList.getAccount());
       pushMetadataOnSave(googleTask, invoker);
     }
   }
@@ -191,7 +192,7 @@ public class GtasksSyncService {
 
     @Override
     public void op() throws IOException {
-      GtasksInvoker invoker = new GtasksInvoker(context, playServices, googleTaskList.getAccount());
+      GtasksInvoker invoker = new GtasksInvoker(context, googleTaskList.getAccount());
       invoker.clearCompleted(googleTaskList.getRemoteId());
     }
   }

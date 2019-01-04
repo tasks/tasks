@@ -47,6 +47,10 @@
     <activity
       android:name="com.todoroo.astrid.gtasks.auth.GtasksLoginActivity"
       android:theme="@style/TranslucentDialog"/>
+
+    <activity
+        android:name=".drive.DriveLoginActivity"
+        android:theme="@style/TranslucentDialog" />
   </application>
 
 </manifest>

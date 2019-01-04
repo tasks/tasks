@@ -3,7 +3,7 @@
  *
  * <p>See the file "LICENSE" for the full license governing this code.
  */
-package com.todoroo.astrid.gtasks.auth;
+package org.tasks.drive;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -12,14 +12,13 @@ import android.widget.Toast;
 import com.todoroo.andlib.utility.DialogUtilities;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.data.GoogleTaskAccount;
-import org.tasks.data.GoogleTaskListDao;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.gtasks.GoogleAccountManager;
 import org.tasks.gtasks.PlayServices;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.play.AuthResultHandler;
+import org.tasks.preferences.Preferences;
 
 /**
  * This activity allows users to sign in or log in to Google Tasks through the Android account
@@ -27,14 +26,14 @@ import org.tasks.play.AuthResultHandler;
  *
  * @author Sam Bosley
  */
-public class GtasksLoginActivity extends InjectingAppCompatActivity {
+public class DriveLoginActivity extends InjectingAppCompatActivity {
 
   public static final int RC_REQUEST_OAUTH = 10987;
   private static final int RC_CHOOSE_ACCOUNT = 10988;
   @Inject DialogBuilder dialogBuilder;
   @Inject GoogleAccountManager accountManager;
   @Inject PlayServices playServices;
-  @Inject GoogleTaskListDao googleTaskListDao;
+  @Inject Preferences preferences;
   private String accountName;
 
   @Override
@@ -60,31 +59,23 @@ public class GtasksLoginActivity extends InjectingAppCompatActivity {
   }
 
   private void getAuthToken(String a, final ProgressDialog pd) {
-    playServices.getTasksAuthToken(
+    playServices.getDriveAuthToken(
         this,
         a,
         new AuthResultHandler() {
           @Override
           public void authenticationSuccessful(String accountName) {
-            GoogleTaskAccount account = googleTaskListDao.getAccount(accountName);
-            if (account == null) {
-              account = new GoogleTaskAccount();
-              account.setAccount(accountName);
-              googleTaskListDao.insert(account);
-            } else {
-              account.setError("");
-              googleTaskListDao.update(account);
-            }
+            preferences.setString(R.string.p_google_drive_backup_account, accountName);
             setResult(RESULT_OK);
             finish();
-            DialogUtilities.dismissDialog(GtasksLoginActivity.this, pd);
+            DialogUtilities.dismissDialog(DriveLoginActivity.this, pd);
           }
 
           @Override
           public void authenticationFailed(final String message) {
             runOnUiThread(
-                () -> Toast.makeText(GtasksLoginActivity.this, message, Toast.LENGTH_LONG).show());
-            DialogUtilities.dismissDialog(GtasksLoginActivity.this, pd);
+                () -> Toast.makeText(DriveLoginActivity.this, message, Toast.LENGTH_LONG).show());
+            DialogUtilities.dismissDialog(DriveLoginActivity.this, pd);
           }
         });
   }

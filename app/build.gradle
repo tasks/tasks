@@ -164,6 +164,7 @@ dependencies {
     implementation('com.wdullaer:materialdatetimepicker:4.0.1')
     implementation "me.leolin:ShortcutBadger:1.1.22@aar"
     implementation 'com.google.apis:google-api-services-tasks:v1-rev55-1.25.0'
+    implementation 'com.google.apis:google-api-services-drive:v3-rev136-1.25.0'
     implementation 'com.google.api-client:google-api-client-android:1.27.0'
     implementation 'com.android.billingclient:billing:1.1'
     implementation("android.arch.work:work-runtime:${WORK_VERSION}") {

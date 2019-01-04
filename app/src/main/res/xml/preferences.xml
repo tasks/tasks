@@ -72,6 +72,11 @@
       android:key="@string/p_backup_dir"
       android:title="@string/backup_directory"/>
 
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="@string/p_google_drive_backup"
+        android:title="@string/google_drive_backup" />
+
     <Preference
       android:key="@string/backup_BAc_import"
       android:title="@string/backup_BAc_import"/>

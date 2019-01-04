@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.Handler;
 import android.widget.Toast;
 
+import com.google.api.services.drive.model.File;
+import com.google.api.services.drive.model.FileList;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -27,7 +29,9 @@ import org.tasks.data.TagDao;
 import org.tasks.data.TagDataDao;
 import org.tasks.data.TaskAttachmentDao;
 import org.tasks.data.UserActivityDao;
+import org.tasks.drive.DriveInvoker;
 import org.tasks.files.FileHelper;
+import org.tasks.gtasks.PlayServices;
 import org.tasks.preferences.Preferences;
 
 import java.io.IOException;
@@ -47,6 +51,9 @@ import static org.tasks.date.DateTimeUtils.newDateTime;
 
 public class TasksJsonExporter {
 
+  private static final String MIME = "application/json";
+  private static final String EXTENSION = ".json";
+
   // --- public interface
   private final TagDataDao tagDataDao;
 
@@ -59,6 +66,7 @@ public class TasksJsonExporter {
   private final GoogleTaskListDao googleTaskListDao;
   private final TaskAttachmentDao taskAttachmentDao;
   private final CaldavDao caldavDao;
+  private final DriveInvoker driveInvoker;
   private final TaskDao taskDao;
   private final UserActivityDao userActivityDao;
   private final Preferences preferences;
@@ -66,7 +74,6 @@ public class TasksJsonExporter {
   private int exportCount = 0;
   private ProgressDialog progressDialog;
   private Handler handler;
-  private Uri backupDirectory;
   private String latestSetVersionName;
 
   @Inject
@@ -82,7 +89,8 @@ public class TasksJsonExporter {
       FilterDao filterDao,
       GoogleTaskListDao googleTaskListDao,
       TaskAttachmentDao taskAttachmentDao,
-      CaldavDao caldavDao) {
+      CaldavDao caldavDao,
+      DriveInvoker driveInvoker) {
     this.tagDataDao = tagDataDao;
     this.taskDao = taskDao;
     this.userActivityDao = userActivityDao;
@@ -95,6 +103,7 @@ public class TasksJsonExporter {
     this.googleTaskListDao = googleTaskListDao;
     this.taskAttachmentDao = taskAttachmentDao;
     this.caldavDao = caldavDao;
+    this.driveInvoker = driveInvoker;
   }
 
   private static String getDateForExport() {
@@ -121,7 +130,6 @@ public class TasksJsonExporter {
       @Nullable final ProgressDialog progressDialog) {
     this.context = context;
     this.exportCount = 0;
-    this.backupDirectory = preferences.getBackupDirectory();
     this.latestSetVersionName = null;
     this.progressDialog = progressDialog;
 
@@ -140,10 +148,19 @@ public class TasksJsonExporter {
 
       if (tasks.size() > 0) {
         String basename = Files.getNameWithoutExtension(filename);
-        Uri uri = FileHelper.newFile(context, backupDirectory, "application/json", basename, ".json");
+        Uri uri =
+            FileHelper.newFile(
+                context, preferences.getBackupDirectory(), MIME, basename, EXTENSION);
         OutputStream os = context.getContentResolver().openOutputStream(uri);
         doTasksExport(os, tasks);
         os.close();
+        if (preferences.getBoolean(R.string.p_google_drive_backup, false)) {
+          List<File> files = driveInvoker.findFolder("org.tasks");
+          File folder = files.isEmpty()
+              ? driveInvoker.createFolder("org.tasks")
+              : files.get(0);
+          driveInvoker.createFile(MIME, folder.getId(), FileHelper.getFilename(context, uri), uri);
+        }
       }
 
       if (exportType == ExportType.EXPORT_TYPE_MANUAL) {
