@@ -136,7 +136,7 @@ dependencies {
     //noinspection GradleDependency
     debugImplementation "com.squareup.leakcanary:leakcanary-android:${LEAKCANARY_VERSION}"
     debugImplementation "com.squareup.leakcanary:leakcanary-support-fragment:${LEAKCANARY_VERSION}"
-    debugImplementation 'androidx.multidex:multidex:2.0.0'
+    debugImplementation 'androidx.multidex:multidex:2.0.1'
 
     implementation 'me.saket:better-link-movement-method:2.2.0'
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
@@ -147,7 +147,7 @@ dependencies {
     implementation 'androidx.annotation:annotation:1.0.1'
     implementation 'androidx.legacy:legacy-support-v13:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
     implementation 'com.jakewharton.timber:timber:4.7.1'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.1.0'
     //noinspection GradleDependency
@@ -175,7 +175,7 @@ dependencies {
         // https://groups.google.com/forum/#!topic/guava-announce/Km82fZG68Sw
         exclude group: 'com.google.guava', module: 'listenablefuture'
     }
-    googleplayImplementation 'com.crashlytics.sdk.android:crashlytics:2.9.7'
+    googleplayImplementation 'com.crashlytics.sdk.android:crashlytics:2.9.8'
     googleplayImplementation "com.google.firebase:firebase-core:16.0.6"
     googleplayImplementation "com.google.android.gms:play-services-location:16.0.0"
     googleplayImplementation "com.google.android.gms:play-services-auth:16.0.1"
@@ -187,8 +187,8 @@ dependencies {
     androidTestAnnotationProcessor "com.jakewharton:butterknife-compiler:${BUTTERKNIFE_VERSION}"
     androidTestImplementation 'com.google.dexmaker:dexmaker-mockito:1.2'
     androidTestImplementation 'com.natpryce:make-it-easy:4.0.1'
-    androidTestImplementation 'androidx.test:runner:1.1.0'
-    androidTestImplementation 'androidx.test:rules:1.1.0'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test:rules:1.1.1'
     androidTestImplementation 'androidx.annotation:annotation:1.0.1'
 }
 
