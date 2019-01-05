@@ -253,32 +253,44 @@ public class TaskListFragment extends InjectingFragment
       hidden.setEnabled(false);
     }
 
-    menu.findItem(R.id.menu_voice_add).setVisible(device.voiceInputAvailable());
-    setupSearchView(menu);
-  }
+    MenuItem voice = menu.findItem(R.id.menu_voice_add);
+    voice.setVisible(device.voiceInputAvailable());
 
-  private void setupSearchView(Menu menu) {
+    MenuItem sort = menu.findItem(R.id.menu_sort);
+    MenuItem clearCompleted = menu.findItem(R.id.menu_clear_completed);
+
     final MenuItem item = menu.findItem(R.id.menu_search);
     item.setOnActionExpandListener(
         new MenuItem.OnActionExpandListener() {
           @Override
           public boolean onMenuItemActionExpand(MenuItem item) {
+            searchDisposable =
+                searchSubject
+                    .debounce(SEARCH_DEBOUNCE_TIMEOUT, TimeUnit.MILLISECONDS)
+                    .subscribe(q -> searchByQuery(q));
             searchByQuery("");
+            sort.setVisible(false);
+            clearCompleted.setVisible(false);
+            completed.setVisible(false);
+            hidden.setVisible(false);
+            voice.setVisible(false);
             return true;
           }
 
           @Override
           public boolean onMenuItemActionCollapse(MenuItem item) {
             taskListViewModel.searchByFilter(filter);
+            searchDisposable.dispose();
+            sort.setVisible(true);
+            clearCompleted.setVisible(true);
+            completed.setVisible(true);
+            hidden.setVisible(true);
+            voice.setVisible(device.voiceInputAvailable());
             return true;
           }
         });
-    final SearchView actionView = (SearchView) MenuItemCompat.getActionView(item);
     searchSubject = PublishSubject.create();
-    searchDisposable =
-        searchSubject
-            .debounce(SEARCH_DEBOUNCE_TIMEOUT, TimeUnit.MILLISECONDS)
-            .subscribe(this::searchByQuery);
+    SearchView actionView = (SearchView) MenuItemCompat.getActionView(item);
     actionView.setOnQueryTextListener(
         new SearchView.OnQueryTextListener() {
           @Override
@@ -450,7 +462,9 @@ public class TaskListFragment extends InjectingFragment
   @Override
   public void onDestroyView() {
     super.onDestroyView();
-    searchDisposable.dispose();
+    if (searchDisposable != null && !searchDisposable.isDisposed()) {
+      searchDisposable.dispose();
+    }
   }
 
     /**
