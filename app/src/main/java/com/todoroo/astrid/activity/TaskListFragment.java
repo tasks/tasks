@@ -128,7 +128,7 @@ public class TaskListFragment extends InjectingFragment
   private TaskAdapter taskAdapter = null;
   private TaskListRecyclerAdapter recyclerAdapter;
 
-  private PublishSubject<String> searchSubject;
+  private PublishSubject<String> searchSubject = PublishSubject.create();
   private Disposable searchDisposable;
 
     /*
@@ -256,56 +256,51 @@ public class TaskListFragment extends InjectingFragment
     MenuItem voice = menu.findItem(R.id.menu_voice_add);
     voice.setVisible(device.voiceInputAvailable());
 
-    MenuItem sort = menu.findItem(R.id.menu_sort);
-    MenuItem clearCompleted = menu.findItem(R.id.menu_clear_completed);
+    MenuItem search =
+        menu.findItem(R.id.menu_search)
+            .setOnActionExpandListener(
+                new MenuItem.OnActionExpandListener() {
+                  @Override
+                  public boolean onMenuItemActionExpand(MenuItem item) {
+                    searchDisposable =
+                        searchSubject
+                            .debounce(SEARCH_DEBOUNCE_TIMEOUT, TimeUnit.MILLISECONDS)
+                            .subscribe(q -> searchByQuery(q));
+                    searchByQuery("");
+                    for (int i = 0; i < menu.size(); i++) {
+                      menu.getItem(i).setVisible(false);
+                    }
+                    return true;
+                  }
 
-    final MenuItem item = menu.findItem(R.id.menu_search);
-    item.setOnActionExpandListener(
-        new MenuItem.OnActionExpandListener() {
-          @Override
-          public boolean onMenuItemActionExpand(MenuItem item) {
-            searchDisposable =
-                searchSubject
-                    .debounce(SEARCH_DEBOUNCE_TIMEOUT, TimeUnit.MILLISECONDS)
-                    .subscribe(q -> searchByQuery(q));
-            searchByQuery("");
-            sort.setVisible(false);
-            clearCompleted.setVisible(false);
-            completed.setVisible(false);
-            hidden.setVisible(false);
-            voice.setVisible(false);
-            return true;
-          }
+                  @Override
+                  public boolean onMenuItemActionCollapse(MenuItem item) {
+                    taskListViewModel.searchByFilter(filter);
+                    searchDisposable.dispose();
+                    for (int i = 0; i < menu.size(); i++) {
+                      menu.getItem(i).setVisible(true);
+                    }
+                    voice.setVisible(device.voiceInputAvailable());
+                    return true;
+                  }
+                });
+    ((SearchView) search.getActionView())
+        .setOnQueryTextListener(
+            new SearchView.OnQueryTextListener() {
+              @Override
+              public boolean onQueryTextSubmit(String query) {
+                ((MainActivity) getActivity())
+                    .onFilterItemClicked(createSearchFilter(query.trim()));
+                MenuItemCompat.collapseActionView(search);
+                return true;
+              }
 
-          @Override
-          public boolean onMenuItemActionCollapse(MenuItem item) {
-            taskListViewModel.searchByFilter(filter);
-            searchDisposable.dispose();
-            sort.setVisible(true);
-            clearCompleted.setVisible(true);
-            completed.setVisible(true);
-            hidden.setVisible(true);
-            voice.setVisible(device.voiceInputAvailable());
-            return true;
-          }
-        });
-    searchSubject = PublishSubject.create();
-    SearchView actionView = (SearchView) MenuItemCompat.getActionView(item);
-    actionView.setOnQueryTextListener(
-        new SearchView.OnQueryTextListener() {
-          @Override
-          public boolean onQueryTextSubmit(String query) {
-            ((MainActivity) getActivity()).onFilterItemClicked(createSearchFilter(query.trim()));
-            MenuItemCompat.collapseActionView(item);
-            return true;
-          }
-
-          @Override
-          public boolean onQueryTextChange(String query) {
-            searchSubject.onNext(query);
-            return true;
-          }
-        });
+              @Override
+              public boolean onQueryTextChange(String query) {
+                searchSubject.onNext(query);
+                return true;
+              }
+            });
   }
 
   private void searchByQuery(String query) {
