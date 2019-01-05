@@ -39,6 +39,7 @@ import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.api.SearchFilter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksSubtaskListFragment;
@@ -246,7 +247,7 @@ public class TaskListFragment extends InjectingFragment
     if (preferences.getBoolean(R.string.p_show_completed_tasks, false)) {
       completed.setChecked(true);
     }
-    if (taskAdapter.isManuallySorted()) {
+    if (taskAdapter.isManuallySorted() || filter instanceof SearchFilter) {
       completed.setChecked(true);
       completed.setEnabled(false);
       hidden.setChecked(true);
@@ -316,7 +317,7 @@ public class TaskListFragment extends InjectingFragment
 
   private Filter createSearchFilter(String query) {
     String title = getString(R.string.FLA_search_filter, query);
-    return new Filter(
+    return new SearchFilter(
         title,
         new QueryTemplate()
             .where(
