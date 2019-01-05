@@ -259,48 +259,64 @@ public class TaskListFragment extends InjectingFragment
 
   private void setupSearchView(Menu menu) {
     final MenuItem item = menu.findItem(R.id.menu_search);
+    item.setOnActionExpandListener(
+        new MenuItem.OnActionExpandListener() {
+          @Override
+          public boolean onMenuItemActionExpand(MenuItem item) {
+            searchByQuery("");
+            return true;
+          }
+
+          @Override
+          public boolean onMenuItemActionCollapse(MenuItem item) {
+            taskListViewModel.searchByFilter(filter);
+            return true;
+          }
+        });
     final SearchView actionView = (SearchView) MenuItemCompat.getActionView(item);
     searchSubject = PublishSubject.create();
-    searchDisposable = searchSubject
+    searchDisposable =
+        searchSubject
             .debounce(SEARCH_DEBOUNCE_TIMEOUT, TimeUnit.MILLISECONDS)
             .subscribe(this::searchByQuery);
-
     actionView.setOnQueryTextListener(
-            new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    return false;
-                }
+        new SearchView.OnQueryTextListener() {
+          @Override
+          public boolean onQueryTextSubmit(String query) {
+            ((MainActivity) getActivity()).onFilterItemClicked(createSearchFilter(query.trim()));
+            MenuItemCompat.collapseActionView(item);
+            return true;
+          }
 
-                @Override
-                public boolean onQueryTextChange(String query) {
-                    searchSubject.onNext(query);
-                    return true;
-                }
-            });
-    }
+          @Override
+          public boolean onQueryTextChange(String query) {
+            searchSubject.onNext(query);
+            return true;
+          }
+        });
+  }
 
   private void searchByQuery(String query) {
     query = query.trim();
     if (!query.isEmpty()) {
-        Filter savedFilter = createSearchFilter(query);
-            taskListViewModel.searchByFilter(savedFilter);
+      Filter savedFilter = createSearchFilter(query);
+      taskListViewModel.searchByFilter(savedFilter);
     } else {
-        MainActivity activity = (MainActivity) getActivity();
-        taskListViewModel.searchByFilter(activity.defaultFilterProvider.getDefaultFilter());
+      taskListViewModel.searchByFilter(
+          BuiltInFilterExposer.getMyTasksFilter(context.getResources()));
     }
   }
 
-  private Filter createSearchFilter(String query){
+  private Filter createSearchFilter(String query) {
     String title = getString(R.string.FLA_search_filter, query);
     return new Filter(
-    title, new QueryTemplate()
+        title,
+        new QueryTemplate()
             .where(
-                    Criterion.and(
-                            Task.DELETION_DATE.eq(0),
-                            Criterion.or(
-                                    Task.NOTES.like("%" + query + "%"),
-                                    Task.TITLE.like("%" + query + "%")))));
+                Criterion.and(
+                    Task.DELETION_DATE.eq(0),
+                    Criterion.or(
+                        Task.NOTES.like("%" + query + "%"), Task.TITLE.like("%" + query + "%")))));
   }
 
   @Override
