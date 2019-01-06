@@ -177,14 +177,20 @@ public class BasicPreferences extends InjectingPreferenceActivity
     googleDriveBackup
         .setOnPreferenceChangeListener(
             (preference, newValue) -> {
-              if (newValue != null && (Boolean) newValue) {
-                if (!playServices.refreshAndCheck()) {
-                  playServices.resolve(this);
-                } else {
-                  requestLogin();
-                }
+              if (newValue == null) {
+                return false;
               }
-              return false;
+
+              if ((Boolean) newValue) {
+                if (playServices.refreshAndCheck()) {
+                  requestLogin();
+                } else {
+                  playServices.resolve(this);
+                }
+                return false;
+              } else {
+                return true;
+              }
             });
 
     requires(
