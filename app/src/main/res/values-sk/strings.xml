@@ -105,6 +105,7 @@
 	<string name="EPr_default_importance_title">Predvolená dôležitosť</string>
 	<string name="EPr_default_hideUntil_title">Predvolené Skryť do</string>
 	<string name="EPr_default_reminders_title">Predvolené pripomienky</string>
+	<string name="EPr_default_location_reminder_title">Východzie upozornenia podľa polohy</string>
 	<string name="EPr_default_reminders_mode_title">Východzie vyzváňanie/vybrovanie</string>
 	<string name="priority_high">Vysoká</string>
 	<string name="priority_medium">Stredná</string>
@@ -115,6 +116,10 @@
 	<string name="dont_hide">Neskrývať</string>
 	<string name="at_deadline">V termíne</string>
 	<string name="at_deadline_or_overdue">V termíne alebo po termíne</string>
+	<string name="no_reminders">Žiadne upozornenia</string>
+	<string name="default_location_reminder_on_arrival">Pri príchode</string>
+	<string name="default_location_reminder_on_departure">Pri odchode</string>
+	<string name="default_location_reminder_on_arrival_or_departure">Pri príchode aj pri odchode</string>
 	<string name="BFE_Active">Moje Úlohy</string>
 	<string name="BFE_Recent">Naposledy upravené</string>
 	<string name="CFA_universe_all">Aktívne Úlohy</string>
@@ -483,4 +488,6 @@ Google Play je správne nastavená</string>
 	<string name="pro_tasker_plugins">Zásuvný modul Tasker</string>
 	<string name="pro_dashclock_extension">Rozšírenie Dashclock</string>
 	<string name="requires_pro_subscription">Vyžaduje platenú verziu pro</string>
+	<string name="location_remind_arrival">Pripomenúť pri príchode</string>
+	<string name="location_remind_departure">Pripomenúť pri odchode</string>
 </resources>

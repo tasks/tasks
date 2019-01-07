@@ -64,6 +64,7 @@
 	<string name="TEA_control_repeat">Kartoti</string>
 	<string name="TEA_control_gcal">Kalendorius</string>
 	<string name="TEA_control_importance">Pirmenybė</string>
+	<string name="TEA_control_location">Vieta</string>
 	<string name="TEA_control_notes">Aprašymas</string>
 	<string name="TEA_control_files">Failai</string>
 	<string name="TEA_control_reminders">Priminimai</string>
@@ -112,6 +113,7 @@
 	<string name="EPr_default_hideUntil_title">Įprastai slėpti iki</string>
 	<string name="EPr_default_reminders_title">Numatytieji priminimai</string>
 	<string name="EPr_default_location_reminder_title">Numatytieji vietų priminimai</string>
+	<string name="EPr_default_location_radius">Numatytasis spindulys</string>
 	<string name="EPr_default_reminders_mode_title">Numatytasis skambučio/vibracijos tipas</string>
 	<string name="priority_high">Aukštas</string>
 	<string name="priority_medium">Vidutinis</string>
@@ -328,6 +330,7 @@
 	<string name="pick_a_date_and_time">Pasirinkti datą ir laiką</string>
 	<string name="when_overdue">Terminui pasibaigus</string>
 	<string name="when_due">Atėjus terminui</string>
+	<string name="geofence_radius">Spindulys</string>
 	<string name="tags">Etiketė</string>
 	<string name="filters">Filtrai</string>
 	<string name="date_shortcut_hour">Valandai</string>

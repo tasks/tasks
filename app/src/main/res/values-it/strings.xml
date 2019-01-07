@@ -64,6 +64,7 @@
 	<string name="TEA_control_repeat">Ripeti</string>
 	<string name="TEA_control_gcal">Calendario</string>
 	<string name="TEA_control_importance">Priorità</string>
+	<string name="TEA_control_location">Posizione</string>
 	<string name="TEA_control_notes">Descrizione</string>
 	<string name="TEA_control_files">File</string>
 	<string name="TEA_control_reminders">Promemoria</string>
@@ -307,6 +308,7 @@
 	<string name="quiet_hours">Ore di quiete</string>
 	<string name="attachment_directory">Cartella allegati</string>
 	<string name="backup_directory">Cartella di Backup</string>
+	<string name="google_drive_backup">Copia su Google Drive</string>
 	<string name="miscellaneous">Miscellanea</string>
 	<string name="synchronization">Sincronizzazione</string>
 	<string name="enabled">Abilitata</string>

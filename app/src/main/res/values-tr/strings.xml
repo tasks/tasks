@@ -68,6 +68,7 @@
 	<string name="TEA_control_repeat">Yinele</string>
 	<string name="TEA_control_gcal">Takvim</string>
 	<string name="TEA_control_importance">Öncelik</string>
+	<string name="TEA_control_location">Konum</string>
 	<string name="TEA_control_notes">Açıklama</string>
 	<string name="TEA_control_files">Dosyalar</string>
 	<string name="TEA_control_reminders">Hatırlatmalar</string>

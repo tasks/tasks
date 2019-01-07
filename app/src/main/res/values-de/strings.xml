@@ -62,6 +62,7 @@
 	<string name="TEA_control_repeat">Wiederholen</string>
 	<string name="TEA_control_gcal">Kalender</string>
 	<string name="TEA_control_importance">Priorität</string>
+	<string name="TEA_control_location">Ort</string>
 	<string name="TEA_control_notes">Beschreibung</string>
 	<string name="TEA_control_files">Dateien</string>
 	<string name="TEA_control_reminders">Erinnerungen</string>
@@ -144,7 +145,7 @@
 	<string name="CFC_tag_text">Schlagwort: ?</string>
 	<string name="CFC_tag_name">Tag...</string>
 	<string name="CFC_tag_contains_name">Tag-Name enthält...</string>
-	<string name="CFC_tag_contains_text">Tag-Name enthält: ?</string>
+	<string name="CFC_tag_contains_text">Schlagwort enthält: ?</string>
 	<string name="CFC_title_contains_name">Titel enthält …</string>
 	<string name="CFC_title_contains_text">Titel enthält: ?</string>
 	<string name="gcal_TEA_error">Fehler beim Hinzufügen der Aufgabe zum Kalender!</string>
@@ -304,6 +305,7 @@
 	<string name="quiet_hours">Ruhezeit</string>
 	<string name="attachment_directory">Ordner für Anhänge</string>
 	<string name="backup_directory">Sicherungsordner</string>
+	<string name="google_drive_backup">Zu Googe Drive kopieren</string>
 	<string name="miscellaneous">Verschiedenes</string>
 	<string name="synchronization">Synchronisierung</string>
 	<string name="enabled">Aktiviert</string>
@@ -369,7 +371,7 @@
 	<string name="back_button_saves_task">Zurück-Button speichert die Aufgabe</string>
 	<string name="default_list">Standard-Liste</string>
 	<string name="default_sync">Standardsynchronisation</string>
-	<string name="opacity">Durchsichtigkeit</string>
+	<string name="opacity">Deckkraft</string>
 	<string name="color">Farbe</string>
 	<string name="accent">Akzent</string>
 	<string name="launcher_icon">Startersymbol</string>

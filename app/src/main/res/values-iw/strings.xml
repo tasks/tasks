@@ -64,6 +64,7 @@
 	<string name="TEA_control_repeat">חזרה</string>
 	<string name="TEA_control_gcal">יומן</string>
 	<string name="TEA_control_importance">עדיפות</string>
+	<string name="TEA_control_location">מיקום</string>
 	<string name="TEA_control_notes">תיאור</string>
 	<string name="TEA_control_files">קבצים</string>
 	<string name="TEA_control_reminders">תזכורות</string>
@@ -111,6 +112,8 @@
 	<string name="EPr_default_importance_title">עדיפות מחדל</string>
 	<string name="EPr_default_hideUntil_title">ברירת מחדל לזמן הסתרה</string>
 	<string name="EPr_default_reminders_title">תזכורות ברירת מחדל</string>
+	<string name="EPr_default_location_reminder_title">תזכורות מיקום ברירת מחדל</string>
+	<string name="EPr_default_location_radius">רדיוס ברירת מחדל</string>
 	<string name="EPr_default_reminders_mode_title">ברירת מחדל לסוג צלצול/רטט</string>
 	<string name="priority_high">גבוה</string>
 	<string name="priority_medium">בינוני</string>
@@ -121,6 +124,10 @@
 	<string name="dont_hide">אל תסתיר</string>
 	<string name="at_deadline">במועד הסף</string>
 	<string name="at_deadline_or_overdue">במועד היעד או לאחריו</string>
+	<string name="no_reminders">אין תזכורות</string>
+	<string name="default_location_reminder_on_arrival">ברגע ההגעה</string>
+	<string name="default_location_reminder_on_departure">ברגע העזיבה</string>
+	<string name="default_location_reminder_on_arrival_or_departure">ברגע ההגעה והעזיבה</string>
 	<string name="BFE_Active">המשימות שלי</string>
 	<string name="BFE_Recent">עודכנו לאחרונה</string>
 	<string name="CFA_universe_all">משימות פעילות</string>
@@ -302,6 +309,7 @@
 	<string name="quiet_hours">שעות שקטות</string>
 	<string name="attachment_directory">ספריית קבצים מצורפים</string>
 	<string name="backup_directory">תקיית גיבוי</string>
+	<string name="google_drive_backup">העתק ל\"גוּגֶל דרָייב\"</string>
 	<string name="miscellaneous">שונות</string>
 	<string name="synchronization">סינכרון</string>
 	<string name="enabled">אפשר</string>
@@ -324,6 +332,8 @@
 	<string name="pick_a_date_and_time">בחר תאריך ושעה</string>
 	<string name="when_overdue">לאחר מועד היעד</string>
 	<string name="when_due">במועד היעד</string>
+	<string name="geofence_radius">רדיוס</string>
+	<string name="location_radius_meters">%s מטר</string>
 	<string name="tags">תגיות</string>
 	<string name="filters">פילטרים</string>
 	<string name="date_shortcut_hour">בעוד שעה</string>
@@ -506,4 +516,10 @@
 	<string name="linkify">הצג קישורים</string>
 	<string name="linkify_description">הוסף קישורים לאתרים, כתובות, ומספרי טלפון</string>
 	<string name="show_list_indicators">הצג שבבי רשימה</string>
+	<string name="location_remind_arrival">הזכר ברגע ההגעה</string>
+	<string name="location_remind_departure">הזכר ברגע העזיבה</string>
+	<string name="call_number">התקשר ל-%s</string>
+	<string name="open_url">פתח %s</string>
+	<string name="location_arrived">הגיע ב-%s</string>
+	<string name="location_departed">עזב ב-%s</string>
 </resources>

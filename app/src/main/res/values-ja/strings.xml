@@ -64,6 +64,7 @@
 	<string name="TEA_control_repeat">繰り返し</string>
 	<string name="TEA_control_gcal">カレンダー</string>
 	<string name="TEA_control_importance">優先順位</string>
+	<string name="TEA_control_location">場所</string>
 	<string name="TEA_control_notes">概要</string>
 	<string name="TEA_control_files">ファイル</string>
 	<string name="TEA_control_reminders">リマインダー</string>
@@ -111,6 +112,8 @@
 	<string name="EPr_default_importance_title">標準の優先順位</string>
 	<string name="EPr_default_hideUntil_title">表示期間</string>
 	<string name="EPr_default_reminders_title">標準リマインダー</string>
+	<string name="EPr_default_location_reminder_title">デフォルトの場所リマインダー</string>
+	<string name="EPr_default_location_radius">デフォルトの半径</string>
 	<string name="EPr_default_reminders_mode_title">標準の通知音、振動種類</string>
 	<string name="priority_high">高</string>
 	<string name="priority_medium">中</string>
@@ -121,6 +124,10 @@
 	<string name="dont_hide">常に表示する</string>
 	<string name="at_deadline">期限に</string>
 	<string name="at_deadline_or_overdue">期限または期限を過ぎて</string>
+	<string name="no_reminders">リマインダーはありません</string>
+	<string name="default_location_reminder_on_arrival">到着時</string>
+	<string name="default_location_reminder_on_departure">出発時</string>
+	<string name="default_location_reminder_on_arrival_or_departure">到着と出発時</string>
 	<string name="BFE_Active">マイ タスク</string>
 	<string name="BFE_Recent">最近編集したタスク</string>
 	<string name="CFA_universe_all">進行中のタスク</string>
@@ -302,6 +309,7 @@
 	<string name="quiet_hours">消音時間</string>
 	<string name="attachment_directory">添付ディレクトリ</string>
 	<string name="backup_directory">ディレクトリをバックアップ</string>
+	<string name="google_drive_backup">Google ドライブにコピー</string>
 	<string name="miscellaneous">その他</string>
 	<string name="synchronization">同期</string>
 	<string name="enabled">有効</string>
@@ -324,6 +332,7 @@
 	<string name="pick_a_date_and_time">日付と時間を選択</string>
 	<string name="when_overdue">期限を過ぎたとき</string>
 	<string name="when_due">期限に</string>
+	<string name="geofence_radius">半径</string>
 	<string name="tags">タグ</string>
 	<string name="filters">フィルター</string>
 	<string name="date_shortcut_hour">1時間</string>
@@ -505,4 +514,10 @@
 	<string name="linkify">リンクを表示</string>
 	<string name="linkify_description">ウェブサイト、住所、電話番号へのリンクを追加</string>
 	<string name="show_list_indicators">リストチップを表示</string>
+	<string name="location_remind_arrival">到着時に通知する</string>
+	<string name="location_remind_departure">出発時に通知する</string>
+	<string name="call_number">%s を呼び出し</string>
+	<string name="open_url">%s を開く</string>
+	<string name="location_arrived">%s に到着</string>
+	<string name="location_departed">%s に出発</string>
 </resources>

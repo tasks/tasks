@@ -63,6 +63,7 @@
 	<string name="TEA_control_repeat">Répéter</string>
 	<string name="TEA_control_gcal">Calendrier</string>
 	<string name="TEA_control_importance">Priorité</string>
+	<string name="TEA_control_location">Localisation</string>
 	<string name="TEA_control_files">Fichiers</string>
 	<string name="TEA_control_reminders">Rappels</string>
 	<string name="TEA_control_timer">Contrôles de rappel</string>
@@ -294,6 +295,7 @@
 	<string name="quiet_hours">Heures de repos</string>
 	<string name="attachment_directory">Dossier pour les fichiers attachés</string>
 	<string name="backup_directory">Dossier de sauvegarde</string>
+	<string name="google_drive_backup">Copier sur Google Drive</string>
 	<string name="miscellaneous">Divers</string>
 	<string name="synchronization">Synchronisation</string>
 	<string name="enabled">Activé</string>
@@ -424,7 +426,7 @@
 	<string name="calendar_settings">Paramètres du calendrier</string>
 	<string name="notification_channel_settings">Gérer les notifications</string>
 	<string name="battery_optimization_settings">Gérer les optimisations de la batterie</string>
-	<string name="notification_disable_battery_optimizations_description">Optimisations de la batterie avec des notifications par délais</string>
+	<string name="notification_disable_battery_optimizations_description">L\'optimisation de la batterie peut retarder les notifications</string>
 	<string name="bundle_notifications">Paquet de notifications</string>
 	<string name="list">Liste</string>
 	<string name="repeats_from">Répétitions depuis</string>

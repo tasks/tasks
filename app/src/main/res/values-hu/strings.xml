@@ -67,6 +67,7 @@
 	<string name="TEA_control_repeat">Ismétlés</string>
 	<string name="TEA_control_gcal">Naptár</string>
 	<string name="TEA_control_importance">Prioritás</string>
+	<string name="TEA_control_location">Hely</string>
 	<string name="TEA_control_notes">Leírás</string>
 	<string name="TEA_control_files">Fájlok</string>
 	<string name="TEA_control_reminders">Emlékeztetők</string>
@@ -310,6 +311,7 @@
 	<string name="quiet_hours">Csendes órák</string>
 	<string name="attachment_directory">Csatolmányok könyvtára</string>
 	<string name="backup_directory">Mentési könyvtár</string>
+	<string name="google_drive_backup">Másolás Google Drive-ba</string>
 	<string name="miscellaneous">Egyéb</string>
 	<string name="synchronization">Szinkronizáció</string>
 	<string name="enabled">Engedélyezve</string>

@@ -53,10 +53,14 @@
 	<string name="TEA_timer_est">Зал. %s</string>
 	<string name="TEA_timer_elap">Минуло %s</string>
 	<string name="TEA_no_time">Без часу</string>
-	<string name="due_date">дати настання</string>
-	<string name="due_time">до часу настання</string>
-	<string name="day_before_due">попереднього дня</string>
-	<string name="week_before_due">попереднього тижня</string>
+	<string name="due_date">Призначеної дати</string>
+	<string name="due_time">Призначеного часу</string>
+	<string name="day_before_due">За день до</string>
+	<string name="week_before_due">За тиждень до</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization." name="TEA_hideUntil_due_date">призначеної дати</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization." name="TEA_hideUntil_due_time">призначеного часу</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization." name="TEA_hideUntil_day_before_due">за день до</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization." name="TEA_hideUntil_week_before_due">за тиждень до</string>
 	<string name="TEA_control_when">Коли</string>
 	<string name="TEA_control_repeat">Повторити</string>
 	<string name="TEA_control_gcal">Календар</string>
@@ -118,6 +122,8 @@
 	<string name="dont_hide">Не приховувати</string>
 	<string name="at_deadline">Під час дедлайну</string>
 	<string name="at_deadline_or_overdue">Вчасно або прострочено</string>
+	<string name="no_reminders">Без нагадувань</string>
+	<string name="default_location_reminder_on_arrival">По прибуттю</string>
 	<string name="BFE_Active">Мої завдання</string>
 	<string name="BFE_Recent">Недавно змінені</string>
 	<string name="CFA_universe_all">Активні завдання</string>
@@ -155,9 +161,9 @@
 	<string name="premium_remove_file_confirm">Ви впевнені? Це не може бути скасовано.</string>
 	<string name="audio_recording_title">Запис аудіо</string>
 	<string name="audio_stop_recording">Зупинити запис</string>
-	<string name="ring_once">Дзвеніти 1 раз</string>
-	<string name="ring_five_times">Дзвеніти 5 раз</string>
-	<string name="ring_nonstop">Дзвеніти безперервно</string>
+	<string name="ring_once">Сигналити 1 раз</string>
+	<string name="ring_five_times">Сигналити 5 разів</string>
+	<string name="ring_nonstop">Сигналити безперервно</string>
 	<string name="random_reminder_hour">година</string>
 	<string name="random_reminder_day">дня</string>
 	<string name="random_reminder_week">тижня</string>
@@ -169,7 +175,7 @@
 	<string name="rmd_EPr_quiet_hours_start_title">Тихі години стартують</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Тихі години закінчуються</string>
 	<string name="rmd_EPr_rmd_time_title">Нагадування по замовчуванню</string>
-	<string name="rmd_EPr_rmd_time_desc">Сповіщення для задач без терміну виконання з\'являться о %s</string>
+	<string name="rmd_EPr_rmd_time_desc">Сповіщення для завдань без призначеного часу виконання з\'являться о %s</string>
 	<string name="persistent_notifications">Стійкі сповіщення</string>
 	<string name="persistent_notifications_description">Стійкі сповіщення не можуть бути відхилені</string>
 	<string name="rmd_EPr_defaultRemind_title">Випадкові нагадування</string>
@@ -180,8 +186,37 @@
 	<string name="default_random_reminder_bi_weekly">два рази на тиждень</string>
 	<string name="default_random_reminder_monthly">щомісяця</string>
 	<string name="default_random_reminder_bi_monthly">два рази на місяць</string>
+	<string name="repeat_every">Кожні</string>
+	<string name="repeat_option_does_not_repeat">Не повторювати</string>
+	<string name="repeat_option_every_day">Щодня</string>
+	<string name="repeat_option_every_week">Щотижня</string>
+	<string name="repeat_option_every_month">Щомісяця</string>
+	<string name="repeat_option_every_year">Щороку</string>
+	<string name="repeat_option_custom">Інше...</string>
+	<string name="repeat_minutely">ПОВТОРЮВАТИ ПОХВИЛИННО</string>
+	<string name="repeat_hourly">ПОВТОРЮВАТИ ПОГОДИННО</string>
+	<string name="repeat_daily">ПОВТОРЮВАТИ ПОДЕННО</string>
+	<string name="repeat_weekly">ПОВТОРЮВАТИ ПОТИЖНЕВО</string>
+	<string name="repeat_monthly">ПОВТОРЮВАТИ ПОМІСЯЧНО</string>
+	<string name="repeat_yearly">ПОВТОРЮВАТИ ПОРІЧНО</string>
+	<plurals name="repeat_minutes">
+		<item quantity="one">щохвилини</item>
+		<item quantity="other">хвилин</item>
+	</plurals>
+	<plurals name="repeat_years">
+		<item quantity="one">рік</item>
+		<item quantity="other">роки(ів)</item>
+	</plurals>
+	<plurals name="repeat_n_years">
+		<item quantity="one">%d рік</item>
+		<item quantity="other">%d роки(ів)</item>
+	</plurals>
+	<string name="repeat_type_due">призначеної дати</string>
+	<string name="repeat_type_completion">дати виконання</string>
 	<string name="repeat_forever">Повторювати завжди</string>
 	<string name="repeat_until">Повторювати до %s</string>
+	<string name="repeat_number_of_times">Повторити кількість разів</string>
+	<string name="repeat_occurs">Станеться</string>
 	<string name="repeat_snackbar">%1$s перенесено на %2$s</string>
 	<string name="new_tag">Створити новий ярлик</string>
 	<string name="new_list">Новий список</string>
@@ -226,6 +261,7 @@
 	<string name="synchronization">Синхронізація</string>
 	<string name="enabled">Увімкнено</string>
 	<string name="font_size">Розмір шрифту</string>
+	<string name="row_spacing">Відстань між рядками</string>
 	<string name="customize_edit_screen">Налаштувати вікно редагування</string>
 	<string name="source_code">Вихідний код</string>
 	<string name="translations">Допомогти перекласти</string>
@@ -241,7 +277,7 @@
 	<string name="pick_a_time">Обрати час</string>
 	<string name="pick_a_date_and_time">Обрати дату та час</string>
 	<string name="when_overdue">Коли прострочено</string>
-	<string name="when_due">Коли заплановано час</string>
+	<string name="when_due">В призначений час</string>
 	<string name="tags">Теги</string>
 	<string name="filters">Фільтри</string>
 	<string name="date_shortcut_hour">На годину</string>
@@ -274,6 +310,10 @@
 	<string name="send_anonymous_statistics_summary">Відсилати анонімну статистику використання і звіти про помилки щоб покращити Tasks. Жодних персональних даних не буде передано.</string>
 	<string name="tag_already_exists">Тег вже існує</string>
 	<string name="name_cannot_be_empty">Ім\'я не може бути порожнє</string>
+	<string name="username_required">Потрібне ім\'я користувача</string>
+	<string name="password_required">Потрібний пароль</string>
+	<string name="url_required">Потрібний URL</string>
+	<string name="url_invalid_scheme">Має починатися з http(s)://</string>
 	<string name="no_title">(без назви)</string>
 	<string name="back_button_saves_task">Зберігати завдання кнопкою Назад</string>
 	<string name="default_list">Типовий список</string>
@@ -332,5 +372,40 @@
 	<string name="delete_multiple_tasks_confirmation">%s видалено</string>
 	<string name="delete_selected_tasks">Видалити вибрані завдання?</string>
 	<string name="copy_selected_tasks">Копіювати вибрані завдання?</string>
+	<string name="date_and_time">Дата та час</string>
+	<string name="start_of_week">Початок тижня</string>
+	<string name="use_locale_default">Використовувати напрям пристрою</string>
+	<string name="add_account">Додати обліковий запис</string>
+	<string name="user">Користувач</string>
+	<string name="password">Пароль</string>
+	<string name="error_adding_account">Помилка додання облікового запису</string>
+	<string name="notification_channel_settings">Управління сповіщеннями</string>
+	<string name="battery_optimization_settings">Управління оптимізацією розряда акумулятора</string>
+	<string name="notification_disable_battery_optimizations_description">Оптимізація розряду акумулятора може призвезти до затримки сповіщень</string>
+	<string name="bundle_notifications">Колекція сповіщень</string>
+	<string name="badges">Бейджі</string>
+	<string name="list">Список</string>
+	<string name="repeats_from">Повторюється з</string>
+	<string name="repeats_single">Повторюється %s</string>
+	<string name="repeats_single_on">Повторюється %1$s по %2$s</string>
+	<string name="repeats_single_until">Повторюється %1$s до %2$s</string>
+	<string name="repeats_single_number_of_times">Повторюється %1$s, стається %2$d %3$s</string>
+	<string name="repeats_single_on_until">Повторюється %1$s по %2$s до %3$s</string>
+	<string name="repeats_single_on_number_of_times">Повторюється %1$s по %2$s, стається %3$d %4$s</string>
+	<string name="repeats_yearly">щорічно</string>
+	<string name="repeats_plural">Повторюється кожну(ий) %s</string>
+	<string name="repeats_plural_on">Повторюється кожну(ий) %1$s по %2$s</string>
+	<string name="repeats_plural_until">Повторюється кожну(ий) %1$s до %2$s</string>
+	<string name="repeats_plural_number_of_times">Повторюється кожну(ий) %1$s, стається %2$d %3$s</string>
+	<string name="repeats_plural_on_until">Повторюється кожну(ий) %1$s по %2$s до %3$s</string>
+	<string name="repeats_plural_on_number_of_times">Повторюється кожну(ий) %1$s по %2$s, стається %3$d %4$s</string>
+	<string name="default_calendar">Типовий календар</string>
+	<string name="badges_description">Відображати кількість завдань на піктограмі запуску Tasks. Не всі системи підтримують бейджі.</string>
+	<string name="bundle_notifications_summary">Згрупувати декілька сповіщень в одне</string>
+	<string name="background_sync_unmetered_only">Лише при з\'єднанні без обліку трафіка</string>
 	<string name="themes">Додаткові схеми</string>
+	<string name="show_description">Показувати опис</string>
+	<string name="show_full_description">Показувати повний опис</string>
+	<string name="linkify">Показувати посилання</string>
+	<string name="linkify_description">Виділяти посилання на веб-сайти, адреси та телефони</string>
 </resources>

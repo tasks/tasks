@@ -63,6 +63,7 @@
 	<string name="TEA_control_repeat">Herhaal</string>
 	<string name="TEA_control_gcal">Kalender</string>
 	<string name="TEA_control_importance">Prioriteit</string>
+	<string name="TEA_control_location">Locatie</string>
 	<string name="TEA_control_notes">Omschrijving</string>
 	<string name="TEA_control_files">Bestanden</string>
 	<string name="TEA_control_reminders">Herinneringen</string>
@@ -111,6 +112,7 @@
 	<string name="EPr_default_hideUntil_title">Standaard verbergen tot</string>
 	<string name="EPr_default_reminders_title">Standaard herinneringen</string>
 	<string name="EPr_default_location_reminder_title">Standaard locatie herinneringen</string>
+	<string name="EPr_default_location_radius">Standaard straal</string>
 	<string name="EPr_default_reminders_mode_title">Standaard toon/tril type</string>
 	<string name="priority_high">Hoog</string>
 	<string name="priority_medium">Middelmatig</string>
@@ -304,6 +306,7 @@
 	<string name="vibrations">Trillingen</string>
 	<string name="quiet_hours">Rustperiode</string>
 	<string name="attachment_directory">Bijlage directory</string>
+	<string name="google_drive_backup">Kopieer naar Google Drive</string>
 	<string name="miscellaneous">Diversen</string>
 	<string name="synchronization">Synchronisatie</string>
 	<string name="enabled">Actief</string>
@@ -326,6 +329,7 @@
 	<string name="pick_a_date_and_time">Kies een datum en tijd</string>
 	<string name="when_overdue">Na de einddatum</string>
 	<string name="when_due">Op de eindtijd</string>
+	<string name="geofence_radius">Straal</string>
 	<string name="tags">Labels</string>
 	<string name="date_shortcut_hour">Voor een uur</string>
 	<string name="date_shortcut_morning">Ochtend</string>
