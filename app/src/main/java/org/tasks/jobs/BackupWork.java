@@ -4,15 +4,18 @@ import android.content.Context;
 import android.net.Uri;
 
 import com.google.common.base.Predicate;
+import com.google.common.base.Strings;
 
 import org.tasks.R;
 import org.tasks.backup.TasksJsonExporter;
+import org.tasks.drive.DriveInvoker;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.JobComponent;
 import org.tasks.preferences.Preferences;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -40,12 +43,15 @@ public class BackupWork extends RepeatingWorker {
       (f1, f2) -> Long.compare(f2.lastModified(), f1.lastModified());
   private static final Comparator<DocumentFile> DOCUMENT_FILE_COMPARATOR =
       (d1, d2) -> Long.compare(d2.lastModified(), d1.lastModified());
+  private static final Comparator<com.google.api.services.drive.model.File> DRIVE_FILE_COMPARATOR =
+      (f1, f2) -> Long.compare(f2.getModifiedTime().getValue(), f1.getModifiedTime().getValue());
 
   private static final int DAYS_TO_KEEP_BACKUP = 7;
   @Inject @ForApplication Context context;
   @Inject TasksJsonExporter tasksJsonExporter;
   @Inject Preferences preferences;
   @Inject WorkManager workManager;
+  @Inject DriveInvoker drive;
 
   public BackupWork(@NonNull Context context, @NonNull WorkerParameters workerParams) {
     super(context, workerParams);
@@ -84,6 +90,11 @@ public class BackupWork extends RepeatingWorker {
     return newArrayList(skip(files, DAYS_TO_KEEP_BACKUP));
   }
 
+  private static List<com.google.api.services.drive.model.File> getDeleteList(List<com.google.api.services.drive.model.File> files) {
+    Collections.sort(files, DRIVE_FILE_COMPARATOR);
+    return newArrayList(skip(files, DAYS_TO_KEEP_BACKUP));
+  }
+
   @Override
   protected void inject(JobComponent component) {
     component.inject(this);
@@ -91,7 +102,13 @@ public class BackupWork extends RepeatingWorker {
 
   void startBackup(Context context) {
     try {
-      deleteOldBackups();
+      deleteOldLocalBackups();
+    } catch (Exception e) {
+      Timber.e(e);
+    }
+
+    try {
+      deleteOldDriveBackups();
     } catch (Exception e) {
       Timber.e(e);
     }
@@ -104,7 +121,7 @@ public class BackupWork extends RepeatingWorker {
     }
   }
 
-  private void deleteOldBackups() {
+  private void deleteOldLocalBackups() {
     Uri uri = preferences.getBackupDirectory();
     switch (uri.getScheme()) {
       case "content":
@@ -124,6 +141,23 @@ public class BackupWork extends RepeatingWorker {
           }
         }
         break;
+    }
+  }
+
+  private void deleteOldDriveBackups() throws IOException {
+    if (!preferences.getBoolean(R.string.p_google_drive_backup, false)) {
+      return;
+    }
+
+    String folderId = preferences.getStringValue(R.string.p_google_drive_backup_folder);
+
+    if (Strings.isNullOrEmpty(folderId)) {
+      return;
+    }
+
+    List<com.google.api.services.drive.model.File> files = drive.getFilesByPrefix(folderId, "auto.");
+    for (com.google.api.services.drive.model.File file : getDeleteList(files)) {
+      drive.delete(file);
     }
   }
 }

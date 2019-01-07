@@ -7,8 +7,6 @@ import android.net.Uri;
 import android.os.Handler;
 import android.widget.Toast;
 
-import com.google.api.services.drive.model.File;
-import com.google.api.services.drive.model.FileList;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -31,7 +29,7 @@ import org.tasks.data.TaskAttachmentDao;
 import org.tasks.data.UserActivityDao;
 import org.tasks.drive.DriveInvoker;
 import org.tasks.files.FileHelper;
-import org.tasks.gtasks.PlayServices;
+import org.tasks.jobs.WorkManager;
 import org.tasks.preferences.Preferences;
 
 import java.io.IOException;
@@ -66,7 +64,7 @@ public class TasksJsonExporter {
   private final GoogleTaskListDao googleTaskListDao;
   private final TaskAttachmentDao taskAttachmentDao;
   private final CaldavDao caldavDao;
-  private final DriveInvoker driveInvoker;
+  private final WorkManager workManager;
   private final TaskDao taskDao;
   private final UserActivityDao userActivityDao;
   private final Preferences preferences;
@@ -90,6 +88,7 @@ public class TasksJsonExporter {
       GoogleTaskListDao googleTaskListDao,
       TaskAttachmentDao taskAttachmentDao,
       CaldavDao caldavDao,
+      WorkManager workManager,
       DriveInvoker driveInvoker) {
     this.tagDataDao = tagDataDao;
     this.taskDao = taskDao;
@@ -103,7 +102,7 @@ public class TasksJsonExporter {
     this.googleTaskListDao = googleTaskListDao;
     this.taskAttachmentDao = taskAttachmentDao;
     this.caldavDao = caldavDao;
-    this.driveInvoker = driveInvoker;
+    this.workManager = workManager;
   }
 
   private static String getDateForExport() {
@@ -154,13 +153,7 @@ public class TasksJsonExporter {
         OutputStream os = context.getContentResolver().openOutputStream(uri);
         doTasksExport(os, tasks);
         os.close();
-        if (preferences.getBoolean(R.string.p_google_drive_backup, false)) {
-          List<File> files = driveInvoker.findFolder("org.tasks");
-          File folder = files.isEmpty()
-              ? driveInvoker.createFolder("org.tasks")
-              : files.get(0);
-          driveInvoker.createFile(MIME, folder.getId(), FileHelper.getFilename(context, uri), uri);
-        }
+        workManager.scheduleDriveUpload(uri);
       }
 
       if (exportType == ExportType.EXPORT_TYPE_MANUAL) {

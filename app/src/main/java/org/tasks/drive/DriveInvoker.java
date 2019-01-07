@@ -16,6 +16,7 @@ import com.google.api.services.drive.model.File;
 
 import org.tasks.BuildConfig;
 import org.tasks.R;
+import org.tasks.files.FileHelper;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 
@@ -28,6 +29,8 @@ import javax.inject.Inject;
 import timber.log.Timber;
 
 public class DriveInvoker {
+
+  private static final String MIME_FOLDER = "application/vnd.google-apps.folder";
 
   private final Drive service;
   private final Context context;
@@ -51,8 +54,19 @@ public class DriveInvoker {
     }
   }
 
-  public List<File> findFolder(String name) throws IOException {
-    String query = String.format("name='%s'", name);
+  public File getFile(String folderId) throws IOException {
+    return execute(service.files().get(folderId).setFields("id, trashed"));
+  }
+
+  public void delete(File file) throws IOException {
+    execute(service.files().delete(file.getId()));
+  }
+
+  public List<File> getFilesByPrefix(String folderId, String prefix) throws IOException {
+    String query =
+        String.format(
+            "'%s' in parents and name contains '%s' and trashed = false and mimeType != '%s'",
+            folderId, prefix, MIME_FOLDER);
     return execute(service.files().list().setQ(query).setSpaces("drive")).getFiles();
   }
 
@@ -64,11 +78,12 @@ public class DriveInvoker {
     return execute(service.files().create(folder).setFields("id"));
   }
 
-  public void createFile(String mime, String parent, String name, Uri uri) throws IOException {
+  public void createFile(String folderId, Uri uri) throws IOException {
+    String mime = FileHelper.getMimeType(context, uri);
     File metadata = new File()
-        .setParents(Collections.singletonList(parent))
+        .setParents(Collections.singletonList(folderId))
         .setMimeType(mime)
-        .setName(name);
+        .setName(FileHelper.getFilename(context, uri));
     InputStreamContent content =
         new InputStreamContent(mime, context.getContentResolver().openInputStream(uri));
     execute(service.files().create(metadata, content));

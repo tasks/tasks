@@ -134,15 +134,18 @@ public class FileHelper {
     return null;
   }
 
+  public static String getMimeType(Context context, Uri uri) {
+    String filename = getFilename(context, uri);
+    String extension = Files.getFileExtension(filename);
+    return MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+  }
+
   public static void startActionView(Activity context, Uri uri) {
     if (uri == null) {
       return;
     }
 
-    MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
-    String filename = getFilename(context, uri);
-    String extension = Files.getFileExtension(filename);
-    String mimeType = mimeTypeMap.getMimeTypeFromExtension(extension);
+    String mimeType = getMimeType(context, uri);
     Intent intent = new Intent(Intent.ACTION_VIEW);
     if (uri.getScheme().equals(ContentResolver.SCHEME_CONTENT)) {
       uri = copyToUri(context, Uri.fromFile(context.getCacheDir()), uri);
