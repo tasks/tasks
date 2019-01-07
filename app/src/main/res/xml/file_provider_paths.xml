@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <paths>
-    <root-path
-        name="root"
+    <external-path
+        name="external"
         path="." />
-    <cache-path
-        name="cache"
+    <external-cache-path
+        name="external_cache"
         path="." />
 </paths>

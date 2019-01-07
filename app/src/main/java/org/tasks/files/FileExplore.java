@@ -2,11 +2,13 @@ package org.tasks.files;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 
 import com.google.common.base.Strings;
 import com.nononsenseapps.filepicker.FilePickerActivity;
+import com.nononsenseapps.filepicker.Utils;
 
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
@@ -67,7 +69,8 @@ public class FileExplore extends InjectingAppCompatActivity {
     if (requestCode == REQUEST_PICKER) {
       if (resultCode == Activity.RESULT_OK) {
         Intent intent = new Intent();
-        intent.setData(data.getData());
+        File file = Utils.getFileForUri(data.getData());
+        intent.setData(Uri.fromFile(file));
         setResult(Activity.RESULT_OK, intent);
       }
       finish();

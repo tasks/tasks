@@ -58,10 +58,10 @@ public class CameraActivity extends InjectingAppCompatActivity {
         throw new RuntimeException("Invalid Uri");
       }
       final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-      intent.putExtra(
-          MediaStore.EXTRA_OUTPUT,
+      Uri shared =
           FileProvider.getUriForFile(
-              this, Constants.FILE_PROVIDER_AUTHORITY, new File(uri.getPath())));
+              this, Constants.FILE_PROVIDER_AUTHORITY, new File(uri.getPath()));
+      intent.putExtra(MediaStore.EXTRA_OUTPUT, shared);
       if (atLeastLollipop()) {
         intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
       } else {
@@ -69,9 +69,7 @@ public class CameraActivity extends InjectingAppCompatActivity {
             getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
         for (ResolveInfo resolveInfo : resolveInfoList) {
           grantUriPermission(
-              resolveInfo.activityInfo.packageName,
-              uri,
-              Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+              resolveInfo.activityInfo.packageName, shared, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         }
       }
 

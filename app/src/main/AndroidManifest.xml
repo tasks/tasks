@@ -228,6 +228,16 @@
       android:authorities="${applicationId}.provider"
       android:exported="false"
       android:grantUriPermissions="true"
+      android:name="org.tasks.files.NNFileProvider">
+      <meta-data
+        android:name="android.support.FILE_PROVIDER_PATHS"
+        android:resource="@xml/nnf_provider_paths"/>
+    </provider>
+
+    <provider
+      android:authorities="${applicationId}.file_provider"
+      android:exported="false"
+      android:grantUriPermissions="true"
       android:name="androidx.core.content.FileProvider">
       <meta-data
         android:name="android.support.FILE_PROVIDER_PATHS"

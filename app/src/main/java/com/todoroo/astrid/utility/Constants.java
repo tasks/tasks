@@ -9,7 +9,7 @@ import org.tasks.BuildConfig;
 
 public final class Constants {
 
-  public static final String FILE_PROVIDER_AUTHORITY = BuildConfig.APPLICATION_ID + ".provider";
+  public static final String FILE_PROVIDER_AUTHORITY = BuildConfig.APPLICATION_ID + ".file_provider";
 
   /** Notification Manager id for timing */
   public static final int NOTIFICATION_TIMER = -2;

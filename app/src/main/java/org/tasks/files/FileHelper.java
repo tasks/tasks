@@ -56,9 +56,7 @@ public class FileHelper {
     } else {
       Intent intent = new Intent(activity, FileExplore.class);
       if (initial != null) {
-        intent.putExtra(
-            FileExplore.EXTRA_START_PATH,
-            new File(initial.getPath()));
+        intent.putExtra(FileExplore.EXTRA_START_PATH, initial.getPath());
       }
       return intent;
     }
@@ -78,9 +76,7 @@ public class FileHelper {
       Intent intent = new Intent(activity, FileExplore.class);
       intent.putExtra(FileExplore.EXTRA_DIRECTORY_MODE, true);
       if (initial != null) {
-        intent.putExtra(
-            FileExplore.EXTRA_START_PATH,
-            new File(initial.getPath()));
+        intent.putExtra(FileExplore.EXTRA_START_PATH, initial.getPath());
       }
       activity.startActivityForResult(intent, rc);
     }

@@ -418,7 +418,7 @@ public class Preferences {
     if (atLeastKitKat()) {
       return DocumentFile.fromFile(context.getExternalCacheDir()).getUri();
     } else {
-      return Uri.fromFile(context.getCacheDir());
+      return Uri.fromFile(context.getExternalCacheDir());
     }
   }
 
