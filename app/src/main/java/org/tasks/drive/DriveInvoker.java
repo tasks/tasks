@@ -67,7 +67,14 @@ public class DriveInvoker {
         String.format(
             "'%s' in parents and name contains '%s' and trashed = false and mimeType != '%s'",
             folderId, prefix, MIME_FOLDER);
-    return execute(service.files().list().setQ(query).setSpaces("drive")).getFiles();
+    return execute(
+            service
+                .files()
+                .list()
+                .setQ(query)
+                .setSpaces("drive")
+                .setFields("files(id, modifiedTime)"))
+        .getFiles();
   }
 
   public File createFolder(String name) throws IOException {

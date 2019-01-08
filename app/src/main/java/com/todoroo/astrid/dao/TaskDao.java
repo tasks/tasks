@@ -5,12 +5,8 @@
  */
 package com.todoroo.astrid.dao;
 
-import static com.todoroo.andlib.utility.DateUtilities.now;
-
 import android.database.Cursor;
-import androidx.room.Dao;
-import androidx.room.Insert;
-import androidx.room.Update;
+
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
@@ -19,11 +15,19 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.UUIDHelper;
-import java.util.ArrayList;
-import java.util.List;
+
 import org.tasks.BuildConfig;
 import org.tasks.jobs.WorkManager;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import androidx.room.Dao;
+import androidx.room.Insert;
+import androidx.room.Update;
 import timber.log.Timber;
+
+import static com.todoroo.andlib.utility.DateUtilities.now;
 
 @Dao
 public abstract class TaskDao {

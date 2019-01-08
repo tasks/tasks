@@ -20,6 +20,7 @@ import androidx.work.Worker;
 import com.google.common.primitives.Longs;
 import com.todoroo.astrid.data.Task;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -149,16 +150,18 @@ public class WorkManager {
         Math.min(newDateTime(lastBackup).plusDays(1).getMillis(), midnight()));
   }
 
-  public void scheduleDriveUpload(Uri uri) {
+  public void scheduleDriveUpload(Uri uri, boolean purge) {
     if (!preferences.getBoolean(R.string.p_google_drive_backup, false)) {
       return;
     }
 
-    workManager.enqueue(
-        new Builder(DriveUploader.class)
-            .setInputData(DriveUploader.getInputData(uri))
-            .setConstraints(getNetworkConstraints())
-            .build());
+    Builder builder = new Builder(DriveUploader.class)
+        .setInputData(DriveUploader.getInputData(uri, purge))
+        .setConstraints(getNetworkConstraints());
+    if (purge) {
+      builder.setInitialDelay(new Random().nextInt(3600), TimeUnit.SECONDS);
+    }
+    workManager.enqueue(builder.build());
   }
 
   private Constraints getNetworkConstraints() {

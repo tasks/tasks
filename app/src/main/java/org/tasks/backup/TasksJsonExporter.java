@@ -153,7 +153,7 @@ public class TasksJsonExporter {
         OutputStream os = context.getContentResolver().openOutputStream(uri);
         doTasksExport(os, tasks);
         os.close();
-        workManager.scheduleDriveUpload(uri);
+        workManager.scheduleDriveUpload(uri, exportType == ExportType.EXPORT_TYPE_SERVICE);
       }
 
       if (exportType == ExportType.EXPORT_TYPE_MANUAL) {
