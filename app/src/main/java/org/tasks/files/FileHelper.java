@@ -1,5 +1,6 @@
 package org.tasks.files;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -8,13 +9,13 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.OpenableColumns;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
 import com.google.common.io.ByteStreams;
 import com.google.common.io.Files;
-import com.todoroo.astrid.utility.Constants;
 
 import org.tasks.R;
 
@@ -29,21 +30,25 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import androidx.documentfile.provider.DocumentFile;
+import timber.log.Timber;
 
+import static android.content.ContentResolver.SCHEME_CONTENT;
+import static android.provider.DocumentsContract.EXTRA_INITIAL_URI;
 import static androidx.core.content.FileProvider.getUriForFile;
 import static com.google.common.collect.Iterables.any;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastKitKat;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
+import static com.todoroo.andlib.utility.AndroidUtilities.preLollipop;
+import static com.todoroo.astrid.utility.Constants.FILE_PROVIDER_AUTHORITY;
 
 public class FileHelper {
 
   public static Intent newFilePickerIntent(Activity activity, Uri initial, String... mimeTypes) {
     if (atLeastKitKat()) {
       Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+      intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
       intent.addCategory(Intent.CATEGORY_OPENABLE);
-      if (initial != null) {
-        intent.setData(initial);
-      }
+      setInitialUri(activity, intent, initial);
       if (mimeTypes.length == 1) {
         intent.setType(mimeTypes[0]);
       } else {
@@ -71,6 +76,7 @@ public class FileHelper {
               | Intent.FLAG_GRANT_READ_URI_PERMISSION
               | Intent.FLAG_GRANT_PREFIX_URI_PERMISSION);
       intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
+      setInitialUri(activity, intent, initial);
       activity.startActivityForResult(intent, rc);
     } else {
       Intent intent = new Intent(activity, FileExplore.class);
@@ -79,6 +85,19 @@ public class FileHelper {
         intent.putExtra(FileExplore.EXTRA_START_PATH, initial.getPath());
       }
       activity.startActivityForResult(intent, rc);
+    }
+  }
+
+  @TargetApi(Build.VERSION_CODES.O)
+  private static void setInitialUri(Context context, Intent intent, Uri uri) {
+    if (uri == null || preLollipop() || !uri.getScheme().equals(SCHEME_CONTENT)) {
+      return;
+    }
+
+    try {
+      intent.putExtra(EXTRA_INITIAL_URI, DocumentFile.fromTreeUri(context, uri).getUri());
+    } catch (Exception e) {
+      Timber.e(e);
     }
   }
 
@@ -116,7 +135,7 @@ public class FileHelper {
     switch (uri.getScheme()) {
       case ContentResolver.SCHEME_FILE:
         return uri.getLastPathSegment();
-      case ContentResolver.SCHEME_CONTENT:
+      case SCHEME_CONTENT:
         Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
           try {
@@ -143,10 +162,10 @@ public class FileHelper {
 
     String mimeType = getMimeType(context, uri);
     Intent intent = new Intent(Intent.ACTION_VIEW);
-    if (uri.getScheme().equals(ContentResolver.SCHEME_CONTENT)) {
-      uri = copyToUri(context, Uri.fromFile(context.getCacheDir()), uri);
+    if (uri.getScheme().equals(SCHEME_CONTENT)) {
+      uri = copyToUri(context, Uri.fromFile(context.getExternalCacheDir()), uri);
     }
-    Uri share = getUriForFile(context, Constants.FILE_PROVIDER_AUTHORITY, new File(uri.getPath()));
+    Uri share = getUriForFile(context, FILE_PROVIDER_AUTHORITY, new File(uri.getPath()));
     intent.setDataAndType(share, mimeType);
     grantReadPermissions(context, intent, share);
     PackageManager packageManager = context.getPackageManager();
@@ -225,7 +244,7 @@ public class FileHelper {
     }
     String tempName = baseName;
     switch (uri.getScheme()) {
-      case ContentResolver.SCHEME_CONTENT:
+      case SCHEME_CONTENT:
         DocumentFile dir = DocumentFile.fromTreeUri(context, uri);
         List<DocumentFile> documentFiles = Arrays.asList(dir.listFiles());
         while (true) {
