@@ -1,5 +1,24 @@
 package com.todoroo.astrid.gtasks;
 
+import com.google.api.client.util.DateTime;
+import com.google.api.services.tasks.model.TaskList;
+import com.todoroo.astrid.service.TaskDeleter;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.tasks.LocalBroadcastManager;
+import org.tasks.data.GoogleTaskAccount;
+import org.tasks.data.GoogleTaskList;
+import org.tasks.data.GoogleTaskListDao;
+import org.tasks.injection.InjectingTestCase;
+import org.tasks.injection.TestComponent;
+import org.tasks.jobs.WorkManager;
+import org.tasks.makers.RemoteGtaskListMaker;
+
+import javax.inject.Inject;
+
+import androidx.test.runner.AndroidJUnit4;
+
 import static com.natpryce.makeiteasy.MakeItEasy.with;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
@@ -13,31 +32,11 @@ import static org.tasks.makers.GtaskListMaker.newGtaskList;
 import static org.tasks.makers.RemoteGtaskListMaker.newRemoteList;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
-import androidx.test.runner.AndroidJUnit4;
-import com.google.api.client.util.DateTime;
-import com.google.api.services.tasks.model.TaskList;
-import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.service.TaskDeleter;
-import javax.inject.Inject;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.tasks.LocalBroadcastManager;
-import org.tasks.data.GoogleTaskAccount;
-import org.tasks.data.GoogleTaskDao;
-import org.tasks.data.GoogleTaskList;
-import org.tasks.data.GoogleTaskListDao;
-import org.tasks.injection.InjectingTestCase;
-import org.tasks.injection.TestComponent;
-import org.tasks.jobs.WorkManager;
-import org.tasks.makers.RemoteGtaskListMaker;
-
 @RunWith(AndroidJUnit4.class)
 public class GtasksListServiceTest extends InjectingTestCase {
 
   @Inject TaskDeleter taskDeleter;
   @Inject LocalBroadcastManager localBroadcastManager;
-  @Inject GoogleTaskDao googleTaskDao;
-  @Inject TaskDao taskDao;
   @Inject WorkManager workManager;
 
   @Inject GoogleTaskListDao googleTaskListDao;
@@ -49,7 +48,7 @@ public class GtasksListServiceTest extends InjectingTestCase {
     workManager.init();
     gtasksListService =
         new GtasksListService(
-            googleTaskListDao, taskDeleter, localBroadcastManager, googleTaskDao, taskDao);
+            googleTaskListDao, taskDeleter, localBroadcastManager);
   }
 
   @Override
