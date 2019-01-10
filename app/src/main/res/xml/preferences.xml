@@ -66,6 +66,7 @@
   </PreferenceCategory>
 
   <PreferenceCategory
+    android:key="@string/backup_BPr_header"
     android:title="@string/backup_BPr_header">
 
     <Preference
@@ -111,6 +112,7 @@
   </PreferenceCategory>
 
   <PreferenceCategory
+    android:key="@string/about"
     android:title="@string/about">
 
     <Preference

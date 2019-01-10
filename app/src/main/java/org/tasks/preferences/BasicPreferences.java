@@ -201,7 +201,8 @@ public class BasicPreferences extends InjectingPreferenceActivity
 
     //noinspection ConstantConditions
     if (!BuildConfig.FLAVOR.equals("googleplay")) {
-      remove(R.string.p_google_drive_backup);
+      requires(R.string.backup_BPr_header, false, R.string.p_google_drive_backup);
+      requires(R.string.about, false, R.string.rate_tasks);
       requires(R.string.privacy, false, R.string.p_collect_statistics);
     }
   }
