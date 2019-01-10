@@ -61,14 +61,13 @@ public class AlarmService {
     boolean changed = false;
 
     for (Alarm item : alarmDao.getAlarms(taskId)) {
-      if (!timestamps.contains(item.getTime())) {
+      if (!timestamps.remove(item.getTime())) {
         jobs.cancelAlarm(item.getId());
         alarmDao.delete(item);
         changed = true;
       }
     }
 
-    // everything that remains shall be written
     for (Long timestamp : timestamps) {
       alarmDao.insert(new Alarm(taskId, timestamp));
       changed = true;

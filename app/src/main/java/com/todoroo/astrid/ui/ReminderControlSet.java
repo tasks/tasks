@@ -224,8 +224,9 @@ public class ReminderControlSet extends TaskEditControlFragment {
   }
 
   private void addAlarmRow(final Long timestamp) {
-    addAlarmRow(getLongDateStringWithTime(context, timestamp), v -> alarms.remove(timestamp));
-    alarms.add(timestamp);
+    if (alarms.add(timestamp)) {
+      addAlarmRow(getLongDateStringWithTime(context, timestamp), v -> alarms.remove(timestamp));
+    }
   }
 
   private int getFlags() {
