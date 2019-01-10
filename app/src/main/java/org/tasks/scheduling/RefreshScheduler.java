@@ -1,14 +1,19 @@
 package org.tasks.scheduling;
 
-import static com.todoroo.andlib.utility.DateUtilities.ONE_MINUTE;
-import static org.tasks.time.DateTimeUtils.currentTimeMillis;
-
+import com.google.common.collect.ImmutableList;
 import com.todoroo.astrid.data.Task;
-import java.util.SortedSet;
-import java.util.TreeSet;
-import javax.inject.Inject;
+
 import org.tasks.injection.ApplicationScope;
 import org.tasks.jobs.WorkManager;
+
+import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+import javax.inject.Inject;
+
+import static com.todoroo.andlib.utility.DateUtilities.ONE_MINUTE;
+import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 @ApplicationScope
 public class RefreshScheduler {
@@ -45,7 +50,7 @@ public class RefreshScheduler {
   }
 
   public synchronized void scheduleNext() {
-    SortedSet<Long> lapsed = jobs.headSet(currentTimeMillis() + 1);
+    List<Long> lapsed = ImmutableList.copyOf(jobs.headSet(currentTimeMillis() + 1));
     jobs.removeAll(lapsed);
     if (!jobs.isEmpty()) {
       workManager.scheduleRefresh(jobs.first());
