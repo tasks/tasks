@@ -1,5 +1,6 @@
 package org.tasks.caldav;
 
+import static com.todoroo.andlib.utility.DateUtilities.now;
 import static com.todoroo.astrid.data.Task.URGENCY_SPECIFIC_DAY;
 import static com.todoroo.astrid.data.Task.URGENCY_SPECIFIC_DAY_TIME;
 import static org.tasks.date.DateTimeUtils.newDateTime;
@@ -29,7 +30,13 @@ public class CaldavConverter {
   public static void apply(Task local, at.bitfire.ical4android.Task remote) {
     Completed completedAt = remote.getCompletedAt();
     if (completedAt == null) {
-      local.setCompletionDate(0L);
+      if (remote.getStatus() == Status.VTODO_COMPLETED) {
+        if (!local.isCompleted()) {
+          local.setCompletionDate(now());
+        }
+      } else {
+        local.setCompletionDate(0L);
+      }
     } else {
       local.setCompletionDate(remote.getCompletedAt().getDate().getTime());
     }

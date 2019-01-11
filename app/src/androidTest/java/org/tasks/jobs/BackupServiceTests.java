@@ -5,6 +5,8 @@
  */
 package org.tasks.jobs;
 
+import android.net.Uri;
+
 import static androidx.test.InstrumentationRegistry.getTargetContext;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
@@ -52,7 +54,7 @@ public class BackupServiceTests extends InjectingTestCase {
           "Could not create temp directory: " + temporaryDirectory.getAbsolutePath());
     }
 
-    preferences.setString(R.string.p_backup_dir, temporaryDirectory.getAbsolutePath());
+    preferences.setUri(R.string.p_backup_dir, Uri.fromFile(temporaryDirectory));
 
     // make a temporary task
     Task task = new Task();
