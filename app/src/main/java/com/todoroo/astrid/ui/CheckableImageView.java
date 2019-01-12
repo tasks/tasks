@@ -3,13 +3,14 @@
  *
  * <p>See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.astrid.ui;
 
 import android.content.Context;
-import androidx.appcompat.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.ViewDebug;
 import android.widget.Checkable;
+import androidx.appcompat.widget.AppCompatImageView;
 
 public class CheckableImageView extends AppCompatImageView implements Checkable {
 

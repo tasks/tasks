@@ -1,11 +1,10 @@
 package org.tasks.injection;
 
-import org.junit.Before;
-
-import timber.log.Timber;
-
 import static androidx.test.InstrumentationRegistry.getTargetContext;
 import static org.tasks.TestUtilities.initializeMockito;
+
+import org.junit.Before;
+import timber.log.Timber;
 
 public abstract class InjectingTestCase {
 

@@ -1,21 +1,17 @@
 package org.tasks.gtasks;
 
-import android.accounts.Account;
-import android.content.Context;
-
-import com.google.common.base.Strings;
-
-import org.tasks.injection.ForApplication;
-import org.tasks.preferences.PermissionChecker;
-
-import java.util.Collections;
-import java.util.List;
-
-import javax.inject.Inject;
-
 import static com.google.common.collect.Iterables.tryFind;
 import static com.google.common.collect.Lists.transform;
 import static java.util.Arrays.asList;
+
+import android.accounts.Account;
+import android.content.Context;
+import com.google.common.base.Strings;
+import java.util.Collections;
+import java.util.List;
+import javax.inject.Inject;
+import org.tasks.injection.ForApplication;
+import org.tasks.preferences.PermissionChecker;
 
 public class GoogleAccountManager {
 

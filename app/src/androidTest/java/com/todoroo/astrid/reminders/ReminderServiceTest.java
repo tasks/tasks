@@ -1,29 +1,5 @@
 package com.todoroo.astrid.reminders;
 
-import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.data.Task;
-
-import org.junit.After;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InOrder;
-import org.tasks.R;
-import org.tasks.Snippet;
-import org.tasks.injection.InjectingTestCase;
-import org.tasks.injection.TestComponent;
-import org.tasks.jobs.NotificationQueue;
-import org.tasks.jobs.ReminderEntry;
-import org.tasks.jobs.WorkManager;
-import org.tasks.preferences.Preferences;
-import org.tasks.reminders.Random;
-import org.tasks.time.DateTime;
-
-import java.util.concurrent.TimeUnit;
-
-import javax.inject.Inject;
-
-import androidx.test.runner.AndroidJUnit4;
-
 import static com.natpryce.makeiteasy.MakeItEasy.with;
 import static com.todoroo.andlib.utility.DateUtilities.ONE_HOUR;
 import static com.todoroo.andlib.utility.DateUtilities.ONE_WEEK;
@@ -47,6 +23,26 @@ import static org.tasks.makers.TaskMaker.REMINDERS;
 import static org.tasks.makers.TaskMaker.REMINDER_LAST;
 import static org.tasks.makers.TaskMaker.SNOOZE_TIME;
 import static org.tasks.makers.TaskMaker.newTask;
+
+import androidx.test.runner.AndroidJUnit4;
+import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.data.Task;
+import java.util.concurrent.TimeUnit;
+import javax.inject.Inject;
+import org.junit.After;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InOrder;
+import org.tasks.R;
+import org.tasks.Snippet;
+import org.tasks.injection.InjectingTestCase;
+import org.tasks.injection.TestComponent;
+import org.tasks.jobs.NotificationQueue;
+import org.tasks.jobs.ReminderEntry;
+import org.tasks.jobs.WorkManager;
+import org.tasks.preferences.Preferences;
+import org.tasks.reminders.Random;
+import org.tasks.time.DateTime;
 
 @RunWith(AndroidJUnit4.class)
 public class ReminderServiceTest extends InjectingTestCase {

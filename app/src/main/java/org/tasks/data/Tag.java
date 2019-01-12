@@ -1,10 +1,10 @@
 package org.tasks.data;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
-import androidx.annotation.NonNull;
 import com.todoroo.andlib.data.Table;
 import org.tasks.backup.XmlReader;
 

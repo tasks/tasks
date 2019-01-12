@@ -1,5 +1,7 @@
 package org.tasks.activities;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
+
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -8,24 +10,17 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-
+import androidx.core.content.FileProvider;
 import com.todoroo.astrid.utility.Constants;
-
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import javax.inject.Inject;
 import org.tasks.files.FileHelper;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.Preferences;
 import org.tasks.time.DateTime;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-
-import javax.inject.Inject;
-
-import androidx.core.content.FileProvider;
-
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 
 public class CameraActivity extends InjectingAppCompatActivity {
 
@@ -86,9 +81,9 @@ public class CameraActivity extends InjectingAppCompatActivity {
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (requestCode == REQUEST_CODE_CAMERA) {
       if (resultCode == RESULT_OK) {
-          Intent intent = new Intent();
-          intent.setData(uri);
-          setResult(RESULT_OK, intent);
+        Intent intent = new Intent();
+        intent.setData(uri);
+        setResult(RESULT_OK, intent);
       }
       finish();
     } else {

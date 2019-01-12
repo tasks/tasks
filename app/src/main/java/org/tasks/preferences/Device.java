@@ -23,14 +23,14 @@ public class Device {
   private final Context context;
   private final Locale locale;
 
-  public static boolean SupportsLocationServices(Context context) {
-    return context.getResources().getBoolean(R.bool.location_enabled);
-  }
-
   @Inject
   public Device(@ForApplication Context context, Locale locale) {
     this.context = context;
     this.locale = locale;
+  }
+
+  public static boolean SupportsLocationServices(Context context) {
+    return context.getResources().getBoolean(R.bool.location_enabled);
   }
 
   public boolean hasCamera() {

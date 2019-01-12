@@ -1,9 +1,9 @@
 package org.tasks.ui;
 
 import android.content.Context;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.todoroo.astrid.utility.Flags;
 
 public class DraggableSwipeRefreshLayout extends SwipeRefreshLayout {

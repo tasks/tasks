@@ -22,7 +22,8 @@ public class LocalBroadcastManager {
   @Inject
   public LocalBroadcastManager(@ForApplication Context context, AppWidgetManager appWidgetManager) {
     this.appWidgetManager = appWidgetManager;
-    localBroadcastManager = androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(context);
+    localBroadcastManager =
+        androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(context);
   }
 
   public void registerRefreshReceiver(BroadcastReceiver broadcastReceiver) {

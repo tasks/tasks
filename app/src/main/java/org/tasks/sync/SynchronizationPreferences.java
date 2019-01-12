@@ -3,6 +3,7 @@
  *
  * <p>See the file "LICENSE" for the full license governing this code.
  */
+
 package org.tasks.sync;
 
 import static java.util.Arrays.asList;

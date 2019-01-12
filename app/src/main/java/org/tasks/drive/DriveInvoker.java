@@ -2,7 +2,6 @@ package org.tasks.drive;
 
 import android.content.Context;
 import android.net.Uri;
-
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.google.api.client.http.InputStreamContent;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -13,19 +12,15 @@ import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveRequest;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
-
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import javax.inject.Inject;
 import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.files.FileHelper;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
-
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-
-import javax.inject.Inject;
-
 import timber.log.Timber;
 
 public class DriveInvoker {
@@ -41,7 +36,7 @@ public class DriveInvoker {
     if (preferences.getBoolean(R.string.p_google_drive_backup, false)) {
       GoogleAccountCredential credential =
           GoogleAccountCredential.usingOAuth2(
-              context, Collections.singletonList(DriveScopes.DRIVE_FILE))
+                  context, Collections.singletonList(DriveScopes.DRIVE_FILE))
               .setBackOff(new ExponentialBackOff.Builder().build())
               .setSelectedAccountName(
                   preferences.getStringValue(R.string.p_google_drive_backup_account));
@@ -78,19 +73,18 @@ public class DriveInvoker {
   }
 
   public File createFolder(String name) throws IOException {
-    File folder = new File()
-        .setName(name)
-        .setMimeType("application/vnd.google-apps.folder");
+    File folder = new File().setName(name).setMimeType("application/vnd.google-apps.folder");
 
     return execute(service.files().create(folder).setFields("id"));
   }
 
   public void createFile(String folderId, Uri uri) throws IOException {
     String mime = FileHelper.getMimeType(context, uri);
-    File metadata = new File()
-        .setParents(Collections.singletonList(folderId))
-        .setMimeType(mime)
-        .setName(FileHelper.getFilename(context, uri));
+    File metadata =
+        new File()
+            .setParents(Collections.singletonList(folderId))
+            .setMimeType(mime)
+            .setName(FileHelper.getFilename(context, uri));
     InputStreamContent content =
         new InputStreamContent(mime, context.getContentResolver().openInputStream(uri));
     execute(service.files().create(metadata, content));

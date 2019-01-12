@@ -1,5 +1,7 @@
 package org.tasks.fragments;
 
+import static org.tasks.files.ImageHelper.sampleBitmap;
+
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,24 +19,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
-import com.google.common.base.Strings;
-import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.data.Task;
-
-import org.tasks.R;
-import org.tasks.activities.CameraActivity;
-import org.tasks.dialogs.DialogBuilder;
-import org.tasks.injection.FragmentComponent;
-import org.tasks.preferences.Device;
-import org.tasks.preferences.Preferences;
-import org.tasks.ui.TaskEditControlFragment;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
-
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
@@ -43,8 +27,19 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnEditorAction;
 import butterknife.OnTextChanged;
-
-import static org.tasks.files.ImageHelper.sampleBitmap;
+import com.google.common.base.Strings;
+import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.astrid.data.Task;
+import java.util.ArrayList;
+import java.util.List;
+import javax.inject.Inject;
+import org.tasks.R;
+import org.tasks.activities.CameraActivity;
+import org.tasks.dialogs.DialogBuilder;
+import org.tasks.injection.FragmentComponent;
+import org.tasks.preferences.Device;
+import org.tasks.preferences.Preferences;
+import org.tasks.ui.TaskEditControlFragment;
 
 public class CommentBarFragment extends TaskEditControlFragment {
 

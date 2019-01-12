@@ -210,8 +210,10 @@ public class Migrations {
           database.execSQL("ALTER TABLE `locations` ADD COLUMN `address` TEXT");
           database.execSQL("ALTER TABLE `locations` ADD COLUMN `phone` TEXT");
           database.execSQL("ALTER TABLE `locations` ADD COLUMN `url` TEXT");
-          database.execSQL("ALTER TABLE `locations` ADD COLUMN `arrival` INTEGER DEFAULT 1 NOT NULL");
-          database.execSQL("ALTER TABLE `locations` ADD COLUMN `departure` INTEGER DEFAULT 0 NOT NULL");
+          database.execSQL(
+              "ALTER TABLE `locations` ADD COLUMN `arrival` INTEGER DEFAULT 1 NOT NULL");
+          database.execSQL(
+              "ALTER TABLE `locations` ADD COLUMN `departure` INTEGER DEFAULT 0 NOT NULL");
           database.execSQL("ALTER TABLE `notification` ADD COLUMN `location` INTEGER");
         }
       };

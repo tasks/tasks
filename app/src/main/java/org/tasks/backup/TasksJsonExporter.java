@@ -1,12 +1,14 @@
 package org.tasks.backup;
 
+import static org.tasks.date.DateTimeUtils.newDateTime;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
 import android.widget.Toast;
-
+import androidx.annotation.Nullable;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -14,7 +16,14 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.backup.BackupConstants;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.inject.Inject;
 import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.data.AlarmDao;
@@ -31,21 +40,7 @@ import org.tasks.drive.DriveInvoker;
 import org.tasks.files.FileHelper;
 import org.tasks.jobs.WorkManager;
 import org.tasks.preferences.Preferences;
-
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.inject.Inject;
-
-import androidx.annotation.Nullable;
 import timber.log.Timber;
-
-import static org.tasks.date.DateTimeUtils.newDateTime;
 
 public class TasksJsonExporter {
 

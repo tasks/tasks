@@ -3,13 +3,14 @@
  *
  * <p>See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.astrid.ui;
 
 import android.content.Context;
-import androidx.appcompat.widget.AppCompatImageButton;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
+import androidx.appcompat.widget.AppCompatImageButton;
 import org.tasks.R;
 
 /** This class exists purely to cancel long click events. */

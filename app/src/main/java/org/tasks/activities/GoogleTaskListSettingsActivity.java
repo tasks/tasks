@@ -8,17 +8,17 @@ import static org.tasks.gtasks.RenameListDialog.newRenameListDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import com.google.android.material.textfield.TextInputEditText;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.widget.Toolbar;
 import android.text.InputType;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnFocusChange;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.api.services.tasks.model.TaskList;
 import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.api.GtasksFilter;
@@ -105,7 +105,10 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
     toolbar.setTitle(isNewList ? getString(R.string.new_list) : gtasksList.getTitle());
     toolbar.setNavigationIcon(
         ContextCompat.getDrawable(
-            this, backButtonSavesTask ? R.drawable.ic_outline_clear_24px : R.drawable.ic_outline_save_24px));
+            this,
+            backButtonSavesTask
+                ? R.drawable.ic_outline_clear_24px
+                : R.drawable.ic_outline_save_24px));
     toolbar.setNavigationOnClickListener(
         v -> {
           if (backButtonSavesTask) {

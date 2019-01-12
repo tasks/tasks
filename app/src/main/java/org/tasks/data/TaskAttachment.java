@@ -1,16 +1,13 @@
 package org.tasks.data;
 
 import android.net.Uri;
-
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-
 import com.google.common.base.Strings;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Table;
 import com.todoroo.astrid.data.Task;
-
 import java.io.File;
 
 @Entity(tableName = "task_attachments")
@@ -89,6 +86,10 @@ public final class TaskAttachment {
     return uri;
   }
 
+  public void setUri(Uri uri) {
+    setUri(uri == null ? null : uri.toString());
+  }
+
   public void setUri(String uri) {
     this.uri = uri;
   }
@@ -103,10 +104,6 @@ public final class TaskAttachment {
 
   public void convertPathUri() {
     setUri(Uri.fromFile(new File(uri)).toString());
-  }
-
-  public void setUri(Uri uri) {
-    setUri(uri == null ? null : uri.toString());
   }
 
   public Uri parseUri() {

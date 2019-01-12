@@ -3,6 +3,7 @@
  *
  * <p>See the file "LICENSE" for the full license governing this code.
  */
+
 package org.tasks.activities;
 
 import static android.text.TextUtils.isEmpty;
@@ -10,18 +11,18 @@ import static android.text.TextUtils.isEmpty;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.widget.Toolbar;
 import android.text.InputType;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnFocusChange;
 import butterknife.OnTextChanged;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.api.TagFilter;
 import com.todoroo.astrid.helper.UUIDHelper;
@@ -98,7 +99,10 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity
     toolbar.setTitle(isNewTag ? getString(R.string.new_tag) : tagData.getName());
     toolbar.setNavigationIcon(
         ContextCompat.getDrawable(
-            this, backButtonSavesTask ? R.drawable.ic_outline_clear_24px : R.drawable.ic_outline_save_24px));
+            this,
+            backButtonSavesTask
+                ? R.drawable.ic_outline_clear_24px
+                : R.drawable.ic_outline_save_24px));
     toolbar.setNavigationOnClickListener(
         v -> {
           if (backButtonSavesTask) {

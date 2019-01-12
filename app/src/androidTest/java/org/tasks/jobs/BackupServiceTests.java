@@ -3,14 +3,14 @@
  *
  * <p>See the file "LICENSE" for the full license governing this code.
  */
-package org.tasks.jobs;
 
-import android.net.Uri;
+package org.tasks.jobs;
 
 import static androidx.test.InstrumentationRegistry.getTargetContext;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 
+import android.net.Uri;
 import androidx.test.runner.AndroidJUnit4;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;

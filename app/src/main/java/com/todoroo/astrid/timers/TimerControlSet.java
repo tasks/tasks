@@ -3,14 +3,13 @@
  *
  * <p>See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.astrid.timers;
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.SystemClock;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
@@ -20,6 +19,8 @@ import android.view.ViewGroup;
 import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -205,7 +206,7 @@ public class TimerControlSet extends TaskEditControlFragment {
 
   private void updateChronometer() {
     timerButton.setImageResource(
-        timerActive() ? R.drawable.ic_outline_pause_24px: R.drawable.ic_outline_play_arrow_24px);
+        timerActive() ? R.drawable.ic_outline_pause_24px : R.drawable.ic_outline_play_arrow_24px);
 
     long elapsed = this.elapsed.getTimeDurationInSeconds() * 1000L;
     if (timerActive()) {

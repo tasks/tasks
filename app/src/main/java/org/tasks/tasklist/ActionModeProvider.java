@@ -4,10 +4,10 @@ import static com.todoroo.astrid.activity.TaskListFragment.REQUEST_MOVE_TASKS;
 import static org.tasks.activities.RemoteListSupportPicker.newRemoteListSupportPicker;
 
 import android.content.Context;
-import androidx.appcompat.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import androidx.appcompat.view.ActionMode;
 import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;

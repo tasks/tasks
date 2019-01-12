@@ -3,22 +3,23 @@
  *
  * <p>See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.astrid.data;
 
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.text.TextUtils;
+import androidx.annotation.IntDef;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.os.Parcel;
-import android.os.Parcelable;
-import androidx.annotation.IntDef;
-import android.text.TextUtils;
 import com.google.common.base.Strings;
 import com.google.ical.values.RRule;
 import com.todoroo.andlib.data.Property;

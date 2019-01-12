@@ -1,14 +1,12 @@
 package org.tasks.gtasks;
 
 import android.app.Activity;
-
+import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.data.GoogleTaskListDao;
 import org.tasks.preferences.Preferences;
-
-import javax.inject.Inject;
 
 public class GtaskSyncAdapterHelper {
 

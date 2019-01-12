@@ -1,39 +1,35 @@
 package org.tasks.jobs;
 
-import android.content.Context;
-import android.net.Uri;
-
-import com.google.common.base.Predicate;
-
-import org.tasks.R;
-import org.tasks.backup.TasksJsonExporter;
-import org.tasks.drive.DriveInvoker;
-import org.tasks.injection.ForApplication;
-import org.tasks.injection.JobComponent;
-import org.tasks.preferences.Preferences;
-
-import java.io.File;
-import java.io.FileFilter;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
-import javax.inject.Inject;
-
-import androidx.annotation.NonNull;
-import androidx.documentfile.provider.DocumentFile;
-import androidx.work.WorkerParameters;
-import timber.log.Timber;
-
 import static com.google.common.collect.Iterables.filter;
 import static com.google.common.collect.Iterables.skip;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.todoroo.andlib.utility.DateUtilities.now;
 import static java.util.Collections.emptyList;
 
+import android.content.Context;
+import android.net.Uri;
+import androidx.annotation.NonNull;
+import androidx.documentfile.provider.DocumentFile;
+import androidx.work.WorkerParameters;
+import com.google.common.base.Predicate;
+import java.io.File;
+import java.io.FileFilter;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import javax.inject.Inject;
+import org.tasks.R;
+import org.tasks.backup.TasksJsonExporter;
+import org.tasks.drive.DriveInvoker;
+import org.tasks.injection.ForApplication;
+import org.tasks.injection.JobComponent;
+import org.tasks.preferences.Preferences;
+import timber.log.Timber;
+
 public class BackupWork extends RepeatingWorker {
 
+  public static final int DAYS_TO_KEEP_BACKUP = 7;
   static final String BACKUP_FILE_NAME_REGEX = "auto\\.[-\\d]+\\.json";
   static final Predicate<String> FILENAME_FILTER = f -> f.matches(BACKUP_FILE_NAME_REGEX);
   static final FileFilter FILE_FILTER = f -> FILENAME_FILTER.apply(f.getName());
@@ -41,9 +37,6 @@ public class BackupWork extends RepeatingWorker {
       (f1, f2) -> Long.compare(f2.lastModified(), f1.lastModified());
   private static final Comparator<DocumentFile> DOCUMENT_FILE_COMPARATOR =
       (d1, d2) -> Long.compare(d2.lastModified(), d1.lastModified());
-
-  public static final int DAYS_TO_KEEP_BACKUP = 7;
-
   @Inject @ForApplication Context context;
   @Inject TasksJsonExporter tasksJsonExporter;
   @Inject Preferences preferences;
@@ -52,18 +45,6 @@ public class BackupWork extends RepeatingWorker {
 
   public BackupWork(@NonNull Context context, @NonNull WorkerParameters workerParams) {
     super(context, workerParams);
-  }
-
-  @Override
-  protected Result run() {
-    startBackup(context);
-    preferences.setLong(R.string.p_last_backup, now());
-    return Result.SUCCESS;
-  }
-
-  @Override
-  protected void scheduleNext() {
-    workManager.scheduleBackup();
   }
 
   static List<File> getDeleteList(File[] fileArray, int keepNewest) {
@@ -85,6 +66,18 @@ public class BackupWork extends RepeatingWorker {
     files = newArrayList(filter(files, file -> FILENAME_FILTER.apply(file.getName())));
     Collections.sort(files, DOCUMENT_FILE_COMPARATOR);
     return newArrayList(skip(files, DAYS_TO_KEEP_BACKUP));
+  }
+
+  @Override
+  protected Result run() {
+    startBackup(context);
+    preferences.setLong(R.string.p_last_backup, now());
+    return Result.SUCCESS;
+  }
+
+  @Override
+  protected void scheduleNext() {
+    workManager.scheduleBackup();
   }
 
   @Override

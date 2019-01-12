@@ -3,6 +3,7 @@
  *
  * <p>See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.astrid.tags;
 
 import static com.google.common.base.Predicates.notNull;
@@ -72,27 +73,6 @@ public final class TagsControlSet extends TaskEditControlFragment {
   private static final String EXTRA_NEW_TAGS = "extra_new_tags";
   private static final String EXTRA_ORIGINAL_TAGS = "extra_original_tags";
   private static final String EXTRA_SELECTED_TAGS = "extra_selected_tags";
-
-  @Inject TagDao tagDao;
-  @Inject TagDataDao tagDataDao;
-  @Inject TagService tagService;
-  @Inject DialogBuilder dialogBuilder;
-  @Inject ThemeCache themeCache;
-  @Inject ChipProvider chipProvider;
-
-  @BindView(R.id.no_tags)
-  TextView tagsDisplay;
-
-  @BindView(R.id.chip_group)
-  ChipGroup chipGroup;
-
-  private LinearLayout newTagLayout;
-  private ListView tagListView;
-  private View dialogView;
-  private AlertDialog dialog;
-  private List<TagData> allTags;
-  private ArrayList<TagData> originalTags;
-  private ArrayList<TagData> selectedTags;
   private final Ordering<TagData> orderByName =
       new Ordering<TagData>() {
         @Override
@@ -100,6 +80,23 @@ public final class TagsControlSet extends TaskEditControlFragment {
           return left.getName().compareTo(right.getName());
         }
       };
+  @Inject TagDao tagDao;
+  @Inject TagDataDao tagDataDao;
+  @Inject TagService tagService;
+  @Inject DialogBuilder dialogBuilder;
+  @Inject ThemeCache themeCache;
+  @Inject ChipProvider chipProvider;
+  @BindView(R.id.no_tags)
+  TextView tagsDisplay;
+  @BindView(R.id.chip_group)
+  ChipGroup chipGroup;
+  private LinearLayout newTagLayout;
+  private ListView tagListView;
+  private View dialogView;
+  private AlertDialog dialog;
+  private List<TagData> allTags;
+  private ArrayList<TagData> originalTags;
+  private ArrayList<TagData> selectedTags;
 
   @Nullable
   @Override
@@ -136,7 +133,8 @@ public final class TagsControlSet extends TaskEditControlFragment {
             ThemeColor themeColor =
                 themeCache.getThemeColor(tagData.getColor() >= 0 ? tagData.getColor() : 19);
             view.setText(tagData.getName());
-            Drawable original = ContextCompat.getDrawable(getContext(), R.drawable.ic_outline_label_24px);
+            Drawable original =
+                ContextCompat.getDrawable(getContext(), R.drawable.ic_outline_label_24px);
             Drawable wrapped = DrawableCompat.wrap(original.mutate());
             DrawableCompat.setTint(wrapped, themeColor.getPrimaryColor());
             if (atLeastJellybeanMR1()) {

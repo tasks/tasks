@@ -1,14 +1,14 @@
 package org.tasks.tasklist;
 
+import android.os.Bundle;
+import android.view.ViewGroup;
+import androidx.appcompat.view.ActionMode;
 import androidx.paging.AsyncPagedListDiffer;
 import androidx.paging.PagedList;
-import android.os.Bundle;
 import androidx.recyclerview.widget.AsyncDifferConfig;
-import androidx.recyclerview.widget.ListUpdateCallback;
-import androidx.appcompat.view.ActionMode;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.ItemTouchHelper;
-import android.view.ViewGroup;
+import androidx.recyclerview.widget.ListUpdateCallback;
+import androidx.recyclerview.widget.RecyclerView;
 import com.google.common.primitives.Longs;
 import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.activity.TaskListFragment;

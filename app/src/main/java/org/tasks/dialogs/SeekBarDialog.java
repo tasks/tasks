@@ -21,8 +21,8 @@ import org.tasks.themes.Theme;
 
 public class SeekBarDialog extends InjectingDialogFragment {
 
-  private static final String EXTRA_LAYOUT = "extra_layout";
   public static final String EXTRA_VALUE = "extra_value";
+  private static final String EXTRA_LAYOUT = "extra_layout";
   private static final String EXTRA_MIN = "extra_min";
   private static final String EXTRA_MAX = "extra_max";
 

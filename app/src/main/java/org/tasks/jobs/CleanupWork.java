@@ -1,11 +1,12 @@
 package org.tasks.jobs;
 
 import android.content.Context;
-
+import androidx.annotation.NonNull;
+import androidx.work.WorkerParameters;
 import com.todoroo.astrid.alarms.AlarmService;
 import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.timers.TimerPlugin;
-
+import javax.inject.Inject;
 import org.tasks.data.TaskAttachment;
 import org.tasks.data.TaskAttachmentDao;
 import org.tasks.data.UserActivity;
@@ -15,17 +16,12 @@ import org.tasks.injection.InjectingWorker;
 import org.tasks.injection.JobComponent;
 import org.tasks.location.GeofenceService;
 import org.tasks.notifications.NotificationManager;
-
-import javax.inject.Inject;
-
-import androidx.annotation.NonNull;
-import androidx.work.WorkerParameters;
 import timber.log.Timber;
 
 public class CleanupWork extends InjectingWorker {
 
   static final String EXTRA_TASK_IDS = "extra_task_ids";
-
+  private final Context context;
   @Inject NotificationManager notificationManager;
   @Inject GeofenceService geofenceService;
   @Inject TimerPlugin timerPlugin;
@@ -33,8 +29,6 @@ public class CleanupWork extends InjectingWorker {
   @Inject AlarmService alarmService;
   @Inject TaskAttachmentDao taskAttachmentDao;
   @Inject UserActivityDao userActivityDao;
-
-  private final Context context;
 
   public CleanupWork(@NonNull Context context, @NonNull WorkerParameters workerParams) {
     super(context, workerParams);

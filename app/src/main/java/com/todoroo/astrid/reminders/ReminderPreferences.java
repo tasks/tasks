@@ -3,6 +3,7 @@
  *
  * <p>See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.astrid.reminders;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;

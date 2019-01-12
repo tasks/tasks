@@ -1,16 +1,14 @@
 package org.tasks.caldav;
 
+import static junit.framework.Assert.assertTrue;
+import static org.tasks.TestUtilities.vtodo;
+
+import androidx.test.runner.AndroidJUnit4;
+import java.util.TimeZone;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.util.TimeZone;
-
-import androidx.test.runner.AndroidJUnit4;
-
-import static junit.framework.Assert.assertTrue;
-import static org.tasks.TestUtilities.vtodo;
 
 @RunWith(AndroidJUnit4.class)
 public class SynologyTests {

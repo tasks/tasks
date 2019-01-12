@@ -3,10 +3,15 @@
  *
  * <p>See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.astrid.dao;
 
-import android.database.Cursor;
+import static com.todoroo.andlib.utility.DateUtilities.now;
 
+import android.database.Cursor;
+import androidx.room.Dao;
+import androidx.room.Insert;
+import androidx.room.Update;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
@@ -15,19 +20,11 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.UUIDHelper;
-
-import org.tasks.BuildConfig;
-import org.tasks.jobs.WorkManager;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.room.Dao;
-import androidx.room.Insert;
-import androidx.room.Update;
+import org.tasks.BuildConfig;
+import org.tasks.jobs.WorkManager;
 import timber.log.Timber;
-
-import static com.todoroo.andlib.utility.DateUtilities.now;
 
 @Dao
 public abstract class TaskDao {
@@ -60,8 +57,7 @@ public abstract class TaskDao {
   @androidx.room.Query("SELECT * FROM tasks WHERE _id IN (:taskIds)")
   public abstract List<Task> fetch(List<Long> taskIds);
 
-  @androidx.room.Query(
-      "SELECT COUNT(1) FROM tasks WHERE timerStart > 0 AND deleted = 0")
+  @androidx.room.Query("SELECT COUNT(1) FROM tasks WHERE timerStart > 0 AND deleted = 0")
   public abstract int activeTimers();
 
   @androidx.room.Query(
@@ -74,8 +70,7 @@ public abstract class TaskDao {
   @androidx.room.Query("SELECT * FROM tasks WHERE completed = 0 AND deleted = 0")
   abstract List<Task> getActiveTasks();
 
-  @androidx.room.Query(
-      "SELECT * FROM tasks WHERE hideUntil < (strftime('%s','now')*1000)")
+  @androidx.room.Query("SELECT * FROM tasks WHERE hideUntil < (strftime('%s','now')*1000)")
   abstract List<Task> getVisibleTasks();
 
   @androidx.room.Query(
@@ -87,8 +82,7 @@ public abstract class TaskDao {
       "UPDATE tasks SET completed = :completionDate " + "WHERE remoteId = :remoteId")
   public abstract void setCompletionDate(String remoteId, long completionDate);
 
-  @androidx.room.Query(
-      "UPDATE tasks SET snoozeTime = :millis WHERE _id in (:taskIds)")
+  @androidx.room.Query("UPDATE tasks SET snoozeTime = :millis WHERE _id in (:taskIds)")
   public abstract void snooze(List<Long> taskIds, long millis);
 
   @androidx.room.Query(

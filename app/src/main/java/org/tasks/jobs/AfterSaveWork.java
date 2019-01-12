@@ -50,6 +50,10 @@ public class AfterSaveWork extends InjectingWorker {
   @Inject SyncAdapters syncAdapters;
   @Inject WorkManager workManager;
 
+  public AfterSaveWork(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+    super(context, workerParams);
+  }
+
   static Data getInputData(Task current, Task original) {
     boolean suppress = current.checkTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC);
     boolean force = current.checkTransitory(SyncFlags.FORCE_SYNC);
@@ -66,10 +70,6 @@ public class AfterSaveWork extends InjectingWorker {
           .putLong(EXTRA_ORIG_DELETED, original.getDeletionDate());
     }
     return builder.build();
-  }
-
-  public AfterSaveWork(@NonNull Context context, @NonNull WorkerParameters workerParams) {
-    super(context, workerParams);
   }
 
   @Override

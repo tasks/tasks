@@ -3,11 +3,11 @@ package org.tasks.ui;
 import static com.google.common.base.Strings.isNullOrEmpty;
 
 import android.os.Bundle;
-import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.OnTextChanged;
 import com.todoroo.astrid.data.Task;

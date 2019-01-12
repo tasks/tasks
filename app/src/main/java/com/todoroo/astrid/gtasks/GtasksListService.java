@@ -3,26 +3,23 @@
  *
  * <p>See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.astrid.gtasks;
+
+import static com.google.common.collect.Lists.newArrayList;
+import static org.tasks.time.DateTimeUtils.printTimestamp;
 
 import com.google.api.services.tasks.model.TaskList;
 import com.todoroo.astrid.service.TaskDeleter;
-
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.inject.Inject;
-
 import timber.log.Timber;
-
-import static com.google.common.collect.Lists.newArrayList;
-import static org.tasks.time.DateTimeUtils.printTimestamp;
 
 public class GtasksListService {
 

@@ -5,9 +5,9 @@ import static com.google.common.collect.ImmutableList.copyOf;
 
 import android.content.Context;
 import android.content.res.Resources;
-import androidx.appcompat.app.AppCompatDelegate;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
+import androidx.appcompat.app.AppCompatDelegate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;

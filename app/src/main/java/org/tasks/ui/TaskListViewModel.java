@@ -131,7 +131,7 @@ public class TaskListViewModel extends ViewModel {
     return new LimitOffsetDataSource(database, query);
   }
 
-  public void searchByFilter(Filter filter){
+  public void searchByFilter(Filter filter) {
     this.filter = filter;
     invalidate();
   }

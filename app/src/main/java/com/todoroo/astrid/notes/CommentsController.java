@@ -3,7 +3,11 @@
  *
  * <p>See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.astrid.notes;
+
+import static androidx.core.content.ContextCompat.getColor;
+import static org.tasks.files.ImageHelper.sampleBitmap;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -15,22 +19,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
-
+import java.util.ArrayList;
+import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.data.UserActivity;
 import org.tasks.data.UserActivityDao;
 import org.tasks.files.FileHelper;
 import org.tasks.preferences.Preferences;
-
-import java.util.ArrayList;
-
-import javax.inject.Inject;
-
-import static androidx.core.content.ContextCompat.getColor;
-import static org.tasks.files.ImageHelper.sampleBitmap;
 
 public class CommentsController {
 

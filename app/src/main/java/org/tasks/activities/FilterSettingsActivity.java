@@ -3,6 +3,7 @@
  *
  * <p>See the file "LICENSE" for the full license governing this code.
  */
+
 package org.tasks.activities;
 
 import static android.text.TextUtils.isEmpty;
@@ -10,15 +11,15 @@ import static android.text.TextUtils.isEmpty;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnTextChanged;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.todoroo.astrid.api.CustomFilter;
 import javax.inject.Inject;
 import org.tasks.R;
@@ -63,7 +64,10 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity
     final boolean backButtonSavesTask = preferences.backButtonSavesTask();
     toolbar.setNavigationIcon(
         ContextCompat.getDrawable(
-            this, backButtonSavesTask ? R.drawable.ic_outline_clear_24px : R.drawable.ic_outline_save_24px));
+            this,
+            backButtonSavesTask
+                ? R.drawable.ic_outline_clear_24px
+                : R.drawable.ic_outline_save_24px));
     toolbar.setTitle(filter.listingTitle);
     toolbar.setNavigationOnClickListener(
         v -> {

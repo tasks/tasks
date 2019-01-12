@@ -2,8 +2,8 @@ package org.tasks.injection;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
 
-import androidx.room.Room;
 import android.content.Context;
+import androidx.room.Room;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;

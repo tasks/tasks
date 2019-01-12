@@ -1,11 +1,20 @@
 package org.tasks.jobs;
 
+import static com.google.common.collect.Iterables.skip;
+import static com.google.common.collect.Lists.newArrayList;
+
 import android.content.Context;
 import android.net.Uri;
-
+import androidx.annotation.NonNull;
+import androidx.work.Data;
+import androidx.work.WorkerParameters;
 import com.google.api.services.drive.model.File;
 import com.google.common.base.Strings;
-
+import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.drive.DriveInvoker;
@@ -13,20 +22,6 @@ import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingWorker;
 import org.tasks.injection.JobComponent;
 import org.tasks.preferences.Preferences;
-
-import java.io.IOException;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
-import javax.inject.Inject;
-
-import androidx.annotation.NonNull;
-import androidx.work.Data;
-import androidx.work.WorkerParameters;
-
-import static com.google.common.collect.Iterables.skip;
-import static com.google.common.collect.Lists.newArrayList;
 
 public class DriveUploader extends InjectingWorker {
 
@@ -41,6 +36,10 @@ public class DriveUploader extends InjectingWorker {
   @Inject Preferences preferences;
   @Inject Tracker tracker;
 
+  public DriveUploader(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+    super(context, workerParams);
+  }
+
   static Data getInputData(Uri uri, boolean purge) {
     return new Data.Builder()
         .putString(EXTRA_URI, uri.toString())
@@ -48,8 +47,9 @@ public class DriveUploader extends InjectingWorker {
         .build();
   }
 
-  public DriveUploader(@NonNull Context context, @NonNull WorkerParameters workerParams) {
-    super(context, workerParams);
+  private static List<File> getDeleteList(List<File> files) {
+    Collections.sort(files, DRIVE_FILE_COMPARATOR);
+    return newArrayList(skip(files, BackupWork.DAYS_TO_KEEP_BACKUP));
   }
 
   @Override
@@ -79,11 +79,6 @@ public class DriveUploader extends InjectingWorker {
     String folderId = preferences.getStringValue(R.string.p_google_drive_backup_folder);
     File file = Strings.isNullOrEmpty(folderId) ? null : drive.getFile(folderId);
     return file == null || file.getTrashed() ? drive.createFolder(FOLDER_NAME) : file;
-  }
-
-  private static List<File> getDeleteList(List<File> files) {
-    Collections.sort(files, DRIVE_FILE_COMPARATOR);
-    return newArrayList(skip(files, BackupWork.DAYS_TO_KEEP_BACKUP));
   }
 
   @Override

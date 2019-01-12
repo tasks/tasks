@@ -5,11 +5,11 @@ import static org.tasks.activities.RemoteListSupportPicker.newRemoteListSupportP
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.google.android.material.chip.Chip;

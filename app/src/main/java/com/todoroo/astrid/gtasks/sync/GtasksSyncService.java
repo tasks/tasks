@@ -3,11 +3,11 @@
  *
  * <p>See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.astrid.gtasks.sync;
 
 import android.content.Context;
 import android.text.TextUtils;
-
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.dao.TaskDao;
@@ -15,7 +15,13 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.api.MoveRequest;
-
+import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicReference;
+import javax.inject.Inject;
 import org.tasks.analytics.Tracker;
 import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskDao;
@@ -25,16 +31,6 @@ import org.tasks.gtasks.GtaskSyncAdapterHelper;
 import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
-import java.util.concurrent.atomic.AtomicReference;
-
-import javax.inject.Inject;
-
 import timber.log.Timber;
 
 @ApplicationScope

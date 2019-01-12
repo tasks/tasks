@@ -1,25 +1,20 @@
 package com.todoroo.astrid.activity;
 
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-
-import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.TaskCreator;
-
-import org.tasks.data.TaskAttachment;
-import org.tasks.injection.ActivityComponent;
-import org.tasks.injection.InjectingAppCompatActivity;
-
-import java.util.ArrayList;
-
-import javax.inject.Inject;
-
-import timber.log.Timber;
-
 import static com.google.common.collect.Lists.newArrayList;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
 import static org.tasks.intents.TaskIntents.getEditTaskStack;
+
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.TaskCreator;
+import java.util.ArrayList;
+import javax.inject.Inject;
+import org.tasks.data.TaskAttachment;
+import org.tasks.injection.ActivityComponent;
+import org.tasks.injection.InjectingAppCompatActivity;
+import timber.log.Timber;
 
 /**
  * @author joshuagross

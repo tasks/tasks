@@ -1,5 +1,10 @@
 package org.tasks.preferences;
 
+import static android.content.SharedPreferences.Editor;
+import static com.google.common.collect.Iterables.transform;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastKitKat;
+import static java.util.Collections.emptySet;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,7 +15,8 @@ import android.net.Uri;
 import android.os.Binder;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
-
+import androidx.core.app.NotificationCompat;
+import androidx.documentfile.provider.DocumentFile;
 import com.android.billingclient.api.Purchase;
 import com.google.common.base.Strings;
 import com.google.gson.GsonBuilder;
@@ -18,28 +24,16 @@ import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.data.Task;
-
+import java.io.File;
+import java.util.Collection;
+import java.util.concurrent.TimeUnit;
+import javax.inject.Inject;
 import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.data.TaskAttachment;
 import org.tasks.injection.ForApplication;
 import org.tasks.time.DateTime;
-
-import java.io.File;
-import java.util.Collection;
-import java.util.concurrent.TimeUnit;
-
-import javax.inject.Inject;
-
-import androidx.core.app.NotificationCompat;
-import androidx.documentfile.provider.DocumentFile;
 import timber.log.Timber;
-
-import static android.content.SharedPreferences.Editor;
-import static com.google.common.collect.Iterables.transform;
-import static com.google.common.collect.Sets.newHashSet;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastKitKat;
-import static java.util.Collections.emptySet;
 
 public class Preferences {
 

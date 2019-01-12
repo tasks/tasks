@@ -4,21 +4,22 @@ import static android.app.Activity.RESULT_OK;
 import static org.tasks.PermissionUtil.verifyPermissions;
 
 import android.app.Dialog;
-import androidx.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Chronometer;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.voice.AACRecorder;
+import java.io.IOException;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.injection.DialogFragmentComponent;
@@ -28,8 +29,6 @@ import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.PermissionRequestor;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.Theme;
-
-import java.io.IOException;
 
 public class RecordAudioDialog extends InjectingDialogFragment
     implements AACRecorder.AACRecorderCallbacks {

@@ -1,7 +1,7 @@
 package org.tasks.injection;
 
-import androidx.room.Room;
 import android.content.Context;
+import androidx.room.Room;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao;
 import dagger.Module;

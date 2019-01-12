@@ -3,11 +3,12 @@
  *
  * <p>See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.astrid.dao;
 
-import androidx.sqlite.db.SupportSQLiteDatabase;
-import androidx.room.RoomDatabase;
 import android.database.Cursor;
+import androidx.room.RoomDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.todoroo.astrid.data.Task;
 import java.io.IOException;
 import org.tasks.analytics.Tracker;

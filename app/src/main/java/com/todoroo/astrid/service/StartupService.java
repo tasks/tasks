@@ -3,11 +3,13 @@
  *
  * <p>See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.astrid.service;
+
+import static com.google.common.base.Strings.isNullOrEmpty;
 
 import android.content.Context;
 import android.os.Environment;
-
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableListMultimap;
@@ -16,7 +18,9 @@ import com.google.common.collect.Multimaps;
 import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.tags.TagService;
-
+import java.io.File;
+import java.util.List;
+import javax.inject.Inject;
 import org.tasks.BuildConfig;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
@@ -39,15 +43,7 @@ import org.tasks.injection.ForApplication;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import org.tasks.scheduling.BackgroundScheduler;
-
-import java.io.File;
-import java.util.List;
-
-import javax.inject.Inject;
-
 import timber.log.Timber;
-
-import static com.google.common.base.Strings.isNullOrEmpty;
 
 public class StartupService {
 

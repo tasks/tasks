@@ -1,5 +1,14 @@
 package org.tasks.files;
 
+import static android.content.ContentResolver.SCHEME_CONTENT;
+import static android.provider.DocumentsContract.EXTRA_INITIAL_URI;
+import static androidx.core.content.FileProvider.getUriForFile;
+import static com.google.common.collect.Iterables.any;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastKitKat;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
+import static com.todoroo.andlib.utility.AndroidUtilities.preLollipop;
+import static com.todoroo.astrid.utility.Constants.FILE_PROVIDER_AUTHORITY;
+
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -13,12 +22,9 @@ import android.os.Build;
 import android.provider.OpenableColumns;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
-
+import androidx.documentfile.provider.DocumentFile;
 import com.google.common.io.ByteStreams;
 import com.google.common.io.Files;
-
-import org.tasks.R;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -26,27 +32,16 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.List;
-
 import javax.annotation.Nullable;
-
-import androidx.documentfile.provider.DocumentFile;
+import org.tasks.R;
 import timber.log.Timber;
-
-import static android.content.ContentResolver.SCHEME_CONTENT;
-import static android.provider.DocumentsContract.EXTRA_INITIAL_URI;
-import static androidx.core.content.FileProvider.getUriForFile;
-import static com.google.common.collect.Iterables.any;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastKitKat;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
-import static com.todoroo.andlib.utility.AndroidUtilities.preLollipop;
-import static com.todoroo.astrid.utility.Constants.FILE_PROVIDER_AUTHORITY;
 
 public class FileHelper {
 
   public static Intent newFilePickerIntent(Activity activity, Uri initial, String... mimeTypes) {
     if (atLeastKitKat()) {
       Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-      intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
+      intent.putExtra("android.content.extra.SHOW_ADVANCED", true);
       intent.addCategory(Intent.CATEGORY_OPENABLE);
       setInitialUri(activity, intent, initial);
       if (mimeTypes.length == 1) {
@@ -75,7 +70,7 @@ public class FileHelper {
               | Intent.FLAG_GRANT_WRITE_URI_PERMISSION
               | Intent.FLAG_GRANT_READ_URI_PERMISSION
               | Intent.FLAG_GRANT_PREFIX_URI_PERMISSION);
-      intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
+      intent.putExtra("android.content.extra.SHOW_ADVANCED", true);
       setInitialUri(activity, intent, initial);
       activity.startActivityForResult(intent, rc);
     } else {
@@ -191,7 +186,8 @@ public class FileHelper {
     }
   }
 
-  public static Uri newFile(Context context, Uri destination, String mimeType, String baseName, String extension)
+  public static Uri newFile(
+      Context context, Uri destination, String mimeType, String baseName, String extension)
       throws IOException {
     String filename = getNonCollidingFileName(context, destination, baseName, extension);
     switch (destination.getScheme()) {
@@ -237,7 +233,8 @@ public class FileHelper {
     }
   }
 
-  private static String getNonCollidingFileName(Context context, Uri uri, String baseName, String extension) {
+  private static String getNonCollidingFileName(
+      Context context, Uri uri, String baseName, String extension) {
     int tries = 1;
     if (!extension.startsWith(".")) {
       extension = "." + extension;

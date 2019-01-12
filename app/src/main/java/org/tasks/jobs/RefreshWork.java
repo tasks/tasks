@@ -13,8 +13,7 @@ public class RefreshWork extends RepeatingWorker {
   @Inject RefreshScheduler refreshScheduler;
   @Inject LocalBroadcastManager localBroadcastManager;
 
-  public RefreshWork(@NonNull Context context,
-      @NonNull WorkerParameters workerParams) {
+  public RefreshWork(@NonNull Context context, @NonNull WorkerParameters workerParams) {
     super(context, workerParams);
   }
 

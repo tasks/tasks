@@ -7,10 +7,10 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import android.widget.ListView;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import com.google.common.base.Strings;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,12 +67,13 @@ public class CalendarSelectionDialog extends InjectingDialogFragment {
           }
         };
 
-    AlertDialog dialog = dialogBuilder
-        .newDialog()
-        .setSingleChoiceItems(
-            adapter, -1, (d, which) -> handler.selectedCalendar(calendars.get(which)))
-        .setOnDismissListener(dialogInterface -> handler.cancel())
-        .show();
+    AlertDialog dialog =
+        dialogBuilder
+            .newDialog()
+            .setSingleChoiceItems(
+                adapter, -1, (d, which) -> handler.selectedCalendar(calendars.get(which)))
+            .setOnDismissListener(dialogInterface -> handler.cancel())
+            .show();
     listView = dialog.getListView();
     if (permissionChecker.canAccessCalendars()) {
       loadCalendars();

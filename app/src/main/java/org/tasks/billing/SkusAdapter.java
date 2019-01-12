@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.tasks.billing;
 
 import static com.google.common.collect.Lists.transform;
@@ -20,11 +21,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 import static java.util.Arrays.asList;
 
 import android.content.Context;
-import androidx.annotation.IntDef;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.annotation.IntDef;
+import androidx.recyclerview.widget.RecyclerView;
 import com.android.billingclient.api.BillingClient.SkuType;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;

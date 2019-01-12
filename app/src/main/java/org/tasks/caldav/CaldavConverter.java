@@ -64,7 +64,8 @@ public class CaldavConverter {
     } else {
       Date dueDate = due.getDate();
       if (dueDate instanceof DateTime) {
-        local.setDueDateAdjustingHideUntil(Task.createDueDate(URGENCY_SPECIFIC_DAY_TIME, dueDate.getTime()));
+        local.setDueDateAdjustingHideUntil(
+            Task.createDueDate(URGENCY_SPECIFIC_DAY_TIME, dueDate.getTime()));
       } else {
         try {
           local.setDueDateAdjustingHideUntil(

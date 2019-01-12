@@ -1,8 +1,7 @@
 package org.tasks.time;
 
-import org.tasks.BuildConfig;
-
 import java.util.Date;
+import org.tasks.BuildConfig;
 
 public class DateTimeUtils {
 

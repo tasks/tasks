@@ -86,7 +86,8 @@ public class ChipProvider {
         chips.add(newChip(caldavFilter));
       }
     }
-    Iterable<TagFilter> tagFilters = filter(transform(tagUuids, this::getTag), Predicates.notNull());
+    Iterable<TagFilter> tagFilters =
+        filter(transform(tagUuids, this::getTag), Predicates.notNull());
     for (TagFilter tagFilter : orderByName.sortedCopy(tagFilters)) {
       chips.add(newChip(tagFilter));
     }

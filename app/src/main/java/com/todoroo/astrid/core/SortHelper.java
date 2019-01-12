@@ -3,6 +3,7 @@
  *
  * <p>See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.astrid.core;
 
 import static com.todoroo.astrid.dao.TaskDao.TaskCriteria.isVisible;
@@ -22,16 +23,14 @@ import org.tasks.preferences.Preferences;
  */
 public class SortHelper {
 
-  private static final String ADJUSTED_DUE_DATE =
-      "(CASE WHEN (dueDate / 1000) % 60 > 0 THEN dueDate ELSE (dueDate + 43140000) END)";
-
   public static final int SORT_AUTO = 0;
   public static final int SORT_ALPHA = 1;
   public static final int SORT_DUE = 2;
   public static final int SORT_IMPORTANCE = 3;
   public static final int SORT_MODIFIED = 4;
   public static final int SORT_WIDGET = 5;
-
+  private static final String ADJUSTED_DUE_DATE =
+      "(CASE WHEN (dueDate / 1000) % 60 > 0 THEN dueDate ELSE (dueDate + 43140000) END)";
   private static final Order ORDER_TITLE = Order.asc(Functions.upper(Task.TITLE));
 
   /** Takes a SQL query, and if there isn't already an order, creates an order. */
@@ -79,7 +78,9 @@ public class SortHelper {
       case SORT_DUE:
         order =
             Order.asc(
-                "(CASE WHEN (dueDate=0) THEN (strftime('%s','now')*1000)*2 ELSE " + ADJUSTED_DUE_DATE + " END)+importance");
+                "(CASE WHEN (dueDate=0) THEN (strftime('%s','now')*1000)*2 ELSE "
+                    + ADJUSTED_DUE_DATE
+                    + " END)+importance");
         break;
       case SORT_IMPORTANCE:
         order =

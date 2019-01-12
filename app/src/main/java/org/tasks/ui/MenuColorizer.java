@@ -19,11 +19,11 @@ package org.tasks.ui;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import androidx.appcompat.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
+import androidx.appcompat.widget.Toolbar;
 import org.tasks.R;
 
 /**

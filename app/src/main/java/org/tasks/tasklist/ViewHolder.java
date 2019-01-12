@@ -155,13 +155,13 @@ class ViewHolder extends RecyclerView.ViewHolder {
     }
   }
 
+  boolean isMoving() {
+    return moving;
+  }
+
   void setMoving(boolean moving) {
     this.moving = moving;
     updateBackground();
-  }
-
-  boolean isMoving() {
-    return moving;
   }
 
   private void updateBackground() {

@@ -3,7 +3,17 @@
  *
  * <p>See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.astrid.files;
+
+import static android.app.Activity.RESULT_OK;
+import static org.tasks.data.TaskAttachment.createNewAttachment;
+import static org.tasks.dialogs.AddAttachmentDialog.REQUEST_AUDIO;
+import static org.tasks.dialogs.AddAttachmentDialog.REQUEST_CAMERA;
+import static org.tasks.dialogs.AddAttachmentDialog.REQUEST_GALLERY;
+import static org.tasks.dialogs.AddAttachmentDialog.REQUEST_STORAGE;
+import static org.tasks.dialogs.AddAttachmentDialog.newAddAttachmentDialog;
+import static org.tasks.files.FileHelper.copyToUri;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -15,9 +25,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import androidx.annotation.Nullable;
+import butterknife.BindView;
+import butterknife.OnClick;
 import com.todoroo.astrid.data.Task;
-
+import java.util.ArrayList;
+import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.data.TaskAttachment;
 import org.tasks.data.TaskAttachmentDao;
@@ -27,23 +40,6 @@ import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.preferences.Preferences;
 import org.tasks.ui.TaskEditControlFragment;
-
-import java.util.ArrayList;
-
-import javax.inject.Inject;
-
-import androidx.annotation.Nullable;
-import butterknife.BindView;
-import butterknife.OnClick;
-
-import static android.app.Activity.RESULT_OK;
-import static org.tasks.data.TaskAttachment.createNewAttachment;
-import static org.tasks.dialogs.AddAttachmentDialog.REQUEST_AUDIO;
-import static org.tasks.dialogs.AddAttachmentDialog.REQUEST_CAMERA;
-import static org.tasks.dialogs.AddAttachmentDialog.REQUEST_GALLERY;
-import static org.tasks.dialogs.AddAttachmentDialog.REQUEST_STORAGE;
-import static org.tasks.dialogs.AddAttachmentDialog.newAddAttachmentDialog;
-import static org.tasks.files.FileHelper.copyToUri;
 
 public class FilesControlSet extends TaskEditControlFragment {
 
@@ -90,8 +86,7 @@ public class FilesControlSet extends TaskEditControlFragment {
 
   @OnClick(R.id.add_attachment)
   void addAttachment(View view) {
-    newAddAttachmentDialog(this)
-        .show(getFragmentManager(), FRAG_TAG_ADD_ATTACHMENT_DIALOG);
+    newAddAttachmentDialog(this).show(getFragmentManager(), FRAG_TAG_ADD_ATTACHMENT_DIALOG);
   }
 
   @Override

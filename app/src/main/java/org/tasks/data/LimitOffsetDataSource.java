@@ -1,11 +1,11 @@
 package org.tasks.data;
 
-import androidx.paging.PositionalDataSource;
-import androidx.room.RoomDatabase;
 import android.database.Cursor;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
+import androidx.paging.PositionalDataSource;
+import androidx.room.RoomDatabase;
 import com.todoroo.astrid.data.Task;
 import java.util.ArrayList;
 import java.util.Collections;

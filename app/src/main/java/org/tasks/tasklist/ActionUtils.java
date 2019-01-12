@@ -1,11 +1,11 @@
 package org.tasks.tasklist;
 
-import androidx.appcompat.app.WindowDecorActionBar;
-import androidx.appcompat.view.StandaloneActionMode;
-import androidx.appcompat.widget.ActionBarContextView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.appcompat.app.WindowDecorActionBar;
+import androidx.appcompat.view.StandaloneActionMode;
+import androidx.appcompat.widget.ActionBarContextView;
 import java.lang.reflect.Field;
 import org.tasks.R;
 import org.tasks.themes.ThemeColor;

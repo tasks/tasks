@@ -3,6 +3,7 @@
  *
  * <p>See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.andlib.utility;
 
 import static androidx.test.InstrumentationRegistry.getTargetContext;
@@ -19,8 +20,8 @@ import static org.tasks.date.DateTimeUtils.newDate;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
 import android.content.res.Configuration;
-import androidx.test.runner.AndroidJUnit4;
 import android.util.DisplayMetrics;
+import androidx.test.runner.AndroidJUnit4;
 import java.util.Locale;
 import org.junit.After;
 import org.junit.Before;

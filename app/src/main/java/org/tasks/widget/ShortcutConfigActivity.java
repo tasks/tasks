@@ -5,14 +5,14 @@ import android.content.Intent;
 import android.content.Intent.ShortcutIconResource;
 import android.os.Bundle;
 import android.os.Parcelable;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
-import androidx.core.content.ContextCompat;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnFocusChange;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.common.base.Strings;
 import com.todoroo.astrid.api.Filter;
 import javax.inject.Inject;
@@ -166,9 +166,10 @@ public class ShortcutConfigActivity extends InjectingAppCompatActivity {
     if (selectedTheme >= 0) {
       return selectedTheme;
     }
-    int index = selectedFilter == null || selectedFilter.tint == -1
-        ? themeColor.getIndex()
-        : selectedFilter.tint;
+    int index =
+        selectedFilter == null || selectedFilter.tint == -1
+            ? themeColor.getIndex()
+            : selectedFilter.tint;
     if (index >= ThemeColor.ICONS.length - 1) {
       return 7; // use blue theme until white icon is available
     }

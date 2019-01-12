@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Parcel;
-import androidx.appcompat.app.AppCompatDelegate;
 import android.view.ContextThemeWrapper;
+import androidx.appcompat.app.AppCompatDelegate;
 import org.tasks.R;
 import org.tasks.dialogs.ColorPickerDialog;
 

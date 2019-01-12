@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.PixelFormat;
-import androidx.appcompat.app.AppCompatDelegate;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
+import androidx.appcompat.app.AppCompatDelegate;
 import javax.inject.Inject;
 import org.tasks.R;
 

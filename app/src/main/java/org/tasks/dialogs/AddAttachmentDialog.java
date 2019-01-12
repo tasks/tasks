@@ -1,13 +1,18 @@
 package org.tasks.dialogs;
 
+import static com.google.common.collect.Lists.newArrayList;
+import static org.tasks.dialogs.RecordAudioDialog.newRecordAudioDialog;
+import static org.tasks.files.FileHelper.newFilePickerIntent;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore.Images.Media;
-
+import androidx.annotation.NonNull;
 import com.todoroo.astrid.files.FilesControlSet;
-
+import java.util.List;
+import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.activities.CameraActivity;
 import org.tasks.injection.DialogFragmentComponent;
@@ -16,24 +21,13 @@ import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.preferences.Device;
 import org.tasks.preferences.Preferences;
 
-import java.util.List;
-
-import javax.inject.Inject;
-
-import androidx.annotation.NonNull;
-
-import static com.google.common.collect.Lists.newArrayList;
-import static org.tasks.dialogs.RecordAudioDialog.newRecordAudioDialog;
-import static org.tasks.files.FileHelper.newFilePickerIntent;
-
 public class AddAttachmentDialog extends InjectingDialogFragment {
 
-  private static final String FRAG_TAG_RECORD_AUDIO = "frag_tag_record_audio";
   public static final int REQUEST_CAMERA = 12120;
   public static final int REQUEST_GALLERY = 12121;
   public static final int REQUEST_STORAGE = 12122;
   public static final int REQUEST_AUDIO = 12123;
-
+  private static final String FRAG_TAG_RECORD_AUDIO = "frag_tag_record_audio";
   @Inject @ForActivity Context context;
   @Inject DialogBuilder dialogBuilder;
   @Inject Device device;
@@ -74,7 +68,8 @@ public class AddAttachmentDialog extends InjectingDialogFragment {
   }
 
   private void takePicture() {
-    getTargetFragment().startActivityForResult(new Intent(context, CameraActivity.class), REQUEST_CAMERA);
+    getTargetFragment()
+        .startActivityForResult(new Intent(context, CameraActivity.class), REQUEST_CAMERA);
   }
 
   private void recordNote() {
@@ -91,6 +86,7 @@ public class AddAttachmentDialog extends InjectingDialogFragment {
   }
 
   private void pickFromStorage() {
-    getTargetFragment().startActivityForResult(newFilePickerIntent(getActivity(), null), REQUEST_STORAGE);
+    getTargetFragment()
+        .startActivityForResult(newFilePickerIntent(getActivity(), null), REQUEST_STORAGE);
   }
 }

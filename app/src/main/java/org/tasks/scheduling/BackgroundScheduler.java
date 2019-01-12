@@ -2,20 +2,16 @@ package org.tasks.scheduling;
 
 import android.content.Context;
 import android.content.Intent;
-
+import androidx.annotation.NonNull;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-
+import javax.inject.Inject;
 import org.tasks.files.FileHelper;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingJobIntentService;
 import org.tasks.injection.IntentServiceComponent;
 import org.tasks.jobs.WorkManager;
 import org.tasks.preferences.Preferences;
-
-import javax.inject.Inject;
-
-import androidx.annotation.NonNull;
 import timber.log.Timber;
 
 public class BackgroundScheduler extends InjectingJobIntentService {

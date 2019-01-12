@@ -3,6 +3,7 @@
  *
  * <p>See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.astrid.adapter;
 
 import static androidx.core.content.ContextCompat.getColor;
@@ -17,11 +18,6 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.core.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +25,11 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.core.util.Pair;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.CustomFilterActivity;
@@ -151,7 +152,8 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
                           activity.getResources(), android.R.color.transparent, null),
                       theme.getThemeAccent().getAccentColor()
                     });
-            Drawable original = ContextCompat.getDrawable(activity, R.drawable.ic_outline_done_24px);
+            Drawable original =
+                ContextCompat.getDrawable(activity, R.drawable.ic_outline_done_24px);
             Drawable wrapped = DrawableCompat.wrap(original.mutate());
             DrawableCompat.setTintList(wrapped, tintList);
             viewHolder.name.setCheckMarkDrawable(wrapped);

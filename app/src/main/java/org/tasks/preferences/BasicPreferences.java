@@ -1,5 +1,13 @@
 package org.tasks.preferences;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
+import static org.tasks.dialogs.ExportTasksDialog.newExportTasksDialog;
+import static org.tasks.dialogs.ImportTasksDialog.newImportTasksDialog;
+import static org.tasks.files.FileHelper.newFilePickerIntent;
+import static org.tasks.locale.LocalePickerDialog.newLocalePickerDialog;
+import static org.tasks.themes.ThemeColor.LAUNCHERS;
+
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
@@ -8,12 +16,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
-import android.widget.CheckBox;
-
 import com.google.common.base.Strings;
 import com.todoroo.astrid.core.OldTaskPreferences;
 import com.todoroo.astrid.reminders.ReminderPreferences;
-
+import java.io.File;
+import javax.inject.Inject;
 import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.activities.ColorPickerActivity;
@@ -35,18 +42,6 @@ import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeBase;
 import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
-
-import java.io.File;
-
-import javax.inject.Inject;
-
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
-import static org.tasks.dialogs.ExportTasksDialog.newExportTasksDialog;
-import static org.tasks.dialogs.ImportTasksDialog.newImportTasksDialog;
-import static org.tasks.files.FileHelper.newFilePickerIntent;
-import static org.tasks.locale.LocalePickerDialog.newLocalePickerDialog;
-import static org.tasks.themes.ThemeColor.LAUNCHERS;
 
 public class BasicPreferences extends InjectingPreferenceActivity
     implements LocalePickerDialog.LocaleSelectionHandler {
@@ -159,7 +154,9 @@ public class BasicPreferences extends InjectingPreferenceActivity
     findPreference(R.string.backup_BAc_import)
         .setOnPreferenceClickListener(
             preference -> {
-              startActivityForResult(newFilePickerIntent(BasicPreferences.this, preferences.getBackupDirectory()), REQUEST_PICKER);
+              startActivityForResult(
+                  newFilePickerIntent(BasicPreferences.this, preferences.getBackupDirectory()),
+                  REQUEST_PICKER);
               return false;
             });
 
@@ -172,26 +169,26 @@ public class BasicPreferences extends InjectingPreferenceActivity
 
     initializeBackupDirectory();
 
-    CheckBoxPreference googleDriveBackup = (CheckBoxPreference) findPreference(R.string.p_google_drive_backup);
+    CheckBoxPreference googleDriveBackup =
+        (CheckBoxPreference) findPreference(R.string.p_google_drive_backup);
     googleDriveBackup.setChecked(preferences.getBoolean(R.string.p_google_drive_backup, false));
-    googleDriveBackup
-        .setOnPreferenceChangeListener(
-            (preference, newValue) -> {
-              if (newValue == null) {
-                return false;
-              }
+    googleDriveBackup.setOnPreferenceChangeListener(
+        (preference, newValue) -> {
+          if (newValue == null) {
+            return false;
+          }
 
-              if ((Boolean) newValue) {
-                if (playServices.refreshAndCheck()) {
-                  requestLogin();
-                } else {
-                  playServices.resolve(this);
-                }
-                return false;
-              } else {
-                return true;
-              }
-            });
+          if ((Boolean) newValue) {
+            if (playServices.refreshAndCheck()) {
+              requestLogin();
+            } else {
+              playServices.resolve(this);
+            }
+            return false;
+          } else {
+            return true;
+          }
+        });
 
     requires(
         R.string.settings_localization,
@@ -279,8 +276,7 @@ public class BasicPreferences extends InjectingPreferenceActivity
       }
     } else if (requestCode == REQUEST_PICKER) {
       if (resultCode == RESULT_OK) {
-        newImportTasksDialog(data.getData())
-            .show(getFragmentManager(), FRAG_TAG_IMPORT_TASKS);
+        newImportTasksDialog(data.getData()).show(getFragmentManager(), FRAG_TAG_IMPORT_TASKS);
       }
     } else if (requestCode == RC_DRIVE_BACKUP) {
       ((CheckBoxPreference) findPreference(R.string.p_google_drive_backup))
@@ -324,7 +320,8 @@ public class BasicPreferences extends InjectingPreferenceActivity
     findPreference(getString(R.string.p_backup_dir))
         .setOnPreferenceClickListener(
             p -> {
-              FileHelper.newDirectoryPicker(this, REQUEST_CODE_BACKUP_DIR, preferences.getBackupDirectory());
+              FileHelper.newDirectoryPicker(
+                  this, REQUEST_CODE_BACKUP_DIR, preferences.getBackupDirectory());
               return false;
             });
     updateBackupDirectory();

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.tasks.billing.row;
 
 /** Provider for data that corresponds to a particular row */

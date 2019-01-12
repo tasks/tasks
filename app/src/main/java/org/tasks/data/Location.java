@@ -15,9 +15,6 @@ import org.tasks.backup.XmlReader;
 @Entity(tableName = "locations")
 public class Location implements Serializable, Parcelable {
 
-  private static final Pattern COORDS =
-      Pattern.compile("^\\d+°\\d+'\\d+\\.\\d+\"[NS] \\d+°\\d+'\\d+\\.\\d+\"[EW]$");
-
   public static final Parcelable.Creator<Location> CREATOR =
       new Parcelable.Creator<Location>() {
         @Override
@@ -30,7 +27,8 @@ public class Location implements Serializable, Parcelable {
           return new Location[size];
         }
       };
-
+  private static final Pattern COORDS =
+      Pattern.compile("^\\d+°\\d+'\\d+\\.\\d+\"[NS] \\d+°\\d+'\\d+\\.\\d+\"[EW]$");
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "_id")
   private transient long id;
@@ -207,8 +205,9 @@ public class Location implements Serializable, Parcelable {
   }
 
   public String getGeoUri() {
-    return String.format("geo:%s,%s?q=%s", latitude, longitude,
-        Uri.encode(Strings.isNullOrEmpty(address) ? name : address));
+    return String.format(
+        "geo:%s,%s?q=%s",
+        latitude, longitude, Uri.encode(Strings.isNullOrEmpty(address) ? name : address));
   }
 
   @Override

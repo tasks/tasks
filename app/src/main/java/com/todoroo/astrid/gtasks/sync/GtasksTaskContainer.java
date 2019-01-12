@@ -3,6 +3,7 @@
  *
  * <p>See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.astrid.gtasks.sync;
 
 import static org.tasks.gtasks.GoogleTaskSynchronizer.mergeDates;

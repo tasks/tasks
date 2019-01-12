@@ -3,6 +3,7 @@
  *
  * <p>See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.andlib.utility;
 
 import android.app.Activity;
@@ -15,11 +16,9 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import timber.log.Timber;
 
 /**

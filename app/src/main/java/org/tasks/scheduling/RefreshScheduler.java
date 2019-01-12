@@ -1,19 +1,16 @@
 package org.tasks.scheduling;
 
+import static com.todoroo.andlib.utility.DateUtilities.ONE_MINUTE;
+import static org.tasks.time.DateTimeUtils.currentTimeMillis;
+
 import com.google.common.collect.ImmutableList;
 import com.todoroo.astrid.data.Task;
-
-import org.tasks.injection.ApplicationScope;
-import org.tasks.jobs.WorkManager;
-
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
-
 import javax.inject.Inject;
-
-import static com.todoroo.andlib.utility.DateUtilities.ONE_MINUTE;
-import static org.tasks.time.DateTimeUtils.currentTimeMillis;
+import org.tasks.injection.ApplicationScope;
+import org.tasks.jobs.WorkManager;
 
 @ApplicationScope
 public class RefreshScheduler {

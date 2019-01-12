@@ -1,17 +1,14 @@
 package com.todoroo.astrid.voice;
 
-import androidx.lifecycle.ViewModel;
-
 import android.content.Context;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.SystemClock;
+import androidx.lifecycle.ViewModel;
 import java.io.IOException;
-
 import org.tasks.files.FileHelper;
 import org.tasks.preferences.Preferences;
 import org.tasks.time.DateTime;
-
 import timber.log.Timber;
 
 public class AACRecorder extends ViewModel {

@@ -4,7 +4,6 @@ import android.accounts.Account;
 import android.app.Activity;
 import android.content.Context;
 import android.widget.Toast;
-
 import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.auth.UserRecoverableAuthException;
@@ -13,16 +12,12 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.tasks.TasksScopes;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
-
+import java.io.IOException;
+import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
 import org.tasks.play.AuthResultHandler;
 import org.tasks.preferences.Preferences;
-
-import java.io.IOException;
-
-import javax.inject.Inject;
-
 import timber.log.Timber;
 
 public class PlayServices {
@@ -92,26 +87,27 @@ public class PlayServices {
     getToken(DriveScopes.DRIVE_FILE, activity, accountName, handler);
   }
 
-  private void getToken(String scope, Activity activity, String accountName, AuthResultHandler handler) {
+  private void getToken(
+      String scope, Activity activity, String accountName, AuthResultHandler handler) {
     final Account account = accountManager.getAccount(accountName);
     if (account == null) {
       handler.authenticationFailed(
           activity.getString(R.string.gtasks_error_accountNotFound, accountName));
     } else {
       new Thread(
-          () -> {
-            try {
-              GoogleAuthUtil.getToken(activity, account, "oauth2:" + scope, null);
-              handler.authenticationSuccessful(accountName);
-            } catch (UserRecoverableAuthException e) {
-              Timber.e(e);
-              activity.startActivityForResult(
-                  e.getIntent(), GtasksLoginActivity.RC_REQUEST_OAUTH);
-            } catch (GoogleAuthException | IOException e) {
-              Timber.e(e);
-              handler.authenticationFailed(activity.getString(R.string.gtasks_GLA_errorIOAuth));
-            }
-          })
+              () -> {
+                try {
+                  GoogleAuthUtil.getToken(activity, account, "oauth2:" + scope, null);
+                  handler.authenticationSuccessful(accountName);
+                } catch (UserRecoverableAuthException e) {
+                  Timber.e(e);
+                  activity.startActivityForResult(
+                      e.getIntent(), GtasksLoginActivity.RC_REQUEST_OAUTH);
+                } catch (GoogleAuthException | IOException e) {
+                  Timber.e(e);
+                  handler.authenticationFailed(activity.getString(R.string.gtasks_GLA_errorIOAuth));
+                }
+              })
           .start();
     }
   }

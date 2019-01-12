@@ -8,13 +8,13 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.widget.Toolbar;
-import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import androidx.appcompat.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener;
+import androidx.core.content.ContextCompat;
 import com.jakewharton.processphoenix.ProcessPhoenix;
 import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.api.Filter;
@@ -70,7 +70,8 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
       Timber.e(e);
       toolbar.setTitle(getTitle());
     }
-    toolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_outline_arrow_back_24px));
+    toolbar.setNavigationIcon(
+        ContextCompat.getDrawable(this, R.drawable.ic_outline_arrow_back_24px));
     toolbar.setNavigationOnClickListener(v -> finish());
     toolbar.inflateMenu(R.menu.menu_preferences);
     toolbar.setOnMenuItemClickListener(this);

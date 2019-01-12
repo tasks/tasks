@@ -1,12 +1,12 @@
 package org.tasks.data;
 
 import android.annotation.SuppressLint;
+import android.os.Parcel;
+import android.os.Parcelable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
-import android.os.Parcel;
-import android.os.Parcelable;
 import com.todoroo.astrid.data.Task;
 import org.tasks.backup.XmlReader;
 

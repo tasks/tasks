@@ -1,9 +1,9 @@
 package org.tasks.billing.row;
 
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import androidx.recyclerview.widget.RecyclerView;
 import org.tasks.R;
 
 public final class RowViewHolder extends RecyclerView.ViewHolder {

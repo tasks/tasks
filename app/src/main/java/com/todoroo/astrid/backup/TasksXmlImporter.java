@@ -3,6 +3,7 @@
  *
  * <p>See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.astrid.backup;
 
 import android.app.Activity;
@@ -11,11 +12,13 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Handler;
 import android.text.TextUtils;
-
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.backup.XmlReader;
@@ -35,13 +38,6 @@ import org.tasks.dialogs.DialogBuilder;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
-import javax.inject.Inject;
-
 import timber.log.Timber;
 
 public class TasksXmlImporter {

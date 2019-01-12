@@ -1,12 +1,11 @@
 package org.tasks.jobs;
 
-import android.net.Uri;
-
 import static com.todoroo.andlib.utility.DateUtilities.now;
 import static org.tasks.date.DateTimeUtils.midnight;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 import static org.tasks.time.DateTimeUtils.printTimestamp;
 
+import android.net.Uri;
 import androidx.work.BackoffPolicy;
 import androidx.work.Constraints;
 import androidx.work.Data;
@@ -155,9 +154,10 @@ public class WorkManager {
       return;
     }
 
-    Builder builder = new Builder(DriveUploader.class)
-        .setInputData(DriveUploader.getInputData(uri, purge))
-        .setConstraints(getNetworkConstraints());
+    Builder builder =
+        new Builder(DriveUploader.class)
+            .setInputData(DriveUploader.getInputData(uri, purge))
+            .setConstraints(getNetworkConstraints());
     if (purge) {
       builder.setInitialDelay(new Random().nextInt(3600), TimeUnit.SECONDS);
     }
@@ -165,7 +165,8 @@ public class WorkManager {
   }
 
   private Constraints getNetworkConstraints() {
-    return getNetworkConstraints(preferences.getBoolean(R.string.p_background_sync_unmetered_only, false));
+    return getNetworkConstraints(
+        preferences.getBoolean(R.string.p_background_sync_unmetered_only, false));
   }
 
   private Constraints getNetworkConstraints(boolean unmeteredOnly) {

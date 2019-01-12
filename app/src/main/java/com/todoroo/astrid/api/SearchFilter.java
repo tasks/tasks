@@ -2,7 +2,6 @@ package com.todoroo.astrid.api;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import com.todoroo.andlib.sql.QueryTemplate;
 
 public class SearchFilter extends Filter {

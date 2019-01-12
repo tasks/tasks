@@ -91,7 +91,8 @@ public class MiscellaneousPreferences extends InjectingPreferenceActivity {
     findPreference(getString(R.string.p_attachment_dir))
         .setOnPreferenceClickListener(
             p -> {
-              FileHelper.newDirectoryPicker(this, REQUEST_CODE_FILES_DIR, preferences.getAttachmentsDirectory());
+              FileHelper.newDirectoryPicker(
+                  this, REQUEST_CODE_FILES_DIR, preferences.getAttachmentsDirectory());
               return false;
             });
     updateAttachmentDirectory();

@@ -1,13 +1,10 @@
 package org.tasks.gtasks;
 
 import android.app.Activity;
-
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
-
+import javax.inject.Inject;
 import org.tasks.drive.DriveLoginActivity;
 import org.tasks.play.AuthResultHandler;
-
-import javax.inject.Inject;
 
 public class PlayServices {
 

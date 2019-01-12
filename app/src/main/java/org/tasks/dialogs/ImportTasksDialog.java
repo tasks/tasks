@@ -6,20 +6,15 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.webkit.MimeTypeMap;
-
 import com.todoroo.astrid.backup.TasksXmlImporter;
-
+import java.io.IOException;
+import javax.inject.Inject;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.backup.TasksJsonImporter;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingNativeDialogFragment;
 import org.tasks.injection.NativeDialogFragmentComponent;
-
-import java.io.IOException;
-
-import javax.inject.Inject;
-
 import timber.log.Timber;
 
 public class ImportTasksDialog extends InjectingNativeDialogFragment {
