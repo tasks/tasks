@@ -190,6 +190,7 @@ dependencies {
     androidTestImplementation 'com.natpryce:make-it-easy:4.0.1'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test:rules:1.1.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.annotation:annotation:1.0.1'
 }
 

@@ -11,6 +11,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
+import android.os.Looper;
 import android.text.InputType;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import org.tasks.BuildConfig;
 import timber.log.Timber;
 
 /**
@@ -168,6 +170,18 @@ public class AndroidUtilities {
 
   public static boolean atLeastOreo() {
     return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
+  }
+
+  public static void assertNotMainThread() {
+    if (BuildConfig.DEBUG && isMainThread()) {
+      throw new IllegalStateException();
+    }
+  }
+
+  private static boolean isMainThread() {
+    return atLeastMarshmallow()
+        ? Looper.getMainLooper().isCurrentThread()
+        : Thread.currentThread() == Looper.getMainLooper().getThread();
   }
 
   /**

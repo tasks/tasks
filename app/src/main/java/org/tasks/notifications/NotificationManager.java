@@ -61,6 +61,7 @@ public class NotificationManager {
   static final String EXTRA_NOTIFICATION_ID = "extra_notification_id";
   private static final String GROUP_KEY = "tasks";
   private static final int SUMMARY_NOTIFICATION_ID = 0;
+  private static final int NOTIFICATIONS_PER_SECOND = 5;
   private final NotificationManagerCompat notificationManagerCompat;
   private final LocationDao locationDao;
   private final NotificationDao notificationDao;
@@ -68,6 +69,7 @@ public class NotificationManager {
   private final Context context;
   private final Preferences preferences;
   private final CheckBoxes checkBoxes;
+  private final Throttle throttle = new Throttle(NOTIFICATIONS_PER_SECOND);
 
   @Inject
   public NotificationManager(
@@ -254,7 +256,7 @@ public class NotificationManager {
         PendingIntent.getBroadcast(
             context, (int) notificationId, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
     for (int i = 0; i < ringTimes; i++) {
-      notificationManagerCompat.notify((int) notificationId, notification);
+      throttle.run(() -> notificationManagerCompat.notify((int) notificationId, notification));
     }
   }
 
