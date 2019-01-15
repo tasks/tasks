@@ -26,7 +26,7 @@ public abstract class UserActivityDao {
   public abstract List<UserActivity> getCommentsForTask(String taskUuid);
 
   @Query(
-      "SELECT * FROM userActivity INNER JOIN tasks ON tasks._id = :task WHERE target_id = tasks.remoteId")
+      "SELECT userActivity.* FROM userActivity INNER JOIN tasks ON tasks._id = :task WHERE target_id = tasks.remoteId")
   public abstract List<UserActivity> getComments(long task);
 
   @Query("SELECT * FROM userActivity")
