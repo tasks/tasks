@@ -5,6 +5,7 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static org.tasks.dialogs.ExportTasksDialog.newExportTasksDialog;
 import static org.tasks.dialogs.ImportTasksDialog.newImportTasksDialog;
 import static org.tasks.files.FileHelper.newFilePickerIntent;
+import static org.tasks.files.FileHelper.uri2String;
 import static org.tasks.locale.LocalePickerDialog.newLocalePickerDialog;
 import static org.tasks.themes.ThemeColor.LAUNCHERS;
 
@@ -19,7 +20,6 @@ import android.preference.Preference;
 import com.google.common.base.Strings;
 import com.todoroo.astrid.core.OldTaskPreferences;
 import com.todoroo.astrid.reminders.ReminderPreferences;
-import java.io.File;
 import javax.inject.Inject;
 import org.tasks.BuildConfig;
 import org.tasks.R;
@@ -328,14 +328,8 @@ public class BasicPreferences extends InjectingPreferenceActivity
   }
 
   private void updateBackupDirectory() {
-    findPreference(getString(R.string.p_backup_dir)).setSummary(getBackupDirectory());
-  }
-
-  private String getBackupDirectory() {
-    Uri uri = preferences.getBackupDirectory();
-    return uri.getScheme().equals("file")
-        ? new File(uri.getPath()).getAbsolutePath()
-        : uri.toString();
+    findPreference(getString(R.string.p_backup_dir))
+        .setSummary(uri2String(preferences.getBackupDirectory()));
   }
 
   private void setLauncherIcon(int index) {

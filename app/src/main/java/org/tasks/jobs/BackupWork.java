@@ -6,6 +6,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.todoroo.andlib.utility.DateUtilities.now;
 import static java.util.Collections.emptyList;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
 import androidx.annotation.NonNull;
@@ -102,8 +103,11 @@ public class BackupWork extends RepeatingWorker {
 
   private void deleteOldLocalBackups() {
     Uri uri = preferences.getBackupDirectory();
+    if (uri == null) {
+      return;
+    }
     switch (uri.getScheme()) {
-      case "content":
+      case ContentResolver.SCHEME_CONTENT:
         DocumentFile dir = DocumentFile.fromTreeUri(context, uri);
         for (DocumentFile file : getDeleteList(dir.listFiles())) {
           if (!file.delete()) {
@@ -111,7 +115,7 @@ public class BackupWork extends RepeatingWorker {
           }
         }
         break;
-      case "file":
+      case ContentResolver.SCHEME_FILE:
         File astridDir = new File(uri.getPath());
         File[] fileArray = astridDir.listFiles(FILE_FILTER);
         for (File file : getDeleteList(fileArray, DAYS_TO_KEEP_BACKUP)) {

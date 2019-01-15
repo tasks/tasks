@@ -265,4 +265,14 @@ public class FileHelper {
     }
     return tempName + extension;
   }
+
+  public static String uri2String(@Nullable Uri uri) {
+    if (uri == null) {
+      return "";
+    }
+    if (uri.getScheme().equals(ContentResolver.SCHEME_FILE)) {
+      return new File(uri.getPath()).getAbsolutePath();
+    }
+    return uri.toString();
+  }
 }

@@ -6,6 +6,7 @@ import static com.google.common.collect.Sets.newHashSet;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastKitKat;
 import static java.util.Collections.emptySet;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -29,6 +30,7 @@ import java.io.File;
 import java.util.Collection;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
+import org.jetbrains.annotations.Nullable;
 import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.data.TaskAttachment;
@@ -369,11 +371,19 @@ public class Preferences {
     }
   }
 
-  public Uri getAttachmentsDirectory() {
-    Uri uri = getUri(R.string.p_attachment_dir);
+  public @Nullable Uri getBackupDirectory() {
+    return getDirectory(R.string.p_backup_dir, "backups");
+  }
+
+  public @Nullable Uri getAttachmentsDirectory() {
+    return getDirectory(R.string.p_attachment_dir, TaskAttachment.FILES_DIRECTORY_DEFAULT);
+  }
+
+  private @Nullable Uri getDirectory(int pref, String name) {
+    Uri uri = getUri(pref);
     if (uri != null) {
       switch (uri.getScheme()) {
-        case "file":
+        case ContentResolver.SCHEME_FILE:
           File file = new File(uri.getPath());
           try {
             if (file.canWrite()) {
@@ -382,7 +392,7 @@ public class Preferences {
           } catch (SecurityException ignored) {
           }
           break;
-        case "content":
+        case ContentResolver.SCHEME_CONTENT:
           if (hasWritePermission(context, uri)) {
             return uri;
           }
@@ -391,15 +401,21 @@ public class Preferences {
     }
 
     if (atLeastKitKat()) {
-      return DocumentFile.fromFile(context.getExternalFilesDir(null))
-          .createDirectory(TaskAttachment.FILES_DIRECTORY_DEFAULT)
-          .getUri();
-    } else {
-      return Uri.fromFile(getDefaultFileLocation(TaskAttachment.FILES_DIRECTORY_DEFAULT));
+      DocumentFile file =
+          DocumentFile.fromFile(context.getExternalFilesDir(null)).createDirectory(name);
+      if (file != null) {
+        return file.getUri();
+      }
     }
+
+    File file = getDefaultFileLocation(name);
+    if (file != null) {
+      return Uri.fromFile(file);
+    }
+    return null;
   }
 
-  private File getDefaultFileLocation(String type) {
+  private @Nullable File getDefaultFileLocation(String type) {
     File externalFilesDir = context.getExternalFilesDir(null);
     if (externalFilesDir == null) {
       return null;
@@ -414,36 +430,6 @@ public class Preferences {
       return DocumentFile.fromFile(context.getExternalCacheDir()).getUri();
     } else {
       return Uri.fromFile(context.getExternalCacheDir());
-    }
-  }
-
-  public Uri getBackupDirectory() {
-    Uri uri = getUri(R.string.p_backup_dir);
-    if (uri != null) {
-      switch (uri.getScheme()) {
-        case "file":
-          File file = new File(uri.getPath());
-          try {
-            if (file.canWrite()) {
-              return uri;
-            }
-          } catch (SecurityException ignored) {
-          }
-          break;
-        case "content":
-          if (hasWritePermission(context, uri)) {
-            return uri;
-          }
-          break;
-      }
-    }
-
-    if (atLeastKitKat()) {
-      return DocumentFile.fromFile(context.getExternalFilesDir(null))
-          .createDirectory("backups")
-          .getUri();
-    } else {
-      return Uri.fromFile(getDefaultFileLocation("backups"));
     }
   }
 

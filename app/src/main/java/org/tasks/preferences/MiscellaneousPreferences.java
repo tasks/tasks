@@ -2,6 +2,7 @@ package org.tasks.preferences;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static org.tasks.PermissionUtil.verifyPermissions;
+import static org.tasks.files.FileHelper.uri2String;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -10,7 +11,6 @@ import android.preference.CheckBoxPreference;
 import android.speech.tts.TextToSpeech;
 import androidx.annotation.NonNull;
 import com.todoroo.astrid.voice.VoiceOutputAssistant;
-import java.io.File;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.files.FileHelper;
@@ -99,14 +99,8 @@ public class MiscellaneousPreferences extends InjectingPreferenceActivity {
   }
 
   private void updateAttachmentDirectory() {
-    findPreference(getString(R.string.p_attachment_dir)).setSummary(getAttachmentDirectory());
-  }
-
-  private String getAttachmentDirectory() {
-    Uri uri = preferences.getAttachmentsDirectory();
-    return uri.getScheme().equals("file")
-        ? new File(uri.getPath()).getAbsolutePath()
-        : uri.toString();
+    findPreference(getString(R.string.p_attachment_dir))
+        .setSummary(uri2String(preferences.getAttachmentsDirectory()));
   }
 
   private void initializeCalendarReminderPreference() {
