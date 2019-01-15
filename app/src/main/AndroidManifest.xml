@@ -498,6 +498,11 @@
 
     </activity>
 
+    <activity
+      android:label="@string/debug"
+      android:name=".preferences.DebugPreferences"
+      android:theme="@style/Tasks"/>
+
     <!-- launcher icons -->
 
     <activity-alias

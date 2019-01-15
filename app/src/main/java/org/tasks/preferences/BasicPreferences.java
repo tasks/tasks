@@ -79,13 +79,11 @@ public class BasicPreferences extends InjectingPreferenceActivity
     result = savedInstanceState == null ? new Bundle() : savedInstanceState.getBundle(EXTRA_RESULT);
 
     addPreferencesFromResource(R.xml.preferences);
-    if (BuildConfig.DEBUG) {
-      addPreferencesFromResource(R.xml.preferences_debug);
-    }
 
     setupActivity(R.string.EPr_appearance_header, AppearancePreferences.class);
     setupActivity(R.string.notifications, ReminderPreferences.class);
     setupActivity(R.string.EPr_manage_header, OldTaskPreferences.class);
+    setupActivity(R.string.debug, DebugPreferences.class);
 
     Preference themePreference = findPreference(getString(R.string.p_theme));
     themePreference.setSummary(themeBase.getName());
@@ -195,6 +193,8 @@ public class BasicPreferences extends InjectingPreferenceActivity
         atLeastJellybeanMR1(),
         R.string.p_language,
         R.string.p_layout_direction);
+
+    requires(BuildConfig.DEBUG, R.string.debug);
 
     //noinspection ConstantConditions
     if (!BuildConfig.FLAVOR.equals("googleplay")) {

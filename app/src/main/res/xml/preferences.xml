@@ -151,4 +151,8 @@
 
   </PreferenceCategory>
 
+  <Preference
+    android:key="@string/debug"
+    android:title="@string/debug"/>
+
 </PreferenceScreen>

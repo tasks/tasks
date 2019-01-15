@@ -32,6 +32,7 @@ import org.tasks.locale.ui.activity.TaskerSettingsActivity;
 import org.tasks.preferences.AppearancePreferences;
 import org.tasks.preferences.BasicPreferences;
 import org.tasks.preferences.DateTimePreferences;
+import org.tasks.preferences.DebugPreferences;
 import org.tasks.preferences.MiscellaneousPreferences;
 import org.tasks.reminders.NotificationActivity;
 import org.tasks.reminders.SnoozeActivity;
@@ -131,4 +132,6 @@ public interface ActivityComponent {
   void inject(CaldavAccountSettingsActivity caldavAccountSettingsActivity);
 
   void inject(DriveLoginActivity driveLoginActivity);
+
+  void inject(DebugPreferences debugPreferences);
 }
