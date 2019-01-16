@@ -58,10 +58,11 @@ public class NotificationManager {
   public static final String NOTIFICATION_CHANNEL_DEFAULT = "notifications";
   public static final String NOTIFICATION_CHANNEL_TASKER = "notifications_tasker";
   public static final String NOTIFICATION_CHANNEL_TIMERS = "notifications_timers";
+  public static final int MAX_NOTIFICATIONS = 40;
   static final String EXTRA_NOTIFICATION_ID = "extra_notification_id";
+  static final int SUMMARY_NOTIFICATION_ID = 0;
   private static final String GROUP_KEY = "tasks";
-  private static final int SUMMARY_NOTIFICATION_ID = 0;
-  private static final int NOTIFICATIONS_PER_SECOND = 5;
+  private static final int NOTIFICATIONS_PER_SECOND = 4;
   private final NotificationManagerCompat notificationManagerCompat;
   private final LocationDao locationDao;
   private final NotificationDao notificationDao;
@@ -70,6 +71,7 @@ public class NotificationManager {
   private final Preferences preferences;
   private final CheckBoxes checkBoxes;
   private final Throttle throttle = new Throttle(NOTIFICATIONS_PER_SECOND);
+  private final NotificationLimiter queue = new NotificationLimiter(MAX_NOTIFICATIONS);
 
   @Inject
   public NotificationManager(
@@ -114,6 +116,7 @@ public class NotificationManager {
 
   public void cancel(long id) {
     notificationManagerCompat.cancel((int) id);
+    queue.remove(id);
     Completable.fromAction(
             () -> {
               if (id == SUMMARY_NOTIFICATION_ID) {
@@ -132,11 +135,12 @@ public class NotificationManager {
   }
 
   public void cancel(List<Long> ids) {
+    for (Long id : ids) {
+      notificationManagerCompat.cancel(id.intValue());
+      queue.remove(id);
+    }
     Completable.fromAction(
             () -> {
-              for (Long id : ids) {
-                notificationManagerCompat.cancel(id.intValue());
-              }
               if (notificationDao.deleteAll(ids) > 0) {
                 notifyTasks(Collections.emptyList(), false, false, false);
               }
@@ -255,6 +259,12 @@ public class NotificationManager {
     notification.deleteIntent =
         PendingIntent.getBroadcast(
             context, (int) notificationId, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+    List<Long> evicted = queue.add(notificationId);
+    if (evicted.size() > 0) {
+      cancel(evicted);
+    }
+
     for (int i = 0; i < ringTimes; i++) {
       throttle.run(() -> notificationManagerCompat.notify((int) notificationId, notification));
     }

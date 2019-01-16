@@ -2,7 +2,10 @@ package org.tasks;
 
 import static android.content.Intent.FLAG_ACTIVITY_MULTIPLE_TASK;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static com.google.common.collect.Iterables.skip;
+import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
+import static org.tasks.notifications.NotificationManager.MAX_NOTIFICATIONS;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 import android.app.PendingIntent;
@@ -143,6 +146,10 @@ public class Notifier {
       return;
     } else {
       Timber.d("Triggering %s", notifications);
+    }
+
+    if (notifications.size() > MAX_NOTIFICATIONS) {
+      notifications = newArrayList(skip(notifications, notifications.size() - MAX_NOTIFICATIONS));
     }
 
     notificationManager.notifyTasks(notifications, alert, ringNonstop, ringFiveTimes);
