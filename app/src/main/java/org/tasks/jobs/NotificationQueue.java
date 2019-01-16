@@ -1,5 +1,6 @@
 package org.tasks.jobs;
 
+import static com.google.common.base.Predicates.notNull;
 import static com.google.common.collect.Iterables.filter;
 import static com.google.common.collect.Lists.newArrayList;
 
@@ -7,8 +8,11 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.TreeMultimap;
 import com.google.common.primitives.Ints;
+import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.tasks.injection.ApplicationScope;
 import org.tasks.preferences.Preferences;
 import org.tasks.time.DateTime;
@@ -28,8 +32,15 @@ public class NotificationQueue {
   }
 
   public synchronized <T extends NotificationQueueEntry> void add(T entry) {
-    boolean reschedule = jobs.isEmpty() || entry.getTime() < firstTime();
-    jobs.put(entry.getTime(), entry);
+    add(Collections.singletonList(entry));
+  }
+
+  public synchronized <T extends NotificationQueueEntry> void add(Iterable<T> entries) {
+    boolean reschedule = false;
+    for (T entry : filter(entries, notNull())) {
+      reschedule |= jobs.isEmpty() || entry.getTime() < firstTime();
+      jobs.put(entry.getTime(), entry);
+    }
     if (reschedule) {
       scheduleNext(true);
     }
