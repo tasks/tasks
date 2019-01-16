@@ -1,6 +1,13 @@
 Change Log
 ---
 
+### 6.4.1 (2019-01-16)
+
+* Limit number of active notifications
+* Limit rate of notifications
+* Fix Synology Calendar sync issue
+* Fix exception when external storage is unavailable
+
 ### 6.4 (2019-01-10)
 
 * Copy backups to Google Drive
