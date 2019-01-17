@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import org.tasks.files.FileHelper;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingJobIntentService;
-import org.tasks.injection.IntentServiceComponent;
+import org.tasks.injection.ServiceComponent;
 import org.tasks.jobs.WorkManager;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
@@ -46,7 +46,7 @@ public class BackgroundScheduler extends InjectingJobIntentService {
   }
 
   @Override
-  protected void inject(IntentServiceComponent component) {
+  protected void inject(ServiceComponent component) {
     component.inject(this);
   }
 }

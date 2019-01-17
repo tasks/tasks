@@ -60,7 +60,10 @@ public final class ReminderService {
   }
 
   public void scheduleAlarm(Task task) {
-    jobs.add(getReminderEntry(task));
+    ReminderEntry reminder = getReminderEntry(task);
+    if (reminder != null) {
+      jobs.add(reminder);
+    }
   }
 
   public void cancelReminder(long taskId) {

@@ -11,7 +11,7 @@ import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingJobIntentService;
-import org.tasks.injection.IntentServiceComponent;
+import org.tasks.injection.ServiceComponent;
 import org.tasks.locale.bundle.ListNotificationBundle;
 import org.tasks.locale.bundle.TaskCreationBundle;
 import org.tasks.preferences.DefaultFilterProvider;
@@ -49,7 +49,7 @@ public class TaskerIntentService extends InjectingJobIntentService {
   }
 
   @Override
-  protected void inject(IntentServiceComponent component) {
+  protected void inject(ServiceComponent component) {
     component.inject(this);
   }
 }

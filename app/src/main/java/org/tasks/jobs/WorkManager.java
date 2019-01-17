@@ -1,10 +1,18 @@
 package org.tasks.jobs;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastKitKat;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
 import static com.todoroo.andlib.utility.DateUtilities.now;
 import static org.tasks.date.DateTimeUtils.midnight;
 import static org.tasks.date.DateTimeUtils.newDateTime;
+import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 import static org.tasks.time.DateTimeUtils.printTimestamp;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import androidx.work.BackoffPolicy;
 import androidx.work.Constraints;
@@ -27,6 +35,7 @@ import org.tasks.R;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.GoogleTaskListDao;
 import org.tasks.injection.ApplicationScope;
+import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
@@ -36,21 +45,27 @@ public class WorkManager {
   private static final String TAG_BACKUP = "tag_backup";
   private static final String TAG_REFRESH = "tag_refresh";
   private static final String TAG_MIDNIGHT_REFRESH = "tag_midnight_refresh";
-  private static final String TAG_NOTIFICATION = "tag_notification";
   private static final String TAG_SYNC = "tag_sync";
   private static final String TAG_BACKGROUND_SYNC = "tag_background_sync";
 
+  private final Context context;
   private final Preferences preferences;
   private final GoogleTaskListDao googleTaskListDao;
   private final CaldavDao caldavDao;
+  private final AlarmManager alarmManager;
   private androidx.work.WorkManager workManager;
 
   @Inject
   public WorkManager(
-      Preferences preferences, GoogleTaskListDao googleTaskListDao, CaldavDao caldavDao) {
+      @ForApplication Context context,
+      Preferences preferences,
+      GoogleTaskListDao googleTaskListDao,
+      CaldavDao caldavDao) {
+    this.context = context;
     this.preferences = preferences;
     this.googleTaskListDao = googleTaskListDao;
     this.caldavDao = caldavDao;
+    alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
   }
 
   public void init() {
@@ -138,7 +153,23 @@ public class WorkManager {
 
   @SuppressWarnings("WeakerAccess")
   public void scheduleNotification(long time) {
-    enqueueUnique(TAG_NOTIFICATION, NotificationWork.class, time);
+    if (time < currentTimeMillis()) {
+      Intent intent = getNotificationIntent();
+      if (atLeastOreo()) {
+        context.startForegroundService(intent);
+      } else {
+        context.startService(intent);
+      }
+    } else {
+      PendingIntent pendingIntent = getNotificationPendingIntent();
+      if (atLeastMarshmallow()) {
+        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, time, pendingIntent);
+      } else if (atLeastKitKat()) {
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, time, pendingIntent);
+      } else {
+        alarmManager.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
+      }
+    }
   }
 
   void scheduleBackup() {
@@ -188,12 +219,23 @@ public class WorkManager {
   @SuppressWarnings("WeakerAccess")
   public void cancelNotifications() {
     Timber.d("cancelNotifications");
-    workManager.cancelAllWorkByTag(TAG_NOTIFICATION);
+    alarmManager.cancel(getNotificationPendingIntent());
   }
 
   public void onStartup() {
     updateBackgroundSync();
     scheduleMidnightRefresh();
     scheduleBackup();
+  }
+
+  private Intent getNotificationIntent() {
+    return new Intent(context, NotificationService.class);
+  }
+
+  private PendingIntent getNotificationPendingIntent() {
+    Intent intent = getNotificationIntent();
+    return atLeastOreo()
+        ? PendingIntent.getForegroundService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        : PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
   }
 }

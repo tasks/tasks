@@ -18,7 +18,7 @@ public abstract class InjectingJobIntentService extends JobIntentService {
   @Override
   protected final void onHandleWork(@NonNull Intent intent) {
     inject(
-        ((InjectingApplication) getApplication()).getComponent().plus(new IntentServiceModule()));
+        ((InjectingApplication) getApplication()).getComponent().plus(new ServiceModule()));
 
     try {
       doWork(intent);
@@ -29,5 +29,5 @@ public abstract class InjectingJobIntentService extends JobIntentService {
 
   protected abstract void doWork(@Nonnull Intent intent);
 
-  protected abstract void inject(IntentServiceComponent component);
+  protected abstract void inject(ServiceComponent component);
 }

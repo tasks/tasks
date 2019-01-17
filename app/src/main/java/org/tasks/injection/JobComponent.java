@@ -6,7 +6,6 @@ import org.tasks.jobs.BackupWork;
 import org.tasks.jobs.CleanupWork;
 import org.tasks.jobs.DriveUploader;
 import org.tasks.jobs.MidnightRefreshWork;
-import org.tasks.jobs.NotificationWork;
 import org.tasks.jobs.RefreshWork;
 import org.tasks.jobs.SyncWork;
 
@@ -14,8 +13,6 @@ import org.tasks.jobs.SyncWork;
 public interface JobComponent {
 
   void inject(SyncWork syncWork);
-
-  void inject(NotificationWork notificationWork);
 
   void inject(BackupWork backupWork);
 

@@ -71,6 +71,26 @@ public class NotificationQueueTest {
   }
 
   @Test
+  public void alarmAndReminderSameTimeDifferentId() {
+    long now = currentTimeMillis();
+
+    queue.add(new AlarmEntry(1, 2, now));
+    queue.add(new ReminderEntry(1, now + 1000, TYPE_DUE));
+
+    verify(workManager).scheduleNotification(now);
+
+    Freeze.freezeAt(now)
+        .thawAfter(
+            new Snippet() {
+              {
+                assertEquals(
+                    newHashSet(new AlarmEntry(1, 2, now), new ReminderEntry(1, now + 1000, TYPE_DUE)),
+                    newHashSet(queue.getOverdueJobs()));
+              }
+            });
+  }
+
+  @Test
   public void removeAlarmLeaveReminder() {
     long now = currentTimeMillis();
 

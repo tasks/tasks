@@ -13,6 +13,7 @@
   <!-- notifications -->
   <!-- ************* -->
   <uses-permission android:name="android.permission.VIBRATE"/>
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
   <!-- *************************** -->
   <!-- google calendar integration -->
@@ -431,6 +432,10 @@
         android:name="settingsActivity"
         android:value=".dashclock.DashClockSettings"/>
     </service>
+
+    <service
+      android:exported="false"
+      android:name=".jobs.NotificationService"/>
 
     <activity
       android:exported="true"

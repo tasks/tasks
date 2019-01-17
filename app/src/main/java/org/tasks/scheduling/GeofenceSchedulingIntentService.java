@@ -5,7 +5,7 @@ import android.content.Intent;
 import androidx.core.app.JobIntentService;
 import javax.inject.Inject;
 import org.tasks.injection.InjectingJobIntentService;
-import org.tasks.injection.IntentServiceComponent;
+import org.tasks.injection.ServiceComponent;
 import org.tasks.location.GeofenceService;
 import timber.log.Timber;
 
@@ -30,7 +30,7 @@ public class GeofenceSchedulingIntentService extends InjectingJobIntentService {
   }
 
   @Override
-  protected void inject(IntentServiceComponent component) {
+  protected void inject(ServiceComponent component) {
     component.inject(this);
   }
 }

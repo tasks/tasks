@@ -158,7 +158,7 @@ public class GoogleTaskSynchronizer {
     PendingIntent resolve =
         PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     NotificationCompat.Builder builder =
-        new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_DEFAULT)
+        new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_MISCELLANEOUS)
             .setAutoCancel(true)
             .setContentIntent(resolve)
             .setContentTitle(context.getString(R.string.sync_error_permissions))

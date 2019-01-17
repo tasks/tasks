@@ -19,7 +19,7 @@ public interface ApplicationComponent {
 
   BroadcastComponent plus(BroadcastModule module);
 
-  IntentServiceComponent plus(IntentServiceModule module);
+  ServiceComponent plus(ServiceModule module);
 
   JobComponent plus(WorkModule module);
 }

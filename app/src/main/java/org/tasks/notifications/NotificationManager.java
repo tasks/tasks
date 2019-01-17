@@ -58,6 +58,7 @@ public class NotificationManager {
   public static final String NOTIFICATION_CHANNEL_DEFAULT = "notifications";
   public static final String NOTIFICATION_CHANNEL_TASKER = "notifications_tasker";
   public static final String NOTIFICATION_CHANNEL_TIMERS = "notifications_timers";
+  public static final String NOTIFICATION_CHANNEL_MISCELLANEOUS = "notifications_miscellaneous";
   public static final int MAX_NOTIFICATIONS = 40;
   static final String EXTRA_NOTIFICATION_ID = "extra_notification_id";
   static final int SUMMARY_NOTIFICATION_ID = 0;
@@ -92,25 +93,30 @@ public class NotificationManager {
       android.app.NotificationManager notificationManager =
           (android.app.NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
       notificationManager.createNotificationChannel(
-          createNotificationChannel(NOTIFICATION_CHANNEL_DEFAULT, R.string.notifications));
+          createNotificationChannel(NOTIFICATION_CHANNEL_DEFAULT, R.string.notifications, true));
       notificationManager.createNotificationChannel(
-          createNotificationChannel(NOTIFICATION_CHANNEL_TASKER, R.string.tasker_locale));
+          createNotificationChannel(NOTIFICATION_CHANNEL_TASKER, R.string.tasker_locale, true));
       notificationManager.createNotificationChannel(
-          createNotificationChannel(NOTIFICATION_CHANNEL_TIMERS, R.string.TEA_timer_controls));
+          createNotificationChannel(NOTIFICATION_CHANNEL_TIMERS, R.string.TEA_timer_controls, true));
+      notificationManager.createNotificationChannel(
+          createNotificationChannel(NOTIFICATION_CHANNEL_MISCELLANEOUS, R.string.miscellaneous, false));
     }
   }
 
   @TargetApi(Build.VERSION_CODES.O)
-  private NotificationChannel createNotificationChannel(String channelId, int nameResId) {
+  private NotificationChannel createNotificationChannel(
+      String channelId, int nameResId, boolean alert) {
     String channelName = context.getString(nameResId);
+    int importance =
+        alert
+            ? android.app.NotificationManager.IMPORTANCE_HIGH
+            : android.app.NotificationManager.IMPORTANCE_LOW;
     NotificationChannel notificationChannel =
-        new NotificationChannel(
-            channelId, channelName, android.app.NotificationManager.IMPORTANCE_HIGH);
-    notificationChannel.enableLights(true);
-    notificationChannel.enableVibration(true);
-    notificationChannel.setBypassDnd(true);
-    notificationChannel.setShowBadge(true);
-    notificationChannel.setImportance(android.app.NotificationManager.IMPORTANCE_HIGH);
+        new NotificationChannel(channelId, channelName, importance);
+    notificationChannel.enableLights(alert);
+    notificationChannel.enableVibration(alert);
+    notificationChannel.setBypassDnd(alert);
+    notificationChannel.setShowBadge(alert);
     return notificationChannel;
   }
 

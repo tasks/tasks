@@ -15,7 +15,7 @@ import org.tasks.calendars.AndroidCalendarEvent;
 import org.tasks.calendars.CalendarEventProvider;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingJobIntentService;
-import org.tasks.injection.IntentServiceComponent;
+import org.tasks.injection.ServiceComponent;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
@@ -78,7 +78,7 @@ public class CalendarNotificationIntentService extends RecurringIntervalIntentSe
   }
 
   @Override
-  protected void inject(IntentServiceComponent component) {
+  protected void inject(ServiceComponent component) {
     component.inject(this);
   }
 

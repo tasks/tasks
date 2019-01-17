@@ -7,7 +7,7 @@ import com.todoroo.astrid.alarms.AlarmService;
 import com.todoroo.astrid.reminders.ReminderService;
 import javax.inject.Inject;
 import org.tasks.injection.InjectingJobIntentService;
-import org.tasks.injection.IntentServiceComponent;
+import org.tasks.injection.ServiceComponent;
 import org.tasks.jobs.NotificationQueue;
 import org.tasks.notifications.NotificationManager;
 import timber.log.Timber;
@@ -46,7 +46,7 @@ public class NotificationSchedulerIntentService extends InjectingJobIntentServic
   }
 
   @Override
-  protected void inject(IntentServiceComponent component) {
+  protected void inject(ServiceComponent component) {
     component.inject(this);
   }
 }
