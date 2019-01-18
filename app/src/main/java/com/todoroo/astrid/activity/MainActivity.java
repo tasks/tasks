@@ -114,7 +114,6 @@ public class MainActivity extends InjectingAppCompatActivity
   FrameLayout detail;
 
   private NavigationDrawerFragment navigationDrawer;
-  private TaskListViewModel viewModel;
   private int currentNightMode;
 
   private Filter filter;
@@ -125,7 +124,7 @@ public class MainActivity extends InjectingAppCompatActivity
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    viewModel = ViewModelProviders.of(this).get(TaskListViewModel.class);
+    TaskListViewModel viewModel = ViewModelProviders.of(this).get(TaskListViewModel.class);
 
     getComponent().inject(viewModel);
 
@@ -340,7 +339,6 @@ public class MainActivity extends InjectingAppCompatActivity
     }
 
     if (item instanceof Filter) {
-      viewModel.clear();
       startActivity(TaskIntents.getTaskListIntent(this, (Filter) item));
     }
   }

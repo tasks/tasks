@@ -40,12 +40,6 @@ public class TaskListViewModel extends ViewModel {
   private LiveData<PagedList<Task>> tasks;
   private Filter filter;
 
-  public void clear() {
-    tasks = null;
-    latest = null;
-    filter = null;
-  }
-
   public LiveData<PagedList<Task>> getTasks(Filter filter, Property<?>[] properties) {
     if (tasks == null || !filter.equals(this.filter)) {
       this.filter = filter;
