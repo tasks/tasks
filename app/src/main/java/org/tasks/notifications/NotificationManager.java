@@ -368,7 +368,8 @@ public class NotificationManager {
 
     // task due date was changed, but alarm wasn't rescheduled
     boolean dueInFuture =
-        task.hasDueTime() && task.getDueDate() > DateUtilities.now()
+        task.hasDueTime()
+                && new DateTime(task.getDueDate()).startOfMinute().getMillis() > DateUtilities.now()
             || !task.hasDueTime()
                 && task.getDueDate() - DateUtilities.now() > DateUtilities.ONE_DAY;
     if ((type == ReminderService.TYPE_DUE || type == ReminderService.TYPE_OVERDUE)
