@@ -1,6 +1,12 @@
 Change Log
 ---
 
+### 6.4.3 (2019-01-23)
+
+* Use AlarmManager for notifications
+* Fix notification bug
+* Update Bulgarian translations - ddmdima96
+
 ### 6.4.1 (2019-01-16)
 
 * Limit number of active notifications

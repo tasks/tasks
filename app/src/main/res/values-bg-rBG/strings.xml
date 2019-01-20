@@ -311,6 +311,7 @@
 	<string name="quiet_hours">Тихи часове</string>
 	<string name="attachment_directory">Директория за прикачени файлове</string>
 	<string name="backup_directory">Директория за резервни копия</string>
+	<string name="google_drive_backup">Копирай в Google Drive</string>
 	<string name="miscellaneous">Разни</string>
 	<string name="synchronization">Синхронизация</string>
 	<string name="enabled">Активирано</string>
