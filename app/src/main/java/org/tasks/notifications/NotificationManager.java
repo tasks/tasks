@@ -55,7 +55,7 @@ import timber.log.Timber;
 @ApplicationScope
 public class NotificationManager {
 
-  public static final String NOTIFICATION_CHANNEL_DEFAULT = "notifications";
+  private static final String NOTIFICATION_CHANNEL_DEFAULT = "notifications";
   public static final String NOTIFICATION_CHANNEL_TASKER = "notifications_tasker";
   public static final String NOTIFICATION_CHANNEL_TIMERS = "notifications_timers";
   public static final String NOTIFICATION_CHANNEL_MISCELLANEOUS = "notifications_miscellaneous";
