@@ -130,8 +130,6 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity
     MenuColorizer.colorToolbar(this, toolbar);
     listView = findViewById(android.R.id.list);
 
-    database.openForReading();
-
     List<CriterionInstance> startingCriteria = new ArrayList<>();
     startingCriteria.add(getStartingUniverse());
     adapter = new CustomFilterAdapter(this, dialogBuilder, startingCriteria, locale);
@@ -295,7 +293,7 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity
         sql.append(Task.ID).append(" IN (").append(subSql).append(") ");
       }
 
-      Cursor cursor = database.rawQuery(sql.toString());
+      Cursor cursor = database.query(sql.toString(), null);
       try {
         cursor.moveToNext();
         instance.start = last == -1 ? cursor.getInt(0) : last;

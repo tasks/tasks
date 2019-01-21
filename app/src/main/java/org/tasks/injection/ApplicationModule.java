@@ -9,7 +9,6 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
 import dagger.Module;
 import dagger.Provides;
-import org.tasks.analytics.Tracker;
 import org.tasks.data.AlarmDao;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.DeletionDao;
@@ -52,12 +51,12 @@ public class ApplicationModule {
 
   @Provides
   @ApplicationScope
-  public Database getAppDatabase(Tracker tracker) {
+  public Database getAppDatabase() {
     return Room.databaseBuilder(context, Database.class, Database.NAME)
         .allowMainThreadQueries() // TODO: remove me
         .addMigrations(Migrations.MIGRATIONS)
         .build()
-        .init(tracker, () -> Astrid2TaskProvider.notifyDatabaseModification(context));
+        .init(() -> Astrid2TaskProvider.notifyDatabaseModification(context));
   }
 
   @Provides

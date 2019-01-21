@@ -6,12 +6,8 @@
 
 package com.todoroo.astrid.dao;
 
-import android.database.Cursor;
 import androidx.room.RoomDatabase;
-import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.todoroo.astrid.data.Task;
-import java.io.IOException;
-import org.tasks.analytics.Tracker;
 import org.tasks.data.Alarm;
 import org.tasks.data.AlarmDao;
 import org.tasks.data.CaldavAccount;
@@ -40,7 +36,6 @@ import org.tasks.data.UserActivity;
 import org.tasks.data.UserActivityDao;
 import org.tasks.notifications.Notification;
 import org.tasks.notifications.NotificationDao;
-import timber.log.Timber;
 
 @androidx.room.Database(
     entities = {
@@ -65,8 +60,6 @@ import timber.log.Timber;
 public abstract class Database extends RoomDatabase {
 
   public static final String NAME = "database";
-  private SupportSQLiteDatabase database;
-  private Tracker tracker;
   private Runnable onDatabaseUpdated;
 
   public abstract NotificationDao notificationDao();
@@ -103,8 +96,7 @@ public abstract class Database extends RoomDatabase {
     return NAME;
   }
 
-  public Database init(Tracker tracker, Runnable onDatabaseUpdated) {
-    this.tracker = tracker;
+  public Database init(Runnable onDatabaseUpdated) {
     this.onDatabaseUpdated = onDatabaseUpdated;
     return this;
   }
@@ -115,61 +107,9 @@ public abstract class Database extends RoomDatabase {
     }
   }
 
-  /**
-   * Open the database for writing. Must be closed afterwards. If user is out of disk space,
-   * database may be opened for reading instead
-   */
-  public final synchronized void openForWriting() {
-    if (database != null && !database.isReadOnly() && database.isOpen()) {
-      return;
-    }
-
-    try {
-      database = getOpenHelper().getWritableDatabase();
-    } catch (Exception e) {
-      tracker.reportException(e);
-      throw new IllegalStateException(e);
-    }
-  }
-
-  /** Open the database for reading. Must be closed afterwards */
-  public final synchronized void openForReading() {
-    if (database != null && database.isOpen()) {
-      return;
-    }
-    database = getOpenHelper().getReadableDatabase();
-  }
-
-  /** Close the database if it has been opened previously */
-  @Override
-  public final synchronized void close() {
-    if (database != null) {
-      try {
-        database.close();
-      } catch (IOException e) {
-        Timber.e(e);
-      }
-    }
-    database = null;
-  }
-
-  /** @return sql database. opens database if not yet open */
-  private synchronized SupportSQLiteDatabase getDatabase() {
-    if (database == null) {
-      openForWriting();
-    }
-    return database;
-  }
-
   /** @return human-readable database name for debugging */
   @Override
   public String toString() {
     return "DB:" + getName();
-  }
-
-  // --- database wrapper
-
-  public Cursor rawQuery(String sql) {
-    return getDatabase().query(sql, null);
   }
 }

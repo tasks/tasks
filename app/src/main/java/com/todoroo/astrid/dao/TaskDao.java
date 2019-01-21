@@ -231,7 +231,7 @@ public abstract class TaskDao {
     if (BuildConfig.DEBUG) {
       Timber.v(queryString);
     }
-    return database.rawQuery(queryString);
+    return database.query(queryString, null);
   }
 
   /** Generates SQL clauses */
