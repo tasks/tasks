@@ -4,11 +4,14 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastKitKat;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
 import static com.todoroo.andlib.utility.DateUtilities.now;
+import static io.reactivex.Single.just;
+import static io.reactivex.Single.zip;
 import static org.tasks.date.DateTimeUtils.midnight;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 import static org.tasks.time.DateTimeUtils.printTimestamp;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -26,6 +29,8 @@ import androidx.work.PeriodicWorkRequest;
 import androidx.work.Worker;
 import com.google.common.primitives.Longs;
 import com.todoroo.astrid.data.Task;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -109,6 +114,7 @@ public class WorkManager {
     updateBackgroundSync(null, null, null);
   }
 
+  @SuppressLint("CheckResult")
   public void updateBackgroundSync(
       @Nullable Boolean forceAccountPresent,
       @Nullable Boolean forceBackgroundEnabled,
@@ -117,18 +123,26 @@ public class WorkManager {
         forceBackgroundEnabled == null
             ? preferences.getBoolean(R.string.p_background_sync, true)
             : forceBackgroundEnabled;
-    boolean accountsPresent =
-        forceAccountPresent == null
-            ? (googleTaskListDao.getAccounts().size() > 0 || caldavDao.getAccounts().size() > 0)
-            : forceAccountPresent;
     boolean onlyOnWifi =
         forceOnlyOnUnmetered == null
             ? preferences.getBoolean(R.string.p_background_sync_unmetered_only, false)
             : forceOnlyOnUnmetered;
-    scheduleBackgroundSynchronization(backgroundEnabled && accountsPresent, onlyOnWifi);
+
+    //noinspection ResultOfMethodCallIgnored
+    (forceAccountPresent == null
+            ? zip(
+                googleTaskListDao.accountCount(),
+                caldavDao.accountCount(),
+                (googleCount, caldavCount) -> googleCount > 0 || caldavCount > 0)
+            : just(forceAccountPresent))
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(
+            accountsPresent ->
+                scheduleBackgroundSync(backgroundEnabled && accountsPresent, onlyOnWifi));
   }
 
-  private void scheduleBackgroundSynchronization(boolean enabled, boolean onlyOnUnmetered) {
+  private void scheduleBackgroundSync(boolean enabled, boolean onlyOnUnmetered) {
     Timber.d("background sync enabled: %s, onlyOnUnmetered: %s", enabled, onlyOnUnmetered);
     if (enabled) {
       workManager.enqueueUniquePeriodicWork(

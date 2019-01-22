@@ -39,6 +39,7 @@ import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
 import com.todoroo.astrid.timers.TimerControlSet;
+import io.reactivex.disposables.CompositeDisposable;
 import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
@@ -115,6 +116,7 @@ public class MainActivity extends InjectingAppCompatActivity
   @BindView(R.id.detail)
   FrameLayout detail;
 
+  private CompositeDisposable disposables = new CompositeDisposable();
   private NavigationDrawerFragment navigationDrawer;
   private int currentNightMode;
 
@@ -317,7 +319,14 @@ public class MainActivity extends InjectingAppCompatActivity
 
     localBroadcastManager.registerRepeatReceiver(repeatConfirmationReceiver);
 
-    syncAdapters.checkPlayServices(this);
+    disposables.add(syncAdapters.checkPlayServices(this));
+  }
+
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+
+    disposables.dispose();
   }
 
   public void restart() {

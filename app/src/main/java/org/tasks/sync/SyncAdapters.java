@@ -1,6 +1,7 @@
 package org.tasks.sync;
 
 import android.app.Activity;
+import io.reactivex.disposables.Disposable;
 import javax.inject.Inject;
 import org.tasks.data.CaldavDao;
 import org.tasks.gtasks.GtaskSyncAdapterHelper;
@@ -40,7 +41,7 @@ public class SyncAdapters {
     return caldavDao.getAccounts().size() > 0;
   }
 
-  public void checkPlayServices(Activity activity) {
-    gtaskSyncAdapterHelper.checkPlayServices(activity);
+  public Disposable checkPlayServices(Activity activity) {
+    return gtaskSyncAdapterHelper.checkPlayServices(activity);
   }
 }

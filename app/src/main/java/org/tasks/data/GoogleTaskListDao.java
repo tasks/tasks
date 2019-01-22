@@ -6,10 +6,14 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
+import io.reactivex.Single;
 import java.util.List;
 
 @Dao
 public abstract class GoogleTaskListDao {
+
+  @Query("SELECT COUNT(*) FROM google_task_accounts")
+  public abstract Single<Integer> accountCount();
 
   @Query("SELECT * FROM google_task_accounts")
   public abstract List<GoogleTaskAccount> getAccounts();
