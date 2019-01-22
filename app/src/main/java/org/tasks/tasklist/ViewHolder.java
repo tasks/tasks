@@ -7,7 +7,7 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static com.todoroo.andlib.utility.DateUtilities.getAbbreviatedRelativeDateWithTime;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
+import android.app.Activity;
 import android.graphics.Paint;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -38,7 +38,7 @@ import org.tasks.ui.ChipProvider;
 
 class ViewHolder extends RecyclerView.ViewHolder {
 
-  private final Context context;
+  private final Activity context;
   private final Preferences preferences;
   private final CheckBoxes checkBoxes;
   private final int textColorSecondary;
@@ -84,7 +84,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
   private boolean moving;
 
   ViewHolder(
-      Context context,
+      Activity context,
       Locale locale,
       ViewGroup view,
       Preferences preferences,
@@ -279,7 +279,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
       List<String> tagUuids = tags != null ? newArrayList(tags.split(",")) : Lists.newArrayList();
 
       List<Chip> chips =
-          chipProvider.getChips(task.getCaldav(), task.getGoogleTaskList(), tagUuids);
+          chipProvider.getChips(context, task.getCaldav(), task.getGoogleTaskList(), tagUuids);
       if (chips.isEmpty()) {
         chipGroup.setVisibility(View.GONE);
       } else {

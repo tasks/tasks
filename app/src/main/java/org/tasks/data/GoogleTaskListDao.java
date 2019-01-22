@@ -1,5 +1,6 @@
 package org.tasks.data;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -24,6 +25,9 @@ public abstract class GoogleTaskListDao {
 
   @Query("SELECT * FROM google_task_lists WHERE remote_id = :remoteId LIMIT 1")
   public abstract GoogleTaskList getByRemoteId(String remoteId);
+
+  @Query("SELECT * FROM google_task_lists")
+  public abstract LiveData<List<GoogleTaskList>> subscribeToLists();
 
   @Query(
       "SELECT * FROM google_task_lists WHERE remote_id = :remoteId AND IFNULL(account, '') = '' LIMIT 1")

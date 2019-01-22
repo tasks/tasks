@@ -1,5 +1,6 @@
 package org.tasks.data;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -10,6 +11,9 @@ import java.util.List;
 
 @Dao
 public abstract class TagDataDao {
+
+  @Query("SELECT * FROM tagdata")
+  public abstract LiveData<List<TagData>> subscribeToTags();
 
   @Query("SELECT * FROM tagdata WHERE name = :name COLLATE NOCASE LIMIT 1")
   public abstract TagData getTagByName(String name);

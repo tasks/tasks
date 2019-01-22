@@ -5,6 +5,7 @@ import static com.todoroo.andlib.utility.AndroidUtilities.convertDpToPixels;
 import static org.tasks.preferences.ResourceResolver.getData;
 import static org.tasks.preferences.ResourceResolver.getResourceId;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -65,7 +66,7 @@ public class ViewHolderFactory {
 
   ViewHolder newViewHolder(ViewGroup parent, ViewHolder.ViewHolderCallbacks callbacks) {
     return new ViewHolder(
-        context,
+        (Activity) context,
         locale,
         (ViewGroup)
             LayoutInflater.from(context).inflate(R.layout.task_adapter_row_simple, parent, false),

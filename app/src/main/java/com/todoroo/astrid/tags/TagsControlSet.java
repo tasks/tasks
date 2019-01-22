@@ -355,7 +355,9 @@ public final class TagsControlSet extends TaskEditControlFragment {
       chipGroup.setVisibility(View.VISIBLE);
       chipGroup.removeAllViews();
       for (TagData tagData : orderByName.sortedCopy(selectedTags)) {
-        Chip chip = chipProvider.getChip(tagData);
+        Chip chip = new Chip(getActivity());
+        chipProvider.apply(chip, tagData);
+        chip.setCloseIconVisible(true);
         chip.setOnClickListener(view -> onClickRow());
         chip.setOnCloseIconClickListener(
             view -> {

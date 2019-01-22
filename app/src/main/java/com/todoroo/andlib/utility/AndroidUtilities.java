@@ -172,16 +172,20 @@ public class AndroidUtilities {
     return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
   }
 
+  public static void assertMainThread() {
+    if (BuildConfig.DEBUG && !isMainThread()) {
+      throw new IllegalStateException("Should be called from main thread");
+    }
+  }
+
   public static void assertNotMainThread() {
     if (BuildConfig.DEBUG && isMainThread()) {
-      throw new IllegalStateException();
+      throw new IllegalStateException("Should not be called from main thread");
     }
   }
 
   private static boolean isMainThread() {
-    return atLeastMarshmallow()
-        ? Looper.getMainLooper().isCurrentThread()
-        : Thread.currentThread() == Looper.getMainLooper().getThread();
+    return Thread.currentThread() == Looper.getMainLooper().getThread();
   }
 
   /**

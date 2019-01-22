@@ -1,5 +1,6 @@
 package org.tasks.data;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -9,6 +10,9 @@ import java.util.List;
 
 @Dao
 public interface CaldavDao {
+
+  @Query("SELECT * FROM caldav_calendar")
+  LiveData<List<CaldavCalendar>> subscribeToCalendars();
 
   @Query("SELECT * FROM caldav_calendar WHERE uuid = :uuid LIMIT 1")
   CaldavCalendar getCalendarByUuid(String uuid);
