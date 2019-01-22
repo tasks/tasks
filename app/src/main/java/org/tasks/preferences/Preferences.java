@@ -188,7 +188,7 @@ public class Preferences {
   }
 
   public void clear() {
-    prefs.edit().clear().commit();
+    prefs.edit().clear().apply();
   }
 
   public void setDefaults() {
@@ -229,7 +229,7 @@ public class Preferences {
     return getIntegerFromString(R.string.p_default_reminders_mode_key, 0);
   }
 
-  public int getRowPadding() {
+  int getRowPadding() {
     return getInt(R.string.p_rowPadding, 16);
   }
 
@@ -252,7 +252,7 @@ public class Preferences {
     }
   }
 
-  public Uri getUri(int key) {
+  private Uri getUri(int key) {
     String uri = getStringValue(key);
     return Strings.isNullOrEmpty(uri) ? null : Uri.parse(uri);
   }
@@ -272,13 +272,13 @@ public class Preferences {
   public void setString(String key, String newValue) {
     Editor editor = prefs.edit();
     editor.putString(key, newValue);
-    editor.commit();
+    editor.apply();
   }
 
   public void setStringFromInteger(int keyResource, int newValue) {
     Editor editor = prefs.edit();
     editor.putString(context.getString(keyResource), Integer.toString(newValue));
-    editor.commit();
+    editor.apply();
   }
 
   public boolean getBoolean(String key, boolean defValue) {
@@ -298,10 +298,10 @@ public class Preferences {
     setBoolean(context.getString(keyResource), value);
   }
 
-  public void setBoolean(String key, boolean value) {
+  void setBoolean(String key, boolean value) {
     Editor editor = prefs.edit();
     editor.putBoolean(key, value);
-    editor.commit();
+    editor.apply();
   }
 
   public int getInt(int resourceId, int defValue) {
@@ -319,7 +319,7 @@ public class Preferences {
   public void setInt(String key, int value) {
     Editor editor = prefs.edit();
     editor.putInt(key, value);
-    editor.commit();
+    editor.apply();
   }
 
   public long getLong(int resourceId, long defValue) {
@@ -337,13 +337,13 @@ public class Preferences {
   public void setLong(String key, long value) {
     Editor editor = prefs.edit();
     editor.putLong(key, value);
-    editor.commit();
+    editor.apply();
   }
 
   public void clear(String key) {
     Editor editor = prefs.edit();
     editor.remove(key);
-    editor.commit();
+    editor.apply();
   }
 
   public int getLastSetVersion() {
@@ -366,7 +366,7 @@ public class Preferences {
     if (publicPrefs != null) {
       Editor edit = publicPrefs.edit();
       if (edit != null) {
-        edit.putInt(key, value).commit();
+        edit.putInt(key, value).apply();
       }
     }
   }
