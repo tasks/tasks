@@ -30,18 +30,12 @@ public class TaskAdapter {
 
   private static final StringProperty TAGS =
       new StringProperty(
-              null,
-              "group_concat(nullif("
-                  + TaskListFragment.TAGS_METADATA_JOIN
-                  + ".tag_uid, '')"
-                  + ", ',')")
+              null, "group_concat(" + TaskListFragment.TAGS_METADATA_JOIN + ".tag_uid" + ", ',')")
           .as("tags");
   private static final StringProperty GTASK =
-      new StringProperty(null, "nullif(" + TaskListFragment.GTASK_METADATA_JOIN + ".list_id, '')")
-          .as("googletask");
+      new StringProperty(null, TaskListFragment.GTASK_METADATA_JOIN + ".list_id").as("googletask");
   private static final StringProperty CALDAV =
-      new StringProperty(null, "nullif(" + TaskListFragment.CALDAV_METADATA_JOIN + ".calendar, '')")
-          .as("caldav");
+      new StringProperty(null, TaskListFragment.CALDAV_METADATA_JOIN + ".calendar").as("caldav");
 
   private static final LongProperty FILE_ID_PROPERTY =
       TaskAttachment.ID.cloneAs(TaskListFragment.FILE_METADATA_JOIN, "fileId");
