@@ -39,7 +39,10 @@ import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
 import com.todoroo.astrid.timers.TimerControlSet;
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
@@ -116,7 +119,7 @@ public class MainActivity extends InjectingAppCompatActivity
   @BindView(R.id.detail)
   FrameLayout detail;
 
-  private CompositeDisposable disposables = new CompositeDisposable();
+  private CompositeDisposable disposables;
   private NavigationDrawerFragment navigationDrawer;
   private int currentNightMode;
 
@@ -152,8 +155,6 @@ public class MainActivity extends InjectingAppCompatActivity
             finishActionMode();
           }
         });
-
-    handleIntent();
   }
 
   @Override
@@ -161,8 +162,6 @@ public class MainActivity extends InjectingAppCompatActivity
     super.onNewIntent(intent);
 
     setIntent(intent);
-
-    handleIntent();
   }
 
   @Override
@@ -253,22 +252,26 @@ public class MainActivity extends InjectingAppCompatActivity
   }
 
   private void loadTaskListFragment(Filter filter) {
-    if (filter == null) {
-      filter = defaultFilterProvider.getDefaultFilter();
-    }
-    TaskListFragment taskListFragment = newTaskListFragment(filter);
-
     finishActionMode();
 
-    applyTheme(taskListFragment);
+    navigationDrawer.closeDrawer();
 
-    navigationDrawer.setSelected(filter);
-
-    FragmentManager fragmentManager = getSupportFragmentManager();
-    fragmentManager
-        .beginTransaction()
-        .replace(R.id.master, taskListFragment, FRAG_TAG_TASK_LIST)
-        .commit();
+    disposables.add(
+        Single.fromCallable(() -> newTaskListFragment(filter))
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                taskListFragment -> {
+                  if (taskListFragment != null) {
+                    navigationDrawer.setSelected(taskListFragment.filter);
+                    applyTheme(taskListFragment);
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    fragmentManager
+                        .beginTransaction()
+                        .replace(R.id.master, taskListFragment, FRAG_TAG_TASK_LIST)
+                        .commit();
+                  }
+                }));
   }
 
   private void applyTheme(TaskListFragment taskListFragment) {
@@ -316,6 +319,10 @@ public class MainActivity extends InjectingAppCompatActivity
       restart();
       return;
     }
+
+    disposables = new CompositeDisposable();
+
+    handleIntent();
 
     localBroadcastManager.registerRepeatReceiver(repeatConfirmationReceiver);
 
@@ -366,7 +373,10 @@ public class MainActivity extends InjectingAppCompatActivity
   }
 
   private TaskListFragment newTaskListFragment(Filter filter) {
-    navigationDrawer.closeDrawer();
+    if (filter == null) {
+      filter = defaultFilterProvider.getDefaultFilter();
+    }
+
     if (filter instanceof TagFilter) {
       TagFilter tagFilter = (TagFilter) filter;
       TagData tagData = tagDataDao.getByUuid(tagFilter.getUuid());
