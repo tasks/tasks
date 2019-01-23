@@ -1,6 +1,8 @@
 package org.tasks.ui;
 
 import static android.app.Activity.RESULT_OK;
+import static com.google.common.collect.Iterables.filter;
+import static com.todoroo.andlib.utility.AndroidUtilities.assertNotMainThread;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 
 import android.app.Activity;
@@ -18,14 +20,23 @@ import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.dao.TaskDao;
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
+import org.tasks.filters.FilterProvider;
 import org.tasks.filters.NavigationDrawerAction;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.preferences.AppearancePreferences;
-import timber.log.Timber;
 
 public class NavigationDrawerFragment extends InjectingFragment {
 
@@ -34,23 +45,25 @@ public class NavigationDrawerFragment extends InjectingFragment {
   public static final int ACTIVITY_REQUEST_NEW_FILTER = 5;
   public static final int REQUEST_NEW_GTASK_LIST = 6;
   public static final int REQUEST_NEW_CALDAV_COLLECTION = 7;
-  private static final String TOKEN_LAST_SELECTED = "lastSelected"; // $NON-NLS-1$
   private final RefreshReceiver refreshReceiver = new RefreshReceiver();
   @Inject LocalBroadcastManager localBroadcastManager;
   @Inject FilterAdapter adapter;
+  @Inject FilterProvider filterProvider;
+  @Inject TaskDao taskDao;
   /** A pointer to the current callbacks instance (the Activity). */
   private OnFilterItemClickedListener mCallbacks;
 
   private DrawerLayout mDrawerLayout;
   private ListView mDrawerListView;
   private View mFragmentContainerView;
+  private CompositeDisposable disposables;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
     if (savedInstanceState != null) {
-      adapter.setSelected(savedInstanceState.getParcelable(TOKEN_LAST_SELECTED));
+      adapter.restore(savedInstanceState);
     }
   }
 
@@ -145,15 +158,10 @@ public class NavigationDrawerFragment extends InjectingFragment {
   @Override
   public void onPause() {
     super.onPause();
-    if (adapter != null) {
-      localBroadcastManager.unregisterReceiver(adapter.getFilterListUpdateReceiver());
-    }
-    try {
-      localBroadcastManager.unregisterReceiver(refreshReceiver);
-    } catch (IllegalArgumentException e) {
-      // Might not have fully initialized
-      Timber.e(e);
-    }
+
+    localBroadcastManager.unregisterReceiver(refreshReceiver);
+
+    disposables.dispose();
   }
 
   private void selectItem(int position) {
@@ -195,7 +203,8 @@ public class NavigationDrawerFragment extends InjectingFragment {
   @Override
   public void onSaveInstanceState(Bundle outState) {
     super.onSaveInstanceState(outState);
-    outState.putParcelable(TOKEN_LAST_SELECTED, adapter.getSelected());
+
+    adapter.save(outState);
   }
 
   public void closeDrawer() {
@@ -215,34 +224,49 @@ public class NavigationDrawerFragment extends InjectingFragment {
     }
   }
 
-  private void repopulateList() {
-    adapter.populateList();
-  }
-
   @Override
   public void onResume() {
     super.onResume();
-    localBroadcastManager.registerRefreshReceiver(refreshReceiver);
-    localBroadcastManager.registerRefreshListReceiver(refreshReceiver);
 
-    if (adapter != null) {
-      localBroadcastManager.registerRefreshReceiver(adapter.getFilterListUpdateReceiver());
-      repopulateList();
+    disposables = new CompositeDisposable();
+    localBroadcastManager.registerRefreshListReceiver(refreshReceiver);
+    disposables.add(updateFilters());
+  }
+
+  private Disposable updateFilters() {
+    return Single.fromCallable(() -> filterProvider.getItems(true))
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .doOnSuccess(adapter::setData)
+        .observeOn(Schedulers.io())
+        .map(this::refreshFilterCount)
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(adapter::setCounts);
+  }
+
+  private Disposable updateCount() {
+    List<FilterListItem> items = adapter.getItems();
+    return Single.fromCallable(() -> this.refreshFilterCount(items))
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(adapter::setCounts);
+  }
+
+  private Map<Filter, Integer> refreshFilterCount(List<FilterListItem> items) {
+    assertNotMainThread();
+
+    Map<Filter, Integer> result = new HashMap<>();
+    for (FilterListItem item : filter(items, i -> i instanceof Filter)) {
+      result.put((Filter) item, taskDao.count((Filter) item));
     }
+    return result;
   }
 
   public interface OnFilterItemClickedListener {
-
     void onFilterItemClicked(FilterListItem item);
   }
 
-  /**
-   * Receiver which receives refresh intents
-   *
-   * @author Tim Su <tim@todoroo.com>
-   */
-  protected class RefreshReceiver extends BroadcastReceiver {
-
+  private class RefreshReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
       if (intent == null) {
@@ -250,9 +274,9 @@ public class NavigationDrawerFragment extends InjectingFragment {
       }
       String action = intent.getAction();
       if (LocalBroadcastManager.REFRESH.equals(action)) {
-        adapter.refreshFilterCount();
+        disposables.add(updateCount());
       } else if (LocalBroadcastManager.REFRESH_LIST.equals(action)) {
-        repopulateList();
+        disposables.add(updateFilters());
       }
     }
   }

@@ -12,8 +12,13 @@ import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.GtasksFilter;
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.filters.FilterProvider;
 import org.tasks.gtasks.RemoteListSelectionHandler;
 import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.InjectingDialogFragment;
@@ -25,6 +30,9 @@ public class RemoteListSupportPicker extends InjectingDialogFragment {
 
   @Inject DialogBuilder dialogBuilder;
   @Inject FilterAdapter filterAdapter;
+  @Inject FilterProvider filterProvider;
+
+  private CompositeDisposable disposables;
 
   public static RemoteListSupportPicker newRemoteListSupportPicker(
       Filter selected, Fragment targetFragment, int requestCode) {
@@ -46,16 +54,15 @@ public class RemoteListSupportPicker extends InjectingDialogFragment {
     return dialog;
   }
 
-  public static AlertDialog createDialog(
+  static AlertDialog createDialog(
       FilterAdapter filterAdapter,
       DialogBuilder dialogBuilder,
-      int selectedIndex,
       RemoteListSelectionHandler handler) {
     return dialogBuilder
         .newDialog()
         .setSingleChoiceItems(
             filterAdapter,
-            selectedIndex,
+            -1,
             (dialog, which) -> {
               if (which == 0) {
                 handler.selectedList(null);
@@ -73,13 +80,41 @@ public class RemoteListSupportPicker extends InjectingDialogFragment {
   @NonNull
   @Override
   public Dialog onCreateDialog(Bundle savedInstanceState) {
-    filterAdapter.populateRemoteListPicker();
+    if (savedInstanceState != null) {
+      filterAdapter.restore(savedInstanceState);
+    }
+
+    return createDialog(filterAdapter, dialogBuilder, this::selected);
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+
     Bundle arguments = getArguments();
-    int selected =
-        arguments.getBoolean(EXTRA_NO_SELECTION, false)
-            ? -1
-            : filterAdapter.indexOf(arguments.getParcelable(EXTRA_SELECTED_FILTER), 0);
-    return createDialog(filterAdapter, dialogBuilder, selected, this::selected);
+    boolean noSelection = arguments.getBoolean(EXTRA_NO_SELECTION, false);
+    Filter selected = noSelection ? null : arguments.getParcelable(EXTRA_SELECTED_FILTER);
+
+    disposables =
+        new CompositeDisposable(
+            Single.fromCallable(filterProvider::getRemoteListPickerItems)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(items -> filterAdapter.setData(items, selected, noSelection ? -1 : 0)));
+  }
+
+  @Override
+  public void onPause() {
+    super.onPause();
+
+    disposables.dispose();
+  }
+
+  @Override
+  public void onSaveInstanceState(@NonNull Bundle outState) {
+    super.onSaveInstanceState(outState);
+
+    filterAdapter.save(outState);
   }
 
   private void selected(Filter filter) {

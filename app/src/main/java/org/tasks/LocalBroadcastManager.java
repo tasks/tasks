@@ -31,7 +31,10 @@ public class LocalBroadcastManager {
   }
 
   public void registerRefreshListReceiver(BroadcastReceiver broadcastReceiver) {
-    localBroadcastManager.registerReceiver(broadcastReceiver, new IntentFilter(REFRESH_LIST));
+    IntentFilter intentFilter = new IntentFilter();
+    intentFilter.addAction(REFRESH);
+    intentFilter.addAction(REFRESH_LIST);
+    localBroadcastManager.registerReceiver(broadcastReceiver, intentFilter);
   }
 
   public void registerRepeatReceiver(BroadcastReceiver broadcastReceiver) {

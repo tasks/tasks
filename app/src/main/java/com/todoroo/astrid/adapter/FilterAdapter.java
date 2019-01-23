@@ -7,92 +7,64 @@
 package com.todoroo.astrid.adapter;
 
 import static androidx.core.content.ContextCompat.getColor;
-import static com.google.common.base.Strings.isNullOrEmpty;
+import static com.google.common.collect.Lists.newArrayList;
+import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
 import static com.todoroo.andlib.utility.AndroidUtilities.preLollipop;
-import static org.tasks.caldav.CaldavCalendarSettingsActivity.EXTRA_CALDAV_ACCOUNT;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.core.util.Pair;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
-import com.todoroo.astrid.core.CustomFilterActivity;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.inject.Inject;
-import org.tasks.BuildConfig;
 import org.tasks.R;
-import org.tasks.activities.GoogleTaskListSettingsActivity;
-import org.tasks.activities.TagSettingsActivity;
-import org.tasks.billing.Inventory;
-import org.tasks.billing.PurchaseActivity;
-import org.tasks.caldav.CaldavCalendarSettingsActivity;
-import org.tasks.data.CaldavAccount;
-import org.tasks.data.GoogleTaskAccount;
-import org.tasks.filters.FilterCounter;
-import org.tasks.filters.FilterProvider;
-import org.tasks.filters.NavigationDrawerAction;
-import org.tasks.filters.NavigationDrawerSeparator;
 import org.tasks.filters.NavigationDrawerSubheader;
 import org.tasks.locale.Locale;
-import org.tasks.preferences.BasicPreferences;
 import org.tasks.sync.SynchronizationPreferences;
 import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeCache;
-import org.tasks.ui.NavigationDrawerFragment;
 
-public class FilterAdapter extends ArrayAdapter<FilterListItem> {
+public class FilterAdapter extends BaseAdapter {
 
   public static final int REQUEST_SETTINGS = 10123;
   public static final int REQUEST_PURCHASE = 10124;
 
-  // --- instance variables
+  private static final String TOKEN_FILTERS = "token_filters";
+  private static final String TOKEN_SELECTED = "token_selected";
   private static final int VIEW_TYPE_COUNT = FilterListItem.Type.values().length;
-  private final FilterProvider filterProvider;
-  private final FilterCounter filterCounter;
   private final Activity activity;
   private final Theme theme;
   private final Locale locale;
-  private final Inventory inventory;
-  private final FilterListUpdateReceiver filterListUpdateReceiver = new FilterListUpdateReceiver();
-  private final List<FilterListItem> items = new ArrayList<>();
   private final LayoutInflater inflater;
   private final ThemeCache themeCache;
   private boolean navigationDrawer;
-  private Filter selected;
+  private FilterListItem selected;
+  private List<FilterListItem> items = new ArrayList<>();
+  private Map<Filter, Integer> counts = new HashMap<>();
 
   @Inject
-  public FilterAdapter(
-      FilterProvider filterProvider,
-      FilterCounter filterCounter,
-      Activity activity,
-      Theme theme,
-      ThemeCache themeCache,
-      Locale locale,
-      Inventory inventory) {
-    super(activity, 0);
-    this.filterProvider = filterProvider;
-    this.filterCounter = filterCounter;
+  public FilterAdapter(Activity activity, Theme theme, ThemeCache themeCache, Locale locale) {
     this.activity = activity;
     this.theme = theme;
     this.locale = locale;
-    this.inventory = inventory;
     this.inflater = theme.getLayoutInflater(activity);
     this.themeCache = themeCache;
   }
@@ -101,33 +73,52 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     navigationDrawer = true;
   }
 
-  public FilterListUpdateReceiver getFilterListUpdateReceiver() {
-    return filterListUpdateReceiver;
+  public void save(Bundle outState) {
+    outState.putParcelableArrayList(TOKEN_FILTERS, getItems());
+    outState.putParcelable(TOKEN_SELECTED, selected);
+  }
+
+  public void restore(Bundle savedInstanceState) {
+    items = savedInstanceState.getParcelableArrayList(TOKEN_FILTERS);
+    selected = savedInstanceState.getParcelable(TOKEN_SELECTED);
+  }
+
+  public void setData(List<FilterListItem> items) {
+    setData(items, null);
+  }
+
+  public void setData(List<FilterListItem> items, @Nullable Filter selected) {
+    setData(items, selected, -1);
+  }
+
+  public void setData(List<FilterListItem> items, @Nullable Filter selected, int defaultIndex) {
+    assertMainThread();
+    this.items = items;
+    this.selected = defaultIndex >= 0 ? getItem(indexOf(selected, defaultIndex)) : selected;
+    notifyDataSetChanged();
+  }
+
+  public void setCounts(Map<Filter, Integer> counts) {
+    assertMainThread();
+    this.counts = counts;
+    notifyDataSetChanged();
   }
 
   @Override
-  public boolean hasStableIds() {
-    return true;
+  public int getCount() {
+    assertMainThread();
+    return items.size();
   }
 
   @Override
-  public void add(FilterListItem item) {
-    super.add(item);
-
-    items.add(item);
-
-    if (navigationDrawer && item instanceof Filter) {
-      filterCounter.registerFilter((Filter) item);
-    }
+  public FilterListItem getItem(int position) {
+    assertMainThread();
+    return items.get(position);
   }
 
   @Override
-  public void notifyDataSetChanged() {
-    activity.runOnUiThread(FilterAdapter.super::notifyDataSetChanged);
-  }
-
-  public void refreshFilterCount() {
-    filterCounter.refreshFilterCounts(this::notifyDataSetChanged);
+  public long getItemId(int position) {
+    return position;
   }
 
   /** Create or reuse a view */
@@ -179,14 +170,20 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
   }
 
   public Filter getSelected() {
-    return selected;
+    return selected instanceof Filter ? (Filter) selected : null;
   }
 
   public void setSelected(Filter selected) {
     this.selected = selected;
   }
 
+  public ArrayList<FilterListItem> getItems() {
+    assertMainThread();
+    return newArrayList(items);
+  }
+
   public int indexOf(FilterListItem item, int defaultValue) {
+    assertMainThread();
     int index = items.indexOf(item);
     return index == -1 ? defaultValue : index;
   }
@@ -233,148 +230,6 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     return getView(position, convertView, parent);
   }
 
-  private void addSubMenu(
-      final int titleResource, boolean error, List<Filter> filters, boolean hideIfEmpty) {
-    addSubMenu(activity.getResources().getString(titleResource), error, filters, hideIfEmpty);
-  }
-
-  /* ======================================================================
-   * ============================================================= receiver
-   * ====================================================================== */
-
-  private void addSubMenu(String title, boolean error, List<Filter> filters, boolean hideIfEmpty) {
-    if (hideIfEmpty && filters.isEmpty()) {
-      return;
-    }
-
-    add(new NavigationDrawerSubheader(title, error));
-
-    for (FilterListItem filterListItem : filters) {
-      add(filterListItem);
-    }
-  }
-
-  @Override
-  public void clear() {
-    super.clear();
-    items.clear();
-  }
-
-  public void populateRemoteListPicker() {
-    clear();
-
-    Filter item = new Filter(activity.getString(R.string.dont_sync), null);
-    item.icon = R.drawable.ic_outline_cloud_off_24px;
-    add(item);
-
-    for (Pair<GoogleTaskAccount, List<Filter>> filters : filterProvider.getGoogleTaskFilters()) {
-      GoogleTaskAccount account = filters.first;
-      addSubMenu(account.getAccount(), !isNullOrEmpty(account.getError()), filters.second, true);
-    }
-
-    for (Pair<CaldavAccount, List<Filter>> filters : filterProvider.getCaldavFilters()) {
-      CaldavAccount account = filters.first;
-      addSubMenu(account.getName(), !isNullOrEmpty(account.getError()), filters.second, true);
-    }
-
-    notifyDataSetChanged();
-  }
-
-  public void populateList() {
-    clear();
-
-    add(filterProvider.getMyTasksFilter());
-
-    addSubMenu(R.string.filters, false, filterProvider.getFilters(), false);
-
-    if (navigationDrawer) {
-      add(
-          new NavigationDrawerAction(
-              activity.getResources().getString(R.string.FLA_new_filter),
-              R.drawable.ic_outline_add_24px,
-              new Intent(activity, CustomFilterActivity.class),
-              NavigationDrawerFragment.ACTIVITY_REQUEST_NEW_FILTER));
-    }
-
-    addSubMenu(R.string.tags, false, filterProvider.getTags(), false);
-
-    if (navigationDrawer) {
-      add(
-          new NavigationDrawerAction(
-              activity.getResources().getString(R.string.new_tag),
-              R.drawable.ic_outline_add_24px,
-              new Intent(activity, TagSettingsActivity.class),
-              NavigationDrawerFragment.REQUEST_NEW_LIST));
-    }
-
-    for (Pair<GoogleTaskAccount, List<Filter>> filters : filterProvider.getGoogleTaskFilters()) {
-      GoogleTaskAccount account = filters.first;
-      addSubMenu(
-          account.getAccount(),
-          !isNullOrEmpty(account.getError()),
-          filters.second,
-          !navigationDrawer);
-
-      if (navigationDrawer) {
-        add(
-            new NavigationDrawerAction(
-                activity.getResources().getString(R.string.new_list),
-                R.drawable.ic_outline_add_24px,
-                new Intent(activity, GoogleTaskListSettingsActivity.class)
-                    .putExtra(GoogleTaskListSettingsActivity.EXTRA_ACCOUNT, account),
-                NavigationDrawerFragment.REQUEST_NEW_GTASK_LIST));
-      }
-    }
-
-    for (Pair<CaldavAccount, List<Filter>> filters : filterProvider.getCaldavFilters()) {
-      CaldavAccount account = filters.first;
-      addSubMenu(
-          account.getName(), !isNullOrEmpty(account.getError()), filters.second, !navigationDrawer);
-
-      if (navigationDrawer) {
-        add(
-            new NavigationDrawerAction(
-                activity.getString(R.string.new_list),
-                R.drawable.ic_outline_add_24px,
-                new Intent(activity, CaldavCalendarSettingsActivity.class)
-                    .putExtra(EXTRA_CALDAV_ACCOUNT, account),
-                NavigationDrawerFragment.REQUEST_NEW_CALDAV_COLLECTION));
-      }
-    }
-
-    if (navigationDrawer) {
-      add(new NavigationDrawerSeparator());
-
-      //noinspection ConstantConditions
-      if (BuildConfig.FLAVOR.equals("generic")) {
-        add(
-            new NavigationDrawerAction(
-                activity.getResources().getString(R.string.TLA_menu_donate),
-                R.drawable.ic_outline_attach_money_24px,
-                new Intent(Intent.ACTION_VIEW, Uri.parse("http://tasks.org/donate")),
-                REQUEST_PURCHASE));
-      } else if (!inventory.hasPro()) {
-        add(
-            new NavigationDrawerAction(
-                activity.getResources().getString(R.string.upgrade_to_pro),
-                R.drawable.ic_outline_attach_money_24px,
-                new Intent(activity, PurchaseActivity.class),
-                REQUEST_PURCHASE));
-      }
-
-      add(
-          new NavigationDrawerAction(
-              activity.getResources().getString(R.string.TLA_menu_settings),
-              R.drawable.ic_outline_settings_24px,
-              new Intent(activity, BasicPreferences.class),
-              REQUEST_SETTINGS));
-    }
-
-    notifyDataSetChanged();
-
-    filterCounter.refreshFilterCounts(this::notifyDataSetChanged);
-  }
-
   private void populateItem(ViewHolder viewHolder) {
     FilterListItem filter = viewHolder.item;
     if (filter == null) {
@@ -382,9 +237,14 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     }
 
     if (selected != null && selected.equals(filter)) {
-      viewHolder.view.setBackgroundColor(getColor(activity, R.color.drawer_color_selected));
+      if (navigationDrawer) {
+        viewHolder.view.setBackgroundColor(getColor(activity, R.color.drawer_color_selected));
+      } else {
+        viewHolder.name.setChecked(true);
+      }
     } else {
       viewHolder.view.setBackgroundResource(0);
+      viewHolder.name.setChecked(false);
     }
 
     viewHolder.icon.setImageResource(filter.icon);
@@ -393,17 +253,15 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
             ? themeCache.getThemeColor(filter.tint).getPrimaryColor()
             : getColor(activity, R.color.text_primary));
 
-    String title = filter.listingTitle;
-    if (!title.equals(viewHolder.name.getText())) {
-      viewHolder.name.setText(title);
-    }
+    viewHolder.name.setText(filter.listingTitle);
 
-    int countInt = 0;
-    if (filterCounter.containsKey(filter)) {
-      countInt = filterCounter.get(filter);
-      viewHolder.size.setText(locale.formatNumber(countInt));
+    Integer count = counts.get(filter);
+    if (count == null || count == 0) {
+      viewHolder.size.setVisibility(View.GONE);
+    } else {
+      viewHolder.size.setText(locale.formatNumber(count));
+      viewHolder.size.setVisibility(View.VISIBLE);
     }
-    viewHolder.size.setVisibility(countInt > 0 ? View.VISIBLE : View.GONE);
   }
 
   private void populateHeader(ViewHolder viewHolder) {
@@ -416,24 +274,11 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     viewHolder.icon.setVisibility(filter.error ? View.VISIBLE : View.GONE);
   }
 
-  /* ======================================================================
-   * ================================================================ views
-   * ====================================================================== */
-
   static class ViewHolder {
-
     FilterListItem item;
     CheckedTextView name;
     ImageView icon;
     TextView size;
     View view;
-  }
-
-  public class FilterListUpdateReceiver extends BroadcastReceiver {
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-      notifyDataSetChanged();
-    }
   }
 }
