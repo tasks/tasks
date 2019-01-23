@@ -90,6 +90,8 @@ public class MainActivity extends InjectingAppCompatActivity
   public static final String OPEN_TASK = "open_task"; // $NON-NLS-1$
   public static final String OPEN_NEW_TASK = "open_new_task"; // $NON-NLS-1$
   private static final String FRAG_TAG_TASK_LIST = "frag_tag_task_list";
+  private static final String EXTRA_FILTER = "extra_filter";
+
   @Inject Preferences preferences;
   @Inject SubtasksHelper subtasksHelper;
   @Inject RepeatConfirmationReceiver repeatConfirmationReceiver;
@@ -124,6 +126,10 @@ public class MainActivity extends InjectingAppCompatActivity
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
+    if (savedInstanceState != null) {
+      filter = savedInstanceState.getParcelable(EXTRA_FILTER);
+    }
+
     TaskListViewModel viewModel = ViewModelProviders.of(this).get(TaskListViewModel.class);
 
     getComponent().inject(viewModel);
@@ -157,6 +163,13 @@ public class MainActivity extends InjectingAppCompatActivity
     handleIntent();
   }
 
+  @Override
+  protected void onSaveInstanceState(Bundle outState) {
+    super.onSaveInstanceState(outState);
+
+    outState.putParcelable(EXTRA_FILTER, filter);
+  }
+
   private void handleIntent() {
     Intent intent = getIntent();
 
@@ -184,7 +197,7 @@ public class MainActivity extends InjectingAppCompatActivity
       intent.removeExtra(LOAD_FILTER);
       loadTaskListFragment(filter);
     } else if (taskListFragment == null) {
-      loadTaskListFragment(null);
+      loadTaskListFragment(filter);
     } else {
       applyTheme(taskListFragment);
     }
