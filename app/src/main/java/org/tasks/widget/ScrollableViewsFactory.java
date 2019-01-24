@@ -80,7 +80,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
   @Override
   public void onCreate() {
-    cursor = getCursor();
+
   }
 
   @Override
