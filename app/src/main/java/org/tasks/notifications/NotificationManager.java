@@ -355,8 +355,11 @@ public class NotificationManager {
     final String taskDescription = task.getNotes();
 
     // update last reminder time
-    task.setReminderLast(new DateTime(when).endOfMinute().getMillis());
-    taskDao.save(task);
+    long reminderTime = new DateTime(when).endOfMinute().getMillis();
+    if (reminderTime != task.getReminderLast()) {
+      task.setReminderLast(reminderTime);
+      taskDao.save(task);
+    }
 
     NotificationCompat.Builder builder =
         new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_DEFAULT)
