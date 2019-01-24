@@ -2,6 +2,9 @@ package org.tasks.location;
 
 import static com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER;
 import static com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_EXIT;
+import static com.todoroo.astrid.reminders.ReminderService.TYPE_GEOFENCE_ENTER;
+import static com.todoroo.astrid.reminders.ReminderService.TYPE_GEOFENCE_EXIT;
+import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -15,6 +18,7 @@ import org.tasks.data.Location;
 import org.tasks.data.LocationDao;
 import org.tasks.injection.InjectingJobIntentService;
 import org.tasks.injection.ServiceComponent;
+import org.tasks.notifications.Notification;
 import timber.log.Timber;
 
 public class GeofenceTransitionsIntentService extends InjectingJobIntentService {
@@ -53,15 +57,23 @@ public class GeofenceTransitionsIntentService extends InjectingJobIntentService 
       com.google.android.gms.location.Geofence triggeringGeofence, boolean arrival) {
     String requestId = triggeringGeofence.getRequestId();
     try {
-      Location location = locationDao.getGeofence(Long.parseLong(requestId));
-      notifier.triggerTaskNotification(location, arrival);
+      notifier.triggerNotification(
+          toNotification(locationDao.getGeofence(Long.parseLong(requestId)), arrival));
     } catch (Exception e) {
       Timber.e(e, "Error triggering geofence %s: %s", requestId, e.getMessage());
     }
   }
 
-  public static class Broadcast extends BroadcastReceiver {
+  private Notification toNotification(Location location, boolean arrival) {
+    Notification notification = new Notification();
+    notification.taskId = location.getTask();
+    notification.type = arrival ? TYPE_GEOFENCE_ENTER : TYPE_GEOFENCE_EXIT;
+    notification.timestamp = currentTimeMillis();
+    notification.location = location.getId();
+    return notification;
+  }
 
+  public static class Broadcast extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
       JobIntentService.enqueueWork(

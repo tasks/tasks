@@ -1,5 +1,7 @@
 package org.tasks.jobs;
 
+import static com.google.common.collect.Lists.transform;
+
 import android.content.Intent;
 import android.os.IBinder;
 import androidx.annotation.Nullable;
@@ -41,7 +43,8 @@ public class NotificationService extends InjectingService {
     try {
       if (!preferences.isCurrentlyQuietHours()) {
         List<? extends NotificationQueueEntry> overdueJobs = notificationQueue.getOverdueJobs();
-        notifier.triggerTaskNotifications(overdueJobs);
+        notifier.triggerNotifications(
+            transform(overdueJobs, NotificationQueueEntry::toNotification));
         boolean success = notificationQueue.remove(overdueJobs);
         if (BuildConfig.DEBUG && !success) {
           throw new RuntimeException("Failed to remove jobs from queue");

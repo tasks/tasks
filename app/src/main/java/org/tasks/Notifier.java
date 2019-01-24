@@ -4,7 +4,6 @@ import static android.content.Intent.FLAG_ACTIVITY_MULTIPLE_TASK;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static com.google.common.collect.Iterables.skip;
 import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Lists.transform;
 import static org.tasks.notifications.NotificationManager.MAX_NOTIFICATIONS;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
@@ -23,10 +22,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
-import org.tasks.data.Location;
 import org.tasks.injection.ForApplication;
-import org.tasks.jobs.NotificationQueueEntry;
 import org.tasks.notifications.AudioManager;
+import org.tasks.notifications.Notification;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.notifications.TelephonyManager;
 import org.tasks.preferences.Preferences;
@@ -107,22 +105,11 @@ public class Notifier {
     notificationManager.notify(filter.listingTitle.hashCode(), builder, true, false, false);
   }
 
-  public void triggerTaskNotification(Location location, boolean arrival) {
-    org.tasks.notifications.Notification notification = new org.tasks.notifications.Notification();
-    notification.taskId = location.getTask();
-    notification.type =
-        arrival ? ReminderService.TYPE_GEOFENCE_ENTER : ReminderService.TYPE_GEOFENCE_EXIT;
-    notification.timestamp = currentTimeMillis();
-    notification.location = location.getId();
-    triggerNotifications(Collections.singletonList(notification), true);
+  public void triggerNotification(Notification notification) {
+    triggerNotifications(Collections.singletonList(notification));
   }
 
-  public void triggerTaskNotifications(List<? extends NotificationQueueEntry> entries) {
-    triggerNotifications(transform(entries, NotificationQueueEntry::toNotification), true);
-  }
-
-  private void triggerNotifications(
-      List<org.tasks.notifications.Notification> entries, boolean alert) {
+  public void triggerNotifications(List<Notification> entries) {
     List<org.tasks.notifications.Notification> notifications = new ArrayList<>();
     boolean ringFiveTimes = false;
     boolean ringNonstop = false;
@@ -152,10 +139,9 @@ public class Notifier {
       notifications = newArrayList(skip(notifications, notifications.size() - MAX_NOTIFICATIONS));
     }
 
-    notificationManager.notifyTasks(notifications, alert, ringNonstop, ringFiveTimes);
+    notificationManager.notifyTasks(notifications, true, ringNonstop, ringFiveTimes);
 
-    if (alert
-        && preferences.getBoolean(R.string.p_voiceRemindersEnabled, false)
+    if (preferences.getBoolean(R.string.p_voiceRemindersEnabled, false)
         && !ringNonstop
         && !audioManager.notificationsMuted()
         && telephonyManager.callStateIdle()) {
