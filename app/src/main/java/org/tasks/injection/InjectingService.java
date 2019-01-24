@@ -17,9 +17,9 @@ public abstract class InjectingService extends Service {
 
   @Override
   public int onStartCommand(Intent intent, int flags, int startId) {
-    inject(((InjectingApplication) getApplication()).getComponent().plus(new ServiceModule()));
-
     startForeground(getNotificationId(), buildNotification());
+
+    inject(((InjectingApplication) getApplication()).getComponent().plus(new ServiceModule()));
 
     disposables.add(
         Completable.fromAction(this::doWork)

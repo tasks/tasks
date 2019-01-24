@@ -7,17 +7,13 @@ import static com.google.common.collect.Iterables.tryFind;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastNougat;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
 import static com.todoroo.astrid.reminders.ReminderService.TYPE_GEOFENCE_ENTER;
 import static com.todoroo.astrid.reminders.ReminderService.TYPE_GEOFENCE_EXIT;
 
-import android.annotation.TargetApi;
 import android.app.Notification;
-import android.app.NotificationChannel;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.text.TextUtils;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -55,7 +51,7 @@ import timber.log.Timber;
 @ApplicationScope
 public class NotificationManager {
 
-  private static final String NOTIFICATION_CHANNEL_DEFAULT = "notifications";
+  public static final String NOTIFICATION_CHANNEL_DEFAULT = "notifications";
   public static final String NOTIFICATION_CHANNEL_TASKER = "notifications_tasker";
   public static final String NOTIFICATION_CHANNEL_TIMERS = "notifications_timers";
   public static final String NOTIFICATION_CHANNEL_MISCELLANEOUS = "notifications_miscellaneous";
@@ -89,35 +85,6 @@ public class NotificationManager {
     this.checkBoxes = checkBoxes;
     this.locationDao = locationDao;
     notificationManagerCompat = NotificationManagerCompat.from(context);
-    if (atLeastOreo()) {
-      android.app.NotificationManager notificationManager =
-          (android.app.NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-      notificationManager.createNotificationChannel(
-          createNotificationChannel(NOTIFICATION_CHANNEL_DEFAULT, R.string.notifications, true));
-      notificationManager.createNotificationChannel(
-          createNotificationChannel(NOTIFICATION_CHANNEL_TASKER, R.string.tasker_locale, true));
-      notificationManager.createNotificationChannel(
-          createNotificationChannel(NOTIFICATION_CHANNEL_TIMERS, R.string.TEA_timer_controls, true));
-      notificationManager.createNotificationChannel(
-          createNotificationChannel(NOTIFICATION_CHANNEL_MISCELLANEOUS, R.string.miscellaneous, false));
-    }
-  }
-
-  @TargetApi(Build.VERSION_CODES.O)
-  private NotificationChannel createNotificationChannel(
-      String channelId, int nameResId, boolean alert) {
-    String channelName = context.getString(nameResId);
-    int importance =
-        alert
-            ? android.app.NotificationManager.IMPORTANCE_HIGH
-            : android.app.NotificationManager.IMPORTANCE_LOW;
-    NotificationChannel notificationChannel =
-        new NotificationChannel(channelId, channelName, importance);
-    notificationChannel.enableLights(alert);
-    notificationChannel.enableVibration(alert);
-    notificationChannel.setBypassDnd(alert);
-    notificationChannel.setShowBadge(alert);
-    return notificationChannel;
   }
 
   public void cancel(long id) {
