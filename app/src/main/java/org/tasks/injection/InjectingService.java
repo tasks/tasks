@@ -13,19 +13,27 @@ import org.tasks.notifications.NotificationManager;
 
 public abstract class InjectingService extends Service {
 
-  private CompositeDisposable disposables = new CompositeDisposable();
+  private CompositeDisposable disposables;
+
+  @Override
+  public void onCreate() {
+    super.onCreate();
+
+    startForeground(getNotificationId(), buildNotification());
+  }
 
   @Override
   public int onStartCommand(Intent intent, int flags, int startId) {
-    inject(((InjectingApplication) getApplication()).getComponent().plus(new ServiceModule()));
-
     startForeground(getNotificationId(), buildNotification());
 
-    disposables.add(
-        Completable.fromAction(this::doWork)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(this::stopSelf));
+    inject(((InjectingApplication) getApplication()).getComponent().plus(new ServiceModule()));
+
+    disposables =
+        new CompositeDisposable(
+            Completable.fromAction(this::doWork)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::stopSelf));
 
     return Service.START_NOT_STICKY;
   }
