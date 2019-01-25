@@ -7,15 +7,8 @@ import androidx.core.app.TaskStackBuilder;
 import com.google.common.base.Strings;
 import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.data.Task;
 
 public class TaskIntents {
-
-  public static TaskStackBuilder getEditTaskStack(Context context, final Filter filter, Task task) {
-    Intent intent = getTaskListIntent(context, filter);
-    intent.putExtra(MainActivity.OPEN_NEW_TASK, task);
-    return TaskStackBuilder.create(context).addNextIntent(intent);
-  }
 
   public static TaskStackBuilder getEditTaskStack(
       Context context, final Filter filter, final long taskId) {

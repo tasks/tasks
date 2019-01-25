@@ -6,10 +6,13 @@
 
 package com.todoroo.astrid.activity;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
+import static com.todoroo.andlib.utility.AndroidUtilities.assertNotMainThread;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static com.todoroo.astrid.activity.TaskEditFragment.newTaskEditFragment;
 import static org.tasks.tasklist.ActionUtils.applySupportActionModeColor;
 import static org.tasks.ui.NavigationDrawerFragment.OnFilterItemClickedListener;
+import static org.tasks.ui.NavigationDrawerFragment.REQUEST_NEW_LIST;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -35,6 +38,7 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.gtasks.GtasksSubtaskListFragment;
+import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
@@ -74,7 +78,6 @@ import org.tasks.ui.EmptyTaskEditFragment;
 import org.tasks.ui.NavigationDrawerFragment;
 import org.tasks.ui.PriorityControlSet;
 import org.tasks.ui.TaskListViewModel;
-import timber.log.Timber;
 
 public class MainActivity extends InjectingAppCompatActivity
     implements OnFilterItemClickedListener,
@@ -109,6 +112,7 @@ public class MainActivity extends InjectingAppCompatActivity
   @Inject TaskDao taskDao;
   @Inject CaldavDao caldavDao;
   @Inject LocalBroadcastManager localBroadcastManager;
+  @Inject TaskCreator taskCreator;
 
   @BindView(R.id.drawer_layout)
   DrawerLayout drawerLayout;
@@ -171,6 +175,33 @@ public class MainActivity extends InjectingAppCompatActivity
     outState.putParcelable(EXTRA_FILTER, filter);
   }
 
+  private Single<TaskListFragment> taskListFragmentSingle(Intent intent) {
+    if (intent.hasExtra(OPEN_FILTER)) {
+      filter = intent.getParcelableExtra(OPEN_FILTER);
+      intent.removeExtra(OPEN_FILTER);
+      return Single.fromCallable(() -> newTaskListFragment(filter))
+          .observeOn(AndroidSchedulers.mainThread())
+          .doOnSuccess(this::openTaskListFragment);
+    } else if (intent.hasExtra(LOAD_FILTER)) {
+      String filter = intent.getStringExtra(LOAD_FILTER);
+      intent.removeExtra(LOAD_FILTER);
+      return Single.fromCallable(
+              () -> newTaskListFragment(defaultFilterProvider.getFilterFromPreference(filter)))
+          .observeOn(AndroidSchedulers.mainThread())
+          .doOnSuccess(this::openTaskListFragment);
+    }
+
+    TaskListFragment taskListFragment = getTaskListFragment();
+    if (taskListFragment == null || taskListFragment.filter != filter) {
+      return Single.fromCallable(() -> newTaskListFragment(filter))
+          .observeOn(AndroidSchedulers.mainThread())
+          .doOnSuccess(this::openTaskListFragment);
+    } else {
+      applyTheme(taskListFragment);
+      return Single.just(taskListFragment).observeOn(AndroidSchedulers.mainThread());
+    }
+  }
+
   private void handleIntent() {
     Intent intent = getIntent();
 
@@ -187,48 +218,44 @@ public class MainActivity extends InjectingAppCompatActivity
       showDetailFragment();
     }
 
-    TaskListFragment taskListFragment = getTaskListFragment();
-    if (intent.hasExtra(OPEN_FILTER)) {
-      Filter filter = intent.getParcelableExtra(OPEN_FILTER);
-      intent.removeExtra(OPEN_FILTER);
-      loadTaskListFragment(filter);
-    } else if (intent.hasExtra(LOAD_FILTER)) {
-      Filter filter =
-          defaultFilterProvider.getFilterFromPreference(intent.getStringExtra(LOAD_FILTER));
-      intent.removeExtra(LOAD_FILTER);
-      loadTaskListFragment(filter);
-    } else if (taskListFragment == null) {
-      loadTaskListFragment(filter);
-    } else {
-      applyTheme(taskListFragment);
-    }
+    finishActionMode();
+    navigationDrawer.closeDrawer();
+
+    Single<TaskListFragment> single = taskListFragmentSingle(intent).subscribeOn(Schedulers.io());
 
     if (intent.hasExtra(OPEN_TASK)) {
       long taskId = intent.getLongExtra(OPEN_TASK, 0);
       intent.removeExtra(OPEN_TASK);
-      navigationDrawer.closeDrawer();
-      if (taskId > 0) {
-        Task task = taskDao.fetch(taskId);
-        if (task != null) {
-          onTaskListItemClicked(task);
-        } else {
-          Timber.e("Failed to find task %s", taskId);
-        }
-      } else {
-        getSupportFragmentManager().executePendingTransactions();
-        Task task = getTaskListFragment().addTask("");
-        onTaskListItemClicked(task);
-      }
+      disposables.add(
+          single
+              .observeOn(Schedulers.io())
+              .map(
+                  tlf ->
+                      taskId > 0
+                          ? taskDao.fetch(taskId)
+                          : taskCreator.createWithValues(tlf.filter, ""))
+              .observeOn(AndroidSchedulers.mainThread())
+              .subscribe(
+                  task -> {
+                    getSupportFragmentManager().executePendingTransactions();
+                    onTaskListItemClicked(task);
+                  }));
     } else if (intent.hasExtra(OPEN_NEW_TASK)) {
       Task task = intent.getParcelableExtra(OPEN_NEW_TASK);
       intent.removeExtra(OPEN_NEW_TASK);
-      onTaskListItemClicked(task);
+      disposables.add(single.subscribe(tlf -> onTaskListItemClicked(task)));
     } else if (intent.hasExtra(TOKEN_CREATE_NEW_LIST_NAME)) {
       final String listName = intent.getStringExtra(TOKEN_CREATE_NEW_LIST_NAME);
       intent.removeExtra(TOKEN_CREATE_NEW_LIST_NAME);
-      Intent activityIntent = new Intent(MainActivity.this, TagSettingsActivity.class);
-      activityIntent.putExtra(TagSettingsActivity.TOKEN_AUTOPOPULATE_NAME, listName);
-      startActivityForResult(activityIntent, NavigationDrawerFragment.REQUEST_NEW_LIST);
+      disposables.add(
+          single.subscribe(
+              tlf -> {
+                Intent activityIntent = new Intent(MainActivity.this, TagSettingsActivity.class);
+                activityIntent.putExtra(TagSettingsActivity.TOKEN_AUTOPOPULATE_NAME, listName);
+                startActivityForResult(activityIntent, REQUEST_NEW_LIST);
+              }));
+    } else {
+      disposables.add(single.subscribe());
     }
   }
 
@@ -251,33 +278,23 @@ public class MainActivity extends InjectingAppCompatActivity
     }
   }
 
-  private void loadTaskListFragment(Filter filter) {
-    finishActionMode();
+  private void openTaskListFragment(TaskListFragment taskListFragment) {
+    assertMainThread();
 
-    navigationDrawer.closeDrawer();
-
-    disposables.add(
-        Single.fromCallable(() -> newTaskListFragment(filter))
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                taskListFragment -> {
-                  if (taskListFragment != null) {
-                    navigationDrawer.setSelected(taskListFragment.filter);
-                    applyTheme(taskListFragment);
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    fragmentManager
-                        .beginTransaction()
-                        .replace(R.id.master, taskListFragment, FRAG_TAG_TASK_LIST)
-                        .commit();
-                  }
-                }));
+    if (taskListFragment != null) {
+      filter = taskListFragment.filter;
+      navigationDrawer.setSelected(filter);
+      applyTheme();
+      FragmentManager fragmentManager = getSupportFragmentManager();
+      fragmentManager
+          .beginTransaction()
+          .replace(R.id.master, taskListFragment, FRAG_TAG_TASK_LIST)
+          .commit();
+    }
   }
 
-  private void applyTheme(TaskListFragment taskListFragment) {
-    filter = taskListFragment.filter;
+  private void applyTheme() {
     ThemeColor filterColor = getFilterColor();
-
     filterColor.applyToStatusBar(drawerLayout);
     filterColor.applyToNavigationBar(this);
     filterColor.applyTaskDescription(this, filter.listingTitle);
@@ -329,13 +346,6 @@ public class MainActivity extends InjectingAppCompatActivity
     disposables.add(syncAdapters.checkPlayServices(this));
   }
 
-  @Override
-  protected void onDestroy() {
-    super.onDestroy();
-
-    disposables.dispose();
-  }
-
   public void restart() {
     recreate();
   }
@@ -355,6 +365,8 @@ public class MainActivity extends InjectingAppCompatActivity
     super.onPause();
 
     localBroadcastManager.unregisterReceiver(repeatConfirmationReceiver);
+
+    disposables.dispose();
   }
 
   @Override
@@ -373,6 +385,8 @@ public class MainActivity extends InjectingAppCompatActivity
   }
 
   private TaskListFragment newTaskListFragment(Filter filter) {
+    assertNotMainThread();
+
     if (filter == null) {
       filter = defaultFilterProvider.getDefaultFilter();
     }
@@ -410,6 +424,8 @@ public class MainActivity extends InjectingAppCompatActivity
 
   @Override
   public void onTaskListItemClicked(Task task) {
+    assertMainThread();
+
     if (task == null) {
       return;
     }

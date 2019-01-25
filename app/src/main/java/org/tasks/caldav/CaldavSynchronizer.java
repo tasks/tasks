@@ -363,7 +363,7 @@ public class CaldavSynchronizer {
       Task task;
       CaldavTask caldavTask = caldavDao.getTask(caldavCalendar.getUuid(), fileName);
       if (caldavTask == null) {
-        task = taskCreator.createWithValues(null, "");
+        task = taskCreator.createWithValues("");
         taskDao.createNew(task);
         caldavTask =
             new CaldavTask(task.getId(), caldavCalendar.getUuid(), remote.getUid(), fileName);

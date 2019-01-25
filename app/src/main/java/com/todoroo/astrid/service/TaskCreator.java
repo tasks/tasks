@@ -6,6 +6,7 @@ import static com.todoroo.astrid.helper.UUIDHelper.newUUID;
 import android.content.ContentValues;
 import android.net.Uri;
 import android.text.TextUtils;
+import androidx.annotation.Nullable;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
@@ -83,7 +84,7 @@ public class TaskCreator {
   public Task basicQuickAddTask(String title) {
     title = title.trim();
 
-    Task task = createWithValues(null, title);
+    Task task = createWithValues(title);
     taskDao.createNew(task);
 
     boolean gcalCreateEventEnabled =
@@ -116,11 +117,18 @@ public class TaskCreator {
     return task;
   }
 
+  public Task createWithValues(String title) {
+    return create(null, title);
+  }
+
+  public Task createWithValues(Filter filter, String title) {
+    return create(filter.valuesForNewTasks, title);
+  }
   /**
    * Create task from the given content values, saving it. This version doesn't need to start with a
    * base task model.
    */
-  public Task createWithValues(Map<String, Object> values, String title) {
+  private Task create(@Nullable Map<String, Object> values, String title) {
     Task task = new Task();
     task.setCreationDate(now());
     task.setModificationDate(now());

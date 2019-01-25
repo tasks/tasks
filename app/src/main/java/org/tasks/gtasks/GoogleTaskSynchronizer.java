@@ -367,7 +367,7 @@ public class GoogleTaskSynchronizer {
             continue;
           }
           if (task == null) {
-            task = taskCreator.createWithValues(null, "");
+            task = taskCreator.createWithValues("");
           }
           GtasksTaskContainer container = new GtasksTaskContainer(gtask, task, listId, googleTask);
           container.gtaskMetadata.setRemoteOrder(Long.parseLong(gtask.getPosition()));

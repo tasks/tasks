@@ -393,8 +393,8 @@ public class TaskListFragment extends InjectingFragment
     onTaskListItemClicked(addTask(""));
   }
 
-  public Task addTask(String title) {
-    return taskCreator.createWithValues(filter.valuesForNewTasks, title);
+  Task addTask(String title) {
+    return taskCreator.createWithValues(filter, title);
   }
 
   private void setupRefresh(SwipeRefreshLayout layout) {
