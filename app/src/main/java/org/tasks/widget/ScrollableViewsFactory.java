@@ -100,7 +100,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
   @Override
   public int getCount() {
-    return cursor.getCount();
+    return cursor == null ? 0 : cursor.getCount();
   }
 
   @Override
@@ -208,7 +208,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
   }
 
   private Task getTask(int position) {
-    return cursor.moveToPosition(position) ? new Task(cursor) : null;
+    return cursor != null && cursor.moveToPosition(position) ? new Task(cursor) : null;
   }
 
   private String getQuery(Filter filter) {
