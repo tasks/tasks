@@ -308,6 +308,7 @@
 	<string name="quiet_hours">Tylusis metas</string>
 	<string name="attachment_directory">Pridedamo failo direktorija</string>
 	<string name="backup_directory">Atsarginių kopijų direktorija</string>
+	<string name="google_drive_backup">Kopijuoti į Google Drive</string>
 	<string name="miscellaneous">Įvairūs</string>
 	<string name="synchronization">Sinchronizacija</string>
 	<string name="enabled">Įjungta</string>
@@ -485,6 +486,7 @@
 	<string name="background_sync_unmetered_only">Naudoti tik \"unmetered\" ryšius</string>
 	<string name="upgrade">Atnaujinti</string>
 	<string name="upgrade_to_pro">Atnaujinti į pro versiją</string>
+	<string name="manage_subscription">Redaguoti prenumeratą</string>
 	<string name="refresh_purchases">Atnaujinti pirkimus</string>
 	<string name="button_subscribed">Prenumeruoti</string>
 	<string name="button_subscribe">Prenumeruoti</string>
@@ -517,4 +519,5 @@ sukonfigūruota tinkamai.</string>
 	<string name="open_url">Atidaryti %s</string>
 	<string name="location_arrived">Atvykta į %s</string>
 	<string name="location_departed">Išvykta iš %s</string>
+	<string name="building_notifications">Generuojami pranešimai</string>
 </resources>

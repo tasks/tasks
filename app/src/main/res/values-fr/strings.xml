@@ -469,6 +469,7 @@
 	<string name="background_sync_unmetered_only">Uniquement sur les connexions illimitées</string>
 	<string name="upgrade">Passer pro</string>
 	<string name="upgrade_to_pro">Passer en pro</string>
+	<string name="manage_subscription">Gérer les abonnements</string>
 	<string name="refresh_purchases">Rafraîchir les achats</string>
 	<string name="button_subscribed">Abonné</string>
 	<string name="button_subscribe">S\'abonner</string>
@@ -501,4 +502,5 @@ est configuré correctement</string>
 	<string name="open_url">Ouvrir %s</string>
 	<string name="location_arrived">Arrivé à %s</string>
 	<string name="location_departed">Départ %s</string>
+	<string name="building_notifications">Générer des notifications</string>
 </resources>

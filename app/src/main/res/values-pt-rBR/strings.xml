@@ -488,6 +488,7 @@
 	<string name="background_sync_unmetered_only">Apenas em conexões ilimitadas</string>
 	<string name="upgrade">Atualizar</string>
 	<string name="upgrade_to_pro">Atualizar para Pro</string>
+	<string name="manage_subscription">Gerenciar subscrição</string>
 	<string name="refresh_purchases">Atualizar compras</string>
 	<string name="button_subscribed">Subscrito</string>
 	<string name="button_subscribe">Subscrever</string>
@@ -520,4 +521,5 @@ aplicativo Google Play está configurado corretamente</string>
 	<string name="open_url">Abrir %s</string>
 	<string name="location_arrived">Chegou às %s</string>
 	<string name="location_departed">Saiu às %s</string>
+	<string name="building_notifications">Gerando notificações</string>
 </resources>

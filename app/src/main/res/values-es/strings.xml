@@ -484,6 +484,7 @@
 	<string name="background_sync_unmetered_only">Sólo en conexiones sin cargos</string>
 	<string name="upgrade">Actualizar</string>
 	<string name="upgrade_to_pro">Actualizar a profesional</string>
+	<string name="manage_subscription">Gestionar suscripción</string>
 	<string name="refresh_purchases">Actualizar los acquisiciones</string>
 	<string name="button_subscribed">Suscribió</string>
 	<string name="button_subscribe">Suscribe</string>
@@ -515,4 +516,5 @@
 	<string name="open_url">Abrir %s</string>
 	<string name="location_arrived">Llegada a %s</string>
 	<string name="location_departed">Salida de %s</string>
+	<string name="building_notifications">Generando notificaciones</string>
 </resources>

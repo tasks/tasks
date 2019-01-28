@@ -313,6 +313,7 @@
 	<string name="quiet_hours">Sessiz saatler</string>
 	<string name="attachment_directory">Ek dizini</string>
 	<string name="backup_directory">Yedekleme dizini</string>
+	<string name="google_drive_backup">Google Drive\'a kopyala</string>
 	<string name="miscellaneous">Türlü</string>
 	<string name="synchronization">Eşzamanlama</string>
 	<string name="enabled">Etkinleştirildi</string>
@@ -491,6 +492,7 @@
 	<string name="background_sync_unmetered_only">Yalnızca ölçülmeyen bağlantılarda</string>
 	<string name="upgrade">Yükselt</string>
 	<string name="upgrade_to_pro">Pro\'ya yükselt</string>
+	<string name="manage_subscription">Aboneliği yönet</string>
 	<string name="refresh_purchases">Satın alımları yenile</string>
 	<string name="button_subscribed">Abone olundu</string>
 	<string name="button_subscribe">Abone ol</string>
@@ -523,4 +525,5 @@ uygulamanızın doğru kurulduğundan emin olun.</string>
 	<string name="open_url">Aç: %s</string>
 	<string name="location_arrived">Varıldı: %s</string>
 	<string name="location_departed">Kalkıldı: %s</string>
+	<string name="building_notifications">Bildirimler oluşturuluyor</string>
 </resources>

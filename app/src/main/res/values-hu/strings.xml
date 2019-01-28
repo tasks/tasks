@@ -490,6 +490,7 @@
 	<string name="network_error">Kapcsolódási hiba</string>
 	<string name="background_sync_unmetered_only">Csak forgalmidíj mentes kapcsolatoknál</string>
 	<string name="upgrade_to_pro">Upgrade pro verzióra</string>
+	<string name="manage_subscription">Előfizetés kezelése</string>
 	<string name="refresh_purchases">Vásárlások frissítése</string>
 	<string name="button_subscribed">Előfizetve</string>
 	<string name="button_subscribe">Előfizetés</string>
@@ -521,4 +522,5 @@
 	<string name="open_url">%s megnyitása</string>
 	<string name="location_arrived">Megérkezett ekkor: %s</string>
 	<string name="location_departed">Elindult ekkor: %s</string>
+	<string name="building_notifications">Értesítések létrehozása</string>
 </resources>

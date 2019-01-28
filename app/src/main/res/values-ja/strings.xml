@@ -488,6 +488,7 @@
 	<string name="background_sync_unmetered_only">定額の接続時のみ</string>
 	<string name="upgrade">アップグレード</string>
 	<string name="upgrade_to_pro">プロ版にアップグレード</string>
+	<string name="manage_subscription">サブスクリプションの管理</string>
 	<string name="refresh_purchases">購入を更新</string>
 	<string name="button_subscribed">購入済</string>
 	<string name="button_subscribe">購入</string>
@@ -520,4 +521,5 @@
 	<string name="open_url">%s を開く</string>
 	<string name="location_arrived">%s に到着</string>
 	<string name="location_departed">%s に出発</string>
+	<string name="building_notifications">通知を生成しています</string>
 </resources>

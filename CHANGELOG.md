@@ -1,11 +1,22 @@
 Change Log
 ---
 
-### 6.4.3 (2019-01-23)
+### 6.5 (2019-02-07)
 
-* Use AlarmManager for notifications
-* Fix notification bug
-* Update Bulgarian translations - ddmdima96
+* Improve notification accuracy
+* Performance improvements
+* Bug fixes
+* Add Tagalog translations - Topol
+* Update translations
+  * Bulgarian - ddmdima96
+  * Brazilian Portuguese - douglaslmr
+  * French - Florian_Dubois
+  * Hebrew - elazar
+  * Hungarian - kaciokos
+  * Japanese - naofumi
+  * Lithuanian - gacuxz
+  * Spanish - i2nm7s
+  * Turkish - etc
 
 ### 6.4.1 (2019-01-16)
 

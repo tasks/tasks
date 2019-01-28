@@ -490,6 +490,7 @@
 	<string name="background_sync_unmetered_only">רק בחיבורים ללא חיוב לפי נפח גלישה</string>
 	<string name="upgrade">שידרוג</string>
 	<string name="upgrade_to_pro">שידרוג לגירסת pro</string>
+	<string name="manage_subscription"> נהל מנוי</string>
 	<string name="refresh_purchases">עדכן רכישות</string>
 	<string name="button_subscribed">מנוי רשום</string>
 	<string name="button_subscribe">רישום כמנוי</string>
@@ -522,4 +523,5 @@
 	<string name="open_url">פתח %s</string>
 	<string name="location_arrived">הגיע ב-%s</string>
 	<string name="location_departed">עזב ב-%s</string>
+	<string name="building_notifications">מייצר התראות</string>
 </resources>
