@@ -2,17 +2,15 @@ package org.tasks.themes;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreoMR1;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
 
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.res.Resources;
-import android.os.Build;
 import android.os.Build.VERSION_CODES;
 import android.os.Parcel;
 import android.view.View;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import org.tasks.R;
@@ -140,7 +138,6 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
     isDark = source.readInt() == 1;
   }
 
-  @SuppressLint("NewApi")
   public void applyToSystemBars(Activity activity) {
     setStatusBarColor(activity);
 
@@ -153,14 +150,12 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
     applyToNavigationBar(activity);
   }
 
-  @SuppressLint("NewApi")
   public void setStatusBarColor(Activity activity) {
     if (atLeastLollipop()) {
       activity.getWindow().setStatusBarColor(getColorPrimaryDark());
     }
   }
 
-  @SuppressLint("NewApi")
   public void applyToStatusBar(DrawerLayout drawerLayout) {
     if (atLeastLollipop()) {
       drawerLayout.setStatusBarBackgroundColor(getColorPrimaryDark());
@@ -172,34 +167,35 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
   }
 
   public void applyToNavigationBar(Activity activity) {
-    if (atLeastOreoMR1()) {
+    if (atLeastLollipop()) {
       activity.getWindow().setNavigationBarColor(getPrimaryColor());
+    }
 
+    if (atLeastOreo()) {
       View decorView = activity.getWindow().getDecorView();
       int systemUiVisibility = applyLightNavigationBar(decorView.getSystemUiVisibility());
       decorView.setSystemUiVisibility(systemUiVisibility);
     }
   }
 
-  @TargetApi(Build.VERSION_CODES.M)
+  @RequiresApi(api = VERSION_CODES.M)
   private int applyLightStatusBarFlag(int flag) {
     return isDark
         ? flag | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         : flag & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
   }
 
-  @TargetApi(VERSION_CODES.O_MR1)
+  @RequiresApi(api = VERSION_CODES.O)
   private int applyLightNavigationBar(int flag) {
     return isDark
         ? flag | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
         : flag & ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
   }
 
-  public void applyStyle(Resources.Theme theme) {
+  void applyStyle(Resources.Theme theme) {
     theme.applyStyle(style, true);
   }
 
-  @SuppressLint("NewApi")
   public void applyTaskDescription(Activity activity, String description) {
     if (atLeastLollipop()) {
       activity.setTaskDescription(
