@@ -197,8 +197,9 @@ public class MainActivity extends InjectingAppCompatActivity
           .observeOn(AndroidSchedulers.mainThread())
           .doOnSuccess(this::openTaskListFragment);
     } else {
-      applyTheme(taskListFragment);
-      return Single.just(taskListFragment).observeOn(AndroidSchedulers.mainThread());
+      return Single.just(taskListFragment)
+          .observeOn(AndroidSchedulers.mainThread())
+          .doOnSuccess(this::openTaskListFragment);
     }
   }
 
