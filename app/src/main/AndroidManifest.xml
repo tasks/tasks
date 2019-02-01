@@ -373,14 +373,6 @@
 
     <service
       android:exported="false"
-      android:name=".scheduling.GeofenceSchedulingIntentService"
-      android:permission="android.permission.BIND_JOB_SERVICE"/>
-    <service
-      android:exported="false"
-      android:name=".scheduling.BackgroundScheduler"
-      android:permission="android.permission.BIND_JOB_SERVICE"/>
-    <service
-      android:exported="false"
       android:name=".scheduling.NotificationSchedulerIntentService"
       android:permission="android.permission.BIND_JOB_SERVICE"/>
 

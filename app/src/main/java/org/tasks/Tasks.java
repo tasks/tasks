@@ -1,25 +1,39 @@
 package org.tasks;
 
+import android.content.Context;
 import com.jakewharton.processphoenix.ProcessPhoenix;
 import com.jakewharton.threetenabp.AndroidThreeTen;
-import com.todoroo.astrid.service.StartupService;
+import com.todoroo.astrid.service.Upgrader;
+import dagger.Lazy;
+import io.reactivex.Completable;
+import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
+import org.tasks.files.FileHelper;
 import org.tasks.injection.ApplicationComponent;
+import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingApplication;
 import org.tasks.jobs.WorkManager;
+import org.tasks.location.GeofenceService;
 import org.tasks.preferences.Preferences;
 import org.tasks.receivers.Badger;
+import org.tasks.scheduling.CalendarNotificationIntentService;
+import org.tasks.scheduling.NotificationSchedulerIntentService;
+import org.tasks.scheduling.RefreshScheduler;
 import org.tasks.themes.ThemeCache;
+import timber.log.Timber;
 
 public class Tasks extends InjectingApplication {
 
-  @Inject StartupService startupService;
+  @Inject @ForApplication Context context;
+  @Inject Lazy<Upgrader> upgrader;
   @Inject Preferences preferences;
   @Inject FlavorSetup flavorSetup;
   @Inject BuildSetup buildSetup;
   @Inject ThemeCache themeCache;
   @Inject Badger badger;
   @Inject WorkManager workManager;
+  @Inject RefreshScheduler refreshScheduler;
+  @Inject GeofenceService geofenceService;
 
   @Override
   public void onCreate() {
@@ -28,6 +42,8 @@ public class Tasks extends InjectingApplication {
     if (!buildSetup.setup() || ProcessPhoenix.isPhoenixProcess(this)) {
       return;
     }
+
+    upgrade();
 
     workManager.init();
 
@@ -41,9 +57,31 @@ public class Tasks extends InjectingApplication {
 
     themeCache.getThemeBase(preferences.getInt(R.string.p_theme, 0)).setDefaultNightMode();
 
-    startupService.onStartupApplication();
+    Completable.fromAction(this::doInBackground).subscribeOn(Schedulers.io()).subscribe();
+  }
 
-    workManager.onStartup();
+  private void upgrade() {
+    final int lastVersion = preferences.getLastSetVersion();
+    final int currentVersion = BuildConfig.VERSION_CODE;
+
+    Timber.i("Astrid Startup. %s => %s", lastVersion, currentVersion);
+
+    // invoke upgrade service
+    if (lastVersion != currentVersion) {
+      upgrader.get().upgrade(lastVersion, currentVersion);
+      preferences.setDefaults();
+    }
+  }
+
+  private void doInBackground() {
+    NotificationSchedulerIntentService.enqueueWork(context, false);
+    CalendarNotificationIntentService.enqueueWork(context);
+    refreshScheduler.scheduleAll();
+    workManager.updateBackgroundSync();
+    workManager.scheduleMidnightRefresh();
+    workManager.scheduleBackup();
+    geofenceService.setupGeofences();
+    FileHelper.delete(context, preferences.getCacheDirectory());
   }
 
   @Override

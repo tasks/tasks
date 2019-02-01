@@ -33,10 +33,6 @@ public class GeofenceService {
     geofenceApi.register(getGeofencesForTask(taskId));
   }
 
-  public void cancelGeofences() {
-    geofenceApi.cancel(getActiveGeofences());
-  }
-
   public void cancelGeofences(long taskId) {
     for (Location location : getGeofences(taskId)) {
       geofenceApi.cancel(location);

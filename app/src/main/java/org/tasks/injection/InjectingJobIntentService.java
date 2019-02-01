@@ -8,7 +8,6 @@ import timber.log.Timber;
 
 public abstract class InjectingJobIntentService extends JobIntentService {
 
-  public static final int JOB_ID_BACKGROUND_SCHEDULER = 1080;
   public static final int JOB_ID_GEOFENCE_TRANSITION = 1081;
   public static final int JOB_ID_GEOFENCE_SCHEDULING = 1082;
   public static final int JOB_ID_NOTIFICATION_SCHEDULER = 1084;

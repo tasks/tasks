@@ -22,7 +22,6 @@ import com.todoroo.astrid.tags.TagService;
 import java.io.File;
 import java.util.List;
 import javax.inject.Inject;
-import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
@@ -55,7 +54,6 @@ public class Upgrader {
   private final Tracker tracker;
   private final TagDataDao tagDataDao;
   private final TagService tagService;
-  private final LocalBroadcastManager localBroadcastManager;
   private final TagDao tagDao;
   private final FilterDao filterDao;
   private final DefaultFilterProvider defaultFilterProvider;
@@ -71,7 +69,6 @@ public class Upgrader {
       Tracker tracker,
       TagDataDao tagDataDao,
       TagService tagService,
-      LocalBroadcastManager localBroadcastManager,
       TagDao tagDao,
       FilterDao filterDao,
       DefaultFilterProvider defaultFilterProvider,
@@ -83,7 +80,6 @@ public class Upgrader {
     this.tracker = tracker;
     this.tagDataDao = tagDataDao;
     this.tagService = tagService;
-    this.localBroadcastManager = localBroadcastManager;
     this.tagDao = tagDao;
     this.filterDao = filterDao;
     this.defaultFilterProvider = defaultFilterProvider;
@@ -93,33 +89,29 @@ public class Upgrader {
   }
 
   public void upgrade(int from, int to) {
-    try {
-      if (from > 0) {
-        if (from < V4_8_0) {
-          performMarshmallowMigration();
-        }
-        if (from < V4_9_5) {
-          removeDuplicateTags();
-        }
-        if (from < V5_3_0) {
-          migrateFilters();
-        }
-        if (from < V6_0_beta_1) {
-          migrateDefaultSyncList();
-        }
-        if (from < V6_0_beta_2) {
-          migrateGoogleTaskAccount();
-        }
-        if (from < V6_4) {
-          migrateUris();
-        }
-        tracker.reportEvent(Tracking.Events.UPGRADE, Integer.toString(from));
+    if (from > 0) {
+      if (from < V4_8_0) {
+        performMarshmallowMigration();
       }
-      createNotificationChannels();
-      preferences.setCurrentVersion(to);
-    } finally {
-      localBroadcastManager.broadcastRefresh();
+      if (from < V4_9_5) {
+        removeDuplicateTags();
+      }
+      if (from < V5_3_0) {
+        migrateFilters();
+      }
+      if (from < V6_0_beta_1) {
+        migrateDefaultSyncList();
+      }
+      if (from < V6_0_beta_2) {
+        migrateGoogleTaskAccount();
+      }
+      if (from < V6_4) {
+        migrateUris();
+      }
+      tracker.reportEvent(Tracking.Events.UPGRADE, Integer.toString(from));
     }
+    createNotificationChannels();
+    preferences.setCurrentVersion(to);
   }
 
   private void createNotificationChannels() {
@@ -180,7 +172,6 @@ public class Upgrader {
       removeDuplicateTagData(tagsByUuid.get(uuid));
       removeDuplicateTagMetadata(uuid);
     }
-    localBroadcastManager.broadcastRefresh();
   }
 
   private void migrateFilters() {

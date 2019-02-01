@@ -161,7 +161,7 @@ public class WorkManager {
     enqueueUnique(TAG_REFRESH, RefreshWork.class, time);
   }
 
-  void scheduleMidnightRefresh() {
+  public void scheduleMidnightRefresh() {
     enqueueUnique(TAG_MIDNIGHT_REFRESH, MidnightRefreshWork.class, midnight());
   }
 
@@ -186,7 +186,7 @@ public class WorkManager {
     }
   }
 
-  void scheduleBackup() {
+  public void scheduleBackup() {
     long lastBackup = preferences.getLong(R.string.p_last_backup, 0L);
     enqueueUnique(
         TAG_BACKUP,
@@ -234,12 +234,6 @@ public class WorkManager {
   public void cancelNotifications() {
     Timber.d("cancelNotifications");
     alarmManager.cancel(getNotificationPendingIntent());
-  }
-
-  public void onStartup() {
-    updateBackgroundSync();
-    scheduleMidnightRefresh();
-    scheduleBackup();
   }
 
   private Intent getNotificationIntent() {
