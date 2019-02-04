@@ -1,6 +1,7 @@
 package org.tasks.billing;
 
 import static com.google.common.collect.Iterables.transform;
+import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,6 +17,9 @@ import com.android.billingclient.api.SkuDetailsParams;
 import com.android.billingclient.api.SkuDetailsParams.Builder;
 import com.android.billingclient.api.SkuDetailsResponseListener;
 import com.google.common.base.Joiner;
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.BuildConfig;
@@ -88,31 +92,24 @@ public class BillingClient implements PurchasesUpdatedListener {
   public void queryPurchases() {
     Runnable queryToExecute =
         () -> {
-          long time = System.currentTimeMillis();
-          PurchasesResult purchasesResult = billingClient.queryPurchases(SkuType.INAPP);
-          Timber.i("Querying purchases elapsed time: %sms", System.currentTimeMillis() - time);
-          // If there are subscriptions supported, we add subscription rows as well
+          Single<PurchasesResult> purchases =
+              Single.fromCallable(() -> billingClient.queryPurchases(SkuType.INAPP));
           if (areSubscriptionsSupported()) {
-            PurchasesResult subscriptionResult = billingClient.queryPurchases(SkuType.SUBS);
-            Timber.i(
-                "Querying purchases and subscriptions elapsed time: %sms",
-                System.currentTimeMillis() - time);
-            Timber.i(
-                "Querying subscriptions result code: %s res: %s",
-                subscriptionResult.getResponseCode(), subscriptionResult.getPurchasesList());
-            if (subscriptionResult.getResponseCode() == BillingResponse.OK) {
-              purchasesResult.getPurchasesList().addAll(subscriptionResult.getPurchasesList());
-            } else {
-              Timber.e("Got an error response trying to query subscription purchases");
-            }
-          } else if (purchasesResult.getResponseCode() == BillingResponse.OK) {
-            Timber.i("Skipped subscription purchases query since they are not supported");
-          } else {
-            Timber.w(
-                "queryPurchases() got an error response code: %s",
-                purchasesResult.getResponseCode());
+            purchases =
+                Single.zip(
+                    purchases,
+                    Single.fromCallable(() -> billingClient.queryPurchases(SkuType.SUBS)),
+                    (iaps, subs) -> {
+                      if (subs.getResponseCode() == BillingResponse.OK) {
+                        iaps.getPurchasesList().addAll(subs.getPurchasesList());
+                      }
+                      return iaps;
+                    });
           }
-          onQueryPurchasesFinished(purchasesResult);
+          purchases
+              .subscribeOn(Schedulers.io())
+              .observeOn(AndroidSchedulers.mainThread())
+              .subscribe(this::onQueryPurchasesFinished);
         };
 
     executeServiceRequest(queryToExecute);
@@ -120,6 +117,8 @@ public class BillingClient implements PurchasesUpdatedListener {
 
   /** Handle a result from querying of purchases and report an updated list to the listener */
   private void onQueryPurchasesFinished(PurchasesResult result) {
+    assertMainThread();
+
     // Have we been disposed of in the meantime? If so, or bad result code, then quit
     if (billingClient == null || result.getResponseCode() != BillingResponse.OK) {
       Timber.w(
