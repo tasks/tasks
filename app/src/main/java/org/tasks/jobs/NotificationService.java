@@ -1,6 +1,7 @@
 package org.tasks.jobs;
 
 import static com.google.common.collect.Lists.transform;
+import static com.todoroo.andlib.utility.AndroidUtilities.assertNotMainThread;
 
 import android.content.Intent;
 import android.os.IBinder;
@@ -39,7 +40,9 @@ public class NotificationService extends InjectingService {
   }
 
   @Override
-  protected void doWork() {
+  protected synchronized void doWork() {
+    assertNotMainThread();
+
     try {
       if (!preferences.isCurrentlyQuietHours()) {
         List<? extends NotificationQueueEntry> overdueJobs = notificationQueue.getOverdueJobs();

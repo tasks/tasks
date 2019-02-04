@@ -19,21 +19,22 @@ public abstract class InjectingService extends Service {
   public void onCreate() {
     super.onCreate();
 
-    startForeground(getNotificationId(), buildNotification());
+    startForeground();
+
+    disposables = new CompositeDisposable();
+
+    inject(((InjectingApplication) getApplication()).getComponent().plus(new ServiceModule()));
   }
 
   @Override
   public int onStartCommand(Intent intent, int flags, int startId) {
-    startForeground(getNotificationId(), buildNotification());
+    startForeground();
 
-    inject(((InjectingApplication) getApplication()).getComponent().plus(new ServiceModule()));
-
-    disposables =
-        new CompositeDisposable(
-            Completable.fromAction(this::doWork)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::stopSelf));
+    disposables.add(
+        Completable.fromAction(this::doWork)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(() -> stopSelf(startId)));
 
     return Service.START_NOT_STICKY;
   }
@@ -45,6 +46,10 @@ public abstract class InjectingService extends Service {
     stopForeground(true);
 
     disposables.dispose();
+  }
+
+  private void startForeground() {
+    startForeground(getNotificationId(), buildNotification());
   }
 
   protected abstract int getNotificationId();
