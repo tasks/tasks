@@ -8,6 +8,7 @@ package com.todoroo.astrid.activity;
 
 import static android.app.Activity.RESULT_OK;
 import static androidx.core.content.ContextCompat.getColor;
+import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -98,13 +99,11 @@ public class TaskListFragment extends InjectingFragment
   // --- instance variables
   private static final int REQUEST_EDIT_FILTER = 11544;
   private static final int SEARCH_DEBOUNCE_TIMEOUT = 300;
-  private final RefreshReceiver refreshReceiver = new RefreshReceiver();
   @Inject protected Tracker tracker;
-  protected Filter filter;
   @Inject SyncAdapters syncAdapters;
   @Inject TaskDeleter taskDeleter;
   @Inject @ForActivity Context context;
-  @Inject Preferences preferences;
+  @Inject protected Preferences preferences;
   @Inject DialogBuilder dialogBuilder;
   @Inject CheckBoxes checkBoxes;
   @Inject TaskCreator taskCreator;
@@ -134,10 +133,11 @@ public class TaskListFragment extends InjectingFragment
   private TaskListViewModel taskListViewModel;
   private TaskAdapter taskAdapter = null;
   private TaskListRecyclerAdapter recyclerAdapter;
-
+  private final RefreshReceiver refreshReceiver = new RefreshReceiver();
+  protected Filter filter;
   private PublishSubject<String> searchSubject = PublishSubject.create();
   private Disposable searchDisposable;
-  private CompositeDisposable disposables;
+  protected CompositeDisposable disposables;
 
   /*
    * ======================================================================
@@ -166,14 +166,10 @@ public class TaskListFragment extends InjectingFragment
   }
 
   protected void setSyncOngoing(final boolean ongoing) {
-    Activity activity = getActivity();
-    if (activity != null) {
-      activity.runOnUiThread(
-          () -> {
-            swipeRefreshLayout.setRefreshing(ongoing);
-            emptyRefreshLayout.setRefreshing(ongoing);
-          });
-    }
+    assertMainThread();
+
+    swipeRefreshLayout.setRefreshing(ongoing);
+    emptyRefreshLayout.setRefreshing(ongoing);
   }
 
   @Override

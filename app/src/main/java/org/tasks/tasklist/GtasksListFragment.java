@@ -10,8 +10,10 @@ import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
-import com.todoroo.astrid.service.SyncV2Service;
-import com.todoroo.astrid.sync.SyncResultCallback;
+import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
+import io.reactivex.Completable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.activities.GoogleTaskListSettingsActivity;
@@ -24,7 +26,7 @@ public class GtasksListFragment extends TaskListFragment {
   private static final String EXTRA_STORE_OBJECT = "extra_store_object";
   private static final int REQUEST_LIST_SETTINGS = 10101;
   protected GoogleTaskList list;
-  @Inject SyncV2Service syncService;
+  @Inject GtasksSyncService gtasksSyncService;
 
   public static TaskListFragment newGtasksListFragment(GtasksFilter filter, GoogleTaskList list) {
     GtasksListFragment fragment = new GtasksListFragment();
@@ -86,21 +88,11 @@ public class GtasksListFragment extends TaskListFragment {
   @Override
   protected void clearCompleted() {
     tracker.reportEvent(Tracking.Events.GTASK_CLEAR_COMPLETED);
-    syncService.clearCompleted(
-        list,
-        new SyncResultCallback() {
-          @Override
-          public void started() {
-            setSyncOngoing(true);
-          }
-
-          @Override
-          public void finished() {
-            setSyncOngoing(false);
-
-            onRefresh();
-          }
-        });
+    setSyncOngoing(true);
+    disposables.add(Completable.fromAction(() -> gtasksSyncService.clearCompleted(list))
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(() -> preferences.isSyncOngoing()));
   }
 
   @Override
