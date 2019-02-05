@@ -48,8 +48,8 @@ public interface CaldavDao {
   @Delete
   void delete(CaldavTask caldavTask);
 
-  @Query("SELECT * FROM caldav_tasks WHERE task = :taskId AND deleted > 0 AND calendar = :calendar")
-  List<CaldavTask> getDeleted(long taskId, String calendar);
+  @Query("SELECT * FROM caldav_tasks WHERE deleted > 0 AND calendar = :calendar")
+  List<CaldavTask> getDeleted(String calendar);
 
   @Query("SELECT * FROM caldav_tasks WHERE task = :taskId AND deleted = 0 LIMIT 1")
   CaldavTask getTask(long taskId);

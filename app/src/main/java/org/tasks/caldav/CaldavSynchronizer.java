@@ -256,10 +256,14 @@ public class CaldavSynchronizer {
 
   private void pushLocalChanges(
       CaldavCalendar caldavCalendar, OkHttpClient httpClient, HttpUrl httpUrl) {
-    List<Task> tasks = taskDao.getCaldavTasksToPush(caldavCalendar.getUuid());
-    for (com.todoroo.astrid.data.Task task : tasks) {
+
+    for (CaldavTask task : caldavDao.getDeleted(caldavCalendar.getUuid())) {
+      deleteRemoteResource(httpClient, httpUrl, task);
+    }
+
+    for (Task task : taskDao.getCaldavTasksToPush(caldavCalendar.getUuid())) {
       try {
-        pushTask(task, caldavCalendar, httpClient, httpUrl);
+        pushTask(task, httpClient, httpUrl);
       } catch (IOException e) {
         Timber.e(e);
       }
@@ -288,18 +292,8 @@ public class CaldavSynchronizer {
     return true;
   }
 
-  private void pushTask(
-      Task task, CaldavCalendar caldavCalendar, OkHttpClient httpClient, HttpUrl httpUrl)
-      throws IOException {
+  private void pushTask(Task task, OkHttpClient httpClient, HttpUrl httpUrl) throws IOException {
     Timber.d("pushing %s", task);
-    List<CaldavTask> deleted = caldavDao.getDeleted(task.getId(), caldavCalendar.getUuid());
-    if (!deleted.isEmpty()) {
-      for (CaldavTask entry : deleted) {
-        deleteRemoteResource(httpClient, httpUrl, entry);
-      }
-      return;
-    }
-
     CaldavTask caldavTask = caldavDao.getTask(task.getId());
 
     if (caldavTask == null) {
