@@ -48,6 +48,7 @@ import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.service.TaskMover;
 import com.todoroo.astrid.timers.TimerPlugin;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.subjects.PublishSubject;
 import java.util.List;
@@ -132,6 +133,7 @@ public class TaskListFragment extends InjectingFragment
 
   private PublishSubject<String> searchSubject = PublishSubject.create();
   private Disposable searchDisposable;
+  private CompositeDisposable disposables;
 
   /*
    * ======================================================================
@@ -140,7 +142,7 @@ public class TaskListFragment extends InjectingFragment
    */
   private TaskListFragmentCallbackHandler callbacks;
 
-  public static TaskListFragment newTaskListFragment(Filter filter) {
+  static TaskListFragment newTaskListFragment(Filter filter) {
     TaskListFragment fragment = new TaskListFragment();
     fragment.filter = filter;
     return fragment;
@@ -148,9 +150,15 @@ public class TaskListFragment extends InjectingFragment
 
   @Override
   public void onRefresh() {
-    if (!syncAdapters.syncNow()) {
-      refresh();
-    }
+    disposables.add(
+        syncAdapters
+            .sync()
+            .subscribe(
+                initiated -> {
+                  if (!initiated) {
+                    refresh();
+                  }
+                }));
   }
 
   protected void setSyncOngoing(final boolean ongoing) {
@@ -436,6 +444,8 @@ public class TaskListFragment extends InjectingFragment
   public void onResume() {
     super.onResume();
 
+    disposables = new CompositeDisposable();
+
     localBroadcastManager.registerRefreshReceiver(refreshReceiver);
 
     refresh();
@@ -452,6 +462,8 @@ public class TaskListFragment extends InjectingFragment
   @Override
   public void onPause() {
     super.onPause();
+
+    disposables.dispose();
 
     localBroadcastManager.unregisterReceiver(refreshReceiver);
   }

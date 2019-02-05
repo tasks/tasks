@@ -1,7 +1,8 @@
 package org.tasks.sync;
 
-import android.app.Activity;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
 import org.tasks.data.CaldavDao;
 import org.tasks.gtasks.GtaskSyncAdapterHelper;
@@ -21,12 +22,23 @@ public class SyncAdapters {
     this.caldavDao = caldavDao;
   }
 
-  public boolean syncNow() {
-    if (isGoogleTaskSyncEnabled() || isCaldavSyncEnabled()) {
-      workManager.syncNow();
-      return true;
-    }
-    return false;
+  public void syncNow() {
+    sync().subscribe();
+  }
+
+  public Single<Boolean> sync() {
+    return Single.zip(
+            Single.fromCallable(this::isGoogleTaskSyncEnabled),
+            Single.fromCallable(this::isCaldavSyncEnabled),
+            (b1, b2) -> {
+              if (b1 || b2) {
+                workManager.syncNow();
+                return true;
+              }
+              return false;
+            })
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread());
   }
 
   public boolean isSyncEnabled() {
