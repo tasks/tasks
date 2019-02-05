@@ -1,5 +1,7 @@
 package org.tasks.gtasks;
 
+import static io.reactivex.Single.fromCallable;
+
 import android.accounts.Account;
 import android.app.Activity;
 import android.content.Context;
@@ -12,9 +14,15 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.tasks.TasksScopes;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import java.io.IOException;
 import javax.inject.Inject;
 import org.tasks.R;
+import org.tasks.data.GoogleTaskListDao;
+import org.tasks.data.LocationDao;
 import org.tasks.injection.ForApplication;
 import org.tasks.play.AuthResultHandler;
 import org.tasks.preferences.Preferences;
@@ -27,15 +35,39 @@ public class PlayServices {
   private final Context context;
   private final Preferences preferences;
   private final GoogleAccountManager accountManager;
+  private final GoogleTaskListDao googleTaskListDao;
+  private final LocationDao locationDao;
 
   @Inject
   public PlayServices(
       @ForApplication Context context,
       Preferences preferences,
-      GoogleAccountManager googleAccountManager) {
+      GoogleAccountManager googleAccountManager,
+      GoogleTaskListDao googleTaskListDao,
+      LocationDao locationDao) {
     this.context = context;
     this.preferences = preferences;
     this.accountManager = googleAccountManager;
+    this.googleTaskListDao = googleTaskListDao;
+    this.locationDao = locationDao;
+  }
+
+  public Disposable check(Activity activity) {
+    return Single.zip(
+            googleTaskListDao.accountCount(),
+            locationDao.geofenceCount(),
+            fromCallable(() -> preferences.getBoolean(R.string.p_google_drive_backup, false)),
+            (gtaskCount, geofenceCount, gdrive) -> gtaskCount > 0 || geofenceCount > 0 || gdrive)
+        .subscribeOn(Schedulers.io())
+        .map(needsCheck -> !needsCheck || refreshAndCheck())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(
+            success -> {
+              if (!success && !preferences.getBoolean(R.string.warned_play_services, false)) {
+                preferences.setBoolean(R.string.warned_play_services, true);
+                resolve(activity);
+              }
+            });
   }
 
   public boolean refreshAndCheck() {
@@ -43,11 +75,11 @@ public class PlayServices {
     return isPlayServicesAvailable();
   }
 
-  public boolean isPlayServicesAvailable() {
+  boolean isPlayServicesAvailable() {
     return getResult() == ConnectionResult.SUCCESS;
   }
 
-  public void refresh() {
+  private void refresh() {
     GoogleApiAvailability instance = GoogleApiAvailability.getInstance();
     int googlePlayServicesAvailable = instance.isGooglePlayServicesAvailable(context);
     preferences.setInt(R.string.play_services_available, googlePlayServicesAvailable);
@@ -63,9 +95,7 @@ public class PlayServices {
     if (googleApiAvailability.isUserResolvableError(error)) {
       googleApiAvailability.getErrorDialog(activity, error, REQUEST_RESOLUTION).show();
     } else {
-      Toast.makeText(
-              activity, R.string.common_google_play_services_notification_ticker, Toast.LENGTH_LONG)
-          .show();
+      Toast.makeText(activity, getStatus(), Toast.LENGTH_LONG).show();
     }
   }
 

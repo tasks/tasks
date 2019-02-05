@@ -40,8 +40,4 @@ public class SyncAdapters {
   public boolean isCaldavSyncEnabled() {
     return caldavDao.getAccounts().size() > 0;
   }
-
-  public Disposable checkPlayServices(Activity activity) {
-    return gtaskSyncAdapterHelper.checkPlayServices(activity);
-  }
 }

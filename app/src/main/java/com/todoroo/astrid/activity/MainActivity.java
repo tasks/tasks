@@ -61,6 +61,7 @@ import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
 import org.tasks.dialogs.SortDialog;
 import org.tasks.fragments.CommentBarFragment;
+import org.tasks.gtasks.PlayServices;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.intents.TaskIntents;
@@ -113,6 +114,7 @@ public class MainActivity extends InjectingAppCompatActivity
   @Inject CaldavDao caldavDao;
   @Inject LocalBroadcastManager localBroadcastManager;
   @Inject TaskCreator taskCreator;
+  @Inject PlayServices playServices;
 
   @BindView(R.id.drawer_layout)
   DrawerLayout drawerLayout;
@@ -344,7 +346,7 @@ public class MainActivity extends InjectingAppCompatActivity
 
     localBroadcastManager.registerRepeatReceiver(repeatConfirmationReceiver);
 
-    disposables.add(syncAdapters.checkPlayServices(this));
+    disposables.add(playServices.check(this));
   }
 
   public void restart() {

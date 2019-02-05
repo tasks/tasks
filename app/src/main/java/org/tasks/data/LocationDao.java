@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import io.reactivex.Single;
 import java.util.List;
 
 @Dao
@@ -22,6 +23,9 @@ public interface LocationDao {
   @Query(
       "SELECT locations.* FROM locations INNER JOIN tasks ON tasks._id = locations.task WHERE tasks.deleted = 0 AND tasks.completed = 0")
   List<Location> getActiveGeofences();
+
+  @Query("SELECT COUNT(*) FROM locations")
+  Single<Integer> geofenceCount();
 
   @Delete
   void delete(Location location);
