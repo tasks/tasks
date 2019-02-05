@@ -168,7 +168,6 @@ public class NavigationDrawerFragment extends InjectingFragment {
     FilterListItem item = adapter.getItem(position);
     if (item instanceof Filter) {
       if (!item.equals(adapter.getSelected())) {
-        adapter.setSelected((Filter) item);
         if (mCallbacks != null) {
           mCallbacks.onFilterItemClicked(item);
         }

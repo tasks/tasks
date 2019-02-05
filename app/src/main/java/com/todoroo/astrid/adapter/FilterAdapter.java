@@ -56,7 +56,7 @@ public class FilterAdapter extends BaseAdapter {
   private final LayoutInflater inflater;
   private final ThemeCache themeCache;
   private boolean navigationDrawer;
-  private FilterListItem selected;
+  private Filter selected = null;
   private List<FilterListItem> items = new ArrayList<>();
   private Map<Filter, Integer> counts = new HashMap<>();
 
@@ -84,7 +84,7 @@ public class FilterAdapter extends BaseAdapter {
   }
 
   public void setData(List<FilterListItem> items) {
-    setData(items, null);
+    setData(items, selected);
   }
 
   public void setData(List<FilterListItem> items, @Nullable Filter selected) {
@@ -94,7 +94,7 @@ public class FilterAdapter extends BaseAdapter {
   public void setData(List<FilterListItem> items, @Nullable Filter selected, int defaultIndex) {
     assertMainThread();
     this.items = items;
-    this.selected = defaultIndex >= 0 ? getItem(indexOf(selected, defaultIndex)) : selected;
+    this.selected = defaultIndex >= 0 ? getFilter(indexOf(selected, defaultIndex)) : selected;
     notifyDataSetChanged();
   }
 
@@ -114,6 +114,11 @@ public class FilterAdapter extends BaseAdapter {
   public FilterListItem getItem(int position) {
     assertMainThread();
     return items.get(position);
+  }
+
+  private Filter getFilter(int position) {
+    FilterListItem item = getItem(position);
+    return item instanceof Filter ? (Filter) item : null;
   }
 
   @Override
@@ -170,11 +175,12 @@ public class FilterAdapter extends BaseAdapter {
   }
 
   public Filter getSelected() {
-    return selected instanceof Filter ? (Filter) selected : null;
+    return selected;
   }
 
   public void setSelected(Filter selected) {
     this.selected = selected;
+    notifyDataSetChanged();
   }
 
   public ArrayList<FilterListItem> getItems() {
