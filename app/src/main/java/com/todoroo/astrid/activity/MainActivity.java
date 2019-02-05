@@ -179,20 +179,28 @@ public class MainActivity extends InjectingAppCompatActivity
     outState.putParcelable(EXTRA_FILTER, filter);
   }
 
+  private void clearUi() {
+    finishActionMode();
+    navigationDrawer.closeDrawer();
+  }
+
   private Single<TaskListFragment> taskListFragmentSingle(Intent intent) {
     if (intent.hasExtra(OPEN_FILTER)) {
       filter = intent.getParcelableExtra(OPEN_FILTER);
       intent.removeExtra(OPEN_FILTER);
+      clearUi();
       return Single.fromCallable(() -> newTaskListFragment(filter));
     } else if (intent.hasExtra(LOAD_FILTER)) {
       String filter = intent.getStringExtra(LOAD_FILTER);
       intent.removeExtra(LOAD_FILTER);
+      clearUi();
       return Single.fromCallable(
           () -> newTaskListFragment(defaultFilterProvider.getFilterFromPreference(filter)));
     }
 
     TaskListFragment taskListFragment = getTaskListFragment();
     if (taskListFragment == null || taskListFragment.filter != filter) {
+      clearUi();
       return Single.fromCallable(() -> newTaskListFragment(filter));
     } else {
       return Single.just(taskListFragment);
@@ -214,9 +222,6 @@ public class MainActivity extends InjectingAppCompatActivity
     } else {
       showDetailFragment();
     }
-
-    finishActionMode();
-    navigationDrawer.closeDrawer();
 
     Single<TaskListFragment> single =
         taskListFragmentSingle(intent)
@@ -310,7 +315,7 @@ public class MainActivity extends InjectingAppCompatActivity
   }
 
   private void loadTaskEditFragment(TaskEditFragment taskEditFragment) {
-    finishActionMode();
+    clearUi();
 
     getSupportFragmentManager()
         .beginTransaction()
