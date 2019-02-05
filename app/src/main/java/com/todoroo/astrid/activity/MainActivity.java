@@ -48,6 +48,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
+import org.jetbrains.annotations.Nullable;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.activities.TagSettingsActivity;
@@ -137,10 +138,6 @@ public class MainActivity extends InjectingAppCompatActivity
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    if (savedInstanceState != null) {
-      filter = savedInstanceState.getParcelable(EXTRA_FILTER);
-    }
-
     TaskListViewModel viewModel = ViewModelProviders.of(this).get(TaskListViewModel.class);
 
     getComponent().inject(viewModel);
@@ -150,6 +147,11 @@ public class MainActivity extends InjectingAppCompatActivity
     setContentView(R.layout.task_list_activity);
 
     ButterKnife.bind(this);
+
+    if (savedInstanceState != null) {
+      filter = savedInstanceState.getParcelable(EXTRA_FILTER);
+      applyTheme();
+    }
 
     navigationDrawer = getNavigationDrawerFragment();
     navigationDrawer.setUp(drawerLayout);
@@ -181,27 +183,19 @@ public class MainActivity extends InjectingAppCompatActivity
     if (intent.hasExtra(OPEN_FILTER)) {
       filter = intent.getParcelableExtra(OPEN_FILTER);
       intent.removeExtra(OPEN_FILTER);
-      return Single.fromCallable(() -> newTaskListFragment(filter))
-          .observeOn(AndroidSchedulers.mainThread())
-          .doOnSuccess(this::openTaskListFragment);
+      return Single.fromCallable(() -> newTaskListFragment(filter));
     } else if (intent.hasExtra(LOAD_FILTER)) {
       String filter = intent.getStringExtra(LOAD_FILTER);
       intent.removeExtra(LOAD_FILTER);
       return Single.fromCallable(
-              () -> newTaskListFragment(defaultFilterProvider.getFilterFromPreference(filter)))
-          .observeOn(AndroidSchedulers.mainThread())
-          .doOnSuccess(this::openTaskListFragment);
+          () -> newTaskListFragment(defaultFilterProvider.getFilterFromPreference(filter)));
     }
 
     TaskListFragment taskListFragment = getTaskListFragment();
     if (taskListFragment == null || taskListFragment.filter != filter) {
-      return Single.fromCallable(() -> newTaskListFragment(filter))
-          .observeOn(AndroidSchedulers.mainThread())
-          .doOnSuccess(this::openTaskListFragment);
+      return Single.fromCallable(() -> newTaskListFragment(filter));
     } else {
-      return Single.just(taskListFragment)
-          .observeOn(AndroidSchedulers.mainThread())
-          .doOnSuccess(this::openTaskListFragment);
+      return Single.just(taskListFragment);
     }
   }
 
@@ -224,7 +218,11 @@ public class MainActivity extends InjectingAppCompatActivity
     finishActionMode();
     navigationDrawer.closeDrawer();
 
-    Single<TaskListFragment> single = taskListFragmentSingle(intent).subscribeOn(Schedulers.io());
+    Single<TaskListFragment> single =
+        taskListFragmentSingle(intent)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doAfterSuccess(this::openTaskListFragment);
 
     if (intent.hasExtra(OPEN_TASK)) {
       long taskId = intent.getLongExtra(OPEN_TASK, 0);
@@ -293,6 +291,7 @@ public class MainActivity extends InjectingAppCompatActivity
           .beginTransaction()
           .replace(R.id.master, taskListFragment, FRAG_TAG_TASK_LIST)
           .commit();
+      fragmentManager.executePendingTransactions();
     }
   }
 
@@ -387,7 +386,7 @@ public class MainActivity extends InjectingAppCompatActivity
     }
   }
 
-  private TaskListFragment newTaskListFragment(Filter filter) {
+  private TaskListFragment newTaskListFragment(@Nullable Filter filter) {
     assertNotMainThread();
 
     if (filter == null) {

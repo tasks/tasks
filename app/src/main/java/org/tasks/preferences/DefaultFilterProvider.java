@@ -89,7 +89,7 @@ public class DefaultFilterProvider {
     return getFilterFromPreference(R.string.p_default_list);
   }
 
-  public void setDefaultFilter(Filter filter) {
+  void setDefaultFilter(Filter filter) {
     tracker.reportEvent(Tracking.Events.SET_DEFAULT_LIST);
     setFilterPreference(filter, R.string.p_default_list);
   }
