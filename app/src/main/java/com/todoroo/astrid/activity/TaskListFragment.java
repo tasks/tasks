@@ -48,8 +48,11 @@ import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.service.TaskMover;
 import com.todoroo.astrid.timers.TimerPlugin;
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -73,8 +76,8 @@ import org.tasks.tasklist.TaskListRecyclerAdapter;
 import org.tasks.tasklist.ViewHolderFactory;
 import org.tasks.ui.CheckBoxes;
 import org.tasks.ui.MenuColorizer;
-import org.tasks.ui.ProgressDialogAsyncTask;
 import org.tasks.ui.TaskListViewModel;
+import org.tasks.ui.Toaster;
 
 /**
  * Primary activity for the Bente application. Shows a list of upcoming tasks and a user's coaches.
@@ -111,6 +114,7 @@ public class TaskListFragment extends InjectingFragment
   @Inject Device device;
   @Inject TaskMover taskMover;
   @Inject ActionModeProvider actionModeProvider;
+  @Inject Toaster toaster;
 
   @BindView(R.id.swipe_layout)
   SwipeRefreshLayout swipeRefreshLayout;
@@ -383,17 +387,12 @@ public class TaskListFragment extends InjectingFragment
 
   protected void clearCompleted() {
     tracker.reportEvent(Tracking.Events.CLEAR_COMPLETED);
-    new ProgressDialogAsyncTask(getActivity(), dialogBuilder) {
-      @Override
-      protected Integer doInBackground(Void... params) {
-        return taskDeleter.clearCompleted(filter);
-      }
-
-      @Override
-      protected int getResultResource() {
-        return R.string.delete_multiple_tasks_confirmation;
-      }
-    }.execute();
+    disposables.add(
+        Single.fromCallable(() -> taskDeleter.clearCompleted(filter))
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                count -> toaster.longToast(R.string.delete_multiple_tasks_confirmation, count)));
   }
 
   @OnClick(R.id.fab)
@@ -401,7 +400,7 @@ public class TaskListFragment extends InjectingFragment
     onTaskListItemClicked(addTask(""));
   }
 
-  Task addTask(String title) {
+  private Task addTask(String title) {
     return taskCreator.createWithValues(filter, title);
   }
 
@@ -543,7 +542,7 @@ public class TaskListFragment extends InjectingFragment
    * ======================================================================
    */
 
-  public void onTaskSaved() {
+  void onTaskSaved() {
     recyclerAdapter.onTaskSaved();
   }
 

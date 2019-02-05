@@ -7,9 +7,15 @@
 package com.todoroo.astrid.core;
 
 import android.os.Bundle;
+import androidx.annotation.StringRes;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.service.TaskDeleter;
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
+import java.util.concurrent.Callable;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.calendars.CalendarEventProvider;
@@ -17,7 +23,7 @@ import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.preferences.Preferences;
-import org.tasks.ui.ProgressDialogAsyncTask;
+import org.tasks.ui.Toaster;
 
 public class OldTaskPreferences extends InjectingPreferenceActivity {
 
@@ -27,6 +33,9 @@ public class OldTaskPreferences extends InjectingPreferenceActivity {
   @Inject TaskDao taskDao;
   @Inject CalendarEventProvider calendarEventProvider;
   @Inject TaskDeleter taskDeleter;
+  @Inject Toaster toaster;
+
+  private CompositeDisposable disposables;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -76,17 +85,8 @@ public class OldTaskPreferences extends InjectingPreferenceActivity {
         .setPositiveButton(
             android.R.string.ok,
             (dialog, which) ->
-                new ProgressDialogAsyncTask(OldTaskPreferences.this, dialogBuilder) {
-                  @Override
-                  protected Integer doInBackground(Void... params) {
-                    return taskDeleter.purgeDeleted();
-                  }
-
-                  @Override
-                  protected int getResultResource() {
-                    return R.string.EPr_manage_purge_deleted_status;
-                  }
-                }.execute())
+                performAction(
+                    R.string.EPr_manage_purge_deleted_status, () -> taskDeleter.purgeDeleted()))
         .setNegativeButton(android.R.string.cancel, null)
         .show();
   }
@@ -97,19 +97,12 @@ public class OldTaskPreferences extends InjectingPreferenceActivity {
         .setPositiveButton(
             android.R.string.ok,
             (dialog, which) ->
-                new ProgressDialogAsyncTask(OldTaskPreferences.this, dialogBuilder) {
-
-                  @Override
-                  protected Integer doInBackground(Void... params) {
-                    calendarEventProvider.deleteEvents(taskDao.getCompletedCalendarEvents());
-                    return taskDao.clearCompletedCalendarEvents();
-                  }
-
-                  @Override
-                  protected int getResultResource() {
-                    return R.string.EPr_manage_delete_completed_gcal_status;
-                  }
-                }.execute())
+                performAction(
+                    R.string.EPr_manage_delete_completed_gcal_status,
+                    () -> {
+                      calendarEventProvider.deleteEvents(taskDao.getCompletedCalendarEvents());
+                      return taskDao.clearCompletedCalendarEvents();
+                    }))
         .setNegativeButton(android.R.string.cancel, null)
         .show();
   }
@@ -120,20 +113,22 @@ public class OldTaskPreferences extends InjectingPreferenceActivity {
         .setPositiveButton(
             android.R.string.ok,
             (dialog, which) ->
-                new ProgressDialogAsyncTask(OldTaskPreferences.this, dialogBuilder) {
-                  @Override
-                  protected Integer doInBackground(Void... params) {
-                    calendarEventProvider.deleteEvents(taskDao.getAllCalendarEvents());
-                    return taskDao.clearAllCalendarEvents();
-                  }
-
-                  @Override
-                  protected int getResultResource() {
-                    return R.string.EPr_manage_delete_all_gcal_status;
-                  }
-                }.execute())
+                performAction(
+                    R.string.EPr_manage_delete_all_gcal_status,
+                    () -> {
+                      calendarEventProvider.deleteEvents(taskDao.getAllCalendarEvents());
+                      return taskDao.clearAllCalendarEvents();
+                    }))
         .setNegativeButton(android.R.string.cancel, null)
         .show();
+  }
+
+  private void performAction(@StringRes int message, Callable<Integer> callable) {
+    disposables.add(
+        Single.fromCallable(callable)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(c -> toaster.longToastUnformatted(message, c)));
   }
 
   private void resetPreferences() {
@@ -160,6 +155,20 @@ public class OldTaskPreferences extends InjectingPreferenceActivity {
             })
         .setNegativeButton(android.R.string.cancel, null)
         .show();
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+
+    disposables = new CompositeDisposable();
+  }
+
+  @Override
+  protected void onPause() {
+    super.onPause();
+
+    disposables.dispose();
   }
 
   @Override
