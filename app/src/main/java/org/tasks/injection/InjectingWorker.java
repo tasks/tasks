@@ -27,7 +27,7 @@ public abstract class InjectingWorker extends Worker {
       return run();
     } catch (Exception e) {
       tracker.reportException(e);
-      return Result.FAILURE;
+      return Result.failure();
     }
   }
 

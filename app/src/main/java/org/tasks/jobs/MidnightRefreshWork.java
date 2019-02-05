@@ -19,7 +19,7 @@ public class MidnightRefreshWork extends RepeatingWorker {
   @Override
   protected Result run() {
     localBroadcastManager.broadcastRefresh();
-    return Result.SUCCESS;
+    return Result.success();
   }
 
   @Override

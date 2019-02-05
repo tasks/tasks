@@ -109,7 +109,7 @@ configurations {
 final DAGGER_VERSION = '2.16'
 final BUTTERKNIFE_VERSION = '9.0.0-rc2'
 final STETHO_VERSION = '1.5.0'
-final WORK_VERSION = '1.0.0-alpha10'
+final WORK_VERSION = '1.0.0-beta04'
 final LEAKCANARY_VERSION = '1.6.2'
 final ROOM_VERSION = '2.1.0-alpha03'
 
@@ -172,10 +172,6 @@ dependencies {
         exclude group: 'com.google.guava', module: 'listenablefuture'
     }
 
-    googleplayImplementation("android.arch.work:work-firebase:${WORK_VERSION}") {
-        // https://groups.google.com/forum/#!topic/guava-announce/Km82fZG68Sw
-        exclude group: 'com.google.guava', module: 'listenablefuture'
-    }
     googleplayImplementation 'com.crashlytics.sdk.android:crashlytics:2.9.8'
     googleplayImplementation "com.google.firebase:firebase-core:16.0.6"
     googleplayImplementation "com.google.android.gms:play-services-location:16.0.0"

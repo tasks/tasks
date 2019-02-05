@@ -68,10 +68,10 @@ public class DriveUploader extends InjectingWorker {
         }
       }
 
-      return Result.SUCCESS;
+      return Result.success();
     } catch (IOException e) {
       tracker.reportException(e);
-      return Result.FAILURE;
+      return Result.failure();
     }
   }
 

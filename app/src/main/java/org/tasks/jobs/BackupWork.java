@@ -73,7 +73,7 @@ public class BackupWork extends RepeatingWorker {
   protected Result run() {
     startBackup(context);
     preferences.setLong(R.string.p_last_backup, now());
-    return Result.SUCCESS;
+    return Result.success();
   }
 
   @Override

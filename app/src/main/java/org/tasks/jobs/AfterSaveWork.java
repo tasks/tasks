@@ -79,7 +79,7 @@ public class AfterSaveWork extends InjectingWorker {
     Task task = taskDao.fetch(taskId);
     if (task == null) {
       Timber.e("Missing saved task");
-      return Result.FAILURE;
+      return Result.failure();
     }
 
     reminderService.scheduleAlarm(task);
@@ -117,7 +117,7 @@ public class AfterSaveWork extends InjectingWorker {
       localBroadcastManager.broadcastRefresh();
     }
 
-    return Result.SUCCESS;
+    return Result.success();
   }
 
   private void updateCalendarTitle(Task task) {
