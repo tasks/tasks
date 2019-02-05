@@ -30,6 +30,7 @@ import org.tasks.analytics.Tracking;
 import org.tasks.analytics.Tracking.Events;
 import org.tasks.billing.BillingClient;
 import org.tasks.billing.Inventory;
+import org.tasks.billing.PurchaseActivity;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.drive.DriveLoginActivity;
 import org.tasks.files.FileHelper;
@@ -188,6 +189,32 @@ public class BasicPreferences extends InjectingPreferenceActivity
           }
         });
 
+    Preference upgradeToPro = findPreference(R.string.upgrade_to_pro);
+    if (inventory.hasPro()) {
+      upgradeToPro.setTitle(R.string.manage_subscription);
+      upgradeToPro.setOnPreferenceClickListener(
+          p -> {
+            startActivity(
+                new Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(
+                        "https://play.google.com/store/account/subscriptions?sku=annual_499&package=org.tasks")));
+            return false;
+          });
+    } else {
+      upgradeToPro.setOnPreferenceClickListener(
+          p -> {
+            startActivity(new Intent(this, PurchaseActivity.class));
+            return false;
+          });
+    }
+
+    findPreference(R.string.refresh_purchases).setOnPreferenceClickListener(
+        preference -> {
+          billingClient.queryPurchases();
+          return false;
+        });
+
     requires(
         R.string.settings_localization,
         atLeastJellybeanMR1(),
@@ -199,7 +226,12 @@ public class BasicPreferences extends InjectingPreferenceActivity
     //noinspection ConstantConditions
     if (!BuildConfig.FLAVOR.equals("googleplay")) {
       requires(R.string.backup_BPr_header, false, R.string.p_google_drive_backup);
-      requires(R.string.about, false, R.string.rate_tasks);
+      requires(
+          R.string.about,
+          false,
+          R.string.rate_tasks,
+          R.string.upgrade_to_pro,
+          R.string.refresh_purchases);
       requires(R.string.privacy, false, R.string.p_collect_statistics);
     }
   }

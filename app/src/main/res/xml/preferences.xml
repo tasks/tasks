@@ -17,7 +17,7 @@
 
     <Preference
       android:key="@string/p_theme_launcher"
-      android:title="@string/launcher_icon" />
+      android:title="@string/launcher_icon"/>
 
   </PreferenceCategory>
 
@@ -74,9 +74,9 @@
       android:title="@string/backup_directory"/>
 
     <CheckBoxPreference
-        android:defaultValue="false"
-        android:key="@string/p_google_drive_backup"
-        android:title="@string/google_drive_backup" />
+      android:defaultValue="false"
+      android:key="@string/p_google_drive_backup"
+      android:title="@string/google_drive_backup"/>
 
     <Preference
       android:key="@string/backup_BAc_import"
@@ -130,6 +130,14 @@
         android:action="android.intent.action.VIEW"
         android:data="market://details?id=org.tasks"/>
     </Preference>
+
+    <Preference
+      android:key="@string/upgrade_to_pro"
+      android:title="@string/upgrade_to_pro"/>
+
+    <Preference
+      android:key="@string/refresh_purchases"
+      android:title="@string/refresh_purchases"/>
 
   </PreferenceCategory>
 

@@ -81,10 +81,6 @@ public class BillingClient implements PurchasesUpdatedListener {
     }
   }
 
-  public void initialize() {
-    startServiceConnection(this::queryPurchases);
-  }
-
   /**
    * Query purchases across various use cases and deliver the result in a formalized way through a
    * listener
