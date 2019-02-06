@@ -29,7 +29,7 @@ import org.tasks.activities.TimePickerActivity;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.preferences.DefaultFilterProvider;
-import org.tasks.receivers.Badger;
+import org.tasks.receivers.ShortcutBadger;
 import org.tasks.scheduling.NotificationSchedulerIntentService;
 import org.tasks.time.DateTime;
 import org.tasks.ui.TimePreference;
@@ -41,7 +41,6 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
   private static final int REQUEST_DEFAULT_REMIND = 10003;
   private static final int REQUEST_BADGE_LIST = 10004;
 
-  @Inject Badger badger;
   @Inject DefaultFilterProvider defaultFilterProvider;
   @Inject LocalBroadcastManager localBroadcastManager;
 
@@ -79,10 +78,10 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
         .setOnPreferenceChangeListener(
             (preference, newValue) -> {
               if (newValue != null) {
-                boolean enabled = (boolean) newValue;
-                badger.setEnabled(enabled);
-                if (enabled) {
+                if ((boolean) newValue) {
                   showRestartDialog();
+                } else {
+                  ShortcutBadger.removeCount(this);
                 }
                 return true;
               }

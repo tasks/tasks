@@ -60,7 +60,6 @@ import org.tasks.notifications.NotificationDao;
 public abstract class Database extends RoomDatabase {
 
   public static final String NAME = "database";
-  private Runnable onDatabaseUpdated;
 
   public abstract NotificationDao notificationDao();
 
@@ -90,21 +89,8 @@ public abstract class Database extends RoomDatabase {
 
   public abstract DeletionDao getDeletionDao();
 
-  // --- implementation
-
   public String getName() {
     return NAME;
-  }
-
-  public Database init(Runnable onDatabaseUpdated) {
-    this.onDatabaseUpdated = onDatabaseUpdated;
-    return this;
-  }
-
-  public void onDatabaseUpdated() {
-    if (onDatabaseUpdated != null) {
-      onDatabaseUpdated.run();
-    }
   }
 
   /** @return human-readable database name for debugging */

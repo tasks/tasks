@@ -1,6 +1,9 @@
 package org.tasks;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import androidx.core.app.JobIntentService;
 import com.jakewharton.processphoenix.ProcessPhoenix;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.todoroo.astrid.service.Upgrader;
@@ -12,10 +15,11 @@ import org.tasks.files.FileHelper;
 import org.tasks.injection.ApplicationComponent;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingApplication;
+import org.tasks.injection.InjectingJobIntentService;
 import org.tasks.jobs.WorkManager;
 import org.tasks.location.GeofenceService;
 import org.tasks.preferences.Preferences;
-import org.tasks.receivers.Badger;
+import org.tasks.receivers.RefreshReceiver;
 import org.tasks.scheduling.CalendarNotificationIntentService;
 import org.tasks.scheduling.NotificationSchedulerIntentService;
 import org.tasks.scheduling.RefreshScheduler;
@@ -30,10 +34,10 @@ public class Tasks extends InjectingApplication {
   @Inject FlavorSetup flavorSetup;
   @Inject BuildSetup buildSetup;
   @Inject ThemeCache themeCache;
-  @Inject Badger badger;
   @Inject WorkManager workManager;
   @Inject RefreshScheduler refreshScheduler;
   @Inject GeofenceService geofenceService;
+  @Inject LocalBroadcastManager localBroadcastManager;
 
   @Override
   public void onCreate() {
@@ -53,9 +57,9 @@ public class Tasks extends InjectingApplication {
 
     flavorSetup.setup();
 
-    badger.setEnabled(preferences.getBoolean(R.string.p_badges_enabled, true));
-
     themeCache.getThemeBase(preferences.getInt(R.string.p_theme, 0)).setDefaultNightMode();
+
+    localBroadcastManager.registerRefreshReceiver(new RefreshBroadcastReceiver());
 
     Completable.fromAction(this::doInBackground).subscribeOn(Schedulers.io()).subscribe();
   }
@@ -87,5 +91,16 @@ public class Tasks extends InjectingApplication {
   @Override
   protected void inject(ApplicationComponent component) {
     component.inject(this);
+  }
+
+  private class RefreshBroadcastReceiver extends BroadcastReceiver {
+    @Override
+    public void onReceive(Context context, Intent intent) {
+      JobIntentService.enqueueWork(
+          context,
+          RefreshReceiver.class,
+          InjectingJobIntentService.JOB_ID_REFRESH_RECEIVER,
+          intent);
+    }
   }
 }

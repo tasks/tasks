@@ -163,12 +163,7 @@ public abstract class TaskDao {
     if (!item.insignificantChange(original)) {
       item.setModificationDate(now());
     }
-    int updated = update(item);
-    if (updated == 1) {
-      database.onDatabaseUpdated();
-      return true;
-    }
-    return false;
+    return update(item) == 1;
   }
 
   @Query(
