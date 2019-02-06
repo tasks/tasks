@@ -426,10 +426,15 @@ public class Preferences {
   }
 
   public Uri getCacheDirectory() {
+    File cacheDir = context.getExternalCacheDir();
+    if (cacheDir == null) {
+      cacheDir = context.getCacheDir();
+    }
+
     if (atLeastKitKat()) {
-      return DocumentFile.fromFile(context.getExternalCacheDir()).getUri();
+      return DocumentFile.fromFile(cacheDir).getUri();
     } else {
-      return Uri.fromFile(context.getExternalCacheDir());
+      return Uri.fromFile(cacheDir);
     }
   }
 
