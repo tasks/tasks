@@ -302,7 +302,7 @@ public class CaldavSynchronizer {
 
     if (task.isDeleted()) {
       if (deleteRemoteResource(httpClient, httpUrl, caldavTask)) {
-        caldavDao.delete(caldavTask);
+        taskDeleter.delete(task);
       }
       return;
     }
