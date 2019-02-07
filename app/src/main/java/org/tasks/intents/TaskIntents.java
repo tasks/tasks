@@ -7,6 +7,7 @@ import androidx.core.app.TaskStackBuilder;
 import com.google.common.base.Strings;
 import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.api.Filter;
+import org.jetbrains.annotations.Nullable;
 
 public class TaskIntents {
 
@@ -27,7 +28,7 @@ public class TaskIntents {
     return taskListIntent;
   }
 
-  public static Intent getTaskListIntent(Context context, final Filter filter) {
+  public static Intent getTaskListIntent(Context context, @Nullable Filter filter) {
     Intent intent = new Intent(context, MainActivity.class);
     if (filter != null) {
       intent.putExtra(MainActivity.OPEN_FILTER, filter);

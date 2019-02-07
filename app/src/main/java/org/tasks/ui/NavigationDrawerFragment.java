@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
+import org.jetbrains.annotations.Nullable;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.filters.FilterProvider;
@@ -262,7 +263,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
   }
 
   public interface OnFilterItemClickedListener {
-    void onFilterItemClicked(FilterListItem item);
+    void onFilterItemClicked(@Nullable FilterListItem item);
   }
 
   private class RefreshReceiver extends BroadcastReceiver {

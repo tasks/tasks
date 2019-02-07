@@ -65,7 +65,6 @@ import org.tasks.fragments.CommentBarFragment;
 import org.tasks.gtasks.PlayServices;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
-import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import org.tasks.receivers.RepeatConfirmationReceiver;
@@ -378,17 +377,18 @@ public class MainActivity extends InjectingAppCompatActivity
   }
 
   @Override
-  public void onFilterItemClicked(FilterListItem item) {
-    if (item == null) {
-      item = defaultFilterProvider.getDefaultFilter();
-    }
+  public void onFilterItemClicked(@Nullable FilterListItem item) {
     TaskEditFragment tef = getTaskEditFragment();
     if (tef != null) {
       getTaskEditFragment().save();
     }
 
-    if (item instanceof Filter) {
-      startActivity(TaskIntents.getTaskListIntent(this, (Filter) item));
+    if (item == null || item instanceof Filter) {
+      disposables.add(
+          Single.fromCallable(() -> newTaskListFragment((Filter) item))
+              .subscribeOn(Schedulers.io())
+              .observeOn(AndroidSchedulers.mainThread())
+              .subscribe(this::openTaskListFragment));
     }
   }
 
