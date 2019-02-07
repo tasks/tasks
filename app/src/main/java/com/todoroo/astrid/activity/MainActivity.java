@@ -129,6 +129,7 @@ public class MainActivity extends InjectingAppCompatActivity
   private CompositeDisposable disposables;
   private NavigationDrawerFragment navigationDrawer;
   private int currentNightMode;
+  private TaskListViewModel viewModel;
 
   private Filter filter;
   private ActionMode actionMode = null;
@@ -138,7 +139,7 @@ public class MainActivity extends InjectingAppCompatActivity
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    TaskListViewModel viewModel = ViewModelProviders.of(this).get(TaskListViewModel.class);
+    viewModel = ViewModelProviders.of(this).get(TaskListViewModel.class);
 
     getComponent().inject(viewModel);
 
@@ -529,7 +530,11 @@ public class MainActivity extends InjectingAppCompatActivity
   @Override
   public void sortChanged() {
     localBroadcastManager.broadcastRefresh();
-    onFilterItemClicked(filter);
+    disposables.add(
+        Single.fromCallable(() -> newTaskListFragment(filter))
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(this::openTaskListFragment));
   }
 
   @Override
