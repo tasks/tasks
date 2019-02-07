@@ -280,7 +280,8 @@
   <string name="p_default_remote_list">default_remote_list</string>
 
   <string name="debug_consume">Consume</string>
-  <string name="debug_strict_mode">Strict mode</string>
+  <string name="debug_strict_mode_thread">Strict mode - Thread</string>
+  <string name="debug_strict_mode_vm">Strict mode - VM</string>
   <string name="debug_leak_canary">LeakCanary</string>
   <string name="debug_pro">Unlock pro</string>
   <string name="debug_buy">Buy</string>
@@ -289,7 +290,8 @@
   <string name="p_use_native_datetime_pickers">use_native_datetime_pickers</string>
   <string name="p_background_sync">gtask_background_sync</string>
   <string name="p_bundle_notifications">bundle_notifications</string>
-  <string name="p_strict_mode">strict_mode</string>
+  <string name="p_strict_mode_vm">strict_mode_vm</string>
+  <string name="p_strict_mode_thread">strict_mode_thread</string>
   <string name="p_leak_canary">leak_canary</string>
   <string name="p_debug_pro">debug_pro</string>
   <string name="warned_play_services">warned_play_services</string>

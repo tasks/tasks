@@ -33,7 +33,7 @@ public class BuildSetup {
     if (preferences.getBoolean(R.string.p_leak_canary, false)) {
       LeakCanary.install(application);
     }
-    if (preferences.getBoolean(R.string.p_strict_mode, false)) {
+    if (preferences.getBoolean(R.string.p_strict_mode_thread, false)) {
       StrictMode.setThreadPolicy(
           new StrictMode.ThreadPolicy.Builder()
               .detectDiskReads()
@@ -41,6 +41,8 @@ public class BuildSetup {
               .detectNetwork()
               .penaltyLog()
               .build());
+    }
+    if (preferences.getBoolean(R.string.p_strict_mode_vm, false)) {
       StrictMode.setVmPolicy(
           new StrictMode.VmPolicy.Builder()
               .detectLeakedSqlLiteObjects()

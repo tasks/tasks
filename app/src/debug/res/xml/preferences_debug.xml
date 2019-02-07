@@ -6,8 +6,12 @@
     android:title="@string/debug_leak_canary" />
 
   <CheckBoxPreference
-    android:key="@string/p_strict_mode"
-    android:title="@string/debug_strict_mode"/>
+    android:key="@string/p_strict_mode_thread"
+    android:title="@string/debug_strict_mode_thread"/>
+
+  <CheckBoxPreference
+    android:key="@string/p_strict_mode_vm"
+    android:title="@string/debug_strict_mode_vm"/>
 
   <CheckBoxPreference
     android:key="@string/p_debug_pro"
