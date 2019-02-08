@@ -71,8 +71,8 @@ public class BackupWork extends RepeatingWorker {
 
   @Override
   protected Result run() {
-    startBackup(context);
     preferences.setLong(R.string.p_last_backup, now());
+    startBackup(context);
     return Result.success();
   }
 
