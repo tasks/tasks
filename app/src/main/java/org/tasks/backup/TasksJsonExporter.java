@@ -19,6 +19,7 @@ import com.todoroo.astrid.data.Task;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,6 +45,7 @@ import timber.log.Timber;
 
 public class TasksJsonExporter {
 
+  static final Charset UTF_8 = Charset.forName("UTF-8");
   private static final String MIME = "application/json";
   private static final String EXTENSION = ".json";
 
@@ -201,7 +203,7 @@ public class TasksJsonExporter {
             caldavDao.getAccounts(),
             caldavDao.getCalendars()));
 
-    OutputStreamWriter out = new OutputStreamWriter(os);
+    OutputStreamWriter out = new OutputStreamWriter(os, UTF_8);
     Gson gson = BuildConfig.DEBUG ? new GsonBuilder().setPrettyPrinting().create() : new Gson();
     out.write(gson.toJson(data));
     out.close();

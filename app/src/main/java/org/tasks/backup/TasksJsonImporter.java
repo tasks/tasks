@@ -1,5 +1,7 @@
 package org.tasks.backup;
 
+import static org.tasks.backup.TasksJsonExporter.UTF_8;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.res.Resources;
@@ -120,7 +122,7 @@ public class TasksJsonImporter {
     } catch (FileNotFoundException e) {
       throw new IllegalStateException(e);
     }
-    InputStreamReader reader = new InputStreamReader(is);
+    InputStreamReader reader = new InputStreamReader(is, UTF_8);
     JsonObject input = gson.fromJson(reader, JsonObject.class);
 
     try {
