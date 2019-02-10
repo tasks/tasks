@@ -478,6 +478,7 @@
 	<string name="background_sync_unmetered_only">Nur bei unbeschränkter Verbindung</string>
 	<string name="upgrade">Verbessern</string>
 	<string name="upgrade_to_pro">Pro-Funktionen freischalten</string>
+	<string name="manage_subscription">Abonnements verwalten</string>
 	<string name="refresh_purchases">Einkäufe aktualisieren</string>
 	<string name="button_subscribed">Abonniert</string>
 	<string name="button_subscribe">Abonnieren</string>
@@ -509,4 +510,5 @@
 	<string name="open_url">%s öffnen</string>
 	<string name="location_arrived">Angekommen um %s</string>
 	<string name="location_departed">Abgereist um %s</string>
+	<string name="building_notifications">Benachrichtigungen generieren</string>
 </resources>

@@ -1,7 +1,12 @@
 Change Log
 ---
 
-### 6.5 (2019-02-07)
+### 6.5.1 (2019-02-10)
+
+* Bug fixes
+* Update German translations - Strubbl
+
+### 6.5 (2019-02-08)
 
 * Improve notification accuracy
 * Performance improvements
