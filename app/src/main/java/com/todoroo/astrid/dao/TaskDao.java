@@ -185,7 +185,7 @@ public abstract class TaskDao {
   }
 
   public int count(Filter filter) {
-    Cursor cursor = getCursor(filter.getSqlQuery());
+    Cursor cursor = getCursor(filter.sqlQuery);
     try {
       return cursor.getCount();
     } finally {

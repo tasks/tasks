@@ -62,7 +62,7 @@ public class Filter extends FilterListItem {
    * metadata.value = 'b' GROUP BY tasks.id ORDER BY tasks.title"</code>
    * </ul>
    */
-  String sqlQuery;
+  public String sqlQuery;
   /**
    * Field for holding a modified sqlQuery based on sqlQuery. Useful for adjusting query for
    * sort/subtasks without breaking the equality checking based on sqlQuery.
