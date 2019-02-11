@@ -1,6 +1,13 @@
 Change Log
 ---
 
+### 6.5.2 (2019-02-11)
+
+* Bug fixes
+* Update translations
+  * Bulgarian - ddmdima96
+  * Dutch - revdbrink
+
 ### 6.5.1 (2019-02-10)
 
 * Bug fixes

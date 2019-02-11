@@ -478,6 +478,7 @@
 	<string name="background_sync_unmetered_only">Alleen bij onbeperkte verbindingen</string>
 	<string name="upgrade">Opwaardeer</string>
 	<string name="upgrade_to_pro">Opwaarderen naar pro</string>
+	<string name="manage_subscription">Beheer aanmeldingen</string>
 	<string name="refresh_purchases">Vernieuw aankopen</string>
 	<string name="button_subscribed">Aangemeld</string>
 	<string name="button_subscribe">Aanmelden</string>
@@ -507,4 +508,5 @@
 	<string name="call_number">Bel %s</string>
 	<string name="location_arrived">Aangekomen on %s</string>
 	<string name="location_departed">Vetrokken om %s</string>
+	<string name="building_notifications">Notificaties genereren</string>
 </resources>

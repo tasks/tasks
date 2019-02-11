@@ -19,8 +19,8 @@ android {
     defaultConfig {
         testApplicationId "org.tasks.test"
         applicationId "org.tasks"
-        versionCode 563
-        versionName "6.5.1"
+        versionCode 564
+        versionName "6.5.2"
         targetSdkVersion 28
         minSdkVersion 16
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

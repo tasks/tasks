@@ -491,6 +491,7 @@
 	<string name="background_sync_unmetered_only">Само при неограничени връзки</string>
 	<string name="upgrade">Актуализация</string>
 	<string name="upgrade_to_pro">Обнови към pro</string>
+	<string name="manage_subscription">Управление на абонамент</string>
 	<string name="refresh_purchases">Обнови покупки</string>
 	<string name="button_subscribed">Подписан</string>
 	<string name="button_subscribe">Подпиши се</string>
@@ -522,4 +523,5 @@
 	<string name="open_url">Отвори %s</string>
 	<string name="location_arrived">Пристигнал на %s</string>
 	<string name="location_departed">Заминал %s</string>
+	<string name="building_notifications">Създаване на уведомления</string>
 </resources>
