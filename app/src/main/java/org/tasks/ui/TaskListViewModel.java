@@ -23,6 +23,7 @@ import com.todoroo.astrid.api.TagFilter;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
+import java.util.Arrays;
 import javax.inject.Inject;
 import org.jetbrains.annotations.NotNull;
 import org.tasks.data.CaldavTask;
@@ -40,12 +41,14 @@ public class TaskListViewModel extends ViewModel {
   private LimitOffsetDataSource latest;
   private LiveData<PagedList<Task>> tasks;
   private Filter filter;
+  private Property<?>[] properties;
 
   public LiveData<PagedList<Task>> getTasks(@NotNull Filter filter, Property<?>[] properties) {
     if (tasks == null
         || !filter.equals(this.filter)
-        || !filter.getSqlQuery().equals(this.filter.getSqlQuery())) {
+        || !Arrays.equals(this.properties, properties)) {
       this.filter = filter;
+      this.properties = properties;
       tasks = getLiveData(properties);
     }
     return tasks;
