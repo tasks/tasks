@@ -120,7 +120,7 @@ public class PriorityControlSet extends TaskEditControlFragment {
   }
 
   private void tintRadioButton(AppCompatRadioButton radioButton, int priority) {
-    int color = checkBoxes.getPriorityColors().get(priority);
+    int color = checkBoxes.getPriorityColor(priority);
     CompoundButtonCompat.setButtonTintList(
         radioButton,
         new ColorStateList(

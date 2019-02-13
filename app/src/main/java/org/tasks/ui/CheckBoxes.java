@@ -4,11 +4,9 @@ import static androidx.core.content.ContextCompat.getColor;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import androidx.annotation.DrawableRes;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
-import com.google.common.collect.ImmutableList;
-import com.google.common.primitives.Ints;
-import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.injection.ApplicationScope;
@@ -17,45 +15,36 @@ import org.tasks.injection.ForApplication;
 @ApplicationScope
 public class CheckBoxes {
 
-  private static final int MAX_IMPORTANCE_INDEX = 3;
+  private static final int MIN_PRIORITY = 0;
+  private static final int MAX_PRIORITY = 3;
 
-  private final List<Drawable> checkboxes;
-  private final List<Drawable> repeatingCheckboxes;
-  private final List<Drawable> completedCheckboxes;
-  private final List<Integer> priorityColors;
-  private final int[] priorityColorsArray;
+  private final Drawable[] checkboxes = new Drawable[4];
+  private final Drawable[] repeatingCheckboxes = new Drawable[4];
+  private final Drawable[] completedCheckboxes = new Drawable[4];
+  private final Context context;
+  private final int[] priorityColors;
 
   @Inject
   public CheckBoxes(@ForApplication Context context) {
-    checkboxes = wrapDrawable(context, R.drawable.ic_outline_check_box_outline_blank_24px);
-    repeatingCheckboxes = wrapDrawable(context, R.drawable.ic_outline_repeat_24px);
-    completedCheckboxes = wrapDrawable(context, R.drawable.ic_outline_check_box_24px);
+    this.context = context;
     priorityColors =
-        ImmutableList.of(
-            getColor(context, R.color.priority_1),
-            getColor(context, R.color.priority_2),
-            getColor(context, R.color.priority_3),
-            getColor(context, R.color.priority_4));
-    priorityColorsArray = Ints.toArray(priorityColors);
+        new int[] {
+          getColor(context, R.color.priority_1),
+          getColor(context, R.color.priority_2),
+          getColor(context, R.color.priority_3),
+          getColor(context, R.color.priority_4)
+        };
   }
 
-  private static List<Drawable> wrapDrawable(Context context, int resId) {
-    return ImmutableList.of(
-        getDrawable(context, resId, 0),
-        getDrawable(context, resId, 1),
-        getDrawable(context, resId, 2),
-        getDrawable(context, resId, 3));
-  }
-
-  private static Drawable getDrawable(Context context, int resId, int importance) {
+  private static Drawable getDrawable(Context context, @DrawableRes int resId, int priority) {
     Drawable original = ContextCompat.getDrawable(context, resId);
     Drawable wrapped = DrawableCompat.wrap(original.mutate());
-    DrawableCompat.setTint(wrapped, getColor(context, getPriorityResId(importance)));
+    DrawableCompat.setTint(wrapped, getColor(context, getPriorityResId(priority)));
     return wrapped;
   }
 
-  private static int getPriorityResId(int importance) {
-    switch (importance) {
+  private static int getPriorityResId(int priority) {
+    switch (priority) {
       case 0:
         return R.color.priority_1;
       case 1:
@@ -68,38 +57,37 @@ public class CheckBoxes {
   }
 
   public int getPriorityColor(int priority) {
-    return priorityColors.get(Math.max(0, Math.min(3, priority)));
+    return priorityColors[Math.max(MIN_PRIORITY, Math.min(MAX_PRIORITY, priority))];
   }
 
-  public List<Integer> getPriorityColors() {
+  public int[] getPriorityColors() {
     return priorityColors;
   }
 
-  public int[] getPriorityColorsArray() {
-    return priorityColorsArray;
+  public Drawable getCompletedCheckbox(int priority) {
+    priority = Math.min(priority, MAX_PRIORITY);
+    if (completedCheckboxes[priority] == null) {
+      completedCheckboxes[priority] =
+          getDrawable(context, R.drawable.ic_outline_check_box_24px, priority);
+    }
+    return completedCheckboxes[priority];
   }
 
-  List<Drawable> getCheckBoxes() {
-    return checkboxes;
+  public Drawable getRepeatingCheckBox(int priority) {
+    priority = Math.min(priority, MAX_PRIORITY);
+    if (repeatingCheckboxes[priority] == null) {
+      repeatingCheckboxes[priority] =
+          getDrawable(context, R.drawable.ic_outline_repeat_24px, priority);
+    }
+    return repeatingCheckboxes[priority];
   }
 
-  List<Drawable> getRepeatingCheckBoxes() {
-    return repeatingCheckboxes;
-  }
-
-  List<Drawable> getCompletedCheckBoxes() {
-    return completedCheckboxes;
-  }
-
-  public Drawable getCompletedCheckbox(int importance) {
-    return completedCheckboxes.get(Math.min(importance, MAX_IMPORTANCE_INDEX));
-  }
-
-  public Drawable getRepeatingCheckBox(int importance) {
-    return repeatingCheckboxes.get(Math.min(importance, MAX_IMPORTANCE_INDEX));
-  }
-
-  public Drawable getCheckBox(int importance) {
-    return checkboxes.get(Math.min(importance, MAX_IMPORTANCE_INDEX));
+  public Drawable getCheckBox(int priority) {
+    priority = Math.min(priority, MAX_PRIORITY);
+    if (checkboxes[priority] == null) {
+      checkboxes[priority] =
+          getDrawable(context, R.drawable.ic_outline_check_box_outline_blank_24px, priority);
+    }
+    return checkboxes[priority];
   }
 }

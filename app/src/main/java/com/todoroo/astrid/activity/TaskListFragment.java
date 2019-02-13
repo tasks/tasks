@@ -402,7 +402,7 @@ public class TaskListFragment extends InjectingFragment
 
   private void setupRefresh(SwipeRefreshLayout layout) {
     layout.setOnRefreshListener(this);
-    layout.setColorSchemeColors(checkBoxes.getPriorityColorsArray());
+    layout.setColorSchemeColors(checkBoxes.getPriorityColors());
   }
 
   @Override

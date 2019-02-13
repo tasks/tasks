@@ -170,14 +170,13 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
    */
   private Cursor getTasks() {
     MatrixCursor ret = new MatrixCursor(TASK_FIELD_LIST);
-    List<Integer> importanceColors = checkBoxes.get().getPriorityColors();
     List<Task> tasks = taskDao.get().getAstrid2TaskProviderTasks();
     for (Task task : tasks) {
       String taskTags = getTagsAsString(task.getId(), TAG_SEPARATOR);
 
       Object[] values = new Object[7];
       values[0] = task.getTitle();
-      values[1] = importanceColors.get(task.getPriority());
+      values[1] = checkBoxes.get().getPriorityColor(task.getPriority());
       values[2] = task.getDueDate();
       values[3] = task.getDueDate();
       values[4] = task.getPriority();
