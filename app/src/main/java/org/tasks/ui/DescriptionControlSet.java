@@ -28,8 +28,8 @@ public class DescriptionControlSet extends TaskEditControlFragment {
 
   private String description;
 
-  static String stripCarriageReturns(String original) {
-    return original.replaceAll("\\r\\n?", "\n");
+  static String stripCarriageReturns(@Nullable String original) {
+    return original == null ? null : original.replaceAll("\\r\\n?", "\n");
   }
 
   @Nullable

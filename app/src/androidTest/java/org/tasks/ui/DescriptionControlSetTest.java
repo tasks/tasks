@@ -1,6 +1,7 @@
 package org.tasks.ui;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.tasks.ui.DescriptionControlSet.stripCarriageReturns;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -22,5 +23,10 @@ public class DescriptionControlSetTest {
   @Test
   public void dontReplaceLF() {
     assertEquals("aaa\nbbb", stripCarriageReturns("aaa\nbbb"));
+  }
+
+  @Test
+  public void checkIfNull() {
+    assertNull(stripCarriageReturns(null));
   }
 }
