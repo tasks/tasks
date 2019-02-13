@@ -38,7 +38,7 @@ public class GtasksTaskContainer {
 
     long dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.getDue());
     mergeDates(Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate), task);
-    task.setNotes(remoteTask.getNotes());
+    task.setNotes(stripCarriageReturns(remoteTask.getNotes()));
 
     gtaskMetadata.setRemoteId(remoteTask.getId());
     gtaskMetadata.setListId(listId);
@@ -53,5 +53,9 @@ public class GtasksTaskContainer {
 
   public void prepareForSaving() {
     metadata.add(gtaskMetadata);
+  }
+
+  static String stripCarriageReturns(String original) {
+    return original.replaceAll("\\r\\n?", "\n");
   }
 }
