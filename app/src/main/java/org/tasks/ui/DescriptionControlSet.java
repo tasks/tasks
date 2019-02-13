@@ -28,13 +28,17 @@ public class DescriptionControlSet extends TaskEditControlFragment {
 
   private String description;
 
+  static String stripCarriageReturns(String original) {
+    return original.replaceAll("\\r\\n?", "\n");
+  }
+
   @Nullable
   @Override
   public View onCreateView(
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = super.onCreateView(inflater, container, savedInstanceState);
     if (savedInstanceState == null) {
-      description = task.getNotes();
+      description = stripCarriageReturns(task.getNotes());
     } else {
       description = savedInstanceState.getString(EXTRA_DESCRIPTION);
     }
@@ -83,7 +87,7 @@ public class DescriptionControlSet extends TaskEditControlFragment {
   public boolean hasChanges(Task original) {
     return !(isNullOrEmpty(description)
         ? isNullOrEmpty(original.getNotes())
-        : description.equals(original.getNotes()));
+        : description.equals(stripCarriageReturns(original.getNotes())));
   }
 
   @Override
