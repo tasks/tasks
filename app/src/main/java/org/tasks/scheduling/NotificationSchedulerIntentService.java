@@ -1,11 +1,22 @@
 package org.tasks.scheduling;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
+import static org.tasks.notifications.NotificationManager.NOTIFICATION_CHANNEL_DEFAULT;
+import static org.tasks.notifications.NotificationManager.NOTIFICATION_CHANNEL_MISCELLANEOUS;
+import static org.tasks.notifications.NotificationManager.NOTIFICATION_CHANNEL_TASKER;
+import static org.tasks.notifications.NotificationManager.NOTIFICATION_CHANNEL_TIMERS;
+
+import android.annotation.TargetApi;
+import android.app.NotificationChannel;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import androidx.core.app.JobIntentService;
 import com.todoroo.astrid.alarms.AlarmService;
 import com.todoroo.astrid.reminders.ReminderService;
 import javax.inject.Inject;
+import org.tasks.R;
+import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingJobIntentService;
 import org.tasks.injection.ServiceComponent;
 import org.tasks.jobs.NotificationQueue;
@@ -16,6 +27,7 @@ public class NotificationSchedulerIntentService extends InjectingJobIntentServic
 
   private static final String EXTRA_CANCEL_EXISTING_NOTIFICATIONS =
       "extra_cancel_existing_notifications";
+  @Inject @ForApplication Context context;
   @Inject AlarmService alarmService;
   @Inject ReminderService reminderService;
   @Inject NotificationQueue notificationQueue;
@@ -35,6 +47,8 @@ public class NotificationSchedulerIntentService extends InjectingJobIntentServic
   protected void doWork(Intent intent) {
     Timber.d("onHandleWork(%s)", intent);
 
+    createNotificationChannels();
+
     notificationQueue.clear();
 
     boolean cancelExistingNotifications =
@@ -43,6 +57,40 @@ public class NotificationSchedulerIntentService extends InjectingJobIntentServic
     notificationManager.restoreNotifications(cancelExistingNotifications);
     reminderService.scheduleAllAlarms();
     alarmService.scheduleAllAlarms();
+  }
+
+  private void createNotificationChannels() {
+    if (atLeastOreo()) {
+      android.app.NotificationManager notificationManager =
+          (android.app.NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+      notificationManager.createNotificationChannel(
+          createNotificationChannel(NOTIFICATION_CHANNEL_DEFAULT, R.string.notifications, true));
+      notificationManager.createNotificationChannel(
+          createNotificationChannel(NOTIFICATION_CHANNEL_TASKER, R.string.tasker_locale, true));
+      notificationManager.createNotificationChannel(
+          createNotificationChannel(
+              NOTIFICATION_CHANNEL_TIMERS, R.string.TEA_timer_controls, true));
+      notificationManager.createNotificationChannel(
+          createNotificationChannel(
+              NOTIFICATION_CHANNEL_MISCELLANEOUS, R.string.miscellaneous, false));
+    }
+  }
+
+  @TargetApi(Build.VERSION_CODES.O)
+  private NotificationChannel createNotificationChannel(
+      String channelId, int nameResId, boolean alert) {
+    String channelName = context.getString(nameResId);
+    int importance =
+        alert
+            ? android.app.NotificationManager.IMPORTANCE_HIGH
+            : android.app.NotificationManager.IMPORTANCE_LOW;
+    NotificationChannel notificationChannel =
+        new NotificationChannel(channelId, channelName, importance);
+    notificationChannel.enableLights(alert);
+    notificationChannel.enableVibration(alert);
+    notificationChannel.setBypassDnd(alert);
+    notificationChannel.setShowBadge(alert);
+    return notificationChannel;
   }
 
   @Override

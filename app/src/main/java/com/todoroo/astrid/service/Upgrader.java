@@ -1,16 +1,7 @@
 package com.todoroo.astrid.service;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
-import static org.tasks.notifications.NotificationManager.NOTIFICATION_CHANNEL_DEFAULT;
-import static org.tasks.notifications.NotificationManager.NOTIFICATION_CHANNEL_MISCELLANEOUS;
-import static org.tasks.notifications.NotificationManager.NOTIFICATION_CHANNEL_TASKER;
-import static org.tasks.notifications.NotificationManager.NOTIFICATION_CHANNEL_TIMERS;
 
-import android.annotation.TargetApi;
-import android.app.NotificationChannel;
-import android.content.Context;
-import android.os.Build;
 import android.os.Environment;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
@@ -38,7 +29,6 @@ import org.tasks.data.TaskAttachment;
 import org.tasks.data.TaskAttachmentDao;
 import org.tasks.data.UserActivity;
 import org.tasks.data.UserActivityDao;
-import org.tasks.injection.ForApplication;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 
@@ -60,11 +50,9 @@ public class Upgrader {
   private final GoogleTaskListDao googleTaskListDao;
   private final UserActivityDao userActivityDao;
   private final TaskAttachmentDao taskAttachmentDao;
-  private Context context;
 
   @Inject
   public Upgrader(
-      @ForApplication Context context,
       Preferences preferences,
       Tracker tracker,
       TagDataDao tagDataDao,
@@ -75,7 +63,6 @@ public class Upgrader {
       GoogleTaskListDao googleTaskListDao,
       UserActivityDao userActivityDao,
       TaskAttachmentDao taskAttachmentDao) {
-    this.context = context;
     this.preferences = preferences;
     this.tracker = tracker;
     this.tagDataDao = tagDataDao;
@@ -110,42 +97,7 @@ public class Upgrader {
       }
       tracker.reportEvent(Tracking.Events.UPGRADE, Integer.toString(from));
     }
-    createNotificationChannels();
     preferences.setCurrentVersion(to);
-  }
-
-  private void createNotificationChannels() {
-    if (atLeastOreo()) {
-      android.app.NotificationManager notificationManager =
-          (android.app.NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-      notificationManager.createNotificationChannel(
-          createNotificationChannel(NOTIFICATION_CHANNEL_DEFAULT, R.string.notifications, true));
-      notificationManager.createNotificationChannel(
-          createNotificationChannel(NOTIFICATION_CHANNEL_TASKER, R.string.tasker_locale, true));
-      notificationManager.createNotificationChannel(
-          createNotificationChannel(
-              NOTIFICATION_CHANNEL_TIMERS, R.string.TEA_timer_controls, true));
-      notificationManager.createNotificationChannel(
-          createNotificationChannel(
-              NOTIFICATION_CHANNEL_MISCELLANEOUS, R.string.miscellaneous, false));
-    }
-  }
-
-  @TargetApi(Build.VERSION_CODES.O)
-  private NotificationChannel createNotificationChannel(
-      String channelId, int nameResId, boolean alert) {
-    String channelName = context.getString(nameResId);
-    int importance =
-        alert
-            ? android.app.NotificationManager.IMPORTANCE_HIGH
-            : android.app.NotificationManager.IMPORTANCE_LOW;
-    NotificationChannel notificationChannel =
-        new NotificationChannel(channelId, channelName, importance);
-    notificationChannel.enableLights(alert);
-    notificationChannel.enableVibration(alert);
-    notificationChannel.setBypassDnd(alert);
-    notificationChannel.setShowBadge(alert);
-    return notificationChannel;
   }
 
   private void performMarshmallowMigration() {
