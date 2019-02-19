@@ -1,6 +1,13 @@
 Change Log
 ---
 
+### 6.5.3 (2019-02-19)
+
+* Fix crash when upgrading from Android 7 to 8+
+* Improve OneTask interoperability
+* Performance improvement
+* Update Russian translations - x32
+
 ### 6.5.2 (2019-02-11)
 
 * Bug fixes

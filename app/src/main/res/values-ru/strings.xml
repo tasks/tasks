@@ -30,6 +30,8 @@
 	<string name="TLA_menu_search">Поиск</string>
 	<string name="TLA_menu_settings">Настройки</string>
 	<string name="TAd_actionEditTask">Редактировать</string>
+	<string name="action_call">Позвонить</string>
+	<string name="action_open">Открыть</string>
 	<string name="SSD_sort_drag">Ручная сортировка с подзадачами</string>
 	<string name="SSD_sort_auto">Умная сортировка</string>
 	<string name="SSD_sort_alpha">По названию</string>
@@ -62,6 +64,7 @@
 	<string name="TEA_control_repeat">Повтор</string>
 	<string name="TEA_control_gcal">Календарь</string>
 	<string name="TEA_control_importance">Приоритет</string>
+	<string name="TEA_control_location">Место</string>
 	<string name="TEA_control_notes">Описание</string>
 	<string name="TEA_control_files">Файлы</string>
 	<string name="TEA_control_reminders">Напоминания</string>
@@ -110,6 +113,8 @@
 	<string name="EPr_default_importance_title">Приоритет по умолчанию</string>
 	<string name="EPr_default_hideUntil_title">Срок скрытия по умолчанию</string>
 	<string name="EPr_default_reminders_title">Напоминания по умолчанию</string>
+	<string name="EPr_default_location_reminder_title">Напоминания о месте по умолчанию</string>
+	<string name="EPr_default_location_radius">Радиус по умолчанию</string>
 	<string name="EPr_default_reminders_mode_title">Тип звонка/вибрации по умолчанию</string>
 	<string name="priority_high">Высокий</string>
 	<string name="priority_medium">Средний</string>
@@ -120,6 +125,10 @@
 	<string name="dont_hide">Не скрывать</string>
 	<string name="at_deadline">В срок</string>
 	<string name="at_deadline_or_overdue">Вовремя или просрочена</string>
+	<string name="no_reminders">Без напоминаний</string>
+	<string name="default_location_reminder_on_arrival">По прибытии</string>
+	<string name="default_location_reminder_on_departure">Покинув место</string>
+	<string name="default_location_reminder_on_arrival_or_departure">По прибытии и покинув место</string>
 	<string name="BFE_Active">Мои задачи</string>
 	<string name="BFE_Recent">Недавно изменённые</string>
 	<string name="CFA_universe_all">Активные задачи</string>
@@ -206,16 +215,16 @@
 		<item quantity="other">раз</item>
 	</plurals>
 	<plurals name="repeat_minutes">
-		<item quantity="one">минута</item>
-		<item quantity="other">минуты/минут</item>
+		<item quantity="one">мин</item>
+		<item quantity="other">мин</item>
 	</plurals>
 	<plurals name="repeat_n_minutes">
 		<item quantity="one">%d минуту</item>
 		<item quantity="other">%d минуты/минут</item>
 	</plurals>
 	<plurals name="repeat_hours">
-		<item quantity="one">час</item>
-		<item quantity="other">часа/часов</item>
+		<item quantity="one">ч</item>
+		<item quantity="other">ч</item>
 	</plurals>
 	<plurals name="repeat_n_hours">
 		<item quantity="one">%d час</item>
@@ -300,6 +309,7 @@
 	<string name="quiet_hours">Тихие часы:</string>
 	<string name="attachment_directory">Путь к вложениям</string>
 	<string name="backup_directory">Папка резервных копий</string>
+	<string name="google_drive_backup">Копировать в Google Drive</string>
 	<string name="miscellaneous">Прочие настройки</string>
 	<string name="synchronization">Синхронизация</string>
 	<string name="enabled">Включить режим</string>
@@ -313,6 +323,7 @@
 	<string name="quiet_hours_summary">Выкл. напоминания в тихие часы</string>
 	<string name="TLA_menu_donate">Поддержать разработку</string>
 	<string name="add_reminder">Добавить напоминание</string>
+	<string name="add_location">Добавить место</string>
 	<string name="remove">Удалить</string>
 	<string name="randomly_once">Случайно один раз</string>
 	<string name="randomly">Случайно</string>
@@ -321,6 +332,8 @@
 	<string name="pick_a_date_and_time">Дата и время</string>
 	<string name="when_overdue">Когда просрочено</string>
 	<string name="when_due">В срок</string>
+	<string name="geofence_radius">Радиус</string>
+	<string name="location_radius_meters">%s м</string>
 	<string name="tags">Теги</string>
 	<string name="filters">Фильтры</string>
 	<string name="date_shortcut_hour">На час</string>
@@ -369,6 +382,7 @@
 	<string name="theme">Цветовая тема</string>
 	<string name="color">Цвет</string>
 	<string name="accent">Акцент</string>
+	<string name="launcher_icon">Иконка запуска</string>
 	<string name="theme_red">Красный</string>
 	<string name="theme_pink">Розовый</string>
 	<string name="theme_purple">Пурпурный</string>
@@ -432,7 +446,7 @@
 	<string name="notification_channel_settings">Управление уведомлениями</string>
 	<string name="battery_optimization_settings">Управление расходом батареи</string>
 	<string name="notification_disable_battery_optimizations_description">Оптимизация расхода может задерживать уведомления</string>
-	<string name="bundle_notifications">Цепочка уведомлений</string>
+	<string name="bundle_notifications">Группировать уведомления</string>
 	<string name="badges">Ярлыки</string>
 	<string name="list">Список</string>
 	<string name="repeats_from">Повторять от</string>
@@ -475,6 +489,7 @@
 	<string name="background_sync_unmetered_only">Только на метрических соединений</string>
 	<string name="upgrade">Обновить</string>
 	<string name="upgrade_to_pro">Обновить в версию Про</string>
+	<string name="manage_subscription">Управление подпиской</string>
 	<string name="refresh_purchases">Обновить покупки</string>
 	<string name="button_subscribed">Подписано</string>
 	<string name="button_subscribe">Подписаться</string>
@@ -494,4 +509,15 @@
 	<string name="logout_warning">Отключиться от %s? Все данные учётной записи на этом устройстве будут удалены</string>
 	<string name="cannot_access_account">Учётная запись недоступна</string>
 	<string name="reinitialize_account">Инициализировать заного</string>
+	<string name="action_create_new_task">Создать новую задачу</string>
+	<string name="show_description">Показать описание</string>
+	<string name="show_full_description">Показать полное описание</string>
+	<string name="linkify">Показать ссылки</string>
+	<string name="linkify_description">Добавить ссылки на сайты, адреса и номера телефонов</string>
+	<string name="location_remind_arrival">Напомнить по прибытии</string>
+	<string name="location_remind_departure">Напомнить покинув место</string>
+	<string name="call_number">Позвонить %s</string>
+	<string name="open_url">Открыть %s</string>
+	<string name="location_arrived">Прибытие в %s</string>
+	<string name="location_departed">Покинули %s</string>
 </resources>
