@@ -79,6 +79,7 @@ import org.tasks.ui.EmptyTaskEditFragment;
 import org.tasks.ui.NavigationDrawerFragment;
 import org.tasks.ui.PriorityControlSet;
 import org.tasks.ui.TaskListViewModel;
+import org.tasks.ui.Toaster;
 
 public class MainActivity extends InjectingAppCompatActivity
     implements OnFilterItemClickedListener,
@@ -115,6 +116,7 @@ public class MainActivity extends InjectingAppCompatActivity
   @Inject LocalBroadcastManager localBroadcastManager;
   @Inject TaskCreator taskCreator;
   @Inject PlayServices playServices;
+  @Inject Toaster toaster;
 
   @BindView(R.id.drawer_layout)
   DrawerLayout drawerLayout;
@@ -245,7 +247,8 @@ public class MainActivity extends InjectingAppCompatActivity
                   task -> {
                     getSupportFragmentManager().executePendingTransactions();
                     onTaskListItemClicked(task);
-                  }));
+                  },
+                  exception -> toaster.longToast(R.string.error_task_not_found)));
     } else if (intent.hasExtra(OPEN_NEW_TASK)) {
       Task task = intent.getParcelableExtra(OPEN_NEW_TASK);
       intent.removeExtra(OPEN_NEW_TASK);

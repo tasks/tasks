@@ -20,9 +20,16 @@ public class Toaster {
     this.locale = locale;
   }
 
+  public void longToast(@StringRes int resId) {
+    longToast(context.getString(resId));
+  }
+
   public void longToast(@StringRes int resId, int number) {
-    Toast.makeText(context, context.getString(resId, locale.formatNumber(number)), LENGTH_LONG)
-        .show();
+    longToast(context.getString(resId, locale.formatNumber(number)));
+  }
+
+  private void longToast(String text) {
+    Toast.makeText(context, text, LENGTH_LONG).show();
   }
 
   @SuppressWarnings("DeprecatedIsStillUsed")
