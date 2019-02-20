@@ -24,8 +24,10 @@ public class BuildSetup {
 
   public boolean setup() {
     Timber.plant(new Timber.DebugTree());
-    Timber.plant(new StethoTree());
-    Stetho.initializeWithDefaults(context);
+    if (preferences.getBoolean(R.string.p_stetho, false)) {
+      Timber.plant(new StethoTree());
+      Stetho.initializeWithDefaults(context);
+    }
     Application application = (Application) context.getApplicationContext();
     if (LeakCanary.isInAnalyzerProcess(context)) {
       return false;

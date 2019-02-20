@@ -283,6 +283,7 @@
   <string name="debug_strict_mode_thread">Strict mode - Thread</string>
   <string name="debug_strict_mode_vm">Strict mode - VM</string>
   <string name="debug_leak_canary">LeakCanary</string>
+  <string name="debug_stetho">Stetho</string>
   <string name="debug_pro">Unlock pro</string>
   <string name="debug_buy">Buy</string>
   <string name="debug">Debug</string>
@@ -293,6 +294,7 @@
   <string name="p_strict_mode_vm">strict_mode_vm</string>
   <string name="p_strict_mode_thread">strict_mode_thread</string>
   <string name="p_leak_canary">leak_canary</string>
+  <string name="p_stetho">p_stetho</string>
   <string name="p_debug_pro">debug_pro</string>
   <string name="warned_play_services">warned_play_services</string>
   <string name="p_background_sync_unmetered_only">background_sync_unmetered_only</string>
