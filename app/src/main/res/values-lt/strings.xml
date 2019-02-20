@@ -520,4 +520,5 @@ sukonfigūruota tinkamai.</string>
 	<string name="location_arrived">Atvykta į %s</string>
 	<string name="location_departed">Išvykta iš %s</string>
 	<string name="building_notifications">Generuojami pranešimai</string>
+	<string name="error_task_not_found">Užduotis nerasta</string>
 </resources>

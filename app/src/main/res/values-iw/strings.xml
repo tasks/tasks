@@ -524,4 +524,5 @@
 	<string name="location_arrived">הגיע ב-%s</string>
 	<string name="location_departed">עזב ב-%s</string>
 	<string name="building_notifications">מייצר התראות</string>
+	<string name="error_task_not_found">משימה לא נמצאת</string>
 </resources>

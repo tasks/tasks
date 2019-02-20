@@ -522,4 +522,5 @@ aplicativo Google Play está configurado corretamente</string>
 	<string name="location_arrived">Chegou às %s</string>
 	<string name="location_departed">Saiu às %s</string>
 	<string name="building_notifications">Gerando notificações</string>
+	<string name="error_task_not_found">Tarefa não encontrada</string>
 </resources>

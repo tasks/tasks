@@ -517,4 +517,5 @@
 	<string name="location_arrived">Llegada a %s</string>
 	<string name="location_departed">Salida de %s</string>
 	<string name="building_notifications">Generando notificaciones</string>
+	<string name="error_task_not_found">Tarea no encontrada</string>
 </resources>

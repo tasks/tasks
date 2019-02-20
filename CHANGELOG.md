@@ -1,6 +1,23 @@
 Change Log
 ---
 
+### 6.5.4 (2019-03-11)
+
+* Fix black screen issue
+* Fix crash when task not found
+* Update translations
+  * Brazilian Portuguese - douglaslmr
+  * Dutch - revdbrink
+  * French - Florian_Dubois
+  * German - @MPK44
+  * Hebrew - elazar
+  * Hungarian - kaciokos
+  * Italian - passero
+  * Japanese - naofumi
+  * Lithuanian - gacuxz
+  * Spanish - i2nm7s
+  * Turkish - etc
+
 ### 6.5.3 (2019-02-19)
 
 * Fix crash when upgrading from Android 7 to 8+

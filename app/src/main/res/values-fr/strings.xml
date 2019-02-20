@@ -503,4 +503,5 @@ est configuré correctement</string>
 	<string name="location_arrived">Arrivé à %s</string>
 	<string name="location_departed">Départ %s</string>
 	<string name="building_notifications">Générer des notifications</string>
+	<string name="error_task_not_found">Tâche non trouvée</string>
 </resources>

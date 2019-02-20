@@ -522,4 +522,5 @@
 	<string name="location_arrived">%s に到着</string>
 	<string name="location_departed">%s に出発</string>
 	<string name="building_notifications">通知を生成しています</string>
+	<string name="error_task_not_found">タスクが見つかりません</string>
 </resources>

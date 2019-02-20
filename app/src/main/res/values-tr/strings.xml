@@ -526,4 +526,5 @@ uygulamanızın doğru kurulduğundan emin olun.</string>
 	<string name="location_arrived">Varıldı: %s</string>
 	<string name="location_departed">Kalkıldı: %s</string>
 	<string name="building_notifications">Bildirimler oluşturuluyor</string>
+	<string name="error_task_not_found">Görev bulunamadı</string>
 </resources>

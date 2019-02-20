@@ -509,4 +509,5 @@
 	<string name="location_arrived">Aangekomen on %s</string>
 	<string name="location_departed">Vetrokken om %s</string>
 	<string name="building_notifications">Notificaties genereren</string>
+	<string name="error_task_not_found">Taak niet gevonden</string>
 </resources>

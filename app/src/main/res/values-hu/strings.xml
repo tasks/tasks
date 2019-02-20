@@ -523,4 +523,5 @@
 	<string name="location_arrived">Megérkezett ekkor: %s</string>
 	<string name="location_departed">Elindult ekkor: %s</string>
 	<string name="building_notifications">Értesítések létrehozása</string>
+	<string name="error_task_not_found">Feladat nem található</string>
 </resources>
