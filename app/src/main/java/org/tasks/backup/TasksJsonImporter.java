@@ -1,6 +1,7 @@
 package org.tasks.backup;
 
 import static org.tasks.backup.TasksJsonExporter.UTF_8;
+import static org.tasks.data.Place.newPlace;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -193,8 +194,7 @@ public class TasksJsonImporter {
           googleTaskDao.insert(googleTask);
         }
         for (LegacyLocation location : backup.locations) {
-          Place place = new Place();
-          place.setUid(UUIDHelper.newUUID());
+          Place place = newPlace();
           place.setLongitude(location.longitude);
           place.setLatitude(location.latitude);
           place.setName(location.name);

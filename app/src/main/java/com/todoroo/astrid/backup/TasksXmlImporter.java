@@ -6,6 +6,8 @@
 
 package com.todoroo.astrid.backup;
 
+import static org.tasks.data.Place.newPlace;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.res.Resources;
@@ -247,8 +249,7 @@ public class TasksXmlImporter {
         alarm.setTime(xml.readLong("value"));
         alarmDao.insert(alarm);
       } else if ("geofence".equals(key)) {
-        Place place = new Place();
-        place.setUid(UUIDHelper.newUUID());
+        Place place = newPlace();
         place.setName(xml.readString("value"));
         place.setLatitude(xml.readDouble("value2"));
         place.setLongitude(xml.readDouble("value3"));

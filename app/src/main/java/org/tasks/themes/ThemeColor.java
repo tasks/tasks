@@ -141,11 +141,7 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
   public void applyToSystemBars(Activity activity) {
     setStatusBarColor(activity);
 
-    if (atLeastMarshmallow()) {
-      View decorView = activity.getWindow().getDecorView();
-      int systemUiVisibility = applyLightStatusBarFlag(decorView.getSystemUiVisibility());
-      decorView.setSystemUiVisibility(systemUiVisibility);
-    }
+    applyToStatusBarIcons(activity);
 
     applyToNavigationBar(activity);
   }
@@ -163,6 +159,14 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
     if (atLeastMarshmallow()) {
       int systemUiVisibility = applyLightStatusBarFlag(drawerLayout.getSystemUiVisibility());
       drawerLayout.setSystemUiVisibility(systemUiVisibility);
+    }
+  }
+
+  public void applyToStatusBarIcons(Activity activity) {
+    if (atLeastMarshmallow()) {
+      View decorView = activity.getWindow().getDecorView();
+      int systemUiVisibility = applyLightStatusBarFlag(decorView.getSystemUiVisibility());
+      decorView.setSystemUiVisibility(systemUiVisibility);
     }
   }
 

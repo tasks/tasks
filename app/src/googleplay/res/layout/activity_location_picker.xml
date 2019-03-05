@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/coordinator"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:fitsSystemWindows="true">
+
+  <com.google.android.material.appbar.AppBarLayout
+    android:id="@+id/app_bar_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fitsSystemWindows="true"
+    android:theme="?attr/overlay_theme">
+
+    <com.google.android.material.appbar.CollapsingToolbarLayout
+      android:id="@+id/collapsing_toolbar_layout"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:fitsSystemWindows="true"
+      app:contentScrim="?attr/colorPrimary"
+      app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+      app:statusBarScrim="?attr/colorPrimaryDark"
+      app:titleEnabled="false">
+
+      <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/window_background"
+        android:fitsSystemWindows="true"
+        app:layout_collapseMode="parallax"
+        app:layout_collapseParallaxMultiplier="0.4">
+
+        <FrameLayout
+          android:id="@+id/map"
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          app:layout_constraintBottom_toTopOf="@id/select_this_location"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:paddingBottom="48dp"
+          android:src="@drawable/ic_map_marker_select_red_48dp"
+          app:layout_constraintBottom_toBottomOf="@id/map"
+          app:layout_constraintLeft_toLeftOf="@id/map"
+          app:layout_constraintRight_toRightOf="@id/map"
+          app:layout_constraintTop_toTopOf="@id/map"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+          android:id="@+id/current_location"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_margin="@dimen/task_list_fab_margin"
+          android:layout_marginBottom="@dimen/keyline_first"
+          android:layout_marginEnd="@dimen/keyline_first"
+          android:layout_marginRight="@dimen/keyline_first"
+          android:layout_gravity="end|bottom"
+          android:padding="0dp"
+          android:src="@drawable/ic_outline_gps_fixed_24px"
+          android:tint="?attr/fab_text"
+          app:borderWidth="0dp"
+          app:layout_constraintBottom_toBottomOf="@id/map"
+          app:layout_constraintRight_toRightOf="@id/map"/>
+
+        <!--
+        This view is a hack, when using a Mapbox fragment for some reason other views
+        dont collapse under the status bar without this
+        -->
+        <View
+          android:layout_width="match_parent"
+          android:layout_height="0px"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"/>
+
+        <RelativeLayout
+          android:id="@+id/select_this_location"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:paddingTop="@dimen/keyline_first"
+          android:paddingBottom="@dimen/keyline_first"
+          android:background="?attr/selectableItemBackground"
+          android:clickable="true"
+          android:focusable="true"
+          android:orientation="horizontal"
+          app:layout_constraintBottom_toTopOf="@id/choose_recent_location"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/map">
+
+          <ImageView
+            android:id="@+id/place_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/keyline_first"
+            android:layout_marginLeft="@dimen/keyline_first"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:contentDescription="@string/pick_this_location"
+            android:src="@drawable/ic_outline_place_24px"
+            android:tint="@color/icon_tint"/>
+
+          <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/loading_indicator"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="@dimen/keyline_first"
+            android:layout_marginRight="@dimen/keyline_first"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:indeterminate="true"
+            android:visibility="gone"/>
+
+          <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/keyline_second"
+            android:layout_marginLeft="@dimen/keyline_second"
+            android:layout_toEndOf="@id/place_icon"
+            android:layout_toLeftOf="@id/loading_indicator"
+            android:layout_toRightOf="@id/place_icon"
+            android:layout_toStartOf="@id/loading_indicator"
+            android:gravity="start|center_vertical"
+            android:text="@string/pick_this_location"
+            android:textAlignment="viewStart"
+            android:textAppearance="@style/TextAppearance"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+          android:id="@+id/choose_recent_location"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:paddingTop="8dp"
+          android:paddingBottom="8dp"
+          android:background="@color/window_background"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/select_this_location">
+
+          <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/keyline_first"
+            android:layout_marginLeft="@dimen/keyline_first"
+            android:text="@string/or_choose_a_location"
+            android:textAppearance="@style/TextAppearance"
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp"/>
+
+        </LinearLayout>
+
+      </androidx.constraintlayout.widget.ConstraintLayout>
+
+      <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="?attr/overlay_theme"
+        app:layout_collapseMode="pin"
+        app:popupTheme="@style/popup_overlay"
+        app:title="@string/choose_a_location"/>
+
+      <com.google.android.material.card.MaterialCardView
+        android:id="@+id/search"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="@dimen/keyline_first"
+        android:layout_marginStart="@dimen/card_view_margin"
+        android:layout_marginEnd="@dimen/card_view_margin"
+        app:cardBackgroundColor="@color/window_background"
+        app:cardElevation="@dimen/elevation_app_bar"
+        app:layout_collapseMode="parallax"
+        app:layout_collapseParallaxMultiplier=".7">
+
+        <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/card_view_margin"
+          android:layout_marginLeft="@dimen/card_view_margin"
+          android:layout_gravity="center_vertical"
+          android:contentDescription="@android:string/search_go"
+          android:src="@drawable/ic_outline_search_24px"
+          android:tint="@color/icon_tint"/>
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="64dp"
+          android:layout_marginLeft="64dp"
+          android:layout_gravity="center_vertical"
+          android:text="@android:string/search_go"
+          android:textAppearance="@style/TextAppearance"
+          android:textColor="@color/text_primary"/>
+
+      </com.google.android.material.card.MaterialCardView>
+
+    </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+  </com.google.android.material.appbar.AppBarLayout>
+
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/recent_locations"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/window_background"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:listitem="@layout/row_place"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

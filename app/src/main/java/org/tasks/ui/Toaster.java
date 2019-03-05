@@ -20,15 +20,19 @@ public class Toaster {
     this.locale = locale;
   }
 
-  public void longToast(@StringRes int resId) {
-    longToast(context.getString(resId));
-  }
-
   public void longToast(@StringRes int resId, int number) {
     longToast(context.getString(resId, locale.formatNumber(number)));
   }
 
-  private void longToast(String text) {
+  public void longToast(@StringRes int resId, double number) {
+    longToast(context.getString(resId, locale.formatNumber(number)));
+  }
+
+  public void longToast(@StringRes int resId) {
+    longToast(context.getString(resId));
+  }
+
+  public void longToast(String text) {
     Toast.makeText(context, text, LENGTH_LONG).show();
   }
 

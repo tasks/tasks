@@ -2,6 +2,8 @@ package org.tasks.preferences;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
+import static com.todoroo.andlib.utility.AndroidUtilities.preLollipop;
+import static java.util.Arrays.asList;
 import static org.tasks.dialogs.ExportTasksDialog.newExportTasksDialog;
 import static org.tasks.dialogs.ImportTasksDialog.newImportTasksDialog;
 import static org.tasks.files.FileHelper.newFilePickerIntent;
@@ -17,9 +19,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
+import android.preference.PreferenceScreen;
 import com.google.common.base.Strings;
 import com.todoroo.astrid.core.OldTaskPreferences;
 import com.todoroo.astrid.reminders.ReminderPreferences;
+import java.util.List;
 import javax.inject.Inject;
 import org.tasks.BuildConfig;
 import org.tasks.R;
@@ -43,6 +47,8 @@ import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeBase;
 import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
+import org.tasks.ui.SingleCheckedArrayAdapter;
+import org.tasks.ui.Toaster;
 
 public class BasicPreferences extends InjectingPreferenceActivity
     implements LocalePickerDialog.LocaleSelectionHandler {
@@ -70,6 +76,7 @@ public class BasicPreferences extends InjectingPreferenceActivity
   @Inject BillingClient billingClient;
   @Inject Inventory inventory;
   @Inject PlayServices playServices;
+  @Inject Toaster toaster;
 
   private Bundle result;
 
@@ -209,11 +216,91 @@ public class BasicPreferences extends InjectingPreferenceActivity
           });
     }
 
-    findPreference(R.string.refresh_purchases).setOnPreferenceClickListener(
+    List<String> choices =
+        asList(
+            getString(R.string.map_provider_mapbox),
+            getString(R.string.map_provider_google));
+    SingleCheckedArrayAdapter singleCheckedArrayAdapter =
+        new SingleCheckedArrayAdapter(this, choices, themeAccent);
+    Preference mapProviderPreference = findPreference(R.string.p_map_provider);
+    mapProviderPreference.setOnPreferenceClickListener(
         preference -> {
-          billingClient.queryPurchases();
+          dialogBuilder
+              .newDialog()
+              .setSingleChoiceItems(
+                  singleCheckedArrayAdapter,
+                  getMapProvider(),
+                  (dialog, which) -> {
+                    if (which == 0) {
+                      if (preLollipop()) {
+                        toaster.longToast(R.string.requires_android_version, 5.0);
+                        dialog.dismiss();
+                        return;
+                      }
+                    } else if (which == 1) {
+                      if (!playServices.isPlayServicesAvailable()) {
+                        toaster.longToast(R.string.requires_google_play_services);
+                        dialog.dismiss();
+                        return;
+                      }
+                    }
+                    preferences.setInt(R.string.p_map_provider, which);
+                    mapProviderPreference.setSummary(choices.get(which));
+                    dialog.dismiss();
+                  })
+              .setNegativeButton(android.R.string.cancel, null)
+              .showThemedListView();
           return false;
         });
+    int mapProvider = getMapProvider();
+    mapProviderPreference.setSummary(
+        mapProvider == -1 ? getString(R.string.none) : choices.get(mapProvider));
+
+    Preference placeProviderPreference = findPreference(R.string.p_place_provider);
+    placeProviderPreference.setOnPreferenceClickListener(
+        preference -> {
+          dialogBuilder
+              .newDialog()
+              .setSingleChoiceItems(
+                  singleCheckedArrayAdapter,
+                  getPlaceProvider(),
+                  (dialog, which) -> {
+                    if (which == 0) {
+                      if (preLollipop()) {
+                        toaster.longToast(R.string.requires_android_version, 5.0);
+                        dialog.dismiss();
+                        return;
+                      }
+                    } else if (which == 1) {
+                      if (!playServices.isPlayServicesAvailable()) {
+                        toaster.longToast(R.string.requires_google_play_services);
+                        dialog.dismiss();
+                        return;
+                      }
+                      if (!inventory.hasPro()) {
+                        toaster.longToast(R.string.requires_pro_subscription);
+                        dialog.dismiss();
+                        return;
+                      }
+                    }
+                    preferences.setInt(R.string.p_place_provider, which);
+                    placeProviderPreference.setSummary(choices.get(which));
+                    dialog.dismiss();
+                  })
+              .setNegativeButton(android.R.string.cancel, null)
+              .showThemedListView();
+          return false;
+        });
+    int placeProvider = getPlaceProvider();
+    placeProviderPreference.setSummary(
+        placeProvider == -1 ? getString(R.string.none) : choices.get(placeProvider));
+
+    findPreference(R.string.refresh_purchases)
+        .setOnPreferenceClickListener(
+            preference -> {
+              billingClient.queryPurchases();
+              return false;
+            });
 
     requires(
         R.string.settings_localization,
@@ -233,6 +320,28 @@ public class BasicPreferences extends InjectingPreferenceActivity
           R.string.upgrade_to_pro,
           R.string.refresh_purchases);
       requires(R.string.privacy, false, R.string.p_collect_statistics);
+      ((PreferenceScreen) findPreference(getString(R.string.preference_screen)))
+          .removePreference(findPreference(getString(R.string.TEA_control_location)));
+    }
+  }
+
+  private int getPlaceProvider() {
+    if (playServices.isPlayServicesAvailable()) {
+      if (preLollipop()) {
+        return inventory.hasPro() ? 1 : -1;
+      } else {
+        return inventory.hasPro() ? preferences.getInt(R.string.p_place_provider, 0) : 0;
+      }
+    } else {
+      return atLeastLollipop() ? 0 : -1;
+    }
+  }
+
+  private int getMapProvider() {
+    if (playServices.isPlayServicesAvailable()) {
+      return preLollipop() ? 1 : preferences.getInt(R.string.p_map_provider, 0);
+    } else {
+      return preLollipop() ? -1 : 0;
     }
   }
 

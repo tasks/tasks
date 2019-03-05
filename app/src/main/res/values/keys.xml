@@ -305,4 +305,10 @@
   <string name="p_show_full_description">show_full_description</string>
   <string name="p_linkify_task_list">linkify_task_list</string>
   <string name="p_show_list_indicators">show_list_indicators</string>
+  <string name="map_provider_mapbox">Mapbox</string>
+  <string name="map_provider_google">Google</string>
+  <string name="p_map_provider">map_provider</string>
+  <string name="p_place_provider">place_provider</string>
+  <string name="preference_screen">preference_screen</string>
+
 </resources>

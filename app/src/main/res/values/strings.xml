@@ -873,4 +873,11 @@ File %1$s contained %2$s.\n\n
   <string name="location_arrived">Arrived at %s</string>
   <string name="location_departed">Departed %s</string>
   <string name="building_notifications">Generating notifications</string>
+  <string name="choose_a_location">Choose a recent location</string>
+  <string name="pick_this_location">Select this location</string>
+  <string name="or_choose_a_location">Or choose a recent location</string>
+  <string name="map_provider">Map provider</string>
+  <string name="map_search_provider">Search provider</string>
+  <string name="requires_android_version">Requires Android %s</string>
+  <string name="requires_google_play_services">Requires Google Play Services</string>
 </resources>

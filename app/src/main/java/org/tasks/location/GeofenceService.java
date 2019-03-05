@@ -28,7 +28,7 @@ public class GeofenceService {
   }
 
   public void setupGeofences() {
-    geofenceApi.register(getActiveGeofences());
+    geofenceApi.register(locationDao.getActiveGeofences());
   }
 
   public void setupGeofences(long taskId) {
@@ -81,18 +81,14 @@ public class GeofenceService {
     // everything that remains shall be written
     for (Location location : locations) {
       Place place = location.place;
-      locationDao.insert(place);
       Geofence geofence = location.geofence;
+      geofence.setTask(taskId);
       geofence.setPlace(place.getUid());
       locationDao.insert(geofence);
       dirty = true;
     }
 
     return dirty;
-  }
-
-  private List<Location> getActiveGeofences() {
-    return locationDao.getActiveGeofences();
   }
 
   private List<Location> getGeofencesForTask(long taskId) {

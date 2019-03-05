@@ -6,7 +6,6 @@ import static org.tasks.PermissionUtil.verifyPermissions;
 import static org.tasks.dialogs.LocationDialog.newLocationDialog;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -36,7 +35,6 @@ import org.tasks.R;
 import org.tasks.data.Location;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.LocationDialog;
-import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.location.GeofenceService;
 import org.tasks.location.PlacePicker;
@@ -59,7 +57,6 @@ public class LocationControlSet extends TaskEditControlFragment {
   @Inject GeofenceService geofenceService;
   @Inject FragmentPermissionRequestor permissionRequestor;
   @Inject Preferences preferences;
-  @Inject @ForActivity Context context;
   @Inject DialogBuilder dialogBuilder;
 
   @BindView(R.id.alert_container)
@@ -149,8 +146,8 @@ public class LocationControlSet extends TaskEditControlFragment {
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (requestCode == REQUEST_LOCATION_REMINDER) {
       if (resultCode == Activity.RESULT_OK) {
-        Location place = PlacePicker.getPlace(context, data, preferences);
-        locations.add(place);
+        locations.clear();
+        locations.add(PlacePicker.getPlace(data, preferences));
         setup(locations);
       }
     } else if (requestCode == REQUEST_LOCATION_DETAILS) {

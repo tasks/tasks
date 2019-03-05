@@ -44,10 +44,14 @@ android {
 
     buildTypes {
         debug {
+            resValue 'string', "mapbox_key", project.hasProperty('tasks_mapbox_key') ? tasks_mapbox_key : ''
+            resValue 'string', "google_key", project.hasProperty('tasks_google_key') ? tasks_google_key : ''
             multiDexEnabled true
             testCoverageEnabled true
         }
         release {
+            resValue 'string', "mapbox_key", tasks_mapbox_key
+            resValue 'string', "google_key", tasks_google_key
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.pro'
             signingConfig signingConfigs.release
@@ -175,8 +179,12 @@ dependencies {
     googleplayImplementation 'com.crashlytics.sdk.android:crashlytics:2.9.9'
     googleplayImplementation "com.google.firebase:firebase-core:16.0.7"
     googleplayImplementation "com.google.android.gms:play-services-location:16.0.0"
+    googleplayImplementation 'com.google.android.gms:play-services-maps:16.1.0'
     googleplayImplementation "com.google.android.gms:play-services-auth:16.0.1"
-    googleplayImplementation "com.google.android.gms:play-services-places:16.0.0"
+    googleplayImplementation 'com.google.android.libraries.places:places:1.0.0'
+    googleplayImplementation 'com.google.android.gms:play-services-maps:16.1.0'
+    googleplayImplementation 'androidx.appcompat:appcompat:1.0.2'
+    googleplayImplementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-places-v7:0.7.0'
 
     amazonImplementation "com.google.android.gms:play-services-analytics:16.0.7"
 

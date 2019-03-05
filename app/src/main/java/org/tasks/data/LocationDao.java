@@ -1,10 +1,12 @@
 package org.tasks.data;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 import io.reactivex.Single;
 import java.util.List;
 
@@ -15,7 +17,8 @@ public interface LocationDao {
       "SELECT * FROM geofences INNER JOIN places ON geofences.place = places.uid WHERE geofence_id = :id LIMIT 1")
   Location getGeofence(Long id);
 
-  @Query("SELECT * FROM geofences INNER JOIN places ON geofences.place = places.uid WHERE task = :taskId ORDER BY name ASC")
+  @Query(
+      "SELECT * FROM geofences INNER JOIN places ON geofences.place = places.uid WHERE task = :taskId ORDER BY name ASC")
   List<Location> getGeofences(long taskId);
 
   @Query(
@@ -32,11 +35,17 @@ public interface LocationDao {
   @Delete
   void delete(Geofence location);
 
+  @Delete
+  void delete(Place place);
+
   @Insert
   void insert(Geofence location);
 
   @Insert(onConflict = OnConflictStrategy.IGNORE)
   long insert(Place place);
+
+  @Update
+  void update(Place place);
 
   @Query("SELECT * FROM places WHERE uid = :uid LIMIT 1")
   Place getByUid(String uid);
@@ -46,4 +55,11 @@ public interface LocationDao {
 
   @Query("SELECT * FROM places")
   List<Place> getPlaces();
+
+  @Query(
+      "SELECT places.*, IFNULL(COUNT(geofence_id),0) AS count FROM places LEFT OUTER JOIN geofences ON geofences.place = places.uid GROUP BY uid ORDER BY COUNT(geofence_id) DESC")
+  LiveData<List<PlaceUsage>> getPlaceUsage();
+
+  @Query("SELECT * FROM places WHERE latitude = :latitude AND longitude = :longitude LIMIT 1")
+  Place findPlace(double latitude, double longitude);
 }

@@ -16,6 +16,7 @@
   <item format="float" name="alpha_disabled" type="dimen">0.38</item>
 
   <dimen name="elevation_toolbar">8dp</dimen>
+  <dimen name="elevation_app_bar">4dp</dimen>
   <dimen name="elevation_task_list">2dp</dimen>
   <dimen name="elevation_refresh_indicator">3dp</dimen>
   <dimen name="elevation_padding">0dp</dimen>

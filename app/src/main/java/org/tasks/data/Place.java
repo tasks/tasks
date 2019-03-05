@@ -8,6 +8,7 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import com.google.common.base.Strings;
+import com.todoroo.astrid.helper.UUIDHelper;
 import java.io.Serializable;
 import java.util.regex.Pattern;
 
@@ -54,6 +55,12 @@ public class Place implements Serializable, Parcelable {
 
   @ColumnInfo(name = "longitude")
   private double longitude;
+
+  public static Place newPlace() {
+    Place place = new Place();
+    place.setUid(UUIDHelper.newUUID());
+    return place;
+  }
 
   public Place() {}
 
@@ -143,6 +150,18 @@ public class Place implements Serializable, Parcelable {
 
   public void setUrl(String url) {
     this.url = url;
+  }
+
+  public void apply(Place place) {
+    if (Strings.isNullOrEmpty(address)) {
+      address = place.address;
+    }
+    if (Strings.isNullOrEmpty(phone)) {
+      phone = place.phone;
+    }
+    if (Strings.isNullOrEmpty(url)) {
+      url = place.url;
+    }
   }
 
   public String getDisplayName() {

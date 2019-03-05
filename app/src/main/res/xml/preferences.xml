@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+  android:key="@string/preference_screen">
 
   <PreferenceCategory android:title="@string/theme">
 
@@ -62,6 +63,22 @@
         android:targetClass="org.tasks.preferences.MiscellaneousPreferences"
         android:targetPackage="org.tasks"/>
     </Preference>
+
+  </PreferenceCategory>
+
+  <PreferenceCategory
+    android:key="@string/TEA_control_location"
+    android:title="@string/TEA_control_location">
+
+    <Preference
+      android:defaultValue="-1"
+      android:key="@string/p_map_provider"
+      android:title="@string/map_provider" />
+
+    <Preference
+      android:defaultValue="-1"
+      android:key="@string/p_place_provider"
+      android:title="@string/map_search_provider" />
 
   </PreferenceCategory>
 

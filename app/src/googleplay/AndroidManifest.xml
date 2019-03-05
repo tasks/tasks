@@ -25,6 +25,13 @@
   <application tools:ignore="GoogleAppIndexingWarning">
 
     <meta-data
+      android:name="com.google.android.geo.API_KEY"
+      android:value="@string/google_key"/>
+
+    <activity
+      android:name=".location.LocationPicker"/>
+
+    <meta-data
       android:name="firebase_crashlytics_collection_enabled"
       android:value="false"/>
 
@@ -35,10 +42,6 @@
     <meta-data
       android:name="com.google.android.gms.version"
       android:value="@integer/google_play_services_version"/>
-
-    <meta-data
-      android:name="com.google.android.geo.API_KEY"
-      android:value="AIzaSyBq82FiK4U8Ke2TV_F8UjDZwgtSy8K9cyQ"/>
 
     <service android:name=".location.GeofenceTransitionsIntentService"/>
 

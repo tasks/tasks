@@ -4,6 +4,7 @@ import static android.content.SharedPreferences.Editor;
 import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Sets.newHashSet;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastKitKat;
+import static com.todoroo.andlib.utility.AndroidUtilities.preLollipop;
 import static java.util.Collections.emptySet;
 
 import android.content.ContentResolver;
@@ -478,5 +479,13 @@ public class Preferences {
 
   public void setSyncOngoing(boolean value) {
     setBoolean(R.string.p_sync_ongoing, value);
+  }
+
+  public boolean useGoogleMaps() {
+    return preLollipop() || getInt(R.string.p_map_provider, 0) == 1;
+  }
+
+  public boolean useGooglePlaces() {
+    return preLollipop() || getInt(R.string.p_place_provider, 0) == 1;
   }
 }

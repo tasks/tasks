@@ -3,6 +3,7 @@ package org.tasks.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 import androidx.room.Embedded;
+import androidx.room.Ignore;
 import java.io.Serializable;
 
 public class Location implements Serializable, Parcelable {
@@ -25,11 +26,13 @@ public class Location implements Serializable, Parcelable {
 
   public Location() {}
 
+  @Ignore
   public Location(Geofence geofence, Place place) {
     this.geofence = geofence;
     this.place = place;
   }
 
+  @Ignore
   protected Location(Parcel in) {
     geofence = in.readParcelable(Geofence.class.getClassLoader());
     place = in.readParcelable(Place.class.getClassLoader());

@@ -9,8 +9,6 @@ package com.todoroo.andlib.utility;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
-import android.os.Build.VERSION;
-import android.os.Build.VERSION_CODES;
 import android.os.Looper;
 import android.text.InputType;
 import android.util.DisplayMetrics;
@@ -158,10 +156,6 @@ public class AndroidUtilities {
 
   public static boolean atLeastMarshmallow() {
     return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
-  }
-
-  public static boolean atLeastOreoMR1() {
-    return VERSION.SDK_INT >= VERSION_CODES.O_MR1;
   }
 
   public static boolean atLeastNougat() {

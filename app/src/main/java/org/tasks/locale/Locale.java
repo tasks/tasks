@@ -171,6 +171,10 @@ public class Locale {
     return NumberFormat.getNumberInstance(appLocale).format(number);
   }
 
+  public String formatNumber(double number) {
+    return NumberFormat.getNumberInstance(appLocale).format(number);
+  }
+
   public Integer parseInteger(String number) {
     try {
       return NumberFormat.getNumberInstance(appLocale).parse(number).intValue();
