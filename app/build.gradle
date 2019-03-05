@@ -12,6 +12,7 @@ android {
         lintConfig file("lint.xml")
         textOutput 'stdout'
         textReport true
+        ignoreTestSources true
     }
 
     compileSdkVersion 28
