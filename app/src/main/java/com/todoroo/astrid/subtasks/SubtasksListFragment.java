@@ -48,14 +48,6 @@ public class SubtasksListFragment extends TaskListFragment {
     helper.setTaskListFragment(this);
   }
 
-  @Override
-  public void setTaskAdapter() {
-    helper.setList(initializeTaskListMetadata());
-    helper.beforeSetUpTaskList(filter);
-
-    super.setTaskAdapter();
-  }
-
   private TaskListMetadata initializeTaskListMetadata() {
     String filterId = null;
     String prefId = null;
@@ -86,6 +78,8 @@ public class SubtasksListFragment extends TaskListFragment {
 
   @Override
   protected TaskAdapter createTaskAdapter() {
+    helper.setList(initializeTaskListMetadata());
+    helper.beforeSetUpTaskList(filter);
     return helper.createTaskAdapter();
   }
 

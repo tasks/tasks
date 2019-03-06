@@ -35,7 +35,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.google.android.material.snackbar.Snackbar;
-import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.adapter.TaskAdapter;
@@ -503,7 +502,7 @@ public class TaskListFragment extends InjectingFragment
   }
 
   /** Fill in the Task List with current items */
-  protected void setTaskAdapter() {
+  private void setTaskAdapter() {
     if (filter == null) {
       return;
     }

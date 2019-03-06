@@ -44,15 +44,9 @@ public class GtasksSubtaskListFragment extends GtasksListFragment {
   }
 
   @Override
-  public void setTaskAdapter() {
+  protected TaskAdapter createTaskAdapter() {
     helper.setList(list);
     helper.beforeSetUpTaskList(filter);
-
-    super.setTaskAdapter();
-  }
-
-  @Override
-  protected TaskAdapter createTaskAdapter() {
     return helper.createTaskAdapter();
   }
 
