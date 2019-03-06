@@ -6,8 +6,6 @@
 
 package com.todoroo.astrid.gtasks.sync;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.assertNotMainThread;
-
 import android.content.Context;
 import android.text.TextUtils;
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
@@ -32,7 +30,6 @@ import org.tasks.data.GoogleTaskListDao;
 import org.tasks.gtasks.GtaskSyncAdapterHelper;
 import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.ForApplication;
-import org.tasks.jobs.WorkManager;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
@@ -47,7 +44,6 @@ public class GtasksSyncService {
   private final GtaskSyncAdapterHelper gtaskSyncAdapterHelper;
   private final Tracker tracker;
   private final GoogleTaskDao googleTaskDao;
-  private final WorkManager workManager;
 
   @Inject
   public GtasksSyncService(
@@ -57,24 +53,14 @@ public class GtasksSyncService {
       GtaskSyncAdapterHelper gtaskSyncAdapterHelper,
       Tracker tracker,
       GoogleTaskDao googleTaskDao,
-      GoogleTaskListDao googleTaskListDao,
-      WorkManager workManager) {
+      GoogleTaskListDao googleTaskListDao) {
     this.context = context;
     this.taskDao = taskDao;
     this.preferences = preferences;
     this.gtaskSyncAdapterHelper = gtaskSyncAdapterHelper;
     this.tracker = tracker;
     this.googleTaskDao = googleTaskDao;
-    this.workManager = workManager;
     new OperationPushThread(operationQueue).start();
-  }
-
-  public void clearCompleted(GoogleTaskList googleTaskList) throws IOException {
-    assertNotMainThread();
-
-    GtasksInvoker invoker = new GtasksInvoker(context, googleTaskList.getAccount());
-    invoker.clearCompleted(googleTaskList.getRemoteId());
-    workManager.syncNow();
   }
 
   public void triggerMoveForMetadata(GoogleTaskList googleTaskList, GoogleTask googleTask) {

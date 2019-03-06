@@ -74,7 +74,7 @@ public class GtasksInvoker {
     execute(service.tasks().update(listId, task.getId(), task));
   }
 
-  public Task moveGtask(String listId, String taskId, String parentId, String previousId)
+  Task moveGtask(String listId, String taskId, String parentId, String previousId)
       throws IOException {
     return execute(
         service.tasks().move(listId, taskId).setParent(parentId).setPrevious(previousId));
@@ -90,10 +90,6 @@ public class GtasksInvoker {
 
   public TaskList createGtaskList(String title) throws IOException {
     return execute(service.tasklists().insert(new TaskList().setTitle(title)));
-  }
-
-  public void clearCompleted(String listId) throws IOException {
-    execute(service.tasks().clear(listId));
   }
 
   public void deleteGtask(String listId, String taskId) throws IOException {

@@ -22,8 +22,6 @@ public class Tracking {
     GTASK_DELETE_LIST(
         R.string.tracking_category_google_tasks, R.string.tracking_action_delete_list),
     GTASK_SET_COLOR(R.string.tracking_category_google_tasks, R.string.p_theme_color),
-    GTASK_CLEAR_COMPLETED(
-        R.string.tracking_category_google_tasks, R.string.tracking_action_clear_completed),
     MULTISELECT_DELETE(
         R.string.tracking_category_event, R.string.tracking_event_multiselect_delete),
     MULTISELECT_CLONE(R.string.tracking_category_event, R.string.tracking_event_multiselect_clone),
