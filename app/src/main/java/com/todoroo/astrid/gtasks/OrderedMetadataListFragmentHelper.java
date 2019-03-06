@@ -9,6 +9,7 @@ package com.todoroo.astrid.gtasks;
 import android.text.TextUtils;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskListFragment;
+import com.todoroo.astrid.adapter.GoogleTaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
@@ -21,7 +22,6 @@ import javax.inject.Inject;
 import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskList;
-import timber.log.Timber;
 
 class OrderedMetadataListFragmentHelper {
 
@@ -31,7 +31,6 @@ class OrderedMetadataListFragmentHelper {
   private final TaskDao taskDao;
   private final Map<Long, ArrayList<Long>> chainedCompletions =
       Collections.synchronizedMap(new HashMap<>());
-  private DraggableTaskAdapter taskAdapter;
   private TaskListFragment fragment;
   private GoogleTaskList list;
 
@@ -52,7 +51,7 @@ class OrderedMetadataListFragmentHelper {
   }
 
   TaskAdapter createTaskAdapter() {
-    taskAdapter = new DraggableTaskAdapter();
+    GoogleTaskAdapter taskAdapter = new GoogleTaskAdapter(list, updater);
 
     taskAdapter.setOnCompletedTaskListener(this::setCompletedForItemAndSubtasks);
 
@@ -108,58 +107,5 @@ class OrderedMetadataListFragmentHelper {
   void onDeleteTask(Task task) {
     updater.onDeleteTask(list, task.getId());
     fragment.loadTaskListContent();
-  }
-
-  private final class DraggableTaskAdapter extends TaskAdapter {
-
-    @Override
-    public int getIndent(Task task) {
-      return task.getIndent();
-    }
-
-    @Override
-    public boolean canIndent(int position, Task task) {
-      Task parent = taskAdapter.getTask(position - 1);
-      return parent != null && getIndent(task) == 0;
-    }
-
-    @Override
-    public boolean isManuallySorted() {
-      return true;
-    }
-
-    @Override
-    public void moved(int from, int to) {
-      long targetTaskId = taskAdapter.getTaskId(from);
-      if (targetTaskId <= 0) {
-        return; // This can happen with gestures on empty parts of the list (e.g. extra space below
-        // tasks)
-      }
-
-      try {
-        if (to >= taskAdapter.getCount()) {
-          updater.moveTo(list, targetTaskId, -1);
-        } else {
-          long destinationTaskId = taskAdapter.getTaskId(to);
-          updater.moveTo(list, targetTaskId, destinationTaskId);
-        }
-      } catch (Exception e) {
-        Timber.e(e);
-      }
-    }
-
-    @Override
-    public void indented(int which, int delta) {
-      long targetTaskId = taskAdapter.getTaskId(which);
-      if (targetTaskId <= 0) {
-        return; // This can happen with gestures on empty parts of the list (e.g. extra space below
-        // tasks)
-      }
-      try {
-        updater.indent(list, targetTaskId, delta);
-      } catch (Exception e) {
-        Timber.e(e);
-      }
-    }
   }
 }

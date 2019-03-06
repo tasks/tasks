@@ -213,7 +213,7 @@ public class GtasksTaskListUpdater {
    * Move a task and all its children to the position right above taskIdToMoveto. Will change the
    * indent level to match taskIdToMoveTo.
    */
-  void moveTo(GoogleTaskList list, final long targetTaskId, final long moveBeforeTaskId) {
+  public void moveTo(GoogleTaskList list, final long targetTaskId, final long moveBeforeTaskId) {
     if (list == null) {
       return;
     }

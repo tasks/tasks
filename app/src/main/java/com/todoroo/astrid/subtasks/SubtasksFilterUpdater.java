@@ -141,7 +141,7 @@ public class SubtasksFilterUpdater {
     filter.setFilterQueryOverride(query);
   }
 
-  int getIndentForTask(String targetTaskId) {
+  public int getIndentForTask(String targetTaskId) {
     Node n = idToNode.get(targetTaskId);
     if (n == null) {
       return 0;
@@ -318,7 +318,7 @@ public class SubtasksFilterUpdater {
     }
   }
 
-  void moveTo(TaskListMetadata list, Filter filter, String targetTaskId, String beforeTaskId) {
+  public void moveTo(TaskListMetadata list, Filter filter, String targetTaskId, String beforeTaskId) {
     Node target = idToNode.get(targetTaskId);
     if (target == null) {
       return;

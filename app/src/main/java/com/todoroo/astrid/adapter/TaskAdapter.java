@@ -107,7 +107,7 @@ public class TaskAdapter {
 
   public void indented(int position, int delta) {}
 
-  public long getTaskId(int position) {
+  long getTaskId(int position) {
     return getTask(position).getId();
   }
 

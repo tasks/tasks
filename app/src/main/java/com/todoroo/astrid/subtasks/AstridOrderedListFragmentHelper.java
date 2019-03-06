@@ -3,6 +3,7 @@ package com.todoroo.astrid.subtasks;
 import android.text.TextUtils;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskListFragment;
+import com.todoroo.astrid.adapter.AstridTaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
@@ -14,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
 import org.tasks.data.TaskListMetadata;
-import timber.log.Timber;
 
 class AstridOrderedListFragmentHelper {
 
@@ -22,7 +22,6 @@ class AstridOrderedListFragmentHelper {
   private final TaskDao taskDao;
   private final Map<String, ArrayList<String>> chainedCompletions =
       Collections.synchronizedMap(new HashMap<>());
-  private DraggableTaskAdapter taskAdapter;
   private TaskListFragment fragment;
   private TaskListMetadata list;
 
@@ -41,7 +40,7 @@ class AstridOrderedListFragmentHelper {
   }
 
   TaskAdapter createTaskAdapter() {
-    taskAdapter = new DraggableTaskAdapter();
+    AstridTaskAdapter taskAdapter = new AstridTaskAdapter(list, fragment.getFilter(), updater);
 
     taskAdapter.setOnCompletedTaskListener(this::setCompletedForItemAndSubtasks);
 
@@ -106,59 +105,5 @@ class AstridOrderedListFragmentHelper {
   void onDeleteTask(Task task) {
     updater.onDeleteTask(list, fragment.getFilter(), task.getUuid());
     fragment.loadTaskListContent();
-  }
-
-  private final class DraggableTaskAdapter extends TaskAdapter {
-
-    @Override
-    public int getIndent(Task task) {
-      return updater.getIndentForTask(task.getUuid());
-    }
-
-    @Override
-    public boolean canIndent(int position, Task task) {
-      String parentUuid = taskAdapter.getItemUuid(position - 1);
-      int parentIndent = updater.getIndentForTask(parentUuid);
-      return getIndent(task) <= parentIndent;
-    }
-
-    @Override
-    public boolean isManuallySorted() {
-      return true;
-    }
-
-    @Override
-    public void moved(int from, int to) {
-      String targetTaskId = taskAdapter.getItemUuid(from);
-      if (!Task.isValidUuid(targetTaskId)) {
-        return; // This can happen with gestures on empty parts of the list (e.g. extra space below
-        // tasks)
-      }
-
-      try {
-        if (to >= taskAdapter.getCount()) {
-          updater.moveTo(list, fragment.getFilter(), targetTaskId, "-1"); // $NON-NLS-1$
-        } else {
-          String destinationTaskId = taskAdapter.getItemUuid(to);
-          updater.moveTo(list, fragment.getFilter(), targetTaskId, destinationTaskId);
-        }
-      } catch (Exception e) {
-        Timber.e(e);
-      }
-    }
-
-    @Override
-    public void indented(int which, int delta) {
-      String targetTaskId = taskAdapter.getItemUuid(which);
-      if (!Task.isValidUuid(targetTaskId)) {
-        return; // This can happen with gestures on empty parts of the list (e.g. extra space below
-        // tasks)
-      }
-      try {
-        updater.indent(list, fragment.getFilter(), targetTaskId, delta);
-      } catch (Exception e) {
-        Timber.e(e);
-      }
-    }
   }
 }
