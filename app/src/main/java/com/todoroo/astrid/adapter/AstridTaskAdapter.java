@@ -12,7 +12,8 @@ public final class AstridTaskAdapter extends TaskAdapter {
   private final Filter filter;
   private final SubtasksFilterUpdater updater;
 
-  public AstridTaskAdapter(TaskListMetadata list, Filter filter, SubtasksFilterUpdater updater) {
+  public AstridTaskAdapter(
+      TaskListMetadata list, Filter filter, SubtasksFilterUpdater updater) {
     this.list = list;
     this.filter = filter;
     this.updater = updater;
@@ -67,5 +68,10 @@ public final class AstridTaskAdapter extends TaskAdapter {
     } catch (Exception e) {
       Timber.e(e);
     }
+  }
+
+  @Override
+  public void onTaskCreated(String uuid) {
+    updater.onCreateTask(list, filter, uuid);
   }
 }

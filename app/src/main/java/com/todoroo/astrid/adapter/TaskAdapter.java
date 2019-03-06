@@ -39,7 +39,7 @@ public class TaskAdapter {
 
   private static final LongProperty FILE_ID_PROPERTY =
       TaskAttachment.ID.cloneAs(TaskListFragment.FILE_METADATA_JOIN, "fileId");
-  public static final Property<?>[] PROPERTIES =
+  static final Property<?>[] PROPERTIES =
       ObjectArrays.concat(
           Task.PROPERTIES,
           new Property<?>[] {
@@ -115,7 +115,7 @@ public class TaskAdapter {
     return helper.getItem(position);
   }
 
-  protected String getItemUuid(int position) {
+  String getItemUuid(int position) {
     return getTask(position).getUuid();
   }
 
@@ -131,6 +131,10 @@ public class TaskAdapter {
 
   public Property<?>[] getTaskProperties() {
     return PROPERTIES;
+  }
+
+  public void onTaskCreated(String uuid) {
+
   }
 
   public interface OnCompletedTaskListener {

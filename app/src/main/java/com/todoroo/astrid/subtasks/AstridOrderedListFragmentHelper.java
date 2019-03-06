@@ -97,11 +97,6 @@ class AstridOrderedListFragmentHelper {
     this.list = list;
   }
 
-  void onCreateTask(String uuid) {
-    updater.onCreateTask(list, fragment.getFilter(), uuid);
-    fragment.loadTaskListContent();
-  }
-
   void onDeleteTask(Task task) {
     updater.onDeleteTask(list, fragment.getFilter(), task.getUuid());
     fragment.loadTaskListContent();

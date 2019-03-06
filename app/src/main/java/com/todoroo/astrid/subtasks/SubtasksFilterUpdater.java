@@ -413,7 +413,7 @@ public class SubtasksFilterUpdater {
     applyToFilter(filter);
   }
 
-  void onCreateTask(TaskListMetadata list, Filter filter, String uuid) {
+  public void onCreateTask(TaskListMetadata list, Filter filter, String uuid) {
     if (idToNode.containsKey(uuid) || !Task.isValidUuid(uuid)) {
       return;
     }

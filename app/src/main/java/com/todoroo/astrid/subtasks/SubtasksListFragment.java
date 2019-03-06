@@ -85,11 +85,6 @@ public class SubtasksListFragment extends TaskListFragment {
   }
 
   @Override
-  public void onTaskCreated(String uuid) {
-    helper.onCreateTask(uuid);
-  }
-
-  @Override
   protected void onTaskDelete(Task task) {
     super.onTaskDelete(task);
     helper.onDeleteTask(task);

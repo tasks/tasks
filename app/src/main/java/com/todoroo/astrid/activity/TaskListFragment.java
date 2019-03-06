@@ -526,7 +526,10 @@ public class TaskListFragment extends InjectingFragment
     syncAdapters.syncNow();
   }
 
-  public void onTaskCreated(String uuid) {}
+  void onTaskCreated(String uuid) {
+    taskAdapter.onTaskCreated(uuid);
+    loadTaskListContent();
+  }
 
   /*
    * ======================================================================
