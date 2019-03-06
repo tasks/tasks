@@ -68,6 +68,10 @@ public class CaldavFilter extends Filter {
     return calendar.getUuid();
   }
 
+  public CaldavCalendar getCalendar() {
+    return calendar;
+  }
+
   /** {@inheritDoc} */
   @Override
   public void writeToParcel(Parcel dest, int flags) {
@@ -83,6 +87,11 @@ public class CaldavFilter extends Filter {
 
   @Override
   public boolean supportsSubtasks() {
-    return true;
+    return false;
+  }
+
+  @Override
+  public int getMenu() {
+    return R.menu.menu_caldav_list_fragment;
   }
 }

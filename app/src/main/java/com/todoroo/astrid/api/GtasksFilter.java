@@ -77,6 +77,10 @@ public class GtasksFilter extends Filter {
     return list.getId();
   }
 
+  public GoogleTaskList getList() {
+    return list;
+  }
+
   @Override
   public boolean supportsSubtasks() {
     return true;
@@ -97,5 +101,10 @@ public class GtasksFilter extends Filter {
 
   public String getRemoteId() {
     return list.getRemoteId();
+  }
+
+  @Override
+  public int getMenu() {
+    return R.menu.menu_gtasks_list_fragment;
   }
 }

@@ -74,7 +74,7 @@ public class SubtasksHelper {
   }
 
   /** Takes a subtasks string containing local ids and remaps it to one containing UUIDs */
-  static String convertTreeToRemoteIds(TaskDao taskDao, String localTree) {
+  public static String convertTreeToRemoteIds(TaskDao taskDao, String localTree) {
     List<Long> localIds = getIdList(localTree);
     Map<Long, String> idMap = getIdMap(taskDao, localIds);
     idMap.put(-1L, "-1"); // $NON-NLS-1$

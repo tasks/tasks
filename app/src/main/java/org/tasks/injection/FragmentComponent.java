@@ -3,20 +3,14 @@ package org.tasks.injection;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.files.FilesControlSet;
-import com.todoroo.astrid.gtasks.GtasksSubtaskListFragment;
 import com.todoroo.astrid.repeats.RepeatControlSet;
-import com.todoroo.astrid.subtasks.SubtasksListFragment;
-import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
 import com.todoroo.astrid.tags.TagsControlSet;
 import com.todoroo.astrid.timers.TimerControlSet;
 import com.todoroo.astrid.ui.EditTitleControlSet;
 import com.todoroo.astrid.ui.HideUntilControlSet;
 import com.todoroo.astrid.ui.ReminderControlSet;
 import dagger.Subcomponent;
-import org.tasks.caldav.CaldavListFragment;
 import org.tasks.fragments.CommentBarFragment;
-import org.tasks.tasklist.GtasksListFragment;
-import org.tasks.tasklist.TagListFragment;
 import org.tasks.ui.CalendarControlSet;
 import org.tasks.ui.DeadlineControlSet;
 import org.tasks.ui.DescriptionControlSet;
@@ -58,19 +52,7 @@ public interface FragmentComponent {
 
   void inject(TaskListFragment taskListFragment);
 
-  void inject(TagListFragment tagListFragment);
-
-  void inject(GtasksSubtaskListFragment gtasksSubtaskListFragment);
-
-  void inject(SubtasksListFragment subtasksListFragment);
-
-  void inject(SubtasksTagListFragment subtasksTagListFragment);
-
   void inject(RemoteListFragment remoteListFragment);
-
-  void inject(GtasksListFragment gtasksListFragment);
-
-  void inject(CaldavListFragment caldavListFragment);
 
   void inject(LocationControlSet locationControlSet);
 }

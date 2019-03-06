@@ -29,19 +29,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
-import com.todoroo.astrid.api.GtasksFilter;
-import com.todoroo.astrid.api.TagFilter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.gtasks.GtasksListService;
-import com.todoroo.astrid.gtasks.GtasksSubtaskListFragment;
 import com.todoroo.astrid.service.TaskCreator;
-import com.todoroo.astrid.subtasks.SubtasksHelper;
-import com.todoroo.astrid.subtasks.SubtasksListFragment;
-import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
 import com.todoroo.astrid.timers.TimerControlSet;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -54,12 +46,6 @@ import org.tasks.R;
 import org.tasks.activities.TagSettingsActivity;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
-import org.tasks.caldav.CaldavListFragment;
-import org.tasks.data.CaldavCalendar;
-import org.tasks.data.CaldavDao;
-import org.tasks.data.GoogleTaskList;
-import org.tasks.data.TagData;
-import org.tasks.data.TagDataDao;
 import org.tasks.dialogs.SortDialog;
 import org.tasks.fragments.CommentBarFragment;
 import org.tasks.gtasks.PlayServices;
@@ -68,9 +54,6 @@ import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import org.tasks.receivers.RepeatConfirmationReceiver;
-import org.tasks.sync.SyncAdapters;
-import org.tasks.tasklist.GtasksListFragment;
-import org.tasks.tasklist.TagListFragment;
 import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
@@ -102,17 +85,12 @@ public class MainActivity extends InjectingAppCompatActivity
   private static final String EXTRA_FILTER = "extra_filter";
 
   @Inject Preferences preferences;
-  @Inject SubtasksHelper subtasksHelper;
   @Inject RepeatConfirmationReceiver repeatConfirmationReceiver;
   @Inject DefaultFilterProvider defaultFilterProvider;
-  @Inject GtasksListService gtasksListService;
-  @Inject TagDataDao tagDataDao;
   @Inject Theme theme;
   @Inject ThemeCache themeCache;
-  @Inject SyncAdapters syncAdapters;
   @Inject Tracker tracker;
   @Inject TaskDao taskDao;
-  @Inject CaldavDao caldavDao;
   @Inject LocalBroadcastManager localBroadcastManager;
   @Inject TaskCreator taskCreator;
   @Inject PlayServices playServices;
@@ -403,35 +381,7 @@ public class MainActivity extends InjectingAppCompatActivity
       filter = defaultFilterProvider.getDefaultFilter();
     }
 
-    if (filter instanceof TagFilter) {
-      TagFilter tagFilter = (TagFilter) filter;
-      TagData tagData = tagDataDao.getByUuid(tagFilter.getUuid());
-      if (tagData != null) {
-        return preferences.getBoolean(R.string.p_manual_sort, false)
-            ? SubtasksTagListFragment.newSubtasksTagListFragment(tagFilter, tagData)
-            : TagListFragment.newTagViewFragment(tagFilter, tagData);
-      }
-    } else if (filter instanceof GtasksFilter) {
-      GtasksFilter gtasksFilter = (GtasksFilter) filter;
-      GoogleTaskList list = gtasksListService.getList(gtasksFilter.getStoreId());
-      if (list != null) {
-        return preferences.getBoolean(R.string.p_manual_sort, false)
-            ? GtasksSubtaskListFragment.newGtasksSubtaskListFragment(gtasksFilter, list)
-            : GtasksListFragment.newGtasksListFragment(gtasksFilter, list);
-      }
-    } else if (filter instanceof CaldavFilter) {
-      CaldavFilter caldavFilter = (CaldavFilter) filter;
-      CaldavCalendar calendar = caldavDao.getCalendarByUuid(caldavFilter.getUuid());
-      if (calendar != null) {
-        return CaldavListFragment.newCaldavListFragment(caldavFilter, calendar);
-      }
-    } else if (filter != null) {
-      return subtasksHelper.shouldUseSubtasksFragmentForFilter(filter)
-          ? SubtasksListFragment.newSubtasksListFragment(filter)
-          : TaskListFragment.newTaskListFragment(filter);
-    }
-
-    return null;
+    return TaskListFragment.newTaskListFragment(filter);
   }
 
   @Override

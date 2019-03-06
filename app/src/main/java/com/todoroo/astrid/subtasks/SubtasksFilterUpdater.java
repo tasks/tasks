@@ -18,8 +18,8 @@ import timber.log.Timber;
 
 public class SubtasksFilterUpdater {
 
-  static final String ACTIVE_TASKS_ORDER = "active_tasks_order"; // $NON-NLS-1$
-  static final String TODAY_TASKS_ORDER = "today_tasks_order"; // $NON-NLS-1$
+  public static final String ACTIVE_TASKS_ORDER = "active_tasks_order"; // $NON-NLS-1$
+  public static final String TODAY_TASKS_ORDER = "today_tasks_order"; // $NON-NLS-1$
 
   private final TaskListMetadataDao taskListMetadataDao;
   private final TaskDao taskDao;

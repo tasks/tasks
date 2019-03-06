@@ -46,6 +46,7 @@ public class TaskListViewModel extends ViewModel {
   public LiveData<PagedList<Task>> getTasks(@NotNull Filter filter, Property<?>[] properties) {
     if (tasks == null
         || !filter.equals(this.filter)
+        || !filter.getSqlQuery().equals(this.filter.getSqlQuery())
         || !Arrays.equals(this.properties, properties)) {
       this.filter = filter;
       this.properties = properties;

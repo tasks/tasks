@@ -8,6 +8,7 @@ package com.todoroo.astrid.api;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import androidx.annotation.MenuRes;
 import com.todoroo.andlib.sql.QueryTemplate;
 import java.util.Collections;
 import java.util.HashMap;
@@ -179,6 +180,10 @@ public class Filter extends FilterListItem {
 
   public boolean supportsSubtasks() {
     return false;
+  }
+
+  public @MenuRes int getMenu() {
+    return 0;
   }
 
   @Override

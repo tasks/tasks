@@ -36,7 +36,7 @@ public class TagFilter extends Filter {
       };
 
   private static final int TAG = R.drawable.ic_outline_label_24px;
-  private String uuid;
+  private TagData tagData;
 
   private TagFilter() {
     super();
@@ -44,7 +44,7 @@ public class TagFilter extends Filter {
 
   public TagFilter(TagData tagData) {
     super(tagData.getName(), queryTemplate(tagData.getRemoteId()), getValuesForNewTask(tagData));
-    uuid = tagData.getRemoteId();
+    this.tagData = tagData;
     tint = tagData.getColor();
     icon = TAG;
   }
@@ -64,24 +64,33 @@ public class TagFilter extends Filter {
   }
 
   public String getUuid() {
-    return uuid;
+    return tagData.getRemoteId();
+  }
+
+  public TagData getTagData() {
+    return tagData;
   }
 
   /** {@inheritDoc} */
   @Override
   public void writeToParcel(Parcel dest, int flags) {
     super.writeToParcel(dest, flags);
-    dest.writeString(uuid);
+    dest.writeParcelable(tagData, 0);
   }
 
   @Override
   protected void readFromParcel(Parcel source) {
     super.readFromParcel(source);
-    uuid = source.readString();
+    tagData = source.readParcelable(getClass().getClassLoader());
   }
 
   @Override
   public boolean supportsSubtasks() {
     return true;
+  }
+
+  @Override
+  public int getMenu() {
+    return R.menu.menu_tag_view_fragment;
   }
 }

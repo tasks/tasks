@@ -9,6 +9,7 @@ package com.todoroo.astrid.activity;
 import static android.app.Activity.RESULT_OK;
 import static androidx.core.content.ContextCompat.getColor;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
+import static org.tasks.caldav.CaldavCalendarSettingsActivity.EXTRA_CALDAV_CALENDAR;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -37,13 +38,17 @@ import butterknife.OnClick;
 import com.google.android.material.snackbar.Snackbar;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.QueryTemplate;
+import com.todoroo.astrid.adapter.GoogleTaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter;
+import com.todoroo.astrid.adapter.TaskAdapterProvider;
+import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.api.SearchFilter;
+import com.todoroo.astrid.api.TagFilter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.gtasks.GtasksSubtaskListFragment;
 import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.service.TaskMover;
@@ -60,9 +65,12 @@ import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.activities.FilterSettingsActivity;
+import org.tasks.activities.GoogleTaskListSettingsActivity;
 import org.tasks.activities.RemoteListSupportPicker;
+import org.tasks.activities.TagSettingsActivity;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
+import org.tasks.caldav.CaldavCalendarSettingsActivity;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.SortDialog;
 import org.tasks.injection.ForActivity;
@@ -84,19 +92,22 @@ import org.tasks.ui.Toaster;
  *
  * @author Tim Su <tim@todoroo.com>
  */
-public class TaskListFragment extends InjectingFragment
+public final class TaskListFragment extends InjectingFragment
     implements SwipeRefreshLayout.OnRefreshListener, Toolbar.OnMenuItemClickListener {
 
   public static final String TAGS_METADATA_JOIN = "for_tags"; // $NON-NLS-1$
   public static final String GTASK_METADATA_JOIN = "for_gtask"; // $NON-NLS-1$
   public static final String CALDAV_METADATA_JOIN = "for_caldav"; // $NON-NLS-1$
   public static final String FILE_METADATA_JOIN = "for_actions"; // $NON-NLS-1$
-  public static final int REQUEST_MOVE_TASKS = 11545;
   private static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
   private static final String EXTRA_FILTER = "extra_filter";
   private static final String FRAG_TAG_SORT_DIALOG = "frag_tag_sort_dialog";
-  // --- instance variables
-  private static final int REQUEST_EDIT_FILTER = 11544;
+  private static final int REQUEST_CALDAV_SETTINGS = 10101;
+  private static final int REQUEST_GTASK_SETTINGS = 10102;
+  public static final int REQUEST_MOVE_TASKS = 10103;
+  private static final int REQUEST_FILTER_SETTINGS = 10104;
+  private static final int REQUEST_TAG_SETTINGS = 10105;
+
   private static final int SEARCH_DEBOUNCE_TIMEOUT = 300;
   @Inject protected Tracker tracker;
   @Inject SyncAdapters syncAdapters;
@@ -113,6 +124,7 @@ public class TaskListFragment extends InjectingFragment
   @Inject TaskMover taskMover;
   @Inject ActionModeProvider actionModeProvider;
   @Inject Toaster toaster;
+  @Inject TaskAdapterProvider taskAdapterProvider;
 
   @BindView(R.id.swipe_layout)
   SwipeRefreshLayout swipeRefreshLayout;
@@ -164,7 +176,7 @@ public class TaskListFragment extends InjectingFragment
                 }));
   }
 
-  protected void setSyncOngoing(final boolean ongoing) {
+  private void setSyncOngoing(final boolean ongoing) {
     assertMainThread();
 
     swipeRefreshLayout.setRefreshing(ongoing);
@@ -209,7 +221,11 @@ public class TaskListFragment extends InjectingFragment
 
     filter.setFilterQueryOverride(null);
 
-    setTaskAdapter();
+    // set up list adapters
+    taskAdapter = taskAdapterProvider.createTaskAdapter(filter);
+    recyclerAdapter =
+        new TaskListRecyclerAdapter(taskAdapter, viewHolderFactory, this, actionModeProvider);
+    taskAdapter.setHelper(recyclerAdapter.getAsyncPagedListDiffer());
   }
 
   @Override
@@ -231,22 +247,23 @@ public class TaskListFragment extends InjectingFragment
     toolbar.setTitle(filter.listingTitle);
     toolbar.setNavigationIcon(R.drawable.ic_outline_menu_24px);
     toolbar.setNavigationOnClickListener(v -> callbacks.onNavigationIconClicked());
-    inflateMenu(toolbar);
-    setupMenu(toolbar.getMenu());
+    setupMenu(toolbar);
     toolbar.setOnMenuItemClickListener(this);
     MenuColorizer.colorToolbar(context, toolbar);
 
     return parent;
   }
 
-  protected void inflateMenu(Toolbar toolbar) {
+  private void setupMenu(Toolbar toolbar) {
     toolbar.inflateMenu(R.menu.menu_task_list_fragment);
     if (filter instanceof CustomFilter && ((CustomFilter) filter).getId() > 0) {
       toolbar.inflateMenu(R.menu.menu_custom_filter);
     }
-  }
-
-  private void setupMenu(Menu menu) {
+    int menuRes = filter.getMenu();
+    if (menuRes > 0) {
+      toolbar.inflateMenu(menuRes);
+    }
+    Menu menu = toolbar.getMenu();
     MenuItem hidden = menu.findItem(R.id.menu_show_hidden);
     if (preferences.getBoolean(R.string.p_show_hidden_tasks, false)) {
       hidden.setChecked(true);
@@ -348,7 +365,10 @@ public class TaskListFragment extends InjectingFragment
         startActivityForResult(recognition, TaskListFragment.VOICE_RECOGNITION_REQUEST_CODE);
         return true;
       case R.id.menu_sort:
-        SortDialog.newSortDialog(hasDraggableOption())
+        boolean supportsManualSort = filter.supportsSubtasks()
+            || BuiltInFilterExposer.isInbox(context, filter)
+            || BuiltInFilterExposer.isTodayFilter(context, filter);
+        SortDialog.newSortDialog(supportsManualSort)
             .show(getChildFragmentManager(), FRAG_TAG_SORT_DIALOG);
         return true;
       case R.id.menu_show_hidden:
@@ -363,11 +383,6 @@ public class TaskListFragment extends InjectingFragment
         loadTaskListContent();
         localBroadcastManager.broadcastRefresh();
         return true;
-      case R.id.menu_filter_settings:
-        Intent intent = new Intent(getActivity(), FilterSettingsActivity.class);
-        intent.putExtra(FilterSettingsActivity.TOKEN_FILTER, filter);
-        startActivityForResult(intent, REQUEST_EDIT_FILTER);
-        return true;
       case R.id.menu_clear_completed:
         dialogBuilder
             .newMessageDialog(R.string.clear_completed_tasks_confirmation)
@@ -375,12 +390,32 @@ public class TaskListFragment extends InjectingFragment
             .setNegativeButton(android.R.string.cancel, null)
             .show();
         return true;
+      case R.id.menu_filter_settings:
+        Intent filterSettings = new Intent(getActivity(), FilterSettingsActivity.class);
+        filterSettings.putExtra(FilterSettingsActivity.TOKEN_FILTER, filter);
+        startActivityForResult(filterSettings, REQUEST_FILTER_SETTINGS);
+        return true;
+      case R.id.menu_caldav_list_fragment:
+        Intent caldavSettings = new Intent(getActivity(), CaldavCalendarSettingsActivity.class);
+        caldavSettings.putExtra(EXTRA_CALDAV_CALENDAR, ((CaldavFilter) filter).getCalendar());
+        startActivityForResult(caldavSettings, REQUEST_CALDAV_SETTINGS);
+        return true;
+      case R.id.menu_gtasks_list_settings:
+        Intent gtasksSettings = new Intent(getActivity(), GoogleTaskListSettingsActivity.class);
+        gtasksSettings.putExtra(GoogleTaskListSettingsActivity.EXTRA_STORE_DATA, ((GtasksFilter) filter).getList());
+        startActivityForResult(gtasksSettings, REQUEST_GTASK_SETTINGS);
+        return true;
+      case R.id.menu_tag_settings:
+        Intent tagSettings = new Intent(getActivity(), TagSettingsActivity.class);
+        tagSettings.putExtra(TagSettingsActivity.EXTRA_TAG_DATA, ((TagFilter) filter).getTagData());
+        startActivityForResult(tagSettings, REQUEST_TAG_SETTINGS);
+        return true;
       default:
         return onOptionsItemSelected(item);
     }
   }
 
-  protected void clearCompleted() {
+  private void clearCompleted() {
     tracker.reportEvent(Tracking.Events.CLEAR_COMPLETED);
     disposables.add(
         Single.fromCallable(() -> taskDeleter.clearCompleted(filter))
@@ -476,7 +511,7 @@ public class TaskListFragment extends InjectingFragment
    */
   private void refresh() {
     // TODO: compare indents in diff callback, then animate this
-    loadTaskListContent(!(this instanceof GtasksSubtaskListFragment));
+    loadTaskListContent(!(taskAdapter instanceof GoogleTaskAdapter));
 
     setSyncOngoing(preferences.isSyncOngoing());
   }
@@ -495,23 +530,6 @@ public class TaskListFragment extends InjectingFragment
     recyclerAdapter.setAnimate(animate);
 
     taskListViewModel.invalidate();
-  }
-
-  protected TaskAdapter createTaskAdapter() {
-    return new TaskAdapter();
-  }
-
-  /** Fill in the Task List with current items */
-  private void setTaskAdapter() {
-    if (filter == null) {
-      return;
-    }
-
-    // set up list adapters
-    taskAdapter = createTaskAdapter();
-    recyclerAdapter =
-        new TaskListRecyclerAdapter(taskAdapter, viewHolderFactory, this, actionModeProvider);
-    taskAdapter.setHelper(recyclerAdapter.getAsyncPagedListDiffer());
   }
 
   public Filter getFilter() {
@@ -561,43 +579,95 @@ public class TaskListFragment extends InjectingFragment
 
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    if (requestCode == VOICE_RECOGNITION_REQUEST_CODE) {
-      if (resultCode == RESULT_OK) {
-        List<String> match = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-        if (match != null && match.size() > 0 && match.get(0).length() > 0) {
-          String recognizedSpeech = match.get(0);
-          recognizedSpeech =
-              recognizedSpeech.substring(0, 1).toUpperCase()
-                  + recognizedSpeech.substring(1).toLowerCase();
+    switch (requestCode) {
+      case VOICE_RECOGNITION_REQUEST_CODE:
+        if (resultCode == RESULT_OK) {
+          List<String> match = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+          if (match != null && match.size() > 0 && match.get(0).length() > 0) {
+            String recognizedSpeech = match.get(0);
+            recognizedSpeech =
+                recognizedSpeech.substring(0, 1).toUpperCase()
+                    + recognizedSpeech.substring(1).toLowerCase();
 
-          onTaskListItemClicked(addTask(recognizedSpeech));
+            onTaskListItemClicked(addTask(recognizedSpeech));
+          }
         }
-      }
-    } else if (requestCode == REQUEST_EDIT_FILTER) {
-      if (resultCode == RESULT_OK) {
-        String action = data.getAction();
-        MainActivity activity = (MainActivity) getActivity();
-        if (FilterSettingsActivity.ACTION_FILTER_DELETED.equals(action)) {
-          activity.onFilterItemClicked(null);
-        } else if (FilterSettingsActivity.ACTION_FILTER_RENAMED.equals(action)) {
-          activity
-              .getIntent()
-              .putExtra(
-                  MainActivity.OPEN_FILTER,
-                  (Filter) data.getParcelableExtra(FilterSettingsActivity.TOKEN_FILTER));
-          activity.recreate();
+        break;
+      case REQUEST_FILTER_SETTINGS:
+        if (resultCode == RESULT_OK) {
+          String action = data.getAction();
+          MainActivity activity = (MainActivity) getActivity();
+          if (FilterSettingsActivity.ACTION_FILTER_DELETED.equals(action)) {
+            activity.onFilterItemClicked(null);
+          } else if (FilterSettingsActivity.ACTION_FILTER_RENAMED.equals(action)) {
+            activity
+                .getIntent()
+                .putExtra(
+                    MainActivity.OPEN_FILTER,
+                    (Filter) data.getParcelableExtra(FilterSettingsActivity.TOKEN_FILTER));
+            activity.recreate();
+          }
         }
-      }
-    } else if (requestCode == REQUEST_MOVE_TASKS) {
-      if (resultCode == RESULT_OK) {
-        tracker.reportEvent(Tracking.Events.MULTISELECT_MOVE);
-        taskMover.move(
-            taskAdapter.getSelected(),
-            data.getParcelableExtra(RemoteListSupportPicker.EXTRA_SELECTED_FILTER));
-        recyclerAdapter.finishActionMode();
-      }
-    } else {
-      super.onActivityResult(requestCode, resultCode, data);
+        break;
+      case REQUEST_MOVE_TASKS:
+        if (resultCode == RESULT_OK) {
+          tracker.reportEvent(Tracking.Events.MULTISELECT_MOVE);
+          taskMover.move(
+              taskAdapter.getSelected(),
+              data.getParcelableExtra(RemoteListSupportPicker.EXTRA_SELECTED_FILTER));
+          recyclerAdapter.finishActionMode();
+        }
+        break;
+      case REQUEST_CALDAV_SETTINGS:
+        if (resultCode == RESULT_OK) {
+          MainActivity activity = (MainActivity) getActivity();
+          String action = data.getAction();
+          if (CaldavCalendarSettingsActivity.ACTION_DELETED.equals(action)) {
+            activity.onFilterItemClicked(null);
+          } else if (CaldavCalendarSettingsActivity.ACTION_RELOAD.equals(action)) {
+            activity
+                .getIntent()
+                .putExtra(
+                    MainActivity.OPEN_FILTER,
+                    (Filter) data.getParcelableExtra(MainActivity.OPEN_FILTER));
+            activity.recreate();
+          }
+        }
+        break;
+      case REQUEST_GTASK_SETTINGS:
+        if (resultCode == RESULT_OK) {
+          MainActivity activity = (MainActivity) getActivity();
+          String action = data.getAction();
+          if (GoogleTaskListSettingsActivity.ACTION_DELETED.equals(action)) {
+            activity.onFilterItemClicked(null);
+          } else if (GoogleTaskListSettingsActivity.ACTION_RELOAD.equals(action)) {
+            activity
+                .getIntent()
+                .putExtra(
+                    MainActivity.OPEN_FILTER,
+                    (Filter) data.getParcelableExtra(MainActivity.OPEN_FILTER));
+            activity.recreate();
+          }
+        }
+        break;
+      case REQUEST_TAG_SETTINGS:
+        if (resultCode == Activity.RESULT_OK) {
+          String action = data.getAction();
+          MainActivity activity = (MainActivity) getActivity();
+          if (TagSettingsActivity.ACTION_DELETED.equals(action)) {
+            activity.onFilterItemClicked(null);
+          } else if (TagSettingsActivity.ACTION_RELOAD.equals(action)) {
+            activity
+                .getIntent()
+                .putExtra(
+                    MainActivity.OPEN_FILTER,
+                    (Filter) data.getParcelableExtra(MainActivity.OPEN_FILTER));
+            activity.recreate();
+          }
+        }
+        break;
+      default:
+        super.onActivityResult(requestCode, resultCode, data);
     }
   }
 
@@ -608,11 +678,6 @@ public class TaskListFragment extends InjectingFragment
 
   public void onTaskListItemClicked(Task task) {
     callbacks.onTaskListItemClicked(task);
-  }
-
-  protected boolean hasDraggableOption() {
-    return BuiltInFilterExposer.isInbox(context, filter)
-        || BuiltInFilterExposer.isTodayFilter(context, filter);
   }
 
   /**
