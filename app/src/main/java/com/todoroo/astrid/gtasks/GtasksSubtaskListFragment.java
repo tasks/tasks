@@ -6,20 +6,22 @@
 
 package com.todoroo.astrid.gtasks;
 
-import android.app.Activity;
-import android.os.Bundle;
 import com.todoroo.astrid.activity.TaskListFragment;
+import com.todoroo.astrid.adapter.GoogleTaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.GtasksFilter;
-import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.dao.TaskDao;
 import javax.inject.Inject;
+import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.tasklist.GtasksListFragment;
 
 public class GtasksSubtaskListFragment extends GtasksListFragment {
 
-  @Inject OrderedMetadataListFragmentHelper helper;
+  @Inject TaskDao taskDao;
+  @Inject GtasksTaskListUpdater updater;
+  @Inject GoogleTaskDao googleTaskDao;
 
   public static TaskListFragment newGtasksSubtaskListFragment(
       GtasksFilter filter, GoogleTaskList list) {
@@ -30,24 +32,9 @@ public class GtasksSubtaskListFragment extends GtasksListFragment {
   }
 
   @Override
-  public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-
-    helper.setList(list);
-  }
-
-  @Override
-  public void onAttach(Activity activity) {
-    super.onAttach(activity);
-
-    helper.setTaskListFragment(this);
-  }
-
-  @Override
   protected TaskAdapter createTaskAdapter() {
-    helper.setList(list);
-    helper.beforeSetUpTaskList(filter);
-    return helper.createTaskAdapter();
+    updater.initialize(filter);
+    return new GoogleTaskAdapter(list, updater, taskDao, googleTaskDao);
   }
 
   @Override

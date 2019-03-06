@@ -116,7 +116,7 @@ public class SubtasksFilterUpdater {
     return order;
   }
 
-  void writeSerialization(TaskListMetadata list, String serialized) {
+  public void writeSerialization(TaskListMetadata list, String serialized) {
     if (list != null) {
       list.setTaskIds(serialized);
       taskListMetadataDao.update(list);
@@ -236,7 +236,7 @@ public class SubtasksFilterUpdater {
     }
   }
 
-  void applyToDescendants(String taskId, OrderedListNodeVisitor visitor) {
+  public void applyToDescendants(String taskId, OrderedListNodeVisitor visitor) {
     Node n = idToNode.get(taskId);
     if (n == null) {
       return;
@@ -342,7 +342,7 @@ public class SubtasksFilterUpdater {
     moveHelper(list, filter, target, before);
   }
 
-  void moveToParentOf(String moveThis, String toParentOfThis) {
+  public void moveToParentOf(String moveThis, String toParentOfThis) {
     Node target = idToNode.get(toParentOfThis);
     if (target == null) {
       return;
@@ -450,11 +450,11 @@ public class SubtasksFilterUpdater {
     applyToFilter(filter);
   }
 
-  String serializeTree() {
+  public String serializeTree() {
     return serializeTree(treeRoot);
   }
 
-  interface OrderedListNodeVisitor {
+  public interface OrderedListNodeVisitor {
 
     void visitNode(Node node);
   }
@@ -464,7 +464,7 @@ public class SubtasksFilterUpdater {
     void afterAddNode(Node node);
   }
 
-  static class Node {
+  public static class Node {
 
     final ArrayList<Node> children = new ArrayList<>();
     public String uuid;

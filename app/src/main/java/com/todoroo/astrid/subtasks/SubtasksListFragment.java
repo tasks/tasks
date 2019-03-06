@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
 import com.todoroo.astrid.activity.TaskListFragment;
+import com.todoroo.astrid.adapter.AstridTaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
@@ -32,8 +33,8 @@ public class SubtasksListFragment extends TaskListFragment {
   @Inject Preferences preferences;
   @Inject @ForApplication Context context;
   @Inject TaskListMetadataDao taskListMetadataDao;
+  @Inject SubtasksFilterUpdater updater;
   @Inject TaskDao taskDao;
-  @Inject AstridOrderedListFragmentHelper helper;
 
   public static TaskListFragment newSubtasksListFragment(Filter filter) {
     SubtasksListFragment fragment = new SubtasksListFragment();
@@ -42,10 +43,10 @@ public class SubtasksListFragment extends TaskListFragment {
   }
 
   @Override
-  public void onAttach(Activity activity) {
-    super.onAttach(activity);
-
-    helper.setTaskListFragment(this);
+  protected TaskAdapter createTaskAdapter() {
+    TaskListMetadata list = initializeTaskListMetadata();
+    updater.initialize(list, filter);
+    return new AstridTaskAdapter(list, filter, updater, taskDao);
   }
 
   private TaskListMetadata initializeTaskListMetadata() {
@@ -74,13 +75,6 @@ public class SubtasksListFragment extends TaskListFragment {
       taskListMetadataDao.createNew(taskListMetadata);
     }
     return taskListMetadata;
-  }
-
-  @Override
-  protected TaskAdapter createTaskAdapter() {
-    helper.setList(initializeTaskListMetadata());
-    helper.beforeSetUpTaskList(filter);
-    return helper.createTaskAdapter();
   }
 
   @Override

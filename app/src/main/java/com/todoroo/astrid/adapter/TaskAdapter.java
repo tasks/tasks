@@ -51,7 +51,6 @@ public class TaskAdapter {
           Property.class);
   private final Set<Long> selected = new HashSet<>();
   private AsyncPagedListDiffer<Task> helper;
-  private OnCompletedTaskListener onCompletedTaskListener = null;
 
   public int getCount() {
     return helper.getItemCount();
@@ -119,30 +118,13 @@ public class TaskAdapter {
     return getTask(position).getUuid();
   }
 
-  public void onCompletedTask(Task task, boolean newState) {
-    if (onCompletedTaskListener != null) {
-      onCompletedTaskListener.onCompletedTask(task, newState);
-    }
-  }
-
-  public void setOnCompletedTaskListener(final OnCompletedTaskListener newListener) {
-    this.onCompletedTaskListener = newListener;
-  }
-
   public Property<?>[] getTaskProperties() {
     return PROPERTIES;
   }
 
-  public void onTaskCreated(String uuid) {
+  public void onCompletedTask(Task task, boolean newState) {}
 
-  }
+  public void onTaskCreated(String uuid) {}
 
-  public void onTaskDeleted(Task task) {
-
-  }
-
-  public interface OnCompletedTaskListener {
-
-    void onCompletedTask(Task item, boolean newState);
-  }
+  public void onTaskDeleted(Task task) {}
 }

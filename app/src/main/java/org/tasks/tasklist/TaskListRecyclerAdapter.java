@@ -99,6 +99,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
   @Override
   public void onCompletedTask(Task task, boolean newState) {
     adapter.onCompletedTask(task, newState);
+    taskList.loadTaskListContent();
   }
 
   @Override

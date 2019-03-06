@@ -6,10 +6,11 @@
 
 package com.todoroo.astrid.subtasks;
 
-import android.app.Activity;
 import com.todoroo.astrid.activity.TaskListFragment;
+import com.todoroo.astrid.adapter.AstridTaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.TagFilter;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import javax.inject.Inject;
 import org.tasks.data.TagData;
@@ -21,7 +22,8 @@ import org.tasks.tasklist.TagListFragment;
 public class SubtasksTagListFragment extends TagListFragment {
 
   @Inject TaskListMetadataDao taskListMetadataDao;
-  @Inject AstridOrderedListFragmentHelper helper;
+  @Inject SubtasksFilterUpdater updater;
+  @Inject TaskDao taskDao;
 
   public static TaskListFragment newSubtasksTagListFragment(TagFilter filter, TagData tagData) {
     SubtasksTagListFragment fragment = new SubtasksTagListFragment();
@@ -31,14 +33,13 @@ public class SubtasksTagListFragment extends TagListFragment {
   }
 
   @Override
-  public void onAttach(Activity activity) {
-    super.onAttach(activity);
-
-    helper.setTaskListFragment(this);
+  protected TaskAdapter createTaskAdapter() {
+    TaskListMetadata list = initializeTaskListMetadata();
+    updater.initialize(list, filter);
+    return new AstridTaskAdapter(list, filter, updater, taskDao);
   }
 
-  @Override
-  protected TaskAdapter createTaskAdapter() {
+  private TaskListMetadata initializeTaskListMetadata() {
     String tdId = tagData.getRemoteId();
     TaskListMetadata taskListMetadata =
         taskListMetadataDao.fetchByTagOrFilter(tagData.getRemoteId());
@@ -47,9 +48,7 @@ public class SubtasksTagListFragment extends TagListFragment {
       taskListMetadata.setTagUuid(tdId);
       taskListMetadataDao.createNew(taskListMetadata);
     }
-    helper.setList(taskListMetadata);
-    helper.beforeSetUpTaskList(filter);
-    return helper.createTaskAdapter();
+    return taskListMetadata;
   }
 
   @Override

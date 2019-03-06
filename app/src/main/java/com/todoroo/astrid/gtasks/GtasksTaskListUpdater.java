@@ -50,7 +50,7 @@ public class GtasksTaskListUpdater {
 
   // --- overrides
 
-  GoogleTask getTaskMetadata(long taskId) {
+  public GoogleTask getTaskMetadata(long taskId) {
     return googleTaskDao.getByTaskId(taskId);
   }
 
@@ -338,7 +338,7 @@ public class GtasksTaskListUpdater {
   }
 
   /** Apply an operation only to the children of the task */
-  void applyToChildren(GoogleTaskList list, long targetTaskId, OrderedListNodeVisitor visitor) {
+  public void applyToChildren(GoogleTaskList list, long targetTaskId, OrderedListNodeVisitor visitor) {
 
     Node root = buildTreeModel(list);
     Node target = findNode(root, targetTaskId);
@@ -385,12 +385,12 @@ public class GtasksTaskListUpdater {
     void processTask(long taskId, GoogleTask googleTask);
   }
 
-  interface OrderedListNodeVisitor {
+  public interface OrderedListNodeVisitor {
 
     void visitNode(Node node);
   }
 
-  static class Node {
+  public static class Node {
 
     public final long taskId;
     final ArrayList<Node> children = new ArrayList<>();
