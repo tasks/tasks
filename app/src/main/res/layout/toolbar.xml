@@ -6,7 +6,7 @@
   android:layout_height="?attr/actionBarSize"
   android:background="?attr/colorPrimary"
   android:elevation="@dimen/elevation_toolbar"
+  android:theme="?attr/overlay_theme"
   app:popupTheme="@style/popup_overlay"
-  app:theme="?attr/overlay_theme"
   app:toolbarStyle="@style/Widget.MaterialComponents.Toolbar"
   tools:ignore="UnusedAttribute"/>
