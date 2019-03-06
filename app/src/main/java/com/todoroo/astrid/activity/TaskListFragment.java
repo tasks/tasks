@@ -410,7 +410,7 @@ public class TaskListFragment extends InjectingFragment
     super.onActivityCreated(savedInstanceState);
 
     taskListViewModel
-        .getTasks(filter, taskProperties())
+        .getTasks(filter, taskAdapter.getTaskProperties())
         .observe(
             this,
             list -> {
@@ -513,10 +513,6 @@ public class TaskListFragment extends InjectingFragment
     recyclerAdapter =
         new TaskListRecyclerAdapter(taskAdapter, viewHolderFactory, this, actionModeProvider);
     taskAdapter.setHelper(recyclerAdapter.getAsyncPagedListDiffer());
-  }
-
-  protected Property<?>[] taskProperties() {
-    return TaskAdapter.PROPERTIES;
   }
 
   public Filter getFilter() {

@@ -8,15 +8,11 @@ package com.todoroo.astrid.gtasks;
 
 import android.app.Activity;
 import android.os.Bundle;
-import com.todoroo.andlib.data.Property;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.data.Task;
-import java.util.ArrayList;
-import java.util.Arrays;
 import javax.inject.Inject;
-import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.tasklist.GtasksListFragment;
@@ -44,15 +40,6 @@ public class GtasksSubtaskListFragment extends GtasksListFragment {
   protected void onTaskDelete(Task task) {
     super.onTaskDelete(task);
     helper.onDeleteTask(task);
-  }
-
-  @Override
-  public Property<?>[] taskProperties() {
-    Property<?>[] baseProperties = TaskAdapter.PROPERTIES;
-    ArrayList<Property<?>> properties = new ArrayList<>(Arrays.asList(baseProperties));
-    properties.add(GoogleTask.ORDER);
-    properties.add(GoogleTask.INDENT);
-    return properties.toArray(new Property<?>[properties.size()]);
   }
 
   @Override

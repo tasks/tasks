@@ -129,6 +129,10 @@ public class TaskAdapter {
     this.onCompletedTaskListener = newListener;
   }
 
+  public Property<?>[] getTaskProperties() {
+    return PROPERTIES;
+  }
+
   public interface OnCompletedTaskListener {
 
     void onCompletedTask(Task item, boolean newState);
