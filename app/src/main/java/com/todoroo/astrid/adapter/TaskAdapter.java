@@ -137,6 +137,10 @@ public class TaskAdapter {
 
   }
 
+  public void onTaskDeleted(Task task) {
+
+  }
+
   public interface OnCompletedTaskListener {
 
     void onCompletedTask(Task item, boolean newState);

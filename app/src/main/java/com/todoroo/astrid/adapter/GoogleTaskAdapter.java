@@ -76,4 +76,9 @@ public final class GoogleTaskAdapter extends TaskAdapter {
     properties.add(GoogleTask.INDENT);
     return properties.toArray(new Property<?>[properties.size()]);
   }
+
+  @Override
+  public void onTaskDeleted(Task task) {
+    updater.onDeleteTask(list, task.getId());
+  }
 }

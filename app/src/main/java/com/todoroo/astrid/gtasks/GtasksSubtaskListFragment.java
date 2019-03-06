@@ -37,12 +37,6 @@ public class GtasksSubtaskListFragment extends GtasksListFragment {
   }
 
   @Override
-  protected void onTaskDelete(Task task) {
-    super.onTaskDelete(task);
-    helper.onDeleteTask(task);
-  }
-
-  @Override
   public void onAttach(Activity activity) {
     super.onAttach(activity);
 

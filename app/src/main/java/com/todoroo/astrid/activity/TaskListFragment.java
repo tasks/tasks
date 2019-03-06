@@ -547,7 +547,7 @@ public class TaskListFragment extends InjectingFragment
     }
   }
 
-  protected void onTaskDelete(Task task) {
+  private void onTaskDelete(Task task) {
     MainActivity activity = (MainActivity) getActivity();
     TaskEditFragment tef = activity.getTaskEditFragment();
     if (tef != null) {
@@ -556,6 +556,8 @@ public class TaskListFragment extends InjectingFragment
       }
     }
     timerPlugin.stopTimer(task);
+    taskAdapter.onTaskDeleted(task);
+    loadTaskListContent();
   }
 
   @Override

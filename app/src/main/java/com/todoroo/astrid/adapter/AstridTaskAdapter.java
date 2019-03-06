@@ -74,4 +74,9 @@ public final class AstridTaskAdapter extends TaskAdapter {
   public void onTaskCreated(String uuid) {
     updater.onCreateTask(list, filter, uuid);
   }
+
+  @Override
+  public void onTaskDeleted(Task task) {
+    updater.onDeleteTask(list, filter, task.getUuid());
+  }
 }

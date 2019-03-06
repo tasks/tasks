@@ -103,9 +103,4 @@ class OrderedMetadataListFragmentHelper {
   public void setList(GoogleTaskList list) {
     this.list = list;
   }
-
-  void onDeleteTask(Task task) {
-    updater.onDeleteTask(list, task.getId());
-    fragment.loadTaskListContent();
-  }
 }

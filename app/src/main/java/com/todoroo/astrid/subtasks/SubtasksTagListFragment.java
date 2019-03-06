@@ -54,12 +54,6 @@ public class SubtasksTagListFragment extends TagListFragment {
   }
 
   @Override
-  protected void onTaskDelete(Task task) {
-    super.onTaskDelete(task);
-    helper.onDeleteTask(task);
-  }
-
-  @Override
   protected TaskAdapter createTaskAdapter() {
     return helper.createTaskAdapter();
   }

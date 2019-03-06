@@ -425,7 +425,7 @@ public class SubtasksFilterUpdater {
     applyToFilter(filter);
   }
 
-  void onDeleteTask(TaskListMetadata list, Filter filter, String taskId) {
+  public void onDeleteTask(TaskListMetadata list, Filter filter, String taskId) {
     Node task = idToNode.get(taskId);
     if (task == null) {
       return;

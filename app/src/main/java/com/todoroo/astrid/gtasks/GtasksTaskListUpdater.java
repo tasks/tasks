@@ -360,7 +360,7 @@ public class GtasksTaskListUpdater {
   // --- task cascading operations
 
   /** Removes a task from the order hierarchy and un-indent children */
-  void onDeleteTask(GoogleTaskList list, final long targetTaskId) {
+  public void onDeleteTask(GoogleTaskList list, final long targetTaskId) {
     if (list == null) {
       return;
     }
