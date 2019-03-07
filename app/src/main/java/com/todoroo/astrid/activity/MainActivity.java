@@ -421,7 +421,7 @@ public class MainActivity extends InjectingAppCompatActivity
       } else {
         taskEditFragment.discardButtonClick();
       }
-    } else {
+    } else if (!getTaskListFragment().collapseSearchView()) {
       finish();
     }
   }

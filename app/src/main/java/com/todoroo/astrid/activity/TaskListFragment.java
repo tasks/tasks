@@ -149,6 +149,7 @@ public final class TaskListFragment extends InjectingFragment
   private PublishSubject<String> searchSubject = PublishSubject.create();
   private Disposable searchDisposable;
   protected CompositeDisposable disposables;
+  private MenuItem search;
 
   /*
    * ======================================================================
@@ -282,7 +283,7 @@ public final class TaskListFragment extends InjectingFragment
     MenuItem voice = menu.findItem(R.id.menu_voice_add);
     voice.setVisible(device.voiceInputAvailable());
 
-    MenuItem search =
+    search =
         menu.findItem(R.id.menu_search)
             .setOnActionExpandListener(
                 new MenuItem.OnActionExpandListener() {
@@ -503,6 +504,10 @@ public final class TaskListFragment extends InjectingFragment
     if (searchDisposable != null && !searchDisposable.isDisposed()) {
       searchDisposable.dispose();
     }
+  }
+
+  boolean collapseSearchView() {
+    return search.collapseActionView();
   }
 
   /**
