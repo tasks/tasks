@@ -79,8 +79,8 @@ public class MainActivity extends InjectingAppCompatActivity
 
   public static final String OPEN_FILTER = "open_filter"; // $NON-NLS-1$
   public static final String LOAD_FILTER = "load_filter";
-  public static final String OPEN_TASK = "open_task"; // $NON-NLS-1$
-  public static final String OPEN_NEW_TASK = "open_new_task"; // $NON-NLS-1$
+  public static final String CREATE_TASK = "open_task"; // $NON-NLS-1$
+  public static final String OPEN_TASK = "open_new_task"; // $NON-NLS-1$
   private static final String FRAG_TAG_TASK_LIST = "frag_tag_task_list";
   private static final String EXTRA_FILTER = "extra_filter";
 
@@ -195,8 +195,8 @@ public class MainActivity extends InjectingAppCompatActivity
       hideDetailFragment();
     } else if (intent.hasExtra(OPEN_FILTER)
         || intent.hasExtra(LOAD_FILTER)
-        || intent.hasExtra(OPEN_TASK)
-        || intent.hasExtra(OPEN_NEW_TASK)) {
+        || intent.hasExtra(CREATE_TASK)
+        || intent.hasExtra(OPEN_TASK)) {
       taskEditFragment.save();
       removeTaskEditFragment();
     } else {
@@ -209,9 +209,9 @@ public class MainActivity extends InjectingAppCompatActivity
             .observeOn(AndroidSchedulers.mainThread())
             .doAfterSuccess(this::openTaskListFragment);
 
-    if (intent.hasExtra(OPEN_TASK)) {
-      long taskId = intent.getLongExtra(OPEN_TASK, 0);
-      intent.removeExtra(OPEN_TASK);
+    if (intent.hasExtra(CREATE_TASK)) {
+      long taskId = intent.getLongExtra(CREATE_TASK, 0);
+      intent.removeExtra(CREATE_TASK);
       disposables.add(
           single
               .observeOn(Schedulers.io())
@@ -227,9 +227,9 @@ public class MainActivity extends InjectingAppCompatActivity
                     onTaskListItemClicked(task);
                   },
                   exception -> toaster.longToast(R.string.error_task_not_found)));
-    } else if (intent.hasExtra(OPEN_NEW_TASK)) {
-      Task task = intent.getParcelableExtra(OPEN_NEW_TASK);
-      intent.removeExtra(OPEN_NEW_TASK);
+    } else if (intent.hasExtra(OPEN_TASK)) {
+      Task task = intent.getParcelableExtra(OPEN_TASK);
+      intent.removeExtra(OPEN_TASK);
       disposables.add(single.subscribe(tlf -> onTaskListItemClicked(task)));
     } else if (intent.hasExtra(TOKEN_CREATE_NEW_LIST_NAME)) {
       final String listName = intent.getStringExtra(TOKEN_CREATE_NEW_LIST_NAME);

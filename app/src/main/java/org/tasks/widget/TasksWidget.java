@@ -170,7 +170,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
 
   private PendingIntent getNewTaskIntent(Context context, Filter filter, int widgetId) {
     Intent intent = TaskIntents.getTaskListIntent(context, filter);
-    intent.putExtra(MainActivity.OPEN_TASK, 0L);
+    intent.putExtra(MainActivity.CREATE_TASK, 0L);
     intent.setFlags(flags);
     intent.setAction("new_task");
     return PendingIntent.getActivity(context, widgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT);

@@ -71,7 +71,7 @@ public final class ShareLinkActivity extends InjectingAppCompatActivity {
 
   private static TaskStackBuilder getEditTaskStack(Context context, Task task) {
     Intent intent = getTaskListIntent(context, null);
-    intent.putExtra(MainActivity.OPEN_NEW_TASK, task);
+    intent.putExtra(MainActivity.OPEN_TASK, task);
     return TaskStackBuilder.create(context).addNextIntent(intent);
   }
 
