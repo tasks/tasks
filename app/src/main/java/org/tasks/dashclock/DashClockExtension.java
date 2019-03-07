@@ -65,7 +65,7 @@ public class DashClockExtension extends com.google.android.apps.dashclock.api.Da
         publish(null);
       } else {
         Intent clickIntent = new Intent(this, MainActivity.class);
-        clickIntent.putExtra(MainActivity.LOAD_FILTER, filterPreference);
+        clickIntent.putExtra(MainActivity.OPEN_FILTER, filter);
         ExtensionData extensionData =
             new ExtensionData()
                 .visible(true)
