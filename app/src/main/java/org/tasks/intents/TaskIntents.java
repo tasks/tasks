@@ -11,7 +11,11 @@ import org.jetbrains.annotations.Nullable;
 
 public class TaskIntents {
 
-  public static Intent getEditTaskIntent(Context context, Filter filter, Task task) {
+  public static Intent getEditTaskIntent(Context context, Task task) {
+    return getEditTaskIntent(context, null, task);
+  }
+
+  public static Intent getEditTaskIntent(Context context, @Nullable Filter filter, Task task) {
     Intent intent = getTaskListIntent(context, filter);
     intent.putExtra(MainActivity.OPEN_NEW_TASK, task);
     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);

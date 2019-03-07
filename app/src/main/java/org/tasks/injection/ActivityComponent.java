@@ -3,6 +3,7 @@ package org.tasks.injection;
 import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.activity.ShareLinkActivity;
+import com.todoroo.astrid.activity.TaskEditActivity;
 import com.todoroo.astrid.core.CustomFilterActivity;
 import com.todoroo.astrid.core.DefaultsPreferences;
 import com.todoroo.astrid.core.OldTaskPreferences;
@@ -134,4 +135,6 @@ public interface ActivityComponent {
   void inject(DriveLoginActivity driveLoginActivity);
 
   void inject(DebugPreferences debugPreferences);
+
+  void inject(TaskEditActivity taskEditActivity);
 }
