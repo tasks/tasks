@@ -4,7 +4,6 @@ import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
-import static org.tasks.intents.TaskIntents.getEditTaskIntent;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -17,7 +16,13 @@ import android.net.Uri;
 import android.view.View;
 import android.widget.RemoteViews;
 import com.google.common.base.Strings;
+import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.dao.TaskDao;
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.injection.BroadcastComponent;
@@ -44,6 +49,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
   @Inject DefaultFilterProvider defaultFilterProvider;
   @Inject ThemeCache themeCache;
   @Inject Locale locale;
+  @Inject TaskDao taskDao;
   @Inject @ForApplication Context context;
 
   private static Bitmap getSolidBackground(int bgColor) {
@@ -62,19 +68,27 @@ public class TasksWidget extends InjectingAppWidgetProvider {
       return;
     }
 
+    long taskId = intent.getLongExtra(EXTRA_ID, 0);
+
     switch (action) {
       case COMPLETE_TASK:
         Intent completionIntent = new Intent(context, CompleteTaskReceiver.class);
-        completionIntent.putExtra(CompleteTaskReceiver.TASK_ID, intent.getLongExtra(EXTRA_ID, 0));
+        completionIntent.putExtra(CompleteTaskReceiver.TASK_ID, taskId);
         completionIntent.putExtra(CompleteTaskReceiver.TOGGLE_STATE, true);
         context.sendBroadcast(completionIntent);
         break;
       case EDIT_TASK:
-        long taskId = intent.getLongExtra(EXTRA_ID, 0);
-        String filterId = intent.getStringExtra(EXTRA_FILTER_ID);
-        Intent editTaskIntent = getEditTaskIntent(context, filterId, taskId);
-        editTaskIntent.setFlags(flags);
-        context.startActivity(editTaskIntent);
+        //noinspection ResultOfMethodCallIgnored
+        Single.fromCallable(
+                () ->
+                    TaskIntents.getEditTaskIntent(
+                        context,
+                        defaultFilterProvider.getFilterFromPreference(
+                            intent.getStringExtra(EXTRA_FILTER_ID)),
+                        taskDao.fetch(taskId)))
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe((Consumer<Intent>) context::startActivity);
         break;
     }
   }
@@ -134,10 +148,8 @@ public class TasksWidget extends InjectingAppWidgetProvider {
     remoteViews.setTextViewText(R.id.widget_title, filter.listingTitle);
     remoteViews.setRemoteAdapter(R.id.list_view, rvIntent);
     remoteViews.setEmptyView(R.id.list_view, R.id.empty_view);
-    remoteViews.setOnClickPendingIntent(
-        R.id.widget_title, getOpenListIntent(context, filterId, id));
-    remoteViews.setOnClickPendingIntent(
-        R.id.widget_button, getNewTaskIntent(context, filterId, id));
+    remoteViews.setOnClickPendingIntent(R.id.widget_title, getOpenListIntent(context, filter, id));
+    remoteViews.setOnClickPendingIntent(R.id.widget_button, getNewTaskIntent(context, filter, id));
     remoteViews.setOnClickPendingIntent(
         R.id.widget_reconfigure, getWidgetConfigIntent(context, id));
     remoteViews.setPendingIntentTemplate(R.id.list_view, getPendingIntentTemplate(context));
@@ -149,15 +161,16 @@ public class TasksWidget extends InjectingAppWidgetProvider {
     return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
   }
 
-  private PendingIntent getOpenListIntent(Context context, String filterId, int widgetId) {
-    Intent intent = TaskIntents.getTaskListByIdIntent(context, filterId);
+  private PendingIntent getOpenListIntent(Context context, Filter filter, int widgetId) {
+    Intent intent = TaskIntents.getTaskListIntent(context, filter);
     intent.setFlags(flags);
     intent.setAction("open_list");
     return PendingIntent.getActivity(context, widgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
   }
 
-  private PendingIntent getNewTaskIntent(Context context, String filterId, int widgetId) {
-    Intent intent = TaskIntents.getNewTaskIntent(context, filterId);
+  private PendingIntent getNewTaskIntent(Context context, Filter filter, int widgetId) {
+    Intent intent = TaskIntents.getTaskListIntent(context, filter);
+    intent.putExtra(MainActivity.OPEN_TASK, 0L);
     intent.setFlags(flags);
     intent.setAction("new_task");
     return PendingIntent.getActivity(context, widgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
