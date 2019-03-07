@@ -5,12 +5,18 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.FragmentManager;
+import com.todoroo.astrid.dao.TaskDao;
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.intents.TaskIntents;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.receivers.CompleteTaskReceiver;
+import timber.log.Timber;
 
 public class NotificationActivity extends InjectingAppCompatActivity
     implements NotificationDialog.NotificationHandler {
@@ -19,8 +25,10 @@ public class NotificationActivity extends InjectingAppCompatActivity
   public static final String EXTRA_TASK_ID = "extra_task_id";
   private static final String FRAG_TAG_NOTIFICATION_FRAGMENT = "frag_tag_notification_fragment";
   @Inject NotificationManager notificationManager;
+  @Inject TaskDao taskDao;
 
   private long taskId;
+  private CompositeDisposable disposables;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +69,32 @@ public class NotificationActivity extends InjectingAppCompatActivity
   }
 
   @Override
+  protected void onResume() {
+    super.onResume();
+
+    disposables = new CompositeDisposable();
+  }
+
+  @Override
+  protected void onPause() {
+    super.onPause();
+
+    disposables.dispose();
+  }
+
+  @Override
   public void edit() {
-    TaskIntents.getEditTaskStack(this, null, taskId).startActivities();
     notificationManager.cancel(taskId);
-    finish();
+    disposables.add(
+        Single.fromCallable(() -> taskDao.fetch(taskId))
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                task -> {
+                  startActivity(TaskIntents.getEditTaskIntent(this, null, task));
+                  finish();
+                },
+                e -> Timber.e("Task not found: %s", taskId)));
   }
 
   @Override

@@ -3,7 +3,6 @@ package org.tasks.intents;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import androidx.core.app.TaskStackBuilder;
 import com.google.common.base.Strings;
 import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.api.Filter;
@@ -11,13 +10,6 @@ import com.todoroo.astrid.data.Task;
 import org.jetbrains.annotations.Nullable;
 
 public class TaskIntents {
-
-  public static TaskStackBuilder getEditTaskStack(
-      Context context, final Filter filter, final long taskId) {
-    Intent intent = getTaskListIntent(context, filter);
-    intent.putExtra(MainActivity.OPEN_TASK, taskId);
-    return TaskStackBuilder.create(context).addNextIntent(intent);
-  }
 
   public static Intent getEditTaskIntent(Context context, Filter filter, Task task) {
     Intent intent = getTaskListIntent(context, filter);
