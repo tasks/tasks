@@ -222,7 +222,7 @@ public final class TaskEditFragment extends InjectingFragment
       } else {
         ((MainActivity) getActivity()).getTaskListFragment().onTaskSaved();
       }
-      callback.taskEditFinished();
+      callback.removeTaskEditFragment();
     } else {
       discard();
     }
@@ -284,7 +284,7 @@ public final class TaskEditFragment extends InjectingFragment
       timerPlugin.stopTimer(model);
     }
 
-    callback.taskEditFinished();
+    callback.removeTaskEditFragment();
   }
 
   private void deleteButtonClick() {
@@ -294,7 +294,7 @@ public final class TaskEditFragment extends InjectingFragment
             android.R.string.ok,
             (dialog, which) -> {
               taskDeleter.markDeleted(model);
-              callback.taskEditFinished();
+              callback.removeTaskEditFragment();
             })
         .setNegativeButton(android.R.string.cancel, null)
         .show();
@@ -336,6 +336,6 @@ public final class TaskEditFragment extends InjectingFragment
 
   public interface TaskEditFragmentCallbackHandler {
 
-    void taskEditFinished();
+    void removeTaskEditFragment();
   }
 }

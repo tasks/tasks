@@ -198,7 +198,7 @@ public class MainActivity extends InjectingAppCompatActivity
         || intent.hasExtra(OPEN_TASK)
         || intent.hasExtra(OPEN_NEW_TASK)) {
       taskEditFragment.save();
-      taskEditFinished();
+      removeTaskEditFragment();
     } else {
       showDetailFragment();
     }
@@ -455,7 +455,7 @@ public class MainActivity extends InjectingAppCompatActivity
   }
 
   @Override
-  public void taskEditFinished() {
+  public void removeTaskEditFragment() {
     getSupportFragmentManager()
         .popBackStackImmediate(
             TaskEditFragment.TAG_TASKEDIT_FRAGMENT, FragmentManager.POP_BACK_STACK_INCLUSIVE);
