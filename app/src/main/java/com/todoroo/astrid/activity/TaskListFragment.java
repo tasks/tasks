@@ -563,17 +563,11 @@ public final class TaskListFragment extends InjectingFragment
     recyclerAdapter.onTaskSaved();
   }
 
-  public void onTaskDelete(List<Task> tasks) {
-    for (Task task : tasks) {
-      onTaskDelete(task);
-    }
-  }
-
-  private void onTaskDelete(Task task) {
+  public void onTaskDelete(Task task) {
     MainActivity activity = (MainActivity) getActivity();
-    TaskEditFragment tef = activity.getTaskEditFragment();
-    if (tef != null) {
-      if (task.getId() == tef.model.getId()) {
+    if (activity != null) {
+      TaskEditFragment tef = activity.getTaskEditFragment();
+      if (tef != null && task.getId() == tef.model.getId()) {
         tef.discard();
       }
     }

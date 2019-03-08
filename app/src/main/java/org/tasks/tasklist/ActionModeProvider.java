@@ -125,7 +125,9 @@ public class ActionModeProvider {
                 List<Long> tasks = adapter.getSelected();
                 taskListRecyclerAdapter.finishActionMode();
                 List<Task> result = taskDeleter.markDeleted(tasks);
-                taskList.onTaskDelete(result);
+                for (Task task : result) {
+                  taskList.onTaskDelete(task);
+                }
                 taskList
                     .makeSnackbar(
                         context.getString(
