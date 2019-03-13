@@ -6,6 +6,7 @@
 
 package com.todoroo.astrid.activity;
 
+import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static com.todoroo.astrid.activity.TaskEditFragment.newTaskEditFragment;
@@ -38,6 +39,7 @@ import com.todoroo.astrid.timers.TimerControlSet;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
@@ -52,6 +54,7 @@ import org.tasks.fragments.CommentBarFragment;
 import org.tasks.gtasks.PlayServices;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
+import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import org.tasks.receivers.RepeatConfirmationReceiver;
@@ -106,7 +109,7 @@ public class MainActivity extends InjectingAppCompatActivity
   @BindView(R.id.detail)
   FrameLayout detail;
 
-  private CompositeDisposable disposables;
+  private CompositeDisposable disposables = new CompositeDisposable();
   private NavigationDrawerFragment navigationDrawer;
   private int currentNightMode;
 
@@ -142,6 +145,8 @@ public class MainActivity extends InjectingAppCompatActivity
             finishActionMode();
           }
         });
+
+    handleIntent();
   }
 
   @Override
@@ -149,6 +154,8 @@ public class MainActivity extends InjectingAppCompatActivity
     super.onNewIntent(intent);
 
     setIntent(intent);
+
+    handleIntent();
   }
 
   @Override
@@ -190,6 +197,16 @@ public class MainActivity extends InjectingAppCompatActivity
     }
   }
 
+  private void addDisposable(Disposable disposable) {
+    assertMainThread();
+
+    if (disposables.isDisposed()) {
+      disposables = new CompositeDisposable(disposable);
+    } else {
+      disposables.add(disposable);
+    }
+  }
+
   private void handleIntent() {
     Intent intent = getIntent();
 
@@ -202,16 +219,14 @@ public class MainActivity extends InjectingAppCompatActivity
     }
 
     if (loadFilter || (!openFilter && filter == null)) {
-      disposables.add(
+      addDisposable(
           Single.fromCallable(
                   () -> {
-                    if (loadFilter) {
-                      String filter = intent.getStringExtra(LOAD_FILTER);
-                      intent.removeExtra(LOAD_FILTER);
-                      return defaultFilterProvider.getFilterFromPreference(filter);
-                    } else {
-                      return defaultFilterProvider.getDefaultFilter();
-                    }
+                    String filter = intent.getStringExtra(LOAD_FILTER);
+                    intent.removeExtra(LOAD_FILTER);
+                    return isNullOrEmpty(filter)
+                        ? defaultFilterProvider.getDefaultFilter()
+                        : defaultFilterProvider.getFilterFromPreference(filter);
                   })
               .subscribeOn(Schedulers.io())
               .observeOn(AndroidSchedulers.mainThread())
@@ -311,18 +326,9 @@ public class MainActivity extends InjectingAppCompatActivity
       return;
     }
 
-    disposables = new CompositeDisposable();
-
     localBroadcastManager.registerRepeatReceiver(repeatConfirmationReceiver);
 
-    disposables.add(playServices.check(this));
-  }
-
-  @Override
-  protected void onResumeFragments() {
-    super.onResumeFragments();
-
-    handleIntent();
+    addDisposable(playServices.check(this));
   }
 
   public void restart() {
@@ -355,13 +361,10 @@ public class MainActivity extends InjectingAppCompatActivity
       getTaskEditFragment().save();
     }
 
-    if (item == null || item instanceof Filter) {
-      disposables.add(
-          Single.fromCallable(
-                  () -> item == null ? defaultFilterProvider.getDefaultFilter() : (Filter) item)
-              .subscribeOn(Schedulers.io())
-              .observeOn(AndroidSchedulers.mainThread())
-              .subscribe(this::openTaskListFragment));
+    if (item == null) {
+      startActivity(TaskIntents.getTaskListByIdIntent(this, null));
+    } else if (item instanceof Filter) {
+      startActivity(TaskIntents.getTaskListIntent(this, (Filter) item));
     }
   }
 

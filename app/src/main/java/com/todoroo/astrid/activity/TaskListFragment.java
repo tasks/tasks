@@ -640,12 +640,7 @@ public final class TaskListFragment extends InjectingFragment
           if (GoogleTaskListSettingsActivity.ACTION_DELETED.equals(action)) {
             activity.onFilterItemClicked(null);
           } else if (GoogleTaskListSettingsActivity.ACTION_RELOAD.equals(action)) {
-            activity
-                .getIntent()
-                .putExtra(
-                    MainActivity.OPEN_FILTER,
-                    (Filter) data.getParcelableExtra(MainActivity.OPEN_FILTER));
-            activity.recreate();
+            activity.onFilterItemClicked(data.getParcelableExtra(MainActivity.OPEN_FILTER));
           }
         }
         break;

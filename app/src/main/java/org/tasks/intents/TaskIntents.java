@@ -3,7 +3,6 @@ package org.tasks.intents;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import com.google.common.base.Strings;
 import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.data.Task;
@@ -30,12 +29,10 @@ public class TaskIntents {
     return intent;
   }
 
-  public static Intent getTaskListByIdIntent(Context context, final String filterId) {
+  public static Intent getTaskListByIdIntent(Context context, @Nullable String filterId) {
     Intent intent = new Intent(Intent.ACTION_MAIN);
     intent.setComponent(new ComponentName(context, MainActivity.class));
-    if (!Strings.isNullOrEmpty(filterId)) {
-      intent.putExtra(MainActivity.LOAD_FILTER, filterId);
-    }
+    intent.putExtra(MainActivity.LOAD_FILTER, filterId);
     return intent;
   }
 }
