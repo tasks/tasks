@@ -265,7 +265,6 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
   @Override
   public void onListCreated(TaskList taskList) {
     tracker.reportEvent(Tracking.Events.GTASK_NEW_LIST);
-    gtasksList = new GoogleTaskList();
     gtasksList.setRemoteId(taskList.getId());
     gtasksList.setTitle(taskList.getTitle());
     gtasksList.setColor(selectedTheme);
