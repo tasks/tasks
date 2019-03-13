@@ -81,7 +81,10 @@ public class GtasksInvoker {
   }
 
   public void deleteGtaskList(String listId) throws IOException {
-    execute(service.tasklists().delete(listId));
+    try {
+      execute(service.tasklists().delete(listId));
+    } catch (HttpNotFoundException ignored) {
+    }
   }
 
   public TaskList renameGtaskList(String listId, String title) throws IOException {
@@ -96,7 +99,6 @@ public class GtasksInvoker {
     try {
       execute(service.tasks().delete(listId, taskId));
     } catch (HttpNotFoundException ignored) {
-
     }
   }
 
