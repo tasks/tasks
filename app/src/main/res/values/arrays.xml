@@ -231,4 +231,11 @@
     <item>2</item>
     <item>3</item>
   </string-array>
+
+  <array name="progress_view_colors">
+    <item>@color/priority_1</item>
+    <item>@color/priority_2</item>
+    <item>@color/priority_3</item>
+    <item>@color/priority_4</item>
+  </array>
 </resources>

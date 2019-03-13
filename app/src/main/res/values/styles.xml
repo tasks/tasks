@@ -151,4 +151,9 @@
     <item name="android:layout_gravity">bottom|end</item>
   </style>
 
+  <style name="ProgressViewStyle" parent="Material.Drawable.LinearProgress">
+    <item name="lpd_strokeColors">@array/progress_view_colors</item>
+    <item name="lpd_strokeSecondaryColor">@android:color/transparent</item>
+  </style>
+
 </resources>

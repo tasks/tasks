@@ -1,25 +1,25 @@
 package org.tasks.activities;
 
 import static android.text.TextUtils.isEmpty;
-import static org.tasks.gtasks.CreateListDialog.newCreateListDialog;
-import static org.tasks.gtasks.DeleteListDialog.newDeleteListDialog;
-import static org.tasks.gtasks.RenameListDialog.newRenameListDialog;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnFocusChange;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.api.services.tasks.model.TaskList;
+import com.rey.material.widget.ProgressView;
 import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.gtasks.GtasksListService;
@@ -32,31 +32,25 @@ import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.gtasks.CreateListDialog;
-import org.tasks.gtasks.DeleteListDialog;
-import org.tasks.gtasks.RenameListDialog;
 import org.tasks.injection.ActivityComponent;
+import org.tasks.injection.ForApplication;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
 import org.tasks.ui.MenuColorizer;
+import timber.log.Timber;
 
 public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActivity
-    implements Toolbar.OnMenuItemClickListener,
-        CreateListDialog.CreateListDialogCallback,
-        DeleteListDialog.DeleteListDialogCallback,
-        RenameListDialog.RenameListDialogCallback {
+    implements Toolbar.OnMenuItemClickListener {
 
   public static final String EXTRA_ACCOUNT = "extra_account";
   public static final String EXTRA_STORE_DATA = "extra_store_data";
   public static final String ACTION_DELETED = "action_deleted";
   public static final String ACTION_RELOAD = "action_reload";
   private static final String EXTRA_SELECTED_THEME = "extra_selected_theme";
-  private static final String FRAG_TAG_CREATE_LIST_DIALOG = "frag_tag_create_list_dialog";
-  private static final String FRAG_TAG_DELETE_LIST_DIALOG = "frag_tag_delete_list_dialog";
-  private static final String FRAG_TAG_RENAME_LIST_DIALOG = "frag_tag_rename_list_dialog";
   private static final int REQUEST_COLOR_PICKER = 10109;
+  @Inject @ForApplication Context context;
   @Inject GoogleTaskListDao googleTaskListDao;
   @Inject DialogBuilder dialogBuilder;
   @Inject Preferences preferences;
@@ -75,9 +69,15 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
   @BindView(R.id.toolbar)
   Toolbar toolbar;
 
+  @BindView(R.id.progress_bar)
+  ProgressView progressView;
+
   private boolean isNewList;
   private GoogleTaskList gtasksList;
   private int selectedTheme;
+  private CreateListViewModel createListViewModel;
+  private RenameListViewModel renameListViewModel;
+  private DeleteListViewModel deleteListViewModel;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +85,10 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
 
     setContentView(R.layout.activity_google_task_list_settings);
     ButterKnife.bind(this);
+
+    createListViewModel = ViewModelProviders.of(this).get(CreateListViewModel.class);
+    renameListViewModel = ViewModelProviders.of(this).get(RenameListViewModel.class);
+    deleteListViewModel = ViewModelProviders.of(this).get(DeleteListViewModel.class);
 
     Intent intent = getIntent();
     gtasksList = intent.getParcelableExtra(EXTRA_STORE_DATA);
@@ -135,6 +139,34 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
     }
 
     updateTheme();
+
+    if (createListViewModel.inProgress()
+        || renameListViewModel.inProgress()
+        || deleteListViewModel.inProgress()) {
+      showProgressIndicator();
+    }
+    createListViewModel.getData().observe(this, this::onListCreated);
+    renameListViewModel.getData().observe(this, this::onListRenamed);
+    deleteListViewModel
+        .getData()
+        .observe(
+            this,
+            deleted -> {
+              if (deleted) {
+                onListDeleted();
+              }
+            });
+    createListViewModel.getError().observe(this, this::requestFailed);
+    renameListViewModel.getError().observe(this, this::requestFailed);
+    deleteListViewModel.getError().observe(this, this::requestFailed);
+  }
+
+  private void showProgressIndicator() {
+    progressView.setVisibility(View.VISIBLE);
+  }
+
+  private void hideProgressIndicator() {
+    progressView.setVisibility(View.GONE);
   }
 
   @Override
@@ -175,11 +207,11 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
     }
 
     if (isNewList) {
-      newCreateListDialog(gtasksList.getAccount(), newName)
-          .show(getSupportFragmentManager(), FRAG_TAG_CREATE_LIST_DIALOG);
+      showProgressIndicator();
+      createListViewModel.createList(context, gtasksList.getAccount(), newName);
     } else if (nameChanged()) {
-      newRenameListDialog(gtasksList, newName)
-          .show(getSupportFragmentManager(), FRAG_TAG_RENAME_LIST_DIALOG);
+      showProgressIndicator();
+      renameListViewModel.renameList(context, gtasksList, newName);
     } else {
       if (colorChanged()) {
         gtasksList.setColor(selectedTheme);
@@ -213,10 +245,7 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
     dialogBuilder
         .newMessageDialog(R.string.delete_tag_confirmation, gtasksList.getTitle())
         .setPositiveButton(
-            R.string.delete,
-            (dialog, which) ->
-                newDeleteListDialog(gtasksList)
-                    .show(getSupportFragmentManager(), FRAG_TAG_DELETE_LIST_DIALOG))
+            R.string.delete, (dialog, which) -> deleteListViewModel.deleteList(context, gtasksList))
         .setNegativeButton(android.R.string.cancel, null)
         .show();
   }
@@ -262,28 +291,26 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
     return !getNewName().equals(gtasksList.getTitle());
   }
 
-  @Override
-  public void onListCreated(TaskList taskList) {
+  private void onListCreated(TaskList taskList) {
     tracker.reportEvent(Tracking.Events.GTASK_NEW_LIST);
     gtasksList.setRemoteId(taskList.getId());
     gtasksList.setTitle(taskList.getTitle());
     gtasksList.setColor(selectedTheme);
     gtasksList.setId(googleTaskListDao.insertOrReplace(gtasksList));
     setResult(
-        RESULT_OK, new Intent().putExtra(MainActivity.OPEN_FILTER, new GtasksFilter(gtasksList)));
+        RESULT_OK,
+        new Intent().putExtra(MainActivity.OPEN_FILTER, new GtasksFilter(gtasksList)));
     finish();
   }
 
-  @Override
-  public void onListDeleted() {
+  private void onListDeleted() {
     tracker.reportEvent(Tracking.Events.GTASK_DELETE_LIST);
     taskDeleter.delete(gtasksList);
     setResult(RESULT_OK, new Intent(ACTION_DELETED));
     finish();
   }
 
-  @Override
-  public void onListRenamed(TaskList taskList) {
+  private void onListRenamed(TaskList taskList) {
     tracker.reportEvent(Tracking.Events.GTASK_RENAME_LIST);
     gtasksList.setTitle(taskList.getTitle());
     gtasksList.setColor(selectedTheme);
@@ -308,8 +335,9 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
     }
   }
 
-  @Override
-  public void requestFailed() {
+  private void requestFailed(Throwable error) {
+    Timber.e(error);
+    hideProgressIndicator();
     Toast.makeText(this, R.string.gtasks_GLA_errorIOAuth, Toast.LENGTH_LONG).show();
   }
 

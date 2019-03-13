@@ -9,9 +9,6 @@ import org.tasks.dialogs.LocationDialog;
 import org.tasks.dialogs.RecordAudioDialog;
 import org.tasks.dialogs.SeekBarDialog;
 import org.tasks.dialogs.SortDialog;
-import org.tasks.gtasks.CreateListDialog;
-import org.tasks.gtasks.DeleteListDialog;
-import org.tasks.gtasks.RenameListDialog;
 import org.tasks.reminders.NotificationDialog;
 import org.tasks.reminders.SnoozeDialog;
 import org.tasks.repeats.BasicRecurrenceDialog;
@@ -35,12 +32,6 @@ public interface DialogFragmentComponent {
   void inject(ColorPickerDialog colorPickerDialog);
 
   void inject(RecordAudioDialog recordAudioDialog);
-
-  void inject(CreateListDialog createListDialog);
-
-  void inject(DeleteListDialog deleteListDialog);
-
-  void inject(RenameListDialog renameListDialog);
 
   void inject(CustomRecurrenceDialog customRecurrenceDialog);
 
