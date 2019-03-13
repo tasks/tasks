@@ -412,9 +412,15 @@ public class MainActivity extends InjectingAppCompatActivity
       } else {
         taskEditFragment.discardButtonClick();
       }
-    } else if (!getTaskListFragment().collapseSearchView()) {
-      finish();
+      return;
     }
+
+    TaskListFragment taskListFragment = getTaskListFragment();
+    if (taskListFragment != null && taskListFragment.collapseSearchView()) {
+      return;
+    }
+
+    finish();
   }
 
   public TaskListFragment getTaskListFragment() {
