@@ -24,6 +24,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.todoroo.astrid.activity.MainActivity;
+import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.TaskDeleter;
@@ -53,8 +54,6 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
 
   public static final String EXTRA_CALDAV_CALENDAR = "extra_caldav_calendar";
   public static final String EXTRA_CALDAV_ACCOUNT = "extra_caldav_account";
-  public static final String ACTION_RELOAD = "accountRenamed";
-  public static final String ACTION_DELETED = "accountDeleted";
   private static final String EXTRA_SELECTED_THEME = "extra_selected_theme";
   private static final int REQUEST_COLOR_PICKER = 10109;
   @Inject DialogBuilder dialogBuilder;
@@ -270,7 +269,7 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
     caldavDao.update(caldavCalendar);
     setResult(
         RESULT_OK,
-        new Intent(ACTION_RELOAD)
+        new Intent(TaskListFragment.ACTION_RELOAD)
             .putExtra(MainActivity.OPEN_FILTER, new CaldavFilter(caldavCalendar)));
     finish();
   }
@@ -375,7 +374,7 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
   private void onDeleted() {
     taskDeleter.delete(caldavCalendar);
     tracker.reportEvent(Events.CALDAV_LIST_DELETED);
-    setResult(RESULT_OK, new Intent(ACTION_DELETED));
+    setResult(RESULT_OK, new Intent(TaskListFragment.ACTION_DELETED));
     finish();
   }
 }

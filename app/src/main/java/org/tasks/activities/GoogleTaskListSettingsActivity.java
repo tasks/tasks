@@ -21,6 +21,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.api.services.tasks.model.TaskList;
 import com.rey.material.widget.ProgressView;
 import com.todoroo.astrid.activity.MainActivity;
+import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.service.TaskDeleter;
@@ -46,8 +47,6 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
 
   public static final String EXTRA_ACCOUNT = "extra_account";
   public static final String EXTRA_STORE_DATA = "extra_store_data";
-  public static final String ACTION_DELETED = "action_deleted";
-  public static final String ACTION_RELOAD = "action_reload";
   private static final String EXTRA_SELECTED_THEME = "extra_selected_theme";
   private static final int REQUEST_COLOR_PICKER = 10109;
   @Inject @ForApplication Context context;
@@ -218,7 +217,7 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
         googleTaskListDao.insertOrReplace(gtasksList);
         setResult(
             RESULT_OK,
-            new Intent(ACTION_RELOAD)
+            new Intent(TaskListFragment.ACTION_RELOAD)
                 .putExtra(MainActivity.OPEN_FILTER, new GtasksFilter(gtasksList)));
       }
       finish();
@@ -298,15 +297,14 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
     gtasksList.setColor(selectedTheme);
     gtasksList.setId(googleTaskListDao.insertOrReplace(gtasksList));
     setResult(
-        RESULT_OK,
-        new Intent().putExtra(MainActivity.OPEN_FILTER, new GtasksFilter(gtasksList)));
+        RESULT_OK, new Intent().putExtra(MainActivity.OPEN_FILTER, new GtasksFilter(gtasksList)));
     finish();
   }
 
   private void onListDeleted() {
     tracker.reportEvent(Tracking.Events.GTASK_DELETE_LIST);
     taskDeleter.delete(gtasksList);
-    setResult(RESULT_OK, new Intent(ACTION_DELETED));
+    setResult(RESULT_OK, new Intent(TaskListFragment.ACTION_DELETED));
     finish();
   }
 
@@ -317,7 +315,8 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
     googleTaskListDao.insertOrReplace(gtasksList);
     setResult(
         RESULT_OK,
-        new Intent(ACTION_RELOAD).putExtra(MainActivity.OPEN_FILTER, new GtasksFilter(gtasksList)));
+        new Intent(TaskListFragment.ACTION_RELOAD)
+            .putExtra(MainActivity.OPEN_FILTER, new GtasksFilter(gtasksList)));
     finish();
   }
 

@@ -24,6 +24,7 @@ import butterknife.OnTextChanged;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.todoroo.astrid.activity.MainActivity;
+import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.TagFilter;
 import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.tags.TagService;
@@ -46,8 +47,6 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity
 
   public static final String TOKEN_AUTOPOPULATE_NAME = "autopopulateName"; // $NON-NLS-1$
   public static final String EXTRA_TAG_DATA = "tagData"; // $NON-NLS-1$
-  public static final String ACTION_RELOAD = "tagRenamed";
-  public static final String ACTION_DELETED = "tagDeleted";
   private static final String EXTRA_TAG_UUID = "uuid"; // $NON-NLS-1$
   private static final String EXTRA_SELECTED_THEME = "extra_selected_theme";
   private static final int REQUEST_COLOR_PICKER = 10109;
@@ -202,7 +201,7 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity
       tagDao.rename(tagData.getRemoteId(), newName);
       setResult(
           RESULT_OK,
-          new Intent(ACTION_RELOAD).putExtra(MainActivity.OPEN_FILTER, new TagFilter(tagData)));
+          new Intent(TaskListFragment.ACTION_RELOAD).putExtra(MainActivity.OPEN_FILTER, new TagFilter(tagData)));
     }
 
     finish();
@@ -255,7 +254,7 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity
                 String uuid = tagData.getRemoteId();
                 tagDao.deleteTag(uuid);
                 tagDataDao.delete(tagData.getId());
-                setResult(RESULT_OK, new Intent(ACTION_DELETED).putExtra(EXTRA_TAG_UUID, uuid));
+                setResult(RESULT_OK, new Intent(TaskListFragment.ACTION_DELETED).putExtra(EXTRA_TAG_UUID, uuid));
               }
               finish();
             })

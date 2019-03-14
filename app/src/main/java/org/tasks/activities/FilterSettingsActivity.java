@@ -20,6 +20,7 @@ import butterknife.ButterKnife;
 import butterknife.OnTextChanged;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.CustomFilter;
 import javax.inject.Inject;
 import org.tasks.R;
@@ -35,8 +36,6 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity
 
   public static final String TOKEN_FILTER = "token_filter";
 
-  public static final String ACTION_FILTER_DELETED = "filterDeleted";
-  public static final String ACTION_FILTER_RENAMED = "filterRenamed";
   @Inject FilterDao filterDao;
   @Inject DialogBuilder dialogBuilder;
   @Inject Preferences preferences;
@@ -107,7 +106,8 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity
     if (nameChanged) {
       filter.listingTitle = newName;
       filterDao.update(filter.toStoreObject());
-      setResult(RESULT_OK, new Intent(ACTION_FILTER_RENAMED).putExtra(TOKEN_FILTER, filter));
+      setResult(
+          RESULT_OK, new Intent(TaskListFragment.ACTION_RELOAD).putExtra(TOKEN_FILTER, filter));
     }
 
     finish();
@@ -137,7 +137,8 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity
             (dialog, which) -> {
               filterDao.delete(filter.getId());
               setResult(
-                  RESULT_OK, new Intent(ACTION_FILTER_DELETED).putExtra(TOKEN_FILTER, filter));
+                  RESULT_OK,
+                  new Intent(TaskListFragment.ACTION_DELETED).putExtra(TOKEN_FILTER, filter));
               finish();
             })
         .setNegativeButton(android.R.string.cancel, null)

@@ -99,6 +99,8 @@ public final class TaskListFragment extends InjectingFragment
   public static final String GTASK_METADATA_JOIN = "for_gtask"; // $NON-NLS-1$
   public static final String CALDAV_METADATA_JOIN = "for_caldav"; // $NON-NLS-1$
   public static final String FILE_METADATA_JOIN = "for_actions"; // $NON-NLS-1$
+  public static final String ACTION_RELOAD = "action_reload";
+  public static final String ACTION_DELETED = "action_deleted";
   private static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
   private static final String EXTRA_FILTER = "extra_filter";
   private static final String FRAG_TAG_SORT_DIALOG = "frag_tag_sort_dialog";
@@ -592,22 +594,6 @@ public final class TaskListFragment extends InjectingFragment
           }
         }
         break;
-      case REQUEST_FILTER_SETTINGS:
-        if (resultCode == RESULT_OK) {
-          String action = data.getAction();
-          MainActivity activity = (MainActivity) getActivity();
-          if (FilterSettingsActivity.ACTION_FILTER_DELETED.equals(action)) {
-            activity.onFilterItemClicked(null);
-          } else if (FilterSettingsActivity.ACTION_FILTER_RENAMED.equals(action)) {
-            activity
-                .getIntent()
-                .putExtra(
-                    MainActivity.OPEN_FILTER,
-                    (Filter) data.getParcelableExtra(FilterSettingsActivity.TOKEN_FILTER));
-            activity.recreate();
-          }
-        }
-        break;
       case REQUEST_MOVE_TASKS:
         if (resultCode == RESULT_OK) {
           tracker.reportEvent(Tracking.Events.MULTISELECT_MOVE);
@@ -617,40 +603,16 @@ public final class TaskListFragment extends InjectingFragment
           recyclerAdapter.finishActionMode();
         }
         break;
+      case REQUEST_FILTER_SETTINGS:
       case REQUEST_CALDAV_SETTINGS:
-        if (resultCode == RESULT_OK) {
-          MainActivity activity = (MainActivity) getActivity();
-          String action = data.getAction();
-          if (CaldavCalendarSettingsActivity.ACTION_DELETED.equals(action)) {
-            activity.onFilterItemClicked(null);
-          } else if (CaldavCalendarSettingsActivity.ACTION_RELOAD.equals(action)) {
-            activity
-                .getIntent()
-                .putExtra(
-                    MainActivity.OPEN_FILTER,
-                    (Filter) data.getParcelableExtra(MainActivity.OPEN_FILTER));
-            activity.recreate();
-          }
-        }
-        break;
       case REQUEST_GTASK_SETTINGS:
-        if (resultCode == RESULT_OK) {
-          MainActivity activity = (MainActivity) getActivity();
-          String action = data.getAction();
-          if (GoogleTaskListSettingsActivity.ACTION_DELETED.equals(action)) {
-            activity.onFilterItemClicked(null);
-          } else if (GoogleTaskListSettingsActivity.ACTION_RELOAD.equals(action)) {
-            activity.onFilterItemClicked(data.getParcelableExtra(MainActivity.OPEN_FILTER));
-          }
-        }
-        break;
       case REQUEST_TAG_SETTINGS:
         if (resultCode == Activity.RESULT_OK) {
           String action = data.getAction();
           MainActivity activity = (MainActivity) getActivity();
-          if (TagSettingsActivity.ACTION_DELETED.equals(action)) {
+          if (ACTION_DELETED.equals(action)) {
             activity.onFilterItemClicked(null);
-          } else if (TagSettingsActivity.ACTION_RELOAD.equals(action)) {
+          } else if (ACTION_RELOAD.equals(action)) {
             activity
                 .getIntent()
                 .putExtra(
