@@ -8,10 +8,8 @@ import android.os.IBinder;
 import androidx.annotation.Nullable;
 import java.util.List;
 import javax.inject.Inject;
-import org.tasks.BuildConfig;
 import org.tasks.Notifier;
 import org.tasks.R;
-import org.tasks.analytics.Tracker;
 import org.tasks.injection.InjectingService;
 import org.tasks.injection.ServiceComponent;
 import org.tasks.preferences.Preferences;
@@ -21,7 +19,6 @@ public class NotificationService extends InjectingService {
   @Inject Preferences preferences;
   @Inject Notifier notifier;
   @Inject NotificationQueue notificationQueue;
-  @Inject Tracker tracker;
 
   @Nullable
   @Override
@@ -43,21 +40,18 @@ public class NotificationService extends InjectingService {
   protected synchronized void doWork() {
     assertNotMainThread();
 
-    try {
-      if (!preferences.isCurrentlyQuietHours()) {
-        List<? extends NotificationQueueEntry> overdueJobs = notificationQueue.getOverdueJobs();
-        notifier.triggerNotifications(
-            transform(overdueJobs, NotificationQueueEntry::toNotification));
-        boolean success = notificationQueue.remove(overdueJobs);
-        if (BuildConfig.DEBUG && !success) {
-          throw new RuntimeException("Failed to remove jobs from queue");
-        }
+    if (!preferences.isCurrentlyQuietHours()) {
+      List<? extends NotificationQueueEntry> overdueJobs = notificationQueue.getOverdueJobs();
+      if (!notificationQueue.remove(overdueJobs)) {
+        throw new RuntimeException("Failed to remove jobs from queue");
       }
-    } catch (Exception e) {
-      tracker.reportException(e);
-    } finally {
-      notificationQueue.scheduleNext();
+      notifier.triggerNotifications(transform(overdueJobs, NotificationQueueEntry::toNotification));
     }
+  }
+
+  @Override
+  protected void scheduleNext() {
+    notificationQueue.scheduleNext();
   }
 
   @Override

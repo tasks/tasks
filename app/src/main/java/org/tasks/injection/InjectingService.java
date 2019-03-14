@@ -8,10 +8,14 @@ import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+import javax.inject.Inject;
 import org.tasks.R;
+import org.tasks.analytics.Tracker;
 import org.tasks.notifications.NotificationManager;
 
 public abstract class InjectingService extends Service {
+
+  @Inject Tracker tracker;
 
   private CompositeDisposable disposables;
 
@@ -34,9 +38,19 @@ public abstract class InjectingService extends Service {
         Completable.fromAction(this::doWork)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(() -> stopSelf(startId)));
+            .subscribe(
+                () -> done(startId),
+                t -> {
+                  tracker.reportException(t);
+                  done(startId);
+                }));
 
     return Service.START_NOT_STICKY;
+  }
+
+  private void done(int startId) {
+    scheduleNext();
+    stopSelf(startId);
   }
 
   @Override
@@ -64,6 +78,10 @@ public abstract class InjectingService extends Service {
         .setContentTitle(getString(R.string.app_name))
         .setContentText(getString(getNotificationBody()))
         .build();
+  }
+
+  protected void scheduleNext() {
+
   }
 
   protected abstract void doWork();
