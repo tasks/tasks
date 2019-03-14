@@ -12,7 +12,6 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static com.todoroo.astrid.activity.TaskEditFragment.newTaskEditFragment;
 import static com.todoroo.astrid.activity.TaskListFragment.newTaskListFragment;
 import static org.tasks.tasklist.ActionUtils.applySupportActionModeColor;
-import static org.tasks.ui.NavigationDrawerFragment.OnFilterItemClickedListener;
 import static org.tasks.ui.NavigationDrawerFragment.REQUEST_NEW_LIST;
 
 import android.annotation.SuppressLint;
@@ -31,7 +30,6 @@ import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskCreator;
@@ -39,11 +37,11 @@ import com.todoroo.astrid.timers.TimerControlSet;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import org.jetbrains.annotations.Nullable;
+import org.tasks.BuildConfig;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.activities.TagSettingsActivity;
@@ -54,7 +52,6 @@ import org.tasks.fragments.CommentBarFragment;
 import org.tasks.gtasks.PlayServices;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
-import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import org.tasks.receivers.RepeatConfirmationReceiver;
@@ -69,8 +66,7 @@ import org.tasks.ui.TaskListViewModel;
 import org.tasks.ui.Toaster;
 
 public class MainActivity extends InjectingAppCompatActivity
-    implements OnFilterItemClickedListener,
-        TaskListFragment.TaskListFragmentCallbackHandler,
+    implements TaskListFragment.TaskListFragmentCallbackHandler,
         PriorityControlSet.OnPriorityChanged,
         TimerControlSet.TimerControlSetCallback,
         DeadlineControlSet.DueDateChangeListener,
@@ -109,7 +105,7 @@ public class MainActivity extends InjectingAppCompatActivity
   @BindView(R.id.detail)
   FrameLayout detail;
 
-  private CompositeDisposable disposables = new CompositeDisposable();
+  private CompositeDisposable disposables;
   private NavigationDrawerFragment navigationDrawer;
   private int currentNightMode;
 
@@ -145,8 +141,6 @@ public class MainActivity extends InjectingAppCompatActivity
             finishActionMode();
           }
         });
-
-    handleIntent();
   }
 
   @Override
@@ -154,8 +148,6 @@ public class MainActivity extends InjectingAppCompatActivity
     super.onNewIntent(intent);
 
     setIntent(intent);
-
-    handleIntent();
   }
 
   @Override
@@ -197,16 +189,6 @@ public class MainActivity extends InjectingAppCompatActivity
     }
   }
 
-  private void addDisposable(Disposable disposable) {
-    assertMainThread();
-
-    if (disposables.isDisposed()) {
-      disposables = new CompositeDisposable(disposable);
-    } else {
-      disposables.add(disposable);
-    }
-  }
-
   private void handleIntent() {
     Intent intent = getIntent();
 
@@ -219,7 +201,7 @@ public class MainActivity extends InjectingAppCompatActivity
     }
 
     if (loadFilter || (!openFilter && filter == null)) {
-      addDisposable(
+      disposables.add(
           Single.fromCallable(
                   () -> {
                     String filter = intent.getStringExtra(LOAD_FILTER);
@@ -328,7 +310,18 @@ public class MainActivity extends InjectingAppCompatActivity
 
     localBroadcastManager.registerRepeatReceiver(repeatConfirmationReceiver);
 
-    addDisposable(playServices.check(this));
+    if (BuildConfig.DEBUG && disposables != null && !disposables.isDisposed()) {
+      throw new IllegalStateException();
+    }
+
+    disposables = new CompositeDisposable(playServices.check(this));
+  }
+
+  @Override
+  protected void onResumeFragments() {
+    super.onResumeFragments();
+
+    handleIntent();
   }
 
   public void restart() {
@@ -351,20 +344,8 @@ public class MainActivity extends InjectingAppCompatActivity
 
     localBroadcastManager.unregisterReceiver(repeatConfirmationReceiver);
 
-    disposables.dispose();
-  }
-
-  @Override
-  public void onFilterItemClicked(@Nullable FilterListItem item) {
-    TaskEditFragment tef = getTaskEditFragment();
-    if (tef != null) {
-      getTaskEditFragment().save();
-    }
-
-    if (item == null) {
-      startActivity(TaskIntents.getTaskListByIdIntent(this, null));
-    } else if (item instanceof Filter) {
-      startActivity(TaskIntents.getTaskListIntent(this, (Filter) item));
+    if (disposables != null) {
+      disposables.dispose();
     }
   }
 

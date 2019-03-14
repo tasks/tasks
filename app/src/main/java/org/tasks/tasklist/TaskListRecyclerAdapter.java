@@ -3,6 +3,7 @@ package org.tasks.tasklist;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import androidx.appcompat.view.ActionMode;
+import androidx.fragment.app.FragmentActivity;
 import androidx.paging.AsyncPagedListDiffer;
 import androidx.paging.PagedList;
 import androidx.recyclerview.widget.AsyncDifferConfig;
@@ -17,6 +18,7 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.utility.Flags;
 import java.util.List;
+import org.tasks.intents.TaskIntents;
 
 public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
     implements ViewHolder.ViewHolderCallbacks, ListUpdateCallback {
@@ -114,8 +116,10 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
   @Override
   public void onClick(Filter filter) {
     if (mode == null) {
-      MainActivity activity = (MainActivity) taskList.getActivity();
-      activity.onFilterItemClicked(filter);
+      FragmentActivity context = taskList.getActivity();
+      if (context != null) {
+        context.startActivity(TaskIntents.getTaskListIntent(context, filter));
+      }
     }
   }
 

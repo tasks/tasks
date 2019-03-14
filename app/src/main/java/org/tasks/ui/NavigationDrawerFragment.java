@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentActivity;
 import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
@@ -29,14 +30,15 @@ import io.reactivex.schedulers.Schedulers;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
-import org.jetbrains.annotations.Nullable;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.filters.FilterProvider;
 import org.tasks.filters.NavigationDrawerAction;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingFragment;
+import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.AppearancePreferences;
 
 public class NavigationDrawerFragment extends InjectingFragment {
@@ -52,7 +54,6 @@ public class NavigationDrawerFragment extends InjectingFragment {
   @Inject FilterProvider filterProvider;
   @Inject TaskDao taskDao;
   /** A pointer to the current callbacks instance (the Activity). */
-  private OnFilterItemClickedListener mCallbacks;
 
   private DrawerLayout mDrawerLayout;
   private ListView mDrawerListView;
@@ -94,13 +95,20 @@ public class NavigationDrawerFragment extends InjectingFragment {
         || requestCode == REQUEST_NEW_GTASK_LIST
         || requestCode == REQUEST_NEW_CALDAV_COLLECTION) {
       if (resultCode == RESULT_OK && data != null) {
-        Filter newList = data.getParcelableExtra(MainActivity.OPEN_FILTER);
-        if (newList != null) {
-          mCallbacks.onFilterItemClicked(newList);
+        Filter filter = data.getParcelableExtra(MainActivity.OPEN_FILTER);
+        if (filter != null) {
+          openFilter(filter);
         }
       }
     } else {
       super.onActivityResult(requestCode, resultCode, data);
+    }
+  }
+
+  private void openFilter(@Nonnull Filter filter) {
+    FragmentActivity activity = getActivity();
+    if (activity != null) {
+      activity.startActivity(TaskIntents.getTaskListIntent(activity, filter));
     }
   }
 
@@ -169,9 +177,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
     FilterListItem item = adapter.getItem(position);
     if (item instanceof Filter) {
       if (!item.equals(adapter.getSelected())) {
-        if (mCallbacks != null) {
-          mCallbacks.onFilterItemClicked(item);
-        }
+        openFilter((Filter) item);
       }
     } else if (item instanceof NavigationDrawerAction) {
       NavigationDrawerAction action = (NavigationDrawerAction) item;
@@ -184,20 +190,8 @@ public class NavigationDrawerFragment extends InjectingFragment {
   }
 
   @Override
-  public void onAttach(Activity activity) {
-    super.onAttach(activity);
-    mCallbacks = (OnFilterItemClickedListener) activity;
-  }
-
-  @Override
   protected void inject(FragmentComponent component) {
     component.inject(this);
-  }
-
-  @Override
-  public void onDetach() {
-    super.onDetach();
-    mCallbacks = null;
   }
 
   @Override
@@ -260,10 +254,6 @@ public class NavigationDrawerFragment extends InjectingFragment {
       result.put((Filter) item, taskDao.count((Filter) item));
     }
     return result;
-  }
-
-  public interface OnFilterItemClickedListener {
-    void onFilterItemClicked(@Nullable FilterListItem item);
   }
 
   private class RefreshReceiver extends BroadcastReceiver {

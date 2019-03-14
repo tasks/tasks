@@ -76,6 +76,7 @@ import org.tasks.dialogs.SortDialog;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingFragment;
+import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.Device;
 import org.tasks.preferences.Preferences;
 import org.tasks.sync.SyncAdapters;
@@ -318,8 +319,7 @@ public final class TaskListFragment extends InjectingFragment
             new SearchView.OnQueryTextListener() {
               @Override
               public boolean onQueryTextSubmit(String query) {
-                ((MainActivity) getActivity())
-                    .onFilterItemClicked(createSearchFilter(query.trim()));
+                openFilter(createSearchFilter(query.trim()));
                 MenuItemCompat.collapseActionView(search);
                 return true;
               }
@@ -330,6 +330,14 @@ public final class TaskListFragment extends InjectingFragment
                 return true;
               }
             });
+  }
+
+  private void openFilter(@Nullable Filter filter) {
+    if (filter == null) {
+      startActivity(TaskIntents.getTaskListByIdIntent(context, null));
+    } else {
+      startActivity(TaskIntents.getTaskListIntent(context, filter));
+    }
   }
 
   private void searchByQuery(String query) {
@@ -609,16 +617,10 @@ public final class TaskListFragment extends InjectingFragment
       case REQUEST_TAG_SETTINGS:
         if (resultCode == Activity.RESULT_OK) {
           String action = data.getAction();
-          MainActivity activity = (MainActivity) getActivity();
           if (ACTION_DELETED.equals(action)) {
-            activity.onFilterItemClicked(null);
+            openFilter(null);
           } else if (ACTION_RELOAD.equals(action)) {
-            activity
-                .getIntent()
-                .putExtra(
-                    MainActivity.OPEN_FILTER,
-                    (Filter) data.getParcelableExtra(MainActivity.OPEN_FILTER));
-            activity.recreate();
+            openFilter(data.getParcelableExtra(MainActivity.OPEN_FILTER));
           }
         }
         break;
