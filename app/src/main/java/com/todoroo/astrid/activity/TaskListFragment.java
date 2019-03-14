@@ -22,11 +22,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.view.MenuItemCompat;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -233,7 +233,7 @@ public final class TaskListFragment extends InjectingFragment
   }
 
   @Override
-  public void onSaveInstanceState(Bundle outState) {
+  public void onSaveInstanceState(@NonNull Bundle outState) {
     super.onSaveInstanceState(outState);
 
     outState.putParcelable(EXTRA_FILTER, filter);
@@ -320,7 +320,7 @@ public final class TaskListFragment extends InjectingFragment
               @Override
               public boolean onQueryTextSubmit(String query) {
                 openFilter(createSearchFilter(query.trim()));
-                MenuItemCompat.collapseActionView(search);
+                search.collapseActionView();
                 return true;
               }
 
