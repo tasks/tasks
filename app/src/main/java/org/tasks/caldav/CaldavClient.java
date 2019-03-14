@@ -19,9 +19,6 @@ import at.bitfire.dav4android.property.GetCTag;
 import at.bitfire.dav4android.property.ResourceType;
 import at.bitfire.dav4android.property.SupportedCalendarComponentSet;
 import com.todoroo.astrid.helper.UUIDHelper;
-import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -59,7 +56,7 @@ public class CaldavClient {
         encryption.decrypt(caldavAccount.getPassword()));
   }
 
-  CaldavClient(String url, String username, String password) {
+  public CaldavClient(String url, String username, String password) {
     BasicDigestAuthHandler basicDigestAuthHandler =
         new BasicDigestAuthHandler(null, username, password);
     httpClient =
@@ -123,14 +120,9 @@ public class CaldavClient {
     return davResource.getLocation().resolve(homeSet).toString();
   }
 
-  Single<String> getHomeSet() {
-    return Single.fromCallable(
-            () -> {
-              String principal = tryFindPrincipal();
-              return findHomeset(isEmpty(principal) ? httpUrl : httpUrl.resolve(principal));
-            })
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread());
+  public String getHomeSet() throws IOException, DavException {
+    String principal = tryFindPrincipal();
+    return findHomeset(isEmpty(principal) ? httpUrl : httpUrl.resolve(principal));
   }
 
   public List<DavResponse> getCalendars() throws IOException, DavException {

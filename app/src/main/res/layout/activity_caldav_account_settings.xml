@@ -9,6 +9,8 @@
 
   <include layout="@layout/toolbar"/>
 
+  <include layout="@layout/progress_view"/>
+
   <ScrollView
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">

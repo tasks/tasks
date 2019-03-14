@@ -2,16 +2,17 @@ package org.tasks.caldav;
 
 import static android.text.TextUtils.isEmpty;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProviders;
 import at.bitfire.dav4android.exception.HttpException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,6 +21,7 @@ import butterknife.OnTextChanged;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.rey.material.widget.ProgressView;
 import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.TaskDeleter;
 import java.net.ConnectException;
@@ -28,6 +30,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import javax.inject.Inject;
 import org.tasks.R;
+import org.tasks.activities.AddCaldavAccountViewModel;
+import org.tasks.activities.UpdateCaldavAccountViewModel;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking.Events;
 import org.tasks.data.CaldavAccount;
@@ -85,7 +89,12 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
   @BindView(R.id.toolbar)
   Toolbar toolbar;
 
+  @BindView(R.id.progress_bar)
+  ProgressView progressView;
+
   private CaldavAccount caldavAccount;
+  private AddCaldavAccountViewModel addCaldavAccountViewModel;
+  private UpdateCaldavAccountViewModel updateCaldavAccountViewModel;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +103,10 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
     setContentView(R.layout.activity_caldav_account_settings);
 
     ButterKnife.bind(this);
+
+    addCaldavAccountViewModel = ViewModelProviders.of(this).get(AddCaldavAccountViewModel.class);
+    updateCaldavAccountViewModel =
+        ViewModelProviders.of(this).get(UpdateCaldavAccountViewModel.class);
 
     caldavAccount = getIntent().getParcelableExtra(EXTRA_CALDAV_DATA);
 
@@ -136,6 +149,23 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
       InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
       imm.showSoftInput(name, InputMethodManager.SHOW_IMPLICIT);
     }
+
+    addCaldavAccountViewModel.getData().observe(this, this::addAccount);
+    updateCaldavAccountViewModel.getData().observe(this, this::updateAccount);
+    addCaldavAccountViewModel.getError().observe(this, this::requestFailed);
+    updateCaldavAccountViewModel.getError().observe(this, this::requestFailed);
+  }
+
+  private void showProgressIndicator() {
+    progressView.setVisibility(View.VISIBLE);
+  }
+
+  private void hideProgressIndicator() {
+    progressView.setVisibility(View.GONE);
+  }
+
+  private boolean requestInProgress() {
+    return progressView.getVisibility() == View.VISIBLE;
   }
 
   @OnTextChanged(R.id.name)
@@ -198,6 +228,10 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
   }
 
   private void save() {
+    if (requestInProgress()) {
+      return;
+    }
+
     String name = getNewName();
     String username = getNewUsername();
     String url = getNewURL();
@@ -263,21 +297,11 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
     }
 
     if (caldavAccount == null) {
-      CaldavClient client = new CaldavClient(url, username, password);
-      ProgressDialog dialog = dialogBuilder.newProgressDialog(R.string.contacting_server);
-      dialog.show();
-      client
-          .getHomeSet()
-          .doAfterTerminate(dialog::dismiss)
-          .subscribe(this::addAccount, this::requestFailed);
+      showProgressIndicator();
+      addCaldavAccountViewModel.addAccount(url, username, password);
     } else if (needsValidation()) {
-      CaldavClient client = new CaldavClient(url, username, password);
-      ProgressDialog dialog = dialogBuilder.newProgressDialog(R.string.contacting_server);
-      dialog.show();
-      client
-          .getHomeSet()
-          .doAfterTerminate(dialog::dismiss)
-          .subscribe(this::updateAccount, this::requestFailed);
+      showProgressIndicator();
+      updateCaldavAccountViewModel.updateCaldavAccount(url, username, password);
     } else if (hasChanges()) {
       updateAccount(caldavAccount.getUrl());
     } else {
@@ -317,6 +341,8 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
   }
 
   private void requestFailed(Throwable t) {
+    hideProgressIndicator();
+
     if (t instanceof HttpException) {
       showSnackbar(t.getMessage());
     } else if (t instanceof DisplayableException) {
@@ -376,6 +402,10 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
   }
 
   private void removeAccount() {
+    if (requestInProgress()) {
+      return;
+    }
+
     dialogBuilder
         .newMessageDialog(R.string.logout_warning, caldavAccount.getName())
         .setPositiveButton(
@@ -391,6 +421,10 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
   }
 
   private void discard() {
+    if (requestInProgress()) {
+      return;
+    }
+
     if (!hasChanges()) {
       finish();
     } else {
