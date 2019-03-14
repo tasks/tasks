@@ -284,7 +284,6 @@
 	<string name="yesterday">Hier</string>
 	<string name="tmrw">Demain</string>
 	<string name="yest">Hier</string>
-	<string name="DLG_wait">Veuillez patienter...</string>
 	<string name="sync_SPr_interval_title">Synchro. en arrière-plan</string>
 	<string name="widget_show_due_date">Montrer les dates d\'échéance</string>
 	<string name="widget_show_checkboxes">Montrer les cases à cocher</string>
@@ -405,10 +404,6 @@
 	<string name="widget_header_settings">Paramètres de l\'en-tête</string>
 	<string name="widget_row_settings">Paramètres de la colonne</string>
 	<string name="sync_error_permissions">Tasks requiert les permissions</string>
-	<string name="creating_new_list">Création d\'une nouvelle liste</string>
-	<string name="contacting_server">Connexion au serveur</string>
-	<string name="deleting_list">Suppression de la liste</string>
-	<string name="renaming_list">Renommage de la liste</string>
 	<string name="clear_completed_tasks_confirmation">Supprimer les tâches terminées ?</string>
 	<string name="copy_multiple_tasks_confirmation">%s copiées</string>
 	<string name="delete_multiple_tasks_confirmation">%s supprimées</string>
@@ -503,5 +498,4 @@ est configuré correctement</string>
 	<string name="location_arrived">Arrivé à %s</string>
 	<string name="location_departed">Départ %s</string>
 	<string name="building_notifications">Générer des notifications</string>
-	<string name="error_task_not_found">Tâche non trouvée</string>
 </resources>

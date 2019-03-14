@@ -206,7 +206,6 @@
 	<string name="yesterday">Ayer</string>
 	<string name="tmrw">Mñna</string>
 	<string name="yest">Ayer</string>
-	<string name="DLG_wait">Por favor, espere...</string>
 	<string name="sync_SPr_interval_title">Sincronización en segundo plano</string>
 	<string name="widget_show_due_date">Mostrar fechas de vencimiento</string>
 	<string name="widget_show_checkboxes">Mostrar casillas de verificación</string>
@@ -322,9 +321,6 @@
 	<string name="widget_header_settings">Configuración de encabezado</string>
 	<string name="widget_row_settings">Configuración de fila</string>
 	<string name="sync_error_permissions">Tasks requiere permisos</string>
-	<string name="creating_new_list">Creando nueva lista</string>
-	<string name="deleting_list">Borrando lista</string>
-	<string name="renaming_list">Renombrando lista</string>
 	<string name="clear_completed_tasks_confirmation">¿Borrar tareas completadas?</string>
 	<string name="copy_multiple_tasks_confirmation">%s copiadas</string>
 	<string name="delete_multiple_tasks_confirmation">%s borradas</string>

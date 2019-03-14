@@ -300,7 +300,6 @@
 	<string name="yesterday">Dün</string>
 	<string name="tmrw">Yarın</string>
 	<string name="yest">Dün</string>
-	<string name="DLG_wait">Lütfen bekleyin...</string>
 	<string name="sync_SPr_interval_title">Arka planda eşzamanla</string>
 	<string name="widget_show_due_date">Bitiş tarihlerini göster</string>
 	<string name="widget_show_checkboxes">Onay kutularını göster</string>
@@ -428,10 +427,6 @@
 	<string name="widget_header_settings">Başlık ayarları</string>
 	<string name="widget_row_settings">Satır ayarları</string>
 	<string name="sync_error_permissions">Tasks izne gereksiniyor</string>
-	<string name="creating_new_list">Yeni liste oluşturuluyor</string>
-	<string name="contacting_server">Sunucuya bağlanılıyor</string>
-	<string name="deleting_list">Liste siliniyor</string>
-	<string name="renaming_list">Liste yeniden adlandırılıyor</string>
 	<string name="clear_completed_tasks_confirmation">Tamamlanan görevleri temizle?</string>
 	<string name="copy_multiple_tasks_confirmation">%s kopyalandı</string>
 	<string name="delete_multiple_tasks_confirmation">%s silindi</string>
@@ -526,5 +521,4 @@ uygulamanızın doğru kurulduğundan emin olun.</string>
 	<string name="location_arrived">Varıldı: %s</string>
 	<string name="location_departed">Kalkıldı: %s</string>
 	<string name="building_notifications">Bildirimler oluşturuluyor</string>
-	<string name="error_task_not_found">Görev bulunamadı</string>
 </resources>

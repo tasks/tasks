@@ -286,7 +286,6 @@
 	<string name="yesterday">Wczoraj</string>
 	<string name="tmrw">jtr</string>
 	<string name="yest">wcz</string>
-	<string name="DLG_wait">Proszę czekać...</string>
 	<string name="sync_SPr_interval_title">Synchronizacja w tle</string>
 	<string name="widget_show_due_date">Pokaż terminy</string>
 	<string name="widget_show_checkboxes">Pokaż przyciski wyboru</string>
@@ -411,10 +410,6 @@
 	<string name="widget_header_settings">Ustawienia nagłówka</string>
 	<string name="widget_row_settings">Ustawienia rzędu</string>
 	<string name="sync_error_permissions">Tasks wymaga uprawnienia</string>
-	<string name="creating_new_list">Tworzenie nowej listy</string>
-	<string name="contacting_server">Łączę z serwerem</string>
-	<string name="deleting_list">Usuwanie listy</string>
-	<string name="renaming_list">Zmiana nazwy listy</string>
 	<string name="clear_completed_tasks_confirmation">Wyczyścić ukończone zadania?</string>
 	<string name="copy_multiple_tasks_confirmation">%s skopiowanych</string>
 	<string name="delete_multiple_tasks_confirmation">%s usuniętych</string>

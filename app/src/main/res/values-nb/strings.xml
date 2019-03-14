@@ -126,7 +126,6 @@
 	<string name="today">I dag</string>
 	<string name="tomorrow">I morgen</string>
 	<string name="yesterday">I går</string>
-	<string name="DLG_wait">Vennligst vent...</string>
 	<string name="sync_SPr_interval_title">Bakgrunnssynkronisering</string>
 	<string name="widget_show_due_date">Vis tidsfrister</string>
 	<string name="widget_show_checkboxes">Vis avmerkingsbokser</string>

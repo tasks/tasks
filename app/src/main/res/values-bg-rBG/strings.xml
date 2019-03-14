@@ -298,7 +298,6 @@
 	<string name="yesterday">Вчера</string>
 	<string name="tmrw">Утре</string>
 	<string name="yest">Вчера</string>
-	<string name="DLG_wait">Моля, изчакайте...</string>
 	<string name="sync_SPr_interval_title">Синхронзиране във фонов режим</string>
 	<string name="widget_show_due_date">Покажи крайните дати</string>
 	<string name="widget_show_checkboxes">Покажи отметки</string>
@@ -427,10 +426,6 @@
 	<string name="widget_header_settings">Настройки на заглавието</string>
 	<string name="widget_row_settings">Настройки на реда</string>
 	<string name="sync_error_permissions">Tasks изисква разрешения</string>
-	<string name="creating_new_list">Нов списък</string>
-	<string name="contacting_server">Свързване със сървъра</string>
-	<string name="deleting_list">Изтриване на списък</string>
-	<string name="renaming_list">Преименуване на списък</string>
 	<string name="clear_completed_tasks_confirmation">Изчистване на завършени задачи?</string>
 	<string name="copy_multiple_tasks_confirmation">%s копирани</string>
 	<string name="delete_multiple_tasks_confirmation">%s изтрити</string>

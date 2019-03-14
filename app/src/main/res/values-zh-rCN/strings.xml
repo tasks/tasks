@@ -288,7 +288,6 @@
 	<string name="yesterday">昨天</string>
 	<string name="tmrw">明天</string>
 	<string name="yest">昨天</string>
-	<string name="DLG_wait">请稍候...</string>
 	<string name="sync_SPr_interval_title">后台同步</string>
 	<string name="widget_show_due_date">显示截止日期</string>
 	<string name="widget_show_checkboxes">显示复选框</string>
@@ -412,10 +411,6 @@
 	<string name="widget_header_settings">标题设置</string>
 	<string name="widget_row_settings">行设置</string>
 	<string name="sync_error_permissions">Tasks 需要权限</string>
-	<string name="creating_new_list">正在创建新列表</string>
-	<string name="contacting_server">正在连接服务器</string>
-	<string name="deleting_list">正在删除列表</string>
-	<string name="renaming_list">正在重命名列表</string>
 	<string name="clear_completed_tasks_confirmation">清除完成的任务？</string>
 	<string name="copy_multiple_tasks_confirmation">%s 已复制</string>
 	<string name="delete_multiple_tasks_confirmation">%s 已删除</string>

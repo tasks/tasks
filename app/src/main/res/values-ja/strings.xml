@@ -296,7 +296,6 @@
 	<string name="yesterday">昨日</string>
 	<string name="tmrw">明日</string>
 	<string name="yest">昨日</string>
-	<string name="DLG_wait">お待ちください</string>
 	<string name="sync_SPr_interval_title">バックグラウンド同期</string>
 	<string name="widget_show_due_date">期限を表示</string>
 	<string name="widget_show_checkboxes">チェックボックスを表示</string>
@@ -424,10 +423,6 @@
 	<string name="widget_header_settings">ヘッダー設定</string>
 	<string name="widget_row_settings">行設定</string>
 	<string name="sync_error_permissions">Tasks はアクセス許可が必要です</string>
-	<string name="creating_new_list">新しいリストを作成中</string>
-	<string name="contacting_server">サーバーに接続中</string>
-	<string name="deleting_list">リストの削除中</string>
-	<string name="renaming_list">リストの名前を変更中</string>
 	<string name="clear_completed_tasks_confirmation">完了したタスクをクリアしますか?</string>
 	<string name="copy_multiple_tasks_confirmation">%s コピー済</string>
 	<string name="delete_multiple_tasks_confirmation">%s 削除済</string>
@@ -522,5 +517,4 @@
 	<string name="location_arrived">%s に到着</string>
 	<string name="location_departed">%s に出発</string>
 	<string name="building_notifications">通知を生成しています</string>
-	<string name="error_task_not_found">タスクが見つかりません</string>
 </resources>

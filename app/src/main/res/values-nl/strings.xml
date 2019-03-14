@@ -294,7 +294,6 @@
 	<string name="yesterday">Gisteren</string>
 	<string name="tmrw">mrgn</string>
 	<string name="yest">gisteren</string>
-	<string name="DLG_wait">Even geduld a.u.b.</string>
 	<string name="sync_SPr_interval_title">Achtergrond synchronisatie</string>
 	<string name="widget_show_due_date">Toon eind datums</string>
 	<string name="widget_show_checkboxes">Toon vinkboxjes</string>
@@ -415,10 +414,6 @@
 	<string name="widget_header_settings">Titel instellingen</string>
 	<string name="widget_row_settings">Regel instellingen</string>
 	<string name="sync_error_permissions">Tasks vereist permissie</string>
-	<string name="creating_new_list">Nieuwe lijst aanmaken</string>
-	<string name="contacting_server">Verbinden met de server</string>
-	<string name="deleting_list">Verwijder lijst</string>
-	<string name="renaming_list">Hernoem lijst</string>
 	<string name="clear_completed_tasks_confirmation">Verwijder voltooide taken?</string>
 	<string name="copy_multiple_tasks_confirmation">%s gekopieerd</string>
 	<string name="delete_multiple_tasks_confirmation">%s verwijderd</string>
@@ -509,5 +504,4 @@
 	<string name="location_arrived">Aangekomen on %s</string>
 	<string name="location_departed">Vetrokken om %s</string>
 	<string name="building_notifications">Notificaties genereren</string>
-	<string name="error_task_not_found">Taak niet gevonden</string>
 </resources>

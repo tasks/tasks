@@ -286,7 +286,6 @@
 	<string name="yesterday">Včera</string>
 	<string name="tmrw">Zajtra</string>
 	<string name="yest">Včera</string>
-	<string name="DLG_wait">Prosím čakaj...</string>
 	<string name="sync_SPr_interval_title">Synchronizácia na pozadí</string>
 	<string name="widget_show_due_date">Ukázať dátumy vypršania </string>
 	<string name="widget_show_checkboxes">Ukázať zaškrtávacie políčka </string>
@@ -408,10 +407,6 @@
 	<string name="widget_header_settings">Nastavenie záhlavia </string>
 	<string name="widget_row_settings">Nastavenie riadka</string>
 	<string name="sync_error_permissions">Úlohy vyžadujú povolenia</string>
-	<string name="creating_new_list">Vytvorenie nového zoznamu</string>
-	<string name="contacting_server">Pripájanie sa na server</string>
-	<string name="deleting_list">Zmazať zoznam</string>
-	<string name="renaming_list">Premenovať zoznam</string>
 	<string name="clear_completed_tasks_confirmation">Vymazať dokončené úlohy?</string>
 	<string name="copy_multiple_tasks_confirmation">%s skopírovaných</string>
 	<string name="delete_multiple_tasks_confirmation">%s zmazaných</string>

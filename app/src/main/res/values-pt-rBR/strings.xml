@@ -296,7 +296,6 @@
 	<string name="yesterday">Ontem</string>
 	<string name="tmrw">Amanhã</string>
 	<string name="yest">Ontem</string>
-	<string name="DLG_wait">Por favor, aguarde...</string>
 	<string name="sync_SPr_interval_title">Sincronização em segundo plano</string>
 	<string name="widget_show_due_date">Mostrar vencimentos</string>
 	<string name="widget_show_checkboxes">Mostrar tarefas ocultas</string>
@@ -424,10 +423,6 @@
 	<string name="widget_header_settings">Config. cabeçalho</string>
 	<string name="widget_row_settings">Congif. entrada</string>
 	<string name="sync_error_permissions">Tasks precisa de permissão</string>
-	<string name="creating_new_list">Criando uma nova lista</string>
-	<string name="contacting_server">Contatando servidor</string>
-	<string name="deleting_list">Excluindo lista</string>
-	<string name="renaming_list">Renomeando uma lista</string>
 	<string name="clear_completed_tasks_confirmation">Limpar tarefas concluídas?</string>
 	<string name="copy_multiple_tasks_confirmation">%s copiadas</string>
 	<string name="delete_multiple_tasks_confirmation">%s excluídas</string>
@@ -522,5 +517,4 @@ aplicativo Google Play está configurado corretamente</string>
 	<string name="location_arrived">Chegou às %s</string>
 	<string name="location_departed">Saiu às %s</string>
 	<string name="building_notifications">Gerando notificações</string>
-	<string name="error_task_not_found">Tarefa não encontrada</string>
 </resources>

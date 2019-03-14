@@ -295,7 +295,6 @@
 	<string name="yesterday">Vakar</string>
 	<string name="tmrw">Ryt</string>
 	<string name="yest">Vakar</string>
-	<string name="DLG_wait">Prašome palaukti...</string>
 	<string name="sync_SPr_interval_title">Foninis sinchronizavimas</string>
 	<string name="widget_show_due_date">Rodyti pabaigos terminus</string>
 	<string name="widget_show_checkboxes">Rodyti žymimus kvadratėlius</string>
@@ -422,10 +421,6 @@
 	<string name="widget_header_settings">Antraščių nustatymai</string>
 	<string name="widget_row_settings">Eilutės nustatymai</string>
 	<string name="sync_error_permissions">Tasks reikalingas leidimas</string>
-	<string name="creating_new_list">Kuriant naują sąrašą</string>
-	<string name="contacting_server">Susisiekiama su serveriu</string>
-	<string name="deleting_list">Trinamas sąrašas</string>
-	<string name="renaming_list">Pervadinamas sąrašas</string>
 	<string name="clear_completed_tasks_confirmation">Išvalyti užbaigtas užduotis?</string>
 	<string name="copy_multiple_tasks_confirmation">%s nukopijuota</string>
 	<string name="delete_multiple_tasks_confirmation">%s ištrinta</string>
@@ -520,5 +515,4 @@ sukonfigūruota tinkamai.</string>
 	<string name="location_arrived">Atvykta į %s</string>
 	<string name="location_departed">Išvykta iš %s</string>
 	<string name="building_notifications">Generuojami pranešimai</string>
-	<string name="error_task_not_found">Užduotis nerasta</string>
 </resources>

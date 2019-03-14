@@ -190,7 +190,6 @@
 	<string name="yesterday">Včera</string>
 	<string name="tmrw">Zítra</string>
 	<string name="yest">Včera</string>
-	<string name="DLG_wait">Čekejte prosím...</string>
 	<string name="sync_SPr_interval_title">Synchronizace na pozadí</string>
 	<string name="widget_show_due_date">Ukázat data splnění</string>
 	<string name="widget_show_checkboxes">Ukázat zaškrtávací políčka</string>

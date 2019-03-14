@@ -206,7 +206,6 @@
 	<string name="yesterday">Igår</string>
 	<string name="tmrw">imorn</string>
 	<string name="yest">Igår</string>
-	<string name="DLG_wait">Var god vänta...</string>
 	<string name="sync_SPr_interval_title">Bakgrundssynkronisering</string>
 	<string name="widget_show_due_date">Visa förfallodatum</string>
 	<string name="widget_show_checkboxes">Visa kryssrutor</string>
@@ -311,9 +310,6 @@
 	<string name="hardware_support_required">Hårdvarustöd krävs</string>
 	<string name="no_calendars_found">Inga kalendrar hittades</string>
 	<string name="widget_settings">Inställningar för widget</string>
-	<string name="creating_new_list">Skapar ny lista</string>
-	<string name="deleting_list">Tar bort lista</string>
-	<string name="renaming_list">Byter namn på listan</string>
 	<string name="clear_completed_tasks_confirmation">Rensa bort slutförda uppgifter?</string>
 	<string name="themes">Fler teman</string>
 </resources>

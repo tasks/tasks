@@ -300,7 +300,6 @@
 	<string name="yesterday">어제</string>
 	<string name="tmrw">내일</string>
 	<string name="yest">어제</string>
-	<string name="DLG_wait">잠시 기다리세요...</string>
 	<string name="sync_SPr_interval_title">백그라운드 동기화</string>
 	<string name="widget_show_due_date">완료 예정일 표시</string>
 	<string name="widget_show_checkboxes">체크박스 표시</string>
@@ -427,10 +426,6 @@
 	<string name="widget_header_settings">헤더 설정</string>
 	<string name="widget_row_settings">줄 설정</string>
 	<string name="sync_error_permissions">Tasks는 권한이 필요합니다. </string>
-	<string name="creating_new_list">새 목록 만들기</string>
-	<string name="contacting_server">서버에 접속하는 중</string>
-	<string name="deleting_list">목록 삭제하기</string>
-	<string name="renaming_list">목록 이름 변경하기</string>
 	<string name="clear_completed_tasks_confirmation">완료한 할일을 지울까요?</string>
 	<string name="copy_multiple_tasks_confirmation">%s 복사 완료</string>
 	<string name="delete_multiple_tasks_confirmation">%s 삭제 완료</string>

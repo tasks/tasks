@@ -244,7 +244,6 @@
 	<string name="yesterday">Вчора</string>
 	<string name="tmrw">Звтр</string>
 	<string name="yest">Вчр</string>
-	<string name="DLG_wait">Будь ласка, зачекайте...</string>
 	<string name="sync_SPr_interval_title">Фонова синхронізація</string>
 	<string name="widget_show_due_date">Показувати дату виконання</string>
 	<string name="widget_show_checkboxes">Показати галочки</string>
@@ -364,9 +363,6 @@
 	<string name="widget_header_settings">Налаштування заголовку</string>
 	<string name="widget_row_settings">Налаштування рядку</string>
 	<string name="sync_error_permissions">Завдання потребують дозволу</string>
-	<string name="creating_new_list">Створення нового списку</string>
-	<string name="deleting_list">Видалення списку</string>
-	<string name="renaming_list">Перейменування списку</string>
 	<string name="clear_completed_tasks_confirmation">Видалити завершені завдання?</string>
 	<string name="copy_multiple_tasks_confirmation">%s скопійовано</string>
 	<string name="delete_multiple_tasks_confirmation">%s видалено</string>

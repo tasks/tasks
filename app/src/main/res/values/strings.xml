@@ -638,7 +638,6 @@ File %1$s contained %2$s.\n\n
   <!-- ================================================== Generic Dialogs == -->
 
   <!-- Progress dialog shown when doing something slow -->
-  <string name="DLG_wait">Please wait…</string>
 
   <!-- ================================================== SyncPreferences == -->
 
@@ -774,10 +773,6 @@ File %1$s contained %2$s.\n\n
   <string name="widget_header_settings">Header settings</string>
   <string name="widget_row_settings">Row settings</string>
   <string name="sync_error_permissions">Tasks requires permission</string>
-  <string name="creating_new_list">Creating new list</string>
-  <string name="contacting_server">Contacting server</string>
-  <string name="deleting_list">Deleting list</string>
-  <string name="renaming_list">Renaming list</string>
   <string name="clear_completed_tasks_confirmation">Clear completed tasks?</string>
   <string name="copy_multiple_tasks_confirmation">%s copied</string>
   <string name="delete_multiple_tasks_confirmation">%s deleted</string>
@@ -878,5 +873,4 @@ File %1$s contained %2$s.\n\n
   <string name="location_arrived">Arrived at %s</string>
   <string name="location_departed">Departed %s</string>
   <string name="building_notifications">Generating notifications</string>
-  <string name="error_task_not_found">Task not found</string>
 </resources>

@@ -295,7 +295,6 @@
 	<string name="yesterday">Ieri</string>
 	<string name="tmrw">Domani</string>
 	<string name="yest">Ieri</string>
-	<string name="DLG_wait">Attendi...</string>
 	<string name="sync_SPr_interval_title">Sincronizzazione eseguita in background</string>
 	<string name="widget_show_due_date">Mostra scadenze</string>
 	<string name="widget_show_checkboxes">Mostra caselle selezione</string>
@@ -423,10 +422,6 @@
 	<string name="widget_header_settings">Impostazioni intestazione</string>
 	<string name="widget_row_settings">Impostazioni riga</string>
 	<string name="sync_error_permissions">L\'attività richiede l\'autorizzazione</string>
-	<string name="creating_new_list">Crea nuova lista</string>
-	<string name="contacting_server">Contatto il server...</string>
-	<string name="deleting_list">Cancella lista</string>
-	<string name="renaming_list">RInomina lista</string>
 	<string name="clear_completed_tasks_confirmation">Elimino le attività completate?</string>
 	<string name="copy_multiple_tasks_confirmation">%s copiati</string>
 	<string name="delete_multiple_tasks_confirmation">%s eliminati</string>
@@ -521,5 +516,4 @@ Google Play app sia impostata correttamente</string>
 	<string name="location_arrived">Arrivato alle %s</string>
 	<string name="location_departed">Partito alle %s</string>
 	<string name="building_notifications">Gestione notifiche</string>
-	<string name="error_task_not_found">Attività non trovata</string>
 </resources>
