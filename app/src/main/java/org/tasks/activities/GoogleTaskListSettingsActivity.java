@@ -168,6 +168,10 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
     progressView.setVisibility(View.GONE);
   }
 
+  private boolean requestInProgress() {
+    return progressView.getVisibility() == View.VISIBLE;
+  }
+
   @Override
   protected void onSaveInstanceState(Bundle outState) {
     super.onSaveInstanceState(outState);
@@ -198,6 +202,10 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
   }
 
   private void save() {
+    if (requestInProgress()) {
+      return;
+    }
+
     String newName = getNewName();
 
     if (isEmpty(newName)) {
@@ -241,10 +249,17 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
   }
 
   private void deleteTag() {
+    if (requestInProgress()) {
+      return;
+    }
+
     dialogBuilder
         .newMessageDialog(R.string.delete_tag_confirmation, gtasksList.getTitle())
         .setPositiveButton(
-            R.string.delete, (dialog, which) -> deleteListViewModel.deleteList(context, gtasksList))
+            R.string.delete, (dialog, which) -> {
+              showProgressIndicator();
+              deleteListViewModel.deleteList(context, gtasksList);
+            })
         .setNegativeButton(android.R.string.cancel, null)
         .show();
   }
@@ -260,6 +275,10 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
   }
 
   private void discard() {
+    if (requestInProgress()) {
+      return;
+    }
+
     if (hasChanges()) {
       dialogBuilder
           .newMessageDialog(R.string.discard_changes)
