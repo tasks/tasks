@@ -1,0 +1,11 @@
+<com.rey.material.widget.ProgressView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/progress_bar"
+  android:layout_width="fill_parent"
+  android:layout_height="4dp"
+  android:visibility="gone"
+  app:pv_autostart="true"
+  app:pv_circular="false"
+  app:pv_progressMode="indeterminate"
+  app:pv_progressStyle="@style/ProgressViewStyle"/>

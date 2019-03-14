@@ -19,7 +19,6 @@ import at.bitfire.dav4android.property.GetCTag;
 import at.bitfire.dav4android.property.ResourceType;
 import at.bitfire.dav4android.property.SupportedCalendarComponentSet;
 import com.todoroo.astrid.helper.UUIDHelper;
-import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -40,19 +39,20 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 import timber.log.Timber;
 
-class CaldavClient {
+public class CaldavClient {
 
   private final OkHttpClient httpClient;
   private final HttpUrl httpUrl;
 
-  CaldavClient(CaldavAccount caldavAccount, Encryption encryption) {
+  public CaldavClient(CaldavAccount caldavAccount, Encryption encryption) {
     this(
         caldavAccount.getUrl(),
         caldavAccount.getUsername(),
         encryption.decrypt(caldavAccount.getPassword()));
   }
 
-  CaldavClient(CaldavAccount caldavAccount, CaldavCalendar caldavCalendar, Encryption encryption) {
+  public CaldavClient(
+      CaldavAccount caldavAccount, CaldavCalendar caldavCalendar, Encryption encryption) {
     this(
         caldavCalendar.getUrl(),
         caldavAccount.getUsername(),
@@ -162,23 +162,17 @@ class CaldavClient {
     return urls;
   }
 
-  Completable deleteCollection() {
-    return Completable.fromAction(() -> new DavResource(httpClient, httpUrl).delete(null))
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread());
+  public void deleteCollection() throws IOException, HttpException {
+    new DavResource(httpClient, httpUrl).delete(null);
   }
 
-  Single<String> makeCollection(String displayName) {
-    return Single.fromCallable(
-            () -> {
-              DavResource davResource =
-                  new DavResource(httpClient, httpUrl.resolve(UUIDHelper.newUUID() + "/"));
-              String mkcolString = getMkcolString(displayName);
-              davResource.mkCol(mkcolString);
-              return davResource.getLocation().toString();
-            })
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread());
+  public String makeCollection(String displayName)
+      throws IOException, XmlPullParserException, HttpException {
+    DavResource davResource =
+        new DavResource(httpClient, httpUrl.resolve(UUIDHelper.newUUID() + "/"));
+    String mkcolString = getMkcolString(displayName);
+    davResource.mkCol(mkcolString);
+    return davResource.getLocation().toString();
   }
 
   private String getMkcolString(String displayName) throws IOException, XmlPullParserException {

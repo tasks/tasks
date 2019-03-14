@@ -2,7 +2,6 @@ package org.tasks.caldav;
 
 import static android.text.TextUtils.isEmpty;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +13,7 @@ import android.widget.LinearLayout;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProviders;
 import at.bitfire.dav4android.exception.HttpException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,6 +23,7 @@ import butterknife.OnTextChanged;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.rey.material.widget.ProgressView;
 import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.CaldavFilter;
@@ -32,6 +33,8 @@ import java.net.ConnectException;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.activities.ColorPickerActivity;
+import org.tasks.activities.CreateCalendarViewModel;
+import org.tasks.activities.DeleteCalendarViewModel;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.analytics.Tracking.Events;
@@ -81,9 +84,14 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
   @BindView(R.id.toolbar)
   Toolbar toolbar;
 
+  @BindView(R.id.progress_bar)
+  ProgressView progressView;
+
   private CaldavCalendar caldavCalendar;
   private CaldavAccount caldavAccount;
   private int selectedTheme = -1;
+  private CreateCalendarViewModel createCalendarViewModel;
+  private DeleteCalendarViewModel deleteCalendarViewModel;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +100,9 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
     setContentView(R.layout.activity_caldav_calendar_settings);
 
     ButterKnife.bind(this);
+
+    createCalendarViewModel = ViewModelProviders.of(this).get(CreateCalendarViewModel.class);
+    deleteCalendarViewModel = ViewModelProviders.of(this).get(DeleteCalendarViewModel.class);
 
     Intent intent = getIntent();
     caldavCalendar = intent.getParcelableExtra(EXTRA_CALDAV_CALENDAR);
@@ -147,6 +158,11 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
       InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
       imm.showSoftInput(name, InputMethodManager.SHOW_IMPLICIT);
     }
+
+    createCalendarViewModel.getData().observe(this, this::createSuccessful);
+    deleteCalendarViewModel.getData().observe(this, this::onDeleted);
+    createCalendarViewModel.getError().observe(this, this::requestFailed);
+    deleteCalendarViewModel.getError().observe(this, this::requestFailed);
   }
 
   @Override
@@ -184,6 +200,10 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
   }
 
   private void save() {
+    if (requestInProgress()) {
+      return;
+    }
+
     String name = getNewName();
 
     boolean failed = false;
@@ -204,13 +224,8 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
     }
 
     if (caldavCalendar == null) {
-      CaldavClient client = new CaldavClient(caldavAccount, encryption);
-      ProgressDialog dialog = dialogBuilder.newProgressDialog(R.string.contacting_server);
-      dialog.show();
-      client
-          .makeCollection(name)
-          .doAfterTerminate(dialog::dismiss)
-          .subscribe(this::createSuccessful, this::requestFailed);
+      showProgressIndicator();
+      createCalendarViewModel.createCalendar(caldavAccount, encryption, name);
     } else if (hasChanges()) {
       updateAccount();
     } else {
@@ -218,7 +233,21 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
     }
   }
 
+  private void showProgressIndicator() {
+    progressView.setVisibility(View.VISIBLE);
+  }
+
+  private void hideProgressIndicator() {
+    progressView.setVisibility(View.GONE);
+  }
+
+  private boolean requestInProgress() {
+    return progressView.getVisibility() == View.VISIBLE;
+  }
+
   private void requestFailed(Throwable t) {
+    hideProgressIndicator();
+
     if (t instanceof HttpException) {
       showSnackbar(t.getMessage());
     } else if (t instanceof DisplayableException) {
@@ -317,6 +346,10 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
   }
 
   private void discard() {
+    if (requestInProgress()) {
+      return;
+    }
+
     if (!hasChanges()) {
       finish();
     } else {
@@ -352,29 +385,28 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
   }
 
   private void deleteCollection() {
+    if (requestInProgress()) {
+      return;
+    }
+
     dialogBuilder
         .newMessageDialog(R.string.delete_tag_confirmation, caldavCalendar.getName())
         .setPositiveButton(
             R.string.delete,
             (dialog, which) -> {
-              CaldavClient caldavClient =
-                  new CaldavClient(caldavAccount, caldavCalendar, encryption);
-              ProgressDialog progressDialog =
-                  dialogBuilder.newProgressDialog(R.string.contacting_server);
-              progressDialog.show();
-              caldavClient
-                  .deleteCollection()
-                  .doAfterTerminate(progressDialog::dismiss)
-                  .subscribe(this::onDeleted, this::requestFailed);
+              showProgressIndicator();
+              deleteCalendarViewModel.deleteCalendar(caldavAccount, encryption, caldavCalendar);
             })
         .setNegativeButton(android.R.string.cancel, null)
         .show();
   }
 
-  private void onDeleted() {
-    taskDeleter.delete(caldavCalendar);
-    tracker.reportEvent(Events.CALDAV_LIST_DELETED);
-    setResult(RESULT_OK, new Intent(TaskListFragment.ACTION_DELETED));
-    finish();
+  private void onDeleted(boolean deleted) {
+    if (deleted) {
+      taskDeleter.delete(caldavCalendar);
+      tracker.reportEvent(Events.CALDAV_LIST_DELETED);
+      setResult(RESULT_OK, new Intent(TaskListFragment.ACTION_DELETED));
+      finish();
+    }
   }
 }
