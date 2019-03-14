@@ -7,12 +7,14 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Action;
 import io.reactivex.schedulers.Schedulers;
 
 public class ActionViewModel extends ViewModel {
-  private MutableLiveData<Boolean> completed = new MutableLiveData<>();
-  private MutableLiveData<Throwable> error = new MutableLiveData<>();
+  private final MutableLiveData<Boolean> completed = new MutableLiveData<>();
+  private final MutableLiveData<Throwable> error = new MutableLiveData<>();
+  private final CompositeDisposable disposables = new CompositeDisposable();
   private boolean inProgress;
 
   public LiveData<Boolean> getData() {
@@ -32,16 +34,21 @@ public class ActionViewModel extends ViewModel {
 
     if (!inProgress) {
       inProgress = true;
-      Completable.fromAction(action)
-          .subscribeOn(Schedulers.io())
-          .observeOn(AndroidSchedulers.mainThread())
-          .doOnComplete(() -> completed.setValue(true))
-          .doOnError(error::setValue)
-          .doFinally(() -> {
-            assertMainThread();
-            inProgress = false;
-          })
-          .subscribe();
+      disposables.add(
+          Completable.fromAction(action)
+              .subscribeOn(Schedulers.io())
+              .observeOn(AndroidSchedulers.mainThread())
+              .doFinally(
+                  () -> {
+                    assertMainThread();
+                    inProgress = false;
+                  })
+              .subscribe(() -> completed.setValue(true), error::setValue));
     }
+  }
+
+  @Override
+  protected void onCleared() {
+    disposables.clear();
   }
 }
