@@ -42,6 +42,7 @@ import org.tasks.themes.Theme;
 import org.tasks.ui.TaskListViewModel;
 import org.tasks.voice.VoiceCommandActivity;
 import org.tasks.widget.ShortcutConfigActivity;
+import org.tasks.widget.WidgetClickActivity;
 import org.tasks.widget.WidgetConfigActivity;
 
 @ActivityScope
@@ -137,4 +138,6 @@ public interface ActivityComponent {
   void inject(DebugPreferences debugPreferences);
 
   void inject(TaskEditActivity taskEditActivity);
+
+  void inject(WidgetClickActivity widgetActivity);
 }

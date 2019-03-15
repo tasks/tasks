@@ -49,7 +49,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
   private boolean showCheckboxes;
   private float textSize;
   private float dueDateTextSize;
-  private String filterId;
+  private Filter filter;
   private int textColorPrimary;
   private int textColorSecondary;
 
@@ -173,16 +173,15 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
       row.setTextColor(R.id.widget_text, textColorTitle);
       row.setImageViewBitmap(R.id.widget_complete_box, getCheckbox(task));
 
-      long taskId = task.getId();
-      Intent editIntent = new Intent(TasksWidget.EDIT_TASK);
-      editIntent.putExtra(TasksWidget.EXTRA_FILTER_ID, filterId);
-      editIntent.putExtra(TasksWidget.EXTRA_ID, taskId);
+      Intent editIntent = new Intent(WidgetClickActivity.EDIT_TASK);
+      editIntent.putExtra(WidgetClickActivity.EXTRA_FILTER, filter);
+      editIntent.putExtra(WidgetClickActivity.EXTRA_TASK, task);
       row.setOnClickFillInIntent(R.id.widget_row, editIntent);
 
       if (showCheckboxes) {
         row.setViewVisibility(R.id.widget_complete_box, View.VISIBLE);
-        Intent completeIntent = new Intent(TasksWidget.COMPLETE_TASK);
-        completeIntent.putExtra(TasksWidget.EXTRA_ID, taskId);
+        Intent completeIntent = new Intent(WidgetClickActivity.COMPLETE_TASK);
+        completeIntent.putExtra(WidgetClickActivity.EXTRA_TASK, task);
         row.setOnClickFillInIntent(R.id.widget_complete_box, completeIntent);
       } else {
         row.setViewVisibility(R.id.widget_complete_box, View.GONE);
@@ -203,7 +202,6 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
   private Cursor getCursor() {
     updateSettings();
-    Filter filter = defaultFilterProvider.getFilterFromPreference(filterId);
     return taskDao.getCursor(getQuery(filter), getProperties(filter));
   }
 
@@ -259,6 +257,6 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     showCheckboxes = widgetPreferences.showCheckboxes();
     textSize = widgetPreferences.getFontSize();
     dueDateTextSize = Math.max(10, textSize - 2);
-    filterId = widgetPreferences.getFilterId();
+    filter = defaultFilterProvider.getFilterFromPreference(widgetPreferences.getFilterId());
   }
 }

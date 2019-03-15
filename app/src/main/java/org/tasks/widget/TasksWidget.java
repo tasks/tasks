@@ -15,14 +15,9 @@ import android.graphics.Canvas;
 import android.net.Uri;
 import android.view.View;
 import android.widget.RemoteViews;
-import com.google.common.base.Strings;
 import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
-import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.injection.BroadcastComponent;
@@ -32,7 +27,6 @@ import org.tasks.intents.TaskIntents;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
-import org.tasks.receivers.CompleteTaskReceiver;
 import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
 import org.tasks.themes.WidgetTheme;
@@ -40,10 +34,6 @@ import timber.log.Timber;
 
 public class TasksWidget extends InjectingAppWidgetProvider {
 
-  public static final String COMPLETE_TASK = "COMPLETE_TASK";
-  public static final String EDIT_TASK = "EDIT_TASK";
-  public static final String EXTRA_FILTER_ID = "extra_filter_id";
-  public static final String EXTRA_ID = "extra_id"; // $NON-NLS-1$
   private static final int flags = FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TOP;
   @Inject Preferences preferences;
   @Inject DefaultFilterProvider defaultFilterProvider;
@@ -56,41 +46,6 @@ public class TasksWidget extends InjectingAppWidgetProvider {
     Bitmap bitmap = Bitmap.createBitmap(2, 2, Bitmap.Config.ARGB_8888); // Create a Bitmap
     new Canvas(bitmap).drawColor(bgColor); // Set the color
     return bitmap;
-  }
-
-  @Override
-  public void onReceive(Context context, Intent intent) {
-    super.onReceive(context, intent);
-
-    String action = intent.getAction();
-
-    if (Strings.isNullOrEmpty(action)) {
-      return;
-    }
-
-    long taskId = intent.getLongExtra(EXTRA_ID, 0);
-
-    switch (action) {
-      case COMPLETE_TASK:
-        Intent completionIntent = new Intent(context, CompleteTaskReceiver.class);
-        completionIntent.putExtra(CompleteTaskReceiver.TASK_ID, taskId);
-        completionIntent.putExtra(CompleteTaskReceiver.TOGGLE_STATE, true);
-        context.sendBroadcast(completionIntent);
-        break;
-      case EDIT_TASK:
-        //noinspection ResultOfMethodCallIgnored
-        Single.fromCallable(
-                () ->
-                    TaskIntents.getEditTaskIntent(
-                        context,
-                        defaultFilterProvider.getFilterFromPreference(
-                            intent.getStringExtra(EXTRA_FILTER_ID)),
-                        taskDao.fetch(taskId)))
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe((Consumer<Intent>) context::startActivity);
-        break;
-    }
   }
 
   @Override
@@ -157,8 +112,8 @@ public class TasksWidget extends InjectingAppWidgetProvider {
   }
 
   private PendingIntent getPendingIntentTemplate(Context context) {
-    Intent intent = new Intent(context, TasksWidget.class);
-    return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+    return PendingIntent.getActivity(
+        context, 0, new Intent(context, WidgetClickActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
   }
 
   private PendingIntent getOpenListIntent(Context context, Filter filter, int widgetId) {

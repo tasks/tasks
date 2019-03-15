@@ -200,8 +200,6 @@
       android:name=".widget.TasksWidget">
       <intent-filter>
         <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
-        <action android:name="com.todoroo.astrid.widget.TasksWidget.COMPLETE_TASK"/>
-        <action android:name="com.todoroo.astrid.widget.TasksWidget.EDIT_TASK"/>
       </intent-filter>
 
       <meta-data
@@ -504,6 +502,13 @@
       android:label="@string/debug"
       android:name=".preferences.DebugPreferences"
       android:theme="@style/Tasks"/>
+
+    <activity
+      android:name=".widget.WidgetClickActivity"
+      android:excludeFromRecents="true"
+      android:launchMode="singleTask"
+      android:taskAffinity=""
+      android:theme="@style/TranslucentDialog"/>
 
     <!-- launcher icons -->
 
