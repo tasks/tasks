@@ -150,10 +150,8 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
       imm.showSoftInput(name, InputMethodManager.SHOW_IMPLICIT);
     }
 
-    addCaldavAccountViewModel.getData().observe(this, this::addAccount);
-    updateCaldavAccountViewModel.getData().observe(this, this::updateAccount);
-    addCaldavAccountViewModel.getError().observe(this, this::requestFailed);
-    updateCaldavAccountViewModel.getError().observe(this, this::requestFailed);
+    addCaldavAccountViewModel.observe(this, this::addAccount, this::requestFailed);
+    updateCaldavAccountViewModel.observe(this, this::updateAccount, this::requestFailed);
   }
 
   private void showProgressIndicator() {

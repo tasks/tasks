@@ -144,20 +144,9 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
         || deleteListViewModel.inProgress()) {
       showProgressIndicator();
     }
-    createListViewModel.getData().observe(this, this::onListCreated);
-    renameListViewModel.getData().observe(this, this::onListRenamed);
-    deleteListViewModel
-        .getData()
-        .observe(
-            this,
-            deleted -> {
-              if (deleted) {
-                onListDeleted();
-              }
-            });
-    createListViewModel.getError().observe(this, this::requestFailed);
-    renameListViewModel.getError().observe(this, this::requestFailed);
-    deleteListViewModel.getError().observe(this, this::requestFailed);
+    createListViewModel.observe(this, this::onListCreated, this::requestFailed);
+    renameListViewModel.observe(this, this::onListRenamed, this::requestFailed);
+    deleteListViewModel.observe(this, this::onListDeleted, this::requestFailed);
   }
 
   private void showProgressIndicator() {
@@ -256,7 +245,8 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
     dialogBuilder
         .newMessageDialog(R.string.delete_tag_confirmation, gtasksList.getTitle())
         .setPositiveButton(
-            R.string.delete, (dialog, which) -> {
+            R.string.delete,
+            (dialog, which) -> {
               showProgressIndicator();
               deleteListViewModel.deleteList(context, gtasksList);
             })
@@ -320,11 +310,13 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
     finish();
   }
 
-  private void onListDeleted() {
-    tracker.reportEvent(Tracking.Events.GTASK_DELETE_LIST);
-    taskDeleter.delete(gtasksList);
-    setResult(RESULT_OK, new Intent(TaskListFragment.ACTION_DELETED));
-    finish();
+  private void onListDeleted(boolean deleted) {
+    if (deleted) {
+      tracker.reportEvent(Tracking.Events.GTASK_DELETE_LIST);
+      taskDeleter.delete(gtasksList);
+      setResult(RESULT_OK, new Intent(TaskListFragment.ACTION_DELETED));
+      finish();
+    }
   }
 
   private void onListRenamed(TaskList taskList) {

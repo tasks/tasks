@@ -2,8 +2,9 @@ package org.tasks.ui;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
 
-import androidx.lifecycle.LiveData;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -17,12 +18,10 @@ public abstract class CompletableViewModel<T> extends ViewModel {
   private final CompositeDisposable disposables = new CompositeDisposable();
   private boolean inProgress;
 
-  public LiveData<T> getData() {
-    return data;
-  }
-
-  public LiveData<Throwable> getError() {
-    return error;
+  public void observe(
+      LifecycleOwner lifecycleOwner, Observer<T> dataObserver, Observer<Throwable> errorObserver) {
+    data.observe(lifecycleOwner, dataObserver);
+    error.observe(lifecycleOwner, errorObserver);
   }
 
   public boolean inProgress() {

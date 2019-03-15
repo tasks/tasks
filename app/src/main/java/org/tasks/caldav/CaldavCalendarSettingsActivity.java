@@ -159,10 +159,8 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
       imm.showSoftInput(name, InputMethodManager.SHOW_IMPLICIT);
     }
 
-    createCalendarViewModel.getData().observe(this, this::createSuccessful);
-    deleteCalendarViewModel.getData().observe(this, this::onDeleted);
-    createCalendarViewModel.getError().observe(this, this::requestFailed);
-    deleteCalendarViewModel.getError().observe(this, this::requestFailed);
+    createCalendarViewModel.observe(this, this::createSuccessful, this::requestFailed);
+    deleteCalendarViewModel.observe(this, this::onDeleted, this::requestFailed);
   }
 
   @Override
