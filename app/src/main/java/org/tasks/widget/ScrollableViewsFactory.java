@@ -110,7 +110,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
   @Override
   public RemoteViews getLoadingView() {
-    return null;
+    return new RemoteViews(BuildConfig.APPLICATION_ID, R.layout.widget_row);
   }
 
   @Override
