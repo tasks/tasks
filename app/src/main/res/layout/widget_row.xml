@@ -17,10 +17,12 @@
     android:layout_alignParentStart="true"
     android:layout_centerVertical="true"
     android:layout_gravity="center"
+    android:paddingTop="3dp"
+    android:paddingBottom="3dp"
     android:paddingStart="@dimen/widget_padding"
-    android:paddingEnd="0dp"
+    android:paddingEnd="@dimen/widget_padding"
     android:paddingLeft="@dimen/widget_padding"
-    android:paddingRight="0dp"/>
+    android:paddingRight="@dimen/widget_padding"/>
 
   <LinearLayout
     android:layout_width="match_parent"
@@ -36,9 +38,9 @@
       android:id="@+id/widget_text"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:paddingStart="@dimen/widget_padding"
+      android:paddingStart="0dp"
       android:paddingEnd="@dimen/widget_padding"
-      android:paddingLeft="@dimen/widget_padding"
+      android:paddingLeft="0dp"
       android:paddingRight="@dimen/widget_padding"
       android:gravity="start|center_vertical"
       android:singleLine="true"
@@ -49,9 +51,9 @@
       android:id="@+id/widget_due_date"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:paddingStart="@dimen/widget_padding"
+      android:paddingStart="0dp"
       android:paddingEnd="@dimen/widget_padding"
-      android:paddingLeft="@dimen/widget_padding"
+      android:paddingLeft="0dp"
       android:paddingRight="@dimen/widget_padding"
       android:ellipsize="end"
       android:gravity="start|center_vertical"
