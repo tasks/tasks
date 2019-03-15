@@ -61,7 +61,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
       ComponentName thisWidget = new ComponentName(context, TasksWidget.class);
       int[] ids = appWidgetManager.getAppWidgetIds(thisWidget);
       for (int id : ids) {
-        appWidgetManager.updateAppWidget(id, createScrollableWidget(context, id));
+        appWidgetManager.partiallyUpdateAppWidget(id, createScrollableWidget(context, id));
       }
     } catch (Exception e) {
       Timber.e(e);
