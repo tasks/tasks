@@ -28,6 +28,9 @@ public class PlayServices {
   public String getStatus() {
     return null;
   }
+  
+  public void getTasksAuthToken(
+      GtasksLoginActivity gtasksLoginActivity, String a, AuthResultHandler authResultHandler) {}
 
   public void getDriveAuthToken(
       DriveLoginActivity driveLoginActivity, String a, AuthResultHandler authResultHandler) {}
