@@ -24,7 +24,6 @@ import butterknife.OnLongClick;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.common.collect.Lists;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;

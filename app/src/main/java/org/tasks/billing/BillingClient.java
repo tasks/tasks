@@ -24,6 +24,7 @@ import org.tasks.analytics.Tracker;
 import org.tasks.injection.ForApplication;
 import timber.log.Timber;
 
+@SuppressWarnings("all")
 public class BillingClient implements PurchasesUpdatedListener {
 
   private final Inventory inventory;

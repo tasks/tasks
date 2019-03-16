@@ -21,8 +21,6 @@
 %4$s вече съществуват\n
 %5$s имат грешки\n</string>
 	<string name="import_progress_read">Прочитане на задачи %d...</string>
-	<string name="DLG_error_sdcard">Нямате достъп до папка: %s</string>
-	<string name="DLG_error_sdcard_general">SD картата не може да бъде достъпена!</string>
 	<string name="read_permission_label">Tasks Разрешение</string>
 	<string name="discard_confirmation">Сигурни ли сте че искате да отхвърлите промените си?</string>
 	<string name="keep_editing">Продължаване на редактиране</string>
@@ -170,8 +168,6 @@
 	<string name="premium_remove_file_confirm">Сигурни ли сте? Не може да бъде отменено</string>
 	<string name="audio_recording_title">Записване на Аудио</string>
 	<string name="audio_stop_recording">Спри Записването</string>
-	<string name="file_type_unhandled">Съжаляваме! Не е намерено приложение, което да работи с този тип файл.</string>
-	<string name="file_err_copy">Грешка при копиране на файла за прикачване</string>
 	<string name="ring_once">Звънене веднъж</string>
 	<string name="ring_five_times">Звънене пет пъти</string>
 	<string name="ring_nonstop">Звънене без спиране</string>
@@ -291,7 +287,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks ще изтоваря имената на задачите по време на напомняния за задача</string>
 	<string name="delete_task">Изтрий задача</string>
 	<string name="voice_command_added_task">Добавена задача</string>
-	<string name="external_storage_unavailable">Не може да достъпвате до външната памет</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 задача</item>
 		<item quantity="other">%d задачи</item>

@@ -1,35 +1,45 @@
 package org.tasks.preferences;
 
-import static android.content.SharedPreferences.Editor;
-import static com.google.common.collect.Iterables.transform;
-import static com.google.common.collect.Sets.newHashSet;
-import static java.util.Collections.emptySet;
-
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Binder;
 import android.preference.PreferenceManager;
-import androidx.core.app.NotificationCompat;
 import android.text.TextUtils;
+
 import com.android.billingclient.api.Purchase;
+import com.google.common.base.Strings;
 import com.google.gson.GsonBuilder;
 import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.data.Task;
-import java.io.File;
-import java.util.Collection;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicReference;
-import javax.inject.Inject;
+
 import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.data.TaskAttachment;
 import org.tasks.injection.ForApplication;
 import org.tasks.time.DateTime;
+
+import java.io.File;
+import java.util.Collection;
+import java.util.concurrent.TimeUnit;
+
+import javax.inject.Inject;
+
+import androidx.core.app.NotificationCompat;
+import androidx.documentfile.provider.DocumentFile;
 import timber.log.Timber;
+
+import static android.content.SharedPreferences.Editor;
+import static com.google.common.collect.Iterables.transform;
+import static com.google.common.collect.Sets.newHashSet;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastKitKat;
+import static java.util.Collections.emptySet;
 
 public class Preferences {
 
@@ -38,29 +48,15 @@ public class Preferences {
   private static final String PREF_SORT_SORT = "sort_sort"; // $NON-NLS-1$
 
   private final Context context;
-  private final PermissionChecker permissionChecker;
   private final SharedPreferences prefs;
   private final SharedPreferences publicPrefs;
 
   @Inject
-  public Preferences(@ForApplication Context context, PermissionChecker permissionChecker) {
+  public Preferences(@ForApplication Context context) {
     this.context = context;
-    this.permissionChecker = permissionChecker;
     prefs = PreferenceManager.getDefaultSharedPreferences(context);
     publicPrefs =
         context.getSharedPreferences(AstridApiConstants.PUBLIC_PREFS, Context.MODE_PRIVATE);
-  }
-
-  private static String getNonCollidingFileName(String dir, String baseName, String extension) {
-    int tries = 1;
-    File f = new File(dir + File.separator + baseName + extension);
-    String tempName = baseName;
-    while (f.exists()) {
-      tempName = baseName + "-" + tries; // $NON-NLS-1$
-      f = new File(dir + File.separator + tempName + extension);
-      tries++;
-    }
-    return tempName + extension;
   }
 
   public boolean backButtonSavesTask() {
@@ -259,6 +255,19 @@ public class Preferences {
     }
   }
 
+  public Uri getUri(int key) {
+    String uri = getStringValue(key);
+    return Strings.isNullOrEmpty(uri) ? null : Uri.parse(uri);
+  }
+
+  public void setUri(int key, java.net.URI uri) {
+    setString(key, uri.toString());
+  }
+
+  public void setUri(int key, Uri uri) {
+    setString(key, uri.toString());
+  }
+
   public void setString(int key, String newValue) {
     setString(context.getString(key), newValue);
   }
@@ -365,18 +374,34 @@ public class Preferences {
     }
   }
 
-  public File getAttachmentsDirectory() {
-    File directory = null;
-    String customDir = getStringValue(R.string.p_attachment_dir);
-    if (permissionChecker.canWriteToExternalStorage() && !TextUtils.isEmpty(customDir)) {
-      directory = new File(customDir);
+  public Uri getAttachmentsDirectory() {
+    Uri uri = getUri(R.string.p_attachment_dir);
+    if (uri != null) {
+      switch (uri.getScheme()) {
+        case "file":
+          File file = new File(uri.getPath());
+          try {
+            if (file.canWrite()) {
+              return uri;
+            }
+          } catch (SecurityException ignored) {
+          }
+          break;
+        case "content":
+          if (hasWritePermission(context, uri)) {
+            return uri;
+          }
+          break;
+      }
     }
 
-    if (directory == null || !directory.exists()) {
-      directory = getDefaultFileLocation(TaskAttachment.FILES_DIRECTORY_DEFAULT);
+    if (atLeastKitKat()) {
+      return DocumentFile.fromFile(context.getExternalFilesDir(null))
+          .createDirectory(TaskAttachment.FILES_DIRECTORY_DEFAULT)
+          .getUri();
+    } else {
+      return Uri.fromFile(getDefaultFileLocation(TaskAttachment.FILES_DIRECTORY_DEFAULT));
     }
-
-    return directory;
   }
 
   private File getDefaultFileLocation(String type) {
@@ -389,34 +414,51 @@ public class Preferences {
     return file.isDirectory() || file.mkdirs() ? file : null;
   }
 
-  public String getNewAudioAttachmentPath(AtomicReference<String> nameReference) {
-    return getNewAttachmentPath(".m4a", nameReference); // $NON-NLS-1$
+  public Uri getCacheDirectory() {
+    if (atLeastKitKat()) {
+      return DocumentFile.fromFile(context.getExternalCacheDir()).getUri();
+    } else {
+      return Uri.fromFile(context.getExternalCacheDir());
+    }
   }
 
-  public String getNewAttachmentPath(String extension, AtomicReference<String> nameReference) {
-    String dir = getAttachmentsDirectory().getAbsolutePath();
-
-    String name = getNonCollidingFileName(dir, new DateTime().toString("yyyyMMddHHmm"), extension);
-
-    if (nameReference != null) {
-      nameReference.set(name);
+  public Uri getBackupDirectory() {
+    Uri uri = getUri(R.string.p_backup_dir);
+    if (uri != null) {
+      switch (uri.getScheme()) {
+        case "file":
+          File file = new File(uri.getPath());
+          try {
+            if (file.canWrite()) {
+              return uri;
+            }
+          } catch (SecurityException ignored) {
+          }
+          break;
+        case "content":
+          if (hasWritePermission(context, uri)) {
+            return uri;
+          }
+          break;
+      }
     }
 
-    return dir + File.separator + name;
+    if (atLeastKitKat()) {
+      return DocumentFile.fromFile(context.getExternalFilesDir(null))
+          .createDirectory("backups")
+          .getUri();
+    } else {
+      return Uri.fromFile(getDefaultFileLocation("backups"));
+    }
   }
 
-  public File getBackupDirectory() {
-    File directory = null;
-    String customDir = getStringValue(R.string.p_backup_dir);
-    if (permissionChecker.canWriteToExternalStorage() && !TextUtils.isEmpty(customDir)) {
-      directory = new File(customDir);
-    }
-
-    if (directory == null || !directory.exists()) {
-      directory = getDefaultFileLocation("backups");
-    }
-
-    return directory;
+  private boolean hasWritePermission(Context context, Uri uri) {
+    return PackageManager.PERMISSION_GRANTED
+        == context.checkUriPermission(
+            uri,
+            Binder.getCallingPid(),
+            Binder.getCallingUid(),
+            Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
   }
 
   public int getNotificationDefaults() {

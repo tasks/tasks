@@ -5,15 +5,9 @@
  */
 package com.todoroo.astrid.notes;
 
-import static androidx.core.content.ContextCompat.getColor;
-import static org.tasks.files.FileHelper.getPathFromUri;
-import static org.tasks.files.ImageHelper.sampleBitmap;
-
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
-import androidx.core.content.FileProvider;
 import android.text.Html;
 import android.text.util.Linkify;
 import android.view.View;
@@ -21,17 +15,22 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.utility.Constants;
-import java.io.File;
-import java.util.ArrayList;
-import javax.inject.Inject;
+
 import org.tasks.R;
 import org.tasks.data.UserActivity;
 import org.tasks.data.UserActivityDao;
 import org.tasks.files.FileHelper;
 import org.tasks.preferences.Preferences;
+
+import java.util.ArrayList;
+
+import javax.inject.Inject;
+
+import static androidx.core.content.ContextCompat.getColor;
+import static org.tasks.files.ImageHelper.sampleBitmap;
 
 public class CommentsController {
 
@@ -53,27 +52,17 @@ public class CommentsController {
   }
 
   private static void setupImagePopupForCommentView(
-      View view, ImageView commentPictureView, final Uri updateBitmap, final Activity activity) {
-    if (updateBitmap != null) {
+      View view, ImageView commentPictureView, final Uri uri, final Activity activity) {
+    if (uri != null) {
       commentPictureView.setVisibility(View.VISIBLE);
-      String path = getPathFromUri(activity, updateBitmap);
       commentPictureView.setImageBitmap(
           sampleBitmap(
-              path,
+              activity,
+              uri,
               commentPictureView.getLayoutParams().width,
               commentPictureView.getLayoutParams().height));
 
-      view.setOnClickListener(
-          v -> {
-            File file = new File(updateBitmap.getPath());
-            Uri uri =
-                FileProvider.getUriForFile(
-                    activity, Constants.FILE_PROVIDER_AUTHORITY, file.getAbsoluteFile());
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setDataAndType(uri, "image/*");
-            FileHelper.grantReadPermissions(activity, intent, uri);
-            activity.startActivity(intent);
-          });
+      view.setOnClickListener(v -> FileHelper.startActionView(activity, uri));
     } else {
       commentPictureView.setVisibility(View.GONE);
     }

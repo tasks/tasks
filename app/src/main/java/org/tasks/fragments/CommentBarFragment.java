@@ -1,8 +1,5 @@
 package org.tasks.fragments;
 
-import static org.tasks.files.FileHelper.getPathFromUri;
-import static org.tasks.files.ImageHelper.sampleBitmap;
-
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,9 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.KeyEvent;
@@ -23,19 +17,11 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.OnEditorAction;
-import butterknife.OnTextChanged;
+
 import com.google.common.base.Strings;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.data.Task;
-import java.util.ArrayList;
-import java.util.List;
-import javax.inject.Inject;
-import org.json.JSONException;
-import org.json.JSONObject;
+
 import org.tasks.R;
 import org.tasks.activities.CameraActivity;
 import org.tasks.dialogs.DialogBuilder;
@@ -43,7 +29,22 @@ import org.tasks.injection.FragmentComponent;
 import org.tasks.preferences.Device;
 import org.tasks.preferences.Preferences;
 import org.tasks.ui.TaskEditControlFragment;
-import timber.log.Timber;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnEditorAction;
+import butterknife.OnTextChanged;
+
+import static org.tasks.files.ImageHelper.sampleBitmap;
 
 public class CommentBarFragment extends TaskEditControlFragment {
 
@@ -70,17 +71,6 @@ public class CommentBarFragment extends TaskEditControlFragment {
 
   private CommentBarFragmentCallback callback;
   private Uri pendingCommentPicture = null;
-
-  private static JSONObject savePictureJson(final Uri uri) {
-    try {
-      JSONObject json = new JSONObject();
-      json.put("uri", uri.toString());
-      return json;
-    } catch (JSONException e) {
-      Timber.e(e);
-    }
-    return null;
-  }
 
   @Override
   public void onAttach(Activity activity) {
@@ -191,7 +181,7 @@ public class CommentBarFragment extends TaskEditControlFragment {
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (requestCode == REQUEST_CODE_CAMERA) {
       if (resultCode == Activity.RESULT_OK) {
-        pendingCommentPicture = data.getParcelableExtra(CameraActivity.EXTRA_URI);
+        pendingCommentPicture = data.getData();
         setPictureButtonToPendingPicture();
         commentField.requestFocus();
       }
@@ -206,10 +196,12 @@ public class CommentBarFragment extends TaskEditControlFragment {
   }
 
   private void setPictureButtonToPendingPicture() {
-    String path = getPathFromUri(activity, pendingCommentPicture);
     Bitmap bitmap =
         sampleBitmap(
-            path, pictureButton.getLayoutParams().width, pictureButton.getLayoutParams().height);
+            activity,
+            pendingCommentPicture,
+            pictureButton.getLayoutParams().width,
+            pictureButton.getLayoutParams().height);
     pictureButton.setImageBitmap(bitmap);
     commentButton.setVisibility(View.VISIBLE);
   }
@@ -219,13 +211,7 @@ public class CommentBarFragment extends TaskEditControlFragment {
     if (TextUtils.isEmpty(message)) {
       message = " ";
     }
-    String picture = null;
-    if (pendingCommentPicture != null) {
-      JSONObject pictureJson = savePictureJson(pendingCommentPicture);
-      if (pictureJson != null) {
-        picture = pictureJson.toString();
-      }
-    }
+    Uri picture = pendingCommentPicture;
 
     if (commentField != null) {
       commentField.setText(""); // $NON-NLS-1$
@@ -281,7 +267,7 @@ public class CommentBarFragment extends TaskEditControlFragment {
 
   public interface CommentBarFragmentCallback {
 
-    void addComment(String message, String picture);
+    void addComment(String message, Uri picture);
   }
 
   interface ClearImageCallback {

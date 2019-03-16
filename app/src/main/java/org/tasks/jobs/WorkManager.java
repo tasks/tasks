@@ -1,5 +1,7 @@
 package org.tasks.jobs;
 
+import android.net.Uri;
+
 import static com.todoroo.andlib.utility.DateUtilities.now;
 import static org.tasks.date.DateTimeUtils.midnight;
 import static org.tasks.date.DateTimeUtils.newDateTime;
@@ -18,6 +20,7 @@ import androidx.work.Worker;
 import com.google.common.primitives.Longs;
 import com.todoroo.astrid.data.Task;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -119,11 +122,7 @@ public class WorkManager {
           ExistingPeriodicWorkPolicy.KEEP,
           new PeriodicWorkRequest.Builder(SyncWork.class, 1, TimeUnit.HOURS)
               .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 1, TimeUnit.MINUTES)
-              .setConstraints(
-                  new Constraints.Builder()
-                      .setRequiredNetworkType(
-                          onlyOnUnmetered ? NetworkType.UNMETERED : NetworkType.CONNECTED)
-                      .build())
+              .setConstraints(getNetworkConstraints(onlyOnUnmetered))
               .build());
     } else {
       workManager.cancelUniqueWork(TAG_BACKGROUND_SYNC);
@@ -149,6 +148,30 @@ public class WorkManager {
         TAG_BACKUP,
         BackupWork.class,
         Math.min(newDateTime(lastBackup).plusDays(1).getMillis(), midnight()));
+  }
+
+  public void scheduleDriveUpload(Uri uri, boolean purge) {
+    if (!preferences.getBoolean(R.string.p_google_drive_backup, false)) {
+      return;
+    }
+
+    Builder builder = new Builder(DriveUploader.class)
+        .setInputData(DriveUploader.getInputData(uri, purge))
+        .setConstraints(getNetworkConstraints());
+    if (purge) {
+      builder.setInitialDelay(new Random().nextInt(3600), TimeUnit.SECONDS);
+    }
+    workManager.enqueue(builder.build());
+  }
+
+  private Constraints getNetworkConstraints() {
+    return getNetworkConstraints(preferences.getBoolean(R.string.p_background_sync_unmetered_only, false));
+  }
+
+  private Constraints getNetworkConstraints(boolean unmeteredOnly) {
+    return new Constraints.Builder()
+        .setRequiredNetworkType(unmeteredOnly ? NetworkType.UNMETERED : NetworkType.CONNECTED)
+        .build();
   }
 
   private void enqueueUnique(String key, Class<? extends Worker> c, long time) {

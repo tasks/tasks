@@ -1201,10 +1201,6 @@ public class Task implements Parcelable {
     return caldav;
   }
 
-  public boolean hasFiles() {
-    return hasFiles;
-  }
-
   @Retention(SOURCE)
   @IntDef({Priority.HIGH, Priority.MEDIUM, Priority.LOW, Priority.NONE})
   public @interface Priority {

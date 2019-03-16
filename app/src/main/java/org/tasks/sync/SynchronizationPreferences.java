@@ -118,8 +118,7 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
   }
 
   private void requestLogin() {
-    startActivityForResult(
-        new Intent(SynchronizationPreferences.this, GtasksLoginActivity.class), REQUEST_LOGIN);
+    startActivityForResult(new Intent(this, GtasksLoginActivity.class), REQUEST_LOGIN);
   }
 
   @Override

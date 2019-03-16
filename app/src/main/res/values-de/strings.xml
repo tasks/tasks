@@ -16,8 +16,6 @@
 	<string name="import_summary_title">Zusammenfassung wiederherstellen</string>
 	<string name="import_summary_message">Datei %1$s enthielt %2$s Aufgaben.\n\n %3$s wurden importiert,\n %4$s waren schon vorhanden (übersprungen)\n %5$s waren fehlerhaft\n</string>
 	<string name="import_progress_read">Aufgabe %d wird gelesen …</string>
-	<string name="DLG_error_sdcard">Ordner konnte nicht geöffnet werden: %s</string>
-	<string name="DLG_error_sdcard_general">Auf die SD-Karte konnte nicht zugegriffen werden!</string>
 	<string name="read_permission_label">Tasks Zugriffsrechte</string>
 	<string name="discard_confirmation">Änderungen wirklich verwerfen?</string>
 	<string name="keep_editing">Weiter bearbeiten</string>
@@ -165,8 +163,6 @@
 	<string name="premium_remove_file_confirm">Sind Sie sicher? Das kann nicht rückgängig gemacht werden</string>
 	<string name="audio_recording_title">Audio aufnehmen</string>
 	<string name="audio_stop_recording">Aufnahme stoppen</string>
-	<string name="file_type_unhandled">Tut mir leid! Dieser Dateityp kann nicht geöffnet werden.</string>
-	<string name="file_err_copy">Fehler beim Kopieren der anzuhängenden Datei</string>
 	<string name="ring_once">Einmal klingeln</string>
 	<string name="ring_five_times">Fünfmal klingeln</string>
 	<string name="ring_nonstop">Ununterbrochen klingeln</string>
@@ -285,7 +281,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks wird Aufgabennamen bei der Erinnerung aussprechen</string>
 	<string name="delete_task">Aufgabe löschen</string>
 	<string name="voice_command_added_task">Hinzugefügte Aufgabe</string>
-	<string name="external_storage_unavailable">Kein Zugriff auf externen Speicher</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 Aufgabe</item>
 		<item quantity="other">%d Aufgaben</item>

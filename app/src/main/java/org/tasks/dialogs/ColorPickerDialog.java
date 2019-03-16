@@ -2,7 +2,6 @@ package org.tasks.dialogs;
 
 import static androidx.core.content.ContextCompat.getColor;
 import static com.google.common.collect.Lists.transform;
-import static org.tasks.preferences.ResourceResolver.getData;
 
 import android.app.Activity;
 import android.app.Dialog;

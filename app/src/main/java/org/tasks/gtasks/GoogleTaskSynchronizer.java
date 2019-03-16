@@ -1,12 +1,10 @@
 package org.tasks.gtasks;
 
-import static org.tasks.date.DateTimeUtils.newDateTime;
-
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import androidx.core.app.NotificationCompat;
 import android.text.TextUtils;
+
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
 import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
@@ -29,10 +27,7 @@ import com.todoroo.astrid.gtasks.sync.GtasksTaskContainer;
 import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.utility.Constants;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import javax.inject.Inject;
+
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
@@ -52,6 +47,14 @@ import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.Preferences;
 import org.tasks.time.DateTime;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import androidx.core.app.NotificationCompat;
 import timber.log.Timber;
 
 import java.util.Set;
@@ -60,6 +63,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import static org.tasks.date.DateTimeUtils.newDateTime;
 
 public class GoogleTaskSynchronizer {
 
@@ -86,7 +90,6 @@ public class GoogleTaskSynchronizer {
   private final GoogleTaskDao googleTaskDao;
   private final TaskCreator taskCreator;
   private final DefaultFilterProvider defaultFilterProvider;
-  private final PlayServices playServices;
   private final PermissionChecker permissionChecker;
   private final GoogleAccountManager googleAccountManager;
   private final LocalBroadcastManager localBroadcastManager;
@@ -110,7 +113,6 @@ public class GoogleTaskSynchronizer {
       GoogleTaskDao googleTaskDao,
       TaskCreator taskCreator,
       DefaultFilterProvider defaultFilterProvider,
-      PlayServices playServices,
       PermissionChecker permissionChecker,
       GoogleAccountManager googleAccountManager,
       LocalBroadcastManager localBroadcastManager,
@@ -131,7 +133,6 @@ public class GoogleTaskSynchronizer {
     this.googleTaskDao = googleTaskDao;
     this.taskCreator = taskCreator;
     this.defaultFilterProvider = defaultFilterProvider;
-    this.playServices = playServices;
     this.permissionChecker = permissionChecker;
     this.googleAccountManager = googleAccountManager;
     this.localBroadcastManager = localBroadcastManager;
@@ -209,7 +210,7 @@ public class GoogleTaskSynchronizer {
       return;
     }
 
-    GtasksInvoker gtasksInvoker = new GtasksInvoker(context, playServices, account.getAccount());
+    GtasksInvoker gtasksInvoker = new GtasksInvoker(context, account.getAccount());
     pushLocalChanges(account, gtasksInvoker);
 
     List<TaskList> gtaskLists = new ArrayList<>();

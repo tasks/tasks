@@ -18,8 +18,6 @@
 	<string name="import_summary_title">Podsumowanie odzyskiwania</string>
 	<string name="import_summary_message">Plik %1$s zawiera %2$s.\n\n %3$s zaimportowanych,\n %4$s już istnieje\n %5$s zawiera błędy\n</string>
 	<string name="import_progress_read">Czytanie zadania %d...</string>
-	<string name="DLG_error_sdcard">Brak dostępu do folderu: %s</string>
-	<string name="DLG_error_sdcard_general">Brak dostępu do Twojej karty SD!</string>
 	<string name="read_permission_label">Uprawnienia Tasks</string>
 	<string name="discard_confirmation">Czy jesteś pewien, że chcesz porzucić zmiany?</string>
 	<string name="keep_editing">Kontynuuj edycję</string>
@@ -161,8 +159,6 @@
 	<string name="premium_remove_file_confirm">Jesteś pewny? Tych zmian nie można odwrócić</string>
 	<string name="audio_recording_title">Nagrywanie dźwięku</string>
 	<string name="audio_stop_recording">Zakończ nagrywanie</string>
-	<string name="file_type_unhandled">Przepraszamy! Nie znaleziono aplikacji do obsługi tego typu pliku.</string>
-	<string name="file_err_copy">Błąd kopiowania pliku do załącznika</string>
 	<string name="ring_once">Dzwoń raz</string>
 	<string name="ring_five_times">Dzwoń pięć razy</string>
 	<string name="ring_nonstop">Dzwoń nonstop</string>
@@ -280,7 +276,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks będzie mówił nazwę zadania podczas przypomnienia</string>
 	<string name="delete_task">Usuń zadanie</string>
 	<string name="voice_command_added_task">Dodane zadanie</string>
-	<string name="external_storage_unavailable">Brak dostępu do pamięci zewnętrznej</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 zadanie</item>
 		<item quantity="other">%d zadań</item>

@@ -46,12 +46,6 @@ File %1$s contained %2$s.\n\n
   <!-- Progress Dialog text for import reading task (%d -> task number)-->
   <string name="import_progress_read">Reading task %d…</string>
 
-  <!-- Backup: Dialog when unable to open SD card folder (%s => folder) -->
-  <string name="DLG_error_sdcard">Cannot access folder: %s</string>
-
-  <!-- Backup: Dialog when unable to open SD card in general -->
-  <string name="DLG_error_sdcard_general">Cannot access your SD card!</string>
-
   <!-- ================================================== AndroidManifest == -->
 
   <!-- permission title for READ_TASKS -->
@@ -425,10 +419,6 @@ File %1$s contained %2$s.\n\n
   <string name="audio_recording_title">Recording Audio</string>
   <string name="audio_stop_recording">Stop Recording</string>
 
-  <string name="file_type_unhandled">Sorry! No application was found to handle this file type.</string>
-
-  <string name="file_err_copy">Error copying file for attachment</string>
-
   <!--  slide 45a: Task Edit: Reminder mode: ring once -->
   <string name="ring_once">Ring once</string>
 
@@ -618,7 +608,6 @@ File %1$s contained %2$s.\n\n
 
   <string name="delete_task">Delete task</string>
   <string name="voice_command_added_task">Added task</string>
-  <string name="external_storage_unavailable">Cannot access external storage</string>
 
   <!-- ==================================================== Generic Units == -->
 
@@ -696,6 +685,7 @@ File %1$s contained %2$s.\n\n
   <string name="quiet_hours">Quiet hours</string>
   <string name="attachment_directory">Attachment directory</string>
   <string name="backup_directory">Backup directory</string>
+  <string name="google_drive_backup">Copy to Google Drive</string>
   <string name="miscellaneous">Miscellaneous</string>
   <string name="synchronization">Synchronization</string>
   <string name="enabled">Enabled</string>

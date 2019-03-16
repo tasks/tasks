@@ -14,8 +14,6 @@
 	<string name="export_toast_no_tasks">Sense tasques que exportar</string>
 	<string name="import_summary_title">Resum de Restauració</string>
 	<string name="import_progress_read">S\'està llegint la tasca %d</string>
-	<string name="DLG_error_sdcard">No es pot accedir a la carpeta: %s</string>
-	<string name="DLG_error_sdcard_general">No s\'ha pogut accedir a la targeta SD.</string>
 	<string name="read_permission_label">Permís de l\'Tasks</string>
 	<string name="DLG_delete_this_task_question">Voleu suprimir aquesta tasca?</string>
 	<string name="DLG_hour_minutes">Temps (hores : minuts)</string>

@@ -17,8 +17,6 @@
 	<string name="import_summary_title">Souhrn obnovy</string>
 	<string name="import_summary_message">Soubor %1$s obsahuje %2$s.\n\n %3$s importováno,\n %4$s již existuje\n %5$s je chybných\n</string>
 	<string name="import_progress_read">Načítávání úkolu %d...</string>
-	<string name="DLG_error_sdcard">Chyba v přístupu k adresáři: %s</string>
-	<string name="DLG_error_sdcard_general">Chyba v přístupu k SD kartě!</string>
 	<string name="read_permission_label">Tasks Práva</string>
 	<string name="DLG_delete_this_task_question">Smazat tento úkol?</string>
 	<string name="DLG_hour_minutes">Čas (hodin : minut)</string>
@@ -146,8 +144,6 @@
 	<string name="premium_remove_file_confirm">Skutečně? Nebude cesty zpět</string>
 	<string name="audio_recording_title">Nahrávám zvuk</string>
 	<string name="audio_stop_recording">Ukončit záznam</string>
-	<string name="file_type_unhandled">Pro tento typ souborů nebyla nalezena žádná aplikace.</string>
-	<string name="file_err_copy">Chyba při kopírování souboru jako přílohy</string>
 	<string name="random_reminder_hour">hodina</string>
 	<string name="random_reminder_day">den</string>
 	<string name="random_reminder_week">týden</string>
@@ -184,7 +180,6 @@
 	<string name="EPr_voiceRemindersEnabled_title">Hlasové upomínky</string>
 	<string name="delete_task">Smazat úkol</string>
 	<string name="voice_command_added_task">Přidán úkol</string>
-	<string name="external_storage_unavailable">Není přístup k externí databázi</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 úkol</item>
 		<item quantity="other">%d úkolů</item>

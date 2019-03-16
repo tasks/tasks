@@ -27,10 +27,6 @@ public class PermissionChecker {
         asList(Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR));
   }
 
-  public boolean canWriteToExternalStorage() {
-    return checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-  }
-
   public boolean canAccessAccounts() {
     return atLeastOreo() || checkPermission(Manifest.permission.GET_ACCOUNTS);
   }

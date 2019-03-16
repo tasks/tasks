@@ -23,6 +23,7 @@ import org.tasks.billing.PurchaseActivity;
 import org.tasks.caldav.CaldavAccountSettingsActivity;
 import org.tasks.caldav.CaldavCalendarSettingsActivity;
 import org.tasks.dashclock.DashClockSettings;
+import org.tasks.drive.DriveLoginActivity;
 import org.tasks.files.FileExplore;
 import org.tasks.files.MyFilePickerActivity;
 import org.tasks.locale.ui.activity.TaskerCreateTaskActivity;
@@ -125,4 +126,6 @@ public interface ActivityComponent {
   void inject(PurchaseActivity purchaseActivity);
 
   void inject(CaldavAccountSettingsActivity caldavAccountSettingsActivity);
+
+  void inject(DriveLoginActivity driveLoginActivity);
 }

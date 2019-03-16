@@ -18,8 +18,6 @@
 	<string name="import_summary_title">Obnoviť zhrnutie</string>
 	<string name="import_summary_message">Súbor %1$s obsahuje %2$s.\n\n %3$s importované,\n %4$s už existuje\n%5$s je chybných\n</string>
 	<string name="import_progress_read">Čítanie úloh %d...</string>
-	<string name="DLG_error_sdcard">Chyba v prístupe do priečinka. %s</string>
-	<string name="DLG_error_sdcard_general">Chyba v prístupe k SD karte!</string>
 	<string name="read_permission_label">Povolenia Úloh</string>
 	<string name="discard_confirmation">Naozaj chceš zmazať zmeny?</string>
 	<string name="keep_editing">Pokračuj v úpravách</string>
@@ -155,8 +153,6 @@
 	<string name="premium_remove_file_confirm">Naozaj? Nedá sa vrátiť</string>
 	<string name="audio_recording_title">Nahrávanie zvuku</string>
 	<string name="audio_stop_recording">Zastaviť nahrávanie</string>
-	<string name="file_type_unhandled">Pre tento typ súboru nebola nájdená žiadna aplikácia</string>
-	<string name="file_err_copy">Chyba pri kopírovaní súboru do prílohy</string>
 	<string name="ring_once">Zvoniť raz</string>
 	<string name="ring_five_times">Zvoniť päť krát</string>
 	<string name="ring_nonstop">Zvoniť neustále</string>
@@ -275,7 +271,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Úlohy vyslovia názov úlohy počas pripomineky</string>
 	<string name="delete_task">Zmazať úlohu</string>
 	<string name="voice_command_added_task">Pridaná úloha</string>
-	<string name="external_storage_unavailable">Nemožno získať prístup k externej pamäti</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 úloha</item>
 		<item quantity="other">%d úlohy</item>

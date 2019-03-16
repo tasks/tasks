@@ -1,25 +1,30 @@
 package org.tasks.dialogs;
 
-import static com.google.common.collect.Lists.newArrayList;
-import static org.tasks.dialogs.RecordAudioDialog.newRecordAudioDialog;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore.Images.Media;
-import androidx.annotation.NonNull;
+
 import com.todoroo.astrid.files.FilesControlSet;
-import java.util.List;
-import javax.inject.Inject;
+
 import org.tasks.R;
 import org.tasks.activities.CameraActivity;
-import org.tasks.files.FileExplore;
 import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.preferences.Device;
 import org.tasks.preferences.Preferences;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import androidx.annotation.NonNull;
+
+import static com.google.common.collect.Lists.newArrayList;
+import static org.tasks.dialogs.RecordAudioDialog.newRecordAudioDialog;
+import static org.tasks.files.FileHelper.newFilePickerIntent;
 
 public class AddAttachmentDialog extends InjectingDialogFragment {
 
@@ -28,9 +33,6 @@ public class AddAttachmentDialog extends InjectingDialogFragment {
   public static final int REQUEST_GALLERY = 12121;
   public static final int REQUEST_STORAGE = 12122;
   public static final int REQUEST_AUDIO = 12123;
-
-  public static final String EXTRA_PATH = "extra_path";
-  public static final String EXTRA_TYPE = "extra_type";
 
   @Inject @ForActivity Context context;
   @Inject DialogBuilder dialogBuilder;
@@ -88,7 +90,7 @@ public class AddAttachmentDialog extends InjectingDialogFragment {
     }
   }
 
-  public void pickFromStorage() {
-    getTargetFragment().startActivityForResult(new Intent(context, FileExplore.class), REQUEST_STORAGE);
+  private void pickFromStorage() {
+    getTargetFragment().startActivityForResult(newFilePickerIntent(getActivity(), null), REQUEST_STORAGE);
   }
 }

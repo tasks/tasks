@@ -5,10 +5,10 @@
  */
 package com.todoroo.astrid.service;
 
-import static com.google.common.base.Strings.isNullOrEmpty;
-
 import android.content.Context;
 import android.os.Environment;
+
+import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.ListMultimap;
@@ -16,9 +16,7 @@ import com.google.common.collect.Multimaps;
 import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.tags.TagService;
-import java.io.File;
-import java.util.List;
-import javax.inject.Inject;
+
 import org.tasks.BuildConfig;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
@@ -33,11 +31,23 @@ import org.tasks.data.Tag;
 import org.tasks.data.TagDao;
 import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
+import org.tasks.data.TaskAttachment;
+import org.tasks.data.TaskAttachmentDao;
+import org.tasks.data.UserActivity;
+import org.tasks.data.UserActivityDao;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import org.tasks.scheduling.BackgroundScheduler;
+
+import java.io.File;
+import java.util.List;
+
+import javax.inject.Inject;
+
 import timber.log.Timber;
+
+import static com.google.common.base.Strings.isNullOrEmpty;
 
 public class StartupService {
 
@@ -46,6 +56,7 @@ public class StartupService {
   private static final int V5_3_0 = 491;
   private static final int V6_0_beta_1 = 522;
   private static final int V6_0_beta_2 = 523;
+  private static final int V6_4 = 546;
 
   private final Database database;
   private final Preferences preferences;
@@ -58,6 +69,8 @@ public class StartupService {
   private final FilterDao filterDao;
   private final DefaultFilterProvider defaultFilterProvider;
   private final GoogleTaskListDao googleTaskListDao;
+  private final UserActivityDao userActivityDao;
+  private final TaskAttachmentDao taskAttachmentDao;
 
   @Inject
   public StartupService(
@@ -71,7 +84,9 @@ public class StartupService {
       TagDao tagDao,
       FilterDao filterDao,
       DefaultFilterProvider defaultFilterProvider,
-      GoogleTaskListDao googleTaskListDao) {
+      GoogleTaskListDao googleTaskListDao,
+      UserActivityDao userActivityDao,
+      TaskAttachmentDao taskAttachmentDao) {
     this.database = database;
     this.preferences = preferences;
     this.tracker = tracker;
@@ -83,6 +98,8 @@ public class StartupService {
     this.filterDao = filterDao;
     this.defaultFilterProvider = defaultFilterProvider;
     this.googleTaskListDao = googleTaskListDao;
+    this.userActivityDao = userActivityDao;
+    this.taskAttachmentDao = taskAttachmentDao;
   }
 
   /** Called when this application is started up */
@@ -121,6 +138,9 @@ public class StartupService {
         }
         if (from < V6_0_beta_2) {
           migrateGoogleTaskAccount();
+        }
+        if (from < V6_4) {
+          migrateUris();
         }
         tracker.reportEvent(Tracking.Events.UPGRADE, Integer.toString(from));
       }
@@ -188,6 +208,36 @@ public class StartupService {
       GoogleTaskAccount googleTaskAccount = new GoogleTaskAccount();
       googleTaskAccount.setAccount(account);
       googleTaskListDao.insert(googleTaskAccount);
+    }
+  }
+
+  private void migrateUris() {
+    migrateUriPreference(R.string.p_backup_dir);
+    migrateUriPreference(R.string.p_attachment_dir);
+    for (UserActivity userActivity : userActivityDao.getComments()) {
+      userActivity.convertPictureUri();
+      userActivityDao.update(userActivity);
+    }
+    for (TaskAttachment attachment : taskAttachmentDao.getAttachments()) {
+      attachment.convertPathUri();
+      taskAttachmentDao.update(attachment);
+    }
+  }
+
+  private void migrateUriPreference(int pref) {
+    String path = preferences.getStringValue(pref);
+    if (Strings.isNullOrEmpty(path)) {
+      return;
+    }
+    File file = new File(path);
+    try {
+      if (file.canWrite()) {
+        preferences.setUri(pref, file.toURI());
+      } else {
+        preferences.remove(pref);
+      }
+    } catch (SecurityException ignored) {
+      preferences.remove(pref);
     }
   }
 

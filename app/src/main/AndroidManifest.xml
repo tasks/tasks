@@ -154,11 +154,16 @@
         <category android:name="android.intent.category.DEFAULT"/>
         <data android:mimeType="text/plain"/>
       </intent-filter>
-
       <intent-filter>
         <action android:name="android.intent.action.SEND"/>
         <category android:name="android.intent.category.DEFAULT"/>
-        <data android:mimeType="text/plain"/>
+        <data android:mimeType="text/plain" />
+        <data android:mimeType="image/*" />
+      </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.SEND_MULTIPLE"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <data android:mimeType="image/*" />
       </intent-filter>
     </activity>
 
@@ -223,6 +228,16 @@
       android:authorities="${applicationId}.provider"
       android:exported="false"
       android:grantUriPermissions="true"
+      android:name="org.tasks.files.NNFileProvider">
+      <meta-data
+        android:name="android.support.FILE_PROVIDER_PATHS"
+        android:resource="@xml/nnf_provider_paths"/>
+    </provider>
+
+    <provider
+      android:authorities="${applicationId}.file_provider"
+      android:exported="false"
+      android:grantUriPermissions="true"
       android:name="androidx.core.content.FileProvider">
       <meta-data
         android:name="android.support.FILE_PROVIDER_PATHS"
@@ -274,8 +289,6 @@
     <!-- actfm -->
 
     <activity android:name=".activities.TagSettingsActivity"/>
-
-    <activity android:name=".activities.FilterSettingsActivity"/>
 
     <activity
       android:name=".caldav.CaldavAccountSettingsActivity"

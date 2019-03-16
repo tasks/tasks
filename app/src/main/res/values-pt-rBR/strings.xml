@@ -20,8 +20,6 @@
 %4$s já existiam\n
 %5$s tinham erros\n</string>
 	<string name="import_progress_read">Lendo tarefa %d...</string>
-	<string name="DLG_error_sdcard">Não foi possível acessar a pasta: %s</string>
-	<string name="DLG_error_sdcard_general">Não foi possível acessar seu cartão SD!</string>
 	<string name="read_permission_label">Permissões do Tasks</string>
 	<string name="discard_confirmation">Você tem certeza que deseja descartar suas mudanças?</string>
 	<string name="keep_editing">Continuar editando</string>
@@ -168,8 +166,6 @@
 	<string name="premium_remove_file_confirm">Você tem certeza? Não pode ser desfeito.</string>
 	<string name="audio_recording_title">Gravando Áudio</string>
 	<string name="audio_stop_recording">Parar Gravação</string>
-	<string name="file_type_unhandled">Desculpa! Nenhuma aplicação para manipular este tipo de arquivo foi encontrada.</string>
-	<string name="file_err_copy">Erro ao copiar o arquivo para o anexo</string>
 	<string name="ring_once">Tocar uma vez</string>
 	<string name="ring_five_times">Tocar cinco vezes</string>
 	<string name="ring_nonstop">Tocar continuamente</string>
@@ -289,7 +285,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks irá falar o nome das tarefas durante os lembretes</string>
 	<string name="delete_task">Excluir tarefa</string>
 	<string name="voice_command_added_task">Tarefa adicionada</string>
-	<string name="external_storage_unavailable">Não é possível acessar armazenamento externo</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 tarefa</item>
 		<item quantity="other">%d tarefas</item>

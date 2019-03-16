@@ -21,7 +21,7 @@ class AstridOrderedListFragmentHelper {
   private final SubtasksFilterUpdater updater;
   private final TaskDao taskDao;
   private final Map<String, ArrayList<String>> chainedCompletions =
-      Collections.synchronizedMap(new HashMap<String, ArrayList<String>>());
+      Collections.synchronizedMap(new HashMap<>());
   private DraggableTaskAdapter taskAdapter;
   private TaskListFragment fragment;
   private TaskListMetadata list;

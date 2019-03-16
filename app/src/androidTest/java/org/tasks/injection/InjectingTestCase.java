@@ -1,5 +1,7 @@
 package org.tasks.injection;
 
+import org.junit.Before;
+
 import static androidx.test.InstrumentationRegistry.getTargetContext;
 import static org.tasks.TestUtilities.initializeMockito;
 import static org.mockito.Mockito.mock;

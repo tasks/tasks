@@ -1,22 +1,19 @@
 package org.tasks.preferences;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
-import static org.tasks.dialogs.ExportTasksDialog.newExportTasksDialog;
-import static org.tasks.dialogs.ImportTasksDialog.newImportTasksDialog;
-import static org.tasks.locale.LocalePickerDialog.newLocalePickerDialog;
-import static org.tasks.themes.ThemeColor.LAUNCHERS;
-
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.Preference;
+import android.widget.CheckBox;
+
 import com.google.common.base.Strings;
 import com.todoroo.astrid.core.OldTaskPreferences;
 import com.todoroo.astrid.reminders.ReminderPreferences;
-import java.io.File;
-import javax.inject.Inject;
+
 import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.activities.ColorPickerActivity;
@@ -27,7 +24,9 @@ import org.tasks.analytics.Tracking.Events;
 import org.tasks.billing.BillingClient;
 import org.tasks.billing.Inventory;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.files.FileExplore;
+import org.tasks.drive.DriveLoginActivity;
+import org.tasks.files.FileHelper;
+import org.tasks.gtasks.PlayServices;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.locale.Locale;
@@ -36,6 +35,18 @@ import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeBase;
 import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
+
+import java.io.File;
+
+import javax.inject.Inject;
+
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
+import static org.tasks.dialogs.ExportTasksDialog.newExportTasksDialog;
+import static org.tasks.dialogs.ImportTasksDialog.newImportTasksDialog;
+import static org.tasks.files.FileHelper.newFilePickerIntent;
+import static org.tasks.locale.LocalePickerDialog.newLocalePickerDialog;
+import static org.tasks.themes.ThemeColor.LAUNCHERS;
 
 public class BasicPreferences extends InjectingPreferenceActivity
     implements LocalePickerDialog.LocaleSelectionHandler {
@@ -51,6 +62,7 @@ public class BasicPreferences extends InjectingPreferenceActivity
   private static final int REQUEST_CODE_BACKUP_DIR = 10005;
   private static final int REQUEST_PICKER = 10006;
   private static final int REQUEST_LAUNCHER_PICKER = 10007;
+  private static final int RC_DRIVE_BACKUP = 10008;
   @Inject Tracker tracker;
   @Inject Preferences preferences;
   @Inject ThemeBase themeBase;
@@ -61,6 +73,7 @@ public class BasicPreferences extends InjectingPreferenceActivity
   @Inject ThemeCache themeCache;
   @Inject BillingClient billingClient;
   @Inject Inventory inventory;
+  @Inject PlayServices playServices;
 
   private Bundle result;
 
@@ -146,10 +159,7 @@ public class BasicPreferences extends InjectingPreferenceActivity
     findPreference(R.string.backup_BAc_import)
         .setOnPreferenceClickListener(
             preference -> {
-              Intent intent = new Intent(BasicPreferences.this, FileExplore.class);
-              intent.putExtra(
-                  FileExplore.EXTRA_START_PATH, preferences.getBackupDirectory().getAbsolutePath());
-              startActivityForResult(intent, REQUEST_PICKER);
+              startActivityForResult(newFilePickerIntent(BasicPreferences.this, preferences.getBackupDirectory()), REQUEST_PICKER);
               return false;
             });
 
@@ -162,6 +172,27 @@ public class BasicPreferences extends InjectingPreferenceActivity
 
     initializeBackupDirectory();
 
+    CheckBoxPreference googleDriveBackup = (CheckBoxPreference) findPreference(R.string.p_google_drive_backup);
+    googleDriveBackup.setChecked(preferences.getBoolean(R.string.p_google_drive_backup, false));
+    googleDriveBackup
+        .setOnPreferenceChangeListener(
+            (preference, newValue) -> {
+              if (newValue == null) {
+                return false;
+              }
+
+              if ((Boolean) newValue) {
+                if (playServices.refreshAndCheck()) {
+                  requestLogin();
+                } else {
+                  playServices.resolve(this);
+                }
+                return false;
+              } else {
+                return true;
+              }
+            });
+
     requires(
         R.string.settings_localization,
         atLeastJellybeanMR1(),
@@ -170,8 +201,13 @@ public class BasicPreferences extends InjectingPreferenceActivity
 
     //noinspection ConstantConditions
     if (!BuildConfig.FLAVOR.equals("googleplay")) {
+      remove(R.string.p_google_drive_backup);
       requires(R.string.privacy, false, R.string.p_collect_statistics);
     }
+  }
+
+  private void requestLogin() {
+    startActivityForResult(new Intent(this, DriveLoginActivity.class), RC_DRIVE_BACKUP);
   }
 
   private void setupActivity(int key, final Class<?> target) {
@@ -230,15 +266,24 @@ public class BasicPreferences extends InjectingPreferenceActivity
       }
     } else if (requestCode == REQUEST_CODE_BACKUP_DIR) {
       if (resultCode == RESULT_OK && data != null) {
-        String dir = data.getStringExtra(FileExplore.EXTRA_DIRECTORY);
-        preferences.setString(R.string.p_backup_dir, dir);
+        Uri uri = data.getData();
+        if (atLeastLollipop()) {
+          getContentResolver()
+              .takePersistableUriPermission(
+                  uri,
+                  Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        }
+        preferences.setUri(R.string.p_backup_dir, uri);
         updateBackupDirectory();
       }
     } else if (requestCode == REQUEST_PICKER) {
       if (resultCode == RESULT_OK) {
-        newImportTasksDialog(data.getStringExtra(FileExplore.EXTRA_FILE))
+        newImportTasksDialog(data.getData())
             .show(getFragmentManager(), FRAG_TAG_IMPORT_TASKS);
       }
+    } else if (requestCode == RC_DRIVE_BACKUP) {
+      ((CheckBoxPreference) findPreference(R.string.p_google_drive_backup))
+          .setChecked(resultCode == RESULT_OK);
     } else {
       super.onActivityResult(requestCode, resultCode, data);
     }
@@ -278,10 +323,8 @@ public class BasicPreferences extends InjectingPreferenceActivity
     findPreference(getString(R.string.p_backup_dir))
         .setOnPreferenceClickListener(
             p -> {
-              Intent filesDir = new Intent(BasicPreferences.this, FileExplore.class);
-              filesDir.putExtra(FileExplore.EXTRA_DIRECTORY_MODE, true);
-              startActivityForResult(filesDir, REQUEST_CODE_BACKUP_DIR);
-              return true;
+              FileHelper.newDirectoryPicker(this, REQUEST_CODE_BACKUP_DIR, preferences.getBackupDirectory());
+              return false;
             });
     updateBackupDirectory();
   }
@@ -291,8 +334,10 @@ public class BasicPreferences extends InjectingPreferenceActivity
   }
 
   private String getBackupDirectory() {
-    File dir = preferences.getBackupDirectory();
-    return dir == null ? "" : dir.getAbsolutePath();
+    Uri uri = preferences.getBackupDirectory();
+    return uri.getScheme().equals("file")
+        ? new File(uri.getPath()).getAbsolutePath()
+        : uri.toString();
   }
 
   private void setLauncherIcon(int index) {

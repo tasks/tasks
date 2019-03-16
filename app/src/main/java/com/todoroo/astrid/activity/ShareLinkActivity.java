@@ -1,18 +1,25 @@
-/** TODO: make this lightweight, don't extend the entire MainActivity */
 package com.todoroo.astrid.activity;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
-import static org.tasks.intents.TaskIntents.getEditTaskStack;
-
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import com.todoroo.astrid.dao.TaskDao;
+
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskCreator;
-import javax.inject.Inject;
+
+import org.tasks.data.TaskAttachment;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
+
+import java.util.ArrayList;
+
+import javax.inject.Inject;
+
 import timber.log.Timber;
+
+import static com.google.common.collect.Lists.newArrayList;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
+import static org.tasks.intents.TaskIntents.getEditTaskStack;
 
 /**
  * @author joshuagross
@@ -21,7 +28,6 @@ import timber.log.Timber;
 public final class ShareLinkActivity extends InjectingAppCompatActivity {
 
   @Inject TaskCreator taskCreator;
-  @Inject TaskDao taskDao;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -46,25 +52,40 @@ public final class ShareLinkActivity extends InjectingAppCompatActivity {
 
   private void readIntent() {
     Intent intent = getIntent();
+    String action = intent.getAction();
 
-    if (atLeastMarshmallow() && Intent.ACTION_PROCESS_TEXT.equals(intent.getAction())) {
+    if (atLeastMarshmallow() && Intent.ACTION_PROCESS_TEXT.equals(action)) {
       CharSequence text = intent.getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT);
       if (text != null) {
         Task task = taskCreator.createWithValues(null, text.toString());
         getEditTaskStack(this, null, task).startActivities();
       }
-    } else if (Intent.ACTION_SEND.equals(intent.getAction())) {
+    } else if (action.equals(Intent.ACTION_SEND) || action.equals(Intent.ACTION_SEND_MULTIPLE)) {
       String subject = intent.getStringExtra(Intent.EXTRA_SUBJECT);
-      if (subject == null) {
-        subject = "";
-      }
-
       Task task = taskCreator.createWithValues(null, subject);
       task.setNotes(intent.getStringExtra(Intent.EXTRA_TEXT));
+      task.putTransitory(TaskAttachment.KEY, getAttachments(intent));
       getEditTaskStack(this, null, task).startActivities();
     } else {
       Timber.e("Unhandled intent: %s", intent);
     }
     finish();
+  }
+
+  private ArrayList<Uri> getAttachments(Intent intent) {
+    String type = intent.getType();
+    if (type != null) {
+      String action = intent.getAction();
+      if (action.equals(Intent.ACTION_SEND)) {
+        if (type.startsWith("image/")) {
+          return newArrayList(intent.<Uri>getParcelableExtra(Intent.EXTRA_STREAM));
+        }
+      } else if (action.equals(Intent.ACTION_SEND_MULTIPLE)) {
+        if (type.startsWith("image/")) {
+          return intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
+        }
+      }
+    }
+    return new ArrayList<>();
   }
 }

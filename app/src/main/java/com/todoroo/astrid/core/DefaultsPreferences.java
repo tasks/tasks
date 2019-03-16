@@ -50,6 +50,7 @@ public class DefaultsPreferences extends InjectingPreferenceActivity
   @Inject DefaultFilterProvider defaultFilterProvider;
   @Inject SyncAdapters syncAdapters;
   @Inject Locale locale;
+  @Inject Device device;
 
   private Preference defaultCalendarPref;
   private Preference defaultRadiusPref;
@@ -97,7 +98,7 @@ public class DefaultsPreferences extends InjectingPreferenceActivity
     updateRadius();
 
     requires(syncAdapters.isSyncEnabled(), R.string.p_default_remote_list);
-    requires(Device.SupportsLocationServices(this), R.string.p_default_location_reminder_key);
+    requires(device.supportsLocationServices(), R.string.p_default_location_reminder_key);
   }
 
   private void startCalendarSelectionActivity() {

@@ -52,6 +52,7 @@ import me.leolin.shortcutbadger.impl.ZukHomeBadger;
 /**
  * @author Leo Lin
  */
+@SuppressWarnings("all")
 public final class ShortcutBadger {
 
   private static final String LOG_TAG = "ShortcutBadger";

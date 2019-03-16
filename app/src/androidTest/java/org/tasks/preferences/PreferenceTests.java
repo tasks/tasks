@@ -1,16 +1,19 @@
 package org.tasks.preferences;
 
-import static androidx.test.InstrumentationRegistry.getTargetContext;
-import static junit.framework.Assert.assertEquals;
-
 import android.annotation.SuppressLint;
-import androidx.test.runner.AndroidJUnit4;
-import java.util.concurrent.TimeUnit;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.tasks.R;
 import org.tasks.time.DateTime;
+
+import java.util.concurrent.TimeUnit;
+
+import androidx.test.runner.AndroidJUnit4;
+
+import static androidx.test.InstrumentationRegistry.getTargetContext;
+import static junit.framework.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 public class PreferenceTests {
@@ -22,7 +25,7 @@ public class PreferenceTests {
 
   @Before
   public void setUp() {
-    preferences = new Preferences(getTargetContext(), null);
+    preferences = new Preferences(getTargetContext());
     preferences.clear();
     preferences.setBoolean(R.string.p_rmd_enable_quiet, true);
   }

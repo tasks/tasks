@@ -210,7 +210,7 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity
         }
         break;
     }
-    return super.onOptionsItemSelected(item);
+    return onOptionsItemSelected(item);
   }
 
   @Override

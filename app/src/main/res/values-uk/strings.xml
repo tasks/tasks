@@ -21,8 +21,6 @@
 %4$s вже існує\n
 %5$s має помилку\n</string>
 	<string name="import_progress_read">Читання завдання %d...</string>
-	<string name="DLG_error_sdcard">Немає доступу до папки: %s</string>
-	<string name="DLG_error_sdcard_general">Немає доступу до карти SD!</string>
 	<string name="read_permission_label">Дозволи Tasks</string>
 	<string name="discard_confirmation">Дійсно хочете скасувати ваші зміни?</string>
 	<string name="keep_editing">Продовжити редагування</string>
@@ -157,8 +155,6 @@
 	<string name="premium_remove_file_confirm">Ви впевнені? Це не може бути скасовано.</string>
 	<string name="audio_recording_title">Запис аудіо</string>
 	<string name="audio_stop_recording">Зупинити запис</string>
-	<string name="file_type_unhandled">Вибачте! Не знайдено програму для перегляду файлів цього типу.</string>
-	<string name="file_err_copy">Помилка копіювання файлу для вкладення</string>
 	<string name="ring_once">Дзвеніти 1 раз</string>
 	<string name="ring_five_times">Дзвеніти 5 раз</string>
 	<string name="ring_nonstop">Дзвеніти безперервно</string>
@@ -203,7 +199,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks повинен вимовляти назву завдань під час нагадувань</string>
 	<string name="delete_task">Видалити завдання</string>
 	<string name="voice_command_added_task">Додане завдання</string>
-	<string name="external_storage_unavailable">Немає доступу до зовнішнього сховища</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 завдання</item>
 		<item quantity="other">%d завдань</item>

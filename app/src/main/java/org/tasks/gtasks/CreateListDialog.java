@@ -6,17 +6,22 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+
 import com.google.api.services.tasks.model.TaskList;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
-import java.io.IOException;
-import javax.inject.Inject;
+
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingDialogFragment;
+
+import java.io.IOException;
+
+import javax.inject.Inject;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import timber.log.Timber;
 
 public class CreateListDialog extends InjectingDialogFragment {
@@ -25,7 +30,6 @@ public class CreateListDialog extends InjectingDialogFragment {
   private static final String EXTRA_NAME = "extra_name";
   @Inject DialogBuilder dialogBuilder;
   @Inject @ForApplication Context context;
-  @Inject PlayServices playServices;
   private CreateListDialogCallback callback;
   private ProgressDialog dialog;
   private String account;
@@ -74,7 +78,7 @@ public class CreateListDialog extends InjectingDialogFragment {
       @Override
       protected TaskList doInBackground(Void... voids) {
         try {
-          return new GtasksInvoker(context, playServices, account).createGtaskList(name);
+          return new GtasksInvoker(context, account).createGtaskList(name);
         } catch (IOException e) {
           Timber.e(e);
           return null;

@@ -18,8 +18,6 @@
 	<string name="import_summary_title">復元の概要</string>
 	<string name="import_summary_message">ファイル %1$s の %2$s 中、\n\n成功: %3$s\n既に存在: %4$s\n失敗: %5$s\n</string>
 	<string name="import_progress_read">タスク %d を読み込み中</string>
-	<string name="DLG_error_sdcard">フォルダ %s を開けません</string>
-	<string name="DLG_error_sdcard_general">SDカードにアクセスできません</string>
 	<string name="read_permission_label">タスクの読み込み</string>
 	<string name="discard_confirmation">変更を破棄してもよろしいですか?</string>
 	<string name="keep_editing">編集を続ける</string>
@@ -162,8 +160,6 @@
 	<string name="premium_remove_file_confirm">よろしいですか? 取り消しできません</string>
 	<string name="audio_recording_title">音声を録音中</string>
 	<string name="audio_stop_recording">録音を停止</string>
-	<string name="file_type_unhandled">申し訳ありません! このファイル形式を扱うアプリケーションがありません.</string>
-	<string name="file_err_copy">ファイル添付のコピー中にエラー</string>
 	<string name="ring_once">1回通知音を鳴らす</string>
 	<string name="ring_five_times">5回通知音を鳴らす</string>
 	<string name="ring_nonstop">通知音を鳴らし続ける</string>
@@ -283,7 +279,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks はタスクリマインダーでタスク名を話します</string>
 	<string name="delete_task">タスクを削除</string>
 	<string name="voice_command_added_task">追加されたタスク</string>
-	<string name="external_storage_unavailable">外部メモリーにアクセスできません</string>
 	<plurals name="Ntasks">
 		<item quantity="one">タスク 1 件</item>
 		<item quantity="other">タスク %d 件</item>

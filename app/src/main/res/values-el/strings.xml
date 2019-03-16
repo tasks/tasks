@@ -19,8 +19,6 @@
 %4$s υπάρχει ήδηt\n
 %5$s έχει σφάλματα\n</string>
 	<string name="import_progress_read">Ανάγνωση εργασίας %d...</string>
-	<string name="DLG_error_sdcard">Δεν υπάρχει πρόσβαση στον φάκελο: %s</string>
-	<string name="DLG_error_sdcard_general">Δεν υπάρχει πρόσβαση στην SD κάρτα!</string>
 	<string name="read_permission_label">Άδεια εργασιών</string>
 	<string name="DLG_delete_this_task_question">Διαγραφή εργασίας;</string>
 	<string name="DLG_hour_minutes">Ώρα (ώρες : λεπτά)</string>
@@ -130,8 +128,6 @@
 	<string name="premium_remove_file_confirm">Είστε σίγουρος; Δεν μπορεί να ακυρωθεί</string>
 	<string name="audio_recording_title">Εγγραφή Ήχου</string>
 	<string name="audio_stop_recording">Σταμάτημα εγγραφής</string>
-	<string name="file_type_unhandled">Συγγνώμη! Δεν βρέθηκε εφαρμογή που να χειρίζεται τέτοιο τύπο αρχείου</string>
-	<string name="file_err_copy">Σφάλμα αντιγραφής αρχείου προς επισύναψη</string>
 	<string name="random_reminder_hour">μια ώρα</string>
 	<string name="random_reminder_day">μια μέρα</string>
 	<string name="random_reminder_week">μια εβδομάδα</string>
@@ -167,7 +163,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Η εφαρμογή θα λέει να ονόματα των εργασιών κατά την διάρκεια των υπενθυμίσεων</string>
 	<string name="delete_task">Διαγραφή καθήκοντος</string>
 	<string name="voice_command_added_task">Η εργασία προστέθηκε</string>
-	<string name="external_storage_unavailable">Δεν είναι δυνατή η πρόσβαση σε εξωτερικά μέσα αποθήκευσης</string>
 	<string name="today">Σήμερα</string>
 	<string name="tomorrow">Αύριο</string>
 	<string name="yesterday">Χθές</string>

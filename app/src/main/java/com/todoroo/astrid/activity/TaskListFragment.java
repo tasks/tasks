@@ -39,6 +39,7 @@ import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.api.SearchFilter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.core.CustomFilterActivity;
 import com.todoroo.astrid.data.Task;
@@ -128,7 +129,7 @@ public class TaskListFragment extends InjectingFragment
   private TaskAdapter taskAdapter = null;
   private TaskListRecyclerAdapter recyclerAdapter;
 
-  private PublishSubject<String> searchSubject;
+  private PublishSubject<String> searchSubject = PublishSubject.create();
   private Disposable searchDisposable;
 
     /*
@@ -246,61 +247,84 @@ public class TaskListFragment extends InjectingFragment
     if (preferences.getBoolean(R.string.p_show_completed_tasks, false)) {
       completed.setChecked(true);
     }
-    if (taskAdapter.isManuallySorted()) {
+    if (taskAdapter.isManuallySorted() || filter instanceof SearchFilter) {
       completed.setChecked(true);
       completed.setEnabled(false);
       hidden.setChecked(true);
       hidden.setEnabled(false);
     }
 
-    menu.findItem(R.id.menu_voice_add).setVisible(device.voiceInputAvailable());
-    setupSearchView(menu);
-  }
+    MenuItem voice = menu.findItem(R.id.menu_voice_add);
+    voice.setVisible(device.voiceInputAvailable());
 
-  private void setupSearchView(Menu menu) {
-    final MenuItem item = menu.findItem(R.id.menu_search);
-    final SearchView actionView = (SearchView) MenuItemCompat.getActionView(item);
-    searchSubject = PublishSubject.create();
-    searchDisposable = searchSubject
-            .debounce(SEARCH_DEBOUNCE_TIMEOUT, TimeUnit.MILLISECONDS)
-            .subscribe(query -> searchByQuery(query));
-
-    actionView.setOnQueryTextListener(
-            new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    return false;
-                }
-
-                @Override
-                public boolean onQueryTextChange(String query) {
-                    searchSubject.onNext(query);
+    MenuItem search =
+        menu.findItem(R.id.menu_search)
+            .setOnActionExpandListener(
+                new MenuItem.OnActionExpandListener() {
+                  @Override
+                  public boolean onMenuItemActionExpand(MenuItem item) {
+                    searchDisposable =
+                        searchSubject
+                            .debounce(SEARCH_DEBOUNCE_TIMEOUT, TimeUnit.MILLISECONDS)
+                            .subscribe(q -> searchByQuery(q));
+                    searchByQuery("");
+                    for (int i = 0; i < menu.size(); i++) {
+                      menu.getItem(i).setVisible(false);
+                    }
                     return true;
-                }
+                  }
+
+                  @Override
+                  public boolean onMenuItemActionCollapse(MenuItem item) {
+                    taskListViewModel.searchByFilter(filter);
+                    searchDisposable.dispose();
+                    for (int i = 0; i < menu.size(); i++) {
+                      menu.getItem(i).setVisible(true);
+                    }
+                    voice.setVisible(device.voiceInputAvailable());
+                    return true;
+                  }
+                });
+    ((SearchView) search.getActionView())
+        .setOnQueryTextListener(
+            new SearchView.OnQueryTextListener() {
+              @Override
+              public boolean onQueryTextSubmit(String query) {
+                ((MainActivity) getActivity())
+                    .onFilterItemClicked(createSearchFilter(query.trim()));
+                MenuItemCompat.collapseActionView(search);
+                return true;
+              }
+
+              @Override
+              public boolean onQueryTextChange(String query) {
+                searchSubject.onNext(query);
+                return true;
+              }
             });
-    }
+  }
 
   private void searchByQuery(String query) {
     query = query.trim();
     if (!query.isEmpty()) {
-        Filter savedFilter = createSearchFilter(query);
-            taskListViewModel.searchByFilter(savedFilter);
+      Filter savedFilter = createSearchFilter(query);
+      taskListViewModel.searchByFilter(savedFilter);
     } else {
-        MainActivity activity = (MainActivity) getActivity();
-        taskListViewModel.searchByFilter(activity.defaultFilterProvider.getDefaultFilter());
+      taskListViewModel.searchByFilter(
+          BuiltInFilterExposer.getMyTasksFilter(context.getResources()));
     }
   }
 
-  private Filter createSearchFilter(String query){
+  private Filter createSearchFilter(String query) {
     String title = getString(R.string.FLA_search_filter, query);
-    return new Filter(
-    title, new QueryTemplate()
+    return new SearchFilter(
+        title,
+        new QueryTemplate()
             .where(
-                    Criterion.and(
-                            Task.DELETION_DATE.eq(0),
-                            Criterion.or(
-                                    Task.NOTES.like("%" + query + "%"),
-                                    Task.TITLE.like("%" + query + "%")))));
+                Criterion.and(
+                    Task.DELETION_DATE.eq(0),
+                    Criterion.or(
+                        Task.NOTES.like("%" + query + "%"), Task.TITLE.like("%" + query + "%")))));
   }
 
   @Override
@@ -434,7 +458,9 @@ public class TaskListFragment extends InjectingFragment
   @Override
   public void onDestroyView() {
     super.onDestroyView();
-    searchDisposable.dispose();
+    if (searchDisposable != null && !searchDisposable.isDisposed()) {
+      searchDisposable.dispose();
+    }
   }
 
     /**

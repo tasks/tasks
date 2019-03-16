@@ -15,30 +15,27 @@ import javax.inject.Inject;
 
 public class GtaskSyncAdapterHelper {
 
-    private static final String AUTHORITY = "org.tasks";
-    public static final String SYNC_FULL = "full";
-    private static final String IDENTIFIER = "gtasks"; //$NON-NLS-1$
-    private static final String PREF_USE_NOTE_FOR_METADATA_SYNC = IDENTIFIER + "_noteMetadataSync"; //$NON-NLS-1$
-
-    private final GoogleAccountManager accountManager;
-    private final Preferences preferences;
-    private final PlayServices playServices;
-    private final GoogleTaskListDao googleTaskListDao;
-    private final Tracker tracker;
+  private static final String AUTHORITY = "org.tasks";
+  public static final String SYNC_FULL = "full";
+  private static final String IDENTIFIER = "gtasks"; //$NON-NLS-1$
+  private static final String PREF_USE_NOTE_FOR_METADATA_SYNC = IDENTIFIER + "_noteMetadataSync"; //$NON-NLS-1$
+  private final Preferences preferences;
+  private final PlayServices playServices;
+  private final GoogleTaskListDao googleTaskListDao;
+  private final Tracker tracker;
 
     @Inject
     public GtaskSyncAdapterHelper(
-            GoogleAccountManager accountManager,
-            Preferences preferences,
-            PlayServices playServices,
-            GoogleTaskListDao googleTaskListDao,
-            Tracker tracker) {
-      this.accountManager = accountManager;
-      this.preferences = preferences;
-      this.playServices = playServices;
-      this.googleTaskListDao = googleTaskListDao;
-      this.tracker = tracker;
-  }
+              GoogleAccountManager accountManager,
+              Preferences preferences,
+              PlayServices playServices,
+              GoogleTaskListDao googleTaskListDao,
+              Tracker tracker) {
+        this.preferences = preferences;
+        this.playServices = playServices;
+        this.googleTaskListDao = googleTaskListDao;
+        this.tracker = tracker;
+    }
     public boolean initiateManualFullSync() {
         if (!hasAccounts()) {
             return false;

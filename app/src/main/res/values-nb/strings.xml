@@ -14,8 +14,6 @@
 	<string name="import_summary_title">Gjennopprettingssammendrag</string>
 	<string name="import_summary_message">Filen %1$s inneholder %2$s.\n\n %3$s importert,\n %4$s eksisterer allerede\n %5$s inneholdt feil\n</string>
 	<string name="import_progress_read">Leser oppgave %d...</string>
-	<string name="DLG_error_sdcard">Får ikke tilgang til mappen: %s</string>
-	<string name="DLG_error_sdcard_general">Ditt SD-kort er ikke tilgjengelig!</string>
 	<string name="read_permission_label">Tasks Tillatelse</string>
 	<string name="DLG_delete_this_task_question">Slett denne oppgaven?</string>
 	<string name="DLG_hour_minutes">Tid (timer : minutter)</string>

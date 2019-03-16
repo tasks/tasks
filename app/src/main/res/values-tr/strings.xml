@@ -22,8 +22,6 @@
  %5$s hatalar var
 </string>
 	<string name="import_progress_read">%d görev okunuyor..</string>
-	<string name="DLG_error_sdcard">%s dizinine erişilemedi.</string>
-	<string name="DLG_error_sdcard_general">Bellek kartınıza erişilemiyor!</string>
 	<string name="read_permission_label">Tasks İzni</string>
 	<string name="discard_confirmation">Değişikliklerinizi gözden çıkarmak istediğinize emin misiniz?</string>
 	<string name="keep_editing">Düzenlemeyi sürdür</string>
@@ -172,8 +170,6 @@
 	<string name="premium_remove_file_confirm">Emin misiniz? Geri döndürülemez</string>
 	<string name="audio_recording_title">Ses Kaydediliyor</string>
 	<string name="audio_stop_recording">Kaydı Durdur</string>
-	<string name="file_type_unhandled">Üzgünüm! Bu dosya türünü destekleyen bir uygulama bulunamadı.</string>
-	<string name="file_err_copy">Dosyanın ek olarak kopyalanmasında hata</string>
 	<string name="ring_once">Bir kez çal</string>
 	<string name="ring_five_times">5 kez çal</string>
 	<string name="ring_nonstop">Durmadan çal</string>
@@ -293,7 +289,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks, görev adlarını görev hatırlatmaları sırasında söyleyecek</string>
 	<string name="delete_task">Görevi sil</string>
 	<string name="voice_command_added_task">Görev eklendi</string>
-	<string name="external_storage_unavailable">Dış depolamaya ulaşılamadı.</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 görev</item>
 		<item quantity="other">%d görev</item>

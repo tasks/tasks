@@ -18,8 +18,6 @@
 	<string name="import_summary_title">Итог восстановления</string>
 	<string name="import_summary_message">Файл %1$s содержал %2$s.\n\n %3$s импортировано,\n %4$s существовало\n %5$s с ошибками\n</string>
 	<string name="import_progress_read">Чтение задачи %d…</string>
-	<string name="DLG_error_sdcard">Нет доступа к папке:%s</string>
-	<string name="DLG_error_sdcard_general">Нет доступа к карте памяти!</string>
 	<string name="read_permission_label">Разрешения Tasks</string>
 	<string name="discard_confirmation">Вы действительно хотите отказаться от сделанных изменений?</string>
 	<string name="keep_editing">Продолжить редактировать</string>
@@ -160,8 +158,6 @@
 	<string name="premium_remove_file_confirm">Вы уверены? Действие нельзя отменить</string>
 	<string name="audio_recording_title">Запись голоса</string>
 	<string name="audio_stop_recording">Остановить запись</string>
-	<string name="file_type_unhandled">Извините! Не найдена программа для просмотра файлов этого типа.</string>
-	<string name="file_err_copy">Ошибка копирования прикрепляемого файла.</string>
 	<string name="ring_once">1 раз</string>
 	<string name="ring_five_times">5 раз</string>
 	<string name="ring_nonstop">Пока не выкл.</string>
@@ -281,7 +277,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks должен произносить название задач во время напоминаний</string>
 	<string name="delete_task">Удалить задачу</string>
 	<string name="voice_command_added_task">Добавленная задача</string>
-	<string name="external_storage_unavailable">Нет доступа к внешнему хранилищу</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 задача</item>
 		<item quantity="other">%d задач(а/и)</item>
