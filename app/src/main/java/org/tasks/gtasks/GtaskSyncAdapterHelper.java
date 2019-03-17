@@ -60,9 +60,7 @@ public class GtaskSyncAdapterHelper {
     }
 
     public boolean isEnabled() {
-        return preferences.getBoolean(R.string.sync_gtasks, false) &&
-                playServices.isPlayServicesAvailable() &&
-                hasAccounts();
+        return playServices.isPlayServicesAvailable() && hasAccounts();
     }
 
     private boolean hasAccounts() {

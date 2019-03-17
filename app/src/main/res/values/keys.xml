@@ -151,10 +151,6 @@
   <!-- on calendar end at dealline if true, start at deadline if false -->
   <string name="p_end_at_deadline">p_end_at_deadline</string>
 
-  <string name="sync_gtasks">sync_gtasks</string>
-  <string name="sync_SPr_forget_key">sync_forget</string>
-  <string name="p_gtasks_default_list">default_gtasks_list</string>
-
   <string name="gtasks_sync_metadata_using_note_key">gtasks_noteMetadataSync</string>
   <!-- ============================================================ OTHER == -->
 
