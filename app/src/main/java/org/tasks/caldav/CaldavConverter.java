@@ -154,7 +154,7 @@ public class CaldavConverter {
       remote.setRRule(null);
     }
     if (task.hasHideUntilDate()) {
-      remote.setDtStart(new DtStart(new DateTime(task.getCompletionDate())));
+      remote.setDtStart(new DtStart(new DateTime(task.getHideUntil())));
     }
     remote.setLastModified(newDateTime(task.getModificationDate()).toUTC().getMillis());
     remote.setPriority(toRemote(remote.getPriority(), task.getPriority()));
