@@ -17,13 +17,14 @@ import org.tasks.data.CaldavTask;
 import org.tasks.data.DeletionDao;
 import org.tasks.data.Filter;
 import org.tasks.data.FilterDao;
+import org.tasks.data.Geofence;
 import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
-import org.tasks.data.Location;
 import org.tasks.data.LocationDao;
+import org.tasks.data.Place;
 import org.tasks.data.Tag;
 import org.tasks.data.TagDao;
 import org.tasks.data.TagData;
@@ -46,7 +47,8 @@ import org.tasks.notifications.NotificationDao;
       TaskListMetadata.class,
       Task.class,
       Alarm.class,
-      Location.class,
+      Place.class,
+      Geofence.class,
       Tag.class,
       GoogleTask.class,
       Filter.class,
@@ -56,7 +58,7 @@ import org.tasks.notifications.NotificationDao;
       CaldavAccount.class,
       GoogleTaskAccount.class
     },
-    version = 60)
+    version = 61)
 public abstract class Database extends RoomDatabase {
 
   public static final String NAME = "database";

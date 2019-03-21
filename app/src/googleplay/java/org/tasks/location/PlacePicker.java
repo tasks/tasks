@@ -9,7 +9,9 @@ import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.maps.model.LatLng;
+import com.todoroo.astrid.helper.UUIDHelper;
 import org.tasks.R;
+import org.tasks.data.Geofence;
 import org.tasks.data.Location;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
@@ -36,23 +38,32 @@ public class PlacePicker {
   public static Location getPlace(Context context, Intent data, Preferences preferences) {
     Place place = com.google.android.gms.location.places.ui.PlacePicker.getPlace(context, data);
     LatLng latLng = place.getLatLng();
-    Location location = new Location();
-    location.setName(place.getName().toString());
+    Geofence g = new Geofence();
+    g.setRadius(preferences.getInt(R.string.p_default_location_radius, 250));
+    int defaultReminders =
+        preferences.getIntegerFromString(R.string.p_default_location_reminder_key, 1);
+    g.setArrival(defaultReminders == 1 || defaultReminders == 3);
+    g.setDeparture(defaultReminders == 2 || defaultReminders == 3);
+
+    org.tasks.data.Place p = new org.tasks.data.Place();
+    p.setUid(UUIDHelper.newUUID());
+    p.setName(place.getName().toString());
     CharSequence address = place.getAddress();
     if (address != null) {
-      location.setAddress(place.getAddress().toString());
+      p.setAddress(place.getAddress().toString());
     }
     CharSequence phoneNumber = place.getPhoneNumber();
     if (phoneNumber != null) {
-      location.setPhone(phoneNumber.toString());
+      p.setPhone(phoneNumber.toString());
     }
     Uri uri = place.getWebsiteUri();
     if (uri != null) {
-      location.setUrl(uri.toString());
+      p.setUrl(uri.toString());
     }
-    location.setLatitude(latLng.latitude);
-    location.setLongitude(latLng.longitude);
-    location.setRadius(preferences.getInt(R.string.p_default_location_radius, 250));
+    p.setLatitude(latLng.latitude);
+    p.setLongitude(latLng.longitude);
+
+    Location location = new Location(g, p);
     Timber.i("Picked %s", location);
     return location;
   }

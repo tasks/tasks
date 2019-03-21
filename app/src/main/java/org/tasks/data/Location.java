@@ -1,25 +1,17 @@
 package org.tasks.data;
 
-import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.Ignore;
-import androidx.room.PrimaryKey;
-import com.google.common.base.Strings;
+import androidx.room.Embedded;
 import java.io.Serializable;
-import java.util.regex.Pattern;
-import org.tasks.backup.XmlReader;
 
-@Entity(tableName = "locations")
 public class Location implements Serializable, Parcelable {
 
-  public static final Parcelable.Creator<Location> CREATOR =
-      new Parcelable.Creator<Location>() {
+  public static final Creator<Location> CREATOR =
+      new Creator<Location>() {
         @Override
-        public Location createFromParcel(Parcel source) {
-          return new Location(source);
+        public Location createFromParcel(Parcel in) {
+          return new Location(in);
         }
 
         @Override
@@ -27,187 +19,117 @@ public class Location implements Serializable, Parcelable {
           return new Location[size];
         }
       };
-  private static final Pattern COORDS =
-      Pattern.compile("^\\d+°\\d+'\\d+\\.\\d+\"[NS] \\d+°\\d+'\\d+\\.\\d+\"[EW]$");
-  @PrimaryKey(autoGenerate = true)
-  @ColumnInfo(name = "_id")
-  private transient long id;
 
-  @ColumnInfo(name = "task")
-  private transient long task;
-
-  @ColumnInfo(name = "name")
-  private String name;
-
-  @ColumnInfo(name = "address")
-  private String address;
-
-  @ColumnInfo(name = "phone")
-  private String phone;
-
-  @ColumnInfo(name = "url")
-  private String url;
-
-  @ColumnInfo(name = "latitude")
-  private double latitude;
-
-  @ColumnInfo(name = "longitude")
-  private double longitude;
-
-  @ColumnInfo(name = "radius")
-  private int radius;
-
-  @ColumnInfo(name = "arrival")
-  private boolean arrival;
-
-  @ColumnInfo(name = "departure")
-  private boolean departure;
+  @Embedded public Geofence geofence;
+  @Embedded public Place place;
 
   public Location() {}
 
-  @Ignore
-  public Location(Location o) {
-    id = o.id;
-    task = o.task;
-    name = o.name;
-    address = o.address;
-    phone = o.phone;
-    url = o.url;
-    latitude = o.latitude;
-    longitude = o.longitude;
-    radius = o.radius;
-    arrival = o.arrival;
-    departure = o.departure;
+  public Location(Geofence geofence, Place place) {
+    this.geofence = geofence;
+    this.place = place;
   }
 
-  @Ignore
-  public Location(Parcel parcel) {
-    id = parcel.readLong();
-    task = parcel.readLong();
-    name = parcel.readString();
-    address = parcel.readString();
-    phone = parcel.readString();
-    url = parcel.readString();
-    latitude = parcel.readDouble();
-    longitude = parcel.readDouble();
-    radius = parcel.readInt();
-    arrival = parcel.readInt() == 1;
-    departure = parcel.readInt() == 1;
-  }
-
-  @Ignore
-  public Location(XmlReader xml) {
-    xml.readString("name", this::setName);
-    xml.readDouble("latitude", this::setLatitude);
-    xml.readDouble("longitude", this::setLongitude);
-    xml.readInteger("radius", this::setRadius);
+  protected Location(Parcel in) {
+    geofence = in.readParcelable(Geofence.class.getClassLoader());
+    place = in.readParcelable(Place.class.getClassLoader());
   }
 
   public long getId() {
-    return id;
+    return geofence.getId();
   }
 
   public void setId(long id) {
-    this.id = id;
+    geofence.setId(id);
   }
 
   public long getTask() {
-    return task;
+    return geofence.getTask();
   }
 
   public void setTask(long task) {
-    this.task = task;
+    geofence.setTask(task);
   }
 
   public String getName() {
-    return name;
+    return place.getName();
   }
 
   public void setName(String name) {
-    this.name = name;
+    place.setName(name);
   }
 
   public double getLatitude() {
-    return latitude;
+    return place.getLatitude();
   }
 
   public void setLatitude(double latitude) {
-    this.latitude = latitude;
+    place.setLatitude(latitude);
   }
 
   public double getLongitude() {
-    return longitude;
+    return place.getLongitude();
   }
 
   public void setLongitude(double longitude) {
-    this.longitude = longitude;
+    place.setLongitude(longitude);
   }
 
   public int getRadius() {
-    return radius;
+    return geofence.getRadius();
   }
 
   public void setRadius(int radius) {
-    this.radius = radius;
+    geofence.setRadius(radius);
   }
 
   public String getAddress() {
-    return address;
-  }
-
-  public void setAddress(String address) {
-    this.address = address;
+    return place.getAddress();
   }
 
   public String getPhone() {
-    return phone;
+    return place.getPhone();
   }
 
   public void setPhone(String phone) {
-    this.phone = phone;
+    place.setPhone(phone);
   }
 
   public String getUrl() {
-    return url;
+    return place.getUrl();
   }
 
   public void setUrl(String url) {
-    this.url = url;
+    place.setUrl(url);
   }
 
   public boolean isArrival() {
-    return arrival;
+    return geofence.isArrival();
   }
 
   public void setArrival(boolean arrival) {
-    this.arrival = arrival;
+    geofence.setArrival(arrival);
   }
 
   public boolean isDeparture() {
-    return departure;
+    return geofence.isDeparture();
   }
 
   public void setDeparture(boolean departure) {
-    this.departure = departure;
+    geofence.setDeparture(departure);
   }
 
   public String getDisplayName() {
-    if (Strings.isNullOrEmpty(address)) {
-      return name;
-    }
-    if (COORDS.matcher(name).matches()) {
-      return address;
-    }
-    if (address.startsWith(name)) {
-      return address;
-    }
-    return name;
+    return place.getDisplayName();
   }
 
   public String getGeoUri() {
-    return String.format(
-        "geo:%s,%s?q=%s",
-        latitude, longitude, Uri.encode(Strings.isNullOrEmpty(address) ? name : address));
+    return place.getGeoUri();
+  }
+
+  @Override
+  public String toString() {
+    return "Location{" + "geofence=" + geofence + ", place=" + place + '}';
   }
 
   @Override
@@ -215,95 +137,23 @@ public class Location implements Serializable, Parcelable {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof Location)) {
+    if (o == null || getClass() != o.getClass()) {
       return false;
     }
 
     Location location = (Location) o;
 
-    if (id != location.id) {
+    if (geofence != null ? !geofence.equals(location.geofence) : location.geofence != null) {
       return false;
     }
-    if (task != location.task) {
-      return false;
-    }
-    if (Double.compare(location.latitude, latitude) != 0) {
-      return false;
-    }
-    if (Double.compare(location.longitude, longitude) != 0) {
-      return false;
-    }
-    if (radius != location.radius) {
-      return false;
-    }
-    if (arrival != location.arrival) {
-      return false;
-    }
-    if (departure != location.departure) {
-      return false;
-    }
-    if (name != null ? !name.equals(location.name) : location.name != null) {
-      return false;
-    }
-    if (address != null ? !address.equals(location.address) : location.address != null) {
-      return false;
-    }
-    if (phone != null ? !phone.equals(location.phone) : location.phone != null) {
-      return false;
-    }
-    return url != null ? url.equals(location.url) : location.url == null;
+    return place != null ? place.equals(location.place) : location.place == null;
   }
 
   @Override
   public int hashCode() {
-    int result;
-    long temp;
-    result = (int) (id ^ (id >>> 32));
-    result = 31 * result + (int) (task ^ (task >>> 32));
-    result = 31 * result + (name != null ? name.hashCode() : 0);
-    result = 31 * result + (address != null ? address.hashCode() : 0);
-    result = 31 * result + (phone != null ? phone.hashCode() : 0);
-    result = 31 * result + (url != null ? url.hashCode() : 0);
-    temp = Double.doubleToLongBits(latitude);
-    result = 31 * result + (int) (temp ^ (temp >>> 32));
-    temp = Double.doubleToLongBits(longitude);
-    result = 31 * result + (int) (temp ^ (temp >>> 32));
-    result = 31 * result + radius;
-    result = 31 * result + (arrival ? 1 : 0);
-    result = 31 * result + (departure ? 1 : 0);
+    int result = geofence != null ? geofence.hashCode() : 0;
+    result = 31 * result + (place != null ? place.hashCode() : 0);
     return result;
-  }
-
-  @Override
-  public String toString() {
-    return "Location{"
-        + "id="
-        + id
-        + ", task="
-        + task
-        + ", name='"
-        + name
-        + '\''
-        + ", address='"
-        + address
-        + '\''
-        + ", phone='"
-        + phone
-        + '\''
-        + ", url='"
-        + url
-        + '\''
-        + ", latitude="
-        + latitude
-        + ", longitude="
-        + longitude
-        + ", radius="
-        + radius
-        + ", arrival="
-        + arrival
-        + ", departure="
-        + departure
-        + '}';
   }
 
   @Override
@@ -312,17 +162,8 @@ public class Location implements Serializable, Parcelable {
   }
 
   @Override
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeLong(id);
-    out.writeLong(task);
-    out.writeString(name);
-    out.writeString(address);
-    out.writeString(phone);
-    out.writeString(url);
-    out.writeDouble(latitude);
-    out.writeDouble(longitude);
-    out.writeInt(radius);
-    out.writeInt(arrival ? 1 : 0);
-    out.writeInt(departure ? 1 : 0);
+  public void writeToParcel(Parcel dest, int flags) {
+    dest.writeParcelable(geofence, flags);
+    dest.writeParcelable(place, flags);
   }
 }

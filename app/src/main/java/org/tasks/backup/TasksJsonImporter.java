@@ -13,6 +13,7 @@ import com.google.gson.JsonObject;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.helper.UUIDHelper;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,13 +29,14 @@ import org.tasks.data.CaldavDao;
 import org.tasks.data.CaldavTask;
 import org.tasks.data.Filter;
 import org.tasks.data.FilterDao;
+import org.tasks.data.Geofence;
 import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
-import org.tasks.data.Location;
 import org.tasks.data.LocationDao;
+import org.tasks.data.Place;
 import org.tasks.data.Tag;
 import org.tasks.data.TagDao;
 import org.tasks.data.TagData;
@@ -139,6 +141,11 @@ public class TasksJsonImporter {
           googleTaskListDao.insert(googleTaskAccount);
         }
       }
+      for (Place place : backupContainer.getPlaces()) {
+        if (locationDao.getByUid(place.getUid()) == null) {
+          locationDao.insert(place);
+        }
+      }
       for (GoogleTaskList googleTaskList : backupContainer.getGoogleTaskLists()) {
         if (googleTaskListDao.getByRemoteId(googleTaskList.getRemoteId()) == null) {
           googleTaskListDao.insert(googleTaskList);
@@ -185,14 +192,32 @@ public class TasksJsonImporter {
           googleTask.setTask(taskId);
           googleTaskDao.insert(googleTask);
         }
+        for (LegacyLocation location : backup.locations) {
+          Place place = new Place();
+          place.setUid(UUIDHelper.newUUID());
+          place.setLongitude(location.longitude);
+          place.setLatitude(location.latitude);
+          place.setName(location.name);
+          place.setAddress(location.address);
+          place.setUrl(location.url);
+          place.setPhone(location.phone);
+          locationDao.insert(place);
+          Geofence geofence = new Geofence();
+          geofence.setTask(taskId);
+          geofence.setPlace(place.getUid());
+          geofence.setRadius(location.radius);
+          geofence.setArrival(location.arrival);
+          geofence.setDeparture(location.departure);
+          locationDao.insert(geofence);
+        }
         for (Tag tag : backup.tags) {
           tag.setTask(taskId);
           tag.setTaskUid(taskUuid);
           tagDao.insert(tag);
         }
-        for (Location location : backup.locations) {
-          location.setTask(taskId);
-          locationDao.insert(location);
+        for (Geofence geofence : backup.getGeofences()) {
+          geofence.setTask(taskId);
+          locationDao.insert(geofence);
         }
         for (TaskAttachment attachment : backup.getAttachments()) {
           attachment.setTaskId(taskUuid);
@@ -238,5 +263,17 @@ public class TasksJsonImporter {
                 r.getQuantityString(R.plurals.Ntasks, 0, 0)))
         .setPositiveButton(android.R.string.ok, (dialog, id) -> dialog.dismiss())
         .show();
+  }
+
+  static class LegacyLocation {
+    String name;
+    String address;
+    String phone;
+    String url;
+    double latitude;
+    double longitude;
+    int radius;
+    boolean arrival;
+    boolean departure;
   }
 }

@@ -112,7 +112,7 @@ public class LocationDialog extends InjectingDialogFragment {
   }
 
   private Location getOriginal() {
-    return new Location(getArguments().<Location>getParcelable(EXTRA_ORIGINAL));
+    return getArguments().getParcelable(EXTRA_ORIGINAL);
   }
 
   private void sendResult(DialogInterface d, int... i) {

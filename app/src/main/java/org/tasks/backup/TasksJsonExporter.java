@@ -181,7 +181,7 @@ public class TasksJsonExporter {
           new BackupContainer.TaskBackup(
               task,
               alarmDao.getAlarms(taskId),
-              locationDao.getGeofences(taskId),
+              locationDao.getGeofencesForTask(taskId),
               tagDao.getTagsForTask(taskId),
               googleTaskDao.getAllByTaskId(taskId),
               userActivityDao.getCommentsForTask(task.getUuid()),
@@ -196,6 +196,7 @@ public class TasksJsonExporter {
         "data",
         new BackupContainer(
             taskBackups,
+            locationDao.getPlaces(),
             tagDataDao.getAll(),
             filterDao.getAll(),
             googleTaskListDao.getAccounts(),

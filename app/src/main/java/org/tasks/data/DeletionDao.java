@@ -25,7 +25,7 @@ public abstract class DeletionDao {
   @Query("DELETE FROM tags WHERE task IN(:ids)")
   abstract void deleteTags(List<Long> ids);
 
-  @Query("DELETE FROM locations WHERE task IN(:ids)")
+  @Query("DELETE FROM geofences WHERE task IN(:ids)")
   abstract void deleteGeofences(List<Long> ids);
 
   @Query("DELETE FROM alarms WHERE task IN(:ids)")

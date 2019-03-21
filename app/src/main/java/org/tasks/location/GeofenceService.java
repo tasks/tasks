@@ -7,8 +7,10 @@ import static java.util.Collections.emptyList;
 import java.util.List;
 import java.util.Set;
 import javax.inject.Inject;
+import org.tasks.data.Geofence;
 import org.tasks.data.Location;
 import org.tasks.data.LocationDao;
+import org.tasks.data.Place;
 
 public class GeofenceService {
 
@@ -71,14 +73,18 @@ public class GeofenceService {
         if (callback != null) {
           callback.beforeDelete(item);
         }
-        locationDao.delete(item);
+        locationDao.delete(item.geofence);
         dirty = true;
       }
     }
 
     // everything that remains shall be written
     for (Location location : locations) {
-      locationDao.insert(location);
+      Place place = location.place;
+      locationDao.insert(place);
+      Geofence geofence = location.geofence;
+      geofence.setPlace(place.getUid());
+      locationDao.insert(geofence);
       dirty = true;
     }
 

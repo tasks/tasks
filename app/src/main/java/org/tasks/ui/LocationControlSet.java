@@ -150,10 +150,6 @@ public class LocationControlSet extends TaskEditControlFragment {
     if (requestCode == REQUEST_LOCATION_REMINDER) {
       if (resultCode == Activity.RESULT_OK) {
         Location place = PlacePicker.getPlace(context, data, preferences);
-        int defaultReminders =
-            preferences.getIntegerFromString(R.string.p_default_location_reminder_key, 1);
-        place.setArrival(defaultReminders == 1 || defaultReminders == 3);
-        place.setDeparture(defaultReminders == 2 || defaultReminders == 3);
         locations.add(place);
         setup(locations);
       }
