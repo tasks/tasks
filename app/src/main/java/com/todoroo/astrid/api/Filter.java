@@ -105,6 +105,10 @@ public class Filter extends FilterListItem {
     // do nothing
   }
 
+  public String getOriginalSqlQuery() {
+    return sqlQuery;
+  }
+
   public String getSqlQuery() {
     if (filterOverride != null) {
       return filterOverride;
