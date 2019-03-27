@@ -1,5 +1,10 @@
 Change Log
 ---
+### 6.5.6 (2019-03-27)
+
+* Fix crash when clearing completed on a manually sorted Google Task list
+* Update Ukrainian translations - nathalier
+
 ### 6.5.5 (2019-03-14)
 
 * Bug fixes
