@@ -28,8 +28,7 @@
       android:name="com.google.android.geo.API_KEY"
       android:value="@string/google_key"/>
 
-    <activity
-      android:name=".location.LocationPicker"/>
+    <activity android:name=".location.LocationPickerActivity"/>
 
     <meta-data
       android:name="firebase_crashlytics_collection_enabled"

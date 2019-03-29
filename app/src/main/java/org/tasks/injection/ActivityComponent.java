@@ -11,7 +11,7 @@ import com.todoroo.astrid.gcal.CalendarReminderActivity;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import com.todoroo.astrid.reminders.ReminderPreferences;
 import dagger.Subcomponent;
-import org.tasks.location.LocationPicker;
+import org.tasks.location.LocationPickerActivity;
 import org.tasks.activities.CalendarSelectionActivity;
 import org.tasks.activities.CameraActivity;
 import org.tasks.activities.ColorPickerActivity;
@@ -142,5 +142,5 @@ public interface ActivityComponent {
 
   void inject(WidgetClickActivity widgetActivity);
 
-  void inject(LocationPicker locationPicker);
+  void inject(LocationPickerActivity locationPickerActivity);
 }

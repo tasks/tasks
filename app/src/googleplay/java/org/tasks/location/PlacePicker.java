@@ -13,7 +13,7 @@ public class PlacePicker {
   static final String EXTRA_PLACE = "extra_place";
 
   public static Intent getIntent(Activity activity) {
-    return new Intent(activity, LocationPicker.class);
+    return new Intent(activity, LocationPickerActivity.class);
   }
 
   public static Location getPlace(Intent data, Preferences preferences) {

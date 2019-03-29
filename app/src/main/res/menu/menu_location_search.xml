@@ -9,4 +9,5 @@
     android:title="@string/TLA_menu_search"
     app:actionViewClass="androidx.appcompat.widget.SearchView"
     app:showAsAction="always|collapseActionView"/>
+
 </menu>

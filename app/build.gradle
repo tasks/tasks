@@ -184,7 +184,8 @@ dependencies {
     googleplayImplementation 'com.google.android.libraries.places:places:1.0.0'
     googleplayImplementation 'com.google.android.gms:play-services-maps:16.1.0'
     googleplayImplementation 'androidx.appcompat:appcompat:1.0.2'
-    googleplayImplementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-places-v7:0.7.0'
+    googleplayImplementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:7.3.0'
+    googleplayImplementation 'com.mapbox.mapboxsdk:mapbox-sdk-services:4.5.0'
 
     amazonImplementation "com.google.android.gms:play-services-analytics:16.0.7"
 

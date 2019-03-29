@@ -3,64 +3,56 @@ package org.tasks.location;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
-import static java.util.Arrays.asList;
+import static com.todoroo.andlib.utility.AndroidUtilities.hideKeyboard;
 import static org.tasks.data.Place.newPlace;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MenuItem.OnActionExpandListener;
 import android.view.View;
 import android.view.View.OnLayoutChangeListener;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.SearchView.OnQueryTextListener;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.api.model.Place.Field;
-import com.google.android.libraries.places.widget.Autocomplete;
-import com.google.android.libraries.places.widget.AutocompleteActivity;
-import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.AppBarLayout.Behavior;
 import com.google.common.base.Strings;
-import com.mapbox.api.geocoding.v5.models.CarmenFeature;
-import com.mapbox.geojson.Point;
 import com.mapbox.mapboxsdk.Mapbox;
-import com.mapbox.mapboxsdk.plugins.places.autocomplete.PlaceAutocomplete;
-import com.mapbox.mapboxsdk.plugins.places.autocomplete.model.PlaceOptions;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subjects.PublishSubject;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.inject.Inject;
+import org.tasks.Event;
 import org.tasks.R;
 import org.tasks.billing.Inventory;
 import org.tasks.data.LocationDao;
@@ -70,6 +62,7 @@ import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.location.LocationPickerAdapter.OnLocationPicked;
+import org.tasks.location.LocationSearchAdapter.OnPredictionPicked;
 import org.tasks.location.MapFragment.MapFragmentCallback;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.Theme;
@@ -78,15 +71,19 @@ import org.tasks.ui.MenuColorizer;
 import org.tasks.ui.Toaster;
 import timber.log.Timber;
 
-public class LocationPicker extends InjectingAppCompatActivity
-    implements OnMenuItemClickListener, MapFragmentCallback, OnLocationPicked {
+public class LocationPickerActivity extends InjectingAppCompatActivity
+    implements OnMenuItemClickListener,
+        MapFragmentCallback,
+        OnLocationPicked,
+        OnQueryTextListener,
+        OnPredictionPicked,
+        OnActionExpandListener {
 
   private static final String EXTRA_MAP_POSITION = "extra_map_position";
   private static final String EXTRA_APPBAR_OFFSET = "extra_appbar_offset";
   private static final String FRAG_TAG_MAP = "frag_tag_map";
-  private static final int REQUEST_GOOGLE_AUTOCOMPLETE = 10101;
-  private static final int REQUEST_MAPBOX_AUTOCOMPLETE = 10102;
   private static final Pattern pattern = Pattern.compile("(\\d+):(\\d+):(\\d+\\.\\d+)");
+  private static final int SEARCH_DEBOUNCE_TIMEOUT = 300;
 
   @BindView(R.id.toolbar)
   Toolbar toolbar;
@@ -107,7 +104,7 @@ public class LocationPicker extends InjectingAppCompatActivity
   View chooseRecentLocation;
 
   @BindView(R.id.recent_locations)
-  RecyclerView recentLocations;
+  RecyclerView recyclerView;
 
   @Inject @ForApplication Context context;
   @Inject Theme theme;
@@ -116,14 +113,19 @@ public class LocationPicker extends InjectingAppCompatActivity
   @Inject PlayServices playServices;
   @Inject Preferences preferences;
   @Inject LocationDao locationDao;
+  @Inject PlaceSearchProvider searchProvider;
 
   private MapFragment map;
   private FusedLocationProviderClient fusedLocationProviderClient;
   private CompositeDisposable disposables;
   private MapPosition mapPosition;
-  private LocationPickerAdapter adapter = new LocationPickerAdapter(this);
+  private LocationPickerAdapter recentsAdapter = new LocationPickerAdapter(this);
+  private LocationSearchAdapter searchAdapter = new LocationSearchAdapter(this);
   private List<PlaceUsage> places = Collections.emptyList();
   private int offset;
+  private MenuItem search;
+  private PublishSubject<String> searchSubject = PublishSubject.create();
+  private PlaceSearchViewModel viewModel;
 
   private static String formatCoordinates(org.tasks.data.Place place) {
     return String.format(
@@ -157,6 +159,9 @@ public class LocationPicker extends InjectingAppCompatActivity
     setContentView(R.layout.activity_location_picker);
     ButterKnife.bind(this);
 
+    viewModel = ViewModelProviders.of(this).get(PlaceSearchViewModel.class);
+    viewModel.setSearchProvider(searchProvider);
+
     Configuration configuration = getResources().getConfiguration();
     if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
         && configuration.smallestScreenWidthDp < 480) {
@@ -166,12 +171,17 @@ public class LocationPicker extends InjectingAppCompatActivity
     if (savedInstanceState != null) {
       mapPosition = savedInstanceState.getParcelable(EXTRA_MAP_POSITION);
       offset = savedInstanceState.getInt(EXTRA_APPBAR_OFFSET);
+      viewModel.restoreState(savedInstanceState);
     }
 
     toolbar.setNavigationIcon(R.drawable.ic_outline_arrow_back_24px);
     toolbar.setNavigationOnClickListener(v -> collapseToolbar());
     if (canSearch()) {
       toolbar.inflateMenu(R.menu.menu_location_picker);
+      Menu menu = toolbar.getMenu();
+      search = menu.findItem(R.id.menu_search);
+      search.setOnActionExpandListener(this);
+      ((SearchView) search.getActionView()).setOnQueryTextListener(this);
       toolbar.setOnMenuItemClickListener(this);
     } else {
       searchView.setVisibility(View.GONE);
@@ -204,6 +214,10 @@ public class LocationPicker extends InjectingAppCompatActivity
 
     appBarLayout.addOnOffsetChangedListener(
         (appBarLayout, offset) -> {
+          if (offset == 0 && this.offset != 0) {
+            closeSearch();
+            hideKeyboard(this);
+          }
           this.offset = offset;
           toolbar.setAlpha(Math.abs(offset / (float) appBarLayout.getTotalScrollRange()));
         });
@@ -219,13 +233,12 @@ public class LocationPicker extends InjectingAppCompatActivity
         });
 
     if (offset != 0) {
-      appBarLayout.post(this::expandToolbar);
+      appBarLayout.post(() -> expandToolbar(false));
     }
 
-    adapter.setHasStableIds(true);
-    ((DefaultItemAnimator) recentLocations.getItemAnimator()).setSupportsChangeAnimations(false);
-    recentLocations.setLayoutManager(new LinearLayoutManager(this));
-    recentLocations.setAdapter(adapter);
+    recentsAdapter.setHasStableIds(true);
+    recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    recyclerView.setAdapter(search.isActionViewExpanded() ? searchAdapter : recentsAdapter);
   }
 
   private void initGoogleMaps() {
@@ -262,6 +275,24 @@ public class LocationPicker extends InjectingAppCompatActivity
       moveToCurrentLocation(false);
     }
     updateMarkers();
+  }
+
+  @Override
+  public void onBackPressed() {
+    if (closeSearch()) {
+      return;
+    }
+
+    if (offset != 0) {
+      collapseToolbar();
+      return;
+    }
+
+    super.onBackPressed();
+  }
+
+  private boolean closeSearch() {
+    return search.isActionViewExpanded() && search.collapseActionView();
   }
 
   @Override
@@ -318,39 +349,9 @@ public class LocationPicker extends InjectingAppCompatActivity
 
   @OnClick(R.id.search)
   void searchPlace() {
-    if (preferences.useGooglePlaces() && inventory.hasPro()) {
-      if (!Places.isInitialized()) {
-        Places.initialize(this, getString(R.string.google_key));
-      }
-
-      startActivityForResult(
-          new Autocomplete.IntentBuilder(
-                  AutocompleteActivityMode.FULLSCREEN,
-                  asList(
-                      Field.ID,
-                      Field.LAT_LNG,
-                      Field.ADDRESS,
-                      Field.WEBSITE_URI,
-                      Field.NAME,
-                      Field.PHONE_NUMBER))
-              .build(this),
-          REQUEST_GOOGLE_AUTOCOMPLETE);
-    } else {
-      String token = getString(R.string.mapbox_key);
-      Mapbox.getInstance(this, token);
-      MapPosition mapPosition = map.getMapPosition();
-      startActivityForResult(
-          new PlaceAutocomplete.IntentBuilder()
-              .accessToken(token)
-              .placeOptions(
-                  PlaceOptions.builder()
-                      .backgroundColor(getResources().getColor(R.color.white_100))
-                      .proximity(
-                          Point.fromLngLat(mapPosition.getLongitude(), mapPosition.getLatitude()))
-                      .build())
-              .build(this),
-          REQUEST_MAPBOX_AUTOCOMPLETE);
-    }
+    mapPosition = map.getMapPosition();
+    expandToolbar(true);
+    search.expandActionView();
   }
 
   @SuppressLint("MissingPermission")
@@ -364,54 +365,6 @@ public class LocationPicker extends InjectingAppCompatActivity
                     new MapPosition(location.getLatitude(), location.getLongitude(), 15f), animate);
               }
             });
-  }
-
-  @Override
-  protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-    if (requestCode == REQUEST_GOOGLE_AUTOCOMPLETE) {
-      if (resultCode == Activity.RESULT_OK && data != null) {
-        returnPlace(Autocomplete.getPlaceFromIntent(data));
-      } else if (resultCode == AutocompleteActivity.RESULT_ERROR && data != null) {
-        Status status = Autocomplete.getStatusFromIntent(data);
-        toaster.longToast(status.getStatusMessage());
-      }
-    } else if (requestCode == REQUEST_MAPBOX_AUTOCOMPLETE) {
-      if (resultCode == Activity.RESULT_OK && data != null) {
-        returnPlace(PlaceAutocomplete.getPlace(data));
-      }
-    } else {
-      super.onActivityResult(requestCode, resultCode, data);
-    }
-  }
-
-  private void returnPlace(CarmenFeature place) {
-    org.tasks.data.Place result = newPlace();
-    result.setName(place.placeName());
-    result.setAddress(place.address());
-    result.setLatitude(place.center().latitude());
-    result.setLongitude(place.center().longitude());
-    returnPlace(result);
-  }
-
-  private void returnPlace(Place place) {
-    LatLng latLng = place.getLatLng();
-    org.tasks.data.Place result = newPlace();
-    result.setName(place.getName());
-    CharSequence address = place.getAddress();
-    if (address != null) {
-      result.setAddress(place.getAddress());
-    }
-    CharSequence phoneNumber = place.getPhoneNumber();
-    if (phoneNumber != null) {
-      result.setPhone(phoneNumber.toString());
-    }
-    Uri uri = place.getWebsiteUri();
-    if (uri != null) {
-      result.setUrl(uri.toString());
-    }
-    result.setLatitude(latLng.latitude);
-    result.setLongitude(latLng.longitude);
-    returnPlace(result);
   }
 
   private void returnPlace(org.tasks.data.Place place) {
@@ -431,6 +384,7 @@ public class LocationPicker extends InjectingAppCompatActivity
         place = existing;
       }
     }
+    hideKeyboard(this);
     setResult(RESULT_OK, new Intent().putExtra(PlacePicker.EXTRA_PLACE, (Parcelable) place));
     finish();
   }
@@ -439,15 +393,30 @@ public class LocationPicker extends InjectingAppCompatActivity
   protected void onResume() {
     super.onResume();
 
+    viewModel.observe(this, searchAdapter::submitList, this::returnPlace, this::handleError);
+
     disposables = new CompositeDisposable(playServices.checkMaps(this));
 
+    disposables.add(
+        searchSubject
+            .debounce(SEARCH_DEBOUNCE_TIMEOUT, TimeUnit.MILLISECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(query -> viewModel.query(query, mapPosition)));
+
     locationDao.getPlaceUsage().observe(this, this::updatePlaces);
+  }
+
+  private void handleError(Event<String> error) {
+    String message = error.getIfUnhandled();
+    if (!Strings.isNullOrEmpty(message)) {
+      toaster.longToast(message);
+    }
   }
 
   private void updatePlaces(List<PlaceUsage> places) {
     this.places = places;
     updateMarkers();
-    adapter.submitList(places);
+    recentsAdapter.submitList(places);
     updateAppbarLayout();
     if (places.isEmpty()) {
       collapseToolbar();
@@ -477,8 +446,8 @@ public class LocationPicker extends InjectingAppCompatActivity
     appBarLayout.setExpanded(true, true);
   }
 
-  private void expandToolbar() {
-    appBarLayout.setExpanded(false, false);
+  private void expandToolbar(boolean animate) {
+    appBarLayout.setExpanded(false, animate);
   }
 
   @Override
@@ -494,6 +463,7 @@ public class LocationPicker extends InjectingAppCompatActivity
 
     outState.putParcelable(EXTRA_MAP_POSITION, map.getMapPosition());
     outState.putInt(EXTRA_APPBAR_OFFSET, offset);
+    viewModel.saveState(outState);
   }
 
   @Override
@@ -519,5 +489,37 @@ public class LocationPicker extends InjectingAppCompatActivity
   @Override
   public void delete(org.tasks.data.Place place) {
     locationDao.delete(place);
+  }
+
+  @Override
+  public boolean onQueryTextSubmit(String query) {
+    return false;
+  }
+
+  @Override
+  public boolean onQueryTextChange(String query) {
+    searchSubject.onNext(query);
+    return true;
+  }
+
+  @Override
+  public void picked(PlaceSearchResult prediction) {
+    viewModel.fetch(prediction);
+  }
+
+  @Override
+  public boolean onMenuItemActionExpand(MenuItem item) {
+    searchAdapter.submitList(Collections.emptyList());
+    recyclerView.setAdapter(searchAdapter);
+    return true;
+  }
+
+  @Override
+  public boolean onMenuItemActionCollapse(MenuItem item) {
+    recyclerView.setAdapter(recentsAdapter);
+    if (places.isEmpty()) {
+      collapseToolbar();
+    }
+    return true;
   }
 }

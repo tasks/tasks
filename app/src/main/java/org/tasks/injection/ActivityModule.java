@@ -5,7 +5,12 @@ import android.content.Context;
 import dagger.Module;
 import dagger.Provides;
 import org.tasks.R;
+import org.tasks.billing.Inventory;
 import org.tasks.fragments.TaskEditControlSetFragmentManager;
+import org.tasks.gtasks.PlayServices;
+import org.tasks.location.GooglePlacesSearchProvider;
+import org.tasks.location.MapboxSearchProvider;
+import org.tasks.location.PlaceSearchProvider;
 import org.tasks.preferences.Preferences;
 import org.tasks.sync.SyncAdapters;
 import org.tasks.themes.ThemeAccent;
@@ -56,5 +61,16 @@ public class ActivityModule {
   public TaskEditControlSetFragmentManager getTaskEditControlSetFragmentManager(
       Preferences preferences, SyncAdapters syncAdapters) {
     return new TaskEditControlSetFragmentManager(activity, preferences, syncAdapters);
+  }
+
+  @Provides
+  @ActivityScope
+  public PlaceSearchProvider getPlaceSearchProvider(
+      Preferences preferences, Inventory inventory, PlayServices playServices) {
+    return preferences.useGooglePlaces()
+            && playServices.isPlayServicesAvailable()
+            && inventory.hasPro()
+        ? new GooglePlacesSearchProvider(activity)
+        : new MapboxSearchProvider(activity);
   }
 }
