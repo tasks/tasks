@@ -78,20 +78,20 @@ public class MapboxMapFragment implements MapFragment, OnMapReadyCallback, OnMar
 
   @SuppressLint("MissingPermission")
   @Override
+  public void showMyLocation() {
+    LocationComponent locationComponent = map.getLocationComponent();
+    locationComponent.activateLocationComponent(context, map.getStyle());
+    locationComponent.setLocationComponentEnabled(true);
+    locationComponent.setCameraMode(CameraMode.NONE);
+    locationComponent.setRenderMode(RenderMode.NORMAL);
+  }
+
+  @Override
   public void onMapReady(@NonNull MapboxMap mapboxMap) {
     map = mapboxMap;
     map.getUiSettings().setRotateGesturesEnabled(false);
-    map.setStyle(
-        dark ? Style.DARK : Style.MAPBOX_STREETS,
-        style -> {
-          LocationComponent locationComponent = map.getLocationComponent();
-          locationComponent.activateLocationComponent(context, style);
-          locationComponent.setLocationComponentEnabled(true);
-          locationComponent.setCameraMode(CameraMode.NONE);
-          locationComponent.setRenderMode(RenderMode.NORMAL);
-        });
     map.setOnMarkerClickListener(this);
-    callbacks.onMapReady(this);
+    map.setStyle(dark ? Style.DARK : Style.MAPBOX_STREETS, style -> callbacks.onMapReady(this));
   }
 
   @Override

@@ -11,6 +11,8 @@ public interface MapFragment {
 
   void setMarkers(List<Place> places);
 
+  void showMyLocation();
+
   interface MapFragmentCallback {
     void onMapReady(MapFragment mapFragment);
 

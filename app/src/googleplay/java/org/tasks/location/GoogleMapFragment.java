@@ -74,9 +74,13 @@ public class GoogleMapFragment implements MapFragment, OnMapReadyCallback, OnMar
 
   @SuppressLint("MissingPermission")
   @Override
+  public void showMyLocation() {
+    map.setMyLocationEnabled(true);
+  }
+
+  @Override
   public void onMapReady(GoogleMap googleMap) {
     map = googleMap;
-    map.setMyLocationEnabled(true);
     if (dark) {
       map.setMapStyle(MapStyleOptions.loadRawResourceStyle(context, R.raw.mapstyle_night));
     }

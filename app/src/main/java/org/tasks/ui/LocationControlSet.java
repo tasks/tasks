@@ -2,7 +2,6 @@ package org.tasks.ui;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Sets.newHashSet;
-import static org.tasks.PermissionUtil.verifyPermissions;
 import static org.tasks.dialogs.LocationDialog.newLocationDialog;
 
 import android.app.Activity;
@@ -38,8 +37,6 @@ import org.tasks.dialogs.LocationDialog;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.location.GeofenceService;
 import org.tasks.location.PlacePicker;
-import org.tasks.preferences.FragmentPermissionRequestor;
-import org.tasks.preferences.PermissionRequestor;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
@@ -55,7 +52,6 @@ public class LocationControlSet extends TaskEditControlFragment {
   private static final String EXTRA_GEOFENCES = "extra_geofences";
   private final Set<Location> locations = new LinkedHashSet<>();
   @Inject GeofenceService geofenceService;
-  @Inject FragmentPermissionRequestor permissionRequestor;
   @Inject Preferences preferences;
   @Inject DialogBuilder dialogBuilder;
 
@@ -89,9 +85,7 @@ public class LocationControlSet extends TaskEditControlFragment {
 
   @OnClick(R.id.alarms_add)
   void addAlarm(View view) {
-    if (permissionRequestor.requestFineLocation()) {
-      pickLocation();
-    }
+    pickLocation();
   }
 
   @Override
@@ -166,23 +160,8 @@ public class LocationControlSet extends TaskEditControlFragment {
     }
   }
 
-  @Override
-  public void onRequestPermissionsResult(
-      int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-    if (requestCode == PermissionRequestor.REQUEST_LOCATION) {
-      if (verifyPermissions(grantResults)) {
-        pickLocation();
-      }
-    } else {
-      super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-  }
-
   private void pickLocation() {
-    Intent intent = PlacePicker.getIntent(getActivity());
-    if (intent != null) {
-      startActivityForResult(intent, REQUEST_LOCATION_REMINDER);
-    }
+    startActivityForResult(PlacePicker.getIntent(getActivity()), REQUEST_LOCATION_REMINDER);
   }
 
   private void addGeolocationReminder(final Location location) {

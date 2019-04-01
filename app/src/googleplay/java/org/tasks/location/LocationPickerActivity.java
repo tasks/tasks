@@ -4,6 +4,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static com.todoroo.andlib.utility.AndroidUtilities.hideKeyboard;
+import static org.tasks.PermissionUtil.verifyPermissions;
 import static org.tasks.data.Place.newPlace;
 
 import android.annotation.SuppressLint;
@@ -57,6 +58,7 @@ import org.tasks.R;
 import org.tasks.billing.Inventory;
 import org.tasks.data.LocationDao;
 import org.tasks.data.PlaceUsage;
+import org.tasks.dialogs.DialogBuilder;
 import org.tasks.gtasks.PlayServices;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ForApplication;
@@ -64,6 +66,9 @@ import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.location.LocationPickerAdapter.OnLocationPicked;
 import org.tasks.location.LocationSearchAdapter.OnPredictionPicked;
 import org.tasks.location.MapFragment.MapFragmentCallback;
+import org.tasks.preferences.ActivityPermissionRequestor;
+import org.tasks.preferences.PermissionChecker;
+import org.tasks.preferences.PermissionRequestor;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeColor;
@@ -114,6 +119,9 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
   @Inject Preferences preferences;
   @Inject LocationDao locationDao;
   @Inject PlaceSearchProvider searchProvider;
+  @Inject PermissionChecker permissionChecker;
+  @Inject ActivityPermissionRequestor permissionRequestor;
+  @Inject DialogBuilder dialogBuilder;
 
   private MapFragment map;
   private FusedLocationProviderClient fusedLocationProviderClient;
@@ -269,12 +277,15 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
   @Override
   public void onMapReady(MapFragment mapFragment) {
     map = mapFragment;
+    updateMarkers();
+    if (permissionChecker.canAccessLocation()) {
+      mapFragment.showMyLocation();
+    }
     if (mapPosition != null) {
       map.movePosition(mapPosition, false);
-    } else {
+    } else if (permissionRequestor.requestFineLocation()) {
       moveToCurrentLocation(false);
     }
-    updateMarkers();
   }
 
   @Override
@@ -302,7 +313,28 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
 
   @OnClick(R.id.current_location)
   void onClick() {
-    moveToCurrentLocation(true);
+    if (permissionRequestor.requestFineLocation()) {
+      moveToCurrentLocation(true);
+    }
+  }
+
+  @Override
+  public void onRequestPermissionsResult(
+      int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    if (requestCode == PermissionRequestor.REQUEST_LOCATION) {
+      if (verifyPermissions(grantResults)) {
+        map.showMyLocation();
+        moveToCurrentLocation(true);
+      } else {
+        dialogBuilder
+            .newMessageDialog(R.string.location_permission_required_location)
+            .setTitle(R.string.missing_permissions)
+            .setPositiveButton(android.R.string.ok, null)
+            .show();
+      }
+    } else {
+      super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
   }
 
   @OnClick(R.id.select_this_location)
