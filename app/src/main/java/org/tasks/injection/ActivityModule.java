@@ -8,7 +8,10 @@ import org.tasks.R;
 import org.tasks.billing.Inventory;
 import org.tasks.fragments.TaskEditControlSetFragmentManager;
 import org.tasks.gtasks.PlayServices;
+import org.tasks.location.GoogleMapFragment;
 import org.tasks.location.GooglePlacesSearchProvider;
+import org.tasks.location.MapFragment;
+import org.tasks.location.MapboxMapFragment;
 import org.tasks.location.MapboxSearchProvider;
 import org.tasks.location.PlaceSearchProvider;
 import org.tasks.preferences.Preferences;
@@ -72,5 +75,13 @@ public class ActivityModule {
             && inventory.hasPro()
         ? new GooglePlacesSearchProvider(activity)
         : new MapboxSearchProvider(activity);
+  }
+
+  @Provides
+  @ActivityScope
+  public MapFragment getMapFragment(Preferences preferences) {
+    return preferences.useGoogleMaps()
+        ? new GoogleMapFragment(activity)
+        : new MapboxMapFragment(activity);
   }
 }

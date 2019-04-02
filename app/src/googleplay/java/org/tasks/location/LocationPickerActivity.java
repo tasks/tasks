@@ -28,7 +28,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.widget.ContentLoadingProgressBar;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,11 +36,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.AppBarLayout.Behavior;
 import com.google.common.base.Strings;
-import com.mapbox.mapboxsdk.Mapbox;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -69,7 +66,6 @@ import org.tasks.location.MapFragment.MapFragmentCallback;
 import org.tasks.preferences.ActivityPermissionRequestor;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.PermissionRequestor;
-import org.tasks.preferences.Preferences;
 import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeColor;
 import org.tasks.ui.MenuColorizer;
@@ -86,7 +82,6 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
 
   private static final String EXTRA_MAP_POSITION = "extra_map_position";
   private static final String EXTRA_APPBAR_OFFSET = "extra_appbar_offset";
-  private static final String FRAG_TAG_MAP = "frag_tag_map";
   private static final Pattern pattern = Pattern.compile("(\\d+):(\\d+):(\\d+\\.\\d+)");
   private static final int SEARCH_DEBOUNCE_TIMEOUT = 300;
 
@@ -116,14 +111,13 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
   @Inject Toaster toaster;
   @Inject Inventory inventory;
   @Inject PlayServices playServices;
-  @Inject Preferences preferences;
   @Inject LocationDao locationDao;
   @Inject PlaceSearchProvider searchProvider;
   @Inject PermissionChecker permissionChecker;
   @Inject ActivityPermissionRequestor permissionRequestor;
   @Inject DialogBuilder dialogBuilder;
+  @Inject MapFragment map;
 
-  private MapFragment map;
   private FusedLocationProviderClient fusedLocationProviderClient;
   private CompositeDisposable disposables;
   private MapPosition mapPosition;
@@ -200,11 +194,7 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
     themeColor.applyToStatusBarIcons(this);
     themeColor.applyToNavigationBar(this);
 
-    if (preferences.useGoogleMaps()) {
-      initGoogleMaps();
-    } else {
-      initMapboxMaps();
-    }
+    map.init(getSupportFragmentManager(), this, theme.getThemeBase().isDarkTheme(this));
 
     fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -247,31 +237,6 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
     recentsAdapter.setHasStableIds(true);
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
     recyclerView.setAdapter(search.isActionViewExpanded() ? searchAdapter : recentsAdapter);
-  }
-
-  private void initGoogleMaps() {
-    FragmentManager supportFragmentManager = getSupportFragmentManager();
-    SupportMapFragment mapFragment =
-        (SupportMapFragment) supportFragmentManager.findFragmentByTag(FRAG_TAG_MAP);
-    if (mapFragment == null) {
-      mapFragment = new SupportMapFragment();
-      supportFragmentManager.beginTransaction().replace(R.id.map, mapFragment).commit();
-    }
-    new GoogleMapFragment(context, mapFragment, this, theme.getThemeBase().isDarkTheme(this));
-  }
-
-  private void initMapboxMaps() {
-    Mapbox.getInstance(this, getString(R.string.mapbox_key));
-
-    FragmentManager supportFragmentManager = getSupportFragmentManager();
-    com.mapbox.mapboxsdk.maps.SupportMapFragment mapFragment =
-        (com.mapbox.mapboxsdk.maps.SupportMapFragment)
-            supportFragmentManager.findFragmentByTag(FRAG_TAG_MAP);
-    if (mapFragment == null) {
-      mapFragment = new com.mapbox.mapboxsdk.maps.SupportMapFragment();
-      supportFragmentManager.beginTransaction().replace(R.id.map, mapFragment).commit();
-    }
-    new MapboxMapFragment(context, mapFragment, this, theme.getThemeBase().isDarkTheme(this));
   }
 
   @Override

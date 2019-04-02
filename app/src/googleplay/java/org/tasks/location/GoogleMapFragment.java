@@ -2,6 +2,7 @@ package org.tasks.location;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import androidx.fragment.app.FragmentManager;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -21,18 +22,28 @@ import org.tasks.data.Place;
 
 public class GoogleMapFragment implements MapFragment, OnMapReadyCallback, OnMarkerClickListener {
 
+  private static final String FRAG_TAG_MAP = "frag_tag_map";
   private final Context context;
-  private final MapFragmentCallback callbacks;
-  private final boolean dark;
   private final List<Marker> markers = new ArrayList<>();
+  private MapFragmentCallback callbacks;
+  private boolean dark;
   private GoogleMap map;
 
-  GoogleMapFragment(
-      Context context, SupportMapFragment fragment, MapFragmentCallback callbacks, boolean dark) {
+  public GoogleMapFragment(Context context) {
     this.context = context;
+  }
+
+  @Override
+  public void init(FragmentManager fragmentManager, MapFragmentCallback callbacks, boolean dark) {
     this.callbacks = callbacks;
     this.dark = dark;
-    fragment.getMapAsync(this);
+    SupportMapFragment mapFragment =
+        (SupportMapFragment) fragmentManager.findFragmentByTag(FRAG_TAG_MAP);
+    if (mapFragment == null) {
+      mapFragment = new SupportMapFragment();
+      fragmentManager.beginTransaction().replace(R.id.map, mapFragment).commit();
+    }
+    mapFragment.getMapAsync(this);
   }
 
   @Override

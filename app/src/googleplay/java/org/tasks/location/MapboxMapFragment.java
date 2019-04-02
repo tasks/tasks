@@ -3,6 +3,8 @@ package org.tasks.location;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
+import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
@@ -16,26 +18,38 @@ import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.MapboxMap.OnMarkerClickListener;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.Style;
-import com.mapbox.mapboxsdk.maps.SupportMapFragment;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.tasks.R;
 import org.tasks.data.Place;
 
 public class MapboxMapFragment implements MapFragment, OnMapReadyCallback, OnMarkerClickListener {
 
+  private static final String FRAG_TAG_MAP = "frag_tag_map";
   private final Context context;
-  private final MapFragmentCallback callbacks;
-  private final boolean dark;
+  private MapFragmentCallback callbacks;
+  private boolean dark;
   private MapboxMap map;
   private Map<Marker, Place> markers = new HashMap<>();
 
-  MapboxMapFragment(
-      Context context, SupportMapFragment fragment, MapFragmentCallback callbacks, boolean dark) {
+  public MapboxMapFragment(Context context) {
     this.context = context;
+  }
+
+  @Override
+  public void init(FragmentManager fragmentManager, MapFragmentCallback callbacks, boolean dark) {
     this.callbacks = callbacks;
     this.dark = dark;
-    fragment.getMapAsync(this);
+    Mapbox.getInstance(context, context.getString(R.string.mapbox_key));
+    com.mapbox.mapboxsdk.maps.SupportMapFragment mapFragment =
+        (com.mapbox.mapboxsdk.maps.SupportMapFragment)
+            fragmentManager.findFragmentByTag(FRAG_TAG_MAP);
+    if (mapFragment == null) {
+      mapFragment = new com.mapbox.mapboxsdk.maps.SupportMapFragment();
+      fragmentManager.beginTransaction().replace(R.id.map, mapFragment).commit();
+    }
+    mapFragment.getMapAsync(this);
   }
 
   @Override
@@ -63,6 +77,9 @@ public class MapboxMapFragment implements MapFragment, OnMapReadyCallback, OnMar
 
   @Override
   public void setMarkers(List<Place> places) {
+    if (map == null) {
+      return;
+    }
     for (Marker marker : map.getMarkers()) {
       map.removeMarker(marker);
     }
