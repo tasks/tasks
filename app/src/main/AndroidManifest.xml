@@ -109,6 +109,8 @@
       android:taskAffinity=""
       android:theme="@style/TranslucentDialog"/>
 
+    <activity android:name=".location.LocationPickerActivity"/>
+
     <activity
       android:exported="true"
       android:name=".activities.FilterSelectionActivity"

@@ -34,11 +34,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.AppBarLayout.Behavior;
 import com.google.common.base.Strings;
+import com.mapbox.android.core.location.LocationEngineCallback;
+import com.mapbox.android.core.location.LocationEngineProvider;
+import com.mapbox.android.core.location.LocationEngineResult;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -118,7 +119,6 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
   @Inject DialogBuilder dialogBuilder;
   @Inject MapFragment map;
 
-  private FusedLocationProviderClient fusedLocationProviderClient;
   private CompositeDisposable disposables;
   private MapPosition mapPosition;
   private LocationPickerAdapter recentsAdapter = new LocationPickerAdapter(this);
@@ -195,8 +195,6 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
     themeColor.applyToNavigationBar(this);
 
     map.init(getSupportFragmentManager(), this, theme.getThemeBase().isDarkTheme(this));
-
-    fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
     CoordinatorLayout.LayoutParams params =
         (CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
@@ -353,13 +351,22 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
 
   @SuppressLint("MissingPermission")
   private void moveToCurrentLocation(boolean animate) {
-    fusedLocationProviderClient
-        .getLastLocation()
-        .addOnSuccessListener(
-            location -> {
-              if (location != null) {
-                map.movePosition(
-                    new MapPosition(location.getLatitude(), location.getLongitude(), 15f), animate);
+    LocationEngineProvider.getBestLocationEngine(this)
+        .getLastLocation(
+            new LocationEngineCallback<LocationEngineResult>() {
+              @Override
+              public void onSuccess(LocationEngineResult result) {
+                Location location = result.getLastLocation();
+                if (location != null) {
+                  map.movePosition(
+                      new MapPosition(location.getLatitude(), location.getLongitude(), 15f),
+                      animate);
+                }
+              }
+
+              @Override
+              public void onFailure(@NonNull Exception exception) {
+                toaster.longToast(exception.getMessage());
               }
             });
   }
