@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil.ItemCallback;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,11 +18,16 @@ import org.tasks.location.LocationPickerAdapter.PlaceViewHolder;
 public class LocationPickerAdapter extends ListAdapter<PlaceUsage, PlaceViewHolder> {
 
   private final OnLocationPicked callback;
+  private Place currentPlace;
 
   LocationPickerAdapter(OnLocationPicked callback) {
     super(new DiffCallback());
 
     this.callback = callback;
+  }
+
+  void setCurrentPlace(@Nullable Place currentPlace) {
+    this.currentPlace = currentPlace;
   }
 
   @Override
@@ -48,7 +54,7 @@ public class LocationPickerAdapter extends ListAdapter<PlaceUsage, PlaceViewHold
     void delete(Place place);
   }
 
-  public static class PlaceViewHolder extends RecyclerView.ViewHolder {
+  public class PlaceViewHolder extends RecyclerView.ViewHolder {
     private final TextView name;
     private final TextView address;
     private final View delete;
@@ -64,7 +70,7 @@ public class LocationPickerAdapter extends ListAdapter<PlaceUsage, PlaceViewHold
     }
 
     public void bind(PlaceUsage placeUsage) {
-      this.place = placeUsage.place;
+      place = placeUsage.place;
       String name = place.getDisplayName();
       String address = place.getAddress();
       this.name.setText(name);
@@ -74,7 +80,7 @@ public class LocationPickerAdapter extends ListAdapter<PlaceUsage, PlaceViewHold
         this.address.setText(address);
         this.address.setVisibility(View.VISIBLE);
       }
-      delete.setVisibility(placeUsage.count > 0 ? View.GONE : View.VISIBLE);
+      delete.setVisibility(placeUsage.count > 0 || place.equals(currentPlace)  ? View.GONE : View.VISIBLE);
     }
   }
 

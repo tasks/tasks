@@ -55,9 +55,9 @@ import org.tasks.Event;
 import org.tasks.R;
 import org.tasks.billing.Inventory;
 import org.tasks.data.LocationDao;
+import org.tasks.data.Place;
 import org.tasks.data.PlaceUsage;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.gtasks.PlayServices;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingAppCompatActivity;
@@ -81,6 +81,7 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
         OnPredictionPicked,
         OnActionExpandListener {
 
+  public static final String EXTRA_PLACE = "extra_place";
   private static final String EXTRA_MAP_POSITION = "extra_map_position";
   private static final String EXTRA_APPBAR_OFFSET = "extra_appbar_offset";
   private static final Pattern pattern = Pattern.compile("(\\d+):(\\d+):(\\d+\\.\\d+)");
@@ -111,7 +112,6 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
   @Inject Theme theme;
   @Inject Toaster toaster;
   @Inject Inventory inventory;
-  @Inject PlayServices playServices;
   @Inject LocationDao locationDao;
   @Inject PlaceSearchProvider searchProvider;
   @Inject PermissionChecker permissionChecker;
@@ -170,7 +170,15 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
       searchView.setVisibility(View.GONE);
     }
 
-    if (savedInstanceState != null) {
+    Place currentPlace = getIntent().getParcelableExtra(EXTRA_PLACE);
+    recentsAdapter.setCurrentPlace(currentPlace);
+
+    if (savedInstanceState == null) {
+      if (currentPlace != null) {
+        mapPosition = currentPlace.getMapPosition();
+      }
+      mapPosition = getIntent().getParcelableExtra(EXTRA_MAP_POSITION);
+    } else {
       mapPosition = savedInstanceState.getParcelable(EXTRA_MAP_POSITION);
       offset = savedInstanceState.getInt(EXTRA_APPBAR_OFFSET);
       viewModel.restoreState(savedInstanceState);
@@ -305,7 +313,6 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
   @OnClick(R.id.select_this_location)
   void selectLocation() {
     loadingIndicator.setVisibility(View.VISIBLE);
-
     MapPosition mapPosition = map.getMapPosition();
     disposables.add(
         Single.fromCallable(
@@ -361,8 +368,7 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
                 Location location = result.getLastLocation();
                 if (location != null) {
                   map.movePosition(
-                      new MapPosition(location.getLatitude(), location.getLongitude(), 15f),
-                      animate);
+                      new MapPosition(location.getLatitude(), location.getLongitude()), animate);
                 }
               }
 
@@ -382,16 +388,13 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
       org.tasks.data.Place existing =
           locationDao.findPlace(place.getLatitude(), place.getLongitude());
       if (existing == null) {
-        long placeId = locationDao.insert(place);
-        place.setId(placeId);
+        place.setId(locationDao.insert(place));
       } else {
-        existing.apply(place);
-        locationDao.update(existing);
         place = existing;
       }
     }
     hideKeyboard(this);
-    setResult(RESULT_OK, new Intent().putExtra(PlacePicker.EXTRA_PLACE, (Parcelable) place));
+    setResult(RESULT_OK, new Intent().putExtra(EXTRA_PLACE, (Parcelable) place));
     finish();
   }
 
@@ -401,13 +404,12 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
 
     viewModel.observe(this, searchAdapter::submitList, this::returnPlace, this::handleError);
 
-    disposables = new CompositeDisposable(playServices.checkMaps(this));
-
-    disposables.add(
-        searchSubject
-            .debounce(SEARCH_DEBOUNCE_TIMEOUT, TimeUnit.MILLISECONDS)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(query -> viewModel.query(query, mapPosition)));
+    disposables =
+        new CompositeDisposable(
+            searchSubject
+                .debounce(SEARCH_DEBOUNCE_TIMEOUT, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(query -> viewModel.query(query, mapPosition)));
   }
 
   private void handleError(Event<String> error) {

@@ -11,6 +11,7 @@ import com.google.common.base.Strings;
 import com.todoroo.astrid.helper.UUIDHelper;
 import java.io.Serializable;
 import java.util.regex.Pattern;
+import org.tasks.location.MapPosition;
 
 @Entity(tableName = "places")
 public class Place implements Serializable, Parcelable {
@@ -56,12 +57,6 @@ public class Place implements Serializable, Parcelable {
   @ColumnInfo(name = "longitude")
   private double longitude;
 
-  public static Place newPlace() {
-    Place place = new Place();
-    place.setUid(UUIDHelper.newUUID());
-    return place;
-  }
-
   public Place() {}
 
   @Ignore
@@ -86,6 +81,12 @@ public class Place implements Serializable, Parcelable {
     url = parcel.readString();
     latitude = parcel.readDouble();
     longitude = parcel.readDouble();
+  }
+
+  public static Place newPlace() {
+    Place place = new Place();
+    place.setUid(UUIDHelper.newUUID());
+    return place;
   }
 
   public long getId() {
@@ -152,18 +153,6 @@ public class Place implements Serializable, Parcelable {
     this.url = url;
   }
 
-  public void apply(Place place) {
-    if (Strings.isNullOrEmpty(address)) {
-      address = place.address;
-    }
-    if (Strings.isNullOrEmpty(phone)) {
-      phone = place.phone;
-    }
-    if (Strings.isNullOrEmpty(url)) {
-      url = place.url;
-    }
-  }
-
   public String getDisplayName() {
     if (Strings.isNullOrEmpty(address)) {
       return name;
@@ -177,10 +166,14 @@ public class Place implements Serializable, Parcelable {
     return name;
   }
 
-  public String getGeoUri() {
+  String getGeoUri() {
     return String.format(
         "geo:%s,%s?q=%s",
         latitude, longitude, Uri.encode(Strings.isNullOrEmpty(address) ? name : address));
+  }
+
+  public MapPosition getMapPosition() {
+    return new MapPosition(latitude, longitude);
   }
 
   @Override

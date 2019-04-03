@@ -21,6 +21,10 @@ public class MapPosition implements Parcelable {
   private final double longitude;
   private final float zoom;
 
+  public MapPosition(double latitude, double longitude) {
+    this(latitude, longitude, 15.0f);
+  }
+
   public MapPosition(double latitude, double longitude, float zoom) {
     this.latitude = latitude;
     this.longitude = longitude;

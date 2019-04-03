@@ -1,27 +1,34 @@
 package org.tasks.ui;
 
+import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Lists.transform;
 import static org.tasks.dialogs.LocationDialog.newLocationDialog;
+import static org.tasks.location.LocationPickerActivity.EXTRA_PLACE;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.SpannableString;
 import android.text.Spanned;
-import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.util.Pair;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.google.common.base.Strings;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.data.Geofence;
@@ -32,7 +39,7 @@ import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.LocationDialog;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.location.GeofenceApi;
-import org.tasks.location.PlacePicker;
+import org.tasks.location.LocationPickerActivity;
 import org.tasks.preferences.Preferences;
 
 public class LocationControlSet extends TaskEditControlFragment {
@@ -56,9 +63,8 @@ public class LocationControlSet extends TaskEditControlFragment {
   TextView locationAddress;
 
   @BindView(R.id.location_more)
-  View locationOptions;
+  ImageView locationOptions;
 
-  private long taskId;
   private Location original;
   private Location location;
 
@@ -68,28 +74,85 @@ public class LocationControlSet extends TaskEditControlFragment {
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = super.onCreateView(inflater, container, savedInstanceState);
 
-    taskId = task.getId();
-
     if (savedInstanceState == null) {
-      original = locationDao.getGeofences(taskId);
-      location = original;
+      if (!task.isNew()) {
+        original = locationDao.getGeofences(task.getId());
+        if (original != null) {
+          setLocation(new Location(original.geofence, original.place));
+        }
+      }
     } else {
       original = savedInstanceState.getParcelable(EXTRA_ORIGINAL);
-      location = savedInstanceState.getParcelable(EXTRA_LOCATION);
+      setLocation(savedInstanceState.getParcelable(EXTRA_LOCATION));
     }
-
-    updateUI();
 
     return view;
   }
 
-  @OnClick({R.id.location_name, R.id.location_address})
-  void addAlarm(View view) {
-    if (location == null) {
-      startActivityForResult(PlacePicker.getIntent(getActivity()), REQUEST_LOCATION_REMINDER);
+  private void setLocation(@Nullable Location location) {
+    this.location = location;
+    if (this.location == null) {
+      locationName.setText("");
+      locationOptions.setVisibility(View.GONE);
+      locationAddress.setVisibility(View.GONE);
     } else {
-      openMap();
+      locationOptions.setVisibility(View.VISIBLE);
+      locationOptions.setImageResource(
+          this.location.isArrival() || this.location.isDeparture()
+              ? R.drawable.ic_outline_notifications_24px
+              : R.drawable.ic_outline_notifications_off_24px);
+      String name = this.location.getDisplayName();
+      String address = this.location.getAddress();
+      if (!Strings.isNullOrEmpty(address) && !address.equals(name)) {
+        locationAddress.setText(address);
+        locationAddress.setVisibility(View.VISIBLE);
+      } else {
+        locationAddress.setVisibility(View.GONE);
+      }
+      SpannableString spannableString = new SpannableString(name);
+      spannableString.setSpan(
+          new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View view) {}
+          },
+          0,
+          name.length(),
+          Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      locationName.setText(spannableString);
     }
+  }
+
+  @OnClick({R.id.location_name, R.id.location_address})
+  void locationClick(View view) {
+    if (location == null) {
+      chooseLocation();
+    } else {
+      List<Pair<Integer, Runnable>> options = new ArrayList<>();
+      options.add(Pair.create(R.string.open_map, this::openMap));
+      if (!Strings.isNullOrEmpty(location.getPhone())) {
+        options.add(Pair.create(R.string.action_call, this::call));
+      }
+      if (!Strings.isNullOrEmpty(location.getUrl())) {
+        options.add(Pair.create(R.string.visit_website, this::openWebsite));
+      }
+      options.add(Pair.create(R.string.choose_new_location, this::chooseLocation));
+      options.add(Pair.create(R.string.delete, () -> setLocation(null)));
+      dialogBuilder
+          .newDialog()
+          .setTitle(location.getDisplayName())
+          .setItems(
+              newArrayList(transform(options, o -> getString(o.first))),
+              (dialog, which) -> options.get(which).second.run())
+          .show();
+    }
+  }
+
+  private void chooseLocation() {
+    Intent intent = new Intent(getActivity(), LocationPickerActivity.class);
+    if (location != null) {
+      intent.putExtra(EXTRA_PLACE, (Parcelable) location.place);
+    }
+    startActivityForResult(intent, REQUEST_LOCATION_REMINDER);
   }
 
   @OnClick(R.id.location_more)
@@ -114,46 +177,34 @@ public class LocationControlSet extends TaskEditControlFragment {
     return TAG;
   }
 
-  private void updateUI() {
-    if (location == null) {
-      locationName.setText("");
-      locationOptions.setVisibility(View.GONE);
-      locationAddress.setVisibility(View.GONE);
-    } else {
-      locationOptions.setVisibility(View.VISIBLE);
-      String name = location.getDisplayName();
-      String address = location.getAddress();
-      if (!Strings.isNullOrEmpty(address) && !address.equals(name)) {
-        locationAddress.setText(address);
-        locationAddress.setVisibility(View.VISIBLE);
-      } else {
-        locationAddress.setVisibility(View.GONE);
-      }
-      SpannableString spannableString = new SpannableString(name);
-      spannableString.setSpan(
-          new ClickableSpan() {
-            @Override
-            public void onClick(@NonNull View view) {
-              openMap();
-            }
-          },
-          0,
-          name.length(),
-          Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-      locationName.setText(spannableString);
-      locationName.setMovementMethod(LinkMovementMethod.getInstance());
-    }
-  }
-
   private void openMap() {
     Intent intent = new Intent(Intent.ACTION_VIEW);
     intent.setData(Uri.parse(location.getGeoUri()));
     startActivity(intent);
   }
 
+  private void openWebsite() {
+    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(location.getUrl())));
+  }
+
+  private void call() {
+    startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + location.getPhone())));
+  }
+
   @Override
   public boolean hasChanges(Task task) {
-    return original == null ? location == null : !original.equals(location);
+    if (original == null) {
+      return location != null;
+    }
+    if (location == null) {
+      return true;
+    }
+    if (!original.place.equals(location.place)) {
+      return true;
+    }
+    return original.isDeparture() != location.isDeparture()
+        || original.isArrival() != location.isArrival()
+        || original.getRadius() != location.getRadius();
   }
 
   @Override
@@ -165,7 +216,7 @@ public class LocationControlSet extends TaskEditControlFragment {
     if (location != null) {
       Place place = location.place;
       Geofence geofence = location.geofence;
-      geofence.setTask(taskId);
+      geofence.setTask(task.getId());
       geofence.setPlace(place.getUid());
       geofence.setId(locationDao.insert(geofence));
       geofenceApi.register(Collections.singletonList(location));
@@ -185,13 +236,26 @@ public class LocationControlSet extends TaskEditControlFragment {
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (requestCode == REQUEST_LOCATION_REMINDER) {
       if (resultCode == Activity.RESULT_OK) {
-        location = PlacePicker.getPlace(data, preferences);
-        updateUI();
+        Place place = data.getParcelableExtra(EXTRA_PLACE);
+        Geofence geofence = new Geofence();
+        if (location == null) {
+          geofence.setRadius(preferences.getInt(R.string.p_default_location_radius, 250));
+          int defaultReminders =
+              preferences.getIntegerFromString(R.string.p_default_location_reminder_key, 1);
+          geofence.setArrival(defaultReminders == 1 || defaultReminders == 3);
+          geofence.setDeparture(defaultReminders == 2 || defaultReminders == 3);
+        } else {
+          Geofence existing = location.geofence;
+          geofence.setArrival(existing.isArrival());
+          geofence.setDeparture(existing.isDeparture());
+          geofence.setRadius(existing.getRadius());
+        }
+        setLocation(new Location(geofence, place));
       }
     } else if (requestCode == REQUEST_LOCATION_DETAILS) {
       if (resultCode == Activity.RESULT_OK) {
-        location = data.getParcelableExtra(LocationDialog.EXTRA_LOCATION);
-        updateUI();
+        location.geofence = data.getParcelableExtra(LocationDialog.EXTRA_GEOFENCE);
+        setLocation(location);
       }
     } else {
       super.onActivityResult(requestCode, resultCode, data);

@@ -7,7 +7,6 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
 import javax.inject.Inject;
 import org.tasks.drive.DriveLoginActivity;
-import org.tasks.location.LocationPickerActivity;
 import org.tasks.play.AuthResultHandler;
 
 public class PlayServices {
@@ -36,10 +35,6 @@ public class PlayServices {
       DriveLoginActivity driveLoginActivity, String a, AuthResultHandler authResultHandler) {}
 
   public Disposable check(MainActivity mainActivity) {
-    return Disposables.empty();
-  }
-
-  public Disposable checkMaps(LocationPickerActivity locationPickerActivity) {
     return Disposables.empty();
   }
 }

@@ -17,7 +17,6 @@ import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.internal.disposables.EmptyDisposable;
 import io.reactivex.schedulers.Schedulers;
 import java.io.IOException;
 import javax.inject.Inject;
@@ -69,21 +68,6 @@ public class PlayServices {
                 resolve(activity);
               }
             });
-  }
-
-  public Disposable checkMaps(Activity activity) {
-    if (preferences.useGooglePlaces() || preferences.useGoogleMaps()) {
-      return Single.fromCallable(this::refreshAndCheck)
-          .subscribeOn(Schedulers.io())
-          .observeOn(AndroidSchedulers.mainThread())
-          .subscribe(success -> {
-            if (!success) {
-              resolve(activity);
-            }
-          });
-    } else {
-      return EmptyDisposable.INSTANCE;
-    }
   }
 
   public boolean refreshAndCheck() {
