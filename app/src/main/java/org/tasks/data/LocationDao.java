@@ -18,8 +18,8 @@ public interface LocationDao {
   Location getGeofence(Long id);
 
   @Query(
-      "SELECT * FROM geofences INNER JOIN places ON geofences.place = places.uid WHERE task = :taskId ORDER BY name ASC")
-  List<Location> getGeofences(long taskId);
+      "SELECT * FROM geofences INNER JOIN places ON geofences.place = places.uid WHERE task = :taskId ORDER BY name ASC LIMIT 1")
+  Location getGeofences(long taskId);
 
   @Query(
       "SELECT geofences.*, places.* FROM geofences INNER JOIN places ON geofences.place = places.uid INNER JOIN tasks ON tasks._id = geofences.task WHERE tasks._id = :taskId AND tasks.deleted = 0 AND tasks.completed = 0")
@@ -39,7 +39,7 @@ public interface LocationDao {
   void delete(Place place);
 
   @Insert
-  void insert(Geofence location);
+  long insert(Geofence location);
 
   @Insert(onConflict = OnConflictStrategy.IGNORE)
   long insert(Place place);

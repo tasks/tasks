@@ -142,7 +142,6 @@ public class LocationDialog extends InjectingDialogFragment {
 
   private void sendResult(Location result) {
     Intent data = new Intent();
-    data.putExtra(EXTRA_ORIGINAL, (Parcelable) getOriginal());
     data.putExtra(EXTRA_LOCATION, (Parcelable) result);
     getTargetFragment().onActivityResult(getTargetRequestCode(), RESULT_OK, data);
     dismiss();

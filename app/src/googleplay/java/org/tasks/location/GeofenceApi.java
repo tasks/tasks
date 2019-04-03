@@ -18,26 +18,36 @@ import com.google.android.gms.location.LocationServices;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.data.Location;
+import org.tasks.data.LocationDao;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.PermissionChecker;
-import org.tasks.preferences.Preferences;
 
 public class GeofenceApi {
 
   private final Context context;
   private final PermissionChecker permissionChecker;
+  private final LocationDao locationDao;
 
   @Inject
   public GeofenceApi(
       @ForApplication Context context,
-      Preferences preferences,
-      PermissionChecker permissionChecker) {
+      PermissionChecker permissionChecker,
+      LocationDao locationDao) {
     this.context = context;
     this.permissionChecker = permissionChecker;
+    this.locationDao = locationDao;
+  }
+
+  public void registerAll() {
+    register(locationDao.getActiveGeofences());
+  }
+
+  public void register(long taskId) {
+    register(locationDao.getActiveGeofences(taskId));
   }
 
   @SuppressLint("MissingPermission")
-  void register(final List<Location> locations) {
+  public void register(final List<Location> locations) {
     if (!permissionChecker.canAccessLocation()) {
       return;
     }
@@ -55,8 +65,14 @@ public class GeofenceApi {
     }
   }
 
+  public void cancel(long taskId) {
+    cancel(locationDao.getGeofences(taskId));
+  }
+
   public void cancel(final Location location) {
-    cancel(singletonList(location));
+    if (location != null) {
+      cancel(singletonList(location));
+    }
   }
 
   public void cancel(final List<Location> locations) {

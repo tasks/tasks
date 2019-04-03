@@ -24,7 +24,7 @@ import org.tasks.R;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingWorker;
 import org.tasks.injection.JobComponent;
-import org.tasks.location.GeofenceService;
+import org.tasks.location.GeofenceApi;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.scheduling.RefreshScheduler;
 import org.tasks.sync.SyncAdapters;
@@ -41,7 +41,7 @@ public class AfterSaveWork extends InjectingWorker {
   @Inject RepeatTaskHelper repeatTaskHelper;
   @Inject @ForApplication Context context;
   @Inject NotificationManager notificationManager;
-  @Inject GeofenceService geofenceService;
+  @Inject GeofenceApi geofenceApi;
   @Inject TimerPlugin timerPlugin;
   @Inject ReminderService reminderService;
   @Inject RefreshScheduler refreshScheduler;
@@ -94,9 +94,9 @@ public class AfterSaveWork extends InjectingWorker {
 
     if (justCompleted || justDeleted) {
       notificationManager.cancel(taskId);
-      geofenceService.cancelGeofences(taskId);
+      geofenceApi.cancel(taskId);
     } else if (completionDateModified || deletionDateModified) {
-      geofenceService.setupGeofences(taskId);
+      geofenceApi.register(taskId);
     }
 
     if (justCompleted) {

@@ -14,7 +14,7 @@ import org.tasks.data.UserActivityDao;
 import org.tasks.files.FileHelper;
 import org.tasks.injection.InjectingWorker;
 import org.tasks.injection.JobComponent;
-import org.tasks.location.GeofenceService;
+import org.tasks.location.GeofenceApi;
 import org.tasks.notifications.NotificationManager;
 import timber.log.Timber;
 
@@ -23,7 +23,7 @@ public class CleanupWork extends InjectingWorker {
   static final String EXTRA_TASK_IDS = "extra_task_ids";
   private final Context context;
   @Inject NotificationManager notificationManager;
-  @Inject GeofenceService geofenceService;
+  @Inject GeofenceApi geofenceApi;
   @Inject TimerPlugin timerPlugin;
   @Inject ReminderService reminderService;
   @Inject AlarmService alarmService;
@@ -47,7 +47,7 @@ public class CleanupWork extends InjectingWorker {
       alarmService.cancelAlarms(task);
       reminderService.cancelReminder(task);
       notificationManager.cancel(task);
-      geofenceService.cancelGeofences(task);
+      geofenceApi.cancel(task);
       for (TaskAttachment attachment : taskAttachmentDao.getAttachments(task)) {
         FileHelper.delete(context, attachment.parseUri());
         taskAttachmentDao.delete(attachment);

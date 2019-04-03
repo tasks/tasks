@@ -17,7 +17,7 @@ import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingApplication;
 import org.tasks.injection.InjectingJobIntentService;
 import org.tasks.jobs.WorkManager;
-import org.tasks.location.GeofenceService;
+import org.tasks.location.GeofenceApi;
 import org.tasks.preferences.Preferences;
 import org.tasks.receivers.RefreshReceiver;
 import org.tasks.scheduling.CalendarNotificationIntentService;
@@ -36,7 +36,7 @@ public class Tasks extends InjectingApplication {
   @Inject ThemeCache themeCache;
   @Inject WorkManager workManager;
   @Inject RefreshScheduler refreshScheduler;
-  @Inject GeofenceService geofenceService;
+  @Inject GeofenceApi geofenceApi;
   @Inject LocalBroadcastManager localBroadcastManager;
 
   @Override
@@ -84,7 +84,7 @@ public class Tasks extends InjectingApplication {
     workManager.updateBackgroundSync();
     workManager.scheduleMidnightRefresh();
     workManager.scheduleBackup();
-    geofenceService.setupGeofences();
+    geofenceApi.registerAll();
     FileHelper.delete(context, preferences.getCacheDirectory());
   }
 
