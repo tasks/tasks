@@ -224,7 +224,9 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
           public void onLayoutChange(
               View v, int l, int t, int r, int b, int ol, int ot, int or, int ob) {
             coordinatorLayout.removeOnLayoutChangeListener(this);
-            updateAppbarLayout();
+            locationDao
+                .getPlaceUsage()
+                .observe(LocationPickerActivity.this, LocationPickerActivity.this::updatePlaces);
           }
         });
 
@@ -406,8 +408,6 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
             .debounce(SEARCH_DEBOUNCE_TIMEOUT, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(query -> viewModel.query(query, mapPosition)));
-
-    locationDao.getPlaceUsage().observe(this, this::updatePlaces);
   }
 
   private void handleError(Event<String> error) {
@@ -421,28 +421,24 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
     this.places = places;
     updateMarkers();
     recentsAdapter.submitList(places);
-    updateAppbarLayout();
-    if (places.isEmpty()) {
+
+    CoordinatorLayout.LayoutParams params =
+        (CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
+
+    int height = coordinatorLayout.getHeight();
+    if (this.places.isEmpty()) {
+      params.height = height;
+      chooseRecentLocation.setVisibility(View.GONE);
       collapseToolbar();
+    } else {
+      params.height = (height * 75) / 100;
+      chooseRecentLocation.setVisibility(View.VISIBLE);
     }
   }
 
   private void updateMarkers() {
     if (map != null) {
       map.setMarkers(newArrayList(transform(places, PlaceUsage::getPlace)));
-    }
-  }
-
-  private void updateAppbarLayout() {
-    CoordinatorLayout.LayoutParams params =
-        (CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
-
-    if (places.isEmpty()) {
-      params.height = coordinatorLayout.getHeight();
-      chooseRecentLocation.setVisibility(View.GONE);
-    } else {
-      params.height = (coordinatorLayout.getHeight() * 75) / 100;
-      chooseRecentLocation.setVisibility(View.VISIBLE);
     }
   }
 
