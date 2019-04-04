@@ -217,10 +217,46 @@ public class BasicPreferences extends InjectingPreferenceActivity
           });
     }
 
+    findPreference(R.string.refresh_purchases)
+        .setOnPreferenceClickListener(
+            preference -> {
+              billingClient.queryPurchases();
+              return false;
+            });
+
+    requires(
+        R.string.settings_localization,
+        atLeastJellybeanMR1(),
+        R.string.p_language,
+        R.string.p_layout_direction);
+
+    requires(BuildConfig.DEBUG, R.string.debug);
+
+    //noinspection ConstantConditions
+    if (!BuildConfig.FLAVOR.equals("googleplay")) {
+      requires(R.string.backup_BPr_header, false, R.string.p_google_drive_backup);
+      requires(
+          R.string.about,
+          false,
+          R.string.rate_tasks,
+          R.string.upgrade_to_pro,
+          R.string.refresh_purchases);
+      requires(R.string.privacy, false, R.string.p_collect_statistics);
+      ((PreferenceScreen) findPreference(getString(R.string.preference_screen)))
+          .removePreference(findPreference(getString(R.string.TEA_control_location)));
+    }
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+
+    //noinspection ConstantConditions
+    if (!BuildConfig.FLAVOR.equals("googleplay")) {
+      return;
+    }
     List<String> choices =
-        asList(
-            getString(R.string.map_provider_mapbox),
-            getString(R.string.map_provider_google));
+        asList(getString(R.string.map_provider_mapbox), getString(R.string.map_provider_google));
     SingleCheckedArrayAdapter singleCheckedArrayAdapter =
         new SingleCheckedArrayAdapter(this, choices, themeAccent);
     Preference mapProviderPreference = findPreference(R.string.p_map_provider);
@@ -295,35 +331,6 @@ public class BasicPreferences extends InjectingPreferenceActivity
     int placeProvider = getPlaceProvider();
     placeProviderPreference.setSummary(
         placeProvider == -1 ? getString(R.string.none) : choices.get(placeProvider));
-
-    findPreference(R.string.refresh_purchases)
-        .setOnPreferenceClickListener(
-            preference -> {
-              billingClient.queryPurchases();
-              return false;
-            });
-
-    requires(
-        R.string.settings_localization,
-        atLeastJellybeanMR1(),
-        R.string.p_language,
-        R.string.p_layout_direction);
-
-    requires(BuildConfig.DEBUG, R.string.debug);
-
-    //noinspection ConstantConditions
-    if (!BuildConfig.FLAVOR.equals("googleplay")) {
-      requires(R.string.backup_BPr_header, false, R.string.p_google_drive_backup);
-      requires(
-          R.string.about,
-          false,
-          R.string.rate_tasks,
-          R.string.upgrade_to_pro,
-          R.string.refresh_purchases);
-      requires(R.string.privacy, false, R.string.p_collect_statistics);
-      ((PreferenceScreen) findPreference(getString(R.string.preference_screen)))
-          .removePreference(findPreference(getString(R.string.TEA_control_location)));
-    }
   }
 
   private int getPlaceProvider() {
