@@ -3,36 +3,95 @@ package org.tasks.location;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.AsyncDifferConfig;
+import androidx.recyclerview.widget.AsyncListDiffer;
 import androidx.recyclerview.widget.DiffUtil.ItemCallback;
-import androidx.recyclerview.widget.ListAdapter;
+import androidx.recyclerview.widget.ListUpdateCallback;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import com.google.common.base.Strings;
+import java.util.List;
 import org.tasks.R;
-import org.tasks.location.LocationSearchAdapter.SearchViewHolder;
 
-public class LocationSearchAdapter extends ListAdapter<PlaceSearchResult, SearchViewHolder> {
+public class LocationSearchAdapter extends RecyclerView.Adapter<ViewHolder>
+    implements ListUpdateCallback {
 
+  private final int attributionRes;
   private final OnPredictionPicked callback;
+  private final AsyncListDiffer<PlaceSearchResult> differ;
 
-  LocationSearchAdapter(OnPredictionPicked callback) {
-    super(new DiffCallback());
-
+  LocationSearchAdapter(@DrawableRes int attributionRes, OnPredictionPicked callback) {
+    this.attributionRes = attributionRes;
     this.callback = callback;
+    differ =
+        new AsyncListDiffer<>(this, new AsyncDifferConfig.Builder<>(new DiffCallback()).build());
   }
 
   @NonNull
   @Override
-  public SearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-    return new SearchViewHolder(
-        LayoutInflater.from(parent.getContext()).inflate(R.layout.row_place, parent, false),
-        callback);
+  public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    return viewType == 0
+        ? new SearchViewHolder(
+            LayoutInflater.from(parent.getContext()).inflate(R.layout.row_place, parent, false),
+            callback)
+        : new FooterViewHolder(
+            LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.row_place_footer, parent, false),
+            attributionRes);
+  }
+
+  void submitList(@Nullable List<PlaceSearchResult> list) {
+    differ.submitList(list);
   }
 
   @Override
-  public void onBindViewHolder(@NonNull SearchViewHolder holder, int position) {
-    holder.bind(getItem(position));
+  public int getItemCount() {
+    return differ.getCurrentList().size() + 1;
+  }
+
+  @Override
+  public int getItemViewType(int position) {
+    return position < getItemCount() - 1 ? 0 : 1;
+  }
+
+  @Override
+  public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    if (getItemViewType(position) == 0) {
+      ((SearchViewHolder) holder).bind(differ.getCurrentList().get(position));
+    } else {
+      ((FooterViewHolder) holder).bind(position);
+    }
+  }
+
+  @Override
+  public void onInserted(int position, int count) {
+    notifyItemRangeInserted(position, count);
+    updateFooter();
+  }
+
+  @Override
+  public void onRemoved(int position, int count) {
+    notifyItemRangeRemoved(position, count);
+    updateFooter();
+  }
+
+  @Override
+  public void onMoved(int fromPosition, int toPosition) {
+    notifyItemMoved(fromPosition, toPosition);
+  }
+
+  @Override
+  public void onChanged(int position, int count, Object payload) {
+    notifyItemRangeChanged(position, count, payload);
+  }
+
+  private void updateFooter() {
+    notifyItemChanged(getItemCount() - 1);
   }
 
   public interface OnPredictionPicked {
@@ -57,12 +116,30 @@ public class LocationSearchAdapter extends ListAdapter<PlaceSearchResult, Search
       CharSequence name = prediction.getName();
       CharSequence address = prediction.getAddress();
       this.name.setText(name);
-      if (address == null || Strings.isNullOrEmpty(address.toString()) || address.toString().equals(name.toString())) {
+      if (address == null
+          || Strings.isNullOrEmpty(address.toString())
+          || address.toString().equals(name.toString())) {
         this.address.setVisibility(View.GONE);
       } else {
         this.address.setText(address);
         this.address.setVisibility(View.VISIBLE);
       }
+    }
+  }
+
+  public static class FooterViewHolder extends RecyclerView.ViewHolder {
+
+    View divider;
+
+    FooterViewHolder(@NonNull View itemView, @DrawableRes int attributionRes) {
+      super(itemView);
+
+      ((ImageView) itemView.findViewById(R.id.place_attribution)).setImageResource(attributionRes);
+      divider = itemView.findViewById(R.id.divider);
+    }
+
+    void bind(int position) {
+      divider.setVisibility(position == 0 ? View.GONE : View.VISIBLE);
     }
   }
 

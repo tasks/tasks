@@ -1,6 +1,7 @@
 package org.tasks.location;
 
 import android.os.Bundle;
+import androidx.annotation.DrawableRes;
 import java.util.List;
 import org.tasks.Callback;
 import org.tasks.data.Place;
@@ -9,6 +10,8 @@ public interface PlaceSearchProvider {
   void restoreState(Bundle savedInstanceState);
 
   void saveState(Bundle outState);
+
+  @DrawableRes int getAttributionRes(boolean dark);
 
   void search(
       String query,

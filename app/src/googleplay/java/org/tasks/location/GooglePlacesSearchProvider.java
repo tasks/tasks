@@ -44,6 +44,13 @@ public class GooglePlacesSearchProvider implements PlaceSearchProvider {
   public void saveState(Bundle outState) {}
 
   @Override
+  public int getAttributionRes(boolean dark) {
+    return dark
+        ? R.drawable.places_powered_by_google_dark
+        : R.drawable.places_powered_by_google_light;
+  }
+
+  @Override
   public void search(
       String query,
       MapPosition bias,

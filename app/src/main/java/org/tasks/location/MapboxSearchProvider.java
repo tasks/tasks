@@ -34,6 +34,11 @@ public class MapboxSearchProvider implements PlaceSearchProvider {
   public void saveState(Bundle outState) {}
 
   @Override
+  public int getAttributionRes(boolean dark) {
+    return R.drawable.mapbox_logo_icon;
+  }
+
+  @Override
   public void search(
       String query,
       MapPosition bias,

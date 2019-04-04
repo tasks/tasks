@@ -122,7 +122,7 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
   private CompositeDisposable disposables;
   private MapPosition mapPosition;
   private LocationPickerAdapter recentsAdapter = new LocationPickerAdapter(this);
-  private LocationSearchAdapter searchAdapter = new LocationSearchAdapter(this);
+  private LocationSearchAdapter searchAdapter;
   private List<PlaceUsage> places = Collections.emptyList();
   private int offset;
   private MenuItem search;
@@ -202,7 +202,8 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
     themeColor.applyToStatusBarIcons(this);
     themeColor.applyToNavigationBar(this);
 
-    map.init(getSupportFragmentManager(), this, theme.getThemeBase().isDarkTheme(this));
+    boolean dark = theme.getThemeBase().isDarkTheme(this);
+    map.init(getSupportFragmentManager(), this, dark);
 
     CoordinatorLayout.LayoutParams params =
         (CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
@@ -244,6 +245,7 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
 
     findViewById(map.getMarkerId()).setVisibility(View.VISIBLE);
 
+    searchAdapter = new LocationSearchAdapter(searchProvider.getAttributionRes(dark), this);
     recentsAdapter.setHasStableIds(true);
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
     recyclerView.setAdapter(search.isActionViewExpanded() ? searchAdapter : recentsAdapter);
