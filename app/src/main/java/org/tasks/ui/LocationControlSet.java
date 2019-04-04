@@ -122,7 +122,7 @@ public class LocationControlSet extends TaskEditControlFragment {
               ? R.drawable.ic_outline_notifications_24px
               : R.drawable.ic_outline_notifications_off_24px);
       String name = this.location.getDisplayName();
-      String address = this.location.getAddress();
+      String address = this.location.getDisplayAddress();
       if (!Strings.isNullOrEmpty(address) && !address.equals(name)) {
         locationAddress.setText(address);
         locationAddress.setVisibility(View.VISIBLE);

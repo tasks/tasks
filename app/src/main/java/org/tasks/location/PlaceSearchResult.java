@@ -1,21 +1,24 @@
 package org.tasks.location;
 
+import org.tasks.data.Place;
+
 public class PlaceSearchResult {
 
   private final String id;
   private final String name;
   private final String address;
-  private final Object tag;
+  private final Place place;
 
+  @SuppressWarnings("unused")
   PlaceSearchResult(String id, String name, String address) {
     this(id, name, address, null);
   }
 
-  PlaceSearchResult(String id, String name, String address, Object tag) {
+  PlaceSearchResult(String id, String name, String address, Place place) {
     this.id = id;
     this.name = name;
     this.address = address;
-    this.tag = tag;
+    this.place = place;
   }
 
   public String getId() {
@@ -30,8 +33,8 @@ public class PlaceSearchResult {
     return address;
   }
 
-  public Object getTag() {
-    return tag;
+  public Place getPlace() {
+    return place;
   }
 
   @Override
@@ -54,7 +57,7 @@ public class PlaceSearchResult {
     if (address != null ? !address.equals(that.address) : that.address != null) {
       return false;
     }
-    return tag != null ? tag.equals(that.tag) : that.tag == null;
+    return place != null ? place.equals(that.place) : that.place == null;
   }
 
   @Override
@@ -62,7 +65,7 @@ public class PlaceSearchResult {
     int result = id != null ? id.hashCode() : 0;
     result = 31 * result + (name != null ? name.hashCode() : 0);
     result = 31 * result + (address != null ? address.hashCode() : 0);
-    result = 31 * result + (tag != null ? tag.hashCode() : 0);
+    result = 31 * result + (place != null ? place.hashCode() : 0);
     return result;
   }
 
@@ -78,8 +81,8 @@ public class PlaceSearchResult {
         + ", address='"
         + address
         + '\''
-        + ", tag="
-        + tag
+        + ", place="
+        + place
         + '}';
   }
 }

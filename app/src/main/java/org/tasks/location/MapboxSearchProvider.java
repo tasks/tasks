@@ -80,29 +80,21 @@ public class MapboxSearchProvider implements PlaceSearchProvider {
   @Override
   public void fetch(
       PlaceSearchResult placeSearchResult, Callback<Place> onSuccess, Callback<String> onError) {
-    CarmenFeature carmenFeature = (CarmenFeature) placeSearchResult.getTag();
-    org.tasks.data.Place place = newPlace();
-    place.setName(placeSearchResult.getName());
-    place.setAddress(placeSearchResult.getAddress());
-    place.setLatitude(carmenFeature.center().latitude());
-    place.setLongitude(carmenFeature.center().longitude());
-    onSuccess.call(place);
+    onSuccess.call(placeSearchResult.getPlace());
   }
 
   private PlaceSearchResult toSearchResult(CarmenFeature feature) {
-    String name = getName(feature);
     String address = feature.placeName();
-    String replace = String.format("%s, ", name);
-    if (address != null && address.startsWith(replace)) {
-      address = address.replace(replace, "");
-    }
-    return new PlaceSearchResult(feature.id(), name, address, feature);
-  }
-
-  private String getName(CarmenFeature feature) {
     List<String> types = feature.placeType();
-    return types != null && types.contains(TYPE_ADDRESS)
-        ? String.format("%s %s", feature.address(), feature.text())
-        : feature.text();
+    Place place = newPlace();
+    place.setName(
+        types != null && types.contains(TYPE_ADDRESS)
+            ? String.format("%s %s", feature.address(), feature.text())
+            : feature.text());
+    place.setAddress(address);
+    place.setLatitude(feature.center().latitude());
+    place.setLongitude(feature.center().longitude());
+    return new PlaceSearchResult(
+        feature.id(), place.getName(), place.getDisplayAddress(), place);
   }
 }

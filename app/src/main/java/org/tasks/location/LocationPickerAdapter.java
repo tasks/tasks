@@ -72,7 +72,7 @@ public class LocationPickerAdapter extends ListAdapter<PlaceUsage, PlaceViewHold
     public void bind(PlaceUsage placeUsage) {
       place = placeUsage.place;
       String name = place.getDisplayName();
-      String address = place.getAddress();
+      String address = place.getDisplayAddress();
       this.name.setText(name);
       if (Strings.isNullOrEmpty(address) || address.equals(name)) {
         this.address.setVisibility(View.GONE);

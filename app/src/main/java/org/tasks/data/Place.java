@@ -154,16 +154,16 @@ public class Place implements Serializable, Parcelable {
   }
 
   public String getDisplayName() {
-    if (Strings.isNullOrEmpty(address)) {
+    if (Strings.isNullOrEmpty(address) || !COORDS.matcher(name).matches()) {
       return name;
     }
-    if (COORDS.matcher(name).matches()) {
-      return address;
-    }
-    if (address.startsWith(name)) {
-      return address;
-    }
-    return name;
+    return address;
+  }
+
+  public String getDisplayAddress() {
+    return Strings.isNullOrEmpty(address)
+        ? null
+        : address.replace(String.format("%s, ", name), "");
   }
 
   String getGeoUri() {

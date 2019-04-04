@@ -126,6 +126,10 @@ public class Location implements Serializable, Parcelable {
     return place.getDisplayName();
   }
 
+  public String getDisplayAddress() {
+    return place.getDisplayAddress();
+  }
+
   public String getGeoUri() {
     return place.getGeoUri();
   }
