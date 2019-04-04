@@ -14,5 +14,9 @@ public class GeofenceApi {
 
   public void cancel(Location geofence) {}
 
-  public void cancel(List<Location> geofences) {}
+  public void registerAll() {}
+
+  public void cancel(long taskId) {}
+
+  public void register(long taskId) {}
 }

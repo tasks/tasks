@@ -25,4 +25,9 @@ public class GoogleMapFragment implements MapFragment {
 
   @Override
   public void showMyLocation() {}
+
+  @Override
+  public int getMarkerId() {
+    return 0;
+  }
 }

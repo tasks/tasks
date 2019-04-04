@@ -2,7 +2,8 @@ package org.tasks.ui;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
-import static org.tasks.dialogs.LocationDialog.newLocationDialog;
+import static org.tasks.PermissionUtil.verifyPermissions;
+import static org.tasks.dialogs.GeofenceDialog.newGeofenceDialog;
 import static org.tasks.location.LocationPickerActivity.EXTRA_PLACE;
 
 import android.app.Activity;
@@ -36,17 +37,21 @@ import org.tasks.data.Location;
 import org.tasks.data.LocationDao;
 import org.tasks.data.Place;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.dialogs.LocationDialog;
+import org.tasks.dialogs.GeofenceDialog;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.location.GeofenceApi;
 import org.tasks.location.LocationPickerActivity;
+import org.tasks.preferences.Device;
+import org.tasks.preferences.FragmentPermissionRequestor;
+import org.tasks.preferences.PermissionChecker;
+import org.tasks.preferences.PermissionRequestor;
 import org.tasks.preferences.Preferences;
 
 public class LocationControlSet extends TaskEditControlFragment {
 
   public static final int TAG = R.string.TEA_ctrl_locations_pref;
   private static final int REQUEST_LOCATION_REMINDER = 12153;
-  private static final int REQUEST_LOCATION_DETAILS = 12154;
+  private static final int REQUEST_GEOFENCE_DETAILS = 12154;
   private static final String FRAG_TAG_LOCATION_DIALOG = "location_dialog";
   private static final String EXTRA_ORIGINAL = "extra_original_location";
   private static final String EXTRA_LOCATION = "extra_new_location";
@@ -55,6 +60,9 @@ public class LocationControlSet extends TaskEditControlFragment {
   @Inject DialogBuilder dialogBuilder;
   @Inject GeofenceApi geofenceApi;
   @Inject LocationDao locationDao;
+  @Inject Device device;
+  @Inject FragmentPermissionRequestor permissionRequestor;
+  @Inject PermissionChecker permissionChecker;
 
   @BindView(R.id.location_name)
   TextView locationName;
@@ -62,8 +70,8 @@ public class LocationControlSet extends TaskEditControlFragment {
   @BindView(R.id.location_address)
   TextView locationAddress;
 
-  @BindView(R.id.location_more)
-  ImageView locationOptions;
+  @BindView(R.id.geofence_options)
+  ImageView geofenceOptions;
 
   private Location original;
   private Location location;
@@ -78,27 +86,39 @@ public class LocationControlSet extends TaskEditControlFragment {
       if (!task.isNew()) {
         original = locationDao.getGeofences(task.getId());
         if (original != null) {
-          setLocation(new Location(original.geofence, original.place));
+          location = new Location(original.geofence, original.place);
         }
       }
     } else {
       original = savedInstanceState.getParcelable(EXTRA_ORIGINAL);
-      setLocation(savedInstanceState.getParcelable(EXTRA_LOCATION));
+      location = savedInstanceState.getParcelable(EXTRA_LOCATION);
     }
 
     return view;
   }
 
+  @Override
+  public void onResume() {
+    super.onResume();
+
+    updateUi();
+  }
+
   private void setLocation(@Nullable Location location) {
     this.location = location;
+    updateUi();
+  }
+
+  private void updateUi() {
     if (this.location == null) {
       locationName.setText("");
-      locationOptions.setVisibility(View.GONE);
+      geofenceOptions.setVisibility(View.GONE);
       locationAddress.setVisibility(View.GONE);
     } else {
-      locationOptions.setVisibility(View.VISIBLE);
-      locationOptions.setImageResource(
-          this.location.isArrival() || this.location.isDeparture()
+      geofenceOptions.setVisibility(device.supportsGeofences() ? View.VISIBLE : View.GONE);
+      geofenceOptions.setImageResource(
+          permissionChecker.canAccessLocation()
+                  && (this.location.isArrival() || this.location.isDeparture())
               ? R.drawable.ic_outline_notifications_24px
               : R.drawable.ic_outline_notifications_off_24px);
       String name = this.location.getDisplayName();
@@ -155,10 +175,34 @@ public class LocationControlSet extends TaskEditControlFragment {
     startActivityForResult(intent, REQUEST_LOCATION_REMINDER);
   }
 
-  @OnClick(R.id.location_more)
-  void locationOptions(View view) {
-    LocationDialog dialog = newLocationDialog(location);
-    dialog.setTargetFragment(this, REQUEST_LOCATION_DETAILS);
+  @OnClick(R.id.geofence_options)
+  void geofenceOptions(View view) {
+    if (permissionRequestor.requestFineLocation()) {
+      showGeofenceOptions();
+    }
+  }
+
+  @Override
+  public void onRequestPermissionsResult(
+      int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    if (requestCode == PermissionRequestor.REQUEST_LOCATION) {
+      if (verifyPermissions(grantResults)) {
+        showGeofenceOptions();
+      } else {
+        dialogBuilder
+            .newMessageDialog(R.string.location_permission_required_geofence)
+            .setTitle(R.string.missing_permissions)
+            .setPositiveButton(android.R.string.ok, null)
+            .show();
+      }
+    } else {
+      super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+  }
+
+  private void showGeofenceOptions() {
+    GeofenceDialog dialog = newGeofenceDialog(location);
+    dialog.setTargetFragment(this, REQUEST_GEOFENCE_DETAILS);
     dialog.show(getFragmentManager(), FRAG_TAG_LOCATION_DIALOG);
   }
 
@@ -237,25 +281,31 @@ public class LocationControlSet extends TaskEditControlFragment {
     if (requestCode == REQUEST_LOCATION_REMINDER) {
       if (resultCode == Activity.RESULT_OK) {
         Place place = data.getParcelableExtra(EXTRA_PLACE);
-        Geofence geofence = new Geofence();
+        Geofence geofence;
         if (location == null) {
-          geofence.setRadius(preferences.getInt(R.string.p_default_location_radius, 250));
           int defaultReminders =
               preferences.getIntegerFromString(R.string.p_default_location_reminder_key, 1);
-          geofence.setArrival(defaultReminders == 1 || defaultReminders == 3);
-          geofence.setDeparture(defaultReminders == 2 || defaultReminders == 3);
+          geofence =
+              new Geofence(
+                  place.getUid(),
+                  defaultReminders == 1 || defaultReminders == 3,
+                  defaultReminders == 2 || defaultReminders == 3,
+                  preferences.getInt(R.string.p_default_location_radius, 250));
         } else {
           Geofence existing = location.geofence;
-          geofence.setArrival(existing.isArrival());
-          geofence.setDeparture(existing.isDeparture());
-          geofence.setRadius(existing.getRadius());
+          geofence =
+              new Geofence(
+                  place.getUid(),
+                  existing.isArrival(),
+                  existing.isDeparture(),
+                  existing.getRadius());
         }
         setLocation(new Location(geofence, place));
       }
-    } else if (requestCode == REQUEST_LOCATION_DETAILS) {
+    } else if (requestCode == REQUEST_GEOFENCE_DETAILS) {
       if (resultCode == Activity.RESULT_OK) {
-        location.geofence = data.getParcelableExtra(LocationDialog.EXTRA_GEOFENCE);
-        setLocation(location);
+        location.geofence = data.getParcelableExtra(GeofenceDialog.EXTRA_GEOFENCE);
+        updateUi();
       }
     } else {
       super.onActivityResult(requestCode, resultCode, data);

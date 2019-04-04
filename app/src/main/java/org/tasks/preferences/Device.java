@@ -29,10 +29,6 @@ public class Device {
     this.locale = locale;
   }
 
-  public static boolean SupportsLocationServices(Context context) {
-    return context.getResources().getBoolean(R.bool.location_enabled);
-  }
-
   public boolean hasCamera() {
     return context
             .getPackageManager()
@@ -47,8 +43,12 @@ public class Device {
     return intent.resolveActivity(context.getPackageManager()) != null;
   }
 
-  public boolean supportsLocationServices() {
-    return SupportsLocationServices(context);
+  public boolean supportsMaps() {
+    return context.getResources().getBoolean(R.bool.support_maps);
+  }
+
+  public boolean supportsGeofences() {
+    return context.getResources().getBoolean(R.bool.support_geofences);
   }
 
   public boolean voiceInputAvailable() {

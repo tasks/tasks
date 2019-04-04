@@ -99,7 +99,7 @@ public class DefaultsPreferences extends InjectingPreferenceActivity
     updateRadius();
 
     requires(syncAdapters.isSyncEnabled(), R.string.p_default_remote_list);
-    requires(device.supportsLocationServices(), R.string.p_default_location_reminder_key);
+    requires(device.supportsGeofences(), R.string.p_default_location_reminder_key);
   }
 
   private void startCalendarSelectionActivity() {

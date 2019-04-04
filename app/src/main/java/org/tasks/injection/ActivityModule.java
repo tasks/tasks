@@ -6,7 +6,6 @@ import dagger.Module;
 import dagger.Provides;
 import org.tasks.R;
 import org.tasks.billing.Inventory;
-import org.tasks.fragments.TaskEditControlSetFragmentManager;
 import org.tasks.gtasks.PlayServices;
 import org.tasks.location.GoogleMapFragment;
 import org.tasks.location.GooglePlacesSearchProvider;
@@ -15,7 +14,6 @@ import org.tasks.location.MapboxMapFragment;
 import org.tasks.location.MapboxSearchProvider;
 import org.tasks.location.PlaceSearchProvider;
 import org.tasks.preferences.Preferences;
-import org.tasks.sync.SyncAdapters;
 import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeBase;
 import org.tasks.themes.ThemeCache;
@@ -57,13 +55,6 @@ public class ActivityModule {
   @ActivityScope
   public ThemeAccent getThemeAccent(ThemeCache themeCache, Preferences preferences) {
     return themeCache.getThemeAccent(preferences.getInt(R.string.p_theme_accent, 1));
-  }
-
-  @Provides
-  @ActivityScope
-  public TaskEditControlSetFragmentManager getTaskEditControlSetFragmentManager(
-      Preferences preferences, SyncAdapters syncAdapters) {
-    return new TaskEditControlSetFragmentManager(activity, preferences, syncAdapters);
   }
 
   @Provides

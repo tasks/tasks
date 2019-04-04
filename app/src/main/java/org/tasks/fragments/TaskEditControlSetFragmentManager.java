@@ -17,8 +17,10 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import javax.inject.Inject;
 import org.tasks.BuildConfig;
 import org.tasks.R;
+import org.tasks.injection.ForActivity;
 import org.tasks.preferences.Device;
 import org.tasks.preferences.Preferences;
 import org.tasks.sync.SyncAdapters;
@@ -80,12 +82,18 @@ public class TaskEditControlSetFragmentManager {
   private final Context context;
   private final List<String> displayOrder;
   private final SyncAdapters syncAdapters;
+  private final Device device;
   private int numRows;
 
+  @Inject
   public TaskEditControlSetFragmentManager(
-      Context context, Preferences preferences, SyncAdapters syncAdapters) {
+      @ForActivity Context context,
+      Preferences preferences,
+      SyncAdapters syncAdapters,
+      Device device) {
     this.context = context;
     this.syncAdapters = syncAdapters;
+    this.device = device;
     displayOrder = BeastModePreferences.constructOrderedControlList(preferences, context);
     displayOrder.add(0, context.getString(EditTitleControlSet.TAG));
     displayOrder.add(1, context.getString(CommentBarFragment.TAG));
@@ -154,7 +162,7 @@ public class TaskEditControlSetFragmentManager {
       case ReminderControlSet.TAG:
         return new ReminderControlSet();
       case LocationControlSet.TAG:
-        return Device.SupportsLocationServices(context) ? new LocationControlSet() : null;
+        return device.supportsMaps() ? new LocationControlSet() : null;
       case FilesControlSet.TAG:
         return new FilesControlSet();
       case TimerControlSet.TAG:

@@ -17,6 +17,11 @@ public class GooglePlacesSearchProvider implements PlaceSearchProvider {
   public void saveState(Bundle outState) {}
 
   @Override
+  public int getAttributionRes(boolean dark) {
+    return 0;
+  }
+
+  @Override
   public void search(
       String query,
       MapPosition bias,

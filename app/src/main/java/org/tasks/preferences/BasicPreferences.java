@@ -77,6 +77,7 @@ public class BasicPreferences extends InjectingPreferenceActivity
   @Inject Inventory inventory;
   @Inject PlayServices playServices;
   @Inject Toaster toaster;
+  @Inject Device device;
 
   private Bundle result;
 
@@ -238,8 +239,8 @@ public class BasicPreferences extends InjectingPreferenceActivity
                         return;
                       }
                     } else if (which == 1) {
-                      if (!playServices.isPlayServicesAvailable()) {
-                        toaster.longToast(R.string.requires_google_play_services);
+                      if (!playServices.refreshAndCheck()) {
+                        playServices.resolve(this);
                         dialog.dismiss();
                         return;
                       }
@@ -272,8 +273,8 @@ public class BasicPreferences extends InjectingPreferenceActivity
                         return;
                       }
                     } else if (which == 1) {
-                      if (!playServices.isPlayServicesAvailable()) {
-                        toaster.longToast(R.string.requires_google_play_services);
+                      if (!playServices.refreshAndCheck()) {
+                        playServices.resolve(this);
                         dialog.dismiss();
                         return;
                       }

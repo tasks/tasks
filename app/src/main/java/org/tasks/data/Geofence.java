@@ -46,6 +46,14 @@ public class Geofence implements Serializable, Parcelable {
   public Geofence() {}
 
   @Ignore
+  public Geofence(String place, boolean arrival, boolean departure, int radius) {
+    this.place = place;
+    this.arrival = arrival;
+    this.departure = departure;
+    this.radius = radius;
+  }
+
+  @Ignore
   public Geofence(Geofence o) {
     id = o.id;
     task = o.task;

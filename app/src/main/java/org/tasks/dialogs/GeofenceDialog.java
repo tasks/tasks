@@ -1,7 +1,6 @@
 package org.tasks.dialogs;
 
 import static android.app.Activity.RESULT_OK;
-import static org.tasks.PermissionUtil.verifyPermissions;
 import static org.tasks.dialogs.SeekBarDialog.newSeekBarDialog;
 
 import android.app.Dialog;
@@ -18,7 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import javax.inject.Inject;
 import org.tasks.R;
@@ -28,12 +26,10 @@ import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.locale.Locale;
-import org.tasks.preferences.FragmentPermissionRequestor;
 import org.tasks.preferences.PermissionChecker;
-import org.tasks.preferences.PermissionRequestor;
 import org.tasks.ui.Toaster;
 
-public class LocationDialog extends InjectingDialogFragment {
+public class GeofenceDialog extends InjectingDialogFragment {
 
   public static final String EXTRA_GEOFENCE = "extra_geofence";
   private static final String EXTRA_ORIGINAL = "extra_original";
@@ -45,7 +41,6 @@ public class LocationDialog extends InjectingDialogFragment {
   @Inject @ForActivity Context context;
   @Inject Locale locale;
   @Inject PermissionChecker permissionChecker;
-  @Inject FragmentPermissionRequestor permissionRequestor;
   @Inject Toaster toaster;
 
   @BindView(R.id.location_arrival)
@@ -57,19 +52,12 @@ public class LocationDialog extends InjectingDialogFragment {
   @BindView(R.id.location_radius_value)
   TextView radiusValue;
 
-  public static LocationDialog newLocationDialog(Location location) {
-    LocationDialog dialog = new LocationDialog();
+  public static GeofenceDialog newGeofenceDialog(Location location) {
+    GeofenceDialog dialog = new GeofenceDialog();
     Bundle args = new Bundle();
     args.putParcelable(EXTRA_ORIGINAL, location);
     dialog.setArguments(args);
     return dialog;
-  }
-
-  @OnCheckedChanged({R.id.location_arrival, R.id.location_departure})
-  void geofenceCheckedChanged(boolean enabled) {
-    if (enabled) {
-      permissionRequestor.requestFineLocation();
-    }
   }
 
   @NonNull
@@ -130,24 +118,7 @@ public class LocationDialog extends InjectingDialogFragment {
     super.onResume();
 
     if (!permissionChecker.canAccessLocation()) {
-      arrivalView.setChecked(false);
-      departureView.setChecked(false);
-    }
-  }
-
-  @Override
-  public void onRequestPermissionsResult(
-      int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-    if (requestCode == PermissionRequestor.REQUEST_LOCATION) {
-      if (!verifyPermissions(grantResults)) {
-        dialogBuilder
-            .newMessageDialog(R.string.location_permission_required_geofence)
-            .setTitle(R.string.missing_permissions)
-            .setPositiveButton(android.R.string.ok, null)
-            .show();
-      }
-    } else {
-      super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+      dismiss();
     }
   }
 

@@ -5,7 +5,7 @@ import org.tasks.activities.CalendarSelectionDialog;
 import org.tasks.activities.RemoteListSupportPicker;
 import org.tasks.dialogs.AddAttachmentDialog;
 import org.tasks.dialogs.ColorPickerDialog;
-import org.tasks.dialogs.LocationDialog;
+import org.tasks.dialogs.GeofenceDialog;
 import org.tasks.dialogs.RecordAudioDialog;
 import org.tasks.dialogs.SeekBarDialog;
 import org.tasks.dialogs.SortDialog;
@@ -37,7 +37,7 @@ public interface DialogFragmentComponent {
 
   void inject(BasicRecurrenceDialog basicRecurrenceDialog);
 
-  void inject(LocationDialog locationDialog);
+  void inject(GeofenceDialog geofenceDialog);
 
   void inject(SeekBarDialog seekBarDialog);
 }
