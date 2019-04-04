@@ -514,8 +514,6 @@
 	<string name="show_list_indicators">Показване на индикатори в списъци</string>
 	<string name="location_remind_arrival">Напомни при пристигане</string>
 	<string name="location_remind_departure">Напомни при заминаване</string>
-	<string name="call_number">Обади се на %s </string>
-	<string name="open_url">Отвори %s</string>
 	<string name="location_arrived">Пристигнал на %s</string>
 	<string name="location_departed">Заминал %s</string>
 	<string name="building_notifications">Създаване на уведомления</string>

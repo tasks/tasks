@@ -512,8 +512,6 @@ aplicativo Google Play está configurado corretamente</string>
 	<string name="show_list_indicators">Mostrar fichas de listas</string>
 	<string name="location_remind_arrival">Lembrar ao chegar</string>
 	<string name="location_remind_departure">Lembrar ao sair</string>
-	<string name="call_number">Chamar %s</string>
-	<string name="open_url">Abrir %s</string>
 	<string name="location_arrived">Chegou às %s</string>
 	<string name="location_departed">Saiu às %s</string>
 	<string name="building_notifications">Gerando notificações</string>

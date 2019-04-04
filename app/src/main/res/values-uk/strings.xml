@@ -514,8 +514,6 @@
 	<string name="show_list_indicators">Відображати індикатори списків</string>
 	<string name="location_remind_arrival">Нагадати по прибуттю</string>
 	<string name="location_remind_departure">Нагадати при відправці</string>
-	<string name="call_number">Зателефонувати %s</string>
-	<string name="open_url">Відкрити %s</string>
 	<string name="location_arrived">Прибув до %s</string>
 	<string name="location_departed">Відправився з %s</string>
 	<string name="building_notifications">Генерація нагадувань</string>

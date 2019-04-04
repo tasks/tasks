@@ -73,8 +73,6 @@
 	<string name="dont_sync">Huwag i-sync</string>
 	<string name="background_sync_unmetered_only">Sa metered connections laang</string>
 	<string name="location_remind_departure">Ipaalala sa pagdating</string>
-	<string name="call_number">Tawag %s</string>
-	<string name="open_url">Buksan %s</string>
 	<string name="location_arrived">Dumating sa %s</string>
 	<string name="location_departed">Umalis %s</string>
 </resources>

@@ -516,8 +516,6 @@ uygulamanızın doğru kurulduğundan emin olun.</string>
 	<string name="show_list_indicators">Liste çentiklerini göster</string>
 	<string name="location_remind_arrival">Varışta hatırlat</string>
 	<string name="location_remind_departure">Kalkışta hatırlat</string>
-	<string name="call_number">Ara: %s</string>
-	<string name="open_url">Aç: %s</string>
 	<string name="location_arrived">Varıldı: %s</string>
 	<string name="location_departed">Kalkıldı: %s</string>
 	<string name="building_notifications">Bildirimler oluşturuluyor</string>

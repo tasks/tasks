@@ -514,8 +514,6 @@
 	<string name="show_list_indicators">הצג שבבי רשימה</string>
 	<string name="location_remind_arrival">הזכר ברגע ההגעה</string>
 	<string name="location_remind_departure">הזכר ברגע העזיבה</string>
-	<string name="call_number">התקשר ל-%s</string>
-	<string name="open_url">פתח %s</string>
 	<string name="location_arrived">הגיע ב-%s</string>
 	<string name="location_departed">עזב ב-%s</string>
 	<string name="building_notifications">מייצר התראות</string>

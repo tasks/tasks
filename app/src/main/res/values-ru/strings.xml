@@ -511,8 +511,6 @@
 	<string name="linkify_description">Добавить ссылки на сайты, адреса и номера телефонов</string>
 	<string name="location_remind_arrival">Напомнить по прибытии</string>
 	<string name="location_remind_departure">Напомнить покинув место</string>
-	<string name="call_number">Позвонить %s</string>
-	<string name="open_url">Открыть %s</string>
 	<string name="location_arrived">Прибытие в %s</string>
 	<string name="location_departed">Покинули %s</string>
 </resources>

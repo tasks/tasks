@@ -501,8 +501,6 @@
 	<string name="show_list_indicators">Stichworte und Listen anzeigen</string>
 	<string name="location_remind_arrival">Bei Ankunft erinnern</string>
 	<string name="location_remind_departure">Bei Abreise erinnern</string>
-	<string name="call_number">%s anrufen</string>
-	<string name="open_url">%s öffnen</string>
 	<string name="location_arrived">Angekommen um %s</string>
 	<string name="location_departed">Abgereist um %s</string>
 	<string name="building_notifications">Benachrichtigungen generieren</string>

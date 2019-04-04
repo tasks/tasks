@@ -500,7 +500,6 @@
 	<string name="show_list_indicators">Toon lijst indicatie</string>
 	<string name="location_remind_arrival">Herinner bij aankomst</string>
 	<string name="location_remind_departure">Herinner bij vertrek</string>
-	<string name="call_number">Bel %s</string>
 	<string name="location_arrived">Aangekomen on %s</string>
 	<string name="location_departed">Vetrokken om %s</string>
 	<string name="building_notifications">Notificaties genereren</string>

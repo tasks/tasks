@@ -513,8 +513,6 @@
 	<string name="show_list_indicators">Listajelölők megjelenítése</string>
 	<string name="location_remind_arrival">Induláskor emlékeztet</string>
 	<string name="location_remind_departure">Érkezéskor emlékeztet</string>
-	<string name="call_number">%s hívása</string>
-	<string name="open_url">%s megnyitása</string>
 	<string name="location_arrived">Megérkezett ekkor: %s</string>
 	<string name="location_departed">Elindult ekkor: %s</string>
 	<string name="building_notifications">Értesítések létrehozása</string>

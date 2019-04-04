@@ -511,8 +511,6 @@ Google Play app sia impostata correttamente</string>
 	<string name="show_list_indicators">Mostra lista chip</string>
 	<string name="location_remind_arrival">Ricorda all\'arrivo</string>
 	<string name="location_remind_departure">Ricorda alla partenza</string>
-	<string name="call_number">Chiama %s</string>
-	<string name="open_url">Apri %s</string>
 	<string name="location_arrived">Arrivato alle %s</string>
 	<string name="location_departed">Partito alle %s</string>
 	<string name="building_notifications">Gestione notifiche</string>

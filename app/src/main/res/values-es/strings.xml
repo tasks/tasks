@@ -507,8 +507,6 @@
 	<string name="show_list_indicators">Mostrar fichas de lista</string>
 	<string name="location_remind_arrival">Recordar a la llegada</string>
 	<string name="location_remind_departure">Recordar a la salida</string>
-	<string name="call_number">Llamar a %s</string>
-	<string name="open_url">Abrir %s</string>
 	<string name="location_arrived">Llegada a %s</string>
 	<string name="location_departed">Salida de %s</string>
 	<string name="building_notifications">Generando notificaciones</string>

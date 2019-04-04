@@ -510,8 +510,6 @@ sukonfigūruota tinkamai.</string>
 	<string name="show_list_indicators">Rodyti sąrašą lustų</string>
 	<string name="location_remind_arrival">Priminti atvykus</string>
 	<string name="location_remind_departure">Priminti išvykstant</string>
-	<string name="call_number">Skambinti %s</string>
-	<string name="open_url">Atidaryti %s</string>
 	<string name="location_arrived">Atvykta į %s</string>
 	<string name="location_departed">Išvykta iš %s</string>
 	<string name="building_notifications">Generuojami pranešimai</string>

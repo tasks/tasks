@@ -493,8 +493,6 @@ est configuré correctement</string>
 	<string name="show_list_indicators">Afficher la liste des puces</string>
 	<string name="location_remind_arrival">Rappel à l\'arrivée</string>
 	<string name="location_remind_departure">Rappel au départ</string>
-	<string name="call_number">Appeler %s</string>
-	<string name="open_url">Ouvrir %s</string>
 	<string name="location_arrived">Arrivé à %s</string>
 	<string name="location_departed">Départ %s</string>
 	<string name="building_notifications">Générer des notifications</string>
