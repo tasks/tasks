@@ -42,11 +42,25 @@
           app:layout_constraintTop_toTopOf="parent"/>
 
         <ImageView
+          android:id="@+id/mapbox_marker"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:src="@drawable/mapbox_marker_icon_default"
+          android:visibility="gone"
+          app:layout_constraintBottom_toBottomOf="@id/map"
+          app:layout_constraintLeft_toLeftOf="@id/map"
+          app:layout_constraintRight_toRightOf="@id/map"
+          app:layout_constraintTop_toTopOf="@id/map"/>
+
+        <ImageView
+          android:id="@+id/google_marker"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_gravity="center"
           android:paddingBottom="48dp"
           android:src="@drawable/ic_map_marker_select_red_48dp"
+          android:visibility="gone"
           app:layout_constraintBottom_toBottomOf="@id/map"
           app:layout_constraintLeft_toLeftOf="@id/map"
           app:layout_constraintRight_toRightOf="@id/map"

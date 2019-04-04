@@ -16,6 +16,8 @@ public interface MapFragment {
 
   void showMyLocation();
 
+  int getMarkerId();
+
   interface MapFragmentCallback {
     void onMapReady(MapFragment mapFragment);
 

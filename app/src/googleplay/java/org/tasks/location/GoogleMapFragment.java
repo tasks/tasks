@@ -103,6 +103,11 @@ public class GoogleMapFragment implements MapFragment, OnMapReadyCallback, OnMar
   }
 
   @Override
+  public int getMarkerId() {
+    return R.id.google_marker;
+  }
+
+  @Override
   public boolean onMarkerClick(Marker marker) {
     callbacks.onPlaceSelected((Place) marker.getTag());
     return true;

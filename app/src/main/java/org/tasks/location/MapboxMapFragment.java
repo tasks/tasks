@@ -112,6 +112,11 @@ public class MapboxMapFragment implements MapFragment, OnMapReadyCallback, OnMar
   }
 
   @Override
+  public int getMarkerId() {
+    return R.id.mapbox_marker;
+  }
+
+  @Override
   public boolean onMarkerClick(@NonNull Marker marker) {
     Place place = markers.get(marker);
     callbacks.onPlaceSelected(place);

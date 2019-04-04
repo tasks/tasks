@@ -242,6 +242,8 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
       appBarLayout.post(() -> expandToolbar(false));
     }
 
+    findViewById(map.getMarkerId()).setVisibility(View.VISIBLE);
+
     recentsAdapter.setHasStableIds(true);
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
     recyclerView.setAdapter(search.isActionViewExpanded() ? searchAdapter : recentsAdapter);
