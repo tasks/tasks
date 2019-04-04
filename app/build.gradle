@@ -109,12 +109,12 @@ configurations {
     all*.exclude group: 'org.apache.httpcomponents', module: 'httpclient'
 }
 
-final DAGGER_VERSION = '2.16'
+final DAGGER_VERSION = '2.22.1'
 final BUTTERKNIFE_VERSION = '10.1.0'
-final STETHO_VERSION = '1.5.0'
-final WORK_VERSION = '1.0.0'
+final STETHO_VERSION = '1.5.1'
+final WORK_VERSION = '2.0.0'
 final LEAKCANARY_VERSION = '1.6.3'
-final ROOM_VERSION = '2.1.0-alpha04'
+final ROOM_VERSION = '2.1.0-alpha06'
 
 dependencies {
     implementation project(":dav4android")
@@ -169,7 +169,7 @@ dependencies {
     implementation 'com.google.apis:google-api-services-drive:v3-rev136-1.25.0'
     implementation 'com.google.api-client:google-api-client-android:1.27.0'
     implementation 'com.android.billingclient:billing:1.2.1'
-    implementation("android.arch.work:work-runtime:${WORK_VERSION}") {
+    implementation("androidx.work:work-runtime:${WORK_VERSION}") {
         // https://groups.google.com/forum/#!topic/guava-announce/Km82fZG68Sw
         exclude group: 'com.google.guava', module: 'listenablefuture'
     }
@@ -177,15 +177,14 @@ dependencies {
     implementation'com.mapbox.mapboxsdk:mapbox-sdk-services:4.5.0'
 
     googleplayImplementation 'com.crashlytics.sdk.android:crashlytics:2.9.9'
-    googleplayImplementation "com.google.firebase:firebase-core:16.0.7"
+    googleplayImplementation "com.google.firebase:firebase-core:16.0.8"
     googleplayImplementation "com.google.android.gms:play-services-location:16.0.0"
     googleplayImplementation 'com.google.android.gms:play-services-maps:16.1.0'
     googleplayImplementation "com.google.android.gms:play-services-auth:16.0.1"
-    googleplayImplementation 'com.google.android.libraries.places:places:1.0.0'
     googleplayImplementation 'com.google.android.gms:play-services-maps:16.1.0'
-    googleplayImplementation 'androidx.appcompat:appcompat:1.0.2'
+    googleplayImplementation 'com.google.android.libraries.places:places:1.1.0'
 
-    amazonImplementation "com.google.android.gms:play-services-analytics:16.0.7"
+    amazonImplementation "com.google.android.gms:play-services-analytics:16.0.8"
 
     androidTestAnnotationProcessor "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
     androidTestAnnotationProcessor "com.jakewharton:butterknife-compiler:${BUTTERKNIFE_VERSION}"
