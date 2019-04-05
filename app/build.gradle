@@ -24,6 +24,7 @@ android {
         versionName "6.5.6"
         targetSdkVersion 28
         minSdkVersion 16
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         resValue 'string', 'mapbox_key', project.hasProperty('tasks_mapbox_key') ? tasks_mapbox_key : ''
         resValue 'string', 'google_key', project.hasProperty('tasks_google_key') ? tasks_google_key : ''
@@ -46,7 +47,6 @@ android {
 
     buildTypes {
         debug {
-            multiDexEnabled true
             testCoverageEnabled true
         }
         release {
@@ -139,8 +139,8 @@ dependencies {
     //noinspection GradleDependency
     debugImplementation "com.squareup.leakcanary:leakcanary-android:${LEAKCANARY_VERSION}"
     debugImplementation "com.squareup.leakcanary:leakcanary-support-fragment:${LEAKCANARY_VERSION}"
-    debugImplementation 'androidx.multidex:multidex:2.0.1'
 
+    implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'me.saket:better-link-movement-method:2.2.0'
     implementation 'com.squareup.okhttp3:okhttp:3.13.1'
     implementation 'com.google.code.gson:gson:2.8.5'
@@ -181,7 +181,6 @@ dependencies {
     googleplayImplementation "com.google.android.gms:play-services-location:16.0.0"
     googleplayImplementation 'com.google.android.gms:play-services-maps:16.1.0'
     googleplayImplementation "com.google.android.gms:play-services-auth:16.0.1"
-    googleplayImplementation 'com.google.android.gms:play-services-maps:16.1.0'
     googleplayImplementation 'com.google.android.libraries.places:places:1.1.0'
 
     amazonImplementation "com.google.android.gms:play-services-analytics:16.0.8"

@@ -1,10 +1,10 @@
 package org.tasks.injection;
 
 import android.content.Context;
-import org.tasks.BaseApplication;
+import androidx.multidex.MultiDexApplication;
 import org.tasks.locale.Locale;
 
-public abstract class InjectingApplication extends BaseApplication {
+public abstract class InjectingApplication extends MultiDexApplication {
 
   private ApplicationComponent applicationComponent;
 
