@@ -877,7 +877,6 @@ File %1$s contained %2$s.\n\n
   <string name="or_choose_a_location">Or choose a location</string>
   <string name="map_provider">Map provider</string>
   <string name="map_search_provider">Search provider</string>
-  <string name="requires_android_version">Requires Android %s</string>
   <string name="missing_permissions">Missing permissions</string>
   <string name="location_permission_required_geofence">Location permissions are needed for location reminders</string>
   <string name="location_permission_required_location">Location permissions are needed to find your current location</string>

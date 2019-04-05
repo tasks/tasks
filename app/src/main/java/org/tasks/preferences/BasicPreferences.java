@@ -2,7 +2,6 @@ package org.tasks.preferences;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
-import static com.todoroo.andlib.utility.AndroidUtilities.preLollipop;
 import static java.util.Arrays.asList;
 import static org.tasks.dialogs.ExportTasksDialog.newExportTasksDialog;
 import static org.tasks.dialogs.ImportTasksDialog.newImportTasksDialog;
@@ -268,13 +267,7 @@ public class BasicPreferences extends InjectingPreferenceActivity
                   singleCheckedArrayAdapter,
                   getMapProvider(),
                   (dialog, which) -> {
-                    if (which == 0) {
-                      if (preLollipop()) {
-                        toaster.longToast(R.string.requires_android_version, 5.0);
-                        dialog.dismiss();
-                        return;
-                      }
-                    } else if (which == 1) {
+                    if (which == 1) {
                       if (!playServices.refreshAndCheck()) {
                         playServices.resolve(this);
                         dialog.dismiss();
@@ -302,13 +295,7 @@ public class BasicPreferences extends InjectingPreferenceActivity
                   singleCheckedArrayAdapter,
                   getPlaceProvider(),
                   (dialog, which) -> {
-                    if (which == 0) {
-                      if (preLollipop()) {
-                        toaster.longToast(R.string.requires_android_version, 5.0);
-                        dialog.dismiss();
-                        return;
-                      }
-                    } else if (which == 1) {
+                    if (which == 1) {
                       if (!playServices.refreshAndCheck()) {
                         playServices.resolve(this);
                         dialog.dismiss();
@@ -329,28 +316,19 @@ public class BasicPreferences extends InjectingPreferenceActivity
           return false;
         });
     int placeProvider = getPlaceProvider();
-    placeProviderPreference.setSummary(
-        placeProvider == -1 ? getString(R.string.none) : choices.get(placeProvider));
+    placeProviderPreference.setSummary(choices.get(placeProvider));
   }
 
   private int getPlaceProvider() {
-    if (playServices.isPlayServicesAvailable()) {
-      if (preLollipop()) {
-        return inventory.hasPro() ? 1 : -1;
-      } else {
-        return inventory.hasPro() ? preferences.getInt(R.string.p_place_provider, 0) : 0;
-      }
-    } else {
-      return atLeastLollipop() ? 0 : -1;
-    }
+    return playServices.isPlayServicesAvailable() && inventory.hasPro()
+        ? preferences.getInt(R.string.p_place_provider, 0)
+        : 0;
   }
 
   private int getMapProvider() {
-    if (playServices.isPlayServicesAvailable()) {
-      return preLollipop() ? 1 : preferences.getInt(R.string.p_map_provider, 0);
-    } else {
-      return preLollipop() ? -1 : 0;
-    }
+    return playServices.isPlayServicesAvailable()
+        ? preferences.getInt(R.string.p_map_provider, 0)
+        : 0;
   }
 
   private void requestLogin() {

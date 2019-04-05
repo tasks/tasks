@@ -2,7 +2,6 @@ package org.tasks.location;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static com.todoroo.andlib.utility.AndroidUtilities.hideKeyboard;
 import static org.tasks.PermissionUtil.verifyPermissions;
 import static org.tasks.data.Place.newPlace;
@@ -151,10 +150,6 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
     }
   }
 
-  private boolean canSearch() {
-    return atLeastLollipop() || inventory.hasPro();
-  }
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -187,16 +182,12 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
 
     toolbar.setNavigationIcon(R.drawable.ic_outline_arrow_back_24px);
     toolbar.setNavigationOnClickListener(v -> collapseToolbar());
-    if (canSearch()) {
-      toolbar.inflateMenu(R.menu.menu_location_picker);
-      Menu menu = toolbar.getMenu();
-      search = menu.findItem(R.id.menu_search);
-      search.setOnActionExpandListener(this);
-      ((SearchView) search.getActionView()).setOnQueryTextListener(this);
-      toolbar.setOnMenuItemClickListener(this);
-    } else {
-      searchView.setVisibility(View.GONE);
-    }
+    toolbar.inflateMenu(R.menu.menu_location_picker);
+    Menu menu = toolbar.getMenu();
+    search = menu.findItem(R.id.menu_search);
+    search.setOnActionExpandListener(this);
+    ((SearchView) search.getActionView()).setOnQueryTextListener(this);
+    toolbar.setOnMenuItemClickListener(this);
 
     MenuColorizer.colorToolbar(this, toolbar);
     ThemeColor themeColor = theme.getThemeColor();
