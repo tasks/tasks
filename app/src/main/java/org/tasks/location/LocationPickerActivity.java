@@ -320,7 +320,6 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
                 })
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnError(e -> toaster.longToast(e.getMessage()))
             .doFinally(() -> loadingIndicator.setVisibility(View.GONE))
             .subscribe(
                 addresses -> {
@@ -345,7 +344,8 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
                   }
                   place.setName(formatCoordinates(place));
                   returnPlace(place);
-                }));
+                },
+                e -> toaster.longToast(e.getMessage())));
   }
 
   @OnClick(R.id.search)
