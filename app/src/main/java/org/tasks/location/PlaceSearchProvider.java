@@ -2,6 +2,7 @@ package org.tasks.location;
 
 import android.os.Bundle;
 import androidx.annotation.DrawableRes;
+import androidx.annotation.Nullable;
 import java.util.List;
 import org.tasks.Callback;
 import org.tasks.data.Place;
@@ -15,7 +16,7 @@ public interface PlaceSearchProvider {
 
   void search(
       String query,
-      MapPosition bias,
+      @Nullable MapPosition bias,
       Callback<List<PlaceSearchResult>> onSuccess,
       Callback<String> onError);
 

@@ -22,6 +22,7 @@ import android.view.MenuItem.OnActionExpandListener;
 import android.view.View;
 import android.view.View.OnLayoutChangeListener;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.SearchView.OnQueryTextListener;
 import androidx.appcompat.widget.Toolbar;
@@ -120,7 +121,7 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
   @Inject MapFragment map;
 
   private CompositeDisposable disposables;
-  private MapPosition mapPosition;
+  @Nullable private MapPosition mapPosition;
   private LocationPickerAdapter recentsAdapter = new LocationPickerAdapter(this);
   private LocationSearchAdapter searchAdapter;
   private List<PlaceUsage> places = Collections.emptyList();
@@ -174,10 +175,10 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
     recentsAdapter.setCurrentPlace(currentPlace);
 
     if (savedInstanceState == null) {
-      if (currentPlace != null) {
-        mapPosition = currentPlace.getMapPosition();
-      }
-      mapPosition = getIntent().getParcelableExtra(EXTRA_MAP_POSITION);
+      mapPosition =
+          currentPlace == null
+              ? getIntent().getParcelableExtra(EXTRA_MAP_POSITION)
+              : currentPlace.getMapPosition();
     } else {
       mapPosition = savedInstanceState.getParcelable(EXTRA_MAP_POSITION);
       offset = savedInstanceState.getInt(EXTRA_APPBAR_OFFSET);
@@ -248,7 +249,8 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
     searchAdapter = new LocationSearchAdapter(searchProvider.getAttributionRes(dark), this);
     recentsAdapter.setHasStableIds(true);
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
-    recyclerView.setAdapter(search.isActionViewExpanded() ? searchAdapter : recentsAdapter);
+    recyclerView.setAdapter(
+        search != null && search.isActionViewExpanded() ? searchAdapter : recentsAdapter);
   }
 
   @Override
@@ -280,7 +282,7 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
   }
 
   private boolean closeSearch() {
-    return search.isActionViewExpanded() && search.collapseActionView();
+    return search != null && search.isActionViewExpanded() && search.collapseActionView();
   }
 
   @Override

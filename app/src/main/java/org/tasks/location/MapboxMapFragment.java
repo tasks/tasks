@@ -54,6 +54,9 @@ public class MapboxMapFragment implements MapFragment, OnMapReadyCallback, OnMar
 
   @Override
   public MapPosition getMapPosition() {
+    if (map == null) {
+      return null;
+    }
     CameraPosition cameraPosition = map.getCameraPosition();
     LatLng target = cameraPosition.target;
     return new MapPosition(

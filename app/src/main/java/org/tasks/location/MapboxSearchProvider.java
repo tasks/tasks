@@ -5,6 +5,7 @@ import static org.tasks.data.Place.newPlace;
 
 import android.content.Context;
 import android.os.Bundle;
+import androidx.annotation.Nullable;
 import com.mapbox.api.geocoding.v5.MapboxGeocoding;
 import com.mapbox.api.geocoding.v5.models.CarmenFeature;
 import com.mapbox.api.geocoding.v5.models.GeocodingResponse;
@@ -41,17 +42,16 @@ public class MapboxSearchProvider implements PlaceSearchProvider {
   @Override
   public void search(
       String query,
-      MapPosition bias,
+      @Nullable MapPosition bias,
       Callback<List<PlaceSearchResult>> onSuccess,
       Callback<String> onError) {
     if (builder == null) {
       String token = context.getString(R.string.mapbox_key);
       Mapbox.getInstance(context, token);
-      builder =
-          MapboxGeocoding.builder()
-              .autocomplete(true)
-              .accessToken(token)
-              .proximity(Point.fromLngLat(bias.getLongitude(), bias.getLatitude()));
+      builder = MapboxGeocoding.builder().autocomplete(true).accessToken(token);
+      if (bias != null) {
+        builder.proximity(Point.fromLngLat(bias.getLongitude(), bias.getLatitude()));
+      }
     }
 
     builder
@@ -94,7 +94,6 @@ public class MapboxSearchProvider implements PlaceSearchProvider {
     place.setAddress(address);
     place.setLatitude(feature.center().latitude());
     place.setLongitude(feature.center().longitude());
-    return new PlaceSearchResult(
-        feature.id(), place.getName(), place.getDisplayAddress(), place);
+    return new PlaceSearchResult(feature.id(), place.getName(), place.getDisplayAddress(), place);
   }
 }

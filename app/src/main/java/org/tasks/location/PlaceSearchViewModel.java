@@ -3,6 +3,7 @@ package org.tasks.location;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
 
 import android.os.Bundle;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
@@ -42,7 +43,7 @@ public class PlaceSearchViewModel extends ViewModel {
     searchProvider.restoreState(savedInstanceState);
   }
 
-  public void query(String query, MapPosition bias) {
+  public void query(String query, @Nullable MapPosition bias) {
     assertMainThread();
 
     if (Strings.isNullOrEmpty(query)) {

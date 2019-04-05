@@ -6,6 +6,7 @@ import static org.tasks.data.Place.newPlace;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import androidx.annotation.Nullable;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.libraries.places.api.Places;
@@ -16,6 +17,7 @@ import com.google.android.libraries.places.api.model.RectangularBounds;
 import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.FetchPlaceResponse;
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
+import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest.Builder;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +55,7 @@ public class GooglePlacesSearchProvider implements PlaceSearchProvider {
   @Override
   public void search(
       String query,
-      MapPosition bias,
+      @Nullable MapPosition bias,
       Callback<List<PlaceSearchResult>> onSuccess,
       Callback<String> onError) {
     if (!Places.isInitialized()) {
@@ -65,17 +67,17 @@ public class GooglePlacesSearchProvider implements PlaceSearchProvider {
     if (token == null) {
       token = AutocompleteSessionToken.newInstance();
     }
+    Builder request =
+        FindAutocompletePredictionsRequest.builder().setSessionToken(token).setQuery(query);
+    if (bias != null) {
+      request.setLocationBias(
+          RectangularBounds.newInstance(
+              LatLngBounds.builder()
+                  .include(new LatLng(bias.getLatitude(), bias.getLongitude()))
+                  .build()));
+    }
     placesClient
-        .findAutocompletePredictions(
-            FindAutocompletePredictionsRequest.builder()
-                .setSessionToken(token)
-                .setQuery(query)
-                .setLocationBias(
-                    RectangularBounds.newInstance(
-                        LatLngBounds.builder()
-                            .include(new LatLng(bias.getLatitude(), bias.getLongitude()))
-                            .build()))
-                .build())
+        .findAutocompletePredictions(request.build())
         .addOnSuccessListener(
             response -> onSuccess.call(toSearchResults(response.getAutocompletePredictions())))
         .addOnFailureListener(e -> onError.call(e.getMessage()));
