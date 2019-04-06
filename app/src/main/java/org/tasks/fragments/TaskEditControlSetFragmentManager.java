@@ -21,7 +21,6 @@ import javax.inject.Inject;
 import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.injection.ForActivity;
-import org.tasks.preferences.Device;
 import org.tasks.preferences.Preferences;
 import org.tasks.sync.SyncAdapters;
 import org.tasks.ui.CalendarControlSet;
@@ -79,21 +78,16 @@ public class TaskEditControlSetFragmentManager {
   }
 
   private final Map<String, Integer> controlSetFragments = new LinkedHashMap<>();
-  private final Context context;
   private final List<String> displayOrder;
   private final SyncAdapters syncAdapters;
-  private final Device device;
   private int numRows;
 
   @Inject
   public TaskEditControlSetFragmentManager(
       @ForActivity Context context,
       Preferences preferences,
-      SyncAdapters syncAdapters,
-      Device device) {
-    this.context = context;
+      SyncAdapters syncAdapters) {
     this.syncAdapters = syncAdapters;
-    this.device = device;
     displayOrder = BeastModePreferences.constructOrderedControlList(preferences, context);
     displayOrder.add(0, context.getString(EditTitleControlSet.TAG));
     displayOrder.add(1, context.getString(CommentBarFragment.TAG));
@@ -162,7 +156,7 @@ public class TaskEditControlSetFragmentManager {
       case ReminderControlSet.TAG:
         return new ReminderControlSet();
       case LocationControlSet.TAG:
-        return device.supportsMaps() ? new LocationControlSet() : null;
+        return new LocationControlSet();
       case FilesControlSet.TAG:
         return new FilesControlSet();
       case TimerControlSet.TAG:

@@ -43,10 +43,6 @@ public class Device {
     return intent.resolveActivity(context.getPackageManager()) != null;
   }
 
-  public boolean supportsMaps() {
-    return context.getResources().getBoolean(R.bool.support_maps);
-  }
-
   public boolean supportsGeofences() {
     return context.getResources().getBoolean(R.bool.support_geofences);
   }
