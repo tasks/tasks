@@ -196,6 +196,14 @@ public class BasicPreferences extends InjectingPreferenceActivity
           }
         });
 
+    findPreference(R.string.rate_tasks)
+        .setOnPreferenceClickListener(
+            preference -> {
+              startActivity(
+                  new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.market_url))));
+              return false;
+            });
+
     Preference upgradeToPro = findPreference(R.string.upgrade_to_pro);
     if (inventory.hasPro()) {
       upgradeToPro.setTitle(R.string.manage_subscription);
@@ -232,8 +240,7 @@ public class BasicPreferences extends InjectingPreferenceActivity
     requires(BuildConfig.DEBUG, R.string.debug);
 
     //noinspection ConstantConditions
-    if (!BuildConfig.FLAVOR.equals("googleplay")) {
-      requires(R.string.backup_BPr_header, false, R.string.p_google_drive_backup);
+    if (BuildConfig.FLAVOR.equals("generic")) {
       requires(
           R.string.about,
           false,
@@ -241,6 +248,11 @@ public class BasicPreferences extends InjectingPreferenceActivity
           R.string.upgrade_to_pro,
           R.string.refresh_purchases);
       requires(R.string.privacy, false, R.string.p_collect_statistics);
+    }
+
+    //noinspection ConstantConditions
+    if (!BuildConfig.FLAVOR.equals("googleplay")) {
+      requires(R.string.backup_BPr_header, false, R.string.p_google_drive_backup);
       ((PreferenceScreen) findPreference(getString(R.string.preference_screen)))
           .removePreference(findPreference(getString(R.string.TEA_control_location)));
     }

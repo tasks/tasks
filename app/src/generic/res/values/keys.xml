@@ -2,4 +2,5 @@
 <resources>
   <string name="sku_themes">themes</string>
   <string name="common_google_play_services_notification_ticker">Google Play services error</string>
+  <string name="market_url">https://f-droid.org/en/packages/org.tasks/</string>
 </resources>

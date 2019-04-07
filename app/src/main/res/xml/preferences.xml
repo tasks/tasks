@@ -142,11 +142,7 @@
 
     <Preference
       android:key="@string/rate_tasks"
-      android:title="@string/rate_tasks">
-      <intent
-        android:action="android.intent.action.VIEW"
-        android:data="market://details?id=org.tasks"/>
-    </Preference>
+      android:title="@string/rate_tasks"/>
 
     <Preference
       android:key="@string/upgrade_to_pro"
