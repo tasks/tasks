@@ -114,7 +114,9 @@ final BUTTERKNIFE_VERSION = '10.1.0'
 final STETHO_VERSION = '1.5.1'
 final WORK_VERSION = '2.0.0'
 final LEAKCANARY_VERSION = '1.6.3'
-final ROOM_VERSION = '2.1.0-alpha06'
+final ROOM_VERSION = '2.1.0-alpha04'
+final CRASHLYTICS_VERSION = '2.9.9'
+final FIREBASE_VERSION = '16.0.8'
 
 dependencies {
     implementation project(":dav4android")
@@ -176,14 +178,15 @@ dependencies {
     implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:7.3.0'
     implementation'com.mapbox.mapboxsdk:mapbox-sdk-services:4.5.0'
 
-    googleplayImplementation 'com.crashlytics.sdk.android:crashlytics:2.9.9'
-    googleplayImplementation "com.google.firebase:firebase-core:16.0.8"
+    googleplayImplementation "com.crashlytics.sdk.android:crashlytics:${CRASHLYTICS_VERSION}"
+    googleplayImplementation "com.google.firebase:firebase-core:${FIREBASE_VERSION}"
     googleplayImplementation "com.google.android.gms:play-services-location:16.0.0"
     googleplayImplementation 'com.google.android.gms:play-services-maps:16.1.0'
     googleplayImplementation "com.google.android.gms:play-services-auth:16.0.1"
     googleplayImplementation 'com.google.android.libraries.places:places:1.1.0'
 
-    amazonImplementation "com.google.android.gms:play-services-analytics:16.0.8"
+    amazonImplementation "com.crashlytics.sdk.android:crashlytics:${CRASHLYTICS_VERSION}"
+    amazonImplementation "com.google.firebase:firebase-core:${FIREBASE_VERSION}"
 
     androidTestAnnotationProcessor "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
     androidTestAnnotationProcessor "com.jakewharton:butterknife-compiler:${BUTTERKNIFE_VERSION}"
