@@ -57,12 +57,7 @@
 -keep class org.threeten.bp.** { *; }     # keep ThreeTen (for time zone processing)
 -keep class at.bitfire.** { *; }       # all DAVdroid code is required
 
-# https://github.com/evernote/android-job/blob/v1.2.5/library/proguard.cfg
--dontwarn com.evernote.android.job.gcm.**
--dontwarn com.evernote.android.job.GcmAvailableHelper
-
--keep public class com.evernote.android.job.v21.PlatformJobService
--keep public class com.evernote.android.job.v14.PlatformAlarmService
--keep public class com.evernote.android.job.v14.PlatformAlarmReceiver
--keep public class com.evernote.android.job.JobBootReceiver
--keep public class com.evernote.android.job.JobRescheduleService
+# https://developer.amazon.com/docs/in-app-purchasing/iap-obfuscate-the-code.html#proguard
+-dontwarn com.amazon.**
+-keep class com.amazon.** {*;}
+-keepattributes *Annotation*
