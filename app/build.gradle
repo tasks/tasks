@@ -185,6 +185,7 @@ dependencies {
     googleplayImplementation "com.google.android.gms:play-services-auth:16.0.1"
     googleplayImplementation 'com.google.android.libraries.places:places:1.1.0'
 
+    amazonImplementation fileTree(dir: 'libs', include: ['*.jar'])
     amazonImplementation "com.crashlytics.sdk.android:crashlytics:${CRASHLYTICS_VERSION}"
     amazonImplementation "com.google.firebase:firebase-core:${FIREBASE_VERSION}"
 
