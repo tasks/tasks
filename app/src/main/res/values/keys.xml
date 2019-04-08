@@ -298,7 +298,6 @@
   <string name="p_debug_pro">debug_pro</string>
   <string name="warned_play_services">warned_play_services</string>
   <string name="p_background_sync_unmetered_only">background_sync_unmetered_only</string>
-  <string name="p_purchases">purchases</string>
   <string name="p_sync_ongoing">sync_ongoing</string>
   <string name="p_last_backup">last_backup</string>
   <string name="p_show_description">show_description</string>
