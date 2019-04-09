@@ -1,14 +1,6 @@
 package org.tasks.billing;
 
-import static android.text.TextUtils.isEmpty;
-import static com.google.common.collect.Iterables.any;
-import static com.google.common.collect.Iterables.filter;
-import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
-import static org.tasks.billing.Inventory.SKU_DASHCLOCK;
-import static org.tasks.billing.Inventory.SKU_TASKER;
-import static org.tasks.billing.Inventory.SKU_THEMES;
-import static org.tasks.billing.Inventory.SKU_VIP;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -25,12 +17,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.android.billingclient.api.BillingClient.BillingResponse;
-import com.android.billingclient.api.BillingClient.SkuType;
-import com.android.billingclient.api.Purchase;
-import com.android.billingclient.api.SkuDetails;
-import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.BuildConfig;
@@ -42,13 +30,9 @@ import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.ui.MenuColorizer;
-import timber.log.Timber;
 
 public class PurchaseActivity extends ThemedInjectingAppCompatActivity
     implements OnClickHandler, OnMenuItemClickListener {
-
-  private static final List<String> DEBUG_SKUS =
-      ImmutableList.of(SKU_THEMES, SKU_TASKER, SKU_DASHCLOCK, SKU_VIP);
 
   @Inject @ForApplication Context context;
   @Inject BillingClient billingClient;
@@ -72,9 +56,11 @@ public class PurchaseActivity extends ThemedInjectingAppCompatActivity
       new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-          querySkuDetails();
+          billingClient.querySkuDetails();
         }
       };
+  private List<SkuDetails> iaps = Collections.emptyList();
+  private List<SkuDetails> subscriptions = Collections.emptyList();
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -101,14 +87,14 @@ public class PurchaseActivity extends ThemedInjectingAppCompatActivity
             (int) res.getDimension(R.dimen.row_gap)));
     recyclerView.setLayoutManager(new LinearLayoutManager(context));
     setWaitScreen(true);
-    querySkuDetails();
   }
 
   @Override
   protected void onResume() {
     super.onResume();
 
-    querySkuDetails();
+    billingClient.observeSkuDetails(this, this::onSubscriptionsUpdated, this::onIapsUpdated);
+    billingClient.querySkuDetails();
   }
 
   @Override
@@ -125,83 +111,35 @@ public class PurchaseActivity extends ThemedInjectingAppCompatActivity
     localBroadcastManager.unregisterReceiver(purchaseReceiver);
   }
 
-  /** Queries for in-app and subscriptions SKU details and updates an adapter with new data */
-  private void querySkuDetails() {
-    if (!isFinishing()) {
-      List<SkuRowData> data = new ArrayList<>();
-      String owned = getString(R.string.owned);
-      String debug = getString(R.string.debug);
-      Runnable addDebug =
-          BuildConfig.DEBUG
-              ? () ->
-                  addSkuRows(
-                      data,
-                      newArrayList(
-                          filter(DEBUG_SKUS, sku -> !any(data, row -> sku.equals(row.getSku())))),
-                      debug,
-                      SkuType.INAPP,
-                      null)
-              : null;
-      Runnable addIaps =
-          () ->
-              addSkuRows(
-                  data,
-                  newArrayList(
-                      filter(
-                          transform(inventory.getPurchases(), Purchase::getSku),
-                          sku1 -> !Inventory.SKU_SUBS.contains(sku1))),
-                  owned,
-                  SkuType.INAPP,
-                  addDebug);
-      addSkuRows(data, Inventory.SKU_SUBS, null, SkuType.SUBS, addIaps);
-    }
+  private void onIapsUpdated(List<SkuDetails> iaps) {
+    this.iaps = iaps;
+    updateSkuDetails();
   }
 
-  private void addSkuRows(
-      List<SkuRowData> data,
-      List<String> skus,
-      String title,
-      @SkuType String skuType,
-      Runnable whenFinished) {
-    billingClient.querySkuDetailsAsync(
-        skuType,
-        skus,
-        (responseCode, skuDetailsList) -> {
-          if (responseCode != BillingResponse.OK) {
-            Timber.w("Unsuccessful query for type: " + skuType + ". Error code: " + responseCode);
-          } else if (skuDetailsList != null && skuDetailsList.size() > 0) {
-            if (!isEmpty(title)) {
-              data.add(new SkuRowData(title));
-            }
-            Timber.d("Adding %s skus", skuDetailsList.size());
-            // Then fill all the other rows
-            for (SkuDetails details : skuDetailsList) {
-              Timber.i("Adding sku: %s", details);
-              data.add(new SkuRowData(details, SkusAdapter.TYPE_NORMAL, skuType));
-            }
+  private void onSubscriptionsUpdated(List<SkuDetails> subscriptions) {
+    this.subscriptions = subscriptions;
+    updateSkuDetails();
+  }
 
-            if (data.size() == 0) {
-              displayAnErrorIfNeeded();
-            } else {
-              adapter.setData(data);
-              setWaitScreen(false);
-            }
-          }
-
-          if (whenFinished != null) {
-            whenFinished.run();
-          }
-        });
+  private void updateSkuDetails() {
+    List<SkuRowData> data = new ArrayList<>(transform(subscriptions, SkuRowData::new));
+    if (iaps.size() > 0) {
+      data.add(new SkuRowData(context.getString(R.string.owned)));
+      data.addAll(transform(iaps, SkuRowData::new));
+    }
+    if (data.isEmpty()) {
+      displayAnErrorIfNeeded();
+    } else {
+      adapter.setData(data);
+      setWaitScreen(false);
+    }
   }
 
   private void displayAnErrorIfNeeded() {
     if (!isFinishing()) {
       loadingView.setVisibility(View.GONE);
       errorTextView.setVisibility(View.VISIBLE);
-      errorTextView.setText(
-          billingClient.getBillingClientResponseCode() == BillingResponse.BILLING_UNAVAILABLE
-              ? R.string.error_billing_unavailable
-              : R.string.error_billing_default);
+      errorTextView.setText(billingClient.getErrorMessage());
     }
   }
 
@@ -217,7 +155,7 @@ public class PurchaseActivity extends ThemedInjectingAppCompatActivity
 
   @Override
   public void clickAux(SkuRowData skuRowData) {
-    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://tasks.org/subscribe")));
+    startSubscribeActivity();
   }
 
   @Override
@@ -225,7 +163,7 @@ public class PurchaseActivity extends ThemedInjectingAppCompatActivity
     String sku = skuRowData.getSku();
     String skuType = skuRowData.getSkuType();
     if (inventory.purchased(sku)) {
-      if (BuildConfig.DEBUG && SkuType.INAPP.equals(skuType)) {
+      if (BuildConfig.DEBUG && SkuDetails.TYPE_INAPP.equals(skuType)) {
         billingClient.consume(sku);
       }
     } else {
@@ -237,7 +175,7 @@ public class PurchaseActivity extends ThemedInjectingAppCompatActivity
   public boolean onMenuItemClick(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.menu_help:
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://tasks.org/subscribe")));
+        startSubscribeActivity();
         return true;
       case R.id.menu_refresh_purchases:
         billingClient.queryPurchases();
@@ -245,5 +183,9 @@ public class PurchaseActivity extends ThemedInjectingAppCompatActivity
       default:
         return false;
     }
+  }
+
+  private void startSubscribeActivity() {
+    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://tasks.org/subscribe")));
   }
 }

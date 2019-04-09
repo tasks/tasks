@@ -8,7 +8,6 @@ import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.activities.FilterSelectionActivity;
-import org.tasks.billing.BillingClient;
 import org.tasks.billing.Inventory;
 import org.tasks.billing.PurchaseActivity;
 import org.tasks.injection.ActivityComponent;
@@ -22,7 +21,6 @@ public class DashClockSettings extends InjectingPreferenceActivity {
 
   @Inject DefaultFilterProvider defaultFilterProvider;
   @Inject LocalBroadcastManager localBroadcastManager;
-  @Inject BillingClient billingClient;
   @Inject Inventory inventory;
 
   @Override

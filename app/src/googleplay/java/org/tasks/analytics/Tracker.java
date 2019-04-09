@@ -1,6 +1,6 @@
 package org.tasks.analytics;
 
-import static org.tasks.billing.BillingClient.BillingResponseToString;
+import static org.tasks.billing.BillingClientImpl.BillingResponseToString;
 
 import android.content.Context;
 import android.os.Bundle;

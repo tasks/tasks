@@ -210,10 +210,7 @@ public class BasicPreferences extends InjectingPreferenceActivity
       upgradeToPro.setOnPreferenceClickListener(
           p -> {
             startActivity(
-                new Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(
-                        "https://play.google.com/store/account/subscriptions?sku=annual_499&package=org.tasks")));
+                new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.manage_subscription_url))));
             return false;
           });
     } else {

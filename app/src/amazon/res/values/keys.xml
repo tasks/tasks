@@ -4,4 +4,5 @@
   <string name="common_google_play_services_notification_ticker">Google Play services error</string>
   <string name="market_url">amzn://apps/android?p=org.tasks</string>
   <string name="p_purchases">purchases_amazon</string>
+  <string name="manage_subscription_url">https://www.amazon.com/gp/mas/your-account/myapps/yoursubscriptions/ref=d2_ss_app_sb_myas</string>
 </resources>

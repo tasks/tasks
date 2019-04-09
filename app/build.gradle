@@ -172,7 +172,6 @@ dependencies {
     implementation 'com.google.apis:google-api-services-tasks:v1-rev55-1.25.0'
     implementation 'com.google.apis:google-api-services-drive:v3-rev136-1.25.0'
     implementation 'com.google.api-client:google-api-client-android:1.27.0'
-    implementation 'com.android.billingclient:billing:1.2.1'
     implementation("androidx.work:work-runtime:${WORK_VERSION}") {
         // https://groups.google.com/forum/#!topic/guava-announce/Km82fZG68Sw
         exclude group: 'com.google.guava', module: 'listenablefuture'
@@ -186,6 +185,7 @@ dependencies {
     googleplayImplementation 'com.google.android.gms:play-services-maps:16.1.0'
     googleplayImplementation "com.google.android.gms:play-services-auth:16.0.1"
     googleplayImplementation 'com.google.android.libraries.places:places:1.1.0'
+    googleplayImplementation 'com.android.billingclient:billing:1.2.1'
 
     amazonImplementation fileTree(dir: 'libs', include: ['*.jar'])
     amazonImplementation "com.crashlytics.sdk.android:crashlytics:${CRASHLYTICS_VERSION}"

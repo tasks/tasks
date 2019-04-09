@@ -7,7 +7,6 @@ import android.os.Bundle;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.billing.BillingClient;
 import org.tasks.billing.Inventory;
 import org.tasks.billing.PurchaseActivity;
 import org.tasks.dialogs.ColorPickerDialog;
@@ -27,7 +26,6 @@ public class ColorPickerActivity extends ThemedInjectingAppCompatActivity
   private static final int REQUEST_SUBSCRIPTION = 10101;
   @Inject Theme theme;
   @Inject ThemeCache themeCache;
-  @Inject BillingClient billingClient;
   @Inject Inventory inventory;
   @Inject Preferences preferences;
 

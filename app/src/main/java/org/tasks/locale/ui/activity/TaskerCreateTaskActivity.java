@@ -13,7 +13,6 @@ import javax.inject.Inject;
 import net.dinglisch.android.tasker.TaskerPlugin;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
-import org.tasks.billing.BillingClient;
 import org.tasks.billing.Inventory;
 import org.tasks.billing.PurchaseActivity;
 import org.tasks.injection.ActivityComponent;
@@ -27,7 +26,6 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
   private static final int REQUEST_SUBSCRIPTION = 10101;
 
   @Inject Preferences preferences;
-  @Inject BillingClient billingClient;
   @Inject Inventory inventory;
   @Inject LocalBroadcastManager localBroadcastManager;
 

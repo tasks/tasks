@@ -19,9 +19,7 @@ import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import androidx.core.app.NotificationCompat;
 import androidx.documentfile.provider.DocumentFile;
-import com.android.billingclient.api.Purchase;
 import com.google.common.base.Strings;
-import com.google.gson.GsonBuilder;
 import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.SortHelper;
@@ -33,6 +31,7 @@ import javax.inject.Inject;
 import org.jetbrains.annotations.Nullable;
 import org.tasks.BuildConfig;
 import org.tasks.R;
+import org.tasks.billing.Purchase;
 import org.tasks.data.TaskAttachment;
 import org.tasks.injection.ForApplication;
 import org.tasks.time.DateTime;
@@ -125,9 +124,7 @@ public class Preferences {
   public Iterable<Purchase> getPurchases() {
     try {
       return transform(
-          prefs.getStringSet(context.getString(R.string.p_purchases), emptySet()),
-          p ->
-              new GsonBuilder().create().fromJson(p, com.android.billingclient.api.Purchase.class));
+          prefs.getStringSet(context.getString(R.string.p_purchases), emptySet()), Purchase::new);
     } catch (Exception e) {
       Timber.e(e);
       return emptySet();
@@ -139,7 +136,7 @@ public class Preferences {
       Editor editor = prefs.edit();
       editor.putStringSet(
           context.getString(R.string.p_purchases),
-          newHashSet(transform(purchases, p -> new GsonBuilder().create().toJson(p))));
+          newHashSet(transform(purchases, Purchase::toJson)));
       editor.apply();
     } catch (Exception e) {
       Timber.e(e);

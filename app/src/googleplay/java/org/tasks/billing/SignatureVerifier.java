@@ -1,7 +1,6 @@
 package org.tasks.billing;
 
 import android.content.Context;
-import com.android.billingclient.api.Purchase;
 import java.io.IOException;
 import javax.inject.Inject;
 import org.tasks.R;

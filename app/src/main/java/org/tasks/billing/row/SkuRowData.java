@@ -16,8 +16,7 @@
 
 package org.tasks.billing.row;
 
-import com.android.billingclient.api.BillingClient.SkuType;
-import com.android.billingclient.api.SkuDetails;
+import org.tasks.billing.SkuDetails;
 import org.tasks.billing.SkusAdapter;
 import org.tasks.billing.SkusAdapter.RowTypeDef;
 
@@ -25,20 +24,20 @@ import org.tasks.billing.SkusAdapter.RowTypeDef;
 public class SkuRowData {
   private String sku, title, price, description;
   private @RowTypeDef int type;
-  private @SkuType String billingType;
+  private String billingType;
 
-  public SkuRowData(SkuDetails details, @RowTypeDef int rowType, @SkuType String billingType) {
-    this.sku = details.getSku();
-    this.title = details.getTitle();
-    this.price = details.getPrice();
-    this.description = details.getDescription();
-    this.type = rowType;
-    this.billingType = billingType;
+  public SkuRowData(SkuDetails details) {
+    sku = details.getSku();
+    title = details.getTitle();
+    price = details.getPrice();
+    description = details.getDescription();
+    type = SkusAdapter.TYPE_NORMAL;
+    billingType = details.getSkuType();
   }
 
   public SkuRowData(String title) {
     this.title = title;
-    this.type = SkusAdapter.TYPE_HEADER;
+    type = SkusAdapter.TYPE_HEADER;
   }
 
   public String getSku() {
@@ -61,7 +60,7 @@ public class SkuRowData {
     return type;
   }
 
-  public @SkuType String getSkuType() {
+  public String getSkuType() {
     return billingType;
   }
 }

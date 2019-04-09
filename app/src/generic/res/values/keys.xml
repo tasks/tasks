@@ -4,4 +4,6 @@
   <string name="common_google_play_services_notification_ticker">Google Play services error</string>
   <string name="market_url">https://f-droid.org/en/packages/org.tasks/</string>
   <string name="p_purchases">purchases_fdroid</string>
+  <!--suppress CheckTagEmptyBody -->
+  <string name="manage_subscription_url"></string>
 </resources>

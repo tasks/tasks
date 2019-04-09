@@ -26,7 +26,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.IntDef;
 import androidx.recyclerview.widget.RecyclerView;
-import com.android.billingclient.api.BillingClient.SkuType;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
 import java.lang.annotation.Retention;
@@ -90,7 +89,7 @@ public class SkusAdapter extends RecyclerView.Adapter<RowViewHolder>
       if (getItemViewType(position) != SkusAdapter.TYPE_HEADER) {
 
         String sku = data.getSku();
-        if (SkuType.SUBS.equals(data.getSkuType())) {
+        if (SkuDetails.TYPE_SUBS.equals(data.getSkuType())) {
           String[] rows = context.getResources().getStringArray(R.array.pro_description);
           holder.description.setText(
               Joiner.on('\n').join(transform(asList(rows), item -> "\u2022 " + item)));

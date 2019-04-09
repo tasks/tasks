@@ -8,6 +8,10 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao;
 import dagger.Module;
 import dagger.Provides;
+import org.tasks.analytics.Tracker;
+import org.tasks.billing.BillingClient;
+import org.tasks.billing.BillingClientImpl;
+import org.tasks.billing.Inventory;
 import org.tasks.data.AlarmDao;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.DeletionDao;
@@ -147,5 +151,10 @@ public class ApplicationModule {
   @ApplicationScope
   public Encryption getEncryption() {
     return atLeastMarshmallow() ? new KeyStoreEncryption() : new NoEncryption();
+  }
+
+  @Provides
+  public BillingClient getBillingClient(Inventory inventory, Tracker tracker) {
+    return new BillingClientImpl(context, inventory, tracker);
   }
 }
