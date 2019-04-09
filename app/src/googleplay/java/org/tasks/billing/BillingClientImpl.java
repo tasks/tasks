@@ -93,6 +93,7 @@ public class BillingClientImpl implements BillingClient, PurchasesUpdatedListene
    * Query purchases across various use cases and deliver the result in a formalized way through a
    * listener
    */
+  @Override
   public void queryPurchases() {
     Runnable queryToExecute =
         () -> {
