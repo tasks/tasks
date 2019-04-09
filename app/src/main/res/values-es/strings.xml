@@ -492,6 +492,7 @@
 	<string name="themes">Temas adicionales</string>
 	<string name="pro_caldav_sync">Sincronización de CalDAV</string>
 	<string name="pro_multiple_google_task_accounts">Múltiples cuentas de Google Task</string>
+	<string name="pro_google_places_search">Buscar en Google Places</string>
 	<string name="pro_tasker_plugins">Extensiones los trabajo</string>
 	<string name="pro_dashclock_extension">Extensión Dashclock</string>
 	<string name="requires_pro_subscription">Requiere suscripción profesional</string>
@@ -507,7 +508,18 @@
 	<string name="show_list_indicators">Mostrar fichas de lista</string>
 	<string name="location_remind_arrival">Recordar a la llegada</string>
 	<string name="location_remind_departure">Recordar a la salida</string>
+	<string name="visit_website">Visitar página web</string>
 	<string name="location_arrived">Llegada a %s</string>
 	<string name="location_departed">Salida de %s</string>
 	<string name="building_notifications">Generando notificaciones</string>
+	<string name="choose_a_location">Escoger ubicación</string>
+	<string name="pick_this_location">Seleccionar esta ubicación</string>
+	<string name="or_choose_a_location">O elija una ubicación</string>
+	<string name="map_provider">Proveedor de mapas</string>
+	<string name="map_search_provider">Proveedor de búsquedas</string>
+	<string name="missing_permissions">Permisos ausentes</string>
+	<string name="location_permission_required_geofence">Son necesarios permisos de ubicación para los recordatorios de ubicación</string>
+	<string name="location_permission_required_location">Son necesarios permisos de ubicación para encontrar tu ubicación actual</string>
+	<string name="open_map">Abrir mapa</string>
+	<string name="choose_new_location">Escoger nueva ubicación</string>
 </resources>

@@ -498,6 +498,7 @@
 	<string name="themes">További témák</string>
 	<string name="pro_caldav_sync">CalDAV szinkronizáció</string>
 	<string name="pro_multiple_google_task_accounts">Több Google Task fiók</string>
+	<string name="pro_google_places_search">Google Helyek keresés</string>
 	<string name="pro_tasker_plugins">Tasker plugin-ok</string>
 	<string name="pro_dashclock_extension">Dashclock kiterjesztés</string>
 	<string name="requires_pro_subscription">Pro előfizetést igényel</string>
@@ -513,7 +514,18 @@
 	<string name="show_list_indicators">Listajelölők megjelenítése</string>
 	<string name="location_remind_arrival">Induláskor emlékeztet</string>
 	<string name="location_remind_departure">Érkezéskor emlékeztet</string>
+	<string name="visit_website">Weboldal megnyitása</string>
 	<string name="location_arrived">Megérkezett ekkor: %s</string>
 	<string name="location_departed">Elindult ekkor: %s</string>
 	<string name="building_notifications">Értesítések létrehozása</string>
+	<string name="choose_a_location">Hely kiválasztása</string>
+	<string name="pick_this_location">Hely kiválasztása</string>
+	<string name="or_choose_a_location">Vagy másik hely keresése</string>
+	<string name="map_provider">Térkép szolgáltató</string>
+	<string name="map_search_provider">Keresési szolgáltató</string>
+	<string name="missing_permissions">Hiányzó jogosultságok</string>
+	<string name="location_permission_required_geofence">A hely emlékeztetőkhöz helymeghatározási jogosultság szükséges</string>
+	<string name="location_permission_required_location">A jelenlegi pozíció meghatározásához helymeghatározási jogosultság szükséges</string>
+	<string name="open_map">Térkép megnyitása</string>
+	<string name="choose_new_location">Új hely kiválasztása</string>
 </resources>

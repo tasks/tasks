@@ -501,7 +501,18 @@
 	<string name="show_list_indicators">Stichworte und Listen anzeigen</string>
 	<string name="location_remind_arrival">Bei Ankunft erinnern</string>
 	<string name="location_remind_departure">Bei Abreise erinnern</string>
+	<string name="visit_website">Website öffnen</string>
 	<string name="location_arrived">Angekommen um %s</string>
 	<string name="location_departed">Abgereist um %s</string>
 	<string name="building_notifications">Benachrichtigungen generieren</string>
+	<string name="choose_a_location">Ort auswählen</string>
+	<string name="pick_this_location">Diesen Ort auswählen</string>
+	<string name="or_choose_a_location">Oder Ort auswählen</string>
+	<string name="map_provider">Kartendienst</string>
+	<string name="map_search_provider">Suchanbieter</string>
+	<string name="missing_permissions">Fehlende Berechtigungen</string>
+	<string name="location_permission_required_geofence">Standortberechtigung wird für ortsbasierte Erinnerungen benötigt</string>
+	<string name="location_permission_required_location">Standortberechtigung wird zur Ermittlung des aktuellen Standortes benötigt</string>
+	<string name="open_map">Karte öffnen</string>
+	<string name="choose_new_location">Neuen Ort auswählen</string>
 </resources>

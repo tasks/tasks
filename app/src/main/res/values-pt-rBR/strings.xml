@@ -512,7 +512,18 @@ aplicativo Google Play está configurado corretamente</string>
 	<string name="show_list_indicators">Mostrar fichas de listas</string>
 	<string name="location_remind_arrival">Lembrar ao chegar</string>
 	<string name="location_remind_departure">Lembrar ao sair</string>
+	<string name="visit_website">Visitar website</string>
 	<string name="location_arrived">Chegou às %s</string>
 	<string name="location_departed">Saiu às %s</string>
 	<string name="building_notifications">Gerando notificações</string>
+	<string name="choose_a_location">Escolher uma localização</string>
+	<string name="pick_this_location">Selecionar essa localização</string>
+	<string name="or_choose_a_location">Ou escolha uma localização</string>
+	<string name="map_provider">Provedor de mapa</string>
+	<string name="map_search_provider">Provedor de pesquisa</string>
+	<string name="missing_permissions">Permissões faltando</string>
+	<string name="location_permission_required_geofence">Permissão de Localização é necessária para lembretes de localização</string>
+	<string name="location_permission_required_location">Permissão de Localização é necessária para encontrar sua localização atual</string>
+	<string name="open_map">Abrir mapa</string>
+	<string name="choose_new_location">Escolher nova localização</string>
 </resources>

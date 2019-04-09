@@ -1,5 +1,30 @@
 Change Log
 ---
+### 6.6 (2019-04-10)
+
+* New location picker
+  * Choose Mapbox or Google Maps tiles
+  * Choose Mapbox or Google Places search
+  * Google Places search restricted to subscribers due to new Google Maps pricing
+  * Use Mapbox for reverse geocoding
+  * Select from previously used locations
+  * Dark maps
+* Enable location picker in F-Droid build
+* Resume support for Amazon App Store
+* Fix Android Q background warning
+* Update translations
+  * Brazilian Portuguese - douglaslmr
+  * Dutch - revdbrink
+  * German - marmo
+  * Hebrew - elazar
+  * French - Florian_Dubois
+  * Hungarian - kaciokos
+  * Italian - dfdario
+  * Japanese - naofumi
+  * Lithuanian - gacuxz
+  * Spanish - i2nm7s, Pum
+  * Ukrainian - nathalier
+
 ### 6.5.6 (2019-03-27)
 
 * Fix crash when clearing completed on a manually sorted Google Task list

@@ -67,7 +67,7 @@
 	<string name="TEA_control_repeat">Повторити</string>
 	<string name="TEA_control_gcal">Календар</string>
 	<string name="TEA_control_importance">Пріоритет</string>
-	<string name="TEA_control_location">Місцезнаходження</string>
+	<string name="TEA_control_location">Місце</string>
 	<string name="TEA_control_notes">Опис</string>
 	<string name="TEA_control_files">Файли</string>
 	<string name="TEA_control_reminders">Нагадування</string>
@@ -324,7 +324,7 @@
 	<string name="quiet_hours_summary">Без нагадувань під час тихих годин</string>
 	<string name="TLA_menu_donate">Пожертвувати</string>
 	<string name="add_reminder">Додати нагадування</string>
-	<string name="add_location">Додати місцезнаходження</string>
+	<string name="add_location">Додати місце</string>
 	<string name="remove">Вилучити</string>
 	<string name="randomly_once">Випадково раз</string>
 	<string name="randomly">Випадково</string>
@@ -499,6 +499,7 @@
 	<string name="themes">Додаткові схеми</string>
 	<string name="pro_caldav_sync">Синхронізація CalDAV</string>
 	<string name="pro_multiple_google_task_accounts">Декілька облікових записів Google Tasks</string>
+	<string name="pro_google_places_search">Пошук в Google Місця</string>
 	<string name="pro_tasker_plugins">Tasker плагіни</string>
 	<string name="pro_dashclock_extension">Розширення Dashclock</string>
 	<string name="requires_pro_subscription">Потребує преміум підписки</string>
@@ -514,7 +515,18 @@
 	<string name="show_list_indicators">Відображати індикатори списків</string>
 	<string name="location_remind_arrival">Нагадати по прибуттю</string>
 	<string name="location_remind_departure">Нагадати при відправці</string>
+	<string name="visit_website">Відвідати сторінку</string>
 	<string name="location_arrived">Прибув до %s</string>
 	<string name="location_departed">Відправився з %s</string>
 	<string name="building_notifications">Генерація нагадувань</string>
+	<string name="choose_a_location">Обрати місце</string>
+	<string name="pick_this_location">Обрати це місце</string>
+	<string name="or_choose_a_location">Або вказати інше місце</string>
+	<string name="map_provider">Провайдер мапи</string>
+	<string name="map_search_provider">Знайти провайдера</string>
+	<string name="missing_permissions">Відсутні дозволи</string>
+	<string name="location_permission_required_geofence">Для нагадувань за місцем необхідний дозвіл на перегляд місцезнаходження </string>
+	<string name="location_permission_required_location">Щоб визначити ваше місцезнаходження необхідний дозвіл на перегляд місцезнаходження </string>
+	<string name="open_map">Відкрити карту</string>
+	<string name="choose_new_location">Обрати нове місце</string>
 </resources>

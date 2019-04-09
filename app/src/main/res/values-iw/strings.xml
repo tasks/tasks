@@ -499,6 +499,7 @@
 	<string name="themes">ערכות נושא נוספות</string>
 	<string name="pro_caldav_sync">סינכרון CalDAV</string>
 	<string name="pro_multiple_google_task_accounts">ריבוי חשבונות Google Task</string>
+	<string name="pro_google_places_search">חיפוש ב\"Google לעסק שלי\"</string>
 	<string name="pro_tasker_plugins">תוסף Tasker</string>
 	<string name="pro_dashclock_extension">הרחבת Dashclock</string>
 	<string name="requires_pro_subscription">לא דורש הרשמה</string>
@@ -514,7 +515,18 @@
 	<string name="show_list_indicators">הצג שבבי רשימה</string>
 	<string name="location_remind_arrival">הזכר ברגע ההגעה</string>
 	<string name="location_remind_departure">הזכר ברגע העזיבה</string>
+	<string name="visit_website">מעבר לאתר האינטרנט</string>
 	<string name="location_arrived">הגיע ב-%s</string>
 	<string name="location_departed">עזב ב-%s</string>
 	<string name="building_notifications">מייצר התראות</string>
+	<string name="choose_a_location">בחרו מיקום</string>
+	<string name="pick_this_location">בחרו את המיקום הזה</string>
+	<string name="or_choose_a_location">או בחרו מיקום</string>
+	<string name="map_provider">ספק מפה</string>
+	<string name="map_search_provider">ספק חיפוש</string>
+	<string name="missing_permissions">חסרות הרשאות</string>
+	<string name="location_permission_required_geofence">הרשאות מיקום נדרשות עבור תזכורות מבוססות מיקום</string>
+	<string name="location_permission_required_location">הרשאות מיקום נדרשות על מנת למצוא את מיקומך הנוכחי</string>
+	<string name="open_map">פתיחת מפה</string>
+	<string name="choose_new_location">בחירת מיקום חדש</string>
 </resources>

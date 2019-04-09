@@ -495,6 +495,7 @@ sukonfigūruota tinkamai.</string>
 	<string name="themes">Papildomos temos</string>
 	<string name="pro_caldav_sync">CalDAV sinchronizacija</string>
 	<string name="pro_multiple_google_task_accounts">Kelios Google Task paskyros</string>
+	<string name="pro_google_places_search">Paieška Google Places</string>
 	<string name="pro_tasker_plugins">Tasker įskiepiai</string>
 	<string name="pro_dashclock_extension">Dashclock plėtinys</string>
 	<string name="requires_pro_subscription">Reikalinga \"pro\" prenumerata</string>
@@ -510,7 +511,18 @@ sukonfigūruota tinkamai.</string>
 	<string name="show_list_indicators">Rodyti sąrašą lustų</string>
 	<string name="location_remind_arrival">Priminti atvykus</string>
 	<string name="location_remind_departure">Priminti išvykstant</string>
+	<string name="visit_website">Aplankyti svetainę</string>
 	<string name="location_arrived">Atvykta į %s</string>
 	<string name="location_departed">Išvykta iš %s</string>
 	<string name="building_notifications">Generuojami pranešimai</string>
+	<string name="choose_a_location">Pasirinkti vietą</string>
+	<string name="pick_this_location">Pasirinkti šią vietą</string>
+	<string name="or_choose_a_location">Arba pasirinkti vietą</string>
+	<string name="map_provider">Žemėlapio tiekėjas</string>
+	<string name="map_search_provider">Paieškos tiekėjas</string>
+	<string name="missing_permissions">Dingę leidimai</string>
+	<string name="location_permission_required_geofence">Vietos leidimai reikalingi priminimams pagal vietą</string>
+	<string name="location_permission_required_location">Vietos leidimai reikalingi surasti jūsų esamą vietą</string>
+	<string name="open_map">Atidaryti žemėlapį</string>
+	<string name="choose_new_location">Pasirinkti naują vietą</string>
 </resources>

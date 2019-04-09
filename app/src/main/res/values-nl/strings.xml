@@ -500,7 +500,18 @@
 	<string name="show_list_indicators">Toon lijst indicatie</string>
 	<string name="location_remind_arrival">Herinner bij aankomst</string>
 	<string name="location_remind_departure">Herinner bij vertrek</string>
+	<string name="visit_website">Bezoek website</string>
 	<string name="location_arrived">Aangekomen on %s</string>
 	<string name="location_departed">Vetrokken om %s</string>
 	<string name="building_notifications">Notificaties genereren</string>
+	<string name="choose_a_location">Kies een locatie</string>
+	<string name="pick_this_location">Selecteer deze locatie</string>
+	<string name="or_choose_a_location">Of kies een locatie</string>
+	<string name="map_provider">Kaart aanbieder</string>
+	<string name="map_search_provider">Zoek aanbieder</string>
+	<string name="missing_permissions">Missende rechten</string>
+	<string name="location_permission_required_geofence">Locatie rechten zijn nodig voor locatie herinneringen</string>
+	<string name="location_permission_required_location">Locatie rechten zijn nodig om je huidige locatie te vinden</string>
+	<string name="open_map">Open kaart</string>
+	<string name="choose_new_location">Kies nieuwe locatie</string>
 </resources>
