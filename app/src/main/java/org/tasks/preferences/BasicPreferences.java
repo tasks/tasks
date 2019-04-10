@@ -31,7 +31,6 @@ import org.tasks.activities.ColorPickerActivity.ColorPalette;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.analytics.Tracking.Events;
-import org.tasks.billing.BillingClient;
 import org.tasks.billing.Inventory;
 import org.tasks.billing.PurchaseActivity;
 import org.tasks.dialogs.DialogBuilder;
@@ -72,7 +71,6 @@ public class BasicPreferences extends InjectingPreferenceActivity
   @Inject DialogBuilder dialogBuilder;
   @Inject Locale locale;
   @Inject ThemeCache themeCache;
-  @Inject BillingClient billingClient;
   @Inject Inventory inventory;
   @Inject PlayServices playServices;
   @Inject Toaster toaster;
@@ -221,13 +219,6 @@ public class BasicPreferences extends InjectingPreferenceActivity
           });
     }
 
-    findPreference(R.string.refresh_purchases)
-        .setOnPreferenceClickListener(
-            preference -> {
-              billingClient.queryPurchases();
-              return false;
-            });
-
     requires(
         R.string.settings_localization,
         atLeastJellybeanMR1(),
@@ -242,8 +233,7 @@ public class BasicPreferences extends InjectingPreferenceActivity
           R.string.about,
           false,
           R.string.rate_tasks,
-          R.string.upgrade_to_pro,
-          R.string.refresh_purchases);
+          R.string.upgrade_to_pro);
       requires(R.string.privacy, false, R.string.p_collect_statistics);
     }
 

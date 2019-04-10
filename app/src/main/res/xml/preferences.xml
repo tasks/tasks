@@ -148,10 +148,6 @@
       android:key="@string/upgrade_to_pro"
       android:title="@string/upgrade_to_pro"/>
 
-    <Preference
-      android:key="@string/refresh_purchases"
-      android:title="@string/refresh_purchases"/>
-
   </PreferenceCategory>
 
   <PreferenceCategory

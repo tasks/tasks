@@ -11,6 +11,7 @@ import dagger.Lazy;
 import io.reactivex.Completable;
 import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
+import org.tasks.billing.BillingClient;
 import org.tasks.files.FileHelper;
 import org.tasks.injection.ApplicationComponent;
 import org.tasks.injection.ForApplication;
@@ -38,6 +39,7 @@ public class Tasks extends InjectingApplication {
   @Inject RefreshScheduler refreshScheduler;
   @Inject GeofenceApi geofenceApi;
   @Inject LocalBroadcastManager localBroadcastManager;
+  @Inject BillingClient billingClient;
 
   @Override
   public void onCreate() {
@@ -86,6 +88,7 @@ public class Tasks extends InjectingApplication {
     workManager.scheduleBackup();
     geofenceApi.registerAll();
     FileHelper.delete(context, preferences.getCacheDirectory());
+    billingClient.queryPurchases();
   }
 
   @Override
