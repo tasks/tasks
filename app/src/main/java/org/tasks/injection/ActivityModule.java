@@ -5,14 +5,8 @@ import android.content.Context;
 import dagger.Module;
 import dagger.Provides;
 import org.tasks.R;
-import org.tasks.billing.Inventory;
-import org.tasks.gtasks.PlayServices;
-import org.tasks.location.GoogleMapFragment;
-import org.tasks.location.GooglePlacesSearchProvider;
-import org.tasks.location.MapFragment;
-import org.tasks.location.MapboxMapFragment;
-import org.tasks.location.MapboxSearchProvider;
-import org.tasks.location.PlaceSearchProvider;
+import org.tasks.location.Geocoder;
+import org.tasks.location.MapboxGeocoder;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeBase;
@@ -59,20 +53,7 @@ public class ActivityModule {
 
   @Provides
   @ActivityScope
-  public PlaceSearchProvider getPlaceSearchProvider(
-      Preferences preferences, Inventory inventory, PlayServices playServices) {
-    return preferences.useGooglePlaces()
-            && playServices.isPlayServicesAvailable()
-            && inventory.hasPro()
-        ? new GooglePlacesSearchProvider(activity)
-        : new MapboxSearchProvider(activity);
-  }
-
-  @Provides
-  @ActivityScope
-  public MapFragment getMapFragment(Preferences preferences) {
-    return preferences.useGoogleMaps()
-        ? new GoogleMapFragment(activity)
-        : new MapboxMapFragment(activity);
+  public Geocoder getGeocoder(@ForApplication Context context) {
+    return new MapboxGeocoder(context);
   }
 }

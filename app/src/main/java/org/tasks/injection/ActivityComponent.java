@@ -11,7 +11,6 @@ import com.todoroo.astrid.gcal.CalendarReminderActivity;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import com.todoroo.astrid.reminders.ReminderPreferences;
 import dagger.Subcomponent;
-import org.tasks.location.LocationPickerActivity;
 import org.tasks.activities.CalendarSelectionActivity;
 import org.tasks.activities.CameraActivity;
 import org.tasks.activities.ColorPickerActivity;
@@ -31,6 +30,7 @@ import org.tasks.files.FileExplore;
 import org.tasks.files.MyFilePickerActivity;
 import org.tasks.locale.ui.activity.TaskerCreateTaskActivity;
 import org.tasks.locale.ui.activity.TaskerSettingsActivity;
+import org.tasks.location.LocationPickerActivity;
 import org.tasks.preferences.AppearancePreferences;
 import org.tasks.preferences.BasicPreferences;
 import org.tasks.preferences.DateTimePreferences;
@@ -47,7 +47,7 @@ import org.tasks.widget.WidgetClickActivity;
 import org.tasks.widget.WidgetConfigActivity;
 
 @ActivityScope
-@Subcomponent(modules = ActivityModule.class)
+@Subcomponent(modules = {ActivityModule.class, LocationModule.class})
 public interface ActivityComponent {
 
   void inject(SynchronizationPreferences synchronizationPreferences);

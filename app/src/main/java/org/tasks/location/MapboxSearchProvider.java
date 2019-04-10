@@ -1,6 +1,5 @@
 package org.tasks.location;
 
-import static com.mapbox.api.geocoding.v5.GeocodingCriteria.TYPE_ADDRESS;
 import static org.tasks.data.Place.newPlace;
 
 import android.content.Context;
@@ -84,16 +83,7 @@ public class MapboxSearchProvider implements PlaceSearchProvider {
   }
 
   private PlaceSearchResult toSearchResult(CarmenFeature feature) {
-    String address = feature.placeName();
-    List<String> types = feature.placeType();
-    Place place = newPlace();
-    place.setName(
-        types != null && types.contains(TYPE_ADDRESS)
-            ? String.format("%s %s", feature.address(), feature.text())
-            : feature.text());
-    place.setAddress(address);
-    place.setLatitude(feature.center().latitude());
-    place.setLongitude(feature.center().longitude());
+    Place place = newPlace(feature);
     return new PlaceSearchResult(feature.id(), place.getName(), place.getDisplayAddress(), place);
   }
 }

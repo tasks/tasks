@@ -4,14 +4,11 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.utility.AndroidUtilities.hideKeyboard;
 import static org.tasks.PermissionUtil.verifyPermissions;
-import static org.tasks.data.Place.newPlace;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -48,8 +45,6 @@ import io.reactivex.subjects.PublishSubject;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.inject.Inject;
 import org.tasks.Event;
 import org.tasks.R;
@@ -84,7 +79,6 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
   public static final String EXTRA_PLACE = "extra_place";
   private static final String EXTRA_MAP_POSITION = "extra_map_position";
   private static final String EXTRA_APPBAR_OFFSET = "extra_appbar_offset";
-  private static final Pattern pattern = Pattern.compile("(\\d+):(\\d+):(\\d+\\.\\d+)");
   private static final int SEARCH_DEBOUNCE_TIMEOUT = 300;
 
   @BindView(R.id.toolbar)
@@ -118,6 +112,7 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
   @Inject ActivityPermissionRequestor permissionRequestor;
   @Inject DialogBuilder dialogBuilder;
   @Inject MapFragment map;
+  @Inject Geocoder geocoder;
 
   private CompositeDisposable disposables;
   @Nullable private MapPosition mapPosition;
@@ -128,27 +123,6 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
   private MenuItem search;
   private PublishSubject<String> searchSubject = PublishSubject.create();
   private PlaceSearchViewModel viewModel;
-
-  private static String formatCoordinates(org.tasks.data.Place place) {
-    return String.format(
-        "%s %s",
-        formatCoordinate(place.getLatitude(), true), formatCoordinate(place.getLongitude(), false));
-  }
-
-  private static String formatCoordinate(double coordinates, boolean latitude) {
-    String output = Location.convert(Math.abs(coordinates), Location.FORMAT_SECONDS);
-    Matcher matcher = pattern.matcher(output);
-    if (matcher.matches()) {
-      return String.format(
-          "%s°%s'%s\"%s",
-          matcher.group(1),
-          matcher.group(2),
-          matcher.group(3),
-          latitude ? (coordinates > 0 ? "N" : "S") : (coordinates > 0 ? "E" : "W"));
-    } else {
-      return Double.toString(coordinates);
-    }
-  }
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -312,40 +286,11 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
     loadingIndicator.setVisibility(View.VISIBLE);
     MapPosition mapPosition = map.getMapPosition();
     disposables.add(
-        Single.fromCallable(
-                () -> {
-                  Geocoder geocoder = new Geocoder(this);
-                  return geocoder.getFromLocation(
-                      mapPosition.getLatitude(), mapPosition.getLongitude(), 1);
-                })
+        Single.fromCallable(() -> geocoder.reverseGeocode(mapPosition))
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doFinally(() -> loadingIndicator.setVisibility(View.GONE))
-            .subscribe(
-                addresses -> {
-                  org.tasks.data.Place place = newPlace();
-                  if (addresses.isEmpty()) {
-                    place.setLatitude(mapPosition.getLatitude());
-                    place.setLongitude(mapPosition.getLongitude());
-                  } else {
-                    Address address = addresses.get(0);
-                    place.setLatitude(address.getLatitude());
-                    place.setLongitude(address.getLongitude());
-                    StringBuilder stringBuilder = new StringBuilder();
-                    for (int i = 0; i <= address.getMaxAddressLineIndex(); i++) {
-                      stringBuilder.append(address.getAddressLine(i)).append("\n");
-                    }
-                    place.setPhone(address.getPhone());
-                    place.setAddress(stringBuilder.toString().trim());
-                    String url = address.getUrl();
-                    if (!Strings.isNullOrEmpty(url)) {
-                      place.setUrl(url);
-                    }
-                  }
-                  place.setName(formatCoordinates(place));
-                  returnPlace(place);
-                },
-                e -> toaster.longToast(e.getMessage())));
+            .subscribe(this::returnPlace, e -> toaster.longToast(e.getMessage())));
   }
 
   @OnClick(R.id.search)

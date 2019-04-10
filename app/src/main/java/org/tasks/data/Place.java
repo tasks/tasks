@@ -1,5 +1,8 @@
 package org.tasks.data;
 
+import static com.mapbox.api.geocoding.v5.GeocodingCriteria.TYPE_ADDRESS;
+
+import android.location.Location;
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -8,8 +11,11 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import com.google.common.base.Strings;
+import com.mapbox.api.geocoding.v5.models.CarmenFeature;
 import com.todoroo.astrid.helper.UUIDHelper;
 import java.io.Serializable;
+import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.tasks.location.MapPosition;
 
@@ -28,7 +34,7 @@ public class Place implements Serializable, Parcelable {
           return new Place[size];
         }
       };
-
+  private static final Pattern pattern = Pattern.compile("(\\d+):(\\d+):(\\d+\\.\\d+)");
   private static final Pattern COORDS =
       Pattern.compile("^\\d+°\\d+'\\d+\\.\\d+\"[NS] \\d+°\\d+'\\d+\\.\\d+\"[EW]$");
 
@@ -81,6 +87,50 @@ public class Place implements Serializable, Parcelable {
     url = parcel.readString();
     latitude = parcel.readDouble();
     longitude = parcel.readDouble();
+  }
+
+  private static String formatCoordinates(org.tasks.data.Place place) {
+    return String.format(
+        "%s %s",
+        formatCoordinate(place.getLatitude(), true), formatCoordinate(place.getLongitude(), false));
+  }
+
+  private static String formatCoordinate(double coordinates, boolean latitude) {
+    String output =
+        android.location.Location.convert(Math.abs(coordinates), Location.FORMAT_SECONDS);
+    Matcher matcher = pattern.matcher(output);
+    if (matcher.matches()) {
+      return String.format(
+          "%s°%s'%s\"%s",
+          matcher.group(1),
+          matcher.group(2),
+          matcher.group(3),
+          latitude ? (coordinates > 0 ? "N" : "S") : (coordinates > 0 ? "E" : "W"));
+    } else {
+      return Double.toString(coordinates);
+    }
+  }
+
+  public static Place newPlace(MapPosition mapPosition) {
+    Place place = newPlace();
+    place.setLatitude(mapPosition.getLatitude());
+    place.setLongitude(mapPosition.getLongitude());
+    place.setName(formatCoordinates(place));
+    return place;
+  }
+
+  public static Place newPlace(CarmenFeature feature) {
+    String address = feature.placeName();
+    List<String> types = feature.placeType();
+    Place place = newPlace();
+    place.setName(
+        types != null && types.contains(TYPE_ADDRESS)
+            ? String.format("%s %s", feature.address(), feature.text())
+            : feature.text());
+    place.setAddress(address);
+    place.setLatitude(feature.center().latitude());
+    place.setLongitude(feature.center().longitude());
+    return place;
   }
 
   public static Place newPlace() {
@@ -161,9 +211,7 @@ public class Place implements Serializable, Parcelable {
   }
 
   public String getDisplayAddress() {
-    return Strings.isNullOrEmpty(address)
-        ? null
-        : address.replace(String.format("%s, ", name), "");
+    return Strings.isNullOrEmpty(address) ? null : address.replace(String.format("%s, ", name), "");
   }
 
   String getGeoUri() {
