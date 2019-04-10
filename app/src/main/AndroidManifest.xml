@@ -238,7 +238,7 @@
     <!-- ======================================================= Providers = -->
 
     <provider
-      android:authorities="org.tasks;org.tasks.tasksprovider"
+      android:authorities="${applicationId};${applicationId}.tasksprovider"
       android:exported="true"
       android:grantUriPermissions="true"
       android:multiprocess="true"

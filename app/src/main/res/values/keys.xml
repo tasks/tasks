@@ -5,7 +5,6 @@
 -->
 <resources>
 
-  <string name="app_name">Tasks</string>
   <string name="FSA_label">Tasks Shortcut</string>
 
   <string name="p_date_shortcut_morning">date_shortcut_morning</string>

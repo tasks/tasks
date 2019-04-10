@@ -37,13 +37,13 @@
     <Preference android:title="@string/task_defaults">
       <intent
         android:targetClass="com.todoroo.astrid.core.DefaultsPreferences"
-        android:targetPackage="org.tasks"/>
+        android:targetPackage="@string/app_package"/>
     </Preference>
 
     <Preference android:title="@string/date_and_time">
       <intent
         android:targetClass="org.tasks.preferences.DateTimePreferences"
-        android:targetPackage="org.tasks"/>
+        android:targetPackage="@string/app_package"/>
     </Preference>
 
     <Preference
@@ -51,7 +51,7 @@
       android:title="@string/synchronization">
       <intent
         android:targetClass="org.tasks.sync.SynchronizationPreferences"
-        android:targetPackage="org.tasks"/>
+        android:targetPackage="@string/app_package"/>
     </Preference>
 
     <Preference
@@ -61,7 +61,7 @@
     <Preference android:title="@string/miscellaneous">
       <intent
         android:targetClass="org.tasks.preferences.MiscellaneousPreferences"
-        android:targetPackage="org.tasks"/>
+        android:targetPackage="@string/app_package"/>
     </Preference>
 
   </PreferenceCategory>

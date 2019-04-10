@@ -46,6 +46,7 @@ android {
 
     buildTypes {
         debug {
+            applicationIdSuffix ".debug"
             resValue 'string', 'mapbox_key', project.hasProperty('tasks_mapbox_key_debug') ? tasks_mapbox_key_debug : ''
             resValue 'string', 'google_key', project.hasProperty('tasks_google_key_debug') ? tasks_google_key_debug : ''
             testCoverageEnabled true
@@ -56,6 +57,9 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.pro'
             signingConfig signingConfigs.release
+        }
+        applicationVariants.all { variant ->
+            variant.resValue "string", "app_package", variant.applicationId
         }
     }
 

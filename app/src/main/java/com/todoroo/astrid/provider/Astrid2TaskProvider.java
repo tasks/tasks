@@ -23,6 +23,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import javax.inject.Inject;
+import org.tasks.BuildConfig;
 import org.tasks.data.TagDao;
 import org.tasks.data.TagData;
 import org.tasks.injection.ContentProviderComponent;
@@ -40,9 +41,9 @@ import timber.log.Timber;
  */
 public class Astrid2TaskProvider extends InjectingContentProvider {
 
-  private static final String AUTHORITY = "org.tasks.tasksprovider";
+  private static final String AUTHORITY = BuildConfig.APPLICATION_ID + ".tasksprovider";
 
-  private static final Uri CONTENT_URI = Uri.parse("content://org.tasks.tasksprovider");
+  private static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY);
 
   private static final UriMatcher URI_MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
 
