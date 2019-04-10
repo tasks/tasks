@@ -18,10 +18,6 @@
       android:value="@string/google_key"/>
 
     <meta-data
-      android:name="firebase_crashlytics_collection_enabled"
-      android:value="false"/>
-
-    <meta-data
       android:name="com.google.android.backup.api_key"
       android:value="AEdPqrEAAAAI49v5bBusi_bq1bgLBB1LIsepNV0eBrFkQrBZkw"/>
 

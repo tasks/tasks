@@ -172,7 +172,7 @@ public class Preferences {
   }
 
   public boolean isTrackingEnabled() {
-    return !BuildConfig.DEBUG && getBoolean(R.string.p_collect_statistics, true);
+    return getBoolean(R.string.p_collect_statistics, true);
   }
 
   public String getDefaultCalendar() {

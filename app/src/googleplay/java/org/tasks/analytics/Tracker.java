@@ -30,6 +30,7 @@ public class Tracker {
     enabled = preferences.isTrackingEnabled();
     if (enabled) {
       analytics = FirebaseAnalytics.getInstance(context);
+      analytics.setAnalyticsCollectionEnabled(true);
       Fabric.with(context, new Crashlytics());
     } else {
       analytics = null;
