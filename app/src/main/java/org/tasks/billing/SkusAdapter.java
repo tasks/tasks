@@ -25,12 +25,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.IntDef;
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
 import java.lang.annotation.Retention;
 import java.util.List;
-import javax.annotation.Nonnull;
 import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.billing.row.RowDataProvider;
@@ -66,8 +66,8 @@ public class SkusAdapter extends RecyclerView.Adapter<RowViewHolder>
   }
 
   @Override
-  @Nonnull
-  public RowViewHolder onCreateViewHolder(@Nonnull ViewGroup parent, @RowTypeDef int viewType) {
+  @NonNull
+  public RowViewHolder onCreateViewHolder(@NonNull ViewGroup parent, @RowTypeDef int viewType) {
     // Selecting a flat layout for header rows
     if (viewType == SkusAdapter.TYPE_HEADER) {
       View item =
@@ -82,7 +82,7 @@ public class SkusAdapter extends RecyclerView.Adapter<RowViewHolder>
   }
 
   @Override
-  public void onBindViewHolder(@Nonnull RowViewHolder holder, int position) {
+  public void onBindViewHolder(@NonNull RowViewHolder holder, int position) {
     SkuRowData data = getData(position);
     if (data != null) {
       holder.title.setText(data.getTitle());

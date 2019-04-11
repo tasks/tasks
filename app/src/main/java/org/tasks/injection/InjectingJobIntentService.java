@@ -3,7 +3,6 @@ package org.tasks.injection;
 import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.core.app.JobIntentService;
-import javax.annotation.Nonnull;
 import timber.log.Timber;
 
 public abstract class InjectingJobIntentService extends JobIntentService {
@@ -26,7 +25,7 @@ public abstract class InjectingJobIntentService extends JobIntentService {
     }
   }
 
-  protected abstract void doWork(@Nonnull Intent intent);
+  protected abstract void doWork(@NonNull Intent intent);
 
   protected abstract void inject(ServiceComponent component);
 }

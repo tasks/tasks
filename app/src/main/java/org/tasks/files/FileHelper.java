@@ -22,6 +22,7 @@ import android.os.Build;
 import android.provider.OpenableColumns;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
+import androidx.annotation.Nullable;
 import androidx.documentfile.provider.DocumentFile;
 import com.google.common.io.ByteStreams;
 import com.google.common.io.Files;
@@ -32,7 +33,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.List;
-import javax.annotation.Nullable;
 import org.tasks.R;
 import timber.log.Timber;
 

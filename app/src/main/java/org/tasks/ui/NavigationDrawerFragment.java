@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
@@ -30,7 +31,6 @@ import io.reactivex.schedulers.Schedulers;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
@@ -105,7 +105,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
     }
   }
 
-  private void openFilter(@Nonnull Filter filter) {
+  private void openFilter(@NonNull Filter filter) {
     FragmentActivity activity = getActivity();
     if (activity != null) {
       activity.startActivity(TaskIntents.getTaskListIntent(activity, filter));

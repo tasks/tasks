@@ -38,7 +38,6 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import org.jetbrains.annotations.Nullable;
 import org.tasks.BuildConfig;
@@ -263,7 +262,7 @@ public class MainActivity extends InjectingAppCompatActivity
     openTaskListFragment(newTaskListFragment(filter));
   }
 
-  private void openTaskListFragment(@Nonnull TaskListFragment taskListFragment) {
+  private void openTaskListFragment(@NonNull TaskListFragment taskListFragment) {
     assertMainThread();
 
     filter = taskListFragment.filter;
