@@ -1,0 +1,1620 @@
+{
+  "libraries": [
+    {
+      "notice": null,
+      "copyrightHolder": "bitfire web engineering (Ricki Hirner, Bernhard Stockmann)",
+      "copyrightStatement": "Copyright &copy; bitfire web engineering (Ricki Hirner, Bernhard Stockmann). All rights reserved.",
+      "license": "Mozilla Public License, Version 2.0",
+      "licenseUrl": "https://www.mozilla.org/en-US/MPL/2.0/",
+      "normalizedLicense": "mpl2",
+      "year": null,
+      "url": null,
+      "libraryName": "dav4android",
+      "artifactId": {
+        "name": "dav4android",
+        "group": "at.bitfire",
+        "version": "+"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "bitfire web engineering (Ricki Hirner, Bernhard Stockmann)",
+      "copyrightStatement": "Copyright &copy; bitfire web engineering (Ricki Hirner, Bernhard Stockmann). All rights reserved.",
+      "license": "GNU General Public License, Version 3.0",
+      "licenseUrl": "https://www.gnu.org/licenses/gpl.txt",
+      "normalizedLicense": "gpl3",
+      "year": null,
+      "url": null,
+      "libraryName": "ical4android",
+      "artifactId": {
+        "name": "ical4android",
+        "group": "at.bitfire",
+        "version": "+"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "Android Support Library Coordinator Layout",
+      "artifactId": {
+        "name": "coordinatorlayout",
+        "group": "androidx.coordinatorlayout",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://tools.android.com",
+      "libraryName": "Android ConstraintLayout",
+      "artifactId": {
+        "name": "constraintlayout",
+        "group": "androidx.constraintlayout",
+        "version": "2.0.0-alpha3"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://developer.android.com/topic/libraries/architecture/index.html",
+      "libraryName": "Android DB",
+      "artifactId": {
+        "name": "sqlite",
+        "group": "androidx.sqlite",
+        "version": "2.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Google Inc.",
+      "copyrightStatement": "Copyright &copy; Google Inc. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "",
+      "libraryName": "Drive API v3-rev136-1.25.0",
+      "artifactId": {
+        "name": "google-api-services-drive",
+        "group": "com.google.apis",
+        "version": "v3-rev136-1.25.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "JetBrains s.r.o.",
+      "copyrightStatement": "Copyright &copy; JetBrains s.r.o. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://kotlinlang.org/",
+      "libraryName": "Kotlin Standard Library",
+      "artifactId": {
+        "name": "kotlin-stdlib",
+        "group": "org.jetbrains.kotlin",
+        "version": "1.3.21"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "Android Support Library fragment",
+      "artifactId": {
+        "name": "fragment",
+        "group": "androidx.fragment",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "Android Support AnimatedVectorDrawable",
+      "artifactId": {
+        "name": "vectordrawable-animated",
+        "group": "androidx.vectordrawable",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Mapbox",
+      "copyrightStatement": "Copyright &copy; Mapbox. All rights reserved.",
+      "license": "MIT License",
+      "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
+      "normalizedLicense": "mit",
+      "year": null,
+      "url": "https://github.com/mapbox/mapbox-java",
+      "libraryName": "Mapbox Services SDK",
+      "artifactId": {
+        "name": "mapbox-sdk-services",
+        "group": "com.mapbox.mapboxsdk",
+        "version": "4.5.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "Android Support Library compat",
+      "artifactId": {
+        "name": "core",
+        "group": "androidx.core",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Google Inc.",
+      "copyrightStatement": "Copyright &copy; Google Inc. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "Google HTTP Client",
+      "artifactId": {
+        "name": "google-http-client",
+        "group": "com.google.http-client",
+        "version": "1.27.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://developer.android.com/topic/libraries/architecture/index.html",
+      "libraryName": "Android Arch-Common",
+      "artifactId": {
+        "name": "core-common",
+        "group": "androidx.arch.core",
+        "version": "2.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Google Inc.",
+      "copyrightStatement": "Copyright &copy; Google Inc. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://github.com/google/j2objc/",
+      "libraryName": "J2ObjC Annotations",
+      "artifactId": {
+        "name": "j2objc-annotations",
+        "group": "com.google.j2objc",
+        "version": "1.1"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://developer.android.com/topic/libraries/architecture/index.html",
+      "libraryName": "Android Room-Common",
+      "artifactId": {
+        "name": "room-common",
+        "group": "androidx.room",
+        "version": "2.1.0-alpha04"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://developer.android.com/topic/libraries/architecture/index.html",
+      "libraryName": "Android Room-Runtime",
+      "artifactId": {
+        "name": "room-runtime",
+        "group": "androidx.room",
+        "version": "2.1.0-alpha04"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "FindBugs Project",
+      "copyrightStatement": "Copyright &copy; FindBugs Project. All rights reserved.",
+      "license": "BSD 2-Clause License",
+      "licenseUrl": "https://opensource.org/licenses/BSD-2-Clause",
+      "normalizedLicense": "bsd_2_clauses",
+      "year": null,
+      "url": "http://findbugs.sourceforge.net/",
+      "libraryName": "FindBugs-jsr305",
+      "artifactId": {
+        "name": "jsr305",
+        "group": "com.google.code.findbugs",
+        "version": "3.0.2"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Google Inc.",
+      "copyrightStatement": "Copyright &copy; Google Inc. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "",
+      "libraryName": "Gson",
+      "artifactId": {
+        "name": "gson",
+        "group": "com.google.code.gson",
+        "version": "2.8.5"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Leo Lin",
+      "copyrightStatement": "Copyright &copy; Leo Lin. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://github.com/leolin310148/ShortcutBadger",
+      "libraryName": "ShortcutBadger",
+      "artifactId": {
+        "name": "ShortcutBadger",
+        "group": "me.leolin",
+        "version": "1.1.22"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://developer.android.com/topic/libraries/architecture/index.html",
+      "libraryName": "Android Lifecycle Runtime",
+      "artifactId": {
+        "name": "lifecycle-runtime",
+        "group": "androidx.lifecycle",
+        "version": "2.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "VersionedParcelable and friends",
+      "artifactId": {
+        "name": "versionedparcelable",
+        "group": "androidx.versionedparcelable",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Mapbox",
+      "copyrightStatement": "Copyright &copy; Mapbox. All rights reserved.",
+      "license": "MIT License",
+      "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
+      "normalizedLicense": "mit",
+      "year": null,
+      "url": "https://github.com/mapbox/mapbox-java",
+      "libraryName": "Mapbox Services SDK",
+      "artifactId": {
+        "name": "mapbox-sdk-turf",
+        "group": "com.mapbox.mapboxsdk",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "Android Support Library View Pager",
+      "artifactId": {
+        "name": "viewpager",
+        "group": "androidx.viewpager",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "QOS.ch",
+      "copyrightStatement": "Copyright &copy; QOS.ch. All rights reserved.",
+      "license": "MIT License",
+      "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
+      "normalizedLicense": "mit",
+      "year": null,
+      "url": "http://www.slf4j.org",
+      "libraryName": "SLF4J",
+      "artifactId": {
+        "name": "slf4j-jdk14",
+        "group": "org.slf4j",
+        "version": "1.7.25"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Mapbox",
+      "copyrightStatement": "Copyright &copy; Mapbox. All rights reserved.",
+      "license": "MIT License",
+      "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
+      "normalizedLicense": "mit",
+      "year": null,
+      "url": "https://github.com/mapbox/mapbox-events-android",
+      "libraryName": "Mapbox Android Core Library",
+      "artifactId": {
+        "name": "mapbox-android-core",
+        "group": "com.mapbox.mapboxsdk",
+        "version": "1.2.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://developer.android.com/topic/libraries/architecture/index.html",
+      "libraryName": "Android Lifecycle LiveData",
+      "artifactId": {
+        "name": "lifecycle-livedata",
+        "group": "androidx.lifecycle",
+        "version": "2.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Rey Pham",
+      "copyrightStatement": "Copyright &copy; Rey Pham. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://github.com/rey5137/material",
+      "libraryName": "Material Library",
+      "artifactId": {
+        "name": "material",
+        "group": "com.github.rey5137",
+        "version": "1.2.5"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "The Apache Software Foundation",
+      "copyrightStatement": "Copyright &copy; The Apache Software Foundation. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://commons.apache.org/proper/commons-codec/",
+      "libraryName": "Apache Commons Codec",
+      "artifactId": {
+        "name": "commons-codec",
+        "group": "commons-codec",
+        "version": "1.10"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Mapbox",
+      "copyrightStatement": "Copyright &copy; Mapbox. All rights reserved.",
+      "license": "BSD 2-Clause License",
+      "licenseUrl": "https://opensource.org/licenses/BSD-2-Clause",
+      "normalizedLicense": "bsd_2_clauses",
+      "year": null,
+      "url": "https://github.com/mapbox/mapbox-gl-native",
+      "libraryName": "Mapbox Maps SDK for Android",
+      "artifactId": {
+        "name": "mapbox-android-sdk",
+        "group": "com.mapbox.mapboxsdk",
+        "version": "7.3.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Jonas Kalderstam",
+      "copyrightStatement": "Copyright &copy; Jonas Kalderstam. All rights reserved.",
+      "license": "Mozilla Public License, Version 2.0",
+      "licenseUrl": "https://www.mozilla.org/en-US/MPL/2.0/",
+      "normalizedLicense": "mpl2",
+      "year": null,
+      "url": "",
+      "libraryName": "filepicker",
+      "artifactId": {
+        "name": "filepicker",
+        "group": "com.nononsenseapps",
+        "version": "4.2.1"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Square, Inc.",
+      "copyrightStatement": "Copyright &copy; Square, Inc. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "",
+      "libraryName": "OkHttp",
+      "artifactId": {
+        "name": "okhttp",
+        "group": "com.squareup.okhttp3",
+        "version": "3.12.2"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "Android Support Library Annotations",
+      "artifactId": {
+        "name": "annotation",
+        "group": "androidx.annotation",
+        "version": "1.0.2"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "Android Support Library Interpolators",
+      "artifactId": {
+        "name": "interpolator",
+        "group": "androidx.interpolator",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "The JSR-330 Expert Group",
+      "copyrightStatement": "Copyright &copy; The JSR-330 Expert Group. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://code.google.com/p/atinject/",
+      "libraryName": "javax.inject",
+      "artifactId": {
+        "name": "javax.inject",
+        "group": "javax.inject",
+        "version": "1"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Square, Inc.",
+      "copyrightStatement": "Copyright &copy; Square, Inc. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "",
+      "libraryName": "Okio",
+      "artifactId": {
+        "name": "okio",
+        "group": "com.squareup.okio",
+        "version": "1.14.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "two forty four a.m. LLC.",
+      "copyrightStatement": "Copyright &copy; two forty four a.m. LLC. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "",
+      "libraryName": "android-plugin-api-for-locale",
+      "artifactId": {
+        "name": "android-plugin-api-for-locale",
+        "group": "com.twofortyfouram",
+        "version": "1.0.2"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Square, Inc.",
+      "copyrightStatement": "Copyright &copy; Square, Inc. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "",
+      "libraryName": "Retrofit",
+      "artifactId": {
+        "name": "retrofit",
+        "group": "com.squareup.retrofit2",
+        "version": "2.4.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://developer.android.com/topic/libraries/architecture/index.html",
+      "libraryName": "Android Lifecycle ViewModel",
+      "artifactId": {
+        "name": "lifecycle-viewmodel",
+        "group": "androidx.lifecycle",
+        "version": "2.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Google Inc.",
+      "copyrightStatement": "Copyright &copy; Google Inc. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://code.google.com/p/google-rfc-2445/",
+      "libraryName": "google-rfc-2445",
+      "artifactId": {
+        "name": "google-rfc-2445",
+        "group": "org.scala-saddle",
+        "version": "20110304"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "The Dagger Authors",
+      "copyrightStatement": "Copyright &copy; The Dagger Authors. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://github.com/google/dagger",
+      "libraryName": "Dagger",
+      "artifactId": {
+        "name": "dagger",
+        "group": "com.google.dagger",
+        "version": "2.22.1"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "The Guava Authors",
+      "copyrightStatement": "Copyright &copy; The Guava Authors. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "",
+      "libraryName": "Guava Google Core Libraries for Java",
+      "artifactId": {
+        "name": "guava",
+        "group": "com.google.guava",
+        "version": "20.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "JetBrains s.r.o.",
+      "copyrightStatement": "Copyright &copy; JetBrains s.r.o. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://github.com/JetBrains/java-annotations",
+      "libraryName": "JetBrains Java Annotations",
+      "artifactId": {
+        "name": "annotations",
+        "group": "org.jetbrains",
+        "version": "13.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Wouter Dullaert",
+      "copyrightStatement": "Copyright &copy; Wouter Dullaert. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://github.com/wdullaer/MaterialDateTimePicker",
+      "libraryName": "MaterialDateTimePicker",
+      "artifactId": {
+        "name": "materialdatetimepicker",
+        "group": "com.wdullaer",
+        "version": "4.0.1"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "The Apache Software Foundation",
+      "copyrightStatement": "Copyright &copy; The Apache Software Foundation. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://commons.apache.org/proper/commons-lang/",
+      "libraryName": "Apache Commons Lang",
+      "artifactId": {
+        "name": "commons-lang3",
+        "group": "org.apache.commons",
+        "version": "3.6"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "Android Support Library v4",
+      "artifactId": {
+        "name": "legacy-support-v4",
+        "group": "androidx.legacy",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "Android Support Library media compat",
+      "artifactId": {
+        "name": "media",
+        "group": "androidx.media",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Mapbox",
+      "copyrightStatement": "Copyright &copy; Mapbox. All rights reserved.",
+      "license": "MIT License",
+      "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
+      "normalizedLicense": "mit",
+      "year": null,
+      "url": "https://github.com/mapbox/mapbox-java",
+      "libraryName": "Mapbox Services SDK",
+      "artifactId": {
+        "name": "mapbox-sdk-geojson",
+        "group": "com.mapbox.mapboxsdk",
+        "version": "4.5.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Mapbox",
+      "copyrightStatement": "Copyright &copy; Mapbox. All rights reserved.",
+      "license": "BSD 2-Clause License",
+      "licenseUrl": "https://opensource.org/licenses/BSD-2-Clause",
+      "normalizedLicense": "bsd_2_clauses",
+      "year": null,
+      "url": "https://github.com/mapbox/mapbox-events-android",
+      "libraryName": "Mapbox Android Telemetry Library",
+      "artifactId": {
+        "name": "mapbox-android-telemetry",
+        "group": "com.mapbox.mapboxsdk",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "Android Support Library loader",
+      "artifactId": {
+        "name": "loader",
+        "group": "androidx.loader",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "Android Support Library Cursor Adapter",
+      "artifactId": {
+        "name": "cursoradapter",
+        "group": "androidx.cursoradapter",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://developer.android.com/topic/libraries/architecture/index.html",
+      "libraryName": "Android Lifecycle LiveData Core",
+      "artifactId": {
+        "name": "lifecycle-livedata-core",
+        "group": "androidx.lifecycle",
+        "version": "2.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "Android Support Library Custom View",
+      "artifactId": {
+        "name": "customview",
+        "group": "androidx.customview",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "The RxAndroid authors",
+      "copyrightStatement": "Copyright &copy; The RxAndroid authors. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://github.com/ReactiveX/RxAndroid",
+      "libraryName": "RxAndroid",
+      "artifactId": {
+        "name": "rxandroid",
+        "group": "io.reactivex.rxjava2",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Jake Wharton",
+      "copyrightStatement": "Copyright &copy; Jake Wharton. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://github.com/JakeWharton/butterknife/",
+      "libraryName": "Butterknife",
+      "artifactId": {
+        "name": "butterknife",
+        "group": "com.jakewharton",
+        "version": "10.1.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Stephen Colebourne & Michael Nascimento Santos",
+      "copyrightStatement": "Copyright &copy; Stephen Colebourne & Michael Nascimento Santos. All rights reserved.",
+      "license": "BSD 3-Clause",
+      "licenseUrl": "https://opensource.org/licenses/BSD-3-Clause",
+      "normalizedLicense": "bsd_3_clauses",
+      "year": null,
+      "url": "https://www.threeten.org/threetenbp",
+      "libraryName": "ThreeTen backport",
+      "artifactId": {
+        "name": "threetenbp",
+        "group": "org.threeten",
+        "version": "1.3.6"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "Android Support Library Custom View",
+      "artifactId": {
+        "name": "swiperefreshlayout",
+        "group": "androidx.swiperefreshlayout",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "Android Support Library Document File",
+      "artifactId": {
+        "name": "documentfile",
+        "group": "androidx.documentfile",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Google Inc.",
+      "copyrightStatement": "Copyright &copy; Google Inc. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "",
+      "libraryName": "Android Platform Extensions to the Google APIs Client Library for Java.",
+      "artifactId": {
+        "name": "google-api-client-android",
+        "group": "com.google.api-client",
+        "version": "1.27.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://developer.android.com/topic/libraries/architecture/index.html",
+      "libraryName": "Android Lifecycle Extensions",
+      "artifactId": {
+        "name": "lifecycle-extensions",
+        "group": "androidx.lifecycle",
+        "version": "2.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Keepsafe Software Inc.",
+      "copyrightStatement": "Copyright &copy; Keepsafe Software Inc. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://github.com/KeepSafe/ReLinker",
+      "libraryName": "ReLinker",
+      "artifactId": {
+        "name": "relinker",
+        "group": "com.getkeepsafe.relinker",
+        "version": "1.3.1"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "Android Support Library core utils",
+      "artifactId": {
+        "name": "legacy-support-core-utils",
+        "group": "androidx.legacy",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://developer.android.com/topic/libraries/architecture/index.html",
+      "libraryName": "Android Paging-Common",
+      "artifactId": {
+        "name": "paging-common",
+        "group": "androidx.paging",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://developer.android.com/topic/libraries/architecture/index.html",
+      "libraryName": "Android Arch-Runtime",
+      "artifactId": {
+        "name": "core-runtime",
+        "group": "androidx.arch.core",
+        "version": "2.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "The Apache Software Foundation",
+      "copyrightStatement": "Copyright &copy; The Apache Software Foundation. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://commons.apache.org/proper/commons-collections/",
+      "libraryName": "Apache Commons Collections",
+      "artifactId": {
+        "name": "commons-collections4",
+        "group": "org.apache.commons",
+        "version": "4.1"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Ben Fortuna",
+      "copyrightStatement": "Copyright &copy; Ben Fortuna. All rights reserved.",
+      "license": "BSD 3-Clause",
+      "licenseUrl": "https://opensource.org/licenses/BSD-3-Clause",
+      "normalizedLicense": "bsd_3_clauses",
+      "year": null,
+      "url": "http://ical4j.github.io",
+      "libraryName": "ical4j",
+      "artifactId": {
+        "name": "ical4j",
+        "group": "org.mnode.ical4j",
+        "version": "2.2.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "Android Support RecyclerView v7",
+      "artifactId": {
+        "name": "recyclerview",
+        "group": "androidx.recyclerview",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Stephen Connolly",
+      "copyrightStatement": "Copyright &copy; Stephen Connolly. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://jcip.net/",
+      "libraryName": "Java Concurrency in Practice book annotations",
+      "artifactId": {
+        "name": "jcip-annotations",
+        "group": "net.jcip",
+        "version": "1.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "Android Support Library collections",
+      "artifactId": {
+        "name": "collection",
+        "group": "androidx.collection",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "FasterXML",
+      "copyrightStatement": "Copyright &copy; FasterXML. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://github.com/FasterXML/jackson-core",
+      "libraryName": "Jackson-core",
+      "artifactId": {
+        "name": "jackson-core",
+        "group": "com.fasterxml.jackson.core",
+        "version": "2.9.6"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "Android Support CardView v7",
+      "artifactId": {
+        "name": "cardview",
+        "group": "androidx.cardview",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "Android Support Library Print",
+      "artifactId": {
+        "name": "print",
+        "group": "androidx.print",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "The jchronic authors",
+      "copyrightStatement": "Copyright &copy; The jchronic authors. All rights reserved.",
+      "license": "MIT License",
+      "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
+      "normalizedLicense": "mit",
+      "year": null,
+      "url": "http://github.com/samtingleff/jchronic",
+      "libraryName": "jchronic",
+      "artifactId": {
+        "name": "jchronic",
+        "group": "com.rubiconproject.oss",
+        "version": "0.2.6"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://developer.android.com/topic/libraries/architecture/index.html",
+      "libraryName": "Android Support SQLite - Framework Implementation",
+      "artifactId": {
+        "name": "sqlite-framework",
+        "group": "androidx.sqlite",
+        "version": "2.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "The Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; The Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "Material Components for Android",
+      "artifactId": {
+        "name": "material",
+        "group": "com.google.android.material",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "Android Support Library Local Broadcast Manager",
+      "artifactId": {
+        "name": "localbroadcastmanager",
+        "group": "androidx.localbroadcastmanager",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Google Inc.",
+      "copyrightStatement": "Copyright &copy; Google Inc. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://dashclock.com/api",
+      "libraryName": "DashClock API",
+      "artifactId": {
+        "name": "dashclock-api",
+        "group": "com.google.android.apps.dashclock",
+        "version": "2.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "Android Support VectorDrawable",
+      "artifactId": {
+        "name": "vectordrawable",
+        "group": "androidx.vectordrawable",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Public Domain",
+      "copyrightStatement": "Copyright &copy; Public Domain. All rights reserved.",
+      "license": "CC0",
+      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/",
+      "normalizedLicense": "cc0",
+      "year": null,
+      "url": "http://www.reactive-streams.org/",
+      "libraryName": "reactive-streams",
+      "artifactId": {
+        "name": "reactive-streams",
+        "group": "org.reactivestreams",
+        "version": "1.0.2"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://developer.android.com/topic/libraries/architecture/index.html",
+      "libraryName": "Android WorkManager Runtime",
+      "artifactId": {
+        "name": "work-runtime",
+        "group": "androidx.work",
+        "version": "2.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "Android AppCompat Library v7",
+      "artifactId": {
+        "name": "appcompat",
+        "group": "androidx.appcompat",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://developer.android.com/topic/libraries/architecture/index.html",
+      "libraryName": "Android Lifecycle-Common",
+      "artifactId": {
+        "name": "lifecycle-common",
+        "group": "androidx.lifecycle",
+        "version": "2.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Mapbox",
+      "copyrightStatement": "Copyright &copy; Mapbox. All rights reserved.",
+      "license": "MIT License",
+      "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
+      "normalizedLicense": "mit",
+      "year": null,
+      "url": "https://github.com/mapbox/mapbox-java",
+      "libraryName": "Mapbox Services SDK",
+      "artifactId": {
+        "name": "mapbox-sdk-core",
+        "group": "com.mapbox.mapboxsdk",
+        "version": "4.5.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "",
+      "libraryName": "Android Multi-Dex Library",
+      "artifactId": {
+        "name": "multidex",
+        "group": "androidx.multidex",
+        "version": "2.0.1"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Mapbox",
+      "copyrightStatement": "Copyright &copy; Mapbox. All rights reserved.",
+      "license": "BSD 2-Clause License",
+      "licenseUrl": "https://opensource.org/licenses/BSD-2-Clause",
+      "normalizedLicense": "bsd_2_clauses",
+      "year": null,
+      "url": "https://github.com/mapbox/mapbox-gestures-android",
+      "libraryName": "Mapbox Android Gestures Library",
+      "artifactId": {
+        "name": "mapbox-android-gestures",
+        "group": "com.mapbox.mapboxsdk",
+        "version": "0.4.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Jake Wharton",
+      "copyrightStatement": "Copyright &copy; Jake Wharton. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://github.com/JakeWharton/ThreeTenABP/",
+      "libraryName": "ThreeTenAbp",
+      "artifactId": {
+        "name": "threetenabp",
+        "group": "com.jakewharton.threetenabp",
+        "version": "1.1.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "Android Support Library Async Layout Inflater",
+      "artifactId": {
+        "name": "asynclayoutinflater",
+        "group": "androidx.asynclayoutinflater",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://developer.android.com/topic/libraries/architecture/index.html",
+      "libraryName": "Android Lifecycle Process",
+      "artifactId": {
+        "name": "lifecycle-process",
+        "group": "androidx.lifecycle",
+        "version": "2.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://developer.android.com/topic/libraries/architecture/index.html",
+      "libraryName": "Android Paging-Runtime",
+      "artifactId": {
+        "name": "paging-runtime",
+        "group": "androidx.paging",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://developer.android.com/topic/libraries/architecture/index.html",
+      "libraryName": "Android Lifecycle Service",
+      "artifactId": {
+        "name": "lifecycle-service",
+        "group": "androidx.lifecycle",
+        "version": "2.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "Android Transition Support Library",
+      "artifactId": {
+        "name": "transition",
+        "group": "androidx.transition",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Jake Wharton",
+      "copyrightStatement": "Copyright &copy; Jake Wharton. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://github.com/JakeWharton/timber",
+      "libraryName": "Timber",
+      "artifactId": {
+        "name": "timber",
+        "group": "com.jakewharton.timber",
+        "version": "4.7.1"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "Android Support Library Sliding Pane Layout",
+      "artifactId": {
+        "name": "slidingpanelayout",
+        "group": "androidx.slidingpanelayout",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Google Inc.",
+      "copyrightStatement": "Copyright &copy; Google Inc. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "",
+      "libraryName": "Google OAuth Client Library for Java",
+      "artifactId": {
+        "name": "google-oauth-client",
+        "group": "com.google.oauth-client",
+        "version": "1.27.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://developer.android.com/topic/libraries/architecture/index.html",
+      "libraryName": "Android Room RXJava2",
+      "artifactId": {
+        "name": "room-rxjava2",
+        "group": "androidx.room",
+        "version": "2.1.0-alpha04"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Saket Narayan",
+      "copyrightStatement": "Copyright &copy; Saket Narayan. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://github.com/Saketme/BetterLinkMovementMethod",
+      "libraryName": "BetterLinkMovementMethod",
+      "artifactId": {
+        "name": "better-link-movement-method",
+        "group": "me.saket",
+        "version": "2.2.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "Android Support Library core UI",
+      "artifactId": {
+        "name": "legacy-support-core-ui",
+        "group": "androidx.legacy",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "Android Support Library Drawer Layout",
+      "artifactId": {
+        "name": "drawerlayout",
+        "group": "androidx.drawerlayout",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "RxJava Contributors",
+      "copyrightStatement": "Copyright &copy; RxJava Contributors. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://github.com/ReactiveX/RxJava",
+      "libraryName": "RxJava",
+      "artifactId": {
+        "name": "rxjava",
+        "group": "io.reactivex.rxjava2",
+        "version": "2.2.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Google Inc.",
+      "copyrightStatement": "Copyright &copy; Google Inc. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "",
+      "libraryName": "Tasks API v1-rev55-1.25.0",
+      "artifactId": {
+        "name": "google-api-services-tasks",
+        "group": "com.google.apis",
+        "version": "v1-rev55-1.25.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Google Inc.",
+      "copyrightStatement": "Copyright &copy; Google Inc. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "",
+      "libraryName": "Google APIs Client Library for Java",
+      "artifactId": {
+        "name": "google-api-client",
+        "group": "com.google.api-client",
+        "version": "1.27.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://tools.android.com",
+      "libraryName": "Android ConstraintLayout Solver",
+      "artifactId": {
+        "name": "constraintlayout-solver",
+        "group": "androidx.constraintlayout",
+        "version": "2.0.0-alpha3"
+      }
+    }
+  ]
+}

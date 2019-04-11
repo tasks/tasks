@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'checkstyle'
 apply plugin: 'io.fabric'
+apply plugin: 'com.cookpad.android.licensetools'
 
 repositories {
     jcenter()
