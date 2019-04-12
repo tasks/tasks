@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  style="@style/CardViewStyle"
+  android:layout_height="wrap_content"
+  android:layout_marginBottom="4dp"
+  app:cardMaxElevation="1dp"
+  app:cardElevation="1dp"
+  app:cardBackgroundColor="@color/content_background">
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:paddingTop="@dimen/keyline_first"
+    android:paddingBottom="@dimen/keyline_first"
+    android:layout_gravity="center_vertical"
+    android:orientation="vertical">
+
+    <TextView
+      android:id="@+id/copyright_holder"
+      android:textStyle="bold"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingStart="@dimen/keyline_first"
+      android:paddingEnd="@dimen/keyline_first"
+      android:paddingLeft="@dimen/keyline_first"
+      android:paddingRight="@dimen/keyline_first"
+      android:gravity="center_vertical"
+      android:ellipsize="end"
+      android:maxLines="1"
+      android:textColor="@color/text_primary"
+      android:textSize="@dimen/sku_details_row_text_size"/>
+
+    <TextView
+      android:id="@+id/libraries"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingLeft="@dimen/keyline_first"
+      android:paddingStart="@dimen/keyline_first"
+      android:paddingRight="@dimen/keyline_first"
+      android:paddingEnd="@dimen/keyline_first"
+      android:textColor="@color/text_secondary"
+      android:textSize="@dimen/sku_details_row_text_size"/>
+
+  </LinearLayout>
+
+</androidx.cardview.widget.CardView>

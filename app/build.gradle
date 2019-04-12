@@ -148,6 +148,7 @@ dependencies {
     debugImplementation "com.squareup.leakcanary:leakcanary-android:${LEAKCANARY_VERSION}"
     debugImplementation "com.squareup.leakcanary:leakcanary-support-fragment:${LEAKCANARY_VERSION}"
 
+    implementation 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:2.0.0'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'me.saket:better-link-movement-method:2.2.0'
     //noinspection GradleDependency

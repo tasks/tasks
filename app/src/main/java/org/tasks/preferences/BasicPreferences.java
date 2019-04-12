@@ -194,6 +194,12 @@ public class BasicPreferences extends InjectingPreferenceActivity
           }
         });
 
+    findPreference(R.string.third_party_licenses).setOnPreferenceClickListener(
+        preference -> {
+          startActivity(new Intent(this, AttributionActivity.class));
+          return false;
+        });
+
     findPreference(R.string.rate_tasks)
         .setOnPreferenceClickListener(
             preference -> {

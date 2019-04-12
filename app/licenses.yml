@@ -33,12 +33,6 @@
   copyrightHolder: Google Inc.
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-- artifact: org.jetbrains.kotlin:+:+
-  name: Kotlin Standard Library
-  copyrightHolder: JetBrains s.r.o.
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: https://kotlinlang.org/
 - artifact: androidx.fragment:fragment:+
   name: Android Support Library fragment
   copyrightHolder: Android Open Source Project
@@ -52,7 +46,7 @@
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: http://developer.android.com/tools/extras/support-library.html
 - artifact: com.mapbox.mapboxsdk:mapbox-sdk-services:+
-  name: Mapbox Services SDK
+  name: Mapbox services
   copyrightHolder: Mapbox
   license: MIT License
   licenseUrl: http://www.opensource.org/licenses/mit-license.php
@@ -61,12 +55,6 @@
 - artifact: androidx.core:core:+
   name: Android Support Library compat
   copyrightHolder: Android Open Source Project
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: http://developer.android.com/tools/extras/support-library.html
-- artifact: com.google.http-client:+:+
-  name: Google HTTP Client
-  copyrightHolder: Google Inc.
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: http://developer.android.com/tools/extras/support-library.html
@@ -97,7 +85,7 @@
 - artifact: com.google.code.findbugs:jsr305:+
   name: FindBugs-jsr305
   copyrightHolder: FindBugs Project
-  license: BSD 2-Clause License
+  license: BSD 2-Clause
   licenseUrl: https://opensource.org/licenses/BSD-2-Clause
   url: http://findbugs.sourceforge.net/
   forceGenerate: true
@@ -125,7 +113,7 @@
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: http://developer.android.com/tools/extras/support-library.html
 - artifact: com.mapbox.mapboxsdk:mapbox-sdk-turf:+
-  name: Mapbox Services SDK
+  name: Mapbox services-turf
   copyrightHolder: Mapbox
   license: MIT License
   licenseUrl: http://www.opensource.org/licenses/mit-license.php
@@ -137,12 +125,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: http://developer.android.com/tools/extras/support-library.html
-- artifact: org.slf4j:+:+
-  name: SLF4J
-  copyrightHolder: QOS.ch
-  license: MIT License
-  licenseUrl: http://www.opensource.org/licenses/mit-license.php
-  url: http://www.slf4j.org
 - artifact: com.mapbox.mapboxsdk:mapbox-android-core:+
   name: Mapbox Android Core Library
   copyrightHolder: Mapbox
@@ -171,7 +153,7 @@
 - artifact: com.mapbox.mapboxsdk:mapbox-android-sdk:+
   name: Mapbox Maps SDK for Android
   copyrightHolder: Mapbox
-  license: BSD 2-Clause License
+  license: BSD 2-Clause
   licenseUrl: https://opensource.org/licenses/BSD-2-Clause
   url: https://github.com/mapbox/mapbox-gl-native
   forceGenerate: true
@@ -180,11 +162,6 @@
   copyrightHolder: Jonas Kalderstam
   license: Mozilla Public License, Version 2.0
   licenseUrl: https://www.mozilla.org/en-US/MPL/2.0/
-- artifact: com.squareup.okhttp3:+:+
-  name: OkHttp
-  copyrightHolder: Square, Inc.
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
 - artifact: androidx.annotation:annotation:+
   name: Android Support Library Annotations
   copyrightHolder: Android Open Source Project
@@ -203,19 +180,9 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: http://code.google.com/p/atinject/
-- artifact: com.squareup.okio:+:+
-  name: Okio
-  copyrightHolder: Square, Inc.
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
 - artifact: com.twofortyfouram:android-plugin-api-for-locale:+
   name: android-plugin-api-for-locale
   copyrightHolder: two forty four a.m. LLC.
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-- artifact: com.squareup.retrofit2:+:+
-  name: Retrofit
-  copyrightHolder: Square, Inc.
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
 - artifact: androidx.lifecycle:lifecycle-viewmodel:+
@@ -272,7 +239,7 @@
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: http://developer.android.com/tools/extras/support-library.html
 - artifact: com.mapbox.mapboxsdk:mapbox-sdk-geojson:+
-  name: Mapbox Services SDK
+  name: Mapbox services-geojson
   copyrightHolder: Mapbox
   license: MIT License
   licenseUrl: http://www.opensource.org/licenses/mit-license.php
@@ -281,7 +248,7 @@
 - artifact: com.mapbox.mapboxsdk:mapbox-android-telemetry:+
   name: Mapbox Android Telemetry Library
   copyrightHolder: Mapbox
-  license: BSD 2-Clause License
+  license: BSD 2-Clause
   licenseUrl: https://opensource.org/licenses/BSD-2-Clause
   url: https://github.com/mapbox/mapbox-events-android
   forceGenerate: true
@@ -315,12 +282,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://github.com/ReactiveX/RxAndroid
-- artifact: com.jakewharton:+:+
-  name: Butterknife
-  copyrightHolder: Jake Wharton
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: https://github.com/JakeWharton/butterknife/
 - artifact: org.threeten:threetenbp:+
   name: ThreeTen backport
   copyrightHolder: Stephen Colebourne & Michael Nascimento Santos
@@ -437,7 +398,7 @@
   url: https://developer.android.com/topic/libraries/architecture/index.html
 - artifact: com.google.android.material:material:+
   name: Material Components for Android
-  copyrightHolder: The Android Open Source Project
+  copyrightHolder: Android Open Source Project
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: http://developer.android.com/tools/extras/support-library.html
@@ -461,7 +422,7 @@
   url: http://developer.android.com/tools/extras/support-library.html
 - artifact: org.reactivestreams:reactive-streams:+
   name: reactive-streams
-  copyrightHolder: Public Domain
+  copyrightHolder: Public domain
   license: CC0
   licenseUrl: http://creativecommons.org/publicdomain/zero/1.0/
   url: http://www.reactive-streams.org/
@@ -484,7 +445,7 @@
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://developer.android.com/topic/libraries/architecture/index.html
 - artifact: com.mapbox.mapboxsdk:mapbox-sdk-core:+
-  name: Mapbox Services SDK
+  name: Mapbox services-core
   copyrightHolder: Mapbox
   license: MIT License
   licenseUrl: http://www.opensource.org/licenses/mit-license.php
@@ -498,7 +459,7 @@
 - artifact: com.mapbox.mapboxsdk:mapbox-android-gestures:+
   name: Mapbox Android Gestures Library
   copyrightHolder: Mapbox
-  license: BSD 2-Clause License
+  license: BSD 2-Clause
   licenseUrl: https://opensource.org/licenses/BSD-2-Clause
   url: https://github.com/mapbox/mapbox-gestures-android
 - artifact: com.jakewharton.threetenabp:threetenabp:+
@@ -600,3 +561,112 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: http://tools.android.com
+- artifact: io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:+
+  name: sectionedrecyclerviewadapter
+  copyrightHolder: Gustavo Pagani
+  license: MIT License
+  licenseUrl: http://www.opensource.org/licenses/mit-license.php
+- artifact: org.jetbrains.kotlin:kotlin-stdlib:+
+  name: org.jetbrains.kotlin:kotlin-stdlib
+  copyrightHolder: JetBrains s.r.o.
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://kotlinlang.org/
+- artifact: com.google.http-client:google-http-client:+
+  name: Google HTTP Client Library for Java
+  copyrightHolder: Google Inc.
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+- artifact: org.slf4j:slf4j-jdk14:+
+  name: SLF4J JDK14 Binding
+  copyrightHolder: QOS.ch
+  license: MIT License
+  licenseUrl: http://www.opensource.org/licenses/mit-license.php
+  url: http://www.slf4j.org
+- artifact: com.google.http-client:google-http-client-android:+
+  name: Android Platform Extensions to the Google HTTP Client Library for Java.
+  copyrightHolder: Google Inc.
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+- artifact: com.squareup.okhttp3:okhttp:+
+  name: OkHttp
+  copyrightHolder: Square, Inc.
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+- artifact: com.squareup.okhttp3:okhttp:+
+  name: OkHttp
+  copyrightHolder: Square, Inc.
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+- artifact: com.squareup.okio:okio:+
+  name: Okio
+  copyrightHolder: Square, Inc.
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+- artifact: com.squareup.retrofit2:retrofit:+
+  name: Retrofit
+  copyrightHolder: Square, Inc.
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+- artifact: org.slf4j:slf4j-api:+
+  name: SLF4J API Module
+  copyrightHolder: QOS.ch
+  license: MIT License
+  licenseUrl: http://www.opensource.org/licenses/mit-license.php
+  url: http://www.slf4j.org
+- artifact: org.jetbrains.kotlin:kotlin-stdlib-common:+
+  name: org.jetbrains.kotlin:kotlin-stdlib-common
+  copyrightHolder: JetBrains s.r.o.
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://kotlinlang.org/
+- artifact: com.google.http-client:google-http-client-jackson2:+
+  name: Jackson 2 extensions to the Google HTTP Client Library for Java.
+  copyrightHolder: Google Inc.
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+- artifact: com.jakewharton:butterknife:+
+  name: ButterKnife
+  copyrightHolder: Jake Wharton
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://github.com/JakeWharton/butterknife/
+- artifact: com.jakewharton:butterknife-annotations:+
+  name: ButterKnife Annotations
+  copyrightHolder: Jake Wharton
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://github.com/JakeWharton/butterknife/
+- artifact: com.squareup.retrofit2:converter-gson:+
+  name: "Converter: Gson"
+  copyrightHolder: Square, Inc.
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+- artifact: com.squareup.okhttp3:logging-interceptor:+
+  name: OkHttp Logging Interceptor
+  copyrightHolder: Square, Inc.
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+- artifact: org.jetbrains.kotlin:kotlin-stdlib-jdk7:+
+  name: org.jetbrains.kotlin:kotlin-stdlib-jdk7
+  copyrightHolder: JetBrains s.r.o.
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://kotlinlang.org/
+- artifact: com.jakewharton:butterknife-runtime:+
+  name: ButterKnife Runtime
+  copyrightHolder: Jake Wharton
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://github.com/JakeWharton/butterknife/
+- artifact: com.jakewharton:process-phoenix:+
+  name: Process Phoenix
+  copyrightHolder: Jake Wharton
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://github.com/JakeWharton/ProcessPhoenix/
+- artifact: com.squareup.okio:okio:+
+  name: Okio
+  copyrightHolder: Square, Inc.
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt

@@ -32,6 +32,7 @@ import org.tasks.locale.ui.activity.TaskerCreateTaskActivity;
 import org.tasks.locale.ui.activity.TaskerSettingsActivity;
 import org.tasks.location.LocationPickerActivity;
 import org.tasks.preferences.AppearancePreferences;
+import org.tasks.preferences.AttributionActivity;
 import org.tasks.preferences.BasicPreferences;
 import org.tasks.preferences.DateTimePreferences;
 import org.tasks.preferences.DebugPreferences;
@@ -143,4 +144,6 @@ public interface ActivityComponent {
   void inject(WidgetClickActivity widgetActivity);
 
   void inject(LocationPickerActivity locationPickerActivity);
+
+  void inject(AttributionActivity attributionActivity);
 }

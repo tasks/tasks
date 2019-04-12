@@ -141,6 +141,10 @@
     </Preference>
 
     <Preference
+      android:key="@string/third_party_licenses"
+      android:title="@string/third_party_licenses"/>
+
+    <Preference
       android:key="@string/rate_tasks"
       android:title="@string/rate_tasks"/>
 

@@ -98,22 +98,6 @@
     },
     {
       "notice": null,
-      "copyrightHolder": "JetBrains s.r.o.",
-      "copyrightStatement": "Copyright &copy; JetBrains s.r.o. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "year": null,
-      "url": "https://kotlinlang.org/",
-      "libraryName": "Kotlin Standard Library",
-      "artifactId": {
-        "name": "kotlin-stdlib",
-        "group": "org.jetbrains.kotlin",
-        "version": "1.3.21"
-      }
-    },
-    {
-      "notice": null,
       "copyrightHolder": "Android Open Source Project",
       "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
       "license": "The Apache Software License, Version 2.0",
@@ -153,7 +137,7 @@
       "normalizedLicense": "mit",
       "year": null,
       "url": "https://github.com/mapbox/mapbox-java",
-      "libraryName": "Mapbox Services SDK",
+      "libraryName": "Mapbox services",
       "artifactId": {
         "name": "mapbox-sdk-services",
         "group": "com.mapbox.mapboxsdk",
@@ -173,23 +157,7 @@
       "artifactId": {
         "name": "core",
         "group": "androidx.core",
-        "version": "1.0.0"
-      }
-    },
-    {
-      "notice": null,
-      "copyrightHolder": "Google Inc.",
-      "copyrightStatement": "Copyright &copy; Google Inc. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "year": null,
-      "url": "http://developer.android.com/tools/extras/support-library.html",
-      "libraryName": "Google HTTP Client",
-      "artifactId": {
-        "name": "google-http-client",
-        "group": "com.google.http-client",
-        "version": "1.27.0"
+        "version": "1.0.1"
       }
     },
     {
@@ -260,7 +228,7 @@
       "notice": null,
       "copyrightHolder": "FindBugs Project",
       "copyrightStatement": "Copyright &copy; FindBugs Project. All rights reserved.",
-      "license": "BSD 2-Clause License",
+      "license": "BSD 2-Clause",
       "licenseUrl": "https://opensource.org/licenses/BSD-2-Clause",
       "normalizedLicense": "bsd_2_clauses",
       "year": null,
@@ -345,7 +313,7 @@
       "normalizedLicense": "mit",
       "year": null,
       "url": "https://github.com/mapbox/mapbox-java",
-      "libraryName": "Mapbox Services SDK",
+      "libraryName": "Mapbox services-turf",
       "artifactId": {
         "name": "mapbox-sdk-turf",
         "group": "com.mapbox.mapboxsdk",
@@ -366,22 +334,6 @@
         "name": "viewpager",
         "group": "androidx.viewpager",
         "version": "1.0.0"
-      }
-    },
-    {
-      "notice": null,
-      "copyrightHolder": "QOS.ch",
-      "copyrightStatement": "Copyright &copy; QOS.ch. All rights reserved.",
-      "license": "MIT License",
-      "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
-      "normalizedLicense": "mit",
-      "year": null,
-      "url": "http://www.slf4j.org",
-      "libraryName": "SLF4J",
-      "artifactId": {
-        "name": "slf4j-jdk14",
-        "group": "org.slf4j",
-        "version": "1.7.25"
       }
     },
     {
@@ -452,7 +404,7 @@
       "notice": null,
       "copyrightHolder": "Mapbox",
       "copyrightStatement": "Copyright &copy; Mapbox. All rights reserved.",
-      "license": "BSD 2-Clause License",
+      "license": "BSD 2-Clause",
       "licenseUrl": "https://opensource.org/licenses/BSD-2-Clause",
       "normalizedLicense": "bsd_2_clauses",
       "year": null,
@@ -478,22 +430,6 @@
         "name": "filepicker",
         "group": "com.nononsenseapps",
         "version": "4.2.1"
-      }
-    },
-    {
-      "notice": null,
-      "copyrightHolder": "Square, Inc.",
-      "copyrightStatement": "Copyright &copy; Square, Inc. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "year": null,
-      "url": "",
-      "libraryName": "OkHttp",
-      "artifactId": {
-        "name": "okhttp",
-        "group": "com.squareup.okhttp3",
-        "version": "3.12.2"
       }
     },
     {
@@ -546,22 +482,6 @@
     },
     {
       "notice": null,
-      "copyrightHolder": "Square, Inc.",
-      "copyrightStatement": "Copyright &copy; Square, Inc. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "year": null,
-      "url": "",
-      "libraryName": "Okio",
-      "artifactId": {
-        "name": "okio",
-        "group": "com.squareup.okio",
-        "version": "1.14.0"
-      }
-    },
-    {
-      "notice": null,
       "copyrightHolder": "two forty four a.m. LLC.",
       "copyrightStatement": "Copyright &copy; two forty four a.m. LLC. All rights reserved.",
       "license": "The Apache Software License, Version 2.0",
@@ -574,22 +494,6 @@
         "name": "android-plugin-api-for-locale",
         "group": "com.twofortyfouram",
         "version": "1.0.2"
-      }
-    },
-    {
-      "notice": null,
-      "copyrightHolder": "Square, Inc.",
-      "copyrightStatement": "Copyright &copy; Square, Inc. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "year": null,
-      "url": "",
-      "libraryName": "Retrofit",
-      "artifactId": {
-        "name": "retrofit",
-        "group": "com.squareup.retrofit2",
-        "version": "2.4.0"
       }
     },
     {
@@ -745,7 +649,7 @@
       "normalizedLicense": "mit",
       "year": null,
       "url": "https://github.com/mapbox/mapbox-java",
-      "libraryName": "Mapbox Services SDK",
+      "libraryName": "Mapbox services-geojson",
       "artifactId": {
         "name": "mapbox-sdk-geojson",
         "group": "com.mapbox.mapboxsdk",
@@ -756,7 +660,7 @@
       "notice": null,
       "copyrightHolder": "Mapbox",
       "copyrightStatement": "Copyright &copy; Mapbox. All rights reserved.",
-      "license": "BSD 2-Clause License",
+      "license": "BSD 2-Clause",
       "licenseUrl": "https://opensource.org/licenses/BSD-2-Clause",
       "normalizedLicense": "bsd_2_clauses",
       "year": null,
@@ -846,22 +750,6 @@
         "name": "rxandroid",
         "group": "io.reactivex.rxjava2",
         "version": "2.1.0"
-      }
-    },
-    {
-      "notice": null,
-      "copyrightHolder": "Jake Wharton",
-      "copyrightStatement": "Copyright &copy; Jake Wharton. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "year": null,
-      "url": "https://github.com/JakeWharton/butterknife/",
-      "libraryName": "Butterknife",
-      "artifactId": {
-        "name": "butterknife",
-        "group": "com.jakewharton",
-        "version": "10.1.0"
       }
     },
     {
@@ -1170,8 +1058,8 @@
     },
     {
       "notice": null,
-      "copyrightHolder": "The Android Open Source Project",
-      "copyrightStatement": "Copyright &copy; The Android Open Source Project. All rights reserved.",
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
       "license": "The Apache Software License, Version 2.0",
       "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
       "normalizedLicense": "apache2",
@@ -1229,13 +1117,13 @@
       "artifactId": {
         "name": "vectordrawable",
         "group": "androidx.vectordrawable",
-        "version": "1.0.0"
+        "version": "1.0.1"
       }
     },
     {
       "notice": null,
-      "copyrightHolder": "Public Domain",
-      "copyrightStatement": "Copyright &copy; Public Domain. All rights reserved.",
+      "copyrightHolder": "Public domain",
+      "copyrightStatement": "Copyright &copy; Public domain. All rights reserved.",
       "license": "CC0",
       "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/",
       "normalizedLicense": "cc0",
@@ -1277,7 +1165,7 @@
       "artifactId": {
         "name": "appcompat",
         "group": "androidx.appcompat",
-        "version": "1.0.0"
+        "version": "1.0.2"
       }
     },
     {
@@ -1305,7 +1193,7 @@
       "normalizedLicense": "mit",
       "year": null,
       "url": "https://github.com/mapbox/mapbox-java",
-      "libraryName": "Mapbox Services SDK",
+      "libraryName": "Mapbox services-core",
       "artifactId": {
         "name": "mapbox-sdk-core",
         "group": "com.mapbox.mapboxsdk",
@@ -1332,7 +1220,7 @@
       "notice": null,
       "copyrightHolder": "Mapbox",
       "copyrightStatement": "Copyright &copy; Mapbox. All rights reserved.",
-      "license": "BSD 2-Clause License",
+      "license": "BSD 2-Clause",
       "licenseUrl": "https://opensource.org/licenses/BSD-2-Clause",
       "normalizedLicense": "bsd_2_clauses",
       "year": null,
@@ -1614,6 +1502,294 @@
         "name": "constraintlayout-solver",
         "group": "androidx.constraintlayout",
         "version": "2.0.0-alpha3"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Gustavo Pagani",
+      "copyrightStatement": "Copyright &copy; Gustavo Pagani. All rights reserved.",
+      "license": "MIT License",
+      "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
+      "normalizedLicense": "mit",
+      "year": null,
+      "url": "",
+      "libraryName": "sectionedrecyclerviewadapter",
+      "artifactId": {
+        "name": "sectionedrecyclerviewadapter",
+        "group": "io.github.luizgrp.sectionedrecyclerviewadapter",
+        "version": "2.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "JetBrains s.r.o.",
+      "copyrightStatement": "Copyright &copy; JetBrains s.r.o. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://kotlinlang.org/",
+      "libraryName": "org.jetbrains.kotlin:kotlin-stdlib",
+      "artifactId": {
+        "name": "kotlin-stdlib",
+        "group": "org.jetbrains.kotlin",
+        "version": "1.3.21"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Google Inc.",
+      "copyrightStatement": "Copyright &copy; Google Inc. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "",
+      "libraryName": "Google HTTP Client Library for Java",
+      "artifactId": {
+        "name": "google-http-client",
+        "group": "com.google.http-client",
+        "version": "1.27.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "QOS.ch",
+      "copyrightStatement": "Copyright &copy; QOS.ch. All rights reserved.",
+      "license": "MIT License",
+      "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
+      "normalizedLicense": "mit",
+      "year": null,
+      "url": "http://www.slf4j.org",
+      "libraryName": "SLF4J JDK14 Binding",
+      "artifactId": {
+        "name": "slf4j-jdk14",
+        "group": "org.slf4j",
+        "version": "1.7.25"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Google Inc.",
+      "copyrightStatement": "Copyright &copy; Google Inc. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "",
+      "libraryName": "Android Platform Extensions to the Google HTTP Client Library for Java.",
+      "artifactId": {
+        "name": "google-http-client-android",
+        "group": "com.google.http-client",
+        "version": "1.27.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Square, Inc.",
+      "copyrightStatement": "Copyright &copy; Square, Inc. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "",
+      "libraryName": "OkHttp",
+      "artifactId": {
+        "name": "okhttp",
+        "group": "com.squareup.okhttp3",
+        "version": "3.12.2"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Square, Inc.",
+      "copyrightStatement": "Copyright &copy; Square, Inc. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "",
+      "libraryName": "Okio",
+      "artifactId": {
+        "name": "okio",
+        "group": "com.squareup.okio",
+        "version": "1.14.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Square, Inc.",
+      "copyrightStatement": "Copyright &copy; Square, Inc. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "",
+      "libraryName": "Retrofit",
+      "artifactId": {
+        "name": "retrofit",
+        "group": "com.squareup.retrofit2",
+        "version": "2.4.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "QOS.ch",
+      "copyrightStatement": "Copyright &copy; QOS.ch. All rights reserved.",
+      "license": "MIT License",
+      "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
+      "normalizedLicense": "mit",
+      "year": null,
+      "url": "http://www.slf4j.org",
+      "libraryName": "SLF4J API Module",
+      "artifactId": {
+        "name": "slf4j-api",
+        "group": "org.slf4j",
+        "version": "1.7.25"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "JetBrains s.r.o.",
+      "copyrightStatement": "Copyright &copy; JetBrains s.r.o. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://kotlinlang.org/",
+      "libraryName": "org.jetbrains.kotlin:kotlin-stdlib-common",
+      "artifactId": {
+        "name": "kotlin-stdlib-common",
+        "group": "org.jetbrains.kotlin",
+        "version": "1.3.21"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Google Inc.",
+      "copyrightStatement": "Copyright &copy; Google Inc. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "",
+      "libraryName": "Jackson 2 extensions to the Google HTTP Client Library for Java.",
+      "artifactId": {
+        "name": "google-http-client-jackson2",
+        "group": "com.google.http-client",
+        "version": "1.27.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Jake Wharton",
+      "copyrightStatement": "Copyright &copy; Jake Wharton. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://github.com/JakeWharton/butterknife/",
+      "libraryName": "ButterKnife",
+      "artifactId": {
+        "name": "butterknife",
+        "group": "com.jakewharton",
+        "version": "10.1.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Jake Wharton",
+      "copyrightStatement": "Copyright &copy; Jake Wharton. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://github.com/JakeWharton/butterknife/",
+      "libraryName": "ButterKnife Annotations",
+      "artifactId": {
+        "name": "butterknife-annotations",
+        "group": "com.jakewharton",
+        "version": "10.1.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Square, Inc.",
+      "copyrightStatement": "Copyright &copy; Square, Inc. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "",
+      "libraryName": "Converter: Gson",
+      "artifactId": {
+        "name": "converter-gson",
+        "group": "com.squareup.retrofit2",
+        "version": "2.4.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Square, Inc.",
+      "copyrightStatement": "Copyright &copy; Square, Inc. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "",
+      "libraryName": "OkHttp Logging Interceptor",
+      "artifactId": {
+        "name": "logging-interceptor",
+        "group": "com.squareup.okhttp3",
+        "version": "3.11.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "JetBrains s.r.o.",
+      "copyrightStatement": "Copyright &copy; JetBrains s.r.o. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://kotlinlang.org/",
+      "libraryName": "org.jetbrains.kotlin:kotlin-stdlib-jdk7",
+      "artifactId": {
+        "name": "kotlin-stdlib-jdk7",
+        "group": "org.jetbrains.kotlin",
+        "version": "1.3.21"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Jake Wharton",
+      "copyrightStatement": "Copyright &copy; Jake Wharton. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://github.com/JakeWharton/butterknife/",
+      "libraryName": "ButterKnife Runtime",
+      "artifactId": {
+        "name": "butterknife-runtime",
+        "group": "com.jakewharton",
+        "version": "10.1.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Jake Wharton",
+      "copyrightStatement": "Copyright &copy; Jake Wharton. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://github.com/JakeWharton/ProcessPhoenix/",
+      "libraryName": "Process Phoenix",
+      "artifactId": {
+        "name": "process-phoenix",
+        "group": "com.jakewharton",
+        "version": "2.0.0"
       }
     }
   ]
