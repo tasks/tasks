@@ -115,7 +115,7 @@ configurations {
 final DAGGER_VERSION = '2.22.1'
 final BUTTERKNIFE_VERSION = '10.1.0'
 final STETHO_VERSION = '1.5.1'
-final WORK_VERSION = '2.0.0'
+final WORK_VERSION = '2.0.1'
 final LEAKCANARY_VERSION = '1.6.3'
 final ROOM_VERSION = '2.1.0-alpha04'
 final CRASHLYTICS_VERSION = '2.9.9'
