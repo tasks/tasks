@@ -28,11 +28,9 @@ import com.todoroo.astrid.data.Task;
 import java.io.File;
 import java.util.Collection;
 import java.util.concurrent.TimeUnit;
-import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.billing.Purchase;
 import org.tasks.data.TaskAttachment;
-import org.tasks.injection.ForApplication;
 import org.tasks.time.DateTime;
 import timber.log.Timber;
 
@@ -46,12 +44,19 @@ public class Preferences {
   private final SharedPreferences prefs;
   private final SharedPreferences publicPrefs;
 
-  @Inject
-  public Preferences(@ForApplication Context context) {
+  public Preferences(Context context) {
+    this(context, getSharedPreferencesName(context));
+  }
+
+  public Preferences(Context context, String name) {
     this.context = context;
-    prefs = PreferenceManager.getDefaultSharedPreferences(context);
+    prefs = context.getSharedPreferences(name, Context.MODE_PRIVATE);
     publicPrefs =
         context.getSharedPreferences(AstridApiConstants.PUBLIC_PREFS, Context.MODE_PRIVATE);
+  }
+
+  private static String getSharedPreferencesName(Context context) {
+    return context.getPackageName() + "_preferences";
   }
 
   public boolean backButtonSavesTask() {

@@ -2,5 +2,5 @@ package org.tasks.injection;
 
 import dagger.Module;
 
-@Module
+@Module(includes = ProductionModule.class)
 public class ContentProviderModule {}

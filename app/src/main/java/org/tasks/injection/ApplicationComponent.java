@@ -6,7 +6,7 @@ import org.tasks.dashclock.DashClockExtension;
 import org.tasks.widget.ScrollableWidgetUpdateService;
 
 @ApplicationScope
-@Component(modules = ApplicationModule.class)
+@Component(modules = {ApplicationModule.class, ProductionModule.class})
 public interface ApplicationComponent {
 
   void inject(DashClockExtension dashClockExtension);

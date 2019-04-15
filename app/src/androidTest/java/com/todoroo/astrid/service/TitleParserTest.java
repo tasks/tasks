@@ -163,7 +163,7 @@ public class TitleParserTest extends InjectingTestCase {
   }
 
   private Task insertTitleAddTask(String title) {
-    return taskCreator.createWithValues(null, title);
+    return taskCreator.createWithValues(title);
   }
 
   // ----------------Days begin----------------//
@@ -172,13 +172,13 @@ public class TitleParserTest extends InjectingTestCase {
     Calendar today = Calendar.getInstance();
 
     String title = "Jog today";
-    Task task = taskCreator.createWithValues(null, title);
+    Task task = taskCreator.createWithValues(title);
     DateTime date = newDateTime(task.getDueDate());
     assertEquals(date.getDayOfWeek(), today.get(Calendar.DAY_OF_WEEK));
     // Calendar starts 1-6, date.getDay() starts at 0
 
     title = "Jog tomorrow";
-    task = taskCreator.createWithValues(null, title);
+    task = taskCreator.createWithValues(title);
     date = newDateTime(task.getDueDate());
     assertEquals((date.getDayOfWeek()) % 7, (today.get(Calendar.DAY_OF_WEEK) + 1) % 7);
 
@@ -189,12 +189,12 @@ public class TitleParserTest extends InjectingTestCase {
 
     for (int i = 1; i <= 6; i++) {
       title = "Jog " + days[i];
-      task = taskCreator.createWithValues(null, title);
+      task = taskCreator.createWithValues(title);
       date = newDateTime(task.getDueDate());
       assertEquals(date.getDayOfWeek(), i + 1);
 
       title = "Jog " + abrevDays[i];
-      task = taskCreator.createWithValues(null, title);
+      task = taskCreator.createWithValues(title);
       date = newDateTime(task.getDueDate());
       assertEquals(date.getDayOfWeek(), i + 1);
     }
@@ -210,12 +210,12 @@ public class TitleParserTest extends InjectingTestCase {
     String[] acceptedStrings = {"priority 0", "least priority", "lowest priority", "bang 0"};
     for (String acceptedString : acceptedStrings) {
       String title = "Jog " + acceptedString;
-      Task task = taskCreator.createWithValues(null, title);
+      Task task = taskCreator.createWithValues(title);
       assertEquals((int) task.getPriority(), Priority.NONE);
     }
     for (String acceptedString : acceptedStrings) {
       String title = acceptedString + " jog";
-      Task task = taskCreator.createWithValues(null, title);
+      Task task = taskCreator.createWithValues(title);
       assertNotSame(task.getPriority(), Priority.NONE);
     }
   }
@@ -257,20 +257,20 @@ public class TitleParserTest extends InjectingTestCase {
     String[] acceptedStringsAnywhere = {"!2", "!!"};
     for (String acceptedStringAtEnd : acceptedStringsAtEnd) {
       String title = "Jog " + acceptedStringAtEnd;
-      Task task = taskCreator.createWithValues(null, title);
+      Task task = taskCreator.createWithValues(title);
       assertEquals((int) task.getPriority(), Priority.MEDIUM);
 
       title = acceptedStringAtEnd + " jog";
-      task = taskCreator.createWithValues(null, title);
+      task = taskCreator.createWithValues(title);
       assertNotSame(task.getPriority(), Priority.MEDIUM);
     }
     for (String acceptedStringAnywhere : acceptedStringsAnywhere) {
       String title = "Jog " + acceptedStringAnywhere;
-      Task task = taskCreator.createWithValues(null, title);
+      Task task = taskCreator.createWithValues(title);
       assertEquals((int) task.getPriority(), Priority.MEDIUM);
 
       title = acceptedStringAnywhere + " jog";
-      task = taskCreator.createWithValues(null, title);
+      task = taskCreator.createWithValues(title);
       assertEquals((int) task.getPriority(), Priority.MEDIUM);
     }
   }
@@ -287,20 +287,20 @@ public class TitleParserTest extends InjectingTestCase {
     String[] acceptedStringsAnywhere = {"!3", "!!!", "!6", "!!!!!!!!!!!!!"};
     for (String acceptedStringAtEnd : acceptedStringsAtEnd) {
       String title = "Jog " + acceptedStringAtEnd;
-      Task task = taskCreator.createWithValues(null, title);
+      Task task = taskCreator.createWithValues(title);
       assertEquals((int) task.getPriority(), Priority.HIGH);
 
       title = acceptedStringAtEnd + " jog";
-      task = taskCreator.createWithValues(null, title);
+      task = taskCreator.createWithValues(title);
       assertNotSame(task.getPriority(), Priority.HIGH);
     }
     for (String acceptedStringAnywhere : acceptedStringsAnywhere) {
       String title = "Jog " + acceptedStringAnywhere;
-      Task task = taskCreator.createWithValues(null, title);
+      Task task = taskCreator.createWithValues(title);
       assertEquals((int) task.getPriority(), Priority.HIGH);
 
       title = acceptedStringAnywhere + " jog";
-      task = taskCreator.createWithValues(null, title);
+      task = taskCreator.createWithValues(title);
       assertEquals((int) task.getPriority(), Priority.HIGH);
     }
   }
@@ -313,7 +313,7 @@ public class TitleParserTest extends InjectingTestCase {
   @Test
   public void testDailyWithNoDueDate() {
     String title = "Jog daily";
-    Task task = taskCreator.createWithValues(null, title);
+    Task task = taskCreator.createWithValues(title);
     RRule rrule = new RRule();
     rrule.setFreq(Frequency.DAILY);
     rrule.setInterval(1);
@@ -322,7 +322,7 @@ public class TitleParserTest extends InjectingTestCase {
     assertFalse(task.hasDueDate());
 
     title = "Jog every day";
-    task = taskCreator.createWithValues(null, title);
+    task = taskCreator.createWithValues(title);
     assertEquals(task.getRecurrence(), rrule.toIcal());
     assertFalse(task.hasDueTime());
     assertFalse(task.hasDueDate());
@@ -330,7 +330,7 @@ public class TitleParserTest extends InjectingTestCase {
     for (int i = 1; i <= 12; i++) {
       title = "Jog every " + i + " days.";
       rrule.setInterval(i);
-      task = taskCreator.createWithValues(null, title);
+      task = taskCreator.createWithValues(title);
       assertEquals(task.getRecurrence(), rrule.toIcal());
       assertFalse(task.hasDueTime());
       assertFalse(task.hasDueDate());
@@ -341,7 +341,7 @@ public class TitleParserTest extends InjectingTestCase {
   @Test
   public void testWeeklyWithNoDueDate() {
     String title = "Jog weekly";
-    Task task = taskCreator.createWithValues(null, title);
+    Task task = taskCreator.createWithValues(title);
     RRule rrule = new RRule();
     rrule.setFreq(Frequency.WEEKLY);
     rrule.setInterval(1);
@@ -350,7 +350,7 @@ public class TitleParserTest extends InjectingTestCase {
     assertFalse(task.hasDueDate());
 
     title = "Jog every week";
-    task = taskCreator.createWithValues(null, title);
+    task = taskCreator.createWithValues(title);
     assertEquals(task.getRecurrence(), rrule.toIcal());
     assertFalse(task.hasDueTime());
     assertFalse(task.hasDueDate());
@@ -358,7 +358,7 @@ public class TitleParserTest extends InjectingTestCase {
     for (int i = 1; i <= 12; i++) {
       title = "Jog every " + i + " weeks";
       rrule.setInterval(i);
-      task = taskCreator.createWithValues(null, title);
+      task = taskCreator.createWithValues(title);
       assertEquals(task.getRecurrence(), rrule.toIcal());
       assertFalse(task.hasDueTime());
       assertFalse(task.hasDueDate());
@@ -369,7 +369,7 @@ public class TitleParserTest extends InjectingTestCase {
   @Test
   public void testMonthlyFromNoDueDate() {
     String title = "Jog monthly";
-    Task task = taskCreator.createWithValues(null, title);
+    Task task = taskCreator.createWithValues(title);
     RRule rrule = new RRule();
     rrule.setFreq(Frequency.MONTHLY);
     rrule.setInterval(1);
@@ -378,7 +378,7 @@ public class TitleParserTest extends InjectingTestCase {
     assertFalse(task.hasDueDate());
 
     title = "Jog every month";
-    task = taskCreator.createWithValues(null, title);
+    task = taskCreator.createWithValues(title);
     assertEquals(task.getRecurrence(), rrule.toIcal());
     assertFalse(task.hasDueTime());
     assertFalse(task.hasDueDate());
@@ -386,7 +386,7 @@ public class TitleParserTest extends InjectingTestCase {
     for (int i = 1; i <= 12; i++) {
       title = "Jog every " + i + " months";
       rrule.setInterval(i);
-      task = taskCreator.createWithValues(null, title);
+      task = taskCreator.createWithValues(title);
       assertEquals(task.getRecurrence(), rrule.toIcal());
       assertFalse(task.hasDueTime());
       assertFalse(task.hasDueDate());
@@ -396,7 +396,7 @@ public class TitleParserTest extends InjectingTestCase {
   @Test
   public void testDailyFromDueDate() {
     String title = "Jog daily starting from today";
-    Task task = taskCreator.createWithValues(null, title);
+    Task task = taskCreator.createWithValues(title);
     RRule rrule = new RRule();
     rrule.setFreq(Frequency.DAILY);
     rrule.setInterval(1);
@@ -404,14 +404,14 @@ public class TitleParserTest extends InjectingTestCase {
     assertTrue(task.hasDueDate());
 
     title = "Jog every day starting from today";
-    task = taskCreator.createWithValues(null, title);
+    task = taskCreator.createWithValues(title);
     assertEquals(task.getRecurrence(), rrule.toIcal());
     assertTrue(task.hasDueDate());
 
     for (int i = 1; i <= 12; i++) {
       title = "Jog every " + i + " days starting from today";
       rrule.setInterval(i);
-      task = taskCreator.createWithValues(null, title);
+      task = taskCreator.createWithValues(title);
       assertEquals(task.getRecurrence(), rrule.toIcal());
       assertTrue(task.hasDueDate());
     }
@@ -420,7 +420,7 @@ public class TitleParserTest extends InjectingTestCase {
   @Test
   public void testWeeklyFromDueDate() {
     String title = "Jog weekly starting from today";
-    Task task = taskCreator.createWithValues(null, title);
+    Task task = taskCreator.createWithValues(title);
     RRule rrule = new RRule();
     rrule.setFreq(Frequency.WEEKLY);
     rrule.setInterval(1);
@@ -428,14 +428,14 @@ public class TitleParserTest extends InjectingTestCase {
     assertTrue(task.hasDueDate());
 
     title = "Jog every week starting from today";
-    task = taskCreator.createWithValues(null, title);
+    task = taskCreator.createWithValues(title);
     assertEquals(task.getRecurrence(), rrule.toIcal());
     assertTrue(task.hasDueDate());
 
     for (int i = 1; i <= 12; i++) {
       title = "Jog every " + i + " weeks starting from today";
       rrule.setInterval(i);
-      task = taskCreator.createWithValues(null, title);
+      task = taskCreator.createWithValues(title);
       assertEquals(task.getRecurrence(), rrule.toIcal());
       assertTrue(task.hasDueDate());
     }

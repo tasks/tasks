@@ -3,7 +3,6 @@ package org.tasks.injection;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
 
 import android.content.Context;
-import androidx.room.Room;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao;
 import dagger.Module;
@@ -24,7 +23,6 @@ import org.tasks.data.TagDataDao;
 import org.tasks.data.TaskAttachmentDao;
 import org.tasks.data.TaskListMetadataDao;
 import org.tasks.data.UserActivityDao;
-import org.tasks.db.Migrations;
 import org.tasks.jobs.WorkManager;
 import org.tasks.locale.Locale;
 import org.tasks.notifications.NotificationDao;
@@ -50,15 +48,6 @@ public class ApplicationModule {
   @ForApplication
   public Context getApplicationContext() {
     return context;
-  }
-
-  @Provides
-  @ApplicationScope
-  public Database getAppDatabase() {
-    return Room.databaseBuilder(context, Database.class, Database.NAME)
-        .allowMainThreadQueries() // TODO: remove me
-        .addMigrations(Migrations.MIGRATIONS)
-        .build();
   }
 
   @Provides

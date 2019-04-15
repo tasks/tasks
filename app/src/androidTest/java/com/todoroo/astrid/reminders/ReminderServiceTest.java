@@ -24,7 +24,7 @@ import static org.tasks.makers.TaskMaker.REMINDER_LAST;
 import static org.tasks.makers.TaskMaker.SNOOZE_TIME;
 import static org.tasks.makers.TaskMaker.newTask;
 
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import java.util.concurrent.TimeUnit;
@@ -62,7 +62,7 @@ public class ReminderServiceTest extends InjectingTestCase {
     jobs = mock(NotificationQueue.class);
     random = mock(Random.class);
     when(random.nextFloat()).thenReturn(1.0f);
-    preferences.reset();
+    preferences.clear();
     service = new ReminderService(preferences, jobs, random, taskDao);
   }
 

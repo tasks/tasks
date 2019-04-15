@@ -11,6 +11,7 @@ public abstract class InjectingContentProvider extends ContentProvider {
     inject(
         DaggerContentProviderComponent.builder()
             .applicationModule(new ApplicationModule(context.getApplicationContext()))
+            .productionModule(new ProductionModule())
             .contentProviderModule(new ContentProviderModule())
             .build());
 

@@ -21,7 +21,7 @@ import org.tasks.jobs.BackupServiceTests;
 
 @ApplicationScope
 @Component(modules = TestModule.class)
-public interface TestComponent {
+public interface TestComponent extends ApplicationComponent {
 
   void inject(GtasksIndentActionTest gtasksIndentActionTest);
 

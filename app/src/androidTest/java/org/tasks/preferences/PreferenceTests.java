@@ -1,7 +1,8 @@
 package org.tasks.preferences;
 
-import static androidx.test.InstrumentationRegistry.getTargetContext;
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 import static junit.framework.Assert.assertEquals;
+import static org.tasks.injection.TestModule.newPreferences;
 
 import android.annotation.SuppressLint;
 import androidx.test.runner.AndroidJUnit4;
@@ -22,7 +23,7 @@ public class PreferenceTests {
 
   @Before
   public void setUp() {
-    preferences = new Preferences(getTargetContext());
+    preferences = newPreferences(getApplicationContext());
     preferences.clear();
     preferences.setBoolean(R.string.p_rmd_enable_quiet, true);
   }

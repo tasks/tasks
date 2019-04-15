@@ -22,6 +22,7 @@ class Dagger {
     applicationComponent =
         DaggerApplicationComponent.builder()
             .applicationModule(new ApplicationModule(localeContext))
+            .productionModule(new ProductionModule())
             .build();
   }
 
