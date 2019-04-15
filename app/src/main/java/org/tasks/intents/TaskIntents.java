@@ -3,10 +3,10 @@ package org.tasks.intents;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import androidx.annotation.Nullable;
 import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.data.Task;
-import org.jetbrains.annotations.Nullable;
 
 public class TaskIntents {
 

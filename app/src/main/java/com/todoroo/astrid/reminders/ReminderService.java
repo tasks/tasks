@@ -8,12 +8,12 @@ package com.todoroo.astrid.reminders;
 
 import static com.google.common.collect.Lists.transform;
 
+import androidx.annotation.Nullable;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import java.util.List;
 import javax.inject.Inject;
-import org.jetbrains.annotations.Nullable;
 import org.tasks.injection.ApplicationScope;
 import org.tasks.jobs.NotificationQueue;
 import org.tasks.jobs.ReminderEntry;
