@@ -497,6 +497,7 @@
 	<string name="themes">追加のテーマ</string>
 	<string name="pro_caldav_sync">CalDAV 同期</string>
 	<string name="pro_multiple_google_task_accounts">複数の Google ToDo リストカウント</string>
+	<string name="pro_google_places_search">Google 場所検索</string>
 	<string name="pro_tasker_plugins">Tasker プラグイン</string>
 	<string name="pro_dashclock_extension">Dashclock 拡張</string>
 	<string name="requires_pro_subscription">プロ版のサブスクリプションが必要です</string>

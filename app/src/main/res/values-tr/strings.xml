@@ -501,6 +501,7 @@ uygulamanızın doğru kurulduğundan emin olun.</string>
 	<string name="themes">Ek gövdeler</string>
 	<string name="pro_caldav_sync">CalDAV eşzamanlama</string>
 	<string name="pro_multiple_google_task_accounts">Çoklu Google Görev hesabı</string>
+	<string name="pro_google_places_search">Google Yerler araması</string>
 	<string name="pro_tasker_plugins">Tasker eklentileri</string>
 	<string name="pro_dashclock_extension">Dashclock eklentisi</string>
 	<string name="requires_pro_subscription">Pro aboneliği gerektirir</string>
@@ -516,7 +517,18 @@ uygulamanızın doğru kurulduğundan emin olun.</string>
 	<string name="show_list_indicators">Liste çentiklerini göster</string>
 	<string name="location_remind_arrival">Varışta hatırlat</string>
 	<string name="location_remind_departure">Kalkışta hatırlat</string>
+	<string name="visit_website">Web siteyi ziyaret et</string>
 	<string name="location_arrived">Varıldı: %s</string>
 	<string name="location_departed">Kalkıldı: %s</string>
 	<string name="building_notifications">Bildirimler oluşturuluyor</string>
+	<string name="choose_a_location">Konum seç</string>
+	<string name="pick_this_location">Bu konumu seç</string>
+	<string name="or_choose_a_location">Ya da konum seç</string>
+	<string name="map_provider">Harita sağlayıcı</string>
+	<string name="map_search_provider">Arama sağlayıcı</string>
+	<string name="missing_permissions">Eksik izinler</string>
+	<string name="location_permission_required_geofence">Konum anımsatıcılar için konum izinleri gereklidir</string>
+	<string name="location_permission_required_location">Geçerli konumunuzu bulmak için konum izinleri gereklidir</string>
+	<string name="open_map">Haritayı aç</string>
+	<string name="choose_new_location">Yeni konum seç</string>
 </resources>

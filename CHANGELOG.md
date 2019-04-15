@@ -1,5 +1,14 @@
 Change Log
 ---
+### 6.6.1 (2019-04-15)
+
+* Fix crash on devices running Android 5.1 and below
+* Fix analytics opt-out
+* Update translations
+  * Italian - dfdario
+  * Japanese - naofumi
+  * Turkish - etc
+
 ### 6.6 (2019-04-10)
 
 * New location picker

@@ -496,6 +496,7 @@ Google Play app sia impostata correttamente</string>
 	<string name="themes">Ulteriori temi</string>
 	<string name="pro_caldav_sync">Sincronizzazione CalDAV</string>
 	<string name="pro_multiple_google_task_accounts"> Account attività Google multipli   </string>
+	<string name="pro_google_places_search">Cerca Google Places</string>
 	<string name="pro_tasker_plugins">Plugin Tasker</string>
 	<string name="pro_dashclock_extension">Estensione Dashclock</string>
 	<string name="requires_pro_subscription">Richiede versione pro</string>
