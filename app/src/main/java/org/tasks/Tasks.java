@@ -32,7 +32,6 @@ public class Tasks extends InjectingApplication {
   @Inject @ForApplication Context context;
   @Inject Lazy<Upgrader> upgrader;
   @Inject Preferences preferences;
-  @Inject FlavorSetup flavorSetup;
   @Inject BuildSetup buildSetup;
   @Inject ThemeCache themeCache;
   @Inject WorkManager workManager;
@@ -56,8 +55,6 @@ public class Tasks extends InjectingApplication {
     AndroidThreeTen.init(this);
 
     preferences.setSyncOngoing(false);
-
-    flavorSetup.setup();
 
     themeCache.getThemeBase(preferences.getInt(R.string.p_theme, 0)).setDefaultNightMode();
 
