@@ -5,16 +5,18 @@ import org.tasks.data.GoogleTaskListDao;
 
 public class GtaskSyncAdapterHelper {
 
-  private final PlayServices playServices;
   private final GoogleTaskListDao googleTaskListDao;
+  private final GoogleAccountManager googleAccountManager;
 
   @Inject
-  public GtaskSyncAdapterHelper(PlayServices playServices, GoogleTaskListDao googleTaskListDao) {
-    this.playServices = playServices;
+  public GtaskSyncAdapterHelper(
+      GoogleTaskListDao googleTaskListDao, GoogleAccountManager googleAccountManager) {
     this.googleTaskListDao = googleTaskListDao;
+    this.googleAccountManager = googleAccountManager;
   }
 
   public boolean isEnabled() {
-    return !googleTaskListDao.getAccounts().isEmpty() && playServices.isPlayServicesAvailable();
+    return !googleTaskListDao.getAccounts().isEmpty()
+        && !googleAccountManager.getAccounts().isEmpty();
   }
 }

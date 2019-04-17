@@ -6,7 +6,6 @@
 
 package com.todoroo.astrid.gtasks.sync;
 
-import android.content.Context;
 import android.text.TextUtils;
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -27,16 +26,15 @@ import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
+import org.tasks.gtasks.GoogleAccountManager;
 import org.tasks.gtasks.GtaskSyncAdapterHelper;
 import org.tasks.injection.ApplicationScope;
-import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
 @ApplicationScope
 public class GtasksSyncService {
 
-  private final Context context;
   private final TaskDao taskDao;
   private final Preferences preferences;
   private final LinkedBlockingQueue<SyncOnSaveOperation> operationQueue =
@@ -44,22 +42,23 @@ public class GtasksSyncService {
   private final GtaskSyncAdapterHelper gtaskSyncAdapterHelper;
   private final Tracker tracker;
   private final GoogleTaskDao googleTaskDao;
+  private final GoogleAccountManager googleAccountManager;
 
   @Inject
   public GtasksSyncService(
-      @ForApplication Context context,
       TaskDao taskDao,
       Preferences preferences,
       GtaskSyncAdapterHelper gtaskSyncAdapterHelper,
       Tracker tracker,
       GoogleTaskDao googleTaskDao,
-      GoogleTaskListDao googleTaskListDao) {
-    this.context = context;
+      GoogleTaskListDao googleTaskListDao,
+      GoogleAccountManager googleAccountManager) {
     this.taskDao = taskDao;
     this.preferences = preferences;
     this.gtaskSyncAdapterHelper = gtaskSyncAdapterHelper;
     this.tracker = tracker;
     this.googleTaskDao = googleTaskDao;
+    this.googleAccountManager = googleAccountManager;
     new OperationPushThread(operationQueue).start();
   }
 
@@ -169,7 +168,7 @@ public class GtasksSyncService {
 
     @Override
     public void op() throws IOException {
-      GtasksInvoker invoker = new GtasksInvoker(context, googleTaskList.getAccount());
+      GtasksInvoker invoker = new GtasksInvoker(googleTaskList.getAccount(), googleAccountManager);
       pushMetadataOnSave(googleTask, invoker);
     }
   }

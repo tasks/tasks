@@ -18,7 +18,6 @@ import androidx.appcompat.app.AlertDialog;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import com.todoroo.astrid.service.TaskDeleter;
 import javax.inject.Inject;
-import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
@@ -33,7 +32,6 @@ import org.tasks.data.GoogleTaskListDao;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.gtasks.GoogleAccountManager;
 import org.tasks.gtasks.GtaskSyncAdapterHelper;
-import org.tasks.gtasks.PlayServices;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.jobs.WorkManager;
@@ -55,7 +53,6 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
   @Inject PermissionChecker permissionChecker;
   @Inject Tracker tracker;
   @Inject GtaskSyncAdapterHelper gtaskSyncAdapterHelper;
-  @Inject PlayServices playServices;
   @Inject DialogBuilder dialogBuilder;
   @Inject SyncAdapters syncAdapters;
   @Inject GoogleTaskDao googleTaskDao;
@@ -72,10 +69,6 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
     super.onCreate(savedInstanceState);
 
     setTitle(R.string.synchronization);
-    //noinspection ConstantConditions
-    if (BuildConfig.FLAVOR.equals("googleplay")) {
-      addPreferencesFromResource(R.xml.preferences_google_tasks);
-    }
 
     addPreferencesFromResource(R.xml.preferences_synchronization);
 
@@ -119,11 +112,7 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
   protected void onResume() {
     super.onResume();
 
-    //noinspection ConstantConditions
-    if (BuildConfig.FLAVOR.equals("googleplay")) {
-      addGoogleTasksAccounts();
-    }
-
+    addGoogleTasksAccounts();
     addCaldavAccounts();
   }
 
@@ -177,9 +166,7 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
   }
 
   private void addGoogleTaskAccount() {
-    if (!playServices.refreshAndCheck()) {
-      playServices.resolve(this);
-    } else if (permissionRequestor.requestAccountPermissions()) {
+    if (permissionRequestor.requestAccountPermissions()) {
       requestLogin();
     }
   }

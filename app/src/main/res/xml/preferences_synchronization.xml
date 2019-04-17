@@ -6,6 +6,10 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
   <PreferenceCategory
+    android:key="@string/gtasks_GPr_header"
+    android:title="@string/gtasks_GPr_header"/>
+
+  <PreferenceCategory
     android:key="@string/CalDAV"
     android:title="@string/CalDAV"/>
 

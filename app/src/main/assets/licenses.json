@@ -557,7 +557,7 @@
       "artifactId": {
         "name": "guava",
         "group": "com.google.guava",
-        "version": "20.0"
+        "version": "27.1-android"
       }
     },
     {
@@ -1549,7 +1549,7 @@
       "artifactId": {
         "name": "google-http-client",
         "group": "com.google.http-client",
-        "version": "1.27.0"
+        "version": "1.29.0"
       }
     },
     {
@@ -1677,7 +1677,7 @@
       "artifactId": {
         "name": "google-http-client-jackson2",
         "group": "com.google.http-client",
-        "version": "1.27.0"
+        "version": "1.29.0"
       }
     },
     {
@@ -1790,6 +1790,166 @@
         "name": "process-phoenix",
         "group": "com.jakewharton",
         "version": "2.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "The gRPC Authors",
+      "copyrightStatement": "Copyright &copy; The gRPC Authors. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://github.com/grpc/grpc-java",
+      "libraryName": "io.grpc:grpc-context",
+      "artifactId": {
+        "name": "grpc-context",
+        "group": "io.grpc",
+        "version": "1.14.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "The Guava Authors",
+      "copyrightStatement": "Copyright &copy; The Guava Authors. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "",
+      "libraryName": "Guava ListenableFuture only",
+      "artifactId": {
+        "name": "listenablefuture",
+        "group": "com.google.guava",
+        "version": "9999.0-empty-to-avoid-conflict-with-guava"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "codehaus.org",
+      "copyrightStatement": "Copyright &copy; codehaus.org. All rights reserved.",
+      "license": "MIT License",
+      "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
+      "normalizedLicense": "mit",
+      "year": null,
+      "url": "",
+      "libraryName": "Animal Sniffer Annotations",
+      "artifactId": {
+        "name": "animal-sniffer-annotations",
+        "group": "org.codehaus.mojo",
+        "version": "1.17"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "The Error Prone Authors",
+      "copyrightStatement": "Copyright &copy; The Error Prone Authors. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "",
+      "libraryName": "error-prone annotations",
+      "artifactId": {
+        "name": "error_prone_annotations",
+        "group": "com.google.errorprone",
+        "version": "2.2.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Google Inc.",
+      "copyrightStatement": "Copyright &copy; Google Inc. All rights reserved.",
+      "license": "BSD 3-Clause",
+      "licenseUrl": "https://opensource.org/licenses/BSD-3-Clause",
+      "normalizedLicense": "bsd_3_clauses",
+      "year": null,
+      "url": "",
+      "libraryName": "Google Auth Library for Java - OAuth2 HTTP",
+      "artifactId": {
+        "name": "google-auth-library-oauth2-http",
+        "group": "com.google.auth",
+        "version": "0.15.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "OpenCensus Authors",
+      "copyrightStatement": "Copyright &copy; OpenCensus Authors. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://github.com/census-instrumentation/opencensus-java",
+      "libraryName": "OpenCensus API",
+      "artifactId": {
+        "name": "opencensus-api",
+        "group": "io.opencensus",
+        "version": "0.18.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Google Inc.",
+      "copyrightStatement": "Copyright &copy; Google Inc. All rights reserved.",
+      "license": "BSD 3-Clause",
+      "licenseUrl": "https://opensource.org/licenses/BSD-3-Clause",
+      "normalizedLicense": "bsd_3_clauses",
+      "year": null,
+      "url": "",
+      "libraryName": "Google Auth Library for Java - Credentials",
+      "artifactId": {
+        "name": "google-auth-library-credentials",
+        "group": "com.google.auth",
+        "version": "0.15.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "The Guava Authors",
+      "copyrightStatement": "Copyright &copy; The Guava Authors. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "",
+      "libraryName": "Guava InternalFutureFailureAccess and InternalFutures",
+      "artifactId": {
+        "name": "failureaccess",
+        "group": "com.google.guava",
+        "version": "1.0.1"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "The Checker Framework Developers",
+      "copyrightStatement": "Copyright &copy; The Checker Framework Developers. All rights reserved.",
+      "license": "GNU General Public License, Version 2.0 + classpath exception",
+      "licenseUrl": "http://www.gnu.org/software/classpath/license.html",
+      "normalizedLicense": "gpl2",
+      "year": null,
+      "url": "https://checkerframework.org",
+      "libraryName": "Checker Qual",
+      "artifactId": {
+        "name": "checker-compat-qual",
+        "group": "org.checkerframework",
+        "version": "2.5.2"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "OpenCensus Authors",
+      "copyrightStatement": "Copyright &copy; OpenCensus Authors. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://github.com/census-instrumentation/opencensus-java",
+      "libraryName": "OpenCensus contrib-http-util",
+      "artifactId": {
+        "name": "opencensus-contrib-http-util",
+        "group": "io.opencensus",
+        "version": "0.18.0"
       }
     }
   ]

@@ -3,6 +3,7 @@ package org.tasks.preferences;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static java.util.Arrays.asList;
+import static org.tasks.PermissionUtil.verifyPermissions;
 import static org.tasks.dialogs.ExportTasksDialog.newExportTasksDialog;
 import static org.tasks.dialogs.ImportTasksDialog.newImportTasksDialog;
 import static org.tasks.files.FileHelper.newFilePickerIntent;
@@ -19,6 +20,7 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
+import androidx.annotation.NonNull;
 import com.google.common.base.Strings;
 import com.todoroo.astrid.core.OldTaskPreferences;
 import com.todoroo.astrid.reminders.ReminderPreferences;
@@ -75,6 +77,7 @@ public class BasicPreferences extends InjectingPreferenceActivity
   @Inject PlayServices playServices;
   @Inject Toaster toaster;
   @Inject Device device;
+  @Inject ActivityPermissionRequestor permissionRequestor;
 
   private Bundle result;
 
@@ -183,10 +186,8 @@ public class BasicPreferences extends InjectingPreferenceActivity
           }
 
           if ((Boolean) newValue) {
-            if (playServices.refreshAndCheck()) {
+            if (permissionRequestor.requestAccountPermissions()) {
               requestLogin();
-            } else {
-              playServices.resolve(this);
             }
             return false;
           } else {
@@ -245,7 +246,6 @@ public class BasicPreferences extends InjectingPreferenceActivity
 
     //noinspection ConstantConditions
     if (!BuildConfig.FLAVOR.equals("googleplay")) {
-      requires(R.string.backup_BPr_header, false, R.string.p_google_drive_backup);
       ((PreferenceScreen) findPreference(getString(R.string.preference_screen)))
           .removePreference(findPreference(getString(R.string.TEA_control_location)));
     }
@@ -353,6 +353,18 @@ public class BasicPreferences extends InjectingPreferenceActivity
   protected void onSaveInstanceState(Bundle outState) {
     super.onSaveInstanceState(outState);
     outState.putBundle(EXTRA_RESULT, result);
+  }
+
+  @Override
+  public void onRequestPermissionsResult(
+      int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    if (requestCode == PermissionRequestor.REQUEST_GOOGLE_ACCOUNTS) {
+      if (verifyPermissions(grantResults)) {
+        requestLogin();
+      }
+    } else {
+      super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
   }
 
   @Override

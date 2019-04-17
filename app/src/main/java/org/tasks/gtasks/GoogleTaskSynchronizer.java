@@ -179,7 +179,7 @@ public class GoogleTaskSynchronizer {
       return;
     }
 
-    GtasksInvoker gtasksInvoker = new GtasksInvoker(context, account.getAccount());
+    GtasksInvoker gtasksInvoker = new GtasksInvoker(account.getAccount(), googleAccountManager);
     pushLocalChanges(account, gtasksInvoker);
 
     List<TaskList> gtaskLists = new ArrayList<>();

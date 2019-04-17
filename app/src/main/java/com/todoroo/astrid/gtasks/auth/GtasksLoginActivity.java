@@ -11,13 +11,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 import com.todoroo.andlib.utility.DialogUtilities;
+import io.reactivex.disposables.CompositeDisposable;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskListDao;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.gtasks.GoogleAccountManager;
-import org.tasks.gtasks.PlayServices;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.play.AuthResultHandler;
@@ -30,13 +30,11 @@ import org.tasks.play.AuthResultHandler;
  */
 public class GtasksLoginActivity extends InjectingAppCompatActivity {
 
-  public static final int RC_REQUEST_OAUTH = 10987;
   private static final int RC_CHOOSE_ACCOUNT = 10988;
   @Inject DialogBuilder dialogBuilder;
-  @Inject GoogleAccountManager accountManager;
-  @Inject PlayServices playServices;
+  @Inject GoogleAccountManager googleAccountManager;
   @Inject GoogleTaskListDao googleTaskListDao;
-  private String accountName;
+  private CompositeDisposable disposables;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -56,53 +54,63 @@ public class GtasksLoginActivity extends InjectingAppCompatActivity {
   private void getAuthToken(String account) {
     final ProgressDialog pd = dialogBuilder.newProgressDialog(R.string.gtasks_GLA_authenticating);
     pd.show();
-    accountName = account;
     getAuthToken(account, pd);
   }
 
-  private void getAuthToken(String a, final ProgressDialog pd) {
-    playServices.getTasksAuthToken(
-        this,
-        a,
-        new AuthResultHandler() {
-          @Override
-          public void authenticationSuccessful(String accountName) {
-            GoogleTaskAccount account = googleTaskListDao.getAccount(accountName);
-            if (account == null) {
-              account = new GoogleTaskAccount();
-              account.setAccount(accountName);
-              googleTaskListDao.insert(account);
-            } else {
-              account.setError("");
-              googleTaskListDao.update(account);
-            }
-            setResult(RESULT_OK);
-            finish();
-            DialogUtilities.dismissDialog(GtasksLoginActivity.this, pd);
-          }
+  @Override
+  protected void onPause() {
+    super.onPause();
 
-          @Override
-          public void authenticationFailed(final String message) {
-            runOnUiThread(
-                () -> Toast.makeText(GtasksLoginActivity.this, message, Toast.LENGTH_LONG).show());
-            DialogUtilities.dismissDialog(GtasksLoginActivity.this, pd);
-          }
-        });
+    if (disposables != null) {
+      disposables.dispose();
+    }
+  }
+
+  private void getAuthToken(String a, final ProgressDialog pd) {
+    disposables =
+        new CompositeDisposable(
+            googleAccountManager.getTasksAuthToken(
+                this,
+                a,
+                new AuthResultHandler() {
+                  @Override
+                  public void authenticationSuccessful(String accountName) {
+                    GoogleTaskAccount account = googleTaskListDao.getAccount(accountName);
+                    if (account == null) {
+                      account = new GoogleTaskAccount();
+                      account.setAccount(accountName);
+                      googleTaskListDao.insert(account);
+                    } else {
+                      account.setError("");
+                      googleTaskListDao.update(account);
+                    }
+                    setResult(RESULT_OK);
+                    finish();
+                    DialogUtilities.dismissDialog(GtasksLoginActivity.this, pd);
+                  }
+
+                  @Override
+                  public void authenticationFailed(final String message) {
+                    runOnUiThread(
+                        () ->
+                            Toast.makeText(GtasksLoginActivity.this, message, Toast.LENGTH_LONG)
+                                .show());
+                    DialogUtilities.dismissDialog(GtasksLoginActivity.this, pd);
+                  }
+                }));
   }
 
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    super.onActivityResult(requestCode, resultCode, data);
-    if (requestCode == RC_CHOOSE_ACCOUNT && resultCode == RESULT_OK) {
-      String account = data.getStringExtra(android.accounts.AccountManager.KEY_ACCOUNT_NAME);
-      getAuthToken(account);
-    } else if (requestCode == RC_REQUEST_OAUTH && resultCode == RESULT_OK) {
-      final ProgressDialog pd = dialogBuilder.newProgressDialog(R.string.gtasks_GLA_authenticating);
-      pd.show();
-      getAuthToken(accountName, pd);
+    if (requestCode == RC_CHOOSE_ACCOUNT) {
+      if (resultCode == RESULT_OK) {
+        String account = data.getStringExtra(android.accounts.AccountManager.KEY_ACCOUNT_NAME);
+        getAuthToken(account);
+      } else {
+        finish();
+      }
     } else {
-      // User didn't give permission--cancel
-      finish();
+      super.onActivityResult(requestCode, resultCode, data);
     }
   }
 }

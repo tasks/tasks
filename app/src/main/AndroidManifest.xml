@@ -4,7 +4,6 @@
   xmlns:tools="http://schemas.android.com/tools"
   package="org.tasks">
 
-
   <uses-sdk tools:overrideLibrary="at.bitfire.ical4android"/>
 
   <!-- ================================================== Used Permissions = -->
@@ -61,11 +60,19 @@
   <!-- *********************************** -->
   <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
-  <!-- *************************** -->
-  <!-- caldav and google task sync -->
-  <!-- *************************** -->
+  <!-- ****************************************************** -->
+  <!-- caldav sync, google task sync, and google drive upload -->
+  <!-- ****************************************************** -->
   <uses-permission android:name="android.permission.INTERNET"/>
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+  <!-- **************************************** -->
+  <!-- google task sync and google drive upload -->
+  <!-- **************************************** -->
+  <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+  <uses-permission android:name="com.google.android.googleapps.permission.GOOGLE_AUTH"/>
+  <uses-permission android:name="android.permission.GET_ACCOUNTS" android:maxSdkVersion="25"/>
+  <uses-permission android:name="android.permission.USE_CREDENTIALS" />
 
   <!-- ============================================== Exported Permissions = -->
 
@@ -100,7 +107,7 @@
     android:roundIcon="@mipmap/ic_launcher_blue"
     android:supportsRtl="true"
     android:theme="@style/Tasks"
-    tools:ignore="GoogleAppIndexingWarning">
+    tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
 
     <meta-data
       android:name="firebase_crashlytics_collection_enabled"
@@ -330,6 +337,16 @@
       android:theme="@style/TasksDialog"/>
 
     <receiver android:name="com.todoroo.astrid.gcal.CalendarAlarmReceiver"/>
+
+    <activity android:name=".activities.GoogleTaskListSettingsActivity"/>
+
+    <activity
+      android:name="com.todoroo.astrid.gtasks.auth.GtasksLoginActivity"
+      android:theme="@style/TranslucentDialog"/>
+
+    <activity
+      android:name=".drive.DriveLoginActivity"
+      android:theme="@style/TranslucentDialog" />
 
     <!-- old tasks -->
     <activity

@@ -33,6 +33,7 @@ import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.gtasks.GoogleAccountManager;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
@@ -58,6 +59,7 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
   @Inject ThemeCache themeCache;
   @Inject ThemeColor themeColor;
   @Inject TaskDeleter taskDeleter;
+  @Inject GoogleAccountManager googleAccountManager;
 
   @BindView(R.id.name)
   TextInputEditText name;
@@ -204,10 +206,10 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
 
     if (isNewList) {
       showProgressIndicator();
-      createListViewModel.createList(context, gtasksList.getAccount(), newName);
+      createListViewModel.createList(googleAccountManager, gtasksList.getAccount(), newName);
     } else if (nameChanged()) {
       showProgressIndicator();
-      renameListViewModel.renameList(context, gtasksList, newName);
+      renameListViewModel.renameList(googleAccountManager, gtasksList, newName);
     } else {
       if (colorChanged()) {
         gtasksList.setColor(selectedTheme);
@@ -248,7 +250,7 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
             R.string.delete,
             (dialog, which) -> {
               showProgressIndicator();
-              deleteListViewModel.deleteList(context, gtasksList);
+              deleteListViewModel.deleteList(googleAccountManager, gtasksList);
             })
         .setNegativeButton(android.R.string.cancel, null)
         .show();

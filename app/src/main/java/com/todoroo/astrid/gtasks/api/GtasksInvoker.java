@@ -1,13 +1,14 @@
 package com.todoroo.astrid.gtasks.api;
 
-import android.content.Context;
-import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
+import android.accounts.AccountManager;
+import android.os.Bundle;
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpResponse;
+import com.google.api.client.http.HttpResponseException;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.GenericJson;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.tasks.Tasks;
 import com.google.api.services.tasks.TasksRequest;
 import com.google.api.services.tasks.TasksScopes;
@@ -15,8 +16,8 @@ import com.google.api.services.tasks.model.Task;
 import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
 import java.io.IOException;
-import java.util.Collections;
 import org.tasks.BuildConfig;
+import org.tasks.gtasks.GoogleAccountManager;
 import timber.log.Timber;
 
 /**
@@ -27,15 +28,26 @@ import timber.log.Timber;
  */
 public class GtasksInvoker {
 
-  private final Tasks service;
+  private final String account;
+  private final GoogleAccountManager googleAccountManager;
+  private Tasks service;
+  private GoogleCredential credential;
 
-  public GtasksInvoker(Context context, String account) {
-    GoogleAccountCredential credential =
-        GoogleAccountCredential.usingOAuth2(context, Collections.singletonList(TasksScopes.TASKS))
-            .setBackOff(new ExponentialBackOff.Builder().build())
-            .setSelectedAccountName(account);
+  public GtasksInvoker(String account, GoogleAccountManager googleAccountManager) {
+    this.account = account;
+    this.googleAccountManager = googleAccountManager;
+    initializeService();
+  }
+
+  private void initializeService() {
+    Bundle bundle = googleAccountManager.getAccessToken(account, TasksScopes.TASKS);
+    String token = bundle.getString(AccountManager.KEY_AUTHTOKEN);
+    credential = new GoogleCredential().setAccessToken(token);
     service =
-        new Tasks.Builder(new NetHttpTransport(), new JacksonFactory(), credential)
+        new Tasks.Builder(
+                new NetHttpTransport(),
+                new JacksonFactory(),
+            credential)
             .setApplicationName(String.format("Tasks/%s", BuildConfig.VERSION_NAME))
             .build();
   }
@@ -103,10 +115,25 @@ public class GtasksInvoker {
   }
 
   private synchronized <T> T execute(TasksRequest<T> request) throws IOException {
+    return execute(request, false);
+  }
+
+  private synchronized <T> T execute(TasksRequest<T> request, boolean retry) throws IOException {
     String caller = getCaller();
     Timber.d("%s request: %s", caller, request);
     HttpRequest httpRequest = request.buildHttpRequest();
-    HttpResponse httpResponse = httpRequest.execute();
+    HttpResponse httpResponse;
+    try {
+      httpResponse = httpRequest.execute();
+    } catch (HttpResponseException e) {
+      if (e.getStatusCode() == 401 && !retry) {
+        googleAccountManager.invalidateToken(credential.getAccessToken());
+        initializeService();
+        return execute(request, true);
+      } else {
+        throw e;
+      }
+    }
     T response = httpResponse.parseAs(request.getResponseClass());
     Timber.d("%s response: %s", caller, prettyPrint(response));
     return response;

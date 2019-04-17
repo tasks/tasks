@@ -3,14 +3,6 @@
   xmlns:tools="http://schemas.android.com/tools"
   package="org.tasks">
 
-  <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
-
-  <!-- **************** -->
-  <!-- google task sync -->
-  <!-- **************** -->
-  <uses-permission android:name="com.google.android.googleapps.permission.GOOGLE_AUTH"/>
-  <uses-permission android:name="android.permission.GET_ACCOUNTS" android:maxSdkVersion="25"/>
-
   <application tools:ignore="GoogleAppIndexingWarning">
 
     <meta-data
@@ -26,16 +18,6 @@
       android:value="@integer/google_play_services_version"/>
 
     <service android:name=".location.GeofenceTransitionsIntentService"/>
-
-    <activity android:name=".activities.GoogleTaskListSettingsActivity"/>
-
-    <activity
-      android:name="com.todoroo.astrid.gtasks.auth.GtasksLoginActivity"
-      android:theme="@style/TranslucentDialog"/>
-
-    <activity
-        android:name=".drive.DriveLoginActivity"
-        android:theme="@style/TranslucentDialog" />
   </application>
 
 </manifest>
