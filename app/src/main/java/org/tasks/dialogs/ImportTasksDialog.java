@@ -2,6 +2,7 @@ package org.tasks.dialogs;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -45,7 +46,11 @@ public class ImportTasksDialog extends InjectingNativeDialogFragment {
     progressDialog.show();
     setCancelable(false);
     try {
-      String extension = MimeTypeMap.getFileExtensionFromUrl(data.getPath());
+      String extension =
+          data.getScheme().equals(ContentResolver.SCHEME_CONTENT)
+              ? MimeTypeMap.getSingleton()
+                  .getExtensionFromMimeType(context.getContentResolver().getType(data))
+              : MimeTypeMap.getFileExtensionFromUrl(data.getPath());
       switch (extension) {
         case "json":
           jsonImporter.importTasks(getActivity(), data, progressDialog);
@@ -56,7 +61,7 @@ public class ImportTasksDialog extends InjectingNativeDialogFragment {
           tracker.reportEvent(Tracking.Events.IMPORT_XML);
           break;
         default:
-          throw new IOException("Invalid file type");
+          throw new IOException("Invalid file type: " + extension);
       }
       return progressDialog;
     } catch (IOException e) {
