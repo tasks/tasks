@@ -486,6 +486,7 @@
 	<string name="themes">Zusätzliche Themes</string>
 	<string name="pro_caldav_sync">CalDAV-Synchronisierung</string>
 	<string name="pro_multiple_google_task_accounts">Mehrere Google-Tasks-Konten</string>
+	<string name="pro_google_places_search">Google-Ortssuche</string>
 	<string name="pro_tasker_plugins">Tasker Plugins</string>
 	<string name="pro_dashclock_extension">Dashclock-Erweiterung</string>
 	<string name="requires_pro_subscription">Pro-Freischaltung benötigt</string>
@@ -515,4 +516,6 @@
 	<string name="location_permission_required_location">Standortberechtigung wird zur Ermittlung des aktuellen Standortes benötigt</string>
 	<string name="open_map">Karte öffnen</string>
 	<string name="choose_new_location">Neuen Ort auswählen</string>
+	<string name="third_party_licenses">Drittsoftware-Lizenzen</string>
+	<string name="changelog">Änderungshistorie</string>
 </resources>

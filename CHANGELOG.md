@@ -1,5 +1,25 @@
 Change Log
 ---
+### 6.6.2 (2019-04-22)
+
+* Backup and restore preferences
+* Google Task performance improvements
+* Google Task and Drive support added to F-Droid and Amazon
+* Add third-party licenses, changelog, and version info
+* Fix backup import crash
+* Fix widget bugs
+* Update translations
+  * Dutch - revdbrink
+  * German - marmo
+  * French - Florian_Dubois, mathieufoucher
+  * Hebrew - elazar
+  * Hungarian - kaciokos
+  * Japanese - naofumi
+  * Lithuanian - gacuxz
+  * Spanish - i2nm7s
+  * Turkish - etc
+  * Ukrainian - nathalier
+
 ### 6.6.1 (2019-04-15)
 
 * Fix crash on devices running Android 5.1 and below

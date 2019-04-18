@@ -528,4 +528,7 @@
 	<string name="location_permission_required_location">A jelenlegi pozíció meghatározásához helymeghatározási jogosultság szükséges</string>
 	<string name="open_map">Térkép megnyitása</string>
 	<string name="choose_new_location">Új hely kiválasztása</string>
+	<string name="third_party_licenses">Harmadik fél licenszei</string>
+	<string name="changelog">Változások</string>
+	<string name="version_string">Verzió %s</string>
 </resources>

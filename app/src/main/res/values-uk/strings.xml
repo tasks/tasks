@@ -473,10 +473,10 @@
 	<string name="dont_sync">Не синхронізувати</string>
 	<string name="repeat_monthly_every_day_of_nth_week">що %1$s %2$s</string>
 	<string name="repeat_monthly_on_every_day_of_nth_week">що %1$s %2$s</string>
-	<string name="repeat_monthly_first_week">першого(ї)</string>
-	<string name="repeat_monthly_second_week">другого(ї)</string>
-	<string name="repeat_monthly_third_week">третього(ї)</string>
-	<string name="repeat_monthly_fourth_week">четвертого(ї)</string>
+	<string name="repeat_monthly_first_week">перший(а)</string>
+	<string name="repeat_monthly_second_week">другий(а)</string>
+	<string name="repeat_monthly_third_week">третій(я)</string>
+	<string name="repeat_monthly_fourth_week">четвертий(а)</string>
 	<string name="repeat_monthly_last_week">останнього</string>
 	<string name="tasker_create_task">Створити завдання</string>
 	<string name="tasker_list_notification">Список повідомлень</string>
@@ -529,4 +529,7 @@
 	<string name="location_permission_required_location">Щоб визначити ваше місцезнаходження необхідний дозвіл на перегляд місцезнаходження </string>
 	<string name="open_map">Відкрити карту</string>
 	<string name="choose_new_location">Обрати нове місце</string>
+	<string name="third_party_licenses">Ліцензії третіх сторін</string>
+	<string name="changelog">Журнал змін</string>
+	<string name="version_string">Версія %s</string>
 </resources>

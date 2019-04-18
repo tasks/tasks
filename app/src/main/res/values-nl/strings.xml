@@ -486,6 +486,7 @@
 	<string name="themes">Extra thema\'s</string>
 	<string name="pro_caldav_sync">CalDAV synchroniseren</string>
 	<string name="pro_multiple_google_task_accounts">Meerdere Google Task accounts</string>
+	<string name="pro_google_places_search">Google Plaatsen zoeken</string>
 	<string name="pro_dashclock_extension">Dashclock extentie</string>
 	<string name="requires_pro_subscription">Pro aanmelding vereist</string>
 	<string name="logout">Uitloggen</string>
@@ -514,4 +515,7 @@
 	<string name="location_permission_required_location">Locatie rechten zijn nodig om je huidige locatie te vinden</string>
 	<string name="open_map">Open kaart</string>
 	<string name="choose_new_location">Kies nieuwe locatie</string>
+	<string name="third_party_licenses">Third-party licensies</string>
+	<string name="changelog">Wijzigingenlijst</string>
+	<string name="version_string">Versie %s</string>
 </resources>

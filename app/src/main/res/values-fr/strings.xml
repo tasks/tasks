@@ -350,7 +350,7 @@
 	<string name="send_anonymous_statistics_summary">Envoyer des statistiques anonymes d\'usage et les rapports de plantage afin d\'aider à l\'amélioration de Tasks. Aucune donnée personnelle ne sera collectée.</string>
 	<string name="tag_already_exists">Le tag existe déjà</string>
 	<string name="duplicate_name">Nom dupliqué</string>
-	<string name="name_cannot_be_empty">Le nom ne peut pas être vide</string>
+	<string name="name_cannot_be_empty">Le nom doit être renseigné</string>
 	<string name="username_required">Nom d\'utilisateur requis</string>
 	<string name="password_required">Mot de passe requis</string>
 	<string name="url_required">Adresse URL requise</string>
@@ -508,4 +508,6 @@ est configuré correctement</string>
 	<string name="location_permission_required_location">La permission de la localisation est nécessaire pour trouver votre localisation actuelle</string>
 	<string name="open_map">Ouvrir la carte</string>
 	<string name="choose_new_location">Choisir une nouvelle localisation</string>
+	<string name="third_party_licenses">Licences tierces</string>
+	<string name="changelog">Journal des changements</string>
 </resources>

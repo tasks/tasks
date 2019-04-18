@@ -531,4 +531,7 @@ uygulamanızın doğru kurulduğundan emin olun.</string>
 	<string name="location_permission_required_location">Geçerli konumunuzu bulmak için konum izinleri gereklidir</string>
 	<string name="open_map">Haritayı aç</string>
 	<string name="choose_new_location">Yeni konum seç</string>
+	<string name="third_party_licenses">Üçüncü taraf lisanslar</string>
+	<string name="changelog">Değişim Günlüğü</string>
+	<string name="version_string">Sürüm %s</string>
 </resources>

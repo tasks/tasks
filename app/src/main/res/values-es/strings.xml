@@ -522,4 +522,7 @@
 	<string name="location_permission_required_location">Son necesarios permisos de ubicación para encontrar tu ubicación actual</string>
 	<string name="open_map">Abrir mapa</string>
 	<string name="choose_new_location">Escoger nueva ubicación</string>
+	<string name="third_party_licenses">Licencias de terceros</string>
+	<string name="changelog">Registro de cambios</string>
+	<string name="version_string">Versión %s</string>
 </resources>

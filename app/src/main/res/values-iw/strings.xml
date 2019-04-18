@@ -529,4 +529,7 @@
 	<string name="location_permission_required_location">הרשאות מיקום נדרשות על מנת למצוא את מיקומך הנוכחי</string>
 	<string name="open_map">פתיחת מפה</string>
 	<string name="choose_new_location">בחירת מיקום חדש</string>
+	<string name="third_party_licenses">רשיונות צד ג\'</string>
+	<string name="changelog">רישומון שינויים</string>
+	<string name="version_string">גירסה %s</string>
 </resources>
