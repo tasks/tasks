@@ -132,6 +132,7 @@ public class GoogleTaskSynchronizer {
       try {
         if (i == 0 || inventory.hasPro()) {
           synchronize(account);
+          account.setError("");
         } else {
           account.setError(context.getString(R.string.requires_pro_subscription));
         }
@@ -158,7 +159,8 @@ public class GoogleTaskSynchronizer {
     PendingIntent resolve =
         PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     NotificationCompat.Builder builder =
-        new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_MISCELLANEOUS)
+        new NotificationCompat.Builder(
+                context, NotificationManager.NOTIFICATION_CHANNEL_MISCELLANEOUS)
             .setAutoCancel(true)
             .setContentIntent(resolve)
             .setContentTitle(context.getString(R.string.sync_error_permissions))
@@ -184,10 +186,15 @@ public class GoogleTaskSynchronizer {
 
     List<TaskList> gtaskLists = new ArrayList<>();
     String nextPageToken = null;
+    String eTag = null;
     do {
       TaskLists remoteLists = gtasksInvoker.allGtaskLists(nextPageToken);
       if (remoteLists == null) {
         break;
+      }
+      eTag = remoteLists.getEtag();
+      if (!Strings.isNullOrEmpty(eTag) && eTag.equals(account.getEtag())) {
+        return;
       }
       List<TaskList> items = remoteLists.getItems();
       if (items != null) {
@@ -207,7 +214,7 @@ public class GoogleTaskSynchronizer {
     for (final GoogleTaskList list : gtasksListService.getListsToUpdate(gtaskLists)) {
       fetchAndApplyRemoteChanges(gtasksInvoker, list);
     }
-    account.setError("");
+    account.setEtag(eTag);
   }
 
   private void pushLocalChanges(GoogleTaskAccount account, GtasksInvoker gtasksInvoker)
@@ -333,11 +340,7 @@ public class GoogleTaskSynchronizer {
       do {
         Tasks taskList =
             gtasksInvoker.getAllGtasksFromListId(
-                listId,
-                includeDeletedAndHidden,
-                includeDeletedAndHidden,
-                lastSyncDate + 1000L,
-                nextPageToken);
+                listId, includeDeletedAndHidden, lastSyncDate + 1000L, nextPageToken);
         if (taskList == null) {
           break;
         }
@@ -348,38 +351,36 @@ public class GoogleTaskSynchronizer {
         nextPageToken = taskList.getNextPageToken();
       } while (nextPageToken != null);
 
-      if (!tasks.isEmpty()) {
-        for (com.google.api.services.tasks.model.Task gtask : tasks) {
-          String remoteId = gtask.getId();
-          GoogleTask googleTask = getMetadataByGtaskId(remoteId);
-          Task task = null;
-          if (googleTask == null) {
-            googleTask = new GoogleTask(0, "");
-          } else if (googleTask.getTask() > 0) {
-            task = taskDao.fetch(googleTask.getTask());
-          }
-          Boolean isDeleted = gtask.getDeleted();
-          Boolean isHidden = gtask.getHidden();
-          if ((isDeleted != null && isDeleted) || (isHidden != null && isHidden)) {
-            if (task != null) {
-              taskDeleter.delete(task);
-            }
-            continue;
-          }
-          if (task == null) {
-            task = taskCreator.createWithValues("");
-          }
-          GtasksTaskContainer container = new GtasksTaskContainer(gtask, task, listId, googleTask);
-          container.gtaskMetadata.setRemoteOrder(Long.parseLong(gtask.getPosition()));
-          container.gtaskMetadata.setParent(localIdForGtasksId(gtask.getParent()));
-          container.gtaskMetadata.setLastSync(DateUtilities.now() + 1000L);
-          write(container);
-          lastSyncDate = Math.max(lastSyncDate, container.getUpdateTime());
+      for (com.google.api.services.tasks.model.Task gtask : tasks) {
+        String remoteId = gtask.getId();
+        GoogleTask googleTask = getMetadataByGtaskId(remoteId);
+        Task task = null;
+        if (googleTask == null) {
+          googleTask = new GoogleTask(0, "");
+        } else if (googleTask.getTask() > 0) {
+          task = taskDao.fetch(googleTask.getTask());
         }
-        list.setLastSync(lastSyncDate);
-        googleTaskListDao.insertOrReplace(list);
-        gtasksTaskListUpdater.correctOrderAndIndentForList(listId);
+        Boolean isDeleted = gtask.getDeleted();
+        Boolean isHidden = gtask.getHidden();
+        if ((isDeleted != null && isDeleted) || (isHidden != null && isHidden)) {
+          if (task != null) {
+            taskDeleter.delete(task);
+          }
+          continue;
+        }
+        if (task == null) {
+          task = taskCreator.createWithValues("");
+        }
+        GtasksTaskContainer container = new GtasksTaskContainer(gtask, task, listId, googleTask);
+        container.gtaskMetadata.setRemoteOrder(Long.parseLong(gtask.getPosition()));
+        container.gtaskMetadata.setParent(localIdForGtasksId(gtask.getParent()));
+        container.gtaskMetadata.setLastSync(DateUtilities.now() + 1000L);
+        write(container);
+        lastSyncDate = Math.max(lastSyncDate, container.getUpdateTime());
       }
+      list.setLastSync(lastSyncDate);
+      googleTaskListDao.insertOrReplace(list);
+      gtasksTaskListUpdater.correctOrderAndIndentForList(listId);
     } catch (UserRecoverableAuthIOException e) {
       throw e;
     } catch (IOException e) {

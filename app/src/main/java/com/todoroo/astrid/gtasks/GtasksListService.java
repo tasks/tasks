@@ -98,16 +98,15 @@ public class GtasksListService {
     List<GoogleTaskList> listsToUpdate = newArrayList();
     for (TaskList remoteList : remoteLists) {
       GoogleTaskList localList = getList(remoteList.getId());
-      String listName = localList.getTitle();
-      Long lastSync = localList.getLastSync();
+      long lastSync = localList.getLastSync();
       long lastUpdate = remoteList.getUpdated().getValue();
       if (lastSync < lastUpdate) {
         listsToUpdate.add(localList);
         Timber.d(
             "%s out of date [local=%s] [remote=%s]",
-            listName, printTimestamp(lastSync), printTimestamp(lastUpdate));
+            localList.getTitle(), printTimestamp(lastSync), printTimestamp(lastUpdate));
       } else {
-        Timber.d("%s up to date", listName);
+        Timber.d("%s up to date", localList.getTitle());
       }
     }
     return listsToUpdate;

@@ -32,6 +32,9 @@ public class GoogleTaskAccount implements Parcelable {
   @ColumnInfo(name = "error")
   private transient String error = "";
 
+  @ColumnInfo(name = "etag")
+  private String etag;
+
   public GoogleTaskAccount() {}
 
   @Ignore
@@ -39,6 +42,7 @@ public class GoogleTaskAccount implements Parcelable {
     id = source.readLong();
     account = source.readString();
     error = source.readString();
+    etag = source.readString();
   }
 
   @Ignore
@@ -70,12 +74,20 @@ public class GoogleTaskAccount implements Parcelable {
     this.error = error;
   }
 
+  public String getEtag() {
+    return etag;
+  }
+
+  public void setEtag(String etag) {
+    this.etag = etag;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof GoogleTaskAccount)) {
+    if (o == null || getClass() != o.getClass()) {
       return false;
     }
 
@@ -87,7 +99,10 @@ public class GoogleTaskAccount implements Parcelable {
     if (account != null ? !account.equals(that.account) : that.account != null) {
       return false;
     }
-    return error != null ? error.equals(that.error) : that.error == null;
+    if (error != null ? !error.equals(that.error) : that.error != null) {
+      return false;
+    }
+    return etag != null ? etag.equals(that.etag) : that.etag == null;
   }
 
   @Override
@@ -95,6 +110,7 @@ public class GoogleTaskAccount implements Parcelable {
     int result = (int) (id ^ (id >>> 32));
     result = 31 * result + (account != null ? account.hashCode() : 0);
     result = 31 * result + (error != null ? error.hashCode() : 0);
+    result = 31 * result + (etag != null ? etag.hashCode() : 0);
     return result;
   }
 
@@ -109,6 +125,9 @@ public class GoogleTaskAccount implements Parcelable {
         + ", error='"
         + error
         + '\''
+        + ", etag='"
+        + etag
+        + '\''
         + '}';
   }
 
@@ -122,5 +141,6 @@ public class GoogleTaskAccount implements Parcelable {
     dest.writeLong(id);
     dest.writeString(account);
     dest.writeString(error);
+    dest.writeString(etag);
   }
 }

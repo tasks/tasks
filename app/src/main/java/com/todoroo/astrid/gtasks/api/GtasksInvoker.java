@@ -2,6 +2,7 @@ package com.todoroo.astrid.gtasks.api;
 
 import android.accounts.AccountManager;
 import android.os.Bundle;
+import androidx.annotation.Nullable;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpResponse;
@@ -44,37 +45,31 @@ public class GtasksInvoker {
     String token = bundle.getString(AccountManager.KEY_AUTHTOKEN);
     credential = new GoogleCredential().setAccessToken(token);
     service =
-        new Tasks.Builder(
-                new NetHttpTransport(),
-                new JacksonFactory(),
-            credential)
+        new Tasks.Builder(new NetHttpTransport(), new JacksonFactory(), credential)
             .setApplicationName(String.format("Tasks/%s", BuildConfig.VERSION_NAME))
             .build();
   }
 
-  public TaskLists allGtaskLists(String pageToken) throws IOException {
-    return execute(service.tasklists().list().setPageToken(pageToken));
+  public @Nullable TaskLists allGtaskLists(@Nullable String pageToken) throws IOException {
+    return execute(service.tasklists().list().setMaxResults(100L).setPageToken(pageToken));
   }
 
-  public com.google.api.services.tasks.model.Tasks getAllGtasksFromListId(
-      String listId,
-      boolean includeDeleted,
-      boolean includeHidden,
-      long lastSyncDate,
-      String pageToken)
+  public @Nullable com.google.api.services.tasks.model.Tasks getAllGtasksFromListId(
+      String listId, boolean includeHiddenAndDeleted, long lastSyncDate, @Nullable String pageToken)
       throws IOException {
     return execute(
         service
             .tasks()
             .list(listId)
-            .setShowDeleted(includeDeleted)
-            .setShowHidden(includeHidden)
+            .setMaxResults(100L)
+            .setShowDeleted(includeHiddenAndDeleted)
+            .setShowHidden(includeHiddenAndDeleted)
             .setPageToken(pageToken)
             .setUpdatedMin(
                 GtasksApiUtilities.unixTimeToGtasksCompletionTime(lastSyncDate).toStringRfc3339()));
   }
 
-  public Task createGtask(String listId, Task task, String parent, String priorSiblingId)
+  public @Nullable Task createGtask(String listId, Task task, String parent, String priorSiblingId)
       throws IOException {
     Timber.d("createGtask: %s", prettyPrint(task));
     return execute(
@@ -86,6 +81,7 @@ public class GtasksInvoker {
     execute(service.tasks().update(listId, task.getId(), task));
   }
 
+  @Nullable
   Task moveGtask(String listId, String taskId, String parentId, String previousId)
       throws IOException {
     return execute(
@@ -99,11 +95,11 @@ public class GtasksInvoker {
     }
   }
 
-  public TaskList renameGtaskList(String listId, String title) throws IOException {
+  public @Nullable TaskList renameGtaskList(String listId, String title) throws IOException {
     return execute(service.tasklists().patch(listId, new TaskList().setTitle(title)));
   }
 
-  public TaskList createGtaskList(String title) throws IOException {
+  public @Nullable TaskList createGtaskList(String title) throws IOException {
     return execute(service.tasklists().insert(new TaskList().setTitle(title)));
   }
 
@@ -114,11 +110,12 @@ public class GtasksInvoker {
     }
   }
 
-  private synchronized <T> T execute(TasksRequest<T> request) throws IOException {
+  private synchronized @Nullable <T> T execute(TasksRequest<T> request) throws IOException {
     return execute(request, false);
   }
 
-  private synchronized <T> T execute(TasksRequest<T> request, boolean retry) throws IOException {
+  private synchronized @Nullable <T> T execute(TasksRequest<T> request, boolean retry)
+      throws IOException {
     String caller = getCaller();
     Timber.d("%s request: %s", caller, request);
     HttpRequest httpRequest = request.buildHttpRequest();

@@ -222,11 +222,23 @@ public class Migrations {
       new Migration(60, 61) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
-          database.execSQL("CREATE TABLE IF NOT EXISTS `places` (`place_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `uid` TEXT, `name` TEXT, `address` TEXT, `phone` TEXT, `url` TEXT, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL)");
-          database.execSQL("CREATE TABLE IF NOT EXISTS `geofences` (`geofence_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `task` INTEGER NOT NULL, `place` TEXT, `radius` INTEGER NOT NULL, `arrival` INTEGER NOT NULL, `departure` INTEGER NOT NULL)");
-          database.execSQL("INSERT INTO `places` (`place_id`, `uid`, `name`, `address`, `phone`, `url`, `latitude`, `longitude`) SELECT `_id`, hex(randomblob(16)), `name`, `address`, `phone`, `url`, `latitude`, `longitude` FROM `locations`");
-          database.execSQL("INSERT INTO `geofences` (`geofence_id`, `task`, `place`, `radius`, `arrival`, `departure`) SELECT `_id`, `task`, `uid`, `radius`, `arrival`, `departure` FROM `locations` INNER JOIN `places` ON `_id` = `place_id`");
+          database.execSQL(
+              "CREATE TABLE IF NOT EXISTS `places` (`place_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `uid` TEXT, `name` TEXT, `address` TEXT, `phone` TEXT, `url` TEXT, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL)");
+          database.execSQL(
+              "CREATE TABLE IF NOT EXISTS `geofences` (`geofence_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `task` INTEGER NOT NULL, `place` TEXT, `radius` INTEGER NOT NULL, `arrival` INTEGER NOT NULL, `departure` INTEGER NOT NULL)");
+          database.execSQL(
+              "INSERT INTO `places` (`place_id`, `uid`, `name`, `address`, `phone`, `url`, `latitude`, `longitude`) SELECT `_id`, hex(randomblob(16)), `name`, `address`, `phone`, `url`, `latitude`, `longitude` FROM `locations`");
+          database.execSQL(
+              "INSERT INTO `geofences` (`geofence_id`, `task`, `place`, `radius`, `arrival`, `departure`) SELECT `_id`, `task`, `uid`, `radius`, `arrival`, `departure` FROM `locations` INNER JOIN `places` ON `_id` = `place_id`");
           database.execSQL("DROP TABLE `locations`");
+        }
+      };
+
+  private static final Migration MIGRATION_61_62 =
+      new Migration(61, 62) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+          database.execSQL("ALTER TABLE `google_task_accounts` ADD COLUMN `etag` TEXT");
         }
       };
 
@@ -248,7 +260,8 @@ public class Migrations {
         MIGRATION_54_58,
         MIGRATION_58_59,
         MIGRATION_59_60,
-        MIGRATION_60_61
+        MIGRATION_60_61,
+        MIGRATION_61_62
       };
 
   private static Migration NOOP(int from, int to) {
