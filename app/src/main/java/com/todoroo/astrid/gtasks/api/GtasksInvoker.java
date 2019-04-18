@@ -4,8 +4,6 @@ import android.accounts.AccountManager;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
-import com.google.api.client.http.HttpRequest;
-import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpResponseException;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.GenericJson;
@@ -16,6 +14,7 @@ import com.google.api.services.tasks.TasksScopes;
 import com.google.api.services.tasks.model.Task;
 import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
+import com.google.common.base.Strings;
 import java.io.IOException;
 import org.tasks.BuildConfig;
 import org.tasks.gtasks.GoogleAccountManager;
@@ -31,23 +30,23 @@ public class GtasksInvoker {
 
   private final String account;
   private final GoogleAccountManager googleAccountManager;
-  private Tasks service;
-  private GoogleCredential credential;
+  private final Tasks service;
+  private final GoogleCredential credential = new GoogleCredential();
 
   public GtasksInvoker(String account, GoogleAccountManager googleAccountManager) {
     this.account = account;
     this.googleAccountManager = googleAccountManager;
-    initializeService();
-  }
-
-  private void initializeService() {
-    Bundle bundle = googleAccountManager.getAccessToken(account, TasksScopes.TASKS);
-    String token = bundle.getString(AccountManager.KEY_AUTHTOKEN);
-    credential = new GoogleCredential().setAccessToken(token);
     service =
         new Tasks.Builder(new NetHttpTransport(), new JacksonFactory(), credential)
             .setApplicationName(String.format("Tasks/%s", BuildConfig.VERSION_NAME))
             .build();
+  }
+
+  private void checkToken() {
+    if (Strings.isNullOrEmpty(credential.getAccessToken())) {
+      Bundle bundle = googleAccountManager.getAccessToken(account, TasksScopes.TASKS);
+      credential.setAccessToken(bundle.getString(AccountManager.KEY_AUTHTOKEN));
+    }
   }
 
   public @Nullable TaskLists allGtaskLists(@Nullable String pageToken) throws IOException {
@@ -116,23 +115,21 @@ public class GtasksInvoker {
 
   private synchronized @Nullable <T> T execute(TasksRequest<T> request, boolean retry)
       throws IOException {
-    String caller = getCaller();
-    Timber.d("%s request: %s", caller, request);
-    HttpRequest httpRequest = request.buildHttpRequest();
-    HttpResponse httpResponse;
+    checkToken();
+    Timber.d("%s request: %s", getCaller(), request);
+    T response;
     try {
-      httpResponse = httpRequest.execute();
+      response = request.execute();
     } catch (HttpResponseException e) {
       if (e.getStatusCode() == 401 && !retry) {
         googleAccountManager.invalidateToken(credential.getAccessToken());
-        initializeService();
+        credential.setAccessToken(null);
         return execute(request, true);
       } else {
         throw e;
       }
     }
-    T response = httpResponse.parseAs(request.getResponseClass());
-    Timber.d("%s response: %s", caller, prettyPrint(response));
+    Timber.d("%s response: %s", getCaller(), prettyPrint(response));
     return response;
   }
 

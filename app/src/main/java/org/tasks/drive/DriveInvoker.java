@@ -1,17 +1,20 @@
 package org.tasks.drive;
 
+import android.accounts.AccountManager;
 import android.content.Context;
 import android.net.Uri;
-import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
+import android.os.Bundle;
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+import com.google.api.client.http.HttpResponseException;
 import com.google.api.client.http.InputStreamContent;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.GenericJson;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveRequest;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
+import com.google.common.base.Strings;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
@@ -19,6 +22,7 @@ import javax.inject.Inject;
 import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.files.FileHelper;
+import org.tasks.gtasks.GoogleAccountManager;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
@@ -27,25 +31,31 @@ public class DriveInvoker {
 
   private static final String MIME_FOLDER = "application/vnd.google-apps.folder";
 
-  private final Drive service;
   private final Context context;
+  private final Preferences preferences;
+  private final GoogleAccountManager googleAccountManager;
+  private final Drive service;
+  private final GoogleCredential credential = new GoogleCredential();
 
   @Inject
-  public DriveInvoker(@ForApplication Context context, Preferences preferences) {
+  public DriveInvoker(
+      @ForApplication Context context,
+      Preferences preferences,
+      GoogleAccountManager googleAccountManager) {
     this.context = context;
-    if (preferences.getBoolean(R.string.p_google_drive_backup, false)) {
-      GoogleAccountCredential credential =
-          GoogleAccountCredential.usingOAuth2(
-                  context, Collections.singletonList(DriveScopes.DRIVE_FILE))
-              .setBackOff(new ExponentialBackOff.Builder().build())
-              .setSelectedAccountName(
-                  preferences.getStringValue(R.string.p_google_drive_backup_account));
-      service =
-          new Drive.Builder(new NetHttpTransport(), new JacksonFactory(), credential)
-              .setApplicationName(String.format("Tasks/%s", BuildConfig.VERSION_NAME))
-              .build();
-    } else {
-      service = null;
+    this.preferences = preferences;
+    this.googleAccountManager = googleAccountManager;
+    service =
+        new Drive.Builder(new NetHttpTransport(), new JacksonFactory(), credential)
+            .setApplicationName(String.format("Tasks/%s", BuildConfig.VERSION_NAME))
+            .build();
+  }
+
+  private void checkToken() {
+    if (Strings.isNullOrEmpty(credential.getAccessToken())) {
+      String account = preferences.getStringValue(R.string.p_google_drive_backup_account);
+      Bundle bundle = googleAccountManager.getAccessToken(account, DriveScopes.DRIVE_FILE);
+      credential.setAccessToken(bundle.getString(AccountManager.KEY_AUTHTOKEN));
     }
   }
 
@@ -91,10 +101,25 @@ public class DriveInvoker {
   }
 
   private synchronized <T> T execute(DriveRequest<T> request) throws IOException {
-    String caller = getCaller();
-    Timber.d("%s request: %s", caller, request);
-    T response = request.execute();
-    Timber.d("%s response: %s", caller, prettyPrint(response));
+    return execute(request, false);
+  }
+
+  private synchronized <T> T execute(DriveRequest<T> request, boolean retry) throws IOException {
+    checkToken();
+    Timber.d("%s request: %s", getCaller(), request);
+    T response;
+    try {
+      response = request.execute();
+    } catch (HttpResponseException e) {
+      if (e.getStatusCode() == 401 && !retry) {
+        googleAccountManager.invalidateToken(credential.getAccessToken());
+        credential.setAccessToken(null);
+        return execute(request, true);
+      } else {
+        throw e;
+      }
+    }
+    Timber.d("%s response: %s", getCaller(), prettyPrint(response));
     return response;
   }
 
