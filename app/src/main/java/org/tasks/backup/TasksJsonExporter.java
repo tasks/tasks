@@ -202,7 +202,11 @@ public class TasksJsonExporter {
             googleTaskListDao.getAccounts(),
             googleTaskListDao.getAllLists(),
             caldavDao.getAccounts(),
-            caldavDao.getCalendars()));
+            caldavDao.getCalendars(),
+            preferences.getPrefs(Integer.class),
+            preferences.getPrefs(Long.class),
+            preferences.getPrefs(String.class),
+            preferences.getPrefs(Boolean.class)));
 
     OutputStreamWriter out = new OutputStreamWriter(os, UTF_8);
     Gson gson = BuildConfig.DEBUG ? new GsonBuilder().setPrettyPrinting().create() : new Gson();

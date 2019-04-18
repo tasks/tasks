@@ -1,6 +1,7 @@
 package org.tasks.preferences;
 
 import static android.content.SharedPreferences.Editor;
+import static com.google.common.collect.Iterables.filter;
 import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Sets.newHashSet;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastKitKat;
@@ -27,6 +28,9 @@ import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.data.Task;
 import java.io.File;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
 import org.tasks.R;
 import org.tasks.billing.Purchase;
@@ -299,7 +303,7 @@ public class Preferences {
     setBoolean(context.getString(keyResource), value);
   }
 
-  void setBoolean(String key, boolean value) {
+  public void setBoolean(String key, boolean value) {
     Editor editor = prefs.edit();
     editor.putBoolean(key, value);
     editor.apply();
@@ -487,5 +491,15 @@ public class Preferences {
 
   public boolean useGooglePlaces() {
     return getInt(R.string.p_place_provider, 0) == 1;
+  }
+
+  public <T> Map<String, T> getPrefs(Class<T> c) {
+    Map<String, T> result = new HashMap<>();
+    Iterable<? extends Entry<String, ?>> entries =
+        filter(prefs.getAll().entrySet(), e -> c.isInstance(e.getValue()));
+    for (Entry<String, ?> entry : entries) {
+      result.put(entry.getKey(), (T) entry.getValue());
+    }
+    return result;
   }
 }

@@ -1,9 +1,11 @@
 package org.tasks.backup;
 
 import static java.util.Collections.emptyList;
+import static java.util.Collections.emptyMap;
 
 import com.todoroo.astrid.data.Task;
 import java.util.List;
+import java.util.Map;
 import org.tasks.backup.TasksJsonImporter.LegacyLocation;
 import org.tasks.data.Alarm;
 import org.tasks.data.CaldavAccount;
@@ -30,6 +32,10 @@ class BackupContainer {
   private final List<GoogleTaskAccount> googleTaskAccounts;
   private final List<CaldavAccount> caldavAccounts;
   private final List<CaldavCalendar> caldavCalendars;
+  private final Map<String, Integer> intPrefs;
+  private final Map<String, Long> longPrefs;
+  private final Map<String, String> stringPrefs;
+  private final Map<String, Boolean> boolPrefs;
 
   BackupContainer(
       List<TaskBackup> tasks,
@@ -39,7 +45,11 @@ class BackupContainer {
       List<GoogleTaskAccount> googleTaskAccounts,
       List<GoogleTaskList> googleTaskLists,
       List<CaldavAccount> caldavAccounts,
-      List<CaldavCalendar> caldavCalendars) {
+      List<CaldavCalendar> caldavCalendars,
+      Map<String, Integer> intPrefs,
+      Map<String, Long> longPrefs,
+      Map<String, String> stringPrefs,
+      Map<String, Boolean> boolPrefs) {
     this.tasks = tasks;
     this.places = places;
     this.tags = tags;
@@ -48,6 +58,10 @@ class BackupContainer {
     this.googleTaskLists = googleTaskLists;
     this.caldavAccounts = caldavAccounts;
     this.caldavCalendars = caldavCalendars;
+    this.intPrefs = intPrefs;
+    this.longPrefs = longPrefs;
+    this.stringPrefs = stringPrefs;
+    this.boolPrefs = boolPrefs;
   }
 
   public List<TaskBackup> getTasks() {
@@ -62,24 +76,40 @@ class BackupContainer {
     return filters == null ? emptyList() : filters;
   }
 
-  public List<GoogleTaskList> getGoogleTaskLists() {
+  List<GoogleTaskList> getGoogleTaskLists() {
     return googleTaskLists == null ? emptyList() : googleTaskLists;
   }
 
-  public List<CaldavAccount> getCaldavAccounts() {
+  List<CaldavAccount> getCaldavAccounts() {
     return caldavAccounts == null ? emptyList() : caldavAccounts;
   }
 
-  public List<CaldavCalendar> getCaldavCalendars() {
+  List<CaldavCalendar> getCaldavCalendars() {
     return caldavCalendars == null ? emptyList() : caldavCalendars;
   }
 
-  public List<GoogleTaskAccount> getGoogleTaskAccounts() {
+  List<GoogleTaskAccount> getGoogleTaskAccounts() {
     return googleTaskAccounts == null ? emptyList() : googleTaskAccounts;
   }
 
   public List<Place> getPlaces() {
     return places == null ? emptyList() : places;
+  }
+
+  Map<String, Integer> getIntPrefs() {
+    return intPrefs == null ? emptyMap() : intPrefs;
+  }
+
+  Map<String, Long> getLongPrefs() {
+    return longPrefs == null ? emptyMap() : longPrefs;
+  }
+
+  Map<String, String> getStringPrefs() {
+    return stringPrefs == null ? emptyMap() : stringPrefs;
+  }
+
+  Map<String, Boolean> getBoolPrefs() {
+    return boolPrefs == null ? emptyMap() : boolPrefs;
   }
 
   static class TaskBackup {

@@ -14,11 +14,11 @@ import com.google.gson.JsonObject;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.helper.UUIDHelper;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Map.Entry;
 import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
@@ -47,6 +47,7 @@ import org.tasks.data.TaskAttachmentDao;
 import org.tasks.data.UserActivity;
 import org.tasks.data.UserActivityDao;
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
 public class TasksJsonImporter {
@@ -63,6 +64,7 @@ public class TasksJsonImporter {
   private final FilterDao filterDao;
   private final TaskAttachmentDao taskAttachmentDao;
   private final CaldavDao caldavDao;
+  private final Preferences preferences;
   private final LocationDao locationDao;
 
   private Activity activity;
@@ -87,7 +89,8 @@ public class TasksJsonImporter {
       GoogleTaskListDao googleTaskListDao,
       FilterDao filterDao,
       TaskAttachmentDao taskAttachmentDao,
-      CaldavDao caldavDao) {
+      CaldavDao caldavDao,
+      Preferences preferences) {
     this.tagDataDao = tagDataDao;
     this.userActivityDao = userActivityDao;
     this.dialogBuilder = dialogBuilder;
@@ -101,6 +104,7 @@ public class TasksJsonImporter {
     this.filterDao = filterDao;
     this.taskAttachmentDao = taskAttachmentDao;
     this.caldavDao = caldavDao;
+    this.preferences = preferences;
   }
 
   private void setProgressMessage(final String message) {
@@ -231,6 +235,18 @@ public class TasksJsonImporter {
           caldavDao.insert(caldavTask);
         }
         importCount++;
+      }
+      for (Entry<String, Integer> entry : backupContainer.getIntPrefs().entrySet()) {
+        preferences.setInt(entry.getKey(), entry.getValue());
+      }
+      for (Entry<String, Long> entry : backupContainer.getLongPrefs().entrySet()) {
+        preferences.setLong(entry.getKey(), entry.getValue());
+      }
+      for (Entry<String, String> entry : backupContainer.getStringPrefs().entrySet()) {
+        preferences.setString(entry.getKey(), entry.getValue());
+      }
+      for (Entry<String, Boolean> entry : backupContainer.getBoolPrefs().entrySet()) {
+        preferences.setBoolean(entry.getKey(), entry.getValue());
       }
       reader.close();
       is.close();
