@@ -138,12 +138,13 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
 
   @Override
   public boolean onMenuItemClick(MenuItem item) {
+    String email = getString(R.string.support_email);
     switch (item.getItemId()) {
       case R.id.menu_contact:
         Intent mailto =
             new Intent(
                 Intent.ACTION_SENDTO,
-                Uri.fromParts("mailto", "Tasks Support <support@tasks.org>", null));
+                Uri.fromParts("mailto", "Alex <" + email + ">", null));
         mailto.putExtra(Intent.EXTRA_SUBJECT, "Tasks Feedback");
         mailto.putExtra(Intent.EXTRA_TEXT, device.getDebugInfo());
         startActivity(mailto);
