@@ -73,12 +73,12 @@
     <Preference
       android:defaultValue="-1"
       android:key="@string/p_map_provider"
-      android:title="@string/map_provider" />
+      android:title="@string/map_provider"/>
 
     <Preference
       android:defaultValue="-1"
       android:key="@string/p_place_provider"
-      android:title="@string/map_search_provider" />
+      android:title="@string/map_search_provider"/>
 
   </PreferenceCategory>
 
@@ -138,6 +138,14 @@
       <intent
         android:action="android.intent.action.VIEW"
         android:data="https://github.com/tasks/tasks"/>
+    </Preference>
+
+    <Preference
+      android:key="@string/changelog"
+      android:title="@string/changelog">
+      <intent
+        android:action="android.intent.action.VIEW"
+        android:data="https://github.com/tasks/tasks/blob/master/CHANGELOG.md"/>
     </Preference>
 
     <Preference

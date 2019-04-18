@@ -226,6 +226,8 @@ public class BasicPreferences extends InjectingPreferenceActivity
           });
     }
 
+    findPreference(R.string.changelog).setSummary(getString(R.string.version_string, BuildConfig.VERSION_NAME));
+
     requires(
         R.string.settings_localization,
         atLeastJellybeanMR1(),
