@@ -22,7 +22,7 @@ public class RefreshWork extends RepeatingWorker {
   @Override
   public Result run() {
     localBroadcastManager.broadcastRefresh();
-    return Result.SUCCESS;
+    return Result.success();
   }
 
   @Override

@@ -47,7 +47,7 @@ public class CleanupWork extends InjectingWorker {
     long[] tasks = getInputData().getLongArray(EXTRA_TASK_IDS);
     if (tasks == null) {
       Timber.e("No task ids provided");
-      return Result.FAILURE;
+      return Result.failure();
     }
     for (long task : tasks) {
       alarmService.cancelAlarms(task);
@@ -64,7 +64,7 @@ public class CleanupWork extends InjectingWorker {
       }
     }
     timerPlugin.updateNotifications();
-    return Result.SUCCESS;
+    return Result.success();
   }
 
   @Override

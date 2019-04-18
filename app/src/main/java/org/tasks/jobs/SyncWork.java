@@ -30,7 +30,7 @@ public class SyncWork extends InjectingWorker {
   public Result run() {
     synchronized (LOCK) {
       if (preferences.isSyncOngoing()) {
-        return Result.RETRY;
+        return Result.retry();
       }
     }
 
@@ -45,7 +45,7 @@ public class SyncWork extends InjectingWorker {
       preferences.setSyncOngoing(false);
       localBroadcastManager.broadcastRefresh();
     }
-    return Result.SUCCESS;
+    return Result.success();
   }
 
   @Override

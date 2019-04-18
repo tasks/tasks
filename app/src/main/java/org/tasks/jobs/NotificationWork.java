@@ -31,7 +31,7 @@ public class NotificationWork extends RepeatingWorker {
         throw new RuntimeException("Failed to remove jobs from queue");
       }
     }
-    return Result.SUCCESS;
+    return Result.success();
   }
 
   @Override
