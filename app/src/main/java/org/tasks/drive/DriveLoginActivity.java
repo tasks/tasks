@@ -10,7 +10,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import com.todoroo.andlib.utility.DialogUtilities;
-import io.reactivex.disposables.CompositeDisposable;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
@@ -28,12 +27,11 @@ import org.tasks.preferences.Preferences;
  */
 public class DriveLoginActivity extends InjectingAppCompatActivity {
 
-  private static final int RC_CHOOSE_ACCOUNT = 10988;
   public static final String EXTRA_ERROR = "extra_error";
+  private static final int RC_CHOOSE_ACCOUNT = 10988;
   @Inject DialogBuilder dialogBuilder;
   @Inject GoogleAccountManager googleAccountManager;
   @Inject Preferences preferences;
-  private CompositeDisposable disposables;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -56,37 +54,26 @@ public class DriveLoginActivity extends InjectingAppCompatActivity {
     getAuthToken(account, pd);
   }
 
-  @Override
-  protected void onPause() {
-    super.onPause();
-
-    if (disposables != null) {
-      disposables.dispose();
-    }
-  }
-
   private void getAuthToken(String a, final ProgressDialog pd) {
-    disposables =
-        new CompositeDisposable(
-            googleAccountManager.getDriveAuthToken(
-                this,
-                a,
-                new AuthResultHandler() {
-                  @Override
-                  public void authenticationSuccessful(String accountName) {
-                    preferences.setString(R.string.p_google_drive_backup_account, accountName);
-                    setResult(RESULT_OK);
-                    DialogUtilities.dismissDialog(DriveLoginActivity.this, pd);
-                    finish();
-                  }
+    googleAccountManager.getDriveAuthToken(
+        this,
+        a,
+        new AuthResultHandler() {
+          @Override
+          public void authenticationSuccessful(String accountName) {
+            preferences.setString(R.string.p_google_drive_backup_account, accountName);
+            setResult(RESULT_OK);
+            DialogUtilities.dismissDialog(DriveLoginActivity.this, pd);
+            finish();
+          }
 
-                  @Override
-                  public void authenticationFailed(final String message) {
-                    setResult(RESULT_CANCELED, new Intent().putExtra(EXTRA_ERROR, message));
-                    DialogUtilities.dismissDialog(DriveLoginActivity.this, pd);
-                    finish();
-                  }
-                }));
+          @Override
+          public void authenticationFailed(final String message) {
+            setResult(RESULT_CANCELED, new Intent().putExtra(EXTRA_ERROR, message));
+            DialogUtilities.dismissDialog(DriveLoginActivity.this, pd);
+            finish();
+          }
+        });
   }
 
   @Override

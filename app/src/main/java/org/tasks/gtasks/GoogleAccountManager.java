@@ -9,6 +9,7 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -18,7 +19,6 @@ import com.google.api.services.tasks.TasksScopes;
 import com.google.common.base.Strings;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import java.io.IOException;
 import java.util.Collections;
@@ -83,20 +83,22 @@ public class GoogleAccountManager {
     }
   }
 
-  public Disposable getTasksAuthToken(
+  public void getTasksAuthToken(
       final Activity activity, final String accountName, final AuthResultHandler handler) {
-    return getToken(TasksScopes.TASKS, activity, accountName, handler);
+    getToken(TasksScopes.TASKS, activity, accountName, handler);
   }
 
-  public Disposable getDriveAuthToken(
+  public void getDriveAuthToken(
       final Activity activity, final String accountName, final AuthResultHandler handler) {
-    return getToken(DriveScopes.DRIVE_FILE, activity, accountName, handler);
+    getToken(DriveScopes.DRIVE_FILE, activity, accountName, handler);
   }
 
-  private Disposable getToken(
+  @SuppressWarnings("ResultOfMethodCallIgnored")
+  @SuppressLint("CheckResult")
+  private void getToken(
       String scope, Activity activity, String accountName, AuthResultHandler handler) {
     final Account account = getAccount(accountName);
-    return Single.fromCallable(
+    Single.fromCallable(
             () -> {
               if (account == null) {
                 throw new RuntimeException(
