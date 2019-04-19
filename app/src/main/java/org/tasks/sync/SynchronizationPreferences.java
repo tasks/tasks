@@ -39,6 +39,7 @@ import org.tasks.preferences.ActivityPermissionRequestor;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.PermissionRequestor;
 import org.tasks.preferences.Preferences;
+import org.tasks.ui.Toaster;
 
 public class SynchronizationPreferences extends InjectingPreferenceActivity {
 
@@ -63,6 +64,7 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
   @Inject CaldavDao caldavDao;
   @Inject Inventory inventory;
   @Inject TaskDeleter taskDeleter;
+  @Inject Toaster toaster;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -223,6 +225,8 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
         tracker.reportEvent(Tracking.Events.GTASK_ENABLED);
         workManager.updateBackgroundSync();
         restart();
+      } else if (data != null) {
+        toaster.longToast(data.getStringExtra(GtasksLoginActivity.EXTRA_ERROR));
       }
     } else if (requestCode == REQUEST_CALDAV_SETTINGS) {
       if (resultCode == RESULT_OK) {

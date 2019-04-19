@@ -23,6 +23,7 @@ import android.preference.PreferenceScreen;
 import androidx.annotation.NonNull;
 import com.google.common.base.Strings;
 import com.todoroo.astrid.core.OldTaskPreferences;
+import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import com.todoroo.astrid.reminders.ReminderPreferences;
 import java.util.List;
 import javax.inject.Inject;
@@ -38,6 +39,7 @@ import org.tasks.billing.PurchaseActivity;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.drive.DriveLoginActivity;
 import org.tasks.files.FileHelper;
+import org.tasks.gtasks.GoogleAccountManager;
 import org.tasks.gtasks.PlayServices;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
@@ -78,6 +80,7 @@ public class BasicPreferences extends InjectingPreferenceActivity
   @Inject Toaster toaster;
   @Inject Device device;
   @Inject ActivityPermissionRequestor permissionRequestor;
+  @Inject GoogleAccountManager googleAccountManager;
 
   private Bundle result;
 
@@ -178,7 +181,6 @@ public class BasicPreferences extends InjectingPreferenceActivity
 
     CheckBoxPreference googleDriveBackup =
         (CheckBoxPreference) findPreference(R.string.p_google_drive_backup);
-    googleDriveBackup.setChecked(preferences.getBoolean(R.string.p_google_drive_backup, false));
     googleDriveBackup.setOnPreferenceChangeListener(
         (preference, newValue) -> {
           if (newValue == null) {
@@ -191,15 +193,17 @@ public class BasicPreferences extends InjectingPreferenceActivity
             }
             return false;
           } else {
+            preference.setSummary(null);
             return true;
           }
         });
 
-    findPreference(R.string.third_party_licenses).setOnPreferenceClickListener(
-        preference -> {
-          startActivity(new Intent(this, AttributionActivity.class));
-          return false;
-        });
+    findPreference(R.string.third_party_licenses)
+        .setOnPreferenceClickListener(
+            preference -> {
+              startActivity(new Intent(this, AttributionActivity.class));
+              return false;
+            });
 
     findPreference(R.string.rate_tasks)
         .setOnPreferenceClickListener(
@@ -215,7 +219,8 @@ public class BasicPreferences extends InjectingPreferenceActivity
       upgradeToPro.setOnPreferenceClickListener(
           p -> {
             startActivity(
-                new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.manage_subscription_url))));
+                new Intent(
+                    Intent.ACTION_VIEW, Uri.parse(getString(R.string.manage_subscription_url))));
             return false;
           });
     } else {
@@ -226,7 +231,8 @@ public class BasicPreferences extends InjectingPreferenceActivity
           });
     }
 
-    findPreference(R.string.changelog).setSummary(getString(R.string.version_string, BuildConfig.VERSION_NAME));
+    findPreference(R.string.changelog)
+        .setSummary(getString(R.string.version_string, BuildConfig.VERSION_NAME));
 
     requires(
         R.string.settings_localization,
@@ -238,11 +244,7 @@ public class BasicPreferences extends InjectingPreferenceActivity
 
     //noinspection ConstantConditions
     if (BuildConfig.FLAVOR.equals("generic")) {
-      requires(
-          R.string.about,
-          false,
-          R.string.rate_tasks,
-          R.string.upgrade_to_pro);
+      requires(R.string.about, false, R.string.rate_tasks, R.string.upgrade_to_pro);
       requires(R.string.privacy, false, R.string.p_collect_statistics);
     }
 
@@ -256,6 +258,18 @@ public class BasicPreferences extends InjectingPreferenceActivity
   @Override
   protected void onResume() {
     super.onResume();
+
+    CheckBoxPreference googleDriveBackup =
+        (CheckBoxPreference) findPreference(R.string.p_google_drive_backup);
+    String account = preferences.getStringValue(R.string.p_google_drive_backup_account);
+    if (preferences.getBoolean(R.string.p_google_drive_backup, false)
+        && googleAccountManager.canAccessAccount(account)) {
+      googleDriveBackup.setChecked(true);
+      googleDriveBackup.setSummary(account);
+    } else {
+      googleDriveBackup.setChecked(false);
+    }
+    googleDriveBackup.setChecked(preferences.getBoolean(R.string.p_google_drive_backup, false));
 
     //noinspection ConstantConditions
     if (!BuildConfig.FLAVOR.equals("googleplay")) {
@@ -426,8 +440,11 @@ public class BasicPreferences extends InjectingPreferenceActivity
         result.putBoolean(AppearancePreferences.EXTRA_RESTART, true);
       }
     } else if (requestCode == RC_DRIVE_BACKUP) {
-      ((CheckBoxPreference) findPreference(R.string.p_google_drive_backup))
-          .setChecked(resultCode == RESULT_OK);
+      boolean success = resultCode == RESULT_OK;
+      ((CheckBoxPreference) findPreference(R.string.p_google_drive_backup)).setChecked(success);
+      if (!success && data != null) {
+        toaster.longToast(data.getStringExtra(GtasksLoginActivity.EXTRA_ERROR));
+      }
     } else {
       super.onActivityResult(requestCode, resultCode, data);
     }

@@ -9,7 +9,6 @@ package com.todoroo.astrid.gtasks.auth;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 import com.todoroo.andlib.utility.DialogUtilities;
 import io.reactivex.disposables.CompositeDisposable;
 import javax.inject.Inject;
@@ -31,6 +30,7 @@ import org.tasks.play.AuthResultHandler;
 public class GtasksLoginActivity extends InjectingAppCompatActivity {
 
   private static final int RC_CHOOSE_ACCOUNT = 10988;
+  public static final String EXTRA_ERROR = "extra_error";
   @Inject DialogBuilder dialogBuilder;
   @Inject GoogleAccountManager googleAccountManager;
   @Inject GoogleTaskListDao googleTaskListDao;
@@ -85,17 +85,15 @@ public class GtasksLoginActivity extends InjectingAppCompatActivity {
                       googleTaskListDao.update(account);
                     }
                     setResult(RESULT_OK);
-                    finish();
                     DialogUtilities.dismissDialog(GtasksLoginActivity.this, pd);
+                    finish();
                   }
 
                   @Override
                   public void authenticationFailed(final String message) {
-                    runOnUiThread(
-                        () ->
-                            Toast.makeText(GtasksLoginActivity.this, message, Toast.LENGTH_LONG)
-                                .show());
+                    setResult(RESULT_CANCELED, new Intent().putExtra(EXTRA_ERROR, message));
                     DialogUtilities.dismissDialog(GtasksLoginActivity.this, pd);
+                    finish();
                   }
                 }));
   }

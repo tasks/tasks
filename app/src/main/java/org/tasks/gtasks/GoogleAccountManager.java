@@ -60,6 +60,10 @@ public class GoogleAccountManager {
     return tryFind(getAccountList(), account -> name.equalsIgnoreCase(account.name)).orNull();
   }
 
+  public boolean canAccessAccount(String name) {
+    return getAccount(name) != null;
+  }
+
   public Bundle getAccessToken(String name, String scope) {
     assertNotMainThread();
 
@@ -115,7 +119,10 @@ public class GoogleAccountManager {
                 handler.authenticationSuccessful(accountName);
               }
             },
-            e -> handler.authenticationFailed(e.getMessage()));
+            e -> {
+              Timber.e(e);
+              handler.authenticationFailed(e.getMessage());
+            });
   }
 
   public void invalidateToken(String token) {

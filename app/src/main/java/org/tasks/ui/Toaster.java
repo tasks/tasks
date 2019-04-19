@@ -5,6 +5,7 @@ import static android.widget.Toast.LENGTH_LONG;
 import android.content.Context;
 import android.widget.Toast;
 import androidx.annotation.StringRes;
+import com.google.common.base.Strings;
 import javax.inject.Inject;
 import org.tasks.injection.ForActivity;
 import org.tasks.locale.Locale;
@@ -33,7 +34,9 @@ public class Toaster {
   }
 
   public void longToast(String text) {
-    Toast.makeText(context, text, LENGTH_LONG).show();
+    if (!Strings.isNullOrEmpty(text)) {
+      Toast.makeText(context, text, LENGTH_LONG).show();
+    }
   }
 
   @SuppressWarnings("DeprecatedIsStillUsed")
