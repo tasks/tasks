@@ -72,7 +72,7 @@
   <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
   <uses-permission android:name="com.google.android.googleapps.permission.GOOGLE_AUTH"/>
   <uses-permission android:name="android.permission.GET_ACCOUNTS" android:maxSdkVersion="25"/>
-  <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+  <uses-permission android:name="android.permission.USE_CREDENTIALS" android:maxSdkVersion="22" />
 
   <!-- ============================================== Exported Permissions = -->
 
