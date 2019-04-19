@@ -198,6 +198,13 @@ public class BasicPreferences extends InjectingPreferenceActivity
           }
         });
 
+    findPreference(R.string.contact_developer)
+        .setOnPreferenceClickListener(
+            preference -> {
+              emailSupport();
+              return false;
+            });
+
     findPreference(R.string.third_party_licenses)
         .setOnPreferenceClickListener(
             preference -> {

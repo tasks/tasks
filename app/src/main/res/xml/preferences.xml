@@ -153,6 +153,10 @@
       android:title="@string/third_party_licenses"/>
 
     <Preference
+      android:key="@string/contact_developer"
+      android:title="@string/contact_developer"/>
+
+    <Preference
       android:key="@string/rate_tasks"
       android:title="@string/rate_tasks"/>
 

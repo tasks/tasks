@@ -138,16 +138,9 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
 
   @Override
   public boolean onMenuItemClick(MenuItem item) {
-    String email = getString(R.string.support_email);
     switch (item.getItemId()) {
       case R.id.menu_contact:
-        Intent mailto =
-            new Intent(
-                Intent.ACTION_SENDTO,
-                Uri.fromParts("mailto", "Alex <" + email + ">", null));
-        mailto.putExtra(Intent.EXTRA_SUBJECT, "Tasks Feedback");
-        mailto.putExtra(Intent.EXTRA_TEXT, device.getDebugInfo());
-        startActivity(mailto);
+        emailSupport();
         return true;
       case R.id.menu_help:
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getHelpUrl())));
@@ -155,6 +148,15 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
       default:
         return false;
     }
+  }
+
+  protected void emailSupport() {
+    startActivity(
+        new Intent(
+                Intent.ACTION_SENDTO,
+                Uri.fromParts("mailto", "Alex <" + getString(R.string.support_email) + ">", null))
+            .putExtra(Intent.EXTRA_SUBJECT, "Tasks Feedback")
+            .putExtra(Intent.EXTRA_TEXT, device.getDebugInfo()));
   }
 
   protected String getHelpUrl() {
