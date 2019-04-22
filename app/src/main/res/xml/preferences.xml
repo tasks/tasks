@@ -137,7 +137,7 @@
       android:title="@string/source_code">
       <intent
         android:action="android.intent.action.VIEW"
-        android:data="https://github.com/tasks/tasks"/>
+        android:data="https://tasks.org/source"/>
     </Preference>
 
     <Preference
@@ -145,7 +145,7 @@
       android:title="@string/changelog">
       <intent
         android:action="android.intent.action.VIEW"
-        android:data="https://github.com/tasks/tasks/blob/master/CHANGELOG.md"/>
+        android:data="https://tasks.org/changelog"/>
     </Preference>
 
     <Preference
