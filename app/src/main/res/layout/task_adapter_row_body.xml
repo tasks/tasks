@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/rowBody"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
@@ -92,12 +93,13 @@
     android:id="@+id/chip_group"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="end"
-    android:paddingTop="2dp"
     android:layout_marginStart="@dimen/keyline_first"
+    android:layout_marginEnd="@dimen/keyline_content_inset"
     android:layout_marginLeft="@dimen/keyline_first"
     android:layout_marginRight="@dimen/keyline_content_inset"
-    android:layout_marginEnd="@dimen/keyline_content_inset"
-    android:visibility="gone"/>
+    android:layout_gravity="end"
+    android:visibility="gone"
+    app:chipSpacingVertical="@dimen/chip_spacing"
+    app:chipSpacingHorizontal="@dimen/chip_spacing"/>
 
 </LinearLayout>

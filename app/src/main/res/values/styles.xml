@@ -18,17 +18,6 @@
     <item name="android:windowCloseOnTouchOutside">false</item>
   </style>
 
-  <style name="TaskListChip" parent="Base.Widget.MaterialComponents.Chip">
-    <item name="closeIconVisible">false</item>
-    <item name="chipMinHeight">28dp</item>
-    <item name="chipCornerRadius">14dp</item>
-    <item name="chipStartPadding">4dp</item>
-    <item name="textStartPadding">6dp</item>
-    <item name="textEndPadding">6dp</item>
-    <item name="chipEndPadding">4dp</item>
-    <item name="enforceTextAppearance">false</item>
-  </style>
-
   <style name="TextBoxText">
     <item name="android:textColor">?attr/asTextColor</item>
   </style>

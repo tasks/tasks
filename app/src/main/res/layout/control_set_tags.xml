@@ -4,6 +4,7 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/tag_row"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
@@ -21,5 +22,7 @@
   <com.google.android.material.chip.ChipGroup
     android:id="@+id/chip_group"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"/>
+    android:layout_height="wrap_content"
+    app:chipSpacingVertical="@dimen/chip_spacing"
+    app:chipSpacingHorizontal="@dimen/chip_spacing"/>
 </LinearLayout>

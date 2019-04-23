@@ -8,7 +8,6 @@ import static org.tasks.preferences.ResourceResolver.getDimen;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.view.LayoutInflater;
 import com.google.android.material.chip.Chip;
 import com.google.common.base.Predicates;
 import com.google.common.base.Strings;
@@ -93,7 +92,8 @@ public class ChipProvider {
     localBroadcastManager.broadcastRefresh();
   }
 
-  public List<Chip> getChips(Activity activity, String caldav, String googleTask, Iterable<String> tagUuids) {
+  public List<Chip> getChips(
+      Activity activity, String caldav, String googleTask, Iterable<String> tagUuids) {
     assertMainThread();
 
     List<Chip> chips = new ArrayList<>();
@@ -126,7 +126,7 @@ public class ChipProvider {
   }
 
   private Chip newChip(Activity activity, Filter filter) {
-    Chip chip = (Chip) activity.getLayoutInflater().inflate(R.layout.chip_task_list, null);
+    Chip chip = new Chip(activity);
     chip.setTag(filter);
     apply(chip, filter.listingTitle, filter.tint);
     return chip;

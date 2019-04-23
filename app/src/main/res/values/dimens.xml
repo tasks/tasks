@@ -37,4 +37,6 @@
   <dimen name="header_gap">8dp</dimen>
   <dimen name="row_gap">1px</dimen>
 
+  <dimen name="chip_spacing">4dp</dimen>
+
 </resources>
