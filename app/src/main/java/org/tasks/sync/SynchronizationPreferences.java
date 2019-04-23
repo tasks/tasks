@@ -43,8 +43,6 @@ import org.tasks.ui.Toaster;
 
 public class SynchronizationPreferences extends InjectingPreferenceActivity {
 
-  private static final String KEY_ADD_GOOGLE_TASKS = "add_google_tasks";
-  private static final String KEY_ADD_CALDAV = "add_caldav";
   private static final int REQUEST_LOGIN = 0;
   private static final int REQUEST_CALDAV_SETTINGS = 101;
   private static final int REQUEST_CALDAV_SUBSCRIBE = 102;
@@ -86,6 +84,38 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
               workManager.updateBackgroundSync(null, (Boolean) o, null);
               return true;
             });
+    Preference addGoogleTaskAccount = findPreference(R.string.p_add_google_task_account);
+    if (inventory.hasPro() || googleTaskListDao.getAccounts().isEmpty()) {
+      addGoogleTaskAccount.setOnPreferenceClickListener(
+          preference -> {
+            addGoogleTaskAccount();
+            return false;
+          });
+    } else {
+      addGoogleTaskAccount.setSummary(R.string.requires_pro_subscription);
+      addGoogleTaskAccount.setOnPreferenceClickListener(
+          preference -> {
+            startActivityForResult(
+                new Intent(this, PurchaseActivity.class), REQUEST_GOOGLE_TASKS_SUBSCRIBE);
+            return false;
+          });
+    }
+    Preference addCaldavAccount = findPreference(R.string.p_add_caldav_account);
+    if (inventory.hasPro()) {
+      addCaldavAccount.setOnPreferenceClickListener(
+          preference -> {
+            addCaldavAccount();
+            return false;
+          });
+    } else {
+      addCaldavAccount.setSummary(R.string.requires_pro_subscription);
+      addCaldavAccount.setOnPreferenceClickListener(
+          preference -> {
+            startActivityForResult(
+                new Intent(this, PurchaseActivity.class), REQUEST_CALDAV_SUBSCRIBE);
+            return false;
+          });
+    }
   }
 
   private void logoutConfirmation(GoogleTaskAccount account) {
@@ -146,25 +176,6 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
           });
       googleTaskPreferences.addPreference(accountPreferences);
     }
-    Preference addGoogleTaskAccount = new Preference(this);
-    addGoogleTaskAccount.setKey(KEY_ADD_GOOGLE_TASKS);
-    addGoogleTaskAccount.setTitle(R.string.add_account);
-    if (inventory.hasPro() || googleTaskListDao.getAccounts().isEmpty()) {
-      addGoogleTaskAccount.setOnPreferenceClickListener(
-          preference -> {
-            addGoogleTaskAccount();
-            return false;
-          });
-    } else {
-      addGoogleTaskAccount.setSummary(R.string.requires_pro_subscription);
-      addGoogleTaskAccount.setOnPreferenceClickListener(
-          preference -> {
-            startActivityForResult(
-                new Intent(this, PurchaseActivity.class), REQUEST_GOOGLE_TASKS_SUBSCRIBE);
-            return false;
-          });
-    }
-    googleTaskPreferences.addPreference(addGoogleTaskAccount);
   }
 
   private void addGoogleTaskAccount() {
@@ -190,26 +201,6 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
           });
       caldavPreferences.addPreference(accountPreferences);
     }
-    Preference addCaldavAccount = new Preference(this);
-    addCaldavAccount.setKey(KEY_ADD_CALDAV);
-    addCaldavAccount.setTitle(R.string.add_account);
-
-    if (inventory.hasPro()) {
-      addCaldavAccount.setOnPreferenceClickListener(
-          preference -> {
-            addCaldavAccount();
-            return false;
-          });
-    } else {
-      addCaldavAccount.setSummary(R.string.requires_pro_subscription);
-      addCaldavAccount.setOnPreferenceClickListener(
-          preference -> {
-            startActivityForResult(
-                new Intent(this, PurchaseActivity.class), REQUEST_CALDAV_SUBSCRIBE);
-            return false;
-          });
-    }
-    caldavPreferences.addPreference(addCaldavAccount);
   }
 
   private void addCaldavAccount() {
