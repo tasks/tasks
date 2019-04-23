@@ -49,7 +49,7 @@ android {
             applicationIdSuffix ".debug"
             resValue 'string', 'mapbox_key', project.hasProperty('tasks_mapbox_key_debug') ? tasks_mapbox_key_debug : ''
             resValue 'string', 'google_key', project.hasProperty('tasks_google_key_debug') ? tasks_google_key_debug : ''
-            testCoverageEnabled true
+            testCoverageEnabled project.hasProperty('coverage')
         }
         release {
             resValue 'string', 'mapbox_key', project.hasProperty('tasks_mapbox_key') ? tasks_mapbox_key : ''
