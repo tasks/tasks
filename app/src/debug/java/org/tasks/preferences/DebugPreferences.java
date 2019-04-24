@@ -1,5 +1,7 @@
 package org.tasks.preferences;
 
+import static com.google.common.primitives.Ints.asList;
+
 import android.os.Bundle;
 import org.tasks.R;
 import org.tasks.injection.ActivityComponent;
@@ -12,6 +14,20 @@ public class DebugPreferences extends InjectingPreferenceActivity {
     super.onCreate(savedInstanceState);
 
     addPreferencesFromResource(R.xml.preferences_debug);
+
+    for (int pref :
+        asList(
+            R.string.p_stetho,
+            R.string.p_leak_canary,
+            R.string.p_strict_mode_vm,
+            R.string.p_strict_mode_thread)) {
+      findPreference(pref)
+          .setOnPreferenceChangeListener(
+              (preference, newValue) -> {
+                showRestartDialog();
+                return false;
+              });
+    }
   }
 
   @Override
