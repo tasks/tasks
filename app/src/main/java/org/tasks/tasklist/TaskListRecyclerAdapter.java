@@ -4,23 +4,20 @@ import android.os.Bundle;
 import android.view.ViewGroup;
 import androidx.appcompat.view.ActionMode;
 import androidx.fragment.app.FragmentActivity;
-import androidx.paging.AsyncPagedListDiffer;
-import androidx.paging.PagedList;
-import androidx.recyclerview.widget.AsyncDifferConfig;
 import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.ListUpdateCallback;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.common.primitives.Longs;
-import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.utility.Flags;
 import java.util.List;
+import org.tasks.data.TaskContainer;
 import org.tasks.intents.TaskIntents;
 
-public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
+public class TaskListRecyclerAdapter extends ListAdapter<TaskContainer, ViewHolder>
     implements ViewHolder.ViewHolderCallbacks, ListUpdateCallback {
 
   private static final String EXTRA_SELECTED_TASK_IDS = "extra_selected_task_ids";
@@ -29,7 +26,6 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
   private final ViewHolderFactory viewHolderFactory;
   private final TaskListFragment taskList;
   private final ActionModeProvider actionModeProvider;
-  private final AsyncPagedListDiffer<Task> asyncPagedListDiffer;
   private final ItemTouchHelperCallback itemTouchHelperCallback;
 
   private ActionMode mode = null;
@@ -41,14 +37,13 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
       ViewHolderFactory viewHolderFactory,
       TaskListFragment taskList,
       ActionModeProvider actionModeProvider) {
+    super(new DiffCallback(adapter));
+
     this.adapter = adapter;
     this.viewHolderFactory = viewHolderFactory;
     this.taskList = taskList;
     this.actionModeProvider = actionModeProvider;
     itemTouchHelperCallback = new ItemTouchHelperCallback(adapter, this, taskList);
-    asyncPagedListDiffer =
-        new AsyncPagedListDiffer<>(
-            this, new AsyncDifferConfig.Builder<>(new DiffCallback(adapter)).build());
   }
 
   public void applyToRecyclerView(RecyclerView recyclerView) {
@@ -82,7 +77,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
 
   @Override
   public void onBindViewHolder(ViewHolder holder, int position) {
-    Task task = asyncPagedListDiffer.getItem(position);
+    TaskContainer task = getItem(position);
     if (task != null) {
       holder.bindView(task);
       holder.setMoving(false);
@@ -94,12 +89,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
   }
 
   @Override
-  public int getItemCount() {
-    return asyncPagedListDiffer.getItemCount();
-  }
-
-  @Override
-  public void onCompletedTask(Task task, boolean newState) {
+  public void onCompletedTask(TaskContainer task, boolean newState) {
     adapter.onCompletedTask(task, newState);
     taskList.loadTaskListContent();
   }
@@ -107,7 +97,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
   @Override
   public void onClick(ViewHolder viewHolder) {
     if (mode == null) {
-      taskList.onTaskListItemClicked(viewHolder.task);
+      taskList.onTaskListItemClicked(viewHolder.task.getTask());
     } else {
       toggle(viewHolder);
     }
@@ -204,16 +194,8 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
     recyclerView.setScrollY(scrollY);
   }
 
-  public void setList(PagedList<Task> list) {
-    asyncPagedListDiffer.submitList(list);
-  }
-
   public void setAnimate(boolean animate) {
     this.animate = animate;
-  }
-
-  public AsyncPagedListDiffer<Task> getAsyncPagedListDiffer() {
-    return asyncPagedListDiffer;
   }
 
   boolean isActionModeActive() {
@@ -222,5 +204,10 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
 
   void onDestroyActionMode() {
     mode = null;
+  }
+
+  @Override
+  public TaskContainer getItem(int position) {
+    return super.getItem(position);
   }
 }

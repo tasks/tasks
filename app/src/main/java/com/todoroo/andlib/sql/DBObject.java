@@ -18,7 +18,7 @@ public abstract class DBObject<T extends DBObject<?>> implements Cloneable {
     this.expression = expression;
   }
 
-  protected T as(String newAlias) {
+  public T as(String newAlias) {
     try {
       T clone = (T) clone();
       clone.alias = newAlias;
@@ -76,7 +76,7 @@ public abstract class DBObject<T extends DBObject<?>> implements Cloneable {
       sb.append(SPACE).append(AS).append(SPACE).append(alias);
     } else {
       int pos = expression.indexOf('.');
-      if (pos > 0) {
+      if (pos > 0 && !expression.endsWith("*")) {
         sb.append(SPACE).append(AS).append(SPACE).append(expression.substring(pos + 1));
       }
     }

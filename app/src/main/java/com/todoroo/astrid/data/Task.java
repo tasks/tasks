@@ -207,10 +207,6 @@ public class Task implements Parcelable {
   public String remoteId = NO_UUID;
 
   // --- due and hide until date management
-  @Ignore private transient int indent;
-  @Ignore private transient String tags;
-  @Ignore private transient String googleTaskList;
-  @Ignore private transient String caldav;
   @Ignore private transient HashMap<String, Object> transitoryData = null;
 
   public Task() {}
@@ -238,10 +234,6 @@ public class Task implements Parcelable {
     final int _cursorIndexOfRepeatUntil = _cursor.getColumnIndexOrThrow("repeatUntil");
     final int _cursorIndexOfCalendarUri = _cursor.getColumnIndexOrThrow("calendarUri");
     final int _cursorIndexOfRemoteId = _cursor.getColumnIndexOrThrow("remoteId");
-    final int _cursorIndexOfIndent = _cursor.getColumnIndex("indent");
-    final int _cursorIndexOfTags = _cursor.getColumnIndex("tags");
-    final int _cursorIndexOfGoogleTasks = _cursor.getColumnIndex("googletask");
-    final int _cursorIndexOfCaldav = _cursor.getColumnIndex("caldav");
     if (_cursor.isNull(_cursorIndexOfId)) {
       id = null;
     } else {
@@ -327,18 +319,6 @@ public class Task implements Parcelable {
     }
     calendarUri = _cursor.getString(_cursorIndexOfCalendarUri);
     remoteId = _cursor.getString(_cursorIndexOfRemoteId);
-    if (_cursorIndexOfIndent >= 0) {
-      indent = _cursor.getInt(_cursorIndexOfIndent);
-    }
-    if (_cursorIndexOfTags >= 0) {
-      tags = _cursor.getString(_cursorIndexOfTags);
-    }
-    if (_cursorIndexOfGoogleTasks >= 0) {
-      googleTaskList = _cursor.getString(_cursorIndexOfGoogleTasks);
-    }
-    if (_cursorIndexOfCaldav >= 0) {
-      caldav = _cursor.getString(_cursorIndexOfCaldav);
-    }
   }
 
   @Ignore
@@ -389,7 +369,6 @@ public class Task implements Parcelable {
     title = parcel.readString();
     remoteId = parcel.readString();
     transitoryData = parcel.readHashMap(ContentValues.class.getClassLoader());
-    indent = parcel.readInt();
   }
 
   /**
@@ -804,7 +783,6 @@ public class Task implements Parcelable {
     dest.writeString(title);
     dest.writeString(remoteId);
     dest.writeMap(transitoryData);
-    dest.writeInt(indent);
   }
 
   @Override
@@ -860,14 +838,6 @@ public class Task implements Parcelable {
         + remoteId
         + '\''
         + '}';
-  }
-
-  public int getIndent() {
-    return indent;
-  }
-
-  public void setIndent(int indent) {
-    this.indent = indent;
   }
 
   public boolean insignificantChange(Task task) {
@@ -1051,24 +1021,17 @@ public class Task implements Parcelable {
     return trans != null;
   }
 
-  public String getTagsString() {
-    return tags;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof Task)) {
+    if (o == null || getClass() != o.getClass()) {
       return false;
     }
 
     Task task = (Task) o;
 
-    if (indent != task.indent) {
-      return false;
-    }
     if (id != null ? !id.equals(task.id) : task.id != null) {
       return false;
     }
@@ -1139,18 +1102,7 @@ public class Task implements Parcelable {
     if (calendarUri != null ? !calendarUri.equals(task.calendarUri) : task.calendarUri != null) {
       return false;
     }
-    if (remoteId != null ? !remoteId.equals(task.remoteId) : task.remoteId != null) {
-      return false;
-    }
-    if (tags != null ? !tags.equals(task.tags) : task.tags != null) {
-      return false;
-    }
-    if (googleTaskList != null
-        ? !googleTaskList.equals(task.googleTaskList)
-        : task.googleTaskList != null) {
-      return false;
-    }
-    return caldav != null ? caldav.equals(task.caldav) : task.caldav == null;
+    return remoteId != null ? remoteId.equals(task.remoteId) : task.remoteId == null;
   }
 
   @Override
@@ -1176,19 +1128,7 @@ public class Task implements Parcelable {
     result = 31 * result + (repeatUntil != null ? repeatUntil.hashCode() : 0);
     result = 31 * result + (calendarUri != null ? calendarUri.hashCode() : 0);
     result = 31 * result + (remoteId != null ? remoteId.hashCode() : 0);
-    result = 31 * result + indent;
-    result = 31 * result + (tags != null ? tags.hashCode() : 0);
-    result = 31 * result + (googleTaskList != null ? googleTaskList.hashCode() : 0);
-    result = 31 * result + (caldav != null ? caldav.hashCode() : 0);
     return result;
-  }
-
-  public String getGoogleTaskList() {
-    return googleTaskList;
-  }
-
-  public String getCaldav() {
-    return caldav;
   }
 
   @Retention(SOURCE)

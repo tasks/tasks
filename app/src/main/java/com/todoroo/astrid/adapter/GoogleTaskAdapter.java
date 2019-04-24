@@ -14,6 +14,7 @@ import java.util.Map;
 import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskList;
+import org.tasks.data.TaskContainer;
 import timber.log.Timber;
 
 public final class GoogleTaskAdapter extends TaskAdapter {
@@ -37,12 +38,12 @@ public final class GoogleTaskAdapter extends TaskAdapter {
   }
 
   @Override
-  public int getIndent(Task task) {
+  public int getIndent(TaskContainer task) {
     return task.getIndent();
   }
 
   @Override
-  public boolean canIndent(int position, Task task) {
+  public boolean canIndent(int position, TaskContainer task) {
     Task parent = getTask(position - 1);
     return parent != null && getIndent(task) == 0;
   }
@@ -87,20 +88,12 @@ public final class GoogleTaskAdapter extends TaskAdapter {
   }
 
   @Override
-  public Property<?>[] getTaskProperties() {
-    ArrayList<Property<?>> properties = new ArrayList<>(Arrays.asList(TaskAdapter.PROPERTIES));
-    properties.add(GoogleTask.ORDER);
-    properties.add(GoogleTask.INDENT);
-    return properties.toArray(new Property<?>[properties.size()]);
-  }
-
-  @Override
   public void onTaskDeleted(Task task) {
     updater.onDeleteTask(list, task.getId());
   }
 
   @Override
-  public void onCompletedTask(Task item, boolean completedState) {
+  public void onCompletedTask(TaskContainer item, boolean completedState) {
     final long itemId = item.getId();
 
     final long completionDate = completedState ? DateUtilities.now() : 0;

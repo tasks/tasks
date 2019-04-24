@@ -115,7 +115,7 @@ public final class TaskListFragment extends InjectingFragment
   @Inject SyncAdapters syncAdapters;
   @Inject TaskDeleter taskDeleter;
   @Inject @ForActivity Context context;
-  @Inject protected Preferences preferences;
+  @Inject Preferences preferences;
   @Inject DialogBuilder dialogBuilder;
   @Inject CheckBoxes checkBoxes;
   @Inject TaskCreator taskCreator;
@@ -228,7 +228,7 @@ public final class TaskListFragment extends InjectingFragment
     taskAdapter = taskAdapterProvider.createTaskAdapter(filter);
     recyclerAdapter =
         new TaskListRecyclerAdapter(taskAdapter, viewHolderFactory, this, actionModeProvider);
-    taskAdapter.setHelper(recyclerAdapter.getAsyncPagedListDiffer());
+    taskAdapter.setHelper(recyclerAdapter);
   }
 
   @Override
@@ -453,26 +453,25 @@ public final class TaskListFragment extends InjectingFragment
   public void onActivityCreated(Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
 
-    taskListViewModel
-        .getTasks(filter, taskAdapter.getTaskProperties())
-        .observe(
-            this,
-            list -> {
-              if (list.isEmpty()) {
-                swipeRefreshLayout.setVisibility(View.GONE);
-                emptyRefreshLayout.setVisibility(View.VISIBLE);
-              } else {
-                swipeRefreshLayout.setVisibility(View.VISIBLE);
-                emptyRefreshLayout.setVisibility(View.GONE);
-              }
+    taskListViewModel.observe(
+        this,
+        filter,
+        list -> {
+          if (list.isEmpty()) {
+            swipeRefreshLayout.setVisibility(View.GONE);
+            emptyRefreshLayout.setVisibility(View.VISIBLE);
+          } else {
+            swipeRefreshLayout.setVisibility(View.VISIBLE);
+            emptyRefreshLayout.setVisibility(View.GONE);
+          }
 
-              // stash selected items
-              Bundle saveState = recyclerAdapter.getSaveState();
+          // stash selected items
+          Bundle saveState = recyclerAdapter.getSaveState();
 
-              recyclerAdapter.setList(list);
+          recyclerAdapter.submitList(list);
 
-              recyclerAdapter.restoreSaveState(saveState);
-            });
+          recyclerAdapter.restoreSaveState(saveState);
+        });
 
     ((DefaultItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
     recyclerAdapter.applyToRecyclerView(recyclerView);

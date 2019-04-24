@@ -9,15 +9,12 @@ package com.todoroo.astrid.adapter;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.primitives.Longs.asList;
 
-import androidx.paging.AsyncPagedListDiffer;
-import com.google.common.collect.ObjectArrays;
-import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.Property.StringProperty;
-import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.data.Task;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import org.tasks.data.TaskContainer;
+import org.tasks.tasklist.TaskListRecyclerAdapter;
 
 /**
  * Adapter for displaying a user's tasks as a list
@@ -26,32 +23,14 @@ import java.util.Set;
  */
 public class TaskAdapter {
 
-  private static final StringProperty TAGS =
-      new StringProperty(
-              null, "group_concat(" + TaskListFragment.TAGS_METADATA_JOIN + ".tag_uid" + ", ',')")
-          .as("tags");
-  private static final StringProperty GTASK =
-      new StringProperty(null, TaskListFragment.GTASK_METADATA_JOIN + ".list_id").as("googletask");
-  private static final StringProperty CALDAV =
-      new StringProperty(null, TaskListFragment.CALDAV_METADATA_JOIN + ".calendar").as("caldav");
-
-  static final Property<?>[] PROPERTIES =
-      ObjectArrays.concat(
-          Task.PROPERTIES,
-          new Property<?>[] {
-            TAGS, // Concatenated list of tags
-            GTASK,
-            CALDAV
-          },
-          Property.class);
   private final Set<Long> selected = new HashSet<>();
-  private AsyncPagedListDiffer<Task> helper;
+  private TaskListRecyclerAdapter helper;
 
   public int getCount() {
     return helper.getItemCount();
   }
 
-  public void setHelper(AsyncPagedListDiffer<Task> helper) {
+  public void setHelper(TaskListRecyclerAdapter helper) {
     this.helper = helper;
   }
 
@@ -72,19 +51,19 @@ public class TaskAdapter {
     selected.clear();
   }
 
-  public int getIndent(Task task) {
+  public int getIndent(TaskContainer task) {
     return 0;
   }
 
-  public boolean canIndent(int position, Task task) {
+  public boolean canIndent(int position, TaskContainer task) {
     return false;
   }
 
-  public boolean isSelected(Task task) {
+  public boolean isSelected(TaskContainer task) {
     return selected.contains(task.getId());
   }
 
-  public void toggleSelection(Task task) {
+  public void toggleSelection(TaskContainer task) {
     long id = task.getId();
     if (selected.contains(id)) {
       selected.remove(id);
@@ -106,18 +85,14 @@ public class TaskAdapter {
   }
 
   public Task getTask(int position) {
-    return helper.getItem(position);
+    return helper.getItem(position).getTask();
   }
 
   String getItemUuid(int position) {
     return getTask(position).getUuid();
   }
 
-  public Property<?>[] getTaskProperties() {
-    return PROPERTIES;
-  }
-
-  public void onCompletedTask(Task task, boolean newState) {}
+  public void onCompletedTask(TaskContainer task, boolean newState) {}
 
   public void onTaskCreated(String uuid) {}
 

@@ -51,7 +51,7 @@ public class GtasksFilter extends Filter {
 
   public static String toManualOrder(String query) {
     query = query.replaceAll("ORDER BY .*", "");
-    query = query + " ORDER BY `gtasks_order` ASC";
+    query = query + " ORDER BY google_tasks.`order` ASC";
     return query.replace(
         TaskDao.TaskCriteria.activeAndVisible().toString(),
         TaskDao.TaskCriteria.notDeleted().toString());

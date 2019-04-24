@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.tasks.data.TaskContainer;
 import org.tasks.data.TaskListMetadata;
 import timber.log.Timber;
 
@@ -32,12 +33,12 @@ public final class AstridTaskAdapter extends TaskAdapter {
   }
 
   @Override
-  public int getIndent(Task task) {
+  public int getIndent(TaskContainer task) {
     return updater.getIndentForTask(task.getUuid());
   }
 
   @Override
-  public boolean canIndent(int position, Task task) {
+  public boolean canIndent(int position, TaskContainer task) {
     String parentUuid = getItemUuid(position - 1);
     int parentIndent = updater.getIndentForTask(parentUuid);
     return getIndent(task) <= parentIndent;
@@ -93,7 +94,7 @@ public final class AstridTaskAdapter extends TaskAdapter {
   }
 
   @Override
-  public void onCompletedTask(Task item, boolean completedState) {
+  public void onCompletedTask(TaskContainer item, boolean completedState) {
     final String itemId = item.getUuid();
 
     final long completionDate = completedState ? DateUtilities.now() : 0;

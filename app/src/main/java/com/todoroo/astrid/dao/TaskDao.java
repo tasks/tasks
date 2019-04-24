@@ -12,7 +12,9 @@ import android.database.Cursor;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.RawQuery;
 import androidx.room.Update;
+import androidx.sqlite.db.SimpleSQLiteQuery;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
@@ -23,6 +25,7 @@ import com.todoroo.astrid.helper.UUIDHelper;
 import java.util.ArrayList;
 import java.util.List;
 import org.tasks.BuildConfig;
+import org.tasks.data.TaskContainer;
 import org.tasks.jobs.WorkManager;
 import timber.log.Timber;
 
@@ -123,6 +126,9 @@ public abstract class TaskDao {
       "UPDATE tasks SET calendarUri = '' "
           + "WHERE completed > 0 AND calendarUri NOT NULL AND calendarUri != ''")
   public abstract int clearCompletedCalendarEvents();
+
+  @RawQuery
+  public abstract List<TaskContainer> fetchTasks(SimpleSQLiteQuery query);
 
   /**
    * Saves the given task to the database.getDatabase(). Task must already exist. Returns true on

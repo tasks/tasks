@@ -26,10 +26,10 @@ import com.google.android.material.chip.ChipGroup;
 import com.google.common.collect.Lists;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.ui.CheckableImageView;
 import java.util.List;
 import org.tasks.R;
+import org.tasks.data.TaskContainer;
 import org.tasks.dialogs.Linkify;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.Preferences;
@@ -59,7 +59,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
   @BindView(R.id.due_date)
   public TextView dueDate;
 
-  public Task task;
+  public TaskContainer task;
 
   @BindView(R.id.rowBody)
   ViewGroup rowBody;
@@ -202,7 +202,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
     return indent > 0;
   }
 
-  void bindView(Task task) {
+  void bindView(TaskContainer task) {
     this.task = task;
 
     setFieldContentsAndVisibility();
@@ -314,7 +314,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
 
     if (newState != task.isCompleted()) {
       callback.onCompletedTask(task, newState);
-      taskDao.setComplete(task, newState);
+      taskDao.setComplete(task.getTask(), newState);
     }
 
     // set check box to actual action item state
@@ -323,7 +323,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
 
   interface ViewHolderCallbacks {
 
-    void onCompletedTask(Task task, boolean newState);
+    void onCompletedTask(TaskContainer task, boolean newState);
 
     void onClick(ViewHolder viewHolder);
 
