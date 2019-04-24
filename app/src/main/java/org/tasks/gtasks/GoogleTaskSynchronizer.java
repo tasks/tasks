@@ -302,11 +302,10 @@ public class GoogleTaskSynchronizer {
         return;
       }
     } else {
-      String parent = gtasksSyncService.getRemoteParentId(gtasksMetadata);
       String priorSibling = gtasksSyncService.getRemoteSiblingId(listId, gtasksMetadata);
 
       com.google.api.services.tasks.model.Task created =
-          gtasksInvoker.createGtask(listId, remoteModel, parent, priorSibling);
+          gtasksInvoker.createGtask(listId, remoteModel, priorSibling);
 
       if (created != null) {
         // Update the metadata for the newly created task

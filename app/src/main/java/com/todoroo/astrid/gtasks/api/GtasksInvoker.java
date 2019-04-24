@@ -68,11 +68,10 @@ public class GtasksInvoker {
                 GtasksApiUtilities.unixTimeToGtasksCompletionTime(lastSyncDate).toStringRfc3339()));
   }
 
-  public @Nullable Task createGtask(String listId, Task task, String parent, String priorSiblingId)
+  public @Nullable Task createGtask(String listId, Task task, String priorSiblingId)
       throws IOException {
     Timber.d("createGtask: %s", prettyPrint(task));
-    return execute(
-        service.tasks().insert(listId, task).setParent(parent).setPrevious(priorSiblingId));
+    return execute(service.tasks().insert(listId, task).setPrevious(priorSiblingId));
   }
 
   public void updateGtask(String listId, Task task) throws IOException {
