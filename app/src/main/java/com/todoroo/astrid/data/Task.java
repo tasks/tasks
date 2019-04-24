@@ -211,7 +211,6 @@ public class Task implements Parcelable {
   @Ignore private transient String tags;
   @Ignore private transient String googleTaskList;
   @Ignore private transient String caldav;
-  @Ignore private transient boolean hasFiles;
   @Ignore private transient HashMap<String, Object> transitoryData = null;
 
   public Task() {}
@@ -243,7 +242,6 @@ public class Task implements Parcelable {
     final int _cursorIndexOfTags = _cursor.getColumnIndex("tags");
     final int _cursorIndexOfGoogleTasks = _cursor.getColumnIndex("googletask");
     final int _cursorIndexOfCaldav = _cursor.getColumnIndex("caldav");
-    final int _cursorIndexOfFileId = _cursor.getColumnIndex("fileId");
     if (_cursor.isNull(_cursorIndexOfId)) {
       id = null;
     } else {
@@ -340,9 +338,6 @@ public class Task implements Parcelable {
     }
     if (_cursorIndexOfCaldav >= 0) {
       caldav = _cursor.getString(_cursorIndexOfCaldav);
-    }
-    if (_cursorIndexOfFileId >= 0) {
-      hasFiles = _cursor.getInt(_cursorIndexOfFileId) > 0;
     }
   }
 
@@ -1074,9 +1069,6 @@ public class Task implements Parcelable {
     if (indent != task.indent) {
       return false;
     }
-    if (hasFiles != task.hasFiles) {
-      return false;
-    }
     if (id != null ? !id.equals(task.id) : task.id != null) {
       return false;
     }
@@ -1188,7 +1180,6 @@ public class Task implements Parcelable {
     result = 31 * result + (tags != null ? tags.hashCode() : 0);
     result = 31 * result + (googleTaskList != null ? googleTaskList.hashCode() : 0);
     result = 31 * result + (caldav != null ? caldav.hashCode() : 0);
-    result = 31 * result + (hasFiles ? 1 : 0);
     return result;
   }
 

@@ -99,7 +99,6 @@ public final class TaskListFragment extends InjectingFragment
   public static final String TAGS_METADATA_JOIN = "for_tags"; // $NON-NLS-1$
   public static final String GTASK_METADATA_JOIN = "for_gtask"; // $NON-NLS-1$
   public static final String CALDAV_METADATA_JOIN = "for_caldav"; // $NON-NLS-1$
-  public static final String FILE_METADATA_JOIN = "for_actions"; // $NON-NLS-1$
   public static final String ACTION_RELOAD = "action_reload";
   public static final String ACTION_DELETED = "action_deleted";
   private static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;

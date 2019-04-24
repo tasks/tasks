@@ -5,7 +5,6 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import com.google.common.base.Strings;
-import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Table;
 import com.todoroo.astrid.data.Task;
 import java.io.File;
@@ -17,8 +16,6 @@ public final class TaskAttachment {
 
   public static final String KEY = "attachment";
 
-  @Deprecated
-  public static final Property.LongProperty ID = new Property.LongProperty(TABLE, "_id");
   /** default directory for files on external storage */
   public static final String FILES_DIRECTORY_DEFAULT = "attachments"; // $NON-NLS-1$
 

@@ -1,7 +1,6 @@
 package org.tasks.ui;
 
 import static com.todoroo.astrid.activity.TaskListFragment.CALDAV_METADATA_JOIN;
-import static com.todoroo.astrid.activity.TaskListFragment.FILE_METADATA_JOIN;
 import static com.todoroo.astrid.activity.TaskListFragment.GTASK_METADATA_JOIN;
 import static com.todoroo.astrid.activity.TaskListFragment.TAGS_METADATA_JOIN;
 
@@ -30,7 +29,6 @@ import org.tasks.data.CaldavTask;
 import org.tasks.data.GoogleTask;
 import org.tasks.data.LimitOffsetDataSource;
 import org.tasks.data.Tag;
-import org.tasks.data.TaskAttachment;
 import org.tasks.preferences.Preferences;
 
 public class TaskListViewModel extends ViewModel {
@@ -100,9 +98,6 @@ public class TaskListViewModel extends ViewModel {
     // elsewhere.
     String joinedQuery =
         Join.left(Tag.TABLE.as(TAGS_METADATA_JOIN), tagsJoinCriterion).toString() // $NON-NLS-1$
-            + Join.left(
-                TaskAttachment.TABLE.as(FILE_METADATA_JOIN),
-                Task.UUID.eq(Field.field(FILE_METADATA_JOIN + ".task_id")))
             + Join.left(GoogleTask.TABLE.as(GTASK_METADATA_JOIN), gtaskJoinCriterion).toString()
             + Join.left(CaldavTask.TABLE.as(CALDAV_METADATA_JOIN), caldavJoinCriterion).toString()
             + filter.getSqlQuery();

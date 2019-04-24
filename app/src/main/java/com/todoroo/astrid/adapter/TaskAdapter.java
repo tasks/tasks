@@ -12,14 +12,12 @@ import static com.google.common.primitives.Longs.asList;
 import androidx.paging.AsyncPagedListDiffer;
 import com.google.common.collect.ObjectArrays;
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.data.Task;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.tasks.data.TaskAttachment;
 
 /**
  * Adapter for displaying a user's tasks as a list
@@ -37,16 +35,13 @@ public class TaskAdapter {
   private static final StringProperty CALDAV =
       new StringProperty(null, TaskListFragment.CALDAV_METADATA_JOIN + ".calendar").as("caldav");
 
-  private static final LongProperty FILE_ID_PROPERTY =
-      TaskAttachment.ID.cloneAs(TaskListFragment.FILE_METADATA_JOIN, "fileId");
   static final Property<?>[] PROPERTIES =
       ObjectArrays.concat(
           Task.PROPERTIES,
           new Property<?>[] {
             TAGS, // Concatenated list of tags
             GTASK,
-            CALDAV,
-            FILE_ID_PROPERTY // File id
+            CALDAV
           },
           Property.class);
   private final Set<Long> selected = new HashSet<>();
