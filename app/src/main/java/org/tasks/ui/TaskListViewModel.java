@@ -61,7 +61,6 @@ public class TaskListViewModel extends ViewModel {
       LifecycleOwner owner, @NonNull Filter filter, Observer<List<TaskContainer>> observer) {
     if (!filter.equals(this.filter) || !filter.getSqlQuery().equals(this.filter.getSqlQuery())) {
       this.filter = filter;
-      invalidate();
     }
     tasks.observe(owner, observer);
   }
