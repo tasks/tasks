@@ -41,7 +41,7 @@ import timber.log.Timber;
 
 public class TaskListViewModel extends ViewModel {
 
-  private static final Field TASKS = field("*");
+  private static final Field TASKS = field("tasks.*");
   private static final StringProperty GTASK =
       new StringProperty(null, GTASK_METADATA_JOIN + ".list_id").as("googletask");
   private static final StringProperty CALDAV =
