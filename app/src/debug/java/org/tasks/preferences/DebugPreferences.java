@@ -24,8 +24,10 @@ public class DebugPreferences extends InjectingPreferenceActivity {
       findPreference(pref)
           .setOnPreferenceChangeListener(
               (preference, newValue) -> {
-                showRestartDialog();
-                return false;
+                if (newValue != null && ((Boolean) newValue)) {
+                  showRestartDialog();
+                }
+                return true;
               });
     }
   }

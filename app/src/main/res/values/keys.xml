@@ -309,5 +309,5 @@
   <string name="p_place_provider">place_provider</string>
   <string name="preference_screen">preference_screen</string>
   <string name="p_add_google_task_account">add_google_task_account</string>
-  <string name="p_add_caldav_account">add_google_task_account</string>
+  <string name="p_add_caldav_account">add_caldav_account</string>
 </resources>
