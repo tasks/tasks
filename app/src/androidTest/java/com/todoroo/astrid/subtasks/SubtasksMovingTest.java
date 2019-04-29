@@ -4,10 +4,10 @@ import androidx.test.runner.AndroidJUnit4;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import javax.inject.Inject;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.tasks.data.TaskListMetadata;
+import org.tasks.injection.TestComponent;
 
 @RunWith(AndroidJUnit4.class)
 public class SubtasksMovingTest extends SubtasksTestCase {
@@ -16,8 +16,8 @@ public class SubtasksMovingTest extends SubtasksTestCase {
 
   private Task A, B, C, D, E, F;
 
-  //    @Override
-  protected void disabled_setUp() {
+  @Override
+  public void setUp() {
     super.setUp();
     createTasks();
     TaskListMetadata m = new TaskListMetadata();
@@ -32,6 +32,11 @@ public class SubtasksMovingTest extends SubtasksTestCase {
     expectParentAndPosition(D, C, 0);
     expectParentAndPosition(E, null, 1);
     expectParentAndPosition(F, null, 2);
+  }
+
+  @Override
+  protected void inject(TestComponent component) {
+    component.inject(this);
   }
 
   private void createTasks() {
@@ -65,7 +70,6 @@ public class SubtasksMovingTest extends SubtasksTestCase {
    * F
    */
 
-  @Ignore
   @Test
   public void testMoveBeforeIntoSelf() { // Should have no effect
     whenTriggerMoveBefore(A, B);
@@ -78,7 +82,6 @@ public class SubtasksMovingTest extends SubtasksTestCase {
     expectParentAndPosition(F, null, 2);
   }
 
-  @Ignore
   @Test
   public void testMoveIntoDescendant() { // Should have no effect
     whenTriggerMoveBefore(A, C);
@@ -91,7 +94,6 @@ public class SubtasksMovingTest extends SubtasksTestCase {
     expectParentAndPosition(F, null, 2);
   }
 
-  @Ignore
   @Test
   public void testMoveToEndOfChildren() { // Should have no effect
     whenTriggerMoveBefore(A, E);
@@ -104,7 +106,6 @@ public class SubtasksMovingTest extends SubtasksTestCase {
     expectParentAndPosition(F, null, 2);
   }
 
-  @Ignore
   @Test
   public void testStandardMove() {
     whenTriggerMoveBefore(A, F);
@@ -117,7 +118,6 @@ public class SubtasksMovingTest extends SubtasksTestCase {
     expectParentAndPosition(F, null, 2);
   }
 
-  @Ignore
   @Test
   public void testMoveToEndOfList() {
     whenTriggerMoveBefore(A, null);

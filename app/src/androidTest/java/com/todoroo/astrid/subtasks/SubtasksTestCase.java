@@ -12,7 +12,6 @@ import com.todoroo.astrid.subtasks.SubtasksFilterUpdater.Node;
 import javax.inject.Inject;
 import org.tasks.data.TaskListMetadataDao;
 import org.tasks.injection.InjectingTestCase;
-import org.tasks.injection.TestComponent;
 import org.tasks.preferences.Preferences;
 
 /**
@@ -20,7 +19,7 @@ import org.tasks.preferences.Preferences;
  *
  * @author Sam
  */
-public class SubtasksTestCase extends InjectingTestCase {
+public abstract class SubtasksTestCase extends InjectingTestCase {
 
   /* Starting State:
    *
@@ -44,11 +43,6 @@ public class SubtasksTestCase extends InjectingTestCase {
     filter = BuiltInFilterExposer.getMyTasksFilter(getTargetContext().getResources());
     preferences.clear(SubtasksFilterUpdater.ACTIVE_TASKS_ORDER);
     updater = new SubtasksFilterUpdater(taskListMetadataDao, taskDao);
-  }
-
-  @Override
-  protected void inject(TestComponent component) {
-    component.inject(this);
   }
 
   void expectParentAndPosition(Task task, Task parent, int positionInParent) {

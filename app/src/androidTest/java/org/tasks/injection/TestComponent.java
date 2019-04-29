@@ -13,7 +13,7 @@ import com.todoroo.astrid.repeats.RepeatTaskHelperTest;
 import com.todoroo.astrid.service.QuickAddMarkupTest;
 import com.todoroo.astrid.service.TitleParserTest;
 import com.todoroo.astrid.subtasks.SubtasksHelperTest;
-import com.todoroo.astrid.subtasks.SubtasksTestCase;
+import com.todoroo.astrid.subtasks.SubtasksMovingTest;
 import com.todoroo.astrid.sync.NewSyncTestCase;
 import dagger.Component;
 import org.tasks.data.DeletionDaoTests;
@@ -39,7 +39,7 @@ public interface TestComponent extends ApplicationComponent {
 
   void inject(NewSyncTestCase newSyncTestCase);
 
-  void inject(SubtasksTestCase subtasksTestCase);
+  void inject(SubtasksMovingTest subtasksTestCase);
 
   void inject(SubtasksHelperTest subtasksHelperTest);
 

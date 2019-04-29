@@ -66,8 +66,6 @@ public class SubtasksHelperTest extends SubtasksTestCase {
 
   @Override
   protected void inject(TestComponent component) {
-    super.inject(component);
-
     component.inject(this);
   }
 }
