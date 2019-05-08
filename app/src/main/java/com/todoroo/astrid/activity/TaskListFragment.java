@@ -147,7 +147,7 @@ public final class TaskListFragment extends InjectingFragment
   private TaskAdapter taskAdapter = null;
   private TaskListRecyclerAdapter recyclerAdapter;
   private final RefreshReceiver refreshReceiver = new RefreshReceiver();
-  protected Filter filter;
+  private Filter filter;
   private PublishSubject<String> searchSubject = PublishSubject.create();
   private Disposable searchDisposable;
   protected CompositeDisposable disposables;
@@ -162,7 +162,9 @@ public final class TaskListFragment extends InjectingFragment
 
   static TaskListFragment newTaskListFragment(Filter filter) {
     TaskListFragment fragment = new TaskListFragment();
-    fragment.filter = filter;
+    Bundle bundle = new Bundle();
+    bundle.putParcelable(EXTRA_FILTER, filter);
+    fragment.setArguments(bundle);
     return fragment;
   }
 
@@ -214,13 +216,7 @@ public final class TaskListFragment extends InjectingFragment
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    if (savedInstanceState != null) {
-      filter = savedInstanceState.getParcelable(EXTRA_FILTER);
-    }
-
-    if (filter == null) {
-      filter = BuiltInFilterExposer.getMyTasksFilter(getResources());
-    }
+    filter = getFilter();
 
     filter.setFilterQueryOverride(null);
 
@@ -235,7 +231,6 @@ public final class TaskListFragment extends InjectingFragment
   public void onSaveInstanceState(@NonNull Bundle outState) {
     super.onSaveInstanceState(outState);
 
-    outState.putParcelable(EXTRA_FILTER, filter);
     outState.putAll(recyclerAdapter.getSaveState());
   }
 
@@ -546,6 +541,14 @@ public final class TaskListFragment extends InjectingFragment
   }
 
   public Filter getFilter() {
+    Filter filter = null;
+    Bundle arguments = getArguments();
+    if (arguments != null) {
+      filter = arguments.getParcelable(EXTRA_FILTER);
+    }
+    if (filter == null) {
+      filter = BuiltInFilterExposer.getMyTasksFilter(getResources());
+    }
     return filter;
   }
 

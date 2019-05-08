@@ -226,7 +226,7 @@ public class MainActivity extends InjectingAppCompatActivity
     } else {
       TaskListFragment existing = getTaskListFragment();
       openTaskListFragment(
-          existing == null || existing.filter != filter ? newTaskListFragment(filter) : existing);
+          existing == null || existing.getFilter() != filter ? newTaskListFragment(filter) : existing);
       openTask(filter);
     }
 
@@ -265,7 +265,7 @@ public class MainActivity extends InjectingAppCompatActivity
   private void openTaskListFragment(@NonNull TaskListFragment taskListFragment) {
     assertMainThread();
 
-    filter = taskListFragment.filter;
+    filter = taskListFragment.getFilter();
     navigationDrawer.setSelected(filter);
     applyTheme();
     FragmentManager fragmentManager = getSupportFragmentManager();
