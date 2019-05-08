@@ -443,8 +443,14 @@ public class BasicPreferences extends InjectingPreferenceActivity
       }
     } else if (requestCode == REQUEST_PICKER) {
       if (resultCode == RESULT_OK) {
-        newImportTasksDialog(data.getData()).show(getFragmentManager(), FRAG_TAG_IMPORT_TASKS);
-        result.putBoolean(AppearancePreferences.EXTRA_RESTART, true);
+        Uri uri = data.getData();
+        String extension = FileHelper.getExtension(this, uri);
+        if (!("json".equalsIgnoreCase(extension) || "xml".equalsIgnoreCase(extension))) {
+          toaster.longToast(R.string.invalid_backup_file);
+        } else {
+          newImportTasksDialog(uri, extension).show(getFragmentManager(), FRAG_TAG_IMPORT_TASKS);
+          result.putBoolean(AppearancePreferences.EXTRA_RESTART, true);
+        }
       }
     } else if (requestCode == RC_DRIVE_BACKUP) {
       boolean success = resultCode == RESULT_OK;

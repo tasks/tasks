@@ -30,6 +30,8 @@
 	<string name="TLA_menu_search">Hľadať</string>
 	<string name="TLA_menu_settings">Nastavenia</string>
 	<string name="TAd_actionEditTask">Upraviť</string>
+	<string name="action_call">Volať</string>
+	<string name="action_open">Otvoriť</string>
 	<string name="SSD_sort_drag">Ručne triediť s podúlohami</string>
 	<string name="SSD_sort_auto">Chytré triedenie</string>
 	<string name="SSD_sort_alpha">Podľa názvu</string>
@@ -54,10 +56,15 @@
 	<string name="due_time">Čas dokončenia</string>
 	<string name="day_before_due">Deň pre ukončením</string>
 	<string name="week_before_due">Týždeň pred ukončením</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization." name="TEA_hideUntil_due_date">termín deň</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization." name="TEA_hideUntil_due_time">termín čas</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization." name="TEA_hideUntil_day_before_due">o deň skôr</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization." name="TEA_hideUntil_week_before_due">o týždeň skôr</string>
 	<string name="TEA_control_when">Kedy</string>
 	<string name="TEA_control_repeat">Opakovať</string>
 	<string name="TEA_control_gcal">Kalendár</string>
 	<string name="TEA_control_importance">Priorita</string>
+	<string name="TEA_control_location">Poloha</string>
 	<string name="TEA_control_notes">Popis</string>
 	<string name="TEA_control_files">Prílohy</string>
 	<string name="TEA_control_reminders">Pripomienky</string>
@@ -106,6 +113,7 @@
 	<string name="EPr_default_hideUntil_title">Predvolené Skryť do</string>
 	<string name="EPr_default_reminders_title">Predvolené pripomienky</string>
 	<string name="EPr_default_location_reminder_title">Východzie upozornenia podľa polohy</string>
+	<string name="EPr_default_location_radius">Predvolený polomer</string>
 	<string name="EPr_default_reminders_mode_title">Východzie vyzváňanie/vybrovanie</string>
 	<string name="priority_high">Vysoká</string>
 	<string name="priority_medium">Stredná</string>
@@ -149,6 +157,7 @@
 	<string name="gcal_completed_title">%s (dokončené)</string>
 	<string name="CFC_gtasks_list_text">V zozname: ?</string>
 	<string name="CFC_gtasks_list_name">V zozname GTasks...</string>
+	<string name="CFC_caldav_list_name">V zozname CalDAV …</string>
 	<string name="gtasks_GTA_clear_completed">Vymazať dokončené</string>
 	<string name="gtasks_GLA_authenticating">Overovanie...</string>
 	<string name="gtasks_GLA_errorIOAuth">Prepáč, nastal problém v komunikácii s Google serverom. Prosím, skús to znovu neskôr.</string>
@@ -260,6 +269,7 @@
 	<string name="repeat_number_of_times">Opakovať určitý počet krát</string>
 	<string name="repeat_occurs">Vyskytuje sa</string>
 	<string name="repeat_snackbar">%1$s preložené na %2$s</string>
+	<string comment="display new due date and time in snackbar after completing repeating task, e.g. \'Tomorrow at 8 AM\' or \'21 May at 8 AM\'" name="repeat_snackbar_time">%1$s, %2$s</string>
 	<string name="new_tag">Vytvoriť nový štítok</string>
 	<string name="new_list">Vytvoriť nový zoznam</string>
 	<string name="tag_FEx_untagged">Nezaradené</string>
@@ -298,6 +308,7 @@
 	<string name="quiet_hours">Čas ticha</string>
 	<string name="attachment_directory">Priečinok pre prílohy</string>
 	<string name="backup_directory">Zalóhovať adresár</string>
+	<string name="google_drive_backup">Kopírovať na Disk Google</string>
 	<string name="miscellaneous">Rôzne</string>
 	<string name="synchronization">Synchronizácia</string>
 	<string name="enabled">Povolené</string>
@@ -311,6 +322,7 @@
 	<string name="quiet_hours_summary">Žiadne upozornenia počas obdobia ticha</string>
 	<string name="TLA_menu_donate">Darovať</string>
 	<string name="add_reminder">Pridať pripomienku</string>
+	<string name="add_location">Pridaj polohu</string>
 	<string name="remove">Odstrániť</string>
 	<string name="randomly_once">Raz náhodne</string>
 	<string name="randomly">Náhodne</string>
@@ -319,6 +331,7 @@
 	<string name="pick_a_date_and_time">Vybrať dátum a čas</string>
 	<string name="when_overdue">Keď po termíne</string>
 	<string name="when_due">Keď v termíne</string>
+	<string name="geofence_radius">Polomer</string>
 	<string name="tags">Štítky</string>
 	<string name="filters">Filtre</string>
 	<string name="date_shortcut_hour">Za hodinu</string>
@@ -366,6 +379,7 @@
 	<string name="theme">Téma</string>
 	<string name="color">Farba</string>
 	<string name="accent">Zvýraznenie </string>
+	<string name="launcher_icon">Ikona</string>
 	<string name="theme_red">Červená</string>
 	<string name="theme_pink">Ružová</string>
 	<string name="theme_purple">Fialová</string>
@@ -387,6 +401,7 @@
 	<string name="theme_blue_grey">Modro šedá</string>
 	<string name="theme_black">Čierna</string>
 	<string name="theme_dark_grey">Tmavo šedá</string>
+	<string name="theme_white">Biela</string>
 	<string name="theme_light">Svetlá</string>
 	<string name="theme_dark">Tmavá</string>
 	<string name="theme_wallpaper">Tapeta</string>
@@ -467,6 +482,7 @@
 	<string name="background_sync_unmetered_only">Iba na bezplatných pripojeniach</string>
 	<string name="upgrade">Nová verzia</string>
 	<string name="upgrade_to_pro">Rozšíriť na verziu pro</string>
+	<string name="manage_subscription">Platená verzia</string>
 	<string name="refresh_purchases">Obnoviť nákupy</string>
 	<string name="button_subscribed">Prihlásený</string>
 	<string name="button_subscribe">Prihlásiť sa</string>
@@ -480,9 +496,37 @@ Google Play je správne nastavená</string>
 	<string name="themes">Ďaľšie témy</string>
 	<string name="pro_caldav_sync">CaIDAV synchronizácia</string>
 	<string name="pro_multiple_google_task_accounts">Viac účtov Google Task</string>
+	<string name="pro_google_places_search">Miesta Google vyhľadanie</string>
 	<string name="pro_tasker_plugins">Zásuvný modul Tasker</string>
 	<string name="pro_dashclock_extension">Rozšírenie Dashclock</string>
 	<string name="requires_pro_subscription">Vyžaduje platenú verziu pro</string>
+	<string name="logout">Odhlásiť sa</string>
+	<string name="logout_warning">Odhlásiť sa o %s? Všetky údaje tohto účtu budú odstránené z Vášho zariadenia</string>
+	<string name="cannot_access_account">Chyba v prístupe k účtu</string>
+	<string name="reinitialize_account">Znovu aktivovať</string>
+	<string name="action_create_new_task">Vytvoriť novú úlohu</string>
+	<string name="show_description">Ukázať popis</string>
+	<string name="show_full_description">Ukázať plný popis</string>
+	<string name="linkify">Ukázať prepojenia</string>
+	<string name="linkify_description">Pridať prepojenia do stránok, adries a telefónnych čísel</string>
+	<string name="show_list_indicators">Ukázať zoznamy</string>
 	<string name="location_remind_arrival">Pripomenúť pri príchode</string>
 	<string name="location_remind_departure">Pripomenúť pri odchode</string>
+	<string name="visit_website">Navštíviť stránky</string>
+	<string name="location_arrived">Príchod o %s</string>
+	<string name="location_departed">Odchod o %s</string>
+	<string name="building_notifications">Všeobecné upozornenia</string>
+	<string name="choose_a_location">Vybrať polohu</string>
+	<string name="pick_this_location">Vybrať túto polohu</string>
+	<string name="or_choose_a_location">Alebo vybrať polohu ručne</string>
+	<string name="map_provider">Mapy poskytuje</string>
+	<string name="map_search_provider">Vyhľadávanie poskytuje</string>
+	<string name="missing_permissions">Chýbajúce oprávnenia</string>
+	<string name="location_permission_required_geofence">Pre upozornenia podľa polohy sú potrebné povolenia</string>
+	<string name="location_permission_required_location">Pre učenie súčasnej polohy sú potrebné povolenia</string>
+	<string name="open_map">Otvoriť mapu</string>
+	<string name="choose_new_location">Zvoliť novú polohu</string>
+	<string name="third_party_licenses">Licencie tretích strán</string>
+	<string name="changelog">Zoznam zmien</string>
+	<string name="version_string">Verzia %s</string>
 </resources>

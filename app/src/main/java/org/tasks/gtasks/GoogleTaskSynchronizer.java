@@ -193,9 +193,6 @@ public class GoogleTaskSynchronizer {
         break;
       }
       eTag = remoteLists.getEtag();
-      if (!Strings.isNullOrEmpty(eTag) && eTag.equals(account.getEtag())) {
-        return;
-      }
       List<TaskList> items = remoteLists.getItems();
       if (items != null) {
         gtaskLists.addAll(items);

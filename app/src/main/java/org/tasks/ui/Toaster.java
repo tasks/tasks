@@ -21,6 +21,10 @@ public class Toaster {
     this.locale = locale;
   }
 
+  public void longToast(@StringRes int resId, String arg) {
+    longToast(context.getString(resId, arg));
+  }
+
   public void longToast(@StringRes int resId, int number) {
     longToast(context.getString(resId, locale.formatNumber(number)));
   }

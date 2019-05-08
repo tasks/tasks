@@ -57,12 +57,14 @@
 	<string name="day_before_due">Dzień przed terminem</string>
 	<string name="week_before_due">Tydzień przed terminem</string>
 	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization." name="TEA_hideUntil_due_date">w terminie</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization." name="TEA_hideUntil_due_time">o czasie</string>
 	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization." name="TEA_hideUntil_day_before_due">Dzień przed terminem</string>
 	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization." name="TEA_hideUntil_week_before_due">tydzień przed terminem</string>
 	<string name="TEA_control_when">Kiedy</string>
 	<string name="TEA_control_repeat">Powtórz</string>
 	<string name="TEA_control_gcal">Kalendarz</string>
 	<string name="TEA_control_importance">Priorytet</string>
+	<string name="TEA_control_location">Lokalizacja</string>
 	<string name="TEA_control_notes">Opis</string>
 	<string name="TEA_control_files">Pliki</string>
 	<string name="TEA_control_reminders">Przypomnienia</string>
@@ -110,6 +112,8 @@
 	<string name="EPr_default_importance_title">Domyślny priorytet</string>
 	<string name="EPr_default_hideUntil_title">Ukrywanie zadania (domyślnie)</string>
 	<string name="EPr_default_reminders_title">Przypomnienia (domyślnie)</string>
+	<string name="EPr_default_location_reminder_title">Domyślne powiadomienia o lokalizacji</string>
+	<string name="EPr_default_location_radius">Domyślny promień</string>
 	<string name="EPr_default_reminders_mode_title">Domyślny dzwonek/wibracja</string>
 	<string name="priority_high">Ważne</string>
 	<string name="priority_medium">Średnio ważne</string>
@@ -121,6 +125,9 @@
 	<string name="at_deadline">W dniu terminu nieprzekraczalnego</string>
 	<string name="at_deadline_or_overdue">W nieprzekraczalnym terminie lub gdy zaległe</string>
 	<string name="no_reminders">Brak przypomnień</string>
+	<string name="default_location_reminder_on_arrival">Po przybyciu</string>
+	<string name="default_location_reminder_on_departure">Przy wyruszaniu</string>
+	<string name="default_location_reminder_on_arrival_or_departure">Po przybyciu i przy wyruszeniu</string>
 	<string name="BFE_Active">Moje zadania</string>
 	<string name="BFE_Recent">Niedawno zmodyfikowane</string>
 	<string name="CFA_universe_all">Aktywne zadania</string>
@@ -203,8 +210,8 @@
 		<item quantity="other">%d zadań</item>
 	</plurals>
 	<plurals name="repeat_times">
-		<item quantity="one">czas</item>
-		<item quantity="other">times</item>
+		<item quantity="one">raz</item>
+		<item quantity="other">razy</item>
 	</plurals>
 	<plurals name="repeat_minutes">
 		<item quantity="one">minuta</item>
@@ -240,7 +247,7 @@
 	</plurals>
 	<plurals name="repeat_months">
 		<item quantity="one">miesiąc</item>
-		<item quantity="other">miesiący</item>
+		<item quantity="other">miesięcy</item>
 	</plurals>
 	<plurals name="repeat_n_months">
 		<item quantity="one">%d miesiąc</item>
@@ -255,11 +262,13 @@
 		<item quantity="other">%d lat</item>
 	</plurals>
 	<string name="repeat_type_due">w terminie</string>
-	<string name="repeat_type_completion">data zakoµczenia</string>
+	<string name="repeat_type_completion">data zakończenia</string>
 	<string name="repeat_forever">Powtarzaj bez końca</string>
 	<string name="repeat_until">Powtarzaj do %s</string>
 	<string name="repeat_number_of_times">Powtarzaj ilość razy.</string>
+	<string name="repeat_occurs">Występuje</string>
 	<string name="repeat_snackbar">%1$s przełożone na %2$s</string>
+	<string comment="display new due date and time in snackbar after completing repeating task, e.g. \'Tomorrow at 8 AM\' or \'21 May at 8 AM\'" name="repeat_snackbar_time">%1$s o %2$s</string>
 	<string name="new_tag">Stwórz nowy tag</string>
 	<string name="new_list">Utwórz nową listę</string>
 	<string name="tag_FEx_untagged">Na żadnej liście</string>
@@ -298,6 +307,7 @@
 	<string name="quiet_hours">Ciche gdzoiny</string>
 	<string name="attachment_directory">Katalog załączników</string>
 	<string name="backup_directory">Katalog kopii zapasowych</string>
+	<string name="google_drive_backup">Kopiuj do Dysku Google</string>
 	<string name="miscellaneous">Różne</string>
 	<string name="synchronization">Synchronizacja</string>
 	<string name="enabled">Włączone</string>
@@ -320,6 +330,7 @@
 	<string name="pick_a_date_and_time">Wybierz datę i czas</string>
 	<string name="when_overdue">Gdy zaległe</string>
 	<string name="when_due">Gdy w terminie</string>
+	<string name="geofence_radius">Promień</string>
 	<string name="tags">Tagi</string>
 	<string name="filters">Filtry</string>
 	<string name="date_shortcut_hour">Na godzinę</string>
@@ -352,6 +363,7 @@
 	<string name="send_anonymous_statistics">Ulepsz Tasks</string>
 	<string name="send_anonymous_statistics_summary">Wyślij anonimowe statyki użycia i raporty o awariach celem ulepszenia Tasks. Żadne prywatne dane nie będą gromadzone.</string>
 	<string name="tag_already_exists">Tag już istnieje</string>
+	<string name="duplicate_name">Duplikuj nazwę</string>
 	<string name="name_cannot_be_empty">Nazwa nie może być pusta</string>
 	<string name="username_required">Wymagana nazwa użytkownika</string>
 	<string name="password_required">Wymagane hasło</string>
@@ -418,6 +430,7 @@
 	<string name="date_and_time">Data i czas</string>
 	<string name="start_of_week">Początek tygodnia</string>
 	<string name="use_locale_default">Użyj domyślnych</string>
+	<string name="use_native_datetime_pickers">Użyj natywnych narzędzi wyboru daty i czasu</string>
 	<string name="add_account">Dodaj konto</string>
 	<string name="user">Użytkownik</string>
 	<string name="password">Hasło</string>
@@ -433,7 +446,9 @@
 	<string name="repeats_single">Powtarza się %s</string>
 	<string name="repeats_single_on">Powtarza się %1$s w: %2$s</string>
 	<string name="repeats_single_until">Powtarza się %1$s do %2$s</string>
+	<string name="repeats_single_number_of_times">Powtarzane %1$s, występuje %2$d %3$s</string>
 	<string name="repeats_single_on_until">Powtarza się %1$s w %2$s do %3$s</string>
+	<string name="repeats_single_on_number_of_times">Powtarzane %1$s w %2$s, występuje %3$d %4$s</string>
 	<string name="repeats_minutely">co minutę</string>
 	<string name="repeats_hourly">co godzinę</string>
 	<string name="repeats_daily">raz dziennie</string>
@@ -441,12 +456,19 @@
 	<string name="repeats_monthly">raz w miesiącu</string>
 	<string name="repeats_yearly">raz w roku</string>
 	<string name="repeats_plural">Powtarzaj co %s</string>
+	<string name="repeats_plural_on">Powtarzane co każde %1$s w %2$s</string>
+	<string name="repeats_plural_until">Powtarzane co każde %1$s aż do %2$s</string>
+	<string name="repeats_plural_number_of_times">Powtarzane co każde %1$s, występuje %2$d %3$s</string>
+	<string name="repeats_plural_on_until">Powtarzane co każde %1$s w %2$s aż do %3$s</string>
+	<string name="repeats_plural_on_number_of_times">Powtarzane co każde %1$s w %2$s, występuje %3$d %4$s</string>
 	<string name="dont_add_to_calendar">Nie dodawaj do kalendarza</string>
 	<string name="default_calendar">Domyślny kalendarz</string>
 	<string name="badges_description">Wyświetl liczbę zadań na ikonie Tasks. Nie wszystkie programy wspierają plakietki.</string>
+	<string name="bundle_notifications_summary">Wyświetlaj wiele powiadomień jako jedno powiadomienie</string>
 	<string name="repeat_monthly_same_day_each_month">tego samego dnia każdego miesiąca</string>
 	<string name="dont_sync">Nie synchronizowane</string>
 	<string name="repeat_monthly_every_day_of_nth_week">każdy %1$s %2$s</string>
+	<string name="repeat_monthly_on_every_day_of_nth_week">co każde %1$s %2$s</string>
 	<string name="repeat_monthly_first_week">pierwszy</string>
 	<string name="repeat_monthly_second_week">drugi</string>
 	<string name="repeat_monthly_third_week">trzeci</string>
@@ -458,22 +480,47 @@
 	<string name="network_error">Błąd połączenia</string>
 	<string name="background_sync_unmetered_only">Tylko niezliczane połączenia</string>
 	<string name="upgrade_to_pro">Upgrade do pro</string>
+	<string name="manage_subscription">Zarządzaj subskrypcją</string>
 	<string name="refresh_purchases">Odśwież zakupy</string>
 	<string name="button_subscribed">Subskrybowane</string>
 	<string name="button_subscribe">Zasubskrybuj</string>
 	<string name="button_more_info">Więcej informacji</string>
 	<string name="owned">Posiadane</string>
+	<string name="error_billing_unavailable">Płatność niedostępna. Upewnij się, że aplikacja Google Play jest poprawnie skonfigurowana.</string>
+	<string name="error_billing_default">Płatność niedostępna. Sprawdź swoje urządzenie.</string>
 	<string name="about">O</string>
+	<string name="license_summary">Tasks jest aplikacją darmową z otwartym kodem źródłowym, rozprowadzaną na licencją GNU General Public License v3.0</string>
 	<string name="themes">Dodatkowe motywy</string>
 	<string name="pro_caldav_sync">Synchronizacja CalDAV</string>
 	<string name="pro_multiple_google_task_accounts">Wiele kont Google Task</string>
+	<string name="pro_google_places_search">Wyszukiwanie w Google Places</string>
 	<string name="requires_pro_subscription">Wymaga subskrypcji pro</string>
 	<string name="logout">Wyloguj</string>
 	<string name="logout_warning">Wyloguj z %s? Wszystkie dane z tego konta zostaną usunięte z urządzenia</string>
 	<string name="cannot_access_account">Brak dostępu do konta</string>
+	<string name="reinitialize_account">Powiąż ponownie</string>
 	<string name="action_create_new_task">Stwórz nowe zadanie</string>
 	<string name="show_description">Pokaż opis</string>
 	<string name="show_full_description">Pokaż pełen opis</string>
 	<string name="linkify">Pokaż linki</string>
 	<string name="linkify_description">Dodaj linki do stron WWW, adresów i numerów telefonów</string>
+	<string name="location_remind_arrival">Przypomnij po przybyciu</string>
+	<string name="location_remind_departure">Przypomnij przy wyruszaniu</string>
+	<string name="visit_website">Wejdź na stronę</string>
+	<string name="location_arrived">Przybyto do %s</string>
+	<string name="location_departed">Wyruszono z %s</string>
+	<string name="building_notifications">Generowanie powiadomień</string>
+	<string name="choose_a_location">Wybierz lokalizację</string>
+	<string name="pick_this_location">Ustaw wybraną lokalizację</string>
+	<string name="or_choose_a_location">Lub wybierz lokalizację</string>
+	<string name="map_provider">Dostawca map</string>
+	<string name="map_search_provider">Silnik wyszukiwania</string>
+	<string name="missing_permissions">Brakujące uprawnienia</string>
+	<string name="location_permission_required_geofence">Uprawnienia lokalizacji są wymagane do powiadomień o lokalizacji</string>
+	<string name="location_permission_required_location">Uprawnienia lokalizacji są wymagane do ustalenia twojej aktualnej lokalizacji</string>
+	<string name="open_map">Otwórz mapę</string>
+	<string name="choose_new_location">Wybierz nową lokalizację</string>
+	<string name="third_party_licenses">Licencje innych podmiotów</string>
+	<string name="changelog">Lista zmian</string>
+	<string name="version_string">Wersja %s</string>
 </resources>

@@ -24,6 +24,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.documentfile.provider.DocumentFile;
+import com.google.common.base.Strings;
 import com.google.common.io.ByteStreams;
 import com.google.common.io.Files;
 import java.io.File;
@@ -142,6 +143,24 @@ public class FileHelper {
         break;
     }
     return null;
+  }
+
+  public static String getExtension(Context context, Uri uri) {
+    if (uri.getScheme().equals(ContentResolver.SCHEME_CONTENT)) {
+      String extension =
+          MimeTypeMap.getSingleton()
+              .getExtensionFromMimeType(context.getContentResolver().getType(uri));
+      if (!Strings.isNullOrEmpty(extension)) {
+        return extension;
+      }
+    }
+
+    String extension = MimeTypeMap.getFileExtensionFromUrl(uri.getPath());
+    if (!Strings.isNullOrEmpty(extension)) {
+      return extension;
+    }
+
+    return Files.getFileExtension(getFilename(context, uri));
   }
 
   public static String getMimeType(Context context, Uri uri) {

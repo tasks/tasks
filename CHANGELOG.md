@@ -1,5 +1,15 @@
 Change Log
 ---
+### 6.6.3 (2019-05-08)
+
+* Fix backup import crash
+* Fix crash when refreshing purchases
+* Google Tasks synchronization bug fix
+* Update translations
+  * Polish - mujehu
+  * Russian - Balbatoon
+  * Slovak - Cuco
+
 ### 6.6.2 (2019-04-22)
 
 * Backup and restore preferences
