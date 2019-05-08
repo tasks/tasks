@@ -5,6 +5,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
 import org.tasks.backup.XmlReader;
 
@@ -14,6 +15,9 @@ public class Tag {
   public static final String KEY = "tags-tag"; // $NON-NLS-1$
 
   @Deprecated public static final Table TABLE = new Table("tags");
+
+  public static final StringProperty TASK_UID = new StringProperty(TABLE, "task_uid");
+  public static final StringProperty NAME = new StringProperty(TABLE, "name");
 
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "_id")
