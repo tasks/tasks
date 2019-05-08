@@ -105,9 +105,13 @@ public class BillingClientImpl implements BillingClient, PurchasesUpdatedListene
                     purchases,
                     Single.fromCallable(() -> billingClient.queryPurchases(SkuType.SUBS)),
                     (iaps, subs) -> {
-                      if (subs.getResponseCode() == BillingResponse.OK) {
-                        iaps.getPurchasesList().addAll(subs.getPurchasesList());
+                      if (iaps.getResponseCode() != BillingResponse.OK) {
+                        return iaps;
                       }
+                      if (subs.getResponseCode() != BillingResponse.OK) {
+                        return subs;
+                      }
+                      iaps.getPurchasesList().addAll(subs.getPurchasesList());
                       return iaps;
                     });
           }
