@@ -70,6 +70,7 @@ public class GtasksLoginActivity extends InjectingAppCompatActivity {
             } else {
               account.setError("");
               googleTaskListDao.update(account);
+              googleTaskListDao.resetLastSync(accountName);
             }
             setResult(RESULT_OK);
             DialogUtilities.dismissDialog(GtasksLoginActivity.this, pd);

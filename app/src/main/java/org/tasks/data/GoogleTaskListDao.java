@@ -40,6 +40,9 @@ public abstract class GoogleTaskListDao {
   @Query("SELECT * FROM google_task_lists")
   public abstract List<GoogleTaskList> getAllLists();
 
+  @Query("UPDATE google_task_lists SET last_sync = 0 WHERE account = :account")
+  public abstract void resetLastSync(String account);
+
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   public abstract long insertOrReplace(GoogleTaskList googleTaskList);
 
