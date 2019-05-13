@@ -51,7 +51,7 @@ public class TaskDeleter {
   public List<Task> markDeleted(List<Long> taskIds) {
     deletionDao.markDeleted(taskIds);
     workManager.cleanup(taskIds);
-    workManager.syncNow();
+    workManager.sync(false);
     localBroadcastManager.broadcastRefresh();
     return taskDao.fetch(taskIds);
   }

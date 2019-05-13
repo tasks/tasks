@@ -47,7 +47,7 @@ public class TaskMover {
       task.setModificationDate(now());
       taskDao.save(task);
     }
-    syncAdapters.syncNow();
+    syncAdapters.sync();
   }
 
   public void move(Task task, Filter selectedList) {

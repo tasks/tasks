@@ -174,7 +174,7 @@ public final class TaskListFragment extends InjectingFragment
   public void onRefresh() {
     disposables.add(
         syncAdapters
-            .sync()
+            .sync(true)
             .subscribe(
                 initiated -> {
                   if (!initiated) {
@@ -561,7 +561,7 @@ public final class TaskListFragment extends InjectingFragment
     for (Task task : tasks) {
       onTaskCreated(task.getUuid());
     }
-    syncAdapters.syncNow();
+    syncAdapters.sync();
   }
 
   void onTaskCreated(String uuid) {

@@ -22,17 +22,17 @@ public class SyncAdapters {
     this.caldavDao = caldavDao;
   }
 
-  public void syncNow() {
-    sync().subscribe();
+  public void sync() {
+    sync(false).subscribe();
   }
 
-  public Single<Boolean> sync() {
+  public Single<Boolean> sync(boolean immediate) {
     return Single.zip(
             Single.fromCallable(this::isGoogleTaskSyncEnabled),
             Single.fromCallable(this::isCaldavSyncEnabled),
             (b1, b2) -> {
               if (b1 || b2) {
-                workManager.syncNow();
+                workManager.sync(immediate);
                 return true;
               }
               return false;

@@ -94,20 +94,23 @@ public class WorkManager {
             .build());
   }
 
-  public void syncNow() {
+  public void sync(boolean immediate) {
     Constraints constraints =
         new Constraints.Builder()
             .setRequiredNetworkType(
-                preferences.getBoolean(R.string.p_background_sync_unmetered_only, false)
+                !immediate && preferences.getBoolean(R.string.p_background_sync_unmetered_only, false)
                     ? NetworkType.UNMETERED
                     : NetworkType.CONNECTED)
             .build();
-    OneTimeWorkRequest request =
-        new OneTimeWorkRequest.Builder(SyncWork.class)
+    Builder builder =
+        new Builder(SyncWork.class)
             .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 1, TimeUnit.MINUTES)
-            .setConstraints(constraints)
-            .build();
-    workManager.beginUniqueWork(TAG_SYNC, ExistingWorkPolicy.KEEP, request).enqueue();
+            .setConstraints(constraints);
+    if (!immediate) {
+      builder.setInitialDelay(1, TimeUnit.MINUTES);
+    }
+    OneTimeWorkRequest request = builder.build();
+    workManager.beginUniqueWork(TAG_SYNC, ExistingWorkPolicy.REPLACE, request).enqueue();
   }
 
   public void updateBackgroundSync() {

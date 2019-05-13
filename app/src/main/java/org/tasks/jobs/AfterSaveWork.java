@@ -109,7 +109,7 @@ public class AfterSaveWork extends InjectingWorker {
 
     if ((data.getBoolean(EXTRA_PUSH_GTASKS, false) && syncAdapters.isGoogleTaskSyncEnabled())
         || (data.getBoolean(EXTRA_PUSH_CALDAV, false) && syncAdapters.isCaldavSyncEnabled())) {
-      workManager.syncNow();
+      workManager.sync(false);
     }
 
     refreshScheduler.scheduleRefresh(task);
