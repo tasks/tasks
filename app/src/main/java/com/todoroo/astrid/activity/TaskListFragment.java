@@ -39,7 +39,6 @@ import com.google.android.material.snackbar.Snackbar;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.QueryTemplate;
-import com.todoroo.astrid.adapter.GoogleTaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapterProvider;
 import com.todoroo.astrid.api.CaldavFilter;
@@ -524,7 +523,7 @@ public final class TaskListFragment extends InjectingFragment
    */
   private void refresh() {
     // TODO: compare indents in diff callback, then animate this
-    loadTaskListContent(!(taskAdapter instanceof GoogleTaskAdapter));
+    loadTaskListContent();
 
     setSyncOngoing(preferences.isSyncOngoing());
   }
@@ -536,12 +535,6 @@ public final class TaskListFragment extends InjectingFragment
    */
 
   public void loadTaskListContent() {
-    loadTaskListContent(true);
-  }
-
-  public void loadTaskListContent(boolean animate) {
-    recyclerAdapter.setAnimate(animate);
-
     taskListViewModel.invalidate();
   }
 

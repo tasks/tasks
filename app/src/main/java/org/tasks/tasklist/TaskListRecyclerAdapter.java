@@ -29,7 +29,6 @@ public class TaskListRecyclerAdapter extends ListAdapter<TaskContainer, ViewHold
   private final ItemTouchHelperCallback itemTouchHelperCallback;
 
   private ActionMode mode = null;
-  private boolean animate;
   private RecyclerView recyclerView;
 
   public TaskListRecyclerAdapter(
@@ -169,33 +168,20 @@ public class TaskListRecyclerAdapter extends ListAdapter<TaskContainer, ViewHold
 
   @Override
   public void onMoved(int fromPosition, int toPosition) {
-    if (animate) {
-      notifyItemChanged(fromPosition);
-      notifyItemMoved(fromPosition, toPosition);
-      recyclerView.scrollToPosition(fromPosition);
-    } else {
-      notifyDataSetChanged();
-    }
+    notifyItemChanged(fromPosition);
+    notifyItemMoved(fromPosition, toPosition);
+    recyclerView.scrollToPosition(fromPosition);
   }
 
   @Override
   public void onChanged(int position, int count, Object payload) {
-    if (animate) {
-      notifyItemRangeChanged(position, count, payload);
-    } else {
-      notifyDataSetChanged();
-    }
+    notifyItemRangeChanged(position, count, payload);
   }
 
   public void onTaskSaved() {
-    setAnimate(true);
     int scrollY = recyclerView.getScrollY();
     notifyDataSetChanged();
     recyclerView.setScrollY(scrollY);
-  }
-
-  public void setAnimate(boolean animate) {
-    this.animate = animate;
   }
 
   boolean isActionModeActive() {

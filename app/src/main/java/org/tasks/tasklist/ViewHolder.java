@@ -185,6 +185,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
     if (atLeastLollipop()) {
       MarginLayoutParams layoutParams = (MarginLayoutParams) row.getLayoutParams();
       layoutParams.setMarginStart(indentSize);
+      row.setLayoutParams(layoutParams);
     } else {
       rowBody.setPadding(indentSize, rowBody.getPaddingTop(), 0, rowBody.getPaddingBottom());
     }

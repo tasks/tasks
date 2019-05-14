@@ -101,7 +101,7 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
           to++;
         }
         adapter.moved(from, to);
-        taskList.loadTaskListContent(false);
+        taskList.loadTaskListContent();
       }
     }
     from = -1;
@@ -112,6 +112,6 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
   @Override
   public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
     adapter.indented(viewHolder.getAdapterPosition(), direction == ItemTouchHelper.RIGHT ? 1 : -1);
-    taskList.loadTaskListContent(false);
+    taskList.loadTaskListContent();
   }
 }
