@@ -226,7 +226,9 @@ public class MainActivity extends InjectingAppCompatActivity
     } else {
       TaskListFragment existing = getTaskListFragment();
       openTaskListFragment(
-          existing == null || existing.getFilter() != filter ? newTaskListFragment(filter) : existing);
+          existing == null || existing.getFilter() != filter
+              ? newTaskListFragment(getApplicationContext(), filter)
+              : existing);
       openTask(filter);
     }
 
@@ -259,7 +261,7 @@ public class MainActivity extends InjectingAppCompatActivity
   }
 
   private void openTaskListFragment(Filter filter) {
-    openTaskListFragment(newTaskListFragment(filter));
+    openTaskListFragment(newTaskListFragment(getApplicationContext(), filter));
   }
 
   private void openTaskListFragment(@NonNull TaskListFragment taskListFragment) {

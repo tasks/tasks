@@ -161,10 +161,12 @@ public final class TaskListFragment extends InjectingFragment
    */
   private TaskListFragmentCallbackHandler callbacks;
 
-  static TaskListFragment newTaskListFragment(Filter filter) {
+  static TaskListFragment newTaskListFragment(Context context, Filter filter) {
     TaskListFragment fragment = new TaskListFragment();
     Bundle bundle = new Bundle();
-    bundle.putParcelable(EXTRA_FILTER, filter);
+    bundle.putParcelable(
+        EXTRA_FILTER,
+        filter == null ? BuiltInFilterExposer.getMyTasksFilter(context.getResources()) : filter);
     fragment.setArguments(bundle);
     return fragment;
   }
@@ -539,15 +541,7 @@ public final class TaskListFragment extends InjectingFragment
   }
 
   public Filter getFilter() {
-    Filter filter = null;
-    Bundle arguments = getArguments();
-    if (arguments != null) {
-      filter = arguments.getParcelable(EXTRA_FILTER);
-    }
-    if (filter == null) {
-      filter = BuiltInFilterExposer.getMyTasksFilter(getResources());
-    }
-    return filter;
+    return getArguments().getParcelable(EXTRA_FILTER);
   }
 
   public void onTaskCreated(List<Task> tasks) {
