@@ -356,6 +356,10 @@ public class GoogleTaskSynchronizer {
         } else if (googleTask.getTask() > 0) {
           task = taskDao.fetch(googleTask.getTask());
         }
+        com.google.api.client.util.DateTime updated = gtask.getUpdated();
+        if (updated != null) {
+          lastSyncDate = Math.max(lastSyncDate, updated.getValue());
+        }
         Boolean isDeleted = gtask.getDeleted();
         Boolean isHidden = gtask.getHidden();
         if ((isDeleted != null && isDeleted) || (isHidden != null && isHidden)) {
@@ -372,7 +376,6 @@ public class GoogleTaskSynchronizer {
         container.gtaskMetadata.setParent(localIdForGtasksId(gtask.getParent()));
         container.gtaskMetadata.setLastSync(DateUtilities.now() + 1000L);
         write(container);
-        lastSyncDate = Math.max(lastSyncDate, container.getUpdateTime());
       }
       list.setLastSync(lastSyncDate);
       googleTaskListDao.insertOrReplace(list);
