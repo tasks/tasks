@@ -167,16 +167,25 @@ public final class TaskListFragment extends InjectingFragment
     disposables.add(
         syncAdapters
             .sync(true)
-            .subscribe(
+            .doOnSuccess(
                 initiated -> {
                   if (!initiated) {
                     refresh();
                   }
+                })
+            .delay(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+            .subscribe(
+                initiated -> {
+                  if (initiated) {
+                    setSyncOngoing();
+                  }
                 }));
   }
 
-  private void setSyncOngoing(final boolean ongoing) {
+  private void setSyncOngoing() {
     assertMainThread();
+
+    boolean ongoing = preferences.isSyncOngoing();
 
     swipeRefreshLayout.setRefreshing(ongoing);
     emptyRefreshLayout.setRefreshing(ongoing);
@@ -505,7 +514,7 @@ public final class TaskListFragment extends InjectingFragment
   private void refresh() {
     loadTaskListContent();
 
-    setSyncOngoing(preferences.isSyncOngoing());
+    setSyncOngoing();
   }
 
   public void loadTaskListContent() {
