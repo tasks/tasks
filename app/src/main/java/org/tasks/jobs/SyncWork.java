@@ -5,12 +5,12 @@ import androidx.annotation.NonNull;
 import androidx.work.WorkerParameters;
 import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
+import org.tasks.analytics.Tracker;
 import org.tasks.caldav.CaldavSynchronizer;
 import org.tasks.gtasks.GoogleTaskSynchronizer;
 import org.tasks.injection.InjectingWorker;
 import org.tasks.injection.JobComponent;
 import org.tasks.preferences.Preferences;
-import timber.log.Timber;
 
 public class SyncWork extends InjectingWorker {
 
@@ -20,6 +20,7 @@ public class SyncWork extends InjectingWorker {
   @Inject GoogleTaskSynchronizer googleTaskSynchronizer;
   @Inject LocalBroadcastManager localBroadcastManager;
   @Inject Preferences preferences;
+  @Inject Tracker tracker;
 
   public SyncWork(@NonNull Context context, @NonNull WorkerParameters workerParams) {
     super(context, workerParams);
@@ -40,7 +41,7 @@ public class SyncWork extends InjectingWorker {
       caldavSynchronizer.sync();
       googleTaskSynchronizer.sync();
     } catch (Exception e) {
-      Timber.e(e);
+      tracker.reportException(e);
     } finally {
       preferences.setSyncOngoing(false);
       localBroadcastManager.broadcastRefresh();

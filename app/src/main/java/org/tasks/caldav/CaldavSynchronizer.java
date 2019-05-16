@@ -47,6 +47,7 @@ import okhttp3.ResponseBody;
 import org.tasks.BuildConfig;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
+import org.tasks.analytics.Tracker;
 import org.tasks.billing.Inventory;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
@@ -70,6 +71,7 @@ public class CaldavSynchronizer {
   private final TaskDeleter taskDeleter;
   private final Encryption encryption;
   private final Inventory inventory;
+  private final Tracker tracker;
   private final Context context;
 
   @Inject
@@ -81,7 +83,8 @@ public class CaldavSynchronizer {
       TaskCreator taskCreator,
       TaskDeleter taskDeleter,
       Encryption encryption,
-      Inventory inventory) {
+      Inventory inventory,
+      Tracker tracker) {
     this.context = context;
     this.caldavDao = caldavDao;
     this.taskDao = taskDao;
@@ -90,6 +93,7 @@ public class CaldavSynchronizer {
     this.taskDeleter = taskDeleter;
     this.encryption = encryption;
     this.inventory = inventory;
+    this.tracker = tracker;
   }
 
   public void sync() {
@@ -97,16 +101,11 @@ public class CaldavSynchronizer {
     Thread.currentThread().setContextClassLoader(context.getClassLoader());
     for (CaldavAccount account : caldavDao.getAccounts()) {
       if (!inventory.hasPro()) {
-        account.setError(context.getString(R.string.requires_pro_subscription));
-        caldavDao.update(account);
-        localBroadcastManager.broadcastRefreshList();
+        setError(account, context.getString(R.string.requires_pro_subscription));
         continue;
       }
       if (isNullOrEmpty(account.getPassword())) {
-        account.setError(context.getString(R.string.password_required));
-        caldavDao.update(account);
-        localBroadcastManager.broadcastRefreshList();
-        Timber.e("Missing password for %s", account);
+        setError(account, context.getString(R.string.password_required));
         continue;
       }
       CaldavClient caldavClient = new CaldavClient(account, encryption);
@@ -114,10 +113,8 @@ public class CaldavSynchronizer {
       try {
         resources = caldavClient.getCalendars();
       } catch (IOException | DavException e) {
-        account.setError(e.getMessage());
-        caldavDao.update(account);
-        localBroadcastManager.broadcastRefreshList();
-        Timber.e(e);
+        setError(account, e.getMessage());
+        tracker.reportException(e);
         continue;
       }
       Set<String> urls = newHashSet(transform(resources, c -> c.getUrl().toString()));
@@ -140,9 +137,16 @@ public class CaldavSynchronizer {
         }
         sync(calendar, resource, caldavClient.getHttpClient());
       }
-      account.setError("");
-      caldavDao.update(account);
-      localBroadcastManager.broadcastRefreshList();
+      setError(account, "");
+    }
+  }
+
+  private void setError(CaldavAccount account, String message) {
+    account.setError(message);
+    caldavDao.update(account);
+    localBroadcastManager.broadcastRefreshList();
+    if (!Strings.isNullOrEmpty(message)) {
+      Timber.e(message);
     }
   }
 
@@ -245,10 +249,8 @@ public class CaldavSynchronizer {
       caldavCalendar.setCtag(remoteCtag);
       Timber.d("UPDATE %s", caldavCalendar);
       caldavDao.update(caldavCalendar);
-    } catch (IOException | DavException e) {
-      Timber.e(e);
     } catch (Exception e) {
-      Timber.e(e);
+      tracker.reportException(e);
     }
 
     localBroadcastManager.broadcastRefresh();
