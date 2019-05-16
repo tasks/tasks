@@ -31,7 +31,6 @@ import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskListDao;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.gtasks.GoogleAccountManager;
-import org.tasks.gtasks.GtaskSyncAdapterHelper;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.jobs.WorkManager;
@@ -51,7 +50,6 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
   @Inject ActivityPermissionRequestor permissionRequestor;
   @Inject PermissionChecker permissionChecker;
   @Inject Tracker tracker;
-  @Inject GtaskSyncAdapterHelper gtaskSyncAdapterHelper;
   @Inject DialogBuilder dialogBuilder;
   @Inject SyncAdapters syncAdapters;
   @Inject GoogleTaskDao googleTaskDao;

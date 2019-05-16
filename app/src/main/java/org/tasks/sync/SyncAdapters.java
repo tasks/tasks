@@ -5,21 +5,21 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
 import org.tasks.data.CaldavDao;
-import org.tasks.gtasks.GtaskSyncAdapterHelper;
+import org.tasks.data.GoogleTaskListDao;
 import org.tasks.jobs.WorkManager;
 
 public class SyncAdapters {
 
-  private final GtaskSyncAdapterHelper gtaskSyncAdapterHelper;
   private final WorkManager workManager;
   private final CaldavDao caldavDao;
+  private final GoogleTaskListDao googleTaskListDao;
 
   @Inject
   public SyncAdapters(
-      GtaskSyncAdapterHelper gtaskSyncAdapterHelper, WorkManager workManager, CaldavDao caldavDao) {
-    this.gtaskSyncAdapterHelper = gtaskSyncAdapterHelper;
+      WorkManager workManager, CaldavDao caldavDao, GoogleTaskListDao googleTaskListDao) {
     this.workManager = workManager;
     this.caldavDao = caldavDao;
+    this.googleTaskListDao = googleTaskListDao;
   }
 
   public void sync() {
@@ -27,18 +27,14 @@ public class SyncAdapters {
   }
 
   public Single<Boolean> sync(boolean immediate) {
-    return Single.zip(
-            Single.fromCallable(this::isGoogleTaskSyncEnabled),
-            Single.fromCallable(this::isCaldavSyncEnabled),
-            (b1, b2) -> {
-              if (b1 || b2) {
-                workManager.sync(immediate);
-                return true;
-              }
-              return false;
-            })
+    return Single.fromCallable(this::isSyncEnabled)
         .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread());
+        .observeOn(AndroidSchedulers.mainThread())
+        .doOnSuccess(enabled -> {
+          if (enabled) {
+            workManager.sync(immediate);
+          }
+        });
   }
 
   public boolean isSyncEnabled() {
@@ -46,7 +42,7 @@ public class SyncAdapters {
   }
 
   public boolean isGoogleTaskSyncEnabled() {
-    return gtaskSyncAdapterHelper.isEnabled();
+    return googleTaskListDao.getAccounts().size() > 0;
   }
 
   public boolean isCaldavSyncEnabled() {
