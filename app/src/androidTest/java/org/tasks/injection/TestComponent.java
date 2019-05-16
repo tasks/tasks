@@ -2,11 +2,8 @@ package org.tasks.injection;
 
 import com.todoroo.astrid.alarms.AlarmJobServiceTest;
 import com.todoroo.astrid.dao.TaskDaoTests;
-import com.todoroo.astrid.gtasks.GtasksIndentActionTest;
 import com.todoroo.astrid.gtasks.GtasksListServiceTest;
 import com.todoroo.astrid.gtasks.GtasksMetadataServiceTest;
-import com.todoroo.astrid.gtasks.GtasksTaskListUpdaterTest;
-import com.todoroo.astrid.gtasks.GtasksTaskMovingTest;
 import com.todoroo.astrid.model.TaskTest;
 import com.todoroo.astrid.reminders.ReminderServiceTest;
 import com.todoroo.astrid.repeats.RepeatTaskHelperTest;
@@ -17,19 +14,14 @@ import com.todoroo.astrid.subtasks.SubtasksMovingTest;
 import com.todoroo.astrid.sync.NewSyncTestCase;
 import dagger.Component;
 import org.tasks.data.DeletionDaoTests;
+import org.tasks.data.GoogleTaskDaoTests;
 import org.tasks.jobs.BackupServiceTests;
 
 @ApplicationScope
 @Component(modules = TestModule.class)
 public interface TestComponent extends ApplicationComponent {
 
-  void inject(GtasksIndentActionTest gtasksIndentActionTest);
-
-  void inject(GtasksTaskMovingTest gtasksTaskMovingTest);
-
   void inject(GtasksListServiceTest gtasksListServiceTest);
-
-  void inject(GtasksTaskListUpdaterTest gtasksTaskListUpdaterTest);
 
   void inject(ReminderServiceTest reminderServiceTest);
 
@@ -56,4 +48,6 @@ public interface TestComponent extends ApplicationComponent {
   void inject(GtasksMetadataServiceTest gtasksMetadataServiceTest);
 
   void inject(DeletionDaoTests deletionDaoTests);
+
+  void inject(GoogleTaskDaoTests googleTaskDaoTests);
 }

@@ -11,7 +11,12 @@
 
   <Preference
     android:key="@string/p_add_google_task_account"
-    android:title="@string/add_account" />
+    android:title="@string/add_account"/>
+
+  <CheckBoxPreference
+    android:defaultValue="true"
+    android:key="@string/p_google_tasks_add_to_top"
+    android:title="@string/google_tasks_add_to_top"/>
 
   <PreferenceCategory
     android:key="@string/CalDAV"
@@ -19,7 +24,7 @@
 
   <Preference
     android:key="@string/p_add_caldav_account"
-    android:title="@string/add_account" />
+    android:title="@string/add_account"/>
 
   <PreferenceCategory android:title="@string/sync_SPr_interval_title">
     <CheckBoxPreference

@@ -16,6 +16,7 @@ import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.Tag;
 import org.tasks.data.TagDao;
+import org.tasks.preferences.Preferences;
 
 public class TaskDuplicator {
 
@@ -23,6 +24,7 @@ public class TaskDuplicator {
   private final TaskDao taskDao;
   private final TagDao tagDao;
   private final GoogleTaskDao googleTaskDao;
+  private final Preferences preferences;
   private final LocalBroadcastManager localBroadcastManager;
 
   @Inject
@@ -31,12 +33,14 @@ public class TaskDuplicator {
       TaskDao taskDao,
       LocalBroadcastManager localBroadcastManager,
       TagDao tagDao,
-      GoogleTaskDao googleTaskDao) {
+      GoogleTaskDao googleTaskDao,
+      Preferences preferences) {
     this.gcalHelper = gcalHelper;
     this.taskDao = taskDao;
     this.localBroadcastManager = localBroadcastManager;
     this.tagDao = tagDao;
     this.googleTaskDao = googleTaskDao;
+    this.preferences = preferences;
   }
 
   public List<Task> duplicate(List<Long> taskIds) {
@@ -69,7 +73,8 @@ public class TaskDuplicator {
             tags, tag -> new Tag(clone.getId(), clone.getUuid(), tag.getName(), tag.getTagUid())));
 
     if (googleTask != null) {
-      googleTaskDao.insert(new GoogleTask(clone.getId(), googleTask.getListId()));
+      googleTaskDao.insertAndShift(
+          new GoogleTask(clone.getId(), googleTask.getListId()), preferences.addGoogleTasksToTop());
     }
 
     gcalHelper.createTaskEventIfEnabled(clone);

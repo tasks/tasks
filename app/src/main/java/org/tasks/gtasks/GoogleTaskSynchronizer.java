@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 import androidx.core.app.NotificationCompat;
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
+import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
 import com.google.api.services.tasks.model.Tasks;
@@ -19,17 +20,17 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksListService;
-import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
 import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.api.HttpNotFoundException;
-import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.gtasks.sync.GtasksTaskContainer;
 import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.utility.Constants;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
@@ -53,11 +54,18 @@ public class GoogleTaskSynchronizer {
 
   private static final String DEFAULT_LIST = "@default"; // $NON-NLS-1$
 
+  private static final Comparator<com.google.api.services.tasks.model.Task> PARENTS_FIRST =
+      (o1, o2) -> {
+        if (Strings.isNullOrEmpty(o1.getParent())) {
+          return Strings.isNullOrEmpty(o2.getParent()) ? 0 : -1;
+        } else {
+          return Strings.isNullOrEmpty(o2.getParent()) ? 1 : 0;
+        }
+      };
+
   private final Context context;
   private final GoogleTaskListDao googleTaskListDao;
-  private final GtasksSyncService gtasksSyncService;
   private final GtasksListService gtasksListService;
-  private final GtasksTaskListUpdater gtasksTaskListUpdater;
   private final Preferences preferences;
   private final TaskDao taskDao;
   private final Tracker tracker;
@@ -75,9 +83,7 @@ public class GoogleTaskSynchronizer {
   public GoogleTaskSynchronizer(
       @ForApplication Context context,
       GoogleTaskListDao googleTaskListDao,
-      GtasksSyncService gtasksSyncService,
       GtasksListService gtasksListService,
-      GtasksTaskListUpdater gtasksTaskListUpdater,
       Preferences preferences,
       TaskDao taskDao,
       Tracker tracker,
@@ -92,9 +98,7 @@ public class GoogleTaskSynchronizer {
       TaskDeleter taskDeleter) {
     this.context = context;
     this.googleTaskListDao = googleTaskListDao;
-    this.gtasksSyncService = gtasksSyncService;
     this.gtasksListService = gtasksListService;
-    this.gtasksTaskListUpdater = gtasksTaskListUpdater;
     this.preferences = preferences;
     this.taskDao = taskDao;
     this.tracker = tracker;
@@ -139,9 +143,6 @@ public class GoogleTaskSynchronizer {
       } catch (UserRecoverableAuthIOException e) {
         Timber.e(e);
         sendNotification(context, e.getIntent());
-      } catch (IOException e) {
-        account.setError(e.getMessage());
-        Timber.e(e);
       } catch (Exception e) {
         account.setError(e.getMessage());
         tracker.reportException(e);
@@ -208,23 +209,18 @@ public class GoogleTaskSynchronizer {
         preferences.setString(R.string.p_default_remote_list, null);
       }
     }
-    for (final GoogleTaskList list : gtasksListService.getListsToUpdate(gtaskLists)) {
+    for (GoogleTaskList list : gtasksListService.getListsToUpdate(gtaskLists)) {
       fetchAndApplyRemoteChanges(gtasksInvoker, list);
+      googleTaskDao.reposition(list.getRemoteId());
     }
     account.setEtag(eTag);
   }
 
   private void pushLocalChanges(GoogleTaskAccount account, GtasksInvoker gtasksInvoker)
-      throws UserRecoverableAuthIOException {
+      throws IOException {
     List<Task> tasks = taskDao.getGoogleTasksToPush(account.getAccount());
     for (Task task : tasks) {
-      try {
-        pushTask(task, gtasksInvoker);
-      } catch (UserRecoverableAuthIOException e) {
-        throw e;
-      } catch (IOException e) {
-        Timber.e(e);
-      }
+      pushTask(task, gtasksInvoker);
     }
   }
 
@@ -290,30 +286,65 @@ public class GoogleTaskSynchronizer {
       remoteModel.setStatus("needsAction"); // $NON-NLS-1$
     }
 
-    if (!newlyCreated) {
+    if (newlyCreated) {
+      String localParent =
+          gtasksMetadata.getParent() > 0
+              ? googleTaskDao.getRemoteId(gtasksMetadata.getParent())
+              : null;
+
+      String previous =
+          googleTaskDao.getPrevious(listId, gtasksMetadata.getParent(), gtasksMetadata.getOrder());
+
+      com.google.api.services.tasks.model.Task created =
+          gtasksInvoker.createGtask(listId, remoteModel, localParent, previous);
+
+      if (created != null) {
+        // Update the metadata for the newly created task
+        gtasksMetadata.setRemoteId(created.getId());
+        gtasksMetadata.setListId(listId);
+
+        gtasksMetadata.setRemoteOrder(Long.parseLong(created.getPosition()));
+        gtasksMetadata.setRemoteParent(created.getParent());
+      } else {
+        return;
+      }
+    } else {
       try {
+        if (!task.isDeleted() && gtasksMetadata.isMoved()) {
+          try {
+            String localParent =
+                gtasksMetadata.getParent() > 0
+                    ? googleTaskDao.getRemoteId(gtasksMetadata.getParent())
+                    : null;
+            String previous =
+                googleTaskDao.getPrevious(
+                    listId, gtasksMetadata.getParent(), gtasksMetadata.getOrder());
+            com.google.api.services.tasks.model.Task result =
+                gtasksInvoker.moveGtask(listId, remoteModel.getId(), localParent, previous);
+            gtasksMetadata.setRemoteOrder(Long.parseLong(result.getPosition()));
+            gtasksMetadata.setRemoteParent(result.getParent());
+            gtasksMetadata.setParent(
+                Strings.isNullOrEmpty(result.getParent())
+                    ? 0
+                    : googleTaskDao.getTask(result.getParent()));
+          } catch (GoogleJsonResponseException e) {
+            if (e.getStatusCode() == 400) {
+              Timber.e(e);
+            } else {
+              throw e;
+            }
+          }
+        }
         gtasksInvoker.updateGtask(listId, remoteModel);
       } catch (HttpNotFoundException e) {
         Timber.e(e);
         googleTaskDao.delete(gtasksMetadata);
         return;
       }
-    } else {
-      String priorSibling = gtasksSyncService.getRemoteSiblingId(listId, gtasksMetadata);
-
-      com.google.api.services.tasks.model.Task created =
-          gtasksInvoker.createGtask(listId, remoteModel, priorSibling);
-
-      if (created != null) {
-        // Update the metadata for the newly created task
-        gtasksMetadata.setRemoteId(created.getId());
-        gtasksMetadata.setListId(listId);
-      } else {
-        return;
-      }
     }
 
     task.setModificationDate(DateUtilities.now());
+    gtasksMetadata.setMoved(false);
     gtasksMetadata.setLastSync(DateUtilities.now() + 1000L);
     if (gtasksMetadata.getId() == Task.NO_ID) {
       googleTaskDao.insert(gtasksMetadata);
@@ -325,75 +356,61 @@ public class GoogleTaskSynchronizer {
   }
 
   private synchronized void fetchAndApplyRemoteChanges(
-      GtasksInvoker gtasksInvoker, GoogleTaskList list) throws UserRecoverableAuthIOException {
+      GtasksInvoker gtasksInvoker, GoogleTaskList list) throws IOException {
     String listId = list.getRemoteId();
     long lastSyncDate = list.getLastSync();
-
-    boolean includeDeletedAndHidden = lastSyncDate != 0;
-    try {
-      List<com.google.api.services.tasks.model.Task> tasks = new ArrayList<>();
-      String nextPageToken = null;
-      do {
-        Tasks taskList =
-            gtasksInvoker.getAllGtasksFromListId(
-                listId, includeDeletedAndHidden, lastSyncDate + 1000L, nextPageToken);
-        if (taskList == null) {
-          break;
-        }
-        List<com.google.api.services.tasks.model.Task> items = taskList.getItems();
-        if (items != null) {
-          tasks.addAll(items);
-        }
-        nextPageToken = taskList.getNextPageToken();
-      } while (nextPageToken != null);
-
-      for (com.google.api.services.tasks.model.Task gtask : tasks) {
-        String remoteId = gtask.getId();
-        GoogleTask googleTask = getMetadataByGtaskId(remoteId);
-        Task task = null;
-        if (googleTask == null) {
-          googleTask = new GoogleTask(0, "");
-        } else if (googleTask.getTask() > 0) {
-          task = taskDao.fetch(googleTask.getTask());
-        }
-        com.google.api.client.util.DateTime updated = gtask.getUpdated();
-        if (updated != null) {
-          lastSyncDate = Math.max(lastSyncDate, updated.getValue());
-        }
-        Boolean isDeleted = gtask.getDeleted();
-        Boolean isHidden = gtask.getHidden();
-        if ((isDeleted != null && isDeleted) || (isHidden != null && isHidden)) {
-          if (task != null) {
-            taskDeleter.delete(task);
-          }
-          continue;
-        }
-        if (task == null) {
-          task = taskCreator.createWithValues("");
-        }
-        GtasksTaskContainer container = new GtasksTaskContainer(gtask, task, listId, googleTask);
-        container.gtaskMetadata.setRemoteOrder(Long.parseLong(gtask.getPosition()));
-        container.gtaskMetadata.setParent(localIdForGtasksId(gtask.getParent()));
-        container.gtaskMetadata.setLastSync(DateUtilities.now() + 1000L);
-        write(container);
+    List<com.google.api.services.tasks.model.Task> tasks = new ArrayList<>();
+    String nextPageToken = null;
+    do {
+      Tasks taskList =
+          gtasksInvoker.getAllGtasksFromListId(listId, lastSyncDate + 1000L, nextPageToken);
+      if (taskList == null) {
+        break;
       }
-      list.setLastSync(lastSyncDate);
-      googleTaskListDao.insertOrReplace(list);
-      gtasksTaskListUpdater.correctOrderAndIndentForList(listId);
-    } catch (UserRecoverableAuthIOException e) {
-      throw e;
-    } catch (IOException e) {
-      Timber.e(e);
+      List<com.google.api.services.tasks.model.Task> items = taskList.getItems();
+      if (items != null) {
+        tasks.addAll(items);
+      }
+      nextPageToken = taskList.getNextPageToken();
+    } while (nextPageToken != null);
+
+    Collections.sort(tasks, PARENTS_FIRST);
+
+    for (com.google.api.services.tasks.model.Task gtask : tasks) {
+      String remoteId = gtask.getId();
+      GoogleTask googleTask = googleTaskDao.getByRemoteId(remoteId);
+      Task task = null;
+      if (googleTask == null) {
+        googleTask = new GoogleTask(0, "");
+      } else if (googleTask.getTask() > 0) {
+        task = taskDao.fetch(googleTask.getTask());
+      }
+      com.google.api.client.util.DateTime updated = gtask.getUpdated();
+      if (updated != null) {
+        lastSyncDate = Math.max(lastSyncDate, updated.getValue());
+      }
+      Boolean isDeleted = gtask.getDeleted();
+      Boolean isHidden = gtask.getHidden();
+      if ((isDeleted != null && isDeleted) || (isHidden != null && isHidden)) {
+        if (task != null) {
+          taskDeleter.delete(task);
+        }
+        continue;
+      }
+      if (task == null) {
+        task = taskCreator.createWithValues("");
+      }
+      GtasksTaskContainer container = new GtasksTaskContainer(gtask, task, listId, googleTask);
+
+      container.gtaskMetadata.setRemoteOrder(Long.parseLong(gtask.getPosition()));
+      container.gtaskMetadata.setRemoteParent(gtask.getParent());
+      container.gtaskMetadata.setParent(
+          Strings.isNullOrEmpty(gtask.getParent()) ? 0 : googleTaskDao.getTask(gtask.getParent()));
+      container.gtaskMetadata.setLastSync(DateUtilities.now() + 1000L);
+      write(container);
     }
-  }
-
-  private long localIdForGtasksId(String gtasksId) {
-    GoogleTask metadata = getMetadataByGtaskId(gtasksId);
-    return metadata == null ? Task.NO_ID : metadata.getTask();
-  }
-
-  private GoogleTask getMetadataByGtaskId(String gtaskId) {
-    return googleTaskDao.getByRemoteId(gtaskId);
+    list.setLastSync(lastSyncDate);
+    googleTaskListDao.insertOrReplace(list);
   }
 
   private void write(GtasksTaskContainer task) {

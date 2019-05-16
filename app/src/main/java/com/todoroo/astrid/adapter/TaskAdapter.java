@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Set;
 import org.tasks.data.TaskContainer;
 import org.tasks.tasklist.TaskListRecyclerAdapter;
+import org.tasks.tasklist.ViewHolder;
 
 /**
  * Adapter for displaying a user's tasks as a list
@@ -55,6 +56,10 @@ public class TaskAdapter {
     return 0;
   }
 
+  public boolean canMove(ViewHolder source, ViewHolder target) {
+    return false;
+  }
+
   public boolean canIndent(int position, TaskContainer task) {
     return false;
   }
@@ -80,12 +85,8 @@ public class TaskAdapter {
 
   public void indented(int position, int delta) {}
 
-  long getTaskId(int position) {
-    return getTask(position).getId();
-  }
-
-  public Task getTask(int position) {
-    return helper.getItem(position).getTask();
+  public TaskContainer getTask(int position) {
+    return helper.getItem(position);
   }
 
   String getItemUuid(int position) {
@@ -97,4 +98,8 @@ public class TaskAdapter {
   public void onTaskCreated(String uuid) {}
 
   public void onTaskDeleted(Task task) {}
+
+  public boolean supportsHiddenTasks() {
+    return true;
+  }
 }

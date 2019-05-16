@@ -242,6 +242,21 @@ public class Migrations {
         }
       };
 
+  private static final Migration MIGRATION_62_63 =
+      new Migration(62, 63) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+          database.execSQL("ALTER TABLE `google_tasks` RENAME TO `gt-temp`");
+          database.execSQL(
+              "CREATE TABLE IF NOT EXISTS `google_tasks` (`gt_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `gt_task` INTEGER NOT NULL, `gt_remote_id` TEXT, `gt_list_id` TEXT, `gt_parent` INTEGER NOT NULL, `gt_remote_parent` TEXT, `gt_moved` INTEGER NOT NULL, `gt_order` INTEGER NOT NULL, `gt_remote_order` INTEGER NOT NULL, `gt_last_sync` INTEGER NOT NULL, `gt_deleted` INTEGER NOT NULL)");
+          database.execSQL(
+              "INSERT INTO `google_tasks` (`gt_id`, `gt_task`, `gt_remote_id`, `gt_list_id`, `gt_parent`, `gt_remote_parent`, `gt_moved`, `gt_order`, `gt_remote_order`, `gt_last_sync`, `gt_deleted`) "
+                  + "SELECT `_id`, `task`, `remote_id`, `list_id`, `parent`, '', 0, `order`, `remote_order`, `last_sync`, `deleted` FROM `gt-temp`");
+          database.execSQL("DROP TABLE `gt-temp`");
+          database.execSQL("UPDATE `google_task_lists` SET `last_sync` = 0");
+        }
+      };
+
   public static final Migration[] MIGRATIONS =
       new Migration[] {
         MIGRATION_35_36,
@@ -261,7 +276,8 @@ public class Migrations {
         MIGRATION_58_59,
         MIGRATION_59_60,
         MIGRATION_60_61,
-        MIGRATION_61_62
+        MIGRATION_61_62,
+        MIGRATION_62_63
       };
 
   private static Migration NOOP(int from, int to) {

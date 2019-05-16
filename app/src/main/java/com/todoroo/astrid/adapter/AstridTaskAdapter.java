@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import org.tasks.data.TaskContainer;
 import org.tasks.data.TaskListMetadata;
+import org.tasks.tasklist.ViewHolder;
 import timber.log.Timber;
 
 public final class AstridTaskAdapter extends TaskAdapter {
@@ -35,6 +36,11 @@ public final class AstridTaskAdapter extends TaskAdapter {
   @Override
   public int getIndent(TaskContainer task) {
     return updater.getIndentForTask(task.getUuid());
+  }
+
+  @Override
+  public boolean canMove(ViewHolder source, ViewHolder target) {
+    return true;
   }
 
   @Override
@@ -136,5 +142,10 @@ public final class AstridTaskAdapter extends TaskAdapter {
 
       chainedCompletions.put(itemId, chained);
     }
+  }
+
+  @Override
+  public boolean supportsHiddenTasks() {
+    return false;
   }
 }

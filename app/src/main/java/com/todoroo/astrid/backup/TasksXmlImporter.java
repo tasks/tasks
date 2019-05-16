@@ -17,7 +17,6 @@ import android.text.TextUtils;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.helper.UUIDHelper;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -283,7 +282,6 @@ public class TasksXmlImporter {
         googleTask.setRemoteId(xml.readString("value"));
         googleTask.setListId(xml.readString("value2"));
         googleTask.setParent(xml.readLong("value3"));
-        googleTask.setIndent(xml.readInteger("value4"));
         googleTask.setOrder(xml.readLong("value5"));
         googleTask.setRemoteOrder(xml.readLong("value6"));
         googleTask.setLastSync(xml.readLong("value7"));

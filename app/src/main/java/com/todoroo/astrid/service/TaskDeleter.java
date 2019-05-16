@@ -1,5 +1,6 @@
 package com.todoroo.astrid.service;
 
+import static com.google.common.collect.Lists.partition;
 import static com.todoroo.andlib.sql.Criterion.all;
 import static com.todoroo.astrid.dao.TaskDao.TaskCriteria.isVisible;
 import static com.todoroo.astrid.dao.TaskDao.TaskCriteria.notCompleted;
@@ -9,13 +10,16 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
 import org.tasks.data.DeletionDao;
 import org.tasks.data.GoogleTaskAccount;
+import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.jobs.WorkManager;
 
@@ -24,6 +28,7 @@ public class TaskDeleter {
   private final WorkManager workManager;
   private final TaskDao taskDao;
   private final LocalBroadcastManager localBroadcastManager;
+  private final GoogleTaskDao googleTaskDao;
   private final DeletionDao deletionDao;
 
   @Inject
@@ -31,11 +36,13 @@ public class TaskDeleter {
       DeletionDao deletionDao,
       WorkManager workManager,
       TaskDao taskDao,
-      LocalBroadcastManager localBroadcastManager) {
+      LocalBroadcastManager localBroadcastManager,
+      GoogleTaskDao googleTaskDao) {
     this.deletionDao = deletionDao;
     this.workManager = workManager;
     this.taskDao = taskDao;
     this.localBroadcastManager = localBroadcastManager;
+    this.googleTaskDao = googleTaskDao;
   }
 
   public int purgeDeleted() {
@@ -49,7 +56,11 @@ public class TaskDeleter {
   }
 
   public List<Task> markDeleted(List<Long> taskIds) {
-    deletionDao.markDeleted(taskIds);
+    Set<Long> ids = new HashSet<>(taskIds);
+    for (List<Long> partition : partition(taskIds, 999)) {
+      ids.addAll(googleTaskDao.getChildren(partition));
+    }
+    deletionDao.markDeleted(ids);
     workManager.cleanup(taskIds);
     workManager.sync(false);
     localBroadcastManager.broadcastRefresh();

@@ -36,7 +36,7 @@ import org.tasks.preferences.Preferences;
 import org.tasks.ui.CheckBoxes;
 import org.tasks.ui.ChipProvider;
 
-class ViewHolder extends RecyclerView.ViewHolder {
+public class ViewHolder extends RecyclerView.ViewHolder {
 
   private final Activity context;
   private final Preferences preferences;
@@ -82,6 +82,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
   private int indent;
   private boolean selected;
   private boolean moving;
+  private boolean isGoogleTaskList;
 
   ViewHolder(
       Activity context,
@@ -203,8 +204,9 @@ class ViewHolder extends RecyclerView.ViewHolder {
     return indent > 0;
   }
 
-  void bindView(TaskContainer task) {
+  void bindView(TaskContainer task, boolean isGoogleTaskList) {
     this.task = task;
+    this.isGoogleTaskList = isGoogleTaskList;
 
     setFieldContentsAndVisibility();
     setTaskAppearance();
@@ -280,7 +282,11 @@ class ViewHolder extends RecyclerView.ViewHolder {
       List<String> tagUuids = tags != null ? newArrayList(tags.split(",")) : Lists.newArrayList();
 
       List<Chip> chips =
-          chipProvider.getChips(context, task.getCaldav(), task.getGoogleTaskList(), tagUuids);
+          chipProvider.getChips(
+              context,
+              task.getCaldav(),
+              isGoogleTaskList ? null : task.getGoogleTaskList(),
+              tagUuids);
       if (chips.isEmpty()) {
         chipGroup.setVisibility(View.GONE);
       } else {

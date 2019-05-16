@@ -50,21 +50,23 @@ public class GtasksFilter extends Filter {
   }
 
   public static String toManualOrder(String query) {
+    query =
+        query.replace(
+            "WHERE",
+            "JOIN (SELECT google_tasks.*, COUNT(c.gt_id) AS children, 0 AS siblings, google_tasks.gt_order AS primary_sort, NULL AS secondary_sort FROM google_tasks LEFT JOIN google_tasks AS c ON c.gt_parent = google_tasks.gt_task WHERE google_tasks.gt_parent = 0 GROUP BY google_tasks.gt_task UNION SELECT c.*, 0 AS children, COUNT(s.gt_id) AS siblings, p.gt_order AS primary_sort, c.gt_order AS secondary_sort FROM google_tasks AS c LEFT JOIN google_tasks AS p ON c.gt_parent = p.gt_task LEFT JOIN tasks ON c.gt_parent = tasks._id LEFT JOIN google_tasks AS s ON s.gt_parent = p.gt_task WHERE c.gt_parent > 0 AND ((tasks.completed=0) AND (tasks.deleted=0) AND (tasks.hideUntil<(strftime('%s','now')*1000))) GROUP BY c.gt_task) as g2 ON g2.gt_id = google_tasks.gt_id WHERE");
     query = query.replaceAll("ORDER BY .*", "");
-    query = query + " ORDER BY google_tasks.`order` ASC";
-    return query.replace(
-        TaskDao.TaskCriteria.activeAndVisible().toString(),
-        TaskDao.TaskCriteria.notDeleted().toString());
+    query = query + "ORDER BY primary_sort ASC, secondary_sort ASC";
+    return query;
   }
 
   private static QueryTemplate getQueryTemplate(GoogleTaskList list) {
     return new QueryTemplate()
-        .join(Join.left(GoogleTask.TABLE, Task.ID.eq(Field.field("google_tasks.task"))))
+        .join(Join.left(GoogleTask.TABLE, Task.ID.eq(Field.field("google_tasks.gt_task"))))
         .where(
             Criterion.and(
                 TaskDao.TaskCriteria.activeAndVisible(),
-                Field.field("google_tasks.deleted").eq(0),
-                Field.field("google_tasks.list_id").eq(list.getRemoteId())));
+                Field.field("google_tasks.gt_deleted").eq(0),
+                Field.field("google_tasks.gt_list_id").eq(list.getRemoteId())));
   }
 
   private static Map<String, Object> getValuesForNewTasks(GoogleTaskList list) {

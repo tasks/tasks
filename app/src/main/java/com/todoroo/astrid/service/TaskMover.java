@@ -16,6 +16,7 @@ import org.tasks.data.CaldavTask;
 import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskListDao;
+import org.tasks.preferences.Preferences;
 import org.tasks.sync.SyncAdapters;
 
 public class TaskMover {
@@ -24,6 +25,7 @@ public class TaskMover {
   private final GoogleTaskDao googleTaskDao;
   private final SyncAdapters syncAdapters;
   private final GoogleTaskListDao googleTaskListDao;
+  private final Preferences preferences;
 
   @Inject
   public TaskMover(
@@ -31,12 +33,14 @@ public class TaskMover {
       CaldavDao caldavDao,
       GoogleTaskDao googleTaskDao,
       SyncAdapters syncAdapters,
-      GoogleTaskListDao googleTaskListDao) {
+      GoogleTaskListDao googleTaskListDao,
+      Preferences preferences) {
     this.taskDao = taskDao;
     this.caldavDao = caldavDao;
     this.googleTaskDao = googleTaskDao;
     this.syncAdapters = syncAdapters;
     this.googleTaskListDao = googleTaskListDao;
+    this.preferences = preferences;
   }
 
   public void move(List<Long> tasks, Filter selectedList) {
@@ -95,7 +99,9 @@ public class TaskMover {
     }
 
     if (selectedList instanceof GtasksFilter) {
-      googleTaskDao.insert(new GoogleTask(id, ((GtasksFilter) selectedList).getRemoteId()));
+      googleTaskDao.insertAndShift(
+          new GoogleTask(id, ((GtasksFilter) selectedList).getRemoteId()),
+          preferences.addGoogleTasksToTop());
     } else if (selectedList instanceof CaldavFilter) {
       caldavDao.insert(
           new CaldavTask(id, ((CaldavFilter) selectedList).getUuid(), UUIDHelper.newUUID()));

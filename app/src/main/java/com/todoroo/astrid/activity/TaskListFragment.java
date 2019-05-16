@@ -29,6 +29,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -89,30 +90,27 @@ import org.tasks.ui.MenuColorizer;
 import org.tasks.ui.TaskListViewModel;
 import org.tasks.ui.Toaster;
 
-/**
- * Primary activity for the Bente application. Shows a list of upcoming tasks and a user's coaches.
- *
- * @author Tim Su <tim@todoroo.com>
- */
 public final class TaskListFragment extends InjectingFragment
     implements SwipeRefreshLayout.OnRefreshListener, Toolbar.OnMenuItemClickListener {
 
   public static final String TAGS_METADATA_JOIN = "for_tags"; // $NON-NLS-1$
-  public static final String GTASK_METADATA_JOIN = "for_gtask"; // $NON-NLS-1$
+  public static final String GTASK_METADATA_JOIN = "googletask"; // $NON-NLS-1$
   public static final String CALDAV_METADATA_JOIN = "for_caldav"; // $NON-NLS-1$
   public static final String ACTION_RELOAD = "action_reload";
   public static final String ACTION_DELETED = "action_deleted";
+  public static final int REQUEST_MOVE_TASKS = 10103;
   private static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
   private static final String EXTRA_FILTER = "extra_filter";
   private static final String FRAG_TAG_SORT_DIALOG = "frag_tag_sort_dialog";
   private static final int REQUEST_CALDAV_SETTINGS = 10101;
   private static final int REQUEST_GTASK_SETTINGS = 10102;
-  public static final int REQUEST_MOVE_TASKS = 10103;
   private static final int REQUEST_FILTER_SETTINGS = 10104;
   private static final int REQUEST_TAG_SETTINGS = 10105;
 
   private static final int SEARCH_DEBOUNCE_TIMEOUT = 300;
+  private final RefreshReceiver refreshReceiver = new RefreshReceiver();
   @Inject protected Tracker tracker;
+  protected CompositeDisposable disposables;
   @Inject SyncAdapters syncAdapters;
   @Inject TaskDeleter taskDeleter;
   @Inject @ForActivity Context context;
@@ -147,18 +145,11 @@ public final class TaskListFragment extends InjectingFragment
   private TaskListViewModel taskListViewModel;
   private TaskAdapter taskAdapter = null;
   private TaskListRecyclerAdapter recyclerAdapter;
-  private final RefreshReceiver refreshReceiver = new RefreshReceiver();
   private Filter filter;
   private PublishSubject<String> searchSubject = PublishSubject.create();
   private Disposable searchDisposable;
-  protected CompositeDisposable disposables;
   private MenuItem search;
 
-  /*
-   * ======================================================================
-   * ======================================================= initialization
-   * ======================================================================
-   */
   private TaskListFragmentCallbackHandler callbacks;
 
   static TaskListFragment newTaskListFragment(Context context, Filter filter) {
@@ -202,8 +193,6 @@ public final class TaskListFragment extends InjectingFragment
 
   @Override
   public void onAttach(Activity activity) {
-    taskListViewModel = ViewModelProviders.of(getActivity()).get(TaskListViewModel.class);
-
     super.onAttach(activity);
 
     callbacks = (TaskListFragmentCallbackHandler) activity;
@@ -212,22 +201,6 @@ public final class TaskListFragment extends InjectingFragment
   @Override
   public void inject(FragmentComponent component) {
     component.inject(this);
-  }
-
-  /** Called when loading up the activity */
-  @Override
-  public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-
-    filter = getFilter();
-
-    filter.setFilterQueryOverride(null);
-
-    // set up list adapters
-    taskAdapter = taskAdapterProvider.createTaskAdapter(filter);
-    recyclerAdapter =
-        new TaskListRecyclerAdapter(taskAdapter, viewHolderFactory, this, actionModeProvider);
-    taskAdapter.setHelper(recyclerAdapter);
   }
 
   @Override
@@ -242,6 +215,43 @@ public final class TaskListFragment extends InjectingFragment
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View parent = inflater.inflate(R.layout.fragment_task_list, container, false);
     ButterKnife.bind(this, parent);
+
+    filter = getFilter();
+
+    filter.setFilterQueryOverride(null);
+
+    // set up list adapters
+    taskAdapter = taskAdapterProvider.createTaskAdapter(filter);
+
+    taskListViewModel = ViewModelProviders.of(getActivity()).get(TaskListViewModel.class);
+
+    taskListViewModel.setFilter(filter, taskAdapter.isManuallySorted());
+
+    recyclerAdapter =
+        new TaskListRecyclerAdapter(
+            taskAdapter, viewHolderFactory, this, actionModeProvider, taskListViewModel.getValue());
+    taskAdapter.setHelper(recyclerAdapter);
+    ((DefaultItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
+    new ItemTouchHelper(recyclerAdapter.getItemTouchHelperCallback())
+        .attachToRecyclerView(recyclerView);
+    recyclerView.setLayoutManager(new LinearLayoutManager(context));
+
+    taskListViewModel.observe(
+        this,
+        list -> {
+          recyclerAdapter.submitList(list);
+
+          if (list.isEmpty()) {
+            swipeRefreshLayout.setVisibility(View.GONE);
+            emptyRefreshLayout.setVisibility(View.VISIBLE);
+          } else {
+            swipeRefreshLayout.setVisibility(View.VISIBLE);
+            emptyRefreshLayout.setVisibility(View.GONE);
+          }
+        });
+
+    recyclerView.setAdapter(recyclerAdapter);
+
     setupRefresh(swipeRefreshLayout);
     setupRefresh(emptyRefreshLayout);
 
@@ -273,7 +283,7 @@ public final class TaskListFragment extends InjectingFragment
     if (preferences.getBoolean(R.string.p_show_completed_tasks, false)) {
       completed.setChecked(true);
     }
-    if (taskAdapter.isManuallySorted() || filter instanceof SearchFilter) {
+    if (!taskAdapter.supportsHiddenTasks() || filter instanceof SearchFilter) {
       completed.setChecked(true);
       completed.setEnabled(false);
       hidden.setChecked(true);
@@ -376,9 +386,10 @@ public final class TaskListFragment extends InjectingFragment
         startActivityForResult(recognition, TaskListFragment.VOICE_RECOGNITION_REQUEST_CODE);
         return true;
       case R.id.menu_sort:
-        boolean supportsManualSort = filter.supportsSubtasks()
-            || BuiltInFilterExposer.isInbox(context, filter)
-            || BuiltInFilterExposer.isTodayFilter(context, filter);
+        boolean supportsManualSort =
+            filter.supportsSubtasks()
+                || BuiltInFilterExposer.isInbox(context, filter)
+                || BuiltInFilterExposer.isTodayFilter(context, filter);
         SortDialog.newSortDialog(supportsManualSort)
             .show(getChildFragmentManager(), FRAG_TAG_SORT_DIALOG);
         return true;
@@ -413,7 +424,8 @@ public final class TaskListFragment extends InjectingFragment
         return true;
       case R.id.menu_gtasks_list_settings:
         Intent gtasksSettings = new Intent(getActivity(), GoogleTaskListSettingsActivity.class);
-        gtasksSettings.putExtra(GoogleTaskListSettingsActivity.EXTRA_STORE_DATA, ((GtasksFilter) filter).getList());
+        gtasksSettings.putExtra(
+            GoogleTaskListSettingsActivity.EXTRA_STORE_DATA, ((GtasksFilter) filter).getList());
         startActivityForResult(gtasksSettings, REQUEST_GTASK_SETTINGS);
         return true;
       case R.id.menu_tag_settings:
@@ -448,35 +460,6 @@ public final class TaskListFragment extends InjectingFragment
   private void setupRefresh(SwipeRefreshLayout layout) {
     layout.setOnRefreshListener(this);
     layout.setColorSchemeColors(checkBoxes.getPriorityColors());
-  }
-
-  @Override
-  public void onActivityCreated(Bundle savedInstanceState) {
-    super.onActivityCreated(savedInstanceState);
-
-    taskListViewModel.observe(
-        this,
-        filter,
-        list -> {
-          if (list.isEmpty()) {
-            swipeRefreshLayout.setVisibility(View.GONE);
-            emptyRefreshLayout.setVisibility(View.VISIBLE);
-          } else {
-            swipeRefreshLayout.setVisibility(View.VISIBLE);
-            emptyRefreshLayout.setVisibility(View.GONE);
-          }
-
-          // stash selected items
-          Bundle saveState = recyclerAdapter.getSaveState();
-
-          recyclerAdapter.submitList(list);
-
-          recyclerAdapter.restoreSaveState(saveState);
-        });
-
-    ((DefaultItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
-    recyclerAdapter.applyToRecyclerView(recyclerView);
-    recyclerView.setLayoutManager(new LinearLayoutManager(context));
   }
 
   @Override
@@ -519,22 +502,11 @@ public final class TaskListFragment extends InjectingFragment
     return search.isActionViewExpanded() && search.collapseActionView();
   }
 
-  /**
-   * Called by the RefreshReceiver when the task list receives a refresh broadcast. Subclasses
-   * should override this.
-   */
   private void refresh() {
-    // TODO: compare indents in diff callback, then animate this
     loadTaskListContent();
 
     setSyncOngoing(preferences.isSyncOngoing());
   }
-
-  /*
-   * ======================================================================
-   * =================================================== managing list view
-   * ======================================================================
-   */
 
   public void loadTaskListContent() {
     taskListViewModel.invalidate();
@@ -554,16 +526,6 @@ public final class TaskListFragment extends InjectingFragment
   void onTaskCreated(String uuid) {
     taskAdapter.onTaskCreated(uuid);
     loadTaskListContent();
-  }
-
-  /*
-   * ======================================================================
-   * ============================================================== actions
-   * ======================================================================
-   */
-
-  void onTaskSaved() {
-    recyclerAdapter.onTaskSaved();
   }
 
   public void onTaskDelete(Task task) {
@@ -631,24 +593,13 @@ public final class TaskListFragment extends InjectingFragment
     callbacks.onTaskListItemClicked(task);
   }
 
-  /**
-   * Container Activity must implement this interface and we ensure that it does during the
-   * onAttach() callback
-   */
   public interface TaskListFragmentCallbackHandler {
-
     void onTaskListItemClicked(Task task);
 
     void onNavigationIconClicked();
   }
 
-  /**
-   * Receiver which receives refresh intents
-   *
-   * @author Tim Su <tim@todoroo.com>
-   */
   protected class RefreshReceiver extends BroadcastReceiver {
-
     @Override
     public void onReceive(Context context, Intent intent) {
       refresh();

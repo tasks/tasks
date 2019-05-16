@@ -220,7 +220,7 @@ public final class TaskEditFragment extends InjectingFragment
       if (isNewTask) {
         ((MainActivity) getActivity()).getTaskListFragment().onTaskCreated(model.getUuid());
       } else {
-        ((MainActivity) getActivity()).getTaskListFragment().onTaskSaved();
+        ((MainActivity) getActivity()).getTaskListFragment().loadTaskListContent();
       }
       callback.removeTaskEditFragment();
     } else {

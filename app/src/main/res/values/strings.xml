@@ -887,4 +887,5 @@ File %1$s contained %2$s.\n\n
   <string name="changelog">Changelog</string>
   <string name="version_string">Version %s</string>
   <string name="invalid_backup_file">Invalid backup file</string>
+  <string name="google_tasks_add_to_top">New tasks on top</string>
 </resources>

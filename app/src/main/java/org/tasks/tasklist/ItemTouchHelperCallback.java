@@ -4,6 +4,7 @@ import static androidx.recyclerview.widget.ItemTouchHelper.DOWN;
 import static androidx.recyclerview.widget.ItemTouchHelper.UP;
 
 import android.graphics.Canvas;
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import com.todoroo.astrid.activity.TaskListFragment;
@@ -14,14 +15,20 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
   private final TaskAdapter adapter;
   private final TaskListRecyclerAdapter recyclerAdapter;
   private final TaskListFragment taskList;
+  private final Runnable onClear;
   private int from = -1;
   private int to = -1;
+  private boolean dragging;
 
   ItemTouchHelperCallback(
-      TaskAdapter adapter, TaskListRecyclerAdapter recyclerAdapter, TaskListFragment taskList) {
+      TaskAdapter adapter,
+      TaskListRecyclerAdapter recyclerAdapter,
+      TaskListFragment taskList,
+      Runnable onClear) {
     this.adapter = adapter;
     this.recyclerAdapter = recyclerAdapter;
     this.taskList = taskList;
+    this.onClear = onClear;
   }
 
   @Override
@@ -30,6 +37,7 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
     if (actionState == ItemTouchHelper.ACTION_STATE_DRAG) {
       recyclerAdapter.startActionMode();
       ((ViewHolder) viewHolder).setMoving(true);
+      dragging = true;
     }
   }
 
@@ -54,10 +62,15 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
   @Override
   public boolean onMove(
-      RecyclerView recyclerView, RecyclerView.ViewHolder source, RecyclerView.ViewHolder target) {
+      @NonNull RecyclerView recyclerView,
+      @NonNull RecyclerView.ViewHolder source,
+      @NonNull RecyclerView.ViewHolder target) {
     recyclerAdapter.finishActionMode();
     int fromPosition = source.getAdapterPosition();
     int toPosition = target.getAdapterPosition();
+    if (!adapter.canMove((ViewHolder) source, (ViewHolder) target)) {
+      return false;
+    }
     if (from == -1) {
       ((ViewHolder) source).setSelected(false);
       from = fromPosition;
@@ -93,6 +106,8 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
     super.clearView(recyclerView, viewHolder);
     ViewHolder vh = (ViewHolder) viewHolder;
     vh.setMoving(false);
+    onClear.run();
+    dragging = false;
     if (recyclerAdapter.isActionModeActive()) {
       recyclerAdapter.toggle(vh);
     } else {
@@ -100,7 +115,7 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
         if (from < to) {
           to++;
         }
-        adapter.moved(from, to);
+        recyclerAdapter.moved(from, to);
         taskList.loadTaskListContent();
       }
     }
@@ -113,5 +128,9 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
   public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
     adapter.indented(viewHolder.getAdapterPosition(), direction == ItemTouchHelper.RIGHT ? 1 : -1);
     taskList.loadTaskListContent();
+  }
+
+  public boolean isDragging() {
+    return dragging;
   }
 }

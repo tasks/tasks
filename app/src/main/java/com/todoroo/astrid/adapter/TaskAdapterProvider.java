@@ -10,8 +10,6 @@ import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksListService;
-import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
-import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 import javax.inject.Inject;
@@ -35,7 +33,6 @@ public class TaskAdapterProvider {
   private final TaskListMetadataDao taskListMetadataDao;
   private final TaskDao taskDao;
   private final GtasksListService gtasksListService;
-  private final GtasksSyncService gtasksSyncService;
   private final GoogleTaskDao googleTaskDao;
   private final CaldavDao caldavDao;
   private final SubtasksHelper subtasksHelper;
@@ -48,7 +45,6 @@ public class TaskAdapterProvider {
       TaskListMetadataDao taskListMetadataDao,
       TaskDao taskDao,
       GtasksListService gtasksListService,
-      GtasksSyncService gtasksSyncService,
       GoogleTaskDao googleTaskDao,
       CaldavDao caldavDao,
       SubtasksHelper subtasksHelper) {
@@ -58,7 +54,6 @@ public class TaskAdapterProvider {
     this.taskListMetadataDao = taskListMetadataDao;
     this.taskDao = taskDao;
     this.gtasksListService = gtasksListService;
-    this.gtasksSyncService = gtasksSyncService;
     this.googleTaskDao = googleTaskDao;
     this.caldavDao = caldavDao;
     this.subtasksHelper = subtasksHelper;
@@ -112,9 +107,9 @@ public class TaskAdapterProvider {
   }
 
   private TaskAdapter createManualGoogleTaskAdapter(GtasksFilter filter) {
-    GtasksTaskListUpdater updater = new GtasksTaskListUpdater(gtasksSyncService, googleTaskDao);
-    updater.initialize(filter);
-    return new GoogleTaskAdapter(filter.getList(), updater, taskDao, googleTaskDao);
+    String query = GtasksFilter.toManualOrder(filter.getSqlQuery());
+    filter.setFilterQueryOverride(query);
+    return new GoogleTaskAdapter(taskDao, googleTaskDao);
   }
 
   private TaskAdapter createManualFilterTaskAdapter(Filter filter) {

@@ -6,6 +6,7 @@
 
 package com.todoroo.astrid.dao;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static com.todoroo.andlib.utility.DateUtilities.now;
 
 import android.database.Cursor;
@@ -88,10 +89,10 @@ public abstract class TaskDao {
 
   @Query(
       "SELECT tasks.* FROM tasks "
-          + "LEFT JOIN google_tasks ON tasks._id = google_tasks.task "
-          + "WHERE list_id IN (SELECT remote_id FROM google_task_lists WHERE account = :account)"
-          + "AND (tasks.modified > google_tasks.last_sync "
-          + "OR google_tasks.remote_id = '')")
+          + "LEFT JOIN google_tasks ON tasks._id = google_tasks.gt_task "
+          + "WHERE gt_list_id IN (SELECT remote_id FROM google_task_lists WHERE account = :account)"
+          + "AND (tasks.modified > google_tasks.gt_last_sync OR google_tasks.gt_remote_id = '') "
+          + "ORDER BY CASE WHEN gt_parent = 0 THEN 0 ELSE 1 END, gt_order ASC")
   public abstract List<Task> getGoogleTasksToPush(String account);
 
   @Query(
@@ -181,14 +182,20 @@ public abstract class TaskDao {
 
   /** Mark the given task as completed and save it. */
   public void setComplete(Task item, boolean completed) {
-    if (completed) {
-      item.setCompletionDate(now());
-    } else {
-      item.setCompletionDate(0L);
-    }
-
-    save(item);
+    List<Task> tasks = newArrayList(item);
+    tasks.addAll(getChildren(item.getId()));
+    setComplete(tasks, completed ? now() : 0L);
   }
+
+  private void setComplete(Iterable<Task> tasks, long completionDate) {
+    for (Task task : tasks) {
+      task.setCompletionDate(completionDate);
+      save(task);
+    }
+  }
+
+  @Query("SELECT tasks.* FROM tasks JOIN google_tasks ON tasks._id = gt_task WHERE gt_parent = :taskId")
+  abstract List<Task> getChildren(long taskId);
 
   public int count(Filter filter) {
     Cursor cursor = getCursor(filter.sqlQuery);

@@ -99,14 +99,17 @@ public class TaskCreator {
     createTags(task);
 
     if (task.hasTransitory(GoogleTask.KEY)) {
-      googleTaskDao.insert(new GoogleTask(task.getId(), task.getTransitory(GoogleTask.KEY)));
+      googleTaskDao.insertAndShift(
+          new GoogleTask(task.getId(), task.getTransitory(GoogleTask.KEY)),
+          preferences.addGoogleTasksToTop());
     } else if (task.hasTransitory(CaldavTask.KEY)) {
       caldavDao.insert(new CaldavTask(task.getId(), task.getTransitory(CaldavTask.KEY), newUUID()));
     } else {
       Filter remoteList = defaultFilterProvider.getDefaultRemoteList();
       if (remoteList instanceof GtasksFilter) {
-        googleTaskDao.insert(
-            new GoogleTask(task.getId(), ((GtasksFilter) remoteList).getRemoteId()));
+        googleTaskDao.insertAndShift(
+            new GoogleTask(task.getId(), ((GtasksFilter) remoteList).getRemoteId()),
+            preferences.addGoogleTasksToTop());
       } else if (remoteList instanceof CaldavFilter) {
         caldavDao.insert(
             new CaldavTask(task.getId(), ((CaldavFilter) remoteList).getUuid(), newUUID()));

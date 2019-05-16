@@ -30,6 +30,7 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.data.CaldavTask;
@@ -42,26 +43,36 @@ import timber.log.Timber;
 public class TaskListViewModel extends ViewModel {
 
   private static final Field TASKS = field("tasks.*");
-  private static final StringProperty GTASK =
-      new StringProperty(null, GTASK_METADATA_JOIN + ".list_id").as("googletask");
+  private static final Field GTASK = field(GTASK_METADATA_JOIN + ".*");
   private static final StringProperty CALDAV =
       new StringProperty(null, CALDAV_METADATA_JOIN + ".calendar").as("caldav");
-  private static final Field INDENT = field("google_tasks.indent").as("indent");
+  private static final Field CHILDREN = field("children");
+  private static final Field SIBLINGS = field("siblings");
+  private static final Field PRIMARY_SORT = field("primary_sort").as("primarySort");
+  private static final Field SECONDARY_SORT = field("secondary_sort").as("secondarySort");
   private static final StringProperty TAGS =
       new StringProperty(null, "group_concat(" + TAGS_METADATA_JOIN + ".tag_uid" + ", ',')")
           .as("tags");
-  private final MutableLiveData<List<TaskContainer>> tasks = new MutableLiveData<>();
   @Inject Preferences preferences;
   @Inject TaskDao taskDao;
   @Inject Database database;
+  private MutableLiveData<List<TaskContainer>> tasks = new MutableLiveData<>();
   private Filter filter;
+  private boolean manualSort;
   private CompositeDisposable disposable = new CompositeDisposable();
 
-  public void observe(
-      LifecycleOwner owner, @NonNull Filter filter, Observer<List<TaskContainer>> observer) {
-    if (!filter.equals(this.filter) || !filter.getSqlQuery().equals(this.filter.getSqlQuery())) {
+  public void setFilter(@NonNull Filter filter, boolean manualSort) {
+    if (!filter.equals(this.filter)
+        || !filter.getSqlQuery().equals(this.filter.getSqlQuery())
+        || this.manualSort != manualSort) {
       this.filter = filter;
+      this.manualSort = manualSort;
+      tasks = new MutableLiveData<>();
+      invalidate();
     }
+  }
+
+  public void observe(LifecycleOwner owner, Observer<List<TaskContainer>> observer) {
     tasks.observe(owner, observer);
   }
 
@@ -71,8 +82,8 @@ public class TaskListViewModel extends ViewModel {
     Criterion tagsJoinCriterion = Criterion.and(Task.ID.eq(field(TAGS_METADATA_JOIN + ".task")));
     Criterion gtaskJoinCriterion =
         Criterion.and(
-            Task.ID.eq(field(GTASK_METADATA_JOIN + ".task")),
-            field(GTASK_METADATA_JOIN + ".deleted").eq(0));
+            Task.ID.eq(field(GTASK_METADATA_JOIN + ".gt_task")),
+            field(GTASK_METADATA_JOIN + ".gt_deleted").eq(0));
     Criterion caldavJoinCriterion =
         Criterion.and(
             Task.ID.eq(field(CALDAV_METADATA_JOIN + ".task")),
@@ -82,10 +93,12 @@ public class TaskListViewModel extends ViewModel {
       tagsJoinCriterion =
           Criterion.and(tagsJoinCriterion, field(TAGS_METADATA_JOIN + ".tag_uid").neq(uuid));
     } else if (filter instanceof GtasksFilter) {
-      String listId = ((GtasksFilter) filter).getRemoteId();
-      gtaskJoinCriterion =
-          Criterion.and(gtaskJoinCriterion, field(GTASK_METADATA_JOIN + ".list_id").neq(listId));
-      fields.add(INDENT);
+      if (manualSort) {
+        fields.add(CHILDREN);
+        fields.add(SIBLINGS);
+        fields.add(PRIMARY_SORT);
+        fields.add(SECONDARY_SORT);
+      }
     } else if (filter instanceof CaldavFilter) {
       String uuid = ((CaldavFilter) filter).getUuid();
       caldavJoinCriterion =
@@ -104,14 +117,10 @@ public class TaskListViewModel extends ViewModel {
     String query =
         SortHelper.adjustQueryForFlagsAndSort(preferences, joinedQuery, preferences.getSortMode());
 
-    String groupedQuery;
-    if (query.contains("GROUP BY")) {
-      groupedQuery = query;
-    } else if (query.contains("ORDER BY")) {
-      groupedQuery = query.replace("ORDER BY", "GROUP BY " + Task.ID + " ORDER BY"); // $NON-NLS-1$
-    } else {
-      groupedQuery = query + " GROUP BY " + Task.ID;
-    }
+    String groupedQuery =
+        query.contains("ORDER BY")
+            ? query.replace("ORDER BY", "GROUP BY " + Task.ID + " ORDER BY")
+            : query + " GROUP BY " + Task.ID;
 
     return Query.select(fields.toArray(new Field[0]))
         .withQueryTemplate(PermaSql.replacePlaceholdersForQuery(groupedQuery))
@@ -137,5 +146,10 @@ public class TaskListViewModel extends ViewModel {
   @Override
   protected void onCleared() {
     disposable.dispose();
+  }
+
+  public List<TaskContainer> getValue() {
+    List<TaskContainer> value = tasks.getValue();
+    return value != null ? value : Collections.emptyList();
   }
 }

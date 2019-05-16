@@ -4,6 +4,7 @@ import android.accounts.AccountManager;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
 import com.google.api.client.http.HttpResponseException;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.GenericJson;
@@ -15,6 +16,7 @@ import com.google.api.services.tasks.model.Task;
 import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
 import com.google.common.base.Strings;
+import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import org.tasks.BuildConfig;
 import org.tasks.gtasks.GoogleAccountManager;
@@ -54,33 +56,31 @@ public class GtasksInvoker {
   }
 
   public @Nullable com.google.api.services.tasks.model.Tasks getAllGtasksFromListId(
-      String listId, boolean includeHiddenAndDeleted, long lastSyncDate, @Nullable String pageToken)
-      throws IOException {
+      String listId, long lastSyncDate, @Nullable String pageToken) throws IOException {
     return execute(
         service
             .tasks()
             .list(listId)
             .setMaxResults(100L)
-            .setShowDeleted(includeHiddenAndDeleted)
-            .setShowHidden(includeHiddenAndDeleted)
+            .setShowDeleted(true)
+            .setShowHidden(true)
             .setPageToken(pageToken)
             .setUpdatedMin(
                 GtasksApiUtilities.unixTimeToGtasksCompletionTime(lastSyncDate).toStringRfc3339()));
   }
 
-  public @Nullable Task createGtask(String listId, Task task, String priorSiblingId)
+  public @Nullable Task createGtask(
+      String listId, Task task, @Nullable String parent, @Nullable String previous)
       throws IOException {
-    Timber.d("createGtask: %s", prettyPrint(task));
-    return execute(service.tasks().insert(listId, task).setPrevious(priorSiblingId));
+    return execute(service.tasks().insert(listId, task).setParent(parent).setPrevious(previous));
   }
 
   public void updateGtask(String listId, Task task) throws IOException {
-    Timber.d("updateGtask: %s", prettyPrint(task));
     execute(service.tasks().update(listId, task.getId(), task));
   }
 
   @Nullable
-  Task moveGtask(String listId, String taskId, String parentId, String previousId)
+  public Task moveGtask(String listId, String taskId, String parentId, String previousId)
       throws IOException {
     return execute(
         service.tasks().move(listId, taskId).setParent(parentId).setPrevious(previousId));
@@ -115,7 +115,7 @@ public class GtasksInvoker {
   private synchronized @Nullable <T> T execute(TasksRequest<T> request, boolean retry)
       throws IOException {
     checkToken();
-    Timber.d("%s request: %s", getCaller(), request);
+    Timber.d("%s request: %s", getCaller(retry), prettyPrint(request));
     T response;
     try {
       response = request.execute();
@@ -128,7 +128,7 @@ public class GtasksInvoker {
         throw e;
       }
     }
-    Timber.d("%s response: %s", getCaller(), prettyPrint(response));
+    Timber.d("%s response: %s", getCaller(retry), prettyPrint(response));
     return response;
   }
 
@@ -136,15 +136,17 @@ public class GtasksInvoker {
     if (BuildConfig.DEBUG) {
       if (object instanceof GenericJson) {
         return ((GenericJson) object).toPrettyString();
+      } else if (object instanceof AbstractGoogleClientRequest) {
+        return new GsonBuilder().setPrettyPrinting().create().toJson(object);
       }
     }
     return object;
   }
 
-  private String getCaller() {
+  private String getCaller(boolean retry) {
     if (BuildConfig.DEBUG) {
       try {
-        return Thread.currentThread().getStackTrace()[4].getMethodName();
+        return Thread.currentThread().getStackTrace()[retry ? 6 : 5].getMethodName();
       } catch (Exception e) {
         Timber.e(e);
       }

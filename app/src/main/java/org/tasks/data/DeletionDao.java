@@ -19,7 +19,7 @@ public abstract class DeletionDao {
   @Query("DELETE FROM caldav_tasks WHERE task IN(:ids)")
   abstract void deleteCaldavTasks(List<Long> ids);
 
-  @Query("DELETE FROM google_tasks WHERE task IN(:ids)")
+  @Query("DELETE FROM google_tasks WHERE gt_task IN(:ids)")
   abstract void deleteGoogleTasks(List<Long> ids);
 
   @Query("DELETE FROM tags WHERE task IN(:ids)")
@@ -49,14 +49,14 @@ public abstract class DeletionDao {
   @Query("UPDATE tasks SET modified = :timestamp, deleted = :timestamp WHERE _id IN(:ids)")
   abstract void markDeleted(long timestamp, List<Long> ids);
 
-  public void markDeleted(List<Long> ids) {
+  public void markDeleted(Iterable<Long> ids) {
     long now = now();
     for (List<Long> partition : partition(ids, 997)) {
       markDeleted(now, partition);
     }
   }
 
-  @Query("SELECT task FROM google_tasks WHERE deleted = 0 AND list_id = :listId")
+  @Query("SELECT gt_task FROM google_tasks WHERE gt_deleted = 0 AND gt_list_id = :listId")
   abstract List<Long> getActiveGoogleTasks(String listId);
 
   @Delete
