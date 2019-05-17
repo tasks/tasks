@@ -187,4 +187,8 @@ public class TaskContainer {
   public boolean isLastSubtask() {
     return secondarySort == siblings - 1;
   }
+
+  public GoogleTask getGoogleTask() {
+    return googletask;
+  }
 }

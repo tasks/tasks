@@ -68,7 +68,7 @@ public final class GoogleTaskAdapter extends TaskAdapter {
   @Override
   public void moved(int from, int to) {
     TaskContainer task = getTask(from);
-    GoogleTask googleTask = task.googletask;
+    GoogleTask googleTask = task.getGoogleTask();
     if (to == 0) {
       googleTaskDao.move(googleTask, 0, 0);
     } else if (to == getCount()) {
@@ -128,7 +128,7 @@ public final class GoogleTaskAdapter extends TaskAdapter {
   public void indented(int which, int delta) {
     TaskContainer task = getTask(which);
     TaskContainer previous;
-    GoogleTask current = googleTaskDao.getByTaskId(task.getId());
+    GoogleTask current = task.getGoogleTask();
     if (delta == -1) {
       googleTaskDao.unindent(googleTaskDao.getByTaskId(task.getParent()), current);
     } else {
