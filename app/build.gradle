@@ -122,9 +122,9 @@ final BUTTERKNIFE_VERSION = '10.1.0'
 final STETHO_VERSION = '1.5.1'
 final WORK_VERSION = '2.0.1'
 final LEAKCANARY_VERSION = '1.6.3'
-final ROOM_VERSION = '2.1.0-alpha04'
-final CRASHLYTICS_VERSION = '2.9.9'
-final FIREBASE_VERSION = '16.0.8'
+final ROOM_VERSION = '2.1.0-beta01'
+final CRASHLYTICS_VERSION = '2.10.0'
+final FIREBASE_VERSION = '16.0.9'
 
 dependencies {
     implementation project(":dav4android")
@@ -159,7 +159,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.annotation:annotation:1.0.2'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta1'
     implementation 'com.jakewharton.timber:timber:4.7.1'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.0'
     //noinspection GradleDependency
