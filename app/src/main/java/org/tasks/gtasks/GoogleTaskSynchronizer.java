@@ -346,7 +346,7 @@ public class GoogleTaskSynchronizer {
           tasks.addAll(items);
         }
         nextPageToken = taskList.getNextPageToken();
-      } while (nextPageToken != null);
+      } while (!Strings.isNullOrEmpty(nextPageToken));
 
       for (com.google.api.services.tasks.model.Task gtask : tasks) {
         String remoteId = gtask.getId();
