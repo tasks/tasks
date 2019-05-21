@@ -198,7 +198,7 @@ public class GoogleTaskSynchronizer {
         gtaskLists.addAll(items);
       }
       nextPageToken = remoteLists.getNextPageToken();
-    } while (nextPageToken != null);
+    } while (!Strings.isNullOrEmpty(nextPageToken));
     gtasksListService.updateLists(account, gtaskLists);
     Filter defaultRemoteList = defaultFilterProvider.getDefaultRemoteList();
     if (defaultRemoteList instanceof GtasksFilter) {

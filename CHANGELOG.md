@@ -1,5 +1,9 @@
 Change Log
 ---
+### 6.6.5 (2019-05-21)
+
+* Handle [breaking change](https://issuetracker.google.com/issues/133254108) in Google Tasks API
+
 ### 6.6.3 (2019-05-08)
 
 * Fix backup import crash
