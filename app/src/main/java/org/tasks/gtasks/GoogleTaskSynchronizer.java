@@ -199,7 +199,7 @@ public class GoogleTaskSynchronizer {
         gtaskLists.addAll(items);
       }
       nextPageToken = remoteLists.getNextPageToken();
-    } while (nextPageToken != null);
+    } while (!Strings.isNullOrEmpty(nextPageToken));
     gtasksListService.updateLists(account, gtaskLists);
     Filter defaultRemoteList = defaultFilterProvider.getDefaultRemoteList();
     if (defaultRemoteList instanceof GtasksFilter) {
@@ -372,7 +372,7 @@ public class GoogleTaskSynchronizer {
         tasks.addAll(items);
       }
       nextPageToken = taskList.getNextPageToken();
-    } while (nextPageToken != null);
+    } while (!Strings.isNullOrEmpty(nextPageToken));
 
     Collections.sort(tasks, PARENTS_FIRST);
 
