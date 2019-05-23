@@ -22,13 +22,14 @@ Please visit [tasks.org](https://tasks.org) for end user documentation and suppo
 1. Register at [mapbox.com](https://www.mapbox.com)
 2. Add `tasks_mapbox_key_debug="<your_api_key>"` to your [`gradle.properties`](https://docs.gradle.org/current/userguide/build_environment.html#sec:gradle_configuration_properties) file. You can create an access token or use your [default public token](https://docs.mapbox.com/help/glossary/access-token/#default-public-token)
 
-#### Set up Google APIs
+#### Set up Google Tasks and Google Drive
 1. Register at [cloud.google.com](https://cloud.google.com)
-2. [Enable](https://cloud.google.com/apis/docs/enable-disable-apis#enable_an_api) the following APIs
-    * [Google Tasks API](https://console.cloud.google.com/apis/library/tasks.googleapis.com)
-    * [Google Maps SDK](https://console.cloud.google.com/apis/library/maps-android-backend.googleapis.com)
-    * [Google Places API](https://console.cloud.google.com/apis/library/places-backend.googleapis.com)
-    * [Google Drive API](https://console.cloud.google.com/apis/library/drive.googleapis.com)
+2. Enable [Google Tasks API](https://console.cloud.google.com/apis/library/tasks.googleapis.com) and [Google Drive API](https://console.cloud.google.com/apis/library/drive.googleapis.com)
+3. [Create android authorization credentials](https://developers.google.com/identity/protocols/OAuth2InstalledApp#creatingcred)
+
+#### Set up Google Maps and Google Places
+1. Register at [cloud.google.com](https://cloud.google.com)
+2. Enable [Google Maps SDK](https://console.cloud.google.com/apis/library/maps-android-backend.googleapis.com) and [Google Places API](https://console.cloud.google.com/apis/library/places-backend.googleapis.com)
 3. [Set up an API key](https://cloud.google.com/video-intelligence/docs/common/auth#set_up_an_api_key)
 4. Add `tasks_google_key_debug="<your_api_key>"` to your [`gradle.properties`](https://docs.gradle.org/current/userguide/build_environment.html#sec:gradle_configuration_properties) file
 5. Select `Build > Select Build Variant` and choose the `googleplay` variant
