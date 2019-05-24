@@ -2,7 +2,8 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
-  package="org.tasks">
+  package="org.tasks"
+  android:installLocation="internalOnly">
 
   <uses-sdk tools:overrideLibrary="at.bitfire.ical4android"/>
 
