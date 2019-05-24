@@ -44,32 +44,6 @@ public abstract class GoogleTaskDao {
   abstract void shiftUp(String listId, long parent, long position);
 
   @Transaction
-  public void unindent(GoogleTask parent, GoogleTask task) {
-    String list = parent.getListId();
-    shiftUp(list, task.getParent(), task.getOrder());
-    long newPosition = parent.getOrder() + 1;
-    shiftDown(list, 0, newPosition);
-    task.setParent(0);
-    task.setOrder(newPosition);
-    task.setMoved(true);
-    update(task);
-  }
-
-  @Transaction
-  public void indent(GoogleTask previous, GoogleTask task) {
-    shiftUp(previous.getListId(), 0, task.getOrder());
-    if (previous.getParent() == 0) {
-      task.setParent(previous.getTask());
-      task.setOrder(0);
-    } else {
-      task.setParent(previous.getParent());
-      task.setOrder(previous.getOrder() + 1);
-    }
-    task.setMoved(true);
-    update(task);
-  }
-
-  @Transaction
   public void move(GoogleTask task, long newParent, long newPosition) {
     long previousParent = task.getParent();
     long previousPosition = task.getOrder();

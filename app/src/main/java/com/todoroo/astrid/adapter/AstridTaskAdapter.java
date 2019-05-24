@@ -43,7 +43,6 @@ public final class AstridTaskAdapter extends TaskAdapter {
     return true;
   }
 
-  @Override
   public boolean canIndent(int position, TaskContainer task) {
     String parentUuid = getItemUuid(position - 1);
     int parentIndent = updater.getIndentForTask(parentUuid);
@@ -56,7 +55,7 @@ public final class AstridTaskAdapter extends TaskAdapter {
   }
 
   @Override
-  public void moved(int from, int to) {
+  public void moved(int from, int to, int indent) {
     String targetTaskId = getItemUuid(from);
     if (!Task.isValidUuid(targetTaskId)) {
       return; // This can happen with gestures on empty parts of the list (e.g. extra space below
@@ -76,7 +75,7 @@ public final class AstridTaskAdapter extends TaskAdapter {
   }
 
   @Override
-  public void indented(int which, int delta) {
+  public void swiped(int which, int delta) {
     String targetTaskId = getItemUuid(which);
     if (!Task.isValidUuid(targetTaskId)) {
       return; // This can happen with gestures on empty parts of the list (e.g. extra space below

@@ -13,6 +13,7 @@ public class TaskContainer {
   public long primarySort;
   public long secondarySort;
   @Deprecated public int indent;
+  private int targetIndent;
 
   public String getTagsString() {
     return tags;
@@ -83,11 +84,15 @@ public class TaskContainer {
   }
 
   public int getIndent() {
+    if (googletask != null) {
+      return getParent() > 0 ? 1 : 0;
+    }
     return indent;
   }
 
   public void setIndent(int indent) {
     this.indent = indent;
+    targetIndent = indent;
   }
 
   @Override
@@ -113,6 +118,12 @@ public class TaskContainer {
     if (secondarySort != that.secondarySort) {
       return false;
     }
+    if (indent != that.indent) {
+      return false;
+    }
+    if (targetIndent != that.targetIndent) {
+      return false;
+    }
     if (task != null ? !task.equals(that.task) : that.task != null) {
       return false;
     }
@@ -135,6 +146,8 @@ public class TaskContainer {
     result = 31 * result + siblings;
     result = 31 * result + (int) (primarySort ^ (primarySort >>> 32));
     result = 31 * result + (int) (secondarySort ^ (secondarySort >>> 32));
+    result = 31 * result + indent;
+    result = 31 * result + targetIndent;
     return result;
   }
 
@@ -161,6 +174,8 @@ public class TaskContainer {
         + secondarySort
         + ", indent="
         + indent
+        + ", targetIndent="
+        + targetIndent
         + '}';
   }
 
@@ -190,5 +205,13 @@ public class TaskContainer {
 
   public GoogleTask getGoogleTask() {
     return googletask;
+  }
+
+  public void setTargetIndent(int indent) {
+    targetIndent = indent;
+  }
+
+  public int getTargetIndent() {
+    return targetIndent;
   }
 }

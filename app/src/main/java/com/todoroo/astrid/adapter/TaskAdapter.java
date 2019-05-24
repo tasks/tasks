@@ -60,8 +60,12 @@ public class TaskAdapter {
     return false;
   }
 
-  public boolean canIndent(int position, TaskContainer task) {
-    return false;
+  public int maxIndent(int position, TaskContainer task) {
+    return 0;
+  }
+
+  public int minIndent(int nextPosition, TaskContainer task) {
+    return 0;
   }
 
   public boolean isSelected(TaskContainer task) {
@@ -81,9 +85,9 @@ public class TaskAdapter {
     return false;
   }
 
-  public void moved(int from, int to) {}
+  public void moved(int from, int to, int indent) {}
 
-  public void indented(int position, int delta) {}
+  public void swiped(int position, int delta) {}
 
   public TaskContainer getTask(int position) {
     return helper.getItem(position);

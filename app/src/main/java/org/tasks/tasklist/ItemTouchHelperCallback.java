@@ -1,6 +1,8 @@
 package org.tasks.tasklist;
 
 import static androidx.recyclerview.widget.ItemTouchHelper.DOWN;
+import static androidx.recyclerview.widget.ItemTouchHelper.LEFT;
+import static androidx.recyclerview.widget.ItemTouchHelper.RIGHT;
 import static androidx.recyclerview.widget.ItemTouchHelper.UP;
 
 import android.graphics.Canvas;
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.utility.Flags;
+import org.tasks.data.TaskContainer;
 
 public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
   private final TaskAdapter adapter;
@@ -19,6 +22,7 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
   private int from = -1;
   private int to = -1;
   private boolean dragging;
+  private boolean swiping;
 
   ItemTouchHelperCallback(
       TaskAdapter adapter,
@@ -38,51 +42,50 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
       recyclerAdapter.startActionMode();
       ((ViewHolder) viewHolder).setMoving(true);
       dragging = true;
+      int position = viewHolder.getAdapterPosition();
+      updateIndents((ViewHolder) viewHolder, position, position);
+    } else if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+      ((ViewHolder) viewHolder).setSwiping(true);
+      swiping = true;
     }
   }
 
   @Override
   public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
     return adapter.isManuallySorted() && adapter.getNumSelected() == 0
-        ? makeMovementFlags(UP | DOWN, getSwipeFlags((ViewHolder) viewHolder))
+        ? makeMovementFlags(UP | DOWN | LEFT | RIGHT, 0)
         : makeMovementFlags(0, 0);
-  }
-
-  private int getSwipeFlags(ViewHolder vh) {
-    int indentFlags = 0;
-    if (vh.isIndented()) {
-      indentFlags |= ItemTouchHelper.LEFT;
-    }
-    int position = vh.getAdapterPosition();
-    if (position > 0 && adapter.canIndent(position, vh.task)) {
-      indentFlags |= ItemTouchHelper.RIGHT;
-    }
-    return indentFlags;
   }
 
   @Override
   public boolean onMove(
       @NonNull RecyclerView recyclerView,
-      @NonNull RecyclerView.ViewHolder source,
+      @NonNull RecyclerView.ViewHolder src,
       @NonNull RecyclerView.ViewHolder target) {
     recyclerAdapter.finishActionMode();
-    int fromPosition = source.getAdapterPosition();
+    int fromPosition = src.getAdapterPosition();
     int toPosition = target.getAdapterPosition();
-    if (!adapter.canMove((ViewHolder) source, (ViewHolder) target)) {
+    ViewHolder source = (ViewHolder) src;
+    if (!adapter.canMove(source, (ViewHolder) target)) {
       return false;
     }
     if (from == -1) {
-      ((ViewHolder) source).setSelected(false);
+      source.setSelected(false);
       from = fromPosition;
     }
     to = toPosition;
     recyclerAdapter.notifyItemMoved(fromPosition, toPosition);
+    updateIndents(source, from, to);
     return true;
   }
 
-  @Override
-  public float getSwipeThreshold(RecyclerView.ViewHolder viewHolder) {
-    return .2f;
+  private void updateIndents(ViewHolder source, int from, int to) {
+    TaskContainer task = source.task;
+    source.setMinIndent(
+        to == 0 || to == recyclerAdapter.getItemCount() - 1
+            ? 0
+            : adapter.minIndent(from <= to ? to + 1 : to, task));
+    source.setMaxIndent(adapter.maxIndent(to, task));
   }
 
   @Override
@@ -94,9 +97,39 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
       float dY,
       int actionState,
       boolean isCurrentlyActive) {
-    if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
-      float shiftSize = ((ViewHolder) viewHolder).getShiftSize();
-      dX = Math.max(-shiftSize, Math.min(shiftSize, dX));
+    ViewHolder vh = (ViewHolder) viewHolder;
+    TaskContainer task = vh.task;
+    float shiftSize = vh.getShiftSize();
+    if (actionState == ItemTouchHelper.ACTION_STATE_DRAG) {
+      int currentIndent = ((ViewHolder) viewHolder).getIndent();
+      int maxIndent = vh.getMaxIndent();
+      int minIndent = vh.getMinIndent();
+      if (isCurrentlyActive) {
+        float dxAdjusted;
+        if (dX > 0) {
+          dxAdjusted = Math.min(dX, (maxIndent - currentIndent) * shiftSize);
+        } else {
+          dxAdjusted = Math.max((currentIndent - minIndent) * -shiftSize, dX);
+        }
+
+        int targetIndent = currentIndent + Float.valueOf(dxAdjusted / shiftSize).intValue();
+
+        if (targetIndent != task.getIndent()) {
+          if (from == -1) {
+            recyclerAdapter.finishActionMode();
+            vh.setSelected(false);
+          }
+        }
+        if (targetIndent < minIndent) {
+          task.setTargetIndent(minIndent);
+        } else if (targetIndent > maxIndent) {
+          task.setTargetIndent(maxIndent);
+        } else {
+          task.setTargetIndent(targetIndent);
+        }
+      }
+
+      dX = (task.getTargetIndent() - task.getIndent()) * shiftSize;
     }
     super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
   }
@@ -106,17 +139,27 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
     super.clearView(recyclerView, viewHolder);
     ViewHolder vh = (ViewHolder) viewHolder;
     vh.setMoving(false);
-    onClear.run();
+    vh.setSwiping(false);
     dragging = false;
+    swiping = false;
+    onClear.run();
     if (recyclerAdapter.isActionModeActive()) {
       recyclerAdapter.toggle(vh);
     } else {
+      TaskContainer task = vh.task;
+      int targetIndent = task.getTargetIndent();
       if (from >= 0 && from != to) {
         if (from < to) {
           to++;
         }
-        recyclerAdapter.moved(from, to);
-        taskList.loadTaskListContent();
+        vh.task.setIndent(targetIndent);
+        vh.setIndent(targetIndent);
+        recyclerAdapter.moved(from, to, targetIndent);
+      } else if (task.getIndent() != targetIndent) {
+        int position = vh.getAdapterPosition();
+        vh.task.setIndent(targetIndent);
+        vh.setIndent(targetIndent);
+        recyclerAdapter.moved(position, position, targetIndent);
       }
     }
     from = -1;
@@ -126,11 +169,20 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
   @Override
   public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-    adapter.indented(viewHolder.getAdapterPosition(), direction == ItemTouchHelper.RIGHT ? 1 : -1);
+    ViewHolder vh = (ViewHolder) viewHolder;
+    vh.setSwiping(false);
+    swiping = false;
+    int delta = direction == ItemTouchHelper.RIGHT ? 1 : -1;
+    int position = viewHolder.getAdapterPosition();
+    recyclerAdapter.swiped(position, delta);
     taskList.loadTaskListContent();
   }
 
-  public boolean isDragging() {
+  boolean isDragging() {
     return dragging;
+  }
+
+  boolean isSwiping() {
+    return swiping;
   }
 }

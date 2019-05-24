@@ -83,6 +83,9 @@ public class ViewHolder extends RecyclerView.ViewHolder {
   private boolean selected;
   private boolean moving;
   private boolean isGoogleTaskList;
+  private boolean swiping;
+  private int minIndent;
+  private int maxIndent;
 
   ViewHolder(
       Activity context,
@@ -198,10 +201,6 @@ public class ViewHolder extends RecyclerView.ViewHolder {
 
   private int getIndentSize(int indent) {
     return Math.round(indent * getShiftSize());
-  }
-
-  boolean isIndented() {
-    return indent > 0;
   }
 
   void bindView(TaskContainer task, boolean isGoogleTaskList) {
@@ -326,6 +325,40 @@ public class ViewHolder extends RecyclerView.ViewHolder {
 
     // set check box to actual action item state
     setTaskAppearance();
+  }
+
+  public int getIndent() {
+    return indent;
+  }
+
+  void setSwiping(boolean swiping) {
+    this.swiping = swiping;
+  }
+
+  boolean isSwiping() {
+    return swiping;
+  }
+
+  void setMinIndent(int minIndent) {
+    this.minIndent = minIndent;
+    if (task.getTargetIndent() < minIndent) {
+      task.setTargetIndent(minIndent);
+    }
+  }
+
+  void setMaxIndent(int maxIndent) {
+    this.maxIndent = maxIndent;
+    if (task.getTargetIndent() > maxIndent) {
+      task.setTargetIndent(maxIndent);
+    }
+  }
+
+  int getMinIndent() {
+    return minIndent;
+  }
+
+  int getMaxIndent() {
+    return maxIndent;
   }
 
   interface ViewHolderCallbacks {

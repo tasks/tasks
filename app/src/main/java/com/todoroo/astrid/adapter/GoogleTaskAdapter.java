@@ -23,7 +23,7 @@ public final class GoogleTaskAdapter extends TaskAdapter {
 
   @Override
   public int getIndent(TaskContainer task) {
-    return task.getParent() > 0 ? 1 : 0;
+    return task.getIndent();
   }
 
   @Override
@@ -56,8 +56,13 @@ public final class GoogleTaskAdapter extends TaskAdapter {
   }
 
   @Override
-  public boolean canIndent(int position, TaskContainer task) {
-    return position > 0 && !task.hasChildren() && !task.hasParent();
+  public int maxIndent(int position, TaskContainer task) {
+    return position == 0 || task.hasChildren() ? 0 : 1;
+  }
+
+  @Override
+  public int minIndent(int nextPosition, TaskContainer task) {
+    return task.hasChildren() || !getTask(nextPosition).hasParent() ? 0 : 1;
   }
 
   @Override
@@ -66,51 +71,36 @@ public final class GoogleTaskAdapter extends TaskAdapter {
   }
 
   @Override
-  public void moved(int from, int to) {
+  public void moved(int from, int to, int indent) {
     TaskContainer task = getTask(from);
     GoogleTask googleTask = task.getGoogleTask();
-    if (to == 0) {
+    TaskContainer previous = to > 0 ? getTask(to - 1) : null;
+
+    if (previous == null) {
       googleTaskDao.move(googleTask, 0, 0);
-    } else if (to == getCount()) {
-      TaskContainer previous = getTask(to - 1);
-      if (googleTask.getParent() > 0 && googleTask.getParent() == previous.getParent()) {
-        googleTaskDao.move(googleTask, googleTask.getParent(), previous.getSecondarySort());
+    } else if (to == getCount() || to <= from) {
+      if (indent == 0) {
+        googleTaskDao.move(googleTask, 0, previous.getPrimarySort() + 1);
+      } else if (previous.hasParent()) {
+        googleTaskDao.move(googleTask, previous.getParent(), previous.getSecondarySort() + 1);
       } else {
-        googleTaskDao.move(googleTask, 0, previous.getPrimarySort());
-      }
-    } else if (from < to) {
-      TaskContainer previous = getTask(to - 1);
-      TaskContainer next = getTask(to);
-      if (previous.hasParent()) {
-        if (next.hasParent()) {
-          googleTaskDao.move(googleTask, next.getParent(), next.getSecondarySort());
-        } else if (task.getParent() == previous.getParent() || next.hasParent()) {
-          googleTaskDao.move(googleTask, previous.getParent(), previous.getSecondarySort());
-        } else {
-          googleTaskDao.move(googleTask, 0, previous.getPrimarySort());
-        }
-      } else if (previous.hasChildren()) {
         googleTaskDao.move(googleTask, previous.getId(), 0);
-      } else if (task.hasParent()) {
-        googleTaskDao.move(googleTask, 0, next.getPrimarySort());
-      } else {
-        googleTaskDao.move(googleTask, 0, previous.getPrimarySort());
       }
     } else {
-      TaskContainer previous = getTask(to - 1);
-      TaskContainer next = getTask(to);
-      if (previous.hasParent()) {
-        if (next.hasParent()) {
-          googleTaskDao.move(googleTask, next.getParent(), next.getSecondarySort());
-        } else if (task.getParent() == previous.getParent()) {
-          googleTaskDao.move(googleTask, previous.getParent(), previous.getSecondarySort());
-        } else {
-          googleTaskDao.move(googleTask, 0, previous.getPrimarySort() + 1);
-        }
-      } else if (previous.hasChildren()) {
-        googleTaskDao.move(googleTask, previous.getId(), 0);
+      if (indent == 0) {
+        googleTaskDao.move(
+            googleTask,
+            0,
+            task.hasParent() ? previous.getPrimarySort() + 1 : previous.getPrimarySort());
+      } else if (previous.hasParent()) {
+        googleTaskDao.move(
+            googleTask,
+            previous.getParent(),
+            task.getParent() == previous.getParent()
+                ? previous.getSecondarySort()
+                : previous.getSecondarySort() + 1);
       } else {
-        googleTaskDao.move(googleTask, 0, previous.getPrimarySort() + 1);
+        googleTaskDao.move(googleTask, previous.getId(), 0);
       }
     }
 
@@ -125,24 +115,6 @@ public final class GoogleTaskAdapter extends TaskAdapter {
   }
 
   @Override
-  public void indented(int which, int delta) {
-    TaskContainer task = getTask(which);
-    TaskContainer previous;
-    GoogleTask current = task.getGoogleTask();
-    if (delta == -1) {
-      googleTaskDao.unindent(googleTaskDao.getByTaskId(task.getParent()), current);
-    } else {
-      previous = getTask(which - 1);
-      googleTaskDao.indent(googleTaskDao.getByTaskId(previous.getId()), current);
-    }
-
-    Task update = task.getTask();
-    update.setModificationDate(now());
-    update.putTransitory(SyncFlags.FORCE_SYNC, true);
-    taskDao.save(update);
-
-    if (BuildConfig.DEBUG) {
-      googleTaskDao.validateSorting(task.getGoogleTaskList());
-    }
+  public void swiped(int which, int delta) {
   }
 }
