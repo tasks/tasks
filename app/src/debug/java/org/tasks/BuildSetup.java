@@ -9,6 +9,7 @@ import com.facebook.flipper.core.FlipperClient;
 import com.facebook.flipper.plugins.databases.DatabasesFlipperPlugin;
 import com.facebook.flipper.plugins.inspector.DescriptorMapping;
 import com.facebook.flipper.plugins.inspector.InspectorFlipperPlugin;
+import com.facebook.flipper.plugins.network.NetworkFlipperPlugin;
 import com.facebook.flipper.plugins.sharedpreferences.SharedPreferencesFlipperPlugin;
 import com.facebook.soloader.SoLoader;
 import com.squareup.leakcanary.LeakCanary;
@@ -35,6 +36,7 @@ public class BuildSetup {
       FlipperClient client = AndroidFlipperClient.getInstance(context);
       client.addPlugin(new InspectorFlipperPlugin(context, DescriptorMapping.withDefaults()));
       client.addPlugin(new DatabasesFlipperPlugin(context));
+      client.addPlugin(new NetworkFlipperPlugin());
       client.addPlugin(new SharedPreferencesFlipperPlugin(context));
       client.start();
     }

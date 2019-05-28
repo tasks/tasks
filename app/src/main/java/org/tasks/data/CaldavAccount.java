@@ -8,6 +8,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+import org.tasks.security.Encryption;
 
 @Entity(tableName = "caldav_account")
 public class CaldavAccount implements Parcelable {
@@ -107,6 +108,10 @@ public class CaldavAccount implements Parcelable {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  public String getPassword(Encryption encryption) {
+    return encryption.decrypt(password);
   }
 
   public String getError() {

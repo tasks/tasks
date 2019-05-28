@@ -38,6 +38,7 @@ import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavDao;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
+import org.tasks.injection.ForApplication;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.preferences.Preferences;
 import org.tasks.security.Encryption;
@@ -51,6 +52,7 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
 
   public static final String EXTRA_CALDAV_DATA = "caldavData"; // $NON-NLS-1$
   private static final String PASSWORD_MASK = "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022";
+  @Inject @ForApplication Context context;
   @Inject DialogBuilder dialogBuilder;
   @Inject Preferences preferences;
   @Inject Tracker tracker;
@@ -58,6 +60,7 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
   @Inject SyncAdapters syncAdapters;
   @Inject TaskDeleter taskDeleter;
   @Inject Encryption encryption;
+  @Inject CaldavClient client;
 
   @BindView(R.id.root_layout)
   LinearLayout root;
@@ -296,10 +299,10 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
 
     if (caldavAccount == null) {
       showProgressIndicator();
-      addCaldavAccountViewModel.addAccount(url, username, password);
+      addCaldavAccountViewModel.addAccount(client, url, username, password);
     } else if (needsValidation()) {
       showProgressIndicator();
-      updateCaldavAccountViewModel.updateCaldavAccount(url, username, password);
+      updateCaldavAccountViewModel.updateCaldavAccount(client, url, username, password);
     } else if (hasChanges()) {
       updateAccount(caldavAccount.getUrl());
     } else {

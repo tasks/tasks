@@ -1,10 +1,11 @@
 package com.todoroo.astrid.gtasks.api;
 
 import android.accounts.AccountManager;
+import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
-import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
+import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpResponseException;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.GenericJson;
@@ -16,10 +17,13 @@ import com.google.api.services.tasks.model.Task;
 import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
 import com.google.common.base.Strings;
-import com.google.gson.GsonBuilder;
 import java.io.IOException;
+import javax.inject.Inject;
 import org.tasks.BuildConfig;
+import org.tasks.DebugNetworkInterceptor;
 import org.tasks.gtasks.GoogleAccountManager;
+import org.tasks.injection.ForApplication;
+import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
 /**
@@ -30,18 +34,48 @@ import timber.log.Timber;
  */
 public class GtasksInvoker {
 
-  private final String account;
+  private final Context context;
   private final GoogleAccountManager googleAccountManager;
-  private final Tasks service;
+  private final Preferences preferences;
+  private final DebugNetworkInterceptor interceptor;
   private final GoogleCredential credential = new GoogleCredential();
+  private final String account;
+  private final Tasks service;
 
-  public GtasksInvoker(String account, GoogleAccountManager googleAccountManager) {
-    this.account = account;
+  @Inject
+  public GtasksInvoker(
+      @ForApplication Context context,
+      GoogleAccountManager googleAccountManager,
+      Preferences preferences,
+      DebugNetworkInterceptor interceptor) {
+    this.context = context;
     this.googleAccountManager = googleAccountManager;
+    this.preferences = preferences;
+    this.interceptor = interceptor;
+    account = null;
+    service = null;
+  }
+
+  private GtasksInvoker(
+      Context context,
+      GoogleAccountManager googleAccountManager,
+      Preferences preferences,
+      DebugNetworkInterceptor interceptor,
+      String account) {
+    this.context = context;
+    this.googleAccountManager = googleAccountManager;
+    this.preferences = preferences;
+    this.interceptor = interceptor;
+    this.account = account;
+
     service =
         new Tasks.Builder(new NetHttpTransport(), new JacksonFactory(), credential)
             .setApplicationName(String.format("Tasks/%s", BuildConfig.VERSION_NAME))
             .build();
+  }
+
+  public GtasksInvoker forAccount(String account) {
+    return new GtasksInvoker(context, googleAccountManager, preferences, interceptor, account);
   }
 
   private void checkToken() {
@@ -115,10 +149,15 @@ public class GtasksInvoker {
   private synchronized @Nullable <T> T execute(TasksRequest<T> request, boolean retry)
       throws IOException {
     checkToken();
-    Timber.d("%s request: %s", getCaller(retry), prettyPrint(request));
     T response;
     try {
-      response = request.execute();
+      HttpRequest httpRequest = request.buildHttpRequest();
+      Timber.d("%s", httpRequest.getUrl());
+      if (preferences.isFlipperEnabled()) {
+        response = interceptor.execute(httpRequest, request.getResponseClass());
+      } else {
+        response = httpRequest.execute().parseAs(request.getResponseClass());
+      }
     } catch (HttpResponseException e) {
       if (e.getStatusCode() == 401 && !retry) {
         googleAccountManager.invalidateToken(credential.getAccessToken());
@@ -136,8 +175,6 @@ public class GtasksInvoker {
     if (BuildConfig.DEBUG) {
       if (object instanceof GenericJson) {
         return ((GenericJson) object).toPrettyString();
-      } else if (object instanceof AbstractGoogleClientRequest) {
-        return new GsonBuilder().setPrettyPrinting().create().toJson(object);
       }
     }
     return object;

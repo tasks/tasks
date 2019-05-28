@@ -54,7 +54,6 @@ import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.CaldavTask;
 import org.tasks.injection.ForApplication;
-import org.tasks.security.Encryption;
 import timber.log.Timber;
 
 public class CaldavSynchronizer {
@@ -69,9 +68,9 @@ public class CaldavSynchronizer {
   private final LocalBroadcastManager localBroadcastManager;
   private final TaskCreator taskCreator;
   private final TaskDeleter taskDeleter;
-  private final Encryption encryption;
   private final Inventory inventory;
   private final Tracker tracker;
+  private final CaldavClient client;
   private final Context context;
 
   @Inject
@@ -82,18 +81,18 @@ public class CaldavSynchronizer {
       LocalBroadcastManager localBroadcastManager,
       TaskCreator taskCreator,
       TaskDeleter taskDeleter,
-      Encryption encryption,
       Inventory inventory,
-      Tracker tracker) {
+      Tracker tracker,
+      CaldavClient client) {
     this.context = context;
     this.caldavDao = caldavDao;
     this.taskDao = taskDao;
     this.localBroadcastManager = localBroadcastManager;
     this.taskCreator = taskCreator;
     this.taskDeleter = taskDeleter;
-    this.encryption = encryption;
     this.inventory = inventory;
     this.tracker = tracker;
+    this.client = client;
   }
 
   public void sync() {
@@ -108,7 +107,7 @@ public class CaldavSynchronizer {
         setError(account, context.getString(R.string.password_required));
         continue;
       }
-      CaldavClient caldavClient = new CaldavClient(account, encryption);
+      CaldavClient caldavClient = client.forAccount(account);
       List<DavResponse> resources;
       try {
         resources = caldavClient.getCalendars();

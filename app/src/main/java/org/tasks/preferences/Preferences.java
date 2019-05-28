@@ -32,6 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
+import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.billing.Purchase;
 import org.tasks.data.TaskAttachment;
@@ -505,5 +506,9 @@ public class Preferences {
       result.put(entry.getKey(), (T) entry.getValue());
     }
     return result;
+  }
+
+  public boolean isFlipperEnabled() {
+    return BuildConfig.DEBUG && getBoolean(R.string.p_flipper, false);
   }
 }

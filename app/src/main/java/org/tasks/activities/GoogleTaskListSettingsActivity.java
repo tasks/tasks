@@ -24,6 +24,7 @@ import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.gtasks.GtasksListService;
+import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.service.TaskDeleter;
 import javax.inject.Inject;
 import org.tasks.R;
@@ -59,7 +60,7 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
   @Inject ThemeCache themeCache;
   @Inject ThemeColor themeColor;
   @Inject TaskDeleter taskDeleter;
-  @Inject GoogleAccountManager googleAccountManager;
+  @Inject GtasksInvoker gtasksInvoker;
 
   @BindView(R.id.name)
   TextInputEditText name;
@@ -206,10 +207,10 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
 
     if (isNewList) {
       showProgressIndicator();
-      createListViewModel.createList(googleAccountManager, gtasksList.getAccount(), newName);
+      createListViewModel.createList(gtasksInvoker, gtasksList.getAccount(), newName);
     } else if (nameChanged()) {
       showProgressIndicator();
-      renameListViewModel.renameList(googleAccountManager, gtasksList, newName);
+      renameListViewModel.renameList(gtasksInvoker, gtasksList, newName);
     } else {
       if (colorChanged()) {
         gtasksList.setColor(selectedTheme);
@@ -250,7 +251,7 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
             R.string.delete,
             (dialog, which) -> {
               showProgressIndicator();
-              deleteListViewModel.deleteList(googleAccountManager, gtasksList);
+              deleteListViewModel.deleteList(gtasksInvoker, gtasksList);
             })
         .setNegativeButton(android.R.string.cancel, null)
         .show();

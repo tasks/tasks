@@ -78,6 +78,7 @@ public class GoogleTaskSynchronizer {
   private final LocalBroadcastManager localBroadcastManager;
   private final Inventory inventory;
   private final TaskDeleter taskDeleter;
+  private final GtasksInvoker gtasksInvoker;
 
   @Inject
   public GoogleTaskSynchronizer(
@@ -95,7 +96,8 @@ public class GoogleTaskSynchronizer {
       GoogleAccountManager googleAccountManager,
       LocalBroadcastManager localBroadcastManager,
       Inventory inventory,
-      TaskDeleter taskDeleter) {
+      TaskDeleter taskDeleter,
+      GtasksInvoker gtasksInvoker) {
     this.context = context;
     this.googleTaskListDao = googleTaskListDao;
     this.gtasksListService = gtasksListService;
@@ -111,6 +113,7 @@ public class GoogleTaskSynchronizer {
     this.localBroadcastManager = localBroadcastManager;
     this.inventory = inventory;
     this.taskDeleter = taskDeleter;
+    this.gtasksInvoker = gtasksInvoker;
   }
 
   public static void mergeDates(long remoteDueDate, Task local) {
@@ -182,7 +185,7 @@ public class GoogleTaskSynchronizer {
       return;
     }
 
-    GtasksInvoker gtasksInvoker = new GtasksInvoker(account.getAccount(), googleAccountManager);
+    GtasksInvoker gtasksInvoker = this.gtasksInvoker.forAccount(account.getAccount());
     pushLocalChanges(account, gtasksInvoker);
 
     List<TaskList> gtaskLists = new ArrayList<>();

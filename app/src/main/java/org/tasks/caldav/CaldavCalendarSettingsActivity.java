@@ -43,9 +43,9 @@ import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
+import org.tasks.injection.ForApplication;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.preferences.Preferences;
-import org.tasks.security.Encryption;
 import org.tasks.sync.SyncAdapters;
 import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
@@ -59,6 +59,7 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
   public static final String EXTRA_CALDAV_ACCOUNT = "extra_caldav_account";
   private static final String EXTRA_SELECTED_THEME = "extra_selected_theme";
   private static final int REQUEST_COLOR_PICKER = 10109;
+  @Inject @ForApplication Context context;
   @Inject DialogBuilder dialogBuilder;
   @Inject Preferences preferences;
   @Inject ThemeCache themeCache;
@@ -66,8 +67,8 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
   @Inject Tracker tracker;
   @Inject CaldavDao caldavDao;
   @Inject SyncAdapters syncAdapters;
-  @Inject Encryption encryption;
   @Inject TaskDeleter taskDeleter;
+  @Inject CaldavClient client;
 
   @BindView(R.id.root_layout)
   LinearLayout root;
@@ -223,7 +224,7 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
 
     if (caldavCalendar == null) {
       showProgressIndicator();
-      createCalendarViewModel.createCalendar(caldavAccount, encryption, name);
+      createCalendarViewModel.createCalendar(client, caldavAccount, name);
     } else if (hasChanges()) {
       updateAccount();
     } else {
@@ -393,7 +394,7 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
             R.string.delete,
             (dialog, which) -> {
               showProgressIndicator();
-              deleteCalendarViewModel.deleteCalendar(caldavAccount, encryption, caldavCalendar);
+              deleteCalendarViewModel.deleteCalendar(client, caldavAccount, caldavCalendar);
             })
         .setNegativeButton(android.R.string.cancel, null)
         .show();

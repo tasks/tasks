@@ -6,6 +6,7 @@ import static at.bitfire.dav4android.XmlUtils.NS_CARDDAV;
 import static at.bitfire.dav4android.XmlUtils.NS_WEBDAV;
 import static java.util.Arrays.asList;
 
+import android.content.Context;
 import at.bitfire.dav4android.BasicDigestAuthHandler;
 import at.bitfire.dav4android.DavResource;
 import at.bitfire.dav4android.DavResponse;
@@ -24,11 +25,16 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import javax.inject.Inject;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
+import okhttp3.OkHttpClient.Builder;
+import org.tasks.DebugNetworkInterceptor;
 import org.tasks.R;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
+import org.tasks.injection.ForApplication;
+import org.tasks.preferences.Preferences;
 import org.tasks.security.Encryption;
 import org.tasks.ui.DisplayableException;
 import org.xmlpull.v1.XmlPullParserException;
@@ -38,28 +44,43 @@ import timber.log.Timber;
 
 public class CaldavClient {
 
+  private final Context context;
+  private final Encryption encryption;
+  private final Preferences preferences;
+  private final DebugNetworkInterceptor interceptor;
   private final OkHttpClient httpClient;
   private final HttpUrl httpUrl;
 
-  public CaldavClient(CaldavAccount caldavAccount, Encryption encryption) {
-    this(
-        caldavAccount.getUrl(),
-        caldavAccount.getUsername(),
-        encryption.decrypt(caldavAccount.getPassword()));
-  }
-
+  @Inject
   public CaldavClient(
-      CaldavAccount caldavAccount, CaldavCalendar caldavCalendar, Encryption encryption) {
-    this(
-        caldavCalendar.getUrl(),
-        caldavAccount.getUsername(),
-        encryption.decrypt(caldavAccount.getPassword()));
+      @ForApplication Context context,
+      Encryption encryption,
+      Preferences preferences,
+      DebugNetworkInterceptor interceptor) {
+    this.context = context;
+    this.encryption = encryption;
+    this.preferences = preferences;
+    this.interceptor = interceptor;
+    httpClient = null;
+    httpUrl = null;
   }
 
-  public CaldavClient(String url, String username, String password) {
+  private CaldavClient(
+      Context context,
+      Encryption encryption,
+      Preferences preferences,
+      DebugNetworkInterceptor interceptor,
+      String url,
+      String username,
+      String password) {
+    this.context = context;
+    this.encryption = encryption;
+    this.preferences = preferences;
+    this.interceptor = interceptor;
+
     BasicDigestAuthHandler basicDigestAuthHandler =
         new BasicDigestAuthHandler(null, username, password);
-    httpClient =
+    Builder builder =
         new OkHttpClient()
             .newBuilder()
             .addNetworkInterceptor(basicDigestAuthHandler)
@@ -67,9 +88,24 @@ public class CaldavClient {
             .cookieJar(new MemoryCookieStore())
             .followRedirects(false)
             .followSslRedirects(true)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .build();
+            .readTimeout(30, TimeUnit.SECONDS);
+    if (preferences.isFlipperEnabled()) {
+      interceptor.add(builder);
+    }
+    httpClient = builder.build();
     httpUrl = HttpUrl.parse(url);
+  }
+
+  public CaldavClient forAccount(CaldavAccount account) {
+    return forUrl(account.getUrl(), account.getUsername(), account.getPassword(encryption));
+  }
+
+  public CaldavClient forCalendar(CaldavAccount account, CaldavCalendar calendar) {
+    return forUrl(calendar.getUrl(), account.getUsername(), account.getPassword(encryption));
+  }
+
+  public CaldavClient forUrl(String url, String username, String password) {
+    return new CaldavClient(context, encryption, preferences, interceptor, url, username, password);
   }
 
   private String tryFindPrincipal() throws DavException, IOException {
