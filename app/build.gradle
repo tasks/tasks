@@ -119,7 +119,6 @@ configurations {
 
 final DAGGER_VERSION = '2.22.1'
 final BUTTERKNIFE_VERSION = '10.1.0'
-final STETHO_VERSION = '1.5.1'
 final WORK_VERSION = '2.0.1'
 final LEAKCANARY_VERSION = '1.6.3'
 final ROOM_VERSION = '2.1.0-beta01'
@@ -141,10 +140,9 @@ dependencies {
     annotationProcessor "com.jakewharton:butterknife-compiler:${BUTTERKNIFE_VERSION}"
     implementation "com.jakewharton:butterknife:${BUTTERKNIFE_VERSION}"
 
-    debugImplementation("com.facebook.stetho:stetho:${STETHO_VERSION}") {
-        exclude group: 'com.google.code.findbugs', module: 'jsr305'
-    }
-    debugImplementation "com.facebook.stetho:stetho-timber:${STETHO_VERSION}@aar"
+    debugImplementation 'com.facebook.flipper:flipper:0.21.0'
+    debugImplementation 'com.facebook.soloader:soloader:0.6.0'
+
     debugImplementation "com.squareup.leakcanary:leakcanary-android:${LEAKCANARY_VERSION}"
     debugImplementation "com.squareup.leakcanary:leakcanary-support-fragment:${LEAKCANARY_VERSION}"
 
