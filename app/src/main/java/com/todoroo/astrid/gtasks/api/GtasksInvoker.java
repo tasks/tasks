@@ -103,6 +103,19 @@ public class GtasksInvoker {
                 GtasksApiUtilities.unixTimeToGtasksCompletionTime(lastSyncDate).toStringRfc3339()));
   }
 
+  public com.google.api.services.tasks.model.Tasks getAllPositions(
+      String listId, @Nullable String pageToken) throws IOException {
+    return execute(
+        service
+            .tasks()
+            .list(listId)
+            .setMaxResults(100L)
+            .setShowDeleted(false)
+            .setShowHidden(true)
+            .setPageToken(pageToken)
+            .setFields("items(id,parent,position)"));
+  }
+
   public @Nullable Task createGtask(
       String listId, Task task, @Nullable String parent, @Nullable String previous)
       throws IOException {

@@ -311,4 +311,7 @@
   <string name="p_add_google_task_account">add_google_task_account</string>
   <string name="p_add_caldav_account">add_caldav_account</string>
   <string name="p_google_tasks_add_to_top">google_tasks_add_to_top</string>
+  <string name="p_google_tasks_position_hack">google_tasks_position_hack</string>
+  <string name="google_tasks_position_hack">Custom order synchronization fix</string>
+  <string name="google_tasks_position_hack_summary">Always perform a full synchronization to workaround https://issuetracker.google.com/issues/132432317. This setting will disable itself after seven days.</string>
 </resources>

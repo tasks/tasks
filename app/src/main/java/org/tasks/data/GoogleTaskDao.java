@@ -116,6 +116,10 @@ public abstract class GoogleTaskDao {
       "UPDATE google_tasks SET gt_parent = IFNULL((SELECT gt_task FROM google_tasks AS p WHERE p.gt_remote_id = google_tasks.gt_remote_parent), gt_parent) WHERE gt_list_id = :listId AND gt_moved = 0 AND gt_remote_parent IS NOT NULL AND gt_remote_parent != ''")
   abstract void updateParents(String listId);
 
+  @Query(
+      "UPDATE google_tasks SET gt_remote_parent = :parent, gt_remote_order = :position WHERE gt_remote_id = :id")
+  public abstract void updatePosition(String id, String parent, String position);
+
   @Transaction
   public void reposition(String listId) {
     updateParents(listId);

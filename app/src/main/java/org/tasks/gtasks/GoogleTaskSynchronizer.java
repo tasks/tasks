@@ -216,7 +216,34 @@ public class GoogleTaskSynchronizer {
       fetchAndApplyRemoteChanges(gtasksInvoker, list);
       googleTaskDao.reposition(list.getRemoteId());
     }
+    if (preferences.isPositionHackEnabled()) {
+      for (TaskList list : gtaskLists) {
+        List<com.google.api.services.tasks.model.Task> tasks = fetchPositions(gtasksInvoker, list.getId());
+        for (com.google.api.services.tasks.model.Task task : tasks) {
+          googleTaskDao.updatePosition(task.getId(), task.getParent(), task.getPosition());
+        }
+        googleTaskDao.reposition(list.getId());
+      }
+    }
     account.setEtag(eTag);
+  }
+
+  private List<com.google.api.services.tasks.model.Task> fetchPositions(GtasksInvoker gtasksInvoker, String listId)
+      throws IOException {
+    List<com.google.api.services.tasks.model.Task> tasks = new ArrayList<>();
+    String nextPageToken = null;
+    do {
+      Tasks taskList = gtasksInvoker.getAllPositions(listId, nextPageToken);
+      if (taskList == null) {
+        break;
+      }
+      List<com.google.api.services.tasks.model.Task> items = taskList.getItems();
+      if (items != null) {
+        tasks.addAll(items);
+      }
+      nextPageToken = taskList.getNextPageToken();
+    } while (!Strings.isNullOrEmpty(nextPageToken));
+    return tasks;
   }
 
   private void pushLocalChanges(GoogleTaskAccount account, GtasksInvoker gtasksInvoker)

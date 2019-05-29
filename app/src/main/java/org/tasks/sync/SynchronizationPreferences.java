@@ -6,11 +6,13 @@
 
 package org.tasks.sync;
 
+import static com.todoroo.andlib.utility.DateUtilities.now;
 import static java.util.Arrays.asList;
 import static org.tasks.PermissionUtil.verifyPermissions;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import androidx.annotation.NonNull;
@@ -98,6 +100,20 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
             return false;
           });
     }
+
+    CheckBoxPreference positionHack =
+        (CheckBoxPreference) findPreference(R.string.google_tasks_position_hack);
+    positionHack.setChecked(preferences.isPositionHackEnabled());
+    positionHack.setOnPreferenceChangeListener(
+        (preference, newValue) -> {
+          if (newValue == null) {
+            return false;
+          }
+          preferences.setLong(
+              R.string.p_google_tasks_position_hack, ((Boolean) newValue) ? now() : 0);
+          return true;
+        });
+
     Preference addCaldavAccount = findPreference(R.string.p_add_caldav_account);
     if (inventory.hasPro()) {
       addCaldavAccount.setOnPreferenceClickListener(

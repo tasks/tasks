@@ -18,6 +18,11 @@
     android:key="@string/p_google_tasks_add_to_top"
     android:title="@string/google_tasks_add_to_top"/>
 
+  <CheckBoxPreference
+    android:key="@string/google_tasks_position_hack"
+    android:title="@string/google_tasks_position_hack"
+    android:summary="@string/google_tasks_position_hack_summary" />
+
   <PreferenceCategory
     android:key="@string/CalDAV"
     android:title="@string/CalDAV"/>
