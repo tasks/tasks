@@ -366,15 +366,23 @@ public class MainActivity extends InjectingAppCompatActivity
 
     clearUi();
 
-    getSupportFragmentManager()
-        .beginTransaction()
-        .replace(R.id.detail, newTaskEditFragment(task), TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
-        .addToBackStack(TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
-        .commitAllowingStateLoss();
+    disposables.add(
+        Single.fromCallable(() -> task.isNew() ? task : taskDao.fetch(task.getId()))
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                t -> {
+                  getSupportFragmentManager()
+                      .beginTransaction()
+                      .replace(
+                          R.id.detail,
+                          newTaskEditFragment(t),
+                          TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
+                      .addToBackStack(TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
+                      .commit();
 
-    getSupportFragmentManager().executePendingTransactions();
-
-    showDetailFragment();
+                  showDetailFragment();
+                }));
   }
 
   @Override
