@@ -679,22 +679,12 @@
   copyrightHolder: The Error Prone Authors
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-- artifact: com.google.auth:google-auth-library-oauth2-http:+
-  name: Google Auth Library for Java - OAuth2 HTTP
-  copyrightHolder: Google Inc.
-  license: BSD 3-Clause
-  licenseUrl: https://opensource.org/licenses/BSD-3-Clause
 - artifact: io.opencensus:opencensus-api:+
   name: OpenCensus API
   copyrightHolder: OpenCensus Authors
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://github.com/census-instrumentation/opencensus-java
-- artifact: com.google.auth:google-auth-library-credentials:+
-  name: Google Auth Library for Java - Credentials
-  copyrightHolder: Google Inc.
-  license: BSD 3-Clause
-  licenseUrl: https://opensource.org/licenses/BSD-3-Clause
 - artifact: com.google.guava:failureaccess:+
   name: Guava InternalFutureFailureAccess and InternalFutures
   copyrightHolder: The Guava Authors

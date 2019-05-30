@@ -179,7 +179,6 @@ dependencies {
     implementation "androidx.work:work-runtime:${WORK_VERSION}"
     implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:7.3.0'
     implementation'com.mapbox.mapboxsdk:mapbox-sdk-services:4.6.0'
-    implementation 'com.google.auth:google-auth-library-oauth2-http:0.15.0'
 
     googleplayImplementation "com.crashlytics.sdk.android:crashlytics:${CRASHLYTICS_VERSION}"
     googleplayImplementation "com.google.firebase:firebase-core:${FIREBASE_VERSION}"

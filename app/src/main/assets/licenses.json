@@ -1826,22 +1826,6 @@
     },
     {
       "notice": null,
-      "copyrightHolder": "Google Inc.",
-      "copyrightStatement": "Copyright &copy; Google Inc. All rights reserved.",
-      "license": "BSD 3-Clause",
-      "licenseUrl": "https://opensource.org/licenses/BSD-3-Clause",
-      "normalizedLicense": "bsd_3_clauses",
-      "year": null,
-      "url": "",
-      "libraryName": "Google Auth Library for Java - OAuth2 HTTP",
-      "artifactId": {
-        "name": "google-auth-library-oauth2-http",
-        "group": "com.google.auth",
-        "version": "0.15.0"
-      }
-    },
-    {
-      "notice": null,
       "copyrightHolder": "OpenCensus Authors",
       "copyrightStatement": "Copyright &copy; OpenCensus Authors. All rights reserved.",
       "license": "The Apache Software License, Version 2.0",
@@ -1854,22 +1838,6 @@
         "name": "opencensus-api",
         "group": "io.opencensus",
         "version": "0.18.0"
-      }
-    },
-    {
-      "notice": null,
-      "copyrightHolder": "Google Inc.",
-      "copyrightStatement": "Copyright &copy; Google Inc. All rights reserved.",
-      "license": "BSD 3-Clause",
-      "licenseUrl": "https://opensource.org/licenses/BSD-3-Clause",
-      "normalizedLicense": "bsd_3_clauses",
-      "year": null,
-      "url": "",
-      "libraryName": "Google Auth Library for Java - Credentials",
-      "artifactId": {
-        "name": "google-auth-library-credentials",
-        "group": "com.google.auth",
-        "version": "0.15.0"
       }
     },
     {
