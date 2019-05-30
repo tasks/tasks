@@ -40,13 +40,14 @@ public final class AstridTaskAdapter extends TaskAdapter {
 
   @Override
   public boolean canMove(ViewHolder source, ViewHolder target) {
-    return true;
+    return !updater.isDescendantOf(target.task.getUuid(), source.task.getUuid());
   }
 
-  public boolean canIndent(int position, TaskContainer task) {
-    String parentUuid = getItemUuid(position - 1);
-    int parentIndent = updater.getIndentForTask(parentUuid);
-    return getIndent(task) <= parentIndent;
+  @Override
+  public int maxIndent(int previousPosition, TaskContainer task) {
+    TaskContainer previous = getTask(previousPosition);
+    String parentUuid = previous.getUuid();
+    return updater.getIndentForTask(parentUuid) + 1;
   }
 
   @Override
@@ -56,11 +57,8 @@ public final class AstridTaskAdapter extends TaskAdapter {
 
   @Override
   public void moved(int from, int to, int indent) {
-    String targetTaskId = getItemUuid(from);
-    if (!Task.isValidUuid(targetTaskId)) {
-      return; // This can happen with gestures on empty parts of the list (e.g. extra space below
-      // tasks)
-    }
+    TaskContainer source = getTask(from);
+    String targetTaskId = source.getUuid();
 
     try {
       if (to >= getCount()) {
@@ -68,6 +66,11 @@ public final class AstridTaskAdapter extends TaskAdapter {
       } else {
         String destinationTaskId = getItemUuid(to);
         updater.moveTo(list, filter, targetTaskId, destinationTaskId);
+      }
+      int currentIndent = updater.getIndentForTask(targetTaskId);
+      int delta = indent - currentIndent;
+      for (int i = 0 ; i < Math.abs(delta) ; i++) {
+        updater.indent(list, filter, targetTaskId, delta);
       }
     } catch (Exception e) {
       Timber.e(e);

@@ -56,8 +56,8 @@ public final class GoogleTaskAdapter extends TaskAdapter {
   }
 
   @Override
-  public int maxIndent(int position, TaskContainer task) {
-    return position == 0 || task.hasChildren() ? 0 : 1;
+  public int maxIndent(int previousPosition, TaskContainer task) {
+    return task.hasChildren() ? 0 : 1;
   }
 
   @Override

@@ -59,7 +59,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
     this.actionModeProvider = actionModeProvider;
     this.list = list;
     itemTouchHelperCallback =
-        new ItemTouchHelperCallback(adapter, this, taskList, this::drainQueue);
+        new ItemTouchHelperCallback(adapter, this, this::drainQueue);
     isGoogleTaskList = taskList.getFilter() instanceof GtasksFilter;
     Pair<List<TaskContainer>, DiffResult> initial = Pair.create(list, null);
     disposables.add(
@@ -262,6 +262,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
     adapter.moved(from, to, indent);
     TaskContainer task = list.remove(from);
     list.add(from < to ? to - 1 : to, task);
+    taskList.loadTaskListContent();
   }
 
   void swiped(int position, int delta) {

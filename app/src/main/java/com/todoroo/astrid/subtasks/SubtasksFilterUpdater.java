@@ -391,6 +391,10 @@ public class SubtasksFilterUpdater {
     applyToFilter(filter);
   }
 
+  public boolean isDescendantOf(String desc, String parent) {
+    return isDescendantOf(idToNode.get(desc), idToNode.get(parent));
+  }
+
   // Returns true if desc is a descendant of parent
   private boolean isDescendantOf(Node desc, Node parent) {
     Node curr = desc;

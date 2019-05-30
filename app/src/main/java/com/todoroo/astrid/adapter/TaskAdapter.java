@@ -60,7 +60,7 @@ public class TaskAdapter {
     return false;
   }
 
-  public int maxIndent(int position, TaskContainer task) {
+  public int maxIndent(int previousPosition, TaskContainer task) {
     return 0;
   }
 

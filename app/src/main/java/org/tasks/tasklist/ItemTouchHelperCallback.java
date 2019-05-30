@@ -9,7 +9,6 @@ import android.graphics.Canvas;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
-import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.utility.Flags;
 import org.tasks.data.TaskContainer;
@@ -17,7 +16,6 @@ import org.tasks.data.TaskContainer;
 public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
   private final TaskAdapter adapter;
   private final TaskListRecyclerAdapter recyclerAdapter;
-  private final TaskListFragment taskList;
   private final Runnable onClear;
   private int from = -1;
   private int to = -1;
@@ -25,13 +23,9 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
   private boolean swiping;
 
   ItemTouchHelperCallback(
-      TaskAdapter adapter,
-      TaskListRecyclerAdapter recyclerAdapter,
-      TaskListFragment taskList,
-      Runnable onClear) {
+      TaskAdapter adapter, TaskListRecyclerAdapter recyclerAdapter, Runnable onClear) {
     this.adapter = adapter;
     this.recyclerAdapter = recyclerAdapter;
-    this.taskList = taskList;
     this.onClear = onClear;
   }
 
@@ -85,7 +79,7 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
         to == 0 || to == recyclerAdapter.getItemCount() - 1
             ? 0
             : adapter.minIndent(from <= to ? to + 1 : to, task));
-    source.setMaxIndent(adapter.maxIndent(to, task));
+    source.setMaxIndent(to == 0 ? 0 : adapter.maxIndent(from >= to ? to - 1 : to, task));
   }
 
   @Override
@@ -175,7 +169,6 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
     int delta = direction == ItemTouchHelper.RIGHT ? 1 : -1;
     int position = viewHolder.getAdapterPosition();
     recyclerAdapter.swiped(position, delta);
-    taskList.loadTaskListContent();
   }
 
   boolean isDragging() {
