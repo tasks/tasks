@@ -6,7 +6,6 @@ import static at.bitfire.dav4android.XmlUtils.NS_CARDDAV;
 import static at.bitfire.dav4android.XmlUtils.NS_WEBDAV;
 import static java.util.Arrays.asList;
 
-import android.content.Context;
 import at.bitfire.dav4android.BasicDigestAuthHandler;
 import at.bitfire.dav4android.DavResource;
 import at.bitfire.dav4android.DavResponse;
@@ -33,7 +32,6 @@ import org.tasks.DebugNetworkInterceptor;
 import org.tasks.R;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
-import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 import org.tasks.security.Encryption;
 import org.tasks.ui.DisplayableException;
@@ -44,7 +42,6 @@ import timber.log.Timber;
 
 public class CaldavClient {
 
-  private final Context context;
   private final Encryption encryption;
   private final Preferences preferences;
   private final DebugNetworkInterceptor interceptor;
@@ -53,11 +50,9 @@ public class CaldavClient {
 
   @Inject
   public CaldavClient(
-      @ForApplication Context context,
       Encryption encryption,
       Preferences preferences,
       DebugNetworkInterceptor interceptor) {
-    this.context = context;
     this.encryption = encryption;
     this.preferences = preferences;
     this.interceptor = interceptor;
@@ -66,14 +61,12 @@ public class CaldavClient {
   }
 
   private CaldavClient(
-      Context context,
       Encryption encryption,
       Preferences preferences,
       DebugNetworkInterceptor interceptor,
       String url,
       String username,
       String password) {
-    this.context = context;
     this.encryption = encryption;
     this.preferences = preferences;
     this.interceptor = interceptor;
@@ -105,7 +98,7 @@ public class CaldavClient {
   }
 
   public CaldavClient forUrl(String url, String username, String password) {
-    return new CaldavClient(context, encryption, preferences, interceptor, url, username, password);
+    return new CaldavClient(encryption, preferences, interceptor, url, username, password);
   }
 
   private String tryFindPrincipal() throws DavException, IOException {
