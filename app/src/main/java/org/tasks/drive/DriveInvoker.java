@@ -1,10 +1,13 @@
 package org.tasks.drive;
 
+import static com.todoroo.andlib.utility.DateUtilities.now;
+
 import android.accounts.AccountManager;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpResponseException;
 import com.google.api.client.http.InputStreamContent;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -20,6 +23,7 @@ import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.BuildConfig;
+import org.tasks.DebugNetworkInterceptor;
 import org.tasks.R;
 import org.tasks.files.FileHelper;
 import org.tasks.gtasks.GoogleAccountManager;
@@ -34,6 +38,7 @@ public class DriveInvoker {
   private final Context context;
   private final Preferences preferences;
   private final GoogleAccountManager googleAccountManager;
+  private final DebugNetworkInterceptor interceptor;
   private final Drive service;
   private final GoogleCredential credential = new GoogleCredential();
 
@@ -41,10 +46,12 @@ public class DriveInvoker {
   public DriveInvoker(
       @ForApplication Context context,
       Preferences preferences,
-      GoogleAccountManager googleAccountManager) {
+      GoogleAccountManager googleAccountManager,
+      DebugNetworkInterceptor interceptor) {
     this.context = context;
     this.preferences = preferences;
     this.googleAccountManager = googleAccountManager;
+    this.interceptor = interceptor;
     service =
         new Drive.Builder(new NetHttpTransport(), new JacksonFactory(), credential)
             .setApplicationName(String.format("Tasks/%s", BuildConfig.VERSION_NAME))
@@ -109,7 +116,13 @@ public class DriveInvoker {
     Timber.d("%s request: %s", getCaller(), request);
     T response;
     try {
-      response = request.execute();
+      if (preferences.isFlipperEnabled()) {
+        long start = now();
+        HttpResponse httpResponse = request.executeUnparsed();
+        response = interceptor.report(httpResponse, request.getResponseClass(), start, now());
+      } else {
+        response = request.execute();
+      }
     } catch (HttpResponseException e) {
       if (e.getStatusCode() == 401 && !retry) {
         googleAccountManager.invalidateToken(credential.getAccessToken());

@@ -35,20 +35,37 @@ public class FlipperHttpInterceptor<T> implements HttpExecuteInterceptor, HttpRe
 
   @Override
   public void intercept(HttpRequest request) {
+    plugin.reportRequest(toRequestInfo(request, now()));
+  }
+
+  @Override
+  public void interceptResponse(HttpResponse response) throws IOException {
+    plugin.reportResponse(toResponseInfo(response, now()));
+  }
+
+  public void report(HttpResponse response, long start, long end) throws IOException {
+    plugin.reportRequest(toRequestInfo(response.getRequest(), start));
+    plugin.reportResponse(toResponseInfo(response, end));
+  }
+
+  public T getResponse() {
+    return body;
+  }
+
+  private RequestInfo toRequestInfo(HttpRequest request, long timestamp) {
     RequestInfo requestInfo = new RequestInfo();
     requestInfo.method = request.getRequestMethod();
     requestInfo.body = bodyToByteArray(request.getContent());
     requestInfo.headers = getHeaders(request.getHeaders());
     requestInfo.requestId = requestId;
-    requestInfo.timeStamp = now();
+    requestInfo.timeStamp = timestamp;
     requestInfo.uri = request.getUrl().toString();
-    plugin.reportRequest(requestInfo);
+    return requestInfo;
   }
 
-  @Override
-  public void interceptResponse(HttpResponse response) throws IOException {
+  private ResponseInfo toResponseInfo(HttpResponse response, long timestamp) throws IOException {
     ResponseInfo responseInfo = new ResponseInfo();
-    responseInfo.timeStamp = now();
+    responseInfo.timeStamp = timestamp;
     responseInfo.headers = getHeaders(response.getHeaders());
     responseInfo.requestId = requestId;
     responseInfo.statusCode = response.getStatusCode();
@@ -61,11 +78,7 @@ public class FlipperHttpInterceptor<T> implements HttpExecuteInterceptor, HttpRe
         Timber.e(e);
       }
     }
-    plugin.reportResponse(responseInfo);
-  }
-
-  public T getResponse() {
-    return body;
+    return responseInfo;
   }
 
   private List<Header> getHeaders(HttpHeaders headers) {

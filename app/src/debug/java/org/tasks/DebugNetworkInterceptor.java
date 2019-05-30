@@ -5,6 +5,7 @@ import com.facebook.flipper.android.AndroidFlipperClient;
 import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor;
 import com.facebook.flipper.plugins.network.NetworkFlipperPlugin;
 import com.google.api.client.http.HttpRequest;
+import com.google.api.client.http.HttpResponse;
 import java.io.IOException;
 import javax.inject.Inject;
 import okhttp3.OkHttpClient;
@@ -34,6 +35,14 @@ public class DebugNetworkInterceptor {
         .setInterceptor(new ChainedHttpExecuteInterceptor(request.getInterceptor(), interceptor))
         .setResponseInterceptor(interceptor)
         .execute();
+    return interceptor.getResponse();
+  }
+
+  public <T> T report(HttpResponse httpResponse, Class<T> responseClass, long start, long finish)
+      throws IOException {
+    FlipperHttpInterceptor<T> interceptor =
+        new FlipperHttpInterceptor<>(getNetworkPlugin(context), responseClass);
+    interceptor.report(httpResponse, start, finish);
     return interceptor.getResponse();
   }
 }
