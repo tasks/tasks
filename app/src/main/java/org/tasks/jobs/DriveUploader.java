@@ -8,6 +8,7 @@ import android.net.Uri;
 import androidx.annotation.NonNull;
 import androidx.work.Data;
 import androidx.work.WorkerParameters;
+import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.services.drive.model.File;
 import com.google.common.base.Strings;
 import java.io.IOException;
@@ -77,7 +78,17 @@ public class DriveUploader extends InjectingWorker {
 
   private File getFolder() throws IOException {
     String folderId = preferences.getStringValue(R.string.p_google_drive_backup_folder);
-    File file = Strings.isNullOrEmpty(folderId) ? null : drive.getFile(folderId);
+    File file = null;
+    if (!Strings.isNullOrEmpty(folderId)) {
+      try {
+        file = drive.getFile(folderId);
+      } catch (GoogleJsonResponseException e) {
+        if (e.getStatusCode() != 404) {
+          throw e;
+        }
+      }
+    }
+
     return file == null || file.getTrashed() ? drive.createFolder(FOLDER_NAME) : file;
   }
 
