@@ -1,12 +1,12 @@
-[![Get it on Google Play](https://img.shields.io/github/release-pre/tasks/tasks.svg?label=google%20play%20store)](https://play.google.com/store/apps/details?id=org.tasks&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1)
-[![Get it on Amazon App Store](https://img.shields.io/github/release/tasks/tasks.svg?label=amazon%20app%20store)](https://www.amazon.com/gp/product/B00QHGTL7O/ref=mas_pm_tasks_astrid_to_do_list_clone)
+[![Get it on Google Play](https://img.shields.io/github/release-pre/tasks/tasks.svg?label=google%20play)](https://play.google.com/store/apps/details?id=org.tasks&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1)
+[![Get it on Amazon App Store](https://img.shields.io/github/release/tasks/tasks.svg?label=amazon)](https://www.amazon.com/gp/product/B00QHGTL7O/ref=mas_pm_tasks_astrid_to_do_list_clone)
 [![Get it on F-Droid](https://img.shields.io/f-droid/v/org.tasks.svg)](https://f-droid.org/packages/org.tasks/)
 
 [![Donate with Bitcoin](https://img.shields.io/badge/bitcoin-donate-yellow.svg?logo=bitcoin)](https://en.cryptobadges.io/donate/136mW34jW3cmZKhxuTDn3tHXMRwbbaRU8s)
 [![PayPal donate button](https://img.shields.io/badge/paypal-donate-yellow.svg?logo=paypal)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=alex@tasks.org)
 [![Liberapay donate button](https://img.shields.io/liberapay/receives/tasks.svg?logo=liberapay)](https://liberapay.com/tasks/donate)
 
-[![Build Status](https://travis-ci.org/tasks/tasks.svg?branch=master)](https://travis-ci.org/tasks/tasks) [![codecov](https://codecov.io/gh/tasks/tasks/branch/master/graph/badge.svg)](https://codecov.io/gh/tasks/tasks)
+[![Build Status](https://travis-ci.org/tasks/tasks.svg?branch=master)](https://travis-ci.org/tasks/tasks) [![weblate](https://weblate.tasks.org/widgets/tasks/-/android/svg-badge.svg)](https://weblate.tasks.org/engage/tasks/?utm_source=widget) [![codecov](https://codecov.io/gh/tasks/tasks/branch/master/graph/badge.svg)](https://codecov.io/gh/tasks/tasks)
 
 Please visit [tasks.org](https://tasks.org) for end user documentation and support
 
