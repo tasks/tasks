@@ -520,4 +520,15 @@
 	<string name="version_string">Versie %s</string>
 	<string name="invalid_backup_file">Ongeldig backup bestand</string>
 	<string name="google_tasks_add_to_top">Nieuwe taken bovenaan</string>
-</resources>
+<string name="action_open">Open</string>
+
+  <string name="TEA_timer_controls">Timer</string>
+
+  <string name="backup_directory">Backup locatie</string>
+  <string name="location_radius_meters">%s m</string>
+  <string name="filters">Filters</string>
+  <string name="privacy">Privacy</string>
+  <string name="filter">Filter</string>
+  <string name="accent">Accent</string>
+  <string name="CalDAV">CalDAV</string>
+  </resources>
