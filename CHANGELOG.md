@@ -1,5 +1,20 @@
 Change Log
 ---
+### 6.7 (unreleased)
+
+* Update translations
+  * Bulgarian - ddmdima96
+  * Dutch - revdbrink
+  * French - Florian_Dubois
+  * German - Strubbl
+  * Hebrew - elazar
+  * Hungarian - kaciokos
+  * Japanese - naofumi
+  * Lithuanian - gacuxz
+  * Spanish - i2nm7s
+  * Turkish - etc
+  * Ukrainian - nathalier
+
 ### 6.6.4 (2019-05-21)
 
 * Handle [breaking change](https://issuetracker.google.com/issues/133254108) in Google Tasks API

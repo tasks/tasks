@@ -518,4 +518,6 @@
 	<string name="choose_new_location">Neuen Ort auswählen</string>
 	<string name="third_party_licenses">Drittsoftware-Lizenzen</string>
 	<string name="changelog">Änderungshistorie</string>
+	<string name="invalid_backup_file">Ungültige Backupdatei</string>
+	<string name="google_tasks_add_to_top">Neue Aufgaben oben</string>
 </resources>

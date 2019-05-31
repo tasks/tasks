@@ -525,4 +525,6 @@
 	<string name="third_party_licenses">Licencias de terceros</string>
 	<string name="changelog">Registro de cambios</string>
 	<string name="version_string">Versión %s</string>
+	<string name="invalid_backup_file">Copia de seguridad no válida</string>
+	<string name="google_tasks_add_to_top">Nuevas tareas encima</string>
 </resources>

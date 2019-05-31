@@ -532,4 +532,6 @@
 	<string name="third_party_licenses">רשיונות צד ג\'</string>
 	<string name="changelog">רישומון שינויים</string>
 	<string name="version_string">גירסה %s</string>
+	<string name="invalid_backup_file">קובץ גיבוי לא תקין</string>
+	<string name="google_tasks_add_to_top">משימות חדשות בראש הרשימה</string>
 </resources>

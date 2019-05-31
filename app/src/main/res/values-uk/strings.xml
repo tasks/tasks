@@ -52,8 +52,8 @@
 	<string name="TEA_estimatedDuration_label">Як довго це триватиме?</string>
 	<string name="TEA_elapsedDuration_label">Часу витрачено</string>
 	<string name="save">Зберегти</string>
-	<string name="TEA_timer_est">Зал. %s</string>
-	<string name="TEA_timer_elap">Минуло %s</string>
+	<string name="TEA_timer_est">Заплановано %s</string>
+	<string name="TEA_timer_elap">Витрачено %s</string>
 	<string name="TEA_no_time">Без часу</string>
 	<string name="due_date">Призначеної дати</string>
 	<string name="due_time">Призначеного часу</string>
@@ -214,7 +214,7 @@
 	</plurals>
 	<plurals name="repeat_times">
 		<item quantity="one">раз</item>
-		<item quantity="other">разів</item>
+		<item quantity="other">рази(ів)</item>
 	</plurals>
 	<plurals name="repeat_minutes">
 		<item quantity="one">хвилина</item>
@@ -238,7 +238,7 @@
 	</plurals>
 	<plurals name="repeat_n_days">
 		<item quantity="one">%d день</item>
-		<item quantity="other">%d днів</item>
+		<item quantity="other">%d дні(в)</item>
 	</plurals>
 	<plurals name="repeat_weeks">
 		<item quantity="one">тиждень</item>
@@ -455,10 +455,10 @@
 	<string name="repeats_single_on_number_of_times">Повторювати %1$s по %2$s, стається %3$d %4$s</string>
 	<string name="repeats_minutely">щохвилини</string>
 	<string name="repeats_hourly">щогодинно</string>
-	<string name="repeats_daily">щоденно</string>
+	<string name="repeats_daily">щодня</string>
 	<string name="repeats_weekly">щотижня</string>
 	<string name="repeats_monthly">щомісяця</string>
-	<string name="repeats_yearly">щорічно</string>
+	<string name="repeats_yearly">щороку</string>
 	<string name="repeats_plural">Повторювати що %s</string>
 	<string name="repeats_plural_on">Повторювати що  %1$s по %2$s</string>
 	<string name="repeats_plural_until">Повторювати що %1$s до %2$s</string>
@@ -477,7 +477,7 @@
 	<string name="repeat_monthly_second_week">другий(а)</string>
 	<string name="repeat_monthly_third_week">третій(я)</string>
 	<string name="repeat_monthly_fourth_week">четвертий(а)</string>
-	<string name="repeat_monthly_last_week">останнього</string>
+	<string name="repeat_monthly_last_week">останній(я)</string>
 	<string name="tasker_create_task">Створити завдання</string>
 	<string name="tasker_list_notification">Список повідомлень</string>
 	<string name="help">Допомога</string>
@@ -532,4 +532,6 @@
 	<string name="third_party_licenses">Ліцензії третіх сторін</string>
 	<string name="changelog">Журнал змін</string>
 	<string name="version_string">Версія %s</string>
+	<string name="invalid_backup_file">Невірний формат файлу резервної копії</string>
+	<string name="google_tasks_add_to_top">Нові завдання зверху</string>
 </resources>

@@ -510,4 +510,6 @@ est configuré correctement</string>
 	<string name="choose_new_location">Choisir une nouvelle localisation</string>
 	<string name="third_party_licenses">Licences tierces</string>
 	<string name="changelog">Journal des changements</string>
+	<string name="invalid_backup_file">Fichier de récupération invalide</string>
+	<string name="google_tasks_add_to_top">Nouvelle tâche au dessus</string>
 </resources>

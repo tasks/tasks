@@ -499,6 +499,7 @@
 	<string name="themes">Допълнителни теми</string>
 	<string name="pro_caldav_sync">CalDAV синхранизация</string>
 	<string name="pro_multiple_google_task_accounts">Множество Google Tasks акаунти</string>
+	<string name="pro_google_places_search">Търсене в Google Места</string>
 	<string name="pro_tasker_plugins">Tasker добавки</string>
 	<string name="pro_dashclock_extension">Dashclock  разширение</string>
 	<string name="requires_pro_subscription">Изисква pro абонамент</string>
@@ -514,7 +515,23 @@
 	<string name="show_list_indicators">Показване на индикатори в списъци</string>
 	<string name="location_remind_arrival">Напомни при пристигане</string>
 	<string name="location_remind_departure">Напомни при заминаване</string>
+	<string name="visit_website">Посетете уебсайта</string>
 	<string name="location_arrived">Пристигнал на %s</string>
 	<string name="location_departed">Заминал %s</string>
 	<string name="building_notifications">Създаване на уведомления</string>
+	<string name="choose_a_location">Изберете местоположение</string>
+	<string name="pick_this_location">Избери това местоположение</string>
+	<string name="or_choose_a_location">Или избери местоположение</string>
+	<string name="map_provider">Доставчик на карти</string>
+	<string name="map_search_provider">Намери доставчик</string>
+	<string name="missing_permissions">Липсващи разрешения</string>
+	<string name="location_permission_required_geofence">За напомняния за местоположение са необходими разрешения за местоположението</string>
+	<string name="location_permission_required_location">Необходими са разрешения за местоположение, за да откриете текущото ви местоположение</string>
+	<string name="open_map">Отворете картата</string>
+	<string name="choose_new_location">Изберете ново местоположение</string>
+	<string name="third_party_licenses">Лицензи на трети страни</string>
+	<string name="changelog">Дневник на промените</string>
+	<string name="version_string">Версия %s</string>
+	<string name="invalid_backup_file">Невалиден резервен файл</string>
+	<string name="google_tasks_add_to_top">Нови задачи отгоре</string>
 </resources>
