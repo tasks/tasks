@@ -1,7 +1,17 @@
 Change Log
 ---
-### 6.7 (unreleased)
+### 6.7 (currently in beta)
 
+* Use drag and drop to indent tasks
+* Add new Google Tasks to top or bottom
+* Toggle hidden and completed in manually sorted Google Task lists
+* Rearrange Google Tasks without a network connection
+* Optional workaround for custom order bug in Google Tasks API
+* Ignore 404 errors when fetching Google Drive folders
+* Match tags in search results
+* Don't display sync indicator when there is no network connection
+* Don't synchronize immediately after every change
+* Added Estonian translations - Eraser
 * Update translations
   * Bulgarian - ddmdima96
   * Dutch - revdbrink
