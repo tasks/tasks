@@ -214,7 +214,9 @@ public class GoogleTaskSynchronizer {
     }
     for (GoogleTaskList list : gtasksListService.getListsToUpdate(gtaskLists)) {
       fetchAndApplyRemoteChanges(gtasksInvoker, list);
-      googleTaskDao.reposition(list.getRemoteId());
+      if (!preferences.isPositionHackEnabled()) {
+        googleTaskDao.reposition(list.getRemoteId());
+      }
     }
     if (preferences.isPositionHackEnabled()) {
       for (TaskList list : gtaskLists) {
