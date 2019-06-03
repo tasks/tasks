@@ -1,254 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <!-- ================================================== general terms == -->
-
-  <!-- menu item to clear picture selection -->
   <string name="actfm_picture_clear">Clear Picture</string>
-
-  <!-- ================================================== TagViewActivity == -->
-
-  <!-- Tag View Activity: Add Comment hint -->
   <string name="TVA_add_comment">Add a comment…</string>
-
   <string name="name">Name</string>
-
   <string name="enter_filter_name">Enter filter name</string>
-
-  <!-- ================================================= BackupPreferences == -->
-
-  <!-- slide 33c/48d: Backup Preferences Title -->
   <string name="backup_BPr_header">Backups</string>
-
-  <!-- backup activity import button -->
   <string name="backup_BAc_import">Import tasks</string>
-
-  <!-- backup activity export button -->
   <string name="backup_BAc_export">Export tasks</string>
-
-  <!-- ============================================== Importer / Exporter == -->
-
   <string name="export_toast">Backed up %1$s to %2$s.</string>
-
   <string name="export_toast_no_tasks">No tasks to export.</string>
-
-  <!-- Backup: Title of Import Summary Dialog -->
   <string name="import_summary_title">Restore summary</string>
-
-  <!-- Backup: Summary message for import. (%s => file name, %s => total # tasks, %s => imported, %s => skipped, %s => errors) -->
   <string name="import_summary_message">
 File %1$s contained %2$s.\n\n
 %3$s imported,\n
 %4$s already exist\n
 %5$s had errors\n
   </string>
-
-  <!-- Progress Dialog text for import reading task (%d -> task number)-->
   <string name="import_progress_read">Reading task %d…</string>
-
-  <!-- ================================================== AndroidManifest == -->
-
-  <!-- permission title for READ_TASKS -->
   <string name="read_permission_label">Tasks Permission</string>
-
-  <!-- ================================================== Generic Dialogs == -->
-
   <string name="discard_confirmation">Are you sure you want to discard your changes?</string>
-
   <string name="keep_editing">Keep editing</string>
-
-  <!-- question for deleting tasks -->
   <string name="DLG_delete_this_task_question">Delete this task?</string>
-
-  <!-- Title for dialog selecting a time (hours and minutes) -->
   <string name="DLG_hour_minutes">Time (hours : minutes)</string>
-
-  <!-- Dialog - dismiss -->
-
   <string name="DLG_undo">Undo</string>
-
-  <!-- =============================================================== UI == -->
-
-  <!-- Label for DateButtons with no value -->
   <string name="WID_dateButtonUnset">Click to set</string>
-
-  <!-- ================================================= MainActivity == -->
-
-  <!-- slide 8b: Task List: Displayed instead of list when no items present -->
   <string name="TLA_no_items">There are no tasks here.</string>
-
-  <!-- Menu: Adjust Sort and Hidden Task Settings -->
   <string name="TLA_menu_sort">Sort</string>
-
-  <!-- Menu: Search -->
   <string name="TLA_menu_search">Search</string>
-
-  <!-- Menu: Settings -->
   <string name="TLA_menu_settings">Settings</string>
-
-  <!-- slide 15a: Action Button: edit task -->
   <string name="TAd_actionEditTask">Edit</string>
   <string name="action_call">Call</string>
   <string name="action_open">Open</string>
-
-  <!-- ============================================== SortSelectionDialog == -->
-
-  <!-- Sort Selection: drag with subtasks -->
   <string name="SSD_sort_drag">Manual order with subtasks</string>
-
-  <!-- slide 23b: Sort Selection: smart sort -->
   <string name="SSD_sort_auto">Smart sort</string>
-
-  <!-- slide 23e: Sort Selection: sort by alpha -->
   <string name="SSD_sort_alpha">By title</string>
-
-  <!-- slide 23c: Sort Selection: sort by due date -->
   <string name="SSD_sort_due">By due date</string>
-
-  <!-- slide 23d: Sort Selection: sort by importance -->
   <string name="SSD_sort_importance">By priority</string>
-
-  <!-- slide 23f: Sort Selection: sort by modified date -->
   <string name="SSD_sort_modified">By last modified</string>
-
-  <!-- =============================================== FilterListActivity == -->
-
-  <!-- Search Filter name (%s => query) -->
   <string name="FLA_search_filter">Matching \'%s\'</string>
-
-  <!-- Menu: new filter -->
   <string name="FLA_new_filter">Create new filter</string>
-
-  <!-- ================================================= TaskEditActivity == -->
-
-  <!-- Task title hint (displayed when edit box is empty) -->
   <string name="TEA_title_hint">Task name</string>
-
-  <!-- Task importance label -->
   <string name="TEA_importance_label">Priority</string>
-
   <string name="TEA_no_date">No date</string>
-
-  <!-- Task hide until label -->
   <string name="TEA_hideUntil_label">Hide until</string>
-
-  <!-- Task hide until label -->
   <string name="TEA_hideUntil_display">Hide until %s</string>
-
-  <!-- slide 16c: Task note label -->
   <string name="TEA_note_label">Description</string>
-
-  <!-- Estimated time label -->
   <string name="TEA_estimatedDuration_label">How long will it take?</string>
-
-  <!-- Elapsed time label -->
   <string name="TEA_elapsedDuration_label">Time already spent</string>
-
   <string name="save">Save</string>
-
   <string name="TEA_timer_est">Est. %s</string>
-
   <string name="TEA_timer_elap">Elapsed %s</string>
-
   <string name="TEA_no_time">No time</string>
-
   <string name="due_date">Due date</string>
   <string name="due_time">Due time</string>
   <string name="day_before_due">Day before due</string>
   <string name="week_before_due">Week before due</string>
-
-  <!--The following strings appear at the %s in TEA_hideUntil_display, thus generally mid-sentence and with different spelling than the corresponding general strings like due_date etc.-->
   <string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization." name="TEA_hideUntil_due_date">due date</string>
   <string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization." name="TEA_hideUntil_due_time">due time</string>
   <string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization." name="TEA_hideUntil_day_before_due">day before due</string>
   <string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization." name="TEA_hideUntil_week_before_due">week before due</string>
-
-  <!-- Task edit control set descriptors -->
-
   <string name="TEA_control_when">When</string>
   <string name="TEA_control_repeat">Repeat</string>
   <string name="TEA_control_gcal">Calendar</string>
   <string name="TEA_control_importance">Priority</string>
   <string name="TEA_control_location">Location</string>
   <string name="TEA_control_notes">Description</string>
-
   <string name="TEA_control_files">Files</string>
-
   <string name="TEA_control_reminders">Reminders</string>
-
   <string name="TEA_control_timer">Timer Controls</string>
-
   <string name="TEA_control_hidden_section">----Hide Always----</string>
-
-  <!-- Text to load more activity -->
   <string name="TEA_load_more">Load more…</string>
-
-  <!-- ======================================= Calendar reminder activity == -->
-
-  <!-- Calendar remindeer ignore button -->
   <string name="CRA_ignore">Ignore</string>
-
-  <!-- Calendar event -->
   <string name="CRA_title">Need a meeting list?</string>
-
-  <!-- Calendar reminder: dialog to ignore all missed calls body -->
   <string name="CRA_ignore_body">You\'ve ignored several calendar events. Should Tasks stop asking you about them?</string>
-
-  <!-- Calendar reminder: dialog to ignore all missed calls ignore all button -->
   <string name="CRA_ignore_all">Ignore all events</string>
-
-  <!-- Calendar reminder: dialog to ignore all missed calls ignore just this button -->
   <string name="CRA_ignore_this">Ignore this event only</string>
-
-  <!-- Calendar reminder: astrid speech bubble when event starting (%s -> event name) -->
   <string name="CRA_speech_bubble_start">Looks like %s is starting soon. Want to create a list for action items?</string>
-
-  <!-- Calendar reminder: astrid speech bubble when event ending (%s -> event name) -->
   <string name="CRA_speech_bubble_end">Looks like you just finished with %s. Want to create a list for action items?</string>
-
-  <!-- Calendar reminder: postpone button -->
   <string name="CRA_postpone">Maybe afterwards</string>
-
-  <!-- Calendar reminder: preference title -->
   <string name="CRA_calendar_reminders_pref_title">Calendar assistant</string>
-
-  <!-- Calendar reminder: pref description enabled -->
   <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks will remind you about upcoming calendar events and prompt you to prepare for them</string>
-
-  <!-- Calendar reminder: default new list name (%s -> event title) -->
   <string name="CRA_default_list_name">Action Items: %s</string>
-
-  <!-- ================================================== EditPreferences == -->
-
   <string name="none">None</string>
-
-  <!-- slide 30i: Preference Category: Appearance Title -->
   <string name="EPr_appearance_header">Appearance</string>
-
-  <!-- Preference: Filters to show pref screen title -->
   <string name="EPr_filters_to_show_title">Filters to show</string>
-
-  <!-- Edit screen preference category -->
   <string name="EPr_edit_screen_options">Edit screen options</string>
-
   <string name="EPr_beastMode_reset">Reset to defaults</string>
-
-  <!-- slide 34b: Preferences: Wrap task titles to two lines -->
   <string name="EPr_fullTask_title">Show full task title</string>
-
-  <!-- Preference: task edit comments -->
   <string name="EPr_show_task_edit_comments">Show comments in task edit</string>
-
   <string name="task_list_options">Task list options</string>
-
-  <!-- Preferences: calendar event start time -->
   <string name="EPr_cal_end_or_start_at_due_time">Calendar event time</string>
   <string name="EPr_cal_end_at_due_time">End calendar events at due time</string>
   <string name="EPr_cal_start_at_due_time">Start calendar events at due time</string>
-
-  <!-- ========================================== Task Management Settings == -->
-
-  <!-- slide 33a/47c: Preference Screen Header: Old Task Management -->
   <string name="EPr_manage_header">Manage old tasks</string>
   <string name="EPr_manage_purge_deleted">Purge deleted tasks</string>
   <string name="EPr_manage_purge_deleted_message">Do you really want to purge all your deleted tasks?\n\nThese tasks will be gone forever!</string>
@@ -257,216 +101,91 @@ File %1$s contained %2$s.\n\n
   <string name="EPr_reset_preferences_warning">Preferences will be reset to default values</string>
   <string name="EPr_delete_task_data">Delete task data</string>
   <string name="EPr_delete_task_data_warning">All tasks will be permanently deleted</string>
-
   <string name="EPr_manage_delete_completed_gcal">Delete calendar events for completed tasks</string>
   <string name="EPr_manage_delete_completed_gcal_message">Do you really want to delete all your events for completed tasks?</string>
   <string name="EPr_manage_delete_completed_gcal_status">Deleted %d calendar events!</string>
-
   <string name="EPr_manage_delete_all_gcal">Delete all calendar events for tasks</string>
   <string name="EPr_manage_delete_all_gcal_message">Do you really want to delete all your events for tasks?</string>
   <string name="EPr_manage_delete_all_gcal_status">Deleted %d calendar events!</string>
-
-  <!-- ============================================================= Misc == -->
-
   <string name="task_defaults">Task defaults</string>
-  <!-- slide 41f:  Preference: Default Urgency Title -->
   <string name="EPr_default_urgency_title">Default deadline</string>
-
   <string name="EPr_default_importance_title">Default priority</string>
-
-  <!-- slide 42e: Preference: Default Hide Until Title -->
   <string name="EPr_default_hideUntil_title">Default hide until</string>
-
-  <!-- slide 43e: Preference: Default Reminders Title -->
   <string name="EPr_default_reminders_title">Default reminders</string>
   <string name="EPr_default_location_reminder_title">Default location reminders</string>
   <string name="EPr_default_location_radius">Default radius</string>
-
-  <!-- slide 45d: Reminder Mode Preference: Default Reminders Duration -->
   <string name="EPr_default_reminders_mode_title">Default ring/vibrate type</string>
-
   <string name="priority_high">High</string>
   <string name="priority_medium">Medium</string>
   <string name="priority_low">Low</string>
-
   <string name="no_deadline">No deadline</string>
   <string name="day_after_tomorrow">Day after tomorrow</string>
   <string name="next_week">Next week</string>
-
   <string name="dont_hide">Don\'t hide</string>
-
   <string name="at_deadline">At deadline</string>
   <string name="at_deadline_or_overdue">At deadline or overdue</string>
   <string name="no_reminders">No reminders</string>
   <string name="default_location_reminder_on_arrival">On arrival</string>
   <string name="default_location_reminder_on_departure">On departure</string>
   <string name="default_location_reminder_on_arrival_or_departure">On arrival and departure</string>
-
-  <!-- ================================================= Filter Exposer == -->
-
-  <!-- Active Tasks Filter -->
   <string name="BFE_Active">My Tasks</string>
-
-  <!-- slide 10b: Recently Modified -->
   <string name="BFE_Recent">Recently modified</string>
-
-  <!-- =========================================== CustomFilterActivity == -->
-
-  <!-- slide 30a: Filter Starting Universe: all tasks -->
   <string name="CFA_universe_all">Active Tasks</string>
-
-  <!-- Filter Criteria Type: add (at the begging of title of the criteria) -->
   <string name="CFA_type_add">or</string>
-
-  <!-- Filter Criteria Type: subtract (at the begging of title of the criteria) -->
   <string name="CFA_type_subtract">not</string>
-
-  <!-- Filter Criteria Type: intersect (at the begging of title of the criteria) -->
   <string name="CFA_type_intersect">also</string>
-
-  <!-- Filter Criteria Context Menu: chaining (%s chain type as above) -->
   <string name="CFA_context_chain">%s has criteria</string>
-
-  <!-- Filter Criteria Context Menu: delete -->
   <string name="CFA_context_delete">Delete Row</string>
-
-  <!-- slide 30b: Filter Screen Help Text -->
   <string name="CFA_help">Long press on items for additional options</string>
-
-  <!-- slide 30c: Filter Button: add new -->
   <string name="CFA_button_add">Add Criteria</string>
-
-  <!-- =========================================== CustomFilterCriteria == -->
-
-  <!-- Criteria: due by X - display text (? -> user input) -->
   <string name="CFC_dueBefore_text">Due By: ?</string>
-  <!-- Criteria: due by X - name of criteria -->
   <string name="CFC_dueBefore_name">Due By…</string>
-
   <string name="no_due_date">No Due Date</string>
   <string name="next_month">Next Month</string>
-
-  <!-- Criteria: importance - display text (? -> user input)-->
   <string name="CFC_importance_text">Priority at least ?</string>
-  <!-- Criteria: importance - name of criteria -->
   <string name="CFC_importance_name">Priority…</string>
-
-  <!-- Criteria: tag - display text (? -> user input) -->
   <string name="CFC_tag_text">Tag: ?</string>
-  <!-- Criteria: tag - name of criteria -->
   <string name="CFC_tag_name">Tag…</string>
-
-  <!-- Criteria: tag_contains - name of criteria -->
   <string name="CFC_tag_contains_name">Tag name contains…</string>
-  <!-- Criteria: tag_contains - text (? -> user input) -->
   <string name="CFC_tag_contains_text">Tag name contains: ?</string>
-
-  <!-- Criteria: title_contains - name of criteria -->
   <string name="CFC_title_contains_name">Title contains…</string>
-  <!-- Criteria: title_contains - text (? -> user input) -->
   <string name="CFC_title_contains_text">Title contains: ?</string>
-
-  <!-- =============================================== Task Edit Controls == -->
-
-  <!-- Error message for adding to calendar  -->
   <string name="gcal_TEA_error">Error adding task to calendar!</string>
-
-  <!-- Label when calendar event already exists -->
   <string name="gcal_TEA_showCalendar_label">Open Calendar Event</string>
-
   <string name="delete_calendar_event_confirmation">Delete calendar event?</string>
   <string name="calendar_event_not_found">Calendar event not found</string>
-
-  <!-- ======================================================== Calendars == -->
-
-  <!-- Calendar event name when task is completed (%s => task title) -->
   <string name="gcal_completed_title">%s (completed)</string>
-
-
-  <!-- ============================================================= UI == -->
-
-  <!-- short help title for Gtasks -->
-
   <string name="CFC_gtasks_list_text">In List: ?</string>
-
   <string name="CFC_gtasks_list_name">In GTasks List…</string>
   <string name="CFC_caldav_list_name">In CalDAV list…</string>
-  <!-- Label for clear completed menu item -->
   <string name="gtasks_GTA_clear_completed">Clear Completed</string>
-
-  <!-- ============================================ GtasksLoginActivity == -->
-
-  <!--  Authenticating toast -->
   <string name="gtasks_GLA_authenticating">Authenticating…</string>
-
-  <!-- Error Message when we receive an IO Exception -->
   <string name="gtasks_GLA_errorIOAuth">Sorry, we had trouble communicating with Google servers. Please try again later.</string>
-
-  <!-- ===========================================SynchronizationPreferencesnces == -->
-
-  <!-- GTasks Preferences Title -->
   <string name="gtasks_GPr_header">Google Tasks</string>
-
-  <!-- ================================================ Synchronization == -->
-
-  <!-- Error for account not found -->
   <string name="gtasks_error_accountNotFound">Account %s not found—please log out and log back in from the Google Tasks settings.</string>
-
-
   <string name="premium_record_audio">Record a note</string>
   <string name="premium_remove_file_confirm">Are you sure? Cannot be undone</string>
-
   <string name="audio_recording_title">Recording Audio</string>
   <string name="audio_stop_recording">Stop Recording</string>
-
-  <!--  slide 45a: Task Edit: Reminder mode: ring once -->
   <string name="ring_once">Ring once</string>
-
-  <!-- slide 45b: Task Edit: Reminder mode: ring five times -->
   <string name="ring_five_times">Ring five times</string>
-
-  <!-- slide 45c: Task Edit: Reminder mode: ring nonstop -->
   <string name="ring_nonstop">Ring nonstop</string>
-
   <string name="random_reminder_hour">an hour</string>
   <string name="random_reminder_day">a day</string>
   <string name="random_reminder_week">a week</string>
   <string name="random_reminder_two_weeks">in two weeks</string>
   <string name="random_reminder_month">a month</string>
   <string name="random_reminder_two_months">in two months</string>
-
-  <!-- ==================================================== notifications == -->
-
-  <!-- Reminder: Task was already done -->
   <string name="rmd_NoA_done">Complete</string>
-
-  <!-- Reminder: Snooze button (remind again later) -->
   <string name="rmd_NoA_snooze">Snooze</string>
   <string name="snooze_all">Snooze all</string>
-
-  <!-- ============================================= reminder preferences == -->
-
-  <!-- Reminder Preference: Quiet Hours Start Title -->
   <string name="rmd_EPr_quiet_hours_start_title">Quiet hours start</string>
-
-  <!-- Reminder Preference: Quiet Hours End Title -->
   <string name="rmd_EPr_quiet_hours_end_title">Quiet hours end</string>
-
-  <!-- Reminder Preference: Default Reminder Title -->
   <string name="rmd_EPr_rmd_time_title">Default reminder</string>
-  <!-- Reminder Preference: Default Reminder Description (%s => time set) -->
   <string name="rmd_EPr_rmd_time_desc">Notifications for tasks without due times will appear at %s</string>
-
-  <!-- Reminder Preference: Notification Persistence Title -->
   <string name="persistent_notifications">Persistent notifications</string>
-  <!-- Reminder Preference: Notification Persistence Description (true) -->
   <string name="persistent_notifications_description">Persistent notifications cannot be cleared</string>
-
-  <!-- slide 44g: Reminder Preference: Default Reminders Title -->
   <string name="rmd_EPr_defaultRemind_title">Random reminders</string>
-
-  <!-- slide 39a: Defaults Title -->
-
   <string name="default_random_reminder_disabled">Disabled</string>
   <string name="default_random_reminder_hourly">Hourly</string>
   <string name="default_random_reminder_daily">Daily</string>
@@ -474,7 +193,6 @@ File %1$s contained %2$s.\n\n
   <string name="default_random_reminder_bi_weekly">Bi-weekly</string>
   <string name="default_random_reminder_monthly">Monthly</string>
   <string name="default_random_reminder_bi_monthly">Bi-monthly</string>
-
   <string name="repeat_every">Every</string>
   <string name="repeat_option_does_not_repeat">Does not repeat</string>
   <string name="repeat_option_every_day">Every day</string>
@@ -482,14 +200,12 @@ File %1$s contained %2$s.\n\n
   <string name="repeat_option_every_month">Every month</string>
   <string name="repeat_option_every_year">Every year</string>
   <string name="repeat_option_custom">Custom…</string>
-
   <string name="repeat_minutely">REPEAT MINUTELY</string>
   <string name="repeat_hourly">REPEAT HOURLY</string>
   <string name="repeat_daily">REPEAT DAILY</string>
   <string name="repeat_weekly">REPEAT WEEKLY</string>
   <string name="repeat_monthly">REPEAT MONTHLY</string>
   <string name="repeat_yearly">REPEAT YEARLY</string>
-
   <plurals name="task_count">
     <item quantity="one">%d task</item>
     <item quantity="other">%d tasks</item>
@@ -506,7 +222,6 @@ File %1$s contained %2$s.\n\n
     <item quantity="one">%d minute</item>
     <item quantity="other">%d minutes</item>
   </plurals>
-
   <plurals name="repeat_hours">
     <item quantity="one">hour</item>
     <item quantity="other">hours</item>
@@ -515,7 +230,6 @@ File %1$s contained %2$s.\n\n
     <item quantity="one">%d hour</item>
     <item quantity="other">%d hours</item>
   </plurals>
-
   <plurals name="repeat_days">
     <item quantity="one">day</item>
     <item quantity="other">days</item>
@@ -524,7 +238,6 @@ File %1$s contained %2$s.\n\n
     <item quantity="one">%d day</item>
     <item quantity="other">%d days</item>
   </plurals>
-
   <plurals name="repeat_weeks">
     <item quantity="one">week</item>
     <item quantity="other">weeks</item>
@@ -533,7 +246,6 @@ File %1$s contained %2$s.\n\n
     <item quantity="one">%d week</item>
     <item quantity="other">%d weeks</item>
   </plurals>
-
   <plurals name="repeat_months">
     <item quantity="one">month</item>
     <item quantity="other">months</item>
@@ -542,7 +254,6 @@ File %1$s contained %2$s.\n\n
     <item quantity="one">%d month</item>
     <item quantity="other">%d months</item>
   </plurals>
-
   <plurals name="repeat_years">
     <item quantity="one">year</item>
     <item quantity="other">years</item>
@@ -551,99 +262,41 @@ File %1$s contained %2$s.\n\n
     <item quantity="one">%d year</item>
     <item quantity="other">%d years</item>
   </plurals>
-
   <string name="repeat_type_due">due date</string>
   <string name="repeat_type_completion">completion date</string>
-
-  <!-- text for button when repeating task indefinitely -->
   <string name="repeat_forever">Repeat forever</string>
-
-  <!-- text for button when repeating task until specified date (%s -> date string) -->
   <string name="repeat_until">Repeat until %s</string>
   <string name="repeat_number_of_times">Repeat a number of times</string>
   <string name="repeat_occurs">Occurs</string>
-
   <string name="repeat_snackbar">%1$s rescheduled for %2$s</string>
   <string comment="display new due date and time in snackbar after completing repeating task, e.g. 'Tomorrow at 8 AM' or '21 May at 8 AM'" name="repeat_snackbar_time">%1$s at %2$s</string>
-
-  <!-- ========================================================== Extras == -->
-
   <string name="new_tag">Create new tag</string>
   <string name="new_list">Create new list</string>
-
-  <!-- ========================================================== Filters == -->
-
-  <!-- slide 10d: filter for untagged tasks -->
   <string name="tag_FEx_untagged">Uncategorized</string>
-
   <string name="delete_tag_confirmation">Delete %s?</string>
-
-  <!-- Android Notification Title (%s => # tasks) -->
   <string name="TPl_notification">Timers Active for %s!</string>
-
-  <!-- Filter for Timed Tasks -->
   <string name="TFE_workingOn">Tasks Being Timed</string>
-
-  <!-- Title for TEA -->
   <string name="TEA_timer_controls">Timer</string>
-
-  <!-- Edit Notes: create comment for when timer is started -->
   <string name="TEA_timer_comment_started">started this task:</string>
-
-  <!-- Edit Notes: create comment for when timer is stopped -->
   <string name="TEA_timer_comment_stopped">stopped doing this task:</string>
-
-  <!-- Edit Notes: comment to notify how long was spent on task -->
   <string name="TEA_timer_comment_spent">Time spent:</string>
-
-
-  <!-- Voice Add Prompt Text -->
   <string name="voice_create_prompt">Speak to create a task</string>
-
   <string name="EPr_voiceInputEnabled_title">Voice input</string>
-  <!-- slide 38f: Preference: Voice reminders if TTS-service is available -->
   <string name="EPr_voiceRemindersEnabled_title">Voice reminders</string>
-  <!-- Preference: Voice reminders description (true) -->
   <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks will speak task names during task reminders</string>
-
   <string name="delete_task">Delete task</string>
   <string name="voice_command_added_task">Added task</string>
-
-  <!-- ==================================================== Generic Units == -->
-
   <plurals name="Ntasks">
-    <!-- plurals: tasks -->
     <item quantity="one">1 task</item>
-    <!-- plurals: tasks -->
     <item quantity="other">%d tasks</item>
   </plurals>
-
-  <!-- slide 10a, 12c: today -->
   <string name="today">Today</string>
-
-  <!-- tomorrow -->
   <string name="tomorrow">Tomorrow</string>
-
   <string name="next">Next %s</string>
-
-  <!-- yesterday -->
   <string name="yesterday">Yesterday</string>
-
-  <!-- slide 12c: tomorrow, abbreviated -->
   <string name="tmrw">Tmrw</string>
-
-  <!-- slide 12c: yesterday, abbreviated -->
   <string name="yest">Yest</string>
-
-  <!-- ================================================== Generic Dialogs == -->
-
-  <!-- Progress dialog shown when doing something slow -->
-
-  <!-- ================================================== SyncPreferences == -->
-
-  <!-- Preference: Synchronization Interval Title -->
   <string name="sync_SPr_interval_title">Background sync</string>
-
   <string name="widget_show_due_date">Show due dates</string>
   <string name="widget_show_checkboxes">Show checkboxes</string>
   <string name="widget_show_header">Show header</string>
@@ -725,7 +378,6 @@ File %1$s contained %2$s.\n\n
   <string name="default_sync">Default sync</string>
   <string name="filter">Filter</string>
   <string name="opacity">Opacity</string>
-
   <string name="theme">Theme</string>
   <string name="color">Color</string>
   <string name="accent">Accent</string>
@@ -756,7 +408,6 @@ File %1$s contained %2$s.\n\n
   <string name="theme_dark">Dark</string>
   <string name="theme_wallpaper">Wallpaper</string>
   <string name="theme_day_night">Day/Night</string>
-
   <string name="settings_general">General</string>
   <string name="language">Language</string>
   <string name="restart_required">Tasks must be restarted for change to take effect</string>
@@ -821,7 +472,6 @@ File %1$s contained %2$s.\n\n
   <string name="bundle_notifications_summary">Combine multiple notifications into a single notification</string>
   <string name="repeat_monthly_same_day_each_month">on the same day each month</string>
   <string name="dont_sync">Don\'t sync</string>
-
   <string name="repeat_monthly_every_day_of_nth_week">every %1$s %2$s</string>
   <string name="repeat_monthly_on_every_day_of_nth_week">on every %1$s %2$s</string>
   <string name="repeat_monthly_first_week">first</string>
@@ -829,7 +479,6 @@ File %1$s contained %2$s.\n\n
   <string name="repeat_monthly_third_week">third</string>
   <string name="repeat_monthly_fourth_week">fourth</string>
   <string name="repeat_monthly_last_week">last</string>
-
   <string name="tasker_create_task">Create task</string>
   <string name="tasker_list_notification">List notification</string>
   <string name="help">Help</string>
@@ -849,7 +498,6 @@ File %1$s contained %2$s.\n\n
   <string name="error_billing_default">Billing unavailable. Please check your device.</string>
   <string name="about">About</string>
   <string name="license_summary">Tasks is free and open-source software, licensed under the GNU General Public License v3.0</string>
-
   <string name="themes">Additional themes</string>
   <string name="pro_caldav_sync">CalDAV synchronization</string>
   <string name="pro_multiple_google_task_accounts">Multiple Google Task accounts</string>
