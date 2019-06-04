@@ -215,7 +215,7 @@ public class FilterCriteriaProvider {
             .join(Join.inner(Task.TABLE, Field.field("task").eq(Task.ID)))
             .where(
                 Criterion.and(
-                    TaskDao.TaskCriteria.activeAndVisible(), Field.field("list_id").eq("?")))
+                    TaskDao.TaskCriteria.activeAndVisible(), Field.field("gt_list_id").eq("?")))
             .toString(),
         values,
         listNames,
