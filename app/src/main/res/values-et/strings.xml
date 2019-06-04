@@ -1,2 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<?xml version='1.0' encoding='UTF-8'?>
+<resources><string name="TVA_add_comment">Lisa kommentaat…</string>
+  <string name="name">Nimi</string>
+  <string name="enter_filter_name">Sisesta filtri nimi</string>
+  <string name="backup_BPr_header">Varukoopiad</string>
+  <string name="backup_BAc_import">Impordi ülesandeid</string>
+  <string name="backup_BAc_export">Ekspordi ülesandeid</string>
+  </resources>
