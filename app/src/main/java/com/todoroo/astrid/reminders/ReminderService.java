@@ -97,11 +97,6 @@ public final class ReminderService {
     // notifications after due date
     long whenOverdue = calculateNextOverdueReminder(task);
 
-    // if random reminders are too close to due date, favor due date
-    if (whenRandom != NO_ALARM && whenDueDate - whenRandom < DateUtilities.ONE_DAY) {
-      whenRandom = NO_ALARM;
-    }
-
     // snooze trumps all
     if (whenSnooze != NO_ALARM) {
       return new ReminderEntry(taskId, whenSnooze, TYPE_SNOOZE);
