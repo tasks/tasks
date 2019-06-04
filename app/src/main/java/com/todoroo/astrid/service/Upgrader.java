@@ -40,6 +40,7 @@ public class Upgrader {
   private static final int V6_0_beta_1 = 522;
   private static final int V6_0_beta_2 = 523;
   private static final int V6_4 = 546;
+  private static final int V6_7 = 584;
   private final Preferences preferences;
   private final Tracker tracker;
   private final TagDataDao tagDataDao;
@@ -95,6 +96,9 @@ public class Upgrader {
       if (from < V6_4) {
         migrateUris();
       }
+      if (from < V6_7) {
+        migrateGoogleTaskFilters();
+      }
       tracker.reportEvent(Tracking.Events.UPGRADE, Integer.toString(from));
     }
     preferences.setCurrentVersion(to);
@@ -126,10 +130,18 @@ public class Upgrader {
     }
   }
 
+  private void migrateGoogleTaskFilters() {
+    for (Filter filter : filterDao.getAll()) {
+      filter.setSql(migrateGoogleTaskFilters(filter.getSql()));
+      filter.setCriterion(migrateGoogleTaskFilters(filter.getCriterion()));
+      filterDao.update(filter);
+    }
+  }
+
   private void migrateFilters() {
     for (Filter filter : filterDao.getFilters()) {
-      filter.setSql(migrate(filter.getSql()));
-      filter.setCriterion(migrate(filter.getCriterion()));
+      filter.setSql(migrateMetadata(filter.getSql()));
+      filter.setCriterion(migrateMetadata(filter.getCriterion()));
       filterDao.update(filter);
     }
   }
@@ -190,7 +202,13 @@ public class Upgrader {
     }
   }
 
-  private String migrate(String input) {
+  private String migrateGoogleTaskFilters(String input) {
+    return input
+        .replace("list_id", "gt_list_id")
+        .replace("SELECT task FROM google_tasks", "SELECT gt_task as task FROM google_tasks");
+  }
+
+  private String migrateMetadata(String input) {
     return input
         .replaceAll(
             "SELECT metadata\\.task AS task FROM metadata INNER JOIN tasks ON \\(\\(metadata\\.task=tasks\\._id\\)\\) WHERE \\(\\(\\(tasks\\.completed=0\\) AND \\(tasks\\.deleted=0\\) AND \\(tasks\\.hideUntil<\\(strftime\\(\\'%s\\',\\'now\\'\\)\\*1000\\)\\)\\) AND \\(metadata\\.key=\\'tags-tag\\'\\) AND \\(metadata\\.value",
