@@ -40,7 +40,7 @@ public class Upgrader {
   private static final int V6_0_beta_1 = 522;
   private static final int V6_0_beta_2 = 523;
   private static final int V6_4 = 546;
-  private static final int V6_7 = 584;
+  private static final int V6_7 = 585;
   private final Preferences preferences;
   private final Tracker tracker;
   private final TagDataDao tagDataDao;
@@ -204,8 +204,10 @@ public class Upgrader {
 
   private String migrateGoogleTaskFilters(String input) {
     return input
-        .replace("list_id", "gt_list_id")
-        .replace("SELECT task FROM google_tasks", "SELECT gt_task as task FROM google_tasks");
+        .replace("SELECT task FROM google_tasks", "SELECT gt_task as task FROM google_tasks")
+        .replace("(list_id", "(gt_list_id")
+        .replace("google_tasks.list_id", "google_tasks.gt_list_id")
+        .replace("google_tasks.task", "google_tasks.gt_task");
   }
 
   private String migrateMetadata(String input) {
