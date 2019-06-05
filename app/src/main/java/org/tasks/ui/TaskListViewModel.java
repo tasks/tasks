@@ -51,7 +51,7 @@ public class TaskListViewModel extends ViewModel {
   private static final Field PRIMARY_SORT = field("primary_sort").as("primarySort");
   private static final Field SECONDARY_SORT = field("secondary_sort").as("secondarySort");
   private static final StringProperty TAGS =
-      new StringProperty(null, "group_concat(" + TAGS_METADATA_JOIN + ".tag_uid" + ", ',')")
+      new StringProperty(null, "group_concat(distinct(" + TAGS_METADATA_JOIN + ".tag_uid)" + ")")
           .as("tags");
   @Inject Preferences preferences;
   @Inject TaskDao taskDao;
