@@ -38,7 +38,7 @@
   <string name="TEA_timer_est">Hinnanguliselt %s</string>
   <string name="TEA_timer_elap">Kulunud %s</string>
   <string name="TEA_no_time">Aega pole</string>
-  <string name="due_date"></string>
+  <string name="due_date">Tähtaeg</string>
   <string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization." name="TEA_hideUntil_week_before_due">nädal enne tähtaega</string>
   <string name="TEA_control_when">Millal</string>
   <string name="TEA_control_repeat">Korda</string>
@@ -72,7 +72,7 @@
   <string name="EPr_delete_task_data">Kustuta ülesande andmed</string>
   <string name="EPr_delete_task_data_warning">Kõik ülesanded kustutatakse jäädavalt</string>
   <string name="EPr_manage_delete_completed_gcal_message">Kas sa tõesti soovid kustutada kõigi lõpetatud ülesannete sündmused\?</string>
-  <string name="EPr_manage_delete_completed_gcal_status">Kalendrist kustutati %s sündmust!</string>
+  <string name="EPr_manage_delete_completed_gcal_status">Kalendrist kustutati %d sündmust!</string>
   <string name="task_defaults">Ülesande vaikeväärtused</string>
   <string name="EPr_default_urgency_title">Vaikimisi tähtaeg</string>
   <string name="EPr_default_importance_title">Vaikimisi tähtsus</string>
