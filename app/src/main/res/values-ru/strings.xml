@@ -363,7 +363,7 @@
 	<string name="privacy">Конфиденциальность</string>
 	<string name="privacy_policy">Политика конфиденциальности</string>
 	<string name="send_anonymous_statistics">Содействовать улучшению</string>
-	<string name="send_anonymous_statistics_summary">Отправлять анонимную статистику и отчёты об ошибках для содействия улучшению программы. Персональная информация не собираеться.</string>
+	<string name="send_anonymous_statistics_summary">Отправлять анонимную статистику и отчёты об ошибках для содействия улучшению программы. Персональная информация не собирается.</string>
 	<string name="tag_already_exists">Тег уже существует</string>
 	<string name="duplicate_name">Повторяющееся название</string>
 	<string name="name_cannot_be_empty">Необходимо задать имя</string>
