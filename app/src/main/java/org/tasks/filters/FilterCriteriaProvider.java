@@ -210,9 +210,9 @@ public class FilterCriteriaProvider {
     return new MultipleSelectCriterion(
         IDENTIFIER_GTASKS,
         context.getString(R.string.CFC_gtasks_list_text),
-        Query.select(Field.field("task"))
+        Query.select(Field.field("gt_task"))
             .from(GoogleTask.TABLE)
-            .join(Join.inner(Task.TABLE, Field.field("task").eq(Task.ID)))
+            .join(Join.inner(Task.TABLE, Field.field("gt_task").eq(Task.ID)))
             .where(
                 Criterion.and(
                     TaskDao.TaskCriteria.activeAndVisible(), Field.field("gt_list_id").eq("?")))
