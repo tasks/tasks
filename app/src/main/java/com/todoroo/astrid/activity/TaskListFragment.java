@@ -29,7 +29,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -83,6 +82,8 @@ import org.tasks.preferences.Device;
 import org.tasks.preferences.Preferences;
 import org.tasks.sync.SyncAdapters;
 import org.tasks.tasklist.ActionModeProvider;
+import org.tasks.tasklist.ManualSortRecyclerAdapter;
+import org.tasks.tasklist.PagedListRecyclerAdapter;
 import org.tasks.tasklist.TaskListRecyclerAdapter;
 import org.tasks.tasklist.ViewHolderFactory;
 import org.tasks.ui.CheckBoxes;
@@ -237,12 +238,22 @@ public final class TaskListFragment extends InjectingFragment
     taskListViewModel.setFilter(filter, taskAdapter.isManuallySorted());
 
     recyclerAdapter =
-        new TaskListRecyclerAdapter(
-            taskAdapter, viewHolderFactory, this, actionModeProvider, taskListViewModel.getValue());
+        taskAdapter.isManuallySorted()
+            ? new ManualSortRecyclerAdapter(
+                taskAdapter,
+                recyclerView,
+                viewHolderFactory,
+                this,
+                actionModeProvider,
+                taskListViewModel.getValue())
+            : new PagedListRecyclerAdapter(
+                taskAdapter,
+                viewHolderFactory,
+                this,
+                actionModeProvider,
+                taskListViewModel.getValue());
     taskAdapter.setHelper(recyclerAdapter);
     ((DefaultItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
-    new ItemTouchHelper(recyclerAdapter.getItemTouchHelperCallback())
-        .attachToRecyclerView(recyclerView);
     recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
     taskListViewModel.observe(

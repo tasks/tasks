@@ -10,6 +10,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.todoroo.andlib.utility.DateUtilities.now;
 
 import android.database.Cursor;
+import androidx.paging.DataSource;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -26,6 +27,9 @@ import com.todoroo.astrid.helper.UUIDHelper;
 import java.util.ArrayList;
 import java.util.List;
 import org.tasks.BuildConfig;
+import org.tasks.data.CaldavTask;
+import org.tasks.data.GoogleTask;
+import org.tasks.data.Tag;
 import org.tasks.data.TaskContainer;
 import org.tasks.jobs.WorkManager;
 import timber.log.Timber;
@@ -130,6 +134,9 @@ public abstract class TaskDao {
 
   @RawQuery
   public abstract List<TaskContainer> fetchTasks(SimpleSQLiteQuery query);
+
+  @RawQuery(observedEntities = {Task.class, GoogleTask.class, CaldavTask.class, Tag.class})
+  public abstract DataSource.Factory<Integer, TaskContainer> getTaskFactory(SimpleSQLiteQuery query);
 
   /**
    * Saves the given task to the database.getDatabase(). Task must already exist. Returns true on
