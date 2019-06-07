@@ -322,6 +322,7 @@ public final class TaskListFragment extends InjectingFragment
                     searchDisposable =
                         searchSubject
                             .debounce(SEARCH_DEBOUNCE_TIMEOUT, TimeUnit.MILLISECONDS)
+                            .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(q -> searchByQuery(q));
                     searchByQuery("");
                     for (int i = 0; i < menu.size(); i++) {

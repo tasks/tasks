@@ -1,6 +1,7 @@
 package org.tasks.ui;
 
 import static com.todoroo.andlib.sql.Field.field;
+import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
 import static com.todoroo.astrid.activity.TaskListFragment.CALDAV_METADATA_JOIN;
 import static com.todoroo.astrid.activity.TaskListFragment.GTASK_METADATA_JOIN;
 import static com.todoroo.astrid.activity.TaskListFragment.TAGS_METADATA_JOIN;
@@ -141,10 +142,17 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
     invalidate();
   }
 
-  public void invalidate() {
+  private void removeObserver() {
     if (internal != null) {
       internal.removeObserver(this);
     }
+  }
+
+  public void invalidate() {
+    assertMainThread();
+
+    removeObserver();
+
     SimpleSQLiteQuery query = new SimpleSQLiteQuery(getQuery(filter));
     Timber.v(query.getSql());
     if (manualSort) {
@@ -173,9 +181,7 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
   protected void onCleared() {
     disposable.dispose();
 
-    if (internal != null) {
-      internal.removeObserver(this);
-    }
+    removeObserver();
   }
 
   public List<TaskContainer> getValue() {
