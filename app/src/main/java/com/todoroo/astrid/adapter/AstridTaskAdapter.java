@@ -78,20 +78,6 @@ public final class AstridTaskAdapter extends TaskAdapter {
   }
 
   @Override
-  public void swiped(int which, int delta) {
-    String targetTaskId = getItemUuid(which);
-    if (!Task.isValidUuid(targetTaskId)) {
-      return; // This can happen with gestures on empty parts of the list (e.g. extra space below
-      // tasks)
-    }
-    try {
-      updater.indent(list, filter, targetTaskId, delta);
-    } catch (Exception e) {
-      Timber.e(e);
-    }
-  }
-
-  @Override
   public void onTaskCreated(String uuid) {
     updater.onCreateTask(list, filter, uuid);
   }

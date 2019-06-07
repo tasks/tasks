@@ -113,8 +113,4 @@ public final class GoogleTaskAdapter extends TaskAdapter {
       googleTaskDao.validateSorting(task.getGoogleTaskList());
     }
   }
-
-  @Override
-  public void swiped(int which, int delta) {
-  }
 }

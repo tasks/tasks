@@ -20,7 +20,6 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
   private int from = -1;
   private int to = -1;
   private boolean dragging;
-  private boolean swiping;
 
   ItemTouchHelperCallback(
       TaskAdapter adapter, TaskListRecyclerAdapter recyclerAdapter, Runnable onClear) {
@@ -38,9 +37,6 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
       dragging = true;
       int position = viewHolder.getAdapterPosition();
       updateIndents((ViewHolder) viewHolder, position, position);
-    } else if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
-      ((ViewHolder) viewHolder).setSwiping(true);
-      swiping = true;
     }
   }
 
@@ -133,9 +129,7 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
     super.clearView(recyclerView, viewHolder);
     ViewHolder vh = (ViewHolder) viewHolder;
     vh.setMoving(false);
-    vh.setSwiping(false);
     dragging = false;
-    swiping = false;
     onClear.run();
     if (recyclerAdapter.isActionModeActive()) {
       recyclerAdapter.toggle(vh);
@@ -163,19 +157,10 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
   @Override
   public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-    ViewHolder vh = (ViewHolder) viewHolder;
-    vh.setSwiping(false);
-    swiping = false;
-    int delta = direction == ItemTouchHelper.RIGHT ? 1 : -1;
-    int position = viewHolder.getAdapterPosition();
-    recyclerAdapter.swiped(position, delta);
+    throw new UnsupportedOperationException();
   }
 
   boolean isDragging() {
     return dragging;
-  }
-
-  boolean isSwiping() {
-    return swiping;
   }
 }

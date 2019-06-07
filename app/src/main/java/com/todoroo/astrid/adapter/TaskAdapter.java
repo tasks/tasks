@@ -87,8 +87,6 @@ public class TaskAdapter {
 
   public void moved(int from, int to, int indent) {}
 
-  public void swiped(int position, int delta) {}
-
   public TaskContainer getTask(int position) {
     return helper.getItem(position);
   }

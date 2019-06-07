@@ -99,7 +99,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
 
     updates.add(update);
 
-    if (!itemTouchHelperCallback.isDragging() && !itemTouchHelperCallback.isSwiping()) {
+    if (!itemTouchHelperCallback.isDragging()) {
       drainQueue();
     }
   }
@@ -263,9 +263,5 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
     TaskContainer task = list.remove(from);
     list.add(from < to ? to - 1 : to, task);
     taskList.loadTaskListContent();
-  }
-
-  void swiped(int position, int delta) {
-    adapter.swiped(position, delta);
   }
 }

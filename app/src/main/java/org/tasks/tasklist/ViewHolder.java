@@ -83,7 +83,6 @@ public class ViewHolder extends RecyclerView.ViewHolder {
   private boolean selected;
   private boolean moving;
   private boolean isGoogleTaskList;
-  private boolean swiping;
   private int minIndent;
   private int maxIndent;
 
@@ -329,14 +328,6 @@ public class ViewHolder extends RecyclerView.ViewHolder {
 
   public int getIndent() {
     return indent;
-  }
-
-  void setSwiping(boolean swiping) {
-    this.swiping = swiping;
-  }
-
-  boolean isSwiping() {
-    return swiping;
   }
 
   void setMinIndent(int minIndent) {
