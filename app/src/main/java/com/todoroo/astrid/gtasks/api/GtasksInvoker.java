@@ -176,6 +176,8 @@ public class GtasksInvoker {
         googleAccountManager.invalidateToken(credential.getAccessToken());
         credential.setAccessToken(null);
         return execute(request, true);
+      } else if (e.getStatusCode() == 404) {
+        throw new HttpNotFoundException(e);
       } else {
         throw e;
       }

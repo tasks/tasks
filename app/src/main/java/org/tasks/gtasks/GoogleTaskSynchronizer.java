@@ -369,7 +369,6 @@ public class GoogleTaskSynchronizer {
         }
         gtasksInvoker.updateGtask(listId, remoteModel);
       } catch (HttpNotFoundException e) {
-        Timber.e(e);
         googleTaskDao.delete(gtasksMetadata);
         return;
       }
