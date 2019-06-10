@@ -16,6 +16,9 @@ public abstract class GoogleTaskDao {
   @Insert
   public abstract void insert(GoogleTask task);
 
+  @Insert
+  public abstract void insert(Iterable<GoogleTask> tasks);
+
   @Transaction
   public void insertAndShift(GoogleTask task, boolean top) {
     if (top) {
@@ -70,6 +73,9 @@ public abstract class GoogleTaskDao {
   @Update
   public abstract void update(GoogleTask googleTask);
 
+  @Query("UPDATE google_tasks SET gt_deleted = :now WHERE gt_task = :task OR gt_parent = :task")
+  public abstract void markDeleted(long now, long task);
+
   @Delete
   public abstract void delete(GoogleTask deleted);
 
@@ -87,6 +93,9 @@ public abstract class GoogleTaskDao {
 
   @Query("SELECT gt_task FROM google_tasks WHERE gt_parent IN (:ids)")
   public abstract List<Long> getChildren(List<Long> ids);
+
+  @Query("SELECT * FROM google_tasks WHERE gt_parent = :id AND gt_deleted = 0")
+  public abstract List<GoogleTask> getChildren(Long id);
 
   @Query(
       "SELECT IFNULL(MAX(gt_order), -1) + 1 FROM google_tasks WHERE gt_list_id = :listId AND gt_parent = :parent")

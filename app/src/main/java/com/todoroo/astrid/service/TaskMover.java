@@ -1,6 +1,11 @@
 package com.todoroo.astrid.service;
 
+import static com.google.common.collect.Iterables.concat;
+import static com.google.common.collect.Iterables.transform;
+import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.utility.DateUtilities.now;
+import static java.util.Collections.emptyList;
+import static java.util.Collections.singletonList;
 
 import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
@@ -44,7 +49,7 @@ public class TaskMover {
   }
 
   public void move(List<Long> tasks, Filter selectedList) {
-    List<Task> fetch = taskDao.fetch(tasks);
+    List<Task> fetch = taskDao.fetchExcludingChildren(tasks);
     for (Task task : fetch) {
       performMove(task, selectedList);
       task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
@@ -76,6 +81,7 @@ public class TaskMover {
   private void performMove(Task task, Filter selectedList) {
     long id = task.getId();
     GoogleTask googleTask = googleTaskDao.getByTaskId(id);
+    List<GoogleTask> googleTaskChildren = emptyList();
     if (googleTask != null
         && selectedList instanceof GtasksFilter
         && googleTask.getListId().equals(((GtasksFilter) selectedList).getRemoteId())) {
@@ -89,8 +95,8 @@ public class TaskMover {
     }
     task.putTransitory(SyncFlags.FORCE_SYNC, true);
     if (googleTask != null) {
-      googleTask.setDeleted(now());
-      googleTaskDao.update(googleTask);
+      googleTaskChildren = googleTaskDao.getChildren(id);
+      googleTaskDao.markDeleted(now(), id);
     }
 
     if (caldavTask != null) {
@@ -99,12 +105,25 @@ public class TaskMover {
     }
 
     if (selectedList instanceof GtasksFilter) {
-      googleTaskDao.insertAndShift(
-          new GoogleTask(id, ((GtasksFilter) selectedList).getRemoteId()),
-          preferences.addGoogleTasksToTop());
+      String listId = ((GtasksFilter) selectedList).getRemoteId();
+      googleTaskDao.insertAndShift(new GoogleTask(id, listId), preferences.addGoogleTasksToTop());
+      if (!googleTaskChildren.isEmpty()) {
+        googleTaskDao.insert(
+            transform(
+                googleTaskChildren,
+                child -> {
+                  GoogleTask newChild = new GoogleTask(child.getTask(), listId);
+                  newChild.setOrder(child.getOrder());
+                  newChild.setParent(id);
+                  return newChild;
+                }));
+      }
     } else if (selectedList instanceof CaldavFilter) {
+      String listId = ((CaldavFilter) selectedList).getUuid();
       caldavDao.insert(
-          new CaldavTask(id, ((CaldavFilter) selectedList).getUuid(), UUIDHelper.newUUID()));
+          transform(
+              concat(singletonList(id), transform(googleTaskChildren, GoogleTask::getId)),
+              _id -> new CaldavTask(_id, listId, UUIDHelper.newUUID())));
     }
   }
 }

@@ -42,6 +42,9 @@ public interface CaldavDao {
   @Insert
   long insert(CaldavTask caldavTask);
 
+  @Insert
+  void insert(Iterable<CaldavTask> tasks);
+
   @Update
   void update(CaldavTask caldavTask);
 
