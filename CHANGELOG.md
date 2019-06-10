@@ -6,13 +6,16 @@ Change Log
 * Add new Google Tasks to top or bottom
 * Toggle hidden and completed in manually sorted Google Task lists
 * Rearrange Google Tasks without a network connection
-* Optional workaround for custom order bug in Google Tasks API
+* Optional workaround for [custom order bug](https://issuetracker.google.com/issues/132432317) in Google Tasks API
+* Include subtasks when moving or deleting Google Tasks
 * Ignore 404 errors when fetching Google Drive folders
 * Match tags in search results
+* Fix stuck 'Generating notifications' notification
 * Don't display sync indicator when there is no network connection
 * Don't synchronize immediately after every change
 * Added Estonian translations - Eraser
 * Update translations
+  * Arabic - asaeed
   * Bulgarian - ddmdima96
   * Dutch - revdbrink
   * French - Florian_Dubois
