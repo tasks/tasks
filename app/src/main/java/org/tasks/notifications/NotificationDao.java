@@ -9,8 +9,8 @@ import java.util.List;
 @Dao
 public interface NotificationDao {
 
-  @Query("SELECT * FROM notification")
-  List<Notification> getAll();
+  @Query("SELECT task FROM notification")
+  List<Long> getAll();
 
   @Query("SELECT * FROM notification ORDER BY timestamp DESC")
   List<Notification> getAllOrdered();
@@ -22,7 +22,7 @@ public interface NotificationDao {
   int delete(long taskId);
 
   @Query("DELETE FROM notification WHERE task IN(:taskIds)")
-  int deleteAll(List<Long> taskIds);
+  void deleteAll(List<Long> taskIds);
 
   @Query("SELECT MAX(timestamp) FROM notification")
   long latestTimestamp();

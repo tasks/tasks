@@ -9,7 +9,10 @@ import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastNougat;
 import static com.todoroo.astrid.reminders.ReminderService.TYPE_GEOFENCE_ENTER;
 import static com.todoroo.astrid.reminders.ReminderService.TYPE_GEOFENCE_EXIT;
+import static java.util.Collections.emptyList;
+import static java.util.Collections.singletonList;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -26,6 +29,7 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.ReminderService;
 import io.reactivex.Completable;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import java.util.ArrayList;
@@ -87,40 +91,30 @@ public class NotificationManager {
     notificationManagerCompat = NotificationManagerCompat.from(context);
   }
 
+  @SuppressLint("CheckResult")
   public void cancel(long id) {
-    notificationManagerCompat.cancel((int) id);
-    queue.remove(id);
-    Completable.fromAction(
-            () -> {
-              if (id == SUMMARY_NOTIFICATION_ID) {
-                List<Long> tasks = transform(notificationDao.getAll(), n -> n.taskId);
-                for (Long task : tasks) {
-                  notificationManagerCompat.cancel(task.intValue());
-                }
-                notificationDao.deleteAll(tasks);
-              } else if (notificationDao.delete(id) > 0) {
-                notifyTasks(Collections.emptyList(), false, false, false);
-              }
-            })
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribeOn(Schedulers.io())
-        .subscribe();
+    if (id == SUMMARY_NOTIFICATION_ID) {
+      //noinspection ResultOfMethodCallIgnored
+      Single.fromCallable(() -> concat(notificationDao.getAll(), singletonList(id)))
+          .subscribeOn(Schedulers.io())
+          .observeOn(AndroidSchedulers.mainThread())
+          .subscribe(this::cancel);
+    } else {
+      cancel(singletonList(id));
+    }
   }
 
-  public void cancel(List<Long> ids) {
+  @SuppressLint("CheckResult")
+  public void cancel(Iterable<Long> ids) {
     for (Long id : ids) {
       notificationManagerCompat.cancel(id.intValue());
       queue.remove(id);
     }
-    Completable.fromAction(
-            () -> {
-              if (notificationDao.deleteAll(ids) > 0) {
-                notifyTasks(Collections.emptyList(), false, false, false);
-              }
-            })
-        .observeOn(AndroidSchedulers.mainThread())
+
+    //noinspection ResultOfMethodCallIgnored
+    Completable.fromAction(() -> notificationDao.deleteAll(newArrayList(ids)))
         .subscribeOn(Schedulers.io())
-        .subscribe();
+        .subscribe(() -> notifyTasks(emptyList(), false, false, false));
   }
 
   public void restoreNotifications(boolean cancelExisting) {
