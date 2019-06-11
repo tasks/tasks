@@ -31,11 +31,12 @@ public class ManualSortRecyclerAdapter extends TaskListRecyclerAdapter {
 
   public ManualSortRecyclerAdapter(
       TaskAdapter adapter,
-      RecyclerView recyclerView, ViewHolderFactory viewHolderFactory,
+      RecyclerView recyclerView,
+      ViewHolderFactory viewHolderFactory,
       TaskListFragment taskList,
       ActionModeProvider actionModeProvider,
       List<TaskContainer> list) {
-    super(adapter, viewHolderFactory, taskList, actionModeProvider);
+    super(adapter, recyclerView, viewHolderFactory, taskList, actionModeProvider);
     this.list = list;
     itemTouchHelperCallback = new ItemTouchHelperCallback(adapter, this, this::drainQueue);
     new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);

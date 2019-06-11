@@ -3,6 +3,7 @@ package org.tasks.tasklist;
 import androidx.paging.AsyncPagedListDiffer;
 import androidx.paging.PagedList;
 import androidx.recyclerview.widget.AsyncDifferConfig;
+import androidx.recyclerview.widget.RecyclerView;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import java.util.List;
@@ -14,11 +15,12 @@ public class PagedListRecyclerAdapter extends TaskListRecyclerAdapter {
 
   public PagedListRecyclerAdapter(
       TaskAdapter adapter,
+      RecyclerView recyclerView,
       ViewHolderFactory viewHolderFactory,
       TaskListFragment taskList,
       ActionModeProvider actionModeProvider,
       List<TaskContainer> list) {
-    super(adapter, viewHolderFactory, taskList, actionModeProvider);
+    super(adapter, recyclerView, viewHolderFactory, taskList, actionModeProvider);
 
     differ =
         new AsyncPagedListDiffer<>(

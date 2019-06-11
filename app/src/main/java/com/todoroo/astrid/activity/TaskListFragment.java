@@ -248,6 +248,7 @@ public final class TaskListFragment extends InjectingFragment
                 taskListViewModel.getValue())
             : new PagedListRecyclerAdapter(
                 taskAdapter,
+                recyclerView,
                 viewHolderFactory,
                 this,
                 actionModeProvider,

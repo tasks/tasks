@@ -1,11 +1,13 @@
 package org.tasks.tasklist;
 
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.view.ActionMode;
 import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.ListUpdateCallback;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.common.primitives.Longs;
@@ -15,6 +17,7 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.utility.Flags;
 import java.util.List;
+import java.util.Objects;
 import org.tasks.data.TaskContainer;
 import org.tasks.intents.TaskIntents;
 
@@ -25,6 +28,7 @@ public abstract class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewH
 
   protected final TaskAdapter adapter;
   final TaskListFragment taskList;
+  private final RecyclerView recyclerView;
   private final ViewHolderFactory viewHolderFactory;
   private final ActionModeProvider actionModeProvider;
   private final boolean isGoogleTaskList;
@@ -32,10 +36,12 @@ public abstract class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewH
 
   TaskListRecyclerAdapter(
       TaskAdapter adapter,
+      RecyclerView recyclerView,
       ViewHolderFactory viewHolderFactory,
       TaskListFragment taskList,
       ActionModeProvider actionModeProvider) {
     this.adapter = adapter;
+    this.recyclerView = recyclerView;
     this.viewHolderFactory = viewHolderFactory;
     this.taskList = taskList;
     this.actionModeProvider = actionModeProvider;
@@ -171,7 +177,18 @@ public abstract class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewH
 
   @Override
   public void onMoved(int fromPosition, int toPosition) {
+    LinearLayoutManager layoutManager =
+        (LinearLayoutManager) Objects.requireNonNull(recyclerView.getLayoutManager());
+    View firstChild = layoutManager.getChildAt(0);
+    int firstChildPosition = layoutManager.findFirstVisibleItemPosition();
+
     notifyItemMoved(fromPosition, toPosition);
+
+    if (firstChildPosition > 0 && firstChild != null) {
+      layoutManager.scrollToPositionWithOffset(firstChildPosition - 1, firstChild.getTop());
+    } else if (firstChildPosition >= 0) {
+      layoutManager.scrollToPosition(firstChildPosition);
+    }
   }
 
   @Override
