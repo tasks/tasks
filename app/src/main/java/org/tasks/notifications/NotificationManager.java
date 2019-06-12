@@ -2,6 +2,8 @@ package org.tasks.notifications;
 
 import static android.content.Intent.FLAG_ACTIVITY_MULTIPLE_TASK;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static androidx.core.app.NotificationCompat.FLAG_INSISTENT;
+import static androidx.core.app.NotificationCompat.FLAG_NO_CLEAR;
 import static com.google.common.collect.Iterables.concat;
 import static com.google.common.collect.Iterables.tryFind;
 import static com.google.common.collect.Lists.newArrayList;
@@ -13,7 +15,6 @@ import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 
 import android.annotation.SuppressLint;
-import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -118,9 +119,9 @@ public class NotificationManager {
   }
 
   public void restoreNotifications(boolean cancelExisting) {
-    List<org.tasks.notifications.Notification> notifications = notificationDao.getAllOrdered();
+    List<Notification> notifications = notificationDao.getAllOrdered();
     if (cancelExisting) {
-      for (org.tasks.notifications.Notification notification : notifications) {
+      for (Notification notification : notifications) {
         notificationManagerCompat.cancel((int) notification.taskId);
       }
     }
@@ -135,18 +136,14 @@ public class NotificationManager {
   }
 
   public void notifyTasks(
-      List<org.tasks.notifications.Notification> newNotifications,
-      boolean alert,
-      boolean nonstop,
-      boolean fiveTimes) {
-    List<org.tasks.notifications.Notification> existingNotifications =
-        notificationDao.getAllOrdered();
+      List<Notification> newNotifications, boolean alert, boolean nonstop, boolean fiveTimes) {
+    List<Notification> existingNotifications = notificationDao.getAllOrdered();
     notificationDao.insertAll(newNotifications);
     int totalCount = existingNotifications.size() + newNotifications.size();
     if (totalCount == 0) {
       notificationManagerCompat.cancel(SUMMARY_NOTIFICATION_ID);
     } else if (totalCount == 1) {
-      List<org.tasks.notifications.Notification> notifications =
+      List<Notification> notifications =
           newArrayList(concat(existingNotifications, newNotifications));
       createNotifications(notifications, alert, nonstop, fiveTimes, false);
       notificationManagerCompat.cancel(SUMMARY_NOTIFICATION_ID);
@@ -169,12 +166,12 @@ public class NotificationManager {
   }
 
   private void createNotifications(
-      List<org.tasks.notifications.Notification> notifications,
+      List<Notification> notifications,
       boolean alert,
       boolean nonstop,
       boolean fiveTimes,
       boolean useGroupKey) {
-    for (org.tasks.notifications.Notification notification : notifications) {
+    for (Notification notification : notifications) {
       NotificationCompat.Builder builder = getTaskNotification(notification);
       if (builder == null) {
         notificationManagerCompat.cancel((int) notification.taskId);
@@ -213,13 +210,13 @@ public class NotificationManager {
     } else {
       builder.setDefaults(0).setTicker(null);
     }
-    Notification notification = builder.build();
+    android.app.Notification notification = builder.build();
     if (alert && nonstop) {
-      notification.flags |= Notification.FLAG_INSISTENT;
+      notification.flags |= FLAG_INSISTENT;
       ringTimes = 1;
     }
     if (preferences.usePersistentReminders()) {
-      notification.flags |= Notification.FLAG_NO_CLEAR;
+      notification.flags |= FLAG_NO_CLEAR;
     }
     Intent deleteIntent = new Intent(context, NotificationClearedReceiver.class);
     deleteIntent.putExtra(EXTRA_NOTIFICATION_ID, notificationId);
@@ -238,10 +235,7 @@ public class NotificationManager {
   }
 
   private void updateSummary(
-      boolean notify,
-      boolean nonStop,
-      boolean fiveTimes,
-      List<org.tasks.notifications.Notification> newNotifications) {
+      boolean notify, boolean nonStop, boolean fiveTimes, List<Notification> newNotifications) {
     List<Task> tasks = taskDao.activeNotifications();
     int taskCount = tasks.size();
     ArrayList<Long> taskIds = newArrayList(transform(tasks, Task::getId));
@@ -263,7 +257,7 @@ public class NotificationManager {
       titles.add(title);
       maxPriority = Math.min(maxPriority, task.getPriority());
     }
-    for (org.tasks.notifications.Notification notification : newNotifications) {
+    for (Notification notification : newNotifications) {
       Task task = tryFind(tasks, t -> t.getId() == notification.taskId).orNull();
       if (task == null) {
         continue;
@@ -307,8 +301,7 @@ public class NotificationManager {
     notify(NotificationManager.SUMMARY_NOTIFICATION_ID, builder, notify, nonStop, fiveTimes);
   }
 
-  public NotificationCompat.Builder getTaskNotification(
-      org.tasks.notifications.Notification notification) {
+  public NotificationCompat.Builder getTaskNotification(Notification notification) {
     long id = notification.taskId;
     int type = notification.type;
     long when = notification.timestamp;
