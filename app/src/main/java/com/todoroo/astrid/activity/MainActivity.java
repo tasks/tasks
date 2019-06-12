@@ -366,23 +366,25 @@ public class MainActivity extends InjectingAppCompatActivity
 
     clearUi();
 
-    disposables.add(
-        Single.fromCallable(() -> task.isNew() ? task : taskDao.fetch(task.getId()))
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                t -> {
-                  getSupportFragmentManager()
-                      .beginTransaction()
-                      .replace(
-                          R.id.detail,
-                          newTaskEditFragment(t),
-                          TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
-                      .addToBackStack(TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
-                      .commit();
+    if (task.isNew()) {
+      openTask(task);
+    } else {
+      disposables.add(
+          Single.fromCallable(() -> taskDao.fetch(task.getId()))
+              .subscribeOn(Schedulers.io())
+              .observeOn(AndroidSchedulers.mainThread())
+              .subscribe(this::openTask));
+    }
+  }
 
-                  showDetailFragment();
-                }));
+  private void openTask(Task task) {
+    getSupportFragmentManager()
+        .beginTransaction()
+        .replace(R.id.detail, newTaskEditFragment(task), TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
+        .addToBackStack(TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
+        .commit();
+
+    showDetailFragment();
   }
 
   @Override
