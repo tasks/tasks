@@ -43,7 +43,6 @@ import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapterProvider;
 import com.todoroo.astrid.api.CaldavFilter;
-import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.api.SearchFilter;
@@ -295,12 +294,8 @@ public final class TaskListFragment extends InjectingFragment
 
   private void setupMenu(Toolbar toolbar) {
     toolbar.inflateMenu(R.menu.menu_task_list_fragment);
-    if (filter instanceof CustomFilter && ((CustomFilter) filter).getId() > 0) {
-      toolbar.inflateMenu(R.menu.menu_custom_filter);
-    }
-    int menuRes = filter.getMenu();
-    if (menuRes > 0) {
-      toolbar.inflateMenu(menuRes);
+    if (filter.hasMenu()) {
+      toolbar.inflateMenu(filter.getMenu());
     }
     Menu menu = toolbar.getMenu();
     MenuItem hidden = menu.findItem(R.id.menu_show_hidden);

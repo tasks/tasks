@@ -5,6 +5,7 @@ import static com.todoroo.andlib.utility.AndroidUtilities.mapToSerializedString;
 import android.os.Parcel;
 import android.os.Parcelable;
 import java.util.Map;
+import org.tasks.R;
 
 public class CustomFilter extends Filter {
 
@@ -68,5 +69,10 @@ public class CustomFilter extends Filter {
     super.readFromParcel(source);
     id = source.readLong();
     criterion = source.readString();
+  }
+
+  @Override
+  public int getMenu() {
+    return getId() > 0 ? R.menu.menu_custom_filter : 0;
   }
 }
