@@ -66,7 +66,7 @@ public abstract class TaskDao {
   public abstract List<Task> fetch(List<Long> taskIds);
 
   @Query(
-      "SELECT tasks.* FROM tasks LEFT JOIN google_tasks ON gt_task = _id WHERE _id IN (:taskIds) AND gt_parent NOT IN (:taskIds)")
+      "SELECT tasks.* FROM tasks LEFT JOIN google_tasks ON gt_task = _id WHERE _id IN (:taskIds) AND (gt_task IS NULL OR gt_parent NOT IN (:taskIds))")
   public abstract List<Task> fetchExcludingChildren(List<Long> taskIds);
 
   @Query("SELECT COUNT(1) FROM tasks WHERE timerStart > 0 AND deleted = 0")

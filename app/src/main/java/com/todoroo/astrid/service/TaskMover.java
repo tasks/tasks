@@ -122,7 +122,7 @@ public class TaskMover {
       String listId = ((CaldavFilter) selectedList).getUuid();
       caldavDao.insert(
           transform(
-              concat(singletonList(id), transform(googleTaskChildren, GoogleTask::getId)),
+              concat(singletonList(id), transform(googleTaskChildren, GoogleTask::getTask)),
               _id -> new CaldavTask(_id, listId, UUIDHelper.newUUID())));
     }
   }
