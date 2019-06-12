@@ -285,19 +285,20 @@ public final class TaskListFragment extends InjectingFragment
     toolbar.setTitle(filter.listingTitle);
     toolbar.setNavigationIcon(R.drawable.ic_outline_menu_24px);
     toolbar.setNavigationOnClickListener(v -> callbacks.onNavigationIconClicked());
-    setupMenu(toolbar);
+    setupMenu();
     toolbar.setOnMenuItemClickListener(this);
     MenuColorizer.colorToolbar(context, toolbar);
 
     return parent;
   }
 
-  private void setupMenu(Toolbar toolbar) {
+  private void setupMenu() {
+    Menu menu = toolbar.getMenu();
+    menu.clear();
     toolbar.inflateMenu(R.menu.menu_task_list_fragment);
     if (filter.hasMenu()) {
       toolbar.inflateMenu(filter.getMenu());
     }
-    Menu menu = toolbar.getMenu();
     MenuItem hidden = menu.findItem(R.id.menu_show_hidden);
     if (preferences.getBoolean(R.string.p_show_hidden_tasks, false)) {
       hidden.setChecked(true);
@@ -313,8 +314,7 @@ public final class TaskListFragment extends InjectingFragment
       hidden.setEnabled(false);
     }
 
-    MenuItem voice = menu.findItem(R.id.menu_voice_add);
-    voice.setVisible(device.voiceInputAvailable());
+    menu.findItem(R.id.menu_voice_add).setVisible(device.voiceInputAvailable());
 
     search =
         menu.findItem(R.id.menu_search)
@@ -338,10 +338,7 @@ public final class TaskListFragment extends InjectingFragment
                   public boolean onMenuItemActionCollapse(MenuItem item) {
                     taskListViewModel.searchByFilter(filter);
                     searchDisposable.dispose();
-                    for (int i = 0; i < menu.size(); i++) {
-                      menu.getItem(i).setVisible(true);
-                    }
-                    voice.setVisible(device.voiceInputAvailable());
+                    setupMenu();
                     return true;
                   }
                 });
