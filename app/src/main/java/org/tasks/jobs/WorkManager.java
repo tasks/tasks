@@ -170,6 +170,8 @@ public class WorkManager {
 
   @SuppressWarnings("WeakerAccess")
   public void scheduleNotification(long time) {
+    time = Math.max(now(), time);
+
     if (time < currentTimeMillis()) {
       Intent intent = getNotificationIntent();
       if (atLeastOreo()) {
