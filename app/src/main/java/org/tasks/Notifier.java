@@ -19,7 +19,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.voice.VoiceOutputAssistant;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.injection.ForApplication;
@@ -103,10 +102,6 @@ public class Notifier {
             .setStyle(style);
 
     notificationManager.notify(filter.listingTitle.hashCode(), builder, true, false, false);
-  }
-
-  public void triggerNotification(Notification notification) {
-    triggerNotifications(Collections.singletonList(notification));
   }
 
   public void triggerNotifications(List<Notification> entries) {

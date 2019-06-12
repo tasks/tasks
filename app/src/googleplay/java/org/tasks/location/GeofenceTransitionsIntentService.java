@@ -4,6 +4,7 @@ import static com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER
 import static com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_EXIT;
 import static com.todoroo.astrid.reminders.ReminderService.TYPE_GEOFENCE_ENTER;
 import static com.todoroo.astrid.reminders.ReminderService.TYPE_GEOFENCE_EXIT;
+import static java.util.Collections.singletonList;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 import android.content.BroadcastReceiver;
@@ -57,8 +58,9 @@ public class GeofenceTransitionsIntentService extends InjectingJobIntentService 
       com.google.android.gms.location.Geofence triggeringGeofence, boolean arrival) {
     String requestId = triggeringGeofence.getRequestId();
     try {
-      notifier.triggerNotification(
-          toNotification(locationDao.getGeofence(Long.parseLong(requestId)), arrival));
+      notifier.triggerNotifications(
+          singletonList(
+              toNotification(locationDao.getGeofence(Long.parseLong(requestId)), arrival)));
     } catch (Exception e) {
       Timber.e(e, "Error triggering geofence %s: %s", requestId, e.getMessage());
     }
