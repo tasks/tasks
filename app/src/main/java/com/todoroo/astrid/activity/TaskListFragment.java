@@ -20,18 +20,22 @@ import android.speech.RecognizerIntent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MenuItem.OnActionExpandListener;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.SearchView.OnQueryTextListener;
 import androidx.appcompat.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -92,7 +96,10 @@ import org.tasks.ui.TaskListViewModel;
 import org.tasks.ui.Toaster;
 
 public final class TaskListFragment extends InjectingFragment
-    implements SwipeRefreshLayout.OnRefreshListener, Toolbar.OnMenuItemClickListener {
+    implements OnRefreshListener,
+        OnMenuItemClickListener,
+        OnActionExpandListener,
+        OnQueryTextListener {
 
   public static final String TAGS_METADATA_JOIN = "for_tags"; // $NON-NLS-1$
   public static final String GTASK_METADATA_JOIN = "googletask"; // $NON-NLS-1$
@@ -316,48 +323,8 @@ public final class TaskListFragment extends InjectingFragment
 
     menu.findItem(R.id.menu_voice_add).setVisible(device.voiceInputAvailable());
 
-    search =
-        menu.findItem(R.id.menu_search)
-            .setOnActionExpandListener(
-                new MenuItem.OnActionExpandListener() {
-                  @Override
-                  public boolean onMenuItemActionExpand(MenuItem item) {
-                    searchDisposable =
-                        searchSubject
-                            .debounce(SEARCH_DEBOUNCE_TIMEOUT, TimeUnit.MILLISECONDS)
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(q -> searchByQuery(q));
-                    searchByQuery("");
-                    for (int i = 0; i < menu.size(); i++) {
-                      menu.getItem(i).setVisible(false);
-                    }
-                    return true;
-                  }
-
-                  @Override
-                  public boolean onMenuItemActionCollapse(MenuItem item) {
-                    taskListViewModel.searchByFilter(filter);
-                    searchDisposable.dispose();
-                    setupMenu();
-                    return true;
-                  }
-                });
-    ((SearchView) search.getActionView())
-        .setOnQueryTextListener(
-            new SearchView.OnQueryTextListener() {
-              @Override
-              public boolean onQueryTextSubmit(String query) {
-                openFilter(createSearchFilter(query.trim()));
-                search.collapseActionView();
-                return true;
-              }
-
-              @Override
-              public boolean onQueryTextChange(String query) {
-                searchSubject.onNext(query);
-                return true;
-              }
-            });
+    search = menu.findItem(R.id.menu_search).setOnActionExpandListener(this);
+    ((SearchView) search.getActionView()).setOnQueryTextListener(this);
   }
 
   private void openFilter(@Nullable Filter filter) {
@@ -612,6 +579,42 @@ public final class TaskListFragment extends InjectingFragment
 
   public void onTaskListItemClicked(Task task) {
     callbacks.onTaskListItemClicked(task);
+  }
+
+  @Override
+  public boolean onMenuItemActionExpand(MenuItem item) {
+    searchDisposable =
+        searchSubject
+            .debounce(SEARCH_DEBOUNCE_TIMEOUT, TimeUnit.MILLISECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(this::searchByQuery);
+    searchByQuery("");
+    Menu menu = toolbar.getMenu();
+    for (int i = 0; i < menu.size(); i++) {
+      menu.getItem(i).setVisible(false);
+    }
+    return true;
+  }
+
+  @Override
+  public boolean onMenuItemActionCollapse(MenuItem item) {
+    taskListViewModel.searchByFilter(filter);
+    searchDisposable.dispose();
+    setupMenu();
+    return true;
+  }
+
+  @Override
+  public boolean onQueryTextSubmit(String query) {
+    openFilter(createSearchFilter(query.trim()));
+    search.collapseActionView();
+    return true;
+  }
+
+  @Override
+  public boolean onQueryTextChange(String query) {
+    searchSubject.onNext(query);
+    return true;
   }
 
   public interface TaskListFragmentCallbackHandler {
