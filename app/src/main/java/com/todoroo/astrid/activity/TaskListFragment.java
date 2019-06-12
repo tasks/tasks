@@ -108,6 +108,7 @@ public final class TaskListFragment extends InjectingFragment
   public static final String ACTION_DELETED = "action_deleted";
   public static final int REQUEST_MOVE_TASKS = 10103;
   private static final String EXTRA_SELECTED_TASK_IDS = "extra_selected_task_ids";
+  private static final String EXTRA_SEARCH = "extra_search";
   private static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
   private static final String EXTRA_FILTER = "extra_filter";
   private static final String FRAG_TAG_SORT_DIALOG = "frag_tag_sort_dialog";
@@ -158,6 +159,7 @@ public final class TaskListFragment extends InjectingFragment
   private PublishSubject<String> searchSubject = PublishSubject.create();
   private Disposable searchDisposable;
   private MenuItem search;
+  private String searchQuery;
 
   private TaskListFragmentCallbackHandler callbacks;
 
@@ -231,6 +233,7 @@ public final class TaskListFragment extends InjectingFragment
 
     List<Long> selectedTaskIds = taskAdapter.getSelected();
     outState.putLongArray(EXTRA_SELECTED_TASK_IDS, Longs.toArray(selectedTaskIds));
+    outState.putString(EXTRA_SEARCH, searchQuery);
   }
 
   @Override
@@ -248,7 +251,13 @@ public final class TaskListFragment extends InjectingFragment
 
     taskListViewModel = ViewModelProviders.of(getActivity()).get(TaskListViewModel.class);
 
-    taskListViewModel.setFilter(filter, taskAdapter.isManuallySorted());
+    if (savedInstanceState != null) {
+      searchQuery = savedInstanceState.getString(EXTRA_SEARCH);
+    }
+
+    taskListViewModel.setFilter(
+        searchQuery == null ? filter : createSearchFilter(searchQuery),
+        taskAdapter.isManuallySorted());
 
     recyclerAdapter =
         taskAdapter.isManuallySorted()
@@ -307,18 +316,15 @@ public final class TaskListFragment extends InjectingFragment
       toolbar.inflateMenu(filter.getMenu());
     }
     MenuItem hidden = menu.findItem(R.id.menu_show_hidden);
-    if (preferences.getBoolean(R.string.p_show_hidden_tasks, false)) {
-      hidden.setChecked(true);
-    }
     MenuItem completed = menu.findItem(R.id.menu_show_completed);
-    if (preferences.getBoolean(R.string.p_show_completed_tasks, false)) {
-      completed.setChecked(true);
-    }
     if (!taskAdapter.supportsHiddenTasks() || filter instanceof SearchFilter) {
       completed.setChecked(true);
       completed.setEnabled(false);
       hidden.setChecked(true);
       hidden.setEnabled(false);
+    } else {
+      hidden.setChecked(preferences.getBoolean(R.string.p_show_hidden_tasks, false));
+      completed.setChecked(preferences.getBoolean(R.string.p_show_completed_tasks, false));
     }
 
     menu.findItem(R.id.menu_voice_add).setVisible(device.voiceInputAvailable());
@@ -335,14 +341,14 @@ public final class TaskListFragment extends InjectingFragment
     }
   }
 
-  private void searchByQuery(String query) {
-    query = query.trim();
-    if (!query.isEmpty()) {
-      Filter savedFilter = createSearchFilter(query);
-      taskListViewModel.searchByFilter(savedFilter);
-    } else {
+  private void searchByQuery(@Nullable String query) {
+    searchQuery = query == null ? "" : query.trim();
+    if (searchQuery.isEmpty()) {
       taskListViewModel.searchByFilter(
           BuiltInFilterExposer.getMyTasksFilter(context.getResources()));
+    } else {
+      Filter savedFilter = createSearchFilter(searchQuery);
+      taskListViewModel.searchByFilter(savedFilter);
     }
   }
 
@@ -588,7 +594,9 @@ public final class TaskListFragment extends InjectingFragment
             .debounce(SEARCH_DEBOUNCE_TIMEOUT, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(this::searchByQuery);
-    searchByQuery("");
+    if (searchQuery == null) {
+      searchByQuery("");
+    }
     Menu menu = toolbar.getMenu();
     for (int i = 0; i < menu.size(); i++) {
       menu.getItem(i).setVisible(false);
@@ -600,6 +608,7 @@ public final class TaskListFragment extends InjectingFragment
   public boolean onMenuItemActionCollapse(MenuItem item) {
     taskListViewModel.searchByFilter(filter);
     searchDisposable.dispose();
+    searchQuery = null;
     setupMenu();
     return true;
   }
