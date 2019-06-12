@@ -1,6 +1,5 @@
 package org.tasks.tasklist;
 
-import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
@@ -10,7 +9,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.ListUpdateCallback;
 import androidx.recyclerview.widget.RecyclerView;
-import com.google.common.primitives.Longs;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.Filter;
@@ -23,8 +21,6 @@ import org.tasks.intents.TaskIntents;
 
 public abstract class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
     implements ViewHolder.ViewHolderCallbacks, ListUpdateCallback {
-
-  private static final String EXTRA_SELECTED_TASK_IDS = "extra_selected_task_ids";
 
   protected final TaskAdapter adapter;
   final TaskListFragment taskList;
@@ -46,23 +42,6 @@ public abstract class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewH
     this.taskList = taskList;
     this.actionModeProvider = actionModeProvider;
     isGoogleTaskList = taskList.getFilter() instanceof GtasksFilter;
-  }
-
-  public Bundle getSaveState() {
-    Bundle information = new Bundle();
-    List<Long> selectedTaskIds = adapter.getSelected();
-    information.putLongArray(EXTRA_SELECTED_TASK_IDS, Longs.toArray(selectedTaskIds));
-    return information;
-  }
-
-  public void restoreSaveState(Bundle savedState) {
-    long[] longArray = savedState.getLongArray(EXTRA_SELECTED_TASK_IDS);
-    if (longArray != null && longArray.length > 0) {
-      mode = actionModeProvider.startActionMode(adapter, taskList, this);
-      adapter.setSelected(longArray);
-
-      updateModeTitle();
-    }
   }
 
   @NonNull
@@ -120,7 +99,7 @@ public abstract class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewH
     return true;
   }
 
-  void startActionMode() {
+  public void startActionMode() {
     if (mode == null) {
       mode = actionModeProvider.startActionMode(adapter, taskList, this);
       updateModeTitle();

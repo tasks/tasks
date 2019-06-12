@@ -36,6 +36,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.common.primitives.Longs;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.QueryTemplate;
@@ -100,6 +101,7 @@ public final class TaskListFragment extends InjectingFragment
   public static final String ACTION_RELOAD = "action_reload";
   public static final String ACTION_DELETED = "action_deleted";
   public static final int REQUEST_MOVE_TASKS = 10103;
+  private static final String EXTRA_SELECTED_TASK_IDS = "extra_selected_task_ids";
   private static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
   private static final String EXTRA_FILTER = "extra_filter";
   private static final String FRAG_TAG_SORT_DIALOG = "frag_tag_sort_dialog";
@@ -197,7 +199,11 @@ public final class TaskListFragment extends InjectingFragment
     super.onViewStateRestored(savedInstanceState);
 
     if (savedInstanceState != null) {
-      recyclerAdapter.restoreSaveState(savedInstanceState);
+      long[] longArray = savedInstanceState.getLongArray(EXTRA_SELECTED_TASK_IDS);
+      if (longArray != null && longArray.length > 0) {
+        taskAdapter.setSelected(longArray);
+        recyclerAdapter.startActionMode();
+      }
     }
   }
 
@@ -217,7 +223,8 @@ public final class TaskListFragment extends InjectingFragment
   public void onSaveInstanceState(@NonNull Bundle outState) {
     super.onSaveInstanceState(outState);
 
-    outState.putAll(recyclerAdapter.getSaveState());
+    List<Long> selectedTaskIds = taskAdapter.getSelected();
+    outState.putLongArray(EXTRA_SELECTED_TASK_IDS, Longs.toArray(selectedTaskIds));
   }
 
   @Override
