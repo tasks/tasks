@@ -158,4 +158,5 @@
 	<string name="settings_localization">تخصيص اللغة و الجهة</string>
 	<string name="layout_direction">إتجاه التنسيق</string>
 	<string name="layout_direction_left_to_right">من اليمين إلى اليسار</string>
-</resources>
+<string name="backup_BAc_export">تصدير المهام</string>
+  </resources>
