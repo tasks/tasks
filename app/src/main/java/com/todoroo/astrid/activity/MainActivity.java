@@ -242,19 +242,19 @@ public class MainActivity extends InjectingAppCompatActivity
   }
 
   private void showDetailFragment() {
-    if (!isDoublePaneLayout()) {
+    if (isSinglePaneLayout()) {
       detail.setVisibility(View.VISIBLE);
       master.setVisibility(View.GONE);
     }
   }
 
   private void hideDetailFragment() {
-    if (isDoublePaneLayout()) {
-      getSupportFragmentManager()
-          .beginTransaction()
-          .replace(R.id.detail, new EmptyTaskEditFragment())
-          .commit();
-    } else {
+    getSupportFragmentManager()
+        .beginTransaction()
+        .replace(R.id.detail, new EmptyTaskEditFragment())
+        .commit();
+
+    if (isSinglePaneLayout()) {
       master.setVisibility(View.VISIBLE);
       detail.setVisibility(View.GONE);
     }
@@ -442,8 +442,8 @@ public class MainActivity extends InjectingAppCompatActivity
     return getTaskEditFragment().startTimer();
   }
 
-  private boolean isDoublePaneLayout() {
-    return getResources().getBoolean(R.bool.two_pane_layout);
+  private boolean isSinglePaneLayout() {
+    return !getResources().getBoolean(R.bool.two_pane_layout);
   }
 
   @Override
