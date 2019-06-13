@@ -1,6 +1,6 @@
 Change Log
 ---
-### 6.7 (currently in beta)
+### 6.7 (2019-06-13)
 
 * Use drag and drop to indent tasks
 * Add new Google Tasks to top or bottom

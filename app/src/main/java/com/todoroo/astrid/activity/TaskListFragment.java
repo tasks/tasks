@@ -301,9 +301,8 @@ public final class TaskListFragment extends InjectingFragment
     toolbar.setTitle(filter.listingTitle);
     toolbar.setNavigationIcon(R.drawable.ic_outline_menu_24px);
     toolbar.setNavigationOnClickListener(v -> callbacks.onNavigationIconClicked());
-    setupMenu();
     toolbar.setOnMenuItemClickListener(this);
-    MenuColorizer.colorToolbar(context, toolbar);
+    setupMenu();
 
     return parent;
   }
@@ -331,6 +330,8 @@ public final class TaskListFragment extends InjectingFragment
 
     search = menu.findItem(R.id.menu_search).setOnActionExpandListener(this);
     ((SearchView) search.getActionView()).setOnQueryTextListener(this);
+
+    MenuColorizer.colorToolbar(context, toolbar);
   }
 
   private void openFilter(@Nullable Filter filter) {
