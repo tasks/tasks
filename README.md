@@ -6,7 +6,7 @@
 [![PayPal donate button](https://img.shields.io/badge/paypal-donate-yellow.svg?logo=paypal)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=alex@tasks.org)
 [![Liberapay donate button](https://img.shields.io/liberapay/receives/tasks.svg?logo=liberapay)](https://liberapay.com/tasks/donate)
 
-[![Build Status](https://travis-ci.org/tasks/tasks.svg?branch=master)](https://travis-ci.org/tasks/tasks) [![weblate](https://weblate.tasks.org/widgets/tasks/-/android/svg-badge.svg)](https://weblate.tasks.org/engage/tasks/?utm_source=widget) [![codecov](https://codecov.io/gh/tasks/tasks/branch/master/graph/badge.svg)](https://codecov.io/gh/tasks/tasks)
+[![Build Status](https://travis-ci.org/tasks/tasks.svg?branch=master)](https://travis-ci.org/tasks/tasks) [![weblate](https://hosted.weblate.org/widgets/tasks/-/android/svg-badge.svg)](https://hosted.weblate.org/engage/tasks/?utm_source=widget) [![codecov](https://codecov.io/gh/tasks/tasks/branch/master/graph/badge.svg)](https://codecov.io/gh/tasks/tasks)
 
 Please visit [tasks.org](https://tasks.org) for end user documentation and support
 
