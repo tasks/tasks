@@ -131,29 +131,25 @@ public class GoogleTaskSynchronizer {
     }
   }
 
-  public void sync() {
-    List<GoogleTaskAccount> accounts = googleTaskListDao.getAccounts();
-    for (int i = 0; i < accounts.size(); i++) {
-      GoogleTaskAccount account = accounts.get(i);
-      Timber.d("%s: start sync", account);
-      try {
-        if (i == 0 || inventory.hasPro()) {
-          synchronize(account);
-          account.setError("");
-        } else {
-          account.setError(context.getString(R.string.requires_pro_subscription));
-        }
-      } catch (UserRecoverableAuthIOException e) {
-        Timber.e(e);
-        sendNotification(context, e.getIntent());
-      } catch (Exception e) {
-        account.setError(e.getMessage());
-        tracker.reportException(e);
-      } finally {
-        googleTaskListDao.update(account);
-        localBroadcastManager.broadcastRefreshList();
-        Timber.d("%s: end sync", account);
+  public void sync(GoogleTaskAccount account, int i) {
+    Timber.d("%s: start sync", account);
+    try {
+      if (i == 0 || inventory.hasPro()) {
+        synchronize(account);
+        account.setError("");
+      } else {
+        account.setError(context.getString(R.string.requires_pro_subscription));
       }
+    } catch (UserRecoverableAuthIOException e) {
+      Timber.e(e);
+      sendNotification(context, e.getIntent());
+    } catch (Exception e) {
+      account.setError(e.getMessage());
+      tracker.reportException(e);
+    } finally {
+      googleTaskListDao.update(account);
+      localBroadcastManager.broadcastRefreshList();
+      Timber.d("%s: end sync", account);
     }
   }
 
@@ -220,7 +216,8 @@ public class GoogleTaskSynchronizer {
     }
     if (preferences.isPositionHackEnabled()) {
       for (TaskList list : gtaskLists) {
-        List<com.google.api.services.tasks.model.Task> tasks = fetchPositions(gtasksInvoker, list.getId());
+        List<com.google.api.services.tasks.model.Task> tasks =
+            fetchPositions(gtasksInvoker, list.getId());
         for (com.google.api.services.tasks.model.Task task : tasks) {
           googleTaskDao.updatePosition(task.getId(), task.getParent(), task.getPosition());
         }
@@ -230,8 +227,8 @@ public class GoogleTaskSynchronizer {
     account.setEtag(eTag);
   }
 
-  private List<com.google.api.services.tasks.model.Task> fetchPositions(GtasksInvoker gtasksInvoker, String listId)
-      throws IOException {
+  private List<com.google.api.services.tasks.model.Task> fetchPositions(
+      GtasksInvoker gtasksInvoker, String listId) throws IOException {
     List<com.google.api.services.tasks.model.Task> tasks = new ArrayList<>();
     String nextPageToken = null;
     do {

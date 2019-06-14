@@ -92,15 +92,7 @@ public class CaldavSynchronizer {
     this.client = client;
   }
 
-  public void sync() {
-    // required for dav4android (ServiceLoader)
-    Thread.currentThread().setContextClassLoader(context.getClassLoader());
-    for (CaldavAccount account : caldavDao.getAccounts()) {
-      sync(account);
-    }
-  }
-
-  private void sync(CaldavAccount account) {
+  public void sync(CaldavAccount account) {
     if (!inventory.hasPro()) {
       setError(account, context.getString(R.string.requires_pro_subscription));
       return;
