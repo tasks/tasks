@@ -78,30 +78,23 @@ public class Upgrader {
 
   public void upgrade(int from, int to) {
     if (from > 0) {
-      if (from < V4_8_0) {
-        performMarshmallowMigration();
-      }
-      if (from < V4_9_5) {
-        removeDuplicateTags();
-      }
-      if (from < V5_3_0) {
-        migrateFilters();
-      }
-      if (from < V6_0_beta_1) {
-        migrateDefaultSyncList();
-      }
-      if (from < V6_0_beta_2) {
-        migrateGoogleTaskAccount();
-      }
-      if (from < V6_4) {
-        migrateUris();
-      }
-      if (from < V6_7) {
-        migrateGoogleTaskFilters();
-      }
+      run(from, V4_8_0, this::performMarshmallowMigration);
+      run(from, V4_9_5, this::removeDuplicateTags);
+      run(from, V5_3_0, this::migrateFilters);
+      run(from, V6_0_beta_1, this::migrateDefaultSyncList);
+      run(from, V6_0_beta_2, this::migrateGoogleTaskAccount);
+      run(from, V6_4, this::migrateUris);
+      run(from, V6_7, this::migrateGoogleTaskFilters);
       tracker.reportEvent(Tracking.Events.UPGRADE, Integer.toString(from));
     }
     preferences.setCurrentVersion(to);
+  }
+
+  private void run(int from, int version, Runnable runnable) {
+    if (from < version) {
+      runnable.run();
+      preferences.setCurrentVersion(version);
+    }
   }
 
   private void performMarshmallowMigration() {
