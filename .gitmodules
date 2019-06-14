@@ -2,5 +2,5 @@
 	path = ical4android
 	url = https://gitlab.com/tasks.org/ical4android.git
 [submodule "dav4android"]
-	path = dav4android
-	url = https://gitlab.com/tasks.org/dav4android.git
+	path = dav4jvm
+	url = https://gitlab.com/tasks.org/dav4jvm.git

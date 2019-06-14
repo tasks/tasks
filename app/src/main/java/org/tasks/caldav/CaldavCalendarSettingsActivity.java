@@ -14,7 +14,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
-import at.bitfire.dav4android.exception.HttpException;
+import at.bitfire.dav4jvm.exception.HttpException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

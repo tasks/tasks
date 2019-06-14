@@ -1,5 +1,5 @@
-- artifact: at.bitfire:dav4android:+
-  name: dav4android
+- artifact: at.bitfire:dav4jvm:+
+  name: dav4jvm
   copyrightHolder: bitfire web engineering (Ricki Hirner, Bernhard Stockmann)
   license: Mozilla Public License, Version 2.0
   licenseUrl: https://www.mozilla.org/en-US/MPL/2.0/
@@ -714,3 +714,25 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://developer.android.com/topic/libraries/architecture/index.html
+- artifact: org.ogce:xpp3:+
+  name: XPP3
+  copyrightHolder: Aleksander Slominski
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: http://www.extreme.indiana.edu/xpp/
+- artifact: junit:junit:+
+  name: JUnit
+  copyrightHolder: junit-team
+  license: Common Public License Version 1.0
+  licenseUrl: http://www.opensource.org/licenses/cpl1.0.txt
+  url: http://junit.org
+- artifact: jakarta-regexp:jakarta-regexp:+
+  name: jakarta-regexp
+  copyrightHolder: The Apache Software Foundation
+  license: The Apache Software License, Version 2.0
+- artifact: androidx.core:core-ktx:+
+  name: Core Kotlin Extensions
+  copyrightHolder: The Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: http://developer.android.com/tools/extras/support-library.html

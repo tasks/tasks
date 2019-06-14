@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 apply plugin: 'checkstyle'
 apply plugin: 'io.fabric'
 apply plugin: 'com.cookpad.android.licensetools'
@@ -126,7 +127,7 @@ final CRASHLYTICS_VERSION = '2.10.1'
 final FIREBASE_VERSION = '16.0.9'
 
 dependencies {
-    implementation project(":dav4android")
+    implementation project(":dav4jvm")
     implementation project(":ical4android")
 
     annotationProcessor "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
@@ -147,6 +148,7 @@ dependencies {
     debugImplementation "com.squareup.leakcanary:leakcanary-android:${LEAKCANARY_VERSION}"
     debugImplementation "com.squareup.leakcanary:leakcanary-support-fragment:${LEAKCANARY_VERSION}"
 
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
     implementation 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:2.0.0'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'me.saket:better-link-movement-method:2.2.0'

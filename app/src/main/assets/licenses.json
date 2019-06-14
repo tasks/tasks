@@ -9,9 +9,9 @@
       "normalizedLicense": "mpl2",
       "year": null,
       "url": null,
-      "libraryName": "dav4android",
+      "libraryName": "dav4jvm",
       "artifactId": {
-        "name": "dav4android",
+        "name": "dav4jvm",
         "group": "at.bitfire",
         "version": "+"
       }
@@ -397,7 +397,7 @@
       "artifactId": {
         "name": "commons-codec",
         "group": "commons-codec",
-        "version": "1.10"
+        "version": "1.11"
       }
     },
     {
@@ -445,7 +445,7 @@
       "artifactId": {
         "name": "annotation",
         "group": "androidx.annotation",
-        "version": "1.1.0-rc01"
+        "version": "1.0.2"
       }
     },
     {
@@ -605,7 +605,7 @@
       "artifactId": {
         "name": "commons-lang3",
         "group": "org.apache.commons",
-        "version": "3.6"
+        "version": "3.8.1"
       }
     },
     {
@@ -909,7 +909,7 @@
       "artifactId": {
         "name": "ical4j",
         "group": "org.mnode.ical4j",
-        "version": "2.2.3"
+        "version": "2.2.4"
       }
     },
     {
@@ -1501,7 +1501,7 @@
       "artifactId": {
         "name": "kotlin-stdlib",
         "group": "org.jetbrains.kotlin",
-        "version": "1.3.31"
+        "version": "1.2.60"
       }
     },
     {
@@ -1565,7 +1565,7 @@
       "artifactId": {
         "name": "okhttp",
         "group": "com.squareup.okhttp3",
-        "version": "3.10.0"
+        "version": "3.12.3"
       }
     },
     {
@@ -1576,12 +1576,12 @@
       "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
       "normalizedLicense": "apache2",
       "year": null,
-      "url": "",
+      "url": "https://github.com/square/okio/",
       "libraryName": "Okio",
       "artifactId": {
         "name": "okio",
         "group": "com.squareup.okio",
-        "version": "1.15.0"
+        "version": "2.2.2"
       }
     },
     {
@@ -1629,7 +1629,7 @@
       "artifactId": {
         "name": "kotlin-stdlib-common",
         "group": "org.jetbrains.kotlin",
-        "version": "1.3.31"
+        "version": "1.2.60"
       }
     },
     {
@@ -1918,6 +1918,70 @@
         "name": "paging-runtime",
         "group": "androidx.paging",
         "version": "2.1.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Aleksander Slominski",
+      "copyrightStatement": "Copyright &copy; Aleksander Slominski. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://www.extreme.indiana.edu/xpp/",
+      "libraryName": "XPP3",
+      "artifactId": {
+        "name": "xpp3",
+        "group": "org.ogce",
+        "version": "1.1.6"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "junit-team",
+      "copyrightStatement": "Copyright &copy; junit-team. All rights reserved.",
+      "license": "Common Public License Version 1.0",
+      "licenseUrl": "http://www.opensource.org/licenses/cpl1.0.txt",
+      "normalizedLicense": "cpl1",
+      "year": null,
+      "url": "http://junit.org",
+      "libraryName": "JUnit",
+      "artifactId": {
+        "name": "junit",
+        "group": "junit",
+        "version": "4.7"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "The Apache Software Foundation",
+      "copyrightStatement": "Copyright &copy; The Apache Software Foundation. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "",
+      "libraryName": "jakarta-regexp",
+      "artifactId": {
+        "name": "jakarta-regexp",
+        "group": "jakarta-regexp",
+        "version": "1.4"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "The Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; The Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "Core Kotlin Extensions",
+      "artifactId": {
+        "name": "core-ktx",
+        "group": "androidx.core",
+        "version": "1.0.2"
       }
     }
   ]

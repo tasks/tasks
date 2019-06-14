@@ -1,23 +1,24 @@
 package org.tasks.caldav;
 
 import static android.text.TextUtils.isEmpty;
-import static at.bitfire.dav4android.XmlUtils.NS_CALDAV;
-import static at.bitfire.dav4android.XmlUtils.NS_CARDDAV;
-import static at.bitfire.dav4android.XmlUtils.NS_WEBDAV;
+import static at.bitfire.dav4jvm.XmlUtils.NS_CALDAV;
+import static at.bitfire.dav4jvm.XmlUtils.NS_CARDDAV;
+import static at.bitfire.dav4jvm.XmlUtils.NS_WEBDAV;
 import static java.util.Arrays.asList;
 
-import at.bitfire.dav4android.BasicDigestAuthHandler;
-import at.bitfire.dav4android.DavResource;
-import at.bitfire.dav4android.DavResponse;
-import at.bitfire.dav4android.XmlUtils;
-import at.bitfire.dav4android.exception.DavException;
-import at.bitfire.dav4android.exception.HttpException;
-import at.bitfire.dav4android.property.CalendarHomeSet;
-import at.bitfire.dav4android.property.CurrentUserPrincipal;
-import at.bitfire.dav4android.property.DisplayName;
-import at.bitfire.dav4android.property.GetCTag;
-import at.bitfire.dav4android.property.ResourceType;
-import at.bitfire.dav4android.property.SupportedCalendarComponentSet;
+import at.bitfire.dav4jvm.BasicDigestAuthHandler;
+import at.bitfire.dav4jvm.DavResource;
+import at.bitfire.dav4jvm.Property.Name;
+import at.bitfire.dav4jvm.Response;
+import at.bitfire.dav4jvm.XmlUtils;
+import at.bitfire.dav4jvm.exception.DavException;
+import at.bitfire.dav4jvm.exception.HttpException;
+import at.bitfire.dav4jvm.property.CalendarHomeSet;
+import at.bitfire.dav4jvm.property.CurrentUserPrincipal;
+import at.bitfire.dav4jvm.property.DisplayName;
+import at.bitfire.dav4jvm.property.GetCTag;
+import at.bitfire.dav4jvm.property.ResourceType;
+import at.bitfire.dav4jvm.property.SupportedCalendarComponentSet;
 import com.todoroo.astrid.helper.UUIDHelper;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -50,9 +51,7 @@ public class CaldavClient {
 
   @Inject
   public CaldavClient(
-      Encryption encryption,
-      Preferences preferences,
-      DebugNetworkInterceptor interceptor) {
+      Encryption encryption, Preferences preferences, DebugNetworkInterceptor interceptor) {
     this.encryption = encryption;
     this.preferences = preferences;
     this.interceptor = interceptor;
@@ -106,19 +105,18 @@ public class CaldavClient {
       HttpUrl url = httpUrl.resolve(link);
       Timber.d("Checking for principal: %s", url);
       DavResource davResource = new DavResource(httpClient, url);
-      DavResponse response = null;
+      ResponseList responses = new ResponseList();
       try {
-        response = davResource.propfind(0, CurrentUserPrincipal.NAME);
+        davResource.propfind(0, new Name[] {CurrentUserPrincipal.NAME}, responses);
       } catch (HttpException e) {
-        switch (e.getCode()) {
-          case 405:
-            Timber.w(e);
-            break;
-          default:
-            throw e;
+        if (e.getCode() == 405) {
+          Timber.w(e);
+        } else {
+          throw e;
         }
       }
-      if (response != null) {
+      if (!responses.isEmpty()) {
+        Response response = responses.get(0);
         CurrentUserPrincipal currentUserPrincipal = response.get(CurrentUserPrincipal.class);
         if (currentUserPrincipal != null) {
           String href = currentUserPrincipal.getHref();
@@ -133,7 +131,9 @@ public class CaldavClient {
 
   private String findHomeset(HttpUrl httpUrl) throws DavException, IOException {
     DavResource davResource = new DavResource(httpClient, httpUrl);
-    DavResponse response = davResource.propfind(0, CalendarHomeSet.NAME);
+    ResponseList responses = new ResponseList();
+    davResource.propfind(0, new Name[] {CalendarHomeSet.NAME}, responses);
+    Response response = responses.get(0);
     CalendarHomeSet calendarHomeSet = response.get(CalendarHomeSet.class);
     if (calendarHomeSet == null) {
       throw new DisplayableException(R.string.caldav_home_set_not_found);
@@ -154,17 +154,17 @@ public class CaldavClient {
     return findHomeset(isEmpty(principal) ? httpUrl : httpUrl.resolve(principal));
   }
 
-  public List<DavResponse> getCalendars() throws IOException, DavException {
+  public List<Response> getCalendars() throws IOException, DavException {
     DavResource davResource = new DavResource(httpClient, httpUrl);
-    DavResponse response =
-        davResource.propfind(
-            1,
-            ResourceType.NAME,
-            DisplayName.NAME,
-            SupportedCalendarComponentSet.NAME,
-            GetCTag.NAME);
-    List<DavResponse> urls = new ArrayList<>();
-    for (DavResponse member : response.getMembers()) {
+    ResponseList responses = new ResponseList();
+    davResource.propfind(
+        1,
+        new Name[] {
+          ResourceType.NAME, DisplayName.NAME, SupportedCalendarComponentSet.NAME, GetCTag.NAME
+        },
+        responses);
+    List<Response> urls = new ArrayList<>();
+    for (Response member : responses) {
       ResourceType resourceType = member.get(ResourceType.class);
       if (resourceType == null
           || !resourceType.getTypes().contains(ResourceType.Companion.getCALENDAR())) {
@@ -184,7 +184,7 @@ public class CaldavClient {
   }
 
   public void deleteCollection() throws IOException, HttpException {
-    new DavResource(httpClient, httpUrl).delete(null);
+    new DavResource(httpClient, httpUrl).delete(null, response -> null);
   }
 
   public String makeCollection(String displayName)
@@ -192,7 +192,7 @@ public class CaldavClient {
     DavResource davResource =
         new DavResource(httpClient, httpUrl.resolve(UUIDHelper.newUUID() + "/"));
     String mkcolString = getMkcolString(displayName);
-    davResource.mkCol(mkcolString);
+    davResource.mkCol(mkcolString, response -> null);
     return davResource.getLocation().toString();
   }
 
@@ -230,7 +230,7 @@ public class CaldavClient {
     return stringWriter.toString();
   }
 
-  public OkHttpClient getHttpClient() {
+  OkHttpClient getHttpClient() {
     return httpClient;
   }
 }

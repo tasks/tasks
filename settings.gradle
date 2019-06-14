@@ -1,1 +1,1 @@
-include 'dav4android', 'ical4android', 'app'
+include 'dav4jvm', 'ical4android', 'app'
