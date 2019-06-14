@@ -58,9 +58,9 @@
     <string name="CFA_context_delete">Slett rad</string>
     <string name="CFA_help">Lang-trykk på elementer for ytterligere valg</string>
     <string name="CFA_button_add">Legg til kriterium</string>
-    <string name="CFC_dueBefore_text">Frist til: \?</string>
+    <string name="CFC_dueBefore_text">Frist til: ?</string>
     <string name="CFC_dueBefore_name">Frist til…</string>
-    <string name="CFC_importance_text">Prioritet minst\?</string>
+    <string name="CFC_importance_text">Prioritet minst ?</string>
     <string name="CFC_importance_name">Prioritet…</string>
     <string name="CFC_title_contains_name">Tittel inneholder…</string>
     <string name="CFC_title_contains_text">Tittel inneholder: ?</string>
