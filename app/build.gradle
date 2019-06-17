@@ -127,7 +127,9 @@ final CRASHLYTICS_VERSION = '2.10.1'
 final FIREBASE_VERSION = '16.0.9'
 
 dependencies {
-    implementation project(":dav4jvm")
+    implementation(project(":dav4jvm")) {
+        exclude group: 'org.ogce', module: 'xpp3'
+    }
     implementation project(":ical4android")
 
     annotationProcessor "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"

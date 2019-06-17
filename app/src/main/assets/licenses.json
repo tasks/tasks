@@ -1922,54 +1922,6 @@
     },
     {
       "notice": null,
-      "copyrightHolder": "Aleksander Slominski",
-      "copyrightStatement": "Copyright &copy; Aleksander Slominski. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "year": null,
-      "url": "http://www.extreme.indiana.edu/xpp/",
-      "libraryName": "XPP3",
-      "artifactId": {
-        "name": "xpp3",
-        "group": "org.ogce",
-        "version": "1.1.6"
-      }
-    },
-    {
-      "notice": null,
-      "copyrightHolder": "junit-team",
-      "copyrightStatement": "Copyright &copy; junit-team. All rights reserved.",
-      "license": "Common Public License Version 1.0",
-      "licenseUrl": "http://www.opensource.org/licenses/cpl1.0.txt",
-      "normalizedLicense": "cpl1",
-      "year": null,
-      "url": "http://junit.org",
-      "libraryName": "JUnit",
-      "artifactId": {
-        "name": "junit",
-        "group": "junit",
-        "version": "4.7"
-      }
-    },
-    {
-      "notice": null,
-      "copyrightHolder": "The Apache Software Foundation",
-      "copyrightStatement": "Copyright &copy; The Apache Software Foundation. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "",
-      "normalizedLicense": "apache2",
-      "year": null,
-      "url": "",
-      "libraryName": "jakarta-regexp",
-      "artifactId": {
-        "name": "jakarta-regexp",
-        "group": "jakarta-regexp",
-        "version": "1.4"
-      }
-    },
-    {
-      "notice": null,
       "copyrightHolder": "The Android Open Source Project",
       "copyrightStatement": "Copyright &copy; The Android Open Source Project. All rights reserved.",
       "license": "The Apache Software License, Version 2.0",
