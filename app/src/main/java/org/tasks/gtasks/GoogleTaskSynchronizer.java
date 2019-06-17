@@ -136,7 +136,6 @@ public class GoogleTaskSynchronizer {
     try {
       if (i == 0 || inventory.hasPro()) {
         synchronize(account);
-        account.setError("");
       } else {
         account.setError(context.getString(R.string.requires_pro_subscription));
       }
@@ -225,6 +224,7 @@ public class GoogleTaskSynchronizer {
       }
     }
     account.setEtag(eTag);
+    account.setError("");
   }
 
   private List<com.google.api.services.tasks.model.Task> fetchPositions(

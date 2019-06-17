@@ -162,6 +162,10 @@ public class Upgrader {
       GoogleTaskAccount googleTaskAccount = new GoogleTaskAccount();
       googleTaskAccount.setAccount(account);
       googleTaskListDao.insert(googleTaskAccount);
+      for (GoogleTaskList list : googleTaskListDao.getAllLists()) {
+        list.setAccount(account);
+        googleTaskListDao.insertOrReplace(list);
+      }
     }
   }
 
