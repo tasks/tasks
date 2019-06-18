@@ -118,11 +118,11 @@ configurations {
     all*.exclude group: 'com.google.http-client', module: 'google-http-client-apache'
 }
 
-final DAGGER_VERSION = '2.22.1'
+final DAGGER_VERSION = '2.23.2'
 final BUTTERKNIFE_VERSION = '10.1.0'
 final WORK_VERSION = '2.0.1'
 final LEAKCANARY_VERSION = '1.6.3'
-final ROOM_VERSION = '2.1.0-rc01'
+final ROOM_VERSION = '2.1.0'
 final CRASHLYTICS_VERSION = '2.10.1'
 final FIREBASE_VERSION = '16.0.9'
 
@@ -160,7 +160,7 @@ dependencies {
     implementation 'com.github.rey5137:material:1.2.5'
     implementation 'com.nononsenseapps:filepicker:4.2.1'
     implementation 'com.google.android.material:material:1.0.0'
-    implementation 'androidx.annotation:annotation:1.0.2'
+    implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta1'
     implementation 'com.jakewharton.timber:timber:4.7.1'
@@ -178,9 +178,9 @@ dependencies {
     }
     implementation('com.wdullaer:materialdatetimepicker:4.0.1')
     implementation "me.leolin:ShortcutBadger:1.1.22@aar"
-    implementation 'com.google.apis:google-api-services-tasks:v1-rev58-1.25.0'
-    implementation 'com.google.apis:google-api-services-drive:v3-rev159-1.25.0'
-    implementation 'com.google.api-client:google-api-client-android:1.28.0'
+    implementation 'com.google.apis:google-api-services-tasks:v1-rev59-1.25.0'
+    implementation 'com.google.apis:google-api-services-drive:v3-rev165-1.25.0'
+    implementation 'com.google.api-client:google-api-client-android:1.29.2'
     implementation "androidx.work:work-runtime:${WORK_VERSION}"
     implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:7.3.0'
     implementation'com.mapbox.mapboxsdk:mapbox-sdk-services:4.6.0'
@@ -203,7 +203,7 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test:rules:1.2.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.annotation:annotation:1.0.2'
+    androidTestImplementation 'androidx.annotation:annotation:1.1.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

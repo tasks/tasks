@@ -93,7 +93,7 @@
       "artifactId": {
         "name": "google-api-services-drive",
         "group": "com.google.apis",
-        "version": "v3-rev159-1.25.0"
+        "version": "v3-rev165-1.25.0"
       }
     },
     {
@@ -205,7 +205,7 @@
       "artifactId": {
         "name": "room-common",
         "group": "androidx.room",
-        "version": "2.1.0-rc01"
+        "version": "2.1.0"
       }
     },
     {
@@ -221,7 +221,7 @@
       "artifactId": {
         "name": "room-runtime",
         "group": "androidx.room",
-        "version": "2.1.0-rc01"
+        "version": "2.1.0"
       }
     },
     {
@@ -445,7 +445,7 @@
       "artifactId": {
         "name": "annotation",
         "group": "androidx.annotation",
-        "version": "1.0.2"
+        "version": "1.1.0"
       }
     },
     {
@@ -541,7 +541,7 @@
       "artifactId": {
         "name": "dagger",
         "group": "com.google.dagger",
-        "version": "2.22.1"
+        "version": "2.23.2"
       }
     },
     {
@@ -813,7 +813,7 @@
       "artifactId": {
         "name": "google-api-client-android",
         "group": "com.google.api-client",
-        "version": "1.28.0"
+        "version": "1.29.2"
       }
     },
     {
@@ -1341,7 +1341,7 @@
       "artifactId": {
         "name": "google-oauth-client",
         "group": "com.google.oauth-client",
-        "version": "1.28.0"
+        "version": "1.29.2"
       }
     },
     {
@@ -1357,7 +1357,7 @@
       "artifactId": {
         "name": "room-rxjava2",
         "group": "androidx.room",
-        "version": "2.1.0-rc01"
+        "version": "2.1.0"
       }
     },
     {
@@ -1437,7 +1437,7 @@
       "artifactId": {
         "name": "google-api-services-tasks",
         "group": "com.google.apis",
-        "version": "v1-rev58-1.25.0"
+        "version": "v1-rev59-1.25.0"
       }
     },
     {
@@ -1453,7 +1453,7 @@
       "artifactId": {
         "name": "google-api-client",
         "group": "com.google.api-client",
-        "version": "1.28.0"
+        "version": "1.29.2"
       }
     },
     {
@@ -1517,7 +1517,7 @@
       "artifactId": {
         "name": "google-http-client",
         "group": "com.google.http-client",
-        "version": "1.28.0"
+        "version": "1.29.2"
       }
     },
     {
@@ -1549,7 +1549,7 @@
       "artifactId": {
         "name": "google-http-client-android",
         "group": "com.google.http-client",
-        "version": "1.28.0"
+        "version": "1.29.2"
       }
     },
     {
@@ -1645,7 +1645,7 @@
       "artifactId": {
         "name": "google-http-client-jackson2",
         "group": "com.google.http-client",
-        "version": "1.28.0"
+        "version": "1.29.2"
       }
     },
     {
@@ -1773,7 +1773,7 @@
       "artifactId": {
         "name": "grpc-context",
         "group": "io.grpc",
-        "version": "1.14.0"
+        "version": "1.18.0"
       }
     },
     {
@@ -1837,7 +1837,7 @@
       "artifactId": {
         "name": "opencensus-api",
         "group": "io.opencensus",
-        "version": "0.18.0"
+        "version": "0.19.2"
       }
     },
     {
@@ -1885,7 +1885,7 @@
       "artifactId": {
         "name": "opencensus-contrib-http-util",
         "group": "io.opencensus",
-        "version": "0.18.0"
+        "version": "0.19.2"
       }
     },
     {
