@@ -13,6 +13,7 @@ import android.content.Context;
 import at.bitfire.dav4jvm.DavCalendar;
 import at.bitfire.dav4jvm.DavResource;
 import at.bitfire.dav4jvm.Response;
+import at.bitfire.dav4jvm.Response.HrefRelation;
 import at.bitfire.dav4jvm.exception.DavException;
 import at.bitfire.dav4jvm.exception.HttpException;
 import at.bitfire.dav4jvm.property.CalendarData;
@@ -166,7 +167,7 @@ public class CaldavSynchronizer {
 
       DavCalendar davCalendar = new DavCalendar(httpClient, httpUrl);
 
-      ResponseList members = new ResponseList();
+      ResponseList members = new ResponseList(HrefRelation.MEMBER);
       davCalendar.calendarQuery("VTODO", null, null, members);
 
       Set<String> remoteObjects = newHashSet(transform(members, Response::hrefName));
@@ -199,7 +200,7 @@ public class CaldavSynchronizer {
           processVTodo(vCard.hrefName(), caldavCalendar, eTag.getETag(), response.getBody());
         } else {
           ArrayList<HttpUrl> urls = newArrayList(Iterables.transform(items, Response::getHref));
-          ResponseList responses = new ResponseList();
+          ResponseList responses = new ResponseList(HrefRelation.MEMBER);
           davCalendar.multiget(urls, responses);
 
           Timber.d("MULTI %s", urls);
@@ -333,13 +334,8 @@ public class CaldavSynchronizer {
 
   private void processVTodo(
       String fileName, CaldavCalendar caldavCalendar, String eTag, String vtodo) {
-    List<at.bitfire.ical4android.Task> tasks;
-    try {
-      tasks = at.bitfire.ical4android.Task.Companion.fromReader(new StringReader(vtodo));
-    } catch (Exception e) {
-      Timber.e(e);
-      return;
-    }
+    List<at.bitfire.ical4android.Task> tasks =
+        at.bitfire.ical4android.Task.Companion.fromReader(new StringReader(vtodo));
 
     if (tasks.size() == 1) {
       at.bitfire.ical4android.Task remote = tasks.get(0);

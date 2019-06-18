@@ -10,6 +10,7 @@ import at.bitfire.dav4jvm.BasicDigestAuthHandler;
 import at.bitfire.dav4jvm.DavResource;
 import at.bitfire.dav4jvm.Property.Name;
 import at.bitfire.dav4jvm.Response;
+import at.bitfire.dav4jvm.Response.HrefRelation;
 import at.bitfire.dav4jvm.XmlUtils;
 import at.bitfire.dav4jvm.exception.DavException;
 import at.bitfire.dav4jvm.exception.HttpException;
@@ -156,7 +157,7 @@ public class CaldavClient {
 
   public List<Response> getCalendars() throws IOException, DavException {
     DavResource davResource = new DavResource(httpClient, httpUrl);
-    ResponseList responses = new ResponseList();
+    ResponseList responses = new ResponseList(HrefRelation.MEMBER);
     davResource.propfind(
         1,
         new Name[] {
