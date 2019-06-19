@@ -107,7 +107,7 @@
     <string name="EPr_manage_delete_completed_gcal_status">%d gertaera ezabatuta egutegitik!</string>
     <string name="EPr_manage_delete_all_gcal">Ezabatu egitekoen gertaera guztiak egutegitik</string>
     <string name="EPr_manage_delete_all_gcal_message">Ziur zure egitekoen gertaera guztiak ezabatu nahi dituzula egutegitik\?</string>
-    <string name="EPr_manage_delete_all_gcal_status">% gertaera ezabatuta egutegitik!</string>
+    <string name="EPr_manage_delete_all_gcal_status">%d gertaera ezabatuta egutegitik!</string>
     <string name="task_defaults">Egitekoen lehenetsitakoak</string>
     <string name="EPr_default_urgency_title">Lehenetsitako epemuga</string>
     <string name="EPr_default_importance_title">Lehenetsitako lehentasuna</string>
@@ -135,7 +135,7 @@
     <string name="CFA_type_add">edo</string>
     <string name="CFA_type_subtract">ez</string>
     <string name="CFA_type_intersect">baita</string>
-    <string name="CFA_context_chain">% irizpidea du</string>
+    <string name="CFA_context_chain">%s irizpidea du</string>
     <string name="CFA_context_delete">Ezabatu errenkada</string>
     <string name="CFA_help">Sakatu luze elementuetan aukera gehiagorako</string>
     <string name="CFA_button_add">Gehitu irizpidea</string>
@@ -275,7 +275,7 @@
     <string name="new_list">Sortu zerrenda berria</string>
     <string name="tag_FEx_untagged">Kategoria gabe</string>
     <string name="delete_tag_confirmation">Ezabatu %s\?</string>
-    <string name="TPl_notification">$s egitekoarentzako kronometro aktiboak!</string>
+    <string name="TPl_notification">%s egitekoarentzako kronometro aktiboak!</string>
     <string name="TFE_workingOn">Kronometratutako egitekoak</string>
     <string name="TEA_timer_controls">Kronometroa</string>
     <string name="TEA_timer_comment_started">egiteko honekin hasita:</string>
