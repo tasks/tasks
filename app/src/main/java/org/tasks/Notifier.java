@@ -39,7 +39,6 @@ public class Notifier {
   private final AudioManager audioManager;
   private final VoiceOutputAssistant voiceOutputAssistant;
   private final Preferences preferences;
-  private final CheckBoxes checkBoxes;
 
   @Inject
   public Notifier(
@@ -49,8 +48,7 @@ public class Notifier {
       TelephonyManager telephonyManager,
       AudioManager audioManager,
       VoiceOutputAssistant voiceOutputAssistant,
-      Preferences preferences,
-      CheckBoxes checkBoxes) {
+      Preferences preferences) {
     this.context = context;
     this.taskDao = taskDao;
     this.notificationManager = notificationManager;
@@ -58,7 +56,6 @@ public class Notifier {
     this.audioManager = audioManager;
     this.voiceOutputAssistant = voiceOutputAssistant;
     this.preferences = preferences;
-    this.checkBoxes = checkBoxes;
   }
 
   public void triggerFilterNotification(final Filter filter) {
@@ -96,7 +93,7 @@ public class Notifier {
             .setAutoCancel(true)
             .setWhen(currentTimeMillis())
             .setShowWhen(true)
-            .setColor(checkBoxes.getPriorityColor(maxPriority))
+            .setColor(CheckBoxes.getPriorityColor(context, maxPriority))
             .setGroupSummary(true)
             .setGroup(filter.listingTitle)
             .setStyle(style);

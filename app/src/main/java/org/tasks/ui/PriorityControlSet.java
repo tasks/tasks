@@ -3,6 +3,7 @@ package org.tasks.ui;
 import static com.todoroo.andlib.utility.AndroidUtilities.preLollipop;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,13 +19,15 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Task.Priority;
 import javax.inject.Inject;
 import org.tasks.R;
+import org.tasks.injection.ForApplication;
 import org.tasks.injection.FragmentComponent;
 
 public class PriorityControlSet extends TaskEditControlFragment {
 
   public static final int TAG = R.string.TEA_ctrl_importance_pref;
   private static final String EXTRA_PRIORITY = "extra_priority";
-  @Inject CheckBoxes checkBoxes;
+
+  @Inject @ForApplication Context context;
 
   @BindView(R.id.priority_high)
   AppCompatRadioButton priorityHigh;
@@ -120,7 +123,7 @@ public class PriorityControlSet extends TaskEditControlFragment {
   }
 
   private void tintRadioButton(AppCompatRadioButton radioButton, int priority) {
-    int color = checkBoxes.getPriorityColor(priority);
+    int color = CheckBoxes.getPriorityColor(context, priority);
     CompoundButtonCompat.setButtonTintList(
         radioButton,
         new ColorStateList(

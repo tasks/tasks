@@ -10,6 +10,7 @@ import static android.app.Activity.RESULT_OK;
 import static androidx.core.content.ContextCompat.getColor;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
 import static org.tasks.caldav.CaldavCalendarSettingsActivity.EXTRA_CALDAV_CALENDAR;
+import static org.tasks.ui.CheckBoxes.getPriorityColor;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -90,7 +91,6 @@ import org.tasks.tasklist.ManualSortRecyclerAdapter;
 import org.tasks.tasklist.PagedListRecyclerAdapter;
 import org.tasks.tasklist.TaskListRecyclerAdapter;
 import org.tasks.tasklist.ViewHolderFactory;
-import org.tasks.ui.CheckBoxes;
 import org.tasks.ui.MenuColorizer;
 import org.tasks.ui.TaskListViewModel;
 import org.tasks.ui.Toaster;
@@ -126,7 +126,6 @@ public final class TaskListFragment extends InjectingFragment
   @Inject @ForActivity Context context;
   @Inject Preferences preferences;
   @Inject DialogBuilder dialogBuilder;
-  @Inject CheckBoxes checkBoxes;
   @Inject TaskCreator taskCreator;
   @Inject TimerPlugin timerPlugin;
   @Inject ViewHolderFactory viewHolderFactory;
@@ -454,7 +453,11 @@ public final class TaskListFragment extends InjectingFragment
 
   private void setupRefresh(SwipeRefreshLayout layout) {
     layout.setOnRefreshListener(this);
-    layout.setColorSchemeColors(checkBoxes.getPriorityColors());
+    layout.setColorSchemeColors(
+        getPriorityColor(context, 0),
+        getPriorityColor(context, 1),
+        getPriorityColor(context, 2),
+        getPriorityColor(context, 3));
   }
 
   @Override

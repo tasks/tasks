@@ -17,7 +17,6 @@ import org.tasks.dialogs.Linkify;
 import org.tasks.injection.ForActivity;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.Preferences;
-import org.tasks.ui.CheckBoxes;
 import org.tasks.ui.ChipProvider;
 
 public class ViewHolderFactory {
@@ -27,7 +26,6 @@ public class ViewHolderFactory {
   private final int textColorOverdue;
   private final Context context;
   private final Locale locale;
-  private final CheckBoxes checkBoxes;
   private final ChipProvider chipProvider;
   private final int fontSize;
   private final TaskDao taskDao;
@@ -43,13 +41,11 @@ public class ViewHolderFactory {
       @ForActivity Context context,
       Locale locale,
       Preferences preferences,
-      CheckBoxes checkBoxes,
       ChipProvider chipProvider,
       TaskDao taskDao,
       Linkify linkify) {
     this.context = context;
     this.locale = locale;
-    this.checkBoxes = checkBoxes;
     this.chipProvider = chipProvider;
     this.taskDao = taskDao;
     this.preferences = preferences;
@@ -72,7 +68,6 @@ public class ViewHolderFactory {
             LayoutInflater.from(context).inflate(R.layout.task_adapter_row_simple, parent, false),
         preferences,
         fontSize,
-        checkBoxes,
         chipProvider,
         textColorOverdue,
         textColorSecondary,

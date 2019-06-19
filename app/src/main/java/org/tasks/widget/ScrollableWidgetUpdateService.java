@@ -12,7 +12,6 @@ import org.tasks.locale.Locale;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.ThemeCache;
-import org.tasks.ui.WidgetCheckBoxes;
 
 public class ScrollableWidgetUpdateService extends RemoteViewsService {
 
@@ -20,7 +19,6 @@ public class ScrollableWidgetUpdateService extends RemoteViewsService {
   @Inject Preferences preferences;
   @Inject SubtasksHelper subtasksHelper;
   @Inject DefaultFilterProvider defaultFilterProvider;
-  @Inject WidgetCheckBoxes widgetCheckBoxes;
   @Inject ThemeCache themeCache;
   @Inject Locale locale;
 
@@ -57,7 +55,6 @@ public class ScrollableWidgetUpdateService extends RemoteViewsService {
         widgetId,
         taskDao,
         defaultFilterProvider,
-        widgetCheckBoxes,
         themeCache);
   }
 }

@@ -71,7 +71,6 @@ public class NotificationManager {
   private final TaskDao taskDao;
   private final Context context;
   private final Preferences preferences;
-  private final CheckBoxes checkBoxes;
   private final Throttle throttle = new Throttle(NOTIFICATIONS_PER_SECOND);
   private final NotificationLimiter queue = new NotificationLimiter(MAX_NOTIFICATIONS);
 
@@ -81,13 +80,11 @@ public class NotificationManager {
       Preferences preferences,
       NotificationDao notificationDao,
       TaskDao taskDao,
-      CheckBoxes checkBoxes,
       LocationDao locationDao) {
     this.context = context;
     this.preferences = preferences;
     this.notificationDao = notificationDao;
     this.taskDao = taskDao;
-    this.checkBoxes = checkBoxes;
     this.locationDao = locationDao;
     notificationManagerCompat = NotificationManagerCompat.from(context);
   }
@@ -273,7 +270,7 @@ public class NotificationManager {
             .setWhen(when)
             .setSmallIcon(R.drawable.ic_done_all_white_24dp)
             .setStyle(style)
-            .setColor(checkBoxes.getPriorityColor(maxPriority))
+            .setColor(CheckBoxes.getPriorityColor(context, maxPriority))
             .setOnlyAlertOnce(false)
             .setContentIntent(
                 PendingIntent.getActivity(
@@ -352,7 +349,7 @@ public class NotificationManager {
         new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_DEFAULT)
             .setCategory(NotificationCompat.CATEGORY_REMINDER)
             .setContentTitle(taskTitle)
-            .setColor(checkBoxes.getPriorityColor(task.getPriority()))
+            .setColor(CheckBoxes.getPriorityColor(context, task.getPriority()))
             .setSmallIcon(R.drawable.ic_check_white_24dp)
             .setWhen(when)
             .setOnlyAlertOnce(false)

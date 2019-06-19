@@ -26,6 +26,7 @@ import com.todoroo.astrid.data.Task;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.dialogs.Linkify;
+import org.tasks.injection.ForApplication;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.ui.CheckBoxes;
 import org.tasks.ui.TaskEditControlFragment;
@@ -44,8 +45,8 @@ public class EditTitleControlSet extends TaskEditControlFragment {
   private static final String EXTRA_REPEATING = "extra_repeating";
   private static final String EXTRA_PRIORITY = "extra_priority";
 
+  @Inject @ForApplication Context context;
   @Inject TaskDao taskDao;
-  @Inject CheckBoxes checkBoxes;
   @Inject Linkify linkify;
 
   @BindView(R.id.title)
@@ -140,13 +141,8 @@ public class EditTitleControlSet extends TaskEditControlFragment {
   private void updateCompleteBox() {
     isComplete = completeBox.isChecked();
 
-    if (isComplete) {
-      completeBox.setImageDrawable(checkBoxes.getCompletedCheckbox(importanceValue));
-    } else if (isRepeating) {
-      completeBox.setImageDrawable(checkBoxes.getRepeatingCheckBox(importanceValue));
-    } else {
-      completeBox.setImageDrawable(checkBoxes.getCheckBox(importanceValue));
-    }
+    completeBox.setImageDrawable(
+        CheckBoxes.getCheckBox(context, isComplete, isRepeating, importanceValue));
 
     if (isComplete) {
       editText.setPaintFlags(editText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);

@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
@@ -30,12 +29,11 @@ import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.ThemeCache;
 import org.tasks.themes.WidgetTheme;
-import org.tasks.ui.WidgetCheckBoxes;
+import org.tasks.ui.CheckBoxes;
 import timber.log.Timber;
 
 class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
-  private final WidgetCheckBoxes checkBoxes;
   private final ThemeCache themeCache;
   private final int widgetId;
   private final TaskDao taskDao;
@@ -62,7 +60,6 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
       int widgetId,
       TaskDao taskDao,
       DefaultFilterProvider defaultFilterProvider,
-      WidgetCheckBoxes checkBoxes,
       ThemeCache themeCache) {
     this.subtasksHelper = subtasksHelper;
     this.preferences = preferences;
@@ -70,7 +67,6 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     this.widgetId = widgetId;
     this.taskDao = taskDao;
     this.defaultFilterProvider = defaultFilterProvider;
-    this.checkBoxes = checkBoxes;
     this.themeCache = themeCache;
 
     widgetPreferences = new WidgetPreferences(context, preferences, widgetId);
@@ -79,9 +75,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
   }
 
   @Override
-  public void onCreate() {
-
-  }
+  public void onCreate() {}
 
   @Override
   public void onDataSetChanged() {
@@ -130,13 +124,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
   }
 
   private Bitmap getCheckbox(Task task) {
-    if (task.isCompleted()) {
-      return checkBoxes.getCompletedCheckbox(task.getPriority());
-    } else if (TextUtils.isEmpty(task.getRecurrence())) {
-      return checkBoxes.getCheckBox(task.getPriority());
-    } else {
-      return checkBoxes.getRepeatingCheckBox(task.getPriority());
-    }
+    return CheckBoxes.getCheckBoxBitmap(context, task);
   }
 
   private RemoteViews buildUpdate(int position) {

@@ -9,7 +9,6 @@ import static com.todoroo.andlib.utility.DateUtilities.getAbbreviatedRelativeDat
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Paint;
-import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +39,6 @@ public class ViewHolder extends RecyclerView.ViewHolder {
 
   private final Activity context;
   private final Preferences preferences;
-  private final CheckBoxes checkBoxes;
   private final int textColorSecondary;
   private final int textColorPrimary;
   private final TaskDao taskDao;
@@ -92,7 +90,6 @@ public class ViewHolder extends RecyclerView.ViewHolder {
       ViewGroup view,
       Preferences preferences,
       int fontSize,
-      CheckBoxes checkBoxes,
       ChipProvider chipProvider,
       int textColorOverdue,
       int textColorSecondary,
@@ -107,7 +104,6 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     super(view);
     this.context = context;
     this.preferences = preferences;
-    this.checkBoxes = checkBoxes;
     this.chipProvider = chipProvider;
     this.textColorOverdue = textColorOverdue;
     this.textColorSecondary = textColorSecondary;
@@ -247,16 +243,8 @@ public class ViewHolder extends RecyclerView.ViewHolder {
   private void setupCompleteBox() {
     // complete box
     final CheckableImageView checkBoxView = completeBox;
-    boolean completed = task.isCompleted();
-    checkBoxView.setChecked(completed);
-
-    if (completed) {
-      checkBoxView.setImageDrawable(checkBoxes.getCompletedCheckbox(task.getPriority()));
-    } else if (TextUtils.isEmpty(task.getRecurrence())) {
-      checkBoxView.setImageDrawable(checkBoxes.getCheckBox(task.getPriority()));
-    } else {
-      checkBoxView.setImageDrawable(checkBoxes.getRepeatingCheckBox(task.getPriority()));
-    }
+    checkBoxView.setChecked(task.isCompleted());
+    checkBoxView.setImageDrawable(CheckBoxes.getCheckBox(context, task.getTask()));
     checkBoxView.invalidate();
   }
 

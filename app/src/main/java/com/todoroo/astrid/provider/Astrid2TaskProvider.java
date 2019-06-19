@@ -81,7 +81,6 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
   }
 
   @Inject Lazy<TagService> tagService;
-  @Inject Lazy<CheckBoxes> checkBoxes;
   @Inject Lazy<TaskDao> taskDao;
   @Inject Lazy<TagDao> tagDao;
 
@@ -177,7 +176,7 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
 
       Object[] values = new Object[7];
       values[0] = task.getTitle();
-      values[1] = checkBoxes.get().getPriorityColor(task.getPriority());
+      values[1] = CheckBoxes.getPriorityColor(getContext(), task.getPriority());
       values[2] = task.getDueDate();
       values[3] = task.getDueDate();
       values[4] = task.getPriority();
