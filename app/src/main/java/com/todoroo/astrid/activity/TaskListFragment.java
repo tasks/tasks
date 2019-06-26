@@ -8,6 +8,8 @@ package com.todoroo.astrid.activity;
 
 import static android.app.Activity.RESULT_OK;
 import static androidx.core.content.ContextCompat.getColor;
+import static androidx.recyclerview.widget.ItemTouchHelper.LEFT;
+import static androidx.recyclerview.widget.ItemTouchHelper.RIGHT;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
 import static org.tasks.caldav.CaldavCalendarSettingsActivity.EXTRA_CALDAV_CALENDAR;
 import static org.tasks.ui.CheckBoxes.getPriorityColor;
@@ -16,6 +18,11 @@ import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.view.LayoutInflater;
@@ -33,6 +40,7 @@ import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -90,6 +98,7 @@ import org.tasks.tasklist.ActionModeProvider;
 import org.tasks.tasklist.ManualSortRecyclerAdapter;
 import org.tasks.tasklist.PagedListRecyclerAdapter;
 import org.tasks.tasklist.TaskListRecyclerAdapter;
+import org.tasks.tasklist.ViewHolder;
 import org.tasks.tasklist.ViewHolderFactory;
 import org.tasks.ui.MenuColorizer;
 import org.tasks.ui.TaskListViewModel;
@@ -235,6 +244,62 @@ public final class TaskListFragment extends InjectingFragment
     outState.putString(EXTRA_SEARCH, searchQuery);
   }
 
+  class SwipeController extends ItemTouchHelper.Callback {
+    private final Paint p = new Paint();
+    private final Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_check_white_24dp);
+
+
+    @Override
+    public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+      return makeMovementFlags(0, LEFT | RIGHT);
+
+    }
+
+    @Override
+    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+      return false;
+    }
+
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+      ViewHolder vh = (ViewHolder) viewHolder;
+      vh.toggleTaskCompleted();
+    }
+
+    @Override
+    public float getSwipeThreshold(@NonNull RecyclerView.ViewHolder viewHolder) {
+      return 0.3f;
+    }
+
+    private float getAbsoluteSwipeThreshold(@NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView recyclerView) {
+      return recyclerView.getWidth() * getSwipeThreshold(viewHolder);
+    }
+
+    @Override
+    public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+      float threshold = getAbsoluteSwipeThreshold(viewHolder, recyclerView);
+      if (dX > threshold) dX = threshold;
+
+      drawSlideBackground(c, viewHolder.itemView, dX);
+      super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+    }
+
+    private void drawSlideBackground(@NonNull Canvas c, @NonNull View itemView, float dX) {
+      float left = itemView.getLeft();
+      float top = itemView.getTop();
+      float bottom = itemView.getBottom();
+      float width = (bottom - top)  / 3;
+
+      p.setColor(getResources().getColor(R.color.green_500));
+
+      RectF background = new RectF(left, top, dX, bottom);
+      c.drawRect(background,p);
+      RectF iconContainer = new RectF(left + width ,top + width,left + 2*width,bottom - width);
+      c.drawBitmap(icon, null, iconContainer, p);
+    }
+
+  }
+
   @Override
   public View onCreateView(
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -275,7 +340,9 @@ public final class TaskListFragment extends InjectingFragment
                 actionModeProvider,
                 taskListViewModel.getValue());
     taskAdapter.setHelper(recyclerAdapter);
-    ((DefaultItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
+    //((DefaultItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
+    ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeController());
+    itemTouchHelper.attachToRecyclerView(recyclerView);
     recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
     taskListViewModel.observe(
