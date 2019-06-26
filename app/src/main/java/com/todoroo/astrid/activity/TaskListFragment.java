@@ -8,7 +8,6 @@ package com.todoroo.astrid.activity;
 
 import static android.app.Activity.RESULT_OK;
 import static androidx.core.content.ContextCompat.getColor;
-import static androidx.recyclerview.widget.ItemTouchHelper.LEFT;
 import static androidx.recyclerview.widget.ItemTouchHelper.RIGHT;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
 import static org.tasks.caldav.CaldavCalendarSettingsActivity.EXTRA_CALDAV_CALENDAR;
@@ -251,7 +250,7 @@ public final class TaskListFragment extends InjectingFragment
 
     @Override
     public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-      return makeMovementFlags(0, LEFT | RIGHT);
+      return makeMovementFlags(0, RIGHT);
 
     }
 
