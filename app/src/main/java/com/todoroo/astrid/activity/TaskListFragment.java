@@ -246,6 +246,9 @@ public final class TaskListFragment extends InjectingFragment
   class SwipeController extends ItemTouchHelper.Callback {
     private final Paint p = new Paint();
     private final Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_check_white_24dp);
+    private final int backgroundColor = getResources().getColor(R.color.green_500);
+    // tracks the maximum deflection in x direction caused by the user
+    private float lastUserControlledDx = 0;
 
 
     @Override
@@ -265,19 +268,15 @@ public final class TaskListFragment extends InjectingFragment
       vh.toggleTaskCompleted();
     }
 
-    @Override
-    public float getSwipeThreshold(@NonNull RecyclerView.ViewHolder viewHolder) {
-      return 0.3f;
-    }
-
-    private float getAbsoluteSwipeThreshold(@NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView recyclerView) {
-      return recyclerView.getWidth() * getSwipeThreshold(viewHolder);
-    }
 
     @Override
     public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-      float threshold = getAbsoluteSwipeThreshold(viewHolder, recyclerView);
-      if (dX > threshold) dX = threshold;
+      if (isCurrentlyActive) {
+        lastUserControlledDx = Math.max(dX, lastUserControlledDx);
+      }
+      if (dX > lastUserControlledDx) {
+        dX = lastUserControlledDx;
+      }
 
       drawSlideBackground(c, viewHolder.itemView, dX);
       super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
@@ -285,15 +284,20 @@ public final class TaskListFragment extends InjectingFragment
 
     private void drawSlideBackground(@NonNull Canvas c, @NonNull View itemView, float dX) {
       float left = itemView.getLeft();
+      float right = itemView.getRight();
       float top = itemView.getTop();
       float bottom = itemView.getBottom();
-      float width = (bottom - top)  / 3;
+      float width = right - left;
+      float iconWidth = (bottom - top)  / 3;
 
-      p.setColor(getResources().getColor(R.color.green_500));
 
-      RectF background = new RectF(left, top, dX, bottom);
+
+      p.setColor(backgroundColor);
+
+
+      RectF background = new RectF(left, top, width, bottom);
       c.drawRect(background,p);
-      RectF iconContainer = new RectF(left + width ,top + width,left + 2*width,bottom - width);
+      RectF iconContainer = new RectF(left + iconWidth,top + iconWidth,left + 2*iconWidth,bottom - iconWidth);
       c.drawBitmap(icon, null, iconContainer, p);
     }
 
