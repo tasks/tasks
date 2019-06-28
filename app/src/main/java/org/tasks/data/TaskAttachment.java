@@ -3,6 +3,7 @@ package org.tasks.data;
 import android.net.Uri;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import com.google.common.base.Strings;
 import com.todoroo.andlib.data.Table;
@@ -39,12 +40,13 @@ public final class TaskAttachment {
   @ColumnInfo(name = "content_type")
   private String contentType = "";
 
-  public static TaskAttachment createNewAttachment(String taskUuid, Uri uri, String fileName) {
-    TaskAttachment attachment = new TaskAttachment();
-    attachment.setTaskId(taskUuid);
-    attachment.setName(fileName);
-    attachment.setUri(uri);
-    return attachment;
+  public TaskAttachment() {}
+
+  @Ignore
+  public TaskAttachment(String taskUuid, Uri uri, String fileName) {
+    taskId = taskUuid;
+    name = fileName;
+    setUri(uri);
   }
 
   public Long getId() {

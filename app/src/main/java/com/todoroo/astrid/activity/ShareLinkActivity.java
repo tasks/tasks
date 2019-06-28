@@ -1,7 +1,11 @@
 package com.todoroo.astrid.activity;
 
+import static android.content.Intent.ACTION_SEND;
+import static android.content.Intent.ACTION_SEND_MULTIPLE;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
+import static org.tasks.files.FileHelper.copyToUri;
+import static org.tasks.files.FileHelper.getFilename;
 import static org.tasks.intents.TaskIntents.getTaskListIntent;
 
 import android.content.Context;
@@ -9,13 +13,18 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import androidx.core.app.TaskStackBuilder;
+import com.google.common.base.Strings;
+import com.google.common.io.Files;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskCreator;
 import java.util.ArrayList;
 import javax.inject.Inject;
 import org.tasks.data.TaskAttachment;
+import org.tasks.files.FileHelper;
 import org.tasks.injection.ActivityComponent;
+import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingAppCompatActivity;
+import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
 /**
@@ -24,7 +33,15 @@ import timber.log.Timber;
  */
 public final class ShareLinkActivity extends InjectingAppCompatActivity {
 
+  @Inject @ForApplication Context context;
   @Inject TaskCreator taskCreator;
+  @Inject Preferences preferences;
+
+  private static TaskStackBuilder getEditTaskStack(Context context, Task task) {
+    Intent intent = getTaskListIntent(context, null);
+    intent.putExtra(MainActivity.OPEN_TASK, task);
+    return TaskStackBuilder.create(context).addNextIntent(intent);
+  }
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -57,11 +74,20 @@ public final class ShareLinkActivity extends InjectingAppCompatActivity {
         Task task = taskCreator.createWithValues(text.toString());
         getEditTaskStack(this, task).startActivities();
       }
-    } else if (action.equals(Intent.ACTION_SEND) || action.equals(Intent.ACTION_SEND_MULTIPLE)) {
+    } else if (ACTION_SEND.equals(action)) {
       String subject = intent.getStringExtra(Intent.EXTRA_SUBJECT);
       Task task = taskCreator.createWithValues(subject);
       task.setNotes(intent.getStringExtra(Intent.EXTRA_TEXT));
-      task.putTransitory(TaskAttachment.KEY, getAttachments(intent));
+      if (hasAttachments(intent)) {
+        task.putTransitory(TaskAttachment.KEY, copyAttachment(intent));
+      }
+      getEditTaskStack(this, task).startActivities();
+    } else if (ACTION_SEND_MULTIPLE.equals(action)) {
+      Task task = taskCreator.createWithValues(intent.getStringExtra(Intent.EXTRA_SUBJECT));
+      task.setNotes(intent.getStringExtra(Intent.EXTRA_TEXT));
+      if (hasAttachments(intent)) {
+        task.putTransitory(TaskAttachment.KEY, copyMultipleAttachments(intent));
+      }
       getEditTaskStack(this, task).startActivities();
     } else {
       Timber.e("Unhandled intent: %s", intent);
@@ -69,26 +95,33 @@ public final class ShareLinkActivity extends InjectingAppCompatActivity {
     finish();
   }
 
-  private static TaskStackBuilder getEditTaskStack(Context context, Task task) {
-    Intent intent = getTaskListIntent(context, null);
-    intent.putExtra(MainActivity.OPEN_TASK, task);
-    return TaskStackBuilder.create(context).addNextIntent(intent);
+  private ArrayList<Uri> copyAttachment(Intent intent) {
+    Uri uri = intent.getParcelableExtra(Intent.EXTRA_STREAM);
+    String filename = getFilename(context, uri);
+    if (Strings.isNullOrEmpty(filename)) {
+      String subject = intent.getStringExtra(Intent.EXTRA_SUBJECT);
+      filename =
+          Strings.isNullOrEmpty(subject)
+              ? uri.getLastPathSegment()
+              : subject.substring(0, Math.min(subject.length(), FileHelper.MAX_FILENAME_LENGTH));
+    }
+    String basename = Files.getNameWithoutExtension(filename);
+    return newArrayList(copyToUri(context, preferences.getAttachmentsDirectory(), uri, basename));
   }
 
-  private ArrayList<Uri> getAttachments(Intent intent) {
-    String type = intent.getType();
-    if (type != null) {
-      String action = intent.getAction();
-      if (action.equals(Intent.ACTION_SEND)) {
-        if (type.startsWith("image/")) {
-          return newArrayList(intent.<Uri>getParcelableExtra(Intent.EXTRA_STREAM));
-        }
-      } else if (action.equals(Intent.ACTION_SEND_MULTIPLE)) {
-        if (type.startsWith("image/")) {
-          return intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
-        }
+  private ArrayList<Uri> copyMultipleAttachments(Intent intent) {
+    ArrayList<Uri> result = new ArrayList<>();
+    ArrayList<Uri> uris = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
+    if (uris != null) {
+      for (Uri uri : uris) {
+        result.add(copyToUri(context, preferences.getAttachmentsDirectory(), uri));
       }
     }
-    return new ArrayList<>();
+    return result;
+  }
+
+  private boolean hasAttachments(Intent intent) {
+    String type = intent.getType();
+    return type != null && (type.startsWith("image/") || type.startsWith("application/"));
   }
 }

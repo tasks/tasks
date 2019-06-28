@@ -39,6 +39,8 @@ import timber.log.Timber;
 
 public class FileHelper {
 
+  public static final int MAX_FILENAME_LENGTH = 40;
+
   public static Intent newFilePickerIntent(Activity activity, Uri initial, String... mimeTypes) {
     if (atLeastKitKat()) {
       Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
@@ -127,7 +129,7 @@ public class FileHelper {
     }
   }
 
-  public static String getFilename(Context context, Uri uri) {
+  public @Nullable static String getFilename(Context context, Uri uri) {
     switch (uri.getScheme()) {
       case ContentResolver.SCHEME_FILE:
         return uri.getLastPathSegment();
@@ -147,9 +149,8 @@ public class FileHelper {
 
   public static String getExtension(Context context, Uri uri) {
     if (uri.getScheme().equals(ContentResolver.SCHEME_CONTENT)) {
-      String extension =
-          MimeTypeMap.getSingleton()
-              .getExtensionFromMimeType(context.getContentResolver().getType(uri));
+      String mimeType = context.getContentResolver().getType(uri);
+      String extension = MimeTypeMap.getSingleton().getExtensionFromMimeType(mimeType);
       if (!Strings.isNullOrEmpty(extension)) {
         return extension;
       }
@@ -164,8 +165,11 @@ public class FileHelper {
   }
 
   public static String getMimeType(Context context, Uri uri) {
-    String filename = getFilename(context, uri);
-    String extension = Files.getFileExtension(filename);
+    String mimeType = context.getContentResolver().getType(uri);
+    if (!Strings.isNullOrEmpty(mimeType)) {
+      return mimeType;
+    }
+    String extension = getExtension(context, uri);
     return MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
   }
 
@@ -233,14 +237,20 @@ public class FileHelper {
   }
 
   public static Uri copyToUri(Context context, Uri destination, Uri input) {
-    ContentResolver contentResolver = context.getContentResolver();
-    MimeTypeMap mime = MimeTypeMap.getSingleton();
     String filename = getFilename(context, input);
-    String baseName = Files.getNameWithoutExtension(filename);
-    String extension = Files.getFileExtension(filename);
-    String mimeType = mime.getMimeTypeFromExtension(extension);
+    return copyToUri(context, destination, input, Files.getNameWithoutExtension(filename));
+  }
+
+  public static Uri copyToUri(Context context, Uri destination, Uri input, String basename) {
+    ContentResolver contentResolver = context.getContentResolver();
     try {
-      Uri output = newFile(context, destination, mimeType, baseName, extension);
+      Uri output =
+          newFile(
+              context,
+              destination,
+              getMimeType(context, input),
+              basename,
+              getExtension(context, input));
       InputStream inputStream = contentResolver.openInputStream(input);
       OutputStream outputStream = contentResolver.openOutputStream(output);
       ByteStreams.copy(inputStream, outputStream);

@@ -164,7 +164,6 @@ public class TaskCreator {
             break;
           case GoogleTask.KEY:
           case CaldavTask.KEY:
-          case TaskAttachment.KEY:
             task.putTransitory(key, value);
             break;
           default:

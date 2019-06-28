@@ -7,7 +7,6 @@
 package com.todoroo.astrid.files;
 
 import static android.app.Activity.RESULT_OK;
-import static org.tasks.data.TaskAttachment.createNewAttachment;
 import static org.tasks.dialogs.AddAttachmentDialog.REQUEST_AUDIO;
 import static org.tasks.dialogs.AddAttachmentDialog.REQUEST_CAMERA;
 import static org.tasks.dialogs.AddAttachmentDialog.REQUEST_GALLERY;
@@ -76,7 +75,7 @@ public class FilesControlSet extends TaskEditControlFragment {
     if (savedInstanceState == null) {
       if (task.hasTransitory(TaskAttachment.KEY)) {
         for (Uri uri : (ArrayList<Uri>) task.getTransitory(TaskAttachment.KEY)) {
-          copyToAttachmentDirectory(uri);
+          newAttachment(uri);
         }
       }
     }
@@ -164,9 +163,12 @@ public class FilesControlSet extends TaskEditControlFragment {
   }
 
   private void copyToAttachmentDirectory(Uri input) {
-    Uri output = copyToUri(context, preferences.getAttachmentsDirectory(), input);
+    newAttachment(copyToUri(context, preferences.getAttachmentsDirectory(), input));
+  }
+
+  private void newAttachment(Uri output) {
     TaskAttachment attachment =
-        createNewAttachment(taskUuid, output, FileHelper.getFilename(context, output));
+        new TaskAttachment(taskUuid, output, FileHelper.getFilename(context, output));
     taskAttachmentDao.createNew(attachment);
     addAttachment(attachment);
   }
