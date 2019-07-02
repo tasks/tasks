@@ -134,11 +134,11 @@
     <string name="CFC_dueBefore_name">Fällig am …</string>
     <string name="no_due_date">Kein Fälligkeitsdatum</string>
     <string name="next_month">Nächster Monat</string>
-    <string name="CFC_importance_text">Mindestpriorität ?</string>
+    <string name="CFC_importance_text">Mindestpriorität\?</string>
     <string name="CFC_importance_name">Priorität…</string>
     <string name="CFC_tag_text">Schlagwort: ?</string>
-    <string name="CFC_tag_name">Tag…</string>
-    <string name="CFC_tag_contains_name">Tag-Name enthält…</string>
+    <string name="CFC_tag_name">Schlagwort …</string>
+    <string name="CFC_tag_contains_name">Schlagwort enthält …</string>
     <string name="CFC_tag_contains_text">Schlagwort enthält: ?</string>
     <string name="CFC_title_contains_name">Titel enthält …</string>
     <string name="CFC_title_contains_text">Titel enthält: ?</string>
@@ -261,7 +261,7 @@
     <string name="repeat_occurs">Tritt ein</string>
     <string name="repeat_snackbar">%1$s neu geplant für %2$s</string>
     <string comment="display new due date and time in snackbar after completing repeating task, e.g. \'Tomorrow at 8 AM\' or \'21 May at 8 AM\'" name="repeat_snackbar_time">%1$s um %2$s</string>
-    <string name="new_tag">Neues Stichwort erstellen</string>
+    <string name="new_tag">Neues Schlagwort erstellen</string>
     <string name="new_list">Neue Liste erstellen</string>
     <string name="tag_FEx_untagged">Nicht kategorisiert</string>
     <string name="delete_tag_confirmation">%s löschen?</string>
@@ -334,7 +334,7 @@
     <string name="date_shortcut_must_come_after">%1$s muss nach %2$s kommen</string>
     <string name="discard_changes">Änderungen verwerfen?</string>
     <string name="discard">Verwerfen</string>
-    <string name="tag_settings">Schlagwort Einstellungen</string>
+    <string name="tag_settings">Schlagwort-Einstellungen</string>
     <string name="list_settings">Listeneinstellungen</string>
     <string name="delete">Löschen</string>
     <string name="copy">Kopieren</string>
@@ -352,7 +352,7 @@
     <string name="privacy_policy">Datenschutzerklärung</string>
     <string name="send_anonymous_statistics">Tasks verbessern</string>
     <string name="send_anonymous_statistics_summary">Anonyme Nutzungsstatistiken und Absturzberichte zur Verbesserung von Tasks senden. Es werden keine persönlichen Daten gesammelt.</string>
-    <string name="tag_already_exists">Tag existiert bereits</string>
+    <string name="tag_already_exists">Schlagwort existiert bereits</string>
     <string name="duplicate_name">Doppelter Name</string>
     <string name="name_cannot_be_empty">Name darf nicht leer sein</string>
     <string name="username_required">Benutzername benötigt</string>
@@ -493,7 +493,7 @@
     <string name="show_full_description">Gesamte Beschreibung anzeigen</string>
     <string name="linkify">Links anzeigen</string>
     <string name="linkify_description">Füge Links zu Websites, Adressen und Telefonnummern hinzu</string>
-    <string name="show_list_indicators">Stichworte und Listen anzeigen</string>
+    <string name="show_list_indicators">Schlagworte und Listen anzeigen</string>
     <string name="location_remind_arrival">Bei Ankunft erinnern</string>
     <string name="location_remind_departure">Bei Abreise erinnern</string>
     <string name="visit_website">Website öffnen</string>
