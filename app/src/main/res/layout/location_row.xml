@@ -4,7 +4,7 @@
   android:layout_height="wrap_content"
   android:baselineAligned="false">
 
-  <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+  <ImageView
     android:id="@+id/geofence_options"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -16,8 +16,8 @@
     android:clickable="true"
     android:focusable="true"
     android:src="@drawable/ic_outline_notifications_off_24px"
-    android:visibility="gone"
-    android:tint="?attr/icon_tint"/>
+    android:tint="?attr/icon_tint"
+    android:visibility="gone"/>
 
   <TextView
     android:id="@+id/location_name"
@@ -30,7 +30,9 @@
     android:layout_toStartOf="@id/geofence_options"
     android:clickable="true"
     android:focusable="true"
+    android:gravity="start"
     android:hint="@string/add_location"
+    android:textAlignment="viewStart"
     android:textColor="?attr/asTextColor"
     android:textColorHint="@color/text_secondary"/>
 
@@ -47,8 +49,10 @@
     android:clickable="true"
     android:ellipsize="end"
     android:focusable="true"
+    android:gravity="start"
     android:maxLines="1"
     android:singleLine="true"
+    android:textAlignment="viewStart"
     android:textColor="?attr/asTextColorHint"
     android:visibility="gone"/>
 

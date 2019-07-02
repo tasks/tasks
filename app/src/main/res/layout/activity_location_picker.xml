@@ -80,7 +80,7 @@
           android:tint="?attr/fab_text"
           app:borderWidth="0dp"
           app:layout_constraintBottom_toBottomOf="@id/map"
-          app:layout_constraintRight_toRightOf="@id/map"/>
+          app:layout_constraintEnd_toEndOf="@id/map"/>
 
         <!--
         This view is a hack, when using a Mapbox fragment for some reason other views
@@ -157,7 +157,9 @@
             android:layout_below="@id/place_icon"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
+            android:gravity="start"
             android:text="@string/or_choose_a_location"
+            android:textAlignment="viewStart"
             android:textAppearance="@style/TextAppearance"
             android:textColor="@color/text_secondary"
             android:textSize="14sp"/>
@@ -191,19 +193,23 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/card_view_margin"
+          android:layout_marginEnd="@dimen/card_view_margin"
           android:layout_marginLeft="@dimen/card_view_margin"
-          android:layout_gravity="center_vertical"
+          android:layout_marginRight="@dimen/card_view_margin"
+          android:layout_gravity="start|center_vertical"
           android:contentDescription="@android:string/search_go"
           android:src="@drawable/ic_outline_search_24px"
           android:tint="@color/icon_tint"/>
 
         <TextView
-          android:layout_width="wrap_content"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginStart="64dp"
           android:layout_marginLeft="64dp"
           android:layout_gravity="center_vertical"
+          android:gravity="start"
           android:text="@android:string/search_go"
+          android:textAlignment="viewStart"
           android:textAppearance="@style/TextAppearance"
           android:textColor="@color/text_primary"/>
 
