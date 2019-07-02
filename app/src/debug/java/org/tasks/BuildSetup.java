@@ -31,16 +31,16 @@ public class BuildSetup {
 
   public boolean setup() {
     Timber.plant(new Timber.DebugTree());
+    Application application = (Application) context.getApplicationContext();
     if (preferences.getBoolean(R.string.p_flipper, false) && FlipperUtils.shouldEnableFlipper(context)) {
-      SoLoader.init(context, false);
-      FlipperClient client = AndroidFlipperClient.getInstance(context);
-      client.addPlugin(new InspectorFlipperPlugin(context, DescriptorMapping.withDefaults()));
-      client.addPlugin(new DatabasesFlipperPlugin(context));
+      SoLoader.init(application, false);
+      FlipperClient client = AndroidFlipperClient.getInstance(application);
+      client.addPlugin(new InspectorFlipperPlugin(application, DescriptorMapping.withDefaults()));
+      client.addPlugin(new DatabasesFlipperPlugin(application));
       client.addPlugin(new NetworkFlipperPlugin());
-      client.addPlugin(new SharedPreferencesFlipperPlugin(context));
+      client.addPlugin(new SharedPreferencesFlipperPlugin(application));
       client.start();
     }
-    Application application = (Application) context.getApplicationContext();
     if (LeakCanary.isInAnalyzerProcess(context)) {
       return false;
     }
