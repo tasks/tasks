@@ -100,18 +100,18 @@ public class ChipProvider {
     if (!Strings.isNullOrEmpty(googleTask)) {
       GtasksFilter googleTaskFilter = googleTaskLists.get(googleTask);
       if (googleTaskFilter != null) {
-        chips.add(newChip(activity, googleTaskFilter));
+        chips.add(newTagChip(activity, googleTaskFilter));
       }
     } else if (!Strings.isNullOrEmpty(caldav)) {
       CaldavFilter caldavFilter = caldavCalendars.get(caldav);
       if (caldavFilter != null) {
-        chips.add(newChip(activity, caldavFilter));
+        chips.add(newTagChip(activity, caldavFilter));
       }
     }
     Iterable<TagFilter> tagFilters =
         filter(transform(tagUuids, tagDatas::get), Predicates.notNull());
     for (TagFilter tagFilter : orderByName.sortedCopy(tagFilters)) {
-      chips.add(newChip(activity, tagFilter));
+      chips.add(newTagChip(activity, tagFilter));
     }
 
     return chips;
@@ -125,10 +125,15 @@ public class ChipProvider {
     apply(chip, tagData.getName(), tagData.getColor());
   }
 
-  private Chip newChip(Activity activity, Filter filter) {
-    Chip chip = new Chip(activity);
-    chip.setTag(filter);
+  private Chip newTagChip(Activity activity, Filter filter) {
+    Chip chip = newChip(activity, filter);
     apply(chip, filter.listingTitle, filter.tint);
+    return chip;
+  }
+
+  public Chip newChip(Activity activity, Object tag) {
+    Chip chip = (Chip) activity.getLayoutInflater().inflate(R.layout.chip_tag, null);
+    chip.setTag(tag);
     return chip;
   }
 

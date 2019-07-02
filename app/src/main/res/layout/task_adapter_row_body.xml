@@ -80,6 +80,7 @@
     android:id="@+id/description"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/task_list_item_spacing"
     android:paddingStart="@dimen/keyline_content_inset"
     android:paddingEnd="@dimen/keyline_first"
     android:paddingLeft="@dimen/keyline_content_inset"
@@ -93,13 +94,14 @@
     android:id="@+id/chip_group"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/task_list_item_spacing"
     android:layout_marginStart="@dimen/keyline_first"
     android:layout_marginEnd="@dimen/keyline_content_inset"
     android:layout_marginLeft="@dimen/keyline_first"
     android:layout_marginRight="@dimen/keyline_content_inset"
     android:layout_gravity="end"
     android:visibility="gone"
-    app:chipSpacingVertical="@dimen/chip_spacing"
-    app:chipSpacingHorizontal="@dimen/chip_spacing"/>
+    app:chipSpacingHorizontal="@dimen/chip_spacing"
+    app:chipSpacingVertical="@dimen/chip_spacing"/>
 
 </LinearLayout>

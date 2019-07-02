@@ -37,6 +37,12 @@
   <dimen name="header_gap">8dp</dimen>
   <dimen name="row_gap">1px</dimen>
 
+  <dimen name="task_list_item_spacing">4dp</dimen>
+
   <dimen name="chip_spacing">4dp</dimen>
+  <dimen name="chip_stroke">1dp</dimen>
+  <dimen name="chip_icon_size">18dp</dimen>
+  <dimen name="chip_min_height">26dp</dimen>
+  <dimen name="chip_text_padding">4dp</dimen>
 
 </resources>

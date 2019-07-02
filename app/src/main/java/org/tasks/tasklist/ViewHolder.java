@@ -49,7 +49,6 @@ public class ViewHolder extends RecyclerView.ViewHolder {
   private final Linkify linkify;
   private final int textColorOverdue;
   private final ChipProvider chipProvider;
-  private final int fontSizeDetails;
 
   @BindView(R.id.row)
   public ViewGroup row;
@@ -137,7 +136,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
 
     nameView.setTextSize(fontSize);
     description.setTextSize(fontSize);
-    fontSizeDetails = Math.max(10, fontSize - 2);
+    int fontSizeDetails = Math.max(10, fontSize - 2);
     dueDate.setTextSize(fontSizeDetails);
 
     if (atLeastJellybeanMR1()) {
@@ -202,8 +201,13 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     this.task = task;
     this.isGoogleTaskList = isGoogleTaskList;
 
-    setFieldContentsAndVisibility();
-    setTaskAppearance();
+    nameView.setText(task.getTitle());
+    hidden.setVisibility(task.isHidden() ? View.VISIBLE : View.GONE);
+    setupTitleAndCheckbox();
+    setupDueDate();
+    if (preferences.getBoolean(R.string.p_show_list_indicators, true)) {
+      setupTags();
+    }
     if (preferences.getBoolean(R.string.p_show_description, true)) {
       description.setText(task.getNotes());
       description.setVisibility(task.hasNotes() ? View.VISIBLE : View.GONE);
@@ -218,14 +222,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     }
   }
 
-  /** Helper method to set the contents and visibility of each field */
-  private synchronized void setFieldContentsAndVisibility() {
-    nameView.setText(task.getTitle());
-    hidden.setVisibility(task.isHidden() ? View.VISIBLE : View.GONE);
-    setupDueDateAndTags();
-  }
-
-  private void setTaskAppearance() {
+  private void setupTitleAndCheckbox() {
     if (task.isCompleted()) {
       nameView.setTextColor(textColorSecondary);
       nameView.setPaintFlags(nameView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -235,21 +232,12 @@ public class ViewHolder extends RecyclerView.ViewHolder {
       nameView.setPaintFlags(nameView.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
     }
 
-    setupDueDateAndTags();
-
-    setupCompleteBox();
+    completeBox.setChecked(task.isCompleted());
+    completeBox.setImageDrawable(CheckBoxes.getCheckBox(context, task.getTask()));
+    completeBox.invalidate();
   }
 
-  private void setupCompleteBox() {
-    // complete box
-    final CheckableImageView checkBoxView = completeBox;
-    checkBoxView.setChecked(task.isCompleted());
-    checkBoxView.setImageDrawable(CheckBoxes.getCheckBox(context, task.getTask()));
-    checkBoxView.invalidate();
-  }
-
-  private void setupDueDateAndTags() {
-    // due date / completion date
+  private void setupDueDate() {
     if (task.hasDueDate()) {
       if (task.isOverdue()) {
         dueDate.setTextColor(textColorOverdue);
@@ -262,28 +250,27 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     } else {
       dueDate.setVisibility(View.GONE);
     }
+  }
 
-    if (preferences.getBoolean(R.string.p_show_list_indicators, true)) {
-      String tags = task.getTagsString();
-      List<String> tagUuids = tags != null ? newArrayList(tags.split(",")) : Lists.newArrayList();
+  private void setupTags() {
+    String tags = task.getTagsString();
+    List<String> tagUuids = tags != null ? newArrayList(tags.split(",")) : Lists.newArrayList();
 
-      List<Chip> chips =
-          chipProvider.getChips(
-              context,
-              task.getCaldav(),
-              isGoogleTaskList ? null : task.getGoogleTaskList(),
-              tagUuids);
-      if (chips.isEmpty()) {
-        chipGroup.setVisibility(View.GONE);
-      } else {
-        chipGroup.removeAllViews();
-        for (Chip chip : chips) {
-          chip.setTextSize(fontSizeDetails);
-          chip.setOnClickListener(view -> callback.onClick((Filter) view.getTag()));
-          chipGroup.addView(chip);
-        }
-        chipGroup.setVisibility(View.VISIBLE);
+    List<Chip> chips =
+        chipProvider.getChips(
+            context,
+            task.getCaldav(),
+            isGoogleTaskList ? null : task.getGoogleTaskList(),
+            tagUuids);
+    if (chips.isEmpty()) {
+      chipGroup.setVisibility(View.GONE);
+    } else {
+      chipGroup.removeAllViews();
+      for (Chip chip : chips) {
+        chip.setOnClickListener(view -> callback.onClick((Filter) view.getTag()));
+        chipGroup.addView(chip);
       }
+      chipGroup.setVisibility(View.VISIBLE);
     }
   }
 
@@ -311,7 +298,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     }
 
     // set check box to actual action item state
-    setTaskAppearance();
+    setupTitleAndCheckbox();
   }
 
   public int getIndent() {
