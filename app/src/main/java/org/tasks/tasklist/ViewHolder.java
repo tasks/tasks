@@ -8,7 +8,9 @@ import static com.todoroo.andlib.utility.DateUtilities.getAbbreviatedRelativeDat
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Paint;
+import android.net.Uri;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +30,7 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.ui.CheckableImageView;
 import java.util.List;
 import org.tasks.R;
+import org.tasks.data.Location;
 import org.tasks.data.TaskContainer;
 import org.tasks.dialogs.Linkify;
 import org.tasks.locale.Locale;
@@ -69,6 +72,9 @@ public class ViewHolder extends RecyclerView.ViewHolder {
 
   @BindView(R.id.completeBox)
   CheckableImageView completeBox;
+
+  @BindView(R.id.location_chip)
+  Chip locationChip;
 
   @BindView(R.id.chip_group)
   ChipGroup chipGroup;
@@ -140,8 +146,9 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     dueDate.setTextSize(fontSizeDetails);
 
     if (atLeastJellybeanMR1()) {
-      chipGroup.setLayoutDirection(
-          locale.isRtl() ? View.LAYOUT_DIRECTION_LTR : View.LAYOUT_DIRECTION_RTL);
+      int direction = locale.isRtl() ? View.LAYOUT_DIRECTION_LTR : View.LAYOUT_DIRECTION_RTL;
+      chipGroup.setLayoutDirection(direction);
+      locationChip.setLayoutDirection(direction);
     } else {
       MarginLayoutParams lp = (MarginLayoutParams) chipGroup.getLayoutParams();
       lp.setMargins(lp.rightMargin, lp.topMargin, lp.leftMargin, lp.bottomMargin);
@@ -206,6 +213,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     setupTitleAndCheckbox();
     setupDueDate();
     if (preferences.getBoolean(R.string.p_show_list_indicators, true)) {
+      setupLocation();
       setupTags();
     }
     if (preferences.getBoolean(R.string.p_show_description, true)) {
@@ -249,6 +257,22 @@ public class ViewHolder extends RecyclerView.ViewHolder {
       dueDate.setVisibility(View.VISIBLE);
     } else {
       dueDate.setVisibility(View.GONE);
+    }
+  }
+
+  private void setupLocation() {
+    if (task.hasLocation()) {
+      locationChip.setText(task.getLocation().getDisplayName());
+      locationChip.setTag(task.getLocation());
+      locationChip.setOnClickListener(v -> {
+        Location location = (Location) v.getTag();
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(location.getGeoUri()));
+        context.startActivity(intent);
+      });
+      locationChip.setVisibility(View.VISIBLE);
+    } else {
+      locationChip.setVisibility(View.GONE);
     }
   }
 

@@ -39,7 +39,9 @@ import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.data.CaldavTask;
+import org.tasks.data.Geofence;
 import org.tasks.data.GoogleTask;
+import org.tasks.data.Place;
 import org.tasks.data.Tag;
 import org.tasks.data.TaskContainer;
 import org.tasks.preferences.Preferences;
@@ -52,6 +54,8 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
 
   private static final Field TASKS = field("tasks.*");
   private static final Field GTASK = field(GTASK_METADATA_JOIN + ".*");
+  private static final Field GEOFENCE = field("geofences.*");
+  private static final Field PLACE = field("places.*");
   private static final StringProperty CALDAV =
       new StringProperty(null, CALDAV_METADATA_JOIN + ".calendar").as("caldav");
   private static final Field CHILDREN = field("children");
@@ -86,7 +90,7 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
   }
 
   private String getQuery(Filter filter) {
-    List<Field> fields = Lists.newArrayList(TASKS, TAGS, GTASK, CALDAV);
+    List<Field> fields = Lists.newArrayList(TASKS, TAGS, GTASK, CALDAV, GEOFENCE, PLACE);
 
     Criterion tagsJoinCriterion = Criterion.and(Task.ID.eq(field(TAGS_METADATA_JOIN + ".task")));
     Criterion gtaskJoinCriterion =
@@ -118,9 +122,11 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
     // Eventually, we might consider restructuring things so that this query is constructed
     // elsewhere.
     String joinedQuery =
-        Join.left(Tag.TABLE.as(TAGS_METADATA_JOIN), tagsJoinCriterion).toString() // $NON-NLS-1$
-            + Join.left(GoogleTask.TABLE.as(GTASK_METADATA_JOIN), gtaskJoinCriterion).toString()
-            + Join.left(CaldavTask.TABLE.as(CALDAV_METADATA_JOIN), caldavJoinCriterion).toString()
+        Join.left(Tag.TABLE.as(TAGS_METADATA_JOIN), tagsJoinCriterion).toString()
+            + Join.left(GoogleTask.TABLE.as(GTASK_METADATA_JOIN), gtaskJoinCriterion)
+            + Join.left(CaldavTask.TABLE.as(CALDAV_METADATA_JOIN), caldavJoinCriterion)
+            + Join.left(Geofence.TABLE, field(Geofence.TABLE_NAME + ".task").eq(Task.ID))
+            + Join.left(Place.TABLE, field(Place.TABLE_NAME + ".uid").eq(field("geofences.place")))
             + filter.getSqlQuery();
 
     String query =

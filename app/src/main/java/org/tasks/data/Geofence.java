@@ -1,15 +1,21 @@
 package org.tasks.data;
 
+import static org.tasks.data.Geofence.TABLE_NAME;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+import com.todoroo.andlib.data.Table;
 import java.io.Serializable;
 
-@Entity(tableName = "geofences")
+@Entity(tableName = TABLE_NAME)
 public class Geofence implements Serializable, Parcelable {
+
+  public static final String TABLE_NAME = "geofences";
+  public static final Table TABLE = new Table(TABLE_NAME);
 
   public static final Parcelable.Creator<Geofence> CREATOR =
       new Parcelable.Creator<Geofence>() {

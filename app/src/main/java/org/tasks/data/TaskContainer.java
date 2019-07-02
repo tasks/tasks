@@ -6,6 +6,7 @@ import com.todoroo.astrid.data.Task;
 public class TaskContainer {
   @Embedded public Task task;
   @Embedded public GoogleTask googletask;
+  @Embedded public Location location;
   public String tags;
   public String caldav;
   public int children;
@@ -130,6 +131,9 @@ public class TaskContainer {
     if (googletask != null ? !googletask.equals(that.googletask) : that.googletask != null) {
       return false;
     }
+    if (location != null ? !location.equals(that.location) : that.location != null) {
+      return false;
+    }
     if (tags != null ? !tags.equals(that.tags) : that.tags != null) {
       return false;
     }
@@ -140,6 +144,7 @@ public class TaskContainer {
   public int hashCode() {
     int result = task != null ? task.hashCode() : 0;
     result = 31 * result + (googletask != null ? googletask.hashCode() : 0);
+    result = 31 * result + (location != null ? location.hashCode() : 0);
     result = 31 * result + (tags != null ? tags.hashCode() : 0);
     result = 31 * result + (caldav != null ? caldav.hashCode() : 0);
     result = 31 * result + children;
@@ -158,6 +163,8 @@ public class TaskContainer {
         + task
         + ", googletask="
         + googletask
+        + ", location="
+        + location
         + ", tags='"
         + tags
         + '\''
@@ -207,11 +214,19 @@ public class TaskContainer {
     return googletask;
   }
 
+  public int getTargetIndent() {
+    return targetIndent;
+  }
+
   public void setTargetIndent(int indent) {
     targetIndent = indent;
   }
 
-  public int getTargetIndent() {
-    return targetIndent;
+  public boolean hasLocation() {
+    return location != null;
+  }
+
+  public Location getLocation() {
+    return location;
   }
 }

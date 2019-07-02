@@ -90,6 +90,27 @@
     android:textColor="@color/text_secondary"
     android:visibility="gone"/>
 
+  <com.google.android.material.chip.Chip
+    android:id="@+id/location_chip"
+    style="@style/ChipStyle"
+    android:layout_marginTop="@dimen/task_list_item_spacing"
+    android:layout_marginStart="@dimen/keyline_content_inset"
+    android:layout_marginEnd="@dimen/keyline_first"
+    android:layout_marginLeft="@dimen/keyline_content_inset"
+    android:layout_marginRight="@dimen/keyline_first"
+    android:layout_gravity="center_vertical|end"
+    android:textAlignment="center"
+    android:textColor="@color/text_secondary"
+    android:visibility="gone"
+    app:chipBackgroundColor="?attr/asContentBackground"
+    app:chipIcon="@drawable/ic_outline_place_24px"
+    app:chipIconTint="@color/icon_tint"
+    app:chipStrokeColor="@color/text_secondary"
+    app:chipStrokeWidth="@dimen/chip_stroke"
+    app:iconEndPadding="0dp"
+    app:iconStartPadding="@dimen/chip_text_padding"
+    />
+
   <com.google.android.material.chip.ChipGroup
     android:id="@+id/chip_group"
     android:layout_width="match_parent"

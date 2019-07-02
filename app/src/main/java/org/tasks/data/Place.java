@@ -1,6 +1,7 @@
 package org.tasks.data;
 
 import static com.mapbox.api.geocoding.v5.GeocodingCriteria.TYPE_ADDRESS;
+import static org.tasks.data.Place.TABLE_NAME;
 
 import android.location.Location;
 import android.net.Uri;
@@ -12,6 +13,7 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import com.google.common.base.Strings;
 import com.mapbox.api.geocoding.v5.models.CarmenFeature;
+import com.todoroo.andlib.data.Table;
 import com.todoroo.astrid.helper.UUIDHelper;
 import java.io.Serializable;
 import java.util.List;
@@ -19,8 +21,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.tasks.location.MapPosition;
 
-@Entity(tableName = "places")
+@Entity(tableName = TABLE_NAME)
 public class Place implements Serializable, Parcelable {
+
+  public static final String TABLE_NAME = "places";
+  public static final Table TABLE = new Table(TABLE_NAME);
 
   public static final Creator<Place> CREATOR =
       new Creator<Place>() {
