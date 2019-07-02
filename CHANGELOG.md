@@ -1,5 +1,25 @@
 Change Log
 ---
+### 6.7.1 (2019-07-05)
+
+* Add location chip to task list
+* Reduce chip sizes
+* Accept 'send to' for more attachment types
+* Synchronize multiple accounts in parallel
+* Fix Google Task migration from older versions
+* Fix corrupted checkbox issue
+* Fix some RTL issues
+* Add Basque translations - @osoitz
+* Update translations
+  * Danish - @comradekingu
+  * French - @FlorianLeChat
+  * German - @Marmo, @SantosSi
+  * Hebrew - @yarons
+  * Hungarian - kaciokos
+  * Norwegian Bokmål - @comradekingu
+  * Spanish - @comradekingu
+  * Swedish - @comradekingu
+
 ### 6.7 (2019-06-13)
 
 * Use drag and drop to indent tasks

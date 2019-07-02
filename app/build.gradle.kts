@@ -25,8 +25,8 @@ android {
     defaultConfig {
         testApplicationId = "org.tasks.test"
         applicationId = "org.tasks"
-        versionCode = 589
-        versionName = "6.7"
+        versionCode = 591
+        versionName = "6.7.1"
         targetSdkVersion(Versions.compileSdk)
         minSdkVersion(Versions.minSdk)
         multiDexEnabled = true
