@@ -146,9 +146,8 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     dueDate.setTextSize(fontSizeDetails);
 
     if (atLeastJellybeanMR1()) {
-      int direction = locale.isRtl() ? View.LAYOUT_DIRECTION_LTR : View.LAYOUT_DIRECTION_RTL;
-      chipGroup.setLayoutDirection(direction);
-      locationChip.setLayoutDirection(direction);
+      chipGroup.setLayoutDirection(
+          locale.isRtl() ? View.LAYOUT_DIRECTION_LTR : View.LAYOUT_DIRECTION_RTL);
     } else {
       MarginLayoutParams lp = (MarginLayoutParams) chipGroup.getLayoutParams();
       lp.setMargins(lp.rightMargin, lp.topMargin, lp.leftMargin, lp.bottomMargin);
