@@ -6,17 +6,17 @@
 
 package com.todoroo.astrid.gtasks;
 
-import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Lists.transform;
-
-import androidx.core.util.Pair;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import javax.inject.Inject;
 import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
+import org.tasks.filters.GoogleTaskFilters;
 import org.tasks.sync.SyncAdapters;
 
 /**
@@ -40,26 +40,25 @@ public class GtasksFilterExposer {
     this.googleTaskListDao = googleTaskListDao;
   }
 
-  public List<Pair<GoogleTaskAccount, List<Filter>>> getFilters() {
-    List<Pair<GoogleTaskAccount, List<Filter>>> listFilters = newArrayList();
-    for (GoogleTaskAccount account : googleTaskListDao.getAccounts()) {
-      List<GoogleTaskList> lists = googleTaskListDao.getLists(account.getAccount());
-      listFilters.add(new Pair<>(account, transform(lists, GtasksFilter::new)));
+  public Map<GoogleTaskAccount, List<Filter>> getFilters() {
+    List<GoogleTaskFilters> googleTaskFilters = googleTaskListDao.getGoogleTaskFilters();
+    LinkedHashMap<GoogleTaskAccount, List<Filter>> filters = new LinkedHashMap<>();
+    for (GoogleTaskFilters filter : googleTaskFilters) {
+      if (!filters.containsKey(filter.googleTaskAccount)) {
+        filters.put(filter.googleTaskAccount, new ArrayList<>());
+      }
+      filters.get(filter.googleTaskAccount).add(new GtasksFilter(filter.googleTaskList));
     }
-    return listFilters;
+    return filters;
   }
 
   public Filter getFilter(long id) {
     if (syncAdapters.isGoogleTaskSyncEnabled()) {
       GoogleTaskList list = gtasksListService.getList(id);
       if (list != null) {
-        return filterFromList(list);
+        return new GtasksFilter(list);
       }
     }
     return null;
-  }
-
-  private Filter filterFromList(GoogleTaskList list) {
-    return new GtasksFilter(list);
   }
 }

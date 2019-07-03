@@ -8,6 +8,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 import io.reactivex.Single;
 import java.util.List;
+import org.tasks.filters.CaldavFilters;
 
 @Dao
 public interface CaldavDao {
@@ -66,9 +67,6 @@ public interface CaldavDao {
   @Query("SELECT * FROM caldav_lists ORDER BY cdl_name COLLATE NOCASE")
   List<CaldavCalendar> getCalendars();
 
-  @Query("SELECT * FROM caldav_lists WHERE cdl_account = :account ORDER BY cdl_name COLLATE NOCASE")
-  List<CaldavCalendar> getCalendarsByAccount(String account);
-
   @Query("SELECT * FROM caldav_lists WHERE cdl_uuid = :uuid LIMIT 1")
   CaldavCalendar getCalendar(String uuid);
 
@@ -93,4 +91,14 @@ public interface CaldavDao {
 
   @Query("SELECT DISTINCT cd_calendar FROM caldav_tasks WHERE cd_deleted = 0 AND cd_task IN (:tasks)")
   List<String> getCalendars(List<Long> tasks);
+
+  @Query(
+      "SELECT caldav_lists.*, caldav_accounts.*, COUNT(tasks._id) AS count"
+          + " FROM caldav_lists"
+          + " LEFT JOIN caldav_accounts ON caldav_lists.cdl_account = caldav_accounts.cda_uuid"
+          + " LEFT JOIN caldav_tasks ON caldav_tasks.cd_calendar = caldav_lists.cdl_uuid"
+          + " LEFT JOIN tasks ON caldav_tasks.cd_task = tasks._id AND tasks.deleted = 0 AND tasks.completed = 0 AND tasks.hideUntil = 0"
+          + " GROUP BY caldav_lists.cdl_uuid"
+          + " ORDER BY caldav_accounts.cda_name COLLATE NOCASE, caldav_lists.cdl_name COLLATE NOCASE")
+  List<CaldavFilters> getCaldavFilters();
 }

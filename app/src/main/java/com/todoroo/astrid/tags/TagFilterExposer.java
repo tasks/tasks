@@ -6,13 +6,16 @@
 
 package com.todoroo.astrid.tags;
 
+import static com.google.common.collect.Lists.transform;
+
 import com.google.common.base.Strings;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.TagFilter;
-import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.data.TagData;
+import org.tasks.data.TagDataDao;
+import org.tasks.filters.TagFilters;
 
 /**
  * Exposes filters based on tags
@@ -22,9 +25,11 @@ import org.tasks.data.TagData;
 public class TagFilterExposer {
 
   private final TagService tagService;
+  private final TagDataDao tagDataDao;
 
   @Inject
-  public TagFilterExposer(TagService tagService) {
+  public TagFilterExposer(TagDataDao tagDataDao, TagService tagService) {
+    this.tagDataDao = tagDataDao;
     this.tagService = tagService;
   }
 
@@ -37,21 +42,10 @@ public class TagFilterExposer {
   }
 
   public List<Filter> getFilters() {
-    return filterFromTags(tagService.getTagList());
+    return transform(tagDataDao.getTagFilters(), TagFilters::toTagFilter);
   }
 
   public Filter getFilterByUuid(String uuid) {
     return filterFromTag(tagService.tagFromUUID(uuid));
-  }
-
-  private List<Filter> filterFromTags(List<TagData> tags) {
-    List<Filter> filters = new ArrayList<>();
-    for (TagData tag : tags) {
-      Filter f = filterFromTag(tag);
-      if (f != null) {
-        filters.add(f);
-      }
-    }
-    return filters;
   }
 }

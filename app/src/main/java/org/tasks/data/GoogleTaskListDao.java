@@ -8,6 +8,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 import io.reactivex.Single;
 import java.util.List;
+import org.tasks.filters.GoogleTaskFilters;
 
 @Dao
 public abstract class GoogleTaskListDao {
@@ -54,4 +55,14 @@ public abstract class GoogleTaskListDao {
 
   @Update
   public abstract void update(GoogleTaskAccount account);
+
+  @Query(
+      "SELECT google_task_lists.*, google_task_accounts.*, COUNT(tasks._id) AS count"
+          + " FROM google_task_lists"
+          + " LEFT JOIN google_task_accounts ON google_task_lists.gtl_account = google_task_accounts.gta_account"
+          + " LEFT JOIN google_tasks ON google_tasks.gt_list_id = google_task_lists.gtl_remote_id"
+          + " LEFT JOIN tasks ON google_tasks.gt_task = tasks._id AND tasks.deleted = 0 AND tasks.completed = 0 AND tasks.hideUntil = 0"
+          + " GROUP BY google_task_lists.gtl_remote_id"
+          + " ORDER BY google_task_lists.gtl_account COLLATE NOCASE, google_task_lists.gtl_title COLLATE NOCASE")
+  public abstract List<GoogleTaskFilters> getGoogleTaskFilters();
 }

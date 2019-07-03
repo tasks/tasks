@@ -1,16 +1,16 @@
 package org.tasks.caldav;
 
-import static com.google.common.collect.Lists.transform;
-
-import androidx.core.util.Pair;
 import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import javax.inject.Inject;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
+import org.tasks.filters.CaldavFilters;
 import org.tasks.sync.SyncAdapters;
 
 public class CaldavFilterExposer {
@@ -24,11 +24,14 @@ public class CaldavFilterExposer {
     this.syncAdapters = syncAdapters;
   }
 
-  public List<Pair<CaldavAccount, List<Filter>>> getFilters() {
-    List<Pair<CaldavAccount, List<Filter>>> filters = new ArrayList<>();
-    for (CaldavAccount account : caldavDao.getAccounts()) {
-      List<CaldavCalendar> calendars = caldavDao.getCalendarsByAccount(account.getUuid());
-      filters.add(new Pair<>(account, transform(calendars, CaldavFilter::new)));
+  public Map<CaldavAccount, List<Filter>> getFilters() {
+    List<CaldavFilters> caldavFilters = caldavDao.getCaldavFilters();
+    LinkedHashMap<CaldavAccount, List<Filter>> filters = new LinkedHashMap<>();
+    for (CaldavFilters filter : caldavFilters) {
+      if (!filters.containsKey(filter.caldavAccount)) {
+        filters.put(filter.caldavAccount, new ArrayList<>());
+      }
+      filters.get(filter.caldavAccount).add(new CaldavFilter(filter.caldavCalendar));
     }
     return filters;
   }

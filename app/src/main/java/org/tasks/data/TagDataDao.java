@@ -8,6 +8,7 @@ import androidx.room.Update;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.UUIDHelper;
 import java.util.List;
+import org.tasks.filters.TagFilters;
 
 @Dao
 public abstract class TagDataDao {
@@ -45,4 +46,14 @@ public abstract class TagDataDao {
     }
     tag.setId(insert(tag));
   }
+
+  @Query(
+      "SELECT tagdata.*, COUNT(tasks._id) AS count"
+          + " FROM tagdata"
+          + " LEFT JOIN tags ON tags.tag_uid = tagdata.remoteId"
+          + " LEFT JOIN tasks ON tags.task = tasks._id AND tasks.deleted = 0 AND tasks.completed = 0 AND tasks.hideUntil = 0"
+          + " WHERE tagdata.name IS NOT NULL AND tagdata.name != ''"
+          + " GROUP BY tagdata.remoteId"
+          + " ORDER BY tagdata.name COLLATE NOCASE")
+  public abstract List<TagFilters> getTagFilters();
 }

@@ -11,7 +11,6 @@ import static org.tasks.caldav.CaldavCalendarSettingsActivity.EXTRA_CALDAV_ACCOU
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import androidx.core.util.Pair;
 import com.google.common.collect.ImmutableList;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
@@ -23,6 +22,9 @@ import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.timers.TimerFilterExposer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import javax.inject.Inject;
 import org.tasks.BuildConfig;
 import org.tasks.R;
@@ -78,17 +80,18 @@ public class FilterProvider {
     item.icon = R.drawable.ic_outline_cloud_off_24px;
     items.add(item);
 
-    for (Pair<GoogleTaskAccount, List<Filter>> filters : getGoogleTaskFilters()) {
-      GoogleTaskAccount account = filters.first;
+    for (Map.Entry<GoogleTaskAccount, List<Filter>> filters : getGoogleTaskFilters()) {
+      GoogleTaskAccount account = filters.getKey();
       items.addAll(
           getSubmenu(
-              account.getAccount(), !isNullOrEmpty(account.getError()), filters.second, true));
+              account.getAccount(), !isNullOrEmpty(account.getError()), filters.getValue(), true));
     }
 
-    for (Pair<CaldavAccount, List<Filter>> filters : getCaldavFilters()) {
-      CaldavAccount account = filters.first;
+    for (Map.Entry<CaldavAccount, List<Filter>> filters : getCaldavFilters()) {
+      CaldavAccount account = filters.getKey();
       items.addAll(
-          getSubmenu(account.getName(), !isNullOrEmpty(account.getError()), filters.second, true));
+          getSubmenu(
+              account.getName(), !isNullOrEmpty(account.getError()), filters.getValue(), true));
     }
 
     return items;
@@ -123,13 +126,13 @@ public class FilterProvider {
               NavigationDrawerFragment.REQUEST_NEW_LIST));
     }
 
-    for (Pair<GoogleTaskAccount, List<Filter>> filters : getGoogleTaskFilters()) {
-      GoogleTaskAccount account = filters.first;
+    for (Map.Entry<GoogleTaskAccount, List<Filter>> filters : getGoogleTaskFilters()) {
+      GoogleTaskAccount account = filters.getKey();
       items.addAll(
           getSubmenu(
               account.getAccount(),
               !isNullOrEmpty(account.getError()),
-              filters.second,
+              filters.getValue(),
               !navigationDrawer));
 
       if (navigationDrawer) {
@@ -143,13 +146,13 @@ public class FilterProvider {
       }
     }
 
-    for (Pair<CaldavAccount, List<Filter>> filters : getCaldavFilters()) {
-      CaldavAccount account = filters.first;
+    for (Map.Entry<CaldavAccount, List<Filter>> filters : getCaldavFilters()) {
+      CaldavAccount account = filters.getKey();
       items.addAll(
           getSubmenu(
               account.getName(),
               !isNullOrEmpty(account.getError()),
-              filters.second,
+              filters.getValue(),
               !navigationDrawer));
 
       if (navigationDrawer) {
@@ -202,12 +205,12 @@ public class FilterProvider {
     return filters;
   }
 
-  private List<Pair<GoogleTaskAccount, List<Filter>>> getGoogleTaskFilters() {
-    return gtasksFilterExposer.getFilters();
+  private Set<Entry<GoogleTaskAccount, List<Filter>>> getGoogleTaskFilters() {
+    return gtasksFilterExposer.getFilters().entrySet();
   }
 
-  private List<Pair<CaldavAccount, List<Filter>>> getCaldavFilters() {
-    return caldavFilterExposer.getFilters();
+  private Set<Entry<CaldavAccount, List<Filter>>> getCaldavFilters() {
+    return caldavFilterExposer.getFilters().entrySet();
   }
 
   private List<FilterListItem> getSubmenu(int title, List<Filter> filters) {
