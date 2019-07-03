@@ -151,16 +151,18 @@
     <item name="android:layout_width">wrap_content</item>
     <item name="android:maxLines">1</item>
     <item name="android:ellipsize">end</item>
-    <item name="closeIconSize">@dimen/chip_icon_size</item>
     <item name="chipIconSize">@dimen/chip_icon_size</item>
-    <item name="closeIcon">@drawable/ic_outline_clear_24px</item>
-    <item name="closeIconStartPadding">0dp</item>
-    <item name="closeIconEndPadding">@dimen/chip_text_padding</item>
     <item name="android:textAppearance">@style/TextAppearance.AppCompat.Small</item>
     <item name="chipMinHeight">@dimen/chip_min_height</item>
     <item name="closeIconVisible">false</item>
     <item name="textStartPadding">@dimen/chip_text_padding</item>
     <item name="textEndPadding">@dimen/chip_text_padding</item>
+  </style>
+
+  <style name="ChipStyle.Closable">
+    <item name="closeIconEndPadding">0dp</item>
+    <item name="closeIconVisible">true</item>
+    <item name="closeIconStartPadding">0dp</item>
   </style>
 
 </resources>

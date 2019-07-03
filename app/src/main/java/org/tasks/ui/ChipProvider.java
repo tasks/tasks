@@ -8,6 +8,7 @@ import static org.tasks.preferences.ResourceResolver.getDimen;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import androidx.annotation.LayoutRes;
 import com.google.android.material.chip.Chip;
 import com.google.common.base.Predicates;
 import com.google.common.base.Strings;
@@ -126,13 +127,19 @@ public class ChipProvider {
   }
 
   private Chip newTagChip(Activity activity, Filter filter) {
-    Chip chip = newChip(activity, filter);
+    Chip chip = newChip(activity, R.layout.chip_tag, filter);
     apply(chip, filter.listingTitle, filter.tint);
     return chip;
   }
 
-  public Chip newChip(Activity activity, Object tag) {
-    Chip chip = (Chip) activity.getLayoutInflater().inflate(R.layout.chip_tag, null);
+  public Chip newClosableChip(Activity activity, Object tag) {
+    Chip chip = (Chip) activity.getLayoutInflater().inflate(R.layout.chip_closable, null);
+    chip.setTag(tag);
+    return chip;
+  }
+
+  private Chip newChip(Activity activity, @LayoutRes int layout, Object tag) {
+    Chip chip = (Chip) activity.getLayoutInflater().inflate(layout, null);
     chip.setTag(tag);
     return chip;
   }
