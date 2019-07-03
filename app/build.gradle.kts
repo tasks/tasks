@@ -136,8 +136,8 @@ dependencies {
     annotationProcessor("com.jakewharton:butterknife-compiler:${Versions.butterknife}")
     implementation("com.jakewharton:butterknife:${Versions.butterknife}")
 
-    debugImplementation("com.facebook.flipper:flipper:0.22.0")
-    debugImplementation("com.facebook.soloader:soloader:0.6.0")
+    debugImplementation("com.facebook.flipper:flipper:0.23.0")
+    debugImplementation("com.facebook.soloader:soloader:0.6.1")
 
     debugImplementation("com.squareup.leakcanary:leakcanary-android:${Versions.leakcanary}")
     debugImplementation("com.squareup.leakcanary:leakcanary-support-fragment:${Versions.leakcanary}")
@@ -146,7 +146,6 @@ dependencies {
     implementation("io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:2.0.0")
     implementation("androidx.multidex:multidex:2.0.1")
     implementation("me.saket:better-link-movement-method:2.2.0")
-    //noinspection GradleDependency
     implementation("com.squareup.okhttp3:okhttp:3.12.2") // 3.13 minSdk is 21
     implementation("com.google.code.gson:gson:2.8.5")
     implementation("com.github.rey5137:material:1.2.5")
@@ -156,8 +155,7 @@ dependencies {
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta1")
     implementation("com.jakewharton.timber:timber:4.7.1")
-    implementation("com.jakewharton.threetenabp:threetenabp:1.2.0")
-    //noinspection GradleDependency
+    implementation("com.jakewharton.threetenabp:threetenabp:1.2.1")
     implementation("com.google.guava:guava:27.1-android")
     implementation("com.jakewharton:process-phoenix:2.0.0")
     implementation("com.google.android.apps.dashclock:dashclock-api:2.0.0")
@@ -172,15 +170,15 @@ dependencies {
     implementation("me.leolin:ShortcutBadger:1.1.22@aar")
     implementation("com.google.apis:google-api-services-tasks:v1-rev59-1.25.0")
     implementation("com.google.apis:google-api-services-drive:v3-rev165-1.25.0")
-    implementation("com.google.api-client:google-api-client-android:1.29.2")
+    implementation("com.google.api-client:google-api-client-android:1.29.3")
     implementation("androidx.work:work-runtime:${Versions.work}")
     implementation("com.mapbox.mapboxsdk:mapbox-android-sdk:7.3.0")
     implementation("com.mapbox.mapboxsdk:mapbox-sdk-services:4.6.0")
 
     googleplayImplementation("com.crashlytics.sdk.android:crashlytics:${Versions.crashlytics}")
     googleplayImplementation("com.google.firebase:firebase-core:${Versions.firebase}")
-    googleplayImplementation("com.google.android.gms:play-services-location:16.0.0")
-    googleplayImplementation("com.google.android.gms:play-services-maps:16.1.0")
+    googleplayImplementation("com.google.android.gms:play-services-location:17.0.0")
+    googleplayImplementation("com.google.android.gms:play-services-maps:17.0.0")
     googleplayImplementation("com.google.android.libraries.places:places:1.1.0")
     googleplayImplementation("com.android.billingclient:billing:1.2.2")
 
