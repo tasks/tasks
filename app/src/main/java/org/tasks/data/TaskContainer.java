@@ -6,9 +6,9 @@ import com.todoroo.astrid.data.Task;
 public class TaskContainer {
   @Embedded public Task task;
   @Embedded public GoogleTask googletask;
+  @Embedded public CaldavTask caldavTask;
   @Embedded public Location location;
   public String tags;
-  public String caldav;
   public int children;
   public int siblings;
   public long primarySort;
@@ -25,7 +25,7 @@ public class TaskContainer {
   }
 
   public String getCaldav() {
-    return caldav;
+    return caldavTask == null ? null : caldavTask.getCalendar();
   }
 
   public String getNotes() {
@@ -131,22 +131,22 @@ public class TaskContainer {
     if (googletask != null ? !googletask.equals(that.googletask) : that.googletask != null) {
       return false;
     }
+    if (caldavTask != null ? !caldavTask.equals(that.caldavTask) : that.caldavTask != null) {
+      return false;
+    }
     if (location != null ? !location.equals(that.location) : that.location != null) {
       return false;
     }
-    if (tags != null ? !tags.equals(that.tags) : that.tags != null) {
-      return false;
-    }
-    return caldav != null ? caldav.equals(that.caldav) : that.caldav == null;
+    return tags != null ? tags.equals(that.tags) : that.tags == null;
   }
 
   @Override
   public int hashCode() {
     int result = task != null ? task.hashCode() : 0;
     result = 31 * result + (googletask != null ? googletask.hashCode() : 0);
+    result = 31 * result + (caldavTask != null ? caldavTask.hashCode() : 0);
     result = 31 * result + (location != null ? location.hashCode() : 0);
     result = 31 * result + (tags != null ? tags.hashCode() : 0);
-    result = 31 * result + (caldav != null ? caldav.hashCode() : 0);
     result = 31 * result + children;
     result = 31 * result + siblings;
     result = 31 * result + (int) (primarySort ^ (primarySort >>> 32));
@@ -163,13 +163,12 @@ public class TaskContainer {
         + task
         + ", googletask="
         + googletask
+        + ", caldavTask="
+        + caldavTask
         + ", location="
         + location
         + ", tags='"
         + tags
-        + '\''
-        + ", caldav='"
-        + caldav
         + '\''
         + ", children="
         + children

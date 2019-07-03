@@ -56,8 +56,7 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
   private static final Field GTASK = field(GTASK_METADATA_JOIN + ".*");
   private static final Field GEOFENCE = field("geofences.*");
   private static final Field PLACE = field("places.*");
-  private static final StringProperty CALDAV =
-      new StringProperty(null, CALDAV_METADATA_JOIN + ".cd_calendar").as("caldav");
+  private static final Field CALDAV = field(CALDAV_METADATA_JOIN + ".*");
   private static final Field CHILDREN = field("children");
   private static final Field SIBLINGS = field("siblings");
   private static final Field PRIMARY_SORT = field("primary_sort").as("primarySort");

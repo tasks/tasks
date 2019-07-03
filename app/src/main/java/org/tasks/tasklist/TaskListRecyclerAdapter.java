@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.ListUpdateCallback;
 import androidx.recyclerview.widget.RecyclerView;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
+import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.utility.Flags;
@@ -27,7 +28,7 @@ public abstract class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewH
   private final RecyclerView recyclerView;
   private final ViewHolderFactory viewHolderFactory;
   private final ActionModeProvider actionModeProvider;
-  private final boolean isGoogleTaskList;
+  private final boolean isRemoteList;
   private ActionMode mode = null;
 
   TaskListRecyclerAdapter(
@@ -41,7 +42,7 @@ public abstract class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewH
     this.viewHolderFactory = viewHolderFactory;
     this.taskList = taskList;
     this.actionModeProvider = actionModeProvider;
-    isGoogleTaskList = taskList.getFilter() instanceof GtasksFilter;
+    isRemoteList = taskList.getFilter() instanceof GtasksFilter || taskList.getFilter() instanceof CaldavFilter;
   }
 
   @NonNull
@@ -54,7 +55,7 @@ public abstract class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewH
   public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
     TaskContainer task = getItem(position);
     if (task != null) {
-      holder.bindView(task, isGoogleTaskList);
+      holder.bindView(task, isRemoteList);
       holder.setMoving(false);
       int indent = adapter.getIndent(task);
       task.setIndent(indent);

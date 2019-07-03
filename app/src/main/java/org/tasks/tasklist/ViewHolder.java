@@ -85,7 +85,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
   private int indent;
   private boolean selected;
   private boolean moving;
-  private boolean isGoogleTaskList;
+  private boolean isRemoteList;
   private int minIndent;
   private int maxIndent;
 
@@ -203,9 +203,9 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     return Math.round(indent * getShiftSize());
   }
 
-  void bindView(TaskContainer task, boolean isGoogleTaskList) {
+  void bindView(TaskContainer task, boolean isRemoteList) {
     this.task = task;
-    this.isGoogleTaskList = isGoogleTaskList;
+    this.isRemoteList = isRemoteList;
 
     nameView.setText(task.getTitle());
     hidden.setVisibility(task.isHidden() ? View.VISIBLE : View.GONE);
@@ -282,8 +282,8 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     List<Chip> chips =
         chipProvider.getChips(
             context,
-            task.getCaldav(),
-            isGoogleTaskList ? null : task.getGoogleTaskList(),
+            isRemoteList ? null : task.getCaldav(),
+            isRemoteList ? null : task.getGoogleTaskList(),
             tagUuids);
     if (chips.isEmpty()) {
       chipGroup.setVisibility(View.GONE);
