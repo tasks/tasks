@@ -9,7 +9,7 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "caldav_calendar")
+@Entity(tableName = "caldav_lists")
 public final class CaldavCalendar implements Parcelable {
 
   public static Parcelable.Creator<CaldavCalendar> CREATOR =
@@ -26,25 +26,25 @@ public final class CaldavCalendar implements Parcelable {
       };
 
   @PrimaryKey(autoGenerate = true)
-  @ColumnInfo(name = "_id")
+  @ColumnInfo(name = "cdl_id")
   private long id;
 
-  @ColumnInfo(name = "account")
+  @ColumnInfo(name = "cdl_account")
   private String account = NO_UUID;
 
-  @ColumnInfo(name = "uuid")
+  @ColumnInfo(name = "cdl_uuid")
   private String uuid = NO_UUID;
 
-  @ColumnInfo(name = "name")
+  @ColumnInfo(name = "cdl_name")
   private String name = "";
 
-  @ColumnInfo(name = "color")
+  @ColumnInfo(name = "cdl_color")
   private int color = -1;
 
-  @ColumnInfo(name = "ctag")
+  @ColumnInfo(name = "cdl_ctag")
   private String ctag;
 
-  @ColumnInfo(name = "url")
+  @ColumnInfo(name = "cdl_url")
   private String url = "";
 
   public CaldavCalendar() {}

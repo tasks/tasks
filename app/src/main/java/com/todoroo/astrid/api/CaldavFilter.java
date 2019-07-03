@@ -50,12 +50,12 @@ public class CaldavFilter extends Filter {
 
   private static QueryTemplate queryTemplate(CaldavCalendar caldavCalendar) {
     return new QueryTemplate()
-        .join(Join.left(CaldavTask.TABLE, Task.ID.eq(Field.field("caldav_tasks.task"))))
+        .join(Join.left(CaldavTask.TABLE, Task.ID.eq(Field.field("caldav_tasks.cd_task"))))
         .where(
             Criterion.and(
                 TaskDao.TaskCriteria.activeAndVisible(),
-                Field.field("caldav_tasks.deleted").eq(0),
-                Field.field("caldav_tasks.calendar").eq(caldavCalendar.getUuid())));
+                Field.field("caldav_tasks.cd_deleted").eq(0),
+                Field.field("caldav_tasks.cd_calendar").eq(caldavCalendar.getUuid())));
   }
 
   private static Map<String, Object> getValuesForNewTask(CaldavCalendar caldavCalendar) {

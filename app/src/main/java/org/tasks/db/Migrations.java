@@ -257,6 +257,50 @@ public class Migrations {
         }
       };
 
+  private static final Migration MIGRATION_63_64 =
+      new Migration(63, 64) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+          database.execSQL("ALTER TABLE `caldav_tasks` RENAME TO `caldav-temp`");
+          database.execSQL(
+              "CREATE TABLE IF NOT EXISTS `caldav_tasks` (`cd_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cd_task` INTEGER NOT NULL, `cd_calendar` TEXT, `cd_object` TEXT, `cd_remote_id` TEXT, `cd_etag` TEXT, `cd_last_sync` INTEGER NOT NULL, `cd_deleted` INTEGER NOT NULL, `cd_vtodo` TEXT)");
+          database.execSQL(
+              "INSERT INTO `caldav_tasks` (`cd_id`, `cd_task`, `cd_calendar`, `cd_object`, `cd_remote_id`, `cd_etag`, `cd_last_sync`, `cd_deleted`, `cd_vtodo`)"
+                  + "SELECT `_id`, `task`, `calendar`, `object`, `remote_id`, `etag`, `last_sync`, `deleted`, `vtodo` FROM `caldav-temp`");
+          database.execSQL("DROP TABLE `caldav-temp`");
+
+          database.execSQL(
+              "CREATE TABLE IF NOT EXISTS `caldav_accounts` (`cda_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cda_uuid` TEXT, `cda_name` TEXT, `cda_url` TEXT, `cda_username` TEXT, `cda_password` TEXT, `cda_error` TEXT)");
+          database.execSQL(
+              "INSERT INTO `caldav_accounts` (`cda_id`, `cda_uuid`, `cda_name`, `cda_url`, `cda_username`, `cda_password`, `cda_error`) "
+                  + "SELECT `_id`, `uuid`, `name`, `url`, `username`, `password`, `error` FROM `caldav_account`");
+          database.execSQL("DROP TABLE `caldav_account`");
+
+          database.execSQL(
+              "CREATE TABLE IF NOT EXISTS `caldav_lists` (`cdl_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cdl_account` TEXT, `cdl_uuid` TEXT, `cdl_name` TEXT, `cdl_color` INTEGER NOT NULL, `cdl_ctag` TEXT, `cdl_url` TEXT)");
+          database.execSQL(
+              "INSERT INTO `caldav_lists` (`cdl_id`, `cdl_account`, `cdl_uuid`, `cdl_name`, `cdl_color`, `cdl_ctag`, `cdl_url`) "
+                  + "SELECT `_id`, `account`, `uuid`, `name`, `color`, `ctag`, `url` FROM caldav_calendar");
+          database.execSQL("DROP TABLE `caldav_calendar`");
+
+          database.execSQL("ALTER TABLE `google_task_accounts` RENAME TO `gta-temp`");
+          database.execSQL(
+              "CREATE TABLE IF NOT EXISTS `google_task_accounts` (`gta_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `gta_account` TEXT, `gta_error` TEXT, `gta_etag` TEXT)");
+          database.execSQL(
+              "INSERT INTO `google_task_accounts` (`gta_id`, `gta_account`, `gta_error`, `gta_etag`) "
+                  + "SELECT `_id`, `account`, `error`, `etag` FROM `gta-temp`");
+          database.execSQL("DROP TABLE `gta-temp`");
+
+          database.execSQL("ALTER TABLE `google_task_lists` RENAME TO `gtl-temp`");
+          database.execSQL(
+              "CREATE TABLE IF NOT EXISTS `google_task_lists` (`gtl_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `gtl_account` TEXT, `gtl_remote_id` TEXT, `gtl_title` TEXT, `gtl_remote_order` INTEGER NOT NULL, `gtl_last_sync` INTEGER NOT NULL, `gtl_color` INTEGER)");
+          database.execSQL(
+              "INSERT INTO `google_task_lists` (`gtl_id`, `gtl_account`, `gtl_remote_id`, `gtl_title`, `gtl_remote_order`, `gtl_last_sync`, `gtl_color`) "
+                  + "SELECT `_id`, `account`, `remote_id`, `title`, `remote_order`, `last_sync`, `color` FROM `gtl-temp`");
+          database.execSQL("DROP TABLE `gtl-temp`");
+        }
+      };
+
   public static final Migration[] MIGRATIONS =
       new Migration[] {
         MIGRATION_35_36,
@@ -277,7 +321,8 @@ public class Migrations {
         MIGRATION_59_60,
         MIGRATION_60_61,
         MIGRATION_61_62,
-        MIGRATION_62_63
+        MIGRATION_62_63,
+        MIGRATION_63_64
       };
 
   private static Migration NOOP(int from, int to) {

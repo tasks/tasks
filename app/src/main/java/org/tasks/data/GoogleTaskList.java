@@ -24,29 +24,25 @@ public class GoogleTaskList implements Parcelable {
       };
 
   @PrimaryKey(autoGenerate = true)
-  @ColumnInfo(name = "_id")
+  @ColumnInfo(name = "gtl_id")
   private transient long id;
 
-  @ColumnInfo(name = "account")
+  @ColumnInfo(name = "gtl_account")
   private String account;
 
-  @ColumnInfo(name = "remote_id")
+  @ColumnInfo(name = "gtl_remote_id")
   private String remoteId;
 
-  @ColumnInfo(name = "title")
+  @ColumnInfo(name = "gtl_title")
   private String title;
 
-  @ColumnInfo(name = "remote_order")
+  @ColumnInfo(name = "gtl_remote_order")
   private int remoteOrder;
 
-  @ColumnInfo(name = "last_sync")
+  @ColumnInfo(name = "gtl_last_sync")
   private long lastSync;
 
-  @ColumnInfo(name = "deleted")
-  @Deprecated
-  private long deleted = 0;
-
-  @ColumnInfo(name = "color")
+  @ColumnInfo(name = "gtl_color")
   private Integer color;
 
   public GoogleTaskList() {}
@@ -59,7 +55,6 @@ public class GoogleTaskList implements Parcelable {
     title = parcel.readString();
     remoteOrder = parcel.readInt();
     lastSync = parcel.readLong();
-    deleted = parcel.readLong();
     color = parcel.readInt();
   }
 
@@ -111,14 +106,6 @@ public class GoogleTaskList implements Parcelable {
     this.lastSync = lastSync;
   }
 
-  public long getDeleted() {
-    return deleted;
-  }
-
-  public void setDeleted(long deleted) {
-    this.deleted = deleted;
-  }
-
   public Integer getColor() {
     return color == null ? -1 : color;
   }
@@ -147,9 +134,6 @@ public class GoogleTaskList implements Parcelable {
     if (lastSync != that.lastSync) {
       return false;
     }
-    if (deleted != that.deleted) {
-      return false;
-    }
     if (account != null ? !account.equals(that.account) : that.account != null) {
       return false;
     }
@@ -170,7 +154,6 @@ public class GoogleTaskList implements Parcelable {
     result = 31 * result + (title != null ? title.hashCode() : 0);
     result = 31 * result + remoteOrder;
     result = 31 * result + (int) (lastSync ^ (lastSync >>> 32));
-    result = 31 * result + (int) (deleted ^ (deleted >>> 32));
     result = 31 * result + (color != null ? color.hashCode() : 0);
     return result;
   }
@@ -193,8 +176,6 @@ public class GoogleTaskList implements Parcelable {
         + remoteOrder
         + ", lastSync="
         + lastSync
-        + ", deleted="
-        + deleted
         + ", color="
         + color
         + '}';
@@ -213,7 +194,6 @@ public class GoogleTaskList implements Parcelable {
     parcel.writeString(title);
     parcel.writeInt(remoteOrder);
     parcel.writeLong(lastSync);
-    parcel.writeLong(deleted);
     parcel.writeInt(getColor());
   }
 }

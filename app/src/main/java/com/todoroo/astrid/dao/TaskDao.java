@@ -98,16 +98,16 @@ public abstract class TaskDao {
   @Query(
       "SELECT tasks.* FROM tasks "
           + "LEFT JOIN google_tasks ON tasks._id = google_tasks.gt_task "
-          + "WHERE gt_list_id IN (SELECT remote_id FROM google_task_lists WHERE account = :account)"
+          + "WHERE gt_list_id IN (SELECT gtl_remote_id FROM google_task_lists WHERE gtl_account = :account)"
           + "AND (tasks.modified > google_tasks.gt_last_sync OR google_tasks.gt_remote_id = '') "
           + "ORDER BY CASE WHEN gt_parent = 0 THEN 0 ELSE 1 END, gt_order ASC")
   public abstract List<Task> getGoogleTasksToPush(String account);
 
   @Query(
       "SELECT tasks.* FROM tasks "
-          + "LEFT JOIN caldav_tasks ON tasks._id = caldav_tasks.task "
-          + "WHERE caldav_tasks.calendar = :calendar "
-          + "AND tasks.modified > caldav_tasks.last_sync")
+          + "LEFT JOIN caldav_tasks ON tasks._id = caldav_tasks.cd_task "
+          + "WHERE caldav_tasks.cd_calendar = :calendar "
+          + "AND tasks.modified > caldav_tasks.cd_last_sync")
   public abstract List<Task> getCaldavTasksToPush(String calendar);
 
   @Query(

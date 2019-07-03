@@ -18,29 +18,29 @@ public abstract class GoogleTaskListDao {
   @Query("SELECT * FROM google_task_accounts")
   public abstract List<GoogleTaskAccount> getAccounts();
 
-  @Query("SELECT * FROM google_task_accounts WHERE account = :account COLLATE NOCASE LIMIT 1")
+  @Query("SELECT * FROM google_task_accounts WHERE gta_account = :account COLLATE NOCASE LIMIT 1")
   public abstract GoogleTaskAccount getAccount(String account);
 
-  @Query("SELECT * FROM google_task_lists WHERE _id = :id")
+  @Query("SELECT * FROM google_task_lists WHERE gtl_id = :id")
   public abstract GoogleTaskList getById(long id);
 
-  @Query("SELECT * FROM google_task_lists WHERE account = :account ORDER BY title ASC")
+  @Query("SELECT * FROM google_task_lists WHERE gtl_account = :account ORDER BY gtl_title ASC")
   public abstract List<GoogleTaskList> getLists(String account);
 
-  @Query("SELECT * FROM google_task_lists WHERE remote_id = :remoteId LIMIT 1")
+  @Query("SELECT * FROM google_task_lists WHERE gtl_remote_id = :remoteId LIMIT 1")
   public abstract GoogleTaskList getByRemoteId(String remoteId);
 
   @Query("SELECT * FROM google_task_lists")
   public abstract LiveData<List<GoogleTaskList>> subscribeToLists();
 
   @Query(
-      "SELECT * FROM google_task_lists WHERE remote_id = :remoteId AND IFNULL(account, '') = '' LIMIT 1")
+      "SELECT * FROM google_task_lists WHERE gtl_remote_id = :remoteId AND IFNULL(gtl_account, '') = '' LIMIT 1")
   public abstract GoogleTaskList findExistingList(String remoteId);
 
   @Query("SELECT * FROM google_task_lists")
   public abstract List<GoogleTaskList> getAllLists();
 
-  @Query("UPDATE google_task_lists SET last_sync = 0 WHERE account = :account")
+  @Query("UPDATE google_task_lists SET gtl_last_sync = 0 WHERE gtl_account = :account")
   public abstract void resetLastSync(String account);
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)

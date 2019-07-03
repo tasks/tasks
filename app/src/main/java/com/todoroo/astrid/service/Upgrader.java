@@ -41,6 +41,7 @@ public class Upgrader {
   private static final int V6_0_beta_2 = 523;
   private static final int V6_4 = 546;
   private static final int V6_7 = 585;
+  private static final int V6_8 = 592;
   private final Preferences preferences;
   private final Tracker tracker;
   private final TagDataDao tagDataDao;
@@ -85,6 +86,7 @@ public class Upgrader {
       run(from, V6_0_beta_2, this::migrateGoogleTaskAccount);
       run(from, V6_4, this::migrateUris);
       run(from, V6_7, this::migrateGoogleTaskFilters);
+      run(from, V6_8, this::migrateCaldavFilters);
       tracker.reportEvent(Tracking.Events.UPGRADE, Integer.toString(from));
     }
     preferences.setCurrentVersion(to);
@@ -127,6 +129,14 @@ public class Upgrader {
     for (Filter filter : filterDao.getAll()) {
       filter.setSql(migrateGoogleTaskFilters(filter.getSql()));
       filter.setCriterion(migrateGoogleTaskFilters(filter.getCriterion()));
+      filterDao.update(filter);
+    }
+  }
+
+  private void migrateCaldavFilters() {
+    for (Filter filter : filterDao.getAll()) {
+      filter.setSql(migrateCaldavFilters(filter.getSql()));
+      filter.setCriterion(migrateCaldavFilters(filter.getCriterion()));
       filterDao.update(filter);
     }
   }
@@ -205,6 +215,12 @@ public class Upgrader {
         .replace("(list_id", "(gt_list_id")
         .replace("google_tasks.list_id", "google_tasks.gt_list_id")
         .replace("google_tasks.task", "google_tasks.gt_task");
+  }
+
+  private String migrateCaldavFilters(String input) {
+    return input
+        .replace("SELECT task FROM caldav_tasks", "SELECT cd_task as task FROM caldav_tasks")
+        .replace("(calendar", "(cd_calendar");
   }
 
   private String migrateMetadata(String input) {

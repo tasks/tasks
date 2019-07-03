@@ -23,16 +23,16 @@ public class GoogleTaskAccount implements Parcelable {
       };
 
   @PrimaryKey(autoGenerate = true)
-  @ColumnInfo(name = "_id")
+  @ColumnInfo(name = "gta_id")
   private transient long id;
 
-  @ColumnInfo(name = "account")
+  @ColumnInfo(name = "gta_account")
   private String account;
 
-  @ColumnInfo(name = "error")
+  @ColumnInfo(name = "gta_error")
   private transient String error = "";
 
-  @ColumnInfo(name = "etag")
+  @ColumnInfo(name = "gta_etag")
   private String etag;
 
   public GoogleTaskAccount() {}

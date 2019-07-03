@@ -57,7 +57,7 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
   private static final Field GEOFENCE = field("geofences.*");
   private static final Field PLACE = field("places.*");
   private static final StringProperty CALDAV =
-      new StringProperty(null, CALDAV_METADATA_JOIN + ".calendar").as("caldav");
+      new StringProperty(null, CALDAV_METADATA_JOIN + ".cd_calendar").as("caldav");
   private static final Field CHILDREN = field("children");
   private static final Field SIBLINGS = field("siblings");
   private static final Field PRIMARY_SORT = field("primary_sort").as("primarySort");
@@ -99,8 +99,8 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
             field(GTASK_METADATA_JOIN + ".gt_deleted").eq(0));
     Criterion caldavJoinCriterion =
         Criterion.and(
-            Task.ID.eq(field(CALDAV_METADATA_JOIN + ".task")),
-            field(CALDAV_METADATA_JOIN + ".deleted").eq(0));
+            Task.ID.eq(field(CALDAV_METADATA_JOIN + ".cd_task")),
+            field(CALDAV_METADATA_JOIN + ".cd_deleted").eq(0));
     if (filter instanceof TagFilter) {
       String uuid = ((TagFilter) filter).getUuid();
       tagsJoinCriterion =
@@ -115,7 +115,7 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
     } else if (filter instanceof CaldavFilter) {
       String uuid = ((CaldavFilter) filter).getUuid();
       caldavJoinCriterion =
-          Criterion.and(caldavJoinCriterion, field(CALDAV_METADATA_JOIN + ".calendar").neq(uuid));
+          Criterion.and(caldavJoinCriterion, field(CALDAV_METADATA_JOIN + ".cd_calendar").neq(uuid));
     }
 
     // TODO: For now, we'll modify the query to join and include the things like tag data here.

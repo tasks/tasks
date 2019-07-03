@@ -16,7 +16,7 @@ public abstract class DeletionDao {
   @Query("SELECT _id FROM tasks WHERE deleted > 0")
   public abstract List<Long> getDeleted();
 
-  @Query("DELETE FROM caldav_tasks WHERE task IN(:ids)")
+  @Query("DELETE FROM caldav_tasks WHERE cd_task IN(:ids)")
   abstract void deleteCaldavTasks(List<Long> ids);
 
   @Query("DELETE FROM google_tasks WHERE gt_task IN(:ids)")
@@ -73,7 +73,7 @@ public abstract class DeletionDao {
   @Delete
   abstract void deleteGoogleTaskAccount(GoogleTaskAccount googleTaskAccount);
 
-  @Query("SELECT * FROM google_task_lists WHERE account = :account ORDER BY title ASC")
+  @Query("SELECT * FROM google_task_lists WHERE gtl_account = :account ORDER BY gtl_title ASC")
   abstract List<GoogleTaskList> getLists(String account);
 
   @Transaction
@@ -86,7 +86,7 @@ public abstract class DeletionDao {
     return deleted;
   }
 
-  @Query("SELECT task FROM caldav_tasks WHERE calendar = :calendar AND deleted = 0")
+  @Query("SELECT cd_task FROM caldav_tasks WHERE cd_calendar = :calendar AND cd_deleted = 0")
   abstract List<Long> getActiveCaldavTasks(String calendar);
 
   @Delete
@@ -100,7 +100,7 @@ public abstract class DeletionDao {
     return tasks;
   }
 
-  @Query("SELECT * FROM caldav_calendar WHERE account = :account")
+  @Query("SELECT * FROM caldav_lists WHERE cdl_account = :account")
   abstract List<CaldavCalendar> getCalendars(String account);
 
   @Delete

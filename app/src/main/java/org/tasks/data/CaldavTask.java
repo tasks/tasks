@@ -14,31 +14,31 @@ public class CaldavTask {
   @Deprecated public static final Table TABLE = new Table("caldav_tasks");
 
   @PrimaryKey(autoGenerate = true)
-  @ColumnInfo(name = "_id")
+  @ColumnInfo(name = "cd_id")
   private long id;
 
-  @ColumnInfo(name = "task")
+  @ColumnInfo(name = "cd_task")
   private long task;
 
-  @ColumnInfo(name = "calendar")
+  @ColumnInfo(name = "cd_calendar")
   private String calendar;
 
-  @ColumnInfo(name = "object")
+  @ColumnInfo(name = "cd_object")
   private String object;
 
-  @ColumnInfo(name = "remote_id")
+  @ColumnInfo(name = "cd_remote_id")
   private String remoteId;
 
-  @ColumnInfo(name = "etag")
+  @ColumnInfo(name = "cd_etag")
   private String etag;
 
-  @ColumnInfo(name = "last_sync")
+  @ColumnInfo(name = "cd_last_sync")
   private long lastSync;
 
-  @ColumnInfo(name = "deleted")
+  @ColumnInfo(name = "cd_deleted")
   private long deleted;
 
-  @ColumnInfo(name = "vtodo")
+  @ColumnInfo(name = "cd_vtodo")
   private String vtodo;
 
   public CaldavTask() {}

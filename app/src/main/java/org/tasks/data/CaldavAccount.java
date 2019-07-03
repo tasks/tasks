@@ -10,7 +10,7 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import org.tasks.security.Encryption;
 
-@Entity(tableName = "caldav_account")
+@Entity(tableName = "caldav_accounts")
 public class CaldavAccount implements Parcelable {
 
   public static Parcelable.Creator<CaldavAccount> CREATOR =
@@ -28,25 +28,25 @@ public class CaldavAccount implements Parcelable {
       };
 
   @PrimaryKey(autoGenerate = true)
-  @ColumnInfo(name = "_id")
+  @ColumnInfo(name = "cda_id")
   private long id;
 
-  @ColumnInfo(name = "uuid")
+  @ColumnInfo(name = "cda_uuid")
   private String uuid = NO_UUID;
 
-  @ColumnInfo(name = "name")
+  @ColumnInfo(name = "cda_name")
   private String name = "";
 
-  @ColumnInfo(name = "url")
+  @ColumnInfo(name = "cda_url")
   private String url = "";
 
-  @ColumnInfo(name = "username")
+  @ColumnInfo(name = "cda_username")
   private String username = "";
 
-  @ColumnInfo(name = "password")
+  @ColumnInfo(name = "cda_password")
   private transient String password = "";
 
-  @ColumnInfo(name = "error")
+  @ColumnInfo(name = "cda_error")
   private transient String error = "";
 
   public CaldavAccount() {}
