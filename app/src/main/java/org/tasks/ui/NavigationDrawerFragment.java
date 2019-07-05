@@ -13,13 +13,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.todoroo.astrid.activity.MainActivity;
-import com.todoroo.astrid.adapter.FilterAdapter;
+import com.todoroo.astrid.adapter.NavigationDrawerAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.dao.TaskDao;
@@ -50,13 +51,13 @@ public class NavigationDrawerFragment extends InjectingFragment {
   public static final int REQUEST_NEW_CALDAV_COLLECTION = 7;
   private final RefreshReceiver refreshReceiver = new RefreshReceiver();
   @Inject LocalBroadcastManager localBroadcastManager;
-  @Inject FilterAdapter adapter;
+  @Inject NavigationDrawerAdapter adapter;
   @Inject FilterProvider filterProvider;
   @Inject TaskDao taskDao;
   /** A pointer to the current callbacks instance (the Activity). */
-
   private DrawerLayout mDrawerLayout;
-  private ListView mDrawerListView;
+
+  private RecyclerView recyclerView;
   private View mFragmentContainerView;
   private CompositeDisposable disposables;
 
@@ -80,13 +81,13 @@ public class NavigationDrawerFragment extends InjectingFragment {
 
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    if (requestCode == FilterAdapter.REQUEST_SETTINGS) {
+    if (requestCode == NavigationDrawerAdapter.REQUEST_SETTINGS) {
       if (resultCode == Activity.RESULT_OK && data != null) {
         if (data.getBooleanExtra(AppearancePreferences.EXTRA_RESTART, false)) {
           ((MainActivity) getActivity()).restart();
         }
       }
-    } else if (requestCode == FilterAdapter.REQUEST_PURCHASE) {
+    } else if (requestCode == NavigationDrawerAdapter.REQUEST_PURCHASE) {
       if (resultCode == Activity.RESULT_OK) {
         ((MainActivity) getActivity()).restart();
       }
@@ -114,33 +115,41 @@ public class NavigationDrawerFragment extends InjectingFragment {
 
   @Override
   public View onCreateView(
-      LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+      @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+    recyclerView = layout.findViewById(R.id.recycler_view);
     if (atLeastLollipop()) {
       ((ScrimInsetsFrameLayout) layout.findViewById(R.id.scrim_layout))
-          .setOnInsetsCallback(insets -> mDrawerListView.setPadding(0, insets.top, 0, 0));
+          .setOnInsetsCallback(insets -> recyclerView.setPadding(0, insets.top, 0, 0));
     }
-    mDrawerListView = layout.findViewById(android.R.id.list);
-    mDrawerListView.setOnItemClickListener(
-        (parent, view, position, id) -> {
-          mDrawerLayout.addDrawerListener(
-              new DrawerLayout.SimpleDrawerListener() {
-                @Override
-                public void onDrawerClosed(View drawerView) {
-                  mDrawerLayout.removeDrawerListener(this);
-                  selectItem(position);
-                }
-              });
-          close();
-        });
-
     return layout;
   }
 
   private void setUpList() {
-    adapter.setNavigationDrawer();
-    mDrawerListView.setAdapter(adapter);
-    registerForContextMenu(mDrawerListView);
+    adapter.setOnClick(this::onFilterItemSelected);
+    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+    recyclerView.setAdapter(adapter);
+  }
+
+  private void onFilterItemSelected(FilterListItem item) {
+    if (item instanceof Filter) {
+      mDrawerLayout.addDrawerListener(
+          new DrawerLayout.SimpleDrawerListener() {
+            @Override
+            public void onDrawerClosed(View drawerView) {
+              mDrawerLayout.removeDrawerListener(this);
+              openFilter((Filter) item);
+            }
+          });
+      close();
+    } else if (item instanceof NavigationDrawerAction) {
+      NavigationDrawerAction action = (NavigationDrawerAction) item;
+      if (action.requestCode > 0) {
+        startActivityForResult(action.intent, action.requestCode);
+      } else {
+        startActivity(action.intent);
+      }
+    }
   }
 
   public boolean isDrawerOpen() {
@@ -171,22 +180,6 @@ public class NavigationDrawerFragment extends InjectingFragment {
     localBroadcastManager.unregisterReceiver(refreshReceiver);
 
     disposables.dispose();
-  }
-
-  private void selectItem(int position) {
-    FilterListItem item = adapter.getItem(position);
-    if (item instanceof Filter) {
-      if (!item.equals(adapter.getSelected())) {
-        openFilter((Filter) item);
-      }
-    } else if (item instanceof NavigationDrawerAction) {
-      NavigationDrawerAction action = (NavigationDrawerAction) item;
-      if (action.requestCode > 0) {
-        startActivityForResult(action.intent, action.requestCode);
-      } else {
-        startActivity(action.intent);
-      }
-    }
   }
 
   @Override

@@ -16,20 +16,18 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import org.tasks.R;
-import org.tasks.filters.NavigationDrawerAction;
 import org.tasks.filters.NavigationDrawerSubheader;
-import org.tasks.intents.TaskIntents;
 import org.tasks.locale.Locale;
 import org.tasks.sync.SynchronizationPreferences;
 import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeCache;
 
-public class FilterViewHolder {
+public class FilterViewHolder extends RecyclerView.ViewHolder {
 
   @Nullable
   @BindView(R.id.row)
@@ -45,6 +43,7 @@ public class FilterViewHolder {
   @BindView(R.id.size)
   TextView size;
 
+  private OnClick onClick;
   private ThemeCache themeCache;
   private boolean navigationDrawer;
   private Locale locale;
@@ -57,7 +56,10 @@ public class FilterViewHolder {
       ThemeCache themeCache,
       boolean navigationDrawer,
       Locale locale,
-      Activity activity) {
+      Activity activity,
+      OnClick onClick) {
+    super(itemView);
+
     ButterKnife.bind(this, itemView);
 
     this.itemView = itemView;
@@ -65,6 +67,7 @@ public class FilterViewHolder {
     this.navigationDrawer = navigationDrawer;
     this.locale = locale;
     this.activity = activity;
+    this.onClick = onClick;
 
     if (navigationDrawer) {
       text.setCheckMarkDrawable(null);
@@ -87,25 +90,23 @@ public class FilterViewHolder {
   }
 
   FilterViewHolder(@NonNull View itemView, Activity activity) {
+    super(itemView);
+
     ButterKnife.bind(this, itemView);
 
     icon.setOnClickListener(
         v -> activity.startActivity(new Intent(activity, SynchronizationPreferences.class)));
   }
 
-  FilterViewHolder() {
+  FilterViewHolder(@NonNull View itemView) {
+    super(itemView);
   }
 
   public void bind(FilterListItem filter, boolean selected, Integer count) {
-    if (selected) {
-      if (navigationDrawer) {
-        itemView.setBackgroundColor(getColor(activity, R.color.drawer_color_selected));
-      } else {
-        text.setChecked(true);
-      }
+    if (navigationDrawer) {
+      itemView.setSelected(selected);
     } else {
-      itemView.setBackgroundResource(0);
-      text.setChecked(false);
+      text.setChecked(selected);
     }
 
     icon.setImageResource(filter.icon);
@@ -123,25 +124,17 @@ public class FilterViewHolder {
       size.setVisibility(View.VISIBLE);
     }
 
-    row.setOnClickListener(
-        v -> {
-          if (filter instanceof Filter) {
-            if (!selected) {
-              activity.startActivity(TaskIntents.getTaskListIntent(activity, (Filter) filter));
-            }
-          } else if (filter instanceof NavigationDrawerAction) {
-            NavigationDrawerAction action = (NavigationDrawerAction) filter;
-            if (action.requestCode > 0) {
-              activity.startActivityForResult(action.intent, action.requestCode);
-            } else {
-              activity.startActivity(action.intent);
-            }
-          }
-        });
+    if (onClick != null) {
+      row.setOnClickListener(v -> onClick.onClick(filter));
+    }
   }
 
   public void bind(NavigationDrawerSubheader filter) {
     text.setText(filter.listingTitle);
     icon.setVisibility(filter.error ? View.VISIBLE : View.GONE);
+  }
+
+  public interface OnClick {
+    void onClick(FilterListItem item);
   }
 }

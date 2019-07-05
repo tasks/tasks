@@ -2,6 +2,7 @@ package com.todoroo.astrid.api;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import androidx.annotation.NonNull;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
@@ -92,5 +93,16 @@ public class TagFilter extends Filter {
   @Override
   public int getMenu() {
     return R.menu.menu_tag_view_fragment;
+  }
+
+  @Override
+  public boolean areItemsTheSame(@NonNull FilterListItem other) {
+    return other instanceof TagFilter
+        && tagData.getRemoteId().equals(((TagFilter) other).getUuid());
+  }
+
+  @Override
+  public boolean areContentsTheSame(@NonNull FilterListItem other) {
+    return tagData.equals(((TagFilter) other).tagData);
   }
 }

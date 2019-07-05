@@ -2,6 +2,7 @@ package org.tasks.filters;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import androidx.annotation.NonNull;
 import com.todoroo.astrid.api.FilterListItem;
 
 public class NavigationDrawerSubheader extends FilterListItem {
@@ -37,6 +38,16 @@ public class NavigationDrawerSubheader extends FilterListItem {
   protected void readFromParcel(Parcel source) {
     super.readFromParcel(source);
     error = source.readInt() == 1;
+  }
+
+  @Override
+  public boolean areItemsTheSame(@NonNull FilterListItem other) {
+    return other instanceof NavigationDrawerSubheader && listingTitle.equals(other.listingTitle);
+  }
+
+  @Override
+  public boolean areContentsTheSame(@NonNull FilterListItem other) {
+    return super.areContentsTheSame(other) && error == ((NavigationDrawerSubheader) other).error;
   }
 
   @Override

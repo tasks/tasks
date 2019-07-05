@@ -4,7 +4,9 @@ import static com.todoroo.andlib.utility.AndroidUtilities.mapToSerializedString;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import androidx.annotation.NonNull;
 import java.util.Map;
+import org.tasks.Objects;
 import org.tasks.R;
 
 public class CustomFilter extends Filter {
@@ -74,5 +76,15 @@ public class CustomFilter extends Filter {
   @Override
   public int getMenu() {
     return getId() > 0 ? R.menu.menu_custom_filter : 0;
+  }
+
+  @Override
+  public boolean areItemsTheSame(@NonNull FilterListItem other) {
+    return other instanceof CustomFilter && id == ((CustomFilter) other).id;
+  }
+
+  @Override
+  public boolean areContentsTheSame(@NonNull FilterListItem other) {
+    return super.areContentsTheSame(other) && Objects.equals(criterion, ((CustomFilter) other).criterion);
   }
 }

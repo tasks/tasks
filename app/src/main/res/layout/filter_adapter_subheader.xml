@@ -4,6 +4,7 @@
   android:layout_width="match_parent"
   android:layout_height="48dp"
   android:paddingTop="8dp"
+  android:background="@drawable/drawer_background_selector"
   android:orientation="vertical">
 
   <View
@@ -24,8 +25,8 @@
     android:paddingLeft="0dp"
     android:paddingRight="@dimen/keyline_first"
     android:alpha="?attr/alpha_secondary"
-    android:focusable="true"
     android:clickable="true"
+    android:focusable="true"
     android:scaleType="center"
     android:src="@drawable/ic_outline_sync_problem_24px"
     android:tint="?attr/icon_tint"

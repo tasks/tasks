@@ -4,8 +4,8 @@ import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.collect.Iterables.concat;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertNotMainThread;
-import static com.todoroo.astrid.adapter.FilterAdapter.REQUEST_PURCHASE;
-import static com.todoroo.astrid.adapter.FilterAdapter.REQUEST_SETTINGS;
+import static com.todoroo.astrid.adapter.NavigationDrawerAdapter.REQUEST_PURCHASE;
+import static com.todoroo.astrid.adapter.NavigationDrawerAdapter.REQUEST_SETTINGS;
 import static org.tasks.caldav.CaldavCalendarSettingsActivity.EXTRA_CALDAV_ACCOUNT;
 
 import android.content.Context;

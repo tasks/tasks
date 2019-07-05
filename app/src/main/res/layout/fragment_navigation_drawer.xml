@@ -8,20 +8,13 @@
   android:fitsSystemWindows="true"
   app:insetForeground="#4000">
 
-  <ListView
-    android:id="@android:id/list"
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/recycler_view"
     android:scrollbarStyle="outsideOverlay"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_weight="1"
-    android:cacheColorHint="@android:color/transparent"
-    android:choiceMode="singleChoice"
     android:clipToPadding="false"
-    android:divider="@android:color/transparent"
-    android:drawSelectorOnTop="true"
-    android:listSelector="?attr/selectableItemBackground"
     android:scrollbars="vertical"
-    android:scrollingCache="false"
     tools:context=".NavigationDrawerFragment"/>
 
 </org.tasks.ui.ScrimInsetsFrameLayout>

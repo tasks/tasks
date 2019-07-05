@@ -2,6 +2,7 @@
 <com.todoroo.astrid.adapter.CheckableRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/row"
+  android:background="@drawable/drawer_background_selector"
   android:layout_width="fill_parent"
   android:layout_height="wrap_content"
   android:paddingTop="12dp"

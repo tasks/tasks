@@ -2,6 +2,7 @@ package org.tasks.filters;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import androidx.annotation.NonNull;
 import com.todoroo.astrid.api.FilterListItem;
 
 public class NavigationDrawerSeparator extends FilterListItem {
@@ -27,5 +28,15 @@ public class NavigationDrawerSeparator extends FilterListItem {
   @Override
   public Type getItemType() {
     return Type.SEPARATOR;
+  }
+
+  @Override
+  public boolean areItemsTheSame(@NonNull FilterListItem other) {
+    return other instanceof NavigationDrawerSeparator;
+  }
+
+  @Override
+  public boolean areContentsTheSame(@NonNull FilterListItem other) {
+    return true;
   }
 }

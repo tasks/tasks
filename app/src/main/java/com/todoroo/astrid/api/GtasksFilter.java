@@ -2,6 +2,7 @@ package com.todoroo.astrid.api;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import androidx.annotation.NonNull;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
@@ -108,5 +109,16 @@ public class GtasksFilter extends Filter {
   @Override
   public int getMenu() {
     return R.menu.menu_gtasks_list_fragment;
+  }
+
+  @Override
+  public boolean areItemsTheSame(@NonNull FilterListItem other) {
+    return other instanceof GtasksFilter
+        && list.getRemoteId().equals(((GtasksFilter) other).list.getRemoteId());
+  }
+
+  @Override
+  public boolean areContentsTheSame(@NonNull FilterListItem other) {
+    return list.equals(((GtasksFilter) other).list);
   }
 }

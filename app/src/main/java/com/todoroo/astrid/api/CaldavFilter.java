@@ -1,6 +1,7 @@
 package com.todoroo.astrid.api;
 
 import android.os.Parcel;
+import androidx.annotation.NonNull;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
@@ -93,5 +94,16 @@ public class CaldavFilter extends Filter {
   @Override
   public int getMenu() {
     return R.menu.menu_caldav_list_fragment;
+  }
+
+  @Override
+  public boolean areItemsTheSame(@NonNull FilterListItem other) {
+    return other instanceof CaldavFilter
+        && calendar.getUuid().equals(((CaldavFilter) other).getUuid());
+  }
+
+  @Override
+  public boolean areContentsTheSame(@NonNull FilterListItem other) {
+    return calendar.equals(((CaldavFilter) other).calendar);
   }
 }

@@ -4,6 +4,7 @@
   android:layout_height="wrap_content"
   android:paddingTop="8dp"
   android:paddingBottom="8dp"
+  android:background="@drawable/drawer_background_selector"
   android:focusable="false"
   android:orientation="vertical">
 

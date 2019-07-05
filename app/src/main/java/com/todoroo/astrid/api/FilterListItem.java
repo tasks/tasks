@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.os.Parcel;
 import android.os.Parcelable;
 import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import org.tasks.Objects;
 import org.tasks.R;
 
 /**
@@ -51,6 +53,14 @@ public abstract class FilterListItem implements Parcelable {
     tint = source.readInt();
     source.createStringArray(); // old context menu labels
     source.createTypedArray(Intent.CREATOR); // old context menu intents
+  }
+
+  public abstract boolean areItemsTheSame(@NonNull FilterListItem other);
+
+  public boolean areContentsTheSame(@NonNull FilterListItem other) {
+    return Objects.equals(listingTitle, other.listingTitle)
+        && icon == other.icon
+        && tint == other.tint;
   }
 
   @Override

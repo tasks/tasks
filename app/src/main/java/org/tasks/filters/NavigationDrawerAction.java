@@ -3,6 +3,7 @@ package org.tasks.filters;
 import android.content.Intent;
 import android.os.Parcel;
 import android.os.Parcelable;
+import androidx.annotation.NonNull;
 import com.todoroo.astrid.api.FilterListItem;
 
 public class NavigationDrawerAction extends FilterListItem {
@@ -56,5 +57,11 @@ public class NavigationDrawerAction extends FilterListItem {
     super.readFromParcel(source);
     intent = source.readParcelable(Intent.class.getClassLoader());
     requestCode = source.readInt();
+  }
+
+  @Override
+  public boolean areItemsTheSame(@NonNull FilterListItem other) {
+    return other instanceof NavigationDrawerAction
+        && requestCode == ((NavigationDrawerAction) other).requestCode;
   }
 }

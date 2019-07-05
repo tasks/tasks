@@ -9,10 +9,12 @@ package com.todoroo.astrid.api;
 import android.os.Parcel;
 import android.os.Parcelable;
 import androidx.annotation.MenuRes;
+import androidx.annotation.NonNull;
 import com.todoroo.andlib.sql.QueryTemplate;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import org.tasks.Objects;
 
 /**
  * A <code>FilterListFilter</code> allows users to display tasks that have something in common.
@@ -100,10 +102,7 @@ public class Filter extends FilterListItem {
     }
   }
 
-  /** Utility constructor */
-  Filter() {
-    // do nothing
-  }
+  Filter() {}
 
   public String getOriginalSqlQuery() {
     return sqlQuery;
@@ -206,5 +205,16 @@ public class Filter extends FilterListItem {
         + ", valuesForNewTasks="
         + valuesForNewTasks
         + '}';
+  }
+
+  @Override
+  public boolean areItemsTheSame(@NonNull FilterListItem other) {
+    return other instanceof Filter && Objects.equals(sqlQuery, ((Filter) other).sqlQuery);
+  }
+
+  @Override
+  public boolean areContentsTheSame(@NonNull FilterListItem other) {
+    return super.areContentsTheSame(other)
+        && Objects.equals(sqlQuery, ((Filter) other).sqlQuery);
   }
 }
