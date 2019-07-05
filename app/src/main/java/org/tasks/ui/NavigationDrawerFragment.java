@@ -84,12 +84,12 @@ public class NavigationDrawerFragment extends InjectingFragment {
     if (requestCode == NavigationDrawerAdapter.REQUEST_SETTINGS) {
       if (resultCode == Activity.RESULT_OK && data != null) {
         if (data.getBooleanExtra(AppearancePreferences.EXTRA_RESTART, false)) {
-          ((MainActivity) getActivity()).restart();
+          getActivity().recreate();
         }
       }
     } else if (requestCode == NavigationDrawerAdapter.REQUEST_PURCHASE) {
       if (resultCode == Activity.RESULT_OK) {
-        ((MainActivity) getActivity()).restart();
+        getActivity().recreate();
       }
     } else if (requestCode == REQUEST_NEW_LIST
         || requestCode == ACTIVITY_REQUEST_NEW_FILTER

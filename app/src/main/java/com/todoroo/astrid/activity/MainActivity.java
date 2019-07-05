@@ -305,7 +305,7 @@ public class MainActivity extends InjectingAppCompatActivity
 
     if (currentNightMode != getNightMode()) {
       tracker.reportEvent(Tracking.Events.NIGHT_MODE_MISMATCH);
-      restart();
+      recreate();
       return;
     }
 
@@ -323,10 +323,6 @@ public class MainActivity extends InjectingAppCompatActivity
     super.onResumeFragments();
 
     handleIntent();
-  }
-
-  public void restart() {
-    recreate();
   }
 
   private int getNightMode() {
