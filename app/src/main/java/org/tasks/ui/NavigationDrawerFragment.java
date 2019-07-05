@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.drawerlayout.widget.DrawerLayout.SimpleDrawerListener;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -132,24 +133,24 @@ public class NavigationDrawerFragment extends InjectingFragment {
   }
 
   private void onFilterItemSelected(FilterListItem item) {
-    if (item instanceof Filter) {
-      mDrawerLayout.addDrawerListener(
-          new DrawerLayout.SimpleDrawerListener() {
-            @Override
-            public void onDrawerClosed(View drawerView) {
-              mDrawerLayout.removeDrawerListener(this);
+    mDrawerLayout.addDrawerListener(
+        new SimpleDrawerListener() {
+          @Override
+          public void onDrawerClosed(View drawerView) {
+            mDrawerLayout.removeDrawerListener(this);
+            if (item instanceof Filter) {
               openFilter((Filter) item);
+            } else if (item instanceof NavigationDrawerAction) {
+              NavigationDrawerAction action = (NavigationDrawerAction) item;
+              if (action.requestCode > 0) {
+                startActivityForResult(action.intent, action.requestCode);
+              } else {
+                startActivity(action.intent);
+              }
             }
-          });
-      close();
-    } else if (item instanceof NavigationDrawerAction) {
-      NavigationDrawerAction action = (NavigationDrawerAction) item;
-      if (action.requestCode > 0) {
-        startActivityForResult(action.intent, action.requestCode);
-      } else {
-        startActivity(action.intent);
-      }
-    }
+          }
+        });
+    close();
   }
 
   public boolean isDrawerOpen() {

@@ -17,7 +17,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil.ItemCallback;
 import androidx.recyclerview.widget.ListAdapter;
 import com.todoroo.astrid.adapter.FilterViewHolder.OnClick;
@@ -74,33 +73,14 @@ public class NavigationDrawerAdapter extends ListAdapter<FilterListItem, FilterV
   }
 
   public void setData(List<FilterListItem> items) {
-    setData(items, selected);
-  }
-
-  public void setData(List<FilterListItem> items, @Nullable Filter selected) {
-    setData(items, selected, -1);
-  }
-
-  public void setData(List<FilterListItem> items, @Nullable Filter selected, int defaultIndex) {
     this.items = items;
     submitList(items);
-
-    if (selected != null) {
-      this.selected = selected;
-    } else if (defaultIndex >= 0) {
-      this.selected = getFilter(defaultIndex);
-    }
   }
 
   public void setCounts(Map<Filter, Integer> counts) {
     assertMainThread();
     this.counts = counts;
     notifyDataSetChanged();
-  }
-
-  private Filter getFilter(int position) {
-    FilterListItem item = getItem(position);
-    return item instanceof Filter ? (Filter) item : null;
   }
 
   @Override
