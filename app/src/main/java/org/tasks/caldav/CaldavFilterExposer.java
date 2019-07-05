@@ -31,7 +31,7 @@ public class CaldavFilterExposer {
       if (!filters.containsKey(filter.caldavAccount)) {
         filters.put(filter.caldavAccount, new ArrayList<>());
       }
-      filters.get(filter.caldavAccount).add(new CaldavFilter(filter.caldavCalendar));
+      filters.get(filter.caldavAccount).add(filter.toCaldavFilter());
     }
     return filters;
   }

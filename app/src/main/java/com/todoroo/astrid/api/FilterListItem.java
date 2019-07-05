@@ -6,7 +6,6 @@
 
 package com.todoroo.astrid.api;
 
-import android.content.Intent;
 import android.os.Parcel;
 import android.os.Parcelable;
 import androidx.annotation.LayoutRes;
@@ -26,6 +25,7 @@ public abstract class FilterListItem implements Parcelable {
 
   public int icon = 0;
   public int tint = -1;
+  public int count = -1;
 
   public abstract Type getItemType();
 
@@ -40,8 +40,7 @@ public abstract class FilterListItem implements Parcelable {
     dest.writeString(listingTitle);
     dest.writeInt(icon);
     dest.writeInt(tint);
-    dest.writeStringArray(new String[0]); // old context menu labels
-    dest.writeTypedArray(new Intent[0], 0); // old context menu intents
+    dest.writeInt(count);
   }
 
   // --- parcelable helpers
@@ -51,8 +50,7 @@ public abstract class FilterListItem implements Parcelable {
     listingTitle = source.readString();
     icon = source.readInt();
     tint = source.readInt();
-    source.createStringArray(); // old context menu labels
-    source.createTypedArray(Intent.CREATOR); // old context menu intents
+    count = source.readInt();
   }
 
   public abstract boolean areItemsTheSame(@NonNull FilterListItem other);
@@ -60,12 +58,23 @@ public abstract class FilterListItem implements Parcelable {
   public boolean areContentsTheSame(@NonNull FilterListItem other) {
     return Objects.equals(listingTitle, other.listingTitle)
         && icon == other.icon
-        && tint == other.tint;
+        && tint == other.tint
+        && count == other.count;
   }
 
   @Override
   public String toString() {
-    return "FilterListItem{" + "listingTitle='" + listingTitle + '\'' + '}';
+    return "FilterListItem{"
+        + "listingTitle='"
+        + listingTitle
+        + '\''
+        + ", icon="
+        + icon
+        + ", tint="
+        + tint
+        + ", count="
+        + count
+        + '}';
   }
 
   public enum Type {

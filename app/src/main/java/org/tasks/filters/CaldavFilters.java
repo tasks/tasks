@@ -1,6 +1,7 @@
 package org.tasks.filters;
 
 import androidx.room.Embedded;
+import com.todoroo.astrid.api.CaldavFilter;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
 
@@ -8,6 +9,12 @@ public class CaldavFilters {
   @Embedded public CaldavCalendar caldavCalendar;
   @Embedded public CaldavAccount caldavAccount;
   public int count;
+
+  public CaldavFilter toCaldavFilter() {
+    CaldavFilter filter = new CaldavFilter(caldavCalendar);
+    filter.count = count;
+    return filter;
+  }
 
   @Override
   public boolean equals(Object o) {

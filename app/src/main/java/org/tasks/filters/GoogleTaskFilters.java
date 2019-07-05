@@ -1,6 +1,7 @@
 package org.tasks.filters;
 
 import androidx.room.Embedded;
+import com.todoroo.astrid.api.GtasksFilter;
 import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskList;
 
@@ -8,6 +9,12 @@ public class GoogleTaskFilters {
   @Embedded public GoogleTaskList googleTaskList;
   @Embedded public GoogleTaskAccount googleTaskAccount;
   public int count;
+
+  public GtasksFilter toGtasksFilter() {
+    GtasksFilter filter = new GtasksFilter(googleTaskList);
+    filter.count = count;
+    return filter;
+  }
 
   @Override
   public boolean equals(Object o) {

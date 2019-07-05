@@ -9,7 +9,9 @@ public class TagFilters {
   public int count;
 
   public TagFilter toTagFilter() {
-    return new TagFilter(tagData);
+    TagFilter filter = new TagFilter(tagData);
+    filter.count = count;
+    return filter;
   }
 
   @Override

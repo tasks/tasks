@@ -142,7 +142,7 @@ public class NavigationDrawerAdapter extends ListAdapter<FilterListItem, FilterV
     FilterListItem item = getItem(position);
     Type type = item.getItemType();
     if (type == ITEM) {
-      holder.bind(item, item.equals(selected), counts.get(item));
+      holder.bind(item, item.equals(selected), item.count >= 0 ? item.count : counts.get(item));
     } else if (type == SUBHEADER) {
       holder.bind((NavigationDrawerSubheader) item);
     }

@@ -243,7 +243,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
     assertNotMainThread();
 
     Map<Filter, Integer> result = new HashMap<>();
-    for (FilterListItem item : filter(items, i -> i instanceof Filter)) {
+    for (FilterListItem item : filter(items, i -> i instanceof Filter && i.count == -1)) {
       result.put((Filter) item, taskDao.count((Filter) item));
     }
     return result;
