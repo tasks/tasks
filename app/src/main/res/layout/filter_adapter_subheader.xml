@@ -12,7 +12,7 @@
     android:layout_gravity="top"/>
 
   <ImageView
-    android:id="@+id/subheader_icon"
+    android:id="@+id/icon"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignParentEnd="true"
@@ -29,17 +29,17 @@
     android:scaleType="center"
     android:src="@drawable/ic_outline_sync_problem_24px"
     android:tint="?attr/icon_tint"
-    android:visibility="visible"/>
+    android:visibility="gone"/>
 
   <CheckedTextView
-    android:id="@+id/subheader_text"
+    android:id="@+id/text"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
     android:layout_below="@id/divider"
-    android:layout_toLeftOf="@id/subheader_icon"
-    android:layout_toStartOf="@id/subheader_icon"
+    android:layout_toLeftOf="@id/icon"
+    android:layout_toStartOf="@id/icon"
     android:paddingTop="12dp"
     android:paddingStart="@dimen/keyline_first"
     android:paddingEnd="@dimen/keyline_first"

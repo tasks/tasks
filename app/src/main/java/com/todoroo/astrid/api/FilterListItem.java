@@ -9,6 +9,8 @@ package com.todoroo.astrid.api;
 import android.content.Intent;
 import android.os.Parcel;
 import android.os.Parcelable;
+import androidx.annotation.LayoutRes;
+import org.tasks.R;
 
 /**
  * Represents an item displayed by Astrid's FilterListActivity
@@ -57,8 +59,14 @@ public abstract class FilterListItem implements Parcelable {
   }
 
   public enum Type {
-    ITEM,
-    SUBHEADER,
-    SEPARATOR
+    ITEM(R.layout.filter_adapter_row),
+    SUBHEADER(R.layout.filter_adapter_subheader),
+    SEPARATOR(R.layout.filter_adapter_separator);
+
+    public final int layout;
+
+    Type(@LayoutRes int layout) {
+      this.layout = layout;
+    }
   }
 }
