@@ -41,7 +41,7 @@ public class Upgrader {
   private static final int V6_0_beta_2 = 523;
   private static final int V6_4 = 546;
   private static final int V6_7 = 585;
-  private static final int V6_8 = 592;
+  private static final int V6_8 = 593;
   private final Preferences preferences;
   private final Tracker tracker;
   private final TagDataDao tagDataDao;

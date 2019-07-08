@@ -28,11 +28,15 @@ import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.utility.Constants;
 import java.io.IOException;
+import java.net.ConnectException;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import javax.inject.Inject;
+import javax.net.ssl.SSLException;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
@@ -139,6 +143,9 @@ public class GoogleTaskSynchronizer {
       } else {
         account.setError(context.getString(R.string.requires_pro_subscription));
       }
+    } catch (SocketTimeoutException | SSLException | ConnectException | UnknownHostException e) {
+      Timber.e(e);
+      account.setError(e.getMessage());
     } catch (UserRecoverableAuthIOException e) {
       Timber.e(e);
       sendNotification(context, e.getIntent());
@@ -322,10 +329,21 @@ public class GoogleTaskSynchronizer {
               : null;
 
       String previous =
-          googleTaskDao.getPrevious(listId, gtasksMetadata.getParent(), gtasksMetadata.getOrder());
+          Strings.isNullOrEmpty(localParent)
+              ? null
+              : googleTaskDao.getPrevious(
+                  listId, gtasksMetadata.getParent(), gtasksMetadata.getOrder());
 
-      com.google.api.services.tasks.model.Task created =
-          gtasksInvoker.createGtask(listId, remoteModel, localParent, previous);
+      com.google.api.services.tasks.model.Task created;
+      try {
+        created = gtasksInvoker.createGtask(listId, remoteModel, localParent, previous);
+      } catch (GoogleJsonResponseException e) {
+        if (e.getStatusCode() == 404) {
+          created = gtasksInvoker.createGtask(listId, remoteModel, null, null);
+        } else {
+          throw e;
+        }
+      }
 
       if (created != null) {
         // Update the metadata for the newly created task

@@ -34,10 +34,14 @@ import com.todoroo.astrid.service.TaskDeleter;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
+import java.net.ConnectException;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import javax.inject.Inject;
+import javax.net.ssl.SSLException;
 import net.fortuna.ical4j.model.property.ProdId;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -102,15 +106,20 @@ public class CaldavSynchronizer {
       setError(account, context.getString(R.string.password_required));
       return;
     }
-    CaldavClient caldavClient = client.forAccount(account);
-    List<Response> resources;
     try {
-      resources = caldavClient.getCalendars();
+      synchronize(account);
+    } catch (SocketTimeoutException | SSLException | ConnectException | UnknownHostException e) {
+      Timber.e(e);
+      account.setError(e.getMessage());
     } catch (IOException | DavException e) {
       setError(account, e.getMessage());
       tracker.reportException(e);
-      return;
     }
+  }
+
+  private void synchronize(CaldavAccount account) throws IOException, DavException {
+    CaldavClient caldavClient = client.forAccount(account);
+    List<Response> resources = caldavClient.getCalendars();
     Set<String> urls = newHashSet(transform(resources, c -> c.getHref().toString()));
     Timber.d("Found calendars: %s", urls);
     for (CaldavCalendar calendar :
@@ -143,102 +152,97 @@ public class CaldavSynchronizer {
     }
   }
 
-  private void sync(CaldavCalendar caldavCalendar, Response resource, OkHttpClient httpClient) {
+  private void sync(CaldavCalendar caldavCalendar, Response resource, OkHttpClient httpClient)
+      throws IOException, DavException {
     Timber.d("sync(%s)", caldavCalendar);
     HttpUrl httpUrl = resource.getHref();
-    try {
-      pushLocalChanges(caldavCalendar, httpClient, httpUrl);
+    pushLocalChanges(caldavCalendar, httpClient, httpUrl);
 
-      String remoteName = resource.get(DisplayName.class).getDisplayName();
-      if (!caldavCalendar.getName().equals(remoteName)) {
-        Timber.d("%s -> %s", caldavCalendar.getName(), remoteName);
-        caldavCalendar.setName(remoteName);
-        caldavDao.update(caldavCalendar);
-        localBroadcastManager.broadcastRefreshList();
-      }
+    String remoteName = resource.get(DisplayName.class).getDisplayName();
+    if (!caldavCalendar.getName().equals(remoteName)) {
+      Timber.d("%s -> %s", caldavCalendar.getName(), remoteName);
+      caldavCalendar.setName(remoteName);
+      caldavDao.update(caldavCalendar);
+      localBroadcastManager.broadcastRefreshList();
+    }
 
-      String remoteCtag = resource.get(GetCTag.class).getCTag();
-      String localCtag = caldavCalendar.getCtag();
+    String remoteCtag = resource.get(GetCTag.class).getCTag();
+    String localCtag = caldavCalendar.getCtag();
 
-      if (localCtag != null && localCtag.equals(remoteCtag)) {
-        Timber.d("%s up to date", caldavCalendar.getName());
-        return;
-      }
+    if (localCtag != null && localCtag.equals(remoteCtag)) {
+      Timber.d("%s up to date", caldavCalendar.getName());
+      return;
+    }
 
-      DavCalendar davCalendar = new DavCalendar(httpClient, httpUrl);
+    DavCalendar davCalendar = new DavCalendar(httpClient, httpUrl);
 
-      ResponseList members = new ResponseList(HrefRelation.MEMBER);
-      davCalendar.calendarQuery("VTODO", null, null, members);
+    ResponseList members = new ResponseList(HrefRelation.MEMBER);
+    davCalendar.calendarQuery("VTODO", null, null, members);
 
-      Set<String> remoteObjects = newHashSet(transform(members, Response::hrefName));
+    Set<String> remoteObjects = newHashSet(transform(members, Response::hrefName));
 
-      Iterable<Response> changed =
-          filter(
-              ImmutableSet.copyOf(members),
-              vCard -> {
-                GetETag eTag = vCard.get(GetETag.class);
-                if (eTag == null || isNullOrEmpty(eTag.getETag())) {
-                  return false;
-                }
-                CaldavTask caldavTask =
-                    caldavDao.getTask(caldavCalendar.getUuid(), vCard.hrefName());
-                return caldavTask == null || !eTag.getETag().equals(caldavTask.getEtag());
-              });
+    Iterable<Response> changed =
+        filter(
+            ImmutableSet.copyOf(members),
+            vCard -> {
+              GetETag eTag = vCard.get(GetETag.class);
+              if (eTag == null || isNullOrEmpty(eTag.getETag())) {
+                return false;
+              }
+              CaldavTask caldavTask = caldavDao.getTask(caldavCalendar.getUuid(), vCard.hrefName());
+              return caldavTask == null || !eTag.getETag().equals(caldavTask.getEtag());
+            });
 
-      for (List<Response> items : partition(changed, 30)) {
-        if (items.size() == 1) {
-          Response vCard = items.get(0);
+    for (List<Response> items : partition(changed, 30)) {
+      if (items.size() == 1) {
+        Response vCard = items.get(0);
+        GetETag eTag = vCard.get(GetETag.class);
+        HttpUrl url = vCard.getHref();
+        if (eTag == null || isNullOrEmpty(eTag.getETag())) {
+          throw new DavException("Received CalDAV GET response without ETag for " + url);
+        }
+        Timber.d("SINGLE %s", url);
+
+        org.tasks.caldav.Response response = new org.tasks.caldav.Response(true);
+        new DavResource(httpClient, url).get("text/calendar", response);
+        processVTodo(vCard.hrefName(), caldavCalendar, eTag.getETag(), response.getBody());
+      } else {
+        ArrayList<HttpUrl> urls = newArrayList(Iterables.transform(items, Response::getHref));
+        ResponseList responses = new ResponseList(HrefRelation.MEMBER);
+        davCalendar.multiget(urls, responses);
+
+        Timber.d("MULTI %s", urls);
+
+        for (Response vCard : responses) {
           GetETag eTag = vCard.get(GetETag.class);
           HttpUrl url = vCard.getHref();
           if (eTag == null || isNullOrEmpty(eTag.getETag())) {
             throw new DavException("Received CalDAV GET response without ETag for " + url);
           }
-          Timber.d("SINGLE %s", url);
-
-          org.tasks.caldav.Response response = new org.tasks.caldav.Response(true);
-          new DavResource(httpClient, url).get("text/calendar", response);
-          processVTodo(vCard.hrefName(), caldavCalendar, eTag.getETag(), response.getBody());
-        } else {
-          ArrayList<HttpUrl> urls = newArrayList(Iterables.transform(items, Response::getHref));
-          ResponseList responses = new ResponseList(HrefRelation.MEMBER);
-          davCalendar.multiget(urls, responses);
-
-          Timber.d("MULTI %s", urls);
-
-          for (Response vCard : responses) {
-            GetETag eTag = vCard.get(GetETag.class);
-            HttpUrl url = vCard.getHref();
-            if (eTag == null || isNullOrEmpty(eTag.getETag())) {
-              throw new DavException("Received CalDAV GET response without ETag for " + url);
-            }
-            CalendarData calendarData = vCard.get(CalendarData.class);
-            if (calendarData == null || isNullOrEmpty(calendarData.getICalendar())) {
-              throw new DavException(
-                  "Received CalDAV GET response without CalendarData for " + url);
-            }
-
-            processVTodo(
-                vCard.hrefName(), caldavCalendar, eTag.getETag(), calendarData.getICalendar());
+          CalendarData calendarData = vCard.get(CalendarData.class);
+          if (calendarData == null || isNullOrEmpty(calendarData.getICalendar())) {
+            throw new DavException("Received CalDAV GET response without CalendarData for " + url);
           }
+
+          processVTodo(
+              vCard.hrefName(), caldavCalendar, eTag.getETag(), calendarData.getICalendar());
         }
       }
-
-      List<String> deleted =
-          newArrayList(
-              difference(
-                  newHashSet(caldavDao.getObjects(caldavCalendar.getUuid())),
-                  newHashSet(remoteObjects)));
-      if (deleted.size() > 0) {
-        Timber.d("DELETED %s", deleted);
-        taskDeleter.delete(caldavDao.getTasks(caldavCalendar.getUuid(), deleted));
-      }
-
-      caldavCalendar.setCtag(remoteCtag);
-      Timber.d("UPDATE %s", caldavCalendar);
-      caldavDao.update(caldavCalendar);
-    } catch (Exception e) {
-      tracker.reportException(e);
     }
+
+    List<String> deleted =
+        newArrayList(
+            difference(
+                newHashSet(caldavDao.getObjects(caldavCalendar.getUuid())),
+                newHashSet(remoteObjects)));
+    if (deleted.size() > 0) {
+      Timber.d("DELETED %s", deleted);
+      taskDeleter.delete(caldavDao.getTasks(caldavCalendar.getUuid(), deleted));
+    }
+
+    caldavCalendar.setCtag(remoteCtag);
+    Timber.d("UPDATE %s", caldavCalendar);
+    caldavDao.update(caldavCalendar);
 
     localBroadcastManager.broadcastRefresh();
   }
