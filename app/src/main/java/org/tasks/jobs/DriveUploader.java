@@ -12,10 +12,14 @@ import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.services.drive.model.File;
 import com.google.common.base.Strings;
 import java.io.IOException;
+import java.net.ConnectException;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import javax.inject.Inject;
+import javax.net.ssl.SSLException;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.drive.DriveInvoker;
@@ -23,6 +27,7 @@ import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingWorker;
 import org.tasks.injection.JobComponent;
 import org.tasks.preferences.Preferences;
+import timber.log.Timber;
 
 public class DriveUploader extends InjectingWorker {
 
@@ -65,11 +70,22 @@ public class DriveUploader extends InjectingWorker {
       if (inputData.getBoolean(EXTRA_PURGE, false)) {
         List<File> files = drive.getFilesByPrefix(folder.getId(), "auto.");
         for (File file : getDeleteList(files)) {
-          drive.delete(file);
+          try {
+            drive.delete(file);
+          } catch (GoogleJsonResponseException e) {
+            if (e.getStatusCode() == 404) {
+              Timber.e(e);
+            } else {
+              throw e;
+            }
+          }
         }
       }
 
       return Result.success();
+    } catch (SocketTimeoutException | SSLException | ConnectException | UnknownHostException e) {
+      Timber.e(e);
+      return Result.retry();
     } catch (IOException e) {
       tracker.reportException(e);
       return Result.failure();

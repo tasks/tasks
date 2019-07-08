@@ -1,5 +1,11 @@
 Change Log
 ---
+### 6.7.2 (2019-07-08)
+
+* Handle 404 errors when creating new Google Tasks
+* Ignore 404 errors when deleting Google Drive files
+* Don't report connection errors
+
 ### 6.7.1 (2019-07-05)
 
 * Add location chip to task list
