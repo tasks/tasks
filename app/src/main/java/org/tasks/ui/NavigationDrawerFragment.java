@@ -4,6 +4,8 @@ import static android.app.Activity.RESULT_OK;
 import static com.google.common.collect.Iterables.filter;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertNotMainThread;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
+import static org.tasks.LocalBroadcastManager.REFRESH;
+import static org.tasks.LocalBroadcastManager.REFRESH_LIST;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -225,17 +227,9 @@ public class NavigationDrawerFragment extends InjectingFragment {
     return Single.fromCallable(() -> filterProvider.getItems(true))
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .doOnSuccess(adapter::setData)
+        .doOnSuccess(adapter::submitList)
         .observeOn(Schedulers.io())
         .map(this::refreshFilterCount)
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(adapter::setCounts);
-  }
-
-  private Disposable updateCount() {
-    List<FilterListItem> items = adapter.getItems();
-    return Single.fromCallable(() -> this.refreshFilterCount(items))
-        .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(adapter::setCounts);
   }
@@ -257,9 +251,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
         return;
       }
       String action = intent.getAction();
-      if (LocalBroadcastManager.REFRESH.equals(action)) {
-        disposables.add(updateCount());
-      } else if (LocalBroadcastManager.REFRESH_LIST.equals(action)) {
+      if (REFRESH.equals(action) || REFRESH_LIST.equals(action)) {
         disposables.add(updateFilters());
       }
     }

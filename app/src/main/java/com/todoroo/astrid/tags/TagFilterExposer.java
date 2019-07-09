@@ -7,6 +7,7 @@
 package com.todoroo.astrid.tags;
 
 import static com.google.common.collect.Lists.transform;
+import static com.todoroo.andlib.utility.DateUtilities.now;
 
 import com.google.common.base.Strings;
 import com.todoroo.astrid.api.Filter;
@@ -42,7 +43,7 @@ public class TagFilterExposer {
   }
 
   public List<Filter> getFilters() {
-    return transform(tagDataDao.getTagFilters(), TagFilters::toTagFilter);
+    return transform(tagDataDao.getTagFilters(now()), TagFilters::toTagFilter);
   }
 
   public Filter getFilterByUuid(String uuid) {

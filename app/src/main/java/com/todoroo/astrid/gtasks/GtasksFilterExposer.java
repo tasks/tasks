@@ -6,6 +6,8 @@
 
 package com.todoroo.astrid.gtasks;
 
+import static com.todoroo.andlib.utility.DateUtilities.now;
+
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
 import java.util.ArrayList;
@@ -41,7 +43,7 @@ public class GtasksFilterExposer {
   }
 
   public Map<GoogleTaskAccount, List<Filter>> getFilters() {
-    List<GoogleTaskFilters> googleTaskFilters = googleTaskListDao.getGoogleTaskFilters();
+    List<GoogleTaskFilters> googleTaskFilters = googleTaskListDao.getGoogleTaskFilters(now());
     LinkedHashMap<GoogleTaskAccount, List<Filter>> filters = new LinkedHashMap<>();
     for (GoogleTaskFilters filter : googleTaskFilters) {
       if (!filters.containsKey(filter.googleTaskAccount)) {

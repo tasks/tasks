@@ -1,5 +1,13 @@
 Change Log
 ---
+### 6.8 (beta)
+
+* Choose icons for lists (requires [subscription](http://tasks.org/subscribe))
+* Choose color for custom filters
+* Performance improvements
+* Allow duplicate CalDAV list names
+* Fix duplicate tag name bug
+
 ### 6.7.2 (2019-07-08)
 
 * Handle 404 errors when creating new Google Tasks

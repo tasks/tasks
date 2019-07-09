@@ -1,5 +1,7 @@
 package org.tasks.caldav;
 
+import static com.todoroo.andlib.utility.DateUtilities.now;
+
 import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
 import java.util.ArrayList;
@@ -25,7 +27,7 @@ public class CaldavFilterExposer {
   }
 
   public Map<CaldavAccount, List<Filter>> getFilters() {
-    List<CaldavFilters> caldavFilters = caldavDao.getCaldavFilters();
+    List<CaldavFilters> caldavFilters = caldavDao.getCaldavFilters(now());
     LinkedHashMap<CaldavAccount, List<Filter>> filters = new LinkedHashMap<>();
     for (CaldavFilters filter : caldavFilters) {
       if (!filters.containsKey(filter.caldavAccount)) {

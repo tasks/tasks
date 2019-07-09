@@ -51,9 +51,9 @@ public abstract class TagDataDao {
       "SELECT tagdata.*, COUNT(tasks._id) AS count"
           + " FROM tagdata"
           + " LEFT JOIN tags ON tags.tag_uid = tagdata.remoteId"
-          + " LEFT JOIN tasks ON tags.task = tasks._id AND tasks.deleted = 0 AND tasks.completed = 0 AND tasks.hideUntil = 0"
+          + " LEFT JOIN tasks ON tags.task = tasks._id AND tasks.deleted = 0 AND tasks.completed = 0 AND tasks.hideUntil < :now"
           + " WHERE tagdata.name IS NOT NULL AND tagdata.name != ''"
           + " GROUP BY tagdata.remoteId"
           + " ORDER BY tagdata.name COLLATE NOCASE")
-  public abstract List<TagFilters> getTagFilters();
+  public abstract List<TagFilters> getTagFilters(long now);
 }

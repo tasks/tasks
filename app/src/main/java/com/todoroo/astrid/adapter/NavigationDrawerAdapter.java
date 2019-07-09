@@ -6,7 +6,6 @@
 
 package com.todoroo.astrid.adapter;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
 import static com.todoroo.astrid.api.FilterListItem.Type.ITEM;
 import static com.todoroo.astrid.api.FilterListItem.Type.SUBHEADER;
@@ -24,7 +23,6 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterListItem.Type;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
 import org.tasks.billing.Inventory;
@@ -49,7 +47,6 @@ public class NavigationDrawerAdapter extends ListAdapter<FilterListItem, FilterV
   private OnClick onClick;
   private Filter selected = null;
   private Map<Filter, Integer> counts = new HashMap<>();
-  private List<FilterListItem> items;
 
   @Inject
   public NavigationDrawerAdapter(
@@ -75,11 +72,6 @@ public class NavigationDrawerAdapter extends ListAdapter<FilterListItem, FilterV
     selected = savedInstanceState.getParcelable(TOKEN_SELECTED);
   }
 
-  public void setData(List<FilterListItem> items) {
-    this.items = items;
-    submitList(items);
-  }
-
   public void setCounts(Map<Filter, Integer> counts) {
     assertMainThread();
     this.counts = counts;
@@ -98,11 +90,6 @@ public class NavigationDrawerAdapter extends ListAdapter<FilterListItem, FilterV
   public void setSelected(Filter selected) {
     this.selected = selected;
     notifyDataSetChanged();
-  }
-
-  public List<FilterListItem> getItems() {
-    assertMainThread();
-    return newArrayList(items);
   }
 
   @NonNull
