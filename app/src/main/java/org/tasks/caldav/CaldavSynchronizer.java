@@ -109,8 +109,7 @@ public class CaldavSynchronizer {
     try {
       synchronize(account);
     } catch (SocketTimeoutException | SSLException | ConnectException | UnknownHostException e) {
-      Timber.e(e);
-      account.setError(e.getMessage());
+      setError(account, e.getMessage());
     } catch (IOException | DavException e) {
       setError(account, e.getMessage());
       tracker.reportException(e);
