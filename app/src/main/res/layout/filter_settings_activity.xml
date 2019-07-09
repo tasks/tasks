@@ -34,6 +34,10 @@
           android:textColor="?attr/asTextColor"/>
       </com.google.android.material.textfield.TextInputLayout>
 
+      <include layout="@layout/list_settings_color"/>
+
+      <include layout="@layout/list_settings_icon"/>
+
     </LinearLayout>
 
   </ScrollView>

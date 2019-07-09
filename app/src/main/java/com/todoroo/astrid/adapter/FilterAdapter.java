@@ -22,6 +22,7 @@ import com.todoroo.astrid.api.FilterListItem;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
+import org.tasks.billing.Inventory;
 import org.tasks.filters.NavigationDrawerSubheader;
 import org.tasks.locale.Locale;
 import org.tasks.themes.Theme;
@@ -36,6 +37,7 @@ public class FilterAdapter extends BaseAdapter {
   private final Activity activity;
   private final ThemeAccent accent;
   private final Locale locale;
+  private final Inventory inventory;
   private final LayoutInflater inflater;
   private final ThemeCache themeCache;
   private Filter selected = null;
@@ -43,10 +45,11 @@ public class FilterAdapter extends BaseAdapter {
 
   @Inject
   public FilterAdapter(
-      Activity activity, Theme theme, ThemeCache themeCache, Locale locale) {
+      Activity activity, Theme theme, ThemeCache themeCache, Locale locale, Inventory inventory) {
     this.activity = activity;
     this.accent = theme.getThemeAccent();
     this.locale = locale;
+    this.inventory = inventory;
     this.inflater = theme.getLayoutInflater(activity);
     this.themeCache = themeCache;
   }
@@ -103,7 +106,7 @@ public class FilterAdapter extends BaseAdapter {
         case ITEM:
           viewHolder =
               new FilterViewHolder(
-                  convertView, accent, themeCache, false, locale, activity, null);
+                  convertView, accent, themeCache, false, locale, activity, inventory, null);
           break;
         case SEPARATOR:
           viewHolder = new FilterViewHolder(convertView);

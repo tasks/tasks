@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 64,
-    "identityHash": "d24b2db6e74861d39a229c3ad6ce2a70",
+    "identityHash": "abbb7bcb5c7617cdde59d165ccccff5e",
     "entities": [
       {
         "tableName": "notification",
@@ -59,7 +59,7 @@
       },
       {
         "tableName": "tagdata",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `remoteId` TEXT, `name` TEXT, `color` INTEGER, `tagOrdering` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `remoteId` TEXT, `name` TEXT, `color` INTEGER, `tagOrdering` TEXT, `td_icon` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
@@ -89,6 +89,12 @@
             "fieldPath": "tagOrdering",
             "columnName": "tagOrdering",
             "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "icon",
+            "columnName": "td_icon",
+            "affinity": "INTEGER",
             "notNull": false
           }
         ],
@@ -664,7 +670,7 @@
       },
       {
         "tableName": "filters",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `sql` TEXT, `values` TEXT, `criterion` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `sql` TEXT, `values` TEXT, `criterion` TEXT, `f_color` INTEGER, `f_icon` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
@@ -695,6 +701,18 @@
             "columnName": "criterion",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "color",
+            "columnName": "f_color",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "icon",
+            "columnName": "f_icon",
+            "affinity": "INTEGER",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -708,7 +726,7 @@
       },
       {
         "tableName": "google_task_lists",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`gtl_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `gtl_account` TEXT, `gtl_remote_id` TEXT, `gtl_title` TEXT, `gtl_remote_order` INTEGER NOT NULL, `gtl_last_sync` INTEGER NOT NULL, `gtl_color` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`gtl_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `gtl_account` TEXT, `gtl_remote_id` TEXT, `gtl_title` TEXT, `gtl_remote_order` INTEGER NOT NULL, `gtl_last_sync` INTEGER NOT NULL, `gtl_color` INTEGER, `gtl_icon` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
@@ -751,6 +769,12 @@
             "columnName": "gtl_color",
             "affinity": "INTEGER",
             "notNull": false
+          },
+          {
+            "fieldPath": "icon",
+            "columnName": "gtl_icon",
+            "affinity": "INTEGER",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -764,7 +788,7 @@
       },
       {
         "tableName": "caldav_lists",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cdl_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cdl_account` TEXT, `cdl_uuid` TEXT, `cdl_name` TEXT, `cdl_color` INTEGER NOT NULL, `cdl_ctag` TEXT, `cdl_url` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cdl_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cdl_account` TEXT, `cdl_uuid` TEXT, `cdl_name` TEXT, `cdl_color` INTEGER NOT NULL, `cdl_ctag` TEXT, `cdl_url` TEXT, `cdl_icon` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
@@ -806,6 +830,12 @@
             "fieldPath": "url",
             "columnName": "cdl_url",
             "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "icon",
+            "columnName": "cdl_icon",
+            "affinity": "INTEGER",
             "notNull": false
           }
         ],
@@ -984,7 +1014,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd24b2db6e74861d39a229c3ad6ce2a70')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'abbb7bcb5c7617cdde59d165ccccff5e')"
     ]
   }
 }

@@ -19,11 +19,17 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.todoroo.astrid.api.CaldavFilter;
+import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.api.GtasksFilter;
+import com.todoroo.astrid.api.TagFilter;
 import org.tasks.R;
+import org.tasks.billing.Inventory;
 import org.tasks.filters.NavigationDrawerSubheader;
 import org.tasks.locale.Locale;
 import org.tasks.sync.SynchronizationPreferences;
+import org.tasks.themes.CustomIcons;
 import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeCache;
 
@@ -49,6 +55,7 @@ public class FilterViewHolder extends RecyclerView.ViewHolder {
   private Locale locale;
   private Activity activity;
   private View itemView;
+  private Inventory inventory;
 
   FilterViewHolder(
       @NonNull View itemView,
@@ -57,8 +64,10 @@ public class FilterViewHolder extends RecyclerView.ViewHolder {
       boolean navigationDrawer,
       Locale locale,
       Activity activity,
+      Inventory inventory,
       OnClick onClick) {
     super(itemView);
+    this.inventory = inventory;
 
     ButterKnife.bind(this, itemView);
 
@@ -109,7 +118,7 @@ public class FilterViewHolder extends RecyclerView.ViewHolder {
       text.setChecked(selected);
     }
 
-    icon.setImageResource(filter.icon);
+    icon.setImageResource(getIcon(filter));
     icon.setColorFilter(
         filter.tint >= 0
             ? themeCache.getThemeColor(filter.tint).getPrimaryColor()
@@ -126,6 +135,24 @@ public class FilterViewHolder extends RecyclerView.ViewHolder {
 
     if (onClick != null) {
       row.setOnClickListener(v -> onClick.onClick(filter));
+    }
+  }
+
+  private int getIcon(FilterListItem filter) {
+    if (filter.icon < 1000 || inventory.hasPro()) {
+      Integer icon = CustomIcons.getIconResId(filter.icon);
+      if (icon != null) {
+        return icon;
+      }
+    }
+    if (filter instanceof TagFilter) {
+      return R.drawable.ic_outline_label_24px;
+    } else if (filter instanceof GtasksFilter || filter instanceof CaldavFilter) {
+      return R.drawable.ic_outline_cloud_24px;
+    } else if (filter instanceof CustomFilter) {
+      return R.drawable.ic_outline_filter_list_24px;
+    } else {
+      return filter.icon;
     }
   }
 

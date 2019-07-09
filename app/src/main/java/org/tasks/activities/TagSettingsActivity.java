@@ -11,15 +11,8 @@ import static android.text.TextUtils.isEmpty;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
-import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.OnFocusChange;
 import butterknife.OnTextChanged;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -30,34 +23,20 @@ import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.tags.TagService;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.analytics.Tracker;
-import org.tasks.analytics.Tracking;
+import org.tasks.caldav.BaseListSettingsActivity;
 import org.tasks.data.TagDao;
 import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
-import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
-import org.tasks.injection.ThemedInjectingAppCompatActivity;
-import org.tasks.preferences.Preferences;
-import org.tasks.themes.ThemeCache;
-import org.tasks.themes.ThemeColor;
 
-public class TagSettingsActivity extends ThemedInjectingAppCompatActivity
-    implements Toolbar.OnMenuItemClickListener {
+public class TagSettingsActivity extends BaseListSettingsActivity {
 
   public static final String TOKEN_AUTOPOPULATE_NAME = "autopopulateName"; // $NON-NLS-1$
   public static final String EXTRA_TAG_DATA = "tagData"; // $NON-NLS-1$
   private static final String EXTRA_TAG_UUID = "uuid"; // $NON-NLS-1$
-  private static final String EXTRA_SELECTED_THEME = "extra_selected_theme";
-  private static final int REQUEST_COLOR_PICKER = 10109;
   @Inject TagService tagService;
   @Inject TagDataDao tagDataDao;
   @Inject TagDao tagDao;
-  @Inject DialogBuilder dialogBuilder;
-  @Inject Preferences preferences;
-  @Inject ThemeCache themeCache;
-  @Inject ThemeColor themeColor;
-  @Inject Tracker tracker;
 
   @BindView(R.id.name)
   TextInputEditText name;
@@ -65,24 +44,15 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity
   @BindView(R.id.name_layout)
   TextInputLayout nameLayout;
 
-  @BindView(R.id.color)
-  TextInputEditText color;
-
-  @BindView(R.id.toolbar)
-  Toolbar toolbar;
-
   private boolean isNewTag;
   private TagData tagData;
-  private int selectedTheme;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
+    tagData = getIntent().getParcelableExtra(EXTRA_TAG_DATA);
+
     super.onCreate(savedInstanceState);
 
-    setContentView(R.layout.tag_settings_activity);
-    ButterKnife.bind(this);
-
-    tagData = getIntent().getParcelableExtra(EXTRA_TAG_DATA);
     if (tagData == null) {
       isNewTag = true;
       tagData = new TagData();
@@ -90,31 +60,8 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity
     }
     if (savedInstanceState == null) {
       selectedTheme = tagData.getColor();
-    } else {
-      selectedTheme = savedInstanceState.getInt(EXTRA_SELECTED_THEME);
+      selectedIcon = tagData.getIcon();
     }
-
-    final boolean backButtonSavesTask = preferences.backButtonSavesTask();
-    toolbar.setTitle(isNewTag ? getString(R.string.new_tag) : tagData.getName());
-    toolbar.setNavigationIcon(
-        ContextCompat.getDrawable(
-            this,
-            backButtonSavesTask
-                ? R.drawable.ic_outline_clear_24px
-                : R.drawable.ic_outline_save_24px));
-    toolbar.setNavigationOnClickListener(
-        v -> {
-          if (backButtonSavesTask) {
-            discard();
-          } else {
-            save();
-          }
-        });
-    toolbar.inflateMenu(R.menu.menu_tag_settings);
-    toolbar.setOnMenuItemClickListener(this);
-    toolbar.showOverflowMenu();
-
-    color.setInputType(InputType.TYPE_NULL);
 
     name.setText(tagData.getName());
 
@@ -123,7 +70,6 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity
       name.setText(autopopulateName);
       getIntent().removeExtra(TOKEN_AUTOPOPULATE_NAME);
     } else if (isNewTag) {
-      toolbar.getMenu().findItem(R.id.delete).setVisible(false);
       name.requestFocus();
       InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
       imm.showSoftInput(name, InputMethodManager.SHOW_IMPLICIT);
@@ -132,33 +78,19 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity
     updateTheme();
   }
 
-  @OnTextChanged(R.id.name)
-  void onTextChanged(CharSequence ignored) {
-    nameLayout.setError(null);
+  @Override
+  protected boolean isNew() {
+    return tagData == null;
   }
 
   @Override
-  protected void onSaveInstanceState(Bundle outState) {
-    super.onSaveInstanceState(outState);
-
-    outState.putInt(EXTRA_SELECTED_THEME, selectedTheme);
+  protected String getToolbarTitle() {
+    return isNew() ? getString(R.string.new_tag) : tagData.getName();
   }
 
-  @OnFocusChange(R.id.color)
-  void onFocusChange(boolean focused) {
-    if (focused) {
-      color.clearFocus();
-      showThemePicker();
-    }
-  }
-
-  @OnClick(R.id.color)
-  protected void showThemePicker() {
-    Intent intent = new Intent(TagSettingsActivity.this, ColorPickerActivity.class);
-    intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerActivity.ColorPalette.COLORS);
-    intent.putExtra(ColorPickerActivity.EXTRA_THEME_INDEX, selectedTheme);
-    intent.putExtra(ColorPickerActivity.EXTRA_SHOW_NONE, true);
-    startActivityForResult(intent, REQUEST_COLOR_PICKER);
+  @OnTextChanged(R.id.name)
+  void onTextChanged(CharSequence ignored) {
+    nameLayout.setError(null);
   }
 
   @Override
@@ -175,7 +107,8 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity
         && tagDataDao.getTagByName(newName) != null;
   }
 
-  private void save() {
+  @Override
+  protected void save() {
     String newName = getNewName();
 
     if (isEmpty(newName)) {
@@ -191,27 +124,33 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity
     if (isNewTag) {
       tagData.setName(newName);
       tagData.setColor(selectedTheme);
+      tagData.setIcon(selectedIcon);
       tagDataDao.createNew(tagData);
       setResult(RESULT_OK, new Intent().putExtra(MainActivity.OPEN_FILTER, new TagFilter(tagData)));
     } else if (hasChanges()) {
       tagData.setName(newName);
       tagData.setColor(selectedTheme);
+      tagData.setIcon(selectedIcon);
       tagService.rename(tagData.getRemoteId(), newName);
       tagDataDao.update(tagData);
       tagDao.rename(tagData.getRemoteId(), newName);
       setResult(
           RESULT_OK,
-          new Intent(TaskListFragment.ACTION_RELOAD).putExtra(MainActivity.OPEN_FILTER, new TagFilter(tagData)));
+          new Intent(TaskListFragment.ACTION_RELOAD)
+              .putExtra(MainActivity.OPEN_FILTER, new TagFilter(tagData)));
     }
 
     finish();
   }
 
-  private boolean hasChanges() {
+  @Override
+  protected boolean hasChanges() {
     if (isNewTag) {
-      return selectedTheme >= 0 || !isEmpty(getNewName());
+      return selectedTheme >= 0 || selectedIcon >= 0 || !isEmpty(getNewName());
     }
-    return !(selectedTheme == tagData.getColor() && getNewName().equals(tagData.getName()));
+    return !(selectedTheme == tagData.getColor()
+        && selectedIcon == tagData.getIcon()
+        && getNewName().equals(tagData.getName()));
   }
 
   @Override
@@ -222,78 +161,20 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity
   }
 
   @Override
-  public void onBackPressed() {
-    if (preferences.backButtonSavesTask()) {
-      save();
-    } else {
-      discard();
-    }
+  protected int getLayout() {
+    return R.layout.activity_tag_settings;
   }
 
   @Override
-  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    if (requestCode == REQUEST_COLOR_PICKER) {
-      if (resultCode == RESULT_OK) {
-        int index = data.getIntExtra(ColorPickerActivity.EXTRA_THEME_INDEX, 0);
-        tracker.reportEvent(Tracking.Events.SET_TAG_COLOR, Integer.toString(index));
-        selectedTheme = index;
-        updateTheme();
-      }
-    } else {
-      super.onActivityResult(requestCode, resultCode, data);
+  protected void delete() {
+    if (tagData != null) {
+      String uuid = tagData.getRemoteId();
+      tagDao.deleteTag(uuid);
+      tagDataDao.delete(tagData.getId());
+      setResult(
+          RESULT_OK,
+          new Intent(TaskListFragment.ACTION_DELETED).putExtra(EXTRA_TAG_UUID, uuid));
     }
-  }
-
-  private void deleteTag() {
-    dialogBuilder
-        .newMessageDialog(R.string.delete_tag_confirmation, tagData.getName())
-        .setPositiveButton(
-            R.string.delete,
-            (dialog, which) -> {
-              if (tagData != null) {
-                String uuid = tagData.getRemoteId();
-                tagDao.deleteTag(uuid);
-                tagDataDao.delete(tagData.getId());
-                setResult(RESULT_OK, new Intent(TaskListFragment.ACTION_DELETED).putExtra(EXTRA_TAG_UUID, uuid));
-              }
-              finish();
-            })
-        .setNegativeButton(android.R.string.cancel, null)
-        .show();
-  }
-
-  private void discard() {
-    if (!hasChanges()) {
-      finish();
-    } else {
-      dialogBuilder
-          .newMessageDialog(R.string.discard_changes)
-          .setPositiveButton(R.string.discard, (dialog, which) -> finish())
-          .setNegativeButton(android.R.string.cancel, null)
-          .show();
-    }
-  }
-
-  private void updateTheme() {
-    ThemeColor themeColor;
-    if (selectedTheme < 0) {
-      themeColor = this.themeColor;
-      color.setText(R.string.none);
-    } else {
-      themeColor = themeCache.getThemeColor(selectedTheme);
-      color.setText(themeColor.getName());
-    }
-    themeColor.apply(toolbar);
-    themeColor.applyToSystemBars(this);
-  }
-
-  @Override
-  public boolean onMenuItemClick(MenuItem item) {
-    switch (item.getItemId()) {
-      case R.id.delete:
-        deleteTag();
-        break;
-    }
-    return onOptionsItemSelected(item);
+    finish();
   }
 }

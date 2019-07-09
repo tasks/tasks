@@ -33,15 +33,10 @@
           android:textColor="?attr/asTextColor"/>
       </com.google.android.material.textfield.TextInputLayout>
 
-      <com.google.android.material.textfield.TextInputLayout style="@style/TagSettingsRow">
 
-        <com.google.android.material.textfield.TextInputEditText
-          android:id="@+id/color"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:hint="@string/color"
-          android:textColor="?attr/asTextColor"/>
-      </com.google.android.material.textfield.TextInputLayout>
+      <include layout="@layout/list_settings_color"/>
+
+      <include layout="@layout/list_settings_icon"/>
 
     </LinearLayout>
 

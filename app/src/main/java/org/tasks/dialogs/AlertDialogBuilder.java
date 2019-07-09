@@ -104,8 +104,8 @@ public class AlertDialogBuilder {
   }
 
   public AlertDialogBuilder setNeutralButton(
-      int reverse, DialogInterface.OnClickListener onClickListener) {
-    builder.setNeutralButton(reverse, onClickListener);
+      int resId, DialogInterface.OnClickListener onClickListener) {
+    builder.setNeutralButton(resId, onClickListener);
     return this;
   }
 

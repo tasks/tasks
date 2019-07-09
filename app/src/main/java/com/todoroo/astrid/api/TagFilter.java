@@ -36,7 +36,6 @@ public class TagFilter extends Filter {
         }
       };
 
-  private static final int TAG = R.drawable.ic_outline_label_24px;
   private TagData tagData;
 
   private TagFilter() {
@@ -47,7 +46,7 @@ public class TagFilter extends Filter {
     super(tagData.getName(), queryTemplate(tagData.getRemoteId()), getValuesForNewTask(tagData));
     this.tagData = tagData;
     tint = tagData.getColor();
-    icon = TAG;
+    icon = tagData.getIcon();
   }
 
   private static QueryTemplate queryTemplate(String uuid) {

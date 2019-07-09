@@ -10,8 +10,6 @@ import org.tasks.R;
 
 public class CustomFilter extends Filter {
 
-  private static final int FILTER = R.drawable.ic_outline_filter_list_24px;
-
   /** Parcelable Creator Object */
   public static final Parcelable.Creator<CustomFilter> CREATOR =
       new Parcelable.Creator<CustomFilter>() {
@@ -38,7 +36,8 @@ public class CustomFilter extends Filter {
         filter.getTitle(), filter.getSql().replace("tasks.userId=0", "1"), filter.getValuesAsMap());
     this.id = filter.getId();
     this.criterion = filter.getCriterion();
-    this.icon = FILTER;
+    this.tint = filter.getColor();
+    this.icon = filter.getIcon();
   }
 
   private CustomFilter(Parcel parcel) {
@@ -50,6 +49,8 @@ public class CustomFilter extends Filter {
     filter.setId(id);
     filter.setTitle(listingTitle);
     filter.setSql(sqlQuery);
+    filter.setIcon(icon);
+    filter.setColor(tint);
     if (valuesForNewTasks != null && valuesForNewTasks.size() > 0) {
       filter.setValues(mapToSerializedString(valuesForNewTasks));
     }

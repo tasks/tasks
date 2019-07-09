@@ -27,6 +27,7 @@ import org.tasks.R;
 import org.tasks.data.Tag;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
+import org.tasks.themes.CustomIcons;
 
 /**
  * Exposes Astrid's built in filters to the NavigationDrawerFragment
@@ -105,7 +106,7 @@ public final class BuiltInFilterExposer {
 
   public Filter getMyTasksFilter() {
     Filter myTasksFilter = getMyTasksFilter(context.getResources());
-    myTasksFilter.icon = R.drawable.ic_outline_all_inbox_24px;
+    myTasksFilter.icon = CustomIcons.getALL_INBOX();
     return myTasksFilter;
   }
 
@@ -116,17 +117,17 @@ public final class BuiltInFilterExposer {
 
     if (preferences.getBoolean(R.string.p_show_today_filter, true)) {
       Filter todayFilter = getTodayFilter(r);
-      todayFilter.icon = R.drawable.ic_outline_today_24px;
+      todayFilter.icon = CustomIcons.getTODAY();
       filters.add(todayFilter);
     }
     if (preferences.getBoolean(R.string.p_show_recently_modified_filter, true)) {
       Filter recentlyModifiedFilter = getRecentlyModifiedFilter(r);
-      recentlyModifiedFilter.icon = R.drawable.ic_outline_history_24px;
+      recentlyModifiedFilter.icon = CustomIcons.getHISTORY();
       filters.add(recentlyModifiedFilter);
     }
     if (preferences.getBoolean(R.string.p_show_not_in_list_filter, true)) {
       Filter uncategorizedFilter = getUncategorizedFilter(r);
-      uncategorizedFilter.icon = R.drawable.ic_outline_label_off_24px;
+      uncategorizedFilter.icon = CustomIcons.getLABEL_OFF();
       filters.add(uncategorizedFilter);
     }
     // transmit filter list

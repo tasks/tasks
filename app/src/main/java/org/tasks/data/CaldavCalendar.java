@@ -8,6 +8,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+import org.tasks.themes.CustomIcons;
 
 @Entity(tableName = "caldav_lists")
 public final class CaldavCalendar implements Parcelable {
@@ -47,6 +48,9 @@ public final class CaldavCalendar implements Parcelable {
   @ColumnInfo(name = "cdl_url")
   private String url = "";
 
+  @ColumnInfo(name = "cdl_icon")
+  private Integer icon = -1;
+
   public CaldavCalendar() {}
 
   @Ignore
@@ -64,6 +68,7 @@ public final class CaldavCalendar implements Parcelable {
     color = source.readInt();
     ctag = source.readString();
     url = source.readString();
+    icon = source.readInt();
   }
 
   public long getId() {
@@ -122,6 +127,14 @@ public final class CaldavCalendar implements Parcelable {
     this.url = url;
   }
 
+  public Integer getIcon() {
+    return icon == null ? CustomIcons.getCLOUD() : icon;
+  }
+
+  public void setIcon(Integer icon) {
+    this.icon = icon;
+  }
+
   @Override
   public int describeContents() {
     return 0;
@@ -136,31 +149,7 @@ public final class CaldavCalendar implements Parcelable {
     dest.writeInt(color);
     dest.writeString(ctag);
     dest.writeString(url);
-  }
-
-  @Override
-  public String toString() {
-    return "CaldavCalendar{"
-        + "id="
-        + id
-        + ", account='"
-        + account
-        + '\''
-        + ", uuid='"
-        + uuid
-        + '\''
-        + ", name='"
-        + name
-        + '\''
-        + ", color="
-        + color
-        + ", ctag='"
-        + ctag
-        + '\''
-        + ", url='"
-        + url
-        + '\''
-        + '}';
+    dest.writeInt(getIcon());
   }
 
   @Override
@@ -192,7 +181,10 @@ public final class CaldavCalendar implements Parcelable {
     if (ctag != null ? !ctag.equals(that.ctag) : that.ctag != null) {
       return false;
     }
-    return url != null ? url.equals(that.url) : that.url == null;
+    if (url != null ? !url.equals(that.url) : that.url != null) {
+      return false;
+    }
+    return icon != null ? icon.equals(that.icon) : that.icon == null;
   }
 
   @Override
@@ -204,6 +196,34 @@ public final class CaldavCalendar implements Parcelable {
     result = 31 * result + color;
     result = 31 * result + (ctag != null ? ctag.hashCode() : 0);
     result = 31 * result + (url != null ? url.hashCode() : 0);
+    result = 31 * result + (icon != null ? icon.hashCode() : 0);
     return result;
+  }
+
+  @Override
+  public String toString() {
+    return "CaldavCalendar{"
+        + "id="
+        + id
+        + ", account='"
+        + account
+        + '\''
+        + ", uuid='"
+        + uuid
+        + '\''
+        + ", name='"
+        + name
+        + '\''
+        + ", color="
+        + color
+        + ", ctag='"
+        + ctag
+        + '\''
+        + ", url='"
+        + url
+        + '\''
+        + ", icon="
+        + icon
+        + '}';
   }
 }

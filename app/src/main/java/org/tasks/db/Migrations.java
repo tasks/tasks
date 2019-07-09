@@ -277,7 +277,7 @@ public class Migrations {
           database.execSQL("DROP TABLE `caldav_account`");
 
           database.execSQL(
-              "CREATE TABLE IF NOT EXISTS `caldav_lists` (`cdl_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cdl_account` TEXT, `cdl_uuid` TEXT, `cdl_name` TEXT, `cdl_color` INTEGER NOT NULL, `cdl_ctag` TEXT, `cdl_url` TEXT)");
+              "CREATE TABLE IF NOT EXISTS `caldav_lists` (`cdl_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cdl_account` TEXT, `cdl_uuid` TEXT, `cdl_name` TEXT, `cdl_color` INTEGER NOT NULL, `cdl_ctag` TEXT, `cdl_url` TEXT, `cdl_icon` INTEGER)");
           database.execSQL(
               "INSERT INTO `caldav_lists` (`cdl_id`, `cdl_account`, `cdl_uuid`, `cdl_name`, `cdl_color`, `cdl_ctag`, `cdl_url`) "
                   + "SELECT `_id`, `account`, `uuid`, `name`, `color`, `ctag`, `url` FROM caldav_calendar");
@@ -293,11 +293,15 @@ public class Migrations {
 
           database.execSQL("ALTER TABLE `google_task_lists` RENAME TO `gtl-temp`");
           database.execSQL(
-              "CREATE TABLE IF NOT EXISTS `google_task_lists` (`gtl_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `gtl_account` TEXT, `gtl_remote_id` TEXT, `gtl_title` TEXT, `gtl_remote_order` INTEGER NOT NULL, `gtl_last_sync` INTEGER NOT NULL, `gtl_color` INTEGER)");
+              "CREATE TABLE IF NOT EXISTS `google_task_lists` (`gtl_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `gtl_account` TEXT, `gtl_remote_id` TEXT, `gtl_title` TEXT, `gtl_remote_order` INTEGER NOT NULL, `gtl_last_sync` INTEGER NOT NULL, `gtl_color` INTEGER, `gtl_icon` INTEGER)");
           database.execSQL(
               "INSERT INTO `google_task_lists` (`gtl_id`, `gtl_account`, `gtl_remote_id`, `gtl_title`, `gtl_remote_order`, `gtl_last_sync`, `gtl_color`) "
                   + "SELECT `_id`, `account`, `remote_id`, `title`, `remote_order`, `last_sync`, `color` FROM `gtl-temp`");
           database.execSQL("DROP TABLE `gtl-temp`");
+
+          database.execSQL("ALTER TABLE `filters` ADD COLUMN `f_color` INTEGER");
+          database.execSQL("ALTER TABLE `filters` ADD COLUMN `f_icon` INTEGER");
+          database.execSQL("ALTER TABLE `tagdata` ADD COLUMN `td_icon` INTEGER");
         }
       };
 

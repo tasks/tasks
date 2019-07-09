@@ -6,6 +6,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+import org.tasks.themes.CustomIcons;
 
 @Entity(tableName = "google_task_lists")
 public class GoogleTaskList implements Parcelable {
@@ -45,6 +46,9 @@ public class GoogleTaskList implements Parcelable {
   @ColumnInfo(name = "gtl_color")
   private Integer color;
 
+  @ColumnInfo(name = "gtl_icon")
+  private Integer icon = -1;
+
   public GoogleTaskList() {}
 
   @Ignore
@@ -56,6 +60,7 @@ public class GoogleTaskList implements Parcelable {
     remoteOrder = parcel.readInt();
     lastSync = parcel.readLong();
     color = parcel.readInt();
+    icon = parcel.readInt();
   }
 
   public long getId() {
@@ -114,6 +119,31 @@ public class GoogleTaskList implements Parcelable {
     this.color = color;
   }
 
+  public Integer getIcon() {
+    return icon == null ? CustomIcons.getCLOUD() : icon;
+  }
+
+  public void setIcon(Integer icon) {
+    this.icon = icon;
+  }
+
+  @Override
+  public int describeContents() {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(Parcel parcel, int i) {
+    parcel.writeLong(id);
+    parcel.writeString(account);
+    parcel.writeString(remoteId);
+    parcel.writeString(title);
+    parcel.writeInt(remoteOrder);
+    parcel.writeLong(lastSync);
+    parcel.writeInt(getColor());
+    parcel.writeInt(getIcon());
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -143,7 +173,10 @@ public class GoogleTaskList implements Parcelable {
     if (title != null ? !title.equals(that.title) : that.title != null) {
       return false;
     }
-    return color != null ? color.equals(that.color) : that.color == null;
+    if (color != null ? !color.equals(that.color) : that.color != null) {
+      return false;
+    }
+    return icon != null ? icon.equals(that.icon) : that.icon == null;
   }
 
   @Override
@@ -155,6 +188,7 @@ public class GoogleTaskList implements Parcelable {
     result = 31 * result + remoteOrder;
     result = 31 * result + (int) (lastSync ^ (lastSync >>> 32));
     result = 31 * result + (color != null ? color.hashCode() : 0);
+    result = 31 * result + (icon != null ? icon.hashCode() : 0);
     return result;
   }
 
@@ -178,22 +212,8 @@ public class GoogleTaskList implements Parcelable {
         + lastSync
         + ", color="
         + color
+        + ", icon="
+        + icon
         + '}';
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(Parcel parcel, int i) {
-    parcel.writeLong(id);
-    parcel.writeString(account);
-    parcel.writeString(remoteId);
-    parcel.writeString(title);
-    parcel.writeInt(remoteOrder);
-    parcel.writeLong(lastSync);
-    parcel.writeInt(getColor());
   }
 }

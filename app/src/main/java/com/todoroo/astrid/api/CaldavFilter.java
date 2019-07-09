@@ -35,7 +35,6 @@ public class CaldavFilter extends Filter {
         }
       };
 
-  private static final int TAG = R.drawable.ic_outline_cloud_24px;
   private CaldavCalendar calendar;
 
   private CaldavFilter() {
@@ -46,7 +45,7 @@ public class CaldavFilter extends Filter {
     super(calendar.getName(), queryTemplate(calendar), getValuesForNewTask(calendar));
     this.calendar = calendar;
     tint = calendar.getColor();
-    icon = TAG;
+    icon = calendar.getIcon();
   }
 
   private static QueryTemplate queryTemplate(CaldavCalendar caldavCalendar) {

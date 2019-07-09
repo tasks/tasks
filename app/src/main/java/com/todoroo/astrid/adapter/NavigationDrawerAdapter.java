@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
+import org.tasks.billing.Inventory;
 import org.tasks.filters.NavigationDrawerSubheader;
 import org.tasks.locale.Locale;
 import org.tasks.themes.Theme;
@@ -42,6 +43,7 @@ public class NavigationDrawerAdapter extends ListAdapter<FilterListItem, FilterV
   private final Activity activity;
   private final ThemeAccent accent;
   private final Locale locale;
+  private final Inventory inventory;
   private final LayoutInflater inflater;
   private final ThemeCache themeCache;
   private OnClick onClick;
@@ -51,11 +53,12 @@ public class NavigationDrawerAdapter extends ListAdapter<FilterListItem, FilterV
 
   @Inject
   public NavigationDrawerAdapter(
-      Activity activity, Theme theme, ThemeCache themeCache, Locale locale) {
+      Activity activity, Theme theme, ThemeCache themeCache, Locale locale, Inventory inventory) {
     super(new DiffCallback());
     this.activity = activity;
     this.accent = theme.getThemeAccent();
     this.locale = locale;
+    this.inventory = inventory;
     this.inflater = theme.getLayoutInflater(activity);
     this.themeCache = themeCache;
   }
@@ -109,7 +112,7 @@ public class NavigationDrawerAdapter extends ListAdapter<FilterListItem, FilterV
     View view = inflater.inflate(type.layout, parent, false);
     if (type == ITEM) {
       return new FilterViewHolder(
-          view, accent, themeCache, true, locale, activity, onClick);
+          view, accent, themeCache, true, locale, activity, inventory, onClick);
     } else if (type == SUBHEADER) {
       return new FilterViewHolder(view, activity);
     } else {

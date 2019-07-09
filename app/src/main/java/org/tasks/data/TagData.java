@@ -9,6 +9,7 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import com.todoroo.astrid.data.Task;
 import org.tasks.backup.XmlReader;
+import org.tasks.themes.CustomIcons;
 
 @Entity(tableName = "tagdata")
 public final class TagData implements Parcelable {
@@ -42,6 +43,9 @@ public final class TagData implements Parcelable {
   @ColumnInfo(name = "tagOrdering")
   private String tagOrdering = "[]";
 
+  @ColumnInfo(name = "td_icon")
+  private Integer icon = -1;
+
   public TagData() {}
 
   @Ignore
@@ -60,6 +64,7 @@ public final class TagData implements Parcelable {
     name = parcel.readString();
     color = parcel.readInt();
     tagOrdering = parcel.readString();
+    icon = parcel.readInt();
   }
 
   public Long getId() {
@@ -102,6 +107,14 @@ public final class TagData implements Parcelable {
     this.color = color;
   }
 
+  public Integer getIcon() {
+    return icon == null ? CustomIcons.getLABEL() : icon;
+  }
+
+  public void setIcon(Integer icon) {
+    this.icon = icon;
+  }
+
   @Override
   public int describeContents() {
     return 0;
@@ -114,6 +127,7 @@ public final class TagData implements Parcelable {
     dest.writeString(name);
     dest.writeInt(color);
     dest.writeString(tagOrdering);
+    dest.writeInt(getIcon());
   }
 
   @Override
@@ -121,7 +135,7 @@ public final class TagData implements Parcelable {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof TagData)) {
       return false;
     }
 
@@ -139,9 +153,12 @@ public final class TagData implements Parcelable {
     if (color != null ? !color.equals(tagData.color) : tagData.color != null) {
       return false;
     }
-    return tagOrdering != null
-        ? tagOrdering.equals(tagData.tagOrdering)
-        : tagData.tagOrdering == null;
+    if (tagOrdering != null
+        ? !tagOrdering.equals(tagData.tagOrdering)
+        : tagData.tagOrdering != null) {
+      return false;
+    }
+    return icon != null ? icon.equals(tagData.icon) : tagData.icon == null;
   }
 
   @Override
@@ -151,6 +168,7 @@ public final class TagData implements Parcelable {
     result = 31 * result + (name != null ? name.hashCode() : 0);
     result = 31 * result + (color != null ? color.hashCode() : 0);
     result = 31 * result + (tagOrdering != null ? tagOrdering.hashCode() : 0);
+    result = 31 * result + (icon != null ? icon.hashCode() : 0);
     return result;
   }
 
@@ -167,6 +185,8 @@ public final class TagData implements Parcelable {
         + '\''
         + ", color="
         + color
+        + ", icon="
+        + icon
         + ", tagOrdering='"
         + tagOrdering
         + '\''

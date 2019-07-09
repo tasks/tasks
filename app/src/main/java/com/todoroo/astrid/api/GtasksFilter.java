@@ -36,7 +36,6 @@ public class GtasksFilter extends Filter {
         }
       };
 
-  private static final int CLOUD = R.drawable.ic_outline_cloud_24px;
   private GoogleTaskList list;
 
   private GtasksFilter() {
@@ -47,7 +46,7 @@ public class GtasksFilter extends Filter {
     super(list.getTitle(), getQueryTemplate(list), getValuesForNewTasks(list));
     this.list = list;
     tint = list.getColor();
-    icon = CLOUD;
+    icon = list.getIcon();
   }
 
   public static String toManualOrder(String query) {

@@ -11,34 +11,25 @@ import static android.text.TextUtils.isEmpty;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnTextChanged;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.CustomFilter;
 import javax.inject.Inject;
 import org.tasks.R;
+import org.tasks.caldav.BaseListSettingsActivity;
 import org.tasks.data.FilterDao;
-import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
-import org.tasks.injection.ThemedInjectingAppCompatActivity;
-import org.tasks.preferences.Preferences;
-import org.tasks.ui.MenuColorizer;
 
-public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity
-    implements Toolbar.OnMenuItemClickListener {
+public class FilterSettingsActivity extends BaseListSettingsActivity {
 
   public static final String TOKEN_FILTER = "token_filter";
 
   @Inject FilterDao filterDao;
-  @Inject DialogBuilder dialogBuilder;
-  @Inject Preferences preferences;
 
   @BindView(R.id.name)
   TextInputEditText name;
@@ -46,41 +37,32 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity
   @BindView(R.id.name_layout)
   TextInputLayout nameLayout;
 
-  @BindView(R.id.toolbar)
-  Toolbar toolbar;
-
   private CustomFilter filter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-
-    setContentView(R.layout.filter_settings_activity);
-    ButterKnife.bind(this);
-
     filter = getIntent().getParcelableExtra(TOKEN_FILTER);
 
-    final boolean backButtonSavesTask = preferences.backButtonSavesTask();
-    toolbar.setNavigationIcon(
-        ContextCompat.getDrawable(
-            this,
-            backButtonSavesTask
-                ? R.drawable.ic_outline_clear_24px
-                : R.drawable.ic_outline_save_24px));
-    toolbar.setTitle(filter.listingTitle);
-    toolbar.setNavigationOnClickListener(
-        v -> {
-          if (backButtonSavesTask) {
-            discard();
-          } else {
-            save();
-          }
-        });
-    toolbar.inflateMenu(R.menu.menu_tag_settings);
-    toolbar.setOnMenuItemClickListener(this);
-    MenuColorizer.colorToolbar(this, toolbar);
+    super.onCreate(savedInstanceState);
+
+    if (savedInstanceState == null) {
+      selectedTheme = filter.tint;
+      selectedIcon = filter.icon;
+    }
 
     name.setText(filter.listingTitle);
+
+    updateTheme();
+  }
+
+  @Override
+  protected boolean isNew() {
+    return false;
+  }
+
+  @Override
+  protected String getToolbarTitle() {
+    return filter.listingTitle;
   }
 
   @OnTextChanged(R.id.name)
@@ -93,24 +75,37 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity
     component.inject(this);
   }
 
-  private void save() {
-    String oldName = filter.listingTitle;
-    String newName = name.getText().toString().trim();
+  @Override
+  protected void save() {
+    String newName = getNewName();
 
     if (isEmpty(newName)) {
       nameLayout.setError(getString(R.string.name_cannot_be_empty));
       return;
     }
 
-    boolean nameChanged = !oldName.equals(newName);
-    if (nameChanged) {
+    if (hasChanges()) {
       filter.listingTitle = newName;
+      filter.tint = selectedTheme;
+      filter.icon = selectedIcon;
       filterDao.update(filter.toStoreObject());
       setResult(
-          RESULT_OK, new Intent(TaskListFragment.ACTION_RELOAD).putExtra(TOKEN_FILTER, filter));
+          RESULT_OK,
+          new Intent(TaskListFragment.ACTION_RELOAD).putExtra(MainActivity.OPEN_FILTER, filter));
     }
 
     finish();
+  }
+
+  private String getNewName() {
+    return name.getText().toString().trim();
+  }
+
+  @Override
+  protected boolean hasChanges() {
+    return !(getNewName().equals(filter.listingTitle)
+        && selectedTheme == filter.tint
+        && selectedIcon == filter.icon);
   }
 
   @Override
@@ -121,50 +116,16 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity
   }
 
   @Override
-  public void onBackPressed() {
-    if (preferences.backButtonSavesTask()) {
-      save();
-    } else {
-      discard();
-    }
-  }
-
-  private void deleteTag() {
-    dialogBuilder
-        .newMessageDialog(R.string.delete_tag_confirmation, filter.listingTitle)
-        .setPositiveButton(
-            R.string.delete,
-            (dialog, which) -> {
-              filterDao.delete(filter.getId());
-              setResult(
-                  RESULT_OK,
-                  new Intent(TaskListFragment.ACTION_DELETED).putExtra(TOKEN_FILTER, filter));
-              finish();
-            })
-        .setNegativeButton(android.R.string.cancel, null)
-        .show();
-  }
-
-  private void discard() {
-    String tagName = this.name.getText().toString().trim();
-    if (filter.listingTitle.equals(tagName)) {
-      finish();
-    } else {
-      dialogBuilder
-          .newMessageDialog(R.string.discard_changes)
-          .setPositiveButton(R.string.keep_editing, null)
-          .setNegativeButton(R.string.discard, (dialog, which) -> finish())
-          .show();
-    }
+  protected int getLayout() {
+    return R.layout.filter_settings_activity;
   }
 
   @Override
-  public boolean onMenuItemClick(MenuItem item) {
-    switch (item.getItemId()) {
-      case R.id.delete:
-        deleteTag();
-        break;
-    }
-    return onOptionsItemSelected(item);
+  protected void delete() {
+    filterDao.delete(filter.getId());
+    setResult(
+        RESULT_OK,
+        new Intent(TaskListFragment.ACTION_DELETED).putExtra(TOKEN_FILTER, filter));
+    finish();
   }
 }

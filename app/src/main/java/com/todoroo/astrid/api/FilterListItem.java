@@ -23,7 +23,7 @@ public abstract class FilterListItem implements Parcelable {
   /** Title of this item displayed on the Filters page */
   public String listingTitle = null;
 
-  public int icon = 0;
+  public int icon = -1;
   public int tint = -1;
   public int count = -1;
 
