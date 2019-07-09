@@ -3,6 +3,9 @@ package org.tasks.data;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import com.google.common.base.Strings;
+import com.todoroo.andlib.utility.AndroidUtilities;
+import java.util.Map;
 
 @Entity(tableName = "filters")
 public class Filter {
@@ -49,6 +52,10 @@ public class Filter {
 
   public String getValues() {
     return values;
+  }
+
+  public Map<String, Object> getValuesAsMap() {
+    return Strings.isNullOrEmpty(values) ? null : AndroidUtilities.mapFromSerializedString(values);
   }
 
   public void setValues(String values) {

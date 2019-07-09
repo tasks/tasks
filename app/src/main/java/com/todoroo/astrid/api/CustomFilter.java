@@ -5,11 +5,12 @@ import static com.todoroo.andlib.utility.AndroidUtilities.mapToSerializedString;
 import android.os.Parcel;
 import android.os.Parcelable;
 import androidx.annotation.NonNull;
-import java.util.Map;
 import org.tasks.Objects;
 import org.tasks.R;
 
 public class CustomFilter extends Filter {
+
+  private static final int FILTER = R.drawable.ic_outline_filter_list_24px;
 
   /** Parcelable Creator Object */
   public static final Parcelable.Creator<CustomFilter> CREATOR =
@@ -31,11 +32,13 @@ public class CustomFilter extends Filter {
   private long id;
   private String criterion;
 
-  public CustomFilter(
-      String listingTitle, String sql, Map<String, Object> values, long id, String criterion) {
-    super(listingTitle, sql, values);
-    this.id = id;
-    this.criterion = criterion;
+  public CustomFilter(org.tasks.data.Filter filter) {
+    // TODO: replace dirty hack for missing column
+    super(
+        filter.getTitle(), filter.getSql().replace("tasks.userId=0", "1"), filter.getValuesAsMap());
+    this.id = filter.getId();
+    this.criterion = filter.getCriterion();
+    this.icon = FILTER;
   }
 
   private CustomFilter(Parcel parcel) {
@@ -85,6 +88,7 @@ public class CustomFilter extends Filter {
 
   @Override
   public boolean areContentsTheSame(@NonNull FilterListItem other) {
-    return super.areContentsTheSame(other) && Objects.equals(criterion, ((CustomFilter) other).criterion);
+    return super.areContentsTheSame(other)
+        && Objects.equals(criterion, ((CustomFilter) other).criterion);
   }
 }

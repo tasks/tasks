@@ -248,11 +248,9 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity
       }
     }
 
-    org.tasks.data.Filter storeObject = persist(title, sql.toString(), values);
-    Filter filter =
-        new CustomFilter(
-            title, sql.toString(), values, storeObject.getId(), storeObject.getCriterion());
-    setResult(RESULT_OK, new Intent().putExtra(MainActivity.OPEN_FILTER, filter));
+    org.tasks.data.Filter filter = persist(title, sql.toString(), values);
+    Filter customFilter = new CustomFilter(filter);
+    setResult(RESULT_OK, new Intent().putExtra(MainActivity.OPEN_FILTER, customFilter));
     finish();
   }
 
