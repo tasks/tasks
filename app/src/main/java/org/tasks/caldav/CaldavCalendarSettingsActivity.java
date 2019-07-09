@@ -205,20 +205,8 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
 
     String name = getNewName();
 
-    boolean failed = false;
-
     if (isEmpty(name)) {
       nameLayout.setError(getString(R.string.name_cannot_be_empty));
-      failed = true;
-    } else {
-      CaldavCalendar calendarByName = caldavDao.getCalendar(caldavAccount.getUuid(), name);
-      if (calendarByName != null && !calendarByName.equals(caldavCalendar)) {
-        nameLayout.setError(getString(R.string.duplicate_name));
-        failed = true;
-      }
-    }
-
-    if (failed) {
       return;
     }
 

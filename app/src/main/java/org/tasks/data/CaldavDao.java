@@ -70,10 +70,6 @@ public interface CaldavDao {
   @Query("SELECT * FROM caldav_lists WHERE cdl_uuid = :uuid LIMIT 1")
   CaldavCalendar getCalendar(String uuid);
 
-  @Query(
-      "SELECT * FROM caldav_lists WHERE cdl_account = :account AND cdl_name = :name COLLATE NOCASE LIMIT 1")
-  CaldavCalendar getCalendar(String account, String name);
-
   @Query("SELECT cd_object FROM caldav_tasks WHERE cd_calendar = :calendar")
   List<String> getObjects(String calendar);
 
