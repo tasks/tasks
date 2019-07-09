@@ -24,6 +24,7 @@ import java.util.Map;
 import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
+import org.tasks.billing.Inventory;
 import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.GoogleTaskList;
@@ -41,6 +42,7 @@ public class ChipProvider {
   private final Map<String, GtasksFilter> googleTaskLists = new HashMap<>();
   private final Map<String, CaldavFilter> caldavCalendars = new HashMap<>();
   private final Map<String, TagFilter> tagDatas = new HashMap<>();
+  private final Inventory inventory;
   private final ThemeCache themeCache;
   private final int iconAlpha;
   private final LocalBroadcastManager localBroadcastManager;
@@ -55,11 +57,13 @@ public class ChipProvider {
   @Inject
   public ChipProvider(
       @ForApplication Context context,
+      Inventory inventory,
       ThemeCache themeCache,
       GoogleTaskListDao googleTaskListDao,
       CaldavDao caldavDao,
       TagDataDao tagDataDao,
       LocalBroadcastManager localBroadcastManager) {
+    this.inventory = inventory;
     this.themeCache = themeCache;
     this.localBroadcastManager = localBroadcastManager;
     iconAlpha = (int) (255 * getDimen(context, R.dimen.alpha_secondary));
@@ -145,7 +149,7 @@ public class ChipProvider {
   }
 
   private void apply(Chip chip, String name, int theme) {
-    ThemeColor color = theme >= 0 ? themeCache.getThemeColor(theme) : themeCache.getUntaggedColor();
+    ThemeColor color = getColor(theme);
     chip.setText(name);
     chip.setCloseIconTint(
         new ColorStateList(new int[][] {new int[] {}}, new int[] {color.getActionBarTint()}));
@@ -157,5 +161,15 @@ public class ChipProvider {
               new int[] {-android.R.attr.state_checked}, new int[] {android.R.attr.state_checked}
             },
             new int[] {color.getPrimaryColor(), color.getPrimaryColor()}));
+  }
+
+  private ThemeColor getColor(int theme) {
+    if (theme >= 0) {
+      ThemeColor color = themeCache.getThemeColor(theme);
+      if (color.isFree() || inventory.purchasedThemes()) {
+        return color;
+      }
+    }
+    return themeCache.getUntaggedColor();
   }
 }

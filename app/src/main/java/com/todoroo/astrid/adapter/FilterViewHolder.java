@@ -1,6 +1,5 @@
 package com.todoroo.astrid.adapter;
 
-import static androidx.core.content.ContextCompat.getColor;
 import static com.todoroo.andlib.utility.AndroidUtilities.preLollipop;
 
 import android.app.Activity;
@@ -32,6 +31,7 @@ import org.tasks.sync.SynchronizationPreferences;
 import org.tasks.themes.CustomIcons;
 import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeCache;
+import org.tasks.themes.ThemeColor;
 
 public class FilterViewHolder extends RecyclerView.ViewHolder {
 
@@ -119,11 +119,7 @@ public class FilterViewHolder extends RecyclerView.ViewHolder {
     }
 
     icon.setImageResource(getIcon(filter));
-    icon.setColorFilter(
-        filter.tint >= 0
-            ? themeCache.getThemeColor(filter.tint).getPrimaryColor()
-            : getColor(activity, R.color.text_primary));
-
+    icon.setColorFilter(getColor(filter));
     text.setText(filter.listingTitle);
 
     if (count == null || count == 0) {
@@ -136,6 +132,16 @@ public class FilterViewHolder extends RecyclerView.ViewHolder {
     if (onClick != null) {
       row.setOnClickListener(v -> onClick.onClick(filter));
     }
+  }
+
+  private int getColor(FilterListItem filter) {
+    if (filter.tint >= 0) {
+      ThemeColor color = themeCache.getThemeColor(filter.tint);
+      if (color.isFree() || inventory.purchasedThemes()) {
+        return color.getPrimaryColor();
+      }
+    }
+    return ContextCompat.getColor(activity, R.color.text_primary);
   }
 
   private int getIcon(FilterListItem filter) {
