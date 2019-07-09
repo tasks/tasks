@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.todoroo.astrid.adapter.CheckableRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/row"
   android:background="@drawable/drawer_background_selector"
@@ -67,4 +67,4 @@
     android:textSize="14sp"
     tools:ignore="UnusedAttribute"/>
 
-</com.todoroo.astrid.adapter.CheckableRelativeLayout>
+</RelativeLayout>
