@@ -58,8 +58,8 @@ public abstract class GoogleTaskListDao {
 
   @Query(
       "SELECT google_task_lists.*, google_task_accounts.*, COUNT(tasks._id) AS count"
-          + " FROM google_task_lists"
-          + " LEFT JOIN google_task_accounts ON google_task_lists.gtl_account = google_task_accounts.gta_account"
+          + " FROM google_task_accounts "
+          + " LEFT JOIN google_task_lists ON google_task_lists.gtl_account = google_task_accounts.gta_account"
           + " LEFT JOIN google_tasks ON google_tasks.gt_list_id = google_task_lists.gtl_remote_id"
           + " LEFT JOIN tasks ON google_tasks.gt_task = tasks._id AND tasks.deleted = 0 AND tasks.completed = 0 AND tasks.hideUntil < :now"
           + " GROUP BY google_task_lists.gtl_remote_id"

@@ -90,8 +90,8 @@ public interface CaldavDao {
 
   @Query(
       "SELECT caldav_lists.*, caldav_accounts.*, COUNT(tasks._id) AS count"
-          + " FROM caldav_lists"
-          + " LEFT JOIN caldav_accounts ON caldav_lists.cdl_account = caldav_accounts.cda_uuid"
+          + " FROM caldav_accounts"
+          + " LEFT JOIN caldav_lists ON caldav_lists.cdl_account = caldav_accounts.cda_uuid"
           + " LEFT JOIN caldav_tasks ON caldav_tasks.cd_calendar = caldav_lists.cdl_uuid"
           + " LEFT JOIN tasks ON caldav_tasks.cd_task = tasks._id AND tasks.deleted = 0 AND tasks.completed = 0 AND tasks.hideUntil < :now"
           + " GROUP BY caldav_lists.cdl_uuid"
