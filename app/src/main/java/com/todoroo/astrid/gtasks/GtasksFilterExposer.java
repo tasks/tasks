@@ -49,7 +49,9 @@ public class GtasksFilterExposer {
       if (!filters.containsKey(filter.googleTaskAccount)) {
         filters.put(filter.googleTaskAccount, new ArrayList<>());
       }
-      filters.get(filter.googleTaskAccount).add(filter.toGtasksFilter());
+      if (filter.googleTaskList != null) {
+        filters.get(filter.googleTaskAccount).add(filter.toGtasksFilter());
+      }
     }
     return filters;
   }
