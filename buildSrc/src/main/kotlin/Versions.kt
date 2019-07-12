@@ -9,4 +9,5 @@ object Versions {
     const val room = "2.1.0"
     const val crashlytics = "2.10.1"
     const val firebase = "16.0.9"
+    const val okhttp = "3.12.3" // 3.13 minSdk is 21
 }

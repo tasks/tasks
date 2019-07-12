@@ -111,6 +111,9 @@ configurations.all {
     exclude(group = "com.google.guava", module = "guava-jdk5")
     exclude(group = "org.apache.httpcomponents", module = "httpclient")
     exclude(group = "com.google.http-client", module = "google-http-client-apache")
+    resolutionStrategy {
+        force("com.squareup.okhttp3:okhttp:" + Versions.okhttp)
+    }
 }
 
 val googleplayImplementation by configurations
@@ -146,7 +149,7 @@ dependencies {
     implementation("io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:2.0.0")
     implementation("androidx.multidex:multidex:2.0.1")
     implementation("me.saket:better-link-movement-method:2.2.0")
-    implementation("com.squareup.okhttp3:okhttp:3.12.2") // 3.13 minSdk is 21
+    implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
     implementation("com.google.code.gson:gson:2.8.5")
     implementation("com.github.rey5137:material:1.2.5")
     implementation("com.nononsenseapps:filepicker:4.2.1")
