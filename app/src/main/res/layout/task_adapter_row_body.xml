@@ -101,7 +101,6 @@
     android:layout_marginLeft="@dimen/keyline_content_inset"
     android:layout_marginRight="@dimen/keyline_first"
     android:layout_gravity="center_vertical|end"
-    android:gravity="end"
     android:textColor="@color/text_secondary"
     android:visibility="gone"
     app:chipBackgroundColor="?attr/asContentBackground"
