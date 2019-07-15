@@ -484,8 +484,7 @@
 	<string name="caldav_home_set_not_found">Home set не е намерен</string>
 	<string name="network_error">Свързването е неуспешно</string>
 	<string name="background_sync_unmetered_only">Само при неограничени връзки</string>
-	<string name="upgrade">Актуализация</string>
-	<string name="upgrade_to_pro">Обнови към pro</string>
+  <string name="upgrade_to_pro">Обнови към pro</string>
 	<string name="manage_subscription">Управление на абонамент</string>
 	<string name="refresh_purchases">Обнови покупки</string>
 	<string name="button_subscribed">Подписан</string>

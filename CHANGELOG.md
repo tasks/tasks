@@ -2,6 +2,7 @@ Change Log
 ---
 ### 6.8 (beta)
 
+* Name your own subscription price! Upgrade, downgrade, or cancel at any time
 * Choose icons for lists (requires [subscription](http://tasks.org/subscribe))
 * Choose color for custom filters
 * Performance improvements

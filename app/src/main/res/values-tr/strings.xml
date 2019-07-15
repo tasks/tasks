@@ -485,8 +485,7 @@
 	<string name="caldav_home_set_not_found">Ev takımı (home set) bulunamadı</string>
 	<string name="network_error">Bağlantı başarısız</string>
 	<string name="background_sync_unmetered_only">Yalnızca ölçülmeyen bağlantılarda</string>
-	<string name="upgrade">Yükselt</string>
-	<string name="upgrade_to_pro">Pro\'ya yükselt</string>
+  <string name="upgrade_to_pro">Pro\'ya yükselt</string>
 	<string name="manage_subscription">Aboneliği yönet</string>
 	<string name="refresh_purchases">Satın alımları yenile</string>
 	<string name="button_subscribed">Abone olundu</string>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.AppCompatTextView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/price"
+  android:layout_width="@dimen/icon_picker_size"
+  android:layout_height="@dimen/icon_picker_size"
+  android:padding="8dp"
+  android:textSize="18sp"
+  android:textAlignment="center"
+  android:textColor="@color/text_primary"
+  android:clickable="true"
+  android:focusable="true"
+  android:background="?attr/selectableItemBackgroundBorderless"
+  tools:ignore="ContentDescription"/>

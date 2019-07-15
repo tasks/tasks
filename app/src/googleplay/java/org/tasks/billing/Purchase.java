@@ -1,8 +1,12 @@
 package org.tasks.billing;
 
 import com.google.gson.GsonBuilder;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Purchase {
+
+  private static final Pattern PATTERN = Pattern.compile("^(annual|monthly)_([0-1][0-9]|499)$");
 
   private final com.android.billingclient.api.Purchase purchase;
 
@@ -36,6 +40,27 @@ public class Purchase {
 
   boolean isIap() {
     return !SkuDetails.SKU_SUBS.contains(getSku());
+  }
+
+  boolean isProSubscription() {
+    return PATTERN.matcher(getSku()).matches();
+  }
+
+  boolean isMonthly() {
+    return getSku().startsWith("monthly");
+  }
+
+  boolean isCanceled() {
+    return !purchase.isAutoRenewing();
+  }
+
+  Integer getSubscriptionPrice() {
+    Matcher matcher = PATTERN.matcher(getSku());
+    if (matcher.matches()) {
+      int price = Integer.parseInt(matcher.group(2));
+      return price == 499 ? 5 : price;
+    }
+    return null;
   }
 
   @Override

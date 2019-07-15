@@ -471,8 +471,7 @@
     <string name="caldav_home_set_not_found">Origen no encontrado</string>
     <string name="network_error">La conexión ha fallado</string>
     <string name="background_sync_unmetered_only">Sólo en conexiones sin cargos</string>
-    <string name="upgrade">Actualizar</string>
-    <string name="upgrade_to_pro">Actualizar a profesional</string>
+  <string name="upgrade_to_pro">Actualizar a profesional</string>
     <string name="manage_subscription">Gestionar suscripción</string>
     <string name="refresh_purchases">Actualizar los acquisiciones</string>
     <string name="button_subscribed">Suscribió</string>

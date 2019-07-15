@@ -479,8 +479,7 @@
 	<string name="caldav_home_set_not_found">Kalendorių rinkinio direktorija nerasta</string>
 	<string name="network_error">Sujungimas nepavyko</string>
 	<string name="background_sync_unmetered_only">Naudoti tik \"unmetered\" ryšius</string>
-	<string name="upgrade">Atnaujinti</string>
-	<string name="upgrade_to_pro">Atnaujinti į pro versiją</string>
+  <string name="upgrade_to_pro">Atnaujinti į pro versiją</string>
 	<string name="manage_subscription">Redaguoti prenumeratą</string>
 	<string name="refresh_purchases">Atnaujinti pirkimus</string>
 	<string name="button_subscribed">Prenumeruoti</string>

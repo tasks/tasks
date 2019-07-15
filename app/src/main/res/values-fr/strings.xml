@@ -456,8 +456,7 @@
     <string name="caldav_home_set_not_found">Ensemble d\'accueil non trouvé</string>
     <string name="network_error">Connexion échouée</string>
     <string name="background_sync_unmetered_only">Uniquement sur les connexions illimitées</string>
-    <string name="upgrade">Passer pro</string>
-    <string name="upgrade_to_pro">Passer en pro</string>
+  <string name="upgrade_to_pro">Passer en pro</string>
     <string name="manage_subscription">Gérer les abonnements</string>
     <string name="refresh_purchases">Rafraîchir les achats</string>
     <string name="button_subscribed">Abonné</string>

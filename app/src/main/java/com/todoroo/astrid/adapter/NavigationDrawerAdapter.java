@@ -34,9 +34,6 @@ import org.tasks.themes.ThemeCache;
 
 public class NavigationDrawerAdapter extends ListAdapter<FilterListItem, FilterViewHolder> {
 
-  public static final int REQUEST_SETTINGS = 10123;
-  public static final int REQUEST_PURCHASE = 10124;
-
   private static final String TOKEN_SELECTED = "token_selected";
   private final Activity activity;
   private final ThemeAccent accent;

@@ -27,6 +27,7 @@ public class Inventory {
   private final LocalBroadcastManager localBroadcastManager;
 
   private Map<String, Purchase> purchases = new HashMap<>();
+  private Purchase subscription = null;
 
   @Inject
   public Inventory(
@@ -62,6 +63,9 @@ public class Inventory {
     if (signatureVerifier.verifySignature(purchase)) {
       Timber.d("add(%s)", purchase);
       purchases.put(purchase.getSku(), purchase);
+      if (purchase.isProSubscription() && (subscription == null || subscription.isCanceled())) {
+        subscription = purchase;
+      }
     }
   }
 
@@ -81,9 +85,13 @@ public class Inventory {
     return ImmutableList.copyOf(purchases.values());
   }
 
+  public Purchase getSubscription() {
+    return subscription;
+  }
+
   public boolean hasPro() {
     //noinspection ConstantConditions
-    return purchases.containsKey(SkuDetails.SKU_PRO)
+    return subscription != null
         || purchases.containsKey(SKU_VIP)
         || BuildConfig.FLAVOR.equals("generic")
         || (BuildConfig.DEBUG && preferences.getBoolean(R.string.p_debug_pro, false));

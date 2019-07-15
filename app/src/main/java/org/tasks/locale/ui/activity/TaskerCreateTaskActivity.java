@@ -1,5 +1,7 @@
 package org.tasks.locale.ui.activity;
 
+import static org.tasks.billing.PurchaseDialog.newPurchaseDialog;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,7 +16,6 @@ import net.dinglisch.android.tasker.TaskerPlugin;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.billing.Inventory;
-import org.tasks.billing.PurchaseActivity;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.locale.bundle.TaskCreationBundle;
 import org.tasks.preferences.Preferences;
@@ -23,7 +24,7 @@ import org.tasks.ui.MenuColorizer;
 public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCompatActivity
     implements Toolbar.OnMenuItemClickListener {
 
-  private static final int REQUEST_SUBSCRIPTION = 10101;
+  private static final String FRAG_TAG_PURCHASE = "frag_tag_purchase";
 
   @Inject Preferences preferences;
   @Inject Inventory inventory;
@@ -84,8 +85,12 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
     }
 
     if (!inventory.purchasedTasker()) {
-      startActivityForResult(new Intent(this, PurchaseActivity.class), REQUEST_SUBSCRIPTION);
+      showPurchaseDialog();
     }
+  }
+
+  private void showPurchaseDialog() {
+    newPurchaseDialog().show(getSupportFragmentManager(), FRAG_TAG_PURCHASE);
   }
 
   @Override
@@ -144,7 +149,11 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
   }
 
   private void save() {
-    finish();
+    if (!inventory.purchasedTasker()) {
+      showPurchaseDialog();
+    } else {
+      finish();
+    }
   }
 
   private void discardButtonClick() {
@@ -165,26 +174,11 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
 
   @Override
   public boolean onMenuItemClick(MenuItem item) {
-    switch (item.getItemId()) {
-      case R.id.menu_save:
-        save();
-        return true;
-      case R.id.menu_help:
-        startActivity(
-            new Intent(Intent.ACTION_VIEW).setData(Uri.parse("http://tasks.org/help/tasker")));
-        return true;
+    if (item.getItemId() == R.id.menu_help) {
+      startActivity(
+          new Intent(Intent.ACTION_VIEW).setData(Uri.parse("http://tasks.org/help/tasker")));
+      return true;
     }
     return onOptionsItemSelected(item);
-  }
-
-  @Override
-  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    if (requestCode == REQUEST_SUBSCRIPTION) {
-      if (!inventory.purchasedTasker()) {
-        discardButtonClick();
-      }
-    } else {
-      super.onActivityResult(requestCode, resultCode, data);
-    }
   }
 }

@@ -465,8 +465,7 @@
     <string name="caldav_home_set_not_found">CalDAV-Home-Set nicht gefunden</string>
     <string name="network_error">Verbindung fehlgeschlagen</string>
     <string name="background_sync_unmetered_only">Nur bei unbeschränkter Verbindung</string>
-    <string name="upgrade">Verbessern</string>
-    <string name="upgrade_to_pro">Pro-Funktionen freischalten</string>
+  <string name="upgrade_to_pro">Pro-Funktionen freischalten</string>
     <string name="manage_subscription">Abonnements verwalten</string>
     <string name="refresh_purchases">Einkäufe aktualisieren</string>
     <string name="button_subscribed">Abonniert</string>

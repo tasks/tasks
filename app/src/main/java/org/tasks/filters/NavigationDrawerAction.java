@@ -32,6 +32,10 @@ public class NavigationDrawerAction extends FilterListItem {
 
   private NavigationDrawerAction() {}
 
+  public NavigationDrawerAction(String listingTitle, int icon, int requestCode) {
+    this(listingTitle, icon, null, requestCode);
+  }
+
   public NavigationDrawerAction(String listingTitle, int icon, Intent intent, int requestCode) {
     this.listingTitle = listingTitle;
     this.icon = icon;

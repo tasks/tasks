@@ -486,8 +486,7 @@
     <string name="caldav_home_set_not_found">Fant ikke CalDAV-\"home set\"</string>
     <string name="network_error">Tilkoblingen gikk ned</string>
     <string name="background_sync_unmetered_only">Kun for ubegrensede tilkoblinger</string>
-    <string name="upgrade">Oppgrader</string>
-    <string name="upgrade_to_pro">Oppgrader til pro</string>
+  <string name="upgrade_to_pro">Oppgrader til pro</string>
     <string name="manage_subscription">Håndter abonnement</string>
     <string name="refresh_purchases">Gjenoppfrisk kjøp</string>
     <string name="button_subscribed">Abonnert</string>

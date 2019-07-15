@@ -4,6 +4,7 @@
   <string name="play_services_available">play_services_available</string>
   <string name="market_url">market://details?id=org.tasks</string>
   <string name="p_purchases">purchases</string>
-  <string name="manage_subscription_url">https://play.google.com/store/account/subscriptions?sku=annual_499&amp;package=org.tasks</string>
+  <string name="manage_subscription_url">https://play.google.com/store/account/subscriptions?sku=%s&amp;package=org.tasks</string>
+  <string name="subscription_help_url">https://tasks.org/subscribe</string>
   <string name="support_email">play-support@tasks.org</string>
 </resources>

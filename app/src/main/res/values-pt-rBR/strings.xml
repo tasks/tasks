@@ -481,8 +481,7 @@
 	<string name="caldav_home_set_not_found">Conjunto inicial não encontrado</string>
 	<string name="network_error">Conexão falhou</string>
 	<string name="background_sync_unmetered_only">Apenas em conexões ilimitadas</string>
-	<string name="upgrade">Atualizar</string>
-	<string name="upgrade_to_pro">Atualizar para Pro</string>
+  <string name="upgrade_to_pro">Atualizar para Pro</string>
 	<string name="manage_subscription">Gerenciar subscrição</string>
 	<string name="refresh_purchases">Atualizar compras</string>
 	<string name="button_subscribed">Subscrito</string>

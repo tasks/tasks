@@ -481,8 +481,7 @@
 	<string name="caldav_home_set_not_found">ホームの設定が見つかりません</string>
 	<string name="network_error">接続に失敗しました</string>
 	<string name="background_sync_unmetered_only">定額の接続時のみ</string>
-	<string name="upgrade">アップグレード</string>
-	<string name="upgrade_to_pro">プロ版にアップグレード</string>
+  <string name="upgrade_to_pro">プロ版にアップグレード</string>
 	<string name="manage_subscription">サブスクリプションの管理</string>
 	<string name="refresh_purchases">購入を更新</string>
 	<string name="button_subscribed">購入済</string>

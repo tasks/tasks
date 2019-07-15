@@ -486,8 +486,7 @@
     <string name="caldav_home_set_not_found">Ez da jatorria aurkitu</string>
     <string name="network_error">Konexioak huts egin du</string>
     <string name="background_sync_unmetered_only">Mugagabeko konexioetan besterik ez</string>
-    <string name="upgrade">Aldatu bertsioz</string>
-    <string name="upgrade_to_pro">Aldatu pro bertsiora</string>
+  <string name="upgrade_to_pro">Aldatu pro bertsiora</string>
     <string name="manage_subscription">Kudeatu harpidetza</string>
     <string name="refresh_purchases">Freskatu erosketak</string>
     <string name="button_subscribed">Harpidetuta</string>

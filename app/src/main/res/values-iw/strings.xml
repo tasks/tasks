@@ -477,8 +477,7 @@
     <string name="caldav_home_set_not_found">קבוצת הבית לא נמצאה</string>
     <string name="network_error">החיבור נכשל</string>
     <string name="background_sync_unmetered_only">רק בחיבורים ללא חיוב לפי נפח גלישה</string>
-    <string name="upgrade">שידרוג</string>
-    <string name="upgrade_to_pro">שידרוג לגירסת pro</string>
+  <string name="upgrade_to_pro">שידרוג לגירסת pro</string>
     <string name="manage_subscription"> נהל מנוי</string>
     <string name="refresh_purchases">עדכן רכישות</string>
     <string name="button_subscribed">מנוי רשום</string>

@@ -70,6 +70,11 @@ public class AlertDialogBuilder {
     return this;
   }
 
+  public AlertDialogBuilder setView(int layoutResId) {
+    builder.setView(layoutResId);
+    return this;
+  }
+
   public AlertDialogBuilder setOnCancelListener(DialogInterface.OnCancelListener onCancelListener) {
     builder.setOnCancelListener(onCancelListener);
     return this;

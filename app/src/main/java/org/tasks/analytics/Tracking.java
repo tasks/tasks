@@ -29,8 +29,6 @@ public class Tracking {
     CLEAR_COMPLETED(R.string.tracking_category_event, R.string.tracking_action_clear_completed),
     UPGRADE(R.string.tracking_category_event, R.string.tracking_event_upgrade),
     TASK_CREATION_FAILED(R.string.tracking_category_error, R.string.tracking_event_task_creation),
-    NIGHT_MODE_MISMATCH(
-        R.string.tracking_category_event, R.string.tracking_event_night_mode_mismatch),
     SET_PREFERENCE(R.string.tracking_category_preferences, 0),
     PLAY_SERVICES_WARNING(
         R.string.tracking_category_event, R.string.tracking_event_play_services_error),

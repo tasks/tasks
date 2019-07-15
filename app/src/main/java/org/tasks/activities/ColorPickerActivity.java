@@ -1,14 +1,13 @@
 package org.tasks.activities;
 
+import static org.tasks.billing.PurchaseDialog.newPurchaseDialog;
 import static org.tasks.dialogs.ColorPickerDialog.newColorPickerDialog;
 
 import android.content.Intent;
-import android.os.Bundle;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.billing.Inventory;
-import org.tasks.billing.PurchaseActivity;
 import org.tasks.dialogs.ColorPickerDialog;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
@@ -23,18 +22,13 @@ public class ColorPickerActivity extends ThemedInjectingAppCompatActivity
   public static final String EXTRA_SHOW_NONE = "extra_show_none";
   public static final String EXTRA_THEME_INDEX = "extra_index";
   private static final String FRAG_TAG_COLOR_PICKER = "frag_tag_color_picker";
-  private static final int REQUEST_SUBSCRIPTION = 10101;
+  private static final String FRAG_TAG_PURCHASE = "frag_tag_purchase";
   @Inject Theme theme;
   @Inject ThemeCache themeCache;
   @Inject Inventory inventory;
   @Inject Preferences preferences;
 
   private ColorPalette palette;
-
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-  }
 
   @Override
   protected void onPostResume() {
@@ -84,23 +78,12 @@ public class ColorPickerActivity extends ThemedInjectingAppCompatActivity
 
   @Override
   public void initiateThemePurchase() {
-    startActivityForResult(new Intent(this, PurchaseActivity.class), REQUEST_SUBSCRIPTION);
+    newPurchaseDialog().show(getSupportFragmentManager(), FRAG_TAG_PURCHASE);
   }
 
   @Override
   public void dismissed() {
     finish();
-  }
-
-  @Override
-  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    if (requestCode == REQUEST_SUBSCRIPTION) {
-      if (!inventory.purchasedThemes()) {
-        finish();
-      }
-    } else {
-      super.onActivityResult(requestCode, resultCode, data);
-    }
   }
 
   private int getCurrentSelection(ColorPalette palette) {

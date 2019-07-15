@@ -4,13 +4,13 @@ import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.collect.Iterables.concat;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertNotMainThread;
-import static com.todoroo.astrid.adapter.NavigationDrawerAdapter.REQUEST_PURCHASE;
-import static com.todoroo.astrid.adapter.NavigationDrawerAdapter.REQUEST_SETTINGS;
 import static org.tasks.caldav.CaldavCalendarSettingsActivity.EXTRA_CALDAV_ACCOUNT;
+import static org.tasks.ui.NavigationDrawerFragment.REQUEST_DONATE;
+import static org.tasks.ui.NavigationDrawerFragment.REQUEST_PURCHASE;
+import static org.tasks.ui.NavigationDrawerFragment.REQUEST_SETTINGS;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import com.google.common.collect.ImmutableList;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
@@ -31,7 +31,6 @@ import org.tasks.R;
 import org.tasks.activities.GoogleTaskListSettingsActivity;
 import org.tasks.activities.TagSettingsActivity;
 import org.tasks.billing.Inventory;
-import org.tasks.billing.PurchaseActivity;
 import org.tasks.caldav.CaldavCalendarSettingsActivity;
 import org.tasks.caldav.CaldavFilterExposer;
 import org.tasks.data.CaldavAccount;
@@ -175,14 +174,12 @@ public class FilterProvider {
             new NavigationDrawerAction(
                 context.getString(R.string.TLA_menu_donate),
                 R.drawable.ic_outline_attach_money_24px,
-                new Intent(Intent.ACTION_VIEW, Uri.parse("http://tasks.org/donate")),
-                REQUEST_PURCHASE));
+                REQUEST_DONATE));
       } else if (!inventory.hasPro()) {
         items.add(
             new NavigationDrawerAction(
-                context.getString(R.string.upgrade_to_pro),
+                context.getString(R.string.name_your_price),
                 R.drawable.ic_outline_attach_money_24px,
-                new Intent(context, PurchaseActivity.class),
                 REQUEST_PURCHASE));
       }
 

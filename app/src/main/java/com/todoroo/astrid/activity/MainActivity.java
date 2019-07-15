@@ -45,7 +45,7 @@ import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.activities.TagSettingsActivity;
 import org.tasks.analytics.Tracker;
-import org.tasks.analytics.Tracking;
+import org.tasks.billing.Inventory;
 import org.tasks.dialogs.SortDialog;
 import org.tasks.fragments.CommentBarFragment;
 import org.tasks.gtasks.PlayServices;
@@ -94,6 +94,7 @@ public class MainActivity extends InjectingAppCompatActivity
   @Inject TaskCreator taskCreator;
   @Inject PlayServices playServices;
   @Inject Toaster toaster;
+  @Inject Inventory inventory;
 
   @BindView(R.id.drawer_layout)
   DrawerLayout drawerLayout;
@@ -107,6 +108,7 @@ public class MainActivity extends InjectingAppCompatActivity
   private CompositeDisposable disposables;
   private NavigationDrawerFragment navigationDrawer;
   private int currentNightMode;
+  private boolean currentPro;
 
   private Filter filter;
   private ActionMode actionMode = null;
@@ -120,6 +122,7 @@ public class MainActivity extends InjectingAppCompatActivity
     getComponent().inject(viewModel);
 
     currentNightMode = getNightMode();
+    currentPro = inventory.hasPro();
 
     setContentView(R.layout.task_list_activity);
 
@@ -303,8 +306,7 @@ public class MainActivity extends InjectingAppCompatActivity
   protected void onResume() {
     super.onResume();
 
-    if (currentNightMode != getNightMode()) {
-      tracker.reportEvent(Tracking.Events.NIGHT_MODE_MISMATCH);
+    if (currentNightMode != getNightMode() || currentPro != inventory.hasPro()) {
       recreate();
       return;
     }

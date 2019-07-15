@@ -480,8 +480,7 @@
 	<string name="caldav_home_set_not_found">Nastavenie Domov nenájdené</string>
 	<string name="network_error">Spojenie zlyhalo</string>
 	<string name="background_sync_unmetered_only">Iba na bezplatných pripojeniach</string>
-	<string name="upgrade">Nová verzia</string>
-	<string name="upgrade_to_pro">Rozšíriť na verziu pro</string>
+  <string name="upgrade_to_pro">Rozšíriť na verziu pro</string>
 	<string name="manage_subscription">Platená verzia</string>
 	<string name="refresh_purchases">Obnoviť nákupy</string>
 	<string name="button_subscribed">Prihlásený</string>

@@ -482,8 +482,7 @@
 	<string name="caldav_home_set_not_found">Домашний набор ненайден</string>
 	<string name="network_error">Соединение не удалось</string>
 	<string name="background_sync_unmetered_only">Только на метрических соединений</string>
-	<string name="upgrade">Обновить</string>
-	<string name="upgrade_to_pro">Обновить в версию Про</string>
+  <string name="upgrade_to_pro">Обновить в версию Про</string>
 	<string name="manage_subscription">Управление подпиской</string>
 	<string name="refresh_purchases">Обновить покупки</string>
 	<string name="button_subscribed">Подписано</string>

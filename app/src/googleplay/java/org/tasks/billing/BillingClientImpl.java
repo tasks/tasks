@@ -12,6 +12,7 @@ import static org.tasks.billing.Inventory.SKU_VIP;
 
 import android.app.Activity;
 import android.content.Context;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
@@ -19,6 +20,7 @@ import com.android.billingclient.api.BillingClient.BillingResponse;
 import com.android.billingclient.api.BillingClient.FeatureType;
 import com.android.billingclient.api.BillingClient.SkuType;
 import com.android.billingclient.api.BillingFlowParams;
+import com.android.billingclient.api.BillingFlowParams.ProrationMode;
 import com.android.billingclient.api.ConsumeResponseListener;
 import com.android.billingclient.api.Purchase.PurchasesResult;
 import com.android.billingclient.api.PurchasesUpdatedListener;
@@ -51,6 +53,7 @@ public class BillingClientImpl implements BillingClient, PurchasesUpdatedListene
   private com.android.billingclient.api.BillingClient billingClient;
   private boolean connected;
   private int billingClientResponseCode = -1;
+  private OnPurchasesUpdated onPurchasesUpdated;
 
   @Inject
   public BillingClientImpl(@ForApplication Context context, Inventory inventory, Tracker tracker) {
@@ -149,6 +152,9 @@ public class BillingClientImpl implements BillingClient, PurchasesUpdatedListene
     if (resultCode == BillingResponse.OK) {
       add(purchases);
     }
+    if (onPurchasesUpdated != null) {
+      onPurchasesUpdated.onPurchasesUpdated();
+    }
     String skus =
         purchases == null
             ? "null"
@@ -164,17 +170,23 @@ public class BillingClientImpl implements BillingClient, PurchasesUpdatedListene
   }
 
   @Override
-  public void initiatePurchaseFlow(Activity activity, String skuId, String billingType) {
+  public void initiatePurchaseFlow(
+      Activity activity, String skuId, String billingType, @Nullable String oldSku) {
     executeServiceRequest(
-        () -> {
-          billingClient.launchBillingFlow(
-              activity,
-              BillingFlowParams.newBuilder()
-                  .setSku(skuId)
-                  .setType(billingType)
-                  .setOldSkus(null)
-                  .build());
-        });
+        () ->
+            billingClient.launchBillingFlow(
+                activity,
+                BillingFlowParams.newBuilder()
+                    .setSku(skuId)
+                    .setType(billingType)
+                    .setOldSkus(oldSku == null ? null : newArrayList(oldSku))
+                    .setReplaceSkusProrationMode(ProrationMode.IMMEDIATE_WITH_TIME_PRORATION)
+                    .build()));
+  }
+
+  @Override
+  public void addPurchaseCallback(OnPurchasesUpdated onPurchasesUpdated) {
+    this.onPurchasesUpdated = onPurchasesUpdated;
   }
 
   public void destroy() {

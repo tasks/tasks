@@ -6,11 +6,13 @@ import static com.todoroo.andlib.utility.AndroidUtilities.assertNotMainThread;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static org.tasks.LocalBroadcastManager.REFRESH;
 import static org.tasks.LocalBroadcastManager.REFRESH_LIST;
+import static org.tasks.billing.PurchaseDialog.newPurchaseDialog;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,10 +50,15 @@ import org.tasks.preferences.AppearancePreferences;
 public class NavigationDrawerFragment extends InjectingFragment {
 
   public static final int FRAGMENT_NAVIGATION_DRAWER = R.id.navigation_drawer;
-  public static final int REQUEST_NEW_LIST = 4;
-  public static final int ACTIVITY_REQUEST_NEW_FILTER = 5;
-  public static final int REQUEST_NEW_GTASK_LIST = 6;
-  public static final int REQUEST_NEW_CALDAV_COLLECTION = 7;
+  public static final int REQUEST_NEW_LIST = 10100;
+  public static final int ACTIVITY_REQUEST_NEW_FILTER = 10101;
+  public static final int REQUEST_NEW_GTASK_LIST = 10102;
+  public static final int REQUEST_NEW_CALDAV_COLLECTION = 10103;
+  public static final int REQUEST_SETTINGS = 10104;
+  public static final int REQUEST_PURCHASE = 10105;
+  public static final int REQUEST_DONATE = 10106;
+  private static final String FRAG_TAG_PURCHASE_DIALOG = "frag_tag_purchase_dialog";
+
   private final RefreshReceiver refreshReceiver = new RefreshReceiver();
   @Inject LocalBroadcastManager localBroadcastManager;
   @Inject NavigationDrawerAdapter adapter;
@@ -84,15 +91,11 @@ public class NavigationDrawerFragment extends InjectingFragment {
 
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    if (requestCode == NavigationDrawerAdapter.REQUEST_SETTINGS) {
-      if (resultCode == Activity.RESULT_OK && data != null) {
-        if (data.getBooleanExtra(AppearancePreferences.EXTRA_RESTART, false)) {
+    if (requestCode == REQUEST_SETTINGS) {
+      if (resultCode == Activity.RESULT_OK) {
+        if (data != null && data.getBooleanExtra(AppearancePreferences.EXTRA_RESTART, false)) {
           getActivity().recreate();
         }
-      }
-    } else if (requestCode == NavigationDrawerAdapter.REQUEST_PURCHASE) {
-      if (resultCode == Activity.RESULT_OK) {
-        getActivity().recreate();
       }
     } else if (requestCode == REQUEST_NEW_LIST
         || requestCode == ACTIVITY_REQUEST_NEW_FILTER
@@ -144,10 +147,12 @@ public class NavigationDrawerFragment extends InjectingFragment {
               openFilter((Filter) item);
             } else if (item instanceof NavigationDrawerAction) {
               NavigationDrawerAction action = (NavigationDrawerAction) item;
-              if (action.requestCode > 0) {
-                startActivityForResult(action.intent, action.requestCode);
+              if (action.requestCode == REQUEST_PURCHASE) {
+                newPurchaseDialog().show(getFragmentManager(), FRAG_TAG_PURCHASE_DIALOG);
+              } else if (action.requestCode == REQUEST_DONATE) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://tasks.org/donate")));
               } else {
-                startActivity(action.intent);
+                startActivityForResult(action.intent, action.requestCode);
               }
             }
           }

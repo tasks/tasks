@@ -1,10 +1,11 @@
 package org.tasks.dialogs;
 
+import static org.tasks.billing.PurchaseDialog.newPurchaseDialog;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +17,6 @@ import butterknife.ButterKnife;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.billing.Inventory;
-import org.tasks.billing.PurchaseActivity;
 import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.InjectingDialogFragment;
@@ -24,6 +24,7 @@ import org.tasks.themes.CustomIcons;
 
 public class IconPickerDialog extends InjectingDialogFragment {
 
+  private static final String FRAG_TAG_PURCHASE = "frag_tag_purchase";
   private static final String EXTRA_CURRENT = "extra_current";
 
   @BindView(R.id.icons)
@@ -65,7 +66,7 @@ public class IconPickerDialog extends InjectingDialogFragment {
     if (!inventory.hasPro()) {
       builder.setPositiveButton(
           R.string.button_subscribe,
-          (dialog, which) -> startActivity(new Intent(context, PurchaseActivity.class)));
+          (dialog, which) -> newPurchaseDialog().show(getFragmentManager(), FRAG_TAG_PURCHASE));
     }
     return builder.show();
   }

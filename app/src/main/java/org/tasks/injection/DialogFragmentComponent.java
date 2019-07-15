@@ -3,6 +3,8 @@ package org.tasks.injection;
 import dagger.Subcomponent;
 import org.tasks.activities.CalendarSelectionDialog;
 import org.tasks.activities.RemoteListSupportPicker;
+import org.tasks.billing.NameYourPriceDialog;
+import org.tasks.billing.PurchaseDialog;
 import org.tasks.dialogs.AddAttachmentDialog;
 import org.tasks.dialogs.ColorPickerDialog;
 import org.tasks.dialogs.GeofenceDialog;
@@ -43,4 +45,8 @@ public interface DialogFragmentComponent {
   void inject(SeekBarDialog seekBarDialog);
 
   void inject(IconPickerDialog iconPickerDialog);
+
+  void inject(PurchaseDialog purchaseDialog);
+
+  void inject(NameYourPriceDialog nameYourPriceDialog);
 }

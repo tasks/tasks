@@ -471,8 +471,7 @@
 	<string name="caldav_home_set_not_found">Home set niet gevonden</string>
 	<string name="network_error">Verbinding mislukt</string>
 	<string name="background_sync_unmetered_only">Alleen bij onbeperkte verbindingen</string>
-	<string name="upgrade">Opwaardeer</string>
-	<string name="upgrade_to_pro">Opwaarderen naar pro</string>
+  <string name="upgrade_to_pro">Opwaarderen naar pro</string>
 	<string name="manage_subscription">Beheer aanmeldingen</string>
 	<string name="refresh_purchases">Vernieuw aankopen</string>
 	<string name="button_subscribed">Aangemeld</string>

@@ -531,5 +531,4 @@
     <string name="location_radius_meters">%s m</string>
     <string name="CalDAV">CalDAV</string>
     <string name="list_separator_with_space">", "</string>
-    <string name="upgrade">Upgrade</string>
 </resources>

@@ -484,8 +484,7 @@
 	<string name="caldav_home_set_not_found">Домашній список не знайдено</string>
 	<string name="network_error">З\'єднання не вдалося</string>
 	<string name="background_sync_unmetered_only">Лише при з\'єднанні без обліку трафіка</string>
-	<string name="upgrade">Оновити</string>
-	<string name="upgrade_to_pro">Покращити до Преміум</string>
+  <string name="upgrade_to_pro">Покращити до Преміум</string>
 	<string name="manage_subscription">Управління підписками</string>
 	<string name="refresh_purchases">Оновити покупки</string>
 	<string name="button_subscribed">Підписка</string>
