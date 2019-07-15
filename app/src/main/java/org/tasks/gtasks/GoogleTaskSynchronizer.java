@@ -1,5 +1,6 @@
 package org.tasks.gtasks;
 
+import static com.google.common.collect.Lists.transform;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
 import android.app.PendingIntent;
@@ -27,8 +28,10 @@ import com.todoroo.astrid.gtasks.sync.GtasksTaskContainer;
 import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.utility.Constants;
+import java.io.EOFException;
 import java.io.IOException;
-import java.net.ConnectException;
+import java.net.HttpRetryException;
+import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -143,9 +146,21 @@ public class GoogleTaskSynchronizer {
       } else {
         account.setError(context.getString(R.string.requires_pro_subscription));
       }
-    } catch (SocketTimeoutException | SSLException | ConnectException | UnknownHostException e) {
+    } catch (SocketTimeoutException
+        | SSLException
+        | SocketException
+        | UnknownHostException
+        | HttpRetryException
+        | EOFException e) {
       Timber.e(e);
       account.setError(e.getMessage());
+    } catch (GoogleJsonResponseException e) {
+      account.setError(e.getMessage());
+      if (e.getStatusCode() == 401) {
+        Timber.e(e);
+      } else {
+        tracker.reportException(e);
+      }
     } catch (UserRecoverableAuthIOException e) {
       Timber.e(e);
       sendNotification(context, e.getIntent());
@@ -214,7 +229,8 @@ public class GoogleTaskSynchronizer {
         preferences.setString(R.string.p_default_remote_list, null);
       }
     }
-    for (GoogleTaskList list : gtasksListService.getListsToUpdate(gtaskLists)) {
+    for (GoogleTaskList list :
+        googleTaskListDao.getByRemoteId(transform(gtaskLists, TaskList::getId))) {
       fetchAndApplyRemoteChanges(gtasksInvoker, list);
       if (!preferences.isPositionHackEnabled()) {
         googleTaskDao.reposition(list.getRemoteId());
