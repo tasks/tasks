@@ -6,9 +6,6 @@
 
 package com.todoroo.astrid.gtasks;
 
-import static com.google.common.collect.Lists.newArrayList;
-import static org.tasks.time.DateTimeUtils.printTimestamp;
-
 import com.google.api.services.tasks.model.TaskList;
 import com.todoroo.astrid.service.TaskDeleter;
 import java.util.HashSet;
@@ -92,24 +89,6 @@ public class GtasksListService {
     }
 
     localBroadcastManager.broadcastRefreshList();
-  }
-
-  public List<GoogleTaskList> getListsToUpdate(List<TaskList> remoteLists) {
-    List<GoogleTaskList> listsToUpdate = newArrayList();
-    for (TaskList remoteList : remoteLists) {
-      GoogleTaskList localList = getList(remoteList.getId());
-      long lastSync = localList.getLastSync();
-      long lastUpdate = remoteList.getUpdated().getValue();
-      if (lastSync < lastUpdate) {
-        listsToUpdate.add(localList);
-        Timber.d(
-            "%s out of date [local=%s] [remote=%s]",
-            localList.getTitle(), printTimestamp(lastSync), printTimestamp(lastUpdate));
-      } else {
-        Timber.d("%s up to date", localList.getTitle());
-      }
-    }
-    return listsToUpdate;
   }
 
   public GoogleTaskList getList(String listId) {

@@ -78,7 +78,7 @@ public class KeyStoreEncryption implements Encryption {
       return new String(decrypted, ENCODING);
     } catch (IllegalBlockSizeException | BadPaddingException e) {
       Timber.e(e);
-      return null;
+      return "";
     }
   }
 

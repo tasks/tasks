@@ -31,6 +31,9 @@ public abstract class GoogleTaskListDao {
   @Query("SELECT * FROM google_task_lists WHERE gtl_remote_id = :remoteId LIMIT 1")
   public abstract GoogleTaskList getByRemoteId(String remoteId);
 
+  @Query("SELECT * FROM google_task_lists WHERE gtl_remote_id IN (:remoteIds)")
+  public abstract List<GoogleTaskList> getByRemoteId(List<String> remoteIds);
+
   @Query("SELECT * FROM google_task_lists")
   public abstract LiveData<List<GoogleTaskList>> subscribeToLists();
 
