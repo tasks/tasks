@@ -52,7 +52,8 @@
     android:layout_gravity="end|bottom"
     android:padding="0dp"
     android:src="@drawable/ic_outline_add_24px"
-    android:tint="?attr/fab_text"
+    app:tint="?attr/fab_text"
+    app:backgroundTint="?attr/colorAccent"
     app:borderWidth="0dp"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

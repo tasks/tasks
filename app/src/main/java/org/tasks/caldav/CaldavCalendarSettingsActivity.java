@@ -186,7 +186,8 @@ public class CaldavCalendarSettingsActivity extends BaseListSettingsActivity {
   private void showSnackbar(String message) {
     Snackbar snackbar =
         Snackbar.make(root, message, 8000)
-            .setActionTextColor(ContextCompat.getColor(this, R.color.snackbar_text_color));
+            .setTextColor(ContextCompat.getColor(this, R.color.snackbar_text_color))
+            .setActionTextColor(ContextCompat.getColor(this, R.color.snackbar_action_color));
     snackbar
         .getView()
         .setBackgroundColor(ContextCompat.getColor(this, R.color.snackbar_background));

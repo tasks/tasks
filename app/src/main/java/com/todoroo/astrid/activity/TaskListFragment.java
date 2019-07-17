@@ -474,7 +474,8 @@ public final class TaskListFragment extends InjectingFragment
   public Snackbar makeSnackbar(String text) {
     Snackbar snackbar =
         Snackbar.make(coordinatorLayout, text, 8000)
-            .setActionTextColor(getColor(context, R.color.snackbar_text_color));
+            .setTextColor(getColor(context, R.color.snackbar_text_color))
+            .setActionTextColor(getColor(context, R.color.snackbar_action_color));
     snackbar.getView().setBackgroundColor(getColor(context, R.color.snackbar_background));
     return snackbar;
   }

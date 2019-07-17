@@ -77,7 +77,8 @@
           android:layout_gravity="end|bottom"
           android:padding="0dp"
           android:src="@drawable/ic_outline_gps_fixed_24px"
-          android:tint="?attr/fab_text"
+          app:tint="?attr/fab_text"
+          app:backgroundTint="?attr/colorAccent"
           app:borderWidth="0dp"
           app:layout_constraintBottom_toBottomOf="@id/map"
           app:layout_constraintEnd_toEndOf="@id/map"/>

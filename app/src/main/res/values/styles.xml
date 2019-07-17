@@ -106,7 +106,7 @@
 
   <style name="priority_button_base">
     <item name="android:layout_width">0dp</item>
-    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_height">24dp</item>
     <item name="android:layout_weight">1</item>
     <item name="android:width">0dp</item>
   </style>
@@ -154,6 +154,7 @@
     <item name="android:textAppearance">@style/TextAppearance.AppCompat.Small</item>
     <item name="chipMinHeight">@dimen/chip_min_height</item>
     <item name="closeIconVisible">false</item>
+    <item name="ensureMinTouchTargetSize">false</item>
     <item name="textStartPadding">@dimen/chip_text_padding</item>
     <item name="textEndPadding">@dimen/chip_text_padding</item>
   </style>
