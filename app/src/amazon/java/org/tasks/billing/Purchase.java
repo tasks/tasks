@@ -27,4 +27,20 @@ public class Purchase {
   public String toString() {
     return "Purchase{" + "receipt=" + receipt + '}';
   }
+
+  public boolean isCanceled() {
+    return false;
+  }
+
+  public int getSubscriptionPrice() {
+    return 0;
+  }
+
+  public boolean isMonthly() {
+    return false;
+  }
+
+  public boolean isProSubscription() {
+    return true;
+  }
 }

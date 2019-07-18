@@ -7,6 +7,7 @@ import static com.google.common.collect.Sets.newHashSet;
 
 import android.app.Activity;
 import android.content.Context;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
@@ -59,8 +60,14 @@ public class BillingClientImpl implements BillingClient, PurchasingListener {
   }
 
   @Override
-  public void initiatePurchaseFlow(Activity activity, String sku, String skuType) {
+  public void initiatePurchaseFlow(
+      Activity activity, String sku, String skuType, @Nullable String oldSku) {
     PurchasingService.purchase(sku);
+  }
+
+  @Override
+  public void addPurchaseCallback(OnPurchasesUpdated onPurchasesUpdated) {
+
   }
 
   @Override

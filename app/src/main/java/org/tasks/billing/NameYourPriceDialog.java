@@ -20,7 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.android.billingclient.api.BillingClient.SkuType;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.common.collect.ContiguousSet;
@@ -137,12 +136,12 @@ public class NameYourPriceDialog extends InjectingDialogFragment implements OnPu
   protected void subscribe() {
     if (currentSubscriptionSelected() && currentSubscription.isCanceled()) {
       billingClient.initiatePurchaseFlow(
-          (Activity) context, currentSubscription.getSku(), SkuType.SUBS, null);
+          (Activity) context, currentSubscription.getSku(), SkuDetails.TYPE_SUBS, null);
     } else {
       billingClient.initiatePurchaseFlow(
           (Activity) context,
           String.format("%s_%02d", isMonthly() ? "monthly" : "annual", adapter.getSelected()),
-          SkuType.SUBS,
+          SkuDetails.TYPE_SUBS,
           currentSubscription == null ? null : currentSubscription.getSku());
     }
     billingClient.addPurchaseCallback(this);

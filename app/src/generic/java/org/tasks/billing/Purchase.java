@@ -11,4 +11,20 @@ public class Purchase {
   public String toJson() {
     return null;
   }
+
+  public boolean isCanceled() {
+    return false;
+  }
+
+  public int getSubscriptionPrice() {
+    return 0;
+  }
+
+  public boolean isMonthly() {
+    return false;
+  }
+
+  public boolean isProSubscription() {
+    return false;
+  }
 }

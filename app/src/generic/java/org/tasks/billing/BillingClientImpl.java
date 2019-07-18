@@ -2,6 +2,7 @@ package org.tasks.billing;
 
 import android.app.Activity;
 import android.content.Context;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import java.util.List;
@@ -21,7 +22,13 @@ public class BillingClientImpl implements BillingClient {
   }
 
   @Override
-  public void initiatePurchaseFlow(Activity activity, String sku, String skuType) {}
+  public void initiatePurchaseFlow(
+      Activity activity, String sku, String skuType, @Nullable String oldSku) {}
+
+  @Override
+  public void addPurchaseCallback(OnPurchasesUpdated onPurchasesUpdated) {
+
+  }
 
   @Override
   public void querySkuDetails() {}
