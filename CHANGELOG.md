@@ -9,6 +9,11 @@ Change Log
 * Allow duplicate CalDAV list names
 * Fix duplicate tag name bug
 
+### 6.7.3 (2019-07-16)
+
+* Workaround for [list updated time bug](https://issuetracker.google.com/issues/136123247) in Google Tasks API
+* Fix crash in CalDAV sync
+
 ### 6.7.2 (2019-07-08)
 
 * Handle 404 errors when creating new Google Tasks
