@@ -486,7 +486,7 @@
     <string name="caldav_home_set_not_found">Fant ikke CalDAV-\"home set\"</string>
     <string name="network_error">Tilkoblingen gikk ned</string>
     <string name="background_sync_unmetered_only">Kun for ubegrensede tilkoblinger</string>
-  <string name="upgrade_to_pro">Oppgrader til pro</string>
+    <string name="upgrade_to_pro">Oppgrader til pro</string>
     <string name="manage_subscription">Håndter abonnement</string>
     <string name="refresh_purchases">Gjenoppfrisk kjøp</string>
     <string name="button_subscribed">Abonnert</string>
@@ -535,4 +535,17 @@
     <string name="version_string">Versjon %s</string>
     <string name="invalid_backup_file">Ugyldig sikkerhetskopifil</string>
     <string name="google_tasks_add_to_top">Nye oppgaver øverst</string>
+    <string name="icon">Ikon</string>
+    <string name="pro_support_development">Tasks trenger din støtte.</string>
+    <string name="manage_subscription_summary">Oppgrader, nedgrader eller avbryt ditt abonnement</string>
+    <string name="button_current_subscription">Nåværende abonnement</string>
+    <string name="button_restore_subscription">Gjenopprett abonnement</string>
+    <string name="button_downgrade">Nedgrader abonnement</string>
+    <string name="button_upgrade">Oppgrader abonnement</string>
+    <string name="button_unsubscribe">Avbryt abonnement</string>
+    <string name="pro_description">Tasks er fri programvare som ikke viser reklame eller selger din personvernsinfo</string>
+    <string name="pro_subscribe_now">Abonner nå for å støtte utviklingen og låse opp ytterligere funksjoner</string>
+    <string name="name_your_price">Betal det du vil</string>
+    <string name="monthly">Månedlig</string>
+    <string name="annually">Årlig</string>
 </resources>
