@@ -17,7 +17,6 @@
   <attr format="boolean" name="dark_status_bar"/>
   <attr format="dimension" name="alpha_secondary"/>
   <attr format="dimension" name="alpha_disabled"/>
-  <attr format="color" name="fab_text"/>
   <attr format="color" name="colorAccentDialog"/>
   <attr format="dimension" name="card_elevation"/>
 

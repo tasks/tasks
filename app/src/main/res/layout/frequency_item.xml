@@ -13,4 +13,4 @@
   android:ellipsize="end"
   android:singleLine="true"
   android:textAlignment="viewStart"
-  android:textColor="?fab_text"/>
+  android:textColor="?attr/colorOnSecondary"/>

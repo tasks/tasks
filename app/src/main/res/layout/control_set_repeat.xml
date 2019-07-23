@@ -31,7 +31,7 @@
         android:paddingEnd="@dimen/keyline_first"
         android:paddingLeft="@dimen/keyline_first"
         android:paddingRight="@dimen/keyline_first"
-        app:backgroundTint="?fab_text"/>
+        app:backgroundTint="?attr/colorOnSecondary"/>
 
     </FrameLayout>
 
