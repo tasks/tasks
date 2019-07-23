@@ -3,7 +3,7 @@
 
   <style name="LightGreen" parent="BlackToolbarTheme">
     <item name="colorPrimary">@color/light_green_500</item>
-    <item name="colorPrimaryDark">@color/light_green_700</item>
+    <item name="colorPrimaryVariant">@color/light_green_700</item>
   </style>
 
   <style name="LightGreenAccent" parent="BlackTint">

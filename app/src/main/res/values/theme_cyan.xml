@@ -3,7 +3,7 @@
 
   <style name="Cyan" parent="BlackToolbarTheme">
     <item name="colorPrimary">@color/cyan_500</item>
-    <item name="colorPrimaryDark">@color/cyan_700</item>
+    <item name="colorPrimaryVariant">@color/cyan_700</item>
   </style>
 
   <style name="CyanAccent" parent="BlackTint">

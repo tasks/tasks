@@ -3,7 +3,7 @@
 
   <style name="BlueGrey" parent="WhiteToolbarTheme">
     <item name="colorPrimary">@color/blue_grey_500</item>
-    <item name="colorPrimaryDark">@color/blue_grey_700</item>
+    <item name="colorPrimaryVariant">@color/blue_grey_700</item>
   </style>
 
   <style name="BlueGreyAccent" parent="WhiteTint">

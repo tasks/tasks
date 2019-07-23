@@ -3,7 +3,7 @@
 
   <style name="Lime" parent="BlackToolbarTheme">
     <item name="colorPrimary">@color/lime_500</item>
-    <item name="colorPrimaryDark">@color/lime_700</item>
+    <item name="colorPrimaryVariant">@color/lime_700</item>
   </style>
 
   <style name="LimeAccent" parent="BlackTint">

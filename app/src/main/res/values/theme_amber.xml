@@ -3,7 +3,7 @@
 
   <style name="Amber" parent="BlackToolbarTheme">
     <item name="colorPrimary">@color/amber_500</item>
-    <item name="colorPrimaryDark">@color/amber_700</item>
+    <item name="colorPrimaryVariant">@color/amber_700</item>
   </style>
 
   <style name="AmberAccent" parent="BlackTint">

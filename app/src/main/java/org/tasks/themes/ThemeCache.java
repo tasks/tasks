@@ -67,7 +67,7 @@ public class ThemeCache {
               colorNames[i],
               i,
               resolveAttribute(theme, R.attr.colorPrimary),
-              resolveAttribute(theme, R.attr.colorPrimaryDark),
+              resolveAttribute(theme, R.attr.colorPrimaryVariant),
               resolveAttribute(theme, R.attr.actionBarPrimaryText),
               resolveBoolean(theme, R.attr.dark_status_bar)));
     }

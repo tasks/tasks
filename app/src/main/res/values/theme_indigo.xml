@@ -3,7 +3,7 @@
 
   <style name="Indigo" parent="WhiteToolbarTheme">
     <item name="colorPrimary">@color/indigo_500</item>
-    <item name="colorPrimaryDark">@color/indigo_700</item>
+    <item name="colorPrimaryVariant">@color/indigo_700</item>
   </style>
 
   <style name="IndigoAccent" parent="WhiteTint">

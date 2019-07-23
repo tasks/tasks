@@ -3,7 +3,7 @@
 
   <style name="Purple" parent="WhiteToolbarTheme">
     <item name="colorPrimary">@color/purple_500</item>
-    <item name="colorPrimaryDark">@color/purple_700</item>
+    <item name="colorPrimaryVariant">@color/purple_700</item>
   </style>
 
   <style name="PurpleAccent" parent="WhiteTint">

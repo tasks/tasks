@@ -109,14 +109,14 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
   private final int actionBarTint;
   private final int style;
   private final int colorPrimary;
-  private final int colorPrimaryDark;
+  private final int colorPrimaryVariant;
   private final boolean isDark;
 
   public ThemeColor(
       String name,
       int index,
       int colorPrimary,
-      int colorPrimaryDark,
+      int colorPrimaryVariant,
       int actionBarTint,
       boolean isDark) {
     this.name = name;
@@ -124,7 +124,7 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
     this.actionBarTint = actionBarTint;
     this.style = COLORS[index];
     this.colorPrimary = colorPrimary;
-    this.colorPrimaryDark = colorPrimaryDark;
+    this.colorPrimaryVariant = colorPrimaryVariant;
     this.isDark = isDark;
   }
 
@@ -134,7 +134,7 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
     actionBarTint = source.readInt();
     style = source.readInt();
     colorPrimary = source.readInt();
-    colorPrimaryDark = source.readInt();
+    colorPrimaryVariant = source.readInt();
     isDark = source.readInt() == 1;
   }
 
@@ -148,13 +148,13 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
 
   public void setStatusBarColor(Activity activity) {
     if (atLeastLollipop()) {
-      activity.getWindow().setStatusBarColor(getColorPrimaryDark());
+      activity.getWindow().setStatusBarColor(getColorPrimaryVariant());
     }
   }
 
   public void applyToStatusBar(DrawerLayout drawerLayout) {
     if (atLeastLollipop()) {
-      drawerLayout.setStatusBarBackgroundColor(getColorPrimaryDark());
+      drawerLayout.setStatusBarBackgroundColor(getColorPrimaryVariant());
     }
     if (atLeastMarshmallow()) {
       int systemUiVisibility = applyLightStatusBarFlag(drawerLayout.getSystemUiVisibility());
@@ -242,8 +242,8 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
     return actionBarTint;
   }
 
-  private int getColorPrimaryDark() {
-    return colorPrimaryDark;
+  private int getColorPrimaryVariant() {
+    return colorPrimaryVariant;
   }
 
   public void apply(Toolbar toolbar) {
@@ -263,7 +263,7 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
     dest.writeInt(actionBarTint);
     dest.writeInt(style);
     dest.writeInt(colorPrimary);
-    dest.writeInt(colorPrimaryDark);
+    dest.writeInt(colorPrimaryVariant);
     dest.writeInt(isDark ? 1 : 0);
   }
 }

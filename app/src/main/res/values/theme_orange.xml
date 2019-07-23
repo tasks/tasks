@@ -3,7 +3,7 @@
 
   <style name="Orange" parent="BlackToolbarTheme">
     <item name="colorPrimary">@color/orange_500</item>
-    <item name="colorPrimaryDark">@color/orange_700</item>
+    <item name="colorPrimaryVariant">@color/orange_700</item>
   </style>
 
   <style name="OrangeAccent" parent="BlackTint">

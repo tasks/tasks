@@ -3,7 +3,7 @@
 
   <style name="Brown" parent="WhiteToolbarTheme">
     <item name="colorPrimary">@color/brown_500</item>
-    <item name="colorPrimaryDark">@color/brown_700</item>
+    <item name="colorPrimaryVariant">@color/brown_700</item>
   </style>
 
 </resources>
