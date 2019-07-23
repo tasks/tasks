@@ -68,7 +68,7 @@ public class ThemeCache {
               i,
               resolveAttribute(theme, R.attr.colorPrimary),
               resolveAttribute(theme, R.attr.colorPrimaryVariant),
-              resolveAttribute(theme, R.attr.actionBarPrimaryText),
+              resolveAttribute(theme, R.attr.colorOnPrimary),
               resolveBoolean(theme, R.attr.dark_status_bar)));
     }
     String[] accentNames = resources.getStringArray(R.array.accents);

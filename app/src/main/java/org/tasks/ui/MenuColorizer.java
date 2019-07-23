@@ -51,19 +51,18 @@ public class MenuColorizer {
 
   public static void colorToolbar(Context context, Toolbar toolbar) {
     TypedValue typedValue = new TypedValue();
-    context.getTheme().resolveAttribute(R.attr.actionBarPrimaryText, typedValue, true);
+    context.getTheme().resolveAttribute(R.attr.colorOnPrimary, typedValue, true);
     colorToolbar(toolbar, typedValue.data);
   }
 
   public static void colorToolbar(Toolbar toolbar, int color) {
     toolbar.setNavigationIcon(colorDrawable(toolbar.getNavigationIcon(), color));
-    toolbar.setTitleTextColor(color);
     colorMenu(toolbar.getMenu(), color);
   }
 
   public static void colorMenu(Context context, Menu menu) {
     TypedValue typedValue = new TypedValue();
-    context.getTheme().resolveAttribute(R.attr.actionBarPrimaryText, typedValue, true);
+    context.getTheme().resolveAttribute(R.attr.colorOnPrimary, typedValue, true);
     colorMenu(menu, typedValue.data);
   }
 

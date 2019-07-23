@@ -12,7 +12,6 @@
   <attr format="color" name="asTextColorHint"/>
   <attr format="color" name="icon_tint"/>
   <attr format="reference" name="overlay_theme"/>
-  <attr format="color" name="actionBarPrimaryText"/>
   <attr format="color" name="actionBarSecondaryText"/>
   <attr format="boolean" name="dark_status_bar"/>
   <attr format="dimension" name="alpha_secondary"/>
