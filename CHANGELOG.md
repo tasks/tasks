@@ -8,6 +8,10 @@ Change Log
 * Performance improvements
 * Allow duplicate CalDAV list names
 * Fix duplicate tag name bug
+* Update translations
+  * Dutch - revdbrink
+  * Hungarian - kaciokos
+  * Norwegian Bokmål - @comradekingu
 
 ### 6.7.3 (2019-07-16)
 
