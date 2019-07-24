@@ -129,17 +129,6 @@
     <item name="cardPreventCornerOverlap">false</item>
   </style>
 
-  <style name="BaseButtonStyle" parent="Widget.AppCompat.Button.Colored">
-    <item name="android:layout_width">@dimen/button_width</item>
-    <item name="android:layout_height">@dimen/button_height</item>
-  </style>
-
-  <style name="ButtonStyle" parent="BaseButtonStyle">
-    <item name="android:background">?attr/colorAccent</item>
-    <item name="android:textColor">@android:color/white</item>
-    <item name="android:layout_gravity">bottom|end</item>
-  </style>
-
   <style name="ProgressViewStyle" parent="Material.Drawable.LinearProgress">
     <item name="lpd_strokeColor">?attr/colorAccent</item>
     <item name="lpd_strokeSecondaryColor">@android:color/transparent</item>
