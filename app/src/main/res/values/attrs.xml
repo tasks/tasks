@@ -22,6 +22,8 @@
   <attr format="reference" name="materialButtonBackground"/>
   <attr format="reference" name="materialButtonRipple"/>
   <attr format="reference" name="materialButtonStroke"/>
+  <attr format="reference" name="weekdayButtonBackground"/>
+  <attr format="reference" name="weekdayButtonText"/>
 
   <declare-styleable name="TimePreference">
     <attr format="string" name="summary"/>

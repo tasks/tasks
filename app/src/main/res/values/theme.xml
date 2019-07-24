@@ -35,6 +35,8 @@
     <item name="materialButtonBackground">@color/mtrl_btn_text_btn_bg_color_selector</item>
     <item name="materialButtonRipple">@color/mtrl_btn_text_btn_ripple_color</item>
     <item name="materialButtonStroke">@color/mtrl_btn_stroke_color_selector</item>
+    <item name="weekdayButtonBackground">?attr/colorPrimary</item>
+    <item name="weekdayButtonText">?attr/colorOnPrimary</item>
   </style>
 
   <style name="Tasks" parent="TasksBase"/>

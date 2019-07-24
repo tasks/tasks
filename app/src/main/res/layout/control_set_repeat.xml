@@ -17,7 +17,7 @@
     <FrameLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="?colorAccentDialog">
+      android:background="?attr/colorPrimary">
 
       <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/frequency"
@@ -31,7 +31,7 @@
         android:paddingEnd="@dimen/keyline_first"
         android:paddingLeft="@dimen/keyline_first"
         android:paddingRight="@dimen/keyline_first"
-        app:backgroundTint="?attr/colorOnSecondary"/>
+        app:backgroundTint="?attr/colorOnPrimary"/>
 
     </FrameLayout>
 
