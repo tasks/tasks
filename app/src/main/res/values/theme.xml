@@ -24,6 +24,8 @@
     <item name="android:textColorPrimary">@color/text_primary</item>
     <item name="android:textColorSecondary">@color/text_secondary</item>
     <item name="android:textColorTertiary">@color/text_tertiary</item>
+    <item name="colorOnBackground">@color/text_primary</item>
+    <item name="colorOnSurface">@color/text_primary</item>
     <item name="nnf_toolbarTheme">?attr/overlay_theme</item>
     <item name="nnf_separator_color">@color/nnf_light_separator_color</item>
     <item name="nnf_save_icon_color">?attr/colorAccent</item>
@@ -35,6 +37,8 @@
 
   <style name="TasksDialogAlert" parent="DayNightAlert">
     <item name="android:windowBackground">@color/dialog_background</item>
+    <item name="colorOnBackground">@color/text_primary</item>
+    <item name="colorOnSurface">@color/text_primary</item>
     <item name="colorAccent">?attr/colorAccentDialog</item>
     <item name="asTextColor">@color/text_primary</item>
     <item name="icon_tint">@color/icon_tint</item>
