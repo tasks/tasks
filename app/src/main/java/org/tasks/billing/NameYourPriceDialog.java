@@ -84,7 +84,7 @@ public class NameYourPriceDialog extends InjectingDialogFragment implements OnPu
         dialogBuilder
             .newDialog()
             .setTitle(R.string.name_your_price)
-            .setView(R.layout.activity_purchase)
+            .setView(R.layout.dialog_name_your_price)
             .show();
 
     ButterKnife.bind(this, dialog);
