@@ -18,7 +18,7 @@
     <item name="android:spinnerItemStyle">@style/SpinnerNoPadding</item>
     <item name="dialogTheme">@style/TasksDialog</item>
     <item name="android:dialogTheme">@style/TasksDialog</item>
-    <item name="alertDialogTheme">@style/TasksDialogAlert</item>
+    <item name="materialAlertDialogTheme">@style/TasksDialogAlert</item>
     <item name="alpha_secondary">@dimen/alpha_secondary</item>
     <item name="alpha_disabled">@dimen/alpha_disabled</item>
     <item name="android:textColorPrimary">@color/text_primary</item>
@@ -31,6 +31,10 @@
     <item name="nnf_save_icon_color">?attr/colorAccent</item>
     <item name="nnf_dir_icon_color">?attr/colorAccent</item>
     <item name="card_elevation">2dp</item>
+    <item name="materialButtonText">@color/mtrl_text_btn_text_color_selector</item>
+    <item name="materialButtonBackground">@color/mtrl_btn_text_btn_bg_color_selector</item>
+    <item name="materialButtonRipple">@color/mtrl_btn_text_btn_ripple_color</item>
+    <item name="materialButtonStroke">@color/mtrl_btn_stroke_color_selector</item>
   </style>
 
   <style name="Tasks" parent="TasksBase"/>

@@ -154,4 +154,17 @@
     <item name="closeIconStartPadding">0dp</item>
   </style>
 
+  <style name="OutlineButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+    <item name="android:textColor">?attr/materialButtonText</item>
+    <item name="backgroundTint">?attr/materialButtonBackground</item>
+    <item name="rippleColor">?attr/materialButtonRipple</item>
+    <item name="strokeColor">?attr/materialButtonStroke</item>
+  </style>
+
+  <style name="TextButton" parent="Widget.MaterialComponents.Button.TextButton">
+    <item name="android:textColor">?attr/materialButtonText</item>
+    <item name="backgroundTint">?attr/materialButtonBackground</item>
+    <item name="rippleColor">?attr/materialButtonRipple</item>
+  </style>
+
 </resources>

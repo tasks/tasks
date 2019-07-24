@@ -8,6 +8,7 @@ import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.ListAdapter;
 import androidx.appcompat.app.AlertDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.List;
 import org.tasks.locale.Locale;
 import org.tasks.themes.Theme;
@@ -25,7 +26,7 @@ public class AlertDialogBuilder {
     this.locale = locale;
     ContextThemeWrapper wrapper = theme.getThemedDialog(context);
     theme.applyToContext(wrapper);
-    builder = new AlertDialog.Builder(wrapper);
+    builder = new MaterialAlertDialogBuilder(wrapper);
   }
 
   public AlertDialogBuilder setMessage(int message, Object... formatArgs) {

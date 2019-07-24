@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <style name="White" parent="BlackToolbarTheme">
+  <style name="White_Base" parent="BlackToolbarTheme">
     <item name="colorPrimary">@color/white_100</item>
     <item name="colorPrimaryVariant">@color/white_100</item>
+  </style>
+
+  <style name="White" parent="White_Base">
+    <item name="buttonBarPositiveButtonStyle">@style/AlertButtonStyle</item>
+    <item name="buttonBarNegativeButtonStyle">@style/AlertButtonStyle</item>
+    <item name="buttonBarNeutralButtonStyle">@style/AlertButtonStyle</item>
+    <item name="materialButtonText">@color/button_accent_text</item>
+    <item name="materialButtonBackground">@color/button_accent_background</item>
+    <item name="materialButtonRipple">@color/button_accent_ripple</item>
+    <item name="materialButtonStroke">@color/button_accent_stroke</item>
+  </style>
+
+  <style name="AlertButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog.Flush">
+    <item name="android:textColor">?attr/colorAccent</item>
   </style>
 
 </resources>

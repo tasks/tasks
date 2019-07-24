@@ -18,6 +18,10 @@
   <attr format="dimension" name="alpha_disabled"/>
   <attr format="color" name="colorAccentDialog"/>
   <attr format="dimension" name="card_elevation"/>
+  <attr format="reference" name="materialButtonText"/>
+  <attr format="reference" name="materialButtonBackground"/>
+  <attr format="reference" name="materialButtonRipple"/>
+  <attr format="reference" name="materialButtonStroke"/>
 
   <declare-styleable name="TimePreference">
     <attr format="string" name="summary"/>
