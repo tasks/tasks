@@ -409,7 +409,7 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
     }
 
     dialogBuilder
-        .newMessageDialog(R.string.logout_warning, caldavAccount.getName())
+        .newDialog(R.string.logout_warning, caldavAccount.getName())
         .setPositiveButton(
             R.string.remove,
             (dialog, which) -> {
@@ -431,7 +431,7 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
       finish();
     } else {
       dialogBuilder
-          .newMessageDialog(R.string.discard_changes)
+          .newDialog(R.string.discard_changes)
           .setPositiveButton(R.string.discard, (dialog, which) -> finish())
           .setNegativeButton(android.R.string.cancel, null)
           .show();

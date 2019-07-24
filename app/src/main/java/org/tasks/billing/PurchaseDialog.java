@@ -42,8 +42,7 @@ public class PurchaseDialog extends InjectingDialogFragment {
     String[] rows = context.getResources().getStringArray(R.array.pro_description);
     textView.setText(Joiner.on('\n').join(transform(asList(rows), item -> "\u2022 " + item)));
     return dialogBuilder
-        .newDialog()
-        .setTitle(R.string.pro_support_development)
+        .newDialog(R.string.pro_support_development)
         .setView(view)
         .setPositiveButton(
             R.string.name_your_price,

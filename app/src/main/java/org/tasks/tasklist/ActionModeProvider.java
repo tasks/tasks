@@ -92,7 +92,7 @@ public class ActionModeProvider {
                     return true;
                   case R.id.delete:
                     dialogBuilder
-                        .newMessageDialog(R.string.delete_selected_tasks)
+                        .newDialog(R.string.delete_selected_tasks)
                         .setPositiveButton(
                             android.R.string.ok, (dialogInterface, i) -> deleteSelectedItems())
                         .setNegativeButton(android.R.string.cancel, null)
@@ -100,7 +100,7 @@ public class ActionModeProvider {
                     return true;
                   case R.id.copy_tasks:
                     dialogBuilder
-                        .newMessageDialog(R.string.copy_selected_tasks)
+                        .newDialog(R.string.copy_selected_tasks)
                         .setPositiveButton(
                             android.R.string.ok, ((dialogInterface, i) -> copySelectedItems()))
                         .setNegativeButton(android.R.string.cancel, null)

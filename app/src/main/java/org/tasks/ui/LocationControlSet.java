@@ -158,8 +158,7 @@ public class LocationControlSet extends TaskEditControlFragment {
       options.add(Pair.create(R.string.choose_new_location, this::chooseLocation));
       options.add(Pair.create(R.string.delete, () -> setLocation(null)));
       dialogBuilder
-          .newDialog()
-          .setTitle(location.getDisplayName())
+          .newDialog(location.getDisplayName())
           .setItems(
               newArrayList(transform(options, o -> getString(o.first))),
               (dialog, which) -> options.get(which).second.run())
@@ -190,8 +189,8 @@ public class LocationControlSet extends TaskEditControlFragment {
         showGeofenceOptions();
       } else {
         dialogBuilder
-            .newMessageDialog(R.string.location_permission_required_geofence)
-            .setTitle(R.string.missing_permissions)
+            .newDialog(R.string.missing_permissions)
+            .setMessage(R.string.location_permission_required_geofence)
             .setPositiveButton(android.R.string.ok, null)
             .show();
       }

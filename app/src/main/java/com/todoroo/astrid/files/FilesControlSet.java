@@ -140,7 +140,7 @@ public class FilesControlSet extends TaskEditControlFragment {
     clearFile.setOnClickListener(
         v ->
             dialogBuilder
-                .newMessageDialog(R.string.premium_remove_file_confirm)
+                .newDialog(R.string.premium_remove_file_confirm)
                 .setPositiveButton(
                     android.R.string.ok,
                     (dialog, which) -> {

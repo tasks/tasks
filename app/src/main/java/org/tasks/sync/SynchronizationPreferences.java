@@ -136,7 +136,7 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
     String name = account.getAccount();
     AlertDialog alertDialog =
         dialogBuilder
-            .newMessageDialog(R.string.logout_warning, name)
+            .newDialog(R.string.logout_warning, name)
             .setPositiveButton(
                 R.string.logout,
                 (dialog, which) -> {
@@ -174,8 +174,7 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
       accountPreferences.setOnPreferenceClickListener(
           preference -> {
             dialogBuilder
-                .newDialog()
-                .setTitle(account)
+                .newDialog(account)
                 .setItems(
                     asList(getString(R.string.reinitialize_account), getString(R.string.logout)),
                     (dialog, which) -> {

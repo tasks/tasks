@@ -50,8 +50,13 @@ public class AlertDialogBuilder {
     return this;
   }
 
-  public AlertDialogBuilder setTitle(int title) {
+  AlertDialogBuilder setTitle(int title) {
     builder.setTitle(title);
+    return this;
+  }
+
+  AlertDialogBuilder setTitle(int title, Object... formatArgs) {
+    builder.setTitle(context.getString(title, formatArgs));
     return this;
   }
 
@@ -115,7 +120,7 @@ public class AlertDialogBuilder {
     return this;
   }
 
-  public AlertDialogBuilder setTitle(String title) {
+  AlertDialogBuilder setTitle(String title) {
     builder.setTitle(title);
     return this;
   }

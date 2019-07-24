@@ -29,11 +29,19 @@ public class DialogBuilder {
     return new AlertDialogBuilder(activity, theme, locale);
   }
 
-  public AlertDialogBuilder newMessageDialog(int message, Object... formatArgs) {
-    return newDialog().setMessage(message, formatArgs);
+  public AlertDialogBuilder newDialog(int title) {
+    return newDialog().setTitle(title);
   }
 
-  public ProgressDialog newProgressDialog() {
+  public AlertDialogBuilder newDialog(String title) {
+    return newDialog().setTitle(title);
+  }
+
+  public AlertDialogBuilder newDialog(int title, Object... formatArgs) {
+    return newDialog().setTitle(title, formatArgs);
+  }
+
+  ProgressDialog newProgressDialog() {
     ProgressDialog progressDialog =
         new ProgressDialog(activity, theme.getThemeBase().getAlertDialogStyle());
     theme.applyToContext(progressDialog.getContext());

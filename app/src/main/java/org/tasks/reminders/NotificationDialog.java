@@ -36,8 +36,7 @@ public class NotificationDialog extends InjectingDialogFragment {
     handler = (NotificationHandler) getActivity();
 
     return dialogBuilder
-        .newDialog()
-        .setTitle(title)
+        .newDialog(title)
         .setItems(
             items,
             (dialog, which) -> {

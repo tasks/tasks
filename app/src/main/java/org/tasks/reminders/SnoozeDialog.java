@@ -80,8 +80,7 @@ public class SnoozeDialog extends InjectingDialogFragment {
     items.add(getString(R.string.pick_a_date_and_time));
 
     return dialogBuilder
-        .newDialog()
-        .setTitle(R.string.rmd_NoA_snooze)
+        .newDialog(R.string.rmd_NoA_snooze)
         .setItems(
             items,
             (dialog, which) -> {

@@ -81,7 +81,7 @@ public class OldTaskPreferences extends InjectingPreferenceActivity {
 
   private void purgeDeletedTasks() {
     dialogBuilder
-        .newMessageDialog(R.string.EPr_manage_purge_deleted_message)
+        .newDialog(R.string.EPr_manage_purge_deleted_message)
         .setPositiveButton(
             android.R.string.ok,
             (dialog, which) ->
@@ -93,7 +93,7 @@ public class OldTaskPreferences extends InjectingPreferenceActivity {
 
   private void deleteCompletedEvents() {
     dialogBuilder
-        .newMessageDialog(R.string.EPr_manage_delete_completed_gcal_message)
+        .newDialog(R.string.EPr_manage_delete_completed_gcal_message)
         .setPositiveButton(
             android.R.string.ok,
             (dialog, which) ->
@@ -109,7 +109,7 @@ public class OldTaskPreferences extends InjectingPreferenceActivity {
 
   private void deleteAllCalendarEvents() {
     dialogBuilder
-        .newMessageDialog(R.string.EPr_manage_delete_all_gcal_message)
+        .newDialog(R.string.EPr_manage_delete_all_gcal_message)
         .setPositiveButton(
             android.R.string.ok,
             (dialog, which) ->
@@ -133,7 +133,7 @@ public class OldTaskPreferences extends InjectingPreferenceActivity {
 
   private void resetPreferences() {
     dialogBuilder
-        .newMessageDialog(R.string.EPr_reset_preferences_warning)
+        .newDialog(R.string.EPr_reset_preferences_warning)
         .setPositiveButton(
             R.string.EPr_reset_preferences,
             (dialog, which) -> {
@@ -146,7 +146,7 @@ public class OldTaskPreferences extends InjectingPreferenceActivity {
 
   private void deleteTaskData() {
     dialogBuilder
-        .newMessageDialog(R.string.EPr_delete_task_data_warning)
+        .newDialog(R.string.EPr_delete_task_data_warning)
         .setPositiveButton(
             R.string.EPr_delete_task_data,
             (dialog, which) -> {

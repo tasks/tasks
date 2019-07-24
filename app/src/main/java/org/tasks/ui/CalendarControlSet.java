@@ -205,7 +205,7 @@ public class CalendarControlSet extends TaskEditControlFragment {
       clear();
     } else {
       dialogBuilder
-          .newMessageDialog(R.string.delete_calendar_event_confirmation)
+          .newDialog(R.string.delete_calendar_event_confirmation)
           .setPositiveButton(
               R.string.delete,
               (dialog, which) -> {

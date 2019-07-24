@@ -67,8 +67,7 @@ public class RecordAudioDialog extends InjectingDialogFragment
     }
 
     return dialogBuilder
-        .newDialog()
-        .setTitle(R.string.audio_recording_title)
+        .newDialog(R.string.audio_recording_title)
         .setView(view)
         .create();
   }

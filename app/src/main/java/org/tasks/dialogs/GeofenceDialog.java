@@ -77,8 +77,7 @@ public class GeofenceDialog extends InjectingDialogFragment {
     departureView.setChecked(hasLocationPermission && geofence.isDeparture());
     updateRadius(geofence.getRadius());
     return dialogBuilder
-        .newDialog()
-        .setTitle(original.getDisplayName())
+        .newDialog(original.getDisplayName())
         .setView(view)
         .setNegativeButton(android.R.string.cancel, null)
         .setOnCancelListener(this::sendResult)

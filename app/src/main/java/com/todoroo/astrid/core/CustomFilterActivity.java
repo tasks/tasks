@@ -331,7 +331,7 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity
       finish();
     } else {
       dialogBuilder
-          .newMessageDialog(R.string.discard_changes)
+          .newDialog(R.string.discard_changes)
           .setPositiveButton(R.string.keep_editing, null)
           .setNegativeButton(R.string.discard, (dialog, which) -> finish())
           .show();

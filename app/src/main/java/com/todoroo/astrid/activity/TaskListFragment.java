@@ -401,7 +401,7 @@ public final class TaskListFragment extends InjectingFragment
         return true;
       case R.id.menu_clear_completed:
         dialogBuilder
-            .newMessageDialog(R.string.clear_completed_tasks_confirmation)
+            .newDialog(R.string.clear_completed_tasks_confirmation)
             .setPositiveButton(android.R.string.ok, (dialog, which) -> clearCompleted())
             .setNegativeButton(android.R.string.cancel, null)
             .show();

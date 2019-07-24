@@ -271,8 +271,8 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
         moveToCurrentLocation(true);
       } else {
         dialogBuilder
-            .newMessageDialog(R.string.location_permission_required_location)
-            .setTitle(R.string.missing_permissions)
+            .newDialog(R.string.missing_permissions)
+            .setMessage(R.string.location_permission_required_location)
             .setPositiveButton(android.R.string.ok, null)
             .show();
       }

@@ -270,7 +270,7 @@ public final class TaskEditFragment extends InjectingFragment
     if (hasChanges(
         taskEditControlSetFragmentManager.getFragmentsInPersistOrder(getChildFragmentManager()))) {
       dialogBuilder
-          .newMessageDialog(R.string.discard_confirmation)
+          .newDialog(R.string.discard_confirmation)
           .setPositiveButton(R.string.keep_editing, null)
           .setNegativeButton(R.string.discard, (dialog, which) -> discard())
           .show();
@@ -289,7 +289,7 @@ public final class TaskEditFragment extends InjectingFragment
 
   private void deleteButtonClick() {
     dialogBuilder
-        .newMessageDialog(R.string.DLG_delete_this_task_question)
+        .newDialog(R.string.DLG_delete_this_task_question)
         .setPositiveButton(
             android.R.string.ok,
             (dialog, which) -> {

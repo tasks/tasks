@@ -75,8 +75,7 @@ public class Linkify {
         break;
     }
     dialogBuilder
-        .newDialog()
-        .setTitle(title)
+        .newDialog(title)
         .setItems(
             asList(action, edit),
             (dialogInterface, selected) -> {

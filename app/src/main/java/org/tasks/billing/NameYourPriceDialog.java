@@ -82,8 +82,7 @@ public class NameYourPriceDialog extends InjectingDialogFragment implements OnPu
   public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
     AlertDialog dialog =
         dialogBuilder
-            .newDialog()
-            .setTitle(R.string.name_your_price)
+            .newDialog(R.string.name_your_price)
             .setView(R.layout.dialog_name_your_price)
             .show();
 

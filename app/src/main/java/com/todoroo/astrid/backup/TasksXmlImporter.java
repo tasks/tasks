@@ -159,8 +159,7 @@ public class TasksXmlImporter {
   private void showSummary() {
     Resources r = activity.getResources();
     dialogBuilder
-        .newDialog()
-        .setTitle(R.string.import_summary_title)
+        .newDialog(R.string.import_summary_title)
         .setMessage(
             activity.getString(
                 R.string.import_summary_message,

@@ -123,7 +123,7 @@ public abstract class BaseListSettingsActivity extends ThemedInjectingAppCompatA
       finish();
     } else {
       dialogBuilder
-          .newMessageDialog(R.string.discard_changes)
+          .newDialog(R.string.discard_changes)
           .setPositiveButton(R.string.discard, (dialog, which) -> finish())
           .setNegativeButton(android.R.string.cancel, null)
           .show();
@@ -174,7 +174,7 @@ public abstract class BaseListSettingsActivity extends ThemedInjectingAppCompatA
 
   protected void promptDelete() {
     dialogBuilder
-        .newMessageDialog(R.string.delete_tag_confirmation, getToolbarTitle())
+        .newDialog(R.string.delete_tag_confirmation, getToolbarTitle())
         .setPositiveButton(
             R.string.delete,
             (dialog, which) -> delete())

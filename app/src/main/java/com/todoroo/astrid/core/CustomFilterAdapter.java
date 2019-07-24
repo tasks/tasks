@@ -116,7 +116,7 @@ class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
 
   /** Show options menu for the given criterioninstance */
   public void showOptionsFor(final CriterionInstance item, final Runnable onComplete) {
-    AlertDialogBuilder dialog = dialogBuilder.newDialog().setTitle(item.criterion.name);
+    AlertDialogBuilder dialog = dialogBuilder.newDialog(item.criterion.name);
 
     if (item.criterion instanceof MultipleSelectCriterion) {
       MultipleSelectCriterion multiSelectCriterion = (MultipleSelectCriterion) item.criterion;
