@@ -57,7 +57,6 @@
       android:id="@+id/title"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
-
       android:layout_toEndOf="@id/hidden_status"
       android:layout_toLeftOf="@id/due_date"
       android:layout_toRightOf="@id/hidden_status"
@@ -72,7 +71,7 @@
       android:singleLine="true"
       android:textAlignment="viewStart"
       android:textColor="?android:attr/textColorPrimary"
-      android:textSize="16sp"/>
+      android:textSize="@dimen/task_edit_text_size"/>
 
   </RelativeLayout>
 
@@ -85,11 +84,12 @@
     android:paddingEnd="@dimen/keyline_first"
     android:paddingLeft="@dimen/keyline_content_inset"
     android:paddingRight="@dimen/keyline_first"
-    android:gravity="start"
-    android:textAlignment="viewStart"
     android:ellipsize="end"
+    android:gravity="start"
     android:maxLines="2"
+    android:textAlignment="viewStart"
     android:textColor="@color/text_secondary"
+    android:textSize="@dimen/task_edit_text_size"
     android:visibility="gone"/>
 
   <com.google.android.material.chip.Chip
