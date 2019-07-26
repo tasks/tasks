@@ -9,9 +9,9 @@
 
   <style name="TasksBase" parent="DayNight">
     <item name="android:windowBackground">@null</item>
+    <item name="android:colorBackground">@color/content_background</item>
     <item name="windowActionModeOverlay">true</item>
     <item name="asWindowBackground">@color/window_background</item>
-    <item name="asContentBackground">@color/content_background</item>
     <item name="android:spinnerItemStyle">@style/SpinnerNoPadding</item>
     <item name="dialogTheme">@style/TasksDialog</item>
     <item name="android:dialogTheme">@style/TasksDialog</item>
@@ -48,12 +48,12 @@
 
   <style name="ThemeBlack" parent="Tasks">
     <item name="asWindowBackground">@color/grey_900</item>
-    <item name="asContentBackground">@android:color/black</item>
+    <item name="android:colorBackground">@android:color/black</item>
   </style>
 
   <style name="Wallpaper" parent="Tasks">
     <item name="asWindowBackground">@color/black_38</item>
-    <item name="asContentBackground">@color/black_54</item>
+    <item name="android:colorBackground">@color/black_54</item>
     <item name="android:windowShowWallpaper">true</item>
     <item name="card_elevation">0dp</item>
   </style>

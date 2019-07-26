@@ -103,7 +103,7 @@
     android:layout_gravity="center_vertical|end"
     android:textColor="?android:textColorSecondary"
     android:visibility="gone"
-    app:chipBackgroundColor="?attr/asContentBackground"
+    app:chipBackgroundColor="?android:attr/colorBackground"
     app:chipIcon="@drawable/ic_outline_place_24px"
     app:chipIconTint="@color/icon_tint"
     app:chipStrokeColor="?android:textColorSecondary"

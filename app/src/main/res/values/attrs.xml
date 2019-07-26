@@ -7,7 +7,6 @@
 
   <!-- theme attributes -->
   <attr format="color" name="asWindowBackground"/>
-  <attr format="color" name="asContentBackground"/>
   <attr format="reference" name="overlay_theme"/>
   <attr format="boolean" name="dark_status_bar"/>
   <attr format="dimension" name="card_elevation"/>
