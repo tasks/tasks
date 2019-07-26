@@ -6,9 +6,9 @@ import android.os.Bundle;
 import androidx.fragment.app.FragmentManager;
 import javax.inject.Inject;
 import org.tasks.injection.ActivityComponent;
-import org.tasks.injection.ThemedInjectingAppCompatActivity;
+import org.tasks.injection.InjectingAppCompatActivity;
 
-public class PurchaseActivity extends ThemedInjectingAppCompatActivity {
+public class PurchaseActivity extends InjectingAppCompatActivity {
 
   private static final String FRAG_TAG_PURCHASE = "frag_tag_purchase";
 

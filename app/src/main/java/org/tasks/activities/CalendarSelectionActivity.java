@@ -7,9 +7,9 @@ import android.os.Bundle;
 import androidx.fragment.app.FragmentManager;
 import org.tasks.calendars.AndroidCalendar;
 import org.tasks.injection.ActivityComponent;
-import org.tasks.injection.ThemedInjectingAppCompatActivity;
+import org.tasks.injection.InjectingAppCompatActivity;
 
-public class CalendarSelectionActivity extends ThemedInjectingAppCompatActivity
+public class CalendarSelectionActivity extends InjectingAppCompatActivity
     implements CalendarSelectionDialog.CalendarSelectionHandler {
 
   public static final String EXTRA_CALENDAR_ID = "extra_calendar_id";

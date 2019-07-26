@@ -10,7 +10,6 @@
   <ScrollView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="?attr/asWindowBackground"
     android:elevation="@dimen/elevation_task_list">
 
     <LinearLayout

@@ -10,12 +10,12 @@ import org.tasks.R;
 import org.tasks.billing.Inventory;
 import org.tasks.dialogs.ColorPickerDialog;
 import org.tasks.injection.ActivityComponent;
-import org.tasks.injection.ThemedInjectingAppCompatActivity;
+import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeCache;
 
-public class ColorPickerActivity extends ThemedInjectingAppCompatActivity
+public class ColorPickerActivity extends InjectingAppCompatActivity
     implements ColorPickerDialog.ThemePickerCallback {
 
   public static final String EXTRA_PALETTE = "extra_palette";
