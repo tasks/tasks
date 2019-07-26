@@ -38,8 +38,7 @@
       android:inputType="textCapSentences"
       android:singleLine="true"
       android:textAlignment="viewStart"
-      android:textColor="?attr/asTextColorHint"
-      android:textColorHint="?attr/asTextColorHint"
+      android:textColor="?android:textColorHint"
       android:textSize="15sp"/>
   </RelativeLayout>
 

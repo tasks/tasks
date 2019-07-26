@@ -45,8 +45,7 @@
       android:nextFocusLeft="@id/title"
       android:nextFocusUp="@id/title"
       android:scrollbars="vertical"
-      android:textAlignment="viewStart"
-      android:textColorHint="?attr/asTextColorHint"/>
+      android:textAlignment="viewStart"/>
 
   </RelativeLayout>
 

@@ -25,8 +25,7 @@
     android:layout_weight="1"
     android:layout_gravity="center_vertical"
     android:hint="@string/new_tag"
-    android:inputType="textCapSentences"
-    android:textColorHint="?attr/asTextColorHint"/>
+    android:inputType="textCapSentences"/>
 
   <ImageView
     android:id="@+id/button1"

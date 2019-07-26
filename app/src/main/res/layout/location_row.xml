@@ -51,7 +51,7 @@
     android:maxLines="1"
     android:singleLine="true"
     android:textAlignment="viewStart"
-    android:textColor="?attr/asTextColorHint"
+    android:textColor="?android:textColorSecondary"
     android:visibility="gone"/>
 
 </RelativeLayout>
