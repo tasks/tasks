@@ -12,7 +12,6 @@
     <item name="windowActionModeOverlay">true</item>
     <item name="asWindowBackground">@color/window_background</item>
     <item name="asContentBackground">@color/content_background</item>
-    <item name="asTextColor">@color/text_primary</item>
     <item name="asTextColorHint">@color/text_tertiary</item>
     <item name="icon_tint">@color/icon_tint</item>
     <item name="android:spinnerItemStyle">@style/SpinnerNoPadding</item>
@@ -46,14 +45,12 @@
     <item name="colorOnBackground">@color/text_primary</item>
     <item name="colorOnSurface">@color/text_primary</item>
     <item name="colorAccent">?attr/colorAccentDialog</item>
-    <item name="asTextColor">@color/text_primary</item>
     <item name="icon_tint">@color/icon_tint</item>
   </style>
 
   <style name="TasksDialog" parent="DayNightDialog">
     <item name="android:windowBackground">@color/dialog_background</item>
     <item name="colorAccent">?attr/colorAccentDialog</item>
-    <item name="asTextColor">@color/text_primary</item>
     <item name="icon_tint">@color/icon_tint</item>
   </style>
 

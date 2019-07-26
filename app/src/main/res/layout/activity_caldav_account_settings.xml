@@ -32,8 +32,7 @@
           android:layout_height="wrap_content"
           android:hint="@string/name"
           android:imeOptions="flagNoExtractUi"
-          android:inputType="textCapSentences|textAutoCorrect"
-          android:textColor="?attr/asTextColor"/>
+          android:inputType="textCapSentences|textAutoCorrect"/>
 
       </com.google.android.material.textfield.TextInputLayout>
 
@@ -46,8 +45,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:hint="@string/url"
-          android:imeOptions="flagNoExtractUi"
-          android:textColor="?attr/asTextColor"/>
+          android:imeOptions="flagNoExtractUi"/>
 
       </com.google.android.material.textfield.TextInputLayout>
 
@@ -60,8 +58,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:hint="@string/user"
-          android:imeOptions="flagNoExtractUi"
-          android:textColor="?attr/asTextColor"/>
+          android:imeOptions="flagNoExtractUi"/>
 
       </com.google.android.material.textfield.TextInputLayout>
 
@@ -76,8 +73,7 @@
           android:layout_height="wrap_content"
           android:hint="@string/password"
           android:imeOptions="flagNoExtractUi"
-          android:inputType="textPassword"
-          android:textColor="?attr/asTextColor"/>
+          android:inputType="textPassword"/>
 
       </com.google.android.material.textfield.TextInputLayout>
 

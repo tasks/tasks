@@ -15,5 +15,4 @@
   android:drawableLeft="@drawable/ic_outline_label_24px"
   android:drawablePadding="@dimen/keyline_second"
   android:drawableStart="@drawable/ic_outline_label_24px"
-  android:gravity="center_vertical"
-  android:textColor="?attr/asTextColor"/>
+  android:gravity="center_vertical"/>

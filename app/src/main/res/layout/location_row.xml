@@ -33,7 +33,6 @@
     android:gravity="start"
     android:hint="@string/add_location"
     android:textAlignment="viewStart"
-    android:textColor="?attr/asTextColor"
     android:textColorHint="@color/text_secondary"/>
 
   <TextView

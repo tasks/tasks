@@ -22,7 +22,6 @@
     android:layout_toLeftOf="@id/clear"
     android:layout_toStartOf="@id/clear"
     android:gravity="start"
-    android:textColor="?attr/asTextColor"
     android:textDirection="locale"
     tools:ignore="UnusedAttribute"/>
 

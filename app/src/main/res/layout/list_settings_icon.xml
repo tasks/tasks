@@ -25,7 +25,6 @@
     android:layout_toStartOf="@id/icon"
     android:contentDescription="@string/icon"
     android:text="@string/icon"
-    android:textColor="?attr/asTextColor"
     android:textSize="18sp"/>
 
 </RelativeLayout>

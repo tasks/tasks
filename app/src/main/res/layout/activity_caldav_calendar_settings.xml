@@ -31,8 +31,7 @@
           android:layout_height="wrap_content"
           android:hint="@string/name"
           android:imeOptions="flagNoExtractUi"
-          android:inputType="textCapSentences|textAutoCorrect"
-          android:textColor="?attr/asTextColor"/>
+          android:inputType="textCapSentences|textAutoCorrect"/>
 
       </com.google.android.material.textfield.TextInputLayout>
 

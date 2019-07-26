@@ -30,8 +30,7 @@
           android:hint="@string/name"
           android:imeOptions="flagNoExtractUi"
           android:inputType="textCapSentences|textFilter"
-          android:maxLines="1"
-          android:textColor="?attr/asTextColor"/>
+          android:maxLines="1"/>
       </com.google.android.material.textfield.TextInputLayout>
 
       <include layout="@layout/list_settings_color"/>
