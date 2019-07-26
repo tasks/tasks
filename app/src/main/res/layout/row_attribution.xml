@@ -41,7 +41,7 @@
       android:paddingStart="@dimen/keyline_first"
       android:paddingRight="@dimen/keyline_first"
       android:paddingEnd="@dimen/keyline_first"
-      android:textColor="@color/text_secondary"
+      android:textColor="?android:textColorSecondary"
       android:textSize="@dimen/sku_details_row_text_size"/>
 
   </LinearLayout>

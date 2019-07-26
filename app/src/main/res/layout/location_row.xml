@@ -32,8 +32,7 @@
     android:focusable="true"
     android:gravity="start"
     android:hint="@string/add_location"
-    android:textAlignment="viewStart"
-    android:textColorHint="@color/text_secondary"/>
+    android:textAlignment="viewStart"/>
 
   <TextView
     android:id="@+id/location_address"

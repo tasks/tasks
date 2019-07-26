@@ -69,7 +69,7 @@
     android:paddingRight="@dimen/keyline_first"
     android:ellipsize="end"
     android:maxLines="2"
-    android:textColor="@color/text_secondary"
+    android:textColor="?android:textColorSecondary"
     android:visibility="gone"/>
 
 

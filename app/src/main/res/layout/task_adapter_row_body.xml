@@ -88,7 +88,7 @@
     android:gravity="start"
     android:maxLines="2"
     android:textAlignment="viewStart"
-    android:textColor="@color/text_secondary"
+    android:textColor="?android:textColorSecondary"
     android:textSize="@dimen/task_edit_text_size"
     android:visibility="gone"/>
 
@@ -101,12 +101,12 @@
     android:layout_marginLeft="@dimen/keyline_content_inset"
     android:layout_marginRight="@dimen/keyline_first"
     android:layout_gravity="center_vertical|end"
-    android:textColor="@color/text_secondary"
+    android:textColor="?android:textColorSecondary"
     android:visibility="gone"
     app:chipBackgroundColor="?attr/asContentBackground"
     app:chipIcon="@drawable/ic_outline_place_24px"
     app:chipIconTint="@color/icon_tint"
-    app:chipStrokeColor="@color/text_secondary"
+    app:chipStrokeColor="?android:textColorSecondary"
     app:chipStrokeWidth="@dimen/chip_stroke"
     app:iconEndPadding="0dp"
     app:iconStartPadding="@dimen/chip_text_padding"

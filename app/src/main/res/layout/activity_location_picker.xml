@@ -161,7 +161,7 @@
             android:text="@string/or_choose_a_location"
             android:textAlignment="viewStart"
             android:textAppearance="@style/TextAppearance"
-            android:textColor="@color/text_secondary"
+            android:textColor="?android:textColorSecondary"
             android:textSize="14sp"/>
 
         </RelativeLayout>

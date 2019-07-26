@@ -6,7 +6,6 @@
 
 package com.todoroo.astrid.notes;
 
-import static androidx.core.content.ContextCompat.getColor;
 import static org.tasks.files.ImageHelper.sampleBitmap;
 
 import android.app.Activity;
@@ -87,8 +86,7 @@ public class CommentsController {
 
     if (items.size() > commentItems) {
       Button loadMore = new Button(activity);
-      loadMore.setText(R.string.TEA_load_more);
-      loadMore.setTextColor(getColor(activity, R.color.text_secondary));
+      loadMore.setHint(R.string.TEA_load_more);
       loadMore.setBackgroundColor(Color.alpha(0));
       loadMore.setOnClickListener(
           v -> {
