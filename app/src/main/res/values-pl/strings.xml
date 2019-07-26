@@ -482,10 +482,8 @@
 	<string name="upgrade_to_pro">Upgrade do pro</string>
 	<string name="manage_subscription">Zarządzaj subskrypcją</string>
 	<string name="refresh_purchases">Odśwież zakupy</string>
-	<string name="button_subscribed">Subskrybowane</string>
 	<string name="button_subscribe">Zasubskrybuj</string>
 	<string name="button_more_info">Więcej informacji</string>
-	<string name="owned">Posiadane</string>
 	<string name="error_billing_unavailable">Płatność niedostępna. Upewnij się, że aplikacja Google Play jest poprawnie skonfigurowana.</string>
 	<string name="error_billing_default">Płatność niedostępna. Sprawdź swoje urządzenie.</string>
 	<string name="about">O</string>

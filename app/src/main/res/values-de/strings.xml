@@ -468,10 +468,8 @@
   <string name="upgrade_to_pro">Pro-Funktionen freischalten</string>
     <string name="manage_subscription">Abonnements verwalten</string>
     <string name="refresh_purchases">Einkäufe aktualisieren</string>
-    <string name="button_subscribed">Abonniert</string>
     <string name="button_subscribe">Abonnieren</string>
     <string name="button_more_info">Weitere Informationen</string>
-    <string name="owned">Besessen</string>
     <string name="error_billing_unavailable">Abrechnung nicht verfügbar. Stelle sicher, dass deine Google Play App korrekt installiert ist</string>
     <string name="error_billing_default">Abrechnung nicht verfügbar. Bitte überprüfe dein Gerät.</string>
     <string name="about">Über</string>

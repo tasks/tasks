@@ -480,11 +480,9 @@
   <string name="upgrade_to_pro">שידרוג לגירסת pro</string>
     <string name="manage_subscription"> נהל מנוי</string>
     <string name="refresh_purchases">עדכן רכישות</string>
-    <string name="button_subscribed">מנוי רשום</string>
     <string name="button_subscribe">רישום כמנוי</string>
     <string name="button_more_info">עוד מידע</string>
-    <string name="owned">בבעלות</string>
-    <string name="error_billing_unavailable">חיוב לא זמין. 
+    <string name="error_billing_unavailable">חיוב לא זמין.
 וודא שיישומון Google Play מוגדר נכון</string>
     <string name="error_billing_default">חיוב לא זמין. בדוק את מכשירך.</string>
     <string name="about">אודות</string>

@@ -487,10 +487,8 @@
   <string name="upgrade_to_pro">Покращити до Преміум</string>
 	<string name="manage_subscription">Управління підписками</string>
 	<string name="refresh_purchases">Оновити покупки</string>
-	<string name="button_subscribed">Підписка</string>
 	<string name="button_subscribe">Підписатися</string>
 	<string name="button_more_info">Більше інформації</string>
-	<string name="owned">У власності</string>
 	<string name="error_billing_unavailable">Оплата недоступна. Перевірте правильність налаштувань Google Play</string>
 	<string name="error_billing_default">Оплата недоступна. Перевірте ваш пристрій</string>
 	<string name="about">Про Tasks</string>

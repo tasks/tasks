@@ -468,10 +468,8 @@
     <string name="upgrade_to_pro">Opwaarderen naar pro</string>
     <string name="manage_subscription">Beheer aanmeldingen</string>
     <string name="refresh_purchases">Vernieuw aankopen</string>
-    <string name="button_subscribed">Aangemeld</string>
     <string name="button_subscribe">Aanmelden</string>
     <string name="button_more_info">Meer informatie</string>
-    <string name="owned">Beheerd</string>
     <string name="error_billing_unavailable">Betaling onmogelijk. Zorg dat de Google Pay app goed is ingesteld</string>
     <string name="error_billing_default">Betaling onmogelijk. Controleer je apparaat.</string>
     <string name="about">Over</string>

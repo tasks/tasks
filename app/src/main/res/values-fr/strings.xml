@@ -459,10 +459,8 @@
   <string name="upgrade_to_pro">Passer en pro</string>
     <string name="manage_subscription">Gérer les abonnements</string>
     <string name="refresh_purchases">Rafraîchir les achats</string>
-    <string name="button_subscribed">Abonné</string>
     <string name="button_subscribe">S\'abonner</string>
     <string name="button_more_info">Plus d\'info</string>
-    <string name="owned">Acquis</string>
     <string name="error_billing_unavailable">Facturation indisponible. Assurez-vous que votre application Google Play
 est configuré correctement</string>
     <string name="error_billing_default">Achat indisponible. Veuillez vérifier votre appareil.</string>

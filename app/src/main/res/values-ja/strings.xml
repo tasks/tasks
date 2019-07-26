@@ -484,10 +484,8 @@
   <string name="upgrade_to_pro">プロ版にアップグレード</string>
 	<string name="manage_subscription">サブスクリプションの管理</string>
 	<string name="refresh_purchases">購入を更新</string>
-	<string name="button_subscribed">購入済</string>
 	<string name="button_subscribe">購入</string>
 	<string name="button_more_info">詳細情報</string>
-	<string name="owned">所有</string>
 	<string name="error_billing_unavailable">支払が利用できません。 Google Play アプリが
 正しく設定されていることを確認してください</string>
 	<string name="error_billing_default">支払がりようできません。お使いの端末を確認してください</string>

@@ -491,7 +491,6 @@ File %1$s contained %2$s.\n\n
   <string name="manage_subscription">Manage subscription</string>
   <string name="manage_subscription_summary">Upgrade, downgrade, or cancel your subscription</string>
   <string name="refresh_purchases">Refresh purchases</string>
-  <string name="button_subscribed">Subscribed</string>
   <string name="button_subscribe">Subscribe</string>
   <string name="button_current_subscription">Current subscription</string>
   <string name="button_restore_subscription">Restore subscription</string>
@@ -499,7 +498,6 @@ File %1$s contained %2$s.\n\n
   <string name="button_upgrade">Upgrade subscription</string>
   <string name="button_unsubscribe">Cancel subscription</string>
   <string name="button_more_info">More info</string>
-  <string name="owned">Owned</string>
   <string name="error_billing_unavailable">Billing unavailable. Make sure your Google Play app
         is setup correctly</string>
   <string name="error_billing_default">Billing unavailable. Please check your device.</string>

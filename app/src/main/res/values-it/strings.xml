@@ -483,11 +483,9 @@
   <string name="upgrade_to_pro">Aggiorna a pro</string>
 	<string name="manage_subscription">Gestisci abbonamento</string>
 	<string name="refresh_purchases">Aggiorna acquisti</string>
-	<string name="button_subscribed">Abbonato</string>
 	<string name="button_subscribe">Sottoscrivi</string>
 	<string name="button_more_info">Più informazioni</string>
-	<string name="owned">Acquisito</string>
-	<string name="error_billing_unavailable">Modalità addebito non disponibile. Accertati che 
+	<string name="error_billing_unavailable">Modalità addebito non disponibile. Accertati che
 Google Play app sia impostata correttamente</string>
 	<string name="error_billing_default">Modalità addebito non disponibile. Verifica il tuo dispositivo</string>
 	<string name="about">A riguardo</string>

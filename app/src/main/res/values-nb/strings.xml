@@ -489,10 +489,8 @@
     <string name="upgrade_to_pro">Oppgrader til pro</string>
     <string name="manage_subscription">Håndter abonnement</string>
     <string name="refresh_purchases">Gjenoppfrisk kjøp</string>
-    <string name="button_subscribed">Abonnert</string>
     <string name="button_subscribe">Abonner</string>
     <string name="button_more_info">Mer info</string>
-    <string name="owned">Eid</string>
     <string name="error_billing_unavailable">Fakturering utilgjengelig. Forsikre deg om at ditt Google Play-program er satt opp rett</string>
     <string name="error_billing_default">Fakturering utilgjengelig. Sjekk din enhet.</string>
     <string name="about">Om</string>

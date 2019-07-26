@@ -487,10 +487,8 @@
   <string name="upgrade_to_pro">Обнови към pro</string>
 	<string name="manage_subscription">Управление на абонамент</string>
 	<string name="refresh_purchases">Обнови покупки</string>
-	<string name="button_subscribed">Подписан</string>
 	<string name="button_subscribe">Подпиши се</string>
 	<string name="button_more_info">Повече информация</string>
-	<string name="owned">Притежавани</string>
 	<string name="error_billing_unavailable">Таксуването не е налице. Уверете се, че приложението ви в Google Play
 е настроено правилно</string>
 	<string name="error_billing_default">Таксуването не е налице. Моля, проверете устройството си.</string>

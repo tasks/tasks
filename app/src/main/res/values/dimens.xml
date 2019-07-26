@@ -31,11 +31,7 @@
   <dimen name="card_view_card_corner_radius">2dp</dimen>
   <dimen name="card_view_card_elevation">2sp</dimen>
 
-  <dimen name="button_width">152dp</dimen>
-  <dimen name="button_height">48dp</dimen>
-
   <dimen name="header_gap">8dp</dimen>
-  <dimen name="row_gap">1px</dimen>
 
   <dimen name="task_list_item_spacing">4dp</dimen>
 

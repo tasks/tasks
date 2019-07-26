@@ -488,10 +488,8 @@
   <string name="upgrade_to_pro">Pro\'ya yükselt</string>
 	<string name="manage_subscription">Aboneliği yönet</string>
 	<string name="refresh_purchases">Satın alımları yenile</string>
-	<string name="button_subscribed">Abone olundu</string>
 	<string name="button_subscribe">Abone ol</string>
 	<string name="button_more_info">Daha çok bilgi</string>
-	<string name="owned">Edinildi</string>
 	<string name="error_billing_unavailable">Faturalama kullanılabilir değil. Google Play
 uygulamanızın doğru kurulduğundan emin olun.</string>
 	<string name="error_billing_default">Faturalama kullanılabilir değil. Lütfen aygıtınızı denetleyin.</string>

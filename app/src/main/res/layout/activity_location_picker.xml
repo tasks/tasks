@@ -15,7 +15,6 @@
     android:theme="?attr/overlay_theme">
 
     <com.google.android.material.appbar.CollapsingToolbarLayout
-      android:id="@+id/collapsing_toolbar_layout"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:fitsSystemWindows="true"
@@ -25,7 +24,6 @@
       app:titleEnabled="false">
 
       <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/window_background"

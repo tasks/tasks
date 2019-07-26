@@ -489,10 +489,8 @@
   <string name="upgrade_to_pro">Aldatu pro bertsiora</string>
     <string name="manage_subscription">Kudeatu harpidetza</string>
     <string name="refresh_purchases">Freskatu erosketak</string>
-    <string name="button_subscribed">Harpidetuta</string>
     <string name="button_subscribe">Harpidetu</string>
     <string name="button_more_info">Informazio gehiago</string>
-    <string name="owned">Baduzu</string>
     <string name="error_billing_unavailable">Fakturazioa ez dago eskuragarri. Egiaztatu Google Play ondo ezarrita dagoela</string>
     <string name="error_billing_default">Fakturazioa ez dago eskuragarri. Egiaztatu zure gailua.</string>
     <string name="about">Honi buruz</string>

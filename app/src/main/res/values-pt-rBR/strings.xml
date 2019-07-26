@@ -484,11 +484,9 @@
   <string name="upgrade_to_pro">Atualizar para Pro</string>
 	<string name="manage_subscription">Gerenciar subscrição</string>
 	<string name="refresh_purchases">Atualizar compras</string>
-	<string name="button_subscribed">Subscrito</string>
 	<string name="button_subscribe">Subscrever</string>
 	<string name="button_more_info">Mais informações</string>
-	<string name="owned">Possuído</string>
-	<string name="error_billing_unavailable">Faturamento indisponível. Tenha certeza que seu 
+	<string name="error_billing_unavailable">Faturamento indisponível. Tenha certeza que seu
 aplicativo Google Play está configurado corretamente</string>
 	<string name="error_billing_default">Faturamento indisponível. Por favor cheque seu dispositivo</string>
 	<string name="about">Sobre</string>

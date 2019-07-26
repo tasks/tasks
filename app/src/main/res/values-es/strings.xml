@@ -474,10 +474,8 @@
   <string name="upgrade_to_pro">Actualizar a profesional</string>
     <string name="manage_subscription">Gestionar suscripción</string>
     <string name="refresh_purchases">Actualizar los acquisiciones</string>
-    <string name="button_subscribed">Suscribió</string>
     <string name="button_subscribe">Suscribe</string>
     <string name="button_more_info">Más información</string>
-    <string name="owned">Pertenece</string>
     <string name="error_billing_unavailable">Pago no disponible. Asegúrese de que Google Play está bien configurado</string>
     <string name="error_billing_default">Pago no disponible. Comprueba su dispositivo.</string>
     <string name="about">Sobre</string>

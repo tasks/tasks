@@ -486,7 +486,6 @@
 	<string name="background_sync_unmetered_only">요금이 부과되지 않는 접속인 경우에만</string>
   <string name="upgrade_to_pro">프로 서비스로 업그레이드</string>
 	<string name="refresh_purchases">구매 새로고침</string>
-	<string name="button_subscribed">신청함</string>
 	<string name="button_subscribe">신청</string>
 	<string name="button_more_info">추가정보</string>
 	<string name="error_billing_unavailable">결제가 불가합니다. 구글플레이 앱의 설정이 올바른지 확인하십시오.</string>

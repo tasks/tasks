@@ -485,10 +485,8 @@
   <string name="upgrade_to_pro">Обновить в версию Про</string>
 	<string name="manage_subscription">Управление подпиской</string>
 	<string name="refresh_purchases">Обновить покупки</string>
-	<string name="button_subscribed">Подписано</string>
 	<string name="button_subscribe">Подписаться</string>
 	<string name="button_more_info">По подробнее</string>
-	<string name="owned">Овладелено</string>
 	<string name="error_billing_unavailable">Счёт невозможен. Убедитесь, что приложение Google Play настроено правильно</string>
 	<string name="error_billing_default">Счёт невозможен. Проверьте устройство</string>
 	<string name="about">О...</string>
