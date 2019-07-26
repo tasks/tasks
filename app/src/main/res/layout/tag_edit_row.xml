@@ -34,5 +34,5 @@
     android:layout_gravity="center"
     android:contentDescription="@string/remove"
     android:src="@drawable/ic_outline_clear_24px"
-    android:tint="?attr/icon_tint"/>
+    android:tint="@color/icon_tint"/>
 </LinearLayout>

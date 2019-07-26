@@ -34,7 +34,7 @@ public class SingleCheckedArrayAdapter extends ArrayAdapter<String> {
     this.context = context;
     this.accent = accent;
     this.alpha = (int) (255 * getDimen(context, R.dimen.alpha_secondary));
-    this.tint = getData(context, R.attr.icon_tint);
+    this.tint = ContextCompat.getColor(context, R.color.icon_tint);
   }
 
   @NonNull

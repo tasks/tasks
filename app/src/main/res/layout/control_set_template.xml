@@ -23,7 +23,7 @@
     android:paddingRight="@dimen/keyline_second"
     android:alpha="?attr/alpha_secondary"
     android:scaleType="center"
-    android:tint="?attr/icon_tint"
+    android:tint="@color/icon_tint"
     tools:ignore="ContentDescription"/>
 
 </LinearLayout>

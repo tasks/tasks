@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -28,7 +29,7 @@ public class IconPickerHolder extends RecyclerView.ViewHolder {
 
   private int index;
 
-  public IconPickerHolder(
+  IconPickerHolder(
       Context context, Inventory inventory, @NonNull View view, Callback<Integer> onClick) {
     super(view);
     this.inventory = inventory;
@@ -58,7 +59,9 @@ public class IconPickerHolder extends RecyclerView.ViewHolder {
     }
     DrawableCompat.setTint(
         imageView.getDrawable(),
-        getData(context, selected ? R.attr.colorAccent : R.attr.icon_tint));
+        selected
+            ? getData(context, R.attr.colorAccent)
+            : ContextCompat.getColor(context, R.color.icon_tint));
   }
 
   private boolean isEnabled() {

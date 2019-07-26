@@ -14,7 +14,7 @@
     android:alpha="?attr/alpha_secondary"
     android:contentDescription="@string/icon"
     android:src="@drawable/ic_outline_label_24px"
-    android:tint="?attr/icon_tint"/>
+    android:tint="@color/icon_tint"/>
 
   <TextView
     android:layout_width="match_parent"

@@ -43,7 +43,7 @@
       android:alpha="?attr/alpha_secondary"
       android:gravity="center_vertical|center_horizontal"
       android:scaleType="centerInside"
-      android:tint="?attr/icon_tint"/>
+      android:tint="@color/icon_tint"/>
 
     <Chronometer
       android:id="@+id/timer"

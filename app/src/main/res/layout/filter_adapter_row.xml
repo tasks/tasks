@@ -38,7 +38,7 @@
     android:layout_gravity="center_vertical"
     android:alpha="?attr/alpha_secondary"
     android:scaleType="center"
-    android:tint="?attr/icon_tint"/>
+    android:tint="@color/icon_tint"/>
 
   <CheckedTextView
     android:id="@+id/text"
