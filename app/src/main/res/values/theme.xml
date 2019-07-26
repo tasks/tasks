@@ -40,12 +40,10 @@
     <item name="android:windowBackground">@color/dialog_background</item>
     <item name="colorOnBackground">@color/text_primary</item>
     <item name="colorOnSurface">@color/text_primary</item>
-    <item name="colorAccent">?attr/colorAccentDialog</item>
   </style>
 
   <style name="TasksDialog" parent="DayNightDialog">
     <item name="android:windowBackground">@color/dialog_background</item>
-    <item name="colorAccent">?attr/colorAccentDialog</item>
   </style>
 
   <style name="ThemeBlack" parent="Tasks">

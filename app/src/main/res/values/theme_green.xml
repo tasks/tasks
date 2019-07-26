@@ -8,7 +8,6 @@
 
   <style name="GreenAccent" parent="BlackTint">
     <item name="colorAccent">@color/green_a400</item>
-    <item name="colorAccentDialog">@color/green_a400</item>
   </style>
 
 </resources>

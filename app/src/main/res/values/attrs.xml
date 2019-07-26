@@ -10,7 +10,6 @@
   <attr format="color" name="asContentBackground"/>
   <attr format="reference" name="overlay_theme"/>
   <attr format="boolean" name="dark_status_bar"/>
-  <attr format="color" name="colorAccentDialog"/>
   <attr format="dimension" name="card_elevation"/>
   <attr format="reference" name="materialButtonText"/>
   <attr format="reference" name="materialButtonBackground"/>

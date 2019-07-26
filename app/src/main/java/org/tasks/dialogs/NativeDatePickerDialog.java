@@ -6,7 +6,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.widget.DatePicker;
@@ -48,11 +47,9 @@ public class NativeDatePickerDialog extends InjectingNativeDialogFragment
   @Override
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     Bundle args = getArguments();
-    Context context = getActivity();
-    theme.applyToContext(context);
     DatePickerDialog datePickerDialog =
         new DatePickerDialog(
-            context,
+            theme.wrap(getContext()),
             this,
             args.getInt(EXTRA_YEAR),
             args.getInt(EXTRA_MONTH),

@@ -8,7 +8,6 @@
 
   <style name="OrangeAccent" parent="BlackTint">
     <item name="colorAccent">@color/orange_a400</item>
-    <item name="colorAccentDialog">@color/orange_a400</item>
   </style>
 
 </resources>
