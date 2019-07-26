@@ -40,7 +40,7 @@
       android:layout_weight="1"
       android:paddingLeft="5dip"
       android:paddingRight="5dip"
-      android:alpha="?attr/alpha_secondary"
+      android:alpha="@dimen/alpha_secondary"
       android:gravity="center_vertical|center_horizontal"
       android:scaleType="centerInside"
       android:tint="@color/icon_tint"/>

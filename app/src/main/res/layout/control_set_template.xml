@@ -21,7 +21,7 @@
     android:paddingEnd="@dimen/keyline_second"
     android:paddingLeft="@dimen/keyline_first"
     android:paddingRight="@dimen/keyline_second"
-    android:alpha="?attr/alpha_secondary"
+    android:alpha="@dimen/alpha_secondary"
     android:scaleType="center"
     android:tint="@color/icon_tint"
     tools:ignore="ContentDescription"/>

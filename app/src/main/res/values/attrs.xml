@@ -11,8 +11,6 @@
   <attr format="reference" name="overlay_theme"/>
   <attr format="color" name="actionBarSecondaryText"/>
   <attr format="boolean" name="dark_status_bar"/>
-  <attr format="dimension" name="alpha_secondary"/>
-  <attr format="dimension" name="alpha_disabled"/>
   <attr format="color" name="colorAccentDialog"/>
   <attr format="dimension" name="card_elevation"/>
   <attr format="reference" name="materialButtonText"/>

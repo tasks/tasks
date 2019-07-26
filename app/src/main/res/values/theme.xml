@@ -16,8 +16,6 @@
     <item name="dialogTheme">@style/TasksDialog</item>
     <item name="android:dialogTheme">@style/TasksDialog</item>
     <item name="materialAlertDialogTheme">@style/TasksDialogAlert</item>
-    <item name="alpha_secondary">@dimen/alpha_secondary</item>
-    <item name="alpha_disabled">@dimen/alpha_disabled</item>
     <item name="android:textColorPrimary">@color/text_primary</item>
     <item name="android:textColorSecondary">@color/text_secondary</item>
     <item name="android:textColorTertiary">@color/text_tertiary</item>

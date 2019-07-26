@@ -24,7 +24,7 @@
     android:paddingEnd="@dimen/keyline_first"
     android:paddingLeft="0dp"
     android:paddingRight="@dimen/keyline_first"
-    android:alpha="?attr/alpha_secondary"
+    android:alpha="@dimen/alpha_secondary"
     android:clickable="true"
     android:focusable="true"
     android:scaleType="center"

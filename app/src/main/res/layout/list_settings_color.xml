@@ -11,7 +11,7 @@
     android:layout_height="wrap_content"
     android:layout_alignParentEnd="true"
     android:layout_alignParentRight="true"
-    android:alpha="?attr/alpha_secondary"
+    android:alpha="@dimen/alpha_secondary"
     android:contentDescription="@string/color"
     android:src="@drawable/ic_baseline_lens_24px"/>
 

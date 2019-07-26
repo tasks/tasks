@@ -48,7 +48,7 @@
       android:layout_toRightOf="@id/completeBox"
       android:paddingEnd="2dp"
       android:paddingRight="2dp"
-      android:alpha="?attr/alpha_secondary"
+      android:alpha="@dimen/alpha_secondary"
       android:src="@drawable/ic_outline_visibility_off_24px"
       android:tint="@color/icon_tint"
       android:visibility="gone"/>

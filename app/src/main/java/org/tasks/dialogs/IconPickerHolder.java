@@ -1,7 +1,6 @@
 package org.tasks.dialogs;
 
 import static org.tasks.preferences.ResourceResolver.getData;
-import static org.tasks.preferences.ResourceResolver.getDimen;
 
 import android.content.Context;
 import android.view.View;
@@ -9,6 +8,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -53,9 +53,12 @@ public class IconPickerHolder extends RecyclerView.ViewHolder {
     this.index = index;
     imageView.setImageResource(icon);
     if (inventory.hasPro()) {
-      imageView.setAlpha(getDimen(context, R.dimen.alpha_secondary));
+      imageView.setAlpha(ResourcesCompat.getFloat(context.getResources(), R.dimen.alpha_secondary));
     } else {
-      imageView.setAlpha(index < 1000 ? 1.0f : getDimen(context, R.dimen.alpha_disabled));
+      imageView.setAlpha(
+          index < 1000
+              ? 1.0f
+              : ResourcesCompat.getFloat(context.getResources(), R.dimen.alpha_disabled));
     }
     DrawableCompat.setTint(
         imageView.getDrawable(),

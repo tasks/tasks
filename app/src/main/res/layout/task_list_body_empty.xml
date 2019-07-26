@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:alpha="?attr/alpha_disabled"
+        android:alpha="@dimen/alpha_disabled"
         android:src="@drawable/ic_outline_inbox_168px"
         android:tint="@color/icon_tint"/>
 

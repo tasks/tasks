@@ -3,12 +3,12 @@ package org.tasks.ui;
 import static com.google.common.collect.Iterables.filter;
 import static com.google.common.collect.Iterables.transform;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
-import static org.tasks.preferences.ResourceResolver.getDimen;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import androidx.annotation.LayoutRes;
+import androidx.core.content.res.ResourcesCompat;
 import com.google.android.material.chip.Chip;
 import com.google.common.base.Predicates;
 import com.google.common.base.Strings;
@@ -66,7 +66,8 @@ public class ChipProvider {
     this.inventory = inventory;
     this.themeCache = themeCache;
     this.localBroadcastManager = localBroadcastManager;
-    iconAlpha = (int) (255 * getDimen(context, R.dimen.alpha_secondary));
+    iconAlpha =
+        (int) (255 * ResourcesCompat.getFloat(context.getResources(), R.dimen.alpha_secondary));
 
     googleTaskListDao.subscribeToLists().observeForever(this::updateGoogleTaskLists);
     caldavDao.subscribeToCalendars().observeForever(this::updateCaldavCalendars);

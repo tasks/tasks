@@ -2,8 +2,6 @@ package org.tasks.ui;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 import static com.todoroo.andlib.utility.AndroidUtilities.preLollipop;
-import static org.tasks.preferences.ResourceResolver.getData;
-import static org.tasks.preferences.ResourceResolver.getDimen;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -33,7 +31,8 @@ public class SingleCheckedArrayAdapter extends ArrayAdapter<String> {
     super(context, R.layout.simple_list_item_single_choice_themed, items);
     this.context = context;
     this.accent = accent;
-    this.alpha = (int) (255 * getDimen(context, R.dimen.alpha_secondary));
+    this.alpha =
+        (int) (255 * ResourcesCompat.getFloat(context.getResources(), R.dimen.alpha_secondary));
     this.tint = ContextCompat.getColor(context, R.color.icon_tint);
   }
 
