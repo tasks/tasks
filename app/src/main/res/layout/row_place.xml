@@ -51,7 +51,6 @@
     android:gravity="start|top"
     android:maxLines="2"
     android:textAlignment="viewStart"
-    android:textColor="?android:attr/textColorPrimary"
     android:textSize="16sp"/>
 
   <TextView

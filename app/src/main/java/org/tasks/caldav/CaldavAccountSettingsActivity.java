@@ -409,7 +409,8 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
     }
 
     dialogBuilder
-        .newDialog(R.string.logout_warning, caldavAccount.getName())
+        .newDialog()
+        .setMessage(R.string.logout_warning, caldavAccount.getName())
         .setPositiveButton(
             R.string.remove,
             (dialog, which) -> {

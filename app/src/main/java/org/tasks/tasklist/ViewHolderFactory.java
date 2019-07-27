@@ -21,7 +21,6 @@ import org.tasks.ui.ChipProvider;
 
 public class ViewHolderFactory {
 
-  private final int textColorPrimary;
   private final int textColorSecondary;
   private final int textColorOverdue;
   private final Context context;
@@ -50,7 +49,6 @@ public class ViewHolderFactory {
     this.taskDao = taskDao;
     this.preferences = preferences;
     this.linkify = linkify;
-    textColorPrimary = getColor(context, R.color.text_primary);
     textColorSecondary = getData(context, android.R.attr.textColorSecondary);
     textColorOverdue = getColor(context, R.color.overdue);
     background = getResourceId(context, R.attr.selectableItemBackground);
@@ -71,7 +69,6 @@ public class ViewHolderFactory {
         chipProvider,
         textColorOverdue,
         textColorSecondary,
-        textColorPrimary,
         taskDao,
         callbacks,
         metrics,

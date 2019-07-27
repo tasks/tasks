@@ -34,6 +34,7 @@ import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.locale.Locale;
+import org.tasks.themes.Theme;
 
 public class NameYourPriceDialog extends InjectingDialogFragment implements OnPurchasesUpdated {
 
@@ -46,6 +47,7 @@ public class NameYourPriceDialog extends InjectingDialogFragment implements OnPu
   @Inject LocalBroadcastManager localBroadcastManager;
   @Inject Inventory inventory;
   @Inject Locale locale;
+  @Inject Theme theme;
 
   @BindView(R.id.recycler_view)
   RecyclerView recyclerView;
@@ -90,7 +92,7 @@ public class NameYourPriceDialog extends InjectingDialogFragment implements OnPu
 
     setWaitScreen(true);
 
-    adapter = new PurchaseAdapter((Activity) context, locale, this::onPriceChanged);
+    adapter = new PurchaseAdapter(context, theme, locale, this::onPriceChanged);
 
     buttons.addOnButtonCheckedListener(this::onButtonChecked);
 

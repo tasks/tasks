@@ -43,7 +43,6 @@ public class ViewHolder extends RecyclerView.ViewHolder {
   private final Activity context;
   private final Preferences preferences;
   private final int textColorSecondary;
-  private final int textColorPrimary;
   private final TaskDao taskDao;
   private final ViewHolderCallbacks callback;
   private final DisplayMetrics metrics;
@@ -98,7 +97,6 @@ public class ViewHolder extends RecyclerView.ViewHolder {
       ChipProvider chipProvider,
       int textColorOverdue,
       int textColorSecondary,
-      int textColorPrimary,
       TaskDao taskDao,
       ViewHolderCallbacks callback,
       DisplayMetrics metrics,
@@ -112,7 +110,6 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     this.chipProvider = chipProvider;
     this.textColorOverdue = textColorOverdue;
     this.textColorSecondary = textColorSecondary;
-    this.textColorPrimary = textColorPrimary;
     this.taskDao = taskDao;
     this.callback = callback;
     this.metrics = metrics;
@@ -231,11 +228,10 @@ public class ViewHolder extends RecyclerView.ViewHolder {
 
   private void setupTitleAndCheckbox() {
     if (task.isCompleted()) {
-      nameView.setTextColor(textColorSecondary);
+      nameView.setEnabled(false);
       nameView.setPaintFlags(nameView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
     } else {
-      nameView.setTextColor(task.isHidden() ? textColorSecondary : textColorPrimary);
-      nameView.setEnabled(true);
+      nameView.setEnabled(!task.isHidden());
       nameView.setPaintFlags(nameView.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
     }
 

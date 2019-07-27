@@ -44,7 +44,8 @@ public class CalendarReminderActivity extends ThemedInjectingAppCompatActivity {
           ignorePresses++;
           if (ignorePresses == IGNORE_PROMPT_COUNT) {
             dialogBuilder
-                .newDialog(R.string.CRA_ignore_body)
+                .newDialog()
+                .setMessage(R.string.CRA_ignore_body)
                 .setPositiveButton(
                     R.string.CRA_ignore_all,
                     (dialog, which) -> {

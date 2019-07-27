@@ -18,8 +18,6 @@
     <item name="android:textColorPrimary">@color/text_primary</item>
     <item name="android:textColorSecondary">@color/text_secondary</item>
     <item name="android:textColorTertiary">@color/text_tertiary</item>
-    <item name="colorOnBackground">@color/text_primary</item>
-    <item name="colorOnSurface">@color/text_primary</item>
     <item name="nnf_toolbarTheme">?attr/overlay_theme</item>
     <item name="nnf_separator_color">@color/nnf_light_separator_color</item>
     <item name="nnf_save_icon_color">?attr/colorAccent</item>
@@ -36,14 +34,10 @@
   <style name="Tasks" parent="TasksBase"/>
 
   <style name="TasksDialogAlert" parent="DayNightAlert">
-    <item name="android:windowBackground">@color/dialog_background</item>
-    <item name="colorOnBackground">@color/text_primary</item>
-    <item name="colorOnSurface">@color/text_primary</item>
+    <item name="android:textColorPrimary">@color/text_primary</item>
   </style>
 
-  <style name="TasksDialog" parent="DayNightDialog">
-    <item name="android:windowBackground">@color/dialog_background</item>
-  </style>
+  <style name="TasksDialog" parent="DayNightDialog"/>
 
   <style name="ThemeBlack" parent="Tasks">
     <item name="android:windowBackground">@color/grey_900</item>

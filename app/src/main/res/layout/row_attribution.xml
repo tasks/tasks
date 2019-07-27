@@ -30,7 +30,6 @@
       android:gravity="center_vertical"
       android:ellipsize="end"
       android:maxLines="1"
-      android:textColor="@color/text_primary"
       android:textSize="@dimen/sku_details_row_text_size"/>
 
     <TextView

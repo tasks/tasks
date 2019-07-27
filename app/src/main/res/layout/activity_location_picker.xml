@@ -208,8 +208,7 @@
           android:gravity="start"
           android:text="@android:string/search_go"
           android:textAlignment="viewStart"
-          android:textAppearance="@style/TextAppearance"
-          android:textColor="@color/text_primary"/>
+          android:textAppearance="@style/TextAppearance"/>
 
       </com.google.android.material.card.MaterialCardView>
 
