@@ -15,7 +15,6 @@ import android.os.Bundle;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -82,13 +81,9 @@ public class NameYourPriceDialog extends InjectingDialogFragment implements OnPu
   @NonNull
   @Override
   public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-    AlertDialog dialog =
-        dialogBuilder
-            .newDialog(R.string.name_your_price)
-            .setView(R.layout.dialog_name_your_price)
-            .show();
+    View view = theme.getLayoutInflater(context).inflate(R.layout.dialog_name_your_price, null);
 
-    ButterKnife.bind(this, dialog);
+    ButterKnife.bind(this, view);
 
     setWaitScreen(true);
 
@@ -104,7 +99,7 @@ public class NameYourPriceDialog extends InjectingDialogFragment implements OnPu
       adapter.setSelected(savedInstanceState.getInt(EXTRA_PRICE));
     }
 
-    return dialog;
+    return dialogBuilder.newDialog(R.string.name_your_price).setView(view).show();
   }
 
   private void onButtonChecked(MaterialButtonToggleGroup group, int id, boolean checked) {

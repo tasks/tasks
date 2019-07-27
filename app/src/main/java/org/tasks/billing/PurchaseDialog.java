@@ -4,7 +4,6 @@ import static com.google.common.collect.Lists.transform;
 import static java.util.Arrays.asList;
 import static org.tasks.billing.NameYourPriceDialog.newNameYourPriceDialog;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -21,12 +20,14 @@ import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.InjectingDialogFragment;
+import org.tasks.themes.Theme;
 
 public class PurchaseDialog extends InjectingDialogFragment {
 
   private static final String FRAG_TAG_PRICE = "frag_tag_price";
 
   @Inject DialogBuilder dialogBuilder;
+  @Inject Theme theme;
   @Inject @ForActivity Context context;
   private OnDismissListener listener;
 
@@ -37,7 +38,7 @@ public class PurchaseDialog extends InjectingDialogFragment {
   @NonNull
   @Override
   public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-    View view = ((Activity) context).getLayoutInflater().inflate(R.layout.dialog_purchase, null);
+    View view = theme.getLayoutInflater(context).inflate(R.layout.dialog_purchase, null);
     TextView textView = view.findViewById(R.id.feature_list);
     String[] rows = context.getResources().getStringArray(R.array.pro_description);
     textView.setText(Joiner.on('\n').join(transform(asList(rows), item -> "\u2022 " + item)));

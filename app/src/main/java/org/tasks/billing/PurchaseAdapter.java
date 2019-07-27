@@ -41,7 +41,8 @@ public class PurchaseAdapter extends ListAdapter<Integer, PurchaseHolder> {
   @NonNull
   @Override
   public PurchaseHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-    View view = theme.getLayoutInflater(context).inflate(R.layout.dialog_purchase_cell, parent, false);
+    View view =
+        theme.getLayoutInflater(context).inflate(R.layout.dialog_purchase_cell, parent, false);
     return new PurchaseHolder(view, onPriceChanged, locale);
   }
 
