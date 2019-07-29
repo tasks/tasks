@@ -29,6 +29,7 @@
     <item name="materialButtonStroke">@color/mtrl_btn_stroke_color_selector</item>
     <item name="weekdayButtonBackground">?attr/colorPrimary</item>
     <item name="weekdayButtonText">?attr/colorOnPrimary</item>
+    <item name="horizontal_divider">2</item> <!-- View.GONE -->
   </style>
 
   <style name="Tasks" parent="TasksBase"/>
@@ -40,8 +41,9 @@
   <style name="TasksDialog" parent="DayNightDialog"/>
 
   <style name="ThemeBlack" parent="Tasks">
-    <item name="android:windowBackground">@color/grey_900</item>
+    <item name="android:windowBackground">@android:color/black</item>
     <item name="android:colorBackground">@android:color/black</item>
+    <item name="horizontal_divider">0</item> <!-- View.VISIBLE -->
   </style>
 
   <style name="Wallpaper" parent="Tasks">

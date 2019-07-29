@@ -16,4 +16,9 @@
 
   <include layout="@layout/task_adapter_row_body"/>
 
+  <View
+    style="@style/horizontal_divider"
+    android:visibility="?attr/horizontal_divider"
+    android:layout_gravity="bottom" />
+
 </androidx.cardview.widget.CardView>
