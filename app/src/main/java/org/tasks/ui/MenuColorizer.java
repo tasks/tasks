@@ -57,6 +57,7 @@ public class MenuColorizer {
 
   public static void colorToolbar(Toolbar toolbar, int color) {
     toolbar.setNavigationIcon(colorDrawable(toolbar.getNavigationIcon(), color));
+    toolbar.setTitleTextColor(color);
     colorMenu(toolbar.getMenu(), color);
   }
 
