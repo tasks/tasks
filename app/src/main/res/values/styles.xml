@@ -159,4 +159,8 @@
     <item name="rippleColor">?attr/materialButtonRipple</item>
   </style>
 
+  <style name="AlertButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog.Flush">
+    <item name="android:textColor">?attr/colorAccent</item>
+  </style>
+
 </resources>
