@@ -31,9 +31,9 @@
     android:paddingEnd="@dimen/keyline_first"
     android:paddingLeft="@dimen/keyline_first"
     android:paddingRight="@dimen/keyline_first"
-    android:visibility="gone"
     android:src="@drawable/ic_outline_delete_24px"
-    android:tint="@color/icon_tint"/>
+    android:tint="@color/icon_tint"
+    android:visibility="gone"/>
 
   <TextView
     android:id="@+id/name"
@@ -51,7 +51,7 @@
     android:gravity="start|top"
     android:maxLines="2"
     android:textAlignment="viewStart"
-    android:textSize="16sp"/>
+    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
   <TextView
     android:id="@+id/address"
@@ -68,8 +68,8 @@
     android:paddingRight="@dimen/keyline_first"
     android:ellipsize="end"
     android:maxLines="2"
-    android:textColor="?android:textColorSecondary"
-    android:visibility="gone"/>
+    android:visibility="gone"
+    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"/>
 
 
 </RelativeLayout>

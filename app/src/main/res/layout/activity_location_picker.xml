@@ -144,7 +144,8 @@
             android:gravity="start|center_vertical"
             android:text="@string/pick_this_location"
             android:textAlignment="viewStart"
-            android:textAppearance="@style/TextAppearance"/>
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:textColor="@color/text_primary"/>
 
           <TextView
             android:id="@+id/choose_recent_location"
@@ -158,9 +159,8 @@
             android:gravity="start"
             android:text="@string/or_choose_a_location"
             android:textAlignment="viewStart"
-            android:textAppearance="@style/TextAppearance"
-            android:textColor="?android:textColorSecondary"
-            android:textSize="14sp"/>
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            android:textColor="@color/text_primary"/>
 
         </RelativeLayout>
 
@@ -208,7 +208,8 @@
           android:gravity="start"
           android:text="@android:string/search_go"
           android:textAlignment="viewStart"
-          android:textAppearance="@style/TextAppearance"/>
+          android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+          android:textColor="@color/text_primary"/>
 
       </com.google.android.material.card.MaterialCardView>
 

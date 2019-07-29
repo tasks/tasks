@@ -10,23 +10,23 @@
     android:orientation="vertical">
 
     <TextView
-      style="@style/TextAppearance.AppCompat.Body1"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="@string/pro_description"/>
+      android:text="@string/pro_description"
+      android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
     <TextView
-      style="@style/TextAppearance.AppCompat.Body1"
-      android:paddingTop="@dimen/keyline_first"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="@string/pro_subscribe_now"/>
+      android:paddingTop="@dimen/keyline_first"
+      android:text="@string/pro_subscribe_now"
+      android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
     <TextView
       android:id="@+id/feature_list"
-      style="@style/TextAppearance.AppCompat.Body1"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
+      android:layout_height="wrap_content"
+      android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"/>
 
   </LinearLayout>
 
