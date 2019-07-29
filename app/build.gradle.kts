@@ -14,6 +14,12 @@ repositories {
 }
 
 android {
+    bundle {
+        language {
+            enableSplit = false
+        }
+    }
+
     lintOptions {
         setLintConfig(file("lint.xml"))
         textOutput("stdout")
@@ -25,7 +31,7 @@ android {
     defaultConfig {
         testApplicationId = "org.tasks.test"
         applicationId = "org.tasks"
-        versionCode = 604
+        versionCode = 606
         versionName = "6.8"
         targetSdkVersion(Versions.compileSdk)
         minSdkVersion(Versions.minSdk)

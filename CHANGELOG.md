@@ -1,6 +1,6 @@
 Change Log
 ---
-### 6.8 (beta)
+### 6.8 (2019-07-30)
 
 * Name your own subscription price! Upgrade, downgrade, or cancel at any time
 * Choose icons for lists (requires [subscription](http://tasks.org/subscribe))
@@ -9,6 +9,7 @@ Change Log
 * Allow duplicate CalDAV list names
 * Fix duplicate tag name bug
 * Update translations
+  * Basque - @osoitz
   * Dutch - revdbrink
   * Hungarian - kaciokos
   * Norwegian Bokmål - @comradekingu
