@@ -239,12 +239,12 @@ public class FilterCriteriaProvider {
     return new MultipleSelectCriterion(
         IDENTIFIER_CALDAV,
         context.getString(R.string.CFC_gtasks_list_text),
-        Query.select(Field.field("task"))
+        Query.select(Field.field("cd_task"))
             .from(CaldavTask.TABLE)
-            .join(Join.inner(Task.TABLE, Field.field("task").eq(Task.ID)))
+            .join(Join.inner(Task.TABLE, Field.field("cd_task").eq(Task.ID)))
             .where(
                 Criterion.and(
-                    TaskDao.TaskCriteria.activeAndVisible(), Field.field("calendar").eq("?")))
+                    TaskDao.TaskCriteria.activeAndVisible(), Field.field("cd_calendar").eq("?")))
             .toString(),
         values,
         names,
