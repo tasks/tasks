@@ -4,6 +4,7 @@ import static android.app.Activity.RESULT_OK;
 import static com.google.common.collect.Iterables.filter;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertNotMainThread;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
+import static com.todoroo.andlib.utility.AndroidUtilities.preLollipop;
 import static org.tasks.LocalBroadcastManager.REFRESH;
 import static org.tasks.LocalBroadcastManager.REFRESH_LIST;
 import static org.tasks.billing.PurchaseDialog.newPurchaseDialog;
@@ -173,8 +174,10 @@ public class NavigationDrawerFragment extends InjectingFragment {
     mFragmentContainerView = getActivity().findViewById(FRAGMENT_NAVIGATION_DRAWER);
     mDrawerLayout = drawerLayout;
 
-    // set a custom shadow that overlays the main content when the drawer opens
-    mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+    if (preLollipop()) {
+      // set a custom shadow that overlays the main content when the drawer opens
+      mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+    }
   }
 
   public void setSelected(Filter selected) {
