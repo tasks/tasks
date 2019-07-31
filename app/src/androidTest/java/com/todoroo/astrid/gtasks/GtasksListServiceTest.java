@@ -6,15 +6,12 @@ import static java.util.Collections.singletonList;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNull;
 import static org.tasks.makers.GtaskListMaker.ID;
-import static org.tasks.makers.GtaskListMaker.LAST_SYNC;
 import static org.tasks.makers.GtaskListMaker.NAME;
 import static org.tasks.makers.GtaskListMaker.REMOTE_ID;
 import static org.tasks.makers.GtaskListMaker.newGtaskList;
 import static org.tasks.makers.RemoteGtaskListMaker.newRemoteList;
-import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 import androidx.test.runner.AndroidJUnit4;
-import com.google.api.client.util.DateTime;
 import com.google.api.services.tasks.model.TaskList;
 import com.todoroo.astrid.service.TaskDeleter;
 import javax.inject.Inject;
@@ -106,18 +103,6 @@ public class GtasksListServiceTest extends InjectingTestCase {
     setLists(new TaskList().setId("1"));
 
     assertEquals(0L, gtasksListService.getList("1").getLastSync());
-  }
-
-  @Test
-  public void testNewListNeedsUpdate() {
-    TaskList taskList =
-        new TaskList().setId("1").setTitle("Default").setUpdated(new DateTime(currentTimeMillis()));
-
-    setLists(taskList);
-
-    assertEquals(
-        singletonList(newGtaskList(with(ID, 1L), with(REMOTE_ID, "1"), with(LAST_SYNC, 0L))),
-        gtasksListService.getListsToUpdate(singletonList(taskList)));
   }
 
   private void setLists(TaskList... list) {
