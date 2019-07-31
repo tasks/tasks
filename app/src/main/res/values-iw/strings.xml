@@ -477,7 +477,7 @@
     <string name="caldav_home_set_not_found">קבוצת הבית לא נמצאה</string>
     <string name="network_error">החיבור נכשל</string>
     <string name="background_sync_unmetered_only">רק בחיבורים ללא חיוב לפי נפח גלישה</string>
-  <string name="upgrade_to_pro">שידרוג לגירסת pro</string>
+    <string name="upgrade_to_pro">שידרוג לגירסת pro</string>
     <string name="manage_subscription"> נהל מנוי</string>
     <string name="refresh_purchases">עדכן רכישות</string>
     <string name="button_subscribe">רישום כמנוי</string>
@@ -487,7 +487,7 @@
     <string name="error_billing_default">חיוב לא זמין. בדוק את מכשירך.</string>
     <string name="about">אודות</string>
     <string name="license_summary">Tasks הוא חופשי ובקוד פתוח, תחת רישיון GNU General Public License גירסה 3.0</string>
-    <string name="themes">ערכות נושא נוספות</string>
+    <string name="themes">ערכות נושא וסמלים נוספים</string>
     <string name="pro_caldav_sync">סינכרון CalDAV</string>
     <string name="pro_multiple_google_task_accounts">ריבוי חשבונות Google Task</string>
     <string name="pro_google_places_search">חיפוש ב\"Google לעסק שלי\"</string>
