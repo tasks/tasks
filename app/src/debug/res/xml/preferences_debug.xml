@@ -3,11 +3,11 @@
 
   <CheckBoxPreference
     android:key="@string/p_leak_canary"
-    android:title="@string/debug_leak_canary" />
+    android:title="@string/debug_leak_canary"/>
 
   <CheckBoxPreference
     android:key="@string/p_flipper"
-    android:title="@string/debug_flipper" />
+    android:title="@string/debug_flipper"/>
 
   <CheckBoxPreference
     android:key="@string/p_strict_mode_thread"
@@ -19,6 +19,16 @@
 
   <CheckBoxPreference
     android:key="@string/p_debug_pro"
-    android:title="@string/debug_pro" />
+    android:title="@string/debug_pro"/>
+
+  <Preference
+    android:key="@string/debug_themes"/>
+
+  <Preference
+    android:key="@string/debug_tasker"/>
+
+  <Preference
+    android:key="@string/debug_dashclock"/>
+
 
 </PreferenceScreen>

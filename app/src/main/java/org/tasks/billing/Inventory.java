@@ -18,9 +18,9 @@ import timber.log.Timber;
 public class Inventory {
 
   static final String SKU_VIP = "vip";
-  static final String SKU_TASKER = "tasker";
-  static final String SKU_THEMES = "themes";
-  static final String SKU_DASHCLOCK = "dashclock";
+  public static final String SKU_TASKER = "tasker";
+  public static final String SKU_THEMES = "themes";
+  public static final String SKU_DASHCLOCK = "dashclock";
 
   private final Preferences preferences;
   private final SignatureVerifier signatureVerifier;

@@ -3,11 +3,20 @@ package org.tasks.preferences;
 import static com.google.common.primitives.Ints.asList;
 
 import android.os.Bundle;
+import android.preference.Preference;
+import androidx.annotation.StringRes;
+import com.android.billingclient.api.BillingClient.SkuType;
+import javax.inject.Inject;
 import org.tasks.R;
+import org.tasks.billing.BillingClient;
+import org.tasks.billing.Inventory;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 
 public class DebugPreferences extends InjectingPreferenceActivity {
+
+  @Inject Inventory inventory;
+  @Inject BillingClient billingClient;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -27,6 +36,29 @@ public class DebugPreferences extends InjectingPreferenceActivity {
                 showRestartDialog();
                 return true;
               });
+    }
+
+    setupIap(R.string.debug_themes, Inventory.SKU_THEMES);
+    setupIap(R.string.debug_tasker, Inventory.SKU_TASKER);
+    setupIap(R.string.debug_dashclock, Inventory.SKU_DASHCLOCK);
+  }
+
+  private void setupIap(@StringRes int prefId, String sku) {
+    Preference preference = findPreference(prefId);
+    if (inventory.getPurchase(sku) == null) {
+      preference.setTitle(getString(R.string.debug_purchase, sku));
+      preference.setOnPreferenceClickListener(
+          p -> {
+            billingClient.initiatePurchaseFlow(DebugPreferences.this, sku, SkuType.INAPP, null);
+            return false;
+          });
+    } else {
+      preference.setTitle(getString(R.string.debug_consume, sku));
+      preference.setOnPreferenceClickListener(
+          p -> {
+            billingClient.consume(sku);
+            return false;
+          });
     }
   }
 

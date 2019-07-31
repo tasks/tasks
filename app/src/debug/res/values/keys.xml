@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <string name="app_name" tools:ignore="PrivateResource">Tasks Debug</string>
+  <string name="debug_purchase">Purchase %s</string>
+  <string name="debug_consume">Consume %s</string>
+  <string name="debug_themes">debug_themes</string>
+  <string name="debug_tasker">debug_tasker</string>
+  <string name="debug_dashclock">debug_dashclock</string>
 </resources>
