@@ -127,7 +127,6 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    theme.applyTheme(this);
     setContentView(R.layout.activity_location_picker);
     ButterKnife.bind(this);
 
@@ -413,6 +412,7 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
   @Override
   public void inject(ActivityComponent component) {
     component.inject(this);
+    theme.applyTheme(this);
   }
 
   @Override

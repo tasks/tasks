@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.graphics.PixelFormat;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import javax.inject.Inject;
 import org.tasks.R;
@@ -48,17 +49,17 @@ public class Theme {
   }
 
   public void applyThemeAndStatusBarColor(Activity activity, AppCompatDelegate delegate) {
-    delegate.applyDayNight();
-    applyTheme(activity);
-    applyStatusBarColor(activity);
-  }
-
-  public void applyStatusBarColor(Activity activity) {
+    applyTheme(activity, delegate);
     themeColor.applyToSystemBars(activity);
     themeColor.applyTaskDescription(activity, activity.getString(R.string.app_name));
   }
 
-  public void applyTheme(Activity activity) {
+  public void applyTheme(AppCompatActivity activity) {
+    applyTheme(activity, activity.getDelegate());
+  }
+
+  private void applyTheme(Activity activity, AppCompatDelegate delegate) {
+    delegate.applyDayNight();
     themeBase.set(activity);
     applyToContext(activity);
     activity.getWindow().setFormat(PixelFormat.RGBA_8888);
@@ -67,7 +68,7 @@ public class Theme {
   public void applyToContext(Context context) {
     Resources.Theme theme = context.getTheme();
     themeColor.applyStyle(theme);
-    themeAccent.apply(theme);
+    themeAccent.applyStyle(theme);
   }
 
   public Context wrap(Context context) {

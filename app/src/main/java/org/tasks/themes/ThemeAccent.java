@@ -58,7 +58,7 @@ public class ThemeAccent implements ColorPickerDialog.Pickable {
     accentColor = source.readInt();
   }
 
-  public void apply(Resources.Theme theme) {
+  void applyStyle(Resources.Theme theme) {
     theme.applyStyle(style, true);
   }
 
