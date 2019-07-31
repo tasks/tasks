@@ -145,7 +145,7 @@ dependencies {
     annotationProcessor("com.jakewharton:butterknife-compiler:${Versions.butterknife}")
     implementation("com.jakewharton:butterknife:${Versions.butterknife}")
 
-    debugImplementation("com.facebook.flipper:flipper:0.23.0")
+    debugImplementation("com.facebook.flipper:flipper:0.23.4")
     debugImplementation("com.facebook.soloader:soloader:0.6.1")
 
     debugImplementation("com.squareup.leakcanary:leakcanary-android:${Versions.leakcanary}")
