@@ -127,7 +127,33 @@ object CustomIcons {
             1090 to R.drawable.ic_outline_meeting_room_24px,
             1091 to R.drawable.ic_outline_hot_tub_24px,
             1092 to R.drawable.ic_outline_business_center_24px,
-            1093 to R.drawable.ic_outline_priority_high_24px)
+            1093 to R.drawable.ic_outline_priority_high_24px,
+            1094 to R.drawable.ic_outline_power_24px,
+            1095 to R.drawable.ic_outline_power_off_24px,
+            1096 to R.drawable.ic_outline_directions_bike_24px,
+            1097 to R.drawable.ic_outline_local_florist_24px,
+            1098 to R.drawable.ic_outline_local_pizza_24px,
+            1099 to R.drawable.ic_outline_navigation_24px,
+            1100 to R.drawable.ic_outline_local_play_24px,
+            1101 to R.drawable.ic_outline_local_bar_24px,
+            1102 to R.drawable.ic_outline_local_laundry_service_24px,
+            1103 to R.drawable.ic_outline_local_offer_24px,
+            1104 to R.drawable.ic_outline_local_shipping_24px,
+            1105 to R.drawable.ic_outline_local_hospital_24px,
+            1106 to R.drawable.ic_outline_directions_boat_24px,
+            1107 to R.drawable.ic_outline_directions_walk_24px,
+            1108 to R.drawable.ic_outline_wb_incandescent_24px,
+            1109 to R.drawable.ic_outline_landscape_24px,
+            1110 to R.drawable.ic_outline_music_note_24px,
+            1111 to R.drawable.ic_outline_healing_24px,
+            1112 to R.drawable.ic_outline_brush_24px,
+            1113 to R.drawable.ic_outline_brightness_2_24px,
+            1114 to R.drawable.ic_outline_security_24px,
+            1115 to R.drawable.ic_outline_scanner_24px,
+            1116 to R.drawable.ic_outline_router_24px,
+            1117 to R.drawable.ic_outline_watch_24px,
+            1118 to R.drawable.ic_outline_videogame_asset_24px
+    )
 
     @kotlin.jvm.JvmStatic
     fun getIconList() = ICONS.keys.toList()
