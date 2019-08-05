@@ -1,5 +1,14 @@
 Change Log
 ---
+### 6.8.1 (unreleased)
+
+* Fix CalDAV filter migration
+* Fix native date picker crash
+* Update translations
+  * Hebrew - @yarons
+  * Japanese - @naofum
+  * Portuguese - @jrcacd
+
 ### 6.8 (2019-07-30)
 
 * Name your own subscription price! Upgrade, downgrade, or cancel at any time

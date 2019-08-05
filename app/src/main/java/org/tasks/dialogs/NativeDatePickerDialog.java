@@ -6,10 +6,12 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.widget.DatePicker;
 import javax.inject.Inject;
+import org.tasks.injection.ForActivity;
 import org.tasks.injection.InjectingNativeDialogFragment;
 import org.tasks.injection.NativeDialogFragmentComponent;
 import org.tasks.preferences.Preferences;
@@ -22,6 +24,7 @@ public class NativeDatePickerDialog extends InjectingNativeDialogFragment
   private static final String EXTRA_YEAR = "extra_year";
   private static final String EXTRA_MONTH = "extra_month";
   private static final String EXTRA_DAY = "extra_day";
+  @Inject @ForActivity Context context;
   @Inject Theme theme;
   @Inject Preferences preferences;
   private NativeDatePickerDialogCallback callback;
@@ -49,7 +52,7 @@ public class NativeDatePickerDialog extends InjectingNativeDialogFragment
     Bundle args = getArguments();
     DatePickerDialog datePickerDialog =
         new DatePickerDialog(
-            theme.wrap(getContext()),
+            theme.wrap(context),
             this,
             args.getInt(EXTRA_YEAR),
             args.getInt(EXTRA_MONTH),
