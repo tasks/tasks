@@ -10,7 +10,12 @@
     <string name="export_toast">בוצע גיבוי של %1$s אל %2$s.</string>
     <string name="export_toast_no_tasks">אין משימות לייצוא.</string>
     <string name="import_summary_title">סיכום פעולת השחזור</string>
-    <string name="import_summary_message">\"הקובץ \' %1$s\' הכיל  %2$s משימות: \n\n %3$s יובאו,\n %4$s היו קיימות כבר,\nוב־%5$s היו שגיאות.\n\"</string>
+    <string name="import_summary_message">הקובץ ‚%1$ הכיל %2$s. 
+\n
+\n %3$s יובאו,
+\n %4$s היו קיימות כבר,
+\nוב־%5$s היו שגיאות.
+\n</string>
     <string name="import_progress_read">נקראת משימה %d…</string>
     <string name="read_permission_label">הרשאות אסטריד</string>
     <string name="discard_confirmation">להתעלם מהשינויים ?</string>
@@ -74,7 +79,7 @@
     <string name="CRA_speech_bubble_end">נראה כי בדיוק סיימת את %s. הֲתִּרְצֶה ליצור רשימה לפריטי פעולה?</string>
     <string name="CRA_postpone">אולי אחר-כך</string>
     <string name="CRA_calendar_reminders_pref_title">יועץ יומן</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">אסטריד תזכיר לך אירועי יומן עתידיים ותעודד אותך להתכונן אליהם.</string>
+    <string name="CRA_calendar_reminders_pref_desc_enabled">אסטריד תזכיר לך אירועי יומן עתידיים ותעודד אותך להתכונן אליהם</string>
     <string name="CRA_default_list_name">פריטי פעולה: %s</string>
     <string name="none">ללא</string>
     <string name="EPr_appearance_header">חזות</string>
@@ -85,11 +90,13 @@
     <string name="EPr_show_task_edit_comments">הצגת הערות בעריכת משימה</string>
     <string name="task_list_options">אפשרויות רשימת משימות</string>
     <string name="EPr_cal_end_or_start_at_due_time">משך אירוע יומן</string>
-    <string name="EPr_cal_end_at_due_time">סיים את אירועי היומן במועד היעד?</string>
+    <string name="EPr_cal_end_at_due_time">סיים את אירועי היומן במועד היעד</string>
     <string name="EPr_cal_start_at_due_time">התחל את מאורעות היומן במועד היעד</string>
     <string name="EPr_manage_header">נהל משימות ישנות</string>
     <string name="EPr_manage_purge_deleted">מחק לצמיתות משימות שנמחקו</string>
-    <string name="EPr_manage_purge_deleted_message">האם אתה בטוח שברצונך למחוק לצמיתות את כל המשימות שנמחקו?</string>
+    <string name="EPr_manage_purge_deleted_message">למחוק לצמיתות את כל המשימות שנמחקו\?
+\n
+\nמשימות אלו תאבדנה לעד!</string>
     <string name="EPr_manage_purge_deleted_status">%d משימות אֻיְּנוּ!</string>
     <string name="EPr_reset_preferences">איפוס מאפיינים</string>
     <string name="EPr_reset_preferences_warning">המאפיינים ישוחזרו לברירת מחדל</string>
@@ -100,7 +107,7 @@
     <string name="EPr_manage_delete_completed_gcal_status">%d אירועי יומן נמחקו!</string>
     <string name="EPr_manage_delete_all_gcal">מחק את כל אירועי היומן הקשורים למשימות</string>
     <string name="EPr_manage_delete_all_gcal_message">האם אתה בטוח שברצונך למחוק את כל אירועי היומן בעבור המשימות?</string>
-    <string name="EPr_manage_delete_all_gcal_status">%d אירועי יומן נמחקו</string>
+    <string name="EPr_manage_delete_all_gcal_status">%d אירועי יומן נמחקו!</string>
     <string name="task_defaults">ברירות מחדל למשימות</string>
     <string name="EPr_default_urgency_title">דחיפות ברירת המחדל</string>
     <string name="EPr_default_importance_title">עדיפות מחדל</string>
@@ -133,16 +140,16 @@
     <string name="CFA_help">לחיצה ארוכה על פריטים כדי לקבל אפשרויות נוספות</string>
     <string name="CFA_button_add">הוסף קריטריון</string>
     <string name="CFC_dueBefore_text">תאריך יעד לפי: ?</string>
-    <string name="CFC_dueBefore_name">מועד יעד...</string>
+    <string name="CFC_dueBefore_name">מועד יעד…</string>
     <string name="no_due_date">ללא תאריך יעד</string>
     <string name="next_month">בחודש הבא</string>
     <string name="CFC_importance_text">עדיפות לפחות?</string>
-    <string name="CFC_importance_name">עדיפות...</string>
+    <string name="CFC_importance_name">עדיפות…</string>
     <string name="CFC_tag_text">תג: ?</string>
-    <string name="CFC_tag_name">תג...</string>
-    <string name="CFC_tag_contains_name">שם התג מכיל...</string>
+    <string name="CFC_tag_name">תגית…</string>
+    <string name="CFC_tag_contains_name">שם התגית מכיל…</string>
     <string name="CFC_tag_contains_text">שם התגית מכיל: ?</string>
-    <string name="CFC_title_contains_name">כותרת מכילה...</string>
+    <string name="CFC_title_contains_name">הכותרת מכילה…</string>
     <string name="CFC_title_contains_text">כותרת מכילה: ?</string>
     <string name="gcal_TEA_error">שגיאה בהוספת המשימה ליומן!</string>
     <string name="gcal_TEA_showCalendar_label">פתח אירוע ביומן</string>
@@ -150,10 +157,10 @@
     <string name="calendar_event_not_found">אירוע לא נמצא</string>
     <string name="gcal_completed_title">%s (בוצעה)</string>
     <string name="CFC_gtasks_list_text">ברשימה: ?</string>
-    <string name="CFC_gtasks_list_name">ברשימה של ״משימות גוגל״</string>
-    <string name="CFC_caldav_list_name">ברשימת CalDAV</string>
+    <string name="CFC_gtasks_list_name">ברשימה של „משימות גוגל”…</string>
+    <string name="CFC_caldav_list_name">ברשימת CalDAV…</string>
     <string name="gtasks_GTA_clear_completed">נקה משימות שבוצעו</string>
-    <string name="gtasks_GLA_authenticating">מאמת...</string>
+    <string name="gtasks_GLA_authenticating">מתבצע אימות…</string>
     <string name="gtasks_GLA_errorIOAuth">בעיה בהתחברות לשרתי גוגל. נא נסה שוב מאוחר יותר.</string>
     <string name="gtasks_GPr_header">״משימות גוגל״</string>
     <string name="gtasks_error_accountNotFound">החשבון %s לא נמצא. אנא התנתק והתחבר שוב במסך הגדרות של ״משימות גוגל״.</string>
@@ -193,7 +200,7 @@
     <string name="repeat_option_every_week">כל שבוע</string>
     <string name="repeat_option_every_month">כל חודש</string>
     <string name="repeat_option_every_year">כל שנה</string>
-    <string name="repeat_option_custom">מותאם אישית...</string>
+    <string name="repeat_option_custom">התאמה אישית…</string>
     <string name="repeat_minutely">חזרה בדקות</string>
     <string name="repeat_hourly">חזרה בשעות</string>
     <string name="repeat_daily">חזרה בימים</string>
@@ -202,58 +209,86 @@
     <string name="repeat_yearly">חזרה בשנים</string>
     <plurals name="task_count">
         <item quantity="one">%d משימה</item>
+        <item quantity="two">%d משימות</item>
+        <item quantity="many">%d משימות</item>
         <item quantity="other">%d משימות</item>
     </plurals>
     <plurals name="repeat_times">
-        <item quantity="one">זמן</item>
+        <item quantity="one">פעם</item>
+        <item quantity="two">פעמיים</item>
+        <item quantity="many">פעמים</item>
         <item quantity="other">פעמים</item>
     </plurals>
     <plurals name="repeat_minutes">
         <item quantity="one">דקה</item>
+        <item quantity="two">דקות</item>
+        <item quantity="many">דקות</item>
         <item quantity="other">דקות</item>
     </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d דקה</item>
+        <item quantity="two">%d דקות</item>
+        <item quantity="many">%d דקות</item>
         <item quantity="other">%d דקות</item>
     </plurals>
     <plurals name="repeat_hours">
         <item quantity="one">שעה</item>
+        <item quantity="two">שעתיים</item>
+        <item quantity="many">שעות</item>
         <item quantity="other">שעות</item>
     </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">%d שעה</item>
+        <item quantity="two">שעתיים</item>
+        <item quantity="many">%d שעות</item>
         <item quantity="other">%d שעות</item>
     </plurals>
     <plurals name="repeat_days">
         <item quantity="one">יום</item>
+        <item quantity="two">יומיים</item>
+        <item quantity="many">ימים</item>
         <item quantity="other">ימים</item>
     </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">%d יום</item>
+        <item quantity="two">יומיים</item>
+        <item quantity="many">%d ימים</item>
         <item quantity="other">%d ימים</item>
     </plurals>
     <plurals name="repeat_weeks">
         <item quantity="one">שבוע</item>
+        <item quantity="two">שבועיים</item>
+        <item quantity="many">שבועות</item>
         <item quantity="other">שבועות</item>
     </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d שבוע</item>
+        <item quantity="two">שבועיים</item>
+        <item quantity="many">%d שבועות</item>
         <item quantity="other">%d שבועות</item>
     </plurals>
     <plurals name="repeat_months">
         <item quantity="one">חודש</item>
+        <item quantity="two">חודשיים</item>
+        <item quantity="many">חודשים</item>
         <item quantity="other">חודשים</item>
     </plurals>
     <plurals name="repeat_n_months">
         <item quantity="one">%d חודש</item>
+        <item quantity="two">חודשיים</item>
+        <item quantity="many">%d חודשים</item>
         <item quantity="other">%d חודשים</item>
     </plurals>
     <plurals name="repeat_years">
         <item quantity="one">שנה</item>
+        <item quantity="two">שנתיים</item>
+        <item quantity="many">שנים</item>
         <item quantity="other">שנים</item>
     </plurals>
     <plurals name="repeat_n_years">
         <item quantity="one">%d שנה</item>
+        <item quantity="two">שנתיים</item>
+        <item quantity="many">%d שנים</item>
         <item quantity="other">%d שנים</item>
     </plurals>
     <string name="repeat_type_due">תאריך יעד</string>
@@ -268,7 +303,7 @@
     <string name="new_list">יצירת רשימה חדשה</string>
     <string name="tag_FEx_untagged">ללא קיטלוג</string>
     <string name="delete_tag_confirmation">מחק %s?</string>
-    <string name="TPl_notification">קוצב זמן הופעל עבור %s משימות</string>
+    <string name="TPl_notification">הופעל קוצב זמן עבור %s משימות!</string>
     <string name="TFE_workingOn">משימות עם הערכת זמן</string>
     <string name="TEA_timer_controls">טיימר</string>
     <string name="TEA_timer_comment_started">התחיל משימה זו:</string>
@@ -282,6 +317,8 @@
     <string name="voice_command_added_task">משימות שנוצרו</string>
     <plurals name="Ntasks">
         <item quantity="one">משימה אחת</item>
+        <item quantity="two">%d משימות</item>
+        <item quantity="many">%d משימות</item>
         <item quantity="other">%d משימות</item>
     </plurals>
     <string name="today">היום</string>
@@ -486,9 +523,9 @@
 וודא שיישומון Google Play מוגדר נכון</string>
     <string name="error_billing_default">חיוב לא זמין. בדוק את מכשירך.</string>
     <string name="about">אודות</string>
-    <string name="license_summary">Tasks הוא חופשי ובקוד פתוח, תחת רישיון GNU General Public License גירסה 3.0</string>
+    <string name="license_summary">Tasks הוא חופשי ובקוד פתוח, מוגש בתנאי הרישיון הציבורי הכללי של GNU בגרסה 3.0</string>
     <string name="themes">ערכות נושא וסמלים נוספים</string>
-    <string name="pro_caldav_sync">סינכרון CalDAV</string>
+    <string name="pro_caldav_sync">סנכרון CalDAV</string>
     <string name="pro_multiple_google_task_accounts">ריבוי חשבונות Google Task</string>
     <string name="pro_google_places_search">חיפוש ב\"Google לעסק שלי\"</string>
     <string name="pro_tasker_plugins">תוסף Tasker</string>
@@ -527,4 +564,16 @@
     <string name="google_tasks_add_to_top">משימות חדשות בראש הרשימה</string>
     <string name="CalDAV">CalDAV</string>
     <string name="list_separator_with_space">", "</string>
+    <string name="icon">סמל</string>
+    <string name="pro_support_development">Tasks צריך את התמיכה שלך!</string>
+    <string name="manage_subscription_summary">שדרוג, שנמוך או ביטול המינוי</string>
+    <string name="button_current_subscription">מינוי נוכחי</string>
+    <string name="button_restore_subscription">שחזור מינוי</string>
+    <string name="button_downgrade">שנמוך מינוי</string>
+    <string name="button_upgrade">שדרוג מינוי</string>
+    <string name="button_unsubscribe">ביטול מינוי</string>
+    <string name="pro_subscribe_now">יש להירשם כעת כדי לתמוך בפיתוח ולפתוח תכונתו נוספות</string>
+    <string name="name_your_price">מה המחיר שלך</string>
+    <string name="monthly">חודשי</string>
+    <string name="annually">שנתי</string>
 </resources>
