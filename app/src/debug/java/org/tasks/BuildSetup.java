@@ -32,8 +32,9 @@ public class BuildSetup {
   public boolean setup() {
     Timber.plant(new Timber.DebugTree());
     Application application = (Application) context.getApplicationContext();
+    SoLoader.init(application, false);
+
     if (preferences.getBoolean(R.string.p_flipper, false) && FlipperUtils.shouldEnableFlipper(context)) {
-      SoLoader.init(application, false);
       FlipperClient client = AndroidFlipperClient.getInstance(application);
       client.addPlugin(new InspectorFlipperPlugin(application, DescriptorMapping.withDefaults()));
       client.addPlugin(new DatabasesFlipperPlugin(application));
