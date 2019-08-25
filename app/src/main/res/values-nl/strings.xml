@@ -169,7 +169,7 @@
     <string name="random_reminder_two_weeks">over twee weken</string>
     <string name="random_reminder_month">een maand</string>
     <string name="random_reminder_two_months">over twee maanden</string>
-    <string name="rmd_NoA_done">Reeds voltooid!</string>
+    <string name="rmd_NoA_done">Voltooid</string>
     <string name="rmd_NoA_snooze">Sluimeren...</string>
     <string name="snooze_all">Alles sluimeren</string>
     <string name="rmd_EPr_quiet_hours_start_title">Rustperiode begint</string>
