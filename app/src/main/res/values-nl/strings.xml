@@ -11,7 +11,7 @@
     <string name="export_toast_no_tasks">Geen taken om te exporteren.</string>
     <string name="import_summary_title">Samenvatting herstellen</string>
     <string name="import_summary_message">Bestand %1$s bevat %2$s.\n\n %3$s geïmporteerd,\n %4$s bestaan al\n %5$s had fouten\n</string>
-    <string name="import_progress_read">Taak %d lezen...</string>
+    <string name="import_progress_read">Taak %d lezen…</string>
     <string name="read_permission_label">Taak toestemmingen</string>
     <string name="discard_confirmation">Weet u zeker dat u de wijzigingen niet wilt opslaan?</string>
     <string name="keep_editing">Blijf editen</string>
@@ -62,8 +62,8 @@
     <string name="TEA_control_files">Bestanden</string>
     <string name="TEA_control_reminders">Herinneringen</string>
     <string name="TEA_control_timer">Tijd Controlers</string>
-    <string name="TEA_control_hidden_section">----Altijd Verbergen----</string>
-    <string name="TEA_load_more">Laad meer...</string>
+    <string name="TEA_control_hidden_section">----Verberg Altijd----</string>
+    <string name="TEA_load_more">Laad meer…</string>
     <string name="CRA_ignore">Negeren</string>
     <string name="CRA_title">Heb je een bijeenkomst lijst nodig? </string>
     <string name="CRA_ignore_body">Je hebt meerdere agenda gebeurtenissen genegeerd. Moet Tasks je er niet meer naar vragen?</string>
@@ -132,16 +132,16 @@
     <string name="CFA_help">Lang drukken op items voor extra opties</string>
     <string name="CFA_button_add">Criteria toevoegen</string>
     <string name="CFC_dueBefore_text">Einddatum: ?</string>
-    <string name="CFC_dueBefore_name">Einddatum...</string>
+    <string name="CFC_dueBefore_name">Einddatum…</string>
     <string name="no_due_date">Geen einddatum</string>
     <string name="next_month">Volgende maand</string>
     <string name="CFC_importance_text">Prioriteit ten minste ?</string>
-    <string name="CFC_importance_name">Prioriteit...</string>
+    <string name="CFC_importance_name">Prioriteit…</string>
     <string name="CFC_tag_text">Label: ?</string>
-    <string name="CFC_tag_name">Label...</string>
-    <string name="CFC_tag_contains_name">Label naam bevat...</string>
+    <string name="CFC_tag_name">Label…</string>
+    <string name="CFC_tag_contains_name">Label naam bevat…</string>
     <string name="CFC_tag_contains_text">Label naam bevat: ?</string>
-    <string name="CFC_title_contains_name">Naam bevat...</string>
+    <string name="CFC_title_contains_name">Naam bevat…</string>
     <string name="CFC_title_contains_text">Naam bevat: ?</string>
     <string name="gcal_TEA_error">Fout bij toevoegen taak aan agenda!</string>
     <string name="gcal_TEA_showCalendar_label">Gebeurtenis openen</string>
@@ -149,12 +149,12 @@
     <string name="calendar_event_not_found">Kalender item niet gevonden</string>
     <string name="gcal_completed_title">%s (voltooid)</string>
     <string name="CFC_gtasks_list_text">In lijst: ?</string>
-    <string name="CFC_gtasks_list_name">In GTasks lijst...</string>
-    <string name="CFC_caldav_list_name">In CalDAV lijst...</string>
+    <string name="CFC_gtasks_list_name">In GTaken lijst…</string>
+    <string name="CFC_caldav_list_name">In CalDAV lijst…</string>
     <string name="gtasks_GTA_clear_completed">Verwijderen Voltooid</string>
-    <string name="gtasks_GLA_authenticating">Verifiëren...</string>
+    <string name="gtasks_GLA_authenticating">Verifiëren…</string>
     <string name="gtasks_GLA_errorIOAuth">Sorry, we konden geen verbinding maken met de servers van Google. Probeer het later opnieuw.</string>
-    <string name="gtasks_GPr_header">Google Taken (Beta!)</string>
+    <string name="gtasks_GPr_header">Google Taken</string>
     <string name="gtasks_error_accountNotFound">Account %s niet gevonden--probeer opnieuw in te loggen vanuit de instellingen van Google Taken.</string>
     <string name="premium_record_audio">Een notitie opnemen</string>
     <string name="premium_remove_file_confirm">Weet je het zeker? Dit kan niet ongedaan gemaakt worden</string>
@@ -170,7 +170,7 @@
     <string name="random_reminder_month">een maand</string>
     <string name="random_reminder_two_months">over twee maanden</string>
     <string name="rmd_NoA_done">Voltooid</string>
-    <string name="rmd_NoA_snooze">Sluimeren...</string>
+    <string name="rmd_NoA_snooze">Sluimeren</string>
     <string name="snooze_all">Alles sluimeren</string>
     <string name="rmd_EPr_quiet_hours_start_title">Rustperiode begint</string>
     <string name="rmd_EPr_quiet_hours_end_title">Rustperiode eindigt</string>
@@ -192,7 +192,7 @@
     <string name="repeat_option_every_week">Elke week</string>
     <string name="repeat_option_every_month">Elke maand</string>
     <string name="repeat_option_every_year">Elk jaar</string>
-    <string name="repeat_option_custom">Aangepast...</string>
+    <string name="repeat_option_custom">Aangepast…</string>
     <string name="repeat_minutely">HERHAAL ELKE MINUUT</string>
     <string name="repeat_hourly">HERHAAL ELK UUR</string>
     <string name="repeat_daily">HERHAAL DAGELIJKS</string>
@@ -204,8 +204,8 @@
         <item quantity="other">%d taken</item>
     </plurals>
     <plurals name="repeat_times">
-        <item quantity="one">tijd</item>
-        <item quantity="other">tijden</item>
+        <item quantity="one">keer</item>
+        <item quantity="other">keren</item>
     </plurals>
     <plurals name="repeat_minutes">
         <item quantity="one">minuut</item>
@@ -449,7 +449,7 @@
     <string name="repeats_plural_on_number_of_times">Herhaal elke %1$s op %2$s, aantal keren %3$d %4$s</string>
     <string name="dont_add_to_calendar">Voeg niet toe aan kalender</string>
     <string name="default_calendar">Standaard kalender</string>
-    <string name="badges_description">Toon een taken teller bij de Task app icon. Niet alle lauchners ondersteunen dit.</string>
+    <string name="badges_description">Toon een taken teller bij de Task app icon. Niet alle launchers ondersteunen dit.</string>
     <string name="bundle_notifications_summary">Combineer meerdere notificaties samen in een</string>
     <string name="repeat_monthly_same_day_each_month">Op dezelfde dag elke maand</string>
     <string name="dont_sync">Niet synchroniseren</string>
@@ -473,8 +473,8 @@
     <string name="error_billing_unavailable">Betaling onmogelijk. Zorg dat de Google Pay app goed is ingesteld</string>
     <string name="error_billing_default">Betaling onmogelijk. Controleer je apparaat.</string>
     <string name="about">Over</string>
-    <string name="license_summary">Tasks is gratis open-source software, gelicensieerd onder de GNU General Public License v3.0</string>
-    <string name="themes">Extra thema\'s</string>
+    <string name="license_summary">Tasks is vrije open-source software, gelicensieerd onder de GNU General Public License v3.0</string>
+    <string name="themes">Extra thema\'s en icons</string>
     <string name="pro_caldav_sync">CalDAV synchroniseren</string>
     <string name="pro_multiple_google_task_accounts">Meerdere Google Task accounts</string>
     <string name="pro_google_places_search">Google Plaatsen zoeken</string>
