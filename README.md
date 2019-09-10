@@ -1,3 +1,9 @@
+Astrid was a popular cross-platform productivity service that was [acquired](https://web.archive.org/web/20130811052500/http://blog.astrid.com/blog/2013/05/01/yahoo-acquires-astrid/) and [discontinued](https://techcrunch.com/2013/07/06/astrid-goes-dark-august-5-goodnight-sweet-squid/) in 2013. The source code from Astrid's open source Android app serves as the basis of Tasks.
+
+Please visit [tasks.org](https://tasks.org) for end user documentation and support
+
+---
+
 [![Get it on Google Play](https://img.shields.io/github/release-pre/tasks/tasks.svg?label=google%20play)](https://play.google.com/store/apps/details?id=org.tasks&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1)
 [![Get it on Amazon App Store](https://img.shields.io/github/release/tasks/tasks.svg?label=amazon)](https://www.amazon.com/gp/product/B00QHGTL7O/ref=mas_pm_tasks_astrid_to_do_list_clone)
 [![Get it on F-Droid](https://img.shields.io/f-droid/v/org.tasks.svg)](https://f-droid.org/packages/org.tasks/)
@@ -7,10 +13,6 @@
 [![Liberapay donate button](https://img.shields.io/liberapay/receives/tasks.svg?logo=liberapay)](https://liberapay.com/tasks/donate)
 
 [![Build Status](https://travis-ci.org/tasks/tasks.svg?branch=master)](https://travis-ci.org/tasks/tasks) [![weblate](https://hosted.weblate.org/widgets/tasks/-/android/svg-badge.svg)](https://hosted.weblate.org/engage/tasks/?utm_source=widget) [![codecov](https://codecov.io/gh/tasks/tasks/branch/master/graph/badge.svg)](https://codecov.io/gh/tasks/tasks)
-
-Please visit [tasks.org](https://tasks.org) for end user documentation and support
-
----
 
 #### To get started with development:
 1. [Fork](https://help.github.com/articles/fork-a-repo/) and [clone](https://help.github.com/articles/cloning-a-repository/) the repository
