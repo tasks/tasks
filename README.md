@@ -1,12 +1,18 @@
 Astrid was a popular cross-platform productivity service that was [acquired](https://web.archive.org/web/20130811052500/http://blog.astrid.com/blog/2013/05/01/yahoo-acquires-astrid/) and [discontinued](https://techcrunch.com/2013/07/06/astrid-goes-dark-august-5-goodnight-sweet-squid/) in 2013. The source code from Astrid's open source Android app serves as the basis of Tasks.
 
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png"
+    alt="Get it on Google Play"
+    height="80">](https://play.google.com/store/apps/details?id=org.tasks)
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+    alt="Get it on F-Droid"
+    height="80">](https://f-droid.org/packages/org.tasks)
+[<img src="https://images-na.ssl-images-amazon.com/images/G/01/mobile-apps/devportal2/res/images/amazon-appstore-badge-english-white.png"
+    alt="Get it on Amazon"
+    height="80">](https://www.amazon.com/Tasks-Astrid-To-Do-List-Clone/dp/B00QHGTL7O)
+
 Please visit [tasks.org](https://tasks.org) for end user documentation and support
 
 ---
-
-[![Get it on Google Play](https://img.shields.io/github/release-pre/tasks/tasks.svg?label=google%20play)](https://play.google.com/store/apps/details?id=org.tasks&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1)
-[![Get it on Amazon App Store](https://img.shields.io/github/release/tasks/tasks.svg?label=amazon)](https://www.amazon.com/gp/product/B00QHGTL7O/ref=mas_pm_tasks_astrid_to_do_list_clone)
-[![Get it on F-Droid](https://img.shields.io/f-droid/v/org.tasks.svg)](https://f-droid.org/packages/org.tasks/)
 
 [![Donate with Bitcoin](https://img.shields.io/badge/bitcoin-donate-yellow.svg?logo=bitcoin)](https://en.cryptobadges.io/donate/136mW34jW3cmZKhxuTDn3tHXMRwbbaRU8s)
 [![PayPal donate button](https://img.shields.io/badge/paypal-donate-yellow.svg?logo=paypal)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=alex@tasks.org)
