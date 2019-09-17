@@ -69,20 +69,20 @@ android {
 
     buildTypes {
         getByName("debug") {
-            val tasks_mapbox_key_debug: String? by project
-            val tasks_google_key_debug: String? by project
+            val tasksMapboxKeyDebug: String? by project
+            val tasksGoogleKeyDebug: String? by project
 
             applicationIdSuffix = ".debug"
-            resValue("string", "mapbox_key", tasks_mapbox_key_debug ?: "")
-            resValue("string", "google_key", tasks_google_key_debug ?: "")
+            resValue("string", "mapbox_key", tasksMapboxKeyDebug ?: "")
+            resValue("string", "google_key", tasksGoogleKeyDebug ?: "")
             isTestCoverageEnabled = project.hasProperty("coverage")
         }
         getByName("release") {
-            val tasks_mapbox_key: String? by project
-            val tasks_google_key: String? by project
+            val tasksMapboxKey: String? by project
+            val tasksGoogleKey: String? by project
 
-            resValue("string", "mapbox_key", tasks_mapbox_key ?: "")
-            resValue("string", "google_key", tasks_google_key ?: "")
+            resValue("string", "mapbox_key", tasksMapboxKey ?: "")
+            resValue("string", "google_key", tasksGoogleKey ?: "")
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard.pro")
             signingConfig = signingConfigs.getByName("release")
@@ -141,7 +141,7 @@ dependencies {
 
     implementation("androidx.room:room-rxjava2:${Versions.room}")
     annotationProcessor("androidx.room:room-compiler:${Versions.room}")
-    implementation("androidx.lifecycle:lifecycle-extensions:2.0.0")
+    implementation("androidx.lifecycle:lifecycle-extensions:2.1.0")
     implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
     implementation("androidx.paging:paging-runtime:2.1.0")
 
@@ -162,10 +162,10 @@ dependencies {
     implementation("com.google.code.gson:gson:2.8.5")
     implementation("com.github.rey5137:material:1.2.5")
     implementation("com.nononsenseapps:filepicker:4.2.1")
-    implementation("com.google.android.material:material:1.1.0-alpha09")
+    implementation("com.google.android.material:material:1.1.0-alpha10")
     implementation("androidx.annotation:annotation:1.1.0")
     implementation("androidx.cardview:cardview:1.0.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta1")
+    implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta2")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")
     implementation("com.jakewharton.timber:timber:4.7.1")
     implementation("com.jakewharton.threetenabp:threetenabp:1.2.1")
