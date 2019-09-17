@@ -26,14 +26,14 @@ android {
         textReport = true
     }
 
-    compileSdkVersion(Versions.compileSdk)
+    compileSdkVersion(Versions.targetSdk)
 
     defaultConfig {
         testApplicationId = "org.tasks.test"
         applicationId = "org.tasks"
         versionCode = 607
         versionName = "6.8.1"
-        targetSdkVersion(Versions.compileSdk)
+        targetSdkVersion(Versions.targetSdk)
         minSdkVersion(Versions.minSdk)
         multiDexEnabled = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
