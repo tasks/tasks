@@ -1,6 +1,7 @@
 package com.todoroo.astrid.service;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
+import static org.tasks.db.DbUtils.batch;
 
 import android.os.Environment;
 import com.google.common.base.Strings;
@@ -9,12 +10,16 @@ import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Multimaps;
 import com.todoroo.astrid.api.GtasksFilter;
+import com.todoroo.astrid.dao.TaskDao;
 import java.io.File;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
+import org.tasks.caldav.CaldavUtils;
+import org.tasks.data.CaldavDao;
+import org.tasks.data.CaldavTaskContainer;
 import org.tasks.data.Filter;
 import org.tasks.data.FilterDao;
 import org.tasks.data.GoogleTaskAccount;
@@ -41,6 +46,7 @@ public class Upgrader {
   private static final int V6_4 = 546;
   private static final int V6_7 = 585;
   private static final int V6_8_1 = 607;
+  private static final int V6_9 = 608;
   private final Preferences preferences;
   private final Tracker tracker;
   private final TagDataDao tagDataDao;
@@ -50,6 +56,8 @@ public class Upgrader {
   private final GoogleTaskListDao googleTaskListDao;
   private final UserActivityDao userActivityDao;
   private final TaskAttachmentDao taskAttachmentDao;
+  private final CaldavDao caldavDao;
+  private final TaskDao taskDao;
 
   @Inject
   public Upgrader(
@@ -61,7 +69,9 @@ public class Upgrader {
       DefaultFilterProvider defaultFilterProvider,
       GoogleTaskListDao googleTaskListDao,
       UserActivityDao userActivityDao,
-      TaskAttachmentDao taskAttachmentDao) {
+      TaskAttachmentDao taskAttachmentDao,
+      CaldavDao caldavDao,
+      TaskDao taskDao) {
     this.preferences = preferences;
     this.tracker = tracker;
     this.tagDataDao = tagDataDao;
@@ -71,6 +81,8 @@ public class Upgrader {
     this.googleTaskListDao = googleTaskListDao;
     this.userActivityDao = userActivityDao;
     this.taskAttachmentDao = taskAttachmentDao;
+    this.caldavDao = caldavDao;
+    this.taskDao = taskDao;
   }
 
   public void upgrade(int from, int to) {
@@ -83,6 +95,7 @@ public class Upgrader {
       run(from, V6_4, this::migrateUris);
       run(from, V6_7, this::migrateGoogleTaskFilters);
       run(from, V6_8_1, this::migrateCaldavFilters);
+      run(from, V6_9, this::applyCaldavCategories);
       tracker.reportEvent(Tracking.Events.UPGRADE, Integer.toString(from));
     }
     preferences.setCurrentVersion(to);
@@ -93,6 +106,18 @@ public class Upgrader {
       runnable.run();
       preferences.setCurrentVersion(version);
     }
+  }
+
+  private void applyCaldavCategories() {
+    List<Long> tasksWithTags = caldavDao.getTasksWithTags();
+    for (CaldavTaskContainer container : caldavDao.getTasks()) {
+      at.bitfire.ical4android.Task remoteTask =
+          CaldavUtils.fromVtodo(container.caldavTask.getVtodo());
+      if (remoteTask != null) {
+        tagDao.insert(container.task, CaldavUtils.getTags(tagDataDao, remoteTask.getCategories()));
+      }
+    }
+    batch(tasksWithTags, taskDao::touch);
   }
 
   private void performMarshmallowMigration() {

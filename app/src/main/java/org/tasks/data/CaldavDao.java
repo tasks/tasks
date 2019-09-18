@@ -64,6 +64,12 @@ public interface CaldavDao {
   @Query("SELECT * FROM caldav_tasks WHERE cd_task = :taskId")
   List<CaldavTask> getTasks(long taskId);
 
+  @Query(
+      "SELECT task.*, caldav_task.* FROM tasks AS task "
+          + "INNER JOIN caldav_tasks AS caldav_task ON _id = cd_task "
+          + "WHERE cd_deleted = 0")
+  List<CaldavTaskContainer> getTasks();
+
   @Query("SELECT * FROM caldav_lists ORDER BY cdl_name COLLATE NOCASE")
   List<CaldavCalendar> getCalendars();
 
@@ -97,4 +103,11 @@ public interface CaldavDao {
           + " GROUP BY caldav_lists.cdl_uuid"
           + " ORDER BY caldav_accounts.cda_name COLLATE NOCASE, caldav_lists.cdl_name COLLATE NOCASE")
   List<CaldavFilters> getCaldavFilters(long now);
+
+  @Query(
+      "SELECT tasks._id FROM tasks "
+          + "INNER JOIN tags ON tags.task = tasks._id "
+          + "INNER JOIN caldav_tasks ON cd_task = tasks._id "
+          + "GROUP BY tasks._id")
+  List<Long> getTasksWithTags();
 }

@@ -142,6 +142,9 @@ public abstract class TaskDao {
   @RawQuery(observedEntities = {Task.class, GoogleTask.class, CaldavTask.class, Tag.class})
   public abstract DataSource.Factory<Integer, TaskContainer> getTaskFactory(SimpleSQLiteQuery query);
 
+  @Query("UPDATE tasks SET modified = datetime('now', 'localtime') WHERE _id in (:ids)")
+  public abstract void touch(List<Long> ids);
+
   /**
    * Saves the given task to the database.getDatabase(). Task must already exist. Returns true on
    * success.

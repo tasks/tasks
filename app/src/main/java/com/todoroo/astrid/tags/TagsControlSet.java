@@ -6,10 +6,7 @@
 
 package com.todoroo.astrid.tags;
 
-import static com.google.common.collect.Iterables.transform;
-import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
-import static com.google.common.collect.Sets.difference;
 import static com.google.common.collect.Sets.newHashSet;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 
@@ -48,7 +45,6 @@ import java.util.List;
 import java.util.Set;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.data.Tag;
 import org.tasks.data.TagDao;
 import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
@@ -366,22 +362,12 @@ public final class TagsControlSet extends TaskEditControlFragment {
   }
 
   private boolean synchronizeTags(Task task) {
-    long taskId = task.getId();
     for (TagData tagData : selectedTags) {
       if (Task.NO_UUID.equals(tagData.getRemoteId())) {
         tagDataDao.createNew(tagData);
       }
     }
-    Set<TagData> existing = newHashSet(tagDataDao.getTagDataForTask(taskId));
-    Set<TagData> selected = newHashSet(selectedTags);
-    Set<TagData> added = difference(selected, existing);
-    Set<TagData> removed = difference(existing, selected);
-    tagDao.deleteTags(taskId, newArrayList(transform(removed, TagData::getRemoteId)));
-    for (TagData tagData : added) {
-      Tag newLink = new Tag(task, tagData);
-      tagDao.insert(newLink);
-    }
-    return !removed.isEmpty() || !added.isEmpty();
+    return tagDao.applyTags(task, tagDataDao, selectedTags);
   }
 
   @Override

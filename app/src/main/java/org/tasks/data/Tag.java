@@ -45,8 +45,13 @@ public class Tag {
 
   @Ignore
   public Tag(Task task, String name, String tagUid) {
-    this.task = task.getId();
-    this.taskUid = task.getUuid();
+    this(task.getId(), task.getUuid(), name, tagUid);
+  }
+
+  @Ignore
+  public Tag(long taskId, String taskUid, String name, String tagUid) {
+    this.task = taskId;
+    this.taskUid = taskUid;
     this.name = name;
     this.tagUid = tagUid;
   }

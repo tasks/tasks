@@ -33,7 +33,6 @@ import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskDeleter;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.StringReader;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
@@ -56,7 +55,6 @@ import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.CaldavTask;
-import org.tasks.data.Tag;
 import org.tasks.data.TagDao;
 import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
@@ -350,58 +348,37 @@ public class CaldavSynchronizer {
 
   private void processVTodo(
       String fileName, CaldavCalendar caldavCalendar, String eTag, String vtodo) {
-    List<at.bitfire.ical4android.Task> tasks =
-        at.bitfire.ical4android.Task.Companion.fromReader(new StringReader(vtodo));
 
-    if (tasks.size() == 1) {
-      at.bitfire.ical4android.Task remote = tasks.get(0);
-      Task task;
-      CaldavTask caldavTask = caldavDao.getTask(caldavCalendar.getUuid(), fileName);
-      if (caldavTask == null) {
-        task = taskCreator.createWithValues("");
-        taskDao.createNew(task);
-        caldavTask =
-            new CaldavTask(task.getId(), caldavCalendar.getUuid(), remote.getUid(), fileName);
-      } else {
-        task = taskDao.fetch(caldavTask.getTask());
-      }
-      CaldavConverter.apply(task, remote);
-      applyCategories(task, remote.getCategories());
-      task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
-      taskDao.save(task);
-      caldavTask.setVtodo(vtodo);
-      caldavTask.setEtag(eTag);
-      caldavTask.setLastSync(DateUtilities.now() + 1000L);
-      if (caldavTask.getId() == Task.NO_ID) {
-        caldavTask.setId(caldavDao.insert(caldavTask));
-        Timber.d("NEW %s", caldavTask);
-      } else {
-        caldavDao.update(caldavTask);
-        Timber.d("UPDATE %s", caldavTask);
-      }
+    at.bitfire.ical4android.Task remote = CaldavUtils.fromVtodo(vtodo);
+    if (remote == null) {
+      Timber.e("Invalid VCALENDAR: %s", fileName);
+      return;
+    }
+
+    Task task;
+    CaldavTask caldavTask = caldavDao.getTask(caldavCalendar.getUuid(), fileName);
+    if (caldavTask == null) {
+      task = taskCreator.createWithValues("");
+      taskDao.createNew(task);
+      caldavTask =
+          new CaldavTask(task.getId(), caldavCalendar.getUuid(), remote.getUid(), fileName);
     } else {
-      Timber.e("Received VCALENDAR with %s VTODOs; ignoring %s", tasks.size(), fileName);
+      task = taskDao.fetch(caldavTask.getTask());
+    }
+    CaldavConverter.apply(task, remote);
+    tagDao.applyTags(task, tagDataDao, CaldavUtils.getTags(tagDataDao, remote.getCategories()));
+    task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
+    taskDao.save(task);
+    caldavTask.setVtodo(vtodo);
+    caldavTask.setEtag(eTag);
+    caldavTask.setLastSync(DateUtilities.now() + 1000L);
+    if (caldavTask.getId() == Task.NO_ID) {
+      caldavTask.setId(caldavDao.insert(caldavTask));
+      Timber.d("NEW %s", caldavTask);
+    } else {
+      caldavDao.update(caldavTask);
+      Timber.d("UPDATE %s", caldavTask);
     }
   }
 
-  private void applyCategories(Task task, List<String> categories) {
-    long taskId = task.getId();
-    List<TagData> selectedTags = tagDataDao.getTags(categories);
-    Set<String> toCreate =
-        difference(newHashSet(categories), newHashSet(transform(selectedTags, TagData::getName)));
-    for (String name : toCreate) {
-      TagData tag = new TagData(name);
-      tagDataDao.createNew(tag);
-      selectedTags.add(tag);
-    }
-    Set<TagData> existing = newHashSet(tagDataDao.getTagDataForTask(taskId));
-    Set<TagData> selected = newHashSet(selectedTags);
-    Set<TagData> added = difference(selected, existing);
-    Set<TagData> removed = difference(existing, selected);
-    tagDao.deleteTags(taskId, newArrayList(Iterables.transform(removed, TagData::getRemoteId)));
-    for (TagData tagData : added) {
-      Tag newLink = new Tag(task, tagData);
-      tagDao.insert(newLink);
-    }
-  }
 }
