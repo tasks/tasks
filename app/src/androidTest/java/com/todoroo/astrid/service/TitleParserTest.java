@@ -17,7 +17,6 @@ import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Task.Priority;
-import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.TitleParser;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -25,6 +24,7 @@ import javax.inject.Inject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.tasks.R;
+import org.tasks.data.TagDataDao;
 import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
 import org.tasks.jobs.WorkManager;
@@ -34,7 +34,7 @@ import org.tasks.time.DateTime;
 @RunWith(AndroidJUnit4.class)
 public class TitleParserTest extends InjectingTestCase {
 
-  @Inject TagService tagService;
+  @Inject TagDataDao tagDataDao;
   @Inject Preferences preferences;
   @Inject TaskCreator taskCreator;
   @Inject WorkManager workManager;
@@ -454,7 +454,7 @@ public class TitleParserTest extends InjectingTestCase {
       task = new Task();
       task.setTitle("Jog " + acceptedString); // test at end of task. should set importance.
       ArrayList<String> tags = new ArrayList<>();
-      TitleParser.listHelper(tagService, task, tags);
+      TitleParser.listHelper(tagDataDao, task, tags);
       String tag = TitleParser.trimParenthesis(acceptedString);
       assertTrue(
           "test pound at failed for string: " + acceptedString + " for tags: " + tags.toString(),
@@ -471,7 +471,7 @@ public class TitleParserTest extends InjectingTestCase {
       task = new Task();
       task.setTitle("Jog " + acceptedString); // test at end of task. should set importance.
       ArrayList<String> tags = new ArrayList<>();
-      TitleParser.listHelper(tagService, task, tags);
+      TitleParser.listHelper(tagDataDao, task, tags);
       String tag = TitleParser.trimParenthesis(acceptedString);
       assertTrue(
           "testTagsAt failed for string: " + acceptedString + " for tags: " + tags.toString(),

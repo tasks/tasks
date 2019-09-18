@@ -13,7 +13,6 @@ import com.mdimension.jchronic.AstridChronic;
 import com.mdimension.jchronic.Chronic;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Task.Priority;
-import com.todoroo.astrid.tags.TagService;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -21,14 +20,15 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.tasks.data.TagDataDao;
 import timber.log.Timber;
 
 public class TitleParser {
 
-  public static void parse(TagService tagService, Task task, ArrayList<String> tags) {
+  public static void parse(TagDataDao tagDataDao, Task task, ArrayList<String> tags) {
     repeatHelper(task);
     listHelper(
-        tagService,
+        tagDataDao,
         task,
         tags); // Don't need to know if tags affected things since we don't show alerts for them
     dayHelper(task);
@@ -45,7 +45,7 @@ public class TitleParser {
     return pattern;
   }
 
-  public static void listHelper(TagService tagService, Task task, ArrayList<String> tags) {
+  public static void listHelper(TagDataDao tagDataDao, Task task, ArrayList<String> tags) {
     String inputText = task.getTitle();
     Pattern tagPattern = Pattern.compile("(\\s|^)#(\\(.*\\)|[^\\s]+)");
     Pattern contextPattern = Pattern.compile("(\\s|^)@(\\(.*\\)|[^\\s]+)");
@@ -56,7 +56,7 @@ public class TitleParser {
       Matcher m = tagPattern.matcher(inputText);
       if (m.find()) {
         String tag = TitleParser.trimParenthesis(m.group(2));
-        String tagWithCase = tagService.getTagWithCase(tag);
+        String tagWithCase = tagDataDao.getTagWithCase(tag);
         if (!addedTags.contains(tagWithCase)) {
           tags.add(tagWithCase);
         }
@@ -65,7 +65,7 @@ public class TitleParser {
         m = contextPattern.matcher(inputText);
         if (m.find()) {
           String tag = TitleParser.trimParenthesis(m.group(2));
-          String tagWithCase = tagService.getTagWithCase(tag);
+          String tagWithCase = tagDataDao.getTagWithCase(tag);
           if (!addedTags.contains(tagWithCase)) {
             tags.add(tagWithCase);
           }

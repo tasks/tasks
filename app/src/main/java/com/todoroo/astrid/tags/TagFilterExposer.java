@@ -25,13 +25,11 @@ import org.tasks.filters.TagFilters;
  */
 public class TagFilterExposer {
 
-  private final TagService tagService;
   private final TagDataDao tagDataDao;
 
   @Inject
-  public TagFilterExposer(TagDataDao tagDataDao, TagService tagService) {
+  public TagFilterExposer(TagDataDao tagDataDao) {
     this.tagDataDao = tagDataDao;
-    this.tagService = tagService;
   }
 
   /** Create filter from new tag object */
@@ -47,6 +45,6 @@ public class TagFilterExposer {
   }
 
   public Filter getFilterByUuid(String uuid) {
-    return filterFromTag(tagService.tagFromUUID(uuid));
+    return filterFromTag(tagDataDao.getByUuid(uuid));
   }
 }

@@ -15,6 +15,7 @@ import com.todoroo.astrid.sync.NewSyncTestCase;
 import dagger.Component;
 import org.tasks.data.DeletionDaoTests;
 import org.tasks.data.GoogleTaskDaoTests;
+import org.tasks.data.TagDataDaoTest;
 import org.tasks.jobs.BackupServiceTests;
 
 @ApplicationScope
@@ -50,4 +51,6 @@ public interface TestComponent extends ApplicationComponent {
   void inject(DeletionDaoTests deletionDaoTests);
 
   void inject(GoogleTaskDaoTests googleTaskDaoTests);
+
+  void inject(TagDataDaoTest tagDataDaoTest);
 }

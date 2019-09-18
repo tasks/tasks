@@ -11,7 +11,6 @@ import static junit.framework.Assert.assertEquals;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Task.Priority;
-import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.TitleParser;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,6 +18,7 @@ import java.util.List;
 import javax.inject.Inject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.tasks.data.TagDataDao;
 import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
 
@@ -26,7 +26,7 @@ import org.tasks.injection.TestComponent;
 public class QuickAddMarkupTest extends InjectingTestCase {
 
   private final ArrayList<String> tags = new ArrayList<>();
-  @Inject TagService tagService;
+  @Inject TagDataDao tagDataDao;
   private Task task;
 
   @Override
@@ -101,7 +101,7 @@ public class QuickAddMarkupTest extends InjectingTestCase {
     task = new Task();
     task.setTitle(title);
     tags.clear();
-    TitleParser.parse(tagService, task, tags);
+    TitleParser.parse(tagDataDao, task, tags);
   }
 
   private void assertPriority(int priority) {

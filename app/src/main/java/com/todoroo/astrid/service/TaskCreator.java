@@ -16,7 +16,6 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Task.Priority;
 import com.todoroo.astrid.gcal.GCalHelper;
-import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.TitleParser;
 import java.util.ArrayList;
 import java.util.Map;
@@ -32,7 +31,6 @@ import org.tasks.data.Tag;
 import org.tasks.data.TagDao;
 import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
-import org.tasks.data.TaskAttachment;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
@@ -48,7 +46,6 @@ public class TaskCreator {
   private final CaldavDao caldavDao;
   private final TagDataDao tagDataDao;
   private final TaskDao taskDao;
-  private final TagService tagService;
 
   @Inject
   public TaskCreator(
@@ -56,7 +53,6 @@ public class TaskCreator {
       Preferences preferences,
       TagDataDao tagDataDao,
       TaskDao taskDao,
-      TagService tagService,
       TagDao tagDao,
       GoogleTaskDao googleTaskDao,
       Tracker tracker,
@@ -66,7 +62,6 @@ public class TaskCreator {
     this.preferences = preferences;
     this.tagDataDao = tagDataDao;
     this.taskDao = taskDao;
-    this.tagService = tagService;
     this.tagDao = tagDao;
     this.googleTaskDao = googleTaskDao;
     this.tracker = tracker;
@@ -188,7 +183,7 @@ public class TaskCreator {
     }
 
     try {
-      TitleParser.parse(tagService, task, tags);
+      TitleParser.parse(tagDataDao, task, tags);
     } catch (Throwable e) {
       Timber.e(e);
     }

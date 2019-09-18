@@ -18,7 +18,6 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Task.Priority;
 import com.todoroo.astrid.gtasks.GtasksListService;
-import com.todoroo.astrid.tags.TagService;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +31,7 @@ import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
 import org.tasks.data.Tag;
 import org.tasks.data.TagData;
+import org.tasks.data.TagDataDao;
 import org.tasks.injection.ForApplication;
 import org.tasks.sync.SyncAdapters;
 
@@ -46,7 +46,7 @@ public class FilterCriteriaProvider {
   private static final String IDENTIFIER_TAG_CONTAINS = "tag_contains"; // $NON-NLS-1$
 
   private final Context context;
-  private final TagService tagService;
+  private final TagDataDao tagDataDao;
   private final Resources r;
   private final GoogleTaskListDao googleTaskListDao;
   private final CaldavDao caldavDao;
@@ -54,13 +54,13 @@ public class FilterCriteriaProvider {
   @Inject
   public FilterCriteriaProvider(
       @ForApplication Context context,
-      TagService tagService,
+      TagDataDao tagDataDao,
       GtasksListService gtasksListService,
       SyncAdapters syncAdapters,
       GoogleTaskListDao googleTaskListDao,
       CaldavDao caldavDao) {
     this.context = context;
-    this.tagService = tagService;
+    this.tagDataDao = tagDataDao;
 
     r = context.getResources();
     this.googleTaskListDao = googleTaskListDao;
@@ -86,9 +86,9 @@ public class FilterCriteriaProvider {
 
   private CustomFilterCriterion getTagFilter() {
     // TODO: adding to hash set because duplicate tag name bug hasn't been fixed yet
-    List<String> tags =
-        newArrayList(newLinkedHashSet(transform(tagService.getTagList(), TagData::getName)));
-    String[] tagNames = tags.toArray(new String[tags.size()]);
+    String[] tagNames =
+        newLinkedHashSet(transform(tagDataDao.tagDataOrderedByName(), TagData::getName))
+            .toArray(new String[0]);
     Map<String, Object> values = new HashMap<>();
     values.put(Tag.KEY, "?");
     return new MultipleSelectCriterion(

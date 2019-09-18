@@ -19,17 +19,23 @@ public abstract class TagDataDao {
   @Query("SELECT * FROM tagdata WHERE name = :name COLLATE NOCASE LIMIT 1")
   public abstract TagData getTagByName(String name);
 
+  /**
+   * If a tag already exists in the database that case insensitively matches the given tag, return
+   * that. Otherwise, return the argument
+   */
+  public String getTagWithCase(String tag) {
+    TagData tagData = getTagByName(tag);
+    return tagData != null ? tagData.getName() : tag;
+  }
+
   @Query("SELECT * FROM tagdata")
   public abstract List<TagData> getAll();
 
   @Query("SELECT * FROM tagdata WHERE remoteId = :uuid LIMIT 1")
   public abstract TagData getByUuid(String uuid);
 
-  @Query("SELECT * FROM tagdata WHERE name IS NOT NULL ORDER BY UPPER(name) ASC")
+  @Query("SELECT * FROM tagdata WHERE name IS NOT NULL AND name != '' ORDER BY UPPER(name) ASC")
   public abstract List<TagData> tagDataOrderedByName();
-
-  @Query("UPDATE tagdata SET name = :name WHERE remoteId = :remoteId")
-  public abstract void rename(String remoteId, String name);
 
   @Query("DELETE FROM tagdata WHERE _id = :id")
   public abstract void delete(Long id);

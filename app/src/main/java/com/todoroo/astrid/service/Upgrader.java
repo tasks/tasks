@@ -9,7 +9,6 @@ import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Multimaps;
 import com.todoroo.astrid.api.GtasksFilter;
-import com.todoroo.astrid.tags.TagService;
 import java.io.File;
 import java.util.List;
 import javax.inject.Inject;
@@ -45,7 +44,6 @@ public class Upgrader {
   private final Preferences preferences;
   private final Tracker tracker;
   private final TagDataDao tagDataDao;
-  private final TagService tagService;
   private final TagDao tagDao;
   private final FilterDao filterDao;
   private final DefaultFilterProvider defaultFilterProvider;
@@ -58,7 +56,6 @@ public class Upgrader {
       Preferences preferences,
       Tracker tracker,
       TagDataDao tagDataDao,
-      TagService tagService,
       TagDao tagDao,
       FilterDao filterDao,
       DefaultFilterProvider defaultFilterProvider,
@@ -68,7 +65,6 @@ public class Upgrader {
     this.preferences = preferences;
     this.tracker = tracker;
     this.tagDataDao = tagDataDao;
-    this.tagService = tagService;
     this.tagDao = tagDao;
     this.filterDao = filterDao;
     this.defaultFilterProvider = defaultFilterProvider;
@@ -118,7 +114,7 @@ public class Upgrader {
 
   private void removeDuplicateTags() {
     ListMultimap<String, TagData> tagsByUuid =
-        Multimaps.index(tagService.getTagList(), TagData::getRemoteId);
+        Multimaps.index(tagDataDao.tagDataOrderedByName(), TagData::getRemoteId);
     for (String uuid : tagsByUuid.keySet()) {
       removeDuplicateTagData(tagsByUuid.get(uuid));
       removeDuplicateTagMetadata(uuid);

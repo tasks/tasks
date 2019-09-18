@@ -20,7 +20,6 @@ import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.TagFilter;
 import com.todoroo.astrid.helper.UUIDHelper;
-import com.todoroo.astrid.tags.TagService;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.caldav.BaseListSettingsActivity;
@@ -34,7 +33,6 @@ public class TagSettingsActivity extends BaseListSettingsActivity {
   public static final String TOKEN_AUTOPOPULATE_NAME = "autopopulateName"; // $NON-NLS-1$
   public static final String EXTRA_TAG_DATA = "tagData"; // $NON-NLS-1$
   private static final String EXTRA_TAG_UUID = "uuid"; // $NON-NLS-1$
-  @Inject TagService tagService;
   @Inject TagDataDao tagDataDao;
   @Inject TagDao tagDao;
 
@@ -131,7 +129,6 @@ public class TagSettingsActivity extends BaseListSettingsActivity {
       tagData.setName(newName);
       tagData.setColor(selectedTheme);
       tagData.setIcon(selectedIcon);
-      tagService.rename(tagData.getRemoteId(), newName);
       tagDataDao.update(tagData);
       tagDao.rename(tagData.getRemoteId(), newName);
       setResult(

@@ -16,7 +16,6 @@ import androidx.annotation.NonNull;
 import com.google.common.base.Joiner;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.tags.TagService;
 import dagger.Lazy;
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -26,6 +25,7 @@ import javax.inject.Inject;
 import org.tasks.BuildConfig;
 import org.tasks.data.TagDao;
 import org.tasks.data.TagData;
+import org.tasks.data.TagDataDao;
 import org.tasks.injection.ContentProviderComponent;
 import org.tasks.injection.InjectingContentProvider;
 import org.tasks.ui.CheckBoxes;
@@ -80,7 +80,7 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
     URI_MATCHER.addURI(AUTHORITY, "tags", URI_TAGS);
   }
 
-  @Inject Lazy<TagService> tagService;
+  @Inject Lazy<TagDataDao> tagDataDao;
   @Inject Lazy<TaskDao> taskDao;
   @Inject Lazy<TagDao> tagDao;
 
@@ -124,8 +124,7 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
    * @return two-column cursor: tag id (string) and tag name
    */
   private Cursor getTags() {
-
-    TagData[] tags = tagService.get().getGroupedTags();
+    List<TagData> tags = tagDataDao.get().tagDataOrderedByName();
 
     MatrixCursor ret = new MatrixCursor(TAGS_FIELD_LIST);
 

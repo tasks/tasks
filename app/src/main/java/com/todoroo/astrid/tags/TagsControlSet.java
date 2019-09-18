@@ -82,7 +82,6 @@ public final class TagsControlSet extends TaskEditControlFragment {
       };
   @Inject TagDao tagDao;
   @Inject TagDataDao tagDataDao;
-  @Inject TagService tagService;
   @Inject DialogBuilder dialogBuilder;
   @Inject ThemeCache themeCache;
   @Inject ChipProvider chipProvider;
@@ -113,11 +112,11 @@ public final class TagsControlSet extends TaskEditControlFragment {
           new ArrayList<>(
               task.isNew()
                   ? transform(task.getTags(), tagDataDao::getTagByName)
-                  : tagService.getTagDataForTask(task.getId()));
+                  : getTagDataForTask(task.getId()));
       selectedTags = new ArrayList<>(originalTags);
       newTags = new ArrayList<>();
     }
-    allTags = tagService.getTagList();
+    allTags = tagDataDao.tagDataOrderedByName();
     dialogView = inflater.inflate(R.layout.control_set_tag_list, null);
     newTagLayout = dialogView.findViewById(R.id.newTags);
     tagListView = dialogView.findViewById(R.id.existingTags);
@@ -154,6 +153,14 @@ public final class TagsControlSet extends TaskEditControlFragment {
     }
     refreshDisplayView();
     return view;
+  }
+
+  private List<TagData> getTagDataForTask(String uuid) {
+    return transform(tagDao.getTagUids(uuid), tagDataDao::getByUuid);
+  }
+
+  private List<TagData> getTagDataForTask(long taskId) {
+    return transform(tagDao.getTagUids(taskId), tagDataDao::getByUuid);
   }
 
   @Override
@@ -374,7 +381,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
         tagDataDao.createNew(tagData);
       }
     }
-    Set<TagData> existingHash = newHashSet(tagService.getTagDataForTask(taskUuid));
+    Set<TagData> existingHash = newHashSet(getTagDataForTask(taskUuid));
     Set<TagData> selectedHash = newHashSet(selectedTags);
     Sets.SetView<TagData> added = difference(selectedHash, existingHash);
     Sets.SetView<TagData> removed = difference(existingHash, selectedHash);
