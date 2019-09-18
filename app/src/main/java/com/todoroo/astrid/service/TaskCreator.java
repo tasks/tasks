@@ -98,7 +98,7 @@ public class TaskCreator {
           new GoogleTask(task.getId(), task.getTransitory(GoogleTask.KEY)),
           preferences.addGoogleTasksToTop());
     } else if (task.hasTransitory(CaldavTask.KEY)) {
-      caldavDao.insert(new CaldavTask(task.getId(), task.getTransitory(CaldavTask.KEY), newUUID()));
+      caldavDao.insert(new CaldavTask(task.getId(), task.getTransitory(CaldavTask.KEY)));
     } else {
       Filter remoteList = defaultFilterProvider.getDefaultRemoteList();
       if (remoteList instanceof GtasksFilter) {
@@ -107,7 +107,7 @@ public class TaskCreator {
             preferences.addGoogleTasksToTop());
       } else if (remoteList instanceof CaldavFilter) {
         caldavDao.insert(
-            new CaldavTask(task.getId(), ((CaldavFilter) remoteList).getUuid(), newUUID()));
+            new CaldavTask(task.getId(), ((CaldavFilter) remoteList).getUuid()));
       }
     }
 

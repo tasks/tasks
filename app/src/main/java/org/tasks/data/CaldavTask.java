@@ -1,5 +1,7 @@
 package org.tasks.data;
 
+import static com.todoroo.astrid.helper.UUIDHelper.newUUID;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -44,8 +46,11 @@ public class CaldavTask {
   public CaldavTask() {}
 
   @Ignore
-  public CaldavTask(long task, String account, String remoteId) {
-    this(task, account, remoteId, remoteId + ".ics");
+  public CaldavTask(long task, String calendar) {
+    this.task = task;
+    this.calendar = calendar;
+    this.remoteId = newUUID();
+    this.object = remoteId + ".ics";
   }
 
   @Ignore

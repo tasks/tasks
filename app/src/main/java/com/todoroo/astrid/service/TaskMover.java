@@ -13,7 +13,6 @@ import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.helper.UUIDHelper;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.data.CaldavDao;
@@ -123,7 +122,7 @@ public class TaskMover {
       caldavDao.insert(
           transform(
               concat(singletonList(id), transform(googleTaskChildren, GoogleTask::getTask)),
-              _id -> new CaldavTask(_id, listId, UUIDHelper.newUUID())));
+              _id -> new CaldavTask(_id, listId)));
     }
   }
 }
