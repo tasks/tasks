@@ -6,11 +6,10 @@
 
 package com.todoroo.astrid.tags;
 
-import static com.google.common.base.Predicates.notNull;
+import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 import static com.google.common.collect.Sets.difference;
-import static com.google.common.collect.Sets.filter;
 import static com.google.common.collect.Sets.newHashSet;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 
@@ -41,7 +40,6 @@ import com.google.android.material.chip.ChipGroup;
 import com.google.common.base.Strings;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Ordering;
-import com.google.common.collect.Sets;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.utility.Flags;
@@ -200,8 +198,8 @@ public final class TagsControlSet extends TaskEditControlFragment {
     }
   }
 
-  private boolean isSelected(List<TagData> selected, final String name) {
-    return Iterables.any(selected, input -> name.equalsIgnoreCase(input.getName()));
+  private boolean notSelected(List<TagData> selected, final String name) {
+    return !Iterables.any(selected, input -> name.equalsIgnoreCase(input.getName()));
   }
 
   private ArrayList<TagData> getSelectedTags() {
@@ -219,12 +217,12 @@ public final class TagsControlSet extends TaskEditControlFragment {
       }
       TagData tagByName = tagDataDao.getTagByName(text);
       if (tagByName != null) {
-        if (!isSelected(tags, text)) {
+        if (notSelected(tags, text)) {
           setTagSelected(tagByName, true);
           tags.add(tagByName);
         }
         newTagLayout.removeViewAt(i);
-      } else if (!isSelected(tags, text)) {
+      } else if (notSelected(tags, text)) {
         TagData newTag = new TagData();
         newTag.setName(text);
         tags.add(newTag);
@@ -374,12 +372,11 @@ public final class TagsControlSet extends TaskEditControlFragment {
         tagDataDao.createNew(tagData);
       }
     }
-    Set<TagData> existingHash = newHashSet(tagDataDao.getTagDataForTask(taskId));
-    Set<TagData> selectedHash = newHashSet(selectedTags);
-    Sets.SetView<TagData> added = difference(selectedHash, existingHash);
-    Sets.SetView<TagData> removed = difference(existingHash, selectedHash);
-    ArrayList<TagData> toRemove = newArrayList(filter(removed, notNull()));
-    tagDao.deleteTags(taskId, transform(toRemove, TagData::getRemoteId));
+    Set<TagData> existing = newHashSet(tagDataDao.getTagDataForTask(taskId));
+    Set<TagData> selected = newHashSet(selectedTags);
+    Set<TagData> added = difference(selected, existing);
+    Set<TagData> removed = difference(existing, selected);
+    tagDao.deleteTags(taskId, newArrayList(transform(removed, TagData::getRemoteId)));
     for (TagData tagData : added) {
       Tag newLink = new Tag(task, tagData);
       tagDao.insert(newLink);
