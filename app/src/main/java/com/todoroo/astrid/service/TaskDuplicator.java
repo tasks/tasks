@@ -70,7 +70,7 @@ public class TaskDuplicator {
 
     tagDao.insert(
         transform(
-            tags, tag -> new Tag(clone.getId(), clone.getUuid(), tag.getName(), tag.getTagUid())));
+            tags, tag -> new Tag(clone, tag.getName(), tag.getTagUid())));
 
     if (googleTask != null) {
       googleTaskDao.insertAndShift(

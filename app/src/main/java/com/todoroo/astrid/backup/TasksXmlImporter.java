@@ -262,7 +262,7 @@ public class TasksXmlImporter {
         String name = xml.readString("value");
         String tagUid = xml.readString("value2");
         if (tagDao.getTagByTaskAndTagUid(currentTask.getId(), tagUid) == null) {
-          tagDao.insert(new Tag(currentTask.getId(), currentTask.getUuid(), name, tagUid));
+          tagDao.insert(new Tag(currentTask, name, tagUid));
         }
         // Construct the TagData from Metadata
         // Fix for failed backup, Version before 4.6.10

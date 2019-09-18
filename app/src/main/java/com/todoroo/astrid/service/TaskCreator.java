@@ -201,8 +201,7 @@ public class TaskCreator {
         tagData.setName(tag);
         tagDataDao.createNew(tagData);
       }
-      Tag link = new Tag(task.getId(), task.getUuid(), tagData.getName(), tagData.getRemoteId());
-      tagDao.insert(link);
+      tagDao.insert(new Tag(task, tagData));
     }
   }
 }

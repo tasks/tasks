@@ -7,6 +7,7 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
+import com.todoroo.astrid.data.Task;
 import org.tasks.backup.XmlReader;
 
 @Entity(tableName = "tags")
@@ -38,9 +39,14 @@ public class Tag {
   public Tag() {}
 
   @Ignore
-  public Tag(long task, String taskUid, String name, String tagUid) {
-    this.task = task;
-    this.taskUid = taskUid;
+  public Tag(Task task, TagData tagData) {
+    this(task, tagData.getName(), tagData.getRemoteId());
+  }
+
+  @Ignore
+  public Tag(Task task, String name, String tagUid) {
+    this.task = task.getId();
+    this.taskUid = task.getUuid();
     this.name = name;
     this.tagUid = tagUid;
   }

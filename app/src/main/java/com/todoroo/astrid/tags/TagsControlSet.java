@@ -171,7 +171,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
 
   @Override
   public void apply(Task task) {
-    if (synchronizeTags(task.getId(), task.getUuid())) {
+    if (synchronizeTags(task)) {
       Flags.set(Flags.TAGS_CHANGED);
       task.setModificationDate(DateUtilities.now());
     }
@@ -367,7 +367,8 @@ public final class TagsControlSet extends TaskEditControlFragment {
     }
   }
 
-  private boolean synchronizeTags(long taskId, String taskUuid) {
+  private boolean synchronizeTags(Task task) {
+    long taskId = task.getId();
     for (TagData tagData : selectedTags) {
       if (Task.NO_UUID.equals(tagData.getRemoteId())) {
         tagDataDao.createNew(tagData);
@@ -380,7 +381,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
     ArrayList<TagData> toRemove = newArrayList(filter(removed, notNull()));
     tagDao.deleteTags(taskId, transform(toRemove, TagData::getRemoteId));
     for (TagData tagData : added) {
-      Tag newLink = new Tag(taskId, taskUuid, tagData.getName(), tagData.getRemoteId());
+      Tag newLink = new Tag(task, tagData);
       tagDao.insert(newLink);
     }
     return !removed.isEmpty() || !added.isEmpty();
