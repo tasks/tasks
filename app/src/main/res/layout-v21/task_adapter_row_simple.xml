@@ -3,7 +3,7 @@
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/row"
   android:layout_width="fill_parent"
@@ -21,4 +21,4 @@
     android:visibility="?attr/horizontal_divider"
     android:layout_gravity="bottom" />
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>
