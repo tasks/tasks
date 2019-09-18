@@ -40,6 +40,11 @@ public abstract class TagDataDao {
   @Query("DELETE FROM tagdata WHERE _id = :id")
   public abstract void delete(Long id);
 
+  @Query("SELECT tagdata.* FROM tagdata "
+      + "INNER JOIN tags ON tags.tag_uid = tagdata.remoteId "
+      + "WHERE tags.task = :id")
+  public abstract List<TagData> getTagDataForTask(long id);
+
   @Update
   public abstract void update(TagData tagData);
 

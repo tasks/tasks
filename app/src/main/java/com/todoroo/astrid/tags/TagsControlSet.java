@@ -112,7 +112,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
           new ArrayList<>(
               task.isNew()
                   ? transform(task.getTags(), tagDataDao::getTagByName)
-                  : getTagDataForTask(task.getId()));
+                  : tagDataDao.getTagDataForTask(task.getId()));
       selectedTags = new ArrayList<>(originalTags);
       newTags = new ArrayList<>();
     }
@@ -153,14 +153,6 @@ public final class TagsControlSet extends TaskEditControlFragment {
     }
     refreshDisplayView();
     return view;
-  }
-
-  private List<TagData> getTagDataForTask(String uuid) {
-    return transform(tagDao.getTagUids(uuid), tagDataDao::getByUuid);
-  }
-
-  private List<TagData> getTagDataForTask(long taskId) {
-    return transform(tagDao.getTagUids(taskId), tagDataDao::getByUuid);
   }
 
   @Override
@@ -381,7 +373,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
         tagDataDao.createNew(tagData);
       }
     }
-    Set<TagData> existingHash = newHashSet(getTagDataForTask(taskUuid));
+    Set<TagData> existingHash = newHashSet(tagDataDao.getTagDataForTask(taskId));
     Set<TagData> selectedHash = newHashSet(selectedTags);
     Sets.SetView<TagData> added = difference(selectedHash, existingHash);
     Sets.SetView<TagData> removed = difference(existingHash, selectedHash);

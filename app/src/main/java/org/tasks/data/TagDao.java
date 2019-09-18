@@ -26,12 +26,6 @@ public interface TagDao {
   @Query("SELECT name FROM tags WHERE task = :taskId ORDER BY UPPER(name) ASC")
   List<String> getTagNames(long taskId);
 
-  @Query("SELECT tag_uid FROM tags WHERE task = :taskId")
-  List<String> getTagUids(long taskId);
-
-  @Query("SELECT tag_uid FROM tags WHERE task_uid = :taskUid")
-  List<String> getTagUids(String taskUid);
-
   @Query("SELECT * FROM tags WHERE tag_uid = :tagUid")
   List<Tag> getByTagUid(String tagUid);
 
