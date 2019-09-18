@@ -38,6 +38,7 @@ import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import javax.inject.Inject;
@@ -55,6 +56,10 @@ import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.CaldavTask;
+import org.tasks.data.Tag;
+import org.tasks.data.TagDao;
+import org.tasks.data.TagData;
+import org.tasks.data.TagDataDao;
 import org.tasks.injection.ForApplication;
 import timber.log.Timber;
 
@@ -67,6 +72,8 @@ public class CaldavSynchronizer {
 
   private final CaldavDao caldavDao;
   private final TaskDao taskDao;
+  private final TagDataDao tagDataDao;
+  private final TagDao tagDao;
   private final LocalBroadcastManager localBroadcastManager;
   private final TaskCreator taskCreator;
   private final TaskDeleter taskDeleter;
@@ -80,6 +87,8 @@ public class CaldavSynchronizer {
       @ForApplication Context context,
       CaldavDao caldavDao,
       TaskDao taskDao,
+      TagDataDao tagDataDao,
+      TagDao tagDao,
       LocalBroadcastManager localBroadcastManager,
       TaskCreator taskCreator,
       TaskDeleter taskDeleter,
@@ -89,6 +98,8 @@ public class CaldavSynchronizer {
     this.context = context;
     this.caldavDao = caldavDao;
     this.taskDao = taskDao;
+    this.tagDataDao = tagDataDao;
+    this.tagDao = tagDao;
     this.localBroadcastManager = localBroadcastManager;
     this.taskCreator = taskCreator;
     this.taskDeleter = taskDeleter;
@@ -300,7 +311,9 @@ public class CaldavSynchronizer {
     }
 
     at.bitfire.ical4android.Task remoteModel = CaldavConverter.toCaldav(caldavTask, task);
-
+    LinkedList<String> categories = remoteModel.getCategories();
+    categories.clear();
+    categories.addAll(transform(tagDataDao.getTagDataForTask(task.getId()), TagData::getName));
     if (Strings.isNullOrEmpty(caldavTask.getRemoteId())) {
       String caldavUid = UUIDHelper.newUUID();
       caldavTask.setRemoteId(caldavUid);
@@ -353,6 +366,7 @@ public class CaldavSynchronizer {
         task = taskDao.fetch(caldavTask.getTask());
       }
       CaldavConverter.apply(task, remote);
+      applyCategories(task, remote.getCategories());
       task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
       taskDao.save(task);
       caldavTask.setVtodo(vtodo);
@@ -367,6 +381,27 @@ public class CaldavSynchronizer {
       }
     } else {
       Timber.e("Received VCALENDAR with %s VTODOs; ignoring %s", tasks.size(), fileName);
+    }
+  }
+
+  private void applyCategories(Task task, List<String> categories) {
+    long taskId = task.getId();
+    List<TagData> selectedTags = tagDataDao.getTags(categories);
+    Set<String> toCreate =
+        difference(newHashSet(categories), newHashSet(transform(selectedTags, TagData::getName)));
+    for (String name : toCreate) {
+      TagData tag = new TagData(name);
+      tagDataDao.createNew(tag);
+      selectedTags.add(tag);
+    }
+    Set<TagData> existing = newHashSet(tagDataDao.getTagDataForTask(taskId));
+    Set<TagData> selected = newHashSet(selectedTags);
+    Set<TagData> added = difference(selected, existing);
+    Set<TagData> removed = difference(existing, selected);
+    tagDao.deleteTags(taskId, newArrayList(Iterables.transform(removed, TagData::getRemoteId)));
+    for (TagData tagData : added) {
+      Tag newLink = new Tag(task, tagData);
+      tagDao.insert(newLink);
     }
   }
 }

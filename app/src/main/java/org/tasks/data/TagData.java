@@ -46,6 +46,11 @@ public final class TagData implements Parcelable {
   @ColumnInfo(name = "td_icon")
   private Integer icon = -1;
 
+  @Ignore
+  public TagData(String name) {
+    this.name = name;
+  }
+
   public TagData() {}
 
   @Ignore

@@ -42,8 +42,12 @@ public abstract class TagDataDao {
 
   @Query("SELECT tagdata.* FROM tagdata "
       + "INNER JOIN tags ON tags.tag_uid = tagdata.remoteId "
-      + "WHERE tags.task = :id")
+      + "WHERE tags.task = :id "
+      + "ORDER BY UPPER(tagdata.name) ASC")
   public abstract List<TagData> getTagDataForTask(long id);
+
+  @Query("SELECT * FROM tagdata WHERE name IN (:names)")
+  public abstract List<TagData> getTags(List<String> names);
 
   @Update
   public abstract void update(TagData tagData);

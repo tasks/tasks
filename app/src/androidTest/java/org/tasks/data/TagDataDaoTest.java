@@ -54,6 +54,21 @@ public class TagDataDaoTest extends InjectingTestCase {
   }
 
   @Test
+  public void getTagsByName() {
+    TagData tagData = newTagData(with(NAME, "Derp"));
+    tagDataDao.createNew(tagData);
+
+    assertEquals(singletonList(tagData), tagDataDao.getTags(singletonList("Derp")));
+  }
+
+  @Test
+  public void getTagsByNameCaseSensitive() {
+    tagDataDao.createNew(newTagData(with(NAME, "Derp")));
+
+    assertTrue(tagDataDao.getTags(singletonList("derp")).isEmpty());
+  }
+
+  @Test
   public void getTagDataForTask() {
     Task taskOne = newTask();
     Task taskTwo = newTask();
