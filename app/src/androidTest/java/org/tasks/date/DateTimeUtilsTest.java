@@ -5,7 +5,7 @@ import static org.tasks.Freeze.freezeAt;
 import static org.tasks.date.DateTimeUtils.newDateUtc;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import java.util.TimeZone;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -3,7 +3,7 @@ package org.tasks.repeats;
 import static androidx.test.InstrumentationRegistry.getTargetContext;
 import static junit.framework.Assert.assertEquals;
 
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import com.google.ical.values.RRule;
 import java.text.ParseException;
 import org.junit.Test;

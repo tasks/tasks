@@ -13,7 +13,7 @@ import static junit.framework.Assert.assertTrue;
 
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;

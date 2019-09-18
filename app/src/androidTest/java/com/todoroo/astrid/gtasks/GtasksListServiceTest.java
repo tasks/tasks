@@ -11,7 +11,7 @@ import static org.tasks.makers.GtaskListMaker.REMOTE_ID;
 import static org.tasks.makers.GtaskListMaker.newGtaskList;
 import static org.tasks.makers.RemoteGtaskListMaker.newRemoteList;
 
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import com.google.api.services.tasks.model.TaskList;
 import com.todoroo.astrid.service.TaskDeleter;
 import javax.inject.Inject;

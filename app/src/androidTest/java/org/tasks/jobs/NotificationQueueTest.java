@@ -15,7 +15,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.junit.After;

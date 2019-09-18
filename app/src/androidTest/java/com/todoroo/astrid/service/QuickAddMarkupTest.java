@@ -8,7 +8,7 @@ package com.todoroo.astrid.service;
 
 import static junit.framework.Assert.assertEquals;
 
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Task.Priority;
 import com.todoroo.astrid.tags.TagService;

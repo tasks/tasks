@@ -4,7 +4,7 @@ import static com.todoroo.astrid.repeats.RepeatTaskHelper.computeNextDueDate;
 import static java.util.Arrays.asList;
 import static junit.framework.Assert.assertEquals;
 
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.google.ical.values.Weekday;

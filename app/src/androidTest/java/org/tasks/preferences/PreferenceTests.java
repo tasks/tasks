@@ -5,7 +5,7 @@ import static junit.framework.Assert.assertEquals;
 import static org.tasks.injection.TestModule.newPreferences;
 
 import android.annotation.SuppressLint;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import java.util.concurrent.TimeUnit;
 import org.junit.Before;
 import org.junit.Test;

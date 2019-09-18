@@ -3,7 +3,7 @@ package org.tasks.caldav;
 import static junit.framework.Assert.assertTrue;
 import static org.tasks.TestUtilities.vtodo;
 
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import java.util.TimeZone;
 import org.junit.After;
 import org.junit.Before;

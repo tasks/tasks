@@ -9,7 +9,7 @@ package com.todoroo.astrid.repeats;
 import static junit.framework.Assert.assertEquals;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.google.ical.values.Weekday;

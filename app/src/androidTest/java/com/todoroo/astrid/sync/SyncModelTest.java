@@ -2,7 +2,7 @@ package com.todoroo.astrid.sync;
 
 import static junit.framework.Assert.assertFalse;
 
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import com.todoroo.astrid.data.Task;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -10,7 +10,7 @@ import static org.tasks.makers.TaskMaker.DUE_TIME;
 import static org.tasks.makers.TaskMaker.HIDE_TYPE;
 import static org.tasks.makers.TaskMaker.newTask;
 
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import com.todoroo.astrid.data.Task;
 import org.junit.Test;
 import org.junit.runner.RunWith;

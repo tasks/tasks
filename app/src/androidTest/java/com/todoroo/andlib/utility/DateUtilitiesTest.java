@@ -21,7 +21,7 @@ import static org.tasks.date.DateTimeUtils.newDateTime;
 
 import android.content.res.Configuration;
 import android.util.DisplayMetrics;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import java.util.Locale;
 import org.junit.After;
 import org.junit.Before;
