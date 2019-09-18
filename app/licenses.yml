@@ -586,11 +586,6 @@
   copyrightHolder: Square, Inc.
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-- artifact: com.squareup.okio:okio:+
-  name: Okio
-  copyrightHolder: Square, Inc.
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
 - artifact: com.squareup.retrofit2:retrofit:+
   name: Retrofit
   copyrightHolder: Square, Inc.
@@ -653,11 +648,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://github.com/JakeWharton/ProcessPhoenix/
-- artifact: com.squareup.okio:okio:+
-  name: Okio
-  copyrightHolder: Square, Inc.
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
 - artifact: io.grpc:grpc-context:+
   name: io.grpc:grpc-context
   copyrightHolder: The gRPC Authors

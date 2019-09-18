@@ -61,7 +61,7 @@
       "artifactId": {
         "name": "constraintlayout",
         "group": "androidx.constraintlayout",
-        "version": "2.0.0-beta1"
+        "version": "2.0.0-beta2"
       }
     },
     {
@@ -157,7 +157,7 @@
       "artifactId": {
         "name": "core",
         "group": "androidx.core",
-        "version": "1.1.0-rc02"
+        "version": "1.1.0-rc03"
       }
     },
     {
@@ -173,7 +173,7 @@
       "artifactId": {
         "name": "core-common",
         "group": "androidx.arch.core",
-        "version": "2.0.0"
+        "version": "2.1.0"
       }
     },
     {
@@ -285,7 +285,7 @@
       "artifactId": {
         "name": "lifecycle-runtime",
         "group": "androidx.lifecycle",
-        "version": "2.0.0"
+        "version": "2.1.0"
       }
     },
     {
@@ -365,7 +365,7 @@
       "artifactId": {
         "name": "lifecycle-livedata",
         "group": "androidx.lifecycle",
-        "version": "2.0.0"
+        "version": "2.1.0"
       }
     },
     {
@@ -509,7 +509,7 @@
       "artifactId": {
         "name": "lifecycle-viewmodel",
         "group": "androidx.lifecycle",
-        "version": "2.1.0-rc01"
+        "version": "2.1.0"
       }
     },
     {
@@ -717,7 +717,7 @@
       "artifactId": {
         "name": "lifecycle-livedata-core",
         "group": "androidx.lifecycle",
-        "version": "2.0.0"
+        "version": "2.1.0"
       }
     },
     {
@@ -829,7 +829,7 @@
       "artifactId": {
         "name": "lifecycle-extensions",
         "group": "androidx.lifecycle",
-        "version": "2.0.0"
+        "version": "2.1.0"
       }
     },
     {
@@ -877,7 +877,7 @@
       "artifactId": {
         "name": "core-runtime",
         "group": "androidx.arch.core",
-        "version": "2.0.1"
+        "version": "2.1.0"
       }
     },
     {
@@ -1053,7 +1053,7 @@
       "artifactId": {
         "name": "material",
         "group": "com.google.android.material",
-        "version": "1.1.0-alpha09"
+        "version": "1.1.0-alpha10"
       }
     },
     {
@@ -1165,7 +1165,7 @@
       "artifactId": {
         "name": "lifecycle-common",
         "group": "androidx.lifecycle",
-        "version": "2.0.0"
+        "version": "2.1.0"
       }
     },
     {
@@ -1261,7 +1261,7 @@
       "artifactId": {
         "name": "lifecycle-process",
         "group": "androidx.lifecycle",
-        "version": "2.0.0"
+        "version": "2.1.0"
       }
     },
     {
@@ -1277,7 +1277,7 @@
       "artifactId": {
         "name": "lifecycle-service",
         "group": "androidx.lifecycle",
-        "version": "2.0.0"
+        "version": "2.1.0"
       }
     },
     {
@@ -1469,7 +1469,7 @@
       "artifactId": {
         "name": "constraintlayout-solver",
         "group": "androidx.constraintlayout",
-        "version": "2.0.0-beta1"
+        "version": "2.0.0-beta2"
       }
     },
     {
@@ -1501,7 +1501,7 @@
       "artifactId": {
         "name": "kotlin-stdlib",
         "group": "org.jetbrains.kotlin",
-        "version": "1.3.41"
+        "version": "1.3.50"
       }
     },
     {
@@ -1533,7 +1533,7 @@
       "artifactId": {
         "name": "slf4j-jdk14",
         "group": "org.slf4j",
-        "version": "1.7.25"
+        "version": "1.7.26"
       }
     },
     {
@@ -1566,22 +1566,6 @@
         "name": "okhttp",
         "group": "com.squareup.okhttp3",
         "version": "3.12.3"
-      }
-    },
-    {
-      "notice": null,
-      "copyrightHolder": "Square, Inc.",
-      "copyrightStatement": "Copyright &copy; Square, Inc. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "year": null,
-      "url": "https://github.com/square/okio/",
-      "libraryName": "Okio",
-      "artifactId": {
-        "name": "okio",
-        "group": "com.squareup.okio",
-        "version": "2.3.0"
       }
     },
     {
@@ -1725,7 +1709,7 @@
       "artifactId": {
         "name": "kotlin-stdlib-jdk7",
         "group": "org.jetbrains.kotlin",
-        "version": "1.3.41"
+        "version": "1.3.50"
       }
     },
     {
@@ -1965,7 +1949,7 @@
       "artifactId": {
         "name": "viewpager2",
         "group": "androidx.viewpager2",
-        "version": "1.0.0-beta02"
+        "version": "1.0.0-beta03"
       }
     },
     {
