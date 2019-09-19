@@ -67,22 +67,23 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
+    @Suppress("LocalVariableName")
     buildTypes {
         getByName("debug") {
-            val tasksMapboxKeyDebug: String? by project
-            val tasksGoogleKeyDebug: String? by project
+            val tasks_mapbox_key_debug: String? by project
+            val tasks_google_key_debug: String? by project
 
             applicationIdSuffix = ".debug"
-            resValue("string", "mapbox_key", tasksMapboxKeyDebug ?: "")
-            resValue("string", "google_key", tasksGoogleKeyDebug ?: "")
+            resValue("string", "mapbox_key", tasks_mapbox_key_debug ?: "")
+            resValue("string", "google_key", tasks_google_key_debug ?: "")
             isTestCoverageEnabled = project.hasProperty("coverage")
         }
         getByName("release") {
-            val tasksMapboxKey: String? by project
-            val tasksGoogleKey: String? by project
+            val tasks_mapbox_key: String? by project
+            val tasks_google_key: String? by project
 
-            resValue("string", "mapbox_key", tasksMapboxKey ?: "")
-            resValue("string", "google_key", tasksGoogleKey ?: "")
+            resValue("string", "mapbox_key", tasks_mapbox_key ?: "")
+            resValue("string", "google_key", tasks_google_key ?: "")
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard.pro")
             signingConfig = signingConfigs.getByName("release")
