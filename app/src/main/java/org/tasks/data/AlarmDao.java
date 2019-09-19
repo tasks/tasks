@@ -29,4 +29,7 @@ public interface AlarmDao {
 
   @Insert
   long insert(Alarm alarm);
+
+  @Insert
+  void insert(Iterable<Alarm> alarms);
 }

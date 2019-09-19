@@ -18,7 +18,7 @@ public interface TagDao {
   void insert(Tag tag);
 
   @Insert
-  void insert(List<Tag> tags);
+  void insert(Iterable<Tag> tags);
 
   @Query("DELETE FROM tags WHERE task = :taskId AND tag_uid in (:tagUids)")
   void deleteTags(long taskId, List<String> tagUids);
