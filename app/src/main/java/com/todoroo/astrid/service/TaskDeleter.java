@@ -1,9 +1,9 @@
 package com.todoroo.astrid.service;
 
-import static com.google.common.collect.Lists.partition;
 import static com.todoroo.andlib.sql.Criterion.all;
 import static com.todoroo.astrid.dao.TaskDao.TaskCriteria.isVisible;
 import static com.todoroo.astrid.dao.TaskDao.TaskCriteria.notCompleted;
+import static org.tasks.db.DbUtils.batch;
 
 import com.google.common.collect.ImmutableList;
 import com.todoroo.astrid.api.Filter;
@@ -57,9 +57,7 @@ public class TaskDeleter {
 
   public List<Task> markDeleted(List<Long> taskIds) {
     Set<Long> ids = new HashSet<>(taskIds);
-    for (List<Long> partition : partition(taskIds, 999)) {
-      ids.addAll(googleTaskDao.getChildren(partition));
-    }
+    batch(taskIds, i -> ids.addAll(googleTaskDao.getChildren(i)));
     deletionDao.markDeleted(ids);
     workManager.cleanup(taskIds);
     workManager.sync(false);

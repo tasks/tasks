@@ -1,7 +1,6 @@
 package org.tasks.data;
 
-import static com.google.common.collect.Iterables.partition;
-import static com.todoroo.andlib.utility.DateUtilities.now;
+import static org.tasks.db.DbUtils.batch;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -36,24 +35,23 @@ public abstract class DeletionDao {
 
   @Transaction
   public void delete(List<Long> ids) {
-    for (List<Long> partition : partition(ids, 999)) {
-      deleteAlarms(partition);
-      deleteGeofences(partition);
-      deleteTags(partition);
-      deleteGoogleTasks(partition);
-      deleteCaldavTasks(partition);
-      deleteTasks(partition);
-    }
+    batch(ids, b -> {
+      deleteAlarms(b);
+      deleteGeofences(b);
+      deleteTags(b);
+      deleteGoogleTasks(b);
+      deleteCaldavTasks(b);
+      deleteTasks(b);
+    });
   }
 
-  @Query("UPDATE tasks SET modified = :timestamp, deleted = :timestamp WHERE _id IN(:ids)")
-  abstract void markDeleted(long timestamp, List<Long> ids);
+  @Query("UPDATE tasks "
+      + "SET modified = datetime('now', 'localtime'), deleted = datetime('now', 'localtime') "
+      + "WHERE _id IN(:ids)")
+  abstract void markDeletedInternal(List<Long> ids);
 
   public void markDeleted(Iterable<Long> ids) {
-    long now = now();
-    for (List<Long> partition : partition(ids, 997)) {
-      markDeleted(now, partition);
-    }
+    batch(ids, this::markDeletedInternal);
   }
 
   @Query("SELECT gt_task FROM google_tasks WHERE gt_deleted = 0 AND gt_list_id = :listId")
