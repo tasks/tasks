@@ -256,8 +256,8 @@ public class Upgrader {
   }
 
   private void removeDuplicateTagData(List<TagData> tagData) {
-    for (int i = 1; i < tagData.size(); i++) {
-      tagDataDao.delete(tagData.get(i).getId());
+    if (tagData.size() > 1) {
+      tagDataDao.delete(tagData.subList(1, tagData.size()));
     }
   }
 
@@ -265,9 +265,9 @@ public class Upgrader {
     List<Tag> metadatas = tagDao.getByTagUid(uuid);
     ImmutableListMultimap<Long, Tag> metadataByTask = Multimaps.index(metadatas, Tag::getTask);
     for (Long key : metadataByTask.keySet()) {
-      ImmutableList<Tag> tagData = metadataByTask.get(key);
-      for (int i = 1; i < tagData.size(); i++) {
-        tagDao.deleteById(tagData.get(i).getId());
+      ImmutableList<Tag> tags = metadataByTask.get(key);
+      if (tags.size() > 1) {
+        tagDao.delete(tags.subList(1, tags.size()));
       }
     }
   }

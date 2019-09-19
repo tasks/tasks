@@ -166,8 +166,7 @@ public class TagSettingsActivity extends BaseListSettingsActivity {
   protected void delete() {
     if (tagData != null) {
       String uuid = tagData.getRemoteId();
-      tagDao.deleteTag(uuid);
-      tagDataDao.delete(tagData.getId());
+      tagDataDao.delete(tagData);
       setResult(
           RESULT_OK,
           new Intent(TaskListFragment.ACTION_DELETED).putExtra(EXTRA_TAG_UUID, uuid));

@@ -6,6 +6,7 @@ import static com.google.common.collect.Sets.difference;
 import static com.google.common.collect.Sets.newHashSet;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Transaction;
@@ -19,9 +20,6 @@ public abstract class TagDao {
 
   @Query("UPDATE tags SET name = :name WHERE tag_uid = :tagUid")
   public abstract void rename(String tagUid, String name);
-
-  @Query("DELETE FROM tags WHERE tag_uid = :tagUid")
-  public abstract void deleteTag(String tagUid);
 
   @Insert
   public abstract void insert(Tag tag);
@@ -44,8 +42,8 @@ public abstract class TagDao {
   @Query("SELECT * FROM tags WHERE task = :taskId AND tag_uid = :tagUid")
   public abstract Tag getTagByTaskAndTagUid(long taskId, String tagUid);
 
-  @Query("DELETE FROM tags WHERE _id = :id")
-  public abstract void deleteById(long id);
+  @Delete
+  public abstract void delete(List<Tag> tags);
 
   @Transaction
   public boolean applyTags(Task task, TagDataDao tagDataDao,List<TagData> current) {

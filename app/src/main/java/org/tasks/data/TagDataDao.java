@@ -2,8 +2,10 @@ package org.tasks.data;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.Update;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.UUIDHelper;
@@ -37,8 +39,20 @@ public abstract class TagDataDao {
   @Query("SELECT * FROM tagdata WHERE name IS NOT NULL AND name != '' ORDER BY UPPER(name) ASC")
   public abstract List<TagData> tagDataOrderedByName();
 
-  @Query("DELETE FROM tagdata WHERE _id = :id")
-  public abstract void delete(Long id);
+  @Delete
+  abstract void deleteTagData(TagData tagData);
+
+  @Query("DELETE FROM tags WHERE tag_uid = :tagUid")
+  abstract void deleteTags(String tagUid);
+
+  @Transaction
+  public void delete(TagData tagData) {
+    deleteTags(tagData.getRemoteId());
+    deleteTagData(tagData);
+  }
+
+  @Delete
+  public abstract void delete(List<TagData> tagData);
 
   @Query("SELECT tagdata.* FROM tagdata "
       + "INNER JOIN tags ON tags.tag_uid = tagdata.remoteId "
