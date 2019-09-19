@@ -15,6 +15,8 @@ import static org.tasks.dialogs.AddAttachmentDialog.newAddAttachmentDialog;
 import static org.tasks.files.FileHelper.copyToUri;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipData.Item;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -116,7 +118,15 @@ public class FilesControlSet extends TaskEditControlFragment {
       }
     } else if (requestCode == REQUEST_STORAGE || requestCode == REQUEST_GALLERY) {
       if (resultCode == RESULT_OK) {
-        copyToAttachmentDirectory(data.getData());
+        ClipData clip = data.getClipData();
+        if (clip != null) {
+          for (int i = 0; i < clip.getItemCount(); i++) {
+            Item item = clip.getItemAt(i);
+            copyToAttachmentDirectory(item.getUri());
+          }
+        } else {
+          copyToAttachmentDirectory(data.getData());
+        }
       }
     } else {
       super.onActivityResult(requestCode, resultCode, data);
