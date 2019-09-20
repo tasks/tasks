@@ -1,6 +1,21 @@
 Change Log
 ---
-### 6.8.1 (unreleased)
+### 6.9 (unreleased)
+
+* Synchronize tags with CalDAV
+* Target Android 10
+* Bug fixes
+* Update translations
+  * Russian - @mcvaw, @leela52452
+  * Slovenian - @leela52452
+  * Finnish - @leela52452
+  * Polish - @leela52452
+  * Ukrainian - @leela52452
+  * Dutch - rvdbrnk, @fvbommel
+  * Hebrew - @yarons
+  * Chinese - @sr093906
+
+### 6.8.1 (2019-08-05)
 
 * Fix CalDAV filter migration
 * Fix native date picker crash
