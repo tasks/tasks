@@ -18,8 +18,8 @@ import timber.log.Timber;
 @Entity(tableName = "userActivity")
 public class UserActivity implements Parcelable {
 
-  public static final Creator<UserActivity> CREATOR =
-      new Creator<UserActivity>() {
+  public static final Parcelable.Creator<UserActivity> CREATOR =
+      new Parcelable.Creator<UserActivity>() {
         @Override
         public UserActivity createFromParcel(Parcel source) {
           return new UserActivity(source);

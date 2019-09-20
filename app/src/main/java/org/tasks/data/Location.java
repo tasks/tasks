@@ -8,8 +8,8 @@ import java.io.Serializable;
 
 public class Location implements Serializable, Parcelable {
 
-  public static final Creator<Location> CREATOR =
-      new Creator<Location>() {
+  public static final Parcelable.Creator<Location> CREATOR =
+      new Parcelable.Creator<Location>() {
         @Override
         public Location createFromParcel(Parcel in) {
           return new Location(in);

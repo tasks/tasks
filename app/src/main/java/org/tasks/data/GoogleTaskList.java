@@ -11,8 +11,8 @@ import org.tasks.themes.CustomIcons;
 @Entity(tableName = "google_task_lists")
 public class GoogleTaskList implements Parcelable {
 
-  public static Creator<GoogleTaskList> CREATOR =
-      new Creator<GoogleTaskList>() {
+  public static final Parcelable.Creator<GoogleTaskList> CREATOR =
+      new Parcelable.Creator<GoogleTaskList>() {
         @Override
         public GoogleTaskList createFromParcel(Parcel parcel) {
           return new GoogleTaskList(parcel);

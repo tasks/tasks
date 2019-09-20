@@ -13,7 +13,7 @@ import org.tasks.themes.CustomIcons;
 @Entity(tableName = "caldav_lists")
 public final class CaldavCalendar implements Parcelable {
 
-  public static Parcelable.Creator<CaldavCalendar> CREATOR =
+  public static final Parcelable.Creator<CaldavCalendar> CREATOR =
       new Parcelable.Creator<CaldavCalendar>() {
         @Override
         public CaldavCalendar createFromParcel(Parcel source) {

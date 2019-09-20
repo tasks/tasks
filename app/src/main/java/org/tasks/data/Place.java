@@ -27,8 +27,8 @@ public class Place implements Serializable, Parcelable {
   public static final String TABLE_NAME = "places";
   public static final Table TABLE = new Table(TABLE_NAME);
 
-  public static final Creator<Place> CREATOR =
-      new Creator<Place>() {
+  public static final Parcelable.Creator<Place> CREATOR =
+      new Parcelable.Creator<Place>() {
         @Override
         public Place createFromParcel(Parcel source) {
           return new Place(source);

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Parcel;
+import android.os.Parcelable;
 import android.view.ContextThemeWrapper;
 import androidx.appcompat.app.AppCompatDelegate;
 import org.tasks.R;
@@ -15,8 +16,8 @@ public class ThemeBase implements ColorPickerDialog.Pickable {
       new int[] {
         R.style.Tasks, R.style.ThemeBlack, R.style.Tasks, R.style.Wallpaper, R.style.Tasks
       };
-  public static Creator<ThemeBase> CREATOR =
-      new Creator<ThemeBase>() {
+  public static final Parcelable.Creator<ThemeBase> CREATOR =
+      new Parcelable.Creator<ThemeBase>() {
         @Override
         public ThemeBase createFromParcel(Parcel source) {
           return new ThemeBase(source);

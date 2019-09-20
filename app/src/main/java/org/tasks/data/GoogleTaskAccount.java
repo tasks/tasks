@@ -9,8 +9,8 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "google_task_accounts")
 public class GoogleTaskAccount implements Parcelable {
-  public static final Creator<GoogleTaskAccount> CREATOR =
-      new Creator<GoogleTaskAccount>() {
+  public static final Parcelable.Creator<GoogleTaskAccount> CREATOR =
+      new Parcelable.Creator<GoogleTaskAccount>() {
         @Override
         public GoogleTaskAccount createFromParcel(Parcel source) {
           return new GoogleTaskAccount(source);

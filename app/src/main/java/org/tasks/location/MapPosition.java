@@ -5,8 +5,8 @@ import android.os.Parcelable;
 
 public class MapPosition implements Parcelable {
 
-  public static final Creator<MapPosition> CREATOR =
-      new Creator<MapPosition>() {
+  public static final Parcelable.Creator<MapPosition> CREATOR =
+      new Parcelable.Creator<MapPosition>() {
         @Override
         public MapPosition createFromParcel(Parcel in) {
           return new MapPosition(in);

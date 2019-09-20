@@ -9,6 +9,7 @@ import android.app.ActivityManager;
 import android.content.res.Resources;
 import android.os.Build.VERSION_CODES;
 import android.os.Parcel;
+import android.os.Parcelable;
 import android.view.View;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.Toolbar;
@@ -92,8 +93,8 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
         R.style.White
       };
 
-  public static Creator<ThemeColor> CREATOR =
-      new Creator<ThemeColor>() {
+  public static final Parcelable.Creator<ThemeColor> CREATOR =
+      new Parcelable.Creator<ThemeColor>() {
         @Override
         public ThemeColor createFromParcel(Parcel source) {
           return new ThemeColor(source);

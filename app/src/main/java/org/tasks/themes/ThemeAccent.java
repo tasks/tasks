@@ -2,6 +2,7 @@ package org.tasks.themes;
 
 import android.content.res.Resources;
 import android.os.Parcel;
+import android.os.Parcelable;
 import org.tasks.R;
 import org.tasks.dialogs.ColorPickerDialog;
 
@@ -27,8 +28,8 @@ public class ThemeAccent implements ColorPickerDialog.Pickable {
         R.style.OrangeAccent,
         R.style.DeepOrangeAccent
       };
-  public static Creator<ThemeAccent> CREATOR =
-      new Creator<ThemeAccent>() {
+  public static final Parcelable.Creator<ThemeAccent> CREATOR =
+      new Parcelable.Creator<ThemeAccent>() {
         @Override
         public ThemeAccent createFromParcel(Parcel source) {
           return new ThemeAccent(source);

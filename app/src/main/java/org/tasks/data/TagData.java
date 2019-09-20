@@ -14,8 +14,8 @@ import org.tasks.themes.CustomIcons;
 @Entity(tableName = "tagdata")
 public final class TagData implements Parcelable {
 
-  public static final Creator<TagData> CREATOR =
-      new Creator<TagData>() {
+  public static final Parcelable.Creator<TagData> CREATOR =
+      new Parcelable.Creator<TagData>() {
         @Override
         public TagData createFromParcel(Parcel source) {
           return new TagData(source);

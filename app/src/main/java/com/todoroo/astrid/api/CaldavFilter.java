@@ -1,6 +1,7 @@
 package com.todoroo.astrid.api;
 
 import android.os.Parcel;
+import android.os.Parcelable;
 import androidx.annotation.NonNull;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
@@ -17,8 +18,8 @@ import org.tasks.data.CaldavTask;
 public class CaldavFilter extends Filter {
 
   /** Parcelable Creator Object */
-  public static final Creator<CaldavFilter> CREATOR =
-      new Creator<CaldavFilter>() {
+  public static final Parcelable.Creator<CaldavFilter> CREATOR =
+      new Parcelable.Creator<CaldavFilter>() {
 
         /** {@inheritDoc} */
         @Override

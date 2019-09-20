@@ -13,7 +13,7 @@ import org.tasks.security.Encryption;
 @Entity(tableName = "caldav_accounts")
 public class CaldavAccount implements Parcelable {
 
-  public static Parcelable.Creator<CaldavAccount> CREATOR =
+  public static final Parcelable.Creator<CaldavAccount> CREATOR =
       new Parcelable.Creator<CaldavAccount>() {
 
         @Override

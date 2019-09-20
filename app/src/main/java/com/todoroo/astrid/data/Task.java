@@ -100,8 +100,8 @@ public class Task implements Parcelable {
   /** reminder mode five times (exclusive with non-stop) */
   public static final int NOTIFY_MODE_FIVE = 1 << 4;
 
-  public static final Creator<Task> CREATOR =
-      new Creator<Task>() {
+  public static final Parcelable.Creator<Task> CREATOR =
+      new Parcelable.Creator<Task>() {
         @Override
         public Task createFromParcel(Parcel source) {
           return new Task(source);
