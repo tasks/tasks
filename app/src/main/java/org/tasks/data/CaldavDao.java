@@ -67,7 +67,7 @@ public interface CaldavDao {
   @Query(
       "SELECT task.*, caldav_task.* FROM tasks AS task "
           + "INNER JOIN caldav_tasks AS caldav_task ON _id = cd_task "
-          + "WHERE cd_deleted = 0")
+          + "WHERE cd_deleted = 0 AND cd_vtodo NOT NULL AND cd_vtodo != ''")
   List<CaldavTaskContainer> getTasks();
 
   @Query("SELECT * FROM caldav_lists ORDER BY cdl_name COLLATE NOCASE")
