@@ -353,12 +353,8 @@ public class GoogleTaskSynchronizer {
       com.google.api.services.tasks.model.Task created;
       try {
         created = gtasksInvoker.createGtask(listId, remoteModel, localParent, previous);
-      } catch (GoogleJsonResponseException e) {
-        if (e.getStatusCode() == 404) {
-          created = gtasksInvoker.createGtask(listId, remoteModel, null, null);
-        } else {
-          throw e;
-        }
+      } catch (HttpNotFoundException e) {
+        created = gtasksInvoker.createGtask(listId, remoteModel, null, null);
       }
 
       if (created != null) {
