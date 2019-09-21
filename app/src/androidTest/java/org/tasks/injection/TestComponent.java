@@ -13,6 +13,7 @@ import com.todoroo.astrid.subtasks.SubtasksHelperTest;
 import com.todoroo.astrid.subtasks.SubtasksMovingTest;
 import com.todoroo.astrid.sync.NewSyncTestCase;
 import dagger.Component;
+import org.tasks.data.CaldavDaoTests;
 import org.tasks.data.DeletionDaoTests;
 import org.tasks.data.GoogleTaskDaoTests;
 import org.tasks.data.TagDataDaoTest;
@@ -53,4 +54,6 @@ public interface TestComponent extends ApplicationComponent {
   void inject(GoogleTaskDaoTests googleTaskDaoTests);
 
   void inject(TagDataDaoTest tagDataDaoTest);
+
+  void inject(CaldavDaoTests caldavDaoTests);
 }

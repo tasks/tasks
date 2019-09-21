@@ -17,9 +17,11 @@ import com.todoroo.astrid.data.Task;
 import javax.inject.Inject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.tasks.injection.InjectingTestCase;
+import org.tasks.injection.TestComponent;
 
 @RunWith(AndroidJUnit4.class)
-public class CaldavDaoTests {
+public class CaldavDaoTests extends InjectingTestCase {
   @Inject TaskDao taskDao;
   @Inject TagDao tagDao;
   @Inject TagDataDao tagDataDao;
@@ -59,5 +61,10 @@ public class CaldavDaoTests {
     caldavDao.insert(new CaldavTask(task.getId(), "calendar"));
 
     assertTrue(caldavDao.getTasksWithTags().isEmpty());
+  }
+
+  @Override
+  protected void inject(TestComponent component) {
+    component.inject(this);
   }
 }

@@ -3,8 +3,9 @@ sudo: required
 jdk: oraclejdk8
 env:
   global:
-    - TARGET_API=28
-    - BUILD_TOOLS=28.0.3
+    - TARGET_API=29
+    - BUILD_TOOLS=29.0.2
+    - ADB_INSTALL_TIMEOUT=10
   matrix:
     - EMULATOR_API=21 ANDROID_ABI=armeabi-v7a
 android:
@@ -12,7 +13,6 @@ android:
     - tools # https://github.com/travis-ci/travis-ci/issues/5049
     - tools # https://github.com/travis-ci/travis-ci/issues/6040
     - android-$TARGET_API
-    - android-27 # dav4android, ical4android
     - android-$EMULATOR_API
     - sys-img-$ANDROID_ABI-android-$EMULATOR_API
     - platform-tools
@@ -21,6 +21,7 @@ android:
     - extra-google-m2repository
 
 before_install:
+  - yes | sdkmanager "platforms;android-28" # ical4android
   - echo no | android create avd --force -n test -t android-$EMULATOR_API --abi $ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
   - ./.wait_for_emulator.sh
