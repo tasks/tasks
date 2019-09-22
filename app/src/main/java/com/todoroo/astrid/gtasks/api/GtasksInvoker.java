@@ -113,7 +113,7 @@ public class GtasksInvoker {
             .setShowDeleted(false)
             .setShowHidden(true)
             .setPageToken(pageToken)
-            .setFields("items(id,parent,position)"));
+            .setFields("items(id,parent,position),nextPageToken"));
   }
 
   public @Nullable Task createGtask(
