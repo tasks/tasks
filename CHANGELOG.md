@@ -1,6 +1,6 @@
 Change Log
 ---
-### 6.9 (unreleased)
+### 6.9 (2019-09-23)
 
 * Synchronize tags with CalDAV
 * Target Android 10

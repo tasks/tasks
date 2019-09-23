@@ -86,7 +86,7 @@ public abstract class TaskDao {
 
   @Query(
       "SELECT * FROM tasks WHERE remoteId IN (:remoteIds) "
-          + "AND recurrence NOT NULL AND LENGTH(recurrence) > 0")
+          + "AND recurrence IS NOT NULL AND LENGTH(recurrence) > 0")
   public abstract List<Task> getRecurringTasks(List<String> remoteIds);
 
   @Query("UPDATE tasks SET completed = :completionDate " + "WHERE remoteId = :remoteId")
@@ -120,20 +120,20 @@ public abstract class TaskDao {
   @Query("SELECT * FROM tasks")
   public abstract List<Task> getAll();
 
-  @Query("SELECT calendarUri FROM tasks " + "WHERE calendarUri NOT NULL AND calendarUri != ''")
+  @Query("SELECT calendarUri FROM tasks " + "WHERE calendarUri IS NOT NULL AND calendarUri != ''")
   public abstract List<String> getAllCalendarEvents();
 
-  @Query("UPDATE tasks SET calendarUri = '' " + "WHERE calendarUri NOT NULL AND calendarUri != ''")
+  @Query("UPDATE tasks SET calendarUri = '' " + "WHERE calendarUri IS NOT NULL AND calendarUri != ''")
   public abstract int clearAllCalendarEvents();
 
   @Query(
       "SELECT calendarUri FROM tasks "
-          + "WHERE completed > 0 AND calendarUri NOT NULL AND calendarUri != ''")
+          + "WHERE completed > 0 AND calendarUri IS NOT NULL AND calendarUri != ''")
   public abstract List<String> getCompletedCalendarEvents();
 
   @Query(
       "UPDATE tasks SET calendarUri = '' "
-          + "WHERE completed > 0 AND calendarUri NOT NULL AND calendarUri != ''")
+          + "WHERE completed > 0 AND calendarUri IS NOT NULL AND calendarUri != ''")
   public abstract int clearCompletedCalendarEvents();
 
   @RawQuery
