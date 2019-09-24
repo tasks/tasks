@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
-<resources>
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos--><resources>
     <string name="actfm_picture_clear">取消选择</string>
     <string name="TVA_add_comment">添加一个注释…</string>
     <string name="name">名称</string>
@@ -12,7 +11,7 @@
     <string name="export_toast_no_tasks">没有要导出的任务。</string>
     <string name="import_summary_title">还原摘要</string>
     <string name="import_summary_message">文件 %1$s 包含 %2$s 个任务。\n\n %3$s 个已导入,\n %4$s 个已存在\n %5$s 个存在错误\n</string>
-    <string name="import_progress_read">读取任务 %d...</string>
+    <string name="import_progress_read">读取任务中 %d…</string>
     <string name="read_permission_label">清单小助理权限</string>
     <string name="discard_confirmation">确定放弃你的改变吗？</string>
     <string name="keep_editing">继续编辑</string>
