@@ -120,20 +120,14 @@ public class CaldavConverter {
     remote.setSummary(task.getTitle());
     remote.setDescription(task.getNotes());
     if (task.hasDueDate()) {
+      long utcMillis = new org.tasks.time.DateTime(task.getDueDate()).toUTC().getMillis();
       if (task.hasDueTime()) {
-        remote.setDue(new Due(new DateTime(task.getDueDate())));
+        DateTime dateTime = new DateTime(utcMillis);
+        dateTime.setUtc(true);
+        remote.setDue(new Due(dateTime));
       } else {
-        try {
-          remote.setDue(new Due(newDateTime(task.getDueDate()).toString("yyyyMMdd")));
-        } catch (ParseException e) {
-          Timber.e(e);
-        }
+        remote.setDue(new Due(new Date(utcMillis)));
       }
-      remote.setDue(
-          new Due(
-              task.hasDueTime()
-                  ? new DateTime(task.getDueDate())
-                  : new Date(new org.tasks.time.DateTime(task.getDueDate()).toUTC().getMillis())));
     } else {
       remote.setDue(null);
     }
