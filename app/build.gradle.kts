@@ -11,9 +11,6 @@ plugins {
 repositories {
     jcenter()
     google()
-
-    // TODO: Remove once this is on official JCenter.
-    maven(url = "https://dl.bintray.com/facebook/maven/")
 }
 
 android {
@@ -149,8 +146,9 @@ dependencies {
     annotationProcessor("com.jakewharton:butterknife-compiler:${Versions.butterknife}")
     implementation("com.jakewharton:butterknife:${Versions.butterknife}")
 
-    debugImplementation("com.facebook.flipper:flipper:0.23.7")
-    debugImplementation("com.facebook.soloader:soloader:0.6.1")
+    debugImplementation("com.facebook.flipper:flipper:${Versions.flipper}")
+    debugImplementation("com.facebook.flipper:flipper-network-plugin:${Versions.flipper}")
+    debugImplementation("com.facebook.soloader:soloader:0.8.0")
 
     debugImplementation("com.squareup.leakcanary:leakcanary-android:${Versions.leakcanary}")
     debugImplementation("com.squareup.leakcanary:leakcanary-support-fragment:${Versions.leakcanary}")
