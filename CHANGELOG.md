@@ -1,5 +1,11 @@
 Change Log
 ---
+### 6.9.1 (2019-10-09)
+
+* Fix location reminders on Android 10
+* Fix CalDAV time zone issue
+* Update Simplified Chinese translations - @sr093906
+
 ### 6.9 (2019-09-23)
 
 * Synchronize tags with CalDAV

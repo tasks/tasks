@@ -15,7 +15,7 @@ public class FragmentPermissionRequestor extends PermissionRequestor {
   }
 
   @Override
-  protected void requestPermissions(String[] permissions, int rc) {
+  protected void requestPermissions(int rc, String... permissions) {
     fragment.requestPermissions(permissions, rc);
   }
 }

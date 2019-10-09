@@ -16,7 +16,7 @@ public class ActivityPermissionRequestor extends PermissionRequestor {
   }
 
   @Override
-  protected void requestPermissions(String[] permissions, int rc) {
+  protected void requestPermissions(int rc, String... permissions) {
     ActivityCompat.requestPermissions(activity, permissions, rc);
   }
 }

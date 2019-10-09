@@ -1,6 +1,8 @@
 package org.tasks.preferences;
 
-import android.Manifest;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastQ;
+
+import android.Manifest.permission;
 
 public abstract class PermissionRequestor {
 
@@ -17,7 +19,7 @@ public abstract class PermissionRequestor {
 
   public void requestMic() {
     if (!permissionChecker.canAccessMic()) {
-      requestPermission(Manifest.permission.RECORD_AUDIO, REQUEST_MIC);
+      requestPermissions(REQUEST_MIC, permission.RECORD_AUDIO);
     }
   }
 
@@ -29,9 +31,7 @@ public abstract class PermissionRequestor {
     if (permissionChecker.canAccessCalendars()) {
       return true;
     }
-    requestPermissions(
-        new String[] {Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR},
-        requestCode);
+    requestPermissions(requestCode, permission.READ_CALENDAR, permission.WRITE_CALENDAR);
     return false;
   }
 
@@ -39,7 +39,7 @@ public abstract class PermissionRequestor {
     if (permissionChecker.canAccessAccounts()) {
       return true;
     }
-    requestPermission(Manifest.permission.GET_ACCOUNTS, REQUEST_GOOGLE_ACCOUNTS);
+    requestPermissions(REQUEST_GOOGLE_ACCOUNTS, permission.GET_ACCOUNTS);
     return false;
   }
 
@@ -47,13 +47,14 @@ public abstract class PermissionRequestor {
     if (permissionChecker.canAccessLocation()) {
       return true;
     }
-    requestPermission(Manifest.permission.ACCESS_FINE_LOCATION, REQUEST_LOCATION);
+    if (atLeastQ()) {
+      requestPermissions(
+          REQUEST_LOCATION, permission.ACCESS_FINE_LOCATION, permission.ACCESS_BACKGROUND_LOCATION);
+    } else {
+      requestPermissions(REQUEST_LOCATION, permission.ACCESS_FINE_LOCATION);
+    }
     return false;
   }
 
-  private void requestPermission(String permission, int rc) {
-    requestPermissions(new String[] {permission}, rc);
-  }
-
-  protected abstract void requestPermissions(String[] permissions, int requestCode);
+  protected abstract void requestPermissions(int requestCode, String... permissions);
 }
