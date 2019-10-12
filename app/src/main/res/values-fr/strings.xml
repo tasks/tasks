@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
-<resources>
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos--><resources>
     <string name="actfm_picture_clear">Supprimer l\'image</string>
     <string name="TVA_add_comment">Ajouter un commentaire…</string>
     <string name="name">Nom</string>
@@ -457,7 +456,7 @@
     <string name="caldav_home_set_not_found">Ensemble d\'accueil non trouvé</string>
     <string name="network_error">Connexion échouée</string>
     <string name="background_sync_unmetered_only">Uniquement sur les connexions illimitées</string>
-  <string name="upgrade_to_pro">Passer en pro</string>
+    <string name="upgrade_to_pro">Passer en pro</string>
     <string name="manage_subscription">Gérer les abonnements</string>
     <string name="refresh_purchases">Rafraîchir les achats</string>
     <string name="button_subscribe">S\'abonner</string>
@@ -466,8 +465,8 @@
 est configuré correctement</string>
     <string name="error_billing_default">Achat indisponible. Veuillez vérifier votre appareil.</string>
     <string name="about">À propos</string>
-    <string name="license_summary">Tasks est un logiciel libre et open-source, licencié selon le GNU General Public License v3.0</string>
-    <string name="themes">Thèmes additionnels</string>
+    <string name="license_summary">Tâches est un logiciel libre et open-source, licencié selon le GNU General Public License v3.0</string>
+    <string name="themes">Thèmes et icônes additionnels</string>
     <string name="pro_caldav_sync">Synchronisation de CalDAV</string>
     <string name="pro_multiple_google_task_accounts">Plusieurs comptes Google Task</string>
     <string name="pro_google_places_search">Recherche avec Google Places</string>
@@ -528,4 +527,15 @@ est configuré correctement</string>
     <string name="badges">Badges</string>
     <string name="list_separator_with_space">", "</string>
     <string name="version_string">Version %s</string>
+    <string name="icon">Icône</string>
+    <string name="pro_support_development">Tâches à besoin de votre soutien !</string>
+    <string name="manage_subscription_summary">Augmentez, diminuez ou annulez votre abonnement</string>
+    <string name="button_current_subscription">Abonnement actuel</string>
+    <string name="button_restore_subscription">Restaurer l\'abonnement</string>
+    <string name="button_downgrade">Diminuer l\'abonnement</string>
+    <string name="button_upgrade">Augmenter l\'abonnement</string>
+    <string name="button_unsubscribe">Annuler l\'abonnement</string>
+    <string name="name_your_price">Donnez votre prix</string>
+    <string name="monthly">Chaque mois</string>
+    <string name="annually">Chaque année</string>
 </resources>
