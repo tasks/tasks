@@ -305,6 +305,16 @@ public class Migrations {
         }
       };
 
+  private static final Migration MIGRATION_64_65 =
+      new Migration(64, 65) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+          database.execSQL(
+              "ALTER TABLE `caldav_tasks` ADD COLUMN `cd_parent` INTEGER NOT NULL DEFAULT 0");
+          database.execSQL("ALTER TABLE `caldav_tasks` ADD COLUMN `cd_remote_parent` TEXT");
+        }
+      };
+
   public static final Migration[] MIGRATIONS =
       new Migration[] {
         MIGRATION_35_36,
@@ -326,7 +336,8 @@ public class Migrations {
         MIGRATION_60_61,
         MIGRATION_61_62,
         MIGRATION_62_63,
-        MIGRATION_63_64
+        MIGRATION_63_64,
+        MIGRATION_64_65
       };
 
   private static Migration NOOP(int from, int to) {
