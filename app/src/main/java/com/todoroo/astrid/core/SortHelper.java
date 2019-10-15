@@ -49,24 +49,31 @@ public class SortHelper {
       originalSql += " ORDER BY " + order;
     }
 
+    return adjustQueryForFlags(preferences, originalSql);
+  }
+
+  public static String adjustQueryForFlags(
+          Preferences preferences, String originalSql) {
+    String adjustedSql = originalSql;
+
     // flags
     if (preferences.getBoolean(R.string.p_show_completed_tasks, false)) {
-      originalSql =
-          originalSql.replace(Task.COMPLETION_DATE.eq(0).toString(), Criterion.all.toString());
+      adjustedSql =
+          adjustedSql.replace(Task.COMPLETION_DATE.eq(0).toString(), Criterion.all.toString());
     } else {
-      originalSql =
-          originalSql.replace(
-              Task.COMPLETION_DATE.eq(0).toString(),
-              Criterion.or(
-                      Task.COMPLETION_DATE.lte(0),
-                      Task.COMPLETION_DATE.gt(DateUtilities.now() - 60000))
-                  .toString());
+      adjustedSql =
+              adjustedSql.replace(
+                      Task.COMPLETION_DATE.eq(0).toString(),
+                      Criterion.or(
+                              Task.COMPLETION_DATE.lte(0),
+                              Task.COMPLETION_DATE.gt(DateUtilities.now() - 60000))
+                              .toString());
     }
     if (preferences.getBoolean(R.string.p_show_hidden_tasks, false)) {
-      originalSql = originalSql.replace(isVisible().toString(), Criterion.all.toString());
+      adjustedSql = adjustedSql.replace(isVisible().toString(), Criterion.all.toString());
     }
 
-    return originalSql;
+    return adjustedSql;
   }
 
   private static Order orderForSortType(int sortType) {
@@ -110,4 +117,70 @@ public class SortHelper {
 
     return order;
   }
+
+  public static String orderSelectForSortTypeRecursive(int sortType) {
+    String select;
+    switch (sortType) {
+      case SORT_ALPHA:
+        // Return an empty string, providing a value to fill the WITH clause template
+        select = "''";
+        break;
+      case SORT_DUE:
+        select = "(CASE WHEN (tasks.dueDate=0) THEN (strftime('%s','now')*1000)*2 ELSE "
+                   + ADJUSTED_DUE_DATE.replace("dueDate", "tasks.dueDate")
+                   + " END)+tasks.importance AS sort_duedate";
+        break;
+      case SORT_IMPORTANCE:
+        select = "tasks.importance*(strftime('%s','now')*1000)+(CASE WHEN (tasks.dueDate=0) THEN (strftime('%s','now')*1000) ELSE tasks.dueDate END) AS sort_importance";
+        break;
+      case SORT_MODIFIED:
+        select = "tasks.modified AS sort_modified";
+        break;
+      case SORT_WIDGET:
+      default:
+        select ="(CASE WHEN (tasks.dueDate=0) "
+                    + // if no due date
+                    "THEN (strftime('%s','now')*1000)*2 "
+                    + // then now * 2
+                    "ELSE ("
+                    + ADJUSTED_DUE_DATE.replace("dueDate", "tasks.dueDate")
+                    + ") END) "
+                    + // else due time
+                    "+ 172800000 * tasks.importance AS sort_smart"; // add 2 days * importance
+    }
+
+    return select;
+  }
+
+  public static Order orderForSortTypeRecursive(Preferences preferences) {
+    Order order;
+    switch (preferences.getSortMode()) {
+      case SORT_ALPHA:
+        order = Order.asc("sort_title");
+        break;
+      case SORT_DUE:
+        order = Order.asc("sort_duedate");
+        break;
+      case SORT_IMPORTANCE:
+        order = Order.asc("sort_importance");
+        break;
+      case SORT_MODIFIED:
+        order = Order.desc("sort_modified");
+        break;
+      case SORT_WIDGET:
+      default:
+        order = Order.asc("sort_smart");
+    }
+    if (preferences.getSortMode() != SORT_ALPHA) {
+      order.addSecondaryExpression(Order.asc("sort_title"));
+    }
+
+    if (preferences.getBoolean(R.string.p_reverse_sort, false)) {
+      order = order.reverse();
+    }
+
+    return order;
+  }
+
+
 }

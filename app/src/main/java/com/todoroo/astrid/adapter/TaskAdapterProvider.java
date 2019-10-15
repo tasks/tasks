@@ -78,7 +78,7 @@ public class TaskAdapterProvider {
       CaldavFilter caldavFilter = (CaldavFilter) filter;
       CaldavCalendar calendar = caldavDao.getCalendarByUuid(caldavFilter.getUuid());
       if (calendar != null) {
-        return new TaskAdapter();
+        return new CaldavTaskAdapter(taskDao, caldavDao);
       }
     } else {
       return subtasksHelper.shouldUseSubtasksFragmentForFilter(filter)

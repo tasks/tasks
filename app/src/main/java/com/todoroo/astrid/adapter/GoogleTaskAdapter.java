@@ -71,6 +71,11 @@ public final class GoogleTaskAdapter extends TaskAdapter {
   }
 
   @Override
+  public boolean supportsParentingOrManualSort() {
+    return true;
+  }
+
+  @Override
   public void moved(int from, int to, int indent) {
     TaskContainer task = getTask(from);
     GoogleTask googleTask = task.getGoogleTask();

@@ -9,6 +9,7 @@ import android.graphics.Canvas;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import com.todoroo.astrid.adapter.CaldavTaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.utility.Flags;
 import org.tasks.data.TaskContainer;
@@ -42,7 +43,7 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
   @Override
   public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-    return adapter.isManuallySorted() && adapter.getNumSelected() == 0
+    return adapter.supportsParentingOrManualSort() && adapter.getNumSelected() == 0
         ? makeMovementFlags(UP | DOWN | LEFT | RIGHT, 0)
         : makeMovementFlags(0, 0);
   }
@@ -140,13 +141,17 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
         if (from < to) {
           to++;
         }
-        vh.task.setIndent(targetIndent);
-        vh.setIndent(targetIndent);
+        if (!(adapter instanceof CaldavTaskAdapter)) {
+          vh.task.setIndent(targetIndent);
+          vh.setIndent(targetIndent);
+        }
         recyclerAdapter.moved(from, to, targetIndent);
       } else if (task.getIndent() != targetIndent) {
         int position = vh.getAdapterPosition();
-        vh.task.setIndent(targetIndent);
-        vh.setIndent(targetIndent);
+        if (!(adapter instanceof CaldavTaskAdapter)) {
+          vh.task.setIndent(targetIndent);
+          vh.setIndent(targetIndent);
+        }
         recyclerAdapter.moved(position, position, targetIndent);
       }
     }

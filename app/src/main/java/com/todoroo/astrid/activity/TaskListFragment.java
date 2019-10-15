@@ -259,7 +259,7 @@ public final class TaskListFragment extends InjectingFragment
         taskAdapter.isManuallySorted());
 
     recyclerAdapter =
-        taskAdapter.isManuallySorted()
+        taskAdapter.supportsParentingOrManualSort()
             ? new ManualSortRecyclerAdapter(
                 taskAdapter,
                 recyclerView,

@@ -60,6 +60,7 @@ import org.tasks.data.TagDao;
 import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
 import org.tasks.injection.ForApplication;
+import retrofit2.http.HEAD;
 import timber.log.Timber;
 
 public class CaldavSynchronizer {
