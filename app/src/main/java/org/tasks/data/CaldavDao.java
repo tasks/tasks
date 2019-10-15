@@ -110,4 +110,24 @@ public interface CaldavDao {
           + "INNER JOIN caldav_tasks ON cd_task = tasks._id "
           + "GROUP BY tasks._id")
   List<Long> getTasksWithTags();
+
+  @Query("WITH RECURSIVE "
+          + " recursive_caldav (cd_task) AS ( "
+          + " SELECT cd_task "
+          + " FROM tasks "
+          + " INNER JOIN caldav_tasks "
+          + "  ON _id = cd_task "
+          + " WHERE cd_parent IN (:ids) "
+          + " AND tasks.deleted = 0 "
+          + "UNION ALL "
+          + " SELECT caldav_tasks.cd_task "
+          + " FROM tasks "
+          + " INNER JOIN caldav_tasks "
+          + "  ON _id = caldav_tasks.cd_task "
+          + " INNER JOIN recursive_caldav "
+          + "  ON recursive_caldav.cd_task = caldav_tasks.cd_parent "
+          + " WHERE tasks.deleted = 0 "
+          + " ) "
+          + "SELECT cd_task FROM recursive_caldav")
+  List<Long> getChildren(List<Long> ids);
 }
