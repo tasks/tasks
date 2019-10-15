@@ -46,7 +46,7 @@ public abstract class DeletionDao {
   }
 
   @Query("UPDATE tasks "
-      + "SET modified = datetime('now', 'localtime'), deleted = datetime('now', 'localtime') "
+      + "SET modified = (strftime('%s','now')*1000), deleted = (strftime('%s','now')*1000)"
       + "WHERE _id IN(:ids)")
   abstract void markDeletedInternal(List<Long> ids);
 
