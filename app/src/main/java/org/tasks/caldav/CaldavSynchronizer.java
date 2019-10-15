@@ -42,6 +42,7 @@ import java.util.List;
 import java.util.Set;
 import javax.inject.Inject;
 import javax.net.ssl.SSLException;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.model.property.ProdId;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -252,6 +253,8 @@ public class CaldavSynchronizer {
     Timber.d("UPDATE %s", caldavCalendar);
     caldavDao.update(caldavCalendar);
 
+    caldavDao.updateParents(caldavCalendar.getUuid());
+
     localBroadcastManager.broadcastRefresh();
   }
 
@@ -372,6 +375,15 @@ public class CaldavSynchronizer {
     caldavTask.setVtodo(vtodo);
     caldavTask.setEtag(eTag);
     caldavTask.setLastSync(DateUtilities.now() + 1000L);
+
+    // Process remote parents
+    LinkedList<Property> unknownProperties = remote.getUnknownProperties();
+    for (Property prop : unknownProperties) {
+      if (prop.getName().equals(Property.RELATED_TO)) {
+        caldavTask.setRemoteParent(prop.getValue());
+      }
+    }
+
     if (caldavTask.getId() == Task.NO_ID) {
       caldavTask.setId(caldavDao.insert(caldavTask));
       Timber.d("NEW %s", caldavTask);

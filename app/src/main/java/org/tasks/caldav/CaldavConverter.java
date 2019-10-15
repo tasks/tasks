@@ -5,20 +5,27 @@ import static com.todoroo.astrid.data.Task.URGENCY_SPECIFIC_DAY;
 import static com.todoroo.astrid.data.Task.URGENCY_SPECIFIC_DAY_TIME;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
+import com.google.common.base.Optional;
 import com.google.common.base.Strings;
+import com.google.common.collect.Iterables;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Task.Priority;
+import java.io.IOException;
 import java.io.StringReader;
+import java.net.URISyntaxException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.LinkedList;
 import java.util.Locale;
 import net.fortuna.ical4j.model.Date;
 import net.fortuna.ical4j.model.DateTime;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.model.Recur;
 import net.fortuna.ical4j.model.property.Completed;
 import net.fortuna.ical4j.model.property.Due;
 import net.fortuna.ical4j.model.property.RRule;
+import net.fortuna.ical4j.model.property.RelatedTo;
 import net.fortuna.ical4j.model.property.Status;
 import org.tasks.data.CaldavTask;
 import timber.log.Timber;
@@ -152,6 +159,24 @@ public class CaldavConverter {
     }
     remote.setLastModified(newDateTime(task.getModificationDate()).toUTC().getMillis());
     remote.setPriority(toRemote(remote.getPriority(), task.getPriority()));
+
+    LinkedList<Property> unknownProperties = remote.getUnknownProperties();
+    Optional<Property> relatedTo =
+        Iterables.tryFind(unknownProperties, p -> Property.RELATED_TO.equals(p.getName()));
+    if (caldavTask.getParent() == 0) {
+      if (relatedTo.isPresent()) {
+        unknownProperties.remove(relatedTo.get());
+      }
+    } else if (relatedTo.isPresent()) {
+      try {
+        relatedTo.get().setValue(caldavTask.getRemoteParent());
+      } catch (IOException | URISyntaxException | ParseException e) {
+        Timber.e(e);
+      }
+    } else {
+      unknownProperties.add(new RelatedTo(caldavTask.getRemoteParent()));
+    }
+
     return remote;
   }
 }
