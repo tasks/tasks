@@ -53,7 +53,7 @@ public class SortHelper {
     if (preferences.getBoolean(R.string.p_show_completed_tasks, false)) {
       originalSql =
           originalSql.replace(Task.COMPLETION_DATE.eq(0).toString(), Criterion.all.toString());
-    } else {
+    } else if (preferences.getBoolean(R.string.p_temporarily_show_completed_tasks, true)) {
       originalSql =
           originalSql.replace(
               Task.COMPLETION_DATE.eq(0).toString(),
