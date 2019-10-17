@@ -59,14 +59,14 @@ public class SortHelper {
     if (preferences.getBoolean(R.string.p_show_completed_tasks, false)) {
       adjustedSql =
           adjustedSql.replace(Task.COMPLETION_DATE.eq(0).toString(), Criterion.all.toString());
-    } else {
+    } else if (preferences.getBoolean(R.string.p_temporarily_show_completed_tasks, false)) {
       adjustedSql =
-              adjustedSql.replace(
-                      Task.COMPLETION_DATE.eq(0).toString(),
-                      Criterion.or(
-                              Task.COMPLETION_DATE.lte(0),
-                              Task.COMPLETION_DATE.gt(DateUtilities.now() - 60000))
-                              .toString());
+          adjustedSql.replace(
+              Task.COMPLETION_DATE.eq(0).toString(),
+              Criterion.or(
+                      Task.COMPLETION_DATE.lte(0),
+                      Task.COMPLETION_DATE.gt(DateUtilities.now() - 60000))
+                  .toString());
     }
     if (preferences.getBoolean(R.string.p_show_hidden_tasks, false)) {
       adjustedSql = adjustedSql.replace(isVisible().toString(), Criterion.all.toString());
