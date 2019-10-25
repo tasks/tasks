@@ -1,5 +1,13 @@
 Change Log
 ---
+### 6.9.2 (2019-10-25)
+
+* Fix bug forcing new Google Tasks to top
+* Fix bug preventing deleted tasks from being synchronized - @creywood
+* Update translations
+  * French - @NathanBnm
+  * Swedish - @mattiasmun
+
 ### 6.9.1 (2019-10-09)
 
 * Fix location reminders on Android 10
