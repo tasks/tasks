@@ -339,16 +339,11 @@ public class GoogleTaskSynchronizer {
     }
 
     if (newlyCreated) {
-      String localParent =
-          gtasksMetadata.getParent() > 0
-              ? googleTaskDao.getRemoteId(gtasksMetadata.getParent())
-              : null;
-
+      long parent = gtasksMetadata.getParent();
+      String localParent = parent > 0 ? googleTaskDao.getRemoteId(parent) : null;
       String previous =
-          Strings.isNullOrEmpty(localParent)
-              ? null
-              : googleTaskDao.getPrevious(
-                  listId, gtasksMetadata.getParent(), gtasksMetadata.getOrder());
+          googleTaskDao.getPrevious(
+              listId, Strings.isNullOrEmpty(localParent) ? 0 : parent, gtasksMetadata.getOrder());
 
       com.google.api.services.tasks.model.Task created;
       try {
@@ -371,13 +366,14 @@ public class GoogleTaskSynchronizer {
       try {
         if (!task.isDeleted() && gtasksMetadata.isMoved()) {
           try {
-            String localParent =
-                gtasksMetadata.getParent() > 0
-                    ? googleTaskDao.getRemoteId(gtasksMetadata.getParent())
-                    : null;
+            long parent = gtasksMetadata.getParent();
+            String localParent = parent > 0 ? googleTaskDao.getRemoteId(parent) : null;
             String previous =
                 googleTaskDao.getPrevious(
-                    listId, gtasksMetadata.getParent(), gtasksMetadata.getOrder());
+                    listId,
+                    Strings.isNullOrEmpty(localParent) ? 0 : parent,
+                    gtasksMetadata.getOrder());
+
             com.google.api.services.tasks.model.Task result =
                 gtasksInvoker.moveGtask(listId, remoteModel.getId(), localParent, previous);
             gtasksMetadata.setRemoteOrder(Long.parseLong(result.getPosition()));
