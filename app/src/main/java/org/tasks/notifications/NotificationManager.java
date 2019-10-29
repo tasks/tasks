@@ -60,7 +60,7 @@ public class NotificationManager {
   public static final String NOTIFICATION_CHANNEL_TASKER = "notifications_tasker";
   public static final String NOTIFICATION_CHANNEL_TIMERS = "notifications_timers";
   public static final String NOTIFICATION_CHANNEL_MISCELLANEOUS = "notifications_miscellaneous";
-  public static final int MAX_NOTIFICATIONS = 40;
+  public static final int MAX_NOTIFICATIONS = 21;
   static final String EXTRA_NOTIFICATION_ID = "extra_notification_id";
   static final int SUMMARY_NOTIFICATION_ID = 0;
   private static final String GROUP_KEY = "tasks";
