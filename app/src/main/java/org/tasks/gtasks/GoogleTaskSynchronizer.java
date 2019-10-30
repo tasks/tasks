@@ -24,7 +24,6 @@ import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.api.HttpNotFoundException;
-import com.todoroo.astrid.gtasks.sync.GtasksTaskContainer;
 import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.utility.Constants;
@@ -390,6 +389,7 @@ public class GoogleTaskSynchronizer {
             }
           }
         }
+        // TODO: don't updateGtask if it was only moved
         gtasksInvoker.updateGtask(listId, remoteModel);
       } catch (HttpNotFoundException e) {
         googleTaskDao.delete(gtasksMetadata);
@@ -454,62 +454,42 @@ public class GoogleTaskSynchronizer {
       if (task == null) {
         task = taskCreator.createWithValues("");
       }
-      GtasksTaskContainer container = new GtasksTaskContainer(gtask, task, listId, googleTask);
 
-      container.gtaskMetadata.setRemoteOrder(Long.parseLong(gtask.getPosition()));
-      container.gtaskMetadata.setRemoteParent(gtask.getParent());
-      container.gtaskMetadata.setParent(
+      task.setTitle(gtask.getTitle());
+      task.setCreationDate(DateUtilities.now());
+      task.setCompletionDate(
+          GtasksApiUtilities.gtasksCompletedTimeToUnixTime(gtask.getCompleted()));
+      long dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(gtask.getDue());
+      mergeDates(Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate), task);
+      task.setNotes(gtask.getNotes());
+      googleTask.setRemoteId(gtask.getId());
+      googleTask.setListId(listId);
+
+      googleTask.setRemoteOrder(Long.parseLong(gtask.getPosition()));
+      googleTask.setRemoteParent(gtask.getParent());
+      googleTask.setParent(
           Strings.isNullOrEmpty(gtask.getParent()) ? 0 : googleTaskDao.getTask(gtask.getParent()));
-      container.gtaskMetadata.setLastSync(DateUtilities.now() + 1000L);
-      write(container);
+      googleTask.setLastSync(DateUtilities.now() + 1000L);
+      write(task, googleTask);
     }
     list.setLastSync(lastSyncDate);
     googleTaskListDao.insertOrReplace(list);
   }
 
-  private void write(GtasksTaskContainer task) {
-    if (!TextUtils.isEmpty(task.task.getTitle())) {
-      task.task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
-      task.task.putTransitory(TaskDao.TRANS_SUPPRESS_REFRESH, true);
-      task.prepareForSaving();
-      if (task.task.isNew()) {
-        taskDao.createNew(task.task);
+  private void write(Task task, GoogleTask googleTask) {
+    if (!TextUtils.isEmpty(task.getTitle())) {
+      task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
+      task.putTransitory(TaskDao.TRANS_SUPPRESS_REFRESH, true);
+      if (task.isNew()) {
+        taskDao.createNew(task);
       }
-      taskDao.save(task.task);
-      synchronizeMetadata(task.task.getId(), task.metadata);
-    }
-  }
-
-  /**
-   * Synchronize metadata for given task id. Deletes rows in database that are not identical to
-   * those in the metadata list, creates rows that have no match.
-   *
-   * @param taskId id of task to perform synchronization on
-   * @param metadata list of new metadata items to save
-   */
-  private void synchronizeMetadata(long taskId, ArrayList<GoogleTask> metadata) {
-    for (GoogleTask metadatum : metadata) {
-      metadatum.setTask(taskId);
-      metadatum.setId(0);
-    }
-
-    for (GoogleTask item : googleTaskDao.getAllByTaskId(taskId)) {
-      long id = item.getId();
-
-      // clear item id when matching with incoming values
-      item.setId(0);
-      if (metadata.contains(item)) {
-        metadata.remove(item);
+      taskDao.save(task);
+      googleTask.setTask(task.getId());
+      if (googleTask.getId() == 0) {
+        googleTaskDao.insert(googleTask);
       } else {
-        // not matched. cut it
-        item.setId(id);
-        googleTaskDao.delete(item);
+        googleTaskDao.update(googleTask);
       }
-    }
-
-    // everything that remains shall be written
-    for (GoogleTask values : metadata) {
-      googleTaskDao.insert(values);
     }
   }
 }
