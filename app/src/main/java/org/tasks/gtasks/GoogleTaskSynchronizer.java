@@ -445,12 +445,31 @@ public class GoogleTaskSynchronizer {
       }
       Boolean isDeleted = gtask.getDeleted();
       Boolean isHidden = gtask.getHidden();
-      if ((isDeleted != null && isDeleted) || (isHidden != null && isHidden)) {
+      if (isDeleted != null && isDeleted) {
         if (task != null) {
           taskDeleter.delete(task);
         }
         continue;
+      } else if (isHidden != null && isHidden) {
+        if (task == null) {
+          continue;
+        }
+        if (task.isRecurring()) {
+          googleTask.setRemoteId("");
+        } else {
+          taskDeleter.delete(task);
+          continue;
+        }
+      } else {
+        googleTask.setRemoteOrder(Long.parseLong(gtask.getPosition()));
+        googleTask.setRemoteParent(gtask.getParent());
+        googleTask.setParent(
+            Strings.isNullOrEmpty(gtask.getParent())
+                ? 0
+                : googleTaskDao.getTask(gtask.getParent()));
+        googleTask.setRemoteId(gtask.getId());
       }
+
       if (task == null) {
         task = taskCreator.createWithValues("");
       }
@@ -462,13 +481,7 @@ public class GoogleTaskSynchronizer {
       long dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(gtask.getDue());
       mergeDates(Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate), task);
       task.setNotes(gtask.getNotes());
-      googleTask.setRemoteId(gtask.getId());
       googleTask.setListId(listId);
-
-      googleTask.setRemoteOrder(Long.parseLong(gtask.getPosition()));
-      googleTask.setRemoteParent(gtask.getParent());
-      googleTask.setParent(
-          Strings.isNullOrEmpty(gtask.getParent()) ? 0 : googleTaskDao.getTask(gtask.getParent()));
       googleTask.setLastSync(DateUtilities.now() + 1000L);
       write(task, googleTask);
     }
