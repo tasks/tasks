@@ -1,5 +1,12 @@
 Change Log
 ---
+### 6.9.3 (2019-10-31)
+
+* Fix disappearance of remotely completed recurring Google Tasks
+* Fix '0 tasks' notification
+* Limit to 20 active notifications due to change in Android 10
+* Update Simplified Chinese translations - @sr093906
+
 ### 6.9.2 (2019-10-25)
 
 * Fix bug forcing new Google Tasks to top
