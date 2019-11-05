@@ -14,7 +14,6 @@ import timber.log.Timber;
 public class CompleteTaskReceiver extends InjectingBroadcastReceiver {
 
   public static final String TASK_ID = "id";
-  public static final String TOGGLE_STATE = "flip_state";
 
   @Inject TaskDao taskDao;
 
@@ -23,13 +22,12 @@ public class CompleteTaskReceiver extends InjectingBroadcastReceiver {
     super.onReceive(context, intent);
 
     long taskId = intent.getLongExtra(TASK_ID, 0);
-    boolean flipState = intent.getBooleanExtra(TOGGLE_STATE, false);
     Timber.i("Completing %s", taskId);
     Completable.fromAction(
             () -> {
               Task task = taskDao.fetch(taskId);
               if (task != null) {
-                taskDao.setComplete(task, !flipState || !task.isCompleted());
+                taskDao.setComplete(task, true);
               } else {
                 Timber.e("Could not find task with id %s", taskId);
               }
