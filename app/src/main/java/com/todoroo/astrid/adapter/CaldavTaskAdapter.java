@@ -1,7 +1,7 @@
 package com.todoroo.astrid.adapter;
 
 import static com.todoroo.andlib.utility.DateUtilities.now;
-import com.todoroo.andlib.utility.DateUtilities;
+
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import org.tasks.data.CaldavDao;
@@ -9,8 +9,6 @@ import org.tasks.data.CaldavTask;
 import org.tasks.data.TaskContainer;
 import org.tasks.tasklist.ViewHolder;
 import timber.log.Timber;
-import java.util.ArrayList;
-import java.util.List;
 
 public final class CaldavTaskAdapter extends TaskAdapter {
 
@@ -32,11 +30,7 @@ public final class CaldavTaskAdapter extends TaskAdapter {
     TaskContainer source = sourceVh.task;
     int to = targetVh.getAdapterPosition();
 
-    if (taskIsChild(source.getCaldavTask(), to)) {
-      return false;
-    }
-
-    return true;
+    return !taskIsChild(source.getCaldavTask(), to);
   }
 
   @Override
@@ -91,7 +85,7 @@ public final class CaldavTaskAdapter extends TaskAdapter {
     taskDao.save(update);
   }
 
-  public void changeParent(TaskContainer task, long newParent) {
+  private void changeParent(TaskContainer task, long newParent) {
     CaldavTask caldavTask = task.getCaldavTask();
 
     if (newParent == 0) {
@@ -99,8 +93,9 @@ public final class CaldavTaskAdapter extends TaskAdapter {
       caldavTask.setParent(0);
     } else {
       CaldavTask parentTask = caldavDao.getTask(newParent);
-      if (parentTask == null)
+      if (parentTask == null) {
         return;
+      }
       caldavTask.setRemoteParent(parentTask.getRemoteId());
       caldavTask.setParent(newParent);
     }
@@ -115,8 +110,9 @@ public final class CaldavTaskAdapter extends TaskAdapter {
     // Iterate levels of the hierarchy
     while (ownChildCheck != null && ownChildCheck.getParent() != 0) {
       // If the task we're trying to move is a parent of the destination, cancel the move
-      if (ownChildCheck.getParent() == movingCaldavTaskId)
+      if (ownChildCheck.getParent() == movingCaldavTaskId) {
         return true;
+      }
 
       // Loop through the items in the view above the current task, looking for the parent
       long searchParent = ownChildCheck.getParent();
@@ -130,30 +126,5 @@ public final class CaldavTaskAdapter extends TaskAdapter {
       }
     }
     return false;
-  }
-
-  @Override
-  public void onCompletedTask(TaskContainer item, boolean completedState) {
-    final long completionDate = completedState ? DateUtilities.now() : 0;
-
-    // TODO handle recurring tasks ala AstridTaskManager?
-
-    List<Long> parents = new ArrayList<>();
-    parents.add(item.getCaldavTask().getId());
-
-    TaskContainer checkTask;
-    Task updateTask;
-    for (int i = 0; i < getCount(); i++) {
-      checkTask = getTask(i);
-      if (parents.contains(checkTask.getParent())) {
-        Timber.d("Marking child %s completed (%s)", checkTask.getTitle(), completionDate);
-
-        updateTask = checkTask.getTask();
-        updateTask.setCompletionDate(completionDate);
-        taskDao.save(updateTask);
-
-        parents.add(checkTask.getCaldavTask().getId());
-      }
-    }
   }
 }
