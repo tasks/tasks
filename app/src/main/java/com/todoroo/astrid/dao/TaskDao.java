@@ -6,7 +6,6 @@
 
 package com.todoroo.astrid.dao;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static com.todoroo.andlib.utility.DateUtilities.now;
 
 import android.database.Cursor;
@@ -194,23 +193,6 @@ public abstract class TaskDao {
           + "LIMIT 100")
   public abstract List<Task> getAstrid2TaskProviderTasks();
 
-  /** Mark the given task as completed and save it. */
-  public void setComplete(Task item, boolean completed) {
-    List<Task> tasks = newArrayList(item);
-    tasks.addAll(getChildren(item.getId()));
-    setComplete(tasks, completed ? now() : 0L);
-  }
-
-  private void setComplete(Iterable<Task> tasks, long completionDate) {
-    for (Task task : tasks) {
-      task.setCompletionDate(completionDate);
-      save(task);
-    }
-  }
-
-  @Query("SELECT tasks.* FROM tasks JOIN google_tasks ON tasks._id = gt_task WHERE gt_parent = :taskId")
-  abstract List<Task> getChildren(long taskId);
-
   public int count(Filter filter) {
     Cursor cursor = getCursor(filter.sqlQuery);
     try {
@@ -237,7 +219,7 @@ public abstract class TaskDao {
     }
   }
 
-  public Cursor getCursor(String queryTemplate) {
+  private Cursor getCursor(String queryTemplate) {
     return getCursor(queryTemplate, Task.PROPERTIES);
   }
 

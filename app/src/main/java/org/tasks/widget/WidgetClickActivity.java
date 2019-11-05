@@ -3,8 +3,8 @@ package org.tasks.widget;
 import android.content.Intent;
 import android.os.Bundle;
 import com.google.common.base.Strings;
-import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.TaskCompleter;
 import javax.inject.Inject;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
@@ -17,7 +17,7 @@ public class WidgetClickActivity extends InjectingAppCompatActivity {
   public static final String EXTRA_FILTER = "extra_filter";
   public static final String EXTRA_TASK = "extra_task"; // $NON-NLS-1$
 
-  @Inject TaskDao taskDao;
+  @Inject TaskCompleter taskCompleter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class WidgetClickActivity extends InjectingAppCompatActivity {
 
     switch (action) {
       case COMPLETE_TASK:
-        taskDao.setComplete(task, !task.isCompleted());
+        taskCompleter.setComplete(task, !task.isCompleted());
         break;
       case EDIT_TASK:
         startActivity(

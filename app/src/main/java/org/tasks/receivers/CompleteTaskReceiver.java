@@ -2,8 +2,7 @@ package org.tasks.receivers;
 
 import android.content.Context;
 import android.content.Intent;
-import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.TaskCompleter;
 import io.reactivex.Completable;
 import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
@@ -15,7 +14,7 @@ public class CompleteTaskReceiver extends InjectingBroadcastReceiver {
 
   public static final String TASK_ID = "id";
 
-  @Inject TaskDao taskDao;
+  @Inject TaskCompleter taskCompleter;
 
   @Override
   public void onReceive(Context context, Intent intent) {
@@ -23,15 +22,7 @@ public class CompleteTaskReceiver extends InjectingBroadcastReceiver {
 
     long taskId = intent.getLongExtra(TASK_ID, 0);
     Timber.i("Completing %s", taskId);
-    Completable.fromAction(
-            () -> {
-              Task task = taskDao.fetch(taskId);
-              if (task != null) {
-                taskDao.setComplete(task, true);
-              } else {
-                Timber.e("Could not find task with id %s", taskId);
-              }
-            })
+    Completable.fromAction(() -> taskCompleter.setComplete(taskId))
         .subscribeOn(Schedulers.io())
         .subscribe();
   }

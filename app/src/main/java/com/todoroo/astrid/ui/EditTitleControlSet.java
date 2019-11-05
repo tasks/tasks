@@ -21,8 +21,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import com.google.common.base.Strings;
-import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.TaskCompleter;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.dialogs.Linkify;
@@ -46,7 +46,7 @@ public class EditTitleControlSet extends TaskEditControlFragment {
   private static final String EXTRA_PRIORITY = "extra_priority";
 
   @Inject @ForApplication Context context;
-  @Inject TaskDao taskDao;
+  @Inject TaskCompleter taskCompleter;
   @Inject Linkify linkify;
 
   @BindView(R.id.title)
@@ -177,7 +177,7 @@ public class EditTitleControlSet extends TaskEditControlFragment {
   public void apply(Task task) {
     task.setTitle(Strings.isNullOrEmpty(title) ? getString(R.string.no_title) : title);
     if (isComplete != task.isCompleted()) {
-      taskDao.setComplete(task, isComplete);
+      taskCompleter.setComplete(task, isComplete);
     }
   }
 }
