@@ -38,7 +38,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.data.CaldavTask;
@@ -270,24 +269,6 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
 
   @Override
   public void onChanged(PagedList<TaskContainer> taskContainers) {
-    if (filter instanceof CaldavFilter) {
-      // Populate child count for CalDAV
-      // TODO Review if there's a better place to call this, and regardless, where to
-      //      put a function that does this work
-      HashMap<Long, TaskContainer> parents = new HashMap<>();
-      TaskContainer prev = null;
-      for (TaskContainer cont: taskContainers) {
-        CaldavTask caldavTask = cont.getCaldavTask();
-        if (caldavTask.getParent() != 0) {
-          long parentId = caldavTask.getParent();
-          if (!parents.containsKey(parentId) && prev != null && prev.getId() == parentId) {
-            parents.put(parentId, prev);
-          }
-          parents.get(parentId).children++;
-        }
-        prev = cont;
-      }
-    }
     tasks.setValue(taskContainers);
   }
 }
