@@ -1,5 +1,7 @@
 package org.tasks.data;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
+
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -7,6 +9,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 import io.reactivex.Single;
+import java.util.Collections;
 import java.util.List;
 import org.tasks.filters.CaldavFilters;
 
@@ -114,6 +117,12 @@ public abstract class CaldavDao {
   @Query("UPDATE caldav_tasks SET cd_parent = IFNULL((SELECT cd_task FROM caldav_tasks AS p WHERE p.cd_remote_id = caldav_tasks.cd_remote_parent), cd_parent) WHERE cd_calendar = :calendar AND cd_remote_parent IS NOT NULL and cd_remote_parent != ''")
   public abstract void updateParents(String calendar);
 
+  public List<Long> getChildren(List<Long> ids) {
+    return atLeastLollipop()
+        ? getChildrenRecursive(ids)
+        : Collections.emptyList();
+  }
+
   @Query("WITH RECURSIVE "
           + " recursive_caldav (cd_task) AS ( "
           + " SELECT cd_task "
@@ -132,5 +141,5 @@ public abstract class CaldavDao {
           + " WHERE tasks.deleted = 0 "
           + " ) "
           + "SELECT cd_task FROM recursive_caldav")
-  public abstract List<Long> getChildren(List<Long> ids);
+  abstract List<Long> getChildrenRecursive(List<Long> ids);
 }

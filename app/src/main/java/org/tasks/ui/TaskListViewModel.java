@@ -2,6 +2,7 @@ package org.tasks.ui;
 
 import static com.todoroo.andlib.sql.Field.field;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static com.todoroo.astrid.activity.TaskListFragment.CALDAV_METADATA_JOIN;
 import static com.todoroo.astrid.activity.TaskListFragment.GTASK_METADATA_JOIN;
 import static com.todoroo.astrid.activity.TaskListFragment.TAGS_METADATA_JOIN;
@@ -126,7 +127,7 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
           Criterion.and(caldavJoinCriterion, field(CALDAV_METADATA_JOIN + ".cd_calendar").eq(uuid));
     }
 
-    if (filter instanceof CaldavFilter) {
+    if (filter instanceof CaldavFilter && atLeastLollipop()) {
       // TODO This is in some ways a proof of concept demonstrating a recursive query used to pull
       //      in CalDAV tasks providing parenting across different sort modes. Tags are implemented
       //      as a subquery, which is ugly, but aggregate recursive queries aren't supported. The
