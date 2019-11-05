@@ -81,10 +81,6 @@ public class TaskAdapter {
     }
   }
 
-  public boolean isManuallySorted() {
-    return false;
-  }
-
   public boolean supportsParentingOrManualSort() {
     return false;
   }

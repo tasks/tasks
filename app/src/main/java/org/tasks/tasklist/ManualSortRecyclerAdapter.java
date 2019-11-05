@@ -16,7 +16,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -104,10 +103,8 @@ public class ManualSortRecyclerAdapter extends TaskListRecyclerAdapter {
 
   void moved(int from, int to, int indent) {
     adapter.moved(from, to, indent);
-    if (list instanceof ArrayList) {
-      TaskContainer task = list.remove(from);
-      list.add(from < to ? to - 1 : to, task);
-    }
+    TaskContainer task = list.remove(from);
+    list.add(from < to ? to - 1 : to, task);
     taskList.loadTaskListContent();
   }
 }

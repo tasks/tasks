@@ -45,11 +45,6 @@ public final class CaldavTaskAdapter extends TaskAdapter {
   }
 
   @Override
-  public boolean isManuallySorted() {
-    return false;
-  }
-
-  @Override
   public boolean supportsParentingOrManualSort() {
     return true;
   }
@@ -58,9 +53,6 @@ public final class CaldavTaskAdapter extends TaskAdapter {
   public void moved(int from, int to, int indent) {
     TaskContainer task = getTask(from);
     TaskContainer previous = to > 0 ? getTask(to-1) : null;
-
-    String prevTitle = previous != null ? previous.getTitle() : "";
-    Timber.d("Moving %s (index %s) to %s (index %s)", task.getTitle(), from, prevTitle, to);
 
     long newParent = task.getParent();
     if (indent == 0) {

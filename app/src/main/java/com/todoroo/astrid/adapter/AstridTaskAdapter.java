@@ -51,11 +51,6 @@ public final class AstridTaskAdapter extends TaskAdapter {
   }
 
   @Override
-  public boolean isManuallySorted() {
-    return true;
-  }
-
-  @Override
   public boolean supportsParentingOrManualSort() {
     return true;
   }

@@ -256,7 +256,7 @@ public final class TaskListFragment extends InjectingFragment
 
     taskListViewModel.setFilter(
         searchQuery == null ? filter : createSearchFilter(searchQuery),
-        taskAdapter.isManuallySorted());
+        taskAdapter.supportsParentingOrManualSort());
 
     recyclerAdapter =
         taskAdapter.supportsParentingOrManualSort()

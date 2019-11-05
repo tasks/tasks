@@ -66,11 +66,6 @@ public final class GoogleTaskAdapter extends TaskAdapter {
   }
 
   @Override
-  public boolean isManuallySorted() {
-    return true;
-  }
-
-  @Override
   public boolean supportsParentingOrManualSort() {
     return true;
   }
