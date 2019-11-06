@@ -29,8 +29,7 @@ public final class CaldavTaskAdapter extends TaskAdapter {
   public boolean canMove(ViewHolder sourceVh, ViewHolder targetVh) {
     TaskContainer source = sourceVh.task;
     int to = targetVh.getAdapterPosition();
-
-    return !taskIsChild(source.getCaldavTask(), to);
+    return !taskIsChild(source, to);
   }
 
   @Override
@@ -52,7 +51,7 @@ public final class CaldavTaskAdapter extends TaskAdapter {
   @Override
   public void moved(int from, int to, int indent) {
     TaskContainer task = getTask(from);
-    TaskContainer previous = to > 0 ? getTask(to-1) : null;
+    TaskContainer previous = to > 0 ? getTask(to - 1) : null;
 
     long newParent = task.getParent();
     if (indent == 0) {
@@ -94,28 +93,16 @@ public final class CaldavTaskAdapter extends TaskAdapter {
     caldavDao.update(caldavTask);
   }
 
-  private boolean taskIsChild(CaldavTask parent, int destinationIndex) {
-    // Don't allow dropping a parent onto their child
-    TaskContainer ownChildCheck = getTask(destinationIndex);
-    long movingCaldavTaskId = parent.getId();
-    int itemIndex = destinationIndex;
-    // Iterate levels of the hierarchy
-    while (ownChildCheck != null && ownChildCheck.getParent() != 0) {
-      // If the task we're trying to move is a parent of the destination, cancel the move
-      if (ownChildCheck.getParent() == movingCaldavTaskId) {
+  private boolean taskIsChild(TaskContainer source, int destinationIndex) {
+    TaskContainer destination = getTask(destinationIndex);
+    while (destination.getParent() != 0) {
+      if (destination.getParent() == source.getParent()) {
+        return false;
+      }
+      if (destination.getParent() == source.getId()) {
         return true;
       }
-
-      // Loop through the items in the view above the current task, looking for the parent
-      long searchParent = ownChildCheck.getParent();
-      while (ownChildCheck.getId() != searchParent) {
-        // Handle case of parent not found in search, which shouldn't ever occur
-        if (itemIndex == 0) {
-          Timber.w("Couldn't find parent");
-          return true;
-        }
-        ownChildCheck = getTask(--itemIndex);
-      }
+      destination = getTask(--destinationIndex);
     }
     return false;
   }
