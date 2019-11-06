@@ -1,8 +1,11 @@
 package com.todoroo.astrid.api;
 
+import static android.os.Build.VERSION_CODES.LOLLIPOP;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
@@ -15,6 +18,7 @@ import org.tasks.R;
 import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavTask;
 
+@RequiresApi(api = LOLLIPOP)
 public class CaldavFilter extends Filter {
 
   /** Parcelable Creator Object */
