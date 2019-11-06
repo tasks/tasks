@@ -58,6 +58,9 @@ public abstract class CaldavDao {
   @Query("SELECT * FROM caldav_tasks WHERE cd_deleted > 0 AND cd_calendar = :calendar")
   public abstract List<CaldavTask> getDeleted(String calendar);
 
+  @Query("UPDATE caldav_tasks SET cd_deleted = :now WHERE cd_task IN (:tasks)")
+  public abstract void markDeleted(long now, List<Long> tasks);
+
   @Query("SELECT * FROM caldav_tasks WHERE cd_task = :taskId AND cd_deleted = 0 LIMIT 1")
   public abstract CaldavTask getTask(long taskId);
 
@@ -66,6 +69,9 @@ public abstract class CaldavDao {
 
   @Query("SELECT * FROM caldav_tasks WHERE cd_task = :taskId")
   public abstract List<CaldavTask> getTasks(long taskId);
+
+  @Query("SELECT * FROM caldav_tasks WHERE cd_task in (:taskIds) AND cd_deleted = 0")
+  public abstract List<CaldavTask> getTasks(List<Long> taskIds);
 
   @Query(
       "SELECT task.*, caldav_task.* FROM tasks AS task "
@@ -134,7 +140,7 @@ public abstract class CaldavDao {
           + " INNER JOIN caldav_tasks "
           + "  ON _id = cd_task "
           + " WHERE cd_parent IN (:ids) "
-          + " AND tasks.deleted = 0 "
+          + " AND tasks.deleted = 0 AND caldav_tasks.cd_deleted = 0 "
           + "UNION ALL "
           + " SELECT caldav_tasks.cd_task "
           + " FROM tasks "
@@ -142,8 +148,34 @@ public abstract class CaldavDao {
           + "  ON _id = caldav_tasks.cd_task "
           + " INNER JOIN recursive_caldav "
           + "  ON recursive_caldav.cd_task = caldav_tasks.cd_parent "
-          + " WHERE tasks.deleted = 0 "
+          + " WHERE tasks.deleted = 0 AND caldav_tasks.cd_deleted = 0 "
           + " ) "
           + "SELECT cd_task FROM recursive_caldav")
   abstract List<Long> getChildrenRecursive(List<Long> ids);
+
+  public List<Long> findChildrenInList(List<Long> ids) {
+    return atLeastLollipop()
+        ? findChildrenInListRecursive(ids)
+        : Collections.emptyList();
+  }
+
+  @Query("WITH RECURSIVE "
+      + " recursive_caldav (cd_task) AS ( "
+      + " SELECT cd_task "
+      + " FROM tasks "
+      + " INNER JOIN caldav_tasks "
+      + "  ON _id = cd_task "
+      + " WHERE cd_parent IN (:ids) AND cd_task IN (:ids)"
+      + " AND tasks.deleted = 0 AND caldav_tasks.cd_deleted = 0 "
+      + "UNION ALL "
+      + " SELECT caldav_tasks.cd_task "
+      + " FROM tasks "
+      + " INNER JOIN caldav_tasks "
+      + "  ON _id = caldav_tasks.cd_task "
+      + " INNER JOIN recursive_caldav "
+      + "  ON recursive_caldav.cd_task = caldav_tasks.cd_parent "
+      + " WHERE tasks.deleted = 0 AND caldav_tasks.cd_deleted = 0 "
+      + " ) "
+      + "SELECT cd_task FROM recursive_caldav")
+  abstract List<Long> findChildrenInListRecursive(List<Long> ids);
 }

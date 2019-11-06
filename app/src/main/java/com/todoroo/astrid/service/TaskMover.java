@@ -1,12 +1,9 @@
 package com.todoroo.astrid.service;
 
-import static com.google.common.collect.Iterables.concat;
-import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.utility.DateUtilities.now;
 import static java.util.Collections.emptyList;
-import static java.util.Collections.singletonList;
 
 import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
@@ -51,11 +48,15 @@ public class TaskMover {
   public void move(List<Long> tasks, Filter selectedList) {
     tasks = newArrayList(tasks);
     tasks.removeAll(googleTaskDao.findChildrenInList(tasks));
+    tasks.removeAll(caldavDao.findChildrenInList(tasks));
     for (Task task : taskDao.fetch(tasks)) {
       performMove(task, selectedList);
       task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
       task.setModificationDate(now());
       taskDao.save(task);
+    }
+    if (selectedList instanceof CaldavFilter) {
+      caldavDao.updateParents((((CaldavFilter) selectedList).getUuid()));
     }
     syncAdapters.sync();
   }
@@ -83,6 +84,7 @@ public class TaskMover {
     long id = task.getId();
     GoogleTask googleTask = googleTaskDao.getByTaskId(id);
     List<GoogleTask> googleTaskChildren = emptyList();
+    List<CaldavTask> caldavChildren = emptyList();
     if (googleTask != null
         && selectedList instanceof GtasksFilter
         && googleTask.getListId().equals(((GtasksFilter) selectedList).getRemoteId())) {
@@ -101,8 +103,13 @@ public class TaskMover {
     }
 
     if (caldavTask != null) {
-      caldavTask.setDeleted(now());
-      caldavDao.update(caldavTask);
+      List<Long> toDelete = newArrayList(caldavTask.getTask());
+      List<Long> childIds = caldavDao.getChildren(caldavTask.getTask());
+      if (!childIds.isEmpty()) {
+        caldavChildren = caldavDao.getTasks(childIds);
+        toDelete.addAll(childIds);
+      }
+      caldavDao.markDeleted(now(), toDelete);
     }
 
     if (selectedList instanceof GtasksFilter) {
@@ -119,12 +126,34 @@ public class TaskMover {
                   return newChild;
                 }));
       }
+      if (!caldavChildren.isEmpty()) {
+        List<GoogleTask> children = newArrayList();
+        for (int i = 0 ; i < caldavChildren.size() ; i++) {
+          CaldavTask child = caldavChildren.get(i);
+          GoogleTask newChild = new GoogleTask(child.getTask(), listId);
+          newChild.setOrder(i);
+          newChild.setParent(id);
+          children.add(newChild);
+        }
+        googleTaskDao.insert(children);
+      }
     } else if (selectedList instanceof CaldavFilter) {
       String listId = ((CaldavFilter) selectedList).getUuid();
-      caldavDao.insert(
-          transform(
-              concat(singletonList(id), transform(googleTaskChildren, GoogleTask::getTask)),
-              _id -> new CaldavTask(_id, listId)));
+      CaldavTask newParent = caldavTask == null
+          ? new CaldavTask(id, listId)
+          : new CaldavTask(id, listId, caldavTask.getRemoteId(), caldavTask.getObject());
+      caldavDao.insert(newParent);
+      caldavDao.insert(transform(googleTaskChildren, child -> {
+        CaldavTask newChild = new CaldavTask(child.getTask(), listId);
+        newChild.setRemoteParent(newParent.getRemoteId());
+        return newChild;
+      }));
+      caldavDao.insert(transform(caldavChildren, child -> {
+        CaldavTask newChild = new CaldavTask(child.getTask(), listId, child.getRemoteId(), child.getObject());
+        newChild.setVtodo(child.getVtodo());
+        newChild.setRemoteParent(child.getRemoteParent());
+        return newChild;
+      }));
     }
   }
 }
