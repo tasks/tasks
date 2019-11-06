@@ -102,7 +102,7 @@ public abstract class CaldavDao {
           + " FROM caldav_accounts"
           + " LEFT JOIN caldav_lists ON caldav_lists.cdl_account = caldav_accounts.cda_uuid"
           + " LEFT JOIN caldav_tasks ON caldav_tasks.cd_calendar = caldav_lists.cdl_uuid"
-          + " LEFT JOIN tasks ON caldav_tasks.cd_task = tasks._id AND tasks.deleted = 0 AND tasks.completed = 0 AND tasks.hideUntil < :now"
+          + " LEFT JOIN tasks ON caldav_tasks.cd_task = tasks._id AND tasks.deleted = 0 AND tasks.completed = 0 AND tasks.hideUntil < :now AND cd_deleted = 0"
           + " GROUP BY caldav_lists.cdl_uuid"
           + " ORDER BY caldav_accounts.cda_name COLLATE NOCASE, caldav_lists.cdl_name COLLATE NOCASE")
   public abstract List<CaldavFilters> getCaldavFilters(long now);

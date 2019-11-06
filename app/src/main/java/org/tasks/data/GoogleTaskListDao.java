@@ -64,7 +64,7 @@ public abstract class GoogleTaskListDao {
           + " FROM google_task_accounts "
           + " LEFT JOIN google_task_lists ON google_task_lists.gtl_account = google_task_accounts.gta_account"
           + " LEFT JOIN google_tasks ON google_tasks.gt_list_id = google_task_lists.gtl_remote_id"
-          + " LEFT JOIN tasks ON google_tasks.gt_task = tasks._id AND tasks.deleted = 0 AND tasks.completed = 0 AND tasks.hideUntil < :now"
+          + " LEFT JOIN tasks ON google_tasks.gt_task = tasks._id AND tasks.deleted = 0 AND tasks.completed = 0 AND tasks.hideUntil < :now AND gt_deleted = 0"
           + " GROUP BY google_task_lists.gtl_remote_id"
           + " ORDER BY google_task_lists.gtl_account COLLATE NOCASE, google_task_lists.gtl_title COLLATE NOCASE")
   public abstract List<GoogleTaskFilters> getGoogleTaskFilters(long now);
