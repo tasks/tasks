@@ -37,7 +37,7 @@ public class TaskCompleter {
     long completionDate = completed ? now() : 0L;
     setComplete(singletonList(item), completionDate);
     setComplete(googleTaskDao.getChildTasks(item.getId()), completionDate);
-    List<Long> caldavChildren = caldavDao.getChildren(singletonList(item.getId()));
+    List<Long> caldavChildren = caldavDao.getChildren(item.getId());
     if (!caldavChildren.isEmpty()) {
       setComplete(taskDao.fetch(caldavChildren), completionDate);
     }

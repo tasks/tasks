@@ -117,6 +117,10 @@ public abstract class CaldavDao {
   @Query("UPDATE caldav_tasks SET cd_parent = IFNULL((SELECT cd_task FROM caldav_tasks AS p WHERE p.cd_remote_id = caldav_tasks.cd_remote_parent), cd_parent) WHERE cd_calendar = :calendar AND cd_remote_parent IS NOT NULL and cd_remote_parent != ''")
   public abstract void updateParents(String calendar);
 
+  public List<Long> getChildren(long id) {
+    return getChildren(Collections.singletonList(id));
+  }
+
   public List<Long> getChildren(List<Long> ids) {
     return atLeastLollipop()
         ? getChildrenRecursive(ids)
