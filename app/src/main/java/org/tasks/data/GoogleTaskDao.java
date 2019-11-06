@@ -98,6 +98,9 @@ public abstract class GoogleTaskDao {
   @Query("SELECT tasks.* FROM tasks JOIN google_tasks ON tasks._id = gt_task WHERE gt_parent = :taskId")
   public abstract List<Task> getChildTasks(long taskId);
 
+  @Query("SELECT gt_task FROM google_tasks WHERE gt_task IN (:taskIds) AND gt_parent IN (:taskIds)")
+  public abstract List<Long> findChildrenInList(List<Long> taskIds);
+
   @Query("SELECT * FROM google_tasks WHERE gt_parent = :id AND gt_deleted = 0")
   public abstract List<GoogleTask> getChildren(Long id);
 

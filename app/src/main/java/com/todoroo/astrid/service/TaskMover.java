@@ -2,6 +2,7 @@ package com.todoroo.astrid.service;
 
 import static com.google.common.collect.Iterables.concat;
 import static com.google.common.collect.Iterables.transform;
+import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.utility.DateUtilities.now;
 import static java.util.Collections.emptyList;
@@ -48,8 +49,9 @@ public class TaskMover {
   }
 
   public void move(List<Long> tasks, Filter selectedList) {
-    List<Task> fetch = taskDao.fetchExcludingChildren(tasks);
-    for (Task task : fetch) {
+    tasks = newArrayList(tasks);
+    tasks.removeAll(googleTaskDao.findChildrenInList(tasks));
+    for (Task task : taskDao.fetch(tasks)) {
       performMove(task, selectedList);
       task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
       task.setModificationDate(now());
