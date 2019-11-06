@@ -111,7 +111,7 @@ public class GtasksInvoker {
             .list(listId)
             .setMaxResults(100L)
             .setShowDeleted(false)
-            .setShowHidden(true)
+            .setShowHidden(false)
             .setPageToken(pageToken)
             .setFields("items(id,parent,position),nextPageToken"));
   }

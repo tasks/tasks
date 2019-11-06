@@ -42,7 +42,7 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
   @Override
   public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-    return adapter.isManuallySorted() && adapter.getNumSelected() == 0
+    return adapter.supportsParentingOrManualSort() && adapter.getNumSelected() == 0
         ? makeMovementFlags(UP | DOWN | LEFT | RIGHT, 0)
         : makeMovementFlags(0, 0);
   }

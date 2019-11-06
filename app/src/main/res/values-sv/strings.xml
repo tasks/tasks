@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
-<resources>
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos--><resources>
     <string name="actfm_picture_clear">Rensa bild</string>
-    <string name="TVA_add_comment">Lägg till en kommentar...</string>
+    <string name="TVA_add_comment">Lägg till en kommentar…</string>
     <string name="name">Namn</string>
     <string name="enter_filter_name">Ange ett namn för filtret</string>
     <string name="backup_BPr_header">Säkerhetskopior</string>
     <string name="backup_BAc_import">Importera uppgifter</string>
     <string name="backup_BAc_export">Exportera uppgifter</string>
     <string name="export_toast">Säkerhetskopierade %1$s till %2$s.</string>
-    <string name="export_toast_no_tasks">Inga uppgifter att exportera</string>
+    <string name="export_toast_no_tasks">Inga uppgifter att exportera.</string>
     <string name="import_summary_title">Återställningssammanfattning</string>
     <string name="import_summary_message">Filen %1$s innehöll %2$s.\n\n %3$s importerade,\n %4$s existerar redan\n %5$s hade fel\n</string>
-    <string name="import_progress_read">Läser uppgift %d...</string>
+    <string name="import_progress_read">Läser uppgift %d…</string>
     <string name="read_permission_label">Tasks Tillstånd</string>
     <string name="discard_confirmation">Är du säker på att du inte vill spara dina ändringar?</string>
     <string name="keep_editing">Fortsätt redigera</string>
@@ -58,7 +57,7 @@
     <string name="TEA_control_reminders">Påminnelser</string>
     <string name="TEA_control_timer">Inställningar för tidtagarur</string>
     <string name="TEA_control_hidden_section">----Göm alltid----</string>
-    <string name="TEA_load_more">Ladda mer...</string>
+    <string name="TEA_load_more">Ladda mer…</string>
     <string name="CRA_ignore">Ignorera</string>
     <string name="CRA_title">Behöver du en lista över möten?</string>
     <string name="CRA_ignore_body">Du har ignorerat flera kalenderhändelser. Vill du att Tasks slutar fråga dig om dem?</string>
@@ -127,8 +126,8 @@
     <string name="CFC_importance_text">Prioritet åtminstone ?</string>
     <string name="CFC_importance_name">Prioritet…</string>
     <string name="CFC_tag_text">Etikett: ?</string>
-    <string name="CFC_tag_name">Etikett...</string>
-    <string name="CFC_tag_contains_name">Etikettens namn innehåller...</string>
+    <string name="CFC_tag_name">Etikett…</string>
+    <string name="CFC_tag_contains_name">Etikettens namn innehåller…</string>
     <string name="CFC_tag_contains_text">Etikettens namn innehåller: ?</string>
     <string name="CFC_title_contains_name">Titeln innehåller…</string>
     <string name="CFC_title_contains_text">Titeln innehåller: ?</string>
@@ -138,9 +137,9 @@
     <string name="calendar_event_not_found">Kalenderhändelsen hittades inte</string>
     <string name="gcal_completed_title">%s (avslutad)</string>
     <string name="CFC_gtasks_list_text">I listan: ?</string>
-    <string name="CFC_gtasks_list_name">I lista på Google Uppgifter...</string>
+    <string name="CFC_gtasks_list_name">I lista på Google Uppgifter…</string>
     <string name="gtasks_GTA_clear_completed">Rensa bort färdiga</string>
-    <string name="gtasks_GLA_authenticating">Autentiserar...</string>
+    <string name="gtasks_GLA_authenticating">Autentiserar…</string>
     <string name="gtasks_GLA_errorIOAuth">Vi hade problem med förbindelsen till Googles servrar. Försök igen senare.</string>
     <string name="gtasks_GPr_header">Google Uppgifter</string>
     <string name="gtasks_error_accountNotFound">Kontot %s kunde inte hittas. Logga ut och in på nytt i inställningarna för Google Uppgifter.</string>
@@ -157,8 +156,8 @@
     <string name="random_reminder_two_weeks">två veckor</string>
     <string name="random_reminder_month">en månad</string>
     <string name="random_reminder_two_months">två månader</string>
-    <string name="rmd_NoA_done">Redan klar!</string>
-    <string name="rmd_NoA_snooze">Vänta...</string>
+    <string name="rmd_NoA_done">Slutförd</string>
+    <string name="rmd_NoA_snooze">Skjut upp</string>
     <string name="rmd_EPr_quiet_hours_start_title">Tyst period börjar</string>
     <string name="rmd_EPr_quiet_hours_end_title">Tyst period slutar</string>
     <string name="rmd_EPr_rmd_time_title">Standardpåminnelse</string>
@@ -306,5 +305,5 @@
     <string name="no_calendars_found">Inga kalendrar hittades</string>
     <string name="widget_settings">Inställningar för widget</string>
     <string name="clear_completed_tasks_confirmation">Rensa bort slutförda uppgifter?</string>
-    <string name="themes">Fler teman</string>
+    <string name="themes">Ytterligare teman och ikoner</string>
 </resources>

@@ -60,7 +60,7 @@ public class NotificationManager {
   public static final String NOTIFICATION_CHANNEL_TASKER = "notifications_tasker";
   public static final String NOTIFICATION_CHANNEL_TIMERS = "notifications_timers";
   public static final String NOTIFICATION_CHANNEL_MISCELLANEOUS = "notifications_miscellaneous";
-  public static final int MAX_NOTIFICATIONS = 40;
+  public static final int MAX_NOTIFICATIONS = 21;
   static final String EXTRA_NOTIFICATION_ID = "extra_notification_id";
   static final int SUMMARY_NOTIFICATION_ID = 0;
   private static final String GROUP_KEY = "tasks";
@@ -128,7 +128,7 @@ public class NotificationManager {
       createNotifications(notifications, false, false, false, true);
     } else {
       createNotifications(notifications, false, false, false, false);
-      notificationManagerCompat.cancel(SUMMARY_NOTIFICATION_ID);
+      cancelSummaryNotification();
     }
   }
 
@@ -138,12 +138,12 @@ public class NotificationManager {
     notificationDao.insertAll(newNotifications);
     int totalCount = existingNotifications.size() + newNotifications.size();
     if (totalCount == 0) {
-      notificationManagerCompat.cancel(SUMMARY_NOTIFICATION_ID);
+      cancelSummaryNotification();
     } else if (totalCount == 1) {
       List<Notification> notifications =
           newArrayList(concat(existingNotifications, newNotifications));
       createNotifications(notifications, alert, nonstop, fiveTimes, false);
-      notificationManagerCompat.cancel(SUMMARY_NOTIFICATION_ID);
+      cancelSummaryNotification();
     } else if (preferences.bundleNotifications()) {
       updateSummary(false, false, false, Collections.emptyList());
 
@@ -235,6 +235,10 @@ public class NotificationManager {
       boolean notify, boolean nonStop, boolean fiveTimes, List<Notification> newNotifications) {
     List<Task> tasks = taskDao.activeNotifications();
     int taskCount = tasks.size();
+    if (taskCount == 0) {
+      cancelSummaryNotification();
+      return;
+    }
     ArrayList<Long> taskIds = newArrayList(transform(tasks, Task::getId));
     Filter filter =
         new Filter(
@@ -428,5 +432,9 @@ public class NotificationManager {
             context.getResources().getString(R.string.rmd_NoA_snooze),
             snoozePendingIntent)
         .extend(wearableExtender);
+  }
+
+  private void cancelSummaryNotification() {
+    notificationManagerCompat.cancel(SUMMARY_NOTIFICATION_ID);
   }
 }

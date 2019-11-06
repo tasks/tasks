@@ -91,7 +91,7 @@ public abstract class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewH
 
   @Override
   public boolean onLongPress(ViewHolder viewHolder) {
-    if (!adapter.isManuallySorted()) {
+    if (!adapter.supportsParentingOrManualSort()) {
       startActionMode();
     }
     if (mode != null && !viewHolder.isMoving()) {
@@ -104,7 +104,7 @@ public abstract class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewH
     if (mode == null) {
       mode = actionModeProvider.startActionMode(adapter, taskList, this);
       updateModeTitle();
-      if (adapter.isManuallySorted()) {
+      if (adapter.supportsParentingOrManualSort()) {
         Flags.set(Flags.TLFP_NO_INTERCEPT_TOUCH);
       }
     }

@@ -190,11 +190,21 @@ public class TaskContainer {
   }
 
   public long getParent() {
-    return googletask == null ? 0 : googletask.getParent();
+    if (googletask != null) {
+      return googletask.getParent();
+    } else if (caldavTask != null) {
+      return caldavTask.getParent();
+    } else {
+      return 0;
+    }
   }
 
   public void setParent(long parent) {
-    googletask.setParent(parent);
+    if (googletask != null) {
+      googletask.setParent(parent);
+    } else if (caldavTask != null) {
+      caldavTask.setParent(parent);
+    }
   }
 
   public boolean hasParent() {
@@ -211,6 +221,10 @@ public class TaskContainer {
 
   public GoogleTask getGoogleTask() {
     return googletask;
+  }
+
+  public CaldavTask getCaldavTask() {
+    return caldavTask;
   }
 
   public int getTargetIndent() {

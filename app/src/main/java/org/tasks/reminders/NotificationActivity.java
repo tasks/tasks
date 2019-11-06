@@ -110,7 +110,6 @@ public class NotificationActivity extends InjectingAppCompatActivity
   public void complete() {
     Intent intent = new Intent(this, CompleteTaskReceiver.class);
     intent.putExtra(CompleteTaskReceiver.TASK_ID, taskId);
-    intent.putExtra(CompleteTaskReceiver.TOGGLE_STATE, false);
     sendBroadcast(intent);
     finish();
   }

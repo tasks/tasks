@@ -1,0 +1,1032 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 65,
+    "identityHash": "a4ed2dbd1d79ddf3bd0e9250331e0f23",
+    "entities": [
+      {
+        "tableName": "notification",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `task` INTEGER NOT NULL, `timestamp` INTEGER NOT NULL, `type` INTEGER NOT NULL, `location` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "uid",
+            "columnName": "uid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "taskId",
+            "columnName": "task",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timestamp",
+            "columnName": "timestamp",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "location",
+            "columnName": "location",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "uid"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_notification_task",
+            "unique": true,
+            "columnNames": [
+              "task"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_notification_task` ON `${TABLE_NAME}` (`task`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "tagdata",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `remoteId` TEXT, `name` TEXT, `color` INTEGER, `tagOrdering` TEXT, `td_icon` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "remoteId",
+            "columnName": "remoteId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "color",
+            "columnName": "color",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "tagOrdering",
+            "columnName": "tagOrdering",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "icon",
+            "columnName": "td_icon",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "userActivity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `remoteId` TEXT, `message` TEXT, `picture` TEXT, `target_id` TEXT, `created_at` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "remoteId",
+            "columnName": "remoteId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "message",
+            "columnName": "message",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "picture",
+            "columnName": "picture",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "targetId",
+            "columnName": "target_id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "created",
+            "columnName": "created_at",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "task_attachments",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `remoteId` TEXT, `task_id` TEXT, `name` TEXT, `path` TEXT, `content_type` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "remoteId",
+            "columnName": "remoteId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "taskId",
+            "columnName": "task_id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "uri",
+            "columnName": "path",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "contentType",
+            "columnName": "content_type",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "task_list_metadata",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `remoteId` TEXT, `tag_uuid` TEXT, `filter` TEXT, `task_ids` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "remoteId",
+            "columnName": "remoteId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "tagUuid",
+            "columnName": "tag_uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "filter",
+            "columnName": "filter",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "taskIds",
+            "columnName": "task_ids",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "tasks",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `title` TEXT, `importance` INTEGER, `dueDate` INTEGER, `hideUntil` INTEGER, `created` INTEGER, `modified` INTEGER, `completed` INTEGER, `deleted` INTEGER, `notes` TEXT, `estimatedSeconds` INTEGER, `elapsedSeconds` INTEGER, `timerStart` INTEGER, `notificationFlags` INTEGER, `notifications` INTEGER, `lastNotified` INTEGER, `snoozeTime` INTEGER, `recurrence` TEXT, `repeatUntil` INTEGER, `calendarUri` TEXT, `remoteId` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "priority",
+            "columnName": "importance",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dueDate",
+            "columnName": "dueDate",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "hideUntil",
+            "columnName": "hideUntil",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "created",
+            "columnName": "created",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "modified",
+            "columnName": "modified",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "completed",
+            "columnName": "completed",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "deleted",
+            "columnName": "deleted",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "notes",
+            "columnName": "notes",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "estimatedSeconds",
+            "columnName": "estimatedSeconds",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "elapsedSeconds",
+            "columnName": "elapsedSeconds",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "timerStart",
+            "columnName": "timerStart",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "notificationFlags",
+            "columnName": "notificationFlags",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "notifications",
+            "columnName": "notifications",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "lastNotified",
+            "columnName": "lastNotified",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "snoozeTime",
+            "columnName": "snoozeTime",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "recurrence",
+            "columnName": "recurrence",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "repeatUntil",
+            "columnName": "repeatUntil",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "calendarUri",
+            "columnName": "calendarUri",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "remoteId",
+            "columnName": "remoteId",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "t_rid",
+            "unique": true,
+            "columnNames": [
+              "remoteId"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `t_rid` ON `${TABLE_NAME}` (`remoteId`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "alarms",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `task` INTEGER NOT NULL, `time` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "task",
+            "columnName": "task",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "time",
+            "columnName": "time",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "places",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`place_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `uid` TEXT, `name` TEXT, `address` TEXT, `phone` TEXT, `url` TEXT, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "place_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "uid",
+            "columnName": "uid",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address",
+            "columnName": "address",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "phone",
+            "columnName": "phone",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "url",
+            "columnName": "url",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "latitude",
+            "columnName": "latitude",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "longitude",
+            "columnName": "longitude",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "place_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "geofences",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`geofence_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `task` INTEGER NOT NULL, `place` TEXT, `radius` INTEGER NOT NULL, `arrival` INTEGER NOT NULL, `departure` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "geofence_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "task",
+            "columnName": "task",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "place",
+            "columnName": "place",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "radius",
+            "columnName": "radius",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "arrival",
+            "columnName": "arrival",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "departure",
+            "columnName": "departure",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "geofence_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "tags",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `task` INTEGER NOT NULL, `name` TEXT, `tag_uid` TEXT, `task_uid` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "task",
+            "columnName": "task",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "tagUid",
+            "columnName": "tag_uid",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "taskUid",
+            "columnName": "task_uid",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "google_tasks",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`gt_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `gt_task` INTEGER NOT NULL, `gt_remote_id` TEXT, `gt_list_id` TEXT, `gt_parent` INTEGER NOT NULL, `gt_remote_parent` TEXT, `gt_moved` INTEGER NOT NULL, `gt_order` INTEGER NOT NULL, `gt_remote_order` INTEGER NOT NULL, `gt_last_sync` INTEGER NOT NULL, `gt_deleted` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "gt_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "task",
+            "columnName": "gt_task",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "remoteId",
+            "columnName": "gt_remote_id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "listId",
+            "columnName": "gt_list_id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "parent",
+            "columnName": "gt_parent",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "remoteParent",
+            "columnName": "gt_remote_parent",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "moved",
+            "columnName": "gt_moved",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "order",
+            "columnName": "gt_order",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "remoteOrder",
+            "columnName": "gt_remote_order",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastSync",
+            "columnName": "gt_last_sync",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deleted",
+            "columnName": "gt_deleted",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "gt_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "filters",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `sql` TEXT, `values` TEXT, `criterion` TEXT, `f_color` INTEGER, `f_icon` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sql",
+            "columnName": "sql",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "values",
+            "columnName": "values",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "criterion",
+            "columnName": "criterion",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "color",
+            "columnName": "f_color",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "icon",
+            "columnName": "f_icon",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "google_task_lists",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`gtl_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `gtl_account` TEXT, `gtl_remote_id` TEXT, `gtl_title` TEXT, `gtl_remote_order` INTEGER NOT NULL, `gtl_last_sync` INTEGER NOT NULL, `gtl_color` INTEGER, `gtl_icon` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "gtl_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "account",
+            "columnName": "gtl_account",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "remoteId",
+            "columnName": "gtl_remote_id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "gtl_title",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "remoteOrder",
+            "columnName": "gtl_remote_order",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastSync",
+            "columnName": "gtl_last_sync",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "color",
+            "columnName": "gtl_color",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "icon",
+            "columnName": "gtl_icon",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "gtl_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "caldav_lists",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cdl_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cdl_account` TEXT, `cdl_uuid` TEXT, `cdl_name` TEXT, `cdl_color` INTEGER NOT NULL, `cdl_ctag` TEXT, `cdl_url` TEXT, `cdl_icon` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "cdl_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "account",
+            "columnName": "cdl_account",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "cdl_uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "cdl_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "color",
+            "columnName": "cdl_color",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ctag",
+            "columnName": "cdl_ctag",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "url",
+            "columnName": "cdl_url",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "icon",
+            "columnName": "cdl_icon",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "cdl_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "caldav_tasks",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cd_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cd_task` INTEGER NOT NULL, `cd_calendar` TEXT, `cd_object` TEXT, `cd_remote_id` TEXT, `cd_etag` TEXT, `cd_last_sync` INTEGER NOT NULL, `cd_deleted` INTEGER NOT NULL, `cd_vtodo` TEXT, `cd_parent` INTEGER NOT NULL, `cd_remote_parent` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "cd_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "task",
+            "columnName": "cd_task",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "calendar",
+            "columnName": "cd_calendar",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "object",
+            "columnName": "cd_object",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "remoteId",
+            "columnName": "cd_remote_id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "etag",
+            "columnName": "cd_etag",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "lastSync",
+            "columnName": "cd_last_sync",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deleted",
+            "columnName": "cd_deleted",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "vtodo",
+            "columnName": "cd_vtodo",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "parent",
+            "columnName": "cd_parent",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "remoteParent",
+            "columnName": "cd_remote_parent",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "cd_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "caldav_accounts",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cda_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cda_uuid` TEXT, `cda_name` TEXT, `cda_url` TEXT, `cda_username` TEXT, `cda_password` TEXT, `cda_error` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "cda_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "cda_uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "cda_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "url",
+            "columnName": "cda_url",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "username",
+            "columnName": "cda_username",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "password",
+            "columnName": "cda_password",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "error",
+            "columnName": "cda_error",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "cda_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "google_task_accounts",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`gta_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `gta_account` TEXT, `gta_error` TEXT, `gta_etag` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "gta_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "account",
+            "columnName": "gta_account",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "error",
+            "columnName": "gta_error",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "etag",
+            "columnName": "gta_etag",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "gta_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a4ed2dbd1d79ddf3bd0e9250331e0f23')"
+    ]
+  }
+}

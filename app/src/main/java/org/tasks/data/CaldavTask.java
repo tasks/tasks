@@ -43,6 +43,12 @@ public class CaldavTask {
   @ColumnInfo(name = "cd_vtodo")
   private String vtodo;
 
+  @ColumnInfo(name = "cd_parent")
+  private long parent;
+
+  @ColumnInfo(name = "cd_remote_parent")
+  private String remoteParent;
+
   public CaldavTask() {}
 
   @Ignore
@@ -133,6 +139,22 @@ public class CaldavTask {
     this.vtodo = vtodo;
   }
 
+  public long getParent() {
+    return parent;
+  }
+
+  public void setParent(long parent) {
+    this.parent = parent;
+  }
+
+  public String getRemoteParent() {
+    return remoteParent;
+  }
+
+  public void setRemoteParent(String remoteParent) {
+    this.remoteParent = remoteParent;
+  }
+
   @Override
   public String toString() {
     return "CaldavTask{"
@@ -158,6 +180,12 @@ public class CaldavTask {
         + deleted
         + ", vtodo='"
         + vtodo
+        + '\''
+        + ", parent='"
+        + parent
+        + '\''
+        + ", remoteParent='"
+        + remoteParent
         + '\''
         + '}';
   }

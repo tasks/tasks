@@ -10,7 +10,7 @@ import android.content.Context;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.service.TaskCompleter;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.dialogs.Linkify;
@@ -27,7 +27,7 @@ public class ViewHolderFactory {
   private final Locale locale;
   private final ChipProvider chipProvider;
   private final int fontSize;
-  private final TaskDao taskDao;
+  private final TaskCompleter taskCompleter;
   private final DisplayMetrics metrics;
   private final int background;
   private final int selectedColor;
@@ -41,12 +41,12 @@ public class ViewHolderFactory {
       Locale locale,
       Preferences preferences,
       ChipProvider chipProvider,
-      TaskDao taskDao,
+      TaskCompleter taskCompleter,
       Linkify linkify) {
     this.context = context;
     this.locale = locale;
     this.chipProvider = chipProvider;
-    this.taskDao = taskDao;
+    this.taskCompleter = taskCompleter;
     this.preferences = preferences;
     this.linkify = linkify;
     textColorSecondary = getData(context, android.R.attr.textColorSecondary);
@@ -69,7 +69,7 @@ public class ViewHolderFactory {
         chipProvider,
         textColorOverdue,
         textColorSecondary,
-        taskDao,
+        taskCompleter,
         callbacks,
         metrics,
         background,

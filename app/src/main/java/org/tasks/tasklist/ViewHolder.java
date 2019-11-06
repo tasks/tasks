@@ -26,7 +26,7 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.common.collect.Lists;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.service.TaskCompleter;
 import com.todoroo.astrid.ui.CheckableImageView;
 import java.util.List;
 import org.tasks.R;
@@ -43,7 +43,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
   private final Activity context;
   private final Preferences preferences;
   private final int textColorSecondary;
-  private final TaskDao taskDao;
+  private final TaskCompleter taskCompleter;
   private final ViewHolderCallbacks callback;
   private final DisplayMetrics metrics;
   private final int background;
@@ -97,7 +97,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
       ChipProvider chipProvider,
       int textColorOverdue,
       int textColorSecondary,
-      TaskDao taskDao,
+      TaskCompleter taskCompleter,
       ViewHolderCallbacks callback,
       DisplayMetrics metrics,
       int background,
@@ -110,7 +110,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     this.chipProvider = chipProvider;
     this.textColorOverdue = textColorOverdue;
     this.textColorSecondary = textColorSecondary;
-    this.taskDao = taskDao;
+    this.taskCompleter = taskCompleter;
     this.callback = callback;
     this.metrics = metrics;
     this.background = background;
@@ -313,7 +313,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
 
     if (newState != task.isCompleted()) {
       callback.onCompletedTask(task, newState);
-      taskDao.setComplete(task.getTask(), newState);
+      taskCompleter.setComplete(task.getTask(), newState);
     }
 
     // set check box to actual action item state

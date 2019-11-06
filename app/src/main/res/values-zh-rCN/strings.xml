@@ -534,4 +534,5 @@
     <string name="name_your_price">您愿意支付多少费用</string>
     <string name="monthly">每月</string>
     <string name="annually">每年</string>
+    <string name="list_separator_with_space">"， "</string>
 </resources>

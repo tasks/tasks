@@ -7,6 +7,7 @@ import androidx.room.Query;
 import androidx.room.RoomWarnings;
 import androidx.room.Transaction;
 import androidx.room.Update;
+import com.todoroo.astrid.data.Task;
 import java.util.List;
 import timber.log.Timber;
 
@@ -93,6 +94,9 @@ public abstract class GoogleTaskDao {
 
   @Query("SELECT gt_task FROM google_tasks WHERE gt_parent IN (:ids)")
   public abstract List<Long> getChildren(List<Long> ids);
+
+  @Query("SELECT tasks.* FROM tasks JOIN google_tasks ON tasks._id = gt_task WHERE gt_parent = :taskId")
+  public abstract List<Task> getChildTasks(long taskId);
 
   @Query("SELECT * FROM google_tasks WHERE gt_parent = :id AND gt_deleted = 0")
   public abstract List<GoogleTask> getChildren(Long id);

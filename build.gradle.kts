@@ -6,7 +6,7 @@ buildscript {
     }
 
     dependencies {
-        classpath("com.android.tools.build:gradle:3.5.0")
+        classpath("com.android.tools.build:gradle:3.5.1")
         classpath("com.google.gms:google-services:4.3.2")
         // https://docs.fabric.io/android/changelog.html#fabric-gradle-plugin
         classpath("io.fabric.tools:gradle:1.31.0")

@@ -17,6 +17,7 @@ import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
+import org.tasks.data.CaldavDao;
 import org.tasks.data.DeletionDao;
 import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskDao;
@@ -29,6 +30,7 @@ public class TaskDeleter {
   private final TaskDao taskDao;
   private final LocalBroadcastManager localBroadcastManager;
   private final GoogleTaskDao googleTaskDao;
+  private final CaldavDao caldavDao;
   private final DeletionDao deletionDao;
 
   @Inject
@@ -37,12 +39,14 @@ public class TaskDeleter {
       WorkManager workManager,
       TaskDao taskDao,
       LocalBroadcastManager localBroadcastManager,
-      GoogleTaskDao googleTaskDao) {
+      GoogleTaskDao googleTaskDao,
+      CaldavDao caldavDao) {
     this.deletionDao = deletionDao;
     this.workManager = workManager;
     this.taskDao = taskDao;
     this.localBroadcastManager = localBroadcastManager;
     this.googleTaskDao = googleTaskDao;
+    this.caldavDao = caldavDao;
   }
 
   public int purgeDeleted() {
@@ -58,6 +62,7 @@ public class TaskDeleter {
   public List<Task> markDeleted(List<Long> taskIds) {
     Set<Long> ids = new HashSet<>(taskIds);
     batch(taskIds, i -> ids.addAll(googleTaskDao.getChildren(i)));
+    batch(taskIds, i -> ids.addAll(caldavDao.getChildren(i)));
     deletionDao.markDeleted(ids);
     workManager.cleanup(taskIds);
     workManager.sync(false);
