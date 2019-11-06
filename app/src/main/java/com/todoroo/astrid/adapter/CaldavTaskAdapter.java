@@ -61,6 +61,16 @@ public final class CaldavTaskAdapter extends TaskAdapter {
         newParent = previous.getParent();
       } else if (indent > previous.getIndent()) {
         newParent = previous.getId();
+      } else if (indent < previous.getIndent()) {
+        newParent = previous.getParent();
+        int currentIndex = to;
+        for (int i = 0 ; i < previous.getIndent() - indent ; i++) {
+          long thisParent = newParent;
+          while (newParent == thisParent) {
+            thisParent = getTask(--currentIndex).getParent();
+          }
+          newParent = thisParent;
+        }
       }
     }
 
