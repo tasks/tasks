@@ -3,7 +3,7 @@ object Versions {
     const val targetSdk = 29
     const val minSdk = 16
     const val dagger = "2.25.2"
-    const val butterknife = "10.1.0"
+    const val butterknife = "10.2.0"
     const val work = "2.0.1"
     const val leakcanary = "1.6.3"
     const val room = "2.1.0"
