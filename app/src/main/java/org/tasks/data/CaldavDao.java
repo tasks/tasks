@@ -52,6 +52,9 @@ public abstract class CaldavDao {
   @Update
   public abstract void update(CaldavTask caldavTask);
 
+  @Update
+  public abstract void update(Iterable<CaldavTask> tasks);
+
   @Delete
   public abstract void delete(CaldavTask caldavTask);
 

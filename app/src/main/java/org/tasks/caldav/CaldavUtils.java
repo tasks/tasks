@@ -9,6 +9,8 @@ import java.io.StringReader;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import net.fortuna.ical4j.model.Property;
+import org.tasks.data.CaldavTask;
 import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
 
@@ -32,5 +34,13 @@ public class CaldavUtils {
       selectedTags.add(tag);
     }
     return selectedTags;
+  }
+
+  public static void applyRelatedTo(CaldavTask caldavTask, at.bitfire.ical4android.Task remote) {
+    for (Property prop : remote.getUnknownProperties()) {
+      if (prop.getName().equals(Property.RELATED_TO)) {
+        caldavTask.setRemoteParent(prop.getValue());
+      }
+    }
   }
 }

@@ -1,6 +1,10 @@
 package com.todoroo.astrid.service;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
+import static com.google.common.collect.Iterables.transform;
+import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Sets.newHashSet;
+import static org.tasks.caldav.CaldavUtils.applyRelatedTo;
 import static org.tasks.db.DbUtils.batch;
 
 import android.os.Environment;
@@ -19,6 +23,7 @@ import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.caldav.CaldavUtils;
 import org.tasks.data.CaldavDao;
+import org.tasks.data.CaldavTask;
 import org.tasks.data.CaldavTaskContainer;
 import org.tasks.data.Filter;
 import org.tasks.data.FilterDao;
@@ -47,6 +52,7 @@ public class Upgrader {
   private static final int V6_7 = 585;
   private static final int V6_8_1 = 607;
   private static final int V6_9 = 608;
+  private static final int V6_10 = 617;
   private final Preferences preferences;
   private final Tracker tracker;
   private final TagDataDao tagDataDao;
@@ -96,6 +102,7 @@ public class Upgrader {
       run(from, V6_7, this::migrateGoogleTaskFilters);
       run(from, V6_8_1, this::migrateCaldavFilters);
       run(from, V6_9, this::applyCaldavCategories);
+      run(from, V6_10, this::applyCaldavSubtasks);
       tracker.reportEvent(Tracking.Events.UPGRADE, Integer.toString(from));
     }
     preferences.setCurrentVersion(to);
@@ -105,6 +112,27 @@ public class Upgrader {
     if (from < version) {
       runnable.run();
       preferences.setCurrentVersion(version);
+    }
+  }
+
+  private void applyCaldavSubtasks() {
+    List<CaldavTask> updated = newArrayList();
+
+    for (CaldavTask task : transform(caldavDao.getTasks(), CaldavTaskContainer::getCaldavTask)) {
+      at.bitfire.ical4android.Task remoteTask = CaldavUtils.fromVtodo(task.getVtodo());
+      if (remoteTask == null) {
+        continue;
+      }
+      applyRelatedTo(task, remoteTask);
+      if (!Strings.isNullOrEmpty(task.getRemoteParent())) {
+        updated.add(task);
+      }
+    }
+
+    caldavDao.update(updated);
+
+    for (String calendar : newHashSet(transform(updated, CaldavTask::getCalendar))) {
+      caldavDao.updateParents(calendar);
     }
   }
 

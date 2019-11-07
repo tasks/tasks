@@ -7,6 +7,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 import static com.google.common.collect.Sets.difference;
 import static com.google.common.collect.Sets.newHashSet;
+import static org.tasks.caldav.CaldavUtils.applyRelatedTo;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 import android.content.Context;
@@ -42,7 +43,6 @@ import java.util.List;
 import java.util.Set;
 import javax.inject.Inject;
 import javax.net.ssl.SSLException;
-import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.model.property.ProdId;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -60,7 +60,6 @@ import org.tasks.data.TagDao;
 import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
 import org.tasks.injection.ForApplication;
-import retrofit2.http.HEAD;
 import timber.log.Timber;
 
 public class CaldavSynchronizer {
@@ -377,13 +376,7 @@ public class CaldavSynchronizer {
     caldavTask.setEtag(eTag);
     caldavTask.setLastSync(DateUtilities.now() + 1000L);
 
-    // Process remote parents
-    LinkedList<Property> unknownProperties = remote.getUnknownProperties();
-    for (Property prop : unknownProperties) {
-      if (prop.getName().equals(Property.RELATED_TO)) {
-        caldavTask.setRemoteParent(prop.getValue());
-      }
-    }
+    applyRelatedTo(caldavTask, remote);
 
     if (caldavTask.getId() == Task.NO_ID) {
       caldavTask.setId(caldavDao.insert(caldavTask));
@@ -393,5 +386,4 @@ public class CaldavSynchronizer {
       Timber.d("UPDATE %s", caldavTask);
     }
   }
-
 }
