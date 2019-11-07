@@ -145,7 +145,7 @@ public class RemoteListFragment extends TaskEditControlFragment {
 
   @Override
   public void apply(Task task) {
-    taskMover.move(task, selectedList);
+    taskMover.move(task.getId(), selectedList);
   }
 
   @Override

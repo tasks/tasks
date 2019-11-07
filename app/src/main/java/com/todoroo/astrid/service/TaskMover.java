@@ -4,6 +4,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.utility.DateUtilities.now;
 import static java.util.Collections.emptyList;
+import static java.util.Collections.singletonList;
 
 import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
@@ -45,6 +46,10 @@ public class TaskMover {
     this.preferences = preferences;
   }
 
+  public void move(Long task, Filter selectedList) {
+    move(singletonList(task), selectedList);
+  }
+
   public void move(List<Long> tasks, Filter selectedList) {
     tasks = newArrayList(tasks);
     tasks.removeAll(googleTaskDao.findChildrenInList(tasks));
@@ -59,10 +64,6 @@ public class TaskMover {
       caldavDao.updateParents((((CaldavFilter) selectedList).getUuid()));
     }
     syncAdapters.sync();
-  }
-
-  public void move(Task task, Filter selectedList) {
-    performMove(task, selectedList);
   }
 
   public Filter getSingleFilter(List<Long> tasks) {
