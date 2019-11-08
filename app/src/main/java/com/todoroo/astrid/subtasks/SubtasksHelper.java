@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
-import org.tasks.R;
 import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
 import org.tasks.data.TaskListMetadata;
@@ -126,7 +125,7 @@ public class SubtasksHelper {
   }
 
   public boolean shouldUseSubtasksFragmentForFilter(Filter filter) {
-    return preferences.getBoolean(R.string.p_manual_sort, false)
+    return preferences.isManualSort()
         && filter != null
         && (filter.supportsSubtasks()
             || BuiltInFilterExposer.isInbox(context, filter)

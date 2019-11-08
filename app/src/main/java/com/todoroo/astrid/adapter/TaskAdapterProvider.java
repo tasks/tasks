@@ -15,7 +15,6 @@ import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 import javax.inject.Inject;
-import org.tasks.R;
 import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.GoogleTaskDao;
@@ -66,13 +65,15 @@ public class TaskAdapterProvider {
       TagFilter tagFilter = (TagFilter) filter;
       TagData tagData = tagDataDao.getByUuid(tagFilter.getUuid());
       if (tagData != null) {
-        return isManualSort() ? createManualTagTaskAdapter(tagFilter) : new TaskAdapter();
+        return preferences.isManualSort()
+            ? createManualTagTaskAdapter(tagFilter)
+            : new TaskAdapter();
       }
     } else if (filter instanceof GtasksFilter) {
       GtasksFilter gtasksFilter = (GtasksFilter) filter;
       GoogleTaskList list = gtasksListService.getList(gtasksFilter.getStoreId());
       if (list != null) {
-        return isManualSort()
+        return preferences.isManualSort()
             ? createManualGoogleTaskAdapter(gtasksFilter)
             : new TaskAdapter();
       }
@@ -88,10 +89,6 @@ public class TaskAdapterProvider {
           : new TaskAdapter();
     }
     return new TaskAdapter();
-  }
-
-  private boolean isManualSort() {
-    return preferences.getBoolean(R.string.p_manual_sort, false);
   }
 
   private TaskAdapter createManualTagTaskAdapter(TagFilter filter) {

@@ -62,7 +62,7 @@ public class SortDialog extends InjectingDialogFragment {
     items.add(getString(R.string.SSD_sort_modified));
 
     if (manualEnabled) {
-      if (preferences.getBoolean(R.string.p_manual_sort, false)) {
+      if (preferences.isManualSort()) {
         selectedIndex = 0;
       }
     } else {

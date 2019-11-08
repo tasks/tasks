@@ -516,4 +516,12 @@ public class Preferences {
   public boolean isPositionHackEnabled() {
     return getLong(R.string.p_google_tasks_position_hack, 0) > now() - TimeUnit.DAYS.toMillis(7);
   }
+
+  public boolean isManualSort() {
+    return getBoolean(R.string.p_manual_sort, false);
+  }
+
+  public boolean isReverseSort() {
+    return getBoolean(R.string.p_reverse_sort, false);
+  }
 }

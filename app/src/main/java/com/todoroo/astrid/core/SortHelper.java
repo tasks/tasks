@@ -43,7 +43,7 @@ public class SortHelper {
     if (!originalSql.toUpperCase().contains("ORDER BY")) {
       Order order = orderForSortType(sort);
 
-      if (preferences.getBoolean(R.string.p_reverse_sort, false)) {
+      if (preferences.isReverseSort()) {
         order = order.reverse();
       }
       originalSql += " ORDER BY " + order;
@@ -175,7 +175,7 @@ public class SortHelper {
       order.addSecondaryExpression(Order.asc("sort_title"));
     }
 
-    if (preferences.getBoolean(R.string.p_reverse_sort, false)) {
+    if (preferences.isReverseSort()) {
       order = order.reverse();
     }
 
