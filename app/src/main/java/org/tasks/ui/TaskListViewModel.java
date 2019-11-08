@@ -140,14 +140,11 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
       fields.add(INDENT);
 
       String joinedQuery =
-                      Join.left(GoogleTask.TABLE.as(GTASK_METADATA_JOIN), gtaskJoinCriterion).toString()
+                      Join.left(Task.TABLE, Task.ID.eq(field("recursive_caldav.cd_task")))
+                      + Join.left(GoogleTask.TABLE.as(GTASK_METADATA_JOIN), gtaskJoinCriterion).toString()
                       + Join.left(CaldavTask.TABLE.as(CALDAV_METADATA_JOIN), caldavJoinCriterion)
                       + Join.left(Geofence.TABLE, field(Geofence.TABLE_NAME + ".task").eq(Task.ID))
                       + Join.left(Place.TABLE, field(Place.TABLE_NAME + ".uid").eq(field("geofences.place")));
-
-      joinedQuery = "LEFT JOIN tasks\n"
-                    + "ON tasks._id = recursive_caldav.cd_task\n"
-                    + joinedQuery + "\n";
 
       String uuid = ((CaldavFilter) filter).getUuid();
 
