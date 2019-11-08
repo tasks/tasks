@@ -6,7 +6,9 @@ import androidx.annotation.NonNull;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
+import com.todoroo.andlib.sql.OrderType;
 import com.todoroo.andlib.sql.QueryTemplate;
+import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import java.util.HashMap;
@@ -14,6 +16,7 @@ import java.util.Map;
 import org.tasks.R;
 import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskList;
+import org.tasks.preferences.Preferences;
 
 public class GtasksFilter extends Filter {
 
@@ -49,13 +52,56 @@ public class GtasksFilter extends Filter {
     icon = list.getIcon();
   }
 
-  public static String toManualOrder(String query) {
+  public static String toSubtaskQuery(Preferences preferences, String query) {
+    boolean manualSort = preferences.isManualSort();
+    String parentSort, childPrimarySort, childSecondarySort;
+    OrderType sortOrder;
+    OrderType titleOrder = OrderType.ASC;
+    if (manualSort) {
+      parentSort = "google_tasks.gt_order";
+      childPrimarySort = "p.gt_order";
+      childSecondarySort = "c.gt_order";
+      sortOrder = OrderType.ASC;
+    } else {
+      int sortMode = preferences.getSortMode();
+      parentSort = SortHelper.orderSelectForSortTypeRecursive(sortMode)
+          .replaceFirst("AS .*", "");
+      childPrimarySort = SortHelper.orderSelectForSortTypeRecursive(sortMode)
+          .replaceFirst("AS .*", "")
+          .replaceAll("tasks\\.", "parent_tasks.");
+      childSecondarySort = SortHelper.orderSelectForSortTypeRecursive(sortMode)
+          .replaceFirst("AS .*", "")
+          .replaceAll("tasks\\.", "child_tasks.");
+      sortOrder = sortMode == SortHelper.SORT_MODIFIED ? OrderType.DESC : OrderType.ASC;
+      if (preferences.isReverseSort() && sortMode == SortHelper.SORT_ALPHA) {
+        titleOrder = OrderType.DESC;
+      }
+    }
+    if (preferences.isReverseSort()) {
+      sortOrder = sortOrder == OrderType.DESC ? OrderType.ASC : OrderType.DESC;
+    }
     query =
         query.replace(
             "WHERE",
-            "JOIN (SELECT google_tasks.*, COUNT(c.gt_id) AS children, 0 AS siblings, google_tasks.gt_order AS primary_sort, NULL AS secondary_sort FROM google_tasks LEFT JOIN google_tasks AS c ON c.gt_parent = google_tasks.gt_task WHERE google_tasks.gt_parent = 0 GROUP BY google_tasks.gt_task UNION SELECT c.*, 0 AS children, COUNT(s.gt_id) AS siblings, p.gt_order AS primary_sort, c.gt_order AS secondary_sort FROM google_tasks AS c LEFT JOIN google_tasks AS p ON c.gt_parent = p.gt_task LEFT JOIN tasks ON c.gt_parent = tasks._id LEFT JOIN google_tasks AS s ON s.gt_parent = p.gt_task WHERE c.gt_parent > 0 AND ((tasks.completed=0) AND (tasks.deleted=0) AND (tasks.hideUntil<(strftime('%s','now')*1000))) GROUP BY c.gt_task) as g2 ON g2.gt_id = google_tasks.gt_id WHERE");
+            "JOIN ("
+                + "SELECT 0 AS indent, google_tasks.*, COUNT(c.gt_id) AS children, 0 AS siblings, " + parentSort + " AS primary_sort, NULL AS secondary_sort, UPPER(tasks.title) AS primary_title, NULL AS secondary_title "
+                + "FROM google_tasks "
+                + "LEFT JOIN google_tasks AS c ON c.gt_parent = google_tasks.gt_task "
+                + "LEFT JOIN tasks ON tasks._id = google_tasks.gt_task "
+                + "WHERE google_tasks.gt_parent = 0 "
+                + "GROUP BY google_tasks.gt_task "
+                + "UNION "
+                + "SELECT 1 AS indent, c.*, 0 AS children, COUNT(s.gt_id) AS siblings, " + childPrimarySort + " AS primary_sort, " + childSecondarySort + " AS secondary_sort, UPPER(parent_tasks.title) AS primary_title, UPPER(child_tasks.title) AS secondary_title "
+                + "FROM google_tasks AS c "
+                + "LEFT JOIN google_tasks AS p ON c.gt_parent = p.gt_task "
+                + "LEFT JOIN tasks AS parent_tasks ON c.gt_parent = parent_tasks._id "
+                + "LEFT JOIN tasks AS child_tasks ON c.gt_task = child_tasks._id "
+                + "LEFT JOIN google_tasks AS s ON s.gt_parent = p.gt_task "
+                + "WHERE c.gt_parent > 0 AND ((parent_tasks.completed=0) AND (parent_tasks.deleted=0) AND (parent_tasks.hideUntil<(strftime('%s','now')*1000))) "
+                + "GROUP BY c.gt_task"
+                + ") as g2 ON g2.gt_id = google_tasks.gt_id WHERE");
     query = query.replaceAll("ORDER BY .*", "");
-    query = query + "ORDER BY primary_sort ASC, secondary_sort ASC";
+    query = query + "ORDER BY primary_sort " + sortOrder + ", primary_title " + titleOrder + ", indent ASC" + ", secondary_sort " + sortOrder + ", secondary_title " + titleOrder;
     return query;
   }
 

@@ -117,7 +117,7 @@ public class GoogleTask {
   }
 
   public int getIndent() {
-    return parent > 0 ? 0 : 1;
+    return parent > 0 ? 1 : 0;
   }
 
   public long getRemoteOrder() {

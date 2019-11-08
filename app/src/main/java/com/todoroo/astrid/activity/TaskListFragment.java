@@ -384,7 +384,7 @@ public final class TaskListFragment extends InjectingFragment
             filter.supportsSubtasks()
                 || BuiltInFilterExposer.isInbox(context, filter)
                 || BuiltInFilterExposer.isTodayFilter(context, filter);
-        SortDialog.newSortDialog(supportsManualSort)
+        SortDialog.newSortDialog(supportsManualSort, filter instanceof GtasksFilter)
             .show(getChildFragmentManager(), FRAG_TAG_SORT_DIALOG);
         return true;
       case R.id.menu_show_hidden:

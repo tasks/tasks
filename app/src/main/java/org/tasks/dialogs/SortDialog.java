@@ -23,6 +23,7 @@ import timber.log.Timber;
 public class SortDialog extends InjectingDialogFragment {
 
   private static final String EXTRA_MANUAL_ENABLED = "extra_manual_enabled";
+  private static final String EXTRA_IS_GOOGLE_TASKS = "extra_is_google_tasks";
   private static final String EXTRA_SELECTED_INDEX = "extra_selected_index";
   @Inject Preferences preferences;
   @Inject DialogBuilder dialogBuilder;
@@ -31,9 +32,12 @@ public class SortDialog extends InjectingDialogFragment {
   private AlertDialog alertDialog;
   private SortDialogCallback callback;
 
-  public static SortDialog newSortDialog(boolean manualEnabled) {
+  public static SortDialog newSortDialog(boolean manualEnabled, boolean isGoogleTasks) {
     SortDialog sortDialog = new SortDialog();
-    sortDialog.manualEnabled = manualEnabled;
+    Bundle args = new Bundle();
+    args.putBoolean(EXTRA_MANUAL_ENABLED, manualEnabled);
+    args.putBoolean(EXTRA_IS_GOOGLE_TASKS, isGoogleTasks);
+    sortDialog.setArguments(args);
     return sortDialog;
   }
 
@@ -41,6 +45,10 @@ public class SortDialog extends InjectingDialogFragment {
   @Override
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     onCreate(savedInstanceState);
+
+    Bundle arguments = getArguments();
+    manualEnabled = arguments.getBoolean(EXTRA_MANUAL_ENABLED);
+    boolean isGoogleTasks = arguments.getBoolean(EXTRA_IS_GOOGLE_TASKS);
 
     if (savedInstanceState != null) {
       manualEnabled = savedInstanceState.getBoolean(EXTRA_MANUAL_ENABLED);
@@ -52,7 +60,7 @@ public class SortDialog extends InjectingDialogFragment {
     List<String> items = new ArrayList<>();
 
     if (manualEnabled) {
-      items.add(getString(R.string.SSD_sort_drag));
+      items.add(getString(isGoogleTasks ? R.string.SSD_sort_my_order : R.string.SSD_sort_drag));
     }
 
     items.add(getString(R.string.SSD_sort_auto));
