@@ -5,7 +5,6 @@ import static com.google.common.collect.Iterables.filter;
 import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Sets.newHashSet;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastKitKat;
-import static com.todoroo.andlib.utility.DateUtilities.now;
 import static java.util.Collections.emptySet;
 
 import android.content.ContentResolver;
@@ -514,7 +513,7 @@ public class Preferences {
   }
 
   public boolean isPositionHackEnabled() {
-    return getLong(R.string.p_google_tasks_position_hack, 0) > now() - TimeUnit.DAYS.toMillis(7);
+    return getLong(R.string.p_google_tasks_position_hack, 0) > 0;
   }
 
   public boolean isManualSort() {
