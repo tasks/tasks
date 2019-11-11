@@ -61,7 +61,7 @@
       "artifactId": {
         "name": "constraintlayout",
         "group": "androidx.constraintlayout",
-        "version": "2.0.0-beta2"
+        "version": "2.0.0-beta1"
       }
     },
     {
@@ -157,7 +157,7 @@
       "artifactId": {
         "name": "core",
         "group": "androidx.core",
-        "version": "1.1.0-rc03"
+        "version": "1.1.0"
       }
     },
     {
@@ -301,7 +301,7 @@
       "artifactId": {
         "name": "versionedparcelable",
         "group": "androidx.versionedparcelable",
-        "version": "1.0.0"
+        "version": "1.1.0"
       }
     },
     {
@@ -541,7 +541,7 @@
       "artifactId": {
         "name": "dagger",
         "group": "com.google.dagger",
-        "version": "2.23.2"
+        "version": "2.25.2"
       }
     },
     {
@@ -909,7 +909,7 @@
       "artifactId": {
         "name": "ical4j",
         "group": "org.mnode.ical4j",
-        "version": "2.2.5"
+        "version": "2.2.6"
       }
     },
     {
@@ -1469,7 +1469,7 @@
       "artifactId": {
         "name": "constraintlayout-solver",
         "group": "androidx.constraintlayout",
-        "version": "2.0.0-beta2"
+        "version": "2.0.0-beta1"
       }
     },
     {
@@ -1645,7 +1645,7 @@
       "artifactId": {
         "name": "butterknife",
         "group": "com.jakewharton",
-        "version": "10.1.0"
+        "version": "10.2.0"
       }
     },
     {
@@ -1661,7 +1661,7 @@
       "artifactId": {
         "name": "butterknife-annotations",
         "group": "com.jakewharton",
-        "version": "10.1.0"
+        "version": "10.2.0"
       }
     },
     {
@@ -1725,7 +1725,7 @@
       "artifactId": {
         "name": "butterknife-runtime",
         "group": "com.jakewharton",
-        "version": "10.1.0"
+        "version": "10.2.0"
       }
     },
     {
@@ -1906,8 +1906,8 @@
     },
     {
       "notice": null,
-      "copyrightHolder": "The Android Open Source Project",
-      "copyrightStatement": "Copyright &copy; The Android Open Source Project. All rights reserved.",
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
       "license": "The Apache Software License, Version 2.0",
       "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
       "normalizedLicense": "apache2",
@@ -1917,7 +1917,7 @@
       "artifactId": {
         "name": "core-ktx",
         "group": "androidx.core",
-        "version": "1.0.2"
+        "version": "1.1.0"
       }
     },
     {
