@@ -22,11 +22,6 @@ public class GoogleTaskManualSortAdapter extends TaskAdapter {
   }
 
   @Override
-  public int getIndent(TaskContainer task) {
-    return task.getIndent();
-  }
-
-  @Override
   public boolean canMove(ViewHolder sourceVh, ViewHolder targetVh) {
     TaskContainer source = sourceVh.task;
     int to = targetVh.getAdapterPosition();

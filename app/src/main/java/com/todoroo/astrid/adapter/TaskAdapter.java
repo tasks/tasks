@@ -53,7 +53,7 @@ public class TaskAdapter {
   }
 
   public int getIndent(TaskContainer task) {
-    return 0;
+    return task.getIndent();
   }
 
   public boolean canMove(ViewHolder source, ViewHolder target) {

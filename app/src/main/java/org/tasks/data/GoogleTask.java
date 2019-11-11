@@ -18,6 +18,12 @@ public class GoogleTask {
   public static final Property.IntegerProperty ORDER =
       new Property.IntegerProperty(GoogleTask.TABLE, "gt_order");
 
+  public static final Property.IntegerProperty PARENT =
+      new Property.IntegerProperty(TABLE, "gt_parent");
+
+  public static final Property.IntegerProperty TASK =
+      new Property.IntegerProperty(TABLE, "gt_task");
+
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "gt_id")
   private transient long id;

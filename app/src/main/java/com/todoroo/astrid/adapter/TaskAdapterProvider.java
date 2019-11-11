@@ -104,7 +104,7 @@ public class TaskAdapterProvider {
   }
 
   private TaskAdapter createGoogleTaskAdapter(GtasksFilter filter) {
-    String query = GtasksFilter.toSubtaskQuery(preferences, filter.getSqlQuery());
+    String query = GtasksFilter.toManualOrder(filter.getSqlQuery());
     filter.setFilterQueryOverride(query);
     return preferences.isManualSort()
         ? new GoogleTaskManualSortAdapter(taskDao, googleTaskDao)

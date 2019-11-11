@@ -51,12 +51,15 @@ public class CaldavFilter extends Filter {
 
   private static QueryTemplate queryTemplate(CaldavCalendar caldavCalendar) {
     return new QueryTemplate()
-        .join(getJoin())
-        .where(
-            Criterion.and(
-                TaskDao.TaskCriteria.activeAndVisible(),
-                Field.field("caldav_tasks.cd_deleted").eq(0),
-                Field.field("caldav_tasks.cd_calendar").eq(caldavCalendar.getUuid())));
+        .join(Join.left(CaldavTask.TABLE, Task.ID.eq(Field.field("caldav_tasks.cd_task"))))
+        .where(getCriterion(caldavCalendar));
+  }
+
+  public static Criterion getCriterion(CaldavCalendar caldavCalendar) {
+    return Criterion.and(
+        TaskDao.TaskCriteria.activeAndVisible(),
+        Field.field("caldav_tasks.cd_deleted").eq(0),
+        Field.field("caldav_tasks.cd_calendar").eq(caldavCalendar.getUuid()));
   }
 
   private static Map<String, Object> getValuesForNewTask(CaldavCalendar caldavCalendar) {
@@ -105,13 +108,5 @@ public class CaldavFilter extends Filter {
   @Override
   public boolean areContentsTheSame(@NonNull FilterListItem other) {
     return calendar.equals(((CaldavFilter) other).calendar);
-  }
-
-  private static Join getJoin() {
-    return Join.left(CaldavTask.TABLE, Task.ID.eq(Field.field("caldav_tasks.cd_task")));
-  }
-
-  public static String getJoinSql() {
-    return getJoin().toString();
   }
 }

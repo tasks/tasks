@@ -136,7 +136,7 @@ public class SubtasksHelper {
     if (shouldUseSubtasksFragmentForFilter(filter)) {
 
       if (filter instanceof GtasksFilter) {
-        query = GtasksFilter.toSubtaskQuery(preferences, query);
+        query = GtasksFilter.toManualOrder(query);
       } else {
         TagData tagData = tagDataDao.getTagByName(filter.listingTitle);
         TaskListMetadata tlm = null;

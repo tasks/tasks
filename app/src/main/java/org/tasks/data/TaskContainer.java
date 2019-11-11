@@ -13,7 +13,7 @@ public class TaskContainer {
   public int siblings;
   public long primarySort;
   public long secondarySort;
-  @Deprecated public int indent;
+  public int indent;
   private int targetIndent;
 
   public String getTagsString() {
@@ -85,9 +85,6 @@ public class TaskContainer {
   }
 
   public int getIndent() {
-    if (googletask != null) {
-      return getParent() > 0 ? 1 : 0;
-    }
     return indent;
   }
 

@@ -25,6 +25,7 @@ import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
@@ -55,6 +56,7 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
   private static final PagedList.Config PAGED_LIST_CONFIG =
       new PagedList.Config.Builder().setPageSize(20).build();
 
+  private static final Table RECURSIVE = new Table("recursive_tasks");
   private static final Field TASKS = field("tasks.*");
   private static final Field GTASK = field(GTASK_METADATA_JOIN + ".*");
   private static final Field GEOFENCE = field("geofences.*");
@@ -115,7 +117,8 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
       tagsJoinCriterion =
           Criterion.and(tagsJoinCriterion, field(TAGS_METADATA_JOIN + ".tag_uid").neq(uuid));
     } else if (filter instanceof GtasksFilter) {
-      if (manualSort) {
+      if (preferences.isManualSort()) {
+        fields.add(INDENT);
         fields.add(CHILDREN);
         fields.add(SIBLINGS);
         fields.add(PRIMARY_SORT);
@@ -127,7 +130,9 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
           Criterion.and(caldavJoinCriterion, field(CALDAV_METADATA_JOIN + ".cd_calendar").eq(uuid));
     }
 
-    if (filter instanceof CaldavFilter && atLeastLollipop()) {
+    if (atLeastLollipop()
+        && (filter instanceof CaldavFilter
+            || (!preferences.isManualSort() && filter instanceof GtasksFilter))) {
       // TODO This is in some ways a proof of concept demonstrating a recursive query used to pull
       //      in CalDAV tasks providing parenting across different sort modes. Tags are implemented
       //      as a subquery, which is ugly, but aggregate recursive queries aren't supported. The
@@ -148,26 +153,31 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
 
       String sortSelect = SortHelper.orderSelectForSortTypeRecursive(preferences.getSortMode());
       Order order = SortHelper.orderForSortTypeRecursive(preferences);
-      String filterSql = filter.getSqlQuery();
-
-      // Remove unwanted join
-      filterSql = filterSql.replace(CaldavFilter.getJoinSql(), "");
-
+      Field parent;
+      QueryTemplate query;
+      if (filter instanceof CaldavFilter) {
+        query = new QueryTemplate()
+            .join(Join.left(CaldavTask.TABLE, Task.ID.eq(CaldavTask.TASK)))
+            .where(CaldavFilter.getCriterion(((CaldavFilter) filter).getCalendar()));
+        parent = CaldavTask.PARENT;
+      } else {
+        query = new QueryTemplate()
+            .join(Join.left(GoogleTask.TABLE, Task.ID.eq(GoogleTask.TASK)))
+            .where(GtasksFilter.getCriterion(((GtasksFilter) filter).getList()));
+        parent = GoogleTask.PARENT;
+      }
+      String filterSql = query.toString();
       String withClause = "WITH RECURSIVE\n"
               + " recursive_tasks (task, indent, title, sortField) AS (\n"
               + " SELECT _id, 0 AS sort_indent, UPPER(title) AS sort_title, " + sortSelect + "\n"
               + " FROM tasks\n"
-              + " INNER JOIN caldav_tasks ON tasks._id = cd_task\n"
-              + filterSql + "\n"
-              + " AND cd_parent = 0\n"
+              + filterSql
+              + " AND " + parent + " = 0\n"
               + " UNION ALL\n"
               + " SELECT _id, recursive_tasks.indent+1 AS sort_indent, UPPER(tasks.title) AS sort_title, " + sortSelect + "\n"
               + " FROM tasks\n"
-              + " INNER JOIN caldav_tasks\n"
-              + " ON tasks._id = caldav_tasks.cd_task\n"
-              + " INNER JOIN recursive_tasks\n"
-              + " ON recursive_tasks.task = caldav_tasks.cd_parent\n"
-              + filterSql + "\n"
+              + " INNER JOIN recursive_tasks ON " + parent + " = recursive_tasks.task\n"
+              + filterSql
               + " ORDER BY sort_indent DESC, " + order + "\n"
               + " )\n";
 
@@ -176,7 +186,7 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
       return Query.select(fields.toArray(new Field[0]))
               .withQueryTemplate(PermaSql.replacePlaceholdersForQuery(joinedQuery))
               .withPreClause(withClause)
-              .from(new Table("recursive_tasks"))
+              .from(RECURSIVE)
               .toString();
     } else {
       fields.add(TAGS);

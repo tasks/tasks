@@ -6,6 +6,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Table;
 
 @Entity(tableName = "caldav_tasks")
@@ -14,6 +15,12 @@ public class CaldavTask {
   public static final String KEY = "caldav";
 
   @Deprecated public static final Table TABLE = new Table("caldav_tasks");
+
+  public static final Property.IntegerProperty PARENT =
+      new Property.IntegerProperty(TABLE, "cd_parent");
+
+  public static final Property.IntegerProperty TASK =
+      new Property.IntegerProperty(TABLE, "cd_task");
 
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "cd_id")
