@@ -70,7 +70,7 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
           .as("tags");
   private static final StringProperty TAGS_RECURSIVE =
       new StringProperty(null, "(SELECT group_concat(distinct(tag_uid))\n" +
-              "FROM tags WHERE tags.task = recursive_caldav.cd_task\n" +
+              "FROM tags WHERE tags.task = recursive_tasks.task\n" +
               "GROUP BY tags.task)")
           .as("tags");
 
@@ -140,49 +140,43 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
       fields.add(INDENT);
 
       String joinedQuery =
-                      Join.left(Task.TABLE, Task.ID.eq(field("recursive_caldav.cd_task")))
+                      Join.left(Task.TABLE, Task.ID.eq(field("recursive_tasks.task")))
                       + Join.left(GoogleTask.TABLE.as(GTASK_METADATA_JOIN), gtaskJoinCriterion).toString()
                       + Join.left(CaldavTask.TABLE.as(CALDAV_METADATA_JOIN), caldavJoinCriterion)
                       + Join.left(Geofence.TABLE, field(Geofence.TABLE_NAME + ".task").eq(Task.ID))
                       + Join.left(Place.TABLE, field(Place.TABLE_NAME + ".uid").eq(field("geofences.place")));
-
-      String uuid = ((CaldavFilter) filter).getUuid();
 
       String sortSelect = SortHelper.orderSelectForSortTypeRecursive(preferences.getSortMode());
       Order order = SortHelper.orderForSortTypeRecursive(preferences);
       String filterSql = filter.getSqlQuery();
 
       // Remove unwanted join
-      String joinSql = ((CaldavFilter) filter).getJoinSql();
-      filterSql = filterSql.replace(joinSql, "");
+      filterSql = filterSql.replace(CaldavFilter.getJoinSql(), "");
 
-      String calDavWithClause = "WITH RECURSIVE\n"
-              + " recursive_caldav (cd_id, cd_task, indent, title, sortField) AS (\n"
-              + " SELECT cd_id, cd_task, 0 AS sort_indent, UPPER(title) AS sort_title, " + sortSelect + "\n"
+      String withClause = "WITH RECURSIVE\n"
+              + " recursive_tasks (task, indent, title, sortField) AS (\n"
+              + " SELECT _id, 0 AS sort_indent, UPPER(title) AS sort_title, " + sortSelect + "\n"
               + " FROM tasks\n"
-              + " INNER JOIN caldav_tasks\n"
-              + "  ON tasks._id = cd_task\n"
-              + " WHERE cd_parent = 0\n"
-              + " AND cd_calendar='" + uuid + "'\n"
-              + " AND " + filterSql.replace("WHERE", "") + "\n"
+              + " INNER JOIN caldav_tasks ON tasks._id = cd_task\n"
+              + filterSql + "\n"
+              + " AND cd_parent = 0\n"
               + " UNION ALL\n"
-              + " SELECT caldav_tasks.cd_id, caldav_tasks.cd_task, recursive_caldav.indent+1 AS sort_indent, UPPER(tasks.title) AS sort_title, " + sortSelect + "\n"
+              + " SELECT _id, recursive_tasks.indent+1 AS sort_indent, UPPER(tasks.title) AS sort_title, " + sortSelect + "\n"
               + " FROM tasks\n"
               + " INNER JOIN caldav_tasks\n"
               + " ON tasks._id = caldav_tasks.cd_task\n"
-              + " INNER JOIN recursive_caldav\n"
-              + " ON recursive_caldav.cd_task = caldav_tasks.cd_parent\n"
+              + " INNER JOIN recursive_tasks\n"
+              + " ON recursive_tasks.task = caldav_tasks.cd_parent\n"
               + filterSql + "\n"
               + " ORDER BY sort_indent DESC, " + order + "\n"
               + " )\n";
 
-      calDavWithClause =
-              SortHelper.adjustQueryForFlags(preferences, calDavWithClause);
+      withClause = SortHelper.adjustQueryForFlags(preferences, withClause);
 
       return Query.select(fields.toArray(new Field[0]))
               .withQueryTemplate(PermaSql.replacePlaceholdersForQuery(joinedQuery))
-              .withPreClause(calDavWithClause)
-              .from(new Table("recursive_caldav"))
+              .withPreClause(withClause)
+              .from(new Table("recursive_tasks"))
               .toString();
     } else {
       fields.add(TAGS);
