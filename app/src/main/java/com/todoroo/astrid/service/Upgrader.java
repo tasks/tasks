@@ -52,7 +52,7 @@ public class Upgrader {
   private static final int V6_7 = 585;
   private static final int V6_8_1 = 607;
   private static final int V6_9 = 608;
-  private static final int V6_10 = 617;
+  private static final int V7_0 = 617;
   private final Preferences preferences;
   private final Tracker tracker;
   private final TagDataDao tagDataDao;
@@ -102,7 +102,7 @@ public class Upgrader {
       run(from, V6_7, this::migrateGoogleTaskFilters);
       run(from, V6_8_1, this::migrateCaldavFilters);
       run(from, V6_9, this::applyCaldavCategories);
-      run(from, V6_10, this::applyCaldavSubtasks);
+      run(from, V7_0, this::applyCaldavSubtasks);
       tracker.reportEvent(Tracking.Events.UPGRADE, Integer.toString(from));
     }
     preferences.setCurrentVersion(to);

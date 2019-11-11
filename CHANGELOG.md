@@ -1,5 +1,10 @@
 Change Log
 ---
+### 7.0 (2019-11-12)
+
+* Add support for CalDAV subtasks (Android 5+) - @creywood
+* Display Google subtasks in all sort modes (Android 5+)
+
 ### 6.9.3 (2019-10-31)
 
 * Fix disappearance of remotely completed recurring Google Tasks
