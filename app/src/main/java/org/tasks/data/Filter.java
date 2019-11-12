@@ -50,7 +50,8 @@ public class Filter {
   }
 
   public String getSql() {
-    return sql;
+    // TODO: replace dirty hack for missing column
+    return sql.replace("tasks.userId=0", "1");
   }
 
   public void setSql(String sql) {

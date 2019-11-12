@@ -31,9 +31,7 @@ public class CustomFilter extends Filter {
   private String criterion;
 
   public CustomFilter(org.tasks.data.Filter filter) {
-    // TODO: replace dirty hack for missing column
-    super(
-        filter.getTitle(), filter.getSql().replace("tasks.userId=0", "1"), filter.getValuesAsMap());
+    super(filter.getTitle(), filter.getSql(), filter.getValuesAsMap());
     this.id = filter.getId();
     this.criterion = filter.getCriterion();
     this.tint = filter.getColor();
