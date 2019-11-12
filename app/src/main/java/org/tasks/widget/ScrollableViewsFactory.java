@@ -6,30 +6,30 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
-import com.google.common.collect.ObjectArrays;
-import com.todoroo.andlib.data.Property;
+import androidx.sqlite.db.SimpleSQLiteQuery;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.GtasksFilter;
-import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
+import java.util.ArrayList;
+import java.util.List;
 import org.tasks.BuildConfig;
 import org.tasks.R;
-import org.tasks.data.GoogleTask;
+import org.tasks.data.TaskContainer;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.ThemeCache;
 import org.tasks.themes.WidgetTheme;
 import org.tasks.ui.CheckBoxes;
+import org.tasks.ui.TaskListViewModel;
 import timber.log.Timber;
 
 class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
@@ -42,6 +42,8 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
   private final Preferences preferences;
   private final WidgetPreferences widgetPreferences;
   private final Context context;
+  private final int widgetPadding;
+  private final int indentPadding;
 
   private boolean showDueDates;
   private boolean showCheckboxes;
@@ -51,7 +53,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
   private int textColorPrimary;
   private int textColorSecondary;
 
-  private Cursor cursor;
+  private List<TaskContainer> tasks = new ArrayList<>();
 
   ScrollableViewsFactory(
       SubtasksHelper subtasksHelper,
@@ -68,9 +70,10 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     this.taskDao = taskDao;
     this.defaultFilterProvider = defaultFilterProvider;
     this.themeCache = themeCache;
-
     widgetPreferences = new WidgetPreferences(context, preferences, widgetId);
-
+    DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+    widgetPadding = (int)(10 * metrics.density);
+    indentPadding = (int)(20 * metrics.density);
     updateSettings();
   }
 
@@ -79,22 +82,18 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
   @Override
   public void onDataSetChanged() {
-    if (cursor != null) {
-      cursor.close();
-    }
-    cursor = getCursor();
+    updateSettings();
+    String query = getQuery(filter);
+    tasks = taskDao.fetchTasks(new SimpleSQLiteQuery(query));
   }
 
   @Override
   public void onDestroy() {
-    if (cursor != null) {
-      cursor.close();
-    }
   }
 
   @Override
   public int getCount() {
-    return cursor == null ? 0 : cursor.getCount();
+    return tasks.size();
   }
 
   @Override
@@ -114,7 +113,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
   @Override
   public long getItemId(int position) {
-    Task task = getTask(position);
+    TaskContainer task = getTask(position);
     return task == null ? 0 : task.getId();
   }
 
@@ -129,10 +128,11 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
   private RemoteViews buildUpdate(int position) {
     try {
-      Task task = getTask(position);
-      if (task == null) {
+      TaskContainer taskContainer = getTask(position);
+      if (taskContainer == null) {
         return null;
       }
+      Task task = taskContainer.getTask();
       String textContent;
       int textColorTitle = textColorPrimary;
 
@@ -179,6 +179,12 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         row.setInt(
             R.id.widget_row, "setLayoutDirection", Locale.getInstance(context).getDirectionality());
       }
+      row.setViewPadding(
+          R.id.widget_row,
+          widgetPadding + taskContainer.getIndent() * indentPadding,
+          0,
+          widgetPadding,
+          0);
 
       return row;
     } catch (Exception e) {
@@ -188,20 +194,11 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     return null;
   }
 
-  private Cursor getCursor() {
-    updateSettings();
-    return taskDao.getCursor(getQuery(filter), getProperties(filter));
-  }
-
-  private Task getTask(int position) {
-    return cursor != null && cursor.moveToPosition(position) ? new Task(cursor) : null;
+  private TaskContainer getTask(int position) {
+    return position < tasks.size() ? tasks.get(position) : null;
   }
 
   private String getQuery(Filter filter) {
-    int sort = preferences.getSortMode();
-    if (sort == 0) {
-      sort = SortHelper.SORT_WIDGET;
-    }
     AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
     RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.scrollable_widget);
     rv.setTextViewText(R.id.widget_title, filter.listingTitle);
@@ -209,16 +206,8 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
       rv.setInt(R.id.widget, "setLayoutDirection", Locale.getInstance(context).getDirectionality());
     }
     appWidgetManager.partiallyUpdateAppWidget(widgetId, rv);
-    String query =
-        SortHelper.adjustQueryForFlagsAndSort(preferences, filter.getSqlQuery(), sort)
-            .replaceAll("LIMIT \\d+", "");
+    String query = TaskListViewModel.getQuery(preferences, filter);
     return subtasksHelper.applySubtasksToWidgetFilter(filter, query);
-  }
-
-  private Property<?>[] getProperties(Filter filter) {
-    return filter instanceof GtasksFilter
-        ? ObjectArrays.concat(Task.PROPERTIES, new Property<?>[] {GoogleTask.ORDER}, Property.class)
-        : Task.PROPERTIES;
   }
 
   private void formatDueDate(RemoteViews row, Task task) {

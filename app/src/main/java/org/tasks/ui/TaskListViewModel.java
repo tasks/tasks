@@ -100,7 +100,7 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
     tasks.observe(owner, observer);
   }
 
-  private String getQuery(Filter filter) {
+  public static String getQuery(Preferences preferences, Filter filter) {
     List<Field> fields = Lists.newArrayList(TASKS, GTASK, CALDAV, GEOFENCE, PLACE);
 
     Criterion tagsJoinCriterion = Criterion.and(Task.ID.eq(field(TAGS_METADATA_JOIN + ".task")));
@@ -233,7 +233,7 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
 
     removeObserver();
 
-    SimpleSQLiteQuery query = new SimpleSQLiteQuery(getQuery(filter));
+    SimpleSQLiteQuery query = new SimpleSQLiteQuery(getQuery(preferences, filter));
     Timber.v(query.getSql());
     if (manualSort) {
       disposable.add(

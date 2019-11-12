@@ -16,7 +16,6 @@ import androidx.room.Query;
 import androidx.room.RawQuery;
 import androidx.room.Update;
 import androidx.sqlite.db.SimpleSQLiteQuery;
-import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.astrid.api.Filter;
@@ -216,12 +215,8 @@ public abstract class TaskDao {
   }
 
   private Cursor getCursor(String queryTemplate) {
-    return getCursor(queryTemplate, Task.PROPERTIES);
-  }
-
-  public Cursor getCursor(String queryTemplate, Property<?>... properties) {
     com.todoroo.andlib.sql.Query query =
-        com.todoroo.andlib.sql.Query.select(properties)
+        com.todoroo.andlib.sql.Query.select(Task.PROPERTIES)
             .withQueryTemplate(PermaSql.replacePlaceholdersForQuery(queryTemplate));
     String queryString = query.from(Task.TABLE).toString();
     if (BuildConfig.DEBUG) {
