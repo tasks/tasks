@@ -18,6 +18,8 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.utility.Constants;
+import io.reactivex.Completable;
+import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
@@ -75,10 +77,14 @@ public class TimerPlugin {
         task.setElapsedSeconds(task.getElapsedSeconds() + newElapsed);
       }
     }
-    taskDao.save(task);
 
-    // update notification
-    updateNotifications();
+    Completable.fromAction(
+            () -> {
+              taskDao.save(task);
+              updateNotifications();
+            })
+        .subscribeOn(Schedulers.io())
+        .subscribe();
   }
 
   public void updateNotifications() {
