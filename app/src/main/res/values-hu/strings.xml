@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
-<resources>
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos--><resources>
     <string name="actfm_picture_clear">Kép törlése</string>
     <string name="TVA_add_comment">Hozzászólás írása…</string>
     <string name="name">Cím</string>
@@ -487,8 +486,8 @@
     <string name="error_billing_unavailable">Számlázási rendszer nem elérhető. Ellenőrizze a Google Play alkalmazás beállításait.</string>
     <string name="error_billing_default">Számlázási rendszer nem elérhető. Ellenőrizze az eszközét.</string>
     <string name="about">Névjegy</string>
-    <string name="license_summary">A Tasks ingyenes és nyílt forráskódú program, a GNU Általános Nyilvános Licenc v3.0 alapján licenszelve</string>
-    <string name="themes">További témák</string>
+    <string name="license_summary">A Tasks nyílt forráskódú program, a GNU Általános Nyilvános Licenc v3.0 alapján licenszelve</string>
+    <string name="themes">További témák és ikonok</string>
     <string name="pro_caldav_sync">CalDAV szinkronizáció</string>
     <string name="pro_multiple_google_task_accounts">Több Google Task fiók</string>
     <string name="pro_google_places_search">Google Helyek keresés</string>
@@ -543,4 +542,5 @@
     <string name="name_your_price">Nevezd meg az árat</string>
     <string name="monthly">Havi</string>
     <string name="annually">Éves</string>
+    <string name="SSD_sort_my_order">Egyéni sorrend</string>
 </resources>
