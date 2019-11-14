@@ -446,8 +446,8 @@
     <string name="repeats_single_on">Upprepas %1$s vid %2$s</string>
     <string name="repeats_single_until">Upprepas %1$s till %2$s</string>
     <string name="repeats_single_number_of_times">Upprepas %1$s, inträffar %2$d %3$s</string>
-    <string name="repeats_single_on_until">Upprepar %1 $ s på %2 $ s till %3 $ s #</string>
-    <string name="repeats_single_on_number_of_times">Upprepar %1 $ s på %2 $ s, inträffar %3 $ d %4 $ s #</string>
+    <string name="repeats_single_on_until">Upprepar %1$s på %2$s till %3$s</string>
+    <string name="repeats_single_on_number_of_times">Upprepar %1$s på %2$s, inträffar %3$d %4$s</string>
     <string name="repeats_minutely">Varje minut</string>
     <string name="repeats_hourly">Varje timme</string>
     <string name="repeats_daily">Dagligen</string>
@@ -456,10 +456,10 @@
     <string name="repeats_yearly">varje år</string>
     <string name="repeats_plural">Upprepas varje %s</string>
     <string name="repeats_plural_on">Upprepas %1$s vid %2$s</string>
-    <string name="repeats_plural_until">Upprepar varje% 1 $ s tills% 2 $ s</string>
-    <string name="repeats_plural_number_of_times">Upprepar varje %1 $ s, inträffar %2 $ d %3 $ s #</string>
-    <string name="repeats_plural_on_until">Upprepar varje %1 $ s på %2 $ s till %3 $ s #</string>
-    <string name="repeats_plural_on_number_of_times">Upprepar varje %1 $ s på %2 $ s, inträffar %3 $ d %4 $ s #</string>
+    <string name="repeats_plural_until">Upprepar varje %1$s tills %2$s</string>
+    <string name="repeats_plural_number_of_times">Upprepar varje %1$s, inträffar %2$d %3$s</string>
+    <string name="repeats_plural_on_until">Upprepar varje %1$s på %2$s till %3$s</string>
+    <string name="repeats_plural_on_number_of_times">Upprepar varje %1$s på %2$s, inträffar %3$d %4$s</string>
     <string name="list_separator_with_space">", "</string>
     <string name="dont_add_to_calendar">Lägg inte till i kalender</string>
     <string name="default_calendar">Standardkalender</string>
@@ -467,8 +467,8 @@
     <string name="bundle_notifications_summary">Kombinera flera aviseringar i ett enda meddelande</string>
     <string name="repeat_monthly_same_day_each_month">samma dag varje månad</string>
     <string name="dont_sync">Synkronisera inte</string>
-    <string name="repeat_monthly_every_day_of_nth_week">varje %1 $ s %2 $ s #</string>
-    <string name="repeat_monthly_on_every_day_of_nth_week">på varje %1 $ s %2 $ s #</string>
+    <string name="repeat_monthly_every_day_of_nth_week">varje %1$s %2$s</string>
+    <string name="repeat_monthly_on_every_day_of_nth_week">på varje %1$s %2$s</string>
     <string name="repeat_monthly_first_week">första</string>
     <string name="repeat_monthly_second_week">andra</string>
     <string name="repeat_monthly_third_week">Tredje</string>
@@ -496,7 +496,7 @@
     <string name="pro_dashclock_extension">DashClock extension</string>
     <string name="requires_pro_subscription">Kräver Pro-prenumeration</string>
     <string name="logout">Logga ut</string>
-    <string name="logout_warning">Logga ut från% s\? Alla data för det här kontot tas bort från enheten</string>
+    <string name="logout_warning">Logga ut från %s\? Alla data för det här kontot tas bort från enheten</string>
     <string name="cannot_access_account">Kan inte komma åt kontot</string>
     <string name="reinitialize_account">Initiera</string>
     <string name="action_create_new_task">Skapa ny uppgift</string>
@@ -508,8 +508,8 @@
     <string name="location_remind_arrival">Påminn vid ankomst</string>
     <string name="location_remind_departure">Påminn om avgång</string>
     <string name="visit_website">Besök hemsida</string>
-    <string name="location_arrived">Anlände vid % s</string>
-    <string name="location_departed">Avgick% s</string>
+    <string name="location_arrived">Anlände vid %s</string>
+    <string name="location_departed">Avgick %s</string>
     <string name="building_notifications">Genererar aviseringar</string>
     <string name="choose_a_location">Välj en plats</string>
     <string name="pick_this_location">Välj den här platsen</string>
@@ -523,7 +523,7 @@
     <string name="choose_new_location">Välj ny plats</string>
     <string name="third_party_licenses">Licenser från tredje part</string>
     <string name="changelog">Ändringslogg</string>
-    <string name="version_string">Version% s</string>
+    <string name="version_string">Version %s</string>
     <string name="invalid_backup_file">Ogiltig säkerhetskopia</string>
     <string name="google_tasks_add_to_top">Nya uppgifter överst</string>
     <string name="icon">Ikon</string>
