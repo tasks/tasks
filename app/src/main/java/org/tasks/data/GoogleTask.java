@@ -12,9 +12,8 @@ public class GoogleTask {
 
   public static final String KEY = "gtasks"; // $NON-NLS-1$
 
-  @Deprecated public static final Table TABLE = new Table("google_tasks");
+  public static final Table TABLE = new Table("google_tasks");
 
-  @Deprecated
   public static final Property.IntegerProperty ORDER =
       new Property.IntegerProperty(GoogleTask.TABLE, "gt_order");
 
@@ -23,6 +22,12 @@ public class GoogleTask {
 
   public static final Property.IntegerProperty TASK =
       new Property.IntegerProperty(TABLE, "gt_task");
+
+  public static final Property.LongProperty DELETED =
+      new Property.LongProperty(TABLE, "gt_deleted");
+
+  public static final Property.StringProperty LIST =
+      new Property.StringProperty(TABLE, "gt_list_id");
 
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "gt_id")

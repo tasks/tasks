@@ -14,13 +14,19 @@ public class CaldavTask {
 
   public static final String KEY = "caldav";
 
-  @Deprecated public static final Table TABLE = new Table("caldav_tasks");
+  public static final Table TABLE = new Table("caldav_tasks");
 
   public static final Property.IntegerProperty PARENT =
       new Property.IntegerProperty(TABLE, "cd_parent");
 
   public static final Property.IntegerProperty TASK =
       new Property.IntegerProperty(TABLE, "cd_task");
+
+  public static final Property.LongProperty DELETED =
+      new Property.LongProperty(TABLE, "cd_deleted");
+
+  public static final Property.StringProperty CALENDAR =
+      new Property.StringProperty(TABLE, "cd_calendar");
 
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "cd_id")

@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import androidx.annotation.NonNull;
 import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.dao.TaskDao;
@@ -51,15 +50,15 @@ public class CaldavFilter extends Filter {
 
   private static QueryTemplate queryTemplate(CaldavCalendar caldavCalendar) {
     return new QueryTemplate()
-        .join(Join.left(CaldavTask.TABLE, Task.ID.eq(Field.field("caldav_tasks.cd_task"))))
+        .join(Join.left(CaldavTask.TABLE, Task.ID.eq(CaldavTask.TASK)))
         .where(getCriterion(caldavCalendar));
   }
 
   public static Criterion getCriterion(CaldavCalendar caldavCalendar) {
     return Criterion.and(
         TaskDao.TaskCriteria.activeAndVisible(),
-        Field.field("caldav_tasks.cd_deleted").eq(0),
-        Field.field("caldav_tasks.cd_calendar").eq(caldavCalendar.getUuid()));
+        CaldavTask.DELETED.eq(0),
+        CaldavTask.CALENDAR.eq(caldavCalendar.getUuid()));
   }
 
   private static Map<String, Object> getValuesForNewTask(CaldavCalendar caldavCalendar) {
@@ -87,11 +86,6 @@ public class CaldavFilter extends Filter {
   protected void readFromParcel(Parcel source) {
     super.readFromParcel(source);
     calendar = source.readParcelable(getClass().getClassLoader());
-  }
-
-  @Override
-  public boolean supportsSubtasks() {
-    return false;
   }
 
   @Override

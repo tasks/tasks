@@ -23,7 +23,6 @@ import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
-import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.api.CaldavFilter;
@@ -57,6 +56,7 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
       new PagedList.Config.Builder().setPageSize(20).build();
 
   private static final Table RECURSIVE = new Table("recursive_tasks");
+  private static final Field RECURSIVE_TASK = field(RECURSIVE + ".task");
   private static final Field TASKS = field("tasks.*");
   private static final Field GTASK = field(GTASK_METADATA_JOIN + ".*");
   private static final Field GEOFENCE = field("geofences.*");
@@ -130,6 +130,12 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
           Criterion.and(caldavJoinCriterion, field(CALDAV_METADATA_JOIN + ".cd_calendar").eq(uuid));
     }
 
+    String joins =
+        Join.left(GoogleTask.TABLE.as(GTASK_METADATA_JOIN), gtaskJoinCriterion).toString()
+            + Join.left(CaldavTask.TABLE.as(CALDAV_METADATA_JOIN), caldavJoinCriterion)
+            + Join.left(Geofence.TABLE, field(Geofence.TABLE_NAME + ".task").eq(Task.ID))
+            + Join.left(Place.TABLE, field(Place.TABLE_NAME + ".uid").eq(field("geofences.place")));
+
     if (atLeastLollipop()
         && (filter instanceof CaldavFilter
             || (!preferences.isManualSort() && filter instanceof GtasksFilter))) {
@@ -144,50 +150,53 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
       fields.add(TAGS_RECURSIVE);
       fields.add(INDENT);
 
-      String joinedQuery =
-                      Join.left(Task.TABLE, Task.ID.eq(field("recursive_tasks.task")))
-                      + Join.left(GoogleTask.TABLE.as(GTASK_METADATA_JOIN), gtaskJoinCriterion).toString()
-                      + Join.left(CaldavTask.TABLE.as(CALDAV_METADATA_JOIN), caldavJoinCriterion)
-                      + Join.left(Geofence.TABLE, field(Geofence.TABLE_NAME + ".task").eq(Task.ID))
-                      + Join.left(Place.TABLE, field(Place.TABLE_NAME + ".uid").eq(field("geofences.place")));
+      String joinedQuery = Join.left(Task.TABLE, Task.ID.eq(RECURSIVE_TASK)) + joins;
+      String parentQuery;
+      QueryTemplate subtaskQuery = new QueryTemplate();
+      if (filter instanceof CaldavFilter) {
+        Criterion criterion = CaldavFilter.getCriterion(((CaldavFilter) filter).getCalendar());
+        parentQuery =
+            new QueryTemplate()
+                .join(Join.left(CaldavTask.TABLE, Task.ID.eq(CaldavTask.TASK)))
+                .where(Criterion.and(criterion, CaldavTask.PARENT.eq(0)))
+                .toString();
+        subtaskQuery
+            .join(Join.inner(RECURSIVE, RECURSIVE_TASK.eq(CaldavTask.PARENT)))
+            .join(Join.left(CaldavTask.TABLE, Task.ID.eq(CaldavTask.TASK)))
+            .where(criterion);
+      } else {
+        Criterion criterion = GtasksFilter.getCriterion(((GtasksFilter) filter).getList());
+        parentQuery =
+            new QueryTemplate()
+                .join(Join.left(GoogleTask.TABLE, Task.ID.eq(GoogleTask.TASK)))
+                .where(Criterion.and(criterion, GoogleTask.PARENT.eq(0)))
+                .toString();
+        subtaskQuery
+            .join(Join.inner(RECURSIVE, RECURSIVE_TASK.eq(GoogleTask.PARENT)))
+            .join(Join.left(GoogleTask.TABLE, Task.ID.eq(GoogleTask.TASK)))
+            .where(criterion);
+      }
 
       String sortSelect = SortHelper.orderSelectForSortTypeRecursive(preferences.getSortMode());
-      Order order = SortHelper.orderForSortTypeRecursive(preferences);
-      Field parent;
-      QueryTemplate query;
-      if (filter instanceof CaldavFilter) {
-        query = new QueryTemplate()
-            .join(Join.left(CaldavTask.TABLE, Task.ID.eq(CaldavTask.TASK)))
-            .where(CaldavFilter.getCriterion(((CaldavFilter) filter).getCalendar()));
-        parent = CaldavTask.PARENT;
-      } else {
-        query = new QueryTemplate()
-            .join(Join.left(GoogleTask.TABLE, Task.ID.eq(GoogleTask.TASK)))
-            .where(GtasksFilter.getCriterion(((GtasksFilter) filter).getList()));
-        parent = GoogleTask.PARENT;
-      }
-      String filterSql = query.toString();
-      String withClause = "WITH RECURSIVE\n"
-              + " recursive_tasks (task, indent, title, sortField) AS (\n"
-              + " SELECT _id, 0 AS sort_indent, UPPER(title) AS sort_title, " + sortSelect + "\n"
+      String withClause =
+          "WITH RECURSIVE recursive_tasks (task, indent, title, sortField) AS (\n"
+              + " SELECT tasks._id, 0 AS sort_indent, UPPER(title) AS sort_title, "
+              + sortSelect
               + " FROM tasks\n"
-              + filterSql
-              + " AND " + parent + " = 0\n"
-              + " UNION ALL\n"
-              + " SELECT _id, recursive_tasks.indent+1 AS sort_indent, UPPER(tasks.title) AS sort_title, " + sortSelect + "\n"
+              + parentQuery
+              + "\nUNION ALL SELECT tasks._id, recursive_tasks.indent+1 AS sort_indent, UPPER(tasks.title) AS sort_title, "
+              + sortSelect
               + " FROM tasks\n"
-              + " INNER JOIN recursive_tasks ON " + parent + " = recursive_tasks.task\n"
-              + filterSql
-              + " ORDER BY sort_indent DESC, " + order + "\n"
-              + " )\n";
-
-      withClause = SortHelper.adjustQueryForFlags(preferences, withClause);
+              + subtaskQuery
+              + "\nORDER BY sort_indent DESC, "
+              + SortHelper.orderForSortTypeRecursive(preferences)
+              + ")";
 
       return Query.select(fields.toArray(new Field[0]))
-              .withQueryTemplate(PermaSql.replacePlaceholdersForQuery(joinedQuery))
-              .withPreClause(withClause)
-              .from(RECURSIVE)
-              .toString();
+          .withPreClause(SortHelper.adjustQueryForFlags(preferences, withClause))
+          .withQueryTemplate(PermaSql.replacePlaceholdersForQuery(joinedQuery))
+          .from(RECURSIVE)
+          .toString();
     } else {
       fields.add(TAGS);
 
@@ -195,12 +204,9 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
       // Eventually, we might consider restructuring things so that this query is constructed
       // elsewhere.
       String joinedQuery =
-              Join.left(Tag.TABLE.as(TAGS_METADATA_JOIN), tagsJoinCriterion).toString()
-                      + Join.left(GoogleTask.TABLE.as(GTASK_METADATA_JOIN), gtaskJoinCriterion)
-                      + Join.left(CaldavTask.TABLE.as(CALDAV_METADATA_JOIN), caldavJoinCriterion)
-                      + Join.left(Geofence.TABLE, field(Geofence.TABLE_NAME + ".task").eq(Task.ID))
-                      + Join.left(Place.TABLE, field(Place.TABLE_NAME + ".uid").eq(field("geofences.place")))
-                      + filter.getSqlQuery();
+          Join.left(Tag.TABLE.as(TAGS_METADATA_JOIN), tagsJoinCriterion).toString()
+              + joins
+              + filter.getSqlQuery();
 
       String query =
               SortHelper.adjustQueryForFlagsAndSort(preferences, joinedQuery, preferences.getSortMode());

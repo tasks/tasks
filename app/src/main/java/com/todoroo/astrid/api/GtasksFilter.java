@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import androidx.annotation.NonNull;
 import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.dao.TaskDao;
@@ -70,15 +69,15 @@ public class GtasksFilter extends Filter {
 
   private static QueryTemplate getQueryTemplate(GoogleTaskList list) {
     return new QueryTemplate()
-        .join(Join.left(GoogleTask.TABLE, Task.ID.eq(Field.field("google_tasks.gt_task"))))
+        .join(Join.left(GoogleTask.TABLE, Task.ID.eq(GoogleTask.TASK)))
         .where(getCriterion(list));
   }
 
   public static Criterion getCriterion(GoogleTaskList list) {
     return Criterion.and(
         TaskDao.TaskCriteria.activeAndVisible(),
-        Field.field("google_tasks.gt_deleted").eq(0),
-        Field.field("google_tasks.gt_list_id").eq(list.getRemoteId()));
+        GoogleTask.DELETED.eq(0),
+        GoogleTask.LIST.eq(list.getRemoteId()));
   }
 
   private static Map<String, Object> getValuesForNewTasks(GoogleTaskList list) {
