@@ -1,5 +1,14 @@
 Change Log
 ---
+### 7.1 (2019-11-14)
+
+* Display subtasks on Google Task and CalDAV widgets (Android 5+)
+* Fix subtasks after backup import
+* Fix chained subtask completion
+* Update translations
+  * Hungarian - kaciokos
+  * Swedish - Marcus Kwasniewski
+
 ### 7.0 (2019-11-12)
 
 * Add support for CalDAV subtasks (Android 5+) - @creywood
