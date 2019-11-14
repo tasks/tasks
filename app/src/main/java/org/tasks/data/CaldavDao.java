@@ -123,6 +123,17 @@ public abstract class CaldavDao {
           + "GROUP BY tasks._id")
   public abstract List<Long> getTasksWithTags();
 
+  @Query(
+      "UPDATE caldav_tasks"
+          + " SET cd_parent = IFNULL(("
+          + "   SELECT cd_task FROM caldav_tasks AS p "
+          + "   WHERE p.cd_remote_id = caldav_tasks.cd_remote_parent"
+          + "     AND p.cd_calendar = caldav_tasks.cd_calendar"
+          + "     AND p.cd_deleted = 0),"
+          + " 0)"
+          + " WHERE cd_remote_parent IS NOT NULL AND cd_remote_parent != ''")
+  public abstract void updateParents();
+
   @Query("UPDATE caldav_tasks SET cd_parent = IFNULL((SELECT cd_task FROM caldav_tasks AS p WHERE p.cd_remote_id = caldav_tasks.cd_remote_parent), 0) WHERE cd_calendar = :calendar AND cd_remote_parent IS NOT NULL and cd_remote_parent != ''")
   public abstract void updateParents(String calendar);
 

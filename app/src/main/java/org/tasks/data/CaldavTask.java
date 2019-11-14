@@ -30,10 +30,10 @@ public class CaldavTask {
 
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "cd_id")
-  private long id;
+  private transient long id;
 
   @ColumnInfo(name = "cd_task")
-  private long task;
+  private transient long task;
 
   @ColumnInfo(name = "cd_calendar")
   private String calendar;
@@ -57,7 +57,7 @@ public class CaldavTask {
   private String vtodo;
 
   @ColumnInfo(name = "cd_parent")
-  private long parent;
+  private transient long parent;
 
   @ColumnInfo(name = "cd_remote_parent")
   private String remoteParent;

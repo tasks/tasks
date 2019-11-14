@@ -43,16 +43,16 @@ public class GoogleTask {
   private String listId = "";
 
   @ColumnInfo(name = "gt_parent")
-  private long parent;
+  private transient long parent;
 
   @ColumnInfo(name = "gt_remote_parent")
   private String remoteParent;
 
   @ColumnInfo(name = "gt_moved")
-  private boolean moved;
+  private transient boolean moved;
 
   @ColumnInfo(name = "gt_order")
-  private long order;
+  private transient long order;
 
   @ColumnInfo(name = "gt_remote_order")
   private long remoteOrder;

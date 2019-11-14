@@ -3,7 +3,6 @@ package com.todoroo.astrid.service;
 import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Sets.newHashSet;
 import static org.tasks.caldav.CaldavUtils.applyRelatedTo;
 import static org.tasks.db.DbUtils.batch;
 
@@ -130,10 +129,7 @@ public class Upgrader {
     }
 
     caldavDao.update(updated);
-
-    for (String calendar : newHashSet(transform(updated, CaldavTask::getCalendar))) {
-      caldavDao.updateParents(calendar);
-    }
+    caldavDao.updateParents();
   }
 
   private void applyCaldavCategories() {
