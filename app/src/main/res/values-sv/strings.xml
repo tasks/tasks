@@ -198,7 +198,7 @@
     <string name="tomorrow">Imorgon</string>
     <string name="next">Nästa %s</string>
     <string name="yesterday">Igår</string>
-    <string name="tmrw">imorn</string>
+    <string name="tmrw">Imorgon</string>
     <string name="yest">Igår</string>
     <string name="sync_SPr_interval_title">Bakgrundssynkronisering</string>
     <string name="widget_show_due_date">Visa förfallodatum</string>
@@ -308,22 +308,22 @@
     <string name="themes">Ytterligare teman och ikoner</string>
     <string name="action_call">Ring</string>
     <string name="action_open">Öppna</string>
-    <string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization." name="TEA_hideUntil_due_date">Förfallodag</string>
+    <string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization." name="TEA_hideUntil_due_date">förfallodatum</string>
     <string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization." name="TEA_hideUntil_due_time">förfallotid</string>
-    <string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization." name="TEA_hideUntil_day_before_due">dagen innan förfallodag</string>
-    <string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization." name="TEA_hideUntil_week_before_due">en vecka före förfallodag</string>
+    <string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization." name="TEA_hideUntil_day_before_due">dagen innan förfallodatum</string>
+    <string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization." name="TEA_hideUntil_week_before_due">veckan innan förfallodatum</string>
     <string name="TEA_control_location">Plats</string>
-    <string name="EPr_default_location_reminder_title">Standard platspåminnelser</string>
-    <string name="EPr_default_location_radius">Standard radie</string>
+    <string name="EPr_default_location_reminder_title">Standardplatspåminnelse</string>
+    <string name="EPr_default_location_radius">Standardavstånd</string>
     <string name="no_reminders">Inga påminnelser</string>
     <string name="default_location_reminder_on_arrival">Vid ankomst</string>
     <string name="default_location_reminder_on_departure">Vid avfärd</string>
     <string name="default_location_reminder_on_arrival_or_departure">Vid ankomst och avfärd</string>
     <string name="CFC_caldav_list_name">I CalDav listan…</string>
     <string name="snooze_all">Snooza alla</string>
-    <string name="repeat_every">Alla</string>
-    <string name="repeat_option_does_not_repeat">Upprepas inte</string>
-    <string name="repeat_option_every_day">Alla dagar</string>
+    <string name="repeat_every">Varje</string>
+    <string name="repeat_option_does_not_repeat">Repeteras inte</string>
+    <string name="repeat_option_every_day">Varje dag</string>
     <string name="repeat_option_every_week">Varje vecka</string>
     <string name="repeat_option_every_month">Varje månad</string>
     <string name="repeat_option_every_year">Varje år</string>
@@ -339,8 +339,8 @@
         <item quantity="other">%d uppgifter</item>
     </plurals>
     <plurals name="repeat_times">
-        <item quantity="one">tid</item>
-        <item quantity="other">tider</item>
+        <item quantity="one">gång</item>
+        <item quantity="other">gånger</item>
     </plurals>
     <plurals name="repeat_minutes">
         <item quantity="one">minut</item>
@@ -390,8 +390,8 @@
         <item quantity="one">%d år</item>
         <item quantity="other">%d år</item>
     </plurals>
-    <string name="repeat_type_due">förfallodag</string>
-    <string name="repeat_type_completion">slutdatum</string>
+    <string name="repeat_type_due">förfallodatum</string>
+    <string name="repeat_type_completion">datum färdigställt</string>
     <string name="repeat_number_of_times">Upprepa ett visst antal gånger</string>
     <string name="repeat_occurs">Inträffar</string>
     <string comment="display new due date and time in snackbar after completing repeating task, e.g. 'Tomorrow at 8 AM' or '21 May at 8 AM'" name="repeat_snackbar_time">%1$s vid %2$s</string>
