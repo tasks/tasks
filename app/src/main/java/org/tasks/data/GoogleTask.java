@@ -3,11 +3,19 @@ package org.tasks.data;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Table;
 
-@Entity(tableName = "google_tasks")
+@Entity(
+    tableName = "google_tasks",
+    indices = {
+      @Index(name = "gt_task", value = "gt_task"),
+      @Index(
+          name = "gt_list_parent",
+          value = {"gt_list_id", "gt_parent"})
+    })
 public class GoogleTask {
 
   public static final String KEY = "gtasks"; // $NON-NLS-1$

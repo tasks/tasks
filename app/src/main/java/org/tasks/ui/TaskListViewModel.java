@@ -33,6 +33,7 @@ import com.todoroo.astrid.api.TagFilter;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -41,9 +42,11 @@ import io.reactivex.schedulers.Schedulers;
 import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
+import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavTask;
 import org.tasks.data.Geofence;
 import org.tasks.data.GoogleTask;
+import org.tasks.data.GoogleTaskList;
 import org.tasks.data.Place;
 import org.tasks.data.Tag;
 import org.tasks.data.TaskContainer;
@@ -72,7 +75,7 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
           .as("tags");
   private static final StringProperty TAGS_RECURSIVE =
       new StringProperty(null, "(SELECT group_concat(distinct(tag_uid))\n" +
-              "FROM tags WHERE tags.task = recursive_tasks.task\n" +
+              "FROM tags WHERE tags.task = tasks._id\n" +
               "GROUP BY tags.task)")
           .as("tags");
 
@@ -133,8 +136,8 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
     String joins =
         Join.left(GoogleTask.TABLE.as(GTASK_METADATA_JOIN), gtaskJoinCriterion).toString()
             + Join.left(CaldavTask.TABLE.as(CALDAV_METADATA_JOIN), caldavJoinCriterion)
-            + Join.left(Geofence.TABLE, field(Geofence.TABLE_NAME + ".task").eq(Task.ID))
-            + Join.left(Place.TABLE, field(Place.TABLE_NAME + ".uid").eq(field("geofences.place")));
+            + Join.left(Geofence.TABLE, Geofence.TASK.eq(Task.ID))
+            + Join.left(Place.TABLE, Place.UID.eq(Geofence.PLACE));
 
     if (atLeastLollipop()
         && (filter instanceof CaldavFilter
@@ -150,31 +153,59 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
       fields.add(TAGS_RECURSIVE);
       fields.add(INDENT);
 
-      String joinedQuery = Join.left(Task.TABLE, Task.ID.eq(RECURSIVE_TASK)) + joins;
+      String joinedQuery = Join.inner(Task.TABLE, Task.ID.eq(RECURSIVE_TASK)) + joins;
       String parentQuery;
       QueryTemplate subtaskQuery = new QueryTemplate();
       if (filter instanceof CaldavFilter) {
-        Criterion criterion = CaldavFilter.getCriterion(((CaldavFilter) filter).getCalendar());
+        CaldavCalendar calendar = ((CaldavFilter) filter).getCalendar();
         parentQuery =
             new QueryTemplate()
-                .join(Join.left(CaldavTask.TABLE, Task.ID.eq(CaldavTask.TASK)))
-                .where(Criterion.and(criterion, CaldavTask.PARENT.eq(0)))
+                .join(
+                    Join.inner(
+                        CaldavTask.TABLE,
+                        Criterion.and(
+                            CaldavTask.CALENDAR.eq(calendar.getUuid()),
+                            CaldavTask.PARENT.eq(0),
+                            CaldavTask.TASK.eq(Task.ID),
+                            CaldavTask.DELETED.eq(0))))
+                .where(TaskCriteria.activeAndVisible())
                 .toString();
         subtaskQuery
-            .join(Join.inner(RECURSIVE, RECURSIVE_TASK.eq(CaldavTask.PARENT)))
-            .join(Join.left(CaldavTask.TABLE, Task.ID.eq(CaldavTask.TASK)))
-            .where(criterion);
+            .join(Join.inner(RECURSIVE, CaldavTask.PARENT.eq(RECURSIVE_TASK)))
+            .join(
+                Join.inner(
+                    CaldavTask.TABLE,
+                    Criterion.and(
+                        CaldavTask.CALENDAR.eq(calendar.getUuid()),
+                        CaldavTask.PARENT.gt(0),
+                        CaldavTask.TASK.eq(Task.ID),
+                        CaldavTask.DELETED.eq(0))))
+            .where(TaskCriteria.activeAndVisible());
       } else {
-        Criterion criterion = GtasksFilter.getCriterion(((GtasksFilter) filter).getList());
+        GoogleTaskList list = ((GtasksFilter) filter).getList();
         parentQuery =
             new QueryTemplate()
-                .join(Join.left(GoogleTask.TABLE, Task.ID.eq(GoogleTask.TASK)))
-                .where(Criterion.and(criterion, GoogleTask.PARENT.eq(0)))
+                .join(
+                    Join.inner(
+                        GoogleTask.TABLE,
+                        Criterion.and(
+                            GoogleTask.LIST.eq(list.getRemoteId()),
+                            GoogleTask.PARENT.eq(0),
+                            GoogleTask.TASK.eq(Task.ID),
+                            GoogleTask.DELETED.eq(0))))
+                .where(TaskCriteria.activeAndVisible())
                 .toString();
         subtaskQuery
-            .join(Join.inner(RECURSIVE, RECURSIVE_TASK.eq(GoogleTask.PARENT)))
-            .join(Join.left(GoogleTask.TABLE, Task.ID.eq(GoogleTask.TASK)))
-            .where(criterion);
+            .join(Join.inner(RECURSIVE, GoogleTask.PARENT.eq(RECURSIVE_TASK)))
+            .join(
+                Join.inner(
+                    GoogleTask.TABLE,
+                    Criterion.and(
+                        GoogleTask.LIST.eq(list.getRemoteId()),
+                        GoogleTask.PARENT.gt(0),
+                        GoogleTask.TASK.eq(Task.ID),
+                        GoogleTask.DELETED.eq(0))))
+            .where(TaskCriteria.activeAndVisible());
       }
 
       String sortSelect = SortHelper.orderSelectForSortTypeRecursive(preferences.getSortMode());

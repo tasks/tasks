@@ -5,11 +5,19 @@ import static com.todoroo.astrid.helper.UUIDHelper.newUUID;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Table;
 
-@Entity(tableName = "caldav_tasks")
+@Entity(
+    tableName = "caldav_tasks",
+    indices = {
+      @Index(name = "cd_task", value = "cd_task"),
+      @Index(
+          name = "cd_calendar_parent",
+          value = {"cd_calendar", "cd_parent"})
+    })
 public class CaldavTask {
 
   public static final String KEY = "caldav";

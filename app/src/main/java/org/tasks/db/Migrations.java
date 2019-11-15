@@ -315,6 +315,20 @@ public class Migrations {
         }
       };
 
+  private static final Migration MIGRATION_65_66 =
+      new Migration(65, 66) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+          database.execSQL("CREATE UNIQUE INDEX `place_uid` ON `places` (`uid`)");
+          database.execSQL("CREATE INDEX `geo_task` ON `geofences` (`task`)");
+          database.execSQL("CREATE INDEX `tag_task` ON `tags` (`task`)");
+          database.execSQL("CREATE INDEX `gt_list_parent` ON `google_tasks` (`gt_list_id`, `gt_parent`)");
+          database.execSQL("CREATE INDEX `gt_task` ON `google_tasks` (`gt_task`)");
+          database.execSQL("CREATE INDEX `cd_calendar_parent` ON `caldav_tasks` (`cd_calendar`, `cd_parent`)");
+          database.execSQL("CREATE INDEX `cd_task` ON `caldav_tasks` (`cd_task`)");
+        }
+      };
+
   public static final Migration[] MIGRATIONS =
       new Migration[] {
         MIGRATION_35_36,
@@ -337,7 +351,8 @@ public class Migrations {
         MIGRATION_61_62,
         MIGRATION_62_63,
         MIGRATION_63_64,
-        MIGRATION_64_65
+        MIGRATION_64_65,
+        MIGRATION_65_66
       };
 
   private static Migration NOOP(int from, int to) {

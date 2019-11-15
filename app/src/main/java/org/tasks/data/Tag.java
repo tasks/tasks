@@ -4,18 +4,19 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
 import com.todoroo.astrid.data.Task;
 import org.tasks.backup.XmlReader;
 
-@Entity(tableName = "tags")
+@Entity(tableName = "tags", indices = @Index(name = "tag_task", value = "task"))
 public class Tag {
 
   public static final String KEY = "tags-tag"; // $NON-NLS-1$
 
-  @Deprecated public static final Table TABLE = new Table("tags");
+  public static final Table TABLE = new Table("tags");
 
   public static final StringProperty TASK_UID = new StringProperty(TABLE, "task_uid");
   public static final StringProperty NAME = new StringProperty(TABLE, "name");

@@ -10,9 +10,11 @@ import android.os.Parcelable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import com.google.common.base.Strings;
 import com.mapbox.api.geocoding.v5.models.CarmenFeature;
+import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
 import com.todoroo.astrid.helper.UUIDHelper;
 import java.io.Serializable;
@@ -21,11 +23,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.tasks.location.MapPosition;
 
-@Entity(tableName = TABLE_NAME)
+@Entity(tableName = TABLE_NAME, indices = @Index(name = "place_uid", value = "uid", unique = true))
 public class Place implements Serializable, Parcelable {
 
   public static final String TABLE_NAME = "places";
   public static final Table TABLE = new Table(TABLE_NAME);
+
+  public static final StringProperty UID = new StringProperty(TABLE, "uid");
 
   public static final Parcelable.Creator<Place> CREATOR =
       new Parcelable.Creator<Place>() {
