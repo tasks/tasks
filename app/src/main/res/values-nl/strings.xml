@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
-<resources>
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos--><resources>
     <string name="actfm_picture_clear">Verwijder Foto</string>
     <string name="TVA_add_comment">Voeg een opmerking toe…</string>
     <string name="name">Naam</string>
@@ -540,4 +539,5 @@
     <string name="list_separator_with_space">", "</string>
     <string name="help">Help</string>
     <string name="icon">Icon</string>
+    <string name="SSD_sort_my_order">Mijn volgorde</string>
 </resources>
