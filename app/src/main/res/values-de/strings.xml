@@ -420,7 +420,6 @@
     <string name="add_account">Account hinzufügen</string>
     <string name="user">Benutzer</string>
     <string name="password">Passwort</string>
-    <string name="error_adding_account">Fehler beim Hinzufügen des Accounts</string>
     <string name="calendar_settings">Kalendereinstellungen</string>
     <string name="notification_channel_settings">Benachrichtigungen verwalten</string>
     <string name="battery_optimization_settings">Energiesparmodus verwalten</string>

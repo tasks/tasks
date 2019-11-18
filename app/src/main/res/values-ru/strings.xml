@@ -431,7 +431,6 @@
     <string name="add_account">Добавить учётную запись</string>
     <string name="user">Пользователь</string>
     <string name="password">Пароль</string>
-    <string name="error_adding_account">Ошибка при добавлении учётной записи</string>
     <string name="calendar_settings">Настройки календаря</string>
     <string name="notification_channel_settings">Управление уведомлениями</string>
     <string name="battery_optimization_settings">Управление расходом батареи</string>

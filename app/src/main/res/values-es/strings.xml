@@ -426,7 +426,6 @@
     <string name="add_account">Añadir cuenta</string>
     <string name="user">Usuario</string>
     <string name="password">Contraseña</string>
-    <string name="error_adding_account">Error añadiendo cuenta</string>
     <string name="calendar_settings">Configuración de calendario</string>
     <string name="notification_channel_settings">Gestionar notificaciones</string>
     <string name="battery_optimization_settings">Optimizaciones en gestión de batería</string>

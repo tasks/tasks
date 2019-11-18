@@ -433,7 +433,6 @@
     <string name="add_account">Додати обліковий запис</string>
     <string name="user">Користувач</string>
     <string name="password">Пароль</string>
-    <string name="error_adding_account">Помилка додання облікового запису</string>
     <string name="calendar_settings">Налаштування календаря</string>
     <string name="notification_channel_settings">Управління сповіщеннями</string>
     <string name="battery_optimization_settings">Управління оптимізацією розряда акумулятора</string>

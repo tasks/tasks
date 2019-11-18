@@ -352,12 +352,12 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
       showSnackbar(R.string.network_error);
     } else {
       Timber.e(t);
-      showSnackbar(R.string.error_adding_account);
+      showSnackbar(R.string.error_adding_account, t.getMessage());
     }
   }
 
-  private void showSnackbar(int resId) {
-    showSnackbar(getString(resId));
+  private void showSnackbar(int resId, Object... formatArgs) {
+    showSnackbar(getString(resId, formatArgs));
   }
 
   private void showSnackbar(String message) {

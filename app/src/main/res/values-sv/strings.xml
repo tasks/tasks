@@ -433,7 +433,6 @@
     <string name="user">Användare</string>
     <string name="password">Lösenord</string>
     <string name="url">URL</string>
-    <string name="error_adding_account">Fel vid kontoskapande</string>
     <string name="calendar_settings">Kalenderinställningar</string>
     <string name="notification_channel_settings">Hantera notiser</string>
     <string name="battery_optimization_settings">Hantera batterioptimering</string>

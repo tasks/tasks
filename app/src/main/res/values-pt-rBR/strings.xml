@@ -430,7 +430,6 @@
 	<string name="add_account">Adicionar conta</string>
 	<string name="user">Usuário</string>
 	<string name="password">Senha</string>
-	<string name="error_adding_account">Erro ao adicionar conta</string>
 	<string name="calendar_settings">Configurações do calendário</string>
 	<string name="notification_channel_settings">Gerenciar notificações</string>
 	<string name="battery_optimization_settings">Gerenciar otimizações da bateria</string>

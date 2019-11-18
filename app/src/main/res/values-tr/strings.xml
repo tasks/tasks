@@ -434,7 +434,6 @@
 	<string name="add_account">Hesap ekle</string>
 	<string name="user">Kullanıcı</string>
 	<string name="password">Parola</string>
-	<string name="error_adding_account">Hesap eklenirken hata</string>
 	<string name="calendar_settings">Takvim ayarları</string>
 	<string name="notification_channel_settings">Bildirimleri yönet</string>
 	<string name="battery_optimization_settings">Pil optimizasyonlarını yönet</string>

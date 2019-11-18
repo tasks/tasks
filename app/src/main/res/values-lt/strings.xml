@@ -428,7 +428,6 @@
 	<string name="add_account">Pridėti paskyrą</string>
 	<string name="user">Vartotojas</string>
 	<string name="password">Slaptažodis</string>
-	<string name="error_adding_account">Klaida kuriant paskyrą</string>
 	<string name="calendar_settings">Kalendoriaus nustatymai</string>
 	<string name="notification_channel_settings">Valdyti pranešimus</string>
 	<string name="battery_optimization_settings">Valdyti baterijos optimizacijas</string>

@@ -460,7 +460,6 @@
     <string name="user">Bruker</string>
     <string name="password">Passord</string>
     <string name="url">Nettadresse</string>
-    <string name="error_adding_account">Kunne ikke legge til konto</string>
     <string name="calendar_settings">Kalenderinnstillinger</string>
     <string name="badges">Merker</string>
     <string name="list">Liste</string>

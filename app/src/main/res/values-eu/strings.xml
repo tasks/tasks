@@ -439,7 +439,6 @@
     <string name="user">Erabiltzailea</string>
     <string name="password">Pasahitza</string>
     <string name="url">URL-a</string>
-    <string name="error_adding_account">Errorea kontua gehitzean</string>
     <string name="calendar_settings">Egutegiaren ezarpenak</string>
     <string name="notification_channel_settings">Kudeatu jakinarazpenak</string>
     <string name="battery_optimization_settings">Kudeatu bateriaren optimizazioak</string>

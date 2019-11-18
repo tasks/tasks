@@ -171,16 +171,12 @@ public class CaldavCalendarSettingsActivity extends BaseListSettingsActivity {
     } else if (t instanceof ConnectException) {
       showSnackbar(R.string.network_error);
     } else {
-      showGenericError();
+      showSnackbar(R.string.error_adding_account, t.getMessage());
     }
   }
 
-  private void showGenericError() {
-    showSnackbar(R.string.error_adding_account);
-  }
-
-  private void showSnackbar(int resId) {
-    showSnackbar(getString(resId));
+  private void showSnackbar(int resId, Object... formatArgs) {
+    showSnackbar(getString(resId, formatArgs));
   }
 
   private void showSnackbar(String message) {

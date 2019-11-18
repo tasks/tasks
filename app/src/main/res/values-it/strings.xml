@@ -428,7 +428,6 @@
 	<string name="use_native_datetime_pickers">Usa data e ora locali</string>
 	<string name="add_account">Aggiungi account</string>
 	<string name="user">Utente</string>
-	<string name="error_adding_account">Aggiunta account fallita</string>
 	<string name="calendar_settings">Impostazioni calendario
 </string>
 	<string name="notification_channel_settings">Gestione notifiche</string>

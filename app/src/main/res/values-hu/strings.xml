@@ -432,7 +432,6 @@
     <string name="user">Felhasználónév</string>
     <string name="password">Jelszó</string>
     <string name="url">Link</string>
-    <string name="error_adding_account">Felhasználói fiók hozzáadása sikertelen</string>
     <string name="calendar_settings">Naptár beállítások</string>
     <string name="notification_channel_settings">Értesítések kezelése</string>
     <string name="battery_optimization_settings">Akkumulátor optimalizálások kezelése</string>

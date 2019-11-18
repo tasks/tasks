@@ -433,7 +433,6 @@
 	<string name="add_account">Добави акаунт</string>
 	<string name="user">Потребител</string>
 	<string name="password">Парола</string>
-	<string name="error_adding_account">Грешка при добавяне на акаунт</string>
 	<string name="calendar_settings">Настройки на календара</string>
 	<string name="notification_channel_settings">Управление на уведомления</string>
 	<string name="battery_optimization_settings">Управление на оптимизациите на батерията</string>

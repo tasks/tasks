@@ -429,7 +429,6 @@
 	<string name="add_account">Pridať účet</string>
 	<string name="user">Užívateľ</string>
 	<string name="password">Heslo</string>
-	<string name="error_adding_account">Chyba pridania účtu</string>
 	<string name="calendar_settings">Nastavenia kalendára</string>
 	<string name="notification_channel_settings">Spravovať upozornenia</string>
 	<string name="battery_optimization_settings">Zníženie spotreby energie</string>
