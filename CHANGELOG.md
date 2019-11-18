@@ -1,5 +1,13 @@
 Change Log
 ---
+### 7.1.1 (2019-11-18)
+
+* Improve subtask query performance
+* Fix crash when deleting 1000+ CalDAV tasks
+* Update translations
+  * Dutch - @fvbommel
+  * Swedish - @mattiasmun, Marcus Kwasniewski
+
 ### 7.1 (2019-11-14)
 
 * Display subtasks on Google Task and CalDAV widgets (Android 5+)
