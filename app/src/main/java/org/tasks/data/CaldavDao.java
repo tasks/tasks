@@ -1,6 +1,7 @@
 package org.tasks.data;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
+import static org.tasks.db.DbUtils.collect;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -91,8 +92,12 @@ public abstract class CaldavDao {
   @Query("SELECT cd_object FROM caldav_tasks WHERE cd_calendar = :calendar")
   public abstract List<String> getObjects(String calendar);
 
+  public List<Long> getTasks(String calendar, List<String> objects) {
+    return collect(objects, b -> getTasksInternal(calendar, b));
+  }
+
   @Query("SELECT cd_task FROM caldav_tasks WHERE cd_calendar = :calendar AND cd_object IN (:objects)")
-  public abstract List<Long> getTasks(String calendar, List<String> objects);
+  abstract List<Long> getTasksInternal(String calendar, List<String> objects);
 
   @Query("SELECT * FROM caldav_lists WHERE cdl_account = :account AND cdl_url NOT IN (:urls)")
   public abstract List<CaldavCalendar> findDeletedCalendars(String account, List<String> urls);

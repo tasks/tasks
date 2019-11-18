@@ -2,13 +2,24 @@ package org.tasks.db;
 
 import static com.google.common.collect.Lists.partition;
 
+import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
+import java.util.ArrayList;
 import java.util.List;
 import org.tasks.Callback;
 
 public class DbUtils {
 
-  private static final int MAX_SQLITE_ARGS = 999;
+  private static final int MAX_SQLITE_ARGS = 990;
+
+  public static <F, T> List<T> collect(List<F> items, Function<List<F>, List<T>> func) {
+    if (items.size() < MAX_SQLITE_ARGS) {
+      return func.apply(items);
+    }
+    List<T> result = new ArrayList<>();
+    batch(items, b -> result.addAll(func.apply(b)));
+    return result;
+  }
 
   public static <T> void batch(List<T> items, Callback<List<T>> callback) {
     batch(items, MAX_SQLITE_ARGS, callback);
