@@ -25,7 +25,7 @@
     <string name="TLA_menu_settings">Inställningar</string>
     <string name="TAd_actionEditTask">Redigera</string>
     <string name="SSD_sort_drag">Manuell sortering med underuppgifter</string>
-    <string name="SSD_sort_auto">Tasks intelligent sortering</string>
+    <string name="SSD_sort_auto">Smart sortering</string>
     <string name="SSD_sort_alpha">Efter titel</string>
     <string name="SSD_sort_due">Efter förfallodatum</string>
     <string name="SSD_sort_importance">Efter prioritet</string>
@@ -317,9 +317,9 @@
     <string name="EPr_default_location_radius">Standardavstånd</string>
     <string name="no_reminders">Inga påminnelser</string>
     <string name="default_location_reminder_on_arrival">Vid ankomst</string>
-    <string name="default_location_reminder_on_departure">Vid avfärd</string>
-    <string name="default_location_reminder_on_arrival_or_departure">Vid ankomst och avfärd</string>
-    <string name="CFC_caldav_list_name">I CalDav listan…</string>
+    <string name="default_location_reminder_on_departure">Vid avgång</string>
+    <string name="default_location_reminder_on_arrival_or_departure">Vid ankomst och avgång</string>
+    <string name="CFC_caldav_list_name">I CalDAV-lista…</string>
     <string name="snooze_all">Snooza alla</string>
     <string name="repeat_every">Varje</string>
     <string name="repeat_option_does_not_repeat">Repeteras inte</string>
@@ -328,12 +328,12 @@
     <string name="repeat_option_every_month">Varje månad</string>
     <string name="repeat_option_every_year">Varje år</string>
     <string name="repeat_option_custom">Anpassade…</string>
-    <string name="repeat_minutely">UPPREPA VARJE MINUT</string>
-    <string name="repeat_hourly">UPPREPA VARJE TIMME</string>
-    <string name="repeat_daily">UPPREPA VARJE DAG</string>
-    <string name="repeat_weekly">UPPREPA VARJE VECKA</string>
-    <string name="repeat_monthly">UPPREPA VARJE MÅNAD</string>
-    <string name="repeat_yearly">UPPREPA VARJE ÅR</string>
+    <string name="repeat_minutely">REPETERA VARJE MINUT</string>
+    <string name="repeat_hourly">REPETERA VARJE TIMME</string>
+    <string name="repeat_daily">REPETERA VARJE DAG</string>
+    <string name="repeat_weekly">REPETERA VARJE VECKA</string>
+    <string name="repeat_monthly">REPETERA VARJE MÅNAD</string>
+    <string name="repeat_yearly">REPETERA VARJE ÅR</string>
     <plurals name="task_count">
         <item quantity="one">%d uppgift</item>
         <item quantity="other">%d uppgifter</item>
@@ -392,7 +392,7 @@
     </plurals>
     <string name="repeat_type_due">förfallodatum</string>
     <string name="repeat_type_completion">datum färdigställt</string>
-    <string name="repeat_number_of_times">Upprepa ett visst antal gånger</string>
+    <string name="repeat_number_of_times">Repetera ett visst antal gånger</string>
     <string name="repeat_occurs">Inträffar</string>
     <string comment="display new due date and time in snackbar after completing repeating task, e.g. 'Tomorrow at 8 AM' or '21 May at 8 AM'" name="repeat_snackbar_time">%1$s vid %2$s</string>
     <string name="TEA_timer_controls">Timer</string>
@@ -492,7 +492,7 @@
     <string name="pro_caldav_sync">CalDAV-synkronisering</string>
     <string name="pro_multiple_google_task_accounts">Flera Google-Tasks-konton</string>
     <string name="pro_google_places_search">Google platssökning</string>
-    <string name="pro_tasker_plugins">Tasker plugins</string>
+    <string name="pro_tasker_plugins">Taskertillägg</string>
     <string name="pro_dashclock_extension">DashClock extension</string>
     <string name="requires_pro_subscription">Kräver Pro-prenumeration</string>
     <string name="logout">Logga ut</string>
