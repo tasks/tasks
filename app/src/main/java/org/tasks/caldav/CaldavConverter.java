@@ -23,6 +23,7 @@ import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.model.Recur;
 import net.fortuna.ical4j.model.property.Completed;
+import net.fortuna.ical4j.model.property.DtStart;
 import net.fortuna.ical4j.model.property.Due;
 import net.fortuna.ical4j.model.property.RRule;
 import net.fortuna.ical4j.model.property.RelatedTo;
@@ -151,6 +152,10 @@ public class CaldavConverter {
       try {
         String rrule = task.getRecurrenceWithoutFrom().replace("RRULE:", "");
         remote.setRRule(new RRule(rrule));
+        if (remote.getDtStart() == null) {
+          Date date = remote.getDue() != null ? remote.getDue().getDate() : new Date();
+          remote.setDtStart(new DtStart(date));
+        }
       } catch (ParseException e) {
         Timber.e(e);
       }
