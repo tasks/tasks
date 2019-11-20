@@ -37,6 +37,7 @@ public class AfterSaveWork extends InjectingWorker {
   private static final String EXTRA_ORIG_DELETED = "extra_was_deleted";
   private static final String EXTRA_PUSH_GTASKS = "extra_push_gtasks";
   private static final String EXTRA_PUSH_CALDAV = "extra_push_caldav";
+  private static final String EXTRA_SUPPRESS_REFRESH = "extra_suppress_refresh";
 
   @Inject RepeatTaskHelper repeatTaskHelper;
   @Inject @ForApplication Context context;
@@ -63,7 +64,9 @@ public class AfterSaveWork extends InjectingWorker {
             .putBoolean(
                 EXTRA_PUSH_GTASKS, !suppress && (force || !current.googleTaskUpToDate(original)))
             .putBoolean(
-                EXTRA_PUSH_CALDAV, !suppress && (force || !current.caldavUpToDate(original)));
+                EXTRA_PUSH_CALDAV, !suppress && (force || !current.caldavUpToDate(original)))
+            .putBoolean(
+                EXTRA_SUPPRESS_REFRESH, current.checkTransitory(TRANS_SUPPRESS_REFRESH));
     if (original != null) {
       builder
           .putLong(EXTRA_ORIG_COMPLETED, original.getCompletionDate())
@@ -113,7 +116,7 @@ public class AfterSaveWork extends InjectingWorker {
     }
 
     refreshScheduler.scheduleRefresh(task);
-    if (!task.checkAndClearTransitory(TRANS_SUPPRESS_REFRESH)) {
+    if (!data.getBoolean(EXTRA_SUPPRESS_REFRESH, false)) {
       localBroadcastManager.broadcastRefresh();
     }
 
