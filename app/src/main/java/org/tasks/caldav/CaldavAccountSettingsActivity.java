@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
@@ -95,6 +96,9 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
   @BindView(R.id.progress_bar)
   ProgressView progressView;
 
+  @BindView(R.id.repeat)
+  SwitchCompat repeat;
+
   private CaldavAccount caldavAccount;
   private AddCaldavAccountViewModel addCaldavAccountViewModel;
   private UpdateCaldavAccountViewModel updateCaldavAccountViewModel;
@@ -121,6 +125,7 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
         if (!isEmpty(caldavAccount.getPassword())) {
           password.setText(PASSWORD_MASK);
         }
+        repeat.setChecked(caldavAccount.isSuppressRepeatingTasks());
       }
     }
 
@@ -335,6 +340,7 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
     if (passwordChanged()) {
       caldavAccount.setPassword(encryption.encrypt(getNewPassword()));
     }
+    caldavAccount.setSuppressRepeatingTasks(repeat.isChecked());
     caldavDao.update(caldavAccount);
 
     setResult(RESULT_OK);
@@ -376,9 +382,12 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
       return !isEmpty(getNewName())
           || !isEmpty(getNewPassword())
           || !isEmpty(getNewURL())
-          || !isEmpty(getNewUsername());
+          || !isEmpty(getNewUsername())
+          || repeat.isChecked();
     }
-    return needsValidation() || !getNewName().equals(caldavAccount.getName());
+    return needsValidation()
+        || !getNewName().equals(caldavAccount.getName())
+        || repeat.isChecked() != caldavAccount.isSuppressRepeatingTasks();
   }
 
   private boolean needsValidation() {

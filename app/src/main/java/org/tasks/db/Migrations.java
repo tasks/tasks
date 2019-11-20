@@ -329,6 +329,15 @@ public class Migrations {
         }
       };
 
+  private static final Migration MIGRATION_66_67 =
+      new Migration(66, 67) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+          database.execSQL(
+              "ALTER TABLE `caldav_accounts` ADD COLUMN `cda_repeat` INTEGER NOT NULL DEFAULT 0");
+        }
+      };
+
   public static final Migration[] MIGRATIONS =
       new Migration[] {
         MIGRATION_35_36,
@@ -352,7 +361,8 @@ public class Migrations {
         MIGRATION_62_63,
         MIGRATION_63_64,
         MIGRATION_64_65,
-        MIGRATION_65_66
+        MIGRATION_65_66,
+        MIGRATION_66_67
       };
 
   private static Migration NOOP(int from, int to) {

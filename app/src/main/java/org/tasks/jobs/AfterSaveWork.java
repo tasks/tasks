@@ -21,6 +21,8 @@ import com.todoroo.astrid.timers.TimerPlugin;
 import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
+import org.tasks.data.CaldavAccount;
+import org.tasks.data.CaldavDao;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingWorker;
 import org.tasks.injection.JobComponent;
@@ -50,6 +52,7 @@ public class AfterSaveWork extends InjectingWorker {
   @Inject TaskDao taskDao;
   @Inject SyncAdapters syncAdapters;
   @Inject WorkManager workManager;
+  @Inject CaldavDao caldavDao;
 
   public AfterSaveWork(@NonNull Context context, @NonNull WorkerParameters workerParams) {
     super(context, workerParams);
@@ -104,7 +107,10 @@ public class AfterSaveWork extends InjectingWorker {
 
     if (justCompleted) {
       updateCalendarTitle(task);
-      repeatTaskHelper.handleRepeat(task);
+      CaldavAccount account = caldavDao.getAccountForTask(taskId);
+      if (account == null || !account.isSuppressRepeatingTasks()) {
+        repeatTaskHelper.handleRepeat(task);
+      }
       if (task.getTimerStart() > 0) {
         timerPlugin.stopTimer(task);
       }

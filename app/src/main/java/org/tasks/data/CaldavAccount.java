@@ -4,6 +4,7 @@ import static com.todoroo.astrid.data.Task.NO_UUID;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import androidx.core.os.ParcelCompat;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -49,6 +50,9 @@ public class CaldavAccount implements Parcelable {
   @ColumnInfo(name = "cda_error")
   private transient String error = "";
 
+  @ColumnInfo(name = "cda_repeat")
+  private boolean suppressRepeatingTasks;
+
   public CaldavAccount() {}
 
   @Ignore
@@ -60,6 +64,7 @@ public class CaldavAccount implements Parcelable {
     username = source.readString();
     password = source.readString();
     error = source.readString();
+    suppressRepeatingTasks = ParcelCompat.readBoolean(source);
   }
 
   public long getId() {
@@ -122,6 +127,14 @@ public class CaldavAccount implements Parcelable {
     this.error = error;
   }
 
+  public boolean isSuppressRepeatingTasks() {
+    return suppressRepeatingTasks;
+  }
+
+  public void setSuppressRepeatingTasks(boolean suppressRepeatingTasks) {
+    this.suppressRepeatingTasks = suppressRepeatingTasks;
+  }
+
   @Override
   public String toString() {
     return "CaldavAccount{"
@@ -145,6 +158,8 @@ public class CaldavAccount implements Parcelable {
         + ", error='"
         + error
         + '\''
+        + ", suppressRepeatingTasks="
+        + suppressRepeatingTasks
         + '}';
   }
 
@@ -160,6 +175,9 @@ public class CaldavAccount implements Parcelable {
     CaldavAccount that = (CaldavAccount) o;
 
     if (id != that.id) {
+      return false;
+    }
+    if (suppressRepeatingTasks != that.suppressRepeatingTasks) {
       return false;
     }
     if (uuid != null ? !uuid.equals(that.uuid) : that.uuid != null) {
@@ -189,6 +207,7 @@ public class CaldavAccount implements Parcelable {
     result = 31 * result + (username != null ? username.hashCode() : 0);
     result = 31 * result + (password != null ? password.hashCode() : 0);
     result = 31 * result + (error != null ? error.hashCode() : 0);
+    result = 31 * result + (suppressRepeatingTasks ? 1 : 0);
     return result;
   }
 
@@ -206,5 +225,6 @@ public class CaldavAccount implements Parcelable {
     dest.writeString(username);
     dest.writeString(password);
     dest.writeString(error);
+    ParcelCompat.writeBoolean(dest, suppressRepeatingTasks);
   }
 }

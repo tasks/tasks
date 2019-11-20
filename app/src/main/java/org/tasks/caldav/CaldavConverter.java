@@ -37,17 +37,16 @@ public class CaldavConverter {
 
   public static void apply(Task local, at.bitfire.ical4android.Task remote) {
     Completed completedAt = remote.getCompletedAt();
-    if (completedAt == null) {
-      if (remote.getStatus() == Status.VTODO_COMPLETED) {
-        if (!local.isCompleted()) {
-          local.setCompletionDate(now());
-        }
-      } else {
-        local.setCompletionDate(0L);
+    if (completedAt != null) {
+      local.setCompletionDate(remote.getCompletedAt().getDate().getTime());
+    } else if (remote.getStatus() == Status.VTODO_COMPLETED) {
+      if (!local.isCompleted()) {
+        local.setCompletionDate(now());
       }
     } else {
-      local.setCompletionDate(remote.getCompletedAt().getDate().getTime());
+      local.setCompletionDate(0L);
     }
+
     Long createdAt = remote.getCreatedAt();
     if (createdAt != null) {
       local.setCreationDate(newDateTime(createdAt).toLocal().getMillis());

@@ -108,6 +108,13 @@ public abstract class CaldavDao {
   @Query("SELECT * FROM caldav_accounts WHERE cda_name = :name COLLATE NOCASE LIMIT 1")
   public abstract CaldavAccount getAccountByName(String name);
 
+  @Query(
+      "SELECT * from caldav_accounts"
+          + " INNER JOIN caldav_tasks ON cd_task = :task"
+          + " INNER JOIN caldav_lists ON cd_calendar = cdl_uuid"
+          + " WHERE cdl_account = cda_uuid")
+  public abstract CaldavAccount getAccountForTask(long task);
+
   @Query("SELECT DISTINCT cd_calendar FROM caldav_tasks WHERE cd_deleted = 0 AND cd_task IN (:tasks)")
   public abstract List<String> getCalendars(List<Long> tasks);
 
