@@ -87,8 +87,6 @@ import org.tasks.preferences.Device;
 import org.tasks.preferences.Preferences;
 import org.tasks.sync.SyncAdapters;
 import org.tasks.tasklist.ActionModeProvider;
-import org.tasks.tasklist.ManualSortRecyclerAdapter;
-import org.tasks.tasklist.PagedListRecyclerAdapter;
 import org.tasks.tasklist.TaskListRecyclerAdapter;
 import org.tasks.tasklist.ViewHolderFactory;
 import org.tasks.ui.MenuColorizer;
@@ -259,21 +257,13 @@ public final class TaskListFragment extends InjectingFragment
         taskAdapter.supportsParentingOrManualSort());
 
     recyclerAdapter =
-        taskAdapter.supportsParentingOrManualSort()
-            ? new ManualSortRecyclerAdapter(
-                taskAdapter,
-                recyclerView,
-                viewHolderFactory,
-                this,
-                actionModeProvider,
-                taskListViewModel.getValue())
-            : new PagedListRecyclerAdapter(
-                taskAdapter,
-                recyclerView,
-                viewHolderFactory,
-                this,
-                actionModeProvider,
-                taskListViewModel.getValue());
+        new TaskListRecyclerAdapter(
+            taskAdapter,
+            recyclerView,
+            viewHolderFactory,
+            this,
+            actionModeProvider,
+            taskListViewModel.getValue());
     taskAdapter.setHelper(recyclerAdapter);
     ((DefaultItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
     recyclerView.setLayoutManager(new LinearLayoutManager(context));

@@ -141,7 +141,6 @@ dependencies {
     annotationProcessor("androidx.room:room-compiler:${Versions.room}")
     implementation("androidx.lifecycle:lifecycle-extensions:2.1.0")
     implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
-    implementation("androidx.paging:paging-runtime:2.1.0")
 
     annotationProcessor("com.jakewharton:butterknife-compiler:${Versions.butterknife}")
     implementation("com.jakewharton:butterknife:${Versions.butterknife}")

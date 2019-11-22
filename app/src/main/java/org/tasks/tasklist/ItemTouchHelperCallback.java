@@ -15,14 +15,14 @@ import org.tasks.data.TaskContainer;
 
 public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
   private final TaskAdapter adapter;
-  private final ManualSortRecyclerAdapter recyclerAdapter;
+  private final TaskListRecyclerAdapter recyclerAdapter;
   private final Runnable onClear;
   private int from = -1;
   private int to = -1;
   private boolean dragging;
 
   ItemTouchHelperCallback(
-      TaskAdapter adapter, ManualSortRecyclerAdapter recyclerAdapter, Runnable onClear) {
+      TaskAdapter adapter, TaskListRecyclerAdapter recyclerAdapter, Runnable onClear) {
     this.adapter = adapter;
     this.recyclerAdapter = recyclerAdapter;
     this.onClear = onClear;

@@ -9,13 +9,9 @@ import static com.todoroo.astrid.activity.TaskListFragment.TAGS_METADATA_JOIN;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
-import androidx.paging.DataSource.Factory;
-import androidx.paging.LivePagedListBuilder;
-import androidx.paging.PagedList;
 import androidx.sqlite.db.SimpleSQLiteQuery;
 import com.google.common.collect.Lists;
 import com.todoroo.andlib.data.Property.StringProperty;
@@ -53,10 +49,7 @@ import org.tasks.data.TaskContainer;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
-public class TaskListViewModel extends ViewModel implements Observer<PagedList<TaskContainer>> {
-
-  private static final PagedList.Config PAGED_LIST_CONFIG =
-      new PagedList.Config.Builder().setPageSize(20).build();
+public class TaskListViewModel extends ViewModel {
 
   private static final Table RECURSIVE = new Table("recursive_tasks");
   private static final Field RECURSIVE_TASK = field(RECURSIVE + ".task");
@@ -86,7 +79,6 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
   private Filter filter;
   private boolean manualSort;
   private CompositeDisposable disposable = new CompositeDisposable();
-  private LiveData<PagedList<TaskContainer>> internal;
 
   public void setFilter(@NonNull Filter filter, boolean manualSort) {
     if (!filter.equals(this.filter)
@@ -259,55 +251,25 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
     invalidate();
   }
 
-  private void removeObserver() {
-    if (internal != null) {
-      internal.removeObserver(this);
-    }
-  }
-
   public void invalidate() {
     assertMainThread();
 
-    removeObserver();
-
     SimpleSQLiteQuery query = new SimpleSQLiteQuery(getQuery(preferences, filter));
     Timber.v(query.getSql());
-    if (manualSort) {
-      disposable.add(
-          Single.fromCallable(() -> taskDao.fetchTasks(query))
-              .subscribeOn(Schedulers.io())
-              .observeOn(AndroidSchedulers.mainThread())
-              .subscribe(tasks::setValue, Timber::e));
-    } else {
-      Factory<Integer, TaskContainer> factory = taskDao.getTaskFactory(query);
-      LivePagedListBuilder<Integer, TaskContainer> builder = new LivePagedListBuilder<>(
-          factory, PAGED_LIST_CONFIG);
-      List<TaskContainer> current = tasks.getValue();
-      if (current instanceof PagedList) {
-        Object lastKey = ((PagedList<TaskContainer>) current).getLastKey();
-        if (lastKey instanceof Integer) {
-          builder.setInitialLoadKey((Integer) lastKey);
-        }
-      }
-      internal = builder.build();
-      internal.observeForever(this);
-    }
+    disposable.add(
+        Single.fromCallable(() -> taskDao.fetchTasks(query))
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(tasks::setValue, Timber::e));
   }
 
   @Override
   protected void onCleared() {
     disposable.dispose();
-
-    removeObserver();
   }
 
   public List<TaskContainer> getValue() {
     List<TaskContainer> value = tasks.getValue();
     return value != null ? value : Collections.emptyList();
-  }
-
-  @Override
-  public void onChanged(PagedList<TaskContainer> taskContainers) {
-    tasks.setValue(taskContainers);
   }
 }
