@@ -539,4 +539,6 @@
     <string name="monthly">Månadsvis</string>
     <string name="annually">Årligen</string>
     <string name="SSD_sort_my_order">Min ordning</string>
+    <string name="error_adding_account">Fel: %s</string>
+    <string name="caldav_account_repeating_tasks">Låt servern schemalägga återkommande uppgifter</string>
 </resources>
