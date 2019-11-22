@@ -534,4 +534,7 @@
     <string name="monthly">每月</string>
     <string name="annually">每年</string>
     <string name="list_separator_with_space">"， "</string>
+    <string name="error_adding_account">错误：%s</string>
+    <string name="SSD_sort_my_order">我的顺序</string>
+    <string name="caldav_account_repeating_tasks">让服务器安排重复任务</string>
 </resources>
