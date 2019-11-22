@@ -490,7 +490,7 @@ public class GoogleTaskSynchronizer {
   }
 
   private void write(Task task, GoogleTask googleTask) {
-    if (!TextUtils.isEmpty(task.getTitle())) {
+    if (!(TextUtils.isEmpty(task.getTitle()) && TextUtils.isEmpty(task.getNotes()))) {
       task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
       task.putTransitory(TaskDao.TRANS_SUPPRESS_REFRESH, true);
       if (task.isNew()) {
