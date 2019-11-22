@@ -1,5 +1,6 @@
 package org.tasks.ui;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static com.todoroo.andlib.sql.Field.field;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
@@ -12,8 +13,7 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
-import androidx.sqlite.db.SimpleSQLiteQuery;
-import com.google.common.collect.Lists;
+import com.google.common.base.Joiner;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.sql.Criterion;
@@ -27,7 +27,6 @@ import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.api.TagFilter;
 import com.todoroo.astrid.core.SortHelper;
-import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
@@ -74,7 +73,6 @@ public class TaskListViewModel extends ViewModel {
 
   @Inject Preferences preferences;
   @Inject TaskDao taskDao;
-  @Inject Database database;
   private MutableLiveData<List<TaskContainer>> tasks = new MutableLiveData<>();
   private Filter filter;
   private boolean manualSort;
@@ -95,8 +93,8 @@ public class TaskListViewModel extends ViewModel {
     tasks.observe(owner, observer);
   }
 
-  public static String getQuery(Preferences preferences, Filter filter) {
-    List<Field> fields = Lists.newArrayList(TASKS, GTASK, CALDAV, GEOFENCE, PLACE);
+  public static List<String> getQuery(Preferences preferences, Filter filter) {
+    List<Field> fields = newArrayList(TASKS, GTASK, CALDAV, GEOFENCE, PLACE);
 
     Criterion tagsJoinCriterion = Criterion.and(Task.ID.eq(field(TAGS_METADATA_JOIN + ".task")));
     Criterion gtaskJoinCriterion =
@@ -145,7 +143,7 @@ public class TaskListViewModel extends ViewModel {
       fields.add(TAGS_RECURSIVE);
       fields.add(INDENT);
 
-      String joinedQuery = Join.inner(Task.TABLE, Task.ID.eq(RECURSIVE_TASK)) + joins;
+      String joinedQuery = Join.inner(RECURSIVE, Task.ID.eq(RECURSIVE_TASK)) + joins;
       String parentQuery;
       QueryTemplate subtaskQuery = new QueryTemplate();
       if (filter instanceof CaldavFilter) {
@@ -201,8 +199,8 @@ public class TaskListViewModel extends ViewModel {
       }
 
       String sortSelect = SortHelper.orderSelectForSortTypeRecursive(preferences.getSortMode());
-      String withClause =
-          "WITH RECURSIVE recursive_tasks (task, indent, title, sortField) AS (\n"
+      String withClause = "CREATE TEMPORARY TABLE `recursive_tasks` AS\n"
+              + "WITH RECURSIVE recursive_tasks (task, indent, title, sortField) AS (\n"
               + " SELECT tasks._id, 0 AS sort_indent, UPPER(title) AS sort_title, "
               + sortSelect
               + " FROM tasks\n"
@@ -213,13 +211,16 @@ public class TaskListViewModel extends ViewModel {
               + subtaskQuery
               + "\nORDER BY sort_indent DESC, "
               + SortHelper.orderForSortTypeRecursive(preferences)
-              + ")";
+              + ") SELECT * FROM recursive_tasks";
 
-      return Query.select(fields.toArray(new Field[0]))
-          .withPreClause(SortHelper.adjustQueryForFlags(preferences, withClause))
-          .withQueryTemplate(PermaSql.replacePlaceholdersForQuery(joinedQuery))
-          .from(RECURSIVE)
-          .toString();
+
+      return newArrayList(
+          "DROP TABLE IF EXISTS `temp`.`recursive_tasks`",
+          SortHelper.adjustQueryForFlags(preferences, withClause),
+          Query.select(fields.toArray(new Field[0]))
+              .withQueryTemplate(PermaSql.replacePlaceholdersForQuery(joinedQuery))
+              .from(Task.TABLE)
+              .toString());
     } else {
       fields.add(TAGS);
 
@@ -239,10 +240,11 @@ public class TaskListViewModel extends ViewModel {
                       ? query.replace("ORDER BY", "GROUP BY " + Task.ID + " ORDER BY")
                       : query + " GROUP BY " + Task.ID;
 
-      return Query.select(fields.toArray(new Field[0]))
+      return newArrayList(
+          Query.select(fields.toArray(new Field[0]))
               .withQueryTemplate(PermaSql.replacePlaceholdersForQuery(groupedQuery))
               .from(Task.TABLE)
-              .toString();
+              .toString());
     }
   }
 
@@ -254,10 +256,10 @@ public class TaskListViewModel extends ViewModel {
   public void invalidate() {
     assertMainThread();
 
-    SimpleSQLiteQuery query = new SimpleSQLiteQuery(getQuery(preferences, filter));
-    Timber.v(query.getSql());
+    List<String> queries = getQuery(preferences, filter);
+    Timber.v(Joiner.on(";").join(queries));
     disposable.add(
-        Single.fromCallable(() -> taskDao.fetchTasks(query))
+        Single.fromCallable(() -> taskDao.fetchTasks(queries))
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(tasks::setValue, Timber::e));

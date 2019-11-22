@@ -12,7 +12,6 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
-import androidx.sqlite.db.SimpleSQLiteQuery;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
@@ -83,8 +82,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
   @Override
   public void onDataSetChanged() {
     updateSettings();
-    String query = getQuery(filter);
-    tasks = taskDao.fetchTasks(new SimpleSQLiteQuery(query));
+    tasks = taskDao.fetchTasks(getQuery(filter));
   }
 
   @Override
@@ -198,7 +196,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     return position < tasks.size() ? tasks.get(position) : null;
   }
 
-  private String getQuery(Filter filter) {
+  private List<String> getQuery(Filter filter) {
     AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
     RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.scrollable_widget);
     rv.setTextViewText(R.id.widget_title, filter.listingTitle);
@@ -206,8 +204,10 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
       rv.setInt(R.id.widget, "setLayoutDirection", Locale.getInstance(context).getDirectionality());
     }
     appWidgetManager.partiallyUpdateAppWidget(widgetId, rv);
-    String query = TaskListViewModel.getQuery(preferences, filter);
-    return subtasksHelper.applySubtasksToWidgetFilter(filter, query);
+    List<String> queries = TaskListViewModel.getQuery(preferences, filter);
+    int last = queries.size() - 1;
+    queries.set(last, subtasksHelper.applySubtasksToWidgetFilter(filter, queries.get(last)));
+    return queries;
   }
 
   private void formatDueDate(RemoteViews row, Task task) {

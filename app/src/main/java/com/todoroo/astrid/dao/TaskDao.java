@@ -13,8 +13,10 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.RawQuery;
+import androidx.room.Transaction;
 import androidx.room.Update;
 import androidx.sqlite.db.SimpleSQLiteQuery;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.astrid.api.Filter;
@@ -126,8 +128,18 @@ public abstract class TaskDao {
           + "WHERE completed > 0 AND calendarUri IS NOT NULL AND calendarUri != ''")
   public abstract int clearCompletedCalendarEvents();
 
+  @Transaction
+  public List<TaskContainer> fetchTasks(List<String> queries) {
+    SupportSQLiteDatabase db = database.getOpenHelper().getWritableDatabase();
+    int last = queries.size() - 1;
+    for (int i = 0 ; i < last ; i++) {
+      db.execSQL(queries.get(i));
+    }
+    return fetchTasks(new SimpleSQLiteQuery(queries.get(last)));
+  }
+
   @RawQuery
-  public abstract List<TaskContainer> fetchTasks(SimpleSQLiteQuery query);
+  abstract List<TaskContainer> fetchTasks(SimpleSQLiteQuery query);
 
   @Query("UPDATE tasks SET modified = datetime('now', 'localtime') WHERE _id in (:ids)")
   public abstract void touch(List<Long> ids);

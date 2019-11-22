@@ -23,7 +23,6 @@ public final class Query {
   private final ArrayList<Join> joins = new ArrayList<>();
   private SqlTable table;
   private String queryTemplate = null;
-  private String preClause = null;
 
   private Query(Field... fields) {
     this.fields.addAll(asList(fields));
@@ -62,9 +61,6 @@ public final class Query {
   @Override
   public String toString() {
     StringBuilder sql = new StringBuilder();
-    if (preClause != null) {
-      sql.append(preClause);
-    }
     visitSelectClause(sql);
     visitFromClause(sql);
 
@@ -120,11 +116,6 @@ public final class Query {
    */
   public Query withQueryTemplate(String template) {
     queryTemplate = template;
-    return this;
-  }
-
-  public Query withPreClause(String clause) {
-    preClause = clause;
     return this;
   }
 }
