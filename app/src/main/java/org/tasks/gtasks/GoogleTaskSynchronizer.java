@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
+import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
@@ -59,6 +60,8 @@ import timber.log.Timber;
 public class GoogleTaskSynchronizer {
 
   private static final String DEFAULT_LIST = "@default"; // $NON-NLS-1$
+  private static final int MAX_TITLE_LENGTH = 1024;
+  private static final int MAX_DESCRIPTION_LENGTH = 8192;
 
   private static final Comparator<com.google.api.services.tasks.model.Task> PARENTS_FIRST =
       (o1, o2) -> {
@@ -287,7 +290,8 @@ public class GoogleTaskSynchronizer {
       return;
     }
 
-    com.google.api.services.tasks.model.Task remoteModel;
+    com.google.api.services.tasks.model.Task remoteModel =
+        new com.google.api.services.tasks.model.Task();
     boolean newlyCreated = false;
 
     String remoteId;
@@ -302,12 +306,10 @@ public class GoogleTaskSynchronizer {
       if (!Strings.isNullOrEmpty(selectedList)) {
         listId = selectedList;
       }
-      remoteModel = new com.google.api.services.tasks.model.Task();
       newlyCreated = true;
     } else { // update case
       remoteId = gtasksMetadata.getRemoteId();
       listId = gtasksMetadata.getListId();
-      remoteModel = new com.google.api.services.tasks.model.Task();
       remoteModel.setId(remoteId);
     }
 
@@ -323,8 +325,8 @@ public class GoogleTaskSynchronizer {
       remoteModel.setDeleted(true);
     }
 
-    remoteModel.setTitle(task.getTitle());
-    remoteModel.setNotes(task.getNotes());
+    remoteModel.setTitle(truncate(task.getTitle(), MAX_TITLE_LENGTH));
+    remoteModel.setNotes(truncate(task.getNotes(), MAX_DESCRIPTION_LENGTH));
     if (task.hasDueDate()) {
       remoteModel.setDue(GtasksApiUtilities.unixTimeToGtasksDueDate(task.getDueDate()));
     }
@@ -474,19 +476,32 @@ public class GoogleTaskSynchronizer {
         task = taskCreator.createWithValues("");
       }
 
-      task.setTitle(gtask.getTitle());
+      task.setTitle(getTruncatedValue(task.getTitle(), gtask.getTitle(), MAX_TITLE_LENGTH));
       task.setCreationDate(DateUtilities.now());
       task.setCompletionDate(
           GtasksApiUtilities.gtasksCompletedTimeToUnixTime(gtask.getCompleted()));
       long dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(gtask.getDue());
       mergeDates(Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate), task);
-      task.setNotes(gtask.getNotes());
+      task.setNotes(getTruncatedValue(task.getNotes(), gtask.getNotes(), MAX_DESCRIPTION_LENGTH));
       googleTask.setListId(listId);
       googleTask.setLastSync(DateUtilities.now() + 1000L);
       write(task, googleTask);
     }
     list.setLastSync(lastSyncDate);
     googleTaskListDao.insertOrReplace(list);
+  }
+
+  static String truncate(@Nullable String string, int max) {
+    return string == null || string.length() <= max ? string : string.substring(0, max);
+  }
+
+  static String getTruncatedValue(@Nullable String currentValue, @Nullable String newValue, int maxLength) {
+    return Strings.isNullOrEmpty(newValue)
+            || newValue.length() < maxLength
+            || Strings.isNullOrEmpty(currentValue)
+            || !currentValue.startsWith(newValue)
+        ? newValue
+        : currentValue;
   }
 
   private void write(Task task, GoogleTask googleTask) {

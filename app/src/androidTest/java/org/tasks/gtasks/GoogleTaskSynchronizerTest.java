@@ -4,7 +4,10 @@ import static com.natpryce.makeiteasy.MakeItEasy.with;
 import static com.todoroo.astrid.data.Task.HIDE_UNTIL_DUE;
 import static com.todoroo.astrid.data.Task.HIDE_UNTIL_DUE_TIME;
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNull;
+import static org.tasks.gtasks.GoogleTaskSynchronizer.getTruncatedValue;
 import static org.tasks.gtasks.GoogleTaskSynchronizer.mergeDates;
+import static org.tasks.gtasks.GoogleTaskSynchronizer.truncate;
 import static org.tasks.makers.TaskMaker.DUE_DATE;
 import static org.tasks.makers.TaskMaker.DUE_TIME;
 import static org.tasks.makers.TaskMaker.HIDE_TYPE;
@@ -103,5 +106,45 @@ public class GoogleTaskSynchronizerTest {
     mergeDates(newTask().getDueDate(), local);
 
     assertEquals(0, local.getHideUntil().longValue());
+  }
+
+  @Test
+  public void truncateValue() {
+    assertEquals("1234567", truncate("12345678", 7));
+  }
+
+  @Test
+  public void dontTruncateMax() {
+    assertEquals("1234567", truncate("1234567", 7));
+  }
+
+  @Test
+  public void dontTruncateShortValue() {
+    assertEquals("12345", truncate("12345", 7));
+  }
+
+  @Test
+  public void dontTruncateNull() {
+    assertNull(truncate(null, 7));
+  }
+
+  @Test
+  public void dontOverwriteTruncatedValue() {
+    assertEquals("123456789", getTruncatedValue("123456789", "1234567", 7));
+  }
+
+  @Test
+  public void overwriteTruncatedValueWithShortenedValue() {
+    assertEquals("12345", getTruncatedValue("123456789", "12345", 7));
+  }
+
+  @Test
+  public void overwriteTruncatedValueWithNullValue() {
+    assertNull(getTruncatedValue("123456789", null, 7));
+  }
+
+  @Test
+  public void overwriteNullValueWithTruncatedValue() {
+    assertEquals("1234567", getTruncatedValue(null, "1234567", 7));
   }
 }
