@@ -1,5 +1,14 @@
 Change Log
 ---
+### 7.1.2 (2019-11-22)
+
+* Add CalDAV account setting for repeating tasks
+* Fix CalDAV repeating tasks
+* Fix Google Tasks HTTP 400 response
+* Update translations
+  * Hungarian - kaciokos
+  * Simplified Chinese - @sr093906
+
 ### 7.1.1 (2019-11-18)
 
 * Improve subtask query performance
