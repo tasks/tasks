@@ -36,12 +36,14 @@ import org.tasks.data.Tag;
 import org.tasks.time.DateTime;
 import timber.log.Timber;
 
-/**
- * Data Model which represents a task users need to accomplish.
- *
- * @author Tim Su <tim@todoroo.com>
- */
-@Entity(tableName = "tasks", indices = @Index(name = "t_rid", value = "remoteId", unique = true))
+@Entity(
+    tableName = "tasks",
+    indices = {
+      @Index(name = "t_rid", value = "remoteId", unique = true),
+      @Index(
+          name = "active_and_visible",
+          value = {"completed", "deleted", "hideUntil"})
+    })
 public class Task implements Parcelable {
 
   // --- table and uri

@@ -338,6 +338,15 @@ public class Migrations {
         }
       };
 
+  private static final Migration MIGRATION_67_68 =
+      new Migration(67, 68) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+          database.execSQL(
+              "CREATE INDEX `active_and_visible` ON `tasks` (`completed`, `deleted`, `hideUntil`)");
+        }
+      };
+
   public static final Migration[] MIGRATIONS =
       new Migration[] {
         MIGRATION_35_36,
@@ -362,7 +371,8 @@ public class Migrations {
         MIGRATION_63_64,
         MIGRATION_64_65,
         MIGRATION_65_66,
-        MIGRATION_66_67
+        MIGRATION_66_67,
+        MIGRATION_67_68
       };
 
   private static Migration NOOP(int from, int to) {
