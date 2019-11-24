@@ -49,6 +49,21 @@ import timber.log.Timber;
 
 public class TaskListViewModel extends ViewModel {
 
+  private static final Criterion JOIN_GTASK =
+      Criterion.and(
+          Task.ID.eq(field(GTASK_METADATA_JOIN + ".gt_task")),
+          field(GTASK_METADATA_JOIN + ".gt_deleted").eq(0));
+  private static final Criterion JOIN_CALDAV =
+      Criterion.and(
+          Task.ID.eq(field(CALDAV_METADATA_JOIN + ".cd_task")),
+          field(CALDAV_METADATA_JOIN + ".cd_deleted").eq(0));
+  private static final Criterion JOIN_TAGS = Task.ID.eq(field(TAGS_METADATA_JOIN + ".task"));
+  private static final String JOINS =
+      Join.left(GoogleTask.TABLE.as(GTASK_METADATA_JOIN), JOIN_GTASK).toString()
+          + Join.left(CaldavTask.TABLE.as(CALDAV_METADATA_JOIN), JOIN_CALDAV)
+          + Join.left(Geofence.TABLE, Geofence.TASK.eq(Task.ID))
+          + Join.left(Place.TABLE, Place.UID.eq(Geofence.PLACE));
+
   private static final Table RECURSIVE = new Table("recursive_tasks");
   private static final Field RECURSIVE_TASK = field(RECURSIVE + ".task");
   private static final Field TASKS = field("tasks.*");
@@ -95,39 +110,6 @@ public class TaskListViewModel extends ViewModel {
   public static List<String> getQuery(Preferences preferences, Filter filter) {
     List<Field> fields = newArrayList(TASKS, GTASK, CALDAV, GEOFENCE, PLACE);
 
-    Criterion tagsJoinCriterion = Criterion.and(Task.ID.eq(field(TAGS_METADATA_JOIN + ".task")));
-    Criterion gtaskJoinCriterion =
-        Criterion.and(
-            Task.ID.eq(field(GTASK_METADATA_JOIN + ".gt_task")),
-            field(GTASK_METADATA_JOIN + ".gt_deleted").eq(0));
-    Criterion caldavJoinCriterion =
-        Criterion.and(
-            Task.ID.eq(field(CALDAV_METADATA_JOIN + ".cd_task")),
-            field(CALDAV_METADATA_JOIN + ".cd_deleted").eq(0));
-    if (filter instanceof TagFilter) {
-      String uuid = ((TagFilter) filter).getUuid();
-      tagsJoinCriterion =
-          Criterion.and(tagsJoinCriterion, field(TAGS_METADATA_JOIN + ".tag_uid").neq(uuid));
-    } else if (filter instanceof GtasksFilter) {
-      if (preferences.isManualSort()) {
-        fields.add(INDENT);
-        fields.add(CHILDREN);
-        fields.add(SIBLINGS);
-        fields.add(PRIMARY_SORT);
-        fields.add(SECONDARY_SORT);
-      }
-    } else if (filter instanceof CaldavFilter) {
-      String uuid = ((CaldavFilter) filter).getUuid();
-      caldavJoinCriterion =
-          Criterion.and(caldavJoinCriterion, field(CALDAV_METADATA_JOIN + ".cd_calendar").eq(uuid));
-    }
-
-    String joins =
-        Join.left(GoogleTask.TABLE.as(GTASK_METADATA_JOIN), gtaskJoinCriterion).toString()
-            + Join.left(CaldavTask.TABLE.as(CALDAV_METADATA_JOIN), caldavJoinCriterion)
-            + Join.left(Geofence.TABLE, Geofence.TASK.eq(Task.ID))
-            + Join.left(Place.TABLE, Place.UID.eq(Geofence.PLACE));
-
     if (atLeastLollipop()
         && (filter instanceof CaldavFilter
             || (!preferences.isManualSort() && filter instanceof GtasksFilter))) {
@@ -142,7 +124,7 @@ public class TaskListViewModel extends ViewModel {
       fields.add(TAGS_RECURSIVE);
       fields.add(INDENT);
 
-      String joinedQuery = Join.inner(RECURSIVE, Task.ID.eq(RECURSIVE_TASK)) + joins;
+      String joinedQuery = Join.inner(RECURSIVE, Task.ID.eq(RECURSIVE_TASK)) + JOINS;
       String parentQuery;
       QueryTemplate subtaskQuery = new QueryTemplate();
       if (filter instanceof CaldavFilter) {
@@ -224,12 +206,26 @@ public class TaskListViewModel extends ViewModel {
     } else {
       fields.add(TAGS);
 
+      if (filter instanceof GtasksFilter && preferences.isManualSort()) {
+        fields.add(INDENT);
+        fields.add(CHILDREN);
+        fields.add(SIBLINGS);
+        fields.add(PRIMARY_SORT);
+        fields.add(SECONDARY_SORT);
+      }
       // TODO: For now, we'll modify the query to join and include the things like tag data here.
       // Eventually, we might consider restructuring things so that this query is constructed
       // elsewhere.
+      Criterion tagsJoinCriterion =
+          filter instanceof TagFilter
+              ? Criterion.and(
+                  JOIN_TAGS,
+                  field(TAGS_METADATA_JOIN + ".tag_uid").neq(((TagFilter) filter).getUuid()))
+              : JOIN_TAGS;
+
       String joinedQuery =
           Join.left(Tag.TABLE.as(TAGS_METADATA_JOIN), tagsJoinCriterion).toString()
-              + joins
+              + JOINS
               + filter.getSqlQuery();
 
       String query =
