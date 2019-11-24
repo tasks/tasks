@@ -13,7 +13,6 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
-import com.google.common.base.Joiner;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.sql.Criterion;
@@ -257,7 +256,6 @@ public class TaskListViewModel extends ViewModel {
     assertMainThread();
 
     List<String> queries = getQuery(preferences, filter);
-    Timber.v(Joiner.on(";").join(queries));
     disposable.add(
         Single.fromCallable(() -> taskDao.fetchTasks(queries))
             .subscribeOn(Schedulers.io())

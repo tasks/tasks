@@ -17,6 +17,7 @@ import androidx.room.Transaction;
 import androidx.room.Update;
 import androidx.sqlite.db.SimpleSQLiteQuery;
 import androidx.sqlite.db.SupportSQLiteDatabase;
+import com.google.common.base.Joiner;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.astrid.api.Filter;
@@ -130,12 +131,15 @@ public abstract class TaskDao {
 
   @Transaction
   public List<TaskContainer> fetchTasks(List<String> queries) {
+    long start = BuildConfig.DEBUG ? now() : 0;
     SupportSQLiteDatabase db = database.getOpenHelper().getWritableDatabase();
     int last = queries.size() - 1;
     for (int i = 0 ; i < last ; i++) {
       db.execSQL(queries.get(i));
     }
-    return fetchTasks(new SimpleSQLiteQuery(queries.get(last)));
+    List<TaskContainer> result = fetchTasks(new SimpleSQLiteQuery(queries.get(last)));
+    Timber.v("%sms: %s", now() - start, Joiner.on(";").join(queries));
+    return result;
   }
 
   @RawQuery
