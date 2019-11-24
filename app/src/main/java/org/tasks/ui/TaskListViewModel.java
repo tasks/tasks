@@ -216,6 +216,7 @@ public class TaskListViewModel extends ViewModel {
       return newArrayList(
           "DROP TABLE IF EXISTS `temp`.`recursive_tasks`",
           SortHelper.adjustQueryForFlags(preferences, withClause),
+          "CREATE INDEX `rtasks` ON `recursive_tasks` (`task`)",
           Query.select(fields.toArray(new Field[0]))
               .withQueryTemplate(PermaSql.replacePlaceholdersForQuery(joinedQuery))
               .from(Task.TABLE)
