@@ -281,7 +281,7 @@ public class TaskListViewModel extends ViewModel {
         Single.fromCallable(() -> taskDao.fetchTasks(queries))
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(tasks::setValue, Timber::e));
+            .subscribe(tasks::postValue, Timber::e));
   }
 
   @Override
