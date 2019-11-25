@@ -2,8 +2,6 @@ package org.tasks.ui;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.todoroo.andlib.sql.Field.field;
-import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static com.todoroo.astrid.activity.TaskListFragment.CALDAV_METADATA_JOIN;
 import static com.todoroo.astrid.activity.TaskListFragment.GTASK_METADATA_JOIN;
 import static com.todoroo.astrid.activity.TaskListFragment.TAGS_METADATA_JOIN;
@@ -102,10 +100,10 @@ public class TaskListViewModel extends ViewModel {
     tasks.observe(owner, observer);
   }
 
-  public static List<String> getQuery(Preferences preferences, Filter filter) {
+  public static List<String> getQuery(Preferences preferences, Filter filter, boolean subtasks) {
     List<Field> fields = newArrayList(TASKS, GTASK, CALDAV, GEOFENCE, PLACE);
 
-    if (atLeastLollipop()
+    if (subtasks
         && filter.supportsSubtasks()
         && !(preferences.isManualSort() && filter.supportsManualSort())) {
       String tagQuery =
@@ -274,11 +272,9 @@ public class TaskListViewModel extends ViewModel {
   }
 
   public void invalidate() {
-    assertMainThread();
-
-    List<String> queries = getQuery(preferences, filter);
     disposable.add(
-        Single.fromCallable(() -> taskDao.fetchTasks(queries))
+        Single.fromCallable(
+                () -> taskDao.fetchTasks(hasSubtasks -> getQuery(preferences, filter, hasSubtasks)))
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(tasks::postValue, Timber::e));

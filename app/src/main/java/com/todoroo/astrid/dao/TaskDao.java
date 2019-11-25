@@ -6,6 +6,7 @@
 
 package com.todoroo.astrid.dao;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static com.todoroo.andlib.utility.DateUtilities.now;
 
 import android.database.Cursor;
@@ -17,6 +18,7 @@ import androidx.room.Transaction;
 import androidx.room.Update;
 import androidx.sqlite.db.SimpleSQLiteQuery;
 import androidx.sqlite.db.SupportSQLiteDatabase;
+import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
@@ -130,8 +132,9 @@ public abstract class TaskDao {
   public abstract int clearCompletedCalendarEvents();
 
   @Transaction
-  public List<TaskContainer> fetchTasks(List<String> queries) {
+  public List<TaskContainer> fetchTasks(Function<Boolean, List<String>> getQueries) {
     long start = BuildConfig.DEBUG ? now() : 0;
+    List<String> queries = getQueries.apply(atLeastLollipop() && hasSubtasks());
     SupportSQLiteDatabase db = database.getOpenHelper().getWritableDatabase();
     int last = queries.size() - 1;
     for (int i = 0 ; i < last ; i++) {
@@ -144,6 +147,13 @@ public abstract class TaskDao {
 
   @RawQuery
   abstract List<TaskContainer> fetchTasks(SimpleSQLiteQuery query);
+
+  @Query(
+      "SELECT EXISTS("
+          + "SELECT 1 FROM google_tasks WHERE gt_parent > 0 AND gt_deleted = 0"
+          + " UNION ALL "
+          + "SELECT 1 FROM caldav_tasks WHERE cd_parent > 0 AND cd_deleted = 0);")
+  public abstract boolean hasSubtasks();
 
   @Query("UPDATE tasks SET modified = datetime('now', 'localtime') WHERE _id in (:ids)")
   public abstract void touch(List<Long> ids);
