@@ -203,6 +203,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
   void bindView(TaskContainer task, boolean isRemoteList) {
     this.task = task;
     this.isRemoteList = isRemoteList;
+    this.indent = task.indent;
 
     nameView.setText(task.getTitle());
     hidden.setVisibility(task.isHidden() ? View.VISIBLE : View.GONE);
@@ -274,12 +275,12 @@ public class ViewHolder extends RecyclerView.ViewHolder {
   private void setupTags() {
     String tags = task.getTagsString();
     List<String> tagUuids = tags != null ? newArrayList(tags.split(",")) : Lists.newArrayList();
-
+    boolean hideListChip = isRemoteList || indent > 0;
     List<Chip> chips =
         chipProvider.getChips(
             context,
-            isRemoteList ? null : task.getCaldav(),
-            isRemoteList ? null : task.getGoogleTaskList(),
+            hideListChip ? null : task.getCaldav(),
+            hideListChip ? null : task.getGoogleTaskList(),
             tagUuids);
     if (chips.isEmpty()) {
       chipGroup.setVisibility(View.GONE);
