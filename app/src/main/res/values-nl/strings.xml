@@ -539,4 +539,6 @@
     <string name="help">Help</string>
     <string name="icon">Icon</string>
     <string name="SSD_sort_my_order">Mijn volgorde</string>
+    <string name="error_adding_account">Fout: %s</string>
+    <string name="caldav_account_repeating_tasks">Laat server terugkerende taken inplannen</string>
 </resources>
