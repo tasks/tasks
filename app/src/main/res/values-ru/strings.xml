@@ -27,8 +27,7 @@
     <string name="TAd_actionEditTask">Редактировать</string>
     <string name="action_call">Позвонить</string>
     <string name="action_open">Открыть</string>
-    <string name="SSD_sort_drag">Ручная сортировка с подзадачами</string>
-    <string name="SSD_sort_auto">Умная сортировка</string>
+  <string name="SSD_sort_auto">Умная сортировка</string>
     <string name="SSD_sort_alpha">По названию</string>
     <string name="SSD_sort_due">По намеченному сроку</string>
     <string name="SSD_sort_importance">По приоритету</string>

@@ -22,8 +22,7 @@
 	<string name="TLA_menu_search">Hledat</string>
 	<string name="TLA_menu_settings">Nastavení</string>
 	<string name="TAd_actionEditTask">Upravit</string>
-	<string name="SSD_sort_drag">Ručně nebo s podúkoly</string>
-	<string name="SSD_sort_auto">Chytré třídění</string>
+  <string name="SSD_sort_auto">Chytré třídění</string>
 	<string name="SSD_sort_alpha">Podle názvu</string>
 	<string name="SSD_sort_due">Podle data ukončení</string>
 	<string name="SSD_sort_importance">Podle důležitosti</string>

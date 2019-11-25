@@ -79,11 +79,6 @@ public class TaskListViewModel extends ViewModel {
   private static final StringProperty TAGS =
       new StringProperty(null, "group_concat(distinct(" + TAGS_METADATA_JOIN + ".tag_uid)" + ")")
           .as("tags");
-  private static final StringProperty TAGS_RECURSIVE =
-      new StringProperty(null, "(SELECT group_concat(distinct(tag_uid))\n" +
-              "FROM tags WHERE tags.task = tasks._id\n" +
-              "GROUP BY tags.task)")
-          .as("tags");
 
   @Inject Preferences preferences;
   @Inject TaskDao taskDao;
@@ -111,17 +106,21 @@ public class TaskListViewModel extends ViewModel {
     List<Field> fields = newArrayList(TASKS, GTASK, CALDAV, GEOFENCE, PLACE);
 
     if (atLeastLollipop()
-        && (filter instanceof CaldavFilter
-            || (!preferences.isManualSort() && filter instanceof GtasksFilter))) {
-      // TODO This is in some ways a proof of concept demonstrating a recursive query used to pull
-      //      in CalDAV tasks providing parenting across different sort modes. Tags are implemented
-      //      as a subquery, which is ugly, but aggregate recursive queries aren't supported. The
-      //      link to eg. GoogleTasks remains as it was originally explored as a drop-in replacement
-      //      for the main query. Need to verify the approach and look at how this can be applied
-      //      across backends plus investigate integrating more closely with the query-building
-      //      classes in the architecture.
-
-      fields.add(TAGS_RECURSIVE);
+        && filter.supportsSubtasks()
+        && !(preferences.isManualSort() && filter.supportsManualSort())) {
+      String tagQuery =
+          Query.select(field("group_concat(distinct(tag_uid))"))
+                  .from(Tag.TABLE)
+                  .where(
+                      filter instanceof TagFilter
+                          ? Criterion.and(
+                              RECURSIVE_TASK.eq(Tag.TASK),
+                              Tag.TAG_UID.neq(((TagFilter) filter).getUuid()))
+                          : Task.ID.eq(Tag.TASK))
+                  .toString()
+              + " GROUP BY "
+              + Tag.TASK;
+      fields.add(field("(" + tagQuery + ")").as("tags"));
       fields.add(INDENT);
 
       String joinedQuery = Join.inner(RECURSIVE, Task.ID.eq(RECURSIVE_TASK)) + JOINS;
@@ -152,7 +151,7 @@ public class TaskListViewModel extends ViewModel {
                         CaldavTask.TASK.eq(Task.ID),
                         CaldavTask.DELETED.eq(0))))
             .where(TaskCriteria.activeAndVisible());
-      } else {
+      } else if (filter instanceof GtasksFilter) {
         GoogleTaskList list = ((GtasksFilter) filter).getList();
         parentQuery =
             new QueryTemplate()
@@ -177,6 +176,31 @@ public class TaskListViewModel extends ViewModel {
                         GoogleTask.TASK.eq(Task.ID),
                         GoogleTask.DELETED.eq(0))))
             .where(TaskCriteria.activeAndVisible());
+      } else {
+        parentQuery = PermaSql.replacePlaceholdersForQuery(filter.getSqlQuery());
+        subtaskQuery
+            .join(
+                Join.left(
+                    GoogleTask.TABLE,
+                    Criterion.and(
+                        GoogleTask.PARENT.gt(0),
+                        GoogleTask.TASK.eq(Task.ID),
+                        GoogleTask.DELETED.eq(0))))
+            .join(
+                Join.left(
+                    CaldavTask.TABLE,
+                    Criterion.and(
+                        CaldavTask.PARENT.gt(0),
+                        CaldavTask.TASK.eq(Task.ID),
+                        CaldavTask.DELETED.eq(0))))
+            .join(
+                Join.inner(
+                    RECURSIVE,
+                    Criterion.or(
+                        GoogleTask.PARENT.eq(RECURSIVE_TASK),
+                        CaldavTask.PARENT.eq(RECURSIVE_TASK))))
+            .where(TaskCriteria.activeAndVisible());
+        joinedQuery += " WHERE indent = (select max(indent) from recursive_tasks where tasks._id = recursive_tasks.task) ";
       }
 
       String sortSelect = SortHelper.orderSelectForSortTypeRecursive(preferences.getSortMode());

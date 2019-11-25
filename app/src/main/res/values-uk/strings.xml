@@ -30,8 +30,7 @@
     <string name="TAd_actionEditTask">Редагувати</string>
     <string name="action_call">Набрати</string>
     <string name="action_open">Відкрити</string>
-    <string name="SSD_sort_drag">Ручний порядок з підзадачами</string>
-    <string name="SSD_sort_auto">Розумне сортування</string>
+  <string name="SSD_sort_auto">Розумне сортування</string>
     <string name="SSD_sort_alpha">За назвою</string>
     <string name="SSD_sort_due">За кінцевою датою</string>
     <string name="SSD_sort_importance">За пріоритетом</string>

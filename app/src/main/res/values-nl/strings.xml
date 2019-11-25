@@ -25,8 +25,7 @@
     <string name="TLA_menu_settings">Instellingen</string>
     <string name="TAd_actionEditTask">Bewerken</string>
     <string name="action_call">Bel</string>
-    <string name="SSD_sort_drag">Handmatige volgorde met subtaken</string>
-    <string name="SSD_sort_auto">Slim Sorteren</string>
+  <string name="SSD_sort_auto">Slim Sorteren</string>
     <string name="SSD_sort_alpha">Op titel</string>
     <string name="SSD_sort_due">Op einddatum</string>
     <string name="SSD_sort_importance">Op prioriteit</string>

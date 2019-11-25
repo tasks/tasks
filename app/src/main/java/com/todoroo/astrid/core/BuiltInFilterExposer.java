@@ -25,6 +25,8 @@ import java.util.Map;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.data.Tag;
+import org.tasks.filters.NoSubtasksFilter;
+import org.tasks.filters.SortableFilter;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.CustomIcons;
@@ -47,7 +49,7 @@ public final class BuiltInFilterExposer {
 
   /** Build inbox filter */
   public static Filter getMyTasksFilter(Resources r) {
-    return new Filter(
+    return new SortableFilter(
         r.getString(R.string.BFE_Active),
         new QueryTemplate().where(TaskCriteria.activeAndVisible()));
   }
@@ -56,7 +58,7 @@ public final class BuiltInFilterExposer {
     String todayTitle = AndroidUtilities.capitalize(r.getString(R.string.today));
     Map<String, Object> todayValues = new HashMap<>();
     todayValues.put(Task.DUE_DATE.name, PermaSql.VALUE_NOON);
-    return new Filter(
+    return new SortableFilter(
         todayTitle,
         new QueryTemplate()
             .where(
@@ -68,7 +70,7 @@ public final class BuiltInFilterExposer {
   }
 
   public static Filter getRecentlyModifiedFilter(Resources r) {
-    return new Filter(
+    return new NoSubtasksFilter(
         r.getString(R.string.BFE_Recent),
         new QueryTemplate()
             .where(TaskCriteria.notDeleted())

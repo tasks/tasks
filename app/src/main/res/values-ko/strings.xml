@@ -30,8 +30,7 @@
 	<string name="TAd_actionEditTask">편집</string>
 	<string name="action_call">전화</string>
 	<string name="action_open">열기</string>
-	<string name="SSD_sort_drag">수동 정렬 (하위할일 포함)</string>
-	<string name="SSD_sort_auto">Tasks 스마트 정렬</string>
+  <string name="SSD_sort_auto">Tasks 스마트 정렬</string>
 	<string name="SSD_sort_alpha">제목 순서</string>
 	<string name="SSD_sort_due">마감일 순서</string>
 	<string name="SSD_sort_importance">우선순위 순서로</string>

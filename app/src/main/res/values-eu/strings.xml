@@ -31,8 +31,7 @@
     <string name="TAd_actionEditTask">Editatu</string>
     <string name="action_call">Deitu</string>
     <string name="action_open">Ireki</string>
-    <string name="SSD_sort_drag">Eskuzko ordena azpi-egitekoekin</string>
-    <string name="SSD_sort_auto">Ordenatze adimentsua</string>
+  <string name="SSD_sort_auto">Ordenatze adimentsua</string>
     <string name="SSD_sort_alpha">Izenburuaren arabera</string>
     <string name="SSD_sort_due">Epemugaren arabera</string>
     <string name="SSD_sort_importance">Lehentasunaren arabera</string>

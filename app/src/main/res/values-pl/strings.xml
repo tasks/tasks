@@ -27,8 +27,7 @@
     <string name="TAd_actionEditTask">Edytuj</string>
     <string name="action_call">Zadzwoń</string>
     <string name="action_open">Otwórz</string>
-    <string name="SSD_sort_drag">Ręczne z podzadaniami</string>
-    <string name="SSD_sort_auto">Automatyczne</string>
+  <string name="SSD_sort_auto">Automatyczne</string>
     <string name="SSD_sort_alpha">Wg tytułu</string>
     <string name="SSD_sort_due">Wg daty</string>
     <string name="SSD_sort_importance">Wg priorytetów</string>

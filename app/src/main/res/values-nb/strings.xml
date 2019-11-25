@@ -21,8 +21,7 @@
     <string name="TLA_menu_sort">Sorter</string>
     <string name="TLA_menu_settings">Innstillinger</string>
     <string name="TAd_actionEditTask">Rediger</string>
-    <string name="SSD_sort_drag">Manuell rekkefølge med underoppgaver</string>
-    <string name="SSD_sort_auto">Smart sortering</string>
+  <string name="SSD_sort_auto">Smart sortering</string>
     <string name="SSD_sort_alpha">Etter tittel</string>
     <string name="SSD_sort_due">Etter tidsfristsdato</string>
     <string name="SSD_sort_importance">Etter prioritet</string>

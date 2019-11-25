@@ -27,8 +27,7 @@
 	<string name="TAd_actionEditTask">Upraviť</string>
 	<string name="action_call">Volať</string>
 	<string name="action_open">Otvoriť</string>
-	<string name="SSD_sort_drag">Ručne triediť s podúlohami</string>
-	<string name="SSD_sort_auto">Chytré triedenie</string>
+  <string name="SSD_sort_auto">Chytré triedenie</string>
 	<string name="SSD_sort_alpha">Podľa názvu</string>
 	<string name="SSD_sort_due">Podľa dátumu</string>
 	<string name="SSD_sort_importance">Podľa dôležitosti</string>

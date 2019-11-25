@@ -370,11 +370,7 @@ public final class TaskListFragment extends InjectingFragment
         startActivityForResult(recognition, TaskListFragment.VOICE_RECOGNITION_REQUEST_CODE);
         return true;
       case R.id.menu_sort:
-        boolean supportsManualSort =
-            filter.supportsSubtasks()
-                || BuiltInFilterExposer.isInbox(context, filter)
-                || BuiltInFilterExposer.isTodayFilter(context, filter);
-        SortDialog.newSortDialog(supportsManualSort, filter instanceof GtasksFilter)
+        SortDialog.newSortDialog(filter.supportsManualSort())
             .show(getChildFragmentManager(), FRAG_TAG_SORT_DIALOG);
         return true;
       case R.id.menu_show_hidden:

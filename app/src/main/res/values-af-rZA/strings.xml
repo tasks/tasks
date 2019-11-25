@@ -1,8 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
 <resources>
-	<string name="SSD_sort_drag">Manuele rangskiking met subtake</string>
-	<string name="SSD_sort_auto">Slim sorteer</string>
+  <string name="SSD_sort_auto">Slim sorteer</string>
 	<string name="SSD_sort_alpha">Volgens titel</string>
 	<string name="SSD_sort_due">Volgens datum</string>
 	<string name="SSD_sort_importance">Volgens prioriteit</string>

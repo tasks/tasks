@@ -125,11 +125,7 @@ public class SubtasksHelper {
   }
 
   public boolean shouldUseSubtasksFragmentForFilter(Filter filter) {
-    return preferences.isManualSort()
-        && filter != null
-        && (filter.supportsSubtasks()
-            || BuiltInFilterExposer.isInbox(context, filter)
-            || BuiltInFilterExposer.isTodayFilter(context, filter));
+    return preferences.isManualSort() && filter != null && filter.supportsManualSort();
   }
 
   public String applySubtasksToWidgetFilter(Filter filter, String query) {

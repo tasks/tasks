@@ -23,8 +23,7 @@
     <string name="TLA_menu_search">Iskanje</string>
     <string name="TLA_menu_settings">Nastavitve</string>
     <string name="TAd_actionEditTask">Uredi</string>
-    <string name="SSD_sort_drag">Ročna nastavitev s podopravki</string>
-    <string name="SSD_sort_auto">Pametno razvrščanje</string>
+  <string name="SSD_sort_auto">Pametno razvrščanje</string>
     <string name="SSD_sort_alpha">Po naslovu</string>
     <string name="SSD_sort_due">Po datumu roka</string>
     <string name="SSD_sort_importance">Po prioriteti</string>

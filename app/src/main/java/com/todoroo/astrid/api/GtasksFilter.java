@@ -95,7 +95,7 @@ public class GtasksFilter extends Filter {
   }
 
   @Override
-  public boolean supportsSubtasks() {
+  public boolean supportsManualSort() {
     return true;
   }
 

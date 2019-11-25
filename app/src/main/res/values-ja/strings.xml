@@ -27,8 +27,7 @@
     <string name="TAd_actionEditTask">編集する</string>
     <string name="action_call">呼び出し</string>
     <string name="action_open">開く</string>
-    <string name="SSD_sort_drag">サブタスクの手動設定順</string>
-    <string name="SSD_sort_auto">自動</string>
+  <string name="SSD_sort_auto">自動</string>
     <string name="SSD_sort_alpha">タイトル順</string>
     <string name="SSD_sort_due">期限順</string>
     <string name="SSD_sort_importance">優先順位順</string>

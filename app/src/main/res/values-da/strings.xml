@@ -18,8 +18,7 @@
     <string name="TLA_menu_sort">Sorter &amp; skjulte</string>
     <string name="TLA_menu_settings">Opsætning</string>
     <string name="TAd_actionEditTask">Rediger</string>
-    <string name="SSD_sort_drag">Manuel ordre med delopgaver</string>
-    <string name="SSD_sort_auto">Tasks Intelligent sortering</string>
+  <string name="SSD_sort_auto">Tasks Intelligent sortering</string>
     <string name="SSD_sort_alpha">Efter titel</string>
     <string name="SSD_sort_due">Efter deadline</string>
     <string name="SSD_sort_importance">Efter vigtighed</string>

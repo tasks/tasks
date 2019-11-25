@@ -27,8 +27,7 @@
 	<string name="TAd_actionEditTask">Redaguoti</string>
 	<string name="action_call">Skambinti</string>
 	<string name="action_open">Atidaryti</string>
-	<string name="SSD_sort_drag">Rankinis eiliškumas su sub-užduotimis</string>
-	<string name="SSD_sort_auto">Gudrus eiliškumas</string>
+  <string name="SSD_sort_auto">Gudrus eiliškumas</string>
 	<string name="SSD_sort_alpha">Pagal pavadinimą</string>
 	<string name="SSD_sort_due">Pagal pabaigos terminą</string>
 	<string name="SSD_sort_importance">Pagal pirmenybę</string>

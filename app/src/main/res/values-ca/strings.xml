@@ -18,8 +18,7 @@
 	<string name="TLA_menu_search">Cerca</string>
 	<string name="TLA_menu_settings">Paràmetres</string>
 	<string name="TAd_actionEditTask">Edita</string>
-	<string name="SSD_sort_drag">Ordre manual amb subtasques</string>
-	<string name="SSD_sort_auto">Classificació intel·ligent Tasks</string>
+  <string name="SSD_sort_auto">Classificació intel·ligent Tasks</string>
 	<string name="SSD_sort_alpha">Per títol</string>
 	<string name="SSD_sort_due">Per data de venciment</string>
 	<string name="SSD_sort_importance">Per importància</string>

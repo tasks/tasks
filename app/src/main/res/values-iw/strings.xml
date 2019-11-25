@@ -32,8 +32,7 @@
     <string name="TAd_actionEditTask">עריכה</string>
     <string name="action_call">התקשר</string>
     <string name="action_open">פתח</string>
-    <string name="SSD_sort_drag">סידור ידני עם תתי-משימות</string>
-    <string name="SSD_sort_auto">מיון חכם</string>
+  <string name="SSD_sort_auto">מיון חכם</string>
     <string name="SSD_sort_alpha">ע״פ כותרת</string>
     <string name="SSD_sort_due">ע״פ מועד יעד</string>
     <string name="SSD_sort_importance">ע״פ עדיפות</string>

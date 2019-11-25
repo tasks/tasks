@@ -25,8 +25,7 @@
     <string name="TAd_actionEditTask">Bearbeiten</string>
     <string name="action_call">Anrufen</string>
     <string name="action_open">Öffnen</string>
-    <string name="SSD_sort_drag">Manuelle Sortierung mit Unteraufgaben</string>
-    <string name="SSD_sort_auto">Smarte Sortierung</string>
+  <string name="SSD_sort_auto">Smarte Sortierung</string>
     <string name="SSD_sort_alpha">Nach Titel</string>
     <string name="SSD_sort_due">Nach Fälligkeit</string>
     <string name="SSD_sort_importance">Nach Priorität</string>

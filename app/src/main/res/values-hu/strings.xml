@@ -29,8 +29,7 @@
     <string name="TAd_actionEditTask">Szerkesztés</string>
     <string name="action_call">Hívás</string>
     <string name="action_open">Megnyitás</string>
-    <string name="SSD_sort_drag">Manuális sorrend részfeladatokkal</string>
-    <string name="SSD_sort_auto">Intelligens rendezés</string>
+  <string name="SSD_sort_auto">Intelligens rendezés</string>
     <string name="SSD_sort_alpha">Név alapján</string>
     <string name="SSD_sort_due">Határidő alapján</string>
     <string name="SSD_sort_importance">Prioritás alapján</string>

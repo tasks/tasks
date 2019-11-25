@@ -1,8 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
 <resources>
-	<string name="SSD_sort_drag">Ručni poredak sa podzadacima</string>
-	<string name="SSD_sort_auto">Pametno sortiranje</string>
+  <string name="SSD_sort_auto">Pametno sortiranje</string>
 	<string name="SSD_sort_alpha">Po naslovu</string>
 	<string name="SSD_sort_due">Po datumu</string>
 	<string name="SSD_sort_importance">Po prioritetnosti</string>

@@ -28,8 +28,7 @@
     <string name="TLA_menu_search">Etsi</string>
     <string name="TLA_menu_settings">Asetukset</string>
     <string name="TAd_actionEditTask">Muokkaa</string>
-    <string name="SSD_sort_drag">Manuaalinen järjestys osatehtäviin</string>
-    <string name="SSD_sort_auto">Älykäs järjestely</string>
+  <string name="SSD_sort_auto">Älykäs järjestely</string>
     <string name="SSD_sort_alpha">Otsikoittain</string>
     <string name="SSD_sort_due">Eräpäivään mennessä</string>
     <string name="SSD_sort_importance">Prioriteetin mukaan</string>

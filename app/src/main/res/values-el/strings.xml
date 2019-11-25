@@ -23,8 +23,7 @@
 	<string name="TLA_menu_search">Αναζήτηση</string>
 	<string name="TLA_menu_settings">Ρυθμίσεις</string>
 	<string name="TAd_actionEditTask">Επεξεργασία</string>
-	<string name="SSD_sort_drag">Χειροκίνητη κατάταξη με υποκαθήκοντα</string>
-	<string name="SSD_sort_auto">Έξυπνη ταξινόμηση</string>
+  <string name="SSD_sort_auto">Έξυπνη ταξινόμηση</string>
 	<string name="SSD_sort_alpha">Με βάση τον τίτλο</string>
 	<string name="SSD_sort_due">Με βάση την ημερομηνία λήξης</string>
 	<string name="SSD_sort_importance">Κατά προτεραιότητα</string>

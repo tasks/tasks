@@ -32,7 +32,6 @@ File %1$s contained %2$s.\n\n
   <string name="TAd_actionEditTask">Edit</string>
   <string name="action_call">Call</string>
   <string name="action_open">Open</string>
-  <string name="SSD_sort_drag">Manual order with subtasks</string>
   <string name="SSD_sort_my_order">My order</string>
   <string name="SSD_sort_auto">Smart sort</string>
   <string name="SSD_sort_alpha">By title</string>

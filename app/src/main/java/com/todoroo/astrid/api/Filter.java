@@ -82,7 +82,7 @@ public class Filter extends FilterListItem {
    * @param listingTitle Title of this item as displayed on the lists page, e.g. Inbox
    * @param sqlQuery SQL query for this list (see {@link #sqlQuery} for examples).
    */
-  public Filter(
+  protected Filter(
       String listingTitle, QueryTemplate sqlQuery, Map<String, Object> valuesForNewTasks) {
     this(listingTitle, sqlQuery == null ? null : sqlQuery.toString(), valuesForNewTasks);
   }
@@ -102,7 +102,7 @@ public class Filter extends FilterListItem {
     }
   }
 
-  Filter() {}
+  protected Filter() {}
 
   public String getOriginalSqlQuery() {
     return sqlQuery;
@@ -181,8 +181,12 @@ public class Filter extends FilterListItem {
     source.readMap(valuesForNewTasks, getClass().getClassLoader());
   }
 
-  public boolean supportsSubtasks() {
+  public boolean supportsManualSort() {
     return false;
+  }
+
+  public boolean supportsSubtasks() {
+    return true;
   }
 
   public boolean hasMenu() {

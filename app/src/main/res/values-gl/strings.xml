@@ -25,8 +25,7 @@
 	<string name="TLA_menu_search">Buscar</string>
 	<string name="TLA_menu_settings">Configuración</string>
 	<string name="TAd_actionEditTask">Editar</string>
-	<string name="SSD_sort_drag">Orde manual con subtarefas</string>
-	<string name="SSD_sort_auto">Ordenación intelixente</string>
+  <string name="SSD_sort_auto">Ordenación intelixente</string>
 	<string name="SSD_sort_alpha">Por título</string>
 	<string name="SSD_sort_due">Por data límite</string>
 	<string name="SSD_sort_importance">Por prioridade</string>
