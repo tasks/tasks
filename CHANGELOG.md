@@ -1,5 +1,13 @@
 Change Log
 ---
+### 7.2 (2019-11-25)
+
+* Display Google Task and CalDAV subtasks in all lists (Android 5+)
+* Remove completed tasks immediately - @creywood
+* Update translations
+  * Dutch - @fvbommel
+  * Swedish - @mattiasmun
+
 ### 7.1.2 (2019-11-22)
 
 * Add CalDAV account setting for repeating tasks
