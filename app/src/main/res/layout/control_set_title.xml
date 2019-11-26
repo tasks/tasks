@@ -11,13 +11,17 @@
   <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/task_edit_drawable_padding_top_bottom"
-    android:paddingBottom="@dimen/task_edit_drawable_padding_top_bottom"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:paddingStart="0dp"
+    android:paddingLeft="0dp"
+    android:paddingTop="@dimen/task_edit_drawable_padding_top_bottom"
+    android:paddingEnd="@dimen/keyline_first"
+    android:paddingRight="@dimen/keyline_first"
+    android:paddingBottom="@dimen/task_edit_drawable_padding_top_bottom">
 
-    <com.todoroo.astrid.ui.CheckableImageView
+  <com.todoroo.astrid.ui.CheckableImageView
       android:id="@+id/completeBox"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
