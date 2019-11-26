@@ -1,5 +1,6 @@
 package org.tasks.time;
 
+import android.annotation.SuppressLint;
 import java.util.Date;
 import org.tasks.BuildConfig;
 
@@ -22,5 +23,16 @@ public class DateTimeUtils {
 
   public static String printTimestamp(long timestamp) {
     return BuildConfig.DEBUG ? new Date(timestamp).toString() : Long.toString(timestamp);
+  }
+
+  @SuppressLint("DefaultLocale")
+  public static String printDuration(long millis) {
+    if (BuildConfig.DEBUG) {
+      long seconds = millis / 1000;
+      return String.format(
+          "%dh %dm %ds", seconds / 3600L, (int) (seconds % 3600L / 60L), (int) (seconds % 60L));
+    } else {
+      return Long.toString(millis);
+    }
   }
 }

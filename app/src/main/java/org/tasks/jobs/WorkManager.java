@@ -9,6 +9,7 @@ import static io.reactivex.Single.zip;
 import static org.tasks.date.DateTimeUtils.midnight;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
+import static org.tasks.time.DateTimeUtils.printDuration;
 import static org.tasks.time.DateTimeUtils.printTimestamp;
 
 import android.annotation.SuppressLint;
@@ -231,7 +232,7 @@ public class WorkManager {
     if (delay > 0) {
       builder.setInitialDelay(delay, TimeUnit.MILLISECONDS);
     }
-    Timber.d("%s: %s (%sms)", key, printTimestamp(time), delay);
+    Timber.d("%s: %s (%s)", key, printTimestamp(time), printDuration(delay));
     workManager.beginUniqueWork(key, ExistingWorkPolicy.REPLACE, builder.build()).enqueue();
   }
 
