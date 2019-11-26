@@ -76,7 +76,7 @@ public final class TagData implements Parcelable {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
@@ -108,7 +108,7 @@ public final class TagData implements Parcelable {
     return color;
   }
 
-  public void setColor(int color) {
+  public void setColor(Integer color) {
     this.color = color;
   }
 
