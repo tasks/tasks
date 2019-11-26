@@ -62,7 +62,8 @@ public class DriveInvoker {
     if (Strings.isNullOrEmpty(credential.getAccessToken())) {
       String account = preferences.getStringValue(R.string.p_google_drive_backup_account);
       Bundle bundle = googleAccountManager.getAccessToken(account, DriveScopes.DRIVE_FILE);
-      credential.setAccessToken(bundle.getString(AccountManager.KEY_AUTHTOKEN));
+      credential.setAccessToken(
+          bundle != null ? bundle.getString(AccountManager.KEY_AUTHTOKEN) : null);
     }
   }
 

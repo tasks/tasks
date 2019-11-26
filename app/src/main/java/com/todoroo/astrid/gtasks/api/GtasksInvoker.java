@@ -81,7 +81,8 @@ public class GtasksInvoker {
   private void checkToken() {
     if (Strings.isNullOrEmpty(credential.getAccessToken())) {
       Bundle bundle = googleAccountManager.getAccessToken(account, TasksScopes.TASKS);
-      credential.setAccessToken(bundle.getString(AccountManager.KEY_AUTHTOKEN));
+      credential.setAccessToken(
+          bundle != null ? bundle.getString(AccountManager.KEY_AUTHTOKEN) : null);
     }
   }
 
