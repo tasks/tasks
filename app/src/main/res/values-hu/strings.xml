@@ -29,7 +29,7 @@
     <string name="TAd_actionEditTask">Szerkesztés</string>
     <string name="action_call">Hívás</string>
     <string name="action_open">Megnyitás</string>
-  <string name="SSD_sort_auto">Intelligens rendezés</string>
+    <string name="SSD_sort_auto">Intelligens rendezés</string>
     <string name="SSD_sort_alpha">Név alapján</string>
     <string name="SSD_sort_due">Határidő alapján</string>
     <string name="SSD_sort_importance">Prioritás alapján</string>
@@ -543,4 +543,7 @@
     <string name="SSD_sort_my_order">Egyéni sorrend</string>
     <string name="error_adding_account">Hiba: %s</string>
     <string name="caldav_account_repeating_tasks">A szerver ütemezhet ismétlődő feladatokat</string>
+    <string name="EPr_temp_show_completed_tasks">Feladatok ideiglenes láthatósága készre állításkor</string>
+    <string name="EPr_temp_completed_tasks_showing">A feladatok a készre állítás után ideiglenesen láthatóak maradnak a listában</string>
+    <string name="EPr_temp_completed_tasks_not_showing">A feladatok a készre állítás után azonnal eltűnnek a listából</string>
 </resources>
