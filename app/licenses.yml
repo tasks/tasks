@@ -1,15 +1,13 @@
-- artifact: at.bitfire:dav4jvm:+
+- artifact: com.gitlab.bitfireAT:dav4jvm:+
   name: dav4jvm
   copyrightHolder: bitfire web engineering (Ricki Hirner, Bernhard Stockmann)
   license: Mozilla Public License, Version 2.0
   licenseUrl: https://www.mozilla.org/en-US/MPL/2.0/
-  forceGenerate: true
-- artifact: at.bitfire:ical4android:+
+- artifact: com.gitlab.bitfireAT:ical4android:+
   name: ical4android
   copyrightHolder: bitfire web engineering (Ricki Hirner, Bernhard Stockmann)
   license: GNU General Public License, Version 3.0
   licenseUrl: https://www.gnu.org/licenses/gpl.txt
-  forceGenerate: true
 - artifact: androidx.coordinatorlayout:coordinatorlayout:+
   name: Android Support Library Coordinator Layout
   copyrightHolder: Android Open Source Project

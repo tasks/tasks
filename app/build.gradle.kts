@@ -11,6 +11,7 @@ plugins {
 repositories {
     jcenter()
     google()
+    maven(url = "https://jitpack.io")
 }
 
 android {
@@ -127,10 +128,8 @@ val googleplayImplementation by configurations
 val amazonImplementation by configurations
 
 dependencies {
-    implementation(project(":dav4jvm")) {
-        exclude(group = "org.ogce", module = "xpp3")
-    }
-    implementation(project(":ical4android")) {
+    implementation("com.gitlab.bitfireAT:dav4jvm:d7c21fb481")
+    implementation("com.gitlab.bitfireAT:ical4android:1fcb759079") {
         exclude(group = "org.threeten", module = "threetenbp")
     }
 

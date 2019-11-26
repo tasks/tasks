@@ -8,12 +8,12 @@
       "licenseUrl": "https://www.mozilla.org/en-US/MPL/2.0/",
       "normalizedLicense": "mpl2",
       "year": null,
-      "url": null,
+      "url": "",
       "libraryName": "dav4jvm",
       "artifactId": {
         "name": "dav4jvm",
-        "group": "at.bitfire",
-        "version": "+"
+        "group": "com.gitlab.bitfireAT",
+        "version": "d7c21fb481"
       }
     },
     {
@@ -24,12 +24,12 @@
       "licenseUrl": "https://www.gnu.org/licenses/gpl.txt",
       "normalizedLicense": "gpl3",
       "year": null,
-      "url": null,
+      "url": "",
       "libraryName": "ical4android",
       "artifactId": {
         "name": "ical4android",
-        "group": "at.bitfire",
-        "version": "+"
+        "group": "com.gitlab.bitfireAT",
+        "version": "1fcb759079"
       }
     },
     {

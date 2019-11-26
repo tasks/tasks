@@ -7,7 +7,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 import static com.google.common.collect.Sets.difference;
 import static com.google.common.collect.Sets.newHashSet;
-import static org.tasks.caldav.CaldavUtils.applyRelatedTo;
+import static org.tasks.caldav.CaldavUtils.getParent;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 import android.content.Context;
@@ -375,8 +375,7 @@ public class CaldavSynchronizer {
     caldavTask.setVtodo(vtodo);
     caldavTask.setEtag(eTag);
     caldavTask.setLastSync(DateUtilities.now() + 1000L);
-
-    applyRelatedTo(caldavTask, remote);
+    caldavTask.setRemoteParent(getParent(remote));
 
     if (caldavTask.getId() == Task.NO_ID) {
       caldavTask.setId(caldavDao.insert(caldavTask));

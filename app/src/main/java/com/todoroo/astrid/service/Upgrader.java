@@ -3,7 +3,7 @@ package com.todoroo.astrid.service;
 import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Lists.newArrayList;
-import static org.tasks.caldav.CaldavUtils.applyRelatedTo;
+import static org.tasks.caldav.CaldavUtils.getParent;
 import static org.tasks.db.DbUtils.batch;
 
 import android.os.Environment;
@@ -122,7 +122,7 @@ public class Upgrader {
       if (remoteTask == null) {
         continue;
       }
-      applyRelatedTo(task, remoteTask);
+      task.setRemoteParent(getParent(remoteTask));
       if (!Strings.isNullOrEmpty(task.getRemoteParent())) {
         updated.add(task);
       }
