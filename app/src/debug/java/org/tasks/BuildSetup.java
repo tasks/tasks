@@ -12,7 +12,6 @@ import com.facebook.flipper.plugins.inspector.InspectorFlipperPlugin;
 import com.facebook.flipper.plugins.network.NetworkFlipperPlugin;
 import com.facebook.flipper.plugins.sharedpreferences.SharedPreferencesFlipperPlugin;
 import com.facebook.soloader.SoLoader;
-import com.squareup.leakcanary.LeakCanary;
 import javax.inject.Inject;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
@@ -41,12 +40,6 @@ public class BuildSetup {
       client.addPlugin(new NetworkFlipperPlugin());
       client.addPlugin(new SharedPreferencesFlipperPlugin(application));
       client.start();
-    }
-    if (LeakCanary.isInAnalyzerProcess(context)) {
-      return false;
-    }
-    if (preferences.getBoolean(R.string.p_leak_canary, false)) {
-      LeakCanary.install(application);
     }
     if (preferences.getBoolean(R.string.p_strict_mode_thread, false)) {
       StrictMode.setThreadPolicy(

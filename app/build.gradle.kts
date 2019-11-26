@@ -150,7 +150,6 @@ dependencies {
     debugImplementation("com.facebook.soloader:soloader:0.8.0")
 
     debugImplementation("com.squareup.leakcanary:leakcanary-android:${Versions.leakcanary}")
-    debugImplementation("com.squareup.leakcanary:leakcanary-support-fragment:${Versions.leakcanary}")
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}")
     implementation("io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:2.0.0")
