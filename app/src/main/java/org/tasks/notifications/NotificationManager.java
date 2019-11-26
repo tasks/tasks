@@ -23,6 +23,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
+import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
@@ -37,6 +38,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
+import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.data.Location;
 import org.tasks.data.LocationDao;
@@ -66,6 +68,7 @@ public class NotificationManager {
   private static final String GROUP_KEY = "tasks";
   private static final int NOTIFICATIONS_PER_SECOND = 4;
   private final NotificationManagerCompat notificationManagerCompat;
+  private final LocalBroadcastManager localBroadcastManager;
   private final LocationDao locationDao;
   private final NotificationDao notificationDao;
   private final TaskDao taskDao;
@@ -80,12 +83,14 @@ public class NotificationManager {
       Preferences preferences,
       NotificationDao notificationDao,
       TaskDao taskDao,
-      LocationDao locationDao) {
+      LocationDao locationDao,
+      LocalBroadcastManager localBroadcastManager) {
     this.context = context;
     this.preferences = preferences;
     this.notificationDao = notificationDao;
     this.taskDao = taskDao;
     this.locationDao = locationDao;
+    this.localBroadcastManager = localBroadcastManager;
     notificationManagerCompat = NotificationManagerCompat.from(context);
   }
 
@@ -160,6 +165,8 @@ public class NotificationManager {
     } else {
       createNotifications(newNotifications, alert, nonstop, fiveTimes, false);
     }
+
+    localBroadcastManager.broadcastRefresh();
   }
 
   private void createNotifications(
@@ -243,7 +250,8 @@ public class NotificationManager {
     Filter filter =
         new Filter(
             context.getString(R.string.notifications),
-            new QueryTemplate().where(Task.ID.in(taskIds)));
+            new QueryTemplate()
+                .join(Join.inner(Notification.TABLE, Task.ID.eq(Notification.TASK))));
     long when = notificationDao.latestTimestamp();
     int maxPriority = 3;
     String summaryTitle =

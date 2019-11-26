@@ -4,11 +4,18 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
+import com.todoroo.andlib.data.Property.LongProperty;
+import com.todoroo.andlib.data.Table;
 
 @Entity(
-    tableName = "notification",
+    tableName = Notification.TABLE_NAME,
     indices = {@Index(value = "task", unique = true)})
 public class Notification {
+
+  public static final String TABLE_NAME = "notification";
+
+  public static final Table TABLE = new Table(TABLE_NAME);
+  public static final LongProperty TASK = new LongProperty(TABLE, "task");
 
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "uid")
