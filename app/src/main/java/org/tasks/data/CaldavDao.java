@@ -109,7 +109,7 @@ public abstract class CaldavDao {
   public abstract CaldavAccount getAccountByName(String name);
 
   @Query(
-      "SELECT * from caldav_accounts"
+      "SELECT caldav_accounts.* from caldav_accounts"
           + " INNER JOIN caldav_tasks ON cd_task = :task"
           + " INNER JOIN caldav_lists ON cd_calendar = cdl_uuid"
           + " WHERE cdl_account = cda_uuid")
