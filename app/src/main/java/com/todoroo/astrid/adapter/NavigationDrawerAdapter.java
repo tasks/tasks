@@ -6,6 +6,7 @@
 
 package com.todoroo.astrid.adapter;
 
+import static com.google.common.base.Objects.equal;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
 import static com.todoroo.astrid.api.FilterListItem.Type.ITEM;
 import static com.todoroo.astrid.api.FilterListItem.Type.SUBHEADER;
@@ -16,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil.ItemCallback;
 import androidx.recyclerview.widget.ListAdapter;
 import com.todoroo.astrid.adapter.FilterViewHolder.OnClick;
@@ -96,12 +98,16 @@ public class NavigationDrawerAdapter extends ListAdapter<FilterListItem, FilterV
     View view = inflater.inflate(type.layout, parent, false);
     if (type == ITEM) {
       return new FilterViewHolder(
-          view, accent, themeCache, true, locale, activity, inventory, onClick);
+          view, accent, themeCache, true, locale, activity, inventory, this::onClickFilter);
     } else if (type == SUBHEADER) {
       return new FilterViewHolder(view, activity);
     } else {
       return new FilterViewHolder(view);
     }
+  }
+
+  private void onClickFilter(@Nullable FilterListItem filter) {
+    onClick.onClick(equal(filter, selected) ? null : filter);
   }
 
   @Override

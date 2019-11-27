@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.drawerlayout.widget.DrawerLayout.SimpleDrawerListener;
@@ -138,7 +139,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
     recyclerView.setAdapter(adapter);
   }
 
-  private void onFilterItemSelected(FilterListItem item) {
+  private void onFilterItemSelected(@Nullable FilterListItem item) {
     mDrawerLayout.addDrawerListener(
         new SimpleDrawerListener() {
           @Override

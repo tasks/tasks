@@ -129,9 +129,7 @@ public class FilterViewHolder extends RecyclerView.ViewHolder {
       size.setVisibility(View.VISIBLE);
     }
 
-    if (onClick != null) {
-      row.setOnClickListener(v -> onClick.onClick(filter));
-    }
+    row.setOnClickListener(onClick == null ? null : v -> onClick.onClick(filter));
   }
 
   private int getColor(FilterListItem filter) {
@@ -168,6 +166,6 @@ public class FilterViewHolder extends RecyclerView.ViewHolder {
   }
 
   public interface OnClick {
-    void onClick(FilterListItem item);
+    void onClick(@Nullable FilterListItem item);
   }
 }
