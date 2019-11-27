@@ -5,7 +5,7 @@ import static com.todoroo.andlib.utility.AndroidUtilities.mapToSerializedString;
 import android.os.Parcel;
 import android.os.Parcelable;
 import androidx.annotation.NonNull;
-import org.tasks.Objects;
+import com.google.common.base.Objects;
 import org.tasks.R;
 
 public class CustomFilter extends Filter {
@@ -88,6 +88,6 @@ public class CustomFilter extends Filter {
   @Override
   public boolean areContentsTheSame(@NonNull FilterListItem other) {
     return super.areContentsTheSame(other)
-        && Objects.equals(criterion, ((CustomFilter) other).criterion);
+        && Objects.equal(criterion, ((CustomFilter) other).criterion);
   }
 }
