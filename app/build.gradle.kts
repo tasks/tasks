@@ -191,7 +191,7 @@ dependencies {
     googleplayImplementation("com.google.firebase:firebase-core:${Versions.firebase}")
     googleplayImplementation("com.google.android.gms:play-services-location:17.0.0")
     googleplayImplementation("com.google.android.gms:play-services-maps:17.0.0")
-    googleplayImplementation("com.google.android.libraries.places:places:2.0.0")
+    googleplayImplementation("com.google.android.libraries.places:places:2.1.0")
     googleplayImplementation("com.android.billingclient:billing:1.2.2")
 
     amazonImplementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
