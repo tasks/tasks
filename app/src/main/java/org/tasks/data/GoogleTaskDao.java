@@ -135,12 +135,12 @@ public abstract class GoogleTaskDao {
           + "   WHERE p.gt_remote_id = google_tasks.gt_remote_parent"
           + "     AND p.gt_list_id = google_tasks.gt_list_id "
           + "     AND p.gt_deleted = 0),"
-          + " gt_parent)"
-          + " WHERE gt_moved = 0 AND gt_remote_parent IS NOT NULL AND gt_remote_parent != ''")
+          + " 0)"
+          + " WHERE gt_moved = 0")
   public abstract void updateParents();
 
   @Query(
-      "UPDATE google_tasks SET gt_parent = IFNULL((SELECT gt_task FROM google_tasks AS p WHERE p.gt_remote_id = google_tasks.gt_remote_parent), gt_parent) WHERE gt_list_id = :listId AND gt_moved = 0 AND gt_remote_parent IS NOT NULL AND gt_remote_parent != ''")
+      "UPDATE google_tasks SET gt_parent = IFNULL((SELECT gt_task FROM google_tasks AS p WHERE p.gt_remote_id = google_tasks.gt_remote_parent), 0) WHERE gt_list_id = :listId AND gt_moved = 0")
   abstract void updateParents(String listId);
 
   @Query(
