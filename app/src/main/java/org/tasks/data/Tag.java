@@ -21,7 +21,6 @@ public class Tag {
 
   public static final LongProperty TASK = new LongProperty(TABLE, "task");
   public static final StringProperty TAG_UID = new StringProperty(TABLE, "tag_uid");
-  public static final StringProperty TASK_UID = new StringProperty(TABLE, "task_uid");
   public static final StringProperty NAME = new StringProperty(TABLE, "name");
 
   @PrimaryKey(autoGenerate = true)

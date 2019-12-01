@@ -42,9 +42,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.common.primitives.Longs;
-import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Join;
-import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapterProvider;
 import com.todoroo.astrid.api.CaldavFilter;
@@ -76,7 +73,6 @@ import org.tasks.activities.TagSettingsActivity;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.caldav.CaldavCalendarSettingsActivity;
-import org.tasks.data.Tag;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.SortDialog;
 import org.tasks.injection.ForActivity;
@@ -343,18 +339,7 @@ public final class TaskListFragment extends InjectingFragment
   }
 
   private Filter createSearchFilter(String query) {
-    String title = getString(R.string.FLA_search_filter, query);
-    return new SearchFilter(
-        title,
-        new QueryTemplate()
-            .join(Join.left(Tag.TABLE, Tag.TASK_UID.eq(Task.UUID)))
-            .where(
-                Criterion.and(
-                    Task.DELETION_DATE.eq(0),
-                    Criterion.or(
-                        Task.NOTES.like("%" + query + "%"),
-                        Task.TITLE.like("%" + query + "%"),
-                        Tag.NAME.like("%" + query + "%")))));
+    return new SearchFilter(getString(R.string.FLA_search_filter, query), query);
   }
 
   @Override
