@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
-<resources>
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos--><resources>
     <string name="backup_BPr_header">Sikkerhetskopier</string>
     <string name="backup_BAc_import">Importer oppgaver</string>
     <string name="backup_BAc_export">Eksporter oppgaver</string>
@@ -21,7 +20,7 @@
     <string name="TLA_menu_sort">Sorter</string>
     <string name="TLA_menu_settings">Innstillinger</string>
     <string name="TAd_actionEditTask">Rediger</string>
-  <string name="SSD_sort_auto">Smart sortering</string>
+    <string name="SSD_sort_auto">Smart sortering</string>
     <string name="SSD_sort_alpha">Etter tittel</string>
     <string name="SSD_sort_due">Etter tidsfristsdato</string>
     <string name="SSD_sort_importance">Etter prioritet</string>
@@ -545,4 +544,10 @@
     <string name="name_your_price">Betal det du vil</string>
     <string name="monthly">Månedlig</string>
     <string name="annually">Årlig</string>
+    <string name="error_adding_account">Feil: %s</string>
+    <string name="SSD_sort_my_order">Min bestilling</string>
+    <string name="caldav_account_repeating_tasks">La tjeneren føre opp gjentagende gjøremål</string>
+    <string name="EPr_temp_show_completed_tasks">Vis gjøremål midlertidig ved fullførelse</string>
+    <string name="EPr_temp_completed_tasks_showing">Gjøremål vil midlertidig forbli synlige i listen etter fullførelse</string>
+    <string name="EPr_temp_completed_tasks_not_showing">Gjøremål vil fjernes umiddelbart fra listen etter fullførelse</string>
 </resources>
