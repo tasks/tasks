@@ -45,6 +45,8 @@ public class FileHelper {
     if (atLeastKitKat()) {
       Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
       intent.putExtra("android.content.extra.SHOW_ADVANCED", true);
+      intent.putExtra("android.content.extra.FANCY", true);
+      intent.putExtra("android.content.extra.SHOW_FILESIZE", true);
       intent.addCategory(Intent.CATEGORY_OPENABLE);
       setInitialUri(activity, intent, initial);
       if (mimeTypes.length == 1) {
@@ -74,6 +76,8 @@ public class FileHelper {
               | Intent.FLAG_GRANT_READ_URI_PERMISSION
               | Intent.FLAG_GRANT_PREFIX_URI_PERMISSION);
       intent.putExtra("android.content.extra.SHOW_ADVANCED", true);
+      intent.putExtra("android.content.extra.FANCY", true);
+      intent.putExtra("android.content.extra.SHOW_FILESIZE", true);
       setInitialUri(activity, intent, initial);
       activity.startActivityForResult(intent, rc);
     } else {
