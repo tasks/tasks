@@ -6,11 +6,11 @@
 
 package com.todoroo.astrid.dao;
 
+import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.sql.SqlConstants.COUNT;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static com.todoroo.andlib.utility.DateUtilities.now;
 
-import android.database.Cursor;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -28,7 +28,6 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.UUIDHelper;
-import java.util.ArrayList;
 import java.util.List;
 import org.tasks.BuildConfig;
 import org.tasks.data.TaskContainer;
@@ -221,16 +220,7 @@ public abstract class TaskDao {
   }
 
   public List<Task> fetchFiltered(String queryTemplate) {
-    Cursor cursor = database.query(getQuery(queryTemplate, Task.PROPERTIES), null);
-    List<Task> result = new ArrayList<>();
-    try {
-      for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-        result.add(new Task(cursor));
-      }
-      return result;
-    } finally {
-      cursor.close();
-    }
+    return transform(fetchTasks(getQuery(queryTemplate, Task.FIELDS)), TaskContainer::getTask);
   }
 
   private static SimpleSQLiteQuery getQuery(String queryTemplate, Field... fields) {

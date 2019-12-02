@@ -10,7 +10,6 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
 import android.content.ContentValues;
-import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
@@ -22,11 +21,11 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import com.google.common.base.Strings;
 import com.google.ical.values.RRule;
-import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
+import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.utility.DateUtilities;
 import java.lang.annotation.Retention;
 import java.util.ArrayList;
@@ -50,6 +49,7 @@ public class Task implements Parcelable {
 
   /** table for this model */
   public static final Table TABLE = new Table("tasks");
+  public static final Field FIELDS = Field.field("tasks.*");
 
   public static final long NO_ID = 0;
 
@@ -68,31 +68,6 @@ public class Task implements Parcelable {
   public static final String NO_UUID = "0"; // $NON-NLS-1$
 
   public static final StringProperty UUID = new StringProperty(TABLE, "remoteId");
-  /** List of all properties for this model */
-  public static final Property<?>[] PROPERTIES =
-      new Property<?>[] {
-        new StringProperty(TABLE, "calendarUri"),
-        COMPLETION_DATE,
-        new LongProperty(TABLE, "created"),
-        DELETION_DATE,
-        DUE_DATE,
-        new IntegerProperty(TABLE, "elapsedSeconds"),
-        new IntegerProperty(TABLE, "estimatedSeconds"),
-        HIDE_UNTIL,
-        ID,
-        IMPORTANCE,
-        MODIFICATION_DATE,
-        NOTES,
-        new StringProperty(TABLE, "recurrence"),
-        new IntegerProperty(TABLE, "notificationFlags"),
-        new LongProperty(TABLE, "lastNotified"),
-        new LongProperty(TABLE, "notifications"),
-        new LongProperty(TABLE, "snoozeTime"),
-        new LongProperty(TABLE, "repeatUntil"),
-        TIMER_START,
-        TITLE,
-        UUID
-      };
   /** whether to send a reminder at deadline */
   public static final int NOTIFY_AT_DEADLINE = 1 << 1;
   /** whether to send reminders while task is overdue */
@@ -212,116 +187,6 @@ public class Task implements Parcelable {
   @Ignore private transient HashMap<String, Object> transitoryData = null;
 
   public Task() {}
-
-  @Ignore
-  public Task(Cursor _cursor) {
-    final int _cursorIndexOfId = _cursor.getColumnIndexOrThrow("_id");
-    final int _cursorIndexOfTitle = _cursor.getColumnIndexOrThrow("title");
-    final int _cursorIndexOfImportance = _cursor.getColumnIndexOrThrow("importance");
-    final int _cursorIndexOfDueDate = _cursor.getColumnIndexOrThrow("dueDate");
-    final int _cursorIndexOfHideUntil = _cursor.getColumnIndexOrThrow("hideUntil");
-    final int _cursorIndexOfCreated = _cursor.getColumnIndexOrThrow("created");
-    final int _cursorIndexOfModified = _cursor.getColumnIndexOrThrow("modified");
-    final int _cursorIndexOfCompleted = _cursor.getColumnIndexOrThrow("completed");
-    final int _cursorIndexOfDeleted = _cursor.getColumnIndexOrThrow("deleted");
-    final int _cursorIndexOfNotes = _cursor.getColumnIndexOrThrow("notes");
-    final int _cursorIndexOfEstimatedSeconds = _cursor.getColumnIndexOrThrow("estimatedSeconds");
-    final int _cursorIndexOfElapsedSeconds = _cursor.getColumnIndexOrThrow("elapsedSeconds");
-    final int _cursorIndexOfTimerStart = _cursor.getColumnIndexOrThrow("timerStart");
-    final int _cursorIndexOfNotificationFlags = _cursor.getColumnIndexOrThrow("notificationFlags");
-    final int _cursorIndexOfNotifications = _cursor.getColumnIndexOrThrow("notifications");
-    final int _cursorIndexOfLastNotified = _cursor.getColumnIndexOrThrow("lastNotified");
-    final int _cursorIndexOfSnoozeTime = _cursor.getColumnIndexOrThrow("snoozeTime");
-    final int _cursorIndexOfRecurrence = _cursor.getColumnIndexOrThrow("recurrence");
-    final int _cursorIndexOfRepeatUntil = _cursor.getColumnIndexOrThrow("repeatUntil");
-    final int _cursorIndexOfCalendarUri = _cursor.getColumnIndexOrThrow("calendarUri");
-    final int _cursorIndexOfRemoteId = _cursor.getColumnIndexOrThrow("remoteId");
-    if (_cursor.isNull(_cursorIndexOfId)) {
-      id = null;
-    } else {
-      id = _cursor.getLong(_cursorIndexOfId);
-    }
-    title = _cursor.getString(_cursorIndexOfTitle);
-    if (_cursor.isNull(_cursorIndexOfImportance)) {
-      priority = null;
-    } else {
-      priority = _cursor.getInt(_cursorIndexOfImportance);
-    }
-    if (_cursor.isNull(_cursorIndexOfDueDate)) {
-      dueDate = null;
-    } else {
-      dueDate = _cursor.getLong(_cursorIndexOfDueDate);
-    }
-    if (_cursor.isNull(_cursorIndexOfHideUntil)) {
-      hideUntil = null;
-    } else {
-      hideUntil = _cursor.getLong(_cursorIndexOfHideUntil);
-    }
-    if (_cursor.isNull(_cursorIndexOfCreated)) {
-      created = null;
-    } else {
-      created = _cursor.getLong(_cursorIndexOfCreated);
-    }
-    if (_cursor.isNull(_cursorIndexOfModified)) {
-      modified = null;
-    } else {
-      modified = _cursor.getLong(_cursorIndexOfModified);
-    }
-    if (_cursor.isNull(_cursorIndexOfCompleted)) {
-      completed = null;
-    } else {
-      completed = _cursor.getLong(_cursorIndexOfCompleted);
-    }
-    if (_cursor.isNull(_cursorIndexOfDeleted)) {
-      deleted = null;
-    } else {
-      deleted = _cursor.getLong(_cursorIndexOfDeleted);
-    }
-    notes = _cursor.getString(_cursorIndexOfNotes);
-    if (_cursor.isNull(_cursorIndexOfEstimatedSeconds)) {
-      estimatedSeconds = null;
-    } else {
-      estimatedSeconds = _cursor.getInt(_cursorIndexOfEstimatedSeconds);
-    }
-    if (_cursor.isNull(_cursorIndexOfElapsedSeconds)) {
-      elapsedSeconds = null;
-    } else {
-      elapsedSeconds = _cursor.getInt(_cursorIndexOfElapsedSeconds);
-    }
-    if (_cursor.isNull(_cursorIndexOfTimerStart)) {
-      timerStart = null;
-    } else {
-      timerStart = _cursor.getLong(_cursorIndexOfTimerStart);
-    }
-    if (_cursor.isNull(_cursorIndexOfNotificationFlags)) {
-      notificationFlags = null;
-    } else {
-      notificationFlags = _cursor.getInt(_cursorIndexOfNotificationFlags);
-    }
-    if (_cursor.isNull(_cursorIndexOfNotifications)) {
-      notifications = null;
-    } else {
-      notifications = _cursor.getLong(_cursorIndexOfNotifications);
-    }
-    if (_cursor.isNull(_cursorIndexOfLastNotified)) {
-      lastNotified = null;
-    } else {
-      lastNotified = _cursor.getLong(_cursorIndexOfLastNotified);
-    }
-    if (_cursor.isNull(_cursorIndexOfSnoozeTime)) {
-      snoozeTime = null;
-    } else {
-      snoozeTime = _cursor.getLong(_cursorIndexOfSnoozeTime);
-    }
-    recurrence = _cursor.getString(_cursorIndexOfRecurrence);
-    if (_cursor.isNull(_cursorIndexOfRepeatUntil)) {
-      repeatUntil = null;
-    } else {
-      repeatUntil = _cursor.getLong(_cursorIndexOfRepeatUntil);
-    }
-    calendarUri = _cursor.getString(_cursorIndexOfCalendarUri);
-    remoteId = _cursor.getString(_cursorIndexOfRemoteId);
-  }
 
   @Ignore
   public Task(XmlReader reader) {
@@ -1005,21 +870,9 @@ public class Task implements Parcelable {
     return (T) transitoryData.get(key);
   }
 
-  private Object clearTransitory(String key) {
-    if (transitoryData == null) {
-      return null;
-    }
-    return transitoryData.remove(key);
-  }
-
   // --- Convenience wrappers for using transitories as flags
   public boolean checkTransitory(String flag) {
     Object trans = getTransitory(flag);
-    return trans != null;
-  }
-
-  public boolean checkAndClearTransitory(String flag) {
-    Object trans = clearTransitory(flag);
     return trans != null;
   }
 
