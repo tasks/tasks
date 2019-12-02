@@ -334,8 +334,8 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     boolean newState = completeBox.isChecked();
 
     if (newState != task.isCompleted()) {
-      callback.onCompletedTask(task, newState);
       taskCompleter.setComplete(task.getTask(), newState);
+      callback.onCompletedTask(task, newState);
     }
 
     // set check box to actual action item state
