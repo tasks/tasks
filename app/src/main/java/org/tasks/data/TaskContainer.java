@@ -239,4 +239,8 @@ public class TaskContainer {
   public Location getLocation() {
     return location;
   }
+
+  public boolean isCollapsed() {
+    return task.isCollapsed();
+  }
 }

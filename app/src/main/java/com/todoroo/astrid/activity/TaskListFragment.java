@@ -50,6 +50,7 @@ import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.api.SearchFilter;
 import com.todoroo.astrid.api.TagFilter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskDeleter;
@@ -129,6 +130,7 @@ public final class TaskListFragment extends InjectingFragment
   @Inject ActionModeProvider actionModeProvider;
   @Inject Toaster toaster;
   @Inject TaskAdapterProvider taskAdapterProvider;
+  @Inject TaskDao taskDao;
 
   @BindView(R.id.swipe_layout)
   SwipeRefreshLayout swipeRefreshLayout;
@@ -259,7 +261,8 @@ public final class TaskListFragment extends InjectingFragment
             viewHolderFactory,
             this,
             actionModeProvider,
-            taskListViewModel.getValue());
+            taskListViewModel.getValue(),
+            taskDao);
     taskAdapter.setHelper(recyclerAdapter);
     ((DefaultItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
     recyclerView.setLayoutManager(new LinearLayoutManager(context));

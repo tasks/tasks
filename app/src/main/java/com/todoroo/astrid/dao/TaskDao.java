@@ -162,6 +162,9 @@ public abstract class TaskDao {
   @Query("UPDATE tasks SET modified = datetime('now', 'localtime') WHERE _id in (:ids)")
   public abstract void touch(List<Long> ids);
 
+  @Query("UPDATE tasks SET collapsed = :collapsed WHERE _id = :id")
+  public abstract void setCollapsed(long id, boolean collapsed);
+
   /**
    * Saves the given task to the database.getDatabase(). Task must already exist. Returns true on
    * success.

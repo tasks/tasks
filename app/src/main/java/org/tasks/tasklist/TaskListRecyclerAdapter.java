@@ -21,6 +21,7 @@ import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.utility.Flags;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -43,6 +44,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
   private final ActionModeProvider actionModeProvider;
   private final boolean isRemoteList;
   private final ItemTouchHelperCallback itemTouchHelperCallback;
+  private final TaskDao taskDao;
   private ActionMode mode = null;
   private List<TaskContainer> list;
   private PublishSubject<List<TaskContainer>> publishSubject = PublishSubject.create();
@@ -55,7 +57,8 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
       ViewHolderFactory viewHolderFactory,
       TaskListFragment taskList,
       ActionModeProvider actionModeProvider,
-      List<TaskContainer> list) {
+      List<TaskContainer> list,
+      TaskDao taskDao) {
     this.adapter = adapter;
     this.recyclerView = recyclerView;
     this.viewHolderFactory = viewHolderFactory;
@@ -66,6 +69,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
             || taskList.getFilter() instanceof CaldavFilter;
     this.list = list;
     itemTouchHelperCallback = new ItemTouchHelperCallback(adapter, this, this::drainQueue);
+    this.taskDao = taskDao;
     new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
     Pair<List<TaskContainer>, DiffResult> initial = Pair.create(list, null);
     disposables.add(
@@ -130,6 +134,12 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
       toggle(viewHolder);
     }
     return true;
+  }
+
+  @Override
+  public void toggleSubtasks(TaskContainer task, boolean collapsed) {
+    taskDao.setCollapsed(task.getId(), collapsed);
+    taskList.loadTaskListContent();
   }
 
   public void startActionMode() {

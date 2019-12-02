@@ -120,8 +120,10 @@ public class TaskListViewModel extends ViewModel {
               + Tag.TASK;
       fields.add(field("(" + tagQuery + ")").as("tags"));
       fields.add(INDENT);
+      fields.add(field("(SELECT count(*) FROM recursive_tasks WHERE parent = tasks._id GROUP BY parent)").as("children"));
 
-      String joinedQuery = Join.inner(RECURSIVE, Task.ID.eq(RECURSIVE_TASK)) + JOINS;
+      String joinedQuery = Join.inner(RECURSIVE, Task.ID.eq(RECURSIVE_TASK)) + JOINS +
+          " WHERE recursive_tasks.hidden = 0";
       String parentQuery;
       QueryTemplate subtaskQuery = new QueryTemplate();
       if (filter instanceof CaldavFilter) {
@@ -198,17 +200,17 @@ public class TaskListViewModel extends ViewModel {
                         GoogleTask.PARENT.eq(RECURSIVE_TASK),
                         CaldavTask.PARENT.eq(RECURSIVE_TASK))))
             .where(TaskCriteria.activeAndVisible());
-        joinedQuery += " WHERE indent = (select max(indent) from recursive_tasks where tasks._id = recursive_tasks.task) ";
+        joinedQuery += " AND indent = (select max(indent) from recursive_tasks where tasks._id = recursive_tasks.task) ";
       }
 
       String sortSelect = SortHelper.orderSelectForSortTypeRecursive(preferences.getSortMode());
       String withClause = "CREATE TEMPORARY TABLE `recursive_tasks` AS\n"
-              + "WITH RECURSIVE recursive_tasks (task, indent, title, sortField) AS (\n"
-              + " SELECT tasks._id, 0 AS sort_indent, UPPER(title) AS sort_title, "
+              + "WITH RECURSIVE recursive_tasks (task, parent, collapsed, hidden, indent, title, sortField) AS (\n"
+              + " SELECT tasks._id, 0 as parent, tasks.collapsed as collapsed, 0 as hidden, 0 AS sort_indent, UPPER(title) AS sort_title, "
               + sortSelect
               + " FROM tasks\n"
               + parentQuery
-              + "\nUNION ALL SELECT tasks._id, recursive_tasks.indent+1 AS sort_indent, UPPER(tasks.title) AS sort_title, "
+              + "\nUNION ALL SELECT tasks._id, recursive_tasks.task as parent, tasks.collapsed as collapsed, CASE WHEN recursive_tasks.collapsed > 0 OR recursive_tasks.hidden > 0 THEN 1 ELSE 0 END as hidden, recursive_tasks.indent+1 AS sort_indent, UPPER(tasks.title) AS sort_title, "
               + sortSelect
               + " FROM tasks\n"
               + subtaskQuery
@@ -216,11 +218,11 @@ public class TaskListViewModel extends ViewModel {
               + SortHelper.orderForSortTypeRecursive(preferences)
               + ") SELECT * FROM recursive_tasks";
 
-
       return newArrayList(
           "DROP TABLE IF EXISTS `temp`.`recursive_tasks`",
           SortHelper.adjustQueryForFlags(preferences, withClause),
-          "CREATE INDEX `rtasks` ON `recursive_tasks` (`task`)",
+          "CREATE INDEX `r_tasks` ON `recursive_tasks` (`task`)",
+          "CREATE INDEX `r_parents` ON `recursive_tasks` (`parent`)",
           Query.select(fields.toArray(new Field[0]))
               .withQueryTemplate(PermaSql.replacePlaceholdersForQuery(joinedQuery))
               .from(Task.TABLE)

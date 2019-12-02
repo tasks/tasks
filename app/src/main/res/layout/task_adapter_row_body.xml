@@ -126,4 +126,23 @@
     app:chipSpacingHorizontal="@dimen/chip_spacing"
     app:chipSpacingVertical="@dimen/chip_spacing"/>
 
+  <com.google.android.material.chip.Chip
+    android:id="@+id/subtasks_chip"
+    style="@style/ChipStyle"
+    android:layout_marginTop="@dimen/task_list_item_spacing"
+    android:layout_marginStart="@dimen/keyline_content_inset"
+    android:layout_marginEnd="@dimen/keyline_first"
+    android:layout_marginLeft="@dimen/keyline_content_inset"
+    android:layout_marginRight="@dimen/keyline_first"
+    android:layout_gravity="center_vertical|end"
+    android:textColor="?attr/colorAccent"
+    android:visibility="gone"
+    app:chipBackgroundColor="?android:attr/colorBackground"
+    app:chipIcon="@drawable/ic_outline_place_24px"
+    app:chipIconTint="?attr/colorAccent"
+    app:chipStrokeColor="?attr/colorAccent"
+    app:chipStrokeWidth="@dimen/chip_stroke"
+    app:iconEndPadding="0dp"
+    app:iconStartPadding="@dimen/chip_text_padding"/>
+
 </LinearLayout>

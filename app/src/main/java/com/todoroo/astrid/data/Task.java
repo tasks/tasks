@@ -622,6 +622,10 @@ public class Task implements Parcelable {
     return getId() == NO_ID;
   }
 
+  public boolean isCollapsed() {
+    return collapsed;
+  }
+
   /** {@inheritDoc} */
   @Override
   public int describeContents() {

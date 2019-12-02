@@ -213,6 +213,10 @@ File %1$s contained %2$s.\n\n
     <item quantity="one">%d task</item>
     <item quantity="other">%d tasks</item>
   </plurals>
+  <plurals name="subtask_count">
+    <item quantity="one">%d subtask</item>
+    <item quantity="other">%d subtasks</item>
+  </plurals>
   <plurals name="repeat_times">
     <item quantity="one">time</item>
     <item quantity="other">times</item>

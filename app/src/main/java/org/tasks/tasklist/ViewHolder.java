@@ -81,6 +81,9 @@ public class ViewHolder extends RecyclerView.ViewHolder {
   @BindView(R.id.hidden_status)
   ImageView hidden;
 
+  @BindView(R.id.subtasks_chip)
+  Chip subtasksChip;
+
   private int indent;
   private boolean selected;
   private boolean moving;
@@ -209,6 +212,19 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     hidden.setVisibility(task.isHidden() ? View.VISIBLE : View.GONE);
     setupTitleAndCheckbox();
     setupDueDate();
+    if (task.hasChildren()) {
+      subtasksChip.setVisibility(View.VISIBLE);
+      subtasksChip.setText(
+          context
+              .getResources()
+              .getQuantityString(R.plurals.subtask_count, task.children, task.children));
+      subtasksChip.setChipIconResource(
+          task.isCollapsed()
+              ? R.drawable.ic_keyboard_arrow_up_black_24dp
+              : R.drawable.ic_keyboard_arrow_down_black_24dp);
+    } else {
+      subtasksChip.setVisibility(View.GONE);
+    }
     if (preferences.getBoolean(R.string.p_show_list_indicators, true)) {
       setupLocation();
       setupTags();
@@ -294,6 +310,11 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     }
   }
 
+  @OnClick(R.id.subtasks_chip)
+  void toggleSubtasks() {
+    callback.toggleSubtasks(task, !task.isCollapsed());
+  }
+
   @OnClick(R.id.rowBody)
   void onRowBodyClick() {
     callback.onClick(this);
@@ -354,6 +375,8 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     void onClick(ViewHolder viewHolder);
 
     void onClick(Filter filter);
+
+    void toggleSubtasks(TaskContainer task, boolean collapsed);
 
     boolean onLongPress(ViewHolder viewHolder);
   }
