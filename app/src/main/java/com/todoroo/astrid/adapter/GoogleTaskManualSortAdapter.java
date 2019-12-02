@@ -66,6 +66,11 @@ public class GoogleTaskManualSortAdapter extends TaskAdapter {
   }
 
   @Override
+  public boolean supportsManualSorting() {
+    return true;
+  }
+
+  @Override
   public void moved(int from, int to, int indent) {
     TaskContainer task = getTask(from);
     GoogleTask googleTask = task.getGoogleTask();

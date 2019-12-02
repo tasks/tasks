@@ -605,6 +605,10 @@ public final class TaskListFragment extends InjectingFragment
     return true;
   }
 
+  public void broadcastRefresh() {
+    localBroadcastManager.broadcastRefresh();
+  }
+
   public interface TaskListFragmentCallbackHandler {
     void onTaskListItemClicked(Task task);
 

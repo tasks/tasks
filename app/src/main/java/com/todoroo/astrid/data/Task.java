@@ -14,6 +14,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import androidx.annotation.IntDef;
+import androidx.core.os.ParcelCompat;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -239,6 +240,7 @@ public class Task implements Parcelable {
     title = parcel.readString();
     remoteId = parcel.readString();
     transitoryData = parcel.readHashMap(ContentValues.class.getClassLoader());
+    collapsed = ParcelCompat.readBoolean(parcel);
   }
 
   /**
@@ -657,6 +659,7 @@ public class Task implements Parcelable {
     dest.writeString(title);
     dest.writeString(remoteId);
     dest.writeMap(transitoryData);
+    ParcelCompat.writeBoolean(dest, collapsed);
   }
 
   @Override
@@ -671,8 +674,6 @@ public class Task implements Parcelable {
         + priority
         + ", dueDate="
         + dueDate
-        + ", transitoryData="
-        + transitoryData
         + ", hideUntil="
         + hideUntil
         + ", created="
@@ -711,6 +712,10 @@ public class Task implements Parcelable {
         + ", remoteId='"
         + remoteId
         + '\''
+        + ", collapsed="
+        + collapsed
+        + ", transitoryData="
+        + transitoryData
         + '}';
   }
 
@@ -888,12 +893,15 @@ public class Task implements Parcelable {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof Task)) {
       return false;
     }
 
     Task task = (Task) o;
 
+    if (collapsed != task.collapsed) {
+      return false;
+    }
     if (id != null ? !id.equals(task.id) : task.id != null) {
       return false;
     }
@@ -964,7 +972,12 @@ public class Task implements Parcelable {
     if (calendarUri != null ? !calendarUri.equals(task.calendarUri) : task.calendarUri != null) {
       return false;
     }
-    return remoteId != null ? remoteId.equals(task.remoteId) : task.remoteId == null;
+    if (remoteId != null ? !remoteId.equals(task.remoteId) : task.remoteId != null) {
+      return false;
+    }
+    return transitoryData != null
+        ? transitoryData.equals(task.transitoryData)
+        : task.transitoryData == null;
   }
 
   @Override
@@ -990,6 +1003,8 @@ public class Task implements Parcelable {
     result = 31 * result + (repeatUntil != null ? repeatUntil.hashCode() : 0);
     result = 31 * result + (calendarUri != null ? calendarUri.hashCode() : 0);
     result = 31 * result + (remoteId != null ? remoteId.hashCode() : 0);
+    result = 31 * result + (collapsed ? 1 : 0);
+    result = 31 * result + (transitoryData != null ? transitoryData.hashCode() : 0);
     return result;
   }
 

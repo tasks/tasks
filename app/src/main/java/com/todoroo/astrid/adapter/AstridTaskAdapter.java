@@ -56,6 +56,11 @@ public final class AstridTaskAdapter extends TaskAdapter {
   }
 
   @Override
+  public boolean supportsManualSorting() {
+    return true;
+  }
+
+  @Override
   public void moved(int from, int to, int indent) {
     TaskContainer source = getTask(from);
     String targetTaskId = source.getUuid();

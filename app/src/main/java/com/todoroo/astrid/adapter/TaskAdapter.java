@@ -85,6 +85,10 @@ public class TaskAdapter {
     return false;
   }
 
+  public boolean supportsManualSorting() {
+    return false;
+  }
+
   public void moved(int from, int to, int indent) {}
 
   public TaskContainer getTask(int position) {

@@ -92,6 +92,9 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
     TaskContainer task = getItem(position);
     if (task != null) {
       holder.bindView(task, isRemoteList);
+      if (!adapter.supportsManualSorting()) {
+        holder.setupSubtasksChip();
+      }
       holder.setMoving(false);
       int indent = adapter.getIndent(task);
       task.setIndent(indent);
@@ -139,7 +142,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
   @Override
   public void toggleSubtasks(TaskContainer task, boolean collapsed) {
     taskDao.setCollapsed(task.getId(), collapsed);
-    taskList.loadTaskListContent();
+    taskList.broadcastRefresh();
   }
 
   public void startActionMode() {
