@@ -212,7 +212,11 @@ public abstract class TaskDao {
   public abstract List<Task> getAstrid2TaskProviderTasks();
 
   public int count(Filter filter) {
-    return count(getQuery(filter.sqlQuery, COUNT));
+    SimpleSQLiteQuery query = getQuery(filter.sqlQuery, COUNT);
+    long start = BuildConfig.DEBUG ? now() : 0;
+    int count = count(query);
+    Timber.v("%sms: %s", now() - start, query.getSql());
+    return count;
   }
 
   public List<Task> fetchFiltered(Filter filter) {
@@ -220,19 +224,19 @@ public abstract class TaskDao {
   }
 
   public List<Task> fetchFiltered(String queryTemplate) {
-    return transform(fetchTasks(getQuery(queryTemplate, Task.FIELDS)), TaskContainer::getTask);
+    SimpleSQLiteQuery query = getQuery(queryTemplate, Task.FIELDS);
+    long start = BuildConfig.DEBUG ? now() : 0;
+    List<TaskContainer> tasks = fetchTasks(query);
+    Timber.v("%sms: %s", now() - start, query.getSql());
+    return transform(tasks, TaskContainer::getTask);
   }
 
   private static SimpleSQLiteQuery getQuery(String queryTemplate, Field... fields) {
-    String queryString =
+    return new SimpleSQLiteQuery(
         com.todoroo.andlib.sql.Query.select(fields)
             .withQueryTemplate(PermaSql.replacePlaceholdersForQuery(queryTemplate))
             .from(Task.TABLE)
-            .toString();
-    if (BuildConfig.DEBUG) {
-      Timber.v(queryString);
-    }
-    return new SimpleSQLiteQuery(queryString);
+            .toString());
   }
 
   /** Generates SQL clauses */
