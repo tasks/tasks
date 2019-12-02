@@ -26,7 +26,7 @@
     <string name="TAd_actionEditTask">编辑</string>
     <string name="action_call">通话</string>
     <string name="action_open">打开</string>
-  <string name="SSD_sort_auto">清单小助理智能排序</string>
+    <string name="SSD_sort_auto">清单小助理智能排序</string>
     <string name="SSD_sort_alpha">按标题</string>
     <string name="SSD_sort_due">按截止日期</string>
     <string name="SSD_sort_importance">按优先级</string>
@@ -539,4 +539,8 @@
     <string name="EPr_temp_show_completed_tasks">完成时短暂显示任务</string>
     <string name="EPr_temp_completed_tasks_showing">任务完成后将暂时展示在列表中</string>
     <string name="EPr_temp_completed_tasks_not_showing">任务完成后将立刻从列表中消失</string>
+    <plurals name="subtask_count">
+        <item quantity="one">%d个子任务</item>
+        <item quantity="other"></item>
+    </plurals>
 </resources>
