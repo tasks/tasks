@@ -6,8 +6,9 @@
 
 package com.todoroo.andlib.sql;
 
-final class SqlConstants {
+public final class SqlConstants {
 
+  public static final Field COUNT = Field.field("COUNT(*)");
   public static final String SELECT = "SELECT";
   public static final String SPACE = " ";
   public static final String AS = "AS";

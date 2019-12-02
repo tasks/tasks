@@ -6,6 +6,7 @@
 
 package com.todoroo.astrid.dao;
 
+import static com.todoroo.andlib.sql.SqlConstants.COUNT;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static com.todoroo.andlib.utility.DateUtilities.now;
 
@@ -21,6 +22,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.PermaSql;
@@ -148,6 +150,9 @@ public abstract class TaskDao {
   @RawQuery
   abstract List<TaskContainer> fetchTasks(SimpleSQLiteQuery query);
 
+  @RawQuery
+  abstract int count(SimpleSQLiteQuery query);
+
   @Query(
       "SELECT EXISTS("
           + "SELECT 1 FROM google_tasks WHERE gt_parent > 0 AND gt_deleted = 0"
@@ -208,12 +213,7 @@ public abstract class TaskDao {
   public abstract List<Task> getAstrid2TaskProviderTasks();
 
   public int count(Filter filter) {
-    Cursor cursor = getCursor(filter.sqlQuery);
-    try {
-      return cursor.getCount();
-    } finally {
-      cursor.close();
-    }
+    return count(getQuery(filter.sqlQuery, COUNT));
   }
 
   public List<Task> fetchFiltered(Filter filter) {
@@ -221,7 +221,7 @@ public abstract class TaskDao {
   }
 
   public List<Task> fetchFiltered(String queryTemplate) {
-    Cursor cursor = getCursor(queryTemplate);
+    Cursor cursor = database.query(getQuery(queryTemplate, Task.PROPERTIES), null);
     List<Task> result = new ArrayList<>();
     try {
       for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
@@ -233,15 +233,16 @@ public abstract class TaskDao {
     }
   }
 
-  private Cursor getCursor(String queryTemplate) {
-    com.todoroo.andlib.sql.Query query =
-        com.todoroo.andlib.sql.Query.select(Task.PROPERTIES)
-            .withQueryTemplate(PermaSql.replacePlaceholdersForQuery(queryTemplate));
-    String queryString = query.from(Task.TABLE).toString();
+  private static SimpleSQLiteQuery getQuery(String queryTemplate, Field... fields) {
+    String queryString =
+        com.todoroo.andlib.sql.Query.select(fields)
+            .withQueryTemplate(PermaSql.replacePlaceholdersForQuery(queryTemplate))
+            .from(Task.TABLE)
+            .toString();
     if (BuildConfig.DEBUG) {
       Timber.v(queryString);
     }
-    return database.query(queryString, null);
+    return new SimpleSQLiteQuery(queryString);
   }
 
   /** Generates SQL clauses */
