@@ -183,6 +183,9 @@ public class Task implements Parcelable {
   @ColumnInfo(name = "remoteId")
   public String remoteId = NO_UUID;
 
+  @ColumnInfo(name = "collapsed")
+  public boolean collapsed;
+
   // --- due and hide until date management
   @Ignore private transient HashMap<String, Object> transitoryData = null;
 

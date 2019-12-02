@@ -347,6 +347,15 @@ public class Migrations {
         }
       };
 
+  private static final Migration MIGRATION_68_69 =
+      new Migration(68, 69) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+          database.execSQL(
+              "ALTER TABLE `tasks` ADD COLUMN `collapsed` INTEGER NOT NULL DEFAULT 0");
+        }
+      };
+
   public static final Migration[] MIGRATIONS =
       new Migration[] {
         MIGRATION_35_36,
@@ -372,7 +381,8 @@ public class Migrations {
         MIGRATION_64_65,
         MIGRATION_65_66,
         MIGRATION_66_67,
-        MIGRATION_67_68
+        MIGRATION_67_68,
+        MIGRATION_68_69
       };
 
   private static Migration NOOP(int from, int to) {
