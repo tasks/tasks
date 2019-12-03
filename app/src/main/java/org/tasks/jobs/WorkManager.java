@@ -8,6 +8,7 @@ import static io.reactivex.Single.just;
 import static io.reactivex.Single.zip;
 import static org.tasks.date.DateTimeUtils.midnight;
 import static org.tasks.date.DateTimeUtils.newDateTime;
+import static org.tasks.db.DbUtils.batch;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 import static org.tasks.time.DateTimeUtils.printDuration;
 import static org.tasks.time.DateTimeUtils.printTimestamp;
@@ -48,6 +49,7 @@ import timber.log.Timber;
 @ApplicationScope
 public class WorkManager {
 
+  private static final int MAX_CLEANUP_LENGTH = 500;
   private static final String TAG_BACKUP = "tag_backup";
   private static final String TAG_REFRESH = "tag_refresh";
   private static final String TAG_MIDNIGHT_REFRESH = "tag_midnight_refresh";
@@ -86,13 +88,17 @@ public class WorkManager {
   }
 
   public void cleanup(List<Long> ids) {
-    workManager.enqueue(
-        new OneTimeWorkRequest.Builder(CleanupWork.class)
-            .setInputData(
-                new Data.Builder()
-                    .putLongArray(CleanupWork.EXTRA_TASK_IDS, Longs.toArray(ids))
-                    .build())
-            .build());
+    batch(
+        ids,
+        MAX_CLEANUP_LENGTH,
+        b ->
+            workManager.enqueue(
+                new Builder(CleanupWork.class)
+                    .setInputData(
+                        new Data.Builder()
+                            .putLongArray(CleanupWork.EXTRA_TASK_IDS, Longs.toArray(b))
+                            .build())
+                    .build()));
   }
 
   public void sync(boolean immediate) {
