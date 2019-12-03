@@ -162,7 +162,7 @@ dependencies {
     implementation("com.google.code.gson:gson:2.8.5")
     implementation("com.github.rey5137:material:1.2.5")
     implementation("com.nononsenseapps:filepicker:4.2.1")
-    implementation("com.google.android.material:material:1.1.0-alpha10")
+    implementation("com.google.android.material:material:1.1.0-beta02")
     implementation("androidx.annotation:annotation:1.1.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta1") // beta2 broke location picker
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")

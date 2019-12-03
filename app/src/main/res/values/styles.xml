@@ -138,8 +138,6 @@
     <item name="chipMinHeight">@dimen/chip_min_height</item>
     <item name="closeIconVisible">false</item>
     <item name="ensureMinTouchTargetSize">false</item>
-    <item name="textStartPadding">@dimen/chip_text_padding</item>
-    <item name="textEndPadding">@dimen/chip_text_padding</item>
   </style>
 
   <style name="ChipStyle.Closable">
