@@ -92,57 +92,17 @@
     android:textSize="@dimen/task_edit_text_size"
     android:visibility="gone"/>
 
-  <com.google.android.material.chip.Chip
-    android:id="@+id/location_chip"
-    style="@style/ChipStyle"
-    android:layout_marginTop="@dimen/task_list_item_spacing"
-    android:layout_marginStart="@dimen/keyline_content_inset"
-    android:layout_marginEnd="@dimen/keyline_first"
-    android:layout_marginLeft="@dimen/keyline_content_inset"
-    android:layout_marginRight="@dimen/keyline_first"
-    android:layout_gravity="center_vertical|end"
-    android:textColor="?android:textColorSecondary"
-    android:visibility="gone"
-    app:chipBackgroundColor="?android:attr/colorBackground"
-    app:chipIcon="@drawable/ic_outline_place_24px"
-    app:chipIconTint="@color/icon_tint"
-    app:chipStrokeColor="?android:textColorSecondary"
-    app:chipStrokeWidth="@dimen/chip_stroke"
-    app:iconEndPadding="0dp"
-    app:iconStartPadding="@dimen/chip_text_padding"
-    />
-
   <com.google.android.material.chip.ChipGroup
     android:id="@+id/chip_group"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/task_list_item_spacing"
-    android:layout_marginStart="@dimen/keyline_first"
-    android:layout_marginEnd="@dimen/keyline_content_inset"
-    android:layout_marginLeft="@dimen/keyline_first"
-    android:layout_marginRight="@dimen/keyline_content_inset"
-    android:layout_gravity="end"
-    android:visibility="gone"
-    app:chipSpacingHorizontal="@dimen/chip_spacing"
-    app:chipSpacingVertical="@dimen/chip_spacing"/>
-
-  <com.google.android.material.chip.Chip
-    android:id="@+id/subtasks_chip"
-    style="@style/ChipStyle"
-    android:layout_marginTop="@dimen/task_list_item_spacing"
     android:layout_marginStart="@dimen/keyline_content_inset"
     android:layout_marginEnd="@dimen/keyline_first"
     android:layout_marginLeft="@dimen/keyline_content_inset"
     android:layout_marginRight="@dimen/keyline_first"
-    android:layout_gravity="center_vertical|end"
-    android:textColor="?android:textColorSecondary"
     android:visibility="gone"
-    app:chipBackgroundColor="?android:attr/colorBackground"
-    app:chipIcon="@drawable/ic_outline_place_24px"
-    app:chipIconTint="@color/icon_tint"
-    app:chipStrokeColor="?android:textColorSecondary"
-    app:chipStrokeWidth="@dimen/chip_stroke"
-    app:iconEndPadding="0dp"
-    app:iconStartPadding="@dimen/chip_text_padding"/>
+    app:chipSpacingHorizontal="@dimen/chip_spacing"
+    app:chipSpacingVertical="@dimen/chip_spacing"/>
 
 </LinearLayout>

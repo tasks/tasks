@@ -1,7 +1,5 @@
 package org.tasks.tasklist;
 
-import static com.google.common.collect.Lists.newArrayList;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastKitKat;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static com.todoroo.andlib.utility.DateUtilities.getAbbreviatedRelativeDateWithTime;
@@ -24,7 +22,6 @@ import butterknife.OnClick;
 import butterknife.OnLongClick;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
-import com.google.common.collect.Lists;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.service.TaskCompleter;
 import com.todoroo.astrid.ui.CheckableImageView;
@@ -33,7 +30,6 @@ import org.tasks.R;
 import org.tasks.data.Location;
 import org.tasks.data.TaskContainer;
 import org.tasks.dialogs.Linkify;
-import org.tasks.locale.Locale;
 import org.tasks.preferences.Preferences;
 import org.tasks.ui.CheckBoxes;
 import org.tasks.ui.ChipProvider;
@@ -72,28 +68,20 @@ public class ViewHolder extends RecyclerView.ViewHolder {
   @BindView(R.id.completeBox)
   CheckableImageView completeBox;
 
-  @BindView(R.id.location_chip)
-  Chip locationChip;
-
   @BindView(R.id.chip_group)
   ChipGroup chipGroup;
 
   @BindView(R.id.hidden_status)
   ImageView hidden;
 
-  @BindView(R.id.subtasks_chip)
-  Chip subtasksChip;
-
   private int indent;
   private boolean selected;
   private boolean moving;
-  private boolean isRemoteList;
   private int minIndent;
   private int maxIndent;
 
   ViewHolder(
       Activity context,
-      Locale locale,
       ViewGroup view,
       Preferences preferences,
       int fontSize,
@@ -145,14 +133,6 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     int fontSizeDetails = Math.max(10, fontSize - 2);
     dueDate.setTextSize(fontSizeDetails);
 
-    if (atLeastJellybeanMR1()) {
-      chipGroup.setLayoutDirection(
-          locale.isRtl() ? View.LAYOUT_DIRECTION_LTR : View.LAYOUT_DIRECTION_RTL);
-    } else {
-      MarginLayoutParams lp = (MarginLayoutParams) chipGroup.getLayoutParams();
-      lp.setMargins(lp.rightMargin, lp.topMargin, lp.leftMargin, lp.bottomMargin);
-    }
-
     view.setTag(this);
     for (int i = 0; i < view.getChildCount(); i++) {
       view.getChildAt(i).setTag(this);
@@ -203,9 +183,8 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     return Math.round(indent * getShiftSize());
   }
 
-  void bindView(TaskContainer task, boolean isRemoteList) {
+  void bindView(TaskContainer task, boolean isRemoteList, boolean hideSubtasks) {
     this.task = task;
-    this.isRemoteList = isRemoteList;
     this.indent = task.indent;
 
     nameView.setText(task.getTitle());
@@ -213,8 +192,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     setupTitleAndCheckbox();
     setupDueDate();
     if (preferences.getBoolean(R.string.p_show_list_indicators, true)) {
-      setupLocation();
-      setupTags();
+      setupChips(isRemoteList, hideSubtasks);
     }
     if (preferences.getBoolean(R.string.p_show_description, true)) {
       description.setText(task.getNotes());
@@ -227,22 +205,6 @@ public class ViewHolder extends RecyclerView.ViewHolder {
       nameView.setOnLongClickListener(view -> onRowBodyLongClick());
       description.setOnClickListener(view -> onRowBodyClick());
       description.setOnLongClickListener(view -> onRowBodyLongClick());
-    }
-  }
-
-  void setupSubtasksChip() {
-    if (task.hasChildren()) {
-      subtasksChip.setVisibility(View.VISIBLE);
-      subtasksChip.setText(
-          context
-              .getResources()
-              .getQuantityString(R.plurals.subtask_count, task.children, task.children));
-      subtasksChip.setChipIconResource(
-          task.isCollapsed()
-              ? R.drawable.ic_keyboard_arrow_up_black_24dp
-              : R.drawable.ic_keyboard_arrow_down_black_24dp);
-    } else {
-      subtasksChip.setVisibility(View.GONE);
     }
   }
 
@@ -275,48 +237,33 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     }
   }
 
-  private void setupLocation() {
-    if (task.hasLocation()) {
-      locationChip.setText(task.getLocation().getDisplayName());
-      locationChip.setTag(task.getLocation());
-      locationChip.setOnClickListener(v -> {
-        Location location = (Location) v.getTag();
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse(location.getGeoUri()));
-        context.startActivity(intent);
-      });
-      locationChip.setVisibility(View.VISIBLE);
-    } else {
-      locationChip.setVisibility(View.GONE);
-    }
-  }
-
-  private void setupTags() {
-    String tags = task.getTagsString();
-    List<String> tagUuids = tags != null ? newArrayList(tags.split(",")) : Lists.newArrayList();
-    boolean hideListChip = isRemoteList || indent > 0;
+  private void setupChips(boolean isRemoteList, boolean hideSubtaskChip) {
     List<Chip> chips =
-        chipProvider.getChips(
-            context,
-            hideListChip ? null : task.getCaldav(),
-            hideListChip ? null : task.getGoogleTaskList(),
-            tagUuids);
+        chipProvider.getChips(context, isRemoteList || indent > 0, hideSubtaskChip, task);
     if (chips.isEmpty()) {
       chipGroup.setVisibility(View.GONE);
     } else {
       chipGroup.removeAllViews();
       for (Chip chip : chips) {
-        chip.setOnClickListener(view -> callback.onClick((Filter) view.getTag()));
+        chip.setOnClickListener(this::onChipClick);
         chipGroup.addView(chip);
       }
       chipGroup.setVisibility(View.VISIBLE);
     }
   }
 
-  @OnClick(R.id.subtasks_chip)
-  void toggleSubtasks() {
-    callback.toggleSubtasks(task, !task.isCollapsed());
-    setupSubtasksChip();
+  private void onChipClick(View v) {
+    Object tag = v.getTag();
+    if (tag instanceof Filter) {
+      callback.onClick((Filter) tag);
+    } else if (tag instanceof Location) {
+      Intent intent = new Intent(Intent.ACTION_VIEW);
+      intent.setData(Uri.parse(((Location) tag).getGeoUri()));
+      context.startActivity(intent);
+    } else if (tag instanceof TaskContainer) {
+      TaskContainer task = (TaskContainer) tag;
+      callback.toggleSubtasks(task, !task.isCollapsed());
+    }
   }
 
   @OnClick(R.id.rowBody)

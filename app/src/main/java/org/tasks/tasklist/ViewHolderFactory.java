@@ -15,7 +15,6 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.dialogs.Linkify;
 import org.tasks.injection.ForActivity;
-import org.tasks.locale.Locale;
 import org.tasks.preferences.Preferences;
 import org.tasks.ui.ChipProvider;
 
@@ -24,7 +23,6 @@ public class ViewHolderFactory {
   private final int textColorSecondary;
   private final int textColorOverdue;
   private final Context context;
-  private final Locale locale;
   private final ChipProvider chipProvider;
   private final int fontSize;
   private final TaskCompleter taskCompleter;
@@ -38,13 +36,11 @@ public class ViewHolderFactory {
   @Inject
   public ViewHolderFactory(
       @ForActivity Context context,
-      Locale locale,
       Preferences preferences,
       ChipProvider chipProvider,
       TaskCompleter taskCompleter,
       Linkify linkify) {
     this.context = context;
-    this.locale = locale;
     this.chipProvider = chipProvider;
     this.taskCompleter = taskCompleter;
     this.preferences = preferences;
@@ -61,7 +57,6 @@ public class ViewHolderFactory {
   ViewHolder newViewHolder(ViewGroup parent, ViewHolder.ViewHolderCallbacks callbacks) {
     return new ViewHolder(
         (Activity) context,
-        locale,
         (ViewGroup)
             LayoutInflater.from(context).inflate(R.layout.task_adapter_row_simple, parent, false),
         preferences,

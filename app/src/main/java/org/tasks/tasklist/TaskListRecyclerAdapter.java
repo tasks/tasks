@@ -91,10 +91,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
   public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
     TaskContainer task = getItem(position);
     if (task != null) {
-      holder.bindView(task, isRemoteList);
-      if (!adapter.supportsManualSorting()) {
-        holder.setupSubtasksChip();
-      }
+      holder.bindView(task, isRemoteList, adapter.supportsManualSorting());
       holder.setMoving(false);
       int indent = adapter.getIndent(task);
       task.setIndent(indent);

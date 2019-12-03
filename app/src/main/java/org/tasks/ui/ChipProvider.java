@@ -1,7 +1,7 @@
 package org.tasks.ui;
 
-import static com.google.common.collect.Iterables.filter;
-import static com.google.common.collect.Iterables.transform;
+import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
 
 import android.app.Activity;
@@ -10,7 +10,6 @@ import android.content.res.ColorStateList;
 import androidx.annotation.LayoutRes;
 import androidx.core.content.res.ResourcesCompat;
 import com.google.android.material.chip.Chip;
-import com.google.common.base.Predicates;
 import com.google.common.base.Strings;
 import com.google.common.collect.Ordering;
 import com.todoroo.astrid.api.CaldavFilter;
@@ -31,6 +30,7 @@ import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
 import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
+import org.tasks.data.TaskContainer;
 import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.ForApplication;
 import org.tasks.themes.ThemeCache;
@@ -99,25 +99,43 @@ public class ChipProvider {
   }
 
   public List<Chip> getChips(
-      Activity activity, String caldav, String googleTask, Iterable<String> tagUuids) {
+      Activity activity, boolean hideListChips, boolean hideSubtaskChip, TaskContainer task) {
     assertMainThread();
 
     List<Chip> chips = new ArrayList<>();
-    if (!Strings.isNullOrEmpty(googleTask)) {
-      GtasksFilter googleTaskFilter = googleTaskLists.get(googleTask);
-      if (googleTaskFilter != null) {
-        chips.add(newTagChip(activity, googleTaskFilter));
-      }
-    } else if (!Strings.isNullOrEmpty(caldav)) {
-      CaldavFilter caldavFilter = caldavCalendars.get(caldav);
-      if (caldavFilter != null) {
-        chips.add(newTagChip(activity, caldavFilter));
+    if (!hideSubtaskChip && task.hasChildren()) {
+      chips.add(
+          newIconChip(
+              activity,
+              task.isCollapsed()
+                  ? R.drawable.ic_keyboard_arrow_up_black_24dp
+                  : R.drawable.ic_keyboard_arrow_down_black_24dp,
+              activity
+                  .getResources()
+                  .getQuantityString(R.plurals.subtask_count, task.children, task.children),
+              task));
+    }
+    if (task.hasLocation()) {
+      chips.add(
+          newIconChip(
+              activity,
+              R.drawable.ic_outline_place_24px,
+              task.getLocation().getDisplayName(),
+              task.getLocation()));
+    }
+    if (!hideListChips) {
+      if (!Strings.isNullOrEmpty(task.getGoogleTaskList())) {
+        chips.add(newTagChip(activity, googleTaskLists.get(task.getGoogleTaskList())));
+      } else if (!Strings.isNullOrEmpty(task.getCaldav())) {
+        chips.add(newTagChip(activity, caldavCalendars.get(task.getCaldav())));
       }
     }
-    Iterable<TagFilter> tagFilters =
-        filter(transform(tagUuids, tagDatas::get), Predicates.notNull());
-    for (TagFilter tagFilter : orderByName.sortedCopy(tagFilters)) {
-      chips.add(newTagChip(activity, tagFilter));
+    String tags = task.getTagsString();
+    if (!Strings.isNullOrEmpty(tags)) {
+      chips.addAll(
+          transform(
+              orderByName.sortedCopy(transform(newArrayList(tags.split(",")), tagDatas::get)),
+              tag -> newTagChip(activity, tag)));
     }
 
     return chips;
@@ -129,6 +147,13 @@ public class ChipProvider {
 
   public void apply(Chip chip, TagData tagData) {
     apply(chip, tagData.getName(), tagData.getColor());
+  }
+
+  private Chip newIconChip(Activity activity, int icon, String text, Object tag) {
+    Chip chip = newChip(activity, R.layout.chip_button, tag);
+    chip.setChipIconResource(icon);
+    chip.setText(text);
+    return chip;
   }
 
   private Chip newTagChip(Activity activity, Filter filter) {
