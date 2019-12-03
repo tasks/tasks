@@ -23,7 +23,6 @@ import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForActivity;
-import org.tasks.sync.SyncAdapters;
 import org.tasks.ui.MenuColorizer;
 
 public class ActionModeProvider {
@@ -36,7 +35,6 @@ public class ActionModeProvider {
   private final TaskDuplicator taskDuplicator;
   private final TaskMover taskMover;
   private final Tracker tracker;
-  private final SyncAdapters syncAdapters;
 
   @Inject
   public ActionModeProvider(
@@ -45,18 +43,16 @@ public class ActionModeProvider {
       TaskDeleter taskDeleter,
       TaskDuplicator taskDuplicator,
       TaskMover taskMover,
-      Tracker tracker,
-      SyncAdapters syncAdapters) {
+      Tracker tracker) {
     this.context = context;
     this.dialogBuilder = dialogBuilder;
     this.taskDeleter = taskDeleter;
     this.taskDuplicator = taskDuplicator;
     this.taskMover = taskMover;
     this.tracker = tracker;
-    this.syncAdapters = syncAdapters;
   }
 
-  public ActionMode startActionMode(
+  ActionMode startActionMode(
       TaskAdapter adapter,
       TaskListFragment taskList,
       TaskListRecyclerAdapter taskListRecyclerAdapter) {
@@ -67,9 +63,6 @@ public class ActionModeProvider {
               public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
                 MenuInflater inflater = actionMode.getMenuInflater();
                 inflater.inflate(R.menu.menu_multi_select, menu);
-                if (!syncAdapters.isSyncEnabled()) {
-                  menu.findItem(R.id.move_tasks).setVisible(false);
-                }
                 MenuColorizer.colorMenu(context, menu);
                 return true;
               }

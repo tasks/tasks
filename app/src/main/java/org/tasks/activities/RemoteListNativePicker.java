@@ -17,6 +17,7 @@ import org.tasks.filters.FilterProvider;
 import org.tasks.gtasks.RemoteListSelectionHandler;
 import org.tasks.injection.InjectingNativeDialogFragment;
 import org.tasks.injection.NativeDialogFragmentComponent;
+import org.tasks.sync.SyncAdapters;
 
 public class RemoteListNativePicker extends InjectingNativeDialogFragment {
 
@@ -25,6 +26,7 @@ public class RemoteListNativePicker extends InjectingNativeDialogFragment {
   @Inject DialogBuilder dialogBuilder;
   @Inject FilterAdapter filterAdapter;
   @Inject FilterProvider filterProvider;
+  @Inject SyncAdapters syncAdapters;
   private RemoteListSelectionHandler handler;
   private CompositeDisposable disposables;
 
@@ -44,7 +46,7 @@ public class RemoteListNativePicker extends InjectingNativeDialogFragment {
       filterAdapter.restore(savedInstanceState);
     }
 
-    return createDialog(filterAdapter, dialogBuilder, handler);
+    return createDialog(filterAdapter, dialogBuilder, syncAdapters, handler);
   }
 
   @Override

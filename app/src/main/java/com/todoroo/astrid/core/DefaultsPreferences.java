@@ -34,7 +34,7 @@ import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Device;
 import org.tasks.preferences.PermissionRequestor;
 import org.tasks.preferences.Preferences;
-import org.tasks.sync.SyncAdapters;
+import org.tasks.sync.SynchronizationPreferences;
 
 public class DefaultsPreferences extends InjectingPreferenceActivity
     implements RemoteListSelectionHandler, NativeSeekBarDialog.SeekBarCallback {
@@ -49,7 +49,6 @@ public class DefaultsPreferences extends InjectingPreferenceActivity
   @Inject ActivityPermissionRequestor permissionRequester;
   @Inject Tracker tracker;
   @Inject DefaultFilterProvider defaultFilterProvider;
-  @Inject SyncAdapters syncAdapters;
   @Inject Locale locale;
   @Inject Device device;
 
@@ -98,7 +97,6 @@ public class DefaultsPreferences extends InjectingPreferenceActivity
         });
     updateRadius();
 
-    requires(syncAdapters.isSyncEnabled(), R.string.p_default_remote_list);
     requires(device.supportsGeofences(), R.string.p_default_location_reminder_key);
   }
 
@@ -137,6 +135,11 @@ public class DefaultsPreferences extends InjectingPreferenceActivity
     } else {
       super.onActivityResult(requestCode, resultCode, data);
     }
+  }
+
+  @Override
+  public void addAccount() {
+    startActivity(new Intent(this, SynchronizationPreferences.class));
   }
 
   @Override

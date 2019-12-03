@@ -22,7 +22,6 @@ import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.injection.ForActivity;
 import org.tasks.preferences.Preferences;
-import org.tasks.sync.SyncAdapters;
 import org.tasks.ui.CalendarControlSet;
 import org.tasks.ui.DeadlineControlSet;
 import org.tasks.ui.DescriptionControlSet;
@@ -79,15 +78,10 @@ public class TaskEditControlSetFragmentManager {
 
   private final Map<String, Integer> controlSetFragments = new LinkedHashMap<>();
   private final List<String> displayOrder;
-  private final SyncAdapters syncAdapters;
   private int numRows;
 
   @Inject
-  public TaskEditControlSetFragmentManager(
-      @ForActivity Context context,
-      Preferences preferences,
-      SyncAdapters syncAdapters) {
-    this.syncAdapters = syncAdapters;
+  public TaskEditControlSetFragmentManager(@ForActivity Context context, Preferences preferences) {
     displayOrder = BeastModePreferences.constructOrderedControlList(preferences, context);
     displayOrder.add(0, context.getString(EditTitleControlSet.TAG));
     displayOrder.add(1, context.getString(CommentBarFragment.TAG));
@@ -129,9 +123,6 @@ public class TaskEditControlSetFragmentManager {
       if (fragment == null) {
         Integer resId = controlSetFragments.get(tag);
         fragment = createFragment(resId);
-        if (fragment == null) {
-          continue;
-        }
         fragment.setArguments(arguments);
       }
       fragments.add(fragment);
@@ -168,7 +159,7 @@ public class TaskEditControlSetFragmentManager {
       case CommentBarFragment.TAG:
         return new CommentBarFragment();
       case RemoteListFragment.TAG:
-        return syncAdapters.isSyncEnabled() ? new RemoteListFragment() : null;
+        return new RemoteListFragment();
       default:
         throw new RuntimeException("Unsupported fragment");
     }

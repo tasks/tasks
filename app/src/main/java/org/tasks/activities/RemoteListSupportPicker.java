@@ -17,13 +17,18 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
+import org.tasks.R;
+import org.tasks.dialogs.AlertDialogBuilder;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.filters.FilterProvider;
 import org.tasks.gtasks.RemoteListSelectionHandler;
 import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.InjectingDialogFragment;
+import org.tasks.sync.SyncAdapters;
+import org.tasks.sync.SynchronizationPreferences;
 
-public class RemoteListSupportPicker extends InjectingDialogFragment {
+public class RemoteListSupportPicker extends InjectingDialogFragment
+    implements RemoteListSelectionHandler {
 
   public static final String EXTRA_SELECTED_FILTER = "extra_selected_filter";
   private static final String EXTRA_NO_SELECTION = "extra_no_selection";
@@ -31,6 +36,7 @@ public class RemoteListSupportPicker extends InjectingDialogFragment {
   @Inject DialogBuilder dialogBuilder;
   @Inject FilterAdapter filterAdapter;
   @Inject FilterProvider filterProvider;
+  @Inject SyncAdapters syncAdapters;
 
   private CompositeDisposable disposables;
 
@@ -57,24 +63,30 @@ public class RemoteListSupportPicker extends InjectingDialogFragment {
   static AlertDialog createDialog(
       FilterAdapter filterAdapter,
       DialogBuilder dialogBuilder,
+      SyncAdapters syncAdapters,
       RemoteListSelectionHandler handler) {
-    return dialogBuilder
-        .newDialog()
-        .setSingleChoiceItems(
-            filterAdapter,
-            -1,
-            (dialog, which) -> {
-              if (which == 0) {
-                handler.selectedList(null);
-              } else {
-                FilterListItem item = filterAdapter.getItem(which);
-                if (item instanceof GtasksFilter || item instanceof CaldavFilter) {
-                  handler.selectedList((Filter) item);
-                }
-              }
-              dialog.dismiss();
-            })
-        .show();
+    AlertDialogBuilder builder =
+        dialogBuilder
+            .newDialog()
+            .setNegativeButton(android.R.string.cancel, null)
+            .setSingleChoiceItems(
+                filterAdapter,
+                -1,
+                (dialog, which) -> {
+                  if (which == 0) {
+                    handler.selectedList(null);
+                  } else {
+                    FilterListItem item = filterAdapter.getItem(which);
+                    if (item instanceof GtasksFilter || item instanceof CaldavFilter) {
+                      handler.selectedList((Filter) item);
+                    }
+                  }
+                  dialog.dismiss();
+                });
+    if (!syncAdapters.isSyncEnabled()) {
+      builder.setNeutralButton(R.string.add_account, (dialog, which) -> handler.addAccount());
+    }
+    return builder.show();
   }
 
   @NonNull
@@ -84,7 +96,7 @@ public class RemoteListSupportPicker extends InjectingDialogFragment {
       filterAdapter.restore(savedInstanceState);
     }
 
-    return createDialog(filterAdapter, dialogBuilder, this::selected);
+    return createDialog(filterAdapter, dialogBuilder, syncAdapters, this);
   }
 
   @Override
@@ -117,16 +129,22 @@ public class RemoteListSupportPicker extends InjectingDialogFragment {
     filterAdapter.save(outState);
   }
 
-  private void selected(Filter filter) {
+  @Override
+  protected void inject(DialogFragmentComponent component) {
+    component.inject(this);
+  }
+
+  @Override
+  public void addAccount() {
+    startActivity(new Intent(getContext(), SynchronizationPreferences.class));
+  }
+
+  @Override
+  public void selectedList(Filter filter) {
     getTargetFragment()
         .onActivityResult(
             getTargetRequestCode(),
             Activity.RESULT_OK,
             new Intent().putExtra(EXTRA_SELECTED_FILTER, filter));
-  }
-
-  @Override
-  protected void inject(DialogFragmentComponent component) {
-    component.inject(this);
   }
 }
