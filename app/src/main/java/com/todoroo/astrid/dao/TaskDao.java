@@ -6,10 +6,13 @@
 
 package com.todoroo.astrid.dao;
 
+import static com.google.common.collect.Iterables.filter;
+import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.sql.SqlConstants.COUNT;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static com.todoroo.andlib.utility.DateUtilities.now;
+import static org.tasks.db.DbUtils.batch;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
@@ -164,6 +167,16 @@ public abstract class TaskDao {
 
   @Query("UPDATE tasks SET collapsed = :collapsed WHERE _id = :id")
   public abstract void setCollapsed(long id, boolean collapsed);
+
+  @Transaction
+  public void setCollapsed(List<TaskContainer> tasks, boolean collapsed) {
+    batch(
+        transform(filter(tasks, TaskContainer::hasChildren), TaskContainer::getId),
+        l -> collapse(l, collapsed));
+  }
+
+  @Query("UPDATE tasks SET collapsed = :collapsed WHERE _id IN (:ids)")
+  abstract void collapse(List<Long> ids, boolean collapsed);
 
   /**
    * Saves the given task to the database.getDatabase(). Task must already exist. Returns true on

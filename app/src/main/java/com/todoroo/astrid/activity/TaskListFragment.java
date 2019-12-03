@@ -313,7 +313,10 @@ public final class TaskListFragment extends InjectingFragment
       hidden.setChecked(preferences.getBoolean(R.string.p_show_hidden_tasks, false));
       completed.setChecked(preferences.getBoolean(R.string.p_show_completed_tasks, false));
     }
-
+    if (taskAdapter.supportsManualSorting()) {
+      menu.findItem(R.id.menu_collapse_subtasks).setVisible(false);
+      menu.findItem(R.id.menu_expand_subtasks).setVisible(false);
+    }
     menu.findItem(R.id.menu_voice_add).setVisible(device.voiceInputAvailable());
 
     search = menu.findItem(R.id.menu_search).setOnActionExpandListener(this);
@@ -400,6 +403,14 @@ public final class TaskListFragment extends InjectingFragment
         Intent tagSettings = new Intent(getActivity(), TagSettingsActivity.class);
         tagSettings.putExtra(TagSettingsActivity.EXTRA_TAG_DATA, ((TagFilter) filter).getTagData());
         startActivityForResult(tagSettings, REQUEST_TAG_SETTINGS);
+        return true;
+      case R.id.menu_expand_subtasks:
+        taskDao.setCollapsed(taskListViewModel.getValue(), false);
+        localBroadcastManager.broadcastRefresh();
+        return true;
+      case R.id.menu_collapse_subtasks:
+        taskDao.setCollapsed(taskListViewModel.getValue(), true);
+        localBroadcastManager.broadcastRefresh();
         return true;
       default:
         return onOptionsItemSelected(item);

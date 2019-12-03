@@ -31,6 +31,14 @@
       android:title="@string/show_completed"/>
   </group>
   <item
+    android:id="@+id/menu_expand_subtasks"
+    android:title="@string/expand_subtasks"
+    app:showAsAction="never" />
+  <item
+    android:id="@+id/menu_collapse_subtasks"
+    android:title="@string/collapse_subtasks"
+    app:showAsAction="never" />
+  <item
     android:id="@+id/menu_clear_completed"
     android:title="@string/gtasks_GTA_clear_completed"
     app:showAsAction="never"/>
