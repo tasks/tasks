@@ -1,5 +1,10 @@
 Change Log
 ---
+### 7.3 (2019-12-03)
+
+* Expand and collapse subtasks
+* Update Norwegian Bokmål - @comradekingu
+
 ### 7.2.2 (2019-12-03)
 
 * Fix Google Task sorting
