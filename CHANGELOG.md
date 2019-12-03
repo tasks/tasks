@@ -1,5 +1,10 @@
 Change Log
 ---
+### 7.2.2 (2019-12-03)
+
+* Fix Google Task sorting
+* Fix crash when deleting 500+ tasks
+
 ### 7.2.1 (2019-11-27)
 
 * Bug fixes and minor improvements

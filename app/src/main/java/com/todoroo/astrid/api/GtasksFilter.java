@@ -70,14 +70,11 @@ public class GtasksFilter extends Filter {
   private static QueryTemplate getQueryTemplate(GoogleTaskList list) {
     return new QueryTemplate()
         .join(Join.left(GoogleTask.TABLE, Task.ID.eq(GoogleTask.TASK)))
-        .where(getCriterion(list));
-  }
-
-  public static Criterion getCriterion(GoogleTaskList list) {
-    return Criterion.and(
-        TaskDao.TaskCriteria.activeAndVisible(),
-        GoogleTask.DELETED.eq(0),
-        GoogleTask.LIST.eq(list.getRemoteId()));
+        .where(
+            Criterion.and(
+                TaskDao.TaskCriteria.activeAndVisible(),
+                GoogleTask.DELETED.eq(0),
+                GoogleTask.LIST.eq(list.getRemoteId())));
   }
 
   private static Map<String, Object> getValuesForNewTasks(GoogleTaskList list) {

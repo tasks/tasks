@@ -104,11 +104,11 @@ public class TaskAdapterProvider {
   }
 
   private TaskAdapter createGoogleTaskAdapter(GtasksFilter filter) {
-    String query = GtasksFilter.toManualOrder(filter.getSqlQuery());
-    filter.setFilterQueryOverride(query);
-    return preferences.isManualSort()
-        ? new GoogleTaskManualSortAdapter(taskDao, googleTaskDao)
-        : new GoogleTaskAdapter(taskDao, googleTaskDao, preferences.addGoogleTasksToTop());
+    if (preferences.isManualSort()) {
+      filter.setFilterQueryOverride(GtasksFilter.toManualOrder(filter.getSqlQuery()));
+      return new GoogleTaskManualSortAdapter(taskDao, googleTaskDao);
+    }
+    return new GoogleTaskAdapter(taskDao, googleTaskDao, preferences.addGoogleTasksToTop());
   }
 
   private TaskAdapter createManualFilterTaskAdapter(Filter filter) {
