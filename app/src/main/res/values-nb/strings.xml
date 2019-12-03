@@ -550,4 +550,10 @@
     <string name="EPr_temp_show_completed_tasks">Vis gjøremål midlertidig ved fullførelse</string>
     <string name="EPr_temp_completed_tasks_showing">Gjøremål vil midlertidig forbli synlige i listen etter fullførelse</string>
     <string name="EPr_temp_completed_tasks_not_showing">Gjøremål vil fjernes umiddelbart fra listen etter fullførelse</string>
+    <plurals name="subtask_count">
+        <item quantity="one">%d underoppgave</item>
+        <item quantity="other">%d underoppgaver</item>
+    </plurals>
+    <string name="expand_subtasks">Utvid underoppgaver</string>
+    <string name="collapse_subtasks">Fold sammen underoppgaver</string>
 </resources>
