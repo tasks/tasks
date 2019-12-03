@@ -546,4 +546,8 @@
     <string name="EPr_temp_show_completed_tasks">Feladatok ideiglenes láthatósága készre állításkor</string>
     <string name="EPr_temp_completed_tasks_showing">A feladatok a készre állítás után ideiglenesen láthatóak maradnak a listában</string>
     <string name="EPr_temp_completed_tasks_not_showing">A feladatok a készre állítás után azonnal eltűnnek a listából</string>
+    <plurals name="subtask_count">
+        <item quantity="one">%d részfeladat</item>
+        <item quantity="other">%d részfeladat</item>
+    </plurals>
 </resources>
