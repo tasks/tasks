@@ -541,6 +541,8 @@
     <string name="EPr_temp_completed_tasks_not_showing">任务完成后将立刻从列表中消失</string>
     <plurals name="subtask_count">
         <item quantity="one">%d个子任务</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
+    <string name="expand_subtasks">扩展子任务</string>
+    <string name="collapse_subtasks">缩回子任务列表</string>
 </resources>
