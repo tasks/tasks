@@ -272,9 +272,14 @@ public class TaskListViewModel extends ViewModel {
   }
 
   public void invalidate() {
+    if (filter == null) {
+      return;
+    }
+
     disposable.add(
         Single.fromCallable(
-                () -> taskDao.fetchTasks(hasSubtasks -> getQuery(preferences, filter, hasSubtasks)))
+                () ->
+                    taskDao.fetchTasks(hasSubtasks -> getQuery(preferences, filter, hasSubtasks)))
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(tasks::postValue, Timber::e));

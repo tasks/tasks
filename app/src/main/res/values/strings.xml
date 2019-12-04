@@ -42,6 +42,7 @@ File %1$s contained %2$s.\n\n
   <string name="FLA_new_filter">Create new filter</string>
   <string name="TEA_title_hint">Task name</string>
   <string name="TEA_importance_label">Priority</string>
+  <string name="TEA_add_subtask">Add subtask</string>
   <string name="TEA_no_date">No date</string>
   <string name="TEA_hideUntil_label">Hide until</string>
   <string name="TEA_hideUntil_display">Hide until %s</string>
@@ -318,6 +319,7 @@ File %1$s contained %2$s.\n\n
   <string name="google_drive_backup">Copy to Google Drive</string>
   <string name="miscellaneous">Miscellaneous</string>
   <string name="synchronization">Synchronization</string>
+  <string name="subtasks">Subtasks</string>
   <string name="enabled">Enabled</string>
   <string name="font_size">Font size</string>
   <string name="row_spacing">Row spacing</string>
@@ -556,4 +558,7 @@ File %1$s contained %2$s.\n\n
   <string name="caldav_account_repeating_tasks">Let server schedule recurring tasks</string>
   <string name="expand_subtasks">Expand subtasks</string>
   <string name="collapse_subtasks">Collapse subtasks</string>
+  <string name="subtasks_enable_synchronization">Enable synchronization to add subtasks</string>
+  <string name="subtasks_multilevel_google_task">Multi-level subtasks not supported by Google Tasks</string>
+  <string name="enter_title_hint">Enter title</string>
 </resources>

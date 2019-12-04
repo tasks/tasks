@@ -18,6 +18,8 @@ import org.tasks.ui.LocationControlSet;
 import org.tasks.ui.NavigationDrawerFragment;
 import org.tasks.ui.PriorityControlSet;
 import org.tasks.ui.RemoteListFragment;
+import org.tasks.ui.SubtaskControlSet;
+import org.tasks.ui.TaskListViewModel;
 
 @Subcomponent(modules = FragmentModule.class)
 public interface FragmentComponent {
@@ -55,4 +57,8 @@ public interface FragmentComponent {
   void inject(RemoteListFragment remoteListFragment);
 
   void inject(LocationControlSet locationControlSet);
+
+  void inject(SubtaskControlSet subtaskControlSet);
+
+  void inject(TaskListViewModel taskListViewModel);
 }

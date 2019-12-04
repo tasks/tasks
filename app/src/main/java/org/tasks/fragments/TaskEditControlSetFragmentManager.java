@@ -28,6 +28,7 @@ import org.tasks.ui.DescriptionControlSet;
 import org.tasks.ui.LocationControlSet;
 import org.tasks.ui.PriorityControlSet;
 import org.tasks.ui.RemoteListFragment;
+import org.tasks.ui.SubtaskControlSet;
 import org.tasks.ui.TaskEditControlFragment;
 
 public class TaskEditControlSetFragmentManager {
@@ -47,7 +48,8 @@ public class TaskEditControlSetFragmentManager {
         R.id.row_9,
         R.id.row_10,
         R.id.row_11,
-        R.id.row_12
+        R.id.row_12,
+        R.id.row_13
       };
 
   private static final int[] TASK_EDIT_CONTROL_SET_FRAGMENTS =
@@ -65,7 +67,8 @@ public class TaskEditControlSetFragmentManager {
         TagsControlSet.TAG,
         RepeatControlSet.TAG,
         CommentBarFragment.TAG,
-        RemoteListFragment.TAG
+        RemoteListFragment.TAG,
+        SubtaskControlSet.TAG
       };
 
   static {
@@ -160,6 +163,8 @@ public class TaskEditControlSetFragmentManager {
         return new CommentBarFragment();
       case RemoteListFragment.TAG:
         return new RemoteListFragment();
+      case SubtaskControlSet.TAG:
+        return new SubtaskControlSet();
       default:
         throw new RuntimeException("Unsupported fragment");
     }

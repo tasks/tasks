@@ -10,7 +10,7 @@
 
   <include layout="@layout/toolbar"/>
 
-  <ScrollView
+  <androidx.core.widget.NestedScrollView
     android:scrollbarStyle="outsideOverlay"
     android:layout_width="fill_parent"
     android:layout_height="0dp"
@@ -90,6 +90,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+      <FrameLayout
+        android:id="@+id/row_13"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
       <LinearLayout
         android:id="@+id/comments"
         android:layout_width="match_parent"
@@ -97,7 +102,7 @@
         android:orientation="vertical"/>
 
     </LinearLayout>
-  </ScrollView>
+  </androidx.core.widget.NestedScrollView>
 
   <FrameLayout
     android:id="@+id/comment_bar"

@@ -61,12 +61,14 @@ import org.tasks.ui.DeadlineControlSet;
 import org.tasks.ui.EmptyTaskEditFragment;
 import org.tasks.ui.NavigationDrawerFragment;
 import org.tasks.ui.PriorityControlSet;
+import org.tasks.ui.RemoteListFragment;
 import org.tasks.ui.TaskListViewModel;
 import org.tasks.ui.Toaster;
 
 public class MainActivity extends InjectingAppCompatActivity
     implements TaskListFragment.TaskListFragmentCallbackHandler,
         PriorityControlSet.OnPriorityChanged,
+        RemoteListFragment.OnListChanged,
         TimerControlSet.TimerControlSetCallback,
         DeadlineControlSet.DueDateChangeListener,
         TaskEditFragment.TaskEditFragmentCallbackHandler,
@@ -510,5 +512,10 @@ public class MainActivity extends InjectingAppCompatActivity
   @Override
   public void dueDateChanged(long dateTime) {
     getTaskEditFragment().onDueDateChanged(dateTime);
+  }
+
+  @Override
+  public void onListchanged(@Nullable Filter filter) {
+    getTaskEditFragment().onRemoteListChanged(filter);
   }
 }

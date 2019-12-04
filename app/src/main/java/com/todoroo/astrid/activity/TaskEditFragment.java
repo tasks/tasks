@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
@@ -27,6 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.notes.CommentsController;
@@ -50,6 +52,7 @@ import org.tasks.injection.InjectingFragment;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.Preferences;
 import org.tasks.ui.MenuColorizer;
+import org.tasks.ui.SubtaskControlSet;
 import org.tasks.ui.TaskEditControlFragment;
 
 public final class TaskEditFragment extends InjectingFragment
@@ -242,6 +245,10 @@ public final class TaskEditFragment extends InjectingFragment
     return getFragment(RepeatControlSet.TAG);
   }
 
+  private SubtaskControlSet getSubtaskControlSet() {
+    return getFragment(SubtaskControlSet.TAG);
+  }
+
   @SuppressWarnings("unchecked")
   private <T extends TaskEditControlFragment> T getFragment(int tag) {
     return (T) getChildFragmentManager().findFragmentByTag(getString(tag));
@@ -300,7 +307,7 @@ public final class TaskEditFragment extends InjectingFragment
         .show();
   }
 
-  public void onPriorityChange(int priority) {
+  void onPriorityChange(int priority) {
     getEditTitleControlSet().setPriority(priority);
   }
 
@@ -314,10 +321,17 @@ public final class TaskEditFragment extends InjectingFragment
     getEditTitleControlSet().repeatChanged(repeat);
   }
 
-  public void onDueDateChanged(long dueDate) {
+  void onDueDateChanged(long dueDate) {
     RepeatControlSet repeatControlSet = getRepeatControlSet();
     if (repeatControlSet != null) {
       repeatControlSet.onDueDateChanged(dueDate);
+    }
+  }
+
+  void onRemoteListChanged(@Nullable Filter filter) {
+    SubtaskControlSet subtaskControlSet = getSubtaskControlSet();
+    if (subtaskControlSet != null) {
+      subtaskControlSet.onRemoteListChanged(filter);
     }
   }
 

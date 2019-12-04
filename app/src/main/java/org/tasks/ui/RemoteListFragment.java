@@ -3,6 +3,7 @@ package org.tasks.ui;
 import static android.app.Activity.RESULT_OK;
 import static org.tasks.activities.RemoteListSupportPicker.newRemoteListSupportPicker;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -55,6 +56,18 @@ public class RemoteListFragment extends TaskEditControlFragment {
 
   @Nullable private Filter originalList;
   @Nullable private Filter selectedList;
+  private OnListChanged callback;
+
+  public interface OnListChanged {
+    void onListchanged(@Nullable Filter filter);
+  }
+
+  @Override
+  public void onAttach(Activity activity) {
+    super.onAttach(activity);
+
+    callback = (OnListChanged) activity;
+  }
 
   @Nullable
   @Override
@@ -63,7 +76,7 @@ public class RemoteListFragment extends TaskEditControlFragment {
     View view = super.onCreateView(inflater, container, savedInstanceState);
     if (savedInstanceState != null) {
       originalList = savedInstanceState.getParcelable(EXTRA_ORIGINAL_LIST);
-      selectedList = savedInstanceState.getParcelable(EXTRA_SELECTED_LIST);
+      setSelected(savedInstanceState.getParcelable(EXTRA_SELECTED_LIST));
     } else {
       if (task.isNew()) {
         if (task.hasTransitory(GoogleTask.KEY)) {
@@ -96,18 +109,18 @@ public class RemoteListFragment extends TaskEditControlFragment {
         }
       }
 
-      selectedList = originalList;
+      setSelected(originalList);
     }
 
-    chip.setOnCloseIconClickListener(this::clearSelected);
+    chip.setOnCloseIconClickListener(v -> setSelected(null));
 
-    refreshView();
     return view;
   }
 
-  private void clearSelected(View ignored) {
-    selectedList = null;
+  private void setSelected(@Nullable Filter filter) {
+    selectedList = filter;
     refreshView();
+    callback.onListchanged(filter);
   }
 
   @Override
@@ -171,13 +184,12 @@ public class RemoteListFragment extends TaskEditControlFragment {
 
   private void setList(Filter list) {
     if (list == null) {
-      this.selectedList = null;
+      setSelected(null);
     } else if (list instanceof GtasksFilter || list instanceof CaldavFilter) {
-      this.selectedList = list;
+      setSelected(list);
     } else {
       throw new RuntimeException("Unhandled filter type");
     }
-    refreshView();
   }
 
   private void refreshView() {

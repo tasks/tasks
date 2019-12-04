@@ -1,0 +1,93 @@
+package org.tasks.tasklist;
+
+import android.app.Activity;
+import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.AsyncDifferConfig;
+import androidx.recyclerview.widget.AsyncListDiffer;
+import androidx.recyclerview.widget.ListUpdateCallback;
+import androidx.recyclerview.widget.RecyclerView;
+import java.util.List;
+import org.tasks.R;
+import org.tasks.data.TaskContainer;
+import org.tasks.locale.Locale;
+import org.tasks.tasklist.SubtaskViewHolder.Callbacks;
+
+public class SubtasksRecyclerAdapter extends RecyclerView.Adapter<SubtaskViewHolder>
+    implements ListUpdateCallback {
+
+  private final DisplayMetrics metrics;
+  private final Activity activity;
+  private final Locale locale;
+  private final Callbacks callbacks;
+  private final AsyncListDiffer<TaskContainer> differ;
+  private boolean multiLevelSubtasks;
+
+  public SubtasksRecyclerAdapter(
+      Activity activity, Locale locale, SubtaskViewHolder.Callbacks callbacks) {
+    this.activity = activity;
+    this.locale = locale;
+    this.callbacks = callbacks;
+    differ =
+        new AsyncListDiffer<>(
+            this, new AsyncDifferConfig.Builder<>(new SubtaskDiffCallback()).build());
+    metrics = activity.getResources().getDisplayMetrics();
+  }
+
+  @NonNull
+  @Override
+  public SubtaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    ViewGroup view =
+        (ViewGroup)
+            LayoutInflater.from(activity).inflate(R.layout.subtask_adapter_row_body, parent, false);
+    return new SubtaskViewHolder(activity, locale, view, callbacks, metrics);
+  }
+
+  @Override
+  public void onBindViewHolder(@NonNull SubtaskViewHolder holder, int position) {
+    TaskContainer task = getItem(position);
+    if (task != null) {
+      holder.bindView(task, multiLevelSubtasks);
+    }
+  }
+
+  public TaskContainer getItem(int position) {
+    return differ.getCurrentList().get(position);
+  }
+
+  public void submitList(List<TaskContainer> list) {
+    differ.submitList(list);
+  }
+
+  @Override
+  public void onInserted(int position, int count) {
+    notifyItemRangeInserted(position, count);
+  }
+
+  @Override
+  public void onRemoved(int position, int count) {
+    notifyDataSetChanged(); // remove animation is janky
+  }
+
+  @Override
+  public void onMoved(int fromPosition, int toPosition) {
+    notifyItemMoved(fromPosition, toPosition);
+  }
+
+  @Override
+  public void onChanged(int position, int count, @Nullable Object payload) {
+    notifyItemRangeChanged(position, count, payload);
+  }
+
+  @Override
+  public int getItemCount() {
+    return differ.getCurrentList().size();
+  }
+
+  public void setMultiLevelSubtasksEnabled(boolean enabled) {
+    multiLevelSubtasks = enabled;
+  }
+}

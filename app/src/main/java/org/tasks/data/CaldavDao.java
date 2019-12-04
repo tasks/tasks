@@ -72,6 +72,9 @@ public abstract class CaldavDao {
   @Query("SELECT * FROM caldav_tasks WHERE cd_task = :taskId AND cd_deleted = 0 LIMIT 1")
   public abstract CaldavTask getTask(long taskId);
 
+  @Query("SELECT cd_remote_id FROM caldav_tasks WHERE cd_task = :taskId AND cd_deleted = 0")
+  public abstract String getRemoteIdForTask(long taskId);
+
   @Query("SELECT * FROM caldav_tasks WHERE cd_calendar = :calendar AND cd_object = :object LIMIT 1")
   public abstract CaldavTask getTask(String calendar, String object);
 
