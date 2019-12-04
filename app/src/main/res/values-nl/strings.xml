@@ -547,4 +547,6 @@
         <item quantity="one">%d deeltaak</item>
         <item quantity="other">%d deeltaken</item>
     </plurals>
+    <string name="expand_subtasks">Deeltaken uitklappen</string>
+    <string name="collapse_subtasks">Deeltaken inklappen</string>
 </resources>
