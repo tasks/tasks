@@ -550,4 +550,6 @@
         <item quantity="one">%d részfeladat</item>
         <item quantity="other">%d részfeladat</item>
     </plurals>
+    <string name="expand_subtasks">Részfeladatok kibontása</string>
+    <string name="collapse_subtasks">Részfeladatok összecsukása</string>
 </resources>
