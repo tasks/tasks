@@ -145,7 +145,7 @@ public class CaldavSynchronizer {
         calendar.setAccount(account.getUuid());
         calendar.setUrl(url);
         calendar.setUuid(UUIDHelper.newUUID());
-        calendar.setId(caldavDao.insert(calendar));
+        caldavDao.insert(calendar);
       }
       sync(calendar, resource, caldavClient.getHttpClient());
     }

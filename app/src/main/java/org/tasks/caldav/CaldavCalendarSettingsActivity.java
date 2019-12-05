@@ -197,8 +197,8 @@ public class CaldavCalendarSettingsActivity extends BaseListSettingsActivity {
     caldavCalendar.setUrl(url);
     caldavCalendar.setName(getNewName());
     caldavCalendar.setColor(selectedTheme);
-    caldavCalendar.setId(caldavDao.insert(caldavCalendar));
     caldavCalendar.setIcon(selectedIcon);
+    caldavDao.insert(caldavCalendar);
     setResult(
         RESULT_OK,
         new Intent().putExtra(MainActivity.OPEN_FILTER, new CaldavFilter(caldavCalendar)));

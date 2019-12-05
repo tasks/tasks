@@ -38,8 +38,12 @@ public abstract class CaldavDao {
   @Update
   public abstract void update(CaldavAccount caldavAccount);
 
+  public void insert(CaldavCalendar caldavCalendar) {
+    caldavCalendar.setId(insertInternal(caldavCalendar));
+  }
+
   @Insert
-  public abstract long insert(CaldavCalendar caldavCalendar);
+  abstract long insertInternal(CaldavCalendar caldavCalendar);
 
   @Update
   public abstract void update(CaldavCalendar caldavCalendar);
