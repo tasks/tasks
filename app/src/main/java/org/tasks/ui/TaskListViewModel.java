@@ -120,7 +120,7 @@ public class TaskListViewModel extends ViewModel {
               + Tag.TASK;
       fields.add(field("(" + tagQuery + ")").as("tags"));
       fields.add(INDENT);
-      fields.add(field("(SELECT count(*) FROM recursive_tasks WHERE parent = tasks._id GROUP BY parent)").as("children"));
+      fields.add(field("(SELECT count(distinct task) FROM recursive_tasks WHERE parent = tasks._id GROUP BY parent)").as("children"));
 
       String joinedQuery = Join.inner(RECURSIVE, Task.ID.eq(RECURSIVE_TASK)) + JOINS +
           " WHERE recursive_tasks.hidden = 0";
