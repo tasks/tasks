@@ -1,5 +1,7 @@
 package org.tasks.ui;
 
+import static com.google.common.collect.Iterables.filter;
+import static com.google.common.collect.Iterables.removeIf;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
@@ -8,8 +10,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import androidx.annotation.LayoutRes;
+import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
 import com.google.android.material.chip.Chip;
+import com.google.common.base.Predicates;
 import com.google.common.base.Strings;
 import com.google.common.collect.Ordering;
 import com.todoroo.astrid.api.CaldavFilter;
@@ -132,12 +136,12 @@ public class ChipProvider {
     }
     String tags = task.getTagsString();
     if (!Strings.isNullOrEmpty(tags)) {
-      chips.addAll(
-          transform(
-              orderByName.sortedCopy(transform(newArrayList(tags.split(",")), tagDatas::get)),
-              tag -> newTagChip(activity, tag)));
+      Iterable<TagFilter> tagFilters =
+          filter(transform(newArrayList(tags.split(",")), tagDatas::get), Predicates.notNull());
+      chips.addAll(transform(orderByName.sortedCopy(tagFilters), tag -> newTagChip(activity, tag)));
     }
 
+    removeIf(chips, Predicates.isNull());
     return chips;
   }
 
@@ -156,7 +160,10 @@ public class ChipProvider {
     return chip;
   }
 
-  private Chip newTagChip(Activity activity, Filter filter) {
+  private @Nullable Chip newTagChip(Activity activity, Filter filter) {
+    if (filter == null) {
+      return null;
+    }
     Chip chip = newChip(activity, R.layout.chip_tag, filter);
     apply(chip, filter.listingTitle, filter.tint);
     return chip;
