@@ -22,7 +22,10 @@ import org.tasks.data.DeletionDao;
 import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskList;
+import org.tasks.data.TaskContainer;
 import org.tasks.jobs.WorkManager;
+import org.tasks.preferences.Preferences;
+import org.tasks.ui.TaskListViewModel;
 
 public class TaskDeleter {
 
@@ -31,6 +34,7 @@ public class TaskDeleter {
   private final LocalBroadcastManager localBroadcastManager;
   private final GoogleTaskDao googleTaskDao;
   private final CaldavDao caldavDao;
+  private final Preferences preferences;
   private final DeletionDao deletionDao;
 
   @Inject
@@ -40,13 +44,15 @@ public class TaskDeleter {
       TaskDao taskDao,
       LocalBroadcastManager localBroadcastManager,
       GoogleTaskDao googleTaskDao,
-      CaldavDao caldavDao) {
+      CaldavDao caldavDao,
+      Preferences preferences) {
     this.deletionDao = deletionDao;
     this.workManager = workManager;
     this.taskDao = taskDao;
     this.localBroadcastManager = localBroadcastManager;
     this.googleTaskDao = googleTaskDao;
     this.caldavDao = caldavDao;
+    this.preferences = preferences;
   }
 
   public int purgeDeleted() {
@@ -82,12 +88,15 @@ public class TaskDeleter {
 
   public int clearCompleted(Filter filter) {
     List<Long> completed = new ArrayList<>();
-    String query =
+    Filter deleteFilter = new Filter(null, null);
+    deleteFilter.setFilterQueryOverride(
         filter
             .getOriginalSqlQuery()
             .replace(isVisible().toString(), all.toString())
-            .replace(notCompleted().toString(), all.toString());
-    for (Task task : taskDao.fetchFiltered(query)) {
+            .replace(notCompleted().toString(), all.toString()));
+    List<TaskContainer> tasks = taskDao.fetchTasks(
+        hasSubtasks -> TaskListViewModel.getQuery(preferences, deleteFilter, hasSubtasks));
+    for (TaskContainer task : tasks) {
       if (task.isCompleted()) {
         completed.add(task.getId());
       }
