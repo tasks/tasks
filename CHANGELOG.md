@@ -1,5 +1,13 @@
 Change Log
 ---
+### 7.3.1 (2019-12-05)
+
+* Fix crash on missing filter
+* Update translations
+  * Dutch - @fvbommel
+  * Hungarian - kaciokos
+  * Simplified Chinese - @sr093906
+
 ### 7.3 (2019-12-03)
 
 * Expand and collapse subtasks
