@@ -26,6 +26,7 @@ import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.Task.Priority;
 import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
@@ -522,5 +523,9 @@ public class Preferences {
 
   public boolean isReverseSort() {
     return getBoolean(R.string.p_reverse_sort, false);
+  }
+
+  public int getDefaultPriority() {
+    return getIntegerFromString(R.string.p_default_importance_key, Priority.LOW);
   }
 }

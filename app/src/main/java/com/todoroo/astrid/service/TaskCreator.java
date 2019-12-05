@@ -14,7 +14,6 @@ import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.Task.Priority;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.utility.TitleParser;
 import java.util.ArrayList;
@@ -136,8 +135,7 @@ public class TaskCreator {
 
     task.setUuid(newUUID());
 
-    task.setPriority(
-        preferences.getIntegerFromString(R.string.p_default_importance_key, Priority.LOW));
+    task.setPriority(preferences.getDefaultPriority());
     task.setDueDate(
         Task.createDueDate(
             preferences.getIntegerFromString(R.string.p_default_urgency_key, Task.URGENCY_NONE),
