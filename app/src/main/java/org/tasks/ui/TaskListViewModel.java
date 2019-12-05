@@ -103,9 +103,7 @@ public class TaskListViewModel extends ViewModel {
   public static List<String> getQuery(Preferences preferences, Filter filter, boolean subtasks) {
     List<Field> fields = newArrayList(TASKS, GTASK, CALDAV, GEOFENCE, PLACE);
 
-    if (subtasks
-        && filter.supportsSubtasks()
-        && !(preferences.isManualSort() && filter.supportsManualSort())) {
+    if (subtasks && !(preferences.isManualSort() && filter.supportsManualSort())) {
       String tagQuery =
           Query.select(field("group_concat(distinct(tag_uid))"))
                   .from(Tag.TABLE)

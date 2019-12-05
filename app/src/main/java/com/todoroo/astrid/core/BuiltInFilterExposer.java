@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
-import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -25,7 +24,7 @@ import java.util.Map;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.data.Tag;
-import org.tasks.filters.NoSubtasksFilter;
+import org.tasks.filters.RecentlyModifiedFilter;
 import org.tasks.filters.SortableFilter;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
@@ -70,12 +69,7 @@ public final class BuiltInFilterExposer {
   }
 
   public static Filter getRecentlyModifiedFilter(Resources r) {
-    return new NoSubtasksFilter(
-        r.getString(R.string.BFE_Recent),
-        new QueryTemplate()
-            .where(TaskCriteria.notDeleted())
-            .orderBy(Order.desc(Task.MODIFICATION_DATE))
-            .limit(15));
+    return new RecentlyModifiedFilter(r.getString(R.string.BFE_Recent));
   }
 
   public static Filter getUncategorizedFilter(Resources r) {

@@ -304,7 +304,7 @@ public final class TaskListFragment extends InjectingFragment
     }
     MenuItem hidden = menu.findItem(R.id.menu_show_hidden);
     MenuItem completed = menu.findItem(R.id.menu_show_completed);
-    if (!taskAdapter.supportsHiddenTasks() || filter instanceof SearchFilter) {
+    if (!taskAdapter.supportsHiddenTasks() || !filter.supportsHiddenTasks()) {
       completed.setChecked(true);
       completed.setEnabled(false);
       hidden.setChecked(true);

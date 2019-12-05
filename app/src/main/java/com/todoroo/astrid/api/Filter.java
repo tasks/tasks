@@ -185,7 +185,7 @@ public class Filter extends FilterListItem {
     return false;
   }
 
-  public boolean supportsSubtasks() {
+  public boolean supportsHiddenTasks() {
     return true;
   }
 

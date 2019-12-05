@@ -46,4 +46,9 @@ public class SearchFilter extends Filter {
                     Task.TITLE.like("%" + query + "%"),
                     Tag.NAME.like("%" + query + "%"))));
   }
+
+  @Override
+  public boolean supportsHiddenTasks() {
+    return false;
+  }
 }
