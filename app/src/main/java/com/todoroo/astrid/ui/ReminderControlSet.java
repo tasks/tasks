@@ -256,7 +256,7 @@ public class ReminderControlSet extends TaskEditControlFragment {
   private void addNewAlarm() {
     Intent intent = new Intent(getActivity(), DateAndTimePickerActivity.class);
     intent.putExtra(
-        DateAndTimePickerActivity.EXTRA_TIMESTAMP, newDateTime().startOfDay().getMillis());
+        DateAndTimePickerActivity.EXTRA_TIMESTAMP, newDateTime().noon().getMillis());
     startActivityForResult(intent, REQUEST_NEW_ALARM);
   }
 
