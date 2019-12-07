@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
-<resources>
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos--><resources>
     <string name="actfm_picture_clear">Borrar imagen</string>
-    <string name="TVA_add_comment">Añadir un comentario...</string>
+    <string name="TVA_add_comment">Añadir un comentario…</string>
     <string name="name">Nombre</string>
     <string name="enter_filter_name">Introduzca el nombre del filtro</string>
     <string name="backup_BPr_header">Copias de seguridad</string>
     <string name="backup_BAc_import">Importar tareas</string>
     <string name="backup_BAc_export">Exportar tareas</string>
     <string name="export_toast">Respaldadas %1$s de %2$s.</string>
-    <string name="export_toast_no_tasks">No hay tareas para exportar</string>
+    <string name="export_toast_no_tasks">No hay tareas para exportar.</string>
     <string name="import_summary_title">Resumen de restauración</string>
     <string name="import_summary_message">El fichero %1$s contenia %2$s.\n\n %3$s importadas\n %4$s ya existian\n %5$s tenian errores\n</string>
-    <string name="import_progress_read">Leyendo tarea %d...</string>
+    <string name="import_progress_read">Leyendo tarea %d…</string>
     <string name="read_permission_label">Permisos de Tasks</string>
     <string name="discard_confirmation">¿Quieres descartar los cambios?</string>
     <string name="keep_editing">Seguir editando</string>
@@ -20,14 +19,14 @@
     <string name="DLG_hour_minutes">Tiempo (horas : minutos)</string>
     <string name="DLG_undo">Deshacer</string>
     <string name="WID_dateButtonUnset">Pulsar para establecer</string>
-    <string name="TLA_no_items">No hay ninguna tarea aquí</string>
+    <string name="TLA_no_items">No hay ninguna tarea aquí.</string>
     <string name="TLA_menu_sort">Ordenar</string>
     <string name="TLA_menu_search">Buscar</string>
     <string name="TLA_menu_settings">Configuración</string>
     <string name="TAd_actionEditTask">Editar</string>
     <string name="action_call">Llamar</string>
     <string name="action_open">Abrir</string>
-  <string name="SSD_sort_auto">Ordenación inteligente</string>
+    <string name="SSD_sort_auto">Ordenación inteligente</string>
     <string name="SSD_sort_alpha">Por título</string>
     <string name="SSD_sort_due">Por vencimiento</string>
     <string name="SSD_sort_importance">Por prioridad</string>
@@ -62,8 +61,8 @@
     <string name="TEA_control_files">Archivos</string>
     <string name="TEA_control_reminders">Recordatorios</string>
     <string name="TEA_control_timer">Controles de tiempo</string>
-    <string name="TEA_control_hidden_section">---Ocultar Siempre---</string>
-    <string name="TEA_load_more">Cargar mas...</string>
+    <string name="TEA_control_hidden_section">---Ocultar siempre---</string>
+    <string name="TEA_load_more">Cargar mas…</string>
     <string name="CRA_ignore">Ignorar</string>
     <string name="CRA_title">¿Necesita una lista de reuniones?</string>
     <string name="CRA_ignore_body">Ha ignorado varios eventos de calendario. ¿Debe Tasks dejar de preguntarle sobre ellos?</string>
@@ -135,11 +134,11 @@
     <string name="CFC_dueBefore_name">Vence el…</string>
     <string name="no_due_date">Sin fecha de vencimiento</string>
     <string name="next_month">Próximo mes</string>
-    <string name="CFC_importance_text">¿Prioridad mínima?</string>
+    <string name="CFC_importance_text">¿ Prioridad mínima \?</string>
     <string name="CFC_importance_name">Prioridad…</string>
     <string name="CFC_tag_text">Etiqueta: ?</string>
-    <string name="CFC_tag_name">Etiqueta...</string>
-    <string name="CFC_tag_contains_name">El nombre de la etiqueta contiene...</string>
+    <string name="CFC_tag_name">Etiqueta…</string>
+    <string name="CFC_tag_contains_name">El nombre de la etiqueta contiene…</string>
     <string name="CFC_tag_contains_text">El nombre de la etiqueta contiene: ?</string>
     <string name="CFC_title_contains_name">Título contiene…</string>
     <string name="CFC_title_contains_text">Título contiene: ?</string>
@@ -149,12 +148,12 @@
     <string name="calendar_event_not_found">Evento de calendario no encontrado</string>
     <string name="gcal_completed_title">%s (completado)</string>
     <string name="CFC_gtasks_list_text">En la Lista: ?</string>
-    <string name="CFC_gtasks_list_name">en la Lista GTasks...</string>
+    <string name="CFC_gtasks_list_name">en la Lista GTasks…</string>
     <string name="CFC_caldav_list_name">En lista CalDAV…</string>
     <string name="gtasks_GTA_clear_completed">Quitar finalizadas</string>
-    <string name="gtasks_GLA_authenticating">Autenticando...</string>
+    <string name="gtasks_GLA_authenticating">Autenticando…</string>
     <string name="gtasks_GLA_errorIOAuth">Perdón, hubo un problema al comunicarse con los servidores de Google. Por favor inténtalo mas tarde.</string>
-    <string name="gtasks_error_accountNotFound">No se ha encontrado la cuenta %s --por favor, cierra sesión y vuelve a iniciarla desde la configuración de Google Tasks</string>
+    <string name="gtasks_error_accountNotFound">No se ha encontrado la cuenta %s — por favor, cierra sesión y vuelve a iniciarla desde la configuración de Google Tasks.</string>
     <string name="premium_record_audio">Grabar una nota</string>
     <string name="premium_remove_file_confirm">Está seguro? No se puede deshacer</string>
     <string name="audio_recording_title">Grabando Audio</string>
@@ -470,7 +469,7 @@
     <string name="caldav_home_set_not_found">Origen no encontrado</string>
     <string name="network_error">La conexión ha fallado</string>
     <string name="background_sync_unmetered_only">Sólo en conexiones sin cargos</string>
-  <string name="upgrade_to_pro">Actualizar a profesional</string>
+    <string name="upgrade_to_pro">Actualizar a profesional</string>
     <string name="manage_subscription">Gestionar suscripción</string>
     <string name="refresh_purchases">Actualizar los acquisiciones</string>
     <string name="button_subscribe">Suscribe</string>
@@ -478,8 +477,8 @@
     <string name="error_billing_unavailable">Pago no disponible. Asegúrese de que Google Play está bien configurado</string>
     <string name="error_billing_default">Pago no disponible. Comprueba su dispositivo.</string>
     <string name="about">Sobre</string>
-    <string name="license_summary">Tasks es libre y de código abierto, según licencia GNU General Public License v3.0</string>
-    <string name="themes">Temas adicionales</string>
+    <string name="license_summary">Tasks es software libre de código abierto, licenciado bajo la GNU General Public License v3.0</string>
+    <string name="themes">Temas e iconos adicionales</string>
     <string name="pro_caldav_sync">Sincronización de CalDAV</string>
     <string name="pro_multiple_google_task_accounts">Múltiples cuentas de Google Task</string>
     <string name="pro_google_places_search">Buscar en Google Places</string>
@@ -517,4 +516,42 @@
     <string name="version_string">Versión %s</string>
     <string name="invalid_backup_file">Copia de seguridad no válida</string>
     <string name="google_tasks_add_to_top">Nuevas tareas encima</string>
+    <string name="TEA_timer_est">Est. %s</string>
+    <string name="gtasks_GPr_header">Google Tasks</string>
+    <string name="location_radius_meters">%s m</string>
+    <string name="color">Color</string>
+    <string name="settings_general">General</string>
+    <string name="CalDAV">CalDAV</string>
+    <string name="url">URL</string>
+    <string name="error_adding_account">Error : %s</string>
+    <string name="list_separator_with_space">", "</string>
+    <string name="icon">Icono</string>
+    <string name="pro_support_development">¡Tasks necesitan su apoyo!</string>
+    <string name="manage_subscription_summary">Actualizar, rebajar o cancelar su suscripción</string>
+    <string name="button_current_subscription">Suscripción actual</string>
+    <string name="button_restore_subscription">Restaurar la suscripción</string>
+    <string name="button_downgrade">Suscripción de degradación</string>
+    <string name="button_upgrade">Suscripción de actualización</string>
+    <string name="button_unsubscribe">Cancelar la suscripción</string>
+    <string name="pro_description">Tasks es un software libre de código abierto que no muestra publicidad ni vende su información personal</string>
+    <string name="pro_subscribe_now">Suscríbase ahora para apoyar el desarrollo y desbloquear funciones adicionales</string>
+    <string name="name_your_price">Nombra tu precio</string>
+    <string name="monthly">Mensualmente</string>
+    <string name="annually">Anualmente</string>
+    <string name="SSD_sort_my_order">Mi pedido</string>
+    <string name="caldav_account_repeating_tasks">Permita que el servidor programe tareas recurrentes</string>
+    <string name="EPr_temp_show_completed_tasks">Mostrar temporalmente las tareas una vez completadas</string>
+    <string name="EPr_temp_completed_tasks_showing">Las tareas permanecerán temporalmente visibles en la lista una vez completadas</string>
+    <string name="EPr_temp_completed_tasks_not_showing">Las tareas desaparecerán inmediatamente de la lista una vez completadas</string>
+    <plurals name="subtask_count">
+        <item quantity="one">%d subtarea</item>
+        <item quantity="other">%d subtareas</item>
+    </plurals>
+    <string name="expand_subtasks">Expandir subtareas</string>
+    <string name="collapse_subtasks">Contraer subtareas</string>
+    <string name="TEA_add_subtask">Añadir subtarea</string>
+    <string name="subtasks">Subtareas</string>
+    <string name="subtasks_enable_synchronization">Habilitar la sincronización para añadir subtareas</string>
+    <string name="subtasks_multilevel_google_task">Subtareas multinivel no compatibles con Google Tasks</string>
+    <string name="enter_title_hint">Introducir título</string>
 </resources>
