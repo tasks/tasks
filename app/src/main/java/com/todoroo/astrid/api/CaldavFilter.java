@@ -3,6 +3,7 @@ package com.todoroo.astrid.api;
 import android.os.Parcel;
 import android.os.Parcelable;
 import androidx.annotation.NonNull;
+import com.google.common.base.Objects;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.QueryTemplate;
@@ -101,6 +102,7 @@ public class CaldavFilter extends Filter {
 
   @Override
   public boolean areContentsTheSame(@NonNull FilterListItem other) {
-    return calendar.equals(((CaldavFilter) other).calendar);
+    return super.areContentsTheSame(other)
+        && Objects.equal(calendar, ((CaldavFilter) other).calendar);
   }
 }

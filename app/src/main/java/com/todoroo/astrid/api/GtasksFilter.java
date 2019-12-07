@@ -3,6 +3,7 @@ package com.todoroo.astrid.api;
 import android.os.Parcel;
 import android.os.Parcelable;
 import androidx.annotation.NonNull;
+import com.google.common.base.Objects;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.QueryTemplate;
@@ -126,6 +127,6 @@ public class GtasksFilter extends Filter {
 
   @Override
   public boolean areContentsTheSame(@NonNull FilterListItem other) {
-    return list.equals(((GtasksFilter) other).list);
+    return super.areContentsTheSame(other) && Objects.equal(list, ((GtasksFilter) other).list);
   }
 }
