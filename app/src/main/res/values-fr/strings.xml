@@ -26,7 +26,7 @@
     <string name="TAd_actionEditTask">Modifier</string>
     <string name="action_call">Appeler</string>
     <string name="action_open">Ouvrir</string>
-  <string name="SSD_sort_auto">Tri intelligent Tasks</string>
+    <string name="SSD_sort_auto">Tri intelligent Tasks</string>
     <string name="SSD_sort_alpha">Par titre</string>
     <string name="SSD_sort_due">Par date d\'échéance</string>
     <string name="SSD_sort_importance">Par priorité</string>
@@ -463,7 +463,7 @@
 est configuré correctement</string>
     <string name="error_billing_default">Achat indisponible. Veuillez vérifier votre appareil.</string>
     <string name="about">À propos</string>
-    <string name="license_summary">Tâches est un logiciel libre et open-source, licencié selon le GNU General Public License v3.0</string>
+    <string name="license_summary">Tasks est un logiciel libre et open-source, licencié selon le GNU General Public License v3.0</string>
     <string name="themes">Thèmes et icônes additionnels</string>
     <string name="pro_caldav_sync">Synchronisation de CalDAV</string>
     <string name="pro_multiple_google_task_accounts">Plusieurs comptes Google Task</string>
@@ -536,4 +536,23 @@ est configuré correctement</string>
     <string name="name_your_price">Donnez votre prix</string>
     <string name="monthly">Chaque mois</string>
     <string name="annually">Chaque année</string>
+    <string name="error_adding_account">Erreur : %s</string>
+    <string name="pro_description">Tasks est un logiciel libre open-source qui n\'affiche pas de publicités et ne vend pas vos informations personnelles</string>
+    <string name="pro_subscribe_now">Abonnez-vous dès maintenant pour soutenir le développement et débloquer des fonctionnalités supplémentaires</string>
+    <string name="SSD_sort_my_order">Mon tri</string>
+    <string name="caldav_account_repeating_tasks">Permet au serveur de programmer des tâches récurrentes</string>
+    <string name="EPr_temp_show_completed_tasks">Afficher temporairement les tâches une fois terminées</string>
+    <string name="EPr_temp_completed_tasks_showing">Les tâches resteront temporairement visibles dans la liste une fois terminées</string>
+    <string name="EPr_temp_completed_tasks_not_showing">Les tâches disparaîtront immédiatement de la liste une fois terminées</string>
+    <plurals name="subtask_count">
+        <item quantity="one">%d sous-tâche</item>
+        <item quantity="other">%d sous-tâches</item>
+    </plurals>
+    <string name="expand_subtasks">Développer les sous-tâches</string>
+    <string name="collapse_subtasks">Réduire les sous-tâches</string>
+    <string name="TEA_add_subtask">Ajouter sous-tâche</string>
+    <string name="subtasks">Sous-tâches</string>
+    <string name="subtasks_enable_synchronization">Activer la synchronisation pour ajouter des sous-tâches</string>
+    <string name="subtasks_multilevel_google_task">Les sous-tâches multi-niveaux ne sont pas prises en charge par Google Tasks</string>
+    <string name="enter_title_hint">Entrer le titre</string>
 </resources>
