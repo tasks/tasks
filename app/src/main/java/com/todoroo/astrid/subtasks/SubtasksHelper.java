@@ -2,11 +2,11 @@ package com.todoroo.astrid.subtasks;
 
 import android.content.Context;
 import android.text.TextUtils;
-import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater.Node;
 import java.util.ArrayList;
@@ -147,7 +147,9 @@ public class SubtasksHelper {
         query = query.replaceAll("ORDER BY .*", "");
         query = query + String.format(" ORDER BY %s", getOrderString(tagData, tlm));
         query =
-            query.replace(TaskDao.TaskCriteria.isVisible().toString(), Criterion.all.toString());
+            query.replace(
+                TaskCriteria.isVisible().toString(),
+                TaskCriteria.includeHidden().toString());
       }
 
       filter.setFilterQueryOverride(query);

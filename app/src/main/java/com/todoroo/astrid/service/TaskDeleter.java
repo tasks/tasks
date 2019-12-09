@@ -1,6 +1,7 @@
 package com.todoroo.astrid.service;
 
-import static com.todoroo.andlib.sql.Criterion.all;
+import static com.todoroo.astrid.dao.TaskDao.TaskCriteria.includeCompleted;
+import static com.todoroo.astrid.dao.TaskDao.TaskCriteria.includeHidden;
 import static com.todoroo.astrid.dao.TaskDao.TaskCriteria.isVisible;
 import static com.todoroo.astrid.dao.TaskDao.TaskCriteria.notCompleted;
 import static org.tasks.db.DbUtils.batch;
@@ -92,8 +93,8 @@ public class TaskDeleter {
     deleteFilter.setFilterQueryOverride(
         filter
             .getOriginalSqlQuery()
-            .replace(isVisible().toString(), all.toString())
-            .replace(notCompleted().toString(), all.toString()));
+            .replace(isVisible().toString(), includeHidden().toString())
+            .replace(notCompleted().toString(), includeCompleted().toString()));
     List<TaskContainer> tasks = taskDao.fetchTasks(
         hasSubtasks -> TaskListViewModel.getQuery(preferences, deleteFilter, hasSubtasks));
     for (TaskContainer task : tasks) {

@@ -15,13 +15,6 @@ import static com.todoroo.andlib.sql.SqlConstants.SPACE;
 
 public abstract class Criterion {
 
-  public static final Criterion all =
-      new Criterion(Operator.exists) {
-        @Override
-        protected void populate(StringBuilder sb) {
-          sb.append(1);
-        }
-      };
   final Operator operator;
 
   public Criterion(Operator operator) {

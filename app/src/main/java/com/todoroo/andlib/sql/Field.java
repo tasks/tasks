@@ -39,6 +39,10 @@ public class Field extends DBObject<Field> {
     return UnaryCriterion.gt(this, value);
   }
 
+  public Criterion gte(Object value) {
+    return UnaryCriterion.gte(this, value);
+  }
+
   public Criterion lt(final Object value) {
     return UnaryCriterion.lt(this, value);
   }

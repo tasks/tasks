@@ -267,6 +267,10 @@ public abstract class TaskDao {
       return Task.COMPLETION_DATE.eq(0);
     }
 
+    public static Criterion includeCompleted() {
+      return Task.COMPLETION_DATE.gte(0);
+    }
+
     /** @return tasks that have not yet been completed or deleted */
     public static Criterion activeAndVisible() {
       return Criterion.and(
@@ -283,6 +287,10 @@ public abstract class TaskDao {
     /** @return tasks that are not hidden at current time */
     public static Criterion isVisible() {
       return Task.HIDE_UNTIL.lt(Functions.now());
+    }
+
+    public static Criterion includeHidden() {
+      return Task.HIDE_UNTIL.gte(0);
     }
   }
 }

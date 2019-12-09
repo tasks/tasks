@@ -6,6 +6,8 @@
 
 package com.todoroo.astrid.core;
 
+import static com.todoroo.astrid.dao.TaskDao.TaskCriteria.includeCompleted;
+import static com.todoroo.astrid.dao.TaskDao.TaskCriteria.includeHidden;
 import static com.todoroo.astrid.dao.TaskDao.TaskCriteria.isVisible;
 
 import com.todoroo.andlib.sql.Criterion;
@@ -58,7 +60,8 @@ public class SortHelper {
     // flags
     if (preferences.getBoolean(R.string.p_show_completed_tasks, false)) {
       adjustedSql =
-          adjustedSql.replace(Task.COMPLETION_DATE.eq(0).toString(), Criterion.all.toString());
+          adjustedSql.replace(
+              Task.COMPLETION_DATE.eq(0).toString(), includeCompleted().toString());
     } else if (preferences.getBoolean(R.string.p_temporarily_show_completed_tasks, false)) {
       adjustedSql =
           adjustedSql.replace(
@@ -69,7 +72,7 @@ public class SortHelper {
                   .toString());
     }
     if (preferences.getBoolean(R.string.p_show_hidden_tasks, false)) {
-      adjustedSql = adjustedSql.replace(isVisible().toString(), Criterion.all.toString());
+      adjustedSql = adjustedSql.replace(isVisible().toString(), includeHidden().toString());
     }
 
     return adjustedSql;

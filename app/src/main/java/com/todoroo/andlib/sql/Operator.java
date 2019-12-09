@@ -19,6 +19,7 @@ public final class Operator {
   static final Operator neq = new Operator("<>");
   static final Operator isNotNull = new Operator("IS NOT NULL");
   static final Operator gt = new Operator(">");
+  static final Operator gte = new Operator(">=");
   static final Operator lt = new Operator("<");
   static final Operator lte = new Operator("<=");
   private final String operator;
