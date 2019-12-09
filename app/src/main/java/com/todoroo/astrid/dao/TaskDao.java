@@ -136,9 +136,11 @@ public abstract class TaskDao {
   public abstract int clearCompletedCalendarEvents();
 
   @Transaction
-  public List<TaskContainer> fetchTasks(Function<Boolean, List<String>> getQueries) {
+  public List<TaskContainer> fetchTasks(QueryCallback callback) {
     long start = BuildConfig.DEBUG ? now() : 0;
-    List<String> queries = getQueries.apply(atLeastLollipop() && hasSubtasks());
+    boolean includeGoogleSubtasks = atLeastLollipop() && hasGoogleTaskSubtasks();
+    boolean includeCaldavSubtasks = atLeastLollipop() && hasCaldavSubtasks();
+    List<String> queries = callback.getQueries(includeGoogleSubtasks, includeCaldavSubtasks);
     SupportSQLiteDatabase db = database.getOpenHelper().getWritableDatabase();
     int last = queries.size() - 1;
     for (int i = 0 ; i < last ; i++) {
@@ -155,12 +157,11 @@ public abstract class TaskDao {
   @RawQuery
   abstract int count(SimpleSQLiteQuery query);
 
-  @Query(
-      "SELECT EXISTS("
-          + "SELECT 1 FROM google_tasks WHERE gt_parent > 0 AND gt_deleted = 0"
-          + " UNION ALL "
-          + "SELECT 1 FROM caldav_tasks WHERE cd_parent > 0 AND cd_deleted = 0);")
-  public abstract boolean hasSubtasks();
+  @Query("SELECT EXISTS(SELECT 1 FROM caldav_tasks WHERE cd_parent > 0 AND cd_deleted = 0)")
+  abstract boolean hasCaldavSubtasks();
+
+  @Query("SELECT EXISTS(SELECT 1 FROM google_tasks WHERE gt_parent > 0 AND gt_deleted = 0)")
+  abstract boolean hasGoogleTaskSubtasks();
 
   @Query("UPDATE tasks SET modified = datetime('now', 'localtime') WHERE _id in (:ids)")
   public abstract void touch(List<Long> ids);
@@ -292,5 +293,9 @@ public abstract class TaskDao {
     public static Criterion includeHidden() {
       return Task.HIDE_UNTIL.gte(0);
     }
+  }
+
+  public interface QueryCallback {
+    List<String> getQueries(boolean includeGoogleTaskSubtasks, boolean includeCaldavSubtasks);
   }
 }

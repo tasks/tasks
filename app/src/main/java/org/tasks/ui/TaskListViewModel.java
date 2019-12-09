@@ -100,10 +100,14 @@ public class TaskListViewModel extends ViewModel {
     tasks.observe(owner, observer);
   }
 
-  public static List<String> getQuery(Preferences preferences, Filter filter, boolean subtasks) {
+  public static List<String> getQuery(
+      Preferences preferences,
+      Filter filter,
+      boolean includeGoogleTaskSubtasks,
+      boolean includeCaldavSubtasks) {
     List<Field> fields = newArrayList(TASKS, GTASK, CALDAV, GEOFENCE, PLACE);
 
-    if (subtasks
+    if ((includeGoogleTaskSubtasks || includeCaldavSubtasks)
         && filter.supportsSubtasks()
         && !(preferences.isManualSort() && filter.supportsManualSort())) {
       String tagQuery =
@@ -178,28 +182,14 @@ public class TaskListViewModel extends ViewModel {
             .where(TaskCriteria.activeAndVisible());
       } else {
         parentQuery = PermaSql.replacePlaceholdersForQuery(filter.getSqlQuery());
-        subtaskQuery
-            .join(
-                Join.left(
-                    GoogleTask.TABLE,
-                    Criterion.and(
-                        GoogleTask.PARENT.gt(0),
-                        GoogleTask.TASK.eq(Task.ID),
-                        GoogleTask.DELETED.eq(0))))
-            .join(
-                Join.left(
-                    CaldavTask.TABLE,
-                    Criterion.and(
-                        CaldavTask.PARENT.gt(0),
-                        CaldavTask.TASK.eq(Task.ID),
-                        CaldavTask.DELETED.eq(0))))
-            .join(
-                Join.inner(
-                    RECURSIVE,
-                    Criterion.or(
-                        GoogleTask.PARENT.eq(RECURSIVE_TASK),
-                        CaldavTask.PARENT.eq(RECURSIVE_TASK))))
-            .where(TaskCriteria.activeAndVisible());
+        if (includeGoogleTaskSubtasks && includeCaldavSubtasks) {
+          addGoogleAndCaldavSubtasks(subtaskQuery);
+        } else if (includeGoogleTaskSubtasks) {
+          addGoogleSubtasks(subtaskQuery);
+        } else {
+          addCaldavSubtasks(subtaskQuery);
+        }
+        subtaskQuery.where(TaskCriteria.activeAndVisible());
         joinedQuery += " AND indent = (select max(indent) from recursive_tasks where tasks._id = recursive_tasks.task) ";
       }
 
@@ -268,6 +258,50 @@ public class TaskListViewModel extends ViewModel {
     }
   }
 
+  private static void addGoogleSubtasks(QueryTemplate subtaskQuery) {
+    subtaskQuery
+        .join(Join.inner(RECURSIVE, GoogleTask.PARENT.eq(RECURSIVE_TASK)))
+        .join(
+            Join.inner(
+                GoogleTask.TABLE,
+                Criterion.and(
+                    GoogleTask.TASK.eq(Task.ID),
+                    GoogleTask.DELETED.eq(0))));
+  }
+
+  private static void addCaldavSubtasks(QueryTemplate subtaskQuery) {
+    subtaskQuery
+        .join(Join.inner(RECURSIVE, CaldavTask.PARENT.eq(RECURSIVE_TASK)))
+        .join(
+            Join.inner(
+                CaldavTask.TABLE,
+                Criterion.and(
+                    CaldavTask.TASK.eq(Task.ID),
+                    CaldavTask.DELETED.eq(0))));
+  }
+
+  private static void addGoogleAndCaldavSubtasks(QueryTemplate subtaskQuery) {
+    subtaskQuery
+        .join(
+            Join.inner(
+                RECURSIVE,
+                Criterion.or(
+                    GoogleTask.PARENT.eq(RECURSIVE_TASK),
+                    CaldavTask.PARENT.eq(RECURSIVE_TASK))))
+        .join(
+            Join.left(
+                GoogleTask.TABLE,
+                Criterion.and(
+                    GoogleTask.TASK.eq(Task.ID),
+                    GoogleTask.DELETED.eq(0))))
+        .join(
+            Join.left(
+                CaldavTask.TABLE,
+                Criterion.and(
+                    CaldavTask.TASK.eq(Task.ID),
+                    CaldavTask.DELETED.eq(0))));
+  }
+
   public void searchByFilter(Filter filter) {
     this.filter = filter;
     invalidate();
@@ -276,7 +310,14 @@ public class TaskListViewModel extends ViewModel {
   public void invalidate() {
     disposable.add(
         Single.fromCallable(
-                () -> taskDao.fetchTasks(hasSubtasks -> getQuery(preferences, filter, hasSubtasks)))
+                () ->
+                    taskDao.fetchTasks(
+                        ((includeGoogleSubtasks, includeCaldavSubtasks) ->
+                            getQuery(
+                                preferences,
+                                filter,
+                                includeGoogleSubtasks,
+                                includeCaldavSubtasks))))
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(tasks::postValue, Timber::e));

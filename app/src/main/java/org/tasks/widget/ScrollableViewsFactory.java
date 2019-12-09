@@ -82,7 +82,10 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
   @Override
   public void onDataSetChanged() {
     updateSettings();
-    tasks = taskDao.fetchTasks(hasSubtasks -> getQuery(filter, hasSubtasks));
+    tasks =
+        taskDao.fetchTasks(
+            (includeGoogleSubtasks, includeCaldavSubtasks) ->
+                getQuery(filter, includeGoogleSubtasks, includeCaldavSubtasks));
   }
 
   @Override
@@ -196,7 +199,8 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     return position < tasks.size() ? tasks.get(position) : null;
   }
 
-  private List<String> getQuery(Filter filter, boolean hasSubtasks) {
+  private List<String> getQuery(
+      Filter filter, boolean includeGoogleSubtasks, boolean includeCaldavSubtasks) {
     AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
     RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.scrollable_widget);
     rv.setTextViewText(R.id.widget_title, filter.listingTitle);
@@ -204,7 +208,9 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
       rv.setInt(R.id.widget, "setLayoutDirection", Locale.getInstance(context).getDirectionality());
     }
     appWidgetManager.partiallyUpdateAppWidget(widgetId, rv);
-    List<String> queries = TaskListViewModel.getQuery(preferences, filter, hasSubtasks);
+    List<String> queries =
+        TaskListViewModel.getQuery(
+            preferences, filter, includeGoogleSubtasks, includeCaldavSubtasks);
     int last = queries.size() - 1;
     queries.set(last, subtasksHelper.applySubtasksToWidgetFilter(filter, queries.get(last)));
     return queries;

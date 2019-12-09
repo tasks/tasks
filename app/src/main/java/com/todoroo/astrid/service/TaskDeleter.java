@@ -95,8 +95,11 @@ public class TaskDeleter {
             .getOriginalSqlQuery()
             .replace(isVisible().toString(), includeHidden().toString())
             .replace(notCompleted().toString(), includeCompleted().toString()));
-    List<TaskContainer> tasks = taskDao.fetchTasks(
-        hasSubtasks -> TaskListViewModel.getQuery(preferences, deleteFilter, hasSubtasks));
+    List<TaskContainer> tasks =
+        taskDao.fetchTasks(
+            (includeGoogleSubtasks, includeCaldavSubtasks) ->
+                TaskListViewModel.getQuery(
+                    preferences, deleteFilter, includeGoogleSubtasks, includeCaldavSubtasks));
     for (TaskContainer task : tasks) {
       if (task.isCompleted()) {
         completed.add(task.getId());
