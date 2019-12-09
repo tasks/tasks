@@ -371,6 +371,7 @@ public class CaldavSynchronizer {
     CaldavConverter.apply(task, remote);
     tagDao.applyTags(task, tagDataDao, CaldavUtils.getTags(tagDataDao, remote.getCategories()));
     task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
+    task.putTransitory(TaskDao.TRANS_SUPPRESS_REFRESH, true);
     taskDao.save(task);
     caldavTask.setVtodo(vtodo);
     caldavTask.setEtag(eTag);
