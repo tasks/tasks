@@ -545,4 +545,9 @@
     </plurals>
     <string name="expand_subtasks">扩展子任务</string>
     <string name="collapse_subtasks">缩回子任务列表</string>
+    <string name="TEA_add_subtask">添加子任务</string>
+    <string name="subtasks">子任务</string>
+    <string name="subtasks_enable_synchronization">启用同步来添加子任务</string>
+    <string name="subtasks_multilevel_google_task">Google Tasks不支持多层子任务</string>
+    <string name="enter_title_hint">输入标题</string>
 </resources>
