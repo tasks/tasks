@@ -5,6 +5,7 @@ import static com.todoroo.astrid.dao.TaskDao.TaskCriteria.includeHidden;
 import static com.todoroo.astrid.dao.TaskDao.TaskCriteria.isVisible;
 import static com.todoroo.astrid.dao.TaskDao.TaskCriteria.notCompleted;
 import static org.tasks.db.DbUtils.batch;
+import static org.tasks.db.DbUtils.collect;
 
 import com.google.common.collect.ImmutableList;
 import com.todoroo.astrid.api.Filter;
@@ -68,13 +69,13 @@ public class TaskDeleter {
 
   public List<Task> markDeleted(List<Long> taskIds) {
     Set<Long> ids = new HashSet<>(taskIds);
-    batch(taskIds, i -> ids.addAll(googleTaskDao.getChildren(i)));
-    batch(taskIds, i -> ids.addAll(caldavDao.getChildren(i)));
+    ids.addAll(collect(taskIds, googleTaskDao::getChildren));
+    ids.addAll(collect(taskIds, caldavDao::getChildren));
     deletionDao.markDeleted(ids);
-    workManager.cleanup(taskIds);
+    workManager.cleanup(ids);
     workManager.sync(false);
     localBroadcastManager.broadcastRefresh();
-    return taskDao.fetch(taskIds);
+    return collect(ids, taskDao::fetch);
   }
 
   public void delete(Task task) {

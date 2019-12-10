@@ -87,7 +87,7 @@ public class WorkManager {
             .build());
   }
 
-  public void cleanup(List<Long> ids) {
+  public void cleanup(Iterable<Long> ids) {
     batch(
         ids,
         MAX_CLEANUP_LENGTH,
