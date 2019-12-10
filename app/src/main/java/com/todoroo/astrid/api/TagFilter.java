@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import androidx.annotation.NonNull;
 import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.dao.TaskDao;
@@ -51,10 +50,8 @@ public class TagFilter extends Filter {
 
   private static QueryTemplate queryTemplate(String uuid) {
     return new QueryTemplate()
-        .join(Join.inner(Tag.TABLE.as("mtags"), Task.UUID.eq(Field.field("mtags.task_uid"))))
-        .where(
-            Criterion.and(
-                Field.field("mtags.tag_uid").eq(uuid), TaskDao.TaskCriteria.activeAndVisible()));
+        .join(Join.inner(Tag.TABLE, Task.ID.eq(Tag.TASK)))
+        .where(Criterion.and(Tag.TAG_UID.eq(uuid), TaskDao.TaskCriteria.activeAndVisible()));
   }
 
   private static Map<String, Object> getValuesForNewTask(TagData tagData) {
