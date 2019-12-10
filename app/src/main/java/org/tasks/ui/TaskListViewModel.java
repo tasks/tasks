@@ -124,10 +124,12 @@ public class TaskListViewModel extends ViewModel {
               + Tag.TASK;
       fields.add(field("(" + tagQuery + ")").as("tags"));
       fields.add(INDENT);
-      fields.add(field("(SELECT count(distinct task) FROM recursive_tasks WHERE parent = tasks._id GROUP BY parent)").as("children"));
+      fields.add(CHILDREN);
 
-      String joinedQuery = Join.inner(RECURSIVE, Task.ID.eq(RECURSIVE_TASK)) + JOINS +
-          " WHERE recursive_tasks.hidden = 0";
+      String joinedQuery = Join.inner(RECURSIVE, Task.ID.eq(RECURSIVE_TASK))
+          + " LEFT JOIN (SELECT parent, count(recursive_tasks.task) AS children FROM recursive_tasks GROUP BY parent) AS recursive_children ON recursive_children.parent = tasks._id "
+          + JOINS;
+      String where = " WHERE recursive_tasks.hidden = 0";
       String parentQuery;
       QueryTemplate subtaskQuery = new QueryTemplate();
       if (filter instanceof CaldavFilter) {
@@ -150,8 +152,6 @@ public class TaskListViewModel extends ViewModel {
                 Join.inner(
                     CaldavTask.TABLE,
                     Criterion.and(
-                        CaldavTask.CALENDAR.eq(calendar.getUuid()),
-                        CaldavTask.PARENT.gt(0),
                         CaldavTask.TASK.eq(Task.ID),
                         CaldavTask.DELETED.eq(0))))
             .where(TaskCriteria.activeAndVisible());
@@ -175,8 +175,6 @@ public class TaskListViewModel extends ViewModel {
                 Join.inner(
                     GoogleTask.TABLE,
                     Criterion.and(
-                        GoogleTask.LIST.eq(list.getRemoteId()),
-                        GoogleTask.PARENT.gt(0),
                         GoogleTask.TASK.eq(Task.ID),
                         GoogleTask.DELETED.eq(0))))
             .where(TaskCriteria.activeAndVisible());
@@ -190,8 +188,10 @@ public class TaskListViewModel extends ViewModel {
           addCaldavSubtasks(subtaskQuery);
         }
         subtaskQuery.where(TaskCriteria.activeAndVisible());
-        joinedQuery += " AND indent = (select max(indent) from recursive_tasks where tasks._id = recursive_tasks.task) ";
+        joinedQuery += " LEFT JOIN (SELECT task, max(indent) AS max_indent FROM recursive_tasks GROUP BY task) AS recursive_indents ON recursive_indents.task = tasks._id ";
+        where += " AND indent = max_indent ";
       }
+      joinedQuery += where;
 
       String sortSelect = SortHelper.orderSelectForSortTypeRecursive(preferences.getSortMode());
       String withClause = "CREATE TEMPORARY TABLE `recursive_tasks` AS\n"
