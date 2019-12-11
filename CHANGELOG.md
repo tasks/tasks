@@ -1,5 +1,13 @@
 Change Log
 ---
+### 7.3.2 (2019-12-12)
+
+* Fix slow query for subtasks
+* Fix duplicated multi-level subtask count
+* Fix setting icon on new CalDAV list
+* Fix clear completed for subtasks
+* Fix crash when clearing 1000+ tasks
+
 ### 7.3.1 (2019-12-05)
 
 * Fix crash on missing filter
