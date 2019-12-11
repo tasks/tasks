@@ -59,7 +59,7 @@ public class TestUtilities {
 
   private static at.bitfire.ical4android.Task fromString(String task) {
     try {
-      return at.bitfire.ical4android.Task.Companion.fromReader(new StringReader(task)).get(0);
+      return at.bitfire.ical4android.Task.Companion.tasksFromReader(new StringReader(task)).get(0);
     } catch (Exception e) {
       throw new IllegalArgumentException(e);
     }
