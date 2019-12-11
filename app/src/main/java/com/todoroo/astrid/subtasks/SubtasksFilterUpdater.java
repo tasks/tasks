@@ -1,5 +1,7 @@
 package com.todoroo.astrid.subtasks;
 
+import static org.tasks.db.QueryUtils.showHiddenAndCompleted;
+
 import android.text.TextUtils;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
@@ -133,10 +135,7 @@ public class SubtasksFilterUpdater {
 
     query = query.replaceAll("ORDER BY .*", "");
     query = query + String.format("ORDER BY %s", getOrderString());
-    query =
-        query.replace(
-            TaskDao.TaskCriteria.activeAndVisible().toString(),
-            TaskDao.TaskCriteria.notDeleted().toString());
+    query = showHiddenAndCompleted(query);
 
     filter.setFilterQueryOverride(query);
   }
@@ -165,10 +164,7 @@ public class SubtasksFilterUpdater {
     Set<String> idsInQuery = new HashSet<>();
     String sql = filter.getSqlQuery().replaceAll("ORDER BY .*", ""); // $NON-NLS-1$//$NON-NLS-2$
     sql = sql + " ORDER BY created"; // $NON-NLS-1$
-    sql =
-        sql.replace(
-            TaskDao.TaskCriteria.activeAndVisible().toString(),
-            TaskDao.TaskCriteria.notDeleted().toString());
+    sql = showHiddenAndCompleted(sql);
     List<Task> tasks = taskDao.fetchFiltered(sql);
     for (Task task : tasks) {
       String id = task.getUuid();

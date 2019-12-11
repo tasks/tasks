@@ -259,39 +259,12 @@ public abstract class TaskDao {
   /** Generates SQL clauses */
   public static class TaskCriteria {
 
-    /** @return tasks that were not deleted */
-    public static Criterion notDeleted() {
-      return Task.DELETION_DATE.eq(0);
-    }
-
-    public static Criterion notCompleted() {
-      return Task.COMPLETION_DATE.eq(0);
-    }
-
-    public static Criterion includeCompleted() {
-      return Task.COMPLETION_DATE.gte(0);
-    }
-
     /** @return tasks that have not yet been completed or deleted */
     public static Criterion activeAndVisible() {
       return Criterion.and(
-          Task.COMPLETION_DATE.eq(0),
-          Task.DELETION_DATE.eq(0),
+          Task.COMPLETION_DATE.lte(0),
+          Task.DELETION_DATE.lte(0),
           Task.HIDE_UNTIL.lt(Functions.now()));
-    }
-
-    /** @return tasks that have not yet been completed or deleted */
-    public static Criterion isActive() {
-      return Criterion.and(Task.COMPLETION_DATE.eq(0), Task.DELETION_DATE.eq(0));
-    }
-
-    /** @return tasks that are not hidden at current time */
-    public static Criterion isVisible() {
-      return Task.HIDE_UNTIL.lt(Functions.now());
-    }
-
-    public static Criterion includeHidden() {
-      return Task.HIDE_UNTIL.gte(0);
     }
   }
 

@@ -73,7 +73,7 @@ public final class BuiltInFilterExposer {
     return new NoSubtasksFilter(
         r.getString(R.string.BFE_Recent),
         new QueryTemplate()
-            .where(TaskCriteria.notDeleted())
+            .where(Task.DELETION_DATE.lte(0))
             .orderBy(Order.desc(Task.MODIFICATION_DATE))
             .limit(15));
   }
@@ -86,8 +86,7 @@ public final class BuiltInFilterExposer {
                 Criterion.and(
                     Criterion.not(
                         Task.UUID.in(Query.select(Field.field("task_uid")).from(Tag.TABLE))),
-                    TaskCriteria.isActive(),
-                    TaskCriteria.isVisible())));
+                    TaskCriteria.activeAndVisible())));
   }
 
   public static boolean isInbox(Context context, Filter filter) {

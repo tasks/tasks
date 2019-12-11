@@ -1,5 +1,7 @@
 package com.todoroo.astrid.subtasks;
 
+import static org.tasks.db.QueryUtils.showHidden;
+
 import android.content.Context;
 import android.text.TextUtils;
 import com.todoroo.astrid.api.Filter;
@@ -146,10 +148,7 @@ public class SubtasksHelper {
 
         query = query.replaceAll("ORDER BY .*", "");
         query = query + String.format(" ORDER BY %s", getOrderString(tagData, tlm));
-        query =
-            query.replace(
-                TaskCriteria.isVisible().toString(),
-                TaskCriteria.includeHidden().toString());
+        query = showHidden(query);
       }
 
       filter.setFilterQueryOverride(query);

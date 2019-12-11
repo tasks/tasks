@@ -6,9 +6,9 @@
 
 package com.todoroo.astrid.core;
 
-import static com.todoroo.astrid.dao.TaskDao.TaskCriteria.includeCompleted;
-import static com.todoroo.astrid.dao.TaskDao.TaskCriteria.includeHidden;
-import static com.todoroo.astrid.dao.TaskDao.TaskCriteria.isVisible;
+import static org.tasks.db.QueryUtils.showCompleted;
+import static org.tasks.db.QueryUtils.showHidden;
+import static org.tasks.db.QueryUtils.showRecentlyCompleted;
 
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
@@ -59,20 +59,12 @@ public class SortHelper {
 
     // flags
     if (preferences.getBoolean(R.string.p_show_completed_tasks, false)) {
-      adjustedSql =
-          adjustedSql.replace(
-              Task.COMPLETION_DATE.eq(0).toString(), includeCompleted().toString());
+      adjustedSql = showCompleted(adjustedSql);
     } else if (preferences.getBoolean(R.string.p_temporarily_show_completed_tasks, false)) {
-      adjustedSql =
-          adjustedSql.replace(
-              Task.COMPLETION_DATE.eq(0).toString(),
-              Criterion.or(
-                      Task.COMPLETION_DATE.lte(0),
-                      Task.COMPLETION_DATE.gt(DateUtilities.now() - 60000))
-                  .toString());
+      adjustedSql = showRecentlyCompleted(adjustedSql);
     }
     if (preferences.getBoolean(R.string.p_show_hidden_tasks, false)) {
-      adjustedSql = adjustedSql.replace(isVisible().toString(), includeHidden().toString());
+      adjustedSql = showHidden(adjustedSql);
     }
 
     return adjustedSql;
