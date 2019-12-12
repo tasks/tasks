@@ -549,4 +549,9 @@
     </plurals>
     <string name="expand_subtasks">Deeltaken uitklappen</string>
     <string name="collapse_subtasks">Deeltaken inklappen</string>
+    <string name="TEA_add_subtask">Deeltaak toevoegen</string>
+    <string name="subtasks">Deeltaken</string>
+    <string name="subtasks_enable_synchronization">Zet synchronisatie aan om deeltaken toe te voegen</string>
+    <string name="subtasks_multilevel_google_task">Deeltaken met meerdere niveau\'s worden niet ondersteund door Google Taken</string>
+    <string name="enter_title_hint">Voer titel in</string>
 </resources>
