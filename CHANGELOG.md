@@ -1,5 +1,20 @@
 Change Log
 ---
+### 7.4 (2019-12-16)
+
+* Add Google Task and CalDAV subtasks from the edit screen
+* 'Recently modified' shows all modifications in past 24 hours
+* Fix duplicated multi-level subtask count
+* Increase checkbox touch target
+* Naturally order lists and filters
+* Update translations
+  * Basque - Osoitz
+  * Dutch - @fvbommel
+  * German - Martin
+  * Hungarian - kaciokos
+  * Norwegian Bokmål - @comradekingu
+  * Simplified Chinese - @sr093906
+
 ### 7.3.2 (2019-12-12)
 
 * Fix slow query for subtasks
