@@ -5,7 +5,6 @@ import android.os.Parcelable;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 import org.tasks.time.DateTime;
 
@@ -39,7 +38,7 @@ public class RecentlyModifiedFilter extends Filter {
     return new QueryTemplate()
         .where(
             Criterion.and(
-                TaskCriteria.notDeleted(),
+                Task.DELETION_DATE.lte(0),
                 Task.MODIFICATION_DATE.gt(
                     new DateTime().minusDays(1).startOfMinute().getMillis())));
   }
