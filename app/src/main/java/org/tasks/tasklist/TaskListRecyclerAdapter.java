@@ -37,6 +37,8 @@ import org.tasks.intents.TaskIntents;
 public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
     implements ViewHolder.ViewHolderCallbacks, ListUpdateCallback {
 
+  private static final int LONG_LIST_SIZE = 500;
+
   private final TaskAdapter adapter;
   private final TaskListFragment taskList;
   private final RecyclerView recyclerView;
@@ -227,7 +229,9 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
     assertNotMainThread();
 
     DiffCallback cb = new DiffCallback(last.first, next, adapter);
-    DiffResult result = DiffUtil.calculateDiff(cb, true);
+    boolean shortList = next.size() < LONG_LIST_SIZE;
+    boolean calculateDiff = last.first.size() != next.size() || shortList;
+    DiffResult result = calculateDiff ? DiffUtil.calculateDiff(cb, shortList) : null;
 
     return Pair.create(next, result);
   }
@@ -248,7 +252,11 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
     Pair<List<TaskContainer>, DiffResult> update = updates.poll();
     while (update != null) {
       list = update.first;
-      update.second.dispatchUpdatesTo((ListUpdateCallback) this);
+      if (update.second == null) {
+        notifyDataSetChanged();
+      } else {
+        update.second.dispatchUpdatesTo((ListUpdateCallback) this);
+      }
       update = updates.poll();
     }
   }

@@ -1,9 +1,7 @@
 package com.todoroo.astrid.service;
 
-import static com.todoroo.andlib.sql.Criterion.all;
-import static com.todoroo.astrid.dao.TaskDao.TaskCriteria.isVisible;
-import static com.todoroo.astrid.dao.TaskDao.TaskCriteria.notCompleted;
-import static org.tasks.db.DbUtils.batch;
+import static org.tasks.db.DbUtils.collect;
+import static org.tasks.db.QueryUtils.showHiddenAndCompleted;
 
 import com.google.common.collect.ImmutableList;
 import com.todoroo.astrid.api.Filter;
@@ -67,13 +65,13 @@ public class TaskDeleter {
 
   public List<Task> markDeleted(List<Long> taskIds) {
     Set<Long> ids = new HashSet<>(taskIds);
-    batch(taskIds, i -> ids.addAll(googleTaskDao.getChildren(i)));
-    batch(taskIds, i -> ids.addAll(caldavDao.getChildren(i)));
+    ids.addAll(collect(taskIds, googleTaskDao::getChildren));
+    ids.addAll(collect(taskIds, caldavDao::getChildren));
     deletionDao.markDeleted(ids);
-    workManager.cleanup(taskIds);
+    workManager.cleanup(ids);
     workManager.sync(false);
     localBroadcastManager.broadcastRefresh();
-    return taskDao.fetch(taskIds);
+    return collect(ids, taskDao::fetch);
   }
 
   public void delete(Task task) {
@@ -89,13 +87,12 @@ public class TaskDeleter {
   public int clearCompleted(Filter filter) {
     List<Long> completed = new ArrayList<>();
     Filter deleteFilter = new Filter(null, null);
-    deleteFilter.setFilterQueryOverride(
-        filter
-            .getOriginalSqlQuery()
-            .replace(isVisible().toString(), all.toString())
-            .replace(notCompleted().toString(), all.toString()));
-    List<TaskContainer> tasks = taskDao.fetchTasks(
-        hasSubtasks -> TaskListViewModel.getQuery(preferences, deleteFilter, hasSubtasks));
+    deleteFilter.setFilterQueryOverride(showHiddenAndCompleted(filter.getOriginalSqlQuery()));
+    List<TaskContainer> tasks =
+        taskDao.fetchTasks(
+            (includeGoogleSubtasks, includeCaldavSubtasks) ->
+                TaskListViewModel.getQuery(
+                    preferences, deleteFilter, includeGoogleSubtasks, includeCaldavSubtasks));
     for (TaskContainer task : tasks) {
       if (task.isCompleted()) {
         completed.add(task.getId());

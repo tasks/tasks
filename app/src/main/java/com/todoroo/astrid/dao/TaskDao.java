@@ -136,9 +136,11 @@ public abstract class TaskDao {
   public abstract int clearCompletedCalendarEvents();
 
   @Transaction
-  public List<TaskContainer> fetchTasks(Function<Boolean, List<String>> getQueries) {
+  public List<TaskContainer> fetchTasks(QueryCallback callback) {
     long start = BuildConfig.DEBUG ? now() : 0;
-    List<String> queries = getQueries.apply(atLeastLollipop() && hasSubtasks());
+    boolean includeGoogleSubtasks = atLeastLollipop() && hasGoogleTaskSubtasks();
+    boolean includeCaldavSubtasks = atLeastLollipop() && hasCaldavSubtasks();
+    List<String> queries = callback.getQueries(includeGoogleSubtasks, includeCaldavSubtasks);
     SupportSQLiteDatabase db = database.getOpenHelper().getWritableDatabase();
     int last = queries.size() - 1;
     for (int i = 0 ; i < last ; i++) {
@@ -155,12 +157,11 @@ public abstract class TaskDao {
   @RawQuery
   abstract int count(SimpleSQLiteQuery query);
 
-  @Query(
-      "SELECT EXISTS("
-          + "SELECT 1 FROM google_tasks WHERE gt_parent > 0 AND gt_deleted = 0"
-          + " UNION ALL "
-          + "SELECT 1 FROM caldav_tasks WHERE cd_parent > 0 AND cd_deleted = 0);")
-  public abstract boolean hasSubtasks();
+  @Query("SELECT EXISTS(SELECT 1 FROM caldav_tasks WHERE cd_parent > 0 AND cd_deleted = 0)")
+  abstract boolean hasCaldavSubtasks();
+
+  @Query("SELECT EXISTS(SELECT 1 FROM google_tasks WHERE gt_parent > 0 AND gt_deleted = 0)")
+  abstract boolean hasGoogleTaskSubtasks();
 
   @Query("UPDATE tasks SET modified = datetime('now', 'localtime') WHERE _id in (:ids)")
   public abstract void touch(List<Long> ids);
@@ -258,31 +259,16 @@ public abstract class TaskDao {
   /** Generates SQL clauses */
   public static class TaskCriteria {
 
-    /** @return tasks that were not deleted */
-    public static Criterion notDeleted() {
-      return Task.DELETION_DATE.eq(0);
-    }
-
-    public static Criterion notCompleted() {
-      return Task.COMPLETION_DATE.eq(0);
-    }
-
     /** @return tasks that have not yet been completed or deleted */
     public static Criterion activeAndVisible() {
       return Criterion.and(
-          Task.COMPLETION_DATE.eq(0),
-          Task.DELETION_DATE.eq(0),
+          Task.COMPLETION_DATE.lte(0),
+          Task.DELETION_DATE.lte(0),
           Task.HIDE_UNTIL.lt(Functions.now()));
     }
+  }
 
-    /** @return tasks that have not yet been completed or deleted */
-    public static Criterion isActive() {
-      return Criterion.and(Task.COMPLETION_DATE.eq(0), Task.DELETION_DATE.eq(0));
-    }
-
-    /** @return tasks that are not hidden at current time */
-    public static Criterion isVisible() {
-      return Task.HIDE_UNTIL.lt(Functions.now());
-    }
+  public interface QueryCallback {
+    List<String> getQueries(boolean includeGoogleTaskSubtasks, boolean includeCaldavSubtasks);
   }
 }

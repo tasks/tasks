@@ -100,10 +100,15 @@ public class TaskListViewModel extends ViewModel {
     tasks.observe(owner, observer);
   }
 
-  public static List<String> getQuery(Preferences preferences, Filter filter, boolean subtasks) {
+  public static List<String> getQuery(
+      Preferences preferences,
+      Filter filter,
+      boolean includeGoogleTaskSubtasks,
+      boolean includeCaldavSubtasks) {
     List<Field> fields = newArrayList(TASKS, GTASK, CALDAV, GEOFENCE, PLACE);
 
-    if (subtasks && !(preferences.isManualSort() && filter.supportsManualSort())) {
+    if ((includeGoogleTaskSubtasks || includeCaldavSubtasks)
+        && !(preferences.isManualSort() && filter.supportsManualSort())) {
       String tagQuery =
           Query.select(field("group_concat(distinct(tag_uid))"))
                   .from(Tag.TABLE)
@@ -118,10 +123,12 @@ public class TaskListViewModel extends ViewModel {
               + Tag.TASK;
       fields.add(field("(" + tagQuery + ")").as("tags"));
       fields.add(INDENT);
-      fields.add(field("(SELECT count(distinct task) FROM recursive_tasks WHERE parent = tasks._id GROUP BY parent)").as("children"));
+      fields.add(CHILDREN);
 
-      String joinedQuery = Join.inner(RECURSIVE, Task.ID.eq(RECURSIVE_TASK)) + JOINS +
-          " WHERE recursive_tasks.hidden = 0";
+      String joinedQuery = Join.inner(RECURSIVE, Task.ID.eq(RECURSIVE_TASK))
+          + " LEFT JOIN (SELECT parent, count(recursive_tasks.task) AS children FROM recursive_tasks GROUP BY parent) AS recursive_children ON recursive_children.parent = tasks._id "
+          + JOINS;
+      String where = " WHERE recursive_tasks.hidden = 0";
       String parentQuery;
       QueryTemplate subtaskQuery = new QueryTemplate();
       if (filter instanceof CaldavFilter) {
@@ -144,8 +151,6 @@ public class TaskListViewModel extends ViewModel {
                 Join.inner(
                     CaldavTask.TABLE,
                     Criterion.and(
-                        CaldavTask.CALENDAR.eq(calendar.getUuid()),
-                        CaldavTask.PARENT.gt(0),
                         CaldavTask.TASK.eq(Task.ID),
                         CaldavTask.DELETED.eq(0))))
             .where(TaskCriteria.activeAndVisible());
@@ -169,37 +174,23 @@ public class TaskListViewModel extends ViewModel {
                 Join.inner(
                     GoogleTask.TABLE,
                     Criterion.and(
-                        GoogleTask.LIST.eq(list.getRemoteId()),
-                        GoogleTask.PARENT.gt(0),
                         GoogleTask.TASK.eq(Task.ID),
                         GoogleTask.DELETED.eq(0))))
             .where(TaskCriteria.activeAndVisible());
       } else {
         parentQuery = PermaSql.replacePlaceholdersForQuery(filter.getSqlQuery());
-        subtaskQuery
-            .join(
-                Join.left(
-                    GoogleTask.TABLE,
-                    Criterion.and(
-                        GoogleTask.PARENT.gt(0),
-                        GoogleTask.TASK.eq(Task.ID),
-                        GoogleTask.DELETED.eq(0))))
-            .join(
-                Join.left(
-                    CaldavTask.TABLE,
-                    Criterion.and(
-                        CaldavTask.PARENT.gt(0),
-                        CaldavTask.TASK.eq(Task.ID),
-                        CaldavTask.DELETED.eq(0))))
-            .join(
-                Join.inner(
-                    RECURSIVE,
-                    Criterion.or(
-                        GoogleTask.PARENT.eq(RECURSIVE_TASK),
-                        CaldavTask.PARENT.eq(RECURSIVE_TASK))))
-            .where(TaskCriteria.activeAndVisible());
-        joinedQuery += " AND indent = (select max(indent) from recursive_tasks where tasks._id = recursive_tasks.task) ";
+        if (includeGoogleTaskSubtasks && includeCaldavSubtasks) {
+          addGoogleAndCaldavSubtasks(subtaskQuery);
+        } else if (includeGoogleTaskSubtasks) {
+          addGoogleSubtasks(subtaskQuery);
+        } else {
+          addCaldavSubtasks(subtaskQuery);
+        }
+        subtaskQuery.where(TaskCriteria.activeAndVisible());
+        joinedQuery += " LEFT JOIN (SELECT task, max(indent) AS max_indent FROM recursive_tasks GROUP BY task) AS recursive_indents ON recursive_indents.task = tasks._id ";
+        where += " AND indent = max_indent ";
       }
+      joinedQuery += where;
 
       String sortSelect = SortHelper.orderSelectForSortTypeRecursive(preferences.getSortMode());
       String withClause = "CREATE TEMPORARY TABLE `recursive_tasks` AS\n"
@@ -266,6 +257,50 @@ public class TaskListViewModel extends ViewModel {
     }
   }
 
+  private static void addGoogleSubtasks(QueryTemplate subtaskQuery) {
+    subtaskQuery
+        .join(Join.inner(RECURSIVE, GoogleTask.PARENT.eq(RECURSIVE_TASK)))
+        .join(
+            Join.inner(
+                GoogleTask.TABLE,
+                Criterion.and(
+                    GoogleTask.TASK.eq(Task.ID),
+                    GoogleTask.DELETED.eq(0))));
+  }
+
+  private static void addCaldavSubtasks(QueryTemplate subtaskQuery) {
+    subtaskQuery
+        .join(Join.inner(RECURSIVE, CaldavTask.PARENT.eq(RECURSIVE_TASK)))
+        .join(
+            Join.inner(
+                CaldavTask.TABLE,
+                Criterion.and(
+                    CaldavTask.TASK.eq(Task.ID),
+                    CaldavTask.DELETED.eq(0))));
+  }
+
+  private static void addGoogleAndCaldavSubtasks(QueryTemplate subtaskQuery) {
+    subtaskQuery
+        .join(
+            Join.inner(
+                RECURSIVE,
+                Criterion.or(
+                    GoogleTask.PARENT.eq(RECURSIVE_TASK),
+                    CaldavTask.PARENT.eq(RECURSIVE_TASK))))
+        .join(
+            Join.left(
+                GoogleTask.TABLE,
+                Criterion.and(
+                    GoogleTask.TASK.eq(Task.ID),
+                    GoogleTask.DELETED.eq(0))))
+        .join(
+            Join.left(
+                CaldavTask.TABLE,
+                Criterion.and(
+                    CaldavTask.TASK.eq(Task.ID),
+                    CaldavTask.DELETED.eq(0))));
+  }
+
   public void searchByFilter(Filter filter) {
     this.filter = filter;
     invalidate();
@@ -279,7 +314,13 @@ public class TaskListViewModel extends ViewModel {
     disposable.add(
         Single.fromCallable(
                 () ->
-                    taskDao.fetchTasks(hasSubtasks -> getQuery(preferences, filter, hasSubtasks)))
+                    taskDao.fetchTasks(
+                        ((includeGoogleSubtasks, includeCaldavSubtasks) ->
+                            getQuery(
+                                preferences,
+                                filter,
+                                includeGoogleSubtasks,
+                                includeCaldavSubtasks))))
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(tasks::postValue, Timber::e));
