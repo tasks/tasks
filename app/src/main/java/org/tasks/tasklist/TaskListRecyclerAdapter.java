@@ -8,7 +8,7 @@ import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertNotMainThread;
 
 import android.graphics.Canvas;
-import android.view.View;
+import android.os.Parcelable;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,7 +17,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.DiffUtil.DiffResult;
 import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.ListUpdateCallback;
 import androidx.recyclerview.widget.RecyclerView;
 import com.todoroo.astrid.activity.TaskListFragment;
@@ -33,7 +32,6 @@ import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Queue;
 import org.tasks.data.TaskContainer;
 import org.tasks.intents.TaskIntents;
@@ -174,18 +172,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
 
   @Override
   public void onMoved(int fromPosition, int toPosition) {
-    LinearLayoutManager layoutManager =
-        (LinearLayoutManager) Objects.requireNonNull(recyclerView.getLayoutManager());
-    View firstChild = layoutManager.getChildAt(0);
-    int firstChildPosition = layoutManager.findFirstVisibleItemPosition();
-
     notifyItemMoved(fromPosition, toPosition);
-
-    if (firstChildPosition > 0 && firstChild != null) {
-      layoutManager.scrollToPositionWithOffset(firstChildPosition - 1, firstChild.getTop());
-    } else if (firstChildPosition >= 0) {
-      layoutManager.scrollToPosition(firstChildPosition);
-    }
   }
 
   @Override
@@ -198,9 +185,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
     assertNotMainThread();
 
     DiffCallback cb = new DiffCallback(last.first, next, adapter);
-    boolean shortList = next.size() < LONG_LIST_SIZE;
-    boolean calculateDiff = last.first.size() != next.size() || shortList;
-    DiffResult result = calculateDiff ? DiffUtil.calculateDiff(cb, shortList) : null;
+    DiffResult result = DiffUtil.calculateDiff(cb, next.size() < LONG_LIST_SIZE);
 
     return Pair.create(next, result);
   }
@@ -218,16 +203,16 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
   private void drainQueue() {
     assertMainThread();
 
+    Parcelable recyclerViewState = recyclerView.getLayoutManager().onSaveInstanceState();
+
     Pair<List<TaskContainer>, DiffResult> update = updates.poll();
     while (update != null) {
       list = update.first;
-      if (update.second == null) {
-        notifyDataSetChanged();
-      } else {
-        update.second.dispatchUpdatesTo((ListUpdateCallback) this);
-      }
+      update.second.dispatchUpdatesTo((ListUpdateCallback) this);
       update = updates.poll();
     }
+
+    recyclerView.getLayoutManager().onRestoreInstanceState(recyclerViewState);
   }
 
   @Override
