@@ -123,15 +123,15 @@ public class SortDialog extends InjectingDialogFragment {
   private void setSelection(boolean reverse) {
     preferences.setBoolean(R.string.p_reverse_sort, reverse);
 
-    final boolean isManual = manualEnabled && selectedIndex == 0;
-
+    boolean wasManual = preferences.isManualSort();
+    boolean isManual = manualEnabled && selectedIndex == 0;
     preferences.setBoolean(R.string.p_manual_sort, isManual);
 
     if (!isManual) {
       preferences.setSortMode(getSortMode(manualEnabled ? selectedIndex : selectedIndex + 1));
     }
 
-    callback.sortChanged();
+    callback.sortChanged(wasManual != isManual);
   }
 
   private int getIndex(int sortMode) {
@@ -177,6 +177,6 @@ public class SortDialog extends InjectingDialogFragment {
 
   public interface SortDialogCallback {
 
-    void sortChanged();
+    void sortChanged(boolean reload);
   }
 }

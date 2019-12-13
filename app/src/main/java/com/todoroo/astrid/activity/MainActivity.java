@@ -44,7 +44,6 @@ import org.tasks.BuildConfig;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.activities.TagSettingsActivity;
-import org.tasks.analytics.Tracker;
 import org.tasks.billing.Inventory;
 import org.tasks.dialogs.SortDialog;
 import org.tasks.fragments.CommentBarFragment;
@@ -63,7 +62,6 @@ import org.tasks.ui.NavigationDrawerFragment;
 import org.tasks.ui.PriorityControlSet;
 import org.tasks.ui.RemoteListFragment;
 import org.tasks.ui.TaskListViewModel;
-import org.tasks.ui.Toaster;
 
 public class MainActivity extends InjectingAppCompatActivity
     implements TaskListFragment.TaskListFragmentCallbackHandler,
@@ -90,12 +88,10 @@ public class MainActivity extends InjectingAppCompatActivity
   @Inject DefaultFilterProvider defaultFilterProvider;
   @Inject Theme theme;
   @Inject ThemeCache themeCache;
-  @Inject Tracker tracker;
   @Inject TaskDao taskDao;
   @Inject LocalBroadcastManager localBroadcastManager;
   @Inject TaskCreator taskCreator;
   @Inject PlayServices playServices;
-  @Inject Toaster toaster;
   @Inject Inventory inventory;
 
   @BindView(R.id.drawer_layout)
@@ -155,7 +151,7 @@ public class MainActivity extends InjectingAppCompatActivity
   }
 
   @Override
-  protected void onSaveInstanceState(Bundle outState) {
+  protected void onSaveInstanceState(@NonNull Bundle outState) {
     super.onSaveInstanceState(outState);
 
     outState.putParcelable(EXTRA_FILTER, filter);
@@ -474,9 +470,11 @@ public class MainActivity extends InjectingAppCompatActivity
   }
 
   @Override
-  public void sortChanged() {
+  public void sortChanged(boolean reload) {
     localBroadcastManager.broadcastRefresh();
-    openTaskListFragment(filter);
+    if (reload) {
+      openTaskListFragment(filter);
+    }
   }
 
   @Override
