@@ -126,7 +126,7 @@ public class TaskListViewModel extends ViewModel {
       fields.add(CHILDREN);
 
       String joinedQuery = Join.inner(RECURSIVE, Task.ID.eq(RECURSIVE_TASK))
-          + " LEFT JOIN (SELECT parent, count(recursive_tasks.task) AS children FROM recursive_tasks GROUP BY parent) AS recursive_children ON recursive_children.parent = tasks._id "
+          + " LEFT JOIN (SELECT parent, count(distinct recursive_tasks.task) AS children FROM recursive_tasks GROUP BY parent) AS recursive_children ON recursive_children.parent = tasks._id "
           + JOINS;
       String where = " WHERE recursive_tasks.hidden = 0";
       String parentQuery;
