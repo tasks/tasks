@@ -1,13 +1,17 @@
 package org.tasks.tasklist;
 
+import static androidx.recyclerview.widget.ItemTouchHelper.DOWN;
+import static androidx.recyclerview.widget.ItemTouchHelper.LEFT;
+import static androidx.recyclerview.widget.ItemTouchHelper.RIGHT;
+import static androidx.recyclerview.widget.ItemTouchHelper.UP;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertNotMainThread;
 
+import android.graphics.Canvas;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.view.ActionMode;
 import androidx.core.util.Pair;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.DiffUtil;
@@ -33,9 +37,10 @@ import java.util.Objects;
 import java.util.Queue;
 import org.tasks.data.TaskContainer;
 import org.tasks.intents.TaskIntents;
+import org.tasks.tasklist.ViewHolder.ViewHolderCallbacks;
 
 public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
-    implements ViewHolder.ViewHolderCallbacks, ListUpdateCallback {
+    implements ViewHolderCallbacks, ListUpdateCallback {
 
   private static final int LONG_LIST_SIZE = 500;
 
@@ -43,36 +48,31 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
   private final TaskListFragment taskList;
   private final RecyclerView recyclerView;
   private final ViewHolderFactory viewHolderFactory;
-  private final ActionModeProvider actionModeProvider;
   private final boolean isRemoteList;
-  private final ItemTouchHelperCallback itemTouchHelperCallback;
   private final TaskDao taskDao;
-  private ActionMode mode = null;
   private List<TaskContainer> list;
   private PublishSubject<List<TaskContainer>> publishSubject = PublishSubject.create();
   private CompositeDisposable disposables = new CompositeDisposable();
   private Queue<Pair<List<TaskContainer>, DiffResult>> updates = new LinkedList<>();
+  private boolean dragging;
 
   public TaskListRecyclerAdapter(
       TaskAdapter adapter,
       RecyclerView recyclerView,
       ViewHolderFactory viewHolderFactory,
       TaskListFragment taskList,
-      ActionModeProvider actionModeProvider,
       List<TaskContainer> list,
       TaskDao taskDao) {
     this.adapter = adapter;
     this.recyclerView = recyclerView;
     this.viewHolderFactory = viewHolderFactory;
     this.taskList = taskList;
-    this.actionModeProvider = actionModeProvider;
     isRemoteList =
         taskList.getFilter() instanceof GtasksFilter
             || taskList.getFilter() instanceof CaldavFilter;
     this.list = list;
-    itemTouchHelperCallback = new ItemTouchHelperCallback(adapter, this, this::drainQueue);
     this.taskDao = taskDao;
-    new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
+    new ItemTouchHelper(new ItemTouchHelperCallback()).attachToRecyclerView(recyclerView);
     Pair<List<TaskContainer>, DiffResult> initial = Pair.create(list, null);
     disposables.add(
         publishSubject
@@ -110,16 +110,16 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
 
   @Override
   public void onClick(ViewHolder viewHolder) {
-    if (mode == null) {
-      taskList.onTaskListItemClicked(viewHolder.task.getTask());
-    } else {
+    if (taskList.isActionModeActive()) {
       toggle(viewHolder);
+    } else {
+      taskList.onTaskListItemClicked(viewHolder.task.getTask());
     }
   }
 
   @Override
   public void onClick(Filter filter) {
-    if (mode == null) {
+    if (!taskList.isActionModeActive()) {
       FragmentActivity context = taskList.getActivity();
       if (context != null) {
         context.startActivity(TaskIntents.getTaskListIntent(context, filter));
@@ -130,9 +130,9 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
   @Override
   public boolean onLongPress(ViewHolder viewHolder) {
     if (!adapter.supportsParentingOrManualSort()) {
-      startActionMode();
+      taskList.startActionMode();
     }
-    if (mode != null && !viewHolder.isMoving()) {
+    if (taskList.isActionModeActive() && !viewHolder.isMoving()) {
       toggle(viewHolder);
     }
     return true;
@@ -144,45 +144,14 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
     taskList.broadcastRefresh();
   }
 
-  public void startActionMode() {
-    if (mode == null) {
-      mode = actionModeProvider.startActionMode(adapter, taskList, this);
-      updateModeTitle();
-      if (adapter.supportsParentingOrManualSort()) {
-        Flags.set(Flags.TLFP_NO_INTERCEPT_TOUCH);
-      }
-    }
-  }
-
-  void toggle(ViewHolder viewHolder) {
+  private void toggle(ViewHolder viewHolder) {
     adapter.toggleSelection(viewHolder.task);
     notifyItemChanged(viewHolder.getAdapterPosition());
     if (adapter.getSelected().isEmpty()) {
-      finishActionMode();
+      taskList.finishActionMode();
     } else {
-      updateModeTitle();
+      taskList.updateModeTitle();
     }
-  }
-
-  private void updateModeTitle() {
-    if (mode != null) {
-      int count = Math.max(1, adapter.getNumSelected());
-      mode.setTitle(Integer.toString(count));
-    }
-  }
-
-  public void finishActionMode() {
-    if (mode != null) {
-      mode.finish();
-    }
-  }
-
-  boolean isActionModeActive() {
-    return mode != null;
-  }
-
-  void onDestroyActionMode() {
-    mode = null;
   }
 
   public TaskContainer getItem(int position) {
@@ -241,7 +210,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
 
     updates.add(update);
 
-    if (!itemTouchHelperCallback.isDragging()) {
+    if (!dragging) {
       drainQueue();
     }
   }
@@ -271,10 +240,149 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
     return list.size();
   }
 
-  void moved(int from, int to, int indent) {
-    adapter.moved(from, to, indent);
-    TaskContainer task = list.remove(from);
-    list.add(from < to ? to - 1 : to, task);
-    taskList.loadTaskListContent();
+  private class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
+    private int from = -1;
+    private int to = -1;
+
+    @Override
+    public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
+      super.onSelectedChanged(viewHolder, actionState);
+      if (actionState == ItemTouchHelper.ACTION_STATE_DRAG) {
+        taskList.startActionMode();
+        ((ViewHolder) viewHolder).setMoving(true);
+        dragging = true;
+        int position = viewHolder.getAdapterPosition();
+        updateIndents((ViewHolder) viewHolder, position, position);
+      }
+    }
+
+    @Override
+    public int getMovementFlags(
+        @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+      return adapter.supportsParentingOrManualSort() && adapter.getNumSelected() == 0
+          ? makeMovementFlags(UP | DOWN | LEFT | RIGHT, 0)
+          : makeMovementFlags(0, 0);
+    }
+
+    @Override
+    public boolean onMove(
+        @NonNull RecyclerView recyclerView,
+        @NonNull RecyclerView.ViewHolder src,
+        @NonNull RecyclerView.ViewHolder target) {
+      taskList.finishActionMode();
+      int fromPosition = src.getAdapterPosition();
+      int toPosition = target.getAdapterPosition();
+      ViewHolder source = (ViewHolder) src;
+      if (!adapter.canMove(source, (ViewHolder) target)) {
+        return false;
+      }
+      if (from == -1) {
+        source.setSelected(false);
+        from = fromPosition;
+      }
+      to = toPosition;
+      notifyItemMoved(fromPosition, toPosition);
+      updateIndents(source, from, to);
+      return true;
+    }
+
+    private void updateIndents(ViewHolder source, int from, int to) {
+      TaskContainer task = source.task;
+      source.setMinIndent(
+          to == 0 || to == getItemCount() - 1
+              ? 0
+              : adapter.minIndent(from <= to ? to + 1 : to, task));
+      source.setMaxIndent(to == 0 ? 0 : adapter.maxIndent(from >= to ? to - 1 : to, task));
+    }
+
+    @Override
+    public void onChildDraw(
+        @NonNull Canvas c,
+        @NonNull RecyclerView recyclerView,
+        @NonNull RecyclerView.ViewHolder viewHolder,
+        float dX,
+        float dY,
+        int actionState,
+        boolean isCurrentlyActive) {
+      ViewHolder vh = (ViewHolder) viewHolder;
+      TaskContainer task = vh.task;
+      float shiftSize = vh.getShiftSize();
+      if (actionState == ItemTouchHelper.ACTION_STATE_DRAG) {
+        int currentIndent = ((ViewHolder) viewHolder).getIndent();
+        int maxIndent = vh.getMaxIndent();
+        int minIndent = vh.getMinIndent();
+        if (isCurrentlyActive) {
+          float dxAdjusted;
+          if (dX > 0) {
+            dxAdjusted = Math.min(dX, (maxIndent - currentIndent) * shiftSize);
+          } else {
+            dxAdjusted = Math.max((currentIndent - minIndent) * -shiftSize, dX);
+          }
+
+          int targetIndent = currentIndent + Float.valueOf(dxAdjusted / shiftSize).intValue();
+
+          if (targetIndent != task.getIndent()) {
+            if (from == -1) {
+              taskList.finishActionMode();
+              vh.setSelected(false);
+            }
+          }
+          if (targetIndent < minIndent) {
+            task.setTargetIndent(minIndent);
+          } else if (targetIndent > maxIndent) {
+            task.setTargetIndent(maxIndent);
+          } else {
+            task.setTargetIndent(targetIndent);
+          }
+        }
+
+        dX = (task.getTargetIndent() - task.getIndent()) * shiftSize;
+      }
+      super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+    }
+
+    @Override
+    public void clearView(
+        @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+      super.clearView(recyclerView, viewHolder);
+      ViewHolder vh = (ViewHolder) viewHolder;
+      vh.setMoving(false);
+      dragging = false;
+      drainQueue();
+      if (taskList.isActionModeActive()) {
+        toggle(vh);
+      } else {
+        TaskContainer task = vh.task;
+        int targetIndent = task.getTargetIndent();
+        if (from >= 0 && from != to) {
+          if (from < to) {
+            to++;
+          }
+          vh.task.setIndent(targetIndent);
+          vh.setIndent(targetIndent);
+          moved(from, to, targetIndent);
+        } else if (task.getIndent() != targetIndent) {
+          int position = vh.getAdapterPosition();
+          vh.task.setIndent(targetIndent);
+          vh.setIndent(targetIndent);
+          moved(position, position, targetIndent);
+        }
+      }
+      from = -1;
+      to = -1;
+      Flags.checkAndClear(Flags.TLFP_NO_INTERCEPT_TOUCH);
+    }
+
+    @Override
+    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+      throw new UnsupportedOperationException();
+    }
+
+    private void moved(int from, int to, int indent) {
+      adapter.moved(from, to, indent);
+      TaskContainer task = list.remove(from);
+      list.add(from < to ? to - 1 : to, task);
+      taskList.loadTaskListContent();
+    }
   }
 }

@@ -9,6 +9,7 @@ package com.todoroo.astrid.activity;
 import static android.app.Activity.RESULT_OK;
 import static androidx.core.content.ContextCompat.getColor;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
+import static org.tasks.activities.RemoteListSupportPicker.newRemoteListSupportPicker;
 import static org.tasks.caldav.CaldavCalendarSettingsActivity.EXTRA_CALDAV_CALENDAR;
 import static org.tasks.ui.CheckBoxes.getPriorityColor;
 
@@ -20,12 +21,16 @@ import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MenuItem.OnActionExpandListener;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ActionMode;
+import androidx.appcompat.view.ActionMode.Callback;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.SearchView.OnQueryTextListener;
 import androidx.appcompat.widget.Toolbar;
@@ -54,8 +59,10 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskDeleter;
+import com.todoroo.astrid.service.TaskDuplicator;
 import com.todoroo.astrid.service.TaskMover;
 import com.todoroo.astrid.timers.TimerPlugin;
+import com.todoroo.astrid.utility.Flags;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -83,7 +90,6 @@ import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.Device;
 import org.tasks.preferences.Preferences;
 import org.tasks.sync.SyncAdapters;
-import org.tasks.tasklist.ActionModeProvider;
 import org.tasks.tasklist.TaskListRecyclerAdapter;
 import org.tasks.tasklist.ViewHolderFactory;
 import org.tasks.ui.MenuColorizer;
@@ -94,21 +100,23 @@ public final class TaskListFragment extends InjectingFragment
     implements OnRefreshListener,
         OnMenuItemClickListener,
         OnActionExpandListener,
-        OnQueryTextListener {
+        OnQueryTextListener,
+        Callback {
 
   public static final String TAGS_METADATA_JOIN = "for_tags"; // $NON-NLS-1$
   public static final String GTASK_METADATA_JOIN = "googletask"; // $NON-NLS-1$
   public static final String CALDAV_METADATA_JOIN = "for_caldav"; // $NON-NLS-1$
   public static final String ACTION_RELOAD = "action_reload";
   public static final String ACTION_DELETED = "action_deleted";
-  public static final int REQUEST_MOVE_TASKS = 10103;
   private static final String EXTRA_SELECTED_TASK_IDS = "extra_selected_task_ids";
   private static final String EXTRA_SEARCH = "extra_search";
   private static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
   private static final String EXTRA_FILTER = "extra_filter";
+  private static final String FRAG_TAG_REMOTE_LIST_PICKER = "frag_tag_remote_list_picker";
   private static final String FRAG_TAG_SORT_DIALOG = "frag_tag_sort_dialog";
   private static final int REQUEST_CALDAV_SETTINGS = 10101;
   private static final int REQUEST_GTASK_SETTINGS = 10102;
+  private static final int REQUEST_MOVE_TASKS = 10103;
   private static final int REQUEST_FILTER_SETTINGS = 10104;
   private static final int REQUEST_TAG_SETTINGS = 10105;
 
@@ -127,10 +135,10 @@ public final class TaskListFragment extends InjectingFragment
   @Inject LocalBroadcastManager localBroadcastManager;
   @Inject Device device;
   @Inject TaskMover taskMover;
-  @Inject ActionModeProvider actionModeProvider;
   @Inject Toaster toaster;
   @Inject TaskAdapterProvider taskAdapterProvider;
   @Inject TaskDao taskDao;
+  @Inject TaskDuplicator taskDuplicator;
 
   @BindView(R.id.swipe_layout)
   SwipeRefreshLayout swipeRefreshLayout;
@@ -155,6 +163,7 @@ public final class TaskListFragment extends InjectingFragment
   private Disposable searchDisposable;
   private MenuItem search;
   private String searchQuery;
+  private ActionMode mode = null;
 
   private TaskListFragmentCallbackHandler callbacks;
 
@@ -205,7 +214,7 @@ public final class TaskListFragment extends InjectingFragment
       long[] longArray = savedInstanceState.getLongArray(EXTRA_SELECTED_TASK_IDS);
       if (longArray != null && longArray.length > 0) {
         taskAdapter.setSelected(longArray);
-        recyclerAdapter.startActionMode();
+        startActionMode();
       }
     }
   }
@@ -260,7 +269,6 @@ public final class TaskListFragment extends InjectingFragment
             recyclerView,
             viewHolderFactory,
             this,
-            actionModeProvider,
             taskListViewModel.getValue(),
             taskDao);
     taskAdapter.setHelper(recyclerAdapter);
@@ -547,7 +555,7 @@ public final class TaskListFragment extends InjectingFragment
           taskMover.move(
               taskAdapter.getSelected(),
               data.getParcelableExtra(RemoteListSupportPicker.EXTRA_SELECTED_FILTER));
-          recyclerAdapter.finishActionMode();
+          finishActionMode();
         }
         break;
       case REQUEST_FILTER_SETTINGS:
@@ -620,6 +628,61 @@ public final class TaskListFragment extends InjectingFragment
     localBroadcastManager.broadcastRefresh();
   }
 
+  @Override
+  public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
+    MenuInflater inflater = actionMode.getMenuInflater();
+    inflater.inflate(R.menu.menu_multi_select, menu);
+    MenuColorizer.colorMenu(context, menu);
+    return true;
+  }
+
+  @Override
+  public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+    return false;
+  }
+
+  @Override
+  public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+    switch (item.getItemId()) {
+      case R.id.move_tasks:
+        Filter singleFilter = taskMover.getSingleFilter(taskAdapter.getSelected());
+        (singleFilter == null
+                ? newRemoteListSupportPicker(this, REQUEST_MOVE_TASKS)
+                : newRemoteListSupportPicker(singleFilter, this, REQUEST_MOVE_TASKS))
+            .show(getFragmentManager(), FRAG_TAG_REMOTE_LIST_PICKER);
+        return true;
+      case R.id.delete:
+        dialogBuilder
+            .newDialog(R.string.delete_selected_tasks)
+            .setPositiveButton(
+                android.R.string.ok,
+                (dialogInterface, i) -> deleteSelectedItems(taskAdapter.getSelected()))
+            .setNegativeButton(android.R.string.cancel, null)
+            .show();
+        return true;
+      case R.id.copy_tasks:
+        dialogBuilder
+            .newDialog(R.string.copy_selected_tasks)
+            .setPositiveButton(
+                android.R.string.ok,
+                ((dialogInterface, i) -> copySelectedItems(taskAdapter.getSelected())))
+            .setNegativeButton(android.R.string.cancel, null)
+            .show();
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  @Override
+  public void onDestroyActionMode(ActionMode mode) {
+    this.mode = null;
+    if (taskAdapter.getNumSelected() > 0) {
+      taskAdapter.clearSelections();
+      recyclerAdapter.notifyDataSetChanged();
+    }
+  }
+
   public interface TaskListFragmentCallbackHandler {
     void onTaskListItemClicked(Task task);
 
@@ -631,5 +694,54 @@ public final class TaskListFragment extends InjectingFragment
     public void onReceive(Context context, Intent intent) {
       refresh();
     }
+  }
+
+  public boolean isActionModeActive() {
+    return mode != null;
+  }
+
+  public void startActionMode() {
+    if (mode == null) {
+      mode = ((AppCompatActivity) getActivity()).startSupportActionMode(this);
+      updateModeTitle();
+      if (taskAdapter.supportsParentingOrManualSort()) {
+        Flags.set(Flags.TLFP_NO_INTERCEPT_TOUCH);
+      }
+    }
+  }
+
+  public void finishActionMode() {
+    if (mode != null) {
+      mode.finish();
+    }
+  }
+
+  public void updateModeTitle() {
+    if (mode != null) {
+      int count = Math.max(1, taskAdapter.getNumSelected());
+      mode.setTitle(Integer.toString(count));
+    }
+  }
+
+  private void deleteSelectedItems(List<Long> tasks) {
+    finishActionMode();
+    List<Task> result = taskDeleter.markDeleted(tasks);
+    for (Task task : result) {
+      onTaskDelete(task);
+    }
+    makeSnackbar(
+            context.getString(
+                R.string.delete_multiple_tasks_confirmation, Integer.toString(result.size())))
+        .show();
+  }
+
+  private void copySelectedItems(List<Long> tasks) {
+    finishActionMode();
+    List<Task> duplicates = taskDuplicator.duplicate(tasks);
+    onTaskCreated(duplicates);
+    makeSnackbar(
+            context.getString(
+                R.string.copy_multiple_tasks_confirmation, Integer.toString(duplicates.size())))
+        .show();
   }
 }
