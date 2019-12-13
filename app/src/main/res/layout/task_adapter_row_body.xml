@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/rowBody"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:background="?attr/selectableItemBackground"
   android:clickable="true"
-  android:focusable="true"
-  android:orientation="vertical">
-
-  <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+  android:focusable="true">
 
     <com.todoroo.astrid.ui.CheckableImageView
       android:id="@+id/completeBox"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_alignParentTop="true"
       android:layout_alignParentLeft="true"
       android:layout_alignParentStart="true"
       android:paddingStart="@dimen/keyline_first"
@@ -73,12 +69,11 @@
       android:textColor="?android:attr/textColorPrimary"
       android:textSize="@dimen/task_edit_text_size"/>
 
-  </RelativeLayout>
-
   <TextView
     android:id="@+id/description"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_below="@id/title"
     android:layout_marginTop="@dimen/task_list_item_spacing"
     android:paddingStart="@dimen/keyline_content_inset"
     android:paddingEnd="@dimen/keyline_first"
@@ -94,6 +89,7 @@
 
   <com.google.android.material.chip.ChipGroup
     android:id="@+id/chip_group"
+    android:layout_below="@id/description"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/task_list_item_spacing"
@@ -105,4 +101,4 @@
     app:chipSpacingHorizontal="@dimen/chip_spacing"
     app:chipSpacingVertical="@dimen/chip_spacing"/>
 
-</LinearLayout>
+</RelativeLayout>
