@@ -31,7 +31,7 @@
     <string name="TAd_actionEditTask">Editatu</string>
     <string name="action_call">Deitu</string>
     <string name="action_open">Ireki</string>
-  <string name="SSD_sort_auto">Ordenatze adimentsua</string>
+    <string name="SSD_sort_auto">Ordenatze adimentsua</string>
     <string name="SSD_sort_alpha">Izenburuaren arabera</string>
     <string name="SSD_sort_due">Epemugaren arabera</string>
     <string name="SSD_sort_importance">Lehentasunaren arabera</string>
@@ -544,4 +544,21 @@
     <string name="name_your_price">Jarri zuk prezioa</string>
     <string name="monthly">Hilero</string>
     <string name="annually">Urtero</string>
+    <string name="error_adding_account">Errorea: %s</string>
+    <string name="SSD_sort_my_order">Nire eskaria</string>
+    <string name="caldav_account_repeating_tasks">Utzi zerbitzariari egiteko errepikakorrak programatzea</string>
+    <string name="EPr_temp_show_completed_tasks">Une batez egitekoak erakutsi burututakoan</string>
+    <string name="EPr_temp_completed_tasks_showing">Egitekoak une batez zerrendan ikusgai geratuko dira burutu eta gero</string>
+    <string name="EPr_temp_completed_tasks_not_showing">Egitekoak berehala desagertuko dira zerrendatik behin burututa</string>
+    <plurals name="subtask_count">
+        <item quantity="one">azpi-egiteko %d</item>
+        <item quantity="other">%d azpi-egiteko</item>
+    </plurals>
+    <string name="expand_subtasks">Hedatu azpi-egitekoak</string>
+    <string name="collapse_subtasks">Tolestu azpi-egitekoak</string>
+    <string name="TEA_add_subtask">Gehitu azpi-egitekoa</string>
+    <string name="subtasks">Azpi-egitekoak</string>
+    <string name="subtasks_enable_synchronization">Gaitu sinkronizazioa azpi-egitekoak gehitzeko</string>
+    <string name="subtasks_multilevel_google_task">Google Tasks-ek ez ditu hainbat mailako azpi-egitekoak onartzen</string>
+    <string name="enter_title_hint">Sartu izenburua</string>
 </resources>
