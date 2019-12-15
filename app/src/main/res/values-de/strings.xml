@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
-<resources>
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos--><resources>
     <string name="actfm_picture_clear">Bild entfernen</string>
     <string name="TVA_add_comment">Kommentar hinzufügen …</string>
     <string name="enter_filter_name">Filtername eingeben</string>
@@ -25,12 +24,12 @@
     <string name="TAd_actionEditTask">Bearbeiten</string>
     <string name="action_call">Anrufen</string>
     <string name="action_open">Öffnen</string>
-  <string name="SSD_sort_auto">Smarte Sortierung</string>
+    <string name="SSD_sort_auto">Smarte Sortierung</string>
     <string name="SSD_sort_alpha">Nach Titel</string>
     <string name="SSD_sort_due">Nach Fälligkeit</string>
     <string name="SSD_sort_importance">Nach Priorität</string>
     <string name="SSD_sort_modified">Nach letzter Änderung</string>
-    <string name="FLA_search_filter">Übereinstimmung mit %s</string>
+    <string name="FLA_search_filter">Suche nach \'%s\'</string>
     <string name="FLA_new_filter">Neuen Filter erstellen</string>
     <string name="TEA_title_hint">Aufgabenname</string>
     <string name="TEA_importance_label">Priorität</string>
@@ -464,7 +463,7 @@
     <string name="caldav_home_set_not_found">CalDAV-Home-Set nicht gefunden</string>
     <string name="network_error">Verbindung fehlgeschlagen</string>
     <string name="background_sync_unmetered_only">Nur bei unbeschränkter Verbindung</string>
-  <string name="upgrade_to_pro">Pro-Funktionen freischalten</string>
+    <string name="upgrade_to_pro">Pro-Funktionen freischalten</string>
     <string name="manage_subscription">Abonnements verwalten</string>
     <string name="refresh_purchases">Einkäufe aktualisieren</string>
     <string name="button_subscribe">Abonnieren</string>
@@ -473,7 +472,7 @@
     <string name="error_billing_default">Abrechnung nicht verfügbar. Bitte überprüfe dein Gerät.</string>
     <string name="about">Über</string>
     <string name="license_summary">Tasks ist freie, quelloffene Software, die unter der GNU General Public License v3.0 lizenziert ist</string>
-    <string name="themes">Zusätzliche Themes</string>
+    <string name="themes">Zusätzliche Themen und Symbole</string>
     <string name="pro_caldav_sync">CalDAV-Synchronisierung</string>
     <string name="pro_multiple_google_task_accounts">Mehrere Google-Tasks-Konten</string>
     <string name="pro_google_places_search">Google-Ortssuche</string>
@@ -525,4 +524,34 @@
     <string name="url">URL</string>
     <string name="list_separator_with_space">", "</string>
     <string name="version_string">Version %s</string>
+    <string name="error_adding_account">Fehler: %s</string>
+    <string name="icon">Symbol</string>
+    <string name="pro_support_development">Tasks braucht deine Unterstützung!</string>
+    <string name="manage_subscription_summary">Abonnement hoch-/herabstufen oder kündigen</string>
+    <string name="button_current_subscription">Aktuelles Abonnement</string>
+    <string name="button_restore_subscription">Abonnement wiederherstellen</string>
+    <string name="button_downgrade">Abonnement herabstufen</string>
+    <string name="button_upgrade">Abonnement hochstufen</string>
+    <string name="button_unsubscribe">Abonnement kündigen</string>
+    <string name="pro_description">Tasks ist freie, quelloffene Software, die weder Werbung enthält, noch deine persönlichen Daten verkauft</string>
+    <string name="pro_subscribe_now">Abonniere jetzt, um die Entwicklung zu unterstützen und zusätzliche Funktionen freizuschalten</string>
+    <string name="name_your_price">Nenne deinen Preis</string>
+    <string name="monthly">monatlich</string>
+    <string name="annually">jährlich</string>
+    <string name="SSD_sort_my_order">Manuelle Sortierung</string>
+    <string name="caldav_account_repeating_tasks">Planung wiederkehrender Aufgaben durch den Server</string>
+    <string name="EPr_temp_show_completed_tasks">Aufgaben nach Erledigung temporär anzeigen</string>
+    <string name="EPr_temp_completed_tasks_showing">Aufgaben bleiben nach Erledigung temporär sichtbar</string>
+    <string name="EPr_temp_completed_tasks_not_showing">Aufgaben verschwinden sofort nach Erledigung</string>
+    <plurals name="subtask_count">
+        <item quantity="one">%d Unteraufgabe</item>
+        <item quantity="other">%d Unteraufgaben</item>
+    </plurals>
+    <string name="expand_subtasks">Unteraufgaben ausklappen</string>
+    <string name="collapse_subtasks">Unteraufgaben einklappen</string>
+    <string name="TEA_add_subtask">Unteraufgabe hinzufügen</string>
+    <string name="subtasks">Unteraufgaben</string>
+    <string name="subtasks_enable_synchronization">Synchronisation aktivieren, um Unteraufgaben hinzuzufügen</string>
+    <string name="subtasks_multilevel_google_task">Mehrere Unteraufgaben-Ebenen werden von Google Tasks nicht unterstützt</string>
+    <string name="enter_title_hint">Titel eingeben</string>
 </resources>
