@@ -556,4 +556,5 @@
     </plurals>
     <string name="expand_subtasks">Utvid underoppgaver</string>
     <string name="collapse_subtasks">Fold sammen underoppgaver</string>
+    <string name="enter_title_hint">Skriv inn tittel</string>
 </resources>
