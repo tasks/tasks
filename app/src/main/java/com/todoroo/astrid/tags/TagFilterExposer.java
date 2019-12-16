@@ -6,16 +6,19 @@
 
 package com.todoroo.astrid.tags;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.utility.DateUtilities.now;
 
 import com.google.common.base.Strings;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.TagFilter;
+import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
+import org.tasks.filters.AlphanumComparator;
 import org.tasks.filters.TagFilters;
 
 /**
@@ -41,7 +44,10 @@ public class TagFilterExposer {
   }
 
   public List<Filter> getFilters() {
-    return transform(tagDataDao.getTagFilters(now()), TagFilters::toTagFilter);
+    List<Filter> tags =
+        newArrayList(transform(tagDataDao.getTagFilters(now()), TagFilters::toTagFilter));
+    Collections.sort(tags, new AlphanumComparator());
+    return tags;
   }
 
   public Filter getFilterByUuid(String uuid) {

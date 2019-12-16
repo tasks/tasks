@@ -11,6 +11,7 @@ import static com.todoroo.andlib.utility.DateUtilities.now;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import javax.inject.Inject;
 import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
+import org.tasks.filters.AlphanumComparator;
 import org.tasks.filters.GoogleTaskFilters;
 import org.tasks.sync.SyncAdapters;
 
@@ -52,6 +54,9 @@ public class GtasksFilterExposer {
       if (filter.googleTaskList != null) {
         filters.get(filter.googleTaskAccount).add(filter.toGtasksFilter());
       }
+    }
+    for (Map.Entry<GoogleTaskAccount, List<Filter>> entry : filters.entrySet()) {
+      Collections.sort(entry.getValue(), new AlphanumComparator());
     }
     return filters;
   }

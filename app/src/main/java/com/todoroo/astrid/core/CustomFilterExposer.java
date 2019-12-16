@@ -11,9 +11,11 @@ import static com.google.common.collect.Lists.transform;
 
 import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.Filter;
+import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.data.FilterDao;
+import org.tasks.filters.AlphanumComparator;
 
 public final class CustomFilterExposer {
 
@@ -25,7 +27,9 @@ public final class CustomFilterExposer {
   }
 
   public List<Filter> getFilters() {
-    return newArrayList(transform(filterDao.getFilters(), this::load));
+    List<Filter> filters = newArrayList(transform(filterDao.getFilters(), this::load));
+    Collections.sort(filters, new AlphanumComparator());
+    return filters;
   }
 
   public Filter getFilter(long id) {

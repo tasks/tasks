@@ -25,7 +25,7 @@ public interface FilterDao {
   @Insert
   void insert(Filter filter);
 
-  @Query("SELECT * FROM filters ORDER BY title ASC")
+  @Query("SELECT * FROM filters")
   List<Filter> getFilters();
 
   @Query("SELECT * FROM filters WHERE _id = :id LIMIT 1")

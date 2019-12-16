@@ -5,6 +5,7 @@ import static com.todoroo.andlib.utility.DateUtilities.now;
 import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import javax.inject.Inject;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
+import org.tasks.filters.AlphanumComparator;
 import org.tasks.filters.CaldavFilters;
 import org.tasks.sync.SyncAdapters;
 
@@ -36,6 +38,9 @@ public class CaldavFilterExposer {
       if (filter.caldavCalendar != null) {
         filters.get(filter.caldavAccount).add(filter.toCaldavFilter());
       }
+    }
+    for (Map.Entry<CaldavAccount, List<Filter>> entry : filters.entrySet()) {
+      Collections.sort(entry.getValue(), new AlphanumComparator());
     }
     return filters;
   }
