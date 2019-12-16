@@ -13,8 +13,8 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
-import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.core.widget.TextViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,6 +44,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
   private final DisplayMetrics metrics;
   private final int background;
   private final int selectedColor;
+  private final int rowPadding;
   private final Linkify linkify;
   private final int textColorOverdue;
   private final ChipProvider chipProvider;
@@ -70,9 +71,6 @@ public class ViewHolder extends RecyclerView.ViewHolder {
 
   @BindView(R.id.chip_group)
   ChipGroup chipGroup;
-
-  @BindView(R.id.hidden_status)
-  ImageView hidden;
 
   private int indent;
   private boolean selected;
@@ -106,6 +104,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     this.metrics = metrics;
     this.background = background;
     this.selectedColor = selectedColor;
+    this.rowPadding = rowPadding;
     this.linkify = linkify;
     ButterKnife.bind(this, view);
 
@@ -122,7 +121,8 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     }
 
     if (atLeastKitKat()) {
-      rowBody.setPadding(0, rowPadding, 0, rowPadding);
+      setTopPadding(rowPadding, nameView, completeBox);
+      setBottomPadding(rowPadding, completeBox);
     } else {
       MarginLayoutParams lp = (MarginLayoutParams) rowBody.getLayoutParams();
       lp.setMargins(lp.leftMargin, rowPadding, lp.rightMargin, rowPadding);
@@ -136,6 +136,18 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     view.setTag(this);
     for (int i = 0; i < view.getChildCount(); i++) {
       view.getChildAt(i).setTag(this);
+    }
+  }
+
+  private void setTopPadding(int padding, View... views) {
+    for (View v : views) {
+      v.setPadding(v.getPaddingLeft(), padding, v.getPaddingRight(), v.getPaddingBottom());
+    }
+  }
+
+  private void setBottomPadding(int padding, View... views) {
+    for (View v : views) {
+      v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), padding);
     }
   }
 
@@ -188,7 +200,8 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     this.indent = task.indent;
 
     nameView.setText(task.getTitle());
-    hidden.setVisibility(task.isHidden() ? View.VISIBLE : View.GONE);
+    TextViewCompat.setCompoundDrawablesRelativeWithIntrinsicBounds(
+        nameView, task.isHidden() ? R.drawable.ic_outline_visibility_off_24px : 0, 0, 0, 0);
     setupTitleAndCheckbox();
     setupDueDate();
     if (preferences.getBoolean(R.string.p_show_list_indicators, true)) {
@@ -205,6 +218,17 @@ public class ViewHolder extends RecyclerView.ViewHolder {
       nameView.setOnLongClickListener(view -> onRowBodyLongClick());
       description.setOnClickListener(view -> onRowBodyClick());
       description.setOnLongClickListener(view -> onRowBodyLongClick());
+    }
+    if (atLeastKitKat()) {
+      if (chipGroup.getVisibility() == View.VISIBLE) {
+        setBottomPadding(rowPadding, chipGroup);
+        setBottomPadding(0, description, nameView);
+      } else if (description.getVisibility() == View.VISIBLE) {
+        setBottomPadding(rowPadding, description);
+        setBottomPadding(0, nameView);
+      } else {
+        setBottomPadding(rowPadding, nameView);
+      }
     }
   }
 

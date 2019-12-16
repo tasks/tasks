@@ -35,27 +35,13 @@
       android:singleLine="true"
       android:textSize="14sp"/>
 
-    <ImageView
-      android:id="@+id/hidden_status"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="start"
-      android:layout_toEndOf="@id/completeBox"
-      android:layout_toRightOf="@id/completeBox"
-      android:paddingEnd="2dp"
-      android:paddingRight="2dp"
-      android:alpha="@dimen/alpha_secondary"
-      android:src="@drawable/ic_outline_visibility_off_24px"
-      android:tint="@color/icon_tint"
-      android:visibility="gone"/>
-
     <TextView
       android:id="@+id/title"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
-      android:layout_toEndOf="@id/hidden_status"
+      android:layout_toEndOf="@id/completeBox"
       android:layout_toLeftOf="@id/due_date"
-      android:layout_toRightOf="@id/hidden_status"
+      android:layout_toRightOf="@id/completeBox"
       android:layout_toStartOf="@id/due_date"
       android:paddingStart="0dp"
       android:paddingEnd="@dimen/keyline_first"
@@ -67,7 +53,9 @@
       android:singleLine="true"
       android:textAlignment="viewStart"
       android:textColor="?android:attr/textColorPrimary"
-      android:textSize="@dimen/task_edit_text_size"/>
+      android:textSize="@dimen/task_edit_text_size"
+      android:drawablePadding="2dp"
+      app:drawableTint="@color/icon_tint_with_alpha"/>
 
   <TextView
     android:id="@+id/description"
