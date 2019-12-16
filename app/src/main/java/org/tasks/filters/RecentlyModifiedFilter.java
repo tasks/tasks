@@ -3,8 +3,10 @@ package org.tasks.filters;
 import android.os.Parcel;
 import android.os.Parcelable;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.data.Task;
 import org.tasks.time.DateTime;
 
@@ -40,11 +42,22 @@ public class RecentlyModifiedFilter extends Filter {
             Criterion.and(
                 Task.DELETION_DATE.lte(0),
                 Task.MODIFICATION_DATE.gt(
-                    new DateTime().minusDays(1).startOfMinute().getMillis())));
+                    new DateTime().minusDays(1).startOfMinute().getMillis())))
+        .orderBy(Order.desc(Task.MODIFICATION_DATE));
   }
 
   @Override
   public boolean supportsHiddenTasks() {
+    return false;
+  }
+
+  @Override
+  public boolean supportSubtasks() {
+    return false;
+  }
+
+  @Override
+  public boolean supportsSorting() {
     return false;
   }
 }

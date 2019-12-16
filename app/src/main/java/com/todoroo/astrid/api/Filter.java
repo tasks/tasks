@@ -189,6 +189,14 @@ public class Filter extends FilterListItem {
     return true;
   }
 
+  public boolean supportSubtasks() {
+    return true;
+  }
+
+  public boolean supportsSorting() {
+    return true;
+  }
+
   public boolean hasMenu() {
     return getMenu() != 0;
   }

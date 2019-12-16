@@ -107,7 +107,8 @@ public class TaskListViewModel extends ViewModel {
       boolean includeCaldavSubtasks) {
     List<Field> fields = newArrayList(TASKS, GTASK, CALDAV, GEOFENCE, PLACE);
 
-    if ((includeGoogleTaskSubtasks || includeCaldavSubtasks)
+    if (filter.supportSubtasks()
+        && (includeGoogleTaskSubtasks || includeCaldavSubtasks)
         && !(preferences.isManualSort() && filter.supportsManualSort())) {
       String tagQuery =
           Query.select(field("group_concat(distinct(tag_uid))"))
@@ -242,7 +243,8 @@ public class TaskListViewModel extends ViewModel {
               + filter.getSqlQuery();
 
       String query =
-              SortHelper.adjustQueryForFlagsAndSort(preferences, joinedQuery, preferences.getSortMode());
+          SortHelper.adjustQueryForFlagsAndSort(
+              preferences, joinedQuery, preferences.getSortMode());
 
       String groupedQuery =
               query.contains("ORDER BY")

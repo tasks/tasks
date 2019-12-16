@@ -321,7 +321,12 @@ public final class TaskListFragment extends InjectingFragment
       hidden.setChecked(preferences.getBoolean(R.string.p_show_hidden_tasks, false));
       completed.setChecked(preferences.getBoolean(R.string.p_show_completed_tasks, false));
     }
-    if (taskAdapter.supportsManualSorting()) {
+    MenuItem sortMenu = menu.findItem(R.id.menu_sort);
+    if (!filter.supportsSorting()) {
+      sortMenu.setEnabled(false);
+      sortMenu.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+    }
+    if (!filter.supportSubtasks() || taskAdapter.supportsManualSorting()) {
       menu.findItem(R.id.menu_collapse_subtasks).setVisible(false);
       menu.findItem(R.id.menu_expand_subtasks).setVisible(false);
     }
