@@ -1,6 +1,7 @@
 package org.tasks.gtasks;
 
 import android.app.Activity;
+import android.content.Context;
 import com.todoroo.astrid.activity.MainActivity;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
@@ -28,4 +29,6 @@ public class PlayServices {
   public Disposable check(MainActivity mainActivity) {
     return Disposables.empty();
   }
+
+  public void updateSecurityProvider(Context context) {}
 }

@@ -7,6 +7,9 @@ import android.content.Context;
 import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.security.ProviderInstaller;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -95,4 +98,11 @@ public class PlayServices {
     return preferences.getInt(R.string.play_services_available, -1);
   }
 
+  public void updateSecurityProvider(Context context) {
+    try {
+      ProviderInstaller.installIfNeeded(context);
+    } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
+      Timber.e(e);
+    }
+  }
 }

@@ -19,6 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnFocusChange;
 import butterknife.OnTextChanged;
+import com.google.android.gms.security.ProviderInstaller;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -38,6 +39,7 @@ import org.tasks.analytics.Tracking.Events;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavDao;
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.gtasks.PlayServices;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
@@ -62,6 +64,7 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
   @Inject TaskDeleter taskDeleter;
   @Inject Encryption encryption;
   @Inject CaldavClient client;
+  @Inject PlayServices playServices;
 
   @BindView(R.id.root_layout)
   LinearLayout root;
@@ -304,7 +307,7 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
 
     if (caldavAccount == null) {
       showProgressIndicator();
-      addCaldavAccountViewModel.addAccount(client, url, username, password);
+      addCaldavAccountViewModel.addAccount(playServices, context, client, url, username, password);
     } else if (needsValidation()) {
       showProgressIndicator();
       updateCaldavAccountViewModel.updateCaldavAccount(client, url, username, password);
