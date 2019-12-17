@@ -45,11 +45,13 @@ import java.util.List;
 import java.util.Set;
 import javax.inject.Inject;
 import org.tasks.R;
+import org.tasks.billing.Inventory;
 import org.tasks.data.TagDao;
 import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.FragmentComponent;
+import org.tasks.themes.CustomIcons;
 import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
 import org.tasks.ui.ChipProvider;
@@ -79,6 +81,8 @@ public final class TagsControlSet extends TaskEditControlFragment {
   @Inject DialogBuilder dialogBuilder;
   @Inject ThemeCache themeCache;
   @Inject ChipProvider chipProvider;
+  @Inject Inventory inventory;
+
   @BindView(R.id.no_tags)
   TextView tagsDisplay;
   @BindView(R.id.chip_group)
@@ -126,8 +130,14 @@ public final class TagsControlSet extends TaskEditControlFragment {
             ThemeColor themeColor =
                 themeCache.getThemeColor(tagData.getColor() >= 0 ? tagData.getColor() : 19);
             view.setText(tagData.getName());
-            Drawable original =
-                ContextCompat.getDrawable(getContext(), R.drawable.ic_outline_label_24px);
+            Integer icon = null;
+            if (tagData.getIcon() < 1000 || inventory.hasPro()) {
+              icon = CustomIcons.getIconResId(tagData.getIcon());
+            }
+            if (icon == null) {
+              icon = R.drawable.ic_outline_label_24px;
+            }
+            Drawable original = ContextCompat.getDrawable(getContext(), icon);
             Drawable wrapped = DrawableCompat.wrap(original.mutate());
             DrawableCompat.setTint(wrapped, themeColor.getPrimaryColor());
             if (atLeastJellybeanMR1()) {
