@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
-<resources>
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos--><resources>
     <string name="actfm_picture_clear">Убрать изображение</string>
     <string name="TVA_add_comment">Добавить комментарий…</string>
     <string name="name">Название</string>
@@ -27,7 +26,7 @@
     <string name="TAd_actionEditTask">Редактировать</string>
     <string name="action_call">Позвонить</string>
     <string name="action_open">Открыть</string>
-  <string name="SSD_sort_auto">Умная сортировка</string>
+    <string name="SSD_sort_auto">Умная сортировка</string>
     <string name="SSD_sort_alpha">По названию</string>
     <string name="SSD_sort_due">По намеченному сроку</string>
     <string name="SSD_sort_importance">По приоритету</string>
@@ -63,7 +62,7 @@
     <string name="TEA_control_files">Файлы</string>
     <string name="TEA_control_reminders">Напоминания</string>
     <string name="TEA_control_timer">Учет времени</string>
-    <string name="TEA_control_hidden_section">Всегда скрывать</string>
+    <string name="TEA_control_hidden_section">----Всегда скрывать----</string>
     <string name="TEA_load_more">Загрузить больше…</string>
     <string name="CRA_ignore">Игнорировать</string>
     <string name="CRA_title">Необходим список встреч?</string>
@@ -137,7 +136,7 @@
     <string name="CFC_dueBefore_name">Конечный срок…</string>
     <string name="no_due_date">Нет даты выполнения задания</string>
     <string name="next_month">Ближайшие 30 дней</string>
-    <string name="CFC_importance_text">Приоритет меньшего?</string>
+    <string name="CFC_importance_text">Приоритет как минимум \?</string>
     <string name="CFC_importance_name">Приоритет…</string>
     <string name="CFC_tag_text">Тег: ? </string>
     <string name="CFC_tag_name">Тег…</string>
@@ -483,7 +482,7 @@
     <string name="error_billing_unavailable">Счёт невозможен. Убедитесь, что приложение Google Play настроено правильно</string>
     <string name="error_billing_default">Счёт невозможен. Проверьте устройство</string>
     <string name="about">О...</string>
-    <string name="license_summary">Tasks является програмным обеспечением открытого кода, под лицензией GNU General Public License v3.0</string>
+    <string name="license_summary">Tasks является свободным программным обеспечением с открытым исходным кодом, лицензированным под GNU General Public License v3.0</string>
     <string name="themes">Дополнительные темы и иконки</string>
     <string name="pro_caldav_sync">Синхронизация CalDAV</string>
     <string name="pro_multiple_google_task_accounts">Несколько учётных записей Google Task</string>
@@ -522,4 +521,27 @@
     <string name="button_restore_subscription">Восстановить подписку</string>
     <string name="button_unsubscribe">Отменить подписку</string>
     <string name="name_your_price">Назовите свою цену</string>
+    <string name="CalDAV">CalDAV</string>
+    <string name="url">URL</string>
+    <string name="error_adding_account">Ошибка: %s</string>
+    <string name="list_separator_with_space">", "</string>
+    <string name="pro_google_places_search">Поиск в Google Places</string>
+    <string name="show_list_indicators">Показать списки</string>
+    <string name="building_notifications">Генерация уведомлений</string>
+    <string name="manage_subscription_summary">Повысить, понизить уровень подписки или отменить ее</string>
+    <string name="button_downgrade">Понизить уровень подписки</string>
+    <string name="button_upgrade">Повысить уровень подписки</string>
+    <string name="pro_description">Tasks - это свободное программное обеспечение с открытым исходным кодом, которое не показывает рекламу и не продает вашу личную информацию</string>
+    <string name="pro_subscribe_now">Подпишитесь сейчас, чтобы поддержать разработку и разблокировать дополнительные функции</string>
+    <string name="SSD_sort_my_order">Ручная сортировка</string>
+    <string name="EPr_temp_show_completed_tasks">Временно показывать задачи после завершения</string>
+    <string name="EPr_temp_completed_tasks_showing">Задачи будут временно видны в списке после завершения</string>
+    <string name="EPr_temp_completed_tasks_not_showing">Задачи сразу же исчезнут из списка после завершения</string>
+    <plurals name="subtask_count">
+        <item quantity="one">%d подзадача</item>
+        <item quantity="few">%d подзадачи</item>
+        <item quantity="many">%d подзадач</item>
+    </plurals>
+    <string name="TEA_add_subtask">Добавить подзадачу</string>
+    <string name="subtasks">Подзадачи</string>
 </resources>
