@@ -15,7 +15,6 @@ import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
-import org.tasks.data.CaldavDao;
 import org.tasks.data.DeletionDao;
 import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskDao;
@@ -31,7 +30,6 @@ public class TaskDeleter {
   private final TaskDao taskDao;
   private final LocalBroadcastManager localBroadcastManager;
   private final GoogleTaskDao googleTaskDao;
-  private final CaldavDao caldavDao;
   private final Preferences preferences;
   private final DeletionDao deletionDao;
 
@@ -42,14 +40,12 @@ public class TaskDeleter {
       TaskDao taskDao,
       LocalBroadcastManager localBroadcastManager,
       GoogleTaskDao googleTaskDao,
-      CaldavDao caldavDao,
       Preferences preferences) {
     this.deletionDao = deletionDao;
     this.workManager = workManager;
     this.taskDao = taskDao;
     this.localBroadcastManager = localBroadcastManager;
     this.googleTaskDao = googleTaskDao;
-    this.caldavDao = caldavDao;
     this.preferences = preferences;
   }
 
@@ -66,7 +62,7 @@ public class TaskDeleter {
   public List<Task> markDeleted(List<Long> taskIds) {
     Set<Long> ids = new HashSet<>(taskIds);
     ids.addAll(collect(taskIds, googleTaskDao::getChildren));
-    ids.addAll(collect(taskIds, caldavDao::getChildren));
+    ids.addAll(collect(taskIds, taskDao::getChildren));
     deletionDao.markDeleted(ids);
     workManager.cleanup(ids);
     workManager.sync(false);

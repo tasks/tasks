@@ -29,6 +29,8 @@ public class TaskMaker {
   public static final Property<Task, Boolean> AFTER_COMPLETE = newProperty();
   private static final Property<Task, String> TITLE = newProperty();
   private static final Property<Task, Integer> PRIORITY = newProperty();
+  public static final Property<Task, Long> PARENT = newProperty();
+
   private static final Instantiator<Task> instantiator =
       lookup -> {
         Task task = new Task();
@@ -100,6 +102,8 @@ public class TaskMaker {
 
         DateTime creationTime = lookup.valueOf(CREATION_TIME, newDateTime());
         task.setCreationDate(creationTime.getMillis());
+
+        task.setParent(lookup.valueOf(PARENT, 0L));
 
         return task;
       };

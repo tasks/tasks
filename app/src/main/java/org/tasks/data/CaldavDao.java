@@ -1,7 +1,5 @@
 package org.tasks.data;
 
-import static com.google.common.collect.Lists.newArrayList;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static org.tasks.db.DbUtils.collect;
 
 import androidx.lifecycle.LiveData;
@@ -11,7 +9,6 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 import io.reactivex.Single;
-import java.util.Collections;
 import java.util.List;
 import org.tasks.filters.CaldavFilters;
 
@@ -59,12 +56,12 @@ public abstract class CaldavDao {
   public abstract void update(CaldavTask caldavTask);
 
   public void update(SubsetCaldav caldavTask) {
-    update(caldavTask.getId(), caldavTask.getParent(), caldavTask.getRemoteParent());
+    update(caldavTask.getId(), caldavTask.getRemoteParent());
   }
 
   @Query(
-      "UPDATE caldav_tasks SET cd_parent = :parent, cd_remote_parent = :remoteParent WHERE cd_id = :id")
-  abstract void update(long id, long parent, String remoteParent);
+      "UPDATE caldav_tasks SET cd_remote_parent = :remoteParent WHERE cd_id = :id")
+  abstract void update(long id,String remoteParent);
 
   @Update
   public abstract void update(Iterable<CaldavTask> tasks);
@@ -152,51 +149,24 @@ public abstract class CaldavDao {
   public abstract List<Long> getTasksWithTags();
 
   @Query(
-      "UPDATE caldav_tasks"
-          + " SET cd_parent = IFNULL(("
-          + "   SELECT cd_task FROM caldav_tasks AS p "
-          + "   WHERE p.cd_remote_id = caldav_tasks.cd_remote_parent"
-          + "     AND p.cd_calendar = caldav_tasks.cd_calendar"
-          + "     AND p.cd_deleted = 0),"
-          + " 0)")
+      "UPDATE tasks SET parent = IFNULL(("
+          + " SELECT p.cd_task FROM caldav_tasks AS p"
+          + "  INNER JOIN caldav_tasks ON caldav_tasks.cd_task = tasks._id"
+          + "  WHERE p.cd_remote_id = caldav_tasks.cd_remote_parent"
+          + "    AND p.cd_calendar = caldav_tasks.cd_calendar"
+          + "    AND p.cd_deleted = 0), 0)"
+          + "WHERE _id IN (SELECT _id FROM tasks INNER JOIN caldav_tasks ON _id = cd_task WHERE cd_deleted = 0)")
   public abstract void updateParents();
 
-  @Query("UPDATE caldav_tasks SET cd_parent = IFNULL((SELECT cd_task FROM caldav_tasks AS p WHERE p.cd_remote_id = caldav_tasks.cd_remote_parent), 0) WHERE cd_calendar = :calendar")
+  @Query(
+      "UPDATE tasks SET parent = IFNULL(("
+          + " SELECT p.cd_task FROM caldav_tasks AS p"
+          + "  INNER JOIN caldav_tasks "
+          + "    ON caldav_tasks.cd_task = tasks._id"
+          + "    AND caldav_tasks.cd_calendar = :calendar"
+          + "  WHERE p.cd_remote_id = caldav_tasks.cd_remote_parent"
+          + "    AND p.cd_calendar = caldav_tasks.cd_calendar"
+          + "    AND caldav_tasks.cd_deleted = 0), 0)"
+          + "WHERE _id IN (SELECT _id FROM tasks INNER JOIN caldav_tasks ON _id = cd_task WHERE cd_deleted = 0 AND cd_calendar = :calendar)")
   public abstract void updateParents(String calendar);
-
-  public List<Long> getChildren(long id) {
-    return getChildren(Collections.singletonList(id));
-  }
-
-  public List<Long> getChildren(List<Long> ids) {
-    return atLeastLollipop()
-        ? getChildrenRecursive(ids)
-        : Collections.emptyList();
-  }
-
-  @Query("WITH RECURSIVE "
-          + " recursive_caldav (cd_task) AS ( "
-          + " SELECT cd_task "
-          + " FROM tasks "
-          + " INNER JOIN caldav_tasks "
-          + "  ON _id = cd_task "
-          + " WHERE cd_parent IN (:ids) "
-          + " AND tasks.deleted = 0 AND caldav_tasks.cd_deleted = 0 "
-          + "UNION ALL "
-          + " SELECT caldav_tasks.cd_task "
-          + " FROM tasks "
-          + " INNER JOIN caldav_tasks "
-          + "  ON _id = caldav_tasks.cd_task "
-          + " INNER JOIN recursive_caldav "
-          + "  ON recursive_caldav.cd_task = caldav_tasks.cd_parent "
-          + " WHERE tasks.deleted = 0 AND caldav_tasks.cd_deleted = 0 "
-          + " ) "
-          + "SELECT cd_task FROM recursive_caldav")
-  abstract List<Long> getChildrenRecursive(List<Long> ids);
-
-  public List<Long> findChildrenInList(List<Long> ids) {
-    List<Long> result = newArrayList(ids);
-    result.retainAll(getChildren(ids));
-    return result;
-  }
 }

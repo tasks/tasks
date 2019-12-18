@@ -58,7 +58,7 @@ import org.tasks.notifications.NotificationDao;
       CaldavAccount.class,
       GoogleTaskAccount.class
     },
-    version = 69)
+    version = 70)
 public abstract class Database extends RoomDatabase {
 
   public static final String NAME = "database";

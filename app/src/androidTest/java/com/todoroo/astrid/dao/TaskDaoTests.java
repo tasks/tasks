@@ -6,12 +6,20 @@
 
 package com.todoroo.astrid.dao;
 
+import static com.natpryce.makeiteasy.MakeItEasy.with;
+import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotSame;
 import static junit.framework.Assert.assertNull;
+import static org.tasks.makers.TaskMaker.ID;
+import static org.tasks.makers.TaskMaker.PARENT;
+import static org.tasks.makers.TaskMaker.newTask;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.SdkSuppress;
 import com.google.common.collect.ImmutableList;
+import com.google.common.primitives.Longs;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskDeleter;
@@ -155,6 +163,34 @@ public class TaskDaoTests extends InjectingTestCase {
     assertEquals(0, taskDao.getAll().size());
   }
 
+  @Test
+  @SdkSuppress(minSdkVersion = 21)
+  public void findChildrenInList() {
+    taskDao.createNew(newTask(with(ID, 1L)));
+    taskDao.createNew(newTask(with(ID, 2L), with(PARENT, 1L)));
+
+    assertEquals(singletonList(2L), taskDao.findChildrenInList(Longs.asList(1, 2)));
+  }
+
+  @Test
+  @SdkSuppress(minSdkVersion = 21)
+  public void findRecursiveChildrenInList() {
+    taskDao.createNew(newTask(with(ID, 1L)));
+    taskDao.createNew(newTask(with(ID, 2L), with(PARENT, 1L)));
+    taskDao.createNew(newTask(with(ID, 3L), with(PARENT, 2L)));
+
+    assertEquals(asList(2L, 3L), taskDao.findChildrenInList(Longs.asList(1, 2, 3)));
+  }
+
+  @Test
+  @SdkSuppress(minSdkVersion = 21)
+  public void findRecursiveChildrenInListAfterSkippingParent() {
+    taskDao.createNew(newTask(with(ID, 1L)));
+    taskDao.createNew(newTask(with(ID, 2L), with(PARENT, 1L)));
+    taskDao.createNew(newTask(with(ID, 3L), with(PARENT, 2L)));
+
+    assertEquals(singletonList(3L), taskDao.findChildrenInList(Longs.asList(1, 3)));
+  }
   @Override
   protected void inject(TestComponent component) {
     component.inject(this);

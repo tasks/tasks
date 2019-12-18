@@ -557,7 +557,6 @@
     <string name="collapse_subtasks">Tolestu azpi-zereginak</string>
     <string name="TEA_add_subtask">Gehitu azpi-zeregina</string>
     <string name="subtasks">Azpi-zereginak</string>
-    <string name="subtasks_enable_synchronization">Gaitu sinkronizazioa azpi-zereginak gehitzeko</string>
     <string name="subtasks_multilevel_google_task">Google Tasks-ek ez ditu hainbat mailako azpi-zereginak onartzen</string>
     <string name="enter_title_hint">Sartu izenburua</string>
     <string name="show_subtasks">Erakutsi azpi-zereginak</string>

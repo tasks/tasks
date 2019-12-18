@@ -26,6 +26,7 @@ import com.google.common.primitives.Longs;
 import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.data.Task;
 import java.util.List;
 import javax.inject.Inject;
 import org.junit.Before;
@@ -41,6 +42,7 @@ import org.tasks.injection.TestComponent;
 import org.tasks.jobs.WorkManager;
 import org.tasks.makers.CaldavTaskMaker;
 import org.tasks.makers.GtaskListMaker;
+import org.tasks.makers.TaskMaker;
 
 @RunWith(AndroidJUnit4.class)
 public class TaskMoverTest extends InjectingTestCase {
@@ -125,7 +127,9 @@ public class TaskMoverTest extends InjectingTestCase {
   @Test
   @SdkSuppress(minSdkVersion = 21)
   public void moveRecursiveCaldavChildren() {
-    createTasks(1, 2, 3);
+    createTasks(1);
+    createSubtask(2, 1);
+    createSubtask(3, 2);
     caldavDao.insert(
         asList(
             newCaldavTask(
@@ -133,13 +137,11 @@ public class TaskMoverTest extends InjectingTestCase {
             newCaldavTask(
                 with(CaldavTaskMaker.TASK, 2L),
                 with(CALENDAR, "1"),
-                with(CaldavTaskMaker.PARENT, 1L),
                 with(REMOTE_ID, "b"),
                 with(REMOTE_PARENT, "a")),
             newCaldavTask(
                 with(CaldavTaskMaker.TASK, 3L),
                 with(CALENDAR, "1"),
-                with(CaldavTaskMaker.PARENT, 2L),
                 with(REMOTE_PARENT, "b"))));
 
     moveToCaldavList("2", 1);
@@ -148,7 +150,7 @@ public class TaskMoverTest extends InjectingTestCase {
     assertEquals(3, deleted.size());
     CaldavTask task = caldavDao.getTask(3);
     assertEquals("2", task.getCalendar());
-    assertEquals(2, task.getParent());
+    assertEquals(2, taskDao.fetch(3).getParent());
   }
 
   @Test
@@ -160,13 +162,49 @@ public class TaskMoverTest extends InjectingTestCase {
     moveToCaldavList("1", 1);
 
     CaldavTask task = caldavDao.getTask(2);
-    assertEquals(1L, task.getParent());
+    assertEquals("1", task.getCalendar());
+    assertEquals(1, taskDao.fetch(2).getParent());
+  }
+
+  @Test
+  @SdkSuppress(minSdkVersion = 21)
+  public void flattenLocalSubtasksWhenMovingToGoogleTasks() {
+    createTasks(1);
+    createSubtask(2, 1);
+    createSubtask(3, 2);
+
+    moveToGoogleTasks("1", 1);
+
+    assertEquals(1, googleTaskDao.getByTaskId(3).getParent());
+    assertEquals(0, taskDao.fetch(3).getParent());
+  }
+
+  @Test
+  public void moveLocalChildToGoogleTasks() {
+    createTasks(1);
+    createSubtask(2, 1);
+
+    moveToGoogleTasks("1", 2);
+
+    assertEquals(0, taskDao.fetch(2).getParent());
+  }
+
+  @Test
+  public void moveLocalChildToCaldav() {
+    createTasks(1);
+    createSubtask(2, 1);
+
+    moveToCaldavList("1", 2);
+
+    assertEquals(0, taskDao.fetch(2).getParent());
   }
 
   @Test
   @SdkSuppress(minSdkVersion = 21)
   public void flattenCaldavSubtasksWhenMovingToGoogleTasks() {
-    createTasks(1, 2, 3);
+    createTasks(1);
+    createSubtask(2, 1);
+    createSubtask(3, 2);
     caldavDao.insert(
         asList(
             newCaldavTask(
@@ -174,13 +212,11 @@ public class TaskMoverTest extends InjectingTestCase {
             newCaldavTask(
                 with(CaldavTaskMaker.TASK, 2L),
                 with(CALENDAR, "1"),
-                with(CaldavTaskMaker.PARENT, 1L),
                 with(REMOTE_ID, "b"),
                 with(REMOTE_PARENT, "a")),
             newCaldavTask(
                 with(CaldavTaskMaker.TASK, 3L),
                 with(CALENDAR, "1"),
-                with(CaldavTaskMaker.PARENT, 2L),
                 with(REMOTE_PARENT, "b"))));
 
     moveToGoogleTasks("1", 1);
@@ -204,7 +240,8 @@ public class TaskMoverTest extends InjectingTestCase {
 
   @Test
   public void moveCaldavChildWithoutParent() {
-    createTasks(1, 2);
+    createTasks(1);
+    createSubtask(2, 1);
     caldavDao.insert(
         asList(
             newCaldavTask(
@@ -212,13 +249,12 @@ public class TaskMoverTest extends InjectingTestCase {
             newCaldavTask(
                 with(CaldavTaskMaker.TASK, 2L),
                 with(CALENDAR, "1"),
-                with(CaldavTaskMaker.PARENT, 1L),
                 with(REMOTE_PARENT, "a"))));
 
     moveToCaldavList("2", 2);
 
-    CaldavTask task = caldavDao.getTask(2);
-    assertEquals(0, task.getParent());
+    assertEquals("2", caldavDao.getTask(2).getCalendar());
+    assertEquals(0, taskDao.fetch(2).getParent());
   }
 
   @Test
@@ -239,6 +275,18 @@ public class TaskMoverTest extends InjectingTestCase {
     moveToGoogleTasks("2", 1);
 
     assertEquals("2", googleTaskDao.getByTaskId(1L).getListId());
+  }
+
+  @Test
+  public void moveLocalToCaldav() {
+    createTasks(1);
+    createSubtask(2, 1);
+    createSubtask(3, 2);
+
+    moveToCaldavList("1", 1);
+
+    assertEquals("1", caldavDao.getTask(3).getCalendar());
+    assertEquals(2, taskDao.fetch(3).getParent());
   }
 
   @Test
@@ -272,12 +320,17 @@ public class TaskMoverTest extends InjectingTestCase {
     dontSync(1);
 
     assertNull(googleTaskDao.getByTaskId(2));
-    assertFalse(taskDao.fetch(2).isDeleted());
+    Task task = taskDao.fetch(2);
+    assertFalse(task.isDeleted());
+    assertEquals(1, task.getParent());
+    assertEquals(taskDao.fetch(1).getUuid(), task.getParentUuid());
   }
 
   @Test
   public void dontSyncCaldavWithSubtasks() {
-    createTasks(1, 2);
+    createTasks(1);
+    createSubtask(2, 1);
+    createSubtask(3, 2);
     caldavDao.insert(
         asList(
             newCaldavTask(
@@ -285,13 +338,20 @@ public class TaskMoverTest extends InjectingTestCase {
             newCaldavTask(
                 with(CaldavTaskMaker.TASK, 2L),
                 with(CALENDAR, "1"),
-                with(CaldavTaskMaker.PARENT, 1L),
-                with(REMOTE_PARENT, "a"))));
+                with(REMOTE_ID, "b"),
+                with(REMOTE_PARENT, "a")),
+            newCaldavTask(
+                with(CaldavTaskMaker.TASK, 3L),
+                with(CALENDAR, "1"),
+                with(REMOTE_PARENT, "b"))));
 
-    dontSync(2);
+    dontSync(1);
 
-    assertNull(caldavDao.getTask(2));
-    assertFalse(taskDao.fetch(2).isDeleted());
+    assertNull(caldavDao.getTask(3));
+    Task task = taskDao.fetch(3);
+    assertFalse(task.isDeleted());
+    assertEquals(2, task.getParent());
+    assertEquals(taskDao.fetch(2).getUuid(), task.getParentUuid());
   }
 
   @Test
@@ -329,7 +389,8 @@ public class TaskMoverTest extends InjectingTestCase {
 
   @Test
   public void dontDuplicateWhenParentAndChildCaldavMoved() {
-    createTasks(1, 2);
+    createTasks(1);
+    createSubtask(2, 1);
     caldavDao.insert(
         asList(
             newCaldavTask(
@@ -337,7 +398,6 @@ public class TaskMoverTest extends InjectingTestCase {
             newCaldavTask(
                 with(CaldavTaskMaker.TASK, 2L),
                 with(CALENDAR, "1"),
-                with(CaldavTaskMaker.PARENT, 1L),
                 with(REMOTE_PARENT, "a"))));
 
     moveToCaldavList("2", 1, 2);
@@ -349,6 +409,10 @@ public class TaskMoverTest extends InjectingTestCase {
     for (long id : ids) {
       taskDao.createNew(newTask(with(ID, id)));
     }
+  }
+
+  private void createSubtask(long id, long parent) {
+    taskDao.createNew(newTask(with(ID, id), with(TaskMaker.PARENT, parent)));
   }
 
   private void moveToGoogleTasks(String list, long... tasks) {

@@ -20,6 +20,7 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
+import com.google.common.base.Objects;
 import com.google.common.base.Strings;
 import com.google.ical.values.RRule;
 import com.todoroo.andlib.data.Property.IntegerProperty;
@@ -65,6 +66,7 @@ public class Task implements Parcelable {
   public static final LongProperty DELETION_DATE = new LongProperty(TABLE, "deleted");
   public static final StringProperty NOTES = new StringProperty(TABLE, "notes");
   public static final LongProperty TIMER_START = new LongProperty(TABLE, "timerStart");
+  public static final LongProperty PARENT = new LongProperty(TABLE, "parent");
   /** constant value for no uuid */
   public static final String NO_UUID = "0"; // $NON-NLS-1$
 
@@ -187,6 +189,12 @@ public class Task implements Parcelable {
   @ColumnInfo(name = "collapsed")
   public boolean collapsed;
 
+  @ColumnInfo(name = "parent")
+  public transient long parent;
+
+  @ColumnInfo(name = "parent_uuid")
+  public String parentUuid;
+
   // --- due and hide until date management
   @Ignore private transient HashMap<String, Object> transitoryData = null;
 
@@ -241,6 +249,8 @@ public class Task implements Parcelable {
     remoteId = parcel.readString();
     transitoryData = parcel.readHashMap(ContentValues.class.getClassLoader());
     collapsed = ParcelCompat.readBoolean(parcel);
+    parent = parcel.readLong();
+    parentUuid = parcel.readString();
   }
 
   /**
@@ -600,6 +610,22 @@ public class Task implements Parcelable {
     this.calendarUri = calendarUri;
   }
 
+  public long getParent() {
+    return parent;
+  }
+
+  public void setParent(long parent) {
+    this.parent = parent;
+  }
+
+  public String getParentUuid() {
+    return parentUuid;
+  }
+
+  public void setParentUuid(String parentUuid) {
+    this.parentUuid = parentUuid;
+  }
+
   public boolean isNotifyModeNonstop() {
     return isReminderFlagSet(Task.NOTIFY_MODE_NONSTOP);
   }
@@ -660,6 +686,8 @@ public class Task implements Parcelable {
     dest.writeString(remoteId);
     dest.writeMap(transitoryData);
     ParcelCompat.writeBoolean(dest, collapsed);
+    dest.writeLong(parent);
+    dest.writeString(parentUuid);
   }
 
   @Override
@@ -714,6 +742,11 @@ public class Task implements Parcelable {
         + '\''
         + ", collapsed="
         + collapsed
+        + ", parent="
+        + parent
+        + ", parentUuid='"
+        + parentUuid
+        + '\''
         + ", transitoryData="
         + transitoryData
         + '}';
@@ -786,6 +819,12 @@ public class Task implements Parcelable {
     if (calendarUri != null ? !calendarUri.equals(task.calendarUri) : task.calendarUri != null) {
       return false;
     }
+    if (parent != task.parent) {
+      return false;
+    }
+    if (!Objects.equal(parentUuid, task.parentUuid)) {
+      return false;
+    }
     return remoteId != null ? remoteId.equals(task.remoteId) : task.remoteId == null;
   }
 
@@ -807,6 +846,9 @@ public class Task implements Parcelable {
       return false;
     }
     if (deleted != null ? !deleted.equals(original.deleted) : original.deleted != null) {
+      return false;
+    }
+    if (parent != original.parent) {
       return false;
     }
     return notes != null ? notes.equals(original.notes) : original.notes == null;
@@ -841,6 +883,9 @@ public class Task implements Parcelable {
     if (recurrence != null
         ? !recurrence.equals(original.recurrence)
         : original.recurrence != null) {
+      return false;
+    }
+    if (parent != original.parent) {
       return false;
     }
     return repeatUntil != null
@@ -902,6 +947,9 @@ public class Task implements Parcelable {
     if (collapsed != task.collapsed) {
       return false;
     }
+    if (parent != task.parent) {
+      return false;
+    }
     if (id != null ? !id.equals(task.id) : task.id != null) {
       return false;
     }
@@ -932,31 +980,26 @@ public class Task implements Parcelable {
     if (notes != null ? !notes.equals(task.notes) : task.notes != null) {
       return false;
     }
-    if (estimatedSeconds != null
-        ? !estimatedSeconds.equals(task.estimatedSeconds)
+    if (estimatedSeconds != null ? !estimatedSeconds.equals(task.estimatedSeconds)
         : task.estimatedSeconds != null) {
       return false;
     }
-    if (elapsedSeconds != null
-        ? !elapsedSeconds.equals(task.elapsedSeconds)
+    if (elapsedSeconds != null ? !elapsedSeconds.equals(task.elapsedSeconds)
         : task.elapsedSeconds != null) {
       return false;
     }
     if (timerStart != null ? !timerStart.equals(task.timerStart) : task.timerStart != null) {
       return false;
     }
-    if (notificationFlags != null
-        ? !notificationFlags.equals(task.notificationFlags)
+    if (notificationFlags != null ? !notificationFlags.equals(task.notificationFlags)
         : task.notificationFlags != null) {
       return false;
     }
-    if (notifications != null
-        ? !notifications.equals(task.notifications)
+    if (notifications != null ? !notifications.equals(task.notifications)
         : task.notifications != null) {
       return false;
     }
-    if (lastNotified != null
-        ? !lastNotified.equals(task.lastNotified)
+    if (lastNotified != null ? !lastNotified.equals(task.lastNotified)
         : task.lastNotified != null) {
       return false;
     }
@@ -975,8 +1018,10 @@ public class Task implements Parcelable {
     if (remoteId != null ? !remoteId.equals(task.remoteId) : task.remoteId != null) {
       return false;
     }
-    return transitoryData != null
-        ? transitoryData.equals(task.transitoryData)
+    if (parentUuid != null ? !parentUuid.equals(task.parentUuid) : task.parentUuid != null) {
+      return false;
+    }
+    return transitoryData != null ? transitoryData.equals(task.transitoryData)
         : task.transitoryData == null;
   }
 
@@ -1004,6 +1049,8 @@ public class Task implements Parcelable {
     result = 31 * result + (calendarUri != null ? calendarUri.hashCode() : 0);
     result = 31 * result + (remoteId != null ? remoteId.hashCode() : 0);
     result = 31 * result + (collapsed ? 1 : 0);
+    result = 31 * result + (int) (parent ^ (parent >>> 32));
+    result = 31 * result + (parentUuid != null ? parentUuid.hashCode() : 0);
     result = 31 * result + (transitoryData != null ? transitoryData.hashCode() : 0);
     return result;
   }

@@ -1,5 +1,6 @@
 package org.tasks.data;
 
+import androidx.annotation.Nullable;
 import androidx.room.Embedded;
 import com.todoroo.astrid.data.Task;
 
@@ -189,19 +190,19 @@ public class TaskContainer {
   public long getParent() {
     if (googletask != null) {
       return googletask.getParent();
-    } else if (caldavTask != null) {
-      return caldavTask.getParent();
     } else {
-      return 0;
+      return task.getParent();
     }
   }
 
   public void setParent(long parent) {
     if (googletask != null) {
+      task.setParent(0);
       googletask.setParent(parent);
-    } else if (caldavTask != null) {
-      caldavTask.setParent(parent);
+    } else {
+      task.setParent(parent);
     }
+    task.setParentUuid(null);
   }
 
   public boolean hasParent() {

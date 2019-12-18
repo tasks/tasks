@@ -157,19 +157,12 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
                         CaldavTask.TABLE,
                         Criterion.and(
                             CaldavTask.CALENDAR.eq(calendar.getUuid()),
-                            CaldavTask.PARENT.eq(0),
                             CaldavTask.TASK.eq(Task.ID),
                             CaldavTask.DELETED.eq(0))))
-                .where(TaskCriteria.activeAndVisible())
+                .where(Criterion.and(TaskCriteria.activeAndVisible(), Task.PARENT.eq(0)))
                 .toString();
         subtaskQuery
-            .join(Join.inner(RECURSIVE, CaldavTask.PARENT.eq(RECURSIVE_TASK)))
-            .join(
-                Join.inner(
-                    CaldavTask.TABLE,
-                    Criterion.and(
-                        CaldavTask.TASK.eq(Task.ID),
-                        CaldavTask.DELETED.eq(0))))
+            .join(Join.inner(RECURSIVE, Task.PARENT.eq(RECURSIVE_TASK)))
             .where(TaskCriteria.activeAndVisible());
       } else if (filter instanceof GtasksFilter) {
         GoogleTaskList list = ((GtasksFilter) filter).getList();
@@ -212,7 +205,7 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
       String sortSelect = SortHelper.orderSelectForSortTypeRecursive(preferences.getSortMode());
       String withClause = "CREATE TEMPORARY TABLE `recursive_tasks` AS\n"
               + "WITH RECURSIVE recursive_tasks (task, parent, collapsed, hidden, indent, title, sortField) AS (\n"
-              + " SELECT tasks._id, 0 as parent, tasks.collapsed as collapsed, 0 as hidden, 0 AS sort_indent, UPPER(title) AS sort_title, "
+              + " SELECT tasks._id, 0 as parent, tasks.collapsed as collapsed, 0 as hidden, 0 AS sort_indent, UPPER(tasks.title) AS sort_title, "
               + sortSelect
               + " FROM tasks\n"
               + parentQuery
@@ -282,13 +275,7 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
 
   private static void addCaldavSubtasks(QueryTemplate subtaskQuery) {
     subtaskQuery
-        .join(Join.inner(RECURSIVE, CaldavTask.PARENT.eq(RECURSIVE_TASK)))
-        .join(
-            Join.inner(
-                CaldavTask.TABLE,
-                Criterion.and(
-                    CaldavTask.TASK.eq(Task.ID),
-                    CaldavTask.DELETED.eq(0))));
+        .join(Join.inner(RECURSIVE, Task.PARENT.eq(RECURSIVE_TASK)));
   }
 
   private static void addGoogleAndCaldavSubtasks(QueryTemplate subtaskQuery) {
@@ -298,7 +285,7 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
                 RECURSIVE,
                 Criterion.or(
                     GoogleTask.PARENT.eq(RECURSIVE_TASK),
-                    CaldavTask.PARENT.eq(RECURSIVE_TASK))))
+                    Task.PARENT.eq(RECURSIVE_TASK))))
         .join(
             Join.left(
                 GoogleTask.TABLE,

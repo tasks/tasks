@@ -85,16 +85,17 @@ public final class CaldavTaskAdapter extends TaskAdapter {
 
     if (newParent == 0) {
       caldavTask.setRemoteParent("");
-      caldavTask.setParent(0);
+      task.setParent(0);
     } else {
       CaldavTask parentTask = caldavDao.getTask(newParent);
       if (parentTask == null) {
         return;
       }
       caldavTask.setRemoteParent(parentTask.getRemoteId());
-      caldavTask.setParent(newParent);
+      task.setParent(newParent);
     }
     caldavDao.update(caldavTask);
+    taskDao.save(task.getTask());
   }
 
   private boolean taskIsChild(TaskContainer source, int destinationIndex) {

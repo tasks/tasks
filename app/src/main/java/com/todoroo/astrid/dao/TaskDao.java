@@ -8,6 +8,7 @@ package com.todoroo.astrid.dao;
 
 import static com.google.common.collect.Iterables.filter;
 import static com.google.common.collect.Iterables.transform;
+import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.sql.SqlConstants.COUNT;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
@@ -32,6 +33,7 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.UUIDHelper;
+import java.util.Collections;
 import java.util.List;
 import org.tasks.BuildConfig;
 import org.tasks.data.Place;
@@ -100,7 +102,7 @@ public abstract class TaskDao {
       "SELECT tasks.* FROM tasks "
           + "LEFT JOIN google_tasks ON tasks._id = google_tasks.gt_task "
           + "WHERE gt_list_id IN (SELECT gtl_remote_id FROM google_task_lists WHERE gtl_account = :account)"
-          + "AND (tasks.modified > google_tasks.gt_last_sync OR google_tasks.gt_remote_id = '') "
+          + "AND (tasks.modified > google_tasks.gt_last_sync OR google_tasks.gt_remote_id = '' OR google_tasks.gt_deleted > 0) "
           + "ORDER BY CASE WHEN gt_parent = 0 THEN 0 ELSE 1 END, gt_order ASC")
   public abstract List<Task> getGoogleTasksToPush(String account);
 
@@ -141,7 +143,7 @@ public abstract class TaskDao {
   public List<TaskContainer> fetchTasks(QueryCallback callback) {
     long start = BuildConfig.DEBUG ? now() : 0;
     boolean includeGoogleSubtasks = atLeastLollipop() && hasGoogleTaskSubtasks();
-    boolean includeCaldavSubtasks = atLeastLollipop() && hasCaldavSubtasks();
+    boolean includeCaldavSubtasks = atLeastLollipop() && hasSubtasks();
     List<String> queries = callback.getQueries(includeGoogleSubtasks, includeCaldavSubtasks);
     SupportSQLiteDatabase db = database.getOpenHelper().getWritableDatabase();
     int last = queries.size() - 1;
@@ -159,11 +161,8 @@ public abstract class TaskDao {
   @RawQuery
   abstract int count(SimpleSQLiteQuery query);
 
-  @Query(
-      "SELECT EXISTS(SELECT 1 FROM caldav_tasks "
-          + "INNER JOIN tasks ON cd_task = _id "
-          + "WHERE deleted = 0 AND cd_parent > 0 AND cd_deleted = 0)")
-  abstract boolean hasCaldavSubtasks();
+  @Query("SELECT EXISTS(SELECT 1 FROM tasks WHERE parent > 0 AND deleted = 0)")
+  abstract boolean hasSubtasks();
 
   @Query(
       "SELECT EXISTS(SELECT 1 FROM google_tasks "
@@ -186,6 +185,58 @@ public abstract class TaskDao {
 
   @Query("UPDATE tasks SET modified = strftime('%s','now')*1000 WHERE _id in (:ids)")
   abstract void touchInternal(List<Long> ids);
+
+  @Query(
+      "UPDATE tasks SET parent = IFNULL(("
+          + " SELECT parent._id FROM tasks AS parent"
+          + " WHERE parent.remoteId = tasks.parent_uuid AND parent.deleted = 0), 0)"
+          + "WHERE parent_uuid IS NOT NULL AND parent_uuid != ''")
+  public abstract void updateParents();
+
+  @Query(
+      "UPDATE tasks SET parent_uuid = "
+          + "  (SELECT parent.remoteId FROM tasks AS parent WHERE parent._id = tasks.parent)"
+          + "  WHERE parent > 0 AND _id IN (:tasks)")
+  public abstract void updateParentUids(List<Long> tasks);
+
+  @Query("UPDATE tasks SET parent = :parent, parent_uuid = :parentUuid WHERE _id IN (:children)")
+  public abstract void setParent(long parent, String parentUuid, List<Long> children);
+
+  @Transaction
+  public List<Task> fetchChildren(long id) {
+    return fetch(getChildren(id));
+  }
+
+  public List<Long> getChildren(long id) {
+    return getChildren(Collections.singletonList(id));
+  }
+
+  public List<Long> getChildren(List<Long> ids) {
+    return atLeastLollipop()
+        ? getChildrenRecursive(ids)
+        : Collections.emptyList();
+  }
+
+  @Query(
+      "WITH RECURSIVE "
+          + " recursive_tasks (task) AS ( "
+          + " SELECT _id "
+          + " FROM tasks "
+          + "WHERE parent IN (:ids)"
+          + "UNION ALL "
+          + " SELECT _id "
+          + " FROM tasks "
+          + " INNER JOIN recursive_tasks "
+          + "  ON recursive_tasks.task = tasks.parent"
+          + " WHERE tasks.deleted = 0)"
+          + "SELECT task FROM recursive_tasks")
+  abstract List<Long> getChildrenRecursive(List<Long> ids);
+
+  public List<Long> findChildrenInList(List<Long> ids) {
+    List<Long> result = newArrayList(ids);
+    result.retainAll(getChildren(ids));
+    return result;
+  }
 
   @Query("UPDATE tasks SET collapsed = :collapsed WHERE _id = :id")
   public abstract void setCollapsed(long id, boolean collapsed);

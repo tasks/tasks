@@ -243,6 +243,7 @@ public class TasksJsonImporter {
 
       googleTaskDao.updateParents();
       caldavDao.updateParents();
+      taskDao.updateParents();
 
       for (Entry<String, Integer> entry : backupContainer.getIntPrefs().entrySet()) {
         preferences.setInt(entry.getKey(), entry.getValue());

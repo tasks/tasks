@@ -550,7 +550,6 @@
     <string name="collapse_subtasks">Unteraufgaben einklappen</string>
     <string name="TEA_add_subtask">Unteraufgabe hinzufügen</string>
     <string name="subtasks">Unteraufgaben</string>
-    <string name="subtasks_enable_synchronization">Synchronisation aktivieren, um Unteraufgaben hinzuzufügen</string>
-    <string name="subtasks_multilevel_google_task">Mehrere Unteraufgaben-Ebenen werden von Google Tasks nicht unterstützt</string>
+  <string name="subtasks_multilevel_google_task">Mehrere Unteraufgaben-Ebenen werden von Google Tasks nicht unterstützt</string>
     <string name="enter_title_hint">Titel eingeben</string>
 </resources>

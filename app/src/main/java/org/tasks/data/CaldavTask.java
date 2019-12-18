@@ -10,22 +10,12 @@ import androidx.room.PrimaryKey;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Table;
 
-@Entity(
-    tableName = "caldav_tasks",
-    indices = {
-      @Index(name = "cd_task", value = "cd_task"),
-      @Index(
-          name = "cd_calendar_parent",
-          value = {"cd_calendar", "cd_parent"})
-    })
+@Entity(tableName = "caldav_tasks", indices = @Index(name = "cd_task", value = "cd_task"))
 public class CaldavTask {
 
   public static final String KEY = "caldav";
 
   public static final Table TABLE = new Table("caldav_tasks");
-
-  public static final Property.IntegerProperty PARENT =
-      new Property.IntegerProperty(TABLE, "cd_parent");
 
   public static final Property.IntegerProperty TASK =
       new Property.IntegerProperty(TABLE, "cd_task");
@@ -63,9 +53,6 @@ public class CaldavTask {
 
   @ColumnInfo(name = "cd_vtodo")
   private String vtodo;
-
-  @ColumnInfo(name = "cd_parent")
-  private transient long parent;
 
   @ColumnInfo(name = "cd_remote_parent")
   private String remoteParent;
@@ -160,14 +147,6 @@ public class CaldavTask {
     this.vtodo = vtodo;
   }
 
-  public long getParent() {
-    return parent;
-  }
-
-  public void setParent(long parent) {
-    this.parent = parent;
-  }
-
   public String getRemoteParent() {
     return remoteParent;
   }
@@ -201,9 +180,6 @@ public class CaldavTask {
         + deleted
         + ", vtodo='"
         + vtodo
-        + '\''
-        + ", parent='"
-        + parent
         + '\''
         + ", remoteParent='"
         + remoteParent

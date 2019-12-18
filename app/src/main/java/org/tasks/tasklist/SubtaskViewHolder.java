@@ -72,9 +72,9 @@ public class SubtaskViewHolder extends RecyclerView.ViewHolder {
     return Math.round(indent * getShiftSize());
   }
 
-  void bindView(TaskContainer task, boolean multiLevelSubtasks) {
+  void bindView(TaskContainer task) {
     this.task = task;
-    setIndent(multiLevelSubtasks ? task.indent : 0);
+    setIndent(task.indent);
     if (task.hasChildren()) {
       chip.setText(locale.formatNumber(task.children));
       chip.setVisibility(View.VISIBLE);

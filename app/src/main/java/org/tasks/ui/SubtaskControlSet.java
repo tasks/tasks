@@ -127,16 +127,10 @@ public class SubtaskControlSet extends TaskEditControlFragment implements Callba
                     GoogleTask.PARENT.eq(task.getId()),
                     GoogleTask.TASK.eq(Task.ID),
                     GoogleTask.DELETED.eq(0))))
-        .join(
-            Join.left(
-                CaldavTask.TABLE,
-                Criterion.and(
-                    CaldavTask.PARENT.eq(task.getId()),
-                    CaldavTask.TASK.eq(Task.ID),
-                    CaldavTask.DELETED.eq(0))))
-        .where(Criterion.and(TaskCriteria.activeAndVisible(),
-            Criterion.or(CaldavTask.TASK.gt(0), GoogleTask.TASK.gt(0))));
-
+        .where(
+            Criterion.and(
+                TaskCriteria.activeAndVisible(),
+                Criterion.or(Task.PARENT.eq(task.getId()), GoogleTask.TASK.gt(0))));
   }
 
   @Override
@@ -176,16 +170,21 @@ public class SubtaskControlSet extends TaskEditControlFragment implements Callba
       } else if (remoteList instanceof CaldavFilter) {
         CaldavTask caldavTask =
             new CaldavTask(subtask.getId(), ((CaldavFilter) remoteList).getUuid());
-        caldavTask.setParent(task.getId());
+        subtask.setParent(task.getId());
         caldavTask.setRemoteParent(caldavDao.getRemoteIdForTask(task.getId()));
+        taskDao.save(subtask);
         caldavDao.insert(caldavTask);
+      } else {
+        subtask.setParent(task.getId());
+        subtask.setParentUuid(task.getUuid());
+        taskDao.save(subtask);
       }
     }
   }
 
   @Override
   public boolean hasChanges(Task original) {
-    return remoteList != null && !getNewSubtasks().isEmpty();
+    return !getNewSubtasks().isEmpty();
   }
 
   private ArrayList<Task> getNewSubtasks() {
@@ -224,10 +223,6 @@ public class SubtaskControlSet extends TaskEditControlFragment implements Callba
 
   @OnClick(R.id.add_subtask)
   void addSubtask() {
-    if (remoteList == null) {
-      toaster.longToast(R.string.subtasks_enable_synchronization);
-      return;
-    }
     if (isGoogleTaskChild()) {
       toaster.longToast(R.string.subtasks_multilevel_google_task);
       return;
@@ -290,7 +285,7 @@ public class SubtaskControlSet extends TaskEditControlFragment implements Callba
   }
 
   private void updateUI() {
-    if (remoteList == null || isGoogleTaskChild()) {
+    if (isGoogleTaskChild()) {
       recyclerView.setVisibility(View.GONE);
       newSubtaskContainer.setVisibility(View.GONE);
     } else {

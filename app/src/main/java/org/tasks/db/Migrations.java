@@ -356,6 +356,31 @@ public class Migrations {
         }
       };
 
+  private static final Migration MIGRATION_69_70 =
+      new Migration(69, 70) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+          database.execSQL("ALTER TABLE `tasks` ADD COLUMN `parent` INTEGER NOT NULL DEFAULT 0");
+          database.execSQL("ALTER TABLE `tasks` ADD COLUMN `parent_uuid` TEXT");
+          database.execSQL(
+              "UPDATE `tasks` SET `parent` = IFNULL(("
+                  + " SELECT p.cd_task FROM caldav_tasks"
+                  + "  INNER JOIN caldav_tasks AS p ON p.cd_remote_id = caldav_tasks.cd_remote_parent"
+                  + "  WHERE caldav_tasks.cd_task = tasks._id"
+                  + "    AND caldav_tasks.cd_deleted = 0"
+                  + "    AND p.cd_calendar = caldav_tasks.cd_calendar"
+                  + "    AND p.cd_deleted = 0), 0)");
+          database.execSQL("ALTER TABLE `caldav_tasks` RENAME TO `caldav_tasks-temp`");
+          database.execSQL(
+              "CREATE TABLE IF NOT EXISTS `caldav_tasks` (`cd_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cd_task` INTEGER NOT NULL, `cd_calendar` TEXT, `cd_object` TEXT, `cd_remote_id` TEXT, `cd_etag` TEXT, `cd_last_sync` INTEGER NOT NULL, `cd_deleted` INTEGER NOT NULL, `cd_vtodo` TEXT, `cd_remote_parent` TEXT)");
+          database.execSQL(
+              "INSERT INTO `caldav_tasks` (`cd_id`, `cd_task`, `cd_calendar`, `cd_object`, `cd_remote_id`, `cd_etag`, `cd_last_sync`, `cd_deleted`, `cd_vtodo`, `cd_remote_parent`) "
+                  + "SELECT `cd_id`, `cd_task`, `cd_calendar`, `cd_object`, `cd_remote_id`, `cd_etag`, `cd_last_sync`, `cd_deleted`, `cd_vtodo`, `cd_remote_parent` FROM `caldav_tasks-temp`");
+          database.execSQL("DROP TABLE `caldav_tasks-temp`");
+          database.execSQL("CREATE INDEX `cd_task` ON `caldav_tasks` (`cd_task`)");
+        }
+      };
+
   public static final Migration[] MIGRATIONS =
       new Migration[] {
         MIGRATION_35_36,
@@ -382,7 +407,8 @@ public class Migrations {
         MIGRATION_65_66,
         MIGRATION_66_67,
         MIGRATION_67_68,
-        MIGRATION_68_69
+        MIGRATION_68_69,
+        MIGRATION_69_70
       };
 
   private static Migration NOOP(int from, int to) {

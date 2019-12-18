@@ -551,8 +551,7 @@ est configuré correctement</string>
     <string name="collapse_subtasks">Réduire les sous-tâches</string>
     <string name="TEA_add_subtask">Ajouter sous-tâche</string>
     <string name="subtasks">Sous-tâches</string>
-    <string name="subtasks_enable_synchronization">Activer la synchronisation pour ajouter des sous-tâches</string>
-    <string name="subtasks_multilevel_google_task">Les sous-tâches multi-niveaux ne sont pas prises en charge par Google Tasks</string>
+  <string name="subtasks_multilevel_google_task">Les sous-tâches multi-niveaux ne sont pas prises en charge par Google Tasks</string>
     <string name="enter_title_hint">Entrer le titre</string>
     <string name="show_subtasks">Afficher les sous-tâches</string>
     <string name="show_subtasks_summary">L\'affichage des sous-tâches dégradera les performances de l\'application</string>

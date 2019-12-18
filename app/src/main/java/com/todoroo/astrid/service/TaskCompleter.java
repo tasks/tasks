@@ -17,13 +17,11 @@ public class TaskCompleter {
 
   private final TaskDao taskDao;
   private final GoogleTaskDao googleTaskDao;
-  private final CaldavDao caldavDao;
 
   @Inject
-  TaskCompleter(TaskDao taskDao, GoogleTaskDao googleTaskDao, CaldavDao caldavDao) {
+  TaskCompleter(TaskDao taskDao, GoogleTaskDao googleTaskDao) {
     this.taskDao = taskDao;
     this.googleTaskDao = googleTaskDao;
-    this.caldavDao = caldavDao;
   }
 
   public void setComplete(long taskId) {
@@ -39,7 +37,7 @@ public class TaskCompleter {
     long completionDate = completed ? now() : 0L;
     setComplete(Collections.singletonList(item), completionDate);
     List<Task> tasks = newArrayList(googleTaskDao.getChildTasks(item.getId()));
-    List<Long> caldavChildren = caldavDao.getChildren(item.getId());
+    List<Long> caldavChildren = taskDao.getChildren(item.getId());
     if (!caldavChildren.isEmpty()) {
       tasks.addAll(taskDao.fetch(caldavChildren));
     }

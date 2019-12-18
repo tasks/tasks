@@ -50,7 +50,8 @@ public class SubtasksRecyclerAdapter extends RecyclerView.Adapter<SubtaskViewHol
   public void onBindViewHolder(@NonNull SubtaskViewHolder holder, int position) {
     TaskContainer task = getItem(position);
     if (task != null) {
-      holder.bindView(task, multiLevelSubtasks);
+      task.setIndent(multiLevelSubtasks ? task.indent : 0);
+      holder.bindView(task);
     }
   }
 
@@ -88,6 +89,9 @@ public class SubtasksRecyclerAdapter extends RecyclerView.Adapter<SubtaskViewHol
   }
 
   public void setMultiLevelSubtasksEnabled(boolean enabled) {
-    multiLevelSubtasks = enabled;
+    if (multiLevelSubtasks != enabled) {
+      multiLevelSubtasks = enabled;
+      notifyItemRangeChanged(0, differ.getCurrentList().size());
+    }
   }
 }

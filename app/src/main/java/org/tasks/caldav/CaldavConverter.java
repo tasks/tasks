@@ -157,7 +157,7 @@ public class CaldavConverter {
     }
     remote.setLastModified(newDateTime(task.getModificationDate()).toUTC().getMillis());
     remote.setPriority(toRemote(remote.getPriority(), task.getPriority()));
-    setParent(remote, caldavTask.getParent() == 0 ? null : caldavTask.getRemoteParent());
+    setParent(remote, task.getParent() == 0 ? null : caldavTask.getRemoteParent());
 
     return remote;
   }
