@@ -67,7 +67,7 @@ public class WidgetConfigActivity extends InjectingPreferenceActivity
     widgetPreferences = new WidgetPreferences(this, preferences, appWidgetId);
     Intent data = new Intent();
     data.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-    setResult(RESULT_OK, data);
+    mergeResults(data.getExtras());
 
     setupCheckbox(R.string.p_widget_show_due_date);
     setupCheckbox(R.string.p_widget_show_checkboxes);
