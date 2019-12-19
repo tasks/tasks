@@ -103,7 +103,7 @@ public class AlphanumComparator implements Comparator<Filter> {
           }
         }
       } else {
-        result = thisChunk.compareTo(thatChunk);
+        result = String.CASE_INSENSITIVE_ORDER.compare(thisChunk, thatChunk);
       }
 
       if (result != 0) return result;
