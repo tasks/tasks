@@ -75,8 +75,7 @@
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks将会提醒你即将到来的日历事件，并提示你为他们做准备</string>
     <string name="CRA_default_list_name">行动项目：%s</string>
     <string name="none">无</string>
-    <string name="EPr_appearance_header">外观</string>
-    <string name="EPr_filters_to_show_title">要显示的过滤器</string>
+  <string name="EPr_filters_to_show_title">要显示的过滤器</string>
     <string name="EPr_edit_screen_options">编辑屏幕选项</string>
     <string name="EPr_beastMode_reset">恢复默认值</string>
     <string name="EPr_fullTask_title">显示完整的任务标题</string>

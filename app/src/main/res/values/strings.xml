@@ -84,7 +84,6 @@ File %1$s contained %2$s.\n\n
   <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks will remind you about upcoming calendar events and prompt you to prepare for them</string>
   <string name="CRA_default_list_name">Action Items: %s</string>
   <string name="none">None</string>
-  <string name="EPr_appearance_header">Appearance</string>
   <string name="EPr_filters_to_show_title">Filters to show</string>
   <string name="EPr_edit_screen_options">Edit screen options</string>
   <string name="EPr_beastMode_reset">Reset to defaults</string>

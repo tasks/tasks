@@ -76,8 +76,7 @@
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks будет напоминать вам о предстоящих событиях в календаре и напомнит вам подготовиться к ним</string>
     <string name="CRA_default_list_name">Пункты события: %s</string>
     <string name="none">Нет</string>
-    <string name="EPr_appearance_header">Интерфейс</string>
-    <string name="EPr_filters_to_show_title">Показать фильтры</string>
+  <string name="EPr_filters_to_show_title">Показать фильтры</string>
     <string name="EPr_edit_screen_options">Редактировать настройки экрана</string>
     <string name="EPr_beastMode_reset">Сброс настроек</string>
     <string name="EPr_fullTask_title">Показывать полный заголовок задачи</string>

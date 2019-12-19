@@ -45,8 +45,7 @@
 	<string name="CRA_ignore_this">تجاهل هذا الحدث فقط</string>
 	<string name="CRA_postpone">من المحتمل لاحقاً</string>
 	<string name="CRA_calendar_reminders_pref_desc_enabled">المهام سوف تذكرك في الاحداث القادمة وسوف تحثك لتكون جاهزاً.</string>
-	<string name="EPr_appearance_header">ظهور</string>
-	<string name="EPr_edit_screen_options">تعديل خيارات الشاشه</string>
+  <string name="EPr_edit_screen_options">تعديل خيارات الشاشه</string>
 	<string name="EPr_beastMode_reset">الإعادة إلى الإفتراضي</string>
 	<string name="EPr_fullTask_title">إظهار عنوان المهمه</string>
 	<string name="task_list_options">خيارات قائمة المهام</string>

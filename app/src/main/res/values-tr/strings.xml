@@ -81,8 +81,7 @@
 	<string name="CRA_calendar_reminders_pref_desc_enabled">Tasks gelecek takvim etkinliklerini size hatırlatacak ve bu etkinliklere hazırlanmanız için size bilgilendirmede bulunacak. </string>
 	<string name="CRA_default_list_name">Eylem Ögeleri: %s</string>
 	<string name="none">Hiçbiri</string>
-	<string name="EPr_appearance_header">Görünüm</string>
-	<string name="EPr_filters_to_show_title">Gösterilecek süzgeçler</string>
+  <string name="EPr_filters_to_show_title">Gösterilecek süzgeçler</string>
 	<string name="EPr_edit_screen_options">Düzenleme ekranı ayarları</string>
 	<string name="EPr_beastMode_reset">Öntanımlılara sıfırla</string>
 	<string name="EPr_fullTask_title">Tüm görev başlığını göster</string>

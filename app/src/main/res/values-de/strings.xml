@@ -74,8 +74,7 @@
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks wird Sie an zukünftige Kalenderterrmine erinnern und Sie auf die Vorbereitung hinweisen</string>
     <string name="CRA_default_list_name">Einzelaufgaben: %s</string>
     <string name="none">Keine</string>
-    <string name="EPr_appearance_header">Erscheinungsbild</string>
-    <string name="EPr_filters_to_show_title">Angezeigte Filter</string>
+  <string name="EPr_filters_to_show_title">Angezeigte Filter</string>
     <string name="EPr_edit_screen_options">Bildschirmeinstellungen bearbeiten</string>
     <string name="EPr_beastMode_reset">Auf Standardeinstellungen zurücksetzen</string>
     <string name="EPr_fullTask_title">Gesamten Aufgabentitel anzeigen</string>

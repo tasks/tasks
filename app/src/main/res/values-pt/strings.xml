@@ -71,8 +71,7 @@
     <string name="CRA_calendar_reminders_pref_desc_enabled">O Tasks irá lembra-lo sobre os próximos eventos de calendário e pedir a sua preparação</string>
     <string name="CRA_default_list_name">Itens de ação: %s</string>
     <string name="none">Nenhum</string>
-    <string name="EPr_appearance_header">Aspeto</string>
-    <string name="EPr_filters_to_show_title">Filtros a mostrar</string>
+  <string name="EPr_filters_to_show_title">Filtros a mostrar</string>
     <string name="EPr_edit_screen_options">Opções do ecrã de edição</string>
     <string name="EPr_beastMode_reset">Restaurar definições originas</string>
     <string name="EPr_fullTask_title">Mostrar título completo das tarefas</string>

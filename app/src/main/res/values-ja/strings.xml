@@ -77,8 +77,7 @@
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks は近づいているカレンダーイベントを通知して準備するように促します</string>
     <string name="CRA_default_list_name">アクションアイテム: %s</string>
     <string name="none">なし</string>
-    <string name="EPr_appearance_header">外観</string>
-    <string name="EPr_filters_to_show_title">表示のフィルター</string>
+  <string name="EPr_filters_to_show_title">表示のフィルター</string>
     <string name="EPr_edit_screen_options">編集画面オプション</string>
     <string name="EPr_beastMode_reset">デフォルトにリセット</string>
     <string name="EPr_fullTask_title">完全なタスク見出しを表示</string>

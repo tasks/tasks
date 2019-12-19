@@ -18,8 +18,7 @@
 	<string name="TEA_note_label">บันทึกย่อ</string>
 	<string name="TEA_control_importance">ความสำคัญ</string>
 	<string name="TEA_control_notes">บันทึกย่อ</string>
-	<string name="EPr_appearance_header">รูปโฉม</string>
-	<string name="BFE_Active">แผนงานตอนนี้</string>
+  <string name="BFE_Active">แผนงานตอนนี้</string>
 	<string name="BFE_Recent">เพิ่งถูกแก้ไข</string>
 	<string name="CFA_universe_all">แผนงานตอนนี้</string>
 	<string name="CFA_type_add">หรือ</string>

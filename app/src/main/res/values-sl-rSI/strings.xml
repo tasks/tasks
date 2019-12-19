@@ -63,8 +63,7 @@
     <string name="CRA_calendar_reminders_pref_title">Pomočnik za koledar</string>
     <string name="CRA_calendar_reminders_pref_desc_enabled">Aplikacija Opravki vas bo opominjala o prihajajočih dogodkih na koledarju in vas pozivala, da se nanje pripravite</string>
     <string name="CRA_default_list_name">Število izvedbenih opravil: %s</string>
-    <string name="EPr_appearance_header">Izgled</string>
-    <string name="EPr_filters_to_show_title">Filtri za prikaz</string>
+  <string name="EPr_filters_to_show_title">Filtri za prikaz</string>
     <string name="EPr_edit_screen_options">Uredi možnosti zaslona</string>
     <string name="EPr_beastMode_reset">Povrni privzeto nastavitev</string>
     <string name="EPr_fullTask_title">Prikaži celoten naziv opravka</string>

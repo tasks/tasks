@@ -77,8 +77,7 @@
 	<string name="CRA_calendar_reminders_pref_desc_enabled">Úlohy vám pripomenú nadchádzajúce udalosti z kalendára a vyzvú vás, aby ste sa na ne pripravili.</string>
 	<string name="CRA_default_list_name">Položky akcie: %s</string>
 	<string name="none">Žiadna</string>
-	<string name="EPr_appearance_header">Vzhľad</string>
-	<string name="EPr_filters_to_show_title">Filtre pre zobrazenie</string>
+  <string name="EPr_filters_to_show_title">Filtre pre zobrazenie</string>
 	<string name="EPr_edit_screen_options">Možnosti úprav zobrazenia</string>
 	<string name="EPr_beastMode_reset">Obnoviť na predvolené</string>
 	<string name="EPr_fullTask_title">Zobraziť celý názov úlohy</string>

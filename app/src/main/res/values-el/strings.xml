@@ -63,8 +63,7 @@
 	<string name="CRA_calendar_reminders_pref_title">Βοηθός ημερολογίου</string>
 	<string name="CRA_calendar_reminders_pref_desc_enabled">Η εφαρμογή θα σας υπενθυμίσει για επερχόμενα γεγονότα ημερολογίου και θα σας ειδοποιήσουν για να προετοιμαστείτε για αυτα</string>
 	<string name="CRA_default_list_name">Αντικείμενα ενεργειών: %s</string>
-	<string name="EPr_appearance_header">Εμφάνιση</string>
-	<string name="EPr_filters_to_show_title">Φίλτρα για εμφάνιση</string>
+  <string name="EPr_filters_to_show_title">Φίλτρα για εμφάνιση</string>
 	<string name="EPr_edit_screen_options">Επεξεργασία επιλογών εμφάνισης</string>
 	<string name="EPr_beastMode_reset">Επαναφορά προεπιλογών</string>
 	<string name="EPr_fullTask_title">Εμφάνισε πλήρη τίτλο εργασίας</string>

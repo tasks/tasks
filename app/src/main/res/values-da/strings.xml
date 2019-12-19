@@ -39,8 +39,7 @@
     <string name="TEA_load_more">Indlæs flere...</string>
     <string name="CRA_ignore_all">Ignorér alle begivenheder</string>
     <string name="CRA_ignore_this">Ignorér kun denne begivenhed</string>
-    <string name="EPr_appearance_header">Udseende</string>
-    <string name="EPr_default_urgency_title">Standard Deadline</string>
+  <string name="EPr_default_urgency_title">Standard Deadline</string>
     <string name="EPr_default_importance_title">Standard Vigtighed</string>
     <string name="EPr_default_hideUntil_title">Standard Skjul Indtil</string>
     <string name="EPr_default_reminders_title">Standardpåmindelser</string>

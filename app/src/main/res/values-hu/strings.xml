@@ -79,8 +79,7 @@
     <string name="CRA_calendar_reminders_pref_desc_enabled">A Tasks emlékeztetni fog a közelgő naptáreseményekre, és a felkészülésre</string>
     <string name="CRA_default_list_name">Akciópontok: %s</string>
     <string name="none">Nincs</string>
-    <string name="EPr_appearance_header">Megjelenés</string>
-    <string name="EPr_filters_to_show_title">Megjelenítendő szűrők</string>
+  <string name="EPr_filters_to_show_title">Megjelenítendő szűrők</string>
     <string name="EPr_edit_screen_options">Szerkesztési képernyő beállításai</string>
     <string name="EPr_beastMode_reset">Visszaállítás alapértékre</string>
     <string name="EPr_fullTask_title">Feladat teljes nevének megjelenítése</string>

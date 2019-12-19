@@ -77,8 +77,7 @@
 	<string name="CRA_calendar_reminders_pref_desc_enabled">Tasks non ti avviserà dei prossimi eventi in calendario</string>
 	<string name="CRA_default_list_name">Azioni: %s</string>
 	<string name="none">Nessuna</string>
-	<string name="EPr_appearance_header">Aspetto</string>
-	<string name="EPr_filters_to_show_title">Filtri da visualizzare</string>
+  <string name="EPr_filters_to_show_title">Filtri da visualizzare</string>
 	<string name="EPr_edit_screen_options">Modifica opzioni schermo</string>
 	<string name="EPr_beastMode_reset">Ripristina predefiniti</string>
 	<string name="EPr_fullTask_title">Visualizza titolo completo dell\'attività</string>

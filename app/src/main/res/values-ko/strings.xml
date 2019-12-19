@@ -80,8 +80,7 @@
 	<string name="CRA_calendar_reminders_pref_desc_enabled">Tasks는 다가오는 달력 이벤트를 알리고 당신이 준비하도록 할 것입니다</string>
 	<string name="CRA_default_list_name">활동 아이템: %s</string>
 	<string name="none">없음</string>
-	<string name="EPr_appearance_header">보기 설정</string>
-	<string name="EPr_filters_to_show_title">표시할 필터</string>
+  <string name="EPr_filters_to_show_title">표시할 필터</string>
 	<string name="EPr_edit_screen_options">화면 설정 편집하기</string>
 	<string name="EPr_beastMode_reset">기본값으로 초기화하기</string>
 	<string name="EPr_fullTask_title">할일 제목 전체 보기</string>

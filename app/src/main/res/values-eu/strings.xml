@@ -81,8 +81,7 @@
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks aplikazioak egutegiko gertaerak gogorarazi egingo dizkizu hurbil daudenean horietarako prestatu zaitezen</string>
     <string name="CRA_default_list_name">Ekintzak: %s</string>
     <string name="none">Bat ere ez</string>
-    <string name="EPr_appearance_header">Itxura</string>
-    <string name="EPr_filters_to_show_title">Erakutsitako iragazkiak</string>
+  <string name="EPr_filters_to_show_title">Erakutsitako iragazkiak</string>
     <string name="EPr_edit_screen_options">Editatu pantailaren aukerak</string>
     <string name="EPr_beastMode_reset">Berrezarri lehenetsitakoak</string>
     <string name="EPr_fullTask_title">Erakutsi egitekoaren izenburu osoa</string>

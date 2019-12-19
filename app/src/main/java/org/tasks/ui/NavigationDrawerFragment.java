@@ -47,7 +47,7 @@ import org.tasks.filters.NavigationDrawerAction;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.intents.TaskIntents;
-import org.tasks.preferences.AppearancePreferences;
+import org.tasks.preferences.BasicPreferences;
 
 public class NavigationDrawerFragment extends InjectingFragment {
 
@@ -95,7 +95,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (requestCode == REQUEST_SETTINGS) {
       if (resultCode == Activity.RESULT_OK) {
-        if (data != null && data.getBooleanExtra(AppearancePreferences.EXTRA_RESTART, false)) {
+        if (data != null && data.getBooleanExtra(BasicPreferences.EXTRA_RESTART, false)) {
           getActivity().recreate();
         }
       }

@@ -278,11 +278,6 @@
     <!-- ========================================================= Plugins = -->
 
     <activity
-      android:label="@string/EPr_appearance_header"
-      android:name=".preferences.AppearancePreferences"
-      android:theme="@style/Tasks"/>
-
-    <activity
       android:label="@string/date_and_time"
       android:name=".preferences.DateTimePreferences"
       android:theme="@style/Tasks"/>

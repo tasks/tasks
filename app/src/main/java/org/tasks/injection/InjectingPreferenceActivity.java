@@ -20,6 +20,8 @@ import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.api.Filter;
 import javax.inject.Inject;
 import org.tasks.R;
+import org.tasks.analytics.Tracker;
+import org.tasks.analytics.Tracking;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.AppCompatPreferenceActivity;
@@ -31,10 +33,15 @@ import timber.log.Timber;
 public abstract class InjectingPreferenceActivity extends AppCompatPreferenceActivity
     implements InjectingActivity, OnMenuItemClickListener {
 
+  public static final String EXTRA_RESTART = "extra_restart";
+  private static final String EXTRA_BUNDLE = "extra_bundle";
+
   @Inject DialogBuilder dialogBuilder;
   @Inject Device device;
+  @Inject Tracker tracker;
 
   private ActivityComponent activityComponent;
+  private Bundle result;
 
   protected InjectingPreferenceActivity() {
     Locale.getInstance(this).applyOverrideConfiguration(this);
@@ -51,6 +58,8 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
     theme.applyThemeAndStatusBarColor(this, getDelegate());
 
     super.onCreate(savedInstanceState);
+
+    result = savedInstanceState == null ? new Bundle() : savedInstanceState.getBundle(EXTRA_BUNDLE);
 
     ViewGroup root = findViewById(android.R.id.content);
     View content = root.getChildAt(0);
@@ -150,6 +159,21 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
     }
   }
 
+  @Override
+  protected void onSaveInstanceState(Bundle outState) {
+    super.onSaveInstanceState(outState);
+
+    outState.putBundle(EXTRA_BUNDLE, result);
+  }
+
+  @Override
+  public void finish() {
+    Intent data = new Intent();
+    data.putExtras(result);
+    setResult(RESULT_OK, data);
+    super.finish();
+  }
+
   protected void emailSupport() {
     startActivity(
         new Intent(
@@ -161,5 +185,29 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
 
   protected String getHelpUrl() {
     return "http://tasks.org/help";
+  }
+
+  protected void forceRestart() {
+    result.putBoolean(EXTRA_RESTART, true);
+  }
+
+  protected void mergeResults(Bundle bundle) {
+    result.putAll(bundle);
+  }
+
+  protected void setExtraOnChange(final String extra, final int... resIds) {
+    for (int resId : resIds) {
+      setExtraOnChange(resId, extra);
+    }
+  }
+
+  protected void setExtraOnChange(final int resId, final String extra) {
+    findPreference(getString(resId))
+        .setOnPreferenceChangeListener(
+            (preference, newValue) -> {
+              tracker.reportEvent(Tracking.Events.SET_PREFERENCE, resId, newValue.toString());
+              result.putBoolean(extra, true);
+              return true;
+            });
   }
 }

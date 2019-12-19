@@ -75,8 +75,7 @@
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks herinnert je aan aankomende agenda gebeurtenissen en fluistert je in je voor te bereiden</string>
     <string name="CRA_default_list_name">Actie-items: %s</string>
     <string name="none">Geen</string>
-    <string name="EPr_appearance_header">Uiterlijk</string>
-    <string name="EPr_filters_to_show_title">Te tonen filters</string>
+  <string name="EPr_filters_to_show_title">Te tonen filters</string>
     <string name="EPr_edit_screen_options">Scherm opties bewerken</string>
     <string name="EPr_beastMode_reset">Standaardinstellingen herstellen</string>
     <string name="EPr_fullTask_title">Laat volledige taak titel zien</string>

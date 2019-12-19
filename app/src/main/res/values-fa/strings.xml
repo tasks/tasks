@@ -57,8 +57,7 @@
 	<string name="CRA_postpone">شاید یعدا</string>
 	<string name="CRA_calendar_reminders_pref_title">دستیار تقویم</string>
 	<string name="none">هیچکدام</string>
-	<string name="EPr_appearance_header">ظاهر</string>
-	<string name="EPr_filters_to_show_title">فیلترها برای نمایش</string>
+  <string name="EPr_filters_to_show_title">فیلترها برای نمایش</string>
 	<string name="EPr_edit_screen_options">ویرایش تنظیمات صفحه</string>
 	<string name="EPr_beastMode_reset">برگرداندن به پیش فرض</string>
 	<string name="EPr_fullTask_title">نمایش عنوان کامل وظیفه</string>

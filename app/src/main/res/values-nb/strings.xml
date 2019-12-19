@@ -42,8 +42,7 @@
     <string name="TEA_control_files">Filer</string>
     <string name="TEA_control_reminders">Påminnelser</string>
     <string name="TEA_control_hidden_section">----Alltid skjul----</string>
-    <string name="EPr_appearance_header">Utseende</string>
-    <string name="EPr_default_urgency_title">Forvalgsfrist</string>
+  <string name="EPr_default_urgency_title">Forvalgsfrist</string>
     <string name="EPr_default_importance_title">Forvalgsprioritert</string>
     <string name="EPr_default_hideUntil_title">Forvalgt skjuling til</string>
     <string name="EPr_default_reminders_title">Forvalgte påminnelser</string>

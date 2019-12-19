@@ -69,8 +69,7 @@
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks kommer att påminna om kommande kalenderhändelser och uppmana dig att förbereda dem</string>
     <string name="CRA_default_list_name">Saker att göra: %s</string>
     <string name="none">Ingen</string>
-    <string name="EPr_appearance_header">Utseende</string>
-    <string name="EPr_filters_to_show_title">Filter att visa</string>
+  <string name="EPr_filters_to_show_title">Filter att visa</string>
     <string name="EPr_edit_screen_options">Ändra skärminställningar</string>
     <string name="EPr_beastMode_reset">Återställ till standardvärden</string>
     <string name="EPr_fullTask_title">Visa hela namnet på uppgiften</string>

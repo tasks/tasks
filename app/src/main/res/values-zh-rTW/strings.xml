@@ -59,8 +59,7 @@
 	<string name="CRA_calendar_reminders_pref_desc_enabled">Tasks會提醒您關於月曆上將要到來的事件，並且會提示您做好準備。</string>
 	<string name="CRA_default_list_name">行動事項：%s</string>
 	<string name="none">無</string>
-	<string name="EPr_appearance_header">外觀</string>
-	<string name="EPr_edit_screen_options">編輯畫面選項</string>
+  <string name="EPr_edit_screen_options">編輯畫面選項</string>
 	<string name="EPr_beastMode_reset">恢復預設值</string>
 	<string name="EPr_fullTask_title">顯示完整的任務工作標題</string>
 	<string name="EPr_show_task_edit_comments">在工作編輯介面顯示註解</string>

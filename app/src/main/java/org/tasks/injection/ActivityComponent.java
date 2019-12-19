@@ -31,7 +31,6 @@ import org.tasks.files.MyFilePickerActivity;
 import org.tasks.locale.ui.activity.TaskerCreateTaskActivity;
 import org.tasks.locale.ui.activity.TaskerSettingsActivity;
 import org.tasks.location.LocationPickerActivity;
-import org.tasks.preferences.AppearancePreferences;
 import org.tasks.preferences.AttributionActivity;
 import org.tasks.preferences.BasicPreferences;
 import org.tasks.preferences.DateTimePreferences;
@@ -114,8 +113,6 @@ public interface ActivityComponent {
   void inject(MiscellaneousPreferences miscellaneousPreferences);
 
   void inject(DateTimePreferences dateTimePreferences);
-
-  void inject(AppearancePreferences appearancePreferences);
 
   void inject(MyFilePickerActivity myFilePickerActivity);
 

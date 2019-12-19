@@ -55,7 +55,6 @@
   <string name="CRA_postpone">Võib-olla hiljem</string>
   <string name="CRA_calendar_reminders_pref_title">Kalendri assistent</string>
   <string name="none">Pole</string>
-  <string name="EPr_appearance_header">Välimus</string>
   <string name="EPr_filters_to_show_title">Näidatavad filtrid</string>
   <string name="EPr_edit_screen_options">Muutmise vaate valikud</string>
   <string name="EPr_beastMode_reset">Taasta vaikeväärtused</string>
