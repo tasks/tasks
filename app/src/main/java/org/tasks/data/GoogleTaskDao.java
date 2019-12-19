@@ -48,7 +48,7 @@ public abstract class GoogleTaskDao {
   abstract void shiftUp(String listId, long parent, long position);
 
   @Transaction
-  public void move(GoogleTask task, long newParent, long newPosition) {
+  public void move(SubsetGoogleTask task, long newParent, long newPosition) {
     long previousParent = task.getParent();
     long previousPosition = task.getOrder();
 
@@ -62,7 +62,6 @@ public abstract class GoogleTaskDao {
       shiftUp(task.getListId(), previousParent, previousPosition);
       shiftDown(task.getListId(), newParent, newPosition);
     }
-    task.setMoved(true);
     task.setParent(newParent);
     task.setOrder(newPosition);
     update(task);
@@ -73,6 +72,13 @@ public abstract class GoogleTaskDao {
 
   @Update
   public abstract void update(GoogleTask googleTask);
+
+  public void update(SubsetGoogleTask googleTask) {
+    update(googleTask.getId(), googleTask.getParent(), googleTask.getOrder());
+  }
+
+  @Query("UPDATE google_tasks SET gt_order = :order, gt_parent = :parent, gt_moved = 1 WHERE gt_id = :id")
+  abstract void update(long id, long parent, long order);
 
   @Query("UPDATE google_tasks SET gt_deleted = :now WHERE gt_task = :task OR gt_parent = :task")
   public abstract void markDeleted(long now, long task);

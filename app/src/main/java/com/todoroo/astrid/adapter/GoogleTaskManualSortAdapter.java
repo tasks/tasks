@@ -6,8 +6,8 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import org.tasks.BuildConfig;
-import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskDao;
+import org.tasks.data.SubsetGoogleTask;
 import org.tasks.data.TaskContainer;
 import org.tasks.tasklist.ViewHolder;
 
@@ -73,7 +73,7 @@ public class GoogleTaskManualSortAdapter extends TaskAdapter {
   @Override
   public void moved(int from, int to, int indent) {
     TaskContainer task = getTask(from);
-    GoogleTask googleTask = task.getGoogleTask();
+    SubsetGoogleTask googleTask = task.getGoogleTask();
     TaskContainer previous = to > 0 ? getTask(to - 1) : null;
 
     if (previous == null) {

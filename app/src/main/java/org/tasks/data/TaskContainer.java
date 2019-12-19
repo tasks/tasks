@@ -5,7 +5,7 @@ import com.todoroo.astrid.data.Task;
 
 public class TaskContainer {
   @Embedded public Task task;
-  @Embedded public GoogleTask googletask;
+  @Embedded public SubsetGoogleTask googletask;
   @Embedded public SubsetCaldav caldavTask;
   @Embedded public Location location;
   public String tags;
@@ -216,7 +216,7 @@ public class TaskContainer {
     return secondarySort == siblings - 1;
   }
 
-  public GoogleTask getGoogleTask() {
+  public SubsetGoogleTask getGoogleTask() {
     return googletask;
   }
 
