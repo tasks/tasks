@@ -6,7 +6,7 @@ import com.todoroo.astrid.data.Task;
 public class TaskContainer {
   @Embedded public Task task;
   @Embedded public GoogleTask googletask;
-  @Embedded public CaldavTask caldavTask;
+  @Embedded public SubsetCaldav caldavTask;
   @Embedded public Location location;
   public String tags;
   public int children;
@@ -220,7 +220,7 @@ public class TaskContainer {
     return googletask;
   }
 
-  public CaldavTask getCaldavTask() {
+  public SubsetCaldav getCaldavTask() {
     return caldavTask;
   }
 

@@ -6,6 +6,7 @@ import static com.todoroo.andlib.utility.DateUtilities.now;
 import androidx.annotation.RequiresApi;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
+import org.tasks.data.SubsetCaldav;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.CaldavTask;
 import org.tasks.data.TaskContainer;
@@ -84,7 +85,7 @@ public final class CaldavTaskAdapter extends TaskAdapter {
   }
 
   private void changeParent(TaskContainer task, long newParent) {
-    CaldavTask caldavTask = task.getCaldavTask();
+    SubsetCaldav caldavTask = task.getCaldavTask();
 
     if (newParent == 0) {
       caldavTask.setRemoteParent("");

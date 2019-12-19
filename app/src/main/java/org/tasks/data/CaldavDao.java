@@ -57,6 +57,14 @@ public abstract class CaldavDao {
   @Update
   public abstract void update(CaldavTask caldavTask);
 
+  public void update(SubsetCaldav caldavTask) {
+    update(caldavTask.getId(), caldavTask.getParent(), caldavTask.getRemoteParent());
+  }
+
+  @Query(
+      "UPDATE caldav_tasks SET cd_parent = :parent, cd_remote_parent = :remoteParent WHERE cd_id = :id")
+  abstract void update(long id, long parent, String remoteParent);
+
   @Update
   public abstract void update(Iterable<CaldavTask> tasks);
 
