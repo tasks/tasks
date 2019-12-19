@@ -14,6 +14,7 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static com.todoroo.andlib.utility.DateUtilities.now;
 import static org.tasks.db.DbUtils.batch;
 
+import androidx.paging.DataSource;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -22,7 +23,6 @@ import androidx.room.Transaction;
 import androidx.room.Update;
 import androidx.sqlite.db.SimpleSQLiteQuery;
 import androidx.sqlite.db.SupportSQLiteDatabase;
-import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
@@ -33,6 +33,9 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.UUIDHelper;
 import java.util.List;
 import org.tasks.BuildConfig;
+import org.tasks.data.CaldavTask;
+import org.tasks.data.GoogleTask;
+import org.tasks.data.Tag;
 import org.tasks.data.TaskContainer;
 import org.tasks.jobs.WorkManager;
 import timber.log.Timber;
@@ -162,6 +165,10 @@ public abstract class TaskDao {
 
   @Query("SELECT EXISTS(SELECT 1 FROM google_tasks WHERE gt_parent > 0 AND gt_deleted = 0)")
   abstract boolean hasGoogleTaskSubtasks();
+
+  @RawQuery(observedEntities = {Task.class})
+  public abstract DataSource.Factory<Integer, TaskContainer> getTaskFactory(
+      SimpleSQLiteQuery query);
 
   @Query("UPDATE tasks SET modified = datetime('now', 'localtime') WHERE _id in (:ids)")
   public abstract void touch(List<Long> ids);

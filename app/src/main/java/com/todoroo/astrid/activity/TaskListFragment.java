@@ -90,6 +90,8 @@ import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.Device;
 import org.tasks.preferences.Preferences;
 import org.tasks.sync.SyncAdapters;
+import org.tasks.tasklist.DragAndDropRecyclerAdapter;
+import org.tasks.tasklist.PagedListRecyclerAdapter;
 import org.tasks.tasklist.TaskListRecyclerAdapter;
 import org.tasks.tasklist.ViewHolderFactory;
 import org.tasks.ui.MenuColorizer;
@@ -259,18 +261,21 @@ public final class TaskListFragment extends InjectingFragment
       searchQuery = savedInstanceState.getString(EXTRA_SEARCH);
     }
 
+    boolean dragAndDrop = taskAdapter.supportsManualSorting() || preferences.showSubtasks();
     taskListViewModel.setFilter(
-        searchQuery == null ? filter : createSearchFilter(searchQuery),
-        taskAdapter.supportsParentingOrManualSort());
+        searchQuery == null ? filter : createSearchFilter(searchQuery), dragAndDrop);
 
     recyclerAdapter =
-        new TaskListRecyclerAdapter(
-            taskAdapter,
-            recyclerView,
-            viewHolderFactory,
-            this,
-            taskListViewModel.getValue(),
-            taskDao);
+        dragAndDrop
+            ? new DragAndDropRecyclerAdapter(
+                taskAdapter,
+                recyclerView,
+                viewHolderFactory,
+                this,
+                taskListViewModel.getValue(),
+                taskDao)
+            : new PagedListRecyclerAdapter(
+                taskAdapter, viewHolderFactory, this, taskListViewModel.getValue(), taskDao);
     taskAdapter.setHelper(recyclerAdapter);
     ((DefaultItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
     recyclerView.setLayoutManager(new LinearLayoutManager(context));

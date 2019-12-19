@@ -45,7 +45,7 @@
       "artifactId": {
         "name": "coordinatorlayout",
         "group": "androidx.coordinatorlayout",
-        "version": "1.1.0-beta01"
+        "version": "1.1.0-rc01"
       }
     },
     {
@@ -109,7 +109,7 @@
       "artifactId": {
         "name": "fragment",
         "group": "androidx.fragment",
-        "version": "1.1.0-rc01"
+        "version": "1.1.0"
       }
     },
     {
@@ -125,7 +125,7 @@
       "artifactId": {
         "name": "vectordrawable-animated",
         "group": "androidx.vectordrawable",
-        "version": "1.1.0-rc01"
+        "version": "1.1.0"
       }
     },
     {
@@ -925,7 +925,7 @@
       "artifactId": {
         "name": "recyclerview",
         "group": "androidx.recyclerview",
-        "version": "1.1.0-beta01"
+        "version": "1.1.0-rc01"
       }
     },
     {
@@ -1053,7 +1053,7 @@
       "artifactId": {
         "name": "material",
         "group": "com.google.android.material",
-        "version": "1.1.0-alpha10"
+        "version": "1.1.0-beta02"
       }
     },
     {
@@ -1101,7 +1101,7 @@
       "artifactId": {
         "name": "vectordrawable",
         "group": "androidx.vectordrawable",
-        "version": "1.1.0-rc01"
+        "version": "1.1.0"
       }
     },
     {
@@ -1149,7 +1149,7 @@
       "artifactId": {
         "name": "appcompat",
         "group": "androidx.appcompat",
-        "version": "1.1.0-rc01"
+        "version": "1.1.0"
       }
     },
     {
@@ -1293,7 +1293,7 @@
       "artifactId": {
         "name": "transition",
         "group": "androidx.transition",
-        "version": "1.0.1"
+        "version": "1.2.0"
       }
     },
     {
@@ -1501,7 +1501,7 @@
       "artifactId": {
         "name": "kotlin-stdlib",
         "group": "org.jetbrains.kotlin",
-        "version": "1.3.60"
+        "version": "1.3.61"
       }
     },
     {
@@ -1613,7 +1613,7 @@
       "artifactId": {
         "name": "kotlin-stdlib-common",
         "group": "org.jetbrains.kotlin",
-        "version": "1.3.60"
+        "version": "1.3.61"
       }
     },
     {
@@ -1901,7 +1901,7 @@
       "artifactId": {
         "name": "appcompat-resources",
         "group": "androidx.appcompat",
-        "version": "1.1.0-rc01"
+        "version": "1.1.0"
       }
     },
     {
@@ -1917,7 +1917,7 @@
       "artifactId": {
         "name": "viewpager2",
         "group": "androidx.viewpager2",
-        "version": "1.0.0-beta03"
+        "version": "1.0.0-rc01"
       }
     },
     {
@@ -1933,7 +1933,7 @@
       "artifactId": {
         "name": "savedstate",
         "group": "androidx.savedstate",
-        "version": "1.0.0-rc01"
+        "version": "1.0.0"
       }
     },
     {
@@ -1949,7 +1949,39 @@
       "artifactId": {
         "name": "activity",
         "group": "androidx.activity",
-        "version": "1.0.0-rc01"
+        "version": "1.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://developer.android.com/topic/libraries/architecture/index.html",
+      "libraryName": "Android Paging-Runtime",
+      "artifactId": {
+        "name": "paging-runtime",
+        "group": "androidx.paging",
+        "version": "2.1.1"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://developer.android.com/topic/libraries/architecture/index.html",
+      "libraryName": "Android Paging-Common",
+      "artifactId": {
+        "name": "paging-common",
+        "group": "androidx.paging",
+        "version": "2.1.1"
       }
     }
   ]
