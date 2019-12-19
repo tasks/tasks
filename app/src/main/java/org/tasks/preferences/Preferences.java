@@ -5,6 +5,7 @@ import static com.google.common.collect.Iterables.filter;
 import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Sets.newHashSet;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastKitKat;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static java.util.Collections.emptySet;
 
 import android.content.ContentResolver;
@@ -526,5 +527,9 @@ public class Preferences {
 
   public int getDefaultPriority() {
     return getIntegerFromString(R.string.p_default_importance_key, Priority.LOW);
+  }
+
+  public boolean showSubtasks() {
+    return atLeastLollipop() && getBoolean(R.string.p_show_subtasks, false);
   }
 }

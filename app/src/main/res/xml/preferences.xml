@@ -38,6 +38,12 @@
       android:key="@string/p_rowPadding"
       android:title="@string/row_spacing"/>
 
+    <CheckBoxPreference
+      android:defaultValue="false"
+      android:key="@string/p_show_subtasks"
+      android:title="@string/show_subtasks"
+      android:summary="@string/show_subtasks_summary" />
+
     <com.todoroo.astrid.ui.MultilineCheckboxPreference
       android:defaultValue="false"
       android:key="@string/p_fullTaskTitle"

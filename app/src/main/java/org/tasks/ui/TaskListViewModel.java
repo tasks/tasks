@@ -109,6 +109,7 @@ public class TaskListViewModel extends ViewModel {
 
     if (filter.supportSubtasks()
         && (includeGoogleTaskSubtasks || includeCaldavSubtasks)
+        && preferences.showSubtasks()
         && !(preferences.isManualSort() && filter.supportsManualSort())) {
       String tagQuery =
           Query.select(field("group_concat(distinct(tag_uid))"))

@@ -560,4 +560,6 @@ File %1$s contained %2$s.\n\n
   <string name="subtasks_enable_synchronization">Enable synchronization to add subtasks</string>
   <string name="subtasks_multilevel_google_task">Multi-level subtasks not supported by Google Tasks</string>
   <string name="enter_title_hint">Enter title</string>
+  <string name="show_subtasks">Show subtasks</string>
+  <string name="show_subtasks_summary">Displaying subtasks will degrade app performance</string>
 </resources>

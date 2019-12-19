@@ -113,7 +113,14 @@ public class BasicPreferences extends InjectingPreferenceActivity
         R.string.p_linkify_task_list,
         R.string.p_show_list_indicators);
 
-    findPreference(getString(R.string.customize_edit_screen))
+    findPreference(R.string.p_show_subtasks)
+        .setOnPreferenceChangeListener((preference, newValue) -> {
+          forceRestart();
+          localBroadcastManager.broadcastRefresh();
+          return true;
+        });
+
+    findPreference(R.string.customize_edit_screen)
         .setOnPreferenceClickListener(
             preference -> {
               startActivityForResult(
