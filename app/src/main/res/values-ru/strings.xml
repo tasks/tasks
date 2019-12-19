@@ -136,7 +136,7 @@
     <string name="CFC_dueBefore_name">Конечный срок…</string>
     <string name="no_due_date">Нет даты выполнения задания</string>
     <string name="next_month">Ближайшие 30 дней</string>
-    <string name="CFC_importance_text">Приоритет как минимум \?</string>
+    <string name="CFC_importance_text">Приоритет как минимум ?</string>
     <string name="CFC_importance_name">Приоритет…</string>
     <string name="CFC_tag_text">Тег: ? </string>
     <string name="CFC_tag_name">Тег…</string>
