@@ -24,6 +24,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.drawerlayout.widget.DrawerLayout.SimpleDrawerListener;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.todoroo.astrid.activity.MainActivity;
@@ -159,6 +160,9 @@ public class NavigationDrawerFragment extends InjectingFragment {
             }
           }
         });
+    if (item instanceof Filter) {
+      ViewModelProviders.of(getActivity()).get(TaskListViewModel.class).setFilter((Filter) item);
+    }
     close();
   }
 

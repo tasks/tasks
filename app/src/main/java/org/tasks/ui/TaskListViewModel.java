@@ -98,6 +98,10 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
   private CompositeDisposable disposable = new CompositeDisposable();
   private LiveData<PagedList<TaskContainer>> internal;
 
+  public void setFilter(@NonNull Filter filter) {
+    setFilter(filter, manualSort);
+  }
+
   public void setFilter(@NonNull Filter filter, boolean manualSort) {
     if (!filter.equals(this.filter)
         || !filter.getSqlQuery().equals(this.filter.getSqlQuery())
