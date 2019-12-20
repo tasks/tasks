@@ -130,7 +130,7 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
                   .where(
                       filter instanceof TagFilter
                           ? Criterion.and(
-                              RECURSIVE_TASK.eq(Tag.TASK),
+                              Task.ID.eq(Tag.TASK),
                               Tag.TAG_UID.neq(((TagFilter) filter).getUuid()))
                           : Task.ID.eq(Tag.TASK))
                   .toString()
