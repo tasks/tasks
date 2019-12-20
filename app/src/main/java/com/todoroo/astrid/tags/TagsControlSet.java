@@ -176,7 +176,6 @@ public final class TagsControlSet extends TaskEditControlFragment {
   @Override
   public void apply(Task task) {
     if (synchronizeTags(task)) {
-      Flags.set(Flags.TAGS_CHANGED);
       task.setModificationDate(DateUtilities.now());
     }
   }

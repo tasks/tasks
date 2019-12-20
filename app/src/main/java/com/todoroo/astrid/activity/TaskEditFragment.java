@@ -36,10 +36,8 @@ import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.timers.TimerPlugin;
 import com.todoroo.astrid.ui.EditTitleControlSet;
-import com.todoroo.astrid.utility.Flags;
 import java.util.List;
 import javax.inject.Inject;
-import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.data.UserActivity;
@@ -71,7 +69,6 @@ public final class TaskEditFragment extends InjectingFragment
   @Inject Preferences preferences;
   @Inject Tracker tracker;
   @Inject TimerPlugin timerPlugin;
-  @Inject LocalBroadcastManager localBroadcastManager;
 
   @BindView(R.id.toolbar)
   Toolbar toolbar;
@@ -215,10 +212,6 @@ public final class TaskEditFragment extends InjectingFragment
         fragment.apply(model);
       }
       taskDao.save(model, null);
-
-      if (Flags.checkAndClear(Flags.TAGS_CHANGED)) {
-        localBroadcastManager.broadcastRefreshList();
-      }
 
       if (isNewTask) {
         ((MainActivity) getActivity()).getTaskListFragment().onTaskCreated(model.getUuid());

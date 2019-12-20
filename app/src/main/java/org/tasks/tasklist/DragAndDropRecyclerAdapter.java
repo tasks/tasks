@@ -251,7 +251,7 @@ public class DragAndDropRecyclerAdapter extends TaskListRecyclerAdapter {
       }
       from = -1;
       to = -1;
-      Flags.checkAndClear(Flags.TLFP_NO_INTERCEPT_TOUCH);
+      Flags.clear(Flags.TLFP_NO_INTERCEPT_TOUCH);
     }
 
     @Override
