@@ -1,5 +1,21 @@
 Change Log
 ---
+### 7.4.1 (2019-12-24)
+
+* Add option to enable subtasks in task list
+* Performance improvements
+* Ask Play Services to update security provider
+* Display custom icons in tag picker
+* Fix case comparison when sorting navigation drawer
+* Update translations
+  * Basque - Osoitz
+  * Dutch - @fvbommel
+  * French - @FlorianLeChat
+  * Hungarian - kaciokos
+  * Polish - @alex-ter
+  * Russian - @alex-ter
+  * Spanish - @FlorianLeChat
+
 ### 7.4 (2019-12-16)
 
 * Add Google Task and CalDAV subtasks from the edit screen
