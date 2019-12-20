@@ -75,7 +75,7 @@
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks le recordará los próximos eventos de calendario y le pedirá que se prepare para ellos</string>
     <string name="CRA_default_list_name">Acciones: %s</string>
     <string name="none">Ninguna</string>
-  <string name="EPr_filters_to_show_title">Filtros a mostrar</string>
+    <string name="EPr_filters_to_show_title">Filtros a mostrar</string>
     <string name="EPr_edit_screen_options">Editar opciones de pantalla</string>
     <string name="EPr_beastMode_reset">Restablecer valores predeterminados</string>
     <string name="EPr_fullTask_title">Mostrar completo el título de la tarea</string>
@@ -553,4 +553,6 @@
     <string name="subtasks_enable_synchronization">Habilitar la sincronización para añadir subtareas</string>
     <string name="subtasks_multilevel_google_task">Subtareas multinivel no compatibles con Google Tasks</string>
     <string name="enter_title_hint">Introducir título</string>
+    <string name="show_subtasks">Mostrar subtareas</string>
+    <string name="show_subtasks_summary">La visualización de subtareas degradará el rendimiento de la aplicación</string>
 </resources>
