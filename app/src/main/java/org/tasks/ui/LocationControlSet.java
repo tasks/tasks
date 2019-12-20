@@ -251,6 +251,11 @@ public class LocationControlSet extends TaskEditControlFragment {
   }
 
   @Override
+  public boolean requiresId() {
+    return true;
+  }
+
+  @Override
   public void apply(Task task) {
     if (original != null) {
       geofenceApi.cancel(original);

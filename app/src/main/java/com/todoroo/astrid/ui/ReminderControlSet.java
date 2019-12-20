@@ -194,6 +194,11 @@ public class ReminderControlSet extends TaskEditControlFragment {
   }
 
   @Override
+  public boolean requiresId() {
+    return true;
+  }
+
+  @Override
   public void apply(Task task) {
     task.setReminderFlags(getFlags());
 

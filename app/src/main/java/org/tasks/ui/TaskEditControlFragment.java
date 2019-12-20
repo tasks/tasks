@@ -48,6 +48,10 @@ public abstract class TaskEditControlFragment extends InjectingFragment {
 
   public abstract int controlId();
 
+  public boolean requiresId() {
+    return false;
+  }
+
   public abstract void apply(Task task);
 
   public boolean hasChanges(Task original) {

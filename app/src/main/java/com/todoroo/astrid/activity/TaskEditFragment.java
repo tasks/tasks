@@ -6,6 +6,9 @@
 
 package com.todoroo.astrid.activity;
 
+import static com.google.common.base.Predicates.not;
+import static com.google.common.collect.Iterables.filter;
+import static com.todoroo.andlib.utility.AndroidUtilities.assertNotMainThread;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 import static org.tasks.files.FileHelper.copyToUri;
 
@@ -36,6 +39,9 @@ import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.timers.TimerPlugin;
 import com.todoroo.astrid.ui.EditTitleControlSet;
+import io.reactivex.Completable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
@@ -56,7 +62,7 @@ import org.tasks.ui.TaskEditControlFragment;
 public final class TaskEditFragment extends InjectingFragment
     implements Toolbar.OnMenuItemClickListener {
 
-  public static final String TAG_TASKEDIT_FRAGMENT = "taskedit_fragment";
+  static final String TAG_TASKEDIT_FRAGMENT = "taskedit_fragment";
   private static final String EXTRA_TASK = "extra_task";
   @Inject TaskDao taskDao;
   @Inject UserActivityDao userActivityDao;
@@ -82,7 +88,7 @@ public final class TaskEditFragment extends InjectingFragment
   Task model = null;
   private TaskEditFragmentCallbackHandler callback;
 
-  public static TaskEditFragment newTaskEditFragment(Task task) {
+  static TaskEditFragment newTaskEditFragment(Task task) {
     TaskEditFragment taskEditFragment = new TaskEditFragment();
     Bundle arguments = new Bundle();
     arguments.putParcelable(EXTRA_TASK, task);
@@ -165,16 +171,15 @@ public final class TaskEditFragment extends InjectingFragment
   public boolean onMenuItemClick(MenuItem item) {
     AndroidUtilities.hideKeyboard(getActivity());
 
-    switch (item.getItemId()) {
-      case R.id.menu_delete:
-        deleteButtonClick();
-        return true;
+    if (item.getItemId() == R.id.menu_delete) {
+      deleteButtonClick();
+      return true;
     }
 
     return false;
   }
 
-  public Task stopTimer() {
+  Task stopTimer() {
     timerPlugin.stopTimer(model);
     String elapsedTime = DateUtils.formatElapsedTime(model.getElapsedSeconds());
     addComment(
@@ -188,7 +193,7 @@ public final class TaskEditFragment extends InjectingFragment
     return model;
   }
 
-  public Task startTimer() {
+  Task startTimer() {
     timerPlugin.startTimer(model);
     addComment(
         String.format(
@@ -205,19 +210,34 @@ public final class TaskEditFragment extends InjectingFragment
         taskEditControlSetFragmentManager.getFragmentsInPersistOrder(getChildFragmentManager());
     if (hasChanges(fragments)) {
       boolean isNewTask = model.isNew();
-      if (isNewTask) {
-        taskDao.createNew(model);
-      }
-      for (TaskEditControlFragment fragment : fragments) {
+      TaskListFragment taskListFragment = ((MainActivity) getActivity()).getTaskListFragment();
+      for (TaskEditControlFragment fragment :
+          filter(fragments, not(TaskEditControlFragment::requiresId))) {
         fragment.apply(model);
       }
-      taskDao.save(model, null);
 
-      if (isNewTask) {
-        ((MainActivity) getActivity()).getTaskListFragment().onTaskCreated(model.getUuid());
-      } else {
-        ((MainActivity) getActivity()).getTaskListFragment().loadTaskListContent();
-      }
+      Completable.fromAction(
+              () -> {
+                assertNotMainThread();
+
+                if (isNewTask) {
+                  taskDao.createNew(model);
+                }
+
+                for (TaskEditControlFragment fragment :
+                    filter(fragments, TaskEditControlFragment::requiresId)) {
+                  fragment.apply(model);
+                }
+
+                taskDao.save(model, null);
+
+                if (isNewTask) {
+                  taskListFragment.onTaskCreated(model.getUuid());
+                }
+              })
+          .subscribeOn(Schedulers.io())
+          .observeOn(AndroidSchedulers.mainThread())
+          .subscribe();
       callback.removeTaskEditFragment();
     } else {
       discard();
@@ -266,7 +286,7 @@ public final class TaskEditFragment extends InjectingFragment
    * ======================================================================
    */
 
-  public void discardButtonClick() {
+  void discardButtonClick() {
     if (hasChanges(
         taskEditControlSetFragmentManager.getFragmentsInPersistOrder(getChildFragmentManager()))) {
       dialogBuilder

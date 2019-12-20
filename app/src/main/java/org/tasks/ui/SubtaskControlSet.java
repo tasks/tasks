@@ -159,6 +159,11 @@ public class SubtaskControlSet extends TaskEditControlFragment implements Callba
   }
 
   @Override
+  public boolean requiresId() {
+    return true;
+  }
+
+  @Override
   public void apply(Task task) {
     for (Task subtask: getNewSubtasks()) {
       if (Strings.isNullOrEmpty(subtask.getTitle())) {

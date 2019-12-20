@@ -518,19 +518,19 @@ public final class TaskListFragment extends InjectingFragment
     return getArguments().getParcelable(EXTRA_FILTER);
   }
 
-  public void onTaskCreated(List<Task> tasks) {
+  private void onTaskCreated(List<Task> tasks) {
     for (Task task : tasks) {
       onTaskCreated(task.getUuid());
     }
     syncAdapters.sync();
+    loadTaskListContent();
   }
 
   void onTaskCreated(String uuid) {
     taskAdapter.onTaskCreated(uuid);
-    loadTaskListContent();
   }
 
-  public void onTaskDelete(Task task) {
+  private void onTaskDelete(Task task) {
     MainActivity activity = (MainActivity) getActivity();
     if (activity != null) {
       TaskEditFragment tef = activity.getTaskEditFragment();
