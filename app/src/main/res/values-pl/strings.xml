@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
-<resources>
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos--><resources>
     <string name="actfm_picture_clear">Usuń obrazek</string>
-    <string name="TVA_add_comment">Dodaj komentarz...</string>
+    <string name="TVA_add_comment">Dodaj komentarz…</string>
     <string name="name">Nazwa</string>
     <string name="enter_filter_name">Podaj nazwę filtra</string>
     <string name="backup_BPr_header">Kopie zapasowe</string>
@@ -12,7 +11,7 @@
     <string name="export_toast_no_tasks">Brak zadań do eksportowania.</string>
     <string name="import_summary_title">Podsumowanie odzyskiwania</string>
     <string name="import_summary_message">Plik %1$s zawiera %2$s.\n\n %3$s zaimportowanych,\n %4$s już istnieje\n %5$s zawiera błędy\n</string>
-    <string name="import_progress_read">Czytanie zadania %d...</string>
+    <string name="import_progress_read">Czytanie zadania %d…</string>
     <string name="read_permission_label">Uprawnienia Tasks</string>
     <string name="discard_confirmation">Czy jesteś pewien, że chcesz porzucić zmiany?</string>
     <string name="keep_editing">Kontynuuj edycję</string>
@@ -20,14 +19,14 @@
     <string name="DLG_hour_minutes">Czas (godziny : minuty)</string>
     <string name="DLG_undo">Cofnij</string>
     <string name="WID_dateButtonUnset">Kliknij, aby ustawić</string>
-    <string name="TLA_no_items">Brak zadań</string>
+    <string name="TLA_no_items">Brak zadań.</string>
     <string name="TLA_menu_sort">Sortuj</string>
     <string name="TLA_menu_search">Szukaj</string>
     <string name="TLA_menu_settings">Ustawienia</string>
     <string name="TAd_actionEditTask">Edytuj</string>
     <string name="action_call">Zadzwoń</string>
     <string name="action_open">Otwórz</string>
-  <string name="SSD_sort_auto">Automatyczne</string>
+    <string name="SSD_sort_auto">Automatyczne</string>
     <string name="SSD_sort_alpha">Wg tytułu</string>
     <string name="SSD_sort_due">Wg daty</string>
     <string name="SSD_sort_importance">Wg priorytetów</string>
@@ -63,8 +62,8 @@
     <string name="TEA_control_files">Pliki</string>
     <string name="TEA_control_reminders">Przypomnienia</string>
     <string name="TEA_control_timer">Sterowanie zegara</string>
-    <string name="TEA_control_hidden_section">----Zawsze Ukryte----</string>
-    <string name="TEA_load_more">Wczytaj więcej...</string>
+    <string name="TEA_control_hidden_section">----Zawsze ukrywaj----</string>
+    <string name="TEA_load_more">Wczytaj więcej…</string>
     <string name="CRA_ignore">Ignoruj</string>
     <string name="CRA_title">Czy potrzebujesz listy spotkań?</string>
     <string name="CRA_ignore_body">Zignorowałeś kilka wydarzeń z kalendarza. Czy Tasks powinien przestać cię o nie pytać?</string>
@@ -77,10 +76,10 @@
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks będzie przypominał ci o nadchodzących wydarzeniach w kalendarzu oraz będzie nakłaniał do przygotowania się do nich</string>
     <string name="CRA_default_list_name">Wydarzenia aktywne: %s</string>
     <string name="none">Brak</string>
-  <string name="EPr_filters_to_show_title">Pokazywane filtry</string>
+    <string name="EPr_filters_to_show_title">Pokazywane filtry</string>
     <string name="EPr_edit_screen_options">Edytuj ustawienia ekranu</string>
     <string name="EPr_beastMode_reset">Przywróć domyślne</string>
-    <string name="EPr_fullTask_title">Pokaż pełną nazwę zadania</string>
+    <string name="EPr_fullTask_title">Pokaż pełny tytuł zadania</string>
     <string name="EPr_show_task_edit_comments">Pokaż komentarze w edycji zadania</string>
     <string name="task_list_options">Opcje listy zadań</string>
     <string name="EPr_cal_end_or_start_at_due_time">Czas zdarzenia kalendarza</string>
@@ -132,15 +131,15 @@
     <string name="CFA_help">Przytrzymaj dłużej na obiekcie dla dodatkowych opcji</string>
     <string name="CFA_button_add">Dodaj kryterium</string>
     <string name="CFC_dueBefore_text">Termin wykonania: ?</string>
-    <string name="CFC_dueBefore_name">Termin wykonania...</string>
+    <string name="CFC_dueBefore_name">Termin wykonania…</string>
     <string name="no_due_date">Bez terminu</string>
     <string name="next_month">Przyszły miesiąc</string>
-    <string name="CFC_importance_text">Priorytet przynajmniej?</string>
-    <string name="CFC_importance_name">Priorytet...</string>
-    <string name="CFC_tag_name">Tag...</string>
-    <string name="CFC_tag_contains_name">Nazwa taga zawiera...</string>
+    <string name="CFC_importance_text">Priorytet przynajmniej \?</string>
+    <string name="CFC_importance_name">Priorytet…</string>
+    <string name="CFC_tag_name">Tag…</string>
+    <string name="CFC_tag_contains_name">Nazwa taga zawiera…</string>
     <string name="CFC_tag_contains_text">Nazwa taga zawiera: ?</string>
-    <string name="CFC_title_contains_name">Tytuł zawiera...</string>
+    <string name="CFC_title_contains_name">Tytuł zawiera…</string>
     <string name="CFC_title_contains_text">Tytuł zawiera: ?</string>
     <string name="gcal_TEA_error">Błąd podczas dodawania zadania do kalendarza!</string>
     <string name="gcal_TEA_showCalendar_label">Otwórz zdarzenie kalendarza</string>
@@ -148,12 +147,12 @@
     <string name="calendar_event_not_found">Zdarzenie kalendarza nie odnazlezione</string>
     <string name="gcal_completed_title">%s (ukończono)</string>
     <string name="CFC_gtasks_list_text">Na liście: ?</string>
-    <string name="CFC_gtasks_list_name">Na liście GTasks...</string>
-    <string name="CFC_caldav_list_name">Na liście CalDAV</string>
+    <string name="CFC_gtasks_list_name">Na liście GTasks…</string>
+    <string name="CFC_caldav_list_name">Na liście CalDAV…</string>
     <string name="gtasks_GTA_clear_completed">Wyczyść zakończone</string>
-    <string name="gtasks_GLA_authenticating">Uwierzytelnianie...</string>
+    <string name="gtasks_GLA_authenticating">Uwierzytelnianie…</string>
     <string name="gtasks_GLA_errorIOAuth">Przepraszamy, mieliśmy problem z porozumieniem się z serwerami Google. Prosimy spróbować ponownie.</string>
-    <string name="gtasks_GPr_header">Zadania Google</string>
+    <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="gtasks_error_accountNotFound">Nie znaleziono konta %s --proszę wyloguj się i zaloguj ponownie w ustawieniach Google Zadań.</string>
     <string name="premium_record_audio">Nagraj notatkę</string>
     <string name="premium_remove_file_confirm">Jesteś pewny? Tych zmian nie można odwrócić</string>
@@ -168,8 +167,8 @@
     <string name="random_reminder_two_weeks">na dwa tygodnie</string>
     <string name="random_reminder_month">na miesiąc</string>
     <string name="random_reminder_two_months">na dwa miesiące</string>
-    <string name="rmd_NoA_done">Już wykonano!</string>
-    <string name="rmd_NoA_snooze">Wstrzymaj...</string>
+    <string name="rmd_NoA_done">Gotowe</string>
+    <string name="rmd_NoA_snooze">Drzemka</string>
     <string name="snooze_all">Uśpij wszystkie</string>
     <string name="rmd_EPr_quiet_hours_start_title">Początek czasu wyciszenia</string>
     <string name="rmd_EPr_quiet_hours_end_title">Koniec czasu wyciszenia</string>
@@ -191,7 +190,7 @@
     <string name="repeat_option_every_week">Każdego tygodnia</string>
     <string name="repeat_option_every_month">Każdego miesiąca</string>
     <string name="repeat_option_every_year">Każdego roku</string>
-    <string name="repeat_option_custom">Własne ustawienie...</string>
+    <string name="repeat_option_custom">Własne ustawienie…</string>
     <string name="repeat_minutely">Powtarzaj co ileś minut</string>
     <string name="repeat_hourly">Powtarzaj co ileś godzin</string>
     <string name="repeat_daily">Powtarzaj co ileś dni</string>
@@ -200,65 +199,79 @@
     <string name="repeat_yearly">Powtarzaj co ileś lat</string>
     <plurals name="task_count">
         <item quantity="one">%d zadań</item>
-        <item quantity="other">%d zadań</item>
+        <item quantity="few">%d zadania</item>
+        <item quantity="many">%d zadań</item>
     </plurals>
     <plurals name="repeat_times">
         <item quantity="one">raz</item>
-        <item quantity="other">razy</item>
+        <item quantity="few">razy</item>
+        <item quantity="many">razy</item>
     </plurals>
     <plurals name="repeat_minutes">
         <item quantity="one">minuta</item>
-        <item quantity="other">minut</item>
+        <item quantity="few">minuty</item>
+        <item quantity="many">minut</item>
     </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d minutę</item>
-        <item quantity="other">%d minut</item>
+        <item quantity="few">%d minuty</item>
+        <item quantity="many">%d minut</item>
     </plurals>
     <plurals name="repeat_hours">
-        <item quantity="one">godzin</item>
-        <item quantity="other">godzin</item>
+        <item quantity="one">godzina</item>
+        <item quantity="few">godziny</item>
+        <item quantity="many">godzin</item>
     </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">%d godzinę</item>
-        <item quantity="other">%d godzin</item>
+        <item quantity="few">%d godziny</item>
+        <item quantity="many">%d godzin</item>
     </plurals>
     <plurals name="repeat_days">
         <item quantity="one">dzień</item>
-        <item quantity="other">dni</item>
+        <item quantity="few">dni</item>
+        <item quantity="many">dni</item>
     </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">%d dzień</item>
-        <item quantity="other">%d dni</item>
+        <item quantity="few">%d dni</item>
+        <item quantity="many">%d dni</item>
     </plurals>
     <plurals name="repeat_weeks">
         <item quantity="one">tydzień</item>
-        <item quantity="other">tygodnie</item>
+        <item quantity="few">tygodnie</item>
+        <item quantity="many">tygodni</item>
     </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d tydzień</item>
-        <item quantity="other">%d tygodni</item>
+        <item quantity="few">%d tygodnie</item>
+        <item quantity="many">%d tygodni</item>
     </plurals>
     <plurals name="repeat_months">
         <item quantity="one">miesiąc</item>
-        <item quantity="other">miesięcy</item>
+        <item quantity="few">miesiące</item>
+        <item quantity="many">miesięcy</item>
     </plurals>
     <plurals name="repeat_n_months">
         <item quantity="one">%d miesiąc</item>
-        <item quantity="other">%d miesiące</item>
+        <item quantity="few">%d miesiące</item>
+        <item quantity="many">%d miesięcy</item>
     </plurals>
     <plurals name="repeat_years">
         <item quantity="one">rok</item>
-        <item quantity="other">lat</item>
+        <item quantity="few">lat</item>
+        <item quantity="many">lat</item>
     </plurals>
     <plurals name="repeat_n_years">
         <item quantity="one">%d rok</item>
-        <item quantity="other">%d lat</item>
+        <item quantity="few">%d lat</item>
+        <item quantity="many">%d lat</item>
     </plurals>
     <string name="repeat_type_due">w terminie</string>
     <string name="repeat_type_completion">data zakończenia</string>
     <string name="repeat_forever">Powtarzaj bez końca</string>
     <string name="repeat_until">Powtarzaj do %s</string>
-    <string name="repeat_number_of_times">Powtarzaj ilość razy.</string>
+    <string name="repeat_number_of_times">Powtarzaj podaną ilość razy</string>
     <string name="repeat_occurs">Występuje</string>
     <string name="repeat_snackbar">%1$s przełożone na %2$s</string>
     <string comment="display new due date and time in snackbar after completing repeating task, e.g. \'Tomorrow at 8 AM\' or \'21 May at 8 AM\'" name="repeat_snackbar_time">%1$s o %2$s</string>
@@ -267,7 +280,7 @@
     <string name="tag_FEx_untagged">Na żadnej liście</string>
     <string name="delete_tag_confirmation">Usunąć %s?</string>
     <string name="TPl_notification">Minutnkiki aktywne przez %s!</string>
-    <string name="TFE_workingOn">Zadania zostały spracyzowane czasowo</string>
+    <string name="TFE_workingOn">Zadania z minutnikiem</string>
     <string name="TEA_timer_controls">Minutnik</string>
     <string name="TEA_timer_comment_started">rozpoczęto zadanie:</string>
     <string name="TEA_timer_comment_stopped">zakończono zadanie:</string>
@@ -280,7 +293,8 @@
     <string name="voice_command_added_task">Dodane zadanie</string>
     <plurals name="Ntasks">
         <item quantity="one">1 zadanie</item>
-        <item quantity="other">%d zadań</item>
+        <item quantity="few">%d zadania</item>
+        <item quantity="many">%d zadań</item>
     </plurals>
     <string name="today">Dzisiaj</string>
     <string name="tomorrow">Jutro</string>
@@ -310,7 +324,7 @@
     <string name="source_code">Kod źródłowy</string>
     <string name="translations">Wspomóż tłumaczenie</string>
     <string name="contact_developer">Skontaktuj się z twórcą</string>
-    <string name="rate_tasks">Oceń zadania</string>
+    <string name="rate_tasks">Oceń Tasks</string>
     <string name="quiet_hours_summary">Brak przypomnień w czasie wyciszenia</string>
     <string name="TLA_menu_donate">Wesprzyj</string>
     <string name="add_reminder">Dodaj przypomnienie</string>
@@ -479,8 +493,8 @@
     <string name="error_billing_unavailable">Płatność niedostępna. Upewnij się, że aplikacja Google Play jest poprawnie skonfigurowana.</string>
     <string name="error_billing_default">Płatność niedostępna. Sprawdź swoje urządzenie.</string>
     <string name="about">O</string>
-    <string name="license_summary">Tasks jest aplikacją darmową z otwartym kodem źródłowym, rozprowadzaną na licencją GNU General Public License v3.0</string>
-    <string name="themes">Dodatkowe motywy</string>
+    <string name="license_summary">Tasks jest aplikacją darmową/libre z otwartym kodem źródłowym, na licencji GNU General Public License v3.0</string>
+    <string name="themes">Dodatkowe motywy i ikony</string>
     <string name="pro_caldav_sync">Synchronizacja CalDAV</string>
     <string name="pro_multiple_google_task_accounts">Wiele kont Google Task</string>
     <string name="pro_google_places_search">Wyszukiwanie w Google Places</string>
@@ -513,4 +527,48 @@
     <string name="third_party_licenses">Licencje innych podmiotów</string>
     <string name="changelog">Lista zmian</string>
     <string name="version_string">Wersja %s</string>
+    <string name="CFC_tag_text">Tag; \?</string>
+    <string name="location_radius_meters">%s m</string>
+    <string name="CalDAV">CalDAV</string>
+    <string name="url">URL</string>
+    <string name="error_adding_account">Błąd: %s</string>
+    <string name="list_separator_with_space">", "</string>
+    <string name="caldav_home_set_not_found">Nie znaleziono zestawu domowego</string>
+    <string name="pro_tasker_plugins">Wtyczki do Tasker</string>
+    <string name="pro_dashclock_extension">Rozszerzenie do Dashclock</string>
+    <string name="show_list_indicators">Pokaż listy</string>
+    <string name="invalid_backup_file">Nieprawidłowy plik kopii zapasowej</string>
+    <string name="google_tasks_add_to_top">Nowe zadania na górze</string>
+    <string name="icon">Ikona</string>
+    <string name="pro_support_development">Tasks potrzebuje Twojego wsparcia!</string>
+    <string name="manage_subscription_summary">Podwyższyć, obniżyć poziom albo anulować subskrypcję</string>
+    <string name="button_current_subscription">Aktualna subskrypcja</string>
+    <string name="button_restore_subscription">Przywróć subskrypcję</string>
+    <string name="button_downgrade">Obniżyć poziom subskrypcji</string>
+    <string name="button_upgrade">Podwyższyć poziom subskrypcji</string>
+    <string name="button_unsubscribe">Anuluj subskrypcję</string>
+    <string name="pro_description">Tasks to aplikacja darmową/libre z otwartym kodem źródłowym, która nie wyświetla reklam ani nie sprzedaje Twojch danych osobowych</string>
+    <string name="pro_subscribe_now">Subskrybuj teraz, aby wspierać rozwój aplikacji i odblokować dodatkowe funkcje</string>
+    <string name="name_your_price">Nazwij swoją cenę</string>
+    <string name="monthly">Miesięczne</string>
+    <string name="annually">Rocznie</string>
+    <string name="SSD_sort_my_order">Ręczne</string>
+    <string name="caldav_account_repeating_tasks">Pozwól serwerowi planować cykliczne zadania</string>
+    <string name="EPr_temp_show_completed_tasks">Tymczasowo pokazuj zadania po zakończeniu</string>
+    <string name="EPr_temp_completed_tasks_showing">Zadania będą tymczasowo widoczne na liście po zakończeniu</string>
+    <string name="EPr_temp_completed_tasks_not_showing">Zadania natychmiast znikną z listy po zakończeniu</string>
+    <plurals name="subtask_count">
+        <item quantity="one">%d podzadanie</item>
+        <item quantity="few">%d podzadania</item>
+        <item quantity="many">%d podzadań</item>
+    </plurals>
+    <string name="expand_subtasks">Rozwiń podzadania</string>
+    <string name="collapse_subtasks">Zwiń podzadania</string>
+    <string name="TEA_add_subtask">Dodaj podzadanie</string>
+    <string name="subtasks">Podzadania</string>
+    <string name="subtasks_enable_synchronization">Włącz synchronizację, aby móc dodać podzadania</string>
+    <string name="subtasks_multilevel_google_task">Wielopoziomowe podzadania nie są obsługiwane przez Google Tasks</string>
+    <string name="enter_title_hint">Wprowadź tytuł</string>
+    <string name="show_subtasks">Pokaż podzadania</string>
+    <string name="show_subtasks_summary">Wyświetlanie podzadań spowoduje obniżenie wydajności aplikacji</string>
 </resources>
