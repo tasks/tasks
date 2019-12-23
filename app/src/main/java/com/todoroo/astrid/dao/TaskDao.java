@@ -159,10 +159,16 @@ public abstract class TaskDao {
   @RawQuery
   abstract int count(SimpleSQLiteQuery query);
 
-  @Query("SELECT EXISTS(SELECT 1 FROM caldav_tasks WHERE cd_parent > 0 AND cd_deleted = 0)")
+  @Query(
+      "SELECT EXISTS(SELECT 1 FROM caldav_tasks "
+          + "INNER JOIN tasks ON cd_task = _id "
+          + "WHERE deleted = 0 AND cd_parent > 0 AND cd_deleted = 0)")
   abstract boolean hasCaldavSubtasks();
 
-  @Query("SELECT EXISTS(SELECT 1 FROM google_tasks WHERE gt_parent > 0 AND gt_deleted = 0)")
+  @Query(
+      "SELECT EXISTS(SELECT 1 FROM google_tasks "
+          + "INNER JOIN tasks ON gt_task = _id "
+          + "WHERE deleted = 0 AND gt_parent > 0 AND gt_deleted = 0)")
   abstract boolean hasGoogleTaskSubtasks();
 
   @RawQuery(observedEntities = {Place.class})
