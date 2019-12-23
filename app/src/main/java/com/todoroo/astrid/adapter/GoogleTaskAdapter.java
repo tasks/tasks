@@ -1,10 +1,6 @@
 package com.todoroo.astrid.adapter;
 
-import static com.todoroo.andlib.utility.DateUtilities.now;
-
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.data.SyncFlags;
-import com.todoroo.astrid.data.Task;
 import org.tasks.BuildConfig;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.SubsetGoogleTask;
@@ -46,10 +42,7 @@ public final class GoogleTaskAdapter extends GoogleTaskManualSortAdapter {
           newTasksOnTop ? 0 : googleTaskDao.getBottom(googleTask.getListId(), newParent));
     }
 
-    Task update = task.getTask();
-    update.setModificationDate(now());
-    update.putTransitory(SyncFlags.FORCE_SYNC, true);
-    taskDao.save(update);
+    taskDao.touch(task.getId());
 
     if (BuildConfig.DEBUG) {
       googleTaskDao.validateSorting(task.getGoogleTaskList());

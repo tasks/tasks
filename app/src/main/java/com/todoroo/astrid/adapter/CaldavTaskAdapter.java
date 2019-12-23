@@ -1,14 +1,12 @@
 package com.todoroo.astrid.adapter;
 
 import static android.os.Build.VERSION_CODES.LOLLIPOP;
-import static com.todoroo.andlib.utility.DateUtilities.now;
 
 import androidx.annotation.RequiresApi;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.data.Task;
-import org.tasks.data.SubsetCaldav;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.CaldavTask;
+import org.tasks.data.SubsetCaldav;
 import org.tasks.data.TaskContainer;
 import org.tasks.tasklist.ViewHolder;
 
@@ -79,9 +77,7 @@ public final class CaldavTaskAdapter extends TaskAdapter {
 
     changeParent(task, newParent);
 
-    Task update = task.getTask();
-    update.setModificationDate(now());
-    taskDao.save(update);
+    taskDao.touch(task.getId());
   }
 
   private void changeParent(TaskContainer task, long newParent) {

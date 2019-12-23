@@ -20,13 +20,11 @@ import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskListDao;
 import org.tasks.preferences.Preferences;
-import org.tasks.sync.SyncAdapters;
 
 public class TaskMover {
   private final TaskDao taskDao;
   private final CaldavDao caldavDao;
   private final GoogleTaskDao googleTaskDao;
-  private final SyncAdapters syncAdapters;
   private final GoogleTaskListDao googleTaskListDao;
   private final Preferences preferences;
 
@@ -35,19 +33,13 @@ public class TaskMover {
       TaskDao taskDao,
       CaldavDao caldavDao,
       GoogleTaskDao googleTaskDao,
-      SyncAdapters syncAdapters,
       GoogleTaskListDao googleTaskListDao,
       Preferences preferences) {
     this.taskDao = taskDao;
     this.caldavDao = caldavDao;
     this.googleTaskDao = googleTaskDao;
-    this.syncAdapters = syncAdapters;
     this.googleTaskListDao = googleTaskListDao;
     this.preferences = preferences;
-  }
-
-  public void move(Long task, Filter selectedList) {
-    move(singletonList(task), selectedList);
   }
 
   public void move(List<Long> tasks, Filter selectedList) {
@@ -56,14 +48,11 @@ public class TaskMover {
     tasks.removeAll(caldavDao.findChildrenInList(tasks));
     for (Task task : taskDao.fetch(tasks)) {
       performMove(task, selectedList);
-      task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
-      task.setModificationDate(now());
-      taskDao.save(task);
     }
     if (selectedList instanceof CaldavFilter) {
       caldavDao.updateParents((((CaldavFilter) selectedList).getUuid()));
     }
-    syncAdapters.sync();
+    taskDao.touch(tasks);
   }
 
   public Filter getSingleFilter(List<Long> tasks) {

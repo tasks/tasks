@@ -21,6 +21,7 @@ import org.tasks.gtasks.GoogleTaskSynchronizer;
 import org.tasks.injection.InjectingWorker;
 import org.tasks.injection.JobComponent;
 import org.tasks.preferences.Preferences;
+import org.tasks.sync.SyncAdapters;
 
 public class SyncWork extends InjectingWorker {
 
@@ -33,6 +34,7 @@ public class SyncWork extends InjectingWorker {
   @Inject Tracker tracker;
   @Inject CaldavDao caldavDao;
   @Inject GoogleTaskListDao googleTaskListDao;
+  @Inject SyncAdapters syncAdapters;
 
   public SyncWork(@NonNull Context context, @NonNull WorkerParameters workerParams) {
     super(context, workerParams);
@@ -41,29 +43,18 @@ public class SyncWork extends InjectingWorker {
   @NonNull
   @Override
   public Result run() {
+    if (!syncAdapters.isSyncEnabled()) {
+      return Result.success();
+    }
     synchronized (LOCK) {
       if (preferences.isSyncOngoing()) {
         return Result.retry();
       }
     }
-
     preferences.setSyncOngoing(true);
     localBroadcastManager.broadcastRefresh();
     try {
-      int numThreads = atLeastJellybeanMR1() ? Runtime.getRuntime().availableProcessors() : 2;
-      ExecutorService executor = newFixedThreadPool(numThreads);
-
-      for (CaldavAccount account : caldavDao.getAccounts()) {
-        executor.execute(() -> caldavSynchronizer.sync(account));
-      }
-      List<GoogleTaskAccount> accounts = googleTaskListDao.getAccounts();
-      for (int i = 0; i < accounts.size(); i++) {
-        int count = i;
-        executor.execute(() -> googleTaskSynchronizer.sync(accounts.get(count), count));
-      }
-
-      executor.shutdown();
-      executor.awaitTermination(15, TimeUnit.MINUTES);
+      sync();
     } catch (Exception e) {
       tracker.reportException(e);
     } finally {
@@ -71,6 +62,23 @@ public class SyncWork extends InjectingWorker {
       localBroadcastManager.broadcastRefresh();
     }
     return Result.success();
+  }
+
+  private void sync() throws InterruptedException {
+    int numThreads = atLeastJellybeanMR1() ? Runtime.getRuntime().availableProcessors() : 2;
+    ExecutorService executor = newFixedThreadPool(numThreads);
+
+    for (CaldavAccount account : caldavDao.getAccounts()) {
+      executor.execute(() -> caldavSynchronizer.sync(account));
+    }
+    List<GoogleTaskAccount> accounts = googleTaskListDao.getAccounts();
+    for (int i = 0; i < accounts.size(); i++) {
+      int count = i;
+      executor.execute(() -> googleTaskSynchronizer.sync(accounts.get(count), count));
+    }
+
+    executor.shutdown();
+    executor.awaitTermination(15, TimeUnit.MINUTES);
   }
 
   @Override

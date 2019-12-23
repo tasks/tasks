@@ -24,6 +24,7 @@ import androidx.room.Update;
 import androidx.sqlite.db.SimpleSQLiteQuery;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.google.common.base.Joiner;
+import com.google.common.collect.ImmutableList;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Functions;
@@ -168,8 +169,17 @@ public abstract class TaskDao {
   public abstract DataSource.Factory<Integer, TaskContainer> getTaskFactory(
       SimpleSQLiteQuery query);
 
-  @Query("UPDATE tasks SET modified = datetime('now', 'localtime') WHERE _id in (:ids)")
-  public abstract void touch(List<Long> ids);
+  public void touch(Long id) {
+    touch(ImmutableList.of(id));
+  }
+
+  public void touch(List<Long> ids) {
+    touchInternal(ids);
+    workManager.sync(false);
+  }
+
+  @Query("UPDATE tasks SET modified = strftime('%s','now')*1000 WHERE _id in (:ids)")
+  abstract void touchInternal(List<Long> ids);
 
   @Query("UPDATE tasks SET collapsed = :collapsed WHERE _id = :id")
   public abstract void setCollapsed(long id, boolean collapsed);
@@ -196,7 +206,10 @@ public abstract class TaskDao {
 
   // TODO: get rid of this super-hack
   public void save(Task task, Task original) {
-    if (saveExisting(task, original)) {
+    if (!task.insignificantChange(original)) {
+      task.setModificationDate(now());
+    }
+    if (update(task) == 1) {
       workManager.afterSave(task, original);
     }
   }
@@ -217,13 +230,6 @@ public abstract class TaskDao {
     }
     long insert = insert(task);
     task.setId(insert);
-  }
-
-  private boolean saveExisting(Task item, Task original) {
-    if (!item.insignificantChange(original)) {
-      item.setModificationDate(now());
-    }
-    return update(item) == 1;
   }
 
   @Query(
