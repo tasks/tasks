@@ -269,7 +269,7 @@ public abstract class TaskDao {
       return Criterion.and(
           Task.COMPLETION_DATE.lte(0),
           Task.DELETION_DATE.lte(0),
-          Task.HIDE_UNTIL.lt(Functions.now()));
+          Task.HIDE_UNTIL.lte(Functions.now()));
     }
   }
 
