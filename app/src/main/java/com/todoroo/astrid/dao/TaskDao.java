@@ -33,9 +33,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.UUIDHelper;
 import java.util.List;
 import org.tasks.BuildConfig;
-import org.tasks.data.CaldavTask;
-import org.tasks.data.GoogleTask;
-import org.tasks.data.Tag;
+import org.tasks.data.Place;
 import org.tasks.data.TaskContainer;
 import org.tasks.jobs.WorkManager;
 import timber.log.Timber;
@@ -166,7 +164,7 @@ public abstract class TaskDao {
   @Query("SELECT EXISTS(SELECT 1 FROM google_tasks WHERE gt_parent > 0 AND gt_deleted = 0)")
   abstract boolean hasGoogleTaskSubtasks();
 
-  @RawQuery(observedEntities = {Task.class})
+  @RawQuery(observedEntities = {Place.class})
   public abstract DataSource.Factory<Integer, TaskContainer> getTaskFactory(
       SimpleSQLiteQuery query);
 
