@@ -331,7 +331,9 @@ public final class TaskListFragment extends InjectingFragment
       sortMenu.setEnabled(false);
       sortMenu.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
     }
-    if (!filter.supportSubtasks() || taskAdapter.supportsManualSorting()) {
+    if (!preferences.showSubtasks()
+        || !filter.supportSubtasks()
+        || taskAdapter.supportsManualSorting()) {
       menu.findItem(R.id.menu_collapse_subtasks).setVisible(false);
       menu.findItem(R.id.menu_expand_subtasks).setVisible(false);
     }
