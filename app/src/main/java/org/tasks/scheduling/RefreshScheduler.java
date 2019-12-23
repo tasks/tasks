@@ -10,18 +10,22 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import javax.inject.Inject;
+import org.tasks.R;
 import org.tasks.injection.ApplicationScope;
 import org.tasks.jobs.WorkManager;
+import org.tasks.preferences.Preferences;
 
 @ApplicationScope
 public class RefreshScheduler {
 
+  private final Preferences preferences;
   private final WorkManager workManager;
   private final TaskDao taskDao;
   private final SortedSet<Long> jobs = new TreeSet<>();
 
   @Inject
-  public RefreshScheduler(WorkManager workManager, TaskDao taskDao) {
+  RefreshScheduler(Preferences preferences, WorkManager workManager, TaskDao taskDao) {
+    this.preferences = preferences;
     this.workManager = workManager;
     this.taskDao = taskDao;
   }
@@ -33,7 +37,8 @@ public class RefreshScheduler {
   }
 
   public synchronized void scheduleRefresh(Task task) {
-    if (task.isCompleted()) {
+    if (task.isCompleted()
+        && preferences.getBoolean(R.string.p_temporarily_show_completed_tasks, false)) {
       scheduleRefresh(task.getCompletionDate() + ONE_MINUTE);
     } else if (task.hasDueDate()) {
       scheduleRefresh(task.getDueDate());
