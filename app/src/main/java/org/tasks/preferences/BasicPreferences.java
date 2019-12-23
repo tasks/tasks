@@ -2,6 +2,7 @@ package org.tasks.preferences;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
 import static java.util.Arrays.asList;
 import static org.tasks.PermissionUtil.verifyPermissions;
 import static org.tasks.dialogs.ExportTasksDialog.newExportTasksDialog;
@@ -321,6 +322,8 @@ public class BasicPreferences extends InjectingPreferenceActivity
         atLeastJellybeanMR1(),
         R.string.p_language,
         R.string.p_layout_direction);
+
+    requires(R.string.task_list_options, atLeastMarshmallow(), R.string.p_show_subtasks);
 
     requires(BuildConfig.DEBUG, R.string.debug);
 

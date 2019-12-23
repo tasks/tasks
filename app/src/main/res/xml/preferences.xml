@@ -22,9 +22,11 @@
 
   </PreferenceCategory>
 
-  <PreferenceCategory android:title="@string/task_list_options">
+  <PreferenceCategory
+    android:key="@string/task_list_options"
+    android:title="@string/task_list_options">
 
-    <com.todoroo.astrid.ui.MultilinePreference
+  <com.todoroo.astrid.ui.MultilinePreference
       android:key="@string/p_default_list"
       android:title="@string/default_list"/>
 
