@@ -1,10 +1,19 @@
 package org.tasks.data;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.Toast;
+import androidx.annotation.Nullable;
 import androidx.room.Embedded;
 import androidx.room.Ignore;
 import java.io.Serializable;
+import java.util.List;
+import org.tasks.R;
 
 public class Location implements Serializable, Parcelable {
 
@@ -130,8 +139,19 @@ public class Location implements Serializable, Parcelable {
     return place.getDisplayAddress();
   }
 
-  public String getGeoUri() {
-    return place.getGeoUri();
+  public void open(@Nullable Context context) {
+    if (context == null) {
+      return;
+    }
+    Intent intent = new Intent(Intent.ACTION_VIEW);
+    intent.setData(Uri.parse(place.getGeoUri()));
+    PackageManager pm = context.getPackageManager();
+    List<ResolveInfo> resolveInfos = pm.queryIntentActivities(intent, 0);
+    if (resolveInfos.isEmpty()) {
+      Toast.makeText(context, R.string.no_application_found_link, Toast.LENGTH_SHORT).show();
+    } else {
+      context.startActivity(intent);
+    }
   }
 
   @Override

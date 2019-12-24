@@ -364,6 +364,7 @@ File %1$s contained %2$s.\n\n
   <string name="show_completed">Show completed</string>
   <string name="reverse">Reverse</string>
   <string name="no_application_found">No application found to open attachment</string>
+  <string name="no_application_found_link">No application found to handle link</string>
   <string name="add_attachment">Add attachment</string>
   <string name="take_a_picture">Take a picture</string>
   <string name="pick_from_gallery">Pick from gallery</string>

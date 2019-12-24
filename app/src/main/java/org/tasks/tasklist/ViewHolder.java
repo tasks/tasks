@@ -281,9 +281,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     if (tag instanceof Filter) {
       callback.onClick((Filter) tag);
     } else if (tag instanceof Location) {
-      Intent intent = new Intent(Intent.ACTION_VIEW);
-      intent.setData(Uri.parse(((Location) tag).getGeoUri()));
-      context.startActivity(intent);
+      ((Location) tag).open(context);
     } else if (tag instanceof TaskContainer) {
       TaskContainer task = (TaskContainer) tag;
       callback.toggleSubtasks(task, !task.isCollapsed());

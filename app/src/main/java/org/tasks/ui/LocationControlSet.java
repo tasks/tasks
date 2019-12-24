@@ -148,7 +148,7 @@ public class LocationControlSet extends TaskEditControlFragment {
       chooseLocation();
     } else {
       List<Pair<Integer, Runnable>> options = new ArrayList<>();
-      options.add(Pair.create(R.string.open_map, this::openMap));
+      options.add(Pair.create(R.string.open_map, () -> location.open(getActivity())));
       if (!Strings.isNullOrEmpty(location.getPhone())) {
         options.add(Pair.create(R.string.action_call, this::call));
       }
@@ -218,12 +218,6 @@ public class LocationControlSet extends TaskEditControlFragment {
   @Override
   public int controlId() {
     return TAG;
-  }
-
-  private void openMap() {
-    Intent intent = new Intent(Intent.ACTION_VIEW);
-    intent.setData(Uri.parse(location.getGeoUri()));
-    startActivity(intent);
   }
 
   private void openWebsite() {
