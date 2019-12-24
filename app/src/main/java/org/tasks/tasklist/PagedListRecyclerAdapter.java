@@ -1,8 +1,10 @@
 package org.tasks.tasklist;
 
+import android.os.Parcelable;
 import androidx.paging.AsyncPagedListDiffer;
 import androidx.paging.PagedList;
 import androidx.recyclerview.widget.AsyncDifferConfig;
+import androidx.recyclerview.widget.RecyclerView;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.dao.TaskDao;
@@ -11,15 +13,18 @@ import org.tasks.data.TaskContainer;
 
 public class PagedListRecyclerAdapter extends TaskListRecyclerAdapter {
 
+  private final RecyclerView recyclerView;
   private AsyncPagedListDiffer<TaskContainer> differ;
 
   public PagedListRecyclerAdapter(
       TaskAdapter adapter,
+      RecyclerView recyclerView,
       ViewHolderFactory viewHolderFactory,
       TaskListFragment taskList,
       List<TaskContainer> list,
       TaskDao taskDao) {
     super(adapter, viewHolderFactory, taskList, taskDao);
+    this.recyclerView = recyclerView;
     differ =
         new AsyncPagedListDiffer<>(
             this, new AsyncDifferConfig.Builder<>(new ItemCallback()).build());
@@ -35,6 +40,15 @@ public class PagedListRecyclerAdapter extends TaskListRecyclerAdapter {
 
   public void submitList(List<TaskContainer> list) {
     differ.submitList((PagedList<TaskContainer>) list);
+  }
+
+  @Override
+  public void onMoved(int fromPosition, int toPosition) {
+    Parcelable recyclerViewState = recyclerView.getLayoutManager().onSaveInstanceState();
+
+    super.onMoved(fromPosition, toPosition);
+
+    recyclerView.getLayoutManager().onRestoreInstanceState(recyclerViewState);
   }
 
   @Override

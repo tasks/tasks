@@ -275,7 +275,12 @@ public final class TaskListFragment extends InjectingFragment
                 taskListViewModel.getValue(),
                 taskDao)
             : new PagedListRecyclerAdapter(
-                taskAdapter, viewHolderFactory, this, taskListViewModel.getValue(), taskDao);
+                taskAdapter,
+                recyclerView,
+                viewHolderFactory,
+                this,
+                taskListViewModel.getValue(),
+                taskDao);
     taskAdapter.setHelper(recyclerAdapter);
     ((DefaultItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
     recyclerView.setLayoutManager(new LinearLayoutManager(context));
