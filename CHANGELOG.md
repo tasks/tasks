@@ -14,6 +14,7 @@ Change Log
   * Hungarian - kaciokos
   * Polish - @alex-ter
   * Russian - @alex-ter
+  * Simplified Chinese - @sr093906
   * Spanish - @FlorianLeChat
 
 ### 7.4 (2019-12-16)
