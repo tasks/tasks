@@ -323,7 +323,7 @@ public class BasicPreferences extends InjectingPreferenceActivity
         R.string.p_language,
         R.string.p_layout_direction);
 
-    requires(R.string.task_list_options, atLeastMarshmallow(), R.string.p_show_subtasks);
+    requires(R.string.task_list_options, atLeastLollipop(), R.string.p_show_subtasks);
 
     requires(BuildConfig.DEBUG, R.string.debug);
 
