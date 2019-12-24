@@ -17,6 +17,8 @@ import at.bitfire.dav4jvm.Response;
 import at.bitfire.dav4jvm.Response.HrefRelation;
 import at.bitfire.dav4jvm.exception.DavException;
 import at.bitfire.dav4jvm.exception.HttpException;
+import at.bitfire.dav4jvm.exception.ServiceUnavailableException;
+import at.bitfire.dav4jvm.exception.UnauthorizedException;
 import at.bitfire.dav4jvm.property.CalendarData;
 import at.bitfire.dav4jvm.property.DisplayName;
 import at.bitfire.dav4jvm.property.GetCTag;
@@ -118,11 +120,18 @@ public class CaldavSynchronizer {
     }
     try {
       synchronize(account);
-    } catch (SocketTimeoutException | SSLException | ConnectException | UnknownHostException e) {
+    } catch (SocketTimeoutException
+        | SSLException
+        | ConnectException
+        | UnknownHostException
+        | UnauthorizedException
+        | ServiceUnavailableException e) {
       setError(account, e.getMessage());
     } catch (IOException | DavException e) {
       setError(account, e.getMessage());
-      tracker.reportException(e);
+      if (!(e instanceof HttpException) || ((HttpException) e).getCode() < 500) {
+        tracker.reportException(e);
+      }
     }
   }
 
