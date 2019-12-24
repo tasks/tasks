@@ -14,6 +14,7 @@ import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import java.util.List;
 import javax.inject.Inject;
+import org.tasks.LocalBroadcastManager;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.CaldavTask;
 import org.tasks.data.GoogleTask;
@@ -27,6 +28,7 @@ public class TaskMover {
   private final GoogleTaskDao googleTaskDao;
   private final GoogleTaskListDao googleTaskListDao;
   private final Preferences preferences;
+  private final LocalBroadcastManager localBroadcastManager;
 
   @Inject
   public TaskMover(
@@ -34,12 +36,14 @@ public class TaskMover {
       CaldavDao caldavDao,
       GoogleTaskDao googleTaskDao,
       GoogleTaskListDao googleTaskListDao,
-      Preferences preferences) {
+      Preferences preferences,
+      LocalBroadcastManager localBroadcastManager) {
     this.taskDao = taskDao;
     this.caldavDao = caldavDao;
     this.googleTaskDao = googleTaskDao;
     this.googleTaskListDao = googleTaskListDao;
     this.preferences = preferences;
+    this.localBroadcastManager = localBroadcastManager;
   }
 
   public void move(List<Long> tasks, Filter selectedList) {
@@ -53,6 +57,7 @@ public class TaskMover {
       caldavDao.updateParents((((CaldavFilter) selectedList).getUuid()));
     }
     taskDao.touch(tasks);
+    localBroadcastManager.broadcastRefresh();
   }
 
   public Filter getSingleFilter(List<Long> tasks) {
