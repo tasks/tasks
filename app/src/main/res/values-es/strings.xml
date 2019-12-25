@@ -555,4 +555,5 @@
     <string name="enter_title_hint">Introducir título</string>
     <string name="show_subtasks">Mostrar subtareas</string>
     <string name="show_subtasks_summary">La visualización de subtareas degradará el rendimiento de la aplicación</string>
+    <string name="no_application_found_link">No se encontró ninguna aplicación para manejar el enlace</string>
 </resources>
