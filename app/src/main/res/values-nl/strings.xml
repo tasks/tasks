@@ -555,4 +555,5 @@
     <string name="enter_title_hint">Voer titel in</string>
     <string name="show_subtasks">Deeltaken tonen</string>
     <string name="show_subtasks_summary">Deeltaken tonen vermindert prestaties van de app</string>
+    <string name="no_application_found_link">Geen applicatie gevonden om de link te openen</string>
 </resources>
