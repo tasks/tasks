@@ -558,4 +558,5 @@
     <string name="enter_title_hint">Cím megadása</string>
     <string name="show_subtasks">Részfeladatok megjelenítése</string>
     <string name="show_subtasks_summary">A részfeladatok megjelenítése csökkenti a program sebességét</string>
+    <string name="no_application_found_link">A link feldolgozására képes alkalmazás nem található</string>
 </resources>
