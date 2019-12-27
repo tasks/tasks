@@ -42,7 +42,7 @@
     <string name="TEA_control_files">Filer</string>
     <string name="TEA_control_reminders">Påminnelser</string>
     <string name="TEA_control_hidden_section">----Alltid skjul----</string>
-  <string name="EPr_default_urgency_title">Forvalgsfrist</string>
+    <string name="EPr_default_urgency_title">Forvalgsfrist</string>
     <string name="EPr_default_importance_title">Forvalgsprioritert</string>
     <string name="EPr_default_hideUntil_title">Forvalgt skjuling til</string>
     <string name="EPr_default_reminders_title">Forvalgte påminnelser</string>
@@ -492,7 +492,7 @@
     <string name="error_billing_default">Fakturering utilgjengelig. Sjekk din enhet.</string>
     <string name="about">Om</string>
     <string name="license_summary">Tasks er fri programvare, lisensiert med GNU General Public-lisens v3.0</string>
-    <string name="themes">Ytterligere drakter</string>
+    <string name="themes">Ytterligere drakter og ikoner</string>
     <string name="pro_caldav_sync">CalDAV-synkronisering</string>
     <string name="pro_multiple_google_task_accounts">Flerfoldige Google Task-kontoer</string>
     <string name="pro_google_places_search">Google Places-søk</string>
@@ -556,4 +556,11 @@
     <string name="expand_subtasks">Utvid underoppgaver</string>
     <string name="collapse_subtasks">Fold sammen underoppgaver</string>
     <string name="enter_title_hint">Skriv inn tittel</string>
+    <string name="TEA_add_subtask">Legg til underoppgave</string>
+    <string name="subtasks">Underoppgaver</string>
+    <string name="subtasks_enable_synchronization">Skru på synkronisering for å legge til underoppgave</string>
+    <string name="subtasks_multilevel_google_task">Underoppgaver med flere nivå støttes ikke av Google Tasks</string>
+    <string name="show_subtasks">Vis underoppgaver</string>
+    <string name="show_subtasks_summary">Visning av underoppgaver påvirker ytelsen</string>
+    <string name="no_application_found_link">Mangler program for håndtering av lenke</string>
 </resources>
