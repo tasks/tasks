@@ -383,4 +383,9 @@ public final class TagsControlSet extends TaskEditControlFragment {
   protected void inject(FragmentComponent component) {
     component.inject(this);
   }
+
+  @Override
+  public boolean requiresId() {
+    return true;
+  }
 }
