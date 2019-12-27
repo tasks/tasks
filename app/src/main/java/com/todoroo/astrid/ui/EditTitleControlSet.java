@@ -6,6 +6,8 @@
 
 package com.todoroo.astrid.ui;
 
+import static com.todoroo.andlib.utility.DateUtilities.now;
+
 import android.content.Context;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -176,7 +178,9 @@ public class EditTitleControlSet extends TaskEditControlFragment {
   @Override
   public void apply(Task task) {
     task.setTitle(Strings.isNullOrEmpty(title) ? getString(R.string.no_title) : title);
-    if (isComplete != task.isCompleted()) {
+    if (task.isNew()) {
+      task.setCompletionDate(isComplete ? now() : 0);
+    } else if (isComplete != task.isCompleted()) {
       taskCompleter.setComplete(task, isComplete);
     }
   }

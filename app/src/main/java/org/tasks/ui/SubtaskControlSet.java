@@ -169,6 +169,7 @@ public class SubtaskControlSet extends TaskEditControlFragment implements Callba
       if (Strings.isNullOrEmpty(subtask.getTitle())) {
         continue;
       }
+      subtask.setCompletionDate(task.getCompletionDate());
       taskDao.createNew(subtask);
       if (remoteList instanceof GtasksFilter) {
         GoogleTask googleTask =

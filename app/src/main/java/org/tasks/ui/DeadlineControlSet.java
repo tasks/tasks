@@ -37,7 +37,6 @@ import org.tasks.activities.TimePickerActivity;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.preferences.Preferences;
-import org.tasks.themes.ThemeBase;
 import org.tasks.time.DateTime;
 
 public class DeadlineControlSet extends TaskEditControlFragment {
@@ -50,7 +49,6 @@ public class DeadlineControlSet extends TaskEditControlFragment {
   private static final String EXTRA_TIME = "extra_time";
   @Inject Preferences preferences;
   @Inject @ForActivity Context context;
-  @Inject ThemeBase themeBase;
 
   @BindView(R.id.due_date)
   Spinner dueDateSpinner;
