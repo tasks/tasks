@@ -36,7 +36,7 @@ android {
     defaultConfig {
         testApplicationId = "org.tasks.test"
         applicationId = "org.tasks"
-        versionCode = 642
+        versionCode = 643
         versionName = "7.4.1"
         targetSdkVersion(Versions.targetSdk)
         minSdkVersion(Versions.minSdk)

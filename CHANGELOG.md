@@ -1,6 +1,6 @@
 Change Log
 ---
-### 7.4.1 (2019-12-24)
+### 7.4.1 (2019-12-27)
 
 * Add option to enable subtasks in task list
 * Performance improvements
