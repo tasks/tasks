@@ -577,4 +577,5 @@
     <string name="enter_title_hint">Введите название</string>
     <string name="show_subtasks">Показать подзадачи</string>
     <string name="show_subtasks_summary">Отображение подзадач снизит производительность приложения</string>
+    <string name="no_application_found_link">Не найдено приложение для открытия ссылки</string>
 </resources>
