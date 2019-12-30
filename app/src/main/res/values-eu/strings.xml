@@ -192,7 +192,7 @@
     <string name="default_random_reminder_bi_weekly">Bi astean behin</string>
     <string name="default_random_reminder_monthly">Hilabetero</string>
     <string name="default_random_reminder_bi_monthly">Bi hiletan behin</string>
-    <string name="repeat_every">&gt;</string>
+    <string name="repeat_every">Errepikapena</string>
     <string name="repeat_option_does_not_repeat">Ez errepikatu</string>
     <string name="repeat_option_every_day">Egunero</string>
     <string name="repeat_option_every_week">Astero</string>
