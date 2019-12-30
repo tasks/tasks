@@ -1,5 +1,15 @@
 Change Log
 ---
+### 7.4.2 (2019-12-30)
+
+* Fix Tasker plugin settings
+* Update translations
+  * Basque - Osoitz
+  * Czech - vitSkalicky
+  * Norwegian Bokmål - @comradekingu
+  * Polish - @alex-ter
+  * Russian - @alex-ter
+
 ### 7.4.1 (2019-12-27)
 
 * Add option to enable subtasks in task list
