@@ -90,7 +90,6 @@ public class TaskMover {
         && caldavTask.getCalendar().equals(((CaldavFilter) selectedList).getUuid())) {
       return;
     }
-    task.putTransitory(SyncFlags.FORCE_SYNC, true);
     if (googleTask != null) {
       googleTaskChildren = googleTaskDao.getChildren(id);
       googleTaskDao.markDeleted(now(), id);
