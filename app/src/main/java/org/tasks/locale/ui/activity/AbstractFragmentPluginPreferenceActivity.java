@@ -53,10 +53,10 @@ public abstract class AbstractFragmentPluginPreferenceActivity extends Injecting
 
         if (null != resultBundle) {
           String blurb = getResultBlurb(resultBundle);
-          Intent resultIntent = new Intent();
-          resultIntent.putExtra(com.twofortyfouram.locale.api.Intent.EXTRA_BUNDLE, resultBundle);
-          resultIntent.putExtra(com.twofortyfouram.locale.api.Intent.EXTRA_STRING_BLURB, blurb);
-          setResult(RESULT_OK, resultIntent);
+          Bundle result = new Bundle();
+          result.putBundle(com.twofortyfouram.locale.api.Intent.EXTRA_BUNDLE, resultBundle);
+          result.putString(com.twofortyfouram.locale.api.Intent.EXTRA_STRING_BLURB, blurb);
+          mergeResults(result);
         }
       }
     }
