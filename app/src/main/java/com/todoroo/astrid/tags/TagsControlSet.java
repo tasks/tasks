@@ -6,54 +6,33 @@
 
 package com.todoroo.astrid.tags;
 
+import static android.app.Activity.RESULT_OK;
 import static com.google.common.collect.Lists.transform;
 import static com.google.common.collect.Sets.newHashSet;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 
-import android.annotation.SuppressLint;
-import android.graphics.drawable.Drawable;
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.CheckedTextView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
-import com.google.common.base.Strings;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Ordering;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.utility.Flags;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.billing.Inventory;
 import org.tasks.data.TagDao;
 import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
-import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.FragmentComponent;
-import org.tasks.themes.CustomIcons;
-import org.tasks.themes.ThemeCache;
-import org.tasks.themes.ThemeColor;
+import org.tasks.tags.TagPickerActivity;
 import org.tasks.ui.ChipProvider;
 import org.tasks.ui.TaskEditControlFragment;
 
@@ -66,9 +45,9 @@ public final class TagsControlSet extends TaskEditControlFragment {
 
   public static final int TAG = R.string.TEA_ctrl_lists_pref;
 
-  private static final String EXTRA_NEW_TAGS = "extra_new_tags";
   private static final String EXTRA_ORIGINAL_TAGS = "extra_original_tags";
   private static final String EXTRA_SELECTED_TAGS = "extra_selected_tags";
+  private static final int REQUEST_TAG_PICKER_ACTIVITY = 10582;
   private final Ordering<TagData> orderByName =
       new Ordering<TagData>() {
         @Override
@@ -78,20 +57,13 @@ public final class TagsControlSet extends TaskEditControlFragment {
       };
   @Inject TagDao tagDao;
   @Inject TagDataDao tagDataDao;
-  @Inject DialogBuilder dialogBuilder;
-  @Inject ThemeCache themeCache;
   @Inject ChipProvider chipProvider;
-  @Inject Inventory inventory;
 
   @BindView(R.id.no_tags)
   TextView tagsDisplay;
   @BindView(R.id.chip_group)
   ChipGroup chipGroup;
-  private LinearLayout newTagLayout;
-  private ListView tagListView;
-  private View dialogView;
-  private AlertDialog dialog;
-  private List<TagData> allTags;
+
   private ArrayList<TagData> originalTags;
   private ArrayList<TagData> selectedTags;
 
@@ -100,11 +72,9 @@ public final class TagsControlSet extends TaskEditControlFragment {
   public View onCreateView(
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = super.onCreateView(inflater, container, savedInstanceState);
-    ArrayList<String> newTags;
     if (savedInstanceState != null) {
       selectedTags = savedInstanceState.getParcelableArrayList(EXTRA_SELECTED_TAGS);
       originalTags = savedInstanceState.getParcelableArrayList(EXTRA_ORIGINAL_TAGS);
-      newTags = savedInstanceState.getStringArrayList(EXTRA_NEW_TAGS);
     } else {
       originalTags =
           new ArrayList<>(
@@ -112,48 +82,6 @@ public final class TagsControlSet extends TaskEditControlFragment {
                   ? transform(task.getTags(), tagDataDao::getTagByName)
                   : tagDataDao.getTagDataForTask(task.getId()));
       selectedTags = new ArrayList<>(originalTags);
-      newTags = new ArrayList<>();
-    }
-    allTags = tagDataDao.tagDataOrderedByName();
-    dialogView = inflater.inflate(R.layout.control_set_tag_list, null);
-    newTagLayout = dialogView.findViewById(R.id.newTags);
-    tagListView = dialogView.findViewById(R.id.existingTags);
-    tagListView.setAdapter(
-        new ArrayAdapter<TagData>(
-            getActivity(), R.layout.simple_list_item_multiple_choice_themed, allTags) {
-          @NonNull
-          @SuppressLint("NewApi")
-          @Override
-          public View getView(int position, View convertView, @NonNull ViewGroup parent) {
-            CheckedTextView view = (CheckedTextView) super.getView(position, convertView, parent);
-            TagData tagData = allTags.get(position);
-            ThemeColor themeColor =
-                themeCache.getThemeColor(tagData.getColor() >= 0 ? tagData.getColor() : 19);
-            view.setText(tagData.getName());
-            Integer icon = null;
-            if (tagData.getIcon() < 1000 || inventory.hasPro()) {
-              icon = CustomIcons.getIconResId(tagData.getIcon());
-            }
-            if (icon == null) {
-              icon = R.drawable.ic_outline_label_24px;
-            }
-            Drawable original = ContextCompat.getDrawable(getContext(), icon);
-            Drawable wrapped = DrawableCompat.wrap(original.mutate());
-            DrawableCompat.setTint(wrapped, themeColor.getPrimaryColor());
-            if (atLeastJellybeanMR1()) {
-              view.setCompoundDrawablesRelativeWithIntrinsicBounds(wrapped, null, null, null);
-            } else {
-              view.setCompoundDrawablesWithIntrinsicBounds(wrapped, null, null, null);
-            }
-            return view;
-          }
-        });
-    for (String newTag : newTags) {
-      addTag(newTag);
-    }
-    addTag("");
-    for (TagData tag : selectedTags) {
-      setTagSelected(tag, true);
     }
     refreshDisplayView();
     return view;
@@ -165,7 +93,6 @@ public final class TagsControlSet extends TaskEditControlFragment {
 
     outState.putParcelableArrayList(EXTRA_SELECTED_TAGS, selectedTags);
     outState.putParcelableArrayList(EXTRA_ORIGINAL_TAGS, originalTags);
-    outState.putStringArrayList(EXTRA_NEW_TAGS, getNewTags());
   }
 
   @Override
@@ -175,159 +102,16 @@ public final class TagsControlSet extends TaskEditControlFragment {
 
   @Override
   public void apply(Task task) {
-    if (synchronizeTags(task)) {
+    if (tagDao.applyTags(task, tagDataDao, selectedTags)) {
       task.setModificationDate(DateUtilities.now());
     }
   }
 
   @OnClick(R.id.tag_row)
   void onClickRow() {
-    if (dialog == null) {
-      dialog = buildDialog();
-    }
-    dialog.show();
-  }
-
-  private AlertDialog buildDialog() {
-    return dialogBuilder
-        .newDialog()
-        .setView(dialogView)
-        .setOnDismissListener(dialogInterface -> refreshDisplayView())
-        .create();
-  }
-
-  private void setTagSelected(TagData tag, boolean selected) {
-    int index = allTags.indexOf(tag);
-    if (index >= 0) {
-      tagListView.setItemChecked(index, selected);
-    }
-  }
-
-  private boolean notSelected(List<TagData> selected, final String name) {
-    return !Iterables.any(selected, input -> name.equalsIgnoreCase(input.getName()));
-  }
-
-  private ArrayList<TagData> getSelectedTags() {
-    ArrayList<TagData> tags = new ArrayList<>();
-    for (int i = 0; i < tagListView.getAdapter().getCount(); i++) {
-      if (tagListView.isItemChecked(i)) {
-        tags.add(allTags.get(i));
-      }
-    }
-    for (int i = newTagLayout.getChildCount() - 1; i >= 0; i--) {
-      TextView tagName = newTagLayout.getChildAt(i).findViewById(R.id.text1);
-      final String text = tagName.getText().toString();
-      if (Strings.isNullOrEmpty(text)) {
-        continue;
-      }
-      TagData tagByName = tagDataDao.getTagByName(text);
-      if (tagByName != null) {
-        if (notSelected(tags, text)) {
-          setTagSelected(tagByName, true);
-          tags.add(tagByName);
-        }
-        newTagLayout.removeViewAt(i);
-      } else if (notSelected(tags, text)) {
-        TagData newTag = new TagData();
-        newTag.setName(text);
-        tags.add(newTag);
-      }
-    }
-    return tags;
-  }
-
-  private ArrayList<String> getNewTags() {
-    ArrayList<String> tags = new ArrayList<>();
-    for (int i = newTagLayout.getChildCount() - 1; i >= 0; i--) {
-      TextView textView = newTagLayout.getChildAt(i).findViewById(R.id.text1);
-      String tagName = textView.getText().toString();
-      if (Strings.isNullOrEmpty(tagName)) {
-        continue;
-      }
-      tags.add(tagName);
-    }
-    return tags;
-  }
-
-  /** Adds a tag to the tag field */
-  private void addTag(String tagName) {
-    LayoutInflater inflater = getActivity().getLayoutInflater();
-
-    // check if already exists
-    TextView lastText;
-    for (int i = 0; i < newTagLayout.getChildCount(); i++) {
-      View view = newTagLayout.getChildAt(i);
-      lastText = view.findViewById(R.id.text1);
-      if (lastText.getText().equals(tagName)) {
-        return;
-      }
-    }
-
-    final View tagItem;
-    tagItem = inflater.inflate(R.layout.tag_edit_row, null);
-    newTagLayout.addView(tagItem);
-    if (tagName == null) {
-      tagName = ""; // $NON-NLS-1$
-    }
-
-    final AutoCompleteTextView textView = tagItem.findViewById(R.id.text1);
-    textView.setText(tagName);
-
-    textView.addTextChangedListener(
-        new TextWatcher() {
-          @Override
-          public void afterTextChanged(Editable s) {
-            //
-          }
-
-          @Override
-          public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            //
-          }
-
-          @Override
-          public void onTextChanged(CharSequence s, int start, int before, int count) {
-            if (count > 0 && newTagLayout.getChildAt(newTagLayout.getChildCount() - 1) == tagItem) {
-              addTag(""); // $NON-NLS-1$
-            }
-          }
-        });
-
-    textView.setOnEditorActionListener(
-        (arg0, actionId, arg2) -> {
-          if (actionId != EditorInfo.IME_NULL) {
-            return false;
-          }
-          if (getLastTextView().getText().length() != 0) {
-            addTag(""); // $NON-NLS-1$
-          }
-          return true;
-        });
-
-    tagItem
-        .findViewById(R.id.button1)
-        .setOnClickListener(
-            v -> {
-              TextView lastView = getLastTextView();
-              if (lastView == textView && textView.getText().length() == 0) {
-                return;
-              }
-
-              if (newTagLayout.getChildCount() > 1) {
-                newTagLayout.removeView(tagItem);
-              } else {
-                textView.setText(""); // $NON-NLS-1$
-              }
-            });
-  }
-
-  /** Get tags container last text view. might be null */
-  private TextView getLastTextView() {
-    if (newTagLayout.getChildCount() == 0) {
-      return null;
-    }
-    View lastItem = newTagLayout.getChildAt(newTagLayout.getChildCount() - 1);
-    return (TextView) lastItem.findViewById(R.id.text1);
+    Intent intent = new Intent(getContext(), TagPickerActivity.class);
+    intent.putParcelableArrayListExtra(TagPickerActivity.EXTRA_TAGS, selectedTags);
+    startActivityForResult(intent, REQUEST_TAG_PICKER_ACTIVITY);
   }
 
   @Override
@@ -348,7 +132,6 @@ public final class TagsControlSet extends TaskEditControlFragment {
   }
 
   private void refreshDisplayView() {
-    selectedTags = getSelectedTags();
     if (selectedTags.isEmpty()) {
       chipGroup.setVisibility(View.GONE);
       tagsDisplay.setVisibility(View.VISIBLE);
@@ -362,7 +145,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
         chip.setOnClickListener(view -> onClickRow());
         chip.setOnCloseIconClickListener(
             view -> {
-              setTagSelected(tagData, false);
+              selectedTags.remove(tagData);
               refreshDisplayView();
             });
         chipGroup.addView(chip);
@@ -370,13 +153,16 @@ public final class TagsControlSet extends TaskEditControlFragment {
     }
   }
 
-  private boolean synchronizeTags(Task task) {
-    for (TagData tagData : selectedTags) {
-      if (Task.NO_UUID.equals(tagData.getRemoteId())) {
-        tagDataDao.createNew(tagData);
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    if (requestCode == REQUEST_TAG_PICKER_ACTIVITY) {
+      if (resultCode == RESULT_OK && data != null) {
+        selectedTags = data.getParcelableArrayListExtra(TagPickerActivity.EXTRA_TAGS);
+        refreshDisplayView();
       }
+    } else {
+      super.onActivityResult(requestCode, resultCode, data);
     }
-    return tagDao.applyTags(task, tagDataDao, selectedTags);
   }
 
   @Override

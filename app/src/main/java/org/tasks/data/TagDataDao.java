@@ -9,7 +9,10 @@ import androidx.room.Transaction;
 import androidx.room.Update;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.UUIDHelper;
+import io.reactivex.Single;
+import java.util.Collections;
 import java.util.List;
+import org.tasks.filters.AlphanumComparator;
 import org.tasks.filters.TagFilters;
 
 @Dao
@@ -29,6 +32,15 @@ public abstract class TagDataDao {
     TagData tagData = getTagByName(tag);
     return tagData != null ? tagData.getName() : tag;
   }
+
+  public List<TagData> searchTags(String query) {
+    List<TagData> results = searchTagsInternal("%" + query + "%");
+    Collections.sort(results, new AlphanumComparator<>(TagData::getName));
+    return results;
+  }
+
+  @Query("SELECT * FROM tagdata WHERE name LIKE :query AND name NOT NULL AND name != ''")
+  protected abstract List<TagData> searchTagsInternal(String query);
 
   @Query("SELECT * FROM tagdata")
   public abstract List<TagData> getAll();

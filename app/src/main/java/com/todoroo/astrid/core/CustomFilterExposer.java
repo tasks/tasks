@@ -28,7 +28,7 @@ public final class CustomFilterExposer {
 
   public List<Filter> getFilters() {
     List<Filter> filters = newArrayList(transform(filterDao.getFilters(), this::load));
-    Collections.sort(filters, new AlphanumComparator());
+    Collections.sort(filters, new AlphanumComparator<>(AlphanumComparator.FILTER));
     return filters;
   }
 

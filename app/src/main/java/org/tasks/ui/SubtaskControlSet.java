@@ -15,7 +15,6 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
@@ -59,9 +58,6 @@ public class SubtaskControlSet extends TaskEditControlFragment implements Callba
 
   @BindView(R.id.recycler_view)
   RecyclerView recyclerView;
-
-  @BindView(R.id.add_subtask)
-  TextView addSubtask;
 
   @BindView(R.id.new_subtasks)
   LinearLayout newSubtaskContainer;

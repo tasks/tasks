@@ -56,7 +56,7 @@ public class GtasksFilterExposer {
       }
     }
     for (Map.Entry<GoogleTaskAccount, List<Filter>> entry : filters.entrySet()) {
-      Collections.sort(entry.getValue(), new AlphanumComparator());
+      Collections.sort(entry.getValue(), new AlphanumComparator<>(AlphanumComparator.FILTER));
     }
     return filters;
   }

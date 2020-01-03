@@ -546,7 +546,10 @@
       android:launchMode="singleTask"
       android:taskAffinity=""
       android:theme="@style/TranslucentDialog"/>
+
     <activity android:name=".preferences.AttributionActivity"/>
+
+    <activity android:name=".tags.TagPickerActivity" />
 
     <!-- launcher icons -->
 

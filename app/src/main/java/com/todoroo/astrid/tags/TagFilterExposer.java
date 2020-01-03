@@ -46,7 +46,7 @@ public class TagFilterExposer {
   public List<Filter> getFilters() {
     List<Filter> tags =
         newArrayList(transform(tagDataDao.getTagFilters(now()), TagFilters::toTagFilter));
-    Collections.sort(tags, new AlphanumComparator());
+    Collections.sort(tags, new AlphanumComparator<>(AlphanumComparator.FILTER));
     return tags;
   }
 

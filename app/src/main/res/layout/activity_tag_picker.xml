@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical">
+
+  <androidx.appcompat.widget.Toolbar
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="?attr/colorPrimary"
+    android:elevation="@dimen/elevation_toolbar"
+    android:theme="?attr/overlay_theme"
+    app:popupTheme="@style/popup_overlay"
+    app:titleTextColor="?attr/colorOnPrimary"
+    app:toolbarStyle="@style/Widget.MaterialComponents.Toolbar"
+    tools:ignore="UnusedAttribute">
+
+    <EditText
+      android:id="@+id/search_input"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@null"
+      android:hint="@string/enter_tag_name"
+      android:imeOptions="flagNoExtractUi"
+      android:textColor="?attr/colorOnPrimary"
+      android:textColorHint="?attr/colorOnPrimaryHint" />
+
+  </androidx.appcompat.widget.Toolbar>
+
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/recycler_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:elevation="@dimen/elevation_task_list" />
+
+</LinearLayout>

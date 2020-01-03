@@ -19,6 +19,7 @@ import org.tasks.activities.DatePickerActivity;
 import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.activities.FilterSettingsActivity;
 import org.tasks.activities.GoogleTaskListSettingsActivity;
+import org.tasks.tags.TagPickerActivity;
 import org.tasks.activities.TagSettingsActivity;
 import org.tasks.activities.TimePickerActivity;
 import org.tasks.billing.PurchaseActivity;
@@ -39,6 +40,7 @@ import org.tasks.preferences.MiscellaneousPreferences;
 import org.tasks.reminders.NotificationActivity;
 import org.tasks.reminders.SnoozeActivity;
 import org.tasks.sync.SynchronizationPreferences;
+import org.tasks.tags.TagPickerViewModel;
 import org.tasks.themes.Theme;
 import org.tasks.ui.TaskListViewModel;
 import org.tasks.voice.VoiceCommandActivity;
@@ -143,4 +145,8 @@ public interface ActivityComponent {
   void inject(LocationPickerActivity locationPickerActivity);
 
   void inject(AttributionActivity attributionActivity);
+
+  void inject(TagPickerActivity tagPickerActivity);
+
+  void inject(TagPickerViewModel viewModel);
 }

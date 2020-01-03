@@ -14,6 +14,10 @@ public class TagFilters {
     return filter;
   }
 
+  public String getName() {
+    return tagData.getName();
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {

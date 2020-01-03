@@ -30,6 +30,7 @@ package org.tasks.filters;
  * USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import androidx.arch.core.util.Function;
 import com.todoroo.astrid.api.Filter;
 import java.util.Comparator;
 
@@ -40,9 +41,18 @@ import java.util.Comparator;
  * <p>To use this class: Use the static "sort" method from the java.util.Collections class:
  * Collections.sort(your list, new AlphanumComparator());
  */
-public class AlphanumComparator implements Comparator<Filter> {
+public class AlphanumComparator<T> implements Comparator<T> {
+
+  public static Function<Filter, String> FILTER = f -> f.listingTitle;
+
+  private final Function<T, String> getTitle;
+
   private boolean isDigit(char ch) {
     return ((ch >= 48) && (ch <= 57));
+  }
+
+  public AlphanumComparator(Function<T, String> getTitle) {
+    this.getTitle = getTitle;
   }
 
   /** Length of string is passed in for improved efficiency (only need to calculate it once) * */
@@ -69,9 +79,9 @@ public class AlphanumComparator implements Comparator<Filter> {
     return chunk.toString();
   }
 
-  public int compare(Filter f1, Filter f2) {
-    String s1 = f1.listingTitle;
-    String s2 = f2.listingTitle;
+  public int compare(T t1, T t2) {
+    String s1 = getTitle.apply(t1);
+    String s2 = getTitle.apply(t2);
     if ((s1 == null) || (s2 == null)) {
       return 0;
     }

@@ -40,7 +40,7 @@ public class CaldavFilterExposer {
       }
     }
     for (Map.Entry<CaldavAccount, List<Filter>> entry : filters.entrySet()) {
-      Collections.sort(entry.getValue(), new AlphanumComparator());
+      Collections.sort(entry.getValue(), new AlphanumComparator<>(AlphanumComparator.FILTER));
     }
     return filters;
   }

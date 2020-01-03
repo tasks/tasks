@@ -28,12 +28,14 @@
     <item name="dark_status_bar">false</item>
     <item name="overlay_theme">@style/WhiteToolbarOverlay</item>
     <item name="colorOnPrimary">@color/white_100</item>
+    <item name="colorOnPrimaryHint">@color/white_70</item>
   </style>
 
   <style name="BlackToolbarTheme">
     <item name="dark_status_bar">true</item>
     <item name="overlay_theme">@style/BlackToolbarOverlay</item>
     <item name="colorOnPrimary">@color/black_87</item>
+    <item name="colorOnPrimaryHint">@color/black_54</item>
   </style>
 
   <style name="WhiteTint">

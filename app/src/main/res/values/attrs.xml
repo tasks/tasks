@@ -16,6 +16,7 @@
   <attr format="reference" name="weekdayButtonBackground"/>
   <attr format="reference" name="weekdayButtonText"/>
   <attr format="integer" name="horizontal_divider"/>
+  <attr format="color" name="colorOnPrimaryHint"/>
 
   <declare-styleable name="TimePreference">
     <attr format="string" name="summary"/>
