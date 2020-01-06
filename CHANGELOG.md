@@ -1,5 +1,18 @@
 Change Log
 ---
+### 7.5 (2020-01-07)
+
+* New tag picker
+* Support self-signed SSL certificates
+* Update translations
+  * Dutch - @fvbommel
+  * French - @FlorianLeChat
+  * Hungarian - kaciokos
+  * Polish - @alex-ter
+  * Russian - @alex-ter
+  * Simplified Chinese - @sr093906
+  * Spanish - @FlorianLeChat
+
 ### 7.4.2 (2019-12-30)
 
 * Fix Tasker plugin settings
