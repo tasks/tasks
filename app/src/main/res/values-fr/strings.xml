@@ -557,4 +557,6 @@ est configuré correctement</string>
     <string name="show_subtasks">Afficher les sous-tâches</string>
     <string name="show_subtasks_summary">L\'affichage des sous-tâches dégradera les performances de l\'application</string>
     <string name="no_application_found_link">Aucune application trouvée pour gérer le lien</string>
+    <string name="enter_tag_name">Entrez le nom du tag</string>
+    <string name="create_new_tag">Créer %s</string>
 </resources>
