@@ -13,7 +13,7 @@
       "artifactId": {
         "name": "dav4jvm",
         "group": "com.gitlab.bitfireAT",
-        "version": "d7c21fb481"
+        "version": "1.0"
       }
     },
     {
@@ -29,7 +29,7 @@
       "artifactId": {
         "name": "ical4android",
         "group": "com.gitlab.bitfireAT",
-        "version": "1fcb759079"
+        "version": "be6d515db8"
       }
     },
     {
@@ -1709,7 +1709,7 @@
       "artifactId": {
         "name": "kotlin-stdlib-jdk7",
         "group": "org.jetbrains.kotlin",
-        "version": "1.3.60"
+        "version": "1.3.61"
       }
     },
     {

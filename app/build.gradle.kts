@@ -132,8 +132,8 @@ val googleplayImplementation by configurations
 val amazonImplementation by configurations
 
 dependencies {
-    implementation("com.gitlab.bitfireAT:dav4jvm:d7c21fb481")
-    implementation("com.gitlab.bitfireAT:ical4android:1fcb759079") {
+    implementation("com.gitlab.bitfireAT:dav4jvm:1.0")
+    implementation("com.gitlab.bitfireAT:ical4android:be6d515db8") {
         exclude(group = "org.threeten", module = "threetenbp")
     }
 
