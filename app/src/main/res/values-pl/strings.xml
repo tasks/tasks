@@ -572,4 +572,6 @@
     <string name="show_subtasks">Pokaż podzadania</string>
     <string name="show_subtasks_summary">Wyświetlanie podzadań spowoduje obniżenie wydajności aplikacji</string>
     <string name="no_application_found_link">Nie znaleziono aplikacji do otwarcia linku</string>
+    <string name="enter_tag_name">Wprowadź nazwę tagu</string>
+    <string name="create_new_tag">Stwórz \"%s\"</string>
 </resources>
