@@ -348,7 +348,7 @@
     <string name="pick_from_gallery">Kies uit de gallerij</string>
     <string name="pick_from_storage">Kies van opslag</string>
     <string name="privacy_policy">Privacy regels</string>
-    <string name="send_anonymous_statistics">Taak verbeteren</string>
+    <string name="send_anonymous_statistics">Tasks verbeteren</string>
     <string name="send_anonymous_statistics_summary">Verstuur anoniem gebruikersstatistieken en crash rapporten om Tasks te verbeteren. Er worden geen persoonlijke gegevens verzameld.</string>
     <string name="tag_already_exists">Label bestaat reeds</string>
     <string name="duplicate_name">Dubbele naam</string>
@@ -556,4 +556,6 @@
     <string name="show_subtasks">Deeltaken tonen</string>
     <string name="show_subtasks_summary">Deeltaken tonen vermindert prestaties van de app</string>
     <string name="no_application_found_link">Geen applicatie gevonden om de link te openen</string>
+    <string name="enter_tag_name">Voer label naam in</string>
+    <string name="create_new_tag">Maak \"%s\" aan</string>
 </resources>
