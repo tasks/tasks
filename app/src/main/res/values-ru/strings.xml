@@ -578,4 +578,6 @@
     <string name="show_subtasks">Показать подзадачи</string>
     <string name="show_subtasks_summary">Отображение подзадач снизит производительность приложения</string>
     <string name="no_application_found_link">Не найдено приложение для открытия ссылки</string>
+    <string name="enter_tag_name">Введите имя тега</string>
+    <string name="create_new_tag">Создать \"%s\"</string>
 </resources>
