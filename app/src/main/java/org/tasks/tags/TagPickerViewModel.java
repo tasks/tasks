@@ -46,10 +46,6 @@ public class TagPickerViewModel extends ViewModel {
     return text;
   }
 
-  public void clear() {
-    search("");
-  }
-
   public void search(String text) {
     if (!text.equalsIgnoreCase(this.text)) {
       disposables.add(
