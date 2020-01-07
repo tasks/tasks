@@ -34,6 +34,22 @@
     },
     {
       "notice": null,
+      "copyrightHolder": "bitfire web engineering (Ricki Hirner, Bernhard Stockmann)",
+      "copyrightStatement": "Copyright &copy; bitfire web engineering (Ricki Hirner, Bernhard Stockmann). All rights reserved.",
+      "license": "GNU General Public License, Version 3.0",
+      "licenseUrl": "https://www.gnu.org/licenses/gpl.txt",
+      "normalizedLicense": "gpl3",
+      "year": null,
+      "url": "",
+      "libraryName": "cert4android",
+      "artifactId": {
+        "name": "cert4android",
+        "group": "com.gitlab.bitfireAT",
+        "version": "1488e39a66"
+      }
+    },
+    {
+      "notice": null,
       "copyrightHolder": "Android Open Source Project",
       "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
       "license": "The Apache Software License, Version 2.0",
@@ -45,7 +61,7 @@
       "artifactId": {
         "name": "coordinatorlayout",
         "group": "androidx.coordinatorlayout",
-        "version": "1.1.0-rc01"
+        "version": "1.1.0"
       }
     },
     {
@@ -445,7 +461,7 @@
       "artifactId": {
         "name": "annotation",
         "group": "androidx.annotation",
-        "version": "1.1.0"
+        "version": "1.0.0"
       }
     },
     {
@@ -925,7 +941,7 @@
       "artifactId": {
         "name": "recyclerview",
         "group": "androidx.recyclerview",
-        "version": "1.1.0-rc01"
+        "version": "1.1.0"
       }
     },
     {
@@ -957,7 +973,7 @@
       "artifactId": {
         "name": "collection",
         "group": "androidx.collection",
-        "version": "1.1.0"
+        "version": "1.0.0"
       }
     },
     {
@@ -1053,7 +1069,7 @@
       "artifactId": {
         "name": "material",
         "group": "com.google.android.material",
-        "version": "1.1.0-beta02"
+        "version": "1.2.0-alpha03"
       }
     },
     {
@@ -1917,7 +1933,7 @@
       "artifactId": {
         "name": "viewpager2",
         "group": "androidx.viewpager2",
-        "version": "1.0.0-rc01"
+        "version": "1.0.0"
       }
     },
     {
@@ -1982,6 +1998,166 @@
         "name": "paging-common",
         "group": "androidx.paging",
         "version": "2.1.1"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "JetBrains s.r.o.",
+      "copyrightStatement": "Copyright &copy; JetBrains s.r.o. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://github.com/Kotlin/kotlinx.coroutines",
+      "libraryName": "kotlinx-coroutines-core-common",
+      "artifactId": {
+        "name": "kotlinx-coroutines-core-common",
+        "group": "org.jetbrains.kotlinx",
+        "version": "1.1.1"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "Apache 2",
+      "licenseUrl": "https://www.apache.org/licenses/LICENSE-2.0",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://conscrypt.org/",
+      "libraryName": "org.conscrypt:conscrypt-android",
+      "artifactId": {
+        "name": "conscrypt-android",
+        "group": "org.conscrypt",
+        "version": "2.2.1"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "JetBrains s.r.o.",
+      "copyrightStatement": "Copyright &copy; JetBrains s.r.o. All rights reserved.",
+      "license": "The Apache License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://kotlinlang.org/",
+      "libraryName": "org.jetbrains.kotlin:kotlin-stdlib-jdk8",
+      "artifactId": {
+        "name": "kotlin-stdlib-jdk8",
+        "group": "org.jetbrains.kotlin",
+        "version": "1.3.61"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "JetBrains s.r.o.",
+      "copyrightStatement": "Copyright &copy; JetBrains s.r.o. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://github.com/Kotlin/kotlinx.coroutines",
+      "libraryName": "kotlinx-coroutines-android",
+      "artifactId": {
+        "name": "kotlinx-coroutines-android",
+        "group": "org.jetbrains.kotlinx",
+        "version": "1.1.1"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "",
+      "libraryName": "databinding-adapters",
+      "artifactId": {
+        "name": "databinding-adapters",
+        "group": "androidx.databinding",
+        "version": "3.5.3"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "Android Lifecycle ViewModel Kotlin Extensions",
+      "artifactId": {
+        "name": "lifecycle-viewmodel-ktx",
+        "group": "androidx.lifecycle",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://developer.android.com/jetpack/androidx",
+      "libraryName": "Experimental annotation",
+      "artifactId": {
+        "name": "annotation-experimental",
+        "group": "androidx.annotation",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "JetBrains s.r.o.",
+      "copyrightStatement": "Copyright &copy; JetBrains s.r.o. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://github.com/Kotlin/kotlinx.coroutines",
+      "libraryName": "kotlinx-coroutines-core",
+      "artifactId": {
+        "name": "kotlinx-coroutines-core",
+        "group": "org.jetbrains.kotlinx",
+        "version": "1.1.1"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://developer.android.com/studio",
+      "libraryName": "Data Binding Base Library",
+      "artifactId": {
+        "name": "databinding-common",
+        "group": "androidx.databinding",
+        "version": "3.5.3"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "",
+      "libraryName": "databinding-runtime",
+      "artifactId": {
+        "name": "databinding-runtime",
+        "group": "androidx.databinding",
+        "version": "3.5.3"
       }
     }
   ]

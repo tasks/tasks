@@ -5,6 +5,7 @@ import static com.google.common.primitives.Ints.asList;
 import android.os.Bundle;
 import android.preference.Preference;
 import androidx.annotation.StringRes;
+import at.bitfire.cert4android.CustomCertManager;
 import com.android.billingclient.api.BillingClient.SkuType;
 import javax.inject.Inject;
 import org.tasks.R;
@@ -12,11 +13,13 @@ import org.tasks.billing.BillingClient;
 import org.tasks.billing.Inventory;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
+import org.tasks.ui.Toaster;
 
 public class DebugPreferences extends InjectingPreferenceActivity {
 
   @Inject Inventory inventory;
   @Inject BillingClient billingClient;
+  @Inject Toaster toaster;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,14 @@ public class DebugPreferences extends InjectingPreferenceActivity {
                 return true;
               });
     }
+
+    findPreference(R.string.debug_reset_ssl)
+        .setOnPreferenceClickListener(
+            preference -> {
+              CustomCertManager.Companion.resetCertificates(this);
+              toaster.longToast("SSL certificates reset");
+              return false;
+            });
 
     setupIap(R.string.debug_themes, Inventory.SKU_THEMES);
     setupIap(R.string.debug_tasker, Inventory.SKU_TASKER);

@@ -16,7 +16,7 @@ public class AddCaldavAccountViewModel extends CompletableViewModel<String> {
     run(
         () -> {
           playServices.updateSecurityProvider(context);
-          return client.forUrl(url, username, password).getHomeSet();
+          return client.setForeground().forUrl(url, username, password).getHomeSet();
         });
   }
 }

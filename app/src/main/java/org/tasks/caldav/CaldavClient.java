@@ -6,6 +6,9 @@ import static at.bitfire.dav4jvm.XmlUtils.NS_CARDDAV;
 import static at.bitfire.dav4jvm.XmlUtils.NS_WEBDAV;
 import static java.util.Arrays.asList;
 
+import android.content.Context;
+import at.bitfire.cert4android.CustomCertManager;
+import at.bitfire.cert4android.CustomCertManager.CustomHostnameVerifier;
 import at.bitfire.dav4jvm.BasicDigestAuthHandler;
 import at.bitfire.dav4jvm.DavResource;
 import at.bitfire.dav4jvm.Property.Name;
@@ -23,17 +26,23 @@ import at.bitfire.dav4jvm.property.SupportedCalendarComponentSet;
 import com.todoroo.astrid.helper.UUIDHelper;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.OkHttpClient.Builder;
+import okhttp3.internal.tls.OkHostnameVerifier;
 import org.tasks.DebugNetworkInterceptor;
 import org.tasks.R;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
+import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 import org.tasks.security.Encryption;
 import org.tasks.ui.DisplayableException;
@@ -49,10 +58,16 @@ public class CaldavClient {
   private final DebugNetworkInterceptor interceptor;
   private final OkHttpClient httpClient;
   private final HttpUrl httpUrl;
+  private final Context context;
+  private boolean foreground;
 
   @Inject
   public CaldavClient(
-      Encryption encryption, Preferences preferences, DebugNetworkInterceptor interceptor) {
+      @ForApplication Context context,
+      Encryption encryption,
+      Preferences preferences,
+      DebugNetworkInterceptor interceptor) {
+    this.context = context;
     this.encryption = encryption;
     this.preferences = preferences;
     this.interceptor = interceptor;
@@ -61,15 +76,25 @@ public class CaldavClient {
   }
 
   private CaldavClient(
+      Context context,
       Encryption encryption,
       Preferences preferences,
       DebugNetworkInterceptor interceptor,
       String url,
       String username,
-      String password) {
+      String password,
+      boolean foreground) throws NoSuchAlgorithmException, KeyManagementException {
+    this.context = context;
     this.encryption = encryption;
     this.preferences = preferences;
     this.interceptor = interceptor;
+
+    CustomCertManager customCertManager = new CustomCertManager(context);
+    customCertManager.setAppInForeground(foreground);
+    CustomHostnameVerifier hostnameVerifier =
+        customCertManager.hostnameVerifier(OkHostnameVerifier.INSTANCE);
+    SSLContext sslContext = SSLContext.getInstance("TLS");
+    sslContext.init(null, new TrustManager[] { customCertManager }, null);
 
     BasicDigestAuthHandler basicDigestAuthHandler =
         new BasicDigestAuthHandler(null, username, password);
@@ -81,6 +106,8 @@ public class CaldavClient {
             .cookieJar(new MemoryCookieStore())
             .followRedirects(false)
             .followSslRedirects(true)
+            .sslSocketFactory(sslContext.getSocketFactory(), customCertManager)
+            .hostnameVerifier(hostnameVerifier)
             .readTimeout(30, TimeUnit.SECONDS);
     if (preferences.isFlipperEnabled()) {
       interceptor.add(builder);
@@ -89,16 +116,20 @@ public class CaldavClient {
     httpUrl = HttpUrl.parse(url);
   }
 
-  public CaldavClient forAccount(CaldavAccount account) {
+  public CaldavClient forAccount(CaldavAccount account)
+      throws NoSuchAlgorithmException, KeyManagementException {
     return forUrl(account.getUrl(), account.getUsername(), account.getPassword(encryption));
   }
 
-  public CaldavClient forCalendar(CaldavAccount account, CaldavCalendar calendar) {
+  public CaldavClient forCalendar(CaldavAccount account, CaldavCalendar calendar)
+      throws NoSuchAlgorithmException, KeyManagementException {
     return forUrl(calendar.getUrl(), account.getUsername(), account.getPassword(encryption));
   }
 
-  public CaldavClient forUrl(String url, String username, String password) {
-    return new CaldavClient(encryption, preferences, interceptor, url, username, password);
+  public CaldavClient forUrl(String url, String username, String password)
+      throws KeyManagementException, NoSuchAlgorithmException {
+    return new CaldavClient(
+        context, encryption, preferences, interceptor, url, username, password, foreground);
   }
 
   private String tryFindPrincipal() throws DavException, IOException {
@@ -233,5 +264,10 @@ public class CaldavClient {
 
   OkHttpClient getHttpClient() {
     return httpClient;
+  }
+
+  public CaldavClient setForeground() {
+    foreground = true;
+    return this;
   }
 }

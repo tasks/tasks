@@ -112,6 +112,14 @@ android {
             setDimension("store")
         }
     }
+
+    dataBinding {
+        isEnabled = true
+    }
+
+    packagingOptions {
+        exclude("META-INF/*.kotlin_module")
+    }
 }
 
 configure<CheckstyleExtension> {
@@ -136,6 +144,7 @@ dependencies {
     implementation("com.gitlab.bitfireAT:ical4android:be6d515db8") {
         exclude(group = "org.threeten", module = "threetenbp")
     }
+    implementation("com.gitlab.bitfireAT:cert4android:1488e39a66")
 
     annotationProcessor("com.google.dagger:dagger-compiler:${Versions.dagger}")
     implementation("com.google.dagger:dagger:${Versions.dagger}")

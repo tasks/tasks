@@ -39,6 +39,8 @@ import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -125,7 +127,9 @@ public class CaldavSynchronizer {
         | ConnectException
         | UnknownHostException
         | UnauthorizedException
-        | ServiceUnavailableException e) {
+        | ServiceUnavailableException
+        | KeyManagementException
+        | NoSuchAlgorithmException e) {
       setError(account, e.getMessage());
     } catch (IOException | DavException e) {
       setError(account, e.getMessage());
@@ -135,7 +139,8 @@ public class CaldavSynchronizer {
     }
   }
 
-  private void synchronize(CaldavAccount account) throws IOException, DavException {
+  private void synchronize(CaldavAccount account)
+      throws IOException, DavException, KeyManagementException, NoSuchAlgorithmException {
     CaldavClient caldavClient = client.forAccount(account);
     List<Response> resources = caldavClient.getCalendars();
     Set<String> urls = newHashSet(transform(resources, c -> c.getHref().toString()));

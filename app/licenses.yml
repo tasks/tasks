@@ -8,6 +8,11 @@
   copyrightHolder: bitfire web engineering (Ricki Hirner, Bernhard Stockmann)
   license: GNU General Public License, Version 3.0
   licenseUrl: https://www.gnu.org/licenses/gpl.txt
+- artifact: com.gitlab.bitfireAT:cert4android:+
+  name: cert4android
+  copyrightHolder: bitfire web engineering (Ricki Hirner, Bernhard Stockmann)
+  licenseUrl: https://www.gnu.org/licenses/gpl.txt
+  license: GNU General Public License, Version 3.0
 - artifact: androidx.coordinatorlayout:coordinatorlayout:+
   name: Android Support Library Coordinator Layout
   copyrightHolder: Android Open Source Project
@@ -738,3 +743,61 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://developer.android.com/topic/libraries/architecture/index.html
+- artifact: org.jetbrains.kotlinx:kotlinx-coroutines-core-common:+
+  name: kotlinx-coroutines-core-common
+  copyrightHolder: JetBrains s.r.o.
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://github.com/Kotlin/kotlinx.coroutines
+- artifact: org.conscrypt:conscrypt-android:+
+  name: org.conscrypt:conscrypt-android
+  copyrightHolder: Android Open Source Project
+  license: Apache 2
+  licenseUrl: https://www.apache.org/licenses/LICENSE-2.0
+  url: https://conscrypt.org/
+- artifact: org.jetbrains.kotlin:kotlin-stdlib-jdk8:+
+  name: org.jetbrains.kotlin:kotlin-stdlib-jdk8
+  copyrightHolder: JetBrains s.r.o.
+  license: The Apache License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://kotlinlang.org/
+- artifact: org.jetbrains.kotlinx:kotlinx-coroutines-android:+
+  name: kotlinx-coroutines-android
+  copyrightHolder: JetBrains s.r.o.
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://github.com/Kotlin/kotlinx.coroutines
+- artifact: androidx.databinding:databinding-adapters:+
+  name: databinding-adapters
+  copyrightHolder: Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+- artifact: androidx.lifecycle:lifecycle-viewmodel-ktx:+
+  name: Android Lifecycle ViewModel Kotlin Extensions
+  copyrightHolder: Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: http://developer.android.com/tools/extras/support-library.html
+- artifact: androidx.annotation:annotation-experimental:+
+  name: Experimental annotation
+  copyrightHolder: Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/jetpack/androidx
+- artifact: org.jetbrains.kotlinx:kotlinx-coroutines-core:+
+  name: kotlinx-coroutines-core
+  copyrightHolder: JetBrains s.r.o.
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://github.com/Kotlin/kotlinx.coroutines
+- artifact: androidx.databinding:databinding-common:+
+  name: Data Binding Base Library
+  copyrightHolder: Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/studio
+- artifact: androidx.databinding:databinding-runtime:+
+  name: databinding-runtime
+  copyrightHolder: Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt

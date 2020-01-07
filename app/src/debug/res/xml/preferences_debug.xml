@@ -18,6 +18,10 @@
     android:title="@string/debug_pro"/>
 
   <Preference
+    android:key="@string/debug_reset_ssl"
+    android:title="@string/debug_reset_ssl" />
+
+  <Preference
     android:key="@string/debug_themes"/>
 
   <Preference
