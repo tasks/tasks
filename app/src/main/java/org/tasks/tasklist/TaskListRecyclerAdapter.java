@@ -8,9 +8,7 @@ import androidx.recyclerview.widget.ListUpdateCallback;
 import androidx.recyclerview.widget.RecyclerView;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
-import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.dao.TaskDao;
 import java.util.List;
 import org.tasks.data.TaskContainer;
@@ -23,7 +21,6 @@ public abstract class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewH
   private final TaskAdapter adapter;
   private final TaskListFragment taskList;
   private final ViewHolderFactory viewHolderFactory;
-  private final boolean isRemoteList;
   private final TaskDao taskDao;
 
   TaskListRecyclerAdapter(
@@ -34,9 +31,6 @@ public abstract class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewH
     this.adapter = adapter;
     this.viewHolderFactory = viewHolderFactory;
     this.taskList = taskList;
-    isRemoteList =
-        taskList.getFilter() instanceof GtasksFilter
-            || taskList.getFilter() instanceof CaldavFilter;
     this.taskDao = taskDao;
   }
 
@@ -50,7 +44,7 @@ public abstract class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewH
   public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
     TaskContainer task = getItem(position);
     if (task != null) {
-      holder.bindView(task, isRemoteList, adapter.supportsManualSorting());
+      holder.bindView(task, taskList.getFilter(), adapter.supportsManualSorting());
       holder.setMoving(false);
       int indent = adapter.getIndent(task);
       task.setIndent(indent);

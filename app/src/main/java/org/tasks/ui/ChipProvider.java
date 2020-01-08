@@ -2,8 +2,9 @@ package org.tasks.ui;
 
 import static com.google.common.collect.Iterables.filter;
 import static com.google.common.collect.Iterables.removeIf;
-import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Lists.transform;
+import static com.google.common.collect.Sets.newHashSet;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
 
 import android.app.Activity;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
@@ -103,7 +105,11 @@ public class ChipProvider {
   }
 
   public List<Chip> getChips(
-      Activity activity, boolean hideListChips, boolean hideSubtaskChip, TaskContainer task) {
+      Activity activity,
+      Filter filter,
+      boolean isSubtask,
+      boolean hideSubtaskChip,
+      TaskContainer task) {
     assertMainThread();
 
     List<Chip> chips = new ArrayList<>();
@@ -127,18 +133,23 @@ public class ChipProvider {
               task.getLocation().getDisplayName(),
               task.getLocation()));
     }
-    if (!hideListChips) {
-      if (!Strings.isNullOrEmpty(task.getGoogleTaskList())) {
+    if (!isSubtask) {
+      if (!Strings.isNullOrEmpty(task.getGoogleTaskList()) && !(filter instanceof GtasksFilter)) {
         chips.add(newTagChip(activity, googleTaskLists.get(task.getGoogleTaskList())));
-      } else if (!Strings.isNullOrEmpty(task.getCaldav())) {
+      } else if (!Strings.isNullOrEmpty(task.getCaldav()) && !(filter instanceof CaldavFilter)) {
         chips.add(newTagChip(activity, caldavCalendars.get(task.getCaldav())));
       }
     }
-    String tags = task.getTagsString();
-    if (!Strings.isNullOrEmpty(tags)) {
-      Iterable<TagFilter> tagFilters =
-          filter(transform(newArrayList(tags.split(",")), tagDatas::get), Predicates.notNull());
-      chips.addAll(transform(orderByName.sortedCopy(tagFilters), tag -> newTagChip(activity, tag)));
+    String tagString = task.getTagsString();
+    if (!Strings.isNullOrEmpty(tagString)) {
+      Set<String> tags = newHashSet(tagString.split(","));
+      if (filter instanceof TagFilter) {
+        tags.remove(((TagFilter) filter).getUuid());
+      }
+      chips.addAll(
+          transform(
+              orderByName.sortedCopy(filter(transform(tags, tagDatas::get), Predicates.notNull())),
+              tag -> newTagChip(activity, tag)));
     }
 
     removeIf(chips, Predicates.isNull());

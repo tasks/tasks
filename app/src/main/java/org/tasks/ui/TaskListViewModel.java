@@ -30,7 +30,6 @@ import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.api.PermaSql;
-import com.todoroo.astrid.api.TagFilter;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
@@ -86,6 +85,17 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
   private static final Field PRIMARY_SORT = field("primary_sort").as("primarySort");
   private static final Field SECONDARY_SORT = field("secondary_sort").as("secondarySort");
   private static final Field INDENT = field("indent");
+  private static final Field TAG_QUERY =
+      field(
+              "("
+                  + Query.select(field("group_concat(distinct(tag_uid))"))
+                      .from(Tag.TABLE)
+                      .where(Task.ID.eq(Tag.TASK))
+                      .toString()
+                  + " GROUP BY "
+                  + Tag.TASK
+                  + ")")
+          .as("tags");
   private static final StringProperty TAGS =
       new StringProperty(null, "group_concat(distinct(" + TAGS_METADATA_JOIN + ".tag_uid)" + ")")
           .as("tags");
@@ -128,19 +138,7 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
         && (includeGoogleTaskSubtasks || includeCaldavSubtasks)
         && preferences.showSubtasks()
         && !(preferences.isManualSort() && filter.supportsManualSort())) {
-      String tagQuery =
-          Query.select(field("group_concat(distinct(tag_uid))"))
-                  .from(Tag.TABLE)
-                  .where(
-                      filter instanceof TagFilter
-                          ? Criterion.and(
-                              Task.ID.eq(Tag.TASK),
-                              Tag.TAG_UID.neq(((TagFilter) filter).getUuid()))
-                          : Task.ID.eq(Tag.TASK))
-                  .toString()
-              + " GROUP BY "
-              + Tag.TASK;
-      fields.add(field("(" + tagQuery + ")").as("tags"));
+      fields.add(TAG_QUERY);
       fields.add(INDENT);
       fields.add(CHILDREN);
 
@@ -248,15 +246,9 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
       // TODO: For now, we'll modify the query to join and include the things like tag data here.
       // Eventually, we might consider restructuring things so that this query is constructed
       // elsewhere.
-      Criterion tagsJoinCriterion =
-          filter instanceof TagFilter
-              ? Criterion.and(
-                  JOIN_TAGS,
-                  field(TAGS_METADATA_JOIN + ".tag_uid").neq(((TagFilter) filter).getUuid()))
-              : JOIN_TAGS;
 
       String joinedQuery =
-          Join.left(Tag.TABLE.as(TAGS_METADATA_JOIN), tagsJoinCriterion).toString()
+          Join.left(Tag.TABLE.as(TAGS_METADATA_JOIN), JOIN_TAGS).toString()
               + JOINS
               + filter.getSqlQuery();
 

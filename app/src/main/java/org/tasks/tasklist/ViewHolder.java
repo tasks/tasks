@@ -6,9 +6,7 @@ import static com.todoroo.andlib.utility.DateUtilities.getAbbreviatedRelativeDat
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Paint;
-import android.net.Uri;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +20,9 @@ import butterknife.OnClick;
 import butterknife.OnLongClick;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.service.TaskCompleter;
 import com.todoroo.astrid.ui.CheckableImageView;
 import java.util.List;
@@ -195,7 +195,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     return Math.round(indent * getShiftSize());
   }
 
-  void bindView(TaskContainer task, boolean isRemoteList, boolean hideSubtasks) {
+  void bindView(TaskContainer task, Filter filter, boolean hideSubtasks) {
     this.task = task;
     this.indent = task.indent;
 
@@ -205,7 +205,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     setupTitleAndCheckbox();
     setupDueDate();
     if (preferences.getBoolean(R.string.p_show_list_indicators, true)) {
-      setupChips(isRemoteList, hideSubtasks);
+      setupChips(filter, hideSubtasks);
     }
     if (preferences.getBoolean(R.string.p_show_description, true)) {
       description.setText(task.getNotes());
@@ -261,9 +261,14 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     }
   }
 
-  private void setupChips(boolean isRemoteList, boolean hideSubtaskChip) {
+  private void setupChips(Filter filter, boolean hideSubtaskChip) {
     List<Chip> chips =
-        chipProvider.getChips(context, isRemoteList || indent > 0, hideSubtaskChip, task);
+        chipProvider.getChips(
+            context,
+            filter,
+            indent > 0,
+            hideSubtaskChip,
+            task);
     if (chips.isEmpty()) {
       chipGroup.setVisibility(View.GONE);
     } else {
