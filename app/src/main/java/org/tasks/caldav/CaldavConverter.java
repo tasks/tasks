@@ -7,6 +7,7 @@ import static org.tasks.caldav.CaldavUtils.fromVtodo;
 import static org.tasks.caldav.CaldavUtils.setParent;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
+import at.bitfire.ical4android.DateUtils;
 import com.google.common.base.Strings;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Task.Priority;
@@ -14,6 +15,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+import java.util.TimeZone;
 import net.fortuna.ical4j.model.Date;
 import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.Recur;
@@ -117,15 +119,16 @@ public class CaldavConverter {
     remote.setCreatedAt(newDateTime(task.getCreationDate()).toUTC().getMillis());
     remote.setSummary(task.getTitle());
     remote.setDescription(task.getNotes());
-    if (task.hasDueDate()) {
-      long utcMillis = new org.tasks.time.DateTime(task.getDueDate()).toUTC().getMillis();
-      if (task.hasDueTime()) {
-        DateTime dateTime = new DateTime(utcMillis);
-        dateTime.setUtc(true);
-        remote.setDue(new Due(dateTime));
-      } else {
-        remote.setDue(new Due(new Date(utcMillis)));
-      }
+    if (task.hasDueTime()) {
+      net.fortuna.ical4j.model.TimeZone tz =
+          DateUtils.INSTANCE.getTzRegistry().getTimeZone(TimeZone.getDefault().getID());
+      DateTime dateTime = new DateTime(tz != null
+          ? task.getDueDate()
+          : new org.tasks.time.DateTime(task.getDueDate()).toUTC().getMillis());
+      dateTime.setTimeZone(tz);
+      remote.setDue(new Due(dateTime));
+    } else if (task.hasDueDate()) {
+      remote.setDue(new Due(new Date(task.getDueDate())));
     } else {
       remote.setDue(null);
     }
