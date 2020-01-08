@@ -40,7 +40,7 @@ public class NextCloudTests {
   @Test
   public void readCreationDate() {
     assertEquals(
-        new DateTime(2018, 4, 17, 16, 32, 3).getMillis(),
+        new DateTime(2018, 4, 17, 11, 32, 3).getMillis(),
         (long) vtodo("nextcloud/basic_no_due_date.txt").getCreationDate());
   }
 

@@ -111,7 +111,7 @@ public class GoogleTaskDaoTests extends InjectingTestCase {
     googleTaskDao.insertAndShift(newGoogleTask(with(REMOTE_ID, "2")), false);
     googleTaskDao.insertAndShift(newGoogleTask(with(REMOTE_ID, "3")), false);
 
-    GoogleTask two = googleTaskDao.getByRemoteId("2");
+    SubsetGoogleTask two = getByRemoteId("2");
 
     googleTaskDao.move(two, 0, 0);
 
@@ -126,7 +126,7 @@ public class GoogleTaskDaoTests extends InjectingTestCase {
     googleTaskDao.insertAndShift(newGoogleTask(with(REMOTE_ID, "2")), false);
     googleTaskDao.insertAndShift(newGoogleTask(with(REMOTE_ID, "3")), false);
 
-    GoogleTask one = googleTaskDao.getByRemoteId("1");
+    SubsetGoogleTask one = getByRemoteId("1");
 
     googleTaskDao.move(one, 0, 1);
 
@@ -141,7 +141,7 @@ public class GoogleTaskDaoTests extends InjectingTestCase {
     googleTaskDao.insertAndShift(newGoogleTask(with(REMOTE_ID, "2")), false);
     googleTaskDao.insertAndShift(newGoogleTask(with(REMOTE_ID, "3")), false);
 
-    GoogleTask three = googleTaskDao.getByRemoteId("3");
+    SubsetGoogleTask three = getByRemoteId("3");
 
     googleTaskDao.move(three, 0, 0);
 
@@ -156,7 +156,7 @@ public class GoogleTaskDaoTests extends InjectingTestCase {
     googleTaskDao.insertAndShift(newGoogleTask(with(REMOTE_ID, "2")), false);
     googleTaskDao.insertAndShift(newGoogleTask(with(REMOTE_ID, "3")), false);
 
-    GoogleTask one = googleTaskDao.getByRemoteId("1");
+    SubsetGoogleTask one = getByRemoteId("1");
 
     googleTaskDao.move(one, 0, 2);
 
@@ -178,6 +178,16 @@ public class GoogleTaskDaoTests extends InjectingTestCase {
     taskDao.createNew(task);
     googleTask.setTask(task.getId());
     googleTaskDao.insertAndShift(googleTask, top);
+  }
+
+  private SubsetGoogleTask getByRemoteId(String remoteId) {
+    GoogleTask googleTask = googleTaskDao.getByRemoteId(remoteId);
+    SubsetGoogleTask result = new SubsetGoogleTask();
+    result.gt_id = googleTask.getId();
+    result.gt_list_id = googleTask.getListId();
+    result.gt_order = googleTask.getOrder();
+    result.gt_parent = googleTask.getParent();
+    return result;
   }
 
   @Override
