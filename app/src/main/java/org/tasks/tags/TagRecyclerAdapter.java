@@ -13,6 +13,7 @@ import kotlin.jvm.functions.Function2;
 import org.tasks.R;
 import org.tasks.billing.Inventory;
 import org.tasks.data.TagData;
+import org.tasks.tags.CheckBoxTriStates.State;
 import org.tasks.themes.CustomIcons;
 import org.tasks.themes.ThemeCache;
 
@@ -23,14 +24,14 @@ public class TagRecyclerAdapter extends RecyclerView.Adapter<TagPickerViewHolder
   private final TagPickerViewModel viewModel;
   private final ThemeCache themeCache;
   private final Inventory inventory;
-  private final Function2<TagData, Boolean, Void> callback;
+  private final Function2<TagData, Boolean, State> callback;
 
   TagRecyclerAdapter(
       Context context,
       TagPickerViewModel viewModel,
       ThemeCache themeCache,
       Inventory inventory,
-      Function2<TagData, Boolean, Void> callback) {
+      Function2<TagData, Boolean, State> callback) {
     this.context = context;
     this.viewModel = viewModel;
     this.themeCache = themeCache;
@@ -49,8 +50,7 @@ public class TagRecyclerAdapter extends RecyclerView.Adapter<TagPickerViewHolder
   @Override
   public void onBindViewHolder(@NonNull TagPickerViewHolder holder, int position) {
     TagData tagData = differ.getCurrentList().get(position);
-    boolean checked = viewModel.isChecked(tagData);
-    holder.bind(tagData, getColor(tagData), getIcon(tagData), checked);
+    holder.bind(tagData, getColor(tagData), getIcon(tagData), viewModel.getState(tagData));
   }
 
   @Override

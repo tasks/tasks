@@ -8,6 +8,7 @@ package com.todoroo.astrid.activity;
 
 import static android.app.Activity.RESULT_OK;
 import static androidx.core.content.ContextCompat.getColor;
+import static com.google.common.collect.Lists.newArrayList;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
 import static org.tasks.activities.RemoteListSupportPicker.newRemoteListSupportPicker;
 import static org.tasks.caldav.CaldavCalendarSettingsActivity.EXTRA_CALDAV_CALENDAR;
@@ -36,6 +37,7 @@ import androidx.appcompat.widget.SearchView.OnQueryTextListener;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.util.Pair;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -69,7 +71,9 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
@@ -81,6 +85,7 @@ import org.tasks.activities.TagSettingsActivity;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.caldav.CaldavCalendarSettingsActivity;
+import org.tasks.data.TagDataDao;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.SortDialog;
 import org.tasks.injection.ForActivity;
@@ -90,6 +95,7 @@ import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.Device;
 import org.tasks.preferences.Preferences;
 import org.tasks.sync.SyncAdapters;
+import org.tasks.tags.TagPickerActivity;
 import org.tasks.tasklist.DragAndDropRecyclerAdapter;
 import org.tasks.tasklist.PagedListRecyclerAdapter;
 import org.tasks.tasklist.TaskListRecyclerAdapter;
@@ -121,6 +127,7 @@ public final class TaskListFragment extends InjectingFragment
   private static final int REQUEST_MOVE_TASKS = 10103;
   private static final int REQUEST_FILTER_SETTINGS = 10104;
   private static final int REQUEST_TAG_SETTINGS = 10105;
+  private static final int REQUEST_TAG_TASKS = 10106;
 
   private static final int SEARCH_DEBOUNCE_TIMEOUT = 300;
   private final RefreshReceiver refreshReceiver = new RefreshReceiver();
@@ -141,6 +148,7 @@ public final class TaskListFragment extends InjectingFragment
   @Inject TaskAdapterProvider taskAdapterProvider;
   @Inject TaskDao taskDao;
   @Inject TaskDuplicator taskDuplicator;
+  @Inject TagDataDao tagDataDao;
 
   @BindView(R.id.swipe_layout)
   SwipeRefreshLayout swipeRefreshLayout;
@@ -588,6 +596,16 @@ public final class TaskListFragment extends InjectingFragment
           }
         }
         break;
+      case REQUEST_TAG_TASKS:
+        if (resultCode == RESULT_OK) {
+          tagDataDao.applyTags(
+              taskDao.fetch(
+                  (ArrayList<Long>) data.getSerializableExtra(TagPickerActivity.EXTRA_TASKS)),
+              data.getParcelableArrayListExtra(TagPickerActivity.EXTRA_PARTIALLY_SELECTED),
+              data.getParcelableArrayListExtra(TagPickerActivity.EXTRA_SELECTED));
+          finishActionMode();
+        }
+        break;
       default:
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -660,9 +678,21 @@ public final class TaskListFragment extends InjectingFragment
 
   @Override
   public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+    ArrayList<Long> selected = taskAdapter.getSelected();
     switch (item.getItemId()) {
+      case R.id.edit_tags:
+        Pair<Set<String>, Set<String>> tags = tagDataDao.getTagSelections(selected);
+        Intent intent = new Intent(context, TagPickerActivity.class);
+        intent.putExtra(TagPickerActivity.EXTRA_TASKS, selected);
+        intent.putParcelableArrayListExtra(
+            TagPickerActivity.EXTRA_PARTIALLY_SELECTED,
+            newArrayList(tagDataDao.getByUuid(tags.first)));
+        intent.putParcelableArrayListExtra(
+            TagPickerActivity.EXTRA_SELECTED, newArrayList(tagDataDao.getByUuid(tags.second)));
+        startActivityForResult(intent, REQUEST_TAG_TASKS);
+        return true;
       case R.id.move_tasks:
-        Filter singleFilter = taskMover.getSingleFilter(taskAdapter.getSelected());
+        Filter singleFilter = taskMover.getSingleFilter(selected);
         (singleFilter == null
                 ? newRemoteListSupportPicker(this, REQUEST_MOVE_TASKS)
                 : newRemoteListSupportPicker(singleFilter, this, REQUEST_MOVE_TASKS))
@@ -672,8 +702,7 @@ public final class TaskListFragment extends InjectingFragment
         dialogBuilder
             .newDialog(R.string.delete_selected_tasks)
             .setPositiveButton(
-                android.R.string.ok,
-                (dialogInterface, i) -> deleteSelectedItems(taskAdapter.getSelected()))
+                android.R.string.ok, (dialogInterface, i) -> deleteSelectedItems(selected))
             .setNegativeButton(android.R.string.cancel, null)
             .show();
         return true;
@@ -681,8 +710,7 @@ public final class TaskListFragment extends InjectingFragment
         dialogBuilder
             .newDialog(R.string.copy_selected_tasks)
             .setPositiveButton(
-                android.R.string.ok,
-                ((dialogInterface, i) -> copySelectedItems(taskAdapter.getSelected())))
+                android.R.string.ok, ((dialogInterface, i) -> copySelectedItems(selected)))
             .setNegativeButton(android.R.string.cancel, null)
             .show();
         return true;

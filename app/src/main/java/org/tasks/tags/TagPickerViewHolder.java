@@ -5,7 +5,6 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,22 +18,23 @@ import butterknife.OnClick;
 import kotlin.jvm.functions.Function2;
 import org.tasks.R;
 import org.tasks.data.TagData;
+import org.tasks.tags.CheckBoxTriStates.State;
 
 public class TagPickerViewHolder extends RecyclerView.ViewHolder {
 
   private final Context context;
-  private final Function2<TagData, Boolean, Void> callback;
+  private final Function2<TagData, Boolean, State> callback;
 
   @BindView(R.id.text)
   TextView text;
 
   @BindView(R.id.checkbox)
-  CheckBox checkBox;
+  CheckBoxTriStates checkBox;
 
   private TagData tagData;
 
   TagPickerViewHolder(
-      Context context, @NonNull View view, Function2<TagData, Boolean, Void> callback) {
+      Context context, @NonNull View view, Function2<TagData, Boolean, State> callback) {
     super(view);
     this.callback = callback;
 
@@ -54,10 +54,12 @@ public class TagPickerViewHolder extends RecyclerView.ViewHolder {
 
   @OnCheckedChanged(R.id.checkbox)
   void onCheckedChanged() {
-    callback.invoke(tagData, checkBox.isChecked());
+    State newState = callback.invoke(tagData, checkBox.isChecked());
+    updateCheckbox(newState);
   }
 
-  public void bind(@NonNull TagData tagData, int color, @Nullable Integer icon, boolean checked) {
+  public void bind(
+      @NonNull TagData tagData, int color, @Nullable Integer icon, State state) {
     this.tagData = tagData;
     if (tagData.getId() == null) {
       text.setText(context.getString(R.string.create_new_tag, tagData.getName()));
@@ -65,8 +67,11 @@ public class TagPickerViewHolder extends RecyclerView.ViewHolder {
       checkBox.setVisibility(View.GONE);
     } else {
       text.setText(tagData.getName());
-      checkBox.setChecked(checked);
-      checkBox.setVisibility(View.VISIBLE);
+      if (state == State.CHECKED) {
+        checkBox.setChecked(true);
+      } else {
+        updateCheckbox(state);
+      }
       if (icon == null) {
         icon = R.drawable.ic_outline_label_24px;
       }
@@ -79,5 +84,10 @@ public class TagPickerViewHolder extends RecyclerView.ViewHolder {
     } else {
       text.setCompoundDrawablesWithIntrinsicBounds(wrapped, null, null, null);
     }
+  }
+
+  private void updateCheckbox(State state) {
+    checkBox.setState(state, false);
+    checkBox.setVisibility(View.VISIBLE);
   }
 }

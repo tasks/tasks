@@ -3,6 +3,12 @@
   xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <item
+    android:id="@+id/edit_tags"
+    android:icon="@drawable/ic_outline_label_24px"
+    android:title="@string/tags"
+    app:showAsAction="ifRoom" />
+
+  <item
     android:id="@+id/move_tasks"
     android:icon="@drawable/ic_outline_cloud_24px"
     android:title="@string/move"

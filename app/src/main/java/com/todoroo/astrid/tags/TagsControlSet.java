@@ -114,7 +114,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
   @OnClick(R.id.tag_row)
   void onClickRow() {
     Intent intent = new Intent(getContext(), TagPickerActivity.class);
-    intent.putParcelableArrayListExtra(TagPickerActivity.EXTRA_TAGS, selectedTags);
+    intent.putParcelableArrayListExtra(TagPickerActivity.EXTRA_SELECTED, selectedTags);
     startActivityForResult(intent, REQUEST_TAG_PICKER_ACTIVITY);
   }
 
@@ -164,7 +164,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
   public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
     if (requestCode == REQUEST_TAG_PICKER_ACTIVITY) {
       if (resultCode == RESULT_OK && data != null) {
-        selectedTags = data.getParcelableArrayListExtra(TagPickerActivity.EXTRA_TAGS);
+        selectedTags = data.getParcelableArrayListExtra(TagPickerActivity.EXTRA_SELECTED);
         refreshDisplayView();
       }
     } else {

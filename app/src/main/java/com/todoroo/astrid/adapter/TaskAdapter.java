@@ -10,6 +10,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.primitives.Longs.asList;
 
 import com.todoroo.astrid.data.Task;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class TaskAdapter {
     return selected.size();
   }
 
-  public List<Long> getSelected() {
+  public ArrayList<Long> getSelected() {
     return newArrayList(selected);
   }
 

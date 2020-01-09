@@ -18,6 +18,7 @@ import org.tasks.billing.Inventory;
 import org.tasks.data.TagData;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
+import org.tasks.tags.CheckBoxTriStates.State;
 import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
@@ -25,7 +26,9 @@ import org.tasks.ui.MenuColorizer;
 
 public class TagPickerActivity extends ThemedInjectingAppCompatActivity {
 
-  public static final String EXTRA_TAGS = "extra_tags";
+  public static final String EXTRA_SELECTED = "extra_tags";
+  public static final String EXTRA_PARTIALLY_SELECTED = "extra_partial";
+  public static final String EXTRA_TASKS = "extra_tasks";
 
   @BindView(R.id.toolbar)
   Toolbar toolbar;
@@ -41,14 +44,18 @@ public class TagPickerActivity extends ThemedInjectingAppCompatActivity {
   @Inject Inventory inventory;
 
   private TagPickerViewModel viewModel;
+  private ArrayList<Long> taskIds;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
+    Intent intent = getIntent();
+    taskIds = (ArrayList<Long>) intent.getSerializableExtra(EXTRA_TASKS);
     if (savedInstanceState == null) {
-      ArrayList<TagData> tags = getIntent().getParcelableArrayListExtra(EXTRA_TAGS);
-      viewModel.setTags(tags);
+      viewModel.setSelected(
+          intent.getParcelableArrayListExtra(EXTRA_SELECTED),
+          intent.getParcelableArrayListExtra(EXTRA_PARTIALLY_SELECTED));
     }
 
     setContentView(R.layout.activity_tag_picker);
@@ -73,16 +80,16 @@ public class TagPickerActivity extends ThemedInjectingAppCompatActivity {
     editText.setText(viewModel.getText());
   }
 
-  private Void onToggle(TagData tagData, Boolean checked) {
+  private State onToggle(TagData tagData, Boolean checked) {
     boolean newTag = tagData.getId() == null;
 
-    viewModel.toggle(tagData, checked);
+    State state = viewModel.toggle(tagData, checked);
 
     if (newTag) {
       clear();
     }
 
-    return null;
+    return state;
   }
 
   @OnTextChanged(R.id.search_input)
@@ -94,7 +101,9 @@ public class TagPickerActivity extends ThemedInjectingAppCompatActivity {
   public void onBackPressed() {
     if (Strings.isNullOrEmpty(viewModel.getText())) {
       Intent data = new Intent();
-      data.putParcelableArrayListExtra(EXTRA_TAGS, viewModel.getTags());
+      data.putExtra(EXTRA_TASKS, taskIds);
+      data.putParcelableArrayListExtra(EXTRA_PARTIALLY_SELECTED, viewModel.getPartiallySelected());
+      data.putParcelableArrayListExtra(EXTRA_SELECTED, viewModel.getSelected());
       setResult(RESULT_OK, data);
       finish();
     } else {

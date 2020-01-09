@@ -3,6 +3,7 @@ package org.tasks.tags;
 import static com.google.common.collect.Iterables.any;
 import static com.google.common.collect.Lists.newArrayList;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
@@ -19,6 +20,7 @@ import java.util.Set;
 import javax.inject.Inject;
 import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
+import org.tasks.tags.CheckBoxTriStates.State;
 
 public class TagPickerViewModel extends ViewModel {
 
@@ -27,19 +29,27 @@ public class TagPickerViewModel extends ViewModel {
 
   @Inject TagDataDao tagDataDao;
 
+  private final Set<TagData> selected = new HashSet<>();
+  private final Set<TagData> partiallySelected = new HashSet<>();
   private String text;
-  private Set<TagData> selected = new HashSet<>();
 
   public void observe(LifecycleOwner owner, Observer<List<TagData>> observer) {
     tags.observe(owner, observer);
   }
 
-  public void setTags(List<TagData> tags) {
-    selected.addAll(tags);
+  public void setSelected(List<TagData> selected, @Nullable List<TagData> partiallySelected) {
+    this.selected.addAll(selected);
+    if (partiallySelected != null) {
+      this.partiallySelected.addAll(partiallySelected);
+    }
   }
 
-  public ArrayList<TagData> getTags() {
+  public ArrayList<TagData> getSelected() {
     return newArrayList(selected);
+  }
+
+  public ArrayList<TagData> getPartiallySelected() {
+    return newArrayList(partiallySelected);
   }
 
   public String getText() {
@@ -74,16 +84,27 @@ public class TagPickerViewModel extends ViewModel {
     return selected.contains(tagData);
   }
 
-  void toggle(TagData tagData, boolean checked) {
+  public State getState(TagData tagData) {
+    if (partiallySelected.contains(tagData)) {
+      return State.PARTIALLY_CHECKED;
+    }
+    return selected.contains(tagData) ? State.CHECKED : State.UNCHECKED;
+  }
+
+  State toggle(TagData tagData, boolean checked) {
     if (tagData.getId() == null) {
       tagData = new TagData(tagData.getName());
       tagDataDao.createNew(tagData);
     }
 
+    partiallySelected.remove(tagData);
+
     if (checked) {
       selected.add(tagData);
+      return State.CHECKED;
     } else {
       selected.remove(tagData);
+      return State.UNCHECKED;
     }
   }
 }

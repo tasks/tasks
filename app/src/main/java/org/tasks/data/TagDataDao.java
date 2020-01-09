@@ -1,5 +1,14 @@
 package org.tasks.data;
 
+import static com.google.common.collect.Iterables.concat;
+import static com.google.common.collect.Iterables.transform;
+import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Sets.difference;
+import static com.google.common.collect.Sets.newHashSet;
+import static org.tasks.db.DbUtils.MAX_SQLITE_ARGS;
+import static org.tasks.db.DbUtils.batch;
+
+import androidx.core.util.Pair;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -7,11 +16,13 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Transaction;
 import androidx.room.Update;
+import com.google.common.collect.Collections2;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.UUIDHelper;
-import io.reactivex.Single;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import org.tasks.filters.AlphanumComparator;
 import org.tasks.filters.TagFilters;
 
@@ -48,6 +59,9 @@ public abstract class TagDataDao {
   @Query("SELECT * FROM tagdata WHERE remoteId = :uuid LIMIT 1")
   public abstract TagData getByUuid(String uuid);
 
+  @Query("SELECT * FROM tagdata WHERE remoteId IN (:uuids)")
+  public abstract List<TagData> getByUuid(Collection<String> uuids);
+
   @Query("SELECT * FROM tagdata WHERE name IS NOT NULL AND name != '' ORDER BY UPPER(name) ASC")
   public abstract List<TagData> tagDataOrderedByName();
 
@@ -56,6 +70,51 @@ public abstract class TagDataDao {
 
   @Query("DELETE FROM tags WHERE tag_uid = :tagUid")
   abstract void deleteTags(String tagUid);
+
+  @Query("DELETE FROM tags WHERE task IN (:tasks) AND tag_uid NOT IN (:tagUids)")
+  abstract void keepTags(List<Long> tasks, List<String> tagUids);
+
+  public Pair<Set<String>, Set<String>> getTagSelections(List<Long> tasks) {
+    List<String> allTags = getAllTags(tasks);
+    Collection<Set<String>> tags = Collections2.transform(allTags, t -> newHashSet(t.split(",")));
+    Set<String> partialTags = newHashSet(concat(tags));
+    Set<String> commonTags = null;
+    if (tags.isEmpty()) {
+      commonTags = Collections.emptySet();
+    } else {
+      for (Set<String> s : tags) {
+        if (commonTags == null) {
+          commonTags = s;
+        } else {
+          commonTags.retainAll(s);
+        }
+      }
+    }
+    partialTags.removeAll(commonTags);
+    return Pair.create(partialTags, commonTags);
+  }
+
+  @Query(
+      "SELECT IFNULL(GROUP_CONCAT(DISTINCT(tag_uid)), '') FROM tasks"
+          + " INNER JOIN tags ON tags.task = tasks._id"
+          + " WHERE tasks._id IN (:tasks)"
+          + " GROUP BY tasks._id")
+  abstract List<String> getAllTags(List<Long> tasks);
+
+  @Transaction
+  public void applyTags(List<Task> tasks, List<TagData> partiallySelected, List<TagData> selected) {
+    List<String> keep =
+        newArrayList(transform(concat(partiallySelected, selected), TagData::getRemoteId));
+    Iterable<Long> ids = transform(tasks, Task::getId);
+    batch(ids, MAX_SQLITE_ARGS - keep.size(), b -> keepTags(b, keep));
+    for (Task task : tasks) {
+      Set<TagData> added =
+          difference(newHashSet(selected), newHashSet(getTagDataForTask(task.getId())));
+      if (added.size() > 0) {
+        insert(transform(added, td -> new Tag(task, td)));
+      }
+    }
+  }
 
   @Transaction
   public void delete(TagData tagData) {
@@ -80,6 +139,9 @@ public abstract class TagDataDao {
 
   @Insert
   abstract long insert(TagData tag);
+
+  @Insert
+  public abstract void insert(Iterable<Tag> tags);
 
   public void createNew(TagData tag) {
     if (Task.isUuidEmpty(tag.getRemoteId())) {

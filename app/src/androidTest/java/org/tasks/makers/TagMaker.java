@@ -12,21 +12,25 @@ import org.tasks.data.TagData;
 
 public class TagMaker {
 
-  public static final Property<Tag, String> NAME = newProperty();
   public static final Property<Tag, TagData> TAGDATA = newProperty();
   public static final Property<Tag, Task> TASK = newProperty();
+  public static final Property<Tag, String> TAGUID = newProperty();
 
-  private static final Instantiator<Tag> instantiator = lookup -> {
-    Tag tag = new Tag();
-    Task task = lookup.valueOf(TASK, (Task) null);
-    assert(task != null);
-    tag.setTask(task.getId());
-    tag.setTaskUid(task.getUuid());
-    TagData tagData = lookup.valueOf(TAGDATA, (TagData) null);
-    assert(tagData != null);
-    tag.setTagUid(tagData.getRemoteId());
-    return tag;
-  };
+  private static final Instantiator<Tag> instantiator =
+      lookup -> {
+        Tag tag = new Tag();
+        Task task = lookup.valueOf(TASK, (Task) null);
+        assert (task != null);
+        tag.setTask(task.getId());
+        tag.setTaskUid(task.getUuid());
+        tag.setTagUid(lookup.valueOf(TAGUID, (String) null));
+        TagData tagData = lookup.valueOf(TAGDATA, (TagData) null);
+        if (tagData != null) {
+          tag.setTagUid(tagData.getRemoteId());
+        }
+        assert(tag.getTagUid() != null);
+        return tag;
+      };
 
   @SafeVarargs
   public static Tag newTag(PropertyValue<? super Tag, ?>... properties) {

@@ -7,7 +7,7 @@
   android:clickable="true"
   android:focusable="true">
 
-  <CheckBox
+  <org.tasks.tags.CheckBoxTriStates
     android:id="@+id/checkbox"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"

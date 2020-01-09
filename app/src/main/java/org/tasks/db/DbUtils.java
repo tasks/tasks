@@ -12,7 +12,7 @@ import org.tasks.Callback;
 
 public class DbUtils {
 
-  private static final int MAX_SQLITE_ARGS = 990;
+  public static final int MAX_SQLITE_ARGS = 990;
 
   public static <F, T> List<T> collect(Collection<F> items, Function<List<F>, List<T>> func) {
     if (items.size() < MAX_SQLITE_ARGS) {
