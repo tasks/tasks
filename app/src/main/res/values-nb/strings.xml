@@ -563,4 +563,6 @@
     <string name="show_subtasks">Vis underoppgaver</string>
     <string name="show_subtasks_summary">Visning av underoppgaver påvirker ytelsen</string>
     <string name="no_application_found_link">Mangler program for håndtering av lenke</string>
+    <string name="enter_tag_name">Skriv inn etikettnavn</string>
+    <string name="create_new_tag">Opprett «%s»</string>
 </resources>
