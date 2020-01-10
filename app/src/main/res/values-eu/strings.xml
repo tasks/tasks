@@ -563,4 +563,6 @@
     <string name="show_subtasks">Erakutsi azpi-zereginak</string>
     <string name="show_subtasks_summary">Azpi-zereginak erakusteak errendimendua kaltetu dezake</string>
     <string name="no_application_found_link">Ez da esteka kudeatu dezakeen aplikaziorik aurkitu</string>
+    <string name="enter_tag_name">Sartu etiketaren izena</string>
+    <string name="create_new_tag">Sortu \"%s\"</string>
 </resources>
