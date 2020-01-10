@@ -5,6 +5,7 @@ import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Sets.difference;
 import static com.google.common.collect.Sets.newHashSet;
+import static java.util.Collections.emptySet;
 import static org.tasks.db.DbUtils.MAX_SQLITE_ARGS;
 import static org.tasks.db.DbUtils.batch;
 
@@ -76,11 +77,12 @@ public abstract class TagDataDao {
 
   public Pair<Set<String>, Set<String>> getTagSelections(List<Long> tasks) {
     List<String> allTags = getAllTags(tasks);
-    Collection<Set<String>> tags = Collections2.transform(allTags, t -> newHashSet(t.split(",")));
+    Collection<Set<String>> tags =
+        Collections2.transform(allTags, t -> t == null ? emptySet() : newHashSet(t.split(",")));
     Set<String> partialTags = newHashSet(concat(tags));
     Set<String> commonTags = null;
     if (tags.isEmpty()) {
-      commonTags = Collections.emptySet();
+      commonTags = emptySet();
     } else {
       for (Set<String> s : tags) {
         if (commonTags == null) {
@@ -95,8 +97,8 @@ public abstract class TagDataDao {
   }
 
   @Query(
-      "SELECT IFNULL(GROUP_CONCAT(DISTINCT(tag_uid)), '') FROM tasks"
-          + " INNER JOIN tags ON tags.task = tasks._id"
+      "SELECT GROUP_CONCAT(DISTINCT(tag_uid)) FROM tasks"
+          + " LEFT JOIN tags ON tags.task = tasks._id"
           + " WHERE tasks._id IN (:tasks)"
           + " GROUP BY tasks._id")
   abstract List<String> getAllTags(List<Long> tasks);

@@ -6,7 +6,6 @@ import static java.util.Collections.singletonList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.tasks.makers.TagDataMaker.NAME;
-import static org.tasks.makers.TagDataMaker.UID;
 import static org.tasks.makers.TagDataMaker.newTagData;
 import static org.tasks.makers.TagMaker.TAGDATA;
 import static org.tasks.makers.TagMaker.TAGUID;
@@ -105,7 +104,6 @@ public class TagDataDaoTest extends InjectingTestCase {
     newTag(1, "tag1", "tag2");
     newTag(2, "tag2", "tag3");
 
-
     assertEquals(
         newHashSet("tag1", "tag3"), tagDataDao.getTagSelections(ImmutableList.of(1L, 2L)).first);
   }
@@ -123,8 +121,7 @@ public class TagDataDaoTest extends InjectingTestCase {
     newTag(1, "tag1", "tag2");
     newTag(2, "tag2", "tag3");
 
-    assertEquals(
-        newHashSet("tag2"), tagDataDao.getTagSelections(ImmutableList.of(1L, 2L)).second);
+    assertEquals(newHashSet("tag2"), tagDataDao.getTagSelections(ImmutableList.of(1L, 2L)).second);
   }
 
   @Test
@@ -133,6 +130,26 @@ public class TagDataDaoTest extends InjectingTestCase {
     newTag(2, "tag2");
 
     assertTrue(tagDataDao.getTagSelections(ImmutableList.of(1L, 2L)).second.isEmpty());
+  }
+
+  @Test
+  public void getSelectionsWithNoTags() {
+    newTag(1);
+
+    Pair<Set<String>, Set<String>> selections = tagDataDao.getTagSelections(ImmutableList.of(1L));
+    assertTrue(selections.first.isEmpty());
+    assertTrue(selections.second.isEmpty());
+  }
+
+  @Test
+  public void noCommonSelectionsWhenOneTaskHasNoTags() {
+    newTag(1, "tag1");
+    newTag(2);
+
+    Pair<Set<String>, Set<String>> selections =
+        tagDataDao.getTagSelections(ImmutableList.of(1L, 2L));
+    assertEquals(newHashSet("tag1"), selections.first);
+    assertTrue(selections.second.isEmpty());
   }
 
   private void newTag(long taskId, String... tags) {
