@@ -174,7 +174,7 @@ dependencies {
     implementation("com.nononsenseapps:filepicker:4.2.1")
     implementation("com.google.android.material:material:1.1.0-beta02")
     implementation("androidx.annotation:annotation:1.1.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta1") // beta2 broke location picker
+    implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta4")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")
     implementation("com.jakewharton.timber:timber:4.7.1")
     implementation("com.jakewharton.threetenabp:threetenabp:1.2.1")

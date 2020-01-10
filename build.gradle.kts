@@ -6,7 +6,7 @@ buildscript {
     }
 
     dependencies {
-        classpath("com.android.tools.build:gradle:3.5.3")
+        classpath("com.android.tools.build:gradle:3.6.0-rc01")
         classpath("com.google.gms:google-services:4.3.3")
         // https://docs.fabric.io/android/changelog.html#fabric-gradle-plugin
         classpath("io.fabric.tools:gradle:1.31.0")
@@ -21,6 +21,6 @@ plugins {
 }
 
 tasks.getByName<Wrapper>("wrapper") {
-    gradleVersion = "5.4.1"
+    gradleVersion = "5.6.4"
     distributionType = Wrapper.DistributionType.ALL
 }
