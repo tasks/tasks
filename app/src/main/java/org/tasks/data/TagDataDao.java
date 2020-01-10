@@ -1,13 +1,14 @@
 package org.tasks.data;
 
-import static com.google.common.collect.Iterables.concat;
+import static com.google.common.collect.FluentIterable.concat;
+import static com.google.common.collect.FluentIterable.from;
 import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Lists.transform;
 import static com.google.common.collect.Sets.difference;
 import static com.google.common.collect.Sets.newHashSet;
 import static java.util.Collections.emptySet;
 import static org.tasks.db.DbUtils.MAX_SQLITE_ARGS;
-import static org.tasks.db.DbUtils.batch;
 
 import androidx.core.util.Pair;
 import androidx.lifecycle.LiveData;
@@ -18,6 +19,7 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 import androidx.room.Update;
 import com.google.common.collect.Collections2;
+import com.google.common.collect.Iterables;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.UUIDHelper;
 import java.util.Collection;
@@ -72,8 +74,8 @@ public abstract class TagDataDao {
   @Query("DELETE FROM tags WHERE tag_uid = :tagUid")
   abstract void deleteTags(String tagUid);
 
-  @Query("DELETE FROM tags WHERE task IN (:tasks) AND tag_uid NOT IN (:tagUids)")
-  abstract void keepTags(List<Long> tasks, List<String> tagUids);
+  @Query("SELECT * FROM tags WHERE task IN (:tasks) AND tag_uid NOT IN (:tagsToKeep)")
+  abstract List<Tag> tagsToDelete(List<Long> tasks, List<String> tagsToKeep);
 
   public Pair<Set<String>, Set<String>> getTagSelections(List<Long> tasks) {
     List<String> allTags = getAllTags(tasks);
@@ -104,18 +106,25 @@ public abstract class TagDataDao {
   abstract List<String> getAllTags(List<Long> tasks);
 
   @Transaction
-  public void applyTags(List<Task> tasks, List<TagData> partiallySelected, List<TagData> selected) {
+  public List<Long> applyTags(
+      List<Task> tasks, List<TagData> partiallySelected, List<TagData> selected) {
+    Set<Long> modified = newHashSet();
     List<String> keep =
-        newArrayList(transform(concat(partiallySelected, selected), TagData::getRemoteId));
-    Iterable<Long> ids = transform(tasks, Task::getId);
-    batch(ids, MAX_SQLITE_ARGS - keep.size(), b -> keepTags(b, keep));
+        concat(partiallySelected, selected).transform(TagData::getRemoteId).toList();
+    for (List<Task> sublist : Iterables.partition(tasks, MAX_SQLITE_ARGS - keep.size())) {
+      List<Tag> tags = tagsToDelete(from(sublist).transform(Task::getId).toList(), keep);
+      deleteTags(tags);
+      modified.addAll(transform(tags, Tag::getTask));
+    }
     for (Task task : tasks) {
       Set<TagData> added =
           difference(newHashSet(selected), newHashSet(getTagDataForTask(task.getId())));
       if (added.size() > 0) {
+        modified.add(task.getId());
         insert(transform(added, td -> new Tag(task, td)));
       }
     }
+    return newArrayList(modified);
   }
 
   @Transaction
@@ -126,6 +135,9 @@ public abstract class TagDataDao {
 
   @Delete
   public abstract void delete(List<TagData> tagData);
+
+  @Delete
+  abstract void deleteTags(List<Tag> tags);
 
   @Query("SELECT tagdata.* FROM tagdata "
       + "INNER JOIN tags ON tags.tag_uid = tagdata.remoteId "

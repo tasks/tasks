@@ -598,11 +598,13 @@ public final class TaskListFragment extends InjectingFragment
         break;
       case REQUEST_TAG_TASKS:
         if (resultCode == RESULT_OK) {
-          tagDataDao.applyTags(
-              taskDao.fetch(
-                  (ArrayList<Long>) data.getSerializableExtra(TagPickerActivity.EXTRA_TASKS)),
-              data.getParcelableArrayListExtra(TagPickerActivity.EXTRA_PARTIALLY_SELECTED),
-              data.getParcelableArrayListExtra(TagPickerActivity.EXTRA_SELECTED));
+          List<Long> modified =
+              tagDataDao.applyTags(
+                  taskDao.fetch(
+                      (ArrayList<Long>) data.getSerializableExtra(TagPickerActivity.EXTRA_TASKS)),
+                  data.getParcelableArrayListExtra(TagPickerActivity.EXTRA_PARTIALLY_SELECTED),
+                  data.getParcelableArrayListExtra(TagPickerActivity.EXTRA_SELECTED));
+          taskDao.touch(modified);
           finishActionMode();
         }
         break;
