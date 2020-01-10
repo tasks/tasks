@@ -7,7 +7,8 @@
 package com.todoroo.astrid.tags;
 
 import static android.app.Activity.RESULT_OK;
-import static com.google.common.collect.Lists.transform;
+import static com.google.common.collect.FluentIterable.from;
+import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Sets.newHashSet;
 
 import android.content.Intent;
@@ -21,6 +22,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+import com.google.common.base.Predicates;
 import com.google.common.collect.Ordering;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
@@ -77,9 +79,11 @@ public final class TagsControlSet extends TaskEditControlFragment {
       originalTags = savedInstanceState.getParcelableArrayList(EXTRA_ORIGINAL_TAGS);
     } else {
       originalTags =
-          new ArrayList<>(
+          newArrayList(
               task.isNew()
-                  ? transform(task.getTags(), tagDataDao::getTagByName)
+                  ? from(task.getTags())
+                      .transform(tagDataDao::getTagByName)
+                      .filter(Predicates.notNull())
                   : tagDataDao.getTagDataForTask(task.getId()));
       selectedTags = new ArrayList<>(originalTags);
     }
@@ -140,6 +144,9 @@ public final class TagsControlSet extends TaskEditControlFragment {
       chipGroup.setVisibility(View.VISIBLE);
       chipGroup.removeAllViews();
       for (TagData tagData : orderByName.sortedCopy(selectedTags)) {
+        if (tagData == null) {
+          continue;
+        }
         Chip chip = chipProvider.newClosableChip(getActivity(), tagData);
         chipProvider.apply(chip, tagData);
         chip.setOnClickListener(view -> onClickRow());

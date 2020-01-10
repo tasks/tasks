@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
 import com.google.android.material.chip.Chip;
@@ -160,7 +161,7 @@ public class ChipProvider {
     apply(chip, filter.listingTitle, filter.tint);
   }
 
-  public void apply(Chip chip, TagData tagData) {
+  public void apply(Chip chip, @NonNull TagData tagData) {
     apply(chip, tagData.getName(), tagData.getColor());
   }
 
