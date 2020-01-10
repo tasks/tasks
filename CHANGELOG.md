@@ -1,5 +1,13 @@
 Change Log
 ---
+### 7.6 (2020-01-10)
+
+* Change tags with multi-select
+* Fix custom filter crash on deleted tag
+* Update translations
+  * Basque - Osoitz
+  * Norwegian Bokmål - @comradekingu
+
 ### 7.5 (2020-01-07)
 
 * New tag picker
