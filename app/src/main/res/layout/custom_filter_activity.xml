@@ -9,7 +9,9 @@
   android:layout_height="fill_parent"
   android:orientation="vertical">
 
-  <include layout="@layout/toolbar"/>
+  <include
+    android:id="@+id/toolbar"
+    layout="@layout/toolbar"/>
 
   <RelativeLayout
     android:layout_width="fill_parent"
@@ -25,7 +27,7 @@
       android:text="@string/name"/>
 
     <EditText
-      android:id="@+id/tag_name"
+      android:id="@+id/filter_name"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="16dp"

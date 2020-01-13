@@ -21,14 +21,11 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
@@ -48,6 +45,7 @@ import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.data.UserActivity;
 import org.tasks.data.UserActivityDao;
+import org.tasks.databinding.FragmentTaskEditBinding;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.fragments.TaskEditControlSetFragmentManager;
 import org.tasks.injection.ForActivity;
@@ -76,15 +74,6 @@ public final class TaskEditFragment extends InjectingFragment
   @Inject Tracker tracker;
   @Inject TimerPlugin timerPlugin;
 
-  @BindView(R.id.toolbar)
-  Toolbar toolbar;
-
-  @BindView(R.id.comments)
-  LinearLayout comments;
-
-  @BindView(R.id.control_sets)
-  LinearLayout controlSets;
-
   Task model = null;
   private TaskEditFragmentCallbackHandler callback;
 
@@ -111,12 +100,13 @@ public final class TaskEditFragment extends InjectingFragment
   @Override
   public View onCreateView(
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.fragment_task_edit, container, false);
-    ButterKnife.bind(this, view);
+    FragmentTaskEditBinding binding = FragmentTaskEditBinding.inflate(inflater);
+    View view = binding.getRoot();
 
     Bundle arguments = getArguments();
     model = arguments.getParcelable(EXTRA_TASK);
 
+    Toolbar toolbar = binding.toolbar.toolbar;
     final boolean backButtonSavesTask = preferences.backButtonSavesTask();
     toolbar.setNavigationIcon(
         ContextCompat.getDrawable(
@@ -142,7 +132,7 @@ public final class TaskEditFragment extends InjectingFragment
       notificationManager.cancel(model.getId());
     }
 
-    commentsController.initialize(model, comments);
+    commentsController.initialize(model, binding.comments);
     commentsController.reloadView();
 
     FragmentManager fragmentManager = getChildFragmentManager();
@@ -161,7 +151,7 @@ public final class TaskEditFragment extends InjectingFragment
     fragmentTransaction.commit();
 
     for (int i = taskEditControlFragments.size() - 2; i > 1; i--) {
-      controlSets.addView(inflater.inflate(R.layout.task_edit_row_divider, controlSets, false), i);
+      binding.controlSets.addView(inflater.inflate(R.layout.task_edit_row_divider, binding.controlSets, false), i);
     }
 
     return view;

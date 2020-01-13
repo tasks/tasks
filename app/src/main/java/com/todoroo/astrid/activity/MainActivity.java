@@ -21,15 +21,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.view.ActionMode;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
@@ -45,6 +42,7 @@ import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.activities.TagSettingsActivity;
 import org.tasks.billing.Inventory;
+import org.tasks.databinding.TaskListActivityBinding;
 import org.tasks.dialogs.SortDialog;
 import org.tasks.fragments.CommentBarFragment;
 import org.tasks.gtasks.PlayServices;
@@ -94,15 +92,6 @@ public class MainActivity extends InjectingAppCompatActivity
   @Inject PlayServices playServices;
   @Inject Inventory inventory;
 
-  @BindView(R.id.drawer_layout)
-  DrawerLayout drawerLayout;
-
-  @BindView(R.id.master)
-  FrameLayout master;
-
-  @BindView(R.id.detail)
-  FrameLayout detail;
-
   private CompositeDisposable disposables;
   private NavigationDrawerFragment navigationDrawer;
   private int currentNightMode;
@@ -110,6 +99,8 @@ public class MainActivity extends InjectingAppCompatActivity
 
   private Filter filter;
   private ActionMode actionMode = null;
+
+  TaskListActivityBinding binding;
 
   /** @see android.app.Activity#onCreate(Bundle) */
   @Override
@@ -122,9 +113,8 @@ public class MainActivity extends InjectingAppCompatActivity
     currentNightMode = getNightMode();
     currentPro = inventory.hasPro();
 
-    setContentView(R.layout.task_list_activity);
-
-    ButterKnife.bind(this);
+    binding = TaskListActivityBinding.inflate(getLayoutInflater());
+    setContentView(binding.getRoot());
 
     if (savedInstanceState != null) {
       filter = savedInstanceState.getParcelable(EXTRA_FILTER);
@@ -132,9 +122,9 @@ public class MainActivity extends InjectingAppCompatActivity
     }
 
     navigationDrawer = getNavigationDrawerFragment();
-    navigationDrawer.setUp(drawerLayout);
+    navigationDrawer.setUp(binding.drawerLayout);
 
-    drawerLayout.addDrawerListener(
+    binding.drawerLayout.addDrawerListener(
         new DrawerLayout.SimpleDrawerListener() {
           @Override
           public void onDrawerStateChanged(int newState) {
@@ -244,8 +234,8 @@ public class MainActivity extends InjectingAppCompatActivity
 
   private void showDetailFragment() {
     if (isSinglePaneLayout()) {
-      detail.setVisibility(View.VISIBLE);
-      master.setVisibility(View.GONE);
+      binding.detail.setVisibility(View.VISIBLE);
+      binding.master.setVisibility(View.GONE);
     }
   }
 
@@ -256,8 +246,8 @@ public class MainActivity extends InjectingAppCompatActivity
         .commit();
 
     if (isSinglePaneLayout()) {
-      master.setVisibility(View.VISIBLE);
-      detail.setVisibility(View.GONE);
+      binding.master.setVisibility(View.VISIBLE);
+      binding.detail.setVisibility(View.GONE);
     }
   }
 
@@ -281,7 +271,7 @@ public class MainActivity extends InjectingAppCompatActivity
 
   private void applyTheme() {
     ThemeColor filterColor = getFilterColor();
-    filterColor.applyToStatusBar(drawerLayout);
+    filterColor.applyToStatusBar(binding.drawerLayout);
     filterColor.applyToNavigationBar(this);
     filterColor.applyTaskDescription(
         this, filter == null ? getString(R.string.app_name) : filter.listingTitle);

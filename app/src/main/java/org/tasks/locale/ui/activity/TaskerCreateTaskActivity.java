@@ -8,14 +8,13 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import com.google.android.material.textfield.TextInputEditText;
 import javax.inject.Inject;
 import net.dinglisch.android.tasker.TaskerPlugin;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.billing.Inventory;
+import org.tasks.databinding.ActivityTaskerCreateBinding;
+import org.tasks.databinding.ToolbarBinding;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.locale.bundle.TaskCreationBundle;
 import org.tasks.preferences.Preferences;
@@ -30,23 +29,7 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
   @Inject Inventory inventory;
   @Inject LocalBroadcastManager localBroadcastManager;
 
-  @BindView(R.id.title)
-  TextInputEditText title;
-
-  @BindView(R.id.toolbar)
-  Toolbar toolbar;
-
-  @BindView(R.id.due_date)
-  TextInputEditText dueDate;
-
-  @BindView(R.id.due_time)
-  TextInputEditText dueTime;
-
-  @BindView(R.id.priority)
-  TextInputEditText priority;
-
-  @BindView(R.id.description)
-  TextInputEditText description;
+  ActivityTaskerCreateBinding binding;
 
   private Bundle previousBundle;
 
@@ -54,10 +37,10 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
   public void onCreate(final Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    setContentView(R.layout.activity_tasker_create);
+    binding = ActivityTaskerCreateBinding.inflate(getLayoutInflater());
+    setContentView(binding.getRoot());
 
-    ButterKnife.bind(this);
-
+    Toolbar toolbar = binding.toolbar.toolbar;
     toolbar.setTitle(R.string.tasker_create_task);
     final boolean backButtonSavesTask = preferences.backButtonSavesTask();
     toolbar.setNavigationIcon(
@@ -81,7 +64,7 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
     if (savedInstanceState != null) {
       previousBundle = savedInstanceState.getParcelable(TaskCreationBundle.EXTRA_BUNDLE);
       TaskCreationBundle bundle = new TaskCreationBundle(previousBundle);
-      title.setText(bundle.getTitle());
+      binding.title.setText(bundle.getTitle());
     }
 
     if (!inventory.purchasedTasker()) {
@@ -98,11 +81,11 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
       final Bundle previousBundle, final String previousBlurb) {
     this.previousBundle = previousBundle;
     TaskCreationBundle bundle = new TaskCreationBundle(previousBundle);
-    title.setText(bundle.getTitle());
-    dueDate.setText(bundle.getDueDate());
-    dueTime.setText(bundle.getDueTime());
-    priority.setText(bundle.getPriority());
-    description.setText(bundle.getDescription());
+    binding.title.setText(bundle.getTitle());
+    binding.dueDate.setText(bundle.getDueDate());
+    binding.dueTime.setText(bundle.getDueTime());
+    binding.priority.setText(bundle.getPriority());
+    binding.description.setText(bundle.getDescription());
   }
 
   @Override
@@ -113,11 +96,11 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
   @Override
   protected Bundle getResultBundle() {
     TaskCreationBundle bundle = new TaskCreationBundle();
-    bundle.setTitle(title.getText().toString().trim());
-    bundle.setDueDate(dueDate.getText().toString().trim());
-    bundle.setDueTime(dueTime.getText().toString().trim());
-    bundle.setPriority(priority.getText().toString().trim());
-    bundle.setDescription(description.getText().toString().trim());
+    bundle.setTitle(binding.title.getText().toString().trim());
+    bundle.setDueDate(binding.dueDate.getText().toString().trim());
+    bundle.setDueTime(binding.dueTime.getText().toString().trim());
+    bundle.setPriority(binding.priority.getText().toString().trim());
+    bundle.setDescription(binding.description.getText().toString().trim());
     Bundle resultBundle = bundle.build();
     if (TaskerPlugin.Setting.hostSupportsOnFireVariableReplacement(this)) {
       TaskerPlugin.Setting.setVariableReplaceKeys(
@@ -135,7 +118,7 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
 
   @Override
   public String getResultBlurb(final Bundle bundle) {
-    return title.getText().toString().trim();
+    return binding.title.getText().toString().trim();
   }
 
   @Override

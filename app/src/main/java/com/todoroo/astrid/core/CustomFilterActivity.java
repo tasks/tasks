@@ -18,12 +18,9 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.ListView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.UnaryCriterion;
@@ -46,6 +43,7 @@ import java.util.Map.Entry;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.data.FilterDao;
+import org.tasks.databinding.CustomFilterActivityBinding;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.filters.FilterCriteriaProvider;
 import org.tasks.injection.ActivityComponent;
@@ -66,20 +64,13 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity
   private static final String IDENTIFIER_UNIVERSE = "active"; // $NON-NLS-1$
   private static final int MENU_GROUP_FILTER = 0;
 
-  // --- hierarchy of filter classes
   @Inject Database database;
   @Inject FilterDao filterDao;
   @Inject DialogBuilder dialogBuilder;
-
-  // --- activity
   @Inject FilterCriteriaProvider filterCriteriaProvider;
   @Inject Locale locale;
 
-  @BindView(R.id.tag_name)
-  EditText filterName;
-
-  @BindView(R.id.toolbar)
-  Toolbar toolbar;
+  CustomFilterActivityBinding binding;
 
   private ListView listView;
   private CustomFilterAdapter adapter;
@@ -119,9 +110,10 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    setContentView(R.layout.custom_filter_activity);
-    ButterKnife.bind(this);
+    binding = CustomFilterActivityBinding.inflate(getLayoutInflater());
+    setContentView(binding.getRoot());
 
+    Toolbar toolbar = binding.toolbar.toolbar;
     toolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_outline_clear_24px));
     toolbar.setTitle(R.string.FLA_new_filter);
     toolbar.inflateMenu(R.menu.menu_custom_filter_activity);
@@ -186,7 +178,7 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity
   @Override
   public void finish() {
     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-    imm.hideSoftInputFromWindow(filterName.getWindowToken(), 0);
+    imm.hideSoftInputFromWindow(binding.filterName.getWindowToken(), 0);
     super.finish();
   }
 
@@ -203,7 +195,7 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity
   }
 
   private void saveAndView() {
-    String title = filterName.getText().toString().trim();
+    String title = binding.filterName.getText().toString().trim();
 
     if (isEmpty(title)) {
       return;
@@ -327,7 +319,7 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity
   }
 
   private void discard() {
-    if (filterName.getText().toString().trim().isEmpty() && adapter.getCount() <= 1) {
+    if (binding.filterName.getText().toString().trim().isEmpty() && adapter.getCount() <= 1) {
       finish();
     } else {
       dialogBuilder
