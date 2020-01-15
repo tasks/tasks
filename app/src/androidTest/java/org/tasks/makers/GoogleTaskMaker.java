@@ -15,6 +15,7 @@ public class GoogleTaskMaker {
   public static final Property<GoogleTask, Integer> ORDER = newProperty();
   public static final Property<GoogleTask, String> REMOTE_ID = newProperty();
   public static final Property<GoogleTask, Integer> TASK = newProperty();
+  public static final Property<GoogleTask, Long> PARENT = newProperty();
 
   private static final Instantiator<GoogleTask> instantiator = lookup -> {
     GoogleTask task = new GoogleTask();
@@ -22,6 +23,7 @@ public class GoogleTaskMaker {
     task.setOrder(lookup.valueOf(ORDER, 0));
     task.setRemoteId(lookup.valueOf(REMOTE_ID, UUIDHelper.newUUID()));
     task.setTask(lookup.valueOf(TASK, 1));
+    task.setParent(lookup.valueOf(PARENT, 0L));
     return task;
   };
 

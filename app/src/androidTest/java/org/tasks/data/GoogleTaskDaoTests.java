@@ -1,8 +1,11 @@
 package org.tasks.data;
 
 import static com.natpryce.makeiteasy.MakeItEasy.with;
+import static java.util.Collections.singletonList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.tasks.makers.GoogleTaskMaker.LIST;
+import static org.tasks.makers.GoogleTaskMaker.PARENT;
 import static org.tasks.makers.GoogleTaskMaker.REMOTE_ID;
 import static org.tasks.makers.GoogleTaskMaker.TASK;
 import static org.tasks.makers.GoogleTaskMaker.newGoogleTask;
@@ -10,6 +13,7 @@ import static org.tasks.makers.GtaskListMaker.newGtaskList;
 import static org.tasks.makers.TaskMaker.newTask;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import com.google.common.primitives.Longs;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import java.util.List;
@@ -163,6 +167,14 @@ public class GoogleTaskDaoTests extends InjectingTestCase {
     assertEquals(0, googleTaskDao.getByRemoteId("2").getOrder());
     assertEquals(1, googleTaskDao.getByRemoteId("3").getOrder());
     assertEquals(2, googleTaskDao.getByRemoteId("1").getOrder());
+  }
+
+  @Test
+  public void findChildrenInList() {
+    googleTaskDao.insert(newGoogleTask(with(TASK, 1), with(LIST, "1")));
+    googleTaskDao.insert(newGoogleTask(with(TASK, 2), with(LIST, "1"), with(PARENT, 1L)));
+
+    assertEquals(singletonList(2L), googleTaskDao.findChildrenInList(Longs.asList(1, 2)));
   }
 
   private void insertTop(GoogleTask googleTask) {
