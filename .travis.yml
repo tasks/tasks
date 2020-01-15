@@ -29,7 +29,7 @@ before_install:
 
 script:
   - ./gradlew :app:lintGoogleplayRelease
-  - ./gradlew -Pcoverage :app:createGoogleplayDebugAndroidTestCoverageReport
+  - ./gradlew :app:createGoogleplayDebugAndroidTestCoverageReport
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

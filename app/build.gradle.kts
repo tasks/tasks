@@ -78,7 +78,7 @@ android {
             applicationIdSuffix = ".debug"
             resValue("string", "mapbox_key", tasks_mapbox_key_debug ?: "")
             resValue("string", "google_key", tasks_google_key_debug ?: "")
-            isTestCoverageEnabled = project.hasProperty("coverage")
+            isTestCoverageEnabled = true
         }
         getByName("release") {
             val tasks_mapbox_key: String? by project
