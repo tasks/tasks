@@ -8,6 +8,7 @@ import com.todoroo.astrid.model.TaskTest;
 import com.todoroo.astrid.reminders.ReminderServiceTest;
 import com.todoroo.astrid.repeats.RepeatTaskHelperTest;
 import com.todoroo.astrid.service.QuickAddMarkupTest;
+import com.todoroo.astrid.service.TaskMoverTest;
 import com.todoroo.astrid.service.TitleParserTest;
 import com.todoroo.astrid.subtasks.SubtasksHelperTest;
 import com.todoroo.astrid.subtasks.SubtasksMovingTest;
@@ -56,4 +57,6 @@ public interface TestComponent extends ApplicationComponent {
   void inject(TagDataDaoTest tagDataDaoTest);
 
   void inject(CaldavDaoTests caldavDaoTests);
+
+  void inject(TaskMoverTest taskMoverTest);
 }
