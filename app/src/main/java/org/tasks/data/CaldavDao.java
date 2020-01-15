@@ -1,5 +1,6 @@
 package org.tasks.data;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static org.tasks.db.DbUtils.collect;
 
@@ -194,28 +195,8 @@ public abstract class CaldavDao {
   abstract List<Long> getChildrenRecursive(List<Long> ids);
 
   public List<Long> findChildrenInList(List<Long> ids) {
-    return atLeastLollipop()
-        ? findChildrenInListRecursive(ids)
-        : Collections.emptyList();
+    List<Long> result = newArrayList(ids);
+    result.retainAll(getChildren(ids));
+    return result;
   }
-
-  @Query("WITH RECURSIVE "
-      + " recursive_caldav (cd_task) AS ( "
-      + " SELECT cd_task "
-      + " FROM tasks "
-      + " INNER JOIN caldav_tasks "
-      + "  ON _id = cd_task "
-      + " WHERE cd_parent IN (:ids) AND cd_task IN (:ids)"
-      + " AND tasks.deleted = 0 AND caldav_tasks.cd_deleted = 0 "
-      + "UNION ALL "
-      + " SELECT caldav_tasks.cd_task "
-      + " FROM tasks "
-      + " INNER JOIN caldav_tasks "
-      + "  ON _id = caldav_tasks.cd_task "
-      + " INNER JOIN recursive_caldav "
-      + "  ON recursive_caldav.cd_task = caldav_tasks.cd_parent "
-      + " WHERE tasks.deleted = 0 AND caldav_tasks.cd_deleted = 0 "
-      + " ) "
-      + "SELECT cd_task FROM recursive_caldav")
-  abstract List<Long> findChildrenInListRecursive(List<Long> ids);
 }
