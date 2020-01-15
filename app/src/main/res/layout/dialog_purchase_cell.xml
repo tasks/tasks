@@ -13,4 +13,5 @@
   android:clickable="true"
   android:focusable="true"
   android:checkable="true"
-  tools:ignore="ContentDescription"/>
+  tools:ignore="ContentDescription"
+  android:gravity="center_horizontal" />
