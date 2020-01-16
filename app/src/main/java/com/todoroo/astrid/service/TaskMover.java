@@ -135,6 +135,9 @@ public class TaskMover {
       CaldavTask newParent = caldavTask == null
           ? new CaldavTask(id, listId)
           : new CaldavTask(id, listId, caldavTask.getRemoteId(), caldavTask.getObject());
+      if (caldavTask != null) {
+        newParent.setVtodo(caldavTask.getVtodo());
+      }
       caldavDao.insert(newParent);
       caldavDao.insert(transform(googleTaskChildren, child -> {
         CaldavTask newChild = new CaldavTask(child.getTask(), listId);
