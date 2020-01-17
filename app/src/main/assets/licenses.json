@@ -77,7 +77,7 @@
       "artifactId": {
         "name": "constraintlayout",
         "group": "androidx.constraintlayout",
-        "version": "2.0.0-beta1"
+        "version": "2.0.0-beta4"
       }
     },
     {
@@ -109,7 +109,7 @@
       "artifactId": {
         "name": "google-api-services-drive",
         "group": "com.google.apis",
-        "version": "v3-rev165-1.25.0"
+        "version": "v3-rev188-1.25.0"
       }
     },
     {
@@ -189,7 +189,7 @@
       "artifactId": {
         "name": "core-common",
         "group": "androidx.arch.core",
-        "version": "2.1.0"
+        "version": "2.0.0"
       }
     },
     {
@@ -205,7 +205,7 @@
       "artifactId": {
         "name": "j2objc-annotations",
         "group": "com.google.j2objc",
-        "version": "1.1"
+        "version": "1.3"
       }
     },
     {
@@ -221,7 +221,7 @@
       "artifactId": {
         "name": "room-common",
         "group": "androidx.room",
-        "version": "2.2.2"
+        "version": "2.2.3"
       }
     },
     {
@@ -237,7 +237,7 @@
       "artifactId": {
         "name": "room-runtime",
         "group": "androidx.room",
-        "version": "2.2.2"
+        "version": "2.2.3"
       }
     },
     {
@@ -301,7 +301,7 @@
       "artifactId": {
         "name": "lifecycle-runtime",
         "group": "androidx.lifecycle",
-        "version": "2.1.0"
+        "version": "2.0.0"
       }
     },
     {
@@ -461,7 +461,7 @@
       "artifactId": {
         "name": "annotation",
         "group": "androidx.annotation",
-        "version": "1.0.0"
+        "version": "1.1.0"
       }
     },
     {
@@ -557,7 +557,7 @@
       "artifactId": {
         "name": "dagger",
         "group": "com.google.dagger",
-        "version": "2.25.2"
+        "version": "2.25.4"
       }
     },
     {
@@ -573,7 +573,7 @@
       "artifactId": {
         "name": "guava",
         "group": "com.google.guava",
-        "version": "27.1-android"
+        "version": "28.1-android"
       }
     },
     {
@@ -829,7 +829,7 @@
       "artifactId": {
         "name": "google-api-client-android",
         "group": "com.google.api-client",
-        "version": "1.29.3"
+        "version": "1.30.7"
       }
     },
     {
@@ -973,7 +973,7 @@
       "artifactId": {
         "name": "collection",
         "group": "androidx.collection",
-        "version": "1.0.0"
+        "version": "1.1.0"
       }
     },
     {
@@ -989,7 +989,7 @@
       "artifactId": {
         "name": "jackson-core",
         "group": "com.fasterxml.jackson.core",
-        "version": "2.9.6"
+        "version": "2.9.9"
       }
     },
     {
@@ -1181,7 +1181,7 @@
       "artifactId": {
         "name": "lifecycle-common",
         "group": "androidx.lifecycle",
-        "version": "2.1.0"
+        "version": "2.0.0"
       }
     },
     {
@@ -1357,7 +1357,7 @@
       "artifactId": {
         "name": "google-oauth-client",
         "group": "com.google.oauth-client",
-        "version": "1.29.2"
+        "version": "1.30.5"
       }
     },
     {
@@ -1373,7 +1373,7 @@
       "artifactId": {
         "name": "room-rxjava2",
         "group": "androidx.room",
-        "version": "2.2.2"
+        "version": "2.2.3"
       }
     },
     {
@@ -1469,7 +1469,7 @@
       "artifactId": {
         "name": "google-api-client",
         "group": "com.google.api-client",
-        "version": "1.29.3"
+        "version": "1.30.7"
       }
     },
     {
@@ -1485,7 +1485,7 @@
       "artifactId": {
         "name": "constraintlayout-solver",
         "group": "androidx.constraintlayout",
-        "version": "2.0.0-beta1"
+        "version": "2.0.0-beta4"
       }
     },
     {
@@ -1533,7 +1533,7 @@
       "artifactId": {
         "name": "google-http-client",
         "group": "com.google.http-client",
-        "version": "1.29.2"
+        "version": "1.34.0"
       }
     },
     {
@@ -1565,7 +1565,7 @@
       "artifactId": {
         "name": "google-http-client-android",
         "group": "com.google.http-client",
-        "version": "1.29.2"
+        "version": "1.32.1"
       }
     },
     {
@@ -1645,7 +1645,7 @@
       "artifactId": {
         "name": "google-http-client-jackson2",
         "group": "com.google.http-client",
-        "version": "1.29.2"
+        "version": "1.32.1"
       }
     },
     {
@@ -1773,7 +1773,7 @@
       "artifactId": {
         "name": "grpc-context",
         "group": "io.grpc",
-        "version": "1.18.0"
+        "version": "1.22.1"
       }
     },
     {
@@ -1805,7 +1805,7 @@
       "artifactId": {
         "name": "animal-sniffer-annotations",
         "group": "org.codehaus.mojo",
-        "version": "1.17"
+        "version": "1.18"
       }
     },
     {
@@ -1821,7 +1821,7 @@
       "artifactId": {
         "name": "error_prone_annotations",
         "group": "com.google.errorprone",
-        "version": "2.2.0"
+        "version": "2.3.2"
       }
     },
     {
@@ -1837,7 +1837,7 @@
       "artifactId": {
         "name": "opencensus-api",
         "group": "io.opencensus",
-        "version": "0.19.2"
+        "version": "0.24.0"
       }
     },
     {
@@ -1869,7 +1869,7 @@
       "artifactId": {
         "name": "checker-compat-qual",
         "group": "org.checkerframework",
-        "version": "2.5.2"
+        "version": "2.5.5"
       }
     },
     {
@@ -1885,7 +1885,7 @@
       "artifactId": {
         "name": "opencensus-contrib-http-util",
         "group": "io.opencensus",
-        "version": "0.19.2"
+        "version": "0.24.0"
       }
     },
     {
@@ -2077,7 +2077,7 @@
       "artifactId": {
         "name": "databinding-adapters",
         "group": "androidx.databinding",
-        "version": "3.5.3"
+        "version": "3.6.0-rc01"
       }
     },
     {
@@ -2141,7 +2141,7 @@
       "artifactId": {
         "name": "databinding-common",
         "group": "androidx.databinding",
-        "version": "3.5.3"
+        "version": "3.6.0-rc01"
       }
     },
     {
@@ -2157,7 +2157,39 @@
       "artifactId": {
         "name": "databinding-runtime",
         "group": "androidx.databinding",
-        "version": "3.5.3"
+        "version": "3.6.0-rc01"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "The Apache Software Foundation",
+      "copyrightStatement": "Copyright &copy; The Apache Software Foundation. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "http://hc.apache.org/httpcomponents-core-ga",
+      "libraryName": "Apache HttpCore",
+      "artifactId": {
+        "name": "httpcore",
+        "group": "org.apache.httpcomponents",
+        "version": "4.4.12"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "",
+      "libraryName": "viewbinding",
+      "artifactId": {
+        "name": "viewbinding",
+        "group": "androidx.databinding",
+        "version": "3.6.0-rc01"
       }
     }
   ]
