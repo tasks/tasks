@@ -67,6 +67,11 @@ public class DragAndDropRecyclerAdapter extends TaskListRecyclerAdapter {
   }
 
   @Override
+  protected boolean dragAndDropEnabled() {
+    return adapter.supportsParentingOrManualSort();
+  }
+
+  @Override
   public TaskContainer getItem(int position) {
     return list.get(position);
   }

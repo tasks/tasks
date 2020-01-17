@@ -52,6 +52,11 @@ public class PagedListRecyclerAdapter extends TaskListRecyclerAdapter {
   }
 
   @Override
+  protected boolean dragAndDropEnabled() {
+    return false;
+  }
+
+  @Override
   public int getItemCount() {
     return differ.getItemCount();
   }

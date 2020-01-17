@@ -80,7 +80,7 @@ public abstract class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewH
 
   @Override
   public boolean onLongPress(ViewHolder viewHolder) {
-    if (!adapter.supportsParentingOrManualSort()) {
+    if (!dragAndDropEnabled()) {
       taskList.startActionMode();
     }
     if (taskList.isActionModeActive() && !viewHolder.isMoving()) {
@@ -88,6 +88,8 @@ public abstract class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewH
     }
     return true;
   }
+
+  protected abstract boolean dragAndDropEnabled();
 
   @Override
   public void toggleSubtasks(TaskContainer task, boolean collapsed) {
