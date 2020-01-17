@@ -1,5 +1,15 @@
 Change Log
 ---
+### 7.6.1 (2020-01-17)
+
+* Fix long press in Google Task and CalDAV lists
+* Fix bug when moving multi-level CalDAV subtasks
+* Preserve remote VTODO when moving CalDAV tasks
+* Add Interlingua translations - @softinterlingua
+* Update translations
+  * Traditional Chinese - @gensitu
+  * Simplified Chinese - @sr093906
+
 ### 7.6 (2020-01-10)
 
 * Change tags with multi-select
