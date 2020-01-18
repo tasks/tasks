@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos--><resources>
-    <string name="actfm_picture_clear">取消选择</string>
+    <string name="actfm_picture_clear">清除图片</string>
     <string name="TVA_add_comment">添加一个注释…</string>
     <string name="name">名称</string>
     <string name="enter_filter_name">输入过滤器名称</string>
