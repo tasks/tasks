@@ -21,7 +21,6 @@ android:
     - extra-google-m2repository
 
 before_install:
-  - yes | sdkmanager "platforms;android-28" # ical4android
   - echo no | android create avd --force -n test -t android-$EMULATOR_API --abi $ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
   - ./.wait_for_emulator.sh
