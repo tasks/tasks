@@ -553,7 +553,6 @@
     <string name="collapse_subtasks">Részfeladatok összecsukása</string>
     <string name="TEA_add_subtask">Részfeladat hozzáadása</string>
     <string name="subtasks">Részfeladatok</string>
-    <string name="subtasks_enable_synchronization">Részfeladatok hozzáadásához engedélyezni kell a szinkronizációt</string>
     <string name="subtasks_multilevel_google_task">A Google Tasks nem támogatja a többszintű részfeladatokat</string>
     <string name="enter_title_hint">Cím megadása</string>
     <string name="show_subtasks">Részfeladatok megjelenítése</string>

@@ -566,7 +566,6 @@
     <string name="collapse_subtasks">Zwiń podzadania</string>
     <string name="TEA_add_subtask">Dodaj podzadanie</string>
     <string name="subtasks">Podzadania</string>
-    <string name="subtasks_enable_synchronization">Włącz synchronizację, aby móc dodać podzadania</string>
     <string name="subtasks_multilevel_google_task">Wielopoziomowe podzadania nie są obsługiwane przez Google Tasks</string>
     <string name="enter_title_hint">Wprowadź tytuł</string>
     <string name="show_subtasks">Pokaż podzadania</string>

@@ -558,7 +558,6 @@
     <string name="enter_title_hint">Skriv inn tittel</string>
     <string name="TEA_add_subtask">Legg til underoppgave</string>
     <string name="subtasks">Underoppgaver</string>
-    <string name="subtasks_enable_synchronization">Skru på synkronisering for å legge til underoppgave</string>
     <string name="subtasks_multilevel_google_task">Underoppgaver med flere nivå støttes ikke av Google Tasks</string>
     <string name="show_subtasks">Vis underoppgaver</string>
     <string name="show_subtasks_summary">Visning av underoppgaver påvirker ytelsen</string>
