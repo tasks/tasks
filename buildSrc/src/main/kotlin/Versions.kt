@@ -10,5 +10,5 @@ object Versions {
     const val crashlytics = "2.10.1"
     const val firebase = "17.2.1"
     const val okhttp = "3.12.6" // 3.13 minSdk is 21
-    const val flipper = "0.30.0"
+    const val flipper = "0.30.2"
 }
