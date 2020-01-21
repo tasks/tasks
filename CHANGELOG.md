@@ -1,5 +1,10 @@
 Change Log
 ---
+### 7.7 (2020-01-21)
+
+* Add support for offline multi-level subtasks
+* Update Simplified Chinese translations - @sr093906
+
 ### 7.6.1 (2020-01-17)
 
 * Fix long press in Google Task and CalDAV lists
