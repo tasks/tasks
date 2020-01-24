@@ -1,5 +1,9 @@
 Change Log
 ---
+### 7.8 (2020-01-24)
+
+* Android AutoBackup integration
+
 ### 7.7 (2020-01-21)
 
 * Add support for offline multi-level subtasks
