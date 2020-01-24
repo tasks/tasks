@@ -5,15 +5,14 @@ import static com.todoroo.astrid.data.SyncFlags.GTASKS_SUPPRESS_SYNC;
 import static org.tasks.backup.TasksJsonExporter.UTF_8;
 import static org.tasks.data.Place.newPlace;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.res.Resources;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
+import androidx.annotation.Nullable;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import java.io.FileNotFoundException;
@@ -48,7 +47,6 @@ import org.tasks.data.TaskAttachment;
 import org.tasks.data.TaskAttachmentDao;
 import org.tasks.data.UserActivity;
 import org.tasks.data.UserActivityDao;
-import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
@@ -56,7 +54,6 @@ public class TasksJsonImporter {
 
   private final TagDataDao tagDataDao;
   private final UserActivityDao userActivityDao;
-  private final DialogBuilder dialogBuilder;
   private final TaskDao taskDao;
   private final LocalBroadcastManager localBroadcastManager;
   private final AlarmDao alarmDao;
@@ -69,19 +66,12 @@ public class TasksJsonImporter {
   private final Preferences preferences;
   private final LocationDao locationDao;
 
-  private Activity activity;
-  private Handler handler;
-  private int taskCount;
-  private int importCount = 0;
-  private int skipCount = 0;
-  private ProgressDialog progressDialog;
-  private Uri input;
+  private ImportResult result = new ImportResult();
 
   @Inject
   public TasksJsonImporter(
       TagDataDao tagDataDao,
       UserActivityDao userActivityDao,
-      DialogBuilder dialogBuilder,
       TaskDao taskDao,
       LocationDao locationDao,
       LocalBroadcastManager localBroadcastManager,
@@ -95,7 +85,6 @@ public class TasksJsonImporter {
       Preferences preferences) {
     this.tagDataDao = tagDataDao;
     this.userActivityDao = userActivityDao;
-    this.dialogBuilder = dialogBuilder;
     this.taskDao = taskDao;
     this.locationDao = locationDao;
     this.localBroadcastManager = localBroadcastManager;
@@ -109,25 +98,21 @@ public class TasksJsonImporter {
     this.preferences = preferences;
   }
 
-  private void setProgressMessage(final String message) {
+  private void setProgressMessage(
+      Handler handler, ProgressDialog progressDialog, final String message) {
+    if (progressDialog == null) {
+      return;
+    }
+
     handler.post(() -> progressDialog.setMessage(message));
   }
 
-  public void importTasks(Activity activity, Uri input, ProgressDialog progressDialog) {
-    this.activity = activity;
-    this.input = input;
-    this.progressDialog = progressDialog;
-
-    handler = new Handler();
-
-    new Thread(this::performImport).start();
-  }
-
-  private void performImport() {
+  public ImportResult importTasks(Context context, Uri backupFile, @Nullable ProgressDialog progressDialog) {
+    Handler handler = new Handler(context.getMainLooper());
     Gson gson = new Gson();
     InputStream is;
     try {
-      is = activity.getContentResolver().openInputStream(this.input);
+      is = context.getContentResolver().openInputStream(backupFile);
     } catch (FileNotFoundException e) {
       throw new IllegalStateException(e);
     }
@@ -174,11 +159,14 @@ public class TasksJsonImporter {
         }
       }
       for (BackupContainer.TaskBackup backup : backupContainer.getTasks()) {
-        taskCount++;
-        setProgressMessage(activity.getString(R.string.import_progress_read, taskCount));
+        result.taskCount++;
+        setProgressMessage(
+            handler,
+            progressDialog,
+            context.getString(R.string.import_progress_read, result.taskCount));
         Task task = backup.task;
         if (taskDao.fetch(task.getUuid()) != null) {
-          skipCount++;
+          result.skipCount++;
           continue;
         }
         task.putTransitory(TRANS_SUPPRESS_REFRESH, true);
@@ -238,7 +226,7 @@ public class TasksJsonImporter {
           caldavTask.setTask(taskId);
           caldavDao.insert(caldavTask);
         }
-        importCount++;
+        result.importCount++;
       }
 
       googleTaskDao.updateParents();
@@ -261,32 +249,16 @@ public class TasksJsonImporter {
       is.close();
     } catch (IOException e) {
       Timber.e(e);
-    } finally {
-      localBroadcastManager.broadcastRefresh();
-      handler.post(
-          () -> {
-            if (progressDialog.isShowing()) {
-              DialogUtilities.dismissDialog(activity, progressDialog);
-              showSummary();
-            }
-          });
     }
+
+    localBroadcastManager.broadcastRefresh();
+    return result;
   }
 
-  private void showSummary() {
-    Resources r = activity.getResources();
-    dialogBuilder
-        .newDialog(R.string.import_summary_title)
-        .setMessage(
-            activity.getString(
-                R.string.import_summary_message,
-                "",
-                r.getQuantityString(R.plurals.Ntasks, taskCount, taskCount),
-                r.getQuantityString(R.plurals.Ntasks, importCount, importCount),
-                r.getQuantityString(R.plurals.Ntasks, skipCount, skipCount),
-                r.getQuantityString(R.plurals.Ntasks, 0, 0)))
-        .setPositiveButton(android.R.string.ok, (dialog, id) -> dialog.dismiss())
-        .show();
+  public static class ImportResult {
+    public int taskCount;
+    public int importCount;
+    public int skipCount;
   }
 
   static class LegacyLocation {

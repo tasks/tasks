@@ -4,6 +4,7 @@ import static org.tasks.date.DateTimeUtils.newDateTime;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.app.backup.BackupManager;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
@@ -16,6 +17,7 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.backup.BackupConstants;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -37,7 +39,6 @@ import org.tasks.data.TagDao;
 import org.tasks.data.TagDataDao;
 import org.tasks.data.TaskAttachmentDao;
 import org.tasks.data.UserActivityDao;
-import org.tasks.drive.DriveInvoker;
 import org.tasks.files.FileHelper;
 import org.tasks.jobs.WorkManager;
 import org.tasks.preferences.Preferences;
@@ -45,6 +46,7 @@ import timber.log.Timber;
 
 public class TasksJsonExporter {
 
+  @SuppressWarnings("CharsetObjectCanBeUsed")
   static final Charset UTF_8 = Charset.forName("UTF-8");
   private static final String MIME = "application/json";
   private static final String EXTENSION = ".json";
@@ -69,7 +71,6 @@ public class TasksJsonExporter {
   private int exportCount = 0;
   private ProgressDialog progressDialog;
   private Handler handler;
-  private String latestSetVersionName;
 
   @Inject
   public TasksJsonExporter(
@@ -85,8 +86,7 @@ public class TasksJsonExporter {
       GoogleTaskListDao googleTaskListDao,
       TaskAttachmentDao taskAttachmentDao,
       CaldavDao caldavDao,
-      WorkManager workManager,
-      DriveInvoker driveInvoker) {
+      WorkManager workManager) {
     this.tagDataDao = tagDataDao;
     this.taskDao = taskDao;
     this.userActivityDao = userActivityDao;
@@ -126,7 +126,6 @@ public class TasksJsonExporter {
       @Nullable final ProgressDialog progressDialog) {
     this.context = context;
     this.exportCount = 0;
-    this.latestSetVersionName = null;
     this.progressDialog = progressDialog;
 
     if (exportType == ExportType.EXPORT_TYPE_MANUAL) {
@@ -141,16 +140,30 @@ public class TasksJsonExporter {
     try {
       String filename = getFileName(exportType);
       List<Task> tasks = taskDao.getAll();
-
       if (tasks.size() > 0) {
-        String basename = Files.getNameWithoutExtension(filename);
-        Uri uri =
-            FileHelper.newFile(
-                context, preferences.getBackupDirectory(), MIME, basename, EXTENSION);
-        OutputStream os = context.getContentResolver().openOutputStream(uri);
+        File file =
+            new File(
+                String.format("%s/%s", context.getFilesDir(), BackupConstants.INTERNAL_BACKUP));
+        file.delete();
+        file.createNewFile();
+        Uri internalStorageBackup = Uri.fromFile(file);
+        OutputStream os = context.getContentResolver().openOutputStream(internalStorageBackup);
         doTasksExport(os, tasks);
         os.close();
-        workManager.scheduleDriveUpload(uri, exportType == ExportType.EXPORT_TYPE_SERVICE);
+
+        Uri externalStorageBackup =
+            FileHelper.newFile(
+                context,
+                preferences.getBackupDirectory(),
+                MIME,
+                Files.getNameWithoutExtension(filename),
+                EXTENSION);
+
+        FileHelper.copyStream(context, internalStorageBackup, externalStorageBackup);
+
+        workManager.scheduleDriveUpload(externalStorageBackup, exportType == ExportType.EXPORT_TYPE_SERVICE);
+
+        new BackupManager(context).dataChanged();
       }
 
       if (exportType == ExportType.EXPORT_TYPE_MANUAL) {
@@ -241,8 +254,6 @@ public class TasksJsonExporter {
         return String.format(BackupConstants.BACKUP_FILE_NAME, getDateForExport());
       case EXPORT_TYPE_MANUAL:
         return String.format(BackupConstants.EXPORT_FILE_NAME, getDateForExport());
-      case EXPORT_TYPE_ON_UPGRADE:
-        return String.format(BackupConstants.UPGRADE_FILE_NAME, latestSetVersionName);
       default:
         throw new UnsupportedOperationException("Unhandled export type");
     }

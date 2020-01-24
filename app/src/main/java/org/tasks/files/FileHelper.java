@@ -246,7 +246,6 @@ public class FileHelper {
   }
 
   public static Uri copyToUri(Context context, Uri destination, Uri input, String basename) {
-    ContentResolver contentResolver = context.getContentResolver();
     try {
       Uri output =
           newFile(
@@ -255,12 +254,21 @@ public class FileHelper {
               getMimeType(context, input),
               basename,
               getExtension(context, input));
+      copyStream(context, input, output);
+      return output;
+    } catch (IOException e) {
+      throw new IllegalStateException(e);
+    }
+  }
+
+  public static void copyStream(Context context, Uri input, Uri output) {
+    ContentResolver contentResolver = context.getContentResolver();
+    try {
       InputStream inputStream = contentResolver.openInputStream(input);
       OutputStream outputStream = contentResolver.openOutputStream(output);
       ByteStreams.copy(inputStream, outputStream);
       inputStream.close();
       outputStream.close();
-      return output;
     } catch (IOException e) {
       throw new IllegalStateException(e);
     }

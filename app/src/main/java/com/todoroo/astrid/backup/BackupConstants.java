@@ -39,9 +39,9 @@ public class BackupConstants {
 
   // --- general
 
+  public static final String INTERNAL_BACKUP = "backup.json";
+
   public static final String EXPORT_FILE_NAME = "user.%s.json";
 
   public static final String BACKUP_FILE_NAME = "auto.%s.json";
-
-  public static final String UPGRADE_FILE_NAME = "upgradefrom.%s.json";
 }

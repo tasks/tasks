@@ -1,16 +1,22 @@
 package org.tasks.dialogs;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.backup.TasksXmlImporter;
 import javax.inject.Inject;
+import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.backup.TasksJsonImporter;
-import org.tasks.injection.ForApplication;
+import org.tasks.backup.TasksJsonImporter.ImportResult;
+import org.tasks.injection.ForActivity;
 import org.tasks.injection.InjectingNativeDialogFragment;
 import org.tasks.injection.NativeDialogFragmentComponent;
 import org.tasks.ui.Toaster;
@@ -24,7 +30,7 @@ public class ImportTasksDialog extends InjectingNativeDialogFragment {
   @Inject TasksJsonImporter jsonImporter;
   @Inject DialogBuilder dialogBuilder;
   @Inject Tracker tracker;
-  @Inject @ForApplication Context context;
+  @Inject @ForActivity Context context;
   @Inject Toaster toaster;
 
   public static ImportTasksDialog newImportTasksDialog(Uri data, String extension) {
@@ -49,7 +55,19 @@ public class ImportTasksDialog extends InjectingNativeDialogFragment {
     setCancelable(false);
     switch (extension) {
       case "json":
-        jsonImporter.importTasks(getActivity(), data, progressDialog);
+        Handler handler = new Handler();
+        new Thread(
+                () -> {
+                  ImportResult result =
+                      jsonImporter.importTasks(getActivity(), data, progressDialog);
+                  handler.post(() -> {
+                    if (progressDialog.isShowing()) {
+                      DialogUtilities.dismissDialog((Activity) context, progressDialog);
+                    }
+                    showSummary(result);
+                  });
+                })
+            .start();
         tracker.reportEvent(Tracking.Events.IMPORT_JSON);
         break;
       case "xml":
@@ -60,6 +78,22 @@ public class ImportTasksDialog extends InjectingNativeDialogFragment {
         throw new RuntimeException("Invalid extension: " + extension);
     }
     return progressDialog;
+  }
+
+  private void showSummary(ImportResult result) {
+    Resources r = context.getResources();
+    dialogBuilder
+        .newDialog(R.string.import_summary_title)
+        .setMessage(
+            context.getString(
+                R.string.import_summary_message,
+                "",
+                r.getQuantityString(R.plurals.Ntasks, result.taskCount, result.taskCount),
+                r.getQuantityString(R.plurals.Ntasks, result.importCount, result.importCount),
+                r.getQuantityString(R.plurals.Ntasks, result.skipCount, result.skipCount),
+                r.getQuantityString(R.plurals.Ntasks, 0, 0)))
+        .setPositiveButton(android.R.string.ok, (dialog, id) -> dialog.dismiss())
+        .show();
   }
 
   @Override

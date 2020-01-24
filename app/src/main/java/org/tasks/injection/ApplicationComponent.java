@@ -2,6 +2,7 @@ package org.tasks.injection;
 
 import dagger.Component;
 import org.tasks.Tasks;
+import org.tasks.backup.TasksBackupAgent;
 import org.tasks.dashclock.DashClockExtension;
 import org.tasks.widget.ScrollableWidgetUpdateService;
 
@@ -22,4 +23,6 @@ public interface ApplicationComponent {
   ServiceComponent plus(ServiceModule module);
 
   JobComponent plus(WorkModule module);
+
+  void inject(TasksBackupAgent tasksBackupAgent);
 }
