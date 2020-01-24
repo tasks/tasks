@@ -20,9 +20,9 @@ import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.TaskContainer;
+import org.tasks.data.TaskListQuery;
 import org.tasks.jobs.WorkManager;
 import org.tasks.preferences.Preferences;
-import org.tasks.ui.TaskListViewModel;
 
 public class TaskDeleter {
 
@@ -87,7 +87,7 @@ public class TaskDeleter {
     List<TaskContainer> tasks =
         taskDao.fetchTasks(
             (includeGoogleSubtasks, includeCaldavSubtasks) ->
-                TaskListViewModel.getQuery(
+                TaskListQuery.getQuery(
                     preferences, deleteFilter, includeGoogleSubtasks, includeCaldavSubtasks));
     for (TaskContainer task : tasks) {
       if (task.isCompleted()) {

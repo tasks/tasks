@@ -22,13 +22,13 @@ import java.util.List;
 import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.data.TaskContainer;
+import org.tasks.data.TaskListQuery;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.ThemeCache;
 import org.tasks.themes.WidgetTheme;
 import org.tasks.ui.CheckBoxes;
-import org.tasks.ui.TaskListViewModel;
 import timber.log.Timber;
 
 class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
@@ -209,7 +209,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     }
     appWidgetManager.partiallyUpdateAppWidget(widgetId, rv);
     List<String> queries =
-        TaskListViewModel.getQuery(
+        TaskListQuery.getQuery(
             preferences, filter, includeGoogleSubtasks, includeCaldavSubtasks);
     int last = queries.size() - 1;
     queries.set(last, subtasksHelper.applySubtasksToWidgetFilter(filter, queries.get(last)));
