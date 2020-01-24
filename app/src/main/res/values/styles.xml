@@ -4,10 +4,6 @@
 
   <style name="popup_overlay" parent="ThemeOverlay.MaterialComponents.Light"/>
 
-  <style name="overflow_button_style" parent="Widget.AppCompat.ActionButton.Overflow">
-    <item name="android:tint">?attr/colorOnSecondary</item>
-  </style>
-
   <style name="SpinnerNoPadding" parent="Widget.AppCompat.TextView.SpinnerItem">
     <item name="android:paddingLeft">0dp</item>
     <item name="android:paddingRight">0dp</item>
