@@ -6,7 +6,11 @@ import static com.todoroo.andlib.utility.DateUtilities.getAbbreviatedRelativeDat
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Paint;
+import android.net.Uri;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,14 +24,13 @@ import butterknife.OnClick;
 import butterknife.OnLongClick;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
-import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.service.TaskCompleter;
 import com.todoroo.astrid.ui.CheckableImageView;
 import java.util.List;
 import org.tasks.R;
 import org.tasks.data.Location;
+import org.tasks.data.SubsetGoogleTask;
 import org.tasks.data.TaskContainer;
 import org.tasks.dialogs.Linkify;
 import org.tasks.preferences.Preferences;
@@ -290,6 +293,20 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     } else if (tag instanceof TaskContainer) {
       TaskContainer task = (TaskContainer) tag;
       callback.toggleSubtasks(task, !task.isCollapsed());
+    } else if (tag instanceof SubsetGoogleTask) {
+      String url = ((SubsetGoogleTask) tag).getEmailUrl();
+      Intent intent = new Intent("com.google.android.gm.intent.VIEW_MESSAGE_DEEPLINK");
+      intent.putExtra("messageStorageId", url.substring(url.lastIndexOf("/") + 1));
+      intent.setPackage("com.google.android.gm");
+      List<ResolveInfo> resolveInfos =
+          context
+              .getPackageManager()
+              .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+      if (resolveInfos.isEmpty()) {
+        context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+      } else {
+        context.startActivityForResult(intent, 11111);
+      }
     }
   }
 

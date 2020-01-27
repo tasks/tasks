@@ -71,6 +71,12 @@ public class GoogleTask {
   @ColumnInfo(name = "gt_deleted")
   private long deleted;
 
+  @ColumnInfo(name = "gt_email_description")
+  private String emailDescription;
+
+  @ColumnInfo(name = "gt_email_url")
+  private String emailUrl;
+
   public GoogleTask() {}
 
   @Ignore
@@ -171,12 +177,28 @@ public class GoogleTask {
     this.remoteParent = remoteParent;
   }
 
+  public String getEmailDescription() {
+    return emailDescription;
+  }
+
+  public void setEmailDescription(String emailDescription) {
+    this.emailDescription = emailDescription;
+  }
+
+  public String getEmailUrl() {
+    return emailUrl;
+  }
+
+  public void setEmailUrl(String emailUrl) {
+    this.emailUrl = emailUrl;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof GoogleTask)) {
       return false;
     }
 
@@ -212,9 +234,19 @@ public class GoogleTask {
     if (listId != null ? !listId.equals(that.listId) : that.listId != null) {
       return false;
     }
-    return remoteParent != null
-        ? remoteParent.equals(that.remoteParent)
-        : that.remoteParent == null;
+    if (remoteParent != null
+        ? !remoteParent.equals(that.remoteParent)
+        : that.remoteParent != null) {
+      return false;
+    }
+    if (emailDescription != null
+        ? !emailDescription.equals(that.emailDescription)
+        : that.emailDescription != null) {
+      return false;
+    }
+    return emailUrl != null
+        ? emailUrl.equals(that.emailUrl)
+        : that.emailUrl == null;
   }
 
   @Override
@@ -224,12 +256,15 @@ public class GoogleTask {
     result = 31 * result + (remoteId != null ? remoteId.hashCode() : 0);
     result = 31 * result + (listId != null ? listId.hashCode() : 0);
     result = 31 * result + (int) (parent ^ (parent >>> 32));
+    result = 31 * result + (remoteParent != null ? remoteParent.hashCode() : 0);
     result = 31 * result + (moved ? 1 : 0);
     result = 31 * result + (int) (order ^ (order >>> 32));
-    result = 31 * result + (remoteParent != null ? remoteParent.hashCode() : 0);
     result = 31 * result + (int) (remoteOrder ^ (remoteOrder >>> 32));
     result = 31 * result + (int) (lastSync ^ (lastSync >>> 32));
     result = 31 * result + (int) (deleted ^ (deleted >>> 32));
+    result =
+        31 * result + (emailDescription != null ? emailDescription.hashCode() : 0);
+    result = 31 * result + (emailUrl != null ? emailUrl.hashCode() : 0);
     return result;
   }
 
@@ -248,19 +283,25 @@ public class GoogleTask {
         + '\''
         + ", parent="
         + parent
+        + ", remoteParent='"
+        + remoteParent
+        + '\''
         + ", moved="
         + moved
         + ", order="
         + order
-        + ", remoteParent='"
-        + remoteParent
-        + '\''
         + ", remoteOrder="
         + remoteOrder
         + ", lastSync="
         + lastSync
         + ", deleted="
         + deleted
+        + ", relatedEmailDescription='"
+        + emailDescription
+        + '\''
+        + ", relatedEmailUrl='"
+        + emailUrl
+        + '\''
         + '}';
   }
 }

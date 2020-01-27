@@ -381,6 +381,16 @@ public class Migrations {
         }
       };
 
+  private static final Migration MIGRATION_70_71 =
+      new Migration(70, 71) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+          database.execSQL(
+              "ALTER TABLE `google_tasks` ADD COLUMN `gt_email_description` TEXT");
+          database.execSQL("ALTER TABLE `google_tasks` ADD COLUMN `gt_email_url` TEXT");
+        }
+      };
+
   public static final Migration[] MIGRATIONS =
       new Migration[] {
         MIGRATION_35_36,
@@ -408,7 +418,8 @@ public class Migrations {
         MIGRATION_66_67,
         MIGRATION_67_68,
         MIGRATION_68_69,
-        MIGRATION_69_70
+        MIGRATION_69_70,
+        MIGRATION_70_71
       };
 
   private static Migration NOOP(int from, int to) {

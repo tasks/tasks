@@ -10,6 +10,7 @@ import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.text.TextUtils.TruncateAt;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,6 +36,7 @@ import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
+import org.tasks.data.SubsetGoogleTask;
 import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
 import org.tasks.data.TaskContainer;
@@ -133,6 +135,16 @@ public class ChipProvider {
               R.drawable.ic_outline_place_24px,
               task.getLocation().getDisplayName(),
               task.getLocation()));
+    }
+    SubsetGoogleTask googleTask = task.getGoogleTask();
+    if (googleTask != null && googleTask.hasRelatedEmail()) {
+      Chip chip = newIconChip(
+          activity,
+          R.drawable.ic_outline_email_24px,
+          googleTask.getEmailDescription(),
+          googleTask);
+      chip.setEllipsize(TruncateAt.END);
+      chips.add(chip);
     }
     if (!isSubtask) {
       if (!Strings.isNullOrEmpty(task.getGoogleTaskList()) && !(filter instanceof GtasksFilter)) {

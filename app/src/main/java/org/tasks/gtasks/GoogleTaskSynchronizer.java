@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
+import com.google.api.services.tasks.model.Task.Links;
 import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
 import com.google.api.services.tasks.model.Tasks;
@@ -475,7 +476,12 @@ public class GoogleTaskSynchronizer {
       if (task == null) {
         task = taskCreator.createWithValues("");
       }
-
+      List<Links> links = gtask.getLinks();
+      if (!links.isEmpty()) {
+        Links link = links.get(0);
+        googleTask.setEmailDescription(link.getDescription());
+        googleTask.setEmailUrl(link.getLink());
+      }
       task.setTitle(getTruncatedValue(task.getTitle(), gtask.getTitle(), MAX_TITLE_LENGTH));
       task.setCreationDate(DateUtilities.now());
       task.setCompletionDate(
