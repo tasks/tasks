@@ -6,9 +6,13 @@
   android:layout_height="match_parent"
   android:orientation="vertical">
 
-  <include layout="@layout/toolbar"/>
+  <include
+    android:id="@+id/toolbar"
+    layout="@layout/toolbar" />
 
-  <include layout="@layout/progress_view"/>
+  <include
+    android:id="@+id/progress_bar"
+    layout="@layout/progress_view" />
 
   <ScrollView
     android:layout_width="fill_parent"
