@@ -14,6 +14,8 @@ import org.tasks.security.Encryption;
 @Entity(tableName = "caldav_accounts")
 public class CaldavAccount implements Parcelable {
 
+  public static final int TYPE_CALDAV = 0;
+  public static final int TYPE_ETESYNC = 1;
   public static final Parcelable.Creator<CaldavAccount> CREATOR =
       new Parcelable.Creator<CaldavAccount>() {
 
@@ -53,6 +55,12 @@ public class CaldavAccount implements Parcelable {
   @ColumnInfo(name = "cda_repeat")
   private boolean suppressRepeatingTasks;
 
+  @ColumnInfo(name = "cda_encryption_key")
+  private transient String encryptionKey;
+
+  @ColumnInfo(name = "cda_account_type")
+  private int accountType;
+
   public CaldavAccount() {}
 
   @Ignore
@@ -65,6 +73,8 @@ public class CaldavAccount implements Parcelable {
     password = source.readString();
     error = source.readString();
     suppressRepeatingTasks = ParcelCompat.readBoolean(source);
+    accountType = source.readInt();
+    encryptionKey = source.readString();
   }
 
   public long getId() {
@@ -119,6 +129,18 @@ public class CaldavAccount implements Parcelable {
     return encryption.decrypt(password);
   }
 
+  public String getEncryptionKey() {
+    return encryptionKey;
+  }
+
+  public void setEncryptionKey(String encryptionKey) {
+    this.encryptionKey = encryptionKey;
+  }
+
+  public String getEncryptionPassword(Encryption encryption) {
+    return encryption.decrypt(encryptionKey);
+  }
+
   public String getError() {
     return error;
   }
@@ -133,6 +155,22 @@ public class CaldavAccount implements Parcelable {
 
   public void setSuppressRepeatingTasks(boolean suppressRepeatingTasks) {
     this.suppressRepeatingTasks = suppressRepeatingTasks;
+  }
+
+  public int getAccountType() {
+    return accountType;
+  }
+
+  public void setAccountType(int accountType) {
+    this.accountType = accountType;
+  }
+
+  public boolean isCaldavAccount() {
+    return accountType == TYPE_CALDAV;
+  }
+
+  public boolean isEteSyncAccount() {
+    return accountType == TYPE_ETESYNC;
   }
 
   @Override
@@ -160,6 +198,11 @@ public class CaldavAccount implements Parcelable {
         + '\''
         + ", suppressRepeatingTasks="
         + suppressRepeatingTasks
+        + ", encryptionKey='"
+        + encryptionKey
+        + '\''
+        + ", accountType="
+        + accountType
         + '}';
   }
 
@@ -180,6 +223,9 @@ public class CaldavAccount implements Parcelable {
     if (suppressRepeatingTasks != that.suppressRepeatingTasks) {
       return false;
     }
+    if (accountType != that.accountType) {
+      return false;
+    }
     if (uuid != null ? !uuid.equals(that.uuid) : that.uuid != null) {
       return false;
     }
@@ -195,7 +241,12 @@ public class CaldavAccount implements Parcelable {
     if (password != null ? !password.equals(that.password) : that.password != null) {
       return false;
     }
-    return error != null ? error.equals(that.error) : that.error == null;
+    if (error != null ? !error.equals(that.error) : that.error != null) {
+      return false;
+    }
+    return encryptionKey != null
+        ? encryptionKey.equals(that.encryptionKey)
+        : that.encryptionKey == null;
   }
 
   @Override
@@ -208,6 +259,8 @@ public class CaldavAccount implements Parcelable {
     result = 31 * result + (password != null ? password.hashCode() : 0);
     result = 31 * result + (error != null ? error.hashCode() : 0);
     result = 31 * result + (suppressRepeatingTasks ? 1 : 0);
+    result = 31 * result + (encryptionKey != null ? encryptionKey.hashCode() : 0);
+    result = 31 * result + accountType;
     return result;
   }
 
@@ -226,5 +279,7 @@ public class CaldavAccount implements Parcelable {
     dest.writeString(password);
     dest.writeString(error);
     ParcelCompat.writeBoolean(dest, suppressRepeatingTasks);
+    dest.writeInt(accountType);
+    dest.writeString(encryptionKey);
   }
 }
