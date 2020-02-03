@@ -1,5 +1,6 @@
 package org.tasks.etesync;
 
+import static com.google.common.collect.Lists.partition;
 import static com.google.common.collect.Lists.transform;
 
 import android.content.Context;
@@ -37,9 +38,11 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.OkHttpClient.Builder;
 import okhttp3.internal.tls.OkHostnameVerifier;
+import org.tasks.Callback;
 import org.tasks.DebugNetworkInterceptor;
 import org.tasks.caldav.MemoryCookieStore;
 import org.tasks.data.CaldavAccount;
+import org.tasks.data.CaldavCalendar;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 import org.tasks.security.Encryption;
@@ -48,6 +51,7 @@ import timber.log.Timber;
 public class EteSyncClient {
 
   private static final int MAX_FETCH = 50;
+  private static final int MAX_PUSH = 30;
 
   private final Encryption encryption;
   private final Preferences preferences;
@@ -155,8 +159,7 @@ public class EteSyncClient {
     return Pair.create(token, key);
   }
 
-  CryptoManager getCrypto(Journal journal)
-      throws VersionTooNewException, IntegrityException {
+  CryptoManager getCrypto(Journal journal) throws VersionTooNewException, IntegrityException {
     return new CryptoManager(journal.getVersion(), encryptionPassword, journal.getUid());
   }
 
@@ -185,17 +188,25 @@ public class EteSyncClient {
     return result;
   }
 
-  List<Pair<Entry, SyncEntry>> getSyncEntries(Journal journal, @Nullable String ctag)
+  void getSyncEntries(Journal journal, CaldavCalendar calendar, Callback<List<Pair<Entry, SyncEntry>>> callback)
       throws IntegrityException, Exceptions.HttpException, VersionTooNewException {
     JournalEntryManager journalEntryManager =
         new JournalEntryManager(httpClient, httpUrl, journal.getUid());
     CryptoManager crypto = getCrypto(journal);
-    List<Entry> journalEntries = journalEntryManager.list(crypto, ctag, MAX_FETCH);
-    return transform(journalEntries, e -> Pair.create(e, SyncEntry.fromJournalEntry(crypto, e)));
+    List<Entry> journalEntries;
+    do {
+      journalEntries = journalEntryManager.list(crypto, calendar.getCtag(), MAX_FETCH);
+      callback.call(transform(journalEntries, e -> Pair.create(e, SyncEntry.fromJournalEntry(crypto, e))));
+    } while (journalEntries.size() >= MAX_FETCH);
   }
 
-  void pushEntries(Journal journal, List<Entry> entries, String ctag) throws HttpException {
-    new JournalEntryManager(httpClient, httpUrl, journal.getUid()).create(entries, ctag);
+  void pushEntries(Journal journal, List<Entry> entries, String remoteCtag) throws HttpException {
+    JournalEntryManager journalEntryManager =
+        new JournalEntryManager(httpClient, httpUrl, journal.getUid());
+    for (List<Entry> partition : partition(entries, MAX_PUSH)) {
+      journalEntryManager.create(partition, remoteCtag);
+      remoteCtag = partition.get(partition.size() - 1).getUid();
+    }
   }
 
   public EteSyncClient setForeground() {

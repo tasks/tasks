@@ -182,10 +182,11 @@ public class EteSynchronizer {
       localChanges.put(task.getRemoteId(), task);
     }
 
-    List<Pair<Entry, SyncEntry>> syncEntries =
-        client.getSyncEntries(journal, caldavCalendar.getCtag());
     Timber.v("Applying remote changes");
-    applyEntries(caldavCalendar, syncEntries, localChanges.keySet());
+    client.getSyncEntries(
+        journal,
+        caldavCalendar,
+        syncEntries -> applyEntries(caldavCalendar, syncEntries, localChanges.keySet()));
 
     List<SyncEntry> changes = new ArrayList<>();
     for (CaldavTask task : caldavDao.getDeleted(caldavCalendar.getUuid())) {
