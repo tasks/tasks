@@ -378,6 +378,7 @@ File %1$s contained %2$s.\n\n
   <string name="name_cannot_be_empty">Name cannot be empty</string>
   <string name="username_required">Username required</string>
   <string name="password_required">Password required</string>
+  <string name="encryption_password_required">Encryption password required</string>
   <string name="url_required">URL required</string>
   <string name="url_host_name_required">Host name required</string>
   <string name="url_invalid_scheme">Must begin with http(s)://</string>
@@ -447,6 +448,7 @@ File %1$s contained %2$s.\n\n
   <string name="add_account">Add account</string>
   <string name="user">User</string>
   <string name="password">Password</string>
+  <string name="encryption_password">Encryption password</string>
   <string name="url">URL</string>
   <string name="error_adding_account">Error: %s</string>
   <string name="calendar_settings">Calendar settings</string>

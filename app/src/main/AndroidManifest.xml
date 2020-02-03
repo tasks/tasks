@@ -327,6 +327,10 @@
       android:theme="@style/Tasks"/>
 
     <activity
+      android:name=".etesync.EteSyncAccountSettingsActivity"
+      android:theme="@style/Tasks" />
+
+    <activity
       android:name=".caldav.CaldavCalendarSettingsActivity"
       android:theme="@style/Tasks"/>
 

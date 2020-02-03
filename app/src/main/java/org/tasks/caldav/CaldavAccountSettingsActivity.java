@@ -54,6 +54,21 @@ public class CaldavAccountSettingsActivity extends BaseCaldavAccountSettingsActi
     finish();
   }
 
+  protected void updateAccount(String principal) {
+    caldavAccount.setName(getNewName());
+    caldavAccount.setUrl(principal);
+    caldavAccount.setUsername(getNewUsername());
+    caldavAccount.setError("");
+    if (passwordChanged()) {
+      caldavAccount.setPassword(encryption.encrypt(getNewPassword()));
+    }
+    caldavAccount.setSuppressRepeatingTasks(binding.repeat.isChecked());
+    caldavDao.update(caldavAccount);
+
+    setResult(RESULT_OK);
+    finish();
+  }
+
   @Override
   protected void addAccount(String url, String username, String password) {
     addCaldavAccountViewModel.addAccount(playServices, context, client, url, username, password);
@@ -62,6 +77,11 @@ public class CaldavAccountSettingsActivity extends BaseCaldavAccountSettingsActi
   @Override
   protected void updateAccount(String url, String username, String password) {
     updateCaldavAccountViewModel.updateCaldavAccount(client, url, username, password);
+  }
+
+  @Override
+  protected void updateAccount() {
+    updateAccount(caldavAccount.getUrl());
   }
 
   @Override

@@ -6,6 +6,8 @@
 <resources>
 
   <string name="FSA_label">Tasks Shortcut</string>
+  <string name="etesync">EteSync</string>
+  <string name="etesync_url">https://api.etesync.com</string>
 
   <string name="p_date_shortcut_morning">date_shortcut_morning</string>
   <string name="p_date_shortcut_afternoon">date_shortcut_afternoon</string>
@@ -303,6 +305,7 @@
   <string name="preference_screen">preference_screen</string>
   <string name="p_add_google_task_account">add_google_task_account</string>
   <string name="p_add_caldav_account">add_caldav_account</string>
+  <string name="p_add_etesync_account">add_etesync_account</string>
   <string name="p_google_tasks_add_to_top">google_tasks_add_to_top</string>
   <string name="p_google_tasks_position_hack">google_tasks_position_hack</string>
   <string name="google_tasks_position_hack">Custom order synchronization fix</string>

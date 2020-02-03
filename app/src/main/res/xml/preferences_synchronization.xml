@@ -31,6 +31,14 @@
     android:key="@string/p_add_caldav_account"
     android:title="@string/add_account"/>
 
+  <PreferenceCategory
+    android:key="@string/etesync"
+    android:title="@string/etesync" />
+
+  <Preference
+    android:key="@string/p_add_etesync_account"
+    android:title="@string/add_account"/>
+
   <PreferenceCategory android:title="@string/sync_SPr_interval_title">
     <CheckBoxPreference
       android:defaultValue="true"

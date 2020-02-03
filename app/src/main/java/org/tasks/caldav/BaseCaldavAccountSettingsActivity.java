@@ -30,6 +30,7 @@ import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavDao;
 import org.tasks.databinding.ActivityCaldavAccountSettingsBinding;
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.etesync.EteSyncAccountSettingsActivity;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.preferences.Preferences;
 import org.tasks.security.Encryption;
@@ -41,7 +42,7 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
     implements Toolbar.OnMenuItemClickListener {
 
   public static final String EXTRA_CALDAV_DATA = "caldavData"; // $NON-NLS-1$
-  private static final String PASSWORD_MASK = "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022";
+  protected static final String PASSWORD_MASK = "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022";
   @Inject protected Tracker tracker;
   @Inject protected CaldavDao caldavDao;
   @Inject protected Encryption encryption;
@@ -70,6 +71,9 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
         binding.user.setText(caldavAccount.getUsername());
         if (!isEmpty(caldavAccount.getPassword())) {
           binding.password.setText(PASSWORD_MASK);
+        }
+        if (!isEmpty(caldavAccount.getEncryptionKey())) {
+          binding.encryptionPassword.setText(PASSWORD_MASK);
         }
         binding.repeat.setChecked(caldavAccount.isSuppressRepeatingTasks());
       }
@@ -168,13 +172,20 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
     return binding.user.getText().toString().trim();
   }
 
-  private boolean passwordChanged() {
+  protected boolean passwordChanged() {
     return caldavAccount == null || !PASSWORD_MASK.equals(binding.password.getText().toString().trim());
   }
 
   protected String getNewPassword() {
     String input = binding.password.getText().toString().trim();
     return PASSWORD_MASK.equals(input) ? encryption.decrypt(caldavAccount.getPassword()) : input;
+  }
+
+  protected String getNewEncryptionPassword() {
+    String input = binding.encryptionPassword.getText().toString().trim();
+    return PASSWORD_MASK.equals(input)
+        ? null
+        : input;
   }
 
   private void save() {
@@ -186,6 +197,7 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
     String username = getNewUsername();
     String url = getNewURL();
     String password = getNewPassword();
+    String encryptionPassword = getNewEncryptionPassword();
 
     boolean failed = false;
 
@@ -242,6 +254,13 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
       failed = true;
     }
 
+    if (this instanceof EteSyncAccountSettingsActivity) {
+      if (caldavAccount == null && isEmpty(encryptionPassword)) {
+        binding.encryptionPassword.setError(getString(R.string.password_required));
+        failed = true;
+      }
+    }
+
     if (failed) {
       return;
     }
@@ -253,7 +272,7 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
       showProgressIndicator();
       updateAccount(url, username, password);
     } else if (hasChanges()) {
-      updateAccount(caldavAccount.getUrl());
+      updateAccount();
     } else {
       finish();
     }
@@ -263,20 +282,7 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
 
   protected abstract void updateAccount(String url, String username, String password);
 
-  protected void updateAccount(String principal) {
-    caldavAccount.setName(getNewName());
-    caldavAccount.setUrl(principal);
-    caldavAccount.setUsername(getNewUsername());
-    caldavAccount.setError("");
-    if (passwordChanged()) {
-      caldavAccount.setPassword(encryption.encrypt(getNewPassword()));
-    }
-    caldavAccount.setSuppressRepeatingTasks(binding.repeat.isChecked());
-    caldavDao.update(caldavAccount);
-
-    setResult(RESULT_OK);
-    finish();
-  }
+  protected abstract void updateAccount();
 
   protected void requestFailed(Throwable t) {
     hideProgressIndicator();
@@ -321,7 +327,7 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
         || binding.repeat.isChecked() != caldavAccount.isSuppressRepeatingTasks();
   }
 
-  private boolean needsValidation() {
+  protected boolean needsValidation() {
     return !getNewURL().equals(caldavAccount.getUrl())
         || !getNewUsername().equals(caldavAccount.getUsername())
         || passwordChanged();

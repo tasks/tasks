@@ -12,6 +12,7 @@ repositories {
     jcenter()
     google()
     maven(url = "https://jitpack.io")
+    maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
 }
 
 android {
@@ -200,6 +201,7 @@ dependencies {
     implementation("androidx.work:work-runtime:${Versions.work}")
     implementation("com.mapbox.mapboxsdk:mapbox-android-sdk:7.3.0")
     implementation("com.mapbox.mapboxsdk:mapbox-sdk-services:4.6.0")
+    implementation("com.etesync:journalmanager:1.0.2-SNAPSHOT")
 
     googleplayImplementation("com.crashlytics.sdk.android:crashlytics:${Versions.crashlytics}")
     googleplayImplementation("com.google.firebase:firebase-analytics:${Versions.firebase}")

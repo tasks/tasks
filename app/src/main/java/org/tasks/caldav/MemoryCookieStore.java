@@ -23,7 +23,7 @@ import org.apache.commons.collections4.map.MultiKeyMap;
  * session cookies.
  */
 @SuppressWarnings("all")
-class MemoryCookieStore implements CookieJar {
+public class MemoryCookieStore implements CookieJar {
 
   /**
    * Stored cookies. The multi-key consists of three parts: name, domain, and path. This ensures

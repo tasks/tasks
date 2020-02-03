@@ -17,6 +17,7 @@ import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import com.google.common.base.Strings;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import com.todoroo.astrid.service.TaskDeleter;
 import javax.inject.Inject;
@@ -26,6 +27,7 @@ import org.tasks.analytics.Tracking;
 import org.tasks.billing.Inventory;
 import org.tasks.billing.PurchaseActivity;
 import org.tasks.caldav.CaldavAccountSettingsActivity;
+import org.tasks.etesync.EteSyncAccountSettingsActivity;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.GoogleTaskAccount;
@@ -48,6 +50,8 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
   private static final int REQUEST_CALDAV_SETTINGS = 101;
   private static final int REQUEST_CALDAV_SUBSCRIBE = 102;
   private static final int REQUEST_GOOGLE_TASKS_SUBSCRIBE = 103;
+  private static final int REQUEST_ETESYNC_SETTINGS = 104;
+  private static final int REQUEST_ETESYNC_SUBSCRIBE = 105;
 
   @Inject ActivityPermissionRequestor permissionRequestor;
   @Inject PermissionChecker permissionChecker;
@@ -130,6 +134,23 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
             return false;
           });
     }
+
+    Preference addEteSyncAccount = findPreference(R.string.p_add_etesync_account);
+    if (inventory.hasPro()) {
+      addEteSyncAccount.setOnPreferenceClickListener(
+          preference -> {
+            addEteSyncAccount();
+            return false;
+          });
+    } else {
+      addEteSyncAccount.setSummary(R.string.requires_pro_subscription);
+      addEteSyncAccount.setOnPreferenceClickListener(
+          preference -> {
+            startActivityForResult(
+                new Intent(this, PurchaseActivity.class), REQUEST_ETESYNC_SUBSCRIBE);
+            return false;
+          });
+    }
   }
 
   private void logoutConfirmation(GoogleTaskAccount account) {
@@ -201,25 +222,45 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
   private void addCaldavAccounts() {
     PreferenceCategory caldavPreferences =
         (PreferenceCategory) findPreference(getString(R.string.CalDAV));
+    PreferenceCategory eteSyncPreferences =
+        (PreferenceCategory) findPreference(R.string.etesync);
     caldavPreferences.removeAll();
+    eteSyncPreferences.removeAll();
     for (CaldavAccount caldavAccount : caldavDao.getAccounts()) {
       Preference accountPreferences = new Preference(this);
       accountPreferences.setTitle(caldavAccount.getName());
       accountPreferences.setSummary(caldavAccount.getError());
-      accountPreferences.setOnPreferenceClickListener(
-          preference -> {
-            Intent intent = new Intent(this, CaldavAccountSettingsActivity.class);
-            intent.putExtra(CaldavAccountSettingsActivity.EXTRA_CALDAV_DATA, caldavAccount);
-            startActivityForResult(intent, REQUEST_CALDAV_SETTINGS);
-            return false;
-          });
-      caldavPreferences.addPreference(accountPreferences);
+      if (caldavAccount.isCaldavAccount()) {
+        accountPreferences.setOnPreferenceClickListener(
+            preference -> {
+              Intent intent = new Intent(this, CaldavAccountSettingsActivity.class);
+              intent.putExtra(CaldavAccountSettingsActivity.EXTRA_CALDAV_DATA, caldavAccount);
+              startActivityForResult(intent, REQUEST_CALDAV_SETTINGS);
+              return false;
+            });
+        caldavPreferences.addPreference(accountPreferences);
+      } else if (caldavAccount.isEteSyncAccount()) {
+        accountPreferences.setOnPreferenceClickListener(
+            preference -> {
+              Intent intent = new Intent(this, EteSyncAccountSettingsActivity.class);
+              intent.putExtra(CaldavAccountSettingsActivity.EXTRA_CALDAV_DATA, caldavAccount);
+              startActivityForResult(intent, REQUEST_ETESYNC_SETTINGS);
+              return false;
+            }
+        );
+        eteSyncPreferences.addPreference(accountPreferences);
+      }
     }
   }
 
   private void addCaldavAccount() {
     startActivityForResult(
         new Intent(this, CaldavAccountSettingsActivity.class), REQUEST_CALDAV_SETTINGS);
+  }
+
+  private void addEteSyncAccount() {
+    startActivityForResult(
+        new Intent(this, EteSyncAccountSettingsActivity.class), REQUEST_ETESYNC_SETTINGS);
   }
 
   @Override
@@ -233,7 +274,7 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
       } else if (data != null) {
         toaster.longToast(data.getStringExtra(GtasksLoginActivity.EXTRA_ERROR));
       }
-    } else if (requestCode == REQUEST_CALDAV_SETTINGS) {
+    } else if (requestCode == REQUEST_CALDAV_SETTINGS || requestCode == REQUEST_ETESYNC_SETTINGS) {
       if (resultCode == RESULT_OK) {
         workManager.updateBackgroundSync();
         restart();
@@ -245,6 +286,10 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
     } else if (requestCode == REQUEST_GOOGLE_TASKS_SUBSCRIBE) {
       if (inventory.hasPro()) {
         requestLogin();
+      }
+    } else if (requestCode == REQUEST_ETESYNC_SUBSCRIBE) {
+      if (inventory.hasPro()) {
+        addEteSyncAccount();
       }
     } else {
       super.onActivityResult(requestCode, resultCode, data);

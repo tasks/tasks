@@ -19,6 +19,7 @@ import org.tasks.activities.DatePickerActivity;
 import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.activities.FilterSettingsActivity;
 import org.tasks.activities.GoogleTaskListSettingsActivity;
+import org.tasks.etesync.EteSyncAccountSettingsActivity;
 import org.tasks.tags.TagPickerActivity;
 import org.tasks.activities.TagSettingsActivity;
 import org.tasks.activities.TimePickerActivity;
@@ -133,6 +134,8 @@ public interface ActivityComponent {
   void inject(PurchaseActivity purchaseActivity);
 
   void inject(CaldavAccountSettingsActivity caldavAccountSettingsActivity);
+
+  void inject(EteSyncAccountSettingsActivity eteSyncAccountSettingsActivity);
 
   void inject(DriveLoginActivity driveLoginActivity);
 

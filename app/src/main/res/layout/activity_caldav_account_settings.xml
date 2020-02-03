@@ -80,6 +80,22 @@
 
       </com.google.android.material.textfield.TextInputLayout>
 
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/encryption_password_layout"
+        style="@style/TagSettingsRow"
+        android:visibility="gone"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/encryption_password"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="@string/encryption_password"
+          android:imeOptions="flagNoExtractUi"
+          android:inputType="textPassword"/>
+
+      </com.google.android.material.textfield.TextInputLayout>
+
       <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/repeat"
         style="@style/TagSettingsRow"
