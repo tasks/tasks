@@ -180,7 +180,7 @@ public class EteSynchronizer {
 
     List<Pair<Entry, SyncEntry>> syncEntries =
         client.getSyncEntries(journal, caldavCalendar.getCtag());
-
+    Timber.v("Applying remote changes");
     applyEntries(caldavCalendar, syncEntries, localChanges.keySet());
 
     List<SyncEntry> changes = new ArrayList<>();
@@ -188,7 +188,7 @@ public class EteSynchronizer {
       changes.add(new SyncEntry(task.getVtodo(), Actions.DELETE));
     }
     for (CaldavTaskContainer task : localChanges.values()) {
-      changes.add(new SyncEntry(getVtodo(task), task.isNew() ? Actions.ADD : Actions.DELETE));
+      changes.add(new SyncEntry(getVtodo(task), task.isNew() ? Actions.ADD : Actions.CHANGE));
     }
 
     String remoteCtag = caldavCalendar.getCtag();
@@ -203,9 +203,9 @@ public class EteSynchronizer {
       updates.add(Pair.create(entry, syncEntry));
       previous = entry;
     }
-
+    Timber.v("Pushing local changes");
     client.pushEntries(journal, from(updates).transform(p -> p.first).toList(), remoteCtag);
-
+    Timber.v("Applying local changes");
     applyEntries(caldavCalendar, updates, emptySet());
 
     Timber.d("UPDATE %s", caldavCalendar);
