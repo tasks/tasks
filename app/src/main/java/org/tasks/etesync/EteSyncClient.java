@@ -1,5 +1,7 @@
 package org.tasks.etesync;
 
+import static com.google.common.collect.Lists.transform;
+
 import android.content.Context;
 import androidx.annotation.Nullable;
 import androidx.core.util.Pair;
@@ -8,19 +10,24 @@ import at.bitfire.cert4android.CustomCertManager.CustomHostnameVerifier;
 import com.etesync.journalmanager.Crypto;
 import com.etesync.journalmanager.Crypto.CryptoManager;
 import com.etesync.journalmanager.Exceptions;
+import com.etesync.journalmanager.Exceptions.HttpException;
 import com.etesync.journalmanager.Exceptions.IntegrityException;
 import com.etesync.journalmanager.Exceptions.VersionTooNewException;
 import com.etesync.journalmanager.JournalAuthenticator;
+import com.etesync.journalmanager.JournalEntryManager;
+import com.etesync.journalmanager.JournalEntryManager.Entry;
 import com.etesync.journalmanager.JournalManager;
 import com.etesync.journalmanager.JournalManager.Journal;
 import com.etesync.journalmanager.UserInfoManager;
 import com.etesync.journalmanager.UserInfoManager.UserInfo;
 import com.etesync.journalmanager.model.CollectionInfo;
+import com.etesync.journalmanager.model.SyncEntry;
 import com.etesync.journalmanager.util.TokenAuthenticator;
 import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
@@ -32,12 +39,15 @@ import okhttp3.OkHttpClient.Builder;
 import okhttp3.internal.tls.OkHostnameVerifier;
 import org.tasks.DebugNetworkInterceptor;
 import org.tasks.caldav.MemoryCookieStore;
+import org.tasks.data.CaldavAccount;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 import org.tasks.security.Encryption;
 import timber.log.Timber;
 
 public class EteSyncClient {
+
+  private static final int MAX_FETCH = 50;
 
   private final Encryption encryption;
   private final Preferences preferences;
@@ -110,6 +120,15 @@ public class EteSyncClient {
     journalManager = new JournalManager(httpClient, httpUrl);
   }
 
+  public EteSyncClient forAccount(CaldavAccount account)
+      throws NoSuchAlgorithmException, KeyManagementException {
+    return forUrl(
+        account.getUrl(),
+        account.getUsername(),
+        account.getEncryptionPassword(encryption),
+        account.getPassword(encryption));
+  }
+
   public EteSyncClient forUrl(String url, String username, String encryptionPassword, String token)
       throws KeyManagementException, NoSuchAlgorithmException {
     return new EteSyncClient(
@@ -136,7 +155,7 @@ public class EteSyncClient {
     return Pair.create(token, key);
   }
 
-  public CryptoManager getCrypto(Journal journal)
+  CryptoManager getCrypto(Journal journal)
       throws VersionTooNewException, IntegrityException {
     return new CryptoManager(journal.getVersion(), encryptionPassword, journal.getUid());
   }
@@ -164,6 +183,19 @@ public class EteSyncClient {
       }
     }
     return result;
+  }
+
+  List<Pair<Entry, SyncEntry>> getSyncEntries(Journal journal, @Nullable String ctag)
+      throws IntegrityException, Exceptions.HttpException, VersionTooNewException {
+    JournalEntryManager journalEntryManager =
+        new JournalEntryManager(httpClient, httpUrl, journal.getUid());
+    CryptoManager crypto = getCrypto(journal);
+    List<Entry> journalEntries = journalEntryManager.list(crypto, ctag, MAX_FETCH);
+    return transform(journalEntries, e -> Pair.create(e, SyncEntry.fromJournalEntry(crypto, e)));
+  }
+
+  void pushEntries(Journal journal, List<Entry> entries, String ctag) throws HttpException {
+    new JournalEntryManager(httpClient, httpUrl, journal.getUid()).create(entries, ctag);
   }
 
   public EteSyncClient setForeground() {

@@ -17,6 +17,7 @@ import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskListDao;
+import org.tasks.etesync.EteSynchronizer;
 import org.tasks.gtasks.GoogleTaskSynchronizer;
 import org.tasks.injection.InjectingWorker;
 import org.tasks.injection.JobComponent;
@@ -28,6 +29,7 @@ public class SyncWork extends InjectingWorker {
   private static final Object LOCK = new Object();
 
   @Inject CaldavSynchronizer caldavSynchronizer;
+  @Inject EteSynchronizer eteSynchronizer;
   @Inject GoogleTaskSynchronizer googleTaskSynchronizer;
   @Inject LocalBroadcastManager localBroadcastManager;
   @Inject Preferences preferences;
@@ -69,7 +71,14 @@ public class SyncWork extends InjectingWorker {
     ExecutorService executor = newFixedThreadPool(numThreads);
 
     for (CaldavAccount account : caldavDao.getAccounts()) {
-      executor.execute(() -> caldavSynchronizer.sync(account));
+      executor.execute(
+          () -> {
+            if (account.isCaldavAccount()) {
+              caldavSynchronizer.sync(account);
+            } else if (account.isEteSyncAccount()) {
+              eteSynchronizer.sync(account);
+            }
+          });
     }
     List<GoogleTaskAccount> accounts = googleTaskListDao.getAccounts();
     for (int i = 0; i < accounts.size(); i++) {

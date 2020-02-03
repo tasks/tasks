@@ -71,7 +71,11 @@ public class TaskDeleter {
   }
 
   public void delete(Task task) {
-    delete(ImmutableList.of(task.getId()));
+    delete(task.getId());
+  }
+
+  public void delete(Long task) {
+    delete(ImmutableList.of(task));
   }
 
   public void delete(List<Long> tasks) {

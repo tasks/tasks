@@ -104,7 +104,7 @@ public class CaldavConverter {
     return remotePriority > 5 ? Math.min(9, remotePriority) : 9;
   }
 
-  static at.bitfire.ical4android.Task toCaldav(CaldavTask caldavTask, Task task) {
+  public static at.bitfire.ical4android.Task toCaldav(CaldavTask caldavTask, Task task) {
     at.bitfire.ical4android.Task remote = null;
     try {
       if (!Strings.isNullOrEmpty(caldavTask.getVtodo())) {

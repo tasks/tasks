@@ -84,6 +84,9 @@ public abstract class CaldavDao {
   @Query("SELECT * FROM caldav_tasks WHERE cd_calendar = :calendar AND cd_object = :object LIMIT 1")
   public abstract CaldavTask getTask(String calendar, String object);
 
+  @Query("SELECT * FROM caldav_tasks WHERE cd_calendar = :calendar AND cd_remote_id = :remoteId")
+  public abstract CaldavTask getTaskByRemoteId(String calendar, String remoteId);
+
   @Query("SELECT * FROM caldav_tasks WHERE cd_task = :taskId")
   public abstract List<CaldavTask> getTasks(long taskId);
 
@@ -95,6 +98,13 @@ public abstract class CaldavDao {
           + "INNER JOIN caldav_tasks AS caldav_task ON _id = cd_task "
           + "WHERE cd_deleted = 0 AND cd_vtodo IS NOT NULL AND cd_vtodo != ''")
   public abstract List<CaldavTaskContainer> getTasks();
+
+  @Query(
+      "SELECT task.*, caldav_task.* FROM tasks AS task "
+          + "INNER JOIN caldav_tasks AS caldav_task ON _id = cd_task "
+          + "WHERE cd_calendar = :calendar "
+          + "AND modified > cd_last_sync")
+  public abstract List<CaldavTaskContainer> getCaldavTasksToPush(String calendar);
 
   @Query("SELECT * FROM caldav_lists ORDER BY cdl_name COLLATE NOCASE")
   public abstract List<CaldavCalendar> getCalendars();
