@@ -176,7 +176,7 @@ dependencies {
     implementation("com.google.code.gson:gson:2.8.5")
     implementation("com.github.rey5137:material:1.2.5")
     implementation("com.nononsenseapps:filepicker:4.2.1")
-    implementation("com.google.android.material:material:1.1.0-rc02")
+    implementation("com.google.android.material:material:1.1.0")
     implementation("androidx.annotation:annotation:1.1.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta4")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")
