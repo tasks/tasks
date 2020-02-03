@@ -1,2 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="TVA_add_comment">Tambahkan komentar…</string>
+    <string name="name">Nama</string>
+    <string name="enter_filter_name">Masukkan nama filter</string>
+    <string name="backup_BPr_header">Cadangan</string>
+    <string name="backup_BAc_import">Impor tugas</string>
+    <string name="backup_BAc_export">Ekspor tugas</string>
+    <string name="export_toast">Cadangkan %1$s ke %2$s.</string>
+    <string name="export_toast_no_tasks">Tidak ada tugas untuk diekspor.</string>
+    <string name="import_summary_title">Pulihkan ringkasan</string>
+    <string name="import_progress_read">Membaca %d tugas…</string>
+    <string name="discard_confirmation">Apakah anda yakin ingin membatalkan perubahan yang anda buat\?</string>
+    <string name="keep_editing">Tetap menyunting</string>
+    <string name="DLG_delete_this_task_question">Hapus tugas ini\?</string>
+    <string name="DLG_hour_minutes">Waktu (jam : menit)</string>
+    <string name="DLG_undo">Urungkan</string>
+    <string name="TLA_menu_sort">Urutkan</string>
+    <string name="TLA_menu_search">Cari</string>
+    <string name="TLA_menu_settings">Pengaturan</string>
+    <string name="TAd_actionEditTask">Sunting</string>
+    <string name="action_open">Buka</string>
+    <string name="SSD_sort_my_order">Urutan saya</string>
+    <string name="SSD_sort_auto">Urutan cerdas</string>
+    <string name="SSD_sort_alpha">Berdasarkan judul</string>
+    <string name="SSD_sort_importance">Berdasarkan prioritas</string>
+    <string name="SSD_sort_modified">Berdasarkan terakhir diubah</string>
+    <string name="FLA_new_filter">Buat filter baru</string>
+    <string name="TEA_title_hint">Nama tugas</string>
+    <string name="TEA_importance_label">Prioritas</string>
+    <string name="TEA_add_subtask">Tambah subtugas</string>
+    <string name="TEA_note_label">Deskripsi</string>
+    <string name="save">Simpan</string>
+    <string name="TEA_control_when">Kapan</string>
+    <string name="TEA_control_repeat">Ulangi</string>
+    <string name="TEA_control_gcal">Kalender</string>
+    <string name="TEA_control_importance">Prioritas</string>
+    <string name="TEA_control_location">Lokasi</string>
+    <string name="TEA_control_notes">Deskripsi</string>
+    <string name="TEA_control_files">Berkas</string>
+    <string name="TEA_control_reminders">Pengingat</string>
+    <string name="TEA_load_more">Muat lebih banyak…</string>
+    <string name="CRA_ignore">Abaikan</string>
+    <string name="CRA_ignore_all">Abaikan semua acara</string>
+    <string name="CRA_ignore_this">Hanya abaikan acara ini</string>
+</resources>
