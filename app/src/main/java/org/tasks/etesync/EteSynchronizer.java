@@ -33,7 +33,6 @@ import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskDeleter;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -121,7 +120,6 @@ public class EteSynchronizer {
         | NoSuchAlgorithmException
         | HttpException
         | IntegrityException
-        | IOException
         | VersionTooNewException e) {
       setError(account, e.getMessage());
     }
@@ -129,7 +127,7 @@ public class EteSynchronizer {
 
   private void synchronize(CaldavAccount account)
       throws KeyManagementException, NoSuchAlgorithmException, Exceptions.HttpException,
-          IntegrityException, IOException, VersionTooNewException {
+          IntegrityException, VersionTooNewException {
     EteSyncClient client = this.client.forAccount(account);
     Map<Journal, CollectionInfo> resources = client.getCalendars();
 
@@ -174,7 +172,7 @@ public class EteSynchronizer {
   }
 
   private void sync(EteSyncClient client, CaldavCalendar caldavCalendar, Journal journal)
-      throws IntegrityException, Exceptions.HttpException, IOException, VersionTooNewException {
+      throws IntegrityException, Exceptions.HttpException, VersionTooNewException {
     Timber.d("sync(%s)", caldavCalendar);
 
     Map<String, CaldavTaskContainer> localChanges = newHashMap();
@@ -242,6 +240,7 @@ public class EteSynchronizer {
           }
           break;
         case DELETE:
+          dirty.remove(remoteId);
           if (caldavTask != null) {
             taskDeleter.delete(caldavTask.getTask());
           }
@@ -252,11 +251,7 @@ public class EteSynchronizer {
     }
   }
 
-  private JournalEntryManager.Entry getSyncEntry(Entry previous, CaldavTaskContainer task) {
-    return null;
-  }
-
-  private String getVtodo(CaldavTaskContainer container) throws IOException {
+  private String getVtodo(CaldavTaskContainer container) {
     Task task = container.getTask();
     CaldavTask caldavTask = container.getCaldavTask();
 
