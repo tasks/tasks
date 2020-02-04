@@ -35,6 +35,7 @@ import org.tasks.caldav.CaldavCalendarSettingsActivity;
 import org.tasks.caldav.CaldavFilterExposer;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.GoogleTaskAccount;
+import org.tasks.etesync.EteSyncCalendarSettingsActivity;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.BasicPreferences;
 import org.tasks.ui.NavigationDrawerFragment;
@@ -159,7 +160,11 @@ public class FilterProvider {
             new NavigationDrawerAction(
                 context.getString(R.string.new_list),
                 R.drawable.ic_outline_add_24px,
-                new Intent(context, CaldavCalendarSettingsActivity.class)
+                new Intent(
+                        context,
+                        account.isCaldavAccount()
+                            ? CaldavCalendarSettingsActivity.class
+                            : EteSyncCalendarSettingsActivity.class)
                     .putExtra(EXTRA_CALDAV_ACCOUNT, account),
                 NavigationDrawerFragment.REQUEST_NEW_CALDAV_COLLECTION));
       }

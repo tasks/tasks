@@ -20,6 +20,7 @@ import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.activities.FilterSettingsActivity;
 import org.tasks.activities.GoogleTaskListSettingsActivity;
 import org.tasks.etesync.EteSyncAccountSettingsActivity;
+import org.tasks.etesync.EteSyncCalendarSettingsActivity;
 import org.tasks.tags.TagPickerActivity;
 import org.tasks.activities.TagSettingsActivity;
 import org.tasks.activities.TimePickerActivity;
@@ -152,4 +153,6 @@ public interface ActivityComponent {
   void inject(TagPickerActivity tagPickerActivity);
 
   void inject(TagPickerViewModel viewModel);
+
+  void inject(EteSyncCalendarSettingsActivity eteSyncCalendarSettingsActivity);
 }

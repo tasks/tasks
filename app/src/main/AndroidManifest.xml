@@ -559,6 +559,10 @@
 
     <activity android:name=".tags.TagPickerActivity" />
 
+    <activity
+      android:name=".etesync.EteSyncCalendarSettingsActivity"
+      android:theme="@style/Tasks" />
+
     <!-- launcher icons -->
 
     <activity-alias

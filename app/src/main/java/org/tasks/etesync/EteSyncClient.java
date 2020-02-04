@@ -226,4 +226,21 @@ public class EteSyncClient {
       Timber.e(e);
     }
   }
+
+  String makeCollection(String name)
+      throws VersionTooNewException, IntegrityException, HttpException {
+    String uid = Journal.genUid();
+    CollectionInfo collectionInfo = new CollectionInfo();
+    collectionInfo.setDisplayName(name);
+    collectionInfo.setType("TASKS");
+    collectionInfo.setUid(uid);
+    collectionInfo.setSelected(true);
+    CryptoManager crypto = new CryptoManager(collectionInfo.getVersion(), encryptionPassword, uid);
+    journalManager.create(new Journal(crypto, collectionInfo.toJson(), uid));
+    return uid;
+  }
+
+  void deleteCollection(CaldavCalendar calendar) throws HttpException {
+    journalManager.delete(Journal.fakeWithUid(calendar.getUrl()));
+  }
 }

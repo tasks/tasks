@@ -84,10 +84,15 @@ import org.tasks.activities.RemoteListSupportPicker;
 import org.tasks.activities.TagSettingsActivity;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
+import org.tasks.caldav.BaseCaldavCalendarSettingsActivity;
 import org.tasks.caldav.CaldavCalendarSettingsActivity;
+import org.tasks.data.CaldavAccount;
+import org.tasks.data.CaldavCalendar;
+import org.tasks.data.CaldavDao;
 import org.tasks.data.TagDataDao;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.SortDialog;
+import org.tasks.etesync.EteSyncCalendarSettingsActivity;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingFragment;
@@ -149,6 +154,7 @@ public final class TaskListFragment extends InjectingFragment
   @Inject TaskDao taskDao;
   @Inject TaskDuplicator taskDuplicator;
   @Inject TagDataDao tagDataDao;
+  @Inject CaldavDao caldavDao;
 
   @BindView(R.id.swipe_layout)
   SwipeRefreshLayout swipeRefreshLayout;
@@ -422,8 +428,15 @@ public final class TaskListFragment extends InjectingFragment
         startActivityForResult(filterSettings, REQUEST_FILTER_SETTINGS);
         return true;
       case R.id.menu_caldav_list_fragment:
-        Intent caldavSettings = new Intent(getActivity(), CaldavCalendarSettingsActivity.class);
-        caldavSettings.putExtra(EXTRA_CALDAV_CALENDAR, ((CaldavFilter) filter).getCalendar());
+        CaldavCalendar calendar = ((CaldavFilter) filter).getCalendar();
+        CaldavAccount account = caldavDao.getAccountByUuid(calendar.getAccount());
+        Intent caldavSettings =
+            new Intent(
+                getActivity(),
+                account.isCaldavAccount()
+                    ? CaldavCalendarSettingsActivity.class
+                    : EteSyncCalendarSettingsActivity.class);
+        caldavSettings.putExtra(EXTRA_CALDAV_CALENDAR, calendar);
         startActivityForResult(caldavSettings, REQUEST_CALDAV_SETTINGS);
         return true;
       case R.id.menu_gtasks_list_settings:
