@@ -43,4 +43,6 @@
     <string name="CRA_ignore">Abaikan</string>
     <string name="CRA_ignore_all">Abaikan semua acara</string>
     <string name="CRA_ignore_this">Hanya abaikan acara ini</string>
+    <string name="TLA_no_items">Belum ada tugas yang dibuat.</string>
+    <string name="action_call">Panggil</string>
 </resources>
