@@ -557,7 +557,7 @@
       "artifactId": {
         "name": "dagger",
         "group": "com.google.dagger",
-        "version": "2.25.4"
+        "version": "2.26"
       }
     },
     {
@@ -1149,7 +1149,7 @@
       "artifactId": {
         "name": "work-runtime",
         "group": "androidx.work",
-        "version": "2.2.0"
+        "version": "2.3.0"
       }
     },
     {
@@ -1709,7 +1709,7 @@
       "artifactId": {
         "name": "logging-interceptor",
         "group": "com.squareup.okhttp3",
-        "version": "3.11.0"
+        "version": "3.12.1"
       }
     },
     {
@@ -2020,7 +2020,7 @@
       "notice": null,
       "copyrightHolder": "Android Open Source Project",
       "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
-      "license": "Apache 2",
+      "license": "The Apache Software License, Version 2.0",
       "licenseUrl": "https://www.apache.org/licenses/LICENSE-2.0",
       "normalizedLicense": "apache2",
       "year": null,
@@ -2036,7 +2036,7 @@
       "notice": null,
       "copyrightHolder": "JetBrains s.r.o.",
       "copyrightStatement": "Copyright &copy; JetBrains s.r.o. All rights reserved.",
-      "license": "The Apache License, Version 2.0",
+      "license": "The Apache Software License, Version 2.0",
       "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
       "normalizedLicense": "apache2",
       "year": null,
@@ -2077,7 +2077,7 @@
       "artifactId": {
         "name": "databinding-adapters",
         "group": "androidx.databinding",
-        "version": "3.6.0-rc01"
+        "version": "3.6.0-rc02"
       }
     },
     {
@@ -2141,7 +2141,7 @@
       "artifactId": {
         "name": "databinding-common",
         "group": "androidx.databinding",
-        "version": "3.6.0-rc01"
+        "version": "3.6.0-rc02"
       }
     },
     {
@@ -2157,7 +2157,7 @@
       "artifactId": {
         "name": "databinding-runtime",
         "group": "androidx.databinding",
-        "version": "3.6.0-rc01"
+        "version": "3.6.0-rc02"
       }
     },
     {
@@ -2189,7 +2189,55 @@
       "artifactId": {
         "name": "viewbinding",
         "group": "androidx.databinding",
-        "version": "3.6.0-rc01"
+        "version": "3.6.0-rc02"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "The Legion of the Bouncy Castle Inc.",
+      "copyrightStatement": "Copyright &copy; The Legion of the Bouncy Castle Inc. All rights reserved.",
+      "license": "Bouncy Castle Licence",
+      "licenseUrl": "http://www.bouncycastle.org/licence.html",
+      "normalizedLicense": "Bouncy Castle Licence",
+      "year": null,
+      "url": "http://rtyley.github.io/spongycastle/",
+      "libraryName": "Spongy Castle Core",
+      "artifactId": {
+        "name": "core",
+        "group": "com.madgag.spongycastle",
+        "version": "1.54.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Tom Hacohen",
+      "copyrightStatement": "Copyright &copy; Tom Hacohen. All rights reserved.",
+      "license": "LGPL-3.0-only",
+      "licenseUrl": "https://spdx.org/licenses/LGPL-3.0-only.html",
+      "normalizedLicense": "lgpl3",
+      "year": null,
+      "url": "https://www.etesync.com",
+      "libraryName": "EteSync JVM",
+      "artifactId": {
+        "name": "journalmanager",
+        "group": "com.etesync",
+        "version": "1.0.2-SNAPSHOT"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "The Legion of the Bouncy Castle Inc.",
+      "copyrightStatement": "Copyright &copy; The Legion of the Bouncy Castle Inc. All rights reserved.",
+      "license": "Bouncy Castle Licence",
+      "licenseUrl": "http://www.bouncycastle.org/licence.html",
+      "normalizedLicense": "Bouncy Castle Licence",
+      "year": null,
+      "url": "http://rtyley.github.io/spongycastle/",
+      "libraryName": "Spongy Castle",
+      "artifactId": {
+        "name": "prov",
+        "group": "com.madgag.spongycastle",
+        "version": "1.54.0.0"
       }
     }
   ]
