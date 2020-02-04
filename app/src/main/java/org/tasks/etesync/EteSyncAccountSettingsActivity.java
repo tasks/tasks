@@ -10,6 +10,8 @@ import androidx.lifecycle.ViewModelProviders;
 import butterknife.OnFocusChange;
 import butterknife.OnTextChanged;
 import com.todoroo.astrid.helper.UUIDHelper;
+import io.reactivex.Completable;
+import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.activities.AddEteSyncAccountViewModel;
@@ -122,5 +124,15 @@ public class EteSyncAccountSettingsActivity extends BaseCaldavAccountSettingsAct
   @OnFocusChange(R.id.encryption_password)
   void onEncryptionPasswordFocused(boolean hasFocus) {
     changePasswordFocus(binding.encryptionPassword, hasFocus);
+  }
+
+  @Override
+  protected void removeAccount() {
+    if (caldavAccount != null) {
+      Completable.fromAction(() -> eteSyncClient.forAccount(caldavAccount).invalidateToken())
+          .subscribeOn(Schedulers.io())
+          .subscribe();
+    }
+    super.removeAccount();
   }
 }

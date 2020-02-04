@@ -57,6 +57,7 @@ public class EteSyncClient {
   private final Preferences preferences;
   private final DebugNetworkInterceptor interceptor;
   private final String username;
+  private final String token;
   private final String encryptionPassword;
   private final OkHttpClient httpClient;
   private final HttpUrl httpUrl;
@@ -75,6 +76,7 @@ public class EteSyncClient {
     this.preferences = preferences;
     this.interceptor = interceptor;
     username = null;
+    token = null;
     encryptionPassword = null;
     httpClient = null;
     httpUrl = null;
@@ -98,6 +100,7 @@ public class EteSyncClient {
     this.interceptor = interceptor;
     this.username = username;
     this.encryptionPassword = encryptionPassword;
+    this.token = token;
 
     CustomCertManager customCertManager = new CustomCertManager(context);
     customCertManager.setAppInForeground(foreground);
@@ -188,7 +191,8 @@ public class EteSyncClient {
     return result;
   }
 
-  void getSyncEntries(Journal journal, CaldavCalendar calendar, Callback<List<Pair<Entry, SyncEntry>>> callback)
+  void getSyncEntries(
+      Journal journal, CaldavCalendar calendar, Callback<List<Pair<Entry, SyncEntry>>> callback)
       throws IntegrityException, Exceptions.HttpException, VersionTooNewException {
     JournalEntryManager journalEntryManager =
         new JournalEntryManager(httpClient, httpUrl, journal.getUid());
@@ -196,7 +200,8 @@ public class EteSyncClient {
     List<Entry> journalEntries;
     do {
       journalEntries = journalEntryManager.list(crypto, calendar.getCtag(), MAX_FETCH);
-      callback.call(transform(journalEntries, e -> Pair.create(e, SyncEntry.fromJournalEntry(crypto, e))));
+      callback.call(
+          transform(journalEntries, e -> Pair.create(e, SyncEntry.fromJournalEntry(crypto, e))));
     } while (journalEntries.size() >= MAX_FETCH);
   }
 
@@ -212,5 +217,13 @@ public class EteSyncClient {
   public EteSyncClient setForeground() {
     foreground = true;
     return this;
+  }
+
+  void invalidateToken() {
+    try {
+      new JournalAuthenticator(httpClient, httpUrl).invalidateAuthToken(token);
+    } catch (Exception e) {
+      Timber.e(e);
+    }
   }
 }

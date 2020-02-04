@@ -349,7 +349,7 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
     }
   }
 
-  private void removeAccount() {
+  private void removeAccountPrompt() {
     if (requestInProgress()) {
       return;
     }
@@ -357,16 +357,16 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
     dialogBuilder
         .newDialog()
         .setMessage(R.string.logout_warning, caldavAccount.getName())
-        .setPositiveButton(
-            R.string.remove,
-            (dialog, which) -> {
-              taskDeleter.delete(caldavAccount);
-              tracker.reportEvent(Events.CALDAV_ACCOUNT_REMOVED);
-              setResult(RESULT_OK);
-              finish();
-            })
+        .setPositiveButton(R.string.remove, (dialog, which) -> removeAccount())
         .setNegativeButton(android.R.string.cancel, null)
         .show();
+  }
+
+  protected void removeAccount() {
+    taskDeleter.delete(caldavAccount);
+    tracker.reportEvent(Events.CALDAV_ACCOUNT_REMOVED);
+    setResult(RESULT_OK);
+    finish();
   }
 
   private void discard() {
@@ -392,7 +392,7 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://tasks.org/caldav")));
         break;
       case R.id.remove:
-        removeAccount();
+        removeAccountPrompt();
         break;
     }
     return onOptionsItemSelected(item);
