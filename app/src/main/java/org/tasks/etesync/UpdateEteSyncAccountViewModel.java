@@ -1,13 +1,11 @@
-package org.tasks.activities;
+package org.tasks.etesync;
 
-import android.content.Context;
 import androidx.core.util.Pair;
-import org.tasks.etesync.EteSyncClient;
 import org.tasks.ui.CompletableViewModel;
 
+@SuppressWarnings("WeakerAccess")
 public class UpdateEteSyncAccountViewModel extends CompletableViewModel<Pair<String, String>> {
-  public void addAccount(
-      Context context,
+  void updateAccount(
       EteSyncClient client,
       String url,
       String username,

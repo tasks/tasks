@@ -4,8 +4,6 @@ import android.os.Bundle;
 import androidx.lifecycle.ViewModelProviders;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.activities.CreateCalendarViewModel;
-import org.tasks.activities.DeleteCalendarViewModel;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
 import org.tasks.injection.ActivityComponent;

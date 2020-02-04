@@ -1,12 +1,12 @@
-package org.tasks.activities;
+package org.tasks.caldav;
 
-import org.tasks.caldav.CaldavClient;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
 import org.tasks.ui.ActionViewModel;
 
+@SuppressWarnings("WeakerAccess")
 public class DeleteCalendarViewModel extends ActionViewModel {
-  public void deleteCalendar(CaldavClient client, CaldavAccount account, CaldavCalendar calendar) {
+  void deleteCalendar(CaldavClient client, CaldavAccount account, CaldavCalendar calendar) {
     run(() -> client.forCalendar(account, calendar).deleteCollection());
   }
 }

@@ -1,11 +1,11 @@
-package org.tasks.activities;
+package org.tasks.caldav;
 
-import org.tasks.caldav.CaldavClient;
 import org.tasks.data.CaldavAccount;
 import org.tasks.ui.CompletableViewModel;
 
+@SuppressWarnings("WeakerAccess")
 public class CreateCalendarViewModel extends CompletableViewModel<String> {
-  public void createCalendar(CaldavClient client, CaldavAccount account, String name) {
+  void createCalendar(CaldavClient client, CaldavAccount account, String name) {
     run(() -> client.forAccount(account).makeCollection(name));
   }
 }

@@ -1,4 +1,4 @@
-package org.tasks.caldav;
+package org.tasks.activities;
 
 import static org.tasks.dialogs.IconPickerDialog.newIconPicker;
 
@@ -18,7 +18,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.activities.ColorPickerActivity;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.IconPickerDialog.IconPickerCallback;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;

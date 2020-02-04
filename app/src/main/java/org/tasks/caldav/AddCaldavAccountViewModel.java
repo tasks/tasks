@@ -1,12 +1,13 @@
-package org.tasks.activities;
+package org.tasks.caldav;
 
 import android.content.Context;
 import org.tasks.caldav.CaldavClient;
 import org.tasks.gtasks.PlayServices;
 import org.tasks.ui.CompletableViewModel;
 
+@SuppressWarnings("WeakerAccess")
 public class AddCaldavAccountViewModel extends CompletableViewModel<String> {
-  public void addAccount(
+  void addAccount(
       PlayServices playServices,
       Context context,
       CaldavClient client,

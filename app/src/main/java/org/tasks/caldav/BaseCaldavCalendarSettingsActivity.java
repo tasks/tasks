@@ -24,6 +24,7 @@ import com.todoroo.astrid.service.TaskDeleter;
 import java.net.ConnectException;
 import javax.inject.Inject;
 import org.tasks.R;
+import org.tasks.activities.BaseListSettingsActivity;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;

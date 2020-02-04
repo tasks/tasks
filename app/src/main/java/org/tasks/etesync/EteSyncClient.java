@@ -136,7 +136,7 @@ public class EteSyncClient {
         account.getPassword(encryption));
   }
 
-  public EteSyncClient forUrl(String url, String username, String encryptionPassword, String token)
+  EteSyncClient forUrl(String url, String username, String encryptionPassword, String token)
       throws KeyManagementException, NoSuchAlgorithmException {
     return new EteSyncClient(
         context,
@@ -150,7 +150,7 @@ public class EteSyncClient {
         foreground);
   }
 
-  public Pair<String, String> getKeyAndToken(String password)
+  Pair<String, String> getKeyAndToken(String password)
       throws IOException, Exceptions.HttpException, VersionTooNewException, IntegrityException {
     JournalAuthenticator journalAuthenticator = new JournalAuthenticator(httpClient, httpUrl);
     String token = journalAuthenticator.getAuthToken(username, password);
@@ -214,7 +214,7 @@ public class EteSyncClient {
     }
   }
 
-  public EteSyncClient setForeground() {
+  EteSyncClient setForeground() {
     foreground = true;
     return this;
   }

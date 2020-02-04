@@ -21,7 +21,6 @@ import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.service.TaskDeleter;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.caldav.BaseListSettingsActivity;
 import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;

@@ -21,7 +21,6 @@ import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.CustomFilter;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.caldav.BaseListSettingsActivity;
 import org.tasks.data.FilterDao;
 import org.tasks.injection.ActivityComponent;
 

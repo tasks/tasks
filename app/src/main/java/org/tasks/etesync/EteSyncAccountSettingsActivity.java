@@ -14,8 +14,6 @@ import io.reactivex.Completable;
 import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.activities.AddEteSyncAccountViewModel;
-import org.tasks.activities.UpdateEteSyncAccountViewModel;
 import org.tasks.analytics.Tracking.Events;
 import org.tasks.caldav.BaseCaldavAccountSettingsActivity;
 import org.tasks.data.CaldavAccount;
@@ -102,8 +100,8 @@ public class EteSyncAccountSettingsActivity extends BaseCaldavAccountSettingsAct
 
   @Override
   protected void updateAccount(String url, String username, String password) {
-    updateAccountViewModel.addAccount(
-        context, eteSyncClient, url, username, password, getNewEncryptionPassword());
+    updateAccountViewModel.updateAccount(
+        eteSyncClient, url, username, password, getNewEncryptionPassword());
   }
 
   @Override

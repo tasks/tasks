@@ -22,7 +22,6 @@ import com.todoroo.astrid.api.TagFilter;
 import com.todoroo.astrid.helper.UUIDHelper;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.caldav.BaseListSettingsActivity;
 import org.tasks.data.TagDao;
 import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;

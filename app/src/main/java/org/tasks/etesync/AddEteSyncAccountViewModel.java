@@ -1,4 +1,4 @@
-package org.tasks.activities;
+package org.tasks.etesync;
 
 import android.content.Context;
 import androidx.core.util.Pair;
@@ -7,9 +7,10 @@ import org.tasks.etesync.EteSyncClient;
 import org.tasks.gtasks.PlayServices;
 import org.tasks.ui.CompletableViewModel;
 
+@SuppressWarnings("WeakerAccess")
 public class AddEteSyncAccountViewModel
     extends CompletableViewModel<Pair<String, String>> {
-  public void addAccount(
+  void addAccount(
       PlayServices playServices,
       Context context,
       EteSyncClient client,

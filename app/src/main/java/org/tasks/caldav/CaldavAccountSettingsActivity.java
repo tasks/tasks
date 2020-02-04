@@ -6,8 +6,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 import com.todoroo.astrid.helper.UUIDHelper;
 import javax.inject.Inject;
-import org.tasks.activities.AddCaldavAccountViewModel;
-import org.tasks.activities.UpdateCaldavAccountViewModel;
 import org.tasks.analytics.Tracking.Events;
 import org.tasks.data.CaldavAccount;
 import org.tasks.gtasks.PlayServices;
