@@ -50,6 +50,7 @@ import timber.log.Timber;
 
 public class EteSyncClient {
 
+  private static final String TYPE_TASKS = "TASKS";
   private static final int MAX_FETCH = 50;
   private static final int MAX_PUSH = 30;
 
@@ -184,7 +185,7 @@ public class EteSyncClient {
     Map<Journal, CollectionInfo> result = new HashMap<>();
     for (Journal journal : journalManager.list()) {
       CollectionInfo collection = convertJournalToCollection(journal);
-      if (collection != null && collection.getType().equals("TASKS")) {
+      if (collection != null && TYPE_TASKS.equals(collection.getType())) {
         result.put(journal, collection);
       }
     }
@@ -232,7 +233,7 @@ public class EteSyncClient {
     String uid = Journal.genUid();
     CollectionInfo collectionInfo = new CollectionInfo();
     collectionInfo.setDisplayName(name);
-    collectionInfo.setType("TASKS");
+    collectionInfo.setType(TYPE_TASKS);
     collectionInfo.setUid(uid);
     collectionInfo.setSelected(true);
     CryptoManager crypto = new CryptoManager(collectionInfo.getVersion(), encryptionPassword, uid);
