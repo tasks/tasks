@@ -385,9 +385,9 @@ public class Migrations {
       new Migration(70, 71) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
-          database.execSQL("ALTER TABLE `caldav_account` ADD COLUMN `cda_encryption_key` TEXT");
+          database.execSQL("ALTER TABLE `caldav_accounts` ADD COLUMN `cda_encryption_key` TEXT");
           database.execSQL(
-              "ALTER TABLE `caldav_account` ADD COLUMN `cda_account_type` INTEGER NOT NULL DEFAULT 0");
+              "ALTER TABLE `caldav_accounts` ADD COLUMN `cda_account_type` INTEGER NOT NULL DEFAULT 0");
         }
       };
 
