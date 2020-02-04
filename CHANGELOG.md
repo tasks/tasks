@@ -1,5 +1,20 @@
 Change Log
 ---
+### 8.0 (2020-02-12)
+
+* EteSync support
+* Update translations
+  * Basque - Osoitz
+  * Dutch - @fvbommel
+  * French - @FlorianLeChat
+  * Hungarian - kaciokos
+  * Indonesian - @zmni
+  * Polish - @alex-ter
+  * Russian - @alex-ter
+  * Simplified Chinese - @sr093906
+  * Spanish - @FlorianLeChat
+  * Turkish - @emintufan
+
 ### 7.8 (2020-01-24)
 
 * Android AutoBackup integration
