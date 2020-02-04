@@ -153,7 +153,7 @@ public class EteSynchronizer {
         calendar.setUuid(UUIDHelper.newUUID());
         caldavDao.insert(calendar);
       } else {
-        if (!calendar.getName().equalsIgnoreCase(collection.getDisplayName())) {
+        if (!calendar.getName().equals(collection.getDisplayName())) {
           calendar.setName(collection.getDisplayName());
           caldavDao.update(calendar);
           localBroadcastManager.broadcastRefreshList();
