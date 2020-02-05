@@ -560,4 +560,6 @@
     <string name="no_application_found_link">A link feldolgozására képes alkalmazás nem található</string>
     <string name="enter_tag_name">Címke neve</string>
     <string name="create_new_tag">\"%s\" létrehozása</string>
+    <string name="encryption_password_required">A titkosításhoz jelszó szükséges</string>
+    <string name="encryption_password">Jelszó titkosításhoz</string>
 </resources>
