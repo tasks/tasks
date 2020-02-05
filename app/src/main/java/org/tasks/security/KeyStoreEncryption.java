@@ -6,6 +6,7 @@ import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.util.Base64;
 import androidx.annotation.RequiresApi;
+import com.google.common.base.Strings;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -70,6 +71,10 @@ public class KeyStoreEncryption implements Encryption {
 
   @Override
   public String decrypt(String text) {
+    if (Strings.isNullOrEmpty(text)) {
+      return null;
+    }
+
     byte[] decoded = Base64.decode(text, Base64.DEFAULT);
     byte[] iv = Arrays.copyOfRange(decoded, 0, GCM_IV_LENGTH);
     Cipher cipher = getCipher(Cipher.DECRYPT_MODE, iv);
