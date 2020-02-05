@@ -180,11 +180,16 @@ public class EteSynchronizer {
       localChanges.put(task.getRemoteId(), task);
     }
 
-    Timber.v("Applying remote changes");
-    client.getSyncEntries(
-        journal,
-        caldavCalendar,
-        syncEntries -> applyEntries(caldavCalendar, syncEntries, localChanges.keySet()));
+    String remoteCtag = journal.getLastUid();
+    if (Strings.isNullOrEmpty(remoteCtag) || !remoteCtag.equals(caldavCalendar.getCtag())) {
+      Timber.v("Applying remote changes");
+      client.getSyncEntries(
+          journal,
+          caldavCalendar,
+          syncEntries -> applyEntries(caldavCalendar, syncEntries, localChanges.keySet()));
+    } else {
+      Timber.d("%s up to date", caldavCalendar.getName());
+    }
 
     List<SyncEntry> changes = new ArrayList<>();
     for (CaldavTask task : caldavDao.getDeleted(caldavCalendar.getUuid())) {
@@ -194,7 +199,7 @@ public class EteSynchronizer {
       changes.add(new SyncEntry(getVtodo(task), task.isNew() ? Actions.ADD : Actions.CHANGE));
     }
 
-    String remoteCtag = caldavCalendar.getCtag();
+    remoteCtag = caldavCalendar.getCtag();
     CryptoManager crypto = client.getCrypto(journal);
     List<Pair<Entry, SyncEntry>> updates = new ArrayList<>();
     JournalEntryManager.Entry previous =
