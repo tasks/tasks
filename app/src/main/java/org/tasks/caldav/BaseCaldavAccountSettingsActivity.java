@@ -284,6 +284,8 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
 
   protected abstract void updateAccount();
 
+  protected abstract String getHelpUrl();
+
   protected void requestFailed(Throwable t) {
     hideProgressIndicator();
 
@@ -389,7 +391,7 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
   public boolean onMenuItemClick(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.help:
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://tasks.org/caldav")));
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getHelpUrl())));
         break;
       case R.id.remove:
         removeAccountPrompt();

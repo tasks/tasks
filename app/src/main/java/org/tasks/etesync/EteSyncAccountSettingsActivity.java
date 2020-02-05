@@ -110,6 +110,11 @@ public class EteSyncAccountSettingsActivity extends BaseCaldavAccountSettingsAct
   }
 
   @Override
+  protected String getHelpUrl() {
+    return "http://tasks.org/etesync";
+  }
+
+  @Override
   public void inject(ActivityComponent component) {
     component.inject(this);
   }

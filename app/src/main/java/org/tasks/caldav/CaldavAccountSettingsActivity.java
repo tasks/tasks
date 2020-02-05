@@ -83,6 +83,11 @@ public class CaldavAccountSettingsActivity extends BaseCaldavAccountSettingsActi
   }
 
   @Override
+  protected String getHelpUrl() {
+    return "http://tasks.org/caldav";
+  }
+
+  @Override
   public void inject(ActivityComponent component) {
     component.inject(this);
   }
