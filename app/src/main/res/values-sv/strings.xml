@@ -425,7 +425,6 @@
     <string name="start_of_week">Början på veckan</string>
     <string name="use_locale_default">Använd lokala inställningar</string>
     <string name="use_native_datetime_pickers">Använd ursprungliga datum- och tidsväljare</string>
-    <string name="CalDAV">CalDAV</string>
     <string name="add_account">Lägg till konto</string>
     <string name="user">Användare</string>
     <string name="password">Lösenord</string>

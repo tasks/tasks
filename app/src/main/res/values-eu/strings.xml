@@ -431,7 +431,6 @@
     <string name="start_of_week">Astearen hasiera</string>
     <string name="use_locale_default">Erabili hizkuntzak lehenetsitakoa</string>
     <string name="use_native_datetime_pickers">Erabili sistemaren data eta ordu hautatzaileak</string>
-    <string name="CalDAV">CalDAV</string>
     <string name="add_account">Gehitu kontua</string>
     <string name="user">Erabiltzailea</string>
     <string name="password">Pasahitza</string>

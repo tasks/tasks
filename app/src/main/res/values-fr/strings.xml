@@ -519,7 +519,6 @@ est configuré correctement</string>
     <string name="theme_indigo">Indigo</string>
     <string name="theme_cyan">Cyan</string>
     <string name="theme_orange">Orange</string>
-    <string name="CalDAV">CalDAV</string>
     <string name="badges">Badges</string>
     <string name="list_separator_with_space">", "</string>
     <string name="version_string">Version %s</string>

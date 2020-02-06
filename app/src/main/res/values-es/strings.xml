@@ -519,7 +519,6 @@
     <string name="location_radius_meters">%s m</string>
     <string name="color">Color</string>
     <string name="settings_general">General</string>
-    <string name="CalDAV">CalDAV</string>
     <string name="url">URL</string>
     <string name="error_adding_account">Error : %s</string>
     <string name="list_separator_with_space">", "</string>

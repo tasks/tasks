@@ -524,7 +524,6 @@
     <string name="invalid_backup_file">Geçersiz yedek dosyası</string>
     <string name="google_tasks_add_to_top">Yeni görevler üstte</string>
     <string name="location_radius_meters">%s m</string>
-    <string name="CalDAV">CalDAV</string>
     <string name="url">URL</string>
     <string name="error_adding_account">Hata: %s</string>
     <string name="list_separator_with_space">", "</string>

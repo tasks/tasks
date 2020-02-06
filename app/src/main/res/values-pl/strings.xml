@@ -528,7 +528,6 @@
     <string name="version_string">Wersja %s</string>
     <string name="CFC_tag_text">Tag; \?</string>
     <string name="location_radius_meters">%s m</string>
-    <string name="CalDAV">CalDAV</string>
     <string name="url">URL</string>
     <string name="error_adding_account">Błąd: %s</string>
     <string name="list_separator_with_space">", "</string>

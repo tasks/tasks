@@ -335,7 +335,6 @@
     <string name="start_of_week">Awal minggu</string>
     <string name="use_locale_default">Gunakan bahasa default</string>
     <string name="use_native_datetime_pickers">Gunakan pemilih tanggal dan waktu bawaan</string>
-    <string name="CalDAV">CalDAV</string>
     <string name="add_account">Tambah akun</string>
     <string name="user">Pengguna</string>
     <string name="password">Kata sandi</string>

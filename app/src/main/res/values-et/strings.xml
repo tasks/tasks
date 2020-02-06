@@ -275,7 +275,6 @@
   <string name="copy_selected_tasks">Kopeerida valitud ülesanded\?</string>
   <string name="date_and_time">Kuupäev ja kellaaeg</string>
   <string name="start_of_week">Nädala algus</string>
-  <string name="CalDAV">CalDAV</string>
   <string name="add_account">Lisa konto</string>
   <string name="user">Kasutaja</string>
   <string name="password">Parool</string>

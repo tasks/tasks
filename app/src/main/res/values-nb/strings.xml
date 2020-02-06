@@ -451,7 +451,6 @@
     <string name="start_of_week">Ukestart</string>
     <string name="use_locale_default">Bruk forvalgt lokalitet</string>
     <string name="use_native_datetime_pickers">Bruk systemets dato og tider</string>
-    <string name="CalDAV">CalDAV</string>
     <string name="add_account">Legg til konto</string>
     <string name="user">Bruker</string>
     <string name="password">Passord</string>

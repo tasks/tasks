@@ -493,7 +493,6 @@
     <string name="geofence_radius">半径</string>
     <string name="location_radius_meters">%s 米</string>
     <string name="theme_white">白色</string>
-    <string name="CalDAV">CalDav</string>
     <string name="manage_subscription">管理订阅</string>
     <string name="pro_google_places_search">Google Place搜索</string>
     <string name="location_remind_arrival">抵达时提醒</string>
