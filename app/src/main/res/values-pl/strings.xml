@@ -571,4 +571,6 @@
     <string name="no_application_found_link">Nie znaleziono aplikacji do otwarcia linku</string>
     <string name="enter_tag_name">Wprowadź nazwę tagu</string>
     <string name="create_new_tag">Stwórz \"%s\"</string>
+    <string name="encryption_password_required">Wymagane hasło szyfrowania</string>
+    <string name="encryption_password">Hasło szyfrowania</string>
 </resources>
