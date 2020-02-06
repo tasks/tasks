@@ -32,7 +32,6 @@ import org.tasks.databinding.ActivityCaldavAccountSettingsBinding;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.etesync.EteSyncAccountSettingsActivity;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
-import org.tasks.preferences.Preferences;
 import org.tasks.security.Encryption;
 import org.tasks.ui.DisplayableException;
 import org.tasks.ui.MenuColorizer;
@@ -47,7 +46,6 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
   @Inject protected CaldavDao caldavDao;
   @Inject protected Encryption encryption;
   @Inject DialogBuilder dialogBuilder;
-  @Inject Preferences preferences;
   @Inject TaskDeleter taskDeleter;
 
   protected CaldavAccount caldavAccount;
@@ -81,23 +79,10 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
 
     Toolbar toolbar = binding.toolbar.toolbar;
 
-    final boolean backButtonSavesTask = preferences.backButtonSavesTask();
     toolbar.setTitle(
         caldavAccount == null ? getString(R.string.add_account) : caldavAccount.getName());
-    toolbar.setNavigationIcon(
-        ContextCompat.getDrawable(
-            this,
-            backButtonSavesTask
-                ? R.drawable.ic_outline_clear_24px
-                : R.drawable.ic_outline_save_24px));
-    toolbar.setNavigationOnClickListener(
-        v -> {
-          if (backButtonSavesTask) {
-            discard();
-          } else {
-            save();
-          }
-        });
+    toolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_outline_save_24px));
+    toolbar.setNavigationOnClickListener(v -> save());
     toolbar.inflateMenu(R.menu.menu_caldav_account_settings);
     toolbar.setOnMenuItemClickListener(this);
     toolbar.showOverflowMenu();
@@ -344,11 +329,7 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
 
   @Override
   public void onBackPressed() {
-    if (preferences.backButtonSavesTask()) {
-      save();
-    } else {
-      discard();
-    }
+    discard();
   }
 
   private void removeAccountPrompt() {

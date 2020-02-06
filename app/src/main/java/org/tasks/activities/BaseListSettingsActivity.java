@@ -21,7 +21,6 @@ import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.IconPickerDialog.IconPickerCallback;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
-import org.tasks.preferences.Preferences;
 import org.tasks.themes.CustomIcons;
 import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
@@ -46,7 +45,6 @@ public abstract class BaseListSettingsActivity extends ThemedInjectingAppCompatA
 
   @Inject ThemeCache themeCache;
   @Inject ThemeColor themeColor;
-  @Inject Preferences preferences;
   @Inject DialogBuilder dialogBuilder;
 
   protected int selectedTheme = -1;
@@ -65,22 +63,9 @@ public abstract class BaseListSettingsActivity extends ThemedInjectingAppCompatA
       selectedIcon = savedInstanceState.getInt(EXTRA_SELECTED_ICON);
     }
 
-    final boolean backButtonSavesTask = preferences.backButtonSavesTask();
     toolbar.setTitle(getToolbarTitle());
-    toolbar.setNavigationIcon(
-        ContextCompat.getDrawable(
-            this,
-            backButtonSavesTask
-                ? R.drawable.ic_outline_clear_24px
-                : R.drawable.ic_outline_save_24px));
-    toolbar.setNavigationOnClickListener(
-        v -> {
-          if (backButtonSavesTask) {
-            discard();
-          } else {
-            save();
-          }
-        });
+    toolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_outline_save_24px));
+    toolbar.setNavigationOnClickListener(v -> save());
     if (!isNew()) {
       toolbar.inflateMenu(R.menu.menu_tag_settings);
     }
@@ -98,11 +83,7 @@ public abstract class BaseListSettingsActivity extends ThemedInjectingAppCompatA
 
   @Override
   public void onBackPressed() {
-    if (preferences.backButtonSavesTask()) {
-      save();
-    } else {
-      discard();
-    }
+    discard();
   }
 
   protected abstract int getLayout();
