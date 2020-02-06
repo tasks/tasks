@@ -517,6 +517,7 @@ File %1$s contained %2$s.\n\n
   <string name="pro_subscribe_now">Subscribe now to support development and unlock additional features</string>
   <string name="themes">Additional themes and icons</string>
   <string name="pro_caldav_sync">CalDAV synchronization</string>
+  <string name="pro_etesync">EteSync synchronization</string>
   <string name="pro_multiple_google_task_accounts">Multiple Google Task accounts</string>
   <string name="pro_google_places_search">Google Places search</string>
   <string name="pro_tasker_plugins">Tasker plugins</string>

@@ -3,6 +3,7 @@
   <string-array name="pro_description">
     <item>@string/themes</item>
     <item>@string/pro_caldav_sync</item>
+    <item>@string/pro_etesync</item>
     <item>@string/pro_multiple_google_task_accounts</item>
     <item>@string/pro_google_places_search</item>
     <item>@string/pro_tasker_plugins</item>
