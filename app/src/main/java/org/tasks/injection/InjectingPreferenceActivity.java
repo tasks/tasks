@@ -174,6 +174,12 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
     super.finish();
   }
 
+  protected void restart() {
+    Intent intent = getIntent();
+    finish();
+    startActivity(intent);
+  }
+
   protected void emailSupport() {
     startActivity(
         new Intent(

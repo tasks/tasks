@@ -50,7 +50,7 @@ public class AlertDialogBuilder {
     return this;
   }
 
-  AlertDialogBuilder setTitle(int title) {
+  public AlertDialogBuilder setTitle(int title) {
     builder.setTitle(title);
     return this;
   }
@@ -62,7 +62,7 @@ public class AlertDialogBuilder {
 
   public AlertDialogBuilder setItems(
       List<String> strings, DialogInterface.OnClickListener onClickListener) {
-    return setItems(strings.toArray(new String[strings.size()]), onClickListener);
+    return setItems(strings.toArray(new String[0]), onClickListener);
   }
 
   public AlertDialogBuilder setItems(
@@ -86,10 +86,10 @@ public class AlertDialogBuilder {
     return this;
   }
 
-  public AlertDialogBuilder setSingleChoiceItems(
+  AlertDialogBuilder setSingleChoiceItems(
       List<String> strings, int selectedIndex, DialogInterface.OnClickListener onClickListener) {
     builder.setSingleChoiceItems(
-        addDirectionality(strings.toArray(new String[strings.size()])),
+        addDirectionality(strings.toArray(new String[0])),
         selectedIndex,
         onClickListener);
     return this;

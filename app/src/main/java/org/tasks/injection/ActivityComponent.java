@@ -41,7 +41,6 @@ import org.tasks.preferences.DebugPreferences;
 import org.tasks.preferences.MiscellaneousPreferences;
 import org.tasks.reminders.NotificationActivity;
 import org.tasks.reminders.SnoozeActivity;
-import org.tasks.sync.SynchronizationPreferences;
 import org.tasks.tags.TagPickerViewModel;
 import org.tasks.themes.Theme;
 import org.tasks.ui.TaskListViewModel;
@@ -53,8 +52,6 @@ import org.tasks.widget.WidgetConfigActivity;
 @ActivityScope
 @Subcomponent(modules = {ActivityModule.class, LocationModule.class})
 public interface ActivityComponent {
-
-  void inject(SynchronizationPreferences synchronizationPreferences);
 
   void inject(GtasksLoginActivity gtasksLoginActivity);
 

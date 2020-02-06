@@ -1,110 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/root_layout"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:descendantFocusability="beforeDescendants"
+  android:focusable="true"
+  android:focusableInTouchMode="true"
   android:orientation="vertical">
 
-  <include
-    android:id="@+id/toolbar"
-    layout="@layout/toolbar" />
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-  <include
-    android:id="@+id/progress_bar"
-    layout="@layout/progress_view" />
+    <include
+      android:id="@+id/toolbar"
+      layout="@layout/toolbar" />
 
-  <ScrollView
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
+    <include
+      android:id="@+id/progress_bar"
+      layout="@layout/progress_view" />
 
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:descendantFocusability="beforeDescendants"
-      android:focusableInTouchMode="true"
-      android:orientation="vertical">
+    <ScrollView
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content">
 
-      <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/name_layout"
-        style="@style/TagSettingsRow">
-
-        <com.google.android.material.textfield.TextInputEditText
-          android:id="@+id/name"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:hint="@string/name"
-          android:imeOptions="flagNoExtractUi"
-          android:inputType="textCapSentences|textAutoCorrect"/>
-
-      </com.google.android.material.textfield.TextInputLayout>
-
-      <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/url_layout"
-        style="@style/TagSettingsRow">
-
-        <com.google.android.material.textfield.TextInputEditText
-          android:id="@+id/url"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:hint="@string/url"
-          android:imeOptions="flagNoExtractUi"/>
-
-      </com.google.android.material.textfield.TextInputLayout>
-
-      <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/user_layout"
-        style="@style/TagSettingsRow">
-
-        <com.google.android.material.textfield.TextInputEditText
-          android:id="@+id/user"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:hint="@string/user"
-          android:imeOptions="flagNoExtractUi"/>
-
-      </com.google.android.material.textfield.TextInputLayout>
-
-      <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/password_layout"
-        style="@style/TagSettingsRow"
-        app:passwordToggleEnabled="true">
-
-        <com.google.android.material.textfield.TextInputEditText
-          android:id="@+id/password"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:hint="@string/password"
-          android:imeOptions="flagNoExtractUi"
-          android:inputType="textPassword"/>
-
-      </com.google.android.material.textfield.TextInputLayout>
-
-      <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/encryption_password_layout"
-        style="@style/TagSettingsRow"
-        android:visibility="gone"
-        app:passwordToggleEnabled="true">
-
-        <com.google.android.material.textfield.TextInputEditText
-          android:id="@+id/encryption_password"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:hint="@string/encryption_password"
-          android:imeOptions="flagNoExtractUi"
-          android:inputType="textPassword"/>
-
-      </com.google.android.material.textfield.TextInputLayout>
-
-      <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/repeat"
-        style="@style/TagSettingsRow"
+      <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/caldav_account_repeating_tasks"/>
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
 
-    </LinearLayout>
+        <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/name_layout"
+          style="@style/TagSettingsRow">
 
-  </ScrollView>
+          <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/display_name"
+            android:imeOptions="flagNoExtractUi"
+            android:inputType="textCapSentences|textAutoCorrect" />
 
-</LinearLayout>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/url_layout"
+          style="@style/TagSettingsRow">
+
+          <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/url"
+            android:imeOptions="flagNoExtractUi" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/user_layout"
+          style="@style/TagSettingsRow">
+
+          <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/user"
+            android:imeOptions="flagNoExtractUi" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/password_layout"
+          style="@style/TagSettingsRow"
+          app:passwordToggleEnabled="true">
+
+          <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password"
+            android:imeOptions="flagNoExtractUi"
+            android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/encryption_password_layout"
+          style="@style/TagSettingsRow"
+          android:visibility="gone"
+          app:passwordToggleEnabled="true">
+
+          <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/encryption_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/encryption_password"
+            android:imeOptions="flagNoExtractUi"
+            android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.SwitchCompat
+          android:id="@+id/repeat"
+          style="@style/TagSettingsRow"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/caldav_account_repeating_tasks" />
+
+      </LinearLayout>
+
+    </ScrollView>
+
+  </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

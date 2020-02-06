@@ -207,7 +207,6 @@ public class Preferences {
     PreferenceManager.setDefaultValues(context, R.xml.preferences, true);
     PreferenceManager.setDefaultValues(context, R.xml.preferences_date_time, true);
     PreferenceManager.setDefaultValues(context, R.xml.preferences_defaults, true);
-    PreferenceManager.setDefaultValues(context, R.xml.preferences_synchronization, true);
     PreferenceManager.setDefaultValues(context, R.xml.preferences_misc, true);
     PreferenceManager.setDefaultValues(context, R.xml.preferences_reminders, true);
 

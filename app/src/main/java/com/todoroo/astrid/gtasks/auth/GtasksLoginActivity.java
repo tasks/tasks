@@ -6,9 +6,12 @@
 
 package com.todoroo.astrid.gtasks.auth;
 
+import static org.tasks.PermissionUtil.verifyPermissions;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import androidx.annotation.NonNull;
 import com.todoroo.andlib.utility.DialogUtilities;
 import javax.inject.Inject;
 import org.tasks.R;
@@ -19,6 +22,8 @@ import org.tasks.gtasks.GoogleAccountManager;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.play.AuthResultHandler;
+import org.tasks.preferences.ActivityPermissionRequestor;
+import org.tasks.preferences.PermissionRequestor;
 
 /**
  * This activity allows users to sign in or log in to Google Tasks through the Android account
@@ -33,20 +38,27 @@ public class GtasksLoginActivity extends InjectingAppCompatActivity {
   @Inject DialogBuilder dialogBuilder;
   @Inject GoogleAccountManager googleAccountManager;
   @Inject GoogleTaskListDao googleTaskListDao;
+  @Inject ActivityPermissionRequestor permissionRequestor;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    Intent chooseAccountIntent =
-        android.accounts.AccountManager.newChooseAccountIntent(
-            null, null, new String[] {"com.google"}, false, null, null, null, null);
-    startActivityForResult(chooseAccountIntent, RC_CHOOSE_ACCOUNT);
+    if (permissionRequestor.requestAccountPermissions()) {
+      chooseAccount();
+    }
   }
 
   @Override
   public void inject(ActivityComponent component) {
     component.inject(this);
+  }
+
+  private void chooseAccount() {
+    Intent chooseAccountIntent =
+        android.accounts.AccountManager.newChooseAccountIntent(
+            null, null, new String[] {"com.google"}, false, null, null, null, null);
+    startActivityForResult(chooseAccountIntent, RC_CHOOSE_ACCOUNT);
   }
 
   private void getAuthToken(String account) {
@@ -97,6 +109,18 @@ public class GtasksLoginActivity extends InjectingAppCompatActivity {
       }
     } else {
       super.onActivityResult(requestCode, resultCode, data);
+    }
+  }
+
+  @Override
+  public void onRequestPermissionsResult(
+      int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    if (requestCode == PermissionRequestor.REQUEST_GOOGLE_ACCOUNTS) {
+      if (verifyPermissions(grantResults)) {
+        chooseAccount();
+      }
+    } else {
+      super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
   }
 }

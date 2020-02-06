@@ -24,8 +24,8 @@ import org.tasks.filters.FilterProvider;
 import org.tasks.gtasks.RemoteListSelectionHandler;
 import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.InjectingDialogFragment;
+import org.tasks.sync.AddAccountDialog;
 import org.tasks.sync.SyncAdapters;
-import org.tasks.sync.SynchronizationPreferences;
 
 public class RemoteListSupportPicker extends InjectingDialogFragment
     implements RemoteListSelectionHandler {
@@ -136,7 +136,7 @@ public class RemoteListSupportPicker extends InjectingDialogFragment
 
   @Override
   public void addAccount() {
-    startActivity(new Intent(getContext(), SynchronizationPreferences.class));
+    AddAccountDialog.showAddAccountDialog(getActivity(), dialogBuilder);
   }
 
   @Override

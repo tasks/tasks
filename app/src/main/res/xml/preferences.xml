@@ -99,6 +99,45 @@
   </PreferenceCategory>
 
   <PreferenceCategory
+    android:key="@string/synchronization"
+    android:title="@string/synchronization" />
+
+  <Preference
+    android:key="@string/add_account"
+    android:title="@string/add_account" />
+
+  <PreferenceCategory
+    android:title="@string/gtasks_GPr_header"
+    android:key="@string/gtasks_GPr_header">
+
+    <CheckBoxPreference
+      android:defaultValue="true"
+      android:key="@string/p_google_tasks_add_to_top"
+      android:title="@string/google_tasks_add_to_top"/>
+
+    <CheckBoxPreference
+      android:key="@string/google_tasks_position_hack"
+      android:title="@string/google_tasks_position_hack"
+      android:summary="@string/google_tasks_position_hack_summary" />
+
+  </PreferenceCategory>
+
+  <PreferenceCategory
+    android:title="@string/sync_SPr_interval_title"
+    android:key="@string/sync_SPr_interval_title">
+
+    <CheckBoxPreference
+      android:defaultValue="true"
+      android:key="@string/p_background_sync"
+      android:title="@string/enabled"/>
+    <CheckBoxPreference
+      android:defaultValue="false"
+      android:dependency="@string/p_background_sync"
+      android:key="@string/p_background_sync_unmetered_only"
+      android:title="@string/background_sync_unmetered_only"/>
+  </PreferenceCategory>
+
+  <PreferenceCategory
     android:key="@string/settings_general"
     android:title="@string/settings_general">
 
@@ -109,14 +148,6 @@
     <Preference android:title="@string/date_and_time">
       <intent
         android:targetClass="org.tasks.preferences.DateTimePreferences"
-        android:targetPackage="@string/app_package"/>
-    </Preference>
-
-    <Preference
-      android:key="@string/synchronization"
-      android:title="@string/synchronization">
-      <intent
-        android:targetClass="org.tasks.sync.SynchronizationPreferences"
         android:targetPackage="@string/app_package"/>
     </Preference>
 

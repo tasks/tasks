@@ -153,11 +153,6 @@
       android:name=".activities.CameraActivity"
       android:theme="@style/TranslucentDialog"/>
 
-    <activity
-      android:label="@string/synchronization"
-      android:name=".sync.SynchronizationPreferences"
-      android:theme="@style/Tasks"/>
-
     <activity android:name="com.todoroo.astrid.activity.TaskEditActivity">
       <intent-filter tools:ignore="AppLinkUrlError">
         <action android:name="android.intent.action.VIEW"/>

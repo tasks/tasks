@@ -42,5 +42,5 @@
   <dimen name="chip_text_padding">4dp</dimen>
 
   <dimen name="icon_picker_size">48dp</dimen>
-
+  <dimen name="list_item_spacing">8dp</dimen>
 </resources>

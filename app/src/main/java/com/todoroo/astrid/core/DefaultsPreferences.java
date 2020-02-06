@@ -24,6 +24,7 @@ import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.calendars.AndroidCalendar;
 import org.tasks.calendars.CalendarProvider;
+import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.NativeSeekBarDialog;
 import org.tasks.gtasks.RemoteListSelectionHandler;
 import org.tasks.injection.ActivityComponent;
@@ -34,7 +35,7 @@ import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Device;
 import org.tasks.preferences.PermissionRequestor;
 import org.tasks.preferences.Preferences;
-import org.tasks.sync.SynchronizationPreferences;
+import org.tasks.sync.AddAccountDialog;
 
 public class DefaultsPreferences extends InjectingPreferenceActivity
     implements RemoteListSelectionHandler, NativeSeekBarDialog.SeekBarCallback {
@@ -51,6 +52,7 @@ public class DefaultsPreferences extends InjectingPreferenceActivity
   @Inject DefaultFilterProvider defaultFilterProvider;
   @Inject Locale locale;
   @Inject Device device;
+  @Inject DialogBuilder dialogBuilder;
 
   private Preference defaultCalendarPref;
   private Preference defaultRadiusPref;
@@ -139,7 +141,7 @@ public class DefaultsPreferences extends InjectingPreferenceActivity
 
   @Override
   public void addAccount() {
-    startActivity(new Intent(this, SynchronizationPreferences.class));
+    AddAccountDialog.showAddAccountDialog(this, dialogBuilder);
   }
 
   @Override

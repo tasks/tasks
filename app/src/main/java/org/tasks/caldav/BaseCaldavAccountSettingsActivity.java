@@ -1,6 +1,7 @@
 package org.tasks.caldav;
 
 import static android.text.TextUtils.isEmpty;
+import static org.tasks.billing.PurchaseDialog.newPurchaseDialog;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,12 +10,14 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import androidx.annotation.StringRes;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import at.bitfire.dav4jvm.exception.HttpException;
 import butterknife.ButterKnife;
 import butterknife.OnFocusChange;
 import butterknife.OnTextChanged;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.todoroo.astrid.service.TaskDeleter;
@@ -26,6 +29,7 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking.Events;
+import org.tasks.billing.Inventory;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavDao;
 import org.tasks.databinding.ActivityCaldavAccountSettingsBinding;
@@ -47,6 +51,7 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
   @Inject protected Encryption encryption;
   @Inject DialogBuilder dialogBuilder;
   @Inject TaskDeleter taskDeleter;
+  @Inject Inventory inventory;
 
   protected CaldavAccount caldavAccount;
 
@@ -93,6 +98,15 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
       binding.name.requestFocus();
       InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
       imm.showSoftInput(binding.name, InputMethodManager.SHOW_IMPLICIT);
+    }
+
+    if (!inventory.hasPro()) {
+      newSnackbar(R.string.this_feature_requires_a_subscription)
+          .setDuration(BaseTransientBottomBar.LENGTH_INDEFINITE)
+          .setAction(
+              R.string.button_subscribe,
+              v -> newPurchaseDialog().show(getSupportFragmentManager(), null))
+          .show();
     }
   }
 
@@ -291,6 +305,14 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
   }
 
   private void showSnackbar(String message) {
+    newSnackbar(message).show();
+  }
+
+  private Snackbar newSnackbar(@StringRes int resId) {
+    return newSnackbar(getString(resId));
+  }
+
+  private Snackbar newSnackbar(String message) {
     Snackbar snackbar =
         Snackbar.make(binding.rootLayout, message, 8000)
             .setTextColor(ContextCompat.getColor(this, R.color.snackbar_text_color))
@@ -298,7 +320,7 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
     snackbar
         .getView()
         .setBackgroundColor(ContextCompat.getColor(this, R.color.snackbar_background));
-    snackbar.show();
+    return snackbar;
   }
 
   private boolean hasChanges() {

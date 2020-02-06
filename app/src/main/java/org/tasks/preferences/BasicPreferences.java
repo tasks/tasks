@@ -2,7 +2,7 @@ package org.tasks.preferences;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
+import static com.todoroo.andlib.utility.DateUtilities.now;
 import static java.util.Arrays.asList;
 import static org.tasks.PermissionUtil.verifyPermissions;
 import static org.tasks.dialogs.ExportTasksDialog.newExportTasksDialog;
@@ -21,14 +21,17 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import com.google.common.base.Strings;
 import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.OldTaskPreferences;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import com.todoroo.astrid.reminders.ReminderPreferences;
+import com.todoroo.astrid.service.TaskDeleter;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.BuildConfig;
@@ -43,16 +46,24 @@ import org.tasks.analytics.Tracking.Events;
 import org.tasks.billing.BillingClient;
 import org.tasks.billing.Inventory;
 import org.tasks.billing.PurchaseActivity;
+import org.tasks.caldav.CaldavAccountSettingsActivity;
+import org.tasks.data.CaldavAccount;
+import org.tasks.data.CaldavDao;
+import org.tasks.data.GoogleTaskAccount;
+import org.tasks.data.GoogleTaskListDao;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.NativeSeekBarDialog;
 import org.tasks.drive.DriveLoginActivity;
+import org.tasks.etesync.EteSyncAccountSettingsActivity;
 import org.tasks.files.FileHelper;
 import org.tasks.gtasks.GoogleAccountManager;
 import org.tasks.gtasks.PlayServices;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
+import org.tasks.jobs.WorkManager;
 import org.tasks.locale.Locale;
 import org.tasks.locale.LocalePickerDialog;
+import org.tasks.sync.AddAccountDialog;
 import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeBase;
 import org.tasks.themes.ThemeCache;
@@ -75,11 +86,13 @@ public class BasicPreferences extends InjectingPreferenceActivity
   private static final int REQUEST_CODE_BACKUP_DIR = 10005;
   private static final int REQUEST_PICKER = 10006;
   private static final int REQUEST_LAUNCHER_PICKER = 10007;
-  private static final int RC_DRIVE_BACKUP = 10008;
+  private static final int REQUEST_DRIVE_BACKUP = 10008;
   private static final int REQUEST_DEFAULT_LIST = 10009;
   private static final int REQUEST_ROW_PADDING = 10010;
   private static final int REQUEST_FONT_SIZE = 10011;
   private static final int REQUEST_CUSTOMIZE = 10012;
+  public static final int REQUEST_CALDAV_SETTINGS = 10013;
+  public static final int REQUEST_GOOGLE_TASKS = 10014;
 
   @Inject Tracker tracker;
   @Inject Preferences preferences;
@@ -97,6 +110,10 @@ public class BasicPreferences extends InjectingPreferenceActivity
   @Inject BillingClient billingClient;
   @Inject DefaultFilterProvider defaultFilterProvider;
   @Inject LocalBroadcastManager localBroadcastManager;
+  @Inject WorkManager workManager;
+  @Inject GoogleTaskListDao googleTaskListDao;
+  @Inject CaldavDao caldavDao;
+  @Inject TaskDeleter taskDeleter;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -266,7 +283,7 @@ public class BasicPreferences extends InjectingPreferenceActivity
 
           if ((Boolean) newValue) {
             if (permissionRequestor.requestAccountPermissions()) {
-              requestLogin();
+              requestGoogleDriveLogin();
             }
             return false;
           } else {
@@ -314,6 +331,37 @@ public class BasicPreferences extends InjectingPreferenceActivity
           return false;
         });
 
+    findPreference(getString(R.string.p_background_sync_unmetered_only))
+        .setOnPreferenceChangeListener(
+            (preference, o) -> {
+              workManager.updateBackgroundSync(null, null, (Boolean) o);
+              return true;
+            });
+    findPreference(getString(R.string.p_background_sync))
+        .setOnPreferenceChangeListener(
+            (preference, o) -> {
+              workManager.updateBackgroundSync(null, (Boolean) o, null);
+              return true;
+            });
+    CheckBoxPreference positionHack =
+        (CheckBoxPreference) findPreference(R.string.google_tasks_position_hack);
+    positionHack.setChecked(preferences.isPositionHackEnabled());
+    positionHack.setOnPreferenceChangeListener(
+        (preference, newValue) -> {
+          if (newValue == null) {
+            return false;
+          }
+          preferences.setLong(
+              R.string.p_google_tasks_position_hack, ((Boolean) newValue) ? now() : 0);
+          return true;
+        });
+    findPreference(R.string.add_account)
+        .setOnPreferenceClickListener(
+            preference -> {
+              AddAccountDialog.showAddAccountDialog(BasicPreferences.this, dialogBuilder);
+              return false;
+            });
+
     findPreference(R.string.changelog)
         .setSummary(getString(R.string.version_string, BuildConfig.VERSION_NAME));
 
@@ -340,8 +388,14 @@ public class BasicPreferences extends InjectingPreferenceActivity
 
     //noinspection ConstantConditions
     if (!BuildConfig.FLAVOR.equals("googleplay")) {
-      ((PreferenceScreen) findPreference(getString(R.string.preference_screen)))
-          .removePreference(findPreference(getString(R.string.TEA_control_location)));
+      removeGroup(R.string.TEA_control_location);
+    }
+  }
+
+  private void removeGroup(int key) {
+    Preference preference = findPreference(key);
+    if (preference != null) {
+      ((PreferenceScreen) findPreference(R.string.preference_screen)).removePreference(preference);
     }
   }
 
@@ -428,6 +482,102 @@ public class BasicPreferences extends InjectingPreferenceActivity
         });
     int placeProvider = getPlaceProvider();
     placeProviderPreference.setSummary(choices.get(placeProvider));
+
+    PreferenceCategory synchronizationPreferences =
+        (PreferenceCategory) findPreference(R.string.synchronization);
+    synchronizationPreferences.removeAll();
+
+    boolean hasGoogleAccounts = addGoogleTasksAccounts(synchronizationPreferences);
+    boolean hasCaldavAccounts = addCaldavAccounts(synchronizationPreferences);
+    if (!hasGoogleAccounts) {
+      removeGroup(R.string.gtasks_GPr_header);
+    }
+    if (!(hasGoogleAccounts || hasCaldavAccounts)) {
+      removeGroup(R.string.sync_SPr_interval_title);
+    }
+  }
+
+  private boolean addGoogleTasksAccounts(PreferenceCategory category) {
+    List<GoogleTaskAccount> accounts = googleTaskListDao.getAccounts();
+    for (GoogleTaskAccount googleTaskAccount : accounts) {
+      String account = googleTaskAccount.getAccount();
+      Preference preference = new Preference(this);
+      preference.setTitle(account);
+      String error = googleTaskAccount.getError();
+      if (Strings.isNullOrEmpty(error)) {
+        preference.setSummary(R.string.gtasks_GPr_header);
+      } else {
+        preference.setSummary(error);
+      }
+      preference.setOnPreferenceClickListener(
+          p -> {
+            dialogBuilder
+                .newDialog(account)
+                .setItems(
+                    asList(getString(R.string.reinitialize_account), getString(R.string.logout)),
+                    (dialog, which) -> {
+                      if (which == 0) {
+                        startActivityForResult(
+                            new Intent(this, GtasksLoginActivity.class),
+                            BasicPreferences.REQUEST_GOOGLE_TASKS);
+                      } else {
+                        logoutConfirmation(googleTaskAccount);
+                      }
+                    })
+                .showThemedListView();
+            return false;
+          });
+      category.addPreference(preference);
+    }
+    return !accounts.isEmpty();
+  }
+
+  private boolean addCaldavAccounts(PreferenceCategory category) {
+    List<CaldavAccount> accounts = caldavDao.getAccounts();
+    for (CaldavAccount account : accounts) {
+      Preference preference = new Preference(this);
+      preference.setTitle(account.getName());
+      String error = account.getError();
+      if (Strings.isNullOrEmpty(error)) {
+        preference.setSummary(
+            account.isCaldavAccount() ? R.string.caldav : R.string.etesync);
+      } else {
+        preference.setSummary(error);
+      }
+      preference.setOnPreferenceClickListener(
+          p -> {
+            Intent intent =
+                new Intent(
+                    this,
+                    account.isCaldavAccount()
+                        ? CaldavAccountSettingsActivity.class
+                        : EteSyncAccountSettingsActivity.class);
+            intent.putExtra(CaldavAccountSettingsActivity.EXTRA_CALDAV_DATA, account);
+            startActivityForResult(intent, REQUEST_CALDAV_SETTINGS);
+            return false;
+          });
+      category.addPreference(preference);
+    }
+    return !accounts.isEmpty();
+  }
+
+  private void logoutConfirmation(GoogleTaskAccount account) {
+    String name = account.getAccount();
+    AlertDialog alertDialog =
+        dialogBuilder
+            .newDialog()
+            .setMessage(R.string.logout_warning, name)
+            .setPositiveButton(
+                R.string.logout,
+                (dialog, which) -> {
+                  taskDeleter.delete(account);
+                  restart();
+                })
+            .setNegativeButton(android.R.string.cancel, null)
+            .create();
+    alertDialog.setCanceledOnTouchOutside(false);
+    alertDialog.setCancelable(false);
+    alertDialog.show();
   }
 
   private int getPlaceProvider() {
@@ -442,8 +592,8 @@ public class BasicPreferences extends InjectingPreferenceActivity
         : 0;
   }
 
-  private void requestLogin() {
-    startActivityForResult(new Intent(this, DriveLoginActivity.class), RC_DRIVE_BACKUP);
+  private void requestGoogleDriveLogin() {
+    startActivityForResult(new Intent(this, DriveLoginActivity.class), REQUEST_DRIVE_BACKUP);
   }
 
   private void setupActivity(int key, final Class<?> target) {
@@ -460,7 +610,7 @@ public class BasicPreferences extends InjectingPreferenceActivity
       int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
     if (requestCode == PermissionRequestor.REQUEST_GOOGLE_ACCOUNTS) {
       if (verifyPermissions(grantResults)) {
-        requestLogin();
+        requestGoogleDriveLogin();
       }
     } else {
       super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -529,7 +679,7 @@ public class BasicPreferences extends InjectingPreferenceActivity
           forceRestart();
         }
       }
-    } else if (requestCode == RC_DRIVE_BACKUP) {
+    } else if (requestCode == REQUEST_DRIVE_BACKUP) {
       boolean success = resultCode == RESULT_OK;
       ((CheckBoxPreference) findPreference(R.string.p_google_drive_backup)).setChecked(success);
       if (!success && data != null) {
@@ -545,6 +695,18 @@ public class BasicPreferences extends InjectingPreferenceActivity
     } else if (requestCode == REQUEST_CUSTOMIZE) {
       if (resultCode == RESULT_OK) {
         forceRestart();
+      }
+    } else if (requestCode == REQUEST_CALDAV_SETTINGS) {
+      if (resultCode == RESULT_OK) {
+        workManager.updateBackgroundSync();
+        restart();
+      }
+    } else if (requestCode == REQUEST_GOOGLE_TASKS) {
+      if (resultCode == RESULT_OK) {
+        workManager.updateBackgroundSync();
+        restart();
+      } else if (data != null) {
+        toaster.longToast(data.getStringExtra(GtasksLoginActivity.EXTRA_ERROR));
       }
     } else {
       super.onActivityResult(requestCode, resultCode, data);

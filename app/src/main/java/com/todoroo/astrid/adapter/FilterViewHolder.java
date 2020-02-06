@@ -27,7 +27,7 @@ import org.tasks.R;
 import org.tasks.billing.Inventory;
 import org.tasks.filters.NavigationDrawerSubheader;
 import org.tasks.locale.Locale;
-import org.tasks.sync.SynchronizationPreferences;
+import org.tasks.preferences.BasicPreferences;
 import org.tasks.themes.CustomIcons;
 import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeCache;
@@ -104,7 +104,7 @@ public class FilterViewHolder extends RecyclerView.ViewHolder {
     ButterKnife.bind(this, itemView);
 
     icon.setOnClickListener(
-        v -> activity.startActivity(new Intent(activity, SynchronizationPreferences.class)));
+        v -> activity.startActivity(new Intent(activity, BasicPreferences.class)));
   }
 
   FilterViewHolder(@NonNull View itemView) {
