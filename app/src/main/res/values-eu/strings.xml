@@ -562,4 +562,6 @@
     <string name="no_application_found_link">Ez da esteka kudeatu dezakeen aplikaziorik aurkitu</string>
     <string name="enter_tag_name">Sartu etiketaren izena</string>
     <string name="create_new_tag">Sortu \"%s\"</string>
+    <string name="encryption_password_required">Zifratze pasahitza behar da</string>
+    <string name="encryption_password">Zifratze pasahitza</string>
 </resources>
