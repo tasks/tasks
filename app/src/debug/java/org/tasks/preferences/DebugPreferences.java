@@ -29,6 +29,7 @@ public class DebugPreferences extends InjectingPreferenceActivity {
 
     for (int pref :
         asList(
+            R.string.p_leakcanary,
             R.string.p_flipper,
             R.string.p_strict_mode_vm,
             R.string.p_strict_mode_thread)) {

@@ -290,6 +290,7 @@
   <string name="p_bundle_notifications">bundle_notifications</string>
   <string name="p_strict_mode_vm">strict_mode_vm</string>
   <string name="p_strict_mode_thread">strict_mode_thread</string>
+  <string name="p_leakcanary">p_leakcanary</string>
   <string name="p_flipper">p_flipper</string>
   <string name="p_debug_pro">debug_pro</string>
   <string name="warned_play_services">warned_play_services</string>

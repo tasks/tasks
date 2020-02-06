@@ -2,6 +2,10 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
   <CheckBoxPreference
+    android:key="@string/p_leakcanary"
+    android:title="@string/debug_leakcanary" />
+
+  <CheckBoxPreference
     android:key="@string/p_flipper"
     android:title="@string/debug_flipper"/>
 

@@ -13,6 +13,7 @@ import com.facebook.flipper.plugins.network.NetworkFlipperPlugin;
 import com.facebook.flipper.plugins.sharedpreferences.SharedPreferencesFlipperPlugin;
 import com.facebook.soloader.SoLoader;
 import javax.inject.Inject;
+import leakcanary.AppWatcher;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
@@ -33,6 +34,9 @@ public class BuildSetup {
     Application application = (Application) context.getApplicationContext();
     SoLoader.init(application, false);
 
+    if (!preferences.getBoolean(R.string.p_leakcanary, false)) {
+      AppWatcher.setConfig(AppWatcher.getConfig().newBuilder().enabled(false).build());
+    }
     if (preferences.getBoolean(R.string.p_flipper, false) && FlipperUtils.shouldEnableFlipper(context)) {
       FlipperClient client = AndroidFlipperClient.getInstance(application);
       client.addPlugin(new InspectorFlipperPlugin(application, DescriptorMapping.withDefaults()));
