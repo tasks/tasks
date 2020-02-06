@@ -3,7 +3,6 @@
 <resources>
 	<string name="actfm_picture_clear">사진 제거하기</string>
 	<string name="TVA_add_comment">댓글 쓰기...</string>
-	<string name="name">이름</string>
 	<string name="enter_filter_name">필터 이름 입력</string>
 	<string name="backup_BPr_header">백업</string>
 	<string name="backup_BAc_import">할일 가져오기</string>

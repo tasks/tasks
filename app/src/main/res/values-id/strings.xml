@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="TVA_add_comment">Tambahkan komentar…</string>
-    <string name="name">Nama</string>
     <string name="enter_filter_name">Masukkan nama filter</string>
     <string name="backup_BPr_header">Cadangan</string>
     <string name="backup_BAc_import">Impor tugas</string>

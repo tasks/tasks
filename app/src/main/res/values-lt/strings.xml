@@ -3,7 +3,6 @@
 <resources>
 	<string name="actfm_picture_clear">Išvalyti paveiksliuką</string>
 	<string name="TVA_add_comment">Pridėti komentarą...</string>
-	<string name="name">Pavadinimas</string>
 	<string name="enter_filter_name">Įvesti filtro pavadinimą</string>
 	<string name="backup_BPr_header">Atsarginės kopijos</string>
 	<string name="backup_BAc_import">Importuoti užduotis</string>

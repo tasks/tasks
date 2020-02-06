@@ -3,7 +3,6 @@
 <resources>
 	<string name="actfm_picture_clear">Deseleziona Immagine</string>
 	<string name="TVA_add_comment">Aggiungi un commento...</string>
-	<string name="name">Nome</string>
 	<string name="enter_filter_name">Introduci il nome filtro</string>
 	<string name="backup_BPr_header">Salvataggi</string>
 	<string name="backup_BAc_import">Importa attività</string>

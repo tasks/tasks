@@ -2,7 +2,6 @@
 <!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos--><resources>
     <string name="actfm_picture_clear">Resmi sil</string>
     <string name="TVA_add_comment">Yorum gir…</string>
-    <string name="name">Ad</string>
     <string name="enter_filter_name">Süzgeç adı girin</string>
     <string name="backup_BPr_header">Yedekler</string>
     <string name="backup_BAc_import">Görevleri içe aktar</string>

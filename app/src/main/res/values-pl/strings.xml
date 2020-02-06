@@ -2,7 +2,6 @@
 <!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos--><resources>
     <string name="actfm_picture_clear">Usuń obrazek</string>
     <string name="TVA_add_comment">Dodaj komentarz…</string>
-    <string name="name">Nazwa</string>
     <string name="enter_filter_name">Podaj nazwę filtra</string>
     <string name="backup_BPr_header">Kopie zapasowe</string>
     <string name="backup_BAc_import">Importuj zadania</string>

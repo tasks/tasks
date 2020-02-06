@@ -41,7 +41,7 @@
       android:id="@+id/shortcut_name"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:hint="@string/name"/>
+      android:hint="@string/display_name"/>
   </com.google.android.material.textfield.TextInputLayout>
   <com.google.android.material.textfield.TextInputLayout
     android:layout_width="match_parent"

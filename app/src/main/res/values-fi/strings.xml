@@ -3,7 +3,6 @@
 <resources>
     <string name="actfm_picture_clear">Tyhjennä kuva</string>
     <string name="TVA_add_comment">Lisää kommentti...</string>
-    <string name="name">Nimi</string>
     <string name="enter_filter_name">Syötä suodattimen nimi</string>
     <string name="backup_BPr_header">Varmuuskopiot</string>
     <string name="backup_BAc_import">Tuo tehtävät</string>

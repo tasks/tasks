@@ -3,7 +3,6 @@
 <resources>
     <string name="actfm_picture_clear">הסר תמונה</string>
     <string name="TVA_add_comment">הוספת הערה…</string>
-    <string name="name">שם</string>
     <string name="enter_filter_name">הזן שם מסנן</string>
     <string name="backup_BPr_header">גיבויים</string>
     <string name="backup_BAc_import">ייבוא משימות</string>

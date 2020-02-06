@@ -3,7 +3,6 @@
 <resources>
 	<string name="actfm_picture_clear">Limpar imagem</string>
 	<string name="TVA_add_comment">Comentar...</string>
-	<string name="name">Nome</string>
 	<string name="enter_filter_name">Digite o nome do filtro</string>
 	<string name="backup_BAc_import">Importar tarefas</string>
 	<string name="backup_BAc_export">Exportar tarefas</string>

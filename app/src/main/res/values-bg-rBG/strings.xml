@@ -3,7 +3,6 @@
 <resources>
 	<string name="actfm_picture_clear">Изчисти Картинка</string>
 	<string name="TVA_add_comment">Добави коментар...</string>
-	<string name="name">Име</string>
 	<string name="enter_filter_name">Въведете име на филтъра</string>
 	<string name="backup_BPr_header">Резервни копия</string>
 	<string name="backup_BAc_import">Импортиране на задачи</string>

@@ -3,7 +3,7 @@
 
   <string name="actfm_picture_clear">Clear Picture</string>
   <string name="TVA_add_comment">Add a comment…</string>
-  <string name="name">Name</string>
+  <string name="display_name">Display name</string>
   <string name="enter_filter_name">Enter filter name</string>
   <string name="backup_BPr_header">Backups</string>
   <string name="backup_BAc_import">Import tasks</string>

@@ -170,7 +170,6 @@
     <string name="bundle_notifications_summary">Kombiner flere varsler til ett</string>
     <string name="actfm_picture_clear">Tøm bilde</string>
     <string name="TVA_add_comment">Legg til kommentar…</string>
-    <string name="name">Navn</string>
     <string name="enter_filter_name">Skriv inn filternavn</string>
     <string name="discard_confirmation">Er du sikker på at du vil forkaste dine endringer\?</string>
     <string name="keep_editing">Fortsett å redigere</string>

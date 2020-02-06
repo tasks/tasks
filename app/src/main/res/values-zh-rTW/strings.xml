@@ -225,7 +225,6 @@
     <string name="repeats_yearly">每年</string>
     <string name="repeats_plural">每 %s 重複</string>
     <string name="themes">其他主題</string>
-    <string name="name">名稱</string>
     <string name="enter_filter_name">輸入過濾名稱</string>
     <string name="discard_confirmation">您要放棄更改嗎？</string>
     <string name="keep_editing">繼續編輯</string>

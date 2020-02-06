@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Garbitu irudia</string>
     <string name="TVA_add_comment">Gehitu iruzkin bat…</string>
-    <string name="name">Izena</string>
     <string name="enter_filter_name">Sartu iragazkiaren izena</string>
     <string name="backup_BPr_header">Babes-kopiak</string>
     <string name="backup_BAc_import">Inportatu zereginak</string>

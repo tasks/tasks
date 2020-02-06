@@ -3,7 +3,6 @@
 <resources>
     <string name="actfm_picture_clear">写真を削除</string>
     <string name="TVA_add_comment">コメントする</string>
-    <string name="name">名前</string>
     <string name="enter_filter_name">フィルター名を入力</string>
     <string name="backup_BPr_header">バックアップ</string>
     <string name="backup_BAc_import">タスクのインポート</string>

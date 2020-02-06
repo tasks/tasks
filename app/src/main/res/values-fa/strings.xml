@@ -3,7 +3,6 @@
 <resources>
 	<string name="actfm_picture_clear">پاک کردن عکس</string>
 	<string name="TVA_add_comment">اضافه کردن نظر</string>
-	<string name="name">نام</string>
 	<string name="enter_filter_name">نام فیلتر را وارد نمایید</string>
 	<string name="backup_BPr_header">پشتیبان ها</string>
 	<string name="backup_BAc_import">واردکردن وظایف</string>

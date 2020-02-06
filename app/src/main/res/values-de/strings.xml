@@ -508,7 +508,6 @@
     <string name="changelog">Änderungshistorie</string>
     <string name="invalid_backup_file">Ungültige Backupdatei</string>
     <string name="google_tasks_add_to_top">Neue Aufgaben oben</string>
-    <string name="name">Name</string>
     <string name="backup_BPr_header">Sicherungen</string>
     <string name="gtasks_GPr_header">Google Aufgaben</string>
     <string name="TEA_timer_controls">Stoppuhr</string>

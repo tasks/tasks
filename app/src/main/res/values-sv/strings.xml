@@ -2,7 +2,6 @@
 <!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos--><resources>
     <string name="actfm_picture_clear">Rensa bild</string>
     <string name="TVA_add_comment">Lägg till en kommentar…</string>
-    <string name="name">Namn</string>
     <string name="enter_filter_name">Ange ett namn för filtret</string>
     <string name="backup_BPr_header">Säkerhetskopior</string>
     <string name="backup_BAc_import">Importera uppgifter</string>

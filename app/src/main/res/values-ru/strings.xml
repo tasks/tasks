@@ -2,7 +2,6 @@
 <!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos--><resources>
     <string name="actfm_picture_clear">Убрать изображение</string>
     <string name="TVA_add_comment">Добавить комментарий…</string>
-    <string name="name">Название</string>
     <string name="enter_filter_name">Введите имя фильтра</string>
     <string name="backup_BPr_header">Резервные копии</string>
     <string name="backup_BAc_import">Импортировать задачи</string>

@@ -2,7 +2,6 @@
 <!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos--><resources>
     <string name="actfm_picture_clear">Odebrat obrázek</string>
     <string name="TVA_add_comment">Přidej comment...</string>
-    <string name="name">Název</string>
     <string name="backup_BPr_header">Zálohy</string>
     <string name="backup_BAc_import">Importovat úkoly</string>
     <string name="backup_BAc_export">Exportovat úkoly</string>
