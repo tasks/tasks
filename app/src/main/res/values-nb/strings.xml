@@ -564,4 +564,6 @@
     <string name="no_application_found_link">Mangler program for håndtering av lenke</string>
     <string name="enter_tag_name">Skriv inn etikettnavn</string>
     <string name="create_new_tag">Opprett «%s»</string>
+    <string name="encryption_password_required">Krypteringspassord kreves</string>
+    <string name="encryption_password">Krypteringspassord</string>
 </resources>
