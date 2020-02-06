@@ -577,4 +577,6 @@
     <string name="no_application_found_link">Не найдено приложение для открытия ссылки</string>
     <string name="enter_tag_name">Введите имя тега</string>
     <string name="create_new_tag">Создать \"%s\"</string>
+    <string name="encryption_password_required">Требуется пароль шифрования</string>
+    <string name="encryption_password">Пароль шифрования</string>
 </resources>
