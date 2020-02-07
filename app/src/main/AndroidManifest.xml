@@ -120,6 +120,14 @@
       android:value="false"/>
 
     <meta-data
+      android:name="google_analytics_adid_collection_enabled"
+      android:value="false" />
+
+    <meta-data
+      android:name="google_analytics_ssaid_collection_enabled"
+      android:value="false" />
+
+    <meta-data
       android:name="com.google.android.backup.api_key"
       android:value="@string/backup_api_key" />
 
