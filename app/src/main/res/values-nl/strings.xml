@@ -557,4 +557,11 @@
     <string name="create_new_tag">Maak \"%s\" aan</string>
     <string name="encryption_password_required">Coderingswachtwoord vereist</string>
     <string name="encryption_password">Coderingswachtwoord</string>
+    <string name="display_name">Weergavenaam</string>
+    <string name="pro_etesync">EteSync synchronisatie</string>
+    <string name="this_feature_requires_a_subscription">Deze functionaliteit vereist een abonnement</string>
+    <string name="choose_synchronization_service">Selecteer een platform</string>
+    <string name="google_tasks_selection_description">Basisservice die synchroniseert met uw Google-account</string>
+    <string name="caldav_selection_description">Synchronisatie gebaseerd op open internetstandaarden</string>
+    <string name="etesync_selection_description">Open source, end-to-end versleutelde synchronisatie</string>
 </resources>
