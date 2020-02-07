@@ -128,6 +128,10 @@
       android:value="false" />
 
     <meta-data
+      android:name="google_analytics_default_allow_ad_personalization_signals"
+      android:value="false" />
+
+    <meta-data
       android:name="com.google.android.backup.api_key"
       android:value="@string/backup_api_key" />
 
