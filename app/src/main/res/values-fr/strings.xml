@@ -540,7 +540,7 @@ est configuré correctement</string>
     <string name="caldav_account_repeating_tasks">Permet au serveur de programmer des tâches récurrentes</string>
     <string name="EPr_temp_show_completed_tasks">Afficher temporairement les tâches une fois terminées</string>
     <string name="EPr_temp_completed_tasks_showing">Les tâches resteront temporairement visibles dans la liste une fois terminées</string>
-    <string name="EPr_temp_completed_tasks_not_showing">Les tâches disparaîtront immédiatement de la liste une fois terminées</string>
+    <string name="EPr_temp_completed_tasks_not_showing">Les tâches vont immédiatement disparaître de la liste après complétion</string>
     <plurals name="subtask_count">
         <item quantity="one">%d sous-tâche</item>
         <item quantity="other">%d sous-tâches</item>
@@ -558,4 +558,11 @@ est configuré correctement</string>
     <string name="create_new_tag">Créer %s</string>
     <string name="encryption_password_required">Mot de passe de chiffrement requis</string>
     <string name="encryption_password">Mot de passe de chiffrement</string>
+    <string name="display_name">Afficher le nom</string>
+    <string name="pro_etesync">Synchronisation de EteSync</string>
+    <string name="this_feature_requires_a_subscription">Cette fonctionnalité nécessite un abonnement</string>
+    <string name="choose_synchronization_service">Sélectionnez une plate-forme</string>
+    <string name="google_tasks_selection_description">Service de base qui se synchronise avec votre compte Google</string>
+    <string name="caldav_selection_description">Synchronisation basée sur des normes d\'Internet ouvertes</string>
+    <string name="etesync_selection_description">Source ouverte, synchronisation chiffrée de bout en bout</string>
 </resources>
