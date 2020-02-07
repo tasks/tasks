@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.google.android.material.chip.Chip;
+import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableList;
 import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
@@ -164,14 +165,20 @@ public class RemoteListFragment extends TaskEditControlFragment {
 
   @Override
   public void apply(Task task) {
-    task.setParent(0);
-    task.setParentUuid(null);
-    taskMover.move(ImmutableList.of(task.getId()), selectedList);
+    if (isNew() || hasChanges()) {
+      task.setParent(0);
+      task.setParentUuid(null);
+      taskMover.move(ImmutableList.of(task.getId()), selectedList);
+    }
   }
 
   @Override
   public boolean hasChanges(Task original) {
-    return selectedList == null ? originalList != null : !selectedList.equals(originalList);
+    return hasChanges();
+  }
+
+  private boolean hasChanges() {
+    return !Objects.equal(selectedList, originalList);
   }
 
   @Override

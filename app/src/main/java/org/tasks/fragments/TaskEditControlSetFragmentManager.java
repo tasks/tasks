@@ -116,6 +116,7 @@ public class TaskEditControlSetFragmentManager {
       TaskEditFragment taskEditFragment, Task task) {
     Bundle arguments = new Bundle();
     arguments.putParcelable(TaskEditControlFragment.EXTRA_TASK, task);
+    arguments.putBoolean(TaskEditControlFragment.EXTRA_IS_NEW, task.isNew());
 
     List<TaskEditControlFragment> fragments = new ArrayList<>();
     FragmentManager fragmentManager = taskEditFragment.getChildFragmentManager();

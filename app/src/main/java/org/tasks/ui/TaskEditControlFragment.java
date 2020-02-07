@@ -16,8 +16,10 @@ import org.tasks.injection.InjectingFragment;
 public abstract class TaskEditControlFragment extends InjectingFragment {
 
   public static final String EXTRA_TASK = "extra_task";
+  public static final String EXTRA_IS_NEW = "extra_is_new";
 
   protected Task task;
+  private boolean isNew;
 
   @Nullable
   @Override
@@ -39,6 +41,7 @@ public abstract class TaskEditControlFragment extends InjectingFragment {
     Bundle arguments = getArguments();
     if (arguments != null) {
       task = arguments.getParcelable(EXTRA_TASK);
+      isNew = arguments.getBoolean(EXTRA_IS_NEW);
     }
   }
 
@@ -56,5 +59,9 @@ public abstract class TaskEditControlFragment extends InjectingFragment {
 
   public boolean hasChanges(Task original) {
     return false;
+  }
+
+  protected boolean isNew() {
+    return isNew;
   }
 }
