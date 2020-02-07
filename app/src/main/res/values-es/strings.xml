@@ -9,7 +9,12 @@
     <string name="export_toast">Respaldadas %1$s de %2$s.</string>
     <string name="export_toast_no_tasks">No hay tareas para exportar.</string>
     <string name="import_summary_title">Resumen de restauración</string>
-    <string name="import_summary_message">El fichero %1$s contenia %2$s.\n\n %3$s importadas\n %4$s ya existian\n %5$s tenian errores\n</string>
+    <string name="import_summary_message">El fichero %1$s contenía %2$s.
+\n
+\n %3$s importadas
+\n %4$s ya existían
+\n %5$s tenían errores
+\n</string>
     <string name="import_progress_read">Leyendo tarea %d…</string>
     <string name="read_permission_label">Permisos de Tasks</string>
     <string name="discard_confirmation">¿Quieres descartar los cambios?</string>
@@ -353,7 +358,7 @@
     <string name="send_anonymous_statistics">Mejorar Tasks</string>
     <string name="send_anonymous_statistics_summary">Enviar de forma anónima estadísticas de uso e informes de error para ayudar a mejorar Task. No se recogerán datos personales.</string>
     <string name="tag_already_exists">La etiqueta ya existe</string>
-    <string name="duplicate_name">Nombre duplicar</string>
+    <string name="duplicate_name">Nombre duplicado</string>
     <string name="name_cannot_be_empty">El nombre no puede estar vacío</string>
     <string name="username_required">Nombre de usuario requerido</string>
     <string name="password_required">Contraseña requerida</string>
@@ -480,7 +485,7 @@
     <string name="pro_caldav_sync">Sincronización de CalDAV</string>
     <string name="pro_multiple_google_task_accounts">Múltiples cuentas de Google Task</string>
     <string name="pro_google_places_search">Buscar en Google Places</string>
-    <string name="pro_tasker_plugins">Extensiones los trabajo</string>
+    <string name="pro_tasker_plugins">Plugins de Tasker</string>
     <string name="pro_dashclock_extension">Extensión Dashclock</string>
     <string name="requires_pro_subscription">Requiere suscripción profesional</string>
     <string name="logout">Cerrar sesión</string>
@@ -532,7 +537,7 @@
     <string name="button_unsubscribe">Cancelar la suscripción</string>
     <string name="pro_description">Tasks es un software libre de código abierto que no muestra publicidad ni vende su información personal</string>
     <string name="pro_subscribe_now">Suscríbase ahora para apoyar el desarrollo y desbloquear funciones adicionales</string>
-    <string name="name_your_price">Nombra tu precio</string>
+    <string name="name_your_price">Escoger tu precio</string>
     <string name="monthly">Mensualmente</string>
     <string name="annually">Anualmente</string>
     <string name="SSD_sort_my_order">Mi pedido</string>
@@ -548,11 +553,20 @@
     <string name="collapse_subtasks">Contraer subtareas</string>
     <string name="TEA_add_subtask">Añadir subtarea</string>
     <string name="subtasks">Subtareas</string>
-  <string name="subtasks_multilevel_google_task">Subtareas multinivel no compatibles con Google Tasks</string>
+    <string name="subtasks_multilevel_google_task">Subtareas multinivel no compatibles con Google Tasks</string>
     <string name="enter_title_hint">Introducir título</string>
     <string name="show_subtasks">Mostrar subtareas</string>
     <string name="show_subtasks_summary">La visualización de subtareas degradará el rendimiento de la aplicación</string>
     <string name="no_application_found_link">No se encontró ninguna aplicación para manejar el enlace</string>
     <string name="enter_tag_name">Introduzca el nombre de la etiqueta</string>
     <string name="create_new_tag">Crear \"%s\"</string>
+    <string name="encryption_password_required">Contraseña de encriptado requerida</string>
+    <string name="encryption_password">Contraseña de encriptado</string>
+    <string name="display_name">Mostrar el nombre</string>
+    <string name="pro_etesync">Sincronización de EteSync</string>
+    <string name="this_feature_requires_a_subscription">Esta característica requiere una suscripción</string>
+    <string name="choose_synchronization_service">Seleccione una plataforma</string>
+    <string name="google_tasks_selection_description">Servicio básico que se sincroniza con tu cuenta de Google</string>
+    <string name="caldav_selection_description">Sincronización basada en estándares abiertos de Internet</string>
+    <string name="etesync_selection_description">Sincronización cifrada de extremo a extremo de código abierto</string>
 </resources>
