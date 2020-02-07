@@ -1,7 +1,6 @@
 package org.tasks.data;
 
 import androidx.room.Embedded;
-import com.google.common.base.Strings;
 import com.todoroo.astrid.data.Task;
 
 public class CaldavTaskContainer {
@@ -24,7 +23,12 @@ public class CaldavTaskContainer {
     return task.isDeleted();
   }
 
-  public boolean isNew() {
-    return Strings.isNullOrEmpty(caldavTask.getVtodo());
+  public String getVtodo() {
+    return caldavTask.getVtodo();
+  }
+
+  @Override
+  public String toString() {
+    return "CaldavTaskContainer{" + "task=" + task + ", caldavTask=" + caldavTask + '}';
   }
 }

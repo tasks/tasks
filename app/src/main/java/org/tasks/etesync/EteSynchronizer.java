@@ -193,10 +193,23 @@ public class EteSynchronizer {
 
     List<SyncEntry> changes = new ArrayList<>();
     for (CaldavTask task : caldavDao.getDeleted(caldavCalendar.getUuid())) {
-      changes.add(new SyncEntry(task.getVtodo(), Actions.DELETE));
+      String vtodo = task.getVtodo();
+      if (!Strings.isNullOrEmpty(vtodo)) {
+        changes.add(new SyncEntry(vtodo, Actions.DELETE));
+      }
     }
+
     for (CaldavTaskContainer task : localChanges.values()) {
-      changes.add(new SyncEntry(getVtodo(task), task.isNew() ? Actions.ADD : Actions.CHANGE));
+      String vtodo = task.getVtodo();
+      boolean existingTask = !Strings.isNullOrEmpty(vtodo);
+
+      if (task.isDeleted()) {
+        if (existingTask) {
+          changes.add(new SyncEntry(vtodo, Actions.DELETE));
+        }
+      } else {
+        changes.add(new SyncEntry(getVtodo(task), existingTask ? Actions.CHANGE : Actions.ADD));
+      }
     }
 
     remoteCtag = caldavCalendar.getCtag();
@@ -211,10 +224,12 @@ public class EteSynchronizer {
       updates.add(Pair.create(entry, syncEntry));
       previous = entry;
     }
-    Timber.v("Pushing local changes");
-    client.pushEntries(journal, from(updates).transform(p -> p.first).toList(), remoteCtag);
-    Timber.v("Applying local changes");
-    applyEntries(caldavCalendar, updates, emptySet());
+    if (updates.size() > 0) {
+      Timber.v("Pushing local changes");
+      client.pushEntries(journal, from(updates).transform(p -> p.first).toList(), remoteCtag);
+      Timber.v("Applying local changes");
+      applyEntries(caldavCalendar, updates, emptySet());
+    }
 
     Timber.d("UPDATE %s", caldavCalendar);
 

@@ -103,7 +103,8 @@ public abstract class CaldavDao {
       "SELECT task.*, caldav_task.* FROM tasks AS task "
           + "INNER JOIN caldav_tasks AS caldav_task ON _id = cd_task "
           + "WHERE cd_calendar = :calendar "
-          + "AND modified > cd_last_sync")
+          + "AND modified > cd_last_sync "
+          + "AND cd_deleted = 0")
   public abstract List<CaldavTaskContainer> getCaldavTasksToPush(String calendar);
 
   @Query("SELECT * FROM caldav_lists ORDER BY cdl_name COLLATE NOCASE")
