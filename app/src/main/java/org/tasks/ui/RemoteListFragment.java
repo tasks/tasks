@@ -164,6 +164,8 @@ public class RemoteListFragment extends TaskEditControlFragment {
 
   @Override
   public void apply(Task task) {
+    task.setParent(0);
+    task.setParentUuid(null);
     taskMover.move(ImmutableList.of(task.getId()), selectedList);
   }
 
