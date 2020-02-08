@@ -4,7 +4,6 @@ import static android.text.TextUtils.isEmpty;
 import static at.bitfire.dav4jvm.XmlUtils.NS_CALDAV;
 import static at.bitfire.dav4jvm.XmlUtils.NS_CARDDAV;
 import static at.bitfire.dav4jvm.XmlUtils.NS_WEBDAV;
-import static java.util.Arrays.asList;
 
 import android.content.Context;
 import at.bitfire.cert4android.CustomCertManager;
@@ -62,7 +61,7 @@ public class CaldavClient {
   private boolean foreground;
 
   @Inject
-  public CaldavClient(
+  CaldavClient(
       @ForApplication Context context,
       Encryption encryption,
       Preferences preferences,
@@ -121,40 +120,30 @@ public class CaldavClient {
     return forUrl(account.getUrl(), account.getUsername(), account.getPassword(encryption));
   }
 
-  public CaldavClient forCalendar(CaldavAccount account, CaldavCalendar calendar)
+  CaldavClient forCalendar(CaldavAccount account, CaldavCalendar calendar)
       throws NoSuchAlgorithmException, KeyManagementException {
     return forUrl(calendar.getUrl(), account.getUsername(), account.getPassword(encryption));
   }
 
-  public CaldavClient forUrl(String url, String username, String password)
+  CaldavClient forUrl(String url, String username, String password)
       throws KeyManagementException, NoSuchAlgorithmException {
     return new CaldavClient(
         context, encryption, preferences, interceptor, url, username, password, foreground);
   }
 
-  private String tryFindPrincipal() throws DavException, IOException {
-    for (String link : asList("", "/.well-known/caldav")) {
-      HttpUrl url = httpUrl.resolve(link);
-      Timber.d("Checking for principal: %s", url);
-      DavResource davResource = new DavResource(httpClient, url);
-      ResponseList responses = new ResponseList();
-      try {
-        davResource.propfind(0, new Name[] {CurrentUserPrincipal.NAME}, responses);
-      } catch (HttpException e) {
-        if (e.getCode() == 405) {
-          Timber.w(e);
-        } else {
-          throw e;
-        }
-      }
-      if (!responses.isEmpty()) {
-        Response response = responses.get(0);
-        CurrentUserPrincipal currentUserPrincipal = response.get(CurrentUserPrincipal.class);
-        if (currentUserPrincipal != null) {
-          String href = currentUserPrincipal.getHref();
-          if (!isEmpty(href)) {
-            return href;
-          }
+  private String tryFindPrincipal(String link) throws DavException, IOException {
+    HttpUrl url = httpUrl.resolve(link);
+    Timber.d("Checking for principal: %s", url);
+    DavResource davResource = new DavResource(httpClient, url);
+    ResponseList responses = new ResponseList();
+    davResource.propfind(0, new Name[] {CurrentUserPrincipal.NAME}, responses);
+    if (!responses.isEmpty()) {
+      Response response = responses.get(0);
+      CurrentUserPrincipal currentUserPrincipal = response.get(CurrentUserPrincipal.class);
+      if (currentUserPrincipal != null) {
+        String href = currentUserPrincipal.getHref();
+        if (!isEmpty(href)) {
+          return href;
         }
       }
     }
@@ -181,8 +170,16 @@ public class CaldavClient {
     return davResource.getLocation().resolve(homeSet).toString();
   }
 
-  public String getHomeSet() throws IOException, DavException {
-    String principal = tryFindPrincipal();
+  String getHomeSet() throws IOException, DavException {
+    String principal = null;
+    try {
+      principal = tryFindPrincipal("/.well-known/caldav");
+    } catch (Exception e) {
+      Timber.w(e);
+    }
+    if (principal == null) {
+      principal = tryFindPrincipal("");
+    }
     return findHomeset(isEmpty(principal) ? httpUrl : httpUrl.resolve(principal));
   }
 
@@ -215,11 +212,11 @@ public class CaldavClient {
     return urls;
   }
 
-  public void deleteCollection() throws IOException, HttpException {
+  void deleteCollection() throws IOException, HttpException {
     new DavResource(httpClient, httpUrl).delete(null, response -> null);
   }
 
-  public String makeCollection(String displayName)
+  String makeCollection(String displayName)
       throws IOException, XmlPullParserException, HttpException {
     DavResource davResource =
         new DavResource(httpClient, httpUrl.resolve(UUIDHelper.newUUID() + "/"));
@@ -266,7 +263,7 @@ public class CaldavClient {
     return httpClient;
   }
 
-  public CaldavClient setForeground() {
+  CaldavClient setForeground() {
     foreground = true;
     return this;
   }
