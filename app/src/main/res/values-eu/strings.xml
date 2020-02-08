@@ -564,4 +564,11 @@
     <string name="create_new_tag">Sortu \"%s\"</string>
     <string name="encryption_password_required">Zifratze pasahitza behar da</string>
     <string name="encryption_password">Zifratze pasahitza</string>
+    <string name="display_name">Erakutsi izena</string>
+    <string name="pro_etesync">EteSync sinkronizazioa</string>
+    <string name="this_feature_requires_a_subscription">Ezaugarri honek harpidetza eskatzen du</string>
+    <string name="choose_synchronization_service">Hautatu plataforma</string>
+    <string name="google_tasks_selection_description">Zure Google kontuarekin sinkronizatzen den oinarrizko zerbitzua</string>
+    <string name="caldav_selection_description">Internet estandar irekietan oinarritutako sinkronizazioa</string>
+    <string name="etesync_selection_description">Kode irekikoa, muturretik muturrera zifratutako sinkronizazioa</string>
 </resources>
