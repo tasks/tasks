@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.core.util.Pair;
 import at.bitfire.cert4android.CustomCertManager;
 import at.bitfire.cert4android.CustomCertManager.CustomHostnameVerifier;
-import com.etesync.journalmanager.Crypto;
+import com.etesync.journalmanager.Constants;
 import com.etesync.journalmanager.Crypto.CryptoManager;
 import com.etesync.journalmanager.Exceptions;
 import com.etesync.journalmanager.Exceptions.HttpException;
@@ -151,16 +151,15 @@ public class EteSyncClient {
         foreground);
   }
 
-  Pair<String, String> getKeyAndToken(String password)
-      throws IOException, Exceptions.HttpException, VersionTooNewException, IntegrityException {
+  Pair<UserInfo, String> getInfoAndToken(String password) throws IOException, HttpException {
     JournalAuthenticator journalAuthenticator = new JournalAuthenticator(httpClient, httpUrl);
     String token = journalAuthenticator.getAuthToken(username, password);
+    return Pair.create(getUserInfo(), token);
+  }
+
+  UserInfo getUserInfo() throws HttpException {
     UserInfoManager userInfoManager = new UserInfoManager(httpClient, httpUrl);
-    UserInfo userInfo = userInfoManager.fetch(username);
-    String key = Crypto.deriveKey(username, encryptionPassword);
-    CryptoManager cryptoManager = new CryptoManager(userInfo.getVersion(), key, "userInfo");
-    userInfo.verify(cryptoManager);
-    return Pair.create(token, key);
+    return userInfoManager.fetch(username);
   }
 
   CryptoManager getCrypto(Journal journal) throws VersionTooNewException, IntegrityException {
@@ -185,8 +184,13 @@ public class EteSyncClient {
     Map<Journal, CollectionInfo> result = new HashMap<>();
     for (Journal journal : journalManager.list()) {
       CollectionInfo collection = convertJournalToCollection(journal);
-      if (collection != null && TYPE_TASKS.equals(collection.getType())) {
-        result.put(journal, collection);
+      if (collection != null) {
+        if (TYPE_TASKS.equals(collection.getType())) {
+          Timber.v("Found %s", collection);
+          result.put(journal, collection);
+        } else {
+          Timber.v("Ignoring %s", collection);
+        }
       }
     }
     return result;
@@ -222,7 +226,7 @@ public class EteSyncClient {
 
   void invalidateToken() {
     try {
-      new JournalAuthenticator(httpClient, httpUrl).invalidateAuthToken(token);
+        new JournalAuthenticator(httpClient, httpUrl).invalidateAuthToken(token);
     } catch (Exception e) {
       Timber.e(e);
     }
@@ -243,5 +247,13 @@ public class EteSyncClient {
 
   void deleteCollection(CaldavCalendar calendar) throws HttpException {
     journalManager.delete(Journal.fakeWithUid(calendar.getUrl()));
+  }
+
+  void createUserInfo(String derivedKey)
+      throws HttpException, VersionTooNewException, IntegrityException, IOException {
+    CryptoManager cryptoManager =
+        new CryptoManager(Constants.CURRENT_VERSION, derivedKey, "userInfo");
+    UserInfo userInfo = UserInfo.generate(cryptoManager, username);
+    new UserInfoManager(httpClient, httpUrl).create(userInfo);
   }
 }

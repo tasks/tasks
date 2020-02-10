@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import androidx.annotation.StringRes;
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import at.bitfire.dav4jvm.exception.HttpException;
@@ -19,7 +19,6 @@ import butterknife.OnFocusChange;
 import butterknife.OnTextChanged;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.textfield.TextInputEditText;
 import com.todoroo.astrid.service.TaskDeleter;
 import java.net.ConnectException;
 import java.net.IDN;
@@ -34,7 +33,6 @@ import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavDao;
 import org.tasks.databinding.ActivityCaldavAccountSettingsBinding;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.etesync.EteSyncAccountSettingsActivity;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.security.Encryption;
 import org.tasks.ui.DisplayableException;
@@ -65,7 +63,10 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
     setContentView(binding.getRoot());
     ButterKnife.bind(this);
 
-    caldavAccount = getIntent().getParcelableExtra(EXTRA_CALDAV_DATA);
+    caldavAccount =
+        savedInstanceState == null
+            ? getIntent().getParcelableExtra(EXTRA_CALDAV_DATA)
+            : savedInstanceState.getParcelable(EXTRA_CALDAV_DATA);
 
     if (savedInstanceState == null) {
       if (caldavAccount != null) {
@@ -74,9 +75,6 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
         binding.user.setText(caldavAccount.getUsername());
         if (!isEmpty(caldavAccount.getPassword())) {
           binding.password.setText(PASSWORD_MASK);
-        }
-        if (!isEmpty(caldavAccount.getEncryptionKey())) {
-          binding.encryptionPassword.setText(PASSWORD_MASK);
         }
         binding.repeat.setChecked(caldavAccount.isSuppressRepeatingTasks());
       }
@@ -101,7 +99,7 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
     }
 
     if (!inventory.hasPro()) {
-      newSnackbar(R.string.this_feature_requires_a_subscription)
+      newSnackbar(getString(R.string.this_feature_requires_a_subscription))
           .setDuration(BaseTransientBottomBar.LENGTH_INDEFINITE)
           .setAction(
               R.string.button_subscribe,
@@ -110,11 +108,18 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
     }
   }
 
+  @Override
+  protected void onSaveInstanceState(@NonNull Bundle outState) {
+    super.onSaveInstanceState(outState);
+
+    outState.putParcelable(EXTRA_CALDAV_DATA, caldavAccount);
+  }
+
   private void showProgressIndicator() {
     binding.progressBar.progressBar.setVisibility(View.VISIBLE);
   }
 
-  private void hideProgressIndicator() {
+  protected void hideProgressIndicator() {
     binding.progressBar.progressBar.setVisibility(View.GONE);
   }
 
@@ -123,38 +128,34 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
   }
 
   @OnTextChanged(R.id.name)
-  void onNameChanged(CharSequence text) {
+  void onNameChanged() {
     binding.nameLayout.setError(null);
   }
 
   @OnTextChanged(R.id.url)
-  void onUrlChanged(CharSequence text) {
+  void onUrlChanged() {
     binding.urlLayout.setError(null);
   }
 
   @OnTextChanged(R.id.user)
-  void onUserChanged(CharSequence text) {
+  void onUserChanged() {
     binding.userLayout.setError(null);
   }
 
   @OnTextChanged(R.id.password)
-  void onPasswordChanged(CharSequence text) {
+  void onPasswordChanged() {
     binding.passwordLayout.setError(null);
   }
 
   @OnFocusChange(R.id.password)
   void onPasswordFocused(boolean hasFocus) {
-    changePasswordFocus(binding.password, hasFocus);
-  }
-
-  protected void changePasswordFocus(TextInputEditText text, boolean hasFocus) {
     if (hasFocus) {
-      if (PASSWORD_MASK.equals(text.getText().toString())) {
-        text.setText("");
+      if (PASSWORD_MASK.equals(binding.password.getText().toString())) {
+        binding.password.setText("");
       }
     } else {
-      if (isEmpty(text.getText()) && caldavAccount != null) {
-        text.setText(PASSWORD_MASK);
+      if (isEmpty(binding.password.getText()) && caldavAccount != null) {
+        binding.password.setText(PASSWORD_MASK);
       }
     }
   }
@@ -175,17 +176,7 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
     return caldavAccount == null || !PASSWORD_MASK.equals(binding.password.getText().toString().trim());
   }
 
-  protected String getNewPassword() {
-    String input = binding.password.getText().toString().trim();
-    return PASSWORD_MASK.equals(input) ? encryption.decrypt(caldavAccount.getPassword()) : input;
-  }
-
-  protected String getNewEncryptionPassword() {
-    String input = binding.encryptionPassword.getText().toString().trim();
-    return PASSWORD_MASK.equals(input)
-        ? null
-        : input;
-  }
+  protected abstract String getNewPassword();
 
   private void save() {
     if (requestInProgress()) {
@@ -196,7 +187,6 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
     String username = getNewUsername();
     String url = getNewURL();
     String password = getNewPassword();
-    String encryptionPassword = getNewEncryptionPassword();
 
     boolean failed = false;
 
@@ -253,13 +243,6 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
       failed = true;
     }
 
-    if (this instanceof EteSyncAccountSettingsActivity) {
-      if (caldavAccount == null && isEmpty(encryptionPassword)) {
-        binding.encryptionPassword.setError(getString(R.string.password_required));
-        failed = true;
-      }
-    }
-
     if (failed) {
       return;
     }
@@ -308,10 +291,6 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
     newSnackbar(message).show();
   }
 
-  private Snackbar newSnackbar(@StringRes int resId) {
-    return newSnackbar(getString(resId));
-  }
-
   private Snackbar newSnackbar(String message) {
     Snackbar snackbar =
         Snackbar.make(binding.rootLayout, message, 8000)
@@ -327,7 +306,7 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
     if (caldavAccount == null) {
       return !isEmpty(getNewName())
           || !isEmpty(getNewPassword())
-          || !isEmpty(getNewURL())
+          || !isEmpty(binding.url.getText().toString().trim())
           || !isEmpty(getNewUsername())
           || binding.repeat.isChecked();
     }
@@ -344,9 +323,11 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
 
   @Override
   public void finish() {
-    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-    imm.hideSoftInputFromWindow(binding.name.getWindowToken(), 0);
-    super.finish();
+    if (!requestInProgress()) {
+      InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+      imm.hideSoftInputFromWindow(binding.name.getWindowToken(), 0);
+      super.finish();
+    }
   }
 
   @Override

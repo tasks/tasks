@@ -1,21 +1,25 @@
 package org.tasks.etesync;
 
+import androidx.annotation.Nullable;
 import androidx.core.util.Pair;
+import com.etesync.journalmanager.UserInfoManager.UserInfo;
+import com.google.common.base.Strings;
 import org.tasks.ui.CompletableViewModel;
 
 @SuppressWarnings("WeakerAccess")
-public class UpdateEteSyncAccountViewModel extends CompletableViewModel<Pair<String, String>> {
+public class UpdateEteSyncAccountViewModel extends CompletableViewModel<Pair<UserInfo, String>> {
   void updateAccount(
       EteSyncClient client,
       String url,
       String username,
-      String password,
-      String encryptionPassword) {
+      @Nullable String password,
+      @Nullable String token) {
     run(
-        () ->
-            client
-                .setForeground()
-                .forUrl(url, username, encryptionPassword, null)
-                .getKeyAndToken(password));
+        () -> {
+          EteSyncClient newClient = client.setForeground().forUrl(url, username, null, token);
+          return Strings.isNullOrEmpty(password)
+              ? Pair.create(newClient.getUserInfo(), token)
+              : newClient.getInfoAndToken(password);
+        });
   }
 }

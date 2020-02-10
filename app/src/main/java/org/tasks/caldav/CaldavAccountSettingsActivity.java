@@ -36,6 +36,8 @@ public class CaldavAccountSettingsActivity extends BaseCaldavAccountSettingsActi
   }
 
   private void addAccount(String principal) {
+    hideProgressIndicator();
+
     Timber.d("Found principal: %s", principal);
 
     CaldavAccount newAccount = new CaldavAccount();
@@ -53,6 +55,8 @@ public class CaldavAccountSettingsActivity extends BaseCaldavAccountSettingsActi
   }
 
   protected void updateAccount(String principal) {
+    hideProgressIndicator();
+
     caldavAccount.setName(getNewName());
     caldavAccount.setUrl(principal);
     caldavAccount.setUsername(getNewUsername());
@@ -80,6 +84,12 @@ public class CaldavAccountSettingsActivity extends BaseCaldavAccountSettingsActi
   @Override
   protected void updateAccount() {
     updateAccount(caldavAccount.getUrl());
+  }
+
+  @Override
+  protected String getNewPassword() {
+    String input = binding.password.getText().toString().trim();
+    return PASSWORD_MASK.equals(input) ? encryption.decrypt(caldavAccount.getPassword()) : input;
   }
 
   @Override

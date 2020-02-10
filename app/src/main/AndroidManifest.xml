@@ -570,6 +570,10 @@
       android:name=".etesync.EteSyncCalendarSettingsActivity"
       android:theme="@style/Tasks" />
 
+    <activity
+      android:name=".etesync.EncryptionSettingsActivity"
+      android:theme="@style/Tasks" />
+
     <!-- launcher icons -->
 
     <activity-alias

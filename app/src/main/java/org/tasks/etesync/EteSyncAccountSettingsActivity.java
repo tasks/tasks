@@ -1,28 +1,38 @@
 package org.tasks.etesync;
 
+import static com.todoroo.astrid.data.Task.NO_ID;
+
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.util.Pair;
 import androidx.lifecycle.ViewModelProviders;
-import butterknife.OnFocusChange;
-import butterknife.OnTextChanged;
+import butterknife.OnCheckedChanged;
+import com.etesync.journalmanager.Crypto.CryptoManager;
+import com.etesync.journalmanager.Exceptions.IntegrityException;
+import com.etesync.journalmanager.Exceptions.VersionTooNewException;
+import com.etesync.journalmanager.GsonHelper;
+import com.etesync.journalmanager.UserInfoManager.UserInfo;
+import com.google.common.base.Strings;
 import com.todoroo.astrid.helper.UUIDHelper;
 import io.reactivex.Completable;
 import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.analytics.Tracking.Events;
 import org.tasks.caldav.BaseCaldavAccountSettingsActivity;
 import org.tasks.data.CaldavAccount;
 import org.tasks.gtasks.PlayServices;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ForApplication;
+import timber.log.Timber;
 
 public class EteSyncAccountSettingsActivity extends BaseCaldavAccountSettingsActivity
     implements Toolbar.OnMenuItemClickListener {
+
+  private static final int REQUEST_ENCRYPTION_PASSWORD = 10101;
 
   @Inject @ForApplication Context context;
   @Inject PlayServices playServices;
@@ -36,77 +46,113 @@ public class EteSyncAccountSettingsActivity extends BaseCaldavAccountSettingsAct
     super.onCreate(savedInstanceState);
 
     binding.repeat.setVisibility(View.GONE);
-    binding.encryptionPasswordLayout.setVisibility(View.VISIBLE);
+    binding.showAdvanced.setVisibility(View.VISIBLE);
+    updateUrlVisibility();
 
     addAccountViewModel = ViewModelProviders.of(this).get(AddEteSyncAccountViewModel.class);
     updateAccountViewModel = ViewModelProviders.of(this).get(UpdateEteSyncAccountViewModel.class);
-
-    if (savedInstanceState == null) {
-      if (caldavAccount == null) {
-        binding.url.setText(R.string.etesync_url);
-      }
-    }
 
     addAccountViewModel.observe(this, this::addAccount, this::requestFailed);
     updateAccountViewModel.observe(this, this::updateAccount, this::requestFailed);
   }
 
-  private void addAccount(Pair<String, String> authentication) {
-    CaldavAccount newAccount = new CaldavAccount();
-    newAccount.setAccountType(CaldavAccount.TYPE_ETESYNC);
-    newAccount.setUuid(UUIDHelper.newUUID());
-    applyTo(newAccount, authentication);
-    newAccount.setId(caldavDao.insert(newAccount));
-
-    tracker.reportEvent(Events.CALDAV_ACCOUNT_ADDED);
-
-    setResult(RESULT_OK);
-    finish();
+  private void addAccount(Pair<UserInfo, String> userInfoAndToken) {
+    caldavAccount = new CaldavAccount();
+    caldavAccount.setAccountType(CaldavAccount.TYPE_ETESYNC);
+    caldavAccount.setUuid(UUIDHelper.newUUID());
+    applyTo(caldavAccount, userInfoAndToken);
   }
 
-  private void updateAccount(Pair<String, String> authentication) {
-    applyTo(caldavAccount, authentication);
+  private void updateAccount(Pair<UserInfo, String> userInfoAndToken) {
     caldavAccount.setError("");
-    caldavDao.update(caldavAccount);
-    setResult(RESULT_OK);
-    finish();
+    applyTo(caldavAccount, userInfoAndToken);
   }
 
-  private void applyTo(CaldavAccount account, @Nullable Pair<String, String> authentication) {
+  private void applyTo(CaldavAccount account, Pair<UserInfo, String> userInfoAndToken) {
+    hideProgressIndicator();
+
     account.setName(getNewName());
     account.setUrl(getNewURL());
     account.setUsername(getNewUsername());
-    if (authentication != null) {
-      account.setPassword(encryption.encrypt(authentication.first));
-      account.setEncryptionKey(encryption.encrypt(authentication.second));
+    String token = userInfoAndToken.second;
+    if (!token.equals(account.getPassword(encryption))) {
+      account.setPassword(encryption.encrypt(token));
     }
+
+    UserInfo userInfo = userInfoAndToken.first;
+    if (testUserInfo(userInfo)) {
+      saveAccountAndFinish();
+    } else {
+      Intent intent = new Intent(this, EncryptionSettingsActivity.class);
+      intent.putExtra(EncryptionSettingsActivity.EXTRA_USER_INFO, toJson(userInfo));
+      intent.putExtra(EncryptionSettingsActivity.EXTRA_ACCOUNT, account);
+      startActivityForResult(intent, REQUEST_ENCRYPTION_PASSWORD);
+    }
+  }
+
+  private boolean testUserInfo(UserInfo userInfo) {
+    String encryptionKey = caldavAccount.getEncryptionPassword(encryption);
+    if (userInfo != null && !Strings.isNullOrEmpty(encryptionKey)) {
+      try {
+        CryptoManager cryptoManager =
+            new CryptoManager(userInfo.getVersion(), encryptionKey, "userInfo");
+        userInfo.verify(cryptoManager);
+        return true;
+      } catch (IntegrityException | VersionTooNewException e) {
+        Timber.e(e);
+      }
+    }
+    return false;
+  }
+
+  private String toJson(UserInfo userInfo) {
+    return GsonHelper.gson.toJson(userInfo);
+  }
+
+  @OnCheckedChanged(R.id.show_advanced)
+  void toggleUrl() {
+    updateUrlVisibility();
+  }
+
+  private void updateUrlVisibility() {
+    binding.urlLayout.setVisibility(binding.showAdvanced.isChecked() ? View.VISIBLE : View.GONE);
   }
 
   @Override
   protected boolean needsValidation() {
-    return super.needsValidation() || encryptionPasswordChanged();
-  }
-
-  protected boolean encryptionPasswordChanged() {
-    return caldavAccount == null
-        || !PASSWORD_MASK.equals(binding.encryptionPassword.getText().toString().trim());
+    return super.needsValidation() || Strings.isNullOrEmpty(caldavAccount.getEncryptionKey());
   }
 
   @Override
   protected void addAccount(String url, String username, String password) {
-    addAccountViewModel.addAccount(
-        playServices, context, eteSyncClient, url, username, password, getNewEncryptionPassword());
+    addAccountViewModel.addAccount(playServices, context, eteSyncClient, url, username, password);
   }
 
   @Override
   protected void updateAccount(String url, String username, String password) {
     updateAccountViewModel.updateAccount(
-        eteSyncClient, url, username, password, getNewEncryptionPassword());
+        eteSyncClient,
+        url,
+        username,
+        PASSWORD_MASK.equals(password) ? null : password,
+        caldavAccount.getPassword(encryption));
   }
 
   @Override
   protected void updateAccount() {
-    updateAccount(null);
+    caldavAccount.setName(getNewName());
+    saveAccountAndFinish();
+  }
+
+  @Override
+  protected String getNewURL() {
+    String url = super.getNewURL();
+    return Strings.isNullOrEmpty(url) ? getString(R.string.etesync_url) : url;
+  }
+
+  @Override
+  protected String getNewPassword() {
+    return binding.password.getText().toString().trim();
   }
 
   @Override
@@ -119,14 +165,27 @@ public class EteSyncAccountSettingsActivity extends BaseCaldavAccountSettingsAct
     component.inject(this);
   }
 
-  @OnTextChanged(R.id.encryption_password)
-  void onEncryptionPasswordChanged(CharSequence text) {
-    binding.encryptionPasswordLayout.setError(null);
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    if (requestCode == REQUEST_ENCRYPTION_PASSWORD) {
+      if (resultCode == RESULT_OK) {
+        String key = data.getStringExtra(EncryptionSettingsActivity.EXTRA_DERIVED_KEY);
+        caldavAccount.setEncryptionKey(encryption.encrypt(key));
+        saveAccountAndFinish();
+      }
+    } else {
+      super.onActivityResult(requestCode, resultCode, data);
+    }
   }
 
-  @OnFocusChange(R.id.encryption_password)
-  void onEncryptionPasswordFocused(boolean hasFocus) {
-    changePasswordFocus(binding.encryptionPassword, hasFocus);
+  private void saveAccountAndFinish() {
+    if (caldavAccount.getId() == NO_ID) {
+      caldavDao.insert(caldavAccount);
+    } else {
+      caldavDao.update(caldavAccount);
+    }
+    setResult(RESULT_OK);
+    finish();
   }
 
   @Override
