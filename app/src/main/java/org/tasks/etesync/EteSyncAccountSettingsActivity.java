@@ -56,6 +56,11 @@ public class EteSyncAccountSettingsActivity extends BaseCaldavAccountSettingsAct
     updateAccountViewModel.observe(this, this::updateAccount, this::requestFailed);
   }
 
+  @Override
+  protected int getDescription() {
+    return R.string.etesync_account_description;
+  }
+
   private void addAccount(Pair<UserInfo, String> userInfoAndToken) {
     caldavAccount = new CaldavAccount();
     caldavAccount.setAccountType(CaldavAccount.TYPE_ETESYNC);

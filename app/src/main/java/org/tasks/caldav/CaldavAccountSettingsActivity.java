@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 import com.todoroo.astrid.helper.UUIDHelper;
 import javax.inject.Inject;
+import org.tasks.R;
 import org.tasks.analytics.Tracking.Events;
 import org.tasks.data.CaldavAccount;
 import org.tasks.gtasks.PlayServices;
@@ -33,6 +34,11 @@ public class CaldavAccountSettingsActivity extends BaseCaldavAccountSettingsActi
 
     addCaldavAccountViewModel.observe(this, this::addAccount, this::requestFailed);
     updateCaldavAccountViewModel.observe(this, this::updateAccount, this::requestFailed);
+  }
+
+  @Override
+  protected int getDescription() {
+    return R.string.caldav_account_description;
   }
 
   private void addAccount(String principal) {

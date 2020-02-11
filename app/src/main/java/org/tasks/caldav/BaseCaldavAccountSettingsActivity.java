@@ -1,16 +1,19 @@
 package org.tasks.caldav;
 
 import static android.text.TextUtils.isEmpty;
+import static com.todoroo.astrid.data.Task.NO_ID;
 import static org.tasks.billing.PurchaseDialog.newPurchaseDialog;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.util.Linkify;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import at.bitfire.dav4jvm.exception.HttpException;
@@ -19,6 +22,7 @@ import butterknife.OnFocusChange;
 import butterknife.OnTextChanged;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.common.base.Strings;
 import com.todoroo.astrid.service.TaskDeleter;
 import java.net.ConnectException;
 import java.net.IDN;
@@ -68,6 +72,16 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
             ? getIntent().getParcelableExtra(EXTRA_CALDAV_DATA)
             : savedInstanceState.getParcelable(EXTRA_CALDAV_DATA);
 
+    if (caldavAccount == null || caldavAccount.getId() == NO_ID) {
+      binding.nameLayout.setVisibility(View.GONE);
+      binding.description.setVisibility(View.VISIBLE);
+      binding.description.setText(getDescription());
+      Linkify.addLinks(binding.description, Linkify.WEB_URLS);
+    } else {
+      binding.nameLayout.setVisibility(View.VISIBLE);
+      binding.description.setVisibility(View.GONE);
+    }
+
     if (savedInstanceState == null) {
       if (caldavAccount != null) {
         binding.name.setText(caldavAccount.getName());
@@ -107,6 +121,8 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
           .show();
     }
   }
+
+  protected abstract @StringRes int getDescription();
 
   @Override
   protected void onSaveInstanceState(@NonNull Bundle outState) {
@@ -161,7 +177,8 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
   }
 
   protected String getNewName() {
-    return binding.name.getText().toString().trim();
+    String name = binding.name.getText().toString().trim();
+    return Strings.isNullOrEmpty(name) ? getNewUsername() : name;
   }
 
   protected String getNewURL() {
@@ -304,7 +321,7 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
 
   private boolean hasChanges() {
     if (caldavAccount == null) {
-      return !isEmpty(getNewName())
+      return !isEmpty(binding.name.getText().toString().trim())
           || !isEmpty(getNewPassword())
           || !isEmpty(binding.url.getText().toString().trim())
           || !isEmpty(getNewUsername())

@@ -34,6 +34,11 @@
         android:focusableInTouchMode="true"
         android:orientation="vertical">
 
+        <TextView
+          android:id="@+id/description"
+          style="@style/TagSettingsRow"
+          android:visibility="gone"/>
+
         <com.google.android.material.textfield.TextInputLayout
           android:id="@+id/name_layout"
           style="@style/TagSettingsRow">

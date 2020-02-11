@@ -33,6 +33,12 @@
         android:focusableInTouchMode="true"
         android:orientation="vertical">
 
+        <TextView
+          android:id="@+id/description"
+          style="@style/TagSettingsRow"
+          android:text="@string/etesync_encryption_description"
+          android:visibility="gone"/>
+
         <com.google.android.material.textfield.TextInputLayout
           android:id="@+id/encryption_password_layout"
           style="@style/TagSettingsRow"

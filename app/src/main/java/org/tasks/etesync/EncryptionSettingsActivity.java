@@ -65,6 +65,7 @@ public class EncryptionSettingsActivity extends ThemedInjectingAppCompatActivity
     userInfo = GsonHelper.gson.fromJson(intent.getStringExtra(EXTRA_USER_INFO), UserInfo.class);
 
     if (userInfo == null) {
+      binding.description.setVisibility(View.VISIBLE);
       binding.repeatEncryptionPasswordLayout.setVisibility(View.VISIBLE);
     }
 

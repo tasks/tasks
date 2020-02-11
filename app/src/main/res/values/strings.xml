@@ -574,4 +574,7 @@ File %1$s contained %2$s.\n\n
   <string name="caldav_selection_description">Synchronization based on open internet standards</string>
   <string name="etesync_selection_description">Open source, end-to-end encrypted synchronization</string>
   <string name="show_advanced_settings">Show advanced settings</string>
+  <string name="caldav_account_description">Requires an account with a CalDAV service provider or a self-hosted server. Find a service provider by visiting tasks.org/caldav</string>
+  <string name="etesync_account_description">Requires an account with etesync.com or a self-hosted server</string>
+  <string name="etesync_encryption_description">Choose an encryption password. Do not forget your password, it cannot be recovered!</string>
 </resources>
