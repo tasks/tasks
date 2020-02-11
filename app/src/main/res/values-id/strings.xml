@@ -63,8 +63,8 @@
     <string name="EPr_cal_end_or_start_at_due_time">Waktu acara kalender</string>
     <string name="EPr_manage_header">Kelola tugas lama</string>
     <string name="EPr_manage_purge_deleted">Buang tugas yang dihapus</string>
-    <string name="EPr_manage_purge_deleted_message">Apakah anda benar-benar ingin membuang tugas yang anda hapus\?
-\n
+    <string name="EPr_manage_purge_deleted_message">Apakah anda benar-benar ingin membuang tugas yang dihapus\? 
+\n 
 \nTugas ini tidak akan bisa dipulihkan!</string>
     <string name="EPr_manage_purge_deleted_status">Membuang %d tugas!</string>
     <string name="EPr_reset_preferences">Setel ulang preferensi</string>
@@ -269,8 +269,8 @@
     <string name="pick_from_storage">Pilih dari penyimpanan</string>
     <string name="privacy">Privasi</string>
     <string name="privacy_policy">Kebijakan privasi</string>
-    <string name="send_anonymous_statistics">Buat Tugas lebih baik</string>
-    <string name="send_anonymous_statistics_summary">Kirim statistik penggunaan dan laporan kerusakan secara anonim untuk membantu membuat Tugas menjadi lebih baik. Tidak ada data personal yang dikumpulkan.</string>
+    <string name="send_anonymous_statistics">Buat Tasks lebih baik</string>
+    <string name="send_anonymous_statistics_summary">Kirim statistik penggunaan dan laporan kerusakan secara anonim untuk membantu membuat Tasks menjadi lebih baik. Tidak ada data personal yang dikumpulkan.</string>
     <string name="tag_already_exists">Tag sudah ada</string>
     <string name="name_cannot_be_empty">Nama tidak boleh kosong</string>
     <string name="username_required">Nama pengguna wajib</string>
@@ -313,7 +313,7 @@
     <string name="theme_day_night">Siang/Malam</string>
     <string name="settings_general">Umum</string>
     <string name="language">Bahasa</string>
-    <string name="restart_required">Tugas harus dimulai ulang agar perubahan terdampak</string>
+    <string name="restart_required">Tasks harus dimulai ulang agar perubahan terdampak</string>
     <string name="restart_now">Mulai ulang sekarang</string>
     <string name="restart_later">Nanti</string>
     <string name="settings_localization">Pelokalan</string>
@@ -363,4 +363,104 @@
     <string name="default_calendar">Kalender default</string>
     <string name="encryption_password_required">Kata sandi enkripsi wajib</string>
     <string name="encryption_password">Kata sandi enkripsi</string>
+    <string name="import_summary_message">Berkas %1$s berisi %2$s.
+\n
+\n %3$s diimpor,
+\n %4$s sudah ada
+\n %5$s memiliki kesalahan
+\n</string>
+    <string name="read_permission_label">Perizinan Tasks</string>
+    <string name="CRA_title">Membutuhkan daftar rapat\?</string>
+    <string name="EPr_cal_end_at_due_time">Akhiri acara kelender pada waktu jatuh tempo</string>
+    <string name="EPr_cal_start_at_due_time">Mulai acara kalender pada waktu jatuh tempo</string>
+    <string name="EPr_manage_delete_all_gcal">Hapus semua acara kalender untuk tugas</string>
+    <string name="EPr_manage_delete_all_gcal_message">Apakah anda benar-benar ingin menghapus semua acara untuk tugas\?</string>
+    <string name="EPr_manage_delete_all_gcal_status">%d acara kalender dihapus!</string>
+    <string name="persistent_notifications">Notifikasi persisten</string>
+    <plurals name="repeat_times">
+        <item quantity="other">kali</item>
+    </plurals>
+    <string name="TEA_timer_comment_started">mulai tugas ini:</string>
+    <string name="TEA_timer_comment_stopped">hentikan tugas ini:</string>
+    <string name="voice_create_prompt">Bicara untuk membuat tugas</string>
+    <string name="EPr_voiceInputEnabled_title">Masukan suara</string>
+    <string name="EPr_voiceRemindersEnabled_title">Pengingat suara</string>
+    <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks akan mengucapkan nama tugas selama pengingat tugas berjalan</string>
+    <string name="sync_error_permissions">Tasks membutuhkan izin akses</string>
+    <string name="badges_description">Tampilkan jumlah tugas pada ikon peluncur Tasks. Tidak semua peluncur mendukung fitur ini.</string>
+    <string name="bundle_notifications_summary">Gabung beberapa notifikasi menjadi satu notifikasi</string>
+    <string name="repeat_monthly_same_day_each_month">pada hari yang sama setiap bulan</string>
+    <string name="dont_sync">Jangan sinkron</string>
+    <string name="repeat_monthly_first_week">pertama</string>
+    <string name="repeat_monthly_second_week">kedua</string>
+    <string name="repeat_monthly_third_week">ketiga</string>
+    <string name="repeat_monthly_fourth_week">keempat</string>
+    <string name="repeat_monthly_last_week">terakhir</string>
+    <string name="tasker_create_task">Buat tugas</string>
+    <string name="help">Bantuan</string>
+    <string name="network_error">Koneksi gagal</string>
+    <string name="background_sync_unmetered_only">Hanya pada koneksi tak terbatas</string>
+    <string name="upgrade_to_pro">Tingkatkan ke pro</string>
+    <string name="pro_support_development">Tasks membutuhkan dukungan anda!</string>
+    <string name="manage_subscription">Kelola langganan</string>
+    <string name="manage_subscription_summary">Tingkatkan, turunkan, atau batalkan langganan anda</string>
+    <string name="refresh_purchases">Segarkan pembelian</string>
+    <string name="button_subscribe">Langganan</string>
+    <string name="button_current_subscription">Langganan saat ini</string>
+    <string name="button_restore_subscription">Pulihkan langganan</string>
+    <string name="button_downgrade">Turunkan langganan</string>
+    <string name="button_upgrade">Tingkatkan langganan</string>
+    <string name="button_unsubscribe">Batalkan langganan</string>
+    <string name="button_more_info">Info lainnya</string>
+    <string name="about">Tentang</string>
+    <string name="license_summary">Tasks adalah perangkat lunak bebas bersumber terbuka, dilindungi Lisensi Publik Umum GNU v3.0</string>
+    <string name="pro_description">Tasks adalah perangkat lunak bebas bersumber terbuka yang tidak menampilkan iklan atau menjual informasi personal anda</string>
+    <string name="pro_subscribe_now">Langganan sekarang untuk mendukung pengembangan dan mengaktifkan fitur tambahan lainnya</string>
+    <string name="themes">Ikon dan tema tambahan</string>
+    <string name="pro_caldav_sync">Sinkronisasi CalDAV</string>
+    <string name="pro_multiple_google_task_accounts">Beberapa akun Google Tasks</string>
+    <string name="pro_google_places_search">Pencarian Google Places</string>
+    <string name="pro_tasker_plugins">Plugin Tasker</string>
+    <string name="pro_dashclock_extension">Ekstensi Dashclock</string>
+    <string name="requires_pro_subscription">Membutuhkan langganan versi pro</string>
+    <string name="logout">Keluar</string>
+    <string name="logout_warning">Keluar dari %s\? Semua data akun ini akan dihapus dari perangkat anda</string>
+    <string name="cannot_access_account">Tidak bisa mengakses akun</string>
+    <string name="reinitialize_account">Inisialisasi ulang</string>
+    <string name="action_create_new_task">Buat tugas baru</string>
+    <string name="show_description">Tampilkan deskripsi</string>
+    <string name="show_full_description">Tampilkan keseluruhan deskripsi</string>
+    <string name="linkify">Tampilkan tautan</string>
+    <string name="linkify_description">Menambahkan tautan ke situs web, alamat, dan nomor telepon</string>
+    <string name="show_list_indicators">Tampilkan indikator daftar</string>
+    <string name="visit_website">Kunjungi situs web</string>
+    <string name="choose_a_location">Pilih lokasi</string>
+    <string name="pick_this_location">Pilih lokasi ini</string>
+    <string name="or_choose_a_location">Atau cari lokasi</string>
+    <string name="map_provider">Penyedia peta</string>
+    <string name="map_search_provider">Penyedia pencarian</string>
+    <string name="location_permission_required_geofence">Membutuhkan izin akses lokasi untuk pengingat lokasi</string>
+    <string name="location_permission_required_location">Membutuhkan izin akses lokasi untuk menentukan lokasi anda saat ini</string>
+    <string name="open_map">Buka peta</string>
+    <string name="choose_new_location">Pilih lokasi baru</string>
+    <string name="third_party_licenses">Lisensi pihak ketiga</string>
+    <string name="changelog">Catatan perubahan</string>
+    <string name="version_string">Versi %s</string>
+    <string name="invalid_backup_file">Berkas cadangan tidak valid</string>
+    <string name="google_tasks_add_to_top">Tugas baru di atas</string>
+    <string name="monthly">Bulanan</string>
+    <string name="annually">Tahunan</string>
+    <string name="expand_subtasks"></string>
+    <string name="subtasks_multilevel_google_task">Subtugas multi-level tidak didukung oleh Google Tasks</string>
+    <string name="enter_title_hint">Masukkan judul</string>
+    <string name="show_subtasks">Tampilkan subtugas</string>
+    <string name="show_subtasks_summary">Menampilkan subtugas akan mengurangi performa aplikasi</string>
+    <string name="enter_tag_name">Masukkan nama tag</string>
+    <string name="create_new_tag">Buat \"%s\"</string>
+    <string name="pro_etesync">Sinkronisasi EteSync</string>
+    <string name="this_feature_requires_a_subscription">Fitur ini membutuhkan anda berlangganan versi pro</string>
+    <string name="choose_synchronization_service">Pilih platform</string>
+    <string name="google_tasks_selection_description">Layanan standar yang disinkronkan dengan akun Google anda</string>
+    <string name="caldav_selection_description">Sinkronisasi yang berbasis pada standar internet publik</string>
+    <string name="etesync_selection_description">Sinkronisasi dengan enkripsi ujung-ke-ujung dan bersumber terbuka</string>
 </resources>
