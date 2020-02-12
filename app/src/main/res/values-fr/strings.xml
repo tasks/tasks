@@ -565,4 +565,10 @@ est configuré correctement</string>
     <string name="google_tasks_selection_description">Service de base qui se synchronise avec votre compte Google</string>
     <string name="caldav_selection_description">Synchronisation basée sur des normes d\'Internet ouvertes</string>
     <string name="etesync_selection_description">Source ouverte, synchronisation chiffrée de bout en bout</string>
+    <string name="passwords_do_not_match">Les mots de passe ne correspondent pas</string>
+    <string name="reenter_encryption_password">Confirmer le mot de passe de chiffrement</string>
+    <string name="show_advanced_settings">Afficher les paramètres avancés</string>
+    <string name="caldav_account_description">Nécessite un compte auprès d\'un fournisseur de services CalDAV ou un serveur auto-hébergé. Trouvez un fournisseur de services en visitant tasks.org/caldav</string>
+    <string name="etesync_account_description">Nécessite un compte sur etesync.com ou un serveur auto-hébergé</string>
+    <string name="etesync_encryption_description">Choisissez un mot de passe de chiffrement. N\'oubliez pas votre mot de passe, il ne peut pas être récupéré !</string>
 </resources>
