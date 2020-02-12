@@ -573,6 +573,7 @@
     <string name="reenter_encryption_password">Confirmar la contraseña de cifrado</string>
     <string name="show_advanced_settings">Mostrar la configuración avanzada</string>
     <string name="caldav_account_description">Requiere una cuenta con un proveedor de servicios CalDAV o un servidor autoalojado. Encuentre un proveedor de servicios visitando tasks.org/caldav</string>
-    <string name="etesync_account_description">Requiere una cuenta en etesync.com o un servidor autoalojado</string>
+    <string name="etesync_account_description">Requiere una cuenta en EteSync.com o un servidor autoalojado</string>
     <string name="etesync_encryption_description">Elija una contraseña de cifrado. No olvide su contraseña, no puede ser recuperada!</string>
+    <string name="encryption_password_wrong">Contraseña de cifrado errónea</string>
 </resources>
