@@ -46,10 +46,8 @@
 
           <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/encryption_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/TagSettingsEditText"
             android:hint="@string/encryption_password"
-            android:imeOptions="flagNoExtractUi"
             android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -62,10 +60,8 @@
 
           <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/repeat_encryption_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/TagSettingsEditText"
             android:hint="@string/reenter_encryption_password"
-            android:imeOptions="flagNoExtractUi"
             android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>

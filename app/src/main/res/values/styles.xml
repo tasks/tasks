@@ -67,6 +67,14 @@
     <item name="android:layout_height">wrap_content</item>
   </style>
 
+  <style name="TagSettingsEditText">
+    <item name="android:maxLines">1</item>
+    <item name="android:inputType">textNoSuggestions</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:imeOptions">flagNoExtractUi</item>
+  </style>
+
   <!--================================================== General == -->
 
   <style name="TextAppearance" parent="android:TextAppearance">

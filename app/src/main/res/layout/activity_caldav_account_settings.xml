@@ -45,10 +45,8 @@
 
           <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/TagSettingsEditText"
             android:hint="@string/display_name"
-            android:imeOptions="flagNoExtractUi"
             android:inputType="textCapSentences|textAutoCorrect" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -59,10 +57,8 @@
 
           <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/user"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/user"
-            android:imeOptions="flagNoExtractUi" />
+            style="@style/TagSettingsEditText"
+            android:hint="@string/user" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -73,10 +69,8 @@
 
           <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/TagSettingsEditText"
             android:hint="@string/password"
-            android:imeOptions="flagNoExtractUi"
             android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -93,10 +87,8 @@
 
           <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/url"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/url"
-            android:imeOptions="flagNoExtractUi" />
+            style="@style/TagSettingsEditText"
+            android:hint="@string/url" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

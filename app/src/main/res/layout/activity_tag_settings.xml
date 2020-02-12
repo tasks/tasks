@@ -23,14 +23,11 @@
 
         <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/name"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
+          style="@style/TagSettingsEditText"
           android:hint="@string/display_name"
-          android:imeOptions="flagNoExtractUi"
           android:inputType="textCapSentences|textFilter"
           android:maxLines="1"/>
       </com.google.android.material.textfield.TextInputLayout>
-
 
       <include layout="@layout/list_settings_color"/>
 
