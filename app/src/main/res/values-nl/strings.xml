@@ -152,7 +152,7 @@
     <string name="gtasks_GLA_authenticating">Verifiëren…</string>
     <string name="gtasks_GLA_errorIOAuth">Sorry, we konden geen verbinding maken met de servers van Google. Probeer het later opnieuw.</string>
     <string name="gtasks_GPr_header">Google Taken</string>
-    <string name="gtasks_error_accountNotFound">Account %s niet gevonden--probeer opnieuw in te loggen vanuit de instellingen van Google Taken.</string>
+    <string name="gtasks_error_accountNotFound">Account %s niet gevonden—probeer opnieuw in te loggen vanuit de instellingen van Google Taken.</string>
     <string name="premium_record_audio">Een notitie opnemen</string>
     <string name="premium_remove_file_confirm">Weet je het zeker? Dit kan niet ongedaan gemaakt worden</string>
     <string name="audio_recording_title">Bezig met opname</string>
@@ -564,4 +564,10 @@
     <string name="google_tasks_selection_description">Basisservice die synchroniseert met uw Google-account</string>
     <string name="caldav_selection_description">Synchronisatie gebaseerd op open internetstandaarden</string>
     <string name="etesync_selection_description">Open source, end-to-end versleutelde synchronisatie</string>
+    <string name="passwords_do_not_match">Wachtwoorden komen niet overeen</string>
+    <string name="reenter_encryption_password">Bevestig coderingswachtwoord</string>
+    <string name="show_advanced_settings">Toon geavanceerde instellingen</string>
+    <string name="caldav_account_description">Vereist een account bij een CalDAV dienstverlener of een eigen server. Vind een dienstverlener door tasks.org/caldav te bezoeken</string>
+    <string name="etesync_account_description">Vereist een account op etesync.com of een eigen server</string>
+    <string name="etesync_encryption_description">Kies een coderingswachtwoord. Vergeet je wachtwoord niet, want het kan niet worden hersteld!</string>
 </resources>
