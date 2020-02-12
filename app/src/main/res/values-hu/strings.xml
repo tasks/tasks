@@ -567,4 +567,7 @@
     <string name="google_tasks_selection_description">Alapvető szolgáltatás, ami a Google accounttal szinkronizál</string>
     <string name="caldav_selection_description">Nyílt Internetes szabványon alapuló szinkronizáció</string>
     <string name="etesync_selection_description">Nyílt forráskódú, végponttól végpontig titkosított szinkronizáció</string>
+    <string name="passwords_do_not_match">A jelszavak nem egyeznek</string>
+    <string name="reenter_encryption_password">Titkosítás jelszavának megerősítése</string>
+    <string name="show_advanced_settings">Haladó beállítások mutatása</string>
 </resources>
