@@ -200,23 +200,11 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
       return;
     }
 
-    String name = getNewName();
     String username = getNewUsername();
     String url = getNewURL();
     String password = getNewPassword();
 
     boolean failed = false;
-
-    if (isEmpty(name)) {
-      binding.nameLayout.setError(getString(R.string.name_cannot_be_empty));
-      failed = true;
-    } else {
-      CaldavAccount accountByName = caldavDao.getAccountByName(name);
-      if (accountByName != null && !accountByName.equals(caldavAccount)) {
-        binding.nameLayout.setError(getString(R.string.duplicate_name));
-        failed = true;
-      }
-    }
 
     if (isEmpty(url)) {
       binding.urlLayout.setError(getString(R.string.url_required));
