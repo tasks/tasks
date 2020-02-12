@@ -379,6 +379,7 @@ File %1$s contained %2$s.\n\n
   <string name="username_required">Username required</string>
   <string name="password_required">Password required</string>
   <string name="encryption_password_required">Encryption password required</string>
+  <string name="encryption_password_wrong">Wrong encryption password</string>
   <string name="passwords_do_not_match">Passwords do not match</string>
   <string name="url_required">URL required</string>
   <string name="url_host_name_required">Host name required</string>

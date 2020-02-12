@@ -148,7 +148,7 @@ public class EncryptionSettingsActivity extends ThemedInjectingAppCompatActivity
         userInfo.verify(cryptoManager);
         returnDerivedKey(key);
       } catch (IntegrityException e) {
-        requestFailed(e);
+        binding.encryptionPasswordLayout.setError(getString(R.string.encryption_password_wrong));
       }
     }
   }
