@@ -19,7 +19,6 @@ import com.etesync.journalmanager.Crypto;
 import com.etesync.journalmanager.Crypto.CryptoManager;
 import com.etesync.journalmanager.Exceptions.IntegrityException;
 import com.etesync.journalmanager.Exceptions.VersionTooNewException;
-import com.etesync.journalmanager.GsonHelper;
 import com.etesync.journalmanager.UserInfoManager.UserInfo;
 import com.google.android.material.snackbar.Snackbar;
 import java.net.ConnectException;

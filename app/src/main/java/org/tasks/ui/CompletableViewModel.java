@@ -50,4 +50,9 @@ public abstract class CompletableViewModel<T> extends ViewModel {
   protected void onCleared() {
     disposables.dispose();
   }
+
+  public void removeObserver(LifecycleOwner owner) {
+    data.removeObservers(owner);
+    error.removeObservers(owner);
+  }
 }

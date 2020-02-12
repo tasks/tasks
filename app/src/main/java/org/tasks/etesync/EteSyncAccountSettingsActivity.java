@@ -50,9 +50,24 @@ public class EteSyncAccountSettingsActivity extends BaseCaldavAccountSettingsAct
 
     addAccountViewModel = ViewModelProviders.of(this).get(AddEteSyncAccountViewModel.class);
     updateAccountViewModel = ViewModelProviders.of(this).get(UpdateEteSyncAccountViewModel.class);
+  }
 
-    addAccountViewModel.observe(this, this::addAccount, this::requestFailed);
-    updateAccountViewModel.observe(this, this::updateAccount, this::requestFailed);
+  @Override
+  protected void onResume() {
+    super.onResume();
+
+    if (!isFinishing()) {
+      addAccountViewModel.observe(this, this::addAccount, this::requestFailed);
+      updateAccountViewModel.observe(this, this::updateAccount, this::requestFailed);
+    }
+  }
+
+  @Override
+  protected void onPause() {
+    super.onPause();
+
+    addAccountViewModel.removeObserver(this);
+    updateAccountViewModel.removeObserver(this);
   }
 
   @Override
