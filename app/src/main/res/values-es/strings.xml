@@ -569,4 +569,10 @@
     <string name="google_tasks_selection_description">Servicio básico que se sincroniza con tu cuenta de Google</string>
     <string name="caldav_selection_description">Sincronización basada en estándares abiertos de Internet</string>
     <string name="etesync_selection_description">Sincronización cifrada de extremo a extremo de código abierto</string>
+    <string name="passwords_do_not_match">Las contraseñas no coinciden</string>
+    <string name="reenter_encryption_password">Confirmar la contraseña de cifrado</string>
+    <string name="show_advanced_settings">Mostrar la configuración avanzada</string>
+    <string name="caldav_account_description">Requiere una cuenta con un proveedor de servicios CalDAV o un servidor autoalojado. Encuentre un proveedor de servicios visitando tasks.org/caldav</string>
+    <string name="etesync_account_description">Requiere una cuenta en etesync.com o un servidor autoalojado</string>
+    <string name="etesync_encryption_description">Elija una contraseña de cifrado. No olvide su contraseña, no puede ser recuperada!</string>
 </resources>
