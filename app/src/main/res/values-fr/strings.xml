@@ -569,6 +569,7 @@ est configuré correctement</string>
     <string name="reenter_encryption_password">Confirmer le mot de passe de chiffrement</string>
     <string name="show_advanced_settings">Afficher les paramètres avancés</string>
     <string name="caldav_account_description">Nécessite un compte auprès d\'un fournisseur de services CalDAV ou un serveur auto-hébergé. Trouvez un fournisseur de services en visitant tasks.org/caldav</string>
-    <string name="etesync_account_description">Nécessite un compte sur etesync.com ou un serveur auto-hébergé</string>
+    <string name="etesync_account_description">Nécessite un compte sur EteSync.com ou un serveur auto-hébergé</string>
     <string name="etesync_encryption_description">Choisissez un mot de passe de chiffrement. N\'oubliez pas votre mot de passe, il ne peut pas être récupéré !</string>
+    <string name="encryption_password_wrong">Mot de passe de chiffrement erroné</string>
 </resources>
