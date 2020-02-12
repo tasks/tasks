@@ -164,7 +164,7 @@ dependencies {
 
     debugImplementation("com.facebook.flipper:flipper:${Versions.flipper}")
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${Versions.flipper}")
-    debugImplementation("com.facebook.soloader:soloader:0.8.1")
+    debugImplementation("com.facebook.soloader:soloader:0.8.2")
 
     debugImplementation("com.squareup.leakcanary:leakcanary-android:${Versions.leakcanary}")
 
