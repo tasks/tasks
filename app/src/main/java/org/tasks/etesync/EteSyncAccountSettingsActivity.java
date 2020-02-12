@@ -14,7 +14,6 @@ import butterknife.OnCheckedChanged;
 import com.etesync.journalmanager.Crypto.CryptoManager;
 import com.etesync.journalmanager.Exceptions.IntegrityException;
 import com.etesync.journalmanager.Exceptions.VersionTooNewException;
-import com.etesync.journalmanager.GsonHelper;
 import com.etesync.journalmanager.UserInfoManager.UserInfo;
 import com.google.common.base.Strings;
 import com.todoroo.astrid.helper.UUIDHelper;
@@ -89,7 +88,7 @@ public class EteSyncAccountSettingsActivity extends BaseCaldavAccountSettingsAct
       saveAccountAndFinish();
     } else {
       Intent intent = new Intent(this, EncryptionSettingsActivity.class);
-      intent.putExtra(EncryptionSettingsActivity.EXTRA_USER_INFO, toJson(userInfo));
+      intent.putExtra(EncryptionSettingsActivity.EXTRA_USER_INFO, userInfo);
       intent.putExtra(EncryptionSettingsActivity.EXTRA_ACCOUNT, account);
       startActivityForResult(intent, REQUEST_ENCRYPTION_PASSWORD);
     }
@@ -108,10 +107,6 @@ public class EteSyncAccountSettingsActivity extends BaseCaldavAccountSettingsAct
       }
     }
     return false;
-  }
-
-  private String toJson(UserInfo userInfo) {
-    return GsonHelper.gson.toJson(userInfo);
   }
 
   @OnCheckedChanged(R.id.show_advanced)

@@ -62,7 +62,7 @@ public class EncryptionSettingsActivity extends ThemedInjectingAppCompatActivity
 
     Intent intent = getIntent();
     caldavAccount = intent.getParcelableExtra(EXTRA_ACCOUNT);
-    userInfo = GsonHelper.gson.fromJson(intent.getStringExtra(EXTRA_USER_INFO), UserInfo.class);
+    userInfo = (UserInfo) intent.getSerializableExtra(EXTRA_USER_INFO);
 
     if (userInfo == null) {
       binding.description.setVisibility(View.VISIBLE);
