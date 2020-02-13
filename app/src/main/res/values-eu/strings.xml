@@ -571,4 +571,11 @@
     <string name="google_tasks_selection_description">Zure Google kontuarekin sinkronizatzen den oinarrizko zerbitzua</string>
     <string name="caldav_selection_description">Internet estandar irekietan oinarritutako sinkronizazioa</string>
     <string name="etesync_selection_description">Kode irekikoa, muturretik muturrera zifratutako sinkronizazioa</string>
+    <string name="passwords_do_not_match">Pasahitzak ez datoz bat</string>
+    <string name="reenter_encryption_password">Baieztatu zifratze pasahitza</string>
+    <string name="show_advanced_settings">Erakutsi ezarpen aurreratuak</string>
+    <string name="caldav_account_description">CalDAV zerbitzu hornitzaile bateko edo zuk zeuk ostatatutako zerbitzu bateko kontua behar du. Aurkitu zerbitzu hornitzaile bat tasks.org/caldav helbidean</string>
+    <string name="etesync_account_description">EteSync.com zerbitzuko edo zuk zeuk ostatatutako zerbitzari bateko kontua behar du</string>
+    <string name="etesync_encryption_description">Aukeratu zifratze pasahitza. Ez ahaztu zure pasahitza, ezin baita berreskuratu!</string>
+    <string name="encryption_password_wrong">Zifratze-pasahitz okerra</string>
 </resources>
