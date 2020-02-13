@@ -570,4 +570,8 @@
     <string name="passwords_do_not_match">A jelszavak nem egyeznek</string>
     <string name="reenter_encryption_password">Titkosítás jelszavának megerősítése</string>
     <string name="show_advanced_settings">Haladó beállítások mutatása</string>
+    <string name="caldav_account_description">CalDAV szolgáltatással rendelkező accountot, vagy saját szervert igényel. A szolgáltatók listája a tasks.org/caldav oldalon található</string>
+    <string name="etesync_account_description">EteSync.com accountot, vagy saját szervert igényel</string>
+    <string name="etesync_encryption_description">Add meg a titkosítás jelszavát. A jelszó elfelejtés esetén nem visszaállítható!</string>
+    <string name="encryption_password_wrong">Hibás titkosító jelszó</string>
 </resources>
