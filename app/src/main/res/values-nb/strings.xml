@@ -564,4 +564,15 @@
     <string name="create_new_tag">Opprett «%s»</string>
     <string name="encryption_password_required">Krypteringspassord kreves</string>
     <string name="encryption_password">Krypteringspassord</string>
+    <string name="display_name">Visningsnavn</string>
+    <string name="pro_etesync">EteSynk-synkronisering</string>
+    <string name="this_feature_requires_a_subscription">Denne funksjonen krever abonnement</string>
+    <string name="choose_synchronization_service">Velg en plattform</string>
+    <string name="google_tasks_selection_description">Enkel tjeneste som synkroniserer med din Google-konto</string>
+    <string name="passwords_do_not_match">Passordene samsvarer ikke</string>
+    <string name="reenter_encryption_password">Bekreft krypteringspassord</string>
+    <string name="show_advanced_settings">Vis avanserte innstillinger</string>
+    <string name="etesync_account_description">Krever en konto hos EteSync.com eller selvdrevet tjener</string>
+    <string name="etesync_encryption_description">Velg et krypteringspassord. Ikke glem passordet ditt, det kan ikke gjenopprettes!</string>
+    <string name="encryption_password_wrong">Feil krypteringspassord</string>
 </resources>
