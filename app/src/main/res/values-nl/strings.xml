@@ -570,4 +570,5 @@
     <string name="caldav_account_description">Vereist een account bij een CalDAV dienstverlener of een eigen server. Vind een dienstverlener door tasks.org/caldav te bezoeken</string>
     <string name="etesync_account_description">Vereist een account op EteSync.com of een eigen server</string>
     <string name="etesync_encryption_description">Kies een coderingswachtwoord. Vergeet je wachtwoord niet, want het kan niet worden hersteld!</string>
+    <string name="encryption_password_wrong">Fout coderingswachtwoord</string>
 </resources>
