@@ -1,0 +1,28 @@
+8.0 (2020-02-12)
+
+* Support for end-to-end encryption with EteSync
+* Bug fixes
+* Update translations
+
+7.8 (2020-01-24)
+
+* Android AutoBackup integration
+
+7.7 (2020-01-22)
+
+* Multi-level subtasks without synchronization
+
+7.6.1 (2020-01-17)
+
+* Change tags with multi-select
+
+7.5 (2020-01-07)
+
+* New tag picker
+* Support self-signed SSL certificates for CalDAV synchronization
+
+7.4 (2019-12)
+
+* Add Google Task and CalDAV subtasks from task edit screen
+
+Full release notes: https://tasks.org/changelog

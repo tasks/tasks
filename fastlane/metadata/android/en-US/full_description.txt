@@ -1,0 +1,30 @@
+Tasks is libre open-source software, based on the original source code from the popular Astrid Tasks & To Do List!
+
+Tasks can be used entirely offline, or synchronized with Google Tasks, CalDAV, or EteSync. It is your data, you should get to choose where it is stored!
+
+* Nested subtasks with unlimited depth
+* Powerful repeating task options
+* End-to-end encryption with EteSync
+* List sharing available when synchronized with CalDAV or EteSync
+* Location-based arrival and departure notifications
+* Tag, filter, and search your tasks
+* Drag and drop manual sorting for Google Tasks
+* Customize your lists with different icons and colors
+* Hide tasks until a later date
+* Automatically add tasks to your calendar
+* Create new tasks and list reminders with Tasker
+* And much more!
+
+Tasks respects your privacy!
+  - No advertisements
+  - No ad or location tracking
+  - Opt-out of crash reporting and anonymous statistics
+  - Developer has no access to your data under any circumstances
+
+In order to support development some features require a subscription
+  - 7-day free trial
+  - Choose your subscription price, starting at $1 per year
+
+Documentation available at https://tasks.org
+Source code available at https://github.com/tasks
+Contact support@tasks.org for help
