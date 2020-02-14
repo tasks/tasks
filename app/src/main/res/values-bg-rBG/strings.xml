@@ -88,7 +88,6 @@
 	<string name="EPr_cal_end_or_start_at_due_time">Време на събитие в календара</string>
 	<string name="EPr_cal_end_at_due_time">Приключване на събития в календара на крайния срок</string>
 	<string name="EPr_cal_start_at_due_time">Започване на събития в календара на крайния срок</string>
-	<string name="EPr_manage_header">Управление на стари задачи</string>
 	<string name="EPr_manage_purge_deleted">Изчистване на изтритите задачи</string>
 	<string name="EPr_manage_purge_deleted_message">Наистина ли искате да изчистите всичките си приключени задачи?\n\nТези задачи ще изчезнат завинаги!</string>
 	<string name="EPr_manage_purge_deleted_status">Изчистени %d задачи!</string>
@@ -354,12 +353,10 @@
 	<string name="take_a_picture">Заснемане</string>
 	<string name="pick_from_gallery">Изберете от галерия</string>
 	<string name="pick_from_storage">Изберете от паметта</string>
-	<string name="privacy">Поверителност</string>
 	<string name="privacy_policy">Декларация за поверителност</string>
 	<string name="send_anonymous_statistics">Подобряване на Tasks</string>
 	<string name="send_anonymous_statistics_summary">Изпращане на анонимна статистика за използването и отчети за грешки, за да се подпомогне подобряването на Tasks. Няма да бъдат събирани персонални данни.</string>
 	<string name="tag_already_exists">Този таг вече съществува</string>
-	<string name="duplicate_name">Дублирано име</string>
 	<string name="name_cannot_be_empty">Името не може да е празно</string>
 	<string name="username_required">Потребителското име е задължително</string>
 	<string name="password_required">Паролата е задължителна</string>
@@ -402,7 +399,6 @@
 	<string name="theme_dark">Тъмна</string>
 	<string name="theme_wallpaper">Тапет</string>
 	<string name="theme_day_night">Ден/Нощ</string>
-	<string name="settings_general">Общи</string>
 	<string name="language">Език</string>
 	<string name="restart_required">Tasks трябва да бъде рестартиран за да влязат промените в сила</string>
 	<string name="restart_now">Рестартирай сега</string>
@@ -426,7 +422,6 @@
 	<string name="date_and_time">Дата и време</string>
 	<string name="start_of_week">Начало на седмицата</string>
 	<string name="use_locale_default">Локализация по подразбиране</string>
-	<string name="use_native_datetime_pickers">Контроли за избор на дата и време по подразбиране </string>
 	<string name="add_account">Добави акаунт</string>
 	<string name="user">Потребител</string>
 	<string name="password">Парола</string>

@@ -6,10 +6,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import javax.inject.Inject;
 import org.tasks.backup.TasksJsonExporter;
-import org.tasks.injection.InjectingNativeDialogFragment;
-import org.tasks.injection.NativeDialogFragmentComponent;
+import org.tasks.injection.DialogFragmentComponent;
+import org.tasks.injection.InjectingDialogFragment;
 
-public class ExportTasksDialog extends InjectingNativeDialogFragment {
+public class ExportTasksDialog extends InjectingDialogFragment {
 
   @Inject DialogBuilder dialogBuilder;
   @Inject TasksJsonExporter tasksJsonExporter;
@@ -35,7 +35,7 @@ public class ExportTasksDialog extends InjectingNativeDialogFragment {
   }
 
   @Override
-  protected void inject(NativeDialogFragmentComponent component) {
+  protected void inject(DialogFragmentComponent component) {
     component.inject(this);
   }
 }

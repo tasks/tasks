@@ -14,12 +14,12 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.backup.TasksJsonImporter;
 import org.tasks.backup.TasksJsonImporter.ImportResult;
+import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.ForActivity;
-import org.tasks.injection.InjectingNativeDialogFragment;
-import org.tasks.injection.NativeDialogFragmentComponent;
+import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.ui.Toaster;
 
-public class ImportTasksDialog extends InjectingNativeDialogFragment {
+public class ImportTasksDialog extends InjectingDialogFragment {
 
   private static final String EXTRA_URI = "extra_uri";
   private static final String EXTRA_EXTENSION = "extra_extension";
@@ -92,7 +92,7 @@ public class ImportTasksDialog extends InjectingNativeDialogFragment {
   }
 
   @Override
-  protected void inject(NativeDialogFragmentComponent component) {
+  protected void inject(DialogFragmentComponent component) {
     component.inject(this);
   }
 }

@@ -1,7 +1,7 @@
 package org.tasks.ui;
 
 import static android.app.Activity.RESULT_OK;
-import static org.tasks.activities.RemoteListSupportPicker.newRemoteListSupportPicker;
+import static org.tasks.activities.RemoteListPicker.newRemoteListSupportPicker;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -24,7 +24,7 @@ import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.service.TaskMover;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.activities.RemoteListSupportPicker;
+import org.tasks.activities.RemoteListPicker;
 import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.CaldavTask;
@@ -190,7 +190,7 @@ public class RemoteListFragment extends TaskEditControlFragment {
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (requestCode == REQUEST_CODE_SELECT_LIST) {
       if (resultCode == RESULT_OK) {
-        setList(data.getParcelableExtra(RemoteListSupportPicker.EXTRA_SELECTED_FILTER));
+        setList(data.getParcelableExtra(RemoteListPicker.EXTRA_SELECTED_FILTER));
       }
     } else {
       super.onActivityResult(requestCode, resultCode, data);

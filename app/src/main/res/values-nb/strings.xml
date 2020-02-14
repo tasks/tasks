@@ -215,7 +215,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">Kalenderhendelsestid</string>
     <string name="EPr_cal_end_at_due_time">Sluttfør kalenderhendelser ved tidsfrist</string>
     <string name="EPr_cal_start_at_due_time">Start kalenderhendelser ved tidsfrist</string>
-    <string name="EPr_manage_header">Håndter gamle oppgaver</string>
     <string name="EPr_manage_purge_deleted">Tøm slettede oppgaver</string>
     <string name="EPr_manage_purge_deleted_message">Ønsker du virkelig å tømme alle dine slettede oppgaver\?
 \n
@@ -388,11 +387,9 @@
     <string name="take_a_picture">Ta et bilde</string>
     <string name="pick_from_gallery">Velg fra galleri</string>
     <string name="pick_from_storage">Velg fra lagring</string>
-    <string name="privacy">Personvern</string>
     <string name="privacy_policy">Personvernspraksis</string>
     <string name="send_anonymous_statistics">Forbedre Tasks</string>
     <string name="send_anonymous_statistics_summary">Send anonym bruksstatistkk og kræsjrapporter for å hjelpe til å forbedre Tasks. Ingen personlig data vil bli samlet inn.</string>
-    <string name="duplicate_name">Duplikatnavn</string>
     <string name="name_cannot_be_empty">Navn kan ikke stå tomt</string>
     <string name="username_required">Brukernavn kreves</string>
     <string name="password_required">Passord kreves</string>
@@ -434,7 +431,6 @@
     <string name="theme_dark">Mørk</string>
     <string name="theme_wallpaper">Bakgrunnsbilde</string>
     <string name="theme_day_night">Dag/natt</string>
-    <string name="settings_general">Generelt</string>
     <string name="layout_direction">Sideretning</string>
     <string name="hardware_support_required">Maskinvarestøtte kreves</string>
     <string name="no_calendars_found">Fant ingen kalendre</string>
@@ -450,7 +446,6 @@
     <string name="date_and_time">Dato og tid</string>
     <string name="start_of_week">Ukestart</string>
     <string name="use_locale_default">Bruk forvalgt lokalitet</string>
-    <string name="use_native_datetime_pickers">Bruk systemets dato og tider</string>
     <string name="add_account">Legg til konto</string>
     <string name="user">Bruker</string>
     <string name="password">Passord</string>

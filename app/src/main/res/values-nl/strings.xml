@@ -83,7 +83,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">Agenda item tijd</string>
     <string name="EPr_cal_end_at_due_time">Agenda item op tijd afronden</string>
     <string name="EPr_cal_start_at_due_time">Agenda item op tijd starten</string>
-    <string name="EPr_manage_header">Oude taken beheren</string>
     <string name="EPr_manage_purge_deleted">Verwijderde taken opruimen</string>
     <string name="EPr_manage_purge_deleted_message">Alle verwijderde taken werkelijk opschonen?\n\nDeze taken zijn dan definitief verwijderd!</string>
     <string name="EPr_manage_purge_deleted_status">%d verwijderde taken opgeruimd!</string>
@@ -350,7 +349,6 @@
     <string name="send_anonymous_statistics">Tasks verbeteren</string>
     <string name="send_anonymous_statistics_summary">Verstuur anoniem gebruikersstatistieken en crash rapporten om Tasks te verbeteren. Er worden geen persoonlijke gegevens verzameld.</string>
     <string name="tag_already_exists">Label bestaat reeds</string>
-    <string name="duplicate_name">Dubbele naam</string>
     <string name="name_cannot_be_empty">Naam mag niet leeg zijn</string>
     <string name="username_required">Gebruikersnaam verplicht</string>
     <string name="password_required">Wachtwoord verplicht</string>
@@ -390,7 +388,6 @@
     <string name="theme_dark">Donker</string>
     <string name="theme_wallpaper">Achtergrond</string>
     <string name="theme_day_night">Dag/Nacht</string>
-    <string name="settings_general">Globaal</string>
     <string name="language">Taal</string>
     <string name="restart_required">Tasks moet opnieuw gestart worden om de nieuwe wijzingen te activeren</string>
     <string name="restart_now">Herstart nu</string>
@@ -413,7 +410,6 @@
     <string name="date_and_time">Datum en tijd</string>
     <string name="start_of_week">Begin van de week</string>
     <string name="use_locale_default">Gebruik lokale instellingen</string>
-    <string name="use_native_datetime_pickers">Gebruik standaard datum- en tijd selectie</string>
     <string name="add_account">Account toevoegen</string>
     <string name="user">Gebruiker</string>
     <string name="password">Wachtwoord</string>
@@ -512,7 +508,6 @@
     <string name="backup_directory">Backup locatie</string>
     <string name="location_radius_meters">%s m</string>
     <string name="filters">Filters</string>
-    <string name="privacy">Privacy</string>
     <string name="filter">Filter</string>
     <string name="accent">Accent</string>
     <string name="pro_tasker_plugins">Tasker plugins</string>

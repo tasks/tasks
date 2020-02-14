@@ -10,7 +10,7 @@ import static android.app.Activity.RESULT_OK;
 import static androidx.core.content.ContextCompat.getColor;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
-import static org.tasks.activities.RemoteListSupportPicker.newRemoteListSupportPicker;
+import static org.tasks.activities.RemoteListPicker.newRemoteListSupportPicker;
 import static org.tasks.caldav.CaldavCalendarSettingsActivity.EXTRA_CALDAV_CALENDAR;
 import static org.tasks.ui.CheckBoxes.getPriorityColor;
 
@@ -80,7 +80,7 @@ import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.activities.FilterSettingsActivity;
 import org.tasks.activities.GoogleTaskListSettingsActivity;
-import org.tasks.activities.RemoteListSupportPicker;
+import org.tasks.activities.RemoteListPicker;
 import org.tasks.activities.TagSettingsActivity;
 import org.tasks.caldav.CaldavCalendarSettingsActivity;
 import org.tasks.data.CaldavAccount;
@@ -586,7 +586,7 @@ public final class TaskListFragment extends InjectingFragment
         if (resultCode == RESULT_OK) {
           taskMover.move(
               taskAdapter.getSelected(),
-              data.getParcelableExtra(RemoteListSupportPicker.EXTRA_SELECTED_FILTER));
+              data.getParcelableExtra(RemoteListPicker.EXTRA_SELECTED_FILTER));
           finishActionMode();
         }
         break;

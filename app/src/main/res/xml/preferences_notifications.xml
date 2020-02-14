@@ -1,94 +1,106 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
-<PreferenceScreen
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tasks="http://schemas.android.com/apk/res-auto"
-  android:title="@string/notifications">
-
-  <CheckBoxPreference
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+  <SwitchPreferenceCompat
     android:defaultValue="true"
     android:key="@string/p_rmd_enabled"
-    android:title="@string/enabled"/>
+    android:title="@string/enabled" />
+
   <Preference
     android:dependency="@string/p_rmd_enabled"
     android:key="@string/notification_channel_settings"
-    android:title="@string/notification_channel_settings"/>
+    android:title="@string/notification_channel_settings"
+    app:icon="@drawable/ic_open_in_new_24px" />
+
   <Preference
     android:dependency="@string/p_rmd_enabled"
     android:key="@string/battery_optimization_settings"
     android:summary="@string/notification_disable_battery_optimizations_description"
-    android:title="@string/battery_optimization_settings"/>
-  <RingtonePreference
-    android:defaultValue="content://settings/system/notification_sound"
-    android:dependency="@string/p_rmd_enabled"
-    android:key="@string/p_rmd_ringtone"
-    android:ringtoneType="notification"
-    android:showDefault="true"
-    android:showSilent="true"
-    android:title="@string/sound"/>
-  <com.todoroo.astrid.ui.MultilineCheckboxPreference
-    android:defaultValue="true"
-    android:dependency="@string/p_rmd_enabled"
-    android:key="@string/p_rmd_persistent"
-    android:summary="@string/persistent_notifications_description"
-    android:title="@string/persistent_notifications"/>
-  <CheckBoxPreference
-    android:defaultValue="@bool/default_bundle_notifications"
-    android:dependency="@string/p_rmd_enabled"
-    android:key="@string/p_bundle_notifications"
-    android:summary="@string/bundle_notifications_summary"
-    android:title="@string/bundle_notifications"/>
-  <CheckBoxPreference
-    android:defaultValue="true"
-    android:dependency="@string/p_rmd_enabled"
-    android:key="@string/p_rmd_vibrate"
-    android:title="@string/vibrations"/>
-  <CheckBoxPreference
-    android:defaultValue="true"
-    android:dependency="@string/p_rmd_enabled"
-    android:key="@string/p_led_notification"
-    android:summary="@string/hardware_support_required"
-    android:title="@string/led_notification"/>
+    android:title="@string/battery_optimization_settings"
+    app:icon="@drawable/ic_open_in_new_24px" />
+
   <org.tasks.ui.TimePreference
     android:defaultValue="@integer/default_remind_time"
     android:dependency="@string/p_rmd_enabled"
     android:key="@string/p_rmd_time"
     android:title="@string/rmd_EPr_rmd_time_title"
-    tasks:summary="@string/rmd_EPr_rmd_time_desc"/>
+    app:time_summary="@string/rmd_EPr_rmd_time_desc" />
+
+  <SwitchPreferenceCompat
+    android:defaultValue="true"
+    android:dependency="@string/p_rmd_enabled"
+    android:key="@string/p_rmd_persistent"
+    android:summary="@string/persistent_notifications_description"
+    android:title="@string/persistent_notifications" />
+
+  <SwitchPreferenceCompat
+    android:defaultValue="@bool/default_bundle_notifications"
+    android:dependency="@string/p_rmd_enabled"
+    android:key="@string/p_bundle_notifications"
+    android:summary="@string/bundle_notifications_summary"
+    android:title="@string/bundle_notifications" />
+
+  <SwitchPreferenceCompat
+    android:defaultValue="false"
+    android:key="@string/p_voiceRemindersEnabled"
+    android:summary="@string/EPr_voiceRemindersEnabled_desc_enabled"
+    android:title="@string/EPr_voiceRemindersEnabled_title" />
+
+  <Preference
+    android:defaultValue="content://settings/system/notification_sound"
+    android:dependency="@string/p_rmd_enabled"
+    android:key="@string/p_rmd_ringtone"
+    android:title="@string/sound" />
+
+  <SwitchPreferenceCompat
+    android:defaultValue="true"
+    android:dependency="@string/p_rmd_enabled"
+    android:key="@string/p_rmd_vibrate"
+    android:title="@string/vibrations" />
+
+  <SwitchPreferenceCompat
+    android:defaultValue="true"
+    android:dependency="@string/p_rmd_enabled"
+    android:key="@string/p_led_notification"
+    android:summary="@string/hardware_support_required"
+    android:title="@string/led_notification" />
 
   <PreferenceCategory android:title="@string/badges">
-    <CheckBoxPreference
+
+    <SwitchPreferenceCompat
       android:defaultValue="false"
       android:key="@string/p_badges_enabled"
       android:summary="@string/badges_description"
-      android:title="@string/enabled"/>
-    <com.todoroo.astrid.ui.MultilinePreference
+      android:title="@string/enabled" />
+
+    <Preference
       android:dependency="@string/p_badges_enabled"
       android:key="@string/p_badge_list"
-      android:title="@string/list"/>
+      android:title="@string/list" />
+
   </PreferenceCategory>
 
   <PreferenceCategory android:title="@string/quiet_hours">
-    <CheckBoxPreference
+
+    <SwitchPreferenceCompat
       android:defaultValue="false"
       android:dependency="@string/p_rmd_enabled"
       android:key="@string/p_rmd_enable_quiet"
       android:summary="@string/quiet_hours_summary"
-      android:title="@string/enabled"/>
+      android:title="@string/enabled" />
+
     <org.tasks.ui.TimePreference
       android:defaultValue="@integer/default_quiet_hours_start"
       android:dependency="@string/p_rmd_enable_quiet"
       android:key="@string/p_rmd_quietStart"
-      android:title="@string/rmd_EPr_quiet_hours_start_title"/>
+      android:title="@string/rmd_EPr_quiet_hours_start_title" />
+
     <org.tasks.ui.TimePreference
       android:defaultValue="@integer/default_quiet_hours_end"
       android:dependency="@string/p_rmd_enable_quiet"
       android:key="@string/p_rmd_quietEnd"
-      android:title="@string/rmd_EPr_quiet_hours_end_title"/>
-  </PreferenceCategory>
+      android:title="@string/rmd_EPr_quiet_hours_end_title" />
 
+  </PreferenceCategory>
 
 </PreferenceScreen>

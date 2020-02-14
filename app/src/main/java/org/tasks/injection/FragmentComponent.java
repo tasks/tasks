@@ -12,9 +12,17 @@ import com.todoroo.astrid.ui.ReminderControlSet;
 import dagger.Subcomponent;
 import org.jetbrains.annotations.NotNull;
 import org.tasks.fragments.CommentBarFragment;
+import org.tasks.preferences.fragments.Advanced;
+import org.tasks.preferences.fragments.Backups;
 import org.tasks.preferences.fragments.DashClock;
+import org.tasks.preferences.fragments.Debug;
 import org.tasks.preferences.fragments.HelpAndFeedback;
+import org.tasks.preferences.fragments.LookAndFeel;
+import org.tasks.preferences.fragments.MainSettingsFragment;
+import org.tasks.preferences.fragments.Notifications;
 import org.tasks.preferences.fragments.ScrollableWidget;
+import org.tasks.preferences.fragments.Synchronization;
+import org.tasks.preferences.fragments.TaskDefaults;
 import org.tasks.preferences.fragments.TaskerListNotification;
 import org.tasks.ui.CalendarControlSet;
 import org.tasks.ui.DeadlineControlSet;
@@ -68,6 +76,22 @@ public interface FragmentComponent {
   void inject(TaskListViewModel taskListViewModel);
 
   void inject(@NotNull HelpAndFeedback helpAndFeedback);
+
+  void inject(@NotNull LookAndFeel lookAndFeel);
+
+  void inject(@NotNull Synchronization synchronization);
+
+  void inject(@NotNull Debug debug);
+
+  void inject(@NotNull MainSettingsFragment mainSettingsFragment);
+
+  void inject(@NotNull Backups backups);
+
+  void inject(@NotNull Advanced advanced);
+
+  void inject(@NotNull Notifications notifications);
+
+  void inject(@NotNull TaskDefaults taskDefaults);
 
   void inject(@NotNull ScrollableWidget scrollableWidget);
 

@@ -104,7 +104,7 @@
     android:networkSecurityConfig="@xml/network_security_config"
     android:icon="@mipmap/ic_launcher_blue"
     android:label="@string/app_name"
-    android:manageSpaceActivity="com.todoroo.astrid.core.OldTaskPreferences"
+    android:manageSpaceActivity="org.tasks.preferences.ManageSpaceActivity"
     android:name=".Tasks"
     android:roundIcon="@mipmap/ic_launcher_blue"
     android:supportsRtl="true"
@@ -214,16 +214,6 @@
     <!-- Activity for preferences -->
 
     <activity
-      android:label="@string/TLA_menu_settings"
-      android:name=".preferences.BasicPreferences"
-      android:theme="@style/Tasks"/>
-
-    <activity
-      android:label="@string/miscellaneous"
-      android:name=".preferences.MiscellaneousPreferences"
-      android:theme="@style/Tasks"/>
-
-    <activity
       android:excludeFromRecents="true"
       android:exported="true"
       android:label="@string/widget_settings"
@@ -289,16 +279,6 @@
     <!-- ========================================================= Plugins = -->
 
     <activity
-      android:label="@string/date_and_time"
-      android:name=".preferences.DateTimePreferences"
-      android:theme="@style/Tasks"/>
-
-    <activity
-      android:label="@string/task_defaults"
-      android:name="com.todoroo.astrid.core.DefaultsPreferences"
-      android:theme="@style/Tasks"/>
-
-    <activity
       android:name="com.todoroo.astrid.activity.BeastModePreferences"
       android:theme="@style/Tasks"/>
 
@@ -362,10 +342,6 @@
       android:theme="@style/TranslucentDialog" />
 
     <!-- old tasks -->
-    <activity
-      android:label="@string/EPr_manage_header"
-      android:name="com.todoroo.astrid.core.OldTaskPreferences"
-      android:theme="@style/Tasks"/>
 
     <activity
       android:label="@string/app_name"
@@ -382,18 +358,6 @@
       android:theme="@style/TranslucentDialog"/>
 
     <!-- reminders -->
-    <activity
-      android:exported="false"
-      android:label="@string/notifications"
-      android:name="com.todoroo.astrid.reminders.ReminderPreferences"
-      android:theme="@style/Tasks">
-
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN"/>
-        <category android:name="android.intent.category.NOTIFICATION_PREFERENCES"/>
-      </intent-filter>
-
-    </activity>
 
     <activity
       android:name=".voice.VoiceCommandActivity"
@@ -551,11 +515,6 @@
     </activity>
 
     <activity
-      android:label="@string/debug"
-      android:name=".preferences.DebugPreferences"
-      android:theme="@style/Tasks"/>
-
-    <activity
       android:name=".widget.WidgetClickActivity"
       android:excludeFromRecents="true"
       android:launchMode="singleTask"
@@ -575,7 +534,28 @@
       android:theme="@style/Tasks" />
 
     <activity
+      android:name=".preferences.MainPreferences"
+      android:theme="@style/Tasks" />
+
+    <activity
       android:name=".preferences.HelpAndFeedback"
+      android:theme="@style/Tasks" />
+
+    <activity
+      android:name=".preferences.NotificationPreferences"
+      android:theme="@style/Tasks">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.NOTIFICATION_PREFERENCES" />
+      </intent-filter>
+    </activity>
+
+    <activity
+      android:name=".preferences.ManageSpaceActivity"
+      android:theme="@style/Tasks" />
+
+    <activity
+      android:name=".preferences.SyncPreferences"
       android:theme="@style/Tasks" />
 
     <!-- launcher icons -->

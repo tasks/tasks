@@ -1,6 +1,7 @@
 package org.tasks.preferences;
 
 import static android.content.SharedPreferences.Editor;
+import static androidx.preference.PreferenceManager.setDefaultValues;
 import static com.google.common.collect.Iterables.filter;
 import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Sets.newHashSet;
@@ -17,7 +18,6 @@ import android.content.res.Resources;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Binder;
-import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -204,11 +204,13 @@ public class Preferences {
   }
 
   public void setDefaults() {
-    PreferenceManager.setDefaultValues(context, R.xml.preferences, true);
-    PreferenceManager.setDefaultValues(context, R.xml.preferences_date_time, true);
-    PreferenceManager.setDefaultValues(context, R.xml.preferences_defaults, true);
-    PreferenceManager.setDefaultValues(context, R.xml.preferences_misc, true);
-    PreferenceManager.setDefaultValues(context, R.xml.preferences_reminders, true);
+    setDefaultValues(context, R.xml.preferences, true);
+    setDefaultValues(context, R.xml.preferences_task_defaults, true);
+    setDefaultValues(context, R.xml.preferences_synchronization, true);
+    setDefaultValues(context, R.xml.preferences_notifications, true);
+    setDefaultValues(context, R.xml.preferences_look_and_feel, true);
+    setDefaultValues(context, R.xml.preferences_backups, true);
+    setDefaultValues(context, R.xml.preferences_advanced, true);
 
     BeastModePreferences.setDefaultOrder(this, context);
   }
@@ -222,7 +224,7 @@ public class Preferences {
     return prefs.getString(key, null);
   }
 
-  public String getStringValue(int keyResource) {
+  public @Nullable String getStringValue(int keyResource) {
     return prefs.getString(context.getResources().getString(keyResource), null);
   }
 
@@ -239,7 +241,7 @@ public class Preferences {
     return getIntegerFromString(R.string.p_default_reminders_mode_key, 0);
   }
 
-  int getRowPadding() {
+  public int getRowPadding() {
     return getInt(R.string.p_rowPadding, 16);
   }
 

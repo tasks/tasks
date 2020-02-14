@@ -87,7 +87,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">Naptáresemény időzítése</string>
     <string name="EPr_cal_end_at_due_time">Naptáresemények befejezése határidőkor</string>
     <string name="EPr_cal_start_at_due_time">Naptáresemények kezdése határidőkor</string>
-    <string name="EPr_manage_header">Régi feladatok kezelése</string>
     <string name="EPr_manage_purge_deleted">Törölt feladatok elvetése</string>
     <string name="EPr_manage_purge_deleted_message">Biztosan el akarja vetni az összes törölt feladatot?\n\nEzek a feladatok többé nem lesznek visszaállíthatóak!</string>
     <string name="EPr_manage_purge_deleted_status">%d feladat elvetve!</string>
@@ -352,12 +351,10 @@
     <string name="take_a_picture">Kép készítése</string>
     <string name="pick_from_gallery">Kiválasztás a galériából</string>
     <string name="pick_from_storage">Kiválasztás a tárhelyről</string>
-    <string name="privacy">Adatvédelem</string>
     <string name="privacy_policy">Adatvédelmi irányelv</string>
     <string name="send_anonymous_statistics">Tasks fejlesztése</string>
     <string name="send_anonymous_statistics_summary">Anonim felhasználási statisztikák és hibajelentések küldése a Tasks fejlesztése érdekében. Személyes adatok gyűjtése nem történik.</string>
     <string name="tag_already_exists">A címke már létezik</string>
-    <string name="duplicate_name">Duplikált név</string>
     <string name="name_cannot_be_empty">A cím nem lehet üres</string>
     <string name="username_required">Felhasználónév szükséges</string>
     <string name="password_required">Jelszó szükséges</string>
@@ -400,7 +397,6 @@
     <string name="theme_dark">Sötét</string>
     <string name="theme_wallpaper">Háttérkép</string>
     <string name="theme_day_night">Nappal/Éjszaka</string>
-    <string name="settings_general">Általános</string>
     <string name="language">Nyelv</string>
     <string name="restart_required">A változás érvényesítéséhez újra kell indítani a Tasks appot</string>
     <string name="restart_now">Újraindítás most</string>
@@ -424,7 +420,6 @@
     <string name="date_and_time">Dátum és időpont</string>
     <string name="start_of_week">Hét kezdőnapja</string>
     <string name="use_locale_default">Beállított nyelv alapján</string>
-    <string name="use_native_datetime_pickers">Natív dátum és időpont kijelölő használata</string>
     <string name="add_account">Felhasználói fiók hozzáadása</string>
     <string name="user">Felhasználónév</string>
     <string name="password">Jelszó</string>

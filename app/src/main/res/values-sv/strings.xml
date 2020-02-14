@@ -77,7 +77,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">Tid för kalenderhändelse</string>
     <string name="EPr_cal_end_at_due_time">Avsluta kalenderhändelser vid förfallotid</string>
     <string name="EPr_cal_start_at_due_time">Påbörja kalenderhändelser vid förfallotid</string>
-    <string name="EPr_manage_header">Hantera gamla uppgifter</string>
     <string name="EPr_manage_purge_deleted">Rensa bort raderade uppgifter</string>
     <string name="EPr_manage_purge_deleted_message">Vill du verkligen rensa bort alla dina raderade uppgifter?\n\nDe här uppgifterna kommer att tas bort för alltid!</string>
     <string name="EPr_manage_purge_deleted_status">%d uppgifter bortrensade!</string>
@@ -254,7 +253,6 @@
     <string name="take_a_picture">Ta en bild</string>
     <string name="pick_from_gallery">Välj från album</string>
     <string name="pick_from_storage">Välj från lagring</string>
-    <string name="privacy">Integritet</string>
     <string name="privacy_policy">Integritetspolicy</string>
     <string name="send_anonymous_statistics">Förbättra Tasks</string>
     <string name="send_anonymous_statistics_summary">Skicka anonym användarstatistik och crashrapporter för att hjälpa till att förbättra Tasks. Ingen personlig information kommer samlas in.</string>
@@ -289,7 +287,6 @@
     <string name="theme_dark">Mörkt</string>
     <string name="theme_wallpaper">Bakgrundsbild</string>
     <string name="theme_day_night">Dag/Natt</string>
-    <string name="settings_general">Allmäna</string>
     <string name="language">Språk</string>
     <string name="restart_required">Tasks måste startas om innan ändringarna börjar gälla</string>
     <string name="restart_now">Starta om nu</string>
@@ -400,7 +397,6 @@
     <string name="location_radius_meters">%s m</string>
     <string name="copy">Kopiera</string>
     <string name="move">Flytta</string>
-    <string name="duplicate_name">Duplicera namn</string>
     <string name="username_required">Användarnamn krävs</string>
     <string name="password_required">Lösenord krävs</string>
     <string name="url_required">URL krävs</string>
@@ -424,7 +420,6 @@
     <string name="date_and_time">Datum och tid</string>
     <string name="start_of_week">Början på veckan</string>
     <string name="use_locale_default">Använd lokala inställningar</string>
-    <string name="use_native_datetime_pickers">Använd ursprungliga datum- och tidsväljare</string>
     <string name="add_account">Lägg till konto</string>
     <string name="user">Användare</string>
     <string name="password">Lösenord</string>

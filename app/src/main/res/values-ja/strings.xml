@@ -85,7 +85,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">カレンダーイベント時間</string>
     <string name="EPr_cal_end_at_due_time">カレンダーイベント終了時間</string>
     <string name="EPr_cal_start_at_due_time">カレンダーイベント開始時間</string>
-    <string name="EPr_manage_header">古いタスクを管理</string>
     <string name="EPr_manage_purge_deleted">削除済のタスクを消去</string>
     <string name="EPr_manage_purge_deleted_message">削除済のタスクをすべて消去してもよろしいですか?\n\nこれらのタスクは永久になくなります!</string>
     <string name="EPr_manage_purge_deleted_status">%d タスクを消去しました!</string>
@@ -351,12 +350,10 @@
     <string name="take_a_picture">写真を撮影</string>
     <string name="pick_from_gallery">ギャラリーから選択</string>
     <string name="pick_from_storage">ストレージから選択</string>
-    <string name="privacy">プライバシー</string>
     <string name="privacy_policy">プライバシーポリシー</string>
     <string name="send_anonymous_statistics">Tasks を改善</string>
     <string name="send_anonymous_statistics_summary">Tasks を改善するために、匿名で使用状況データとクラッシュレポートを送信します。個人情報は収集されません。</string>
     <string name="tag_already_exists">タグは既に存在します</string>
-    <string name="duplicate_name">名前を複製</string>
     <string name="name_cannot_be_empty">名前は空にできません。</string>
     <string name="username_required">ユーザー名が必要です</string>
     <string name="password_required">パスワードが必要です</string>
@@ -399,7 +396,6 @@
     <string name="theme_dark">ダーク</string>
     <string name="theme_wallpaper">壁紙</string>
     <string name="theme_day_night">デイナイト</string>
-    <string name="settings_general">全般</string>
     <string name="language">言語</string>
     <string name="restart_required">Tasks は、変更を有効にするために再起動する必要があります</string>
     <string name="restart_now">今すぐ再起動</string>
@@ -423,7 +419,6 @@
     <string name="date_and_time">日付と時刻</string>
     <string name="start_of_week">週の始まり</string>
     <string name="use_locale_default">ロケールのデフォルトを使用する</string>
-    <string name="use_native_datetime_pickers">ネイティブの日付と時刻選択を使用する</string>
     <string name="add_account">アカウントを追加</string>
     <string name="user">ユーザー</string>
     <string name="password">パスワード</string>

@@ -134,10 +134,9 @@ public class GeofenceDialog extends InjectingDialogFragment {
 
   @OnClick(R.id.location_radius)
   void selectRadius() {
-    SeekBarDialog seekBarDialog =
-        newSeekBarDialog(R.layout.dialog_radius_seekbar, 75, 1000, toGeofence().getRadius());
-    seekBarDialog.setTargetFragment(this, REQUEST_RADIUS);
-    seekBarDialog.show(getFragmentManager(), FRAG_TAG_SEEKBAR);
+    newSeekBarDialog(
+        R.layout.dialog_radius_seekbar, 75, 1000, toGeofence().getRadius(), this, REQUEST_RADIUS)
+        .show(getFragmentManager(), FRAG_TAG_SEEKBAR);
   }
 
   private void updateRadius(int radius) {

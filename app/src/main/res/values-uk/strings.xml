@@ -88,7 +88,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">Час події в календарі</string>
     <string name="EPr_cal_end_at_due_time">Завершення календарної події при настанні терміну</string>
     <string name="EPr_cal_start_at_due_time">Початок календарної події при настанні терміну</string>
-    <string name="EPr_manage_header">Управління старими завданнями</string>
     <string name="EPr_manage_purge_deleted">Очистити видалені завдання</string>
     <string name="EPr_manage_purge_deleted_message">Ви дійсно хочете очистити всі видалені завдання?\n\nЦя операція незворотна!</string>
     <string name="EPr_manage_purge_deleted_status">Очищено %d завдань!</string>
@@ -354,12 +353,10 @@
     <string name="take_a_picture">Зробити фото</string>
     <string name="pick_from_gallery">Обрати з галереї</string>
     <string name="pick_from_storage">Обрати зі сховища</string>
-    <string name="privacy">Приватність</string>
     <string name="privacy_policy">Політика приватності</string>
     <string name="send_anonymous_statistics">Поліпшити Tasks</string>
     <string name="send_anonymous_statistics_summary">Відсилати анонімну статистику використання і звіти про помилки щоб покращити Tasks. Жодних персональних даних не буде передано.</string>
     <string name="tag_already_exists">Тег вже існує</string>
-    <string name="duplicate_name">Скопіювати ім\'я</string>
     <string name="name_cannot_be_empty">Ім\'я не може бути порожнє</string>
     <string name="username_required">Потрібне ім\'я користувача</string>
     <string name="password_required">Потрібний пароль</string>
@@ -402,7 +399,6 @@
     <string name="theme_dark">Темний</string>
     <string name="theme_wallpaper">Шпалери</string>
     <string name="theme_day_night">День/Ніч</string>
-    <string name="settings_general">Загальні</string>
     <string name="language">Мова</string>
     <string name="restart_required">Tasks має бути перезавантажено для вступу змін в дію.</string>
     <string name="restart_now">Перезапустити зараз</string>
@@ -426,7 +422,6 @@
     <string name="date_and_time">Дата та час</string>
     <string name="start_of_week">Початок тижня</string>
     <string name="use_locale_default">Використовувати напрям пристрою</string>
-    <string name="use_native_datetime_pickers">Використовувати системні елементи вибору дати та часу</string>
     <string name="add_account">Додати обліковий запис</string>
     <string name="user">Користувач</string>
     <string name="password">Пароль</string>

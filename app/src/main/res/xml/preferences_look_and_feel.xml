@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:key="@string/preference_screen">
+
+  <Preference
+    android:key="@string/p_theme"
+    android:title="@string/theme" />
+
+  <Preference
+    android:key="@string/p_theme_color"
+    android:title="@string/color" />
+
+  <Preference
+    android:key="@string/p_theme_accent"
+    android:title="@string/accent" />
+
+  <Preference
+    android:key="@string/p_theme_launcher"
+    android:title="@string/launcher_icon" />
+
+  <PreferenceCategory
+    android:key="@string/task_list_options"
+    android:title="@string/task_list_options">
+
+    <Preference
+      android:key="@string/p_default_list"
+      android:title="@string/default_list" />
+
+    <SeekBarPreference
+      android:defaultValue="16"
+      android:key="@string/p_fontSize"
+      android:max="48"
+      android:title="@string/font_size"
+      app:min="10"
+      app:showSeekBarValue="true" />
+
+    <SeekBarPreference
+      android:defaultValue="16"
+      android:key="@string/p_rowPadding"
+      android:max="16"
+      android:title="@string/row_spacing"
+      app:min="0"
+      app:showSeekBarValue="true" />
+
+    <SwitchPreferenceCompat
+      android:defaultValue="false"
+      android:key="@string/p_show_subtasks"
+      android:summary="@string/show_subtasks_summary"
+      android:title="@string/show_subtasks" />
+
+    <SwitchPreferenceCompat
+      android:defaultValue="false"
+      android:key="@string/p_fullTaskTitle"
+      android:title="@string/EPr_fullTask_title" />
+
+    <SwitchPreferenceCompat
+      android:defaultValue="true"
+      android:key="@string/p_show_description"
+      android:title="@string/show_description" />
+
+    <SwitchPreferenceCompat
+      android:defaultValue="false"
+      android:dependency="@string/p_show_description"
+      android:key="@string/p_show_full_description"
+      android:title="@string/show_full_description" />
+
+    <SwitchPreferenceCompat
+      android:defaultValue="true"
+      android:key="@string/p_show_list_indicators"
+      android:title="@string/show_list_indicators" />
+
+    <SwitchPreferenceCompat
+      android:defaultValue="false"
+      android:key="@string/p_linkify_task_list"
+      android:summary="@string/linkify_description"
+      android:title="@string/linkify" />
+
+    <SwitchPreferenceCompat
+      android:defaultValue="false"
+      android:key="@string/p_temporarily_show_completed_tasks"
+      android:summaryOff="@string/EPr_temp_completed_tasks_not_showing"
+      android:summaryOn="@string/EPr_temp_completed_tasks_showing"
+      android:title="@string/EPr_temp_show_completed_tasks"
+      app:singleLineTitle="false" />
+
+  </PreferenceCategory>
+
+  <PreferenceCategory android:title="@string/EPr_edit_screen_options">
+
+    <Preference
+      android:key="@string/customize_edit_screen"
+      android:title="@string/customize_edit_screen">
+      <intent
+        android:targetClass="com.todoroo.astrid.activity.BeastModePreferences"
+        android:targetPackage="@string/app_package" />
+    </Preference>
+
+    <SwitchPreferenceCompat
+      android:defaultValue="false"
+      android:key="@string/p_back_button_saves_task"
+      android:title="@string/back_button_saves_task" />
+
+    <SwitchPreferenceCompat
+      android:defaultValue="false"
+      android:key="@string/p_show_task_edit_comments"
+      android:title="@string/EPr_show_task_edit_comments" />
+
+  </PreferenceCategory>
+
+  <PreferenceCategory android:title="@string/date_and_time">
+
+    <ListPreference
+      android:defaultValue="0"
+      android:entryValues="@array/day_of_week_values"
+      android:key="@string/p_start_of_week"
+      android:title="@string/start_of_week" />
+
+    <org.tasks.ui.TimePreference
+      android:defaultValue="@integer/default_morning"
+      android:key="@string/p_date_shortcut_morning"
+      android:title="@string/date_shortcut_morning" />
+
+    <org.tasks.ui.TimePreference
+      android:defaultValue="@integer/default_afternoon"
+      android:key="@string/p_date_shortcut_afternoon"
+      android:title="@string/date_shortcut_afternoon" />
+
+    <org.tasks.ui.TimePreference
+      android:defaultValue="@integer/default_evening"
+      android:key="@string/p_date_shortcut_evening"
+      android:title="@string/date_shortcut_evening" />
+
+    <org.tasks.ui.TimePreference
+      android:defaultValue="@integer/default_night"
+      android:key="@string/p_date_shortcut_night"
+      android:title="@string/date_shortcut_night" />
+
+  </PreferenceCategory>
+
+  <PreferenceCategory
+    android:key="@string/TEA_control_location"
+    android:title="@string/TEA_control_location">
+
+    <Preference
+      android:defaultValue="-1"
+      android:key="@string/p_map_provider"
+      android:title="@string/map_provider" />
+
+    <Preference
+      android:defaultValue="-1"
+      android:key="@string/p_place_provider"
+      android:title="@string/map_search_provider" />
+
+  </PreferenceCategory>
+
+  <PreferenceCategory android:title="@string/EPr_filters_to_show_title">
+
+    <SwitchPreferenceCompat
+      android:defaultValue="true"
+      android:key="@string/p_show_today_filter"
+      android:title="@string/today" />
+
+    <SwitchPreferenceCompat
+      android:defaultValue="true"
+      android:key="@string/p_show_recently_modified_filter"
+      android:title="@string/BFE_Recent" />
+
+    <SwitchPreferenceCompat
+      android:defaultValue="true"
+      android:key="@string/p_show_not_in_list_filter"
+      android:title="@string/tag_FEx_untagged" />
+
+  </PreferenceCategory>
+
+  <PreferenceCategory
+    android:key="@string/settings_localization"
+    android:title="@string/settings_localization">
+
+    <Preference
+      android:key="@string/p_language"
+      android:title="@string/language" />
+
+    <ListPreference
+      android:defaultValue="-1"
+      android:entries="@array/layout_direction_entries"
+      android:entryValues="@array/layout_direction_values"
+      android:key="@string/p_layout_direction"
+      android:title="@string/layout_direction" />
+
+    <Preference
+      android:title="@string/translations"
+      app:icon="@drawable/ic_open_in_new_24px">
+      <intent
+        android:action="android.intent.action.VIEW"
+        android:data="http://tasks.org/translations" />
+    </Preference>
+
+  </PreferenceCategory>
+
+</PreferenceScreen>

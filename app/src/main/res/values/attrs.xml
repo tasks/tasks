@@ -19,7 +19,7 @@
   <attr format="color" name="colorOnPrimaryHint"/>
 
   <declare-styleable name="TimePreference">
-    <attr format="string" name="summary"/>
+    <attr format="string" name="time_summary"/>
   </declare-styleable>
 
   <declare-styleable name="ScrimInsetsFrameLayout">

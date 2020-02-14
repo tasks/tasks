@@ -1,6 +1,5 @@
 package org.tasks.ui;
 
-import static android.app.Activity.RESULT_OK;
 import static com.google.common.collect.Iterables.filter;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertNotMainThread;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
@@ -27,7 +26,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.adapter.NavigationDrawerAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
@@ -48,18 +46,14 @@ import org.tasks.filters.NavigationDrawerAction;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.intents.TaskIntents;
-import org.tasks.preferences.BasicPreferences;
 
 public class NavigationDrawerFragment extends InjectingFragment {
 
   public static final int FRAGMENT_NAVIGATION_DRAWER = R.id.navigation_drawer;
   public static final int REQUEST_NEW_LIST = 10100;
-  public static final int ACTIVITY_REQUEST_NEW_FILTER = 10101;
-  public static final int REQUEST_NEW_GTASK_LIST = 10102;
-  public static final int REQUEST_NEW_CALDAV_COLLECTION = 10103;
-  public static final int REQUEST_SETTINGS = 10104;
-  public static final int REQUEST_PURCHASE = 10105;
-  public static final int REQUEST_DONATE = 10106;
+  public static final int REQUEST_SETTINGS = 10101;
+  public static final int REQUEST_PURCHASE = 10102;
+  public static final int REQUEST_DONATE = 10103;
   private static final String FRAG_TAG_PURCHASE_DIALOG = "frag_tag_purchase_dialog";
 
   private final RefreshReceiver refreshReceiver = new RefreshReceiver();
@@ -93,36 +87,6 @@ public class NavigationDrawerFragment extends InjectingFragment {
   }
 
   @Override
-  public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    if (requestCode == REQUEST_SETTINGS) {
-      if (resultCode == Activity.RESULT_OK) {
-        if (data != null && data.getBooleanExtra(BasicPreferences.EXTRA_RESTART, false)) {
-          getActivity().recreate();
-        }
-      }
-    } else if (requestCode == REQUEST_NEW_LIST
-        || requestCode == ACTIVITY_REQUEST_NEW_FILTER
-        || requestCode == REQUEST_NEW_GTASK_LIST
-        || requestCode == REQUEST_NEW_CALDAV_COLLECTION) {
-      if (resultCode == RESULT_OK && data != null) {
-        Filter filter = data.getParcelableExtra(MainActivity.OPEN_FILTER);
-        if (filter != null) {
-          openFilter(filter);
-        }
-      }
-    } else {
-      super.onActivityResult(requestCode, resultCode, data);
-    }
-  }
-
-  private void openFilter(@NonNull Filter filter) {
-    FragmentActivity activity = getActivity();
-    if (activity != null) {
-      activity.startActivity(TaskIntents.getTaskListIntent(activity, filter));
-    }
-  }
-
-  @Override
   public View onCreateView(
       @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
@@ -147,7 +111,10 @@ public class NavigationDrawerFragment extends InjectingFragment {
           public void onDrawerClosed(View drawerView) {
             mDrawerLayout.removeDrawerListener(this);
             if (item instanceof Filter) {
-              openFilter((Filter) item);
+              FragmentActivity activity = getActivity();
+              if (activity != null) {
+                activity.startActivity(TaskIntents.getTaskListIntent(activity, (Filter) item));
+              }
             } else if (item instanceof NavigationDrawerAction) {
               NavigationDrawerAction action = (NavigationDrawerAction) item;
               if (action.requestCode == REQUEST_PURCHASE) {
@@ -155,7 +122,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
               } else if (action.requestCode == REQUEST_DONATE) {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://tasks.org/donate")));
               } else {
-                startActivityForResult(action.intent, action.requestCode);
+                getActivity().startActivityForResult(action.intent, action.requestCode);
               }
             }
           }

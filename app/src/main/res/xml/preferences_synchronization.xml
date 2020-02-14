@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:key="@string/preference_screen">
+
+  <PreferenceCategory
+    android:key="@string/accounts"
+    android:title="@string/accounts"
+    app:isPreferenceVisible="false" />
+
+  <Preference
+    android:key="@string/add_account"
+    android:title="@string/add_account"
+    app:icon="@drawable/ic_outline_add_24px" />
+
+  <PreferenceCategory
+    android:key="@string/gtasks_GPr_header"
+    android:title="@string/gtasks_GPr_header"
+    app:isPreferenceVisible="false">
+
+    <SwitchPreferenceCompat
+      android:defaultValue="true"
+      android:key="@string/p_google_tasks_add_to_top"
+      android:title="@string/google_tasks_add_to_top" />
+
+    <SwitchPreferenceCompat
+      android:key="@string/google_tasks_position_hack"
+      android:summary="@string/google_tasks_position_hack_summary"
+      android:title="@string/google_tasks_position_hack" />
+
+  </PreferenceCategory>
+
+  <PreferenceCategory
+    android:key="@string/sync_SPr_interval_title"
+    android:title="@string/sync_SPr_interval_title"
+    app:isPreferenceVisible="false">
+
+    <SwitchPreferenceCompat
+      android:defaultValue="true"
+      android:key="@string/p_background_sync"
+      android:title="@string/enabled" />
+    <SwitchPreferenceCompat
+      android:defaultValue="false"
+      android:dependency="@string/p_background_sync"
+      android:key="@string/p_background_sync_unmetered_only"
+      android:title="@string/background_sync_unmetered_only" />
+  </PreferenceCategory>
+
+</PreferenceScreen>

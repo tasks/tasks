@@ -64,7 +64,6 @@
 	<string name="EPr_cal_end_or_start_at_due_time">زمان رویداد تقویم</string>
 	<string name="EPr_cal_end_at_due_time">اتمام رویدادهای تقویم در موعود</string>
 	<string name="EPr_cal_start_at_due_time">شروع رویدادهای تقویم در موعود</string>
-	<string name="EPr_manage_header">مدیریت وظایف قدیمی</string>
 	<string name="EPr_delete_task_data">حذف داده وظیفه</string>
 	<string name="task_defaults">پیش فرض های وظیفه</string>
 	<string name="EPr_default_urgency_title">موعود پیش فرض</string>
@@ -245,7 +244,6 @@
 	<string name="theme_white">سفید</string>
 	<string name="theme_light">روشن</string>
 	<string name="theme_dark">تیره</string>
-	<string name="settings_general">عمومی</string>
 	<string name="language">زبان</string>
 	<string name="restart_now">اکنون ریست کن</string>
 	<string name="restart_later">بعدا</string>

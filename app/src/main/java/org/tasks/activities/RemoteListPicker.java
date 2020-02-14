@@ -27,7 +27,7 @@ import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.sync.AddAccountDialog;
 import org.tasks.sync.SyncAdapters;
 
-public class RemoteListSupportPicker extends InjectingDialogFragment
+public class RemoteListPicker extends InjectingDialogFragment
     implements RemoteListSelectionHandler {
 
   public static final String EXTRA_SELECTED_FILTER = "extra_selected_filter";
@@ -40,9 +40,9 @@ public class RemoteListSupportPicker extends InjectingDialogFragment
 
   private CompositeDisposable disposables;
 
-  public static RemoteListSupportPicker newRemoteListSupportPicker(
+  public static RemoteListPicker newRemoteListSupportPicker(
       Filter selected, Fragment targetFragment, int requestCode) {
-    RemoteListSupportPicker dialog = new RemoteListSupportPicker();
+    RemoteListPicker dialog = new RemoteListPicker();
     Bundle arguments = new Bundle();
     arguments.putParcelable(EXTRA_SELECTED_FILTER, selected);
     dialog.setArguments(arguments);
@@ -50,9 +50,9 @@ public class RemoteListSupportPicker extends InjectingDialogFragment
     return dialog;
   }
 
-  public static RemoteListSupportPicker newRemoteListSupportPicker(
+  public static RemoteListPicker newRemoteListSupportPicker(
       Fragment targetFragment, int requestCode) {
-    RemoteListSupportPicker dialog = new RemoteListSupportPicker();
+    RemoteListPicker dialog = new RemoteListPicker();
     Bundle arguments = new Bundle();
     arguments.putBoolean(EXTRA_NO_SELECTION, true);
     dialog.setArguments(arguments);
@@ -60,7 +60,7 @@ public class RemoteListSupportPicker extends InjectingDialogFragment
     return dialog;
   }
 
-  static AlertDialog createDialog(
+  private static AlertDialog createDialog(
       FilterAdapter filterAdapter,
       DialogBuilder dialogBuilder,
       SyncAdapters syncAdapters,

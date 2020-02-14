@@ -81,7 +81,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">Kalenteritapahtuman aika</string>
     <string name="EPr_cal_end_at_due_time">Lopeta kalenteritapahtuma määräaikana</string>
     <string name="EPr_cal_start_at_due_time">Aloita kalenteritapahtumat määräaikana</string>
-    <string name="EPr_manage_header">Hallinnoi vanhoja tehtäviä</string>
     <string name="EPr_manage_purge_deleted">Tyjennä poistetut tehtävät</string>
     <string name="EPr_manage_purge_deleted_message">Haluatko todella tyhjentää kaikki poistetut tehtävät?\n\n Nämä tehtävät häviävät lopullisesti!</string>
     <string name="EPr_manage_purge_deleted_status">Tyhjennettu %d tehtävää!</string>
@@ -335,7 +334,6 @@
     <string name="take_a_picture">Ota kuva</string>
     <string name="pick_from_gallery">Valitse galleriasta</string>
     <string name="pick_from_storage">Valitse muistista</string>
-    <string name="privacy">Yksityisyys</string>
     <string name="privacy_policy">Rekisteriseloste</string>
     <string name="send_anonymous_statistics">Paranna tehtäviä</string>
     <string name="send_anonymous_statistics_summary">Lähetä nimettömästi käyttäjätilastoja ja virheilmoituksia Tasks -ohjelman parantamiseksi. Mitään henkilökohtaisia tietoja ei kerätä.</string>
@@ -376,7 +374,6 @@
     <string name="theme_dark">Tumma</string>
     <string name="theme_wallpaper">Taustakuva</string>
     <string name="theme_day_night">Päivä/Yö</string>
-    <string name="settings_general">Yleinen</string>
     <string name="language">Kieli</string>
     <string name="restart_required">Tasks on uudelleen käynnistettävä muutoksien käyttöönottamiseksi</string>
     <string name="restart_now">Käynnistä uudelleen nyt</string>
@@ -400,7 +397,6 @@
     <string name="date_and_time">Päivä ja aika</string>
     <string name="start_of_week">Viikon alku</string>
     <string name="use_locale_default">Käytä paikallista oletusta</string>
-    <string name="use_native_datetime_pickers">Käytä kotimaisia päivämäärä- ja aikapoimijoita</string>
     <string name="notification_channel_settings">Hallinnoi ilmoituksia</string>
     <string name="battery_optimization_settings">Hallinnoi akun optimointia</string>
     <string name="notification_disable_battery_optimizations_description">Akun optimointi voi viivästyttää ilmoituksia</string>

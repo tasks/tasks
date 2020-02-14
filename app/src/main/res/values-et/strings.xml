@@ -62,7 +62,6 @@
   <string name="EPr_cal_end_or_start_at_due_time">Kalendri sündmuse aeg</string>
   <string name="EPr_cal_end_at_due_time">Lõpeta kalendri sündmus tähtajal</string>
   <string name="EPr_cal_start_at_due_time">Alusta kalendri sündmust tähtajal</string>
-  <string name="EPr_manage_header">Halda vanu ülesandeid</string>
   <string name="EPr_manage_purge_deleted">Eemalda kustutatud ülesanded</string>
   <string name="EPr_manage_purge_deleted_status">Eemaldati %d ülesannet!</string>
   <string name="EPr_reset_preferences">Taasta eelistused</string>
@@ -216,10 +215,8 @@
   <string name="take_a_picture">Tee pilt</string>
   <string name="pick_from_gallery">Vali galeriist</string>
   <string name="pick_from_storage">Vali seadmest</string>
-  <string name="privacy">Privaatsus</string>
   <string name="privacy_policy">Privaatsus</string>
   <string name="tag_already_exists">Silt on juba olemas</string>
-  <string name="duplicate_name">Topelt nimi</string>
   <string name="name_cannot_be_empty">Nimi ei saa olla tühi</string>
   <string name="username_required">Kasutajanimi on nõutud</string>
   <string name="password_required">Parool on nõutud</string>
@@ -257,7 +254,6 @@
   <string name="theme_dark">Tume</string>
   <string name="theme_wallpaper">Taustapilt</string>
   <string name="theme_day_night">Päev/Öö</string>
-  <string name="settings_general">Üldine</string>
   <string name="language">Keel</string>
   <string name="restart_now">Taaskäivita kohe</string>
   <string name="restart_later">Hiljem</string>

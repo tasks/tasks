@@ -85,7 +85,6 @@
 	<string name="EPr_cal_end_or_start_at_due_time">Kalendoriaus įvykio laikas</string>
 	<string name="EPr_cal_end_at_due_time">Baigti kalendoriaus įvykius atėjus terminui</string>
 	<string name="EPr_cal_start_at_due_time">Baigti kalendoriaus įvykius atėjus terminui</string>
-	<string name="EPr_manage_header">Valdyti senas užduotis</string>
 	<string name="EPr_manage_purge_deleted">Išvalyti ištrintas užduotis</string>
 	<string name="EPr_manage_purge_deleted_message">Ar tikrai norite išvalyti visas ištrintas užduotis?\n\nŠios užduotys pradings negrįžtamai!</string>
 	<string name="EPr_manage_purge_deleted_status">Išvalyta %d užduočių!</string>
@@ -350,12 +349,10 @@
 	<string name="take_a_picture">Nufotografuoti</string>
 	<string name="pick_from_gallery">Pasirinkti iš galerijos</string>
 	<string name="pick_from_storage">Pasirinkti iš įrenginio</string>
-	<string name="privacy">Privatumas</string>
 	<string name="privacy_policy">Privatumo politika</string>
 	<string name="send_anonymous_statistics">Pagerinti Tasks</string>
 	<string name="send_anonymous_statistics_summary">Siųsti anoniminę naudojimo statistikos ir gedimų ataskaitas, kad pagerinti Tasks programą. Jokia asmeninė informacija nebus renkama.</string>
 	<string name="tag_already_exists">Etiketė jau egzistuoja</string>
-	<string name="duplicate_name">Besidubliuojantis pavadinimas</string>
 	<string name="name_cannot_be_empty">Pavadinimas negali būti tuščias</string>
 	<string name="username_required">Reikalingas vartotojo vardas</string>
 	<string name="password_required">Reikalingas slaptažodis</string>
@@ -397,7 +394,6 @@
 	<string name="theme_dark">Tamsi</string>
 	<string name="theme_wallpaper">Fono vaizdas</string>
 	<string name="theme_day_night">Diena/Naktis</string>
-	<string name="settings_general">Pagrindiniai</string>
 	<string name="language">Kalba</string>
 	<string name="restart_required">Kad nustatymai įsigaliotų, Tasks turi būti perkrauta</string>
 	<string name="restart_now">Perkrauti dabar</string>
@@ -421,7 +417,6 @@
 	<string name="date_and_time">Data ir laikas</string>
 	<string name="start_of_week">Savaitės pradžia</string>
 	<string name="use_locale_default">Naudoti įprastą vietovę</string>
-	<string name="use_native_datetime_pickers">Naudoti įprastą datos ir laiko pasirinkimą</string>
 	<string name="add_account">Pridėti paskyrą</string>
 	<string name="user">Vartotojas</string>
 	<string name="password">Slaptažodis</string>

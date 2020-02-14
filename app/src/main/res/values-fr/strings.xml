@@ -82,7 +82,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">Heure de l\'évenement dans le calendrier</string>
     <string name="EPr_cal_end_at_due_time">Terminer les événements dans le calendrier à l\'échéance</string>
     <string name="EPr_cal_start_at_due_time">Commencer les événements dans le calendrier à l\'échéance</string>
-    <string name="EPr_manage_header">Gérer les anciennes tâches</string>
     <string name="EPr_manage_purge_deleted">Supprimer définitivement les tâches supprimées</string>
     <string name="EPr_manage_purge_deleted_message">Voulez-vous vraiment supprimer définitivement toutes les tâches supprimées ?\n\nCes tâches seront perdues à jamais !</string>
     <string name="EPr_manage_purge_deleted_status">%d tâche(s) supprimée(s) définitivement !</string>
@@ -335,12 +334,10 @@
     <string name="take_a_picture">Prendre une photo</string>
     <string name="pick_from_gallery">Choisir depuis la galerie</string>
     <string name="pick_from_storage">Choisir depuis le stockage</string>
-    <string name="privacy">Vie privée</string>
     <string name="privacy_policy">Politique de vie privée</string>
     <string name="send_anonymous_statistics">Améliorer Tasks</string>
     <string name="send_anonymous_statistics_summary">Envoyer des statistiques anonymes d\'usage et les rapports de plantage afin d\'aider à l\'amélioration de Tasks. Aucune donnée personnelle ne sera collectée.</string>
     <string name="tag_already_exists">Le tag existe déjà</string>
-    <string name="duplicate_name">Nom dupliqué</string>
     <string name="name_cannot_be_empty">Le nom doit être renseigné</string>
     <string name="username_required">Nom d\'utilisateur requis</string>
     <string name="password_required">Mot de passe requis</string>
@@ -379,7 +376,6 @@
     <string name="theme_dark">Sombre</string>
     <string name="theme_wallpaper">Fond d\'écran</string>
     <string name="theme_day_night">Jour/Nuit</string>
-    <string name="settings_general">Général</string>
     <string name="language">Langage</string>
     <string name="restart_required">Tasks doit être redémarré pour que les changements prennent effet</string>
     <string name="restart_now">Redémarrer maintenant</string>
@@ -403,7 +399,6 @@
     <string name="date_and_time">Date et heure</string>
     <string name="start_of_week">Début de la semaine</string>
     <string name="use_locale_default">Utiliser les paramètres de langue par défaut</string>
-    <string name="use_native_datetime_pickers">Utiliser le sélecteur de date et d\'heure natif</string>
     <string name="add_account">Ajouter un compte</string>
     <string name="user">Utilisateur</string>
     <string name="password">Mot de passe</string>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <Preference
+    android:key="@string/p_attachment_dir"
+    android:title="@string/attachment_directory" />
+
+  <Preference
+    android:key="@string/EPr_manage_purge_deleted"
+    android:title="@string/EPr_manage_purge_deleted" />
+
+  <SwitchPreferenceCompat
+    android:defaultValue="true"
+    android:key="@string/p_end_at_deadline"
+    android:summaryOff="@string/EPr_cal_end_at_due_time"
+    android:summaryOn="@string/EPr_cal_start_at_due_time"
+    android:title="@string/EPr_cal_end_or_start_at_due_time" />
+
+  <SwitchPreferenceCompat
+    android:defaultValue="false"
+    android:key="@string/p_calendar_reminders"
+    android:summary="@string/CRA_calendar_reminders_pref_desc_enabled"
+    android:title="@string/CRA_calendar_reminders_pref_title" />
+
+  <Preference
+    android:key="@string/EPr_manage_delete_completed_gcal"
+    android:title="@string/EPr_manage_delete_completed_gcal" />
+
+  <Preference
+    android:key="@string/EPr_manage_delete_all_gcal"
+    android:title="@string/EPr_manage_delete_all_gcal" />
+
+  <Preference
+    android:key="@string/EPr_reset_preferences"
+    android:title="@string/EPr_reset_preferences" />
+
+  <Preference
+    android:key="@string/EPr_delete_task_data"
+    android:title="@string/EPr_delete_task_data" />
+
+</PreferenceScreen>

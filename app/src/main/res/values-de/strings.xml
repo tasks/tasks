@@ -83,7 +83,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">Zeitpunkt Kalendertermin</string>
     <string name="EPr_cal_end_at_due_time">Kalendereintrag endet zur Fälligkeits-Uhrzeit</string>
     <string name="EPr_cal_start_at_due_time">Kalendereintrag Startet zur Fälligkeits-Uhrzeit</string>
-    <string name="EPr_manage_header">Alte Aufgaben verwalten</string>
     <string name="EPr_manage_purge_deleted">Gelöschte Aufgaben endgültig löschen</string>
     <string name="EPr_manage_purge_deleted_message">Willst du wirklich alle gelöschten Aufgaben bereinigen?\n\nDiese Aufgaben werden für immer gelöscht bleiben!</string>
     <string name="EPr_manage_purge_deleted_status">%d Aufgaben bereinigt!</string>
@@ -346,12 +345,10 @@
     <string name="take_a_picture">Bild aufnehmen</string>
     <string name="pick_from_gallery">Aus Galerie wählen</string>
     <string name="pick_from_storage">Von Speicher auswählen</string>
-    <string name="privacy">Datenschutz</string>
     <string name="privacy_policy">Datenschutzerklärung</string>
     <string name="send_anonymous_statistics">Tasks verbessern</string>
     <string name="send_anonymous_statistics_summary">Anonyme Nutzungsstatistiken und Absturzberichte zur Verbesserung von Tasks senden. Es werden keine persönlichen Daten gesammelt.</string>
     <string name="tag_already_exists">Schlagwort existiert bereits</string>
-    <string name="duplicate_name">Doppelter Name</string>
     <string name="name_cannot_be_empty">Name darf nicht leer sein</string>
     <string name="username_required">Benutzername benötigt</string>
     <string name="password_required">Passwort benötigt</string>
@@ -389,7 +386,6 @@
     <string name="theme_dark">Dunkel</string>
     <string name="theme_wallpaper">Hintergrundbild</string>
     <string name="theme_day_night">Tag/Nacht</string>
-    <string name="settings_general">Allgemein</string>
     <string name="language">Sprache</string>
     <string name="restart_required">Tasks muss neugestartet werden um die Änderungen zu übernehmen</string>
     <string name="restart_now">Jetzt neustarten</string>
@@ -413,7 +409,6 @@
     <string name="date_and_time">Datum und Uhrzeit</string>
     <string name="start_of_week">Beginn der Woche</string>
     <string name="use_locale_default">Aus Systemeinstellungen</string>
-    <string name="use_native_datetime_pickers">Datum- und Zeitauswahl des Systems benutzen</string>
     <string name="add_account">Account hinzufügen</string>
     <string name="user">Benutzer</string>
     <string name="password">Passwort</string>

@@ -89,7 +89,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">Время события в календаре</string>
     <string name="EPr_cal_end_at_due_time">Завершать события в календаре при наступлении срока</string>
     <string name="EPr_cal_start_at_due_time">Начинать события в календаре при наступлении срока</string>
-    <string name="EPr_manage_header">Управление старыми задачами</string>
     <string name="EPr_manage_purge_deleted">Очистить удаленные задачи</string>
     <string name="EPr_manage_purge_deleted_message">Действительно хотите навсегда удалить эти задачи?
 Эта операция необратима!</string>
@@ -371,12 +370,10 @@
     <string name="take_a_picture">Сделать снимок</string>
     <string name="pick_from_gallery">Выбрать изображение из галереи</string>
     <string name="pick_from_storage">Выбрать файл с диска</string>
-    <string name="privacy">Конфиденциальность</string>
     <string name="privacy_policy">Политика конфиденциальности</string>
     <string name="send_anonymous_statistics">Содействовать улучшению Tasks</string>
     <string name="send_anonymous_statistics_summary">Отправлять анонимную статистику и отчёты об ошибках для содействия улучшению программы. Персональная информация не собирается.</string>
     <string name="tag_already_exists">Тег уже существует</string>
-    <string name="duplicate_name">Повторяющееся название</string>
     <string name="name_cannot_be_empty">Необходимо задать имя</string>
     <string name="username_required">Требуется имя пользователя</string>
     <string name="password_required">Требуется пароль</string>
@@ -419,7 +416,6 @@
     <string name="theme_dark">Тёмная</string>
     <string name="theme_wallpaper">Как обои</string>
     <string name="theme_day_night">День / ночь</string>
-    <string name="settings_general">Общие</string>
     <string name="language">Язык</string>
     <string name="restart_required">Для применения изменений программа должна быть перезапущена</string>
     <string name="restart_now">Перезапустить сейчас</string>
@@ -443,7 +439,6 @@
     <string name="date_and_time">Дата и время</string>
     <string name="start_of_week">Начало недели</string>
     <string name="use_locale_default">Как в системе</string>
-    <string name="use_native_datetime_pickers">Встроенные элементы даты/времени</string>
     <string name="add_account">Добавить учётную запись</string>
     <string name="user">Пользователь</string>
     <string name="password">Пароль</string>

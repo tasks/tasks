@@ -85,7 +85,6 @@
 	<string name="EPr_cal_end_or_start_at_due_time">Ora calendario eventi</string>
 	<string name="EPr_cal_end_at_due_time">Calendario eventi fino alla scadenza</string>
 	<string name="EPr_cal_start_at_due_time">Calendario eventi dalla scadenza</string>
-	<string name="EPr_manage_header">Gestisci attività passate</string>
 	<string name="EPr_manage_purge_deleted">Rimuovi le attività eliminate</string>
 	<string name="EPr_manage_purge_deleted_message">Sicuro di voler rimuovere le attività eliminate?\n\nQueste attività saranno perse per sempre!</string>
 	<string name="EPr_manage_purge_deleted_status">Rimosse %d attività!</string>
@@ -350,12 +349,10 @@
 	<string name="take_a_picture">Scatta un foto</string>
 	<string name="pick_from_gallery">Scegli dalla libreria</string>
 	<string name="pick_from_storage">Scegli dalla memoria</string>
-	<string name="privacy">Riservatezza</string>
 	<string name="privacy_policy">Norme Riservatezza</string>
 	<string name="send_anonymous_statistics">Migliora Attività</string>
 	<string name="send_anonymous_statistics_summary">Invio anonimo di statistiche e problemi di funzionamento atti a migliorare \"Tasks\". Non verrà inviato nessun dato personale.</string>
 	<string name="tag_already_exists">Etichetta già presente</string>
-	<string name="duplicate_name">Nome già presente</string>
 	<string name="name_cannot_be_empty">Il nome non può essere omesso</string>
 	<string name="username_required">Necessario nome utente</string>
 	<string name="password_required">Necessaria password</string>
@@ -398,7 +395,6 @@
 	<string name="theme_dark">Scuro</string>
 	<string name="theme_wallpaper">Sfondo</string>
 	<string name="theme_day_night">Giorno/Notte</string>
-	<string name="settings_general">Generale</string>
 	<string name="language">Lingua</string>
 	<string name="restart_required">Per rendere attive le modifiche l\'attività va riavviata</string>
 	<string name="restart_now">Riavvia ora</string>
@@ -422,7 +418,6 @@
 	<string name="date_and_time">Data e ora</string>
 	<string name="start_of_week">Inizio settimana</string>
 	<string name="use_locale_default">Usa default locale</string>
-	<string name="use_native_datetime_pickers">Usa data e ora locali</string>
 	<string name="add_account">Aggiungi account</string>
 	<string name="user">Utente</string>
 	<string name="calendar_settings">Impostazioni calendario

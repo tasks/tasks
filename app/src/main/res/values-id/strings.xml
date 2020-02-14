@@ -61,7 +61,6 @@
     <string name="EPr_show_task_edit_comments">Tampilkan komentar di penyunting tugas</string>
     <string name="task_list_options">Opsi daftar tugas</string>
     <string name="EPr_cal_end_or_start_at_due_time">Waktu acara kalender</string>
-    <string name="EPr_manage_header">Kelola tugas lama</string>
     <string name="EPr_manage_purge_deleted">Buang tugas yang dihapus</string>
     <string name="EPr_manage_purge_deleted_message">Apakah anda benar-benar ingin membuang tugas yang dihapus\? 
 \n 
@@ -267,7 +266,6 @@
     <string name="take_a_picture">Ambil gambar</string>
     <string name="pick_from_gallery">Pilih dari galeri</string>
     <string name="pick_from_storage">Pilih dari penyimpanan</string>
-    <string name="privacy">Privasi</string>
     <string name="privacy_policy">Kebijakan privasi</string>
     <string name="send_anonymous_statistics">Buat Tasks lebih baik</string>
     <string name="send_anonymous_statistics_summary">Kirim statistik penggunaan dan laporan kerusakan secara anonim untuk membantu membuat Tasks menjadi lebih baik. Tidak ada data personal yang dikumpulkan.</string>
@@ -311,7 +309,6 @@
     <string name="theme_light">Cerah</string>
     <string name="theme_dark">Gelap</string>
     <string name="theme_day_night">Siang/Malam</string>
-    <string name="settings_general">Umum</string>
     <string name="language">Bahasa</string>
     <string name="restart_required">Tasks harus dimulai ulang agar perubahan terdampak</string>
     <string name="restart_now">Mulai ulang sekarang</string>
@@ -334,7 +331,6 @@
     <string name="date_and_time">Tanggal dan waktu</string>
     <string name="start_of_week">Awal minggu</string>
     <string name="use_locale_default">Gunakan bahasa default</string>
-    <string name="use_native_datetime_pickers">Gunakan pemilih tanggal dan waktu bawaan</string>
     <string name="add_account">Tambah akun</string>
     <string name="user">Pengguna</string>
     <string name="password">Kata sandi</string>

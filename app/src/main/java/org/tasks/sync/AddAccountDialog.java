@@ -16,7 +16,7 @@ import org.tasks.R;
 import org.tasks.caldav.CaldavAccountSettingsActivity;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.etesync.EteSyncAccountSettingsActivity;
-import org.tasks.preferences.BasicPreferences;
+import org.tasks.preferences.fragments.SynchronizationKt;
 
 public class AddAccountDialog {
   public static void showAddAccountDialog(Activity activity, DialogBuilder dialogBuilder) {
@@ -55,17 +55,17 @@ public class AddAccountDialog {
                 case 0:
                   activity.startActivityForResult(
                       new Intent(activity, GtasksLoginActivity.class),
-                      BasicPreferences.REQUEST_GOOGLE_TASKS);
+                      SynchronizationKt.REQUEST_GOOGLE_TASKS);
                   break;
                 case 1:
                   activity.startActivityForResult(
                       new Intent(activity, CaldavAccountSettingsActivity.class),
-                      BasicPreferences.REQUEST_CALDAV_SETTINGS);
+                      SynchronizationKt.REQUEST_CALDAV_SETTINGS);
                   break;
                 case 2:
                   activity.startActivityForResult(
                       new Intent(activity, EteSyncAccountSettingsActivity.class),
-                      BasicPreferences.REQUEST_CALDAV_SETTINGS);
+                      SynchronizationKt.REQUEST_CALDAV_SETTINGS);
                   break;
               }
               dialog.dismiss();

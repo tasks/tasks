@@ -37,8 +37,8 @@ import org.tasks.data.CaldavAccount;
 import org.tasks.data.GoogleTaskAccount;
 import org.tasks.etesync.EteSyncCalendarSettingsActivity;
 import org.tasks.injection.ForApplication;
-import org.tasks.preferences.BasicPreferences;
 import org.tasks.preferences.HelpAndFeedback;
+import org.tasks.preferences.MainPreferences;
 import org.tasks.ui.NavigationDrawerFragment;
 
 public class FilterProvider {
@@ -113,7 +113,7 @@ public class FilterProvider {
               context.getString(R.string.FLA_new_filter),
               R.drawable.ic_outline_add_24px,
               new Intent(context, CustomFilterActivity.class),
-              NavigationDrawerFragment.ACTIVITY_REQUEST_NEW_FILTER));
+              NavigationDrawerFragment.REQUEST_NEW_LIST));
     }
 
     items.addAll(getSubmenu(R.string.tags, tagFilterExposer.getFilters()));
@@ -143,7 +143,7 @@ public class FilterProvider {
                 R.drawable.ic_outline_add_24px,
                 new Intent(context, GoogleTaskListSettingsActivity.class)
                     .putExtra(GoogleTaskListSettingsActivity.EXTRA_ACCOUNT, account),
-                NavigationDrawerFragment.REQUEST_NEW_GTASK_LIST));
+                NavigationDrawerFragment.REQUEST_NEW_LIST));
       }
     }
 
@@ -167,7 +167,7 @@ public class FilterProvider {
                             ? CaldavCalendarSettingsActivity.class
                             : EteSyncCalendarSettingsActivity.class)
                     .putExtra(EXTRA_CALDAV_ACCOUNT, account),
-                NavigationDrawerFragment.REQUEST_NEW_CALDAV_COLLECTION));
+                NavigationDrawerFragment.REQUEST_NEW_LIST));
       }
     }
 
@@ -193,7 +193,7 @@ public class FilterProvider {
           new NavigationDrawerAction(
               context.getString(R.string.TLA_menu_settings),
               R.drawable.ic_outline_settings_24px,
-              new Intent(context, BasicPreferences.class),
+              new Intent(context, MainPreferences.class),
               REQUEST_SETTINGS));
 
       items.add(

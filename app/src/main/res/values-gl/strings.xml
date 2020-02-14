@@ -77,7 +77,6 @@
 	<string name="EPr_cal_end_or_start_at_due_time">Momento del evento en calendario</string>
 	<string name="EPr_cal_end_at_due_time">Finalizar eventos del calendario al vencimiento</string>
 	<string name="EPr_cal_start_at_due_time">Iniciar eventos del calendario al vencimiento</string>
-	<string name="EPr_manage_header">Administrar tareas antiguas</string>
 	<string name="EPr_manage_purge_deleted">Limpiar tareas eliminadas</string>
 	<string name="EPr_manage_purge_deleted_message">¿Seguro que desea limpiar todas las tareas eliminadas?\n\n¡Estas tareas se perderán por siempre!</string>
 	<string name="EPr_manage_purge_deleted_status">¡%d tareas purgadas!</string>
@@ -257,7 +256,6 @@
 	<string name="take_a_picture">Tomar fotografía</string>
 	<string name="pick_from_gallery">Elegir desde la galería</string>
 	<string name="pick_from_storage">Elegir desde almacenamiento</string>
-	<string name="privacy">Privacidad</string>
 	<string name="privacy_policy">Política de privacidad</string>
 	<string name="send_anonymous_statistics">Mejorar Tasks</string>
 	<string name="send_anonymous_statistics_summary">Enviar de forma anónima estadísticas de uso e informes de error para ayudar a mejorar Tasks. No se recogerán datos personales.</string>
@@ -297,7 +295,6 @@
 	<string name="theme_dark">Oscuro</string>
 	<string name="theme_wallpaper">Fondo de pantalla</string>
 	<string name="theme_day_night">Día/Noche</string>
-	<string name="settings_general">Xeneral</string>
 	<string name="language">Idioma</string>
 	<string name="restart_required">Debe reiniciar Tasks para que los cambios tengan efecto</string>
 	<string name="restart_now">Reiniciar ahora</string>
@@ -318,6 +315,5 @@
 	<string name="delete_multiple_tasks_confirmation">%s borradas</string>
 	<string name="delete_selected_tasks">¿Borrar tareas seleccionadas?</string>
 	<string name="copy_selected_tasks">¿Copiar tareas seleccionadas?</string>
-	<string name="use_native_datetime_pickers">Escoller data e hora</string>
 	<string name="themes">Temas adicionales</string>
 </resources>

@@ -6,8 +6,6 @@ import android.content.res.Resources;
 import android.graphics.PixelFormat;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import javax.inject.Inject;
 import org.tasks.R;
 
@@ -48,18 +46,13 @@ public class Theme {
     return new ContextThemeWrapper(context, themeBase.getAlertDialogStyle());
   }
 
-  public void applyThemeAndStatusBarColor(Activity activity, AppCompatDelegate delegate) {
-    applyTheme(activity, delegate);
+  public void applyThemeAndStatusBarColor(Activity activity) {
+    applyTheme(activity);
     themeColor.applyToSystemBars(activity);
     themeColor.applyTaskDescription(activity, activity.getString(R.string.app_name));
   }
 
-  public void applyTheme(AppCompatActivity activity) {
-    applyTheme(activity, activity.getDelegate());
-  }
-
-  private void applyTheme(Activity activity, AppCompatDelegate delegate) {
-    delegate.applyDayNight();
+  public void applyTheme(Activity activity) {
     themeBase.set(activity);
     applyToContext(activity);
     activity.getWindow().setFormat(PixelFormat.RGBA_8888);

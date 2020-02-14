@@ -9,6 +9,7 @@ package com.todoroo.astrid.activity;
 import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastNougat;
 import static com.todoroo.astrid.activity.TaskEditFragment.newTaskEditFragment;
 import static com.todoroo.astrid.activity.TaskListFragment.newTaskListFragment;
 import static org.tasks.tasklist.ActionUtils.applySupportActionModeColor;
@@ -48,6 +49,7 @@ import org.tasks.fragments.CommentBarFragment;
 import org.tasks.gtasks.PlayServices;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
+import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import org.tasks.receivers.RepeatConfirmationReceiver;
@@ -131,6 +133,27 @@ public class MainActivity extends InjectingAppCompatActivity
             finishActionMode();
           }
         });
+  }
+
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    if (requestCode == NavigationDrawerFragment.REQUEST_SETTINGS) {
+      if (atLeastNougat()) {
+        recreate();
+      } else {
+        finish();
+        startActivity(TaskIntents.getTaskListIntent(this, filter));
+      }
+    } else if (requestCode == REQUEST_NEW_LIST) {
+      if (resultCode == RESULT_OK && data != null) {
+        Filter filter = data.getParcelableExtra(MainActivity.OPEN_FILTER);
+        if (filter != null) {
+          startActivity(TaskIntents.getTaskListIntent(this, filter));
+        }
+      }
+    } else {
+      super.onActivityResult(requestCode, resultCode, data);
+    }
   }
 
   @Override

@@ -84,7 +84,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">Czas zdarzenia kalendarza</string>
     <string name="EPr_cal_end_at_due_time">Zakończ zadania kalendarza w ustalonym czasie</string>
     <string name="EPr_cal_start_at_due_time">Rozpocznij zadania kalendarza w ustalonym czasie</string>
-    <string name="EPr_manage_header">Zarządzaj starymi zadaniami</string>
     <string name="EPr_manage_purge_deleted">Skasuj usunięte zadania</string>
     <string name="EPr_manage_purge_deleted_message">Czy na pewno chcesz, aby oczyścić wszystkie usunięte zadania?\n\n Te zadania znikną na zawsze!</string>
     <string name="EPr_manage_purge_deleted_status">Oczyszczone %d zadań!</string>
@@ -364,12 +363,10 @@
     <string name="take_a_picture">Wybierz obrazek</string>
     <string name="pick_from_gallery">Wybierz z galerii</string>
     <string name="pick_from_storage">Wybierz z pamięci</string>
-    <string name="privacy">Prywatność</string>
     <string name="privacy_policy">Polityka prywatności</string>
     <string name="send_anonymous_statistics">Ulepsz Tasks</string>
     <string name="send_anonymous_statistics_summary">Wyślij anonimowe statyki użycia i raporty o awariach celem ulepszenia Tasks. Żadne prywatne dane nie będą gromadzone.</string>
     <string name="tag_already_exists">Tag już istnieje</string>
-    <string name="duplicate_name">Duplikuj nazwę</string>
     <string name="name_cannot_be_empty">Nazwa nie może być pusta</string>
     <string name="username_required">Wymagana nazwa użytkownika</string>
     <string name="password_required">Wymagane hasło</string>
@@ -412,7 +409,6 @@
     <string name="theme_dark">Ciemny</string>
     <string name="theme_wallpaper">Tapeta</string>
     <string name="theme_day_night">Dzień/noc</string>
-    <string name="settings_general">Podstawowe</string>
     <string name="language">Język</string>
     <string name="restart_required">Tasks muszą zostać zrestartowane aby zmiany zostały wprowadzone</string>
     <string name="restart_now">Zrestartuj teraz</string>
@@ -436,7 +432,6 @@
     <string name="date_and_time">Data i czas</string>
     <string name="start_of_week">Początek tygodnia</string>
     <string name="use_locale_default">Użyj domyślnych</string>
-    <string name="use_native_datetime_pickers">Użyj natywnych narzędzi wyboru daty i czasu</string>
     <string name="add_account">Dodaj konto</string>
     <string name="user">Użytkownik</string>
     <string name="password">Hasło</string>

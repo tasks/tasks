@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <CheckBoxPreference
+  <SwitchPreferenceCompat
     android:key="@string/p_leakcanary"
     android:title="@string/debug_leakcanary" />
 
-  <CheckBoxPreference
+  <SwitchPreferenceCompat
     android:key="@string/p_flipper"
     android:title="@string/debug_flipper"/>
 
-  <CheckBoxPreference
+  <SwitchPreferenceCompat
     android:key="@string/p_strict_mode_thread"
     android:title="@string/debug_strict_mode_thread"/>
 
-  <CheckBoxPreference
+  <SwitchPreferenceCompat
     android:key="@string/p_strict_mode_vm"
     android:title="@string/debug_strict_mode_vm"/>
 
-  <CheckBoxPreference
+  <SwitchPreferenceCompat
     android:key="@string/p_debug_pro"
     android:title="@string/debug_pro"/>
 

@@ -79,7 +79,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">Hora do evento de calendário</string>
     <string name="EPr_cal_end_at_due_time">Terminar evento do calendário na hora limite</string>
     <string name="EPr_cal_start_at_due_time">Iniciar eventos de calendário na hora limite</string>
-    <string name="EPr_manage_header">Gerir tarefas antigas</string>
     <string name="EPr_manage_purge_deleted">Remover tarefas eliminadas</string>
     <string name="EPr_manage_purge_deleted_message">Quer mesmo remover todas as tarefas eliminadas?\n\nNunca mais as conseguirá recuperar!</string>
     <string name="EPr_manage_purge_deleted_status">%d tarefas removidas!</string>
@@ -332,7 +331,6 @@
     <string name="take_a_picture">Tirar uma foto</string>
     <string name="pick_from_gallery">Escolher da galeria</string>
     <string name="pick_from_storage">Escolher do armazenamento</string>
-    <string name="privacy">Privacidade</string>
     <string name="privacy_policy">Política de privacidade</string>
     <string name="send_anonymous_statistics">Melhorar o Tasks</string>
     <string name="send_anonymous_statistics_summary">Envie estatísticas de uso anónimo e relatórios de falhas para ajudar a melhorar o Tasks. Não serão recolhidos dados pessoais.</string>
@@ -362,7 +360,6 @@
     <string name="theme_dark">Escuro</string>
     <string name="theme_wallpaper">Fundo</string>
     <string name="theme_day_night">Dia/Noite</string>
-    <string name="settings_general">Geral</string>
     <string name="language">Linguagem</string>
     <string name="restart_required">O Tasks precisa ser reiniciado para que a mudança entre em vigor</string>
     <string name="restart_now">Reiniciar agora</string>
@@ -385,7 +382,6 @@
     <string name="date_and_time">Data e hora</string>
     <string name="start_of_week">Início da semana</string>
     <string name="use_locale_default">Usar o idioma padrão</string>
-    <string name="use_native_datetime_pickers">Usar seletores de data e hora padrão</string>
     <string name="notification_channel_settings">Gerir notificações</string>
     <string name="battery_optimization_settings">Gerir optimizações de bateria</string>
     <string name="notification_disable_battery_optimizations_description">Optimizações da bateria podem atrasar as notificações</string>

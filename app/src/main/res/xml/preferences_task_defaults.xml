@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+  <ListPreference
+    android:defaultValue="2"
+    android:entries="@array/EPr_default_importance"
+    android:entryValues="@array/EPr_default_importance_values"
+    android:key="@string/p_default_importance_key"
+    android:summary="%s"
+    android:title="@string/EPr_default_importance_title" />
+
+  <ListPreference
+    android:defaultValue="0"
+    android:entries="@array/EPr_default_urgency"
+    android:entryValues="@array/EPr_default_urgency_values"
+    android:key="@string/p_default_urgency_key"
+    android:summary="%s"
+    android:title="@string/EPr_default_urgency_title" />
+
+  <Preference
+    android:key="@string/p_default_remote_list"
+    android:title="@string/default_sync" />
+
+  <ListPreference
+    android:defaultValue="0"
+    android:entries="@array/EPr_default_hideUntil"
+    android:entryValues="@array/EPr_default_hideUntil_values"
+    android:key="@string/p_default_hideUntil_key"
+    android:summary="%s"
+    android:title="@string/EPr_default_hideUntil_title" />
+
+  <ListPreference
+    android:defaultValue="6"
+    android:entries="@array/EPr_default_reminders"
+    android:entryValues="@array/EPr_default_reminders_values"
+    android:key="@string/p_default_reminders_key"
+    android:summary="%s"
+    android:title="@string/EPr_default_reminders_title" />
+
+  <ListPreference
+    android:defaultValue="0"
+    android:entries="@array/EPr_reminder_random"
+    android:entryValues="@array/EPr_reminder_random_hours"
+    android:key="@string/p_rmd_default_random_hours"
+    android:summary="%s"
+    android:title="@string/rmd_EPr_defaultRemind_title" />
+
+  <ListPreference
+    android:defaultValue="0"
+    android:entries="@array/EPr_default_reminders_mode"
+    android:entryValues="@array/EPr_default_reminders_mode_values"
+    android:key="@string/p_default_reminders_mode_key"
+    android:summary="%s"
+    android:title="@string/EPr_default_reminders_mode_title" />
+
+  <Preference
+    android:defaultValue="-1"
+    android:key="@string/gcal_p_default"
+    android:summary="@string/dont_add_to_calendar"
+    android:title="@string/default_calendar" />
+
+  <ListPreference
+    android:defaultValue="1"
+    android:entries="@array/EPr_default_location_reminder"
+    android:entryValues="@array/EPR_default_location_reminder_values"
+    android:icon="@drawable/ic_outline_place_24px"
+    android:key="@string/p_default_location_reminder_key"
+    android:summary="%s"
+    android:title="@string/EPr_default_location_reminder_title"
+    app:allowDividerAbove="true" />
+
+  <SeekBarPreference
+    android:defaultValue="250"
+    android:key="@string/p_default_location_radius"
+    android:max="1000"
+    android:title="@string/EPr_default_location_radius"
+    app:min="75"
+    app:seekBarIncrement="25"
+    app:showSeekBarValue="true" />
+
+</PreferenceScreen>

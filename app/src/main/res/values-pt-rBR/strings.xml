@@ -86,7 +86,6 @@
 	<string name="EPr_cal_end_or_start_at_due_time">Hora do evento do calendário</string>
 	<string name="EPr_cal_end_at_due_time">Finalizar eventos do calendário no horário de vencimento</string>
 	<string name="EPr_cal_start_at_due_time">Iniciar eventos do calendário no horário de vencimento</string>
-	<string name="EPr_manage_header">Gerenciar tarefas antigas</string>
 	<string name="EPr_manage_purge_deleted">Limpar tarefas excluídas</string>
 	<string name="EPr_manage_purge_deleted_message">Você realmente deseja limpar todas as suas tarefas excluídas?\n\nEstas tarefas irão desaparecer para sempre!</string>
 	<string name="EPr_manage_purge_deleted_status">%d tarefas removidas!</string>
@@ -351,12 +350,10 @@
 	<string name="take_a_picture">Tirar uma foto</string>
 	<string name="pick_from_gallery">Selecionar da galeria</string>
 	<string name="pick_from_storage">Selecionar do armazenamento</string>
-	<string name="privacy">Privacidade</string>
 	<string name="privacy_policy">Política de privacidade</string>
 	<string name="send_anonymous_statistics">Melhorar o Tasks</string>
 	<string name="send_anonymous_statistics_summary">Enviar estatísticas de uso e relatórios de falha anonimamente para ajudar a melhorar o Tasks. Nenhuma informação pessoal será coletada.</string>
 	<string name="tag_already_exists">Etiqueta já existe</string>
-	<string name="duplicate_name">Duplicar nome</string>
 	<string name="name_cannot_be_empty">Nome não pode ser vazio</string>
 	<string name="username_required">Nome de usuário necessário</string>
 	<string name="password_required">Senha necessária</string>
@@ -399,7 +396,6 @@
 	<string name="theme_dark">Escuro</string>
 	<string name="theme_wallpaper">Plano de fundo</string>
 	<string name="theme_day_night">Dia/Noite</string>
-	<string name="settings_general">Geral</string>
 	<string name="language">Idioma</string>
 	<string name="restart_required">Você deve reiniciar seu aplicativo para que as alterações sejam aplicadas.</string>
 	<string name="restart_now">Reiniciar agora</string>
@@ -423,7 +419,6 @@
 	<string name="date_and_time">Hora e data</string>
 	<string name="start_of_week">Começo da semana</string>
 	<string name="use_locale_default">Usar padrão do aparelho</string>
-	<string name="use_native_datetime_pickers">Usar calendário nativo</string>
 	<string name="add_account">Adicionar conta</string>
 	<string name="user">Usuário</string>
 	<string name="password">Senha</string>

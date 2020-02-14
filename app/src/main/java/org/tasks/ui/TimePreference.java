@@ -3,8 +3,8 @@ package org.tasks.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
-import android.preference.Preference;
 import android.util.AttributeSet;
+import androidx.preference.Preference;
 import com.todoroo.andlib.utility.DateUtilities;
 import org.tasks.R;
 import org.tasks.activities.TimePickerActivity;
@@ -19,7 +19,7 @@ public class TimePreference extends Preference {
     super(context, attrs);
 
     TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TimePreference);
-    summary = a.getString(R.styleable.TimePreference_summary);
+    summary = a.getString(R.styleable.TimePreference_time_summary);
     a.recycle();
   }
 

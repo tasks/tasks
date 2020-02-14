@@ -9,17 +9,19 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Build;
-import android.preference.PreferenceManager;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.ViewParent;
+import androidx.annotation.Nullable;
 import androidx.core.text.TextUtilsCompat;
+import androidx.preference.PreferenceManager;
 import com.google.common.base.Strings;
+import java.io.Serializable;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import org.tasks.R;
 
-public class Locale {
+public class Locale implements Serializable {
 
   private static final Locale DEFAULT = new Locale(java.util.Locale.getDefault(), null, -1);
   private static final int[] sDialogButtons =
@@ -125,7 +127,7 @@ public class Locale {
     return appDirectionality;
   }
 
-  public String getLanguageOverride() {
+  public @Nullable String getLanguageOverride() {
     return languageOverride;
   }
 

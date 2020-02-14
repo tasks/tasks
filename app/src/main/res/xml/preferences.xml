@@ -1,247 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-  android:key="@string/preference_screen">
-
-  <PreferenceCategory android:title="@string/theme">
-
-    <Preference
-      android:key="@string/p_theme"
-      android:title="@string/theme"/>
-
-    <Preference
-      android:key="@string/p_theme_color"
-      android:title="@string/color"/>
-
-    <Preference
-      android:key="@string/p_theme_accent"
-      android:title="@string/accent"/>
-
-    <Preference
-      android:key="@string/p_theme_launcher"
-      android:title="@string/launcher_icon"/>
-
-  </PreferenceCategory>
-
-  <PreferenceCategory
-    android:key="@string/task_list_options"
-    android:title="@string/task_list_options">
-
-  <com.todoroo.astrid.ui.MultilinePreference
-      android:key="@string/p_default_list"
-      android:title="@string/default_list"/>
-
-    <Preference
-      android:defaultValue="16"
-      android:key="@string/p_fontSize"
-      android:title="@string/font_size"/>
-
-    <Preference
-      android:defaultValue="16"
-      android:key="@string/p_rowPadding"
-      android:title="@string/row_spacing"/>
-
-    <CheckBoxPreference
-      android:defaultValue="false"
-      android:key="@string/p_show_subtasks"
-      android:title="@string/show_subtasks"
-      android:summary="@string/show_subtasks_summary" />
-
-    <com.todoroo.astrid.ui.MultilineCheckboxPreference
-      android:defaultValue="false"
-      android:key="@string/p_fullTaskTitle"
-      android:title="@string/EPr_fullTask_title"/>
-
-    <CheckBoxPreference
-      android:defaultValue="true"
-      android:key="@string/p_show_description"
-      android:title="@string/show_description" />
-
-    <CheckBoxPreference
-      android:defaultValue="false"
-      android:key="@string/p_show_full_description"
-      android:dependency="@string/p_show_description"
-      android:title="@string/show_full_description" />
-
-    <CheckBoxPreference
-      android:defaultValue="true"
-      android:key="@string/p_show_list_indicators"
-      android:title="@string/show_list_indicators" />
-
-    <CheckBoxPreference
-      android:defaultValue="false"
-      android:key="@string/p_linkify_task_list"
-      android:title="@string/linkify"
-      android:summary="@string/linkify_description"/>
-
-  </PreferenceCategory>
-
-  <PreferenceCategory android:title="@string/EPr_edit_screen_options">
-    <Preference android:title="@string/task_defaults">
-      <intent
-        android:targetClass="com.todoroo.astrid.core.DefaultsPreferences"
-        android:targetPackage="@string/app_package"/>
-    </Preference>
-
-    <Preference
-      android:key="@string/customize_edit_screen"
-      android:title="@string/customize_edit_screen"/>
-
-    <com.todoroo.astrid.ui.MultilineCheckboxPreference
-      android:defaultValue="false"
-      android:key="@string/p_back_button_saves_task"
-      android:title="@string/back_button_saves_task"/>
-
-    <com.todoroo.astrid.ui.MultilineCheckboxPreference
-      android:defaultValue="false"
-      android:key="@string/p_show_task_edit_comments"
-      android:title="@string/EPr_show_task_edit_comments"/>
-
-  </PreferenceCategory>
-
-  <PreferenceCategory
-    android:key="@string/synchronization"
-    android:title="@string/synchronization" />
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <Preference
-    android:key="@string/add_account"
-    android:title="@string/add_account" />
-
-  <PreferenceCategory
-    android:title="@string/gtasks_GPr_header"
-    android:key="@string/gtasks_GPr_header">
-
-    <CheckBoxPreference
-      android:defaultValue="true"
-      android:key="@string/p_google_tasks_add_to_top"
-      android:title="@string/google_tasks_add_to_top"/>
-
-    <CheckBoxPreference
-      android:key="@string/google_tasks_position_hack"
-      android:title="@string/google_tasks_position_hack"
-      android:summary="@string/google_tasks_position_hack_summary" />
-
-  </PreferenceCategory>
-
-  <PreferenceCategory
-    android:title="@string/sync_SPr_interval_title"
-    android:key="@string/sync_SPr_interval_title">
-
-    <CheckBoxPreference
-      android:defaultValue="true"
-      android:key="@string/p_background_sync"
-      android:title="@string/enabled"/>
-    <CheckBoxPreference
-      android:defaultValue="false"
-      android:dependency="@string/p_background_sync"
-      android:key="@string/p_background_sync_unmetered_only"
-      android:title="@string/background_sync_unmetered_only"/>
-  </PreferenceCategory>
-
-  <PreferenceCategory
-    android:key="@string/settings_general"
-    android:title="@string/settings_general">
-
-    <Preference
-      android:key="@string/notifications"
-      android:title="@string/notifications"/>
-
-    <Preference android:title="@string/date_and_time">
-      <intent
-        android:targetClass="org.tasks.preferences.DateTimePreferences"
-        android:targetPackage="@string/app_package"/>
-    </Preference>
-
-    <Preference
-      android:key="@string/EPr_manage_header"
-      android:title="@string/EPr_manage_header"/>
-
-    <Preference android:title="@string/miscellaneous">
-      <intent
-        android:targetClass="org.tasks.preferences.MiscellaneousPreferences"
-        android:targetPackage="@string/app_package"/>
-    </Preference>
-
-  </PreferenceCategory>
-
-  <PreferenceCategory
-    android:key="@string/TEA_control_location"
-    android:title="@string/TEA_control_location">
-
-    <Preference
-      android:defaultValue="-1"
-      android:key="@string/p_map_provider"
-      android:title="@string/map_provider"/>
-
-    <Preference
-      android:defaultValue="-1"
-      android:key="@string/p_place_provider"
-      android:title="@string/map_search_provider"/>
-
-  </PreferenceCategory>
-
-  <PreferenceCategory
-    android:key="@string/backup_BPr_header"
-    android:title="@string/backup_BPr_header">
-
-    <Preference
-      android:key="@string/p_backup_dir"
-      android:title="@string/backup_directory"/>
-
-    <CheckBoxPreference
-      android:defaultValue="false"
-      android:key="@string/p_google_drive_backup"
-      android:title="@string/google_drive_backup"/>
-
-    <Preference
-      android:key="@string/backup_BAc_import"
-      android:title="@string/backup_BAc_import"/>
-
-    <Preference
-      android:key="@string/backup_BAc_export"
-      android:title="@string/backup_BAc_export"/>
-
-  </PreferenceCategory>
-
-  <PreferenceCategory android:title="@string/EPr_filters_to_show_title">
-    <com.todoroo.astrid.ui.MultilineCheckboxPreference
-      android:defaultValue="true"
-      android:key="@string/p_show_today_filter"
-      android:title="@string/today"/>
-    <com.todoroo.astrid.ui.MultilineCheckboxPreference
-      android:defaultValue="true"
-      android:key="@string/p_show_recently_modified_filter"
-      android:title="@string/BFE_Recent"/>
-    <com.todoroo.astrid.ui.MultilineCheckboxPreference
-      android:defaultValue="true"
-      android:key="@string/p_show_not_in_list_filter"
-      android:title="@string/tag_FEx_untagged"/>
-  </PreferenceCategory>
-
-  <PreferenceCategory
-    android:key="@string/settings_localization"
-    android:title="@string/settings_localization">
-
-    <Preference
-      android:key="@string/p_language"
-      android:title="@string/language"/>
-
-    <com.todoroo.astrid.ui.MultilineListPreference
-      android:defaultValue="-1"
-      android:entries="@array/layout_direction_entries"
-      android:entryValues="@array/layout_direction_values"
-      android:key="@string/p_layout_direction"
-      android:title="@string/layout_direction"/>
-
-    <Preference android:title="@string/translations">
-      <intent
-        android:action="android.intent.action.VIEW"
-        android:data="http://tasks.org/translations"/>
-    </Preference>
-
-  </PreferenceCategory>
+    app:fragment="org.tasks.preferences.fragments.LookAndFeel"
+    app:icon="@drawable/ic_outline_palette_24px"
+    app:title="@string/preferences_look_and_feel" />
 
   <Preference
-    android:key="@string/debug"
-    android:title="@string/debug"/>
+    app:fragment="org.tasks.preferences.fragments.Notifications"
+    app:icon="@drawable/ic_outline_notifications_24px"
+    app:title="@string/notifications" />
+
+  <Preference
+    app:fragment="org.tasks.preferences.fragments.Synchronization"
+    app:icon="@drawable/ic_outline_cloud_24px"
+    app:title="@string/synchronization" />
+
+  <Preference
+    app:fragment="org.tasks.preferences.fragments.TaskDefaults"
+    app:icon="@drawable/ic_outline_edit_24px"
+    app:title="@string/task_defaults" />
+
+  <Preference
+    app:fragment="org.tasks.preferences.fragments.Backups"
+    app:icon="@drawable/ic_outline_sd_storage_24px"
+    app:title="@string/backup_BPr_header" />
+
+  <Preference
+    app:fragment="org.tasks.preferences.fragments.Advanced"
+    app:icon="@drawable/ic_outline_build_24px"
+    app:title="@string/preferences_advanced" />
+
+  <Preference
+    app:fragment="org.tasks.preferences.fragments.HelpAndFeedback"
+    app:icon="@drawable/ic_outline_info_24px"
+    app:title="@string/about" />
+
+  <Preference
+    app:fragment="org.tasks.preferences.fragments.Debug"
+    app:icon="@drawable/ic_outline_bug_report_24px"
+    app:title="@string/debug" />
 
 </PreferenceScreen>

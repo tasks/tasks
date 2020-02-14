@@ -3,11 +3,11 @@ package org.tasks.injection
 import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
-import android.net.Uri
 import androidx.annotation.StringRes
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceGroup
+import androidx.preference.PreferenceScreen
 import com.jakewharton.processphoenix.ProcessPhoenix
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.api.Filter
@@ -48,6 +48,17 @@ abstract class InjectingPreferenceFragment : PreferenceFragmentCompat() {
         if (!check) {
             remove(findPreference(prefGroup) as PreferenceGroup, resIds)
         }
+    }
+
+    protected fun requires(check: Boolean, vararg resIds: Int) {
+        if (!check) {
+            remove(preferenceScreen as PreferenceGroup, resIds)
+        }
+    }
+
+    protected fun removeGroup(key: Int) {
+        val preference = findPreference(key)
+        (findPreference(R.string.preference_screen) as PreferenceScreen).removePreference(preference)
     }
 
     protected fun remove(vararg resIds: Int) {

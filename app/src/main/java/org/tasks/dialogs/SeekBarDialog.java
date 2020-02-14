@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.rey.material.widget.Slider;
@@ -21,7 +22,7 @@ import org.tasks.themes.Theme;
 
 public class SeekBarDialog extends InjectingDialogFragment {
 
-  public static final String EXTRA_VALUE = "extra_value";
+  static final String EXTRA_VALUE = "extra_value";
   private static final String EXTRA_LAYOUT = "extra_layout";
   private static final String EXTRA_MIN = "extra_min";
   private static final String EXTRA_MAX = "extra_max";
@@ -39,14 +40,15 @@ public class SeekBarDialog extends InjectingDialogFragment {
   @Inject Theme theme;
   @Inject Locale locale;
 
-  static SeekBarDialog newSeekBarDialog(int layout, int min, int max, int initial) {
-    SeekBarDialog dialog = new SeekBarDialog();
+  static SeekBarDialog newSeekBarDialog(int layout, int min, int max, int initial, Fragment target, int requestCode) {
     Bundle args = new Bundle();
     args.putInt(EXTRA_LAYOUT, layout);
     args.putInt(EXTRA_MIN, min);
     args.putInt(EXTRA_MAX, max);
     args.putInt(EXTRA_VALUE, initial);
+    SeekBarDialog dialog = new SeekBarDialog();
     dialog.setArguments(args);
+    dialog.setTargetFragment(target, requestCode);
     return dialog;
   }
 

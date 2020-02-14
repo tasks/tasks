@@ -1,7 +1,5 @@
 package org.tasks.files;
 
-import static org.tasks.preferences.ResourceResolver.getData;
-
 import android.os.Bundle;
 import com.nononsenseapps.filepicker.FilePickerActivity;
 import javax.inject.Inject;
@@ -19,7 +17,7 @@ public class MyFilePickerActivity extends FilePickerActivity {
         .getComponent()
         .plus(new ActivityModule(this))
         .inject(this);
-    theme.applyThemeAndStatusBarColor(this, getDelegate());
+    theme.applyThemeAndStatusBarColor(this);
     setTitle(null);
     super.onCreate(savedInstanceState);
   }

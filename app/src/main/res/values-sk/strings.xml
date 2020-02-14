@@ -85,7 +85,6 @@
 	<string name="EPr_cal_end_or_start_at_due_time">Čas udalosti kalendára</string>
 	<string name="EPr_cal_end_at_due_time">Ukončiť udalosť kalendára v danom čase</string>
 	<string name="EPr_cal_start_at_due_time">Začať udalosti  kalendár v danom čase</string>
-	<string name="EPr_manage_header">Spravovať staré úlohy</string>
 	<string name="EPr_manage_purge_deleted">Trvalo odstrániť zmazané úlohy</string>
 	<string name="EPr_manage_purge_deleted_message">Naozaj chceš odstrániť všetky svoje zmazané úlohy? \n\nTieto úlohy budú zmazané navždy!</string>
 	<string name="EPr_manage_purge_deleted_status">Odstránených %d úloh</string>
@@ -351,12 +350,10 @@
 	<string name="take_a_picture">Spraviť obrázok</string>
 	<string name="pick_from_gallery">Vybrať z galérie</string>
 	<string name="pick_from_storage">Vybrať z uložených</string>
-	<string name="privacy">Súkromie</string>
 	<string name="privacy_policy">Ochrana súkromia</string>
 	<string name="send_anonymous_statistics">Pomôž zlepšiť Úlohy</string>
 	<string name="send_anonymous_statistics_summary">Zasielať anonymné štatistiky používania a správy o zlyhaní aplikácie pre zlepšenia Úloh. Žiadne osobné údaje nebudú zhromažďované.</string>
 	<string name="tag_already_exists">Štítok už jestvuje</string>
-	<string name="duplicate_name">Zopakovať meno</string>
 	<string name="name_cannot_be_empty">Názov nesmie ostať prázdny </string>
 	<string name="username_required">Vyžaduje sa meno užívateľa </string>
 	<string name="password_required">Vyžaduje sa heslo</string>
@@ -398,7 +395,6 @@
 	<string name="theme_dark">Tmavá</string>
 	<string name="theme_wallpaper">Tapeta</string>
 	<string name="theme_day_night">Deň/Noc</string>
-	<string name="settings_general">Všeobecný</string>
 	<string name="language">Jazyk</string>
 	<string name="restart_required">Úlohy treba reštartovať, aby sa zmena prejavila</string>
 	<string name="restart_now">Reštartovať teraz</string>
@@ -422,7 +418,6 @@
 	<string name="date_and_time">Dátum a čas</string>
 	<string name="start_of_week">Začiatok týždňa</string>
 	<string name="use_locale_default">Použi miestne východzie nastavenia</string>
-	<string name="use_native_datetime_pickers">Použiť pôvodné nastavovanie dátumu a času</string>
 	<string name="add_account">Pridať účet</string>
 	<string name="user">Užívateľ</string>
 	<string name="password">Heslo</string>

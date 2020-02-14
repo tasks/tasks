@@ -67,7 +67,6 @@
     <string name="EPr_beastMode_reset">恢復預設值</string>
     <string name="EPr_fullTask_title">顯示完整工作名稱</string>
     <string name="EPr_show_task_edit_comments">編輯工作時顯示註解</string>
-    <string name="EPr_manage_header">管理舊工作</string>
     <string name="EPr_manage_purge_deleted">清除已刪除的工作</string>
     <string name="EPr_manage_purge_deleted_message">您確定清除已刪除的工作嗎？ 
 \n
@@ -206,7 +205,6 @@
     <string name="theme">主題</string>
     <string name="color">色彩</string>
     <string name="accent">強調色</string>
-    <string name="settings_general">一般</string>
     <string name="language">語言</string>
     <string name="restart_required">Tasks 必須重新啟動以使變更生效</string>
     <string name="restart_now">馬上重新啟動</string>

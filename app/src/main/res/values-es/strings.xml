@@ -88,7 +88,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">Momento del evento en calendario</string>
     <string name="EPr_cal_end_at_due_time">Finalizar eventos del calendario al vencimiento</string>
     <string name="EPr_cal_start_at_due_time">Iniciar eventos del calendario al vencimiento</string>
-    <string name="EPr_manage_header">Administrar tareas antiguas</string>
     <string name="EPr_manage_purge_deleted">Limpiar tareas eliminadas</string>
     <string name="EPr_manage_purge_deleted_message">¿Seguro que desea limpiar todas las tareas eliminadas?\n\n¡Estas tareas se perderán por siempre!</string>
     <string name="EPr_manage_purge_deleted_status">¡%d tareas purgadas!</string>
@@ -353,12 +352,10 @@
     <string name="take_a_picture">Tomar fotografía</string>
     <string name="pick_from_gallery">Elegir desde la galería</string>
     <string name="pick_from_storage">Elegir desde almacenamiento</string>
-    <string name="privacy">Privacidad</string>
     <string name="privacy_policy">Política de privacidad</string>
     <string name="send_anonymous_statistics">Mejorar Tasks</string>
     <string name="send_anonymous_statistics_summary">Enviar de forma anónima estadísticas de uso e informes de error para ayudar a mejorar Task. No se recogerán datos personales.</string>
     <string name="tag_already_exists">La etiqueta ya existe</string>
-    <string name="duplicate_name">Nombre duplicado</string>
     <string name="name_cannot_be_empty">El nombre no puede estar vacío</string>
     <string name="username_required">Nombre de usuario requerido</string>
     <string name="password_required">Contraseña requerida</string>
@@ -423,7 +420,6 @@
     <string name="date_and_time">Fecha y hora</string>
     <string name="start_of_week">Inicio de semana</string>
     <string name="use_locale_default">Usar configuración regional</string>
-    <string name="use_native_datetime_pickers">Usar fecha y hora nativas</string>
     <string name="add_account">Añadir cuenta</string>
     <string name="user">Usuario</string>
     <string name="password">Contraseña</string>
@@ -523,7 +519,6 @@
     <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="location_radius_meters">%s m</string>
     <string name="color">Color</string>
-    <string name="settings_general">General</string>
     <string name="url">URL</string>
     <string name="error_adding_account">Error : %s</string>
     <string name="list_separator_with_space">", "</string>

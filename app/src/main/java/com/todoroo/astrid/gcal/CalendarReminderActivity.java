@@ -14,7 +14,7 @@ import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
-import org.tasks.preferences.BasicPreferences;
+import org.tasks.preferences.MainPreferences;
 import org.tasks.preferences.Preferences;
 import org.tasks.scheduling.AlarmManager;
 import org.tasks.scheduling.CalendarNotificationIntentService;
@@ -129,7 +129,7 @@ public class CalendarReminderActivity extends ThemedInjectingAppCompatActivity {
     ignoreSettingsButton.setOnClickListener(
         v -> {
           Intent editPreferences =
-              new Intent(CalendarReminderActivity.this, BasicPreferences.class);
+              new Intent(CalendarReminderActivity.this, MainPreferences.class);
           startActivity(editPreferences);
           dismissListener.onClick(v);
         });

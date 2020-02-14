@@ -24,6 +24,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.documentfile.provider.DocumentFile;
+import androidx.fragment.app.Fragment;
 import com.google.common.base.Strings;
 import com.google.common.io.ByteStreams;
 import com.google.common.io.Files;
@@ -67,7 +68,7 @@ public class FileHelper {
     }
   }
 
-  public static void newDirectoryPicker(Activity activity, int rc, @Nullable Uri initial) {
+  public static void newDirectoryPicker(Fragment fragment, int rc, @Nullable Uri initial) {
     if (atLeastLollipop()) {
       Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
       intent.addFlags(
@@ -78,15 +79,15 @@ public class FileHelper {
       intent.putExtra("android.content.extra.SHOW_ADVANCED", true);
       intent.putExtra("android.content.extra.FANCY", true);
       intent.putExtra("android.content.extra.SHOW_FILESIZE", true);
-      setInitialUri(activity, intent, initial);
-      activity.startActivityForResult(intent, rc);
+      setInitialUri(fragment.getContext(), intent, initial);
+      fragment.startActivityForResult(intent, rc);
     } else {
-      Intent intent = new Intent(activity, FileExplore.class);
+      Intent intent = new Intent(fragment.getContext(), FileExplore.class);
       intent.putExtra(FileExplore.EXTRA_DIRECTORY_MODE, true);
       if (initial != null) {
         intent.putExtra(FileExplore.EXTRA_START_PATH, initial.getPath());
       }
-      activity.startActivityForResult(intent, rc);
+      fragment.startActivityForResult(intent, rc);
     }
   }
 

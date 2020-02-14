@@ -90,7 +90,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">משך אירוע יומן</string>
     <string name="EPr_cal_end_at_due_time">סיים את אירועי היומן במועד היעד</string>
     <string name="EPr_cal_start_at_due_time">התחל את מאורעות היומן במועד היעד</string>
-    <string name="EPr_manage_header">נהל משימות ישנות</string>
     <string name="EPr_manage_purge_deleted">מחק לצמיתות משימות שנמחקו</string>
     <string name="EPr_manage_purge_deleted_message">למחוק לצמיתות את כל המשימות שנמחקו\?
 \n
@@ -389,12 +388,10 @@
     <string name="take_a_picture">צלם תמונה</string>
     <string name="pick_from_gallery">בחירה מהגלריה</string>
     <string name="pick_from_storage">בחירה מאחסון</string>
-    <string name="privacy">פרטיות</string>
     <string name="privacy_policy">מדיניות פרטיות</string>
     <string name="send_anonymous_statistics">שיפור Tasks</string>
     <string name="send_anonymous_statistics_summary">שליחת סטסיטיקות ודיווחי קריסה של האפליקציה באופן אנונימי. מידע אישי לא נאסף כלל.</string>
     <string name="tag_already_exists">תגית כבר קיימת</string>
-    <string name="duplicate_name">שכפל שם</string>
     <string name="name_cannot_be_empty">השם לא יכול להיות ריק</string>
     <string name="username_required">נדרש שם משתמש</string>
     <string name="password_required">נדרשת סיסמא</string>
@@ -437,7 +434,6 @@
     <string name="theme_dark">כהה</string>
     <string name="theme_wallpaper">תמונת רקע</string>
     <string name="theme_day_night">יום / לילה</string>
-    <string name="settings_general">כללי</string>
     <string name="language">שפה</string>
     <string name="restart_required">יש לאתחל את האפליקציה כדי להחיל את השינוי</string>
     <string name="restart_now">אתחל כעת</string>
@@ -461,7 +457,6 @@
     <string name="date_and_time">תאריך וושעה</string>
     <string name="start_of_week">תחילת השבוע</string>
     <string name="use_locale_default">השתמש באזור גיאוגרפי ברירת מחדל</string>
-    <string name="use_native_datetime_pickers">השתמש בממשק תאריך ושעה של המערכת</string>
     <string name="add_account">הוסף חשבון</string>
     <string name="user">משתמש</string>
     <string name="password">סיסמא</string>

@@ -89,7 +89,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">Egutegiko gertaeraren ordua</string>
     <string name="EPr_cal_end_at_due_time">Amaitu egutegiko gertaerak epemuga-orduan</string>
     <string name="EPr_cal_start_at_due_time">Hasi egutegiko gertaerak epemuga-orduan</string>
-    <string name="EPr_manage_header">Kudeatu zeregin zaharrak</string>
     <string name="EPr_manage_purge_deleted">Purgatu ezabatutako zereginak</string>
     <string name="EPr_manage_purge_deleted_message">Ziur ezabatutako zereginak purgatu nahi dituzula\? 
 \n 
@@ -358,12 +357,10 @@
     <string name="take_a_picture">Atera argazkia</string>
     <string name="pick_from_gallery">Hautatu galeriatik</string>
     <string name="pick_from_storage">Hautatu biltegiratzetik</string>
-    <string name="privacy">Pribatutasuna</string>
     <string name="privacy_policy">pribatutasun politika</string>
     <string name="send_anonymous_statistics">Hobetu Tasks</string>
     <string name="send_anonymous_statistics_summary">Bidali erabilera estatistika anonimoak eta kraskatze txostenak Tasks hobetzen laguntzeko. Ez da datu pertsonalik jasoko.</string>
     <string name="tag_already_exists">Etiketa hau badago aurretik</string>
-    <string name="duplicate_name">Bikoiztutako izena</string>
     <string name="name_cannot_be_empty">Izena ezin da hutsik egon</string>
     <string name="username_required">Erabiltzaile-izena ezinbestekoa da</string>
     <string name="password_required">Pasahitza ezinbestekoa da</string>
@@ -406,7 +403,6 @@
     <string name="theme_dark">Iluna</string>
     <string name="theme_wallpaper">Horma-papera</string>
     <string name="theme_day_night">Eguna/Gaua</string>
-    <string name="settings_general">Orokorra</string>
     <string name="language">Hizkuntza</string>
     <string name="restart_required">Tasks aplikazioa berrabiarazi behar da aldaketak aplikatzeko</string>
     <string name="restart_now">Berrabiarazi orain</string>
@@ -430,7 +426,6 @@
     <string name="date_and_time">Data eta ordua</string>
     <string name="start_of_week">Astearen hasiera</string>
     <string name="use_locale_default">Erabili hizkuntzak lehenetsitakoa</string>
-    <string name="use_native_datetime_pickers">Erabili sistemaren data eta ordu hautatzaileak</string>
     <string name="add_account">Gehitu kontua</string>
     <string name="user">Erabiltzailea</string>
     <string name="password">Pasahitza</string>

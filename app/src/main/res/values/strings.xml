@@ -96,7 +96,6 @@ File %1$s contained %2$s.\n\n
   <string name="EPr_temp_show_completed_tasks">Temporarily show tasks upon completion</string>
   <string name="EPr_temp_completed_tasks_showing">Tasks will remain temporarily visible in the list after completion</string>
   <string name="EPr_temp_completed_tasks_not_showing">Tasks will immediately disappear from the list after completion</string>
-  <string name="EPr_manage_header">Manage old tasks</string>
   <string name="EPr_manage_purge_deleted">Purge deleted tasks</string>
   <string name="EPr_manage_purge_deleted_message">Do you really want to purge all your deleted tasks?\n\nThese tasks will be gone forever!</string>
   <string name="EPr_manage_purge_deleted_status">Purged %d tasks!</string>
@@ -369,12 +368,10 @@ File %1$s contained %2$s.\n\n
   <string name="take_a_picture">Take a picture</string>
   <string name="pick_from_gallery">Pick from gallery</string>
   <string name="pick_from_storage">Pick from storage</string>
-  <string name="privacy">Privacy</string>
   <string name="privacy_policy">Privacy policy</string>
   <string name="send_anonymous_statistics">Improve Tasks</string>
   <string name="send_anonymous_statistics_summary">Send anonymous usage statistics and crash reports to help improve Tasks. No personal data will be collected.</string>
   <string name="tag_already_exists">Tag already exists</string>
-  <string name="duplicate_name">Duplicate name</string>
   <string name="name_cannot_be_empty">Name cannot be empty</string>
   <string name="username_required">Username required</string>
   <string name="password_required">Password required</string>
@@ -421,7 +418,6 @@ File %1$s contained %2$s.\n\n
   <string name="theme_dark">Dark</string>
   <string name="theme_wallpaper">Wallpaper</string>
   <string name="theme_day_night">Day/Night</string>
-  <string name="settings_general">General</string>
   <string name="language">Language</string>
   <string name="restart_required">Tasks must be restarted for change to take effect</string>
   <string name="restart_now">Restart now</string>
@@ -445,7 +441,6 @@ File %1$s contained %2$s.\n\n
   <string name="date_and_time">Date and time</string>
   <string name="start_of_week">Start of week</string>
   <string name="use_locale_default">Use locale default</string>
-  <string name="use_native_datetime_pickers">Use native date and time pickers</string>
   <string name="add_account">Add account</string>
   <string name="user">User</string>
   <string name="password">Password</string>
@@ -579,5 +574,9 @@ File %1$s contained %2$s.\n\n
   <string name="caldav_account_description">Requires an account with a CalDAV service provider or a self-hosted server. Find a service provider by visiting tasks.org/caldav</string>
   <string name="etesync_account_description">Requires an account with EteSync.com or a self-hosted server</string>
   <string name="etesync_encryption_description">Choose an encryption password. Do not forget your password, it cannot be recovered!</string>
+
+  <string name="preferences_look_and_feel">Look and feel</string>
+  <string name="preferences_advanced">Advanced</string>
   <string name="documentation">Documentation</string>
+  <string name="accounts">Accounts</string>
 </resources>

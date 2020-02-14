@@ -73,7 +73,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">Čas události v kalendáři</string>
     <string name="EPr_cal_end_at_due_time">Událost v kalendáři končí splněním úkolu</string>
     <string name="EPr_cal_start_at_due_time">Událost v kalendáři začíná splněním úkolu</string>
-    <string name="EPr_manage_header">Spravovat staré úkoly</string>
     <string name="EPr_manage_purge_deleted">Vymazat smazané úkoly</string>
     <string name="EPr_manage_purge_deleted_message">Opravdu chcete vymazat vaše smazané úkoly?\n\nTyto úkoly budou vymazány navždy!</string>
     <string name="EPr_manage_purge_deleted_status">Vymyzáno %d úkolů!</string>
@@ -223,7 +222,6 @@
     <string name="reverse">Obrácené třídění</string>
     <string name="no_application_found">K otevření přílohy nebyla nalezena aplikace</string>
     <string name="add_attachment">Přidat přílohu</string>
-    <string name="privacy">Soukromí</string>
     <string name="privacy_policy">Zásady ochrany osobních údajů</string>
     <string name="send_anonymous_statistics">Vylepšit Úkoly</string>
     <string name="send_anonymous_statistics_summary">Odesílat anonymní statistiky využití a zprávy o selhání ke zlepšení Úkolů. Žádné osobní údaje nebudou shromažďovány.</string>
@@ -256,7 +254,6 @@
     <string name="theme_dark">Tmavý</string>
     <string name="theme_wallpaper">Tapeta</string>
     <string name="theme_day_night">Den/Noc</string>
-    <string name="settings_general">Všeobecný</string>
     <string name="language">Jazyk</string>
     <string name="restart_required">Úkoly musí být restartovány, aby se změny projevily</string>
     <string name="restart_now">Restartovat nyní</string>

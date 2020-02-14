@@ -89,7 +89,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">Takvim etkinlik zamanı</string>
     <string name="EPr_cal_end_at_due_time">Takvim etkinliklerini bitiş zamanında bitir</string>
     <string name="EPr_cal_start_at_due_time">Takvim etkinliklerini bitiş zamanında başlat</string>
-    <string name="EPr_manage_header">Eski görevleri yönet</string>
     <string name="EPr_manage_purge_deleted">Silinen görevleri temizle</string>
     <string name="EPr_manage_purge_deleted_message">Tüm silinen görevleri temizlemek istediğiniz emin misiniz?\n\nBu görevler tümüyle silinecek!</string>
     <string name="EPr_manage_purge_deleted_status">%d görev temizlendi!</string>
@@ -355,12 +354,10 @@
     <string name="take_a_picture">Bir fotoğraf çek</string>
     <string name="pick_from_gallery">Galeriden seç</string>
     <string name="pick_from_storage">Depolamadan seç</string>
-    <string name="privacy">Gizlilik</string>
     <string name="privacy_policy">Gizlilik politikası</string>
     <string name="send_anonymous_statistics">Task\'ı İyileştir</string>
     <string name="send_anonymous_statistics_summary">Tasks\'ı iyileştirmeye yardımcı olmak için anonim kullanım istatistiklerini ve kilitlenme raporlarını gönderin. Hiçbir kişisel veri toplanmayacak.</string>
     <string name="tag_already_exists">Etiket zaten var</string>
-    <string name="duplicate_name">Yinelenen ad</string>
     <string name="name_cannot_be_empty">Ad boş olamaz</string>
     <string name="username_required">Kullanıcı adı gerekli</string>
     <string name="password_required">Parola gerekli</string>
@@ -403,7 +400,6 @@
     <string name="theme_dark">Koyu</string>
     <string name="theme_wallpaper">Duvar kağıdı</string>
     <string name="theme_day_night">Gündüz/Gece</string>
-    <string name="settings_general">Genel</string>
     <string name="language">Dil</string>
     <string name="restart_required">Değişikliklerin etkili olması için Tasks yeniden başlatılmalıdır</string>
     <string name="restart_now">Şimdi yeniden başlat</string>
@@ -427,7 +423,6 @@
     <string name="date_and_time">Tarih ve zaman</string>
     <string name="start_of_week">Hafta başlangıcı</string>
     <string name="use_locale_default">Yerel öntanımlısını kullan</string>
-    <string name="use_native_datetime_pickers">Yerli tarih ve zaman seçicileri kullan</string>
     <string name="add_account">Hesap ekle</string>
     <string name="user">Kullanıcı</string>
     <string name="password">Parola</string>

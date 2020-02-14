@@ -83,7 +83,7 @@ public class DefaultFilterProvider {
     return getFilterFromPreference(R.string.p_default_list);
   }
 
-  void setDefaultFilter(Filter filter) {
+  public void setDefaultFilter(Filter filter) {
     setFilterPreference(filter, R.string.p_default_list);
   }
 
