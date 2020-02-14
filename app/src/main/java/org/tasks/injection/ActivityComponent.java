@@ -11,6 +11,7 @@ import com.todoroo.astrid.gcal.CalendarReminderActivity;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import com.todoroo.astrid.reminders.ReminderPreferences;
 import dagger.Subcomponent;
+import org.jetbrains.annotations.NotNull;
 import org.tasks.activities.CalendarSelectionActivity;
 import org.tasks.activities.CameraActivity;
 import org.tasks.activities.ColorPickerActivity;
@@ -22,6 +23,7 @@ import org.tasks.activities.GoogleTaskListSettingsActivity;
 import org.tasks.etesync.EncryptionSettingsActivity;
 import org.tasks.etesync.EteSyncAccountSettingsActivity;
 import org.tasks.etesync.EteSyncCalendarSettingsActivity;
+import org.tasks.preferences.HelpAndFeedback;
 import org.tasks.tags.TagPickerActivity;
 import org.tasks.activities.TagSettingsActivity;
 import org.tasks.activities.TimePickerActivity;
@@ -155,4 +157,6 @@ public interface ActivityComponent {
   void inject(EteSyncCalendarSettingsActivity eteSyncCalendarSettingsActivity);
 
   void inject(EncryptionSettingsActivity encryptionSettingsActivity);
+
+  void inject(@NotNull HelpAndFeedback helpAndFeedback);
 }

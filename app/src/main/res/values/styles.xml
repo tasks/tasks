@@ -1,6 +1,8 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
 
-  <!-- ========================================================== General  -->
+  <style name="PreferenceTheme" parent="@style/PreferenceThemeOverlay.v14.Material">
+    <item name="android:tint">@color/icon_tint</item>
+  </style>
 
   <style name="popup_overlay" parent="ThemeOverlay.MaterialComponents.Light"/>
 

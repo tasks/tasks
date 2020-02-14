@@ -2077,7 +2077,7 @@
       "artifactId": {
         "name": "databinding-adapters",
         "group": "androidx.databinding",
-        "version": "3.6.0-rc02"
+        "version": "3.6.0-rc03"
       }
     },
     {
@@ -2141,7 +2141,7 @@
       "artifactId": {
         "name": "databinding-common",
         "group": "androidx.databinding",
-        "version": "3.6.0-rc02"
+        "version": "3.6.0-rc03"
       }
     },
     {
@@ -2157,7 +2157,7 @@
       "artifactId": {
         "name": "databinding-runtime",
         "group": "androidx.databinding",
-        "version": "3.6.0-rc02"
+        "version": "3.6.0-rc03"
       }
     },
     {
@@ -2189,7 +2189,7 @@
       "artifactId": {
         "name": "viewbinding",
         "group": "androidx.databinding",
-        "version": "3.6.0-rc02"
+        "version": "3.6.0-rc03"
       }
     },
     {
@@ -2221,7 +2221,7 @@
       "artifactId": {
         "name": "journalmanager",
         "group": "com.etesync",
-        "version": "1.0.2-SNAPSHOT"
+        "version": "1.0.4"
       }
     },
     {
@@ -2238,6 +2238,22 @@
         "name": "prov",
         "group": "com.madgag.spongycastle",
         "version": "1.54.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://developer.android.com/jetpack/androidx",
+      "libraryName": "AndroidX Preference",
+      "artifactId": {
+        "name": "preference",
+        "group": "androidx.preference",
+        "version": "1.1.0"
       }
     }
   ]

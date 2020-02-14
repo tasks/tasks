@@ -38,6 +38,7 @@ import org.tasks.data.GoogleTaskAccount;
 import org.tasks.etesync.EteSyncCalendarSettingsActivity;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.BasicPreferences;
+import org.tasks.preferences.HelpAndFeedback;
 import org.tasks.ui.NavigationDrawerFragment;
 
 public class FilterProvider {
@@ -194,6 +195,13 @@ public class FilterProvider {
               R.drawable.ic_outline_settings_24px,
               new Intent(context, BasicPreferences.class),
               REQUEST_SETTINGS));
+
+      items.add(
+          new NavigationDrawerAction(
+              context.getString(R.string.help_and_feedback),
+              R.drawable.ic_outline_help_outline_24px,
+              new Intent(context, HelpAndFeedback.class),
+              0));
     }
 
     return items;

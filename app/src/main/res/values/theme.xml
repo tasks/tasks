@@ -30,6 +30,7 @@
     <item name="weekdayButtonBackground">?attr/colorPrimary</item>
     <item name="weekdayButtonText">?attr/colorOnPrimary</item>
     <item name="horizontal_divider">2</item> <!-- View.GONE -->
+    <item name="preferenceTheme">@style/PreferenceTheme</item>
   </style>
 
   <style name="Tasks" parent="TasksBase"/>

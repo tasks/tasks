@@ -152,7 +152,11 @@ object CustomIcons {
             1115 to R.drawable.ic_outline_scanner_24px,
             1116 to R.drawable.ic_outline_router_24px,
             1117 to R.drawable.ic_outline_watch_24px,
-            1118 to R.drawable.ic_outline_videogame_asset_24px
+            1118 to R.drawable.ic_outline_videogame_asset_24px,
+            1119 to R.drawable.ic_cached_24px,
+            1120 to R.drawable.ic_octocat,
+            1121 to R.drawable.ic_outline_perm_identity_24px,
+            1122 to R.drawable.ic_track_changes_24px
     )
 
     @kotlin.jvm.JvmStatic

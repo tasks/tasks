@@ -574,6 +574,10 @@
       android:name=".etesync.EncryptionSettingsActivity"
       android:theme="@style/Tasks" />
 
+    <activity
+      android:name=".preferences.HelpAndFeedback"
+      android:theme="@style/Tasks" />
+
     <!-- launcher icons -->
 
     <activity-alias

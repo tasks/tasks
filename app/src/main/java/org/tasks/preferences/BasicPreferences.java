@@ -43,9 +43,7 @@ import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.analytics.Tracking.Events;
-import org.tasks.billing.BillingClient;
 import org.tasks.billing.Inventory;
-import org.tasks.billing.PurchaseActivity;
 import org.tasks.caldav.CaldavAccountSettingsActivity;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavDao;
@@ -107,7 +105,6 @@ public class BasicPreferences extends InjectingPreferenceActivity
   @Inject Toaster toaster;
   @Inject ActivityPermissionRequestor permissionRequestor;
   @Inject GoogleAccountManager googleAccountManager;
-  @Inject BillingClient billingClient;
   @Inject DefaultFilterProvider defaultFilterProvider;
   @Inject LocalBroadcastManager localBroadcastManager;
   @Inject WorkManager workManager;
@@ -248,12 +245,6 @@ public class BasicPreferences extends InjectingPreferenceActivity
               }
               return true;
             });
-    findPreference(getString(R.string.p_collect_statistics))
-        .setOnPreferenceChangeListener(
-            (preference, newValue) -> {
-              showRestartDialog();
-              return true;
-            });
 
     findPreference(R.string.backup_BAc_import)
         .setOnPreferenceClickListener(
@@ -292,45 +283,6 @@ public class BasicPreferences extends InjectingPreferenceActivity
           }
         });
 
-    findPreference(R.string.contact_developer)
-        .setOnPreferenceClickListener(
-            preference -> {
-              emailSupport();
-              return false;
-            });
-
-    findPreference(R.string.third_party_licenses)
-        .setOnPreferenceClickListener(
-            preference -> {
-              startActivity(new Intent(this, AttributionActivity.class));
-              return false;
-            });
-
-    findPreference(R.string.rate_tasks)
-        .setOnPreferenceClickListener(
-            preference -> {
-              startActivity(
-                  new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.market_url))));
-              return false;
-            });
-
-    Preference upgradeToPro = findPreference(R.string.upgrade_to_pro);
-    upgradeToPro.setOnPreferenceClickListener(
-        p -> {
-          startActivity(new Intent(this, PurchaseActivity.class));
-          return false;
-        });
-    if (inventory.hasPro()) {
-      upgradeToPro.setTitle(R.string.manage_subscription);
-      upgradeToPro.setSummary(R.string.manage_subscription_summary);
-    }
-
-    findPreference(R.string.refresh_purchases).setOnPreferenceClickListener(
-        preference -> {
-          billingClient.queryPurchases();
-          return false;
-        });
-
     findPreference(getString(R.string.p_background_sync_unmetered_only))
         .setOnPreferenceChangeListener(
             (preference, o) -> {
@@ -362,9 +314,6 @@ public class BasicPreferences extends InjectingPreferenceActivity
               return false;
             });
 
-    findPreference(R.string.changelog)
-        .setSummary(getString(R.string.version_string, BuildConfig.VERSION_NAME));
-
     requires(
         R.string.settings_localization,
         atLeastJellybeanMR1(),
@@ -374,17 +323,6 @@ public class BasicPreferences extends InjectingPreferenceActivity
     requires(R.string.task_list_options, atLeastLollipop(), R.string.p_show_subtasks);
 
     requires(BuildConfig.DEBUG, R.string.debug);
-
-    //noinspection ConstantConditions
-    if (BuildConfig.FLAVOR.equals("generic")) {
-      requires(
-          R.string.about,
-          false,
-          R.string.rate_tasks,
-          R.string.upgrade_to_pro,
-          R.string.refresh_purchases);
-      requires(R.string.privacy, false, R.string.p_collect_statistics);
-    }
 
     //noinspection ConstantConditions
     if (!BuildConfig.FLAVOR.equals("googleplay")) {

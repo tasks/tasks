@@ -496,6 +496,7 @@ File %1$s contained %2$s.\n\n
   <string name="tasker_create_task">Create task</string>
   <string name="tasker_list_notification">List notification</string>
   <string name="help">Help</string>
+  <string name="help_and_feedback">Help &amp; feedback</string>
   <string name="caldav_home_set_not_found">Home set not found</string>
   <string name="network_error">Connection failed</string>
   <string name="background_sync_unmetered_only">Only on unmetered connections</string>
@@ -578,4 +579,5 @@ File %1$s contained %2$s.\n\n
   <string name="caldav_account_description">Requires an account with a CalDAV service provider or a self-hosted server. Find a service provider by visiting tasks.org/caldav</string>
   <string name="etesync_account_description">Requires an account with EteSync.com or a self-hosted server</string>
   <string name="etesync_encryption_description">Choose an encryption password. Do not forget your password, it cannot be recovered!</string>
+  <string name="documentation">Documentation</string>
 </resources>

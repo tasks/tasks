@@ -240,66 +240,6 @@
 
   </PreferenceCategory>
 
-  <PreferenceCategory
-    android:key="@string/about"
-    android:title="@string/about">
-
-    <Preference
-      android:summary="@string/license_summary"
-      android:title="@string/source_code">
-      <intent
-        android:action="android.intent.action.VIEW"
-        android:data="https://tasks.org/source"/>
-    </Preference>
-
-    <Preference
-      android:key="@string/changelog"
-      android:title="@string/changelog">
-      <intent
-        android:action="android.intent.action.VIEW"
-        android:data="https://tasks.org/changelog"/>
-    </Preference>
-
-    <Preference
-      android:key="@string/third_party_licenses"
-      android:title="@string/third_party_licenses"/>
-
-    <Preference
-      android:key="@string/contact_developer"
-      android:title="@string/contact_developer"/>
-
-    <Preference
-      android:key="@string/rate_tasks"
-      android:title="@string/rate_tasks"/>
-
-    <Preference
-      android:key="@string/upgrade_to_pro"
-      android:title="@string/upgrade_to_pro"/>
-
-    <Preference
-      android:key="@string/refresh_purchases"
-      android:title="@string/refresh_purchases" />
-
-  </PreferenceCategory>
-
-  <PreferenceCategory
-    android:key="@string/privacy"
-    android:title="@string/privacy">
-
-    <Preference android:title="@string/privacy_policy">
-      <intent
-        android:action="android.intent.action.VIEW"
-        android:data="http://tasks.org/privacy.html"/>
-    </Preference>
-
-    <CheckBoxPreference
-      android:defaultValue="true"
-      android:key="@string/p_collect_statistics"
-      android:summary="@string/send_anonymous_statistics_summary"
-      android:title="@string/send_anonymous_statistics"/>
-
-  </PreferenceCategory>
-
   <Preference
     android:key="@string/debug"
     android:title="@string/debug"/>
