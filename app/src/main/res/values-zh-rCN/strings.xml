@@ -553,4 +553,18 @@
     <string name="create_new_tag">创建\"%s\"</string>
     <string name="encryption_password_required">需要加密密码</string>
     <string name="encryption_password">加密密码</string>
+    <string name="display_name">显示名称</string>
+    <string name="pro_etesync">EteSync 同步</string>
+    <string name="this_feature_requires_a_subscription">该功能需要订阅</string>
+    <string name="choose_synchronization_service">选择平台</string>
+    <string name="google_tasks_selection_description">与您的谷歌账户同步的基本服务</string>
+    <string name="caldav_selection_description">基于开放的互联网标准的同步</string>
+    <string name="etesync_selection_description">开源、端到端加密的同步</string>
+    <string name="passwords_do_not_match">密码不匹配</string>
+    <string name="reenter_encryption_password">确认加密密码</string>
+    <string name="show_advanced_settings">显示高级设置</string>
+    <string name="caldav_account_description">需要一个CalDAV服务供应商账户或一个自托管服务器。访问tasks.org/caldav寻找服务供应商。</string>
+    <string name="etesync_account_description">需要一个EteSync.com账户或一个自托管服务器</string>
+    <string name="etesync_encryption_description">选择一个加密密码。不要忘记你的密码，它不能被恢复。</string>
+    <string name="encryption_password_wrong">错误的加密密码</string>
 </resources>
