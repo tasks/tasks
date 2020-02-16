@@ -415,6 +415,19 @@ public class BasicPreferences extends InjectingPreferenceActivity
     }
     googleDriveBackup.setChecked(preferences.getBoolean(R.string.p_google_drive_backup, false));
 
+    PreferenceCategory synchronizationPreferences =
+        (PreferenceCategory) findPreference(R.string.synchronization);
+    synchronizationPreferences.removeAll();
+
+    boolean hasGoogleAccounts = addGoogleTasksAccounts(synchronizationPreferences);
+    boolean hasCaldavAccounts = addCaldavAccounts(synchronizationPreferences);
+    if (!hasGoogleAccounts) {
+      removeGroup(R.string.gtasks_GPr_header);
+    }
+    if (!(hasGoogleAccounts || hasCaldavAccounts)) {
+      removeGroup(R.string.sync_SPr_interval_title);
+    }
+
     //noinspection ConstantConditions
     if (!BuildConfig.FLAVOR.equals("googleplay")) {
       return;
@@ -482,19 +495,6 @@ public class BasicPreferences extends InjectingPreferenceActivity
         });
     int placeProvider = getPlaceProvider();
     placeProviderPreference.setSummary(choices.get(placeProvider));
-
-    PreferenceCategory synchronizationPreferences =
-        (PreferenceCategory) findPreference(R.string.synchronization);
-    synchronizationPreferences.removeAll();
-
-    boolean hasGoogleAccounts = addGoogleTasksAccounts(synchronizationPreferences);
-    boolean hasCaldavAccounts = addCaldavAccounts(synchronizationPreferences);
-    if (!hasGoogleAccounts) {
-      removeGroup(R.string.gtasks_GPr_header);
-    }
-    if (!(hasGoogleAccounts || hasCaldavAccounts)) {
-      removeGroup(R.string.sync_SPr_interval_title);
-    }
   }
 
   private boolean addGoogleTasksAccounts(PreferenceCategory category) {

@@ -1,5 +1,9 @@
 Change Log
 ---
+### 8.0.1 (2020-02-16)
+
+* Fix missing sync settings on fdroid
+
 ### 8.0 (2020-02-12)
 
 * EteSync support
