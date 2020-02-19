@@ -7,7 +7,7 @@
   android:background="?attr/colorPrimary"
   android:elevation="@dimen/elevation_toolbar"
   android:theme="?attr/overlay_theme"
-  app:titleTextColor="?attr/colorOnPrimary"
   app:popupTheme="@style/popup_overlay"
+  app:titleTextColor="?attr/colorOnPrimary"
   app:toolbarStyle="@style/Widget.MaterialComponents.Toolbar"
-  tools:ignore="UnusedAttribute"/>
+  tools:ignore="UnusedAttribute" />
