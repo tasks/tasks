@@ -1,49 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
 
-  <com.todoroo.astrid.ui.MultilinePreference
+  <Preference
     android:key="@string/p_widget_filter"
-    android:title="@string/filter"/>
+    android:title="@string/filter" />
 
-  <com.todoroo.astrid.ui.MultilinePreference
+  <Preference
     android:key="@string/p_widget_theme"
-    android:title="@string/theme"/>
+    android:title="@string/theme" />
 
-  <com.todoroo.astrid.ui.MultilinePreference
+  <SeekBarPreference
+    android:defaultValue="100"
     android:key="@string/p_widget_opacity"
-    android:title="@string/opacity"/>
+    android:max="100"
+    android:title="@string/opacity"
+    app:min="0"
+    app:seekBarIncrement="5"
+    app:showSeekBarValue="true" />
 
-  <PreferenceCategory
-    android:title="@string/widget_header_settings">
+  <PreferenceCategory android:title="@string/widget_header_settings">
 
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
       android:key="@string/p_widget_show_header"
-      android:title="@string/widget_show_header"/>
+      android:title="@string/widget_show_header" />
 
-    <com.todoroo.astrid.ui.MultilinePreference
+    <Preference
       android:key="@string/p_widget_color"
-      android:title="@string/color"/>
+      android:title="@string/color" />
 
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
       android:key="@string/p_widget_show_settings"
-      android:title="@string/widget_show_settings"/>
+      android:title="@string/widget_show_settings" />
 
   </PreferenceCategory>
 
-  <PreferenceCategory
-    android:title="@string/widget_row_settings">
+  <PreferenceCategory android:title="@string/widget_row_settings">
 
-    <com.todoroo.astrid.ui.MultilinePreference
+    <SeekBarPreference
+      android:defaultValue="16"
       android:key="@string/p_widget_font_size"
-      android:title="@string/font_size"/>
+      android:max="22"
+      android:title="@string/font_size"
+      app:min="10"
+      app:showSeekBarValue="true" />
 
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
       android:key="@string/p_widget_show_due_date"
-      android:title="@string/widget_show_due_date"/>
+      android:title="@string/widget_show_due_date" />
 
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
       android:key="@string/p_widget_show_checkboxes"
-      android:title="@string/widget_show_checkboxes"/>
+      android:title="@string/widget_show_checkboxes" />
 
   </PreferenceCategory>
 

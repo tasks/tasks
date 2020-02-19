@@ -106,7 +106,7 @@ public interface ActivityComponent {
 
   void inject(ReminderPreferences reminderPreferences);
 
-  void inject(WidgetConfigActivity widgetConfigActivity);
+  void inject(@NotNull WidgetConfigActivity widgetConfigActivity);
 
   void inject(OldTaskPreferences oldTaskPreferences);
 

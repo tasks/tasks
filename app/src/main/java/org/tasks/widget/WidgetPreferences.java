@@ -4,13 +4,13 @@ import android.content.Context;
 import org.tasks.R;
 import org.tasks.preferences.Preferences;
 
-class WidgetPreferences {
+public class WidgetPreferences {
 
   private final Context context;
   private final Preferences preferences;
   private final int widgetId;
 
-  WidgetPreferences(Context context, Preferences preferences, int widgetId) {
+  public WidgetPreferences(Context context, Preferences preferences, int widgetId) {
     this.context = context;
     this.preferences = preferences;
     this.widgetId = widgetId;
@@ -36,19 +36,15 @@ class WidgetPreferences {
     return preferences.getInt(getKey(R.string.p_widget_font_size), 16);
   }
 
-  void setFontSize(int value) {
-    preferences.setInt(getKey(R.string.p_widget_font_size), value);
-  }
-
-  String getFilterId() {
+  public String getFilterId() {
     return preferences.getStringValue(getKey(R.string.p_widget_filter));
   }
 
-  int getThemeIndex() {
+  public int getThemeIndex() {
     return preferences.getInt(getKey(R.string.p_widget_theme), 0);
   }
 
-  int getColorIndex() {
+  public int getColorIndex() {
     return preferences.getInt(getKey(R.string.p_widget_color), 0);
   }
 
@@ -68,7 +64,7 @@ class WidgetPreferences {
     preferences.setInt(getKey(R.string.p_widget_theme), index);
   }
 
-  private String getKey(int resId) {
+  public String getKey(int resId) {
     return context.getString(resId) + widgetId;
   }
 

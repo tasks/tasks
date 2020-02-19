@@ -13,6 +13,7 @@ import dagger.Subcomponent;
 import org.jetbrains.annotations.NotNull;
 import org.tasks.fragments.CommentBarFragment;
 import org.tasks.preferences.fragments.HelpAndFeedback;
+import org.tasks.preferences.fragments.ScrollableWidget;
 import org.tasks.ui.CalendarControlSet;
 import org.tasks.ui.DeadlineControlSet;
 import org.tasks.ui.DescriptionControlSet;
@@ -65,4 +66,6 @@ public interface FragmentComponent {
   void inject(TaskListViewModel taskListViewModel);
 
   void inject(@NotNull HelpAndFeedback helpAndFeedback);
+
+  void inject(@NotNull ScrollableWidget scrollableWidget);
 }
