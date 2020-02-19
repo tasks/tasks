@@ -588,4 +588,6 @@
     <string name="etesync_account_description">Требует аккаунта на EteSync.com или собственного сервера</string>
     <string name="etesync_encryption_description">Введите пароль шифрования. Не забудьте его, пароль нельзя будет восстановить!</string>
     <string name="encryption_password_wrong">Неверный пароль шифрования</string>
+    <string name="help_and_feedback">Помощь и обратная связь</string>
+    <string name="documentation">Документация</string>
 </resources>
