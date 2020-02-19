@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.preference.Preference;
 import androidx.annotation.StringRes;
 import at.bitfire.cert4android.CustomCertManager;
-import com.android.billingclient.api.BillingClient.SkuType;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.billing.BillingClient;
@@ -60,7 +59,7 @@ public class DebugPreferences extends InjectingPreferenceActivity {
       preference.setTitle(getString(R.string.debug_purchase, sku));
       preference.setOnPreferenceClickListener(
           p -> {
-            billingClient.initiatePurchaseFlow(DebugPreferences.this, sku, SkuType.INAPP, null);
+            billingClient.initiatePurchaseFlow(DebugPreferences.this, sku, "inapp" /*SkuType.INAPP*/, null);
             return false;
           });
     } else {
