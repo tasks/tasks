@@ -194,6 +194,18 @@ public class NavigationDrawerFragment extends InjectingFragment {
     super.onPause();
 
     localBroadcastManager.unregisterReceiver(refreshReceiver);
+  }
+
+  @Override
+  public void onStart() {
+    super.onStart();
+
+    disposables = new CompositeDisposable();
+  }
+
+  @Override
+  public void onStop() {
+    super.onStop();
 
     disposables.dispose();
   }
@@ -230,9 +242,8 @@ public class NavigationDrawerFragment extends InjectingFragment {
   @Override
   public void onResume() {
     super.onResume();
-
-    disposables = new CompositeDisposable();
     localBroadcastManager.registerRefreshListReceiver(refreshReceiver);
+
     disposables.add(updateFilters());
   }
 
