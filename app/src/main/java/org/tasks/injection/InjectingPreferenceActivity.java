@@ -20,8 +20,6 @@ import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.api.Filter;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.analytics.Tracker;
-import org.tasks.analytics.Tracking;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.AppCompatPreferenceActivity;
@@ -38,7 +36,6 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
 
   @Inject DialogBuilder dialogBuilder;
   @Inject Device device;
-  @Inject Tracker tracker;
 
   private ActivityComponent activityComponent;
   private Bundle result;
@@ -211,7 +208,6 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
     findPreference(getString(resId))
         .setOnPreferenceChangeListener(
             (preference, newValue) -> {
-              tracker.reportEvent(Tracking.Events.SET_PREFERENCE, resId, newValue.toString());
               result.putBoolean(extra, true);
               return true;
             });

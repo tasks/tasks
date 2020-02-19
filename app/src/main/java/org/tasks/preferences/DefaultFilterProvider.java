@@ -23,8 +23,6 @@ import com.todoroo.astrid.gtasks.GtasksFilterExposer;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.analytics.Tracker;
-import org.tasks.analytics.Tracking;
 import org.tasks.caldav.CaldavFilterExposer;
 import org.tasks.injection.ForApplication;
 import timber.log.Timber;
@@ -44,7 +42,6 @@ public class DefaultFilterProvider {
 
   private final Context context;
   private final Preferences preferences;
-  private final Tracker tracker;
   private final CustomFilterExposer customFilterExposer;
   private final TagFilterExposer tagFilterExposer;
   private final GtasksFilterExposer gtasksFilterExposer;
@@ -54,14 +51,12 @@ public class DefaultFilterProvider {
   public DefaultFilterProvider(
       @ForApplication Context context,
       Preferences preferences,
-      Tracker tracker,
       CustomFilterExposer customFilterExposer,
       TagFilterExposer tagFilterExposer,
       GtasksFilterExposer gtasksFilterExposer,
       CaldavFilterExposer caldavFilterExposer) {
     this.context = context;
     this.preferences = preferences;
-    this.tracker = tracker;
     this.customFilterExposer = customFilterExposer;
     this.tagFilterExposer = tagFilterExposer;
     this.gtasksFilterExposer = gtasksFilterExposer;
@@ -81,7 +76,6 @@ public class DefaultFilterProvider {
   }
 
   public void setBadgeFilter(Filter filter) {
-    tracker.reportEvent(Tracking.Events.SET_BADGE_LIST);
     setFilterPreference(filter, R.string.p_badge_list);
   }
 
@@ -90,7 +84,6 @@ public class DefaultFilterProvider {
   }
 
   void setDefaultFilter(Filter filter) {
-    tracker.reportEvent(Tracking.Events.SET_DEFAULT_LIST);
     setFilterPreference(filter, R.string.p_default_list);
   }
 

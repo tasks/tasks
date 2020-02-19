@@ -19,7 +19,6 @@ import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
-import org.tasks.analytics.Tracking;
 import org.tasks.caldav.CaldavUtils;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.CaldavTask;
@@ -102,7 +101,6 @@ public class Upgrader {
       run(from, V6_8_1, this::migrateCaldavFilters);
       run(from, V6_9, this::applyCaldavCategories);
       run(from, V7_0, this::applyCaldavSubtasks);
-      tracker.reportEvent(Tracking.Events.UPGRADE, Integer.toString(from));
     }
     preferences.setCurrentVersion(to);
   }

@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModelProviders;
 import com.todoroo.astrid.helper.UUIDHelper;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.analytics.Tracking.Events;
 import org.tasks.data.CaldavAccount;
 import org.tasks.gtasks.PlayServices;
 import org.tasks.injection.ActivityComponent;
@@ -53,8 +52,6 @@ public class CaldavAccountSettingsActivity extends BaseCaldavAccountSettingsActi
     newAccount.setPassword(encryption.encrypt(getNewPassword()));
     newAccount.setUuid(UUIDHelper.newUUID());
     newAccount.setId(caldavDao.insert(newAccount));
-
-    tracker.reportEvent(Events.CALDAV_ACCOUNT_ADDED);
 
     setResult(RESULT_OK);
     finish();

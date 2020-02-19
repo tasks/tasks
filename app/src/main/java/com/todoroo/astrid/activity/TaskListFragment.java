@@ -82,9 +82,6 @@ import org.tasks.activities.FilterSettingsActivity;
 import org.tasks.activities.GoogleTaskListSettingsActivity;
 import org.tasks.activities.RemoteListSupportPicker;
 import org.tasks.activities.TagSettingsActivity;
-import org.tasks.analytics.Tracker;
-import org.tasks.analytics.Tracking;
-import org.tasks.caldav.BaseCaldavCalendarSettingsActivity;
 import org.tasks.caldav.CaldavCalendarSettingsActivity;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
@@ -136,7 +133,6 @@ public final class TaskListFragment extends InjectingFragment
 
   private static final int SEARCH_DEBOUNCE_TIMEOUT = 300;
   private final RefreshReceiver refreshReceiver = new RefreshReceiver();
-  @Inject protected Tracker tracker;
   protected CompositeDisposable disposables;
   @Inject SyncAdapters syncAdapters;
   @Inject TaskDeleter taskDeleter;
@@ -464,7 +460,6 @@ public final class TaskListFragment extends InjectingFragment
   }
 
   private void clearCompleted() {
-    tracker.reportEvent(Tracking.Events.CLEAR_COMPLETED);
     disposables.add(
         Single.fromCallable(() -> taskDeleter.clearCompleted(filter))
             .subscribeOn(Schedulers.io())
@@ -589,7 +584,6 @@ public final class TaskListFragment extends InjectingFragment
         break;
       case REQUEST_MOVE_TASKS:
         if (resultCode == RESULT_OK) {
-          tracker.reportEvent(Tracking.Events.MULTISELECT_MOVE);
           taskMover.move(
               taskAdapter.getSelected(),
               data.getParcelableExtra(RemoteListSupportPicker.EXTRA_SELECTED_FILTER));

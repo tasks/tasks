@@ -60,8 +60,6 @@ import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.activities.DatePickerActivity;
-import org.tasks.analytics.Tracker;
-import org.tasks.analytics.Tracking;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.ForActivity;
@@ -82,7 +80,6 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
   @Inject @ForActivity Context context;
   @Inject DialogBuilder dialogBuilder;
   @Inject Locale locale;
-  @Inject Tracker tracker;
 
   @BindView(R.id.weekGroup)
   LinearLayout weekGroup1;
@@ -382,7 +379,6 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
     } else {
       rrule.setByDay(Collections.emptyList());
     }
-    tracker.reportEvent(Tracking.Events.RECURRENCE_CUSTOM, rrule.toIcal());
     RepeatControlSet target = (RepeatControlSet) getTargetFragment();
     if (target != null) {
       target.onSelected(rrule);

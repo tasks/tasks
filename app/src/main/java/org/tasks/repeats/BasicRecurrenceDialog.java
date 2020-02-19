@@ -22,8 +22,6 @@ import com.todoroo.astrid.repeats.RepeatControlSet;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.analytics.Tracker;
-import org.tasks.analytics.Tracking;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.ForActivity;
@@ -42,7 +40,6 @@ public class BasicRecurrenceDialog extends InjectingDialogFragment {
   @Inject DialogBuilder dialogBuilder;
   @Inject RepeatRuleToString repeatRuleToString;
   @Inject Theme theme;
-  @Inject Tracker tracker;
 
   public static BasicRecurrenceDialog newBasicRecurrenceDialog(
       RepeatControlSet target, RRule rrule, long dueDate) {
@@ -139,8 +136,6 @@ public class BasicRecurrenceDialog extends InjectingDialogFragment {
                     result.setFreq(YEARLY);
                     break;
                 }
-
-                tracker.reportEvent(Tracking.Events.RECURRENCE_PRESET, result.toIcal());
               }
 
               RepeatControlSet target = (RepeatControlSet) getTargetFragment();

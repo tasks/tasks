@@ -30,8 +30,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.analytics.Tracker;
-import org.tasks.analytics.Tracking.Events;
 import org.tasks.billing.Inventory;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavDao;
@@ -48,7 +46,6 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
 
   public static final String EXTRA_CALDAV_DATA = "caldavData"; // $NON-NLS-1$
   protected static final String PASSWORD_MASK = "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022";
-  @Inject protected Tracker tracker;
   @Inject protected CaldavDao caldavDao;
   @Inject protected Encryption encryption;
   @Inject DialogBuilder dialogBuilder;
@@ -355,7 +352,6 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
 
   protected void removeAccount() {
     taskDeleter.delete(caldavAccount);
-    tracker.reportEvent(Events.CALDAV_ACCOUNT_REMOVED);
     setResult(RESULT_OK);
     finish();
   }

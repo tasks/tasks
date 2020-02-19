@@ -20,8 +20,6 @@ import com.todoroo.astrid.api.GtasksFilter;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.activities.CalendarSelectionActivity;
-import org.tasks.analytics.Tracker;
-import org.tasks.analytics.Tracking;
 import org.tasks.calendars.AndroidCalendar;
 import org.tasks.calendars.CalendarProvider;
 import org.tasks.dialogs.DialogBuilder;
@@ -48,7 +46,6 @@ public class DefaultsPreferences extends InjectingPreferenceActivity
   @Inject Preferences preferences;
   @Inject CalendarProvider calendarProvider;
   @Inject ActivityPermissionRequestor permissionRequester;
-  @Inject Tracker tracker;
   @Inject DefaultFilterProvider defaultFilterProvider;
   @Inject Locale locale;
   @Inject Device device;
@@ -146,7 +143,6 @@ public class DefaultsPreferences extends InjectingPreferenceActivity
 
   @Override
   public void selectedList(Filter list) {
-    tracker.reportEvent(Tracking.Events.DEFAULT_REMOTE_LIST);
     if (list == null) {
       preferences.setString(R.string.p_default_remote_list, null);
     } else if (list instanceof GtasksFilter || list instanceof CaldavFilter) {

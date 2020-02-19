@@ -22,8 +22,6 @@ import io.reactivex.Completable;
 import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.analytics.Tracker;
-import org.tasks.analytics.Tracking;
 import org.tasks.injection.ForApplication;
 import org.tasks.intents.TaskIntents;
 import org.tasks.notifications.NotificationManager;
@@ -32,23 +30,19 @@ public class TimerPlugin {
 
   private final Context context;
   private final NotificationManager notificationManager;
-  private final Tracker tracker;
   private final TaskDao taskDao;
 
   @Inject
   public TimerPlugin(
       @ForApplication Context context,
       NotificationManager notificationManager,
-      Tracker tracker,
       TaskDao taskDao) {
     this.context = context;
     this.notificationManager = notificationManager;
-    this.tracker = tracker;
     this.taskDao = taskDao;
   }
 
   public void startTimer(Task task) {
-    tracker.reportEvent(Tracking.Events.TIMER_START);
     updateTimer(task, true);
   }
 

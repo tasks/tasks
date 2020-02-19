@@ -12,8 +12,6 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.backup.TasksXmlImporter;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.analytics.Tracker;
-import org.tasks.analytics.Tracking;
 import org.tasks.backup.TasksJsonImporter;
 import org.tasks.backup.TasksJsonImporter.ImportResult;
 import org.tasks.injection.ForActivity;
@@ -29,7 +27,6 @@ public class ImportTasksDialog extends InjectingNativeDialogFragment {
   @Inject TasksXmlImporter xmlImporter;
   @Inject TasksJsonImporter jsonImporter;
   @Inject DialogBuilder dialogBuilder;
-  @Inject Tracker tracker;
   @Inject @ForActivity Context context;
   @Inject Toaster toaster;
 
@@ -68,11 +65,9 @@ public class ImportTasksDialog extends InjectingNativeDialogFragment {
                   });
                 })
             .start();
-        tracker.reportEvent(Tracking.Events.IMPORT_JSON);
         break;
       case "xml":
         xmlImporter.importTasks(getActivity(), data, progressDialog);
-        tracker.reportEvent(Tracking.Events.IMPORT_XML);
         break;
       default:
         throw new RuntimeException("Invalid extension: " + extension);

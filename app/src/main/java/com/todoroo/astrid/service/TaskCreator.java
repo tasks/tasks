@@ -20,8 +20,6 @@ import java.util.ArrayList;
 import java.util.Map;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.analytics.Tracker;
-import org.tasks.analytics.Tracking;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.CaldavTask;
 import org.tasks.data.GoogleTask;
@@ -40,7 +38,6 @@ public class TaskCreator {
   private final Preferences preferences;
   private final TagDao tagDao;
   private final GoogleTaskDao googleTaskDao;
-  private final Tracker tracker;
   private final DefaultFilterProvider defaultFilterProvider;
   private final CaldavDao caldavDao;
   private final TagDataDao tagDataDao;
@@ -54,7 +51,6 @@ public class TaskCreator {
       TaskDao taskDao,
       TagDao tagDao,
       GoogleTaskDao googleTaskDao,
-      Tracker tracker,
       DefaultFilterProvider defaultFilterProvider,
       CaldavDao caldavDao) {
     this.gcalHelper = gcalHelper;
@@ -63,7 +59,6 @@ public class TaskCreator {
     this.taskDao = taskDao;
     this.tagDao = tagDao;
     this.googleTaskDao = googleTaskDao;
-    this.tracker = tracker;
     this.defaultFilterProvider = defaultFilterProvider;
     this.caldavDao = caldavDao;
   }
@@ -172,7 +167,6 @@ public class TaskCreator {
                 task.setPriority(Integer.valueOf((String) value));
                 break;
               default:
-                tracker.reportEvent(Tracking.Events.TASK_CREATION_FAILED, "Unhandled key: " + key);
                 break;
             }
             break;

@@ -7,8 +7,6 @@ import androidx.annotation.NonNull;
 import com.todoroo.astrid.api.Filter;
 import javax.inject.Inject;
 import org.tasks.Notifier;
-import org.tasks.analytics.Tracker;
-import org.tasks.analytics.Tracking;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingJobIntentService;
 import org.tasks.injection.ServiceComponent;
@@ -23,7 +21,6 @@ public class TaskerIntentService extends InjectingJobIntentService {
   @Inject Notifier notifier;
   @Inject DefaultFilterProvider defaultFilterProvider;
   @Inject TaskerTaskCreator taskerTaskCreator;
-  @Inject Tracker tracker;
 
   @Override
   protected void doWork(@NonNull Intent intent) {
@@ -39,10 +36,8 @@ public class TaskerIntentService extends InjectingJobIntentService {
           defaultFilterProvider.getFilterFromPreference(
               bundle.getString(ListNotificationBundle.BUNDLE_EXTRA_STRING_FILTER));
       notifier.triggerFilterNotification(filter);
-      tracker.reportEvent(Tracking.Events.TASKER_LIST_NOTIFICATION);
     } else if (TaskCreationBundle.isBundleValid(bundle)) {
       taskerTaskCreator.handle(new TaskCreationBundle(bundle));
-      tracker.reportEvent(Tracking.Events.TASKER_CREATE);
     } else {
       Timber.e("Invalid bundle: %s", bundle);
     }

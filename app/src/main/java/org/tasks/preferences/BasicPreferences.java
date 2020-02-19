@@ -40,9 +40,6 @@ import org.tasks.R;
 import org.tasks.activities.ColorPickerActivity;
 import org.tasks.activities.ColorPickerActivity.ColorPalette;
 import org.tasks.activities.FilterSelectionActivity;
-import org.tasks.analytics.Tracker;
-import org.tasks.analytics.Tracking;
-import org.tasks.analytics.Tracking.Events;
 import org.tasks.billing.Inventory;
 import org.tasks.caldav.CaldavAccountSettingsActivity;
 import org.tasks.data.CaldavAccount;
@@ -92,7 +89,6 @@ public class BasicPreferences extends InjectingPreferenceActivity
   public static final int REQUEST_CALDAV_SETTINGS = 10013;
   public static final int REQUEST_GOOGLE_TASKS = 10014;
 
-  @Inject Tracker tracker;
   @Inject Preferences preferences;
   @Inject ThemeBase themeBase;
   @Inject ThemeColor themeColor;
@@ -236,8 +232,6 @@ public class BasicPreferences extends InjectingPreferenceActivity
     findPreference(getString(R.string.p_layout_direction))
         .setOnPreferenceChangeListener(
             (preference, o) -> {
-              tracker.reportEvent(
-                  Tracking.Events.SET_PREFERENCE, R.string.p_layout_direction, o.toString());
               int newValue = Integer.parseInt((String) o);
               if (locale.getDirectionality()
                   != locale.withDirectionality(newValue).getDirectionality()) {
@@ -562,7 +556,6 @@ public class BasicPreferences extends InjectingPreferenceActivity
         int index = data.getIntExtra(ColorPickerActivity.EXTRA_THEME_INDEX, 0);
         preferences.setInt(R.string.p_theme, index);
         themeCache.getThemeBase(index).setDefaultNightMode();
-        tracker.reportEvent(Tracking.Events.SET_THEME, Integer.toString(index));
         forceRestart();
         recreate();
       }
@@ -570,7 +563,6 @@ public class BasicPreferences extends InjectingPreferenceActivity
       if (resultCode == RESULT_OK) {
         int index = data.getIntExtra(ColorPickerActivity.EXTRA_THEME_INDEX, 0);
         preferences.setInt(R.string.p_theme_color, index);
-        tracker.reportEvent(Tracking.Events.SET_COLOR, Integer.toString(index));
         forceRestart();
         recreate();
       }
@@ -578,7 +570,6 @@ public class BasicPreferences extends InjectingPreferenceActivity
       if (resultCode == RESULT_OK) {
         int index = data.getIntExtra(ColorPickerActivity.EXTRA_THEME_INDEX, 0);
         preferences.setInt(R.string.p_theme_accent, index);
-        tracker.reportEvent(Tracking.Events.SET_ACCENT, Integer.toString(index));
         forceRestart();
         recreate();
       }
@@ -587,7 +578,6 @@ public class BasicPreferences extends InjectingPreferenceActivity
         int index = data.getIntExtra(ColorPickerActivity.EXTRA_THEME_INDEX, 0);
         setLauncherIcon(index);
         preferences.setInt(R.string.p_theme_launcher, index);
-        tracker.reportEvent(Events.SET_LAUNCHER, Integer.toString(index));
         recreate();
       }
     } else if (requestCode == RC_PREFS) {
@@ -658,7 +648,6 @@ public class BasicPreferences extends InjectingPreferenceActivity
       preferences.remove(R.string.p_language);
     } else {
       preferences.setString(R.string.p_language, override);
-      tracker.reportEvent(Tracking.Events.SET_PREFERENCE, R.string.p_language, override);
     }
     updateLocale();
     if (!locale.equals(newValue)) {
@@ -725,7 +714,6 @@ public class BasicPreferences extends InjectingPreferenceActivity
     }
     if (resId > 0) {
       forceRestart();
-      tracker.reportEvent(Tracking.Events.SET_PREFERENCE, resId, Integer.toString(value));
     }
   }
 

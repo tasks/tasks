@@ -20,8 +20,6 @@ import org.tasks.R;
 import org.tasks.activities.ColorPickerActivity;
 import org.tasks.activities.ColorPickerActivity.ColorPalette;
 import org.tasks.activities.FilterSelectionActivity;
-import org.tasks.analytics.Tracker;
-import org.tasks.analytics.Tracking;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.intents.TaskIntents;
@@ -38,7 +36,6 @@ public class ShortcutConfigActivity extends InjectingAppCompatActivity {
   private static final int REQUEST_COLOR_PICKER = 1020;
 
   @Inject DefaultFilterProvider defaultFilterProvider;
-  @Inject Tracker tracker;
   @Inject ThemeColor themeColor;
   @Inject ThemeCache themeCache;
 
@@ -181,8 +178,6 @@ public class ShortcutConfigActivity extends InjectingAppCompatActivity {
   }
 
   private void save() {
-    tracker.reportEvent(Tracking.Events.WIDGET_ADD, getString(R.string.FSA_label));
-
     String filterId = defaultFilterProvider.getFilterPreferenceValue(selectedFilter);
     Intent shortcutIntent = TaskIntents.getTaskListByIdIntent(this, filterId);
     Parcelable icon = ShortcutIconResource.fromContext(this, ThemeColor.ICONS[getThemeIndex()]);

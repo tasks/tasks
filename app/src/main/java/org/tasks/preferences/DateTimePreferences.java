@@ -8,8 +8,6 @@ import android.widget.Toast;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.activities.TimePickerActivity;
-import org.tasks.analytics.Tracker;
-import org.tasks.analytics.Tracking;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.locale.Locale;
@@ -28,7 +26,6 @@ public class DateTimePreferences extends InjectingPreferenceActivity
 
   @Inject Locale locale;
   @Inject Preferences preferences;
-  @Inject Tracker tracker;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -149,7 +146,6 @@ public class DateTimePreferences extends InjectingPreferenceActivity
       }
     }
 
-    tracker.reportEvent(Tracking.Events.SET_PREFERENCE, preference.getKey(), newValue.toString());
     return true;
   }
 
