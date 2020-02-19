@@ -567,4 +567,6 @@ est configuré correctement</string>
     <string name="etesync_account_description">Nécessite un compte sur EteSync.com ou un serveur auto-hébergé</string>
     <string name="etesync_encryption_description">Choisissez un mot de passe de chiffrement. N\'oubliez pas votre mot de passe, il ne peut pas être récupéré !</string>
     <string name="encryption_password_wrong">Mot de passe de chiffrement erroné</string>
+    <string name="help_and_feedback">Aide et commentaires</string>
+    <string name="documentation">Documentation</string>
 </resources>
