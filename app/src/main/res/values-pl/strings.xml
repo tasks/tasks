@@ -582,4 +582,6 @@
     <string name="etesync_account_description">Wymaga konta na EteSync.com lub własnego serwera</string>
     <string name="etesync_encryption_description">Wpisz hasło szyfrowania. Nie zapomnij go, hasła nie da się odzyskać!</string>
     <string name="encryption_password_wrong">Nieprawidłowe hasło szyfrowania</string>
+    <string name="help_and_feedback">Pomoc i opinie</string>
+    <string name="documentation">Dokumentacja</string>
 </resources>
