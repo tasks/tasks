@@ -569,4 +569,7 @@ est configuré correctement</string>
     <string name="encryption_password_wrong">Mot de passe de chiffrement erroné</string>
     <string name="help_and_feedback">Aide et commentaires</string>
     <string name="documentation">Documentation</string>
+    <string name="preferences_look_and_feel">Regarder et essayer</string>
+    <string name="preferences_advanced">Avancé</string>
+    <string name="accounts">Comptes</string>
 </resources>
