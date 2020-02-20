@@ -573,4 +573,9 @@
     <string name="etesync_account_description">EteSync.com zerbitzuko edo zuk zeuk ostatatutako zerbitzari bateko kontua behar du</string>
     <string name="etesync_encryption_description">Aukeratu zifratze pasahitza. Ez ahaztu zure pasahitza, ezin baita berreskuratu!</string>
     <string name="encryption_password_wrong">Zifratze-pasahitz okerra</string>
+    <string name="help_and_feedback">Feedback eta laguntza</string>
+    <string name="documentation">Dokumentazioa</string>
+    <string name="preferences_look_and_feel">Itxura</string>
+    <string name="preferences_advanced">Aurreratua</string>
+    <string name="accounts">Kontuak</string>
 </resources>
