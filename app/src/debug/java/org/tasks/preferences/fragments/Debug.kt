@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.preference.Preference
 import at.bitfire.cert4android.CustomCertManager.Companion.resetCertificates
-import com.android.billingclient.api.BillingClient.SkuType
 import com.google.common.primitives.Ints
 import org.tasks.R
 import org.tasks.billing.BillingClient
@@ -49,7 +48,7 @@ class Debug : InjectingPreferenceFragment() {
         if (inventory.getPurchase(sku) == null) {
             preference.title = getString(R.string.debug_purchase, sku)
             preference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                billingClient.initiatePurchaseFlow(activity, sku, SkuType.INAPP, null)
+                billingClient.initiatePurchaseFlow(activity, sku, "inapp" /*SkuType.INAPP*/, null)
                 false
             }
         } else {
