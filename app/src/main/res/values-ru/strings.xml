@@ -590,4 +590,7 @@
     <string name="encryption_password_wrong">Неверный пароль шифрования</string>
     <string name="help_and_feedback">Помощь и обратная связь</string>
     <string name="documentation">Документация</string>
+    <string name="preferences_look_and_feel">Внешний вид</string>
+    <string name="preferences_advanced">Расширенные</string>
+    <string name="accounts">Учетные записи</string>
 </resources>
