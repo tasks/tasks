@@ -584,4 +584,7 @@
     <string name="encryption_password_wrong">Nieprawidłowe hasło szyfrowania</string>
     <string name="help_and_feedback">Pomoc i opinie</string>
     <string name="documentation">Dokumentacja</string>
+    <string name="preferences_look_and_feel">Wygląd</string>
+    <string name="preferences_advanced">Zaawansowane</string>
+    <string name="accounts">Konta</string>
 </resources>
