@@ -15,6 +15,7 @@ import org.tasks.fragments.CommentBarFragment;
 import org.tasks.preferences.fragments.DashClock;
 import org.tasks.preferences.fragments.HelpAndFeedback;
 import org.tasks.preferences.fragments.ScrollableWidget;
+import org.tasks.preferences.fragments.TaskerListNotification;
 import org.tasks.ui.CalendarControlSet;
 import org.tasks.ui.DeadlineControlSet;
 import org.tasks.ui.DescriptionControlSet;
@@ -71,4 +72,6 @@ public interface FragmentComponent {
   void inject(@NotNull ScrollableWidget scrollableWidget);
 
   void inject(@NotNull DashClock dashClock);
+
+  void inject(@NotNull TaskerListNotification taskerListNotification);
 }

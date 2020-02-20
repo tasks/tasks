@@ -9,7 +9,6 @@ import timber.log.Timber;
 public final class ListNotificationBundle {
 
   public static final String BUNDLE_EXTRA_STRING_FILTER = "org.tasks.locale.STRING_FILTER";
-  public static final String BUNDLE_EXTRA_PREVIOUS_BUNDLE = "org.tasks.locale.PREVIOUS_BUNDLE";
   private static final String BUNDLE_EXTRA_INT_VERSION_CODE = "org.tasks.locale.INT_VERSION_CODE";
 
   private ListNotificationBundle() {}
