@@ -12,6 +12,7 @@ import com.todoroo.astrid.ui.ReminderControlSet;
 import dagger.Subcomponent;
 import org.jetbrains.annotations.NotNull;
 import org.tasks.fragments.CommentBarFragment;
+import org.tasks.preferences.fragments.DashClock;
 import org.tasks.preferences.fragments.HelpAndFeedback;
 import org.tasks.preferences.fragments.ScrollableWidget;
 import org.tasks.ui.CalendarControlSet;
@@ -68,4 +69,6 @@ public interface FragmentComponent {
   void inject(@NotNull HelpAndFeedback helpAndFeedback);
 
   void inject(@NotNull ScrollableWidget scrollableWidget);
+
+  void inject(@NotNull DashClock dashClock);
 }

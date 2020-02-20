@@ -477,7 +477,7 @@
         android:value="Display a count of active tasks"/>
       <meta-data
         android:name="settingsActivity"
-        android:value=".dashclock.DashClockSettings"/>
+        android:value="org.tasks.dashclock.DashClockSettings"/>
     </service>
 
     <service
