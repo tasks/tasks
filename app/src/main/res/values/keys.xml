@@ -276,4 +276,5 @@
   <string name="google_tasks_position_hack_summary">Always perform a full synchronization to workaround https://issuetracker.google.com/issues/132432317</string>
   <string name="subscription_help_url">https://tasks.org/subscribe</string>
   <string name="p_show_subtasks">show_subtasks</string>
+  <string name="p_wearable_notifications">wearable_notifications</string>
 </resources>

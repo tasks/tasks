@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.provider.Settings
 import android.speech.tts.TextToSpeech
 import androidx.preference.Preference
+import androidx.preference.SwitchPreferenceCompat
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.voice.VoiceOutputAssistant
@@ -46,12 +47,13 @@ class Notifications : InjectingPreferenceFragment() {
         setPreferencesFromResource(R.xml.preferences_notifications, rootKey)
 
         rescheduleNotificationsOnChange(
+            false,
             R.string.p_rmd_time,
             R.string.p_rmd_enable_quiet,
             R.string.p_rmd_quietStart,
-            R.string.p_rmd_quietEnd,
-            R.string.p_rmd_persistent
+            R.string.p_rmd_quietEnd
         )
+        rescheduleNotificationsOnChange(true, R.string.p_bundle_notifications)
 
         initializeRingtonePreference()
         initializeTimePreference(getDefaultRemindTimePreference()!!, REQUEST_DEFAULT_REMIND)
@@ -62,12 +64,6 @@ class Notifications : InjectingPreferenceFragment() {
             .setOnPreferenceClickListener(::openNotificationChannelSettings)
         findPreference(R.string.battery_optimization_settings)
             .setOnPreferenceClickListener(::openBatteryOptimizationSettings)
-
-        findPreference(R.string.p_bundle_notifications)
-            .setOnPreferenceChangeListener { _: Preference?, _: Any? ->
-                NotificationSchedulerIntentService.enqueueWork(context, true)
-                true
-            }
 
         findPreference(R.string.p_badges_enabled)
             .setOnPreferenceChangeListener { _: Preference?, newValue: Any? ->
@@ -115,6 +111,24 @@ class Notifications : InjectingPreferenceFragment() {
                 true
             }
 
+        val persistentReminders =
+            findPreference(R.string.p_rmd_persistent) as SwitchPreferenceCompat
+        val wearableReminders =
+            findPreference(R.string.p_wearable_notifications) as SwitchPreferenceCompat
+        if (persistentReminders.isChecked) {
+            wearableReminders.isChecked = false
+        }
+        persistentReminders.setOnPreferenceChangeListener { _, newValue ->
+            wearableReminders.isChecked = !(newValue as Boolean)
+            rescheduleNotifications(false)
+        }
+        wearableReminders.setOnPreferenceChangeListener { _, newValue ->
+            if (newValue as Boolean) {
+                persistentReminders.isChecked = false
+            }
+            rescheduleNotifications(false)
+        }
+
         requires(AndroidUtilities.atLeastOreo(), R.string.notification_channel_settings)
         requires(AndroidUtilities.atLeastMarshmallow(), R.string.battery_optimization_settings)
         requires(
@@ -135,14 +149,18 @@ class Notifications : InjectingPreferenceFragment() {
         component.inject(this)
     }
 
-    private fun rescheduleNotificationsOnChange(vararg resIds: Int) {
+    private fun rescheduleNotificationsOnChange(cancelExisting: Boolean, vararg resIds: Int) {
         for (resId in resIds) {
             findPreference(resId)
                 .setOnPreferenceChangeListener { _: Preference?, _: Any? ->
-                    NotificationSchedulerIntentService.enqueueWork(context, false)
-                    true
+                    rescheduleNotifications(cancelExisting)
                 }
         }
+    }
+
+    private fun rescheduleNotifications(cancelExisting: Boolean): Boolean {
+        NotificationSchedulerIntentService.enqueueWork(context, cancelExisting)
+        return true
     }
 
     override fun onPreferenceTreeClick(preference: Preference?): Boolean {

@@ -576,4 +576,6 @@ File %1$s contained %2$s.\n\n
   <string name="preferences_advanced">Advanced</string>
   <string name="documentation">Documentation</string>
   <string name="accounts">Accounts</string>
+  <string name="wearable_notifications">Wearable notifications</string>
+  <string name="wearable_notifications_summary">Display notifications on your wearable</string>
 </resources>

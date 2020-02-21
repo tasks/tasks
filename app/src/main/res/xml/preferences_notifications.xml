@@ -27,13 +27,6 @@
     app:time_summary="@string/rmd_EPr_rmd_time_desc" />
 
   <SwitchPreferenceCompat
-    android:defaultValue="true"
-    android:dependency="@string/p_rmd_enabled"
-    android:key="@string/p_rmd_persistent"
-    android:summary="@string/persistent_notifications_description"
-    android:title="@string/persistent_notifications" />
-
-  <SwitchPreferenceCompat
     android:defaultValue="@bool/default_bundle_notifications"
     android:dependency="@string/p_rmd_enabled"
     android:key="@string/p_bundle_notifications"
@@ -64,6 +57,20 @@
     android:key="@string/p_led_notification"
     android:summary="@string/hardware_support_required"
     android:title="@string/led_notification" />
+
+  <SwitchPreferenceCompat
+    android:defaultValue="true"
+    android:dependency="@string/p_rmd_enabled"
+    android:key="@string/p_rmd_persistent"
+    android:summary="@string/persistent_notifications_description"
+    android:title="@string/persistent_notifications"
+    app:allowDividerAbove="true" />
+
+  <SwitchPreferenceCompat
+    android:defaultValue="true"
+    android:key="@string/p_wearable_notifications"
+    android:summary="@string/wearable_notifications_summary"
+    android:title="@string/wearable_notifications" />
 
   <PreferenceCategory android:title="@string/badges">
 
