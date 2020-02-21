@@ -5,10 +5,6 @@
     <item name="buttonBarPositiveButtonStyle">@style/AlertButtonStyle</item>
     <item name="buttonBarNegativeButtonStyle">@style/AlertButtonStyle</item>
     <item name="buttonBarNeutralButtonStyle">@style/AlertButtonStyle</item>
-    <item name="materialButtonText">@color/button_accent_text</item>
-    <item name="materialButtonBackground">@color/button_accent_background</item>
-    <item name="materialButtonRipple">@color/button_accent_ripple</item>
-    <item name="materialButtonStroke">@color/button_accent_stroke</item>
   </style>
 
 </resources>

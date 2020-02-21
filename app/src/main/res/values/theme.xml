@@ -23,10 +23,6 @@
     <item name="nnf_save_icon_color">?attr/colorAccent</item>
     <item name="nnf_dir_icon_color">?attr/colorAccent</item>
     <item name="card_elevation">2dp</item>
-    <item name="materialButtonText">@color/mtrl_text_btn_text_color_selector</item>
-    <item name="materialButtonBackground">@color/mtrl_btn_text_btn_bg_color_selector</item>
-    <item name="materialButtonRipple">@color/mtrl_btn_text_btn_ripple_color</item>
-    <item name="materialButtonStroke">@color/mtrl_btn_stroke_color_selector</item>
     <item name="horizontal_divider">2</item> <!-- View.GONE -->
     <item name="preferenceTheme">@style/PreferenceTheme</item>
   </style>

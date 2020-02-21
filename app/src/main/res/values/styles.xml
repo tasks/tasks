@@ -169,16 +169,16 @@
   </style>
 
   <style name="OutlineButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
-    <item name="android:textColor">?attr/materialButtonText</item>
-    <item name="backgroundTint">?attr/materialButtonBackground</item>
-    <item name="rippleColor">?attr/materialButtonRipple</item>
-    <item name="strokeColor">?attr/materialButtonStroke</item>
+    <item name="android:textColor">@color/button_accent_text</item>
+    <item name="backgroundTint">@color/button_accent_background</item>
+    <item name="rippleColor">@color/button_accent_ripple</item>
+    <item name="strokeColor">@color/button_accent_stroke</item>
   </style>
 
   <style name="TextButton" parent="Widget.MaterialComponents.Button.TextButton">
-    <item name="android:textColor">?attr/materialButtonText</item>
-    <item name="backgroundTint">?attr/materialButtonBackground</item>
-    <item name="rippleColor">?attr/materialButtonRipple</item>
+    <item name="android:textColor">@color/button_accent_text</item>
+    <item name="backgroundTint">@color/button_accent_background</item>
+    <item name="rippleColor">@color/button_accent_ripple</item>
   </style>
 
   <style name="AlertButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog.Flush">

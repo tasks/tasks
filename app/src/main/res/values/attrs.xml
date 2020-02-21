@@ -9,10 +9,6 @@
   <attr format="reference" name="overlay_theme"/>
   <attr format="boolean" name="dark_status_bar"/>
   <attr format="dimension" name="card_elevation"/>
-  <attr format="reference" name="materialButtonText"/>
-  <attr format="reference" name="materialButtonBackground"/>
-  <attr format="reference" name="materialButtonRipple"/>
-  <attr format="reference" name="materialButtonStroke"/>
   <attr format="integer" name="horizontal_divider"/>
   <attr format="color" name="colorOnPrimaryHint"/>
 
