@@ -13,7 +13,7 @@
       "artifactId": {
         "name": "dav4jvm",
         "group": "com.gitlab.bitfireAT",
-        "version": "1.0"
+        "version": "1.0.1"
       }
     },
     {
@@ -29,7 +29,7 @@
       "artifactId": {
         "name": "ical4android",
         "group": "com.gitlab.bitfireAT",
-        "version": "be6d515db8"
+        "version": "1.0"
       }
     },
     {
@@ -93,7 +93,7 @@
       "artifactId": {
         "name": "sqlite",
         "group": "androidx.sqlite",
-        "version": "2.0.1"
+        "version": "2.1.0"
       }
     },
     {
@@ -109,7 +109,7 @@
       "artifactId": {
         "name": "google-api-services-drive",
         "group": "com.google.apis",
-        "version": "v3-rev188-1.25.0"
+        "version": "v3-rev20191108-1.30.8"
       }
     },
     {
@@ -125,7 +125,7 @@
       "artifactId": {
         "name": "fragment",
         "group": "androidx.fragment",
-        "version": "1.1.0"
+        "version": "1.2.0"
       }
     },
     {
@@ -221,7 +221,7 @@
       "artifactId": {
         "name": "room-common",
         "group": "androidx.room",
-        "version": "2.2.3"
+        "version": "2.2.4"
       }
     },
     {
@@ -237,7 +237,7 @@
       "artifactId": {
         "name": "room-runtime",
         "group": "androidx.room",
-        "version": "2.2.3"
+        "version": "2.2.4"
       }
     },
     {
@@ -269,7 +269,7 @@
       "artifactId": {
         "name": "gson",
         "group": "com.google.code.gson",
-        "version": "2.8.5"
+        "version": "2.8.6"
       }
     },
     {
@@ -381,7 +381,7 @@
       "artifactId": {
         "name": "lifecycle-livedata",
         "group": "androidx.lifecycle",
-        "version": "2.1.0"
+        "version": "2.2.0"
       }
     },
     {
@@ -397,7 +397,7 @@
       "artifactId": {
         "name": "material",
         "group": "com.github.rey5137",
-        "version": "1.2.5"
+        "version": "1.3.0"
       }
     },
     {
@@ -525,7 +525,7 @@
       "artifactId": {
         "name": "lifecycle-viewmodel",
         "group": "androidx.lifecycle",
-        "version": "2.1.0"
+        "version": "2.2.0"
       }
     },
     {
@@ -573,7 +573,7 @@
       "artifactId": {
         "name": "guava",
         "group": "com.google.guava",
-        "version": "28.1-android"
+        "version": "28.2-android"
       }
     },
     {
@@ -605,7 +605,7 @@
       "artifactId": {
         "name": "materialdatetimepicker",
         "group": "com.wdullaer",
-        "version": "4.0.1"
+        "version": "4.2.3"
       }
     },
     {
@@ -733,7 +733,7 @@
       "artifactId": {
         "name": "lifecycle-livedata-core",
         "group": "androidx.lifecycle",
-        "version": "2.1.0"
+        "version": "2.2.0"
       }
     },
     {
@@ -781,7 +781,7 @@
       "artifactId": {
         "name": "threetenbp",
         "group": "org.threeten",
-        "version": "1.4.0"
+        "version": "1.4.1"
       }
     },
     {
@@ -829,7 +829,7 @@
       "artifactId": {
         "name": "google-api-client-android",
         "group": "com.google.api-client",
-        "version": "1.30.7"
+        "version": "1.30.8"
       }
     },
     {
@@ -845,7 +845,7 @@
       "artifactId": {
         "name": "lifecycle-extensions",
         "group": "androidx.lifecycle",
-        "version": "2.1.0"
+        "version": "2.2.0"
       }
     },
     {
@@ -989,7 +989,7 @@
       "artifactId": {
         "name": "jackson-core",
         "group": "com.fasterxml.jackson.core",
-        "version": "2.9.9"
+        "version": "2.10.2"
       }
     },
     {
@@ -1053,7 +1053,7 @@
       "artifactId": {
         "name": "sqlite-framework",
         "group": "androidx.sqlite",
-        "version": "2.0.1"
+        "version": "2.1.0"
       }
     },
     {
@@ -1149,7 +1149,7 @@
       "artifactId": {
         "name": "work-runtime",
         "group": "androidx.work",
-        "version": "2.3.0"
+        "version": "2.3.2"
       }
     },
     {
@@ -1245,7 +1245,7 @@
       "artifactId": {
         "name": "threetenabp",
         "group": "com.jakewharton.threetenabp",
-        "version": "1.2.1"
+        "version": "1.2.2"
       }
     },
     {
@@ -1277,7 +1277,7 @@
       "artifactId": {
         "name": "lifecycle-process",
         "group": "androidx.lifecycle",
-        "version": "2.1.0"
+        "version": "2.2.0"
       }
     },
     {
@@ -1293,7 +1293,7 @@
       "artifactId": {
         "name": "lifecycle-service",
         "group": "androidx.lifecycle",
-        "version": "2.1.0"
+        "version": "2.2.0"
       }
     },
     {
@@ -1373,7 +1373,7 @@
       "artifactId": {
         "name": "room-rxjava2",
         "group": "androidx.room",
-        "version": "2.2.3"
+        "version": "2.2.4"
       }
     },
     {
@@ -1453,7 +1453,7 @@
       "artifactId": {
         "name": "google-api-services-tasks",
         "group": "com.google.apis",
-        "version": "v1-rev59-1.25.0"
+        "version": "v1-rev20190628-1.30.8"
       }
     },
     {
@@ -1469,7 +1469,7 @@
       "artifactId": {
         "name": "google-api-client",
         "group": "com.google.api-client",
-        "version": "1.30.7"
+        "version": "1.30.8"
       }
     },
     {
@@ -1533,7 +1533,7 @@
       "artifactId": {
         "name": "google-http-client",
         "group": "com.google.http-client",
-        "version": "1.34.0"
+        "version": "1.34.1"
       }
     },
     {
@@ -1565,7 +1565,7 @@
       "artifactId": {
         "name": "google-http-client-android",
         "group": "com.google.http-client",
-        "version": "1.32.1"
+        "version": "1.34.1"
       }
     },
     {
@@ -1645,7 +1645,7 @@
       "artifactId": {
         "name": "google-http-client-jackson2",
         "group": "com.google.http-client",
-        "version": "1.32.1"
+        "version": "1.34.1"
       }
     },
     {
@@ -1661,7 +1661,7 @@
       "artifactId": {
         "name": "butterknife",
         "group": "com.jakewharton",
-        "version": "10.2.0"
+        "version": "10.2.1"
       }
     },
     {
@@ -1677,7 +1677,7 @@
       "artifactId": {
         "name": "butterknife-annotations",
         "group": "com.jakewharton",
-        "version": "10.2.0"
+        "version": "10.2.1"
       }
     },
     {
@@ -1741,7 +1741,7 @@
       "artifactId": {
         "name": "butterknife-runtime",
         "group": "com.jakewharton",
-        "version": "10.2.0"
+        "version": "10.2.1"
       }
     },
     {
@@ -1794,22 +1794,6 @@
     },
     {
       "notice": null,
-      "copyrightHolder": "codehaus.org",
-      "copyrightStatement": "Copyright &copy; codehaus.org. All rights reserved.",
-      "license": "MIT License",
-      "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
-      "normalizedLicense": "mit",
-      "year": null,
-      "url": "",
-      "libraryName": "Animal Sniffer Annotations",
-      "artifactId": {
-        "name": "animal-sniffer-annotations",
-        "group": "org.codehaus.mojo",
-        "version": "1.18"
-      }
-    },
-    {
-      "notice": null,
       "copyrightHolder": "The Error Prone Authors",
       "copyrightStatement": "Copyright &copy; The Error Prone Authors. All rights reserved.",
       "license": "The Apache Software License, Version 2.0",
@@ -1821,7 +1805,7 @@
       "artifactId": {
         "name": "error_prone_annotations",
         "group": "com.google.errorprone",
-        "version": "2.3.2"
+        "version": "2.3.4"
       }
     },
     {
@@ -1965,7 +1949,7 @@
       "artifactId": {
         "name": "activity",
         "group": "androidx.activity",
-        "version": "1.0.0"
+        "version": "1.1.0"
       }
     },
     {
@@ -2173,7 +2157,7 @@
       "artifactId": {
         "name": "httpcore",
         "group": "org.apache.httpcomponents",
-        "version": "4.4.12"
+        "version": "4.4.13"
       }
     },
     {
@@ -2254,6 +2238,22 @@
         "name": "preference",
         "group": "androidx.preference",
         "version": "1.1.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://developer.android.com/topic/libraries/architecture/index.html",
+      "libraryName": "Android Lifecycle ViewModel with SavedState",
+      "artifactId": {
+        "name": "lifecycle-viewmodel-savedstate",
+        "group": "androidx.lifecycle",
+        "version": "1.0.0"
       }
     }
   ]

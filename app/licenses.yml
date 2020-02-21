@@ -662,11 +662,6 @@
   copyrightHolder: The Guava Authors
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-- artifact: org.codehaus.mojo:animal-sniffer-annotations:+
-  name: Animal Sniffer Annotations
-  copyrightHolder: codehaus.org
-  license: MIT License
-  licenseUrl: http://www.opensource.org/licenses/mit-license.php
 - artifact: com.google.errorprone:error_prone_annotations:+
   name: error-prone annotations
   copyrightHolder: The Error Prone Authors
@@ -835,3 +830,9 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://developer.android.com/jetpack/androidx
+- artifact: androidx.lifecycle:lifecycle-viewmodel-savedstate:+
+  name: Android Lifecycle ViewModel with SavedState
+  copyrightHolder: Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/topic/libraries/architecture/index.html

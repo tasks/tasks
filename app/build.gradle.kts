@@ -136,8 +136,8 @@ val googleplayImplementation by configurations
 val amazonImplementation by configurations
 
 dependencies {
-    implementation("com.gitlab.bitfireAT:dav4jvm:1.0")
-    implementation("com.gitlab.bitfireAT:ical4android:be6d515db8") {
+    implementation("com.gitlab.bitfireAT:dav4jvm:1.0.1")
+    implementation("com.gitlab.bitfireAT:ical4android:1.0") {
         exclude(group = "org.threeten", module = "threetenbp")
     }
     implementation("com.gitlab.bitfireAT:cert4android:1488e39a66")
@@ -147,7 +147,7 @@ dependencies {
 
     implementation("androidx.room:room-rxjava2:${Versions.room}")
     annotationProcessor("androidx.room:room-compiler:${Versions.room}")
-    implementation("androidx.lifecycle:lifecycle-extensions:2.1.0")
+    implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
     implementation("androidx.paging:paging-runtime:2.1.1")
 
@@ -165,8 +165,8 @@ dependencies {
     implementation("androidx.multidex:multidex:2.0.1")
     implementation("me.saket:better-link-movement-method:2.2.0")
     implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
-    implementation("com.google.code.gson:gson:2.8.5")
-    implementation("com.github.rey5137:material:1.2.5")
+    implementation("com.google.code.gson:gson:2.8.6")
+    implementation("com.github.rey5137:material:1.3.0")
     implementation("com.nononsenseapps:filepicker:4.2.1")
     implementation("com.google.android.material:material:1.1.0")
     implementation("androidx.annotation:annotation:1.1.0")
@@ -174,7 +174,7 @@ dependencies {
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")
     implementation("androidx.preference:preference:1.1.0")
     implementation("com.jakewharton.timber:timber:4.7.1")
-    implementation("com.jakewharton.threetenabp:threetenabp:1.2.1")
+    implementation("com.jakewharton.threetenabp:threetenabp:1.2.2")
     implementation("com.google.guava:guava:27.1-android")
     implementation("com.jakewharton:process-phoenix:2.0.0")
     implementation("com.google.android.apps.dashclock:dashclock-api:2.0.0")
@@ -185,11 +185,11 @@ dependencies {
     implementation("org.scala-saddle:google-rfc-2445:20110304") {
         isTransitive = false
     }
-    implementation("com.wdullaer:materialdatetimepicker:4.0.1")
+    implementation("com.wdullaer:materialdatetimepicker:4.2.3")
     implementation("me.leolin:ShortcutBadger:1.1.22@aar")
-    implementation("com.google.apis:google-api-services-tasks:v1-rev59-1.25.0")
-    implementation("com.google.apis:google-api-services-drive:v3-rev188-1.25.0")
-    implementation("com.google.api-client:google-api-client-android:1.30.7")
+    implementation("com.google.apis:google-api-services-tasks:v1-rev20190628-1.30.8")
+    implementation("com.google.apis:google-api-services-drive:v3-rev20191108-1.30.8")
+    implementation("com.google.api-client:google-api-client-android:1.30.8")
     implementation("androidx.work:work-runtime:${Versions.work}")
     implementation("com.mapbox.mapboxsdk:mapbox-android-sdk:7.3.0")
     implementation("com.mapbox.mapboxsdk:mapbox-sdk-services:4.6.0")
@@ -199,7 +199,7 @@ dependencies {
     googleplayImplementation("com.google.firebase:firebase-analytics:${Versions.firebase}")
     googleplayImplementation("com.google.android.gms:play-services-location:17.0.0")
     googleplayImplementation("com.google.android.gms:play-services-maps:17.0.0")
-    googleplayImplementation("com.google.android.libraries.places:places:2.1.0")
+    googleplayImplementation("com.google.android.libraries.places:places:2.2.0")
     googleplayImplementation("com.android.billingclient:billing:1.2.2")
 
     amazonImplementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
