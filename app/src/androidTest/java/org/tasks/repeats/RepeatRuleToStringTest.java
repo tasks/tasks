@@ -50,7 +50,7 @@ public class RepeatRuleToStringTest {
 
   private String toString(String language, String rrule) {
     try {
-      Locale locale = new Locale(java.util.Locale.getDefault(), language, -1);
+      Locale locale = new Locale(java.util.Locale.getDefault(), language);
       return new RepeatRuleToString(locale.createConfigurationContext(getTargetContext()), locale)
           .toString(new RRule(rrule));
     } catch (ParseException e) {
