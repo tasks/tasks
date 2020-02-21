@@ -101,15 +101,6 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
             dialog.show(fragmentManager!!, FRAG_TAG_LOCALE_PICKER)
             false
         }
-        findPreference(R.string.p_layout_direction)
-                .setOnPreferenceChangeListener { _: Preference?, o: Any ->
-                    val newValue: Int = o as Int
-                    if (locale.directionality
-                            != locale.withDirectionality(newValue).directionality) {
-                        showRestartDialog()
-                    }
-                    true
-                }
 
         val startOfWeekPreference: ListPreference = getStartOfWeekPreference()
         startOfWeekPreference.entries = getWeekdayEntries()
@@ -124,10 +115,7 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
 
         requires(R.string.task_list_options, atLeastLollipop(), R.string.p_show_subtasks)
 
-        requires(R.string.settings_localization,
-                atLeastJellybeanMR1(),
-                R.string.p_language,
-                R.string.p_layout_direction)
+        requires(R.string.settings_localization, atLeastJellybeanMR1(), R.string.p_language)
 
         @Suppress("ConstantConditionIf")
         if (BuildConfig.FLAVOR != "googleplay") {

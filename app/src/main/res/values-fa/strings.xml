@@ -247,9 +247,6 @@
   <string name="restart_now">اکنون ریست کن</string>
   <string name="restart_later">بعدا</string>
   <string name="settings_localization">محلی‌سازی</string>
-  <string name="layout_direction">چینش صفحه</string>
-  <string name="layout_direction_left_to_right">چپ به راست</string>
-  <string name="layout_direction_right_to_left">راست به چپ</string>
   <string name="notification_channel_settings">مدیریت اعلانات</string>
   <string name="battery_optimization_settings">مدیریت بهینه سازی باتری</string>
   <string name="notification_disable_battery_optimizations_description">مدیریت بهینه سازی باتری ممکن است اعلانات را به تاخیر بیاندازد</string>

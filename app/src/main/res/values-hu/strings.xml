@@ -402,9 +402,6 @@
   <string name="restart_now">Újraindítás most</string>
   <string name="restart_later">Később</string>
   <string name="settings_localization">Lokalizáció</string>
-  <string name="layout_direction">Szövegirány</string>
-  <string name="layout_direction_left_to_right">Balról jobbra</string>
-  <string name="layout_direction_right_to_left">Jobbról balra</string>
   <string name="led_notification">LED értesítés</string>
   <string name="hardware_support_required">Hardveres támogatás szükséges</string>
   <string name="no_calendars_found">Naptár nem található</string>

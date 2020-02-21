@@ -381,9 +381,6 @@
   <string name="restart_now">Redémarrer maintenant</string>
   <string name="restart_later">Plus tard</string>
   <string name="settings_localization">Localisation</string>
-  <string name="layout_direction">Sens de lecture</string>
-  <string name="layout_direction_left_to_right">Gauche à droite</string>
-  <string name="layout_direction_right_to_left">Droite à gauche</string>
   <string name="led_notification">Notification de la LED</string>
   <string name="hardware_support_required">Support matériel requis</string>
   <string name="no_calendars_found">Pas de calendrier trouvé</string>

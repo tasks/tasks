@@ -408,9 +408,6 @@
   <string name="restart_now">Berrabiarazi orain</string>
   <string name="restart_later">Geroago</string>
   <string name="settings_localization">Lokalizazioa</string>
-  <string name="layout_direction">Disenuaren norabidea</string>
-  <string name="layout_direction_left_to_right">Ezkerretik eskuinera</string>
-  <string name="layout_direction_right_to_left">Eskuinetik ezkerrera</string>
   <string name="led_notification">LED jakinarazpena</string>
   <string name="hardware_support_required">Hardwareak onartzea ezinbestekoa</string>
   <string name="no_calendars_found">Ez da egutegitik aurkitu</string>

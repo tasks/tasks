@@ -384,9 +384,6 @@
   <string name="restart_now">马上重启</string>
   <string name="restart_later">稍后</string>
   <string name="settings_localization">本地化</string>
-  <string name="layout_direction">布局方向</string>
-  <string name="layout_direction_left_to_right">从左到右</string>
-  <string name="layout_direction_right_to_left">从右到左</string>
   <string name="led_notification">LED提醒</string>
   <string name="hardware_support_required">需要硬件支持</string>
   <string name="no_calendars_found">没有找到日历</string>

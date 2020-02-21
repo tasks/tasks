@@ -26,7 +26,4 @@
   <string name="quiet_hours_summary">Bez podsetnika u mirnim satima</string>
   <string name="filter_settings">Filter podešavanja</string>
   <string name="show_hidden">Prikaži skrivene</string>
-  <string name="layout_direction">Raspored komandi</string>
-  <string name="layout_direction_left_to_right">Sleva nadesno</string>
-  <string name="layout_direction_right_to_left">Zdesna nalevo</string>
 </resources>

@@ -398,9 +398,6 @@
   <string name="restart_now">Perkrauti dabar</string>
   <string name="restart_later">Vėliau</string>
   <string name="settings_localization">Lokalizacija</string>
-  <string name="layout_direction">Išdėstymo kryptis</string>
-  <string name="layout_direction_left_to_right">Iš kairės į dešinę</string>
-  <string name="layout_direction_right_to_left">Iš dešinės į kairę</string>
   <string name="led_notification">LED pranešimai</string>
   <string name="hardware_support_required">Reikalingas techninės įrangos palaikymas</string>
   <string name="no_calendars_found">Kalendorių nerasta</string>

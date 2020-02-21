@@ -105,8 +105,6 @@
   <string name="theme_white">Blanc</string>
   <string name="language">Idioma</string>
   <string name="settings_localization">Localització</string>
-  <string name="layout_direction_left_to_right">D\'esquerra a dreta</string>
-  <string name="layout_direction_right_to_left">De dreta a esquerra</string>
   <string name="led_notification">Led de notificació</string>
   <string name="enter_filter_name">Introdueixi el nom del filtre</string>
   <string name="export_toast">Recolzades %1$s de %2$s.</string>

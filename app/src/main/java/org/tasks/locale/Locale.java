@@ -23,7 +23,7 @@ import org.tasks.R;
 
 public class Locale implements Serializable {
 
-  private static final Locale DEFAULT = new Locale(java.util.Locale.getDefault(), null, -1);
+  private static final Locale DEFAULT = new Locale(java.util.Locale.getDefault(), null);
   private static final int[] sDialogButtons =
       new int[] {android.R.id.button1, android.R.id.button2, android.R.id.button3};
   private static final char LEFT_TO_RIGHT_MARK = '\u200e';
@@ -34,13 +34,11 @@ public class Locale implements Serializable {
   private final int appDirectionality;
   private final char appDirectionalityMark;
   private final String languageOverride;
-  private final int directionOverride;
   private final boolean hasUserOverrides;
 
-  public Locale(java.util.Locale deviceLocale, String languageOverride, int directionOverride) {
+  public Locale(java.util.Locale deviceLocale, String languageOverride) {
     this.deviceLocale = deviceLocale;
     this.languageOverride = languageOverride;
-    this.directionOverride = directionOverride;
 
     java.util.Locale override = localeFromString(languageOverride);
     if (override != null) {
@@ -49,12 +47,7 @@ public class Locale implements Serializable {
       appLocale = deviceLocale;
     }
 
-    if (directionOverride == View.LAYOUT_DIRECTION_LTR
-        || directionOverride == View.LAYOUT_DIRECTION_RTL) {
-      appDirectionality = directionOverride;
-    } else {
-      appDirectionality = TextUtilsCompat.getLayoutDirectionFromLocale(appLocale);
-    }
+    appDirectionality = TextUtilsCompat.getLayoutDirectionFromLocale(appLocale);
     appDirectionalityMark =
         appDirectionality == View.LAYOUT_DIRECTION_RTL ? RIGHT_TO_LEFT_MARK : LEFT_TO_RIGHT_MARK;
     int deviceDirectionality = TextUtilsCompat.getLayoutDirectionFromLocale(deviceLocale);
@@ -72,10 +65,7 @@ public class Locale implements Serializable {
               PreferenceManager.getDefaultSharedPreferences(applicationContext);
           String language =
               prefs.getString(applicationContext.getString(R.string.p_language), null);
-          int directionOverride =
-              Integer.parseInt(
-                  prefs.getString(applicationContext.getString(R.string.p_layout_direction), "-1"));
-          setDefault(DEFAULT.getLocale(), language, directionOverride);
+          setDefault(DEFAULT.getLocale(), language);
         }
       }
     }
@@ -84,12 +74,11 @@ public class Locale implements Serializable {
   }
 
   public static void setDefault(java.util.Locale locale) {
-    setDefault(locale, null, -1);
+    setDefault(locale, null);
   }
 
-  private static void setDefault(
-      java.util.Locale locale, String languageOverride, int directionOverride) {
-    INSTANCE = new Locale(locale, languageOverride, directionOverride);
+  private static void setDefault(java.util.Locale locale, String languageOverride) {
+    INSTANCE = new Locale(locale, languageOverride);
     java.util.Locale.setDefault(locale);
   }
 
@@ -157,11 +146,7 @@ public class Locale implements Serializable {
   }
 
   public Locale withLanguage(String language) {
-    return new Locale(deviceLocale, language, directionOverride);
-  }
-
-  public Locale withDirectionality(int directionality) {
-    return new Locale(deviceLocale, languageOverride, directionality);
+    return new Locale(deviceLocale, language);
   }
 
   public String getDisplayName() {
@@ -183,10 +168,6 @@ public class Locale implements Serializable {
     } catch (ParseException e) {
       return null;
     }
-  }
-
-  public String formatPercentage(int percentage) {
-    return NumberFormat.getPercentInstance(appLocale).format(percentage / 100.0);
   }
 
   @Override
@@ -222,8 +203,6 @@ public class Locale implements Serializable {
         + ", languageOverride='"
         + languageOverride
         + '\''
-        + ", directionOverride="
-        + directionOverride
         + ", hasUserOverrides="
         + hasUserOverrides
         + '}';
@@ -246,9 +225,5 @@ public class Locale implements Serializable {
 
   public String getCountry() {
     return appLocale.getCountry();
-  }
-
-  public boolean isRtl() {
-    return appDirectionality == View.LAYOUT_DIRECTION_RTL;
   }
 }

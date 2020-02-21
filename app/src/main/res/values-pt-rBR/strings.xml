@@ -400,9 +400,6 @@
   <string name="restart_now">Reiniciar agora</string>
   <string name="restart_later">Depois</string>
   <string name="settings_localization">Localização</string>
-  <string name="layout_direction">Direção do Layout</string>
-  <string name="layout_direction_left_to_right">Esquerda para direita</string>
-  <string name="layout_direction_right_to_left">Direita para esquerda</string>
   <string name="led_notification">LED de notificações</string>
   <string name="hardware_support_required">Suporte de hardware necessário</string>
   <string name="no_calendars_found">Não foi encontrado nenhum calendário</string>

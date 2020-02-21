@@ -414,9 +414,6 @@
   <string name="restart_now">Zrestartuj teraz</string>
   <string name="restart_later">Póżniej</string>
   <string name="settings_localization">Ustawienia regionalne</string>
-  <string name="layout_direction">Kierunek tekstów</string>
-  <string name="layout_direction_left_to_right">Lewy do prawego</string>
-  <string name="layout_direction_right_to_left">Prawy do lewego</string>
   <string name="led_notification">Powiadomienie LED</string>
   <string name="hardware_support_required">Wymagane wsparcie sprzętowe</string>
   <string name="no_calendars_found">Nie znaleziono kalendzarzy</string>

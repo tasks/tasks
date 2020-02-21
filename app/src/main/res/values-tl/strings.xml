@@ -58,7 +58,6 @@
   <string name="url_required">URL kailangan</string>
   <string name="url_host_name_required">Pangalan ng host kailangan</string>
   <string name="url_invalid_scheme">Kailangan magsimula na may http(s)://</string>
-  <string name="layout_direction_left_to_right">Kaliwa sa kanan</string>
   <string name="add_account">Magdagdag ng account</string>
   <string name="user">Gumagamit</string>
   <string name="battery_optimization_settings">Mamahala ng baterya mga optimization</string>

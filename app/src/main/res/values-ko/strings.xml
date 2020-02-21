@@ -403,9 +403,6 @@
   <string name="restart_now">지금 재시작하기</string>
   <string name="restart_later">나중에</string>
   <string name="settings_localization">현지화</string>
-  <string name="layout_direction">레이아웃 정렬 방향</string>
-  <string name="layout_direction_left_to_right">왼쪽 정렬</string>
-  <string name="layout_direction_right_to_left">오른쪽 정렬</string>
   <string name="led_notification">LED 알림</string>
   <string name="hardware_support_required">하드웨어 지원을 필요로 합니다</string>
   <string name="no_calendars_found">달력 없음</string>

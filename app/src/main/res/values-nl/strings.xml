@@ -392,9 +392,6 @@
   <string name="restart_required">Tasks moet opnieuw gestart worden om de nieuwe wijzingen te activeren</string>
   <string name="restart_now">Herstart nu</string>
   <string name="settings_localization">Vertalingen</string>
-  <string name="layout_direction">Layout richting</string>
-  <string name="layout_direction_left_to_right">Links naar rechts</string>
-  <string name="layout_direction_right_to_left">Rechts naar links</string>
   <string name="led_notification">LED notificatie</string>
   <string name="hardware_support_required">Hardware ondersteuning vereist</string>
   <string name="no_calendars_found">Geen kalenders gevonden</string>

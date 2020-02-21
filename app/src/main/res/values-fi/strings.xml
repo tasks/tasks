@@ -378,9 +378,6 @@
   <string name="restart_now">Käynnistä uudelleen nyt</string>
   <string name="restart_later">Myöhemmin</string>
   <string name="settings_localization">Paikallistaminen</string>
-  <string name="layout_direction">Asettelun suunta</string>
-  <string name="layout_direction_left_to_right">Vasemmalta oikealle</string>
-  <string name="layout_direction_right_to_left">Oikealta vasemmalle</string>
   <string name="led_notification">LED muistutus</string>
   <string name="hardware_support_required">Laitetuki vaaditaan</string>
   <string name="no_calendars_found">Kalenteria ei löydy</string>

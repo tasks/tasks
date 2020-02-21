@@ -181,13 +181,6 @@
       android:key="@string/p_language"
       android:title="@string/language" />
 
-    <ListPreference
-      android:defaultValue="-1"
-      android:entries="@array/layout_direction_entries"
-      android:entryValues="@array/layout_direction_values"
-      android:key="@string/p_layout_direction"
-      android:title="@string/layout_direction" />
-
     <Preference
       android:title="@string/translations"
       app:icon="@drawable/ic_open_in_new_24px">

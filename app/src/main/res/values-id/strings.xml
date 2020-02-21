@@ -314,9 +314,6 @@
   <string name="restart_now">Mulai ulang sekarang</string>
   <string name="restart_later">Nanti</string>
   <string name="settings_localization">Pelokalan</string>
-  <string name="layout_direction">Arah tata letak</string>
-  <string name="layout_direction_left_to_right">Kiri ke kanan</string>
-  <string name="layout_direction_right_to_left">Kanan ke kiri</string>
   <string name="led_notification">Notifikasi LED</string>
   <string name="hardware_support_required">Membutuhkan dukungan perangkat keras</string>
   <string name="no_calendars_found">Tidak ada kalender yang ditemukan</string>

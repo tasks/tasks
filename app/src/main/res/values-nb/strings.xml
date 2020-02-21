@@ -145,8 +145,6 @@
   <string name="restart_now">Restart nå</string>
   <string name="restart_later">Senere</string>
   <string name="settings_localization">Lokalisering</string>
-  <string name="layout_direction_left_to_right">Venstre til høyre</string>
-  <string name="layout_direction_right_to_left">Høyre til venstre</string>
   <string name="led_notification">LED-varsel</string>
   <string name="notification_channel_settings">Tilpass varsler</string>
   <string name="battery_optimization_settings">Tilpass batterioptimaliseringer</string>
@@ -431,7 +429,6 @@
   <string name="theme_dark">Mørk</string>
   <string name="theme_wallpaper">Bakgrunnsbilde</string>
   <string name="theme_day_night">Dag/natt</string>
-  <string name="layout_direction">Sideretning</string>
   <string name="hardware_support_required">Maskinvarestøtte kreves</string>
   <string name="no_calendars_found">Fant ingen kalendre</string>
   <string name="widget_settings">Miniprogramsinnstillinger</string>

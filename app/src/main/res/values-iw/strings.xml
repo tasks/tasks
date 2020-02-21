@@ -438,9 +438,6 @@
   <string name="restart_now">אתחל כעת</string>
   <string name="restart_later">מאוחר יותר</string>
   <string name="settings_localization">לוקאליזציה</string>
-  <string name="layout_direction">כיוון הפריסה</string>
-  <string name="layout_direction_left_to_right">משמאל לימין</string>
-  <string name="layout_direction_right_to_left">מימין לשמאל</string>
   <string name="led_notification">תאורת התראות</string>
   <string name="hardware_support_required">נדרשת חומרה תואמת</string>
   <string name="no_calendars_found">לא נמצאו לוחות שנה</string>

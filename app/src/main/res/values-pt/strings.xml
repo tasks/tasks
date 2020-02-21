@@ -364,9 +364,6 @@
   <string name="restart_now">Reiniciar agora</string>
   <string name="restart_later">Mais tarde</string>
   <string name="settings_localization">Tradução</string>
-  <string name="layout_direction">Orientação do layout</string>
-  <string name="layout_direction_left_to_right">Da esquerda para a direita</string>
-  <string name="layout_direction_right_to_left">Da direita para a esquerda</string>
   <string name="led_notification">Notificação LED</string>
   <string name="no_calendars_found">Calendário não encontrado</string>
   <string name="widget_settings">Definições do widget</string>

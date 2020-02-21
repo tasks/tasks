@@ -399,9 +399,6 @@
   <string name="restart_now">Riavvia ora</string>
   <string name="restart_later">Dopo</string>
   <string name="settings_localization">Localizzazione</string>
-  <string name="layout_direction">Direzione Layout</string>
-  <string name="layout_direction_left_to_right">Da sinistra a destra</string>
-  <string name="layout_direction_right_to_left">Da destra a sinistra</string>
   <string name="led_notification">LED di notifica</string>
   <string name="hardware_support_required">E\' richiesto il supporto Hardware</string>
   <string name="no_calendars_found">Nessun calendario</string>

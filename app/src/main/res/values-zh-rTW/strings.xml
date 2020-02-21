@@ -209,9 +209,6 @@
   <string name="restart_required">Tasks 必須重新啟動以使變更生效</string>
   <string name="restart_now">馬上重新啟動</string>
   <string name="restart_later">稍後</string>
-  <string name="layout_direction">排版方向</string>
-  <string name="layout_direction_left_to_right">由左至右</string>
-  <string name="layout_direction_right_to_left">由右至左</string>
   <string name="no_calendars_found">找不到日曆</string>
   <string name="notification_channel_settings">管理通知</string>
   <string name="repeats_single">重複 %s</string>

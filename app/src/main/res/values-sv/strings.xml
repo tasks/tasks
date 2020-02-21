@@ -292,8 +292,6 @@
   <string name="restart_now">Starta om nu</string>
   <string name="restart_later">Senare</string>
   <string name="settings_localization">Språk</string>
-  <string name="layout_direction_left_to_right">Vänster till höger</string>
-  <string name="layout_direction_right_to_left">Höger till vänster</string>
   <string name="led_notification">LED Notifiering</string>
   <string name="hardware_support_required">Hårdvarustöd krävs</string>
   <string name="no_calendars_found">Inga kalendrar hittades</string>
@@ -409,7 +407,6 @@
   <string name="theme_cyan">Cyan</string>
   <string name="theme_lime">Lime</string>
   <string name="theme_orange">Orange</string>
-  <string name="layout_direction">Layoutriktning</string>
   <string name="widget_header_settings">Överskriftsinställningar</string>
   <string name="widget_row_settings">Radinställmingar</string>
   <string name="sync_error_permissions">Tasks kräver tillstånd</string>

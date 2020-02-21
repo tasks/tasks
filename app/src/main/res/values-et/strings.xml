@@ -258,8 +258,6 @@
   <string name="language">Keel</string>
   <string name="restart_now">Taaskäivita kohe</string>
   <string name="restart_later">Hiljem</string>
-  <string name="layout_direction_left_to_right">Vasakult paremale</string>
-  <string name="layout_direction_right_to_left">Paremalt vasakule</string>
   <string name="led_notification">LED-i teavitused</string>
   <string name="hardware_support_required">Riistvara tugi on nõutud</string>
   <string name="no_calendars_found">Ühtegi kalendrit ei leitud</string>

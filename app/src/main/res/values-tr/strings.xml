@@ -405,9 +405,6 @@
   <string name="restart_now">Şimdi yeniden başlat</string>
   <string name="restart_later">Sonra</string>
   <string name="settings_localization">Yerelleştirme</string>
-  <string name="layout_direction">Yerleşim yönü</string>
-  <string name="layout_direction_left_to_right">Soldan sağa</string>
-  <string name="layout_direction_right_to_left">Sağdan sola</string>
   <string name="led_notification">LED bildirimi</string>
   <string name="hardware_support_required">Donanım desteği gerekiyor</string>
   <string name="no_calendars_found">Takvim bulunamadı</string>

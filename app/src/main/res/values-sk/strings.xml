@@ -399,9 +399,6 @@
   <string name="restart_now">Reštartovať teraz</string>
   <string name="restart_later">Neskôr</string>
   <string name="settings_localization">Určovanie polohy</string>
-  <string name="layout_direction">Rozloženie</string>
-  <string name="layout_direction_left_to_right">Z ľava do prava</string>
-  <string name="layout_direction_right_to_left">Z prava do ľava</string>
   <string name="led_notification">LED oznámenia</string>
   <string name="hardware_support_required">Vyžaduje sa podpora zariadenia</string>
   <string name="no_calendars_found">Kalendár nenájdený</string>
