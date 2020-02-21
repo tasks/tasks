@@ -36,5 +36,6 @@ class TaskerSettingsActivity : AbstractFragmentPluginPreference() {
 
     override fun inject(component: ActivityComponent) = component.inject(this)
 
-    private fun getFragment() = supportFragmentManager.findFragmentById(R.id.settings) as TaskerListNotification
+    private fun getFragment() =
+        supportFragmentManager.findFragmentById(R.id.settings) as TaskerListNotification
 }

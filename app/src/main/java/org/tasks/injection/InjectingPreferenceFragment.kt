@@ -33,15 +33,15 @@ abstract class InjectingPreferenceFragment : PreferenceFragmentCompat() {
 
     protected open fun showRestartDialog() {
         dialogBuilder
-                .newDialog()
-                .setMessage(R.string.restart_required)
-                .setPositiveButton(R.string.restart_now) { _: DialogInterface?, _: Int ->
-                    val nextIntent = Intent(context, MainActivity::class.java)
-                    nextIntent.putExtra(MainActivity.OPEN_FILTER, null as Filter?)
-                    ProcessPhoenix.triggerRebirth(context, nextIntent)
-                }
-                .setNegativeButton(R.string.restart_later, null)
-                .show()
+            .newDialog()
+            .setMessage(R.string.restart_required)
+            .setPositiveButton(R.string.restart_now) { _: DialogInterface?, _: Int ->
+                val nextIntent = Intent(context, MainActivity::class.java)
+                nextIntent.putExtra(MainActivity.OPEN_FILTER, null as Filter?)
+                ProcessPhoenix.triggerRebirth(context, nextIntent)
+            }
+            .setNegativeButton(R.string.restart_later, null)
+            .show()
     }
 
     protected fun requires(@StringRes prefGroup: Int, check: Boolean, vararg resIds: Int) {

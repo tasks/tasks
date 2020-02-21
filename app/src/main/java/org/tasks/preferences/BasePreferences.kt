@@ -13,7 +13,7 @@ import org.tasks.ui.MenuColorizer
 private const val EXTRA_TITLE = "extra_title"
 
 abstract class BasePreferences : ThemedInjectingAppCompatActivity(),
-        PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
+    PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 
     lateinit var toolbar: Toolbar
 
@@ -24,9 +24,9 @@ abstract class BasePreferences : ThemedInjectingAppCompatActivity(),
         toolbar = binding.toolbar.toolbar
         if (savedInstanceState == null) {
             supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.settings, getRootPreference())
-                    .commit()
+                .beginTransaction()
+                .replace(R.id.settings, getRootPreference())
+                .commit()
             toolbar.title = getString(getRootTitle())
         } else {
             toolbar.title = savedInstanceState.getCharSequence(EXTRA_TITLE)
@@ -36,7 +36,8 @@ abstract class BasePreferences : ThemedInjectingAppCompatActivity(),
                 toolbar.title = getString(getRootTitle())
             }
         }
-        toolbar.navigationIcon = ContextCompat.getDrawable(this, R.drawable.ic_outline_arrow_back_24px);
+        toolbar.navigationIcon =
+            ContextCompat.getDrawable(this, R.drawable.ic_outline_arrow_back_24px);
         toolbar.setNavigationOnClickListener { onBackPressed() }
         setupMenu()
         MenuColorizer.colorToolbar(this, toolbar)
@@ -61,21 +62,21 @@ abstract class BasePreferences : ThemedInjectingAppCompatActivity(),
     }
 
     override fun onPreferenceStartFragment(
-            caller: PreferenceFragmentCompat,
-            pref: Preference
+        caller: PreferenceFragmentCompat,
+        pref: Preference
     ): Boolean {
         val args = pref.extras
         val fragment = supportFragmentManager.fragmentFactory.instantiate(
-                classLoader,
-                pref.fragment
+            classLoader,
+            pref.fragment
         ).apply {
             arguments = args
             setTargetFragment(caller, 0)
         }
         supportFragmentManager.beginTransaction()
-                .replace(R.id.settings, fragment)
-                .addToBackStack(null)
-                .commit()
+            .replace(R.id.settings, fragment)
+            .addToBackStack(null)
+            .commit()
         toolbar.title = pref.title
         return true
     }

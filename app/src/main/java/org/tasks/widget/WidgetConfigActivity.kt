@@ -13,7 +13,10 @@ class WidgetConfigActivity : BasePreferences() {
     private var appWidgetId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID)
+        appWidgetId = intent.getIntExtra(
+            AppWidgetManager.EXTRA_APPWIDGET_ID,
+            AppWidgetManager.INVALID_APPWIDGET_ID
+        )
 
         super.onCreate(savedInstanceState)
 

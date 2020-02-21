@@ -45,20 +45,28 @@ class TaskDefaults : InjectingPreferenceFragment() {
         }
         val defaultCalendarName: String? = getDefaultCalendarName()
         defaultCalendarPref.summary = defaultCalendarName
-                ?: getString(R.string.dont_add_to_calendar)
+            ?: getString(R.string.dont_add_to_calendar)
 
         findPreference(R.string.p_default_remote_list)
-                .setOnPreferenceClickListener {
-                    RemoteListPicker.newRemoteListSupportPicker(defaultFilterProvider.defaultRemoteList, this, REQUEST_REMOTE_LIST)
-                            .show(fragmentManager!!, FRAG_TAG_REMOTE_LIST_SELECTION)
-                    false
-                }
+            .setOnPreferenceClickListener {
+                RemoteListPicker.newRemoteListSupportPicker(
+                    defaultFilterProvider.defaultRemoteList,
+                    this,
+                    REQUEST_REMOTE_LIST
+                )
+                    .show(fragmentManager!!, FRAG_TAG_REMOTE_LIST_SELECTION)
+                false
+            }
         updateRemoteListSummary()
 
         requires(device.supportsGeofences(), R.string.p_default_location_reminder_key)
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         if (requestCode == PermissionRequestor.REQUEST_CALENDAR) {
             if (PermissionUtil.verifyPermissions(grantResults)) {
                 startCalendarSelectionActivity()
@@ -82,9 +90,11 @@ class TaskDefaults : InjectingPreferenceFragment() {
         } else if (requestCode == REQUEST_CALENDAR_SELECTION) {
             if (resultCode == RESULT_OK) {
                 preferences.setString(
-                        R.string.gcal_p_default,
-                        data!!.getStringExtra(CalendarSelectionActivity.EXTRA_CALENDAR_ID))
-                defaultCalendarPref.summary = data.getStringExtra(CalendarSelectionActivity.EXTRA_CALENDAR_NAME)
+                    R.string.gcal_p_default,
+                    data!!.getStringExtra(CalendarSelectionActivity.EXTRA_CALENDAR_ID)
+                )
+                defaultCalendarPref.summary =
+                    data.getStringExtra(CalendarSelectionActivity.EXTRA_CALENDAR_NAME)
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
@@ -105,8 +115,8 @@ class TaskDefaults : InjectingPreferenceFragment() {
     private fun updateRemoteListSummary() {
         val defaultFilter = defaultFilterProvider.defaultRemoteList
         findPreference(R.string.p_default_remote_list).summary =
-                if (defaultFilter == null) getString(R.string.dont_sync)
-                else defaultFilter.listingTitle
+            if (defaultFilter == null) getString(R.string.dont_sync)
+            else defaultFilter.listingTitle
     }
 
     override fun inject(component: FragmentComponent) {

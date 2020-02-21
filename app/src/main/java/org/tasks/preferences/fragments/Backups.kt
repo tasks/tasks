@@ -41,47 +41,52 @@ class Backups : InjectingPreferenceFragment() {
         initializeBackupDirectory()
 
         findPreference(R.string.backup_BAc_import)
-                .setOnPreferenceClickListener {
-                    startActivityForResult(
-                            FileHelper.newFilePickerIntent(activity, preferences.backupDirectory),
-                            REQUEST_PICKER)
-                    false
-                }
+            .setOnPreferenceClickListener {
+                startActivityForResult(
+                    FileHelper.newFilePickerIntent(activity, preferences.backupDirectory),
+                    REQUEST_PICKER
+                )
+                false
+            }
 
         findPreference(R.string.backup_BAc_export)
-                .setOnPreferenceClickListener {
-                    ExportTasksDialog.newExportTasksDialog()
-                            .show(fragmentManager!!, FRAG_TAG_EXPORT_TASKS)
-                    false
-                }
+            .setOnPreferenceClickListener {
+                ExportTasksDialog.newExportTasksDialog()
+                    .show(fragmentManager!!, FRAG_TAG_EXPORT_TASKS)
+                false
+            }
 
-        val googleDriveBackup = findPreference(R.string.p_google_drive_backup) as SwitchPreferenceCompat
-        googleDriveBackup.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { preference: Preference, newValue: Any? ->
-            when {
-                newValue == null -> {
-                    false
-                }
-                newValue as Boolean -> {
-                    if (permissionRequestor.requestAccountPermissions()) {
-                        requestGoogleDriveLogin()
+        val googleDriveBackup =
+            findPreference(R.string.p_google_drive_backup) as SwitchPreferenceCompat
+        googleDriveBackup.onPreferenceChangeListener =
+            Preference.OnPreferenceChangeListener { preference: Preference, newValue: Any? ->
+                when {
+                    newValue == null -> {
+                        false
                     }
-                    false
-                }
-                else -> {
-                    preference.summary = null
-                    true
+                    newValue as Boolean -> {
+                        if (permissionRequestor.requestAccountPermissions()) {
+                            requestGoogleDriveLogin()
+                        }
+                        false
+                    }
+                    else -> {
+                        preference.summary = null
+                        true
+                    }
                 }
             }
-        }
     }
 
     override fun onResume() {
         super.onResume()
 
-        val googleDriveBackup = findPreference(R.string.p_google_drive_backup) as SwitchPreferenceCompat
+        val googleDriveBackup =
+            findPreference(R.string.p_google_drive_backup) as SwitchPreferenceCompat
         val account = preferences.getStringValue(R.string.p_google_drive_backup_account)
         if (preferences.getBoolean(R.string.p_google_drive_backup, false)
-                && googleAccountManager.canAccessAccount(account)) {
+            && googleAccountManager.canAccessAccount(account)
+        ) {
             googleDriveBackup.isChecked = true
             googleDriveBackup.summary = account
         } else {
@@ -90,7 +95,11 @@ class Backups : InjectingPreferenceFragment() {
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         if (requestCode == PermissionRequestor.REQUEST_GOOGLE_ACCOUNTS) {
             if (PermissionUtil.verifyPermissions(grantResults)) {
                 requestGoogleDriveLogin()
@@ -106,9 +115,10 @@ class Backups : InjectingPreferenceFragment() {
                 val uri = data.data!!
                 if (AndroidUtilities.atLeastLollipop()) {
                     context?.contentResolver
-                            ?.takePersistableUriPermission(
-                                    uri,
-                                    Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+                        ?.takePersistableUriPermission(
+                            uri,
+                            Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                        )
                 }
                 preferences.setUri(R.string.p_backup_dir, uri)
                 updateBackupDirectory()
@@ -117,15 +127,21 @@ class Backups : InjectingPreferenceFragment() {
             if (resultCode == RESULT_OK) {
                 val uri = data!!.data
                 val extension = FileHelper.getExtension(activity, uri)
-                if (!("json".equals(extension, ignoreCase = true) || "xml".equals(extension, ignoreCase = true))) {
+                if (!("json".equals(extension, ignoreCase = true) || "xml".equals(
+                        extension,
+                        ignoreCase = true
+                    ))
+                ) {
                     toaster.longToast(R.string.invalid_backup_file)
                 } else {
-                    ImportTasksDialog.newImportTasksDialog(uri, extension).show(fragmentManager!!, FRAG_TAG_IMPORT_TASKS)
+                    ImportTasksDialog.newImportTasksDialog(uri, extension)
+                        .show(fragmentManager!!, FRAG_TAG_IMPORT_TASKS)
                 }
             }
         } else if (requestCode == REQUEST_DRIVE_BACKUP) {
             val success = resultCode == RESULT_OK
-            (findPreference(R.string.p_google_drive_backup) as SwitchPreferenceCompat).isChecked = success
+            (findPreference(R.string.p_google_drive_backup) as SwitchPreferenceCompat).isChecked =
+                success
             if (!success && data != null) {
                 toaster.longToast(data.getStringExtra(GtasksLoginActivity.EXTRA_ERROR))
             }
@@ -136,21 +152,26 @@ class Backups : InjectingPreferenceFragment() {
     }
 
     private fun requestGoogleDriveLogin() {
-        startActivityForResult(Intent(context, DriveLoginActivity::class.java), REQUEST_DRIVE_BACKUP)
+        startActivityForResult(
+            Intent(context, DriveLoginActivity::class.java),
+            REQUEST_DRIVE_BACKUP
+        )
     }
 
     private fun initializeBackupDirectory() {
         findPreference(R.string.p_backup_dir)
-                .setOnPreferenceClickListener {
-                    FileHelper.newDirectoryPicker(
-                            this, REQUEST_CODE_BACKUP_DIR, preferences.backupDirectory)
-                    false
-                }
+            .setOnPreferenceClickListener {
+                FileHelper.newDirectoryPicker(
+                    this, REQUEST_CODE_BACKUP_DIR, preferences.backupDirectory
+                )
+                false
+            }
         updateBackupDirectory()
     }
 
     private fun updateBackupDirectory() {
-        findPreference(R.string.p_backup_dir).summary = FileHelper.uri2String(preferences.backupDirectory)
+        findPreference(R.string.p_backup_dir).summary =
+            FileHelper.uri2String(preferences.backupDirectory)
     }
 
     override fun inject(component: FragmentComponent) {

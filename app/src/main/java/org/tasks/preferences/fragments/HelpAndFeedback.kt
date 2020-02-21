@@ -19,29 +19,34 @@ class HelpAndFeedback : InjectingPreferenceFragment() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.help_and_feedback, rootKey)
 
-        findPreference(R.string.changelog).summary = getString(R.string.version_string, BuildConfig.VERSION_NAME)
+        findPreference(R.string.changelog).summary =
+            getString(R.string.version_string, BuildConfig.VERSION_NAME)
 
         findPreference(R.string.contact_developer)
-                .setOnPreferenceClickListener {
-                    val uri = Uri.fromParts("mailto", "Alex <" + getString(R.string.support_email) + ">", null)
-                    val intent = Intent(Intent.ACTION_SENDTO, uri)
-                            .putExtra(Intent.EXTRA_SUBJECT, "Tasks Feedback")
-                            .putExtra(Intent.EXTRA_TEXT, device.debugInfo)
-                    startActivity(intent)
-                    false
-                }
+            .setOnPreferenceClickListener {
+                val uri = Uri.fromParts(
+                    "mailto",
+                    "Alex <" + getString(R.string.support_email) + ">",
+                    null
+                )
+                val intent = Intent(Intent.ACTION_SENDTO, uri)
+                    .putExtra(Intent.EXTRA_SUBJECT, "Tasks Feedback")
+                    .putExtra(Intent.EXTRA_TEXT, device.debugInfo)
+                startActivity(intent)
+                false
+            }
 
         findPreference(R.string.refresh_purchases)
-                .setOnPreferenceClickListener {
-                    billingClient.queryPurchases()
-                    false
-                }
+            .setOnPreferenceClickListener {
+                billingClient.queryPurchases()
+                false
+            }
 
         findPreference(R.string.p_collect_statistics)
-                .setOnPreferenceClickListener {
-                    showRestartDialog()
-                    true
-                }
+            .setOnPreferenceClickListener {
+                showRestartDialog()
+                true
+            }
 
         if (inventory.hasPro()) {
             val findPreference = findPreference(R.string.upgrade_to_pro)
@@ -51,10 +56,12 @@ class HelpAndFeedback : InjectingPreferenceFragment() {
 
         @Suppress("ConstantConditionIf")
         if (BuildConfig.FLAVOR == "generic") {
-            remove(R.string.p_collect_statistics,
-                    R.string.rate_tasks,
-                    R.string.upgrade_to_pro,
-                    R.string.refresh_purchases)
+            remove(
+                R.string.p_collect_statistics,
+                R.string.rate_tasks,
+                R.string.upgrade_to_pro,
+                R.string.refresh_purchases
+            )
         }
     }
 

@@ -27,26 +27,31 @@ class DashClock : InjectingPreferenceFragment() {
         setPreferencesFromResource(R.xml.preferences_dashclock, rootKey)
 
         findPreference(R.string.p_dashclock_filter)
-                .setOnPreferenceClickListener {
-                    val intent = Intent(context, FilterSelectionActivity::class.java)
-                    intent.putExtra(
-                            FilterSelectionActivity.EXTRA_FILTER, defaultFilterProvider.dashclockFilter)
-                    intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true)
-                    startActivityForResult(intent, REQUEST_SELECT_FILTER)
-                    false
-                }
+            .setOnPreferenceClickListener {
+                val intent = Intent(context, FilterSelectionActivity::class.java)
+                intent.putExtra(
+                    FilterSelectionActivity.EXTRA_FILTER, defaultFilterProvider.dashclockFilter
+                )
+                intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true)
+                startActivityForResult(intent, REQUEST_SELECT_FILTER)
+                false
+            }
 
         refreshPreferences()
 
         if (!inventory.purchasedDashclock()) {
-            startActivityForResult(Intent(context, PurchaseActivity::class.java), REQUEST_SUBSCRIPTION)
+            startActivityForResult(
+                Intent(context, PurchaseActivity::class.java),
+                REQUEST_SUBSCRIPTION
+            )
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_SELECT_FILTER) {
             if (resultCode == Activity.RESULT_OK) {
-                val filter: Filter = data!!.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER)!!
+                val filter: Filter =
+                    data!!.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER)!!
                 defaultFilterProvider.dashclockFilter = filter
                 refreshPreferences()
                 localBroadcastManager.broadcastRefresh()

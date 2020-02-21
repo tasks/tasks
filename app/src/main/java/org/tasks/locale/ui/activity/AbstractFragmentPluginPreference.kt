@@ -20,8 +20,9 @@ abstract class AbstractFragmentPluginPreference : BasePreferences() {
 
         if (isLocalePluginIntent(intent)) {
             Timber.d(
-                    "Creating Activity with Intent=%s, savedInstanceState=%s, EXTRA_BUNDLE=%s",
-                    intent, savedInstanceState, getPreviousBundle())
+                "Creating Activity with Intent=%s, savedInstanceState=%s, EXTRA_BUNDLE=%s",
+                intent, savedInstanceState, getPreviousBundle()
+            )
         }
     }
 
@@ -32,7 +33,10 @@ abstract class AbstractFragmentPluginPreference : BasePreferences() {
                 if (null != resultBundle) {
                     val blurb = getResultBlurb(resultBundle)
                     val result = Bundle()
-                    result.putBundle(com.twofortyfouram.locale.api.Intent.EXTRA_BUNDLE, resultBundle)
+                    result.putBundle(
+                        com.twofortyfouram.locale.api.Intent.EXTRA_BUNDLE,
+                        resultBundle
+                    )
                     result.putString(com.twofortyfouram.locale.api.Intent.EXTRA_STRING_BLURB, blurb)
                     setResult(RESULT_OK, Intent().putExtras(result))
                 }

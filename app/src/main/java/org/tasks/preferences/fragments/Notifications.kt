@@ -46,11 +46,12 @@ class Notifications : InjectingPreferenceFragment() {
         setPreferencesFromResource(R.xml.preferences_notifications, rootKey)
 
         rescheduleNotificationsOnChange(
-                R.string.p_rmd_time,
-                R.string.p_rmd_enable_quiet,
-                R.string.p_rmd_quietStart,
-                R.string.p_rmd_quietEnd,
-                R.string.p_rmd_persistent)
+            R.string.p_rmd_time,
+            R.string.p_rmd_enable_quiet,
+            R.string.p_rmd_quietStart,
+            R.string.p_rmd_quietEnd,
+            R.string.p_rmd_persistent
+        )
 
         initializeRingtonePreference()
         initializeTimePreference(getDefaultRemindTimePreference()!!, REQUEST_DEFAULT_REMIND)
@@ -58,29 +59,29 @@ class Notifications : InjectingPreferenceFragment() {
         initializeTimePreference(getQuietEndPreference()!!, REQUEST_QUIET_END)
 
         findPreference(R.string.notification_channel_settings)
-                .setOnPreferenceClickListener(::openNotificationChannelSettings)
+            .setOnPreferenceClickListener(::openNotificationChannelSettings)
         findPreference(R.string.battery_optimization_settings)
-                .setOnPreferenceClickListener(::openBatteryOptimizationSettings)
+            .setOnPreferenceClickListener(::openBatteryOptimizationSettings)
 
         findPreference(R.string.p_bundle_notifications)
-                .setOnPreferenceChangeListener { _: Preference?, _: Any? ->
-                    NotificationSchedulerIntentService.enqueueWork(context, true)
-                    true
-                }
+            .setOnPreferenceChangeListener { _: Preference?, _: Any? ->
+                NotificationSchedulerIntentService.enqueueWork(context, true)
+                true
+            }
 
         findPreference(R.string.p_badges_enabled)
-                .setOnPreferenceChangeListener { _: Preference?, newValue: Any? ->
-                    if (newValue != null) {
-                        if (newValue as Boolean) {
-                            showRestartDialog()
-                        } else {
-                            ShortcutBadger.removeCount(context)
-                        }
-                        true
+            .setOnPreferenceChangeListener { _: Preference?, newValue: Any? ->
+                if (newValue != null) {
+                    if (newValue as Boolean) {
+                        showRestartDialog()
                     } else {
-                        false
+                        ShortcutBadger.removeCount(context)
                     }
+                    true
+                } else {
+                    false
                 }
+            }
 
         val badgePreference: Preference = findPreference(R.string.p_badge_list)
         val filter = defaultFilterProvider.badgeFilter
@@ -88,35 +89,40 @@ class Notifications : InjectingPreferenceFragment() {
         badgePreference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             val intent = Intent(context, FilterSelectionActivity::class.java)
             intent.putExtra(
-                    FilterSelectionActivity.EXTRA_FILTER, defaultFilterProvider.badgeFilter)
+                FilterSelectionActivity.EXTRA_FILTER, defaultFilterProvider.badgeFilter
+            )
             intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true)
             startActivityForResult(intent, REQUEST_BADGE_LIST)
             true
         }
 
         findPreference(R.string.p_voiceRemindersEnabled)
-                .setOnPreferenceChangeListener { preference: Preference, newValue: Any ->
-                    val enabled = newValue as Boolean
-                    try {
-                        if (enabled && !voiceOutputAssistant.isTTSInitialized) {
-                            val checkIntent = Intent()
-                            checkIntent.action = TextToSpeech.Engine.ACTION_CHECK_TTS_DATA
-                            startActivityForResult(checkIntent, REQUEST_CODE_TTS_CHECK)
-                        } else if (!enabled && voiceOutputAssistant.isTTSInitialized) {
-                            voiceOutputAssistant.shutdown()
-                        }
-                    } catch (e: VerifyError) {
-                        Timber.e(e)
-                        preference.isEnabled = false
-                        preferences.setBoolean(preference.key, false)
+            .setOnPreferenceChangeListener { preference: Preference, newValue: Any ->
+                val enabled = newValue as Boolean
+                try {
+                    if (enabled && !voiceOutputAssistant.isTTSInitialized) {
+                        val checkIntent = Intent()
+                        checkIntent.action = TextToSpeech.Engine.ACTION_CHECK_TTS_DATA
+                        startActivityForResult(checkIntent, REQUEST_CODE_TTS_CHECK)
+                    } else if (!enabled && voiceOutputAssistant.isTTSInitialized) {
+                        voiceOutputAssistant.shutdown()
                     }
-                    true
+                } catch (e: VerifyError) {
+                    Timber.e(e)
+                    preference.isEnabled = false
+                    preferences.setBoolean(preference.key, false)
                 }
+                true
+            }
 
         requires(AndroidUtilities.atLeastOreo(), R.string.notification_channel_settings)
         requires(AndroidUtilities.atLeastMarshmallow(), R.string.battery_optimization_settings)
         requires(
-                AndroidUtilities.preOreo(), R.string.p_rmd_ringtone, R.string.p_rmd_vibrate, R.string.p_led_notification)
+            AndroidUtilities.preOreo(),
+            R.string.p_rmd_ringtone,
+            R.string.p_rmd_vibrate,
+            R.string.p_led_notification
+        )
     }
 
     override fun onDestroy() {
@@ -132,10 +138,10 @@ class Notifications : InjectingPreferenceFragment() {
     private fun rescheduleNotificationsOnChange(vararg resIds: Int) {
         for (resId in resIds) {
             findPreference(resId)
-                    .setOnPreferenceChangeListener { _: Preference?, _: Any? ->
-                        NotificationSchedulerIntentService.enqueueWork(context, false)
-                        true
-                    }
+                .setOnPreferenceChangeListener { _: Preference?, _: Any? ->
+                    NotificationSchedulerIntentService.enqueueWork(context, false)
+                    true
+                }
         }
     }
 
@@ -145,16 +151,25 @@ class Notifications : InjectingPreferenceFragment() {
             intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION)
             intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true)
             intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, true)
-            intent.putExtra(RingtoneManager.EXTRA_RINGTONE_DEFAULT_URI, Settings.System.DEFAULT_NOTIFICATION_URI)
+            intent.putExtra(
+                RingtoneManager.EXTRA_RINGTONE_DEFAULT_URI,
+                Settings.System.DEFAULT_NOTIFICATION_URI
+            )
             val existingValue: String? = preferences.getStringValue(R.string.p_rmd_ringtone)
             if (existingValue != null) {
                 if (existingValue.isEmpty()) {
                     intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, null as Uri?)
                 } else {
-                    intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, Uri.parse(existingValue))
+                    intent.putExtra(
+                        RingtoneManager.EXTRA_RINGTONE_EXISTING_URI,
+                        Uri.parse(existingValue)
+                    )
                 }
             } else {
-                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, Settings.System.DEFAULT_NOTIFICATION_URI)
+                intent.putExtra(
+                    RingtoneManager.EXTRA_RINGTONE_EXISTING_URI,
+                    Settings.System.DEFAULT_NOTIFICATION_URI
+                )
             }
             startActivityForResult(intent, REQUEST_CODE_ALERT_RINGTONE)
             true
@@ -190,23 +205,28 @@ class Notifications : InjectingPreferenceFragment() {
     }
 
     private fun initializeRingtonePreference() {
-        val ringtoneChangedListener = Preference.OnPreferenceChangeListener { preference: Preference, value: Any? ->
-            if ("" == value) {
-                preference.setSummary(R.string.silent)
-            } else {
-                val ringtone = RingtoneManager.getRingtone(
+        val ringtoneChangedListener =
+            Preference.OnPreferenceChangeListener { preference: Preference, value: Any? ->
+                if ("" == value) {
+                    preference.setSummary(R.string.silent)
+                } else {
+                    val ringtone = RingtoneManager.getRingtone(
                         context,
-                        if (value == null) Settings.System.DEFAULT_NOTIFICATION_URI else Uri.parse(value as String?))
-                preference.summary = if (ringtone == null) "" else ringtone.getTitle(context)
+                        if (value == null) Settings.System.DEFAULT_NOTIFICATION_URI else Uri.parse(
+                            value as String?
+                        )
+                    )
+                    preference.summary = if (ringtone == null) "" else ringtone.getTitle(context)
+                }
+                true
             }
-            true
-        }
         val ringtoneKey = R.string.p_rmd_ringtone
         val ringtonePreference: Preference = findPreference(ringtoneKey)
         ringtonePreference.onPreferenceChangeListener = ringtoneChangedListener
         ringtoneChangedListener.onPreferenceChange(
-                ringtonePreference,
-                preferences.getStringValue(ringtoneKey))
+            ringtonePreference,
+            preferences.getStringValue(ringtoneKey)
+        )
     }
 
     @TargetApi(Build.VERSION_CODES.O)
@@ -228,7 +248,8 @@ class Notifications : InjectingPreferenceFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_CODE_ALERT_RINGTONE) {
             if (resultCode == RESULT_OK && data != null) {
-                val ringtone: Uri? = data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI)
+                val ringtone: Uri? =
+                    data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI)
                 if (ringtone != null) {
                     preferences.setString(R.string.p_rmd_ringtone, ringtone.toString())
                 } else {
@@ -250,7 +271,8 @@ class Notifications : InjectingPreferenceFragment() {
             }
         } else if (requestCode == REQUEST_BADGE_LIST) {
             if (resultCode == RESULT_OK) {
-                val filter: Filter = data!!.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER)!!
+                val filter: Filter =
+                    data!!.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER)!!
                 defaultFilterProvider.badgeFilter = filter
                 findPreference(R.string.p_badge_list).summary = filter.listingTitle
                 localBroadcastManager.broadcastRefresh()

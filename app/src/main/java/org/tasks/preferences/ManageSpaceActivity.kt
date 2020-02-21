@@ -3,8 +3,6 @@ package org.tasks.preferences
 import org.tasks.R
 import org.tasks.injection.ActivityComponent
 import org.tasks.preferences.fragments.Advanced
-import org.tasks.preferences.fragments.HelpAndFeedback
-import org.tasks.preferences.fragments.Notifications
 
 class ManageSpaceActivity : BasePreferences() {
 

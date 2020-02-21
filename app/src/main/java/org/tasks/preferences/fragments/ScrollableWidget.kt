@@ -66,32 +66,35 @@ class ScrollableWidget : InjectingPreferenceFragment() {
         showSettings.dependency = showHeader.key
 
         findPreference(R.string.p_widget_filter)
-                .setOnPreferenceClickListener {
-                    val intent = Intent(context, FilterSelectionActivity::class.java)
-                    intent.putExtra(FilterSelectionActivity.EXTRA_FILTER, getFilter())
-                    intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true)
-                    startActivityForResult(intent, REQUEST_FILTER)
-                    false
-                }
+            .setOnPreferenceClickListener {
+                val intent = Intent(context, FilterSelectionActivity::class.java)
+                intent.putExtra(FilterSelectionActivity.EXTRA_FILTER, getFilter())
+                intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true)
+                startActivityForResult(intent, REQUEST_FILTER)
+                false
+            }
 
         findPreference(R.string.p_widget_theme)
-                .setOnPreferenceClickListener {
-                    val intent = Intent(context, ColorPickerActivity::class.java)
-                    intent.putExtra(
-                            ColorPickerActivity.EXTRA_PALETTE,
-                            ColorPickerActivity.ColorPalette.WIDGET_BACKGROUND)
-                    intent.putExtra(
-                            ColorPickerActivity.EXTRA_THEME_INDEX, widgetPreferences.themeIndex)
-                    startActivityForResult(intent, REQUEST_THEME_SELECTION)
-                    false
-                }
+            .setOnPreferenceClickListener {
+                val intent = Intent(context, ColorPickerActivity::class.java)
+                intent.putExtra(
+                    ColorPickerActivity.EXTRA_PALETTE,
+                    ColorPickerActivity.ColorPalette.WIDGET_BACKGROUND
+                )
+                intent.putExtra(
+                    ColorPickerActivity.EXTRA_THEME_INDEX, widgetPreferences.themeIndex
+                )
+                startActivityForResult(intent, REQUEST_THEME_SELECTION)
+                false
+            }
 
         val colorPreference = findPreference(R.string.p_widget_color)
         colorPreference.dependency = showHeader.key
         colorPreference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             val intent = Intent(context, ColorPickerActivity::class.java)
             intent.putExtra(
-                    ColorPickerActivity.EXTRA_PALETTE, ColorPickerActivity.ColorPalette.COLORS)
+                ColorPickerActivity.EXTRA_PALETTE, ColorPickerActivity.ColorPalette.COLORS
+            )
             intent.putExtra(ColorPickerActivity.EXTRA_THEME_INDEX, widgetPreferences.colorIndex)
             startActivityForResult(intent, REQUEST_COLOR_SELECTION)
             false
@@ -105,18 +108,29 @@ class ScrollableWidget : InjectingPreferenceFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_FILTER) {
             if (resultCode == Activity.RESULT_OK) {
-                val filter: Filter = data!!.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER)!!
+                val filter: Filter =
+                    data!!.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER)!!
                 widgetPreferences.setFilter(defaultFilterProvider.getFilterPreferenceValue(filter))
                 updateFilter()
             }
         } else if (requestCode == REQUEST_THEME_SELECTION) {
             if (resultCode == Activity.RESULT_OK) {
-                widgetPreferences.setTheme(data!!.getIntExtra(ColorPickerActivity.EXTRA_THEME_INDEX, 0))
+                widgetPreferences.setTheme(
+                    data!!.getIntExtra(
+                        ColorPickerActivity.EXTRA_THEME_INDEX,
+                        0
+                    )
+                )
                 updateTheme()
             }
         } else if (requestCode == REQUEST_COLOR_SELECTION) {
             if (resultCode == Activity.RESULT_OK) {
-                widgetPreferences.setColor(data!!.getIntExtra(ColorPickerActivity.EXTRA_THEME_INDEX, 0))
+                widgetPreferences.setColor(
+                    data!!.getIntExtra(
+                        ColorPickerActivity.EXTRA_THEME_INDEX,
+                        0
+                    )
+                )
                 updateColor()
             }
         } else {

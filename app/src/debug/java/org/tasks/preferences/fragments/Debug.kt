@@ -23,14 +23,17 @@ class Debug : InjectingPreferenceFragment() {
         setPreferencesFromResource(R.xml.preferences_debug, rootKey)
 
         for (pref in Ints.asList(
-                R.string.p_leakcanary,
-                R.string.p_flipper,
-                R.string.p_strict_mode_vm,
-                R.string.p_strict_mode_thread)) findPreference(pref)
+            R.string.p_leakcanary,
+            R.string.p_flipper,
+            R.string.p_strict_mode_vm,
+            R.string.p_strict_mode_thread
+        )) {
+            findPreference(pref)
                 .setOnPreferenceChangeListener { _: Preference?, _: Any? ->
                     showRestartDialog()
                     true
                 }
+        }
 
         findPreference(R.string.debug_reset_ssl).setOnPreferenceClickListener {
             resetCertificates(context!!)

@@ -41,33 +41,37 @@ class Synchronization : InjectingPreferenceFragment() {
         setPreferencesFromResource(R.xml.preferences_synchronization, rootKey)
 
         findPreference(R.string.p_background_sync_unmetered_only)
-                .setOnPreferenceChangeListener { _: Preference?, o: Any? ->
-                    workManager.updateBackgroundSync(null, null, o as Boolean?)
-                    true
-                }
-        findPreference(R.string.p_background_sync)
-                .setOnPreferenceChangeListener { _: Preference?, o: Any? ->
-                    workManager.updateBackgroundSync(null, o as Boolean?, null)
-                    true
-                }
-
-        val positionHack = findPreference(R.string.google_tasks_position_hack) as SwitchPreferenceCompat
-        positionHack.isChecked = preferences.isPositionHackEnabled
-        positionHack.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _: Preference?, newValue: Any? ->
-            if (newValue == null) {
-                false
-            } else {
-                preferences.setLong(
-                        R.string.p_google_tasks_position_hack, if (newValue as Boolean) DateUtilities.now() else 0)
+            .setOnPreferenceChangeListener { _: Preference?, o: Any? ->
+                workManager.updateBackgroundSync(null, null, o as Boolean?)
                 true
             }
-        }
+        findPreference(R.string.p_background_sync)
+            .setOnPreferenceChangeListener { _: Preference?, o: Any? ->
+                workManager.updateBackgroundSync(null, o as Boolean?, null)
+                true
+            }
+
+        val positionHack =
+            findPreference(R.string.google_tasks_position_hack) as SwitchPreferenceCompat
+        positionHack.isChecked = preferences.isPositionHackEnabled
+        positionHack.onPreferenceChangeListener =
+            Preference.OnPreferenceChangeListener { _: Preference?, newValue: Any? ->
+                if (newValue == null) {
+                    false
+                } else {
+                    preferences.setLong(
+                        R.string.p_google_tasks_position_hack,
+                        if (newValue as Boolean) DateUtilities.now() else 0
+                    )
+                    true
+                }
+            }
 
         findPreference(R.string.add_account)
-                .setOnPreferenceClickListener {
-                    AddAccountDialog.showAddAccountDialog(activity, dialogBuilder)
-                    false
-                }
+            .setOnPreferenceClickListener {
+                AddAccountDialog.showAddAccountDialog(activity, dialogBuilder)
+                false
+            }
     }
 
     override fun onResume() {
@@ -106,17 +110,23 @@ class Synchronization : InjectingPreferenceFragment() {
             }
             preference.setOnPreferenceClickListener {
                 dialogBuilder
-                        .newDialog(account)
-                        .setItems(listOf(getString(R.string.reinitialize_account), getString(R.string.logout))) { _, which ->
-                            if (which == 0) {
-                                startActivityForResult(
-                                        Intent(context, GtasksLoginActivity::class.java),
-                                        REQUEST_GOOGLE_TASKS)
-                            } else {
-                                logoutConfirmation(googleTaskAccount)
-                            }
+                    .newDialog(account)
+                    .setItems(
+                        listOf(
+                            getString(R.string.reinitialize_account),
+                            getString(R.string.logout)
+                        )
+                    ) { _, which ->
+                        if (which == 0) {
+                            startActivityForResult(
+                                Intent(context, GtasksLoginActivity::class.java),
+                                REQUEST_GOOGLE_TASKS
+                            )
+                        } else {
+                            logoutConfirmation(googleTaskAccount)
                         }
-                        .showThemedListView()
+                    }
+                    .showThemedListView()
                 false
             }
             category.addPreference(preference)
@@ -132,15 +142,17 @@ class Synchronization : InjectingPreferenceFragment() {
             val error = account.error
             if (Strings.isNullOrEmpty(error)) {
                 preference.setSummary(
-                        if (account.isCaldavAccount) R.string.caldav else R.string.etesync)
+                    if (account.isCaldavAccount) R.string.caldav else R.string.etesync
+                )
             } else {
                 preference.summary = error
             }
             preference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
                 val intent = Intent(
-                        context,
-                        if (account.isCaldavAccount) CaldavAccountSettingsActivity::class.java
-                        else EteSyncAccountSettingsActivity::class.java)
+                    context,
+                    if (account.isCaldavAccount) CaldavAccountSettingsActivity::class.java
+                    else EteSyncAccountSettingsActivity::class.java
+                )
                 intent.putExtra(CaldavAccountSettingsActivity.EXTRA_CALDAV_DATA, account)
                 startActivityForResult(intent, REQUEST_CALDAV_SETTINGS)
                 false
@@ -153,14 +165,14 @@ class Synchronization : InjectingPreferenceFragment() {
     private fun logoutConfirmation(account: GoogleTaskAccount) {
         val name = account.account
         val alertDialog = dialogBuilder
-                .newDialog()
-                .setMessage(R.string.logout_warning, name)
-                .setPositiveButton(R.string.logout) { _, _ ->
-                    taskDeleter.delete(account)
-                    refresh()
-                }
-                .setNegativeButton(android.R.string.cancel, null)
-                .create()
+            .newDialog()
+            .setMessage(R.string.logout_warning, name)
+            .setPositiveButton(R.string.logout) { _, _ ->
+                taskDeleter.delete(account)
+                refresh()
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .create()
         alertDialog.setCanceledOnTouchOutside(false)
         alertDialog.setCancelable(false)
         alertDialog.show()
@@ -174,7 +186,8 @@ class Synchronization : InjectingPreferenceFragment() {
         val hasCaldavAccounts = addCaldavAccounts(synchronizationPreferences)
         findPreference(R.string.gtasks_GPr_header).isVisible = hasGoogleAccounts
         findPreference(R.string.accounts).isVisible = hasGoogleAccounts || hasCaldavAccounts
-        findPreference(R.string.sync_SPr_interval_title).isVisible = hasGoogleAccounts || hasCaldavAccounts
+        findPreference(R.string.sync_SPr_interval_title).isVisible =
+            hasGoogleAccounts || hasCaldavAccounts
     }
 
     override fun inject(component: FragmentComponent) {

@@ -56,7 +56,10 @@ class TaskerListNotification : InjectingPreferenceFragment() {
         }
 
         if (!inventory.purchasedTasker()) {
-            startActivityForResult(Intent(context, PurchaseActivity::class.java), REQUEST_SUBSCRIPTION)
+            startActivityForResult(
+                Intent(context, PurchaseActivity::class.java),
+                REQUEST_SUBSCRIPTION
+            )
         }
     }
 
@@ -92,7 +95,8 @@ class TaskerListNotification : InjectingPreferenceFragment() {
 
     fun getBundle(): Bundle {
         return ListNotificationBundle.generateBundle(
-                defaultFilterProvider.getFilterPreferenceValue(filter))
+            defaultFilterProvider.getFilterPreferenceValue(filter)
+        )
     }
 
     override fun inject(component: FragmentComponent) = component.inject(this)

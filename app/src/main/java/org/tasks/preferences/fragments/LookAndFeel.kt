@@ -73,21 +73,29 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
 
         setupColorPreference(R.string.p_theme, themeBase.name, THEMES, REQUEST_THEME_PICKER)
         setupColorPreference(R.string.p_theme_color, themeColor.name, COLORS, REQUEST_COLOR_PICKER)
-        setupColorPreference(R.string.p_theme_accent, themeAccent.name, ACCENTS, REQUEST_ACCENT_PICKER)
+        setupColorPreference(
+            R.string.p_theme_accent,
+            themeAccent.name,
+            ACCENTS,
+            REQUEST_ACCENT_PICKER
+        )
         updateLauncherPreference()
 
         findPreference(R.string.p_show_subtasks)
-                .setOnPreferenceChangeListener { _: Preference?, _: Any? ->
-                    localBroadcastManager.broadcastRefresh()
-                    true
-                }
+            .setOnPreferenceChangeListener { _: Preference?, _: Any? ->
+                localBroadcastManager.broadcastRefresh()
+                true
+            }
 
         val defaultList = findPreference(R.string.p_default_list)
         val filter: Filter = defaultFilterProvider.defaultFilter
         defaultList.summary = filter.listingTitle
         defaultList.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             val intent = Intent(context, FilterSelectionActivity::class.java)
-            intent.putExtra(FilterSelectionActivity.EXTRA_FILTER, defaultFilterProvider.defaultFilter)
+            intent.putExtra(
+                FilterSelectionActivity.EXTRA_FILTER,
+                defaultFilterProvider.defaultFilter
+            )
             intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true)
             startActivityForResult(intent, REQUEST_DEFAULT_LIST)
             true
@@ -133,67 +141,70 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
     }
 
     private fun updateLauncherPreference() =
-            setupColorPreference(
-                    R.string.p_theme_launcher,
-                    themeCache.getThemeColor(preferences.getInt(R.string.p_theme_launcher, 7)).name,
-                    LAUNCHER,
-                    REQUEST_LAUNCHER_PICKER)
+        setupColorPreference(
+            R.string.p_theme_launcher,
+            themeCache.getThemeColor(preferences.getInt(R.string.p_theme_launcher, 7)).name,
+            LAUNCHER,
+            REQUEST_LAUNCHER_PICKER
+        )
 
     private fun setupLocationPickers() {
-        val choices = listOf(getString(R.string.map_provider_mapbox), getString(R.string.map_provider_google))
+        val choices =
+            listOf(getString(R.string.map_provider_mapbox), getString(R.string.map_provider_google))
         val singleCheckedArrayAdapter = SingleCheckedArrayAdapter(context!!, choices, themeAccent)
         val mapProviderPreference = findPreference(R.string.p_map_provider)
         mapProviderPreference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             dialogBuilder
-                    .newDialog()
-                    .setSingleChoiceItems(
-                            singleCheckedArrayAdapter,
-                            getMapProvider()
-                    ) { dialog: DialogInterface, which: Int ->
-                        if (which == 1) {
-                            if (!playServices.refreshAndCheck()) {
-                                playServices.resolve(activity)
-                                dialog.dismiss()
-                                return@setSingleChoiceItems
-                            }
+                .newDialog()
+                .setSingleChoiceItems(
+                    singleCheckedArrayAdapter,
+                    getMapProvider()
+                ) { dialog: DialogInterface, which: Int ->
+                    if (which == 1) {
+                        if (!playServices.refreshAndCheck()) {
+                            playServices.resolve(activity)
+                            dialog.dismiss()
+                            return@setSingleChoiceItems
                         }
-                        preferences.setInt(R.string.p_map_provider, which)
-                        mapProviderPreference.summary = choices[which]
-                        dialog.dismiss()
                     }
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .showThemedListView()
+                    preferences.setInt(R.string.p_map_provider, which)
+                    mapProviderPreference.summary = choices[which]
+                    dialog.dismiss()
+                }
+                .setNegativeButton(android.R.string.cancel, null)
+                .showThemedListView()
             false
         }
         val mapProvider: Int = getMapProvider()
-        mapProviderPreference.summary = if (mapProvider == -1) getString(R.string.none) else choices[mapProvider]
+        mapProviderPreference.summary =
+            if (mapProvider == -1) getString(R.string.none) else choices[mapProvider]
 
         val placeProviderPreference = findPreference(R.string.p_place_provider)
         placeProviderPreference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             dialogBuilder
-                    .newDialog()
-                    .setSingleChoiceItems(
-                            singleCheckedArrayAdapter,
-                            getPlaceProvider()
-                    ) { dialog: DialogInterface, which: Int ->
-                        if (which == 1) {
-                            if (!playServices.refreshAndCheck()) {
-                                playServices.resolve(activity)
-                                dialog.dismiss()
-                                return@setSingleChoiceItems
-                            }
-                            if (!inventory.hasPro()) {
-                                toaster.longToast(R.string.requires_pro_subscription)
-                                dialog.dismiss()
-                                return@setSingleChoiceItems
-                            }
+                .newDialog()
+                .setSingleChoiceItems(
+                    singleCheckedArrayAdapter,
+                    getPlaceProvider()
+                ) { dialog: DialogInterface, which: Int ->
+                    if (which == 1) {
+                        if (!playServices.refreshAndCheck()) {
+                            playServices.resolve(activity)
+                            dialog.dismiss()
+                            return@setSingleChoiceItems
                         }
-                        preferences.setInt(R.string.p_place_provider, which)
-                        placeProviderPreference.summary = choices[which]
-                        dialog.dismiss()
+                        if (!inventory.hasPro()) {
+                            toaster.longToast(R.string.requires_pro_subscription)
+                            dialog.dismiss()
+                            return@setSingleChoiceItems
+                        }
                     }
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .showThemedListView()
+                    preferences.setInt(R.string.p_place_provider, which)
+                    placeProviderPreference.summary = choices[which]
+                    dialog.dismiss()
+                }
+                .setNegativeButton(android.R.string.cancel, null)
+                .showThemedListView()
             false
         }
         val placeProvider: Int = getPlaceProvider()
@@ -201,11 +212,17 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
     }
 
     private fun getPlaceProvider(): Int {
-        return if (playServices.isPlayServicesAvailable && inventory.hasPro()) preferences.getInt(R.string.p_place_provider, 0) else 0
+        return if (playServices.isPlayServicesAvailable && inventory.hasPro()) preferences.getInt(
+            R.string.p_place_provider,
+            0
+        ) else 0
     }
 
     private fun getMapProvider(): Int {
-        return if (playServices.isPlayServicesAvailable) preferences.getInt(R.string.p_map_provider, 0) else 0
+        return if (playServices.isPlayServicesAvailable) preferences.getInt(
+            R.string.p_map_provider,
+            0
+        ) else 0
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -239,14 +256,16 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
             }
         } else if (requestCode == REQUEST_DEFAULT_LIST) {
             if (resultCode == RESULT_OK) {
-                val filter: Filter = data!!.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER)!!
+                val filter: Filter =
+                    data!!.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER)!!
                 defaultFilterProvider.defaultFilter = filter
                 findPreference(R.string.p_default_list).summary = filter.listingTitle
                 localBroadcastManager.broadcastRefresh()
             }
         } else if (requestCode == REQUEST_LOCALE) {
             if (resultCode == RESULT_OK) {
-                val newValue: Locale = data!!.getSerializableExtra(LocalePickerDialog.EXTRA_LOCALE) as Locale
+                val newValue: Locale =
+                    data!!.getSerializableExtra(LocalePickerDialog.EXTRA_LOCALE) as Locale
                 val override: String? = newValue.languageOverride
                 if (Strings.isNullOrEmpty(override)) {
                     preferences.remove(R.string.p_language)
@@ -288,11 +307,15 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
     private fun setLauncherIcon(index: Int) {
         val packageManager: PackageManager? = context?.packageManager
         for (i in ThemeColor.LAUNCHERS.indices) {
-            val componentName = ComponentName(context!!, "com.todoroo.astrid.activity.TaskListActivity" + ThemeColor.LAUNCHERS[i])
+            val componentName = ComponentName(
+                context!!,
+                "com.todoroo.astrid.activity.TaskListActivity" + ThemeColor.LAUNCHERS[i]
+            )
             packageManager?.setComponentEnabledSetting(
-                    componentName,
-                    if (index == i) PackageManager.COMPONENT_ENABLED_STATE_ENABLED else PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                    PackageManager.DONT_KILL_APP)
+                componentName,
+                if (index == i) PackageManager.COMPONENT_ENABLED_STATE_ENABLED else PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                PackageManager.DONT_KILL_APP
+            )
         }
     }
 
@@ -300,7 +323,11 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
         component.inject(this)
     }
 
-    private fun setupColorPreference(@StringRes prefId: Int, summary: String, palette: ColorPickerActivity.ColorPalette, requestCode: Int) {
+    private fun setupColorPreference(
+        @StringRes prefId: Int, summary: String,
+        palette: ColorPickerActivity.ColorPalette,
+        requestCode: Int
+    ) {
         val themePref: Preference = findPreference(prefId)
         themePref.summary = summary
         themePref.setOnPreferenceClickListener {
@@ -368,10 +395,11 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
 
     private fun invalidSetting(errorResId: Int, settingResId: Int, relativeResId: Int) {
         Toast.makeText(
-                context,
-                getString(errorResId, getString(settingResId), getString(relativeResId)),
-                Toast.LENGTH_SHORT)
-                .show()
+            context,
+            getString(errorResId, getString(settingResId), getString(relativeResId)),
+            Toast.LENGTH_SHORT
+        )
+            .show()
     }
 
     private fun updateStartOfWeek(value: String) {
@@ -411,9 +439,9 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
 
     private fun getWeekdayEntries(): Array<String?>? {
         return arrayOf(
-                getString(R.string.use_locale_default),
-                getWeekdayDisplayName(DayOfWeek.SUNDAY),
-                getWeekdayDisplayName(DayOfWeek.MONDAY)
+            getString(R.string.use_locale_default),
+            getWeekdayDisplayName(DayOfWeek.SUNDAY),
+            getWeekdayDisplayName(DayOfWeek.MONDAY)
         )
     }
 }

@@ -50,43 +50,48 @@ class Advanced : InjectingPreferenceFragment() {
         setPreferencesFromResource(R.xml.preferences_advanced, rootKey)
 
         findPreference(R.string.EPr_manage_purge_deleted)
-                .setOnPreferenceClickListener {
-                    purgeDeletedTasks()
-                    false
-                }
+            .setOnPreferenceClickListener {
+                purgeDeletedTasks()
+                false
+            }
 
         findPreference(R.string.EPr_manage_delete_completed_gcal)
-                .setOnPreferenceClickListener {
-                    deleteCompletedEvents()
-                    false
-                }
+            .setOnPreferenceClickListener {
+                deleteCompletedEvents()
+                false
+            }
 
         findPreference(R.string.EPr_manage_delete_all_gcal)
-                .setOnPreferenceClickListener {
-                    deleteAllCalendarEvents()
-                    false
-                }
+            .setOnPreferenceClickListener {
+                deleteAllCalendarEvents()
+                false
+            }
 
         findPreference(R.string.EPr_reset_preferences)
-                .setOnPreferenceClickListener {
-                    resetPreferences()
-                    false
-                }
+            .setOnPreferenceClickListener {
+                resetPreferences()
+                false
+            }
 
         findPreference(R.string.EPr_delete_task_data)
-                .setOnPreferenceClickListener {
-                    deleteTaskData()
-                    false
-                }
+            .setOnPreferenceClickListener {
+                deleteTaskData()
+                false
+            }
 
         findPreference(R.string.p_attachment_dir)
-                .setOnPreferenceClickListener {
-                    FileHelper.newDirectoryPicker(this, REQUEST_CODE_FILES_DIR, preferences.attachmentsDirectory)
-                    false
-                }
+            .setOnPreferenceClickListener {
+                FileHelper.newDirectoryPicker(
+                    this,
+                    REQUEST_CODE_FILES_DIR,
+                    preferences.attachmentsDirectory
+                )
+                false
+            }
         updateAttachmentDirectory()
 
-        calendarReminderPreference = findPreference(R.string.p_calendar_reminders) as SwitchPreferenceCompat
+        calendarReminderPreference =
+            findPreference(R.string.p_calendar_reminders) as SwitchPreferenceCompat
         initializeCalendarReminderPreference()
     }
 
@@ -96,9 +101,10 @@ class Advanced : InjectingPreferenceFragment() {
                 val uri = data!!.data!!
                 if (AndroidUtilities.atLeastLollipop()) {
                     context!!.contentResolver
-                            .takePersistableUriPermission(
-                                    uri,
-                                    Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+                        .takePersistableUriPermission(
+                            uri,
+                            Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                        )
                 }
                 preferences.setUri(R.string.p_attachment_dir, uri)
                 updateAttachmentDirectory()
@@ -109,7 +115,8 @@ class Advanced : InjectingPreferenceFragment() {
     }
 
     override fun onRequestPermissionsResult(
-            requestCode: Int, permissions: Array<String?>, grantResults: IntArray) {
+        requestCode: Int, permissions: Array<String?>, grantResults: IntArray
+    ) {
         if (requestCode == PermissionRequestor.REQUEST_CALENDAR) {
             if (PermissionUtil.verifyPermissions(grantResults)) {
                 calendarReminderPreference.isChecked = true
@@ -132,100 +139,103 @@ class Advanced : InjectingPreferenceFragment() {
     }
 
     private fun initializeCalendarReminderPreference() {
-        calendarReminderPreference.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
-            if (newValue == null) {
-                false
-            } else if (!(newValue as Boolean)) {
-                true
-            } else if (permissionRequester.requestCalendarPermissions()) {
-                CalendarNotificationIntentService.enqueueWork(context)
-                true
-            } else {
-                false
+        calendarReminderPreference.onPreferenceChangeListener =
+            Preference.OnPreferenceChangeListener { _, newValue ->
+                if (newValue == null) {
+                    false
+                } else if (!(newValue as Boolean)) {
+                    true
+                } else if (permissionRequester.requestCalendarPermissions()) {
+                    CalendarNotificationIntentService.enqueueWork(context)
+                    true
+                } else {
+                    false
+                }
             }
-        }
-        calendarReminderPreference.isChecked = calendarReminderPreference.isChecked && permissionChecker.canAccessCalendars()
+        calendarReminderPreference.isChecked =
+            calendarReminderPreference.isChecked && permissionChecker.canAccessCalendars()
     }
 
     private fun updateAttachmentDirectory() {
         findPreference(R.string.p_attachment_dir).summary =
-                FileHelper.uri2String(preferences.attachmentsDirectory)
+            FileHelper.uri2String(preferences.attachmentsDirectory)
     }
 
     private fun purgeDeletedTasks() {
         dialogBuilder
-                .newDialog()
-                .setMessage(R.string.EPr_manage_purge_deleted_message)
-                .setPositiveButton(android.R.string.ok) { _, _ ->
-                    performAction(
-                            R.string.EPr_manage_purge_deleted_status, Callable { taskDeleter.purgeDeleted() })
-                }
-                .setNegativeButton(android.R.string.cancel, null)
-                .show()
+            .newDialog()
+            .setMessage(R.string.EPr_manage_purge_deleted_message)
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                performAction(
+                    R.string.EPr_manage_purge_deleted_status,
+                    Callable { taskDeleter.purgeDeleted() })
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
     }
 
     private fun deleteCompletedEvents() {
         dialogBuilder
-                .newDialog()
-                .setMessage(R.string.EPr_manage_delete_completed_gcal_message)
-                .setPositiveButton(android.R.string.ok) { _, _ ->
-                    performAction(
-                            R.string.EPr_manage_delete_completed_gcal_status,
-                            Callable {
-                                calendarEventProvider.deleteEvents(taskDao.completedCalendarEvents)
-                                taskDao.clearCompletedCalendarEvents()
-                            })
-                }
-                .setNegativeButton(android.R.string.cancel, null)
-                .show()
+            .newDialog()
+            .setMessage(R.string.EPr_manage_delete_completed_gcal_message)
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                performAction(
+                    R.string.EPr_manage_delete_completed_gcal_status,
+                    Callable {
+                        calendarEventProvider.deleteEvents(taskDao.completedCalendarEvents)
+                        taskDao.clearCompletedCalendarEvents()
+                    })
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
     }
 
     private fun deleteAllCalendarEvents() {
         dialogBuilder
-                .newDialog()
-                .setMessage(R.string.EPr_manage_delete_all_gcal_message)
-                .setPositiveButton(android.R.string.ok) { _, _ ->
-                    performAction(
-                            R.string.EPr_manage_delete_all_gcal_status,
-                            Callable {
-                                calendarEventProvider.deleteEvents(taskDao.allCalendarEvents)
-                                taskDao.clearAllCalendarEvents()
-                            })
-                }
-                .setNegativeButton(android.R.string.cancel, null)
-                .show()
+            .newDialog()
+            .setMessage(R.string.EPr_manage_delete_all_gcal_message)
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                performAction(
+                    R.string.EPr_manage_delete_all_gcal_status,
+                    Callable {
+                        calendarEventProvider.deleteEvents(taskDao.allCalendarEvents)
+                        taskDao.clearAllCalendarEvents()
+                    })
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
     }
 
     private fun performAction(@StringRes message: Int, callable: Callable<Int>) {
         disposables.add(
-                Single.fromCallable(callable)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe { c: Int? -> toaster.longToastUnformatted(message, c!!) })
+            Single.fromCallable(callable)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { c: Int? -> toaster.longToastUnformatted(message, c!!) })
     }
 
     private fun resetPreferences() {
         dialogBuilder
-                .newDialog()
-                .setMessage(R.string.EPr_reset_preferences_warning)
-                .setPositiveButton(R.string.EPr_reset_preferences) { _, _ ->
-                    preferences.reset()
-                    exitProcess(0)
-                }
-                .setNegativeButton(android.R.string.cancel, null)
-                .show()
+            .newDialog()
+            .setMessage(R.string.EPr_reset_preferences_warning)
+            .setPositiveButton(R.string.EPr_reset_preferences) { _, _ ->
+                preferences.reset()
+                exitProcess(0)
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
     }
 
     private fun deleteTaskData() {
         dialogBuilder
-                .newDialog()
-                .setMessage(R.string.EPr_delete_task_data_warning)
-                .setPositiveButton(R.string.EPr_delete_task_data) { _, _ ->
-                    context!!.deleteDatabase(database.name)
-                    exitProcess(0)
-                }
-                .setNegativeButton(android.R.string.cancel, null)
-                .show()
+            .newDialog()
+            .setMessage(R.string.EPr_delete_task_data_warning)
+            .setPositiveButton(R.string.EPr_delete_task_data) { _, _ ->
+                context!!.deleteDatabase(database.name)
+                exitProcess(0)
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
     }
 
     override fun inject(component: FragmentComponent) {
