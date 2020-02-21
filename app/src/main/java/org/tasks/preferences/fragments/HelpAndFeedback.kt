@@ -68,4 +68,6 @@ class HelpAndFeedback : InjectingPreferenceFragment() {
     override fun inject(component: FragmentComponent) {
         component.inject(this);
     }
+
+    override fun getMenu() = 0
 }

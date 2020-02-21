@@ -74,6 +74,8 @@ abstract class InjectingPreferenceFragment : PreferenceFragmentCompat() {
         }
     }
 
+    open fun getMenu() = R.menu.menu_preferences
+
     protected fun recreate() {
         activity!!.recreate()
     }
