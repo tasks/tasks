@@ -88,6 +88,7 @@
   <Preference
     android:dependency="@string/p_rmd_enabled"
     android:title="@string/more_settings"
+    android:key="@string/more_settings"
     android:summary="@string/more_notification_settings_summary"
     app:icon="@drawable/ic_open_in_new_24px">
 
