@@ -417,8 +417,6 @@
   <string name="user">Vartotojas</string>
   <string name="password">Slaptažodis</string>
   <string name="calendar_settings">Kalendoriaus nustatymai</string>
-  <string name="notification_channel_settings">Valdyti pranešimus</string>
-  <string name="battery_optimization_settings">Valdyti baterijos optimizacijas</string>
   <string name="notification_disable_battery_optimizations_description">Baterijos optimizacijos gali uždelsti pranešimus</string>
   <string name="bundle_notifications">Supakuoti pranešimai</string>
   <string name="badges">Ženklinimas</string>

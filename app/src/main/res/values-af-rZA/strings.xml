@@ -22,6 +22,5 @@
   <string name="quiet_hours_summary">Geen herinneringe gedurende stil ure nie</string>
   <string name="show_hidden">Wys onsigbare</string>
   <string name="show_completed">Wys voltooide</string>
-  <string name="battery_optimization_settings">Spesifiseer battery optimalisasies</string>
   <string name="notification_disable_battery_optimizations_description">Batteryoptimalisering kan kennisgewings vertraag</string>
 </resources>

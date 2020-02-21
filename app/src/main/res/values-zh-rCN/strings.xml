@@ -404,8 +404,6 @@
   <string name="password">密码</string>
   <string name="url">网址</string>
   <string name="calendar_settings">日历设置</string>
-  <string name="notification_channel_settings">管理通知</string>
-  <string name="battery_optimization_settings">电池优化管理</string>
   <string name="notification_disable_battery_optimizations_description">电池优化可能会延迟通知</string>
   <string name="bundle_notifications">合并通知</string>
   <string name="badges">角标</string>

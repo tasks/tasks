@@ -146,8 +146,6 @@
   <string name="restart_later">Senere</string>
   <string name="settings_localization">Lokalisering</string>
   <string name="led_notification">LED-varsel</string>
-  <string name="notification_channel_settings">Tilpass varsler</string>
-  <string name="battery_optimization_settings">Tilpass batterioptimaliseringer</string>
   <string name="notification_disable_battery_optimizations_description">Batterioptimalisering kan føre til forsinkede varsler</string>
   <string name="bundle_notifications">Samle varsler</string>
   <string name="repeats_single">Gjentas %s</string>

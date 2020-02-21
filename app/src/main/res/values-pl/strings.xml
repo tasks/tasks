@@ -433,8 +433,6 @@
   <string name="user">Użytkownik</string>
   <string name="password">Hasło</string>
   <string name="calendar_settings">Ustawienia kalendarza</string>
-  <string name="notification_channel_settings">Zarządzaj powiadamieniami</string>
-  <string name="battery_optimization_settings">Zarządzaj zużyciem energii</string>
   <string name="notification_disable_battery_optimizations_description">Optymalizacja zużycia energii może opóźniać powiadomienia</string>
   <string name="bundle_notifications">Zarządzaj powiadomieniami</string>
   <string name="badges">Plakietki</string>

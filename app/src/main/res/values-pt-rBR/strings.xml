@@ -419,8 +419,6 @@
   <string name="user">Usuário</string>
   <string name="password">Senha</string>
   <string name="calendar_settings">Configurações do calendário</string>
-  <string name="notification_channel_settings">Gerenciar notificações</string>
-  <string name="battery_optimization_settings">Gerenciar otimizações da bateria</string>
   <string name="notification_disable_battery_optimizations_description">Otimizações da bateria podem atrasar as notificações</string>
   <string name="bundle_notifications">Agrupar notificações</string>
   <string name="badges">Emblemas</string>

@@ -446,8 +446,6 @@ File %1$s contained %2$s.\n\n
   <string name="url">URL</string>
   <string name="error_adding_account">Error: %s</string>
   <string name="calendar_settings">Calendar settings</string>
-  <string name="notification_channel_settings">Manage notifications</string>
-  <string name="battery_optimization_settings">Manage battery optimizations</string>
   <string name="notification_disable_battery_optimizations_description">Battery optimizations may delay notifications</string>
   <string name="bundle_notifications">Bundle notifications</string>
   <string name="badges">Badges</string>
@@ -578,4 +576,9 @@ File %1$s contained %2$s.\n\n
   <string name="accounts">Accounts</string>
   <string name="wearable_notifications">Wearable notifications</string>
   <string name="wearable_notifications_summary">Display notifications on your wearable</string>
+  <string name="troubleshooting">Troubleshooting</string>
+  <string name="notification_troubleshooting_summary">Tap here if you are having trouble with notifications</string>
+  <string name="disable_battery_optimizations">Disable battery optimizations</string>
+  <string name="more_settings">More settings</string>
+  <string name="more_notification_settings_summary">Ringtone, vibrations, and more</string>
 </resources>

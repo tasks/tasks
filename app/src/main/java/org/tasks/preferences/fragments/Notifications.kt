@@ -1,17 +1,18 @@
 package org.tasks.preferences.fragments
 
-import android.annotation.TargetApi
 import android.app.Activity.RESULT_OK
+import android.content.Context.POWER_SERVICE
 import android.content.Intent
 import android.media.RingtoneManager
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
+import android.os.PowerManager
 import android.provider.Settings
 import android.speech.tts.TextToSpeech
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.todoroo.andlib.utility.AndroidUtilities
+import com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.voice.VoiceOutputAssistant
 import org.tasks.LocalBroadcastManager
@@ -59,11 +60,6 @@ class Notifications : InjectingPreferenceFragment() {
         initializeTimePreference(getDefaultRemindTimePreference()!!, REQUEST_DEFAULT_REMIND)
         initializeTimePreference(getQuietStartPreference()!!, REQUEST_QUIET_START)
         initializeTimePreference(getQuietEndPreference()!!, REQUEST_QUIET_END)
-
-        findPreference(R.string.notification_channel_settings)
-            .setOnPreferenceClickListener(::openNotificationChannelSettings)
-        findPreference(R.string.battery_optimization_settings)
-            .setOnPreferenceClickListener(::openBatteryOptimizationSettings)
 
         findPreference(R.string.p_badges_enabled)
             .setOnPreferenceChangeListener { _: Preference?, newValue: Any? ->
@@ -129,14 +125,29 @@ class Notifications : InjectingPreferenceFragment() {
             rescheduleNotifications(false)
         }
 
-        requires(AndroidUtilities.atLeastOreo(), R.string.notification_channel_settings)
-        requires(AndroidUtilities.atLeastMarshmallow(), R.string.battery_optimization_settings)
+        checkBatteryOptimizations()
+
+        requires(AndroidUtilities.atLeastOreo(), R.string.more_settings)
         requires(
             AndroidUtilities.preOreo(),
             R.string.p_rmd_ringtone,
             R.string.p_rmd_vibrate,
             R.string.p_led_notification
         )
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        checkBatteryOptimizations()
+    }
+
+    private fun checkBatteryOptimizations() {
+        if (atLeastMarshmallow()) {
+            val powerManager = context!!.getSystemService(POWER_SERVICE) as PowerManager
+            findPreference(R.string.disable_battery_optimizations).isVisible =
+                !powerManager.isIgnoringBatteryOptimizations(getString(R.string.app_package))
+        }
     }
 
     override fun onDestroy() {
@@ -245,22 +256,6 @@ class Notifications : InjectingPreferenceFragment() {
             ringtonePreference,
             preferences.getStringValue(ringtoneKey)
         )
-    }
-
-    @TargetApi(Build.VERSION_CODES.O)
-    private fun openNotificationChannelSettings(@Suppress("UNUSED_PARAMETER") ignored: Preference): Boolean {
-        val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
-        intent.putExtra(Settings.EXTRA_APP_PACKAGE, activity!!.packageName)
-        startActivity(intent)
-        return true
-    }
-
-    @TargetApi(Build.VERSION_CODES.M)
-    private fun openBatteryOptimizationSettings(@Suppress("UNUSED_PARAMETER") ignored: Preference): Boolean {
-        val intent = Intent()
-        intent.action = Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS
-        startActivity(intent)
-        return true
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -422,8 +422,6 @@
   <string name="user">Користувач</string>
   <string name="password">Пароль</string>
   <string name="calendar_settings">Налаштування календаря</string>
-  <string name="notification_channel_settings">Управління сповіщеннями</string>
-  <string name="battery_optimization_settings">Управління оптимізацією розряда акумулятора</string>
   <string name="notification_disable_battery_optimizations_description">Оптимізація розряду акумулятора може призвезти до затримки сповіщень</string>
   <string name="bundle_notifications">Колекція сповіщень</string>
   <string name="badges">Бейджі</string>

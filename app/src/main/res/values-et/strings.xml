@@ -275,7 +275,6 @@
   <string name="password">Parool</string>
   <string name="url">URL</string>
   <string name="calendar_settings">Kalendri seaded</string>
-  <string name="notification_channel_settings">Halda teavitusi</string>
   <string name="bundle_notifications">Koonda teavitused</string>
   <string name="list">Nimekiri</string>
   <string name="dont_sync">Ära sünkrooni</string>

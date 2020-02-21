@@ -334,8 +334,6 @@
   <string name="url">URL</string>
   <string name="error_adding_account">Galat: %s</string>
   <string name="calendar_settings">Pengaturan kalender</string>
-  <string name="notification_channel_settings">Kelola notifikasi</string>
-  <string name="battery_optimization_settings">Kelola pengoptimalan baterai</string>
   <string name="notification_disable_battery_optimizations_description">Pengoptimalan baterai mungkin akan menunda notifikasi</string>
   <string name="badges">Lencana</string>
   <string name="list">Daftar</string>

@@ -422,8 +422,6 @@
   <string name="user">사용자</string>
   <string name="password">비밀번호</string>
   <string name="calendar_settings">달력 설정</string>
-  <string name="notification_channel_settings">알림 관리</string>
-  <string name="battery_optimization_settings">배터리 최적화 관리</string>
   <string name="notification_disable_battery_optimizations_description">배터리 최적화 시 알림이 지연될 수 있습니다</string>
   <string name="bundle_notifications">여러 알림 하나로 묶어서 보기</string>
   <string name="badges">배지</string>

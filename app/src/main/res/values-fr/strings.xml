@@ -401,8 +401,6 @@
   <string name="password">Mot de passe</string>
   <string name="url">Adresse URL</string>
   <string name="calendar_settings">Paramètres du calendrier</string>
-  <string name="notification_channel_settings">Gérer les notifications</string>
-  <string name="battery_optimization_settings">Gérer les optimisations de la batterie</string>
   <string name="notification_disable_battery_optimizations_description">L\'optimisation de la batterie peut retarder les notifications</string>
   <string name="bundle_notifications">Paquet de notifications</string>
   <string name="list">Liste</string>

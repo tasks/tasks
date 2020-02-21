@@ -422,8 +422,6 @@
   <string name="password">Lösenord</string>
   <string name="url">URL</string>
   <string name="calendar_settings">Kalenderinställningar</string>
-  <string name="notification_channel_settings">Hantera notiser</string>
-  <string name="battery_optimization_settings">Hantera batterioptimering</string>
   <string name="notification_disable_battery_optimizations_description">Batterioptimering kan försena notiser</string>
   <string name="bundle_notifications">Gruppera notiser</string>
   <string name="badges">Märken</string>

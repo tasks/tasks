@@ -378,8 +378,6 @@
   <string name="date_and_time">Data e hora</string>
   <string name="start_of_week">Início da semana</string>
   <string name="use_locale_default">Usar o idioma padrão</string>
-  <string name="notification_channel_settings">Gerir notificações</string>
-  <string name="battery_optimization_settings">Gerir optimizações de bateria</string>
   <string name="notification_disable_battery_optimizations_description">Optimizações da bateria podem atrasar as notificações</string>
   <string name="bundle_notifications">Agrupar notificações</string>
   <string name="list">Lista</string>

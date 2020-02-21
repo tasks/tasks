@@ -411,8 +411,6 @@
   <string name="user">Gebruiker</string>
   <string name="password">Wachtwoord</string>
   <string name="calendar_settings">Kalender instellingen</string>
-  <string name="notification_channel_settings">Beheer notificaties</string>
-  <string name="battery_optimization_settings">Beheer batterij optimalisatie</string>
   <string name="notification_disable_battery_optimizations_description">Batterij optimalisatie kan meldingen vertragen</string>
   <string name="bundle_notifications">Notificaties samenvoegen</string>
   <string name="badges">Sets</string>

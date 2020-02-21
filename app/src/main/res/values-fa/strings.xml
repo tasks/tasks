@@ -247,8 +247,6 @@
   <string name="restart_now">اکنون ریست کن</string>
   <string name="restart_later">بعدا</string>
   <string name="settings_localization">محلی‌سازی</string>
-  <string name="notification_channel_settings">مدیریت اعلانات</string>
-  <string name="battery_optimization_settings">مدیریت بهینه سازی باتری</string>
   <string name="notification_disable_battery_optimizations_description">مدیریت بهینه سازی باتری ممکن است اعلانات را به تاخیر بیاندازد</string>
   <string name="repeats_single">تکرارها %s</string>
   <string name="repeats_minutely">هر دقیقه</string>

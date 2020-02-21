@@ -410,8 +410,6 @@
   <string name="user">Benutzer</string>
   <string name="password">Passwort</string>
   <string name="calendar_settings">Kalendereinstellungen</string>
-  <string name="notification_channel_settings">Benachrichtigungen verwalten</string>
-  <string name="battery_optimization_settings">Energiesparmodus verwalten</string>
   <string name="notification_disable_battery_optimizations_description">Energiesparmodus kann Benachrichtigungen verzögern</string>
   <string name="bundle_notifications">Benachrichtigungen zusammenfassen</string>
   <string name="badges">Button</string>

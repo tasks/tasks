@@ -418,8 +418,6 @@
   <string name="user">Utente</string>
   <string name="calendar_settings">Impostazioni calendario
 </string>
-  <string name="notification_channel_settings">Gestione notifiche</string>
-  <string name="battery_optimization_settings">Ottimizza consumo batteria</string>
   <string name="notification_disable_battery_optimizations_description">L\'ottimizzazione consumi può ritardare le notifiche</string>
   <string name="bundle_notifications">Gruppo di notifiche</string>
   <string name="badges">Badge</string>

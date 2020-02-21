@@ -440,8 +440,6 @@
   <string name="user">Пользователь</string>
   <string name="password">Пароль</string>
   <string name="calendar_settings">Настройки календаря</string>
-  <string name="notification_channel_settings">Управление уведомлениями</string>
-  <string name="battery_optimization_settings">Управление расходом батареи</string>
   <string name="notification_disable_battery_optimizations_description">Оптимизация расхода может задерживать уведомления</string>
   <string name="bundle_notifications">Группировать уведомления</string>
   <string name="badges">Ярлыки</string>

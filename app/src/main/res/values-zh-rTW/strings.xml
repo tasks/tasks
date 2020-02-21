@@ -210,7 +210,6 @@
   <string name="restart_now">馬上重新啟動</string>
   <string name="restart_later">稍後</string>
   <string name="no_calendars_found">找不到日曆</string>
-  <string name="notification_channel_settings">管理通知</string>
   <string name="repeats_single">重複 %s</string>
   <string name="repeats_minutely">每分鐘</string>
   <string name="repeats_hourly">每小時</string>

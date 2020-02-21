@@ -428,8 +428,6 @@
   <string name="password">Pasahitza</string>
   <string name="url">URL-a</string>
   <string name="calendar_settings">Egutegiaren ezarpenak</string>
-  <string name="notification_channel_settings">Kudeatu jakinarazpenak</string>
-  <string name="battery_optimization_settings">Kudeatu bateriaren optimizazioak</string>
   <string name="notification_disable_battery_optimizations_description">Bateriaren optimizazioek jakinarazpenak atzeratu ditzakete</string>
   <string name="bundle_notifications">Taldekatu jakinarazpenak</string>
   <string name="badges">Dominak</string>

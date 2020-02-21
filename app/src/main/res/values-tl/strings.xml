@@ -60,7 +60,6 @@
   <string name="url_invalid_scheme">Kailangan magsimula na may http(s)://</string>
   <string name="add_account">Magdagdag ng account</string>
   <string name="user">Gumagamit</string>
-  <string name="battery_optimization_settings">Mamahala ng baterya mga optimization</string>
   <string name="notification_disable_battery_optimizations_description">Mga baterya optimization ay maaaring antalahin ang mga notification</string>
   <string name="dont_sync">Huwag i-sync</string>
   <string name="background_sync_unmetered_only">Sa metered connections laang</string>
