@@ -67,7 +67,10 @@ abstract class InjectingPreferenceFragment : PreferenceFragmentCompat() {
 
     private fun remove(preferenceGroup: PreferenceGroup, resIds: IntArray) {
         for (resId in resIds) {
-            preferenceGroup.removePreference(findPreference(resId))
+            val preference: Preference? = preferenceGroup.findPreference(getString(resId))
+            if (preference != null) {
+                preferenceGroup.removePreference(preference)
+            }
         }
     }
 

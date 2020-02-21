@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <Preference
     app:fragment="org.tasks.preferences.fragments.LookAndFeel"
@@ -37,6 +38,7 @@
     app:title="@string/about" />
 
   <Preference
+    android:key="@string/debug"
     app:fragment="org.tasks.preferences.fragments.Debug"
     app:icon="@drawable/ic_outline_bug_report_24px"
     app:title="@string/debug" />
