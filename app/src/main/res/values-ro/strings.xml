@@ -1,15 +1,14 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
 <resources>
-	<string name="TEA_title_hint">Numele taskului</string>
-	<string name="TEA_control_importance">Prioritate</string>
-	<string name="TEA_control_notes">Descriere</string>
-	<string name="TEA_control_files">Fisiere</string>
-	<string name="CFA_type_add">sau</string>
-	<string name="CFA_context_delete">Sterge linia</string>
-	<string name="tag_FEx_untagged">Fara categorie</string>
-	<string name="filters">Filtre</string>
-	<string name="theme_white">Alb</string>
-	<string name="layout_direction_left_to_right">Stanga la dreapta</string>
-	<string name="layout_direction_right_to_left">Dreapta la stânga</string>
+  <string name="TEA_title_hint">Numele taskului</string>
+  <string name="TEA_control_importance">Prioritate</string>
+  <string name="TEA_control_notes">Descriere</string>
+  <string name="TEA_control_files">Fisiere</string>
+  <string name="CFA_type_add">sau</string>
+  <string name="CFA_context_delete">Sterge linia</string>
+  <string name="tag_FEx_untagged">Fara categorie</string>
+  <string name="filters">Filtre</string>
+  <string name="theme_white">Alb</string>
+  <string name="layout_direction_left_to_right">Stanga la dreapta</string>
+  <string name="layout_direction_right_to_left">Dreapta la stânga</string>
 </resources>

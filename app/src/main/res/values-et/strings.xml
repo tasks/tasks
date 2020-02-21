@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources><string name="TVA_add_comment">Lisa kommentaar…</string>
+<resources>
+  <string name="TVA_add_comment">Lisa kommentaar…</string>
   <string name="enter_filter_name">Sisesta filtri nimi</string>
   <string name="backup_BPr_header">Varukoopiad</string>
   <string name="backup_BAc_import">Impordi ülesandeid</string>
@@ -38,7 +39,7 @@
   <string name="TEA_timer_elap">Kulunud %s</string>
   <string name="TEA_no_time">Aega pole</string>
   <string name="due_date">Tähtaeg</string>
-  <string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization." name="TEA_hideUntil_week_before_due">nädal enne tähtaega</string>
+  <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">nädal enne tähtaega</string>
   <string name="TEA_control_when">Millal</string>
   <string name="TEA_control_repeat">Korda</string>
   <string name="TEA_control_gcal">Kalender</string>
@@ -151,9 +152,9 @@
   <string name="delete_task">Kustuta ülesanne</string>
   <string name="voice_command_added_task">Lisatud ülesanne</string>
   <plurals name="Ntasks">
-	<item quantity="one">1 ülesanne</item>
-	<item quantity="other">%d ülesannet</item>
-</plurals>
+    <item quantity="one">1 ülesanne</item>
+    <item quantity="other">%d ülesannet</item>
+  </plurals>
   <string name="today">Täna</string>
   <string name="tomorrow">Homme</string>
   <string name="yesterday">Eile</string>
