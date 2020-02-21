@@ -8,9 +8,13 @@ import androidx.preference.PreferenceCategory
 import androidx.preference.SwitchPreferenceCompat
 import com.google.common.base.Strings
 import com.todoroo.andlib.utility.DateUtilities
+import com.todoroo.astrid.api.CaldavFilter
+import com.todoroo.astrid.api.Filter
+import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity
 import com.todoroo.astrid.service.TaskDeleter
 import org.tasks.R
+import org.tasks.activities.RemoteListPicker
 import org.tasks.caldav.CaldavAccountSettingsActivity
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavDao
@@ -20,11 +24,14 @@ import org.tasks.etesync.EteSyncAccountSettingsActivity
 import org.tasks.injection.FragmentComponent
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.jobs.WorkManager
+import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.sync.AddAccountDialog
 import org.tasks.ui.Toaster
 import javax.inject.Inject
 
+private const val FRAG_TAG_REMOTE_LIST_SELECTION = "frag_tag_remote_list_selection"
+private const val REQUEST_REMOTE_LIST = 10015
 const val REQUEST_CALDAV_SETTINGS = 10013
 const val REQUEST_GOOGLE_TASKS = 10014
 
@@ -36,6 +43,7 @@ class Synchronization : InjectingPreferenceFragment() {
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var googleTaskListDao: GoogleTaskListDao
     @Inject lateinit var taskDeleter: TaskDeleter
+    @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences_synchronization, rootKey)
@@ -72,6 +80,18 @@ class Synchronization : InjectingPreferenceFragment() {
                 AddAccountDialog.showAddAccountDialog(activity, dialogBuilder)
                 false
             }
+
+        findPreference(R.string.p_default_remote_list)
+            .setOnPreferenceClickListener {
+                RemoteListPicker.newRemoteListSupportPicker(
+                    defaultFilterProvider.defaultRemoteList,
+                    this,
+                    REQUEST_REMOTE_LIST
+                )
+                    .show(parentFragmentManager, FRAG_TAG_REMOTE_LIST_SELECTION)
+                false
+            }
+        updateRemoteListSummary()
     }
 
     override fun onResume() {
@@ -91,6 +111,16 @@ class Synchronization : InjectingPreferenceFragment() {
             } else if (data != null) {
                 toaster.longToast(data.getStringExtra(GtasksLoginActivity.EXTRA_ERROR))
             }
+        } else if (requestCode == REQUEST_REMOTE_LIST) {
+            val list: Filter? = data!!.getParcelableExtra(RemoteListPicker.EXTRA_SELECTED_FILTER)
+            if (list == null) {
+                preferences.setString(R.string.p_default_remote_list, null)
+            } else if (list is GtasksFilter || list is CaldavFilter) {
+                defaultFilterProvider.defaultRemoteList = list
+            } else {
+                throw RuntimeException("Unhandled filter type")
+            }
+            updateRemoteListSummary()
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
@@ -188,6 +218,15 @@ class Synchronization : InjectingPreferenceFragment() {
         findPreference(R.string.accounts).isVisible = hasGoogleAccounts || hasCaldavAccounts
         findPreference(R.string.sync_SPr_interval_title).isVisible =
             hasGoogleAccounts || hasCaldavAccounts
+        findPreference(R.string.p_default_remote_list).isVisible =
+            hasGoogleAccounts || hasCaldavAccounts
+    }
+
+    private fun updateRemoteListSummary() {
+        val defaultFilter = defaultFilterProvider.defaultRemoteList
+        findPreference(R.string.p_default_remote_list).summary =
+            if (defaultFilter == null) getString(R.string.dont_sync)
+            else defaultFilter.listingTitle
     }
 
     override fun inject(component: FragmentComponent) {
