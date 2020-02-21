@@ -20,16 +20,17 @@
 
       <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/name_layout"
-        style="@style/TagSettingsRow">
+        style="@style/TagSettingsRow"
+        android:hint="@string/display_name">
 
         <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/name"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:hint="@string/display_name"
           android:imeOptions="flagNoExtractUi"
           android:inputType="textCapSentences|textFilter"
-          android:maxLines="1"/>
+          android:maxLines="1" />
+
       </com.google.android.material.textfield.TextInputLayout>
 
       <include layout="@layout/list_settings_color"/>

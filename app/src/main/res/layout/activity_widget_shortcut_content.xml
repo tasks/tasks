@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
@@ -9,11 +8,12 @@
     android:id="@+id/shortcut_list_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
     android:layout_marginStart="@dimen/keyline_first"
-    android:layout_marginEnd="@dimen/keyline_first"
     android:layout_marginLeft="@dimen/keyline_first"
+    android:layout_marginTop="16dp"
+    android:layout_marginEnd="@dimen/keyline_first"
     android:layout_marginRight="@dimen/keyline_first"
+    android:hint="@string/list"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
@@ -21,18 +21,20 @@
     <com.google.android.material.textfield.TextInputEditText
       android:id="@+id/shortcut_list"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:hint="@string/list"/>
+      android:layout_height="wrap_content" />
+
   </com.google.android.material.textfield.TextInputLayout>
+
   <com.google.android.material.textfield.TextInputLayout
     android:id="@+id/shortcut_name_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="8dp"
     android:layout_marginStart="@dimen/keyline_first"
-    android:layout_marginEnd="@dimen/keyline_first"
     android:layout_marginLeft="@dimen/keyline_first"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="@dimen/keyline_first"
     android:layout_marginRight="@dimen/keyline_first"
+    android:hint="@string/display_name"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="@+id/shortcut_list_layout"
     app:layout_constraintTop_toBottomOf="@+id/shortcut_list_layout">
@@ -40,17 +42,19 @@
     <com.google.android.material.textfield.TextInputEditText
       android:id="@+id/shortcut_name"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:hint="@string/display_name"/>
+      android:layout_height="wrap_content" />
+
   </com.google.android.material.textfield.TextInputLayout>
+
   <com.google.android.material.textfield.TextInputLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="8dp"
     android:layout_marginStart="@dimen/keyline_first"
-    android:layout_marginEnd="@dimen/keyline_first"
     android:layout_marginLeft="@dimen/keyline_first"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="@dimen/keyline_first"
     android:layout_marginRight="@dimen/keyline_first"
+    android:hint="@string/color"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="@+id/shortcut_name_layout"
     app:layout_constraintTop_toBottomOf="@+id/shortcut_name_layout">
@@ -58,7 +62,8 @@
     <com.google.android.material.textfield.TextInputEditText
       android:id="@+id/shortcut_color"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:hint="@string/color"/>
+      android:layout_height="wrap_content" />
+
   </com.google.android.material.textfield.TextInputLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

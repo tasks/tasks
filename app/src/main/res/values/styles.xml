@@ -76,7 +76,7 @@
     <item name="android:editTextColor">@color/black_87</item>
   </style>
 
-  <style name="TagSettingsRow">
+  <style name="TagSettingsRow" parent="Widget.Design.TextInputLayout">
     <item name="android:textSize">18sp</item>
     <item name="android:clickable">true</item>
     <item name="android:focusable">true</item>

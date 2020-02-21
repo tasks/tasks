@@ -22,13 +22,13 @@
 
       <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/name_layout"
-        style="@style/TagSettingsRow">
+        style="@style/TagSettingsRow"
+        android:hint="@string/display_name">
 
         <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/name"
           style="@style/TagSettingsEditText"
-          android:hint="@string/display_name"
-          android:inputType="textCapSentences|textAutoCorrect"/>
+          android:inputType="textCapSentences|textAutoCorrect" />
 
       </com.google.android.material.textfield.TextInputLayout>
 

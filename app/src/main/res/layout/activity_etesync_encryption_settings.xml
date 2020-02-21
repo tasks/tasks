@@ -42,12 +42,12 @@
         <com.google.android.material.textfield.TextInputLayout
           android:id="@+id/encryption_password_layout"
           style="@style/TagSettingsRow"
+          android:hint="@string/encryption_password"
           app:endIconMode="password_toggle">
 
           <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/encryption_password"
             style="@style/TagSettingsEditText"
-            android:hint="@string/encryption_password"
             android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>

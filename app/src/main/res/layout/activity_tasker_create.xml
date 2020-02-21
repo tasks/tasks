@@ -21,9 +21,10 @@
         android:id="@+id/textInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:hint="@string/TEA_title_hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -32,19 +33,20 @@
           android:id="@+id/title"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:hint="@string/TEA_title_hint"
           android:imeOptions="flagNoExtractUi"
           android:inputType="textCapSentences|textAutoCorrect"
-          android:singleLine="true"/>
+          android:singleLine="true" />
+
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:hint="@string/due_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
@@ -53,18 +55,19 @@
           android:id="@+id/due_date"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:hint="@string/due_date"
           android:imeOptions="flagNoExtractUi"
-          android:singleLine="true"/>
+          android:singleLine="true" />
+
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:hint="@string/due_time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
@@ -73,18 +76,19 @@
           android:id="@+id/due_time"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:hint="@string/due_time"
           android:imeOptions="flagNoExtractUi"
-          android:singleLine="true"/>
+          android:singleLine="true" />
+
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:hint="@string/TEA_importance_label"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
@@ -93,17 +97,18 @@
           android:id="@+id/priority"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:hint="@string/TEA_importance_label"
           android:imeOptions="flagNoExtractUi"
-          android:singleLine="true"/>
+          android:singleLine="true" />
+
       </com.google.android.material.textfield.TextInputLayout>
 
       <com.google.android.material.textfield.TextInputLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:hint="@string/TEA_note_label"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
@@ -112,11 +117,12 @@
           android:id="@+id/description"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:hint="@string/TEA_note_label"
-          android:imeOptions="flagNoExtractUi"/>
+          android:imeOptions="flagNoExtractUi" />
+
       </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
   </ScrollView>
 
 </LinearLayout>
