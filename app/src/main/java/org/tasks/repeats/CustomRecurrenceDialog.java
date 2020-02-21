@@ -300,11 +300,11 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
               new int[] {android.R.attr.state_checked}, new int[] {-android.R.attr.state_checked}
             },
             new int[] {
-              ResourceResolver.getData(context, R.attr.weekdayButtonText),
+              ResourceResolver.getData(context, R.attr.colorOnSecondary),
               getColor(context, R.color.text_primary)
             });
     int inset = (int) context.getResources().getDimension(R.dimen.week_button_inset);
-    int accentColor = ResourceResolver.getData(context, R.attr.weekdayButtonBackground);
+    int accentColor = ResourceResolver.getData(context, R.attr.colorAccent);
     int animationDuration =
         context.getResources().getInteger(android.R.integer.config_shortAnimTime);
 

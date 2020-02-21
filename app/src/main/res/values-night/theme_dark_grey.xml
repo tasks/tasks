@@ -9,8 +9,6 @@
     <item name="materialButtonBackground">@color/button_accent_background</item>
     <item name="materialButtonRipple">@color/button_accent_ripple</item>
     <item name="materialButtonStroke">@color/button_accent_stroke</item>
-    <item name="weekdayButtonBackground">?attr/colorAccent</item>
-    <item name="weekdayButtonText">?attr/colorOnSecondary</item>
   </style>
 
 </resources>
