@@ -568,4 +568,7 @@
     <string name="encryption_password_wrong">Fout coderingswachtwoord</string>
     <string name="help_and_feedback">Hulp &amp; feedback</string>
     <string name="documentation">Documentatie</string>
+    <string name="preferences_look_and_feel">Uiterlijk</string>
+    <string name="preferences_advanced">Geavanceerd</string>
+    <string name="accounts">Accounts</string>
 </resources>
