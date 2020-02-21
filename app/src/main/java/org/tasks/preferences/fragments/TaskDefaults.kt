@@ -54,7 +54,7 @@ class TaskDefaults : InjectingPreferenceFragment() {
                     this,
                     REQUEST_REMOTE_LIST
                 )
-                    .show(fragmentManager!!, FRAG_TAG_REMOTE_LIST_SELECTION)
+                    .show(parentFragmentManager, FRAG_TAG_REMOTE_LIST_SELECTION)
                 false
             }
         updateRemoteListSummary()

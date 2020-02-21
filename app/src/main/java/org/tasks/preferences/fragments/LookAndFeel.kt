@@ -106,7 +106,7 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
         languagePreference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             val dialog = LocalePickerDialog.newLocalePickerDialog()
             dialog.setTargetFragment(this, REQUEST_LOCALE)
-            dialog.show(fragmentManager!!, FRAG_TAG_LOCALE_PICKER)
+            dialog.show(parentFragmentManager, FRAG_TAG_LOCALE_PICKER)
             false
         }
 

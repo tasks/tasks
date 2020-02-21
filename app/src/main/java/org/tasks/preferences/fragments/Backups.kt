@@ -52,7 +52,7 @@ class Backups : InjectingPreferenceFragment() {
         findPreference(R.string.backup_BAc_export)
             .setOnPreferenceClickListener {
                 ExportTasksDialog.newExportTasksDialog()
-                    .show(fragmentManager!!, FRAG_TAG_EXPORT_TASKS)
+                    .show(parentFragmentManager, FRAG_TAG_EXPORT_TASKS)
                 false
             }
 
@@ -135,7 +135,7 @@ class Backups : InjectingPreferenceFragment() {
                     toaster.longToast(R.string.invalid_backup_file)
                 } else {
                     ImportTasksDialog.newImportTasksDialog(uri, extension)
-                        .show(fragmentManager!!, FRAG_TAG_IMPORT_TASKS)
+                        .show(parentFragmentManager, FRAG_TAG_IMPORT_TASKS)
                 }
             }
         } else if (requestCode == REQUEST_DRIVE_BACKUP) {
