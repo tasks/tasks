@@ -1,5 +1,3 @@
-import com.android.build.gradle.api.ApplicationVariant
-
 plugins {
     id("com.android.application")
     id("checkstyle")
@@ -91,12 +89,6 @@ android {
             signingConfig = signingConfigs.getByName("release")
         }
     }
-
-    applicationVariants.all(object : Action<ApplicationVariant> {
-        override fun execute(variant: ApplicationVariant) {
-            variant.resValue("string", "app_package", variant.applicationId)
-        }
-    })
 
     flavorDimensions("store")
 
