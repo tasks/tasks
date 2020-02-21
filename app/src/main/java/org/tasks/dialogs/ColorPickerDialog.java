@@ -76,7 +76,7 @@ public class ColorPickerDialog extends InjectingDialogFragment {
 
     AlertDialogBuilder builder =
         dialogBuilder
-            .newDialog(theme)
+            .newDialog()
             .setSingleChoiceItems(
                 adapter,
                 selected,
