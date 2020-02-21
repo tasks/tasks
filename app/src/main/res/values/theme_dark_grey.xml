@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <style name="DarkGrey_Base" parent="WhiteToolbarTheme">
+  <style name="DarkGrey" parent="WhiteToolbarTheme">
     <item name="colorPrimary">@color/grey_900</item>
     <item name="colorPrimaryVariant">@color/grey_statusbar</item>
   </style>
-
-  <style name="DarkGrey" parent="DarkGrey_Base"/>
 
 </resources>

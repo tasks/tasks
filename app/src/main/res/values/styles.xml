@@ -42,11 +42,17 @@
     <item name="android:actionOverflowButtonStyle">@style/BlackOverflow</item>
   </style>
 
-  <style name="WhiteTint">
+  <style name="ThemeBase">
+    <item name="buttonBarPositiveButtonStyle">@style/AlertButtonStyle</item>
+    <item name="buttonBarNegativeButtonStyle">@style/AlertButtonStyle</item>
+    <item name="buttonBarNeutralButtonStyle">@style/AlertButtonStyle</item>
+  </style>
+
+  <style name="WhiteTint" parent="ThemeBase">
     <item name="colorOnSecondary">@color/white_100</item>
   </style>
 
-  <style name="BlackTint">
+  <style name="BlackTint" parent="ThemeBase">
     <item name="colorOnSecondary">@color/black_87</item>
   </style>
 
