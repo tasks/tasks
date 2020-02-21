@@ -1,5 +1,21 @@
 Change Log
 ---
+### 8.1 (2020-02-21)
+
+* Updated app settings screen
+* Update translations
+  * Basque - @osoitz, @mberasategi
+  * Catalan - @cmmata
+  * Dutch - @fvbommel
+  * French - @FlorianLeChat
+  * Hungarian - kaciokos
+  * Korean - Sunjae Choi
+  * Norwegian Bokmål - @comradekingu
+  * Polish - @alex-ter
+  * Russian - @alex-ter
+  * Simplified Chinese - @sr093906
+  * Spanish - @FlorianLeChat
+
 ### 8.0.1 (2020-02-16)
 
 * Fix missing sync settings on fdroid
