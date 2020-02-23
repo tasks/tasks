@@ -6,6 +6,7 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.content.Context;
 import android.content.res.Resources;
 import android.os.Build.VERSION_CODES;
 import android.os.Parcel;
@@ -13,6 +14,7 @@ import android.os.Parcelable;
 import android.view.View;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.graphics.ColorUtils;
 import androidx.drawerlayout.widget.DrawerLayout;
 import org.tasks.R;
 import org.tasks.dialogs.ColorPickerDialog;
@@ -114,19 +116,22 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
   private final boolean isDark;
 
   public ThemeColor(
+      Context context,
       String name,
       int index,
       int colorPrimary,
       int colorPrimaryVariant,
-      int actionBarTint,
-      boolean isDark) {
+      int actionBarTint) {
     this.name = name;
     this.index = index;
     this.actionBarTint = actionBarTint;
     this.style = COLORS[index];
     this.colorPrimary = colorPrimary;
     this.colorPrimaryVariant = colorPrimaryVariant;
-    this.isDark = isDark;
+    double contrast =
+        ColorUtils.calculateContrast(
+            context.getResources().getColor(R.color.white_100), colorPrimary);
+    this.isDark = contrast < 3;
   }
 
   private ThemeColor(Parcel source) {

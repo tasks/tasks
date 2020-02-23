@@ -64,12 +64,12 @@ public class ThemeCache {
       Resources.Theme theme = new ContextThemeWrapper(context, ThemeColor.COLORS[i]).getTheme();
       colors.add(
           new ThemeColor(
+              context,
               colorNames[i],
               i,
               resolveAttribute(theme, R.attr.colorPrimary),
               resolveAttribute(theme, R.attr.colorPrimaryVariant),
-              resolveAttribute(theme, R.attr.colorOnPrimary),
-              resolveBoolean(theme, R.attr.dark_status_bar)));
+              resolveAttribute(theme, R.attr.colorOnPrimary)));
     }
     String[] accentNames = resources.getStringArray(R.array.accents);
     for (int i = 0; i < ThemeAccent.ACCENTS.length; i++) {
@@ -88,12 +88,12 @@ public class ThemeCache {
     }
     untaggedColor =
         new ThemeColor(
+            context,
             null,
             19,
             getColor(context, R.color.tag_color_none_background),
             0,
-            getColor(context, R.color.black_87),
-            false);
+            getColor(context, R.color.black_87));
   }
 
   private static int resolveAttribute(Resources.Theme theme, int attribute) {
@@ -120,12 +120,6 @@ public class ThemeCache {
 
   public ThemeColor getUntaggedColor() {
     return untaggedColor;
-  }
-
-  private boolean resolveBoolean(Resources.Theme theme, int attribute) {
-    TypedValue typedValue = new TypedValue();
-    theme.resolveAttribute(attribute, typedValue, false);
-    return typedValue.data != 0;
   }
 
   public List<ThemeAccent> getAccents() {
