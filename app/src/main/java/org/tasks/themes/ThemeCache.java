@@ -68,8 +68,7 @@ public class ThemeCache {
               colorNames[i],
               i,
               resolveAttribute(theme, R.attr.colorPrimary),
-              resolveAttribute(theme, R.attr.colorPrimaryVariant),
-              resolveAttribute(theme, R.attr.colorOnPrimary)));
+              resolveAttribute(theme, R.attr.colorPrimaryVariant)));
     }
     String[] accentNames = resources.getStringArray(R.array.accents);
     for (int i = 0; i < ThemeAccent.ACCENTS.length; i++) {
@@ -87,13 +86,7 @@ public class ThemeCache {
               getColor(context, i == 0 ? R.color.black_54 : R.color.white_70)));
     }
     untaggedColor =
-        new ThemeColor(
-            context,
-            null,
-            19,
-            getColor(context, R.color.tag_color_none_background),
-            0,
-            getColor(context, R.color.black_87));
+        new ThemeColor(context, null, 19, getColor(context, R.color.tag_color_none_background), 0);
   }
 
   private static int resolveAttribute(Resources.Theme theme, int attribute) {

@@ -110,7 +110,7 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
       };
   private final String name;
   private final int index;
-  private final int actionBarTint;
+  private final int colorOnPrimary;
   private final int style;
   private final int colorPrimary;
   private final int colorPrimaryVariant;
@@ -121,24 +121,22 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
       String name,
       int index,
       int colorPrimary,
-      int colorPrimaryVariant,
-      int actionBarTint) {
+      int colorPrimaryVariant) {
     this.name = name;
     this.index = index;
-    this.actionBarTint = actionBarTint;
     this.style = COLORS[index];
     this.colorPrimary = colorPrimary;
     this.colorPrimaryVariant = colorPrimaryVariant;
-    double contrast =
-        ColorUtils.calculateContrast(
-            context.getResources().getColor(R.color.white_100), colorPrimary);
+    int whiteText = context.getResources().getColor(R.color.white_100);
+    double contrast = ColorUtils.calculateContrast(whiteText, colorPrimary);
     this.isDark = contrast < 3;
+    colorOnPrimary = isDark ? context.getResources().getColor(R.color.black_87) : whiteText;
   }
 
   private ThemeColor(Parcel source) {
     name = source.readString();
     index = source.readInt();
-    actionBarTint = source.readInt();
+    colorOnPrimary = source.readInt();
     style = source.readInt();
     colorPrimary = source.readInt();
     colorPrimaryVariant = source.readInt();
@@ -251,13 +249,13 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
     return colorPrimary;
   }
 
-  public int getActionBarTint() {
-    return actionBarTint;
+  public int getColorOnPrimary() {
+    return colorOnPrimary;
   }
 
   public void apply(Toolbar toolbar) {
     toolbar.setBackgroundColor(getPrimaryColor());
-    MenuColorizer.colorToolbar(toolbar, actionBarTint);
+    MenuColorizer.colorToolbar(toolbar, colorOnPrimary);
   }
 
   @Override
@@ -269,7 +267,7 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
   public void writeToParcel(Parcel dest, int flags) {
     dest.writeString(name);
     dest.writeInt(index);
-    dest.writeInt(actionBarTint);
+    dest.writeInt(colorOnPrimary);
     dest.writeInt(style);
     dest.writeInt(colorPrimary);
     dest.writeInt(colorPrimaryVariant);

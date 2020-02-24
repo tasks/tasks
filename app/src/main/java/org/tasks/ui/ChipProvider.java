@@ -197,8 +197,8 @@ public class ChipProvider {
     ThemeColor color = getColor(theme);
     chip.setText(name);
     chip.setCloseIconTint(
-        new ColorStateList(new int[][] {new int[] {}}, new int[] {color.getActionBarTint()}));
-    chip.setTextColor(color.getActionBarTint());
+        new ColorStateList(new int[][] {new int[] {}}, new int[] {color.getColorOnPrimary()}));
+    chip.setTextColor(color.getColorOnPrimary());
     chip.getChipDrawable().setAlpha(iconAlpha);
     chip.setChipBackgroundColor(
         new ColorStateList(
