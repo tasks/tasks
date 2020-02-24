@@ -294,7 +294,7 @@ public class MainActivity extends InjectingAppCompatActivity
 
   private void applyTheme() {
     ThemeColor filterColor = getFilterColor();
-    filterColor.applyToStatusBar(binding.drawerLayout);
+    filterColor.setStatusBarColor(binding.drawerLayout);
     filterColor.applyToNavigationBar(this);
     filterColor.applyTaskDescription(
         this, filter == null ? getString(R.string.app_name) : filter.listingTitle);

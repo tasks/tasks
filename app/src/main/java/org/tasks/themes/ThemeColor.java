@@ -16,6 +16,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.ColorUtils;
 import androidx.drawerlayout.widget.DrawerLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import org.tasks.R;
 import org.tasks.dialogs.ColorPickerDialog;
 import org.tasks.ui.MenuColorizer;
@@ -154,18 +155,23 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
 
   public void setStatusBarColor(Activity activity) {
     if (atLeastLollipop()) {
-      activity.getWindow().setStatusBarColor(getColorPrimaryVariant());
+      activity.getWindow().setStatusBarColor(colorPrimaryVariant);
     }
   }
 
-  public void applyToStatusBar(DrawerLayout drawerLayout) {
+  public void setStatusBarColor(DrawerLayout drawerLayout) {
     if (atLeastLollipop()) {
-      drawerLayout.setStatusBarBackgroundColor(getColorPrimaryVariant());
+      drawerLayout.setStatusBarBackgroundColor(colorPrimaryVariant);
     }
     if (atLeastMarshmallow()) {
       int systemUiVisibility = applyLightStatusBarFlag(drawerLayout.getSystemUiVisibility());
       drawerLayout.setSystemUiVisibility(systemUiVisibility);
     }
+  }
+
+  public void setStatusBarColor(CollapsingToolbarLayout layout) {
+    layout.setContentScrimColor(colorPrimary);
+    layout.setStatusBarScrimColor(colorPrimaryVariant);
   }
 
   public void applyToStatusBarIcons(Activity activity) {
@@ -247,10 +253,6 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
 
   public int getActionBarTint() {
     return actionBarTint;
-  }
-
-  private int getColorPrimaryVariant() {
-    return colorPrimaryVariant;
   }
 
   public void apply(Toolbar toolbar) {

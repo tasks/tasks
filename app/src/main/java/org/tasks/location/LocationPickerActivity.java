@@ -33,6 +33,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.AppBarLayout.Behavior;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.common.base.Strings;
 import com.mapbox.android.core.location.LocationEngineCallback;
 import com.mapbox.android.core.location.LocationEngineProvider;
@@ -86,6 +87,9 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
 
   @BindView(R.id.app_bar_layout)
   AppBarLayout appBarLayout;
+
+  @BindView(R.id.collapsing_toolbar_layout)
+  CollapsingToolbarLayout toolbarLayout;
 
   @BindView(R.id.coordinator)
   CoordinatorLayout coordinatorLayout;
@@ -166,6 +170,7 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
     ThemeColor themeColor = theme.getThemeColor();
     themeColor.applyToStatusBarIcons(this);
     themeColor.applyToNavigationBar(this);
+    themeColor.setStatusBarColor(toolbarLayout);
 
     boolean dark = theme.getThemeBase().isDarkTheme(this);
     map.init(getSupportFragmentManager(), this, dark);
