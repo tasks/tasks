@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <style name="Cyan" parent="BlackToolbarTheme">
+  <style name="Cyan">
     <item name="colorPrimary">@color/cyan_500</item>
     <item name="colorPrimaryVariant">@color/cyan_700</item>
   </style>

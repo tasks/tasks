@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <style name="Indigo" parent="WhiteToolbarTheme">
+  <style name="Indigo">
     <item name="colorPrimary">@color/indigo_500</item>
     <item name="colorPrimaryVariant">@color/indigo_700</item>
   </style>

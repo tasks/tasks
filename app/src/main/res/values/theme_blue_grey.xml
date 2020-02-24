@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <style name="BlueGrey" parent="WhiteToolbarTheme">
+  <style name="BlueGrey">
     <item name="colorPrimary">@color/blue_grey_500</item>
     <item name="colorPrimaryVariant">@color/blue_grey_700</item>
   </style>

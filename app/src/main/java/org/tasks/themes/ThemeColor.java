@@ -204,6 +204,7 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
 
   void applyStyle(Resources.Theme theme) {
     theme.applyStyle(style, true);
+    theme.applyStyle(isDark ? R.style.BlackToolbarTheme : R.style.WhiteToolbarTheme, true);
   }
 
   public void applyTaskDescription(Activity activity, String description) {
