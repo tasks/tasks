@@ -82,7 +82,7 @@ class ScrollableWidget : InjectingPreferenceFragment() {
                     ColorPickerActivity.ColorPalette.WIDGET_BACKGROUND
                 )
                 intent.putExtra(
-                    ColorPickerActivity.EXTRA_THEME_INDEX, widgetPreferences.themeIndex
+                    ColorPickerActivity.EXTRA_COLOR, widgetPreferences.themeIndex
                 )
                 startActivityForResult(intent, REQUEST_THEME_SELECTION)
                 false
@@ -93,9 +93,10 @@ class ScrollableWidget : InjectingPreferenceFragment() {
         colorPreference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             val intent = Intent(context, ColorPickerActivity::class.java)
             intent.putExtra(
-                ColorPickerActivity.EXTRA_PALETTE, ColorPickerActivity.ColorPalette.COLORS
+                    ColorPickerActivity.EXTRA_PALETTE, ColorPickerActivity.ColorPalette.COLORS
             )
-            intent.putExtra(ColorPickerActivity.EXTRA_THEME_INDEX, widgetPreferences.colorIndex)
+            val color = ThemeColor.COLORS[widgetPreferences.colorIndex]
+            intent.putExtra(ColorPickerActivity.EXTRA_COLOR, color)
             startActivityForResult(intent, REQUEST_COLOR_SELECTION)
             false
         }
@@ -117,7 +118,7 @@ class ScrollableWidget : InjectingPreferenceFragment() {
             if (resultCode == Activity.RESULT_OK) {
                 widgetPreferences.setTheme(
                     data!!.getIntExtra(
-                        ColorPickerActivity.EXTRA_THEME_INDEX,
+                        ColorPickerActivity.EXTRA_COLOR,
                         0
                     )
                 )
@@ -127,7 +128,7 @@ class ScrollableWidget : InjectingPreferenceFragment() {
             if (resultCode == Activity.RESULT_OK) {
                 widgetPreferences.setColor(
                     data!!.getIntExtra(
-                        ColorPickerActivity.EXTRA_THEME_INDEX,
+                        ColorPickerActivity.EXTRA_COLOR,
                         0
                     )
                 )

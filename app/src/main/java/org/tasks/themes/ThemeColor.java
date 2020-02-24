@@ -19,11 +19,13 @@ import android.view.SubMenu;
 import android.view.View;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
 import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import org.tasks.R;
 import org.tasks.dialogs.ColorPickerDialog;
+import timber.log.Timber;
 
 public class ThemeColor implements ColorPickerDialog.Pickable {
 
@@ -75,7 +77,7 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
         ".Grey"
       };
 
-  static final int[] COLORS =
+  public static final int[] COLORS =
       new int[] {
         R.color.blue_grey_500,
         R.color.grey_900,
@@ -120,17 +122,17 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
   private final int colorPrimaryVariant;
   private final boolean isDark;
 
-  public ThemeColor(Context context, int color) {
-    name = null;
-    index = -1;
-    this.color = -1;
-    colorPrimary = color;
-    colorPrimaryVariant = ColorUtil.darken(colorPrimary, 12);
+  public static ThemeColor newThemeColor(Context context, int color) {
+    try {
+      return new ThemeColor(context, color);
+    } catch (Exception e) {
+      Timber.e(e);
+      return new ThemeColor(context, 0);
+    }
+  }
 
-    int whiteText = context.getResources().getColor(R.color.white_100);
-    double contrast = ColorUtils.calculateContrast(whiteText, colorPrimary);
-    this.isDark = contrast < 3;
-    colorOnPrimary = isDark ? context.getResources().getColor(R.color.black_87) : whiteText;
+  public ThemeColor(Context context, int color) {
+    this(context, null, -1, color == 0 ? ContextCompat.getColor(context, R.color.blue_500) : color);
   }
 
   public ThemeColor(
@@ -140,7 +142,8 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
       int colorPrimary) {
     this.name = name;
     this.index = index;
-    this.color = COLORS[index];
+    this.color = index >= 0 ? COLORS[index] : -1;
+    colorPrimary |= 0xFF000000; // remove alpha
     this.colorPrimary = colorPrimary;
     this.colorPrimaryVariant = ColorUtil.darken(colorPrimary, 12);
 
@@ -319,5 +322,24 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
       drawable.setColorFilter(color, PorterDuff.Mode.SRC_IN);
     }
     return drawable;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof ThemeColor)) {
+      return false;
+    }
+
+    ThemeColor that = (ThemeColor) o;
+
+    return colorPrimary == that.colorPrimary;
+  }
+
+  @Override
+  public int hashCode() {
+    return colorPrimary;
   }
 }

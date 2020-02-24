@@ -69,7 +69,7 @@ public class GoogleTaskListSettingsActivity extends BaseListSettingsActivity {
     }
 
     if (savedInstanceState == null) {
-      selectedTheme = gtasksList.getColor();
+      selectedColor = gtasksList.getColor();
       selectedIcon = gtasksList.getIcon();
     }
 
@@ -141,7 +141,7 @@ public class GoogleTaskListSettingsActivity extends BaseListSettingsActivity {
       renameListViewModel.renameList(gtasksInvoker, gtasksList, newName);
     } else {
       if (colorChanged() || iconChanged()) {
-        gtasksList.setColor(selectedTheme);
+        gtasksList.setColor(selectedColor);
         gtasksList.setIcon(selectedIcon);
         googleTaskListDao.insertOrReplace(gtasksList);
         setResult(
@@ -192,13 +192,13 @@ public class GoogleTaskListSettingsActivity extends BaseListSettingsActivity {
   @Override
   protected boolean hasChanges() {
     if (isNewList) {
-      return selectedTheme >= 0 || !isEmpty(getNewName());
+      return selectedColor >= 0 || !isEmpty(getNewName());
     }
     return colorChanged() || nameChanged() || iconChanged();
   }
 
   private boolean colorChanged() {
-    return selectedTheme != gtasksList.getColor();
+    return selectedColor != gtasksList.getColor();
   }
 
   private boolean iconChanged() {
@@ -212,7 +212,7 @@ public class GoogleTaskListSettingsActivity extends BaseListSettingsActivity {
   private void onListCreated(TaskList taskList) {
     gtasksList.setRemoteId(taskList.getId());
     gtasksList.setTitle(taskList.getTitle());
-    gtasksList.setColor(selectedTheme);
+    gtasksList.setColor(selectedColor);
     gtasksList.setIcon(selectedIcon);
     gtasksList.setId(googleTaskListDao.insertOrReplace(gtasksList));
     setResult(
@@ -230,7 +230,7 @@ public class GoogleTaskListSettingsActivity extends BaseListSettingsActivity {
 
   private void onListRenamed(TaskList taskList) {
     gtasksList.setTitle(taskList.getTitle());
-    gtasksList.setColor(selectedTheme);
+    gtasksList.setColor(selectedColor);
     gtasksList.setIcon(selectedIcon);
     googleTaskListDao.insertOrReplace(gtasksList);
     setResult(

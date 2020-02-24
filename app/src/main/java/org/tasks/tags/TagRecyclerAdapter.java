@@ -1,5 +1,7 @@
 package org.tasks.tags;
 
+import static org.tasks.themes.ThemeColor.newThemeColor;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import org.tasks.data.TagData;
 import org.tasks.tags.CheckBoxTriStates.State;
 import org.tasks.themes.CustomIcons;
 import org.tasks.themes.ThemeCache;
+import org.tasks.themes.ThemeColor;
 
 public class TagRecyclerAdapter extends RecyclerView.Adapter<TagPickerViewHolder> {
 
@@ -59,9 +62,11 @@ public class TagRecyclerAdapter extends RecyclerView.Adapter<TagPickerViewHolder
   }
 
   private int getColor(TagData tagData) {
-    return themeCache
-        .getThemeColor(tagData.getColor() >= 0 ? tagData.getColor() : 19)
-        .getPrimaryColor();
+    ThemeColor themeColor =
+        tagData.getColor() > 0
+            ? newThemeColor(context, tagData.getColor())
+            : themeCache.getThemeColor(19);
+    return themeColor.getPrimaryColor();
   }
 
   private @Nullable Integer getIcon(TagData tagData) {

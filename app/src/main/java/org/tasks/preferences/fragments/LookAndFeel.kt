@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.widget.Toast
 import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import com.google.common.base.Strings
@@ -228,7 +229,7 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_THEME_PICKER) {
             if (resultCode == RESULT_OK) {
-                val index = data!!.getIntExtra(ColorPickerActivity.EXTRA_THEME_INDEX, 0)
+                val index = data!!.getIntExtra(ColorPickerActivity.EXTRA_COLOR, 0)
                 preferences.setInt(R.string.p_theme, index)
                 Handler().post {
                     themeCache.getThemeBase(index).setDefaultNightMode()
@@ -237,19 +238,20 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
             }
         } else if (requestCode == REQUEST_COLOR_PICKER) {
             if (resultCode == RESULT_OK) {
-                val index = data!!.getIntExtra(ColorPickerActivity.EXTRA_THEME_INDEX, 0)
-                preferences.setInt(R.string.p_theme_color, index)
+                val index = data!!.getIntExtra(ColorPickerActivity.EXTRA_COLOR, 0)
+                val color = ThemeColor.COLORS[index]
+                preferences.setInt(R.string.p_theme_color, ContextCompat.getColor(context!!, color))
                 recreate()
             }
         } else if (requestCode == REQUEST_ACCENT_PICKER) {
             if (resultCode == RESULT_OK) {
-                val index = data!!.getIntExtra(ColorPickerActivity.EXTRA_THEME_INDEX, 0)
+                val index = data!!.getIntExtra(ColorPickerActivity.EXTRA_COLOR, 0)
                 preferences.setInt(R.string.p_theme_accent, index)
                 recreate()
             }
         } else if (requestCode == REQUEST_LAUNCHER_PICKER) {
             if (resultCode == RESULT_OK) {
-                val index = data!!.getIntExtra(ColorPickerActivity.EXTRA_THEME_INDEX, 0)
+                val index = data!!.getIntExtra(ColorPickerActivity.EXTRA_COLOR, 0)
                 setLauncherIcon(index)
                 preferences.setInt(R.string.p_theme_launcher, index)
                 updateLauncherPreference()
@@ -324,7 +326,7 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
     }
 
     private fun setupColorPreference(
-        @StringRes prefId: Int, summary: String,
+        @StringRes prefId: Int, summary: String?,
         palette: ColorPickerActivity.ColorPalette,
         requestCode: Int
     ) {

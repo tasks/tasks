@@ -24,7 +24,7 @@ public abstract class FilterListItem implements Parcelable {
   public String listingTitle = null;
 
   public int icon = -1;
-  public int tint = -1;
+  public int tint = 0;
   public int count = -1;
 
   public abstract Type getItemType();

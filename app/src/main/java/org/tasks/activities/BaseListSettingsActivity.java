@@ -1,6 +1,7 @@
 package org.tasks.activities;
 
 import static org.tasks.dialogs.IconPickerDialog.newIconPicker;
+import static org.tasks.themes.ThemeColor.newThemeColor;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,7 +23,6 @@ import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.IconPickerDialog.IconPickerCallback;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.themes.CustomIcons;
-import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
 
 public abstract class BaseListSettingsActivity extends ThemedInjectingAppCompatActivity
@@ -42,11 +42,10 @@ public abstract class BaseListSettingsActivity extends ThemedInjectingAppCompatA
   @BindView(R.id.toolbar)
   Toolbar toolbar;
 
-  @Inject ThemeCache themeCache;
   @Inject ThemeColor themeColor;
   @Inject DialogBuilder dialogBuilder;
 
-  protected int selectedTheme = -1;
+  protected int selectedColor = -1;
   protected int selectedIcon = -1;
 
   @Override
@@ -58,7 +57,7 @@ public abstract class BaseListSettingsActivity extends ThemedInjectingAppCompatA
     ButterKnife.bind(this);
 
     if (savedInstanceState != null) {
-      selectedTheme = savedInstanceState.getInt(EXTRA_SELECTED_THEME);
+      selectedColor = savedInstanceState.getInt(EXTRA_SELECTED_THEME);
       selectedIcon = savedInstanceState.getInt(EXTRA_SELECTED_ICON);
     }
 
@@ -69,14 +68,13 @@ public abstract class BaseListSettingsActivity extends ThemedInjectingAppCompatA
       toolbar.inflateMenu(R.menu.menu_tag_settings);
     }
     toolbar.setOnMenuItemClickListener(this);
-    themeColor.apply(toolbar);
   }
 
   @Override
   protected void onSaveInstanceState(Bundle outState) {
     super.onSaveInstanceState(outState);
 
-    outState.putInt(EXTRA_SELECTED_THEME, selectedTheme);
+    outState.putInt(EXTRA_SELECTED_THEME, selectedColor);
     outState.putInt(EXTRA_SELECTED_ICON, selectedIcon);
   }
 
@@ -114,7 +112,7 @@ public abstract class BaseListSettingsActivity extends ThemedInjectingAppCompatA
     Intent intent = new Intent(BaseListSettingsActivity.this, ColorPickerActivity.class);
     intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerActivity.ColorPalette.COLORS);
     intent.putExtra(ColorPickerActivity.EXTRA_SHOW_NONE, true);
-    intent.putExtra(ColorPickerActivity.EXTRA_THEME_INDEX, selectedTheme);
+    intent.putExtra(ColorPickerActivity.EXTRA_COLOR, selectedColor);
     startActivityForResult(intent, REQUEST_COLOR_PICKER);
   }
 
@@ -134,7 +132,8 @@ public abstract class BaseListSettingsActivity extends ThemedInjectingAppCompatA
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (requestCode == REQUEST_COLOR_PICKER) {
       if (resultCode == RESULT_OK) {
-        selectedTheme = data.getIntExtra(ColorPickerActivity.EXTRA_THEME_INDEX, 0);
+        int index = data.getIntExtra(ColorPickerActivity.EXTRA_COLOR, -1);
+        selectedColor = index < 0 ? 0 : ContextCompat.getColor(this, ThemeColor.COLORS[index]);
         updateTheme();
       }
     } else {
@@ -163,11 +162,11 @@ public abstract class BaseListSettingsActivity extends ThemedInjectingAppCompatA
 
   protected void updateTheme() {
     ThemeColor themeColor;
-    if (selectedTheme < 0) {
+    if (selectedColor == 0) {
       themeColor = this.themeColor;
       color.setVisibility(View.GONE);
     } else {
-      themeColor = themeCache.getThemeColor(selectedTheme);
+      themeColor = newThemeColor(this, selectedColor);
       Drawable colorIcon = ContextCompat.getDrawable(this, R.drawable.ic_baseline_lens_24px);
       Drawable wrappedColorIcon = DrawableCompat.wrap(colorIcon.mutate());
       DrawableCompat.setTint(wrappedColorIcon, themeColor.getPrimaryColor());

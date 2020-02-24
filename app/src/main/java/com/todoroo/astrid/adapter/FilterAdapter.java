@@ -27,7 +27,6 @@ import org.tasks.filters.NavigationDrawerSubheader;
 import org.tasks.locale.Locale;
 import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeAccent;
-import org.tasks.themes.ThemeCache;
 
 public class FilterAdapter extends BaseAdapter {
 
@@ -39,19 +38,16 @@ public class FilterAdapter extends BaseAdapter {
   private final Locale locale;
   private final Inventory inventory;
   private final LayoutInflater inflater;
-  private final ThemeCache themeCache;
   private Filter selected = null;
   private List<FilterListItem> items = new ArrayList<>();
 
   @Inject
-  public FilterAdapter(
-      Activity activity, Theme theme, ThemeCache themeCache, Locale locale, Inventory inventory) {
+  public FilterAdapter(Activity activity, Theme theme, Locale locale, Inventory inventory) {
     this.activity = activity;
     this.accent = theme.getThemeAccent();
     this.locale = locale;
     this.inventory = inventory;
     this.inflater = theme.getLayoutInflater(activity);
-    this.themeCache = themeCache;
   }
 
   public void save(Bundle outState) {
@@ -105,8 +101,7 @@ public class FilterAdapter extends BaseAdapter {
       switch (viewType) {
         case ITEM:
           viewHolder =
-              new FilterViewHolder(
-                  convertView, accent, themeCache, false, locale, activity, inventory, null);
+              new FilterViewHolder(convertView, accent, false, locale, activity, inventory, null);
           break;
         case SEPARATOR:
           viewHolder = new FilterViewHolder(convertView);

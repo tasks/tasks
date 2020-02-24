@@ -12,6 +12,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
 import static org.tasks.activities.RemoteListPicker.newRemoteListSupportPicker;
 import static org.tasks.caldav.CaldavCalendarSettingsActivity.EXTRA_CALDAV_CALENDAR;
+import static org.tasks.themes.ThemeColor.newThemeColor;
 import static org.tasks.ui.CheckBoxes.getPriorityColor;
 
 import android.app.Activity;
@@ -264,7 +265,7 @@ public final class TaskListFragment extends InjectingFragment
 
     filter = getFilter();
 
-    themeColor = filter.tint >= 0 ? themeCache.getThemeColor(filter.tint) : defaultThemeColor;
+    themeColor = filter.tint != 0 ? newThemeColor(context, filter.tint) : defaultThemeColor;
 
     filter.setFilterQueryOverride(null);
 

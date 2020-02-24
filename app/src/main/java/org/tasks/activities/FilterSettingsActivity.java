@@ -45,7 +45,7 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
     super.onCreate(savedInstanceState);
 
     if (savedInstanceState == null) {
-      selectedTheme = filter.tint;
+      selectedColor = filter.tint;
       selectedIcon = filter.icon;
     }
 
@@ -85,7 +85,7 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
 
     if (hasChanges()) {
       filter.listingTitle = newName;
-      filter.tint = selectedTheme;
+      filter.tint = selectedColor;
       filter.icon = selectedIcon;
       filterDao.update(filter.toStoreObject());
       setResult(
@@ -103,7 +103,7 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
   @Override
   protected boolean hasChanges() {
     return !(getNewName().equals(filter.listingTitle)
-        && selectedTheme == filter.tint
+        && selectedColor == filter.tint
         && selectedIcon == filter.icon);
   }
 

@@ -32,7 +32,6 @@ import org.tasks.filters.NavigationDrawerSubheader;
 import org.tasks.locale.Locale;
 import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeAccent;
-import org.tasks.themes.ThemeCache;
 
 public class NavigationDrawerAdapter extends ListAdapter<FilterListItem, FilterViewHolder> {
 
@@ -42,21 +41,19 @@ public class NavigationDrawerAdapter extends ListAdapter<FilterListItem, FilterV
   private final Locale locale;
   private final Inventory inventory;
   private final LayoutInflater inflater;
-  private final ThemeCache themeCache;
   private OnClick onClick;
   private Filter selected = null;
   private Map<Filter, Integer> counts = new HashMap<>();
 
   @Inject
   public NavigationDrawerAdapter(
-      Activity activity, Theme theme, ThemeCache themeCache, Locale locale, Inventory inventory) {
+      Activity activity, Theme theme, Locale locale, Inventory inventory) {
     super(new DiffCallback());
     this.activity = activity;
     this.accent = theme.getThemeAccent();
     this.locale = locale;
     this.inventory = inventory;
     this.inflater = theme.getLayoutInflater(activity);
-    this.themeCache = themeCache;
   }
 
   public void setOnClick(OnClick onClick) {
@@ -98,7 +95,7 @@ public class NavigationDrawerAdapter extends ListAdapter<FilterListItem, FilterV
     View view = inflater.inflate(type.layout, parent, false);
     if (type == ITEM) {
       return new FilterViewHolder(
-          view, accent, themeCache, true, locale, activity, inventory, this::onClickFilter);
+          view, accent, true, locale, activity, inventory, this::onClickFilter);
     } else if (type == SUBHEADER) {
       return new FilterViewHolder(view, activity);
     } else {

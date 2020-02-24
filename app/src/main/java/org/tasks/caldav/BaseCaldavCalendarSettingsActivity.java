@@ -79,7 +79,7 @@ public abstract class BaseCaldavCalendarSettingsActivity extends BaseListSetting
     if (savedInstanceState == null) {
       if (caldavCalendar != null) {
         name.setText(caldavCalendar.getName());
-        selectedTheme = caldavCalendar.getColor();
+        selectedColor = caldavCalendar.getColor();
         selectedIcon = caldavCalendar.getIcon();
       }
     }
@@ -183,7 +183,7 @@ public abstract class BaseCaldavCalendarSettingsActivity extends BaseListSetting
     caldavCalendar.setAccount(caldavAccount.getUuid());
     caldavCalendar.setUrl(url);
     caldavCalendar.setName(getNewName());
-    caldavCalendar.setColor(selectedTheme);
+    caldavCalendar.setColor(selectedColor);
     caldavCalendar.setIcon(selectedIcon);
     caldavDao.insert(caldavCalendar);
     setResult(
@@ -194,7 +194,7 @@ public abstract class BaseCaldavCalendarSettingsActivity extends BaseListSetting
 
   private void updateAccount() {
     caldavCalendar.setName(getNewName());
-    caldavCalendar.setColor(selectedTheme);
+    caldavCalendar.setColor(selectedColor);
     caldavCalendar.setIcon(selectedIcon);
     caldavDao.update(caldavCalendar);
     setResult(
@@ -207,11 +207,11 @@ public abstract class BaseCaldavCalendarSettingsActivity extends BaseListSetting
   @Override
   protected boolean hasChanges() {
     if (caldavCalendar == null) {
-      return !isEmpty(getNewName()) || selectedTheme != -1 || selectedIcon != -1;
+      return !isEmpty(getNewName()) || selectedColor != -1 || selectedIcon != -1;
     }
     return !caldavCalendar.getName().equals(getNewName())
         || selectedIcon != caldavCalendar.getIcon()
-        || selectedTheme != caldavCalendar.getColor();
+        || selectedColor != caldavCalendar.getColor();
   }
 
   private String getNewName() {

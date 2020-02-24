@@ -41,8 +41,8 @@ public class ActivityModule {
 
   @Provides
   @ActivityScope
-  public ThemeColor getThemeColor(ThemeCache themeCache, Preferences preferences) {
-    return themeCache.getThemeColor(preferences.getInt(R.string.p_theme_color, 7));
+  public ThemeColor getThemeColor(Preferences preferences) {
+    return ThemeColor.newThemeColor(activity, preferences.getInt(R.string.p_theme_color, 0));
   }
 
   @Provides

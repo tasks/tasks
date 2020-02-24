@@ -13,6 +13,7 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastNougat;
 import static com.todoroo.astrid.activity.TaskEditFragment.newTaskEditFragment;
 import static com.todoroo.astrid.activity.TaskListFragment.newTaskListFragment;
 import static org.tasks.tasklist.ActionUtils.applySupportActionModeColor;
+import static org.tasks.themes.ThemeColor.newThemeColor;
 import static org.tasks.ui.NavigationDrawerFragment.REQUEST_NEW_LIST;
 
 import android.annotation.SuppressLint;
@@ -302,8 +303,8 @@ public class MainActivity extends InjectingAppCompatActivity
   }
 
   private ThemeColor getFilterColor() {
-    return filter != null && filter.tint >= 0
-        ? themeCache.getThemeColor(filter.tint)
+    return filter != null && filter.tint != 0
+        ? newThemeColor(this, filter.tint)
         : theme.getThemeColor();
   }
 

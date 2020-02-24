@@ -2,6 +2,7 @@ package org.tasks.activities;
 
 import static org.tasks.billing.PurchaseDialog.newPurchaseDialog;
 import static org.tasks.dialogs.ColorPickerDialog.newColorPickerDialog;
+import static org.tasks.themes.ThemeColor.newThemeColor;
 
 import android.content.Intent;
 import java.util.List;
@@ -9,6 +10,7 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.billing.Inventory;
 import org.tasks.dialogs.ColorPickerDialog;
+import org.tasks.dialogs.ColorPickerDialog.Pickable;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.Preferences;
@@ -20,7 +22,7 @@ public class ColorPickerActivity extends InjectingAppCompatActivity
 
   public static final String EXTRA_PALETTE = "extra_palette";
   public static final String EXTRA_SHOW_NONE = "extra_show_none";
-  public static final String EXTRA_THEME_INDEX = "extra_index";
+  public static final String EXTRA_COLOR = "extra_index";
   private static final String FRAG_TAG_COLOR_PICKER = "frag_tag_color_picker";
   private static final String FRAG_TAG_PURCHASE = "frag_tag_purchase";
   @Inject Theme theme;
@@ -37,11 +39,22 @@ public class ColorPickerActivity extends InjectingAppCompatActivity
     Intent intent = getIntent();
     palette = (ColorPalette) intent.getSerializableExtra(EXTRA_PALETTE);
     boolean showNone = intent.getBooleanExtra(EXTRA_SHOW_NONE, false);
-    int selected =
-        intent.hasExtra(EXTRA_THEME_INDEX)
-            ? intent.getIntExtra(EXTRA_THEME_INDEX, -1)
-            : getCurrentSelection(palette);
-    newColorPickerDialog(getItems(palette), showNone, selected)
+    List<? extends Pickable> items = getItems(palette);
+    int selected;
+    if (palette == ColorPalette.COLORS) {
+      selected =
+          items.indexOf(
+              intent.hasExtra(EXTRA_COLOR)
+                  ? newThemeColor(this, intent.getIntExtra(EXTRA_COLOR, 0))
+                  : theme.getThemeColor());
+    } else {
+      selected =
+          intent.hasExtra(EXTRA_COLOR)
+              ? intent.getIntExtra(EXTRA_COLOR, -1)
+              : getCurrentSelection(palette);
+    }
+
+    newColorPickerDialog(items, showNone, selected)
         .show(getSupportFragmentManager(), FRAG_TAG_COLOR_PICKER);
   }
 
@@ -71,7 +84,7 @@ public class ColorPickerActivity extends InjectingAppCompatActivity
   public void themePicked(ColorPickerDialog.Pickable picked) {
     Intent data = new Intent();
     data.putExtra(EXTRA_PALETTE, palette);
-    data.putExtra(EXTRA_THEME_INDEX, picked == null ? -1 : picked.getIndex());
+    data.putExtra(EXTRA_COLOR, picked == null ? -1 : picked.getIndex());
     setResult(RESULT_OK, data);
     finish();
   }

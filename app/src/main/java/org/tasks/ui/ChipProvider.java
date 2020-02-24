@@ -6,6 +6,7 @@ import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Lists.transform;
 import static com.google.common.collect.Sets.newHashSet;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
+import static org.tasks.themes.ThemeColor.newThemeColor;
 
 import android.app.Activity;
 import android.content.Context;
@@ -49,6 +50,7 @@ public class ChipProvider {
   private final Map<String, GtasksFilter> googleTaskLists = new HashMap<>();
   private final Map<String, CaldavFilter> caldavCalendars = new HashMap<>();
   private final Map<String, TagFilter> tagDatas = new HashMap<>();
+  private final Context context;
   private final Inventory inventory;
   private final ThemeCache themeCache;
   private final int iconAlpha;
@@ -70,6 +72,7 @@ public class ChipProvider {
       CaldavDao caldavDao,
       TagDataDao tagDataDao,
       LocalBroadcastManager localBroadcastManager) {
+    this.context = context;
     this.inventory = inventory;
     this.themeCache = themeCache;
     this.localBroadcastManager = localBroadcastManager;
@@ -209,8 +212,8 @@ public class ChipProvider {
   }
 
   private ThemeColor getColor(int theme) {
-    if (theme >= 0) {
-      ThemeColor color = themeCache.getThemeColor(theme);
+    if (theme != 0) {
+      ThemeColor color = newThemeColor(context, theme);
       if (color.isFree() || inventory.purchasedThemes()) {
         return color;
       }

@@ -56,7 +56,7 @@ public class TagSettingsActivity extends BaseListSettingsActivity {
       tagData.setRemoteId(UUIDHelper.newUUID());
     }
     if (savedInstanceState == null) {
-      selectedTheme = tagData.getColor();
+      selectedColor = tagData.getColor();
       selectedIcon = tagData.getIcon();
     }
 
@@ -120,13 +120,13 @@ public class TagSettingsActivity extends BaseListSettingsActivity {
 
     if (isNewTag) {
       tagData.setName(newName);
-      tagData.setColor(selectedTheme);
+      tagData.setColor(selectedColor);
       tagData.setIcon(selectedIcon);
       tagDataDao.createNew(tagData);
       setResult(RESULT_OK, new Intent().putExtra(MainActivity.OPEN_FILTER, new TagFilter(tagData)));
     } else if (hasChanges()) {
       tagData.setName(newName);
-      tagData.setColor(selectedTheme);
+      tagData.setColor(selectedColor);
       tagData.setIcon(selectedIcon);
       tagDataDao.update(tagData);
       tagDao.rename(tagData.getRemoteId(), newName);
@@ -142,9 +142,9 @@ public class TagSettingsActivity extends BaseListSettingsActivity {
   @Override
   protected boolean hasChanges() {
     if (isNewTag) {
-      return selectedTheme >= 0 || selectedIcon >= 0 || !isEmpty(getNewName());
+      return selectedColor >= 0 || selectedIcon >= 0 || !isEmpty(getNewName());
     }
-    return !(selectedTheme == tagData.getColor()
+    return !(selectedColor == tagData.getColor()
         && selectedIcon == tagData.getIcon()
         && getNewName().equals(tagData.getName()));
   }

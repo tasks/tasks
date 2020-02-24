@@ -6,7 +6,9 @@ import static com.google.common.collect.Lists.newArrayList;
 import static org.tasks.caldav.CaldavUtils.getParent;
 import static org.tasks.db.DbUtils.batch;
 
+import android.content.Context;
 import android.os.Environment;
+import androidx.core.content.ContextCompat;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableListMultimap;
@@ -20,6 +22,7 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.caldav.CaldavUtils;
+import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.CaldavTask;
 import org.tasks.data.CaldavTaskContainer;
@@ -36,8 +39,10 @@ import org.tasks.data.TaskAttachment;
 import org.tasks.data.TaskAttachmentDao;
 import org.tasks.data.UserActivity;
 import org.tasks.data.UserActivityDao;
+import org.tasks.injection.ForApplication;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
+import org.tasks.themes.ThemeColor;
 
 public class Upgrader {
 
@@ -51,6 +56,8 @@ public class Upgrader {
   private static final int V6_8_1 = 607;
   private static final int V6_9 = 608;
   private static final int V7_0 = 617;
+  private static final int V8_2 = 675;
+  private final Context context;
   private final Preferences preferences;
   private final Tracker tracker;
   private final TagDataDao tagDataDao;
@@ -65,6 +72,7 @@ public class Upgrader {
 
   @Inject
   public Upgrader(
+      @ForApplication Context context,
       Preferences preferences,
       Tracker tracker,
       TagDataDao tagDataDao,
@@ -76,6 +84,7 @@ public class Upgrader {
       TaskAttachmentDao taskAttachmentDao,
       CaldavDao caldavDao,
       TaskDao taskDao) {
+    this.context = context;
     this.preferences = preferences;
     this.tracker = tracker;
     this.tagDataDao = tagDataDao;
@@ -101,6 +110,7 @@ public class Upgrader {
       run(from, V6_8_1, this::migrateCaldavFilters);
       run(from, V6_9, this::applyCaldavCategories);
       run(from, V7_0, this::applyCaldavSubtasks);
+      run(from, V8_2, this::migrateColors);
     }
     preferences.setCurrentVersion(to);
   }
@@ -110,6 +120,33 @@ public class Upgrader {
       runnable.run();
       preferences.setCurrentVersion(version);
     }
+  }
+
+  private void migrateColors() {
+    preferences.setInt(
+        R.string.p_theme_color, getAndroidColor(preferences.getInt(R.string.p_theme_color, 7)));
+    for (CaldavCalendar calendar : caldavDao.getCalendars()) {
+      calendar.setColor(getAndroidColor(calendar.getColor()));
+      caldavDao.update(calendar);
+    }
+    for (GoogleTaskList list : googleTaskListDao.getAllLists()) {
+      list.setColor(getAndroidColor(list.getColor()));
+      googleTaskListDao.update(list);
+    }
+    for (TagData tagData : tagDataDao.getAll()) {
+      tagData.setColor(getAndroidColor(tagData.getColor()));
+      tagDataDao.update(tagData);
+    }
+    for (Filter filter : filterDao.getFilters()) {
+      filter.setColor(getAndroidColor(filter.getColor()));
+      filterDao.update(filter);
+    }
+  }
+
+  private int getAndroidColor(int index) {
+    return index >= 0 && index < ThemeColor.COLORS.length
+        ? ContextCompat.getColor(context, ThemeColor.COLORS[index])
+        : 0;
   }
 
   private void applyCaldavSubtasks() {

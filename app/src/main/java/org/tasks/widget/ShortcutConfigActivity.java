@@ -91,7 +91,7 @@ public class ShortcutConfigActivity extends InjectingAppCompatActivity {
       }
     } else if (requestCode == REQUEST_COLOR_PICKER) {
       if (resultCode == RESULT_OK) {
-        selectedTheme = data.getIntExtra(ColorPickerActivity.EXTRA_THEME_INDEX, 0);
+        selectedTheme = data.getIntExtra(ColorPickerActivity.EXTRA_COLOR, 0);
         updateTheme();
       }
     } else {
@@ -136,7 +136,7 @@ public class ShortcutConfigActivity extends InjectingAppCompatActivity {
     Intent intent = new Intent(this, ColorPickerActivity.class);
     intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPalette.LAUNCHER);
     intent.putExtra(ColorPickerActivity.EXTRA_SHOW_NONE, false);
-    intent.putExtra(ColorPickerActivity.EXTRA_THEME_INDEX, selectedTheme);
+    intent.putExtra(ColorPickerActivity.EXTRA_COLOR, selectedTheme);
     startActivityForResult(intent, REQUEST_COLOR_PICKER);
   }
 
@@ -162,7 +162,7 @@ public class ShortcutConfigActivity extends InjectingAppCompatActivity {
       return selectedTheme;
     }
     int index =
-        selectedFilter == null || selectedFilter.tint == -1
+        selectedFilter == null || selectedFilter.tint == 0
             ? themeColor.getIndex()
             : selectedFilter.tint;
     if (index >= ThemeColor.ICONS.length - 1) {

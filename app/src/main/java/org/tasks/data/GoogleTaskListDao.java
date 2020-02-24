@@ -59,6 +59,9 @@ public abstract class GoogleTaskListDao {
   @Update
   public abstract void update(GoogleTaskAccount account);
 
+  @Update
+  public abstract void update(GoogleTaskList list);
+
   @Query(
       "SELECT google_task_lists.*, google_task_accounts.*, COUNT(tasks._id) AS count"
           + " FROM google_task_accounts "

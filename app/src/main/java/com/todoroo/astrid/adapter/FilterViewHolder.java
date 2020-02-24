@@ -1,6 +1,7 @@
 package com.todoroo.astrid.adapter;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.preLollipop;
+import static org.tasks.themes.ThemeColor.newThemeColor;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -30,7 +31,6 @@ import org.tasks.locale.Locale;
 import org.tasks.preferences.SyncPreferences;
 import org.tasks.themes.CustomIcons;
 import org.tasks.themes.ThemeAccent;
-import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
 
 public class FilterViewHolder extends RecyclerView.ViewHolder {
@@ -50,7 +50,6 @@ public class FilterViewHolder extends RecyclerView.ViewHolder {
   TextView size;
 
   private OnClick onClick;
-  private ThemeCache themeCache;
   private boolean navigationDrawer;
   private Locale locale;
   private Activity activity;
@@ -60,7 +59,6 @@ public class FilterViewHolder extends RecyclerView.ViewHolder {
   FilterViewHolder(
       @NonNull View itemView,
       ThemeAccent accent,
-      ThemeCache themeCache,
       boolean navigationDrawer,
       Locale locale,
       Activity activity,
@@ -72,7 +70,6 @@ public class FilterViewHolder extends RecyclerView.ViewHolder {
     ButterKnife.bind(this, itemView);
 
     this.itemView = itemView;
-    this.themeCache = themeCache;
     this.navigationDrawer = navigationDrawer;
     this.locale = locale;
     this.activity = activity;
@@ -135,8 +132,8 @@ public class FilterViewHolder extends RecyclerView.ViewHolder {
   }
 
   private int getColor(FilterListItem filter) {
-    if (filter.tint >= 0) {
-      ThemeColor color = themeCache.getThemeColor(filter.tint);
+    if (filter.tint != 0) {
+      ThemeColor color = newThemeColor(activity, filter.tint);
       if (color.isFree() || inventory.purchasedThemes()) {
         return color.getPrimaryColor();
       }
