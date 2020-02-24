@@ -1,5 +1,6 @@
 package org.tasks.injection;
 
+import androidx.annotation.NonNull;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.files.FilesControlSet;
@@ -10,7 +11,6 @@ import com.todoroo.astrid.ui.EditTitleControlSet;
 import com.todoroo.astrid.ui.HideUntilControlSet;
 import com.todoroo.astrid.ui.ReminderControlSet;
 import dagger.Subcomponent;
-import org.jetbrains.annotations.NotNull;
 import org.tasks.fragments.CommentBarFragment;
 import org.tasks.preferences.fragments.Advanced;
 import org.tasks.preferences.fragments.Backups;
@@ -75,27 +75,27 @@ public interface FragmentComponent {
 
   void inject(TaskListViewModel taskListViewModel);
 
-  void inject(@NotNull HelpAndFeedback helpAndFeedback);
+  void inject(@NonNull HelpAndFeedback helpAndFeedback);
 
-  void inject(@NotNull LookAndFeel lookAndFeel);
+  void inject(@NonNull LookAndFeel lookAndFeel);
 
-  void inject(@NotNull Synchronization synchronization);
+  void inject(@NonNull Synchronization synchronization);
 
-  void inject(@NotNull Debug debug);
+  void inject(@NonNull Debug debug);
 
-  void inject(@NotNull MainSettingsFragment mainSettingsFragment);
+  void inject(@NonNull MainSettingsFragment mainSettingsFragment);
 
-  void inject(@NotNull Backups backups);
+  void inject(@NonNull Backups backups);
 
-  void inject(@NotNull Advanced advanced);
+  void inject(@NonNull Advanced advanced);
 
-  void inject(@NotNull Notifications notifications);
+  void inject(@NonNull Notifications notifications);
 
-  void inject(@NotNull TaskDefaults taskDefaults);
+  void inject(@NonNull TaskDefaults taskDefaults);
 
-  void inject(@NotNull ScrollableWidget scrollableWidget);
+  void inject(@NonNull ScrollableWidget scrollableWidget);
 
-  void inject(@NotNull DashClock dashClock);
+  void inject(@NonNull DashClock dashClock);
 
-  void inject(@NotNull TaskerListNotification taskerListNotification);
+  void inject(@NonNull TaskerListNotification taskerListNotification);
 }

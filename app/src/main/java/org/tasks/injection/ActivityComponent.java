@@ -1,5 +1,6 @@
 package org.tasks.injection;
 
+import androidx.annotation.NonNull;
 import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.activity.ShareLinkActivity;
@@ -8,7 +9,6 @@ import com.todoroo.astrid.core.CustomFilterActivity;
 import com.todoroo.astrid.gcal.CalendarReminderActivity;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import dagger.Subcomponent;
-import org.jetbrains.annotations.NotNull;
 import org.tasks.activities.CalendarSelectionActivity;
 import org.tasks.activities.CameraActivity;
 import org.tasks.activities.ColorPickerActivity;
@@ -32,10 +32,10 @@ import org.tasks.files.MyFilePickerActivity;
 import org.tasks.locale.ui.activity.TaskerCreateTaskActivity;
 import org.tasks.locale.ui.activity.TaskerSettingsActivity;
 import org.tasks.location.LocationPickerActivity;
-import org.tasks.preferences.ManageSpaceActivity;
 import org.tasks.preferences.AttributionActivity;
 import org.tasks.preferences.HelpAndFeedback;
 import org.tasks.preferences.MainPreferences;
+import org.tasks.preferences.ManageSpaceActivity;
 import org.tasks.preferences.NotificationPreferences;
 import org.tasks.preferences.SyncPreferences;
 import org.tasks.reminders.NotificationActivity;
@@ -99,7 +99,7 @@ public interface ActivityComponent {
 
   void inject(VoiceCommandActivity voiceCommandActivity);
 
-  void inject(@NotNull WidgetConfigActivity widgetConfigActivity);
+  void inject(@NonNull WidgetConfigActivity widgetConfigActivity);
 
   void inject(ShortcutConfigActivity shortcutConfigActivity);
 
@@ -141,11 +141,11 @@ public interface ActivityComponent {
 
   void inject(MainPreferences mainPreferences);
 
-  void inject(@NotNull HelpAndFeedback helpAndFeedback);
+  void inject(@NonNull HelpAndFeedback helpAndFeedback);
 
-  void inject(@NotNull NotificationPreferences notificationPreferences);
+  void inject(@NonNull NotificationPreferences notificationPreferences);
 
-  void inject(@NotNull ManageSpaceActivity manageSpaceActivity);
+  void inject(@NonNull ManageSpaceActivity manageSpaceActivity);
 
-  void inject(@NotNull SyncPreferences syncPreferences);
+  void inject(@NonNull SyncPreferences syncPreferences);
 }
