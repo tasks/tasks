@@ -34,7 +34,6 @@ import com.google.common.primitives.Longs;
 import com.todoroo.astrid.data.Task;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
@@ -77,7 +76,7 @@ public class WorkManager {
   }
 
   public void init() {
-    workManager = androidx.work.WorkManager.getInstance();
+    workManager = androidx.work.WorkManager.getInstance(context);
   }
 
   public void afterSave(Task current, Task original) {
@@ -105,7 +104,8 @@ public class WorkManager {
     Constraints constraints =
         new Constraints.Builder()
             .setRequiredNetworkType(
-                !immediate && preferences.getBoolean(R.string.p_background_sync_unmetered_only, false)
+                !immediate
+                        && preferences.getBoolean(R.string.p_background_sync_unmetered_only, false)
                     ? NetworkType.UNMETERED
                     : NetworkType.CONNECTED)
             .build();
