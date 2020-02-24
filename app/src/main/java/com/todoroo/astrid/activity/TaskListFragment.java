@@ -102,7 +102,8 @@ import org.tasks.tasklist.DragAndDropRecyclerAdapter;
 import org.tasks.tasklist.PagedListRecyclerAdapter;
 import org.tasks.tasklist.TaskListRecyclerAdapter;
 import org.tasks.tasklist.ViewHolderFactory;
-import org.tasks.ui.MenuColorizer;
+import org.tasks.themes.ThemeCache;
+import org.tasks.themes.ThemeColor;
 import org.tasks.ui.TaskListViewModel;
 import org.tasks.ui.Toaster;
 
@@ -151,6 +152,8 @@ public final class TaskListFragment extends InjectingFragment
   @Inject TaskDuplicator taskDuplicator;
   @Inject TagDataDao tagDataDao;
   @Inject CaldavDao caldavDao;
+  @Inject ThemeCache themeCache;
+  @Inject ThemeColor defaultThemeColor;
 
   @BindView(R.id.swipe_layout)
   SwipeRefreshLayout swipeRefreshLayout;
@@ -176,6 +179,7 @@ public final class TaskListFragment extends InjectingFragment
   private MenuItem search;
   private String searchQuery;
   private ActionMode mode = null;
+  private ThemeColor themeColor;
 
   private TaskListFragmentCallbackHandler callbacks;
 
@@ -259,6 +263,8 @@ public final class TaskListFragment extends InjectingFragment
     ButterKnife.bind(this, parent);
 
     filter = getFilter();
+
+    themeColor = filter.tint >= 0 ? themeCache.getThemeColor(filter.tint) : defaultThemeColor;
 
     filter.setFilterQueryOverride(null);
 
@@ -357,7 +363,7 @@ public final class TaskListFragment extends InjectingFragment
     search = menu.findItem(R.id.menu_search).setOnActionExpandListener(this);
     ((SearchView) search.getActionView()).setOnQueryTextListener(this);
 
-    MenuColorizer.colorToolbar(context, toolbar);
+    themeColor.apply(toolbar);
   }
 
   private void openFilter(@Nullable Filter filter) {
@@ -676,7 +682,7 @@ public final class TaskListFragment extends InjectingFragment
   public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
     MenuInflater inflater = actionMode.getMenuInflater();
     inflater.inflate(R.menu.menu_multi_select, menu);
-    MenuColorizer.colorMenu(context, menu);
+    themeColor.colorMenu(menu);
     return true;
   }
 

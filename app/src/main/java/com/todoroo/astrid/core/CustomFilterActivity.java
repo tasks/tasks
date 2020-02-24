@@ -49,7 +49,6 @@ import org.tasks.filters.FilterCriteriaProvider;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.locale.Locale;
-import org.tasks.ui.MenuColorizer;
 
 /**
  * Activity that allows users to build custom filters
@@ -119,7 +118,7 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity
     toolbar.inflateMenu(R.menu.menu_custom_filter_activity);
     toolbar.setOnMenuItemClickListener(this);
     toolbar.setNavigationOnClickListener(view -> discard());
-    MenuColorizer.colorToolbar(this, toolbar);
+    themeColor.apply(toolbar);
     listView = findViewById(android.R.id.list);
 
     List<CriterionInstance> startingCriteria = new ArrayList<>();

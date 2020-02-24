@@ -38,7 +38,6 @@ import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.security.Encryption;
 import org.tasks.ui.DisplayableException;
-import org.tasks.ui.MenuColorizer;
 import timber.log.Timber;
 
 public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingAppCompatActivity
@@ -100,7 +99,7 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
     toolbar.inflateMenu(R.menu.menu_caldav_account_settings);
     toolbar.setOnMenuItemClickListener(this);
     toolbar.showOverflowMenu();
-    MenuColorizer.colorToolbar(this, toolbar);
+    themeColor.apply(toolbar);
 
     if (caldavAccount == null) {
       toolbar.getMenu().findItem(R.id.remove).setVisible(false);

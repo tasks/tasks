@@ -30,7 +30,6 @@ import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.security.Encryption;
 import org.tasks.ui.DisplayableException;
-import org.tasks.ui.MenuColorizer;
 import timber.log.Timber;
 
 public class EncryptionSettingsActivity extends ThemedInjectingAppCompatActivity
@@ -75,7 +74,7 @@ public class EncryptionSettingsActivity extends ThemedInjectingAppCompatActivity
     toolbar.setNavigationOnClickListener(v -> save());
     toolbar.inflateMenu(R.menu.menu_etesync_encryption_settings);
     toolbar.setOnMenuItemClickListener(this);
-    MenuColorizer.colorToolbar(this, toolbar);
+    themeColor.apply(toolbar);
 
     createUserInfoViewModel.observe(this, this::returnDerivedKey, this::requestFailed);
 

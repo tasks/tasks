@@ -53,7 +53,7 @@ import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.Preferences;
-import org.tasks.ui.MenuColorizer;
+import org.tasks.themes.ThemeColor;
 import org.tasks.ui.SubtaskControlSet;
 import org.tasks.ui.TaskEditControlFragment;
 
@@ -62,6 +62,8 @@ public final class TaskEditFragment extends InjectingFragment
 
   static final String TAG_TASKEDIT_FRAGMENT = "taskedit_fragment";
   private static final String EXTRA_TASK = "extra_task";
+  private static final String EXTRA_THEME = "extra_theme";
+
   @Inject TaskDao taskDao;
   @Inject UserActivityDao userActivityDao;
   @Inject TaskDeleter taskDeleter;
@@ -75,12 +77,14 @@ public final class TaskEditFragment extends InjectingFragment
   @Inject TimerPlugin timerPlugin;
 
   Task model = null;
+  ThemeColor themeColor;
   private TaskEditFragmentCallbackHandler callback;
 
-  static TaskEditFragment newTaskEditFragment(Task task) {
+  static TaskEditFragment newTaskEditFragment(Task task, ThemeColor themeColor) {
     TaskEditFragment taskEditFragment = new TaskEditFragment();
     Bundle arguments = new Bundle();
     arguments.putParcelable(EXTRA_TASK, task);
+    arguments.putParcelable(EXTRA_THEME, themeColor);
     taskEditFragment.setArguments(arguments);
     return taskEditFragment;
   }
@@ -105,6 +109,7 @@ public final class TaskEditFragment extends InjectingFragment
 
     Bundle arguments = getArguments();
     model = arguments.getParcelable(EXTRA_TASK);
+    themeColor = arguments.getParcelable(EXTRA_THEME);
 
     Toolbar toolbar = binding.toolbar.toolbar;
     final boolean backButtonSavesTask = preferences.backButtonSavesTask();
@@ -126,7 +131,7 @@ public final class TaskEditFragment extends InjectingFragment
       toolbar.inflateMenu(R.menu.menu_task_edit_fragment);
     }
     toolbar.setOnMenuItemClickListener(this);
-    MenuColorizer.colorToolbar(context, toolbar);
+    themeColor.apply(toolbar);
 
     if (!model.isNew()) {
       notificationManager.cancel(model.getId());
@@ -137,7 +142,7 @@ public final class TaskEditFragment extends InjectingFragment
 
     FragmentManager fragmentManager = getChildFragmentManager();
     List<TaskEditControlFragment> taskEditControlFragments =
-        taskEditControlSetFragmentManager.getOrCreateFragments(this, model);
+        taskEditControlSetFragmentManager.getOrCreateFragments(this, model, themeColor);
 
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
     for (int i = 0; i < taskEditControlFragments.size(); i++) {

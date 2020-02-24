@@ -26,7 +26,6 @@ import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
-import org.tasks.ui.MenuColorizer;
 
 public class ShortcutConfigActivity extends InjectingAppCompatActivity {
 
@@ -68,7 +67,6 @@ public class ShortcutConfigActivity extends InjectingAppCompatActivity {
     toolbar.setTitle(R.string.FSA_label);
     toolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_outline_save_24px));
     toolbar.setNavigationOnClickListener(v -> save());
-    MenuColorizer.colorToolbar(this, toolbar);
 
     if (icicle == null) {
       selectedFilter = defaultFilterProvider.getDefaultFilter();

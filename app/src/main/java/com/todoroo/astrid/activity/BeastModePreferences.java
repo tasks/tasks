@@ -27,7 +27,6 @@ import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.preferences.Preferences;
 import org.tasks.preferences.beast.BeastModeRecyclerAdapter;
-import org.tasks.ui.MenuColorizer;
 
 public class BeastModePreferences extends ThemedInjectingAppCompatActivity
     implements Toolbar.OnMenuItemClickListener {
@@ -96,7 +95,7 @@ public class BeastModePreferences extends ThemedInjectingAppCompatActivity
     toolbar.setNavigationOnClickListener(v -> finish());
     toolbar.inflateMenu(R.menu.beast_mode);
     toolbar.setOnMenuItemClickListener(this);
-    MenuColorizer.colorToolbar(this, toolbar);
+    themeColor.apply(toolbar);
 
     adapter = new BeastModeRecyclerAdapter(this, constructOrderedControlList(preferences, this));
     recyclerView.setHasFixedSize(true);

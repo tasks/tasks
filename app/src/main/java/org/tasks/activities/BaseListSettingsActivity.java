@@ -24,7 +24,6 @@ import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.themes.CustomIcons;
 import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
-import org.tasks.ui.MenuColorizer;
 
 public abstract class BaseListSettingsActivity extends ThemedInjectingAppCompatActivity
     implements IconPickerCallback, OnMenuItemClickListener {
@@ -70,7 +69,7 @@ public abstract class BaseListSettingsActivity extends ThemedInjectingAppCompatA
       toolbar.inflateMenu(R.menu.menu_tag_settings);
     }
     toolbar.setOnMenuItemClickListener(this);
-    MenuColorizer.colorToolbar(this, toolbar);
+    themeColor.apply(toolbar);
   }
 
   @Override

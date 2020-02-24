@@ -22,6 +22,7 @@ import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.injection.ForActivity;
 import org.tasks.preferences.Preferences;
+import org.tasks.themes.ThemeColor;
 import org.tasks.ui.CalendarControlSet;
 import org.tasks.ui.DeadlineControlSet;
 import org.tasks.ui.DescriptionControlSet;
@@ -113,10 +114,11 @@ public class TaskEditControlSetFragmentManager {
   }
 
   public List<TaskEditControlFragment> getOrCreateFragments(
-      TaskEditFragment taskEditFragment, Task task) {
+      TaskEditFragment taskEditFragment, Task task, ThemeColor themeColor) {
     Bundle arguments = new Bundle();
     arguments.putParcelable(TaskEditControlFragment.EXTRA_TASK, task);
     arguments.putBoolean(TaskEditControlFragment.EXTRA_IS_NEW, task.isNew());
+    arguments.putParcelable(TaskEditControlFragment.EXTRA_THEME, themeColor);
 
     List<TaskEditControlFragment> fragments = new ArrayList<>();
     FragmentManager fragmentManager = taskEditFragment.getChildFragmentManager();

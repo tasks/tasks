@@ -22,7 +22,6 @@ import org.tasks.tags.CheckBoxTriStates.State;
 import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
-import org.tasks.ui.MenuColorizer;
 
 public class TagPickerActivity extends ThemedInjectingAppCompatActivity {
 
@@ -65,10 +64,10 @@ public class TagPickerActivity extends ThemedInjectingAppCompatActivity {
     toolbar.setNavigationIcon(R.drawable.ic_outline_arrow_back_24px);
     toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
-    MenuColorizer.colorToolbar(this, toolbar);
     ThemeColor themeColor = theme.getThemeColor();
     themeColor.applyToStatusBarIcons(this);
     themeColor.applyToNavigationBar(this);
+    themeColor.apply(toolbar);
 
     TagRecyclerAdapter recyclerAdapter =
         new TagRecyclerAdapter(this, viewModel, themeCache, inventory, this::onToggle);

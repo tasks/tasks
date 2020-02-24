@@ -12,7 +12,6 @@ import org.tasks.R
 import org.tasks.databinding.ActivityPreferencesBinding
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.injection.ThemedInjectingAppCompatActivity
-import org.tasks.ui.MenuColorizer
 
 private const val EXTRA_TITLE = "extra_title"
 
@@ -48,7 +47,7 @@ abstract class BasePreferences : ThemedInjectingAppCompatActivity(),
             ContextCompat.getDrawable(this, R.drawable.ic_outline_arrow_back_24px)
         toolbar.setNavigationOnClickListener { onBackPressed() }
         toolbar.setOnMenuItemClickListener(this)
-        MenuColorizer.colorToolbar(this, toolbar)
+        themeColor.apply(toolbar)
     }
 
     private fun setupMenu() = setupMenu(supportFragmentManager.findFragmentById(R.id.settings))

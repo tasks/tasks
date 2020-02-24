@@ -14,11 +14,9 @@ import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.billing.Inventory;
 import org.tasks.databinding.ActivityTaskerCreateBinding;
-import org.tasks.databinding.ToolbarBinding;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.locale.bundle.TaskCreationBundle;
 import org.tasks.preferences.Preferences;
-import org.tasks.ui.MenuColorizer;
 
 public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCompatActivity
     implements Toolbar.OnMenuItemClickListener {
@@ -59,7 +57,7 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
         });
     toolbar.setOnMenuItemClickListener(this);
     toolbar.inflateMenu(R.menu.menu_tasker_create_task);
-    MenuColorizer.colorToolbar(this, toolbar);
+    themeColor.apply(toolbar);
 
     if (savedInstanceState != null) {
       previousBundle = savedInstanceState.getParcelable(TaskCreationBundle.EXTRA_BUNDLE);

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-  <style name="Brown">
-    <item name="colorPrimary">@color/brown_500</item>
-    <item name="colorPrimaryVariant">@color/brown_700</item>
-  </style>
-
-</resources>

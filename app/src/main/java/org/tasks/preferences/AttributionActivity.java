@@ -29,7 +29,6 @@ import java.util.List;
 import org.tasks.R;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
-import org.tasks.ui.MenuColorizer;
 import timber.log.Timber;
 
 public class AttributionActivity extends ThemedInjectingAppCompatActivity {
@@ -51,7 +50,7 @@ public class AttributionActivity extends ThemedInjectingAppCompatActivity {
     toolbar.setTitle(R.string.third_party_licenses);
     toolbar.setNavigationIcon(R.drawable.ic_outline_arrow_back_24px);
     toolbar.setNavigationOnClickListener(v -> finish());
-    MenuColorizer.colorToolbar(this, toolbar);
+    themeColor.apply(toolbar);
 
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
   }

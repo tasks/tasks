@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-  <style name="DarkGrey">
-    <item name="colorPrimary">@color/grey_900</item>
-    <item name="colorPrimaryVariant">@color/grey_statusbar</item>
-  </style>
-
-</resources>

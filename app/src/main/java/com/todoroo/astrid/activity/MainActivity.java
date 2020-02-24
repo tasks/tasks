@@ -389,7 +389,10 @@ public class MainActivity extends InjectingAppCompatActivity
   private void openTask(Task task) {
     getSupportFragmentManager()
         .beginTransaction()
-        .replace(R.id.detail, newTaskEditFragment(task), TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
+        .replace(
+            R.id.detail,
+            newTaskEditFragment(task, getFilterColor()),
+            TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
         .addToBackStack(TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
         .commit();
 

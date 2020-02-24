@@ -65,7 +65,6 @@ import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.PermissionRequestor;
 import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeColor;
-import org.tasks.ui.MenuColorizer;
 import org.tasks.ui.Toaster;
 import timber.log.Timber;
 
@@ -166,11 +165,11 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
     ((SearchView) search.getActionView()).setOnQueryTextListener(this);
     toolbar.setOnMenuItemClickListener(this);
 
-    MenuColorizer.colorToolbar(this, toolbar);
     ThemeColor themeColor = theme.getThemeColor();
     themeColor.applyToStatusBarIcons(this);
     themeColor.applyToNavigationBar(this);
     themeColor.setStatusBarColor(toolbarLayout);
+    themeColor.apply(toolbar);
 
     boolean dark = theme.getThemeBase().isDarkTheme(this);
     map.init(getSupportFragmentManager(), this, dark);

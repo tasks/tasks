@@ -8,9 +8,14 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Build.VERSION_CODES;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.Toolbar;
@@ -19,7 +24,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import org.tasks.R;
 import org.tasks.dialogs.ColorPickerDialog;
-import org.tasks.ui.MenuColorizer;
 
 public class ThemeColor implements ColorPickerDialog.Pickable {
 
@@ -73,27 +77,27 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
 
   static final int[] COLORS =
       new int[] {
-        R.style.BlueGrey,
-        R.style.DarkGrey,
-        R.style.Red,
-        R.style.Pink,
-        R.style.Purple,
-        R.style.DeepPurple,
-        R.style.Indigo,
-        R.style.Blue,
-        R.style.LightBlue,
-        R.style.Cyan,
-        R.style.Teal,
-        R.style.Green,
-        R.style.LightGreen,
-        R.style.Lime,
-        R.style.Yellow,
-        R.style.Amber,
-        R.style.Orange,
-        R.style.DeepOrange,
-        R.style.Brown,
-        R.style.Grey,
-        R.style.White
+        R.color.blue_grey_500,
+        R.color.grey_900,
+        R.color.red_500,
+        R.color.pink_500,
+        R.color.purple_500,
+        R.color.deep_purple_500,
+        R.color.indigo_500,
+        R.color.blue_500,
+        R.color.light_blue_500,
+        R.color.cyan_500,
+        R.color.teal_500,
+        R.color.green_500,
+        R.color.light_green_500,
+        R.color.lime_500,
+        R.color.yellow_500,
+        R.color.amber_500,
+        R.color.orange_500,
+        R.color.deep_orange_500,
+        R.color.brown_500,
+        R.color.grey_500,
+        R.color.white_100
       };
 
   public static final Parcelable.Creator<ThemeColor> CREATOR =
@@ -111,22 +115,35 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
   private final String name;
   private final int index;
   private final int colorOnPrimary;
-  private final int style;
+  private final int color;
   private final int colorPrimary;
   private final int colorPrimaryVariant;
   private final boolean isDark;
+
+  public ThemeColor(Context context, int color) {
+    name = null;
+    index = -1;
+    this.color = -1;
+    colorPrimary = color;
+    colorPrimaryVariant = ColorUtil.darken(colorPrimary, 12);
+
+    int whiteText = context.getResources().getColor(R.color.white_100);
+    double contrast = ColorUtils.calculateContrast(whiteText, colorPrimary);
+    this.isDark = contrast < 3;
+    colorOnPrimary = isDark ? context.getResources().getColor(R.color.black_87) : whiteText;
+  }
 
   public ThemeColor(
       Context context,
       String name,
       int index,
-      int colorPrimary,
-      int colorPrimaryVariant) {
+      int colorPrimary) {
     this.name = name;
     this.index = index;
-    this.style = COLORS[index];
+    this.color = COLORS[index];
     this.colorPrimary = colorPrimary;
-    this.colorPrimaryVariant = colorPrimaryVariant;
+    this.colorPrimaryVariant = ColorUtil.darken(colorPrimary, 12);
+
     int whiteText = context.getResources().getColor(R.color.white_100);
     double contrast = ColorUtils.calculateContrast(whiteText, colorPrimary);
     this.isDark = contrast < 3;
@@ -137,7 +154,7 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
     name = source.readString();
     index = source.readInt();
     colorOnPrimary = source.readInt();
-    style = source.readInt();
+    color = source.readInt();
     colorPrimary = source.readInt();
     colorPrimaryVariant = source.readInt();
     isDark = source.readInt() == 1;
@@ -207,7 +224,6 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
   }
 
   void applyStyle(Resources.Theme theme) {
-    theme.applyStyle(style, true);
     theme.applyStyle(isDark ? R.style.BlackToolbarTheme : R.style.WhiteToolbarTheme, true);
   }
 
@@ -230,10 +246,10 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
 
   @Override
   public boolean isFree() {
-    switch (style) {
-      case R.style.Blue:
-      case R.style.BlueGrey:
-      case R.style.DarkGrey:
+    switch (color) {
+      case R.color.blue_500:
+      case R.color.blue_grey_500:
+      case R.color.grey_900:
         return true;
       default:
         return false;
@@ -255,7 +271,9 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
 
   public void apply(Toolbar toolbar) {
     toolbar.setBackgroundColor(getPrimaryColor());
-    MenuColorizer.colorToolbar(toolbar, colorOnPrimary);
+    toolbar.setNavigationIcon(colorDrawable(toolbar.getNavigationIcon(), colorOnPrimary));
+    toolbar.setTitleTextColor(colorOnPrimary);
+    colorMenu(toolbar.getMenu(), colorOnPrimary);
   }
 
   @Override
@@ -268,9 +286,38 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
     dest.writeString(name);
     dest.writeInt(index);
     dest.writeInt(colorOnPrimary);
-    dest.writeInt(style);
+    dest.writeInt(color);
     dest.writeInt(colorPrimary);
     dest.writeInt(colorPrimaryVariant);
     dest.writeInt(isDark ? 1 : 0);
+  }
+
+  public void colorMenu(Menu menu) {
+    colorMenu(menu, colorOnPrimary);
+  }
+
+  private static void colorMenu(Menu menu, int color) {
+    for (int i = 0, size = menu.size(); i < size; i++) {
+      final MenuItem menuItem = menu.getItem(i);
+      colorMenuItem(menuItem, color);
+      if (menuItem.hasSubMenu()) {
+        final SubMenu subMenu = menuItem.getSubMenu();
+        for (int j = 0; j < subMenu.size(); j++) {
+          colorMenuItem(subMenu.getItem(j), color);
+        }
+      }
+    }
+  }
+
+  private static void colorMenuItem(final MenuItem menuItem, final int color) {
+    colorDrawable(menuItem.getIcon(), color);
+  }
+
+  private static Drawable colorDrawable(Drawable drawable, int color) {
+    if (drawable != null) {
+      drawable.mutate();
+      drawable.setColorFilter(color, PorterDuff.Mode.SRC_IN);
+    }
+    return drawable;
   }
 }

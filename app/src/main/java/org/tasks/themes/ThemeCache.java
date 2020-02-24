@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.content.ContextCompat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -61,14 +62,9 @@ public class ThemeCache {
 
     String[] colorNames = resources.getStringArray(R.array.colors);
     for (int i = 0; i < ThemeColor.COLORS.length; i++) {
-      Resources.Theme theme = new ContextThemeWrapper(context, ThemeColor.COLORS[i]).getTheme();
       colors.add(
           new ThemeColor(
-              context,
-              colorNames[i],
-              i,
-              resolveAttribute(theme, R.attr.colorPrimary),
-              resolveAttribute(theme, R.attr.colorPrimaryVariant)));
+              context, colorNames[i], i, ContextCompat.getColor(context, ThemeColor.COLORS[i])));
     }
     String[] accentNames = resources.getStringArray(R.array.accents);
     for (int i = 0; i < ThemeAccent.ACCENTS.length; i++) {
@@ -86,7 +82,7 @@ public class ThemeCache {
               getColor(context, i == 0 ? R.color.black_54 : R.color.white_70)));
     }
     untaggedColor =
-        new ThemeColor(context, null, 19, getColor(context, R.color.tag_color_none_background), 0);
+        new ThemeColor(context, null, 19, getColor(context, R.color.tag_color_none_background));
   }
 
   private static int resolveAttribute(Resources.Theme theme, int attribute) {

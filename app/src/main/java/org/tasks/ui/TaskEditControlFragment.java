@@ -12,14 +12,17 @@ import butterknife.ButterKnife;
 import com.todoroo.astrid.data.Task;
 import org.tasks.R;
 import org.tasks.injection.InjectingFragment;
+import org.tasks.themes.ThemeColor;
 
 public abstract class TaskEditControlFragment extends InjectingFragment {
 
   public static final String EXTRA_TASK = "extra_task";
   public static final String EXTRA_IS_NEW = "extra_is_new";
+  public static final String EXTRA_THEME = "extra_theme";
 
   protected Task task;
   private boolean isNew;
+  protected ThemeColor themeColor;
 
   @Nullable
   @Override
@@ -42,6 +45,7 @@ public abstract class TaskEditControlFragment extends InjectingFragment {
     if (arguments != null) {
       task = arguments.getParcelable(EXTRA_TASK);
       isNew = arguments.getBoolean(EXTRA_IS_NEW);
+      themeColor = arguments.getParcelable(EXTRA_THEME);
     }
   }
 

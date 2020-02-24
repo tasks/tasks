@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="AmberAccent" parent="BlackTint">
+    <item name="colorAccent">@color/amber_a400</item>
+  </style>
+
+  <style name="BlueAccent" parent="WhiteTint">
+    <item name="colorAccent">@color/blue_a400</item>
+  </style>
+
+  <style name="BlueGreyAccent" parent="WhiteTint">
+    <item name="colorAccent">@color/blue_grey_400</item>
+  </style>
+
+  <style name="CyanAccent" parent="BlackTint">
+    <item name="colorAccent">@color/cyan_a400</item>
+  </style>
+
+  <style name="DeepOrangeAccent" parent="WhiteTint">
+    <item name="colorAccent">@color/deep_orange_a400</item>
+  </style>
+
+  <style name="DeepPurpleAccent" parent="WhiteTint">
+    <item name="colorAccent">@color/deep_purple_a400</item>
+  </style>
+
+  <style name="GreenAccent" parent="BlackTint">
+    <item name="colorAccent">@color/green_a400</item>
+  </style>
+
+  <style name="IndigoAccent" parent="WhiteTint">
+    <item name="colorAccent">@color/indigo_a400</item>
+  </style>
+
+  <style name="LightBlueAccent" parent="BlackTint">
+    <item name="colorAccent">@color/light_blue_a400</item>
+  </style>
+
+  <style name="LightGreenAccent" parent="BlackTint">
+    <item name="colorAccent">@color/light_green_a400</item>
+  </style>
+
+  <style name="LimeAccent" parent="BlackTint">
+    <item name="colorAccent">@color/lime_a400</item>
+  </style>
+
+  <style name="OrangeAccent" parent="BlackTint">
+    <item name="colorAccent">@color/orange_a400</item>
+  </style>
+
+  <style name="PinkAccent" parent="WhiteTint">
+    <item name="colorAccent">@color/pink_a400</item>
+  </style>
+
+  <style name="PurpleAccent" parent="WhiteTint">
+    <item name="colorAccent">@color/purple_a400</item>
+  </style>
+
+  <style name="RedAccent" parent="WhiteTint">
+    <item name="colorAccent">@color/red_a400</item>
+  </style>
+
+  <style name="TealAccent" parent="BlackTint">
+    <item name="colorAccent">@color/teal_a400</item>
+  </style>
+
+  <style name="YellowAccent" parent="BlackTint">
+    <item name="colorAccent">@color/yellow_a400</item>
+  </style>
+
+</resources>
