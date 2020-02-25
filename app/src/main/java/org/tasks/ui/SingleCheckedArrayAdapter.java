@@ -28,7 +28,7 @@ public class SingleCheckedArrayAdapter extends ArrayAdapter<String> {
 
   public SingleCheckedArrayAdapter(
       @NonNull Context context, @NonNull List<String> items, ThemeAccent accent) {
-    super(context, R.layout.simple_list_item_single_choice_themed, items);
+    super(context, R.layout.simple_list_item_single_checkmark, items);
     this.context = context;
     this.accent = accent;
     this.alpha =

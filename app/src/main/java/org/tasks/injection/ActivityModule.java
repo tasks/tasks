@@ -35,8 +35,8 @@ public class ActivityModule {
 
   @Provides
   @ActivityScope
-  public ThemeBase getThemeBase(ThemeCache themeCache, Preferences preferences) {
-    return themeCache.getThemeBase(preferences.getInt(R.string.p_theme, 0));
+  public ThemeBase getThemeBase(ThemeCache themeCache) {
+    return themeCache.getThemeBase(activity.getIntent());
   }
 
   @Provides

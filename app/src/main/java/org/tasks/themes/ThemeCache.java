@@ -4,29 +4,39 @@ import static androidx.core.content.ContextCompat.getColor;
 import static com.google.common.collect.ImmutableList.copyOf;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
+import org.tasks.billing.Inventory;
 import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.ForApplication;
+import org.tasks.preferences.Preferences;
 
 @ApplicationScope
 public class ThemeCache {
+
+  public static final String EXTRA_THEME_OVERRIDE = "extra_theme_override";
 
   private final List<ThemeBase> themes = new ArrayList<>();
   private final List<ThemeColor> colors = new ArrayList<>();
   private final List<ThemeAccent> accents = new ArrayList<>();
   private final List<WidgetTheme> widgetThemes = new ArrayList<>();
   private final ThemeColor untaggedColor;
+  private final Preferences preferences;
+  private final Inventory inventory;
 
   @Inject
-  public ThemeCache(@ForApplication Context context) {
+  public ThemeCache(Preferences preferences, Inventory inventory, @ForApplication Context context) {
+    this.preferences = preferences;
+    this.inventory = inventory;
     Resources resources = context.getResources();
 
     themes.add(
@@ -95,6 +105,20 @@ public class ThemeCache {
     return widgetThemes.get(index);
   }
 
+  public ThemeBase getThemeBase() {
+    return getThemeBase(null);
+  }
+
+  public ThemeBase getThemeBase(@Nullable Intent intent) {
+    int index = preferences.getInt(R.string.p_theme, 0);
+    if (intent != null && intent.hasExtra(EXTRA_THEME_OVERRIDE)) {
+      index = intent.getIntExtra(EXTRA_THEME_OVERRIDE, 0);
+    } else if (index > 1 && !inventory.hasPro()) {
+      index = 0;
+    }
+    return getThemeBase(index);
+  }
+
   public ThemeBase getThemeBase(int index) {
     return themes.get(index);
   }
@@ -113,10 +137,6 @@ public class ThemeCache {
 
   public List<ThemeAccent> getAccents() {
     return copyOf(accents);
-  }
-
-  public List<ThemeBase> getThemes() {
-    return copyOf(themes);
   }
 
   public List<ThemeColor> getColors() {

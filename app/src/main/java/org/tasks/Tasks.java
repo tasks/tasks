@@ -56,7 +56,7 @@ public class Tasks extends InjectingApplication {
 
     preferences.setSyncOngoing(false);
 
-    themeCache.getThemeBase(preferences.getInt(R.string.p_theme, 0)).setDefaultNightMode();
+    themeCache.getThemeBase().setDefaultNightMode();
 
     localBroadcastManager.registerRefreshReceiver(new RefreshBroadcastReceiver());
 

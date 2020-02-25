@@ -215,6 +215,14 @@
     <item>@string/TEA_ctrl_hide_section_pref</item>
   </string-array>
 
+  <string-array name="base_theme_names">
+    <item>@string/theme_light</item>
+    <item>@string/theme_black</item>
+    <item>@string/theme_dark</item>
+    <item>@string/theme_wallpaper</item>
+    <item>@string/theme_day_night</item>
+  </string-array>
+
   <string-array name="EPr_default_reminders_mode">
     <item>@string/ring_once</item>
     <item>@string/ring_five_times</item>

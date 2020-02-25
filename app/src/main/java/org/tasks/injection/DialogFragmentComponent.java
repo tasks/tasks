@@ -14,6 +14,7 @@ import org.tasks.dialogs.ImportTasksDialog;
 import org.tasks.dialogs.RecordAudioDialog;
 import org.tasks.dialogs.SeekBarDialog;
 import org.tasks.dialogs.SortDialog;
+import org.tasks.dialogs.ThemePickerDialog;
 import org.tasks.locale.LocalePickerDialog;
 import org.tasks.reminders.NotificationDialog;
 import org.tasks.reminders.SnoozeDialog;
@@ -58,4 +59,6 @@ public interface DialogFragmentComponent {
   void inject(ImportTasksDialog importTasksDialog);
 
   void inject(LocalePickerDialog localePickerDialog);
+
+  void inject(ThemePickerDialog themePickerDialog);
 }

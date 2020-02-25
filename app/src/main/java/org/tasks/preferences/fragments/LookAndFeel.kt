@@ -10,6 +10,7 @@ import android.os.Handler
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import com.google.common.base.Strings
@@ -24,6 +25,9 @@ import org.tasks.activities.ColorPickerActivity.ColorPalette.*
 import org.tasks.activities.FilterSelectionActivity
 import org.tasks.activities.TimePickerActivity
 import org.tasks.billing.Inventory
+import org.tasks.billing.PurchaseActivity
+import org.tasks.dialogs.ThemePickerDialog
+import org.tasks.dialogs.ThemePickerDialog.Companion.newThemePickerDialog
 import org.tasks.gtasks.PlayServices
 import org.tasks.injection.FragmentComponent
 import org.tasks.injection.InjectingPreferenceFragment
@@ -34,8 +38,10 @@ import org.tasks.preferences.Preferences
 import org.tasks.themes.ThemeAccent
 import org.tasks.themes.ThemeBase
 import org.tasks.themes.ThemeCache
+import org.tasks.themes.ThemeCache.EXTRA_THEME_OVERRIDE
 import org.tasks.themes.ThemeColor
 import org.tasks.time.DateTime
+import org.tasks.ui.NavigationDrawerFragment.REQUEST_PURCHASE
 import org.tasks.ui.SingleCheckedArrayAdapter
 import org.tasks.ui.TimePreference
 import org.tasks.ui.Toaster
@@ -54,6 +60,7 @@ private const val REQUEST_AFTERNOON = 10008
 private const val REQUEST_EVENING = 10009
 private const val REQUEST_NIGHT = 10010
 private const val FRAG_TAG_LOCALE_PICKER = "frag_tag_locale_picker"
+private const val FRAG_TAG_THEME_PICKER = "frag_tag_theme_picker"
 
 class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChangeListener {
 
@@ -72,7 +79,6 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
     override fun getPreferenceXml() = R.xml.preferences_look_and_feel
 
     override fun setupPreferences(savedInstanceState: Bundle?) {
-        setupColorPreference(R.string.p_theme, themeBase.name, THEMES, REQUEST_THEME_PICKER)
         setupColorPreference(R.string.p_theme_color, themeColor.name, COLORS, REQUEST_COLOR_PICKER)
         setupColorPreference(
             R.string.p_theme_accent,
@@ -87,6 +93,14 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
                 localBroadcastManager.broadcastRefresh()
                 true
             }
+
+        val themePref = findPreference(R.string.p_theme)
+        themePref.summary = themeBase.name
+        themePref.setOnPreferenceClickListener {
+            newThemePickerDialog(this, REQUEST_THEME_PICKER, themeBase.index)
+                    .show(parentFragmentManager, FRAG_TAG_THEME_PICKER)
+            false
+        }
 
         val defaultList = findPreference(R.string.p_default_list)
         val filter: Filter = defaultFilterProvider.defaultFilter
@@ -226,15 +240,37 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
         ) else 0
     }
 
+    private fun setBaseTheme(index: Int) {
+        activity?.intent?.removeExtra(EXTRA_THEME_OVERRIDE)
+        preferences.setInt(R.string.p_theme, index)
+        if (themeBase.index != index) {
+            Handler().post {
+                themeCache.getThemeBase(index).setDefaultNightMode()
+                recreate()
+            }
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_THEME_PICKER) {
+        if (requestCode == REQUEST_PURCHASE) {
+            val index = if (inventory.hasPro()) {
+                data?.getIntExtra(ThemePickerDialog.EXTRA_SELECTED, themeBase.index)
+                        ?: themeBase.index
+            } else {
+                preferences.getInt(R.string.p_theme, 0)
+            }
+            setBaseTheme(index)
+        } else if (requestCode == REQUEST_THEME_PICKER) {
+            val index = data?.getIntExtra(ThemePickerDialog.EXTRA_SELECTED, themeBase.index)
+                    ?: preferences.getInt(R.string.p_theme, 0)
             if (resultCode == RESULT_OK) {
-                val index = data!!.getIntExtra(ColorPickerActivity.EXTRA_COLOR, 0)
-                preferences.setInt(R.string.p_theme, index)
-                Handler().post {
-                    themeCache.getThemeBase(index).setDefaultNightMode()
-                    recreate()
+                if (inventory.hasPro() || index < 2) {
+                    setBaseTheme(index)
+                } else {
+                    startActivityForResult(Intent(context, PurchaseActivity::class.java), REQUEST_PURCHASE)
                 }
+            } else {
+                setBaseTheme(index)
             }
         } else if (requestCode == REQUEST_COLOR_PICKER) {
             if (resultCode == RESULT_OK) {

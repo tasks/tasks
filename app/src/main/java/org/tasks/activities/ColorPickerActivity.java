@@ -66,8 +66,6 @@ public class ColorPickerActivity extends InjectingAppCompatActivity
         return themeCache.getColors();
       case LAUNCHER:
         return themeCache.getColors().subList(0, themeCache.getColors().size() - 1);
-      case THEMES:
-        return themeCache.getThemes();
       case WIDGET_BACKGROUND:
         return themeCache.getWidgetThemes();
       default:
@@ -113,7 +111,6 @@ public class ColorPickerActivity extends InjectingAppCompatActivity
   }
 
   public enum ColorPalette {
-    THEMES,
     COLORS,
     ACCENTS,
     LAUNCHER,
