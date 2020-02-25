@@ -380,4 +380,27 @@
         <item quantity="few">%d podúkoly</item>
         <item quantity="other">%d podúkolů</item>
     </plurals>
+    <string name="repeat_type_due">termínu úkolu</string>
+    <string name="repeat_type_completion">okamžiku dokočení</string>
+    <string name="repeat_occurs">Vyskytne se</string>
+    <string name="repeat_snackbar">Úkol %1$s byl znovu naplánován na %2$s</string>
+    <string name="repeat_snackbar_time" comment="display new due date and time in snackbar after completing repeating task, e.g. 'Tomorrow at 8 AM' or '21 May at 8 AM'">%1$s na %2$s</string>
+    <string name="new_list">Vytvořit nový seznam</string>
+    <string name="EPr_voiceRemindersEnabled_desc_enabled">Aplikace bude nahlas číst název úkolu při upozornění</string>
+    <string name="attachment_directory">Adresář příloh</string>
+    <string name="google_drive_backup">Kopírovat na Disk Google</string>
+    <string name="row_spacing">Řádkování</string>
+    <string name="customize_edit_screen">Přizpůsobit upravovací obrazovku</string>
+    <string name="add_reminder">Přidat připomenutí</string>
+    <string name="add_location">Přidat místo</string>
+    <string name="randomly_once">Náhodně jednou</string>
+    <string name="pick_a_date_and_time">Vybrat datum a čas</string>
+    <string name="when_due">Při termínu</string>
+    <string name="geofence_radius">Přesnost</string>
+    <string name="location_radius_meters">%s m</string>
+    <string name="date_shortcut_must_come_before">%1$s musí být před %2$s</string>
+    <string name="date_shortcut_must_come_after">%1$s musí být po %2$s</string>
+    <string name="discard">Zahodit</string>
+    <string name="copy">Kopírovat</string>
+    <string name="move">Přesunout</string>
 </resources>
