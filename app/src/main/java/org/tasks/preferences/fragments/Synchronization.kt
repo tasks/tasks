@@ -45,9 +45,9 @@ class Synchronization : InjectingPreferenceFragment() {
     @Inject lateinit var taskDeleter: TaskDeleter
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
 
-    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        setPreferencesFromResource(R.xml.preferences_synchronization, rootKey)
+    override fun getPreferenceXml() = R.xml.preferences_synchronization
 
+    override fun setupPreferences(savedInstanceState: Bundle?) {
         findPreference(R.string.p_background_sync_unmetered_only)
             .setOnPreferenceChangeListener { _: Preference?, o: Any? ->
                 workManager.updateBackgroundSync(null, null, o as Boolean?)

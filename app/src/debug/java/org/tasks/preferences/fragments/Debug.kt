@@ -19,9 +19,9 @@ class Debug : InjectingPreferenceFragment() {
     @Inject lateinit var billingClient: BillingClient
     @Inject lateinit var toaster: Toaster
 
-    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        setPreferencesFromResource(R.xml.preferences_debug, rootKey)
+    override fun getPreferenceXml() = R.xml.preferences_debug
 
+    override fun setupPreferences(savedInstanceState: Bundle?) {
         for (pref in Ints.asList(
             R.string.p_leakcanary,
             R.string.p_flipper,

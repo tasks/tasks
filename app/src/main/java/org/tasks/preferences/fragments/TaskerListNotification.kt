@@ -36,9 +36,9 @@ class TaskerListNotification : InjectingPreferenceFragment() {
     var filter: Filter? = null
     var cancelled: Boolean = false
 
-    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        setPreferencesFromResource(R.xml.preferences_tasker, rootKey)
+    override fun getPreferenceXml() = R.xml.preferences_tasker
 
+    override fun setupPreferences(savedInstanceState: Bundle?) {
         filter = if (savedInstanceState == null) {
             defaultFilterProvider.getFilterFromPreference(arguments?.getString(EXTRA_FILTER))
         } else {

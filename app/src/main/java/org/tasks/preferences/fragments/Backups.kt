@@ -35,9 +35,9 @@ class Backups : InjectingPreferenceFragment() {
     @Inject lateinit var toaster: Toaster
     @Inject lateinit var googleAccountManager: GoogleAccountManager
 
-    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        setPreferencesFromResource(R.xml.preferences_backups, rootKey)
+    override fun getPreferenceXml() = R.xml.preferences_backups
 
+    override fun setupPreferences(savedInstanceState: Bundle?) {
         initializeBackupDirectory()
 
         findPreference(R.string.backup_BAc_import)

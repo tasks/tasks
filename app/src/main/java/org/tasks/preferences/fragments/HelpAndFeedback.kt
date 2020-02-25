@@ -16,9 +16,9 @@ class HelpAndFeedback : InjectingPreferenceFragment() {
     @Inject lateinit var billingClient: BillingClient
     @Inject lateinit var inventory: Inventory
 
-    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        setPreferencesFromResource(R.xml.help_and_feedback, rootKey)
+    override fun getPreferenceXml() = R.xml.help_and_feedback
 
+    override fun setupPreferences(savedInstanceState: Bundle?) {
         findPreference(R.string.changelog).summary =
             getString(R.string.version_string, BuildConfig.VERSION_NAME)
 

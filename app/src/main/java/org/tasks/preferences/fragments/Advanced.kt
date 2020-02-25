@@ -46,9 +46,9 @@ class Advanced : InjectingPreferenceFragment() {
     private lateinit var disposables: CompositeDisposable
     private lateinit var calendarReminderPreference: SwitchPreferenceCompat
 
-    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        setPreferencesFromResource(R.xml.preferences_advanced, rootKey)
+    override fun getPreferenceXml() = R.xml.preferences_advanced
 
+    override fun setupPreferences(savedInstanceState: Bundle?) {
         findPreference(R.string.EPr_manage_purge_deleted)
             .setOnPreferenceClickListener {
                 purgeDeletedTasks()

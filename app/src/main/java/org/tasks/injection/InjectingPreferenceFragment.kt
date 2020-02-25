@@ -3,7 +3,11 @@ package org.tasks.injection
 import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.drawable.Drawable
+import android.os.Bundle
 import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceGroup
@@ -16,12 +20,36 @@ import org.tasks.dialogs.DialogBuilder
 import org.tasks.preferences.Device
 import javax.inject.Inject
 
+
 abstract class InjectingPreferenceFragment : PreferenceFragmentCompat() {
+
+    companion object {
+        fun tintIcons(pref: Preference, color: Int) {
+            if (pref is PreferenceGroup) {
+                for (i in 0 until pref.preferenceCount) {
+                    tintIcons(pref.getPreference(i), color)
+                }
+            } else {
+                val icon: Drawable? = pref.icon
+                if (icon != null) {
+                    DrawableCompat.setTint(icon, color)
+                }
+            }
+        }
+    }
 
     @Inject lateinit var device: Device
     @Inject lateinit var dialogBuilder: DialogBuilder
 
     private var injected = false
+
+    final override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        setPreferencesFromResource(getPreferenceXml(), rootKey)
+
+        tintIcons(preferenceScreen, ContextCompat.getColor(context!!, R.color.icon_tint))
+
+        setupPreferences(savedInstanceState)
+    }
 
     override fun onAttach(activity: Activity) {
         super.onAttach(activity)
@@ -75,6 +103,10 @@ abstract class InjectingPreferenceFragment : PreferenceFragmentCompat() {
     }
 
     open fun getMenu() = R.menu.menu_preferences
+
+    abstract fun getPreferenceXml(): Int
+
+    abstract fun setupPreferences(savedInstanceState: Bundle?)
 
     protected fun recreate() {
         activity!!.recreate()

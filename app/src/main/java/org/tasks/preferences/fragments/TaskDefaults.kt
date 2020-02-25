@@ -33,9 +33,9 @@ class TaskDefaults : InjectingPreferenceFragment() {
 
     private lateinit var defaultCalendarPref: Preference
 
-    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        setPreferencesFromResource(R.xml.preferences_task_defaults, rootKey)
+    override fun getPreferenceXml() = R.xml.preferences_task_defaults
 
+    override fun setupPreferences(savedInstanceState: Bundle?) {
         defaultCalendarPref = findPreference(R.string.gcal_p_default)
         defaultCalendarPref.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             if (permissionRequester.requestCalendarPermissions()) {
@@ -59,7 +59,7 @@ class TaskDefaults : InjectingPreferenceFragment() {
             }
         updateRemoteListSummary()
 
-        requires(device.supportsGeofences(), R.string.p_default_location_reminder_key)
+        requires(device.supportsGeofences(), R.string.p_default_location_reminder_key, R.string.p_default_location_radius)
     }
 
     override fun onRequestPermissionsResult(

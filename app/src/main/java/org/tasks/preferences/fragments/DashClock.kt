@@ -23,9 +23,9 @@ class DashClock : InjectingPreferenceFragment() {
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var inventory: Inventory
 
-    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        setPreferencesFromResource(R.xml.preferences_dashclock, rootKey)
+    override fun getPreferenceXml() = R.xml.preferences_dashclock
 
+    override fun setupPreferences(savedInstanceState: Bundle?) {
         findPreference(R.string.p_dashclock_filter)
             .setOnPreferenceClickListener {
                 val intent = Intent(context, FilterSelectionActivity::class.java)

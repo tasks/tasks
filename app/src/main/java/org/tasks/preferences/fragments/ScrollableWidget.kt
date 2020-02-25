@@ -51,9 +51,9 @@ class ScrollableWidget : InjectingPreferenceFragment() {
     private lateinit var widgetPreferences: WidgetPreferences
     private var appWidgetId = 0
 
-    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        setPreferencesFromResource(R.xml.preferences_widget, rootKey)
+    override fun getPreferenceXml() = R.xml.preferences_widget
 
+    override fun setupPreferences(savedInstanceState: Bundle?) {
         appWidgetId = arguments!!.getInt(EXTRA_WIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID)
         widgetPreferences = WidgetPreferences(context, preferences, appWidgetId)
 

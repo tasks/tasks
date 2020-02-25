@@ -44,9 +44,9 @@ class Notifications : InjectingPreferenceFragment() {
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var voiceOutputAssistant: VoiceOutputAssistant
 
-    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        setPreferencesFromResource(R.xml.preferences_notifications, rootKey)
+    override fun getPreferenceXml() = R.xml.preferences_notifications
 
+    override fun setupPreferences(savedInstanceState: Bundle?) {
         rescheduleNotificationsOnChange(
             false,
             R.string.p_rmd_time,

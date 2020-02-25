@@ -9,9 +9,9 @@ import org.tasks.injection.InjectingPreferenceFragment
 class MainSettingsFragment : InjectingPreferenceFragment() {
     override fun inject(component: FragmentComponent) = component.inject(this)
 
-    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        setPreferencesFromResource(R.xml.preferences, rootKey)
+    override fun getPreferenceXml() = R.xml.preferences
 
+    override fun setupPreferences(savedInstanceState: Bundle?) {
         requires(BuildConfig.DEBUG, R.string.debug)
     }
 }

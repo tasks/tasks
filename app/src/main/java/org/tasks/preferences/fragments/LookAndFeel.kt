@@ -68,9 +68,9 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var toaster: Toaster
 
-    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        setPreferencesFromResource(R.xml.preferences_look_and_feel, rootKey)
+    override fun getPreferenceXml() = R.xml.preferences_look_and_feel
 
+    override fun setupPreferences(savedInstanceState: Bundle?) {
         setupColorPreference(R.string.p_theme, themeBase.name, THEMES, REQUEST_THEME_PICKER)
         setupColorPreference(R.string.p_theme_color, themeColor.name, COLORS, REQUEST_COLOR_PICKER)
         setupColorPreference(
