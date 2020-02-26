@@ -79,15 +79,6 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
     override fun getPreferenceXml() = R.xml.preferences_look_and_feel
 
     override fun setupPreferences(savedInstanceState: Bundle?) {
-        setupColorPreference(R.string.p_theme_color, themeColor.name, COLORS, REQUEST_COLOR_PICKER)
-        setupColorPreference(
-            R.string.p_theme_accent,
-            themeAccent.name,
-            ACCENTS,
-            REQUEST_ACCENT_PICKER
-        )
-        updateLauncherPreference()
-
         findPreference(R.string.p_show_subtasks)
             .setOnPreferenceChangeListener { _: Preference?, _: Any? ->
                 localBroadcastManager.broadcastRefresh()
@@ -149,19 +140,27 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
     override fun onResume() {
         super.onResume()
 
+        setupColorPreference(R.string.p_theme_color, themeColor.pickerColor, COLORS, REQUEST_COLOR_PICKER)
+        setupColorPreference(
+                R.string.p_theme_accent,
+                themeAccent.pickerColor,
+                ACCENTS,
+                REQUEST_ACCENT_PICKER
+        )
+        updateLauncherPreference()
+
         @Suppress("ConstantConditionIf")
         if (BuildConfig.FLAVOR == "googleplay") {
             setupLocationPickers()
         }
     }
 
-    private fun updateLauncherPreference() =
+    private fun updateLauncherPreference() {
+        val launcher = themeCache.getThemeColor(preferences.getInt(R.string.p_theme_launcher, 7))
         setupColorPreference(
-            R.string.p_theme_launcher,
-            themeCache.getThemeColor(preferences.getInt(R.string.p_theme_launcher, 7)).name,
-            LAUNCHER,
-            REQUEST_LAUNCHER_PICKER
+                R.string.p_theme_launcher, launcher.pickerColor, LAUNCHER, REQUEST_LAUNCHER_PICKER
         )
+    }
 
     private fun setupLocationPickers() {
         val choices =
@@ -362,12 +361,14 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
     }
 
     private fun setupColorPreference(
-        @StringRes prefId: Int, summary: String?,
-        palette: ColorPickerActivity.ColorPalette,
-        requestCode: Int
+            @StringRes prefId: Int, color: Int,
+            palette: ColorPickerActivity.ColorPalette,
+            requestCode: Int
     ) {
         val themePref: Preference = findPreference(prefId)
-        themePref.summary = summary
+        val original = ContextCompat.getDrawable(context!!, R.drawable.ic_baseline_lens_24px)
+        themePref.icon = DrawableCompat.wrap(original!!.mutate())
+        DrawableCompat.setTint(themePref.icon, color)
         themePref.setOnPreferenceClickListener {
             val intent = Intent(context, ColorPickerActivity::class.java)
             intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, palette)
