@@ -4,6 +4,7 @@ plugins {
     id("io.fabric")
     id("com.cookpad.android.licensetools")
     kotlin("android")
+    kotlin("kapt")
 }
 
 repositories {
@@ -41,9 +42,9 @@ android {
         multiDexEnabled = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments["room.schemaLocation"] = "$projectDir/schemas"
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas")
             }
         }
     }
@@ -142,16 +143,16 @@ dependencies {
     }
     implementation("com.gitlab.bitfireAT:cert4android:1488e39a66")
 
-    annotationProcessor("com.google.dagger:dagger-compiler:${Versions.dagger}")
+    kapt("com.google.dagger:dagger-compiler:${Versions.dagger}")
     implementation("com.google.dagger:dagger:${Versions.dagger}")
 
     implementation("androidx.room:room-rxjava2:${Versions.room}")
-    annotationProcessor("androidx.room:room-compiler:${Versions.room}")
+    kapt("androidx.room:room-compiler:${Versions.room}")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
     implementation("androidx.paging:paging-runtime:2.1.1")
 
-    annotationProcessor("com.jakewharton:butterknife-compiler:${Versions.butterknife}")
+    kapt("com.jakewharton:butterknife-compiler:${Versions.butterknife}")
     implementation("com.jakewharton:butterknife:${Versions.butterknife}")
 
     debugImplementation("com.facebook.flipper:flipper:${Versions.flipper}")
@@ -206,8 +207,8 @@ dependencies {
     amazonImplementation("com.crashlytics.sdk.android:crashlytics:${Versions.crashlytics}")
     amazonImplementation("com.google.firebase:firebase-core:${Versions.firebase}")
 
-    androidTestAnnotationProcessor("com.google.dagger:dagger-compiler:${Versions.dagger}")
-    androidTestAnnotationProcessor("com.jakewharton:butterknife-compiler:${Versions.butterknife}")
+    kaptTest("com.google.dagger:dagger-compiler:${Versions.dagger}")
+    kaptTest("com.jakewharton:butterknife-compiler:${Versions.butterknife}")
     androidTestImplementation("com.google.dexmaker:dexmaker-mockito:1.2")
     androidTestImplementation("com.natpryce:make-it-easy:4.0.1")
     androidTestImplementation("androidx.test:runner:1.2.0")
