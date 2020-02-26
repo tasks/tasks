@@ -175,6 +175,10 @@ public class CaldavClient {
     try {
       principal = tryFindPrincipal("/.well-known/caldav");
     } catch (Exception e) {
+      if (e instanceof HttpException && ((HttpException) e).getCode() == 401) {
+        throw e;
+      }
+
       Timber.w(e);
     }
     if (principal == null) {

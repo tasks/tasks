@@ -273,7 +273,11 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
     hideProgressIndicator();
 
     if (t instanceof HttpException) {
-      showSnackbar(t.getMessage());
+      if (((HttpException) t).getCode() == 401) {
+        showSnackbar(R.string.invalid_username_or_password);
+      } else {
+        showSnackbar(t.getMessage());
+      }
     } else if (t instanceof DisplayableException) {
       showSnackbar(((DisplayableException) t).getResId());
     } else if (t instanceof ConnectException) {
