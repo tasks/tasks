@@ -16,7 +16,6 @@ import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.themes.ThemeAccent;
-import org.tasks.ui.SingleCheckedArrayAdapter;
 
 public class LocalePickerDialog extends InjectingDialogFragment {
 
@@ -38,13 +37,11 @@ public class LocalePickerDialog extends InjectingDialogFragment {
     for (String override : getResources().getStringArray(R.array.localization)) {
       locales.add(locale.withLanguage(override));
     }
-    final List<String> display = transform(locales, Locale::getDisplayName);
-    SingleCheckedArrayAdapter adapter =
-        new SingleCheckedArrayAdapter(context, display, themeAccent);
+    List<String> display = transform(locales, Locale::getDisplayName);
     return dialogBuilder
         .newDialog()
         .setSingleChoiceItems(
-            adapter,
+            display,
             display.indexOf(locale.getDisplayName()),
             (dialogInterface, i) -> {
               Locale locale = locales.get(i);
@@ -52,6 +49,7 @@ public class LocalePickerDialog extends InjectingDialogFragment {
               getTargetFragment().onActivityResult(getTargetRequestCode(), RESULT_OK, data);
               dialogInterface.dismiss();
             })
+        .setNegativeButton(android.R.string.cancel, null)
         .show();
   }
 

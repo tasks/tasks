@@ -29,4 +29,5 @@
   android:checked="false"
   android:drawablePadding="@dimen/keyline_second"
   android:gravity="center_vertical"
-  android:textAppearance="?attr/textAppearanceListItemSmall"/>
+  android:textSize="18sp"
+  android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>

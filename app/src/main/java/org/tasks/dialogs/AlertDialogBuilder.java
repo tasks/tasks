@@ -83,7 +83,7 @@ public class AlertDialogBuilder {
     return this;
   }
 
-  AlertDialogBuilder setSingleChoiceItems(
+  public AlertDialogBuilder setSingleChoiceItems(
       List<String> strings, int selectedIndex, DialogInterface.OnClickListener onClickListener) {
     builder.setSingleChoiceItems(
         addDirectionality(strings.toArray(new String[0])),
