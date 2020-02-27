@@ -67,7 +67,7 @@ public class TimeDurationControlSet implements OnNNumberPickedListener, View.OnC
     if (dialog == null) {
       dialog =
           new NNumberPickerDialog(
-              theme.getThemedDialog(context),
+              context,
               this,
               context.getResources().getString(R.string.DLG_hour_minutes),
               new int[] {0, 0},

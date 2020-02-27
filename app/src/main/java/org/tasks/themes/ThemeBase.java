@@ -50,10 +50,6 @@ public class ThemeBase implements ColorPickerDialog.Pickable {
     dayNightMode = source.readInt();
   }
 
-  public int getAlertDialogStyle() {
-    return R.style.TasksDialogAlert;
-  }
-
   @Override
   public String getName() {
     return name;

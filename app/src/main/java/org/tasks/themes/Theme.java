@@ -42,10 +42,6 @@ public class Theme {
     return (LayoutInflater) wrap(context).getSystemService(Context.LAYOUT_INFLATER_SERVICE);
   }
 
-  public ContextThemeWrapper getThemedDialog(Context context) {
-    return new ContextThemeWrapper(context, themeBase.getAlertDialogStyle());
-  }
-
   public void applyThemeAndStatusBarColor(Activity activity) {
     applyTheme(activity);
     themeColor.applyToSystemBars(activity);

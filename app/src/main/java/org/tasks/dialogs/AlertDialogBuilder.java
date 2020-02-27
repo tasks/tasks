@@ -4,7 +4,6 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.ListAdapter;
 import androidx.appcompat.app.AlertDialog;
@@ -24,9 +23,7 @@ public class AlertDialogBuilder {
     this.context = context;
     this.theme = theme;
     this.locale = locale;
-    ContextThemeWrapper wrapper = theme.getThemedDialog(context);
-    theme.applyToContext(wrapper);
-    builder = new MaterialAlertDialogBuilder(wrapper);
+    builder = new MaterialAlertDialogBuilder(context);
   }
 
   public AlertDialogBuilder setMessage(int message, Object... formatArgs) {
