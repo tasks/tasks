@@ -17,9 +17,12 @@ import at.bitfire.dav4jvm.XmlUtils;
 import at.bitfire.dav4jvm.exception.DavException;
 import at.bitfire.dav4jvm.exception.HttpException;
 import at.bitfire.dav4jvm.property.CalendarHomeSet;
+import at.bitfire.dav4jvm.property.CalendarProxyReadFor;
+import at.bitfire.dav4jvm.property.CalendarProxyWriteFor;
 import at.bitfire.dav4jvm.property.CurrentUserPrincipal;
 import at.bitfire.dav4jvm.property.DisplayName;
 import at.bitfire.dav4jvm.property.GetCTag;
+import at.bitfire.dav4jvm.property.GroupMembership;
 import at.bitfire.dav4jvm.property.ResourceType;
 import at.bitfire.dav4jvm.property.SupportedCalendarComponentSet;
 import com.todoroo.astrid.helper.UUIDHelper;
@@ -58,6 +61,7 @@ public class CaldavClient {
   private final OkHttpClient httpClient;
   private final HttpUrl httpUrl;
   private final Context context;
+  private final BasicDigestAuthHandler basicDigestAuthHandler;
   private boolean foreground;
 
   @Inject
@@ -72,6 +76,7 @@ public class CaldavClient {
     this.interceptor = interceptor;
     httpClient = null;
     httpUrl = null;
+    basicDigestAuthHandler = null;
   }
 
   private CaldavClient(
@@ -95,8 +100,7 @@ public class CaldavClient {
     SSLContext sslContext = SSLContext.getInstance("TLS");
     sslContext.init(null, new TrustManager[] { customCertManager }, null);
 
-    BasicDigestAuthHandler basicDigestAuthHandler =
-        new BasicDigestAuthHandler(null, username, password);
+    basicDigestAuthHandler = new BasicDigestAuthHandler(null, username, password);
     Builder builder =
         new OkHttpClient()
             .newBuilder()
@@ -107,7 +111,9 @@ public class CaldavClient {
             .followSslRedirects(true)
             .sslSocketFactory(sslContext.getSocketFactory(), customCertManager)
             .hostnameVerifier(hostnameVerifier)
-            .readTimeout(30, TimeUnit.SECONDS);
+            .connectTimeout(15, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(120, TimeUnit.SECONDS);
     if (preferences.isFlipperEnabled()) {
       interceptor.add(builder);
     }
@@ -150,7 +156,7 @@ public class CaldavClient {
     return null;
   }
 
-  private String findHomeset(HttpUrl httpUrl) throws DavException, IOException {
+  private String findHomeset() throws DavException, IOException {
     DavResource davResource = new DavResource(httpClient, httpUrl);
     ResponseList responses = new ResponseList();
     davResource.propfind(0, new Name[] {CalendarHomeSet.NAME}, responses);
@@ -170,7 +176,8 @@ public class CaldavClient {
     return davResource.getLocation().resolve(homeSet).toString();
   }
 
-  String getHomeSet() throws IOException, DavException {
+  String getHomeSet()
+      throws IOException, DavException, NoSuchAlgorithmException, KeyManagementException {
     String principal = null;
     try {
       principal = tryFindPrincipal("/.well-known/caldav");
@@ -184,7 +191,11 @@ public class CaldavClient {
     if (principal == null) {
       principal = tryFindPrincipal("");
     }
-    return findHomeset(isEmpty(principal) ? httpUrl : httpUrl.resolve(principal));
+    return forUrl(
+            (isEmpty(principal) ? this.httpUrl : httpUrl.resolve(principal)).toString(),
+            basicDigestAuthHandler.getUsername(),
+            basicDigestAuthHandler.getPassword())
+        .findHomeset();
   }
 
   public List<Response> getCalendars() throws IOException, DavException {
