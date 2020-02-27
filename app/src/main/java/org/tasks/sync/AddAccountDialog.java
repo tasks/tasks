@@ -77,6 +77,6 @@ public class AddAccountDialog {
                     new Intent(
                         Intent.ACTION_VIEW, Uri.parse(activity.getString(R.string.help_url_sync)))))
         .setNegativeButton(android.R.string.cancel, null)
-        .showThemedListView();
+        .show();
   }
 }

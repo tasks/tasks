@@ -6,23 +6,20 @@ import android.graphics.drawable.ColorDrawable;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import javax.inject.Inject;
 import org.tasks.locale.Locale;
-import org.tasks.themes.Theme;
 
 public class DialogBuilder {
 
   private final Activity activity;
-  private final Theme theme;
   private final Locale locale;
 
   @Inject
-  public DialogBuilder(Activity activity, Theme theme, Locale locale) {
+  public DialogBuilder(Activity activity, Locale locale) {
     this.activity = activity;
-    this.theme = theme;
     this.locale = locale;
   }
 
   public AlertDialogBuilder newDialog() {
-    return new AlertDialogBuilder(activity, theme, locale);
+    return new AlertDialogBuilder(activity, locale);
   }
 
   public AlertDialogBuilder newDialog(int title) {
@@ -38,9 +35,7 @@ public class DialogBuilder {
   }
 
   ProgressDialog newProgressDialog() {
-    ProgressDialog progressDialog =
-        new ProgressDialog(activity);
-    theme.applyToContext(progressDialog.getContext());
+    ProgressDialog progressDialog = new ProgressDialog(activity);
     if (AndroidUtilities.preLollipop()) {
       ColorDrawable background =
           new ColorDrawable(activity.getResources().getColor(android.R.color.transparent));

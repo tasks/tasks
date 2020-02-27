@@ -79,7 +79,7 @@ public class ThemeCache {
     String[] accentNames = resources.getStringArray(R.array.accents);
     for (int i = 0; i < ThemeAccent.ACCENTS.length; i++) {
       Resources.Theme theme = new ContextThemeWrapper(context, ThemeAccent.ACCENTS[i]).getTheme();
-      accents.add(new ThemeAccent(accentNames[i], i, resolveAttribute(theme, R.attr.colorAccent)));
+      accents.add(new ThemeAccent(accentNames[i], i, resolveAttribute(theme, R.attr.colorSecondary)));
     }
     String[] widgetBackgroundNames = resources.getStringArray(R.array.widget_background);
     for (int i = 0; i < WidgetTheme.BACKGROUNDS.length; i++) {

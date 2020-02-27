@@ -186,7 +186,7 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
                     dialog.dismiss()
                 }
                 .setNegativeButton(android.R.string.cancel, null)
-                .showThemedListView()
+                .show()
             false
         }
         val mapProvider: Int = getMapProvider()
@@ -218,7 +218,7 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
                     dialog.dismiss()
                 }
                 .setNegativeButton(android.R.string.cancel, null)
-                .showThemedListView()
+                .show()
             false
         }
         val placeProvider: Int = getPlaceProvider()

@@ -10,18 +10,15 @@ import androidx.appcompat.app.AlertDialog;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.List;
 import org.tasks.locale.Locale;
-import org.tasks.themes.Theme;
 
 public class AlertDialogBuilder {
 
   private final AlertDialog.Builder builder;
   private final Context context;
-  private final Theme theme;
   private final Locale locale;
 
-  AlertDialogBuilder(Context context, Theme theme, Locale locale) {
+  AlertDialogBuilder(Context context, Locale locale) {
     this.context = context;
-    this.theme = theme;
     this.locale = locale;
     builder = new MaterialAlertDialogBuilder(context);
   }
@@ -129,17 +126,7 @@ public class AlertDialogBuilder {
   }
 
   public AlertDialog create() {
-    AlertDialog dialog = builder.create();
-    theme.applyToContext(dialog.getContext());
-    return dialog;
-  }
-
-  public AlertDialog showThemedListView() {
-    AlertDialog dialog = create();
-    theme.applyToContext(dialog.getListView().getContext());
-    dialog.show();
-    locale.applyDirectionality(dialog);
-    return dialog;
+    return builder.create();
   }
 
   public AlertDialog show() {

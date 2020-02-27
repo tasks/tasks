@@ -3,7 +3,7 @@
 
   <style name="DayNightDialog" parent="Theme.MaterialComponents.Dialog"/>
 
-  <style name="DayNightAlert" parent="Theme.MaterialComponents.Dialog.Alert"/>
+  <style name="DayNightAlert" parent="ThemeOverlay.MaterialComponents.Dialog.Alert"/>
 
   <style name="popup_overlay" parent="ThemeOverlay.MaterialComponents"/>
 </resources>

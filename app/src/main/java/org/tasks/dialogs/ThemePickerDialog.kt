@@ -71,6 +71,7 @@ class ThemePickerDialog : InjectingDialogFragment() {
         }
 
         dialog = dialogBuilder.newDialog()
+                .setTitle(R.string.theme)
                 .setSingleChoiceItems(adapter, arguments!!.getInt(EXTRA_SELECTED)) { _, which ->
                     selected = which
                     if (available()) {

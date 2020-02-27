@@ -156,7 +156,8 @@ class Synchronization : InjectingPreferenceFragment() {
                             logoutConfirmation(googleTaskAccount)
                         }
                     }
-                    .showThemedListView()
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .show()
                 false
             }
             category.addPreference(preference)
