@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import org.tasks.R;
 import org.tasks.caldav.CaldavAccountSettingsActivity;
@@ -39,7 +41,12 @@ public class AddAccountDialog {
             View view = super.getView(position, convertView, parent);
             view.<TextView>findViewById(R.id.text1).setText(services[position]);
             view.<TextView>findViewById(R.id.text2).setText(descriptions[position]);
-            view.<ImageView>findViewById(R.id.image_view).setImageResource(icons[position]);
+            ImageView icon = view.findViewById(R.id.image_view);
+            icon.setImageResource(icons[position]);
+            if (position == 1) {
+              DrawableCompat.setTint(
+                  icon.getDrawable(), ContextCompat.getColor(getContext(), R.color.icon_tint));
+            }
             return view;
           }
         };
