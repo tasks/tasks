@@ -78,7 +78,7 @@
   <color name="overdue_87">#def44336</color>
   <color name="overdue">@color/overdue_87</color>
 
-  <color name="md_background_dark">#303030</color>
+  <color name="md_background_dark">#202124</color>
   <color name="widget_background_black">#000000</color>
   <color name="icon_tint_light">@android:color/black</color>
   <color name="icon_tint_dark">@android:color/white</color>
@@ -87,8 +87,8 @@
 
   <color name="drawer_background_light">#f9f9f9</color>
   <color name="drawer_background_light_selected">#e8e8e8</color>
-  <color name="drawer_background_dark">#303030</color>
-  <color name="drawer_background_dark_selected">#202020</color>
+  <color name="drawer_background_dark">#202124</color>
+  <color name="drawer_background_dark_selected">#303030</color>
 
   <color name="priority_1">@color/red_500</color>
   <color name="priority_2">@color/amber_500</color>

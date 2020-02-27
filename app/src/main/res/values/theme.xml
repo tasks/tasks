@@ -30,6 +30,7 @@
 
   <style name="TasksDialogAlert" parent="DayNightAlert">
     <item name="android:textColorPrimary">@color/text_primary</item>
+    <item name="android:background">@color/dialog_background</item>
   </style>
 
   <style name="TasksDialog" parent="DayNightDialog"/>
