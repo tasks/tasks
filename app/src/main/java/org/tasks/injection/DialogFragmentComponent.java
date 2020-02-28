@@ -1,7 +1,7 @@
 package org.tasks.injection;
 
 import dagger.Subcomponent;
-import org.tasks.activities.CalendarSelectionDialog;
+import org.tasks.calendars.CalendarPicker;
 import org.tasks.activities.RemoteListPicker;
 import org.tasks.billing.NameYourPriceDialog;
 import org.tasks.billing.PurchaseDialog;
@@ -29,7 +29,7 @@ public interface DialogFragmentComponent {
 
   void inject(NotificationDialog notificationDialog);
 
-  void inject(CalendarSelectionDialog calendarSelectionDialog);
+  void inject(CalendarPicker calendarPicker);
 
   void inject(AddAttachmentDialog addAttachmentDialog);
 

@@ -2,6 +2,7 @@ package org.tasks.ui;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
 import static org.tasks.PermissionUtil.verifyPermissions;
+import static org.tasks.calendars.CalendarPicker.newCalendarPicker;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -26,7 +27,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.activities.CalendarSelectionActivity;
+import org.tasks.calendars.CalendarPicker;
 import org.tasks.analytics.Tracker;
 import org.tasks.calendars.AndroidCalendar;
 import org.tasks.calendars.CalendarEventProvider;
@@ -44,6 +45,7 @@ public class CalendarControlSet extends TaskEditControlFragment {
 
   public static final int TAG = R.string.TEA_ctrl_gcal;
 
+  private static final String FRAG_TAG_CALENDAR_PICKER = "frag_tag_calendar_picker";
   private static final int REQUEST_CODE_PICK_CALENDAR = 70;
   private static final int REQUEST_CODE_OPEN_EVENT = 71;
   private static final int REQUEST_CODE_CLEAR_EVENT = 72;
@@ -227,9 +229,8 @@ public class CalendarControlSet extends TaskEditControlFragment {
   @OnClick(R.id.calendar_display_which)
   void clickCalendar(View view) {
     if (Strings.isNullOrEmpty(eventUri)) {
-      Intent intent = new Intent(context, CalendarSelectionActivity.class);
-      intent.putExtra(CalendarSelectionActivity.EXTRA_CALENDAR_NAME, getCalendarName());
-      startActivityForResult(intent, REQUEST_CODE_PICK_CALENDAR);
+      newCalendarPicker(this, REQUEST_CODE_PICK_CALENDAR, getCalendarName())
+          .show(getParentFragmentManager(), FRAG_TAG_CALENDAR_PICKER);
     } else {
       if (permissionRequestor.requestCalendarPermissions(REQUEST_CODE_OPEN_EVENT)) {
         openCalendarEvent();
@@ -272,7 +273,7 @@ public class CalendarControlSet extends TaskEditControlFragment {
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (requestCode == REQUEST_CODE_PICK_CALENDAR) {
       if (resultCode == Activity.RESULT_OK) {
-        calendarId = data.getStringExtra(CalendarSelectionActivity.EXTRA_CALENDAR_ID);
+        calendarId = data.getStringExtra(CalendarPicker.EXTRA_CALENDAR_ID);
         refreshDisplayView();
       }
     } else {

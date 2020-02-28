@@ -8,7 +8,6 @@ import com.todoroo.astrid.core.CustomFilterActivity;
 import com.todoroo.astrid.gcal.CalendarReminderActivity;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import dagger.Subcomponent;
-import org.tasks.activities.CalendarSelectionActivity;
 import org.tasks.activities.CameraActivity;
 import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.activities.DatePickerActivity;
@@ -82,8 +81,6 @@ public interface ActivityComponent {
   void inject(SnoozeActivity snoozeActivity);
 
   void inject(FileExplore fileExplore);
-
-  void inject(CalendarSelectionActivity calendarSelectionActivity);
 
   void inject(FilterSelectionActivity filterSelectionActivity);
 
