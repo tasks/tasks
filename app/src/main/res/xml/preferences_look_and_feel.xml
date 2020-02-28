@@ -9,14 +9,17 @@
 
   <Preference
     android:key="@string/p_theme_color"
+    android:icon="@drawable/color_picker"
     android:title="@string/color" />
 
   <Preference
     android:key="@string/p_theme_accent"
+    android:icon="@drawable/color_picker"
     android:title="@string/accent" />
 
   <Preference
     android:key="@string/p_theme_launcher"
+    android:icon="@drawable/color_picker"
     android:title="@string/launcher_icon" />
 
   <PreferenceCategory

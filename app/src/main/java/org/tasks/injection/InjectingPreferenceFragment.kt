@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
@@ -70,6 +71,13 @@ abstract class InjectingPreferenceFragment : PreferenceFragmentCompat() {
             }
             .setNegativeButton(R.string.restart_later, null)
             .show()
+    }
+
+    protected fun tintIcon(resId: Int, tint: Int) {
+        val pref = findPreference(resId)
+        val icon = DrawableCompat.wrap(pref.icon.mutate())
+        DrawableCompat.setTint(if (icon is LayerDrawable) icon.getDrawable(0) else icon, tint)
+        pref.icon = icon
     }
 
     protected fun requires(@StringRes prefGroup: Int, check: Boolean, vararg resIds: Int) {

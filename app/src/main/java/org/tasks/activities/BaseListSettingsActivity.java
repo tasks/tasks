@@ -6,6 +6,7 @@ import static org.tasks.themes.ThemeColor.newThemeColor;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -167,10 +168,8 @@ public abstract class BaseListSettingsActivity extends ThemedInjectingAppCompatA
       color.setVisibility(View.GONE);
     } else {
       themeColor = newThemeColor(this, selectedColor);
-      Drawable colorIcon = ContextCompat.getDrawable(this, R.drawable.ic_baseline_lens_24px);
-      Drawable wrappedColorIcon = DrawableCompat.wrap(colorIcon.mutate());
-      DrawableCompat.setTint(wrappedColorIcon, themeColor.getPrimaryColor());
-      color.setImageDrawable(wrappedColorIcon);
+      Drawable drawable = color.getDrawable();
+      DrawableCompat.setTint(((LayerDrawable) drawable).getDrawable(0), themeColor.getPrimaryColor());
       color.setVisibility(View.VISIBLE);
     }
     themeColor.apply(toolbar);

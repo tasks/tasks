@@ -365,11 +365,8 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
             palette: ColorPickerActivity.ColorPalette,
             requestCode: Int
     ) {
-        val themePref: Preference = findPreference(prefId)
-        val original = ContextCompat.getDrawable(context!!, R.drawable.ic_baseline_lens_24px)
-        themePref.icon = DrawableCompat.wrap(original!!.mutate())
-        DrawableCompat.setTint(themePref.icon, color)
-        themePref.setOnPreferenceClickListener {
+        tintIcon(prefId, color)
+        findPreference(prefId).setOnPreferenceClickListener {
             val intent = Intent(context, ColorPickerActivity::class.java)
             intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, palette)
             startActivityForResult(intent, requestCode)

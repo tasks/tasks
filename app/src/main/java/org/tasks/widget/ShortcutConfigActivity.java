@@ -70,7 +70,7 @@ public class ShortcutConfigActivity extends InjectingAppCompatActivity {
 
     if (icicle == null) {
       selectedFilter = defaultFilterProvider.getDefaultFilter();
-      selectedTheme = -1;
+      selectedTheme = 7;
     } else {
       selectedFilter = icicle.getParcelable(EXTRA_FILTER);
       selectedTheme = icicle.getInt(EXTRA_THEME);
@@ -158,17 +158,7 @@ public class ShortcutConfigActivity extends InjectingAppCompatActivity {
   }
 
   private int getThemeIndex() {
-    if (selectedTheme >= 0) {
-      return selectedTheme;
-    }
-    int index =
-        selectedFilter == null || selectedFilter.tint == 0
-            ? themeColor.getIndex()
-            : selectedFilter.tint;
-    if (index >= ThemeColor.ICONS.length - 1) {
-      return 7; // use blue theme until white icon is available
-    }
-    return index;
+    return selectedTheme >= 0 && selectedTheme < ThemeColor.ICONS.length - 1 ? selectedTheme : 7;
   }
 
   private String getShortcutName() {
