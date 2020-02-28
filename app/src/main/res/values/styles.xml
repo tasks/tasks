@@ -108,9 +108,6 @@
   </style>
 
   <style name="task_edit_row_divider" parent="horizontal_divider">
-    <item name="android:layout_marginLeft">@dimen/keyline_content_inset</item>
-    <item name="android:layout_marginStart" tools:ignore="NewApi">@dimen/keyline_content_inset
-    </item>
     <item name="android:layout_gravity">end|bottom</item>
   </style>
 
