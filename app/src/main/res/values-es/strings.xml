@@ -557,4 +557,5 @@
     <string name="disable_battery_optimizations">Desactivar las optimizaciones de la batería</string>
     <string name="more_settings">Más ajustes</string>
     <string name="more_notification_settings_summary">Tono de llamada, vibraciones y más</string>
+    <string name="invalid_username_or_password">Nombre de usuario o contraseña inválidos</string>
 </resources>
