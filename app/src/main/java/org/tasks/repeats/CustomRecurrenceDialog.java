@@ -519,9 +519,11 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
   }
 
   private void repeatUntilClick() {
-    long repeatUntil = DateTime.from(rrule.getUntil()).getMillis();
-    newDatePicker(this, REQUEST_PICK_DATE, repeatUntil > 0 ? repeatUntil : 0L)
-        .show(getParentFragmentManager(), FRAG_TAG_DATE_PICKER);
+    if (getParentFragmentManager().findFragmentByTag(FRAG_TAG_DATE_PICKER) == null) {
+      long repeatUntil = DateTime.from(rrule.getUntil()).getMillis();
+      newDatePicker(this, REQUEST_PICK_DATE, repeatUntil > 0 ? repeatUntil : 0L)
+          .show(getParentFragmentManager(), FRAG_TAG_DATE_PICKER);
+    }
   }
 
   private void updateRepeatUntilOptions() {

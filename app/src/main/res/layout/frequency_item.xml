@@ -13,4 +13,4 @@
   android:ellipsize="end"
   android:singleLine="true"
   android:textAlignment="viewStart"
-  android:textColor="?attr/colorOnPrimary"/>
+  android:textColor="?attr/colorOnSecondary"/>
