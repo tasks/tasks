@@ -5,24 +5,13 @@
   style="@style/TagSettingsRow"
   android:background="?attr/selectableItemBackground">
 
-  <ImageView
-    android:id="@+id/icon"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentEnd="true"
-    android:layout_alignParentRight="true"
-    android:alpha="@dimen/alpha_secondary"
-    android:contentDescription="@string/icon"
-    android:src="@drawable/ic_outline_label_24px"
-    android:tint="@color/icon_tint"/>
-
   <TextView
+    android:id="@+id/icon"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
-    android:layout_toLeftOf="@id/icon"
-    android:layout_toStartOf="@id/icon"
+    android:drawablePadding="@dimen/keyline_second"
     android:contentDescription="@string/icon"
     android:text="@string/icon"
     android:textSize="18sp"/>

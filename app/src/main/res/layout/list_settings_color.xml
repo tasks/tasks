@@ -5,24 +5,17 @@
   style="@style/TagSettingsRow"
   android:background="?attr/selectableItemBackground">
 
-  <ImageView
-    android:id="@+id/color"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentEnd="true"
-    android:layout_alignParentRight="true"
-    android:alpha="@dimen/alpha_secondary"
-    android:contentDescription="@string/color"
-    android:src="@drawable/color_picker"/>
+  <include layout="@layout/control_set_clear_button" />
 
   <TextView
+    android:id="@+id/color"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
-    android:layout_toLeftOf="@id/color"
-
-    android:layout_toStartOf="@id/color"
+    android:layout_toLeftOf="@id/clear"
+    android:layout_toStartOf="@id/clear"
+    android:drawablePadding="@dimen/keyline_second"
     android:contentDescription="@string/color"
     android:text="@string/color"
     android:textSize="18sp"/>
