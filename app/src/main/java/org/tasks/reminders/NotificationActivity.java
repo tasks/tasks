@@ -16,6 +16,7 @@ import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.intents.TaskIntents;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.receivers.CompleteTaskReceiver;
+import org.tasks.themes.ThemeAccent;
 import timber.log.Timber;
 
 public class NotificationActivity extends InjectingAppCompatActivity
@@ -26,6 +27,7 @@ public class NotificationActivity extends InjectingAppCompatActivity
   private static final String FRAG_TAG_NOTIFICATION_FRAGMENT = "frag_tag_notification_fragment";
   @Inject NotificationManager notificationManager;
   @Inject TaskDao taskDao;
+  @Inject ThemeAccent themeAccent;
 
   private long taskId;
   private CompositeDisposable disposables;
@@ -33,6 +35,8 @@ public class NotificationActivity extends InjectingAppCompatActivity
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
+    themeAccent.applyStyle(getTheme());
 
     setup(getIntent());
   }

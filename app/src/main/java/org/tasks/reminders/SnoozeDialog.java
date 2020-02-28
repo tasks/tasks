@@ -96,6 +96,7 @@ public class SnoozeDialog extends InjectingDialogFragment {
                   break;
               }
             })
+        .setNegativeButton(android.R.string.cancel, null)
         .show();
   }
 

@@ -14,6 +14,10 @@
     <item name="android:colorBackgroundCacheHint">@null</item>
     <item name="android:windowIsTranslucent">true</item>
     <item name="android:windowCloseOnTouchOutside">false</item>
+    <item name="dialogTheme">@style/TasksDialog</item>
+    <item name="android:dialogTheme">@style/TasksDialog</item>
+    <item name="alertDialogTheme">@style/TasksDialogAlert</item>
+    <item name="materialAlertDialogTheme">@style/TasksDialogAlert</item>
   </style>
 
   <style name="TaskEditTextPrimary">

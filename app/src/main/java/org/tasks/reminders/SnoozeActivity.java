@@ -14,6 +14,7 @@ import org.tasks.dialogs.MyTimePickerDialog;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.notifications.NotificationManager;
+import org.tasks.themes.ThemeAccent;
 import org.tasks.time.DateTime;
 
 public class SnoozeActivity extends InjectingAppCompatActivity
@@ -29,11 +30,14 @@ public class SnoozeActivity extends InjectingAppCompatActivity
   @Inject NotificationManager notificationManager;
   @Inject TaskDao taskDao;
   @Inject ReminderService reminderService;
+  @Inject ThemeAccent themeAccent;
   private boolean pickingDateTime;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
+    themeAccent.applyStyle(getTheme());
 
     setup(getIntent(), savedInstanceState);
   }
