@@ -25,6 +25,7 @@
     <item name="nnf_dir_icon_color">?attr/colorAccent</item>
     <item name="card_elevation">2dp</item>
     <item name="horizontal_divider">2</item> <!-- View.GONE -->
+    <item name="mdtp_theme_dark">@bool/is_dark</item>
   </style>
 
   <style name="Tasks" parent="TasksBase"/>

@@ -56,7 +56,7 @@ public class ThemeAccent implements Pickable {
     accentColor = source.readInt();
   }
 
-  void applyStyle(Resources.Theme theme) {
+  public void applyStyle(Resources.Theme theme) {
     theme.applyStyle(style, true);
   }
 

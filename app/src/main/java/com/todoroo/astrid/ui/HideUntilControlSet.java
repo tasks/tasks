@@ -38,7 +38,7 @@ import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.activities.DateAndTimePickerActivity;
-import org.tasks.activities.TimePickerActivity;
+import org.tasks.dialogs.MyTimePickerDialog;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.preferences.Preferences;
@@ -195,7 +195,7 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (requestCode == REQUEST_HIDE_UNTIL) {
       if (resultCode == Activity.RESULT_OK) {
-        setCustomDate(data.getLongExtra(TimePickerActivity.EXTRA_TIMESTAMP, 0L));
+        setCustomDate(data.getLongExtra(MyTimePickerDialog.EXTRA_TIMESTAMP, 0L));
       }
     } else {
       super.onActivityResult(requestCode, resultCode, data);

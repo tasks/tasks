@@ -4,6 +4,7 @@ import static androidx.core.content.ContextCompat.getColor;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.util.Arrays.asList;
 import static org.tasks.date.DateTimeUtils.newDateTime;
+import static org.tasks.dialogs.MyTimePickerDialog.newTimePicker;
 
 import android.app.Activity;
 import android.content.Context;
@@ -33,7 +34,7 @@ import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.activities.DatePickerActivity;
-import org.tasks.activities.TimePickerActivity;
+import org.tasks.dialogs.MyTimePickerDialog;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.preferences.Preferences;
@@ -47,6 +48,8 @@ public class DeadlineControlSet extends TaskEditControlFragment {
   private static final int REQUEST_TIME = 505;
   private static final String EXTRA_DATE = "extra_date";
   private static final String EXTRA_TIME = "extra_time";
+  private static final String FRAG_TAG_TIME_PICKER = "frag_tag_time_picker";
+
   @Inject Preferences preferences;
   @Inject @ForActivity Context context;
 
@@ -262,9 +265,8 @@ public class DeadlineControlSet extends TaskEditControlFragment {
         setTime(dateShortcutNight);
         break;
       case 6:
-        Intent intent = new Intent(context, TimePickerActivity.class);
-        intent.putExtra(TimePickerActivity.EXTRA_TIMESTAMP, getDueDateTime());
-        startActivityForResult(intent, REQUEST_TIME);
+        newTimePicker(this, REQUEST_TIME, getDueDateTime())
+            .show(getParentFragmentManager(), FRAG_TAG_TIME_PICKER);
         updateDueTimeOptions();
         break;
     }
@@ -311,7 +313,7 @@ public class DeadlineControlSet extends TaskEditControlFragment {
       }
     } else if (requestCode == REQUEST_TIME) {
       if (resultCode == Activity.RESULT_OK) {
-        long timestamp = data.getLongExtra(TimePickerActivity.EXTRA_TIMESTAMP, 0L);
+        long timestamp = data.getLongExtra(MyTimePickerDialog.EXTRA_TIMESTAMP, 0L);
         DateTime dateTime = new DateTime(timestamp);
         setTime(dateTime.getMillisOfDay());
       } else {

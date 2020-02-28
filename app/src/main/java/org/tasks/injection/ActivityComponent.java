@@ -15,7 +15,6 @@ import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.activities.FilterSettingsActivity;
 import org.tasks.activities.GoogleTaskListSettingsActivity;
 import org.tasks.activities.TagSettingsActivity;
-import org.tasks.activities.TimePickerActivity;
 import org.tasks.billing.PurchaseActivity;
 import org.tasks.caldav.CaldavAccountSettingsActivity;
 import org.tasks.caldav.CaldavCalendarSettingsActivity;
@@ -89,8 +88,6 @@ public interface ActivityComponent {
   void inject(DatePickerActivity datePickerActivity);
 
   void inject(CameraActivity cameraActivity);
-
-  void inject(TimePickerActivity timePickerActivity);
 
   void inject(VoiceCommandActivity voiceCommandActivity);
 

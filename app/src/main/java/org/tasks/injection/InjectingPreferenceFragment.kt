@@ -25,6 +25,8 @@ import javax.inject.Inject
 abstract class InjectingPreferenceFragment : PreferenceFragmentCompat() {
 
     companion object {
+        const val FRAG_TAG_TIME_PICKER = "frag_tag_time_picker"
+
         fun tintIcons(pref: Preference, color: Int) {
             if (pref is PreferenceGroup) {
                 for (i in 0 until pref.preferenceCount) {

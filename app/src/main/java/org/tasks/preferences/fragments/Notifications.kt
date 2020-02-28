@@ -18,7 +18,7 @@ import com.todoroo.astrid.voice.VoiceOutputAssistant
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.activities.FilterSelectionActivity
-import org.tasks.activities.TimePickerActivity
+import org.tasks.dialogs.MyTimePickerDialog.newTimePicker
 import org.tasks.injection.FragmentComponent
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.preferences.DefaultFilterProvider
@@ -226,10 +226,9 @@ class Notifications : InjectingPreferenceFragment() {
     private fun initializeTimePreference(preference: TimePreference, requestCode: Int) {
         preference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             val current = DateTime().withMillisOfDay(preference.millisOfDay)
-            val intent = Intent(context, TimePickerActivity::class.java)
-            intent.putExtra(TimePickerActivity.EXTRA_TIMESTAMP, current.millis)
-            startActivityForResult(intent, requestCode)
-            true
+            newTimePicker(this, requestCode, current.millis)
+                .show(parentFragmentManager, FRAG_TAG_TIME_PICKER)
+            false
         }
     }
 

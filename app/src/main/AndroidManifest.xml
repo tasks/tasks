@@ -142,10 +142,6 @@
       android:theme="@style/TranslucentDialog"/>
 
     <activity
-      android:name=".activities.TimePickerActivity"
-      android:theme="@style/TranslucentDialog"/>
-
-    <activity
       android:name=".activities.DateAndTimePickerActivity"
       android:taskAffinity=""
       android:theme="@style/TranslucentDialog"/>

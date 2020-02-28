@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import androidx.preference.Preference;
 import com.todoroo.andlib.utility.DateUtilities;
 import org.tasks.R;
-import org.tasks.activities.TimePickerActivity;
+import org.tasks.dialogs.MyTimePickerDialog;
 import org.tasks.time.DateTime;
 
 public class TimePreference extends Preference {
@@ -52,7 +52,7 @@ public class TimePreference extends Preference {
   }
 
   public void handleTimePickerActivityIntent(Intent data) {
-    long timestamp = data.getLongExtra(TimePickerActivity.EXTRA_TIMESTAMP, 0L);
+    long timestamp = data.getLongExtra(MyTimePickerDialog.EXTRA_TIMESTAMP, 0L);
     int millisOfDay = new DateTime(timestamp).getMillisOfDay();
     if (callChangeListener(millisOfDay)) {
       persistInt(millisOfDay);

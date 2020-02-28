@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.activities.DateAndTimePickerActivity;
-import org.tasks.activities.TimePickerActivity;
+import org.tasks.dialogs.MyTimePickerDialog;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.notifications.NotificationManager;
@@ -114,7 +114,7 @@ public class SnoozeActivity extends InjectingAppCompatActivity
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (requestCode == REQUEST_DATE_TIME) {
       if (resultCode == RESULT_OK && data != null) {
-        long timestamp = data.getLongExtra(TimePickerActivity.EXTRA_TIMESTAMP, 0L);
+        long timestamp = data.getLongExtra(MyTimePickerDialog.EXTRA_TIMESTAMP, 0L);
         snoozeForTime(new DateTime(timestamp));
       } else {
         finish();

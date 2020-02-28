@@ -41,8 +41,8 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.activities.DateAndTimePickerActivity;
-import org.tasks.activities.TimePickerActivity;
 import org.tasks.data.Alarm;
+import org.tasks.dialogs.MyTimePickerDialog;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.ui.HiddenTopArrayAdapter;
@@ -222,7 +222,7 @@ public class ReminderControlSet extends TaskEditControlFragment {
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (requestCode == REQUEST_NEW_ALARM) {
       if (resultCode == Activity.RESULT_OK) {
-        addAlarmRow(data.getLongExtra(TimePickerActivity.EXTRA_TIMESTAMP, 0L));
+        addAlarmRow(data.getLongExtra(MyTimePickerDialog.EXTRA_TIMESTAMP, 0L));
       }
     } else {
       super.onActivityResult(requestCode, resultCode, data);

@@ -19,14 +19,14 @@ import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.activities.FilterSelectionActivity
-import org.tasks.activities.TimePickerActivity
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
-import org.tasks.dialogs.ColorWheelPicker
-import org.tasks.dialogs.ColorWheelPicker.Companion.newColorWheel
 import org.tasks.dialogs.ColorPalettePicker
 import org.tasks.dialogs.ColorPalettePicker.Companion.newColorPalette
 import org.tasks.dialogs.ColorPickerAdapter
+import org.tasks.dialogs.ColorWheelPicker
+import org.tasks.dialogs.ColorWheelPicker.Companion.newColorWheel
+import org.tasks.dialogs.MyTimePickerDialog.newTimePicker
 import org.tasks.dialogs.ThemePickerDialog
 import org.tasks.dialogs.ThemePickerDialog.Companion.newThemePickerDialog
 import org.tasks.gtasks.PlayServices
@@ -403,10 +403,9 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
         preference.onPreferenceChangeListener = this
         preference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             val current = DateTime().withMillisOfDay(preference.millisOfDay)
-            val intent = Intent(context, TimePickerActivity::class.java)
-            intent.putExtra(TimePickerActivity.EXTRA_TIMESTAMP, current.millis)
-            startActivityForResult(intent, requestCode)
-            true
+            newTimePicker(this, requestCode, current.millis)
+                .show(parentFragmentManager, FRAG_TAG_TIME_PICKER)
+            false
         }
     }
 
