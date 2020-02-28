@@ -103,10 +103,12 @@ class Synchronization : InjectingPreferenceFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_CALDAV_SETTINGS) {
             if (resultCode == Activity.RESULT_OK) {
+                workManager.sync(true)
                 workManager.updateBackgroundSync()
             }
         } else if (requestCode == REQUEST_GOOGLE_TASKS) {
             if (resultCode == Activity.RESULT_OK) {
+                workManager.sync(true)
                 workManager.updateBackgroundSync()
             } else if (data != null) {
                 toaster.longToast(data.getStringExtra(GtasksLoginActivity.EXTRA_ERROR))
