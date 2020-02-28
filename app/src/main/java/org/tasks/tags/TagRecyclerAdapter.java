@@ -63,9 +63,9 @@ public class TagRecyclerAdapter extends RecyclerView.Adapter<TagPickerViewHolder
 
   private int getColor(TagData tagData) {
     ThemeColor themeColor =
-        tagData.getColor() > 0
-            ? newThemeColor(context, tagData.getColor())
-            : themeCache.getThemeColor(19);
+        tagData.getColor() == 0
+            ? themeCache.getThemeColor(19)
+            : newThemeColor(context, tagData.getColor());
     return themeColor.getPrimaryColor();
   }
 
