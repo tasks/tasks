@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string name="actfm_picture_clear">مسح الصورة</string>
-  <string name="TVA_add_comment">إضافة تعليق ...</string>
+  <string name="TVA_add_comment">إضافة تعليق …</string>
   <string name="backup_BPr_header">النسخ الإحتياطي</string>
   <string name="backup_BAc_import">إستيراد مهام</string>
   <string name="export_toast_no_tasks">لا يوجد مهام للتصدير.</string>
@@ -22,7 +22,7 @@
   <string name="SSD_sort_modified">بواسطة التعديل الأخير</string>
   <string name="TEA_title_hint">اسم المهمة</string>
   <string name="TEA_importance_label">الأولوية</string>
-  <string name="TEA_hideUntil_label">إخفاء حتى...</string>
+  <string name="TEA_hideUntil_label">إخفاء حتى…</string>
   <string name="TEA_note_label">وصف</string>
   <string name="TEA_estimatedDuration_label">كم من الوقت ستأخذ؟</string>
   <string name="TEA_elapsedDuration_label">الوقت المنقضي</string>

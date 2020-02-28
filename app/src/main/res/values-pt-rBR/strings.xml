@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string name="actfm_picture_clear">Limpar imagem</string>
-  <string name="TVA_add_comment">Comentar...</string>
+  <string name="TVA_add_comment">Comentar…</string>
   <string name="enter_filter_name">Digite o nome do filtro</string>
   <string name="backup_BAc_import">Importar tarefas</string>
   <string name="backup_BAc_export">Exportar tarefas</string>
@@ -12,7 +12,7 @@
 %3$s importadas,\n
 %4$s já existiam\n
 %5$s tinham erros\n</string>
-  <string name="import_progress_read">Lendo tarefa %d...</string>
+  <string name="import_progress_read">Lendo tarefa %d…</string>
   <string name="read_permission_label">Permissões do Tasks</string>
   <string name="discard_confirmation">Você tem certeza que deseja descartar suas mudanças?</string>
   <string name="keep_editing">Continuar editando</string>
@@ -63,7 +63,7 @@
   <string name="TEA_control_reminders">Lembretes</string>
   <string name="TEA_control_timer">Temporizador</string>
   <string name="TEA_control_hidden_section">----Sempre Ocultar----</string>
-  <string name="TEA_load_more">Carregar mais...</string>
+  <string name="TEA_load_more">Carregar mais…</string>
   <string name="CRA_ignore">Ignorar</string>
   <string name="CRA_title">Precisa de uma lista de reuniões?</string>
   <string name="CRA_ignore_body">Você ignorou vários eventos do calendário. O Tasks deve parar de lhe perguntar sobre eles?</string>
@@ -130,15 +130,15 @@
   <string name="CFA_help">Pressione e segure um item para mais opções</string>
   <string name="CFA_button_add">Adicionar Critério</string>
   <string name="CFC_dueBefore_text">Vencimento: ?</string>
-  <string name="CFC_dueBefore_name">Vencimento...</string>
+  <string name="CFC_dueBefore_name">Vencimento…</string>
   <string name="no_due_date">Sem data de vencimento</string>
   <string name="next_month">Próximo mês</string>
   <string name="CFC_importance_text">Pelo menos por prioridade?</string>
-  <string name="CFC_importance_name">Prioridade...</string>
-  <string name="CFC_tag_name">Tag...</string>
-  <string name="CFC_tag_contains_name">Nome da tag contém...</string>
+  <string name="CFC_importance_name">Prioridade…</string>
+  <string name="CFC_tag_name">Tag…</string>
+  <string name="CFC_tag_contains_name">Nome da tag contém…</string>
   <string name="CFC_tag_contains_text">Nome da tag contém: ?</string>
-  <string name="CFC_title_contains_name">Título...</string>
+  <string name="CFC_title_contains_name">Título…</string>
   <string name="CFC_title_contains_text">Título contem: ?</string>
   <string name="gcal_TEA_error">Erro ao inserir a tarefa no calendário!</string>
   <string name="gcal_TEA_showCalendar_label">Abrir evento no calendário</string>
@@ -146,13 +146,13 @@
   <string name="calendar_event_not_found">Evento no calendário não encontrado</string>
   <string name="gcal_completed_title">%s (concluído)</string>
   <string name="CFC_gtasks_list_text">Na lista: ?</string>
-  <string name="CFC_gtasks_list_name">No Google Tasks...</string>
-  <string name="CFC_caldav_list_name">Na lista CalDAV...</string>
+  <string name="CFC_gtasks_list_name">No Google Tasks…</string>
+  <string name="CFC_caldav_list_name">Na lista CalDAV…</string>
   <string name="gtasks_GTA_clear_completed">Limpar Concluídas</string>
-  <string name="gtasks_GLA_authenticating">Autenticando ...</string>
+  <string name="gtasks_GLA_authenticating">Autenticando …</string>
   <string name="gtasks_GLA_errorIOAuth">Desculpe-nos, tivemos problemas de comunicação com os servidores do Google. Tente mais tarde.</string>
   <string name="gtasks_GPr_header">Google Tarefas</string>
-  <string name="gtasks_error_accountNotFound">Conta %s não encontrada--Desconecte-se e conecte-se novamente pelo painel Google Tasks</string>
+  <string name="gtasks_error_accountNotFound">Conta %s não encontrada—Desconecte-se e conecte-se novamente pelo painel Google Tasks</string>
   <string name="premium_record_audio">Gravar uma nota</string>
   <string name="premium_remove_file_confirm">Você tem certeza? Não pode ser desfeito.</string>
   <string name="audio_recording_title">Gravando Áudio</string>
@@ -189,7 +189,7 @@
   <string name="repeat_option_every_week">Todas as semanas</string>
   <string name="repeat_option_every_month">Todos os meses</string>
   <string name="repeat_option_every_year">Todos os anos</string>
-  <string name="repeat_option_custom">Personalizado...</string>
+  <string name="repeat_option_custom">Personalizado…</string>
   <string name="repeat_minutely">REPETIR A CADA MINUTO</string>
   <string name="repeat_hourly">REPETIR A CADA HORA</string>
   <string name="repeat_daily">REPETIR DIARIAMENTE</string>

@@ -128,10 +128,10 @@
     <string name="CFC_importance_text">最低的优先级\?</string>
     <string name="CFC_importance_name">优先级…</string>
     <string name="CFC_tag_text">标签：?</string>
-    <string name="CFC_tag_name">标签...</string>
-    <string name="CFC_tag_contains_name">标签名包含...</string>
+    <string name="CFC_tag_name">标签…</string>
+    <string name="CFC_tag_contains_name">标签名包含…</string>
     <string name="CFC_tag_contains_text">标签名称包含：?</string>
-    <string name="CFC_title_contains_name">标题含...</string>
+    <string name="CFC_title_contains_name">标题含…</string>
     <string name="CFC_title_contains_text">标题含: ?</string>
     <string name="gcal_TEA_error">添加任务到日历时失败！</string>
     <string name="gcal_TEA_showCalendar_label">打开日程表事件</string>
@@ -159,7 +159,7 @@
     <string name="random_reminder_month">一个月</string>
     <string name="random_reminder_two_months">两个月内</string>
     <string name="rmd_NoA_done">已完成</string>
-    <string name="rmd_NoA_snooze">晚点提醒...</string>
+    <string name="rmd_NoA_snooze">晚点提醒…</string>
     <string name="snooze_all">全都稍后提醒</string>
     <string name="rmd_EPr_quiet_hours_start_title">静音开始时间</string>
     <string name="rmd_EPr_quiet_hours_end_title">静音时间结束</string>
@@ -181,7 +181,7 @@
     <string name="repeat_option_every_week">每周</string>
     <string name="repeat_option_every_month">每月</string>
     <string name="repeat_option_every_year">每年</string>
-    <string name="repeat_option_custom">自定义...</string>
+    <string name="repeat_option_custom">自定义…</string>
     <string name="repeat_minutely">按分钟重复</string>
     <string name="repeat_hourly">按小时重复</string>
     <string name="repeat_daily">按天重复</string>

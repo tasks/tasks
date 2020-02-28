@@ -2,7 +2,7 @@
 <resources>
   <string name="actfm_picture_clear">ล้างภาพ</string>
   <string name="backup_BPr_header">สำรองข้อมูล</string>
-  <string name="import_progress_read">กำลังอ่านแผนงาน %d...</string>
+  <string name="import_progress_read">กำลังอ่านแผนงาน %d…</string>
   <string name="DLG_delete_this_task_question">ลบงานนี้?</string>
   <string name="DLG_hour_minutes">เวลา (ชั่วโมง : นาที)</string>
   <string name="WID_dateButtonUnset">คลิก เพื่อตั้งค่า</string>
@@ -26,8 +26,8 @@
   <string name="CFA_context_delete">ลบแถว</string>
   <string name="CFA_button_add">เพิ่มข้อกำหนด</string>
   <string name="CFC_importance_text">มีความสำคัญอย่างน้อย ?</string>
-  <string name="CFC_importance_name">ความสำคัญ...</string>
-  <string name="CFC_title_contains_name">ชื่อที่มีคำว่า...</string>
+  <string name="CFC_importance_name">ความสำคัญ…</string>
+  <string name="CFC_title_contains_name">ชื่อที่มีคำว่า…</string>
   <string name="CFC_title_contains_text">ชื่อที่มีคำว่า: ?</string>
   <string name="gcal_TEA_showCalendar_label">เปิดเหตุการณ์ปฏิทิน</string>
   <string name="gcal_completed_title">%s (เสร็จสิ้นแล้ว)</string>

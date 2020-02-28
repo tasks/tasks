@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string name="actfm_picture_clear">Borrar imagen</string>
-  <string name="TVA_add_comment">Añadir un comentario...</string>
+  <string name="TVA_add_comment">Añadir un comentario…</string>
   <string name="enter_filter_name">Introduzca el nombre del filtro</string>
   <string name="backup_BPr_header">Copias de seguridad</string>
   <string name="backup_BAc_import">Importar tareas</string>
@@ -10,7 +10,7 @@
   <string name="export_toast_no_tasks">No hay tareas para exportar</string>
   <string name="import_summary_title">Resumen de restauración</string>
   <string name="import_summary_message">El fichero %1$s contenia %2$s.\n\n %3$s importadas\n %4$s ya existian\n %5$s tenian errores\n</string>
-  <string name="import_progress_read">Leyendo tarea %d...</string>
+  <string name="import_progress_read">Leyendo tarea %d…</string>
   <string name="read_permission_label">Permisos de Tasks</string>
   <string name="discard_confirmation">¿Quieres descartar los cambios?</string>
   <string name="keep_editing">Seguir editando</string>
@@ -54,7 +54,7 @@
   <string name="TEA_control_reminders">Recordatorios</string>
   <string name="TEA_control_timer">Controles de tiempo</string>
   <string name="TEA_control_hidden_section">---Ocultar Siempre---</string>
-  <string name="TEA_load_more">Cargar mas...</string>
+  <string name="TEA_load_more">Cargar mas…</string>
   <string name="CRA_ignore">Ignorar</string>
   <string name="CRA_title">¿Necesita una lista de reuniones?</string>
   <string name="CRA_ignore_body">Ha ignorado varios eventos de calendario. ¿Debe Tasks dejar de preguntarle sobre ellos?</string>
@@ -115,16 +115,16 @@
   <string name="CFA_help">Mantén pulsado sobre os elementos para opcións adicionáis</string>
   <string name="CFA_button_add">Engadir Criterio</string>
   <string name="CFC_dueBefore_text">Vence o: ?</string>
-  <string name="CFC_dueBefore_name">Vence el...</string>
+  <string name="CFC_dueBefore_name">Vence el…</string>
   <string name="no_due_date">Sin fecha de vencimiento</string>
   <string name="next_month">Próximo mes</string>
   <string name="CFC_importance_text">Prioridade mínima?</string>
-  <string name="CFC_importance_name">Prioridad...</string>
+  <string name="CFC_importance_name">Prioridad…</string>
   <string name="CFC_tag_text">Etiqueta: ?</string>
-  <string name="CFC_tag_name">Etiqueta...</string>
-  <string name="CFC_tag_contains_name">El nombre de la etiqueta contiene...</string>
+  <string name="CFC_tag_name">Etiqueta…</string>
+  <string name="CFC_tag_contains_name">El nombre de la etiqueta contiene…</string>
   <string name="CFC_tag_contains_text">El nombre de la etiqueta contiene: ?</string>
-  <string name="CFC_title_contains_name">Título contiene...</string>
+  <string name="CFC_title_contains_name">Título contiene…</string>
   <string name="CFC_title_contains_text">Contén título:?</string>
   <string name="gcal_TEA_error">Erro ao engadir a tarefa ao calendario!</string>
   <string name="gcal_TEA_showCalendar_label">Abrir o evento do calendario
@@ -133,11 +133,11 @@
   <string name="calendar_event_not_found">Evento de calendario no encontrado</string>
   <string name="gcal_completed_title">%s (completado)</string>
   <string name="CFC_gtasks_list_text">En la Lista: ?</string>
-  <string name="CFC_gtasks_list_name">en la Lista GTasks...</string>
+  <string name="CFC_gtasks_list_name">en la Lista GTasks…</string>
   <string name="gtasks_GTA_clear_completed">Quitar finalizadas</string>
-  <string name="gtasks_GLA_authenticating">Autenticando...</string>
+  <string name="gtasks_GLA_authenticating">Autenticando…</string>
   <string name="gtasks_GLA_errorIOAuth">Perdón, hubo un problema al comunicarse con los servidores de Google. Por favor inténtalo mas tarde.</string>
-  <string name="gtasks_error_accountNotFound">No se ha encontrado la cuenta %s --por favor, cierra sesión y vuelve a iniciarla desde la configuración de Google Tasks</string>
+  <string name="gtasks_error_accountNotFound">No se ha encontrado la cuenta %s —por favor, cierra sesión y vuelve a iniciarla desde la configuración de Google Tasks</string>
   <string name="premium_record_audio">Grabar una nota</string>
   <string name="premium_remove_file_confirm">Está seguro? No se puede deshacer</string>
   <string name="audio_recording_title">Grabando Audio</string>

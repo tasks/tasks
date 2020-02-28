@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="actfm_picture_clear">Tyhjennä kuva</string>
-  <string name="TVA_add_comment">Lisää kommentti...</string>
+  <string name="TVA_add_comment">Lisää kommentti…</string>
   <string name="enter_filter_name">Syötä suodattimen nimi</string>
   <string name="backup_BPr_header">Varmuuskopiot</string>
   <string name="backup_BAc_import">Tuo tehtävät</string>
@@ -13,7 +13,7 @@
 %3$s tuotu,\n
 %4$s jo olemassa\n
 %5$s virheitä\n</string>
-  <string name="import_progress_read">Luetaan tehtävää %d...</string>
+  <string name="import_progress_read">Luetaan tehtävää %d…</string>
   <string name="read_permission_label">Tasks käyttöoikeus</string>
   <string name="discard_confirmation">Oletko varma että haluat hylätä muutokset?</string>
   <string name="keep_editing">Jatka muokkausta</string>
@@ -58,7 +58,7 @@
   <string name="TEA_control_reminders">Muistutukset</string>
   <string name="TEA_control_timer">Ajastuksen säätimet</string>
   <string name="TEA_control_hidden_section">----Piilota aina----</string>
-  <string name="TEA_load_more">Lataa lisää...</string>
+  <string name="TEA_load_more">Lataa lisää…</string>
   <string name="CRA_ignore">Ohita</string>
   <string name="CRA_title">Tarvitaanko listaa tapaamisista?</string>
   <string name="CRA_ignore_body">Olet ohittanut useita kalenteritapahtumia. Lopettaako Tasks niistä kyselemisen?</string>
@@ -119,14 +119,14 @@
   <string name="CFA_help">Pitkä painallus lisäoptioita varten</string>
   <string name="CFA_button_add">Lisää kriteeri</string>
   <string name="CFC_dueBefore_text">Mennessä: ?</string>
-  <string name="CFC_dueBefore_name">Mennessä...</string>
+  <string name="CFC_dueBefore_name">Mennessä…</string>
   <string name="no_due_date">Ei määräpäivää</string>
   <string name="next_month">Ensi kuukausi</string>
   <string name="CFC_importance_text">Prioriteetti vähintään ?</string>
-  <string name="CFC_importance_name">Prioriteetti...</string>
+  <string name="CFC_importance_name">Prioriteetti…</string>
   <string name="CFC_tag_text">Tunniste: ?</string>
-  <string name="CFC_tag_name">Tunn...</string>
-  <string name="CFC_tag_contains_name">Tunnisteen nimi sisältää...</string>
+  <string name="CFC_tag_name">Tunn…</string>
+  <string name="CFC_tag_contains_name">Tunnisteen nimi sisältää…</string>
   <string name="CFC_tag_contains_text">Tunnisteen nimi sisältää: ?</string>
   <string name="CFC_title_contains_name">Otsikko sisältää..</string>
   <string name="CFC_title_contains_text">Otsikko sisältää: ?</string>
@@ -136,12 +136,12 @@
   <string name="calendar_event_not_found">Kalenteritapahtumaa ei löydy</string>
   <string name="gcal_completed_title">%s (valmistunut)</string>
   <string name="CFC_gtasks_list_text">Listalla: ?</string>
-  <string name="CFC_gtasks_list_name">Gtask lista...</string>
+  <string name="CFC_gtasks_list_name">Gtask lista…</string>
   <string name="gtasks_GTA_clear_completed">Poista valmiit</string>
-  <string name="gtasks_GLA_authenticating">Todennetaan...</string>
+  <string name="gtasks_GLA_authenticating">Todennetaan…</string>
   <string name="gtasks_GLA_errorIOAuth">Valitettavasti meillä on yhteysongelmia Google palvelimiin.  Ole hyvä ja yritä myöhemmin uudestaa.</string>
   <string name="gtasks_GPr_header">Google tehtävät</string>
-  <string name="gtasks_error_accountNotFound">Tiliä %s ei löydy -- kirjaudu ulos ja kirjaudu uudelleen Google Tehtävien asetuksiin</string>
+  <string name="gtasks_error_accountNotFound">Tiliä %s ei löydy — kirjaudu ulos ja kirjaudu uudelleen Google Tehtävien asetuksiin</string>
   <string name="premium_record_audio">Tallenna muistiinpano</string>
   <string name="premium_remove_file_confirm">Oletko varma? Ei voi peruuttaa</string>
   <string name="audio_recording_title">Tallentaa ääntä</string>
@@ -178,7 +178,7 @@
   <string name="repeat_option_every_week">Joka viikko</string>
   <string name="repeat_option_every_month">Joka kuukausi</string>
   <string name="repeat_option_every_year">Joka vuosi</string>
-  <string name="repeat_option_custom">Valinnainen...</string>
+  <string name="repeat_option_custom">Valinnainen…</string>
   <string name="repeat_minutely">TOISTA MINUUTEITTAIN</string>
   <string name="repeat_hourly">TOISTA TUNNEITTAIN</string>
   <string name="repeat_daily">TOISTA PÄIVITTÄIN</string>

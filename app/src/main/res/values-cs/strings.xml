@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="actfm_picture_clear">Odebrat obrázek</string>
-    <string name="TVA_add_comment">Přidej comment...</string>
+    <string name="TVA_add_comment">Přidej comment…</string>
     <string name="backup_BPr_header">Zálohy</string>
     <string name="backup_BAc_import">Importovat úkoly</string>
     <string name="backup_BAc_export">Exportovat úkoly</string>
@@ -9,7 +9,7 @@
     <string name="export_toast_no_tasks">Žádné úkoly pro export.</string>
     <string name="import_summary_title">Souhrn obnovy</string>
     <string name="import_summary_message">Soubor %1$s obsahuje %2$s.\n\n %3$s importováno,\n %4$s již existuje\n %5$s je chybných\n</string>
-    <string name="import_progress_read">Načítávání úkolu %d...</string>
+    <string name="import_progress_read">Načítávání úkolu %d…</string>
     <string name="read_permission_label">Tasks Práva</string>
     <string name="DLG_delete_this_task_question">Smazat tento úkol?</string>
     <string name="DLG_hour_minutes">Čas (hodin : minut)</string>
@@ -52,7 +52,7 @@
     <string name="TEA_control_reminders">Upomínky</string>
     <string name="TEA_control_timer">Ovladač časovače</string>
     <string name="TEA_control_hidden_section">-----Vždy skrývat----</string>
-    <string name="TEA_load_more">Více...</string>
+    <string name="TEA_load_more">Více…</string>
     <string name="CRA_ignore">Ignorovat</string>
     <string name="CRA_title">Potřebujete seznam schůze?</string>
     <string name="CRA_ignore_body">Ignoroval jste několik událostí v kalendáři. Mám Vás přestat informovat i o úkolech?</string>
@@ -111,13 +111,13 @@
     <string name="CFA_help">Zde můžete vytvořit vlastní filtry. Tlačítkem níže přidejte kritéria. Krátkým, nebo dlouhým stiskem je upravíte. Poté zvolte \"Zobrazit\"!</string>
     <string name="CFA_button_add">Přidat podmínku</string>
     <string name="CFC_dueBefore_text">Podle termínu: ?</string>
-    <string name="CFC_dueBefore_name">Podle termínu...</string>
+    <string name="CFC_dueBefore_name">Podle termínu…</string>
     <string name="no_due_date">Žádný termín</string>
     <string name="next_month">Příští měsíc</string>
     <string name="CFC_importance_text">Alespoň důležitost?</string>
-    <string name="CFC_importance_name">Důležitost...</string>
+    <string name="CFC_importance_name">Důležitost…</string>
     <string name="CFC_tag_name">Štítek…</string>
-    <string name="CFC_title_contains_name">Název obsahuje...</string>
+    <string name="CFC_title_contains_name">Název obsahuje…</string>
     <string name="CFC_title_contains_text">Obsahuje název: ?</string>
     <string name="gcal_TEA_error">Chyba při přidávání úkolu do kalendáře!</string>
     <string name="gcal_TEA_showCalendar_label">Otevřít událost v kalendáři</string>
@@ -126,10 +126,10 @@
     <string name="CFC_gtasks_list_text">V seznamu: ?</string>
     <string name="CFC_gtasks_list_name">V seznamu Google úkolů</string>
     <string name="gtasks_GTA_clear_completed">Smazat hotové</string>
-    <string name="gtasks_GLA_authenticating">Ověřuje se...</string>
+    <string name="gtasks_GLA_authenticating">Ověřuje se…</string>
     <string name="gtasks_GLA_errorIOAuth">Nastali problémy při komunikaci se servery Google. Zkuste to prosím později.</string>
     <string name="gtasks_GPr_header">Google Úkoly (Beta!)</string>
-    <string name="gtasks_error_accountNotFound">Účet %s nebyl nalezen -- přes nastavení Google Tasks se odhlašte a znovu přihlaste.</string>
+    <string name="gtasks_error_accountNotFound">Účet %s nebyl nalezen — přes nastavení Google Tasks se odhlašte a znovu přihlaste.</string>
     <string name="premium_record_audio">Nahrát poznámku</string>
     <string name="premium_remove_file_confirm">Skutečně? Nebude cesty zpět</string>
     <string name="audio_recording_title">Nahrávám zvuk</string>
@@ -141,7 +141,7 @@
     <string name="random_reminder_month">měsíc</string>
     <string name="random_reminder_two_months">za dva měsíce</string>
     <string name="rmd_NoA_done">Dokončeno!</string>
-    <string name="rmd_NoA_snooze">Později...</string>
+    <string name="rmd_NoA_snooze">Později…</string>
     <string name="rmd_EPr_quiet_hours_start_title">Nerušit od</string>
     <string name="rmd_EPr_quiet_hours_end_title">Nerušit do</string>
     <string name="rmd_EPr_rmd_time_title">Výchozí upomínka</string>
@@ -399,11 +399,6 @@
     <string name="default_sync">Výchozí synchronizace</string>
     <string name="accent">Doplňková barva</string>
     <string name="launcher_icon">Ikona na domovské obrazobce</string>
-    <string name="theme_deep_purple">Tmavě fialová</string>
-    <string name="theme_indigo">Tmavě modrá</string>
-    <string name="theme_teal">Šedozelená</string>
-    <string name="theme_deep_orange">Tmavě oranžová</string>
-    <string name="theme_dark_grey">Tmavě šedá</string>
     <string name="led_notification">LED upozornění</string>
     <string name="hardware_support_required">Je vyžadována hardwarová podpora</string>
     <string name="widget_header_settings">Nastavení nadpisu</string>

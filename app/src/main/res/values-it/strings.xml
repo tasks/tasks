@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string name="actfm_picture_clear">Deseleziona Immagine</string>
-  <string name="TVA_add_comment">Aggiungi un commento...</string>
+  <string name="TVA_add_comment">Aggiungi un commento…</string>
   <string name="enter_filter_name">Introduci il nome filtro</string>
   <string name="backup_BPr_header">Salvataggi</string>
   <string name="backup_BAc_import">Importa attività</string>
@@ -10,7 +10,7 @@
   <string name="export_toast_no_tasks">Nessuna attività da esportare</string>
   <string name="import_summary_title">Ripristina sommario</string>
   <string name="import_summary_message">Il File %1$s contiene %2$s.\n\n %3$s importati\n %4$s esiste già\n %5$s contiene errori\n</string>
-  <string name="import_progress_read">Lettura compito %d...</string>
+  <string name="import_progress_read">Lettura compito %d…</string>
   <string name="read_permission_label">Permessi attività</string>
   <string name="discard_confirmation">Sicuro di voler annullare tutte le modifiche?</string>
   <string name="keep_editing">Continua modifica</string>
@@ -62,7 +62,7 @@
   <string name="TEA_control_reminders">Promemoria</string>
   <string name="TEA_control_timer">Regolazioni Tempo</string>
   <string name="TEA_control_hidden_section">----Nascondi Sempre----</string>
-  <string name="TEA_load_more">Caricane altri...</string>
+  <string name="TEA_load_more">Caricane altri…</string>
   <string name="CRA_ignore">Ignora</string>
   <string name="CRA_title">Hai bisogno di una lista per le riunioni?</string>
   <string name="CRA_ignore_body">Hai ignorato diverse chiamate perse. Vuoi che Tasks smetta di notificartele?</string>
@@ -129,16 +129,16 @@
   <string name="CFA_help">Tenere premuto sulla voce per le opzioni aggiuntive</string>
   <string name="CFA_button_add">Aggiungi Criteri</string>
   <string name="CFC_dueBefore_text">Entro: ?</string>
-  <string name="CFC_dueBefore_name">Entro...</string>
+  <string name="CFC_dueBefore_name">Entro…</string>
   <string name="no_due_date">Nessuna data di scadenza</string>
   <string name="next_month">Mese successivo</string>
   <string name="CFC_importance_text">Solo per priorità ?</string>
-  <string name="CFC_importance_name">Priorità...</string>
+  <string name="CFC_importance_name">Priorità…</string>
   <string name="CFC_tag_text">Etichetta: ?</string>
-  <string name="CFC_tag_name">Etichetta...</string>
+  <string name="CFC_tag_name">Etichetta…</string>
   <string name="CFC_tag_contains_name">L\'etichetta contiene</string>
   <string name="CFC_tag_contains_text">L\'etichetta contiene: ?</string>
-  <string name="CFC_title_contains_name">Il titolo contiene...</string>
+  <string name="CFC_title_contains_name">Il titolo contiene…</string>
   <string name="CFC_title_contains_text">Il titolo contiene: ?</string>
   <string name="gcal_TEA_error">Errore durante l\'aggiunta dell\'attività al calendario!</string>
   <string name="gcal_TEA_showCalendar_label">Apri Calendario Eventi</string>
@@ -146,13 +146,13 @@
   <string name="calendar_event_not_found">Evento non trovato</string>
   <string name="gcal_completed_title">%s (completato)</string>
   <string name="CFC_gtasks_list_text">Nella lista: ?</string>
-  <string name="CFC_gtasks_list_name">Nella lista GTasks...</string>
+  <string name="CFC_gtasks_list_name">Nella lista GTasks…</string>
   <string name="CFC_caldav_list_name">In lista CalDAV…</string>
   <string name="gtasks_GTA_clear_completed">Elimina attività completate</string>
-  <string name="gtasks_GLA_authenticating">Autenticazione...</string>
+  <string name="gtasks_GLA_authenticating">Autenticazione…</string>
   <string name="gtasks_GLA_errorIOAuth">Ci scusiamo per il disagio, abbiamo dei problemi a comunicare con i server di Google. Per favore riprovare più tardi.</string>
   <string name="gtasks_GPr_header">Attività Google</string>
-  <string name="gtasks_error_accountNotFound">Account %s non trovato--per favore fai logout e di nuovo login dalla configurazione di Google Tasks.</string>
+  <string name="gtasks_error_accountNotFound">Account %s non trovato—per favore fai logout e di nuovo login dalla configurazione di Google Tasks.</string>
   <string name="premium_record_audio">Registra una nota</string>
   <string name="premium_remove_file_confirm">Se sicuro? Non può essere eseguito</string>
   <string name="audio_recording_title">Registrazione Audio</string>
@@ -167,7 +167,7 @@
   <string name="random_reminder_month">ogni mese</string>
   <string name="random_reminder_two_months">ogni due mesi</string>
   <string name="rmd_NoA_done">Completata</string>
-  <string name="rmd_NoA_snooze">Rimanda...</string>
+  <string name="rmd_NoA_snooze">Rimanda…</string>
   <string name="snooze_all">Posticipa tutti</string>
   <string name="rmd_EPr_quiet_hours_start_title">Ora inizio silenzio</string>
   <string name="rmd_EPr_quiet_hours_end_title">Ora fine silenzio</string>
@@ -189,7 +189,7 @@
   <string name="repeat_option_every_week">Ogni settimana</string>
   <string name="repeat_option_every_month">Ogni mese</string>
   <string name="repeat_option_every_year">Ogni anno</string>
-  <string name="repeat_option_custom">Personalizzato...</string>
+  <string name="repeat_option_custom">Personalizzato…</string>
   <string name="repeat_minutely">RIPETI OGNI MINUTO</string>
   <string name="repeat_hourly">RIPETI OGNI ORA</string>
   <string name="repeat_daily">RIPETI OGNI GIORNO</string>

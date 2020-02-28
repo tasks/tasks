@@ -9,7 +9,7 @@
   <string name="export_toast_no_tasks">Ingen opgaver at eksportere</string>
   <string name="import_summary_title">Opsummering af gendannelse</string>
   <string name="import_summary_message">Filen %1$s indeholdt %2$s.\n\n %3$s importeret,\n %4$s findes allerede\n %5$s indeholdt fejl\n</string>
-  <string name="import_progress_read">Læser opgave %d...</string>
+  <string name="import_progress_read">Læser opgave %d…</string>
   <string name="read_permission_label">Tasks Tilladelser</string>
   <string name="DLG_delete_this_task_question">Slet denne opgave?</string>
   <string name="DLG_hour_minutes">Tid (timer : minutter)</string>
@@ -35,7 +35,7 @@
   <string name="TEA_control_files">Filer</string>
   <string name="TEA_control_reminders">Påmindelser</string>
   <string name="TEA_control_hidden_section">----Skjul altid----</string>
-  <string name="TEA_load_more">Indlæs flere...</string>
+  <string name="TEA_load_more">Indlæs flere…</string>
   <string name="CRA_ignore_all">Ignorér alle begivenheder</string>
   <string name="CRA_ignore_this">Ignorér kun denne begivenhed</string>
   <string name="EPr_default_urgency_title">Standard Deadline</string>
@@ -66,7 +66,7 @@
   <string name="random_reminder_day">en dag</string>
   <string name="random_reminder_week">en uge</string>
   <string name="rmd_NoA_done">Allerede udført!</string>
-  <string name="rmd_NoA_snooze">Slumrefunktion...</string>
+  <string name="rmd_NoA_snooze">Slumrefunktion…</string>
   <string name="rmd_EPr_quiet_hours_start_title">Stille timer start</string>
   <string name="rmd_EPr_quiet_hours_end_title">Stille timer slut</string>
   <string name="rmd_EPr_defaultRemind_title">Tilfældige påmindelser</string>

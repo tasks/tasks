@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string name="actfm_picture_clear">Καθαρή εικόνα</string>
-  <string name="TVA_add_comment">Προσθήκη σχόλιου...</string>
+  <string name="TVA_add_comment">Προσθήκη σχόλιου…</string>
   <string name="backup_BPr_header">Αντίγραφα ασφαλείας</string>
   <string name="backup_BAc_import">Εισαγωγή εργασιών</string>
   <string name="backup_BAc_export">Εξαγωγή εργασιών</string>
@@ -12,7 +12,7 @@
 %3$s καταχωρήθηκε,\n
 %4$s υπάρχει ήδηt\n
 %5$s έχει σφάλματα\n</string>
-  <string name="import_progress_read">Ανάγνωση εργασίας %d...</string>
+  <string name="import_progress_read">Ανάγνωση εργασίας %d…</string>
   <string name="read_permission_label">Άδεια εργασιών</string>
   <string name="DLG_delete_this_task_question">Διαγραφή εργασίας;</string>
   <string name="DLG_hour_minutes">Ώρα (ώρες : λεπτά)</string>
@@ -98,20 +98,20 @@
   <string name="CFA_help">Αργό πάτημα σε αντικείμενα για επιπλέον επιλογές</string>
   <string name="CFA_button_add">Προσθέστε κριτήριο</string>
   <string name="CFC_dueBefore_text">Λήγει στίς: ?</string>
-  <string name="CFC_dueBefore_name">Λήγει στίς...</string>
+  <string name="CFC_dueBefore_name">Λήγει στίς…</string>
   <string name="no_due_date">Χωρίς ημερομηνία λήξης</string>
   <string name="next_month">Επόμενος μήνας</string>
   <string name="CFC_importance_text">Προτεραιότητα τουλάχιστον ?</string>
   <string name="CFC_importance_name">Προτεραιότητα..</string>
-  <string name="CFC_title_contains_name">Ο τίτλος περιέχει...</string>
+  <string name="CFC_title_contains_name">Ο τίτλος περιέχει…</string>
   <string name="CFC_title_contains_text">Ο τίτλος περιέχει: ?</string>
   <string name="gcal_TEA_error">Σφάλμα πρόσθεσης καθήκοντος στο ημερολόγιο!</string>
   <string name="gcal_TEA_showCalendar_label">Άνοιγμα event ημερολογίου</string>
   <string name="gcal_completed_title">%s (έχει ολοκληρωθεί)</string>
   <string name="CFC_gtasks_list_text">Στην λίστα: ?</string>
-  <string name="CFC_gtasks_list_name">Στην λίστα του GTasks...</string>
+  <string name="CFC_gtasks_list_name">Στην λίστα του GTasks…</string>
   <string name="gtasks_GTA_clear_completed">Καθαρισμός ολοκληρωμένων</string>
-  <string name="gtasks_GLA_authenticating">Αυθεντικοποίηση...</string>
+  <string name="gtasks_GLA_authenticating">Αυθεντικοποίηση…</string>
   <string name="gtasks_GLA_errorIOAuth">Συγγνώμη, υπήρξε σφάλμα επικοινωνίας με τους διακομιστές της Google. Παρακαλουμε δοκιμάστε πάλι μετά</string>
   <string name="gtasks_GPr_header">Εργασίες Google</string>
   <string name="gtasks_error_accountNotFound">Λογαριασμός %s δεν βρέθηκε - παρακαλώ αποσυνδεθείτε και συνδεθείτε πάλι απο τις ρυθμίσεις του Google Tasks.</string>

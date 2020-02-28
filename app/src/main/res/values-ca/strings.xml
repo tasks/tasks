@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="actfm_picture_clear">Neteja la selecció d\'imatge</string>
-  <string name="TVA_add_comment">Afegiu un comentari...</string>
+  <string name="TVA_add_comment">Afegiu un comentari…</string>
   <string name="backup_BPr_header">Còpies de seguretat</string>
   <string name="backup_BAc_import">Importa tasques</string>
   <string name="backup_BAc_export">Exporta tasques</string>
@@ -41,7 +41,7 @@
   <string name="TEA_control_reminders">Recordatoris</string>
   <string name="TEA_control_timer">Controls de temporització</string>
   <string name="TEA_control_hidden_section">----Oculta-ho sempre----</string>
-  <string name="TEA_load_more">Carrega més...</string>
+  <string name="TEA_load_more">Carrega més…</string>
   <string name="EPr_beastMode_reset">Restableix els valors predeterminats</string>
   <string name="EPr_fullTask_title">Mostra el títol sencer de la tasca</string>
   <string name="EPr_manage_delete_completed_gcal_message">Segur que voleu suprimir els esdeveniments de calendari de les tasques completades?</string>
@@ -59,18 +59,18 @@
   <string name="CFA_help">Aquesta pantalla li permet crear nous filtres. Afegeix criteris fent servir el botó de sota, premi breu o llarg per ajustar-los, i després premi \"Veure\"!</string>
   <string name="CFA_button_add">Afegeix criteris</string>
   <string name="CFC_dueBefore_text">Vençuda per: ?</string>
-  <string name="CFC_dueBefore_name">Venciment per...</string>
+  <string name="CFC_dueBefore_name">Venciment per…</string>
   <string name="no_due_date">Sense data de venciment</string>
   <string name="next_month">El mes que ve</string>
   <string name="CFC_importance_text">Per menys important?</string>
-  <string name="CFC_importance_name">Importància...</string>
-  <string name="CFC_title_contains_name">El títol conté...</string>
+  <string name="CFC_importance_name">Importància…</string>
+  <string name="CFC_title_contains_name">El títol conté…</string>
   <string name="CFC_title_contains_text">Títol conté: ?</string>
   <string name="gcal_TEA_error">Error afegint la tasca al calendari!</string>
   <string name="gcal_TEA_showCalendar_label">Obrir Event del Calendari</string>
   <string name="gcal_completed_title">%s (completada)</string>
   <string name="gtasks_GTA_clear_completed">Neteja les tasques completades</string>
-  <string name="gtasks_GLA_authenticating">S\'està autenticant...</string>
+  <string name="gtasks_GLA_authenticating">S\'està autenticant…</string>
   <string name="rmd_NoA_done">Acabat</string>
   <string name="rmd_NoA_snooze">Adorm</string>
   <string name="rmd_EPr_quiet_hours_start_title">Inici de Silenci</string>

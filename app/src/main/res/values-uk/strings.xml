@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="actfm_picture_clear">Очистити картинку</string>
-  <string name="TVA_add_comment">Додати коментар...</string>
+  <string name="TVA_add_comment">Додати коментар…</string>
   <string name="enter_filter_name">Введіть назву фільтра</string>
   <string name="backup_BPr_header">Резервні копії</string>
   <string name="backup_BAc_import">Імпортувати завдання</string>
@@ -13,7 +13,7 @@
 %3$s імпортовано,\n
 %4$s вже існує\n
 %5$s має помилку\n</string>
-  <string name="import_progress_read">Читання завдання %d...</string>
+  <string name="import_progress_read">Читання завдання %d…</string>
   <string name="read_permission_label">Дозволи Tasks</string>
   <string name="discard_confirmation">Дійсно хочете скасувати ваші зміни?</string>
   <string name="keep_editing">Продовжити редагування</string>
@@ -65,7 +65,7 @@
   <string name="TEA_control_reminders">Нагадування</string>
   <string name="TEA_control_timer">Управління таймером</string>
   <string name="TEA_control_hidden_section">----Приховувати завжди----</string>
-  <string name="TEA_load_more">Завантажити більше...</string>
+  <string name="TEA_load_more">Завантажити більше…</string>
   <string name="CRA_ignore">Ігнорувати</string>
   <string name="CRA_title">Потрібен список для зустрічі?</string>
   <string name="CRA_ignore_body">Ви проігнорували декілька календарних подій. Більше не запитувати про них?</string>
@@ -132,16 +132,16 @@
   <string name="CFA_help">Довгий тап на пункт для додаткових опцій</string>
   <string name="CFA_button_add">Додати критерій</string>
   <string name="CFC_dueBefore_text">Кінцевий термін: ?</string>
-  <string name="CFC_dueBefore_name">Кінцевий термін...</string>
+  <string name="CFC_dueBefore_name">Кінцевий термін…</string>
   <string name="no_due_date">Немає терміну виконання</string>
   <string name="next_month">Наступного місяця</string>
   <string name="CFC_importance_text">Пріоритет щонайменше?</string>
-  <string name="CFC_importance_name">Пріоритет...</string>
+  <string name="CFC_importance_name">Пріоритет…</string>
   <string name="CFC_tag_text">Тег: ?</string>
-  <string name="CFC_tag_name">Тег...</string>
-  <string name="CFC_tag_contains_name">Назва тегу містить...</string>
+  <string name="CFC_tag_name">Тег…</string>
+  <string name="CFC_tag_contains_name">Назва тегу містить…</string>
   <string name="CFC_tag_contains_text">Назва тегу містить: ?</string>
-  <string name="CFC_title_contains_name">Заголовок містить...</string>
+  <string name="CFC_title_contains_name">Заголовок містить…</string>
   <string name="CFC_title_contains_text">Заголовок містить: ?</string>
   <string name="gcal_TEA_error">Помилка при додаванні завдання в календар!</string>
   <string name="gcal_TEA_showCalendar_label">Відкрити календарну подію</string>
@@ -149,10 +149,10 @@
   <string name="calendar_event_not_found">Подію календаря не знайдено</string>
   <string name="gcal_completed_title">%s (завершено)</string>
   <string name="CFC_gtasks_list_text">В списку: ?</string>
-  <string name="CFC_gtasks_list_name">В GTasks списку...</string>
+  <string name="CFC_gtasks_list_name">В GTasks списку…</string>
   <string name="CFC_caldav_list_name">В CalDAV списку…</string>
   <string name="gtasks_GTA_clear_completed">Очистити завершені</string>
-  <string name="gtasks_GLA_authenticating">Автентифікація...</string>
+  <string name="gtasks_GLA_authenticating">Автентифікація…</string>
   <string name="gtasks_GLA_errorIOAuth">Вибачте, проблеми при зверненні до серверів Google. Будь ласка, спробуйте пізніше.</string>
   <string name="gtasks_error_accountNotFound">Аккаунт %s  не знайдено - будь ласка, вийдіть і увійдіть знову через налаштування Google Tasks.</string>
   <string name="premium_record_audio">Записати замітку</string>
@@ -191,7 +191,7 @@
   <string name="repeat_option_every_week">Щотижня</string>
   <string name="repeat_option_every_month">Щомісяця</string>
   <string name="repeat_option_every_year">Щороку</string>
-  <string name="repeat_option_custom">Інше...</string>
+  <string name="repeat_option_custom">Інше…</string>
   <string name="repeat_minutely">ПОВТОРЮВАТИ ПОХВИЛИННО</string>
   <string name="repeat_hourly">ПОВТОРЮВАТИ ПОГОДИННО</string>
   <string name="repeat_daily">ПОВТОРЮВАТИ ПОДЕННО</string>

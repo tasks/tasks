@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="actfm_picture_clear">Zbriši fotografijo</string>
-  <string name="TVA_add_comment">Dodaj komentar...</string>
+  <string name="TVA_add_comment">Dodaj komentar…</string>
   <string name="backup_BPr_header">Varnostne kopije</string>
   <string name="backup_BAc_import">Uvozi opravke</string>
   <string name="backup_BAc_export">Izvozi opravke</string>
@@ -12,7 +12,7 @@
 %3$s uvožen,\n
 %4$s že obstaja\n
 %5$s imel napake\n</string>
-  <string name="import_progress_read">Berem opravek %d...</string>
+  <string name="import_progress_read">Berem opravek %d…</string>
   <string name="read_permission_label">Dovoljenje Opravkom</string>
   <string name="DLG_delete_this_task_question">Zbrišem ta opravek?</string>
   <string name="DLG_hour_minutes">Čas (ure : minute)</string>
@@ -50,7 +50,7 @@
   <string name="TEA_control_reminders">Opomniki</string>
   <string name="TEA_control_timer">Upravljanje s štoparico</string>
   <string name="TEA_control_hidden_section">----Vedno skrij----</string>
-  <string name="TEA_load_more">Naloži še...</string>
+  <string name="TEA_load_more">Naloži še…</string>
   <string name="CRA_ignore">Ignoriraj</string>
   <string name="CRA_title">Potrebujete seznam sestankov?</string>
   <string name="CRA_ignore_body">Ignorirali ste številne dogodke na koledarju. Naj vas aplikacija Opravki neha spraševati o njih?</string>
@@ -105,19 +105,19 @@
   <string name="no_due_date">Brez datuma dospelosti</string>
   <string name="next_month">Naslednji mesec</string>
   <string name="CFC_importance_text">Prioriteta namanj ?</string>
-  <string name="CFC_importance_name">Prioriteta ...</string>
-  <string name="CFC_title_contains_name">Naslov vsebuje ...</string>
+  <string name="CFC_importance_name">Prioriteta …</string>
+  <string name="CFC_title_contains_name">Naslov vsebuje …</string>
   <string name="CFC_title_contains_text">Naslov vsebuje: ?</string>
   <string name="gcal_TEA_error">Napaka pri dodajanju opravila!</string>
   <string name="gcal_TEA_showCalendar_label">Odpri dogodek v koledarju</string>
   <string name="gcal_completed_title">%s (končani)</string>
   <string name="CFC_gtasks_list_text">V seznamu: ?</string>
-  <string name="CFC_gtasks_list_name">Na GNaloge seznamu...</string>
+  <string name="CFC_gtasks_list_name">Na GNaloge seznamu…</string>
   <string name="gtasks_GTA_clear_completed">Zbriši dokončano</string>
-  <string name="gtasks_GLA_authenticating">Avtentikacija v teku ...</string>
+  <string name="gtasks_GLA_authenticating">Avtentikacija v teku …</string>
   <string name="gtasks_GLA_errorIOAuth">Žal smo imeli težave pri povezovanju z Google strežniki. Prosimo, poskusite ponovno kasneje.</string>
   <string name="gtasks_GPr_header">Google Naloge</string>
-  <string name="gtasks_error_accountNotFound">Račun %s ni najden--prosimo odjavite se, nato pa ponovno prijavite skozi nastavitve Google Nalog.</string>
+  <string name="gtasks_error_accountNotFound">Račun %s ni najden—prosimo odjavite se, nato pa ponovno prijavite skozi nastavitve Google Nalog.</string>
   <string name="premium_record_audio">Posnemi opombo</string>
   <string name="premium_remove_file_confirm">Ste prepričani? Tega ni mogoče razveljaviti</string>
   <string name="audio_recording_title">Snemam zvok</string>
