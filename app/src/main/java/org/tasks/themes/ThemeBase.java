@@ -14,7 +14,7 @@ public class ThemeBase implements Pickable {
 
   private static final int[] THEMES =
       new int[] {
-        R.style.Tasks, R.style.ThemeBlack, R.style.Tasks, R.style.Wallpaper, R.style.Tasks
+        R.style.Tasks, R.style.ThemeBlack, R.style.Tasks, R.style.Wallpaper, R.style.Tasks, R.style.Tasks
       };
   public static final Parcelable.Creator<ThemeBase> CREATOR =
       new Parcelable.Creator<ThemeBase>() {

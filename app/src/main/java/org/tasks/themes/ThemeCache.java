@@ -69,6 +69,12 @@ public class ThemeCache {
             4,
             getColor(context, android.R.color.white),
             AppCompatDelegate.MODE_NIGHT_AUTO));
+    themes.add(
+        new ThemeBase(
+            context.getString(R.string.theme_system_default),
+            5,
+            getColor(context, android.R.color.white),
+            AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM));
 
     for (int i = 0; i < ThemeColor.COLORS.length; i++) {
       colors.add(
