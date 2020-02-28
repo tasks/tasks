@@ -208,8 +208,8 @@ dependencies {
     amazonImplementation("com.crashlytics.sdk.android:crashlytics:${Versions.crashlytics}")
     amazonImplementation("com.google.firebase:firebase-core:${Versions.firebase}")
 
-    kaptTest("com.google.dagger:dagger-compiler:${Versions.dagger}")
-    kaptTest("com.jakewharton:butterknife-compiler:${Versions.butterknife}")
+    kaptAndroidTest("com.google.dagger:dagger-compiler:${Versions.dagger}")
+    kaptAndroidTest("com.jakewharton:butterknife-compiler:${Versions.butterknife}")
     androidTestImplementation("com.google.dexmaker:dexmaker-mockito:1.2")
     androidTestImplementation("com.natpryce:make-it-easy:4.0.1")
     androidTestImplementation("androidx.test:runner:1.2.0")

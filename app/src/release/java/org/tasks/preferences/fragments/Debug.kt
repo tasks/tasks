@@ -6,7 +6,9 @@ import org.tasks.injection.InjectingPreferenceFragment
 
 class Debug : InjectingPreferenceFragment() {
 
-    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+    override fun getPreferenceXml() = 0
+
+    override fun setupPreferences(savedInstanceState: Bundle?) {
     }
 
     override fun inject(component: FragmentComponent) = component.inject(this)
