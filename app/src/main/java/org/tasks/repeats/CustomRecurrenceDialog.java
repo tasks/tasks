@@ -10,6 +10,7 @@ import static com.google.ical.values.Frequency.WEEKLY;
 import static com.google.ical.values.Frequency.YEARLY;
 import static java.util.Arrays.asList;
 import static org.tasks.date.DateTimeUtils.newDateTime;
+import static org.tasks.dialogs.MyDatePickerDialog.newDatePicker;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 import android.app.Activity;
@@ -59,8 +60,8 @@ import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.activities.DatePickerActivity;
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.dialogs.MyDatePickerDialog;
 import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.InjectingDialogFragment;
@@ -75,6 +76,7 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
       asList(MINUTELY, HOURLY, DAILY, WEEKLY, MONTHLY, YEARLY);
   private static final String EXTRA_RRULE = "extra_rrule";
   private static final String EXTRA_DATE = "extra_date";
+  private static final String FRAG_TAG_DATE_PICKER = "frag_tag_date_picker";
   private static final int REQUEST_PICK_DATE = 505;
   private final List<String> repeatUntilOptions = new ArrayList<>();
   @Inject @ForActivity Context context;
@@ -517,10 +519,9 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
   }
 
   private void repeatUntilClick() {
-    Intent intent = new Intent(context, DatePickerActivity.class);
     long repeatUntil = DateTime.from(rrule.getUntil()).getMillis();
-    intent.putExtra(DatePickerActivity.EXTRA_TIMESTAMP, repeatUntil > 0 ? repeatUntil : 0L);
-    startActivityForResult(intent, REQUEST_PICK_DATE);
+    newDatePicker(this, REQUEST_PICK_DATE, repeatUntil > 0 ? repeatUntil : 0L)
+        .show(getParentFragmentManager(), FRAG_TAG_DATE_PICKER);
   }
 
   private void updateRepeatUntilOptions() {
@@ -554,7 +555,7 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
     if (requestCode == REQUEST_PICK_DATE) {
       if (resultCode == Activity.RESULT_OK) {
         rrule.setUntil(
-            new DateTime(data.getLongExtra(DatePickerActivity.EXTRA_TIMESTAMP, 0L)).toDateValue());
+            new DateTime(data.getLongExtra(MyDatePickerDialog.EXTRA_TIMESTAMP, 0L)).toDateValue());
         rrule.setCount(0);
       }
       updateRepeatUntilOptions();

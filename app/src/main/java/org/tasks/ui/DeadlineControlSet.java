@@ -4,6 +4,7 @@ import static androidx.core.content.ContextCompat.getColor;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.util.Arrays.asList;
 import static org.tasks.date.DateTimeUtils.newDateTime;
+import static org.tasks.dialogs.MyDatePickerDialog.newDatePicker;
 import static org.tasks.dialogs.MyTimePickerDialog.newTimePicker;
 
 import android.app.Activity;
@@ -33,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.activities.DatePickerActivity;
+import org.tasks.dialogs.MyDatePickerDialog;
 import org.tasks.dialogs.MyTimePickerDialog;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
@@ -48,6 +49,7 @@ public class DeadlineControlSet extends TaskEditControlFragment {
   private static final int REQUEST_TIME = 505;
   private static final String EXTRA_DATE = "extra_date";
   private static final String EXTRA_TIME = "extra_time";
+  private static final String FRAG_TAG_DATE_PICKER = "frag_tag_date_picker";
   private static final String FRAG_TAG_TIME_PICKER = "frag_tag_time_picker";
 
   @Inject Preferences preferences;
@@ -236,9 +238,8 @@ public class DeadlineControlSet extends TaskEditControlFragment {
         setDate(today.plusWeeks(1).getMillis());
         break;
       case 4:
-        Intent intent = new Intent(context, DatePickerActivity.class);
-        intent.putExtra(DatePickerActivity.EXTRA_TIMESTAMP, date);
-        startActivityForResult(intent, REQUEST_DATE);
+        newDatePicker(this, REQUEST_DATE, date)
+            .show(getParentFragmentManager(), FRAG_TAG_DATE_PICKER);
         updateDueDateOptions();
         break;
     }
@@ -305,7 +306,7 @@ public class DeadlineControlSet extends TaskEditControlFragment {
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (requestCode == REQUEST_DATE) {
       if (resultCode == Activity.RESULT_OK) {
-        long timestamp = data.getLongExtra(DatePickerActivity.EXTRA_TIMESTAMP, 0L);
+        long timestamp = data.getLongExtra(MyDatePickerDialog.EXTRA_TIMESTAMP, 0L);
         DateTime dateTime = new DateTime(timestamp);
         setDate(dateTime.getMillis());
       } else {

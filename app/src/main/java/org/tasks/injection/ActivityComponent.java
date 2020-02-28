@@ -10,7 +10,6 @@ import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import dagger.Subcomponent;
 import org.tasks.activities.CameraActivity;
 import org.tasks.activities.DateAndTimePickerActivity;
-import org.tasks.activities.DatePickerActivity;
 import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.activities.FilterSettingsActivity;
 import org.tasks.activities.GoogleTaskListSettingsActivity;
@@ -84,8 +83,6 @@ public interface ActivityComponent {
   void inject(FilterSelectionActivity filterSelectionActivity);
 
   void inject(DateAndTimePickerActivity dateAndTimePickerActivity);
-
-  void inject(DatePickerActivity datePickerActivity);
 
   void inject(CameraActivity cameraActivity);
 

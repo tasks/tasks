@@ -138,10 +138,6 @@
     <!-- ====================================================== Activities = -->
 
     <activity
-      android:name=".activities.DatePickerActivity"
-      android:theme="@style/TranslucentDialog"/>
-
-    <activity
       android:name=".activities.DateAndTimePickerActivity"
       android:taskAffinity=""
       android:theme="@style/TranslucentDialog"/>
