@@ -371,8 +371,8 @@
     <string name="theme">Tema</string>
     <string name="accent">Acentuado</string>
     <string name="launcher_icon">Icono de Launcher</string>
-  <string name="theme_black">Negro</string>
-  <string name="theme_light">Claro</string>
+    <string name="theme_black">Negro</string>
+    <string name="theme_light">Claro</string>
     <string name="theme_dark">Oscuro</string>
     <string name="theme_wallpaper">Fondo de pantalla</string>
     <string name="theme_day_night">Día/Noche</string>
@@ -558,4 +558,6 @@
     <string name="more_settings">Más ajustes</string>
     <string name="more_notification_settings_summary">Tono de llamada, vibraciones y más</string>
     <string name="invalid_username_or_password">Nombre de usuario o contraseña inválidos</string>
+    <string name="free_colors">Colores libres</string>
+    <string name="material_palette">Paleta de materiales</string>
 </resources>
