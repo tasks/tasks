@@ -116,7 +116,7 @@ public class ThemeCache {
     int index = preferences.getInt(R.string.p_theme, 0);
     if (intent != null && intent.hasExtra(EXTRA_THEME_OVERRIDE)) {
       index = intent.getIntExtra(EXTRA_THEME_OVERRIDE, 0);
-    } else if (index > 1 && !inventory.hasPro()) {
+    } else if (index > 1 && !inventory.purchasedThemes()) {
       index = 0;
     }
     return getThemeBase(index);

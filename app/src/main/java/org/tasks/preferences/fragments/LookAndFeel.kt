@@ -273,7 +273,7 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
             val index = data?.getIntExtra(ThemePickerDialog.EXTRA_SELECTED, themeBase.index)
                 ?: preferences.getInt(R.string.p_theme, 0)
             if (resultCode == RESULT_OK) {
-                if (inventory.hasPro() || index < 2) {
+                if (inventory.purchasedThemes() || index < 2) {
                     setBaseTheme(index)
                 } else {
                     startActivityForResult(

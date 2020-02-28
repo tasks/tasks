@@ -53,7 +53,7 @@ class ColorWheelPicker : InjectingDialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         selected = savedInstanceState?.getInt(EXTRA_SELECTED) ?: arguments!!.getInt(EXTRA_SELECTED, 0)
 
-        val button = if (inventory.hasPro()) android.R.string.ok else R.string.button_subscribe
+        val button = if (inventory.purchasedThemes()) android.R.string.ok else R.string.button_subscribe
         val builder = ColorPickerDialogBuilder
                 .with(activity)
                 .wheelType(ColorPickerView.WHEEL_TYPE.CIRCLE)
@@ -66,7 +66,7 @@ class ColorWheelPicker : InjectingDialogFragment() {
                 }
                 .lightnessSliderOnly()
                 .setPositiveButton(button) { _, _, _ ->
-                    if (inventory.hasPro()) {
+                    if (inventory.purchasedThemes()) {
                         deliverSelection()
                     } else {
                         startActivityForResult(Intent(activity, PurchaseActivity::class.java), REQUEST_PURCHASE)
@@ -75,7 +75,7 @@ class ColorWheelPicker : InjectingDialogFragment() {
         if (selected != 0) {
             builder.initialColor(selected)
         }
-        val buttonText = if (inventory.hasPro()) R.string.material_palette else R.string.free_colors
+        val buttonText = if (inventory.purchasedThemes()) R.string.material_palette else R.string.free_colors
         builder.setNegativeButton(buttonText) { _, _ ->
             newColorPalette(targetFragment, targetRequestCode, ColorPickerAdapter.Palette.COLORS)
                 .show(parentFragmentManager, FRAG_TAG_COLOR_PICKER)

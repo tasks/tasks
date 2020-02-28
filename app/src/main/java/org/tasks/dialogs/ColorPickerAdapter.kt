@@ -28,7 +28,7 @@ class ColorPickerAdapter(
 
     override fun onBindViewHolder(holder: IconPickerHolder, position: Int) {
         val pickable = getItem(position)
-        val available = inventory.hasPro() || pickable.isFree
+        val available = inventory.purchasedThemes() || pickable.isFree
         holder.bind(
             pickable.index,
             if (available) R.drawable.color_picker else R.drawable.ic_outline_vpn_key_24px,

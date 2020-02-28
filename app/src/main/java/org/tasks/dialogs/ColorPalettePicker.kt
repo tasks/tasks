@@ -86,7 +86,7 @@ class ColorPalettePicker : InjectingDialogFragment() {
             dialogBuilder
                 .newDialog()
                 .setView(view)
-        if (inventory.hasPro()) {
+        if (inventory.purchasedThemes()) {
             builder.setNegativeButton(android.R.string.cancel, null)
         } else {
             builder.setPositiveButton(R.string.button_subscribe) { _: DialogInterface?, _: Int ->
