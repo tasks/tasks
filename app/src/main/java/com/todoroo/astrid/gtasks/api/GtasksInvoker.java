@@ -38,7 +38,7 @@ public class GtasksInvoker {
   private final GoogleAccountManager googleAccountManager;
   private final Preferences preferences;
   private final DebugNetworkInterceptor interceptor;
-  private final GoogleCredential credential = new GoogleCredential();
+  @Nullable private final GoogleCredential credential;
   private final String account;
   private final Tasks service;
 
@@ -54,6 +54,7 @@ public class GtasksInvoker {
     this.interceptor = interceptor;
     account = null;
     service = null;
+    credential = null;
   }
 
   private GtasksInvoker(
@@ -67,6 +68,7 @@ public class GtasksInvoker {
     this.preferences = preferences;
     this.interceptor = interceptor;
     this.account = account;
+    credential = new GoogleCredential();
 
     service =
         new Tasks.Builder(new NetHttpTransport(), new JacksonFactory(), credential)
@@ -79,7 +81,7 @@ public class GtasksInvoker {
   }
 
   private void checkToken() {
-    if (Strings.isNullOrEmpty(credential.getAccessToken())) {
+    if (credential != null && Strings.isNullOrEmpty(credential.getAccessToken())) {
       Bundle bundle = googleAccountManager.getAccessToken(account, TasksScopes.TASKS);
       credential.setAccessToken(
           bundle != null ? bundle.getString(AccountManager.KEY_AUTHTOKEN) : null);
