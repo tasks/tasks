@@ -3,9 +3,9 @@ package org.tasks.themes;
 import android.os.Parcel;
 import android.os.Parcelable;
 import org.tasks.R;
-import org.tasks.dialogs.ColorPickerDialog;
+import org.tasks.dialogs.ColorPalettePicker.Pickable;
 
-public class WidgetTheme implements ColorPickerDialog.Pickable {
+public class WidgetTheme implements Pickable {
 
   static final int[] BACKGROUNDS =
       new int[] {R.color.grey_50, R.color.widget_background_black, R.color.md_background_dark};
@@ -56,7 +56,6 @@ public class WidgetTheme implements ColorPickerDialog.Pickable {
     return textColorSecondary;
   }
 
-  @Override
   public String getName() {
     return name;
   }

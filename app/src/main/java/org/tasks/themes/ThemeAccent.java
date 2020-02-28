@@ -4,9 +4,9 @@ import android.content.res.Resources;
 import android.os.Parcel;
 import android.os.Parcelable;
 import org.tasks.R;
-import org.tasks.dialogs.ColorPickerDialog;
+import org.tasks.dialogs.ColorPalettePicker.Pickable;
 
-public class ThemeAccent implements ColorPickerDialog.Pickable {
+public class ThemeAccent implements Pickable {
 
   static final int[] ACCENTS =
       new int[] {
@@ -40,20 +40,17 @@ public class ThemeAccent implements ColorPickerDialog.Pickable {
           return new ThemeAccent[size];
         }
       };
-  private final String name;
   private final int index;
   private final int style;
   private final int accentColor;
 
-  public ThemeAccent(String name, int index, int accentColor) {
-    this.name = name;
+  public ThemeAccent(int index, int accentColor) {
     this.index = index;
     this.style = ACCENTS[index];
     this.accentColor = accentColor;
   }
 
   private ThemeAccent(Parcel source) {
-    name = source.readString();
     index = source.readInt();
     style = source.readInt();
     accentColor = source.readInt();
@@ -61,11 +58,6 @@ public class ThemeAccent implements ColorPickerDialog.Pickable {
 
   void applyStyle(Resources.Theme theme) {
     theme.applyStyle(style, true);
-  }
-
-  @Override
-  public String getName() {
-    return name;
   }
 
   @Override
@@ -100,7 +92,6 @@ public class ThemeAccent implements ColorPickerDialog.Pickable {
 
   @Override
   public void writeToParcel(Parcel dest, int flags) {
-    dest.writeString(name);
     dest.writeInt(index);
     dest.writeInt(style);
     dest.writeInt(accentColor);

@@ -231,16 +231,6 @@
   <string name="opacity">شفافیت</string>
   <string name="theme">تم</string>
   <string name="color">رنگ</string>
-  <string name="theme_red">قرمز</string>
-  <string name="theme_pink">صورتی</string>
-  <string name="theme_purple">بنفش</string>
-  <string name="theme_blue">آبی</string>
-  <string name="theme_green">سبز</string>
-  <string name="theme_yellow">زرد</string>
-  <string name="theme_orange">نارنجی</string>
-  <string name="theme_brown">قهوه ای</string>
-  <string name="theme_grey">خاکستری</string>
-  <string name="theme_white">سفید</string>
   <string name="theme_light">روشن</string>
   <string name="theme_dark">تیره</string>
   <string name="language">زبان</string>

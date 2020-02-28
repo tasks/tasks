@@ -343,17 +343,6 @@
   <string name="theme">Tema</string>
   <string name="color">Cor</string>
   <string name="accent">Realçe</string>
-  <string name="theme_red">Vermelho</string>
-  <string name="theme_pink">Rosa</string>
-  <string name="theme_purple">Púrpura</string>
-  <string name="theme_blue">Azul</string>
-  <string name="theme_light_blue">Azul claro</string>
-  <string name="theme_green">Verde</string>
-  <string name="theme_light_green">Verde claro</string>
-  <string name="theme_yellow">Amarelo</string>
-  <string name="theme_orange">Laranja</string>
-  <string name="theme_brown">Castanho</string>
-  <string name="theme_grey">Cinzento</string>
   <string name="theme_black">Preto</string>
   <string name="theme_light">Claro</string>
   <string name="theme_dark">Escuro</string>

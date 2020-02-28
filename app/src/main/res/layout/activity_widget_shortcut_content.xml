@@ -2,37 +2,30 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
-  android:layout_height="match_parent">
+  android:layout_height="match_parent" >
 
-  <com.google.android.material.textfield.TextInputLayout
-    android:id="@+id/shortcut_list_layout"
+  <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/keyline_first"
-    android:layout_marginLeft="@dimen/keyline_first"
-    android:layout_marginTop="16dp"
-    android:layout_marginEnd="@dimen/keyline_first"
-    android:layout_marginRight="@dimen/keyline_first"
-    android:hint="@string/list"
+    android:orientation="vertical"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
+    style="@style/TagSettingsRow"
+    app:layout_constraintStart_toStartOf="@+id/shortcut_name_layout"
+    app:layout_constraintTop_toBottomOf="@+id/shortcut_name_layout">
 
-    <com.google.android.material.textfield.TextInputEditText
-      android:id="@+id/shortcut_list"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content" />
+    <include layout="@layout/list_settings_color" />
 
-  </com.google.android.material.textfield.TextInputLayout>
+  </LinearLayout>
 
   <com.google.android.material.textfield.TextInputLayout
     android:id="@+id/shortcut_name_layout"
+    style="@style/TagSettingsRow"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/keyline_first"
-    android:layout_marginLeft="@dimen/keyline_first"
     android:layout_marginTop="8dp"
+    android:layout_marginStart="@dimen/keyline_first"
     android:layout_marginEnd="@dimen/keyline_first"
+    android:layout_marginLeft="@dimen/keyline_first"
     android:layout_marginRight="@dimen/keyline_first"
     android:hint="@string/display_name"
     app:layout_constraintEnd_toEndOf="parent"
@@ -47,20 +40,22 @@
   </com.google.android.material.textfield.TextInputLayout>
 
   <com.google.android.material.textfield.TextInputLayout
+    android:id="@+id/shortcut_list_layout"
+    style="@style/TagSettingsRow"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
     android:layout_marginStart="@dimen/keyline_first"
-    android:layout_marginLeft="@dimen/keyline_first"
-    android:layout_marginTop="8dp"
     android:layout_marginEnd="@dimen/keyline_first"
+    android:layout_marginLeft="@dimen/keyline_first"
     android:layout_marginRight="@dimen/keyline_first"
-    android:hint="@string/color"
+    android:hint="@string/list"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="@+id/shortcut_name_layout"
-    app:layout_constraintTop_toBottomOf="@+id/shortcut_name_layout">
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
 
     <com.google.android.material.textfield.TextInputEditText
-      android:id="@+id/shortcut_color"
+      android:id="@+id/shortcut_list"
       android:layout_width="match_parent"
       android:layout_height="wrap_content" />
 

@@ -5,8 +5,7 @@
   android:layout_height="match_parent"
   android:descendantFocusability="beforeDescendants"
   android:focusableInTouchMode="true"
-  android:orientation="vertical"
-  android:background="@color/content_background">
+  android:orientation="vertical">
 
   <include layout="@layout/toolbar"/>
 

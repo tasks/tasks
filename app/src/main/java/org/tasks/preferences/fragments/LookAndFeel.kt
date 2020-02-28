@@ -9,8 +9,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.widget.Toast
 import androidx.annotation.StringRes
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import com.google.common.base.Strings
@@ -20,12 +18,15 @@ import com.todoroo.astrid.api.Filter
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
-import org.tasks.activities.ColorPickerActivity
-import org.tasks.activities.ColorPickerActivity.ColorPalette.*
 import org.tasks.activities.FilterSelectionActivity
 import org.tasks.activities.TimePickerActivity
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
+import org.tasks.dialogs.ColorWheelPicker
+import org.tasks.dialogs.ColorWheelPicker.Companion.newColorWheel
+import org.tasks.dialogs.ColorPalettePicker
+import org.tasks.dialogs.ColorPalettePicker.Companion.newColorPalette
+import org.tasks.dialogs.ColorPickerAdapter
 import org.tasks.dialogs.ThemePickerDialog
 import org.tasks.dialogs.ThemePickerDialog.Companion.newThemePickerDialog
 import org.tasks.gtasks.PlayServices
@@ -61,6 +62,7 @@ private const val REQUEST_EVENING = 10009
 private const val REQUEST_NIGHT = 10010
 private const val FRAG_TAG_LOCALE_PICKER = "frag_tag_locale_picker"
 private const val FRAG_TAG_THEME_PICKER = "frag_tag_theme_picker"
+private const val FRAG_TAG_COLOR_PICKER = "frag_tag_color_picker"
 
 class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChangeListener {
 
@@ -89,7 +91,7 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
         themePref.summary = themeBase.name
         themePref.setOnPreferenceClickListener {
             newThemePickerDialog(this, REQUEST_THEME_PICKER, themeBase.index)
-                    .show(parentFragmentManager, FRAG_TAG_THEME_PICKER)
+                .show(parentFragmentManager, FRAG_TAG_THEME_PICKER)
             false
         }
 
@@ -140,12 +142,17 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
     override fun onResume() {
         super.onResume()
 
-        setupColorPreference(R.string.p_theme_color, themeColor.pickerColor, COLORS, REQUEST_COLOR_PICKER)
         setupColorPreference(
-                R.string.p_theme_accent,
-                themeAccent.pickerColor,
-                ACCENTS,
-                REQUEST_ACCENT_PICKER
+            R.string.p_theme_color,
+            themeColor.pickerColor,
+            ColorPickerAdapter.Palette.COLORS,
+            REQUEST_COLOR_PICKER
+        )
+        setupColorPreference(
+            R.string.p_theme_accent,
+            themeAccent.pickerColor,
+            ColorPickerAdapter.Palette.ACCENTS,
+            REQUEST_ACCENT_PICKER
         )
         updateLauncherPreference()
 
@@ -158,7 +165,10 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
     private fun updateLauncherPreference() {
         val launcher = themeCache.getThemeColor(preferences.getInt(R.string.p_theme_launcher, 7))
         setupColorPreference(
-                R.string.p_theme_launcher, launcher.pickerColor, LAUNCHER, REQUEST_LAUNCHER_PICKER
+            R.string.p_theme_launcher,
+            launcher.pickerColor,
+            ColorPickerAdapter.Palette.LAUNCHERS,
+            REQUEST_LAUNCHER_PICKER
         )
     }
 
@@ -254,39 +264,49 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
         if (requestCode == REQUEST_PURCHASE) {
             val index = if (inventory.hasPro()) {
                 data?.getIntExtra(ThemePickerDialog.EXTRA_SELECTED, themeBase.index)
-                        ?: themeBase.index
+                    ?: themeBase.index
             } else {
                 preferences.getInt(R.string.p_theme, 0)
             }
             setBaseTheme(index)
         } else if (requestCode == REQUEST_THEME_PICKER) {
             val index = data?.getIntExtra(ThemePickerDialog.EXTRA_SELECTED, themeBase.index)
-                    ?: preferences.getInt(R.string.p_theme, 0)
+                ?: preferences.getInt(R.string.p_theme, 0)
             if (resultCode == RESULT_OK) {
                 if (inventory.hasPro() || index < 2) {
                     setBaseTheme(index)
                 } else {
-                    startActivityForResult(Intent(context, PurchaseActivity::class.java), REQUEST_PURCHASE)
+                    startActivityForResult(
+                        Intent(context, PurchaseActivity::class.java),
+                        REQUEST_PURCHASE
+                    )
                 }
             } else {
                 setBaseTheme(index)
             }
         } else if (requestCode == REQUEST_COLOR_PICKER) {
             if (resultCode == RESULT_OK) {
-                val index = data!!.getIntExtra(ColorPickerActivity.EXTRA_COLOR, 0)
-                val color = ThemeColor.COLORS[index]
-                preferences.setInt(R.string.p_theme_color, ContextCompat.getColor(context!!, color))
-                recreate()
+                val color = data?.getIntExtra(
+                    ColorWheelPicker.EXTRA_SELECTED,
+                    themeColor.primaryColor
+                )
+                    ?: themeColor.primaryColor
+                if (preferences.getInt(R.string.p_theme_color, -1) != color) {
+                    preferences.setInt(R.string.p_theme_color, color)
+                    recreate()
+                }
             }
         } else if (requestCode == REQUEST_ACCENT_PICKER) {
             if (resultCode == RESULT_OK) {
-                val index = data!!.getIntExtra(ColorPickerActivity.EXTRA_COLOR, 0)
-                preferences.setInt(R.string.p_theme_accent, index)
-                recreate()
+                val index = data!!.getIntExtra(ColorPalettePicker.EXTRA_SELECTED, 0)
+                if (preferences.getInt(R.string.p_theme_accent, -1) != index) {
+                    preferences.setInt(R.string.p_theme_accent, index)
+                    recreate()
+                }
             }
         } else if (requestCode == REQUEST_LAUNCHER_PICKER) {
             if (resultCode == RESULT_OK) {
-                val index = data!!.getIntExtra(ColorPickerActivity.EXTRA_COLOR, 0)
+                val index = data!!.getIntExtra(ColorPalettePicker.EXTRA_SELECTED, 0)
                 setLauncherIcon(index)
                 preferences.setInt(R.string.p_theme_launcher, index)
                 updateLauncherPreference()
@@ -361,15 +381,20 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
     }
 
     private fun setupColorPreference(
-            @StringRes prefId: Int, color: Int,
-            palette: ColorPickerActivity.ColorPalette,
-            requestCode: Int
+        @StringRes prefId: Int,
+        color: Int,
+        palette: ColorPickerAdapter.Palette,
+        requestCode: Int
     ) {
         tintIcon(prefId, color)
         findPreference(prefId).setOnPreferenceClickListener {
-            val intent = Intent(context, ColorPickerActivity::class.java)
-            intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, palette)
-            startActivityForResult(intent, requestCode)
+            if (palette == ColorPickerAdapter.Palette.COLORS) {
+                newColorWheel(this, requestCode, color)
+                    .show(parentFragmentManager, FRAG_TAG_COLOR_PICKER)
+            } else {
+                newColorPalette(this, requestCode, palette)
+                    .show(parentFragmentManager, FRAG_TAG_COLOR_PICKER)
+            }
             false
         }
     }

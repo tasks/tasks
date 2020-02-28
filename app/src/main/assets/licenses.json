@@ -2061,7 +2061,7 @@
       "artifactId": {
         "name": "databinding-adapters",
         "group": "androidx.databinding",
-        "version": "3.6.0-rc03"
+        "version": "3.6.0"
       }
     },
     {
@@ -2125,7 +2125,7 @@
       "artifactId": {
         "name": "databinding-common",
         "group": "androidx.databinding",
-        "version": "3.6.0-rc03"
+        "version": "3.6.0"
       }
     },
     {
@@ -2141,7 +2141,7 @@
       "artifactId": {
         "name": "databinding-runtime",
         "group": "androidx.databinding",
-        "version": "3.6.0-rc03"
+        "version": "3.6.0"
       }
     },
     {
@@ -2173,7 +2173,7 @@
       "artifactId": {
         "name": "viewbinding",
         "group": "androidx.databinding",
-        "version": "3.6.0-rc03"
+        "version": "3.6.0"
       }
     },
     {
@@ -2254,6 +2254,22 @@
         "name": "lifecycle-viewmodel-savedstate",
         "group": "androidx.lifecycle",
         "version": "1.0.0"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "QuadFlask",
+      "copyrightStatement": "Copyright &copy; QuadFlask. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://github.com/QuadFlask/colorpicker",
+      "libraryName": "QuadFlask/colorpicker",
+      "artifactId": {
+        "name": "colorpicker",
+        "group": "com.github.QuadFlask",
+        "version": "0.0.15"
       }
     }
   ]

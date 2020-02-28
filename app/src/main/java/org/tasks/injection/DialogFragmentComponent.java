@@ -6,7 +6,8 @@ import org.tasks.activities.RemoteListPicker;
 import org.tasks.billing.NameYourPriceDialog;
 import org.tasks.billing.PurchaseDialog;
 import org.tasks.dialogs.AddAttachmentDialog;
-import org.tasks.dialogs.ColorPickerDialog;
+import org.tasks.dialogs.ColorWheelPicker;
+import org.tasks.dialogs.ColorPalettePicker;
 import org.tasks.dialogs.ExportTasksDialog;
 import org.tasks.dialogs.GeofenceDialog;
 import org.tasks.dialogs.IconPickerDialog;
@@ -36,8 +37,6 @@ public interface DialogFragmentComponent {
 
   void inject(SortDialog sortDialog);
 
-  void inject(ColorPickerDialog colorPickerDialog);
-
   void inject(RecordAudioDialog recordAudioDialog);
 
   void inject(CustomRecurrenceDialog customRecurrenceDialog);
@@ -61,4 +60,8 @@ public interface DialogFragmentComponent {
   void inject(LocalePickerDialog localePickerDialog);
 
   void inject(ThemePickerDialog themePickerDialog);
+
+  void inject(ColorWheelPicker colorWheelPicker);
+
+  void inject(ColorPalettePicker colorPalettePicker);
 }

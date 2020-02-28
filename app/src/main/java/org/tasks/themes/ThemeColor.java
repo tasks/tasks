@@ -24,10 +24,10 @@ import androidx.core.graphics.ColorUtils;
 import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import org.tasks.R;
-import org.tasks.dialogs.ColorPickerDialog;
+import org.tasks.dialogs.ColorPalettePicker.Pickable;
 import timber.log.Timber;
 
-public class ThemeColor implements ColorPickerDialog.Pickable {
+public class ThemeColor implements Pickable {
 
   public static final int[] ICONS =
       new int[] {
@@ -114,10 +114,8 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
           return new ThemeColor[size];
         }
       };
-  private final String name;
   private final int index;
   private final int colorOnPrimary;
-  private final int color;
   private final int colorPrimary;
   private final int colorPrimaryVariant;
   private final boolean isDark;
@@ -132,17 +130,14 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
   }
 
   public ThemeColor(Context context, int color) {
-    this(context, null, -1, color == 0 ? ContextCompat.getColor(context, R.color.blue_500) : color);
+    this(context, -1, color == 0 ? ContextCompat.getColor(context, R.color.blue_500) : color);
   }
 
   public ThemeColor(
       Context context,
-      String name,
       int index,
       int colorPrimary) {
-    this.name = name;
     this.index = index;
-    this.color = index >= 0 ? COLORS[index] : -1;
     colorPrimary |= 0xFF000000; // remove alpha
     this.colorPrimary = colorPrimary;
     this.colorPrimaryVariant = ColorUtil.darken(colorPrimary, 12);
@@ -154,10 +149,8 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
   }
 
   private ThemeColor(Parcel source) {
-    name = source.readString();
     index = source.readInt();
     colorOnPrimary = source.readInt();
-    color = source.readInt();
     colorPrimary = source.readInt();
     colorPrimaryVariant = source.readInt();
     isDark = source.readInt() == 1;
@@ -238,21 +231,16 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
   }
 
   @Override
-  public String getName() {
-    return name;
-  }
-
-  @Override
   public int getPickerColor() {
     return colorPrimary;
   }
 
   @Override
   public boolean isFree() {
-    switch (color) {
-      case R.color.blue_500:
-      case R.color.blue_grey_500:
-      case R.color.grey_900:
+    switch (colorPrimary) {
+      case -14575885: // blue_500
+      case -10453621: // blue_grey_500
+      case -14606047: // grey_900
         return true;
       default:
         return false;
@@ -286,10 +274,8 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
 
   @Override
   public void writeToParcel(Parcel dest, int flags) {
-    dest.writeString(name);
     dest.writeInt(index);
     dest.writeInt(colorOnPrimary);
-    dest.writeInt(color);
     dest.writeInt(colorPrimary);
     dest.writeInt(colorPrimaryVariant);
     dest.writeInt(isDark ? 1 : 0);

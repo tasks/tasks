@@ -1,6 +1,5 @@
 package org.tasks.injection;
 
-import androidx.annotation.NonNull;
 import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.activity.ShareLinkActivity;
@@ -11,7 +10,6 @@ import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import dagger.Subcomponent;
 import org.tasks.activities.CalendarSelectionActivity;
 import org.tasks.activities.CameraActivity;
-import org.tasks.activities.ColorPickerActivity;
 import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.activities.DatePickerActivity;
 import org.tasks.activities.FilterSelectionActivity;
@@ -99,13 +97,11 @@ public interface ActivityComponent {
 
   void inject(VoiceCommandActivity voiceCommandActivity);
 
-  void inject(@NonNull WidgetConfigActivity widgetConfigActivity);
+  void inject(WidgetConfigActivity widgetConfigActivity);
 
   void inject(ShortcutConfigActivity shortcutConfigActivity);
 
   void inject(MyFilePickerActivity myFilePickerActivity);
-
-  void inject(ColorPickerActivity colorPickerActivity);
 
   void inject(GoogleTaskListSettingsActivity googleTaskListSettingsActivity);
 
@@ -141,11 +137,11 @@ public interface ActivityComponent {
 
   void inject(MainPreferences mainPreferences);
 
-  void inject(@NonNull HelpAndFeedback helpAndFeedback);
+  void inject(HelpAndFeedback helpAndFeedback);
 
-  void inject(@NonNull NotificationPreferences notificationPreferences);
+  void inject(NotificationPreferences notificationPreferences);
 
-  void inject(@NonNull ManageSpaceActivity manageSpaceActivity);
+  void inject(ManageSpaceActivity manageSpaceActivity);
 
-  void inject(@NonNull SyncPreferences syncPreferences);
+  void inject(SyncPreferences syncPreferences);
 }

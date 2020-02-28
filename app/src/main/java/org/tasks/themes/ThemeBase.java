@@ -8,9 +8,9 @@ import android.os.Parcelable;
 import android.view.ContextThemeWrapper;
 import androidx.appcompat.app.AppCompatDelegate;
 import org.tasks.R;
-import org.tasks.dialogs.ColorPickerDialog;
+import org.tasks.dialogs.ColorPalettePicker.Pickable;
 
-public class ThemeBase implements ColorPickerDialog.Pickable {
+public class ThemeBase implements Pickable {
 
   private static final int[] THEMES =
       new int[] {
@@ -50,7 +50,6 @@ public class ThemeBase implements ColorPickerDialog.Pickable {
     dayNightMode = source.readInt();
   }
 
-  @Override
   public String getName() {
     return name;
   }

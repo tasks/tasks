@@ -36,50 +36,6 @@
     <item>@string/ring_nonstop</item>
   </string-array>
 
-  <string-array name="colors">
-    <item>@string/theme_blue_grey</item>
-    <item>@string/theme_dark_grey</item>
-    <item>@string/theme_red</item>
-    <item>@string/theme_pink</item>
-    <item>@string/theme_purple</item>
-    <item>@string/theme_deep_purple</item>
-    <item>@string/theme_indigo</item>
-    <item>@string/theme_blue</item>
-    <item>@string/theme_light_blue</item>
-    <item>@string/theme_cyan</item>
-    <item>@string/theme_teal</item>
-    <item>@string/theme_green</item>
-    <item>@string/theme_light_green</item>
-    <item>@string/theme_lime</item>
-    <item>@string/theme_yellow</item>
-    <item>@string/theme_amber</item>
-    <item>@string/theme_orange</item>
-    <item>@string/theme_deep_orange</item>
-    <item>@string/theme_brown</item>
-    <item>@string/theme_grey</item>
-    <item>@string/theme_white</item>
-  </string-array>
-
-  <string-array name="accents">
-    <item>@string/theme_blue_grey</item>
-    <item>@string/theme_red</item>
-    <item>@string/theme_pink</item>
-    <item>@string/theme_purple</item>
-    <item>@string/theme_deep_purple</item>
-    <item>@string/theme_indigo</item>
-    <item>@string/theme_blue</item>
-    <item>@string/theme_light_blue</item>
-    <item>@string/theme_cyan</item>
-    <item>@string/theme_teal</item>
-    <item>@string/theme_green</item>
-    <item>@string/theme_light_green</item>
-    <item>@string/theme_lime</item>
-    <item>@string/theme_yellow</item>
-    <item>@string/theme_amber</item>
-    <item>@string/theme_orange</item>
-    <item>@string/theme_deep_orange</item>
-  </string-array>
-
   <string-array name="widget_background">
     <item>@string/theme_light</item>
     <item>@string/theme_black</item>

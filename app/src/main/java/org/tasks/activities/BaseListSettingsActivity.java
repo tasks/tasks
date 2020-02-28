@@ -4,7 +4,6 @@ import static org.tasks.dialogs.IconPickerDialog.newIconPicker;
 import static org.tasks.themes.ThemeColor.newThemeColor;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
@@ -20,6 +19,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import javax.inject.Inject;
 import org.tasks.R;
+import org.tasks.dialogs.ColorWheelPicker;
+import org.tasks.dialogs.ColorPalettePicker;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.IconPickerDialog.IconPickerCallback;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
@@ -27,12 +28,13 @@ import org.tasks.themes.CustomIcons;
 import org.tasks.themes.ThemeColor;
 
 public abstract class BaseListSettingsActivity extends ThemedInjectingAppCompatActivity
-    implements IconPickerCallback, OnMenuItemClickListener {
+    implements IconPickerCallback, OnMenuItemClickListener, ColorPalettePicker.ColorPickedCallback,
+    ColorWheelPicker.ColorPickedCallback {
 
   private static final String EXTRA_SELECTED_THEME = "extra_selected_theme";
   private static final String EXTRA_SELECTED_ICON = "extra_selected_icon";
   private static final String FRAG_TAG_ICON_PICKER = "frag_tag_icon_picker";
-  private static final int REQUEST_COLOR_PICKER = 10109;
+  private static final String FRAG_TAG_COLOR_PICKER = "frag_tag_color_picker";
 
   @BindView(R.id.color)
   ImageView color;
@@ -46,7 +48,7 @@ public abstract class BaseListSettingsActivity extends ThemedInjectingAppCompatA
   @Inject ThemeColor themeColor;
   @Inject DialogBuilder dialogBuilder;
 
-  protected int selectedColor = -1;
+  protected int selectedColor = 0;
   protected int selectedIcon = -1;
 
   @Override
@@ -110,11 +112,8 @@ public abstract class BaseListSettingsActivity extends ThemedInjectingAppCompatA
 
   @OnClick(R.id.color_row)
   protected void showThemePicker() {
-    Intent intent = new Intent(BaseListSettingsActivity.this, ColorPickerActivity.class);
-    intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerActivity.ColorPalette.COLORS);
-    intent.putExtra(ColorPickerActivity.EXTRA_SHOW_NONE, true);
-    intent.putExtra(ColorPickerActivity.EXTRA_COLOR, selectedColor);
-    startActivityForResult(intent, REQUEST_COLOR_PICKER);
+    ColorWheelPicker.Companion.newColorWheel(null, 0, selectedColor)
+        .show(getSupportFragmentManager(), FRAG_TAG_COLOR_PICKER);
   }
 
   @OnClick(R.id.icon_row)
@@ -130,16 +129,9 @@ public abstract class BaseListSettingsActivity extends ThemedInjectingAppCompatA
   }
 
   @Override
-  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    if (requestCode == REQUEST_COLOR_PICKER) {
-      if (resultCode == RESULT_OK) {
-        int index = data.getIntExtra(ColorPickerActivity.EXTRA_COLOR, -1);
-        selectedColor = index < 0 ? 0 : ContextCompat.getColor(this, ThemeColor.COLORS[index]);
-        updateTheme();
-      }
-    } else {
-      super.onActivityResult(requestCode, resultCode, data);
-    }
+  public void onColorPicked(int color) {
+    selectedColor = color;
+    updateTheme();
   }
 
   @Override

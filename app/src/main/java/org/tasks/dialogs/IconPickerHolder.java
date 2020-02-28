@@ -1,14 +1,12 @@
 package org.tasks.dialogs;
 
-import static org.tasks.preferences.ResourceResolver.getData;
-
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.view.View;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -16,23 +14,20 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import org.tasks.Callback;
 import org.tasks.R;
-import org.tasks.billing.Inventory;
 
 public class IconPickerHolder extends RecyclerView.ViewHolder {
 
   private final Context context;
   private final Callback<Integer> onClick;
-  private final Inventory inventory;
 
   @BindView(R.id.icon)
   AppCompatImageView imageView;
 
   private int index;
+  private boolean isEnabled;
 
-  IconPickerHolder(
-      Context context, Inventory inventory, @NonNull View view, Callback<Integer> onClick) {
+  IconPickerHolder(Context context, @NonNull View view, Callback<Integer> onClick) {
     super(view);
-    this.inventory = inventory;
 
     ButterKnife.bind(this, view);
 
@@ -42,32 +37,21 @@ public class IconPickerHolder extends RecyclerView.ViewHolder {
 
   @OnClick(R.id.icon)
   void onClick() {
-    if (isEnabled()) {
+    if (isEnabled) {
       onClick.call(index);
     } else {
       Toast.makeText(context, R.string.requires_pro_subscription, Toast.LENGTH_SHORT).show();
     }
   }
 
-  public void bind(int index, int icon, boolean selected) {
+  public void bind(int index, int icon, int tint, float alpha, boolean isEnabled) {
     this.index = index;
+    this.isEnabled = isEnabled;
     imageView.setImageResource(icon);
-    if (inventory.hasPro()) {
-      imageView.setAlpha(ResourcesCompat.getFloat(context.getResources(), R.dimen.alpha_secondary));
-    } else {
-      imageView.setAlpha(
-          index < 1000
-              ? 1.0f
-              : ResourcesCompat.getFloat(context.getResources(), R.dimen.alpha_disabled));
-    }
+    imageView.setAlpha(alpha);
+    Drawable drawable = imageView.getDrawable();
     DrawableCompat.setTint(
-        imageView.getDrawable(),
-        selected
-            ? getData(context, R.attr.colorAccent)
-            : ContextCompat.getColor(context, R.color.icon_tint));
-  }
-
-  private boolean isEnabled() {
-    return index < 1000 || inventory.hasPro();
+        drawable instanceof LayerDrawable ? ((LayerDrawable) drawable).getDrawable(0) : drawable,
+        tint);
   }
 }

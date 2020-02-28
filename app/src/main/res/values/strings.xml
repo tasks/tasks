@@ -392,28 +392,7 @@ File %1$s contained %2$s.\n\n
   <string name="icon">Icon</string>
   <string name="accent">Accent</string>
   <string name="launcher_icon">Launcher icon</string>
-  <string name="theme_red">Red</string>
-  <string name="theme_pink">Pink</string>
-  <string name="theme_purple">Purple</string>
-  <string name="theme_deep_purple">Deep purple</string>
-  <string name="theme_indigo">Indigo</string>
-  <string name="theme_blue">Blue</string>
-  <string name="theme_light_blue">Light blue</string>
-  <string name="theme_cyan">Cyan</string>
-  <string name="theme_teal">Teal</string>
-  <string name="theme_green">Green</string>
-  <string name="theme_light_green">Light green</string>
-  <string name="theme_lime">Lime</string>
-  <string name="theme_yellow">Yellow</string>
-  <string name="theme_amber">Amber</string>
-  <string name="theme_orange">Orange</string>
-  <string name="theme_deep_orange">Deep orange</string>
-  <string name="theme_brown">Brown</string>
-  <string name="theme_grey">Grey</string>
-  <string name="theme_blue_grey">Blue grey</string>
   <string name="theme_black">Black</string>
-  <string name="theme_dark_grey">Dark grey</string>
-  <string name="theme_white">White</string>
   <string name="theme_light">Light</string>
   <string name="theme_dark">Dark</string>
   <string name="theme_wallpaper">Wallpaper</string>
@@ -581,5 +560,7 @@ File %1$s contained %2$s.\n\n
   <string name="disable_battery_optimizations">Disable battery optimizations</string>
   <string name="more_settings">More settings</string>
   <string name="more_notification_settings_summary">Ringtone, vibrations, and more</string>
+  <string name="free_colors">Free colors</string>
+  <string name="material_palette">Material palette</string>
   <string name="invalid_username_or_password">Invalid username or password</string>
 </resources>

@@ -1,8 +1,12 @@
 package org.tasks.dialogs;
 
+import static org.tasks.preferences.ResourceResolver.getData;
+
 import android.app.Activity;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.DiffUtil.ItemCallback;
 import androidx.recyclerview.widget.ListAdapter;
 import org.tasks.Callback;
@@ -31,7 +35,6 @@ public class IconPickerAdapter extends ListAdapter<Integer, IconPickerHolder> {
   public IconPickerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     return new IconPickerHolder(
         activity,
-        inventory,
         activity.getLayoutInflater().inflate(R.layout.dialog_icon_picker_cell, parent, false),
         onSelected);
   }
@@ -41,7 +44,15 @@ public class IconPickerAdapter extends ListAdapter<Integer, IconPickerHolder> {
     int index = CustomIcons.getIndex(position);
     Integer icon = CustomIcons.getIconResId(index);
     if (icon != null) {
-      holder.bind(index, icon, index == current);
+      int tint = index == current
+          ? getData(activity, R.attr.colorAccent)
+          : ContextCompat.getColor(activity, R.color.icon_tint);
+      boolean available = index < 1000 || inventory.hasPro();
+      float alpha =
+          available
+              ? 1f
+              : ResourcesCompat.getFloat(activity.getResources(), R.dimen.alpha_disabled);
+      holder.bind(index, icon, tint, alpha, available);
     }
   }
 

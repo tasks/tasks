@@ -26,7 +26,8 @@
       android:title="@string/widget_show_header" />
 
     <Preference
-      android:key="@string/p_widget_color"
+      android:key="@string/p_widget_color_v2"
+      android:icon="@drawable/color_picker"
       android:title="@string/color" />
 
     <SwitchPreferenceCompat

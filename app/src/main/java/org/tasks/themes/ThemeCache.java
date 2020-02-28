@@ -70,16 +70,13 @@ public class ThemeCache {
             getColor(context, R.color.grey_50),
             AppCompatDelegate.MODE_NIGHT_AUTO));
 
-    String[] colorNames = resources.getStringArray(R.array.colors);
     for (int i = 0; i < ThemeColor.COLORS.length; i++) {
       colors.add(
-          new ThemeColor(
-              context, colorNames[i], i, ContextCompat.getColor(context, ThemeColor.COLORS[i])));
+          new ThemeColor(context, i, ContextCompat.getColor(context, ThemeColor.COLORS[i])));
     }
-    String[] accentNames = resources.getStringArray(R.array.accents);
     for (int i = 0; i < ThemeAccent.ACCENTS.length; i++) {
       Resources.Theme theme = new ContextThemeWrapper(context, ThemeAccent.ACCENTS[i]).getTheme();
-      accents.add(new ThemeAccent(accentNames[i], i, resolveAttribute(theme, R.attr.colorSecondary)));
+      accents.add(new ThemeAccent(i, resolveAttribute(theme, R.attr.colorSecondary)));
     }
     String[] widgetBackgroundNames = resources.getStringArray(R.array.widget_background);
     for (int i = 0; i < WidgetTheme.BACKGROUNDS.length; i++) {
@@ -92,7 +89,7 @@ public class ThemeCache {
               getColor(context, i == 0 ? R.color.black_54 : R.color.white_70)));
     }
     untaggedColor =
-        new ThemeColor(context, null, 19, getColor(context, R.color.tag_color_none_background));
+        new ThemeColor(context, 19, getColor(context, R.color.tag_color_none_background));
   }
 
   private static int resolveAttribute(Resources.Theme theme, int attribute) {

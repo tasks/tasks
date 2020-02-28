@@ -1,8 +1,10 @@
 package org.tasks.widget;
 
 import android.content.Context;
+import androidx.core.content.ContextCompat;
 import org.tasks.R;
 import org.tasks.preferences.Preferences;
+import org.tasks.themes.ThemeColor;
 
 public class WidgetPreferences {
 
@@ -44,8 +46,18 @@ public class WidgetPreferences {
     return preferences.getInt(getKey(R.string.p_widget_theme), 0);
   }
 
-  public int getColorIndex() {
-    return preferences.getInt(getKey(R.string.p_widget_color), 0);
+  public int getColor() {
+    int color = preferences.getInt(getKey(R.string.p_widget_color_v2), 0);
+    if (color != 0) {
+      return color;
+    }
+    int index = preferences.getInt(getKey(R.string.p_widget_color), -1);
+    if (index < 0 || index > ThemeColor.COLORS.length) {
+      index = 7;
+    }
+    color = ContextCompat.getColor(context, ThemeColor.COLORS[index]);
+    preferences.setInt(getKey(R.string.p_widget_color_v2), color);
+    return color;
   }
 
   public int getOpacity() {
@@ -56,8 +68,8 @@ public class WidgetPreferences {
     preferences.setInt(getKey(R.string.p_widget_opacity), value);
   }
 
-  public void setColor(int index) {
-    preferences.setInt(getKey(R.string.p_widget_color), index);
+  public void setColor(int color) {
+    preferences.setInt(getKey(R.string.p_widget_color_v2), color);
   }
 
   public void setTheme(int index) {

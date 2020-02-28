@@ -3,10 +3,13 @@ package org.tasks.widget;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.Intent.ShortcutIconResource;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.widget.ImageView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -17,22 +20,23 @@ import com.google.common.base.Strings;
 import com.todoroo.astrid.api.Filter;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.activities.ColorPickerActivity;
-import org.tasks.activities.ColorPickerActivity.ColorPalette;
 import org.tasks.activities.FilterSelectionActivity;
+import org.tasks.dialogs.ColorPalettePicker;
+import org.tasks.dialogs.ColorPickerAdapter.Palette;
 import org.tasks.injection.ActivityComponent;
-import org.tasks.injection.InjectingAppCompatActivity;
+import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
 
-public class ShortcutConfigActivity extends InjectingAppCompatActivity {
+public class ShortcutConfigActivity extends ThemedInjectingAppCompatActivity
+    implements ColorPalettePicker.ColorPickedCallback {
 
   private static final String EXTRA_FILTER = "extra_filter";
   private static final String EXTRA_THEME = "extra_theme";
+  private static final String FRAG_TAG_COLOR_PICKER = "frag_tag_color_picker";
   private static final int REQUEST_FILTER = 1019;
-  private static final int REQUEST_COLOR_PICKER = 1020;
 
   @Inject DefaultFilterProvider defaultFilterProvider;
   @Inject ThemeColor themeColor;
@@ -50,8 +54,8 @@ public class ShortcutConfigActivity extends InjectingAppCompatActivity {
   @BindView(R.id.shortcut_name)
   TextInputEditText shortcutName;
 
-  @BindView(R.id.shortcut_color)
-  TextInputEditText shortcutColor;
+  @BindView(R.id.color)
+  ImageView colorIcon;
 
   private Filter selectedFilter;
   private int selectedTheme;
@@ -89,11 +93,6 @@ public class ShortcutConfigActivity extends InjectingAppCompatActivity {
         selectedFilter = data.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER);
         updateFilterAndTheme();
       }
-    } else if (requestCode == REQUEST_COLOR_PICKER) {
-      if (resultCode == RESULT_OK) {
-        selectedTheme = data.getIntExtra(ColorPickerActivity.EXTRA_COLOR, 0);
-        updateTheme();
-      }
     } else {
       super.onActivityResult(requestCode, resultCode, data);
     }
@@ -123,21 +122,10 @@ public class ShortcutConfigActivity extends InjectingAppCompatActivity {
     startActivityForResult(intent, REQUEST_FILTER);
   }
 
-  @OnFocusChange(R.id.shortcut_color)
-  void onColorFocusChange(boolean focused) {
-    if (focused) {
-      shortcutColor.clearFocus();
-      showThemePicker();
-    }
-  }
-
-  @OnClick(R.id.shortcut_color)
+  @OnClick(R.id.color_row)
   void showThemePicker() {
-    Intent intent = new Intent(this, ColorPickerActivity.class);
-    intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPalette.LAUNCHER);
-    intent.putExtra(ColorPickerActivity.EXTRA_SHOW_NONE, false);
-    intent.putExtra(ColorPickerActivity.EXTRA_COLOR, selectedTheme);
-    startActivityForResult(intent, REQUEST_COLOR_PICKER);
+    ColorPalettePicker.Companion.newColorPalette(null, 0, Palette.LAUNCHERS)
+        .show(getSupportFragmentManager(), FRAG_TAG_COLOR_PICKER);
   }
 
   private void updateFilterAndTheme() {
@@ -152,7 +140,8 @@ public class ShortcutConfigActivity extends InjectingAppCompatActivity {
 
   private void updateTheme() {
     ThemeColor color = themeCache.getThemeColor(getThemeIndex());
-    shortcutColor.setText(color.getName());
+    DrawableCompat.setTint(
+        ((LayerDrawable) colorIcon.getDrawable()).getDrawable(0), color.getPrimaryColor());
     color.apply(toolbar);
     color.applyToSystemBars(this);
   }
@@ -181,5 +170,11 @@ public class ShortcutConfigActivity extends InjectingAppCompatActivity {
   @Override
   public void inject(ActivityComponent component) {
     component.inject(this);
+  }
+
+  @Override
+  public void onColorPicked(int color) {
+    selectedTheme = color;
+    updateTheme();
   }
 }

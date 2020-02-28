@@ -12,8 +12,10 @@ public class ColorUtil {
    * @return darken color
    */
   static int darken(int base, int amount) {
-    if (base == 0 || base == -1) {
-      return base;
+    if (base == Color.WHITE) {
+      return Color.WHITE;
+    } else if (base == Color.BLACK) {
+      return Color.BLACK;
     }
 
     float[] hsv = new float[3];
