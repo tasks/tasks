@@ -56,11 +56,9 @@
 
   <color name="brown_500">#795548</color>
 
-  <color name="grey_50">#fafafa</color>
   <color name="grey_500">#9e9e9e</color>
   <color name="grey_800">#424242</color>
   <color name="grey_900">#212121</color>
-  <color name="grey_statusbar">#111111</color>
 
   <color name="blue_grey_400">#78909c</color>
   <color name="blue_grey_500">#607d8b</color>
@@ -78,6 +76,7 @@
   <color name="overdue_87">#def44336</color>
   <color name="overdue">@color/overdue_87</color>
 
+  <color name="md_background_light">@color/white_100</color>
   <color name="md_background_dark">#202124</color>
   <color name="widget_background_black">#000000</color>
   <color name="icon_tint_light">@android:color/black</color>
@@ -85,7 +84,6 @@
   <color name="icon_tint_light_alpha">@color/black_54</color>
   <color name="icon_tint_dark_alpha">@color/white_70</color>
 
-  <color name="drawer_background_light">#f9f9f9</color>
   <color name="drawer_background_light_selected">#e8e8e8</color>
   <color name="drawer_background_dark_selected">#303030</color>
 
@@ -104,12 +102,12 @@
 
   <!-- Day colors -->
 
-  <color name="window_background">@color/grey_50</color>
-  <color name="content_background">@android:color/white</color>
-  <color name="dialog_background">@android:color/white</color>
+  <color name="window_background">@color/md_background_light</color>
+  <color name="content_background">@color/md_background_light</color>
+  <color name="dialog_background">@color/md_background_light</color>
   <color name="icon_tint">@color/icon_tint_light</color>
   <color name="icon_tint_with_alpha">@color/icon_tint_light_alpha</color>
-  <color name="drawer_color">@color/drawer_background_light</color>
+  <color name="drawer_color">@color/md_background_light</color>
   <color name="drawer_color_selected">@color/drawer_background_light_selected</color>
   <color name="text_secondary">@color/black_54</color>
   <color name="text_tertiary">@color/black_38</color>

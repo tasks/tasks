@@ -43,7 +43,7 @@ public class ThemeCache {
         new ThemeBase(
             context.getString(R.string.theme_light),
             0,
-            getColor(context, R.color.grey_50),
+            getColor(context, android.R.color.white),
             AppCompatDelegate.MODE_NIGHT_NO));
     themes.add(
         new ThemeBase(
@@ -67,7 +67,7 @@ public class ThemeCache {
         new ThemeBase(
             context.getString(R.string.theme_day_night),
             4,
-            getColor(context, R.color.grey_50),
+            getColor(context, android.R.color.white),
             AppCompatDelegate.MODE_NIGHT_AUTO));
 
     for (int i = 0; i < ThemeColor.COLORS.length; i++) {

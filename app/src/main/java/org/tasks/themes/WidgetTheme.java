@@ -8,7 +8,7 @@ import org.tasks.dialogs.ColorPalettePicker.Pickable;
 public class WidgetTheme implements Pickable {
 
   static final int[] BACKGROUNDS =
-      new int[] {R.color.grey_50, R.color.widget_background_black, R.color.md_background_dark};
+      new int[] {android.R.color.white, R.color.widget_background_black, R.color.md_background_dark};
   public static final Parcelable.Creator<WidgetTheme> CREATOR =
       new Parcelable.Creator<WidgetTheme>() {
         @Override
