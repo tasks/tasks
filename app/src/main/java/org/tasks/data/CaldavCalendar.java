@@ -40,7 +40,7 @@ public final class CaldavCalendar implements Parcelable {
   private String name = "";
 
   @ColumnInfo(name = "cdl_color")
-  private int color = -1;
+  private int color;
 
   @ColumnInfo(name = "cdl_ctag")
   private String ctag;

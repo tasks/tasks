@@ -38,7 +38,7 @@ public final class TagData implements Parcelable {
   private String name = "";
 
   @ColumnInfo(name = "color")
-  private Integer color = -1;
+  private Integer color = 0;
 
   @ColumnInfo(name = "tagOrdering")
   private String tagOrdering = "[]";
@@ -105,7 +105,7 @@ public final class TagData implements Parcelable {
   }
 
   public Integer getColor() {
-    return color;
+    return color == null ? 0 : color;
   }
 
   public void setColor(Integer color) {

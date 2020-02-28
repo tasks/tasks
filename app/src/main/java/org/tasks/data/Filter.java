@@ -28,7 +28,7 @@ public class Filter {
   private String criterion;
 
   @ColumnInfo(name = "f_color")
-  private Integer color = -1;
+  private Integer color = 0;
 
   @ColumnInfo(name = "f_icon")
   private Integer icon = -1;
@@ -79,7 +79,7 @@ public class Filter {
   }
 
   public Integer getColor() {
-    return color == null ? -1 : color;
+    return color == null ? 0 : color;
   }
 
   public void setColor(Integer color) {
