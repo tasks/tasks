@@ -485,4 +485,8 @@
     <string name="reenter_encryption_password">Zopakujte heslo pro šifrování</string>
     <string name="encryption_password_wrong">Špatné heslo pro šifrování</string>
     <string name="help_and_feedback">Nápověda a zpětná vazba</string>
+    <string name="themes">Více motivů a ikon</string>
+    <string name="pro_caldav_sync">Synchronizace pomocí CalDAV</string>
+    <string name="pro_subscribe_now">Odběrem podpoříte vývoj aplikace a odemknete si další funkce</string>
+    <string name="pro_etesync">Synchronizace pomocí EteSync</string>
 </resources>
