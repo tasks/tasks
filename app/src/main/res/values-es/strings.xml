@@ -560,4 +560,5 @@
     <string name="invalid_username_or_password">Nombre de usuario o contraseña inválidos</string>
     <string name="free_colors">Colores libres</string>
     <string name="material_palette">Paleta de materiales</string>
+    <string name="theme_system_default">El sistema por defecto</string>
 </resources>
