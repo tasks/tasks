@@ -115,7 +115,7 @@ class ThemePickerDialog : InjectingDialogFragment() {
 
     private fun updateButton() {
         val stringRes = if (available()) {
-            android.R.string.ok
+            android.R.string.cancel
         } else {
             R.string.button_subscribe
         }
