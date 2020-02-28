@@ -3,13 +3,12 @@ package org.tasks.widget;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.Intent.ShortcutIconResource;
-import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.widget.ImageView;
+import android.view.View;
+import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -27,6 +26,7 @@ import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.DefaultFilterProvider;
+import org.tasks.themes.DrawableUtil;
 import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
 
@@ -55,7 +55,10 @@ public class ShortcutConfigActivity extends ThemedInjectingAppCompatActivity
   TextInputEditText shortcutName;
 
   @BindView(R.id.color)
-  ImageView colorIcon;
+  TextView colorIcon;
+
+  @BindView(R.id.clear)
+  View clear;
 
   private Filter selectedFilter;
   private int selectedTheme;
@@ -139,9 +142,10 @@ public class ShortcutConfigActivity extends ThemedInjectingAppCompatActivity
   }
 
   private void updateTheme() {
+    clear.setVisibility(View.GONE);
     ThemeColor color = themeCache.getThemeColor(getThemeIndex());
-    DrawableCompat.setTint(
-        ((LayerDrawable) colorIcon.getDrawable()).getDrawable(0), color.getPrimaryColor());
+    DrawableUtil.setLeftDrawable(this, colorIcon, R.drawable.color_picker);
+    DrawableUtil.setTint(DrawableUtil.getLeftDrawable(colorIcon), color.getPrimaryColor());
     color.apply(toolbar);
     color.applyToSystemBars(this);
   }

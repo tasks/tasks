@@ -386,7 +386,7 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
         palette: ColorPickerAdapter.Palette,
         requestCode: Int
     ) {
-        tintIcon(prefId, color)
+        tintColorPreference(prefId, color)
         findPreference(prefId).setOnPreferenceClickListener {
             if (palette == ColorPickerAdapter.Palette.COLORS) {
                 newColorWheel(this, requestCode, color)

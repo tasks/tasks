@@ -1,15 +1,10 @@
 package org.tasks.tags;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
-
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,6 +14,7 @@ import kotlin.jvm.functions.Function2;
 import org.tasks.R;
 import org.tasks.data.TagData;
 import org.tasks.tags.CheckBoxTriStates.State;
+import org.tasks.themes.DrawableUtil;
 
 public class TagPickerViewHolder extends RecyclerView.ViewHolder {
 
@@ -76,14 +72,8 @@ public class TagPickerViewHolder extends RecyclerView.ViewHolder {
         icon = R.drawable.ic_outline_label_24px;
       }
     }
-    Drawable original = ContextCompat.getDrawable(context, icon);
-    Drawable wrapped = DrawableCompat.wrap(original.mutate());
-    DrawableCompat.setTint(wrapped, color);
-    if (atLeastJellybeanMR1()) {
-      text.setCompoundDrawablesRelativeWithIntrinsicBounds(wrapped, null, null, null);
-    } else {
-      text.setCompoundDrawablesWithIntrinsicBounds(wrapped, null, null, null);
-    }
+    DrawableUtil.setLeftDrawable(context, text, icon);
+    DrawableUtil.setTint(DrawableUtil.getLeftDrawable(text), color);
   }
 
   private void updateCheckbox(State state) {

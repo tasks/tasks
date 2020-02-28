@@ -168,12 +168,16 @@ public abstract class BaseListSettingsActivity extends ThemedInjectingAppCompatA
     Drawable leftDrawable = getLeftDrawable(color);
     if (selectedColor == 0) {
       themeColor = this.themeColor;
-      DrawableCompat.setTint(leftDrawable, ContextCompat.getColor(this, android.R.color.transparent));
+      DrawableCompat.setTint(
+          leftDrawable, ContextCompat.getColor(this, android.R.color.transparent));
       clear.setVisibility(View.GONE);
     } else {
       themeColor = newThemeColor(this, selectedColor);
       DrawableCompat.setTint(
-          ((LayerDrawable) leftDrawable).getDrawable(0), themeColor.getPrimaryColor());
+          leftDrawable instanceof LayerDrawable
+              ? ((LayerDrawable) leftDrawable).getDrawable(0)
+              : leftDrawable,
+          themeColor.getPrimaryColor());
       clear.setVisibility(View.VISIBLE);
     }
     themeColor.apply(toolbar);

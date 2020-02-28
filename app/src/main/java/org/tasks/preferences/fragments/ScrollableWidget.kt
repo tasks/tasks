@@ -147,7 +147,7 @@ class ScrollableWidget : InjectingPreferenceFragment() {
     }
 
     private fun updateColor() {
-        tintIcon(R.string.p_widget_color_v2, widgetPreferences.color)
+        tintColorPreference(R.string.p_widget_color_v2, widgetPreferences.color)
     }
 
     private fun updateFilter() {

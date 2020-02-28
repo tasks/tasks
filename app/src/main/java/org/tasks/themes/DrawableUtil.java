@@ -4,14 +4,16 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.widget.TextView;
 import androidx.annotation.DrawableRes;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
+import org.jetbrains.annotations.NotNull;
 
 public class DrawableUtil {
   public static Drawable getWrapped(Context context, @DrawableRes int resId) {
-    return DrawableCompat.wrap(ContextCompat.getDrawable(context, resId).mutate());
+    return wrap(ContextCompat.getDrawable(context, resId));
   }
 
   public static void setLeftDrawable(Context context, TextView tv, @DrawableRes int resId) {
@@ -27,5 +29,15 @@ public class DrawableUtil {
     return atLeastJellybeanMR1()
         ? tv.getCompoundDrawablesRelative()[0]
         : tv.getCompoundDrawables()[0];
+  }
+
+  public static Drawable wrap(@NotNull Drawable icon) {
+    return DrawableCompat.wrap(icon.mutate());
+  }
+
+  public static void setTint(Drawable drawable, int tint) {
+    DrawableCompat.setTint(
+        drawable instanceof LayerDrawable ? ((LayerDrawable) drawable).getDrawable(0) : drawable,
+        tint);
   }
 }

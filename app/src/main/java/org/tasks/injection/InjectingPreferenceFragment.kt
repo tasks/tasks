@@ -3,8 +3,6 @@ package org.tasks.injection
 import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
@@ -19,6 +17,7 @@ import com.todoroo.astrid.api.Filter
 import org.tasks.R
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.preferences.Device
+import org.tasks.themes.DrawableUtil
 import javax.inject.Inject
 
 
@@ -33,9 +32,9 @@ abstract class InjectingPreferenceFragment : PreferenceFragmentCompat() {
                     tintIcons(pref.getPreference(i), color)
                 }
             } else {
-                val icon: Drawable? = pref.icon
-                if (icon != null) {
-                    DrawableCompat.setTint(icon, color)
+                if (pref.icon != null) {
+                    pref.icon = DrawableUtil.wrap(pref.icon);
+                    DrawableCompat.setTint(pref.icon, color)
                 }
             }
         }
@@ -75,11 +74,10 @@ abstract class InjectingPreferenceFragment : PreferenceFragmentCompat() {
             .show()
     }
 
-    protected fun tintIcon(resId: Int, tint: Int) {
+    protected fun tintColorPreference(resId: Int, tint: Int) {
         val pref = findPreference(resId)
-        val icon = DrawableCompat.wrap(pref.icon.mutate())
-        DrawableCompat.setTint(if (icon is LayerDrawable) icon.getDrawable(0) else icon, tint)
-        pref.icon = icon
+        pref.icon = DrawableUtil.getWrapped(context!!, R.drawable.color_picker)
+        DrawableUtil.setTint(pref.icon, tint)
     }
 
     protected fun requires(@StringRes prefGroup: Int, check: Boolean, vararg resIds: Int) {

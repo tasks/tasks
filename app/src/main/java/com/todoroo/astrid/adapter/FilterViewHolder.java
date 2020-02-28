@@ -30,6 +30,7 @@ import org.tasks.filters.NavigationDrawerSubheader;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.SyncPreferences;
 import org.tasks.themes.CustomIcons;
+import org.tasks.themes.DrawableUtil;
 import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeColor;
 
@@ -115,8 +116,9 @@ public class FilterViewHolder extends RecyclerView.ViewHolder {
       text.setChecked(selected);
     }
 
-    icon.setImageResource(getIcon(filter));
-    icon.setColorFilter(getColor(filter));
+    int icon = getIcon(filter);
+    this.icon.setImageDrawable(DrawableUtil.getWrapped(activity, icon));
+    DrawableCompat.setTint(this.icon.getDrawable(), getColor(filter));
     text.setText(filter.listingTitle);
 
     if (count == null || count == 0) {

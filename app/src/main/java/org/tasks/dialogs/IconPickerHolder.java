@@ -1,19 +1,17 @@
 package org.tasks.dialogs;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
 import android.view.View;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import org.tasks.Callback;
 import org.tasks.R;
+import org.tasks.themes.DrawableUtil;
 
 public class IconPickerHolder extends RecyclerView.ViewHolder {
 
@@ -47,11 +45,8 @@ public class IconPickerHolder extends RecyclerView.ViewHolder {
   public void bind(int index, int icon, int tint, float alpha, boolean isEnabled) {
     this.index = index;
     this.isEnabled = isEnabled;
-    imageView.setImageResource(icon);
     imageView.setAlpha(alpha);
-    Drawable drawable = imageView.getDrawable();
-    DrawableCompat.setTint(
-        drawable instanceof LayerDrawable ? ((LayerDrawable) drawable).getDrawable(0) : drawable,
-        tint);
+    imageView.setImageDrawable(DrawableUtil.getWrapped(context, icon));
+    DrawableUtil.setTint(imageView.getDrawable(), tint);
   }
 }

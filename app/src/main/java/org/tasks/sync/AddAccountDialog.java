@@ -19,6 +19,7 @@ import org.tasks.caldav.CaldavAccountSettingsActivity;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.etesync.EteSyncAccountSettingsActivity;
 import org.tasks.preferences.fragments.SynchronizationKt;
+import org.tasks.themes.DrawableUtil;
 
 public class AddAccountDialog {
   public static void showAddAccountDialog(Activity activity, DialogBuilder dialogBuilder) {
@@ -42,7 +43,7 @@ public class AddAccountDialog {
             view.<TextView>findViewById(R.id.text1).setText(services[position]);
             view.<TextView>findViewById(R.id.text2).setText(descriptions[position]);
             ImageView icon = view.findViewById(R.id.image_view);
-            icon.setImageResource(icons[position]);
+            icon.setImageDrawable(DrawableUtil.getWrapped(getContext(), icons[position]));
             if (position == 1) {
               DrawableCompat.setTint(
                   icon.getDrawable(), ContextCompat.getColor(getContext(), R.color.icon_tint));
