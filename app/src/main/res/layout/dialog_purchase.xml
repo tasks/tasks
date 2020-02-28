@@ -26,6 +26,7 @@
       android:id="@+id/feature_list"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:paddingTop="16dp"
       android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"/>
 
   </LinearLayout>
