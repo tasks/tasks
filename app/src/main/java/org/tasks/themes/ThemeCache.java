@@ -6,8 +6,6 @@ import static com.google.common.collect.ImmutableList.copyOf;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.util.TypedValue;
-import android.view.ContextThemeWrapper;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
@@ -27,7 +25,6 @@ public class ThemeCache {
 
   private final List<ThemeBase> themes = new ArrayList<>();
   private final List<ThemeColor> colors = new ArrayList<>();
-  private final List<ThemeAccent> accents = new ArrayList<>();
   private final List<WidgetTheme> widgetThemes = new ArrayList<>();
   private final ThemeColor untaggedColor;
   private final Preferences preferences;
@@ -80,10 +77,6 @@ public class ThemeCache {
       colors.add(
           new ThemeColor(context, i, ContextCompat.getColor(context, ThemeColor.COLORS[i])));
     }
-    for (int i = 0; i < ThemeAccent.ACCENTS.length; i++) {
-      Resources.Theme theme = new ContextThemeWrapper(context, ThemeAccent.ACCENTS[i]).getTheme();
-      accents.add(new ThemeAccent(i, resolveAttribute(theme, R.attr.colorSecondary)));
-    }
     String[] widgetBackgroundNames = resources.getStringArray(R.array.widget_background);
     for (int i = 0; i < WidgetTheme.BACKGROUNDS.length; i++) {
       widgetThemes.add(
@@ -96,12 +89,6 @@ public class ThemeCache {
     }
     untaggedColor =
         new ThemeColor(context, 19, getColor(context, R.color.tag_color_none_background));
-  }
-
-  private static int resolveAttribute(Resources.Theme theme, int attribute) {
-    TypedValue typedValue = new TypedValue();
-    theme.resolveAttribute(attribute, typedValue, true);
-    return typedValue.data;
   }
 
   public WidgetTheme getWidgetTheme(int index) {
@@ -130,16 +117,8 @@ public class ThemeCache {
     return colors.get(index);
   }
 
-  public ThemeAccent getThemeAccent(int index) {
-    return accents.get(index);
-  }
-
   public ThemeColor getUntaggedColor() {
     return untaggedColor;
-  }
-
-  public List<ThemeAccent> getAccents() {
-    return copyOf(accents);
   }
 
   public List<ThemeColor> getColors() {

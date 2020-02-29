@@ -18,6 +18,7 @@ import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseDialog
 import org.tasks.injection.DialogFragmentComponent
 import org.tasks.injection.InjectingDialogFragment
+import org.tasks.themes.ThemeAccent
 import org.tasks.themes.ThemeCache
 import org.tasks.themes.ThemeColor
 import javax.inject.Inject
@@ -70,7 +71,9 @@ class ColorPalettePicker : InjectingDialogFragment() {
         palette = arguments!!.getSerializable(EXTRA_PALETTE) as ColorPickerAdapter.Palette
         colors = when (palette) {
             ColorPickerAdapter.Palette.COLORS -> themeCache.colors
-            ColorPickerAdapter.Palette.ACCENTS -> themeCache.accents
+            ColorPickerAdapter.Palette.ACCENTS -> ThemeAccent.ACCENTS.mapIndexed { index, _ ->
+                ThemeAccent(context, index)
+            }
             ColorPickerAdapter.Palette.LAUNCHERS -> themeCache.colors.dropLast(1)
             ColorPickerAdapter.Palette.WIDGET_BACKGROUND -> themeCache.widgetThemes
         }

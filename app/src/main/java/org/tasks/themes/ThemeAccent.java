@@ -1,14 +1,17 @@
 package org.tasks.themes;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.TypedValue;
+import android.view.ContextThemeWrapper;
 import org.tasks.R;
 import org.tasks.dialogs.ColorPalettePicker.Pickable;
 
 public class ThemeAccent implements Pickable {
 
-  static final int[] ACCENTS =
+  public static final int[] ACCENTS =
       new int[] {
         R.style.BlueGreyAccent,
         R.style.RedAccent,
@@ -42,18 +45,25 @@ public class ThemeAccent implements Pickable {
       };
   private final int index;
   private final int style;
-  private final int accentColor;
+  @Deprecated private final int accentColor;
 
-  public ThemeAccent(int index, int accentColor) {
+  public ThemeAccent(Context context, int index) {
     this.index = index;
     this.style = ACCENTS[index];
-    this.accentColor = accentColor;
+    Resources.Theme theme = new ContextThemeWrapper(context, ThemeAccent.ACCENTS[index]).getTheme();
+    this.accentColor = resolveAttribute(theme, R.attr.colorSecondary);
   }
 
   private ThemeAccent(Parcel source) {
     index = source.readInt();
     style = source.readInt();
     accentColor = source.readInt();
+  }
+
+  private static int resolveAttribute(Resources.Theme theme, int attribute) {
+    TypedValue typedValue = new TypedValue();
+    theme.resolveAttribute(attribute, typedValue, true);
+    return typedValue.data;
   }
 
   public void applyStyle(Resources.Theme theme) {
@@ -81,6 +91,7 @@ public class ThemeAccent implements Pickable {
     return index;
   }
 
+  @Deprecated
   public int getAccentColor() {
     return accentColor;
   }
