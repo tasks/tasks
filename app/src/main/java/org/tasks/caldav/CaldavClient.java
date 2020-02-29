@@ -17,14 +17,12 @@ import at.bitfire.dav4jvm.XmlUtils;
 import at.bitfire.dav4jvm.exception.DavException;
 import at.bitfire.dav4jvm.exception.HttpException;
 import at.bitfire.dav4jvm.property.CalendarHomeSet;
-import at.bitfire.dav4jvm.property.CalendarProxyReadFor;
-import at.bitfire.dav4jvm.property.CalendarProxyWriteFor;
 import at.bitfire.dav4jvm.property.CurrentUserPrincipal;
 import at.bitfire.dav4jvm.property.DisplayName;
 import at.bitfire.dav4jvm.property.GetCTag;
-import at.bitfire.dav4jvm.property.GroupMembership;
 import at.bitfire.dav4jvm.property.ResourceType;
 import at.bitfire.dav4jvm.property.SupportedCalendarComponentSet;
+import at.bitfire.dav4jvm.property.SyncToken;
 import com.todoroo.astrid.helper.UUIDHelper;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -87,7 +85,8 @@ public class CaldavClient {
       String url,
       String username,
       String password,
-      boolean foreground) throws NoSuchAlgorithmException, KeyManagementException {
+      boolean foreground)
+      throws NoSuchAlgorithmException, KeyManagementException {
     this.context = context;
     this.encryption = encryption;
     this.preferences = preferences;
@@ -98,7 +97,7 @@ public class CaldavClient {
     CustomHostnameVerifier hostnameVerifier =
         customCertManager.hostnameVerifier(OkHostnameVerifier.INSTANCE);
     SSLContext sslContext = SSLContext.getInstance("TLS");
-    sslContext.init(null, new TrustManager[] { customCertManager }, null);
+    sslContext.init(null, new TrustManager[] {customCertManager}, null);
 
     basicDigestAuthHandler = new BasicDigestAuthHandler(null, username, password);
     Builder builder =
@@ -204,7 +203,11 @@ public class CaldavClient {
     davResource.propfind(
         1,
         new Name[] {
-          ResourceType.NAME, DisplayName.NAME, SupportedCalendarComponentSet.NAME, GetCTag.NAME
+          ResourceType.NAME,
+          DisplayName.NAME,
+          SupportedCalendarComponentSet.NAME,
+          GetCTag.NAME,
+          SyncToken.NAME
         },
         responses);
     List<Response> urls = new ArrayList<>();

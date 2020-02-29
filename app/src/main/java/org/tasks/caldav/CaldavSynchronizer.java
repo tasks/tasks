@@ -11,6 +11,7 @@ import static org.tasks.caldav.CaldavUtils.getParent;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 import android.content.Context;
+import androidx.annotation.Nullable;
 import at.bitfire.dav4jvm.DavCalendar;
 import at.bitfire.dav4jvm.DavResource;
 import at.bitfire.dav4jvm.Response;
@@ -23,6 +24,7 @@ import at.bitfire.dav4jvm.property.CalendarData;
 import at.bitfire.dav4jvm.property.DisplayName;
 import at.bitfire.dav4jvm.property.GetCTag;
 import at.bitfire.dav4jvm.property.GetETag;
+import at.bitfire.dav4jvm.property.SyncToken;
 import at.bitfire.ical4android.ICalendar;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableSet;
@@ -189,7 +191,14 @@ public class CaldavSynchronizer {
       localBroadcastManager.broadcastRefreshList();
     }
 
-    String remoteCtag = resource.get(GetCTag.class).getCTag();
+    SyncToken syncToken = resource.get(SyncToken.class);
+    GetCTag ctag = resource.get(GetCTag.class);
+    @Nullable String remoteCtag = null;
+    if (syncToken != null) {
+      remoteCtag = syncToken.getToken();
+    } else if (ctag != null) {
+      remoteCtag = ctag.getCTag();
+    }
     String localCtag = caldavCalendar.getCtag();
 
     if (localCtag != null && localCtag.equals(remoteCtag)) {
