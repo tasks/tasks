@@ -371,8 +371,8 @@
     <string name="color">Szín</string>
     <string name="accent">Kiemelés</string>
     <string name="launcher_icon">Launcher ikon</string>
-  <string name="theme_black">Fekete</string>
-  <string name="theme_light">Világos</string>
+    <string name="theme_black">Fekete</string>
+    <string name="theme_light">Világos</string>
     <string name="theme_dark">Sötét</string>
     <string name="theme_wallpaper">Háttérkép</string>
     <string name="theme_day_night">Nappal/Éjszaka</string>
@@ -555,4 +555,8 @@
     <string name="disable_battery_optimizations">Akkumulátor optimalizálás letiltása</string>
     <string name="more_settings">További beállítások</string>
     <string name="more_notification_settings_summary">Csengőhang, rezgés, stb.</string>
+    <string name="invalid_username_or_password">Hibás felhasználónév vagy jelszó</string>
+    <string name="free_colors">Ingyenes színek</string>
+    <string name="material_palette">Material színskála</string>
+    <string name="theme_system_default">Alapértelmezett</string>
 </resources>
