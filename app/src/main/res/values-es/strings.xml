@@ -559,4 +559,5 @@
     <string name="more_notification_settings_summary">Tono de llamada, vibraciones y más</string>
     <string name="invalid_username_or_password">Nombre de usuario o contraseña inválidos</string>
     <string name="theme_system_default">El sistema por defecto</string>
+    <string name="color_wheel">Rueda de colores</string>
 </resources>
