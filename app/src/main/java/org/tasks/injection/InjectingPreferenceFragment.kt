@@ -33,7 +33,7 @@ abstract class InjectingPreferenceFragment : PreferenceFragmentCompat() {
                 }
             } else {
                 if (pref.icon != null) {
-                    pref.icon = DrawableUtil.wrap(pref.icon);
+                    pref.icon = DrawableUtil.wrap(pref.icon)
                     DrawableCompat.setTint(pref.icon, color)
                 }
             }
@@ -48,7 +48,7 @@ abstract class InjectingPreferenceFragment : PreferenceFragmentCompat() {
     final override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(getPreferenceXml(), rootKey)
 
-        tintIcons(preferenceScreen, ContextCompat.getColor(context!!, R.color.icon_tint))
+        tintIcons(preferenceScreen, ContextCompat.getColor(context!!, R.color.icon_tint_with_alpha))
 
         setupPreferences(savedInstanceState)
     }
