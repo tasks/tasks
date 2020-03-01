@@ -28,7 +28,7 @@
 
   <style name="WhiteToolbarTheme">
     <item name="overlay_theme">@style/WhiteToolbarOverlay</item>
-    <item name="colorOnPrimary">@color/white_87</item>
+    <item name="colorOnPrimary">@color/white_100</item>
     <item name="colorOnPrimaryHint">@color/white_60</item>
     <item name="android:actionOverflowButtonStyle">@style/WhiteOverflow</item>
   </style>
@@ -41,7 +41,7 @@
   </style>
 
   <style name="WhiteTint">
-    <item name="colorOnSecondary">@color/white_87</item>
+    <item name="colorOnSecondary">@color/white_100</item>
   </style>
 
   <style name="BlackTint">
@@ -49,17 +49,17 @@
   </style>
 
   <style name="WhiteOverflow" parent="Widget.AppCompat.Light.ActionButton.Overflow">
-    <item name="android:tint">@color/white_87</item>
+    <item name="android:tint">@color/white_100</item>
   </style>
 
   <style name="BlackOverflow" parent="Widget.AppCompat.Light.ActionButton.Overflow">
-    <item name="android:tint">@color/black_87</item>
+    <item name="android:tint">@color/black_100</item>
   </style>
 
   <style name="WhiteToolbarOverlay" parent="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
-    <item name="colorControlNormal">@color/white_87</item>
+    <item name="colorControlNormal">@color/white_100</item>
     <item name="android:textColorHint">@color/white_60</item>
-    <item name="android:editTextColor">@color/white_87</item>
+    <item name="android:editTextColor">@color/white_100</item>
   </style>
 
   <style name="BlackToolbarOverlay" parent="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">

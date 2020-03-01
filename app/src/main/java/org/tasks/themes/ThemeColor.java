@@ -154,7 +154,7 @@ public class ThemeColor implements Pickable {
     this.colorPrimary = colorPrimary;
     this.colorPrimaryVariant = ColorUtil.darken(colorPrimary, 12);
 
-    int whiteText = context.getResources().getColor(R.color.white_87);
+    int whiteText = context.getResources().getColor(R.color.white_100);
     double contrast = ColorUtils.calculateContrast(whiteText, colorPrimary);
     this.isDark = contrast < 3;
     colorOnPrimary = isDark ? context.getResources().getColor(R.color.black_87) : whiteText;
