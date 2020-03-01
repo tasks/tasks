@@ -123,7 +123,7 @@ public abstract class BaseListSettingsActivity extends ThemedInjectingAppCompatA
 
   @OnClick(R.id.color_row)
   protected void showThemePicker() {
-    ColorWheelPicker.Companion.newColorWheel(null, 0, selectedColor)
+    ColorPalettePicker.Companion.newColorPalette(null, 0, selectedColor)
         .show(getSupportFragmentManager(), FRAG_TAG_COLOR_PICKER);
   }
 

@@ -14,7 +14,6 @@ import com.flask.colorpicker.builder.ColorPickerDialogBuilder
 import org.tasks.R
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
-import org.tasks.dialogs.ColorPalettePicker.Companion.newColorPalette
 import org.tasks.injection.DialogFragmentComponent
 import org.tasks.injection.InjectingDialogFragment
 import org.tasks.ui.NavigationDrawerFragment.REQUEST_PURCHASE
@@ -25,7 +24,6 @@ private const val REQUEST_PURCHASE = 10010
 class ColorWheelPicker : InjectingDialogFragment() {
 
     companion object {
-        private const val FRAG_TAG_COLOR_PICKER = "frag_tag_color_picker"
         const val EXTRA_SELECTED = "extra_selected"
 
         fun newColorWheel(target: Fragment?, rc: Int, selected: Int): ColorWheelPicker {
@@ -72,13 +70,9 @@ class ColorWheelPicker : InjectingDialogFragment() {
                         startActivityForResult(Intent(activity, PurchaseActivity::class.java), REQUEST_PURCHASE)
                     }
                 }
+                .setNegativeButton(android.R.string.cancel, null)
         if (selected != 0) {
             builder.initialColor(selected)
-        }
-        val buttonText = if (inventory.purchasedThemes()) R.string.material_palette else R.string.free_colors
-        builder.setNegativeButton(buttonText) { _, _ ->
-            newColorPalette(targetFragment, targetRequestCode, ColorPickerAdapter.Palette.COLORS)
-                .show(parentFragmentManager, FRAG_TAG_COLOR_PICKER)
         }
         dialog = builder.build()
         return dialog as Dialog

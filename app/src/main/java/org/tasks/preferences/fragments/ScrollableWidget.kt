@@ -12,7 +12,6 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.activities.FilterSelectionActivity
 import org.tasks.dialogs.ColorWheelPicker
-import org.tasks.dialogs.ColorWheelPicker.Companion.newColorWheel
 import org.tasks.dialogs.ColorPalettePicker
 import org.tasks.dialogs.ColorPalettePicker.Companion.newColorPalette
 import org.tasks.dialogs.ColorPickerAdapter
@@ -89,7 +88,7 @@ class ScrollableWidget : InjectingPreferenceFragment() {
         val colorPreference = findPreference(R.string.p_widget_color_v2)
         colorPreference.dependency = showHeader.key
         colorPreference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            newColorWheel(this, REQUEST_COLOR_SELECTION, widgetPreferences.color)
+            newColorPalette(this, REQUEST_COLOR_SELECTION, widgetPreferences.color)
                 .show(parentFragmentManager, FRAG_TAG_COLOR_PICKER)
             false
         }

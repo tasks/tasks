@@ -16,6 +16,7 @@ import org.tasks.Callback
 import org.tasks.R
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseDialog
+import org.tasks.dialogs.ColorWheelPicker.Companion.newColorWheel
 import org.tasks.injection.DialogFragmentComponent
 import org.tasks.injection.InjectingDialogFragment
 import org.tasks.themes.ThemeAccent
@@ -27,16 +28,35 @@ class ColorPalettePicker : InjectingDialogFragment() {
 
     companion object {
         private const val FRAG_TAG_PURCHASE = "frag_tag_purchase"
+        private const val FRAG_TAG_COLOR_PICKER = "frag_tag_color_picker"
         private const val EXTRA_PALETTE = "extra_palette"
         const val EXTRA_SELECTED = ColorWheelPicker.EXTRA_SELECTED
 
         fun newColorPalette(
             target: Fragment?,
             rc: Int,
+            selected: Int
+        ): ColorPalettePicker {
+            return newColorPalette(target, rc, selected, ColorPickerAdapter.Palette.COLORS)
+        }
+
+        fun newColorPalette(
+            target: Fragment?,
+            rc: Int,
+            palette: ColorPickerAdapter.Palette
+        ): ColorPalettePicker {
+            return newColorPalette(target, rc, 0, palette)
+        }
+
+        fun newColorPalette(
+            target: Fragment?,
+            rc: Int,
+            selected: Int,
             palette: ColorPickerAdapter.Palette
         ): ColorPalettePicker {
             val args = Bundle()
             args.putSerializable(EXTRA_PALETTE, palette)
+            args.putInt(EXTRA_SELECTED, selected)
             val dialog = ColorPalettePicker()
             dialog.setTargetFragment(target, rc)
             dialog.arguments = args
@@ -89,6 +109,13 @@ class ColorPalettePicker : InjectingDialogFragment() {
             dialogBuilder
                 .newDialog()
                 .setView(view)
+        if (palette == ColorPickerAdapter.Palette.COLORS) {
+            builder.setNeutralButton(R.string.color_wheel) { _, _ ->
+                val selected = arguments?.getInt(EXTRA_SELECTED) ?: 0
+                newColorWheel(targetFragment, targetRequestCode, selected)
+                    .show(parentFragmentManager, FRAG_TAG_COLOR_PICKER)
+            }
+        }
         if (inventory.purchasedThemes()) {
             builder.setNegativeButton(android.R.string.cancel, null)
         } else {

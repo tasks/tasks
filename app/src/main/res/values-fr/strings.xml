@@ -554,7 +554,5 @@ est configuré correctement</string>
     <string name="more_settings">Plus de paramètres</string>
     <string name="more_notification_settings_summary">Sonnerie, vibrations, et plus encore</string>
     <string name="invalid_username_or_password">Nom d\'utilisateur ou mot de passe invalide</string>
-    <string name="free_colors">Couleurs gratuites</string>
-    <string name="material_palette">Palette de matériaux</string>
     <string name="theme_system_default">Défaut du système</string>
 </resources>

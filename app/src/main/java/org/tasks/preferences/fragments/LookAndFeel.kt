@@ -25,7 +25,6 @@ import org.tasks.dialogs.ColorPalettePicker
 import org.tasks.dialogs.ColorPalettePicker.Companion.newColorPalette
 import org.tasks.dialogs.ColorPickerAdapter
 import org.tasks.dialogs.ColorWheelPicker
-import org.tasks.dialogs.ColorWheelPicker.Companion.newColorWheel
 import org.tasks.dialogs.MyTimePickerDialog.newTimePicker
 import org.tasks.dialogs.ThemePickerDialog
 import org.tasks.dialogs.ThemePickerDialog.Companion.newThemePickerDialog
@@ -388,13 +387,8 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
     ) {
         tintColorPreference(prefId, color)
         findPreference(prefId).setOnPreferenceClickListener {
-            if (palette == ColorPickerAdapter.Palette.COLORS) {
-                newColorWheel(this, requestCode, color)
-                    .show(parentFragmentManager, FRAG_TAG_COLOR_PICKER)
-            } else {
-                newColorPalette(this, requestCode, palette)
-                    .show(parentFragmentManager, FRAG_TAG_COLOR_PICKER)
-            }
+            newColorPalette(this, requestCode, color, palette)
+                .show(parentFragmentManager, FRAG_TAG_COLOR_PICKER)
             false
         }
     }
