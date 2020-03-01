@@ -8,6 +8,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.LayoutInflater
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
@@ -90,11 +91,15 @@ class ColorPalettePicker : InjectingDialogFragment() {
         ButterKnife.bind(this, view)
         palette = arguments!!.getSerializable(EXTRA_PALETTE) as ColorPickerAdapter.Palette
         colors = when (palette) {
-            ColorPickerAdapter.Palette.COLORS -> themeCache.colors
+            ColorPickerAdapter.Palette.COLORS -> ThemeColor.COLORS.mapIndexed { index, color ->
+                ThemeColor(context, index, ContextCompat.getColor(context!!, color))
+            }
             ColorPickerAdapter.Palette.ACCENTS -> ThemeAccent.ACCENTS.mapIndexed { index, _ ->
                 ThemeAccent(context, index)
             }
-            ColorPickerAdapter.Palette.LAUNCHERS -> themeCache.colors.dropLast(1)
+            ColorPickerAdapter.Palette.LAUNCHERS -> ThemeColor.LAUNCHER_COLORS.mapIndexed { index, color ->
+                ThemeColor(context, index, ContextCompat.getColor(context!!, color))
+            }
             ColorPickerAdapter.Palette.WIDGET_BACKGROUND -> themeCache.widgetThemes
         }
 

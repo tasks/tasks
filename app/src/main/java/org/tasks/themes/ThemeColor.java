@@ -79,6 +79,31 @@ public class ThemeColor implements Pickable {
 
   public static final int[] COLORS =
       new int[] {
+        R.color.theme_blue_grey,
+        R.color.theme_dark_grey,
+        R.color.theme_red,
+        R.color.theme_pink,
+        R.color.theme_purple,
+        R.color.theme_deep_purple,
+        R.color.theme_indigo,
+        R.color.theme_blue,
+        R.color.theme_light_blue,
+        R.color.theme_cyan,
+        R.color.theme_teal,
+        R.color.theme_green,
+        R.color.theme_light_green,
+        R.color.theme_lime,
+        R.color.theme_yellow,
+        R.color.theme_amber,
+        R.color.theme_orange,
+        R.color.theme_deep_orange,
+        R.color.theme_brown,
+        R.color.theme_grey,
+        R.color.theme_day_night
+      };
+
+  public static final int[] LAUNCHER_COLORS =
+      new int[] {
         R.color.blue_grey_500,
         R.color.grey_900,
         R.color.red_500,
@@ -98,8 +123,7 @@ public class ThemeColor implements Pickable {
         R.color.orange_500,
         R.color.deep_orange_500,
         R.color.brown_500,
-        R.color.grey_500,
-        R.color.white_100
+        R.color.grey_500
       };
 
   public static final Parcelable.Creator<ThemeColor> CREATOR =
@@ -120,23 +144,11 @@ public class ThemeColor implements Pickable {
   private final int colorPrimaryVariant;
   private final boolean isDark;
 
-  public static ThemeColor newThemeColor(Context context, int color) {
-    try {
-      return new ThemeColor(context, color);
-    } catch (Exception e) {
-      Timber.e(e);
-      return new ThemeColor(context, 0);
-    }
-  }
-
   public ThemeColor(Context context, int color) {
     this(context, -1, color == 0 ? ContextCompat.getColor(context, R.color.blue_500) : color);
   }
 
-  public ThemeColor(
-      Context context,
-      int index,
-      int colorPrimary) {
+  public ThemeColor(Context context, int index, int colorPrimary) {
     this.index = index;
     colorPrimary |= 0xFF000000; // remove alpha
     this.colorPrimary = colorPrimary;
@@ -154,6 +166,40 @@ public class ThemeColor implements Pickable {
     colorPrimary = source.readInt();
     colorPrimaryVariant = source.readInt();
     isDark = source.readInt() == 1;
+  }
+
+  public static ThemeColor newThemeColor(Context context, int color) {
+    try {
+      return new ThemeColor(context, color);
+    } catch (Exception e) {
+      Timber.e(e);
+      return new ThemeColor(context, 0);
+    }
+  }
+
+  private static void colorMenu(Menu menu, int color) {
+    for (int i = 0, size = menu.size(); i < size; i++) {
+      final MenuItem menuItem = menu.getItem(i);
+      colorMenuItem(menuItem, color);
+      if (menuItem.hasSubMenu()) {
+        final SubMenu subMenu = menuItem.getSubMenu();
+        for (int j = 0; j < subMenu.size(); j++) {
+          colorMenuItem(subMenu.getItem(j), color);
+        }
+      }
+    }
+  }
+
+  private static void colorMenuItem(final MenuItem menuItem, final int color) {
+    colorDrawable(menuItem.getIcon(), color);
+  }
+
+  private static Drawable colorDrawable(Drawable drawable, int color) {
+    if (drawable != null) {
+      drawable.mutate();
+      drawable.setColorFilter(color, PorterDuff.Mode.SRC_IN);
+    }
+    return drawable;
   }
 
   public void applyToSystemBars(Activity activity) {
@@ -283,31 +329,6 @@ public class ThemeColor implements Pickable {
 
   public void colorMenu(Menu menu) {
     colorMenu(menu, colorOnPrimary);
-  }
-
-  private static void colorMenu(Menu menu, int color) {
-    for (int i = 0, size = menu.size(); i < size; i++) {
-      final MenuItem menuItem = menu.getItem(i);
-      colorMenuItem(menuItem, color);
-      if (menuItem.hasSubMenu()) {
-        final SubMenu subMenu = menuItem.getSubMenu();
-        for (int j = 0; j < subMenu.size(); j++) {
-          colorMenuItem(subMenu.getItem(j), color);
-        }
-      }
-    }
-  }
-
-  private static void colorMenuItem(final MenuItem menuItem, final int color) {
-    colorDrawable(menuItem.getIcon(), color);
-  }
-
-  private static Drawable colorDrawable(Drawable drawable, int color) {
-    if (drawable != null) {
-      drawable.mutate();
-      drawable.setColorFilter(color, PorterDuff.Mode.SRC_IN);
-    }
-    return drawable;
   }
 
   @Override
