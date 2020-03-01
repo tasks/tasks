@@ -86,8 +86,9 @@
   <color name="black_12">#1f000000</color>
 
   <color name="white_100">#ffffffff</color>
-  <color name="white_70">#b3ffffff</color>
-  <color name="white_50">#80ffffff</color>
+  <color name="white_87">#deffffff</color>
+  <color name="white_60">#99ffffff</color>
+  <color name="white_38">#61ffffff</color>
   <color name="white_12">#1fffffff</color>
 
   <color name="overdue_87">#def44336</color>
@@ -99,7 +100,7 @@
   <color name="icon_tint_light">@android:color/black</color>
   <color name="icon_tint_dark">@android:color/white</color>
   <color name="icon_tint_light_alpha">@color/black_54</color>
-  <color name="icon_tint_dark_alpha">@color/white_70</color>
+  <color name="icon_tint_dark_alpha">@color/white_60</color>
 
   <color name="drawer_background_light_selected">#e8e8e8</color>
   <color name="drawer_background_dark_selected">#303030</color>
@@ -109,7 +110,7 @@
   <color name="priority_3">@color/blue_500</color>
   <color name="priority_4">@color/grey_500</color>
 
-  <color name="snackbar_text_color">@color/white_100</color>
+  <color name="snackbar_text_color">@color/white_87</color>
   <color name="snackbar_action_color">#f4b400</color>
   <color name="snackbar_background">@color/grey_800</color>
   <color name="tag_color_none_background">#e1e1e1</color>

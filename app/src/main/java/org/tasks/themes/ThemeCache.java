@@ -84,8 +84,8 @@ public class ThemeCache {
               widgetBackgroundNames[i],
               i,
               getColor(context, WidgetTheme.BACKGROUNDS[i]),
-              getColor(context, i == 0 ? R.color.black_87 : R.color.white_100),
-              getColor(context, i == 0 ? R.color.black_54 : R.color.white_70)));
+              getColor(context, i == 0 ? R.color.black_87 : R.color.white_87),
+              getColor(context, i == 0 ? R.color.black_54 : R.color.white_60)));
     }
     untaggedColor =
         new ThemeColor(context, 19, getColor(context, R.color.tag_color_none_background));
