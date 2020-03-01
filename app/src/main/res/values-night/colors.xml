@@ -9,6 +9,5 @@
   <color name="drawer_color_selected">@color/drawer_background_dark_selected</color>
   <color name="text_secondary">@color/white_70</color>
   <color name="text_tertiary">@color/white_50</color>
-  <color name="divider">@color/white_12</color>
   <color name="overdue">@color/overdue_87</color>
 </resources>

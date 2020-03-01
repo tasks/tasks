@@ -128,7 +128,6 @@
   <color name="drawer_color_selected">@color/drawer_background_light_selected</color>
   <color name="text_secondary">@color/black_54</color>
   <color name="text_tertiary">@color/black_38</color>
-  <color name="divider">@color/black_12</color>
 
 </resources>
 
