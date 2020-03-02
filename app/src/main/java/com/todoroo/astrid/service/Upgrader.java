@@ -56,7 +56,7 @@ public class Upgrader {
   private static final int V6_8_1 = 607;
   private static final int V6_9 = 608;
   private static final int V7_0 = 617;
-  private static final int V8_2 = 675;
+  public static final int V8_2 = 675;
   private final Context context;
   private final Preferences preferences;
   private final Tracker tracker;
@@ -144,6 +144,10 @@ public class Upgrader {
   }
 
   private int getAndroidColor(int index) {
+    return getAndroidColor(context, index);
+  }
+
+  public static int getAndroidColor(Context context, int index) {
     return index >= 0 && index < ThemeColor.COLORS.length
         ? ContextCompat.getColor(context, ThemeColor.COLORS[index])
         : 0;

@@ -15,6 +15,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.Upgrader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -124,6 +125,7 @@ public class TasksJsonImporter {
       int version = input.get("version").getAsInt();
       BackupContainer backupContainer = gson.fromJson(data, BackupContainer.class);
       for (TagData tagData : backupContainer.getTags()) {
+        tagData.setColor(themeToColor(context, version, tagData.getColor()));
         if (tagDataDao.getByUuid(tagData.getRemoteId()) == null) {
           tagDataDao.createNew(tagData);
         }
@@ -139,11 +141,13 @@ public class TasksJsonImporter {
         }
       }
       for (GoogleTaskList googleTaskList : backupContainer.getGoogleTaskLists()) {
+        googleTaskList.setColor(themeToColor(context, version, googleTaskList.getColor()));
         if (googleTaskListDao.getByRemoteId(googleTaskList.getRemoteId()) == null) {
           googleTaskListDao.insert(googleTaskList);
         }
       }
       for (Filter filter : backupContainer.getFilters()) {
+        filter.setColor(themeToColor(context, version, filter.getColor()));
         if (filterDao.getByName(filter.getTitle()) == null) {
           filterDao.insert(filter);
         }
@@ -154,6 +158,7 @@ public class TasksJsonImporter {
         }
       }
       for (CaldavCalendar calendar : backupContainer.getCaldavCalendars()) {
+        calendar.setColor(themeToColor(context, version, calendar.getColor()));
         if (caldavDao.getCalendarByUuid(calendar.getUuid()) == null) {
           caldavDao.insert(calendar);
         }
@@ -245,6 +250,14 @@ public class TasksJsonImporter {
       for (Entry<String, Boolean> entry : backupContainer.getBoolPrefs().entrySet()) {
         preferences.setBoolean(entry.getKey(), entry.getValue());
       }
+
+      if (version < Upgrader.V8_2) {
+        int themeIndex = preferences.getInt(R.string.p_theme_color, 7);
+        preferences.setInt(
+            R.string.p_theme_color,
+            Upgrader.getAndroidColor(context, themeIndex));
+      }
+
       reader.close();
       is.close();
     } catch (IOException e) {
@@ -253,6 +266,10 @@ public class TasksJsonImporter {
 
     localBroadcastManager.broadcastRefresh();
     return result;
+  }
+
+  private int themeToColor(Context context, int version, int color) {
+    return version < Upgrader.V8_2 ? Upgrader.getAndroidColor(context, color) : color;
   }
 
   public static class ImportResult {
