@@ -39,6 +39,7 @@ import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.preferences.Device;
 import org.tasks.preferences.Preferences;
+import org.tasks.themes.ThemeColor;
 import org.tasks.ui.TaskEditControlFragment;
 
 public class CommentBarFragment extends TaskEditControlFragment {
@@ -51,6 +52,7 @@ public class CommentBarFragment extends TaskEditControlFragment {
   @Inject DialogBuilder dialogBuilder;
   @Inject Device device;
   @Inject Preferences preferences;
+  @Inject ThemeColor themeColor;
 
   @BindView(R.id.commentButton)
   View commentButton;
@@ -101,6 +103,8 @@ public class CommentBarFragment extends TaskEditControlFragment {
     if (!preferences.getBoolean(R.string.p_show_task_edit_comments, true)) {
       commentBar.setVisibility(View.GONE);
     }
+
+    commentBar.setBackgroundColor(themeColor.getPrimaryColor());
 
     resetPictureButton();
     return view;
