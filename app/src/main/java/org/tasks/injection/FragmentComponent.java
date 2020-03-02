@@ -27,6 +27,7 @@ import org.tasks.preferences.fragments.TaskerListNotification;
 import org.tasks.ui.CalendarControlSet;
 import org.tasks.ui.DeadlineControlSet;
 import org.tasks.ui.DescriptionControlSet;
+import org.tasks.ui.EmptyTaskEditFragment;
 import org.tasks.ui.LocationControlSet;
 import org.tasks.ui.NavigationDrawerFragment;
 import org.tasks.ui.PriorityControlSet;
@@ -98,4 +99,6 @@ public interface FragmentComponent {
   void inject(@NonNull DashClock dashClock);
 
   void inject(@NonNull TaskerListNotification taskerListNotification);
+
+  void inject(EmptyTaskEditFragment emptyTaskEditFragment);
 }

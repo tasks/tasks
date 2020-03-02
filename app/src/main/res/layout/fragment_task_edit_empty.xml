@@ -4,6 +4,8 @@
   android:layout_height="fill_parent"
   android:orientation="vertical">
 
-  <include layout="@layout/toolbar"/>
+  <include
+    android:id="@+id/toolbar"
+    layout="@layout/toolbar" />
 
 </LinearLayout>
