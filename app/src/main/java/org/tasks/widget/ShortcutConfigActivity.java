@@ -143,7 +143,7 @@ public class ShortcutConfigActivity extends ThemedInjectingAppCompatActivity
 
   private void updateTheme() {
     clear.setVisibility(View.GONE);
-    ThemeColor color = themeCache.getThemeColor(getThemeIndex());
+    ThemeColor color = themeCache.getLauncherColor(getThemeIndex());
     DrawableUtil.setLeftDrawable(this, colorIcon, R.drawable.color_picker);
     DrawableUtil.setTint(DrawableUtil.getLeftDrawable(colorIcon), color.getPrimaryColor());
     color.apply(toolbar);
@@ -151,7 +151,9 @@ public class ShortcutConfigActivity extends ThemedInjectingAppCompatActivity
   }
 
   private int getThemeIndex() {
-    return selectedTheme >= 0 && selectedTheme < ThemeColor.ICONS.length - 1 ? selectedTheme : 7;
+    return selectedTheme >= 0 && selectedTheme < ThemeColor.LAUNCHER_COLORS.length
+        ? selectedTheme
+        : 7;
   }
 
   private String getShortcutName() {
