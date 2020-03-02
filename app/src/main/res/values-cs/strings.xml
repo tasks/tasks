@@ -233,8 +233,8 @@
     <string name="opacity">Průhlednost</string>
     <string name="theme">Vzhled</string>
     <string name="color">Barva</string>
-  <string name="theme_black">Černá</string>
-  <string name="theme_light">Světlý</string>
+    <string name="theme_black">Černá</string>
+    <string name="theme_light">Světlý</string>
     <string name="theme_dark">Tmavý</string>
     <string name="theme_wallpaper">Tapeta</string>
     <string name="theme_day_night">Den/Noc</string>
@@ -486,4 +486,9 @@
     <string name="pro_etesync">Synchronizace pomocí EteSync</string>
     <string name="pro_multiple_google_task_accounts">Několik Google účtů</string>
     <string name="pro_google_places_search">Vyhledávání v Google Places</string>
+    <string name="pro_tasker_plugins">Tasker pluginy</string>
+    <string name="pro_dashclock_extension">Dashclock rozšíření</string>
+    <string name="requires_pro_subscription">Vyžaduje PRO odběr</string>
+    <string name="logout">Odhlásit se</string>
+    <string name="this_feature_requires_a_subscription">Tato funkce vyžaduje odběr</string>
 </resources>
