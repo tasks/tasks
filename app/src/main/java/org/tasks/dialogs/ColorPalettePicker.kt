@@ -17,6 +17,7 @@ import org.tasks.Callback
 import org.tasks.R
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseDialog
+import org.tasks.dialogs.ColorPickerAdapter.Palette
 import org.tasks.dialogs.ColorWheelPicker.Companion.newColorWheel
 import org.tasks.injection.DialogFragmentComponent
 import org.tasks.injection.InjectingDialogFragment
@@ -36,15 +37,7 @@ class ColorPalettePicker : InjectingDialogFragment() {
         fun newColorPalette(
             target: Fragment?,
             rc: Int,
-            selected: Int
-        ): ColorPalettePicker {
-            return newColorPalette(target, rc, selected, ColorPickerAdapter.Palette.COLORS)
-        }
-
-        fun newColorPalette(
-            target: Fragment?,
-            rc: Int,
-            palette: ColorPickerAdapter.Palette
+            palette: Palette
         ): ColorPalettePicker {
             return newColorPalette(target, rc, 0, palette)
         }
@@ -53,7 +46,7 @@ class ColorPalettePicker : InjectingDialogFragment() {
             target: Fragment?,
             rc: Int,
             selected: Int,
-            palette: ColorPickerAdapter.Palette
+            palette: Palette = Palette.COLORS
         ): ColorPalettePicker {
             val args = Bundle()
             args.putSerializable(EXTRA_PALETTE, palette)
@@ -81,26 +74,29 @@ class ColorPalettePicker : InjectingDialogFragment() {
 
     @BindView(R.id.icons) lateinit var recyclerView: RecyclerView
 
-    lateinit var colors: List<Pickable>
-    lateinit var palette: ColorPickerAdapter.Palette
+    private lateinit var colors: List<Pickable>
+    lateinit var palette: Palette
     var callback: ColorPickedCallback? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val inflater = LayoutInflater.from(context)
         val view = inflater.inflate(R.layout.dialog_icon_picker, null)
         ButterKnife.bind(this, view)
-        palette = arguments!!.getSerializable(EXTRA_PALETTE) as ColorPickerAdapter.Palette
+        palette = arguments!!.getSerializable(EXTRA_PALETTE) as Palette
         colors = when (palette) {
-            ColorPickerAdapter.Palette.COLORS -> ThemeColor.COLORS.mapIndexed { index, color ->
-                ThemeColor(context, index, ContextCompat.getColor(context!!, color))
+            Palette.COLORS -> ThemeColor.COLORS.mapIndexed { index, color ->
+                ThemeColor(context, index, ContextCompat.getColor(context!!, color), true)
             }
-            ColorPickerAdapter.Palette.ACCENTS -> ThemeAccent.ACCENTS.mapIndexed { index, _ ->
+            Palette.ACCENTS -> ThemeAccent.ACCENTS.mapIndexed { index, _ ->
                 ThemeAccent(context, index)
             }
-            ColorPickerAdapter.Palette.LAUNCHERS -> ThemeColor.LAUNCHER_COLORS.mapIndexed { index, color ->
-                ThemeColor(context, index, ContextCompat.getColor(context!!, color))
+            Palette.LAUNCHERS -> ThemeColor.LAUNCHER_COLORS.mapIndexed { index, color ->
+                ThemeColor(context, index, ContextCompat.getColor(context!!, color), false)
             }
-            ColorPickerAdapter.Palette.WIDGET_BACKGROUND -> themeCache.widgetThemes
+            Palette.WIDGET -> ThemeColor.COLORS.mapIndexed { index, color ->
+                ThemeColor(context, index, ContextCompat.getColor(context!!, color), false)
+            }
+            Palette.WIDGET_BACKGROUND -> themeCache.widgetThemes
         }
 
         val iconPickerAdapter = ColorPickerAdapter(
@@ -114,7 +110,7 @@ class ColorPalettePicker : InjectingDialogFragment() {
             dialogBuilder
                 .newDialog()
                 .setView(view)
-        if (palette == ColorPickerAdapter.Palette.COLORS) {
+        if (palette == Palette.COLORS || palette == Palette.WIDGET) {
             builder.setNeutralButton(R.string.color_wheel) { _, _ ->
                 val selected = arguments?.getInt(EXTRA_SELECTED) ?: 0
                 newColorWheel(targetFragment, targetRequestCode, selected)
@@ -141,8 +137,8 @@ class ColorPalettePicker : InjectingDialogFragment() {
 
     private fun onSelected(index: Int) {
         val result = when (palette) {
-            ColorPickerAdapter.Palette.COLORS ->
-                (colors.find { it.index == index } as ThemeColor).primaryColor
+            Palette.COLORS, Palette.WIDGET ->
+                (colors.find { it.index == index } as ThemeColor).originalColor
             else -> index
         }
         dialog?.dismiss()

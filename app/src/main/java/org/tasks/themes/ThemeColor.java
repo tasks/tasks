@@ -1,5 +1,6 @@
 package org.tasks.themes;
 
+import static com.google.common.collect.Maps.newHashMap;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
@@ -21,8 +22,10 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
+import androidx.core.os.ParcelCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import java.util.Map;
 import org.tasks.R;
 import org.tasks.dialogs.ColorPalettePicker.Pickable;
 import timber.log.Timber;
@@ -79,27 +82,27 @@ public class ThemeColor implements Pickable {
 
   public static final int[] COLORS =
       new int[] {
-        R.color.theme_blue_grey,
-        R.color.theme_dark_grey,
-        R.color.theme_red,
-        R.color.theme_pink,
-        R.color.theme_purple,
-        R.color.theme_deep_purple,
-        R.color.theme_indigo,
-        R.color.theme_blue,
-        R.color.theme_light_blue,
-        R.color.theme_cyan,
-        R.color.theme_teal,
-        R.color.theme_green,
-        R.color.theme_light_green,
-        R.color.theme_lime,
-        R.color.theme_yellow,
-        R.color.theme_amber,
-        R.color.theme_orange,
-        R.color.theme_deep_orange,
-        R.color.theme_brown,
-        R.color.theme_grey,
-        R.color.theme_day_night
+        R.color.blue_grey_500,
+        R.color.grey_900,
+        R.color.red_500,
+        R.color.pink_500,
+        R.color.purple_500,
+        R.color.deep_purple_500,
+        R.color.indigo_500,
+        R.color.blue_500,
+        R.color.light_blue_500,
+        R.color.cyan_500,
+        R.color.teal_500,
+        R.color.green_500,
+        R.color.light_green_500,
+        R.color.lime_500,
+        R.color.yellow_500,
+        R.color.amber_500,
+        R.color.orange_500,
+        R.color.deep_orange_500,
+        R.color.brown_500,
+        R.color.grey_500,
+        R.color.white_100
       };
 
   public static final int[] LAUNCHER_COLORS =
@@ -138,26 +141,72 @@ public class ThemeColor implements Pickable {
           return new ThemeColor[size];
         }
       };
+
+  private static final int WHITE = -1;
+  private static final int BLACK = -16777216;
+
+  private static final Map<Integer, Integer> colorMap = newHashMap();
+
+  static {
+    colorMap.put(-10453621, -5194043); // blue_grey
+    colorMap.put(-12434878, -14606047); // grey
+    colorMap.put(-769226, -1074534); // red
+    colorMap.put(-1499549, -749647); // pink
+    colorMap.put(-6543440, -3238952); // purple
+    colorMap.put(-10011977, -5005861); // deep purple
+    colorMap.put(-12627531, -6313766); // indigo
+    colorMap.put(-14575885, -7288071); // blue
+    colorMap.put(-16537100, -8268550); // light blue
+    colorMap.put(-16728876, -8331542); // cyan
+    colorMap.put(-16738680, -8336444); // teal
+    colorMap.put(-11751600, -5908825); // green
+    colorMap.put(-7617718, -3808859); // light green
+    colorMap.put(-3285959, -1642852); // lime
+    colorMap.put(-5317, -2659); // yellow
+    colorMap.put(-16121, -8062); // amber
+    colorMap.put(-26624, -13184); // orange
+    colorMap.put(-43230, -21615); // deep orange
+    colorMap.put(-8825528, -4412764); // brown
+    colorMap.put(-6381922, -1118482); // grey
+    colorMap.put(-1, -16777216); // white & black
+  }
+
   private final int index;
+  private final int original;
   private final int colorOnPrimary;
   private final int colorPrimary;
   private final int colorPrimaryVariant;
   private final boolean isDark;
 
   public ThemeColor(Context context, int color) {
-    this(context, -1, color == 0 ? ContextCompat.getColor(context, R.color.blue_500) : color);
+    this(context, -1, color == 0 ? ContextCompat.getColor(context, R.color.blue_500) : color, true);
   }
 
-  public ThemeColor(Context context, int index, int colorPrimary) {
+  public ThemeColor(Context context, int index, int color, boolean adjustColor) {
     this.index = index;
-    colorPrimary |= 0xFF000000; // remove alpha
-    this.colorPrimary = colorPrimary;
-    this.colorPrimaryVariant = ColorUtil.darken(colorPrimary, 12);
+    color |= 0xFF000000; // remove alpha
+    original = color;
+    if (adjustColor && context.getResources().getBoolean(R.bool.is_dark)) {
+      colorPrimary = desaturate(color);
+    } else {
+      colorPrimary = color;
+    }
+    colorPrimaryVariant = ColorUtil.darken(colorPrimary, 12);
 
-    int whiteText = context.getResources().getColor(R.color.white_100);
-    double contrast = ColorUtils.calculateContrast(whiteText, colorPrimary);
-    this.isDark = contrast < 3;
-    colorOnPrimary = isDark ? context.getResources().getColor(R.color.black_87) : whiteText;
+    double contrast = ColorUtils.calculateContrast(WHITE, colorPrimary);
+    isDark = contrast < 3;
+    colorOnPrimary = isDark ? context.getResources().getColor(R.color.black_87) : WHITE;
+  }
+
+  private int desaturate(int color) {
+    if (colorMap.containsKey(color)) {
+      //noinspection ConstantConditions
+      return colorMap.get(color);
+    } else if (color == WHITE) {
+      return BLACK; // white -> black
+    } else {
+      return color;
+    }
   }
 
   private ThemeColor(Parcel source) {
@@ -165,7 +214,8 @@ public class ThemeColor implements Pickable {
     colorOnPrimary = source.readInt();
     colorPrimary = source.readInt();
     colorPrimaryVariant = source.readInt();
-    isDark = source.readInt() == 1;
+    isDark = ParcelCompat.readBoolean(source);
+    original = source.readInt();
   }
 
   public static ThemeColor newThemeColor(Context context, int color) {
@@ -283,7 +333,7 @@ public class ThemeColor implements Pickable {
 
   @Override
   public boolean isFree() {
-    switch (colorPrimary) {
+    switch (original) {
       case -14575885: // blue_500
       case -10453621: // blue_grey_500
       case -14606047: // grey_900
@@ -296,6 +346,10 @@ public class ThemeColor implements Pickable {
   @Override
   public int getIndex() {
     return index;
+  }
+
+  public int getOriginalColor() {
+    return original;
   }
 
   public int getPrimaryColor() {
@@ -324,7 +378,8 @@ public class ThemeColor implements Pickable {
     dest.writeInt(colorOnPrimary);
     dest.writeInt(colorPrimary);
     dest.writeInt(colorPrimaryVariant);
-    dest.writeInt(isDark ? 1 : 0);
+    ParcelCompat.writeBoolean(dest, isDark);
+    dest.writeInt(original);
   }
 
   public void colorMenu(Menu menu) {
@@ -342,11 +397,11 @@ public class ThemeColor implements Pickable {
 
     ThemeColor that = (ThemeColor) o;
 
-    return colorPrimary == that.colorPrimary;
+    return original == that.original;
   }
 
   @Override
   public int hashCode() {
-    return colorPrimary;
+    return original;
   }
 }

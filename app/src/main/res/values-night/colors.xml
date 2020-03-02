@@ -10,26 +10,4 @@
   <color name="text_secondary">@color/white_60</color>
   <color name="text_tertiary">@color/white_38</color>
   <color name="overdue">@color/overdue_87</color>
-
-  <color name="theme_blue_grey">@color/blue_grey_200</color>
-  <color name="theme_dark_grey">@color/grey_900</color>
-  <color name="theme_red">@color/red_200</color>
-  <color name="theme_pink">@color/pink_200</color>
-  <color name="theme_purple">@color/purple_200</color>
-  <color name="theme_deep_purple">@color/deep_purple_200</color>
-  <color name="theme_indigo">@color/indigo_200</color>
-  <color name="theme_blue">@color/blue_200</color>
-  <color name="theme_light_blue">@color/light_blue_200</color>
-  <color name="theme_cyan">@color/cyan_200</color>
-  <color name="theme_teal">@color/teal_200</color>
-  <color name="theme_green">@color/green_200</color>
-  <color name="theme_light_green">@color/light_green_200</color>
-  <color name="theme_lime">@color/lime_200</color>
-  <color name="theme_yellow">@color/yellow_200</color>
-  <color name="theme_amber">@color/amber_200</color>
-  <color name="theme_orange">@color/orange_200</color>
-  <color name="theme_deep_orange">@color/deep_orange_200</color>
-  <color name="theme_brown">@color/brown_200</color>
-  <color name="theme_grey">@color/grey_200</color>
-  <color name="theme_day_night">@color/black_100</color>
 </resources>

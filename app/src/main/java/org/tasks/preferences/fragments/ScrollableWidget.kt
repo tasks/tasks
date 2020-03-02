@@ -11,10 +11,10 @@ import com.todoroo.astrid.api.Filter
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.activities.FilterSelectionActivity
-import org.tasks.dialogs.ColorWheelPicker
 import org.tasks.dialogs.ColorPalettePicker
 import org.tasks.dialogs.ColorPalettePicker.Companion.newColorPalette
-import org.tasks.dialogs.ColorPickerAdapter
+import org.tasks.dialogs.ColorPickerAdapter.Palette
+import org.tasks.dialogs.ColorWheelPicker
 import org.tasks.injection.FragmentComponent
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.locale.Locale
@@ -80,7 +80,7 @@ class ScrollableWidget : InjectingPreferenceFragment() {
 
         findPreference(R.string.p_widget_theme)
             .setOnPreferenceClickListener {
-                newColorPalette(this, REQUEST_THEME_SELECTION, ColorPickerAdapter.Palette.WIDGET_BACKGROUND)
+                newColorPalette(this, REQUEST_THEME_SELECTION, Palette.WIDGET_BACKGROUND)
                     .show(parentFragmentManager, FRAG_TAG_COLOR_PICKER)
                 false
             }
@@ -88,7 +88,7 @@ class ScrollableWidget : InjectingPreferenceFragment() {
         val colorPreference = findPreference(R.string.p_widget_color_v2)
         colorPreference.dependency = showHeader.key
         colorPreference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            newColorPalette(this, REQUEST_COLOR_SELECTION, widgetPreferences.color)
+            newColorPalette(this, REQUEST_COLOR_SELECTION, widgetPreferences.color, Palette.WIDGET)
                 .show(parentFragmentManager, FRAG_TAG_COLOR_PICKER)
             false
         }

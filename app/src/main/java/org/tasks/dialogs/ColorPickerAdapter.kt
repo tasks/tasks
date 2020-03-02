@@ -18,6 +18,7 @@ class ColorPickerAdapter(
         COLORS,
         ACCENTS,
         LAUNCHERS,
+        WIDGET,
         WIDGET_BACKGROUND
     }
 

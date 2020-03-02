@@ -21,6 +21,7 @@ import butterknife.OnClick;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.dialogs.ColorPalettePicker;
+import org.tasks.dialogs.ColorPickerAdapter.Palette;
 import org.tasks.dialogs.ColorWheelPicker;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.IconPickerDialog.IconPickerCallback;
@@ -123,7 +124,7 @@ public abstract class BaseListSettingsActivity extends ThemedInjectingAppCompatA
 
   @OnClick(R.id.color_row)
   protected void showThemePicker() {
-    ColorPalettePicker.Companion.newColorPalette(null, 0, selectedColor)
+    ColorPalettePicker.Companion.newColorPalette(null, 0, selectedColor, Palette.COLORS)
         .show(getSupportFragmentManager(), FRAG_TAG_COLOR_PICKER);
   }
 
