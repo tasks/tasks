@@ -556,4 +556,5 @@
     <string name="free_colors">Gratis kleuren</string>
     <string name="material_palette">Material palet</string>
     <string name="theme_system_default">Systeeminstelling</string>
+    <string name="color_wheel">Kleurenwiel</string>
 </resources>
