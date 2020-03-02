@@ -114,6 +114,11 @@ public class ThemeCache {
         context, index, ContextCompat.getColor(context, ThemeColor.COLORS[index]));
   }
 
+  public ThemeColor getLauncherColor(int index) {
+    return new ThemeColor(
+        context, index, ContextCompat.getColor(context, ThemeColor.LAUNCHER_COLORS[index]));
+  }
+
   public ThemeColor getUntaggedColor() {
     return untaggedColor;
   }

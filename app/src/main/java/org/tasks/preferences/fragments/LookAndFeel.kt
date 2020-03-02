@@ -162,7 +162,7 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
     }
 
     private fun updateLauncherPreference() {
-        val launcher = themeCache.getThemeColor(preferences.getInt(R.string.p_theme_launcher, 7))
+        val launcher = themeCache.getLauncherColor(preferences.getInt(R.string.p_theme_launcher, 7))
         setupColorPreference(
             R.string.p_theme_launcher,
             launcher.pickerColor,
