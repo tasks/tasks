@@ -92,8 +92,7 @@
   <color name="white_38">#61ffffff</color>
   <color name="white_12">#1fffffff</color>
 
-  <color name="overdue_87">#def44336</color>
-  <color name="overdue">@color/overdue_87</color>
+  <color name="overdue">@color/error_color_material_light</color>
 
   <color name="md_background_light">@color/white_100</color>
   <color name="md_background_dark">#202124</color>
