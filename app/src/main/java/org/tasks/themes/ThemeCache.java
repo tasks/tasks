@@ -84,7 +84,7 @@ public class ThemeCache {
               getColor(context, i == 0 ? R.color.black_54 : R.color.white_60)));
     }
     untaggedColor =
-        new ThemeColor(context, 19, getColor(context, R.color.tag_color_none_background));
+        new ThemeColor(context, getColor(context, R.color.tag_color_none_background));
   }
 
   public WidgetTheme getWidgetTheme(int index) {
@@ -107,11 +107,6 @@ public class ThemeCache {
 
   public ThemeBase getThemeBase(int index) {
     return themes.get(index);
-  }
-
-  public ThemeColor getThemeColor(int index) {
-    return new ThemeColor(
-        context, index, ContextCompat.getColor(context, ThemeColor.COLORS[index]));
   }
 
   public ThemeColor getLauncherColor(int index) {
