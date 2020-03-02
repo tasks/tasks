@@ -124,7 +124,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
   }
 
   private Bitmap getCheckbox(Task task) {
-    return CheckBoxes.getCheckBoxBitmap(context, task);
+    return CheckBoxes.getWidgetCheckBox(context, task);
   }
 
   private RemoteViews buildUpdate(int position) {

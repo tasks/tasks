@@ -5,7 +5,7 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <resources>
-
+  <color name="red_200">#EF9A9A</color>
   <color name="red_500">#f44336</color>
   <color name="red_a400">#ff1744</color>
   <color name="red_a100">#FF8A80</color>
@@ -26,6 +26,7 @@
   <color name="indigo_a400">#3d5afe</color>
   <color name="indigo_a100">#8C9EFF</color>
 
+  <color name="blue_200">#90CAF9</color>
   <color name="blue_500">#2196f3</color>
   <color name="blue_a400">#2979ff</color>
   <color name="blue_a100">#82B1FF</color>
@@ -58,6 +59,7 @@
   <color name="yellow_a400">#ffea00</color>
   <color name="yellow_a100">#FFFF8D</color>
 
+  <color name="amber_200">#FFE082</color>
   <color name="amber_500">#ffc107</color>
   <color name="amber_a400">#ffc400</color>
   <color name="amber_a100">#FFE57F</color>
@@ -109,6 +111,10 @@
   <color name="priority_2">@color/amber_500</color>
   <color name="priority_3">@color/blue_500</color>
   <color name="priority_4">@color/grey_500</color>
+
+  <color name="widget_priority_1">@color/red_500</color>
+  <color name="widget_priority_2">@color/amber_500</color>
+  <color name="widget_priority_3">@color/blue_500</color>
 
   <color name="snackbar_text_color">@color/white_87</color>
   <color name="snackbar_action_color">#f4b400</color>

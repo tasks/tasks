@@ -10,4 +10,9 @@
   <color name="text_secondary">@color/white_60</color>
   <color name="text_tertiary">@color/white_38</color>
   <color name="overdue">@color/error_color_material_dark</color>
+
+  <color name="priority_1">@color/red_200</color>
+  <color name="priority_2">@color/amber_200</color>
+  <color name="priority_3">@color/blue_200</color>
+
 </resources>
