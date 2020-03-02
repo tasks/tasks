@@ -559,4 +559,5 @@
     <string name="free_colors">Ingyenes színek</string>
     <string name="material_palette">Material színskála</string>
     <string name="theme_system_default">Alapértelmezett</string>
+    <string name="color_wheel">Színkör</string>
 </resources>
