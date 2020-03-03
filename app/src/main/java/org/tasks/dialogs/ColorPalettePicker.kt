@@ -22,7 +22,6 @@ import org.tasks.dialogs.ColorWheelPicker.Companion.newColorWheel
 import org.tasks.injection.DialogFragmentComponent
 import org.tasks.injection.InjectingDialogFragment
 import org.tasks.themes.ThemeAccent
-import org.tasks.themes.ThemeCache
 import org.tasks.themes.ThemeColor
 import javax.inject.Inject
 
@@ -70,7 +69,6 @@ class ColorPalettePicker : InjectingDialogFragment() {
 
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var inventory: Inventory
-    @Inject lateinit var themeCache: ThemeCache
 
     @BindView(R.id.icons) lateinit var recyclerView: RecyclerView
 

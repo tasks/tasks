@@ -1,5 +1,7 @@
 package org.tasks.widget;
 
+import static org.tasks.themes.ThemeColor.getLauncherColor;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.Intent.ShortcutIconResource;
@@ -27,7 +29,6 @@ import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.themes.DrawableUtil;
-import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
 
 public class ShortcutConfigActivity extends ThemedInjectingAppCompatActivity
@@ -39,8 +40,6 @@ public class ShortcutConfigActivity extends ThemedInjectingAppCompatActivity
   private static final int REQUEST_FILTER = 1019;
 
   @Inject DefaultFilterProvider defaultFilterProvider;
-  @Inject ThemeColor themeColor;
-  @Inject ThemeCache themeCache;
 
   @BindView(R.id.toolbar)
   Toolbar toolbar;
@@ -143,7 +142,7 @@ public class ShortcutConfigActivity extends ThemedInjectingAppCompatActivity
 
   private void updateTheme() {
     clear.setVisibility(View.GONE);
-    ThemeColor color = themeCache.getLauncherColor(getThemeIndex());
+    ThemeColor color = getLauncherColor(this, getThemeIndex());
     DrawableUtil.setLeftDrawable(this, colorIcon, R.drawable.color_picker);
     DrawableUtil.setTint(DrawableUtil.getLeftDrawable(colorIcon), color.getPrimaryColor());
     color.apply(toolbar);

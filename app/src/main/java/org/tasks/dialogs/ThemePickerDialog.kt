@@ -20,8 +20,7 @@ import org.tasks.injection.DialogFragmentComponent
 import org.tasks.injection.InjectingDialogFragment
 import org.tasks.themes.ThemeAccent
 import org.tasks.themes.ThemeBase
-import org.tasks.themes.ThemeCache
-import org.tasks.themes.ThemeCache.EXTRA_THEME_OVERRIDE
+import org.tasks.themes.ThemeBase.EXTRA_THEME_OVERRIDE
 import javax.inject.Inject
 
 class ThemePickerDialog : InjectingDialogFragment() {
@@ -49,7 +48,6 @@ class ThemePickerDialog : InjectingDialogFragment() {
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var accent: ThemeAccent
-    @Inject lateinit var themeCache: ThemeCache
     @Inject lateinit var themeBase: ThemeBase
 
     var adapter: ArrayAdapter<String>? = null
@@ -89,7 +87,7 @@ class ThemePickerDialog : InjectingDialogFragment() {
                         updateButton()
                         activity?.intent?.putExtra(EXTRA_THEME_OVERRIDE, which)
                         Handler().post {
-                            themeCache.getThemeBase(which).setDefaultNightMode()
+                            ThemeBase(which).setDefaultNightMode()
                             activity?.recreate()
                             activity?.overridePendingTransition(R.anim.fragment_fade_enter, R.anim.fragment_fade_exit);
                         }
@@ -135,5 +133,5 @@ class ThemePickerDialog : InjectingDialogFragment() {
     private fun available() = isAvailable(selected)
 
     private fun isAvailable(index: Int) =
-        inventory.purchasedThemes() || themeCache.getThemeBase(index).isFree
+        inventory.purchasedThemes() || ThemeBase(index).isFree
 }

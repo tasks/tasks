@@ -5,14 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import javax.inject.Inject;
 import org.tasks.locale.Locale;
 import org.tasks.themes.Theme;
-import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
 
 public abstract class ThemedInjectingAppCompatActivity extends AppCompatActivity
     implements InjectingActivity {
 
   @Inject Theme theme;
-  @Inject ThemeCache themeCache;
   @Inject protected ThemeColor themeColor;
 
   private ActivityComponent activityComponent;

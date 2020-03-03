@@ -5,12 +5,12 @@ import android.content.Context;
 import dagger.Module;
 import dagger.Provides;
 import org.tasks.R;
+import org.tasks.billing.Inventory;
 import org.tasks.location.Geocoder;
 import org.tasks.location.MapboxGeocoder;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeBase;
-import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
 
 @Module
@@ -35,8 +35,8 @@ public class ActivityModule {
 
   @Provides
   @ActivityScope
-  public ThemeBase getThemeBase(ThemeCache themeCache) {
-    return themeCache.getThemeBase(activity.getIntent());
+  public ThemeBase getThemeBase(Preferences preferences, Inventory inventory) {
+    return ThemeBase.getThemeBase(preferences, inventory, activity.getIntent());
   }
 
   @Provides

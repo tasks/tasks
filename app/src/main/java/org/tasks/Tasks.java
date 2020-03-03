@@ -12,6 +12,7 @@ import io.reactivex.Completable;
 import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
 import org.tasks.billing.BillingClient;
+import org.tasks.billing.Inventory;
 import org.tasks.files.FileHelper;
 import org.tasks.injection.ApplicationComponent;
 import org.tasks.injection.ForApplication;
@@ -24,7 +25,7 @@ import org.tasks.receivers.RefreshReceiver;
 import org.tasks.scheduling.CalendarNotificationIntentService;
 import org.tasks.scheduling.NotificationSchedulerIntentService;
 import org.tasks.scheduling.RefreshScheduler;
-import org.tasks.themes.ThemeCache;
+import org.tasks.themes.ThemeBase;
 import timber.log.Timber;
 
 public class Tasks extends InjectingApplication {
@@ -33,7 +34,7 @@ public class Tasks extends InjectingApplication {
   @Inject Lazy<Upgrader> upgrader;
   @Inject Preferences preferences;
   @Inject BuildSetup buildSetup;
-  @Inject ThemeCache themeCache;
+  @Inject Inventory inventory;
   @Inject WorkManager workManager;
   @Inject RefreshScheduler refreshScheduler;
   @Inject GeofenceApi geofenceApi;
@@ -56,7 +57,7 @@ public class Tasks extends InjectingApplication {
 
     preferences.setSyncOngoing(false);
 
-    themeCache.getThemeBase().setDefaultNightMode();
+    ThemeBase.getThemeBase(preferences, inventory, null).setDefaultNightMode();
 
     localBroadcastManager.registerRefreshReceiver(new RefreshBroadcastReceiver());
 

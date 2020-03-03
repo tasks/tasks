@@ -14,6 +14,7 @@ import android.content.res.ColorStateList;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import com.google.android.material.chip.Chip;
 import com.google.common.base.Predicates;
@@ -41,7 +42,6 @@ import org.tasks.data.TagDataDao;
 import org.tasks.data.TaskContainer;
 import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.ForApplication;
-import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
 
 @ApplicationScope
@@ -52,7 +52,6 @@ public class ChipProvider {
   private final Map<String, TagFilter> tagDatas = new HashMap<>();
   private final Context context;
   private final Inventory inventory;
-  private final ThemeCache themeCache;
   private final int iconAlpha;
   private final LocalBroadcastManager localBroadcastManager;
   private final Ordering<TagFilter> orderByName =
@@ -62,20 +61,20 @@ public class ChipProvider {
           return left.listingTitle.compareTo(right.listingTitle);
         }
       };
+  private final ThemeColor untagged;
 
   @Inject
   public ChipProvider(
       @ForApplication Context context,
       Inventory inventory,
-      ThemeCache themeCache,
       GoogleTaskListDao googleTaskListDao,
       CaldavDao caldavDao,
       TagDataDao tagDataDao,
       LocalBroadcastManager localBroadcastManager) {
     this.context = context;
     this.inventory = inventory;
-    this.themeCache = themeCache;
     this.localBroadcastManager = localBroadcastManager;
+    untagged = getUntaggedThemeColor(context);
     iconAlpha =
         (int) (255 * ResourcesCompat.getFloat(context.getResources(), R.dimen.alpha_secondary));
 
@@ -218,6 +217,11 @@ public class ChipProvider {
         return color;
       }
     }
-    return themeCache.getUntaggedColor();
+    return untagged;
+  }
+
+  private static ThemeColor getUntaggedThemeColor(Context context) {
+    return new ThemeColor(
+        context, -1, ContextCompat.getColor(context, R.color.tag_color_none_background), false);
   }
 }

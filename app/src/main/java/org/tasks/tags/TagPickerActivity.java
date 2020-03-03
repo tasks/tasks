@@ -20,7 +20,6 @@ import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.tags.CheckBoxTriStates.State;
 import org.tasks.themes.Theme;
-import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
 
 public class TagPickerActivity extends ThemedInjectingAppCompatActivity {
@@ -39,7 +38,6 @@ public class TagPickerActivity extends ThemedInjectingAppCompatActivity {
   EditText editText;
 
   @Inject Theme theme;
-  @Inject ThemeCache themeCache;
   @Inject Inventory inventory;
 
   private TagPickerViewModel viewModel;
@@ -70,7 +68,7 @@ public class TagPickerActivity extends ThemedInjectingAppCompatActivity {
     themeColor.apply(toolbar);
 
     TagRecyclerAdapter recyclerAdapter =
-        new TagRecyclerAdapter(this, viewModel, themeCache, inventory, this::onToggle);
+        new TagRecyclerAdapter(this, viewModel, inventory, this::onToggle);
 
     recyclerView.setAdapter(recyclerAdapter);
     recyclerView.setLayoutManager(new LinearLayoutManager(this));

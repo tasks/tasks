@@ -55,7 +55,6 @@ import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import org.tasks.receivers.RepeatConfirmationReceiver;
 import org.tasks.themes.Theme;
-import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
 import org.tasks.ui.DeadlineControlSet;
 import org.tasks.ui.EmptyTaskEditFragment;
@@ -88,7 +87,6 @@ public class MainActivity extends InjectingAppCompatActivity
   @Inject RepeatConfirmationReceiver repeatConfirmationReceiver;
   @Inject DefaultFilterProvider defaultFilterProvider;
   @Inject Theme theme;
-  @Inject ThemeCache themeCache;
   @Inject TaskDao taskDao;
   @Inject LocalBroadcastManager localBroadcastManager;
   @Inject TaskCreator taskCreator;

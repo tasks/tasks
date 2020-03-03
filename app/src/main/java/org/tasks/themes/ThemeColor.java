@@ -179,6 +179,11 @@ public class ThemeColor implements Pickable {
   private final int colorPrimaryVariant;
   private final boolean isDark;
 
+  public static ThemeColor getLauncherColor(Context context, int index) {
+    return new ThemeColor(
+        context, index, ContextCompat.getColor(context, LAUNCHER_COLORS[index]), false);
+  }
+
   public ThemeColor(Context context, int color) {
     this(context, -1, color == 0 ? ContextCompat.getColor(context, R.color.blue_500) : color, true);
   }

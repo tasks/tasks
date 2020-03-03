@@ -38,6 +38,7 @@ import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.billing.Purchase;
 import org.tasks.data.TaskAttachment;
+import org.tasks.themes.ThemeBase;
 import org.tasks.time.DateTime;
 import timber.log.Timber;
 
@@ -535,6 +536,6 @@ public class Preferences {
   }
 
   public int getThemeBase() {
-    return getInt(R.string.p_theme, 5);
+    return getInt(R.string.p_theme, ThemeBase.DEFAULT_BASE_THEME);
   }
 }

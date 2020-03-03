@@ -2,20 +2,21 @@ package org.tasks.themes;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.ContextThemeWrapper;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import org.tasks.R;
-import org.tasks.dialogs.ColorPalettePicker.Pickable;
+import org.tasks.billing.Inventory;
+import org.tasks.preferences.Preferences;
 
-public class ThemeBase implements Pickable {
+public class ThemeBase implements Parcelable {
 
-  private static final int[] THEMES =
-      new int[] {
-        R.style.Tasks, R.style.ThemeBlack, R.style.Tasks, R.style.Wallpaper, R.style.Tasks, R.style.Tasks
-      };
+  public static final String EXTRA_THEME_OVERRIDE = "extra_theme_override";
+  public static final int DEFAULT_BASE_THEME = 5;
   public static final Parcelable.Creator<ThemeBase> CREATOR =
       new Parcelable.Creator<ThemeBase>() {
         @Override
@@ -28,43 +29,49 @@ public class ThemeBase implements Pickable {
           return new ThemeBase[size];
         }
       };
-  private final String name;
+  private static final int[] NIGHT_MODE =
+      new int[] {
+        AppCompatDelegate.MODE_NIGHT_NO,
+        AppCompatDelegate.MODE_NIGHT_YES,
+        AppCompatDelegate.MODE_NIGHT_YES,
+        AppCompatDelegate.MODE_NIGHT_YES,
+        AppCompatDelegate.MODE_NIGHT_AUTO_TIME,
+        AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+      };
+  private static final int[] THEMES =
+      new int[] {
+        R.style.Tasks,
+        R.style.ThemeBlack,
+        R.style.Tasks,
+        R.style.Wallpaper,
+        R.style.Tasks,
+        R.style.Tasks
+      };
   private final int index;
-  private final int style;
-  private final int contentBackground;
-  private final int dayNightMode;
 
-  public ThemeBase(String name, int index, int contentBackground, int dayNightMode) {
-    this.name = name;
+  public static ThemeBase getThemeBase(
+      Preferences preferences, Inventory inventory, @Nullable Intent intent) {
+    if (intent != null && intent.hasExtra(EXTRA_THEME_OVERRIDE)) {
+      return new ThemeBase(intent.getIntExtra(EXTRA_THEME_OVERRIDE, ThemeBase.DEFAULT_BASE_THEME));
+    }
+    ThemeBase themeBase = new ThemeBase(preferences.getThemeBase());
+    return themeBase.isFree() || inventory.purchasedThemes()
+        ? themeBase
+        : new ThemeBase(ThemeBase.DEFAULT_BASE_THEME);
+  }
+
+  public ThemeBase(int index) {
     this.index = index;
-    this.dayNightMode = dayNightMode;
-    this.style = THEMES[index];
-    this.contentBackground = contentBackground;
   }
 
   private ThemeBase(Parcel source) {
-    name = source.readString();
     index = source.readInt();
-    style = source.readInt();
-    contentBackground = source.readInt();
-    dayNightMode = source.readInt();
   }
 
-  public String getName() {
-    return name;
-  }
-
-  @Override
-  public int getPickerColor() {
-    return contentBackground;
-  }
-
-  @Override
   public boolean isFree() {
     return index < 3 || index == 5;
   }
 
-  @Override
   public int getIndex() {
     return index;
   }
@@ -78,15 +85,15 @@ public class ThemeBase implements Pickable {
   }
 
   public ContextThemeWrapper wrap(Context context) {
-    return new ContextThemeWrapper(context, style);
+    return new ContextThemeWrapper(context, THEMES[index]);
   }
 
   public void set(Activity activity) {
-    activity.setTheme(style);
+    activity.setTheme(THEMES[index]);
   }
 
   public void setDefaultNightMode() {
-    AppCompatDelegate.setDefaultNightMode(dayNightMode);
+    AppCompatDelegate.setDefaultNightMode(NIGHT_MODE[index]);
   }
 
   @Override
@@ -96,10 +103,6 @@ public class ThemeBase implements Pickable {
 
   @Override
   public void writeToParcel(Parcel dest, int flags) {
-    dest.writeString(name);
     dest.writeInt(index);
-    dest.writeInt(style);
-    dest.writeInt(contentBackground);
-    dest.writeInt(dayNightMode);
   }
 }
