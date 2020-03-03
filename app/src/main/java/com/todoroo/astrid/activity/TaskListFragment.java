@@ -529,7 +529,8 @@ public final class TaskListFragment extends InjectingFragment
   }
 
   boolean collapseSearchView() {
-    return search.isActionViewExpanded() && search.collapseActionView();
+    return search.isActionViewExpanded()
+        && (search.collapseActionView() || !search.isActionViewExpanded());
   }
 
   private void refresh() {
