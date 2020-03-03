@@ -96,7 +96,6 @@ class ColorPalettePicker : InjectingDialogFragment() {
             Palette.WIDGET -> ThemeColor.COLORS.mapIndexed { index, color ->
                 ThemeColor(context, index, ContextCompat.getColor(context!!, color), false)
             }
-            Palette.WIDGET_BACKGROUND -> themeCache.widgetThemes
         }
 
         val iconPickerAdapter = ColorPickerAdapter(

@@ -18,8 +18,7 @@ class ColorPickerAdapter(
         COLORS,
         ACCENTS,
         LAUNCHERS,
-        WIDGET,
-        WIDGET_BACKGROUND
+        WIDGET
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IconPickerHolder {

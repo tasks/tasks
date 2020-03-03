@@ -1,7 +1,6 @@
 package org.tasks.themes;
 
 import static androidx.core.content.ContextCompat.getColor;
-import static com.google.common.collect.ImmutableList.copyOf;
 
 import android.content.Context;
 import android.content.Intent;
@@ -24,7 +23,6 @@ public class ThemeCache {
   public static final String EXTRA_THEME_OVERRIDE = "extra_theme_override";
 
   private final List<ThemeBase> themes = new ArrayList<>();
-  private final List<WidgetTheme> widgetThemes = new ArrayList<>();
   private final ThemeColor untaggedColor;
   private final Preferences preferences;
   private final Inventory inventory;
@@ -73,22 +71,8 @@ public class ThemeCache {
             5,
             getColor(context, android.R.color.white),
             AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM));
-    String[] widgetBackgroundNames = resources.getStringArray(R.array.widget_background);
-    for (int i = 0; i < WidgetTheme.BACKGROUNDS.length; i++) {
-      widgetThemes.add(
-          new WidgetTheme(
-              widgetBackgroundNames[i],
-              i,
-              getColor(context, WidgetTheme.BACKGROUNDS[i]),
-              getColor(context, i == 0 ? R.color.black_87 : R.color.white_87),
-              getColor(context, i == 0 ? R.color.black_54 : R.color.white_60)));
-    }
     untaggedColor =
         new ThemeColor(context, getColor(context, R.color.tag_color_none_background));
-  }
-
-  public WidgetTheme getWidgetTheme(int index) {
-    return widgetThemes.get(index);
   }
 
   public ThemeBase getThemeBase() {
@@ -114,9 +98,5 @@ public class ThemeCache {
 
   public ThemeColor getUntaggedColor() {
     return untaggedColor;
-  }
-
-  public List<WidgetTheme> getWidgetThemes() {
-    return copyOf(widgetThemes);
   }
 }

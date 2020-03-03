@@ -28,10 +28,17 @@ class ThemePickerDialog : InjectingDialogFragment() {
 
     companion object {
         const val EXTRA_SELECTED = "extra_selected"
+        const val EXTRA_WIDGET = "extra_widget"
 
-        fun newThemePickerDialog(target: Fragment, rc: Int, selected: Int): ThemePickerDialog {
+        fun newThemePickerDialog(
+            target: Fragment,
+            rc: Int,
+            selected: Int,
+            widget: Boolean = false
+        ): ThemePickerDialog {
             val args = Bundle()
             args.putInt(EXTRA_SELECTED, selected)
+            args.putBoolean(EXTRA_WIDGET, widget)
             val dialog = ThemePickerDialog()
             dialog.setTargetFragment(target, rc)
             dialog.arguments = args
@@ -52,9 +59,11 @@ class ThemePickerDialog : InjectingDialogFragment() {
     override fun inject(component: DialogFragmentComponent) = component.inject(this)
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val themes = resources.getStringArray(R.array.base_theme_names)
-
         selected = savedInstanceState?.getInt(EXTRA_SELECTED) ?: arguments!!.getInt(EXTRA_SELECTED)
+        val widget = arguments?.getBoolean(EXTRA_WIDGET) ?: false
+        val themes = resources.getStringArray(
+            if (widget) R.array.widget_themes else R.array.base_theme_names
+        )
 
         adapter = object : ArrayAdapter<String>(activity!!, R.layout.simple_list_item_single_choice, themes) {
             override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {

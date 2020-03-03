@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
+import androidx.annotation.ColorInt;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -352,6 +353,7 @@ public class ThemeColor implements Pickable {
     return original;
   }
 
+  @ColorInt
   public int getPrimaryColor() {
     return colorPrimary;
   }

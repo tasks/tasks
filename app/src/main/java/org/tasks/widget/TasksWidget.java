@@ -15,6 +15,8 @@ import android.graphics.Canvas;
 import android.net.Uri;
 import android.view.View;
 import android.widget.RemoteViews;
+import androidx.annotation.ColorInt;
+import androidx.core.content.ContextCompat;
 import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
@@ -27,9 +29,7 @@ import org.tasks.intents.TaskIntents;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
-import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
-import org.tasks.themes.WidgetTheme;
 import timber.log.Timber;
 
 public class TasksWidget extends InjectingAppWidgetProvider {
@@ -37,12 +37,11 @@ public class TasksWidget extends InjectingAppWidgetProvider {
   private static final int flags = FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TOP;
   @Inject Preferences preferences;
   @Inject DefaultFilterProvider defaultFilterProvider;
-  @Inject ThemeCache themeCache;
   @Inject Locale locale;
   @Inject TaskDao taskDao;
   @Inject @ForApplication Context context;
 
-  private static Bitmap getSolidBackground(int bgColor) {
+  private static Bitmap getSolidBackground(@ColorInt int bgColor) {
     Bitmap bitmap = Bitmap.createBitmap(2, 2, Bitmap.Config.ARGB_8888); // Create a Bitmap
     new Canvas(bitmap).drawColor(bgColor); // Set the color
     return bitmap;
@@ -74,7 +73,6 @@ public class TasksWidget extends InjectingAppWidgetProvider {
     Intent rvIntent = new Intent(context, ScrollableWidgetUpdateService.class);
     rvIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, id);
     rvIntent.setData(Uri.parse(rvIntent.toUri(Intent.URI_INTENT_SCHEME)));
-    WidgetTheme theme = themeCache.getWidgetTheme(widgetPreferences.getThemeIndex());
     ThemeColor color = new ThemeColor(context, -1, widgetPreferences.getColor(), false);
     RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.scrollable_widget);
     if (atLeastJellybeanMR1()) {
@@ -93,7 +91,8 @@ public class TasksWidget extends InjectingAppWidgetProvider {
     int opacityPercentage = widgetPreferences.getOpacity();
     int opacity = (int) ((opacityPercentage / 100.0) * 255.0);
     remoteViews.setImageViewBitmap(
-        R.id.widget_background, getSolidBackground(theme.getBackgroundColor()));
+        R.id.widget_background,
+        getSolidBackground(getBackgroundColor(widgetPreferences.getThemeIndex())));
     remoteViews.setImageViewBitmap(
         R.id.widget_header_background, getSolidBackground(color.getPrimaryColor()));
     remoteViews.setInt(R.id.widget_background, "setAlpha", opacity);
@@ -109,6 +108,18 @@ public class TasksWidget extends InjectingAppWidgetProvider {
         R.id.widget_reconfigure, getWidgetConfigIntent(context, id));
     remoteViews.setPendingIntentTemplate(R.id.list_view, getPendingIntentTemplate(context));
     return remoteViews;
+  }
+
+  private @ColorInt int getBackgroundColor(int themeIndex) {
+    int background;
+    if (themeIndex == 1) {
+      background = android.R.color.black;
+    } else if (themeIndex == 2) {
+      background = R.color.md_background_dark;
+    } else {
+      background = android.R.color.white;
+    }
+    return ContextCompat.getColor(context, background);
   }
 
   private PendingIntent getPendingIntentTemplate(Context context) {

@@ -36,7 +36,7 @@
     <item>@string/ring_nonstop</item>
   </string-array>
 
-  <string-array name="widget_background">
+  <string-array name="widget_themes">
     <item>@string/theme_light</item>
     <item>@string/theme_black</item>
     <item>@string/theme_dark</item>
