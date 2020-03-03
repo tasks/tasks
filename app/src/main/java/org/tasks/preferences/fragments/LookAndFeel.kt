@@ -265,14 +265,14 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
                 data?.getIntExtra(ThemePickerDialog.EXTRA_SELECTED, themeBase.index)
                     ?: themeBase.index
             } else {
-                preferences.getInt(R.string.p_theme, 0)
+                preferences.themeBase
             }
             setBaseTheme(index)
         } else if (requestCode == REQUEST_THEME_PICKER) {
             val index = data?.getIntExtra(ThemePickerDialog.EXTRA_SELECTED, themeBase.index)
-                ?: preferences.getInt(R.string.p_theme, 0)
+                ?: preferences.themeBase
             if (resultCode == RESULT_OK) {
-                if (inventory.purchasedThemes() || index < 2) {
+                if (inventory.purchasedThemes() || themeCache.getThemeBase(index).isFree) {
                     setBaseTheme(index)
                 } else {
                     startActivityForResult(

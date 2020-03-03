@@ -61,7 +61,7 @@ public class ThemeBase implements Pickable {
 
   @Override
   public boolean isFree() {
-    return index < 2;
+    return index < 3 || index == 5;
   }
 
   @Override
@@ -70,7 +70,7 @@ public class ThemeBase implements Pickable {
   }
 
   public boolean isDarkTheme(Activity activity) {
-    return index == 4
+    return index == 4 || index == 5
         ? Configuration.UI_MODE_NIGHT_YES
             == (activity.getResources().getConfiguration().uiMode
                 & Configuration.UI_MODE_NIGHT_MASK)

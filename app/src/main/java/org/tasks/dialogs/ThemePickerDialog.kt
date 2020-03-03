@@ -59,7 +59,7 @@ class ThemePickerDialog : InjectingDialogFragment() {
         adapter = object : ArrayAdapter<String>(activity!!, R.layout.simple_list_item_single_choice, themes) {
             override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
                 val view = super.getView(position, convertView, parent)
-                val textColor = if (inventory.purchasedThemes() || position < 2) {
+                val textColor = if (isAvailable(position)) {
                     R.color.text_primary
                 } else {
                     R.color.text_tertiary
@@ -123,5 +123,8 @@ class ThemePickerDialog : InjectingDialogFragment() {
         dialog?.getButton(AlertDialog.BUTTON_POSITIVE)?.text = getString(stringRes)
     }
 
-    private fun available() = inventory.purchasedThemes() || selected < 2
+    private fun available() = isAvailable(selected)
+
+    private fun isAvailable(index: Int) =
+        inventory.purchasedThemes() || themeCache.getThemeBase(index).isFree
 }

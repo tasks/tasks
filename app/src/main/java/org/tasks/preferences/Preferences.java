@@ -533,4 +533,8 @@ public class Preferences {
   public boolean showSubtasks() {
     return atLeastLollipop() && getBoolean(R.string.p_show_subtasks, false);
   }
+
+  public int getThemeBase() {
+    return getInt(R.string.p_theme, 5);
+  }
 }
