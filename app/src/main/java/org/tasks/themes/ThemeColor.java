@@ -238,7 +238,7 @@ public class ThemeColor implements Pickable {
     } else {
       colorPrimary = color;
     }
-    colorPrimaryVariant = ColorUtil.darken(colorPrimary, 12);
+    colorPrimaryVariant = ColorUtil.darken(colorPrimary, 6);
 
     double contrast = ColorUtils.calculateContrast(WHITE, colorPrimary);
     isDark = contrast < 3;
