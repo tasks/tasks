@@ -83,27 +83,48 @@ public class ThemeColor implements Pickable {
 
   public static final int[] COLORS =
       new int[] {
-        R.color.blue_grey_500,
         R.color.grey_900,
+        R.color.tomato,
         R.color.red_500,
-        R.color.pink_500,
-        R.color.purple_500,
-        R.color.deep_purple_500,
-        R.color.indigo_500,
-        R.color.blue_500,
-        R.color.light_blue_500,
-        R.color.cyan_500,
-        R.color.teal_500,
-        R.color.green_500,
-        R.color.light_green_500,
-        R.color.lime_500,
-        R.color.yellow_500,
-        R.color.amber_500,
-        R.color.orange_500,
         R.color.deep_orange_500,
+        R.color.tangerine,
+        R.color.pumpkin,
+        R.color.orange_500,
+        R.color.mango,
+        R.color.banana,
+        R.color.amber_500,
+        R.color.citron,
+        R.color.yellow_500,
+        R.color.lime_500,
+        R.color.avocado,
+        R.color.light_green_500,
+        R.color.pistachio,
+        R.color.green_500,
+        R.color.basil,
+        R.color.teal_500,
+        R.color.sage,
+        R.color.cyan_500,
+        R.color.light_blue_500,
+        R.color.peacock,
+        R.color.blue_500,
+        R.color.cobalt,
+        R.color.indigo_500,
+        R.color.lavender,
+        R.color.wisteria,
+        R.color.amethyst,
+        R.color.deep_purple_500,
+        R.color.grape,
+        R.color.purple_500,
+        R.color.radicchio,
+        R.color.pink_500,
+        R.color.cherry_blossom,
+        R.color.flamingo,
         R.color.brown_500,
+        R.color.graphite,
+        R.color.birch,
         R.color.grey_500,
-        R.color.white_100
+        R.color.blue_grey_500,
+        R.color.white_100,
       };
 
   public static final int[] LAUNCHER_COLORS =
@@ -149,6 +170,7 @@ public class ThemeColor implements Pickable {
   private static final Map<Integer, Integer> colorMap = newHashMap();
 
   static {
+    // 2014 material design palette
     colorMap.put(-10453621, -5194043); // blue_grey
     colorMap.put(-12434878, -14606047); // grey
     colorMap.put(-769226, -1074534); // red
@@ -170,6 +192,32 @@ public class ThemeColor implements Pickable {
     colorMap.put(-8825528, -4412764); // brown
     colorMap.put(-6381922, -1118482); // grey
     colorMap.put(-1, -16777216); // white & black
+
+    // 2019 google calendar
+    colorMap.put(-2818048, -3397335); // tomato
+    colorMap.put(-765666, -2136512); // tangerine
+    colorMap.put(-1086464, -2459092); // pumpkin
+    colorMap.put(-1010944, -2254804); // mango
+    colorMap.put(-606426, -2050234); // banana
+    colorMap.put(-1784767, -2769834); // citron
+    colorMap.put(-4142541, -4274613); // avocado
+    colorMap.put(-8604862, -7817131); // pistachio
+    colorMap.put(-16023485, -14116514); // basil
+    //    colorMap.put(-16738680, -14571622); // eucalyptus
+    colorMap.put(-13388167, -11879802); // sage
+    colorMap.put(-16540699, -13787178); // peacock
+    colorMap.put(-12417548, -10974241); // cobalt
+    //    colorMap.put(-12627531, -11312199); // blueberry
+    colorMap.put(-8812853, -8615738); // lavender
+    colorMap.put(-5005861, -5597744); // wisteria
+    colorMap.put(-6395473, -5934410); // amethyst
+    colorMap.put(-7461718, -6668365); // grape
+    colorMap.put(-5434281, -4967572); // radicchio
+    colorMap.put(-2614432, -3261327); // cherry blossom
+    colorMap.put(-1672077, -2654344); // flamingo
+    //    colorMap.put(-8825528, -6984611); // cocoa
+    colorMap.put(-10395295, -7895161); // graphite
+    colorMap.put(-5792882, -5135210); // birch
   }
 
   private final int original;
@@ -177,10 +225,6 @@ public class ThemeColor implements Pickable {
   private final int colorPrimary;
   private final int colorPrimaryVariant;
   private final boolean isDark;
-
-  public static ThemeColor getLauncherColor(Context context, int index) {
-    return new ThemeColor(context, ContextCompat.getColor(context, LAUNCHER_COLORS[index]), false);
-  }
 
   public ThemeColor(Context context, int color) {
     this(context, color == 0 ? ContextCompat.getColor(context, R.color.blue_500) : color, true);
@@ -201,23 +245,16 @@ public class ThemeColor implements Pickable {
     colorOnPrimary = isDark ? context.getResources().getColor(R.color.black_87) : WHITE;
   }
 
-  private int desaturate(int color) {
-    if (colorMap.containsKey(color)) {
-      //noinspection ConstantConditions
-      return colorMap.get(color);
-    } else if (color == WHITE) {
-      return BLACK; // white -> black
-    } else {
-      return color;
-    }
-  }
-
   private ThemeColor(Parcel source) {
     colorOnPrimary = source.readInt();
     colorPrimary = source.readInt();
     colorPrimaryVariant = source.readInt();
     isDark = ParcelCompat.readBoolean(source);
     original = source.readInt();
+  }
+
+  public static ThemeColor getLauncherColor(Context context, int index) {
+    return new ThemeColor(context, ContextCompat.getColor(context, LAUNCHER_COLORS[index]), false);
   }
 
   public static ThemeColor newThemeColor(Context context, int color) {
@@ -252,6 +289,17 @@ public class ThemeColor implements Pickable {
       drawable.setColorFilter(color, PorterDuff.Mode.SRC_IN);
     }
     return drawable;
+  }
+
+  private int desaturate(int color) {
+    if (colorMap.containsKey(color)) {
+      //noinspection ConstantConditions
+      return colorMap.get(color);
+    } else if (color == WHITE) {
+      return BLACK; // white -> black
+    } else {
+      return color;
+    }
   }
 
   public void applyToSystemBars(Activity activity) {

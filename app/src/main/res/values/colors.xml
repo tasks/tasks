@@ -5,6 +5,28 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <resources>
+  <color name="tomato">#d50000</color>
+  <color name="tangerine">#f4511e</color>
+  <color name="pumpkin">#ef6c00</color>
+  <color name="mango">#f09300</color>
+  <color name="banana">#f6bf26</color>
+  <color name="citron">#e4c441</color>
+  <color name="avocado">#c0ca33</color>
+  <color name="pistachio">#7cb342</color>
+  <color name="basil">#0b8043</color>
+  <color name="sage">#33b679</color>
+  <color name="peacock">#039be5</color>
+  <color name="cobalt">#4285f4</color>
+  <color name="lavender">#7986cb</color>
+  <color name="wisteria">#b39ddb</color>
+  <color name="amethyst">#9e69af</color>
+  <color name="grape">#8e24aa</color>
+  <color name="radicchio">#ad1457</color>
+  <color name="cherry_blossom">#d81b60</color>
+  <color name="flamingo">#e67c73</color>
+  <color name="graphite">#616161</color>
+  <color name="birch">#a79b8e</color>
+
   <color name="red_200">#EF9A9A</color>
   <color name="red_500">#f44336</color>
   <color name="red_a400">#ff1744</color>
