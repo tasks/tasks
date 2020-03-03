@@ -2,9 +2,9 @@ package org.tasks.widget;
 
 import android.content.Context;
 import androidx.core.content.ContextCompat;
+import com.todoroo.astrid.service.Upgrader;
 import org.tasks.R;
 import org.tasks.preferences.Preferences;
-import org.tasks.themes.ThemeColor;
 
 public class WidgetPreferences {
 
@@ -52,10 +52,7 @@ public class WidgetPreferences {
       return color;
     }
     int index = preferences.getInt(getKey(R.string.p_widget_color), -1);
-    if (index < 0 || index > ThemeColor.COLORS.length) {
-      index = 7;
-    }
-    color = ContextCompat.getColor(context, ThemeColor.COLORS[index]);
+    color = ContextCompat.getColor(context, Upgrader.getLegacyColor(index, R.color.blue_500));
     preferences.setInt(getKey(R.string.p_widget_color_v2), color);
     return color;
   }

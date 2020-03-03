@@ -60,7 +60,6 @@ class ColorPalettePicker : InjectingDialogFragment() {
     interface Pickable : Parcelable {
         val pickerColor: Int
         val isFree: Boolean
-        val index: Int
     }
 
     interface ColorPickedCallback {
@@ -82,17 +81,17 @@ class ColorPalettePicker : InjectingDialogFragment() {
         ButterKnife.bind(this, view)
         palette = arguments!!.getSerializable(EXTRA_PALETTE) as Palette
         colors = when (palette) {
-            Palette.COLORS -> ThemeColor.COLORS.mapIndexed { index, color ->
-                ThemeColor(context, index, ContextCompat.getColor(context!!, color), true)
+            Palette.COLORS -> ThemeColor.COLORS.map { color ->
+                ThemeColor(context, ContextCompat.getColor(context!!, color), true)
             }
             Palette.ACCENTS -> ThemeAccent.ACCENTS.mapIndexed { index, _ ->
                 ThemeAccent(context, index)
             }
-            Palette.LAUNCHERS -> ThemeColor.LAUNCHER_COLORS.mapIndexed { index, color ->
-                ThemeColor(context, index, ContextCompat.getColor(context!!, color), false)
+            Palette.LAUNCHERS -> ThemeColor.LAUNCHER_COLORS.map { color ->
+                ThemeColor(context, ContextCompat.getColor(context!!, color), false)
             }
-            Palette.WIDGET -> ThemeColor.COLORS.mapIndexed { index, color ->
-                ThemeColor(context, index, ContextCompat.getColor(context!!, color), false)
+            Palette.WIDGET -> ThemeColor.COLORS.map { color ->
+                ThemeColor(context, ContextCompat.getColor(context!!, color), false)
             }
         }
 
@@ -134,8 +133,7 @@ class ColorPalettePicker : InjectingDialogFragment() {
 
     private fun onSelected(index: Int) {
         val result = when (palette) {
-            Palette.COLORS, Palette.WIDGET ->
-                (colors.find { it.index == index } as ThemeColor).originalColor
+            Palette.COLORS, Palette.WIDGET -> (colors[index] as ThemeColor).originalColor
             else -> index
         }
         dialog?.dismiss()

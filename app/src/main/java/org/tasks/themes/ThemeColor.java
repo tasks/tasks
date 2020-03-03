@@ -172,7 +172,6 @@ public class ThemeColor implements Pickable {
     colorMap.put(-1, -16777216); // white & black
   }
 
-  private final int index;
   private final int original;
   private final int colorOnPrimary;
   private final int colorPrimary;
@@ -180,16 +179,14 @@ public class ThemeColor implements Pickable {
   private final boolean isDark;
 
   public static ThemeColor getLauncherColor(Context context, int index) {
-    return new ThemeColor(
-        context, index, ContextCompat.getColor(context, LAUNCHER_COLORS[index]), false);
+    return new ThemeColor(context, ContextCompat.getColor(context, LAUNCHER_COLORS[index]), false);
   }
 
   public ThemeColor(Context context, int color) {
-    this(context, -1, color == 0 ? ContextCompat.getColor(context, R.color.blue_500) : color, true);
+    this(context, color == 0 ? ContextCompat.getColor(context, R.color.blue_500) : color, true);
   }
 
-  public ThemeColor(Context context, int index, int color, boolean adjustColor) {
-    this.index = index;
+  public ThemeColor(Context context, int color, boolean adjustColor) {
     color |= 0xFF000000; // remove alpha
     original = color;
     if (adjustColor && context.getResources().getBoolean(R.bool.is_dark)) {
@@ -216,7 +213,6 @@ public class ThemeColor implements Pickable {
   }
 
   private ThemeColor(Parcel source) {
-    index = source.readInt();
     colorOnPrimary = source.readInt();
     colorPrimary = source.readInt();
     colorPrimaryVariant = source.readInt();
@@ -349,11 +345,6 @@ public class ThemeColor implements Pickable {
     }
   }
 
-  @Override
-  public int getIndex() {
-    return index;
-  }
-
   public int getOriginalColor() {
     return original;
   }
@@ -381,7 +372,6 @@ public class ThemeColor implements Pickable {
 
   @Override
   public void writeToParcel(Parcel dest, int flags) {
-    dest.writeInt(index);
     dest.writeInt(colorOnPrimary);
     dest.writeInt(colorPrimary);
     dest.writeInt(colorPrimaryVariant);

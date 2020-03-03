@@ -222,6 +222,6 @@ public class ChipProvider {
 
   private static ThemeColor getUntaggedThemeColor(Context context) {
     return new ThemeColor(
-        context, -1, ContextCompat.getColor(context, R.color.tag_color_none_background), false);
+        context, ContextCompat.getColor(context, R.color.tag_color_none_background), false);
   }
 }

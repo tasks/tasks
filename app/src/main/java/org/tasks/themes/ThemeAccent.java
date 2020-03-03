@@ -43,19 +43,16 @@ public class ThemeAccent implements Pickable {
           return new ThemeAccent[size];
         }
       };
-  private final int index;
   private final int style;
   @Deprecated private final int accentColor;
 
   public ThemeAccent(Context context, int index) {
-    this.index = index;
     this.style = ACCENTS[index];
     Resources.Theme theme = new ContextThemeWrapper(context, ThemeAccent.ACCENTS[index]).getTheme();
     this.accentColor = resolveAttribute(theme, R.attr.colorSecondary);
   }
 
   private ThemeAccent(Parcel source) {
-    index = source.readInt();
     style = source.readInt();
     accentColor = source.readInt();
   }
@@ -86,11 +83,6 @@ public class ThemeAccent implements Pickable {
     }
   }
 
-  @Override
-  public int getIndex() {
-    return index;
-  }
-
   @Deprecated
   public int getAccentColor() {
     return accentColor;
@@ -103,7 +95,6 @@ public class ThemeAccent implements Pickable {
 
   @Override
   public void writeToParcel(Parcel dest, int flags) {
-    dest.writeInt(index);
     dest.writeInt(style);
     dest.writeInt(accentColor);
   }

@@ -8,6 +8,7 @@ import static org.tasks.db.DbUtils.batch;
 
 import android.content.Context;
 import android.os.Environment;
+import androidx.annotation.ColorRes;
 import androidx.core.content.ContextCompat;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
@@ -42,7 +43,6 @@ import org.tasks.data.UserActivityDao;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
-import org.tasks.themes.ThemeColor;
 
 public class Upgrader {
 
@@ -148,9 +148,35 @@ public class Upgrader {
   }
 
   public static int getAndroidColor(Context context, int index) {
-    return index >= 0 && index < ThemeColor.COLORS.length
-        ? ContextCompat.getColor(context, ThemeColor.COLORS[index])
-        : 0;
+    int legacyColor = getLegacyColor(index, 0);
+    return legacyColor == 0 ? 0 : ContextCompat.getColor(context, legacyColor);
+  }
+
+  public static @ColorRes int getLegacyColor(int index, int def) {
+    switch (index) {
+      case 0: return R.color.blue_grey_500;
+      case 1: return R.color.grey_900;
+      case 2: return R.color.red_500;
+      case 3: return R.color.pink_500;
+      case 4: return R.color.purple_500;
+      case 5: return R.color.deep_purple_500;
+      case 6: return R.color.indigo_500;
+      case 7: return R.color.blue_500;
+      case 8: return R.color.light_blue_500;
+      case 9: return R.color.cyan_500;
+      case 10: return R.color.teal_500;
+      case 11: return R.color.green_500;
+      case 12: return R.color.light_green_500;
+      case 13: return R.color.lime_500;
+      case 14: return R.color.yellow_500;
+      case 15: return R.color.amber_500;
+      case 16: return R.color.orange_500;
+      case 17: return R.color.deep_orange_500;
+      case 18: return R.color.brown_500;
+      case 19: return R.color.grey_500;
+      case 20: return R.color.white_100;
+      default: return def;
+    }
   }
 
   private void applyCaldavSubtasks() {
