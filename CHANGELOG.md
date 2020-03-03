@@ -1,5 +1,28 @@
 Change Log
 ---
+### 8.2 (2020-03-04)
+
+* Choose your own app and widget colors with a color wheel
+* Dark theme now free for all
+* New 'System default' theme
+* New outlined chip style
+* Dark theme is now darker
+* Light theme is now lighter
+* Desaturate theme colors in dark mode
+* Improve dialog theming consistency
+* Bug fixes
+* Update translations
+  * Czech - @vitSkalicky
+  * Dutch - @fvbommel
+  * French - @FlorianLeChat
+  * German - mondstern
+  * Hungarian - kaciokos
+  * Indonesian - @zmni
+  * Polish - @alex-ter
+  * Russian - @alex-ter
+  * Simplified Chinese - @sr093906
+  * Spanish - @FlorianLeChat
+
 ### 8.1 (2020-02-21)
 
 * Updated app settings screen
