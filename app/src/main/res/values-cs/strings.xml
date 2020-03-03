@@ -504,4 +504,8 @@
     <string name="linkify_description">Na webové odkazy, adresy a telefonní čísla bude možné kliknout</string>
     <string name="subtasks">Podúkoly</string>
     <string name="display_name">Zobrazované jméno</string>
+    <string name="date_shortcut_hour">Za hodinu</string>
+    <string name="list_settings">Nastavení seznamu</string>
+    <string name="repeats_plural_on_number_of_times">Opakuje se každý %1$s v %2$s, ještě %3$d %4$d</string>
+    <string name="theme_system_default">Dle systému</string>
 </resources>
