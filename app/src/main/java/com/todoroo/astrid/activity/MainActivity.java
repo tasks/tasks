@@ -266,7 +266,7 @@ public class MainActivity extends InjectingAppCompatActivity
   private void hideDetailFragment() {
     getSupportFragmentManager()
         .beginTransaction()
-        .replace(R.id.detail, new EmptyTaskEditFragment())
+        .replace(R.id.detail, EmptyTaskEditFragment.Companion.newEmptyTaskEditFragment(filter))
         .commit();
 
     if (isSinglePaneLayout()) {
