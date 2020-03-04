@@ -23,14 +23,8 @@
     android:layout_alignParentEnd="true"
     android:layout_alignParentRight="true"
     android:textColor="?android:textColorSecondary"
-    app:chipBackgroundColor="@color/window_background"
     app:chipIconTint="@color/icon_tint"
-    app:chipStrokeColor="?android:textColorSecondary"
-    app:chipStrokeWidth="@dimen/chip_stroke"
-    app:iconEndPadding="0dp"
-    app:iconStartPadding="@dimen/chip_text_padding"
-    app:textEndPadding="@dimen/chip_text_padding"
-    app:textStartPadding="@dimen/chip_text_padding" />
+    app:chipStrokeColor="?android:textColorSecondary"/>
 
   <TextView
     android:id="@+id/title"

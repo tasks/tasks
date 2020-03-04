@@ -2,12 +2,6 @@
 <com.google.android.material.chip.Chip xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   style="@style/ChipStyle"
-  android:textColor="?android:textColorSecondary"
-  app:chipBackgroundColor="?android:attr/colorBackground"
-  app:chipIconTint="@color/icon_tint"
-  app:chipStrokeColor="?android:textColorSecondary"
-  app:chipStrokeWidth="@dimen/chip_stroke"
-  app:iconEndPadding="0dp"
-  app:iconStartPadding="@dimen/chip_text_padding"
-  app:textEndPadding="@dimen/chip_text_padding"
-  app:textStartPadding="@dimen/chip_text_padding" />
+  android:textColor="@color/text_secondary"
+  app:chipIconTint="@color/text_secondary"
+  app:chipStrokeColor="@color/text_secondary" />

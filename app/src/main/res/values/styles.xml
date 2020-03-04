@@ -153,12 +153,15 @@
     <item name="chipMinHeight">@dimen/chip_min_height</item>
     <item name="closeIconVisible">false</item>
     <item name="ensureMinTouchTargetSize">false</item>
+    <item name="chipStrokeWidth">@dimen/chip_stroke</item>
+    <item name="chipSurfaceColor">@android:color/transparent</item>
+    <item name="chipBackgroundColor">@android:color/transparent</item>
+    <item name="iconStartPadding">@dimen/chip_text_padding</item>
+    <item name="iconEndPadding">0dp</item>
   </style>
 
   <style name="ChipStyle.Closable">
-    <item name="closeIconEndPadding">0dp</item>
     <item name="closeIconVisible">true</item>
-    <item name="closeIconStartPadding">0dp</item>
   </style>
 
   <style name="OutlineButton" parent="Widget.MaterialComponents.Button.OutlinedButton">

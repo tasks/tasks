@@ -14,10 +14,10 @@
     android:layout_gravity="top"
     android:gravity="start"
     android:hint="@string/dont_sync"
-    android:textAlignment="viewStart"/>
+    android:textAlignment="viewStart" />
 
   <com.google.android.material.chip.Chip
     android:id="@+id/chip"
     style="@style/ChipStyle.Closable"
-    android:visibility="gone"/>
+    android:visibility="gone" />
 </LinearLayout>
