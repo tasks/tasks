@@ -44,7 +44,7 @@ import timber.log.Timber;
 
 public class Preferences {
 
-  private static final String P_CURRENT_VERSION = "cv"; // $NON-NLS-1$
+  public static final String P_CURRENT_VERSION = "cv"; // $NON-NLS-1$
 
   private static final String PREF_SORT_SORT = "sort_sort"; // $NON-NLS-1$
 

@@ -4,6 +4,7 @@ import static com.todoroo.astrid.dao.TaskDao.TRANS_SUPPRESS_REFRESH;
 import static com.todoroo.astrid.data.SyncFlags.GTASKS_SUPPRESS_SYNC;
 import static org.tasks.backup.TasksJsonExporter.UTF_8;
 import static org.tasks.data.Place.newPlace;
+import static org.tasks.preferences.Preferences.P_CURRENT_VERSION;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -239,6 +240,9 @@ public class TasksJsonImporter {
       taskDao.updateParents();
 
       for (Entry<String, Integer> entry : backupContainer.getIntPrefs().entrySet()) {
+        if (P_CURRENT_VERSION.equals(entry.getKey())) {
+          continue;
+        }
         preferences.setInt(entry.getKey(), entry.getValue());
       }
       for (Entry<String, Long> entry : backupContainer.getLongPrefs().entrySet()) {
