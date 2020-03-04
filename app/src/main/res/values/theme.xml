@@ -48,7 +48,7 @@
 
   <style name="Wallpaper" parent="Tasks">
     <item name="android:windowBackground">@color/black_38</item>
-    <item name="android:colorBackground">@color/black_54</item>
+    <item name="android:colorBackground">@color/black_60</item>
     <item name="android:windowShowWallpaper">true</item>
     <item name="card_elevation">0dp</item>
   </style>

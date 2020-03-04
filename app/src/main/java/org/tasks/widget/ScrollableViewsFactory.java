@@ -233,7 +233,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     textColorPrimary =
         ContextCompat.getColor(context, isDark ? R.color.white_87 : R.color.black_87);
     textColorSecondary =
-        ContextCompat.getColor(context, isDark ? R.color.white_60 : R.color.black_54);
+        ContextCompat.getColor(context, isDark ? R.color.white_60 : R.color.black_60);
     showDueDates = widgetPreferences.showDueDate();
     showCheckboxes = widgetPreferences.showCheckboxes();
     textSize = widgetPreferences.getFontSize();

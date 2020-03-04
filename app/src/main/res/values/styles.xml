@@ -36,7 +36,7 @@
   <style name="BlackToolbarTheme">
     <item name="overlay_theme">@style/BlackToolbarOverlay</item>
     <item name="colorOnPrimary">@color/black_87</item>
-    <item name="colorOnPrimaryHint">@color/black_54</item>
+    <item name="colorOnPrimaryHint">@color/black_60</item>
     <item name="android:actionOverflowButtonStyle">@style/BlackOverflow</item>
   </style>
 

@@ -108,15 +108,13 @@
 
   <color name="black_100">#ff000000</color>
   <color name="black_87">#de000000</color>
-  <color name="black_54">#8a000000</color>
+  <color name="black_60">#99000000</color>
   <color name="black_38">#61000000</color>
-  <color name="black_12">#1f000000</color>
 
   <color name="white_100">#ffffffff</color>
   <color name="white_87">#deffffff</color>
   <color name="white_60">#99ffffff</color>
   <color name="white_38">#61ffffff</color>
-  <color name="white_12">#1fffffff</color>
 
   <color name="overdue">@color/error_color_material_light</color>
 
@@ -125,7 +123,7 @@
   <color name="widget_background_black">#000000</color>
   <color name="icon_tint_light">@android:color/black</color>
   <color name="icon_tint_dark">@android:color/white</color>
-  <color name="icon_tint_light_alpha">@color/black_54</color>
+  <color name="icon_tint_light_alpha">@color/black_60</color>
   <color name="icon_tint_dark_alpha">@color/white_60</color>
 
   <color name="drawer_background_light_selected">#e8e8e8</color>
@@ -157,7 +155,7 @@
   <color name="icon_tint_with_alpha">@color/icon_tint_light_alpha</color>
   <color name="drawer_color">@color/md_background_light</color>
   <color name="drawer_color_selected">@color/drawer_background_light_selected</color>
-  <color name="text_secondary">@color/black_54</color>
+  <color name="text_secondary">@color/black_60</color>
   <color name="text_tertiary">@color/black_38</color>
 
 </resources>
