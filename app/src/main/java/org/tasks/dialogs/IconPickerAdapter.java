@@ -49,9 +49,9 @@ public class IconPickerAdapter extends ListAdapter<Integer, IconPickerHolder> {
           : ContextCompat.getColor(activity, R.color.icon_tint);
       boolean available = index < 1000 || inventory.hasPro();
       float alpha =
-          available
-              ? 1f
-              : ResourcesCompat.getFloat(activity.getResources(), R.dimen.alpha_disabled);
+          ResourcesCompat.getFloat(
+              activity.getResources(),
+              available ? R.dimen.alpha_primary : R.dimen.alpha_disabled);
       holder.bind(index, icon, tint, alpha, available);
     }
   }
