@@ -102,6 +102,7 @@ public class EteSyncClient {
     this.username = username;
     this.encryptionPassword = encryptionPassword;
     this.token = token;
+    this.foreground = foreground;
 
     CustomCertManager customCertManager = new CustomCertManager(context);
     customCertManager.setAppInForeground(foreground);
@@ -151,10 +152,25 @@ public class EteSyncClient {
         foreground);
   }
 
-  Pair<UserInfo, String> getInfoAndToken(String password) throws IOException, HttpException {
+  private EteSyncClient withToken(String token)
+      throws KeyManagementException, NoSuchAlgorithmException {
+    return new EteSyncClient(
+        context,
+        encryption,
+        preferences,
+        interceptor,
+        httpUrl.toString(),
+        username,
+        encryptionPassword,
+        token,
+        foreground);
+  }
+
+  Pair<UserInfo, String> getInfoAndToken(String password)
+      throws IOException, HttpException, NoSuchAlgorithmException, KeyManagementException {
     JournalAuthenticator journalAuthenticator = new JournalAuthenticator(httpClient, httpUrl);
     String token = journalAuthenticator.getAuthToken(username, password);
-    return Pair.create(getUserInfo(), token);
+    return Pair.create(withToken(token).getUserInfo(), token);
   }
 
   UserInfo getUserInfo() throws HttpException {
@@ -226,7 +242,7 @@ public class EteSyncClient {
 
   void invalidateToken() {
     try {
-        new JournalAuthenticator(httpClient, httpUrl).invalidateAuthToken(token);
+      new JournalAuthenticator(httpClient, httpUrl).invalidateAuthToken(token);
     } catch (Exception e) {
       Timber.e(e);
     }
