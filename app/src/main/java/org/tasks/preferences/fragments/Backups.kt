@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
+import com.google.api.services.drive.DriveScopes
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity
 import org.tasks.PermissionUtil
@@ -55,44 +56,12 @@ class Backups : InjectingPreferenceFragment() {
                     .show(parentFragmentManager, FRAG_TAG_EXPORT_TASKS)
                 false
             }
-
-        val googleDriveBackup =
-            findPreference(R.string.p_google_drive_backup) as SwitchPreferenceCompat
-        googleDriveBackup.onPreferenceChangeListener =
-            Preference.OnPreferenceChangeListener { preference: Preference, newValue: Any? ->
-                when {
-                    newValue == null -> {
-                        false
-                    }
-                    newValue as Boolean -> {
-                        if (permissionRequestor.requestAccountPermissions()) {
-                            requestGoogleDriveLogin()
-                        }
-                        false
-                    }
-                    else -> {
-                        preference.summary = null
-                        true
-                    }
-                }
-            }
     }
 
     override fun onResume() {
         super.onResume()
 
-        val googleDriveBackup =
-            findPreference(R.string.p_google_drive_backup) as SwitchPreferenceCompat
-        val account = preferences.getStringValue(R.string.p_google_drive_backup_account)
-        if (preferences.getBoolean(R.string.p_google_drive_backup, false)
-            && googleAccountManager.canAccessAccount(account)
-        ) {
-            googleDriveBackup.isChecked = true
-            googleDriveBackup.summary = account
-        } else {
-            googleDriveBackup.isChecked = false
-            googleDriveBackup.summary = null
-        }
+        updateGoogleDriveCheckbox()
     }
 
     override fun onRequestPermissionsResult(
@@ -140,14 +109,37 @@ class Backups : InjectingPreferenceFragment() {
             }
         } else if (requestCode == REQUEST_DRIVE_BACKUP) {
             val success = resultCode == RESULT_OK
-            (findPreference(R.string.p_google_drive_backup) as SwitchPreferenceCompat).isChecked =
-                success
+            preferences.setBoolean(R.string.p_google_drive_backup, success)
+            updateGoogleDriveCheckbox()
             if (!success && data != null) {
                 toaster.longToast(data.getStringExtra(GtasksLoginActivity.EXTRA_ERROR))
             }
-
         } else {
             super.onActivityResult(requestCode, resultCode, data)
+        }
+    }
+
+    private fun updateGoogleDriveCheckbox() {
+        val account = preferences.getStringValue(R.string.p_google_drive_backup_account)
+        val pref = findPreference(R.string.google_drive_backup) as SwitchPreferenceCompat
+        pref.isChecked = preferences.getBoolean(R.string.p_google_drive_backup, false)
+                && googleAccountManager.canAccessAccount(account)
+                && !preferences.alreadyNotified(account, DriveScopes.DRIVE_FILE)
+        pref.summary = if (pref.isChecked) account else null
+        findPreference(R.string.google_drive_backup)
+                .setOnPreferenceChangeListener(this@Backups::onGoogleDriveCheckChanged)
+    }
+
+    private fun onGoogleDriveCheckChanged(preference: Preference, newValue: Any?) = when {
+        newValue as Boolean -> {
+            if (permissionRequestor.requestAccountPermissions()) {
+                requestGoogleDriveLogin()
+            }
+            false
+        }
+        else -> {
+            preference.summary = null
+            true
         }
     }
 

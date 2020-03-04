@@ -538,4 +538,12 @@ public class Preferences {
   public int getThemeBase() {
     return getInt(R.string.p_theme, ThemeBase.DEFAULT_BASE_THEME);
   }
+
+  public boolean alreadyNotified(String account, String scope) {
+    return getBoolean(context.getString(R.string.p_notified_oauth_error, account, scope), false);
+  }
+
+  public void setAlreadyNotified(String account, String scope, boolean value) {
+    setBoolean(context.getString(R.string.p_notified_oauth_error, account, scope), value);
+  }
 }

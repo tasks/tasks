@@ -2,10 +2,8 @@ package org.tasks.drive;
 
 import static com.todoroo.andlib.utility.DateUtilities.now;
 
-import android.accounts.AccountManager;
 import android.content.Context;
 import android.net.Uri;
-import android.os.Bundle;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpResponseException;
@@ -61,9 +59,8 @@ public class DriveInvoker {
   private void checkToken() {
     if (Strings.isNullOrEmpty(credential.getAccessToken())) {
       String account = preferences.getStringValue(R.string.p_google_drive_backup_account);
-      Bundle bundle = googleAccountManager.getAccessToken(account, DriveScopes.DRIVE_FILE);
       credential.setAccessToken(
-          bundle != null ? bundle.getString(AccountManager.KEY_AUTHTOKEN) : null);
+          googleAccountManager.getAccessToken(account, DriveScopes.DRIVE_FILE));
     }
   }
 

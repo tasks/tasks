@@ -28,18 +28,21 @@ import org.tasks.R;
 import org.tasks.injection.ForApplication;
 import org.tasks.play.AuthResultHandler;
 import org.tasks.preferences.PermissionChecker;
+import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
 public class GoogleAccountManager {
 
   private final PermissionChecker permissionChecker;
   private final android.accounts.AccountManager accountManager;
+  private final Preferences preferences;
 
   @Inject
   public GoogleAccountManager(
-      @ForApplication Context context, PermissionChecker permissionChecker) {
+      @ForApplication Context context, PermissionChecker permissionChecker, Preferences preferences) {
     this.permissionChecker = permissionChecker;
     accountManager = android.accounts.AccountManager.get(context);
+    this.preferences = preferences;
   }
 
   public List<String> getAccounts() {
@@ -64,7 +67,7 @@ public class GoogleAccountManager {
     return getAccount(name) != null;
   }
 
-  public Bundle getAccessToken(String name, String scope) {
+  public String getAccessToken(String name, String scope) {
     assertNotMainThread();
 
     Account account = getAccount(name);
@@ -73,10 +76,13 @@ public class GoogleAccountManager {
       return null;
     }
 
+    boolean alreadyNotified = preferences.alreadyNotified(name, scope);
+
     try {
-      return accountManager
-          .getAuthToken(account, "oauth2:" + scope, new Bundle(), true, null, null)
-          .getResult();
+      String token =
+          accountManager.blockingGetAuthToken(account, "oauth2:" + scope, !alreadyNotified);
+      preferences.setAlreadyNotified(name, scope, Strings.isNullOrEmpty(token));
+      return token;
     } catch (AuthenticatorException | IOException | OperationCanceledException e) {
       Timber.e(e);
       return null;
@@ -114,6 +120,7 @@ public class GoogleAccountManager {
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(
             bundle -> {
+              preferences.setAlreadyNotified(accountName, scope, false);
               Intent intent = (Intent) bundle.get(AccountManager.KEY_INTENT);
               if (intent != null) {
                 activity.startActivity(intent);

@@ -6,8 +6,7 @@
     android:title="@string/backup_directory" />
 
   <SwitchPreferenceCompat
-    android:defaultValue="false"
-    android:key="@string/p_google_drive_backup"
+    android:key="@string/google_drive_backup"
     android:title="@string/google_drive_backup" />
 
   <Preference
