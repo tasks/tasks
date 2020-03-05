@@ -1,0 +1,3 @@
+* Updated app preferences
+
+Full release notes: https://tasks.org/changelog

@@ -1,0 +1,9 @@
+* Dark mode is now free for all
+* Choose any list or widget color with a color wheel (PRO)
+* 21 new theme colors (PRO)
+* New 'System default' theme
+* Dark theme is now darker
+* Improved dialog theme consistency
+* Bug fixes and translation updates
+
+Full release notes: https://tasks.org/changelog
