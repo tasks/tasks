@@ -113,6 +113,7 @@
 
   <color name="white_100">#ffffffff</color>
   <color name="white_87">#deffffff</color>
+  <color name="white_72">#b8ffffff</color>
   <color name="white_60">#99ffffff</color>
   <color name="white_38">#61ffffff</color>
 
@@ -157,6 +158,7 @@
   <color name="drawer_color_selected">@color/drawer_background_light_selected</color>
   <color name="text_secondary">@color/black_60</color>
   <color name="text_tertiary">@color/black_38</color>
+  <color name="chip_text">@color/black_100</color>
 
 </resources>
 

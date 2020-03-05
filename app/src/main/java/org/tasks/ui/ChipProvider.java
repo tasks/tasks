@@ -15,7 +15,6 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import com.google.android.material.chip.Chip;
 import com.google.common.base.Predicates;
@@ -204,17 +203,19 @@ public class ChipProvider {
   }
 
   private void apply(Context context, Chip chip, @Nullable @DrawableRes Integer icon, String name, int theme) {
-    @ColorInt int color = getColor(context, theme);
     chip.setText(name);
-    ColorStateList colorStateList = new ColorStateList(new int[][]{new int[]{}}, new int[]{color});
-    chip.setCloseIconTint(colorStateList);
-    chip.setTextColor(color);
+    @ColorInt int color = getColor(context, theme);
+    if (color != 0) {
+      ColorStateList colorStateList = new ColorStateList(new int[][]{new int[]{}}, new int[]{color});
+      chip.setCloseIconTint(colorStateList);
+      chip.setTextColor(color);
+      chip.setChipIconTint(colorStateList);
+      chip.setChipStrokeColor(colorStateList);
+    }
     if (icon != null) {
       chip.setChipIconResource(icon);
-      chip.setChipIconTint(colorStateList);
+      chip.getChipDrawable().setAlpha(iconAlpha);
     }
-    chip.getChipDrawable().setAlpha(iconAlpha);
-    chip.setChipStrokeColor(colorStateList);
   }
 
   private @DrawableRes Integer getIcon(int index, int def) {
@@ -229,6 +230,6 @@ public class ChipProvider {
         return color.getPrimaryColor();
       }
     }
-    return ContextCompat.getColor(context, R.color.text_secondary);
+    return 0;
   }
 }
