@@ -1,5 +1,18 @@
 Change Log
 ---
+### 8.2.1 (2020-03-07)
+
+* Increase default chip text contrast
+* New purchase activity
+* Fix dividers on Android 4.x
+* Update translations
+  * Basque - @osoitz
+  * Dutch - @fvbommel
+  * French - @FlorianLeChat
+  * Italian - Claudia
+  * Simplified Chinese - @sr093906
+  * Spanish - @FlorianLeChat
+
 ### 8.2 (2020-03-04)
 
 * Choose your own app and widget colors with a color wheel

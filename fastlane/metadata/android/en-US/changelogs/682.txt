@@ -1,0 +1,6 @@
+* Minor accessibility improvements
+* New purchase screen
+* Fix dividers on Android 4.x
+* Translation updates
+
+Full release notes: https://tasks.org/changelog
