@@ -299,8 +299,8 @@
     <string name="sound">Sonido</string>
     <string name="vibrations">Vibraciones</string>
     <string name="quiet_hours">Horario silencioso</string>
-    <string name="attachment_directory">Directorio de archivos adjuntos</string>
-    <string name="backup_directory">Directorio de copia de seguridad</string>
+    <string name="attachment_directory">Carpeta de datos adjuntos</string>
+    <string name="backup_directory">Carpeta de copia de seguridad</string>
     <string name="google_drive_backup">Copiar a Google Drive</string>
     <string name="miscellaneous">Miscelánea</string>
     <string name="synchronization">Sincronización</string>
@@ -338,16 +338,16 @@
     <string name="date_shortcut_must_come_after">%1$s debe venir después de %2$s</string>
     <string name="discard_changes">¿Descartar cambios?</string>
     <string name="discard">Descartar</string>
-    <string name="tag_settings">Configuración de Etiquetas</string>
+    <string name="tag_settings">Configuración de etiquetas</string>
     <string name="list_settings">Configuración de lista</string>
     <string name="delete">Eliminar</string>
     <string name="copy">Copiar</string>
     <string name="move">Mover</string>
-    <string name="filter_settings">Configuración de Filtros</string>
+    <string name="filter_settings">Configuración del filtro</string>
     <string name="show_hidden">Mostrar oculto</string>
     <string name="show_completed">Mostrar completado</string>
     <string name="reverse">Invertir</string>
-    <string name="no_application_found">No se ha encontrado una aplicación para abrir el archivo adjunto</string>
+    <string name="no_application_found">Ninguna aplicación podría abrir el archivo adjunto</string>
     <string name="add_attachment">Adjuntar archivo</string>
     <string name="take_a_picture">Tomar fotografía</string>
     <string name="pick_from_gallery">Elegir desde la galería</string>
@@ -377,7 +377,7 @@
     <string name="theme_wallpaper">Fondo de pantalla</string>
     <string name="theme_day_night">Día/Noche</string>
     <string name="language">Idioma</string>
-    <string name="restart_required">Debe reiniciar Tasks para que los cambios tengan efecto</string>
+    <string name="restart_required">Reinicie Tasks para que este cambio surta efecto</string>
     <string name="restart_now">Reiniciar ahora</string>
     <string name="restart_later">Más tarde</string>
     <string name="settings_localization">Configuración regional</string>
@@ -387,7 +387,7 @@
     <string name="widget_settings">Configuración de widget</string>
     <string name="widget_header_settings">Configuración de encabezado</string>
     <string name="widget_row_settings">Configuración de fila</string>
-    <string name="sync_error_permissions">Tasks requiere permisos</string>
+    <string name="sync_error_permissions">Permiso requerido</string>
     <string name="clear_completed_tasks_confirmation">¿Borrar tareas completadas?</string>
     <string name="copy_multiple_tasks_confirmation">%s copiadas</string>
     <string name="delete_multiple_tasks_confirmation">%s borradas</string>
@@ -440,7 +440,7 @@
     <string name="tasker_list_notification">Listar notificación</string>
     <string name="help">Ayuda</string>
     <string name="caldav_home_set_not_found">Origen no encontrado</string>
-    <string name="network_error">La conexión ha fallado</string>
+    <string name="network_error">No se pudo conectar</string>
     <string name="background_sync_unmetered_only">Sólo en conexiones sin cargos</string>
     <string name="upgrade_to_pro">Actualizar a profesional</string>
     <string name="manage_subscription">Gestionar suscripción</string>
@@ -518,7 +518,7 @@
     <string name="enter_title_hint">Introducir título</string>
     <string name="show_subtasks">Mostrar subtareas</string>
     <string name="show_subtasks_summary">La visualización de subtareas degradará el rendimiento de la aplicación</string>
-    <string name="no_application_found_link">No se encontró ninguna aplicación para manejar el enlace</string>
+    <string name="no_application_found_link">Ninguna aplicación podría manejar el enlace</string>
     <string name="enter_tag_name">Introduzca el nombre de la etiqueta</string>
     <string name="create_new_tag">Crear \"%s\"</string>
     <string name="encryption_password_required">Contraseña de encriptado requerida</string>
@@ -534,7 +534,7 @@
     <string name="show_advanced_settings">Mostrar la configuración avanzada</string>
     <string name="caldav_account_description">Requiere una cuenta con un proveedor de servicios CalDAV o un servidor autoalojado. Encuentre un proveedor de servicios visitando tasks.org/caldav</string>
     <string name="etesync_account_description">Requiere una cuenta en EteSync.com o un servidor autoalojado</string>
-    <string name="etesync_encryption_description">Elija una contraseña de cifrado. No olvide su contraseña, no puede ser recuperada!</string>
+    <string name="etesync_encryption_description">Recuerde la contraseña de cifrado que elija, ¡no puede ser recuperada!</string>
     <string name="encryption_password_wrong">Contraseña de cifrado errónea</string>
     <string name="help_and_feedback">Ayuda y retroalimentación</string>
     <string name="documentation">Documentación</string>
@@ -551,4 +551,9 @@
     <string name="invalid_username_or_password">Nombre de usuario o contraseña inválidos</string>
     <string name="theme_system_default">El sistema por defecto</string>
     <string name="color_wheel">Rueda de colores</string>
+    <string name="upgrade_blurb_1">¡Hola! Me llamo Alex. Soy el desarrollador independiente detrás de Tasks</string>
+    <string name="upgrade_blurb_2">He pasado miles de horas trabajando en Tareas, y publico todo el código fuente en línea de forma gratuita. Para apoyar mi trabajo, algunas características requieren una suscripción</string>
+    <string name="upgrade_blurb_3">Elija cualquier precio de suscripción a continuación para iniciar su prueba gratuita. Puede cancelar en cualquier momento</string>
+    <string name="upgrade_blurb_4">Su apoyo significa mucho para mí, ¡gracias!</string>
+    <string name="back">Volver</string>
 </resources>
