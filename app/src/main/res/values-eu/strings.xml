@@ -552,4 +552,5 @@
     <string name="more_notification_settings_summary">Dei-doinua, bibrazioak, eta gehiago</string>
     <string name="invalid_username_or_password">Erabiltzaile-izen edo pasahitz okerra</string>
     <string name="theme_system_default">Sisteman lehenetsia</string>
+    <string name="color_wheel">Kolore-gurpila</string>
 </resources>
