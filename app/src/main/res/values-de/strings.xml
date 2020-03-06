@@ -363,8 +363,8 @@
     <string name="color">Farbe</string>
     <string name="accent">Akzent</string>
     <string name="launcher_icon">Startersymbol</string>
-  <string name="theme_black">Schwarz</string>
-  <string name="theme_light">Hell</string>
+    <string name="theme_black">Schwarz</string>
+    <string name="theme_light">Hell</string>
     <string name="theme_dark">Dunkel</string>
     <string name="theme_wallpaper">Hintergrundbild</string>
     <string name="theme_day_night">Tag/Nacht</string>
@@ -487,7 +487,7 @@
     <string name="location_radius_meters">%s m</string>
     <string name="filter">Filter</string>
     <string name="theme">Thema</string>
-  <string name="url">URL</string>
+    <string name="url">URL</string>
     <string name="list_separator_with_space">", "</string>
     <string name="version_string">Version %s</string>
     <string name="error_adding_account">Fehler: %s</string>

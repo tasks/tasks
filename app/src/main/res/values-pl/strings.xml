@@ -383,8 +383,8 @@
     <string name="color">Kolor</string>
     <string name="accent">Akcent</string>
     <string name="launcher_icon">Ikona programu startowego</string>
-  <string name="theme_black">Czarny</string>
-  <string name="theme_light">Jasny</string>
+    <string name="theme_black">Czarny</string>
+    <string name="theme_light">Jasny</string>
     <string name="theme_dark">Ciemny</string>
     <string name="theme_wallpaper">Tapeta</string>
     <string name="theme_day_night">Dzień/noc</string>

@@ -390,8 +390,8 @@
     <string name="color">Цвет</string>
     <string name="accent">Акцент</string>
     <string name="launcher_icon">Иконка запуска</string>
-  <string name="theme_black">Чёрная</string>
-  <string name="theme_light">Светлая</string>
+    <string name="theme_black">Чёрная</string>
+    <string name="theme_light">Светлая</string>
     <string name="theme_dark">Тёмная</string>
     <string name="theme_wallpaper">Как обои</string>
     <string name="theme_day_night">День / ночь</string>
