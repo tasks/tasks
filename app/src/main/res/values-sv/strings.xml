@@ -279,7 +279,6 @@
     <string name="no_calendars_found">Inga kalendrar hittades</string>
     <string name="widget_settings">Inställningar för widget</string>
     <string name="clear_completed_tasks_confirmation">Rensa bort slutförda uppgifter?</string>
-    <string name="themes">Ytterligare teman och ikoner</string>
     <string name="action_call">Ring</string>
     <string name="action_open">Öppna</string>
     <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">förfallodatum</string>
@@ -453,10 +452,6 @@
     <string name="error_billing_default">Faktureringen är inte tillgänglig. Kontrollera din enhet.</string>
     <string name="about">Om</string>
     <string name="license_summary">Tasks är Libre Open-Source programvara, licensierad under GNU General Public License v 3.0</string>
-    <string name="pro_caldav_sync">CalDAV-synkronisering</string>
-    <string name="pro_multiple_google_task_accounts">Flera Google-Tasks-konton</string>
-    <string name="pro_google_places_search">Google platssökning</string>
-    <string name="pro_tasker_plugins">Taskertillägg</string>
     <string name="pro_dashclock_extension">DashClock extension</string>
     <string name="requires_pro_subscription">Kräver Pro-prenumeration</string>
     <string name="logout">Logga ut</string>
@@ -491,15 +486,12 @@
     <string name="invalid_backup_file">Ogiltig säkerhetskopia</string>
     <string name="google_tasks_add_to_top">Nya uppgifter överst</string>
     <string name="icon">Ikon</string>
-    <string name="pro_support_development">Tasks behöver ditt stöd!</string>
     <string name="manage_subscription_summary">Uppgradera, nedgradera eller Avbryt prenumerationen</string>
     <string name="button_current_subscription">Hantera prenumerationer</string>
     <string name="button_restore_subscription">Återställ prenumeration</string>
     <string name="button_downgrade">Nedgradera prenumeration</string>
     <string name="button_upgrade">Uppgradera prenumerationen</string>
     <string name="button_unsubscribe">Avbryt prenumeration</string>
-    <string name="pro_description">Tasks är Libre programvara med öppen källkod som inte visar annonser eller säljer dina personuppgifter</string>
-    <string name="pro_subscribe_now">Prenumerera nu för att stödja utveckling och låsa upp ytterligare funktioner</string>
     <string name="name_your_price">Namnge ditt pris</string>
     <string name="monthly">Månadsvis</string>
     <string name="annually">Årligen</string>

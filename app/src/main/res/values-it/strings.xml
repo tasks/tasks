@@ -449,11 +449,6 @@ Google Play app sia impostata correttamente</string>
     <string name="error_billing_default">Modalità addebito non disponibile. Verifica il tuo dispositivo</string>
     <string name="about">A riguardo</string>
     <string name="license_summary">Tasks è un software gratuito e open-source, rilasciato secondo la GNU General Public License v3.0</string>
-    <string name="themes">Ulteriori temi</string>
-    <string name="pro_caldav_sync">Sincronizzazione CalDAV</string>
-    <string name="pro_multiple_google_task_accounts"> Account attività Google multipli   </string>
-    <string name="pro_google_places_search">Cerca Google Places</string>
-    <string name="pro_tasker_plugins">Plugin Tasker</string>
     <string name="pro_dashclock_extension">Estensione Dashclock</string>
     <string name="requires_pro_subscription">Richiede versione pro</string>
     <string name="logout">Esci</string>

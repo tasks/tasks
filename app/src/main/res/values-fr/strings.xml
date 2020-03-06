@@ -434,11 +434,6 @@ est configuré correctement</string>
     <string name="error_billing_default">Achat indisponible. Veuillez vérifier votre appareil.</string>
     <string name="about">À propos</string>
     <string name="license_summary">Tasks est un logiciel libre et open-source, licencié selon le GNU General Public License v3.0</string>
-    <string name="themes">Thèmes et icônes additionnels</string>
-    <string name="pro_caldav_sync">Synchronisation de CalDAV</string>
-    <string name="pro_multiple_google_task_accounts">Plusieurs comptes Google Task</string>
-    <string name="pro_google_places_search">Recherche avec Google Places</string>
-    <string name="pro_tasker_plugins">Plugins pour Tasker</string>
     <string name="pro_dashclock_extension">Extension Dashclock</string>
     <string name="requires_pro_subscription">Abonnement professionnel requis</string>
     <string name="logout">Se déconnecter</string>
@@ -492,7 +487,6 @@ est configuré correctement</string>
     <string name="list_separator_with_space">", "</string>
     <string name="version_string">Version %s</string>
     <string name="icon">Icône</string>
-    <string name="pro_support_development">Tâches à besoin de votre soutien !</string>
     <string name="manage_subscription_summary">Augmentez, diminuez ou annulez votre abonnement</string>
     <string name="button_current_subscription">Abonnement actuel</string>
     <string name="button_restore_subscription">Restaurer l\'abonnement</string>
@@ -503,8 +497,6 @@ est configuré correctement</string>
     <string name="monthly">Chaque mois</string>
     <string name="annually">Chaque année</string>
     <string name="error_adding_account">Erreur : %s</string>
-    <string name="pro_description">Tasks est un logiciel libre open-source qui n\'affiche pas de publicités et ne vend pas vos informations personnelles</string>
-    <string name="pro_subscribe_now">Abonnez-vous dès maintenant pour soutenir le développement et débloquer des fonctionnalités supplémentaires</string>
     <string name="SSD_sort_my_order">Mon tri</string>
     <string name="caldav_account_repeating_tasks">Permet au serveur de programmer des tâches récurrentes</string>
     <string name="EPr_temp_show_completed_tasks">Afficher temporairement les tâches une fois terminées</string>
@@ -528,7 +520,6 @@ est configuré correctement</string>
     <string name="encryption_password_required">Mot de passe de chiffrement requis</string>
     <string name="encryption_password">Mot de passe de chiffrement</string>
     <string name="display_name">Afficher le nom</string>
-    <string name="pro_etesync">Synchronisation de EteSync</string>
     <string name="this_feature_requires_a_subscription">Cette fonctionnalité nécessite un abonnement</string>
     <string name="choose_synchronization_service">Sélectionnez une plate-forme</string>
     <string name="google_tasks_selection_description">Service de base qui se synchronise avec votre compte Google</string>

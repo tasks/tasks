@@ -2,7 +2,6 @@ package org.tasks.caldav;
 
 import static android.text.TextUtils.isEmpty;
 import static com.todoroo.astrid.data.Task.NO_ID;
-import static org.tasks.billing.PurchaseDialog.newPurchaseDialog;
 
 import android.content.Context;
 import android.content.Intent;
@@ -31,6 +30,7 @@ import java.net.URISyntaxException;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.billing.Inventory;
+import org.tasks.billing.PurchaseActivity;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavDao;
 import org.tasks.databinding.ActivityCaldavAccountSettingsBinding;
@@ -113,7 +113,7 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
           .setDuration(BaseTransientBottomBar.LENGTH_INDEFINITE)
           .setAction(
               R.string.button_subscribe,
-              v -> newPurchaseDialog().show(getSupportFragmentManager(), null))
+              v -> startActivity(new Intent(this, PurchaseActivity.class)))
           .show();
     }
   }

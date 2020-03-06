@@ -16,7 +16,7 @@ import butterknife.ButterKnife
 import org.tasks.Callback
 import org.tasks.R
 import org.tasks.billing.Inventory
-import org.tasks.billing.PurchaseDialog
+import org.tasks.billing.PurchaseActivity
 import org.tasks.dialogs.ColorPickerAdapter.Palette
 import org.tasks.dialogs.ColorWheelPicker.Companion.newColorWheel
 import org.tasks.injection.DialogFragmentComponent
@@ -28,7 +28,6 @@ import javax.inject.Inject
 class ColorPalettePicker : InjectingDialogFragment() {
 
     companion object {
-        private const val FRAG_TAG_PURCHASE = "frag_tag_purchase"
         private const val FRAG_TAG_COLOR_PICKER = "frag_tag_color_picker"
         private const val EXTRA_PALETTE = "extra_palette"
         const val EXTRA_SELECTED = ColorWheelPicker.EXTRA_SELECTED
@@ -117,7 +116,7 @@ class ColorPalettePicker : InjectingDialogFragment() {
             builder.setNegativeButton(android.R.string.cancel, null)
         } else {
             builder.setPositiveButton(R.string.button_subscribe) { _: DialogInterface?, _: Int ->
-                PurchaseDialog.newPurchaseDialog().show(parentFragmentManager, FRAG_TAG_PURCHASE)
+                context?.startActivity(Intent(context!!, PurchaseActivity::class.java))
             }
         }
         return builder.show()

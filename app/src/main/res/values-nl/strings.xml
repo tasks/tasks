@@ -441,10 +441,6 @@
     <string name="error_billing_default">Betaling onmogelijk. Controleer je apparaat.</string>
     <string name="about">Over</string>
     <string name="license_summary">Tasks is vrije open-source software, gelicensieerd onder de GNU General Public License v3.0</string>
-    <string name="themes">Extra thema\'s en icons</string>
-    <string name="pro_caldav_sync">CalDAV synchroniseren</string>
-    <string name="pro_multiple_google_task_accounts">Meerdere Google Task accounts</string>
-    <string name="pro_google_places_search">Google Plaatsen zoeken</string>
     <string name="pro_dashclock_extension">Dashclock extentie</string>
     <string name="requires_pro_subscription">Pro aanmelding vereist</string>
     <string name="logout">Uitloggen</string>
@@ -485,16 +481,12 @@
     <string name="filters">Filters</string>
     <string name="filter">Filter</string>
     <string name="accent">Accent</string>
-    <string name="pro_tasker_plugins">Tasker plugins</string>
-    <string name="pro_support_development">Tasks heeft je ondersteuning nodig!</string>
     <string name="manage_subscription_summary">Aanmelden, afmelden of annuleer je aanmelding</string>
     <string name="button_current_subscription">Huidige abonnement</string>
     <string name="button_restore_subscription">Abonnement herstellen</string>
     <string name="button_downgrade">Terugdraaien abonnement</string>
     <string name="button_upgrade">Abonnement upgraden</string>
     <string name="button_unsubscribe">Abonnement annuleren</string>
-    <string name="pro_description">Tasks is vrije open-source software zonder advertenties of het doorverkopen van Je persoonlijke gegevens</string>
-    <string name="pro_subscribe_now">Meld je nu aan om de verdere ontwikkeling te ondersteunen en krijg extra functionaliteiten</string>
     <string name="name_your_price">Bepaal je prijs</string>
     <string name="monthly">Maandelijks</string>
     <string name="annually">Jaarlijks</string>
@@ -527,7 +519,6 @@
     <string name="encryption_password_required">Coderingswachtwoord vereist</string>
     <string name="encryption_password">Coderingswachtwoord</string>
     <string name="display_name">Weergavenaam</string>
-    <string name="pro_etesync">EteSync synchronisatie</string>
     <string name="this_feature_requires_a_subscription">Deze functionaliteit vereist een abonnement</string>
     <string name="choose_synchronization_service">Selecteer een platform</string>
     <string name="google_tasks_selection_description">Basisservice die synchroniseert met uw Google-account</string>

@@ -452,11 +452,6 @@
 е настроено правилно</string>
     <string name="error_billing_default">Таксуването не е налице. Моля, проверете устройството си.</string>
     <string name="about">Относно</string>
-    <string name="themes">Допълнителни теми</string>
-    <string name="pro_caldav_sync">CalDAV синхранизация</string>
-    <string name="pro_multiple_google_task_accounts">Множество Google Tasks акаунти</string>
-    <string name="pro_google_places_search">Търсене в Google Места</string>
-    <string name="pro_tasker_plugins">Tasker добавки</string>
     <string name="pro_dashclock_extension">Dashclock  разширение</string>
     <string name="requires_pro_subscription">Изисква pro абонамент</string>
     <string name="logout">Излизане</string>

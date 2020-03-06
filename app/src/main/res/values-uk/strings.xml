@@ -452,11 +452,6 @@
     <string name="error_billing_default">Оплата недоступна. Перевірте ваш пристрій</string>
     <string name="about">Про Tasks</string>
     <string name="license_summary">Tasks є програмою з відкритим кодом з ліцензією GNU General Public License v3.0</string>
-    <string name="themes">Додаткові схеми</string>
-    <string name="pro_caldav_sync">Синхронізація CalDAV</string>
-    <string name="pro_multiple_google_task_accounts">Декілька облікових записів Google Tasks</string>
-    <string name="pro_google_places_search">Пошук в Google Місця</string>
-    <string name="pro_tasker_plugins">Tasker плагіни</string>
     <string name="pro_dashclock_extension">Розширення Dashclock</string>
     <string name="requires_pro_subscription">Потребує преміум підписки</string>
     <string name="logout">Вийти</string>

@@ -443,11 +443,6 @@
     <string name="error_billing_default">Abrechnung nicht verfügbar. Bitte überprüfe dein Gerät.</string>
     <string name="about">Über</string>
     <string name="license_summary">Tasks ist freie, quelloffene Software, die unter der GNU General Public License v3.0 lizenziert ist</string>
-    <string name="themes">Zusätzliche Themen und Symbole</string>
-    <string name="pro_caldav_sync">CalDAV-Synchronisierung</string>
-    <string name="pro_multiple_google_task_accounts">Mehrere Google-Tasks-Konten</string>
-    <string name="pro_google_places_search">Google-Ortssuche</string>
-    <string name="pro_tasker_plugins">Tasker Plugins</string>
     <string name="pro_dashclock_extension">Dashclock-Erweiterung</string>
     <string name="requires_pro_subscription">Pro-Freischaltung benötigt</string>
     <string name="logout">Abmelden</string>
@@ -492,15 +487,12 @@
     <string name="version_string">Version %s</string>
     <string name="error_adding_account">Fehler: %s</string>
     <string name="icon">Symbol</string>
-    <string name="pro_support_development">Tasks braucht deine Unterstützung!</string>
     <string name="manage_subscription_summary">Abonnement hoch-/herabstufen oder kündigen</string>
     <string name="button_current_subscription">Aktuelles Abonnement</string>
     <string name="button_restore_subscription">Abonnement wiederherstellen</string>
     <string name="button_downgrade">Abonnement herabstufen</string>
     <string name="button_upgrade">Abonnement hochstufen</string>
     <string name="button_unsubscribe">Abonnement kündigen</string>
-    <string name="pro_description">Tasks ist freie, quelloffene Software, die weder Werbung enthält, noch deine persönlichen Daten verkauft</string>
-    <string name="pro_subscribe_now">Abonniere jetzt, um die Entwicklung zu unterstützen und zusätzliche Funktionen freizuschalten</string>
     <string name="name_your_price">Nenne deinen Preis</string>
     <string name="monthly">monatlich</string>
     <string name="annually">jährlich</string>
@@ -524,7 +516,6 @@
     <string name="encryption_password_required">Verschlüsselungspasswort erforderlich</string>
     <string name="encryption_password">Verschlüsselungs-Passwort</string>
     <string name="display_name">Anzeigename</string>
-    <string name="pro_etesync">EteSync-Synchronisierung</string>
     <string name="this_feature_requires_a_subscription">Diese Funktion erfordert ein Abonnement</string>
     <string name="passwords_do_not_match">Passwörter stimmen nicht überein</string>
     <string name="reenter_encryption_password">Verschlüsselungs-Passwort bestätigen</string>

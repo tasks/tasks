@@ -374,7 +374,6 @@
     <string name="network_error">Koneksi gagal</string>
     <string name="background_sync_unmetered_only">Hanya pada koneksi tak terbatas</string>
     <string name="upgrade_to_pro">Tingkatkan ke pro</string>
-    <string name="pro_support_development">Tasks membutuhkan dukungan anda!</string>
     <string name="manage_subscription">Kelola langganan</string>
     <string name="manage_subscription_summary">Tingkatkan, turunkan, atau batalkan langganan anda</string>
     <string name="refresh_purchases">Segarkan pembelian</string>
@@ -387,13 +386,6 @@
     <string name="button_more_info">Info lainnya</string>
     <string name="about">Tentang</string>
     <string name="license_summary">Tasks adalah perangkat lunak bebas bersumber terbuka, dilindungi Lisensi Publik Umum GNU v3.0</string>
-    <string name="pro_description">Tasks adalah perangkat lunak bebas bersumber terbuka yang tidak menampilkan iklan atau menjual informasi personal anda</string>
-    <string name="pro_subscribe_now">Langganan sekarang untuk mendukung pengembangan dan mengaktifkan fitur tambahan lainnya</string>
-    <string name="themes">Ikon dan tema tambahan</string>
-    <string name="pro_caldav_sync">Sinkronisasi CalDAV</string>
-    <string name="pro_multiple_google_task_accounts">Beberapa akun Google Tasks</string>
-    <string name="pro_google_places_search">Pencarian Google Places</string>
-    <string name="pro_tasker_plugins">Plugin Tasker</string>
     <string name="pro_dashclock_extension">Ekstensi Dashclock</string>
     <string name="requires_pro_subscription">Membutuhkan langganan versi pro</string>
     <string name="logout">Keluar</string>
@@ -430,7 +422,6 @@
     <string name="show_subtasks_summary">Menampilkan subtugas akan mengurangi performa aplikasi</string>
     <string name="enter_tag_name">Masukkan nama tag</string>
     <string name="create_new_tag">Buat \"%s\"</string>
-    <string name="pro_etesync">Sinkronisasi EteSync</string>
     <string name="this_feature_requires_a_subscription">Fitur ini membutuhkan anda berlangganan versi pro</string>
     <string name="choose_synchronization_service">Pilih platform</string>
     <string name="google_tasks_selection_description">Layanan standar yang disinkronkan dengan akun Google anda</string>

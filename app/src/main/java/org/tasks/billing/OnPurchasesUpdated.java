@@ -1,5 +1,5 @@
 package org.tasks.billing;
 
 public interface OnPurchasesUpdated {
-  void onPurchasesUpdated();
+  void onPurchasesUpdated(boolean success);
 }

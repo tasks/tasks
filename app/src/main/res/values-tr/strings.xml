@@ -454,11 +454,6 @@
     <string name="error_billing_default">Faturalama kullanılabilir değil. Lütfen aygıtınızı denetleyin.</string>
     <string name="about">Hakkında</string>
     <string name="license_summary">Tasks özgür açık kaynaklı yazılımdır, GNU Genel Kamu Lisansı sürüm 3.0 altında lisanslanmıştır</string>
-    <string name="themes">Ek gövdeler ve simgeler</string>
-    <string name="pro_caldav_sync">CalDAV eşzamanlama</string>
-    <string name="pro_multiple_google_task_accounts">Çoklu Google Görev hesabı</string>
-    <string name="pro_google_places_search">Google Yerler araması</string>
-    <string name="pro_tasker_plugins">Tasker eklentileri</string>
     <string name="pro_dashclock_extension">Dashclock eklentisi</string>
     <string name="requires_pro_subscription">Pro aboneliği gerektirir</string>
     <string name="logout">Oturumu kapat</string>
@@ -497,15 +492,12 @@
     <string name="error_adding_account">Hata: %s</string>
     <string name="list_separator_with_space">", "</string>
     <string name="icon">Simge</string>
-    <string name="pro_support_development">Tasks, desteğinize gereksiniyor!</string>
     <string name="manage_subscription_summary">Aboneliğinizi yükseltin, alçaltın veya iptal edin</string>
     <string name="button_current_subscription">Geçerli abonelik</string>
     <string name="button_restore_subscription">Aboneliği geri getir</string>
     <string name="button_downgrade">Aboneliği alçalt</string>
     <string name="button_upgrade">Aboneliği yükselt</string>
     <string name="button_unsubscribe">Aboneliği iptal et</string>
-    <string name="pro_description">Tasks, kişisel bilginizi satmayan ve reklam göstermeyen özgür açık kaynaklı yazılımdır</string>
-    <string name="pro_subscribe_now">Gelişimi desteklemek ve ek özelliklerin kilidini kaldırmak için şimdi abone olun</string>
     <string name="name_your_price">Fiyat belirleyin</string>
     <string name="monthly">Aylık</string>
     <string name="annually">Yıllık</string>

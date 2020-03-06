@@ -434,10 +434,6 @@
     <string name="error_billing_default">帐单不可用。请检查你的设备。</string>
     <string name="about">关于</string>
     <string name="license_summary">Tasks是遵循GNU通用公共许可证v3.0许可证的开源软件</string>
-    <string name="themes">其他主题和图标</string>
-    <string name="pro_caldav_sync">CalDAV同步</string>
-    <string name="pro_multiple_google_task_accounts">多Google Taks帐户</string>
-    <string name="pro_tasker_plugins">Tasker 插件</string>
     <string name="pro_dashclock_extension">Dashclock扩展</string>
     <string name="requires_pro_subscription">需要订阅专业版</string>
     <string name="logout">登出</string>
@@ -463,7 +459,6 @@
     <string name="geofence_radius">半径</string>
     <string name="location_radius_meters">%s 米</string>
     <string name="manage_subscription">管理订阅</string>
-    <string name="pro_google_places_search">Google Place搜索</string>
     <string name="location_remind_arrival">抵达时提醒</string>
     <string name="location_remind_departure">离开时提醒</string>
     <string name="visit_website">访问网站</string>
@@ -486,15 +481,12 @@
     <string name="invalid_backup_file">无效的备份文件</string>
     <string name="google_tasks_add_to_top">新任务显示在顶部</string>
     <string name="icon">图标</string>
-    <string name="pro_support_development">Tasks需要您的支持!</string>
     <string name="manage_subscription_summary">升级，降级或取消您的订阅</string>
     <string name="button_current_subscription">当前订阅</string>
     <string name="button_restore_subscription">恢复订阅</string>
     <string name="button_downgrade">降级订阅</string>
     <string name="button_upgrade">升级订阅</string>
     <string name="button_unsubscribe">取消订阅</string>
-    <string name="pro_description">Tasks是不显示广告或销售您个人信息的自由开源软件</string>
-    <string name="pro_subscribe_now">现在订阅支持开发并解锁额外功能</string>
     <string name="name_your_price">您愿意支付多少费用</string>
     <string name="monthly">每月</string>
     <string name="annually">每年</string>
@@ -523,7 +515,6 @@
     <string name="encryption_password_required">需要加密密码</string>
     <string name="encryption_password">加密密码</string>
     <string name="display_name">显示名称</string>
-    <string name="pro_etesync">EteSync 同步</string>
     <string name="this_feature_requires_a_subscription">该功能需要订阅</string>
     <string name="choose_synchronization_service">选择平台</string>
     <string name="google_tasks_selection_description">与您的谷歌账户同步的基本服务</string>

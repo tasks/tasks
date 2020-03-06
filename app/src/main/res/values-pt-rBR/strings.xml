@@ -450,10 +450,6 @@ aplicativo Google Play está configurado corretamente</string>
     <string name="error_billing_default">Faturamento indisponível. Por favor cheque seu dispositivo</string>
     <string name="about">Sobre</string>
     <string name="license_summary">Tasks é um software livre e de código aberto licenciado sob a Licença Pública Geral GNU v3.0</string>
-    <string name="themes">Temas adicionais</string>
-    <string name="pro_caldav_sync">Sincronização CalDAV</string>
-    <string name="pro_multiple_google_task_accounts">Múltiplas contas do Google Tarefas</string>
-    <string name="pro_tasker_plugins">Plugins do Tasker</string>
     <string name="pro_dashclock_extension">Extensão Dashclock</string>
     <string name="requires_pro_subscription">Requer subscrição Pro</string>
     <string name="logout">Sair</string>

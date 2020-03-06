@@ -449,11 +449,6 @@ sukonfigūruota tinkamai.</string>
     <string name="error_billing_default">Sąskaita negalima. Patikrinkite savo įrenginį.</string>
     <string name="about">Apie</string>
     <string name="license_summary">Tasks yra nemokama ir atviro kodo programinė įranga, licencijuota pagal GNU General Public License v3.0 licenciją.</string>
-    <string name="themes">Papildomos temos</string>
-    <string name="pro_caldav_sync">CalDAV sinchronizacija</string>
-    <string name="pro_multiple_google_task_accounts">Kelios Google Task paskyros</string>
-    <string name="pro_google_places_search">Paieška Google Places</string>
-    <string name="pro_tasker_plugins">Tasker įskiepiai</string>
     <string name="pro_dashclock_extension">Dashclock plėtinys</string>
     <string name="requires_pro_subscription">Reikalinga \"pro\" prenumerata</string>
     <string name="logout">Atsijungti</string>

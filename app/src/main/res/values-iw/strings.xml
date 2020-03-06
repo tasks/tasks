@@ -489,11 +489,6 @@
     <string name="error_billing_default">חיוב לא זמין. בדוק את מכשירך.</string>
     <string name="about">אודות</string>
     <string name="license_summary">Tasks הוא חופשי ובקוד פתוח, מוגש בתנאי הרישיון הציבורי הכללי של GNU בגרסה 3.0</string>
-    <string name="themes">ערכות נושא וסמלים נוספים</string>
-    <string name="pro_caldav_sync">סנכרון CalDAV</string>
-    <string name="pro_multiple_google_task_accounts">ריבוי חשבונות Google Task</string>
-    <string name="pro_google_places_search">חיפוש ב\"Google לעסק שלי\"</string>
-    <string name="pro_tasker_plugins">תוסף Tasker</string>
     <string name="pro_dashclock_extension">הרחבת Dashclock</string>
     <string name="requires_pro_subscription">לא דורש הרשמה</string>
     <string name="logout">התנתקות מהחשבון</string>
@@ -529,14 +524,12 @@
     <string name="google_tasks_add_to_top">משימות חדשות בראש הרשימה</string>
     <string name="list_separator_with_space">", "</string>
     <string name="icon">סמל</string>
-    <string name="pro_support_development">Tasks צריך את התמיכה שלך!</string>
     <string name="manage_subscription_summary">שדרוג, שנמוך או ביטול המינוי</string>
     <string name="button_current_subscription">מינוי נוכחי</string>
     <string name="button_restore_subscription">שחזור מינוי</string>
     <string name="button_downgrade">שנמוך מינוי</string>
     <string name="button_upgrade">שדרוג מינוי</string>
     <string name="button_unsubscribe">ביטול מינוי</string>
-    <string name="pro_subscribe_now">יש להירשם כעת כדי לתמוך בפיתוח ולפתוח תכונתו נוספות</string>
     <string name="name_your_price">מה המחיר שלך</string>
     <string name="monthly">חודשי</string>
     <string name="annually">שנתי</string>

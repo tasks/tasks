@@ -450,11 +450,6 @@
     <string name="error_billing_default">支払がりようできません。お使いの端末を確認してください</string>
     <string name="about">アプリについて</string>
     <string name="license_summary">Tasks は、GNU General Public License v3.0 でライセンスされる、自由オープンソースソフトウェアです</string>
-    <string name="themes">追加のテーマとアイコン</string>
-    <string name="pro_caldav_sync">CalDAV 同期</string>
-    <string name="pro_multiple_google_task_accounts">複数の Google ToDo リストカウント</string>
-    <string name="pro_google_places_search">Google 場所検索</string>
-    <string name="pro_tasker_plugins">Tasker プラグイン</string>
     <string name="pro_dashclock_extension">Dashclock 拡張</string>
     <string name="requires_pro_subscription">プロ版のサブスクリプションが必要です</string>
     <string name="logout">ログアウト</string>
@@ -492,15 +487,12 @@
     <string name="url">URL</string>
     <string name="list_separator_with_space">", "</string>
     <string name="icon">アイコン</string>
-    <string name="pro_support_development">Tasksはあなたのサポートが必要です!</string>
     <string name="manage_subscription_summary">サブスクリプションのアップグレード、ダウングレード、またはキャンセル</string>
     <string name="button_current_subscription">現在のサブスクリプション</string>
     <string name="button_restore_subscription">サブスクリプションの復元</string>
     <string name="button_downgrade">サブスクリプションのダウングレード</string>
     <string name="button_upgrade">サブスクリプションのアップグレード</string>
     <string name="button_unsubscribe">サブスクリプションのキャンセル</string>
-    <string name="pro_description">Tasksは、広告を表示したり、あなたの個人情報を販売しない、自由オープンソースソフトウェアです</string>
-    <string name="pro_subscribe_now">今すぐサブスクリプションを購入して、開発をサポートし、追加機能のロックを解除しましょう</string>
     <string name="name_your_price">価格の名前</string>
     <string name="monthly">毎月</string>
     <string name="annually">毎年</string>

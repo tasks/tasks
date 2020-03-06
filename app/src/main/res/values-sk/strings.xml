@@ -449,11 +449,6 @@ Google Play je správne nastavená</string>
     <string name="error_billing_default">Platba nedostupná. Skontrolujte svoje zariadenie.</string>
     <string name="about">O</string>
     <string name="license_summary">Úlohy je bezplatný softvér s otvoreným kódom pod GNU Public Licence v3.0</string>
-    <string name="themes">Ďaľšie témy</string>
-    <string name="pro_caldav_sync">CaIDAV synchronizácia</string>
-    <string name="pro_multiple_google_task_accounts">Viac účtov Google Task</string>
-    <string name="pro_google_places_search">Miesta Google vyhľadanie</string>
-    <string name="pro_tasker_plugins">Zásuvný modul Tasker</string>
     <string name="pro_dashclock_extension">Rozšírenie Dashclock</string>
     <string name="requires_pro_subscription">Vyžaduje platenú verziu pro</string>
     <string name="logout">Odhlásiť sa</string>

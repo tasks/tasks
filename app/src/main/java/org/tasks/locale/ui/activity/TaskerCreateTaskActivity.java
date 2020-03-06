@@ -1,7 +1,5 @@
 package org.tasks.locale.ui.activity;
 
-import static org.tasks.billing.PurchaseDialog.newPurchaseDialog;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,6 +11,7 @@ import net.dinglisch.android.tasker.TaskerPlugin;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.billing.Inventory;
+import org.tasks.billing.PurchaseActivity;
 import org.tasks.databinding.ActivityTaskerCreateBinding;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.locale.bundle.TaskCreationBundle;
@@ -20,8 +19,6 @@ import org.tasks.preferences.Preferences;
 
 public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCompatActivity
     implements Toolbar.OnMenuItemClickListener {
-
-  private static final String FRAG_TAG_PURCHASE = "frag_tag_purchase";
 
   @Inject Preferences preferences;
   @Inject Inventory inventory;
@@ -71,7 +68,7 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
   }
 
   private void showPurchaseDialog() {
-    newPurchaseDialog().show(getSupportFragmentManager(), FRAG_TAG_PURCHASE);
+    startActivity(new Intent(this, PurchaseActivity.class));
   }
 
   @Override

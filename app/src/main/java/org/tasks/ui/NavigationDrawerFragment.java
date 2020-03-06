@@ -6,7 +6,6 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static com.todoroo.andlib.utility.AndroidUtilities.preLollipop;
 import static org.tasks.LocalBroadcastManager.REFRESH;
 import static org.tasks.LocalBroadcastManager.REFRESH_LIST;
-import static org.tasks.billing.PurchaseDialog.newPurchaseDialog;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -41,6 +40,7 @@ import java.util.Map;
 import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
+import org.tasks.billing.PurchaseActivity;
 import org.tasks.filters.FilterProvider;
 import org.tasks.filters.NavigationDrawerAction;
 import org.tasks.injection.FragmentComponent;
@@ -54,7 +54,6 @@ public class NavigationDrawerFragment extends InjectingFragment {
   public static final int REQUEST_SETTINGS = 10101;
   public static final int REQUEST_PURCHASE = 10102;
   public static final int REQUEST_DONATE = 10103;
-  private static final String FRAG_TAG_PURCHASE_DIALOG = "frag_tag_purchase_dialog";
 
   private final RefreshReceiver refreshReceiver = new RefreshReceiver();
   @Inject LocalBroadcastManager localBroadcastManager;
@@ -118,7 +117,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
             } else if (item instanceof NavigationDrawerAction) {
               NavigationDrawerAction action = (NavigationDrawerAction) item;
               if (action.requestCode == REQUEST_PURCHASE) {
-                newPurchaseDialog().show(getFragmentManager(), FRAG_TAG_PURCHASE_DIALOG);
+                startActivity(new Intent(getContext(), PurchaseActivity.class));
               } else if (action.requestCode == REQUEST_DONATE) {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://tasks.org/donate")));
               } else {

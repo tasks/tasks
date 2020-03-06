@@ -451,10 +451,6 @@
     <string name="error_billing_default">결제가 불가합니다. 기기를 확인하십시오.</string>
     <string name="about">정보</string>
     <string name="license_summary">Tasks는 GNU 일반공중사용권 3.0 (GPLv3)에 따라 사용이 허가된 리브레 오픈소스 소프트웨어입니다</string>
-    <string name="themes">추가적인 테마와 아이콘</string>
-    <string name="pro_caldav_sync">CalDAV 동기화</string>
-    <string name="pro_multiple_google_task_accounts">여러개의 구글 할일목록 계정 연결</string>
-    <string name="pro_tasker_plugins">Tasker 플러그인</string>
     <string name="pro_dashclock_extension">Dashclock 확장프로그램</string>
     <string name="requires_pro_subscription">프로 서비스 구독이 필요합니다</string>
     <string name="logout">로그아웃</string>
@@ -477,7 +473,6 @@
     <string name="error_adding_account">오류: %s</string>
     <string name="list_separator_with_space">", "</string>
     <string name="manage_subscription">구독 관리</string>
-    <string name="pro_google_places_search">구글 플레이스 검색</string>
     <string name="visit_website">웹사이트 방문</string>
     <string name="choose_a_location">위치 선택</string>
     <string name="pick_this_location">현위치 선택</string>
@@ -495,15 +490,12 @@
     <string name="invalid_backup_file">부적합한 백업 파일</string>
     <string name="google_tasks_add_to_top">새 할일을 가장 위로</string>
     <string name="icon">아이콘</string>
-    <string name="pro_support_development">Tasks는 여러분의 도움이 필요합니다!</string>
     <string name="manage_subscription_summary">업그레이드, 다운그레이드, 구독 취소</string>
     <string name="button_current_subscription">현재 구독</string>
     <string name="button_restore_subscription">구독 복원</string>
     <string name="button_downgrade">구독 다운그레이드</string>
     <string name="button_upgrade">구독 업그레이드</string>
     <string name="button_unsubscribe">구독 취소</string>
-    <string name="pro_description">Tasks는 광고를 게시하거나 개인정보를 판매하지 않는 리브레 오픈소스 소프트웨어입니다</string>
-    <string name="pro_subscribe_now">개발을 후원하고 부가 기능을 사용할 수 있도록 지금 구독하기</string>
     <string name="name_your_price">구독 금액 정하기</string>
     <string name="monthly">매월</string>
     <string name="annually">매년</string>
@@ -528,7 +520,6 @@
     <string name="create_new_tag">\"%s\" 생성</string>
     <string name="encryption_password_required">암호화 비밀번호 필수</string>
     <string name="encryption_password">암호화 비밀번호</string>
-    <string name="pro_etesync">EteSync 동기화</string>
     <string name="this_feature_requires_a_subscription">이 기능을 사용하려면 구독해야 합니다</string>
     <string name="choose_synchronization_service">플랫폼 선택</string>
     <string name="google_tasks_selection_description">기본 서비스는 구글 계정과 동기화합니다</string>

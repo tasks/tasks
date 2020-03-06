@@ -272,10 +272,6 @@
     <string name="button_subscribe">Telli</string>
     <string name="button_more_info">Lisainfo</string>
     <string name="about">Info</string>
-    <string name="themes">Lisateemad</string>
-    <string name="pro_caldav_sync">CalDAV sünkroonimine</string>
-    <string name="pro_multiple_google_task_accounts">Mitu Google Taski kontot</string>
-    <string name="pro_tasker_plugins">Taskeri pluginad</string>
     <string name="pro_dashclock_extension">Dashclock laiendused</string>
     <string name="requires_pro_subscription">Nõuavad PRO versiooni</string>
     <string name="logout">Logi välja</string>

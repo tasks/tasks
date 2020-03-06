@@ -471,7 +471,6 @@ File %1$s contained %2$s.\n\n
   <string name="network_error">Connection failed</string>
   <string name="background_sync_unmetered_only">Only on unmetered connections</string>
   <string name="upgrade_to_pro">Upgrade to pro</string>
-  <string name="pro_support_development">Tasks needs your support!</string>
   <string name="manage_subscription">Manage subscription</string>
   <string name="manage_subscription_summary">Upgrade, downgrade, or cancel your subscription</string>
   <string name="refresh_purchases">Refresh purchases</string>
@@ -487,14 +486,6 @@ File %1$s contained %2$s.\n\n
   <string name="error_billing_default">Billing unavailable. Please check your device.</string>
   <string name="about">About</string>
   <string name="license_summary">Tasks is libre open-source software, licensed under the GNU General Public License v3.0</string>
-  <string name="pro_description">Tasks is libre open-source software that does not display advertisements or sell your personal information</string>
-  <string name="pro_subscribe_now">Subscribe now to support development and unlock additional features</string>
-  <string name="themes">Additional themes and icons</string>
-  <string name="pro_caldav_sync">CalDAV synchronization</string>
-  <string name="pro_etesync">EteSync synchronization</string>
-  <string name="pro_multiple_google_task_accounts">Multiple Google Task accounts</string>
-  <string name="pro_google_places_search">Google Places search</string>
-  <string name="pro_tasker_plugins">Tasker plugins</string>
   <string name="pro_dashclock_extension">Dashclock extension</string>
   <string name="requires_pro_subscription">Requires pro subscription</string>
   <string name="this_feature_requires_a_subscription">This feature requires a subscription</string>
@@ -563,4 +554,9 @@ File %1$s contained %2$s.\n\n
   <string name="more_notification_settings_summary">Ringtone, vibrations, and more</string>
   <string name="invalid_username_or_password">Invalid username or password</string>
   <string name="color_wheel">Color wheel</string>
+  <string name="upgrade_blurb_1">Hi! My name is Alex. I am the independent developer behind Tasks</string>
+  <string name="upgrade_blurb_2">I have spent thousands of hours working on Tasks, and I publish all of the source code online for free. In order to support my work some features require a subscription</string>
+  <string name="upgrade_blurb_3">Choose any subscription price below to start your free trial. You may cancel at any time</string>
+  <string name="upgrade_blurb_4">Your support means a lot to me, thank you!</string>
+  <string name="back">Back</string>
 </resources>

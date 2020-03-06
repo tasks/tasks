@@ -451,11 +451,6 @@
     <string name="error_billing_default">Pago no disponible. Comprueba su dispositivo.</string>
     <string name="about">Sobre</string>
     <string name="license_summary">Tasks es software libre de código abierto, licenciado bajo la GNU General Public License v3.0</string>
-    <string name="themes">Temas e iconos adicionales</string>
-    <string name="pro_caldav_sync">Sincronización de CalDAV</string>
-    <string name="pro_multiple_google_task_accounts">Múltiples cuentas de Google Task</string>
-    <string name="pro_google_places_search">Buscar en Google Places</string>
-    <string name="pro_tasker_plugins">Plugins de Tasker</string>
     <string name="pro_dashclock_extension">Extensión Dashclock</string>
     <string name="requires_pro_subscription">Requiere suscripción profesional</string>
     <string name="logout">Cerrar sesión</string>
@@ -497,15 +492,12 @@
     <string name="error_adding_account">Error : %s</string>
     <string name="list_separator_with_space">", "</string>
     <string name="icon">Icono</string>
-    <string name="pro_support_development">¡Tasks necesitan su apoyo!</string>
     <string name="manage_subscription_summary">Actualizar, rebajar o cancelar su suscripción</string>
     <string name="button_current_subscription">Suscripción actual</string>
     <string name="button_restore_subscription">Restaurar la suscripción</string>
     <string name="button_downgrade">Suscripción de degradación</string>
     <string name="button_upgrade">Suscripción de actualización</string>
     <string name="button_unsubscribe">Cancelar la suscripción</string>
-    <string name="pro_description">Tasks es un software libre de código abierto que no muestra publicidad ni vende su información personal</string>
-    <string name="pro_subscribe_now">Suscríbase ahora para apoyar el desarrollo y desbloquear funciones adicionales</string>
     <string name="name_your_price">Escoger tu precio</string>
     <string name="monthly">Mensualmente</string>
     <string name="annually">Anualmente</string>
@@ -532,7 +524,6 @@
     <string name="encryption_password_required">Contraseña de encriptado requerida</string>
     <string name="encryption_password">Contraseña de encriptado</string>
     <string name="display_name">Mostrar el nombre</string>
-    <string name="pro_etesync">Sincronización de EteSync</string>
     <string name="this_feature_requires_a_subscription">Esta característica requiere una suscripción</string>
     <string name="choose_synchronization_service">Seleccione una plataforma</string>
     <string name="google_tasks_selection_description">Servicio básico que se sincroniza con tu cuenta de Google</string>

@@ -171,7 +171,7 @@
     <item name="android:textColor">@color/button_accent_text</item>
     <item name="backgroundTint">@color/button_accent_background</item>
     <item name="rippleColor">@color/button_accent_ripple</item>
-    <item name="strokeColor">@color/button_accent_stroke</item>
+    <item name="strokeColor">@color/button_selected_accent_stroke</item>
   </style>
 
   <style name="TextButton" parent="Widget.MaterialComponents.Button.TextButton">

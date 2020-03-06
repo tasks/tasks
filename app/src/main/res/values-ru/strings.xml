@@ -470,10 +470,6 @@
     <string name="error_billing_default">Оплата невозможна. Проверьте ваше устройство.</string>
     <string name="about">О программе</string>
     <string name="license_summary">Tasks является свободным программным обеспечением с открытым исходным кодом, лицензированным под GNU General Public License v3.0</string>
-    <string name="themes">Дополнительные темы и иконки</string>
-    <string name="pro_caldav_sync">Синхронизация CalDAV</string>
-    <string name="pro_multiple_google_task_accounts">Несколько учётных записей Google Task</string>
-    <string name="pro_tasker_plugins">Плагины для Tasker</string>
     <string name="pro_dashclock_extension">Расширение для Dashclock</string>
     <string name="requires_pro_subscription">Требуется версия Про</string>
     <string name="logout">Отключиться</string>
@@ -503,7 +499,6 @@
     <string name="choose_new_location">Выберите новое местоположение</string>
     <string name="invalid_backup_file">Неверный файл резервной копии</string>
     <string name="icon">Иконка</string>
-    <string name="pro_support_development">Tasks нуждается в вашей поддержке!</string>
     <string name="button_current_subscription">Текущая подписка</string>
     <string name="button_restore_subscription">Восстановить подписку</string>
     <string name="button_unsubscribe">Отменить подписку</string>
@@ -511,14 +506,11 @@
     <string name="url">URL</string>
     <string name="error_adding_account">Ошибка: %s</string>
     <string name="list_separator_with_space">", "</string>
-    <string name="pro_google_places_search">Поиск в Google Places</string>
     <string name="show_list_indicators">Показать списки</string>
     <string name="building_notifications">Генерация уведомлений</string>
     <string name="manage_subscription_summary">Повысить, понизить уровень подписки или отменить ее</string>
     <string name="button_downgrade">Понизить уровень подписки</string>
     <string name="button_upgrade">Повысить уровень подписки</string>
-    <string name="pro_description">Tasks - это свободное программное обеспечение с открытым исходным кодом, которое не показывает рекламу и не продает вашу личную информацию</string>
-    <string name="pro_subscribe_now">Подпишитесь сейчас, чтобы поддержать разработку и разблокировать дополнительные функции</string>
     <string name="SSD_sort_my_order">Ручная сортировка</string>
     <string name="EPr_temp_show_completed_tasks">Временно показывать задачи после завершения</string>
     <string name="EPr_temp_completed_tasks_showing">Задачи будут временно видны в списке после завершения</string>
@@ -549,7 +541,6 @@
     <string name="encryption_password_required">Требуется пароль шифрования</string>
     <string name="encryption_password">Пароль шифрования</string>
     <string name="display_name">Имя</string>
-    <string name="pro_etesync">Синхронизация EteSync</string>
     <string name="this_feature_requires_a_subscription">Эта функция требует подписки</string>
     <string name="choose_synchronization_service">Выберите платформу</string>
     <string name="google_tasks_selection_description">Простой сервис, который синхронизируется с Вашим аккаунтом Google</string>
