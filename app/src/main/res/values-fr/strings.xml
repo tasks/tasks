@@ -282,7 +282,7 @@
     <string name="silent">Silencieux</string>
     <string name="sound">Son</string>
     <string name="quiet_hours">Heures de repos</string>
-    <string name="attachment_directory">Dossier pour les fichiers attachés</string>
+    <string name="attachment_directory">Dossier des pièces jointes</string>
     <string name="backup_directory">Dossier de sauvegarde</string>
     <string name="google_drive_backup">Copier sur Google Drive</string>
     <string name="miscellaneous">Divers</string>
@@ -320,7 +320,7 @@
     <string name="date_shortcut_must_come_after">%1$s doit venir après %2$s</string>
     <string name="discard_changes">Annuler les modifications \?</string>
     <string name="discard">Annuler</string>
-    <string name="tag_settings">Paramètres des tags</string>
+    <string name="tag_settings">Paramètres des balises</string>
     <string name="list_settings">Paramètres de la liste</string>
     <string name="delete">Effacer</string>
     <string name="copy">Copier</string>
@@ -329,7 +329,7 @@
     <string name="show_hidden">Afficher les tâches cachées</string>
     <string name="show_completed">Afficher les tâches terminées</string>
     <string name="reverse">Inverser</string>
-    <string name="no_application_found">Aucune application trouvée pour ouvrir la pièce jointe</string>
+    <string name="no_application_found">Aucune application ne peut ouvrir la pièce jointe</string>
     <string name="add_attachment">Ajouter une pièce jointe</string>
     <string name="take_a_picture">Prendre une photo</string>
     <string name="pick_from_gallery">Choisir depuis la galerie</string>
@@ -359,7 +359,7 @@
     <string name="theme_wallpaper">Fond d\'écran</string>
     <string name="theme_day_night">Jour/Nuit</string>
     <string name="language">Langage</string>
-    <string name="restart_required">Tasks doit être redémarré pour que les changements prennent effet</string>
+    <string name="restart_required">Redémarrer Tasks pour que ce changement prenne effet</string>
     <string name="restart_now">Redémarrer maintenant</string>
     <string name="restart_later">Plus tard</string>
     <string name="settings_localization">Localisation</string>
@@ -369,7 +369,7 @@
     <string name="widget_settings">Paramètres du widget</string>
     <string name="widget_header_settings">Paramètres de l\'en-tête</string>
     <string name="widget_row_settings">Paramètres de la colonne</string>
-    <string name="sync_error_permissions">Tasks requiert les permissions</string>
+    <string name="sync_error_permissions">Autorisation requise</string>
     <string name="clear_completed_tasks_confirmation">Supprimer les tâches terminées ?</string>
     <string name="copy_multiple_tasks_confirmation">%s copiées</string>
     <string name="delete_multiple_tasks_confirmation">%s supprimées</string>
@@ -408,7 +408,7 @@
     <string name="dont_add_to_calendar">Ajouter à votre calendrier</string>
     <string name="default_calendar">Calendrier par défaut</string>
     <string name="badges_description">Afficher un compteur de tâche sur l\'icône du lanceur de Tasks. Certains lanceurs ne supportent pas les badges.</string>
-    <string name="bundle_notifications_summary">Combiner plusieurs notifications dans une seule notification</string>
+    <string name="bundle_notifications_summary">Combiner plusieurs notifications en une seule</string>
     <string name="repeat_monthly_same_day_each_month">le même jour chaque mois</string>
     <string name="dont_sync">Ne pas synchroniser</string>
     <string name="repeat_monthly_every_day_of_nth_week">tous les %1$s %2$s</string>
@@ -422,7 +422,7 @@
     <string name="tasker_list_notification">Liste des notifications</string>
     <string name="help">Aide</string>
     <string name="caldav_home_set_not_found">Ensemble d\'accueil non trouvé</string>
-    <string name="network_error">Connexion échouée</string>
+    <string name="network_error">Impossible de se connecter</string>
     <string name="background_sync_unmetered_only">Uniquement sur les connexions illimitées</string>
     <string name="upgrade_to_pro">Passer en pro</string>
     <string name="manage_subscription">Gérer les abonnements</string>
@@ -514,7 +514,7 @@ est configuré correctement</string>
     <string name="enter_title_hint">Entrer le titre</string>
     <string name="show_subtasks">Afficher les sous-tâches</string>
     <string name="show_subtasks_summary">L\'affichage des sous-tâches dégradera les performances de l\'application</string>
-    <string name="no_application_found_link">Aucune application trouvée pour gérer le lien</string>
+    <string name="no_application_found_link">Aucune application ne pouvait gérer le lien</string>
     <string name="enter_tag_name">Entrez le nom du tag</string>
     <string name="create_new_tag">Créer %s</string>
     <string name="encryption_password_required">Mot de passe de chiffrement requis</string>
@@ -530,7 +530,7 @@ est configuré correctement</string>
     <string name="show_advanced_settings">Afficher les paramètres avancés</string>
     <string name="caldav_account_description">Nécessite un compte auprès d\'un fournisseur de services CalDAV ou un serveur auto-hébergé. Trouvez un fournisseur de services en visitant tasks.org/caldav</string>
     <string name="etesync_account_description">Nécessite un compte sur EteSync.com ou un serveur auto-hébergé</string>
-    <string name="etesync_encryption_description">Choisissez un mot de passe de chiffrement. N\'oubliez pas votre mot de passe, il ne peut pas être récupéré !</string>
+    <string name="etesync_encryption_description">N\'oubliez pas le mot de passe de cryptage que vous choisissez, il ne peut pas être récupéré !</string>
     <string name="encryption_password_wrong">Mot de passe de chiffrement erroné</string>
     <string name="help_and_feedback">Aide et commentaires</string>
     <string name="documentation">Documentation</string>
@@ -547,4 +547,9 @@ est configuré correctement</string>
     <string name="invalid_username_or_password">Nom d\'utilisateur ou mot de passe invalide</string>
     <string name="theme_system_default">Défaut du système</string>
     <string name="color_wheel">Palette de couleurs</string>
+    <string name="upgrade_blurb_1">Salut ! Je m\'appelle Alex. Je suis le développeur indépendant à l\'origine de Tasks</string>
+    <string name="upgrade_blurb_2">J\'ai passé des milliers d\'heures à travailler sur Tasks, et je publie gratuitement tout le code source en ligne. Afin de soutenir mon travail, certaines fonctionnalités nécessitent un abonnement</string>
+    <string name="upgrade_blurb_3">Choisissez l\'un des prix d\'abonnement ci-dessous pour commencer votre essai gratuit. Vous pouvez annuler à tout moment</string>
+    <string name="upgrade_blurb_4">Votre soutien est très important pour moi, merci !</string>
+    <string name="back">Retour</string>
 </resources>
