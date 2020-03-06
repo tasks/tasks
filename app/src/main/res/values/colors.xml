@@ -119,7 +119,7 @@
 
   <color name="overdue">@color/error_color_material_light</color>
 
-  <color name="md_background_light">@color/white_100</color>
+  <color name="md_background_light">@color/design_default_color_background</color>
   <color name="md_background_dark">#202124</color>
   <color name="widget_background_black">#000000</color>
   <color name="icon_tint_light">@android:color/black</color>
