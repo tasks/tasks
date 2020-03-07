@@ -10,4 +10,9 @@
     <item name="android:visibility">gone</item>
   </style>
 
+  <style name="BaseHorizontalDivider">
+    <item name="android:background">?attr/dividerHorizontal</item>
+  </style>
+
+
 </resources>

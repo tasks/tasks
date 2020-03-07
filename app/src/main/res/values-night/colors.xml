@@ -12,6 +12,7 @@
   <color name="overdue">@color/error_color_material_dark</color>
   <color name="tag_color_none_background">@color/grey_300</color>
   <color name="chip_text">@color/white_72</color>
+  <color name="divider">@color/white_12</color>
 
   <color name="priority_1">@color/red_200</color>
   <color name="priority_2">@color/amber_200</color>

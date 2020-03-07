@@ -110,12 +110,14 @@
   <color name="black_87">#de000000</color>
   <color name="black_60">#99000000</color>
   <color name="black_38">#61000000</color>
+  <color name="black_12">#1F000000</color>
 
   <color name="white_100">#ffffffff</color>
   <color name="white_87">#deffffff</color>
   <color name="white_72">#b8ffffff</color>
   <color name="white_60">#99ffffff</color>
   <color name="white_38">#61ffffff</color>
+  <color name="white_12">#1fffffff</color>
 
   <color name="overdue">@color/error_color_material_light</color>
 
@@ -159,6 +161,7 @@
   <color name="text_secondary">@color/black_60</color>
   <color name="text_tertiary">@color/black_38</color>
   <color name="chip_text">@color/black_100</color>
+  <color name="divider">@color/black_12</color>
 
 </resources>
 
