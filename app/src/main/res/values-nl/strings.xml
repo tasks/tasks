@@ -294,7 +294,7 @@
     <string name="sound">Geluid</string>
     <string name="vibrations">Trillingen</string>
     <string name="quiet_hours">Rustperiode</string>
-    <string name="attachment_directory">Bijlage directory</string>
+    <string name="attachment_directory">Bijlage map</string>
     <string name="google_drive_backup">Kopieer naar Google Drive</string>
     <string name="miscellaneous">Diversen</string>
     <string name="synchronization">Synchronisatie</string>
@@ -331,7 +331,7 @@
     <string name="date_shortcut_must_come_after">%1$s moet na %2$s komen</string>
     <string name="discard_changes">Negeer veranderingen?</string>
     <string name="discard">Negeer</string>
-    <string name="tag_settings">Label Instellingen</string>
+    <string name="tag_settings">Label instellingen</string>
     <string name="list_settings">Lijst instellingen</string>
     <string name="delete">Verwijder</string>
     <string name="copy">Kopiëer</string>
@@ -340,7 +340,7 @@
     <string name="show_hidden">Toon verborgen</string>
     <string name="show_completed">Toon voltooide</string>
     <string name="reverse">Omgekeerde</string>
-    <string name="no_application_found">Geen applicatie gevonden om de bijlage te openen</string>
+    <string name="no_application_found">Geen applicatie kan de bijlage te openen</string>
     <string name="add_attachment">Bijlage toevoegen</string>
     <string name="take_a_picture">Maak een foto</string>
     <string name="pick_from_gallery">Kies uit de gallerij</string>
@@ -369,7 +369,7 @@
     <string name="theme_wallpaper">Achtergrond</string>
     <string name="theme_day_night">Dag/Nacht</string>
     <string name="language">Taal</string>
-    <string name="restart_required">Tasks moet opnieuw gestart worden om de nieuwe wijzingen te activeren</string>
+    <string name="restart_required">Start Tasks opnieuw om deze wijzingen te activeren</string>
     <string name="restart_now">Herstart nu</string>
     <string name="settings_localization">Vertalingen</string>
     <string name="led_notification">LED notificatie</string>
@@ -378,7 +378,7 @@
     <string name="widget_settings">Widget instellingen</string>
     <string name="widget_header_settings">Titel instellingen</string>
     <string name="widget_row_settings">Regel instellingen</string>
-    <string name="sync_error_permissions">Tasks vereist permissie</string>
+    <string name="sync_error_permissions">Permissie vereist</string>
     <string name="clear_completed_tasks_confirmation">Verwijder voltooide taken?</string>
     <string name="copy_multiple_tasks_confirmation">%s gekopieerd</string>
     <string name="delete_multiple_tasks_confirmation">%s verwijderd</string>
@@ -416,8 +416,8 @@
     <string name="repeats_plural_on_number_of_times">Herhaal elke %1$s op %2$s, aantal keren %3$d %4$s</string>
     <string name="dont_add_to_calendar">Voeg niet toe aan kalender</string>
     <string name="default_calendar">Standaard kalender</string>
-    <string name="badges_description">Toon een taken teller bij de Task app icon. Niet alle launchers ondersteunen dit.</string>
-    <string name="bundle_notifications_summary">Combineer meerdere notificaties samen in een</string>
+    <string name="badges_description">Toon een taken teller bij de Tasks app icon. Niet alle launchers ondersteunen dit.</string>
+    <string name="bundle_notifications_summary">Combineer meerdere notificaties samen in één</string>
     <string name="repeat_monthly_same_day_each_month">Op dezelfde dag elke maand</string>
     <string name="dont_sync">Niet synchroniseren</string>
     <string name="repeat_monthly_every_day_of_nth_week">elke %1$s %2$s</string>
@@ -430,7 +430,7 @@
     <string name="tasker_create_task">Taak maken</string>
     <string name="tasker_list_notification">Notificatie lijst</string>
     <string name="caldav_home_set_not_found">Home set niet gevonden</string>
-    <string name="network_error">Verbinding mislukt</string>
+    <string name="network_error">Kon geen verbinding maken</string>
     <string name="background_sync_unmetered_only">Alleen bij onbeperkte verbindingen</string>
     <string name="upgrade_to_pro">Opwaarderen naar pro</string>
     <string name="manage_subscription">Beheer aanmeldingen</string>
@@ -476,7 +476,7 @@
     <string name="google_tasks_add_to_top">Nieuwe taken bovenaan</string>
     <string name="action_open">Open</string>
     <string name="TEA_timer_controls">Timer</string>
-    <string name="backup_directory">Backup locatie</string>
+    <string name="backup_directory">Backup map</string>
     <string name="location_radius_meters">%s m</string>
     <string name="filters">Filters</string>
     <string name="filter">Filter</string>
@@ -513,7 +513,7 @@
     <string name="enter_title_hint">Voer titel in</string>
     <string name="show_subtasks">Deeltaken tonen</string>
     <string name="show_subtasks_summary">Deeltaken tonen vermindert prestaties van de app</string>
-    <string name="no_application_found_link">Geen applicatie gevonden om de link te openen</string>
+    <string name="no_application_found_link">Geen applicatie kan de link te openen</string>
     <string name="enter_tag_name">Voer label naam in</string>
     <string name="create_new_tag">Maak \"%s\" aan</string>
     <string name="encryption_password_required">Coderingswachtwoord vereist</string>
@@ -529,7 +529,7 @@
     <string name="show_advanced_settings">Toon geavanceerde instellingen</string>
     <string name="caldav_account_description">Vereist een account bij een CalDAV dienstverlener of een eigen server. Vind een dienstverlener door tasks.org/caldav te bezoeken</string>
     <string name="etesync_account_description">Vereist een account op EteSync.com of een eigen server</string>
-    <string name="etesync_encryption_description">Kies een coderingswachtwoord. Vergeet je wachtwoord niet, want het kan niet worden hersteld!</string>
+    <string name="etesync_encryption_description">Onthoud het coderingswachtwoord dat je kiest, want het kan niet worden hersteld!</string>
     <string name="encryption_password_wrong">Fout coderingswachtwoord</string>
     <string name="help_and_feedback">Hulp &amp; feedback</string>
     <string name="documentation">Documentatie</string>
@@ -546,4 +546,9 @@
     <string name="invalid_username_or_password">Ongeldige gebruikersnaam of wachtwoord</string>
     <string name="theme_system_default">Systeeminstelling</string>
     <string name="color_wheel">Kleurenwiel</string>
+    <string name="upgrade_blurb_1">Hoi! Mijn naam is Alex. Ik ben de onafhankelijke ontwikkelaar achter Tasks</string>
+    <string name="upgrade_blurb_2">Ik heb duizenden uren aan Tasks gewerkt, en ik publiceer de volledige broncode gratis online. Om mijn werk te steunen vereisen sommige functies een abonnement</string>
+    <string name="upgrade_blurb_3">Kies hierbeneden een abonnementsprijs om je gratis proefperiode te starten. Je kunt het altijd annuleren</string>
+    <string name="upgrade_blurb_4">Je steun betekent veel voor me, bedankt!</string>
+    <string name="back">Terug</string>
 </resources>
