@@ -20,6 +20,7 @@ import at.bitfire.dav4jvm.exception.DavException;
 import at.bitfire.dav4jvm.exception.HttpException;
 import at.bitfire.dav4jvm.exception.ServiceUnavailableException;
 import at.bitfire.dav4jvm.exception.UnauthorizedException;
+import at.bitfire.dav4jvm.property.CalendarColor;
 import at.bitfire.dav4jvm.property.CalendarData;
 import at.bitfire.dav4jvm.property.DisplayName;
 import at.bitfire.dav4jvm.property.GetCTag;
@@ -155,13 +156,22 @@ public class CaldavSynchronizer {
       String url = resource.getHref().toString();
 
       CaldavCalendar calendar = caldavDao.getCalendarByUrl(account.getUuid(), url);
+      String remoteName = resource.get(DisplayName.class).getDisplayName();
+      CalendarColor calendarColor = resource.get(CalendarColor.class);
+      int color = calendarColor == null ? 0 : calendarColor.getColor();
       if (calendar == null) {
         calendar = new CaldavCalendar();
-        calendar.setName(resource.get(DisplayName.class).getDisplayName());
+        calendar.setName(remoteName);
         calendar.setAccount(account.getUuid());
         calendar.setUrl(url);
         calendar.setUuid(UUIDHelper.newUUID());
+        calendar.setColor(color);
         caldavDao.insert(calendar);
+      } else if (!calendar.getName().equals(remoteName) || calendar.getColor() != color) {
+        calendar.setColor(color);
+        calendar.setName(remoteName);
+        caldavDao.update(calendar);
+        localBroadcastManager.broadcastRefreshList();
       }
       sync(calendar, resource, caldavClient.getHttpClient());
     }
@@ -182,14 +192,6 @@ public class CaldavSynchronizer {
     Timber.d("sync(%s)", caldavCalendar);
     HttpUrl httpUrl = resource.getHref();
     pushLocalChanges(caldavCalendar, httpClient, httpUrl);
-
-    String remoteName = resource.get(DisplayName.class).getDisplayName();
-    if (!caldavCalendar.getName().equals(remoteName)) {
-      Timber.d("%s -> %s", caldavCalendar.getName(), remoteName);
-      caldavCalendar.setName(remoteName);
-      caldavDao.update(caldavCalendar);
-      localBroadcastManager.broadcastRefreshList();
-    }
 
     SyncToken syncToken = resource.get(SyncToken.class);
     GetCTag ctag = resource.get(GetCTag.class);

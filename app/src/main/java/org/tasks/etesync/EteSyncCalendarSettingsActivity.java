@@ -25,7 +25,7 @@ public class EteSyncCalendarSettingsActivity extends BaseCaldavCalendarSettingsA
 
     createCalendarViewModel.observe(this, this::createSuccessful, this::requestFailed);
     deleteCalendarViewModel.observe(this, this::onDeleted, this::requestFailed);
-    updateCalendarViewModel.observe(this, uid -> updateAccount(), this::requestFailed);
+    updateCalendarViewModel.observe(this, uid -> updateCalendar(), this::requestFailed);
   }
 
   @Override

@@ -16,6 +16,7 @@ import at.bitfire.dav4jvm.Response.HrefRelation;
 import at.bitfire.dav4jvm.XmlUtils;
 import at.bitfire.dav4jvm.exception.DavException;
 import at.bitfire.dav4jvm.exception.HttpException;
+import at.bitfire.dav4jvm.property.CalendarColor;
 import at.bitfire.dav4jvm.property.CalendarHomeSet;
 import at.bitfire.dav4jvm.property.CurrentUserPrincipal;
 import at.bitfire.dav4jvm.property.DisplayName;
@@ -207,6 +208,7 @@ public class CaldavClient {
           DisplayName.NAME,
           SupportedCalendarComponentSet.NAME,
           GetCTag.NAME,
+          CalendarColor.NAME,
           SyncToken.NAME
         },
         responses);
@@ -234,16 +236,57 @@ public class CaldavClient {
     new DavResource(httpClient, httpUrl).delete(null, response -> null);
   }
 
-  String makeCollection(String displayName)
+  String makeCollection(String displayName, int color)
       throws IOException, XmlPullParserException, HttpException {
     DavResource davResource =
         new DavResource(httpClient, httpUrl.resolve(UUIDHelper.newUUID() + "/"));
-    String mkcolString = getMkcolString(displayName);
+    String mkcolString = getMkcolString(displayName, color);
+
     davResource.mkCol(mkcolString, response -> null);
     return davResource.getLocation().toString();
   }
 
-  private String getMkcolString(String displayName) throws IOException, XmlPullParserException {
+  String updateCollection(String displayName, int color)
+      throws IOException, XmlPullParserException, HttpException {
+    PatchableDavResource davResource = new PatchableDavResource(httpClient, httpUrl);
+    davResource.propPatch(getPropPatchString(displayName, color), response -> null);
+    return davResource.getLocation().toString();
+  }
+
+  private String getPropPatchString(String displayName, int color)
+      throws IOException, XmlPullParserException {
+    XmlPullParserFactory xmlPullParserFactory = XmlPullParserFactory.newInstance();
+    XmlSerializer xml = xmlPullParserFactory.newSerializer();
+    StringWriter stringWriter = new StringWriter();
+    xml.setOutput(stringWriter);
+    xml.startDocument("UTF-8", null);
+    xml.setPrefix("", NS_WEBDAV);
+    xml.setPrefix("CAL", NS_CALDAV);
+    xml.setPrefix("CARD", NS_CARDDAV);
+    xml.startTag(NS_WEBDAV, "propertyupdate");
+    xml.startTag(XmlUtils.NS_WEBDAV, "set");
+    xml.startTag(XmlUtils.NS_WEBDAV, "prop");
+    setDisplayName(xml, displayName);
+    if (color != 0) {
+      setColor(xml, color);
+    }
+    xml.endTag(XmlUtils.NS_WEBDAV, "prop");
+    xml.endTag(XmlUtils.NS_WEBDAV, "set");
+    if (color == 0) {
+      xml.startTag(XmlUtils.NS_WEBDAV, "remove");
+      xml.startTag(XmlUtils.NS_WEBDAV, "prop");
+      xml.startTag(XmlUtils.NS_APPLE_ICAL, "calendar-color");
+      xml.endTag(XmlUtils.NS_APPLE_ICAL, "calendar-color");
+      xml.endTag(XmlUtils.NS_WEBDAV, "prop");
+      xml.endTag(XmlUtils.NS_WEBDAV, "remove");
+    }
+    xml.endTag(XmlUtils.NS_WEBDAV, "propertyupdate");
+    xml.endDocument();
+    xml.flush();
+    return stringWriter.toString();
+  }
+
+  private String getMkcolString(String displayName, int color) throws IOException, XmlPullParserException {
     XmlPullParserFactory xmlPullParserFactory = XmlPullParserFactory.newInstance();
     XmlSerializer xml = xmlPullParserFactory.newSerializer();
     StringWriter stringWriter = new StringWriter();
@@ -261,9 +304,10 @@ public class CaldavClient {
     xml.startTag(XmlUtils.NS_CALDAV, "calendar");
     xml.endTag(XmlUtils.NS_CALDAV, "calendar");
     xml.endTag(XmlUtils.NS_WEBDAV, "resourcetype");
-    xml.startTag(XmlUtils.NS_WEBDAV, "displayname");
-    xml.text(displayName);
-    xml.endTag(XmlUtils.NS_WEBDAV, "displayname");
+    setDisplayName(xml, displayName);
+    if (color != 0) {
+      setColor(xml, color);
+    }
     xml.startTag(XmlUtils.NS_CALDAV, "supported-calendar-component-set");
     xml.startTag(XmlUtils.NS_CALDAV, "comp");
     xml.attribute(null, "name", "VTODO");
@@ -275,6 +319,18 @@ public class CaldavClient {
     xml.endDocument();
     xml.flush();
     return stringWriter.toString();
+  }
+
+  private void setDisplayName(XmlSerializer xml, String name) throws IOException {
+    xml.startTag(XmlUtils.NS_WEBDAV, "displayname");
+    xml.text(name);
+    xml.endTag(XmlUtils.NS_WEBDAV, "displayname");
+  }
+
+  private void setColor(XmlSerializer xml, int color) throws IOException {
+    xml.startTag(XmlUtils.NS_APPLE_ICAL, "calendar-color");
+    xml.text(String.format("#%06X%02X", color & 0xFFFFFF, color >>> 24));
+    xml.endTag(XmlUtils.NS_APPLE_ICAL, "calendar-color");
   }
 
   OkHttpClient getHttpClient() {

@@ -127,7 +127,7 @@ public abstract class BaseCaldavCalendarSettingsActivity extends BaseListSetting
       showProgressIndicator();
       updateNameAndColor(caldavAccount, caldavCalendar, name, selectedColor);
     } else if (iconChanged()) {
-      updateAccount();
+      updateCalendar();
     } else {
       finish();
     }
@@ -197,7 +197,7 @@ public abstract class BaseCaldavCalendarSettingsActivity extends BaseListSetting
     finish();
   }
 
-  protected void updateAccount() {
+  protected void updateCalendar() {
     caldavCalendar.setName(getNewName());
     caldavCalendar.setColor(selectedColor);
     caldavCalendar.setIcon(selectedIcon);
