@@ -251,7 +251,12 @@ public class EteSyncClient {
   String makeCollection(String name, int color)
       throws VersionTooNewException, IntegrityException, HttpException {
     String uid = Journal.genUid();
-    CollectionInfo collectionInfo = createCollectionInfo(uid, name, color);
+    CollectionInfo collectionInfo = new CollectionInfo();
+    collectionInfo.setDisplayName(name);
+    collectionInfo.setType(TYPE_TASKS);
+    collectionInfo.setUid(uid);
+    collectionInfo.setSelected(true);
+    collectionInfo.setColor(color == 0 ? null : color);
     CryptoManager crypto = new CryptoManager(collectionInfo.getVersion(), encryptionPassword, uid);
     journalManager.create(new Journal(crypto, collectionInfo.toJson(), uid));
     return uid;
@@ -260,20 +265,13 @@ public class EteSyncClient {
   String updateCollection(CaldavCalendar calendar, String name, int color)
       throws VersionTooNewException, IntegrityException, HttpException {
     String uid = calendar.getUrl();
-    CollectionInfo collectionInfo = createCollectionInfo(uid, name, color);
+    Journal journal = journalManager.fetch(uid);
+    CollectionInfo collectionInfo = convertJournalToCollection(journal);
+    collectionInfo.setDisplayName(name);
+    collectionInfo.setColor(color == 0 ? null : color);
     CryptoManager crypto = new CryptoManager(collectionInfo.getVersion(), encryptionPassword, uid);
     journalManager.update(new Journal(crypto, collectionInfo.toJson(), uid));
     return uid;
-  }
-
-  private CollectionInfo createCollectionInfo(String uid, String name, int color) {
-    CollectionInfo collectionInfo = new CollectionInfo();
-    collectionInfo.setDisplayName(name);
-    collectionInfo.setType(TYPE_TASKS);
-    collectionInfo.setUid(uid);
-    collectionInfo.setSelected(true);
-    collectionInfo.setColor(color == 0 ? null : color);
-    return collectionInfo;
   }
 
   void deleteCollection(CaldavCalendar calendar) throws HttpException {
