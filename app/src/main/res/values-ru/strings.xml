@@ -316,7 +316,7 @@
     <string name="sound">Звук</string>
     <string name="vibrations">Вибрация</string>
     <string name="quiet_hours">Тихие часы</string>
-    <string name="attachment_directory">Путь к вложениям</string>
+    <string name="attachment_directory">Папка вложений</string>
     <string name="backup_directory">Папка резервных копий</string>
     <string name="google_drive_backup">Копировать в Google Drive</string>
     <string name="miscellaneous">Прочие настройки</string>
@@ -396,7 +396,7 @@
     <string name="theme_wallpaper">Как обои</string>
     <string name="theme_day_night">День / ночь</string>
     <string name="language">Язык</string>
-    <string name="restart_required">Для применения изменений программа должна быть перезапущена</string>
+    <string name="restart_required">Перезапустите Tasks для применения изменений</string>
     <string name="restart_now">Перезапустить сейчас</string>
     <string name="restart_later">Позже</string>
     <string name="settings_localization">Локализация</string>
@@ -406,7 +406,7 @@
     <string name="widget_settings">Настройки виджета</string>
     <string name="widget_header_settings">Настройки заголовка</string>
     <string name="widget_row_settings">Настройки строк</string>
-    <string name="sync_error_permissions">Запрашиваемые разрешения</string>
+    <string name="sync_error_permissions">Требуемые разрешения</string>
     <string name="clear_completed_tasks_confirmation">Очистить завершенные задачи?</string>
     <string name="copy_multiple_tasks_confirmation">Клонировано %s задач(и)</string>
     <string name="delete_multiple_tasks_confirmation">%s удалено</string>
@@ -459,7 +459,7 @@
     <string name="tasker_list_notification">Список уведомлений</string>
     <string name="help">Помощь</string>
     <string name="caldav_home_set_not_found">Домашний набор не найден</string>
-    <string name="network_error">Соединение не удалось</string>
+    <string name="network_error">Не удалось подключиться</string>
     <string name="background_sync_unmetered_only">Только на соединениях без тарификации</string>
     <string name="upgrade_to_pro">Обновить до версии Про</string>
     <string name="manage_subscription">Управление подпиской</string>
@@ -551,7 +551,7 @@
     <string name="show_advanced_settings">Показать расширенные настройки</string>
     <string name="caldav_account_description">Требует аккаунта у провайдера CalDAV или собственного сервера. Список провайдеров можно найти на tasks.org/caldav</string>
     <string name="etesync_account_description">Требует аккаунта на EteSync.com или собственного сервера</string>
-    <string name="etesync_encryption_description">Введите пароль шифрования. Не забудьте его, пароль нельзя будет восстановить!</string>
+    <string name="etesync_encryption_description">Запомните выбранный пароль шифрования, его нельзя будет восстановить!</string>
     <string name="encryption_password_wrong">Неверный пароль шифрования</string>
     <string name="help_and_feedback">Помощь и обратная связь</string>
     <string name="documentation">Документация</string>
@@ -565,4 +565,12 @@
     <string name="disable_battery_optimizations">Выключить оптимизацию энергопотребления</string>
     <string name="more_settings">Прочие настройки</string>
     <string name="more_notification_settings_summary">Рингтон, вибровызов и прочее</string>
+    <string name="invalid_username_or_password">Неверное имя пользователя или пароль</string>
+    <string name="theme_system_default">Системная по умолчанию</string>
+    <string name="color_wheel">Палитра</string>
+    <string name="upgrade_blurb_1">Привет! Меня зовут Алекс. Я - независимый разработчик, стоящий за программой Tasks</string>
+    <string name="upgrade_blurb_2">Я потратил тысячи часов, работая над Tasks, и я публикую весь исходный код онлайн, бесплатно. Для того, чтобы поддержать мою работу, некоторые функциональности требуют подписки</string>
+    <string name="upgrade_blurb_3">Выберите любую сумму подписки для того, чтобы начать Ваш бесплатный пробный период. Вы можете отказаться в любой момент</string>
+    <string name="upgrade_blurb_4">Ваша поддержка много значит для меня, спасибо!</string>
+    <string name="back">Назад</string>
 </resources>
