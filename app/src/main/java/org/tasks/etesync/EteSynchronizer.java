@@ -143,16 +143,21 @@ public class EteSynchronizer {
       String uid = collection.getUid();
 
       CaldavCalendar calendar = caldavDao.getCalendarByUrl(account.getUuid(), uid);
+      Integer colorInt = collection.getColor();
+      int color = colorInt == null ? 0 : colorInt;
       if (calendar == null) {
         calendar = new CaldavCalendar();
         calendar.setName(collection.getDisplayName());
         calendar.setAccount(account.getUuid());
         calendar.setUrl(collection.getUid());
         calendar.setUuid(UUIDHelper.newUUID());
+        calendar.setColor(color);
         caldavDao.insert(calendar);
       } else {
-        if (!calendar.getName().equals(collection.getDisplayName())) {
+        if (!calendar.getName().equals(collection.getDisplayName())
+        || calendar.getColor() != color) {
           calendar.setName(collection.getDisplayName());
+          calendar.setColor(color);
           caldavDao.update(calendar);
           localBroadcastManager.broadcastRefreshList();
         }

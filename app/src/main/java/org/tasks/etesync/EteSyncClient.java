@@ -248,17 +248,32 @@ public class EteSyncClient {
     }
   }
 
-  String makeCollection(String name)
+  String makeCollection(String name, int color)
       throws VersionTooNewException, IntegrityException, HttpException {
     String uid = Journal.genUid();
+    CollectionInfo collectionInfo = createCollectionInfo(uid, name, color);
+    CryptoManager crypto = new CryptoManager(collectionInfo.getVersion(), encryptionPassword, uid);
+    journalManager.create(new Journal(crypto, collectionInfo.toJson(), uid));
+    return uid;
+  }
+
+  String updateCollection(CaldavCalendar calendar, String name, int color)
+      throws VersionTooNewException, IntegrityException, HttpException {
+    String uid = calendar.getUrl();
+    CollectionInfo collectionInfo = createCollectionInfo(uid, name, color);
+    CryptoManager crypto = new CryptoManager(collectionInfo.getVersion(), encryptionPassword, uid);
+    journalManager.update(new Journal(crypto, collectionInfo.toJson(), uid));
+    return uid;
+  }
+
+  private CollectionInfo createCollectionInfo(String uid, String name, int color) {
     CollectionInfo collectionInfo = new CollectionInfo();
     collectionInfo.setDisplayName(name);
     collectionInfo.setType(TYPE_TASKS);
     collectionInfo.setUid(uid);
     collectionInfo.setSelected(true);
-    CryptoManager crypto = new CryptoManager(collectionInfo.getVersion(), encryptionPassword, uid);
-    journalManager.create(new Journal(crypto, collectionInfo.toJson(), uid));
-    return uid;
+    collectionInfo.setColor(color == 0 ? null : color);
+    return collectionInfo;
   }
 
   void deleteCollection(CaldavCalendar calendar) throws HttpException {

@@ -69,7 +69,6 @@ public abstract class BaseCaldavCalendarSettingsActivity extends BaseListSetting
       caldavAccount = intent.getParcelableExtra(EXTRA_CALDAV_ACCOUNT);
     } else {
       caldavAccount = caldavDao.getAccountByUuid(caldavCalendar.getAccount());
-      nameLayout.setVisibility(View.GONE);
     }
     caldavAccount =
         caldavCalendar == null
@@ -123,15 +122,21 @@ public abstract class BaseCaldavCalendarSettingsActivity extends BaseListSetting
 
     if (caldavCalendar == null) {
       showProgressIndicator();
-      createCalendar(caldavAccount, name);
-    } else if (hasChanges()) {
+      createCalendar(caldavAccount, name, selectedColor);
+    } else if (nameChanged() || colorChanged()) {
+      showProgressIndicator();
+      updateNameAndColor(caldavAccount, caldavCalendar, name, selectedColor);
+    } else if (iconChanged()) {
       updateAccount();
     } else {
       finish();
     }
   }
 
-  protected abstract void createCalendar(CaldavAccount caldavAccount, String name);
+  protected abstract void createCalendar(CaldavAccount caldavAccount, String name, int color);
+
+  protected abstract void updateNameAndColor(
+      CaldavAccount account, CaldavCalendar calendar, String name, int color);
 
   protected abstract void deleteCalendar(
       CaldavAccount caldavAccount, CaldavCalendar caldavCalendar);
@@ -192,7 +197,7 @@ public abstract class BaseCaldavCalendarSettingsActivity extends BaseListSetting
     finish();
   }
 
-  private void updateAccount() {
+  protected void updateAccount() {
     caldavCalendar.setName(getNewName());
     caldavCalendar.setColor(selectedColor);
     caldavCalendar.setIcon(selectedIcon);
@@ -206,12 +211,21 @@ public abstract class BaseCaldavCalendarSettingsActivity extends BaseListSetting
 
   @Override
   protected boolean hasChanges() {
-    if (caldavCalendar == null) {
-      return !isEmpty(getNewName()) || selectedColor != -1 || selectedIcon != -1;
-    }
-    return !caldavCalendar.getName().equals(getNewName())
-        || selectedIcon != caldavCalendar.getIcon()
-        || selectedColor != caldavCalendar.getColor();
+    return caldavCalendar == null
+        ? !isEmpty(getNewName()) || selectedColor != 0 || selectedIcon != -1
+        : nameChanged() || iconChanged() || colorChanged();
+  }
+
+  private boolean nameChanged() {
+    return !caldavCalendar.getName().equals(getNewName());
+  }
+
+  private boolean colorChanged() {
+    return selectedColor != caldavCalendar.getColor();
+  }
+
+  private boolean iconChanged() {
+    return selectedIcon != caldavCalendar.getIcon();
   }
 
   private String getNewName() {
