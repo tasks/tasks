@@ -284,8 +284,8 @@
     <string name="sound">铃声</string>
     <string name="vibrations">振动</string>
     <string name="quiet_hours">静音时间</string>
-    <string name="attachment_directory">附件目录</string>
-    <string name="backup_directory">备份目录</string>
+    <string name="attachment_directory">附件文件夹</string>
+    <string name="backup_directory">备份文件夹</string>
     <string name="miscellaneous">杂项</string>
     <string name="synchronization">同步</string>
     <string name="enabled">启用</string>
@@ -342,7 +342,7 @@
     <string name="username_required">请填用户名</string>
     <string name="password_required">请填密码</string>
     <string name="url_required">请填网址</string>
-    <string name="url_host_name_required">请填主机名</string>
+    <string name="url_host_name_required">请填写主机名</string>
     <string name="url_invalid_scheme">必须以http(s)://开头</string>
     <string name="no_title">（无标题）</string>
     <string name="back_button_saves_task">返回键保存任务</string>
@@ -370,7 +370,7 @@
     <string name="widget_settings">插件设置</string>
     <string name="widget_header_settings">标题设置</string>
     <string name="widget_row_settings">行设置</string>
-    <string name="sync_error_permissions">Tasks 需要权限</string>
+    <string name="sync_error_permissions">需要授予权限</string>
     <string name="clear_completed_tasks_confirmation">清除完成的任务？</string>
     <string name="copy_multiple_tasks_confirmation">%s 已复制</string>
     <string name="delete_multiple_tasks_confirmation">%s 已删除</string>
@@ -424,13 +424,13 @@
     <string name="tasker_list_notification">列出通知</string>
     <string name="help">帮助</string>
     <string name="caldav_home_set_not_found">未设置CalDAVHome</string>
-    <string name="network_error">连接失败</string>
+    <string name="network_error">无法连接</string>
     <string name="background_sync_unmetered_only">仅于不计费的连接</string>
     <string name="upgrade_to_pro">升级至专业版</string>
     <string name="refresh_purchases">刷新购买</string>
     <string name="button_subscribe">订购</string>
     <string name="button_more_info">更多信息</string>
-    <string name="error_billing_unavailable">帐单不可用。确保你的Google Play应用已正确设置</string>
+    <string name="error_billing_unavailable">帐单不可用。请确保你的Google Play应用已正确设置</string>
     <string name="error_billing_default">帐单不可用。请检查你的设备。</string>
     <string name="about">关于</string>
     <string name="license_summary">Tasks是遵循GNU通用公共许可证v3.0许可证的开源软件</string>
@@ -499,7 +499,7 @@
     <string name="EPr_temp_completed_tasks_not_showing">任务完成后将立刻从列表中消失</string>
     <plurals name="subtask_count">
         <item quantity="one">%d个子任务</item>
-        <item quantity="other" />
+        <item quantity="other"/>
     </plurals>
     <string name="expand_subtasks">扩展子任务</string>
     <string name="collapse_subtasks">缩回子任务列表</string>
@@ -509,7 +509,7 @@
     <string name="enter_title_hint">输入标题</string>
     <string name="show_subtasks">显示子任务</string>
     <string name="show_subtasks_summary">显示子任务将降级应用性能</string>
-    <string name="no_application_found_link">没有找到处理链接的应用</string>
+    <string name="no_application_found_link">没有找到能处理链接的应用</string>
     <string name="enter_tag_name">输入标签名称</string>
     <string name="create_new_tag">创建\"%s\"</string>
     <string name="encryption_password_required">需要加密密码</string>
@@ -525,7 +525,7 @@
     <string name="show_advanced_settings">显示高级设置</string>
     <string name="caldav_account_description">需要一个CalDAV服务供应商账户或一个自托管服务器。访问tasks.org/caldav寻找服务供应商。</string>
     <string name="etesync_account_description">需要一个EteSync.com账户或一个自托管服务器</string>
-    <string name="etesync_encryption_description">选择一个加密密码。不要忘记你的密码，它不能被恢复。</string>
+    <string name="etesync_encryption_description">记住你挑选的密码，它不能被恢复。</string>
     <string name="encryption_password_wrong">错误的加密密码</string>
     <string name="help_and_feedback">帮助&amp;反馈</string>
     <string name="documentation">文档</string>
@@ -542,4 +542,9 @@
     <string name="invalid_username_or_password">无效的用户名或密码</string>
     <string name="theme_system_default">系统默认</string>
     <string name="color_wheel">给滚轮着色</string>
+    <string name="upgrade_blurb_1">你好！我叫Alex，是Tasks背后的独立开发者</string>
+    <string name="upgrade_blurb_2">我已经花了数千个小时用于开发Tasks，并且在网上免费发布了所有源代码。 为了支持我的工作，某些功能需要订阅</string>
+    <string name="upgrade_blurb_3">选择下方任意订阅价格即可开始免费试用。 你可以随时取消</string>
+    <string name="upgrade_blurb_4">您的支持对我很重要，谢谢！</string>
+    <string name="back">返回</string>
 </resources>
