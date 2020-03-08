@@ -1,0 +1,5 @@
+* Synchronize CalDAV and EteSync colors
+* Rename CalDAV and EteSync lists
+* Translation updates
+
+Full release notes: https://tasks.org/changelog

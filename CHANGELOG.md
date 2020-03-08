@@ -1,5 +1,11 @@
 Change Log
 ---
+### 8.3 (2020-03-08)
+
+* Synchronize CalDAV and EteSync colors
+* Rename CalDAV and EteSync lists
+* Update Turkish translations - @emintufan
+
 ### 8.2.1 (2020-03-07)
 
 * Increase default chip text contrast
