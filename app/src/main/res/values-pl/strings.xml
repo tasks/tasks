@@ -389,7 +389,7 @@
     <string name="theme_wallpaper">Tapeta</string>
     <string name="theme_day_night">Dzień/noc</string>
     <string name="language">Język</string>
-    <string name="restart_required">Tasks muszą zostać zrestartowane aby zmiany zostały wprowadzone</string>
+    <string name="restart_required">Zrestartuj Tasks aby wprowadzić zmiany</string>
     <string name="restart_now">Zrestartuj teraz</string>
     <string name="restart_later">Póżniej</string>
     <string name="settings_localization">Ustawienia regionalne</string>
@@ -399,7 +399,7 @@
     <string name="widget_settings">Ustawienie widgetu</string>
     <string name="widget_header_settings">Ustawienia nagłówka</string>
     <string name="widget_row_settings">Ustawienia rzędu</string>
-    <string name="sync_error_permissions">Tasks wymaga uprawnienia</string>
+    <string name="sync_error_permissions">Wymagane uprawnienia</string>
     <string name="clear_completed_tasks_confirmation">Wyczyścić ukończone zadania?</string>
     <string name="copy_multiple_tasks_confirmation">%s skopiowanych</string>
     <string name="delete_multiple_tasks_confirmation">%s usuniętych</string>
@@ -437,8 +437,8 @@
     <string name="repeats_plural_on_number_of_times">Powtarzane co każde %1$s w %2$s, występuje %3$d %4$s</string>
     <string name="dont_add_to_calendar">Nie dodawaj do kalendarza</string>
     <string name="default_calendar">Domyślny kalendarz</string>
-    <string name="badges_description">Wyświetl liczbę zadań na ikonie Tasks. Nie wszystkie programy wspierają plakietki.</string>
-    <string name="bundle_notifications_summary">Wyświetlaj wiele powiadomień jako jedno powiadomienie</string>
+    <string name="badges_description">Wyświetl liczbę zadań na ikonie Tasks. Nie wszystkie launchery to wspierają.</string>
+    <string name="bundle_notifications_summary">Wyświetlaj wiele powiadomień jako jedno</string>
     <string name="repeat_monthly_same_day_each_month">tego samego dnia każdego miesiąca</string>
     <string name="dont_sync">Nie synchronizowane</string>
     <string name="repeat_monthly_every_day_of_nth_week">każdy %1$s %2$s</string>
@@ -545,7 +545,7 @@
     <string name="show_advanced_settings">Pokaż ustawienia zaawansowane</string>
     <string name="caldav_account_description">Wymaga konta u dostawcy usług CalDAV lub własnego serwera. Znajdź dostawcę usług na tasks.org/caldav</string>
     <string name="etesync_account_description">Wymaga konta na EteSync.com lub własnego serwera</string>
-    <string name="etesync_encryption_description">Wpisz hasło szyfrowania. Nie zapomnij go, hasła nie da się odzyskać!</string>
+    <string name="etesync_encryption_description">Zapamiętaj wybrane hasło szyfrowania, nie da się go odzyskać!</string>
     <string name="encryption_password_wrong">Nieprawidłowe hasło szyfrowania</string>
     <string name="help_and_feedback">Pomoc i opinie</string>
     <string name="documentation">Dokumentacja</string>
@@ -559,4 +559,12 @@
     <string name="disable_battery_optimizations">Wyłącz oszczędzanie baterii</string>
     <string name="more_settings">Więcej ustawień</string>
     <string name="more_notification_settings_summary">Dzwonek, wibracje i inne</string>
+    <string name="invalid_username_or_password">Nieprawidłowa nazwa użytkownika lub hasło</string>
+    <string name="theme_system_default">Domyślny systemowy</string>
+    <string name="color_wheel">Paleta</string>
+    <string name="upgrade_blurb_1">Cześć! Mam na imię Alex. Jestem niezależnym deweloperem stojącym za Tasks</string>
+    <string name="upgrade_blurb_2">Spędziłem tysiące godzin pracując nad Tasks i publikuję cały kod źródłowy online za darmo. Aby wesprzeć moją pracę, niektóre funkcję wymagają subskrypcji</string>
+    <string name="upgrade_blurb_3">Wybierz dowolną cenę subskrypcji poniżej, aby rozpocząć bezpłatny okres próbny. Możesz zrezygnować w każdej chwili</string>
+    <string name="upgrade_blurb_4">Twoje wsparcie wiele dla mnie znaczy, dziękuję!</string>
+    <string name="back">Wstecz</string>
 </resources>
