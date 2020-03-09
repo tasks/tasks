@@ -6,9 +6,6 @@ Astrid was a popular cross-platform productivity service that was [acquired](htt
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
     alt="Get it on F-Droid"
     height="80">](https://f-droid.org/packages/org.tasks)
-[<img src="https://images-na.ssl-images-amazon.com/images/G/01/mobile-apps/devportal2/res/images/amazon-appstore-badge-english-white.png"
-    alt="Get it on Amazon"
-    height="80">](https://www.amazon.com/Tasks-Astrid-To-Do-List-Clone/dp/B00QHGTL7O)
 
 Please visit [tasks.org](https://tasks.org) for end user documentation and support
 

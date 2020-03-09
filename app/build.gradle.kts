@@ -102,9 +102,6 @@ android {
         create("googleplay") {
             setDimension("store")
         }
-        create("amazon") {
-            setDimension("store")
-        }
     }
 
     viewBinding {
@@ -135,7 +132,6 @@ configurations.all {
 }
 
 val googleplayImplementation by configurations
-val amazonImplementation by configurations
 
 dependencies {
     implementation("com.gitlab.bitfireAT:dav4jvm:1.0.1")
@@ -204,10 +200,6 @@ dependencies {
     googleplayImplementation("com.google.android.gms:play-services-maps:17.0.0")
     googleplayImplementation("com.google.android.libraries.places:places:2.2.0")
     googleplayImplementation("com.android.billingclient:billing:1.2.2")
-
-    amazonImplementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    amazonImplementation("com.crashlytics.sdk.android:crashlytics:${Versions.crashlytics}")
-    amazonImplementation("com.google.firebase:firebase-core:${Versions.firebase}")
 
     kaptAndroidTest("com.google.dagger:dagger-compiler:${Versions.dagger}")
     kaptAndroidTest("com.jakewharton:butterknife-compiler:${Versions.butterknife}")

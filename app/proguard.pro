@@ -59,11 +59,6 @@
 -keep class org.threeten.bp.** { *; }     # keep ThreeTen (for time zone processing)
 -keep class at.bitfire.** { *; }       # all DAVdroid code is required
 
-# https://developer.amazon.com/docs/in-app-purchasing/iap-obfuscate-the-code.html#proguard
--dontwarn com.amazon.**
--keep class com.amazon.** {*;}
--keepattributes *Annotation*
-
 # https://github.com/google/google-api-java-client-samples/blob/34c3b43cb15f4ee1b636a0e01521cc81a2451dcd/tasks-android-sample/proguard-google-api-client.txt
 -keepattributes Signature,RuntimeVisibleAnnotations,AnnotationDefault
 -keepclassmembers class * {
