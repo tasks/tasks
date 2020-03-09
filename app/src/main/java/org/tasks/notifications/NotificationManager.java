@@ -1,14 +1,27 @@
 package org.tasks.notifications;
 
+import static android.content.Intent.FLAG_ACTIVITY_MULTIPLE_TASK;
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static androidx.core.app.NotificationCompat.FLAG_INSISTENT;
+import static androidx.core.app.NotificationCompat.FLAG_NO_CLEAR;
+import static com.google.common.collect.Iterables.concat;
+import static com.google.common.collect.Iterables.tryFind;
+import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Lists.transform;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastNougat;
+import static com.todoroo.andlib.utility.AndroidUtilities.preOreo;
+import static com.todoroo.astrid.reminders.ReminderService.TYPE_GEOFENCE_ENTER;
+import static com.todoroo.astrid.reminders.ReminderService.TYPE_GEOFENCE_EXIT;
+import static java.util.Collections.emptyList;
+import static java.util.Collections.singletonList;
+
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
-
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
-
 import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
 import com.todoroo.andlib.sql.Join;
@@ -18,7 +31,14 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.ReminderService;
-
+import io.reactivex.Completable;
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.data.Location;
@@ -34,32 +54,7 @@ import org.tasks.reminders.SnoozeDialog;
 import org.tasks.reminders.SnoozeOption;
 import org.tasks.time.DateTime;
 import org.tasks.ui.CheckBoxes;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import javax.inject.Inject;
-
-import io.reactivex.Completable;
-import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
-
-import static android.content.Intent.FLAG_ACTIVITY_MULTIPLE_TASK;
-import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
-import static androidx.core.app.NotificationCompat.FLAG_INSISTENT;
-import static androidx.core.app.NotificationCompat.FLAG_NO_CLEAR;
-import static com.google.common.collect.Iterables.concat;
-import static com.google.common.collect.Iterables.tryFind;
-import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Lists.transform;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastNougat;
-import static com.todoroo.astrid.reminders.ReminderService.TYPE_GEOFENCE_ENTER;
-import static com.todoroo.astrid.reminders.ReminderService.TYPE_GEOFENCE_EXIT;
-import static java.util.Collections.emptyList;
-import static java.util.Collections.singletonList;
 
 @ApplicationScope
 public class NotificationManager {
@@ -212,16 +207,18 @@ public class NotificationManager {
       return;
     }
     builder.setLocalOnly(!preferences.getBoolean(R.string.p_wearable_notifications, true));
-    int ringTimes = fiveTimes ? 5 : 1;
-    if (alert) {
-      builder
-          .setSound(preferences.getRingtone())
-          .setPriority(NotificationCompat.PRIORITY_HIGH)
-          .setDefaults(preferences.getNotificationDefaults());
-    } else {
-      builder.setDefaults(0).setTicker(null);
+    if (preOreo()) {
+      if (alert) {
+        builder
+            .setSound(preferences.getRingtone())
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setDefaults(preferences.getNotificationDefaults());
+      } else {
+        builder.setDefaults(0).setTicker(null);
+      }
     }
     android.app.Notification notification = builder.build();
+    int ringTimes = fiveTimes ? 5 : 1;
     if (alert && nonstop) {
       notification.flags |= FLAG_INSISTENT;
       ringTimes = 1;
