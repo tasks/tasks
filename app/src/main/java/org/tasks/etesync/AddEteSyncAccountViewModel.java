@@ -17,8 +17,10 @@ public class AddEteSyncAccountViewModel extends CompletableViewModel<Pair<UserIn
       String password) {
     run(
         () -> {
+          client.setForeground();
           playServices.updateSecurityProvider(context);
-          return client.setForeground().forUrl(url, username, null, null).getInfoAndToken(password);
+          String token = client.forUrl(url, username, null, null).getToken(password);
+          return Pair.create(client.forUrl(url, username, null, token).getUserInfo(), token);
         });
   }
 }

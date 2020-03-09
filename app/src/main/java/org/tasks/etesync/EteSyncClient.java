@@ -9,6 +9,7 @@ import androidx.core.util.Pair;
 import at.bitfire.cert4android.CustomCertManager;
 import at.bitfire.cert4android.CustomCertManager.CustomHostnameVerifier;
 import com.etesync.journalmanager.Constants;
+import com.etesync.journalmanager.Crypto;
 import com.etesync.journalmanager.Crypto.CryptoManager;
 import com.etesync.journalmanager.Exceptions;
 import com.etesync.journalmanager.Exceptions.HttpException;
@@ -152,25 +153,8 @@ public class EteSyncClient {
         foreground);
   }
 
-  private EteSyncClient withToken(String token)
-      throws KeyManagementException, NoSuchAlgorithmException {
-    return new EteSyncClient(
-        context,
-        encryption,
-        preferences,
-        interceptor,
-        httpUrl.toString(),
-        username,
-        encryptionPassword,
-        token,
-        foreground);
-  }
-
-  Pair<UserInfo, String> getInfoAndToken(String password)
-      throws IOException, HttpException, NoSuchAlgorithmException, KeyManagementException {
-    JournalAuthenticator journalAuthenticator = new JournalAuthenticator(httpClient, httpUrl);
-    String token = journalAuthenticator.getAuthToken(username, password);
-    return Pair.create(withToken(token).getUserInfo(), token);
+  String getToken(String password) throws IOException, HttpException {
+    return new JournalAuthenticator(httpClient, httpUrl).getAuthToken(username, password);
   }
 
   UserInfo getUserInfo() throws HttpException {
@@ -178,13 +162,23 @@ public class EteSyncClient {
     return userInfoManager.fetch(username);
   }
 
-  CryptoManager getCrypto(Journal journal) throws VersionTooNewException, IntegrityException {
-    return new CryptoManager(journal.getVersion(), encryptionPassword, journal.getUid());
+  CryptoManager getCrypto(UserInfo userInfo, Journal journal)
+      throws VersionTooNewException, IntegrityException {
+    if (journal.getKey() == null) {
+      return new CryptoManager(journal.getVersion(), encryptionPassword, journal.getUid());
+    }
+    if (userInfo == null) {
+      throw new RuntimeException("Missing userInfo");
+    }
+    CryptoManager cryptoManager = new CryptoManager(userInfo.getVersion(), encryptionPassword, "userInfo");
+    Crypto.AsymmetricKeyPair keyPair =
+        new Crypto.AsymmetricKeyPair(userInfo.getContent(cryptoManager), userInfo.getPubkey());
+    return new CryptoManager(journal.getVersion(), keyPair, journal.getKey());
   }
 
-  private @Nullable CollectionInfo convertJournalToCollection(Journal journal) {
+  private @Nullable CollectionInfo convertJournalToCollection(UserInfo userInfo, Journal journal) {
     try {
-      CryptoManager cryptoManager = getCrypto(journal);
+      CryptoManager cryptoManager = getCrypto(userInfo, journal);
       journal.verify(cryptoManager);
       CollectionInfo collection =
           CollectionInfo.Companion.fromJson(journal.getContent(cryptoManager));
@@ -196,10 +190,11 @@ public class EteSyncClient {
     }
   }
 
-  public Map<Journal, CollectionInfo> getCalendars() throws Exceptions.HttpException {
+  public Map<Journal, CollectionInfo> getCalendars(UserInfo userInfo)
+      throws Exceptions.HttpException {
     Map<Journal, CollectionInfo> result = new HashMap<>();
     for (Journal journal : journalManager.list()) {
-      CollectionInfo collection = convertJournalToCollection(journal);
+      CollectionInfo collection = convertJournalToCollection(userInfo, journal);
       if (collection != null) {
         if (TYPE_TASKS.equals(collection.getType())) {
           Timber.v("Found %s", collection);
@@ -213,11 +208,14 @@ public class EteSyncClient {
   }
 
   void getSyncEntries(
-      Journal journal, CaldavCalendar calendar, Callback<List<Pair<Entry, SyncEntry>>> callback)
+      UserInfo userInfo,
+      Journal journal,
+      CaldavCalendar calendar,
+      Callback<List<Pair<Entry, SyncEntry>>> callback)
       throws IntegrityException, Exceptions.HttpException, VersionTooNewException {
     JournalEntryManager journalEntryManager =
         new JournalEntryManager(httpClient, httpUrl, journal.getUid());
-    CryptoManager crypto = getCrypto(journal);
+    CryptoManager crypto = getCrypto(userInfo, journal);
     List<Entry> journalEntries;
     do {
       journalEntries = journalEntryManager.list(crypto, calendar.getCtag(), MAX_FETCH);
@@ -235,9 +233,8 @@ public class EteSyncClient {
     }
   }
 
-  EteSyncClient setForeground() {
+  void setForeground() {
     foreground = true;
-    return this;
   }
 
   void invalidateToken() {
@@ -266,10 +263,11 @@ public class EteSyncClient {
       throws VersionTooNewException, IntegrityException, HttpException {
     String uid = calendar.getUrl();
     Journal journal = journalManager.fetch(uid);
-    CollectionInfo collectionInfo = convertJournalToCollection(journal);
+    UserInfo userInfo = getUserInfo();
+    CryptoManager crypto = getCrypto(userInfo, journal);
+    CollectionInfo collectionInfo = convertJournalToCollection(userInfo, journal);
     collectionInfo.setDisplayName(name);
     collectionInfo.setColor(color == 0 ? null : color);
-    CryptoManager crypto = new CryptoManager(collectionInfo.getVersion(), encryptionPassword, uid);
     journalManager.update(new Journal(crypto, collectionInfo.toJson(), uid));
     return uid;
   }

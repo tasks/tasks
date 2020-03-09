@@ -16,10 +16,14 @@ public class UpdateEteSyncAccountViewModel extends CompletableViewModel<Pair<Use
       @Nullable String token) {
     run(
         () -> {
-          EteSyncClient newClient = client.setForeground().forUrl(url, username, null, token);
-          return Strings.isNullOrEmpty(password)
-              ? Pair.create(newClient.getUserInfo(), token)
-              : newClient.getInfoAndToken(password);
+          client.setForeground();
+          if (Strings.isNullOrEmpty(password)) {
+            return Pair.create(client.forUrl(url, username, null, token).getUserInfo(), token);
+          } else {
+            String newToken = client.forUrl(url, username, null, null).getToken(password);
+            return Pair.create(
+                client.forUrl(url, username, null, newToken).getUserInfo(), newToken);
+          }
         });
   }
 }

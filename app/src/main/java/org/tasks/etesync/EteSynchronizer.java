@@ -20,6 +20,7 @@ import com.etesync.journalmanager.Exceptions.VersionTooNewException;
 import com.etesync.journalmanager.JournalEntryManager;
 import com.etesync.journalmanager.JournalEntryManager.Entry;
 import com.etesync.journalmanager.JournalManager.Journal;
+import com.etesync.journalmanager.UserInfoManager.UserInfo;
 import com.etesync.journalmanager.model.CollectionInfo;
 import com.etesync.journalmanager.model.SyncEntry;
 import com.etesync.journalmanager.model.SyncEntry.Actions;
@@ -129,7 +130,8 @@ public class EteSynchronizer {
       throws KeyManagementException, NoSuchAlgorithmException, Exceptions.HttpException,
           IntegrityException, VersionTooNewException {
     EteSyncClient client = this.client.forAccount(account);
-    Map<Journal, CollectionInfo> resources = client.getCalendars();
+    UserInfo userInfo = client.getUserInfo();
+    Map<Journal, CollectionInfo> resources = client.getCalendars(userInfo);
 
     Set<String> uids = newHashSet(Iterables.transform(resources.values(), CollectionInfo::getUid));
     Timber.d("Found uids: %s", uids);
@@ -162,7 +164,7 @@ public class EteSynchronizer {
           localBroadcastManager.broadcastRefreshList();
         }
       }
-      sync(client, calendar, entry.getKey());
+      sync(client, userInfo, calendar, entry.getKey());
     }
     setError(account, "");
   }
@@ -176,7 +178,8 @@ public class EteSynchronizer {
     }
   }
 
-  private void sync(EteSyncClient client, CaldavCalendar caldavCalendar, Journal journal)
+  private void sync(
+      EteSyncClient client, UserInfo userInfo, CaldavCalendar caldavCalendar, Journal journal)
       throws IntegrityException, Exceptions.HttpException, VersionTooNewException {
     Timber.d("sync(%s)", caldavCalendar);
 
@@ -189,6 +192,7 @@ public class EteSynchronizer {
     if (Strings.isNullOrEmpty(remoteCtag) || !remoteCtag.equals(caldavCalendar.getCtag())) {
       Timber.v("Applying remote changes");
       client.getSyncEntries(
+          userInfo,
           journal,
           caldavCalendar,
           syncEntries -> applyEntries(caldavCalendar, syncEntries, localChanges.keySet()));
@@ -218,7 +222,7 @@ public class EteSynchronizer {
     }
 
     remoteCtag = caldavCalendar.getCtag();
-    CryptoManager crypto = client.getCrypto(journal);
+    CryptoManager crypto = client.getCrypto(userInfo, journal);
     List<Pair<Entry, SyncEntry>> updates = new ArrayList<>();
     JournalEntryManager.Entry previous =
         Strings.isNullOrEmpty(remoteCtag) ? null : Entry.getFakeWithUid(remoteCtag);
