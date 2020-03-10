@@ -1,0 +1,9 @@
+* New chip configuration options
+  * Outlined or filled
+  * Text and icon, text only, or icon only
+* Add option to disable color desaturation
+* Fix EteSync shared lists
+* Google Task sync requires Android 4.4+
+* Update translations
+
+Full release notes: https://tasks.org/changelog

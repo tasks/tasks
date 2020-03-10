@@ -1,5 +1,21 @@
 Change Log
 ---
+### 8.4 (2020-03-11)
+
+* New chip configuration options
+  * Outlined or filled
+  * Text and icon, text only, or icon only
+* Add option to disable color desaturation
+* Fix EteSync shared lists
+* Google Task sync requires Android 4.4+
+* Update translations
+  * Czech - @vitSkalicky
+  * Hungarian - kaciokos
+  * Interlingua - @softinterlingua
+  * Polish - @alex-ter
+  * Russian - @alex-ter
+  * Simplified Chinese - @sr093906
+
 ### 8.3 (2020-03-08)
 
 * Synchronize CalDAV and EteSync colors

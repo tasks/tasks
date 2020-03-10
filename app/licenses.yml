@@ -841,3 +841,16 @@
   copyrightHolder: QuadFlask
   license: The Apache Software License, Version 2.0
   url: https://github.com/QuadFlask/colorpicker
+- artifact: com.google.auth:google-auth-library-credentials:+
+  name: Google Auth Library for Java - Credentials
+  copyrightHolder: Google Inc.
+  license: BSD 3-Clause
+- artifact: com.google.auth:google-auth-library-oauth2-http:+
+  name: Google Auth Library for Java - OAuth2 HTTP
+  copyrightHolder: Google Inc.
+  license: BSD 3-Clause
+- artifact: com.google.auto.value:auto-value-annotations:+
+  name: AutoValue Annotations
+  copyrightHolder: Google LLC
+  license: The Apache Software License, Version 2.0
+  url: https://github.com/google/auto/tree/master/value
