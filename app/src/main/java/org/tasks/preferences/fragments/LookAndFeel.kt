@@ -42,6 +42,7 @@ import org.tasks.themes.ThemeBase.EXTRA_THEME_OVERRIDE
 import org.tasks.themes.ThemeColor
 import org.tasks.themes.ThemeColor.getLauncherColor
 import org.tasks.time.DateTime
+import org.tasks.ui.ChipProvider
 import org.tasks.ui.NavigationDrawerFragment.REQUEST_PURCHASE
 import org.tasks.ui.SingleCheckedArrayAdapter
 import org.tasks.ui.TimePreference
@@ -76,6 +77,7 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
     @Inject lateinit var playServices: PlayServices
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var toaster: Toaster
+    @Inject lateinit var chipProvider: ChipProvider
 
     override fun getPreferenceXml() = R.xml.preferences_look_and_feel
 
@@ -93,6 +95,16 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
             newThemePickerDialog(this, REQUEST_THEME_PICKER, themeBase.index)
                 .show(parentFragmentManager, FRAG_TAG_THEME_PICKER)
             false
+        }
+
+        findPreference(R.string.p_chip_style).setOnPreferenceChangeListener { _, newValue ->
+            chipProvider.setStyle(Integer.parseInt(newValue as String))
+            true
+        }
+
+        findPreference(R.string.p_chip_appearance).setOnPreferenceChangeListener { _, newValue ->
+            chipProvider.setAppearance(Integer.parseInt(newValue as String))
+            true
         }
 
         val defaultList = findPreference(R.string.p_default_list)

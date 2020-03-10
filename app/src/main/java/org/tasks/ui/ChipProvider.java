@@ -11,7 +11,6 @@ import static org.tasks.themes.ThemeColor.newThemeColor;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
-import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -42,6 +41,7 @@ import org.tasks.data.TagDataDao;
 import org.tasks.data.TaskContainer;
 import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.ForApplication;
+import org.tasks.preferences.Preferences;
 import org.tasks.themes.CustomIcons;
 import org.tasks.themes.ThemeColor;
 
@@ -61,6 +61,9 @@ public class ChipProvider {
           return left.listingTitle.compareTo(right.listingTitle);
         }
       };
+  private boolean filled;
+  private boolean showIcon;
+  private boolean showText;
 
   @Inject
   public ChipProvider(
@@ -69,7 +72,8 @@ public class ChipProvider {
       GoogleTaskListDao googleTaskListDao,
       CaldavDao caldavDao,
       TagDataDao tagDataDao,
-      LocalBroadcastManager localBroadcastManager) {
+      LocalBroadcastManager localBroadcastManager,
+      Preferences preferences) {
     this.inventory = inventory;
     this.localBroadcastManager = localBroadcastManager;
     iconAlpha =
@@ -78,6 +82,17 @@ public class ChipProvider {
     googleTaskListDao.subscribeToLists().observeForever(this::updateGoogleTaskLists);
     caldavDao.subscribeToCalendars().observeForever(this::updateCaldavCalendars);
     tagDataDao.subscribeToTags().observeForever(this::updateTags);
+    setStyle(preferences.getIntegerFromString(R.string.p_chip_style, 0));
+    setAppearance(preferences.getIntegerFromString(R.string.p_chip_appearance, 0));
+  }
+
+  public void setStyle(int style) {
+    filled = style == 1;
+  }
+
+  public void setAppearance(int appearance) {
+    showText = appearance != 2;
+    showIcon = appearance != 1;
   }
 
   private void updateGoogleTaskLists(List<GoogleTaskList> updated) {
@@ -124,25 +139,27 @@ public class ChipProvider {
           activity
               .getResources()
               .getQuantityString(R.plurals.subtask_count, task.children, task.children),
-          0);
+          0,
+          true,
+          true);
       chips.add(chip);
     }
     if (task.hasLocation()) {
       Chip chip = newChip(activity, task.getLocation());
       apply(
-          activity, chip, R.drawable.ic_outline_place_24px, task.getLocation().getDisplayName(), 0);
+          activity, chip, R.drawable.ic_outline_place_24px, task.getLocation().getDisplayName(), 0, showText, showIcon);
       chips.add(chip);
     }
     if (!isSubtask) {
       if (!Strings.isNullOrEmpty(task.getGoogleTaskList()) && !(filter instanceof GtasksFilter)) {
         chips.add(
-            newTagChip(
+            newChip(
                 activity,
                 googleTaskLists.get(task.getGoogleTaskList()),
                 R.drawable.ic_outline_cloud_24px));
       } else if (!Strings.isNullOrEmpty(task.getCaldav()) && !(filter instanceof CaldavFilter)) {
         chips.add(
-            newTagChip(
+            newChip(
                 activity, caldavCalendars.get(task.getCaldav()), R.drawable.ic_outline_cloud_24px));
       }
     }
@@ -155,7 +172,7 @@ public class ChipProvider {
       chips.addAll(
           transform(
               orderByName.sortedCopy(filter(transform(tags, tagDatas::get), Predicates.notNull())),
-              tag -> newTagChip(activity, tag, R.drawable.ic_outline_label_24px)));
+              tag -> newChip(activity, tag, R.drawable.ic_outline_label_24px)));
     }
 
     removeIf(chips, Predicates.isNull());
@@ -168,7 +185,9 @@ public class ChipProvider {
         chip,
         getIcon(filter.icon, R.drawable.ic_outline_cloud_24px),
         filter.listingTitle,
-        filter.tint);
+        filter.tint,
+        true,
+        true);
   }
 
   public void apply(Chip chip, @NonNull TagData tagData) {
@@ -177,42 +196,82 @@ public class ChipProvider {
         chip,
         getIcon(tagData.getIcon(), R.drawable.ic_outline_label_24px),
         tagData.getName(),
-        tagData.getColor());
+        tagData.getColor(),
+        true,
+        true);
   }
 
-  private @Nullable Chip newTagChip(Activity activity, Filter filter, int defIcon) {
+  private @Nullable Chip newChip(Activity activity, Filter filter, int defIcon) {
+    return newChip(activity, filter, defIcon, showText, showIcon);
+  }
+
+  Chip newChip(Activity activity, Filter filter, int defIcon, boolean showText, boolean showIcon) {
     if (filter == null) {
       return null;
     }
     Chip chip = newChip(activity, filter);
-    apply(activity, chip, getIcon(filter.icon, defIcon), filter.listingTitle, filter.tint);
+    apply(activity, chip, getIcon(filter.icon, defIcon), filter.listingTitle, filter.tint, showText, showIcon);
     return chip;
   }
 
   public Chip newClosableChip(Activity activity, Object tag) {
-    Chip chip = (Chip) activity.getLayoutInflater().inflate(R.layout.chip_closable, null);
+    Chip chip = getChip(activity);
     chip.setCloseIconVisible(true);
     chip.setTag(tag);
     return chip;
   }
 
   private Chip newChip(Activity activity, Object tag) {
-    Chip chip = (Chip) activity.getLayoutInflater().inflate(R.layout.chip_button, null);
+    Chip chip = getChip(activity);
     chip.setTag(tag);
     return chip;
   }
 
-  private void apply(Context context, Chip chip, @Nullable @DrawableRes Integer icon, String name, int theme) {
-    chip.setText(name);
-    @ColorInt int color = getColor(context, theme);
-    if (color != 0) {
-      ColorStateList colorStateList = new ColorStateList(new int[][]{new int[]{}}, new int[]{color});
-      chip.setCloseIconTint(colorStateList);
-      chip.setTextColor(color);
-      chip.setChipIconTint(colorStateList);
-      chip.setChipStrokeColor(colorStateList);
+  private Chip getChip(Activity activity) {
+    return (Chip)
+        activity
+            .getLayoutInflater()
+            .inflate(filled ? R.layout.chip_filled : R.layout.chip_outlined, null);
+  }
+
+  private void apply(
+      Context context,
+      Chip chip,
+      @Nullable @DrawableRes Integer icon,
+      String name,
+      int theme,
+      boolean showText,
+      boolean showIcon) {
+    if (showText) {
+      chip.setText(name);
+      chip.setIconEndPadding(0f);
+    } else {
+      chip.setText(null);
+      chip.setContentDescription(name);
+      chip.setTextStartPadding(0f);
+      chip.setChipEndPadding(0f);
     }
-    if (icon != null) {
+    ThemeColor themeColor = getColor(context, theme);
+    if (themeColor != null) {
+      int primaryColor = themeColor.getPrimaryColor();
+      ColorStateList primaryColorSL =
+          new ColorStateList(new int[][] {new int[] {}}, new int[] {primaryColor});
+      if (filled) {
+        int colorOnPrimary = themeColor.getColorOnPrimary();
+        ColorStateList colorOnPrimarySL =
+            new ColorStateList(new int[][] {new int[] {}}, new int[] {colorOnPrimary});
+        chip.setChipBackgroundColor(primaryColorSL);
+        chip.setTextColor(colorOnPrimary);
+        chip.setCloseIconTint(colorOnPrimarySL);
+        chip.setChipIconTint(colorOnPrimarySL);
+      } else {
+        chip.setTextColor(primaryColor);
+        chip.setCloseIconTint(primaryColorSL);
+        chip.setChipIconTint(primaryColorSL);
+        chip.setChipStrokeColor(primaryColorSL);
+      }
+    }
+    if (showIcon && icon != null) {
       chip.setChipIconResource(icon);
       chip.getChipDrawable().setAlpha(iconAlpha);
     }
@@ -223,13 +282,13 @@ public class ChipProvider {
     return icon != null ? icon : def;
   }
 
-  private @ColorInt int getColor(Context context, int theme) {
+  private @Nullable ThemeColor getColor(Context context, int theme) {
     if (theme != 0) {
       ThemeColor color = newThemeColor(context, theme);
       if (color.isFree() || inventory.purchasedThemes()) {
-        return color.getPrimaryColor();
+        return color;
       }
     }
-    return 0;
+    return null;
   }
 }

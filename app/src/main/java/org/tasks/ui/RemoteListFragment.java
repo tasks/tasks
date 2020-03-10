@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableList;
 import com.todoroo.astrid.api.CaldavFilter;
@@ -46,8 +47,8 @@ public class RemoteListFragment extends TaskEditControlFragment {
   @BindView(R.id.dont_sync)
   TextView textView;
 
-  @BindView(R.id.chip)
-  Chip chip;
+  @BindView(R.id.chip_group)
+  ChipGroup chipGroup;
 
   @Inject GtasksListService gtasksListService;
   @Inject GoogleTaskDao googleTaskDao;
@@ -114,8 +115,6 @@ public class RemoteListFragment extends TaskEditControlFragment {
       setSelected(originalList);
     }
 
-    chip.setOnCloseIconClickListener(v -> setSelected(null));
-
     return view;
   }
 
@@ -152,8 +151,12 @@ public class RemoteListFragment extends TaskEditControlFragment {
     return TAG;
   }
 
-  @OnClick({R.id.remote_list_row, R.id.chip})
+  @OnClick({R.id.remote_list_row, R.id.chip_group})
   void clickGoogleTaskList(View view) {
+    openPicker();
+  }
+
+  private void openPicker() {
     newRemoteListSupportPicker(selectedList, this, REQUEST_CODE_SELECT_LIST)
         .show(getFragmentManager(), FRAG_TAG_GOOGLE_TASK_LIST_SELECTION);
   }
@@ -210,11 +213,17 @@ public class RemoteListFragment extends TaskEditControlFragment {
   private void refreshView() {
     if (selectedList == null) {
       textView.setVisibility(View.VISIBLE);
-      chip.setVisibility(View.GONE);
+      chipGroup.setVisibility(View.GONE);
     } else {
       textView.setVisibility(View.GONE);
-      chip.setVisibility(View.VISIBLE);
-      chipProvider.apply(chip, selectedList);
+      chipGroup.setVisibility(View.VISIBLE);
+      chipGroup.removeAllViews();
+      Chip chip =
+          chipProvider.newChip(getActivity(), selectedList, R.drawable.ic_outline_cloud_24px, true, true);
+      chip.setCloseIconVisible(true);
+      chip.setOnClickListener(v -> openPicker());
+      chip.setOnCloseIconClickListener(v -> setSelected(null));
+      chipGroup.addView(chip);
     }
   }
 }

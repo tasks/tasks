@@ -186,4 +186,29 @@
     <item>@drawable/ic_etesync</item>
   </array>
 
+  <string-array name="chip_styles">
+    <item>@string/chip_style_outlined</item>
+    <item>@string/chip_style_filled</item>
+  </string-array>
+
+  <string-array name="chip_style_values">
+    <item>0</item>
+    <item>1</item>
+  </string-array>
+
+  <string-array name="chip_appearance">
+    <item>@string/chip_appearance_text_and_icon</item>
+    <item>@string/chip_appearance_text_only</item>
+    <item>@string/chip_appearance_icon_only</item>
+  </string-array>
+
+  <string-array name="chip_appearance_values">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+  </string-array>
+
+  <string name="chip_appearance_text_and_icon">Text and icon</string>
+  <string name="chip_appearance_text_only">Text only</string>
+  <string name="chip_appearance_icon_only">Icon only</string>
 </resources>

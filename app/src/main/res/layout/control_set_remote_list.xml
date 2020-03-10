@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/remote_list_row"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
@@ -16,8 +17,12 @@
     android:hint="@string/dont_sync"
     android:textAlignment="viewStart" />
 
-  <com.google.android.material.chip.Chip
-    android:id="@+id/chip"
-    style="@style/ChipStyle.Closable"
+  <com.google.android.material.chip.ChipGroup
+    android:id="@+id/chip_group"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:chipSpacingVertical="@dimen/chip_spacing"
+    app:chipSpacingHorizontal="@dimen/chip_spacing"
     android:visibility="gone" />
+
 </LinearLayout>
