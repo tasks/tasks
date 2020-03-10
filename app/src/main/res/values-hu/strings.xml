@@ -298,8 +298,8 @@
     <string name="sound">Hang</string>
     <string name="vibrations">Rezgés</string>
     <string name="quiet_hours">Csendes órák</string>
-    <string name="attachment_directory">Csatolmányok könyvtára</string>
-    <string name="backup_directory">Mentési könyvtár</string>
+    <string name="attachment_directory">Csatolmányok mappája</string>
+    <string name="backup_directory">Mentési mappa</string>
     <string name="google_drive_backup">Másolás Google Drive-ba</string>
     <string name="miscellaneous">Egyéb</string>
     <string name="synchronization">Szinkronizáció</string>
@@ -346,7 +346,7 @@
     <string name="show_hidden">Rejtettek megjelenítése</string>
     <string name="show_completed">Elvégzettek megjelenítése</string>
     <string name="reverse">Visszafelé</string>
-    <string name="no_application_found">A csatolmány megnyitására alkalmas program nem található</string>
+    <string name="no_application_found">A csatolmány megnyitására alkalmas app nem található</string>
     <string name="add_attachment">Csatolmány hozzáadása</string>
     <string name="take_a_picture">Kép készítése</string>
     <string name="pick_from_gallery">Kiválasztás a galériából</string>
@@ -377,7 +377,7 @@
     <string name="theme_wallpaper">Háttérkép</string>
     <string name="theme_day_night">Nappal/Éjszaka</string>
     <string name="language">Nyelv</string>
-    <string name="restart_required">A változás érvényesítéséhez újra kell indítani a Tasks appot</string>
+    <string name="restart_required">Indítsd újra a Tasks appot a változás érvényesítéséhez</string>
     <string name="restart_now">Újraindítás most</string>
     <string name="restart_later">Később</string>
     <string name="settings_localization">Lokalizáció</string>
@@ -387,7 +387,7 @@
     <string name="widget_settings">Widget beállításai</string>
     <string name="widget_header_settings">Fejléc beállításai</string>
     <string name="widget_row_settings">Sorok beállíátsai</string>
-    <string name="sync_error_permissions">A Tasks engedélyre vár</string>
+    <string name="sync_error_permissions">Engedély szükséges</string>
     <string name="clear_completed_tasks_confirmation">Elvégzett feladatok törlése?</string>
     <string name="copy_multiple_tasks_confirmation">%s átmásolva</string>
     <string name="delete_multiple_tasks_confirmation">%s törölve</string>
@@ -427,7 +427,7 @@
     <string name="dont_add_to_calendar">Ne adja hozzá a naptárhoz</string>
     <string name="default_calendar">Alapértelmezett naptár</string>
     <string name="badges_description">Feladatok számának megjelenítése a Tasks ikonon. Nem minden launcher által támogatott funkció.</string>
-    <string name="bundle_notifications_summary">Több értesítés összevonása egy értesítéssé</string>
+    <string name="bundle_notifications_summary">Több értesítés összevonása eggyé</string>
     <string name="repeat_monthly_same_day_each_month">minden hónap egyazon napján</string>
     <string name="dont_sync">Szinkronizáció kikapcsolva</string>
     <string name="repeat_monthly_every_day_of_nth_week">minden %1$s %2$s</string>
@@ -441,7 +441,7 @@
     <string name="tasker_list_notification">Lista értesítés</string>
     <string name="help">Súgó</string>
     <string name="caldav_home_set_not_found">Home set nem található</string>
-    <string name="network_error">Kapcsolódási hiba</string>
+    <string name="network_error">Sikertelen kapcsolódás</string>
     <string name="background_sync_unmetered_only">Csak forgalmidíj mentes kapcsolatoknál</string>
     <string name="upgrade_to_pro">Upgrade pro verzióra</string>
     <string name="manage_subscription">Előfizetés kezelése</string>
@@ -516,7 +516,7 @@
     <string name="enter_title_hint">Cím megadása</string>
     <string name="show_subtasks">Részfeladatok megjelenítése</string>
     <string name="show_subtasks_summary">A részfeladatok megjelenítése csökkenti a program sebességét</string>
-    <string name="no_application_found_link">A link feldolgozására képes alkalmazás nem található</string>
+    <string name="no_application_found_link">A link feldolgozására képes app nem található</string>
     <string name="enter_tag_name">Címke neve</string>
     <string name="create_new_tag">\"%s\" létrehozása</string>
     <string name="encryption_password_required">A titkosításhoz jelszó szükséges</string>
@@ -532,7 +532,7 @@
     <string name="show_advanced_settings">Haladó beállítások mutatása</string>
     <string name="caldav_account_description">CalDAV szolgáltatással rendelkező accountot, vagy saját szervert igényel. A szolgáltatók listája a tasks.org/caldav oldalon található</string>
     <string name="etesync_account_description">EteSync.com accountot, vagy saját szervert igényel</string>
-    <string name="etesync_encryption_description">Add meg a titkosítás jelszavát. A jelszó elfelejtés esetén nem visszaállítható!</string>
+    <string name="etesync_encryption_description">Jól jegyezd meg a titkosítás jelszavát! A jelszó elfelejtés esetén nem visszaállítható!</string>
     <string name="encryption_password_wrong">Hibás titkosító jelszó</string>
     <string name="help_and_feedback">Segítség és visszajelzés</string>
     <string name="documentation">Dokumentáció</string>
@@ -549,4 +549,9 @@
     <string name="invalid_username_or_password">Hibás felhasználónév vagy jelszó</string>
     <string name="theme_system_default">Alapértelmezett</string>
     <string name="color_wheel">Színkör</string>
+    <string name="upgrade_blurb_1">Szia! Alexnek hívnak. Én vagyok a Tasks mögött álló független fejlesztő</string>
+    <string name="upgrade_blurb_2">Több ezer órát dolgoztam a Tasks appon, és a teljes forráskódot ingyenesen elérhetővé tettem. A munkám támogatása érdekében néhány funkció eléréséhez előfizetés szükséges</string>
+    <string name="upgrade_blurb_3">Az ingyenes próbaidőszak megkezdéséhez válassz a lenti előfizetési díjakból. Bármikor lemondhatod az előfizetést</string>
+    <string name="upgrade_blurb_4">A támogatásod sokat jelent nekem, köszönöm!</string>
+    <string name="back">Vissza</string>
 </resources>
