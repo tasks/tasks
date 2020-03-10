@@ -369,7 +369,6 @@
     <string name="widget_settings">Paramètres du widget</string>
     <string name="widget_header_settings">Paramètres de l\'en-tête</string>
     <string name="widget_row_settings">Paramètres de la colonne</string>
-    <string name="sync_error_permissions">Autorisation requise</string>
     <string name="clear_completed_tasks_confirmation">Supprimer les tâches terminées ?</string>
     <string name="copy_multiple_tasks_confirmation">%s copiées</string>
     <string name="delete_multiple_tasks_confirmation">%s supprimées</string>

@@ -359,7 +359,6 @@
     <string name="EPr_voiceInputEnabled_title">Masukan suara</string>
     <string name="EPr_voiceRemindersEnabled_title">Pengingat suara</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks akan mengucapkan nama tugas selama pengingat tugas berjalan</string>
-    <string name="sync_error_permissions">Tasks membutuhkan izin akses</string>
     <string name="badges_description">Tampilkan jumlah tugas pada ikon peluncur Tasks. Tidak semua peluncur mendukung fitur ini.</string>
     <string name="bundle_notifications_summary">Gabung beberapa notifikasi menjadi satu notifikasi</string>
     <string name="repeat_monthly_same_day_each_month">pada hari yang sama setiap bulan</string>

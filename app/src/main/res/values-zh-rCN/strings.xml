@@ -370,7 +370,6 @@
     <string name="widget_settings">插件设置</string>
     <string name="widget_header_settings">标题设置</string>
     <string name="widget_row_settings">行设置</string>
-    <string name="sync_error_permissions">需要授予权限</string>
     <string name="clear_completed_tasks_confirmation">清除完成的任务？</string>
     <string name="copy_multiple_tasks_confirmation">%s 已复制</string>
     <string name="delete_multiple_tasks_confirmation">%s 已删除</string>

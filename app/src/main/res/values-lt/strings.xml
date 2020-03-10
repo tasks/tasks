@@ -384,7 +384,6 @@
     <string name="widget_settings">Widget nustatymai</string>
     <string name="widget_header_settings">Antraščių nustatymai</string>
     <string name="widget_row_settings">Eilutės nustatymai</string>
-    <string name="sync_error_permissions">Tasks reikalingas leidimas</string>
     <string name="clear_completed_tasks_confirmation">Išvalyti užbaigtas užduotis?</string>
     <string name="copy_multiple_tasks_confirmation">%s nukopijuota</string>
     <string name="delete_multiple_tasks_confirmation">%s ištrinta</string>

@@ -403,7 +403,6 @@
     <string name="hardware_support_required">Je vyžadována hardwarová podpora</string>
     <string name="widget_header_settings">Nastavení nadpisu</string>
     <string name="widget_row_settings">Nastavení řádku</string>
-    <string name="sync_error_permissions">Aplikace vyžaduje oprávnění</string>
     <string name="clear_completed_tasks_confirmation">Smazat splněné úkoly\?</string>
     <string name="delete_selected_tasks">Smazat vybrané úkoly\?</string>
     <string name="copy_selected_tasks">Zkopírovat vybrané úkoly\?</string>

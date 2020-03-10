@@ -3,13 +3,9 @@ package org.tasks.gtasks;
 import static com.google.common.collect.Lists.transform;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.text.TextUtils;
 import androidx.annotation.Nullable;
-import androidx.core.app.NotificationCompat;
-import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
@@ -27,7 +23,6 @@ import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.api.HttpNotFoundException;
 import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskDeleter;
-import com.todoroo.astrid.utility.Constants;
 import java.io.EOFException;
 import java.io.IOException;
 import java.net.HttpRetryException;
@@ -50,7 +45,6 @@ import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
 import org.tasks.injection.ForApplication;
-import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.Preferences;
@@ -78,7 +72,6 @@ public class GoogleTaskSynchronizer {
   private final Preferences preferences;
   private final TaskDao taskDao;
   private final Tracker tracker;
-  private final NotificationManager notificationManager;
   private final GoogleTaskDao googleTaskDao;
   private final TaskCreator taskCreator;
   private final DefaultFilterProvider defaultFilterProvider;
@@ -97,7 +90,6 @@ public class GoogleTaskSynchronizer {
       Preferences preferences,
       TaskDao taskDao,
       Tracker tracker,
-      NotificationManager notificationManager,
       GoogleTaskDao googleTaskDao,
       TaskCreator taskCreator,
       DefaultFilterProvider defaultFilterProvider,
@@ -113,7 +105,6 @@ public class GoogleTaskSynchronizer {
     this.preferences = preferences;
     this.taskDao = taskDao;
     this.tracker = tracker;
-    this.notificationManager = notificationManager;
     this.googleTaskDao = googleTaskDao;
     this.taskCreator = taskCreator;
     this.defaultFilterProvider = defaultFilterProvider;
@@ -125,7 +116,7 @@ public class GoogleTaskSynchronizer {
     this.gtasksInvoker = gtasksInvoker;
   }
 
-  public static void mergeDates(long remoteDueDate, Task local) {
+  static void mergeDates(long remoteDueDate, Task local) {
     if (remoteDueDate > 0 && local.hasDueTime()) {
       DateTime oldDate = newDateTime(local.getDueDate());
       DateTime newDate =
@@ -163,9 +154,6 @@ public class GoogleTaskSynchronizer {
       } else {
         tracker.reportException(e);
       }
-    } catch (UserRecoverableAuthIOException e) {
-      Timber.e(e);
-      sendNotification(context, e.getIntent());
     } catch (Exception e) {
       account.setError(e.getMessage());
       tracker.reportException(e);
@@ -174,25 +162,6 @@ public class GoogleTaskSynchronizer {
       localBroadcastManager.broadcastRefreshList();
       Timber.d("%s: end sync", account);
     }
-  }
-
-  private void sendNotification(Context context, Intent intent) {
-    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_FROM_BACKGROUND);
-
-    PendingIntent resolve =
-        PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-    NotificationCompat.Builder builder =
-        new NotificationCompat.Builder(
-                context, NotificationManager.NOTIFICATION_CHANNEL_MISCELLANEOUS)
-            .setAutoCancel(true)
-            .setContentIntent(resolve)
-            .setContentTitle(context.getString(R.string.sync_error_permissions))
-            .setContentText(
-                context.getString(R.string.common_google_play_services_notification_ticker))
-            .setAutoCancel(true)
-            .setSmallIcon(R.drawable.ic_warning_white_24dp)
-            .setTicker(context.getString(R.string.common_google_play_services_notification_ticker));
-    notificationManager.notify(Constants.NOTIFICATION_SYNC_ERROR, builder, true, false, false);
   }
 
   private void synchronize(GoogleTaskAccount account) throws IOException {

@@ -358,7 +358,6 @@
     <string name="widget_settings">Definições do widget</string>
     <string name="widget_header_settings">Definições de cabeçalho</string>
     <string name="widget_row_settings">Definições de linhas</string>
-    <string name="sync_error_permissions">O Tasks necessita de permissão</string>
     <string name="clear_completed_tasks_confirmation">Remover tarefas concluídas?</string>
     <string name="copy_multiple_tasks_confirmation">%s copiado</string>
     <string name="delete_multiple_tasks_confirmation">%s apagado</string>

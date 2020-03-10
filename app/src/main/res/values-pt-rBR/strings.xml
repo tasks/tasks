@@ -385,7 +385,6 @@
     <string name="widget_settings">Configurações de Widget</string>
     <string name="widget_header_settings">Config. cabeçalho</string>
     <string name="widget_row_settings">Congif. entrada</string>
-    <string name="sync_error_permissions">Tasks precisa de permissão</string>
     <string name="clear_completed_tasks_confirmation">Limpar tarefas concluídas?</string>
     <string name="copy_multiple_tasks_confirmation">%s copiadas</string>
     <string name="delete_multiple_tasks_confirmation">%s excluídas</string>

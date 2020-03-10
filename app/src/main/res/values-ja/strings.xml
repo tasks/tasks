@@ -385,7 +385,6 @@
     <string name="widget_settings">ウィジェット設定</string>
     <string name="widget_header_settings">ヘッダー設定</string>
     <string name="widget_row_settings">行設定</string>
-    <string name="sync_error_permissions">Tasks はアクセス許可が必要です</string>
     <string name="clear_completed_tasks_confirmation">完了したタスクをクリアしますか?</string>
     <string name="copy_multiple_tasks_confirmation">%s コピー済</string>
     <string name="delete_multiple_tasks_confirmation">%s 削除済</string>

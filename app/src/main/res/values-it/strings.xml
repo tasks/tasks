@@ -384,7 +384,6 @@
     <string name="widget_settings">Impostazioni widget</string>
     <string name="widget_header_settings">Impostazioni intestazione</string>
     <string name="widget_row_settings">Impostazioni riga</string>
-    <string name="sync_error_permissions">L\'attività richiede l\'autorizzazione</string>
     <string name="clear_completed_tasks_confirmation">Elimino le attività completate?</string>
     <string name="copy_multiple_tasks_confirmation">%s copiati</string>
     <string name="delete_multiple_tasks_confirmation">%s eliminati</string>

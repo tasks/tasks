@@ -399,7 +399,6 @@
     <string name="widget_settings">Ustawienie widgetu</string>
     <string name="widget_header_settings">Ustawienia nagłówka</string>
     <string name="widget_row_settings">Ustawienia rzędu</string>
-    <string name="sync_error_permissions">Wymagane uprawnienia</string>
     <string name="clear_completed_tasks_confirmation">Wyczyścić ukończone zadania?</string>
     <string name="copy_multiple_tasks_confirmation">%s skopiowanych</string>
     <string name="delete_multiple_tasks_confirmation">%s usuniętych</string>

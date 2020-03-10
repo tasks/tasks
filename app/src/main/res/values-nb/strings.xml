@@ -411,7 +411,6 @@
     <string name="widget_settings">Miniprogramsinnstillinger</string>
     <string name="widget_header_settings">Hodeinnstillinger</string>
     <string name="widget_row_settings">Radinnstillinger</string>
-    <string name="sync_error_permissions">Tasks krever tilgang</string>
     <string name="clear_completed_tasks_confirmation">Tøm fullførte oppgaver\?</string>
     <string name="copy_multiple_tasks_confirmation">%s kopiert</string>
     <string name="delete_multiple_tasks_confirmation">%s slettet</string>

@@ -247,7 +247,6 @@
     <string name="widget_settings">Vidina seaded</string>
     <string name="widget_header_settings">Päise seaded</string>
     <string name="widget_row_settings">Rea seaded</string>
-    <string name="sync_error_permissions">Ülesanded nõuavad õiguseid</string>
     <string name="delete_multiple_tasks_confirmation">%s kustutatud</string>
     <string name="delete_selected_tasks">Kustutada valitud ülesanded\?</string>
     <string name="copy_selected_tasks">Kopeerida valitud ülesanded\?</string>

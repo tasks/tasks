@@ -379,7 +379,6 @@
     <string name="widget_settings">Widget-Einstellungen</string>
     <string name="widget_header_settings">Kopf-Einstellungen</string>
     <string name="widget_row_settings">Reihen-Einstellungen</string>
-    <string name="sync_error_permissions">Tasks benötigt Zugriff</string>
     <string name="clear_completed_tasks_confirmation">Erledigte Aufgaben löschen?</string>
     <string name="copy_multiple_tasks_confirmation">%s kopiert</string>
     <string name="delete_multiple_tasks_confirmation">%s gelöscht</string>

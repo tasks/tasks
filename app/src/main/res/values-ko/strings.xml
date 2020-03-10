@@ -388,7 +388,6 @@
     <string name="widget_settings">위젯 설정</string>
     <string name="widget_header_settings">헤더 설정</string>
     <string name="widget_row_settings">줄 설정</string>
-    <string name="sync_error_permissions">Tasks는 권한이 필요합니다</string>
     <string name="clear_completed_tasks_confirmation">완료한 할일을 지울까요?</string>
     <string name="copy_multiple_tasks_confirmation">%s 복사 완료</string>
     <string name="delete_multiple_tasks_confirmation">%s 삭제 완료</string>

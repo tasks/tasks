@@ -363,7 +363,6 @@
     <string name="widget_settings">Widgetin asetukset</string>
     <string name="widget_header_settings">Otsikon asetukset</string>
     <string name="widget_row_settings">Rivin asetukset</string>
-    <string name="sync_error_permissions">Tasks vaatii  lupaa</string>
     <string name="clear_completed_tasks_confirmation">Siivoa valmiit tehtävät?</string>
     <string name="copy_multiple_tasks_confirmation">%s kopioitu</string>
     <string name="delete_multiple_tasks_confirmation">%s poistettu</string>
