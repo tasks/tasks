@@ -1,5 +1,7 @@
 package org.tasks.sync;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastKitKat;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.TypedArray;
@@ -9,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -61,9 +64,18 @@ public class AddAccountDialog {
             (dialog, which) -> {
               switch (which) {
                 case 0:
-                  activity.startActivityForResult(
-                      new Intent(activity, GtasksLoginActivity.class),
-                      SynchronizationKt.REQUEST_GOOGLE_TASKS);
+                  if (atLeastKitKat()) {
+                    activity.startActivityForResult(
+                        new Intent(activity, GtasksLoginActivity.class),
+                        SynchronizationKt.REQUEST_GOOGLE_TASKS);
+                  } else {
+                    Toast.makeText(
+                            activity,
+                            activity.getString(R.string.requires_android_version, "4.4"),
+                            Toast.LENGTH_SHORT)
+                        .show();
+                    return;
+                  }
                   break;
                 case 1:
                   activity.startActivityForResult(

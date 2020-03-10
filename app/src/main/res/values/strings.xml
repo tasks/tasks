@@ -557,4 +557,5 @@ File %1$s contained %2$s.\n\n
   <string name="upgrade_blurb_3">Choose any subscription price below to start your free trial. You may cancel at any time</string>
   <string name="upgrade_blurb_4">Your support means a lot to me, thank you!</string>
   <string name="back">Back</string>
+  <string name="requires_android_version">Requires Android %s+</string>
 </resources>
