@@ -26,6 +26,7 @@ import androidx.core.graphics.ColorUtils;
 import androidx.core.os.ParcelCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import java.util.Collections;
 import java.util.Map;
 import org.tasks.R;
 import org.tasks.dialogs.ColorPalettePicker.Pickable;
@@ -167,57 +168,62 @@ public class ThemeColor implements Pickable {
   private static final int WHITE = -1;
   private static final int BLACK = -16777216;
 
-  private static final Map<Integer, Integer> colorMap = newHashMap();
+  private static final Map<Integer, Integer> saturated = newHashMap();
+  public static Map<Integer, Integer> colorMap = saturated;
+
+  public static void enableSaturation(boolean enabled) {
+    colorMap = enabled ? saturated : Collections.emptyMap();
+  }
 
   static {
     // 2014 material design palette
-    colorMap.put(-10453621, -5194043); // blue_grey
-    colorMap.put(-12434878, -14606047); // grey
-    colorMap.put(-769226, -1074534); // red
-    colorMap.put(-1499549, -749647); // pink
-    colorMap.put(-6543440, -3238952); // purple
-    colorMap.put(-10011977, -5005861); // deep purple
-    colorMap.put(-12627531, -6313766); // indigo
-    colorMap.put(-14575885, -7288071); // blue
-    colorMap.put(-16537100, -8268550); // light blue
-    colorMap.put(-16728876, -8331542); // cyan
-    colorMap.put(-16738680, -8336444); // teal
-    colorMap.put(-11751600, -5908825); // green
-    colorMap.put(-7617718, -3808859); // light green
-    colorMap.put(-3285959, -1642852); // lime
-    colorMap.put(-5317, -2659); // yellow
-    colorMap.put(-16121, -8062); // amber
-    colorMap.put(-26624, -13184); // orange
-    colorMap.put(-43230, -21615); // deep orange
-    colorMap.put(-8825528, -4412764); // brown
-    colorMap.put(-6381922, -1118482); // grey
-    colorMap.put(-1, -16777216); // white & black
+    saturated.put(-10453621, -5194043); // blue_grey
+    saturated.put(-12434878, -14606047); // grey
+    saturated.put(-769226, -1074534); // red
+    saturated.put(-1499549, -749647); // pink
+    saturated.put(-6543440, -3238952); // purple
+    saturated.put(-10011977, -5005861); // deep purple
+    saturated.put(-12627531, -6313766); // indigo
+    saturated.put(-14575885, -7288071); // blue
+    saturated.put(-16537100, -8268550); // light blue
+    saturated.put(-16728876, -8331542); // cyan
+    saturated.put(-16738680, -8336444); // teal
+    saturated.put(-11751600, -5908825); // green
+    saturated.put(-7617718, -3808859); // light green
+    saturated.put(-3285959, -1642852); // lime
+    saturated.put(-5317, -2659); // yellow
+    saturated.put(-16121, -8062); // amber
+    saturated.put(-26624, -13184); // orange
+    saturated.put(-43230, -21615); // deep orange
+    saturated.put(-8825528, -4412764); // brown
+    saturated.put(-6381922, -1118482); // grey
+    saturated.put(WHITE, BLACK);
 
     // 2019 google calendar
-    colorMap.put(-2818048, -3397335); // tomato
-    colorMap.put(-765666, -2136512); // tangerine
-    colorMap.put(-1086464, -2459092); // pumpkin
-    colorMap.put(-1010944, -2254804); // mango
-    colorMap.put(-606426, -2050234); // banana
-    colorMap.put(-1784767, -2769834); // citron
-    colorMap.put(-4142541, -4274613); // avocado
-    colorMap.put(-8604862, -7817131); // pistachio
-    colorMap.put(-16023485, -14116514); // basil
-    //    colorMap.put(-16738680, -14571622); // eucalyptus
-    colorMap.put(-13388167, -11879802); // sage
-    colorMap.put(-16540699, -13787178); // peacock
-    colorMap.put(-12417548, -10974241); // cobalt
-    //    colorMap.put(-12627531, -11312199); // blueberry
-    colorMap.put(-8812853, -8615738); // lavender
-    colorMap.put(-5005861, -5597744); // wisteria
-    colorMap.put(-6395473, -5934410); // amethyst
-    colorMap.put(-7461718, -6668365); // grape
-    colorMap.put(-5434281, -4967572); // radicchio
-    colorMap.put(-2614432, -3261327); // cherry blossom
-    colorMap.put(-1672077, -2654344); // flamingo
-    //    colorMap.put(-8825528, -6984611); // cocoa
-    colorMap.put(-10395295, -7895161); // graphite
-    colorMap.put(-5792882, -5135210); // birch
+    saturated.put(-2818048, -3397335); // tomato
+    saturated.put(-765666, -2136512); // tangerine
+    saturated.put(-1086464, -2459092); // pumpkin
+    saturated.put(-1010944, -2254804); // mango
+    saturated.put(-606426, -2050234); // banana
+    saturated.put(-1784767, -2769834); // citron
+    saturated.put(-4142541, -4274613); // avocado
+    saturated.put(-8604862, -7817131); // pistachio
+    saturated.put(-16023485, -14116514); // basil
+    //    saturated.put(-16738680, -14571622); // eucalyptus
+    saturated.put(-13388167, -11879802); // sage
+    saturated.put(-16540699, -13787178); // peacock
+    saturated.put(-12417548, -10974241); // cobalt
+    //    saturated.put(-12627531, -11312199); // blueberry
+    saturated.put(-8812853, -8615738); // lavender
+    saturated.put(-5005861, -5597744); // wisteria
+    saturated.put(-6395473, -5934410); // amethyst
+    saturated.put(-7461718, -6668365); // grape
+    saturated.put(-5434281, -4967572); // radicchio
+    saturated.put(-2614432, -3261327); // cherry blossom
+    saturated.put(-1672077, -2654344); // flamingo
+    //    saturated.put(-8825528, -6984611); // cocoa
+    saturated.put(-10395295, -7895161); // graphite
+    saturated.put(-5792882, -5135210); // birch
   }
 
   private final int original;
@@ -295,8 +301,6 @@ public class ThemeColor implements Pickable {
     if (colorMap.containsKey(color)) {
       //noinspection ConstantConditions
       return colorMap.get(color);
-    } else if (color == WHITE) {
-      return BLACK; // white -> black
     } else {
       return color;
     }

@@ -5,6 +5,7 @@ import android.content.ComponentName
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Handler
 import android.widget.Toast
@@ -104,6 +105,14 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
 
         findPreference(R.string.p_chip_appearance).setOnPreferenceChangeListener { _, newValue ->
             chipProvider.setAppearance(Integer.parseInt(newValue as String))
+            true
+        }
+
+        findPreference(R.string.p_desaturate_colors).setOnPreferenceChangeListener { _, newValue ->
+            ThemeColor.enableSaturation(newValue as Boolean)
+            if (context?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) {
+                activity?.recreate()
+            }
             true
         }
 

@@ -290,4 +290,5 @@
   <string name="p_notified_oauth_error">notified_oauth_error_%s_%s</string>
   <string name="p_chip_style">chip_style</string>
   <string name="p_chip_appearance">chip_appearance</string>
+  <string name="p_desaturate_colors">desaturate_colors</string>
 </resources>
