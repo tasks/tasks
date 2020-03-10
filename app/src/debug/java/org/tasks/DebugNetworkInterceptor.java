@@ -32,7 +32,7 @@ public class DebugNetworkInterceptor {
     FlipperHttpInterceptor<T> interceptor =
         new FlipperHttpInterceptor<>(getNetworkPlugin(context), responseClass);
     request
-        .setInterceptor(new ChainedHttpExecuteInterceptor(request.getInterceptor(), interceptor))
+        .setInterceptor(interceptor)
         .setResponseInterceptor(interceptor)
         .execute();
     return interceptor.getResponse();

@@ -4,7 +4,6 @@ import static com.todoroo.andlib.utility.DateUtilities.now;
 
 import android.content.Context;
 import android.net.Uri;
-import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpResponseException;
 import com.google.api.client.http.InputStreamContent;
@@ -15,7 +14,7 @@ import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveRequest;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
-import com.google.common.base.Strings;
+import com.todoroo.astrid.gtasks.api.HttpCredentialsAdapter;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
@@ -24,7 +23,6 @@ import org.tasks.BuildConfig;
 import org.tasks.DebugNetworkInterceptor;
 import org.tasks.R;
 import org.tasks.files.FileHelper;
-import org.tasks.gtasks.GoogleAccountManager;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
@@ -35,33 +33,25 @@ public class DriveInvoker {
 
   private final Context context;
   private final Preferences preferences;
-  private final GoogleAccountManager googleAccountManager;
   private final DebugNetworkInterceptor interceptor;
   private final Drive service;
-  private final GoogleCredential credential = new GoogleCredential();
+  private final HttpCredentialsAdapter credentialsAdapter;
 
   @Inject
   public DriveInvoker(
       @ForApplication Context context,
       Preferences preferences,
-      GoogleAccountManager googleAccountManager,
+      HttpCredentialsAdapter credentialsAdapter,
       DebugNetworkInterceptor interceptor) {
     this.context = context;
     this.preferences = preferences;
-    this.googleAccountManager = googleAccountManager;
+    this.credentialsAdapter = credentialsAdapter;
     this.interceptor = interceptor;
+
     service =
-        new Drive.Builder(new NetHttpTransport(), new JacksonFactory(), credential)
+        new Drive.Builder(new NetHttpTransport(), new JacksonFactory(), credentialsAdapter)
             .setApplicationName(String.format("Tasks/%s", BuildConfig.VERSION_NAME))
             .build();
-  }
-
-  private void checkToken() {
-    if (Strings.isNullOrEmpty(credential.getAccessToken())) {
-      String account = preferences.getStringValue(R.string.p_google_drive_backup_account);
-      credential.setAccessToken(
-          googleAccountManager.getAccessToken(account, DriveScopes.DRIVE_FILE));
-    }
   }
 
   public File getFile(String folderId) throws IOException {
@@ -110,7 +100,8 @@ public class DriveInvoker {
   }
 
   private synchronized <T> T execute(DriveRequest<T> request, boolean retry) throws IOException {
-    checkToken();
+    String account = preferences.getStringValue(R.string.p_google_drive_backup_account);
+    credentialsAdapter.checkToken(account, DriveScopes.DRIVE_FILE);
     Timber.d("%s request: %s", getCaller(), request);
     T response;
     try {
@@ -123,8 +114,7 @@ public class DriveInvoker {
       }
     } catch (HttpResponseException e) {
       if (e.getStatusCode() == 401 && !retry) {
-        googleAccountManager.invalidateToken(credential.getAccessToken());
-        credential.setAccessToken(null);
+        credentialsAdapter.invalidateToken();
         return execute(request, true);
       } else {
         throw e;

@@ -188,6 +188,7 @@ dependencies {
     implementation("com.google.apis:google-api-services-tasks:v1-rev20190628-1.30.8")
     implementation("com.google.apis:google-api-services-drive:v3-rev20191108-1.30.8")
     implementation("com.google.api-client:google-api-client-android:1.30.8")
+    implementation("com.google.auth:google-auth-library-oauth2-http:0.20.0")
     implementation("androidx.work:work-runtime:${Versions.work}")
     implementation("com.mapbox.mapboxsdk:mapbox-android-sdk:7.3.0")
     implementation("com.mapbox.mapboxsdk:mapbox-sdk-services:4.6.0")

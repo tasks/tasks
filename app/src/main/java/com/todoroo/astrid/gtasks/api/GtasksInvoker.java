@@ -2,7 +2,6 @@ package com.todoroo.astrid.gtasks.api;
 
 import android.content.Context;
 import androidx.annotation.Nullable;
-import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpResponseException;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -14,12 +13,10 @@ import com.google.api.services.tasks.TasksScopes;
 import com.google.api.services.tasks.model.Task;
 import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
-import com.google.common.base.Strings;
 import java.io.IOException;
 import javax.inject.Inject;
 import org.tasks.BuildConfig;
 import org.tasks.DebugNetworkInterceptor;
-import org.tasks.gtasks.GoogleAccountManager;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
@@ -33,55 +30,46 @@ import timber.log.Timber;
 public class GtasksInvoker {
 
   private final Context context;
-  private final GoogleAccountManager googleAccountManager;
   private final Preferences preferences;
   private final DebugNetworkInterceptor interceptor;
-  @Nullable private final GoogleCredential credential;
   private final String account;
   private final Tasks service;
+  private final HttpCredentialsAdapter credentialsAdapter;
 
   @Inject
   public GtasksInvoker(
       @ForApplication Context context,
-      GoogleAccountManager googleAccountManager,
+      HttpCredentialsAdapter credentialsAdapter,
       Preferences preferences,
       DebugNetworkInterceptor interceptor) {
     this.context = context;
-    this.googleAccountManager = googleAccountManager;
+    this.credentialsAdapter = credentialsAdapter;
     this.preferences = preferences;
     this.interceptor = interceptor;
     account = null;
     service = null;
-    credential = null;
   }
 
   private GtasksInvoker(
       Context context,
-      GoogleAccountManager googleAccountManager,
+      HttpCredentialsAdapter credentialsAdapter,
       Preferences preferences,
       DebugNetworkInterceptor interceptor,
       String account) {
     this.context = context;
-    this.googleAccountManager = googleAccountManager;
+    this.credentialsAdapter = credentialsAdapter;
     this.preferences = preferences;
     this.interceptor = interceptor;
     this.account = account;
-    credential = new GoogleCredential();
 
     service =
-        new Tasks.Builder(new NetHttpTransport(), new JacksonFactory(), credential)
+        new Tasks.Builder(new NetHttpTransport(), new JacksonFactory(), credentialsAdapter)
             .setApplicationName(String.format("Tasks/%s", BuildConfig.VERSION_NAME))
             .build();
   }
 
   public GtasksInvoker forAccount(String account) {
-    return new GtasksInvoker(context, googleAccountManager, preferences, interceptor, account);
-  }
-
-  private void checkToken() {
-    if (credential != null && Strings.isNullOrEmpty(credential.getAccessToken())) {
-      credential.setAccessToken(googleAccountManager.getAccessToken(account, TasksScopes.TASKS));
-    }
+    return new GtasksInvoker(context, credentialsAdapter, preferences, interceptor, account);
   }
 
   public @Nullable TaskLists allGtaskLists(@Nullable String pageToken) throws IOException {
@@ -160,7 +148,7 @@ public class GtasksInvoker {
 
   private synchronized @Nullable <T> T execute(TasksRequest<T> request, boolean retry)
       throws IOException {
-    checkToken();
+    credentialsAdapter.checkToken(account, TasksScopes.TASKS);
     T response;
     try {
       HttpRequest httpRequest = request.buildHttpRequest();
@@ -172,8 +160,7 @@ public class GtasksInvoker {
       }
     } catch (HttpResponseException e) {
       if (e.getStatusCode() == 401 && !retry) {
-        googleAccountManager.invalidateToken(credential.getAccessToken());
-        credential.setAccessToken(null);
+        credentialsAdapter.invalidateToken();
         return execute(request, true);
       } else if (e.getStatusCode() == 404) {
         throw new HttpNotFoundException(e);
