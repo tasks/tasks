@@ -533,4 +533,14 @@
     <string name="etesync_account_description">Vyžaduje účet na EteSync.com nebo vlastní server</string>
     <string name="etesync_encryption_description">Dobře si zapamatujte Vaše šifrovací heslo, protože jej není možné obnovit!</string>
     <string name="preferences_look_and_feel">Vzhled a chování</string>
+    <string name="documentation">Dokumentace</string>
+    <string name="preferences_advanced">Pokročilé možnosti</string>
+    <string name="accounts">Účty</string>
+    <string name="wearable_notifications">Upozornění na hodinkách</string>
+    <string name="wearable_notifications_summary">Zobrazí upozornění na Vašich chytrých hodinkách</string>
+    <string name="troubleshooting">Řešení problémů</string>
+    <string name="notification_troubleshooting_summary">Klepněte sem pokud se Vám zpožďují upozornění či se vůbec nezobrazují</string>
+    <string name="disable_battery_optimizations">Vypnout optimalizace baterie</string>
+    <string name="more_settings">Daší nastavení</string>
+    <string name="more_notification_settings_summary">Zvuk upozornění, vibrace, atd.</string>
 </resources>
