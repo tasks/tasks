@@ -27,7 +27,7 @@ import org.tasks.data.TaskListQuery;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
-import org.tasks.ui.CheckBoxes;
+import org.tasks.ui.CheckBoxProvider;
 import timber.log.Timber;
 
 class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
@@ -35,6 +35,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
   private final int widgetId;
   private final TaskDao taskDao;
   private final DefaultFilterProvider defaultFilterProvider;
+  private final CheckBoxProvider checkBoxProvider;
   private final SubtasksHelper subtasksHelper;
   private final Preferences preferences;
   private final WidgetPreferences widgetPreferences;
@@ -58,13 +59,15 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
       Context context,
       int widgetId,
       TaskDao taskDao,
-      DefaultFilterProvider defaultFilterProvider) {
+      DefaultFilterProvider defaultFilterProvider,
+      CheckBoxProvider checkBoxProvider) {
     this.subtasksHelper = subtasksHelper;
     this.preferences = preferences;
     this.context = context;
     this.widgetId = widgetId;
     this.taskDao = taskDao;
     this.defaultFilterProvider = defaultFilterProvider;
+    this.checkBoxProvider = checkBoxProvider;
     widgetPreferences = new WidgetPreferences(context, preferences, widgetId);
     DisplayMetrics metrics = context.getResources().getDisplayMetrics();
     widgetPadding = (int)(10 * metrics.density);
@@ -120,7 +123,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
   }
 
   private Bitmap getCheckbox(Task task) {
-    return CheckBoxes.getWidgetCheckBox(context, task);
+    return checkBoxProvider.getWidgetCheckBox(task);
   }
 
   private RemoteViews buildUpdate(int position) {

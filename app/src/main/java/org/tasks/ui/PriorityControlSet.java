@@ -1,7 +1,5 @@
 package org.tasks.ui;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.preLollipop;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -21,6 +19,7 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.FragmentComponent;
+import org.tasks.themes.ColorProvider;
 
 public class PriorityControlSet extends TaskEditControlFragment {
 
@@ -28,6 +27,7 @@ public class PriorityControlSet extends TaskEditControlFragment {
   private static final String EXTRA_PRIORITY = "extra_priority";
 
   @Inject @ForApplication Context context;
+  @Inject ColorProvider colorProvider;
 
   @BindView(R.id.priority_high)
   AppCompatRadioButton priorityHigh;
@@ -81,12 +81,10 @@ public class PriorityControlSet extends TaskEditControlFragment {
     } else {
       priorityNone.setChecked(true);
     }
-    if (preLollipop()) {
-      tintRadioButton(priorityHigh, 0);
-      tintRadioButton(priorityMedium, 1);
-      tintRadioButton(priorityLow, 2);
-      tintRadioButton(priorityNone, 3);
-    }
+    tintRadioButton(priorityHigh, 0);
+    tintRadioButton(priorityMedium, 1);
+    tintRadioButton(priorityLow, 2);
+    tintRadioButton(priorityNone, 3);
     return view;
   }
 
@@ -123,7 +121,7 @@ public class PriorityControlSet extends TaskEditControlFragment {
   }
 
   private void tintRadioButton(AppCompatRadioButton radioButton, int priority) {
-    int color = CheckBoxes.getPriorityColor(context, priority);
+    int color = colorProvider.getPriorityColor(priority, true);
     CompoundButtonCompat.setButtonTintList(
         radioButton,
         new ColorStateList(

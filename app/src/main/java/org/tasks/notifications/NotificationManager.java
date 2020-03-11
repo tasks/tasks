@@ -52,8 +52,8 @@ import org.tasks.reminders.NotificationActivity;
 import org.tasks.reminders.SnoozeActivity;
 import org.tasks.reminders.SnoozeDialog;
 import org.tasks.reminders.SnoozeOption;
+import org.tasks.themes.ColorProvider;
 import org.tasks.time.DateTime;
-import org.tasks.ui.CheckBoxes;
 import timber.log.Timber;
 
 @ApplicationScope
@@ -69,6 +69,7 @@ public class NotificationManager {
   private static final String GROUP_KEY = "tasks";
   private static final int NOTIFICATIONS_PER_SECOND = 4;
   private final NotificationManagerCompat notificationManagerCompat;
+  private final ColorProvider colorProvider;
   private final LocalBroadcastManager localBroadcastManager;
   private final LocationDao locationDao;
   private final NotificationDao notificationDao;
@@ -92,6 +93,7 @@ public class NotificationManager {
     this.taskDao = taskDao;
     this.locationDao = locationDao;
     this.localBroadcastManager = localBroadcastManager;
+    this.colorProvider = new ColorProvider(context, preferences);
     notificationManagerCompat = NotificationManagerCompat.from(context);
   }
 
@@ -286,7 +288,7 @@ public class NotificationManager {
             .setWhen(when)
             .setSmallIcon(R.drawable.ic_done_all_white_24dp)
             .setStyle(style)
-            .setColor(CheckBoxes.getPriorityColor(context, maxPriority))
+            .setColor(colorProvider.getPriorityColor(maxPriority, true))
             .setOnlyAlertOnce(false)
             .setContentIntent(
                 PendingIntent.getActivity(
@@ -365,7 +367,7 @@ public class NotificationManager {
         new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_DEFAULT)
             .setCategory(NotificationCompat.CATEGORY_REMINDER)
             .setContentTitle(taskTitle)
-            .setColor(CheckBoxes.getPriorityColor(context, task.getPriority()))
+            .setColor(colorProvider.getPriorityColor(task.getPriority(), true))
             .setSmallIcon(R.drawable.ic_check_white_24dp)
             .setWhen(when)
             .setOnlyAlertOnce(false)

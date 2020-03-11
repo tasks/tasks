@@ -31,25 +31,21 @@
     <androidx.appcompat.widget.AppCompatRadioButton
       android:id="@+id/priority_none"
       style="@style/priority_button"
-      android:buttonTint="@color/priority_4"
       tools:ignore="UnusedAttribute"/>
 
     <androidx.appcompat.widget.AppCompatRadioButton
       android:id="@+id/priority_low"
       style="@style/priority_button"
-      android:buttonTint="@color/priority_3"
       tools:ignore="UnusedAttribute"/>
 
     <androidx.appcompat.widget.AppCompatRadioButton
       android:id="@+id/priority_medium"
       style="@style/priority_button"
-      android:buttonTint="@color/priority_2"
       tools:ignore="UnusedAttribute"/>
 
     <androidx.appcompat.widget.AppCompatRadioButton
       android:id="@+id/priority_high"
       style="@style/priority_button"
-      android:buttonTint="@color/priority_1"
       tools:ignore="UnusedAttribute"/>
   </RadioGroup>
 

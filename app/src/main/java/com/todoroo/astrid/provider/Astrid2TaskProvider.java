@@ -6,12 +6,15 @@
 
 package com.todoroo.astrid.provider;
 
+import static androidx.core.content.ContextCompat.getColor;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
+import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import com.google.common.base.Joiner;
 import com.todoroo.astrid.dao.TaskDao;
@@ -23,12 +26,12 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.BuildConfig;
+import org.tasks.R;
 import org.tasks.data.TagDao;
 import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
 import org.tasks.injection.ContentProviderComponent;
 import org.tasks.injection.InjectingContentProvider;
-import org.tasks.ui.CheckBoxes;
 import timber.log.Timber;
 
 /**
@@ -175,7 +178,7 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
 
       Object[] values = new Object[7];
       values[0] = task.getTitle();
-      values[1] = CheckBoxes.getPriorityColor(getContext(), task.getPriority());
+      values[1] = getPriorityColor(getContext(), task.getPriority());
       values[2] = task.getDueDate();
       values[3] = task.getDueDate();
       values[4] = task.getPriority();
@@ -185,6 +188,22 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
       ret.addRow(values);
     }
     return ret;
+  }
+
+  private static int getPriorityColor(Context context, int priority) {
+    return getColor(context, getPriorityResId(priority));
+  }
+
+  @ColorRes private static int getPriorityResId(int priority) {
+    if (priority <= 0) {
+      return R.color.red_500;
+    } else if (priority == 1) {
+      return R.color.amber_500;
+    } else if (priority == 2) {
+      return R.color.blue_500;
+    } else {
+      return R.color.grey_500;
+    }
   }
 
   @Override

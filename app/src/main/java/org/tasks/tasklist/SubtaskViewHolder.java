@@ -20,7 +20,7 @@ import com.todoroo.astrid.ui.CheckableImageView;
 import org.tasks.R;
 import org.tasks.data.TaskContainer;
 import org.tasks.locale.Locale;
-import org.tasks.ui.CheckBoxes;
+import org.tasks.ui.CheckBoxProvider;
 
 public class SubtaskViewHolder extends RecyclerView.ViewHolder {
 
@@ -28,6 +28,7 @@ public class SubtaskViewHolder extends RecyclerView.ViewHolder {
   private final Locale locale;
   private final Callbacks callbacks;
   private final DisplayMetrics metrics;
+  private final CheckBoxProvider checkBoxProvider;
 
   public TaskContainer task;
 
@@ -50,12 +51,14 @@ public class SubtaskViewHolder extends RecyclerView.ViewHolder {
       Locale locale,
       ViewGroup view,
       Callbacks callbacks,
-      DisplayMetrics metrics) {
+      DisplayMetrics metrics,
+      CheckBoxProvider checkBoxProvider) {
     super(view);
     this.context = context;
     this.locale = locale;
     this.callbacks = callbacks;
     this.metrics = metrics;
+    this.checkBoxProvider = checkBoxProvider;
     ButterKnife.bind(this, view);
 
     view.setTag(this);
@@ -100,7 +103,7 @@ public class SubtaskViewHolder extends RecyclerView.ViewHolder {
     }
 
     completeBox.setChecked(task.isCompleted());
-    completeBox.setImageDrawable(CheckBoxes.getCheckBox(context, task.getTask()));
+    completeBox.setImageDrawable(checkBoxProvider.getCheckBox(task.getTask()));
     completeBox.invalidate();
   }
 

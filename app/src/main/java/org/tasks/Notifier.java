@@ -27,7 +27,7 @@ import org.tasks.notifications.Notification;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.notifications.TelephonyManager;
 import org.tasks.preferences.Preferences;
-import org.tasks.ui.CheckBoxes;
+import org.tasks.themes.ColorProvider;
 import timber.log.Timber;
 
 public class Notifier {
@@ -39,6 +39,7 @@ public class Notifier {
   private final AudioManager audioManager;
   private final VoiceOutputAssistant voiceOutputAssistant;
   private final Preferences preferences;
+  private final ColorProvider colorProvider;
 
   @Inject
   public Notifier(
@@ -56,6 +57,7 @@ public class Notifier {
     this.audioManager = audioManager;
     this.voiceOutputAssistant = voiceOutputAssistant;
     this.preferences = preferences;
+    this.colorProvider = new ColorProvider(context, preferences);
   }
 
   public void triggerFilterNotification(final Filter filter) {
@@ -93,7 +95,7 @@ public class Notifier {
             .setAutoCancel(true)
             .setWhen(currentTimeMillis())
             .setShowWhen(true)
-            .setColor(CheckBoxes.getPriorityColor(context, maxPriority))
+            .setColor(colorProvider.getPriorityColor(maxPriority, true))
             .setGroupSummary(true)
             .setGroup(filter.listingTitle)
             .setStyle(style);

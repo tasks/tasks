@@ -29,7 +29,7 @@ import org.tasks.data.Location;
 import org.tasks.data.TaskContainer;
 import org.tasks.dialogs.Linkify;
 import org.tasks.preferences.Preferences;
-import org.tasks.ui.CheckBoxes;
+import org.tasks.ui.CheckBoxProvider;
 import org.tasks.ui.ChipProvider;
 
 public class ViewHolder extends RecyclerView.ViewHolder {
@@ -44,6 +44,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
   private final int selectedColor;
   private final int rowPadding;
   private final Linkify linkify;
+  private final CheckBoxProvider checkBoxProvider;
   private final int textColorOverdue;
   private final ChipProvider chipProvider;
 
@@ -82,6 +83,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
       Preferences preferences,
       int fontSize,
       ChipProvider chipProvider,
+      CheckBoxProvider checkBoxProvider,
       int textColorOverdue,
       int textColorSecondary,
       TaskCompleter taskCompleter,
@@ -95,6 +97,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     this.context = context;
     this.preferences = preferences;
     this.chipProvider = chipProvider;
+    this.checkBoxProvider = checkBoxProvider;
     this.textColorOverdue = textColorOverdue;
     this.textColorSecondary = textColorSecondary;
     this.taskCompleter = taskCompleter;
@@ -240,7 +243,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     }
 
     completeBox.setChecked(task.isCompleted());
-    completeBox.setImageDrawable(CheckBoxes.getCheckBox(context, task.getTask()));
+    completeBox.setImageDrawable(checkBoxProvider.getCheckBox(task.getTask()));
     completeBox.invalidate();
   }
 

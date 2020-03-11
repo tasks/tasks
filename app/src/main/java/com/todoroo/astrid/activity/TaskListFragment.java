@@ -12,7 +12,6 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
 import static org.tasks.activities.RemoteListPicker.newRemoteListSupportPicker;
 import static org.tasks.caldav.CaldavCalendarSettingsActivity.EXTRA_CALDAV_CALENDAR;
-import static org.tasks.ui.CheckBoxes.getPriorityColor;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -486,10 +485,10 @@ public final class TaskListFragment extends InjectingFragment
   private void setupRefresh(SwipeRefreshLayout layout) {
     layout.setOnRefreshListener(this);
     layout.setColorSchemeColors(
-        getPriorityColor(context, 0),
-        getPriorityColor(context, 1),
-        getPriorityColor(context, 2),
-        getPriorityColor(context, 3));
+        colorProvider.getPriorityColor(0, true),
+        colorProvider.getPriorityColor(1, true),
+        colorProvider.getPriorityColor(2, true),
+        colorProvider.getPriorityColor(3, true));
   }
 
   @Override

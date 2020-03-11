@@ -30,7 +30,7 @@ import org.tasks.R;
 import org.tasks.dialogs.Linkify;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.FragmentComponent;
-import org.tasks.ui.CheckBoxes;
+import org.tasks.ui.CheckBoxProvider;
 import org.tasks.ui.TaskEditControlFragment;
 
 /**
@@ -50,6 +50,7 @@ public class EditTitleControlSet extends TaskEditControlFragment {
   @Inject @ForApplication Context context;
   @Inject TaskCompleter taskCompleter;
   @Inject Linkify linkify;
+  @Inject CheckBoxProvider checkBoxProvider;
 
   @BindView(R.id.title)
   EditText editText;
@@ -144,7 +145,7 @@ public class EditTitleControlSet extends TaskEditControlFragment {
     isComplete = completeBox.isChecked();
 
     completeBox.setImageDrawable(
-        CheckBoxes.getCheckBox(context, isComplete, isRepeating, importanceValue));
+        checkBoxProvider.getCheckBox(isComplete, isRepeating, importanceValue));
 
     if (isComplete) {
       editText.setPaintFlags(editText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);

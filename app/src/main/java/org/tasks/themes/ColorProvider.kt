@@ -73,12 +73,22 @@ class ColorProvider @Inject constructor(@ForActivity private val context: Contex
     private val isDark = context.resources.getBoolean(R.bool.is_dark)
     private val desaturate = preferences.getBoolean(R.string.p_desaturate_colors, true)
 
-    fun getThemeColor(@ColorInt color: Int, adjust: Boolean = true) =
-            ThemeColor(context, color, if (adjust && isDark && desaturate) {
+    private fun getColor(@ColorInt color: Int, adjust: Boolean) =
+            if (adjust && isDark && desaturate) {
                 saturated[color] ?: color
             } else {
                 color
-            })
+            }
+
+    fun getThemeColor(@ColorInt color: Int, adjust: Boolean = true) =
+            ThemeColor(context, color, getColor(color, adjust))
+
+    fun getPriorityColor(priority: Int, adjust: Boolean = true) = when (priority) {
+        in Int.MIN_VALUE..0 -> getColor(RED, adjust)
+        1 -> getColor(AMBER, adjust)
+        2 -> getColor(BLUE, adjust)
+        else -> GREY
+    }
 
     fun getThemeColors(adjust: Boolean = true) = ThemeColor.COLORS.map { c ->
         getThemeColor(ContextCompat.getColor(context, c), adjust)

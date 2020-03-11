@@ -132,15 +132,6 @@
   <color name="drawer_background_light_selected">#e8e8e8</color>
   <color name="drawer_background_dark_selected">#303030</color>
 
-  <color name="priority_1">@color/red_500</color>
-  <color name="priority_2">@color/amber_500</color>
-  <color name="priority_3">@color/blue_500</color>
-  <color name="priority_4">@color/grey_500</color>
-
-  <color name="widget_priority_1">@color/red_500</color>
-  <color name="widget_priority_2">@color/amber_500</color>
-  <color name="widget_priority_3">@color/blue_500</color>
-
   <color name="snackbar_text_color">@color/white_87</color>
   <color name="snackbar_action_color">#f4b400</color>
   <color name="snackbar_background">@color/grey_800</color>

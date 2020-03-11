@@ -16,6 +16,7 @@ import org.tasks.R;
 import org.tasks.dialogs.Linkify;
 import org.tasks.injection.ForActivity;
 import org.tasks.preferences.Preferences;
+import org.tasks.ui.CheckBoxProvider;
 import org.tasks.ui.ChipProvider;
 
 public class ViewHolderFactory {
@@ -25,6 +26,7 @@ public class ViewHolderFactory {
   private final Context context;
   private final ChipProvider chipProvider;
   private final int fontSize;
+  private final CheckBoxProvider checkBoxProvider;
   private final TaskCompleter taskCompleter;
   private final DisplayMetrics metrics;
   private final int background;
@@ -38,10 +40,12 @@ public class ViewHolderFactory {
       @ForActivity Context context,
       Preferences preferences,
       ChipProvider chipProvider,
+      CheckBoxProvider checkBoxProvider,
       TaskCompleter taskCompleter,
       Linkify linkify) {
     this.context = context;
     this.chipProvider = chipProvider;
+    this.checkBoxProvider = checkBoxProvider;
     this.taskCompleter = taskCompleter;
     this.preferences = preferences;
     this.linkify = linkify;
@@ -62,6 +66,7 @@ public class ViewHolderFactory {
         preferences,
         fontSize,
         chipProvider,
+        checkBoxProvider,
         textColorOverdue,
         textColorSecondary,
         taskCompleter,

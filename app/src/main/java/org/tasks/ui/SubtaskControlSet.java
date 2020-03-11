@@ -72,6 +72,7 @@ public class SubtaskControlSet extends TaskEditControlFragment implements Callba
   @Inject CaldavDao caldavDao;
   @Inject TaskDao taskDao;
   @Inject Locale locale;
+  @Inject CheckBoxProvider checkBoxProvider;
 
   private TaskListViewModel viewModel;
   private final RefreshReceiver refreshReceiver = new RefreshReceiver();
@@ -105,7 +106,7 @@ public class SubtaskControlSet extends TaskEditControlFragment implements Callba
       }
     }
 
-    recyclerAdapter = new SubtasksRecyclerAdapter(activity, locale, this);
+    recyclerAdapter = new SubtasksRecyclerAdapter(activity, locale, checkBoxProvider, this);
     if (task.getId() > 0) {
       recyclerAdapter.submitList(viewModel.getValue());
       viewModel.setFilter(new Filter("subtasks", getQueryTemplate(task)), true);
@@ -269,7 +270,7 @@ public class SubtaskControlSet extends TaskEditControlFragment implements Callba
   private void updateCompleteBox(Task task, CheckableImageView completeBox, EditText editText) {
     boolean isComplete = completeBox.isChecked();
     completeBox.setImageDrawable(
-        CheckBoxes.getCheckBox(activity, isComplete, false, task.getPriority()));
+        checkBoxProvider.getCheckBox(isComplete, false, task.getPriority()));
     if (isComplete) {
       editText.setPaintFlags(editText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
     } else {
