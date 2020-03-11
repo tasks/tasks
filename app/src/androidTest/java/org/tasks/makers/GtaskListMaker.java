@@ -26,7 +26,7 @@ public class GtaskListMaker {
         list.setTitle(lookup.valueOf(NAME, "Default"));
         list.setRemoteOrder(lookup.valueOf(ORDER, 0));
         list.setLastSync(lookup.valueOf(LAST_SYNC, 0L));
-        list.setColor(lookup.valueOf(COLOR, -1));
+        list.setColor(lookup.valueOf(COLOR, 0));
         return list;
       };
 
