@@ -13,7 +13,6 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastNougat;
 import static com.todoroo.astrid.activity.TaskEditFragment.newTaskEditFragment;
 import static com.todoroo.astrid.activity.TaskListFragment.newTaskListFragment;
 import static org.tasks.tasklist.ActionUtils.applySupportActionModeColor;
-import static org.tasks.themes.ThemeColor.newThemeColor;
 import static org.tasks.ui.NavigationDrawerFragment.REQUEST_NEW_LIST;
 
 import android.annotation.SuppressLint;
@@ -54,6 +53,7 @@ import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import org.tasks.receivers.RepeatConfirmationReceiver;
+import org.tasks.themes.ColorProvider;
 import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeColor;
 import org.tasks.ui.DeadlineControlSet;
@@ -92,6 +92,7 @@ public class MainActivity extends InjectingAppCompatActivity
   @Inject TaskCreator taskCreator;
   @Inject PlayServices playServices;
   @Inject Inventory inventory;
+  @Inject ColorProvider colorProvider;
 
   private CompositeDisposable disposables;
   private NavigationDrawerFragment navigationDrawer;
@@ -302,7 +303,7 @@ public class MainActivity extends InjectingAppCompatActivity
 
   private ThemeColor getFilterColor() {
     return filter != null && filter.tint != 0
-        ? newThemeColor(this, filter.tint)
+        ? colorProvider.getThemeColor(filter.tint, true)
         : theme.getThemeColor();
   }
 

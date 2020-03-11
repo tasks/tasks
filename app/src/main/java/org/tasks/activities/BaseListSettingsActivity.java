@@ -2,7 +2,6 @@ package org.tasks.activities;
 
 import static org.tasks.dialogs.IconPickerDialog.newIconPicker;
 import static org.tasks.themes.DrawableUtil.getLeftDrawable;
-import static org.tasks.themes.ThemeColor.newThemeColor;
 
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
@@ -26,6 +25,7 @@ import org.tasks.dialogs.ColorWheelPicker;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.IconPickerDialog.IconPickerCallback;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
+import org.tasks.themes.ColorProvider;
 import org.tasks.themes.CustomIcons;
 import org.tasks.themes.DrawableUtil;
 import org.tasks.themes.ThemeColor;
@@ -57,6 +57,7 @@ public abstract class BaseListSettingsActivity extends ThemedInjectingAppCompatA
 
   @Inject ThemeColor themeColor;
   @Inject DialogBuilder dialogBuilder;
+  @Inject ColorProvider colorProvider;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -172,7 +173,7 @@ public abstract class BaseListSettingsActivity extends ThemedInjectingAppCompatA
           getLeftDrawable(color), ContextCompat.getColor(this, R.color.icon_tint_with_alpha));
       clear.setVisibility(View.GONE);
     } else {
-      themeColor = newThemeColor(this, selectedColor);
+      themeColor = colorProvider.getThemeColor(selectedColor, true);
       DrawableUtil.setLeftDrawable(this, color, R.drawable.color_picker);
       Drawable leftDrawable = getLeftDrawable(color);
       DrawableCompat.setTint(

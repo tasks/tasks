@@ -73,7 +73,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
     Intent rvIntent = new Intent(context, ScrollableWidgetUpdateService.class);
     rvIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, id);
     rvIntent.setData(Uri.parse(rvIntent.toUri(Intent.URI_INTENT_SCHEME)));
-    ThemeColor color = new ThemeColor(context, widgetPreferences.getColor(), false);
+    ThemeColor color = new ThemeColor(context, widgetPreferences.getColor());
     RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.scrollable_widget);
     if (atLeastJellybeanMR1()) {
       remoteViews.setInt(R.id.widget, "setLayoutDirection", locale.getDirectionality());

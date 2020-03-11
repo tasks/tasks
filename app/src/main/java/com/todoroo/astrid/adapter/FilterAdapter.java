@@ -25,6 +25,7 @@ import javax.inject.Inject;
 import org.tasks.billing.Inventory;
 import org.tasks.filters.NavigationDrawerSubheader;
 import org.tasks.locale.Locale;
+import org.tasks.themes.ColorProvider;
 import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeAccent;
 
@@ -37,16 +38,23 @@ public class FilterAdapter extends BaseAdapter {
   private final ThemeAccent accent;
   private final Locale locale;
   private final Inventory inventory;
+  private final ColorProvider colorProvider;
   private final LayoutInflater inflater;
   private Filter selected = null;
   private List<FilterListItem> items = new ArrayList<>();
 
   @Inject
-  public FilterAdapter(Activity activity, Theme theme, Locale locale, Inventory inventory) {
+  public FilterAdapter(
+      Activity activity,
+      Theme theme,
+      Locale locale,
+      Inventory inventory,
+      ColorProvider colorProvider) {
     this.activity = activity;
     this.accent = theme.getThemeAccent();
     this.locale = locale;
     this.inventory = inventory;
+    this.colorProvider = colorProvider;
     this.inflater = theme.getLayoutInflater(activity);
   }
 
@@ -101,7 +109,8 @@ public class FilterAdapter extends BaseAdapter {
       switch (viewType) {
         case ITEM:
           viewHolder =
-              new FilterViewHolder(convertView, accent, false, locale, activity, inventory, null);
+              new FilterViewHolder(
+                  convertView, accent, false, locale, activity, inventory, colorProvider, null);
           break;
         case SEPARATOR:
           viewHolder = new FilterViewHolder(convertView);

@@ -109,7 +109,6 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
         }
 
         findPreference(R.string.p_desaturate_colors).setOnPreferenceChangeListener { _, newValue ->
-            ThemeColor.enableSaturation(newValue as Boolean)
             if (context?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) {
                 activity?.recreate()
             }

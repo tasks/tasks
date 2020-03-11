@@ -1,7 +1,6 @@
 package com.todoroo.astrid.adapter;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.preLollipop;
-import static org.tasks.themes.ThemeColor.newThemeColor;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -29,6 +28,7 @@ import org.tasks.billing.Inventory;
 import org.tasks.filters.NavigationDrawerSubheader;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.SyncPreferences;
+import org.tasks.themes.ColorProvider;
 import org.tasks.themes.CustomIcons;
 import org.tasks.themes.DrawableUtil;
 import org.tasks.themes.ThemeAccent;
@@ -56,6 +56,7 @@ public class FilterViewHolder extends RecyclerView.ViewHolder {
   private Activity activity;
   private View itemView;
   private Inventory inventory;
+  private ColorProvider colorProvider;
 
   FilterViewHolder(
       @NonNull View itemView,
@@ -64,9 +65,11 @@ public class FilterViewHolder extends RecyclerView.ViewHolder {
       Locale locale,
       Activity activity,
       Inventory inventory,
+      ColorProvider colorProvider,
       OnClick onClick) {
     super(itemView);
     this.inventory = inventory;
+    this.colorProvider = colorProvider;
 
     ButterKnife.bind(this, itemView);
 
@@ -135,7 +138,7 @@ public class FilterViewHolder extends RecyclerView.ViewHolder {
 
   private int getColor(FilterListItem filter) {
     if (filter.tint != 0) {
-      ThemeColor color = newThemeColor(activity, filter.tint);
+      ThemeColor color = colorProvider.getThemeColor(filter.tint, true);
       if (color.isFree() || inventory.purchasedThemes()) {
         return color.getPrimaryColor();
       }

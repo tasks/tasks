@@ -1,6 +1,5 @@
 package org.tasks.themes;
 
-import static com.google.common.collect.Maps.newHashMap;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
@@ -26,11 +25,8 @@ import androidx.core.graphics.ColorUtils;
 import androidx.core.os.ParcelCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
-import java.util.Collections;
-import java.util.Map;
 import org.tasks.R;
 import org.tasks.dialogs.ColorPalettePicker.Pickable;
-import timber.log.Timber;
 
 public class ThemeColor implements Pickable {
 
@@ -165,66 +161,8 @@ public class ThemeColor implements Pickable {
         }
       };
 
+  private static final int BLUE = -14575885;
   private static final int WHITE = -1;
-  private static final int BLACK = -16777216;
-
-  private static final Map<Integer, Integer> saturated = newHashMap();
-  public static Map<Integer, Integer> colorMap = saturated;
-
-  public static void enableSaturation(boolean enabled) {
-    colorMap = enabled ? saturated : Collections.emptyMap();
-  }
-
-  static {
-    // 2014 material design palette
-    saturated.put(-10453621, -5194043); // blue_grey
-    saturated.put(-12434878, -14606047); // grey
-    saturated.put(-769226, -1074534); // red
-    saturated.put(-1499549, -749647); // pink
-    saturated.put(-6543440, -3238952); // purple
-    saturated.put(-10011977, -5005861); // deep purple
-    saturated.put(-12627531, -6313766); // indigo
-    saturated.put(-14575885, -7288071); // blue
-    saturated.put(-16537100, -8268550); // light blue
-    saturated.put(-16728876, -8331542); // cyan
-    saturated.put(-16738680, -8336444); // teal
-    saturated.put(-11751600, -5908825); // green
-    saturated.put(-7617718, -3808859); // light green
-    saturated.put(-3285959, -1642852); // lime
-    saturated.put(-5317, -2659); // yellow
-    saturated.put(-16121, -8062); // amber
-    saturated.put(-26624, -13184); // orange
-    saturated.put(-43230, -21615); // deep orange
-    saturated.put(-8825528, -4412764); // brown
-    saturated.put(-6381922, -1118482); // grey
-    saturated.put(WHITE, BLACK);
-
-    // 2019 google calendar
-    saturated.put(-2818048, -3397335); // tomato
-    saturated.put(-765666, -2136512); // tangerine
-    saturated.put(-1086464, -2459092); // pumpkin
-    saturated.put(-1010944, -2254804); // mango
-    saturated.put(-606426, -2050234); // banana
-    saturated.put(-1784767, -2769834); // citron
-    saturated.put(-4142541, -4274613); // avocado
-    saturated.put(-8604862, -7817131); // pistachio
-    saturated.put(-16023485, -14116514); // basil
-    //    saturated.put(-16738680, -14571622); // eucalyptus
-    saturated.put(-13388167, -11879802); // sage
-    saturated.put(-16540699, -13787178); // peacock
-    saturated.put(-12417548, -10974241); // cobalt
-    //    saturated.put(-12627531, -11312199); // blueberry
-    saturated.put(-8812853, -8615738); // lavender
-    saturated.put(-5005861, -5597744); // wisteria
-    saturated.put(-6395473, -5934410); // amethyst
-    saturated.put(-7461718, -6668365); // grape
-    saturated.put(-5434281, -4967572); // radicchio
-    saturated.put(-2614432, -3261327); // cherry blossom
-    saturated.put(-1672077, -2654344); // flamingo
-    //    saturated.put(-8825528, -6984611); // cocoa
-    saturated.put(-10395295, -7895161); // graphite
-    saturated.put(-5792882, -5135210); // birch
-  }
 
   private final int original;
   private final int colorOnPrimary;
@@ -233,17 +171,17 @@ public class ThemeColor implements Pickable {
   private final boolean isDark;
 
   public ThemeColor(Context context, int color) {
-    this(context, color == 0 ? ContextCompat.getColor(context, R.color.blue_500) : color, true);
+    this(context, color, color);
   }
 
-  public ThemeColor(Context context, int color, boolean adjustColor) {
-    color |= 0xFF000000; // remove alpha
-    original = color;
-    if (adjustColor && context.getResources().getBoolean(R.bool.is_dark)) {
-      colorPrimary = desaturate(color);
+  public ThemeColor(Context context, int original, int color) {
+    this.original = original;
+    if (color == 0) {
+      color = BLUE;
     } else {
-      colorPrimary = color;
+      color |= 0xFF000000; // remove alpha
     }
+    colorPrimary = color;
     colorPrimaryVariant = ColorUtil.darken(colorPrimary, 6);
 
     double contrast = ColorUtils.calculateContrast(WHITE, colorPrimary);
@@ -260,16 +198,7 @@ public class ThemeColor implements Pickable {
   }
 
   public static ThemeColor getLauncherColor(Context context, int index) {
-    return new ThemeColor(context, ContextCompat.getColor(context, LAUNCHER_COLORS[index]), false);
-  }
-
-  public static ThemeColor newThemeColor(Context context, int color) {
-    try {
-      return new ThemeColor(context, color);
-    } catch (Exception e) {
-      Timber.e(e);
-      return new ThemeColor(context, 0);
-    }
+    return new ThemeColor(context, ContextCompat.getColor(context, LAUNCHER_COLORS[index]));
   }
 
   private static void colorMenu(Menu menu, int color) {
@@ -295,15 +224,6 @@ public class ThemeColor implements Pickable {
       drawable.setColorFilter(color, PorterDuff.Mode.SRC_IN);
     }
     return drawable;
-  }
-
-  private int desaturate(int color) {
-    if (colorMap.containsKey(color)) {
-      //noinspection ConstantConditions
-      return colorMap.get(color);
-    } else {
-      return color;
-    }
   }
 
   public void applyToSystemBars(Activity activity) {

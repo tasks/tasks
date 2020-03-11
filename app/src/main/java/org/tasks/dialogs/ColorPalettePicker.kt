@@ -21,6 +21,7 @@ import org.tasks.dialogs.ColorPickerAdapter.Palette
 import org.tasks.dialogs.ColorWheelPicker.Companion.newColorWheel
 import org.tasks.injection.DialogFragmentComponent
 import org.tasks.injection.InjectingDialogFragment
+import org.tasks.themes.ColorProvider
 import org.tasks.themes.ThemeAccent
 import org.tasks.themes.ThemeColor
 import javax.inject.Inject
@@ -67,6 +68,7 @@ class ColorPalettePicker : InjectingDialogFragment() {
 
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var inventory: Inventory
+    @Inject lateinit var colorProvider: ColorProvider
 
     @BindView(R.id.icons) lateinit var recyclerView: RecyclerView
 
@@ -80,18 +82,14 @@ class ColorPalettePicker : InjectingDialogFragment() {
         ButterKnife.bind(this, view)
         palette = arguments!!.getSerializable(EXTRA_PALETTE) as Palette
         colors = when (palette) {
-            Palette.COLORS -> ThemeColor.COLORS.map { color ->
-                ThemeColor(context, ContextCompat.getColor(context!!, color), true)
-            }
+            Palette.COLORS -> colorProvider.getThemeColors()
             Palette.ACCENTS -> ThemeAccent.ACCENTS.mapIndexed { index, _ ->
                 ThemeAccent(context, index)
             }
             Palette.LAUNCHERS -> ThemeColor.LAUNCHER_COLORS.map { color ->
-                ThemeColor(context, ContextCompat.getColor(context!!, color), false)
+                ThemeColor(context, ContextCompat.getColor(context!!, color))
             }
-            Palette.WIDGET -> ThemeColor.COLORS.map { color ->
-                ThemeColor(context, ContextCompat.getColor(context!!, color), false)
-            }
+            Palette.WIDGET -> colorProvider.getWidgetColors()
         }
 
         val iconPickerAdapter = ColorPickerAdapter(

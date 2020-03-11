@@ -12,7 +12,6 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
 import static org.tasks.activities.RemoteListPicker.newRemoteListSupportPicker;
 import static org.tasks.caldav.CaldavCalendarSettingsActivity.EXTRA_CALDAV_CALENDAR;
-import static org.tasks.themes.ThemeColor.newThemeColor;
 import static org.tasks.ui.CheckBoxes.getPriorityColor;
 
 import android.app.Activity;
@@ -103,6 +102,7 @@ import org.tasks.tasklist.DragAndDropRecyclerAdapter;
 import org.tasks.tasklist.PagedListRecyclerAdapter;
 import org.tasks.tasklist.TaskListRecyclerAdapter;
 import org.tasks.tasklist.ViewHolderFactory;
+import org.tasks.themes.ColorProvider;
 import org.tasks.themes.ThemeColor;
 import org.tasks.ui.TaskListViewModel;
 import org.tasks.ui.Toaster;
@@ -153,6 +153,7 @@ public final class TaskListFragment extends InjectingFragment
   @Inject TagDataDao tagDataDao;
   @Inject CaldavDao caldavDao;
   @Inject ThemeColor defaultThemeColor;
+  @Inject ColorProvider colorProvider;
 
   @BindView(R.id.swipe_layout)
   SwipeRefreshLayout swipeRefreshLayout;
@@ -263,7 +264,7 @@ public final class TaskListFragment extends InjectingFragment
 
     filter = getFilter();
 
-    themeColor = filter.tint != 0 ? newThemeColor(context, filter.tint) : defaultThemeColor;
+    themeColor = filter.tint != 0 ? colorProvider.getThemeColor(filter.tint, true) : defaultThemeColor;
 
     filter.setFilterQueryOverride(null);
 

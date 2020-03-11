@@ -30,6 +30,7 @@ import javax.inject.Inject;
 import org.tasks.billing.Inventory;
 import org.tasks.filters.NavigationDrawerSubheader;
 import org.tasks.locale.Locale;
+import org.tasks.themes.ColorProvider;
 import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeAccent;
 
@@ -40,6 +41,7 @@ public class NavigationDrawerAdapter extends ListAdapter<FilterListItem, FilterV
   private final ThemeAccent accent;
   private final Locale locale;
   private final Inventory inventory;
+  private final ColorProvider colorProvider;
   private final LayoutInflater inflater;
   private OnClick onClick;
   private Filter selected = null;
@@ -47,12 +49,17 @@ public class NavigationDrawerAdapter extends ListAdapter<FilterListItem, FilterV
 
   @Inject
   public NavigationDrawerAdapter(
-      Activity activity, Theme theme, Locale locale, Inventory inventory) {
+      Activity activity,
+      Theme theme,
+      Locale locale,
+      Inventory inventory,
+      ColorProvider colorProvider) {
     super(new DiffCallback());
     this.activity = activity;
     this.accent = theme.getThemeAccent();
     this.locale = locale;
     this.inventory = inventory;
+    this.colorProvider = colorProvider;
     this.inflater = theme.getLayoutInflater(activity);
   }
 
@@ -95,7 +102,7 @@ public class NavigationDrawerAdapter extends ListAdapter<FilterListItem, FilterV
     View view = inflater.inflate(type.layout, parent, false);
     if (type == ITEM) {
       return new FilterViewHolder(
-          view, accent, true, locale, activity, inventory, this::onClickFilter);
+          view, accent, true, locale, activity, inventory, colorProvider, this::onClickFilter);
     } else if (type == SUBHEADER) {
       return new FilterViewHolder(view, activity);
     } else {

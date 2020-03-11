@@ -26,7 +26,6 @@ import org.tasks.scheduling.CalendarNotificationIntentService;
 import org.tasks.scheduling.NotificationSchedulerIntentService;
 import org.tasks.scheduling.RefreshScheduler;
 import org.tasks.themes.ThemeBase;
-import org.tasks.themes.ThemeColor;
 import timber.log.Timber;
 
 public class Tasks extends InjectingApplication {
@@ -59,7 +58,6 @@ public class Tasks extends InjectingApplication {
     preferences.setSyncOngoing(false);
 
     ThemeBase.getThemeBase(preferences, inventory, null).setDefaultNightMode();
-    ThemeColor.enableSaturation(preferences.getBoolean(R.string.p_desaturate_colors, true));
 
     localBroadcastManager.registerRefreshReceiver(new RefreshBroadcastReceiver());
 

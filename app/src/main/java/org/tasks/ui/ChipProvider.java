@@ -1,12 +1,10 @@
 package org.tasks.ui;
 
-import static com.google.common.collect.Iterables.filter;
+import static com.google.common.collect.Collections2.filter;
+import static com.google.common.collect.Collections2.transform;
 import static com.google.common.collect.Iterables.removeIf;
-import static com.google.common.collect.Iterables.transform;
-import static com.google.common.collect.Lists.transform;
 import static com.google.common.collect.Sets.newHashSet;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
-import static org.tasks.themes.ThemeColor.newThemeColor;
 
 import android.app.Activity;
 import android.content.Context;
@@ -24,36 +22,25 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.api.TagFilter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import javax.inject.Inject;
-import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.billing.Inventory;
-import org.tasks.data.CaldavCalendar;
-import org.tasks.data.CaldavDao;
-import org.tasks.data.GoogleTaskList;
-import org.tasks.data.GoogleTaskListDao;
 import org.tasks.data.TagData;
-import org.tasks.data.TagDataDao;
 import org.tasks.data.TaskContainer;
-import org.tasks.injection.ApplicationScope;
-import org.tasks.injection.ForApplication;
+import org.tasks.injection.ForActivity;
 import org.tasks.preferences.Preferences;
+import org.tasks.themes.ColorProvider;
 import org.tasks.themes.CustomIcons;
 import org.tasks.themes.ThemeColor;
 
-@ApplicationScope
 public class ChipProvider {
 
-  private final Map<String, GtasksFilter> googleTaskLists = new HashMap<>();
-  private final Map<String, CaldavFilter> caldavCalendars = new HashMap<>();
-  private final Map<String, TagFilter> tagDatas = new HashMap<>();
   private final Inventory inventory;
   private final int iconAlpha;
-  private final LocalBroadcastManager localBroadcastManager;
+  private final ChipListCache lists;
+  private final ColorProvider colorProvider;
   private final Ordering<TagFilter> orderByName =
       new Ordering<TagFilter>() {
         @Override
@@ -67,21 +54,17 @@ public class ChipProvider {
 
   @Inject
   public ChipProvider(
-      @ForApplication Context context,
+      @ForActivity Context context,
       Inventory inventory,
-      GoogleTaskListDao googleTaskListDao,
-      CaldavDao caldavDao,
-      TagDataDao tagDataDao,
-      LocalBroadcastManager localBroadcastManager,
-      Preferences preferences) {
+      ChipListCache lists,
+      Preferences preferences,
+      ColorProvider colorProvider) {
     this.inventory = inventory;
-    this.localBroadcastManager = localBroadcastManager;
     iconAlpha =
         (int) (255 * ResourcesCompat.getFloat(context.getResources(), R.dimen.alpha_secondary));
+    this.lists = lists;
+    this.colorProvider = colorProvider;
 
-    googleTaskListDao.subscribeToLists().observeForever(this::updateGoogleTaskLists);
-    caldavDao.subscribeToCalendars().observeForever(this::updateCaldavCalendars);
-    tagDataDao.subscribeToTags().observeForever(this::updateTags);
     setStyle(preferences.getIntegerFromString(R.string.p_chip_style, 0));
     setAppearance(preferences.getIntegerFromString(R.string.p_chip_appearance, 0));
   }
@@ -93,30 +76,6 @@ public class ChipProvider {
   public void setAppearance(int appearance) {
     showText = appearance != 2;
     showIcon = appearance != 1;
-  }
-
-  private void updateGoogleTaskLists(List<GoogleTaskList> updated) {
-    googleTaskLists.clear();
-    for (GoogleTaskList update : updated) {
-      googleTaskLists.put(update.getRemoteId(), new GtasksFilter(update));
-    }
-    localBroadcastManager.broadcastRefresh();
-  }
-
-  private void updateCaldavCalendars(List<CaldavCalendar> updated) {
-    caldavCalendars.clear();
-    for (CaldavCalendar update : updated) {
-      caldavCalendars.put(update.getUuid(), new CaldavFilter(update));
-    }
-    localBroadcastManager.broadcastRefresh();
-  }
-
-  private void updateTags(List<TagData> updated) {
-    tagDatas.clear();
-    for (TagData update : updated) {
-      tagDatas.put(update.getRemoteId(), new TagFilter(update));
-    }
-    localBroadcastManager.broadcastRefresh();
   }
 
   public List<Chip> getChips(
@@ -131,7 +90,6 @@ public class ChipProvider {
     if (!hideSubtaskChip && task.hasChildren()) {
       Chip chip = newChip(activity, task);
       apply(
-          activity,
           chip,
           task.isCollapsed()
               ? R.drawable.ic_keyboard_arrow_up_black_24dp
@@ -146,8 +104,7 @@ public class ChipProvider {
     }
     if (task.hasLocation()) {
       Chip chip = newChip(activity, task.getLocation());
-      apply(
-          activity, chip, R.drawable.ic_outline_place_24px, task.getLocation().getDisplayName(), 0, showText, showIcon);
+      apply(chip, R.drawable.ic_outline_place_24px, task.getLocation().getDisplayName(), 0, showText, showIcon);
       chips.add(chip);
     }
     if (!isSubtask) {
@@ -155,12 +112,12 @@ public class ChipProvider {
         chips.add(
             newChip(
                 activity,
-                googleTaskLists.get(task.getGoogleTaskList()),
+                lists.getGoogleTaskList(task.getGoogleTaskList()),
                 R.drawable.ic_outline_cloud_24px));
       } else if (!Strings.isNullOrEmpty(task.getCaldav()) && !(filter instanceof CaldavFilter)) {
         chips.add(
             newChip(
-                activity, caldavCalendars.get(task.getCaldav()), R.drawable.ic_outline_cloud_24px));
+                activity, lists.getCaldavList(task.getCaldav()), R.drawable.ic_outline_cloud_24px));
       }
     }
     String tagString = task.getTagsString();
@@ -171,7 +128,7 @@ public class ChipProvider {
       }
       chips.addAll(
           transform(
-              orderByName.sortedCopy(filter(transform(tags, tagDatas::get), Predicates.notNull())),
+              orderByName.sortedCopy(filter(transform(tags, lists::getTag), Predicates.notNull())),
               tag -> newChip(activity, tag, R.drawable.ic_outline_label_24px)));
     }
 
@@ -181,7 +138,6 @@ public class ChipProvider {
 
   public void apply(Chip chip, Filter filter) {
     apply(
-        chip.getContext(),
         chip,
         getIcon(filter.icon, R.drawable.ic_outline_cloud_24px),
         filter.listingTitle,
@@ -192,7 +148,6 @@ public class ChipProvider {
 
   public void apply(Chip chip, @NonNull TagData tagData) {
     apply(
-        chip.getContext(),
         chip,
         getIcon(tagData.getIcon(), R.drawable.ic_outline_label_24px),
         tagData.getName(),
@@ -210,7 +165,7 @@ public class ChipProvider {
       return null;
     }
     Chip chip = newChip(activity, filter);
-    apply(activity, chip, getIcon(filter.icon, defIcon), filter.listingTitle, filter.tint, showText, showIcon);
+    apply(chip, getIcon(filter.icon, defIcon), filter.listingTitle, filter.tint, showText, showIcon);
     return chip;
   }
 
@@ -235,7 +190,6 @@ public class ChipProvider {
   }
 
   private void apply(
-      Context context,
       Chip chip,
       @Nullable @DrawableRes Integer icon,
       String name,
@@ -251,7 +205,7 @@ public class ChipProvider {
       chip.setTextStartPadding(0f);
       chip.setChipEndPadding(0f);
     }
-    ThemeColor themeColor = getColor(context, theme);
+    ThemeColor themeColor = getColor(theme);
     if (themeColor != null) {
       int primaryColor = themeColor.getPrimaryColor();
       ColorStateList primaryColorSL =
@@ -282,9 +236,9 @@ public class ChipProvider {
     return icon != null ? icon : def;
   }
 
-  private @Nullable ThemeColor getColor(Context context, int theme) {
+  private @Nullable ThemeColor getColor(int theme) {
     if (theme != 0) {
-      ThemeColor color = newThemeColor(context, theme);
+      ThemeColor color = colorProvider.getThemeColor(theme, true);
       if (color.isFree() || inventory.purchasedThemes()) {
         return color;
       }

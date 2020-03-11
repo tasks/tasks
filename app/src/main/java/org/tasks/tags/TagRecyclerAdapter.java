@@ -1,7 +1,5 @@
 package org.tasks.tags;
 
-import static org.tasks.themes.ThemeColor.newThemeColor;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +15,9 @@ import org.tasks.R;
 import org.tasks.billing.Inventory;
 import org.tasks.data.TagData;
 import org.tasks.tags.CheckBoxTriStates.State;
+import org.tasks.themes.ColorProvider;
 import org.tasks.themes.CustomIcons;
+import org.tasks.themes.ThemeColor;
 
 public class TagRecyclerAdapter extends RecyclerView.Adapter<TagPickerViewHolder> {
 
@@ -25,16 +25,19 @@ public class TagRecyclerAdapter extends RecyclerView.Adapter<TagPickerViewHolder
   private final Context context;
   private final TagPickerViewModel viewModel;
   private final Inventory inventory;
+  private final ColorProvider colorProvider;
   private final Function2<TagData, Boolean, State> callback;
 
   TagRecyclerAdapter(
       Context context,
       TagPickerViewModel viewModel,
       Inventory inventory,
+      ColorProvider colorProvider,
       Function2<TagData, Boolean, State> callback) {
     this.context = context;
     this.viewModel = viewModel;
     this.inventory = inventory;
+    this.colorProvider = colorProvider;
     this.callback = callback;
     differ = new AsyncListDiffer<>(this, new TagDiffCallback());
   }
@@ -58,9 +61,13 @@ public class TagRecyclerAdapter extends RecyclerView.Adapter<TagPickerViewHolder
   }
 
   private int getColor(TagData tagData) {
-    return tagData.getColor() == 0
-        ? ContextCompat.getColor(context, R.color.icon_tint_with_alpha)
-        : newThemeColor(context, tagData.getColor()).getPrimaryColor();
+    if (tagData.getColor() != 0) {
+      ThemeColor themeColor = colorProvider.getThemeColor(tagData.getColor(), true);
+      if (inventory.purchasedThemes() || themeColor.isFree()) {
+        return themeColor.getPrimaryColor();
+      }
+    }
+    return ContextCompat.getColor(context, R.color.icon_tint_with_alpha);
   }
 
   private @Nullable Integer getIcon(TagData tagData) {

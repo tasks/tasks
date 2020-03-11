@@ -9,6 +9,7 @@ import org.tasks.billing.Inventory;
 import org.tasks.location.Geocoder;
 import org.tasks.location.MapboxGeocoder;
 import org.tasks.preferences.Preferences;
+import org.tasks.themes.ColorProvider;
 import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeBase;
 import org.tasks.themes.ThemeColor;
@@ -41,8 +42,8 @@ public class ActivityModule {
 
   @Provides
   @ActivityScope
-  public ThemeColor getThemeColor(Preferences preferences) {
-    return ThemeColor.newThemeColor(activity, preferences.getInt(R.string.p_theme_color, 0));
+  public ThemeColor getThemeColor(ColorProvider colorProvider, Preferences preferences) {
+    return colorProvider.getThemeColor(preferences.getInt(R.string.p_theme_color, 0), true);
   }
 
   @Provides
