@@ -83,9 +83,7 @@ class ColorPalettePicker : InjectingDialogFragment() {
         palette = arguments!!.getSerializable(EXTRA_PALETTE) as Palette
         colors = when (palette) {
             Palette.COLORS -> colorProvider.getThemeColors()
-            Palette.ACCENTS -> ThemeAccent.ACCENTS.mapIndexed { index, _ ->
-                ThemeAccent(context, index)
-            }
+            Palette.ACCENTS -> colorProvider.getAccentColors()
             Palette.LAUNCHERS -> ThemeColor.LAUNCHER_COLORS.map { color ->
                 ThemeColor(context, ContextCompat.getColor(context!!, color))
             }

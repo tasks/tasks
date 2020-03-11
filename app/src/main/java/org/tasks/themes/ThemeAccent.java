@@ -31,6 +31,27 @@ public class ThemeAccent implements Pickable {
         R.style.OrangeAccent,
         R.style.DeepOrangeAccent
       };
+  public static final int[] ACCENTS_DESATURATED =
+      new int[] {
+          R.style.BlueGreyAccentDesaturated,
+          R.style.RedAccentDesaturated,
+          R.style.PinkAccentDesaturated,
+          R.style.PurpleAccentDesaturated,
+          R.style.DeepPurpleAccentDesaturated,
+          R.style.IndigoAccentDesaturated,
+          R.style.BlueAccentDesaturated,
+          R.style.LightBlueAccentDesaturated,
+          R.style.CyanAccentDesaturated,
+          R.style.TealAccentDesaturated,
+          R.style.GreenAccentDesaturated,
+          R.style.LightGreenAccentDesaturated,
+          R.style.LimeAccentDesaturated,
+          R.style.YellowAccentDesaturated,
+          R.style.AmberAccentDesaturated,
+          R.style.OrangeAccentDesaturated,
+          R.style.DeepOrangeAccentDesaturated
+      };
+
   public static final Parcelable.Creator<ThemeAccent> CREATOR =
       new Parcelable.Creator<ThemeAccent>() {
         @Override
@@ -46,9 +67,9 @@ public class ThemeAccent implements Pickable {
   private final int style;
   @Deprecated private final int accentColor;
 
-  public ThemeAccent(Context context, int index) {
-    this.style = ACCENTS[index];
-    Resources.Theme theme = new ContextThemeWrapper(context, ThemeAccent.ACCENTS[index]).getTheme();
+  public ThemeAccent(Context context, int style) {
+    this.style = style;
+    Resources.Theme theme = new ContextThemeWrapper(context, style).getTheme();
     this.accentColor = resolveAttribute(theme, R.attr.colorSecondary);
   }
 
@@ -77,6 +98,8 @@ public class ThemeAccent implements Pickable {
     switch (style) {
       case R.style.BlueGreyAccent:
       case R.style.RedAccent:
+      case R.style.BlueGreyAccentDesaturated:
+      case R.style.RedAccentDesaturated:
         return true;
       default:
         return false;

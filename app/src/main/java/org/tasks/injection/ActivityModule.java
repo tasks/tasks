@@ -48,8 +48,8 @@ public class ActivityModule {
 
   @Provides
   @ActivityScope
-  public ThemeAccent getThemeAccent(Preferences preferences) {
-    return new ThemeAccent(activity, preferences.getInt(R.string.p_theme_accent, 1));
+  public ThemeAccent getThemeAccent(ColorProvider colorProvider, Preferences preferences) {
+    return colorProvider.getThemeAccent(preferences.getInt(R.string.p_theme_accent, 1));
   }
 
   @Provides

@@ -90,9 +90,17 @@ class ColorProvider @Inject constructor(@ForActivity private val context: Contex
         else -> GREY
     }
 
+    fun getThemeAccent(index: Int) = ThemeAccent(context, if (isDark && desaturate) {
+        ThemeAccent.ACCENTS_DESATURATED[index]
+    } else {
+        ThemeAccent.ACCENTS[index]
+    })
+
     fun getThemeColors(adjust: Boolean = true) = ThemeColor.COLORS.map { c ->
         getThemeColor(ContextCompat.getColor(context, c), adjust)
     }
 
-    fun getWidgetColors() = getThemeColors(true)
+    fun getWidgetColors() = getThemeColors(false)
+
+    fun getAccentColors() = ThemeAccent.ACCENTS.indices.map(this@ColorProvider::getThemeAccent)
 }
