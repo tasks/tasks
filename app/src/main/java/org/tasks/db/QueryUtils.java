@@ -12,6 +12,9 @@ public class QueryUtils {
 
   private static final Pattern UNCOMPLETED = Pattern.compile("tasks\\.completed<?=0");
 
+  private static final Pattern ORDER =
+      Pattern.compile("order by .*? (asc|desc)", Pattern.CASE_INSENSITIVE);
+
   public static String showHidden(String query) {
     return HIDDEN.matcher(query).replaceAll("1");
   }
@@ -32,5 +35,9 @@ public class QueryUtils {
                     Task.COMPLETION_DATE.lte(0),
                     Task.COMPLETION_DATE.gte(DateUtilities.now() - 59999))
                 .toString());
+  }
+
+  public static String removeOrder(String query) {
+    return ORDER.matcher(query).replaceAll("");
   }
 }

@@ -1,6 +1,7 @@
 package com.todoroo.astrid.service;
 
 import static org.tasks.db.DbUtils.collect;
+import static org.tasks.db.QueryUtils.removeOrder;
 import static org.tasks.db.QueryUtils.showHiddenAndCompleted;
 
 import com.google.common.collect.ImmutableList;
@@ -87,7 +88,8 @@ public class TaskDeleter {
   public int clearCompleted(Filter filter) {
     List<Long> completed = new ArrayList<>();
     Filter deleteFilter = new Filter(null, null);
-    deleteFilter.setFilterQueryOverride(showHiddenAndCompleted(filter.getOriginalSqlQuery()));
+    deleteFilter.setFilterQueryOverride(
+        removeOrder(showHiddenAndCompleted(filter.getOriginalSqlQuery())));
     List<TaskContainer> tasks =
         taskDao.fetchTasks(
             (includeGoogleSubtasks, includeCaldavSubtasks) ->
