@@ -537,7 +537,7 @@
     <string name="encryption_password_wrong">Contraseña de cifrado errónea</string>
     <string name="help_and_feedback">Ayuda y retroalimentación</string>
     <string name="documentation">Documentación</string>
-    <string name="preferences_look_and_feel">Mira y siente</string>
+    <string name="preferences_look_and_feel">Apariencia</string>
     <string name="preferences_advanced">Avanzado</string>
     <string name="accounts">Cuentas</string>
     <string name="wearable_notifications">Notificaciones del reloj</string>
