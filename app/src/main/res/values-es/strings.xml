@@ -555,4 +555,13 @@
     <string name="upgrade_blurb_3">Elija cualquier precio de suscripción a continuación para iniciar su prueba gratuita. Puede cancelar en cualquier momento</string>
     <string name="upgrade_blurb_4">Su apoyo significa mucho para mí, ¡gracias!</string>
     <string name="back">Volver</string>
+    <string name="requires_android_version">Requiere Android %s+</string>
+    <string name="chip_style">Estilo de chip</string>
+    <string name="chip_style_outlined">Contorneado</string>
+    <string name="chip_style_filled">Lleno</string>
+    <string name="chips">Chips</string>
+    <string name="chip_appearance">Apariencia de chip</string>
+    <string name="desaturate_colors">Colores desaturados</string>
+    <string name="desaturate_colors_summary_on">Los colores serán desaturados en temas oscuros</string>
+    <string name="desaturate_colors_summary_off">Los colores no se desaturarán en los temas oscuros</string>
 </resources>
