@@ -60,6 +60,6 @@ public interface LocationDao {
       "SELECT places.*, IFNULL(COUNT(geofence_id),0) AS count FROM places LEFT OUTER JOIN geofences ON geofences.place = places.uid GROUP BY uid ORDER BY COUNT(geofence_id) DESC")
   LiveData<List<PlaceUsage>> getPlaceUsage();
 
-  @Query("SELECT * FROM places WHERE latitude = :latitude AND longitude = :longitude LIMIT 1")
-  Place findPlace(double latitude, double longitude);
+  @Query("SELECT * FROM places WHERE latitude LIKE :latitude AND longitude LIKE :longitude")
+  Place findPlace(String latitude, String longitude);
 }

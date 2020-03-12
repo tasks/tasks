@@ -50,6 +50,7 @@ import javax.inject.Inject;
 import org.tasks.Event;
 import org.tasks.R;
 import org.tasks.billing.Inventory;
+import org.tasks.caldav.GeoUtils;
 import org.tasks.data.LocationDao;
 import org.tasks.data.Place;
 import org.tasks.data.PlaceUsage;
@@ -331,7 +332,9 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
     }
     if (place.getId() <= 0) {
       org.tasks.data.Place existing =
-          locationDao.findPlace(place.getLatitude(), place.getLongitude());
+          locationDao.findPlace(
+              GeoUtils.INSTANCE.toLikeString(place.getLatitude()),
+              GeoUtils.INSTANCE.toLikeString(place.getLongitude()));
       if (existing == null) {
         place.setId(locationDao.insert(place));
       } else {

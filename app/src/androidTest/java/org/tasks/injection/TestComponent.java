@@ -17,6 +17,7 @@ import dagger.Component;
 import org.tasks.data.CaldavDaoTests;
 import org.tasks.data.DeletionDaoTests;
 import org.tasks.data.GoogleTaskDaoTests;
+import org.tasks.data.LocationDaoTest;
 import org.tasks.data.TagDataDaoTest;
 import org.tasks.jobs.BackupServiceTests;
 
@@ -59,4 +60,6 @@ public interface TestComponent extends ApplicationComponent {
   void inject(CaldavDaoTests caldavDaoTests);
 
   void inject(TaskMoverTest taskMoverTest);
+
+  void inject(LocationDaoTest locationDaoTest);
 }

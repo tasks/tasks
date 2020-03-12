@@ -44,8 +44,6 @@ public class Place implements Serializable, Parcelable {
         }
       };
   private static final Pattern pattern = Pattern.compile("(\\d+):(\\d+):(\\d+\\.\\d+)");
-  private static final Pattern COORDS =
-      Pattern.compile("^\\d+°\\d+'\\d+\\.\\d+\"[NS] \\d+°\\d+'\\d+\\.\\d+\"[EW]$");
 
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "place_id")
@@ -213,10 +211,13 @@ public class Place implements Serializable, Parcelable {
   }
 
   public String getDisplayName() {
-    if (Strings.isNullOrEmpty(address) || !COORDS.matcher(name).matches()) {
-      return Strings.isNullOrEmpty(name) ? formatCoordinates(this) : name;
+    if (!Strings.isNullOrEmpty(address)) {
+      return address;
     }
-    return address;
+    if (!Strings.isNullOrEmpty(name)) {
+      return name;
+    }
+    return formatCoordinates(this);
   }
 
   public String getDisplayAddress() {
