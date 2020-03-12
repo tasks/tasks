@@ -43,7 +43,7 @@ public class ActivityModule {
   @Provides
   @ActivityScope
   public ThemeColor getThemeColor(ColorProvider colorProvider, Preferences preferences) {
-    return colorProvider.getThemeColor(preferences.getInt(R.string.p_theme_color, 0), true);
+    return colorProvider.getThemeColor(preferences.getDefaultThemeColor(), true);
   }
 
   @Provides

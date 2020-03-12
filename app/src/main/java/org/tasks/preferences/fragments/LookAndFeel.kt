@@ -311,7 +311,7 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
                     themeColor.primaryColor
                 )
                     ?: themeColor.primaryColor
-                if (preferences.getInt(R.string.p_theme_color, -1) != color) {
+                if (preferences.defaultThemeColor != color) {
                     preferences.setInt(R.string.p_theme_color, color)
                     recreate()
                 }

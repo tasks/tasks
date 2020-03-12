@@ -11,9 +11,9 @@ import javax.inject.Inject
 class ColorProvider @Inject constructor(@ForActivity private val context: Context, preferences: Preferences) {
 
     companion object {
+        const val BLUE = -14575885
         private const val RED = -769226
         private const val AMBER = -16121
-        private const val BLUE = -14575885
         private const val GREY = -6381922
         private const val WHITE = -1
         private const val BLACK = -16777216

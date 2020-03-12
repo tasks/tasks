@@ -38,6 +38,7 @@ import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.billing.Purchase;
 import org.tasks.data.TaskAttachment;
+import org.tasks.themes.ColorProvider;
 import org.tasks.themes.ThemeBase;
 import org.tasks.time.DateTime;
 import timber.log.Timber;
@@ -545,5 +546,9 @@ public class Preferences {
 
   public void setAlreadyNotified(String account, String scope, boolean value) {
     setBoolean(context.getString(R.string.p_notified_oauth_error, account, scope), value);
+  }
+
+  public int getDefaultThemeColor() {
+    return getInt(R.string.p_theme_color, ColorProvider.BLUE);
   }
 }
