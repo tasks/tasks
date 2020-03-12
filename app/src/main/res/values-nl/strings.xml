@@ -451,7 +451,7 @@
     <string name="show_full_description">Toon volledige beschrijving</string>
     <string name="linkify">Toon links</string>
     <string name="linkify_description">Voeg links toe nar websites, adressen en telefoonnummers</string>
-    <string name="show_list_indicators">Toon lijst indicatie</string>
+    <string name="show_list_indicators">Toon lijst-fiches</string>
     <string name="location_remind_arrival">Herinner bij aankomst</string>
     <string name="location_remind_departure">Herinner bij vertrek</string>
     <string name="visit_website">Bezoek website</string>
@@ -550,4 +550,13 @@
     <string name="upgrade_blurb_3">Kies hierbeneden een abonnementsprijs om je gratis proefperiode te starten. Je kunt het altijd annuleren</string>
     <string name="upgrade_blurb_4">Je steun betekent veel voor me, bedankt!</string>
     <string name="back">Terug</string>
+    <string name="requires_android_version">Vereist Android %s+</string>
+    <string name="chip_style">Fiche-stijl</string>
+    <string name="chip_style_outlined">Omlijnd</string>
+    <string name="chip_style_filled">Gevuld</string>
+    <string name="chips">Fiches</string>
+    <string name="chip_appearance">Fiche-uiterlijk</string>
+    <string name="desaturate_colors">Maak kleuren minder verzadigd</string>
+    <string name="desaturate_colors_summary_on">Kleuren worden minder verzadigd in donkere thema\'s</string>
+    <string name="desaturate_colors_summary_off">Kleuren worden niet minder verzadigd in donkere thema\'s</string>
 </resources>
