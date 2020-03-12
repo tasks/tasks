@@ -546,4 +546,13 @@
     <string name="upgrade_blurb_3">选择下方任意订阅价格即可开始免费试用。 你可以随时取消</string>
     <string name="upgrade_blurb_4">您的支持对我很重要，谢谢！</string>
     <string name="back">返回</string>
+    <string name="requires_android_version">需要安卓系统 %s+</string>
+    <string name="chip_style">Chip样式</string>
+    <string name="chip_style_outlined">描边</string>
+    <string name="chip_style_filled">填充</string>
+    <string name="chips">Chips</string>
+    <string name="chip_appearance">Chip外观</string>
+    <string name="desaturate_colors">饱和色</string>
+    <string name="desaturate_colors_summary_on">颜色饱和度会在深色主题下下降</string>
+    <string name="desaturate_colors_summary_off">在深色主题中颜色饱和度不会降低</string>
 </resources>
