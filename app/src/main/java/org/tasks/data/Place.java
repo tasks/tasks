@@ -214,7 +214,7 @@ public class Place implements Serializable, Parcelable {
 
   public String getDisplayName() {
     if (Strings.isNullOrEmpty(address) || !COORDS.matcher(name).matches()) {
-      return name;
+      return Strings.isNullOrEmpty(name) ? formatCoordinates(this) : name;
     }
     return address;
   }
@@ -226,7 +226,7 @@ public class Place implements Serializable, Parcelable {
   String getGeoUri() {
     return String.format(
         "geo:%s,%s?q=%s",
-        latitude, longitude, Uri.encode(Strings.isNullOrEmpty(address) ? name : address));
+        latitude, longitude, Uri.encode(getDisplayName()));
   }
 
   public MapPosition getMapPosition() {
