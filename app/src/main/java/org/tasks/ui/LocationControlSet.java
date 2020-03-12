@@ -261,7 +261,7 @@ public class LocationControlSet extends TaskEditControlFragment {
       geofence.setTask(task.getId());
       geofence.setPlace(place.getUid());
       geofence.setId(locationDao.insert(geofence));
-      geofenceApi.register(Collections.singletonList(location));
+      geofenceApi.register(location);
     }
     task.setModificationDate(DateUtilities.now());
   }
@@ -281,14 +281,7 @@ public class LocationControlSet extends TaskEditControlFragment {
         Place place = data.getParcelableExtra(EXTRA_PLACE);
         Geofence geofence;
         if (location == null) {
-          int defaultReminders =
-              preferences.getIntegerFromString(R.string.p_default_location_reminder_key, 1);
-          geofence =
-              new Geofence(
-                  place.getUid(),
-                  defaultReminders == 1 || defaultReminders == 3,
-                  defaultReminders == 2 || defaultReminders == 3,
-                  preferences.getInt(R.string.p_default_location_radius, 250));
+          geofence = new Geofence(place.getUid(), preferences);
         } else {
           Geofence existing = location.geofence;
           geofence =

@@ -13,6 +13,8 @@ import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
 import java.io.Serializable;
+import org.tasks.R;
+import org.tasks.preferences.Preferences;
 
 @Entity(tableName = TABLE_NAME, indices = @Index(name = "geo_task", value = "task"))
 public class Geofence implements Serializable, Parcelable {
@@ -61,6 +63,16 @@ public class Geofence implements Serializable, Parcelable {
   public Geofence(long task, String place, boolean arrival, boolean departure, int radius) {
     this(place, arrival, departure, radius);
     this.task = task;
+  }
+
+  @Ignore
+  public Geofence(String place, Preferences preferences) {
+    this.place = place;
+    int defaultReminders =
+        preferences.getIntegerFromString(R.string.p_default_location_reminder_key, 1);
+    arrival = defaultReminders == 1 || defaultReminders == 3;
+    departure = defaultReminders == 2 || defaultReminders == 3;
+    radius = preferences.getInt(R.string.p_default_location_radius, 250);
   }
 
   @Ignore

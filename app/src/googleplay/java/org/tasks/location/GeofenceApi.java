@@ -7,7 +7,6 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 import static java.util.Collections.singletonList;
 
-import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -46,8 +45,11 @@ public class GeofenceApi {
     register(locationDao.getActiveGeofences(taskId));
   }
 
-  @SuppressLint("MissingPermission")
-  public void register(final List<Location> locations) {
+  public void register(Location location) {
+    register(singletonList(location));
+  }
+
+  private void register(final List<Location> locations) {
     if (!permissionChecker.canAccessLocation()) {
       return;
     }
