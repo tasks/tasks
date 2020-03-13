@@ -76,9 +76,6 @@ public class WorkManager {
     this.googleTaskListDao = googleTaskListDao;
     this.caldavDao = caldavDao;
     alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-  }
-
-  public void init() {
     workManager = androidx.work.WorkManager.getInstance(context);
   }
 
@@ -104,9 +101,6 @@ public class WorkManager {
   }
 
   public void sync(boolean immediate) {
-    if (workManager == null) {
-      return;
-    }
     Constraints constraints =
         new Constraints.Builder()
             .setRequiredNetworkType(

@@ -3,7 +3,10 @@ package org.tasks;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
+import androidx.annotation.NonNull;
 import androidx.core.app.JobIntentService;
+import androidx.work.Configuration;
 import com.jakewharton.processphoenix.ProcessPhoenix;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.todoroo.astrid.service.Upgrader;
@@ -28,18 +31,18 @@ import org.tasks.scheduling.RefreshScheduler;
 import org.tasks.themes.ThemeBase;
 import timber.log.Timber;
 
-public class Tasks extends InjectingApplication {
+public class Tasks extends InjectingApplication implements Configuration.Provider {
 
   @Inject @ForApplication Context context;
-  @Inject Lazy<Upgrader> upgrader;
   @Inject Preferences preferences;
   @Inject BuildSetup buildSetup;
   @Inject Inventory inventory;
-  @Inject WorkManager workManager;
-  @Inject RefreshScheduler refreshScheduler;
-  @Inject GeofenceApi geofenceApi;
   @Inject LocalBroadcastManager localBroadcastManager;
-  @Inject BillingClient billingClient;
+  @Inject Lazy<Upgrader> upgrader;
+  @Inject Lazy<WorkManager> workManager;
+  @Inject Lazy<RefreshScheduler> refreshScheduler;
+  @Inject Lazy<GeofenceApi> geofenceApi;
+  @Inject Lazy<BillingClient> billingClient;
 
   @Override
   public void onCreate() {
@@ -50,8 +53,6 @@ public class Tasks extends InjectingApplication {
     }
 
     upgrade();
-
-    workManager.init();
 
     AndroidThreeTen.init(this);
 
@@ -80,13 +81,13 @@ public class Tasks extends InjectingApplication {
   private void doInBackground() {
     NotificationSchedulerIntentService.enqueueWork(context, false);
     CalendarNotificationIntentService.enqueueWork(context);
-    refreshScheduler.scheduleAll();
-    workManager.updateBackgroundSync();
-    workManager.scheduleMidnightRefresh();
-    workManager.scheduleBackup();
-    geofenceApi.registerAll();
+    refreshScheduler.get().scheduleAll();
+    workManager.get().updateBackgroundSync();
+    workManager.get().scheduleMidnightRefresh();
+    workManager.get().scheduleBackup();
+    geofenceApi.get().registerAll();
     FileHelper.delete(context, preferences.getCacheDirectory());
-    billingClient.queryPurchases();
+    billingClient.get().queryPurchases();
   }
 
   @Override
@@ -94,7 +95,15 @@ public class Tasks extends InjectingApplication {
     component.inject(this);
   }
 
-  private class RefreshBroadcastReceiver extends BroadcastReceiver {
+  @NonNull
+  @Override
+  public Configuration getWorkManagerConfiguration() {
+    return new Configuration.Builder()
+        .setMinimumLoggingLevel(BuildConfig.DEBUG ? Log.DEBUG : Log.INFO)
+        .build();
+  }
+
+  private static class RefreshBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
       JobIntentService.enqueueWork(

@@ -27,7 +27,6 @@ import org.tasks.R;
 import org.tasks.data.TagDataDao;
 import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
-import org.tasks.jobs.WorkManager;
 import org.tasks.preferences.Preferences;
 import org.tasks.time.DateTime;
 
@@ -37,12 +36,10 @@ public class TitleParserTest extends InjectingTestCase {
   @Inject TagDataDao tagDataDao;
   @Inject Preferences preferences;
   @Inject TaskCreator taskCreator;
-  @Inject WorkManager workManager;
 
   @Override
   public void setUp() {
     super.setUp();
-    workManager.init();
     preferences.setStringFromInteger(R.string.p_default_urgency_key, 0);
   }
 

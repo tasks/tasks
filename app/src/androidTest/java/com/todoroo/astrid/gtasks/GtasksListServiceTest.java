@@ -23,7 +23,6 @@ import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
 import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
-import org.tasks.jobs.WorkManager;
 import org.tasks.makers.RemoteGtaskListMaker;
 
 @RunWith(AndroidJUnit4.class)
@@ -31,7 +30,6 @@ public class GtasksListServiceTest extends InjectingTestCase {
 
   @Inject TaskDeleter taskDeleter;
   @Inject LocalBroadcastManager localBroadcastManager;
-  @Inject WorkManager workManager;
 
   @Inject GoogleTaskListDao googleTaskListDao;
   private GtasksListService gtasksListService;
@@ -39,7 +37,6 @@ public class GtasksListServiceTest extends InjectingTestCase {
   @Override
   public void setUp() {
     super.setUp();
-    workManager.init();
     gtasksListService =
         new GtasksListService(googleTaskListDao, taskDeleter, localBroadcastManager);
   }

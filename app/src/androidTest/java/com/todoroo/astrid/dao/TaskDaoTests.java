@@ -28,20 +28,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
-import org.tasks.jobs.WorkManager;
 
 @RunWith(AndroidJUnit4.class)
 public class TaskDaoTests extends InjectingTestCase {
 
   @Inject TaskDao taskDao;
   @Inject TaskDeleter taskDeleter;
-  @Inject WorkManager workManager;
-
-  @Override
-  public void setUp() {
-    super.setUp();
-    workManager.init();
-  }
 
   /** Test basic task creation, fetch, and save */
   @Test

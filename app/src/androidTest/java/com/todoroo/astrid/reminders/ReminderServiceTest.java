@@ -39,7 +39,6 @@ import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
 import org.tasks.jobs.NotificationQueue;
 import org.tasks.jobs.ReminderEntry;
-import org.tasks.jobs.WorkManager;
 import org.tasks.preferences.Preferences;
 import org.tasks.reminders.Random;
 import org.tasks.time.DateTime;
@@ -49,7 +48,6 @@ public class ReminderServiceTest extends InjectingTestCase {
 
   @Inject Preferences preferences;
   @Inject TaskDao taskDao;
-  @Inject WorkManager workManager;
 
   private ReminderService service;
   private Random random;
@@ -58,7 +56,6 @@ public class ReminderServiceTest extends InjectingTestCase {
   @Override
   public void setUp() {
     super.setUp();
-    workManager.init();
     jobs = mock(NotificationQueue.class);
     random = mock(Random.class);
     when(random.nextFloat()).thenReturn(1.0f);

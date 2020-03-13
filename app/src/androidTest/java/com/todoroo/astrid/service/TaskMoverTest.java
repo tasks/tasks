@@ -56,7 +56,6 @@ public class TaskMoverTest extends InjectingTestCase {
   @Before
   public void setUp() {
     super.setUp();
-    workManager.init();
     taskDao.initialize(workManager);
   }
 
