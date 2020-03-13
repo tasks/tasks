@@ -57,7 +57,6 @@ public class WorkManager {
   private static final String TAG_MIDNIGHT_REFRESH = "tag_midnight_refresh";
   private static final String TAG_SYNC = "tag_sync";
   private static final String TAG_BACKGROUND_SYNC = "tag_background_sync";
-  private static final String TAG_REVERSE_GEOCODE = "tag_reverse_geocode";
 
   private final Context context;
   private final Preferences preferences;
@@ -105,6 +104,9 @@ public class WorkManager {
   }
 
   public void sync(boolean immediate) {
+    if (workManager == null) {
+      return;
+    }
     Constraints constraints =
         new Constraints.Builder()
             .setRequiredNetworkType(

@@ -191,8 +191,6 @@ public class Upgrader {
   }
 
   private void applyCaldavGeo() {
-    List<CaldavTask> updated = newArrayList();
-
     List<Long> tasksWithLocations =
         Lists.transform(locationDao.getActiveGeofences(), Location::getTask);
 
@@ -216,7 +214,6 @@ public class Upgrader {
     }
 
     batch(tasksWithLocations, taskDao::touch);
-    caldavDao.update(updated);
   }
 
   private void applyCaldavSubtasks() {

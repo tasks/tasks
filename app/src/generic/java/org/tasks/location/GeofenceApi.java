@@ -10,6 +10,8 @@ public class GeofenceApi {
   @Inject
   public GeofenceApi() {}
 
+  public void register(Location location) {}
+
   public void register(List<Location> activeGeofences) {}
 
   public void cancel(Location geofence) {}
