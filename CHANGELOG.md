@@ -1,5 +1,17 @@
 Change Log
 ---
+### 8.5 (2020-03-13)
+
+* Synchronize locations with CalDAV and EteSync
+* Fix crash when clearing completed from recently modified filter
+* Update translations
+  * Dutch - @fvbommel
+  * French - @FlorianLeChat
+  * Hungarian - kaciokos
+  * Norwegian Bokmål - @comradekingu
+  * Simplified Chinese - @sr093906
+  * Spanish - @FlorianLeChat
+
 ### 8.4 (2020-03-11)
 
 * New chip configuration options
