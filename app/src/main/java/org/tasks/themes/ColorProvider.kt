@@ -11,35 +11,34 @@ import javax.inject.Inject
 class ColorProvider @Inject constructor(@ForActivity private val context: Context, preferences: Preferences) {
 
     companion object {
-        const val BLUE = -14575885
-        private const val RED = -769226
-        private const val AMBER = -16121
-        private const val GREY = -6381922
+        const val BLUE_500 = -14575885
+        private const val RED_500 = -769226
+        private const val AMBER_500 = -16121
+        private const val GREY_500 = -6381922
         private const val WHITE = -1
         private const val BLACK = -16777216
 
         private val saturated: Map<Int, Int> = hashMapOf(
                 // 2014 material design palette
-                -10453621 to -5194043, // blue_grey
-                -12434878 to -14606047, // grey
-                RED to -1074534, // red
-                -1499549 to -749647, // pink
-                -6543440 to -3238952, // purple
-                -10011977 to -5005861, // deep purple
-//                -12627531 to -6313766, // indigo
-                BLUE to -7288071, // blue
-                -16537100 to -8268550, // light blue
-                -16728876 to -8331542, // cyan
-//                -16738680 to -8336444, // teal
-                -11751600 to -5908825, // green
-                -7617718 to -3808859, // light green
-                -3285959 to -1642852, // lime
-                -5317 to -2659, // yellow
-                AMBER to -8062, // amber
-                -26624 to -13184, // orange
-                -43230 to -21615, // deep orange
-//                -8825528 to -4412764, // brown
-                GREY to -1118482, // grey
+                -10453621 to -7297874, // blue_grey
+                RED_500 to -1739917, // red
+                -1499549 to -1023342, // pink
+                -6543440 to -4560696, // purple
+                -10011977 to -6982195, // deep purple
+//                -12627531 to -8812853, // indigo
+                BLUE_500 to -10177034, // blue
+                -16537100 to -11549705, // light blue
+                -16728876 to -11677471, // cyan
+//                -16738680 to -11684180, // teal
+                -11751600 to -8271996, // green
+                -7617718 to -5319295, // light green
+                -3285959 to -2300043, // lime
+                -5317 to -3722, // yellow
+                AMBER_500 to -10929, // amber
+                -26624 to -18611, // orange
+                -43230 to -30107, // deep orange
+//                -8825528 to -6190977, // brown
+                GREY_500 to -2039584, // grey
                 WHITE to BLACK,
 
                 // 2019 google calendar
@@ -84,10 +83,10 @@ class ColorProvider @Inject constructor(@ForActivity private val context: Contex
             ThemeColor(context, color, getColor(color, adjust))
 
     fun getPriorityColor(priority: Int, adjust: Boolean = true) = when (priority) {
-        in Int.MIN_VALUE..0 -> getColor(RED, adjust)
-        1 -> getColor(AMBER, adjust)
-        2 -> getColor(BLUE, adjust)
-        else -> GREY
+        in Int.MIN_VALUE..0 -> getColor(RED_500, adjust)
+        1 -> getColor(AMBER_500, adjust)
+        2 -> getColor(BLUE_500, adjust)
+        else -> GREY_500
     }
 
     fun getThemeAccent(index: Int) = ThemeAccent(context, if (isDark && desaturate) {

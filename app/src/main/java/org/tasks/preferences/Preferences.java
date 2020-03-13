@@ -549,6 +549,6 @@ public class Preferences {
   }
 
   public int getDefaultThemeColor() {
-    return getInt(R.string.p_theme_color, ColorProvider.BLUE);
+    return getInt(R.string.p_theme_color, ColorProvider.BLUE_500);
   }
 }
