@@ -534,4 +534,12 @@
     <string name="etesync_account_description">Krever en konto hos EteSync.com eller selvdrevet tjener</string>
     <string name="etesync_encryption_description">Velg et krypteringspassord. Ikke glem passordet ditt, det kan ikke gjenopprettes!</string>
     <string name="encryption_password_wrong">Feil krypteringspassord</string>
+    <string name="help_and_feedback">Hjelp og tilbakemelding</string>
+    <string name="documentation">Dokumentasjon</string>
+    <string name="preferences_advanced">Avansert</string>
+    <string name="accounts">Kontoer</string>
+    <string name="more_settings">Flere innstillinger</string>
+    <string name="invalid_username_or_password">Ugyldig brukernavn eller passord</string>
+    <string name="theme_system_default">Systemforvalg</string>
+    <string name="back">Tilbake</string>
 </resources>
