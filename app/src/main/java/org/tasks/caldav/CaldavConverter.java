@@ -3,8 +3,6 @@ package org.tasks.caldav;
 import static com.todoroo.andlib.utility.DateUtilities.now;
 import static com.todoroo.astrid.data.Task.URGENCY_SPECIFIC_DAY;
 import static com.todoroo.astrid.data.Task.URGENCY_SPECIFIC_DAY_TIME;
-import static org.tasks.caldav.CaldavUtils.fromVtodo;
-import static org.tasks.caldav.CaldavUtils.setParent;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
 import at.bitfire.ical4android.DateUtils;
@@ -109,7 +107,7 @@ public class CaldavConverter {
     at.bitfire.ical4android.Task remote = null;
     try {
       if (!Strings.isNullOrEmpty(caldavTask.getVtodo())) {
-        remote = fromVtodo(caldavTask.getVtodo());
+        remote = iCalendar.Companion.fromVtodo(caldavTask.getVtodo());
       }
     } catch (Exception e) {
       Timber.e(e);
@@ -158,7 +156,7 @@ public class CaldavConverter {
     }
     remote.setLastModified(newDateTime(task.getModificationDate()).toUTC().getMillis());
     remote.setPriority(toRemote(remote.getPriority(), task.getPriority()));
-    setParent(remote, task.getParent() == 0 ? null : caldavTask.getRemoteParent());
+    iCalendar.Companion.setParent(remote, task.getParent() == 0 ? null : caldavTask.getRemoteParent());
 
     return remote;
   }

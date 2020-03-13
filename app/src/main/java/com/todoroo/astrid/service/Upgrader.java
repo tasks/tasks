@@ -3,7 +3,6 @@ package com.todoroo.astrid.service;
 import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Lists.newArrayList;
-import static org.tasks.caldav.CaldavUtils.getParent;
 import static org.tasks.db.DbUtils.batch;
 
 import android.content.Context;
@@ -22,7 +21,7 @@ import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
-import org.tasks.caldav.CaldavUtils;
+import org.tasks.caldav.iCalendar;
 import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.CaldavTask;
@@ -69,6 +68,7 @@ public class Upgrader {
   private final TaskAttachmentDao taskAttachmentDao;
   private final CaldavDao caldavDao;
   private final TaskDao taskDao;
+  private final iCalendar iCal;
 
   @Inject
   public Upgrader(
@@ -83,7 +83,8 @@ public class Upgrader {
       UserActivityDao userActivityDao,
       TaskAttachmentDao taskAttachmentDao,
       CaldavDao caldavDao,
-      TaskDao taskDao) {
+      TaskDao taskDao,
+      iCalendar iCal) {
     this.context = context;
     this.preferences = preferences;
     this.tracker = tracker;
@@ -96,6 +97,7 @@ public class Upgrader {
     this.taskAttachmentDao = taskAttachmentDao;
     this.caldavDao = caldavDao;
     this.taskDao = taskDao;
+    this.iCal = iCal;
   }
 
   public void upgrade(int from, int to) {
@@ -183,11 +185,11 @@ public class Upgrader {
     List<CaldavTask> updated = newArrayList();
 
     for (CaldavTask task : transform(caldavDao.getTasks(), CaldavTaskContainer::getCaldavTask)) {
-      at.bitfire.ical4android.Task remoteTask = CaldavUtils.fromVtodo(task.getVtodo());
+      at.bitfire.ical4android.Task remoteTask = iCalendar.Companion.fromVtodo(task.getVtodo());
       if (remoteTask == null) {
         continue;
       }
-      task.setRemoteParent(getParent(remoteTask));
+      task.setRemoteParent(iCalendar.Companion.getParent(remoteTask));
       if (!Strings.isNullOrEmpty(task.getRemoteParent())) {
         updated.add(task);
       }
@@ -201,9 +203,9 @@ public class Upgrader {
     List<Long> tasksWithTags = caldavDao.getTasksWithTags();
     for (CaldavTaskContainer container : caldavDao.getTasks()) {
       at.bitfire.ical4android.Task remoteTask =
-          CaldavUtils.fromVtodo(container.caldavTask.getVtodo());
+          iCalendar.Companion.fromVtodo(container.caldavTask.getVtodo());
       if (remoteTask != null) {
-        tagDao.insert(container.task, CaldavUtils.getTags(tagDataDao, remoteTask.getCategories()));
+        tagDao.insert(container.task, iCal.getTags(remoteTask.getCategories()));
       }
     }
     batch(tasksWithTags, taskDao::touch);
