@@ -6,6 +6,7 @@
 
 package com.todoroo.astrid.data;
 
+import static com.todoroo.astrid.data.SyncFlags.SUPPRESS_SYNC;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
@@ -29,6 +30,7 @@ import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.dao.TaskDao;
 import java.lang.annotation.Retention;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -895,6 +897,14 @@ public class Task implements Parcelable {
 
   public boolean isSaved() {
     return getId() != NO_ID;
+  }
+
+  public synchronized void suppressSync() {
+    putTransitory(SUPPRESS_SYNC, true);
+  }
+
+  public synchronized void suppressRefresh() {
+    putTransitory(TaskDao.TRANS_SUPPRESS_REFRESH, true);
   }
 
   public synchronized void putTransitory(String key, Object value) {

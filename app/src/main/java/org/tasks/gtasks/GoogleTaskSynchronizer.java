@@ -16,7 +16,6 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
@@ -379,7 +378,7 @@ public class GoogleTaskSynchronizer {
     } else {
       googleTaskDao.update(gtasksMetadata);
     }
-    task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
+    task.suppressSync();
     taskDao.save(task);
   }
 
@@ -478,8 +477,8 @@ public class GoogleTaskSynchronizer {
 
   private void write(Task task, GoogleTask googleTask) {
     if (!(TextUtils.isEmpty(task.getTitle()) && TextUtils.isEmpty(task.getNotes()))) {
-      task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
-      task.putTransitory(TaskDao.TRANS_SUPPRESS_REFRESH, true);
+      task.suppressSync();
+      task.suppressRefresh();
       if (task.isNew()) {
         taskDao.createNew(task);
       }

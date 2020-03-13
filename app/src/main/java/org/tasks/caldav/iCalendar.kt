@@ -161,8 +161,8 @@ class iCalendar @Inject constructor(
             setPlace(task.getId(), geo)
         }
         tagDao.applyTags(task, tagDataDao, getTags(remote.categories))
-        task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true)
-        task.putTransitory(TaskDao.TRANS_SUPPRESS_REFRESH, true)
+        task.suppressSync()
+        task.suppressRefresh()
         taskDao.save(task)
         caldavTask.vtodo = vtodo
         caldavTask.etag = eTag

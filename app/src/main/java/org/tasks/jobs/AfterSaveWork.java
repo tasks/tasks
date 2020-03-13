@@ -59,7 +59,7 @@ public class AfterSaveWork extends InjectingWorker {
   }
 
   static Data getInputData(Task current, Task original) {
-    boolean suppress = current.checkTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC);
+    boolean suppress = current.checkTransitory(SyncFlags.SUPPRESS_SYNC);
     Builder builder =
         new Builder()
             .putLong(EXTRA_ID, current.getId())

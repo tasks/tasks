@@ -9,7 +9,6 @@ import com.todoroo.astrid.data.Task;
 import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
-import org.tasks.data.CaldavDao;
 import org.tasks.data.GoogleTaskDao;
 import timber.log.Timber;
 
@@ -50,7 +49,7 @@ public class TaskCompleter {
       Task task = tasks.get(i);
       task.setCompletionDate(completionDate);
       if (i < tasks.size() - 1) {
-        task.putTransitory(TaskDao.TRANS_SUPPRESS_REFRESH, true);
+        task.suppressRefresh();
       }
       taskDao.save(task);
     }

@@ -1,7 +1,5 @@
 package org.tasks.backup;
 
-import static com.todoroo.astrid.dao.TaskDao.TRANS_SUPPRESS_REFRESH;
-import static com.todoroo.astrid.data.SyncFlags.GTASKS_SUPPRESS_SYNC;
 import static org.tasks.backup.TasksJsonExporter.UTF_8;
 import static org.tasks.data.Place.newPlace;
 import static org.tasks.preferences.Preferences.P_CURRENT_VERSION;
@@ -175,8 +173,8 @@ public class TasksJsonImporter {
           result.skipCount++;
           continue;
         }
-        task.putTransitory(TRANS_SUPPRESS_REFRESH, true);
-        task.putTransitory(GTASKS_SUPPRESS_SYNC, true);
+        task.suppressRefresh();
+        task.suppressSync();
         taskDao.createNew(task);
         long taskId = task.getId();
         String taskUuid = task.getUuid();

@@ -4,7 +4,6 @@ import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.utility.DateUtilities.now;
 
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
 import java.util.ArrayList;
@@ -78,8 +77,8 @@ public class TaskDuplicator {
     clone.setCompletionDate(0L);
     clone.setCalendarUri("");
     clone.setUuid(null);
-    clone.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
-    clone.putTransitory(TaskDao.TRANS_SUPPRESS_REFRESH, true);
+    clone.suppressSync();
+    clone.suppressRefresh();
     taskDao.createNew(clone);
 
     List<TagData> tags = tagDataDao.getTagDataForTask(originalId);
