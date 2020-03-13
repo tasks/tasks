@@ -15,8 +15,15 @@ import com.todoroo.astrid.helper.UUIDHelper
 import com.todoroo.astrid.service.TaskCreator
 import net.fortuna.ical4j.model.Parameter
 import net.fortuna.ical4j.model.parameter.RelType
+import net.fortuna.ical4j.model.property.Geo
 import net.fortuna.ical4j.model.property.RelatedTo
+import org.tasks.caldav.GeoUtils.equalish
+import org.tasks.caldav.GeoUtils.toGeo
+import org.tasks.caldav.GeoUtils.toLikeString
 import org.tasks.data.*
+import org.tasks.jobs.WorkManager
+import org.tasks.location.GeofenceApi
+import org.tasks.preferences.Preferences
 import timber.log.Timber
 import java.io.ByteArrayOutputStream
 import java.io.StringReader
@@ -24,6 +31,10 @@ import javax.inject.Inject
 
 class iCalendar @Inject constructor(
         private val tagDataDao: TagDataDao,
+        private val preferences: Preferences,
+        private val locationDao: LocationDao,
+        private val workManager: WorkManager,
+        private val geofenceApi: GeofenceApi,
         private val taskCreator: TaskCreator,
         private val tagDao: TagDao,
         private val taskDao: TaskDao,
@@ -60,6 +71,30 @@ class iCalendar @Inject constructor(
         }
     }
 
+    fun setPlace(taskId: Long, geo: Geo) {
+        var place: Place? = locationDao.findPlace(
+                geo.latitude.toLikeString(),
+                geo.longitude.toLikeString())
+        if (place == null) {
+            place = Place.newPlace(geo)
+            place.id = locationDao.insert(place)
+            workManager.reverseGeocode(place)
+        }
+        val existing: Location? = locationDao.getGeofences(taskId)
+        if (existing == null) {
+            val geofence = Geofence(place!!.uid, preferences)
+            geofence.task = taskId
+            geofence.id = locationDao.insert(geofence)
+            geofenceApi.register(Location(geofence, place))
+        } else if (place != existing.place) {
+            geofenceApi.cancel(existing)
+            val geofence = existing.geofence
+            geofence.place = place!!.uid
+            locationDao.update(geofence)
+            geofenceApi.register(existing)
+        }
+    }
+
     fun getTags(categories: List<String>): List<TagData> {
         if (categories.isEmpty()) {
             return emptyList()
@@ -87,6 +122,11 @@ class iCalendar @Inject constructor(
         } else {
             remoteModel.uid = caldavTask.remoteId
         }
+        val location = locationDao.getGeofences(task.getId())
+        val localGeo = toGeo(location)
+        if (localGeo == null || !localGeo.equalish(remoteModel.geoPosition)) {
+            remoteModel.geoPosition = localGeo
+        }
 
         val os = ByteArrayOutputStream()
         remoteModel.write(os)
@@ -111,6 +151,15 @@ class iCalendar @Inject constructor(
             caldavTask = existing
         }
         CaldavConverter.apply(task, remote)
+        val geo = remote.geoPosition
+        if (geo == null) {
+            locationDao.getActiveGeofences(task.getId()).forEach {
+                geofenceApi.cancel(it)
+                locationDao.delete(it.geofence)
+            }
+        } else {
+            setPlace(task.getId(), geo)
+        }
         tagDao.applyTags(task, tagDataDao, getTags(remote.categories))
         task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true)
         task.putTransitory(TaskDao.TRANS_SUPPRESS_REFRESH, true)

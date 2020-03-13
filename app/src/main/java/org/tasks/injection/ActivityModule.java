@@ -6,8 +6,6 @@ import dagger.Module;
 import dagger.Provides;
 import org.tasks.R;
 import org.tasks.billing.Inventory;
-import org.tasks.location.Geocoder;
-import org.tasks.location.MapboxGeocoder;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.ColorProvider;
 import org.tasks.themes.ThemeAccent;
@@ -50,11 +48,5 @@ public class ActivityModule {
   @ActivityScope
   public ThemeAccent getThemeAccent(ColorProvider colorProvider, Preferences preferences) {
     return colorProvider.getThemeAccent(preferences.getInt(R.string.p_theme_accent, 1));
-  }
-
-  @Provides
-  @ActivityScope
-  public Geocoder getGeocoder(@ForApplication Context context) {
-    return new MapboxGeocoder(context);
   }
 }

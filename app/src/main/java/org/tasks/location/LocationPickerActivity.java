@@ -6,7 +6,6 @@ import static com.todoroo.andlib.utility.AndroidUtilities.hideKeyboard;
 import static org.tasks.PermissionUtil.verifyPermissions;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.location.Location;
@@ -49,14 +48,12 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import org.tasks.Event;
 import org.tasks.R;
-import org.tasks.billing.Inventory;
 import org.tasks.caldav.GeoUtils;
 import org.tasks.data.LocationDao;
 import org.tasks.data.Place;
 import org.tasks.data.PlaceUsage;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
-import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.location.LocationPickerAdapter.OnLocationPicked;
 import org.tasks.location.LocationSearchAdapter.OnPredictionPicked;
@@ -106,10 +103,8 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
   @BindView(R.id.recent_locations)
   RecyclerView recyclerView;
 
-  @Inject @ForApplication Context context;
   @Inject Theme theme;
   @Inject Toaster toaster;
-  @Inject Inventory inventory;
   @Inject LocationDao locationDao;
   @Inject PlaceSearchProvider searchProvider;
   @Inject PermissionChecker permissionChecker;
@@ -325,7 +320,7 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
             });
   }
 
-  private void returnPlace(org.tasks.data.Place place) {
+  private void returnPlace(@Nullable org.tasks.data.Place place) {
     if (place == null) {
       Timber.e("Place is null");
       return;

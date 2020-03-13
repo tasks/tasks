@@ -47,6 +47,9 @@ public interface LocationDao {
   @Update
   void update(Place place);
 
+  @Update
+  void update(Geofence geofence);
+
   @Query("SELECT * FROM places WHERE uid = :uid LIMIT 1")
   Place getByUid(String uid);
 
@@ -55,6 +58,9 @@ public interface LocationDao {
 
   @Query("SELECT * FROM places")
   List<Place> getPlaces();
+
+  @Query("SELECT * FROM places WHERE place_id = :id")
+  Place getPlace(long id);
 
   @Query(
       "SELECT places.*, IFNULL(COUNT(geofence_id),0) AS count FROM places LEFT OUTER JOIN geofences ON geofences.place = places.uid GROUP BY uid ORDER BY COUNT(geofence_id) DESC")

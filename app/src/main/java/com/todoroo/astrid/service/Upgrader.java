@@ -13,12 +13,14 @@ import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.ListMultimap;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Multimaps;
 import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.dao.TaskDao;
 import java.io.File;
 import java.util.List;
 import javax.inject.Inject;
+import net.fortuna.ical4j.model.property.Geo;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.caldav.iCalendar;
@@ -31,6 +33,8 @@ import org.tasks.data.FilterDao;
 import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
+import org.tasks.data.Location;
+import org.tasks.data.LocationDao;
 import org.tasks.data.Tag;
 import org.tasks.data.TagDao;
 import org.tasks.data.TagData;
@@ -56,6 +60,7 @@ public class Upgrader {
   private static final int V6_9 = 608;
   private static final int V7_0 = 617;
   public static final int V8_2 = 675;
+  private static final int V8_5 = 700;
   private final Context context;
   private final Preferences preferences;
   private final Tracker tracker;
@@ -68,6 +73,7 @@ public class Upgrader {
   private final TaskAttachmentDao taskAttachmentDao;
   private final CaldavDao caldavDao;
   private final TaskDao taskDao;
+  private final LocationDao locationDao;
   private final iCalendar iCal;
 
   @Inject
@@ -84,6 +90,7 @@ public class Upgrader {
       TaskAttachmentDao taskAttachmentDao,
       CaldavDao caldavDao,
       TaskDao taskDao,
+      LocationDao locationDao,
       iCalendar iCal) {
     this.context = context;
     this.preferences = preferences;
@@ -97,6 +104,7 @@ public class Upgrader {
     this.taskAttachmentDao = taskAttachmentDao;
     this.caldavDao = caldavDao;
     this.taskDao = taskDao;
+    this.locationDao = locationDao;
     this.iCal = iCal;
   }
 
@@ -113,6 +121,7 @@ public class Upgrader {
       run(from, V6_9, this::applyCaldavCategories);
       run(from, V7_0, this::applyCaldavSubtasks);
       run(from, V8_2, this::migrateColors);
+      run(from, V8_5, this::applyCaldavGeo);
     }
     preferences.setCurrentVersion(to);
   }
@@ -179,6 +188,35 @@ public class Upgrader {
       case 20: return R.color.white_100;
       default: return def;
     }
+  }
+
+  private void applyCaldavGeo() {
+    List<CaldavTask> updated = newArrayList();
+
+    List<Long> tasksWithLocations =
+        Lists.transform(locationDao.getActiveGeofences(), Location::getTask);
+
+    for (CaldavTask task : transform(caldavDao.getTasks(), CaldavTaskContainer::getCaldavTask)) {
+      long taskId = task.getTask();
+      if (tasksWithLocations.contains(taskId)) {
+        continue;
+      }
+
+      at.bitfire.ical4android.Task remoteTask = iCalendar.Companion.fromVtodo(task.getVtodo());
+      if (remoteTask == null) {
+        continue;
+      }
+
+      Geo geo = remoteTask.getGeoPosition();
+      if (geo == null) {
+        continue;
+      }
+
+      iCal.setPlace(taskId, geo);
+    }
+
+    batch(tasksWithLocations, taskDao::touch);
+    caldavDao.update(updated);
   }
 
   private void applyCaldavSubtasks() {

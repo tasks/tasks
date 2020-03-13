@@ -9,6 +9,7 @@ import static io.reactivex.Single.zip;
 import static org.tasks.date.DateTimeUtils.midnight;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 import static org.tasks.db.DbUtils.batch;
+import static org.tasks.jobs.ReverseGeocodeWork.PLACE_ID;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 import static org.tasks.time.DateTimeUtils.printDuration;
 import static org.tasks.time.DateTimeUtils.printTimestamp;
@@ -37,9 +38,11 @@ import io.reactivex.schedulers.Schedulers;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
+import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.GoogleTaskListDao;
+import org.tasks.data.Place;
 import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
@@ -54,6 +57,7 @@ public class WorkManager {
   private static final String TAG_MIDNIGHT_REFRESH = "tag_midnight_refresh";
   private static final String TAG_SYNC = "tag_sync";
   private static final String TAG_BACKGROUND_SYNC = "tag_background_sync";
+  private static final String TAG_REVERSE_GEOCODE = "tag_reverse_geocode";
 
   private final Context context;
   private final Preferences preferences;
@@ -118,6 +122,19 @@ public class WorkManager {
     }
     OneTimeWorkRequest request = builder.build();
     workManager.beginUniqueWork(TAG_SYNC, ExistingWorkPolicy.REPLACE, request).enqueue();
+  }
+
+  public void reverseGeocode(Place place) {
+    if (BuildConfig.DEBUG && place.getId() == 0) {
+      throw new RuntimeException("Missing id");
+    }
+    workManager.enqueue(
+        new Builder(ReverseGeocodeWork.class)
+            .setInputData(new Data.Builder().putLong(PLACE_ID, place.getId()).build())
+            .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 1, TimeUnit.MINUTES)
+            .setConstraints(
+                new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
+            .build());
   }
 
   public void updateBackgroundSync() {

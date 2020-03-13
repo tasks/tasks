@@ -25,6 +25,8 @@ import org.tasks.data.TaskListMetadataDao;
 import org.tasks.data.UserActivityDao;
 import org.tasks.jobs.WorkManager;
 import org.tasks.locale.Locale;
+import org.tasks.location.Geocoder;
+import org.tasks.location.MapboxGeocoder;
 import org.tasks.notifications.NotificationDao;
 import org.tasks.security.Encryption;
 import org.tasks.security.KeyStoreEncryption;
@@ -145,5 +147,10 @@ public class ApplicationModule {
   @Provides
   public BillingClient getBillingClient(Inventory inventory, Tracker tracker) {
     return new BillingClientImpl(context, inventory, tracker);
+  }
+
+  @Provides
+  public Geocoder getGeocoder(@ForApplication Context context) {
+    return new MapboxGeocoder(context);
   }
 }

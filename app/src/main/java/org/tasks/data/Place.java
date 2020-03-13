@@ -7,6 +7,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
+import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -21,6 +22,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import net.fortuna.ical4j.model.property.Geo;
 import org.tasks.location.MapPosition;
 
 @Entity(tableName = TABLE_NAME, indices = @Index(name = "place_uid", value = "uid", unique = true))
@@ -44,6 +46,8 @@ public class Place implements Serializable, Parcelable {
         }
       };
   private static final Pattern pattern = Pattern.compile("(\\d+):(\\d+):(\\d+\\.\\d+)");
+  private static final Pattern COORDS =
+      Pattern.compile("^\\d+°\\d+'\\d+\\.\\d+\"[NS] \\d+°\\d+'\\d+\\.\\d+\"[EW]$");
 
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "place_id")
@@ -96,12 +100,6 @@ public class Place implements Serializable, Parcelable {
     longitude = parcel.readDouble();
   }
 
-  private static String formatCoordinates(org.tasks.data.Place place) {
-    return String.format(
-        "%s %s",
-        formatCoordinate(place.getLatitude(), true), formatCoordinate(place.getLongitude(), false));
-  }
-
   private static String formatCoordinate(double coordinates, boolean latitude) {
     String output =
         android.location.Location.convert(Math.abs(coordinates), Location.FORMAT_SECONDS);
@@ -118,11 +116,21 @@ public class Place implements Serializable, Parcelable {
     }
   }
 
-  public static Place newPlace(MapPosition mapPosition) {
+  public static Place newPlace(Geo geo) {
+    Place place = newPlace();
+    place.setLatitude(geo.getLatitude().doubleValue());
+    place.setLongitude(geo.getLongitude().doubleValue());
+    return place;
+  }
+
+  @Nullable public static Place newPlace(@Nullable MapPosition mapPosition) {
+    if (mapPosition == null) {
+      return null;
+    }
+
     Place place = newPlace();
     place.setLatitude(mapPosition.getLatitude());
     place.setLongitude(mapPosition.getLongitude());
-    place.setName(formatCoordinates(place));
     return place;
   }
 
@@ -162,7 +170,7 @@ public class Place implements Serializable, Parcelable {
     this.uid = uid;
   }
 
-  public String getName() {
+  @Nullable public String getName() {
     return name;
   }
 
@@ -211,13 +219,14 @@ public class Place implements Serializable, Parcelable {
   }
 
   public String getDisplayName() {
+    if (!Strings.isNullOrEmpty(name) && !COORDS.matcher(name).matches()) {
+      return name;
+    }
     if (!Strings.isNullOrEmpty(address)) {
       return address;
     }
-    if (!Strings.isNullOrEmpty(name)) {
-      return name;
-    }
-    return formatCoordinates(this);
+    return String.format(
+        "%s %s", formatCoordinate(getLatitude(), true), formatCoordinate(getLongitude(), false));
   }
 
   public String getDisplayAddress() {

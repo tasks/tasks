@@ -63,7 +63,7 @@ public class Location implements Serializable, Parcelable {
     geofence.setTask(task);
   }
 
-  public String getName() {
+  @Nullable public String getName() {
     return place.getName();
   }
 
