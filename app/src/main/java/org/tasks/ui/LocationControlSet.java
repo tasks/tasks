@@ -2,6 +2,7 @@ package org.tasks.ui;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
+import static com.todoroo.astrid.data.SyncFlags.FORCE_CALDAV_SYNC;
 import static org.tasks.PermissionUtil.verifyPermissions;
 import static org.tasks.dialogs.GeofenceDialog.newGeofenceDialog;
 import static org.tasks.location.LocationPickerActivity.EXTRA_PLACE;
@@ -250,6 +251,10 @@ public class LocationControlSet extends TaskEditControlFragment {
 
   @Override
   public void apply(Task task) {
+    if ((original == null || location == null || !original.place.equals(location.place))) {
+      task.putTransitory(FORCE_CALDAV_SYNC, true);
+    }
+
     if (original != null) {
       geofenceApi.cancel(original);
       locationDao.delete(original.geofence);

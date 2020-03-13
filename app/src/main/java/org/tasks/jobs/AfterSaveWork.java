@@ -60,11 +60,13 @@ public class AfterSaveWork extends InjectingWorker {
 
   static Data getInputData(Task current, Task original) {
     boolean suppress = current.checkTransitory(SyncFlags.SUPPRESS_SYNC);
+    boolean forceCaldav = current.checkTransitory(SyncFlags.FORCE_CALDAV_SYNC);
     Builder builder =
         new Builder()
             .putLong(EXTRA_ID, current.getId())
             .putBoolean(EXTRA_PUSH_GTASKS, !suppress && !current.googleTaskUpToDate(original))
-            .putBoolean(EXTRA_PUSH_CALDAV, !suppress && !current.caldavUpToDate(original))
+            .putBoolean(
+                EXTRA_PUSH_CALDAV, !suppress && (!current.caldavUpToDate(original) || forceCaldav))
             .putBoolean(EXTRA_SUPPRESS_REFRESH, current.checkTransitory(TRANS_SUPPRESS_REFRESH));
     if (original != null) {
       builder
