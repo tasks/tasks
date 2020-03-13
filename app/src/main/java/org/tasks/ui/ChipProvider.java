@@ -7,7 +7,6 @@ import static com.google.common.collect.Sets.newHashSet;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.res.ColorStateList;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
@@ -29,7 +28,7 @@ import org.tasks.R;
 import org.tasks.billing.Inventory;
 import org.tasks.data.TagData;
 import org.tasks.data.TaskContainer;
-import org.tasks.injection.ForActivity;
+import org.tasks.locale.Locale;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.ColorProvider;
 import org.tasks.themes.CustomIcons;
@@ -37,10 +36,12 @@ import org.tasks.themes.ThemeColor;
 
 public class ChipProvider {
 
+  private final Activity activity;
   private final Inventory inventory;
   private final int iconAlpha;
   private final ChipListCache lists;
   private final ColorProvider colorProvider;
+  private final Locale locale;
   private final Ordering<TagFilter> orderByName =
       new Ordering<TagFilter>() {
         @Override
@@ -54,16 +55,19 @@ public class ChipProvider {
 
   @Inject
   public ChipProvider(
-      @ForActivity Context context,
+      Activity activity,
       Inventory inventory,
       ChipListCache lists,
       Preferences preferences,
-      ColorProvider colorProvider) {
+      ColorProvider colorProvider,
+      Locale locale) {
+    this.activity = activity;
     this.inventory = inventory;
     iconAlpha =
-        (int) (255 * ResourcesCompat.getFloat(context.getResources(), R.dimen.alpha_secondary));
+        (int) (255 * ResourcesCompat.getFloat(activity.getResources(), R.dimen.alpha_secondary));
     this.lists = lists;
     this.colorProvider = colorProvider;
+    this.locale = locale;
 
     setStyle(preferences.getIntegerFromString(R.string.p_chip_style, 0));
     setAppearance(preferences.getIntegerFromString(R.string.p_chip_appearance, 0));
@@ -78,8 +82,25 @@ public class ChipProvider {
     showIcon = appearance != 1;
   }
 
+  public Chip newSubtaskChip(TaskContainer task, boolean compact) {
+    Chip chip = newChip(task);
+    apply(
+        chip,
+        task.isCollapsed()
+            ? R.drawable.ic_keyboard_arrow_up_black_24dp
+            : R.drawable.ic_keyboard_arrow_down_black_24dp,
+        compact
+            ? locale.formatNumber(task.children)
+            : activity
+                .getResources()
+                .getQuantityString(R.plurals.subtask_count, task.children, task.children),
+        0,
+        true,
+        true);
+    return chip;
+  }
+
   public List<Chip> getChips(
-      Activity activity,
       Filter filter,
       boolean isSubtask,
       boolean hideSubtaskChip,
@@ -88,22 +109,10 @@ public class ChipProvider {
 
     List<Chip> chips = new ArrayList<>();
     if (!hideSubtaskChip && task.hasChildren()) {
-      Chip chip = newChip(activity, task);
-      apply(
-          chip,
-          task.isCollapsed()
-              ? R.drawable.ic_keyboard_arrow_up_black_24dp
-              : R.drawable.ic_keyboard_arrow_down_black_24dp,
-          activity
-              .getResources()
-              .getQuantityString(R.plurals.subtask_count, task.children, task.children),
-          0,
-          true,
-          true);
-      chips.add(chip);
+      chips.add(newSubtaskChip(task, !showText));
     }
     if (task.hasLocation()) {
-      Chip chip = newChip(activity, task.getLocation());
+      Chip chip = newChip(task.getLocation());
       apply(chip, R.drawable.ic_outline_place_24px, task.getLocation().getDisplayName(), 0, showText, showIcon);
       chips.add(chip);
     }
@@ -111,13 +120,11 @@ public class ChipProvider {
       if (!Strings.isNullOrEmpty(task.getGoogleTaskList()) && !(filter instanceof GtasksFilter)) {
         chips.add(
             newChip(
-                activity,
                 lists.getGoogleTaskList(task.getGoogleTaskList()),
                 R.drawable.ic_outline_cloud_24px));
       } else if (!Strings.isNullOrEmpty(task.getCaldav()) && !(filter instanceof CaldavFilter)) {
         chips.add(
-            newChip(
-                activity, lists.getCaldavList(task.getCaldav()), R.drawable.ic_outline_cloud_24px));
+            newChip(lists.getCaldavList(task.getCaldav()), R.drawable.ic_outline_cloud_24px));
       }
     }
     String tagString = task.getTagsString();
@@ -129,7 +136,7 @@ public class ChipProvider {
       chips.addAll(
           transform(
               orderByName.sortedCopy(filter(transform(tags, lists::getTag), Predicates.notNull())),
-              tag -> newChip(activity, tag, R.drawable.ic_outline_label_24px)));
+              tag -> newChip(tag, R.drawable.ic_outline_label_24px)));
     }
 
     removeIf(chips, Predicates.isNull());
@@ -156,33 +163,33 @@ public class ChipProvider {
         true);
   }
 
-  private @Nullable Chip newChip(Activity activity, Filter filter, int defIcon) {
-    return newChip(activity, filter, defIcon, showText, showIcon);
+  private @Nullable Chip newChip(Filter filter, int defIcon) {
+    return newChip(filter, defIcon, showText, showIcon);
   }
 
-  Chip newChip(Activity activity, Filter filter, int defIcon, boolean showText, boolean showIcon) {
+  Chip newChip(Filter filter, int defIcon, boolean showText, boolean showIcon) {
     if (filter == null) {
       return null;
     }
-    Chip chip = newChip(activity, filter);
+    Chip chip = newChip(filter);
     apply(chip, getIcon(filter.icon, defIcon), filter.listingTitle, filter.tint, showText, showIcon);
     return chip;
   }
 
-  public Chip newClosableChip(Activity activity, Object tag) {
-    Chip chip = getChip(activity);
+  public Chip newClosableChip(Object tag) {
+    Chip chip = getChip();
     chip.setCloseIconVisible(true);
     chip.setTag(tag);
     return chip;
   }
 
-  private Chip newChip(Activity activity, Object tag) {
-    Chip chip = getChip(activity);
+  private Chip newChip(@Nullable Object tag) {
+    Chip chip = getChip();
     chip.setTag(tag);
     return chip;
   }
 
-  private Chip getChip(Activity activity) {
+  private Chip getChip() {
     return (Chip)
         activity
             .getLayoutInflater()

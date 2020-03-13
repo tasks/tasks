@@ -263,13 +263,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
   }
 
   private void setupChips(Filter filter, boolean hideSubtaskChip) {
-    List<Chip> chips =
-        chipProvider.getChips(
-            context,
-            filter,
-            indent > 0,
-            hideSubtaskChip,
-            task);
+    List<Chip> chips = chipProvider.getChips(filter, indent > 0, hideSubtaskChip, task);
     if (chips.isEmpty()) {
       chipGroup.setVisibility(View.GONE);
     } else {

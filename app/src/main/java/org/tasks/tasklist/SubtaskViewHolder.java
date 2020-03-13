@@ -3,7 +3,6 @@ package org.tasks.tasklist;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.graphics.Paint;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -15,19 +14,19 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.ui.CheckableImageView;
 import org.tasks.R;
 import org.tasks.data.TaskContainer;
-import org.tasks.locale.Locale;
 import org.tasks.ui.CheckBoxProvider;
+import org.tasks.ui.ChipProvider;
 
 public class SubtaskViewHolder extends RecyclerView.ViewHolder {
 
-  private final Activity context;
-  private final Locale locale;
   private final Callbacks callbacks;
   private final DisplayMetrics metrics;
+  private final ChipProvider chipProvider;
   private final CheckBoxProvider checkBoxProvider;
 
   public TaskContainer task;
@@ -41,23 +40,21 @@ public class SubtaskViewHolder extends RecyclerView.ViewHolder {
   @BindView(R.id.completeBox)
   CheckableImageView completeBox;
 
-  @BindView(R.id.chip_button)
-  Chip chip;
+  @BindView(R.id.chip_group)
+  ChipGroup chipGroup;
 
   private int indent;
 
   SubtaskViewHolder(
-      Activity context,
-      Locale locale,
       ViewGroup view,
       Callbacks callbacks,
       DisplayMetrics metrics,
+      ChipProvider chipProvider,
       CheckBoxProvider checkBoxProvider) {
     super(view);
-    this.context = context;
-    this.locale = locale;
     this.callbacks = callbacks;
     this.metrics = metrics;
+    this.chipProvider = chipProvider;
     this.checkBoxProvider = checkBoxProvider;
     ButterKnife.bind(this, view);
 
@@ -79,14 +76,13 @@ public class SubtaskViewHolder extends RecyclerView.ViewHolder {
     this.task = task;
     setIndent(task.indent);
     if (task.hasChildren()) {
-      chip.setText(locale.formatNumber(task.children));
-      chip.setVisibility(View.VISIBLE);
-      chip.setChipIconResource(
-          task.isCollapsed()
-              ? R.drawable.ic_keyboard_arrow_up_black_24dp
-              : R.drawable.ic_keyboard_arrow_down_black_24dp);
+      chipGroup.removeAllViews();
+      Chip child = chipProvider.newSubtaskChip(task, true);
+      child.setOnClickListener(v -> callbacks.toggleSubtask(task.getId(), !task.isCollapsed()));
+      chipGroup.addView(child);
+      chipGroup.setVisibility(View.VISIBLE);
     } else {
-      chip.setVisibility(View.GONE);
+      chipGroup.setVisibility(View.GONE);
     }
 
     nameView.setText(task.getTitle());
@@ -110,11 +106,6 @@ public class SubtaskViewHolder extends RecyclerView.ViewHolder {
   @OnClick(R.id.title)
   void openSubtask(View v) {
     callbacks.openSubtask(task.getTask());
-  }
-
-  @OnClick(R.id.chip_button)
-  void toggleSubtasks(View v) {
-    callbacks.toggleSubtask(task.getId(), !task.isCollapsed());
   }
 
   @OnClick(R.id.completeBox)

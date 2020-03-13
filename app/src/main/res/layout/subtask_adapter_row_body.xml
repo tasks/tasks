@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/rowBody"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
@@ -17,21 +16,19 @@
     android:paddingEnd="@dimen/keyline_first"
     android:paddingRight="@dimen/keyline_first" />
 
-  <com.google.android.material.chip.Chip
-    android:id="@+id/chip_button"
-    style="@style/ChipStyle"
+  <com.google.android.material.chip.ChipGroup
+    android:id="@+id/chip_group"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:layout_alignParentEnd="true"
-    android:layout_alignParentRight="true"
-    android:textColor="?android:textColorSecondary"
-    app:chipIconTint="@color/icon_tint"
-    app:chipStrokeColor="?android:textColorSecondary"/>
+    android:layout_alignParentRight="true" />
 
   <TextView
     android:id="@+id/title"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_toStartOf="@id/chip_button"
-    android:layout_toLeftOf="@id/chip_button"
+    android:layout_toStartOf="@id/chip_group"
+    android:layout_toLeftOf="@id/chip_group"
     android:layout_toEndOf="@id/completeBox"
     android:layout_toRightOf="@id/completeBox"
     android:background="?attr/selectableItemBackground"

@@ -219,7 +219,7 @@ public class RemoteListFragment extends TaskEditControlFragment {
       chipGroup.setVisibility(View.VISIBLE);
       chipGroup.removeAllViews();
       Chip chip =
-          chipProvider.newChip(getActivity(), selectedList, R.drawable.ic_outline_cloud_24px, true, true);
+          chipProvider.newChip(selectedList, R.drawable.ic_outline_cloud_24px, true, true);
       chip.setCloseIconVisible(true);
       chip.setOnClickListener(v -> openPicker());
       chip.setOnCloseIconClickListener(v -> setSelected(null));

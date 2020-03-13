@@ -13,16 +13,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 import org.tasks.R;
 import org.tasks.data.TaskContainer;
-import org.tasks.locale.Locale;
 import org.tasks.tasklist.SubtaskViewHolder.Callbacks;
 import org.tasks.ui.CheckBoxProvider;
+import org.tasks.ui.ChipProvider;
 
 public class SubtasksRecyclerAdapter extends RecyclerView.Adapter<SubtaskViewHolder>
     implements ListUpdateCallback {
 
   private final DisplayMetrics metrics;
   private final Activity activity;
-  private final Locale locale;
+  private final ChipProvider chipProvider;
   private final CheckBoxProvider checkBoxProvider;
   private final Callbacks callbacks;
   private final AsyncListDiffer<TaskContainer> differ;
@@ -30,11 +30,11 @@ public class SubtasksRecyclerAdapter extends RecyclerView.Adapter<SubtaskViewHol
 
   public SubtasksRecyclerAdapter(
       Activity activity,
-      Locale locale,
+      ChipProvider chipProvider,
       CheckBoxProvider checkBoxProvider,
       SubtaskViewHolder.Callbacks callbacks) {
     this.activity = activity;
-    this.locale = locale;
+    this.chipProvider = chipProvider;
     this.checkBoxProvider = checkBoxProvider;
     this.callbacks = callbacks;
     differ =
@@ -49,7 +49,7 @@ public class SubtasksRecyclerAdapter extends RecyclerView.Adapter<SubtaskViewHol
     ViewGroup view =
         (ViewGroup)
             LayoutInflater.from(activity).inflate(R.layout.subtask_adapter_row_body, parent, false);
-    return new SubtaskViewHolder(activity, locale, view, callbacks, metrics, checkBoxProvider);
+    return new SubtaskViewHolder(view, callbacks, metrics, chipProvider, checkBoxProvider);
   }
 
   @Override

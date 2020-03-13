@@ -147,7 +147,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
         if (tagData == null) {
           continue;
         }
-        Chip chip = chipProvider.newClosableChip(getActivity(), tagData);
+        Chip chip = chipProvider.newClosableChip(tagData);
         chipProvider.apply(chip, tagData);
         chip.setOnClickListener(view -> onClickRow());
         chip.setOnCloseIconClickListener(

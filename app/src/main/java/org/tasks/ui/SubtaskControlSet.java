@@ -73,6 +73,7 @@ public class SubtaskControlSet extends TaskEditControlFragment implements Callba
   @Inject TaskDao taskDao;
   @Inject Locale locale;
   @Inject CheckBoxProvider checkBoxProvider;
+  @Inject ChipProvider chipProvider;
 
   private TaskListViewModel viewModel;
   private final RefreshReceiver refreshReceiver = new RefreshReceiver();
@@ -106,7 +107,7 @@ public class SubtaskControlSet extends TaskEditControlFragment implements Callba
       }
     }
 
-    recyclerAdapter = new SubtasksRecyclerAdapter(activity, locale, checkBoxProvider, this);
+    recyclerAdapter = new SubtasksRecyclerAdapter(activity, chipProvider, checkBoxProvider, this);
     if (task.getId() > 0) {
       recyclerAdapter.submitList(viewModel.getValue());
       viewModel.setFilter(new Filter("subtasks", getQueryTemplate(task)), true);
