@@ -572,4 +572,13 @@
     <string name="upgrade_blurb_3">Выберите любую сумму подписки для того, чтобы начать Ваш бесплатный пробный период. Вы можете отказаться в любой момент</string>
     <string name="upgrade_blurb_4">Ваша поддержка много значит для меня, спасибо!</string>
     <string name="back">Назад</string>
+    <string name="requires_android_version">Требует Андроид %s+</string>
+    <string name="chip_style">Стиль индикаторов списков</string>
+    <string name="chip_style_outlined">Контурный</string>
+    <string name="chip_style_filled">Заполненный</string>
+    <string name="chips">Индикаторы списков</string>
+    <string name="chip_appearance">Внешний вид индикаторов списков</string>
+    <string name="desaturate_colors">Уменьшить насыщенность цветов</string>
+    <string name="desaturate_colors_summary_on">Цвета будут менее насыщенными в темных темах</string>
+    <string name="desaturate_colors_summary_off">Цвета не будут менее насыщенными в темных темах</string>
 </resources>
