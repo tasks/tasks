@@ -12,7 +12,6 @@ import java.util.List;
 import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
-import org.tasks.billing.Inventory;
 import org.tasks.injection.InjectingApplication;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
@@ -24,7 +23,7 @@ public class DashClockExtension extends com.google.android.apps.dashclock.api.Da
   @Inject TaskDao taskDao;
   @Inject Preferences preferences;
   @Inject LocalBroadcastManager localBroadcastManager;
-  @Inject Inventory inventory;
+
   private final BroadcastReceiver refreshReceiver =
       new BroadcastReceiver() {
         @Override
@@ -55,41 +54,31 @@ public class DashClockExtension extends com.google.android.apps.dashclock.api.Da
   }
 
   private void refresh() {
-    if (inventory.purchasedDashclock()) {
-      final String filterPreference = preferences.getStringValue(R.string.p_dashclock_filter);
-      Filter filter = defaultFilterProvider.getFilterFromPreference(filterPreference);
+    final String filterPreference = preferences.getStringValue(R.string.p_dashclock_filter);
+    Filter filter = defaultFilterProvider.getFilterFromPreference(filterPreference);
 
-      int count = taskDao.count(filter);
+    int count = taskDao.count(filter);
 
-      if (count == 0) {
-        publish(null);
-      } else {
-        Intent clickIntent = new Intent(this, MainActivity.class);
-        clickIntent.putExtra(MainActivity.OPEN_FILTER, filter);
-        ExtensionData extensionData =
-            new ExtensionData()
-                .visible(true)
-                .icon(R.drawable.ic_check_white_24dp)
-                .status(Integer.toString(count))
-                .expandedTitle(getResources().getQuantityString(R.plurals.task_count, count, count))
-                .expandedBody(filter.listingTitle)
-                .clickIntent(clickIntent);
-        if (count == 1) {
-          List<Task> tasks = taskDao.fetchFiltered(filter);
-          if (!tasks.isEmpty()) {
-            extensionData.expandedTitle(tasks.get(0).getTitle());
-          }
-        }
-        publish(extensionData);
-      }
+    if (count == 0) {
+      publish(null);
     } else {
-      publish(
+      Intent clickIntent = new Intent(this, MainActivity.class);
+      clickIntent.putExtra(MainActivity.OPEN_FILTER, filter);
+      ExtensionData extensionData =
           new ExtensionData()
               .visible(true)
               .icon(R.drawable.ic_check_white_24dp)
-              .status(getString(R.string.upgrade_to_pro))
-              .expandedTitle(getString(R.string.upgrade_to_pro))
-              .clickIntent(new Intent(this, DashClockSettings.class)));
+              .status(Integer.toString(count))
+              .expandedTitle(getResources().getQuantityString(R.plurals.task_count, count, count))
+              .expandedBody(filter.listingTitle)
+              .clickIntent(clickIntent);
+      if (count == 1) {
+        List<Task> tasks = taskDao.fetchFiltered(filter);
+        if (!tasks.isEmpty()) {
+          extensionData.expandedTitle(tasks.get(0).getTitle());
+        }
+      }
+      publish(extensionData);
     }
   }
 

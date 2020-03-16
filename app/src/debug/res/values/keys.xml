@@ -12,6 +12,5 @@
   <string name="debug_consume">Consume %s</string>
   <string name="debug_themes">debug_themes</string>
   <string name="debug_tasker">debug_tasker</string>
-  <string name="debug_dashclock">debug_dashclock</string>
   <string name="debug_reset_ssl">Reset SSL certificates</string>
 </resources>

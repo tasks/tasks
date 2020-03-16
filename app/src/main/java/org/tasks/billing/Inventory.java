@@ -20,7 +20,6 @@ public class Inventory {
   static final String SKU_VIP = "vip";
   public static final String SKU_TASKER = "tasker";
   public static final String SKU_THEMES = "themes";
-  public static final String SKU_DASHCLOCK = "dashclock";
 
   private final Preferences preferences;
   private final SignatureVerifier signatureVerifier;
@@ -71,10 +70,6 @@ public class Inventory {
 
   public boolean purchasedTasker() {
     return hasPro() || purchases.containsKey(SKU_TASKER);
-  }
-
-  public boolean purchasedDashclock() {
-    return hasPro() || purchases.containsKey(SKU_DASHCLOCK);
   }
 
   public boolean purchasedThemes() {

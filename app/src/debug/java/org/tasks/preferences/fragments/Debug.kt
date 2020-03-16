@@ -43,7 +43,6 @@ class Debug : InjectingPreferenceFragment() {
 
         setupIap(R.string.debug_themes, Inventory.SKU_THEMES)
         setupIap(R.string.debug_tasker, Inventory.SKU_TASKER)
-        setupIap(R.string.debug_dashclock, Inventory.SKU_DASHCLOCK)
     }
 
     private fun setupIap(@StringRes prefId: Int, sku: String) {

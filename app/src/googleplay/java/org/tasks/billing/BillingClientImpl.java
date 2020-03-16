@@ -5,7 +5,6 @@ import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
-import static org.tasks.billing.Inventory.SKU_DASHCLOCK;
 import static org.tasks.billing.Inventory.SKU_TASKER;
 import static org.tasks.billing.Inventory.SKU_THEMES;
 import static org.tasks.billing.Inventory.SKU_VIP;
@@ -42,8 +41,7 @@ import timber.log.Timber;
 @SuppressWarnings("all")
 public class BillingClientImpl implements BillingClient, PurchasesUpdatedListener {
 
-  private static final List<String> DEBUG_SKUS =
-      ImmutableList.of(SKU_THEMES, SKU_TASKER, SKU_DASHCLOCK, SKU_VIP);
+  private static final List<String> DEBUG_SKUS = ImmutableList.of(SKU_THEMES, SKU_TASKER, SKU_VIP);
 
   private final MutableLiveData<List<SkuDetails>> skuDetails = new MutableLiveData<>();
   private final Inventory inventory;

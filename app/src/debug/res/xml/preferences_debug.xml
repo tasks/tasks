@@ -31,8 +31,4 @@
   <Preference
     android:key="@string/debug_tasker"/>
 
-  <Preference
-    android:key="@string/debug_dashclock"/>
-
-
 </PreferenceScreen>

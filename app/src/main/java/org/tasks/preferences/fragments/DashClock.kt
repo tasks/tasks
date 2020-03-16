@@ -15,13 +15,11 @@ import org.tasks.preferences.DefaultFilterProvider
 import javax.inject.Inject
 
 private const val REQUEST_SELECT_FILTER = 1005
-private const val REQUEST_SUBSCRIPTION = 1006
 
 class DashClock : InjectingPreferenceFragment() {
 
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
-    @Inject lateinit var inventory: Inventory
 
     override fun getPreferenceXml() = R.xml.preferences_dashclock
 
@@ -38,13 +36,6 @@ class DashClock : InjectingPreferenceFragment() {
             }
 
         refreshPreferences()
-
-        if (!inventory.purchasedDashclock()) {
-            startActivityForResult(
-                Intent(context, PurchaseActivity::class.java),
-                REQUEST_SUBSCRIPTION
-            )
-        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -55,10 +46,6 @@ class DashClock : InjectingPreferenceFragment() {
                 defaultFilterProvider.dashclockFilter = filter
                 refreshPreferences()
                 localBroadcastManager.broadcastRefresh()
-            }
-        } else if (requestCode == REQUEST_SUBSCRIPTION) {
-            if (!inventory.purchasedDashclock()) {
-                activity!!.finish()
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
