@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil.ItemCallback;
 import androidx.recyclerview.widget.ListAdapter;
+import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import com.todoroo.astrid.adapter.FilterViewHolder.OnClick;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
@@ -27,14 +28,18 @@ import com.todoroo.astrid.api.FilterListItem.Type;
 import java.util.HashMap;
 import java.util.Map;
 import javax.inject.Inject;
+import org.tasks.LocalBroadcastManager;
 import org.tasks.billing.Inventory;
+import org.tasks.data.CaldavDao;
+import org.tasks.data.GoogleTaskDao;
 import org.tasks.filters.NavigationDrawerSubheader;
 import org.tasks.locale.Locale;
+import org.tasks.preferences.Preferences;
 import org.tasks.themes.ColorProvider;
 import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeAccent;
 
-public class NavigationDrawerAdapter extends ListAdapter<FilterListItem, FilterViewHolder> {
+public class NavigationDrawerAdapter extends ListAdapter<FilterListItem, ViewHolder> {
 
   private static final String TOKEN_SELECTED = "token_selected";
   private final Activity activity;
@@ -42,6 +47,10 @@ public class NavigationDrawerAdapter extends ListAdapter<FilterListItem, FilterV
   private final Locale locale;
   private final Inventory inventory;
   private final ColorProvider colorProvider;
+  private final Preferences preferences;
+  private final GoogleTaskDao googleTaskDao;
+  private final CaldavDao caldavDao;
+  private final LocalBroadcastManager localBroadcastManager;
   private final LayoutInflater inflater;
   private OnClick onClick;
   private Filter selected = null;
@@ -53,13 +62,21 @@ public class NavigationDrawerAdapter extends ListAdapter<FilterListItem, FilterV
       Theme theme,
       Locale locale,
       Inventory inventory,
-      ColorProvider colorProvider) {
+      ColorProvider colorProvider,
+      Preferences preferences,
+      GoogleTaskDao googleTaskDao,
+      CaldavDao caldavDao,
+      LocalBroadcastManager localBroadcastManager) {
     super(new DiffCallback());
     this.activity = activity;
     this.accent = theme.getThemeAccent();
     this.locale = locale;
     this.inventory = inventory;
     this.colorProvider = colorProvider;
+    this.preferences = preferences;
+    this.googleTaskDao = googleTaskDao;
+    this.caldavDao = caldavDao;
+    this.localBroadcastManager = localBroadcastManager;
     this.inflater = theme.getLayoutInflater(activity);
   }
 
@@ -97,14 +114,15 @@ public class NavigationDrawerAdapter extends ListAdapter<FilterListItem, FilterV
 
   @NonNull
   @Override
-  public FilterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+  public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     Type type = Type.values()[viewType];
     View view = inflater.inflate(type.layout, parent, false);
     if (type == ITEM) {
       return new FilterViewHolder(
           view, accent, true, locale, activity, inventory, colorProvider, this::onClickFilter);
     } else if (type == SUBHEADER) {
-      return new FilterViewHolder(view, activity);
+      return new SubheaderViewHolder(
+          view, activity, preferences, googleTaskDao, caldavDao, localBroadcastManager);
     } else {
       return new FilterViewHolder(view);
     }
@@ -115,13 +133,14 @@ public class NavigationDrawerAdapter extends ListAdapter<FilterListItem, FilterV
   }
 
   @Override
-  public void onBindViewHolder(@NonNull FilterViewHolder holder, int position) {
+  public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
     FilterListItem item = getItem(position);
     Type type = item.getItemType();
     if (type == ITEM) {
-      holder.bind(item, item.equals(selected), item.count >= 0 ? item.count : counts.get(item));
+      ((FilterViewHolder) holder)
+          .bind(item, item.equals(selected), item.count >= 0 ? item.count : counts.get(item));
     } else if (type == SUBHEADER) {
-      holder.bind((NavigationDrawerSubheader) item);
+      ((SubheaderViewHolder) holder).bind((NavigationDrawerSubheader) item);
     }
   }
 

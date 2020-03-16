@@ -2,6 +2,8 @@ package org.tasks.activities;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -17,6 +19,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
+import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.dialogs.AlertDialogBuilder;
 import org.tasks.dialogs.DialogBuilder;
@@ -37,8 +40,15 @@ public class RemoteListPicker extends InjectingDialogFragment
   @Inject FilterAdapter filterAdapter;
   @Inject FilterProvider filterProvider;
   @Inject SyncAdapters syncAdapters;
+  @Inject LocalBroadcastManager localBroadcastManager;
 
   private CompositeDisposable disposables;
+  private BroadcastReceiver refreshReceiver = new BroadcastReceiver() {
+    @Override
+    public void onReceive(Context context, Intent intent) {
+      refresh();
+    }
+  };
 
   public static RemoteListPicker newRemoteListSupportPicker(
       Filter selected, Fragment targetFragment, int requestCode) {
@@ -103,21 +113,18 @@ public class RemoteListPicker extends InjectingDialogFragment
   public void onResume() {
     super.onResume();
 
-    Bundle arguments = getArguments();
-    boolean noSelection = arguments.getBoolean(EXTRA_NO_SELECTION, false);
-    Filter selected = noSelection ? null : arguments.getParcelable(EXTRA_SELECTED_FILTER);
+    disposables = new CompositeDisposable();
 
-    disposables =
-        new CompositeDisposable(
-            Single.fromCallable(filterProvider::getRemoteListPickerItems)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(items -> filterAdapter.setData(items, selected, noSelection ? -1 : 0)));
+    localBroadcastManager.registerRefreshListReceiver(refreshReceiver);
+
+    refresh();
   }
 
   @Override
   public void onPause() {
     super.onPause();
+
+    localBroadcastManager.unregisterReceiver(refreshReceiver);
 
     disposables.dispose();
   }
@@ -146,5 +153,16 @@ public class RemoteListPicker extends InjectingDialogFragment
             getTargetRequestCode(),
             Activity.RESULT_OK,
             new Intent().putExtra(EXTRA_SELECTED_FILTER, filter));
+  }
+
+  private void refresh() {
+    Bundle arguments = getArguments();
+    boolean noSelection = arguments.getBoolean(EXTRA_NO_SELECTION, false);
+    Filter selected = noSelection ? null : arguments.getParcelable(EXTRA_SELECTED_FILTER);
+
+    disposables.add(Single.fromCallable(filterProvider::getRemoteListPickerItems)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(items -> filterAdapter.setData(items, selected)));
   }
 }

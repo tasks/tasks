@@ -30,6 +30,9 @@ public abstract class CaldavDao {
   @Query("SELECT * FROM caldav_accounts ORDER BY UPPER(cda_name) ASC")
   public abstract List<CaldavAccount> getAccounts();
 
+  @Query("UPDATE caldav_accounts SET cda_collapsed = :collapsed WHERE cda_id = :id")
+  public abstract void setCollapsed(long id, boolean collapsed);
+
   @Insert
   public abstract long insert(CaldavAccount caldavAccount);
 

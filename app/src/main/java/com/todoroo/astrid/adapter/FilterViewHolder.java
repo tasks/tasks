@@ -25,7 +25,6 @@ import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.api.TagFilter;
 import org.tasks.R;
 import org.tasks.billing.Inventory;
-import org.tasks.filters.NavigationDrawerSubheader;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.SyncPreferences;
 import org.tasks.themes.ColorProvider;
@@ -162,11 +161,6 @@ public class FilterViewHolder extends RecyclerView.ViewHolder {
     } else {
       return filter.icon;
     }
-  }
-
-  public void bind(NavigationDrawerSubheader filter) {
-    text.setText(filter.listingTitle);
-    icon.setVisibility(filter.error ? View.VISIBLE : View.GONE);
   }
 
   public interface OnClick {

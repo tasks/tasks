@@ -25,6 +25,15 @@ public class DrawableUtil {
     }
   }
 
+  public static void setRightDrawable(Context context, TextView tv, @DrawableRes int resId) {
+    Drawable wrapped = getWrapped(context, resId);
+    if (atLeastJellybeanMR1()) {
+      tv.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, wrapped, null);
+    } else {
+      tv.setCompoundDrawablesWithIntrinsicBounds(null, null, wrapped, null);
+    }
+  }
+
   public static Drawable getLeftDrawable(TextView tv) {
     return atLeastJellybeanMR1()
         ? tv.getCompoundDrawablesRelative()[0]

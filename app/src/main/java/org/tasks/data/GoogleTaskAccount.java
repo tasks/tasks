@@ -2,6 +2,7 @@ package org.tasks.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import androidx.core.os.ParcelCompat;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -35,6 +36,9 @@ public class GoogleTaskAccount implements Parcelable {
   @ColumnInfo(name = "gta_etag")
   private String etag;
 
+  @ColumnInfo(name = "gta_collapsed")
+  private boolean collapsed;
+
   public GoogleTaskAccount() {}
 
   @Ignore
@@ -43,6 +47,7 @@ public class GoogleTaskAccount implements Parcelable {
     account = source.readString();
     error = source.readString();
     etag = source.readString();
+    collapsed = ParcelCompat.readBoolean(source);
   }
 
   @Ignore
@@ -82,18 +87,29 @@ public class GoogleTaskAccount implements Parcelable {
     this.etag = etag;
   }
 
+  public boolean isCollapsed() {
+    return collapsed;
+  }
+
+  public void setCollapsed(boolean collapsed) {
+    this.collapsed = collapsed;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof GoogleTaskAccount)) {
       return false;
     }
 
     GoogleTaskAccount that = (GoogleTaskAccount) o;
 
     if (id != that.id) {
+      return false;
+    }
+    if (collapsed != that.collapsed) {
       return false;
     }
     if (account != null ? !account.equals(that.account) : that.account != null) {
@@ -111,6 +127,7 @@ public class GoogleTaskAccount implements Parcelable {
     result = 31 * result + (account != null ? account.hashCode() : 0);
     result = 31 * result + (error != null ? error.hashCode() : 0);
     result = 31 * result + (etag != null ? etag.hashCode() : 0);
+    result = 31 * result + (collapsed ? 1 : 0);
     return result;
   }
 
@@ -128,6 +145,8 @@ public class GoogleTaskAccount implements Parcelable {
         + ", etag='"
         + etag
         + '\''
+        + ", collapsed="
+        + collapsed
         + '}';
   }
 
@@ -142,5 +161,6 @@ public class GoogleTaskAccount implements Parcelable {
     dest.writeString(account);
     dest.writeString(error);
     dest.writeString(etag);
+    ParcelCompat.writeBoolean(dest, collapsed);
   }
 }

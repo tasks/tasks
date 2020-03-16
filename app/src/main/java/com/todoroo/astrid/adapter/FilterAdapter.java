@@ -17,14 +17,19 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
+import org.tasks.LocalBroadcastManager;
 import org.tasks.billing.Inventory;
+import org.tasks.data.CaldavDao;
+import org.tasks.data.GoogleTaskDao;
 import org.tasks.filters.NavigationDrawerSubheader;
 import org.tasks.locale.Locale;
+import org.tasks.preferences.Preferences;
 import org.tasks.themes.ColorProvider;
 import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeAccent;
@@ -39,6 +44,10 @@ public class FilterAdapter extends BaseAdapter {
   private final Locale locale;
   private final Inventory inventory;
   private final ColorProvider colorProvider;
+  private final Preferences preferences;
+  private final GoogleTaskDao googleTaskDao;
+  private final CaldavDao caldavDao;
+  private final LocalBroadcastManager localBroadcastManager;
   private final LayoutInflater inflater;
   private Filter selected = null;
   private List<FilterListItem> items = new ArrayList<>();
@@ -49,12 +58,20 @@ public class FilterAdapter extends BaseAdapter {
       Theme theme,
       Locale locale,
       Inventory inventory,
-      ColorProvider colorProvider) {
+      ColorProvider colorProvider,
+      Preferences preferences,
+      GoogleTaskDao googleTaskDao,
+      CaldavDao caldavDao,
+      LocalBroadcastManager localBroadcastManager) {
     this.activity = activity;
     this.accent = theme.getThemeAccent();
     this.locale = locale;
     this.inventory = inventory;
     this.colorProvider = colorProvider;
+    this.preferences = preferences;
+    this.googleTaskDao = googleTaskDao;
+    this.caldavDao = caldavDao;
+    this.localBroadcastManager = localBroadcastManager;
     this.inflater = theme.getLayoutInflater(activity);
   }
 
@@ -69,13 +86,9 @@ public class FilterAdapter extends BaseAdapter {
   }
 
   public void setData(List<FilterListItem> items, @Nullable Filter selected) {
-    setData(items, selected, -1);
-  }
-
-  public void setData(List<FilterListItem> items, @Nullable Filter selected, int defaultIndex) {
     assertMainThread();
     this.items = items;
-    this.selected = defaultIndex >= 0 ? getFilter(indexOf(selected, defaultIndex)) : selected;
+    this.selected = selected;
     notifyDataSetChanged();
   }
 
@@ -91,11 +104,6 @@ public class FilterAdapter extends BaseAdapter {
     return items.get(position);
   }
 
-  private Filter getFilter(int position) {
-    FilterListItem item = getItem(position);
-    return item instanceof Filter ? (Filter) item : null;
-  }
-
   @Override
   public long getItemId(int position) {
     return position;
@@ -105,7 +113,7 @@ public class FilterAdapter extends BaseAdapter {
   private View newView(View convertView, ViewGroup parent, FilterListItem.Type viewType) {
     if (convertView == null) {
       convertView = inflater.inflate(viewType.layout, parent, false);
-      FilterViewHolder viewHolder;
+      ViewHolder viewHolder;
       switch (viewType) {
         case ITEM:
           viewHolder =
@@ -116,7 +124,14 @@ public class FilterAdapter extends BaseAdapter {
           viewHolder = new FilterViewHolder(convertView);
           break;
         case SUBHEADER:
-          viewHolder = new FilterViewHolder(convertView, activity);
+          viewHolder =
+              new SubheaderViewHolder(
+                  convertView,
+                  activity,
+                  preferences,
+                  googleTaskDao,
+                  caldavDao,
+                  localBroadcastManager);
           break;
         default:
           throw new RuntimeException();
@@ -142,13 +157,13 @@ public class FilterAdapter extends BaseAdapter {
   public View getView(int position, View convertView, @NonNull ViewGroup parent) {
     FilterListItem item = getItem(position);
     convertView = newView(convertView, parent, item.getItemType());
-    FilterViewHolder viewHolder = (FilterViewHolder) convertView.getTag();
+    ViewHolder viewHolder = (ViewHolder) convertView.getTag();
     switch (item.getItemType()) {
       case ITEM:
-        viewHolder.bind(item, item.equals(selected), 0);
+        ((FilterViewHolder) viewHolder).bind(item, item.equals(selected), 0);
         break;
       case SUBHEADER:
-        viewHolder.bind((NavigationDrawerSubheader) item);
+        ((SubheaderViewHolder) viewHolder).bind((NavigationDrawerSubheader) item);
         break;
       case SEPARATOR:
         break;

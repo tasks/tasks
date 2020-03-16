@@ -391,6 +391,17 @@ public class Migrations {
         }
       };
 
+  private static final Migration MIGRATION_71_72 =
+      new Migration(71, 72) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+          database.execSQL(
+              "ALTER TABLE `caldav_accounts` ADD COLUMN `cda_collapsed` INTEGER NOT NULL DEFAULT 0");
+          database.execSQL(
+              "ALTER TABLE `google_task_accounts` ADD COLUMN `gta_collapsed` INTEGER NOT NULL DEFAULT 0");
+        }
+      };
+
   public static final Migration[] MIGRATIONS =
       new Migration[] {
         MIGRATION_35_36,
@@ -419,7 +430,8 @@ public class Migrations {
         MIGRATION_67_68,
         MIGRATION_68_69,
         MIGRATION_69_70,
-        MIGRATION_70_71
+        MIGRATION_70_71,
+        MIGRATION_71_72
       };
 
   private static Migration NOOP(int from, int to) {

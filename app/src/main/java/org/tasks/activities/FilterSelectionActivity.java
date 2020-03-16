@@ -1,5 +1,7 @@
 package org.tasks.activities;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -10,6 +12,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
+import org.tasks.LocalBroadcastManager;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.filters.FilterProvider;
 import org.tasks.injection.ActivityComponent;
@@ -26,9 +29,16 @@ public class FilterSelectionActivity extends InjectingAppCompatActivity {
   @Inject DialogBuilder dialogBuilder;
   @Inject FilterAdapter filterAdapter;
   @Inject FilterProvider filterProvider;
+  @Inject LocalBroadcastManager localBroadcastManager;
 
   private CompositeDisposable disposables;
   private Filter selected;
+  private BroadcastReceiver refreshReceiver = new BroadcastReceiver() {
+    @Override
+    public void onReceive(Context context, Intent intent) {
+      refresh();
+    }
+  };
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -72,16 +82,17 @@ public class FilterSelectionActivity extends InjectingAppCompatActivity {
     super.onResume();
 
     disposables = new CompositeDisposable();
-    disposables.add(
-        Single.fromCallable(() -> filterProvider.getItems(false))
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(items -> filterAdapter.setData(items, selected)));
+
+    localBroadcastManager.registerRefreshListReceiver(refreshReceiver);
+
+    refresh();
   }
 
   @Override
   protected void onPause() {
     super.onPause();
+
+    localBroadcastManager.unregisterReceiver(refreshReceiver);
 
     disposables.dispose();
   }
@@ -91,6 +102,14 @@ public class FilterSelectionActivity extends InjectingAppCompatActivity {
     super.onSaveInstanceState(outState);
 
     filterAdapter.save(outState);
+  }
+
+  private void refresh() {
+    disposables.add(
+        Single.fromCallable(() -> filterProvider.getItems(false))
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(items -> filterAdapter.setData(items, selected)));
   }
 
   @Override

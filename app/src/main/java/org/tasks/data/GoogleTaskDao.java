@@ -67,6 +67,9 @@ public abstract class GoogleTaskDao {
     update(task);
   }
 
+  @Query("UPDATE google_task_accounts SET gta_collapsed = :collapsed WHERE gta_id = :id")
+  public abstract void setCollapsed(long id, boolean collapsed);
+
   @Query("SELECT * FROM google_tasks WHERE gt_task = :taskId AND gt_deleted = 0 LIMIT 1")
   public abstract GoogleTask getByTaskId(long taskId);
 

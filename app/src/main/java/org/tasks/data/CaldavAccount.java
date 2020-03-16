@@ -61,6 +61,9 @@ public class CaldavAccount implements Parcelable {
   @ColumnInfo(name = "cda_account_type")
   private int accountType;
 
+  @ColumnInfo(name = "cda_collapsed")
+  private boolean collapsed;
+
   public CaldavAccount() {}
 
   @Ignore
@@ -75,6 +78,7 @@ public class CaldavAccount implements Parcelable {
     suppressRepeatingTasks = ParcelCompat.readBoolean(source);
     accountType = source.readInt();
     encryptionKey = source.readString();
+    collapsed = ParcelCompat.readBoolean(source);
   }
 
   public long getId() {
@@ -173,6 +177,14 @@ public class CaldavAccount implements Parcelable {
     return accountType == TYPE_ETESYNC;
   }
 
+  public boolean isCollapsed() {
+    return collapsed;
+  }
+
+  public void setCollapsed(boolean collapsed) {
+    this.collapsed = collapsed;
+  }
+
   @Override
   public String toString() {
     return "CaldavAccount{"
@@ -203,6 +215,8 @@ public class CaldavAccount implements Parcelable {
         + '\''
         + ", accountType="
         + accountType
+        + ", collapsed="
+        + collapsed
         + '}';
   }
 
@@ -224,6 +238,9 @@ public class CaldavAccount implements Parcelable {
       return false;
     }
     if (accountType != that.accountType) {
+      return false;
+    }
+    if (collapsed != that.collapsed) {
       return false;
     }
     if (uuid != null ? !uuid.equals(that.uuid) : that.uuid != null) {
@@ -261,6 +278,7 @@ public class CaldavAccount implements Parcelable {
     result = 31 * result + (suppressRepeatingTasks ? 1 : 0);
     result = 31 * result + (encryptionKey != null ? encryptionKey.hashCode() : 0);
     result = 31 * result + accountType;
+    result = 31 * result + (collapsed ? 1 : 0);
     return result;
   }
 
@@ -281,5 +299,6 @@ public class CaldavAccount implements Parcelable {
     ParcelCompat.writeBoolean(dest, suppressRepeatingTasks);
     dest.writeInt(accountType);
     dest.writeString(encryptionKey);
+    ParcelCompat.writeBoolean(dest, collapsed);
   }
 }

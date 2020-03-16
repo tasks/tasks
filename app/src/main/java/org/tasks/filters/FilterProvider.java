@@ -21,12 +21,14 @@ import com.todoroo.astrid.gtasks.GtasksFilterExposer;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.timers.TimerFilterExposer;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import javax.inject.Inject;
 import org.tasks.BuildConfig;
+import org.tasks.Function;
 import org.tasks.R;
 import org.tasks.activities.GoogleTaskListSettingsActivity;
 import org.tasks.activities.TagSettingsActivity;
@@ -36,9 +38,11 @@ import org.tasks.caldav.CaldavFilterExposer;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.GoogleTaskAccount;
 import org.tasks.etesync.EteSyncCalendarSettingsActivity;
+import org.tasks.filters.NavigationDrawerSubheader.SubheaderType;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.HelpAndFeedback;
 import org.tasks.preferences.MainPreferences;
+import org.tasks.preferences.Preferences;
 import org.tasks.ui.NavigationDrawerFragment;
 
 public class FilterProvider {
@@ -51,6 +55,7 @@ public class FilterProvider {
   private final TagFilterExposer tagFilterExposer;
   private final GtasksFilterExposer gtasksFilterExposer;
   private final CaldavFilterExposer caldavFilterExposer;
+  private final Preferences preferences;
 
   @Inject
   public FilterProvider(
@@ -61,7 +66,8 @@ public class FilterProvider {
       CustomFilterExposer customFilterExposer,
       TagFilterExposer tagFilterExposer,
       GtasksFilterExposer gtasksFilterExposer,
-      CaldavFilterExposer caldavFilterExposer) {
+      CaldavFilterExposer caldavFilterExposer,
+      Preferences preferences) {
     this.context = context;
     this.inventory = inventory;
     this.builtInFilterExposer = builtInFilterExposer;
@@ -70,6 +76,7 @@ public class FilterProvider {
     this.tagFilterExposer = tagFilterExposer;
     this.gtasksFilterExposer = gtasksFilterExposer;
     this.caldavFilterExposer = caldavFilterExposer;
+    this.preferences = preferences;
   }
 
   public List<FilterListItem> getRemoteListPickerItems() {
@@ -85,14 +92,26 @@ public class FilterProvider {
       GoogleTaskAccount account = filters.getKey();
       items.addAll(
           getSubmenu(
-              account.getAccount(), !isNullOrEmpty(account.getError()), filters.getValue(), true));
+              account.getAccount(),
+              !isNullOrEmpty(account.getError()),
+              account.isCollapsed() ? Collections.emptyList() : filters.getValue(),
+              true,
+              account.isCollapsed(),
+              SubheaderType.GOOGLE_TASKS,
+              account.getId()));
     }
 
     for (Map.Entry<CaldavAccount, List<Filter>> filters : getCaldavFilters()) {
       CaldavAccount account = filters.getKey();
       items.addAll(
           getSubmenu(
-              account.getName(), !isNullOrEmpty(account.getError()), filters.getValue(), true));
+              account.getName(),
+              !isNullOrEmpty(account.getError()),
+              account.isCollapsed() ? Collections.emptyList() : filters.getValue(),
+              true,
+              account.isCollapsed(),
+              SubheaderType.CALDAV,
+              account.getId()));
     }
 
     return items;
@@ -105,9 +124,9 @@ public class FilterProvider {
 
     items.add(builtInFilterExposer.getMyTasksFilter());
 
-    items.addAll(getSubmenu(R.string.filters, getFilters()));
+    items.addAll(getSubmenu(R.string.filters, R.string.p_collapse_filters, this::getFilters));
 
-    if (navigationDrawer) {
+    if (navigationDrawer && !preferences.getBoolean(R.string.p_collapse_filters, false)) {
       items.add(
           new NavigationDrawerAction(
               context.getString(R.string.FLA_new_filter),
@@ -116,9 +135,10 @@ public class FilterProvider {
               NavigationDrawerFragment.REQUEST_NEW_LIST));
     }
 
-    items.addAll(getSubmenu(R.string.tags, tagFilterExposer.getFilters()));
+    items.addAll(
+        getSubmenu(R.string.tags, R.string.p_collapse_tags, tagFilterExposer::getFilters));
 
-    if (navigationDrawer) {
+    if (navigationDrawer && !preferences.getBoolean(R.string.p_collapse_tags, false)) {
       items.add(
           new NavigationDrawerAction(
               context.getString(R.string.new_tag),
@@ -133,10 +153,13 @@ public class FilterProvider {
           getSubmenu(
               account.getAccount(),
               !isNullOrEmpty(account.getError()),
-              filters.getValue(),
-              !navigationDrawer));
+              account.isCollapsed() ? Collections.emptyList() : filters.getValue(),
+              !navigationDrawer,
+              account.isCollapsed(),
+              SubheaderType.GOOGLE_TASKS,
+              account.getId()));
 
-      if (navigationDrawer) {
+      if (navigationDrawer && !account.isCollapsed()) {
         items.add(
             new NavigationDrawerAction(
                 context.getString(R.string.new_list),
@@ -153,10 +176,13 @@ public class FilterProvider {
           getSubmenu(
               account.getName(),
               !isNullOrEmpty(account.getError()),
-              filters.getValue(),
-              !navigationDrawer));
+              account.isCollapsed() ? Collections.emptyList() : filters.getValue(),
+              !navigationDrawer,
+              account.isCollapsed(),
+              SubheaderType.CALDAV,
+              account.getId()));
 
-      if (navigationDrawer) {
+      if (navigationDrawer && !account.isCollapsed()) {
         items.add(
             new NavigationDrawerAction(
                 context.getString(R.string.new_list),
@@ -223,15 +249,29 @@ public class FilterProvider {
     return caldavFilterExposer.getFilters().entrySet();
   }
 
-  private List<FilterListItem> getSubmenu(int title, List<Filter> filters) {
-    return getSubmenu(context.getString(title), false, filters, false);
+  private List<FilterListItem> getSubmenu(int title, int prefId, Function<List<Filter>> getFilters) {
+    boolean collapsed = preferences.getBoolean(prefId, false);
+    return newArrayList(
+        concat(
+            ImmutableList.of(
+                new NavigationDrawerSubheader(
+                    context.getString(title), false, collapsed, SubheaderType.PREFERENCE, prefId)),
+            collapsed ? Collections.emptyList() : getFilters.call()));
   }
 
   private List<FilterListItem> getSubmenu(
-      String title, boolean error, List<Filter> filters, boolean hideIfEmpty) {
-    return hideIfEmpty && filters.isEmpty()
+      String title,
+      boolean error,
+      List<Filter> filters,
+      boolean hideIfEmpty,
+      boolean collapsed,
+      SubheaderType type,
+      long id) {
+    return hideIfEmpty && filters.isEmpty() && !collapsed
         ? ImmutableList.of()
         : newArrayList(
-            concat(ImmutableList.of(new NavigationDrawerSubheader(title, error)), filters));
+            concat(
+                ImmutableList.of(new NavigationDrawerSubheader(title, error, collapsed, type, id)),
+                filters));
   }
 }
