@@ -1,5 +1,14 @@
 Change Log
 ---
+### 8.6 (2020-03-17)
+
+* Expand and collapse navigation drawer groups
+* Update translations
+  * Basque - @osoitz
+  * Hungarian - kaciokos
+  * Polish - @alex-ter
+  * Russian - @alex-ter
+
 ### 8.5 (2020-03-13)
 
 * Synchronize locations with CalDAV and EteSync
