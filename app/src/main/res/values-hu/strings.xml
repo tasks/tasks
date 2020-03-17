@@ -554,4 +554,12 @@
     <string name="upgrade_blurb_4">A támogatásod sokat jelent nekem, köszönöm!</string>
     <string name="back">Vissza</string>
     <string name="requires_android_version">Android %s+ szükséges</string>
+    <string name="chip_style">Jelölő stílusa</string>
+    <string name="chip_style_outlined">Körvonal</string>
+    <string name="chip_style_filled">Tele</string>
+    <string name="chips">Jelölő</string>
+    <string name="chip_appearance">Jelölő kinézete</string>
+    <string name="desaturate_colors">Fakó színek</string>
+    <string name="desaturate_colors_summary_on">Sötét téma esetén fakóbbak a színek</string>
+    <string name="desaturate_colors_summary_off">Sötét téma esetén élénk színek</string>
 </resources>
