@@ -146,14 +146,15 @@ public abstract class CaldavDao {
   public abstract List<String> getCalendars(List<Long> tasks);
 
   @Query(
-      "SELECT caldav_lists.*, caldav_accounts.*, COUNT(tasks._id) AS count"
+      "SELECT caldav_lists.*, COUNT(tasks._id) AS count"
           + " FROM caldav_accounts"
           + " LEFT JOIN caldav_lists ON caldav_lists.cdl_account = caldav_accounts.cda_uuid"
           + " LEFT JOIN caldav_tasks ON caldav_tasks.cd_calendar = caldav_lists.cdl_uuid"
           + " LEFT JOIN tasks ON caldav_tasks.cd_task = tasks._id AND tasks.deleted = 0 AND tasks.completed = 0 AND tasks.hideUntil < :now AND cd_deleted = 0"
+          + " WHERE caldav_accounts.cda_id = :accountId"
           + " GROUP BY caldav_lists.cdl_uuid"
           + " ORDER BY caldav_accounts.cda_name COLLATE NOCASE")
-  public abstract List<CaldavFilters> getCaldavFilters(long now);
+  public abstract List<CaldavFilters> getCaldavFilters(long accountId, long now);
 
   @Query(
       "SELECT tasks._id FROM tasks "

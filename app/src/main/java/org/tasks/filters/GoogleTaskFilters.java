@@ -2,12 +2,10 @@ package org.tasks.filters;
 
 import androidx.room.Embedded;
 import com.todoroo.astrid.api.GtasksFilter;
-import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskList;
 
 public class GoogleTaskFilters {
   @Embedded public GoogleTaskList googleTaskList;
-  @Embedded public GoogleTaskAccount googleTaskAccount;
   public int count;
 
   public GtasksFilter toGtasksFilter() {
@@ -21,7 +19,7 @@ public class GoogleTaskFilters {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof GoogleTaskFilters)) {
       return false;
     }
 
@@ -30,33 +28,20 @@ public class GoogleTaskFilters {
     if (count != that.count) {
       return false;
     }
-    if (googleTaskList != null
-        ? !googleTaskList.equals(that.googleTaskList)
-        : that.googleTaskList != null) {
-      return false;
-    }
-    return googleTaskAccount != null
-        ? googleTaskAccount.equals(that.googleTaskAccount)
-        : that.googleTaskAccount == null;
+    return googleTaskList != null
+        ? googleTaskList.equals(that.googleTaskList)
+        : that.googleTaskList == null;
   }
 
   @Override
   public int hashCode() {
     int result = googleTaskList != null ? googleTaskList.hashCode() : 0;
-    result = 31 * result + (googleTaskAccount != null ? googleTaskAccount.hashCode() : 0);
     result = 31 * result + count;
     return result;
   }
 
   @Override
   public String toString() {
-    return "GoogleTaskFilters{"
-        + "googleTaskList="
-        + googleTaskList
-        + ", googleTaskAccount="
-        + googleTaskAccount
-        + ", count="
-        + count
-        + '}';
+    return "GoogleTaskFilters{" + "googleTaskList=" + googleTaskList + ", count=" + count + '}';
   }
 }

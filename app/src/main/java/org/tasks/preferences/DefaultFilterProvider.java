@@ -19,11 +19,13 @@ import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.api.TagFilter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.core.CustomFilterExposer;
-import com.todoroo.astrid.gtasks.GtasksFilterExposer;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.caldav.CaldavFilterExposer;
+import org.tasks.data.CaldavCalendar;
+import org.tasks.data.CaldavDao;
+import org.tasks.data.GoogleTaskList;
+import org.tasks.data.GoogleTaskListDao;
 import org.tasks.injection.ForApplication;
 import timber.log.Timber;
 
@@ -44,8 +46,8 @@ public class DefaultFilterProvider {
   private final Preferences preferences;
   private final CustomFilterExposer customFilterExposer;
   private final TagFilterExposer tagFilterExposer;
-  private final GtasksFilterExposer gtasksFilterExposer;
-  private final CaldavFilterExposer caldavFilterExposer;
+  private final GoogleTaskListDao googleTaskListDao;
+  private final CaldavDao caldavDao;
 
   @Inject
   public DefaultFilterProvider(
@@ -53,14 +55,14 @@ public class DefaultFilterProvider {
       Preferences preferences,
       CustomFilterExposer customFilterExposer,
       TagFilterExposer tagFilterExposer,
-      GtasksFilterExposer gtasksFilterExposer,
-      CaldavFilterExposer caldavFilterExposer) {
+      GoogleTaskListDao googleTaskListDao,
+      CaldavDao caldavDao) {
     this.context = context;
     this.preferences = preferences;
     this.customFilterExposer = customFilterExposer;
     this.tagFilterExposer = tagFilterExposer;
-    this.gtasksFilterExposer = gtasksFilterExposer;
-    this.caldavFilterExposer = caldavFilterExposer;
+    this.googleTaskListDao = googleTaskListDao;
+    this.caldavDao = caldavDao;
   }
 
   public Filter getDashclockFilter() {
@@ -129,9 +131,11 @@ public class DefaultFilterProvider {
       case TYPE_TAG:
         return tagFilterExposer.getFilterByUuid(split[1]);
       case TYPE_GOOGLE_TASKS:
-        return gtasksFilterExposer.getFilter(Long.parseLong(split[1]));
+        GoogleTaskList list = googleTaskListDao.getById(Long.parseLong(split[1]));
+        return list == null ? null : new GtasksFilter(list);
       case TYPE_CALDAV:
-        return caldavFilterExposer.getFilterByUuid(split[1]);
+        CaldavCalendar caldavCalendar = caldavDao.getCalendarByUuid(split[1]);
+        return caldavCalendar == null ? null : new CaldavFilter(caldavCalendar);
       default:
         return null;
     }

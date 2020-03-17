@@ -3,7 +3,9 @@ package org.tasks.filters;
 import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.collect.Iterables.concat;
 import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertNotMainThread;
+import static com.todoroo.andlib.utility.DateUtilities.now;
 import static org.tasks.caldav.CaldavCalendarSettingsActivity.EXTRA_CALDAV_ACCOUNT;
 import static org.tasks.ui.NavigationDrawerFragment.REQUEST_DONATE;
 import static org.tasks.ui.NavigationDrawerFragment.REQUEST_PURCHASE;
@@ -17,11 +19,11 @@ import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.core.CustomFilterActivity;
 import com.todoroo.astrid.core.CustomFilterExposer;
-import com.todoroo.astrid.gtasks.GtasksFilterExposer;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.timers.TimerFilterExposer;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -34,9 +36,10 @@ import org.tasks.activities.GoogleTaskListSettingsActivity;
 import org.tasks.activities.TagSettingsActivity;
 import org.tasks.billing.Inventory;
 import org.tasks.caldav.CaldavCalendarSettingsActivity;
-import org.tasks.caldav.CaldavFilterExposer;
 import org.tasks.data.CaldavAccount;
+import org.tasks.data.CaldavDao;
 import org.tasks.data.GoogleTaskAccount;
+import org.tasks.data.GoogleTaskListDao;
 import org.tasks.etesync.EteSyncCalendarSettingsActivity;
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType;
 import org.tasks.injection.ForApplication;
@@ -53,8 +56,8 @@ public class FilterProvider {
   private final TimerFilterExposer timerFilterExposer;
   private final CustomFilterExposer customFilterExposer;
   private final TagFilterExposer tagFilterExposer;
-  private final GtasksFilterExposer gtasksFilterExposer;
-  private final CaldavFilterExposer caldavFilterExposer;
+  private final GoogleTaskListDao googleTaskListDao;
+  private final CaldavDao caldavDao;
   private final Preferences preferences;
 
   @Inject
@@ -65,8 +68,8 @@ public class FilterProvider {
       TimerFilterExposer timerFilterExposer,
       CustomFilterExposer customFilterExposer,
       TagFilterExposer tagFilterExposer,
-      GtasksFilterExposer gtasksFilterExposer,
-      CaldavFilterExposer caldavFilterExposer,
+      GoogleTaskListDao googleTaskListDao,
+      CaldavDao caldavDao,
       Preferences preferences) {
     this.context = context;
     this.inventory = inventory;
@@ -74,8 +77,8 @@ public class FilterProvider {
     this.timerFilterExposer = timerFilterExposer;
     this.customFilterExposer = customFilterExposer;
     this.tagFilterExposer = tagFilterExposer;
-    this.gtasksFilterExposer = gtasksFilterExposer;
-    this.caldavFilterExposer = caldavFilterExposer;
+    this.googleTaskListDao = googleTaskListDao;
+    this.caldavDao = caldavDao;
     this.preferences = preferences;
   }
 
@@ -242,11 +245,41 @@ public class FilterProvider {
   }
 
   private Set<Entry<GoogleTaskAccount, List<Filter>>> getGoogleTaskFilters() {
-    return gtasksFilterExposer.getFilters().entrySet();
+    List<GoogleTaskAccount> accounts = googleTaskListDao.getAccounts();
+    LinkedHashMap<GoogleTaskAccount, List<Filter>> filters = new LinkedHashMap<>();
+    for (GoogleTaskAccount account : accounts) {
+      filters.put(
+          account,
+          account.isCollapsed()
+              ? Collections.emptyList()
+              : newArrayList(
+                  transform(
+                      googleTaskListDao.getGoogleTaskFilters(account.getId(), now()),
+                      GoogleTaskFilters::toGtasksFilter)));
+    }
+    for (Map.Entry<GoogleTaskAccount, List<Filter>> entry : filters.entrySet()) {
+      Collections.sort(entry.getValue(), new AlphanumComparator<>(AlphanumComparator.FILTER));
+    }
+    return filters.entrySet();
   }
 
   private Set<Entry<CaldavAccount, List<Filter>>> getCaldavFilters() {
-    return caldavFilterExposer.getFilters().entrySet();
+    List<CaldavAccount> accounts = caldavDao.getAccounts();
+    LinkedHashMap<CaldavAccount, List<Filter>> filters = new LinkedHashMap<>();
+    for (CaldavAccount account : accounts) {
+      filters.put(
+          account,
+          account.isCollapsed()
+              ? Collections.emptyList()
+              : newArrayList(
+                  transform(
+                      caldavDao.getCaldavFilters(account.getId(), now()),
+                      CaldavFilters::toCaldavFilter)));
+    }
+    for (Map.Entry<CaldavAccount, List<Filter>> entry : filters.entrySet()) {
+      Collections.sort(entry.getValue(), new AlphanumComparator<>(AlphanumComparator.FILTER));
+    }
+    return filters.entrySet();
   }
 
   private List<FilterListItem> getSubmenu(int title, int prefId, Function<List<Filter>> getFilters) {
