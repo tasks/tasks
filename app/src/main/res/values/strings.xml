@@ -566,4 +566,5 @@ File %1$s contained %2$s.\n\n
   <string name="desaturate_colors">Desaturate colors</string>
   <string name="desaturate_colors_summary_on">Colors will be desaturated in dark themes</string>
   <string name="desaturate_colors_summary_off">Colors will not be desaturated in dark themes</string>
+  <string name="locations">Locations</string>
 </resources>

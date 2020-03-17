@@ -83,11 +83,18 @@ public class LocationControlSet extends TaskEditControlFragment {
     View view = super.onCreateView(inflater, container, savedInstanceState);
 
     if (savedInstanceState == null) {
-      if (!task.isNew()) {
-        original = locationDao.getGeofences(task.getId());
-        if (original != null) {
-          location = new Location(original.geofence, original.place);
+      if (task.isNew()) {
+        if (task.hasTransitory(Place.KEY)) {
+          Place place = locationDao.getPlace(task.getTransitory(Place.KEY));
+          if (place != null) {
+            original = new Location(new Geofence(place.getUid(), preferences), place);
+          }
         }
+      } else {
+        original = locationDao.getGeofences(task.getId());
+      }
+      if (original != null) {
+        location = new Location(original.geofence, original.place);
       }
     } else {
       original = savedInstanceState.getParcelable(EXTRA_ORIGINAL);

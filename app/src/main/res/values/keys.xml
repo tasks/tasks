@@ -293,4 +293,5 @@
   <string name="p_desaturate_colors">desaturate_colors</string>
   <string name="p_collapse_filters">collapse_filters</string>
   <string name="p_collapse_tags">collapse_tags</string>
+  <string name="p_collapse_locations">collapse_locations</string>
 </resources>

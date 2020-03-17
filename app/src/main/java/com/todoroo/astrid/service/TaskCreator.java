@@ -22,8 +22,11 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.CaldavTask;
+import org.tasks.data.Geofence;
 import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskDao;
+import org.tasks.data.LocationDao;
+import org.tasks.data.Place;
 import org.tasks.data.Tag;
 import org.tasks.data.TagDao;
 import org.tasks.data.TagData;
@@ -40,6 +43,7 @@ public class TaskCreator {
   private final GoogleTaskDao googleTaskDao;
   private final DefaultFilterProvider defaultFilterProvider;
   private final CaldavDao caldavDao;
+  private final LocationDao locationDao;
   private final TagDataDao tagDataDao;
   private final TaskDao taskDao;
 
@@ -52,7 +56,8 @@ public class TaskCreator {
       TagDao tagDao,
       GoogleTaskDao googleTaskDao,
       DefaultFilterProvider defaultFilterProvider,
-      CaldavDao caldavDao) {
+      CaldavDao caldavDao,
+      LocationDao locationDao) {
     this.gcalHelper = gcalHelper;
     this.preferences = preferences;
     this.tagDataDao = tagDataDao;
@@ -61,6 +66,7 @@ public class TaskCreator {
     this.googleTaskDao = googleTaskDao;
     this.defaultFilterProvider = defaultFilterProvider;
     this.caldavDao = caldavDao;
+    this.locationDao = locationDao;
   }
 
   private static void setDefaultReminders(Preferences preferences, Task task) {
@@ -102,6 +108,13 @@ public class TaskCreator {
       } else if (remoteList instanceof CaldavFilter) {
         caldavDao.insert(
             new CaldavTask(task.getId(), ((CaldavFilter) remoteList).getUuid()));
+      }
+    }
+
+    if (task.hasTransitory(Place.KEY)) {
+      Place place = locationDao.getPlace(task.getTransitory(Place.KEY));
+      if (place != null) {
+        locationDao.insert(new Geofence(place.getUid(), preferences));
       }
     }
 
@@ -152,6 +165,7 @@ public class TaskCreator {
             break;
           case GoogleTask.KEY:
           case CaldavTask.KEY:
+          case Place.KEY:
             task.putTransitory(key, value);
             break;
           default:

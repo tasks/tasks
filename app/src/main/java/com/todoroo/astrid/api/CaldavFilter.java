@@ -55,7 +55,7 @@ public class CaldavFilter extends Filter {
         .where(getCriterion(caldavCalendar));
   }
 
-  public static Criterion getCriterion(CaldavCalendar caldavCalendar) {
+  private static Criterion getCriterion(CaldavCalendar caldavCalendar) {
     return Criterion.and(
         TaskDao.TaskCriteria.activeAndVisible(),
         CaldavTask.DELETED.eq(0),

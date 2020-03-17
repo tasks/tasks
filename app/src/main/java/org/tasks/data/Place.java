@@ -3,10 +3,15 @@ package org.tasks.data;
 import static com.mapbox.api.geocoding.v5.GeocodingCriteria.TYPE_ADDRESS;
 import static org.tasks.data.Place.TABLE_NAME;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -23,11 +28,13 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import net.fortuna.ical4j.model.property.Geo;
+import org.tasks.R;
 import org.tasks.location.MapPosition;
 
 @Entity(tableName = TABLE_NAME, indices = @Index(name = "place_uid", value = "uid", unique = true))
 public class Place implements Serializable, Parcelable {
 
+  public static final String KEY = "place";
   public static final String TABLE_NAME = "places";
   public static final Table TABLE = new Table(TABLE_NAME);
 
@@ -233,7 +240,22 @@ public class Place implements Serializable, Parcelable {
     return Strings.isNullOrEmpty(address) ? null : address.replace(String.format("%s, ", name), "");
   }
 
-  String getGeoUri() {
+  public void open(Context context) {
+    if (context == null) {
+      return;
+    }
+    Intent intent = new Intent(Intent.ACTION_VIEW);
+    intent.setData(Uri.parse(getGeoUri()));
+    PackageManager pm = context.getPackageManager();
+    List<ResolveInfo> resolveInfos = pm.queryIntentActivities(intent, 0);
+    if (resolveInfos.isEmpty()) {
+      Toast.makeText(context, R.string.no_application_found_link, Toast.LENGTH_SHORT).show();
+    } else {
+      context.startActivity(intent);
+    }
+  }
+
+  private String getGeoUri() {
     return String.format(
         "geo:%s,%s?q=%s",
         latitude, longitude, Uri.encode(getDisplayName()));

@@ -89,6 +89,7 @@ import org.tasks.data.TagDataDao;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.SortDialog;
 import org.tasks.etesync.EteSyncCalendarSettingsActivity;
+import org.tasks.filters.LocationFilter;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingFragment;
@@ -331,6 +332,9 @@ public final class TaskListFragment extends InjectingFragment
   private void setupMenu() {
     Menu menu = toolbar.getMenu();
     menu.clear();
+    if (filter.hasBeginningMenu()) {
+      toolbar.inflateMenu(filter.getBeginningMenu());
+    }
     toolbar.inflateMenu(R.menu.menu_task_list_fragment);
     if (filter.hasMenu()) {
       toolbar.inflateMenu(filter.getMenu());
@@ -458,6 +462,9 @@ public final class TaskListFragment extends InjectingFragment
       case R.id.menu_collapse_subtasks:
         taskDao.setCollapsed(taskListViewModel.getValue(), true);
         localBroadcastManager.broadcastRefresh();
+        return true;
+      case R.id.menu_open_map:
+        ((LocationFilter) filter).openMap(context);
         return true;
       default:
         return onOptionsItemSelected(item);

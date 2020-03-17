@@ -9,6 +9,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 import io.reactivex.Single;
 import java.util.List;
+import org.tasks.filters.LocationFilters;
 
 @Dao
 public interface LocationDao {
@@ -62,10 +63,22 @@ public interface LocationDao {
   @Query("SELECT * FROM places WHERE place_id = :id")
   Place getPlace(long id);
 
+  @Query("SELECT * FROM places WHERE uid = :uid")
+  Place getPlace(String uid);
+
   @Query(
       "SELECT places.*, IFNULL(COUNT(geofence_id),0) AS count FROM places LEFT OUTER JOIN geofences ON geofences.place = places.uid GROUP BY uid ORDER BY COUNT(geofence_id) DESC")
   LiveData<List<PlaceUsage>> getPlaceUsage();
 
   @Query("SELECT * FROM places WHERE latitude LIKE :latitude AND longitude LIKE :longitude")
   Place findPlace(String latitude, String longitude);
+
+  @Query("SELECT places.*, COUNT(tasks._id) AS count FROM places "
+      + " INNER JOIN geofences ON geofences.place = places.uid "
+      + " INNER JOIN tasks ON geofences.task = tasks._id"
+      + " WHERE tasks.completed = 0 AND tasks.deleted = 0"
+      + " AND tasks.hideUntil < :now"
+      + " GROUP BY places.uid"
+      + " ORDER BY count DESC")
+  List<LocationFilters> getPlaceFilters(long now);
 }

@@ -26,8 +26,10 @@ import java.util.Set;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.billing.Inventory;
+import org.tasks.data.Location;
 import org.tasks.data.TagData;
 import org.tasks.data.TaskContainer;
+import org.tasks.filters.LocationFilter;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.ColorProvider;
@@ -111,9 +113,11 @@ public class ChipProvider {
     if (!hideSubtaskChip && task.hasChildren()) {
       chips.add(newSubtaskChip(task, !showText));
     }
-    if (task.hasLocation()) {
-      Chip chip = newChip(task.getLocation());
-      apply(chip, R.drawable.ic_outline_place_24px, task.getLocation().getDisplayName(), 0, showText, showIcon);
+    if (task.hasLocation() && !(filter instanceof LocationFilter)) {
+      Location location = task.getLocation();
+      Chip chip = newChip(new LocationFilter(location.getPlace()));
+      apply(
+          chip, R.drawable.ic_outline_place_24px, location.getDisplayName(), 0, showText, showIcon);
       chips.add(chip);
     }
     if (!isSubtask) {

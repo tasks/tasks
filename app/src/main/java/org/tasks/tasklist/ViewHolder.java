@@ -25,7 +25,6 @@ import com.todoroo.astrid.service.TaskCompleter;
 import com.todoroo.astrid.ui.CheckableImageView;
 import java.util.List;
 import org.tasks.R;
-import org.tasks.data.Location;
 import org.tasks.data.TaskContainer;
 import org.tasks.dialogs.Linkify;
 import org.tasks.preferences.Preferences;
@@ -280,8 +279,6 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     Object tag = v.getTag();
     if (tag instanceof Filter) {
       callback.onClick((Filter) tag);
-    } else if (tag instanceof Location) {
-      ((Location) tag).open(context);
     } else if (tag instanceof TaskContainer) {
       TaskContainer task = (TaskContainer) tag;
       callback.toggleSubtasks(task, !task.isCollapsed());

@@ -197,6 +197,14 @@ public class Filter extends FilterListItem {
     return true;
   }
 
+  public boolean hasBeginningMenu() {
+    return getBeginningMenu() > 0;
+  }
+
+  public @MenuRes int getBeginningMenu() {
+    return 0;
+  }
+
   public boolean hasMenu() {
     return getMenu() != 0;
   }

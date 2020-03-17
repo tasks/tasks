@@ -2,6 +2,7 @@ package org.tasks.filters;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.collect.Iterables.concat;
+import static com.google.common.collect.Iterables.filter;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertNotMainThread;
@@ -14,6 +15,7 @@ import static org.tasks.ui.NavigationDrawerFragment.REQUEST_SETTINGS;
 import android.content.Context;
 import android.content.Intent;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
@@ -40,6 +42,7 @@ import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskListDao;
+import org.tasks.data.LocationDao;
 import org.tasks.etesync.EteSyncCalendarSettingsActivity;
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType;
 import org.tasks.injection.ForApplication;
@@ -59,6 +62,7 @@ public class FilterProvider {
   private final GoogleTaskListDao googleTaskListDao;
   private final CaldavDao caldavDao;
   private final Preferences preferences;
+  private final LocationDao locationDao;
 
   @Inject
   public FilterProvider(
@@ -70,7 +74,8 @@ public class FilterProvider {
       TagFilterExposer tagFilterExposer,
       GoogleTaskListDao googleTaskListDao,
       CaldavDao caldavDao,
-      Preferences preferences) {
+      Preferences preferences,
+      LocationDao locationDao) {
     this.context = context;
     this.inventory = inventory;
     this.builtInFilterExposer = builtInFilterExposer;
@@ -80,6 +85,7 @@ public class FilterProvider {
     this.googleTaskListDao = googleTaskListDao;
     this.caldavDao = caldavDao;
     this.preferences = preferences;
+    this.locationDao = locationDao;
   }
 
   public List<FilterListItem> getRemoteListPickerItems() {
@@ -97,7 +103,7 @@ public class FilterProvider {
           getSubmenu(
               account.getAccount(),
               !isNullOrEmpty(account.getError()),
-              account.isCollapsed() ? Collections.emptyList() : filters.getValue(),
+              filters.getValue(),
               true,
               account.isCollapsed(),
               SubheaderType.GOOGLE_TASKS,
@@ -110,7 +116,7 @@ public class FilterProvider {
           getSubmenu(
               account.getName(),
               !isNullOrEmpty(account.getError()),
-              account.isCollapsed() ? Collections.emptyList() : filters.getValue(),
+              filters.getValue(),
               true,
               account.isCollapsed(),
               SubheaderType.CALDAV,
@@ -141,6 +147,19 @@ public class FilterProvider {
     items.addAll(
         getSubmenu(R.string.tags, R.string.p_collapse_tags, tagFilterExposer::getFilters));
 
+    if (navigationDrawer) {
+      boolean collapsed = preferences.getBoolean(R.string.p_collapse_locations, false);
+      items.addAll(
+          getSubmenu(
+              context.getString(R.string.locations),
+              false,
+              collapsed ? Collections.emptyList() : getLocationFilters(),
+              true,
+              collapsed,
+              SubheaderType.PREFERENCE,
+              R.string.p_collapse_locations));
+    }
+
     if (navigationDrawer && !preferences.getBoolean(R.string.p_collapse_tags, false)) {
       items.add(
           new NavigationDrawerAction(
@@ -156,7 +175,7 @@ public class FilterProvider {
           getSubmenu(
               account.getAccount(),
               !isNullOrEmpty(account.getError()),
-              account.isCollapsed() ? Collections.emptyList() : filters.getValue(),
+              filters.getValue(),
               !navigationDrawer,
               account.isCollapsed(),
               SubheaderType.GOOGLE_TASKS,
@@ -179,7 +198,7 @@ public class FilterProvider {
           getSubmenu(
               account.getName(),
               !isNullOrEmpty(account.getError()),
-              account.isCollapsed() ? Collections.emptyList() : filters.getValue(),
+              filters.getValue(),
               !navigationDrawer,
               account.isCollapsed(),
               SubheaderType.CALDAV,
@@ -234,6 +253,12 @@ public class FilterProvider {
     }
 
     return items;
+  }
+
+  private List<Filter> getLocationFilters() {
+    List<LocationFilters> filters = locationDao.getPlaceFilters(now());
+    return newArrayList(
+        Iterables.transform(filter(filters, f -> f.count > 0), LocationFilters::toLocationFilter));
   }
 
   private List<Filter> getFilters() {

@@ -25,6 +25,7 @@ import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.api.TagFilter;
 import org.tasks.R;
 import org.tasks.billing.Inventory;
+import org.tasks.filters.LocationFilter;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.SyncPreferences;
 import org.tasks.themes.ColorProvider;
@@ -158,6 +159,8 @@ public class FilterViewHolder extends RecyclerView.ViewHolder {
       return R.drawable.ic_outline_cloud_24px;
     } else if (filter instanceof CustomFilter) {
       return R.drawable.ic_outline_filter_list_24px;
+    } else if (filter instanceof LocationFilter) {
+      return R.drawable.ic_outline_place_24px;
     } else {
       return filter.icon;
     }
