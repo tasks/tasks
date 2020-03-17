@@ -7,7 +7,6 @@
 package com.todoroo.astrid.adapter;
 
 import static com.google.common.base.Objects.equal;
-import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
 import static com.todoroo.astrid.api.FilterListItem.Type.ITEM;
 import static com.todoroo.astrid.api.FilterListItem.Type.SUBHEADER;
 
@@ -18,15 +17,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.AsyncListDiffer;
 import androidx.recyclerview.widget.DiffUtil.ItemCallback;
-import androidx.recyclerview.widget.ListAdapter;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import com.todoroo.astrid.adapter.FilterViewHolder.OnClick;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterListItem.Type;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.billing.Inventory;
@@ -39,7 +38,7 @@ import org.tasks.themes.ColorProvider;
 import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeAccent;
 
-public class NavigationDrawerAdapter extends ListAdapter<FilterListItem, ViewHolder> {
+public class NavigationDrawerAdapter extends RecyclerView.Adapter<ViewHolder> {
 
   private static final String TOKEN_SELECTED = "token_selected";
   private final Activity activity;
@@ -54,7 +53,8 @@ public class NavigationDrawerAdapter extends ListAdapter<FilterListItem, ViewHol
   private final LayoutInflater inflater;
   private OnClick onClick;
   private Filter selected = null;
-  private Map<Filter, Integer> counts = new HashMap<>();
+
+  private AsyncListDiffer<FilterListItem> differ;
 
   @Inject
   public NavigationDrawerAdapter(
@@ -67,7 +67,6 @@ public class NavigationDrawerAdapter extends ListAdapter<FilterListItem, ViewHol
       GoogleTaskDao googleTaskDao,
       CaldavDao caldavDao,
       LocalBroadcastManager localBroadcastManager) {
-    super(new DiffCallback());
     this.activity = activity;
     this.accent = theme.getThemeAccent();
     this.locale = locale;
@@ -78,6 +77,8 @@ public class NavigationDrawerAdapter extends ListAdapter<FilterListItem, ViewHol
     this.caldavDao = caldavDao;
     this.localBroadcastManager = localBroadcastManager;
     this.inflater = theme.getLayoutInflater(activity);
+
+    differ = new AsyncListDiffer<>(this, new DiffCallback());
   }
 
   public void setOnClick(OnClick onClick) {
@@ -92,15 +93,14 @@ public class NavigationDrawerAdapter extends ListAdapter<FilterListItem, ViewHol
     selected = savedInstanceState.getParcelable(TOKEN_SELECTED);
   }
 
-  public void setCounts(Map<Filter, Integer> counts) {
-    assertMainThread();
-    this.counts = counts;
-    notifyDataSetChanged();
-  }
-
   @Override
   public long getItemId(int position) {
     return position;
+  }
+
+  @Override
+  public int getItemCount() {
+    return differ.getCurrentList().size();
   }
 
   public Filter getSelected() {
@@ -137,8 +137,7 @@ public class NavigationDrawerAdapter extends ListAdapter<FilterListItem, ViewHol
     FilterListItem item = getItem(position);
     Type type = item.getItemType();
     if (type == ITEM) {
-      ((FilterViewHolder) holder)
-          .bind(item, item.equals(selected), item.count >= 0 ? item.count : counts.get(item));
+      ((FilterViewHolder) holder).bind(item, item.equals(selected), Math.max(item.count, 0));
     } else if (type == SUBHEADER) {
       ((SubheaderViewHolder) holder).bind((NavigationDrawerSubheader) item);
     }
@@ -149,9 +148,12 @@ public class NavigationDrawerAdapter extends ListAdapter<FilterListItem, ViewHol
     return getItem(position).getItemType().ordinal();
   }
 
-  @Override
-  public FilterListItem getItem(int position) {
-    return super.getItem(position);
+  private FilterListItem getItem(int position) {
+    return differ.getCurrentList().get(position);
+  }
+
+  public void submitList(List<FilterListItem> filterListItems) {
+    differ.submitList(filterListItems);
   }
 
   private static class DiffCallback extends ItemCallback<FilterListItem> {

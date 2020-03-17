@@ -1,6 +1,5 @@
 package org.tasks.ui;
 
-import static com.google.common.collect.Iterables.filter;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertNotMainThread;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static com.todoroo.andlib.utility.AndroidUtilities.preLollipop;
@@ -34,9 +33,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
@@ -215,23 +212,21 @@ public class NavigationDrawerFragment extends InjectingFragment {
 
   private Disposable updateFilters() {
     return Single.fromCallable(() -> filterProvider.getItems(true))
+        .map(this::refreshFilterCount)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .doOnSuccess(adapter::submitList)
-        .observeOn(Schedulers.io())
-        .map(this::refreshFilterCount)
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(adapter::setCounts);
+        .subscribe(adapter::submitList);
   }
 
-  private Map<Filter, Integer> refreshFilterCount(List<FilterListItem> items) {
+  private List<FilterListItem> refreshFilterCount(List<FilterListItem> items) {
     assertNotMainThread();
 
-    Map<Filter, Integer> result = new HashMap<>();
-    for (FilterListItem item : filter(items, i -> i instanceof Filter && i.count == -1)) {
-      result.put((Filter) item, taskDao.count((Filter) item));
+    for (FilterListItem item : items) {
+      if (item instanceof Filter && item.count == -1) {
+        item.count = taskDao.count((Filter) item);
+      }
     }
-    return result;
+    return items;
   }
 
   private class RefreshReceiver extends BroadcastReceiver {
