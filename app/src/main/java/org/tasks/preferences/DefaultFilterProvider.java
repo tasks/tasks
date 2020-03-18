@@ -28,7 +28,7 @@ import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
 import org.tasks.data.LocationDao;
 import org.tasks.data.Place;
-import org.tasks.filters.LocationFilter;
+import org.tasks.filters.PlaceFilter;
 import org.tasks.injection.ForApplication;
 import timber.log.Timber;
 
@@ -145,7 +145,7 @@ public class DefaultFilterProvider {
         return caldavCalendar == null ? null : new CaldavFilter(caldavCalendar);
       case TYPE_LOCATION:
         Place place = locationDao.getPlace(split[1]);
-        return place == null ? null : new LocationFilter(place);
+        return place == null ? null : new PlaceFilter(place);
       default:
         return null;
     }
@@ -172,7 +172,7 @@ public class DefaultFilterProvider {
       case TYPE_CALDAV:
         return getFilterPreference(filterType, ((CaldavFilter) filter).getUuid());
       case TYPE_LOCATION:
-        return getFilterPreference(filterType, ((LocationFilter) filter).getUid());
+        return getFilterPreference(filterType, ((PlaceFilter) filter).getUid());
     }
     return null;
   }
@@ -190,7 +190,7 @@ public class DefaultFilterProvider {
       return TYPE_CUSTOM_FILTER;
     } else if (filter instanceof CaldavFilter) {
       return TYPE_CALDAV;
-    } else if (filter instanceof LocationFilter) {
+    } else if (filter instanceof PlaceFilter) {
       return TYPE_LOCATION;
     }
     return TYPE_FILTER;

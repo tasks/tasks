@@ -29,7 +29,7 @@ import org.tasks.billing.Inventory;
 import org.tasks.data.Location;
 import org.tasks.data.TagData;
 import org.tasks.data.TaskContainer;
-import org.tasks.filters.LocationFilter;
+import org.tasks.filters.PlaceFilter;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.ColorProvider;
@@ -113,9 +113,9 @@ public class ChipProvider {
     if (!hideSubtaskChip && task.hasChildren()) {
       chips.add(newSubtaskChip(task, !showText));
     }
-    if (task.hasLocation() && !(filter instanceof LocationFilter)) {
+    if (task.hasLocation() && !(filter instanceof PlaceFilter)) {
       Location location = task.getLocation();
-      chips.add(newChip(new LocationFilter(location.getPlace()), R.drawable.ic_outline_place_24px));
+      chips.add(newChip(new PlaceFilter(location.getPlace()), R.drawable.ic_outline_place_24px));
     }
     if (!isSubtask) {
       if (!Strings.isNullOrEmpty(task.getGoogleTaskList()) && !(filter instanceof GtasksFilter)) {

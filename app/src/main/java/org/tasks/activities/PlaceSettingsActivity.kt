@@ -13,7 +13,7 @@ import com.todoroo.astrid.activity.TaskListFragment
 import org.tasks.R
 import org.tasks.data.LocationDao
 import org.tasks.data.Place
-import org.tasks.filters.LocationFilter
+import org.tasks.filters.PlaceFilter
 import org.tasks.injection.ActivityComponent
 import org.tasks.location.MapFragment
 import javax.inject.Inject
@@ -78,7 +78,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
         setResult(
                 Activity.RESULT_OK,
                 Intent(TaskListFragment.ACTION_RELOAD)
-                        .putExtra(MainActivity.OPEN_FILTER, LocationFilter(place)))
+                        .putExtra(MainActivity.OPEN_FILTER, PlaceFilter(place)))
         finish()
     }
 

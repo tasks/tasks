@@ -92,7 +92,7 @@ import org.tasks.data.TagDataDao;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.SortDialog;
 import org.tasks.etesync.EteSyncCalendarSettingsActivity;
-import org.tasks.filters.LocationFilter;
+import org.tasks.filters.PlaceFilter;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingFragment;
@@ -445,7 +445,7 @@ public final class TaskListFragment extends InjectingFragment
         startActivityForResult(caldavSettings, REQUEST_LIST_SETTINGS);
         return true;
       case R.id.menu_location_settings:
-        Place place = ((LocationFilter) filter).getPlace();
+        Place place = ((PlaceFilter) filter).getPlace();
         Intent intent =
             new Intent(
                 getActivity(),
@@ -473,7 +473,7 @@ public final class TaskListFragment extends InjectingFragment
         localBroadcastManager.broadcastRefresh();
         return true;
       case R.id.menu_open_map:
-        ((LocationFilter) filter).openMap(context);
+        ((PlaceFilter) filter).openMap(context);
         return true;
       default:
         return onOptionsItemSelected(item);

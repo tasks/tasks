@@ -17,26 +17,26 @@ import org.tasks.R;
 import org.tasks.data.Geofence;
 import org.tasks.data.Place;
 
-public class LocationFilter extends Filter {
+public class PlaceFilter extends Filter {
 
-  public static final Parcelable.Creator<LocationFilter> CREATOR =
-      new Parcelable.Creator<LocationFilter>() {
+  public static final Parcelable.Creator<PlaceFilter> CREATOR =
+      new Parcelable.Creator<PlaceFilter>() {
 
         @Override
-        public LocationFilter createFromParcel(Parcel source) {
-          return new LocationFilter(source);
+        public PlaceFilter createFromParcel(Parcel source) {
+          return new PlaceFilter(source);
         }
 
         /** {@inheritDoc} */
         @Override
-        public LocationFilter[] newArray(int size) {
-          return new LocationFilter[size];
+        public PlaceFilter[] newArray(int size) {
+          return new PlaceFilter[size];
         }
       };
 
   private Place place;
 
-  private LocationFilter(Parcel source) {
+  private PlaceFilter(Parcel source) {
     super();
     readFromParcel(source);
     place = source.readParcelable(getClass().getClassLoader());
@@ -48,7 +48,7 @@ public class LocationFilter extends Filter {
     dest.writeParcelable(place, 0);
   }
 
-  public LocationFilter(Place place) {
+  public PlaceFilter(Place place) {
     super(place.getDisplayName(), queryTemplate(place), getValuesForNewTask(place));
     this.place = place;
     tint = place.getColor();
@@ -92,13 +92,13 @@ public class LocationFilter extends Filter {
 
   @Override
   public boolean areItemsTheSame(@NonNull FilterListItem other) {
-    return other instanceof LocationFilter
-        && place.getUid().equals(((LocationFilter) other).getPlace().getUid());
+    return other instanceof PlaceFilter
+        && place.getUid().equals(((PlaceFilter) other).getPlace().getUid());
   }
 
   @Override
   public boolean areContentsTheSame(@NonNull FilterListItem other) {
-    return place.equals(((LocationFilter) other).getPlace()) && count == other.count;
+    return place.equals(((PlaceFilter) other).getPlace()) && count == other.count;
   }
 
   public void openMap(Context context) {
