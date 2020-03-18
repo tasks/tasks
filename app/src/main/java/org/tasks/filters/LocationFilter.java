@@ -51,10 +51,16 @@ public class LocationFilter extends Filter {
   public LocationFilter(Place place) {
     super(place.getDisplayName(), queryTemplate(place), getValuesForNewTask(place));
     this.place = place;
+    tint = place.getColor();
+    icon = place.getIcon();
   }
 
   public Place getPlace() {
     return place;
+  }
+
+  public String getUid() {
+    return place.getUid();
   }
 
   private static QueryTemplate queryTemplate(Place place) {
@@ -76,7 +82,12 @@ public class LocationFilter extends Filter {
 
   @Override
   public int getBeginningMenu() {
-    return R.menu.menu_location_list_settings;
+    return R.menu.menu_location_actions;
+  }
+
+  @Override
+  public int getMenu() {
+    return R.menu.menu_location_list_fragment;
   }
 
   @Override

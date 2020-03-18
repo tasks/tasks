@@ -151,7 +151,7 @@ public class FilterProvider {
       boolean collapsed = preferences.getBoolean(R.string.p_collapse_locations, false);
       items.addAll(
           getSubmenu(
-              context.getString(R.string.locations),
+              context.getString(R.string.places),
               false,
               collapsed ? Collections.emptyList() : getLocationFilters(),
               true,

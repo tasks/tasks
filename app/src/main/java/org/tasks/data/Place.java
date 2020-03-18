@@ -30,6 +30,7 @@ import java.util.regex.Pattern;
 import net.fortuna.ical4j.model.property.Geo;
 import org.tasks.R;
 import org.tasks.location.MapPosition;
+import org.tasks.themes.CustomIcons;
 
 @Entity(tableName = TABLE_NAME, indices = @Index(name = "place_uid", value = "uid", unique = true))
 public class Place implements Serializable, Parcelable {
@@ -81,6 +82,12 @@ public class Place implements Serializable, Parcelable {
   @ColumnInfo(name = "longitude")
   private double longitude;
 
+  @ColumnInfo(name = "place_color")
+  private int color;
+
+  @ColumnInfo(name = "place_icon")
+  private int icon = -1;
+
   public Place() {}
 
   @Ignore
@@ -93,6 +100,8 @@ public class Place implements Serializable, Parcelable {
     url = o.url;
     latitude = o.latitude;
     longitude = o.longitude;
+    color = o.color;
+    icon = o.icon;
   }
 
   @Ignore
@@ -105,6 +114,8 @@ public class Place implements Serializable, Parcelable {
     url = parcel.readString();
     latitude = parcel.readDouble();
     longitude = parcel.readDouble();
+    color = parcel.readInt();
+    icon = parcel.readInt();
   }
 
   private static String formatCoordinate(double coordinates, boolean latitude) {
@@ -130,7 +141,8 @@ public class Place implements Serializable, Parcelable {
     return place;
   }
 
-  @Nullable public static Place newPlace(@Nullable MapPosition mapPosition) {
+  @Nullable
+  public static Place newPlace(@Nullable MapPosition mapPosition) {
     if (mapPosition == null) {
       return null;
     }
@@ -177,7 +189,8 @@ public class Place implements Serializable, Parcelable {
     this.uid = uid;
   }
 
-  @Nullable public String getName() {
+  @Nullable
+  public String getName() {
     return name;
   }
 
@@ -225,6 +238,22 @@ public class Place implements Serializable, Parcelable {
     this.url = url;
   }
 
+  public int getColor() {
+    return color;
+  }
+
+  public void setColor(int color) {
+    this.color = color;
+  }
+
+  public int getIcon() {
+    return icon == -1 ? CustomIcons.getPLACE() : icon;
+  }
+
+  public void setIcon(int icon) {
+    this.icon = icon;
+  }
+
   public String getDisplayName() {
     if (!Strings.isNullOrEmpty(name) && !COORDS.matcher(name).matches()) {
       return name;
@@ -256,9 +285,7 @@ public class Place implements Serializable, Parcelable {
   }
 
   private String getGeoUri() {
-    return String.format(
-        "geo:%s,%s?q=%s",
-        latitude, longitude, Uri.encode(getDisplayName()));
+    return String.format("geo:%s,%s?q=%s", latitude, longitude, Uri.encode(getDisplayName()));
   }
 
   public MapPosition getMapPosition() {
@@ -270,7 +297,7 @@ public class Place implements Serializable, Parcelable {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof Place)) {
       return false;
     }
 
@@ -283,6 +310,12 @@ public class Place implements Serializable, Parcelable {
       return false;
     }
     if (Double.compare(place.longitude, longitude) != 0) {
+      return false;
+    }
+    if (color != place.color) {
+      return false;
+    }
+    if (icon != place.icon) {
       return false;
     }
     if (uid != null ? !uid.equals(place.uid) : place.uid != null) {
@@ -314,6 +347,8 @@ public class Place implements Serializable, Parcelable {
     result = 31 * result + (int) (temp ^ (temp >>> 32));
     temp = Double.doubleToLongBits(longitude);
     result = 31 * result + (int) (temp ^ (temp >>> 32));
+    result = 31 * result + color;
+    result = 31 * result + icon;
     return result;
   }
 
@@ -341,6 +376,10 @@ public class Place implements Serializable, Parcelable {
         + latitude
         + ", longitude="
         + longitude
+        + ", color="
+        + color
+        + ", icon="
+        + icon
         + '}';
   }
 
@@ -359,5 +398,7 @@ public class Place implements Serializable, Parcelable {
     out.writeString(url);
     out.writeDouble(latitude);
     out.writeDouble(longitude);
+    out.writeInt(color);
+    out.writeInt(icon);
   }
 }

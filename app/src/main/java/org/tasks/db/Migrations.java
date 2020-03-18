@@ -402,6 +402,15 @@ public class Migrations {
         }
       };
 
+  private static final Migration MIGRATION_72_73 =
+      new Migration(72, 73) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+          database.execSQL("ALTER TABLE `places` ADD COLUMN `place_color` INTEGER NOT NULL DEFAULT 0");
+          database.execSQL("ALTER TABLE `places` ADD COLUMN `place_icon` INTEGER NOT NULL DEFAULT -1");
+        }
+      };
+
   public static final Migration[] MIGRATIONS =
       new Migration[] {
         MIGRATION_35_36,
@@ -431,7 +440,8 @@ public class Migrations {
         MIGRATION_68_69,
         MIGRATION_69_70,
         MIGRATION_70_71,
-        MIGRATION_71_72
+        MIGRATION_71_72,
+        MIGRATION_72_73
       };
 
   private static Migration NOOP(int from, int to) {

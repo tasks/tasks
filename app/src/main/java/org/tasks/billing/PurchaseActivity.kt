@@ -24,7 +24,6 @@ import org.tasks.dialogs.IconLayoutManager
 import org.tasks.injection.ActivityComponent
 import org.tasks.injection.ThemedInjectingAppCompatActivity
 import org.tasks.locale.Locale
-import org.tasks.themes.Theme
 import timber.log.Timber
 import java.lang.String
 import javax.inject.Inject
@@ -39,7 +38,6 @@ class PurchaseActivity : ThemedInjectingAppCompatActivity(), OnPurchasesUpdated,
     @Inject lateinit var billingClient: BillingClient
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var locale: Locale
-    @Inject lateinit var theme: Theme
 
     private lateinit var binding: ActivityPurchaseBinding
     private lateinit var adapter: PurchaseAdapter

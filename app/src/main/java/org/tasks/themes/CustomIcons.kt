@@ -25,6 +25,9 @@ object CustomIcons {
     @kotlin.jvm.JvmStatic
     val TODAY = 7
 
+    @kotlin.jvm.JvmStatic
+    val PLACE = 1050
+
     @kotlin.jvm.JvmField
     var ICONS = mapOf(
         LABEL to R.drawable.ic_outline_label_24px,
@@ -89,7 +92,7 @@ object CustomIcons {
         1047 to R.drawable.ic_outline_attachment_24px,
         1048 to R.drawable.ic_outline_vpn_key_24px,
         1049 to R.drawable.ic_outline_event_24px,
-        1050 to R.drawable.ic_outline_place_24px,
+        PLACE to R.drawable.ic_outline_place_24px,
         1051 to R.drawable.ic_outline_markunread_mailbox_24px,
         1052 to R.drawable.ic_outline_label_important_24px,
         1053 to R.drawable.ic_outline_android_24px,

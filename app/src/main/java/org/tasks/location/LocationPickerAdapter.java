@@ -1,33 +1,47 @@
 package org.tasks.location;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.DiffUtil.ItemCallback;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.common.base.Strings;
 import org.tasks.R;
+import org.tasks.billing.Inventory;
 import org.tasks.data.Place;
 import org.tasks.data.PlaceUsage;
 import org.tasks.location.LocationPickerAdapter.PlaceViewHolder;
+import org.tasks.themes.ColorProvider;
+import org.tasks.themes.CustomIcons;
+import org.tasks.themes.DrawableUtil;
+import org.tasks.themes.ThemeColor;
 
 public class LocationPickerAdapter extends ListAdapter<PlaceUsage, PlaceViewHolder> {
 
+  private final Context context;
+  private final Inventory inventory;
+  private final ColorProvider colorProvider;
   private final OnLocationPicked callback;
-  private Place currentPlace;
 
-  LocationPickerAdapter(OnLocationPicked callback) {
+  LocationPickerAdapter(
+      Context context,
+      Inventory inventory,
+      ColorProvider colorProvider,
+      OnLocationPicked callback) {
     super(new DiffCallback());
+    this.context = context;
+    this.inventory = inventory;
+    this.colorProvider = colorProvider;
 
     this.callback = callback;
-  }
-
-  void setCurrentPlace(@Nullable Place currentPlace) {
-    this.currentPlace = currentPlace;
   }
 
   @Override
@@ -45,19 +59,40 @@ public class LocationPickerAdapter extends ListAdapter<PlaceUsage, PlaceViewHold
 
   @Override
   public void onBindViewHolder(@NonNull PlaceViewHolder holder, int position) {
-    holder.bind(getItem(position));
+    PlaceUsage place = getItem(position);
+    holder.bind(place, getColor(place.getColor()), getIcon(place.getIcon()));
+  }
+
+  private int getColor(int tint) {
+    if (tint != 0) {
+      ThemeColor color = colorProvider.getThemeColor(tint, true);
+      if (color.isFree() || inventory.purchasedThemes()) {
+        return color.getPrimaryColor();
+      }
+    }
+    return ContextCompat.getColor(context, R.color.text_primary);
+  }
+
+  private int getIcon(int index) {
+    if (index < 1000 || inventory.hasPro()) {
+      Integer icon = CustomIcons.getIconResId(index);
+      if (icon != null) {
+        return icon;
+      }
+    }
+    return R.drawable.ic_outline_place_24px;
   }
 
   public interface OnLocationPicked {
     void picked(Place place);
 
-    void delete(Place place);
+    void settings(Place place);
   }
 
-  public class PlaceViewHolder extends RecyclerView.ViewHolder {
+  public static class PlaceViewHolder extends RecyclerView.ViewHolder {
     private final TextView name;
     private final TextView address;
-    private final View delete;
+    private final ImageView icon;
     private Place place;
 
     PlaceViewHolder(@NonNull View itemView, OnLocationPicked onLocationPicked) {
@@ -65,14 +100,19 @@ public class LocationPickerAdapter extends ListAdapter<PlaceUsage, PlaceViewHold
       itemView.setOnClickListener(v -> onLocationPicked.picked(place));
       name = itemView.findViewById(R.id.name);
       address = itemView.findViewById(R.id.address);
-      delete = itemView.findViewById(R.id.delete);
-      delete.setOnClickListener(v -> onLocationPicked.delete(place));
+      icon = itemView.findViewById(R.id.place_icon);
+      itemView
+          .findViewById(R.id.location_settings)
+          .setOnClickListener(v -> onLocationPicked.settings(place));
     }
 
-    public void bind(PlaceUsage placeUsage) {
+    public void bind(PlaceUsage placeUsage, int color, int icon) {
       place = placeUsage.place;
       String name = place.getDisplayName();
       String address = place.getDisplayAddress();
+      Drawable wrapped = DrawableUtil.getWrapped(itemView.getContext(), icon);
+      this.icon.setImageDrawable(wrapped);
+      DrawableCompat.setTint(this.icon.getDrawable(), color);
       this.name.setText(name);
       if (Strings.isNullOrEmpty(address) || address.equals(name)) {
         this.address.setVisibility(View.GONE);
@@ -80,7 +120,7 @@ public class LocationPickerAdapter extends ListAdapter<PlaceUsage, PlaceViewHold
         this.address.setText(address);
         this.address.setVisibility(View.VISIBLE);
       }
-      delete.setVisibility(placeUsage.count > 0 || place.equals(currentPlace)  ? View.GONE : View.VISIBLE);
+
     }
   }
 

@@ -96,6 +96,11 @@ public class MapboxMapFragment implements MapFragment, OnMapReadyCallback, OnMar
     }
   }
 
+  @Override
+  public void disableGestures() {
+    map.getUiSettings().setAllGesturesEnabled(false);
+  }
+
   @SuppressLint("MissingPermission")
   @Override
   public void showMyLocation() {

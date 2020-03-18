@@ -26,6 +26,9 @@ import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
+import org.tasks.data.LocationDao;
+import org.tasks.data.Place;
+import org.tasks.filters.LocationFilter;
 import org.tasks.injection.ForApplication;
 import timber.log.Timber;
 
@@ -36,6 +39,7 @@ public class DefaultFilterProvider {
   private static final int TYPE_TAG = 2;
   private static final int TYPE_GOOGLE_TASKS = 3;
   private static final int TYPE_CALDAV = 4;
+  private static final int TYPE_LOCATION = 5;
 
   private static final int FILTER_MY_TASKS = 0;
   private static final int FILTER_TODAY = 1;
@@ -48,6 +52,7 @@ public class DefaultFilterProvider {
   private final TagFilterExposer tagFilterExposer;
   private final GoogleTaskListDao googleTaskListDao;
   private final CaldavDao caldavDao;
+  private final LocationDao locationDao;
 
   @Inject
   public DefaultFilterProvider(
@@ -56,13 +61,15 @@ public class DefaultFilterProvider {
       CustomFilterExposer customFilterExposer,
       TagFilterExposer tagFilterExposer,
       GoogleTaskListDao googleTaskListDao,
-      CaldavDao caldavDao) {
+      CaldavDao caldavDao,
+      LocationDao locationDao) {
     this.context = context;
     this.preferences = preferences;
     this.customFilterExposer = customFilterExposer;
     this.tagFilterExposer = tagFilterExposer;
     this.googleTaskListDao = googleTaskListDao;
     this.caldavDao = caldavDao;
+    this.locationDao = locationDao;
   }
 
   public Filter getDashclockFilter() {
@@ -136,6 +143,9 @@ public class DefaultFilterProvider {
       case TYPE_CALDAV:
         CaldavCalendar caldavCalendar = caldavDao.getCalendarByUuid(split[1]);
         return caldavCalendar == null ? null : new CaldavFilter(caldavCalendar);
+      case TYPE_LOCATION:
+        Place place = locationDao.getPlace(split[1]);
+        return place == null ? null : new LocationFilter(place);
       default:
         return null;
     }
@@ -161,6 +171,8 @@ public class DefaultFilterProvider {
         return getFilterPreference(filterType, ((GtasksFilter) filter).getStoreId());
       case TYPE_CALDAV:
         return getFilterPreference(filterType, ((CaldavFilter) filter).getUuid());
+      case TYPE_LOCATION:
+        return getFilterPreference(filterType, ((LocationFilter) filter).getUid());
     }
     return null;
   }
@@ -178,6 +190,8 @@ public class DefaultFilterProvider {
       return TYPE_CUSTOM_FILTER;
     } else if (filter instanceof CaldavFilter) {
       return TYPE_CALDAV;
+    } else if (filter instanceof LocationFilter) {
+      return TYPE_LOCATION;
     }
     return TYPE_FILTER;
   }

@@ -315,6 +315,10 @@
       android:theme="@style/Tasks"/>
 
     <activity
+      android:name=".activities.PlaceSettingsActivity"
+      android:theme="@style/Tasks" />
+
+    <activity
       android:name="com.todoroo.astrid.gcal.CalendarReminderActivity"
       android:theme="@style/TasksDialog"/>
 

@@ -10,7 +10,7 @@ import org.tasks.themes.ThemeColor;
 public abstract class ThemedInjectingAppCompatActivity extends AppCompatActivity
     implements InjectingActivity {
 
-  @Inject Theme theme;
+  @Inject protected Theme theme;
   @Inject protected ThemeColor themeColor;
 
   private ActivityComponent activityComponent;

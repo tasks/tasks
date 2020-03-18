@@ -18,11 +18,12 @@
     android:paddingEnd="@dimen/keyline_second"
     android:paddingLeft="@dimen/keyline_first"
     android:paddingRight="@dimen/keyline_second"
-    android:src="@drawable/ic_outline_history_24px"
+    android:src="@drawable/ic_outline_place_24px"
     android:tint="@color/icon_tint"/>
 
   <ImageView
-    android:id="@+id/delete"
+    android:contentDescription="@string/place_settings"
+    android:id="@+id/location_settings"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignParentEnd="true"
@@ -31,9 +32,8 @@
     android:paddingEnd="@dimen/keyline_first"
     android:paddingLeft="@dimen/keyline_first"
     android:paddingRight="@dimen/keyline_first"
-    android:src="@drawable/ic_outline_delete_24px"
-    android:tint="@color/icon_tint"
-    android:visibility="gone"/>
+    android:src="@drawable/ic_outline_edit_24px"
+    android:tint="@color/icon_tint" />
 
   <TextView
     android:id="@+id/name"

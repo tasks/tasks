@@ -10,6 +10,14 @@ public class PlaceUsage {
     return place;
   }
 
+  public int getColor() {
+    return place.getColor();
+  }
+
+  public int getIcon() {
+    return place.getIcon();
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {

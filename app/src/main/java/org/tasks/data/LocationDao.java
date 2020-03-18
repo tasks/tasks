@@ -57,6 +57,9 @@ public interface LocationDao {
   @Query("SELECT * FROM geofences WHERE task = :taskId")
   List<Geofence> getGeofencesForTask(long taskId);
 
+  @Query("SELECT * FROM geofences WHERE place = :uid")
+  List<Geofence> getGeofencesByPlace(String uid);
+
   @Query("SELECT * FROM places")
   List<Place> getPlaces();
 

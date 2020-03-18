@@ -13,6 +13,7 @@ import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.activities.FilterSettingsActivity;
 import org.tasks.activities.GoogleTaskListSettingsActivity;
+import org.tasks.activities.PlaceSettingsActivity;
 import org.tasks.activities.TagSettingsActivity;
 import org.tasks.billing.PurchaseActivity;
 import org.tasks.caldav.CaldavAccountSettingsActivity;
@@ -135,4 +136,6 @@ public interface ActivityComponent {
   void inject(ManageSpaceActivity manageSpaceActivity);
 
   void inject(SyncPreferences syncPreferences);
+
+  void inject(PlaceSettingsActivity placeSettingsActivity);
 }

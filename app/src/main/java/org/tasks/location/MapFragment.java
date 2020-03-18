@@ -15,6 +15,8 @@ public interface MapFragment {
 
   void setMarkers(List<Place> places);
 
+  void disableGestures();
+
   void showMyLocation();
 
   int getMarkerId();

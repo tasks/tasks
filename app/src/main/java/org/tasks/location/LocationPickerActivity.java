@@ -48,6 +48,8 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import org.tasks.Event;
 import org.tasks.R;
+import org.tasks.activities.PlaceSettingsActivity;
+import org.tasks.billing.Inventory;
 import org.tasks.caldav.GeoUtils;
 import org.tasks.data.LocationDao;
 import org.tasks.data.Place;
@@ -61,6 +63,7 @@ import org.tasks.location.MapFragment.MapFragmentCallback;
 import org.tasks.preferences.ActivityPermissionRequestor;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.PermissionRequestor;
+import org.tasks.themes.ColorProvider;
 import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeColor;
 import org.tasks.ui.Toaster;
@@ -112,10 +115,12 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
   @Inject DialogBuilder dialogBuilder;
   @Inject MapFragment map;
   @Inject Geocoder geocoder;
+  @Inject Inventory inventory;
+  @Inject ColorProvider colorProvider;
 
   private CompositeDisposable disposables;
   @Nullable private MapPosition mapPosition;
-  private LocationPickerAdapter recentsAdapter = new LocationPickerAdapter(this);
+  private LocationPickerAdapter recentsAdapter;
   private LocationSearchAdapter searchAdapter;
   private List<PlaceUsage> places = Collections.emptyList();
   private int offset;
@@ -139,8 +144,6 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
     }
 
     Place currentPlace = getIntent().getParcelableExtra(EXTRA_PLACE);
-    recentsAdapter.setCurrentPlace(currentPlace);
-
     if (savedInstanceState == null) {
       mapPosition =
           currentPlace == null
@@ -211,6 +214,7 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
     findViewById(map.getMarkerId()).setVisibility(View.VISIBLE);
 
     searchAdapter = new LocationSearchAdapter(searchProvider.getAttributionRes(dark), this);
+     recentsAdapter = new LocationPickerAdapter(this, inventory, colorProvider, this);
     recentsAdapter.setHasStableIds(true);
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
     recyclerView.setAdapter(
@@ -433,8 +437,10 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
   }
 
   @Override
-  public void delete(org.tasks.data.Place place) {
-    locationDao.delete(place);
+  public void settings(org.tasks.data.Place place) {
+    Intent intent = new Intent(this, PlaceSettingsActivity.class);
+    intent.putExtra(PlaceSettingsActivity.EXTRA_PLACE, (Parcelable) place);
+    startActivity(intent);
   }
 
   @Override

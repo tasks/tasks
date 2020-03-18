@@ -18,6 +18,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.speech.RecognizerIntent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -79,12 +80,14 @@ import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.activities.FilterSettingsActivity;
 import org.tasks.activities.GoogleTaskListSettingsActivity;
+import org.tasks.activities.PlaceSettingsActivity;
 import org.tasks.activities.RemoteListPicker;
 import org.tasks.activities.TagSettingsActivity;
 import org.tasks.caldav.CaldavCalendarSettingsActivity;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
+import org.tasks.data.Place;
 import org.tasks.data.TagDataDao;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.SortDialog;
@@ -125,11 +128,8 @@ public final class TaskListFragment extends InjectingFragment
   private static final String EXTRA_FILTER = "extra_filter";
   private static final String FRAG_TAG_REMOTE_LIST_PICKER = "frag_tag_remote_list_picker";
   private static final String FRAG_TAG_SORT_DIALOG = "frag_tag_sort_dialog";
-  private static final int REQUEST_CALDAV_SETTINGS = 10101;
-  private static final int REQUEST_GTASK_SETTINGS = 10102;
+  private static final int REQUEST_LIST_SETTINGS = 10101;
   private static final int REQUEST_MOVE_TASKS = 10103;
-  private static final int REQUEST_FILTER_SETTINGS = 10104;
-  private static final int REQUEST_TAG_SETTINGS = 10105;
   private static final int REQUEST_TAG_TASKS = 10106;
 
   private static final int SEARCH_DEBOUNCE_TIMEOUT = 300;
@@ -430,7 +430,7 @@ public final class TaskListFragment extends InjectingFragment
       case R.id.menu_filter_settings:
         Intent filterSettings = new Intent(getActivity(), FilterSettingsActivity.class);
         filterSettings.putExtra(FilterSettingsActivity.TOKEN_FILTER, filter);
-        startActivityForResult(filterSettings, REQUEST_FILTER_SETTINGS);
+        startActivityForResult(filterSettings, REQUEST_LIST_SETTINGS);
         return true;
       case R.id.menu_caldav_list_fragment:
         CaldavCalendar calendar = ((CaldavFilter) filter).getCalendar();
@@ -442,18 +442,27 @@ public final class TaskListFragment extends InjectingFragment
                     ? CaldavCalendarSettingsActivity.class
                     : EteSyncCalendarSettingsActivity.class);
         caldavSettings.putExtra(EXTRA_CALDAV_CALENDAR, calendar);
-        startActivityForResult(caldavSettings, REQUEST_CALDAV_SETTINGS);
+        startActivityForResult(caldavSettings, REQUEST_LIST_SETTINGS);
+        return true;
+      case R.id.menu_location_settings:
+        Place place = ((LocationFilter) filter).getPlace();
+        Intent intent =
+            new Intent(
+                getActivity(),
+                PlaceSettingsActivity.class);
+        intent.putExtra(PlaceSettingsActivity.EXTRA_PLACE, (Parcelable) place);
+        startActivityForResult(intent, REQUEST_LIST_SETTINGS);
         return true;
       case R.id.menu_gtasks_list_settings:
         Intent gtasksSettings = new Intent(getActivity(), GoogleTaskListSettingsActivity.class);
         gtasksSettings.putExtra(
             GoogleTaskListSettingsActivity.EXTRA_STORE_DATA, ((GtasksFilter) filter).getList());
-        startActivityForResult(gtasksSettings, REQUEST_GTASK_SETTINGS);
+        startActivityForResult(gtasksSettings, REQUEST_LIST_SETTINGS);
         return true;
       case R.id.menu_tag_settings:
         Intent tagSettings = new Intent(getActivity(), TagSettingsActivity.class);
         tagSettings.putExtra(TagSettingsActivity.EXTRA_TAG_DATA, ((TagFilter) filter).getTagData());
-        startActivityForResult(tagSettings, REQUEST_TAG_SETTINGS);
+        startActivityForResult(tagSettings, REQUEST_LIST_SETTINGS);
         return true;
       case R.id.menu_expand_subtasks:
         taskDao.setCollapsed(taskListViewModel.getValue(), false);
@@ -603,10 +612,7 @@ public final class TaskListFragment extends InjectingFragment
           finishActionMode();
         }
         break;
-      case REQUEST_FILTER_SETTINGS:
-      case REQUEST_CALDAV_SETTINGS:
-      case REQUEST_GTASK_SETTINGS:
-      case REQUEST_TAG_SETTINGS:
+      case REQUEST_LIST_SETTINGS:
         if (resultCode == Activity.RESULT_OK) {
           String action = data.getAction();
           if (ACTION_DELETED.equals(action)) {

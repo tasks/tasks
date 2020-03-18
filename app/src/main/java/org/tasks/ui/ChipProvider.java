@@ -115,10 +115,7 @@ public class ChipProvider {
     }
     if (task.hasLocation() && !(filter instanceof LocationFilter)) {
       Location location = task.getLocation();
-      Chip chip = newChip(new LocationFilter(location.getPlace()));
-      apply(
-          chip, R.drawable.ic_outline_place_24px, location.getDisplayName(), 0, showText, showIcon);
-      chips.add(chip);
+      chips.add(newChip(new LocationFilter(location.getPlace()), R.drawable.ic_outline_place_24px));
     }
     if (!isSubtask) {
       if (!Strings.isNullOrEmpty(task.getGoogleTaskList()) && !(filter instanceof GtasksFilter)) {
