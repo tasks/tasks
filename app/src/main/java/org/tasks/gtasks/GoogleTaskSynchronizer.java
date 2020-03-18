@@ -204,6 +204,10 @@ public class GoogleTaskSynchronizer {
     }
     for (GoogleTaskList list :
         googleTaskListDao.getByRemoteId(transform(gtaskLists, TaskList::getId))) {
+      if (Strings.isNullOrEmpty(list.getRemoteId())) {
+        tracker.reportException(new RuntimeException("Empty remote id"));
+        continue;
+      }
       fetchAndApplyRemoteChanges(gtasksInvoker, list);
       if (!preferences.isPositionHackEnabled()) {
         googleTaskDao.reposition(list.getRemoteId());
@@ -389,8 +393,14 @@ public class GoogleTaskSynchronizer {
     List<com.google.api.services.tasks.model.Task> tasks = new ArrayList<>();
     String nextPageToken = null;
     do {
-      Tasks taskList =
-          gtasksInvoker.getAllGtasksFromListId(listId, lastSyncDate + 1000L, nextPageToken);
+      Tasks taskList;
+      try {
+        taskList =
+            gtasksInvoker.getAllGtasksFromListId(listId, lastSyncDate + 1000L, nextPageToken);
+      } catch (HttpNotFoundException e) {
+        tracker.reportException(e);
+        return;
+      }
       if (taskList == null) {
         break;
       }
