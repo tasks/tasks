@@ -568,4 +568,8 @@ File %1$s contained %2$s.\n\n
   <string name="desaturate_colors_summary_off">Colors will not be desaturated in dark themes</string>
   <string name="places">Places</string>
   <string name="place_settings">Place settings</string>
+  <string name="navigation_drawer">Navigation drawer</string>
+  <string name="hide_unused_tags">Hide unused tags</string>
+  <string name="hide_unused_places">Hide unused places</string>
+  <string name="add_place">Add place</string>
 </resources>

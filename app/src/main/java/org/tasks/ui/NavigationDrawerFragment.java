@@ -51,6 +51,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
   public static final int REQUEST_SETTINGS = 10101;
   public static final int REQUEST_PURCHASE = 10102;
   public static final int REQUEST_DONATE = 10103;
+  public static final int REQUEST_NEW_PLACE = 10104;
 
   private final RefreshReceiver refreshReceiver = new RefreshReceiver();
   @Inject LocalBroadcastManager localBroadcastManager;

@@ -182,25 +182,6 @@
 
   </PreferenceCategory>
 
-  <PreferenceCategory android:title="@string/EPr_filters_to_show_title">
-
-    <SwitchPreferenceCompat
-      android:defaultValue="true"
-      android:key="@string/p_show_today_filter"
-      android:title="@string/today" />
-
-    <SwitchPreferenceCompat
-      android:defaultValue="true"
-      android:key="@string/p_show_recently_modified_filter"
-      android:title="@string/BFE_Recent" />
-
-    <SwitchPreferenceCompat
-      android:defaultValue="true"
-      android:key="@string/p_show_not_in_list_filter"
-      android:title="@string/tag_FEx_untagged" />
-
-  </PreferenceCategory>
-
   <PreferenceCategory
     android:key="@string/settings_localization"
     android:title="@string/settings_localization">

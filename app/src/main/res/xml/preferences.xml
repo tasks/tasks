@@ -23,6 +23,11 @@
     app:title="@string/task_defaults" />
 
   <Preference
+    app:fragment="org.tasks.preferences.fragments.NavigationDrawer"
+    app:icon="@drawable/ic_outline_menu_24px"
+    app:title="@string/navigation_drawer" />
+
+  <Preference
     app:fragment="org.tasks.preferences.fragments.Backups"
     app:icon="@drawable/ic_outline_sd_storage_24px"
     app:title="@string/backup_BPr_header" />

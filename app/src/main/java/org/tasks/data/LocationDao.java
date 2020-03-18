@@ -77,11 +77,9 @@ public interface LocationDao {
   Place findPlace(String latitude, String longitude);
 
   @Query("SELECT places.*, COUNT(tasks._id) AS count FROM places "
-      + " INNER JOIN geofences ON geofences.place = places.uid "
-      + " INNER JOIN tasks ON geofences.task = tasks._id"
-      + " WHERE tasks.completed = 0 AND tasks.deleted = 0"
-      + " AND tasks.hideUntil < :now"
+      + " LEFT JOIN geofences ON geofences.place = places.uid "
+      + " LEFT JOIN tasks ON geofences.task = tasks._id AND tasks.completed = 0 AND tasks.deleted = 0 AND tasks.hideUntil < :now"
       + " GROUP BY places.uid"
-      + " ORDER BY count DESC")
+      + " ORDER BY count DESC, name COLLATE NOCASE ASC")
   List<LocationFilters> getPlaceFilters(long now);
 }

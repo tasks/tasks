@@ -19,6 +19,7 @@ import org.tasks.preferences.fragments.Debug;
 import org.tasks.preferences.fragments.HelpAndFeedback;
 import org.tasks.preferences.fragments.LookAndFeel;
 import org.tasks.preferences.fragments.MainSettingsFragment;
+import org.tasks.preferences.fragments.NavigationDrawer;
 import org.tasks.preferences.fragments.Notifications;
 import org.tasks.preferences.fragments.ScrollableWidget;
 import org.tasks.preferences.fragments.Synchronization;
@@ -101,4 +102,6 @@ public interface FragmentComponent {
   void inject(@NonNull TaskerListNotification taskerListNotification);
 
   void inject(EmptyTaskEditFragment emptyTaskEditFragment);
+
+  void inject(NavigationDrawer navigationDrawer);
 }

@@ -12,8 +12,10 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastNougat;
 import static com.todoroo.astrid.activity.TaskEditFragment.newTaskEditFragment;
 import static com.todoroo.astrid.activity.TaskListFragment.newTaskListFragment;
+import static org.tasks.location.LocationPickerActivity.EXTRA_PLACE;
 import static org.tasks.tasklist.ActionUtils.applySupportActionModeColor;
 import static org.tasks.ui.NavigationDrawerFragment.REQUEST_NEW_LIST;
+import static org.tasks.ui.NavigationDrawerFragment.REQUEST_NEW_PLACE;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -43,8 +45,10 @@ import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.activities.TagSettingsActivity;
 import org.tasks.billing.Inventory;
+import org.tasks.data.Place;
 import org.tasks.databinding.TaskListActivityBinding;
 import org.tasks.dialogs.SortDialog;
+import org.tasks.filters.PlaceFilter;
 import org.tasks.fragments.CommentBarFragment;
 import org.tasks.gtasks.PlayServices;
 import org.tasks.injection.ActivityComponent;
@@ -149,6 +153,13 @@ public class MainActivity extends InjectingAppCompatActivity
         Filter filter = data.getParcelableExtra(MainActivity.OPEN_FILTER);
         if (filter != null) {
           startActivity(TaskIntents.getTaskListIntent(this, filter));
+        }
+      }
+    } else if (requestCode == REQUEST_NEW_PLACE) {
+      if (resultCode == RESULT_OK && data != null) {
+        Place place = data.getParcelableExtra(EXTRA_PLACE);
+        if (place != null) {
+          startActivity(TaskIntents.getTaskListIntent(this, new PlaceFilter(place)));
         }
       }
     } else {

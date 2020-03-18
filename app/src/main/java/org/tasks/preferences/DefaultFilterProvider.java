@@ -19,7 +19,6 @@ import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.api.TagFilter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.core.CustomFilterExposer;
-import com.todoroo.astrid.tags.TagFilterExposer;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.data.CaldavCalendar;
@@ -28,6 +27,8 @@ import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
 import org.tasks.data.LocationDao;
 import org.tasks.data.Place;
+import org.tasks.data.TagData;
+import org.tasks.data.TagDataDao;
 import org.tasks.filters.PlaceFilter;
 import org.tasks.injection.ForApplication;
 import timber.log.Timber;
@@ -49,7 +50,7 @@ public class DefaultFilterProvider {
   private final Context context;
   private final Preferences preferences;
   private final CustomFilterExposer customFilterExposer;
-  private final TagFilterExposer tagFilterExposer;
+  private final TagDataDao tagDataDao;
   private final GoogleTaskListDao googleTaskListDao;
   private final CaldavDao caldavDao;
   private final LocationDao locationDao;
@@ -59,14 +60,14 @@ public class DefaultFilterProvider {
       @ForApplication Context context,
       Preferences preferences,
       CustomFilterExposer customFilterExposer,
-      TagFilterExposer tagFilterExposer,
+      TagDataDao tagDataDao,
       GoogleTaskListDao googleTaskListDao,
       CaldavDao caldavDao,
       LocationDao locationDao) {
     this.context = context;
     this.preferences = preferences;
     this.customFilterExposer = customFilterExposer;
-    this.tagFilterExposer = tagFilterExposer;
+    this.tagDataDao = tagDataDao;
     this.googleTaskListDao = googleTaskListDao;
     this.caldavDao = caldavDao;
     this.locationDao = locationDao;
@@ -136,7 +137,8 @@ public class DefaultFilterProvider {
       case TYPE_CUSTOM_FILTER:
         return customFilterExposer.getFilter(Long.parseLong(split[1]));
       case TYPE_TAG:
-        return tagFilterExposer.getFilterByUuid(split[1]);
+        TagData tag = tagDataDao.getByUuid(split[1]);
+        return tag == null || isNullOrEmpty(tag.getName()) ? null : new TagFilter(tag);
       case TYPE_GOOGLE_TASKS:
         GoogleTaskList list = googleTaskListDao.getById(Long.parseLong(split[1]));
         return list == null ? null : new GtasksFilter(list);

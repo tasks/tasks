@@ -7,6 +7,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertNotMainThread;
 import static com.todoroo.andlib.utility.DateUtilities.now;
+import static java.util.Collections.emptyList;
 import static org.tasks.caldav.CaldavCalendarSettingsActivity.EXTRA_CALDAV_ACCOUNT;
 import static org.tasks.ui.NavigationDrawerFragment.REQUEST_DONATE;
 import static org.tasks.ui.NavigationDrawerFragment.REQUEST_PURCHASE;
@@ -21,7 +22,6 @@ import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.core.CustomFilterActivity;
 import com.todoroo.astrid.core.CustomFilterExposer;
-import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.timers.TimerFilterExposer;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -43,9 +43,11 @@ import org.tasks.data.CaldavDao;
 import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskListDao;
 import org.tasks.data.LocationDao;
+import org.tasks.data.TagDataDao;
 import org.tasks.etesync.EteSyncCalendarSettingsActivity;
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType;
 import org.tasks.injection.ForApplication;
+import org.tasks.location.LocationPickerActivity;
 import org.tasks.preferences.HelpAndFeedback;
 import org.tasks.preferences.MainPreferences;
 import org.tasks.preferences.Preferences;
@@ -58,7 +60,7 @@ public class FilterProvider {
   private final BuiltInFilterExposer builtInFilterExposer;
   private final TimerFilterExposer timerFilterExposer;
   private final CustomFilterExposer customFilterExposer;
-  private final TagFilterExposer tagFilterExposer;
+  private final TagDataDao tagDataDao;
   private final GoogleTaskListDao googleTaskListDao;
   private final CaldavDao caldavDao;
   private final Preferences preferences;
@@ -71,7 +73,7 @@ public class FilterProvider {
       BuiltInFilterExposer builtInFilterExposer,
       TimerFilterExposer timerFilterExposer,
       CustomFilterExposer customFilterExposer,
-      TagFilterExposer tagFilterExposer,
+      TagDataDao tagDataDao,
       GoogleTaskListDao googleTaskListDao,
       CaldavDao caldavDao,
       Preferences preferences,
@@ -81,7 +83,7 @@ public class FilterProvider {
     this.builtInFilterExposer = builtInFilterExposer;
     this.timerFilterExposer = timerFilterExposer;
     this.customFilterExposer = customFilterExposer;
-    this.tagFilterExposer = tagFilterExposer;
+    this.tagDataDao = tagDataDao;
     this.googleTaskListDao = googleTaskListDao;
     this.caldavDao = caldavDao;
     this.preferences = preferences;
@@ -126,12 +128,10 @@ public class FilterProvider {
     return items;
   }
 
-  public List<FilterListItem> getItems(boolean navigationDrawer) {
-    assertNotMainThread();
-
-    List<FilterListItem> items = new ArrayList<>();
-
-    items.add(builtInFilterExposer.getMyTasksFilter());
+  private void addFilters(List<FilterListItem> items, boolean navigationDrawer) {
+    if (!preferences.getBoolean(R.string.p_filters_enabled, true)) {
+      return;
+    }
 
     items.addAll(getSubmenu(R.string.filters, R.string.p_collapse_filters, this::getFilters));
 
@@ -143,24 +143,32 @@ public class FilterProvider {
               new Intent(context, CustomFilterActivity.class),
               NavigationDrawerFragment.REQUEST_NEW_LIST));
     }
+  }
 
-    items.addAll(
-        getSubmenu(R.string.tags, R.string.p_collapse_tags, tagFilterExposer::getFilters));
-
-    if (navigationDrawer) {
-      boolean collapsed = preferences.getBoolean(R.string.p_collapse_locations, false);
-      items.addAll(
-          getSubmenu(
-              context.getString(R.string.places),
-              false,
-              collapsed ? Collections.emptyList() : getLocationFilters(),
-              true,
-              collapsed,
-              SubheaderType.PREFERENCE,
-              R.string.p_collapse_locations));
+  private void addTags(List<FilterListItem> items, boolean navigationDrawer) {
+    if (!preferences.getBoolean(R.string.p_tags_enabled, true)) {
+      return;
     }
 
-    if (navigationDrawer && !preferences.getBoolean(R.string.p_collapse_tags, false)) {
+    boolean collapsed = preferences.getBoolean(R.string.p_collapse_tags, false);
+    Iterable<TagFilters> filters = collapsed ? emptyList() : tagDataDao.getTagFilters(now());
+    if (preferences.getBoolean(R.string.p_tags_hide_unused, false)) {
+      filters = filter(filters, f -> f.count > 0);
+    }
+    List<Filter> tags = newArrayList(Iterables.transform(filters, TagFilters::toTagFilter));
+    Collections.sort(tags, new AlphanumComparator<>(AlphanumComparator.FILTER));
+
+    items.addAll(
+        getSubmenu(
+            context.getString(R.string.tags),
+            false,
+            tags,
+            false,
+            collapsed,
+            SubheaderType.PREFERENCE,
+            R.string.p_collapse_tags));
+
+    if (navigationDrawer && !collapsed) {
       items.add(
           new NavigationDrawerAction(
               context.getString(R.string.new_tag),
@@ -168,6 +176,51 @@ public class FilterProvider {
               new Intent(context, TagSettingsActivity.class),
               NavigationDrawerFragment.REQUEST_NEW_LIST));
     }
+  }
+
+  private void addPlaces(List<FilterListItem> items, boolean navigationDrawer) {
+    if (!preferences.getBoolean(R.string.p_places_enabled, true)) {
+      return;
+    }
+
+    boolean collapsed = preferences.getBoolean(R.string.p_collapse_locations, false);
+    Iterable<LocationFilters> filters = collapsed ? emptyList() : locationDao.getPlaceFilters(now());
+    if (preferences.getBoolean(R.string.p_places_hide_unused, false)) {
+      filters = filter(filters, f -> f.count > 0);
+    }
+
+    items.addAll(
+        getSubmenu(
+            context.getString(R.string.places),
+            false,
+            newArrayList(Iterables.transform(filters, LocationFilters::toLocationFilter)),
+            false,
+            collapsed,
+            SubheaderType.PREFERENCE,
+            R.string.p_collapse_locations));
+
+    if (navigationDrawer && !collapsed) {
+      items.add(
+          new NavigationDrawerAction(
+              context.getString(R.string.add_place),
+              R.drawable.ic_outline_add_24px,
+              new Intent(context, LocationPickerActivity.class),
+              NavigationDrawerFragment.REQUEST_NEW_PLACE));
+    }
+  }
+
+  public List<FilterListItem> getItems(boolean navigationDrawer) {
+    assertNotMainThread();
+
+    List<FilterListItem> items = new ArrayList<>();
+
+    items.add(builtInFilterExposer.getMyTasksFilter());
+
+    addFilters(items, navigationDrawer);
+
+    addTags(items, navigationDrawer);
+
+    addPlaces(items, navigationDrawer);
 
     for (Map.Entry<GoogleTaskAccount, List<Filter>> filters : getGoogleTaskFilters()) {
       GoogleTaskAccount account = filters.getKey();
@@ -255,12 +308,6 @@ public class FilterProvider {
     return items;
   }
 
-  private List<Filter> getLocationFilters() {
-    List<LocationFilters> filters = locationDao.getPlaceFilters(now());
-    return newArrayList(
-        Iterables.transform(filter(filters, f -> f.count > 0), LocationFilters::toLocationFilter));
-  }
-
   private List<Filter> getFilters() {
     ArrayList<Filter> filters = new ArrayList<>();
     filters.addAll(builtInFilterExposer.getFilters());
@@ -276,7 +323,7 @@ public class FilterProvider {
       filters.put(
           account,
           account.isCollapsed()
-              ? Collections.emptyList()
+              ? emptyList()
               : newArrayList(
                   transform(
                       googleTaskListDao.getGoogleTaskFilters(account.getId(), now()),
@@ -295,7 +342,7 @@ public class FilterProvider {
       filters.put(
           account,
           account.isCollapsed()
-              ? Collections.emptyList()
+              ? emptyList()
               : newArrayList(
                   transform(
                       caldavDao.getCaldavFilters(account.getId(), now()),
@@ -314,7 +361,7 @@ public class FilterProvider {
             ImmutableList.of(
                 new NavigationDrawerSubheader(
                     context.getString(title), false, collapsed, SubheaderType.PREFERENCE, prefId)),
-            collapsed ? Collections.emptyList() : getFilters.call()));
+            collapsed ? emptyList() : getFilters.call()));
   }
 
   private List<FilterListItem> getSubmenu(
