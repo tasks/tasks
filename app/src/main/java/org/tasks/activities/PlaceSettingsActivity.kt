@@ -37,7 +37,13 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
             finish()
         }
 
-        place = intent?.getParcelableExtra(EXTRA_PLACE)!!
+        val extra: Place? = intent?.getParcelableExtra(EXTRA_PLACE)
+        if (extra == null) {
+            finish()
+            return
+        }
+
+        place = extra
 
         super.onCreate(savedInstanceState)
 
@@ -85,7 +91,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
     override fun isNew() = false
 
     override fun getToolbarTitle(): String {
-        return place.address
+        return place.address ?: place.displayName
     }
 
     override fun delete() {
