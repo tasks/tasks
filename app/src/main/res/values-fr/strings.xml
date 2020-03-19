@@ -560,4 +560,10 @@ est configuré correctement</string>
     <string name="desaturate_colors">Désaturer les couleurs</string>
     <string name="desaturate_colors_summary_on">Les couleurs seront désaturées dans des thèmes sombres</string>
     <string name="desaturate_colors_summary_off">Les couleurs ne seront pas désaturées dans des thèmes sombres</string>
+    <string name="places">Lieux</string>
+    <string name="place_settings">Paramètres du lieu</string>
+    <string name="navigation_drawer">Tiroir de navigation</string>
+    <string name="hide_unused_tags">Cacher les étiquettes non utilisées</string>
+    <string name="hide_unused_places">Masquer les lieux inutilisés</string>
+    <string name="add_place">Ajouter un lieu</string>
 </resources>
