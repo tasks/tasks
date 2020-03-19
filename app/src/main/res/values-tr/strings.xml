@@ -306,7 +306,7 @@
     <string name="google_drive_backup">Google Drive\'a kopyala</string>
     <string name="miscellaneous">Türlü</string>
     <string name="synchronization">Eşzamanlama</string>
-    <string name="enabled">Etkinleştirildi</string>
+    <string name="enabled">Etkin</string>
     <string name="font_size">Yazı tipi boyutu</string>
     <string name="row_spacing">Satır aralığı</string>
     <string name="customize_edit_screen">Düzenleme ekranını özelleştir</string>
@@ -464,7 +464,7 @@
     <string name="show_full_description">Tam açıklamayı göster</string>
     <string name="linkify">Bağlantıları göster</string>
     <string name="linkify_description">Web sitelerine, adreslere ve telefon numaralarına bağlantı ekle</string>
-    <string name="show_list_indicators">Liste çentiklerini göster</string>
+    <string name="show_list_indicators">Liste yongalarını göster</string>
     <string name="location_remind_arrival">Varışta hatırlat</string>
     <string name="location_remind_departure">Kalkışta hatırlat</string>
     <string name="visit_website">Web siteyi ziyaret et</string>
@@ -555,4 +555,19 @@
     <string name="upgrade_blurb_3">Ücretsiz denemenizi başlatmak için aşağıdan herhangi abonelik bedelini seçin. İstediğinizde iptal edebilirsiniz</string>
     <string name="upgrade_blurb_4">Desteğiniz çok şey ifade ediyor, teşekkürler!</string>
     <string name="back">Geri</string>
+    <string name="requires_android_version">Android %s+ gerektirir</string>
+    <string name="chip_style">Yonga biçimi</string>
+    <string name="chip_style_outlined">Dış çizgi</string>
+    <string name="chip_style_filled">Tok</string>
+    <string name="chips">Yongalar</string>
+    <string name="chip_appearance">Yonga görünümü</string>
+    <string name="desaturate_colors">Renkleri solgunlaştır</string>
+    <string name="desaturate_colors_summary_on">Renkler karanlık gövdelerde solgunlaştırılacak</string>
+    <string name="desaturate_colors_summary_off">Renkler karanlık gövdelerde solgunlaştırılmayacak</string>
+    <string name="places">Yerler</string>
+    <string name="place_settings">Yer ayarları</string>
+    <string name="navigation_drawer">Gezinim çekmecesi</string>
+    <string name="hide_unused_tags">Kullanılmayan etiketleri gizle</string>
+    <string name="hide_unused_places">Kullanılmayan yerleri gizle</string>
+    <string name="add_place">Yer ekle</string>
 </resources>
