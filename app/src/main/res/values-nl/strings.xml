@@ -259,7 +259,7 @@
     <string name="repeat_occurs">Keren</string>
     <string name="repeat_snackbar">%1$s opnieuw ingepland op %2$s</string>
     <string name="repeat_snackbar_time" comment="display new due date and time in snackbar after completing repeating task, e.g. \'Tomorrow at 8 AM\' or \'21 May at 8 AM\'">%1$s om %2$s</string>
-    <string name="new_tag">Nieuwe tag aanmaken</string>
+    <string name="new_tag">Nieuw label aanmaken</string>
     <string name="new_list">Nieuwe lijst aanmaken</string>
     <string name="tag_FEx_untagged">Niet gecategoriseerd</string>
     <string name="delete_tag_confirmation">Verwijder %s?</string>
@@ -559,4 +559,10 @@
     <string name="desaturate_colors">Maak kleuren minder verzadigd</string>
     <string name="desaturate_colors_summary_on">Kleuren worden minder verzadigd in donkere thema\'s</string>
     <string name="desaturate_colors_summary_off">Kleuren worden niet minder verzadigd in donkere thema\'s</string>
+    <string name="places">Plaatsen</string>
+    <string name="place_settings">Plaats instellingen</string>
+    <string name="navigation_drawer">Navigatie la</string>
+    <string name="hide_unused_tags">Verberg ongebruikte labels</string>
+    <string name="hide_unused_places">Verberg ongebruikte plaatsen</string>
+    <string name="add_place">Voeg plaats toe</string>
 </resources>
