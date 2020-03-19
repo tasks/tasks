@@ -254,7 +254,7 @@ public class FilterProvider {
               ? Collections.emptyList()
               : newArrayList(
                   transform(
-                      googleTaskListDao.getGoogleTaskFilters(account.getId(), now()),
+                      googleTaskListDao.getGoogleTaskFilters(account.getAccount(), now()),
                       GoogleTaskFilters::toGtasksFilter)));
     }
     for (Map.Entry<GoogleTaskAccount, List<Filter>> entry : filters.entrySet()) {
@@ -273,7 +273,7 @@ public class FilterProvider {
               ? Collections.emptyList()
               : newArrayList(
                   transform(
-                      caldavDao.getCaldavFilters(account.getId(), now()),
+                      caldavDao.getCaldavFilters(account.getUuid(), now()),
                       CaldavFilters::toCaldavFilter)));
     }
     for (Map.Entry<CaldavAccount, List<Filter>> entry : filters.entrySet()) {

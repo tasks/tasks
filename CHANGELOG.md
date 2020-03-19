@@ -1,5 +1,9 @@
 Change Log
 ---
+### 8.6.1 (2020-03-19)
+
+* Fix crash on startup
+
 ### 8.6 (2020-03-17)
 
 * Expand and collapse navigation drawer groups
