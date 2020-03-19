@@ -566,4 +566,10 @@
     <string name="desaturate_colors">Desasetu koloreak</string>
     <string name="desaturate_colors_summary_on">Koloreak desasetuko dira gai ilunetan</string>
     <string name="desaturate_colors_summary_off">Koloreak ez dira desasetuko gai ilunetan</string>
+    <string name="places">Tokiak</string>
+    <string name="place_settings">Toki-ezarpenak</string>
+    <string name="navigation_drawer">Nabigazio tiradera</string>
+    <string name="hide_unused_tags">Ezkutatu erabili gabeko etiketak</string>
+    <string name="hide_unused_places">Ezkutatu erabili gabeko tokiak</string>
+    <string name="add_place">Gehitu tokia</string>
 </resources>
