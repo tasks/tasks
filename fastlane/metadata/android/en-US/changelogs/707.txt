@@ -1,0 +1,4 @@
+* Expand and collapse navigation drawer groups
+* Update translations
+
+Full release notes: https://tasks.org/changelog

@@ -1,6 +1,7 @@
 package org.tasks.data;
 
 import static com.natpryce.makeiteasy.MakeItEasy.with;
+import static com.todoroo.andlib.utility.DateUtilities.now;
 import static java.util.Collections.singletonList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -14,6 +15,7 @@ import static org.tasks.makers.TaskMaker.newTask;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.helper.UUIDHelper;
 import javax.inject.Inject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -61,6 +63,15 @@ public class CaldavDaoTests extends InjectingTestCase {
     caldavDao.insert(new CaldavTask(task.getId(), "calendar"));
 
     assertTrue(caldavDao.getTasksWithTags().isEmpty());
+  }
+
+  @Test
+  public void noResultsForEmptyAccounts() {
+    CaldavAccount caldavAccount = new CaldavAccount();
+    caldavAccount.setUuid(UUIDHelper.newUUID());
+    caldavDao.insert(caldavAccount);
+
+    assertTrue(caldavDao.getCaldavFilters(caldavAccount.getUuid(), now()).isEmpty());
   }
 
   @Override
