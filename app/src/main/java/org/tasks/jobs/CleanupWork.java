@@ -7,6 +7,8 @@ import com.todoroo.astrid.alarms.AlarmService;
 import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.timers.TimerPlugin;
 import javax.inject.Inject;
+import org.tasks.data.Geofence;
+import org.tasks.data.LocationDao;
 import org.tasks.data.TaskAttachment;
 import org.tasks.data.TaskAttachmentDao;
 import org.tasks.data.UserActivity;
@@ -29,6 +31,7 @@ public class CleanupWork extends InjectingWorker {
   @Inject AlarmService alarmService;
   @Inject TaskAttachmentDao taskAttachmentDao;
   @Inject UserActivityDao userActivityDao;
+  @Inject LocationDao locationDao;
 
   public CleanupWork(@NonNull Context context, @NonNull WorkerParameters workerParams) {
     super(context, workerParams);
@@ -47,7 +50,10 @@ public class CleanupWork extends InjectingWorker {
       alarmService.cancelAlarms(task);
       reminderService.cancelReminder(task);
       notificationManager.cancel(task);
-      geofenceApi.cancel(task);
+      for (Geofence geofence : locationDao.getGeofencesForTask(task)) {
+        locationDao.delete(geofence);
+        geofenceApi.update(geofence.getPlace());
+      }
       for (TaskAttachment attachment : taskAttachmentDao.getAttachments(task)) {
         FileHelper.delete(context, attachment.parseUri());
         taskAttachmentDao.delete(attachment);

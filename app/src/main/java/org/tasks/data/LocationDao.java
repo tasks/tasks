@@ -15,16 +15,58 @@ import org.tasks.filters.LocationFilters;
 public interface LocationDao {
 
   @Query(
-      "SELECT * FROM geofences INNER JOIN places ON geofences.place = places.uid WHERE geofence_id = :id LIMIT 1")
-  Location getGeofence(Long id);
+      "SELECT places.*"
+          + " FROM places"
+          + " INNER JOIN geofences ON geofences.place = places.uid"
+          + " INNER JOIN tasks ON geofences.task = tasks._id"
+          + " WHERE tasks.completed = 0 AND tasks.deleted = 0"
+          + " AND (geofences.arrival > 0 OR geofences.departure > 0)"
+          + " GROUP BY places.uid")
+  List<Place> getPlacesWithGeofences();
 
   @Query(
-      "SELECT * FROM geofences INNER JOIN places ON geofences.place = places.uid WHERE task = :taskId ORDER BY name ASC LIMIT 1")
+      "SELECT places.*,"
+          + " max(geofences.arrival) as arrival,"
+          + " max(geofences.departure) as departure,"
+          + " min(geofences.radius) as radius"
+          + " FROM places"
+          + " INNER JOIN geofences ON geofences.place = places.uid"
+          + " INNER JOIN tasks ON tasks._id = geofences.task"
+          + " WHERE place = :uid AND tasks.completed = 0 AND tasks.deleted = 0"
+          + " AND (geofences.arrival > 0 OR geofences.departure > 0)"
+          + " GROUP BY places.uid")
+  MergedGeofence getGeofencesByPlace(String uid);
+
+  @Query("DELETE FROM geofences WHERE place = :place")
+  void deleteGeofencesByPlace(String place);
+
+  @Query(
+      "SELECT geofences.* FROM geofences"
+          + " INNER JOIN tasks ON tasks._id = geofences.task"
+          + " WHERE place = :place AND arrival = 1 AND tasks.completed = 0 AND tasks.deleted = 0")
+  List<Geofence> getArrivalGeofences(String place);
+
+  @Query(
+      "SELECT geofences.* FROM geofences"
+          + " INNER JOIN tasks ON tasks._id = geofences.task"
+          + " WHERE place = :place AND departure = 1 AND tasks.completed = 0 AND tasks.deleted = 0")
+  List<Geofence> getDepartureGeofences(String place);
+
+  @Query(
+      "SELECT * FROM geofences"
+          + " INNER JOIN places ON geofences.place = places.uid"
+          + " WHERE task = :taskId ORDER BY name ASC LIMIT 1")
   Location getGeofences(long taskId);
 
   @Query(
       "SELECT geofences.*, places.* FROM geofences INNER JOIN places ON geofences.place = places.uid INNER JOIN tasks ON tasks._id = geofences.task WHERE tasks._id = :taskId AND tasks.deleted = 0 AND tasks.completed = 0")
   List<Location> getActiveGeofences(long taskId);
+
+  @Query("SELECT places.*"
+      + " FROM places"
+      + " INNER JOIN geofences ON geofences.place = places.uid"
+      + " WHERE geofences.task = :taskId")
+  Place getPlaceForTask(long taskId);
 
   @Query(
       "SELECT geofences.*, places.* FROM geofences INNER JOIN places ON geofences.place = places.uid INNER JOIN tasks ON tasks._id = geofences.task WHERE tasks.deleted = 0 AND tasks.completed = 0")
@@ -56,9 +98,6 @@ public interface LocationDao {
 
   @Query("SELECT * FROM geofences WHERE task = :taskId")
   List<Geofence> getGeofencesForTask(long taskId);
-
-  @Query("SELECT * FROM geofences WHERE place = :uid")
-  List<Geofence> getGeofencesByPlace(String uid);
 
   @Query("SELECT * FROM places")
   List<Place> getPlaces();

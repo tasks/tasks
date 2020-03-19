@@ -95,7 +95,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
     }
 
     override fun delete() {
-        locationDao.getGeofencesByPlace(place.uid).forEach(locationDao::delete)
+        locationDao.deleteGeofencesByPlace(place.uid)
         locationDao.delete(place)
         setResult(Activity.RESULT_OK, Intent(TaskListFragment.ACTION_DELETED))
         finish()

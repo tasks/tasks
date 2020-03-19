@@ -98,9 +98,9 @@ public class AfterSaveWork extends InjectingWorker {
 
     if (justCompleted || justDeleted) {
       notificationManager.cancel(taskId);
-      geofenceApi.cancel(taskId);
-    } else if (completionDateModified || deletionDateModified) {
-      geofenceApi.register(taskId);
+    }
+    if (completionDateModified || deletionDateModified) {
+      geofenceApi.update(taskId);
     }
 
     if (justCompleted) {

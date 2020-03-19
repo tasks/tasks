@@ -10,7 +10,6 @@ import com.google.common.collect.Sets.difference
 import com.google.common.collect.Sets.newHashSet
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.data.SyncFlags
 import com.todoroo.astrid.helper.UUIDHelper
 import com.todoroo.astrid.service.TaskCreator
 import net.fortuna.ical4j.model.Parameter
@@ -29,6 +28,7 @@ import java.io.ByteArrayOutputStream
 import java.io.StringReader
 import javax.inject.Inject
 
+@Suppress("ClassName")
 class iCalendar @Inject constructor(
         private val tagDataDao: TagDataDao,
         private val preferences: Preferences,
@@ -85,14 +85,13 @@ class iCalendar @Inject constructor(
             val geofence = Geofence(place!!.uid, preferences)
             geofence.task = taskId
             geofence.id = locationDao.insert(geofence)
-            geofenceApi.register(Location(geofence, place))
         } else if (place != existing.place) {
-            geofenceApi.cancel(existing)
             val geofence = existing.geofence
             geofence.place = place!!.uid
             locationDao.update(geofence)
-            geofenceApi.register(existing)
+            geofenceApi.update(existing.place)
         }
+        geofenceApi.update(place)
     }
 
     fun getTags(categories: List<String>): List<TagData> {
@@ -154,8 +153,8 @@ class iCalendar @Inject constructor(
         val geo = remote.geoPosition
         if (geo == null) {
             locationDao.getActiveGeofences(task.getId()).forEach {
-                geofenceApi.cancel(it)
                 locationDao.delete(it.geofence)
+                geofenceApi.update(it.place)
             }
         } else {
             setPlace(task.getId(), geo)

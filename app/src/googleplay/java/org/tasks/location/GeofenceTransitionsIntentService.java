@@ -4,7 +4,6 @@ import static com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER
 import static com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_EXIT;
 import static com.todoroo.astrid.reminders.ReminderService.TYPE_GEOFENCE_ENTER;
 import static com.todoroo.astrid.reminders.ReminderService.TYPE_GEOFENCE_EXIT;
-import static java.util.Collections.singletonList;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 import android.content.BroadcastReceiver;
@@ -12,11 +11,13 @@ import android.content.Context;
 import android.content.Intent;
 import androidx.core.app.JobIntentService;
 import com.google.android.gms.location.GeofencingEvent;
+import com.google.common.collect.Lists;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.Notifier;
-import org.tasks.data.Location;
+import org.tasks.data.Geofence;
 import org.tasks.data.LocationDao;
+import org.tasks.data.Place;
 import org.tasks.injection.InjectingJobIntentService;
 import org.tasks.injection.ServiceComponent;
 import org.tasks.notifications.Notification;
@@ -58,20 +59,27 @@ public class GeofenceTransitionsIntentService extends InjectingJobIntentService 
       com.google.android.gms.location.Geofence triggeringGeofence, boolean arrival) {
     String requestId = triggeringGeofence.getRequestId();
     try {
+      Place place = locationDao.getPlace(requestId);
+      if (place == null) {
+        Timber.e("Can't find place for requestId %s", requestId);
+        return;
+      }
+      List<Geofence> geofences = arrival
+          ? locationDao.getArrivalGeofences(place.getUid())
+          : locationDao.getDepartureGeofences(place.getUid());
       notifier.triggerNotifications(
-          singletonList(
-              toNotification(locationDao.getGeofence(Long.parseLong(requestId)), arrival)));
+          Lists.transform(geofences, g -> toNotification(place, g, arrival)));
     } catch (Exception e) {
       Timber.e(e, "Error triggering geofence %s: %s", requestId, e.getMessage());
     }
   }
 
-  private Notification toNotification(Location location, boolean arrival) {
+  private Notification toNotification(Place place, Geofence geofence, boolean arrival) {
     Notification notification = new Notification();
-    notification.taskId = location.getTask();
+    notification.taskId = geofence.getTask();
     notification.type = arrival ? TYPE_GEOFENCE_ENTER : TYPE_GEOFENCE_EXIT;
     notification.timestamp = currentTimeMillis();
-    notification.location = location.getId();
+    notification.location = place.getId();
     return notification;
   }
 

@@ -263,8 +263,8 @@ public class LocationControlSet extends TaskEditControlFragment {
     }
 
     if (original != null) {
-      geofenceApi.cancel(original);
       locationDao.delete(original.geofence);
+      geofenceApi.update(original.place);
     }
     if (location != null) {
       Place place = location.place;
@@ -272,7 +272,7 @@ public class LocationControlSet extends TaskEditControlFragment {
       geofence.setTask(task.getId());
       geofence.setPlace(place.getUid());
       geofence.setId(locationDao.insert(geofence));
-      geofenceApi.register(location);
+      geofenceApi.update(place);
     }
     task.setModificationDate(DateUtilities.now());
   }

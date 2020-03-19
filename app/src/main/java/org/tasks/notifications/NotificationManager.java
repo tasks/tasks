@@ -41,8 +41,8 @@ import java.util.List;
 import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
-import org.tasks.data.Location;
 import org.tasks.data.LocationDao;
+import org.tasks.data.Place;
 import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.ForApplication;
 import org.tasks.intents.TaskIntents;
@@ -383,14 +383,14 @@ public class NotificationManager {
         PendingIntent.getActivity(context, (int) id, intent, PendingIntent.FLAG_UPDATE_CURRENT));
 
     if (type == TYPE_GEOFENCE_ENTER || type == TYPE_GEOFENCE_EXIT) {
-      Location location = locationDao.getGeofence(notification.location);
-      if (location != null) {
+      Place place = locationDao.getPlace(notification.location);
+      if (place != null) {
         builder.setContentText(
             context.getString(
                 type == TYPE_GEOFENCE_ENTER
                     ? R.string.location_arrived
                     : R.string.location_departed,
-                location.getDisplayName()));
+                place.getDisplayName()));
       }
     } else if (!Strings.isNullOrEmpty(taskDescription)) {
       builder
