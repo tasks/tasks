@@ -500,7 +500,7 @@
     <string name="name_your_price">Escoger tu precio</string>
     <string name="monthly">Mensualmente</string>
     <string name="annually">Anualmente</string>
-    <string name="SSD_sort_my_order">"Mi orden "</string>
+    <string name="SSD_sort_my_order">Mi orden</string>
     <string name="caldav_account_repeating_tasks">Permita que el servidor programe tareas recurrentes</string>
     <string name="EPr_temp_show_completed_tasks">Mostrar temporalmente las tareas una vez completadas</string>
     <string name="EPr_temp_completed_tasks_showing">Las tareas permanecerán temporalmente visibles en la lista una vez completadas</string>
@@ -564,4 +564,10 @@
     <string name="desaturate_colors">Colores desaturados</string>
     <string name="desaturate_colors_summary_on">Los colores serán desaturados en temas oscuros</string>
     <string name="desaturate_colors_summary_off">Los colores no se desaturarán en los temas oscuros</string>
+    <string name="places">Lugares</string>
+    <string name="place_settings">Ajustes de lugar</string>
+    <string name="navigation_drawer">Cajón de navegación</string>
+    <string name="hide_unused_tags">Ocultar etiquetas no utilizadas</string>
+    <string name="hide_unused_places">Ocultar lugares inusuales</string>
+    <string name="add_place">Añadir lugar</string>
 </resources>
