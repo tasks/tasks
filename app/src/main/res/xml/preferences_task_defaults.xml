@@ -69,7 +69,7 @@
     android:title="@string/EPr_default_reminders_mode_title" />
 
   <ListPreference
-    android:defaultValue="1"
+    android:defaultValue="0"
     android:entries="@array/EPr_default_location_reminder"
     android:entryValues="@array/EPR_default_location_reminder_values"
     android:icon="@drawable/ic_outline_place_24px"
