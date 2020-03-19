@@ -1,5 +1,21 @@
 Change Log
 ---
+### 8.7 (2020-03-19)
+
+* Places are now lists
+  * Rename a place
+  * Assign an icon and color to a place
+* Add new navigation drawer settings
+  * Option to remove filters, tags, and places from drawer
+  * Option to hide unused tags and places in drawer
+* Update translations
+  * Basque - @osoitz
+  * Dutch - @fvbommel
+  * French - @FlorianLeChat
+  * Hungarian - kaciokos
+  * Spanish - @FlorianLeChat
+  * Turkish - etc
+
 ### 8.6.1 (2020-03-19)
 
 * Fix crash on startup

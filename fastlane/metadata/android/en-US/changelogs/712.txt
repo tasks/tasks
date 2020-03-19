@@ -1,0 +1,8 @@
+* Places are now lists
+  * Rename a place
+  * Assign an icon and color to a place
+* Add new navigation drawer settings
+  * Option to remove filters, tags, and places from drawer
+  * Option to hide unused tags and places in drawer
+
+Full release notes: https://tasks.org/changelog
