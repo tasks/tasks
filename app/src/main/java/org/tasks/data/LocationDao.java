@@ -80,6 +80,6 @@ public interface LocationDao {
       + " LEFT JOIN geofences ON geofences.place = places.uid "
       + " LEFT JOIN tasks ON geofences.task = tasks._id AND tasks.completed = 0 AND tasks.deleted = 0 AND tasks.hideUntil < :now"
       + " GROUP BY places.uid"
-      + " ORDER BY count DESC, name COLLATE NOCASE ASC")
+      + " ORDER BY name COLLATE NOCASE ASC")
   List<LocationFilters> getPlaceFilters(long now);
 }

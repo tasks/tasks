@@ -4,7 +4,10 @@ import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 import androidx.annotation.NonNull;
+
+import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.api.Filter;
@@ -35,6 +38,11 @@ public class PlaceFilter extends Filter {
       };
 
   private Place place;
+  private static final Table G2 = Geofence.TABLE.as("G2");
+  private static final Field G2_PLACE = Field.field("G2.place");
+  private static final Field G2_TASK = Field.field("G2.task");
+  private static final Table P2 = Place.TABLE.as("P2");
+  private static final Field P2_UID = Field.field("P2.uid");
 
   private PlaceFilter(Parcel source) {
     super();
@@ -65,13 +73,9 @@ public class PlaceFilter extends Filter {
 
   private static QueryTemplate queryTemplate(Place place) {
     return new QueryTemplate()
-        .join(Join.inner(Geofence.TABLE, Task.ID.eq(Geofence.TASK)))
-        .join(Join.inner(Place.TABLE, Place.UID.eq(Geofence.PLACE)))
-        .where(getCriterion(place));
-  }
-
-  private static Criterion getCriterion(Place place) {
-    return Criterion.and(TaskDao.TaskCriteria.activeAndVisible(), Place.UID.eq(place.getUid()));
+        .join(Join.inner(G2, Task.ID.eq(G2_TASK)))
+        .join(Join.inner(P2, P2_UID.eq(G2_PLACE)))
+        .where(Criterion.and(TaskDao.TaskCriteria.activeAndVisible(), G2_PLACE.eq(place.getUid())));
   }
 
   private static Map<String, Object> getValuesForNewTask(Place place) {
