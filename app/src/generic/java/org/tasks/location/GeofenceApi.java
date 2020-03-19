@@ -1,8 +1,8 @@
 package org.tasks.location;
 
-import java.util.List;
 import javax.inject.Inject;
-import org.tasks.data.Location;
+import org.jetbrains.annotations.Nullable;
+import org.tasks.data.Place;
 
 @SuppressWarnings("EmptyMethod")
 public class GeofenceApi {
@@ -10,15 +10,11 @@ public class GeofenceApi {
   @Inject
   public GeofenceApi() {}
 
-  public void register(Location location) {}
-
-  public void register(List<Location> activeGeofences) {}
-
-  public void cancel(Location geofence) {}
-
   public void registerAll() {}
 
-  public void cancel(long taskId) {}
+  public void update(@Nullable Place place) {}
 
-  public void register(long taskId) {}
+  public void update(String place) {}
+
+  public void update(long taskId) {}
 }

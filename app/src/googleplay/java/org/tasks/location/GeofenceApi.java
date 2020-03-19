@@ -11,7 +11,6 @@ import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.location.GeofencingRequest.Builder;
 import com.google.android.gms.location.LocationServices;
 import com.google.common.collect.ImmutableList;
-import java.util.List;
 import javax.inject.Inject;
 import org.tasks.data.LocationDao;
 import org.tasks.data.MergedGeofence;
@@ -37,7 +36,9 @@ public class GeofenceApi {
   }
 
   public void registerAll() {
-    update(locationDao.getPlacesWithGeofences());
+    for (Place place : locationDao.getPlacesWithGeofences()) {
+      update(place);
+    }
   }
 
   public void update(long taskId) {
@@ -46,12 +47,6 @@ public class GeofenceApi {
 
   public void update(String place) {
     update(locationDao.getPlace(place));
-  }
-
-  private void update(List<Place> places) {
-    for (Place place : places) {
-      update(place);
-    }
   }
 
   public void update(@Nullable Place place) {
