@@ -61,6 +61,7 @@ public class Upgrader {
   private static final int V7_0 = 617;
   public static final int V8_2 = 675;
   private static final int V8_5 = 700;
+  private static final int V8_8 = 715;
   private final Context context;
   private final Preferences preferences;
   private final Tracker tracker;
@@ -122,6 +123,7 @@ public class Upgrader {
       run(from, V7_0, this::applyCaldavSubtasks);
       run(from, V8_2, this::migrateColors);
       run(from, V8_5, this::applyCaldavGeo);
+      run(from, V8_8, () -> preferences.setBoolean(R.string.p_linkify_task_edit, true));
     }
     preferences.setCurrentVersion(to);
   }

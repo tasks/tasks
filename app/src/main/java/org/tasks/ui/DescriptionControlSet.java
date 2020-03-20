@@ -15,6 +15,7 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.dialogs.Linkify;
 import org.tasks.injection.FragmentComponent;
+import org.tasks.preferences.Preferences;
 
 public class DescriptionControlSet extends TaskEditControlFragment {
 
@@ -22,6 +23,7 @@ public class DescriptionControlSet extends TaskEditControlFragment {
   private static final String EXTRA_DESCRIPTION = "extra_description";
 
   @Inject Linkify linkify;
+  @Inject Preferences preferences;
 
   @BindView(R.id.notes)
   EditText editText;
@@ -46,7 +48,9 @@ public class DescriptionControlSet extends TaskEditControlFragment {
       editText.setTextKeepState(description);
     }
 
-    linkify.linkify(editText);
+    if (preferences.getBoolean(R.string.p_linkify_task_edit, false)) {
+      linkify.linkify(editText);
+    }
 
     return view;
   }

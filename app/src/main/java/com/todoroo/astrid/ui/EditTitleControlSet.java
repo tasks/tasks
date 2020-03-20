@@ -30,6 +30,7 @@ import org.tasks.R;
 import org.tasks.dialogs.Linkify;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.FragmentComponent;
+import org.tasks.preferences.Preferences;
 import org.tasks.ui.CheckBoxProvider;
 import org.tasks.ui.TaskEditControlFragment;
 
@@ -51,6 +52,7 @@ public class EditTitleControlSet extends TaskEditControlFragment {
   @Inject TaskCompleter taskCompleter;
   @Inject Linkify linkify;
   @Inject CheckBoxProvider checkBoxProvider;
+  @Inject Preferences preferences;
 
   @BindView(R.id.title)
   EditText editText;
@@ -93,7 +95,9 @@ public class EditTitleControlSet extends TaskEditControlFragment {
     editText.setLines(1);
     editText.setMaxLines(Integer.MAX_VALUE);
 
-    linkify.linkify(editText);
+    if (preferences.getBoolean(R.string.p_linkify_task_edit, false)) {
+      linkify.linkify(editText);
+    }
 
     updateCompleteBox();
     return view;

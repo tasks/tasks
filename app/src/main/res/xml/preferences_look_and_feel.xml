@@ -126,6 +126,12 @@
 
     <SwitchPreferenceCompat
       android:defaultValue="false"
+      android:key="@string/p_linkify_task_edit"
+      android:summary="@string/linkify_description"
+      android:title="@string/linkify" />
+
+    <SwitchPreferenceCompat
+      android:defaultValue="false"
       android:key="@string/p_back_button_saves_task"
       android:title="@string/back_button_saves_task" />
 
