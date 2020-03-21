@@ -69,7 +69,6 @@ import org.tasks.ui.TaskListViewModel;
 
 public class MainActivity extends InjectingAppCompatActivity
     implements TaskListFragment.TaskListFragmentCallbackHandler,
-        PriorityControlSet.OnPriorityChanged,
         RemoteListFragment.OnListChanged,
         TimerControlSet.TimerControlSetCallback,
         DeadlineControlSet.DueDateChangeListener,
@@ -448,11 +447,6 @@ public class MainActivity extends InjectingAppCompatActivity
   public TaskEditFragment getTaskEditFragment() {
     return (TaskEditFragment)
         getSupportFragmentManager().findFragmentByTag(TaskEditFragment.TAG_TASKEDIT_FRAGMENT);
-  }
-
-  @Override
-  public void onPriorityChange(int priority) {
-    getTaskEditFragment().onPriorityChange(priority);
   }
 
   @Override

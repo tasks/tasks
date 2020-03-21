@@ -182,7 +182,6 @@
     <item>@string/TEA_control_hidden_section</item>
   </string-array>
 
-  <string name="TEA_ctrl_title_pref">TEA_ctrl_title_pref</string> <!-- Deprecated -->
   <string name="TEA_ctrl_when_pref">TEA_ctrl_when_pref</string>
   <string name="TEA_ctrl_repeat_pref">TEA_ctrl_repeat_pref</string>
   <string name="TEA_ctrl_importance_pref">TEA_ctrl_importance_pref</string>

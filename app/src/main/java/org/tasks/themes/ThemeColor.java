@@ -166,6 +166,7 @@ public class ThemeColor implements Pickable {
 
   private final int original;
   private final int colorOnPrimary;
+  private final int hintOnPrimary;
   private final int colorPrimary;
   private final int colorPrimaryVariant;
   private final boolean isDark;
@@ -186,7 +187,13 @@ public class ThemeColor implements Pickable {
 
     double contrast = ColorUtils.calculateContrast(WHITE, colorPrimary);
     isDark = contrast < 3;
-    colorOnPrimary = isDark ? context.getResources().getColor(R.color.black_87) : WHITE;
+    if (isDark) {
+      colorOnPrimary = context.getResources().getColor(R.color.black_87);
+      hintOnPrimary = context.getResources().getColor(R.color.black_60);
+    } else {
+      colorOnPrimary = WHITE;
+      hintOnPrimary = context.getResources().getColor(R.color.white_87);
+    }
   }
 
   private ThemeColor(Parcel source) {
@@ -195,6 +202,7 @@ public class ThemeColor implements Pickable {
     colorPrimaryVariant = source.readInt();
     isDark = ParcelCompat.readBoolean(source);
     original = source.readInt();
+    hintOnPrimary = source.readInt();
   }
 
   public static ThemeColor getLauncherColor(Context context, int index) {
@@ -253,6 +261,15 @@ public class ThemeColor implements Pickable {
   public void setStatusBarColor(CollapsingToolbarLayout layout) {
     layout.setContentScrimColor(colorPrimary);
     layout.setStatusBarScrimColor(colorPrimaryVariant);
+  }
+
+  public void apply(CollapsingToolbarLayout layout, Toolbar toolbar) {
+    setStatusBarColor(layout);
+    layout.setBackgroundColor(colorPrimary);
+    layout.setCollapsedTitleTextColor(colorOnPrimary);
+    layout.setExpandedTitleColor(colorOnPrimary);
+    toolbar.setNavigationIcon(colorDrawable(toolbar.getNavigationIcon(), colorOnPrimary));
+    colorMenu(toolbar.getMenu(), colorOnPrimary);
   }
 
   public void applyToStatusBarIcons(Activity activity) {
@@ -330,6 +347,10 @@ public class ThemeColor implements Pickable {
     return colorOnPrimary;
   }
 
+  public int getHintOnPrimary() {
+    return hintOnPrimary;
+  }
+
   public void apply(Toolbar toolbar) {
     toolbar.setBackgroundColor(getPrimaryColor());
     toolbar.setNavigationIcon(colorDrawable(toolbar.getNavigationIcon(), colorOnPrimary));
@@ -349,6 +370,7 @@ public class ThemeColor implements Pickable {
     dest.writeInt(colorPrimaryVariant);
     ParcelCompat.writeBoolean(dest, isDark);
     dest.writeInt(original);
+    dest.writeInt(hintOnPrimary);
   }
 
   public void colorMenu(Menu menu) {

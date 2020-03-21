@@ -7,7 +7,6 @@ import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.tags.TagsControlSet;
 import com.todoroo.astrid.timers.TimerControlSet;
-import com.todoroo.astrid.ui.EditTitleControlSet;
 import com.todoroo.astrid.ui.HideUntilControlSet;
 import com.todoroo.astrid.ui.ReminderControlSet;
 import dagger.Subcomponent;
@@ -50,8 +49,6 @@ public interface FragmentComponent {
   void inject(RepeatControlSet repeatControlSet);
 
   void inject(CommentBarFragment commentBarFragment);
-
-  void inject(EditTitleControlSet editTitleControlSet);
 
   void inject(FilesControlSet filesControlSet);
 

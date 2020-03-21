@@ -10,7 +10,6 @@ import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.tags.TagsControlSet;
 import com.todoroo.astrid.timers.TimerControlSet;
-import com.todoroo.astrid.ui.EditTitleControlSet;
 import com.todoroo.astrid.ui.HideUntilControlSet;
 import com.todoroo.astrid.ui.ReminderControlSet;
 import java.util.ArrayList;
@@ -36,7 +35,6 @@ public class TaskEditControlSetFragmentManager {
 
   public static final int[] TASK_EDIT_CONTROL_FRAGMENT_ROWS =
       new int[] {
-        R.id.row_title,
         R.id.comment_bar,
         R.id.row_1,
         R.id.row_2,
@@ -55,7 +53,6 @@ public class TaskEditControlSetFragmentManager {
 
   private static final int[] TASK_EDIT_CONTROL_SET_FRAGMENTS =
       new int[] {
-        EditTitleControlSet.TAG,
         DeadlineControlSet.TAG,
         TimerControlSet.TAG,
         DescriptionControlSet.TAG,
@@ -87,8 +84,7 @@ public class TaskEditControlSetFragmentManager {
   @Inject
   public TaskEditControlSetFragmentManager(@ForActivity Context context, Preferences preferences) {
     displayOrder = BeastModePreferences.constructOrderedControlList(preferences, context);
-    displayOrder.add(0, context.getString(EditTitleControlSet.TAG));
-    displayOrder.add(1, context.getString(CommentBarFragment.TAG));
+    displayOrder.add(0, context.getString(CommentBarFragment.TAG));
     String hideAlwaysTrigger = context.getString(R.string.TEA_ctrl_hide_section_pref);
     for (numRows = 0; numRows < displayOrder.size(); numRows++) {
       if (displayOrder.get(numRows).equals(hideAlwaysTrigger)) {
@@ -138,8 +134,6 @@ public class TaskEditControlSetFragmentManager {
 
   private TaskEditControlFragment createFragment(int fragmentId) {
     switch (fragmentId) {
-      case EditTitleControlSet.TAG:
-        return new EditTitleControlSet();
       case DeadlineControlSet.TAG:
         return new DeadlineControlSet();
       case PriorityControlSet.TAG:

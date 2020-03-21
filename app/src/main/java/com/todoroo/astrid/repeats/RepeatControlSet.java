@@ -33,7 +33,6 @@ import butterknife.OnItemSelected;
 import com.google.common.base.Strings;
 import com.google.ical.values.RRule;
 import com.google.ical.values.WeekdayNum;
-import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.data.Task;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -252,10 +251,6 @@ public class RepeatControlSet extends TaskEditControlFragment {
     } else {
       displayView.setText(repeatRuleToString.toString(rrule));
       repeatTypeContainer.setVisibility(View.VISIBLE);
-    }
-    TaskEditFragment targetFragment = (TaskEditFragment) getParentFragment();
-    if (targetFragment != null) {
-      targetFragment.onRepeatChanged(rrule != null);
     }
   }
 }

@@ -1,6 +1,5 @@
 package org.tasks.ui;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
@@ -41,15 +40,7 @@ public class PriorityControlSet extends TaskEditControlFragment {
   @BindView(R.id.priority_none)
   AppCompatRadioButton priorityNone;
 
-  private OnPriorityChanged callback;
   private @Priority int priority;
-
-  @Override
-  public void onAttach(Activity activity) {
-    super.onAttach(activity);
-
-    callback = (OnPriorityChanged) activity;
-  }
 
   @Override
   protected void inject(FragmentComponent component) {
@@ -59,7 +50,6 @@ public class PriorityControlSet extends TaskEditControlFragment {
   @OnClick({R.id.priority_high, R.id.priority_medium, R.id.priority_low, R.id.priority_none})
   void onPriorityChanged(CompoundButton button) {
     priority = getPriority();
-    callback.onPriorityChange(priority);
   }
 
   @Nullable
@@ -142,10 +132,5 @@ public class PriorityControlSet extends TaskEditControlFragment {
       return Priority.LOW;
     }
     return Priority.NONE;
-  }
-
-  public interface OnPriorityChanged {
-
-    void onPriorityChange(int priority);
   }
 }

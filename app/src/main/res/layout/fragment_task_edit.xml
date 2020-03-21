@@ -3,113 +3,176 @@
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent"
-  android:orientation="vertical">
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
 
-  <include
-    android:id="@+id/toolbar"
-    layout="@layout/toolbar" />
+    <com.google.android.material.appbar.AppBarLayout
+      android:id="@+id/appbarlayout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
 
-  <androidx.core.widget.NestedScrollView
-    android:scrollbarStyle="outsideOverlay"
-    android:layout_width="fill_parent"
-    android:layout_height="0dp"
-    android:layout_weight="100"
-    android:elevation="0dp"
-    android:overScrollMode="never">
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+          android:id="@+id/collapsingtoolbarlayout"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:collapsedTitleTextAppearance="?attr/textAppearanceHeadline6"
+          app:expandedTitleGravity="top"
+          app:expandedTitleMarginTop="?attr/actionBarSize"
+          app:expandedTitleMarginStart="@dimen/keyline_first"
+          app:expandedTitleTextAppearance="?attr/textAppearanceHeadline5"
+          app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+            <EditText
+              android:id="@+id/title"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:paddingTop="?attr/actionBarSize"
+              android:paddingLeft="@dimen/keyline_first"
+              android:paddingStart="@dimen/keyline_first"
+              android:paddingRight="@dimen/keyline_first"
+              android:paddingEnd="@dimen/keyline_first"
+              android:paddingBottom="@dimen/keyline_second"
+              android:layout_gravity="top"
+              android:background="@null"
+              android:gravity="start"
+              android:freezesText="true"
+              android:textAppearance="?attr/textAppearanceHeadline5"
+              android:hint="@string/TEA_title_hint"
+              android:imeOptions="flagNoExtractUi"
+              android:inputType="textCapSentences|textAutoCorrect"
+              android:scrollbars="vertical"
+              android:textAlignment="viewStart" />
+
+            <androidx.appcompat.widget.Toolbar
+              android:id="@+id/toolbar"
+              android:layout_width="match_parent"
+              android:layout_height="?attr/actionBarSize"
+              android:elevation="@dimen/elevation_toolbar"
+              app:layout_collapseMode="pin"
+              android:theme="?attr/overlay_theme"
+              app:popupTheme="@style/popup_overlay"
+              app:titleTextColor="?attr/colorOnPrimary"
+              app:toolbarStyle="@style/Widget.MaterialComponents.Toolbar"
+              tools:ignore="UnusedAttribute" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
-      android:id="@+id/control_sets"
       android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:gravity="center_horizontal"
-      android:orientation="vertical">
+      android:layout_height="fill_parent"
+      android:orientation="vertical"
+      app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-      <FrameLayout
-        android:id="@+id/row_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <androidx.core.widget.NestedScrollView
+          android:scrollbarStyle="outsideOverlay"
+          android:layout_width="fill_parent"
+          android:layout_height="0dp"
+          android:layout_weight="100"
+          android:elevation="0dp"
+          android:overScrollMode="never">
 
-      <FrameLayout
-        android:id="@+id/row_1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+            <LinearLayout
+              android:id="@+id/control_sets"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center_horizontal"
+              android:orientation="vertical">
 
-      <FrameLayout
-        android:id="@+id/row_2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+                <FrameLayout
+                  android:id="@+id/row_1"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content" />
 
-      <FrameLayout
-        android:id="@+id/row_3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+                <FrameLayout
+                  android:id="@+id/row_2"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content" />
 
-      <FrameLayout
-        android:id="@+id/row_4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+                <FrameLayout
+                  android:id="@+id/row_3"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content" />
 
-      <FrameLayout
-        android:id="@+id/row_5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+                <FrameLayout
+                  android:id="@+id/row_4"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content" />
 
-      <FrameLayout
-        android:id="@+id/row_6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+                <FrameLayout
+                  android:id="@+id/row_5"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content" />
 
-      <FrameLayout
-        android:id="@+id/row_7"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+                <FrameLayout
+                  android:id="@+id/row_6"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content" />
 
-      <FrameLayout
-        android:id="@+id/row_8"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+                <FrameLayout
+                  android:id="@+id/row_7"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content" />
 
-      <FrameLayout
-        android:id="@+id/row_9"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+                <FrameLayout
+                  android:id="@+id/row_8"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content" />
 
-      <FrameLayout
-        android:id="@+id/row_10"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+                <FrameLayout
+                  android:id="@+id/row_9"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content" />
 
-      <FrameLayout
-        android:id="@+id/row_11"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+                <FrameLayout
+                  android:id="@+id/row_10"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content" />
 
-      <FrameLayout
-        android:id="@+id/row_12"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+                <FrameLayout
+                  android:id="@+id/row_11"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content" />
 
-      <FrameLayout
-        android:id="@+id/row_13"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+                <FrameLayout
+                  android:id="@+id/row_12"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content" />
 
-      <LinearLayout
-        android:id="@+id/comments"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"/>
+                <FrameLayout
+                  android:id="@+id/row_13"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content" />
+
+                <LinearLayout
+                  android:id="@+id/comments"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical" />
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <FrameLayout
+          android:id="@+id/comment_bar"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:elevation="@dimen/elevation_toolbar" />
 
     </LinearLayout>
-  </androidx.core.widget.NestedScrollView>
 
-  <FrameLayout
-    android:id="@+id/comment_bar"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:elevation="@dimen/elevation_toolbar"/>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/fab"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/keyline_first"
+      android:src="@drawable/ic_check_black_24dp"
+      android:tint="?attr/colorOnSecondary"
+      android:background="?attr/colorSecondary"
+      app:layout_anchor="@id/appbarlayout"
+      app:layout_anchorGravity="bottom|right|end" />
 
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
