@@ -8,8 +8,10 @@ package com.todoroo.astrid.activity;
 
 import static android.app.Activity.RESULT_OK;
 import static androidx.core.content.ContextCompat.getColor;
+import static com.google.common.collect.Iterables.filter;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
+import static com.todoroo.andlib.utility.AndroidUtilities.assertNotMainThread;
 import static org.tasks.activities.RemoteListPicker.newRemoteListSupportPicker;
 import static org.tasks.caldav.CaldavCalendarSettingsActivity.EXTRA_CALDAV_CALENDAR;
 
@@ -26,6 +28,8 @@ import android.view.MenuItem;
 import android.view.MenuItem.OnActionExpandListener;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -64,6 +68,8 @@ import com.todoroo.astrid.service.TaskDuplicator;
 import com.todoroo.astrid.service.TaskMover;
 import com.todoroo.astrid.timers.TimerPlugin;
 import com.todoroo.astrid.utility.Flags;
+
+import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -103,6 +109,7 @@ import org.tasks.tasklist.TaskListRecyclerAdapter;
 import org.tasks.tasklist.ViewHolderFactory;
 import org.tasks.themes.ColorProvider;
 import org.tasks.themes.ThemeColor;
+import org.tasks.ui.TaskEditControlFragment;
 import org.tasks.ui.TaskListViewModel;
 import org.tasks.ui.Toaster;
 
@@ -162,6 +169,9 @@ public final class TaskListFragment extends InjectingFragment
 
   @BindView(R.id.toolbar)
   Toolbar toolbar;
+
+  @BindView(R.id.quickAdd)
+  EditText quickAdd;
 
   @BindView(R.id.task_list_coordinator)
   CoordinatorLayout coordinatorLayout;
@@ -324,6 +334,26 @@ public final class TaskListFragment extends InjectingFragment
     toolbar.setNavigationOnClickListener(v -> callbacks.onNavigationIconClicked());
     toolbar.setOnMenuItemClickListener(this);
     setupMenu();
+
+    quickAdd.setOnEditorActionListener((textView, actionId, event) -> {
+      String newTaskTitle = textView.getText().toString();
+      if (newTaskTitle.isEmpty()) {
+        return false;
+      }
+      textView.setText("");
+      Task model = taskCreator.createWithValues(newTaskTitle);
+      Completable.fromAction(
+              () -> {
+                assertNotMainThread();
+
+                taskDao.createNew(model);
+                taskDao.save(model, null);
+              })
+              .subscribeOn(Schedulers.io())
+              .observeOn(AndroidSchedulers.mainThread())
+              .subscribe();
+      return true;
+    });
 
     return parent;
   }

@@ -21,6 +21,25 @@
     <include layout="@layout/toolbar"/>
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+      <EditText
+          android:id="@+id/quickAdd"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="24dp"
+          android:layout_marginTop="8dp"
+          android:layout_marginRight="24dp"
+          android:layout_marginBottom="8dp"
+          android:ems="10"
+          android:hint="@string/quick_add_hint"
+          android:inputType="text"
+          android:singleLine="true" />
+    </LinearLayout>
+
+    <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:elevation="@dimen/elevation_task_list"
