@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -135,24 +136,21 @@ public final class TaskEditFragment extends InjectingFragment
     themeColor = arguments.getParcelable(EXTRA_THEME);
 
     Toolbar toolbar = binding.toolbar;
-    final boolean backButtonSavesTask = preferences.backButtonSavesTask();
-    toolbar.setNavigationIcon(
-        ContextCompat.getDrawable(
-            context,
-            backButtonSavesTask
-                ? R.drawable.ic_outline_clear_24px
-                : R.drawable.ic_outline_save_24px));
-    toolbar.setNavigationOnClickListener(
-        v -> {
-          if (backButtonSavesTask) {
-            discardButtonClick();
-          } else {
-            save();
-          }
-        });
-    if (!model.isNew()) {
-      toolbar.inflateMenu(R.menu.menu_task_edit_fragment);
-    }
+    toolbar.setNavigationIcon(ContextCompat.getDrawable(context, R.drawable.ic_outline_save_24px));
+    toolbar.setNavigationOnClickListener(v -> save());
+
+    boolean backButtonSavesTask = preferences.backButtonSavesTask();
+    toolbar.inflateMenu(R.menu.menu_task_edit_fragment);
+    Menu menu = toolbar.getMenu();
+    MenuItem delete = menu.findItem(R.id.menu_delete);
+    delete.setVisible(!model.isNew());
+    delete.setShowAsAction(
+        backButtonSavesTask ? MenuItem.SHOW_AS_ACTION_NEVER : MenuItem.SHOW_AS_ACTION_IF_ROOM);
+    MenuItem discard = menu.findItem(R.id.menu_discard);
+    discard.setVisible(backButtonSavesTask);
+    discard.setShowAsAction(
+        model.isNew() ? MenuItem.SHOW_AS_ACTION_IF_ROOM : MenuItem.SHOW_AS_ACTION_NEVER);
+
     if (savedInstanceState == null) {
       showKeyboard = model.isNew() && Strings.isNullOrEmpty(model.getTitle());
       completed = model.isCompleted();

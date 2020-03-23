@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tasks="http://schemas.android.com/apk/res-auto">
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+  <item
+    android:id="@+id/menu_discard"
+    android:icon="@drawable/ic_outline_clear_24px"
+    android:title="@string/menu_discard_changes"
+    app:showAsAction="never" />
   <item
     android:id="@+id/menu_delete"
     android:icon="@drawable/ic_outline_delete_24px"
     android:title="@string/delete_task"
-    tasks:showAsAction="ifRoom"/>
+    app:showAsAction="never"/>
 </menu>

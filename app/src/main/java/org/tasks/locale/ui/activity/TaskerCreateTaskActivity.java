@@ -15,12 +15,10 @@ import org.tasks.billing.PurchaseActivity;
 import org.tasks.databinding.ActivityTaskerCreateBinding;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.locale.bundle.TaskCreationBundle;
-import org.tasks.preferences.Preferences;
 
 public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCompatActivity
     implements Toolbar.OnMenuItemClickListener {
 
-  @Inject Preferences preferences;
   @Inject Inventory inventory;
   @Inject LocalBroadcastManager localBroadcastManager;
 
@@ -37,21 +35,8 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
 
     Toolbar toolbar = binding.toolbar.toolbar;
     toolbar.setTitle(R.string.tasker_create_task);
-    final boolean backButtonSavesTask = preferences.backButtonSavesTask();
-    toolbar.setNavigationIcon(
-        ContextCompat.getDrawable(
-            this,
-            backButtonSavesTask
-                ? R.drawable.ic_outline_clear_24px
-                : R.drawable.ic_outline_save_24px));
-    toolbar.setNavigationOnClickListener(
-        v -> {
-          if (backButtonSavesTask) {
-            discardButtonClick();
-          } else {
-            save();
-          }
-        });
+    toolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_outline_save_24px));
+    toolbar.setNavigationOnClickListener(v -> save());
     toolbar.setOnMenuItemClickListener(this);
     toolbar.inflateMenu(R.menu.menu_tasker_create_task);
     themeColor.apply(toolbar);
@@ -118,12 +103,7 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
 
   @Override
   public void onBackPressed() {
-    final boolean backButtonSavesTask = preferences.backButtonSavesTask();
-    if (backButtonSavesTask) {
-      save();
-    } else {
-      discardButtonClick();
-    }
+    discardButtonClick();
   }
 
   private void save() {
