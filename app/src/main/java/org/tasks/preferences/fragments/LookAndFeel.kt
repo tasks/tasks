@@ -108,7 +108,7 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
             true
         }
 
-        findPreference(R.string.p_desaturate_colors).setOnPreferenceChangeListener { _, newValue ->
+        findPreference(R.string.p_desaturate_colors).setOnPreferenceChangeListener { _, _ ->
             if (context?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) {
                 activity?.recreate()
             }

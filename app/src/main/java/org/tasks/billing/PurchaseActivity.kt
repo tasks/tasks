@@ -25,7 +25,6 @@ import org.tasks.injection.ActivityComponent
 import org.tasks.injection.ThemedInjectingAppCompatActivity
 import org.tasks.locale.Locale
 import timber.log.Timber
-import java.lang.String
 import javax.inject.Inject
 
 private const val EXTRA_MONTHLY = "extra_monthly"

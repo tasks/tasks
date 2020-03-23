@@ -25,7 +25,7 @@ object GeoUtils {
 
     fun Geo.equalish(other: Geo?): Boolean {
         return latitude.truncate() == other?.latitude?.truncate()
-                && longitude.truncate() == other?.longitude?.truncate()
+                && longitude.truncate() == other.longitude?.truncate()
     }
 
     private fun String.numDecimalPlaces(): Int {

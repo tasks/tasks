@@ -65,7 +65,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
                     || selectedIcon != place.icon
 
     @OnTextChanged(R.id.name)
-    fun onNameChanged(text: CharSequence?) {
+    fun onNameChanged() {
         nameLayout.error = null
     }
 
