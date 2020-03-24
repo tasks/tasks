@@ -318,7 +318,7 @@
     <string name="pick_a_date_and_time">Tag und Uhrzeit auswählen</string>
     <string name="when_overdue">Wenn überfällig</string>
     <string name="when_due">Wenn fällig</string>
-    <string name="tags">Schlagworte</string>
+    <string name="tags">Schlagwörter</string>
     <string name="filters">Filter</string>
     <string name="date_shortcut_hour">Für eine Stunde</string>
     <string name="date_shortcut_morning">Vormittag</string>
@@ -362,7 +362,7 @@
     <string name="opacity">Deckkraft</string>
     <string name="color">Farbe</string>
     <string name="accent">Akzent</string>
-    <string name="launcher_icon">Startersymbol</string>
+    <string name="launcher_icon">Launcher-Symbol</string>
     <string name="theme_black">Schwarz</string>
     <string name="theme_light">Hell</string>
     <string name="theme_dark">Dunkel</string>
@@ -393,7 +393,7 @@
     <string name="calendar_settings">Kalendereinstellungen</string>
     <string name="notification_disable_battery_optimizations_description">Energiesparmodus kann Benachrichtigungen verzögern</string>
     <string name="bundle_notifications">Benachrichtigungen zusammenfassen</string>
-    <string name="badges">Button</string>
+    <string name="badges">Benachrichtigungspunkte</string>
     <string name="list">Liste</string>
     <string name="repeats_from">Wiederholung bis</string>
     <string name="repeats_single">Wiederhole %s</string>
@@ -416,7 +416,7 @@
     <string name="repeats_plural_on_number_of_times">Wiederhole alle %1$s am %2$s, genau %3$d %4$s</string>
     <string name="dont_add_to_calendar">Nicht im Kalender eintragen</string>
     <string name="default_calendar">Standardkalender</string>
-    <string name="badges_description">Anzeige eines Aufgabenzählers am Tasks Launcher Icon. Nicht alle Launcher unterstützen Badges.</string>
+    <string name="badges_description">Zeige einen Aufgabenzähler am Tasks\' Launcher-Symbol an. Nicht alle Launcher unterstützen Benachrichtigungspunkte.</string>
     <string name="bundle_notifications_summary">Fasse mehre Benachrichtigungen in eine zusammen</string>
     <string name="repeat_monthly_same_day_each_month">Am selben Tag jeden Monats</string>
     <string name="dont_sync">Nicht synchronisieren</string>
@@ -453,7 +453,7 @@
     <string name="show_full_description">Gesamte Beschreibung anzeigen</string>
     <string name="linkify">Links anzeigen</string>
     <string name="linkify_description">Füge Links zu Websites, Adressen und Telefonnummern hinzu</string>
-    <string name="show_list_indicators">Schlagworte und Listen anzeigen</string>
+    <string name="show_list_indicators">Schlagwörter und Listen anzeigen</string>
     <string name="location_remind_arrival">Bei Ankunft erinnern</string>
     <string name="location_remind_departure">Bei Abreise erinnern</string>
     <string name="visit_website">Website öffnen</string>
@@ -480,7 +480,7 @@
     <string name="geofence_radius">Radius</string>
     <string name="location_radius_meters">%s m</string>
     <string name="filter">Filter</string>
-    <string name="theme">Thema</string>
+    <string name="theme">Design</string>
     <string name="url">URL</string>
     <string name="list_separator_with_space">", "</string>
     <string name="version_string">Version %s</string>
@@ -544,4 +544,25 @@
     <string name="disable_battery_optimizations">Batterieoptimierung deaktivieren</string>
     <string name="more_notification_settings_summary">Klingelton, Vibration und mehr</string>
     <string name="invalid_username_or_password">Ungültiger Benutzername oder Passwort</string>
+    <string name="color_wheel">Farbkreis</string>
+    <string name="upgrade_blurb_1">Hallo! Mein Name ist Alex. Ich bin der unabhängige Entwickler hinter Tasks</string>
+    <string name="upgrade_blurb_2">Ich habe Tausende von Stunden mit der Arbeit an Tasks verbracht und veröffentliche den gesamten Quellcode kostenlos online. Um meine Arbeit zu unterstützen, erfordern einige Funktionen ein Abonnement</string>
+    <string name="upgrade_blurb_3">Wählen Sie unten einen beliebigen Abonnementpreis aus, um Ihre kostenlose Testversion zu starten. Sie können jederzeit kündigen</string>
+    <string name="upgrade_blurb_4">Ihre Unterstützung bedeutet mir sehr viel, danke!</string>
+    <string name="back">Zurück</string>
+    <string name="requires_android_version">Benötigt Android %s+</string>
+    <string name="chip_style">Stil der Marke</string>
+    <string name="chip_style_outlined">mit Kontur</string>
+    <string name="chip_style_filled">mit Füllung</string>
+    <string name="chips">Marken</string>
+    <string name="chip_appearance">Aussehen der Marken</string>
+    <string name="desaturate_colors">Entsättigte Farben</string>
+    <string name="desaturate_colors_summary_on">Farben werden bei dunklen Designs entsättigt</string>
+    <string name="desaturate_colors_summary_off">Farben werden bei dunklen Designs nicht entsättigt</string>
+    <string name="places">Orte</string>
+    <string name="place_settings">Einstellungen für Orte</string>
+    <string name="navigation_drawer">Hamburger-Menü</string>
+    <string name="hide_unused_tags">Nicht verwendete Schlagwörter ausblenden</string>
+    <string name="hide_unused_places">Nicht verwendete Orte ausblenden</string>
+    <string name="add_place">Ort hinzufügen</string>
 </resources>
