@@ -521,4 +521,6 @@
     <string name="encryption_password_wrong">Falsches Verschlüsselungs-Passwort</string>
     <string name="help_and_feedback">Hilfe &amp; Feedback</string>
     <string name="theme_system_default">Systemstandard</string>
+    <string name="show_subtasks_summary">Das Anzeigen von Unteraufgaben wird die Anwendung verlangsamen</string>
+    <string name="enter_tag_name">Schlagwort eingeben</string>
 </resources>
