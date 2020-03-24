@@ -340,7 +340,7 @@
     <string name="show_hidden">Ausgeblendete anzeigen</string>
     <string name="show_completed">Erledigte anzeigen</string>
     <string name="reverse">Rückgangig</string>
-    <string name="no_application_found">Keine Anwendung zum Öffnen des Anhangs gefunden</string>
+    <string name="no_application_found">Keine Anwendung konnte den Anhang öffnen</string>
     <string name="add_attachment">Anhang hinzufügen</string>
     <string name="take_a_picture">Bild aufnehmen</string>
     <string name="pick_from_gallery">Aus Galerie wählen</string>
@@ -511,7 +511,7 @@
     <string name="subtasks_multilevel_google_task">Mehrere Unteraufgaben-Ebenen werden von Google Tasks nicht unterstützt</string>
     <string name="enter_title_hint">Titel eingeben</string>
     <string name="show_subtasks">Teilaufgaben anzeigen</string>
-    <string name="no_application_found_link">Keine Anwendung für den Link gefunden</string>
+    <string name="no_application_found_link">Keine Anwendung konnte den Link verarbeiten</string>
     <string name="encryption_password_required">Verschlüsselungspasswort erforderlich</string>
     <string name="encryption_password">Verschlüsselungs-Passwort</string>
     <string name="display_name">Anzeigename</string>
@@ -520,4 +520,5 @@
     <string name="reenter_encryption_password">Verschlüsselungs-Passwort bestätigen</string>
     <string name="encryption_password_wrong">Falsches Verschlüsselungs-Passwort</string>
     <string name="help_and_feedback">Hilfe &amp; Feedback</string>
+    <string name="theme_system_default">Systemstandard</string>
 </resources>
