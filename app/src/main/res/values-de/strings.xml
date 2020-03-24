@@ -532,7 +532,7 @@
     <string name="caldav_account_description">Erfordert ein Konto bei einem CalDAV-Dienstanbieter oder einem selbst gehosteten Server. Finden Sie einen Dienstanbieter, indem Sie tasks.org/caldav besuchen</string>
     <string name="etesync_account_description">Erfordert ein Konto bei EteSync.com oder einem selbst gehosteten Server</string>
     <string name="etesync_encryption_description">Merken Sie sich das von Ihnen gewählte Passwort. Es kann nicht wiederhergestellt werden!</string>
-    <string name="preferences_look_and_feel">Aussehen und Handhabung</string>
+    <string name="preferences_look_and_feel">Erscheinungsbild</string>
     <string name="preferences_advanced">Erweitert</string>
     <string name="documentation">Dokumentation</string>
     <string name="accounts">Konten</string>
@@ -542,4 +542,6 @@
     <string name="troubleshooting">Problembehandlung</string>
     <string name="notification_troubleshooting_summary">Tippen Sie hier, wenn Sie Probleme mit Benachrichtigungen haben</string>
     <string name="disable_battery_optimizations">Batterieoptimierung deaktivieren</string>
+    <string name="more_notification_settings_summary">Klingelton, Vibration und mehr</string>
+    <string name="invalid_username_or_password">Ungültiger Benutzername oder Passwort</string>
 </resources>
