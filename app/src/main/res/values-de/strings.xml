@@ -534,4 +534,7 @@
     <string name="etesync_encryption_description">Merken Sie sich das von Ihnen gewählte Passwort. Es kann nicht wiederhergestellt werden!</string>
     <string name="preferences_look_and_feel">Aussehen und Handhabung</string>
     <string name="preferences_advanced">Erweitert</string>
+    <string name="documentation">Dokumentation</string>
+    <string name="accounts">Konten</string>
+    <string name="more_settings">Weitere Einstellungen</string>
 </resources>
