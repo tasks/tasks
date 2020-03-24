@@ -524,4 +524,5 @@
     <string name="show_subtasks_summary">Das Anzeigen von Unteraufgaben wird die Anwendung verlangsamen</string>
     <string name="enter_tag_name">Schlagwort eingeben</string>
     <string name="create_new_tag">Erstelle \"%s\"</string>
+    <string name="choose_synchronization_service">Wähle einen Dienst</string>
 </resources>
