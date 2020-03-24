@@ -417,7 +417,7 @@
     <string name="dont_add_to_calendar">Nicht im Kalender eintragen</string>
     <string name="default_calendar">Standardkalender</string>
     <string name="badges_description">Anzeige eines Aufgabenzählers am Tasks Launcher Icon. Nicht alle Launcher unterstützen Badges.</string>
-    <string name="bundle_notifications_summary">Mehrer Benachrichtigungen in eine Benachrichtigung zusammenfassen</string>
+    <string name="bundle_notifications_summary">Fasse mehre Benachrichtigungen in eine zusammen</string>
     <string name="repeat_monthly_same_day_each_month">Am selben Tag jeden Monats</string>
     <string name="dont_sync">Nicht synchronisieren</string>
     <string name="repeat_monthly_every_day_of_nth_week">jeden %1$s %2$s</string>
