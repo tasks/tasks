@@ -529,4 +529,8 @@
     <string name="caldav_selection_description">Synchronisation basierend auf offenen Internetstandards</string>
     <string name="etesync_selection_description">Quelloffene, Ende-zu-Ende verschlüsselte Synchronisation</string>
     <string name="show_advanced_settings">Zeige erweiterte Einstellungen</string>
+    <string name="caldav_account_description">Erfordert ein Konto bei einem CalDAV-Dienstanbieter oder einem selbst gehosteten Server. Finden Sie einen Dienstanbieter, indem Sie tasks.org/caldav besuchen</string>
+    <string name="etesync_account_description">Erfordert ein Konto bei EteSync.com oder einem selbst gehosteten Server</string>
+    <string name="etesync_encryption_description">Merken Sie sich das von Ihnen gewählte Passwort. Es kann nicht wiederhergestellt werden!</string>
+    <string name="preferences_look_and_feel">Aussehen und Handhabung</string>
 </resources>
