@@ -526,4 +526,5 @@
     <string name="create_new_tag">Erstelle \"%s\"</string>
     <string name="choose_synchronization_service">Wähle einen Dienst</string>
     <string name="google_tasks_selection_description">Einfacher Dienst zur Synchronisation mit Ihrem Google-Konto</string>
+    <string name="caldav_selection_description">Synchronisation basierend auf offenen Internetstandards</string>
 </resources>
