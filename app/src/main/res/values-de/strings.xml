@@ -369,7 +369,7 @@
     <string name="theme_wallpaper">Hintergrundbild</string>
     <string name="theme_day_night">Tag/Nacht</string>
     <string name="language">Sprache</string>
-    <string name="restart_required">Tasks muss neugestartet werden um die Änderungen zu übernehmen</string>
+    <string name="restart_required">Starte Tasks neu, damit die Änderung wirksam wird</string>
     <string name="restart_now">Jetzt neustarten</string>
     <string name="restart_later">Später</string>
     <string name="settings_localization">Übersetzung</string>
