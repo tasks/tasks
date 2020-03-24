@@ -523,4 +523,5 @@
     <string name="theme_system_default">Systemstandard</string>
     <string name="show_subtasks_summary">Das Anzeigen von Unteraufgaben wird die Anwendung verlangsamen</string>
     <string name="enter_tag_name">Schlagwort eingeben</string>
+    <string name="create_new_tag">Erstelle \"%s\"</string>
 </resources>
