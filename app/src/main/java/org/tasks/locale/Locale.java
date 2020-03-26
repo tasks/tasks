@@ -65,21 +65,13 @@ public class Locale implements Serializable {
               PreferenceManager.getDefaultSharedPreferences(applicationContext);
           String language =
               prefs.getString(applicationContext.getString(R.string.p_language), null);
-          setDefault(DEFAULT.getLocale(), language);
+          INSTANCE = new Locale(DEFAULT.getLocale(), language);
+          java.util.Locale.setDefault(INSTANCE.getLocale());
         }
       }
     }
 
     return getInstance();
-  }
-
-  public static void setDefault(java.util.Locale locale) {
-    setDefault(locale, null);
-  }
-
-  private static void setDefault(java.util.Locale locale, String languageOverride) {
-    INSTANCE = new Locale(locale, languageOverride);
-    java.util.Locale.setDefault(locale);
   }
 
   public static Locale getInstance() {
