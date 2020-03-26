@@ -7,13 +7,11 @@
 package com.todoroo.andlib.utility;
 
 import static androidx.test.InstrumentationRegistry.getTargetContext;
-import static com.todoroo.andlib.utility.DateUtilities.addCalendarMonthsToUnixtime;
 import static com.todoroo.andlib.utility.DateUtilities.getDateString;
 import static com.todoroo.andlib.utility.DateUtilities.getStartOfDay;
 import static com.todoroo.andlib.utility.DateUtilities.getTimeString;
 import static com.todoroo.andlib.utility.DateUtilities.getWeekday;
 import static com.todoroo.andlib.utility.DateUtilities.getWeekdayShort;
-import static com.todoroo.andlib.utility.DateUtilities.oneMonthFromNow;
 import static junit.framework.Assert.assertEquals;
 import static org.tasks.Freeze.freezeAt;
 import static org.tasks.date.DateTimeUtils.newDate;
@@ -145,76 +143,6 @@ public class DateUtilitiesTest {
   }
 
   @Test
-  public void testOneMonthFromStartOfDecember() {
-    DateTime now = new DateTime(2013, 12, 1, 12, 19, 45, 192);
-    final long expected = new DateTime(2014, 1, 1, 12, 19, 45, 192).getMillis();
-
-    freezeAt(now)
-        .thawAfter(
-            new Snippet() {
-              {
-                assertEquals(expected, oneMonthFromNow());
-              }
-            });
-  }
-
-  @Test
-  public void testOneMonthFromEndOfDecember() {
-    DateTime now = new DateTime(2013, 12, 31, 16, 31, 20, 597);
-    final long expected = new DateTime(2014, 1, 31, 16, 31, 20, 597).getMillis();
-
-    freezeAt(now)
-        .thawAfter(
-            new Snippet() {
-              {
-                assertEquals(expected, oneMonthFromNow());
-              }
-            });
-  }
-
-  @Test
-  public void testGetSixMonthsFromEndOfDecember() {
-    final DateTime now = new DateTime(2013, 12, 31, 17, 17, 32, 900);
-    final long expected = new DateTime(2014, 7, 1, 17, 17, 32, 900).getMillis();
-
-    freezeAt(now)
-        .thawAfter(
-            new Snippet() {
-              {
-                assertEquals(expected, addCalendarMonthsToUnixtime(now.getMillis(), 6));
-              }
-            });
-  }
-
-  @Test
-  public void testOneMonthFromEndOfJanuary() {
-    DateTime now = new DateTime(2014, 1, 31, 12, 54, 33, 175);
-    final long expected = new DateTime(2014, 3, 3, 12, 54, 33, 175).getMillis();
-
-    freezeAt(now)
-        .thawAfter(
-            new Snippet() {
-              {
-                assertEquals(expected, oneMonthFromNow());
-              }
-            });
-  }
-
-  @Test
-  public void testOneMonthFromEndOfFebruary() {
-    DateTime now = new DateTime(2014, 2, 28, 9, 19, 7, 990);
-    final long expected = new DateTime(2014, 3, 28, 9, 19, 7, 990).getMillis();
-
-    freezeAt(now)
-        .thawAfter(
-            new Snippet() {
-              {
-                assertEquals(expected, oneMonthFromNow());
-              }
-            });
-  }
-
-  @Test
   public void testShouldGetStartOfDay() {
     DateTime now = new DateTime(2014, 1, 3, 10, 41, 41, 520);
     assertEquals(now.startOfDay().getMillis(), getStartOfDay(now.getMillis()));
@@ -240,30 +168,6 @@ public class DateUtilitiesTest {
     assertEquals("Thu", getWeekdayShort(newDate(2014, 1, 2)));
     assertEquals("Fri", getWeekdayShort(newDate(2014, 1, 3)));
     assertEquals("Sat", getWeekdayShort(newDate(2014, 1, 4)));
-  }
-
-  @Test
-  public void testAddMonthsToTimestamp() {
-    assertEquals(
-        newDate(2014, 1, 1).getMillis(),
-        addCalendarMonthsToUnixtime(newDate(2013, 12, 1).getMillis(), 1));
-    assertEquals(
-        newDate(2014, 12, 31).getMillis(),
-        addCalendarMonthsToUnixtime(newDate(2013, 12, 31).getMillis(), 12));
-  }
-
-  @Test
-  public void testAddMonthsWithLessDays() {
-    assertEquals(
-        newDate(2014, 3, 3).getMillis(),
-        addCalendarMonthsToUnixtime(newDate(2013, 12, 31).getMillis(), 2));
-  }
-
-  @Test
-  public void testAddMonthsWithMoreDays() {
-    assertEquals(
-        newDate(2014, 1, 30).getMillis(),
-        addCalendarMonthsToUnixtime(newDate(2013, 11, 30).getMillis(), 2));
   }
 
   @Test

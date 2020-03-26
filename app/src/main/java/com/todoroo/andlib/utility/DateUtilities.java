@@ -36,25 +36,6 @@ public class DateUtilities {
   private static final String ZH_YEAR = "yy\u5E74 " + ZH;
   static Boolean is24HourOverride = null;
 
-  /**
-   * Add the specified amount of months to the given time.<br>
-   * The day of month will stay the same.<br>
-   *
-   * @param time the base-time (in milliseconds) to which the amount of months is added
-   * @param interval the amount of months to be added
-   * @return the calculated time in milliseconds
-   */
-  public static long addCalendarMonthsToUnixtime(long time, int interval) {
-    DateTime dt = new DateTime(time);
-    DateTime result = dt.plusMonths(interval);
-    // preserving java.util.date behavior
-    int diff = dt.getDayOfMonth() - result.getDayOfMonth();
-    if (diff > 0) {
-      result = result.plusDays(diff);
-    }
-    return result.getMillis();
-  }
-
   /** Returns unixtime for current time */
   public static long now() {
     return currentTimeMillis();
@@ -63,11 +44,6 @@ public class DateUtilities {
   /* ======================================================================
    * =========================================================== formatters
    * ====================================================================== */
-
-  /** Returns unixtime one month from now */
-  public static long oneMonthFromNow() {
-    return addCalendarMonthsToUnixtime(currentTimeMillis(), 1);
-  }
 
   public static boolean is24HourFormat(Context context) {
     if (is24HourOverride != null) {

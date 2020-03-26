@@ -115,7 +115,6 @@ public class Task implements Parcelable {
   static final int URGENCY_DAY_AFTER = 3;
   static final int URGENCY_NEXT_WEEK = 4;
   static final int URGENCY_IN_TWO_WEEKS = 5;
-  static final int URGENCY_NEXT_MONTH = 6;
   /** ID */
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "_id")
@@ -283,9 +282,6 @@ public class Task implements Parcelable {
         break;
       case URGENCY_IN_TWO_WEEKS:
         date = DateUtilities.now() + 2 * DateUtilities.ONE_WEEK;
-        break;
-      case URGENCY_NEXT_MONTH:
-        date = DateUtilities.oneMonthFromNow();
         break;
       case URGENCY_SPECIFIC_DAY:
       case URGENCY_SPECIFIC_DAY_TIME:

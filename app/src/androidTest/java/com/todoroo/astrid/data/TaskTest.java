@@ -2,7 +2,6 @@ package com.todoroo.astrid.data;
 
 import static com.todoroo.astrid.data.Task.URGENCY_DAY_AFTER;
 import static com.todoroo.astrid.data.Task.URGENCY_IN_TWO_WEEKS;
-import static com.todoroo.astrid.data.Task.URGENCY_NEXT_MONTH;
 import static com.todoroo.astrid.data.Task.URGENCY_NEXT_WEEK;
 import static com.todoroo.astrid.data.Task.URGENCY_NONE;
 import static com.todoroo.astrid.data.Task.URGENCY_SPECIFIC_DAY;
@@ -79,12 +78,6 @@ public class TaskTest {
   public void testCreateDueDateInTwoWeeks() {
     long expected = new DateTime(2014, 1, 14, 12, 0, 0, 0).getMillis();
     assertEquals(expected, createDueDate(URGENCY_IN_TWO_WEEKS, -1L));
-  }
-
-  @Test
-  public void testCreateDueDateNextMonth() {
-    long expected = new DateTime(2014, 1, 31, 12, 0, 0, 0).getMillis();
-    assertEquals(expected, createDueDate(URGENCY_NEXT_MONTH, -1L));
   }
 
   @Test
