@@ -9,7 +9,6 @@ import static com.google.ical.values.Frequency.MONTHLY;
 import static com.google.ical.values.Frequency.WEEKLY;
 import static com.google.ical.values.Frequency.YEARLY;
 import static java.util.Arrays.asList;
-import static org.tasks.date.DateTimeUtils.newDateTime;
 import static org.tasks.dialogs.MyDatePickerDialog.newDatePicker;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
@@ -51,7 +50,6 @@ import com.google.ical.values.RRule;
 import com.google.ical.values.Weekday;
 import com.google.ical.values.WeekdayNum;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
@@ -68,6 +66,7 @@ import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.ResourceResolver;
 import org.tasks.time.DateTime;
+import org.threeten.bp.format.FormatStyle;
 import timber.log.Timber;
 
 public class CustomRecurrenceDialog extends InjectingDialogFragment {
@@ -156,19 +155,6 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
     arguments.putLong(EXTRA_DATE, dueDate);
     dialog.setArguments(arguments);
     return dialog;
-  }
-
-  private static String getDisplayString(Context context, long repeatUntilValue) {
-    StringBuilder displayString = new StringBuilder();
-    DateTime d = newDateTime(repeatUntilValue);
-    if (d.getMillis() > 0) {
-      displayString.append(DateUtilities.getDateString(d));
-      if (Task.hasDueTime(repeatUntilValue)) {
-        displayString.append(", "); // $NON-NLS-1$ //$NON-NLS-2$
-        displayString.append(DateUtilities.getTimeString(context, repeatUntilValue));
-      }
-    }
-    return displayString.toString();
   }
 
   @NonNull
@@ -532,7 +518,10 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
     int count = rrule.getCount();
     if (repeatUntil > 0) {
       repeatUntilOptions.add(
-          getString(R.string.repeat_until, getDisplayString(context, repeatUntil)));
+          getString(
+              R.string.repeat_until,
+              DateUtilities.getRelativeDateTime(
+                  context, repeatUntil, locale.getLocale(), FormatStyle.MEDIUM)));
       repeatTimes.setVisibility(View.GONE);
       repeatTimesText.setVisibility(View.GONE);
     } else if (count > 0) {

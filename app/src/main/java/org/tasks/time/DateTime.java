@@ -18,6 +18,8 @@ import java.util.GregorianCalendar;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 import org.tasks.locale.Locale;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.LocalDateTime;
 
 public class DateTime {
 
@@ -318,6 +320,14 @@ public class DateTime {
 
   public DateValue toDateValue() {
     return timestamp == 0 ? null : new DateValueImpl(getYear(), getMonthOfYear(), getDayOfMonth());
+  }
+
+  public LocalDate toLocalDate() {
+    return timestamp == 0 ? null : LocalDate.of(getYear(), getMonthOfYear(), getDayOfMonth());
+  }
+
+  public LocalDateTime toLocalDateTime() {
+    return timestamp == 0 ? null : LocalDateTime.of(getYear(), getMonthOfYear(), getDayOfMonth(), getHourOfDay(), getMinuteOfHour());
   }
 
   public int getDayOfWeekInMonth() {

@@ -294,7 +294,6 @@
     <string name="repeat_number_of_times">חוזר מספר פעמים</string>
     <string name="repeat_occurs">קורה</string>
     <string name="repeat_snackbar">%1$s תזמן מחדש משימה חוזרת זו ל־%2$s</string>
-    <string name="repeat_snackbar_time" comment="display new due date and time in snackbar after completing repeating task, e.g. \'Tomorrow at 8 AM\' or \'21 May at 8 AM\'">%1$s בשעה %2$s</string>
     <string name="new_tag">יצירת תגית חדשה</string>
     <string name="new_list">יצירת רשימה חדשה</string>
     <string name="tag_FEx_untagged">ללא קיטלוג</string>

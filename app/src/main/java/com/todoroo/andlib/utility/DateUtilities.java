@@ -11,10 +11,15 @@ import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 import android.content.Context;
 import android.text.format.DateFormat;
+import androidx.annotation.Nullable;
+import com.google.common.base.Strings;
 import com.todoroo.astrid.data.Task;
+import org.tasks.BuildConfig;
 import org.tasks.R;
-import org.tasks.locale.Locale;
 import org.tasks.time.DateTime;
+import org.threeten.bp.format.DateTimeFormatter;
+import org.threeten.bp.format.FormatStyle;
+import org.threeten.bp.format.TextStyle;
 
 public class DateUtilities {
 
@@ -27,13 +32,6 @@ public class DateUtilities {
   /** Represents a single minute */
   public static final long ONE_MINUTE = 60000L;
 
-  private static final long abbreviationLimit = DateUtilities.ONE_DAY * 6;
-  private static final String JA = "MMM d\u65E5";
-  private static final String JA_YEAR = "yy\u5E74 " + JA;
-  private static final String KO = "MMM d\uC77C";
-  private static final String KO_YEAR = "yy\uB144 " + KO;
-  private static final String ZH = "MMM d\u65E5";
-  private static final String ZH_YEAR = "yy\u5E74 " + ZH;
   static Boolean is24HourOverride = null;
 
   /** Returns unixtime for current time */
@@ -45,16 +43,10 @@ public class DateUtilities {
    * =========================================================== formatters
    * ====================================================================== */
 
-  public static boolean is24HourFormat(Context context) {
-    if (is24HourOverride != null) {
-      return is24HourOverride;
-    }
-
-    return DateFormat.is24HourFormat(context);
-  }
-
-  public static String getTimeString(Context context, long timestamp) {
-    return getTimeString(context, newDateTime(timestamp));
+  private static boolean is24HourFormat(Context context) {
+    return BuildConfig.DEBUG && is24HourOverride != null
+        ? is24HourOverride
+        : DateFormat.is24HourFormat(context);
   }
 
   public static String getTimeString(Context context, DateTime date) {
@@ -69,120 +61,106 @@ public class DateUtilities {
     return date.toString(value);
   }
 
-  public static String getLongDateString(DateTime date) {
-    return getDateString("MMMM", date);
+  public static String getLongDateString(DateTime date, java.util.Locale locale) {
+    return getFullDate(date, locale, FormatStyle.LONG);
   }
 
   /**
    * @param date date to format
    * @return date, with month, day, and year
    */
-  public static String getDateString(DateTime date) {
-    return getDateString("MMM", date);
+  public static String getDateString(Context context, DateTime date) {
+    return getRelativeDay(
+        context, date.getMillis(), java.util.Locale.getDefault(), FormatStyle.MEDIUM);
   }
 
-  private static String getDateString(String simpleDateFormat, DateTime date) {
-    boolean includeYear = date.getYear() != newDateTime().getYear();
-    String format = getFormat(Locale.getInstance(), simpleDateFormat, includeYear);
-    return date.toString(format);
-  }
-
-  private static String getFormat(Locale locale, String monthFormat, boolean includeYear) {
-    switch (locale.getLanguage()) {
-      case "ja":
-        return includeYear ? JA_YEAR : JA;
-      case "ko":
-        return includeYear ? KO_YEAR : KO;
-      case "zh":
-        return includeYear ? ZH_YEAR : ZH;
-    }
-    switch (locale.getCountry()) {
-      case "BZ":
-      case "CA":
-      case "KE":
-      case "MN":
-      case "US":
-        return includeYear ? monthFormat + " d ''yy" : monthFormat + " d";
-      default:
-        return includeYear ? "d " + monthFormat + " ''yy" : "d " + monthFormat;
-    }
+  static String getWeekday(DateTime date, java.util.Locale locale) {
+    return date.toLocalDate().getDayOfWeek().getDisplayName(TextStyle.FULL, locale);
   }
 
   /** @return weekday */
-  public static String getWeekday(DateTime date) {
-    return date.toString("EEEE");
+  static String getWeekdayShort(DateTime date, java.util.Locale locale) {
+    return date.toLocalDate().getDayOfWeek().getDisplayName(TextStyle.SHORT, locale);
   }
 
-  /** @return weekday */
-  public static String getWeekdayShort(DateTime date) {
-    return date.toString("EEE");
+  public static String getLongDateStringWithTime(long timestamp, java.util.Locale locale) {
+    return getFullDateTime(newDateTime(timestamp), locale, FormatStyle.LONG);
   }
 
-  public static String getLongDateStringWithTime(Context context, long timestamp) {
-    DateTime date = newDateTime(timestamp);
-    return getLongDateString(date) + ", " + getTimeString(context, date);
-  }
-
-  public static String getDateStringWithTime(Context context, long timestamp) {
-    DateTime date = newDateTime(timestamp);
-    return getDateString(date) + ", " + getTimeString(context, date);
-  }
-
-  public static String getRelativeDateStringWithTime(Context context, long timestamp) {
-    String string = DateUtilities.getRelativeDay(context, timestamp, false);
-    if (Task.hasDueTime(timestamp)) {
-      string =
-          String.format(
-              "%s %s",
-              string, // $NON-NLS-1$
-              DateUtilities.getTimeString(context, timestamp));
+  public static String getRelativeDateTime(
+      Context context, long date, java.util.Locale locale, FormatStyle style) {
+    String day = getRelativeDay(context, date, locale, isAbbreviated(style));
+    if (!Strings.isNullOrEmpty(day)) {
+      if (Task.hasDueTime(date)) {
+        String time = getTimeString(context, newDateTime(date));
+        return newDateTime().startOfDay().equals(newDateTime(date).startOfDay()) ? time : String.format("%s %s", day, time);
+      } else {
+        return day;
+      }
     }
-    return string;
+    return Task.hasDueTime(date)
+            ? getFullDateTime(newDateTime(date), locale, style)
+            : getFullDate(newDateTime(date), locale, style);
   }
 
-  public static String getAbbreviatedRelativeDateWithTime(Context context, long date) {
-    long startOfToday = getStartOfDay(currentTimeMillis());
-    long startOfDate = getStartOfDay(date);
-    String day = getRelativeDay(context, date, startOfDate, startOfToday, true);
-    if (Task.hasDueTime(date)) {
-      String time = getTimeString(context, date);
-      return startOfToday == startOfDate ? time : String.format("%s %s", day, time);
-    }
-    return day;
+  private static boolean isAbbreviated(FormatStyle style) {
+    return style == FormatStyle.SHORT || style == FormatStyle.MEDIUM;
   }
 
-  /** @return yesterday, today, tomorrow, or null */
-  public static String getRelativeDay(Context context, long date, boolean abbreviated) {
-    long today = getStartOfDay(currentTimeMillis());
-    long input = getStartOfDay(date);
-
-    return getRelativeDay(context, date, input, today, abbreviated);
+  static String getRelativeDay(
+      Context context,
+      long date,
+      java.util.Locale locale,
+      FormatStyle style) {
+    String relativeDay = getRelativeDay(context, date, locale, isAbbreviated(style));
+    return Strings.isNullOrEmpty(relativeDay)
+        ? getFullDate(newDateTime(date), locale, style)
+        : relativeDay;
   }
 
-  private static String getRelativeDay(
-      Context context, long date, long input, long today, boolean abbreviated) {
-    if (today == input) {
+  private static String getFullDate(DateTime date, java.util.Locale locale, FormatStyle style) {
+    return stripYear(
+        DateTimeFormatter.ofLocalizedDate(style)
+            .withLocale(locale)
+            .format(date.toLocalDate()),
+        newDateTime().getYear());
+  }
+
+  private static String getFullDateTime(DateTime date, java.util.Locale locale, FormatStyle style) {
+    return stripYear(
+        DateTimeFormatter.ofLocalizedDateTime(style, FormatStyle.SHORT)
+            .withLocale(locale)
+            .format(date.toLocalDateTime()),
+        newDateTime().getYear());
+  }
+
+  private static String stripYear(String date, int year) {
+    return date.replaceFirst("(,? )?" + year + "(年|년 )?", "");
+  }
+
+  private static @Nullable String getRelativeDay(Context context, long date, java.util.Locale locale, boolean abbreviated) {
+    DateTime startOfToday = newDateTime().startOfDay();
+    DateTime startOfDate = newDateTime(date).startOfDay();
+
+    if (startOfToday.equals(startOfDate)) {
       return context.getString(R.string.today);
     }
 
-    if (today + ONE_DAY == input) {
+    if (startOfToday.plusDays(1).equals(startOfDate)) {
       return context.getString(abbreviated ? R.string.tmrw : R.string.tomorrow);
     }
 
-    if (today == input + ONE_DAY) {
+    if (startOfDate.plusDays(1).equals(startOfToday)) {
       return context.getString(abbreviated ? R.string.yest : R.string.yesterday);
     }
 
-    if (today + abbreviationLimit >= input && today - abbreviationLimit <= input) {
+    if (Math.abs(startOfToday.getMillis() - startOfDate.getMillis()) <= DateUtilities.ONE_DAY * 6) {
+      DateTime dateTime = newDateTime(date);
       return abbreviated
-          ? DateUtilities.getWeekdayShort(newDateTime(date))
-          : DateUtilities.getWeekday(newDateTime(date));
+          ? DateUtilities.getWeekdayShort(dateTime, locale)
+          : DateUtilities.getWeekday(dateTime, locale);
+
     }
-
-    return getDateString(newDateTime(date));
-  }
-
-  public static long getStartOfDay(long time) {
-    return newDateTime(time).startOfDay().getMillis();
+    return null;
   }
 }

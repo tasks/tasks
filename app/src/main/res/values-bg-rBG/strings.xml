@@ -261,7 +261,6 @@
     <string name="repeat_number_of_times">Повтаряй брой пъти</string>
     <string name="repeat_occurs">Възниква</string>
     <string name="repeat_snackbar">%1$s е насрочено за %2$s</string>
-    <string name="repeat_snackbar_time" comment="display new due date and time in snackbar after completing repeating task, e.g. \'Tomorrow at 8 AM\' or \'21 May at 8 AM\'">%1$s в %2$s</string>
     <string name="new_tag">Нов таг</string>
     <string name="new_list">Създаване на нов списък</string>
     <string name="tag_FEx_untagged">Без категория</string>

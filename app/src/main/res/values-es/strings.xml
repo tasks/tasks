@@ -262,7 +262,6 @@
     <string name="repeat_number_of_times">Repetir un número de veces</string>
     <string name="repeat_occurs">Número de repeticiones</string>
     <string name="repeat_snackbar">%1$s He reprogramado esta tarea recurrente para %2$s</string>
-    <string name="repeat_snackbar_time" comment="display new due date and time in snackbar after completing repeating task, e.g. \'Tomorrow at 8 AM\' or \'21 May at 8 AM\'">%1$s a %2$s</string>
     <string name="new_tag">Crear nueva etiqueta</string>
     <string name="new_list">Crea una nueva lista</string>
     <string name="tag_FEx_untagged">Sin Categoría</string>

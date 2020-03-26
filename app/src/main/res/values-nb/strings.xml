@@ -325,7 +325,6 @@
     <string name="repeat_number_of_times">Gjenta et antall ganger</string>
     <string name="repeat_occurs">Inntreffer</string>
     <string name="repeat_snackbar">%1$s flyttet til %2$s</string>
-    <string name="repeat_snackbar_time" comment="display new due date and time in snackbar after completing repeating task, e.g. 'Tomorrow at 8 AM' or '21 May at 8 AM'">%1$s %2$s</string>
     <string name="new_tag">Opprett en ny etikett</string>
     <string name="new_list">Opprett en ny liste</string>
     <string name="delete_tag_confirmation">Slett %s\?</string>

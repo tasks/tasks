@@ -15,6 +15,8 @@ import java.text.ParseException;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
+import org.tasks.locale.Locale;
+import org.threeten.bp.format.FormatStyle;
 import timber.log.Timber;
 
 public class RepeatConfirmationReceiver extends BroadcastReceiver {
@@ -22,12 +24,15 @@ public class RepeatConfirmationReceiver extends BroadcastReceiver {
   private final Activity activity;
   private final Tracker tracker;
   private final TaskDao taskDao;
+  private final Locale locale;
 
   @Inject
-  public RepeatConfirmationReceiver(Activity activity, Tracker tracker, TaskDao taskDao) {
+  public RepeatConfirmationReceiver(
+      Activity activity, Tracker tracker, TaskDao taskDao, Locale locale) {
     this.activity = activity;
     this.tracker = tracker;
     this.taskDao = taskDao;
+    this.locale = locale;
   }
 
   @Override
@@ -60,7 +65,9 @@ public class RepeatConfirmationReceiver extends BroadcastReceiver {
       final Task task,
       final long oldDueDate,
       final long newDueDate) {
-    String dueDateString = getRelativeDateAndTimeString(activity, newDueDate);
+    String dueDateString =
+        DateUtilities.getRelativeDateTime(
+            activity, newDueDate, locale.getLocale(), FormatStyle.LONG);
     String snackbarText =
         activity.getString(R.string.repeat_snackbar, task.getTitle(), dueDateString);
     taskListFragment
@@ -83,15 +90,5 @@ public class RepeatConfirmationReceiver extends BroadcastReceiver {
               taskDao.save(task);
             })
         .show();
-  }
-
-  private String getRelativeDateAndTimeString(Context context, long date) {
-    String dueString = date > 0 ? DateUtilities.getRelativeDay(context, date, false) : "";
-    if (Task.hasDueTime(date)) {
-      dueString =
-          context.getString(
-              R.string.repeat_snackbar_time, dueString, DateUtilities.getTimeString(context, date));
-    }
-    return dueString;
   }
 }

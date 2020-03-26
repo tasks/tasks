@@ -26,6 +26,7 @@ import org.tasks.R;
 import org.tasks.data.UserActivity;
 import org.tasks.data.UserActivityDao;
 import org.tasks.files.FileHelper;
+import org.tasks.locale.Locale;
 import org.tasks.preferences.Preferences;
 
 public class CommentsController {
@@ -34,6 +35,7 @@ public class CommentsController {
   private final ArrayList<UserActivity> items = new ArrayList<>();
   private final Activity activity;
   private final Preferences preferences;
+  private final Locale locale;
 
   private int commentItems = 10;
   private Task task;
@@ -41,10 +43,11 @@ public class CommentsController {
 
   @Inject
   public CommentsController(
-      UserActivityDao userActivityDao, Activity activity, Preferences preferences) {
+      UserActivityDao userActivityDao, Activity activity, Preferences preferences, Locale locale) {
     this.userActivityDao = userActivityDao;
     this.activity = activity;
     this.preferences = preferences;
+    this.locale = locale;
   }
 
   private static void setupImagePopupForCommentView(
@@ -114,7 +117,7 @@ public class CommentsController {
 
     // date
     final TextView date = view.findViewById(R.id.date);
-    date.setText(DateUtilities.getLongDateStringWithTime(activity, item.getCreated()));
+    date.setText(DateUtilities.getLongDateStringWithTime(item.getCreated(), locale.getLocale()));
 
     // picture
     final ImageView commentPictureView = view.findViewById(R.id.comment_picture);

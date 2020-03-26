@@ -367,7 +367,6 @@
     <string name="repeat_type_completion">datum färdigställt</string>
     <string name="repeat_number_of_times">Repetera ett visst antal gånger</string>
     <string name="repeat_occurs">Inträffar</string>
-    <string name="repeat_snackbar_time" comment="display new due date and time in snackbar after completing repeating task, e.g. 'Tomorrow at 8 AM' or '21 May at 8 AM'">%1$s vid %2$s</string>
     <string name="TEA_timer_controls">Timer</string>
     <string name="google_drive_backup">Kopiera till Google Drive</string>
     <string name="row_spacing">Radavstånd</string>

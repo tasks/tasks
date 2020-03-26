@@ -272,7 +272,6 @@
     <string name="repeat_number_of_times">Powtarzaj podaną ilość razy</string>
     <string name="repeat_occurs">Występuje</string>
     <string name="repeat_snackbar">%1$s przełożone na %2$s</string>
-    <string name="repeat_snackbar_time" comment="display new due date and time in snackbar after completing repeating task, e.g. \'Tomorrow at 8 AM\' or \'21 May at 8 AM\'">%1$s o %2$s</string>
     <string name="new_tag">Stwórz nowy tag</string>
     <string name="new_list">Utwórz nową listę</string>
     <string name="tag_FEx_untagged">Na żadnej liście</string>

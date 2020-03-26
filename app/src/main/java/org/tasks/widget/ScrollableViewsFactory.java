@@ -28,6 +28,7 @@ import org.tasks.locale.Locale;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import org.tasks.ui.CheckBoxProvider;
+import org.threeten.bp.format.FormatStyle;
 import timber.log.Timber;
 
 class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
@@ -36,6 +37,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
   private final TaskDao taskDao;
   private final DefaultFilterProvider defaultFilterProvider;
   private final CheckBoxProvider checkBoxProvider;
+  private final Locale locale;
   private final SubtasksHelper subtasksHelper;
   private final Preferences preferences;
   private final WidgetPreferences widgetPreferences;
@@ -60,7 +62,8 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
       int widgetId,
       TaskDao taskDao,
       DefaultFilterProvider defaultFilterProvider,
-      CheckBoxProvider checkBoxProvider) {
+      CheckBoxProvider checkBoxProvider,
+      Locale locale) {
     this.subtasksHelper = subtasksHelper;
     this.preferences = preferences;
     this.context = context;
@@ -68,6 +71,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     this.taskDao = taskDao;
     this.defaultFilterProvider = defaultFilterProvider;
     this.checkBoxProvider = checkBoxProvider;
+    this.locale = locale;
     widgetPreferences = new WidgetPreferences(context, preferences, widgetId);
     DisplayMetrics metrics = context.getResources().getDisplayMetrics();
     widgetPadding = (int)(10 * metrics.density);
@@ -220,7 +224,8 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
       row.setViewVisibility(R.id.widget_due_date, View.VISIBLE);
       row.setTextViewText(
           R.id.widget_due_date,
-          DateUtilities.getRelativeDateStringWithTime(context, task.getDueDate()));
+          DateUtilities.getRelativeDateTime(
+              context, task.getDueDate(), locale.getLocale(), FormatStyle.MEDIUM));
       //noinspection ResourceAsColor
       row.setTextColor(
           R.id.widget_due_date,

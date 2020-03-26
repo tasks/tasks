@@ -264,7 +264,6 @@
     <string name="repeat_number_of_times">Birkaç kez yinele</string>
     <string name="repeat_occurs">Şu kadar gerçekleşir</string>
     <string name="repeat_snackbar">%1$s, %2$s için yeniden zamanlandı</string>
-    <string name="repeat_snackbar_time" comment="display new due date and time in snackbar after completing repeating task, e.g. \'Tomorrow at 8 AM\' or \'21 May at 8 AM\'">%1$s saat %2$s</string>
     <string name="new_tag">Yeni etiket oluştur</string>
     <string name="new_list">Yeni liste oluştur</string>
     <string name="tag_FEx_untagged">Kategorilendirilmemiş</string>

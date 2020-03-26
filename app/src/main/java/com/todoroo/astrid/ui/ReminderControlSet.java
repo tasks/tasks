@@ -45,6 +45,7 @@ import org.tasks.data.Alarm;
 import org.tasks.dialogs.MyTimePickerDialog;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
+import org.tasks.locale.Locale;
 import org.tasks.ui.HiddenTopArrayAdapter;
 import org.tasks.ui.TaskEditControlFragment;
 
@@ -66,6 +67,7 @@ public class ReminderControlSet extends TaskEditControlFragment {
   private final Set<Long> alarms = new LinkedHashSet<>();
   @Inject AlarmService alarmService;
   @Inject @ForActivity Context context;
+  @Inject Locale locale;
 
   @BindView(R.id.alert_container)
   LinearLayout alertContainer;
@@ -231,7 +233,7 @@ public class ReminderControlSet extends TaskEditControlFragment {
 
   private void addAlarmRow(final Long timestamp) {
     if (alarms.add(timestamp)) {
-      addAlarmRow(getLongDateStringWithTime(context, timestamp), v -> alarms.remove(timestamp));
+      addAlarmRow(getLongDateStringWithTime(timestamp, locale.getLocale()), v -> alarms.remove(timestamp));
     }
   }
 

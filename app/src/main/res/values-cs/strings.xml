@@ -368,7 +368,6 @@
     <string name="repeat_type_completion">okamžiku dokočení</string>
     <string name="repeat_occurs">Vyskytne se</string>
     <string name="repeat_snackbar">Úkol %1$s byl znovu naplánován na %2$s</string>
-    <string name="repeat_snackbar_time" comment="display new due date and time in snackbar after completing repeating task, e.g. 'Tomorrow at 8 AM' or '21 May at 8 AM'">%1$s na %2$s</string>
     <string name="new_list">Vytvořit nový seznam</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Aplikace bude nahlas číst název úkolu při upozornění</string>
     <string name="attachment_directory">Adresář příloh</string>

@@ -2,7 +2,7 @@ package org.tasks.tasklist;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastKitKat;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
-import static com.todoroo.andlib.utility.DateUtilities.getAbbreviatedRelativeDateWithTime;
+import static com.todoroo.andlib.utility.DateUtilities.getRelativeDateTime;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -30,6 +30,7 @@ import org.tasks.dialogs.Linkify;
 import org.tasks.preferences.Preferences;
 import org.tasks.ui.CheckBoxProvider;
 import org.tasks.ui.ChipProvider;
+import org.threeten.bp.format.FormatStyle;
 
 public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -253,7 +254,9 @@ public class ViewHolder extends RecyclerView.ViewHolder {
       } else {
         dueDate.setTextColor(textColorSecondary);
       }
-      String dateValue = getAbbreviatedRelativeDateWithTime(context, task.getDueDate());
+      String dateValue =
+          getRelativeDateTime(
+              context, task.getDueDate(), java.util.Locale.getDefault(), FormatStyle.MEDIUM);
       dueDate.setText(dateValue);
       dueDate.setVisibility(View.VISIBLE);
     } else {

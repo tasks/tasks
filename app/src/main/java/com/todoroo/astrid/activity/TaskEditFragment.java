@@ -276,7 +276,7 @@ public final class TaskEditFragment extends InjectingFragment
         String.format(
             "%s %s\n%s %s", // $NON-NLS-1$
             getString(R.string.TEA_timer_comment_stopped),
-            DateUtilities.getTimeString(getActivity(), newDateTime()),
+            DateUtilities.getTimeString(context, newDateTime()),
             getString(R.string.TEA_timer_comment_spent),
             elapsedTime),
         null);
@@ -289,7 +289,7 @@ public final class TaskEditFragment extends InjectingFragment
         String.format(
             "%s %s",
             getString(R.string.TEA_timer_comment_started),
-            DateUtilities.getTimeString(getActivity(), newDateTime())),
+            DateUtilities.getTimeString(context, newDateTime())),
         null);
     return model;
   }

@@ -38,6 +38,7 @@ import org.tasks.dialogs.MyDatePickerDialog;
 import org.tasks.dialogs.MyTimePickerDialog;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
+import org.tasks.locale.Locale;
 import org.tasks.preferences.Preferences;
 import org.tasks.time.DateTime;
 
@@ -54,6 +55,7 @@ public class DeadlineControlSet extends TaskEditControlFragment {
 
   @Inject Preferences preferences;
   @Inject @ForActivity Context context;
+  @Inject Locale locale;
 
   @BindView(R.id.due_date)
   Spinner dueDateSpinner;
@@ -364,7 +366,7 @@ public class DeadlineControlSet extends TaskEditControlFragment {
       } else if (date == today.plusWeeks(1).getMillis()) {
         dueDateOptions.set(0, nextWeekString);
       } else {
-        dueDateOptions.set(0, DateUtilities.getLongDateString(newDateTime(date)));
+        dueDateOptions.set(0, DateUtilities.getLongDateString(newDateTime(date), locale.getLocale()));
       }
     }
     dueDateOptions.set(3, nextWeekString);

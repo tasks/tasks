@@ -258,7 +258,6 @@
     <string name="repeat_number_of_times">Kartoti nustatytą kiekį kartų</string>
     <string name="repeat_occurs">Įvyksta</string>
     <string name="repeat_snackbar">%1$s perplanuotas šiai datai: %2$s</string>
-    <string name="repeat_snackbar_time" comment="display new due date and time in snackbar after completing repeating task, e.g. \'Tomorrow at 8 AM\' or \'21 May at 8 AM\'">%1$s %2$s metu</string>
     <string name="new_tag">Sukurti naują etiketę</string>
     <string name="new_list">Sukurti naują sąrašą</string>
     <string name="tag_FEx_untagged">Nekategorizuotos</string>

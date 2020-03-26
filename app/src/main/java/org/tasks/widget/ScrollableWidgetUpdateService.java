@@ -57,6 +57,7 @@ public class ScrollableWidgetUpdateService extends RemoteViewsService {
         widgetId,
         taskDao,
         defaultFilterProvider,
-        new CheckBoxProvider(context, new ColorProvider(context, preferences)));
+        new CheckBoxProvider(context, new ColorProvider(context, preferences)),
+        locale);
   }
 }

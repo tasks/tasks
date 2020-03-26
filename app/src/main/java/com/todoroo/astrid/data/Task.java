@@ -417,8 +417,7 @@ public class Task implements Parcelable {
 
   public boolean isOverdue() {
     long dueDate = getDueDate();
-    long compareTo =
-        hasDueTime() ? DateUtilities.now() : DateUtilities.getStartOfDay(DateUtilities.now());
+    long compareTo = hasDueTime() ? DateUtilities.now() : newDateTime().startOfDay().getMillis();
 
     return dueDate < compareTo && !isCompleted();
   }

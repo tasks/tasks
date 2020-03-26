@@ -1,6 +1,6 @@
 package com.todoroo.andlib.utility;
 
-import static androidx.test.InstrumentationRegistry.getTargetContext;
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 import static com.todoroo.andlib.utility.DateUtilities.getRelativeDay;
 import static junit.framework.Assert.assertEquals;
 import static org.tasks.Freeze.freezeAt;
@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.tasks.time.DateTime;
+import org.threeten.bp.format.FormatStyle;
 
 @RunWith(AndroidJUnit4.class)
 public class RelativeDayTest {
@@ -62,16 +63,20 @@ public class RelativeDayTest {
 
   @Test
   public void testRelativeDayOneWeek() {
-    checkRelativeDay(new DateTime().minusDays(7), "Dec 24", "Dec 24");
+    checkRelativeDay(new DateTime().minusDays(7), "December 24", "Dec 24");
   }
 
   @Test
   public void testRelativeDayOneWeekNextYear() {
-    checkRelativeDay(new DateTime().plusDays(7), "Jan 7 '14", "Jan 7 '14");
+    checkRelativeDay(new DateTime().plusDays(7), "January 7, 2014", "Jan 7, 2014");
   }
 
   private void checkRelativeDay(DateTime now, String full, String abbreviated) {
-    assertEquals(full, getRelativeDay(getTargetContext(), now.getMillis(), false));
-    assertEquals(abbreviated, getRelativeDay(getTargetContext(), now.getMillis(), true));
+    assertEquals(
+        full,
+        getRelativeDay(getApplicationContext(), now.getMillis(), Locale.US, FormatStyle.LONG));
+    assertEquals(
+        abbreviated,
+        getRelativeDay(getApplicationContext(), now.getMillis(), Locale.US, FormatStyle.MEDIUM));
   }
 }

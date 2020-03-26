@@ -257,7 +257,6 @@
     <string name="repeat_number_of_times">Wiederhole n-mal</string>
     <string name="repeat_occurs">Tritt ein</string>
     <string name="repeat_snackbar">%1$s neu geplant für %2$s</string>
-    <string name="repeat_snackbar_time" comment="display new due date and time in snackbar after completing repeating task, e.g. \'Tomorrow at 8 AM\' or \'21 May at 8 AM\'">%1$s um %2$s</string>
     <string name="new_tag">Neues Schlagwort erstellen</string>
     <string name="new_list">Neue Liste erstellen</string>
     <string name="tag_FEx_untagged">Nicht kategorisiert</string>

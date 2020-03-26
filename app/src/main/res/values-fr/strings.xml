@@ -247,7 +247,6 @@
     <string name="repeat_number_of_times">Nombre de répétitions</string>
     <string name="repeat_occurs">Se répète</string>
     <string name="repeat_snackbar">%1$s replanifiée à %2$s</string>
-    <string name="repeat_snackbar_time" comment="display new due date and time in snackbar after completing repeating task, e.g. \'Tomorrow at 8 AM\' or \'21 May at 8 AM\'">%1$s à %2$s</string>
     <string name="new_tag">Créer un nouveau tag</string>
     <string name="new_list">Créer une nouvelle liste</string>
     <string name="tag_FEx_untagged">Non classé</string>

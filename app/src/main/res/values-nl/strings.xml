@@ -258,7 +258,6 @@
     <string name="repeat_number_of_times">Herhaal een aantal keer</string>
     <string name="repeat_occurs">Keren</string>
     <string name="repeat_snackbar">%1$s opnieuw ingepland op %2$s</string>
-    <string name="repeat_snackbar_time" comment="display new due date and time in snackbar after completing repeating task, e.g. \'Tomorrow at 8 AM\' or \'21 May at 8 AM\'">%1$s om %2$s</string>
     <string name="new_tag">Nieuw label aanmaken</string>
     <string name="new_list">Nieuwe lijst aanmaken</string>
     <string name="tag_FEx_untagged">Niet gecategoriseerd</string>

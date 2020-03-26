@@ -261,7 +261,6 @@
     <string name="repeat_number_of_times">Повторити кількість разів</string>
     <string name="repeat_occurs">Станеться</string>
     <string name="repeat_snackbar">%1$s перенесено на %2$s</string>
-    <string name="repeat_snackbar_time" comment="display new due date and time in snackbar after completing repeating task, e.g. \'Tomorrow at 8 AM\' or \'21 May at 8 AM\'">%1$s о %2$s</string>
     <string name="new_tag">Створити новий ярлик</string>
     <string name="new_list">Новий список</string>
     <string name="tag_FEx_untagged">Без категорії</string>

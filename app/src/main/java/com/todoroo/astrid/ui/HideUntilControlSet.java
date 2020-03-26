@@ -41,6 +41,7 @@ import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.dialogs.MyTimePickerDialog;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
+import org.tasks.locale.Locale;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.ThemeBase;
 import org.tasks.time.DateTime;
@@ -66,6 +67,7 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
   @Inject @ForActivity Context context;
   @Inject ThemeBase themeBase;
   @Inject Preferences preferences;
+  @Inject Locale locale;
   // private final CheckBox enabled;
   @BindView(R.id.hideUntil)
   Spinner spinner;
@@ -266,12 +268,12 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
         && hideUntilAsDate.getMinuteOfHour() == 0
         && hideUntilAsDate.getSecondOfMinute() == 0) {
       return new HideUntilValue(
-          DateUtilities.getDateString(newDateTime(timestamp)),
+          DateUtilities.getDateString(context, newDateTime(timestamp)),
           Task.HIDE_UNTIL_SPECIFIC_DAY,
           timestamp);
     } else {
       return new HideUntilValue(
-          DateUtilities.getDateStringWithTime(context, timestamp),
+          DateUtilities.getLongDateStringWithTime(timestamp, locale.getLocale()),
           Task.HIDE_UNTIL_SPECIFIC_DAY_TIME,
           timestamp);
     }

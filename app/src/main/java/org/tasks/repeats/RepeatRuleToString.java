@@ -58,7 +58,7 @@ public class RepeatRuleToString {
               R.string.repeats_single_on_until,
               frequencyString,
               dayString,
-              DateUtilities.getLongDateString(repeatUntil));
+              DateUtilities.getLongDateString(repeatUntil, locale.getLocale()));
         }
       } else if (count > 0) {
         return context.getString(
@@ -69,7 +69,7 @@ public class RepeatRuleToString {
         return context.getString(
             R.string.repeats_single_until,
             frequencyString,
-            DateUtilities.getLongDateString(repeatUntil));
+            DateUtilities.getLongDateString(repeatUntil, locale.getLocale()));
       }
     } else {
       int plural = getFrequencyPlural(frequency);
@@ -90,7 +90,7 @@ public class RepeatRuleToString {
               R.string.repeats_plural_on_until,
               frequencyPlural,
               dayString,
-              DateUtilities.getLongDateString(repeatUntil));
+              DateUtilities.getLongDateString(repeatUntil, locale.getLocale()));
         }
       } else if (count > 0) {
         return context.getString(
@@ -101,7 +101,7 @@ public class RepeatRuleToString {
         return context.getString(
             R.string.repeats_plural_until,
             frequencyPlural,
-            DateUtilities.getLongDateString(repeatUntil));
+            DateUtilities.getLongDateString(repeatUntil, locale.getLocale()));
       }
     }
   }
