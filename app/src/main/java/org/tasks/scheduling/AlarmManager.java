@@ -1,6 +1,5 @@
 package org.tasks.scheduling;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastKitKat;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
 
 import android.annotation.SuppressLint;
@@ -27,10 +26,8 @@ public class AlarmManager {
     if (atLeastMarshmallow()) {
       alarmManager.setExactAndAllowWhileIdle(
           android.app.AlarmManager.RTC_WAKEUP, time, pendingIntent);
-    } else if (atLeastKitKat()) {
-      alarmManager.setExact(android.app.AlarmManager.RTC_WAKEUP, time, pendingIntent);
     } else {
-      alarmManager.set(android.app.AlarmManager.RTC_WAKEUP, time, pendingIntent);
+      alarmManager.setExact(android.app.AlarmManager.RTC_WAKEUP, time, pendingIntent);
     }
   }
 }

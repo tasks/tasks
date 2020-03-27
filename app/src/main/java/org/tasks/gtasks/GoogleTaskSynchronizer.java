@@ -1,7 +1,6 @@
 package org.tasks.gtasks;
 
 import static com.google.common.collect.Lists.transform;
-import static com.todoroo.andlib.utility.AndroidUtilities.preKitKat;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
 import android.content.Context;
@@ -165,10 +164,6 @@ public class GoogleTaskSynchronizer {
   }
 
   private void synchronize(GoogleTaskAccount account) throws IOException {
-    if (preKitKat()) {
-      account.setError(context.getString(R.string.requires_android_version, "4.4"));
-      return;
-    }
     if (!permissionChecker.canAccessAccounts()
         || googleAccountManager.getAccount(account.getAccount()) == null) {
       account.setError(context.getString(R.string.cannot_access_account));

@@ -545,7 +545,6 @@
     <string name="upgrade_blurb_3">选择下方任意订阅价格即可开始免费试用。 你可以随时取消</string>
     <string name="upgrade_blurb_4">您的支持对我很重要，谢谢！</string>
     <string name="back">返回</string>
-    <string name="requires_android_version">需要安卓系统 %s+</string>
     <string name="chip_style">Chip样式</string>
     <string name="chip_style_outlined">描边</string>
     <string name="chip_style_filled">填充</string>

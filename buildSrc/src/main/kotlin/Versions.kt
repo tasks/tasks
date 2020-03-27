@@ -1,7 +1,7 @@
 object Versions {
     const val kotlin = "1.3.70"
     const val targetSdk = 29
-    const val minSdk = 17
+    const val minSdk = 19
     const val dagger = "2.26"
     const val butterknife = "10.2.1"
     const val work = "2.3.4"

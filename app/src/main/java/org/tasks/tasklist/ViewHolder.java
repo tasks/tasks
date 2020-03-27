@@ -1,6 +1,5 @@
 package org.tasks.tasklist;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastKitKat;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static com.todoroo.andlib.utility.DateUtilities.getRelativeDateTime;
 
@@ -121,13 +120,8 @@ public class ViewHolder extends RecyclerView.ViewHolder {
       description.setEllipsize(null);
     }
 
-    if (atLeastKitKat()) {
-      setTopPadding(rowPadding, nameView, completeBox);
-      setBottomPadding(rowPadding, completeBox);
-    } else {
-      MarginLayoutParams lp = (MarginLayoutParams) rowBody.getLayoutParams();
-      lp.setMargins(lp.leftMargin, rowPadding, lp.rightMargin, rowPadding);
-    }
+    setTopPadding(rowPadding, nameView, completeBox);
+    setBottomPadding(rowPadding, completeBox);
 
     nameView.setTextSize(fontSize);
     description.setTextSize(fontSize);
@@ -220,16 +214,14 @@ public class ViewHolder extends RecyclerView.ViewHolder {
       description.setOnClickListener(view -> onRowBodyClick());
       description.setOnLongClickListener(view -> onRowBodyLongClick());
     }
-    if (atLeastKitKat()) {
-      if (chipGroup.getVisibility() == View.VISIBLE) {
-        setBottomPadding(rowPadding, chipGroup);
-        setBottomPadding(0, description, nameView);
-      } else if (description.getVisibility() == View.VISIBLE) {
-        setBottomPadding(rowPadding, description);
-        setBottomPadding(0, nameView);
-      } else {
-        setBottomPadding(rowPadding, nameView);
-      }
+    if (chipGroup.getVisibility() == View.VISIBLE) {
+      setBottomPadding(rowPadding, chipGroup);
+      setBottomPadding(0, description, nameView);
+    } else if (description.getVisibility() == View.VISIBLE) {
+      setBottomPadding(rowPadding, description);
+      setBottomPadding(0, nameView);
+    } else {
+      setBottomPadding(rowPadding, nameView);
     }
   }
 

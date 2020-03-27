@@ -5,7 +5,6 @@ import static androidx.preference.PreferenceManager.setDefaultValues;
 import static com.google.common.collect.Iterables.filter;
 import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Sets.newHashSet;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastKitKat;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static java.util.Collections.emptySet;
 
@@ -243,10 +242,6 @@ public class Preferences {
     return getIntegerFromString(R.string.p_default_reminders_mode_key, 0);
   }
 
-  public int getRowPadding() {
-    return getInt(R.string.p_rowPadding, 16);
-  }
-
   public int getFontSize() {
     return getInt(R.string.p_fontSize, 16);
   }
@@ -414,12 +409,10 @@ public class Preferences {
       }
     }
 
-    if (atLeastKitKat()) {
-      DocumentFile file =
-          DocumentFile.fromFile(context.getExternalFilesDir(null)).createDirectory(name);
-      if (file != null) {
-        return file.getUri();
-      }
+    DocumentFile documentFile =
+        DocumentFile.fromFile(context.getExternalFilesDir(null)).createDirectory(name);
+    if (documentFile != null) {
+      return documentFile.getUri();
     }
 
     File file = getDefaultFileLocation(name);
@@ -445,11 +438,7 @@ public class Preferences {
       cacheDir = context.getCacheDir();
     }
 
-    if (atLeastKitKat()) {
-      return DocumentFile.fromFile(cacheDir).getUri();
-    } else {
-      return Uri.fromFile(cacheDir);
-    }
+    return DocumentFile.fromFile(cacheDir).getUri();
   }
 
   private boolean hasWritePermission(Context context, Uri uri) {

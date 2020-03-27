@@ -565,7 +565,6 @@
     <string name="upgrade_blurb_3">Wybierz dowolną cenę subskrypcji poniżej, aby rozpocząć bezpłatny okres próbny. Możesz zrezygnować w każdej chwili</string>
     <string name="upgrade_blurb_4">Twoje wsparcie wiele dla mnie znaczy, dziękuję!</string>
     <string name="back">Wstecz</string>
-    <string name="requires_android_version">Wymaga Android %s+</string>
     <string name="chip_style">Styl chipa</string>
     <string name="chip_style_outlined">Obrysowany</string>
     <string name="chip_style_filled">Wypełniony</string>

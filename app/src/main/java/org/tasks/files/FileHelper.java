@@ -4,7 +4,6 @@ import static android.content.ContentResolver.SCHEME_CONTENT;
 import static android.provider.DocumentsContract.EXTRA_INITIAL_URI;
 import static androidx.core.content.FileProvider.getUriForFile;
 import static com.google.common.collect.Iterables.any;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastKitKat;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static com.todoroo.andlib.utility.AndroidUtilities.preLollipop;
 import static com.todoroo.astrid.utility.Constants.FILE_PROVIDER_AUTHORITY;
@@ -43,29 +42,21 @@ public class FileHelper {
   public static final int MAX_FILENAME_LENGTH = 40;
 
   public static Intent newFilePickerIntent(Activity activity, Uri initial, String... mimeTypes) {
-    if (atLeastKitKat()) {
-      Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-      intent.putExtra("android.content.extra.SHOW_ADVANCED", true);
-      intent.putExtra("android.content.extra.FANCY", true);
-      intent.putExtra("android.content.extra.SHOW_FILESIZE", true);
-      intent.addCategory(Intent.CATEGORY_OPENABLE);
-      setInitialUri(activity, intent, initial);
-      if (mimeTypes.length == 1) {
-        intent.setType(mimeTypes[0]);
-      } else {
-        intent.setType("*/*");
-        if (mimeTypes.length > 1) {
-          intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
-        }
-      }
-      return intent;
+    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+    intent.putExtra("android.content.extra.SHOW_ADVANCED", true);
+    intent.putExtra("android.content.extra.FANCY", true);
+    intent.putExtra("android.content.extra.SHOW_FILESIZE", true);
+    intent.addCategory(Intent.CATEGORY_OPENABLE);
+    setInitialUri(activity, intent, initial);
+    if (mimeTypes.length == 1) {
+      intent.setType(mimeTypes[0]);
     } else {
-      Intent intent = new Intent(activity, FileExplore.class);
-      if (initial != null) {
-        intent.putExtra(FileExplore.EXTRA_START_PATH, initial.getPath());
+      intent.setType("*/*");
+      if (mimeTypes.length > 1) {
+        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
       }
-      return intent;
     }
+    return intent;
   }
 
   public static void newDirectoryPicker(Fragment fragment, int rc, @Nullable Uri initial) {

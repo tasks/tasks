@@ -549,7 +549,6 @@
     <string name="upgrade_blurb_3">Kies hierbeneden een abonnementsprijs om je gratis proefperiode te starten. Je kunt het altijd annuleren</string>
     <string name="upgrade_blurb_4">Je steun betekent veel voor me, bedankt!</string>
     <string name="back">Terug</string>
-    <string name="requires_android_version">Vereist Android %s+</string>
     <string name="chip_style">Fiche-stijl</string>
     <string name="chip_style_outlined">Omlijnd</string>
     <string name="chip_style_filled">Gevuld</string>
