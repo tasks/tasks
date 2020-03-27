@@ -297,4 +297,144 @@ public class DateUtilitiesTest {
                         Locale.CHINESE,
                         FormatStyle.FULL)));
   }
+
+  @Test
+  public void frenchDateTimeWithYear() {
+    freezeAt(new DateTime(2017, 12, 12))
+        .thawAfter(
+            () ->
+                Assert.assertEquals(
+                    "dimanche 14 janvier 2018 13:45",
+                    DateUtilities.getRelativeDateTime(
+                        getApplicationContext(),
+                        new DateTime(2018, 1, 14, 13, 45, 1).getMillis(),
+                        Locale.FRENCH,
+                        FormatStyle.FULL)));
+  }
+
+  @Test
+  public void indiaDateTimeWithYear() {
+    freezeAt(new DateTime(2017, 12, 12))
+        .thawAfter(
+            () ->
+                Assert.assertEquals(
+                    "रविवार, 14 जनवरी 2018 1:45 pm",
+                    DateUtilities.getRelativeDateTime(
+                        getApplicationContext(),
+                        new DateTime(2018, 1, 14, 13, 45, 1).getMillis(),
+                        Locale.forLanguageTag("hi-IN"),
+                        FormatStyle.FULL)));
+  }
+
+  @Test
+  public void russiaDateTimeNoYear() {
+    freezeAt(new DateTime(2018, 12, 12))
+        .thawAfter(
+            () ->
+                Assert.assertEquals(
+                    "воскресенье, 14 января 13:45",
+                    DateUtilities.getRelativeDateTime(
+                        getApplicationContext(),
+                        new DateTime(2018, 1, 14, 13, 45, 1).getMillis(),
+                        Locale.forLanguageTag("ru"),
+                        FormatStyle.FULL)));
+  }
+
+  @Test
+  public void russiaDateTimeWithYear() {
+    freezeAt(new DateTime(2017, 12, 12))
+        .thawAfter(
+            () ->
+                Assert.assertEquals(
+                    "воскресенье, 14 января 2018 г. 13:45",
+                    DateUtilities.getRelativeDateTime(
+                        getApplicationContext(),
+                        new DateTime(2018, 1, 14, 13, 45, 1).getMillis(),
+                        Locale.forLanguageTag("ru"),
+                        FormatStyle.FULL)));
+  }
+
+  @Test
+  public void brazilDateTimeNoYear() {
+    freezeAt(new DateTime(2018, 12, 12))
+        .thawAfter(
+            () ->
+                Assert.assertEquals(
+                    "domingo, 14 de janeiro 13:45",
+                    DateUtilities.getRelativeDateTime(
+                        getApplicationContext(),
+                        new DateTime(2018, 1, 14, 13, 45, 1).getMillis(),
+                        Locale.forLanguageTag("pt-br"),
+                        FormatStyle.FULL)));
+  }
+
+  @Test
+  public void brazilDateTimeWithYear() {
+    freezeAt(new DateTime(2017, 12, 12))
+        .thawAfter(
+            () ->
+                Assert.assertEquals(
+                    "domingo, 14 de janeiro de 2018 13:45",
+                    DateUtilities.getRelativeDateTime(
+                        getApplicationContext(),
+                        new DateTime(2018, 1, 14, 13, 45, 1).getMillis(),
+                        Locale.forLanguageTag("pt-br"),
+                        FormatStyle.FULL)));
+  }
+
+  @Test
+  public void spainDateTimeNoYear() {
+    freezeAt(new DateTime(2018, 12, 12))
+        .thawAfter(
+            () ->
+                Assert.assertEquals(
+                    "domingo, 14 de enero 13:45",
+                    DateUtilities.getRelativeDateTime(
+                        getApplicationContext(),
+                        new DateTime(2018, 1, 14, 13, 45, 1).getMillis(),
+                        Locale.forLanguageTag("es"),
+                        FormatStyle.FULL)));
+  }
+
+  @Test
+  public void spainDateTimeWithYear() {
+    freezeAt(new DateTime(2017, 12, 12))
+        .thawAfter(
+            () ->
+                Assert.assertEquals(
+                    "domingo, 14 de enero de 2018 13:45",
+                    DateUtilities.getRelativeDateTime(
+                        getApplicationContext(),
+                        new DateTime(2018, 1, 14, 13, 45, 1).getMillis(),
+                        Locale.forLanguageTag("es"),
+                        FormatStyle.FULL)));
+  }
+
+  @Test
+  public void hebrewDateTimeNoYear() {
+    freezeAt(new DateTime(2018, 12, 12))
+        .thawAfter(
+            () ->
+                Assert.assertEquals(
+                    "יום ראשון, 14 בינואר 13:45",
+                    DateUtilities.getRelativeDateTime(
+                        getApplicationContext(),
+                        new DateTime(2018, 1, 14, 13, 45, 1).getMillis(),
+                        Locale.forLanguageTag("iw"),
+                        FormatStyle.FULL)));
+  }
+
+  @Test
+  public void hebrewDateTimeWithYear() {
+    freezeAt(new DateTime(2017, 12, 12))
+        .thawAfter(
+            () ->
+                Assert.assertEquals(
+                    "יום ראשון, 14 בינואר 2018 13:45",
+                    DateUtilities.getRelativeDateTime(
+                        getApplicationContext(),
+                        new DateTime(2018, 1, 14, 13, 45, 1).getMillis(),
+                        Locale.forLanguageTag("iw"),
+                        FormatStyle.FULL)));
+  }
 }

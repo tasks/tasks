@@ -135,7 +135,7 @@ public class DateUtilities {
   }
 
   private static String stripYear(String date, int year) {
-    return date.replaceFirst("(,? )?" + year + "(年|년 )?", "");
+    return date.replaceAll("(?: de |, |/| )?" + year + "(?:年|년 | г\\.)?", "");
   }
 
   private static @Nullable String getRelativeDay(Context context, long date, java.util.Locale locale, boolean abbreviated) {
