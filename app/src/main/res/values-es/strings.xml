@@ -572,4 +572,8 @@
     <string name="chip_appearance_text_and_icon">Texto e ícono</string>
     <string name="chip_appearance_text_only">Sólo texto</string>
     <string name="chip_appearance_icon_only">Icono sólo</string>
+    <string name="shortcut_pick_date">Elija la fecha</string>
+    <string name="shortcut_pick_time">Elija la hora</string>
+    <string name="no_time">No hay tiempo</string>
+    <string name="no_date">No hay fecha</string>
 </resources>
