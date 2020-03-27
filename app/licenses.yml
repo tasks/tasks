@@ -854,3 +854,9 @@
   copyrightHolder: Google LLC
   license: The Apache Software License, Version 2.0
   url: https://github.com/google/auto/tree/master/value
+- artifact: com.squareup.okio:okio:+
+  name: Okio
+  copyrightHolder: Square, Inc.
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://github.com/square/okio/

@@ -221,7 +221,7 @@
       "artifactId": {
         "name": "room-common",
         "group": "androidx.room",
-        "version": "2.2.4"
+        "version": "2.2.5"
       }
     },
     {
@@ -237,7 +237,7 @@
       "artifactId": {
         "name": "room-runtime",
         "group": "androidx.room",
-        "version": "2.2.4"
+        "version": "2.2.5"
       }
     },
     {
@@ -1149,7 +1149,7 @@
       "artifactId": {
         "name": "work-runtime",
         "group": "androidx.work",
-        "version": "2.3.2"
+        "version": "2.3.4"
       }
     },
     {
@@ -1373,7 +1373,7 @@
       "artifactId": {
         "name": "room-rxjava2",
         "group": "androidx.room",
-        "version": "2.2.4"
+        "version": "2.2.5"
       }
     },
     {
@@ -1517,7 +1517,7 @@
       "artifactId": {
         "name": "kotlin-stdlib",
         "group": "org.jetbrains.kotlin",
-        "version": "1.3.61"
+        "version": "1.3.70"
       }
     },
     {
@@ -1629,7 +1629,7 @@
       "artifactId": {
         "name": "kotlin-stdlib-common",
         "group": "org.jetbrains.kotlin",
-        "version": "1.3.61"
+        "version": "1.3.70"
       }
     },
     {
@@ -1965,7 +1965,7 @@
       "artifactId": {
         "name": "paging-runtime",
         "group": "androidx.paging",
-        "version": "2.1.1"
+        "version": "2.1.2"
       }
     },
     {
@@ -1981,7 +1981,7 @@
       "artifactId": {
         "name": "paging-common",
         "group": "androidx.paging",
-        "version": "2.1.1"
+        "version": "2.1.2"
       }
     },
     {
@@ -2061,7 +2061,7 @@
       "artifactId": {
         "name": "databinding-adapters",
         "group": "androidx.databinding",
-        "version": "3.6.0"
+        "version": "3.6.1"
       }
     },
     {
@@ -2125,7 +2125,7 @@
       "artifactId": {
         "name": "databinding-common",
         "group": "androidx.databinding",
-        "version": "3.6.0"
+        "version": "3.6.1"
       }
     },
     {
@@ -2141,7 +2141,7 @@
       "artifactId": {
         "name": "databinding-runtime",
         "group": "androidx.databinding",
-        "version": "3.6.0"
+        "version": "3.6.1"
       }
     },
     {
@@ -2173,7 +2173,7 @@
       "artifactId": {
         "name": "viewbinding",
         "group": "androidx.databinding",
-        "version": "3.6.0"
+        "version": "3.6.1"
       }
     },
     {
@@ -2318,6 +2318,22 @@
         "name": "auto-value-annotations",
         "group": "com.google.auto.value",
         "version": "1.7"
+      }
+    },
+    {
+      "notice": null,
+      "copyrightHolder": "Square, Inc.",
+      "copyrightStatement": "Copyright &copy; Square, Inc. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "year": null,
+      "url": "https://github.com/square/okio/",
+      "libraryName": "Okio",
+      "artifactId": {
+        "name": "okio",
+        "group": "com.squareup.okio",
+        "version": "2.5.0"
       }
     }
   ]
