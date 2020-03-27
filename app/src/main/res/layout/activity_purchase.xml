@@ -73,10 +73,8 @@
               android:visibility="gone"
               app:checkedButton="@id/button_monthly"
               app:singleSelection="true"
-              android:paddingLeft="@dimen/keyline_content_inset"
               android:paddingStart="@dimen/keyline_content_inset"
-              android:paddingEnd="@dimen/keyline_content_inset"
-              android:paddingRight="@dimen/keyline_content_inset">
+              android:paddingEnd="@dimen/keyline_content_inset">
 
                 <com.google.android.material.button.MaterialButton
                   android:id="@+id/button_monthly"
@@ -99,10 +97,8 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_gravity="center_horizontal"
-              android:paddingLeft="@dimen/keyline_content_inset"
               android:paddingStart="@dimen/keyline_content_inset"
-              android:paddingEnd="@dimen/keyline_content_inset"
-              android:paddingRight="@dimen/keyline_content_inset" />
+              android:paddingEnd="@dimen/keyline_content_inset" />
 
             <com.google.android.material.button.MaterialButton
               android:id="@+id/subscribe"

@@ -20,15 +20,12 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignParentEnd="true"
-      android:layout_alignParentRight="true"
       android:layout_alignBottom="@id/text"
       android:layout_below="@id/divider"
       android:paddingTop="8dp"
       android:paddingBottom="8dp"
       android:paddingStart="0dp"
       android:paddingEnd="@dimen/keyline_first"
-      android:paddingLeft="0dp"
-      android:paddingRight="@dimen/keyline_first"
       android:alpha="@dimen/alpha_secondary"
       android:clickable="true"
       android:focusable="true"
@@ -44,7 +41,6 @@
       android:ellipsize="end"
       android:textColor="@color/text_secondary"
       android:fontFamily="@string/font_fontFamily_medium"
-      android:layout_alignParentLeft="true"
       android:layout_alignParentStart="true"
       android:layout_below="@id/divider"
       android:paddingTop="16dp"
@@ -55,9 +51,7 @@
       android:textAlignment="viewStart"
       android:textSize="14sp"
       android:paddingStart="@dimen/keyline_first"
-      android:paddingLeft="@dimen/keyline_first"
       android:paddingEnd="@dimen/keyline_first"
-      android:paddingRight="@dimen/keyline_first"
       tools:ignore="UnusedAttribute" />
 
 </RelativeLayout>

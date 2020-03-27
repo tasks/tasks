@@ -1,6 +1,5 @@
 package org.tasks.jobs;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 import static java.util.concurrent.Executors.newFixedThreadPool;
 
 import android.content.Context;
@@ -67,7 +66,7 @@ public class SyncWork extends InjectingWorker {
   }
 
   private void sync() throws InterruptedException {
-    int numThreads = atLeastJellybeanMR1() ? Runtime.getRuntime().availableProcessors() : 2;
+    int numThreads = Runtime.getRuntime().availableProcessors();
     ExecutorService executor = newFixedThreadPool(numThreads);
 
     for (CaldavAccount account : caldavDao.getAccounts()) {

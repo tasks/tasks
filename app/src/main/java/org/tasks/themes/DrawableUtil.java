@@ -1,7 +1,5 @@
 package org.tasks.themes;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -18,26 +16,16 @@ public class DrawableUtil {
 
   public static void setLeftDrawable(Context context, TextView tv, @DrawableRes int resId) {
     Drawable wrapped = getWrapped(context, resId);
-    if (atLeastJellybeanMR1()) {
-      tv.setCompoundDrawablesRelativeWithIntrinsicBounds(wrapped, null, null, null);
-    } else {
-      tv.setCompoundDrawablesWithIntrinsicBounds(wrapped, null, null, null);
-    }
+    tv.setCompoundDrawablesRelativeWithIntrinsicBounds(wrapped, null, null, null);
   }
 
   public static void setRightDrawable(Context context, TextView tv, @DrawableRes int resId) {
     Drawable wrapped = getWrapped(context, resId);
-    if (atLeastJellybeanMR1()) {
-      tv.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, wrapped, null);
-    } else {
-      tv.setCompoundDrawablesWithIntrinsicBounds(null, null, wrapped, null);
-    }
+    tv.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, wrapped, null);
   }
 
   public static Drawable getLeftDrawable(TextView tv) {
-    return atLeastJellybeanMR1()
-        ? tv.getCompoundDrawablesRelative()[0]
-        : tv.getCompoundDrawables()[0];
+    return tv.getCompoundDrawablesRelative()[0];
   }
 
   public static Drawable wrap(@NotNull Drawable icon) {

@@ -6,10 +6,8 @@
   android:minHeight="?attr/listPreferredItemHeight"
   android:mode="twoLine"
   android:paddingStart="@dimen/keyline_first"
-  android:paddingLeft="@dimen/keyline_first"
   android:paddingTop="@dimen/list_item_spacing"
   android:paddingEnd="@dimen/keyline_first"
-  android:paddingRight="@dimen/keyline_first"
   android:paddingBottom="@dimen/list_item_spacing">
 
   <ImageView
@@ -17,9 +15,7 @@
     android:layout_width="48dp"
     android:layout_height="48dp"
     android:layout_alignParentStart="true"
-    android:layout_alignParentLeft="true"
     android:layout_marginEnd="@dimen/keyline_first"
-    android:layout_marginRight="@dimen/keyline_first"
     android:tint="@null" />
 
   <TextView
@@ -28,7 +24,6 @@
     android:layout_height="wrap_content"
     android:layout_alignParentTop="true"
     android:layout_toEndOf="@id/image_view"
-    android:layout_toRightOf="@id/image_view"
     android:textAppearance="?attr/textAppearanceListItem" />
 
   <TextView

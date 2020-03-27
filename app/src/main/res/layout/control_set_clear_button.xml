@@ -5,7 +5,6 @@
   android:layout_height="wrap_content"
   android:layout_weight="1"
   android:layout_alignParentEnd="true"
-  android:layout_alignParentRight="true"
   android:layout_gravity="top|center"
   android:alpha="@dimen/alpha_secondary"
   android:background="?attr/selectableItemBackgroundBorderless"

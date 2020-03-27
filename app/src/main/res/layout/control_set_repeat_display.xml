@@ -32,8 +32,6 @@
       android:layout_height="wrap_content"
       android:paddingStart="0dp"
       android:paddingEnd="5dp"
-      android:paddingLeft="0dp"
-      android:paddingRight="5dp"
       android:text="@string/repeats_from"
       android:textAppearance="@style/TextAppearance"/>
 

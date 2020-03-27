@@ -3,7 +3,6 @@ package org.tasks.widget;
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -75,9 +74,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
     rvIntent.setData(Uri.parse(rvIntent.toUri(Intent.URI_INTENT_SCHEME)));
     ThemeColor color = new ThemeColor(context, widgetPreferences.getColor());
     RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.scrollable_widget);
-    if (atLeastJellybeanMR1()) {
-      remoteViews.setInt(R.id.widget, "setLayoutDirection", locale.getDirectionality());
-    }
+    remoteViews.setInt(R.id.widget, "setLayoutDirection", locale.getDirectionality());
     if (widgetPreferences.showHeader()) {
       remoteViews.setViewVisibility(R.id.widget_header, View.VISIBLE);
       remoteViews.setViewVisibility(

@@ -8,16 +8,16 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="fill_parent"
   android:layout_height="fill_parent"
-  android:paddingLeft="5dip"
-  android:paddingRight="5dip"
+  android:paddingStart="5dip"
+  android:paddingEnd="5dip"
   android:orientation="vertical">
 
   <!-- estimated time -->
   <LinearLayout
     android:layout_width="fill_parent"
     android:layout_height="50dip"
-    android:layout_marginLeft="10dip"
-    android:layout_marginRight="10dip"
+    android:layout_marginStart="10dip"
+    android:layout_marginEnd="10dip"
     android:gravity="center_vertical"
     android:orientation="horizontal">
     <TextView
@@ -32,8 +32,6 @@
       android:layout_weight="1"
       android:paddingStart="10dp"
       android:paddingEnd="0dp"
-      android:paddingLeft="10dip"
-      android:paddingRight="0dp"
       android:gravity="end"/>
   </LinearLayout>
 
@@ -43,8 +41,8 @@
   <LinearLayout
     android:layout_width="fill_parent"
     android:layout_height="50dip"
-    android:layout_marginLeft="10dip"
-    android:layout_marginRight="10dip"
+    android:layout_marginStart="10dip"
+    android:layout_marginEnd="10dip"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
@@ -61,8 +59,6 @@
       android:layout_weight="1"
       android:paddingStart="10dp"
       android:paddingEnd="0dp"
-      android:paddingLeft="10dip"
-      android:paddingRight="0dp"
       android:gravity="end"/>
   </LinearLayout>
 

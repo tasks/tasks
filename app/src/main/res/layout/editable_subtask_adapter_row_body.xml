@@ -10,26 +10,20 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignParentStart="true"
-    android:layout_alignParentLeft="true"
     android:paddingStart="0dp"
-    android:paddingLeft="0dp"
-    android:paddingEnd="@dimen/keyline_first"
-    android:paddingRight="@dimen/keyline_first" />
+    android:paddingEnd="@dimen/keyline_first" />
 
   <include
     layout="@layout/control_set_clear_button"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_alignParentEnd="true"
-    android:layout_alignParentRight="true" />
+    android:layout_alignParentEnd="true" />
 
   <EditText
     android:id="@+id/title"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_toRightOf="@id/completeBox"
     android:layout_toEndOf="@id/completeBox"
-    android:layout_toLeftOf="@id/clear"
     android:layout_toStartOf="@id/clear"
     android:background="@null"
     android:focusable="true"
@@ -37,15 +31,11 @@
     android:hint="@string/enter_title_hint"
     android:imeOptions="flagNoExtractUi"
     android:inputType="textCapSentences"
-
     android:paddingStart="0dp"
-    android:paddingLeft="0dp"
     android:paddingEnd="@dimen/keyline_first"
-    android:paddingRight="@dimen/keyline_first"
     android:singleLine="false"
     android:textAlignment="viewStart"
     android:textColor="?android:attr/textColorPrimary"
     android:textSize="@dimen/task_edit_text_size" />
-
 
 </RelativeLayout>

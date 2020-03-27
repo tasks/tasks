@@ -1,7 +1,6 @@
 package org.tasks.widget;
 
 import static androidx.core.content.ContextCompat.getColor;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
@@ -179,10 +178,8 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         row.setViewVisibility(R.id.widget_complete_box, View.GONE);
       }
 
-      if (atLeastJellybeanMR1()) {
-        row.setInt(
-            R.id.widget_row, "setLayoutDirection", Locale.getInstance(context).getDirectionality());
-      }
+      row.setInt(
+          R.id.widget_row, "setLayoutDirection", Locale.getInstance(context).getDirectionality());
       row.setViewPadding(
           R.id.widget_row,
           widgetPadding + taskContainer.getIndent() * indentPadding,
@@ -207,9 +204,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
     RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.scrollable_widget);
     rv.setTextViewText(R.id.widget_title, filter.listingTitle);
-    if (atLeastJellybeanMR1()) {
-      rv.setInt(R.id.widget, "setLayoutDirection", Locale.getInstance(context).getDirectionality());
-    }
+    rv.setInt(R.id.widget, "setLayoutDirection", Locale.getInstance(context).getDirectionality());
     appWidgetManager.partiallyUpdateAppWidget(widgetId, rv);
     List<String> queries =
         TaskListQuery.getQuery(

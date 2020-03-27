@@ -35,9 +35,7 @@
     android:gravity="start"
     android:hint="@string/TEA_add_subtask"
     android:paddingStart="0dp"
-    android:paddingLeft="0dp"
     android:paddingEnd="@dimen/keyline_second"
-    android:paddingRight="@dimen/keyline_second"
     android:textAlignment="viewStart" />
 
 </RelativeLayout>

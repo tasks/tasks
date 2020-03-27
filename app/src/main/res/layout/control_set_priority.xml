@@ -12,8 +12,6 @@
     android:layout_height="wrap_content"
     android:paddingStart="0dp"
     android:paddingEnd="@dimen/keyline_second"
-    android:paddingLeft="0dp"
-    android:paddingRight="@dimen/keyline_second"
     android:gravity="start|center_vertical"
     android:text="@string/TEA_importance_label"/>
 
@@ -23,8 +21,6 @@
     android:layout_gravity="end"
     android:paddingStart="@dimen/keyline_second"
     android:paddingEnd="0dp"
-    android:paddingLeft="@dimen/keyline_second"
-    android:paddingRight="0dp"
     android:gravity="end"
     android:orientation="horizontal">
 

@@ -146,10 +146,6 @@ public class AndroidUtilities {
     return !atLeastOreo();
   }
 
-  public static boolean atLeastJellybeanMR1() {
-    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1;
-  }
-
   public static boolean atLeastKitKat() {
     return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
   }

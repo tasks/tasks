@@ -1,6 +1,5 @@
 package org.tasks.ui;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 import static com.todoroo.andlib.utility.AndroidUtilities.preLollipop;
 
 import android.content.Context;
@@ -67,11 +66,7 @@ public class SingleCheckedArrayAdapter extends ArrayAdapter<String> {
         wrapped.setAlpha(0);
       }
       DrawableCompat.setTint(wrapped, color);
-      if (atLeastJellybeanMR1()) {
-        view.setCompoundDrawablesRelativeWithIntrinsicBounds(wrapped, null, null, null);
-      } else {
-        view.setCompoundDrawablesWithIntrinsicBounds(wrapped, null, null, null);
-      }
+      view.setCompoundDrawablesRelativeWithIntrinsicBounds(wrapped, null, null, null);
     }
     return view;
   }

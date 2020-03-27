@@ -25,8 +25,6 @@
       android:layout_height="wrap_content"
       android:paddingStart="@dimen/keyline_first"
       android:paddingEnd="@dimen/keyline_first"
-      android:paddingLeft="@dimen/keyline_first"
-      android:paddingRight="@dimen/keyline_first"
       android:gravity="center_vertical"
       android:ellipsize="end"
       android:maxLines="1"
@@ -36,9 +34,7 @@
       android:id="@+id/libraries"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:paddingLeft="@dimen/keyline_first"
       android:paddingStart="@dimen/keyline_first"
-      android:paddingRight="@dimen/keyline_first"
       android:paddingEnd="@dimen/keyline_first"
       android:textColor="?android:textColorSecondary"
       android:textSize="@dimen/sku_details_row_text_size"/>

@@ -8,8 +8,6 @@
   android:paddingBottom="@dimen/task_edit_drawable_padding_top_bottom"
   android:paddingStart="0dp"
   android:paddingEnd="@dimen/keyline_first"
-  android:paddingLeft="0dp"
-  android:paddingRight="@dimen/keyline_first"
   android:orientation="horizontal">
 
   <ImageView
@@ -19,8 +17,6 @@
     android:layout_gravity="top"
     android:paddingStart="@dimen/keyline_first"
     android:paddingEnd="@dimen/keyline_second"
-    android:paddingLeft="@dimen/keyline_first"
-    android:paddingRight="@dimen/keyline_second"
     android:alpha="@dimen/alpha_secondary"
     android:scaleType="center"
     android:tint="@color/icon_tint"

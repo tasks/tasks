@@ -9,8 +9,6 @@
   android:layout_height="55dip"
   android:paddingStart="4dip"
   android:paddingEnd="6dip"
-  android:paddingLeft="4dip"
-  android:paddingRight="6dip"
   android:background="?attr/selectableItemBackground"
   android:orientation="horizontal">
 
@@ -19,17 +17,14 @@
     android:layout_width="wrap_content"
     android:layout_height="fill_parent"
     android:layout_alignParentEnd="true"
-    android:layout_alignParentRight="true"
-    android:paddingLeft="5dip"
-    android:paddingRight="5dip"
+    android:paddingStart="5dp"
+    android:paddingEnd="5dp"
     android:gravity="center_vertical|end"/>
 
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
-    android:layout_toLeftOf="@id/filter_count"
     android:layout_toStartOf="@id/filter_count"
     android:gravity="center_vertical|start"
     android:orientation="horizontal">
@@ -41,8 +36,6 @@
       android:layout_height="fill_parent"
       android:paddingStart="5dp"
       android:paddingEnd="5dp"
-      android:paddingLeft="5dip"
-      android:paddingRight="5dip"
       android:scaleType="center"/>
 
     <!-- filter icon -->
@@ -52,8 +45,6 @@
       android:layout_height="fill_parent"
       android:paddingStart="5dp"
       android:paddingEnd="5dp"
-      android:paddingLeft="5dip"
-      android:paddingRight="5dip"
       android:visibility="gone"/>
 
     <!-- filter text -->
@@ -62,10 +53,8 @@
       style="@style/TextAppearance"
       android:layout_width="fill_parent"
       android:layout_height="fill_parent"
-      android:paddingStart="5dip"
+      android:paddingStart="5dp"
       android:paddingEnd="5dp"
-      android:paddingLeft="5dip"
-      android:paddingRight="5dp"
       android:gravity="start|center_vertical"
       android:textAlignment="viewStart"
       android:textSize="18sp"/>

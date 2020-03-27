@@ -1,7 +1,5 @@
 package org.tasks.dialogs;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.View;
@@ -90,10 +88,8 @@ public class AlertDialogBuilder {
   }
 
   private String[] addDirectionality(String[] strings) {
-    if (atLeastJellybeanMR1()) {
-      for (int i = 0; i < strings.length; i++) {
-        strings[i] = withDirectionality(strings[i]);
-      }
+    for (int i = 0; i < strings.length; i++) {
+      strings[i] = withDirectionality(strings[i]);
     }
     return strings;
   }

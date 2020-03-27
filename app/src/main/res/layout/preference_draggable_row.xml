@@ -15,8 +15,6 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/keyline_first"
     android:layout_marginEnd="@dimen/keyline_first"
-    android:layout_marginLeft="@dimen/keyline_first"
-    android:layout_marginRight="@dimen/keyline_first"
     android:layout_gravity="center_vertical"
     android:textAppearance="?android:attr/textAppearanceMedium"/>
 

@@ -1,7 +1,5 @@
 package org.tasks.locale;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
-
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Dialog;
@@ -52,8 +50,7 @@ public class Locale implements Serializable {
         appDirectionality == View.LAYOUT_DIRECTION_RTL ? RIGHT_TO_LEFT_MARK : LEFT_TO_RIGHT_MARK;
     int deviceDirectionality = TextUtilsCompat.getLayoutDirectionFromLocale(deviceLocale);
     hasUserOverrides =
-        !(deviceLocale.equals(appLocale) && appDirectionality == deviceDirectionality)
-            && atLeastJellybeanMR1();
+        !(deviceLocale.equals(appLocale) && appDirectionality == deviceDirectionality);
   }
 
   public static Locale getInstance(Context context) {

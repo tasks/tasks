@@ -13,7 +13,6 @@ import androidx.annotation.StringRes
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import com.google.common.base.Strings
-import com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop
 import com.todoroo.astrid.api.Filter
 import org.tasks.BuildConfig
@@ -150,8 +149,6 @@ class LookAndFeel : InjectingPreferenceFragment(), Preference.OnPreferenceChange
         updateStartOfWeek(preferences.getStringValue(R.string.p_start_of_week)!!)
 
         requires(R.string.task_list_options, atLeastLollipop(), R.string.p_show_subtasks)
-
-        requires(R.string.settings_localization, atLeastJellybeanMR1(), R.string.p_language)
 
         @Suppress("ConstantConditionIf")
         if (BuildConfig.FLAVOR != "googleplay") {

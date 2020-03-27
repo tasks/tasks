@@ -8,7 +8,7 @@
     android:id="@+id/divider"
     style="@style/task_edit_row_divider"/>
 
-  <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+  <ImageView
     android:id="@+id/place_attribution"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -16,8 +16,6 @@
     android:paddingBottom="@dimen/keyline_first"
     android:paddingStart="@dimen/keyline_content_inset"
     android:paddingEnd="@dimen/keyline_second"
-    android:paddingLeft="@dimen/keyline_content_inset"
-    android:paddingRight="@dimen/keyline_second"
     android:src="@drawable/mapbox_logo_icon"/>
 
 </LinearLayout>

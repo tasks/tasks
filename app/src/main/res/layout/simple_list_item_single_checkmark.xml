@@ -19,8 +19,6 @@
   android:layout_height="?android:attr/listPreferredItemHeightSmall"
   android:paddingStart="@dimen/keyline_first"
   android:paddingEnd="@dimen/keyline_first"
-  android:paddingLeft="@dimen/keyline_first"
-  android:paddingRight="@dimen/keyline_first"
   android:checkMark="@drawable/checkmark"
   android:checkMarkTint="?colorAccent"
   android:checked="false"

@@ -29,8 +29,6 @@
         android:layout_gravity="center_horizontal"
         android:paddingStart="@dimen/keyline_first"
         android:paddingEnd="@dimen/keyline_first"
-        android:paddingLeft="@dimen/keyline_first"
-        android:paddingRight="@dimen/keyline_first"
         app:backgroundTint="?attr/colorOnSecondary"/>
 
     </FrameLayout>
@@ -47,8 +45,6 @@
         android:layout_height="wrap_content"
         android:paddingStart="@dimen/keyline_first"
         android:paddingEnd="0dp"
-        android:paddingLeft="@dimen/keyline_first"
-        android:paddingRight="0dp"
         android:text="@string/repeat_every"
         android:textAppearance="@style/TextAppearance"/>
 
@@ -56,8 +52,8 @@
         android:id="@+id/intervalValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
         android:ems="3"
         android:focusable="true"
         android:focusableInTouchMode="true"
@@ -75,8 +71,6 @@
         android:layout_height="wrap_content"
         android:paddingStart="0dp"
         android:paddingEnd="@dimen/keyline_first"
-        android:paddingLeft="0dp"
-        android:paddingRight="@dimen/keyline_first"
         android:textAppearance="@style/TextAppearance"/>
 
     </LinearLayout>
@@ -89,8 +83,6 @@
       android:layout_height="wrap_content"
       android:paddingStart="@dimen/keyline_first"
       android:paddingEnd="@dimen/keyline_first"
-      android:paddingLeft="@dimen/keyline_first"
-      android:paddingRight="@dimen/keyline_first"
       android:orientation="vertical"
       android:visibility="gone">
 
@@ -124,16 +116,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/keyline_first"
         android:layout_marginEnd="0dp"
-        android:layout_marginLeft="@dimen/keyline_first"
-        android:layout_marginRight="0dp"
         android:layout_gravity="center"/>
 
       <EditText
         android:id="@+id/repeatTimesValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
         android:ems="3"
         android:focusable="true"
         android:focusableInTouchMode="true"
@@ -152,8 +142,6 @@
         android:layout_gravity="center"
         android:paddingStart="0dp"
         android:paddingEnd="@dimen/keyline_first"
-        android:paddingLeft="0dp"
-        android:paddingRight="@dimen/keyline_first"
         android:textAppearance="@style/TextAppearance"/>
 
     </LinearLayout>
