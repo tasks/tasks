@@ -16,6 +16,7 @@ import com.google.common.base.Strings;
 import com.todoroo.astrid.data.Task;
 import org.tasks.BuildConfig;
 import org.tasks.R;
+import org.tasks.locale.Locale;
 import org.tasks.time.DateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.FormatStyle;
@@ -71,7 +72,7 @@ public class DateUtilities {
    */
   public static String getDateString(Context context, DateTime date) {
     return getRelativeDay(
-        context, date.getMillis(), java.util.Locale.getDefault(), FormatStyle.MEDIUM);
+        context, date.getMillis(), Locale.getInstance().getLocale(), FormatStyle.MEDIUM);
   }
 
   static String getWeekday(DateTime date, java.util.Locale locale) {
@@ -79,7 +80,7 @@ public class DateUtilities {
   }
 
   /** @return weekday */
-  static String getWeekdayShort(DateTime date, java.util.Locale locale) {
+  public static String getWeekdayShort(DateTime date, java.util.Locale locale) {
     return date.toLocalDate().getDayOfWeek().getDisplayName(TextStyle.SHORT, locale);
   }
 
@@ -107,7 +108,7 @@ public class DateUtilities {
     return style == FormatStyle.SHORT || style == FormatStyle.MEDIUM;
   }
 
-  static String getRelativeDay(
+  public static String getRelativeDay(
       Context context,
       long date,
       java.util.Locale locale,

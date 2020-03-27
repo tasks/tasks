@@ -138,6 +138,10 @@ public class AndroidUtilities {
     return !atLeastLollipop();
   }
 
+  public static boolean preMarshmallow() {
+    return !atLeastMarshmallow();
+  }
+
   public static boolean preOreo() {
     return !atLeastOreo();
   }

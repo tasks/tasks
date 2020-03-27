@@ -168,7 +168,13 @@ object CustomIcons {
         1128 to R.drawable.ic_baseline_lens_24px,
         1129 to R.drawable.ic_map_24px,
         1130 to R.drawable.ic_check_black_24dp,
-        1131 to R.drawable.ic_undo_24px
+        1131 to R.drawable.ic_undo_24px,
+        1132 to R.drawable.ic_next_week_24px,
+        1133 to R.drawable.ic_local_cafe_24px,
+        1134 to R.drawable.ic_nights_stay_24px,
+        1135 to R.drawable.ic_single_bed_24px,
+        1136 to R.drawable.ic_weather_sunset,
+        1137 to R.drawable.ic_calendar_today_24px
     )
 
     @kotlin.jvm.JvmStatic

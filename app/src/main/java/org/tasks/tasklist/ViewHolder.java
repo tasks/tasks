@@ -26,6 +26,7 @@ import java.util.List;
 import org.tasks.R;
 import org.tasks.data.TaskContainer;
 import org.tasks.dialogs.Linkify;
+import org.tasks.locale.Locale;
 import org.tasks.preferences.Preferences;
 import org.tasks.ui.CheckBoxProvider;
 import org.tasks.ui.ChipProvider;
@@ -248,7 +249,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
       }
       String dateValue =
           getRelativeDateTime(
-              context, task.getDueDate(), java.util.Locale.getDefault(), FormatStyle.MEDIUM);
+              context, task.getDueDate(), Locale.getInstance().getLocale(), FormatStyle.MEDIUM);
       dueDate.setText(dateValue);
       dueDate.setVisibility(View.VISIBLE);
     } else {

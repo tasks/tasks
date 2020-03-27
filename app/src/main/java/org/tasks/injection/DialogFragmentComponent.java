@@ -6,6 +6,7 @@ import org.tasks.calendars.CalendarPicker;
 import org.tasks.dialogs.AddAttachmentDialog;
 import org.tasks.dialogs.ColorPalettePicker;
 import org.tasks.dialogs.ColorWheelPicker;
+import org.tasks.dialogs.DateTimePicker;
 import org.tasks.dialogs.ExportTasksDialog;
 import org.tasks.dialogs.GeofenceDialog;
 import org.tasks.dialogs.IconPickerDialog;
@@ -58,4 +59,6 @@ public interface DialogFragmentComponent {
   void inject(ColorWheelPicker colorWheelPicker);
 
   void inject(ColorPalettePicker colorPalettePicker);
+
+  void inject(DateTimePicker dateTimePicker);
 }

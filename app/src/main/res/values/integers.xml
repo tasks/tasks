@@ -7,4 +7,5 @@
   <integer name="default_afternoon">46800000</integer> <!-- 13:00 -->
   <integer name="default_evening">61200000</integer> <!-- 17:00 -->
   <integer name="default_night">72000000</integer> <!-- 20:00 -->
+  <integer name="calendar_view_visible">2</integer> <!-- View.GONE -->
 </resources>
