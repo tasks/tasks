@@ -182,8 +182,6 @@
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/card_view_margin"
           android:layout_marginEnd="@dimen/card_view_margin"
-          android:layout_marginLeft="@dimen/card_view_margin"
-          android:layout_marginRight="@dimen/card_view_margin"
           android:layout_gravity="start|center_vertical"
           android:contentDescription="@android:string/search_go"
           android:src="@drawable/ic_outline_search_24px"

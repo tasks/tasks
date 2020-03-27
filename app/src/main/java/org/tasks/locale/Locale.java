@@ -1,12 +1,9 @@
 package org.tasks.locale;
 
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.ViewParent;
@@ -109,14 +106,12 @@ public class Locale implements Serializable {
     return languageOverride;
   }
 
-  @SuppressLint("NewApi")
   public Context createConfigurationContext(Context context) {
     return hasUserOverrides
         ? context.createConfigurationContext(getLocaleConfiguration())
         : context;
   }
 
-  @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
   private Configuration getLocaleConfiguration() {
     Configuration configuration = new Configuration();
     configuration.locale = getLocale();
@@ -127,7 +122,6 @@ public class Locale implements Serializable {
     return configuration;
   }
 
-  @SuppressLint("NewApi")
   public void applyOverrideConfiguration(ContextThemeWrapper wrapper) {
     if (hasUserOverrides) {
       wrapper.applyOverrideConfiguration(getLocaleConfiguration());
@@ -197,7 +191,6 @@ public class Locale implements Serializable {
         + '}';
   }
 
-  @SuppressLint("NewApi")
   public void applyDirectionality(Dialog dialog) {
     if (hasUserOverrides) {
       dialog.findViewById(android.R.id.content).setLayoutDirection(appDirectionality);
@@ -210,9 +203,5 @@ public class Locale implements Serializable {
 
   public String getLanguage() {
     return appLocale.getLanguage();
-  }
-
-  public String getCountry() {
-    return appLocale.getCountry();
   }
 }
