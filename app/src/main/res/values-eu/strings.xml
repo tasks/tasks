@@ -574,4 +574,8 @@
     <string name="chip_appearance_text_and_icon">Testua eta ikonoa</string>
     <string name="chip_appearance_text_only">Testua soilik</string>
     <string name="chip_appearance_icon_only">Ikonoa soilik</string>
+    <string name="shortcut_pick_date">Hautatu data</string>
+    <string name="shortcut_pick_time">Hautatu ordua</string>
+    <string name="no_time">Ordurik ez</string>
+    <string name="no_date">Datarik ez</string>
 </resources>
