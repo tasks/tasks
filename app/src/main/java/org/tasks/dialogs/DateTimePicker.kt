@@ -211,39 +211,6 @@ class DateTimePicker : InjectingBottomSheetDialogFragment() {
         outState.putSerializable(EXTRA_SELECTED, selected?.millis)
     }
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val bottomSheetDialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
-
-        bottomSheetDialog.setOnShowListener {
-            val coordinator = (it as BottomSheetDialog)
-                    .findViewById<CoordinatorLayout>(com.google.android.material.R.id.coordinator)
-            val containerLayout =
-                    it.findViewById<FrameLayout>(com.google.android.material.R.id.container)
-            val buttons = bottomSheetDialog.layoutInflater.inflate(R.layout.dialog_date_time_picker_buttons, null)
-            buttons.findViewById<View>(R.id.cancel_button).setOnClickListener { dismiss() }
-            buttons.findViewById<View>(R.id.ok_button).setOnClickListener { dismiss() }
-            buttons.layoutParams = FrameLayout.LayoutParams(
-                    FrameLayout.LayoutParams.MATCH_PARENT,
-                    FrameLayout.LayoutParams.WRAP_CONTENT, Gravity.BOTTOM
-            ).apply {
-                gravity = Gravity.BOTTOM
-            }
-            containerLayout!!.addView(buttons)
-
-            buttons.post {
-                (coordinator!!.layoutParams as ViewGroup.MarginLayoutParams).apply {
-                    buttons.measure(
-                            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
-                            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
-                    )
-                    this.bottomMargin = buttons.measuredHeight
-                    containerLayout.requestLayout()
-                }
-            }
-        }
-        return bottomSheetDialog
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_TIME) {
             if (resultCode == RESULT_OK) {
