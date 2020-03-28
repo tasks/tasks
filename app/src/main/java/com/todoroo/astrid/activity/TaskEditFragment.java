@@ -264,6 +264,9 @@ public final class TaskEditFragment extends InjectingFragment
     if (item.getItemId() == R.id.menu_delete) {
       deleteButtonClick();
       return true;
+    } else if (item.getItemId() == R.id.menu_discard) {
+      discardButtonClick();
+      return true;
     }
 
     return false;
