@@ -199,13 +199,9 @@ public final class TaskEditFragment extends InjectingFragment
     binding.appbarlayout.addOnOffsetChangedListener(
         (appBarLayout, verticalOffset) -> {
           if (verticalOffset == 0) {
-            binding.fab.setVisibility(View.VISIBLE);
             title.setVisibility(View.VISIBLE);
             binding.collapsingtoolbarlayout.setTitleEnabled(false);
-          } else if (Math.abs(verticalOffset) >= appBarLayout.getTotalScrollRange()) {
-            binding.fab.setVisibility(View.INVISIBLE);
-          } else {
-            binding.fab.setVisibility(View.VISIBLE);
+          } else if (Math.abs(verticalOffset) < appBarLayout.getTotalScrollRange()) {
             title.setVisibility(View.INVISIBLE);
             binding.collapsingtoolbarlayout.setTitle(title.getText());
             binding.collapsingtoolbarlayout.setTitleEnabled(true);
