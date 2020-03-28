@@ -570,4 +570,8 @@
     <string name="chip_appearance_text_and_icon">Szöveg és ikon</string>
     <string name="chip_appearance_text_only">Csak szöveg</string>
     <string name="chip_appearance_icon_only">Csak ikon</string>
+    <string name="shortcut_pick_date">Dátum kiválasztása</string>
+    <string name="shortcut_pick_time">Időpont kiválasztása</string>
+    <string name="no_time">Időpont nélkül</string>
+    <string name="no_date">Dátum nélkül</string>
 </resources>
