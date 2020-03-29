@@ -2,19 +2,14 @@ package org.tasks.dialogs
 
 import android.app.Activity
 import android.app.Activity.RESULT_OK
-import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import butterknife.ButterKnife
 import butterknife.OnClick
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow
 import com.todoroo.andlib.utility.DateUtilities
@@ -50,14 +45,16 @@ class DateTimePicker : InjectingBottomSheetDialogFragment() {
 
     companion object {
         const val EXTRA_TIMESTAMP = "extra_timestamp"
+        const val EXTRA_TASK = "extra_task"
         private const val EXTRA_SELECTED = "extra_selected"
         private const val REQUEST_TIME = 10101
         private const val REQUEST_DATE = 10102
         private const val FRAG_TAG_TIME_PICKER = "frag_tag_time_picker"
         private const val FRAG_TAG_DATE_PICKER = "frag_tag_date_picker"
 
-        fun newDateTimePicker(target: Fragment, rc: Int, current: Long): DateTimePicker {
+        fun newDateTimePicker(target: Fragment, rc: Int, task: Long, current: Long): DateTimePicker {
             val bundle = Bundle()
+            bundle.putLong(EXTRA_TASK, task)
             bundle.putLong(EXTRA_TIMESTAMP, current)
             val fragment = DateTimePicker()
             fragment.arguments = bundle
@@ -201,7 +198,10 @@ class DateTimePicker : InjectingBottomSheetDialogFragment() {
 
     private fun returnDate(date: Long? = selected?.millis) {
         selected = if (date == null || date <= 0) null else DateTime(date)
-        targetFragment?.onActivityResult(targetRequestCode, RESULT_OK, Intent().putExtra(EXTRA_TIMESTAMP, selected?.millis ?: 0))
+        val intent = Intent()
+        intent.putExtra(EXTRA_TIMESTAMP, selected?.millis ?: 0)
+        intent.putExtra(EXTRA_TASK, arguments?.getLong(EXTRA_TASK) ?: 0)
+        targetFragment?.onActivityResult(targetRequestCode, RESULT_OK, intent)
         dismiss()
     }
 

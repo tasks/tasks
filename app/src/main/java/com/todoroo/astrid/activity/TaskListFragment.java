@@ -89,6 +89,8 @@ import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.Place;
 import org.tasks.data.TagDataDao;
+import org.tasks.data.TaskContainer;
+import org.tasks.dialogs.DateTimePicker;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.SortDialog;
 import org.tasks.etesync.EteSyncCalendarSettingsActivity;
@@ -128,9 +130,11 @@ public final class TaskListFragment extends InjectingFragment
   private static final String EXTRA_FILTER = "extra_filter";
   private static final String FRAG_TAG_REMOTE_LIST_PICKER = "frag_tag_remote_list_picker";
   private static final String FRAG_TAG_SORT_DIALOG = "frag_tag_sort_dialog";
+  private static final String FRAG_TAG_DATE_TIME_PICKER = "frag_tag_date_time_picker";
   private static final int REQUEST_LIST_SETTINGS = 10101;
   private static final int REQUEST_MOVE_TASKS = 10103;
   private static final int REQUEST_TAG_TASKS = 10106;
+  private static final int REQUEST_DUE_DATE = 10107;
 
   private static final int SEARCH_DEBOUNCE_TIMEOUT = 300;
   private final RefreshReceiver refreshReceiver = new RefreshReceiver();
@@ -634,6 +638,15 @@ public final class TaskListFragment extends InjectingFragment
           finishActionMode();
         }
         break;
+      case REQUEST_DUE_DATE:
+        if (resultCode == RESULT_OK) {
+          long taskId = data.getLongExtra(DateTimePicker.EXTRA_TASK, 0L);
+          Task task = taskDao.fetch(taskId);
+          long dueDate = data.getLongExtra(DateTimePicker.EXTRA_TIMESTAMP, 0L);
+          task.setDueDateAdjustingHideUntil(dueDate);
+          taskDao.save(task);
+        }
+        break;
       default:
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -754,6 +767,11 @@ public final class TaskListFragment extends InjectingFragment
       taskAdapter.clearSelections();
       recyclerAdapter.notifyDataSetChanged();
     }
+  }
+
+  public void showDateTimePicker(TaskContainer task) {
+    DateTimePicker.Companion.newDateTimePicker(this, REQUEST_DUE_DATE, task.getId(), task.getDueDate())
+            .show(getParentFragmentManager(), FRAG_TAG_DATE_TIME_PICKER);
   }
 
   public interface TaskListFragmentCallbackHandler {

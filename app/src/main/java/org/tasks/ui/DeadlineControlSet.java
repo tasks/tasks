@@ -75,7 +75,7 @@ public class DeadlineControlSet extends TaskEditControlFragment {
   boolean showDateTimePicker() {
     Fragment fragment = getParentFragmentManager().findFragmentByTag(FRAG_TAG_DATE_PICKER);
     if (fragment == null) {
-      DateTimePicker.Companion.newDateTimePicker(this, REQUEST_DATE, getDueDateTime())
+      DateTimePicker.Companion.newDateTimePicker(this, REQUEST_DATE, 0, getDueDateTime())
           .show(getParentFragmentManager(), FRAG_TAG_DATE_PICKER);
     }
     return true;

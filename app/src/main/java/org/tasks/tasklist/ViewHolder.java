@@ -25,6 +25,7 @@ import com.todoroo.astrid.ui.CheckableImageView;
 import java.util.List;
 import org.tasks.R;
 import org.tasks.data.TaskContainer;
+import org.tasks.dialogs.DateTimePicker;
 import org.tasks.dialogs.Linkify;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.Preferences;
@@ -121,8 +122,8 @@ public class ViewHolder extends RecyclerView.ViewHolder {
       description.setEllipsize(null);
     }
 
-    setTopPadding(rowPadding, nameView, completeBox);
-    setBottomPadding(rowPadding, completeBox);
+    setTopPadding(rowPadding, nameView, completeBox, dueDate);
+    setBottomPadding(rowPadding, completeBox, dueDate);
 
     nameView.setTextSize(fontSize);
     description.setTextSize(fontSize);
@@ -308,6 +309,11 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     setupTitleAndCheckbox();
   }
 
+  @OnClick(R.id.due_date)
+  void changeDueDate() {
+    callback.onChangeDueDate(task);
+  }
+
   public int getIndent() {
     return indent;
   }
@@ -345,5 +351,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     void toggleSubtasks(TaskContainer task, boolean collapsed);
 
     boolean onLongPress(ViewHolder viewHolder);
+
+    void onChangeDueDate(TaskContainer task);
   }
 }

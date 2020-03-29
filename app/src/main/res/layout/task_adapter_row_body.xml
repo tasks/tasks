@@ -23,6 +23,7 @@
       android:layout_height="wrap_content"
       android:layout_alignBaseline="@id/title"
       android:layout_alignParentEnd="true"
+      android:background="?attr/selectableItemBackgroundBorderless"
       android:paddingStart="0dp"
       android:paddingEnd="@dimen/keyline_first"
       android:ellipsize="end"

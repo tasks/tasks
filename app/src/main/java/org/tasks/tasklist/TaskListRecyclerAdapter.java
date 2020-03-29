@@ -1,19 +1,24 @@
 package org.tasks.tasklist;
 
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.ListUpdateCallback;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
-import java.util.List;
+
 import org.tasks.data.TaskContainer;
+import org.tasks.dialogs.DateTimePicker;
 import org.tasks.intents.TaskIntents;
 import org.tasks.tasklist.ViewHolder.ViewHolderCallbacks;
+
+import java.util.List;
 
 public abstract class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
     implements ViewHolderCallbacks, ListUpdateCallback {
@@ -87,6 +92,11 @@ public abstract class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewH
       toggle(viewHolder);
     }
     return true;
+  }
+
+  @Override
+  public void onChangeDueDate(TaskContainer task) {
+    taskList.showDateTimePicker(task);
   }
 
   protected abstract boolean dragAndDropEnabled();
