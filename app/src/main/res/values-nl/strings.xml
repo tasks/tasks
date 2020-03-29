@@ -567,4 +567,8 @@
     <string name="chip_appearance_text_and_icon">Tekst en icon</string>
     <string name="chip_appearance_text_only">Alleen tekst</string>
     <string name="chip_appearance_icon_only">Alleen icon</string>
+    <string name="shortcut_pick_date">Kies een datum</string>
+    <string name="shortcut_pick_time">Kies een tijd</string>
+    <string name="no_time">Geen tijd</string>
+    <string name="no_date">Geen datum</string>
 </resources>
