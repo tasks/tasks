@@ -65,6 +65,7 @@ import org.tasks.injection.InjectingFragment;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.ThemeColor;
+import org.tasks.ui.AnimationUtil;
 import org.tasks.ui.SubtaskControlSet;
 import org.tasks.ui.TaskEditControlFragment;
 
@@ -199,6 +200,9 @@ public final class TaskEditFragment extends InjectingFragment
           if (verticalOffset == 0) {
             title.setVisibility(View.VISIBLE);
             binding.collapsingtoolbarlayout.setTitleEnabled(false);
+            if (!getTitle().isEmpty()) {
+              AnimationUtil.circularReveal(binding.fab);
+            }
           } else if (Math.abs(verticalOffset) < appBarLayout.getTotalScrollRange()) {
             title.setVisibility(View.INVISIBLE);
             binding.collapsingtoolbarlayout.setTitle(title.getText());
@@ -206,12 +210,14 @@ public final class TaskEditFragment extends InjectingFragment
           }
         });
 
-    if (preferences.getBoolean(R.string.p_linkify_task_edit, false)) {
-      linkify.linkify(title);
-    }
-
-    if (!model.isNew()) {
+    if (model.isNew()) {
+      binding.fab.setVisibility(View.INVISIBLE);
+    } else {
       notificationManager.cancel(model.getId());
+
+      if (preferences.getBoolean(R.string.p_linkify_task_edit, false)) {
+        linkify.linkify(title);
+      }
     }
 
     commentsController.initialize(model, binding.comments);
