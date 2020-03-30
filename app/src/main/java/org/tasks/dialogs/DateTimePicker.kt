@@ -2,14 +2,19 @@ package org.tasks.dialogs
 
 import android.app.Activity
 import android.app.Activity.RESULT_OK
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import butterknife.ButterKnife
 import butterknife.OnClick
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow
 import com.todoroo.andlib.utility.DateUtilities
@@ -34,10 +39,12 @@ class DateTimePicker : InjectingBottomSheetDialogFragment() {
     @Inject lateinit var locale: Locale
 
     lateinit var binding: DialogDateTimePickerBinding
+    private var customDate: DateTime? = null
     private var selected: DateTime? = null
     private val today = newDateTime().startOfDay()
     private val tomorrow = today.plusDays(1)
     private val nextWeek = today.plusDays(7)
+    private var customTime = 0
     private var morning = 32401000
     private var afternoon = 46801000
     private var evening = 61201000
@@ -98,6 +105,8 @@ class DateTimePicker : InjectingBottomSheetDialogFragment() {
         return binding.root
     }
 
+    private fun returnAutomatically(): Boolean = arguments?.getLong(EXTRA_TASK) ?: 0 == 0L
+
     override fun onResume() {
         super.onResume()
 
@@ -111,6 +120,7 @@ class DateTimePicker : InjectingBottomSheetDialogFragment() {
             tomorrow -> binding.shortcuts.dateGroup.check(R.id.tomorrow_button)
             nextWeek -> binding.shortcuts.dateGroup.check(R.id.next_week_button)
             else -> {
+                customDate = selected
                 binding.shortcuts.dateGroup.check(R.id.current_date_selection)
                 binding.shortcuts.currentDateSelection.visibility = View.VISIBLE
                 binding.shortcuts.currentDateSelection.text =
@@ -124,6 +134,7 @@ class DateTimePicker : InjectingBottomSheetDialogFragment() {
                 evening -> binding.shortcuts.timeGroup.check(R.id.evening_button)
                 night -> binding.shortcuts.timeGroup.check(R.id.night_button)
                 else -> {
+                    customTime = selected!!.millisOfDay
                     binding.shortcuts.timeGroup.check(R.id.current_time_selection)
                     binding.shortcuts.currentTimeSelection.visibility = View.VISIBLE
                     binding.shortcuts.currentTimeSelection.text = DateUtilities.getTimeString(context, selected)
@@ -165,10 +176,10 @@ class DateTimePicker : InjectingBottomSheetDialogFragment() {
     fun setNight() = returnSelectedTime(night)
 
     @OnClick(R.id.current_date_selection)
-    fun currentDate() = dismiss()
+    fun currentDate() = returnDate(customDate)
 
     @OnClick(R.id.current_time_selection)
-    fun currentTime() = dismiss()
+    fun currentTime() = returnSelectedTime(customTime)
 
     @OnClick(R.id.pick_time_button)
     fun pickTime() {
@@ -198,6 +209,14 @@ class DateTimePicker : InjectingBottomSheetDialogFragment() {
 
     private fun returnDate(date: Long? = selected?.millis) {
         selected = if (date == null || date <= 0) null else DateTime(date)
+        if (returnAutomatically()) {
+            sendSelected()
+        } else {
+            refreshButtons()
+        }
+    }
+
+    private fun sendSelected() {
         val intent = Intent()
         intent.putExtra(EXTRA_TIMESTAMP, selected?.millis ?: 0)
         intent.putExtra(EXTRA_TASK, arguments?.getLong(EXTRA_TASK) ?: 0)
@@ -209,6 +228,43 @@ class DateTimePicker : InjectingBottomSheetDialogFragment() {
         super.onSaveInstanceState(outState)
 
         outState.putSerializable(EXTRA_SELECTED, selected?.millis)
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val bottomSheetDialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
+
+        if (returnAutomatically()) {
+            return bottomSheetDialog
+        }
+
+        bottomSheetDialog.setOnShowListener {
+            val coordinator = (it as BottomSheetDialog)
+                    .findViewById<CoordinatorLayout>(com.google.android.material.R.id.coordinator)
+            val containerLayout =
+                    it.findViewById<FrameLayout>(com.google.android.material.R.id.container)
+            val buttons = bottomSheetDialog.layoutInflater.inflate(R.layout.dialog_date_time_picker_buttons, null)
+            buttons.findViewById<View>(R.id.cancel_button).setOnClickListener { dismiss() }
+            buttons.findViewById<View>(R.id.ok_button).setOnClickListener { sendSelected() }
+            buttons.layoutParams = FrameLayout.LayoutParams(
+                    FrameLayout.LayoutParams.MATCH_PARENT,
+                    FrameLayout.LayoutParams.WRAP_CONTENT, Gravity.BOTTOM
+            ).apply {
+                gravity = Gravity.BOTTOM
+            }
+            containerLayout!!.addView(buttons)
+
+            buttons.post {
+                (coordinator!!.layoutParams as ViewGroup.MarginLayoutParams).apply {
+                    buttons.measure(
+                            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+                    )
+                    this.bottomMargin = buttons.measuredHeight
+                    containerLayout.requestLayout()
+                }
+            }
+        }
+        return bottomSheetDialog
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
