@@ -21,7 +21,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.format.DateUtils;
-import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -172,7 +171,6 @@ public final class TaskEditFragment extends InjectingFragment
     EditText title = binding.title;
     title.setTextKeepState(model.getTitle());
     title.setHorizontallyScrolling(false);
-    title.setMovementMethod(new ScrollingMovementMethod());
     title.setLines(1);
     title.setTextColor(themeColor.getColorOnPrimary());
     title.setHintTextColor(themeColor.getHintOnPrimary());
