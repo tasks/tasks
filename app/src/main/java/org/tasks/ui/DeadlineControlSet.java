@@ -71,8 +71,11 @@ public class DeadlineControlSet extends TaskEditControlFragment {
 
   @Override
   protected void onRowClick() {
-    DateTimePicker.Companion.newDateTimePicker(this, REQUEST_DATE, 0, getDueDateTime())
-        .show(getParentFragmentManager(), FRAG_TAG_DATE_PICKER);
+    FragmentManager fragmentManager = getParentFragmentManager();
+    if (fragmentManager.findFragmentByTag(FRAG_TAG_DATE_PICKER) == null) {
+      DateTimePicker.Companion.newDateTimePicker(this, REQUEST_DATE, 0, getDueDateTime())
+          .show(fragmentManager, FRAG_TAG_DATE_PICKER);
+    }
   }
 
   @Override
