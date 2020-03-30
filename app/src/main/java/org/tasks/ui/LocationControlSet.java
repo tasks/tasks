@@ -149,8 +149,8 @@ public class LocationControlSet extends TaskEditControlFragment {
     }
   }
 
-  @OnClick({R.id.location_name, R.id.location_address})
-  void locationClick(View view) {
+  @Override
+  protected void onRowClick() {
     if (location == null) {
       chooseLocation();
     } else {
@@ -171,6 +171,11 @@ public class LocationControlSet extends TaskEditControlFragment {
               (dialog, which) -> options.get(which).second.run())
           .show();
     }
+  }
+
+  @Override
+  protected boolean isClickable() {
+    return true;
   }
 
   private void chooseLocation() {

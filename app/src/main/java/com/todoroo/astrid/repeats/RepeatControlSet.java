@@ -28,7 +28,6 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import butterknife.BindView;
-import butterknife.OnClick;
 import butterknife.OnItemSelected;
 import com.google.common.base.Strings;
 import com.google.ical.values.RRule;
@@ -191,10 +190,15 @@ public class RepeatControlSet extends TaskEditControlFragment {
     component.inject(this);
   }
 
-  @OnClick(R.id.display_row_edit)
-  void openPopup(View view) {
+  @Override
+  protected void onRowClick() {
     newBasicRecurrenceDialog(this, rrule, dueDate)
-        .show(getFragmentManager(), FRAG_TAG_BASIC_RECURRENCE);
+        .show(getParentFragmentManager(), FRAG_TAG_BASIC_RECURRENCE);
+  }
+
+  @Override
+  protected boolean isClickable() {
+    return true;
   }
 
   @Override

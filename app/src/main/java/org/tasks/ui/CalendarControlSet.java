@@ -27,10 +27,10 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.calendars.CalendarPicker;
 import org.tasks.analytics.Tracker;
 import org.tasks.calendars.AndroidCalendar;
 import org.tasks.calendars.CalendarEventProvider;
+import org.tasks.calendars.CalendarPicker;
 import org.tasks.calendars.CalendarProvider;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForActivity;
@@ -226,8 +226,8 @@ public class CalendarControlSet extends TaskEditControlFragment {
     refreshDisplayView();
   }
 
-  @OnClick(R.id.calendar_display_which)
-  void clickCalendar(View view) {
+  @Override
+  protected void onRowClick() {
     if (Strings.isNullOrEmpty(eventUri)) {
       newCalendarPicker(this, REQUEST_CODE_PICK_CALENDAR, getCalendarName())
           .show(getParentFragmentManager(), FRAG_TAG_CALENDAR_PICKER);
@@ -236,6 +236,11 @@ public class CalendarControlSet extends TaskEditControlFragment {
         openCalendarEvent();
       }
     }
+  }
+
+  @Override
+  protected boolean isClickable() {
+    return true;
   }
 
   private void openCalendarEvent() {

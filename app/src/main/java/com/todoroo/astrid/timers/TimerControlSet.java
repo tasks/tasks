@@ -112,12 +112,17 @@ public class TimerControlSet extends TaskEditControlFragment {
     outState.putLong(EXTRA_STARTED, timerStarted);
   }
 
-  @OnClick(R.id.display_row_edit)
-  void openPopup(View view) {
+  @Override
+  protected void onRowClick() {
     if (dialog == null) {
       dialog = buildDialog();
     }
     dialog.show();
+  }
+
+  @Override
+  protected boolean isClickable() {
+    return true;
   }
 
   private AlertDialog buildDialog() {

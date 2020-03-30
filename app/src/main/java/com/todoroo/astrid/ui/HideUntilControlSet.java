@@ -89,6 +89,16 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
     refreshDisplayView();
   }
 
+  @Override
+  protected void onRowClick() {
+    spinner.performClick();
+  }
+
+  @Override
+  protected boolean isClickable() {
+    return true;
+  }
+
   @Nullable
   @Override
   public View onCreateView(

@@ -13,7 +13,6 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import butterknife.BindView;
-import butterknife.OnClick;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
 import javax.inject.Inject;
@@ -70,10 +69,15 @@ public class DeadlineControlSet extends TaskEditControlFragment {
     return view;
   }
 
-  @OnClick(R.id.due_date)
-  void showDateTimePicker() {
+  @Override
+  protected void onRowClick() {
     DateTimePicker.Companion.newDateTimePicker(this, REQUEST_DATE, 0, getDueDateTime())
         .show(getParentFragmentManager(), FRAG_TAG_DATE_PICKER);
+  }
+
+  @Override
+  protected boolean isClickable() {
+    return true;
   }
 
   @Override

@@ -19,7 +19,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import butterknife.BindView;
-import butterknife.OnClick;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.common.base.Predicates;
@@ -111,11 +110,16 @@ public final class TagsControlSet extends TaskEditControlFragment {
     }
   }
 
-  @OnClick(R.id.tag_row)
-  void onClickRow() {
+  @Override
+  protected void onRowClick() {
     Intent intent = new Intent(getContext(), TagPickerActivity.class);
     intent.putParcelableArrayListExtra(TagPickerActivity.EXTRA_SELECTED, selectedTags);
     startActivityForResult(intent, REQUEST_TAG_PICKER_ACTIVITY);
+  }
+
+  @Override
+  protected boolean isClickable() {
+    return true;
   }
 
   @Override
@@ -149,7 +153,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
         }
         Chip chip = chipProvider.newClosableChip(tagData);
         chipProvider.apply(chip, tagData);
-        chip.setOnClickListener(view -> onClickRow());
+        chip.setOnClickListener(view -> onRowClick());
         chip.setOnCloseIconClickListener(
             view -> {
               selectedTags.remove(tagData);

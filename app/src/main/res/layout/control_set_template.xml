@@ -8,6 +8,7 @@
   android:paddingBottom="@dimen/keyline_first"
   android:paddingStart="0dp"
   android:paddingEnd="@dimen/keyline_first"
+  android:background="?attr/selectableItemBackground"
   android:orientation="horizontal">
 
   <ImageView

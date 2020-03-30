@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import butterknife.BindView;
-import butterknife.OnClick;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.common.base.Objects;
@@ -151,9 +150,14 @@ public class RemoteListFragment extends TaskEditControlFragment {
     return TAG;
   }
 
-  @OnClick({R.id.remote_list_row, R.id.chip_group})
-  void clickGoogleTaskList(View view) {
+  @Override
+  protected void onRowClick() {
     openPicker();
+  }
+
+  @Override
+  protected boolean isClickable() {
+    return true;
   }
 
   private void openPicker() {

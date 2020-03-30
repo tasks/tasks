@@ -33,6 +33,9 @@ public abstract class TaskEditControlFragment extends InjectingFragment {
     inflater.inflate(getLayout(), content);
     ImageView icon = view.findViewById(R.id.icon);
     icon.setImageResource(getIcon());
+    if (isClickable()) {
+      content.setOnClickListener(v -> onRowClick());
+    }
     ButterKnife.bind(this, view);
     return view;
   }
@@ -47,6 +50,12 @@ public abstract class TaskEditControlFragment extends InjectingFragment {
       isNew = arguments.getBoolean(EXTRA_IS_NEW);
       themeColor = arguments.getParcelable(EXTRA_THEME);
     }
+  }
+
+  protected void onRowClick() {}
+
+  protected boolean isClickable() {
+    return false;
   }
 
   protected abstract int getLayout();
