@@ -144,7 +144,7 @@ class DateTimePicker : InjectingBottomSheetDialogFragment() {
             binding.shortcuts.timeGroup.check(R.id.no_time)
         }
         if (atLeastMarshmallow() && selected != null) {
-            binding.calendarView.setDate(selected!!.millis, false, true)
+            binding.calendarView.setDate(selected!!.millis, true, true)
         }
     }
 
