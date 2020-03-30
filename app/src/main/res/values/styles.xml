@@ -133,10 +133,7 @@
   </style>
 
   <style name="priority_button_base">
-    <item name="android:layout_width">0dp</item>
     <item name="android:layout_height">24dp</item>
-    <item name="android:layout_weight">1</item>
-    <item name="android:width">0dp</item>
   </style>
 
   <style name="priority_button" parent="priority_button_base">
