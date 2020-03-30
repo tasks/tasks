@@ -8,8 +8,6 @@
   <dimen name="task_list_footer_height">88dp</dimen>
   <dimen name="task_list_fab_margin">16dp</dimen>
 
-  <dimen name="task_edit_double_padding_top_bottom">18dp</dimen>
-  <dimen name="task_edit_drawable_padding_top_bottom">17dp</dimen>
   <dimen name="task_edit_text_size">16sp</dimen>
 
   <item format="float" name="alpha_primary" type="dimen">0.87</item>

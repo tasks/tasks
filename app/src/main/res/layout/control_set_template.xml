@@ -4,8 +4,8 @@
   android:id="@+id/content"
   android:layout_width="fill_parent"
   android:layout_height="wrap_content"
-  android:paddingTop="@dimen/task_edit_drawable_padding_top_bottom"
-  android:paddingBottom="@dimen/task_edit_drawable_padding_top_bottom"
+  android:paddingTop="@dimen/keyline_first"
+  android:paddingBottom="@dimen/keyline_first"
   android:paddingStart="0dp"
   android:paddingEnd="@dimen/keyline_first"
   android:orientation="horizontal">

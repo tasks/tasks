@@ -23,7 +23,7 @@
     android:id="@+id/repeatTypeContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/task_edit_drawable_padding_top_bottom"
+    android:paddingTop="@dimen/keyline_first"
     android:orientation="horizontal"
     android:visibility="gone">
 
