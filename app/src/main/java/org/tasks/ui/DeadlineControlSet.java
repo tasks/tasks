@@ -12,9 +12,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 import butterknife.BindView;
-import butterknife.OnTouch;
+import butterknife.OnClick;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
 import javax.inject.Inject;
@@ -71,14 +70,10 @@ public class DeadlineControlSet extends TaskEditControlFragment {
     return view;
   }
 
-  @OnTouch(R.id.due_date)
-  boolean showDateTimePicker() {
-    Fragment fragment = getParentFragmentManager().findFragmentByTag(FRAG_TAG_DATE_PICKER);
-    if (fragment == null) {
-      DateTimePicker.Companion.newDateTimePicker(this, REQUEST_DATE, 0, getDueDateTime())
-          .show(getParentFragmentManager(), FRAG_TAG_DATE_PICKER);
-    }
-    return true;
+  @OnClick(R.id.due_date)
+  void showDateTimePicker() {
+    DateTimePicker.Companion.newDateTimePicker(this, REQUEST_DATE, 0, getDueDateTime())
+        .show(getParentFragmentManager(), FRAG_TAG_DATE_PICKER);
   }
 
   @Override
