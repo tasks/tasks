@@ -1,5 +1,6 @@
 package org.tasks.dialogs;
 
+import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
@@ -73,6 +74,8 @@ public class MyDatePickerDialog extends DatePickerDialog implements OnDateSetLis
 
     if (getTargetFragment() == null) {
       callback.onDatePicked(dialog, NO_DATE);
+    } else {
+      getTargetFragment().onActivityResult(getTargetRequestCode(), RESULT_CANCELED, null);
     }
   }
 

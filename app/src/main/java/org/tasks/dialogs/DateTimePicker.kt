@@ -272,11 +272,15 @@ class DateTimePicker : InjectingBottomSheetDialogFragment() {
             if (resultCode == RESULT_OK) {
                 val timestamp = data!!.getLongExtra(MyTimePickerDialog.EXTRA_TIMESTAMP, today.millis)
                 returnSelectedTime(newDateTime(timestamp).millisOfDay + 1000)
+            } else {
+                refreshButtons()
             }
         } else if (requestCode == REQUEST_DATE) {
             if (resultCode == RESULT_OK) {
                 val timestamp = data!!.getLongExtra(MyDatePickerDialog.EXTRA_TIMESTAMP, today.millis)
                 returnDate(timestamp)
+            } else {
+                refreshButtons()
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)

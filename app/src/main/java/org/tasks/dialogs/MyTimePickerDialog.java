@@ -1,5 +1,6 @@
 package org.tasks.dialogs;
 
+import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
@@ -71,6 +72,8 @@ public class MyTimePickerDialog extends TimePickerDialog implements OnTimeSetLis
 
     if (getTargetFragment() == null) {
       callback.onTimePicked(NO_TIME);
+    } else {
+      getTargetFragment().onActivityResult(getTargetRequestCode(), RESULT_CANCELED, null);
     }
   }
 
