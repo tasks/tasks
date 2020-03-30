@@ -63,7 +63,6 @@ import org.tasks.themes.ThemeColor;
 import org.tasks.ui.DeadlineControlSet;
 import org.tasks.ui.EmptyTaskEditFragment;
 import org.tasks.ui.NavigationDrawerFragment;
-import org.tasks.ui.PriorityControlSet;
 import org.tasks.ui.RemoteListFragment;
 import org.tasks.ui.TaskListViewModel;
 
@@ -291,7 +290,14 @@ public class MainActivity extends InjectingAppCompatActivity
   private void openTaskListFragment(@NonNull TaskListFragment taskListFragment) {
     assertMainThread();
 
-    filter = taskListFragment.getFilter();
+    Filter newFilter = taskListFragment.getFilter();
+    if (filter != null
+        && filter.areItemsTheSame(newFilter)
+        && filter.areContentsTheSame(newFilter)) {
+      return;
+    }
+
+    filter = newFilter;
     navigationDrawer.setSelected(filter);
     applyTheme();
     FragmentManager fragmentManager = getSupportFragmentManager();
