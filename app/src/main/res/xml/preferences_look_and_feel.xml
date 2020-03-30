@@ -126,6 +126,12 @@
 
     <SwitchPreferenceCompat
       android:defaultValue="false"
+      android:key="@string/p_auto_dismiss_datetime_edit_screen"
+      android:title="@string/auto_dismiss_datetime"
+      android:summary="@string/auto_dismiss_datetime_summary" />
+
+    <SwitchPreferenceCompat
+      android:defaultValue="false"
       android:key="@string/p_linkify_task_edit"
       android:summary="@string/linkify_description"
       android:title="@string/linkify" />

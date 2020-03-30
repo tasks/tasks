@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
 import butterknife.BindView;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
@@ -21,6 +22,7 @@ import org.tasks.dialogs.DateTimePicker;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.locale.Locale;
+import org.tasks.preferences.Preferences;
 import org.tasks.time.DateTime;
 import org.threeten.bp.format.FormatStyle;
 
@@ -34,6 +36,7 @@ public class DeadlineControlSet extends TaskEditControlFragment {
 
   @Inject @ForActivity Context context;
   @Inject Locale locale;
+  @Inject Preferences preferences;
 
   @BindView(R.id.due_date)
   TextView dueDate;
@@ -73,7 +76,12 @@ public class DeadlineControlSet extends TaskEditControlFragment {
   protected void onRowClick() {
     FragmentManager fragmentManager = getParentFragmentManager();
     if (fragmentManager.findFragmentByTag(FRAG_TAG_DATE_PICKER) == null) {
-      DateTimePicker.Companion.newDateTimePicker(this, REQUEST_DATE, 0, getDueDateTime())
+      DateTimePicker.Companion.newDateTimePicker(
+          this,
+          REQUEST_DATE,
+          0,
+          getDueDateTime(),
+          preferences.getBoolean(R.string.p_auto_dismiss_datetime_edit_screen, false))
           .show(fragmentManager, FRAG_TAG_DATE_PICKER);
     }
   }

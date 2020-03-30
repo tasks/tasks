@@ -300,4 +300,5 @@
   <string name="p_collapse_filters">collapse_filters</string>
   <string name="p_collapse_tags">collapse_tags</string>
   <string name="p_collapse_locations">collapse_locations</string>
+  <string name="p_auto_dismiss_datetime_edit_screen">auto_dismiss_datetime_edit_screen</string>
 </resources>

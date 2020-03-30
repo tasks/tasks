@@ -770,8 +770,9 @@ public final class TaskListFragment extends InjectingFragment
   }
 
   public void showDateTimePicker(TaskContainer task) {
-    DateTimePicker.Companion.newDateTimePicker(this, REQUEST_DUE_DATE, task.getId(), task.getDueDate())
-            .show(getParentFragmentManager(), FRAG_TAG_DATE_TIME_PICKER);
+    DateTimePicker.Companion.newDateTimePicker(
+            this, REQUEST_DUE_DATE, task.getId(), task.getDueDate(), false)
+        .show(getParentFragmentManager(), FRAG_TAG_DATE_TIME_PICKER);
   }
 
   public interface TaskListFragmentCallbackHandler {

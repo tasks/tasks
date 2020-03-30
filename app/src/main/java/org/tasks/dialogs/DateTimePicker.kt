@@ -53,16 +53,18 @@ class DateTimePicker : InjectingBottomSheetDialogFragment() {
     companion object {
         const val EXTRA_TIMESTAMP = "extra_timestamp"
         const val EXTRA_TASK = "extra_task"
+        private const val EXTRA_AUTO_CLOSE = "extra_auto_close"
         private const val EXTRA_SELECTED = "extra_selected"
         private const val REQUEST_TIME = 10101
         private const val REQUEST_DATE = 10102
         private const val FRAG_TAG_TIME_PICKER = "frag_tag_time_picker"
         private const val FRAG_TAG_DATE_PICKER = "frag_tag_date_picker"
 
-        fun newDateTimePicker(target: Fragment, rc: Int, task: Long, current: Long): DateTimePicker {
+        fun newDateTimePicker(target: Fragment, rc: Int, task: Long, current: Long, autoClose: Boolean): DateTimePicker {
             val bundle = Bundle()
             bundle.putLong(EXTRA_TASK, task)
             bundle.putLong(EXTRA_TIMESTAMP, current)
+            bundle.putBoolean(EXTRA_AUTO_CLOSE, autoClose)
             val fragment = DateTimePicker()
             fragment.arguments = bundle
             fragment.setTargetFragment(target, rc)
@@ -105,7 +107,7 @@ class DateTimePicker : InjectingBottomSheetDialogFragment() {
         return binding.root
     }
 
-    private fun returnAutomatically(): Boolean = arguments?.getLong(EXTRA_TASK) ?: 0 == 0L
+    private fun closeAutomatically(): Boolean = arguments?.getBoolean(EXTRA_AUTO_CLOSE) ?: false
 
     override fun onResume() {
         super.onResume()
@@ -209,7 +211,7 @@ class DateTimePicker : InjectingBottomSheetDialogFragment() {
 
     private fun returnDate(date: Long? = selected?.millis) {
         selected = if (date == null || date <= 0) null else DateTime(date)
-        if (returnAutomatically()) {
+        if (closeAutomatically()) {
             sendSelected()
         } else {
             refreshButtons()
@@ -233,7 +235,7 @@ class DateTimePicker : InjectingBottomSheetDialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val bottomSheetDialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
 
-        if (returnAutomatically()) {
+        if (closeAutomatically()) {
             return bottomSheetDialog
         }
 
