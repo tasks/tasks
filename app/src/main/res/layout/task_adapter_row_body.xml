@@ -5,6 +5,8 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:background="?attr/selectableItemBackground"
+  android:paddingStart="0dp"
+  android:paddingEnd="@dimen/half_keyline_first"
   android:clickable="true"
   android:focusable="true">
 
@@ -24,8 +26,8 @@
       android:layout_alignBaseline="@id/title"
       android:layout_alignParentEnd="true"
       android:background="?attr/selectableItemBackgroundBorderless"
-      android:paddingStart="0dp"
-      android:paddingEnd="@dimen/keyline_first"
+      android:paddingStart="@dimen/half_keyline_first"
+      android:paddingEnd="@dimen/half_keyline_first"
       android:ellipsize="end"
       android:singleLine="true"
       android:textSize="14sp"/>
@@ -37,7 +39,7 @@
       android:layout_toEndOf="@id/completeBox"
       android:layout_toStartOf="@id/due_date"
       android:paddingStart="0dp"
-      android:paddingEnd="@dimen/keyline_first"
+      android:paddingEnd="@dimen/half_keyline_first"
       android:ellipsize="end"
       android:gravity="start|top"
       android:maxLines="1"
