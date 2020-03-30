@@ -200,17 +200,17 @@ public final class TaskEditFragment extends InjectingFragment
           if (verticalOffset == 0) {
             title.setVisibility(View.VISIBLE);
             binding.collapsingtoolbarlayout.setTitleEnabled(false);
-            if (!getTitle().isEmpty()) {
-              AnimationUtil.circularReveal(binding.fab);
-            }
           } else if (Math.abs(verticalOffset) < appBarLayout.getTotalScrollRange()) {
             title.setVisibility(View.INVISIBLE);
             binding.collapsingtoolbarlayout.setTitle(title.getText());
             binding.collapsingtoolbarlayout.setTitleEnabled(true);
           }
+          if (title.getText().length() > 0) {
+            AnimationUtil.circularReveal(binding.fab);
+          }
         });
 
-    if (model.isNew()) {
+    if (model.isNew() && title.getText().length() == 0) {
       binding.fab.setVisibility(View.INVISIBLE);
     } else {
       notificationManager.cancel(model.getId());
