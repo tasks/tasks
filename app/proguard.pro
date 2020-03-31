@@ -2,7 +2,6 @@
 
 -keep class org.tasks.** { *; }
 
--keep class com.rey.material.widget.Slider
 -dontwarn com.rey.material.**
 
 # remove logging statements

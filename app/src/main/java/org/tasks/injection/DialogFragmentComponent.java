@@ -12,7 +12,6 @@ import org.tasks.dialogs.GeofenceDialog;
 import org.tasks.dialogs.IconPickerDialog;
 import org.tasks.dialogs.ImportTasksDialog;
 import org.tasks.dialogs.RecordAudioDialog;
-import org.tasks.dialogs.SeekBarDialog;
 import org.tasks.dialogs.SortDialog;
 import org.tasks.dialogs.ThemePickerDialog;
 import org.tasks.locale.LocalePickerDialog;
@@ -43,8 +42,6 @@ public interface DialogFragmentComponent {
   void inject(BasicRecurrenceDialog basicRecurrenceDialog);
 
   void inject(GeofenceDialog geofenceDialog);
-
-  void inject(SeekBarDialog seekBarDialog);
 
   void inject(IconPickerDialog iconPickerDialog);
 

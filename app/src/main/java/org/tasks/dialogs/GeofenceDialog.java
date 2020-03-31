@@ -1,7 +1,6 @@
 package org.tasks.dialogs;
 
 import static android.app.Activity.RESULT_OK;
-import static org.tasks.dialogs.SeekBarDialog.newSeekBarDialog;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -12,12 +11,11 @@ import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Switch;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
+import com.google.android.material.slider.Slider;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.data.Geofence;
@@ -33,9 +31,8 @@ public class GeofenceDialog extends InjectingDialogFragment {
 
   public static final String EXTRA_GEOFENCE = "extra_geofence";
   private static final String EXTRA_ORIGINAL = "extra_original";
-
-  private static final String FRAG_TAG_SEEKBAR = "frag_tag_seekbar";
-  private static final int REQUEST_RADIUS = 10101;
+  private static final int MIN_RADIUS = 75;
+  private static final int MAX_RADIUS = 1000;
 
   @Inject DialogBuilder dialogBuilder;
   @Inject @ForActivity Context context;
@@ -49,8 +46,8 @@ public class GeofenceDialog extends InjectingDialogFragment {
   @BindView(R.id.location_departure)
   Switch departureView;
 
-  @BindView(R.id.location_radius_value)
-  TextView radiusValue;
+  @BindView(R.id.slider)
+  Slider slider;
 
   public static GeofenceDialog newGeofenceDialog(Location location) {
     GeofenceDialog dialog = new GeofenceDialog();
@@ -75,7 +72,13 @@ public class GeofenceDialog extends InjectingDialogFragment {
     boolean hasLocationPermission = permissionChecker.canAccessLocation();
     arrivalView.setChecked(hasLocationPermission && geofence.isArrival());
     departureView.setChecked(hasLocationPermission && geofence.isDeparture());
-    updateRadius(geofence.getRadius());
+    slider.setLabelFormatter(
+        value -> getString(R.string.location_radius_meters, locale.formatNumber(value)));
+    slider.setValueTo(MAX_RADIUS);
+    slider.setValueFrom(MIN_RADIUS);
+    slider.setStepSize(25);
+    slider.setHaloRadius(0);
+    slider.setValue(geofence.getRadius());
     return dialogBuilder
         .newDialog(original.getDisplayName())
         .setView(view)
@@ -94,7 +97,7 @@ public class GeofenceDialog extends InjectingDialogFragment {
     Geofence geofence = new Geofence();
     geofence.setArrival(arrivalView.isChecked());
     geofence.setDeparture(departureView.isChecked());
-    geofence.setRadius((int) radiusValue.getTag());
+    geofence.setRadius((int) slider.getValue());
     return geofence;
   }
 
@@ -119,29 +122,6 @@ public class GeofenceDialog extends InjectingDialogFragment {
     if (!permissionChecker.canAccessLocation()) {
       dismiss();
     }
-  }
-
-  @Override
-  public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    if (requestCode == REQUEST_RADIUS) {
-      if (resultCode == RESULT_OK) {
-        updateRadius(data.getIntExtra(SeekBarDialog.EXTRA_VALUE, 250));
-      }
-    } else {
-      super.onActivityResult(requestCode, resultCode, data);
-    }
-  }
-
-  @OnClick(R.id.location_radius)
-  void selectRadius() {
-    newSeekBarDialog(
-        R.layout.dialog_radius_seekbar, 75, 1000, toGeofence().getRadius(), this, REQUEST_RADIUS)
-        .show(getFragmentManager(), FRAG_TAG_SEEKBAR);
-  }
-
-  private void updateRadius(int radius) {
-    radiusValue.setText(getString(R.string.location_radius_meters, locale.formatNumber(radius)));
-    radiusValue.setTag(radius);
   }
 
   @Override
