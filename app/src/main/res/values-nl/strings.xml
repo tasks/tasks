@@ -571,4 +571,6 @@
     <string name="shortcut_pick_time">Kies een tijd</string>
     <string name="no_time">Geen tijd</string>
     <string name="no_date">Geen datum</string>
+    <string name="auto_dismiss_datetime_summary">Sluit de datum/tijd prikker automatisch na kiezen van een datum of tijd</string>
+    <string name="auto_dismiss_datetime">Datum/tijd prikker automatisch sluiten</string>
 </resources>
