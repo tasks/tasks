@@ -1,0 +1,13 @@
+* New bottom sheet due date picker
+  * Shortcuts and calendar displayed together (Android 6+)
+* Click on due date in task list to reschedule
+* Option to autoclose due date picker after selecting a date or time
+* Redesigned title in edit screen
+* 'Discard' in overflow menu when 'Back button saves task' enabled
+* Add preference for linkifying edit screen
+* Updated date and time formatting
+* Minimum supported version is now Android 4.4
+* Custom backup/attachment directory requires Android 5+
+* Update translations
+
+Full release notes: https://tasks.org/changelog

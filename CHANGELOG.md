@@ -1,5 +1,30 @@
 Change Log
 ---
+=======
+### 8.8 (2020-04-01)
+
+* New bottom sheet due date picker
+  * Shortcuts and calendar displayed together (Android 6+)
+* Click on due date in task list to reschedule
+* Option to autoclose due date picker after selecting a date or time
+* Redesigned title in edit screen
+* 'Discard' in overflow menu when 'Back button saves task' enabled
+* Add preference for linkifying edit screen
+* Updated date and time formatting
+* Minimum supported version is now Android 4.4
+* Custom backup/attachment directory requires Android 5+
+* Update translations
+  * Basque - @osoitz
+  * Dutch - @fvbommel
+  * French - @FlorianLeChat
+  * German - Joey Meigele
+  * Hungarian - kaciokos
+  * Polish - @alex-ter
+  * Russian - @alex-ter
+  * Simplified Chinese - @sr093906
+  * Spanish - @FlorianLeChat
+  * Ukrainian - @testuser51
+
 ### 8.7.1 (2020-03-31)
 
 * Fix multi-account Google Task synchronization
