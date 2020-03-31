@@ -7,12 +7,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.api.services.tasks.model.TaskList;
-import com.rey.material.widget.ProgressView;
 import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.GtasksFilter;
@@ -42,7 +42,7 @@ public class GoogleTaskListSettingsActivity extends BaseListSettingsActivity {
   TextInputEditText name;
 
   @BindView(R.id.progress_bar)
-  ProgressView progressView;
+  ProgressBar progressView;
 
   private boolean isNewList;
   private GoogleTaskList gtasksList;

@@ -2,8 +2,6 @@
 
 -keep class org.tasks.** { *; }
 
--dontwarn com.rey.material.**
-
 # remove logging statements
 -assumenosideeffects class timber.log.Timber* {
     public static *** v(...);

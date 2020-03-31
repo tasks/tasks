@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import androidx.core.content.ContextCompat;
 import at.bitfire.dav4jvm.exception.HttpException;
 import butterknife.BindView;
@@ -15,7 +16,6 @@ import butterknife.OnTextChanged;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.rey.material.widget.ProgressView;
 import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.CaldavFilter;
@@ -48,7 +48,7 @@ public abstract class BaseCaldavCalendarSettingsActivity extends BaseListSetting
   TextInputLayout nameLayout;
 
   @BindView(R.id.progress_bar)
-  ProgressView progressView;
+  ProgressBar progressView;
 
   private CaldavCalendar caldavCalendar;
   private CaldavAccount caldavAccount;

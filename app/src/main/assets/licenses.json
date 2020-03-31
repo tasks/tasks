@@ -386,22 +386,6 @@
     },
     {
       "notice": null,
-      "copyrightHolder": "Rey Pham",
-      "copyrightStatement": "Copyright &copy; Rey Pham. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "year": null,
-      "url": "https://github.com/rey5137/material",
-      "libraryName": "Material Library",
-      "artifactId": {
-        "name": "material",
-        "group": "com.github.rey5137",
-        "version": "1.3.0"
-      }
-    },
-    {
-      "notice": null,
       "copyrightHolder": "The Apache Software Foundation",
       "copyrightStatement": "Copyright &copy; The Apache Software Foundation. All rights reserved.",
       "license": "The Apache Software License, Version 2.0",

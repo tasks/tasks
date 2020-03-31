@@ -152,11 +152,6 @@
     <item name="cardPreventCornerOverlap">false</item>
   </style>
 
-  <style name="ProgressViewStyle" parent="Material.Drawable.LinearProgress">
-    <item name="lpd_strokeColor">?attr/colorAccent</item>
-    <item name="lpd_strokeSecondaryColor">@android:color/transparent</item>
-  </style>
-
   <style name="ChipStyle" parent="Base.Widget.MaterialComponents.Chip">
     <item name="android:layout_height">wrap_content</item>
     <item name="android:layout_width">wrap_content</item>
