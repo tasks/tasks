@@ -574,4 +574,6 @@
     <string name="shortcut_pick_time">Időpont kiválasztása</string>
     <string name="no_time">Időpont nélkül</string>
     <string name="no_date">Dátum nélkül</string>
+    <string name="auto_dismiss_datetime_summary">Dátum és időpont kiválasztása után zárja be a választó panelt</string>
+    <string name="auto_dismiss_datetime">Dátum és időpont választó automatikus bezárása</string>
 </resources>
