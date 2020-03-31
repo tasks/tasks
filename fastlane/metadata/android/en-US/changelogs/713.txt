@@ -1,0 +1,3 @@
+* Fix multi-account Google Task synchronization
+
+Full release notes: https://tasks.org/changelog

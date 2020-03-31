@@ -17,6 +17,7 @@ import java.io.IOException;
 import javax.inject.Inject;
 import org.tasks.BuildConfig;
 import org.tasks.DebugNetworkInterceptor;
+import org.tasks.gtasks.GoogleAccountManager;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
@@ -30,6 +31,7 @@ import timber.log.Timber;
 public class GtasksInvoker {
 
   private final Context context;
+  private final GoogleAccountManager googleAccountManager;
   private final Preferences preferences;
   private final DebugNetworkInterceptor interceptor;
   private final String account;
@@ -39,29 +41,31 @@ public class GtasksInvoker {
   @Inject
   public GtasksInvoker(
       @ForApplication Context context,
-      HttpCredentialsAdapter credentialsAdapter,
+      GoogleAccountManager googleAccountManager,
       Preferences preferences,
       DebugNetworkInterceptor interceptor) {
     this.context = context;
-    this.credentialsAdapter = credentialsAdapter;
+    this.googleAccountManager = googleAccountManager;
     this.preferences = preferences;
     this.interceptor = interceptor;
     account = null;
     service = null;
+    credentialsAdapter = null;
   }
 
   private GtasksInvoker(
       Context context,
-      HttpCredentialsAdapter credentialsAdapter,
+      GoogleAccountManager googleAccountManager,
       Preferences preferences,
       DebugNetworkInterceptor interceptor,
       String account) {
     this.context = context;
-    this.credentialsAdapter = credentialsAdapter;
+    this.googleAccountManager = googleAccountManager;
     this.preferences = preferences;
     this.interceptor = interceptor;
     this.account = account;
 
+    credentialsAdapter = new HttpCredentialsAdapter(googleAccountManager);
     service =
         new Tasks.Builder(new NetHttpTransport(), new JacksonFactory(), credentialsAdapter)
             .setApplicationName(String.format("Tasks/%s", BuildConfig.VERSION_NAME))
@@ -69,7 +73,7 @@ public class GtasksInvoker {
   }
 
   public GtasksInvoker forAccount(String account) {
-    return new GtasksInvoker(context, credentialsAdapter, preferences, interceptor, account);
+    return new GtasksInvoker(context, googleAccountManager, preferences, interceptor, account);
   }
 
   public @Nullable TaskLists allGtaskLists(@Nullable String pageToken) throws IOException {
