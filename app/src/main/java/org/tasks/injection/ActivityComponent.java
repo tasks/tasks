@@ -23,8 +23,6 @@ import org.tasks.drive.DriveLoginActivity;
 import org.tasks.etesync.EncryptionSettingsActivity;
 import org.tasks.etesync.EteSyncAccountSettingsActivity;
 import org.tasks.etesync.EteSyncCalendarSettingsActivity;
-import org.tasks.files.FileExplore;
-import org.tasks.files.MyFilePickerActivity;
 import org.tasks.locale.ui.activity.TaskerCreateTaskActivity;
 import org.tasks.locale.ui.activity.TaskerSettingsActivity;
 import org.tasks.location.LocationPickerActivity;
@@ -79,8 +77,6 @@ public interface ActivityComponent {
 
   void inject(SnoozeActivity snoozeActivity);
 
-  void inject(FileExplore fileExplore);
-
   void inject(FilterSelectionActivity filterSelectionActivity);
 
   void inject(DateAndTimePickerActivity dateAndTimePickerActivity);
@@ -92,8 +88,6 @@ public interface ActivityComponent {
   void inject(WidgetConfigActivity widgetConfigActivity);
 
   void inject(ShortcutConfigActivity shortcutConfigActivity);
-
-  void inject(MyFilePickerActivity myFilePickerActivity);
 
   void inject(GoogleTaskListSettingsActivity googleTaskListSettingsActivity);
 

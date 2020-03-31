@@ -164,7 +164,6 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
     implementation("com.google.code.gson:gson:2.8.6")
     implementation("com.github.rey5137:material:1.3.0")
-    implementation("com.nononsenseapps:filepicker:4.2.1")
     implementation("com.google.android.material:material:1.1.0")
     implementation("androidx.annotation:annotation:1.1.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta4")

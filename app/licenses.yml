@@ -160,11 +160,6 @@
   licenseUrl: https://opensource.org/licenses/BSD-2-Clause
   url: https://github.com/mapbox/mapbox-gl-native
   forceGenerate: true
-- artifact: com.nononsenseapps:filepicker:+
-  name: filepicker
-  copyrightHolder: Jonas Kalderstam
-  license: Mozilla Public License, Version 2.0
-  licenseUrl: https://www.mozilla.org/en-US/MPL/2.0/
 - artifact: androidx.annotation:annotation:+
   name: Android Support Library Annotations
   copyrightHolder: Android Open Source Project
@@ -229,18 +224,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: http://commons.apache.org/proper/commons-lang/
-- artifact: androidx.legacy:legacy-support-v4:+
-  name: Android Support Library v4
-  copyrightHolder: Android Open Source Project
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: http://developer.android.com/tools/extras/support-library.html
-- artifact: androidx.media:media:+
-  name: Android Support Library media compat
-  copyrightHolder: Android Open Source Project
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: http://developer.android.com/tools/extras/support-library.html
 - artifact: com.mapbox.mapboxsdk:mapbox-sdk-geojson:+
   name: Mapbox services-geojson
   copyrightHolder: Mapbox
@@ -465,12 +448,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://github.com/JakeWharton/ThreeTenABP/
-- artifact: androidx.asynclayoutinflater:asynclayoutinflater:+
-  name: Android Support Library Async Layout Inflater
-  copyrightHolder: Android Open Source Project
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: http://developer.android.com/tools/extras/support-library.html
 - artifact: androidx.lifecycle:lifecycle-process:+
   name: Android Lifecycle Process
   copyrightHolder: Android Open Source Project
@@ -495,12 +472,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://github.com/JakeWharton/timber
-- artifact: androidx.slidingpanelayout:slidingpanelayout:+
-  name: Android Support Library Sliding Pane Layout
-  copyrightHolder: Android Open Source Project
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: http://developer.android.com/tools/extras/support-library.html
 - artifact: com.google.oauth-client:google-oauth-client:+
   name: Google OAuth Client Library for Java
   copyrightHolder: Google Inc.
@@ -518,12 +489,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://github.com/Saketme/BetterLinkMovementMethod
-- artifact: androidx.legacy:legacy-support-core-ui:+
-  name: Android Support Library core UI
-  copyrightHolder: Android Open Source Project
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: http://developer.android.com/tools/extras/support-library.html
 - artifact: androidx.drawerlayout:drawerlayout:+
   name: Android Support Library Drawer Layout
   copyrightHolder: Android Open Source Project

@@ -72,13 +72,6 @@ public class FileHelper {
       intent.putExtra("android.content.extra.SHOW_FILESIZE", true);
       setInitialUri(fragment.getContext(), intent, initial);
       fragment.startActivityForResult(intent, rc);
-    } else {
-      Intent intent = new Intent(fragment.getContext(), FileExplore.class);
-      intent.putExtra(FileExplore.EXTRA_DIRECTORY_MODE, true);
-      if (initial != null) {
-        intent.putExtra(FileExplore.EXTRA_START_PATH, initial.getPath());
-      }
-      fragment.startActivityForResult(intent, rc);
     }
   }
 

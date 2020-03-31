@@ -434,22 +434,6 @@
     },
     {
       "notice": null,
-      "copyrightHolder": "Jonas Kalderstam",
-      "copyrightStatement": "Copyright &copy; Jonas Kalderstam. All rights reserved.",
-      "license": "Mozilla Public License, Version 2.0",
-      "licenseUrl": "https://www.mozilla.org/en-US/MPL/2.0/",
-      "normalizedLicense": "mpl2",
-      "year": null,
-      "url": "",
-      "libraryName": "filepicker",
-      "artifactId": {
-        "name": "filepicker",
-        "group": "com.nononsenseapps",
-        "version": "4.2.1"
-      }
-    },
-    {
-      "notice": null,
       "copyrightHolder": "Android Open Source Project",
       "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
       "license": "The Apache Software License, Version 2.0",
@@ -622,38 +606,6 @@
         "name": "commons-lang3",
         "group": "org.apache.commons",
         "version": "3.8.1"
-      }
-    },
-    {
-      "notice": null,
-      "copyrightHolder": "Android Open Source Project",
-      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "year": null,
-      "url": "http://developer.android.com/tools/extras/support-library.html",
-      "libraryName": "Android Support Library v4",
-      "artifactId": {
-        "name": "legacy-support-v4",
-        "group": "androidx.legacy",
-        "version": "1.0.0"
-      }
-    },
-    {
-      "notice": null,
-      "copyrightHolder": "Android Open Source Project",
-      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "year": null,
-      "url": "http://developer.android.com/tools/extras/support-library.html",
-      "libraryName": "Android Support Library media compat",
-      "artifactId": {
-        "name": "media",
-        "group": "androidx.media",
-        "version": "1.0.0"
       }
     },
     {
@@ -1256,22 +1208,6 @@
       "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
       "normalizedLicense": "apache2",
       "year": null,
-      "url": "http://developer.android.com/tools/extras/support-library.html",
-      "libraryName": "Android Support Library Async Layout Inflater",
-      "artifactId": {
-        "name": "asynclayoutinflater",
-        "group": "androidx.asynclayoutinflater",
-        "version": "1.0.0"
-      }
-    },
-    {
-      "notice": null,
-      "copyrightHolder": "Android Open Source Project",
-      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "year": null,
       "url": "https://developer.android.com/topic/libraries/architecture/index.html",
       "libraryName": "Android Lifecycle Process",
       "artifactId": {
@@ -1330,22 +1266,6 @@
     },
     {
       "notice": null,
-      "copyrightHolder": "Android Open Source Project",
-      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "year": null,
-      "url": "http://developer.android.com/tools/extras/support-library.html",
-      "libraryName": "Android Support Library Sliding Pane Layout",
-      "artifactId": {
-        "name": "slidingpanelayout",
-        "group": "androidx.slidingpanelayout",
-        "version": "1.0.0"
-      }
-    },
-    {
-      "notice": null,
       "copyrightHolder": "Google Inc.",
       "copyrightStatement": "Copyright &copy; Google Inc. All rights reserved.",
       "license": "The Apache Software License, Version 2.0",
@@ -1390,22 +1310,6 @@
         "name": "better-link-movement-method",
         "group": "me.saket",
         "version": "2.2.0"
-      }
-    },
-    {
-      "notice": null,
-      "copyrightHolder": "Android Open Source Project",
-      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "year": null,
-      "url": "http://developer.android.com/tools/extras/support-library.html",
-      "libraryName": "Android Support Library core UI",
-      "artifactId": {
-        "name": "legacy-support-core-ui",
-        "group": "androidx.legacy",
-        "version": "1.0.0"
       }
     },
     {
