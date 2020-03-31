@@ -578,4 +578,6 @@
     <string name="shortcut_pick_time">Hautatu ordua</string>
     <string name="no_time">Ordurik ez</string>
     <string name="no_date">Datarik ez</string>
+    <string name="auto_dismiss_datetime_summary">Itxi data/ordu hautatzailea behin data eta ordua hautatuta</string>
+    <string name="auto_dismiss_datetime">Automatikoki itxi data/ordu hautatzailea</string>
 </resources>
