@@ -1,5 +1,9 @@
 Change Log
 ---
+### 8.7.1 (2020-03-31)
+
+* Fix multi-account Google Task synchronization
+
 ### 8.7 (2020-03-19)
 
 * Places are now lists
