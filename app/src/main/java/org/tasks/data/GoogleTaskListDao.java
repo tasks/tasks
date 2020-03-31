@@ -38,7 +38,7 @@ public abstract class GoogleTaskListDao {
   public abstract LiveData<List<GoogleTaskList>> subscribeToLists();
 
   @Query(
-      "SELECT * FROM google_task_lists WHERE gtl_remote_id = :remoteId AND IFNULL(gtl_account, '') = '' LIMIT 1")
+      "SELECT * FROM google_task_lists WHERE gtl_remote_id = :remoteId AND IFNULL(gtl_account, '') = ''")
   public abstract GoogleTaskList findExistingList(String remoteId);
 
   @Query("SELECT * FROM google_task_lists")
@@ -51,7 +51,7 @@ public abstract class GoogleTaskListDao {
   public abstract long insertOrReplace(GoogleTaskList googleTaskList);
 
   @Insert
-  public abstract void insert(GoogleTaskList googleTaskList);
+  public abstract long insert(GoogleTaskList googleTaskList);
 
   @Insert
   public abstract void insert(GoogleTaskAccount googleTaskAccount);
