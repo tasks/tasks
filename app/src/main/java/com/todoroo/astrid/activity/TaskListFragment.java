@@ -12,6 +12,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
 import static org.tasks.activities.RemoteListPicker.newRemoteListSupportPicker;
 import static org.tasks.caldav.CaldavCalendarSettingsActivity.EXTRA_CALDAV_CALENDAR;
+import static org.tasks.date.DateTimeUtils.newDateTime;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -99,6 +100,7 @@ import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.intents.TaskIntents;
+import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.Device;
 import org.tasks.preferences.Preferences;
 import org.tasks.sync.SyncAdapters;
@@ -158,6 +160,7 @@ public final class TaskListFragment extends InjectingFragment
   @Inject CaldavDao caldavDao;
   @Inject ThemeColor defaultThemeColor;
   @Inject ColorProvider colorProvider;
+  @Inject NotificationManager notificationManager;
 
   @BindView(R.id.swipe_layout)
   SwipeRefreshLayout swipeRefreshLayout;
@@ -643,6 +646,9 @@ public final class TaskListFragment extends InjectingFragment
           long taskId = data.getLongExtra(DateTimePicker.EXTRA_TASK, 0L);
           Task task = taskDao.fetch(taskId);
           long dueDate = data.getLongExtra(DateTimePicker.EXTRA_TIMESTAMP, 0L);
+          if (newDateTime(dueDate).isAfterNow()) {
+            notificationManager.cancel(task.getId());
+          }
           task.setDueDateAdjustingHideUntil(dueDate);
           taskDao.save(task);
         }

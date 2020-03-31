@@ -7,6 +7,7 @@ import static java.util.Calendar.SUNDAY;
 import static java.util.Calendar.THURSDAY;
 import static java.util.Calendar.TUESDAY;
 import static java.util.Calendar.WEDNESDAY;
+import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 import com.google.ical.values.DateTimeValue;
 import com.google.ical.values.DateValue;
@@ -65,7 +66,7 @@ public class DateTime {
   }
 
   public DateTime() {
-    this(DateTimeUtils.currentTimeMillis());
+    this(currentTimeMillis());
   }
 
   public DateTime(long timestamp) {
@@ -261,8 +262,16 @@ public class DateTime {
     return new DateTime(timestamp - millis, timeZone);
   }
 
+  public boolean isAfterNow() {
+    return isAfter(currentTimeMillis());
+  }
+
   public boolean isAfter(DateTime dateTime) {
-    return timestamp > dateTime.getMillis();
+    return isAfter(dateTime.getMillis());
+  }
+
+  public boolean isAfter(long timestamp) {
+    return this.timestamp > timestamp;
   }
 
   public boolean isBeforeNow() {
