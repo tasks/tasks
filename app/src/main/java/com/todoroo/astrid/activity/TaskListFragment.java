@@ -777,7 +777,11 @@ public final class TaskListFragment extends InjectingFragment
 
   public void showDateTimePicker(TaskContainer task) {
     DateTimePicker.Companion.newDateTimePicker(
-            this, REQUEST_DUE_DATE, task.getId(), task.getDueDate(), false)
+            this,
+            REQUEST_DUE_DATE,
+            task.getId(),
+            task.getDueDate(),
+            preferences.getBoolean(R.string.p_auto_dismiss_datetime_list_screen, false))
         .show(getParentFragmentManager(), FRAG_TAG_DATE_TIME_PICKER);
   }
 
