@@ -30,6 +30,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
 import androidx.appcompat.view.ActionMode.Callback;
@@ -525,6 +526,10 @@ public final class TaskListFragment extends InjectingFragment
     refresh();
   }
 
+  public Snackbar makeSnackbar(@StringRes int res, Object... args) {
+    return makeSnackbar(getString(res, args));
+  }
+
   public Snackbar makeSnackbar(String text) {
     Snackbar snackbar =
         Snackbar.make(coordinatorLayout, text, 8000)
@@ -831,9 +836,7 @@ public final class TaskListFragment extends InjectingFragment
     for (Task task : result) {
       onTaskDelete(task);
     }
-    makeSnackbar(
-            context.getString(
-                R.string.delete_multiple_tasks_confirmation, Integer.toString(result.size())))
+    makeSnackbar(R.string.delete_multiple_tasks_confirmation, Integer.toString(result.size()))
         .show();
   }
 
@@ -841,9 +844,7 @@ public final class TaskListFragment extends InjectingFragment
     finishActionMode();
     List<Task> duplicates = taskDuplicator.duplicate(tasks);
     onTaskCreated(duplicates);
-    makeSnackbar(
-            context.getString(
-                R.string.copy_multiple_tasks_confirmation, Integer.toString(duplicates.size())))
+    makeSnackbar(R.string.copy_multiple_tasks_confirmation, Integer.toString(duplicates.size()))
         .show();
   }
 }

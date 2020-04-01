@@ -177,15 +177,6 @@ public class CalendarControlSet extends TaskEditControlFragment {
         Uri uri = gcalHelper.createTaskEvent(task, values);
         if (uri != null) {
           task.setCalendarUri(uri.toString());
-          // pop up the new event
-          Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-          intent.putExtra(
-              CalendarContract.EXTRA_EVENT_BEGIN_TIME,
-              values.getAsLong(CalendarContract.Events.DTSTART));
-          intent.putExtra(
-              CalendarContract.EXTRA_EVENT_END_TIME,
-              values.getAsLong(CalendarContract.Events.DTEND));
-          startActivity(intent);
         }
       } catch (Exception e) {
         Timber.e(e);

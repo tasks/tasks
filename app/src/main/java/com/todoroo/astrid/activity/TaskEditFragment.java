@@ -16,6 +16,7 @@ import static org.tasks.files.FileHelper.copyToUri;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -331,6 +332,15 @@ public final class TaskEditFragment extends InjectingFragment
 
                 if (isNewTask) {
                   taskListFragment.onTaskCreated(model.getUuid());
+                  if (!Strings.isNullOrEmpty(model.getCalendarURI())) {
+                    taskListFragment.makeSnackbar(R.string.calendar_event_created, model.getTitle())
+                        .setAction(R.string.action_open, v -> {
+                          String uri = model.getCalendarURI();
+                          Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                          taskListFragment.startActivity(intent);
+                        })
+                        .show();
+                  }
                 }
               })
           .subscribeOn(Schedulers.io())

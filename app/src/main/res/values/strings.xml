@@ -580,4 +580,5 @@ File %1$s contained %2$s.\n\n
   <string name="shortcut_pick_date">Pick date</string>
   <string name="auto_dismiss_datetime">Autoclose date time picker</string>
   <string name="auto_dismiss_datetime_summary">Close date time picker after selecting a date or time</string>
+  <string name="calendar_event_created">Calendar event created for %s</string>
 </resources>
