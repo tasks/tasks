@@ -1282,22 +1282,6 @@
     },
     {
       "notice": null,
-      "copyrightHolder": "Saket Narayan",
-      "copyrightStatement": "Copyright &copy; Saket Narayan. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "year": null,
-      "url": "https://github.com/Saketme/BetterLinkMovementMethod",
-      "libraryName": "BetterLinkMovementMethod",
-      "artifactId": {
-        "name": "better-link-movement-method",
-        "group": "me.saket",
-        "version": "2.2.0"
-      }
-    },
-    {
-      "notice": null,
       "copyrightHolder": "Android Open Source Project",
       "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
       "license": "The Apache Software License, Version 2.0",

@@ -25,7 +25,6 @@ import com.todoroo.astrid.ui.CheckableImageView;
 import java.util.List;
 import org.tasks.R;
 import org.tasks.data.TaskContainer;
-import org.tasks.dialogs.DateTimePicker;
 import org.tasks.dialogs.Linkify;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.Preferences;
@@ -209,11 +208,9 @@ public class ViewHolder extends RecyclerView.ViewHolder {
       description.setVisibility(task.hasNotes() ? View.VISIBLE : View.GONE);
     }
     if (preferences.getBoolean(R.string.p_linkify_task_list, false)) {
-      linkify.linkify(nameView, this::onRowBodyClick, this::onRowBodyLongClick);
-      linkify.linkify(description, this::onRowBodyClick, this::onRowBodyLongClick);
-      nameView.setOnClickListener(view -> onRowBodyClick());
+      linkify.linkify(nameView, this::onRowBodyClick);
+      linkify.linkify(description, this::onRowBodyClick);
       nameView.setOnLongClickListener(view -> onRowBodyLongClick());
-      description.setOnClickListener(view -> onRowBodyClick());
       description.setOnLongClickListener(view -> onRowBodyLongClick());
     }
     if (chipGroup.getVisibility() == View.VISIBLE) {
