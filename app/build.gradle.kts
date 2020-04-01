@@ -2,9 +2,9 @@ plugins {
     id("com.android.application")
     id("checkstyle")
     id("io.fabric")
-    id("com.cookpad.android.licensetools")
     kotlin("android")
     kotlin("kapt")
+    id("com.cookpad.android.plugin.license-tools") version "1.2.2"
 }
 
 repositories {
