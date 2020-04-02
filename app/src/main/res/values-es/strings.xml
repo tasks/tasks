@@ -578,4 +578,5 @@
     <string name="no_date">No hay fecha</string>
     <string name="auto_dismiss_datetime_summary">Cerrar el selector de fecha y hora después de seleccionar una fecha u hora</string>
     <string name="auto_dismiss_datetime">Cerrar automáticamente el interruptor de selección de fecha y hora</string>
+    <string name="calendar_event_created">Calendario de eventos creado para %s</string>
 </resources>
