@@ -1,6 +1,18 @@
 Change Log
 ---
 =======
+### 8.9 (2020-04-03)
+
+* Add 'Select all' option to multi-select menu
+* Display 'Calendar event created' snackbar after creating a calendar event
+* Update translations
+  * Dutch - @fvbommel
+  * Finnish - @LittleCoffeeTables
+  * French - @FlorianLeChat
+  * Hungarian - kaciokos
+  * Spanish - @FlorianLeChat
+  * Turkish - etc
+
 ### 8.8 (2020-04-01)
 
 * New bottom sheet due date picker

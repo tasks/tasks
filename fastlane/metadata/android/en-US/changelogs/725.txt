@@ -1,0 +1,5 @@
+* Add 'Select all' option to multi-select menu
+* Display 'Calendar event created' snackbar after creating a calendar event
+* Update translations
+
+Full release notes: https://tasks.org/changelog
