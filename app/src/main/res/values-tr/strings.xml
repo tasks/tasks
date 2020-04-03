@@ -163,7 +163,7 @@
     <string name="audio_recording_title">Ses Kaydediliyor</string>
     <string name="audio_stop_recording">Kaydı Durdur</string>
     <string name="ring_once">Bir kez çal</string>
-    <string name="ring_five_times">5 kez çal</string>
+    <string name="ring_five_times">Beş kez çal</string>
     <string name="ring_nonstop">Durmadan çal</string>
     <string name="random_reminder_hour">bir saat</string>
     <string name="random_reminder_day">bir gün</string>
@@ -568,4 +568,15 @@
     <string name="hide_unused_tags">Kullanılmayan etiketleri gizle</string>
     <string name="hide_unused_places">Kullanılmayan yerleri gizle</string>
     <string name="add_place">Yer ekle</string>
+    <string name="auto_dismiss_datetime_summary">Tarih veya zaman seçince tarih zaman seçiciyi kapat</string>
+    <string name="auto_dismiss_datetime">Tarih zaman seçiciyi kendiliğinden kapat</string>
+    <string name="shortcut_pick_time">Zaman seç</string>
+    <string name="no_time">Zaman yok</string>
+    <string name="calendar_event_created">%s için takvim olayı oluşturuldu</string>
+    <string name="shortcut_pick_date">Tarih seç</string>
+    <string name="no_date">Tarih yok</string>
+    <string name="chip_appearance_icon_only">Yalnızca simge</string>
+    <string name="chip_appearance_text_only">Yalnızca metin</string>
+    <string name="chip_appearance_text_and_icon">Metin ve simge</string>
+    <string name="menu_discard_changes">Değişiklikleri göz ardı et</string>
 </resources>
