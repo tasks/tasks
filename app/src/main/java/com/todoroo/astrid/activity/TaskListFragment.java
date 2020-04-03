@@ -9,6 +9,7 @@ package com.todoroo.astrid.activity;
 import static android.app.Activity.RESULT_OK;
 import static androidx.core.content.ContextCompat.getColor;
 import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
 import static org.tasks.activities.RemoteListPicker.newRemoteListSupportPicker;
 import static org.tasks.caldav.CaldavCalendarSettingsActivity.EXTRA_CALDAV_CALENDAR;
@@ -749,6 +750,12 @@ public final class TaskListFragment extends InjectingFragment
                 ? newRemoteListSupportPicker(this, REQUEST_MOVE_TASKS)
                 : newRemoteListSupportPicker(singleFilter, this, REQUEST_MOVE_TASKS))
             .show(getFragmentManager(), FRAG_TAG_REMOTE_LIST_PICKER);
+        return true;
+      case R.id.menu_select_all:
+        taskAdapter.setSelected(
+            transform(taskDao.fetchTasks(preferences, filter), TaskContainer::getId));
+        updateModeTitle();
+        recyclerAdapter.notifyDataSetChanged();
         return true;
       case R.id.delete:
         dialogBuilder

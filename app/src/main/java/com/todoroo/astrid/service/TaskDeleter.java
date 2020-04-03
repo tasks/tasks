@@ -21,7 +21,6 @@ import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.TaskContainer;
-import org.tasks.data.TaskListQuery;
 import org.tasks.jobs.WorkManager;
 import org.tasks.preferences.Preferences;
 
@@ -90,12 +89,7 @@ public class TaskDeleter {
     Filter deleteFilter = new Filter(null, null);
     deleteFilter.setFilterQueryOverride(
         removeOrder(showHiddenAndCompleted(filter.getOriginalSqlQuery())));
-    List<TaskContainer> tasks =
-        taskDao.fetchTasks(
-            (includeGoogleSubtasks, includeCaldavSubtasks) ->
-                TaskListQuery.getQuery(
-                    preferences, deleteFilter, includeGoogleSubtasks, includeCaldavSubtasks));
-    for (TaskContainer task : tasks) {
+    for (TaskContainer task : taskDao.fetchTasks(preferences, deleteFilter)) {
       if (task.isCompleted()) {
         completed.add(task.getId());
       }

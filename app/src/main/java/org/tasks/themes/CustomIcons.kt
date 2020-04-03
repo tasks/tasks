@@ -174,7 +174,8 @@ object CustomIcons {
         1134 to R.drawable.ic_nights_stay_24px,
         1135 to R.drawable.ic_single_bed_24px,
         1136 to R.drawable.ic_weather_sunset,
-        1137 to R.drawable.ic_calendar_today_24px
+        1137 to R.drawable.ic_calendar_today_24px,
+        1138 to R.drawable.ic_select_all_24px
     )
 
     @kotlin.jvm.JvmStatic

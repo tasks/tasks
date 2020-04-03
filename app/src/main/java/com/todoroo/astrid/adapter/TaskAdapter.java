@@ -11,8 +11,8 @@ import static com.google.common.primitives.Longs.asList;
 
 import com.todoroo.astrid.data.Task;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import org.tasks.data.TaskContainer;
 import org.tasks.tasklist.TaskListRecyclerAdapter;
@@ -45,8 +45,12 @@ public class TaskAdapter {
   }
 
   public void setSelected(long... ids) {
+    setSelected(asList(ids));
+  }
+
+  public void setSelected(Collection<Long> ids) {
     selected.clear();
-    selected.addAll(asList(ids));
+    selected.addAll(ids);
   }
 
   public void clearSelections() {

@@ -38,7 +38,9 @@ import java.util.List;
 import org.tasks.BuildConfig;
 import org.tasks.data.Place;
 import org.tasks.data.TaskContainer;
+import org.tasks.data.TaskListQuery;
 import org.tasks.jobs.WorkManager;
+import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
 @Dao
@@ -153,6 +155,13 @@ public abstract class TaskDao {
     List<TaskContainer> result = fetchTasks(new SimpleSQLiteQuery(queries.get(last)));
     Timber.v("%sms: %s", now() - start, Joiner.on(";").join(queries));
     return result;
+  }
+
+  public List<TaskContainer> fetchTasks(Preferences preferences, Filter filter) {
+    return fetchTasks(
+        (includeGoogleTaskSubtasks, includeCaldavSubtasks) ->
+            TaskListQuery.getQuery(
+                preferences, filter, includeGoogleTaskSubtasks, includeCaldavSubtasks));
   }
 
   @RawQuery
