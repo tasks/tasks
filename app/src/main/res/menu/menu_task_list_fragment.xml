@@ -19,6 +19,11 @@
     android:icon="@drawable/ic_outline_sort_24px"
     android:title="@string/TLA_menu_sort"
     app:showAsAction="ifRoom"/>
+  <item
+    android:id="@+id/menu_share"
+    android:icon="@drawable/ic_outline_send_24px"
+    android:title="@string/share"
+    app:showAsAction="ifRoom" />
   <group
     android:checkableBehavior="all">
     <item

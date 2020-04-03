@@ -51,6 +51,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.common.base.Joiner;
 import com.google.common.primitives.Longs;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapterProvider;
@@ -484,6 +485,9 @@ public final class TaskListFragment extends InjectingFragment
       case R.id.menu_open_map:
         ((PlaceFilter) filter).openMap(context);
         return true;
+      case R.id.menu_share:
+        send(transform(taskDao.fetchTasks(preferences, filter), TaskContainer::getTask));
+        return true;
       default:
         return onOptionsItemSelected(item);
     }
@@ -757,6 +761,9 @@ public final class TaskListFragment extends InjectingFragment
         updateModeTitle();
         recyclerAdapter.notifyDataSetChanged();
         return true;
+      case R.id.menu_share:
+        send(taskDao.fetch(taskAdapter.getSelected()));
+        return true;
       case R.id.delete:
         dialogBuilder
             .newDialog(R.string.delete_selected_tasks)
@@ -776,6 +783,21 @@ public final class TaskListFragment extends InjectingFragment
       default:
         return false;
     }
+  }
+
+  private void send(List<Task> tasks) {
+    Intent intent = new Intent(Intent.ACTION_SEND);
+    String output =
+        Joiner.on("\n")
+            .join(
+                transform(
+                    tasks, t -> String.format("%s %s", t.isCompleted() ? "☑" : "☐", t.getTitle())));
+    intent.putExtra(Intent.EXTRA_TEXT, output);
+    intent.setType("text/plain");
+
+    startActivity(Intent.createChooser(intent, null));
+
+    taskAdapter.clearSelections();
   }
 
   @Override

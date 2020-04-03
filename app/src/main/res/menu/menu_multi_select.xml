@@ -21,6 +21,12 @@
     app:showAsAction="ifRoom" />
 
   <item
+    android:id="@+id/menu_share"
+    android:icon="@drawable/ic_outline_send_24px"
+    android:title="@string/share"
+    app:showAsAction="ifRoom" />
+
+  <item
     android:id="@+id/copy_tasks"
     android:icon="@drawable/ic_outline_file_copy_24px"
     android:title="@string/copy"
