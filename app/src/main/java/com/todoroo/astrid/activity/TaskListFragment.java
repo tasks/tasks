@@ -792,12 +792,13 @@ public final class TaskListFragment extends InjectingFragment
             .join(
                 transform(
                     tasks, t -> String.format("%s %s", t.isCompleted() ? "☑" : "☐", t.getTitle())));
+    intent.putExtra(Intent.EXTRA_SUBJECT, filter.listingTitle);
     intent.putExtra(Intent.EXTRA_TEXT, output);
     intent.setType("text/plain");
 
     startActivity(Intent.createChooser(intent, null));
 
-    taskAdapter.clearSelections();
+    finishActionMode();
   }
 
   @Override
