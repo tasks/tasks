@@ -574,4 +574,6 @@
     <string name="auto_dismiss_datetime_summary">Sluit de datum/tijd prikker automatisch na kiezen van een datum of tijd</string>
     <string name="auto_dismiss_datetime">Datum/tijd prikker automatisch sluiten</string>
     <string name="calendar_event_created">Agenda-item aangemaakt voor %s</string>
+    <string name="share">Delen</string>
+    <string name="select_all">Selecteer alles</string>
 </resources>
