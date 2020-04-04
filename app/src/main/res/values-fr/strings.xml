@@ -575,4 +575,6 @@ est configuré correctement</string>
     <string name="auto_dismiss_datetime_summary">Fermer le sélecteur de date et d\'heure après avoir sélectionné une date ou une heure</string>
     <string name="auto_dismiss_datetime">Fermer automatiquement le sélecteur de date et d\'heure</string>
     <string name="calendar_event_created">Calendrier de l\'événement créé pour %s</string>
+    <string name="share">Partager</string>
+    <string name="select_all">Tout sélectionner</string>
 </resources>
