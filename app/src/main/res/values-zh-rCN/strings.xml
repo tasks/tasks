@@ -569,4 +569,7 @@
     <string name="chip_appearance_text_only">仅文本</string>
     <string name="chip_appearance_text_and_icon">文本和图标</string>
     <string name="menu_discard_changes">放弃更改</string>
+    <string name="share">分享</string>
+    <string name="select_all">选中全部</string>
+    <string name="calendar_event_created">已为%s创建日历事件</string>
 </resources>
