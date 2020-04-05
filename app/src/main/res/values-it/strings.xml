@@ -132,7 +132,7 @@
     <string name="CFC_dueBefore_name">Entro…</string>
     <string name="no_due_date">Nessuna data di scadenza</string>
     <string name="next_month">Mese successivo</string>
-    <string name="CFC_importance_text">Solo per priorità ?</string>
+    <string name="CFC_importance_text">Priorità minima\?</string>
     <string name="CFC_importance_name">Priorità…</string>
     <string name="CFC_tag_text">Etichetta: ?</string>
     <string name="CFC_tag_name">Etichetta…</string>
@@ -557,4 +557,21 @@
         <item quantity="one">%d sotto-attività</item>
         <item quantity="other">%d sotto-attività</item>
     </plurals>
+    <string name="EPr_temp_show_completed_tasks">Mostra temporaneamente le attività al completamento</string>
+    <string name="create_new_tag">Crea \"%s\"</string>
+    <string name="show_subtasks_summary">Visualizzare le sotto-attività riduce le prestazioni dell\'app</string>
+    <string name="show_subtasks">Mostra sotto-attività</string>
+    <string name="subtasks_multilevel_google_task">Google Tasks non supporta sotto-attività su più livelli</string>
+    <string name="expand_subtasks">Espandi sotto-attività</string>
+    <string name="caldav_account_repeating_tasks">"Lascia che il server  programmi le attività ricorrenti"</string>
+    <string name="annually">Annuale</string>
+    <string name="monthly">Mensile</string>
+    <string name="google_tasks_add_to_top">Nuove attività in cima alla lista</string>
+    <string name="invalid_backup_file">File di backup non valido</string>
+    <string name="version_string">Versione %s</string>
+    <string name="list_separator_with_space">", "</string>
+    <string name="error_adding_account">Errore: %s</string>
+    <string name="location_radius_meters">%s m</string>
+    <string name="subtasks">Sotto-attività</string>
+    <string name="TEA_timer_controls">Timer</string>
 </resources>
