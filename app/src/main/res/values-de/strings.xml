@@ -574,4 +574,5 @@
     <string name="auto_dismiss_datetime_summary">Datums- und Zeitauswahl nach Auswahl eines Datums oder einer Uhrzeit automatisch schließen</string>
     <string name="auto_dismiss_datetime">Datums- und Zeitauswahl automatisch schließen</string>
     <string name="calendar_event_created">Termin im Kalender erstellt für %s</string>
+    <string name="select_all">Alles auswählen</string>
 </resources>
