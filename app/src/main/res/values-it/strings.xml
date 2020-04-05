@@ -479,4 +479,5 @@ Google Play app sia impostata correttamente</string>
     <string name="EPr_temp_completed_tasks_showing">Le attività rimarranno temporaneamente visibili nella lista dopo il loro completamento</string>
     <string name="TEA_add_subtask">Aggiungi sotto-attività</string>
     <string name="SSD_sort_my_order">Ordine personalizzato</string>
+    <string name="EPr_temp_completed_tasks_not_showing">Le attività spariranno immediatamente dalla lista dopo il completamento</string>
 </resources>
