@@ -11,56 +11,56 @@ import java.util.List;
 import org.tasks.filters.GoogleTaskFilters;
 
 @Dao
-public abstract class GoogleTaskListDao {
+public interface GoogleTaskListDao {
 
   @Query("SELECT COUNT(*) FROM google_task_accounts")
-  public abstract Single<Integer> accountCount();
+  Single<Integer> accountCount();
 
   @Query("SELECT * FROM google_task_accounts")
-  public abstract List<GoogleTaskAccount> getAccounts();
+  List<GoogleTaskAccount> getAccounts();
 
   @Query("SELECT * FROM google_task_accounts WHERE gta_account = :account COLLATE NOCASE LIMIT 1")
-  public abstract GoogleTaskAccount getAccount(String account);
+  GoogleTaskAccount getAccount(String account);
 
   @Query("SELECT * FROM google_task_lists WHERE gtl_id = :id")
-  public abstract GoogleTaskList getById(long id);
+  GoogleTaskList getById(long id);
 
   @Query("SELECT * FROM google_task_lists WHERE gtl_account = :account ORDER BY gtl_title ASC")
-  public abstract List<GoogleTaskList> getLists(String account);
+  List<GoogleTaskList> getLists(String account);
 
   @Query("SELECT * FROM google_task_lists WHERE gtl_remote_id = :remoteId LIMIT 1")
-  public abstract GoogleTaskList getByRemoteId(String remoteId);
+  GoogleTaskList getByRemoteId(String remoteId);
 
   @Query("SELECT * FROM google_task_lists WHERE gtl_remote_id IN (:remoteIds)")
-  public abstract List<GoogleTaskList> getByRemoteId(List<String> remoteIds);
+  List<GoogleTaskList> getByRemoteId(List<String> remoteIds);
 
   @Query("SELECT * FROM google_task_lists")
-  public abstract LiveData<List<GoogleTaskList>> subscribeToLists();
+  LiveData<List<GoogleTaskList>> subscribeToLists();
 
   @Query(
       "SELECT * FROM google_task_lists WHERE gtl_remote_id = :remoteId AND IFNULL(gtl_account, '') = ''")
-  public abstract GoogleTaskList findExistingList(String remoteId);
+  GoogleTaskList findExistingList(String remoteId);
 
   @Query("SELECT * FROM google_task_lists")
-  public abstract List<GoogleTaskList> getAllLists();
+  List<GoogleTaskList> getAllLists();
 
   @Query("UPDATE google_task_lists SET gtl_last_sync = 0 WHERE gtl_account = :account")
-  public abstract void resetLastSync(String account);
+  void resetLastSync(String account);
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
-  public abstract long insertOrReplace(GoogleTaskList googleTaskList);
+  long insertOrReplace(GoogleTaskList googleTaskList);
 
   @Insert
-  public abstract long insert(GoogleTaskList googleTaskList);
+  long insert(GoogleTaskList googleTaskList);
 
   @Insert
-  public abstract void insert(GoogleTaskAccount googleTaskAccount);
+  void insert(GoogleTaskAccount googleTaskAccount);
 
   @Update
-  public abstract void update(GoogleTaskAccount account);
+  void update(GoogleTaskAccount account);
 
   @Update
-  public abstract void update(GoogleTaskList list);
+  void update(GoogleTaskList list);
 
   @Query(
       "SELECT google_task_lists.*, COUNT(tasks._id) AS count"
@@ -69,5 +69,5 @@ public abstract class GoogleTaskListDao {
           + " LEFT JOIN tasks ON google_tasks.gt_task = tasks._id AND tasks.deleted = 0 AND tasks.completed = 0 AND tasks.hideUntil < :now AND gt_deleted = 0"
           + " WHERE google_task_lists.gtl_account = :account"
           + " GROUP BY google_task_lists.gtl_remote_id")
-  public abstract List<GoogleTaskFilters> getGoogleTaskFilters(String account, long now);
+  List<GoogleTaskFilters> getGoogleTaskFilters(String account, long now);
 }
