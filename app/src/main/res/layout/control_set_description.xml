@@ -10,5 +10,6 @@
   android:hint="@string/TEA_note_label"
   android:imeOptions="flagNoExtractUi"
   android:inputType="textCapSentences|textMultiLine"
+  android:importantForAutofill="no"
   android:scrollbars="vertical"
   android:textAlignment="viewStart"/>

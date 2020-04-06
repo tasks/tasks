@@ -40,6 +40,7 @@
               android:textAppearance="?attr/textAppearanceHeadline5"
               android:hint="@string/TEA_title_hint"
               android:imeOptions="flagNoExtractUi"
+              android:importantForAutofill="no"
               android:inputType="textCapSentences|textAutoCorrect"
               android:scrollbars="vertical"
               android:textAlignment="viewStart" />
