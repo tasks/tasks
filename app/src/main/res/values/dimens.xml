@@ -7,7 +7,6 @@
   <dimen name="keyline_content_inset">72dp</dimen>
 
   <dimen name="task_list_footer_height">88dp</dimen>
-  <dimen name="task_list_fab_margin">16dp</dimen>
 
   <dimen name="task_edit_text_size">16sp</dimen>
 
