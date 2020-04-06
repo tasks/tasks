@@ -2,24 +2,24 @@
 <resources>
     <string name="actfm_picture_clear">Deseleziona Immagine</string>
     <string name="TVA_add_comment">Aggiungi un commento…</string>
-    <string name="enter_filter_name">Inserisci il nome filtro</string>
+    <string name="enter_filter_name">Inserisci il nome del filtro</string>
     <string name="backup_BPr_header">Salvataggi</string>
     <string name="backup_BAc_import">Importa attività</string>
     <string name="backup_BAc_export">Esporta attività</string>
     <string name="export_toast">Backup di %1$s su %2$s eseguito.</string>
     <string name="export_toast_no_tasks">Nessuna attività da esportare.</string>
-    <string name="import_summary_title">Ripristina sommario</string>
+    <string name="import_summary_title">Ripristina riepilogo</string>
     <string name="import_summary_message">Il File %1$s contiene %2$s.\n\n %3$s importati\n %4$s esiste già\n %5$s contiene errori\n</string>
-    <string name="import_progress_read">Lettura compito %d…</string>
+    <string name="import_progress_read">Lettura attività %d…</string>
     <string name="read_permission_label">Permessi attività</string>
     <string name="discard_confirmation">Sicuro di voler annullare tutte le modifiche?</string>
     <string name="keep_editing">Continua modifica</string>
-    <string name="DLG_delete_this_task_question">Elimino l\'attività?</string>
+    <string name="DLG_delete_this_task_question">Eliminare questa attività\?</string>
     <string name="DLG_hour_minutes">Tempo (ore : minuti)</string>
     <string name="DLG_undo">Annulla l\'ultima azione</string>
     <string name="WID_dateButtonUnset">Clicca per Impostare</string>
     <string name="TLA_no_items">Qui non ci sono attività.</string>
-    <string name="TLA_menu_sort">Ordinamento</string>
+    <string name="TLA_menu_sort">Ordine</string>
     <string name="TLA_menu_search">Cerca</string>
     <string name="TLA_menu_settings">Impostazioni</string>
     <string name="TAd_actionEditTask">Modifica</string>
@@ -32,7 +32,7 @@
     <string name="SSD_sort_modified">Per ultima modifica</string>
     <string name="FLA_search_filter">Uguale a  \'%s\'</string>
     <string name="FLA_new_filter">Crea nuovo filtro</string>
-    <string name="TEA_title_hint">Memo attività</string>
+    <string name="TEA_title_hint">Nome attività</string>
     <string name="TEA_importance_label">Priorità</string>
     <string name="TEA_no_date">Senza data</string>
     <string name="TEA_hideUntil_label">Nascondi fino al</string>
@@ -48,8 +48,8 @@
     <string name="due_time">Ora scadenza</string>
     <string name="day_before_due">Giorni alla scadenza</string>
     <string name="week_before_due">Settimane alla scadenza</string>
-    <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">data scadenza</string>
-    <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">ora scadenza</string>
+    <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">data di scadenza</string>
+    <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">ora di scadenza</string>
     <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">giorno prima della scadenza</string>
     <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">settimana prima della scadenza</string>
     <string name="TEA_control_when">Quando</string>
@@ -65,40 +65,42 @@
     <string name="TEA_load_more">Caricane altri…</string>
     <string name="CRA_ignore">Ignora</string>
     <string name="CRA_title">Hai bisogno di una lista per le riunioni?</string>
-    <string name="CRA_ignore_body">Hai ignorato diverse chiamate perse. Vuoi che Tasks smetta di notificartele?</string>
+    <string name="CRA_ignore_body">Hai ignorato numerosi eventi del calendario. Vuoi che Tasks smetta di notificarteli\?</string>
     <string name="CRA_ignore_all">Ignora tutti gli eventi</string>
     <string name="CRA_ignore_this">Ignora solo questo evento</string>
     <string name="CRA_speech_bubble_start">Sembra che %s stia per iniziare. Vuoi creare una lista di azioni da intraprendere?</string>
     <string name="CRA_speech_bubble_end">Sembra che tu abbia appena terminato %s. Vuoi creare una lista delle azioni da intraprendere?</string>
     <string name="CRA_postpone">Forse in seguito</string>
-    <string name="CRA_calendar_reminders_pref_title">Assistente del Calendario</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks non ti avviserà dei prossimi eventi in calendario</string>
+    <string name="CRA_calendar_reminders_pref_title">Assistente del calendario</string>
+    <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks ti ricorderà di eventi del calendario imminenti e ti avviserà di prepararti</string>
     <string name="CRA_default_list_name">Azioni: %s</string>
     <string name="none">Nessuna</string>
     <string name="EPr_filters_to_show_title">Filtri da visualizzare</string>
     <string name="EPr_edit_screen_options">Modifica opzioni schermo</string>
     <string name="EPr_beastMode_reset">Ripristina predefiniti</string>
     <string name="EPr_fullTask_title">Visualizza titolo completo dell\'attività</string>
-    <string name="EPr_show_task_edit_comments">Mostra i commenti in modifica</string>
+    <string name="EPr_show_task_edit_comments">Mostra i commenti in modifica attività</string>
     <string name="task_list_options">Opzioni elenco attività</string>
-    <string name="EPr_cal_end_or_start_at_due_time">Ora calendario eventi</string>
+    <string name="EPr_cal_end_or_start_at_due_time">Orario eventi del calendario</string>
     <string name="EPr_cal_end_at_due_time">Calendario eventi fino alla scadenza</string>
     <string name="EPr_cal_start_at_due_time">Calendario eventi dalla scadenza</string>
-    <string name="EPr_manage_purge_deleted">Rimuovi le attività eliminate</string>
-    <string name="EPr_manage_purge_deleted_message">Sicuro di voler rimuovere le attività eliminate?\n\nQueste attività saranno perse per sempre!</string>
-    <string name="EPr_manage_purge_deleted_status">Rimosse %d attività!</string>
+    <string name="EPr_manage_purge_deleted">Elimina definitivamente le attività cancellate</string>
+    <string name="EPr_manage_purge_deleted_message">Sicuro di voler eliminare definitivamente le attività cancellate\?
+\n
+\nQueste attività saranno perse per sempre!</string>
+    <string name="EPr_manage_purge_deleted_status">Attività %d eliminata definitivamente!</string>
     <string name="EPr_reset_preferences">Ripristina preferenze</string>
     <string name="EPr_reset_preferences_warning">Le preferenze saranno riportate al valore predefinito</string>
-    <string name="EPr_delete_task_data">Elimina attività</string>
-    <string name="EPr_delete_task_data_warning">Tutte le attività saranno cancellate</string>
-    <string name="EPr_manage_delete_completed_gcal">Elimina gli eventi del calendario in programmi completati</string>
+    <string name="EPr_delete_task_data">Elimina dati attività</string>
+    <string name="EPr_delete_task_data_warning">Tutte le attività saranno eliminate definitivamente</string>
+    <string name="EPr_manage_delete_completed_gcal">Elimina gli eventi del calendario delle attività completate</string>
     <string name="EPr_manage_delete_completed_gcal_message">Vuoi davvero eliminare tutti gli eventi delle attività completate?</string>
     <string name="EPr_manage_delete_completed_gcal_status">Eliminato il %d degli eventi del calendario!</string>
     <string name="EPr_manage_delete_all_gcal">Elimina tutti gli eventi del calendario in programma</string>
     <string name="EPr_manage_delete_all_gcal_message">Vuoi davvero eliminare tutti i tuoi eventi in programmi?</string>
     <string name="EPr_manage_delete_all_gcal_status">Eliminato il %d degli eventi del calendario!</string>
     <string name="task_defaults">Impostazioni predef. attività</string>
-    <string name="EPr_default_urgency_title">Urgenza Predefinita</string>
+    <string name="EPr_default_urgency_title">Urgenza predefinita</string>
     <string name="EPr_default_importance_title">Priorità predefinita</string>
     <string name="EPr_default_hideUntil_title">Nascondi Fino Predefinito</string>
     <string name="EPr_default_reminders_title">Promemoria predefiniti</string>
@@ -574,4 +576,7 @@
     <string name="location_radius_meters">%s m</string>
     <string name="subtasks">Sotto-attività</string>
     <string name="TEA_timer_controls">Timer</string>
+    <string name="chip_appearance">Aspetto chip</string>
+    <string name="chip_style">Stile chip</string>
+    <string name="chips">Chips</string>
 </resources>
