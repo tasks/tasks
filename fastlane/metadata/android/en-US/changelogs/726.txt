@@ -1,4 +1,5 @@
 * Add 'Select all' option to multi-select menu
+* Add 'Share' to menu and multi-select menu
 * Display 'Calendar event created' snackbar after creating a calendar event
 * Update translations
 

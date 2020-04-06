@@ -1,17 +1,21 @@
 Change Log
 ---
 =======
-### 8.9 (2020-04-03)
+### 8.9 (2020-04-06)
 
 * Add 'Select all' option to multi-select menu
+* Add 'Share' to menu and multi-select menu
 * Display 'Calendar event created' snackbar after creating a calendar event
 * Update translations
   * Dutch - @fvbommel
   * Finnish - @LittleCoffeeTables
   * French - @FlorianLeChat
   * Hungarian - kaciokos
+  * Italian - @Fabioah
+  * Korean - @Sunjae Choi
   * Spanish - @FlorianLeChat
   * Turkish - etc
+  * Ukrainian - @nathalier
 
 ### 8.8 (2020-04-01)
 
