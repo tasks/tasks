@@ -19,6 +19,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="end"
+    android:paddingStart="@dimen/keyline_first"
+    android:paddingEnd="0dp"
     android:gravity="end"
     android:orientation="horizontal">
 
