@@ -76,6 +76,12 @@
   <uses-permission android:name="android.permission.GET_ACCOUNTS" android:maxSdkVersion="25"/>
   <uses-permission android:name="android.permission.USE_CREDENTIALS" android:maxSdkVersion="22" />
 
+  <!-- ***************************** -->
+  <!-- Exclude OpenTasks permissions -->
+  <!-- ***************************** -->
+  <uses-permission android:name="org.dmfs.permission.READ_TASKS" tools:node="remove"/>
+  <uses-permission android:name="org.dmfs.permission.WRITE_TASKS" tools:node="remove"/>
+
   <!-- ============================================== Exported Permissions = -->
 
   <!-- for v2 tasks provider -->
