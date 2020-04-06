@@ -137,13 +137,13 @@ public class ViewHolder extends RecyclerView.ViewHolder {
 
   private void setTopPadding(int padding, View... views) {
     for (View v : views) {
-      v.setPadding(v.getPaddingLeft(), padding, v.getPaddingRight(), v.getPaddingBottom());
+      v.setPaddingRelative(v.getPaddingStart(), padding, v.getPaddingEnd(), v.getPaddingBottom());
     }
   }
 
   private void setBottomPadding(int padding, View... views) {
     for (View v : views) {
-      v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), padding);
+      v.setPaddingRelative(v.getPaddingStart(), v.getPaddingTop(), v.getPaddingEnd(), padding);
     }
   }
 
