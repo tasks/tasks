@@ -337,12 +337,12 @@
     <string name="date_shortcut_must_come_after">%1$s має бути після %2$s</string>
     <string name="discard_changes">Скасувати зміни\?</string>
     <string name="discard">Скасувати</string>
-    <string name="tag_settings">Налаштування тегу</string>
+    <string name="tag_settings">Налаштування тегів</string>
     <string name="list_settings">Налаштування списку</string>
     <string name="delete">Видалити</string>
     <string name="copy">Копіювати</string>
     <string name="move">Перемістити</string>
-    <string name="filter_settings">Налаштування фільтру</string>
+    <string name="filter_settings">Налаштування фільтрів</string>
     <string name="show_hidden">Показати приховані</string>
     <string name="show_completed">Показати завершені</string>
     <string name="reverse">Реверс</string>
@@ -504,4 +504,11 @@
     <string name="desaturate_colors_summary_off">Кольори не будуть ненасиченими в темних темах</string>
     <string name="desaturate_colors_summary_on">Кольори будуть ненасиченими в темних темах</string>
     <string name="theme_system_default">За системними налаштуваннями</string>
+    <string name="no_application_found_link">Не знайдено програми, щоб відкрити посилання</string>
+    <plurals name="subtask_count">
+        <item quantity="one">%d підзавдання</item>
+        <item quantity="few">%d підзавдання</item>
+        <item quantity="many">%d підзавдань</item>
+    </plurals>
+    <string name="gtasks_GPr_header">Google Tasks</string>
 </resources>
