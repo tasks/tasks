@@ -41,6 +41,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.util.Pair;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -811,13 +812,16 @@ public final class TaskListFragment extends InjectingFragment
   }
 
   public void showDateTimePicker(TaskContainer task) {
-    DateTimePicker.Companion.newDateTimePicker(
-            this,
-            REQUEST_DUE_DATE,
-            task.getId(),
-            task.getDueDate(),
-            preferences.getBoolean(R.string.p_auto_dismiss_datetime_list_screen, false))
-        .show(getParentFragmentManager(), FRAG_TAG_DATE_TIME_PICKER);
+    FragmentManager fragmentManager = getParentFragmentManager();
+    if (fragmentManager.findFragmentByTag(FRAG_TAG_DATE_TIME_PICKER) == null) {
+      DateTimePicker.Companion.newDateTimePicker(
+              this,
+              REQUEST_DUE_DATE,
+              task.getId(),
+              task.getDueDate(),
+              preferences.getBoolean(R.string.p_auto_dismiss_datetime_list_screen, false))
+          .show(fragmentManager, FRAG_TAG_DATE_TIME_PICKER);
+    }
   }
 
   public interface TaskListFragmentCallbackHandler {
