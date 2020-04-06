@@ -47,7 +47,7 @@
     <string name="due_time">Eindtijd</string>
     <string name="day_before_due">Dag voor einddatum</string>
     <string name="week_before_due">Week voor einddatum</string>
-    <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">verval datum</string>
+    <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">einddatum</string>
     <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">verval tijd</string>
     <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">dag voor verval</string>
     <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">week voor verval</string>
@@ -284,7 +284,7 @@
     <string name="tmrw">mrgn</string>
     <string name="yest">gisteren</string>
     <string name="sync_SPr_interval_title">Achtergrond synchronisatie</string>
-    <string name="widget_show_due_date">Toon eind datums</string>
+    <string name="widget_show_due_date">Toon einddatums</string>
     <string name="widget_show_checkboxes">Toon vinkboxjes</string>
     <string name="widget_show_header">Toon titel</string>
     <string name="widget_show_settings">Toon instellingen</string>
