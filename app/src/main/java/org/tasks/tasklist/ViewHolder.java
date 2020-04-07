@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.TextView;
+import androidx.core.content.ContextCompat;
 import androidx.core.widget.TextViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -226,10 +227,12 @@ public class ViewHolder extends RecyclerView.ViewHolder {
 
   private void setupTitleAndCheckbox() {
     if (task.isCompleted()) {
-      nameView.setEnabled(false);
+      nameView.setTextColor(ContextCompat.getColor(context, R.color.text_tertiary));
       nameView.setPaintFlags(nameView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
     } else {
-      nameView.setEnabled(!task.isHidden());
+      nameView.setTextColor(
+          ContextCompat.getColor(
+              context, task.isHidden() ? R.color.text_tertiary : R.color.text_primary));
       nameView.setPaintFlags(nameView.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
     }
 
