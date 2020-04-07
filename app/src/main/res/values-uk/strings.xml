@@ -359,7 +359,7 @@
     <string name="username_required">Потрібне ім\'я користувача</string>
     <string name="password_required">Потрібний пароль</string>
     <string name="url_required">Потрібний URL</string>
-    <string name="url_host_name_required">Потребується ім\'я хоста</string>
+    <string name="url_host_name_required">Потрібне ім\'я хоста</string>
     <string name="url_invalid_scheme">Має починатися з http(s)://</string>
     <string name="no_title">(без назви)</string>
     <string name="back_button_saves_task">Зберігати завдання кнопкою Назад</string>
@@ -511,4 +511,11 @@
         <item quantity="many">%d підзавдань</item>
     </plurals>
     <string name="gtasks_GPr_header">Google Tasks</string>
+    <string name="button_restore_subscription">Відновити підписку</string>
+    <string name="button_current_subscription">Поточна підписка</string>
+    <string name="manage_subscription_summary">Змініть або скасуйте підписку</string>
+    <string name="reenter_encryption_password">Підтвердіть пароль шифрування</string>
+    <string name="encryption_password">Пароль шифрування</string>
+    <string name="encryption_password_required">Потрібний пароль шифрування</string>
+    <string name="encryption_password_wrong">Невірний пароль шифрування</string>
 </resources>
