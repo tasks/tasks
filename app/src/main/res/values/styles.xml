@@ -131,7 +131,8 @@
     <item name="android:elevation" tools:ignore="NewApi">@dimen/elevation_refresh_indicator</item>
   </style>
 
-  <style name="priority_button_base">
+  <style name="priority_button_base" parent="Widget.AppCompat.CompoundButton.RadioButton">
+    <item name="android:layout_width">@dimen/priority_button_width</item>
     <item name="android:layout_height">24dp</item>
   </style>
 
