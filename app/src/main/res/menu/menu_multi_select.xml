@@ -6,13 +6,19 @@
     android:id="@+id/edit_tags"
     android:icon="@drawable/ic_outline_label_24px"
     android:title="@string/tags"
-    app:showAsAction="ifRoom" />
+    app:showAsAction="always" />
 
   <item
     android:id="@+id/move_tasks"
     android:icon="@drawable/ic_outline_cloud_24px"
     android:title="@string/move"
-    app:showAsAction="ifRoom" />
+    app:showAsAction="always" />
+
+  <item
+    android:id="@+id/delete"
+    android:icon="@drawable/ic_outline_delete_24px"
+    android:title="@string/delete"
+    app:showAsAction="always"/>
 
   <item
     android:id="@+id/menu_select_all"
@@ -30,12 +36,6 @@
     android:id="@+id/copy_tasks"
     android:icon="@drawable/ic_outline_file_copy_24px"
     android:title="@string/copy"
-    app:showAsAction="ifRoom"/>
-
-  <item
-    android:id="@+id/delete"
-    android:icon="@drawable/ic_outline_delete_24px"
-    android:title="@string/delete"
     app:showAsAction="ifRoom"/>
 
 </menu>
