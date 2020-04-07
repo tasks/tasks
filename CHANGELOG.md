@@ -1,6 +1,25 @@
 Change Log
 ---
 =======
+### 8.9.1 (2020-04-08)
+
+* Add option to always hide check button
+* Hide check button for new tasks
+* Rearrange multi-select buttons
+* Allow more space for time buttons in date time picker
+* Fix priority button layout on smaller devices
+* Fix clicking on hidden task titles
+* Fix tag picker checkbox tint on Android 4.4
+* Fix EteSync crash on malformed iCalendar data
+* Update translations
+  * Dutch - @fvbommel
+  * French - @FlorianLeChat
+  * German - Joey Meigele, Martin
+  * Hungarian - kaciokos
+  * Simplified Chinese - @sr093906
+  * Spanish - @FlorianLeChat
+  * Ukrainian - @nathalier
+
 ### 8.9 (2020-04-06)
 
 * Add 'Select all' option to multi-select menu

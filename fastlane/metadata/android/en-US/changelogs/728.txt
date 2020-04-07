@@ -1,0 +1,7 @@
+* Add option to always hide check button
+* Hide check button for new tasks
+* Rearrange multi-select buttons
+* Fix clicking on hidden task titles
+* Update translations
+
+Full release notes: https://tasks.org/changelog
