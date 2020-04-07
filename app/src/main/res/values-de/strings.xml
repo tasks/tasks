@@ -26,7 +26,7 @@
     <string name="action_open">Öffnen</string>
     <string name="SSD_sort_auto">Smarte Sortierung</string>
     <string name="SSD_sort_alpha">Nach Titel</string>
-    <string name="SSD_sort_due">Nach Fälligkeit</string>
+    <string name="SSD_sort_due">Nach Fälligkeitsdatum</string>
     <string name="SSD_sort_importance">Nach Priorität</string>
     <string name="SSD_sort_modified">Nach letzter Änderung</string>
     <string name="FLA_search_filter">Suche nach \'%s\'</string>
@@ -45,12 +45,12 @@
     <string name="TEA_no_time">Ohne Uhrzeit</string>
     <string name="due_date">Fälligkeitsdatum</string>
     <string name="due_time">Fälligkeits-Uhrzeit</string>
-    <string name="day_before_due">Tag vor Fälligkeit</string>
-    <string name="week_before_due">Woche vor Fälligkeit</string>
+    <string name="day_before_due">Tag vor Fälligkeitsdatum</string>
+    <string name="week_before_due">Woche vor Fälligkeitsdatum</string>
     <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">Fälligkeitsdatum</string>
     <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">Fälligkeits-Uhrzeit</string>
-    <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">Tag vor Fälligkeit</string>
-    <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">Woche vor Fälligkeit</string>
+    <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">Tag vor Fälligkeitsdatum</string>
+    <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">Woche vor Fälligkeitsdatum</string>
     <string name="TEA_control_when">Wann</string>
     <string name="TEA_control_repeat">Wiederholen</string>
     <string name="TEA_control_gcal">Kalender</string>
@@ -64,14 +64,14 @@
     <string name="TEA_load_more">Weitere laden …</string>
     <string name="CRA_ignore">Ablehnen</string>
     <string name="CRA_title">Willst Du eine Besprechungsliste erstellen?</string>
-    <string name="CRA_ignore_body">Sie haben mehrere Kalendertermine ignoriert. Soll Tasks nicht mehr danach fragen? </string>
+    <string name="CRA_ignore_body">Sie haben mehrere Kalenderereignisse ignoriert. Soll Tasks nicht mehr danach fragen\?</string>
     <string name="CRA_ignore_all">Alle Termine ablehnen</string>
     <string name="CRA_ignore_this">Nur diesen Termin ablehnen</string>
     <string name="CRA_speech_bubble_start">Vergiss nicht, dass %s bald startet. Willst du eine Liste mit Aufgaben erstellen?</string>
     <string name="CRA_speech_bubble_end">Hast Du gerade %s beendet? Willst du noch eine Liste mit Aufgaben erstellen?</string>
     <string name="CRA_postpone">Vielleicht später</string>
     <string name="CRA_calendar_reminders_pref_title">Kalender-Assistent</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks wird Sie an zukünftige Kalenderterrmine erinnern und Sie auf die Vorbereitung hinweisen</string>
+    <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks wird Sie an zukünftige Kalenderereignisse erinnern und Sie auf die Vorbereitung hinweisen</string>
     <string name="CRA_default_list_name">Einzelaufgaben: %s</string>
     <string name="none">Keine</string>
     <string name="EPr_filters_to_show_title">Angezeigte Filter</string>
@@ -80,13 +80,13 @@
     <string name="EPr_fullTask_title">Gesamten Aufgabentitel anzeigen</string>
     <string name="EPr_show_task_edit_comments">Kommentare bei Aufgabeneingabe anzeigen </string>
     <string name="task_list_options">Aufgabenlisten-Optionen</string>
-    <string name="EPr_cal_end_or_start_at_due_time">Zeitpunkt Kalendertermin</string>
+    <string name="EPr_cal_end_or_start_at_due_time">Zeitpunkt Kalenderereignis</string>
     <string name="EPr_cal_end_at_due_time">Kalendereintrag endet zur Fälligkeits-Uhrzeit</string>
-    <string name="EPr_cal_start_at_due_time">Kalendereintrag Startet zur Fälligkeits-Uhrzeit</string>
+    <string name="EPr_cal_start_at_due_time">Kalendereintrag startet zur Fälligkeits-Uhrzeit</string>
     <string name="EPr_manage_purge_deleted">Gelöschte Aufgaben endgültig löschen</string>
     <string name="EPr_manage_purge_deleted_message">Willst du wirklich alle gelöschten Aufgaben bereinigen?\n\nDiese Aufgaben werden für immer gelöscht bleiben!</string>
     <string name="EPr_manage_purge_deleted_status">%d Aufgaben bereinigt!</string>
-    <string name="EPr_reset_preferences">Voreinstellungen zurücksetzen</string>
+    <string name="EPr_reset_preferences">Auf Voreinstellungen zurücksetzen</string>
     <string name="EPr_reset_preferences_warning">Die Voreinstellungen werden auf Standardwerte zurückgesetzt</string>
     <string name="EPr_delete_task_data">Aufgabendaten löschen</string>
     <string name="EPr_delete_task_data_warning">Alle Aufgaben werden dauerhaft gelöscht</string>
@@ -97,7 +97,7 @@
     <string name="EPr_manage_delete_all_gcal_message">Möchtest du wirklich alle Kalendereintrage von Aufgaben löschen?</string>
     <string name="EPr_manage_delete_all_gcal_status">%d Kalendereinträge gelöscht!</string>
     <string name="task_defaults">Standardwerte für Aufgaben</string>
-    <string name="EPr_default_urgency_title">Standard-Fälligkeit</string>
+    <string name="EPr_default_urgency_title">Standard-Fälligkeitsdatum</string>
     <string name="EPr_default_importance_title">Standard-Priorität</string>
     <string name="EPr_default_hideUntil_title">Standardmäßig verstecken bis</string>
     <string name="EPr_default_reminders_title">Standarderinnerungen</string>
@@ -107,12 +107,12 @@
     <string name="priority_high">Hoch</string>
     <string name="priority_medium">Mittel</string>
     <string name="priority_low">Niedrig</string>
-    <string name="no_deadline">Keine Fälligkeit</string>
+    <string name="no_deadline">Kein Fälligkeitsdatum</string>
     <string name="day_after_tomorrow">Übermorgen</string>
     <string name="next_week">Nächste Woche</string>
     <string name="dont_hide">Nicht verstecken</string>
-    <string name="at_deadline">Am Stichtag</string>
-    <string name="at_deadline_or_overdue">Zur Fälligkeit oder überfällig</string>
+    <string name="at_deadline">Am Fälligkeitsdatum</string>
+    <string name="at_deadline_or_overdue">Am Fälligkeitsdatum oder wenn überfällig</string>
     <string name="no_reminders">Keine Erinnerungen</string>
     <string name="default_location_reminder_on_arrival">Bei Ankunft</string>
     <string name="default_location_reminder_on_departure">Bei Abreise</string>
@@ -169,8 +169,8 @@
     <string name="snooze_all">Alle schlummern</string>
     <string name="rmd_EPr_quiet_hours_start_title">Beginn der Ruhezeit</string>
     <string name="rmd_EPr_quiet_hours_end_title">Ende der Ruhezeit</string>
-    <string name="rmd_EPr_rmd_time_title">Standarderinnerumg</string>
-    <string name="rmd_EPr_rmd_time_desc">Benachrichtigungen für Aufgaben ohne Fälligkeit werden um %s angezeigt</string>
+    <string name="rmd_EPr_rmd_time_title">Standarderinnerung</string>
+    <string name="rmd_EPr_rmd_time_desc">Benachrichtigungen für Aufgaben ohne Fälligkeits-Uhrzeit werden um %s angezeigt</string>
     <string name="persistent_notifications">Hartnäckige Benachrichtigungen</string>
     <string name="persistent_notifications_description">Hartnäckige Benachrichtigungen können nicht einfach gelöscht werden</string>
     <string name="rmd_EPr_defaultRemind_title">Zufällige Erinnerungen</string>
@@ -268,7 +268,7 @@
     <string name="TEA_timer_comment_spent">Benötigte Zeit:</string>
     <string name="voice_create_prompt">Sprechen Sie, um eine Aufgabe anzulegen</string>
     <string name="EPr_voiceInputEnabled_title">Spracheingabe aktivieren</string>
-    <string name="EPr_voiceRemindersEnabled_title">Sprach-Erinnerungen</string>
+    <string name="EPr_voiceRemindersEnabled_title">Gesprochene Erinnerungen</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks wird Aufgabennamen bei der Erinnerung aussprechen</string>
     <string name="delete_task">Aufgabe löschen</string>
     <string name="voice_command_added_task">Hinzugefügte Aufgabe</string>
@@ -283,7 +283,7 @@
     <string name="tmrw">Morg.</string>
     <string name="yest">Gest.</string>
     <string name="sync_SPr_interval_title">Hintergrund-Synchronisierung</string>
-    <string name="widget_show_due_date">Zeige Fälligkeitsdaten</string>
+    <string name="widget_show_due_date">Zeige Fälligkeitsdatum</string>
     <string name="widget_show_checkboxes">Checkboxen anzeigen</string>
     <string name="widget_show_header">Kopf anzeigen</string>
     <string name="widget_show_settings">Einstellungen anzeigen</string>
@@ -294,7 +294,7 @@
     <string name="quiet_hours">Ruhezeit</string>
     <string name="attachment_directory">Ordner für Anhänge</string>
     <string name="backup_directory">Sicherungsordner</string>
-    <string name="google_drive_backup">Zu Googe Drive kopieren</string>
+    <string name="google_drive_backup">Nach Google Drive kopieren</string>
     <string name="miscellaneous">Verschiedenes</string>
     <string name="synchronization">Synchronisierung</string>
     <string name="enabled">Aktiviert</string>
@@ -416,7 +416,7 @@
     <string name="dont_add_to_calendar">Nicht im Kalender eintragen</string>
     <string name="default_calendar">Standardkalender</string>
     <string name="badges_description">Zeige einen Aufgabenzähler am Tasks\' Launcher-Symbol an. Nicht alle Launcher unterstützen Benachrichtigungspunkte.</string>
-    <string name="bundle_notifications_summary">Fasse mehre Benachrichtigungen in eine zusammen</string>
+    <string name="bundle_notifications_summary">Fasse mehre Benachrichtigungen in einer zusammen</string>
     <string name="repeat_monthly_same_day_each_month">Am selben Tag jeden Monats</string>
     <string name="dont_sync">Nicht synchronisieren</string>
     <string name="repeat_monthly_every_day_of_nth_week">jeden %1$s %2$s</string>
@@ -496,8 +496,8 @@
     <string name="annually">jährlich</string>
     <string name="SSD_sort_my_order">Manuelle Sortierung</string>
     <string name="caldav_account_repeating_tasks">Planung wiederkehrender Aufgaben durch den Server</string>
-    <string name="EPr_temp_show_completed_tasks">Aufgaben nach Erledigung temporär anzeigen</string>
-    <string name="EPr_temp_completed_tasks_showing">Aufgaben bleiben nach Erledigung temporär sichtbar</string>
+    <string name="EPr_temp_show_completed_tasks">Aufgaben nach Erledigung noch vorübergehend anzeigen</string>
+    <string name="EPr_temp_completed_tasks_showing">Aufgaben bleiben nach Erledigung noch für eine kurze Zeit sichtbar</string>
     <string name="EPr_temp_completed_tasks_not_showing">Aufgaben verschwinden sofort nach Erledigung</string>
     <plurals name="subtask_count">
         <item quantity="one">%d Unteraufgabe</item>
@@ -549,7 +549,7 @@
     <string name="upgrade_blurb_3">Wählen Sie unten einen beliebigen Abonnementpreis aus, um Ihre kostenlose Testversion zu starten. Sie können jederzeit kündigen</string>
     <string name="upgrade_blurb_4">Ihre Unterstützung bedeutet mir sehr viel, danke!</string>
     <string name="back">Zurück</string>
-    <string name="chip_style">Stil der Marke</string>
+    <string name="chip_style">Stil der Marken</string>
     <string name="chip_style_outlined">mit Kontur</string>
     <string name="chip_style_filled">mit Füllung</string>
     <string name="chips">Marken</string>
@@ -571,7 +571,7 @@
     <string name="shortcut_pick_time">Wählen Sie eine Uhrzeit</string>
     <string name="no_time">Ohne Uhrzeit</string>
     <string name="no_date">Kein Datum</string>
-    <string name="auto_dismiss_datetime_summary">Datums- und Zeitauswahl nach Auswahl eines Datums oder einer Uhrzeit automatisch schließen</string>
+    <string name="auto_dismiss_datetime_summary">Nach Auswahl eines Datums oder einer Uhrzeit den Auswahldialog automatisch schließen</string>
     <string name="auto_dismiss_datetime">Datums- und Zeitauswahl automatisch schließen</string>
     <string name="calendar_event_created">Termin im Kalender erstellt für %s</string>
     <string name="select_all">Alles auswählen</string>
