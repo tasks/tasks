@@ -520,7 +520,7 @@
     <string name="encryption_password_wrong">Falsches Verschlüsselungs-Passwort</string>
     <string name="help_and_feedback">Hilfe &amp; Feedback</string>
     <string name="theme_system_default">Systemstandard</string>
-    <string name="show_subtasks_summary">Das Anzeigen von Unteraufgaben wird die Anwendung verlangsamen</string>
+    <string name="show_subtasks_summary">Das Anzeigen von Teilaufgaben wird die Anwendung verlangsamen</string>
     <string name="enter_tag_name">Schlagwort eingeben</string>
     <string name="create_new_tag">Erstelle \"%s\"</string>
     <string name="choose_synchronization_service">Wähle einen Dienst</string>
@@ -559,7 +559,7 @@
     <string name="desaturate_colors_summary_off">Farben werden bei dunklen Designs nicht entsättigt</string>
     <string name="places">Orte</string>
     <string name="place_settings">Einstellungen für Orte</string>
-    <string name="navigation_drawer">Hamburger-Menü</string>
+    <string name="navigation_drawer">Navigationsmenü</string>
     <string name="hide_unused_tags">Nicht verwendete Schlagwörter ausblenden</string>
     <string name="hide_unused_places">Nicht verwendete Orte ausblenden</string>
     <string name="add_place">Ort hinzufügen</string>
