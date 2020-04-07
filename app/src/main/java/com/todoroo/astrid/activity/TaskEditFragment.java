@@ -66,7 +66,6 @@ import org.tasks.injection.InjectingFragment;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.ThemeColor;
-import org.tasks.ui.AnimationUtil;
 import org.tasks.ui.SubtaskControlSet;
 import org.tasks.ui.TaskEditControlFragment;
 
@@ -177,9 +176,10 @@ public final class TaskEditFragment extends InjectingFragment
     title.setTextColor(themeColor.getColorOnPrimary());
     title.setHintTextColor(themeColor.getHintOnPrimary());
     title.setMaxLines(5);
-    if (completed) {
+    if (model.isNew()) {
+      binding.fab.setVisibility(View.INVISIBLE);
+    } else if (completed) {
       title.setPaintFlags(title.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-
       binding.fab.setImageResource(R.drawable.ic_undo_24px);
     }
     binding.fab.setOnClickListener(v -> {
@@ -206,14 +206,9 @@ public final class TaskEditFragment extends InjectingFragment
             binding.collapsingtoolbarlayout.setTitle(title.getText());
             binding.collapsingtoolbarlayout.setTitleEnabled(true);
           }
-          if (title.getText().length() > 0) {
-            AnimationUtil.circularReveal(binding.fab);
-          }
         });
 
-    if (model.isNew() && title.getText().length() == 0) {
-      binding.fab.setVisibility(View.INVISIBLE);
-    } else {
+    if (!model.isNew()) {
       notificationManager.cancel(model.getId());
 
       if (preferences.getBoolean(R.string.p_linkify_task_edit, false)) {
