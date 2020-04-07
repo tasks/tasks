@@ -577,4 +577,5 @@ est configuré correctement</string>
     <string name="calendar_event_created">Calendrier de l\'événement créé pour %s</string>
     <string name="share">Partager</string>
     <string name="select_all">Tout sélectionner</string>
+    <string name="hide_check_button">Cacher le bouton de vérification</string>
 </resources>
