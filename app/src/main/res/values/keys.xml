@@ -302,4 +302,5 @@
   <string name="p_collapse_locations">collapse_locations</string>
   <string name="p_auto_dismiss_datetime_edit_screen">auto_dismiss_datetime_edit_screen</string>
   <string name="p_auto_dismiss_datetime_list_screen">auto_dismiss_datetime_list_screen</string>
+  <string name="p_hide_check_button">Hide check button</string>
 </resources>

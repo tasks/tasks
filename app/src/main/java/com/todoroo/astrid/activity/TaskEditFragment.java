@@ -176,7 +176,7 @@ public final class TaskEditFragment extends InjectingFragment
     title.setTextColor(themeColor.getColorOnPrimary());
     title.setHintTextColor(themeColor.getHintOnPrimary());
     title.setMaxLines(5);
-    if (model.isNew()) {
+    if (model.isNew() || preferences.getBoolean(R.string.p_hide_check_button, false)) {
       binding.fab.setVisibility(View.INVISIBLE);
     } else if (completed) {
       title.setPaintFlags(title.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
