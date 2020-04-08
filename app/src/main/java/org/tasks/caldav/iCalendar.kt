@@ -46,8 +46,15 @@ class iCalendar @Inject constructor(
         }
 
         fun fromVtodo(vtodo: String): Task? {
-            val tasks = tasksFromReader(StringReader(vtodo))
-            return if (tasks.size == 1) tasks[0] else null
+            try {
+                val tasks = tasksFromReader(StringReader(vtodo))
+                if (tasks.size == 1) {
+                    return tasks[0]
+                }
+            } catch (e: Exception) {
+                Timber.e(e)
+            }
+            return null
         }
 
         fun getParent(remote: Task): String? {

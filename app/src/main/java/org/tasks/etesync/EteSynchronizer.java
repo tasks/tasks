@@ -237,6 +237,9 @@ public class EteSynchronizer {
       String vtodo = syncEntry.getContent();
       Timber.v("%s: %s", action, vtodo);
       at.bitfire.ical4android.Task task = iCalendar.Companion.fromVtodo(vtodo);
+      if (task == null) {
+        continue;
+      }
       String remoteId = task.getUid();
       CaldavTask caldavTask = caldavDao.getTaskByRemoteId(caldavCalendar.getUuid(), remoteId);
       switch (action) {
