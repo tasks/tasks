@@ -579,4 +579,5 @@
     <string name="calendar_event_created">Naptár esemény létrehozva: %s</string>
     <string name="share">Megosztás</string>
     <string name="select_all">Az összes kiválasztása</string>
+    <string name="hide_check_button">PIpa gomb elrejtése</string>
 </resources>
