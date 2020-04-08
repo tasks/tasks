@@ -18,14 +18,13 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">
 
-    <Spinner
+    <TextView
       android:id="@+id/reminder_alarm"
+      style="@style/TaskEditTextPrimary"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignParentEnd="true"
-      android:paddingStart="0dp"
-      android:paddingEnd="10dp"
-      android:background="@null"
+      android:background="?attr/selectableItemBackgroundBorderless"
       android:gravity="end"/>
 
     <LinearLayout

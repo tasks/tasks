@@ -2,6 +2,7 @@ package org.tasks.dialogs;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.view.View;
 import android.widget.ListAdapter;
 import androidx.appcompat.app.AlertDialog;
@@ -80,10 +81,12 @@ public class AlertDialogBuilder {
 
   public AlertDialogBuilder setSingleChoiceItems(
       List<String> strings, int selectedIndex, DialogInterface.OnClickListener onClickListener) {
-    builder.setSingleChoiceItems(
-        addDirectionality(strings.toArray(new String[0])),
-        selectedIndex,
-        onClickListener);
+    return setSingleChoiceItems(strings.toArray(new String[0]), selectedIndex, onClickListener);
+  }
+
+  public AlertDialogBuilder setSingleChoiceItems(
+      String[] strings, int selectedIndex, OnClickListener onClickListener) {
+    builder.setSingleChoiceItems(addDirectionality(strings), selectedIndex, onClickListener);
     return this;
   }
 

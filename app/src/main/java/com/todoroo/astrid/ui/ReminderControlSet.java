@@ -16,6 +16,7 @@ import static org.tasks.date.DateTimeUtils.newDateTime;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnItemSelected;
@@ -42,6 +44,7 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.data.Alarm;
+import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.MyTimePickerDialog;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
@@ -68,12 +71,13 @@ public class ReminderControlSet extends TaskEditControlFragment {
   @Inject AlarmService alarmService;
   @Inject @ForActivity Context context;
   @Inject Locale locale;
+  @Inject DialogBuilder dialogBuilder;
 
   @BindView(R.id.alert_container)
   LinearLayout alertContainer;
 
   @BindView(R.id.reminder_alarm)
-  Spinner mode;
+  TextView mode;
 
   @BindView(R.id.alarms_add_spinner)
   Spinner addSpinner;
@@ -87,24 +91,16 @@ public class ReminderControlSet extends TaskEditControlFragment {
   private boolean whenOverdue;
   private ArrayAdapter<String> remindAdapter;
 
-  @OnItemSelected(R.id.reminder_alarm)
-  void ringModeSelected(int position) {
-    ringMode = position;
-  }
-
   @Nullable
   @Override
   public View onCreateView(
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = super.onCreateView(inflater, container, savedInstanceState);
 
+    mode.setPaintFlags(mode.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
     remindAdapter =
         new HiddenTopArrayAdapter(context, android.R.layout.simple_spinner_item, spinnerOptions);
-    String[] modes = getResources().getStringArray(R.array.reminder_ring_modes);
-    ArrayAdapter<String> modeAdapter =
-        new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, modes);
-    modeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-    mode.setAdapter(modeAdapter);
 
     taskId = task.getId();
     if (savedInstanceState == null) {
@@ -126,6 +122,34 @@ public class ReminderControlSet extends TaskEditControlFragment {
     return taskId == NO_ID
         ? emptyList()
         : transform(alarmService.getAlarms(taskId), Alarm::getTime);
+  }
+
+  @OnClick(R.id.reminder_alarm)
+  void onClickRingType() {
+    String[] modes = getResources().getStringArray(R.array.reminder_ring_modes);
+    dialogBuilder
+        .newDialog()
+        .setSingleChoiceItems(modes, ringMode, (dialog, which) -> {
+          setRingMode(which);
+          dialog.dismiss();
+        })
+        .show();
+  }
+
+  private void setRingMode(int ringMode) {
+    this.ringMode = ringMode;
+    mode.setText(getRingModeString(ringMode));
+  }
+
+  private @StringRes int getRingModeString(int ringMode) {
+    switch (ringMode) {
+      case 2:
+        return R.string.ring_nonstop;
+      case 1:
+        return R.string.ring_five_times;
+      default:
+        return R.string.ring_once;
+    }
   }
 
   @OnItemSelected(R.id.alarms_add_spinner)
@@ -328,11 +352,11 @@ public class ReminderControlSet extends TaskEditControlFragment {
     whenOverdue = (flags & Task.NOTIFY_AFTER_DEADLINE) > 0;
 
     if ((flags & Task.NOTIFY_MODE_NONSTOP) > 0) {
-      mode.setSelection(2);
+      setRingMode(2);
     } else if ((flags & Task.NOTIFY_MODE_FIVE) > 0) {
-      mode.setSelection(1);
+      setRingMode(1);
     } else {
-      mode.setSelection(0);
+      setRingMode(0);
     }
   }
 
