@@ -1,22 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="fill_parent"
-  android:layout_height="wrap_content"
-  android:orientation="vertical">
+  android:layout_height="wrap_content">
 
-  <LinearLayout
-    android:id="@+id/alert_container"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"/>
-
-  <RelativeLayout
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
+    <LinearLayout
+      android:id="@+id/alert_container"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical" />
 
     <TextView
       android:id="@+id/reminder_alarm"
@@ -24,32 +15,20 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignParentEnd="true"
+      android:layout_below="@id/alert_container"
       android:background="?attr/selectableItemBackgroundBorderless"
-      android:gravity="end"/>
+      android:gravity="end" />
 
-    <LinearLayout
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
+    <TextView
+      android:id="@+id/alarms_add"
+      style="@style/TaskEditTextPrimary"
+      android:layout_width="wrap_content"
       android:layout_alignParentStart="true"
+      android:background="?attr/selectableItemBackgroundBorderless"
       android:layout_gravity="start"
+      android:layout_alignBaseline="@id/reminder_alarm"
       android:layout_toStartOf="@id/reminder_alarm"
-      android:gravity="start"
-      android:orientation="horizontal">
+      android:layout_height="wrap_content"
+      android:hint="@string/add_reminder" />
 
-      <TextView
-        android:id="@+id/alarms_add"
-        style="@style/TaskEditTextPrimary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/add_reminder"/>
-
-      <Spinner
-        android:id="@+id/alarms_add_spinner"
-        android:layout_width="0dip"
-        android:layout_height="0dip"/>
-
-    </LinearLayout>
-
-  </RelativeLayout>
-
-</LinearLayout>
+</RelativeLayout>

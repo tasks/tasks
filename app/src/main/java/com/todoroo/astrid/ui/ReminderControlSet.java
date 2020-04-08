@@ -22,15 +22,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.OnItemSelected;
 import com.google.common.primitives.Longs;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.alarms.AlarmService;
@@ -49,7 +46,6 @@ import org.tasks.dialogs.MyTimePickerDialog;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.locale.Locale;
-import org.tasks.ui.HiddenTopArrayAdapter;
 import org.tasks.ui.TaskEditControlFragment;
 
 /**
@@ -66,7 +62,6 @@ public class ReminderControlSet extends TaskEditControlFragment {
   private static final String EXTRA_FLAGS = "extra_flags";
   private static final String EXTRA_RANDOM_REMINDER = "extra_random_reminder";
   private static final String EXTRA_ALARMS = "extra_alarms";
-  private final List<String> spinnerOptions = new ArrayList<>();
   private final Set<Long> alarms = new LinkedHashSet<>();
   @Inject AlarmService alarmService;
   @Inject @ForActivity Context context;
@@ -79,9 +74,6 @@ public class ReminderControlSet extends TaskEditControlFragment {
   @BindView(R.id.reminder_alarm)
   TextView mode;
 
-  @BindView(R.id.alarms_add_spinner)
-  Spinner addSpinner;
-
   private long taskId;
   private int flags;
   private long randomReminder;
@@ -89,7 +81,6 @@ public class ReminderControlSet extends TaskEditControlFragment {
   private RandomReminderControlSet randomControlSet;
   private boolean whenDue;
   private boolean whenOverdue;
-  private ArrayAdapter<String> remindAdapter;
 
   @Nullable
   @Override
@@ -98,9 +89,6 @@ public class ReminderControlSet extends TaskEditControlFragment {
     View view = super.onCreateView(inflater, container, savedInstanceState);
 
     mode.setPaintFlags(mode.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-
-    remindAdapter =
-        new HiddenTopArrayAdapter(context, android.R.layout.simple_spinner_item, spinnerOptions);
 
     taskId = task.getId();
     if (savedInstanceState == null) {
@@ -112,8 +100,6 @@ public class ReminderControlSet extends TaskEditControlFragment {
       randomReminder = savedInstanceState.getLong(EXTRA_RANDOM_REMINDER);
       setup(Longs.asList(savedInstanceState.getLongArray(EXTRA_ALARMS)));
     }
-
-    addSpinner.setAdapter(remindAdapter);
 
     return view;
   }
@@ -152,9 +138,7 @@ public class ReminderControlSet extends TaskEditControlFragment {
     }
   }
 
-  @OnItemSelected(R.id.alarms_add_spinner)
-  void addAlarm(int position) {
-    String selected = spinnerOptions.get(position);
+  void addAlarm(String selected) {
     if (selected.equals(getString(R.string.when_due))) {
       addDue();
     } else if (selected.equals(getString(R.string.when_overdue))) {
@@ -164,17 +148,23 @@ public class ReminderControlSet extends TaskEditControlFragment {
     } else if (selected.equals(getString(R.string.pick_a_date_and_time))) {
       addNewAlarm();
     }
-    if (position != 0) {
-      updateSpinner();
-    }
   }
 
   @OnClick(R.id.alarms_add)
   void addAlarm(View view) {
-    if (spinnerOptions.size() == 2) {
+    List<String> options = getOptions();
+    if (options.size() == 1) {
       addNewAlarm();
     } else {
-      addSpinner.performClick();
+      dialogBuilder
+          .newDialog()
+          .setItems(
+              options,
+              (dialog, which) -> {
+                addAlarm(options.get(which));
+                dialog.dismiss();
+              })
+          .show();
     }
   }
 
@@ -209,7 +199,6 @@ public class ReminderControlSet extends TaskEditControlFragment {
     for (long timestamp : alarms) {
       addAlarmRow(timestamp);
     }
-    updateSpinner();
   }
 
   @Override
@@ -309,26 +298,22 @@ public class ReminderControlSet extends TaskEditControlFragment {
               if (onRemove != null) {
                 onRemove.onClick(v);
               }
-              updateSpinner();
             });
-    updateSpinner();
   }
 
-  private void updateSpinner() {
-    addSpinner.setSelection(0);
-    spinnerOptions.clear();
-    spinnerOptions.add("");
+  private List<String> getOptions() {
+    List<String> options = new ArrayList<>();
     if (!whenDue) {
-      spinnerOptions.add(getString(R.string.when_due));
+      options.add(getString(R.string.when_due));
     }
     if (!whenOverdue) {
-      spinnerOptions.add(getString(R.string.when_overdue));
+      options.add(getString(R.string.when_overdue));
     }
     if (randomControlSet == null) {
-      spinnerOptions.add(getString(R.string.randomly));
+      options.add(getString(R.string.randomly));
     }
-    spinnerOptions.add(getString(R.string.pick_a_date_and_time));
-    remindAdapter.notifyDataSetChanged();
+    options.add(getString(R.string.pick_a_date_and_time));
+    return options;
   }
 
   private void addDue() {
