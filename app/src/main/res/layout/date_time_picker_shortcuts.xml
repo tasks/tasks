@@ -15,7 +15,7 @@
       app:layout_constraintRight_toLeftOf="@id/guideline"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintWidth_max="wrap"
-      app:layout_constraintWidth_percent="0.65"
+      app:layout_constraintWidth_percent="0.5"
       app:singleSelection="true"
       android:layout_marginStart="16dp">
         <com.google.android.material.button.MaterialButton
@@ -77,7 +77,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="vertical"
-      app:layout_constraintGuide_percent="0.6" />
+      app:layout_constraintGuide_percent="0.5" />
 
     <com.google.android.material.button.MaterialButtonToggleGroup
       android:id="@+id/time_group"
@@ -90,7 +90,7 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintWidth_max="wrap"
-      app:layout_constraintWidth_percent="0.35"
+      app:layout_constraintWidth_percent="0.5"
       app:selectionRequired="true"
       app:singleSelection="true"
       android:layout_marginEnd="16dp">
