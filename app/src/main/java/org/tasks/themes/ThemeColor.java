@@ -192,7 +192,7 @@ public class ThemeColor implements Pickable {
       hintOnPrimary = context.getResources().getColor(R.color.black_60);
     } else {
       colorOnPrimary = WHITE;
-      hintOnPrimary = context.getResources().getColor(R.color.white_87);
+      hintOnPrimary = context.getResources().getColor(R.color.white_60);
     }
   }
 
