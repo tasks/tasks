@@ -3,7 +3,7 @@ package org.tasks.caldav;
 import android.content.Context;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import com.todoroo.astrid.helper.UUIDHelper;
 import javax.inject.Inject;
 import org.tasks.R;
@@ -27,9 +27,9 @@ public class CaldavAccountSettingsActivity extends BaseCaldavAccountSettingsActi
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    addCaldavAccountViewModel = ViewModelProviders.of(this).get(AddCaldavAccountViewModel.class);
-    updateCaldavAccountViewModel =
-        ViewModelProviders.of(this).get(UpdateCaldavAccountViewModel.class);
+    ViewModelProvider provider = new ViewModelProvider(this);
+    addCaldavAccountViewModel = provider.get(AddCaldavAccountViewModel.class);
+    updateCaldavAccountViewModel = provider.get(UpdateCaldavAccountViewModel.class);
 
     addCaldavAccountViewModel.observe(this, this::addAccount, this::requestFailed);
     updateCaldavAccountViewModel.observe(this, this::updateAccount, this::requestFailed);

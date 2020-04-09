@@ -42,7 +42,7 @@ import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.util.Pair;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -282,7 +282,7 @@ public final class TaskListFragment extends InjectingFragment
     // set up list adapters
     taskAdapter = taskAdapterProvider.createTaskAdapter(filter);
 
-    taskListViewModel = ViewModelProviders.of(getActivity()).get(TaskListViewModel.class);
+    taskListViewModel = new ViewModelProvider(getActivity()).get(TaskListViewModel.class);
 
     if (savedInstanceState != null) {
       searchQuery = savedInstanceState.getString(EXTRA_SEARCH);

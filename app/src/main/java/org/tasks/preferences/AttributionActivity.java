@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -59,7 +59,7 @@ public class AttributionActivity extends ThemedInjectingAppCompatActivity {
   protected void onResume() {
     super.onResume();
 
-    ViewModelProviders.of(this).get(ViewModel.class).observe(this, this::updateAttributions);
+    new ViewModelProvider(this).get(ViewModel.class).observe(this, this::updateAttributions);
   }
 
   private void updateAttributions(List<LibraryAttribution> libraryAttributions) {

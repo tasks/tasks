@@ -29,7 +29,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.view.ActionMode;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
@@ -111,7 +111,7 @@ public class MainActivity extends InjectingAppCompatActivity
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    TaskListViewModel viewModel = ViewModelProviders.of(this).get(TaskListViewModel.class);
+    TaskListViewModel viewModel = new ViewModelProvider(this).get(TaskListViewModel.class);
     getComponent().inject(viewModel);
 
     currentNightMode = getNightMode();

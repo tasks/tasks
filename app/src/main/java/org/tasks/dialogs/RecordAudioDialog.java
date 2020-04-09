@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.Chronometer;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -57,7 +57,7 @@ public class RecordAudioDialog extends InjectingDialogFragment
     View view = layoutInflater.inflate(R.layout.aac_record_activity, null);
     ButterKnife.bind(this, view);
 
-    recorder = ViewModelProviders.of(this).get(AACRecorder.class);
+    recorder = new ViewModelProvider(this).get(AACRecorder.class);
     recorder.init(this, preferences);
 
     if (permissionChecker.canAccessMic()) {

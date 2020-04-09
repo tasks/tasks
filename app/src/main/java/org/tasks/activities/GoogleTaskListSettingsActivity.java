@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import butterknife.BindView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.api.services.tasks.model.TaskList;
@@ -57,9 +57,10 @@ public class GoogleTaskListSettingsActivity extends BaseListSettingsActivity {
 
     super.onCreate(savedInstanceState);
 
-    createListViewModel = ViewModelProviders.of(this).get(CreateListViewModel.class);
-    renameListViewModel = ViewModelProviders.of(this).get(RenameListViewModel.class);
-    deleteListViewModel = ViewModelProviders.of(this).get(DeleteListViewModel.class);
+    ViewModelProvider provider = new ViewModelProvider(this);
+    createListViewModel = provider.get(CreateListViewModel.class);
+    renameListViewModel = provider.get(RenameListViewModel.class);
+    deleteListViewModel = provider.get(DeleteListViewModel.class);
 
     if (gtasksList == null) {
       isNewList = true;

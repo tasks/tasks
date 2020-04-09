@@ -24,7 +24,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.widget.ContentLoadingProgressBar;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -134,7 +134,7 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
     setContentView(R.layout.activity_location_picker);
     ButterKnife.bind(this);
 
-    viewModel = ViewModelProviders.of(this).get(PlaceSearchViewModel.class);
+    viewModel = new ViewModelProvider(this).get(PlaceSearchViewModel.class);
     viewModel.setSearchProvider(searchProvider);
 
     Configuration configuration = getResources().getConfiguration();

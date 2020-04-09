@@ -1,7 +1,7 @@
 package org.tasks.caldav;
 
 import android.os.Bundle;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.data.CaldavAccount;
@@ -25,9 +25,10 @@ public class CaldavCalendarSettingsActivity extends BaseCaldavCalendarSettingsAc
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    createCalendarViewModel = ViewModelProviders.of(this).get(CreateCalendarViewModel.class);
-    deleteCalendarViewModel = ViewModelProviders.of(this).get(DeleteCalendarViewModel.class);
-    updateCalendarViewModel = ViewModelProviders.of(this).get(UpdateCalendarViewModel.class);
+    ViewModelProvider provider = new ViewModelProvider(this);
+    createCalendarViewModel = provider.get(CreateCalendarViewModel.class);
+    deleteCalendarViewModel = provider.get(DeleteCalendarViewModel.class);
+    updateCalendarViewModel = provider.get(UpdateCalendarViewModel.class);
 
     createCalendarViewModel.observe(this, this::createSuccessful, this::requestFailed);
     deleteCalendarViewModel.observe(this, this::onDeleted, this::requestFailed);

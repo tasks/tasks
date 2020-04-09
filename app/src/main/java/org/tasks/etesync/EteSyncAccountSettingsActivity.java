@@ -9,7 +9,7 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.util.Pair;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import butterknife.OnCheckedChanged;
 import com.etesync.journalmanager.Crypto.CryptoManager;
 import com.etesync.journalmanager.Exceptions.IntegrityException;
@@ -48,8 +48,9 @@ public class EteSyncAccountSettingsActivity extends BaseCaldavAccountSettingsAct
     binding.showAdvanced.setVisibility(View.VISIBLE);
     updateUrlVisibility();
 
-    addAccountViewModel = ViewModelProviders.of(this).get(AddEteSyncAccountViewModel.class);
-    updateAccountViewModel = ViewModelProviders.of(this).get(UpdateEteSyncAccountViewModel.class);
+    ViewModelProvider provider = new ViewModelProvider(this);
+    addAccountViewModel = provider.get(AddEteSyncAccountViewModel.class);
+    updateAccountViewModel = provider.get(UpdateEteSyncAccountViewModel.class);
   }
 
   @Override

@@ -10,7 +10,7 @@ import android.view.View;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import at.bitfire.dav4jvm.exception.HttpException;
 import butterknife.ButterKnife;
 import butterknife.OnTextChanged;
@@ -51,7 +51,7 @@ public class EncryptionSettingsActivity extends ThemedInjectingAppCompatActivity
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    createUserInfoViewModel = ViewModelProviders.of(this).get(CreateUserInfoViewModel.class);
+    createUserInfoViewModel = new ViewModelProvider(this).get(CreateUserInfoViewModel.class);
 
     binding = ActivityEtesyncEncryptionSettingsBinding.inflate(getLayoutInflater());
     setContentView(binding.getRoot());

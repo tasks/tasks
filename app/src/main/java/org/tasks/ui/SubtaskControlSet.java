@@ -17,7 +17,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -84,7 +84,7 @@ public class SubtaskControlSet extends TaskEditControlFragment implements Callba
   @Override
   protected void inject(FragmentComponent component) {
     component.inject(this);
-    viewModel = ViewModelProviders.of(this).get(TaskListViewModel.class);
+    viewModel = new ViewModelProvider(this).get(TaskListViewModel.class);
     component.inject(viewModel);
   }
 

@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -117,7 +117,7 @@ public class TagPickerActivity extends ThemedInjectingAppCompatActivity {
   @Override
   public void inject(ActivityComponent component) {
     component.inject(this);
-    viewModel = ViewModelProviders.of(this).get(TagPickerViewModel.class);
+    viewModel = new ViewModelProvider(this).get(TagPickerViewModel.class);
     component.inject(viewModel);
   }
 }
