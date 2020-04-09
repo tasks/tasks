@@ -185,7 +185,7 @@ public final class TaskListFragment extends InjectingFragment
   private TaskAdapter taskAdapter = null;
   private TaskListRecyclerAdapter recyclerAdapter;
   private Filter filter;
-  private PublishSubject<String> searchSubject = PublishSubject.create();
+  private final PublishSubject<String> searchSubject = PublishSubject.create();
   private Disposable searchDisposable;
   private MenuItem search;
   private String searchQuery;

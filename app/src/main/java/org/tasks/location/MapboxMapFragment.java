@@ -31,7 +31,7 @@ public class MapboxMapFragment implements MapFragment, OnMapReadyCallback, OnMar
   private MapFragmentCallback callbacks;
   private boolean dark;
   private MapboxMap map;
-  private Map<Marker, Place> markers = new HashMap<>();
+  private final Map<Marker, Place> markers = new HashMap<>();
 
   public MapboxMapFragment(Context context) {
     this.context = context;

@@ -15,7 +15,7 @@ import org.tasks.time.DateTime;
 @RunWith(AndroidJUnit4.class)
 public class NextCloudTests {
 
-  private TimeZone defaultTimeZone = TimeZone.getDefault();
+  private final TimeZone defaultTimeZone = TimeZone.getDefault();
 
   @Before
   public void before() {

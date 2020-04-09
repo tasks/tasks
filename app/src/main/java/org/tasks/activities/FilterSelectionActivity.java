@@ -33,7 +33,7 @@ public class FilterSelectionActivity extends InjectingAppCompatActivity {
 
   private CompositeDisposable disposables;
   private Filter selected;
-  private BroadcastReceiver refreshReceiver = new BroadcastReceiver() {
+  private final BroadcastReceiver refreshReceiver = new BroadcastReceiver() {
     @Override
     public void onReceive(Context context, Intent intent) {
       refresh();

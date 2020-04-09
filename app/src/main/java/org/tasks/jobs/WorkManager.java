@@ -62,7 +62,7 @@ public class WorkManager {
   private final GoogleTaskListDao googleTaskListDao;
   private final CaldavDao caldavDao;
   private final AlarmManager alarmManager;
-  private androidx.work.WorkManager workManager;
+  private final androidx.work.WorkManager workManager;
 
   @Inject
   public WorkManager(

@@ -54,7 +54,7 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<ViewHolder> {
   private OnClick onClick;
   private Filter selected = null;
 
-  private AsyncListDiffer<FilterListItem> differ;
+  private final AsyncListDiffer<FilterListItem> differ;
 
   @Inject
   public NavigationDrawerAdapter(

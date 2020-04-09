@@ -43,7 +43,7 @@ import java.util.Comparator;
  */
 public class AlphanumComparator<T> implements Comparator<T> {
 
-  public static Function<Filter, String> FILTER = f -> f.listingTitle;
+  public static final Function<Filter, String> FILTER = f -> f.listingTitle;
 
   private final Function<T, String> getTitle;
 

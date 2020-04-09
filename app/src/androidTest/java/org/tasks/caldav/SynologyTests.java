@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
 @RunWith(AndroidJUnit4.class)
 public class SynologyTests {
 
-  private TimeZone defaultTimeZone = TimeZone.getDefault();
+  private final TimeZone defaultTimeZone = TimeZone.getDefault();
 
   @Before
   public void before() {

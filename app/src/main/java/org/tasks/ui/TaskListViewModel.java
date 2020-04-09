@@ -40,7 +40,7 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
   private MutableLiveData<List<TaskContainer>> tasks = new MutableLiveData<>();
   private Filter filter;
   private boolean manualSort;
-  private CompositeDisposable disposable = new CompositeDisposable();
+  private final CompositeDisposable disposable = new CompositeDisposable();
   private LiveData<PagedList<TaskContainer>> internal;
 
   public void setFilter(@NonNull Filter filter) {

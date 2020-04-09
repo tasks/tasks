@@ -37,9 +37,9 @@ public class DragAndDropRecyclerAdapter extends TaskListRecyclerAdapter {
   private final TaskListFragment taskList;
   private final RecyclerView recyclerView;
   private List<TaskContainer> list;
-  private PublishSubject<List<TaskContainer>> publishSubject = PublishSubject.create();
-  private CompositeDisposable disposables = new CompositeDisposable();
-  private Queue<Pair<List<TaskContainer>, DiffResult>> updates = new LinkedList<>();
+  private final PublishSubject<List<TaskContainer>> publishSubject = PublishSubject.create();
+  private final CompositeDisposable disposables = new CompositeDisposable();
+  private final Queue<Pair<List<TaskContainer>, DiffResult>> updates = new LinkedList<>();
   private boolean dragging;
 
   public DragAndDropRecyclerAdapter(

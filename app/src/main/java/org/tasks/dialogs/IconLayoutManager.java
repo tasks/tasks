@@ -7,7 +7,7 @@ import org.tasks.R;
 
 public class IconLayoutManager extends GridLayoutManager {
 
-  private int iconSize;
+  private final int iconSize;
 
   public IconLayoutManager(Context context) {
     super(context, DEFAULT_SPAN_COUNT, RecyclerView.VERTICAL, false);

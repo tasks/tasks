@@ -37,7 +37,7 @@ public class PlaceFilter extends Filter {
         }
       };
 
-  private Place place;
+  private final Place place;
   private static final Table G2 = Geofence.TABLE.as("G2");
   private static final Field G2_PLACE = Field.field("G2.place");
   private static final Field G2_TASK = Field.field("G2.task");

@@ -17,9 +17,9 @@ import org.tasks.data.Place;
 public class PlaceSearchViewModel extends ViewModel {
   private PlaceSearchProvider searchProvider;
 
-  private MutableLiveData<List<PlaceSearchResult>> searchResults = new MutableLiveData<>();
-  private MutableLiveData<Event<String>> error = new MutableLiveData<>();
-  private MutableLiveData<Place> selection = new MutableLiveData<>();
+  private final MutableLiveData<List<PlaceSearchResult>> searchResults = new MutableLiveData<>();
+  private final MutableLiveData<Event<String>> error = new MutableLiveData<>();
+  private final MutableLiveData<Place> selection = new MutableLiveData<>();
 
   void setSearchProvider(PlaceSearchProvider searchProvider) {
     this.searchProvider = searchProvider;

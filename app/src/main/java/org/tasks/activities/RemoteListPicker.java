@@ -43,7 +43,7 @@ public class RemoteListPicker extends InjectingDialogFragment
   @Inject LocalBroadcastManager localBroadcastManager;
 
   private CompositeDisposable disposables;
-  private BroadcastReceiver refreshReceiver = new BroadcastReceiver() {
+  private final BroadcastReceiver refreshReceiver = new BroadcastReceiver() {
     @Override
     public void onReceive(Context context, Intent intent) {
       refresh();

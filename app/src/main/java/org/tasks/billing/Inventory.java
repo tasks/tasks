@@ -21,7 +21,7 @@ public class Inventory {
   private final SignatureVerifier signatureVerifier;
   private final LocalBroadcastManager localBroadcastManager;
 
-  private Map<String, Purchase> purchases = new HashMap<>();
+  private final Map<String, Purchase> purchases = new HashMap<>();
   private Purchase subscription = null;
 
   @Inject

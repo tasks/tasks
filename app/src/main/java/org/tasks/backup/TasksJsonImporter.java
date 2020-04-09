@@ -66,7 +66,7 @@ public class TasksJsonImporter {
   private final Preferences preferences;
   private final LocationDao locationDao;
 
-  private ImportResult result = new ImportResult();
+  private final ImportResult result = new ImportResult();
 
   @Inject
   public TasksJsonImporter(

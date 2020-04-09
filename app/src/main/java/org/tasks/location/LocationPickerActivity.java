@@ -125,7 +125,7 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
   private List<PlaceUsage> places = Collections.emptyList();
   private int offset;
   private MenuItem search;
-  private PublishSubject<String> searchSubject = PublishSubject.create();
+  private final PublishSubject<String> searchSubject = PublishSubject.create();
   private PlaceSearchViewModel viewModel;
 
   @Override

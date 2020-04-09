@@ -14,7 +14,7 @@ import org.tasks.data.TaskContainer;
 public class PagedListRecyclerAdapter extends TaskListRecyclerAdapter {
 
   private final RecyclerView recyclerView;
-  private AsyncPagedListDiffer<TaskContainer> differ;
+  private final AsyncPagedListDiffer<TaskContainer> differ;
 
   public PagedListRecyclerAdapter(
       TaskAdapter adapter,

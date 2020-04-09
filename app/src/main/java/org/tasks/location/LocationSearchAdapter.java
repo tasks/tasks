@@ -129,7 +129,7 @@ public class LocationSearchAdapter extends RecyclerView.Adapter<ViewHolder>
 
   public static class FooterViewHolder extends RecyclerView.ViewHolder {
 
-    View divider;
+    final View divider;
 
     FooterViewHolder(@NonNull View itemView, @DrawableRes int attributionRes) {
       super(itemView);
