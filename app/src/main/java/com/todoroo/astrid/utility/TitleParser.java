@@ -175,7 +175,7 @@ public class TitleParser {
   private static void dayHelper(Task task) {
     String inputText = task.getTitle();
     Calendar cal = null;
-    Boolean containsSpecificTime = false;
+    boolean containsSpecificTime = false;
     String[] daysOfWeek = {
       "(?i)(\\(|\\b)today(\\)|\\b)",
       "(?i)(\\(|\\b)tomorrow(\\)|\\b)",

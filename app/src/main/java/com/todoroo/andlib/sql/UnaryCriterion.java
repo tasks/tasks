@@ -28,10 +28,6 @@ public class UnaryCriterion extends Criterion {
     return input.replace("'", "''");
   }
 
-  static Criterion neq(Field field, Object value) {
-    return new UnaryCriterion(field, Operator.neq, value);
-  }
-
   static Criterion gt(Field field, Object value) {
     return new UnaryCriterion(field, Operator.gt, value);
   }
@@ -50,15 +46,6 @@ public class UnaryCriterion extends Criterion {
 
   public static Criterion isNull(Field field) {
     return new UnaryCriterion(field, Operator.isNull, null) {
-      @Override
-      protected void populateOperator(StringBuilder sb) {
-        sb.append(SPACE).append(operator);
-      }
-    };
-  }
-
-  static Criterion isNotNull(Field field) {
-    return new UnaryCriterion(field, Operator.isNotNull, null) {
       @Override
       protected void populateOperator(StringBuilder sb) {
         sb.append(SPACE).append(operator);
@@ -87,7 +74,6 @@ public class UnaryCriterion extends Criterion {
     sb.append(expression);
   }
 
-  @SuppressWarnings("WeakerAccess")
   void populateOperator(StringBuilder sb) {
     sb.append(operator);
   }

@@ -86,7 +86,7 @@ public class FilesControlSet extends TaskEditControlFragment {
   }
 
   @OnClick(R.id.add_attachment)
-  void addAttachment(View view) {
+  void addAttachment() {
     newAddAttachmentDialog(this).show(getParentFragmentManager(), FRAG_TAG_ADD_ATTACHMENT_DIALOG);
   }
 

@@ -19,7 +19,6 @@ import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.preferences.Device;
-import org.tasks.preferences.Preferences;
 
 public class AddAttachmentDialog extends InjectingDialogFragment {
 
@@ -31,7 +30,6 @@ public class AddAttachmentDialog extends InjectingDialogFragment {
   @Inject @ForActivity Context context;
   @Inject DialogBuilder dialogBuilder;
   @Inject Device device;
-  @Inject Preferences preferences;
 
   public static AddAttachmentDialog newAddAttachmentDialog(FilesControlSet target) {
     AddAttachmentDialog dialog = new AddAttachmentDialog();

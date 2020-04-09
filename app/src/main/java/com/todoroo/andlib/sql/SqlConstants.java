@@ -10,16 +10,15 @@ public final class SqlConstants {
 
   public static final Field COUNT = Field.field("COUNT(*)");
   public static final String SELECT = "SELECT";
-  public static final String SPACE = " ";
+  static final String SPACE = " ";
   public static final String AS = "AS";
   public static final String FROM = "FROM";
   public static final String ON = "ON";
-  public static final String ALL = "*";
+  static final String ALL = "*";
   public static final String AND = "AND";
   public static final String OR = "OR";
   public static final String WHERE = "WHERE";
   public static final String NOT = "NOT";
-  public static final String LIMIT = "LIMIT";
   static final String COMMA = ",";
   static final String JOIN = "JOIN";
   static final String LEFT_PARENTHESIS = "(";

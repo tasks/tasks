@@ -59,10 +59,6 @@ public class CheckBoxTriStates extends AppCompatCheckBox {
     init();
   }
 
-  public State getState() {
-    return state;
-  }
-
   public void setState(State state, boolean notify) {
     if (this.state != state) {
       this.state = state;
@@ -153,7 +149,6 @@ public class CheckBoxTriStates extends AppCompatCheckBox {
   }
 
   static class SavedState extends BaseSavedState {
-    @SuppressWarnings("hiding")
     public static final Parcelable.Creator<SavedState> CREATOR =
         new Parcelable.Creator<SavedState>() {
           @Override

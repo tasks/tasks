@@ -10,10 +10,8 @@ import static org.tasks.db.QueryUtils.showCompleted;
 import static org.tasks.db.QueryUtils.showHidden;
 import static org.tasks.db.QueryUtils.showRecentlyCompleted;
 
-import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Order;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
 import org.tasks.R;
 import org.tasks.preferences.Preferences;

@@ -144,16 +144,6 @@ public class ChipProvider {
     return chips;
   }
 
-  public void apply(Chip chip, Filter filter) {
-    apply(
-        chip,
-        getIcon(filter.icon, R.drawable.ic_outline_cloud_24px),
-        filter.listingTitle,
-        filter.tint,
-        true,
-        true);
-  }
-
   public void apply(Chip chip, @NonNull TagData tagData) {
     apply(
         chip,

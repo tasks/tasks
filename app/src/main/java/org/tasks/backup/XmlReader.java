@@ -51,13 +51,6 @@ public class XmlReader {
     return value == null || XML_NULL.equals(value) ? null : Double.parseDouble(value);
   }
 
-  public void readDouble(String name, ValueWriter<Double> writer) {
-    Double value = readDouble(name);
-    if (value != null) {
-      writer.write(value);
-    }
-  }
-
   public interface ValueWriter<T> {
 
     void write(T value);

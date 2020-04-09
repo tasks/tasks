@@ -304,10 +304,9 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity
 
   @Override
   public boolean onMenuItemClick(MenuItem item) {
-    switch (item.getItemId()) {
-      case R.id.menu_save:
-        saveAndView();
-        return true;
+    if (item.getItemId() == R.id.menu_save) {
+      saveAndView();
+      return true;
     }
     return onOptionsItemSelected(item);
   }

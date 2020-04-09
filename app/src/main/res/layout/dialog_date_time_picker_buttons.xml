@@ -33,6 +33,7 @@
           android:text="@android:string/cancel"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:paddingStart="@dimen/keyline_first"
           android:paddingEnd="@dimen/keyline_first"
           android:layout_toStartOf="@id/ok_button" />
 

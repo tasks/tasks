@@ -10,12 +10,8 @@ import okhttp3.RequestBody
 import okhttp3.Response
 import java.io.IOException
 import java.net.HttpURLConnection
-import java.util.logging.Logger
 
-class PatchableDavResource : DavResource {
-    constructor(client: OkHttpClient, url: HttpUrl, log: Logger) : super(client, url, log)
-
-    constructor(client: OkHttpClient, url: HttpUrl) : super(client, url)
+class PatchableDavResource(client: OkHttpClient, url: HttpUrl) : DavResource(client, url) {
 
     /**
      * Sends a PROPPATCH request to this resource. Follows up to [MAX_REDIRECTS] redirects.

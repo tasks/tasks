@@ -151,7 +151,7 @@ public class ReminderControlSet extends TaskEditControlFragment {
   }
 
   @OnClick(R.id.alarms_add)
-  void addAlarm(View view) {
+  void addAlarm() {
     List<String> options = getOptions();
     if (options.size() == 1) {
       addNewAlarm();

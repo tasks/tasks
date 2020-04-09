@@ -1,6 +1,5 @@
 package org.tasks.data;
 
-import androidx.annotation.Nullable;
 import androidx.room.Embedded;
 import com.todoroo.astrid.data.Task;
 
@@ -47,14 +46,6 @@ public class TaskContainer {
 
   public boolean isCompleted() {
     return task.isCompleted();
-  }
-
-  public int getPriority() {
-    return task.getPriority();
-  }
-
-  public String getRecurrence() {
-    return task.getRecurrence();
   }
 
   public boolean hasDueDate() {

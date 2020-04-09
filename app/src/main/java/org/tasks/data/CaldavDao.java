@@ -132,9 +132,6 @@ public abstract class CaldavDao {
   @Query("SELECT * FROM caldav_lists WHERE cdl_account = :account AND cdl_url = :url LIMIT 1")
   public abstract CaldavCalendar getCalendarByUrl(String account, String url);
 
-  @Query("SELECT * FROM caldav_accounts WHERE cda_name = :name COLLATE NOCASE LIMIT 1")
-  public abstract CaldavAccount getAccountByName(String name);
-
   @Query(
       "SELECT caldav_accounts.* from caldav_accounts"
           + " INNER JOIN caldav_tasks ON cd_task = :task"

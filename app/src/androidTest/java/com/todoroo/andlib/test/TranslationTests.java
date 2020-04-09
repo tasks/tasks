@@ -125,7 +125,7 @@ public class TranslationTests {
           }
         });
 
-    assertTrue(failures.toString(), errorCount(failures) == 0);
+    assertEquals(failures.toString(), 0, errorCount(failures));
   }
 
   /** check if string contains contains substrings */

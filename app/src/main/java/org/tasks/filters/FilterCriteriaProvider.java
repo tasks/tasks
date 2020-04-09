@@ -17,7 +17,6 @@ import com.todoroo.astrid.api.TextInputCriterion;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Task.Priority;
-import com.todoroo.astrid.gtasks.GtasksListService;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +32,6 @@ import org.tasks.data.Tag;
 import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
 import org.tasks.injection.ForApplication;
-import org.tasks.sync.SyncAdapters;
 
 public class FilterCriteriaProvider {
 
@@ -55,8 +53,6 @@ public class FilterCriteriaProvider {
   public FilterCriteriaProvider(
       @ForApplication Context context,
       TagDataDao tagDataDao,
-      GtasksListService gtasksListService,
-      SyncAdapters syncAdapters,
       GoogleTaskListDao googleTaskListDao,
       CaldavDao caldavDao) {
     this.context = context;

@@ -7,7 +7,6 @@
 package com.todoroo.andlib.sql;
 
 import static com.todoroo.andlib.sql.SqlConstants.COMMA;
-import static com.todoroo.andlib.sql.SqlConstants.LIMIT;
 import static com.todoroo.andlib.sql.SqlConstants.ORDER_BY;
 import static com.todoroo.andlib.sql.SqlConstants.SPACE;
 import static com.todoroo.andlib.sql.SqlConstants.WHERE;
@@ -25,7 +24,6 @@ public final class QueryTemplate {
   private final ArrayList<Criterion> criterions = new ArrayList<>();
   private final ArrayList<Join> joins = new ArrayList<>();
   private final ArrayList<Order> orders = new ArrayList<>();
-  private Integer limit = null;
 
   public QueryTemplate join(Join... join) {
     joins.addAll(asList(join));
@@ -48,9 +46,6 @@ public final class QueryTemplate {
     visitJoinClause(sql);
     visitWhereClause(sql);
     visitOrderByClause(sql);
-    if (limit != null) {
-      sql.append(LIMIT).append(SPACE).append(limit);
-    }
     return sql.toString();
   }
 
@@ -79,10 +74,5 @@ public final class QueryTemplate {
     for (Join join : joins) {
       sql.append(join).append(SPACE);
     }
-  }
-
-  public QueryTemplate limit(int limitValue) {
-    this.limit = limitValue;
-    return this;
   }
 }

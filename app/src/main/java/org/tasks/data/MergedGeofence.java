@@ -8,10 +8,6 @@ public class MergedGeofence {
   boolean departure;
   int radius;
 
-  public Place getPlace() {
-    return place;
-  }
-
   public String getUid() {
     return place.getUid();
   }

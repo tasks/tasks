@@ -40,88 +40,36 @@ public class Location implements Serializable, Parcelable {
     place = in.readParcelable(Place.class.getClassLoader());
   }
 
-  public long getId() {
-    return geofence.getId();
-  }
-
-  public void setId(long id) {
-    geofence.setId(id);
-  }
-
   public long getTask() {
     return geofence.getTask();
-  }
-
-  public void setTask(long task) {
-    geofence.setTask(task);
-  }
-
-  @Nullable public String getName() {
-    return place.getName();
-  }
-
-  public void setName(String name) {
-    place.setName(name);
   }
 
   public double getLatitude() {
     return place.getLatitude();
   }
 
-  public void setLatitude(double latitude) {
-    place.setLatitude(latitude);
-  }
-
   public double getLongitude() {
     return place.getLongitude();
-  }
-
-  public void setLongitude(double longitude) {
-    place.setLongitude(longitude);
   }
 
   public int getRadius() {
     return geofence.getRadius();
   }
 
-  public void setRadius(int radius) {
-    geofence.setRadius(radius);
-  }
-
-  public String getAddress() {
-    return place.getAddress();
-  }
-
   public String getPhone() {
     return place.getPhone();
-  }
-
-  public void setPhone(String phone) {
-    place.setPhone(phone);
   }
 
   public String getUrl() {
     return place.getUrl();
   }
 
-  public void setUrl(String url) {
-    place.setUrl(url);
-  }
-
   public boolean isArrival() {
     return geofence.isArrival();
   }
 
-  public void setArrival(boolean arrival) {
-    geofence.setArrival(arrival);
-  }
-
   public boolean isDeparture() {
     return geofence.isDeparture();
-  }
-
-  public void setDeparture(boolean departure) {
-    geofence.setDeparture(departure);
   }
 
   public String getDisplayName() {

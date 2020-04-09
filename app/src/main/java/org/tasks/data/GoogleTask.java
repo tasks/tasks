@@ -22,9 +22,6 @@ public class GoogleTask {
 
   public static final Table TABLE = new Table("google_tasks");
 
-  public static final Property.IntegerProperty ORDER =
-      new Property.IntegerProperty(GoogleTask.TABLE, "gt_order");
-
   public static final Property.IntegerProperty PARENT =
       new Property.IntegerProperty(TABLE, "gt_parent");
 
@@ -133,10 +130,6 @@ public class GoogleTask {
 
   public void setMoved(boolean moved) {
     this.moved = moved;
-  }
-
-  public int getIndent() {
-    return parent > 0 ? 1 : 0;
   }
 
   public long getRemoteOrder() {

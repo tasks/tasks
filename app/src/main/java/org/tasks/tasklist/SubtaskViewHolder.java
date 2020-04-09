@@ -2,7 +2,6 @@ package org.tasks.tasklist;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 
-import android.annotation.SuppressLint;
 import android.graphics.Paint;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -42,8 +41,6 @@ public class SubtaskViewHolder extends RecyclerView.ViewHolder {
 
   @BindView(R.id.chip_group)
   ChipGroup chipGroup;
-
-  private int indent;
 
   SubtaskViewHolder(
       ViewGroup view,
@@ -104,12 +101,12 @@ public class SubtaskViewHolder extends RecyclerView.ViewHolder {
   }
 
   @OnClick(R.id.title)
-  void openSubtask(View v) {
+  void openSubtask() {
     callbacks.openSubtask(task.getTask());
   }
 
   @OnClick(R.id.completeBox)
-  void onCompleteBoxClick(View v) {
+  void onCompleteBoxClick() {
     if (task == null) {
       return;
     }
@@ -124,12 +121,7 @@ public class SubtaskViewHolder extends RecyclerView.ViewHolder {
     setupTitleAndCheckbox();
   }
 
-  public int getIndent() {
-    return indent;
-  }
-
   private void setIndent(int indent) {
-    this.indent = indent;
     int indentSize = getIndentSize(indent);
     if (atLeastLollipop()) {
       MarginLayoutParams layoutParams = (MarginLayoutParams) rowBody.getLayoutParams();

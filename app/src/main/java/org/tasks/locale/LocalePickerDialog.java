@@ -4,7 +4,6 @@ import static android.app.Activity.RESULT_OK;
 import static com.google.common.collect.Lists.transform;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import java.util.ArrayList;
@@ -13,17 +12,13 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.DialogFragmentComponent;
-import org.tasks.injection.ForActivity;
 import org.tasks.injection.InjectingDialogFragment;
-import org.tasks.themes.ThemeAccent;
 
 public class LocalePickerDialog extends InjectingDialogFragment {
 
   public static final String EXTRA_LOCALE = "extra_locale";
 
-  @Inject @ForActivity Context context;
   @Inject DialogBuilder dialogBuilder;
-  @Inject ThemeAccent themeAccent;
   @Inject Locale locale;
 
   public static LocalePickerDialog newLocalePickerDialog() {

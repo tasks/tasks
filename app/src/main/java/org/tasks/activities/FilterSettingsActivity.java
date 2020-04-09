@@ -65,7 +65,7 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
   }
 
   @OnTextChanged(R.id.name)
-  void onTextChanged(CharSequence ignored) {
+  void onTextChanged() {
     nameLayout.setError(null);
   }
 

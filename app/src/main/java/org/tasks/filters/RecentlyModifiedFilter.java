@@ -6,7 +6,6 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.data.Task;
 import org.tasks.time.DateTime;
 

@@ -29,24 +29,6 @@ class ColorUtil {
   }
 
   /**
-   * lightens a given color
-   * @param base base color
-   * @param amount amount between 0 and 100
-   * @return lightened
-   */
-  public static int lighten(int base, int amount) {
-    float[] hsv = new float[3];
-    Color.colorToHSV(base, hsv);
-    float[] hsl = hsv2hsl(hsv);
-    hsl[2] += amount / 100f;
-    if (hsl[2] > 1)
-      hsl[2] = 1f;
-    hsv = hsl2hsv(hsl);
-    return Color.HSVToColor(hsv);
-  }
-
-
-  /**
    * Converts HSV (Hue, Saturation, Value) color to HSL (Hue, Saturation, Lightness)
    * Credit goes to xpansive
    * https://gist.github.com/xpansive/1337890
@@ -103,9 +85,5 @@ class ColorUtil {
         2f * sat / (light + sat), //Saturation
         light + sat //Value
     };
-  }
-
-  public static String colorToHex(int color) {
-    return String.format("#%06X", (0xFFFFFF & color));
   }
 }

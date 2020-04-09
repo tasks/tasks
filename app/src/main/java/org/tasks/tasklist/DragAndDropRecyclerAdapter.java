@@ -215,11 +215,8 @@ public class DragAndDropRecyclerAdapter extends TaskListRecyclerAdapter {
           }
           if (targetIndent < minIndent) {
             task.setTargetIndent(minIndent);
-          } else if (targetIndent > maxIndent) {
-            task.setTargetIndent(maxIndent);
-          } else {
-            task.setTargetIndent(targetIndent);
-          }
+          } else
+            task.setTargetIndent(Math.min(targetIndent, maxIndent));
         }
 
         dX = (task.getTargetIndent() - task.getIndent()) * shiftSize;

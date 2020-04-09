@@ -232,7 +232,5 @@ class Synchronization : InjectingPreferenceFragment() {
             else defaultFilter.listingTitle
     }
 
-    override fun inject(component: FragmentComponent) {
-        component.inject(this);
-    }
+    override fun inject(component: FragmentComponent) = component.inject(this)
 }

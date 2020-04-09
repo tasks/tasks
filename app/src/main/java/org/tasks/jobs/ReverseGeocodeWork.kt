@@ -43,7 +43,7 @@ class ReverseGeocodeWork(context: Context, workerParams: WorkerParameters) : Inj
             Timber.d("found $result")
             Result.success()
         } catch (e: IOException) {
-            tracker.reportException(e);
+            tracker.reportException(e)
             Result.failure()
         }
     }

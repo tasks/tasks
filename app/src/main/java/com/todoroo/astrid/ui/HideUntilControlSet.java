@@ -82,7 +82,7 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
   private HideUntilValue selectedValue;
 
   @OnClick(R.id.clear)
-  void clearHideUntil(View view) {
+  void clearHideUntil() {
     updateSpinnerOptions(0);
     selection = 0;
     spinner.setSelection(selection);
@@ -337,7 +337,7 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
    *
    * @author Tim Su <tim@todoroo.com>
    */
-  private class HideUntilValue {
+  private static class HideUntilValue {
 
     final String labelSpinner;
     final String labelDisplay;

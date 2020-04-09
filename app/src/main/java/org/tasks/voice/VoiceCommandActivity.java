@@ -23,15 +23,14 @@ public class VoiceCommandActivity extends InjectingAppCompatActivity {
 
     Intent intent = getIntent();
 
-    switch (intent.getAction()) {
-      case "com.google.android.gm.action.AUTO_SEND":
-        final String text = intent.getStringExtra(Intent.EXTRA_TEXT);
-        if (!Strings.isNullOrEmpty(text)) {
-          taskCreator.basicQuickAddTask(text);
-          Toast.makeText(context, getString(R.string.voice_command_added_task), Toast.LENGTH_LONG)
-              .show();
-        }
-        finish();
+    if ("com.google.android.gm.action.AUTO_SEND".equals(intent.getAction())) {
+      final String text = intent.getStringExtra(Intent.EXTRA_TEXT);
+      if (!Strings.isNullOrEmpty(text)) {
+        taskCreator.basicQuickAddTask(text);
+        Toast.makeText(context, getString(R.string.voice_command_added_task), Toast.LENGTH_LONG)
+            .show();
+      }
+      finish();
     }
   }
 

@@ -29,7 +29,7 @@ class BeastModeViewHolder extends RecyclerView.ViewHolder {
   }
 
   @OnTouch(R.id.grabber)
-  boolean onTouch(View view, MotionEvent event) {
+  boolean onTouch(MotionEvent event) {
     if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
       itemTouchHelper.startDrag(this);
     }

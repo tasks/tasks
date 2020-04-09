@@ -157,10 +157,7 @@ public class SubtasksFilterUpdater {
   private void verifyTreeModel(TaskListMetadata list, Filter filter) {
     boolean changedThings = false;
     Set<String> keySet = idToNode.keySet();
-    Set<String> currentIds = new HashSet<>();
-    for (String id : keySet) {
-      currentIds.add(id);
-    }
+    Set<String> currentIds = new HashSet<>(keySet);
     Set<String> idsInQuery = new HashSet<>();
     String sql = filter.getSqlQuery().replaceAll("ORDER BY .*", ""); // $NON-NLS-1$//$NON-NLS-2$
     sql = sql + " ORDER BY created"; // $NON-NLS-1$
@@ -214,7 +211,7 @@ public class SubtasksFilterUpdater {
   private String[] getOrderedIds() {
     ArrayList<String> ids = new ArrayList<>();
     orderedIdHelper(treeRoot, ids);
-    return ids.toArray(new String[ids.size()]);
+    return ids.toArray(new String[0]);
   }
 
   private String getOrderString() {

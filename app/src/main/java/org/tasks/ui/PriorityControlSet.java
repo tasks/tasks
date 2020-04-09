@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.core.widget.CompoundButtonCompat;
@@ -48,7 +47,7 @@ public class PriorityControlSet extends TaskEditControlFragment {
   }
 
   @OnClick({R.id.priority_high, R.id.priority_medium, R.id.priority_low, R.id.priority_none})
-  void onPriorityChanged(CompoundButton button) {
+  void onPriorityChanged() {
     priority = getPriority();
   }
 

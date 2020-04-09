@@ -22,7 +22,6 @@ import org.tasks.dialogs.ColorWheelPicker.Companion.newColorWheel
 import org.tasks.injection.DialogFragmentComponent
 import org.tasks.injection.InjectingDialogFragment
 import org.tasks.themes.ColorProvider
-import org.tasks.themes.ThemeAccent
 import org.tasks.themes.ThemeColor
 import javax.inject.Inject
 

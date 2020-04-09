@@ -135,7 +135,7 @@ public class TimerControlSet extends TaskEditControlFragment {
   }
 
   @OnClick(R.id.timer_container)
-  void timerClicked(View view) {
+  void timerClicked() {
     if (timerActive()) {
       Task task = callback.stopTimer();
       elapsed.setTimeDuration(task.getElapsedSeconds());

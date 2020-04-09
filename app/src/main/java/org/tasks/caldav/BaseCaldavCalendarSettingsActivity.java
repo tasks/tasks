@@ -103,7 +103,7 @@ public abstract class BaseCaldavCalendarSettingsActivity extends BaseListSetting
   }
 
   @OnTextChanged(R.id.name)
-  void onNameChanged(CharSequence text) {
+  void onNameChanged() {
     nameLayout.setError(null);
   }
 

@@ -3,7 +3,6 @@ package com.todoroo.astrid.adapter;
 import static com.todoroo.andlib.utility.AndroidUtilities.preLollipop;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.view.View;
@@ -27,7 +26,6 @@ import org.tasks.R;
 import org.tasks.billing.Inventory;
 import org.tasks.filters.PlaceFilter;
 import org.tasks.locale.Locale;
-import org.tasks.preferences.SyncPreferences;
 import org.tasks.themes.ColorProvider;
 import org.tasks.themes.CustomIcons;
 import org.tasks.themes.DrawableUtil;
@@ -97,15 +95,6 @@ public class FilterViewHolder extends RecyclerView.ViewHolder {
       DrawableCompat.setTintList(wrapped, tintList);
       text.setCheckMarkDrawable(wrapped);
     }
-  }
-
-  FilterViewHolder(@NonNull View itemView, Activity activity) {
-    super(itemView);
-
-    ButterKnife.bind(this, itemView);
-
-    icon.setOnClickListener(
-        v -> activity.startActivity(new Intent(activity, SyncPreferences.class)));
   }
 
   FilterViewHolder(@NonNull View itemView) {

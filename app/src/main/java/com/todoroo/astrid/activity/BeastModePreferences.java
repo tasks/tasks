@@ -110,14 +110,12 @@ public class BeastModePreferences extends ThemedInjectingAppCompatActivity
 
   @Override
   public boolean onMenuItemClick(MenuItem item) {
-    switch (item.getItemId()) {
-      case R.id.menu_reset_to_defaults:
-        String[] prefsArray = getResources().getStringArray(R.array.TEA_control_sets_prefs);
-        adapter.setItems(asList(prefsArray));
-        return true;
-      default:
-        return onOptionsItemSelected(item);
+    if (item.getItemId() == R.id.menu_reset_to_defaults) {
+      String[] prefsArray = getResources().getStringArray(R.array.TEA_control_sets_prefs);
+      adapter.setItems(asList(prefsArray));
+      return true;
     }
+    return onOptionsItemSelected(item);
   }
 
   @Override

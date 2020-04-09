@@ -54,7 +54,7 @@ public class SingleCheckedArrayAdapter extends ArrayAdapter<String> {
       DrawableCompat.setTintList(wrapped, tintList);
       view.setCheckMarkDrawable(wrapped);
     }
-    int drawable = getDrawable(position);
+    int drawable = getDrawable();
     if (drawable > 0) {
       Drawable original = ContextCompat.getDrawable(context, drawable);
       Drawable wrapped = DrawableCompat.wrap(original.mutate());
@@ -71,7 +71,7 @@ public class SingleCheckedArrayAdapter extends ArrayAdapter<String> {
     return view;
   }
 
-  protected int getDrawable(int position) {
+  protected int getDrawable() {
     return 0;
   }
 

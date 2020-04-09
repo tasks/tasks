@@ -238,7 +238,5 @@ class Advanced : InjectingPreferenceFragment() {
             .show()
     }
 
-    override fun inject(component: FragmentComponent) {
-        component.inject(this);
-    }
+    override fun inject(component: FragmentComponent) = component.inject(this)
 }

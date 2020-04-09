@@ -14,14 +14,6 @@ public class SubsetCaldav {
     return cd_calendar;
   }
 
-  public long getParent() {
-    return cd_parent;
-  }
-
-  public void setParent(long parent) {
-    cd_parent = parent;
-  }
-
   public String getRemoteParent() {
     return cd_remote_parent;
   }

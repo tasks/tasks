@@ -36,7 +36,6 @@ import org.tasks.reminders.NotificationActivity;
 import org.tasks.reminders.SnoozeActivity;
 import org.tasks.tags.TagPickerActivity;
 import org.tasks.tags.TagPickerViewModel;
-import org.tasks.themes.Theme;
 import org.tasks.ui.TaskListViewModel;
 import org.tasks.voice.VoiceCommandActivity;
 import org.tasks.widget.ShortcutConfigActivity;
@@ -48,8 +47,6 @@ import org.tasks.widget.WidgetConfigActivity;
 public interface ActivityComponent {
 
   void inject(GtasksLoginActivity gtasksLoginActivity);
-
-  Theme getTheme();
 
   FragmentComponent plus(FragmentModule module);
 

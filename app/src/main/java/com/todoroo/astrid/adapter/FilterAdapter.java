@@ -146,12 +146,6 @@ public class FilterAdapter extends BaseAdapter {
     return newArrayList(items);
   }
 
-  public int indexOf(FilterListItem item, int defaultValue) {
-    assertMainThread();
-    int index = items.indexOf(item);
-    return index == -1 ? defaultValue : index;
-  }
-
   @NonNull
   @Override
   public View getView(int position, View convertView, @NonNull ViewGroup parent) {

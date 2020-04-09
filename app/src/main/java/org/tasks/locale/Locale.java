@@ -200,8 +200,4 @@ public class Locale implements Serializable {
       }
     }
   }
-
-  public String getLanguage() {
-    return appLocale.getLanguage();
-  }
 }

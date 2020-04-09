@@ -14,7 +14,6 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 
 import org.tasks.data.TaskContainer;
-import org.tasks.dialogs.DateTimePicker;
 import org.tasks.intents.TaskIntents;
 import org.tasks.tasklist.ViewHolder.ViewHolderCallbacks;
 

@@ -22,7 +22,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -124,7 +124,7 @@ public class AttributionActivity extends ThemedInjectingAppCompatActivity {
                   () -> {
                     InputStream licenses = context.getAssets().open("licenses.json");
                     InputStreamReader reader =
-                        new InputStreamReader(licenses, Charset.forName("UTF-8"));
+                        new InputStreamReader(licenses, StandardCharsets.UTF_8);
                     AttributionList list =
                         new GsonBuilder().create().fromJson(reader, AttributionList.class);
                     return list.libraries;

@@ -8,7 +8,6 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater.Node;
 import java.util.ArrayList;
@@ -71,7 +70,7 @@ public class SubtasksHelper {
         ids.add(idString);
       }
     }
-    return ids.toArray(new String[ids.size()]);
+    return ids.toArray(new String[0]);
   }
 
   /** Takes a subtasks string containing local ids and remaps it to one containing UUIDs */
@@ -107,7 +106,7 @@ public class SubtasksHelper {
         root,
         idMap,
         uuid -> {
-          Long localId = -1L;
+          long localId = -1L;
           try {
             localId = Long.parseLong(uuid);
           } catch (NumberFormatException e) {

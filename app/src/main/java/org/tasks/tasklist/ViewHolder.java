@@ -293,7 +293,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
   }
 
   @OnClick(R.id.completeBox)
-  void onCompleteBoxClick(View v) {
+  void onCompleteBoxClick() {
     if (task == null) {
       return;
     }

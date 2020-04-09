@@ -61,10 +61,6 @@ public class WidgetPreferences {
     return preferences.getInt(getKey(R.string.p_widget_opacity), 100);
   }
 
-  public void setOpacity(int value) {
-    preferences.setInt(getKey(R.string.p_widget_opacity), value);
-  }
-
   public void setColor(int color) {
     preferences.setInt(getKey(R.string.p_widget_color_v2), color);
   }

@@ -187,7 +187,7 @@ public class LocationControlSet extends TaskEditControlFragment {
   }
 
   @OnClick(R.id.geofence_options)
-  void geofenceOptions(View view) {
+  void geofenceOptions() {
     if (permissionRequestor.requestFineLocation()) {
       showGeofenceOptions();
     }

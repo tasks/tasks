@@ -103,10 +103,6 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<ViewHolder> {
     return differ.getCurrentList().size();
   }
 
-  public Filter getSelected() {
-    return selected;
-  }
-
   public void setSelected(Filter selected) {
     this.selected = selected;
     notifyDataSetChanged();

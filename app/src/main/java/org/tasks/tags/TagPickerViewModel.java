@@ -81,10 +81,6 @@ public class TagPickerViewModel extends ViewModel {
     disposables.dispose();
   }
 
-  public boolean isChecked(TagData tagData) {
-    return selected.contains(tagData);
-  }
-
   State getState(TagData tagData) {
     if (partiallySelected.contains(tagData)) {
       return State.PARTIALLY_CHECKED;

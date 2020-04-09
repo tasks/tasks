@@ -193,7 +193,7 @@ public class CalendarControlSet extends TaskEditControlFragment {
   }
 
   @OnClick(R.id.clear)
-  void clearCalendar(View view) {
+  void clearCalendar() {
     if (isNullOrEmpty(eventUri)) {
       clear();
     } else {

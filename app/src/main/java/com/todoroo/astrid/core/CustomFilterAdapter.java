@@ -206,8 +206,7 @@ class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
     viewHolder.filterCount.setText(locale.formatNumber(item.end));
   }
 
-  private class ViewHolder {
-
+  private static class ViewHolder {
     CriterionInstance item;
     ImageView type;
     TextView name;

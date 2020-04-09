@@ -19,7 +19,7 @@ public interface NotificationDao {
   void insertAll(List<Notification> notifications);
 
   @Query("DELETE FROM notification WHERE task = :taskId")
-  int delete(long taskId);
+  void delete(long taskId);
 
   @Query("DELETE FROM notification WHERE task IN(:taskIds)")
   void deleteAll(List<Long> taskIds);

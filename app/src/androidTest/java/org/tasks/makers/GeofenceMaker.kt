@@ -4,9 +4,7 @@ import com.natpryce.makeiteasy.Instantiator
 import com.natpryce.makeiteasy.Property
 import com.natpryce.makeiteasy.PropertyLookup
 import com.natpryce.makeiteasy.PropertyValue
-import com.todoroo.astrid.helper.UUIDHelper
 import org.tasks.data.Geofence
-import org.tasks.data.Place
 
 object GeofenceMaker {
     val PLACE: Property<Geofence, String> = Property.newProperty()

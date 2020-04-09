@@ -37,7 +37,7 @@ class LocationDaoTest : InjectingTestCase() {
 
     @Test
     fun getPlaceWithLessPrecision() {
-        locationDao.insert(newPlace(with(LATITUDE, 50.7547), with(LONGITUDE, -2.2279)));
+        locationDao.insert(newPlace(with(LATITUDE, 50.7547), with(LONGITUDE, -2.2279)))
         val place = locationDao.findPlace(50.754712.toLikeString(), (-2.227945).toLikeString())
         assertEquals(50.7547, place?.latitude)
         assertEquals(-2.2279, place?.longitude)

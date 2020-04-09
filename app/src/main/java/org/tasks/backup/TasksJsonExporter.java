@@ -261,7 +261,6 @@ public class TasksJsonExporter {
 
   public enum ExportType {
     EXPORT_TYPE_SERVICE,
-    EXPORT_TYPE_MANUAL,
-    EXPORT_TYPE_ON_UPGRADE
+    EXPORT_TYPE_MANUAL
   }
 }
