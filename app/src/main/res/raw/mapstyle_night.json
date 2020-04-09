@@ -1,5 +1,3 @@
-// https://github.com/googlemaps/android-samples/blob/816307c077060b30a27adc125071d0debd478a98/ApiDemos/java/app/src/main/res/raw/mapstyle_night.json
-
 [
   {
     "featureType": "all",
