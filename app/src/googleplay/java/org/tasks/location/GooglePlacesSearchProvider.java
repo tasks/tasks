@@ -43,7 +43,9 @@ public class GooglePlacesSearchProvider implements PlaceSearchProvider {
   }
 
   @Override
-  public void saveState(Bundle outState) {}
+  public void saveState(Bundle outState) {
+    outState.putParcelable(EXTRA_SESSION_TOKEN, token);
+  }
 
   @Override
   public int getAttributionRes(boolean dark) {
