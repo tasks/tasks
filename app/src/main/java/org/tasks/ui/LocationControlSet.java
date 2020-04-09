@@ -214,7 +214,7 @@ public class LocationControlSet extends TaskEditControlFragment {
   private void showGeofenceOptions() {
     GeofenceDialog dialog = newGeofenceDialog(location);
     dialog.setTargetFragment(this, REQUEST_GEOFENCE_DETAILS);
-    dialog.show(getFragmentManager(), FRAG_TAG_LOCATION_DIALOG);
+    dialog.show(getParentFragmentManager(), FRAG_TAG_LOCATION_DIALOG);
   }
 
   @Override

@@ -74,7 +74,7 @@ public class AddAttachmentDialog extends InjectingDialogFragment {
 
   private void recordNote() {
     newRecordAudioDialog((FilesControlSet) getTargetFragment(), REQUEST_AUDIO)
-        .show(getFragmentManager(), FRAG_TAG_RECORD_AUDIO);
+        .show(getParentFragmentManager(), FRAG_TAG_RECORD_AUDIO);
   }
 
   private void pickFromGallery() {

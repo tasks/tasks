@@ -115,7 +115,7 @@ public class BasicRecurrenceDialog extends InjectingDialogFragment {
                 result = null;
               } else if (i == 5) {
                 newCustomRecurrenceDialog((RepeatControlSet) getTargetFragment(), rrule, dueDate)
-                    .show(getFragmentManager(), FRAG_TAG_CUSTOM_RECURRENCE);
+                    .show(getParentFragmentManager(), FRAG_TAG_CUSTOM_RECURRENCE);
                 dialogInterface.dismiss();
                 return;
               } else {

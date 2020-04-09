@@ -754,7 +754,7 @@ public final class TaskListFragment extends InjectingFragment
         (singleFilter == null
                 ? newRemoteListSupportPicker(this, REQUEST_MOVE_TASKS)
                 : newRemoteListSupportPicker(singleFilter, this, REQUEST_MOVE_TASKS))
-            .show(getFragmentManager(), FRAG_TAG_REMOTE_LIST_PICKER);
+            .show(getParentFragmentManager(), FRAG_TAG_REMOTE_LIST_PICKER);
         return true;
       case R.id.menu_select_all:
         taskAdapter.setSelected(

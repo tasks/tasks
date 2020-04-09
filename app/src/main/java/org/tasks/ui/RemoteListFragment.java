@@ -162,7 +162,7 @@ public class RemoteListFragment extends TaskEditControlFragment {
 
   private void openPicker() {
     newRemoteListSupportPicker(selectedList, this, REQUEST_CODE_SELECT_LIST)
-        .show(getFragmentManager(), FRAG_TAG_GOOGLE_TASK_LIST_SELECTION);
+        .show(getParentFragmentManager(), FRAG_TAG_GOOGLE_TASK_LIST_SELECTION);
   }
 
   @Override
