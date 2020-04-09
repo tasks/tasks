@@ -255,7 +255,11 @@ public class EteSynchronizer {
         case DELETE:
           dirty.remove(remoteId);
           if (caldavTask != null) {
-            taskDeleter.delete(caldavTask.getTask());
+            if (caldavTask.isDeleted()) {
+              caldavDao.delete(caldavTask);
+            } else {
+              taskDeleter.delete(caldavTask.getTask());
+            }
           }
           break;
       }

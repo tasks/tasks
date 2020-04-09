@@ -186,4 +186,8 @@ public class CaldavTask {
         + '\''
         + '}';
   }
+
+  public boolean isDeleted() {
+    return deleted > 0;
+  }
 }
