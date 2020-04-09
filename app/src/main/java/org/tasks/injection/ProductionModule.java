@@ -9,10 +9,10 @@ import org.tasks.db.Migrations;
 import org.tasks.preferences.Preferences;
 
 @Module(includes = ApplicationModule.class)
-public class ProductionModule {
+class ProductionModule {
   @Provides
   @ApplicationScope
-  public Database getAppDatabase(@ForApplication Context context) {
+  Database getAppDatabase(@ForApplication Context context) {
     return Room.databaseBuilder(context, Database.class, Database.NAME)
         .allowMainThreadQueries() // TODO: remove me
         .addMigrations(Migrations.MIGRATIONS)
@@ -20,7 +20,7 @@ public class ProductionModule {
   }
 
   @Provides
-  public Preferences getPreferences(@ForApplication Context context) {
+  Preferences getPreferences(@ForApplication Context context) {
     return new Preferences(context);
   }
 }

@@ -8,7 +8,7 @@ public class TagFilters {
   @Embedded public TagData tagData;
   public int count;
 
-  public TagFilter toTagFilter() {
+  TagFilter toTagFilter() {
     TagFilter filter = new TagFilter(tagData);
     filter.count = count;
     return filter;

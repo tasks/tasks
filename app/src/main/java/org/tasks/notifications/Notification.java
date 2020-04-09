@@ -12,7 +12,7 @@ import com.todoroo.andlib.data.Table;
     indices = {@Index(value = "task", unique = true)})
 public class Notification {
 
-  public static final String TABLE_NAME = "notification";
+  static final String TABLE_NAME = "notification";
 
   public static final Table TABLE = new Table(TABLE_NAME);
   public static final LongProperty TASK = new LongProperty(TABLE, "task");

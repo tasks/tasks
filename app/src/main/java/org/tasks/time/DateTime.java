@@ -270,7 +270,7 @@ public class DateTime {
     return isAfter(dateTime.getMillis());
   }
 
-  public boolean isAfter(long timestamp) {
+  private boolean isAfter(long timestamp) {
     return this.timestamp > timestamp;
   }
 

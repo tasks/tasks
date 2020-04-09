@@ -15,7 +15,7 @@ import org.threeten.bp.LocalTime;
 import org.threeten.bp.format.DateTimeFormatter;
 import timber.log.Timber;
 
-public class TaskerTaskCreator {
+class TaskerTaskCreator {
 
   private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ISO_LOCAL_DATE;
   private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ISO_LOCAL_TIME;
@@ -24,7 +24,7 @@ public class TaskerTaskCreator {
   private final TaskDao taskDao;
 
   @Inject
-  public TaskerTaskCreator(TaskCreator taskCreator, TaskDao taskDao) {
+  TaskerTaskCreator(TaskCreator taskCreator, TaskDao taskDao) {
     this.taskCreator = taskCreator;
     this.taskDao = taskDao;
   }

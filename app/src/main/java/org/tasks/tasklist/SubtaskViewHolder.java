@@ -29,7 +29,7 @@ public class SubtaskViewHolder extends RecyclerView.ViewHolder {
   private final ChipProvider chipProvider;
   private final CheckBoxProvider checkBoxProvider;
 
-  public TaskContainer task;
+  private TaskContainer task;
 
   @BindView(R.id.rowBody)
   ViewGroup rowBody;
@@ -128,8 +128,7 @@ public class SubtaskViewHolder extends RecyclerView.ViewHolder {
     return indent;
   }
 
-  @SuppressLint("NewApi")
-  public void setIndent(int indent) {
+  private void setIndent(int indent) {
     this.indent = indent;
     int indentSize = getIndentSize(indent);
     if (atLeastLollipop()) {

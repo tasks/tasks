@@ -138,7 +138,7 @@ public class ReminderControlSet extends TaskEditControlFragment {
     }
   }
 
-  void addAlarm(String selected) {
+  private void addAlarm(String selected) {
     if (selected.equals(getString(R.string.when_due))) {
       addDue();
     } else if (selected.equals(getString(R.string.when_overdue))) {

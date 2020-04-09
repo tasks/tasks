@@ -42,10 +42,10 @@ public class EncryptionSettingsActivity extends ThemedInjectingAppCompatActivity
   @Inject EteSyncClient client;
   @Inject Encryption encryption;
 
-  ActivityEtesyncEncryptionSettingsBinding binding;
+  private ActivityEtesyncEncryptionSettingsBinding binding;
   private UserInfo userInfo;
   private CaldavAccount caldavAccount;
-  CreateUserInfoViewModel createUserInfoViewModel;
+  private CreateUserInfoViewModel createUserInfoViewModel;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {

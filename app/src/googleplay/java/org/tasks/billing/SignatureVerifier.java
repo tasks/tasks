@@ -7,16 +7,16 @@ import org.tasks.R;
 import org.tasks.injection.ForApplication;
 import timber.log.Timber;
 
-public class SignatureVerifier {
+class SignatureVerifier {
 
   private final String billingKey;
 
   @Inject
-  public SignatureVerifier(@ForApplication Context context) {
+  SignatureVerifier(@ForApplication Context context) {
     billingKey = context.getString(R.string.gp_key);
   }
 
-  public boolean verifySignature(Purchase purchase) {
+  boolean verifySignature(Purchase purchase) {
     try {
       return Security.verifyPurchase(
           billingKey, purchase.getOriginalJson(), purchase.getSignature());

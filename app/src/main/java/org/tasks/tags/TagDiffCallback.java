@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import com.google.common.base.Objects;
 import org.tasks.data.TagData;
 
-public class TagDiffCallback extends DiffUtil.ItemCallback<TagData> {
+class TagDiffCallback extends DiffUtil.ItemCallback<TagData> {
 
   @Override
   public boolean areItemsTheSame(@NonNull TagData oldItem, @NonNull TagData newItem) {

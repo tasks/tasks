@@ -23,7 +23,7 @@ import java.util.Map.Entry;
 import org.tasks.R;
 import org.tasks.preferences.AttributionActivity.LibraryAttribution;
 
-public class AttributionSection extends StatelessSection {
+class AttributionSection extends StatelessSection {
 
   private final String license;
   private final List<Entry<String, String>> attributions;
@@ -102,7 +102,7 @@ public class AttributionSection extends StatelessSection {
       ButterKnife.bind(this, itemView);
     }
 
-    public void bind(String copyrightHolder, String libraries) {
+    void bind(String copyrightHolder, String libraries) {
       this.copyrightHolder.setText(copyrightHolder);
       this.libraries.setText(libraries);
     }

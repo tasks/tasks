@@ -73,7 +73,7 @@ class ColorPalettePicker : InjectingDialogFragment() {
     @BindView(R.id.icons) lateinit var recyclerView: RecyclerView
 
     private lateinit var colors: List<Pickable>
-    lateinit var palette: Palette
+    private lateinit var palette: Palette
     var callback: ColorPickedCallback? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

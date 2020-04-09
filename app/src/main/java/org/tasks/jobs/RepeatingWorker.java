@@ -7,7 +7,7 @@ import org.tasks.injection.InjectingWorker;
 
 public abstract class RepeatingWorker extends InjectingWorker {
 
-  public RepeatingWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+  RepeatingWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
     super(context, workerParams);
   }
 

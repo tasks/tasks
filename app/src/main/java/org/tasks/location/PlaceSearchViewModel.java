@@ -14,6 +14,7 @@ import java.util.List;
 import org.tasks.Event;
 import org.tasks.data.Place;
 
+@SuppressWarnings({"WeakerAccess", "RedundantSuppression"})
 public class PlaceSearchViewModel extends ViewModel {
   private PlaceSearchProvider searchProvider;
 

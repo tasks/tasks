@@ -22,7 +22,7 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
   @Inject Inventory inventory;
   @Inject LocalBroadcastManager localBroadcastManager;
 
-  ActivityTaskerCreateBinding binding;
+  private ActivityTaskerCreateBinding binding;
 
   private Bundle previousBundle;
 

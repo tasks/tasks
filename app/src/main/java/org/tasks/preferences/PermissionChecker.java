@@ -16,7 +16,7 @@ public class PermissionChecker {
   private final Context context;
 
   @Inject
-  public PermissionChecker(@ForApplication Context context) {
+  PermissionChecker(@ForApplication Context context) {
     this.context = context;
   }
 

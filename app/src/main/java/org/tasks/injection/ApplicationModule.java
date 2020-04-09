@@ -33,7 +33,7 @@ import org.tasks.security.KeyStoreEncryption;
 import org.tasks.security.NoEncryption;
 
 @Module
-public class ApplicationModule {
+class ApplicationModule {
 
   private final Context context;
 
@@ -54,79 +54,79 @@ public class ApplicationModule {
 
   @Provides
   @ApplicationScope
-  public NotificationDao getNotificationDao(Database database) {
+  NotificationDao getNotificationDao(Database database) {
     return database.notificationDao();
   }
 
   @Provides
   @ApplicationScope
-  public TagDataDao getTagDataDao(Database database) {
+  TagDataDao getTagDataDao(Database database) {
     return database.getTagDataDao();
   }
 
   @Provides
   @ApplicationScope
-  public UserActivityDao getUserActivityDao(Database database) {
+  UserActivityDao getUserActivityDao(Database database) {
     return database.getUserActivityDao();
   }
 
   @Provides
   @ApplicationScope
-  public TaskAttachmentDao getTaskAttachmentDao(Database database) {
+  TaskAttachmentDao getTaskAttachmentDao(Database database) {
     return database.getTaskAttachmentDao();
   }
 
   @Provides
   @ApplicationScope
-  public TaskListMetadataDao getTaskListMetadataDao(Database database) {
+  TaskListMetadataDao getTaskListMetadataDao(Database database) {
     return database.getTaskListMetadataDao();
   }
 
   @Provides
   @ApplicationScope
-  public GoogleTaskDao getGoogleTaskDao(Database database) {
+  GoogleTaskDao getGoogleTaskDao(Database database) {
     return database.getGoogleTaskDao();
   }
 
   @Provides
   @ApplicationScope
-  public AlarmDao getAlarmDao(Database database) {
+  AlarmDao getAlarmDao(Database database) {
     return database.getAlarmDao();
   }
 
   @Provides
   @ApplicationScope
-  public LocationDao getGeofenceDao(Database database) {
+  LocationDao getGeofenceDao(Database database) {
     return database.getLocationDao();
   }
 
   @Provides
   @ApplicationScope
-  public TagDao getTagDao(Database database) {
+  TagDao getTagDao(Database database) {
     return database.getTagDao();
   }
 
   @Provides
   @ApplicationScope
-  public FilterDao getFilterDao(Database database) {
+  FilterDao getFilterDao(Database database) {
     return database.getFilterDao();
   }
 
   @Provides
   @ApplicationScope
-  public GoogleTaskListDao getGoogleTaskListDao(Database database) {
+  GoogleTaskListDao getGoogleTaskListDao(Database database) {
     return database.getGoogleTaskListDao();
   }
 
   @Provides
   @ApplicationScope
-  public CaldavDao getCaldavDao(Database database) {
+  CaldavDao getCaldavDao(Database database) {
     return database.getCaldavDao();
   }
 
   @Provides
   @ApplicationScope
-  public TaskDao getTaskDao(Database database, WorkManager workManager) {
+  TaskDao getTaskDao(Database database, WorkManager workManager) {
     TaskDao taskDao = database.getTaskDao();
     taskDao.initialize(workManager);
     return taskDao;
@@ -134,7 +134,7 @@ public class ApplicationModule {
 
   @Provides
   @ApplicationScope
-  public DeletionDao getDeletionDao(Database database) {
+  DeletionDao getDeletionDao(Database database) {
     return database.getDeletionDao();
   }
 
@@ -145,12 +145,12 @@ public class ApplicationModule {
   }
 
   @Provides
-  public BillingClient getBillingClient(Inventory inventory, Tracker tracker) {
+  BillingClient getBillingClient(Inventory inventory, Tracker tracker) {
     return new BillingClientImpl(context, inventory, tracker);
   }
 
   @Provides
-  public Geocoder getGeocoder(@ForApplication Context context) {
+  Geocoder getGeocoder(@ForApplication Context context) {
     return new MapboxGeocoder(context);
   }
 }

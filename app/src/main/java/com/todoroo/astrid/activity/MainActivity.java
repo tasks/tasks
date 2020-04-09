@@ -104,7 +104,7 @@ public class MainActivity extends InjectingAppCompatActivity
   private Filter filter;
   private ActionMode actionMode = null;
 
-  TaskListActivityBinding binding;
+  private TaskListActivityBinding binding;
 
   /** @see android.app.Activity#onCreate(Bundle) */
   @Override

@@ -19,11 +19,11 @@ import org.tasks.preferences.Preferences;
 @Entity(tableName = TABLE_NAME, indices = @Index(name = "geo_task", value = "task"))
 public class Geofence implements Serializable, Parcelable {
 
-  public static final String TABLE_NAME = "geofences";
+  static final String TABLE_NAME = "geofences";
   public static final Table TABLE = new Table(TABLE_NAME);
 
   public static final LongProperty TASK = new LongProperty(TABLE, "task");
-  public static final StringProperty PLACE = new StringProperty(TABLE, "place");
+  static final StringProperty PLACE = new StringProperty(TABLE, "place");
 
   public static final Parcelable.Creator<Geofence> CREATOR =
       new Parcelable.Creator<Geofence>() {

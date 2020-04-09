@@ -7,21 +7,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import java.util.ArrayList;
 import java.util.List;
 import org.tasks.R;
 
 public class HiddenTopArrayAdapter<T> extends ArrayAdapter<T> {
 
-  private final List<String> hints;
-
-  public HiddenTopArrayAdapter(Context context, int resources, List<T> objects) {
-    this(context, resources, objects, new ArrayList<>());
-  }
-
-  public HiddenTopArrayAdapter(Context context, int resource, List<T> objects, List<String> hints) {
-    super(context, resource, objects);
-    this.hints = hints;
+  protected HiddenTopArrayAdapter(Context context, int resources, List<T> objects) {
+    super(context, resources, objects);
   }
 
   @Override
@@ -40,9 +32,6 @@ public class HiddenTopArrayAdapter<T> extends ArrayAdapter<T> {
               LayoutInflater.from(getContext())
                   .inflate(R.layout.simple_spinner_dropdown_item, parent, false);
       ((TextView) vg.findViewById(R.id.text1)).setText(getItem(position).toString());
-      if (position < hints.size()) {
-        ((TextView) vg.findViewById(R.id.text2)).setText(hints.get(position));
-      }
       v = vg;
     }
 

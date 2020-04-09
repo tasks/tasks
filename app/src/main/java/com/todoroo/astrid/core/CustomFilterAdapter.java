@@ -61,7 +61,7 @@ class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
 
   // --- view event handling
 
-  public CustomFilterAdapter(
+  CustomFilterAdapter(
       CustomFilterActivity activity,
       DialogBuilder dialogBuilder,
       List<CriterionInstance> objects,
@@ -73,7 +73,7 @@ class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
     inflater = activity.getLayoutInflater();
   }
 
-  public void onCreateContextMenu(ContextMenu menu, View v) {
+  void onCreateContextMenu(ContextMenu menu, View v) {
     // view holder
     ViewHolder viewHolder = (ViewHolder) v.getTag();
     if (viewHolder == null || viewHolder.item.type == CriterionInstance.TYPE_UNIVERSE) {
@@ -115,7 +115,7 @@ class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
   }
 
   /** Show options menu for the given criterioninstance */
-  public void showOptionsFor(final CriterionInstance item, final Runnable onComplete) {
+  void showOptionsFor(final CriterionInstance item, final Runnable onComplete) {
     AlertDialogBuilder dialog = dialogBuilder.newDialog(item.criterion.name);
 
     if (item.criterion instanceof MultipleSelectCriterion) {

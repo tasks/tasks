@@ -12,7 +12,7 @@ import org.tasks.injection.ForApplication;
 import org.tasks.preferences.PermissionChecker;
 import timber.log.Timber;
 
-public class CalendarEventAttendeeProvider {
+class CalendarEventAttendeeProvider {
 
   private static final String[] COLUMNS = {
     CalendarContract.Attendees.ATTENDEE_NAME, CalendarContract.Attendees.ATTENDEE_EMAIL,

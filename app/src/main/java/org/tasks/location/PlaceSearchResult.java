@@ -2,14 +2,13 @@ package org.tasks.location;
 
 import org.tasks.data.Place;
 
-public class PlaceSearchResult {
+class PlaceSearchResult {
 
   private final String id;
   private final String name;
   private final String address;
   private final Place place;
 
-  @SuppressWarnings("unused")
   PlaceSearchResult(String id, String name, String address) {
     this(id, name, address, null);
   }

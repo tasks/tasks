@@ -8,7 +8,7 @@ public class CaldavFilters {
   @Embedded public CaldavCalendar caldavCalendar;
   public int count;
 
-  public CaldavFilter toCaldavFilter() {
+  CaldavFilter toCaldavFilter() {
     CaldavFilter filter = new CaldavFilter(caldavCalendar);
     filter.count = count;
     return filter;

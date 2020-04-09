@@ -14,14 +14,14 @@ import org.tasks.R;
 import org.tasks.billing.Inventory;
 import org.tasks.themes.CustomIcons;
 
-public class IconPickerAdapter extends ListAdapter<Integer, IconPickerHolder> {
+class IconPickerAdapter extends ListAdapter<Integer, IconPickerHolder> {
 
   private final Activity activity;
   private final Inventory inventory;
   private final int current;
   private final Callback<Integer> onSelected;
 
-  public IconPickerAdapter(
+  IconPickerAdapter(
       Activity activity, Inventory inventory, int current, Callback<Integer> onSelected) {
     super(new DiffCallback());
     this.activity = activity;

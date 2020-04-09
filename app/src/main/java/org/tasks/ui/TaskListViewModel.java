@@ -30,6 +30,7 @@ import org.tasks.data.TaskContainer;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
+@SuppressWarnings({"WeakerAccess", "RedundantSuppression"})
 public class TaskListViewModel extends ViewModel implements Observer<PagedList<TaskContainer>> {
 
   private static final PagedList.Config PAGED_LIST_CONFIG =

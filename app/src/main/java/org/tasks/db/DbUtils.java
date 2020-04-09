@@ -31,7 +31,7 @@ public class DbUtils {
     batch(items, MAX_SQLITE_ARGS, callback);
   }
 
-  public static <T> void batch(List<T> items, int size, Callback<List<T>> callback) {
+  private static <T> void batch(List<T> items, int size, Callback<List<T>> callback) {
     if (items.isEmpty()) {
       return;
     }

@@ -8,7 +8,7 @@ public class GoogleTaskFilters {
   @Embedded public GoogleTaskList googleTaskList;
   public int count;
 
-  public GtasksFilter toGtasksFilter() {
+  GtasksFilter toGtasksFilter() {
     GtasksFilter filter = new GtasksFilter(googleTaskList);
     filter.count = count;
     return filter;

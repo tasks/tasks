@@ -202,7 +202,7 @@ public class TranslationTests {
     /** the original string */
     final String string;
 
-    public FormatStringData(String string) {
+    FormatStringData(String string) {
       this.string = string;
 
       int pos = -1;

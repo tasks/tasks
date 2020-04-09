@@ -106,7 +106,7 @@ public class LocationPickerAdapter extends ListAdapter<PlaceUsage, PlaceViewHold
           .setOnClickListener(v -> onLocationPicked.settings(place));
     }
 
-    public void bind(PlaceUsage placeUsage, int color, int icon) {
+    void bind(PlaceUsage placeUsage, int color, int icon) {
       place = placeUsage.place;
       String name = place.getDisplayName();
       String address = place.getDisplayAddress();
@@ -124,7 +124,7 @@ public class LocationPickerAdapter extends ListAdapter<PlaceUsage, PlaceViewHold
     }
   }
 
-  public static class DiffCallback extends ItemCallback<PlaceUsage> {
+  static class DiffCallback extends ItemCallback<PlaceUsage> {
 
     @Override
     public boolean areItemsTheSame(@NonNull PlaceUsage oldItem, @NonNull PlaceUsage newItem) {

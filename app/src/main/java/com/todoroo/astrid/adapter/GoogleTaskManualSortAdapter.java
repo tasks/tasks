@@ -9,8 +9,8 @@ import org.tasks.tasklist.ViewHolder;
 
 public class GoogleTaskManualSortAdapter extends TaskAdapter {
 
-  protected final TaskDao taskDao;
-  protected final GoogleTaskDao googleTaskDao;
+  final TaskDao taskDao;
+  final GoogleTaskDao googleTaskDao;
 
   GoogleTaskManualSortAdapter(TaskDao taskDao, GoogleTaskDao googleTaskDao) {
     this.taskDao = taskDao;

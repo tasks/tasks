@@ -54,15 +54,11 @@ public class SubtasksRecyclerAdapter extends RecyclerView.Adapter<SubtaskViewHol
 
   @Override
   public void onBindViewHolder(@NonNull SubtaskViewHolder holder, int position) {
-    TaskContainer task = getItem(position);
+    TaskContainer task = differ.getCurrentList().get(position);
     if (task != null) {
       task.setIndent(multiLevelSubtasks ? task.indent : 0);
       holder.bindView(task);
     }
-  }
-
-  public TaskContainer getItem(int position) {
-    return differ.getCurrentList().get(position);
   }
 
   public void submitList(List<TaskContainer> list) {

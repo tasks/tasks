@@ -12,6 +12,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Action;
 import io.reactivex.schedulers.Schedulers;
 
+@SuppressWarnings({"WeakerAccess", "RedundantSuppression"})
 public class ActionViewModel extends ViewModel {
   private final MutableLiveData<Boolean> completed = new MutableLiveData<>();
   private final MutableLiveData<Throwable> error = new MutableLiveData<>();

@@ -22,6 +22,7 @@ import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
 import org.tasks.tags.CheckBoxTriStates.State;
 
+@SuppressWarnings({"WeakerAccess", "RedundantSuppression"})
 public class TagPickerViewModel extends ViewModel {
 
   private final MutableLiveData<List<TagData>> tags = new MutableLiveData<>();
@@ -48,7 +49,7 @@ public class TagPickerViewModel extends ViewModel {
     return newArrayList(selected);
   }
 
-  public ArrayList<TagData> getPartiallySelected() {
+  ArrayList<TagData> getPartiallySelected() {
     return newArrayList(partiallySelected);
   }
 
@@ -84,7 +85,7 @@ public class TagPickerViewModel extends ViewModel {
     return selected.contains(tagData);
   }
 
-  public State getState(TagData tagData) {
+  State getState(TagData tagData) {
     if (partiallySelected.contains(tagData)) {
       return State.PARTIALLY_CHECKED;
     }

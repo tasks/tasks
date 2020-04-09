@@ -19,7 +19,7 @@ import org.tasks.preferences.Preferences;
 import org.tasks.preferences.SyncPreferences;
 import org.tasks.themes.DrawableUtil;
 
-public class SubheaderViewHolder extends RecyclerView.ViewHolder {
+class SubheaderViewHolder extends RecyclerView.ViewHolder {
 
   private final Preferences preferences;
   private final GoogleTaskDao googleTaskDao;

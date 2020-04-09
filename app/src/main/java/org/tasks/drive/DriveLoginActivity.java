@@ -27,7 +27,7 @@ import org.tasks.preferences.Preferences;
  */
 public class DriveLoginActivity extends InjectingAppCompatActivity {
 
-  public static final String EXTRA_ERROR = "extra_error";
+  private static final String EXTRA_ERROR = "extra_error";
   private static final int RC_CHOOSE_ACCOUNT = 10988;
   @Inject DialogBuilder dialogBuilder;
   @Inject GoogleAccountManager googleAccountManager;

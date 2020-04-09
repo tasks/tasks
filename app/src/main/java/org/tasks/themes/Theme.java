@@ -60,7 +60,7 @@ public class Theme {
     themeAccent.applyStyle(theme);
   }
 
-  public Context wrap(Context context) {
+  private Context wrap(Context context) {
     ContextThemeWrapper wrapper = themeBase.wrap(context);
     applyToContext(wrapper);
     return wrapper;

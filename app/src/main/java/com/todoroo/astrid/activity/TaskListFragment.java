@@ -144,7 +144,7 @@ public final class TaskListFragment extends InjectingFragment
 
   private static final int SEARCH_DEBOUNCE_TIMEOUT = 300;
   private final RefreshReceiver refreshReceiver = new RefreshReceiver();
-  protected CompositeDisposable disposables;
+  private CompositeDisposable disposables;
   @Inject SyncAdapters syncAdapters;
   @Inject TaskDeleter taskDeleter;
   @Inject @ForActivity Context context;
@@ -536,7 +536,7 @@ public final class TaskListFragment extends InjectingFragment
     return makeSnackbar(getString(res, args));
   }
 
-  public Snackbar makeSnackbar(String text) {
+  private Snackbar makeSnackbar(String text) {
     Snackbar snackbar =
         Snackbar.make(coordinatorLayout, text, 8000)
             .setTextColor(getColor(context, R.color.snackbar_text_color))

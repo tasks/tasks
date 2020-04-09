@@ -80,7 +80,7 @@ public class AttributionActivity extends ThemedInjectingAppCompatActivity {
     component.inject(this);
   }
 
-  public static class AttributionList {
+  static class AttributionList {
     List<LibraryAttribution> libraries;
   }
 
@@ -103,6 +103,7 @@ public class AttributionActivity extends ThemedInjectingAppCompatActivity {
     }
   }
 
+  @SuppressWarnings({"WeakerAccess", "RedundantSuppression"})
   public static class ViewModel extends androidx.lifecycle.ViewModel {
     private final MutableLiveData<List<LibraryAttribution>> attributions = new MutableLiveData<>();
     private final CompositeDisposable disposables = new CompositeDisposable();

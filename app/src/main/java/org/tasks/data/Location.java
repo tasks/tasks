@@ -35,7 +35,7 @@ public class Location implements Serializable, Parcelable {
   }
 
   @Ignore
-  protected Location(Parcel in) {
+  private Location(Parcel in) {
     geofence = in.readParcelable(Geofence.class.getClassLoader());
     place = in.readParcelable(Place.class.getClassLoader());
   }

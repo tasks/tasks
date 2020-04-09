@@ -18,7 +18,7 @@ import org.tasks.data.TagDataDao;
 import org.tasks.injection.ApplicationScope;
 
 @ApplicationScope
-public class ChipListCache {
+class ChipListCache {
 
   private final Map<String, GtasksFilter> googleTaskLists = new HashMap<>();
   private final Map<String, CaldavFilter> caldavCalendars = new HashMap<>();
@@ -26,7 +26,7 @@ public class ChipListCache {
   private final LocalBroadcastManager localBroadcastManager;
 
   @Inject
-  public ChipListCache(
+  ChipListCache(
       GoogleTaskListDao googleTaskListDao,
       CaldavDao caldavDao,
       TagDataDao tagDataDao,

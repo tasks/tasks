@@ -2,7 +2,7 @@ package org.tasks.themes;
 
 import android.graphics.Color;
 
-public class ColorUtil {
+class ColorUtil {
 
   /**
    * https://stackoverflow.com/a/40964456

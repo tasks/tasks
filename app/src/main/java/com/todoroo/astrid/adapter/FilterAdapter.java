@@ -141,7 +141,7 @@ public class FilterAdapter extends BaseAdapter {
     return convertView;
   }
 
-  public ArrayList<FilterListItem> getItems() {
+  private ArrayList<FilterListItem> getItems() {
     assertMainThread();
     return newArrayList(items);
   }

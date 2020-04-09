@@ -57,7 +57,7 @@ public class CaldavAccountSettingsActivity extends BaseCaldavAccountSettingsActi
     finish();
   }
 
-  protected void updateAccount(String principal) {
+  private void updateAccount(String principal) {
     hideProgressIndicator();
 
     caldavAccount.setName(getNewName());

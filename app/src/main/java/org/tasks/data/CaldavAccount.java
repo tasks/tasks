@@ -14,7 +14,7 @@ import org.tasks.security.Encryption;
 @Entity(tableName = "caldav_accounts")
 public class CaldavAccount implements Parcelable {
 
-  public static final int TYPE_CALDAV = 0;
+  private static final int TYPE_CALDAV = 0;
   public static final int TYPE_ETESYNC = 1;
   public static final Parcelable.Creator<CaldavAccount> CREATOR =
       new Parcelable.Creator<CaldavAccount>() {

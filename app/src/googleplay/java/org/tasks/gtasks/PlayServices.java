@@ -90,7 +90,7 @@ public class PlayServices {
     }
   }
 
-  public String getStatus() {
+  private String getStatus() {
     return GoogleApiAvailability.getInstance().getErrorString(getResult());
   }
 

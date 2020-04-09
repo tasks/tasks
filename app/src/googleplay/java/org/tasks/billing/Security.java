@@ -33,7 +33,7 @@ import java.security.spec.X509EncodedKeySpec;
  * Security-related methods. For a secure implementation, all of this code should be implemented on
  * a server that communicates with the application on the device.
  */
-public class Security {
+class Security {
   private static final String TAG = "IABUtil/Security";
 
   private static final String KEY_FACTORY_ALGORITHM = "RSA";
@@ -47,7 +47,7 @@ public class Security {
    * @param signature the signature for the data, signed with the private key
    * @throws IOException if encoding algorithm is not supported or key specification is invalid
    */
-  public static boolean verifyPurchase(String base64PublicKey, String signedData, String signature)
+  static boolean verifyPurchase(String base64PublicKey, String signedData, String signature)
       throws IOException {
     if (TextUtils.isEmpty(signedData)
         || TextUtils.isEmpty(base64PublicKey)
@@ -66,7 +66,7 @@ public class Security {
    * @param encodedPublicKey Base64-encoded public key
    * @throws IOException if encoding algorithm is not supported or key specification is invalid
    */
-  public static PublicKey generatePublicKey(String encodedPublicKey) throws IOException {
+  private static PublicKey generatePublicKey(String encodedPublicKey) throws IOException {
     try {
       byte[] decodedKey = Base64.decode(encodedPublicKey, Base64.DEFAULT);
       KeyFactory keyFactory = KeyFactory.getInstance(KEY_FACTORY_ALGORITHM);
@@ -90,7 +90,7 @@ public class Security {
    * @param signature server signature
    * @return true if the data and signature match
    */
-  public static boolean verify(PublicKey publicKey, String signedData, String signature) {
+  private static boolean verify(PublicKey publicKey, String signedData, String signature) {
     byte[] signatureBytes;
     try {
       signatureBytes = Base64.decode(signature, Base64.DEFAULT);

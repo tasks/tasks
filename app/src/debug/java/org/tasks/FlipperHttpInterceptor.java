@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 import timber.log.Timber;
 
-public class FlipperHttpInterceptor<T> implements HttpExecuteInterceptor, HttpResponseInterceptor {
+class FlipperHttpInterceptor<T> implements HttpExecuteInterceptor, HttpResponseInterceptor {
 
   private final Class<T> responseClass;
   private final String requestId = UUIDHelper.newUUID();
@@ -43,7 +43,7 @@ public class FlipperHttpInterceptor<T> implements HttpExecuteInterceptor, HttpRe
     plugin.reportResponse(toResponseInfo(response, now()));
   }
 
-  public void report(HttpResponse response, long start, long end) throws IOException {
+  void report(HttpResponse response, long start, long end) throws IOException {
     plugin.reportRequest(toRequestInfo(response.getRequest(), start));
     plugin.reportResponse(toResponseInfo(response, end));
   }

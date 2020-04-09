@@ -14,11 +14,11 @@ import org.tasks.location.PlaceSearchProvider;
 import org.tasks.preferences.Preferences;
 
 @Module
-public class LocationModule {
+class LocationModule {
 
   @Provides
   @ActivityScope
-  public PlaceSearchProvider getPlaceSearchProvider(
+  PlaceSearchProvider getPlaceSearchProvider(
       @ForApplication Context context,
       Preferences preferences,
       PlayServices playServices,
@@ -32,7 +32,7 @@ public class LocationModule {
 
   @Provides
   @ActivityScope
-  public MapFragment getMapFragment(@ForApplication Context context, Preferences preferences) {
+  MapFragment getMapFragment(@ForApplication Context context, Preferences preferences) {
     return preferences.useGoogleMaps()
         ? new GoogleMapFragment(context)
         : new MapboxMapFragment(context);

@@ -18,13 +18,13 @@ import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
-public class BuildSetup {
+class BuildSetup {
 
   private final Context context;
   private final Preferences preferences;
 
   @Inject
-  public BuildSetup(@ForApplication Context context, Preferences preferences) {
+  BuildSetup(@ForApplication Context context, Preferences preferences) {
     this.context = context;
     this.preferences = preferences;
   }

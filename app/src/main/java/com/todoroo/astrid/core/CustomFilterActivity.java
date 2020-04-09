@@ -69,7 +69,7 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity
   @Inject FilterCriteriaProvider filterCriteriaProvider;
   @Inject Locale locale;
 
-  CustomFilterActivityBinding binding;
+  private CustomFilterActivityBinding binding;
 
   private ListView listView;
   private CustomFilterAdapter adapter;

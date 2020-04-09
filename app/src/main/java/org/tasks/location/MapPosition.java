@@ -31,7 +31,7 @@ public class MapPosition implements Parcelable {
     this.zoom = zoom;
   }
 
-  protected MapPosition(Parcel in) {
+  private MapPosition(Parcel in) {
     latitude = in.readDouble();
     longitude = in.readDouble();
     zoom = in.readFloat();
@@ -45,7 +45,7 @@ public class MapPosition implements Parcelable {
     return longitude;
   }
 
-  public float getZoom() {
+  float getZoom() {
     return zoom;
   }
 

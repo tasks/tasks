@@ -6,16 +6,16 @@ import java.util.ArrayList;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function2;
 
-public class ResponseList extends ArrayList<Response>
+class ResponseList extends ArrayList<Response>
     implements Function2<Response, HrefRelation, Unit> {
 
   private final HrefRelation filter;
 
-  public ResponseList() {
+  ResponseList() {
     this(null);
   }
 
-  public ResponseList(HrefRelation filter) {
+  ResponseList(HrefRelation filter) {
     this.filter = filter;
   }
 

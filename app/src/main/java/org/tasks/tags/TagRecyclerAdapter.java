@@ -19,7 +19,7 @@ import org.tasks.themes.ColorProvider;
 import org.tasks.themes.CustomIcons;
 import org.tasks.themes.ThemeColor;
 
-public class TagRecyclerAdapter extends RecyclerView.Adapter<TagPickerViewHolder> {
+class TagRecyclerAdapter extends RecyclerView.Adapter<TagPickerViewHolder> {
 
   private final AsyncListDiffer<TagData> differ;
   private final Context context;

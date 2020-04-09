@@ -185,7 +185,7 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
     return binding.user.getText().toString().trim();
   }
 
-  protected boolean passwordChanged() {
+  boolean passwordChanged() {
     return caldavAccount == null || !PASSWORD_MASK.equals(binding.password.getText().toString().trim());
   }
 

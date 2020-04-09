@@ -7,7 +7,7 @@ public class LocationFilters {
   @Embedded public Place place;
   public int count;
 
-  public PlaceFilter toLocationFilter() {
+  PlaceFilter toLocationFilter() {
     PlaceFilter filter = new PlaceFilter(place);
     filter.count = count;
     return filter;

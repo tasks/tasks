@@ -6,11 +6,11 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class DialogFragmentModule {
+class DialogFragmentModule {
 
   private final DialogFragment dialogFragment;
 
-  public DialogFragmentModule(DialogFragment dialogFragment) {
+  DialogFragmentModule(DialogFragment dialogFragment) {
     this.dialogFragment = dialogFragment;
   }
 

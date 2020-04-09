@@ -11,6 +11,7 @@ import org.tasks.preferences.Preferences;
 import org.tasks.time.DateTime;
 import timber.log.Timber;
 
+@SuppressWarnings({"WeakerAccess", "RedundantSuppression"})
 public class AACRecorder extends ViewModel {
 
   private MediaRecorder mediaRecorder;

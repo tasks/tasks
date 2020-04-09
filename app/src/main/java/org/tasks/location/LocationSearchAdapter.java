@@ -18,7 +18,7 @@ import com.google.common.base.Strings;
 import java.util.List;
 import org.tasks.R;
 
-public class LocationSearchAdapter extends RecyclerView.Adapter<ViewHolder>
+class LocationSearchAdapter extends RecyclerView.Adapter<ViewHolder>
     implements ListUpdateCallback {
 
   private final int attributionRes;
@@ -98,7 +98,7 @@ public class LocationSearchAdapter extends RecyclerView.Adapter<ViewHolder>
     void picked(PlaceSearchResult prediction);
   }
 
-  public static class SearchViewHolder extends RecyclerView.ViewHolder {
+  static class SearchViewHolder extends RecyclerView.ViewHolder {
     private final TextView name;
     private final TextView address;
     private PlaceSearchResult prediction;
@@ -111,7 +111,7 @@ public class LocationSearchAdapter extends RecyclerView.Adapter<ViewHolder>
       itemView.findViewById(R.id.place_icon).setVisibility(View.INVISIBLE);
     }
 
-    public void bind(PlaceSearchResult prediction) {
+    void bind(PlaceSearchResult prediction) {
       this.prediction = prediction;
       CharSequence name = prediction.getName();
       CharSequence address = prediction.getAddress();
@@ -127,7 +127,7 @@ public class LocationSearchAdapter extends RecyclerView.Adapter<ViewHolder>
     }
   }
 
-  public static class FooterViewHolder extends RecyclerView.ViewHolder {
+  static class FooterViewHolder extends RecyclerView.ViewHolder {
 
     final View divider;
 
@@ -143,7 +143,7 @@ public class LocationSearchAdapter extends RecyclerView.Adapter<ViewHolder>
     }
   }
 
-  public static class DiffCallback extends ItemCallback<PlaceSearchResult> {
+  static class DiffCallback extends ItemCallback<PlaceSearchResult> {
 
     @Override
     public boolean areItemsTheSame(

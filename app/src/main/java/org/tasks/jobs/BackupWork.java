@@ -30,9 +30,9 @@ import timber.log.Timber;
 
 public class BackupWork extends RepeatingWorker {
 
-  public static final int DAYS_TO_KEEP_BACKUP = 7;
+  static final int DAYS_TO_KEEP_BACKUP = 7;
   static final String BACKUP_FILE_NAME_REGEX = "auto\\.[-\\d]+\\.json";
-  static final Predicate<String> FILENAME_FILTER = f -> f.matches(BACKUP_FILE_NAME_REGEX);
+  private static final Predicate<String> FILENAME_FILTER = f -> f.matches(BACKUP_FILE_NAME_REGEX);
   static final FileFilter FILE_FILTER = f -> FILENAME_FILTER.apply(f.getName());
   private static final Comparator<File> BY_LAST_MODIFIED =
       (f1, f2) -> Long.compare(f2.lastModified(), f1.lastModified());
@@ -86,7 +86,7 @@ public class BackupWork extends RepeatingWorker {
     component.inject(this);
   }
 
-  void startBackup(Context context) {
+  private void startBackup(Context context) {
     try {
       deleteOldLocalBackups();
     } catch (Exception e) {

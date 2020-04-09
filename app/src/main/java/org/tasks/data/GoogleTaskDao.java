@@ -76,7 +76,7 @@ public abstract class GoogleTaskDao {
   @Update
   public abstract void update(GoogleTask googleTask);
 
-  public void update(SubsetGoogleTask googleTask) {
+  private void update(SubsetGoogleTask googleTask) {
     update(googleTask.getId(), googleTask.getParent(), googleTask.getOrder());
   }
 

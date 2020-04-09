@@ -36,7 +36,7 @@ import org.tasks.themes.CustomIcons;
 public class Place implements Serializable, Parcelable {
 
   public static final String KEY = "place";
-  public static final String TABLE_NAME = "places";
+  static final String TABLE_NAME = "places";
   public static final Table TABLE = new Table(TABLE_NAME);
 
   public static final StringProperty UID = new StringProperty(TABLE, "uid");

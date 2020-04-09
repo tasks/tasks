@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import org.tasks.data.TaskContainer;
 
-public class ItemCallback extends DiffUtil.ItemCallback<TaskContainer> {
+class ItemCallback extends DiffUtil.ItemCallback<TaskContainer> {
 
   @Override
   public boolean areItemsTheSame(@NonNull TaskContainer oldItem, @NonNull TaskContainer newItem) {
