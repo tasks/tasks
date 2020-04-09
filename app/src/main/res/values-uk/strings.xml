@@ -461,8 +461,6 @@
     <string name="refresh_purchases">Оновити покупки</string>
     <string name="button_subscribe">Підписатися</string>
     <string name="button_more_info">Більше інформації</string>
-    <string name="error_billing_unavailable">Оплата недоступна. Перевірте налаштування Google Play</string>
-    <string name="error_billing_default">Оплата недоступна. Перевірте ваш пристрій.</string>
     <string name="about">Про Tasks</string>
     <string name="license_summary">Tasks є програмою з відкритим кодом з ліцензією GNU General Public License v3.0</string>
     <string name="pro_dashclock_extension">Розширення Dashclock</string>

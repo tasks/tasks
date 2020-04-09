@@ -84,10 +84,10 @@ class PurchaseActivity : ThemedInjectingAppCompatActivity(), OnPurchasesUpdated,
     fun subscribe() {
         if (currentSubscriptionSelected() && currentSubscription?.isCanceled == true) {
             billingClient.initiatePurchaseFlow(
-                    this, currentSubscription!!.sku, SkuDetails.TYPE_SUBS, null)
+                    this, currentSubscription!!.sku, BillingClientImpl.TYPE_SUBS, null)
         } else {
             billingClient.initiatePurchaseFlow(this, String.format("%s_%02d", if (isMonthly()) "monthly" else "annual", adapter.selected),
-                    SkuDetails.TYPE_SUBS,
+                    BillingClientImpl.TYPE_SUBS,
                     currentSubscription?.sku)
         }
         billingClient.addPurchaseCallback(this)

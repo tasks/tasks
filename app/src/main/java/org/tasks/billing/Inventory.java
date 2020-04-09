@@ -1,10 +1,6 @@
 package org.tasks.billing;
 
-import static java.util.Collections.singletonList;
-
-import com.google.common.collect.ImmutableList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
 import org.tasks.BuildConfig;
@@ -17,7 +13,7 @@ import timber.log.Timber;
 @ApplicationScope
 public class Inventory {
 
-  static final String SKU_VIP = "vip";
+  private static final String SKU_VIP = "vip";
   public static final String SKU_TASKER = "tasker";
   public static final String SKU_THEMES = "themes";
 
@@ -46,10 +42,6 @@ public class Inventory {
     purchases.clear();
   }
 
-  public void add(Purchase purchase) {
-    add(singletonList(purchase));
-  }
-
   public void add(Iterable<Purchase> purchases) {
     for (Purchase purchase : purchases) {
       verifyAndAdd(purchase);
@@ -76,10 +68,6 @@ public class Inventory {
     return hasPro() || purchases.containsKey(SKU_THEMES);
   }
 
-  public List<Purchase> getPurchases() {
-    return ImmutableList.copyOf(purchases.values());
-  }
-
   public Purchase getSubscription() {
     return subscription;
   }
@@ -92,7 +80,7 @@ public class Inventory {
         || (BuildConfig.DEBUG && preferences.getBoolean(R.string.p_debug_pro, false));
   }
 
-  public boolean purchased(String sku) {
+  boolean purchased(String sku) {
     return purchases.containsKey(sku);
   }
 

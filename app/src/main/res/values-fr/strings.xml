@@ -427,9 +427,6 @@
     <string name="refresh_purchases">Rafraîchir les achats</string>
     <string name="button_subscribe">S\'abonner</string>
     <string name="button_more_info">Plus d\'info</string>
-    <string name="error_billing_unavailable">Facturation indisponible. Assurez-vous que votre application Google Play
-est configuré correctement</string>
-    <string name="error_billing_default">Achat indisponible. Veuillez vérifier votre appareil.</string>
     <string name="about">À propos</string>
     <string name="license_summary">Tasks est un logiciel libre et open-source, licencié selon le GNU General Public License v3.0</string>
     <string name="pro_dashclock_extension">Extension Dashclock</string>

@@ -1,20 +1,11 @@
 package org.tasks.billing;
 
-import static com.google.common.collect.Iterables.filter;
-import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
-import static org.tasks.billing.Inventory.SKU_TASKER;
-import static org.tasks.billing.Inventory.SKU_THEMES;
-import static org.tasks.billing.Inventory.SKU_VIP;
 
 import android.app.Activity;
 import android.content.Context;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 import com.android.billingclient.api.BillingClient.BillingResponse;
 import com.android.billingclient.api.BillingClient.FeatureType;
 import com.android.billingclient.api.BillingClient.SkuType;
@@ -23,17 +14,13 @@ import com.android.billingclient.api.BillingFlowParams.ProrationMode;
 import com.android.billingclient.api.ConsumeResponseListener;
 import com.android.billingclient.api.Purchase.PurchasesResult;
 import com.android.billingclient.api.PurchasesUpdatedListener;
-import com.android.billingclient.api.SkuDetailsParams;
 import com.google.common.base.Joiner;
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import java.util.List;
-import javax.inject.Inject;
 import org.tasks.BuildConfig;
-import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.injection.ForApplication;
 import timber.log.Timber;
@@ -41,19 +28,14 @@ import timber.log.Timber;
 @SuppressWarnings("all")
 public class BillingClientImpl implements BillingClient, PurchasesUpdatedListener {
 
-  private static final List<String> DEBUG_SKUS = ImmutableList.of(SKU_THEMES, SKU_TASKER, SKU_VIP);
+  public static final String TYPE_SUBS = SkuType.SUBS;
 
-  private final MutableLiveData<List<SkuDetails>> skuDetails = new MutableLiveData<>();
   private final Inventory inventory;
   private final Tracker tracker;
-  MutableLiveData<List<SkuDetails>> subscriptions = new MutableLiveData<>();
-  MutableLiveData<List<SkuDetails>> iaps = new MutableLiveData<>();
   private com.android.billingclient.api.BillingClient billingClient;
   private boolean connected;
-  private int billingClientResponseCode = -1;
   private OnPurchasesUpdated onPurchasesUpdated;
 
-  @Inject
   public BillingClientImpl(@ForApplication Context context, Inventory inventory, Tracker tracker) {
     this.inventory = inventory;
     this.tracker = tracker;
@@ -188,15 +170,6 @@ public class BillingClientImpl implements BillingClient, PurchasesUpdatedListene
     this.onPurchasesUpdated = onPurchasesUpdated;
   }
 
-  public void destroy() {
-    Timber.d("Destroying the manager.");
-
-    if (billingClient != null && billingClient.isReady()) {
-      billingClient.endConnection();
-      billingClient = null;
-    }
-  }
-
   private void startServiceConnection(final Runnable executeOnSuccess) {
     billingClient.startConnection(
         new com.android.billingclient.api.BillingClientStateListener() {
@@ -210,7 +183,6 @@ public class BillingClientImpl implements BillingClient, PurchasesUpdatedListene
                 executeOnSuccess.run();
               }
             }
-            billingClientResponseCode = billingResponseCode;
           }
 
           @Override
@@ -247,63 +219,6 @@ public class BillingClientImpl implements BillingClient, PurchasesUpdatedListene
   }
 
   @Override
-  public void observeSkuDetails(
-      LifecycleOwner owner,
-      Observer<List<SkuDetails>> subscriptionObserver,
-      Observer<List<SkuDetails>> iapObserver) {
-    subscriptions.observe(owner, subscriptionObserver);
-    iaps.observe(owner, iapObserver);
-  }
-
-  @Override
-  public void querySkuDetails() {
-    executeServiceRequest(this::fetchSubscription);
-  }
-
-  private void fetchSubscription() {
-    billingClient.querySkuDetailsAsync(
-        SkuDetailsParams.newBuilder().setSkusList(SkuDetails.SKU_SUBS).setType(SkuType.SUBS).build(),
-        new com.android.billingclient.api.SkuDetailsResponseListener() {
-          @Override
-          public void onSkuDetailsResponse(
-              int responseCode, List<com.android.billingclient.api.SkuDetails> skuDetailsList) {
-            if (responseCode == BillingResponse.OK) {
-              subscriptions.setValue(transform(skuDetailsList, SkuDetails::new));
-            } else {
-              Timber.e(
-                  "Query for subs failed: %s (%s)",
-                  BillingResponseToString(responseCode), responseCode);
-            }
-
-            executeServiceRequest(BillingClientImpl.this::fetchIAPs);
-          }
-        });
-  }
-
-  private void fetchIAPs() {
-    Iterable<String> purchased =
-        transform(filter(inventory.getPurchases(), Purchase::isIap), Purchase::getSku);
-    billingClient.querySkuDetailsAsync(
-        SkuDetailsParams.newBuilder()
-            .setSkusList(BuildConfig.DEBUG ? DEBUG_SKUS : newArrayList(purchased))
-            .setType(SkuType.INAPP)
-            .build(),
-        new com.android.billingclient.api.SkuDetailsResponseListener() {
-          @Override
-          public void onSkuDetailsResponse(
-              int responseCode, List<com.android.billingclient.api.SkuDetails> skuDetailsList) {
-            if (responseCode == BillingResponse.OK) {
-              iaps.setValue(transform(skuDetailsList, SkuDetails::new));
-            } else {
-              Timber.e(
-                  "Query for iaps failed: %s (%s)",
-                  BillingResponseToString(responseCode), responseCode);
-            }
-          }
-        });
-  }
-
-  @Override
   public void consume(String sku) {
     if (!BuildConfig.DEBUG) {
       throw new IllegalStateException();
@@ -321,12 +236,5 @@ public class BillingClientImpl implements BillingClient, PurchasesUpdatedListene
         () ->
             billingClient.consumeAsync(
                 inventory.getPurchase(sku).getPurchaseToken(), onConsumeListener));
-  }
-
-  @Override
-  public int getErrorMessage() {
-    return billingClientResponseCode == BillingResponse.BILLING_UNAVAILABLE
-        ? R.string.error_billing_unavailable
-        : R.string.error_billing_default;
   }
 }

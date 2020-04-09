@@ -427,7 +427,6 @@
     <string name="caldav_selection_description">Sinkronisasi yang berbasis pada standar internet publik</string>
     <string name="etesync_selection_description">Sinkronisasi dengan enkripsi ujung-ke-ujung dan bersumber terbuka</string>
     <string name="theme_wallpaper">Wallpaper</string>
-    <string name="error_billing_default">Billing tidak tersedia. Silakan periksa perangkat anda.</string>
     <string name="passwords_do_not_match">Sandi tidak sama</string>
     <string name="reenter_encryption_password">Konfirmasi sandi enkripsi</string>
     <string name="show_advanced_settings">Tampilkan pengaturan lanjutan</string>

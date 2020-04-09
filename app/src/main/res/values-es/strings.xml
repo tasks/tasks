@@ -445,8 +445,6 @@
     <string name="refresh_purchases">Actualizar los acquisiciones</string>
     <string name="button_subscribe">Suscribe</string>
     <string name="button_more_info">Más información</string>
-    <string name="error_billing_unavailable">Pago no disponible. Asegúrese de que Google Play está bien configurado</string>
-    <string name="error_billing_default">Pago no disponible. Comprueba su dispositivo.</string>
     <string name="about">Sobre</string>
     <string name="license_summary">Tasks es software libre de código abierto, licenciado bajo la GNU General Public License v3.0</string>
     <string name="pro_dashclock_extension">Extensión Dashclock</string>

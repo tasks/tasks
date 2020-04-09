@@ -428,8 +428,6 @@
     <string name="refresh_purchases">刷新购买</string>
     <string name="button_subscribe">订购</string>
     <string name="button_more_info">更多信息</string>
-    <string name="error_billing_unavailable">帐单不可用。请确保你的Google Play应用已正确设置</string>
-    <string name="error_billing_default">帐单不可用。请检查你的设备。</string>
     <string name="about">关于</string>
     <string name="license_summary">Tasks是遵循GNU通用公共许可证v3.0许可证的开源软件</string>
     <string name="pro_dashclock_extension">Dashclock扩展</string>

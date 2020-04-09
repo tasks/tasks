@@ -2,7 +2,7 @@ package org.tasks.billing;
 
 public class Purchase {
 
-  public Purchase(String json) {}
+  public Purchase(@SuppressWarnings("unused") String json) {}
 
   public String getSku() {
     return null;
@@ -24,7 +24,7 @@ public class Purchase {
     return false;
   }
 
-  public boolean isProSubscription() {
+  boolean isProSubscription() {
     return false;
   }
 }

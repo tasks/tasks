@@ -458,8 +458,6 @@
     <string name="refresh_purchases">Obnovit nákupy</string>
     <string name="button_subscribe">Odebírat</string>
     <string name="button_more_info">Více informací</string>
-    <string name="error_billing_unavailable">Platby nedostupné. Zkontrolujte, jestli aplikace Google Play funguje správně</string>
-    <string name="error_billing_default">Platby nedostupné. Prosím, zkotrojute Vaše zařízení.</string>
     <string name="about">O aplikaci</string>
     <string name="license_summary">Aplikace Tasks je svobodný software s otevřeným zdrojovým kódem licencovaný pod GNU General Public License v3.0</string>
     <string name="icon">Ikona</string>

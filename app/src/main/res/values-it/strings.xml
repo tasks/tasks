@@ -444,8 +444,6 @@
     <string name="refresh_purchases">Aggiorna acquisti</string>
     <string name="button_subscribe">Sottoscrivi</string>
     <string name="button_more_info">Più informazioni</string>
-    <string name="error_billing_unavailable">Fatturazione non disponibile. Verifica che Google Play sia impostato correttamente</string>
-    <string name="error_billing_default">Modalità addebito non disponibile. Verifica il tuo dispositivo</string>
     <string name="about">A riguardo</string>
     <string name="license_summary">Tasks è un software gratuito e open-source, rilasciato sotto licenza GNU General Public License v3.0</string>
     <string name="pro_dashclock_extension">Estensione Dashclock</string>

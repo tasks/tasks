@@ -38,10 +38,6 @@ public class Purchase {
     return purchase.getPurchaseToken();
   }
 
-  boolean isIap() {
-    return !SkuDetails.SKU_SUBS.contains(getSku());
-  }
-
   boolean isProSubscription() {
     return PATTERN.matcher(getSku()).matches();
   }

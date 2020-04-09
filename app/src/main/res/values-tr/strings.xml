@@ -448,8 +448,6 @@
     <string name="refresh_purchases">Satın alımları yenile</string>
     <string name="button_subscribe">Abone ol</string>
     <string name="button_more_info">Daha çok bilgi</string>
-    <string name="error_billing_unavailable">Faturalama kullanılamıyor. Google Play uygulamanızın doğru kurulduğundan emin olun</string>
-    <string name="error_billing_default">Faturalama kullanılabilir değil. Lütfen aygıtınızı denetleyin.</string>
     <string name="about">Hakkında</string>
     <string name="license_summary">Tasks özgür açık kaynaklı yazılımdır, GNU Genel Kamu Lisansı sürüm 3.0 altında lisanslanmıştır</string>
     <string name="pro_dashclock_extension">Dashclock eklentisi</string>
