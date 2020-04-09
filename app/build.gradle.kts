@@ -187,7 +187,7 @@ dependencies {
     implementation("com.google.api-client:google-api-client-android:1.30.9")
     implementation("com.google.auth:google-auth-library-oauth2-http:0.20.0")
     implementation("androidx.work:work-runtime:${Versions.work}")
-    implementation("com.mapbox.mapboxsdk:mapbox-android-sdk:9.0.1")
+    implementation("com.mapbox.mapboxsdk:mapbox-android-sdk:9.1.0")
     implementation("com.mapbox.mapboxsdk:mapbox-sdk-services:5.1.0")
     implementation("com.etesync:journalmanager:1.1.0")
     implementation("com.github.QuadFlask:colorpicker:0.0.15")
