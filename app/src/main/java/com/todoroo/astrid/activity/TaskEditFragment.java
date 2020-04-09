@@ -91,7 +91,6 @@ public final class TaskEditFragment extends InjectingFragment
   @Inject Linkify linkify;
 
   Task model = null;
-  private ThemeColor themeColor;
   private TaskEditFragmentCallbackHandler callback;
   private boolean showKeyboard;
   private FragmentTaskEditBinding binding;
@@ -133,7 +132,7 @@ public final class TaskEditFragment extends InjectingFragment
 
     Bundle arguments = getArguments();
     model = arguments.getParcelable(EXTRA_TASK);
-    themeColor = arguments.getParcelable(EXTRA_THEME);
+    ThemeColor themeColor = arguments.getParcelable(EXTRA_THEME);
 
     Toolbar toolbar = binding.toolbar;
     toolbar.setNavigationIcon(ContextCompat.getDrawable(context, R.drawable.ic_outline_save_24px));
@@ -221,7 +220,7 @@ public final class TaskEditFragment extends InjectingFragment
 
     FragmentManager fragmentManager = getChildFragmentManager();
     List<TaskEditControlFragment> taskEditControlFragments =
-        taskEditControlSetFragmentManager.getOrCreateFragments(this, model, themeColor);
+        taskEditControlSetFragmentManager.getOrCreateFragments(this, model);
 
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
     for (int i = 0; i < taskEditControlFragments.size(); i++) {
