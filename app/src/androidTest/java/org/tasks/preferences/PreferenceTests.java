@@ -2,7 +2,7 @@ package org.tasks.preferences;
 
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 import static junit.framework.Assert.assertEquals;
-import static org.tasks.injection.TestModule.newPreferences;
+import static org.tasks.TestUtilities.newPreferences;
 
 import android.annotation.SuppressLint;
 import androidx.test.ext.junit.runners.AndroidJUnit4;

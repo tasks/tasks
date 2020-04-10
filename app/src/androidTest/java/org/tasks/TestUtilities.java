@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import org.tasks.caldav.CaldavConverter;
+import org.tasks.preferences.Preferences;
 
 public class TestUtilities {
 
@@ -21,6 +22,10 @@ public class TestUtilities {
       System.setProperty("dexmaker.dexcache", context.getCacheDir().toString());
       mockitoInitialized = true;
     }
+  }
+
+  public static Preferences newPreferences(Context context) {
+    return new Preferences(context, "test_preferences");
   }
 
   public static Task vtodo(String path) {

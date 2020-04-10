@@ -1,6 +1,6 @@
 package org.tasks.caldav;
 
-import static org.tasks.injection.TestModule.newPreferences;
+import static org.tasks.TestUtilities.newPreferences;
 
 import android.content.Context;
 import androidx.test.core.app.ApplicationProvider;
