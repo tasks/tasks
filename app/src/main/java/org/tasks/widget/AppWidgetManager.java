@@ -19,9 +19,7 @@ public class AppWidgetManager {
   }
 
   public void updateWidgets() {
-    int[] widgetIds =
-        appWidgetManager.getAppWidgetIds(new ComponentName(context, TasksWidget.class));
-    appWidgetManager.notifyAppWidgetViewDataChanged(widgetIds, R.id.list_view);
+    appWidgetManager.notifyAppWidgetViewDataChanged(getWidgetIds(), R.id.list_view);
   }
 
   public void reconfigureWidget(int appWidgetId) {
@@ -30,5 +28,9 @@ public class AppWidgetManager {
     intent.putExtra(android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[] { appWidgetId });
     context.sendBroadcast(intent);
     updateWidgets();
+  }
+
+  public int[] getWidgetIds() {
+    return appWidgetManager.getAppWidgetIds(new ComponentName(context, TasksWidget.class));
   }
 }

@@ -33,6 +33,11 @@
     app:title="@string/backup_BPr_header" />
 
   <Preference
+    app:fragment="org.tasks.preferences.fragments.Widgets"
+    app:icon="@drawable/ic_widgets_24px"
+    app:title="@string/widget_settings" />
+
+  <Preference
     app:fragment="org.tasks.preferences.fragments.Advanced"
     app:icon="@drawable/ic_outline_build_24px"
     app:title="@string/preferences_advanced" />

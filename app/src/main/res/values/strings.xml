@@ -581,4 +581,5 @@ File %1$s contained %2$s.\n\n
   <string name="select_all">Select all</string>
   <string name="share">Share</string>
   <string name="hide_check_button">Hide check button</string>
+  <string name="widget_id">Widget ID: %s</string>
 </resources>

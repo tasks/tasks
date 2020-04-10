@@ -23,6 +23,7 @@ import org.tasks.preferences.fragments.ScrollableWidget;
 import org.tasks.preferences.fragments.Synchronization;
 import org.tasks.preferences.fragments.TaskDefaults;
 import org.tasks.preferences.fragments.TaskerListNotification;
+import org.tasks.preferences.fragments.Widgets;
 import org.tasks.ui.CalendarControlSet;
 import org.tasks.ui.DeadlineControlSet;
 import org.tasks.ui.DescriptionControlSet;
@@ -100,4 +101,6 @@ public interface FragmentComponent {
   void inject(EmptyTaskEditFragment emptyTaskEditFragment);
 
   void inject(NavigationDrawer navigationDrawer);
+
+  void inject(Widgets widgets);
 }
