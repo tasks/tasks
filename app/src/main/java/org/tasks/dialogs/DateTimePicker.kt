@@ -3,6 +3,7 @@ package org.tasks.dialogs
 import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.app.Dialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
@@ -100,7 +101,7 @@ class DateTimePicker : InjectingBottomSheetDialogFragment() {
                 binding.calendarView.firstDayOfWeek = firstDayOfWeek
             }
         }
-        val timestamp = savedInstanceState?.getLong(EXTRA_SELECTED, -1)
+        val timestamp = savedInstanceState?.getLong(EXTRA_SELECTED)
                 ?: arguments!!.getLong(EXTRA_TIMESTAMP)
         selected = if (timestamp > 0) DateTime(timestamp) else null
 
@@ -225,6 +226,8 @@ class DateTimePicker : InjectingBottomSheetDialogFragment() {
         targetFragment?.onActivityResult(targetRequestCode, RESULT_OK, intent)
         dismiss()
     }
+
+    override fun onCancel(dialog: DialogInterface) = sendSelected()
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
