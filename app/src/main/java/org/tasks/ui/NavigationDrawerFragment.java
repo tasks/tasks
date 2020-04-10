@@ -125,7 +125,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
           }
         });
     if (item instanceof Filter) {
-      new ViewModelProvider(this).get(TaskListViewModel.class).setFilter((Filter) item);
+      new ViewModelProvider(getActivity()).get(TaskListViewModel.class).setFilter((Filter) item);
     }
     close();
   }
