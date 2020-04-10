@@ -1,6 +1,15 @@
 Change Log
 ---
 =======
+### 8.9.2 (2020-04-10)
+
+* Fix 'Add reminder' layout issues
+* Fix move between EteSync lists
+* Accept date time changes when dismissing dialog
+* Improve date time picker behavior in landscape mode
+* Update translations
+  * Basque - @osoitz
+
 ### 8.9.1 (2020-04-08)
 
 * Add option to always hide check button

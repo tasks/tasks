@@ -1,0 +1,7 @@
+* Fix 'Add reminder' layout issues
+* Fix move between EteSync lists
+* Accept date time changes when dismissing dialog
+* Improve date time picker behavior in landscape mode
+* Update translations
+
+Full release notes: https://tasks.org/changelog
