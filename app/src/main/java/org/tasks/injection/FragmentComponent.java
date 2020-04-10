@@ -1,6 +1,5 @@
 package org.tasks.injection;
 
-import androidx.annotation.NonNull;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.files.FilesControlSet;
@@ -74,29 +73,29 @@ public interface FragmentComponent {
 
   void inject(TaskListViewModel taskListViewModel);
 
-  void inject(@NonNull HelpAndFeedback helpAndFeedback);
+  void inject(HelpAndFeedback helpAndFeedback);
 
-  void inject(@NonNull LookAndFeel lookAndFeel);
+  void inject(LookAndFeel lookAndFeel);
 
-  void inject(@NonNull Synchronization synchronization);
+  void inject(Synchronization synchronization);
 
-  void inject(@NonNull Debug debug);
+  void inject(Debug debug);
 
-  void inject(@NonNull MainSettingsFragment mainSettingsFragment);
+  void inject(MainSettingsFragment mainSettingsFragment);
 
-  void inject(@NonNull Backups backups);
+  void inject(Backups backups);
 
-  void inject(@NonNull Advanced advanced);
+  void inject(Advanced advanced);
 
-  void inject(@NonNull Notifications notifications);
+  void inject(Notifications notifications);
 
-  void inject(@NonNull TaskDefaults taskDefaults);
+  void inject(TaskDefaults taskDefaults);
 
-  void inject(@NonNull ScrollableWidget scrollableWidget);
+  void inject(ScrollableWidget scrollableWidget);
 
-  void inject(@NonNull DashClock dashClock);
+  void inject(DashClock dashClock);
 
-  void inject(@NonNull TaskerListNotification taskerListNotification);
+  void inject(TaskerListNotification taskerListNotification);
 
   void inject(EmptyTaskEditFragment emptyTaskEditFragment);
 
