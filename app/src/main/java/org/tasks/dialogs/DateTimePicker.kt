@@ -5,6 +5,7 @@ import android.app.Activity.RESULT_OK
 import android.app.Dialog
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -15,6 +16,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import butterknife.ButterKnife
 import butterknife.OnClick
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow
@@ -236,40 +238,48 @@ class DateTimePicker : InjectingBottomSheetDialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val bottomSheetDialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
-
-        if (closeAutomatically()) {
-            return bottomSheetDialog
-        }
-
-        bottomSheetDialog.setOnShowListener {
-            val coordinator = (it as BottomSheetDialog)
-                    .findViewById<CoordinatorLayout>(com.google.android.material.R.id.coordinator)
-            val containerLayout =
-                    it.findViewById<FrameLayout>(com.google.android.material.R.id.container)
-            val buttons = bottomSheetDialog.layoutInflater.inflate(R.layout.dialog_date_time_picker_buttons, null)
-            buttons.findViewById<View>(R.id.cancel_button).setOnClickListener { dismiss() }
-            buttons.findViewById<View>(R.id.ok_button).setOnClickListener { sendSelected() }
-            buttons.layoutParams = FrameLayout.LayoutParams(
-                    FrameLayout.LayoutParams.MATCH_PARENT,
-                    FrameLayout.LayoutParams.WRAP_CONTENT, Gravity.BOTTOM
-            ).apply {
-                gravity = Gravity.BOTTOM
+        val dialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
+        dialog.setOnShowListener {
+            if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                dialog.behavior.halfExpandedRatio = .75f
+                val bottomSheet = dialog.findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)
+                BottomSheetBehavior.from(bottomSheet!!).state = BottomSheetBehavior.STATE_HALF_EXPANDED
+                dialog.behavior.peekHeight = bottomSheet.height
             }
-            containerLayout!!.addView(buttons)
 
-            buttons.post {
-                (coordinator!!.layoutParams as ViewGroup.MarginLayoutParams).apply {
-                    buttons.measure(
-                            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
-                            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
-                    )
-                    this.bottomMargin = buttons.measuredHeight
-                    containerLayout.requestLayout()
-                }
+            if (!closeAutomatically()) {
+                addButtons(dialog)
             }
         }
-        return bottomSheetDialog
+        return dialog
+    }
+
+    private fun addButtons(dialog: BottomSheetDialog) {
+        val coordinator = dialog
+                .findViewById<CoordinatorLayout>(com.google.android.material.R.id.coordinator)
+        val containerLayout =
+                dialog.findViewById<FrameLayout>(com.google.android.material.R.id.container)
+        val buttons = dialog.layoutInflater.inflate(R.layout.dialog_date_time_picker_buttons, null)
+        buttons.findViewById<View>(R.id.cancel_button).setOnClickListener { dismiss() }
+        buttons.findViewById<View>(R.id.ok_button).setOnClickListener { sendSelected() }
+        buttons.layoutParams = FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT, Gravity.BOTTOM
+        ).apply {
+            gravity = Gravity.BOTTOM
+        }
+        containerLayout!!.addView(buttons)
+
+        buttons.post {
+            (coordinator!!.layoutParams as ViewGroup.MarginLayoutParams).apply {
+                buttons.measure(
+                        View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                        View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+                )
+                this.bottomMargin = buttons.measuredHeight
+                containerLayout.requestLayout()
+            }
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
