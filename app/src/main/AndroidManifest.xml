@@ -151,6 +151,7 @@
     <activity
       android:exported="true"
       android:name=".activities.FilterSelectionActivity"
+      android:taskAffinity=""
       android:theme="@style/TranslucentDialog"/>
 
     <activity

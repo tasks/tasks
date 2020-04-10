@@ -21,6 +21,7 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import javax.inject.Inject;
 import org.tasks.R;
+import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.injection.BroadcastComponent;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingAppWidgetProvider;
@@ -82,6 +83,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
       remoteViews.setInt(R.id.widget_title, "setTextColor", color.getColorOnPrimary());
       remoteViews.setInt(R.id.widget_button, "setColorFilter", color.getColorOnPrimary());
       remoteViews.setInt(R.id.widget_reconfigure, "setColorFilter", color.getColorOnPrimary());
+      remoteViews.setInt(R.id.widget_change_list, "setColorFilter", color.getColorOnPrimary());
     } else {
       remoteViews.setViewVisibility(R.id.widget_header, View.GONE);
     }
@@ -101,6 +103,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
     remoteViews.setEmptyView(R.id.list_view, R.id.empty_view);
     remoteViews.setOnClickPendingIntent(R.id.widget_title, getOpenListIntent(context, filter, id));
     remoteViews.setOnClickPendingIntent(R.id.widget_button, getNewTaskIntent(context, filter, id));
+    remoteViews.setOnClickPendingIntent(R.id.widget_change_list, getChooseListIntent(context, filter, id));
     remoteViews.setOnClickPendingIntent(
         R.id.widget_reconfigure, getWidgetConfigIntent(context, id));
     remoteViews.setPendingIntentTemplate(R.id.list_view, getPendingIntentTemplate(context));
@@ -128,7 +131,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
     Intent intent = TaskIntents.getTaskListIntent(context, filter);
     intent.setFlags(flags);
     intent.setAction("open_list");
-    return PendingIntent.getActivity(context, widgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+    return PendingIntent.getActivity(context, widgetId, intent, PendingIntent.FLAG_CANCEL_CURRENT);
   }
 
   private PendingIntent getNewTaskIntent(Context context, Filter filter, int widgetId) {
@@ -145,5 +148,14 @@ public class TasksWidget extends InjectingAppWidgetProvider {
     intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
     intent.setAction("widget_settings");
     return PendingIntent.getActivity(context, widgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+  }
+
+  private PendingIntent getChooseListIntent(Context context, Filter filter, int widgetId) {
+    Intent intent = new Intent(context, FilterSelectionActivity.class);
+    intent.setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TASK);
+    intent.putExtra(FilterSelectionActivity.EXTRA_FILTER, filter);
+    intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
+    intent.setAction("choose_list");
+    return PendingIntent.getActivity(context, widgetId, intent, PendingIntent.FLAG_CANCEL_CURRENT);
   }
 }

@@ -130,12 +130,7 @@ class ScrollableWidget : InjectingPreferenceFragment() {
     override fun onPause() {
         super.onPause()
 
-        localBroadcastManager.broadcastRefresh()
-        // force update after setting preferences
-        val intent = Intent(context, TasksWidget::class.java)
-        intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
-        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, intArrayOf(appWidgetId))
-        activity!!.sendBroadcast(intent)
+        localBroadcastManager.reconfigureWidget(appWidgetId)
     }
 
     private fun updateTheme() {

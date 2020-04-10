@@ -1,5 +1,6 @@
 package org.tasks.activities;
 
+import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +17,11 @@ import org.tasks.LocalBroadcastManager;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.filters.FilterProvider;
 import org.tasks.injection.ActivityComponent;
+import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingAppCompatActivity;
+import org.tasks.preferences.DefaultFilterProvider;
+import org.tasks.preferences.Preferences;
+import org.tasks.widget.WidgetPreferences;
 
 public class FilterSelectionActivity extends InjectingAppCompatActivity {
 
@@ -26,10 +31,13 @@ public class FilterSelectionActivity extends InjectingAppCompatActivity {
   private static final String EXTRA_FILTER_SQL = "extra_filter_query";
   private static final String EXTRA_FILTER_VALUES = "extra_filter_values";
 
+  @Inject @ForApplication Context context;
   @Inject DialogBuilder dialogBuilder;
   @Inject FilterAdapter filterAdapter;
   @Inject FilterProvider filterProvider;
   @Inject LocalBroadcastManager localBroadcastManager;
+  @Inject Preferences preferences;
+  @Inject DefaultFilterProvider defaultFilterProvider;
 
   private CompositeDisposable disposables;
   private Filter selected;
@@ -46,6 +54,7 @@ public class FilterSelectionActivity extends InjectingAppCompatActivity {
 
     Intent intent = getIntent();
     boolean returnFilter = intent.getBooleanExtra(EXTRA_RETURN_FILTER, false);
+    int widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, -1);
     selected = intent.getParcelableExtra(EXTRA_FILTER);
 
     if (savedInstanceState != null) {
@@ -62,6 +71,11 @@ public class FilterSelectionActivity extends InjectingAppCompatActivity {
               Intent data = new Intent();
               if (returnFilter) {
                 data.putExtra(EXTRA_FILTER, selectedFilter);
+              }
+              if (widgetId != -1) {
+                new WidgetPreferences(context, preferences, widgetId)
+                    .setFilter(defaultFilterProvider.getFilterPreferenceValue(selectedFilter));
+                localBroadcastManager.reconfigureWidget(widgetId);
               }
               data.putExtra(EXTRA_FILTER_NAME, selectedFilter.listingTitle);
               data.putExtra(EXTRA_FILTER_SQL, selectedFilter.getSqlQuery());

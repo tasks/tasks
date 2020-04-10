@@ -75,4 +75,8 @@ public class LocalBroadcastManager {
   public void broadcastPurchasesUpdated() {
     localBroadcastManager.sendBroadcast(new Intent(REFRESH_PURCHASES));
   }
+
+  public void reconfigureWidget(int appWidgetId) {
+    appWidgetManager.reconfigureWidget(appWidgetId);
+  }
 }
