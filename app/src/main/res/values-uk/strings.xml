@@ -519,9 +519,9 @@
     <string name="theme_system_default">За системними налаштуваннями</string>
     <string name="no_application_found_link">Не знайдено програми, щоб відкрити посилання</string>
     <plurals name="subtask_count">
-        <item quantity="one">%d підзавдання</item>
-        <item quantity="few">%d підзавдання</item>
-        <item quantity="many">%d підзавдань</item>
+        <item quantity="one">%d підзадача</item>
+        <item quantity="few">%d підзадачі</item>
+        <item quantity="many">%d підзадач</item>
     </plurals>
     <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="button_restore_subscription">Відновити підписку</string>
