@@ -307,7 +307,7 @@
     <string name="yest">Вчера</string>
     <string name="sync_SPr_interval_title">Фоновая синхронизация</string>
     <string name="widget_show_due_date">Показать даты</string>
-    <string name="widget_show_checkboxes">Показать флажки</string>
+    <string name="widget_show_checkboxes">Показать кнопки для галочек</string>
     <string name="widget_show_header">Показать заголовок</string>
     <string name="widget_show_settings">Показать настройки</string>
     <string name="notifications">Уведомления</string>
@@ -591,4 +591,10 @@
     <string name="place_settings">Настройки места</string>
     <string name="places">Места</string>
     <string name="menu_discard_changes">Отменить изменения</string>
+    <string name="hide_check_button">Скрыть кнопку для галочки</string>
+    <string name="share">Поделиться</string>
+    <string name="select_all">Выбрать всё</string>
+    <string name="calendar_event_created">В календаре создано событие для %s</string>
+    <string name="auto_dismiss_datetime_summary">Закрывать выбор даты и времени после назначения даты или времени</string>
+    <string name="auto_dismiss_datetime">Автоматически закрывать выбор даты и времени</string>
 </resources>
