@@ -135,7 +135,7 @@
     <string name="CFC_dueBefore_name">Кінцевий термін…</string>
     <string name="no_due_date">Немає терміну виконання</string>
     <string name="next_month">Наступного місяця</string>
-    <string name="CFC_importance_text">Пріоритет щонайменше?</string>
+    <string name="CFC_importance_text">Пріоритет щонайменше \?</string>
     <string name="CFC_importance_name">Пріоритет…</string>
     <string name="CFC_tag_text">Тег: ?</string>
     <string name="CFC_tag_name">Тег…</string>
@@ -275,7 +275,7 @@
     <string name="repeat_number_of_times">Повторити кількість разів</string>
     <string name="repeat_occurs">Станеться</string>
     <string name="repeat_snackbar">%1$s перенесено на %2$s</string>
-    <string name="new_tag">Створити новий ярлик</string>
+    <string name="new_tag">Створити новий тег</string>
     <string name="new_list">Новий список</string>
     <string name="tag_FEx_untagged">Без категорії</string>
     <string name="delete_tag_confirmation">Видалити %s?</string>
@@ -304,7 +304,7 @@
     <string name="yest">Вчр</string>
     <string name="sync_SPr_interval_title">Фонова синхронізація</string>
     <string name="widget_show_due_date">Показувати дату виконання</string>
-    <string name="widget_show_checkboxes">Показати галочки</string>
+    <string name="widget_show_checkboxes">Показати кнопки для галочок</string>
     <string name="widget_show_header">Показати заголовок</string>
     <string name="widget_show_settings">Показати налаштування</string>
     <string name="notifications">Сповіщення</string>
@@ -312,8 +312,8 @@
     <string name="sound">Звук</string>
     <string name="vibrations">Вібрації</string>
     <string name="quiet_hours">Тихі години</string>
-    <string name="attachment_directory">Папка вкладень</string>
-    <string name="backup_directory">Папка резервної копії</string>
+    <string name="attachment_directory">Папка з прикріпленими файлами</string>
+    <string name="backup_directory">Папка з резервними копіями</string>
     <string name="google_drive_backup">Скопіювати в Google Drive</string>
     <string name="miscellaneous">Різне</string>
     <string name="synchronization">Синхронізація</string>
@@ -361,7 +361,7 @@
     <string name="show_hidden">Показати приховані</string>
     <string name="show_completed">Показати завершені</string>
     <string name="reverse">Реверс</string>
-    <string name="no_application_found">Не знайдено програми для відкриття вкладення</string>
+    <string name="no_application_found">Не знайдено програми для відкриття прикріпленого файлу</string>
     <string name="add_attachment">Додати вкладення</string>
     <string name="take_a_picture">Зробити фото</string>
     <string name="pick_from_gallery">Обрати з галереї</string>
@@ -439,7 +439,7 @@
     <string name="repeats_plural_on_number_of_times">Повторювати що %1$s по %2$s, станеться %3$d %4$s</string>
     <string name="dont_add_to_calendar">Не додавати до календаря</string>
     <string name="default_calendar">Типовий календар</string>
-    <string name="badges_description">Відображати кількість завдань на піктограмі запуску Tasks. Не всі системи підтримують бейджі.</string>
+    <string name="badges_description">Відображати кількість задач на іконці запуску Tasks. Не всі лаунчери підтримують такі значки.</string>
     <string name="bundle_notifications_summary">Згрупувати декілька сповіщень в одне</string>
     <string name="repeat_monthly_same_day_each_month">того ж дня щомісяця</string>
     <string name="dont_sync">Не синхронізувати</string>
@@ -454,7 +454,7 @@
     <string name="tasker_list_notification">Список повідомлень</string>
     <string name="help">Допомога</string>
     <string name="caldav_home_set_not_found">Домашній список не знайдено</string>
-    <string name="network_error">З\'єднання не вдалося</string>
+    <string name="network_error">Не вдалося з’єднатися</string>
     <string name="background_sync_unmetered_only">Лише при з\'єднанні без обліку трафіка</string>
     <string name="upgrade_to_pro">Покращити до Преміум</string>
     <string name="manage_subscription">Управління підписками</string>
@@ -462,7 +462,7 @@
     <string name="button_subscribe">Підписатися</string>
     <string name="button_more_info">Більше інформації</string>
     <string name="about">Про Tasks</string>
-    <string name="license_summary">Tasks є програмою з відкритим кодом з ліцензією GNU General Public License v3.0</string>
+    <string name="license_summary">Tasks — це програма з відкритим кодом, ліцензованим GNU General Public License v3.0</string>
     <string name="pro_dashclock_extension">Розширення Dashclock</string>
     <string name="requires_pro_subscription">Потребує преміум підписки</string>
     <string name="logout">Вийти</string>
@@ -593,4 +593,5 @@
     <string name="disable_battery_optimizations">Відключити оптимізацію енергоспоживання</string>
     <string name="notification_troubleshooting_summary">Натисніть тут, якщо маєте проблеми з повідомленнями</string>
     <string name="troubleshooting">Вирішення проблем</string>
+    <string name="hide_check_button">Сховати кнопку для галочки</string>
 </resources>
