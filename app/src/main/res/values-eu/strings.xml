@@ -372,7 +372,7 @@
     <string name="default_sync">Lehenetsitako sinkronizazioa</string>
     <string name="filter">Iragazkia</string>
     <string name="opacity">Opakutasuna</string>
-    <string name="theme">Gaia</string>
+    <string name="theme">Azala</string>
     <string name="color">Kolorea</string>
     <string name="accent">Azentua</string>
     <string name="launcher_icon">Abiarazlearen ikonoa</string>
@@ -560,8 +560,8 @@
     <string name="chips">Txipak</string>
     <string name="chip_appearance">Txip itxura</string>
     <string name="desaturate_colors">Desasetu koloreak</string>
-    <string name="desaturate_colors_summary_on">Koloreak desasetuko dira gai ilunetan</string>
-    <string name="desaturate_colors_summary_off">Koloreak ez dira desasetuko gai ilunetan</string>
+    <string name="desaturate_colors_summary_on">Koloreak desasetuko dira azal ilunetan</string>
+    <string name="desaturate_colors_summary_off">Koloreak ez dira desasetuko azal ilunetan</string>
     <string name="places">Tokiak</string>
     <string name="place_settings">Toki-ezarpenak</string>
     <string name="navigation_drawer">Nabigazio tiradera</string>
