@@ -169,19 +169,21 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
       editIntent.putExtra(WidgetClickActivity.EXTRA_TASK, task);
       row.setOnClickFillInIntent(R.id.widget_row, editIntent);
 
-      int widgetPadding = (int) context.getResources().getDimension(R.dimen.widget_padding);
-      int textBottomPadding = showDueDates && task.hasDueDate() ? 0 : widgetPadding;
+      int horizontalPadding = (int) context.getResources().getDimension(R.dimen.widget_padding);
+      int verticalPadding = widgetPreferences.getWidgetSpacing();
+      int textBottomPadding = showDueDates && task.hasDueDate() ? 0 : verticalPadding;
+      row.setViewPadding(R.id.widget_complete_box, horizontalPadding, verticalPadding, horizontalPadding, verticalPadding);
       if (showCheckboxes) {
         row.setViewVisibility(R.id.widget_complete_box, View.VISIBLE);
         Intent completeIntent = new Intent(WidgetClickActivity.COMPLETE_TASK);
         completeIntent.putExtra(WidgetClickActivity.EXTRA_TASK, task);
         row.setOnClickFillInIntent(R.id.widget_complete_box, completeIntent);
-        row.setViewPadding(R.id.widget_text, 0, widgetPadding, widgetPadding, textBottomPadding);
-        row.setViewPadding(R.id.widget_due_date, 0, 0, widgetPadding, widgetPadding);
+        row.setViewPadding(R.id.widget_text, 0, verticalPadding, horizontalPadding, textBottomPadding);
+        row.setViewPadding(R.id.widget_due_date, 0, 0, horizontalPadding, verticalPadding);
       } else {
         row.setViewVisibility(R.id.widget_complete_box, View.GONE);
-        row.setViewPadding(R.id.widget_text, widgetPadding, widgetPadding, widgetPadding, textBottomPadding);
-        row.setViewPadding(R.id.widget_due_date, widgetPadding, 0, widgetPadding, widgetPadding);
+        row.setViewPadding(R.id.widget_text, horizontalPadding, verticalPadding, horizontalPadding, textBottomPadding);
+        row.setViewPadding(R.id.widget_due_date, horizontalPadding, 0, horizontalPadding, verticalPadding);
       }
 
       int dividerColor = ContextCompat.getColor(context, widgetPreferences.getThemeIndex() == 0 ? R.color.black_12 : R.color.white_12);

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.appwidget.AppWidgetManager
 import android.content.Intent
 import android.os.Bundle
+import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreferenceCompat
@@ -63,6 +64,7 @@ class ScrollableWidget : InjectingPreferenceFragment() {
         setupSlider(R.string.p_widget_font_size, 16)
         setupCheckbox(R.string.p_widget_show_due_date)
         setupCheckbox(R.string.p_widget_show_checkboxes)
+        setupList(R.string.p_widget_spacing)
         val showHeader = setupCheckbox(R.string.p_widget_show_header)
         val showSettings = setupCheckbox(R.string.p_widget_show_settings)
         showSettings.dependency = showHeader.key
@@ -164,6 +166,14 @@ class ScrollableWidget : InjectingPreferenceFragment() {
         val key = getString(resId) + appWidgetId
         preference.key = key
         preference.isChecked = preferences.getBoolean(key, true)
+        return preference
+    }
+
+    private fun setupList(resId: Int): ListPreference {
+        val preference = findPreference(resId) as ListPreference
+        val key = getString(resId) + appWidgetId
+        preference.key = key
+        preference.value = preferences.getStringValue(key) ?: "0"
         return preference
     }
 

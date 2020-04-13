@@ -247,8 +247,11 @@ public class Preferences {
   }
 
   public int getIntegerFromString(int keyResource, int defaultValue) {
-    Resources r = context.getResources();
-    String value = prefs.getString(r.getString(keyResource), null);
+    return getIntegerFromString(context.getString(keyResource), defaultValue);
+  }
+
+  public int getIntegerFromString(String keyResource, int defaultValue) {
+    String value = prefs.getString(keyResource, null);
     if (value == null) {
       return defaultValue;
     }

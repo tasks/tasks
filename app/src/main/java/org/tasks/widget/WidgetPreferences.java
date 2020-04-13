@@ -38,6 +38,15 @@ public class WidgetPreferences {
     return preferences.getBoolean(getKey(R.string.p_widget_show_menu), true);
   }
 
+  int getWidgetSpacing() {
+    int spacing = preferences.getIntegerFromString(getKey(R.string.p_widget_spacing), 0);
+    if (spacing == 2) {
+      return 0;
+    }
+    int dimen = spacing == 1 ? R.dimen.widget_padding_compact : R.dimen.widget_padding;
+    return (int) context.getResources().getDimension(dimen);
+  }
+
   int getFontSize() {
     return preferences.getInt(getKey(R.string.p_widget_font_size), 16);
   }

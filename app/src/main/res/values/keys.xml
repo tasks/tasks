@@ -110,6 +110,18 @@
     <item>3</item>
   </string-array>
 
+  <string-array name="widget_spacing_titles">
+    <item>@string/settings_default</item>
+    <item>@string/compact</item>
+    <item>@string/none</item>
+  </string-array>
+
+  <string-array name="widget_spacing_values">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+  </string-array>
+
   <string-array name="EPr_default_urgency_values">
     <!-- urgency: labels that map EPr_default_urgency items to index in TEA_urgency. -->
     <item>0</item>
@@ -261,6 +273,7 @@
   <string name="p_widget_show_header">widget-show-header-</string>
   <string name="p_widget_show_settings">widget-show-settings-</string>
   <string name="p_widget_show_menu">widget-show-menu-</string>
+  <string name="p_widget_spacing">widget-spacing-</string>
   <string name="p_dashclock_filter">dashclock_filter</string>
   <string name="p_default_remote_list">default_remote_list</string>
 
