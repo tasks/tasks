@@ -44,7 +44,7 @@
     android:paddingEnd="@dimen/widget_padding"
     android:paddingStart="0dp"
     android:gravity="start|center_vertical"
-    android:singleLine="true"
+    android:maxLines="1"
     android:textAlignment="viewStart"
     android:textSize="16sp"
     tools:text="Task title"/>

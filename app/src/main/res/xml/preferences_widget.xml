@@ -50,6 +50,11 @@
       app:showSeekBarValue="true" />
 
     <SwitchPreferenceCompat
+      android:defaultValue="false"
+      android:key="@string/p_widget_show_full_task_title"
+      android:title="@string/EPr_fullTask_title" />
+
+    <SwitchPreferenceCompat
       android:key="@string/p_widget_show_due_date"
       android:title="@string/widget_show_due_date" />
 

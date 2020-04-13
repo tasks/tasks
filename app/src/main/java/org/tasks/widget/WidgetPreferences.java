@@ -38,6 +38,10 @@ public class WidgetPreferences {
     return preferences.getBoolean(getKey(R.string.p_widget_show_menu), true);
   }
 
+  boolean showFullTaskTitle() {
+    return preferences.getBoolean(getKey(R.string.p_widget_show_full_task_title), false);
+  }
+
   boolean dueDateBelowTitle() {
     return preferences.getBoolean(getKey(R.string.p_widget_due_date_underneath), false);
   }

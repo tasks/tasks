@@ -160,6 +160,11 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         }
       }
 
+      row.setInt(
+          R.id.widget_text,
+          "setMaxLines",
+          widgetPreferences.showFullTaskTitle() ? Integer.MAX_VALUE : 1);
+
       row.setTextViewText(R.id.widget_text, textContent);
       row.setTextColor(R.id.widget_text, textColorTitle);
       row.setImageViewBitmap(R.id.widget_complete_box, getCheckbox(task));
@@ -171,7 +176,10 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
       int horizontalPadding = (int) context.getResources().getDimension(R.dimen.widget_padding);
       int verticalPadding = widgetPreferences.getWidgetSpacing();
-      int textBottomPadding = showDueDates && task.hasDueDate() ? 0 : verticalPadding;
+      int textBottomPadding =
+          showDueDates && task.hasDueDate() && widgetPreferences.dueDateBelowTitle()
+              ? 0
+              : verticalPadding;
       row.setViewPadding(R.id.widget_complete_box, horizontalPadding, verticalPadding, horizontalPadding, verticalPadding);
       if (showCheckboxes) {
         row.setViewVisibility(R.id.widget_complete_box, View.VISIBLE);
