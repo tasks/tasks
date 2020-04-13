@@ -165,6 +165,20 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
           "setMaxLines",
           widgetPreferences.showFullTaskTitle() ? Integer.MAX_VALUE : 1);
 
+      boolean showDescription = task.hasNotes() && widgetPreferences.showDescription();
+
+      if (showDescription) {
+        row.setTextViewText(R.id.widget_description, task.getNotes());
+        row.setViewVisibility(R.id.widget_description, View.VISIBLE);
+        row.setTextColor(R.id.widget_description, textColorSecondary);
+        row.setInt(
+            R.id.widget_description,
+            "setMaxLines",
+            widgetPreferences.showFullDescription() ? Integer.MAX_VALUE : 2);
+      } else {
+        row.setViewVisibility(R.id.widget_description, View.GONE);
+      }
+
       row.setTextViewText(R.id.widget_text, textContent);
       row.setTextColor(R.id.widget_text, textColorTitle);
       row.setImageViewBitmap(R.id.widget_complete_box, getCheckbox(task));
@@ -186,12 +200,14 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         Intent completeIntent = new Intent(WidgetClickActivity.COMPLETE_TASK);
         completeIntent.putExtra(WidgetClickActivity.EXTRA_TASK, task);
         row.setOnClickFillInIntent(R.id.widget_complete_box, completeIntent);
-        row.setViewPadding(R.id.widget_text, 0, verticalPadding, horizontalPadding, textBottomPadding);
+        row.setViewPadding(R.id.widget_text, 0, verticalPadding, horizontalPadding, showDescription ? 0 : textBottomPadding);
         row.setViewPadding(R.id.widget_due_bottom, 0, 0, horizontalPadding, verticalPadding);
+        row.setViewPadding(R.id.widget_description, 0, 0, horizontalPadding, textBottomPadding);
       } else {
         row.setViewVisibility(R.id.widget_complete_box, View.GONE);
-        row.setViewPadding(R.id.widget_text, horizontalPadding, verticalPadding, horizontalPadding, textBottomPadding);
+        row.setViewPadding(R.id.widget_text, horizontalPadding, verticalPadding, horizontalPadding, showDescription ? 0 : textBottomPadding);
         row.setViewPadding(R.id.widget_due_bottom, horizontalPadding, 0, horizontalPadding, verticalPadding);
+        row.setViewPadding(R.id.widget_description, horizontalPadding, 0, horizontalPadding, textBottomPadding);
       }
 
       int dividerColor = ContextCompat.getColor(context, widgetPreferences.getThemeIndex() == 0 ? R.color.black_12 : R.color.white_12);

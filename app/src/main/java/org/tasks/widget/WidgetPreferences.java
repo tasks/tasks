@@ -42,6 +42,14 @@ public class WidgetPreferences {
     return preferences.getBoolean(getKey(R.string.p_widget_show_full_task_title), false);
   }
 
+  boolean showDescription() {
+    return preferences.getBoolean(getKey(R.string.p_widget_show_description), true);
+  }
+
+  boolean showFullDescription() {
+    return preferences.getBoolean(getKey(R.string.p_widget_show_full_description), false);
+  }
+
   boolean dueDateBelowTitle() {
     return preferences.getBoolean(getKey(R.string.p_widget_due_date_underneath), false);
   }

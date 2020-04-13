@@ -51,10 +51,24 @@
     tools:text="Task title" />
 
   <TextView
+    android:id="@+id/widget_description"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/widget_text"
+    android:layout_alignStart="@id/widget_text"
+    android:paddingStart="0dp"
+    android:paddingEnd="@dimen/widget_padding"
+    android:maxLines="2"
+    android:ellipsize="end"
+    android:textAlignment="viewStart"
+    android:textSize="16sp"
+    tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tristique magna mauris, vel vulputate elit varius sit amet. Etiam sed nisl diam. Aenean vulputate ex nec ex condimentum commodo. Nunc faucibus augue in lacus tincidunt pretium. Donec mollis ex a ipsum semper, faucibus viverra turpis consequat. Donec id suscipit est. Duis a consectetur justo. Nunc in diam urna." />
+
+  <TextView
     android:id="@+id/widget_due_bottom"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_below="@id/widget_text"
+    android:layout_below="@id/widget_description"
     android:layout_alignStart="@id/widget_text"
     android:ellipsize="end"
     android:gravity="start|center_vertical"

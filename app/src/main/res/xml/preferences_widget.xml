@@ -62,6 +62,16 @@
       android:title="@string/widget_show_due_date" />
 
     <SwitchPreferenceCompat
+      android:defaultValue="true"
+      android:key="@string/p_widget_show_description"
+      android:title="@string/show_description" />
+
+    <SwitchPreferenceCompat
+      android:defaultValue="false"
+      android:key="@string/p_widget_show_full_description"
+      android:title="@string/show_full_description" />
+
+    <SwitchPreferenceCompat
       android:key="@string/p_widget_show_checkboxes"
       android:title="@string/widget_show_checkboxes" />
 
