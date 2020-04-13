@@ -6,11 +6,13 @@ import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
+import androidx.annotation.ColorInt;
 import androidx.core.content.ContextCompat;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
@@ -168,18 +170,22 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
       row.setOnClickFillInIntent(R.id.widget_row, editIntent);
 
       int widgetPadding = (int) context.getResources().getDimension(R.dimen.widget_padding);
+      int textBottomPadding = showDueDates && task.hasDueDate() ? 0 : widgetPadding;
       if (showCheckboxes) {
         row.setViewVisibility(R.id.widget_complete_box, View.VISIBLE);
         Intent completeIntent = new Intent(WidgetClickActivity.COMPLETE_TASK);
         completeIntent.putExtra(WidgetClickActivity.EXTRA_TASK, task);
         row.setOnClickFillInIntent(R.id.widget_complete_box, completeIntent);
-        row.setViewPadding(R.id.widget_text, 0, widgetPadding, widgetPadding, 0);
-        row.setViewPadding(R.id.widget_due_date, 0, 0, 0, 0);
+        row.setViewPadding(R.id.widget_text, 0, widgetPadding, widgetPadding, textBottomPadding);
+        row.setViewPadding(R.id.widget_due_date, 0, 0, widgetPadding, widgetPadding);
       } else {
         row.setViewVisibility(R.id.widget_complete_box, View.GONE);
-        row.setViewPadding(R.id.widget_text, widgetPadding, widgetPadding, widgetPadding, 0);
-        row.setViewPadding(R.id.widget_due_date, widgetPadding, 0, widgetPadding, 0);
+        row.setViewPadding(R.id.widget_text, widgetPadding, widgetPadding, widgetPadding, textBottomPadding);
+        row.setViewPadding(R.id.widget_due_date, widgetPadding, 0, widgetPadding, widgetPadding);
       }
+
+      int dividerColor = ContextCompat.getColor(context, widgetPreferences.getThemeIndex() == 0 ? R.color.black_12 : R.color.white_12);
+      row.setImageViewBitmap(R.id.divider, getSolidBackground(dividerColor));
 
       row.setInt(
           R.id.widget_row, "setLayoutDirection", Locale.getInstance(context).getDirectionality());
@@ -197,6 +203,12 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     }
 
     return null;
+  }
+
+  private static Bitmap getSolidBackground(@ColorInt int bgColor) {
+    Bitmap bitmap = Bitmap.createBitmap(2, 2, Bitmap.Config.ARGB_8888); // Create a Bitmap
+    new Canvas(bitmap).drawColor(bgColor); // Set the color
+    return bitmap;
   }
 
   private TaskContainer getTask(int position) {

@@ -46,4 +46,11 @@
     android:textSize="14sp"
     tools:text="Tomorrow"/>
 
+  <ImageView
+    android:id="@+id/divider"
+    android:layout_alignParentBottom="true"
+    android:layout_width="match_parent"
+    android:scaleType="fitXY"
+    android:layout_height=".5dp" />
+
 </RelativeLayout>
