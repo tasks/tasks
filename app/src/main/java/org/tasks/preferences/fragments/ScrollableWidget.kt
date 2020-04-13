@@ -66,6 +66,8 @@ class ScrollableWidget : InjectingPreferenceFragment() {
         val showHeader = setupCheckbox(R.string.p_widget_show_header)
         val showSettings = setupCheckbox(R.string.p_widget_show_settings)
         showSettings.dependency = showHeader.key
+        val showMenu = setupCheckbox(R.string.p_widget_show_menu)
+        showMenu.dependency = showHeader.key
 
         findPreference(R.string.p_widget_filter)
             .setOnPreferenceClickListener {

@@ -34,6 +34,10 @@ public class WidgetPreferences {
     return preferences.getBoolean(getKey(R.string.p_widget_show_settings), true);
   }
 
+  boolean showMenu() {
+    return preferences.getBoolean(getKey(R.string.p_widget_show_menu), true);
+  }
+
   int getFontSize() {
     return preferences.getInt(getKey(R.string.p_widget_font_size), 16);
   }

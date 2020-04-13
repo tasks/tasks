@@ -30,6 +30,10 @@
       android:title="@string/color" />
 
     <SwitchPreferenceCompat
+      android:key="@string/p_widget_show_menu"
+      android:title="@string/widget_show_menu" />
+
+    <SwitchPreferenceCompat
       android:key="@string/p_widget_show_settings"
       android:title="@string/widget_show_settings" />
 

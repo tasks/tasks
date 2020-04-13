@@ -79,6 +79,13 @@ public class TasksWidget extends InjectingAppWidgetProvider {
     if (widgetPreferences.showHeader()) {
       remoteViews.setViewVisibility(R.id.widget_header, View.VISIBLE);
       remoteViews.setViewVisibility(
+          R.id.widget_change_list, widgetPreferences.showMenu() ? View.VISIBLE : View.GONE);
+      int widgetTitlePadding =
+          widgetPreferences.showMenu()
+              ? 0
+              : (int) context.getResources().getDimension(R.dimen.widget_padding);
+      remoteViews.setViewPadding(R.id.widget_title, widgetTitlePadding, 0, 0, 0);
+      remoteViews.setViewVisibility(
           R.id.widget_reconfigure, widgetPreferences.showSettings() ? View.VISIBLE : View.GONE);
       remoteViews.setInt(R.id.widget_title, "setTextColor", color.getColorOnPrimary());
       remoteViews.setInt(R.id.widget_button, "setColorFilter", color.getColorOnPrimary());
@@ -131,7 +138,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
     Intent intent = TaskIntents.getTaskListIntent(context, filter);
     intent.setFlags(flags);
     intent.setAction("open_list");
-    return PendingIntent.getActivity(context, widgetId, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+    return PendingIntent.getActivity(context, widgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
   }
 
   private PendingIntent getNewTaskIntent(Context context, Filter filter, int widgetId) {
@@ -156,6 +163,6 @@ public class TasksWidget extends InjectingAppWidgetProvider {
     intent.putExtra(FilterSelectionActivity.EXTRA_FILTER, filter);
     intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
     intent.setAction("choose_list");
-    return PendingIntent.getActivity(context, widgetId, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+    return PendingIntent.getActivity(context, widgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
   }
 }
