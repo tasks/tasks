@@ -16,7 +16,7 @@
     android:layout_alignParentStart="true"
     android:layout_alignParentTop="true"
     android:padding="@dimen/widget_padding"
-    tools:src="@drawable/ic_outline_check_box_outline_blank_24px"/>
+    tools:src="@drawable/ic_outline_check_box_outline_blank_24px" />
 
   <TextView
     android:id="@+id/widget_due_end"
@@ -31,12 +31,12 @@
     android:singleLine="true"
     android:textAlignment="viewStart"
     android:textSize="14sp"
-    tools:text="Tomorrow"/>
+    tools:text="Tomorrow" />
 
   <TextView
+    android:id="@+id/widget_text"
     android:layout_toEndOf="@id/widget_complete_box"
     android:layout_toStartOf="@id/widget_due_end"
-    android:id="@+id/widget_text"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignBaseline="@id/widget_complete_box"
@@ -45,9 +45,10 @@
     android:paddingStart="0dp"
     android:gravity="start|center_vertical"
     android:maxLines="1"
+    android:ellipsize="end"
     android:textAlignment="viewStart"
     android:textSize="16sp"
-    tools:text="Task title"/>
+    tools:text="Task title" />
 
   <TextView
     android:id="@+id/widget_due_bottom"
@@ -60,7 +61,7 @@
     android:singleLine="true"
     android:textAlignment="viewStart"
     android:textSize="14sp"
-    tools:text="Tomorrow"/>
+    tools:text="Tomorrow" />
 
   <ImageView
     android:id="@+id/divider"

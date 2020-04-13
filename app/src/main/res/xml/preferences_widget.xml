@@ -49,10 +49,13 @@
       app:min="10"
       app:showSeekBarValue="true" />
 
-    <SwitchPreferenceCompat
-      android:defaultValue="false"
-      android:key="@string/p_widget_show_full_task_title"
-      android:title="@string/EPr_fullTask_title" />
+    <ListPreference
+      android:defaultValue="0"
+      android:key="@string/p_widget_spacing"
+      android:entries="@array/widget_spacing_titles"
+      android:entryValues="@array/widget_spacing_values"
+      android:title="@string/row_spacing"
+      android:summary="%s" />
 
     <SwitchPreferenceCompat
       android:key="@string/p_widget_show_due_date"
@@ -62,13 +65,10 @@
       android:key="@string/p_widget_show_checkboxes"
       android:title="@string/widget_show_checkboxes" />
 
-    <ListPreference
-      android:defaultValue="0"
-      android:key="@string/p_widget_spacing"
-      android:entries="@array/widget_spacing_titles"
-      android:entryValues="@array/widget_spacing_values"
-      android:title="@string/row_spacing"
-      android:summary="%s" />
+    <SwitchPreferenceCompat
+      android:defaultValue="false"
+      android:key="@string/p_widget_show_full_task_title"
+      android:title="@string/EPr_fullTask_title" />
 
     <SwitchPreferenceCompat
       android:defaultValue="false"

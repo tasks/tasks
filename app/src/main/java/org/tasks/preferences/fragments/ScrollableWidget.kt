@@ -64,8 +64,8 @@ class ScrollableWidget : InjectingPreferenceFragment() {
         setupSlider(R.string.p_widget_font_size, 16)
         setupCheckbox(R.string.p_widget_show_due_date)
         setupCheckbox(R.string.p_widget_show_checkboxes)
-        setupCheckbox(R.string.p_widget_due_date_underneath)
-        setupCheckbox(R.string.p_widget_show_full_task_title)
+        setupCheckbox(R.string.p_widget_due_date_underneath, false)
+        setupCheckbox(R.string.p_widget_show_full_task_title, false)
         setupList(R.string.p_widget_spacing)
         val showHeader = setupCheckbox(R.string.p_widget_show_header)
         val showSettings = setupCheckbox(R.string.p_widget_show_settings)
@@ -163,11 +163,11 @@ class ScrollableWidget : InjectingPreferenceFragment() {
         return preference
     }
 
-    private fun setupCheckbox(resId: Int): SwitchPreferenceCompat {
+    private fun setupCheckbox(resId: Int, defaultValue: Boolean = true): SwitchPreferenceCompat {
         val preference = findPreference(resId) as SwitchPreferenceCompat
         val key = getString(resId) + appWidgetId
         preference.key = key
-        preference.isChecked = preferences.getBoolean(key, true)
+        preference.isChecked = preferences.getBoolean(key, defaultValue)
         return preference
     }
 
