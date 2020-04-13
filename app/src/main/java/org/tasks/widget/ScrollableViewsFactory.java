@@ -41,7 +41,6 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
   private final Preferences preferences;
   private final WidgetPreferences widgetPreferences;
   private final Context context;
-  private final int widgetPadding;
   private final int indentPadding;
 
   private boolean showDueDates;
@@ -73,7 +72,6 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     this.locale = locale;
     widgetPreferences = new WidgetPreferences(context, preferences, widgetId);
     DisplayMetrics metrics = context.getResources().getDisplayMetrics();
-    widgetPadding = (int)(10 * metrics.density);
     indentPadding = (int)(20 * metrics.density);
     updateSettings();
   }
@@ -169,22 +167,28 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
       editIntent.putExtra(WidgetClickActivity.EXTRA_TASK, task);
       row.setOnClickFillInIntent(R.id.widget_row, editIntent);
 
+      int widgetPadding = (int) context.getResources().getDimension(R.dimen.widget_padding);
       if (showCheckboxes) {
         row.setViewVisibility(R.id.widget_complete_box, View.VISIBLE);
         Intent completeIntent = new Intent(WidgetClickActivity.COMPLETE_TASK);
         completeIntent.putExtra(WidgetClickActivity.EXTRA_TASK, task);
         row.setOnClickFillInIntent(R.id.widget_complete_box, completeIntent);
+        row.setViewPadding(R.id.widget_text, 0, widgetPadding, widgetPadding, 0);
+        row.setViewPadding(R.id.widget_due_date, 0, 0, 0, 0);
       } else {
         row.setViewVisibility(R.id.widget_complete_box, View.GONE);
+        row.setViewPadding(R.id.widget_text, widgetPadding, widgetPadding, widgetPadding, 0);
+        row.setViewPadding(R.id.widget_due_date, widgetPadding, 0, widgetPadding, 0);
       }
 
       row.setInt(
           R.id.widget_row, "setLayoutDirection", Locale.getInstance(context).getDirectionality());
+
       row.setViewPadding(
           R.id.widget_row,
-          widgetPadding + taskContainer.getIndent() * indentPadding,
+          taskContainer.getIndent() * indentPadding,
           0,
-          widgetPadding,
+          0,
           0);
 
       return row;

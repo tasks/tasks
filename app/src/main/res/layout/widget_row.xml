@@ -4,54 +4,46 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/widget_row"
   android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:paddingStart="@dimen/widget_padding"
-  android:paddingEnd="@dimen/widget_padding"
-  android:clickable="false">
+  android:layout_height="wrap_content">
 
   <ImageView
     android:id="@+id/widget_complete_box"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignParentStart="true"
-    android:layout_centerVertical="true"
-    android:layout_gravity="center"
-    android:paddingTop="3dp"
-    android:paddingBottom="3dp"
-    android:paddingStart="0dp"
-    android:paddingEnd="@dimen/widget_padding"/>
+    android:layout_alignParentTop="true"
+    android:padding="@dimen/widget_padding"
+    tools:src="@drawable/ic_outline_check_box_outline_blank_24px"/>
 
-  <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_centerVertical="true"
+  <TextView
     android:layout_toEndOf="@id/widget_complete_box"
-    android:paddingTop="3dp"
-    android:paddingBottom="3dp"
-    android:orientation="vertical">
+    android:id="@+id/widget_text"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignBaseline="@id/widget_complete_box"
+    android:paddingTop="@dimen/widget_padding"
+    android:paddingEnd="@dimen/widget_padding"
+    android:paddingStart="0dp"
+    android:gravity="start|center_vertical"
+    android:singleLine="true"
+    android:textAlignment="viewStart"
+    android:textSize="16sp"
+    tools:text="Task title"/>
 
-    <TextView
-      android:id="@+id/widget_text"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:gravity="start|center_vertical"
-      android:singleLine="true"
-      android:textAlignment="viewStart"
-      android:textSize="16sp"/>
-
-    <TextView
-      android:id="@+id/widget_due_date"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:ellipsize="end"
-      android:gravity="start|center_vertical"
-      android:singleLine="true"
-      android:textAlignment="viewStart"
-      android:textSize="12sp"
-      android:visibility="gone"/>
-
-  </LinearLayout>
+  <TextView
+    android:id="@+id/widget_due_date"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/widget_text"
+    android:layout_alignStart="@id/widget_text"
+    android:ellipsize="end"
+    android:gravity="start|center_vertical"
+    android:singleLine="true"
+    android:textAlignment="viewStart"
+    android:textSize="14sp"
+    tools:text="Tomorrow"/>
 
 </RelativeLayout>
