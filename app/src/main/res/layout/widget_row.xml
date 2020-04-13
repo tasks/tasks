@@ -19,9 +19,25 @@
     tools:src="@drawable/ic_outline_check_box_outline_blank_24px"/>
 
   <TextView
-    android:layout_toEndOf="@id/widget_complete_box"
-    android:id="@+id/widget_text"
+    android:id="@+id/widget_due_end"
     android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignBaseline="@id/widget_text"
+    android:layout_alignParentEnd="true"
+    android:paddingStart="0dp"
+    android:paddingEnd="@dimen/widget_padding"
+    android:ellipsize="end"
+    android:gravity="start|center_vertical"
+    android:singleLine="true"
+    android:textAlignment="viewStart"
+    android:textSize="14sp"
+    tools:text="Tomorrow"/>
+
+  <TextView
+    android:layout_toEndOf="@id/widget_complete_box"
+    android:layout_toStartOf="@id/widget_due_end"
+    android:id="@+id/widget_text"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignBaseline="@id/widget_complete_box"
     android:paddingTop="@dimen/widget_padding"
@@ -34,7 +50,7 @@
     tools:text="Task title"/>
 
   <TextView
-    android:id="@+id/widget_due_date"
+    android:id="@+id/widget_due_bottom"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_below="@id/widget_text"

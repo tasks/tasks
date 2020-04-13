@@ -273,6 +273,7 @@
   <string name="p_widget_show_header">widget-show-header-</string>
   <string name="p_widget_show_settings">widget-show-settings-</string>
   <string name="p_widget_show_menu">widget-show-menu-</string>
+  <string name="p_widget_due_date_underneath">widget-due-date-underneath-</string>
   <string name="p_widget_spacing">widget-spacing-</string>
   <string name="p_dashclock_filter">dashclock_filter</string>
   <string name="p_default_remote_list">default_remote_list</string>

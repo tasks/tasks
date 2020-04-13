@@ -65,6 +65,11 @@
       android:title="@string/row_spacing"
       android:summary="%s" />
 
+    <SwitchPreferenceCompat
+      android:defaultValue="false"
+      android:key="@string/p_widget_due_date_underneath"
+      android:title="@string/widget_due_date_underneath" />
+
   </PreferenceCategory>
 
 </PreferenceScreen>

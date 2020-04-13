@@ -38,6 +38,10 @@ public class WidgetPreferences {
     return preferences.getBoolean(getKey(R.string.p_widget_show_menu), true);
   }
 
+  boolean dueDateBelowTitle() {
+    return preferences.getBoolean(getKey(R.string.p_widget_due_date_underneath), false);
+  }
+
   int getWidgetSpacing() {
     int spacing = preferences.getIntegerFromString(getKey(R.string.p_widget_spacing), 0);
     if (spacing == 2) {

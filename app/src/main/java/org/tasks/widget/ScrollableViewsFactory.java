@@ -154,7 +154,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
       if (showDueDates) {
         formatDueDate(row, task);
       } else {
-        row.setViewVisibility(R.id.widget_due_date, View.GONE);
+        row.setViewVisibility(R.id.widget_due_bottom, View.GONE);
         if (task.hasDueDate() && task.isOverdue()) {
           textColorTitle = getColor(context, R.color.overdue);
         }
@@ -179,11 +179,11 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         completeIntent.putExtra(WidgetClickActivity.EXTRA_TASK, task);
         row.setOnClickFillInIntent(R.id.widget_complete_box, completeIntent);
         row.setViewPadding(R.id.widget_text, 0, verticalPadding, horizontalPadding, textBottomPadding);
-        row.setViewPadding(R.id.widget_due_date, 0, 0, horizontalPadding, verticalPadding);
+        row.setViewPadding(R.id.widget_due_bottom, 0, 0, horizontalPadding, verticalPadding);
       } else {
         row.setViewVisibility(R.id.widget_complete_box, View.GONE);
         row.setViewPadding(R.id.widget_text, horizontalPadding, verticalPadding, horizontalPadding, textBottomPadding);
-        row.setViewPadding(R.id.widget_due_date, horizontalPadding, 0, horizontalPadding, verticalPadding);
+        row.setViewPadding(R.id.widget_due_bottom, horizontalPadding, 0, horizontalPadding, verticalPadding);
       }
 
       int dividerColor = ContextCompat.getColor(context, widgetPreferences.getThemeIndex() == 0 ? R.color.black_12 : R.color.white_12);
@@ -233,19 +233,21 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
   }
 
   private void formatDueDate(RemoteViews row, Task task) {
+    boolean bottomDueDate = widgetPreferences.dueDateBelowTitle();
+    int dueDateRes = bottomDueDate ? R.id.widget_due_bottom : R.id.widget_due_end;
+    row.setViewVisibility(bottomDueDate ? R.id.widget_due_end : R.id.widget_due_bottom, View.GONE);
     if (task.hasDueDate()) {
-      row.setViewVisibility(R.id.widget_due_date, View.VISIBLE);
+      row.setViewVisibility(dueDateRes, View.VISIBLE);
       row.setTextViewText(
-          R.id.widget_due_date,
+          dueDateRes,
           DateUtilities.getRelativeDateTime(
               context, task.getDueDate(), locale.getLocale(), FormatStyle.MEDIUM));
-      //noinspection ResourceAsColor
       row.setTextColor(
-          R.id.widget_due_date,
+          dueDateRes,
           task.isOverdue() ? getColor(context, R.color.overdue) : textColorSecondary);
-      row.setFloat(R.id.widget_due_date, "setTextSize", dueDateTextSize);
+      row.setFloat(dueDateRes, "setTextSize", dueDateTextSize);
     } else {
-      row.setViewVisibility(R.id.widget_due_date, View.GONE);
+      row.setViewVisibility(dueDateRes, View.GONE);
     }
   }
 

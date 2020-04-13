@@ -304,6 +304,7 @@ File %1$s contained %2$s.\n\n
   <string name="sync_SPr_interval_title">Background sync</string>
   <string name="widget_show_due_date">Show due dates</string>
   <string name="widget_show_checkboxes">Show checkboxes</string>
+  <string name="widget_due_date_underneath">Due date below title</string>
   <string name="widget_show_header">Show header</string>
   <string name="widget_show_settings">Show settings</string>
   <string name="widget_show_menu">Show menu</string>
