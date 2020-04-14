@@ -575,4 +575,9 @@
     <string name="share">Delen</string>
     <string name="select_all">Selecteer alles</string>
     <string name="hide_check_button">Verberg vinkboxje</string>
+    <string name="compact">Compact</string>
+    <string name="settings_default">Standaardwaarde</string>
+    <string name="widget_id">Widget ID: %s</string>
+    <string name="widget_show_menu">Toon menu</string>
+    <string name="widget_due_date_underneath">Einddatum onder de titel</string>
 </resources>
