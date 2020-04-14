@@ -152,6 +152,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         row.setInt(R.id.widget_text, "setPaintFlags", Paint.ANTI_ALIAS_FLAG);
       }
       row.setFloat(R.id.widget_text, "setTextSize", textSize);
+      row.setFloat(R.id.widget_description, "setTextSize", textSize);
       if (showDueDates) {
         formatDueDate(row, task);
       } else {
