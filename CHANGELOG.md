@@ -1,6 +1,38 @@
 Change Log
 ---
 =======
+### 8.10 (2020-04-16)
+
+* New widget features
+  * Menu button to quickly change list
+  * Expand and collapse subtasks
+  * Access widget settings from main app preferences
+  * Show description
+* New widget settings
+  * Row spacing: default, compact, none
+  * Due date: after title, below title, or hidden
+  * Configure header, row, and footer opacity
+  * Configure footer click behavior
+  * Show full task title
+  * Show full description
+  * Hide dividers
+* Improve widget touch targets
+* Expand/collapse Google Task subtasks in 'My order' mode
+* Fix bug when changing sort order to/from 'My order'
+* Fix crash when switching to 'My order' list with subtasks disabled
+* Update translations
+  * Basque - @osoitz
+  * Dutch - @fvbommel
+  * French - @FlorianLeChat
+  * German - Joey Meigele
+  * Hungarian - kaciokos
+  * Norwegian Bokmål - @comradekingu
+  * Russian - @tolstovka
+  * Simplified Chinese - @sr093906
+  * Spanish - @FlorianLeChat
+  * Turkish - etc
+  * Ukrainian - @tolstovka
+
 ### 8.9.2 (2020-04-10)
 
 * Fix 'Add reminder' layout issues
