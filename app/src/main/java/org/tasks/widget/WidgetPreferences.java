@@ -98,6 +98,10 @@ public class WidgetPreferences {
     return getAlphaValue(R.string.p_widget_empty_space_opacity);
   }
 
+  boolean openOnEmptySpaceClick() {
+    return preferences.getIntegerFromString(getKey(R.string.p_widget_empty_space_click), 0) == 1;
+  }
+
   private int getAlphaValue(int resId) {
     return (int) ((preferences.getInt(getKey(resId), 100) / 100.0) * 255.0);
   }
