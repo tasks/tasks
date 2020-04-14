@@ -76,7 +76,6 @@ public class TasksWidget extends InjectingAppWidgetProvider {
     ThemeColor color = new ThemeColor(context, widgetPreferences.getColor());
     RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.scrollable_widget);
     remoteViews.setInt(R.id.widget, "setLayoutDirection", locale.getDirectionality());
-    int rowSpacing = widgetPreferences.getWidgetSpacing();
     if (widgetPreferences.showHeader()) {
       remoteViews.setViewVisibility(R.id.widget_header, View.VISIBLE);
       remoteViews.setViewVisibility(

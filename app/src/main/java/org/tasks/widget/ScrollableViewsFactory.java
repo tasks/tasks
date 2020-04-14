@@ -1,6 +1,7 @@
 package org.tasks.widget;
 
 import static androidx.core.content.ContextCompat.getColor;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
@@ -188,6 +189,13 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
       editIntent.putExtra(WidgetClickActivity.EXTRA_TASK, task);
       row.setOnClickFillInIntent(R.id.widget_row, editIntent);
 
+      int theme = widgetPreferences.getThemeIndex();
+      if (atLeastLollipop()) {
+        row.setInt(
+            R.id.widget_row,
+            "setBackgroundResource",
+            theme == 0 ? R.drawable.widget_ripple_light : R.drawable.widget_ripple_dark);
+      }
       int horizontalPadding = (int) context.getResources().getDimension(R.dimen.widget_padding);
       int verticalPadding = widgetPreferences.getWidgetSpacing();
       int textBottomPadding =
@@ -210,7 +218,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         row.setViewPadding(R.id.widget_description, horizontalPadding, 0, horizontalPadding, textBottomPadding);
       }
 
-      int dividerColor = ContextCompat.getColor(context, widgetPreferences.getThemeIndex() == 0 ? R.color.black_12 : R.color.white_12);
+      int dividerColor = ContextCompat.getColor(context, theme == 0 ? R.color.black_12 : R.color.white_12);
       row.setImageViewBitmap(R.id.divider, getSolidBackground(dividerColor));
 
       row.setInt(

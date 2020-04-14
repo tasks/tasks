@@ -90,6 +90,7 @@
       android:id="@+id/list_view"
       android:layout_width="match_parent"
       android:layout_height="fill_parent"
+      android:listSelector="@android:color/transparent"
       android:divider="@null"
       android:dividerHeight="0dp"/>
 
