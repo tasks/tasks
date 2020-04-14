@@ -10,15 +10,6 @@
     android:key="@string/p_widget_theme"
     android:title="@string/theme" />
 
-  <SeekBarPreference
-    android:defaultValue="100"
-    android:key="@string/p_widget_opacity"
-    android:max="100"
-    android:title="@string/opacity"
-    app:min="0"
-    app:seekBarIncrement="5"
-    app:showSeekBarValue="true" />
-
   <PreferenceCategory android:title="@string/widget_header_settings">
 
     <SwitchPreferenceCompat
@@ -28,6 +19,15 @@
     <Preference
       android:key="@string/p_widget_color_v2"
       android:title="@string/color" />
+
+    <SeekBarPreference
+      android:defaultValue="100"
+      android:key="@string/p_widget_header_opacity"
+      android:max="100"
+      android:title="@string/opacity"
+      app:min="0"
+      app:seekBarIncrement="5"
+      app:showSeekBarValue="true" />
 
     <SwitchPreferenceCompat
       android:key="@string/p_widget_show_menu"
@@ -40,6 +40,15 @@
   </PreferenceCategory>
 
   <PreferenceCategory android:title="@string/widget_row_settings">
+
+    <SeekBarPreference
+      android:defaultValue="100"
+      android:key="@string/p_widget_opacity"
+      android:max="100"
+      android:title="@string/opacity"
+      app:min="0"
+      app:seekBarIncrement="5"
+      app:showSeekBarValue="true" />
 
     <SeekBarPreference
       android:defaultValue="16"
@@ -84,6 +93,19 @@
       android:defaultValue="false"
       android:key="@string/p_widget_due_date_underneath"
       android:title="@string/widget_due_date_underneath" />
+
+  </PreferenceCategory>
+
+  <PreferenceCategory android:title="@string/widget_empty_space">
+
+    <SeekBarPreference
+      android:defaultValue="100"
+      android:key="@string/p_widget_empty_space_opacity"
+      android:max="100"
+      android:title="@string/opacity"
+      app:min="0"
+      app:seekBarIncrement="5"
+      app:showSeekBarValue="true" />
 
   </PreferenceCategory>
 

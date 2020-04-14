@@ -9,13 +9,12 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.net.Uri;
 import android.view.View;
 import android.widget.RemoteViews;
 import androidx.annotation.ColorInt;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.ColorUtils;
 import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
@@ -40,12 +39,6 @@ public class TasksWidget extends InjectingAppWidgetProvider {
   @Inject Locale locale;
   @Inject TaskDao taskDao;
   @Inject @ForApplication Context context;
-
-  private static Bitmap getSolidBackground(@ColorInt int bgColor) {
-    Bitmap bitmap = Bitmap.createBitmap(2, 2, Bitmap.Config.ARGB_8888); // Create a Bitmap
-    new Canvas(bitmap).drawColor(bgColor); // Set the color
-    return bitmap;
-  }
 
   @Override
   protected void inject(BroadcastComponent component) {
@@ -94,20 +87,24 @@ public class TasksWidget extends InjectingAppWidgetProvider {
     } else {
       remoteViews.setViewVisibility(R.id.widget_header, View.GONE);
     }
-    int opacityPercentage = widgetPreferences.getOpacity();
-    int opacity = (int) ((opacityPercentage / 100.0) * 255.0);
-    remoteViews.setImageViewBitmap(
-        R.id.widget_background,
-        getSolidBackground(getBackgroundColor(widgetPreferences.getThemeIndex())));
-    remoteViews.setImageViewBitmap(
-        R.id.widget_header_background, getSolidBackground(color.getPrimaryColor()));
-    remoteViews.setInt(R.id.widget_background, "setAlpha", opacity);
-    remoteViews.setInt(R.id.widget_header_background, "setAlpha", opacity);
+
+    remoteViews.setInt(
+        R.id.widget_header,
+        "setBackgroundColor",
+        ColorUtils.setAlphaComponent(color.getPrimaryColor(), widgetPreferences.getHeaderOpacity()));
+    int bgColor = getBackgroundColor(widgetPreferences.getThemeIndex());
+    remoteViews.setInt(
+        R.id.list_view,
+        "setBackgroundColor",
+        ColorUtils.setAlphaComponent(bgColor, widgetPreferences.getRowOpacity()));
+    remoteViews.setInt(
+        R.id.empty_view,
+        "setBackgroundColor",
+        ColorUtils.setAlphaComponent(bgColor, widgetPreferences.getEmptySpaceOpacity()));
 
     Filter filter = defaultFilterProvider.getFilterFromPreference(filterId);
     remoteViews.setTextViewText(R.id.widget_title, filter.listingTitle);
     remoteViews.setRemoteAdapter(R.id.list_view, rvIntent);
-    remoteViews.setEmptyView(R.id.list_view, R.id.empty_view);
     remoteViews.setOnClickPendingIntent(R.id.widget_title, getOpenListIntent(context, filter, id));
     remoteViews.setOnClickPendingIntent(R.id.widget_button, getNewTaskIntent(context, filter, id));
     remoteViews.setOnClickPendingIntent(R.id.widget_change_list, getChooseListIntent(context, filter, id));

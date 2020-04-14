@@ -22,7 +22,6 @@ import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.locale.Locale
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
-import org.tasks.widget.TasksWidget
 import org.tasks.widget.WidgetPreferences
 import javax.inject.Inject
 
@@ -60,7 +59,9 @@ class ScrollableWidget : InjectingPreferenceFragment() {
         appWidgetId = arguments!!.getInt(EXTRA_WIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID)
         widgetPreferences = WidgetPreferences(context, preferences, appWidgetId)
 
+        setupSlider(R.string.p_widget_header_opacity, 100)
         setupSlider(R.string.p_widget_opacity, 100)
+        setupSlider(R.string.p_widget_empty_space_opacity, 100)
         setupSlider(R.string.p_widget_font_size, 16)
         val showDueDate = setupCheckbox(R.string.p_widget_show_due_date)
         setupCheckbox(R.string.p_widget_due_date_underneath, false).dependency = showDueDate.key

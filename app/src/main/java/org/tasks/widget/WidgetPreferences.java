@@ -86,8 +86,20 @@ public class WidgetPreferences {
     return color;
   }
 
-  public int getOpacity() {
-    return preferences.getInt(getKey(R.string.p_widget_opacity), 100);
+  int getHeaderOpacity() {
+    return getAlphaValue(R.string.p_widget_header_opacity);
+  }
+
+  int getRowOpacity() {
+    return getAlphaValue(R.string.p_widget_opacity);
+  }
+
+  int getEmptySpaceOpacity() {
+    return getAlphaValue(R.string.p_widget_empty_space_opacity);
+  }
+
+  private int getAlphaValue(int resId) {
+    return (int) ((preferences.getInt(getKey(resId), 100) / 100.0) * 255.0);
   }
 
   public void setColor(int color) {
