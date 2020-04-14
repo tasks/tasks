@@ -251,7 +251,8 @@ public class MainActivity extends InjectingAppCompatActivity
       openTaskListFragment(
           existing == null || existing.getFilter() != filter
               ? newTaskListFragment(getApplicationContext(), filter)
-              : existing);
+              : existing,
+          false);
       openTask(filter);
     }
 
@@ -284,14 +285,19 @@ public class MainActivity extends InjectingAppCompatActivity
   }
 
   private void openTaskListFragment(Filter filter) {
-    openTaskListFragment(newTaskListFragment(getApplicationContext(), filter));
+    openTaskListFragment(filter, false);
   }
 
-  private void openTaskListFragment(@NonNull TaskListFragment taskListFragment) {
+  private void openTaskListFragment(Filter filter, boolean force) {
+    openTaskListFragment(newTaskListFragment(getApplicationContext(), filter), force);
+  }
+
+  private void openTaskListFragment(@NonNull TaskListFragment taskListFragment, boolean force) {
     assertMainThread();
 
     Filter newFilter = taskListFragment.getFilter();
     if (filter != null
+        && !force
         && filter.areItemsTheSame(newFilter)
         && filter.areContentsTheSame(newFilter)) {
       return;
@@ -500,7 +506,7 @@ public class MainActivity extends InjectingAppCompatActivity
   public void sortChanged(boolean reload) {
     localBroadcastManager.broadcastRefresh();
     if (reload) {
-      openTaskListFragment(filter);
+      openTaskListFragment(filter, true);
     }
   }
 
