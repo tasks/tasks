@@ -157,6 +157,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         formatDueDate(row, task);
       } else {
         row.setViewVisibility(R.id.widget_due_bottom, View.GONE);
+        row.setViewVisibility(R.id.widget_due_end, View.GONE);
         if (task.hasDueDate() && task.isOverdue()) {
           textColorTitle = getColor(context, R.color.overdue);
         }

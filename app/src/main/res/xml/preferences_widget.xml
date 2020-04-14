@@ -58,10 +58,6 @@
       android:summary="%s" />
 
     <SwitchPreferenceCompat
-      android:key="@string/p_widget_show_due_date"
-      android:title="@string/widget_show_due_date" />
-
-    <SwitchPreferenceCompat
       android:defaultValue="true"
       android:key="@string/p_widget_show_description"
       android:title="@string/show_description" />
@@ -79,6 +75,10 @@
       android:defaultValue="false"
       android:key="@string/p_widget_show_full_task_title"
       android:title="@string/EPr_fullTask_title" />
+
+    <SwitchPreferenceCompat
+      android:key="@string/p_widget_show_due_date"
+      android:title="@string/widget_show_due_date" />
 
     <SwitchPreferenceCompat
       android:defaultValue="false"
