@@ -578,4 +578,9 @@
     <string name="share">Megosztás</string>
     <string name="select_all">Az összes kiválasztása</string>
     <string name="hide_check_button">PIpa gomb elrejtése</string>
+    <string name="compact">Kompakt</string>
+    <string name="settings_default">Alapértelmezett</string>
+    <string name="widget_id">Widget azonosító: %s</string>
+    <string name="widget_show_menu">Menü mutatása</string>
+    <string name="widget_due_date_underneath">Határidő a cím alatt</string>
 </resources>
