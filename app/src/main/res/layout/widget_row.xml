@@ -10,13 +10,27 @@
   android:layout_height="wrap_content">
 
   <ImageView
+    android:id="@+id/start_padding"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentStart="true"/>
+
+  <ImageView
     android:id="@+id/widget_complete_box"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_alignParentStart="true"
+    android:layout_toEndOf="@id/start_padding"
     android:layout_alignParentTop="true"
     android:padding="@dimen/widget_padding"
     tools:src="@drawable/ic_outline_check_box_outline_blank_24px" />
+
+  <ImageView
+    android:id="@+id/top_padding"
+    android:layout_alignParentTop="true"
+    android:layout_alignStart="@id/widget_text"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/widget_padding"/>
 
   <TextView
     android:id="@+id/widget_due_end"
@@ -37,10 +51,9 @@
     android:id="@+id/widget_text"
     android:layout_toEndOf="@id/widget_complete_box"
     android:layout_toStartOf="@id/widget_due_end"
+    android:layout_below="@id/top_padding"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_alignBaseline="@id/widget_complete_box"
-    android:paddingTop="@dimen/widget_padding"
     android:paddingEnd="@dimen/widget_padding"
     android:paddingStart="0dp"
     android:gravity="start|center_vertical"
@@ -76,6 +89,14 @@
     android:textAlignment="viewStart"
     android:textSize="14sp"
     tools:text="Tomorrow" />
+
+  <ImageView
+    android:id="@+id/bottom_padding"
+    android:layout_below="@id/subtask_button"
+    android:layout_alignStart="@id/widget_text"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/widget_padding" />
 
   <ImageView
     android:id="@+id/divider"
