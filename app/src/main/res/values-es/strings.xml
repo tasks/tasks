@@ -289,7 +289,6 @@
     <string name="tmrw">Mñna</string>
     <string name="yest">Ayer</string>
     <string name="sync_SPr_interval_title">Sincronización en segundo plano</string>
-    <string name="widget_show_due_date">Mostrar fechas de vencimiento</string>
     <string name="widget_show_checkboxes">Mostrar casillas de verificación</string>
     <string name="widget_show_header">Mostrar encabezado</string>
     <string name="widget_show_settings">Mostrar configuración</string>
@@ -586,8 +585,6 @@
     <string name="widget_empty_space_open_list">Lista abierta</string>
     <string name="widget_empty_space_do_nothing">No hagas nada</string>
     <string name="widget_empty_space_on_click">Al hacer clic</string>
-    <string name="widget_empty_space">Espacio vacío</string>
     <string name="widget_show_menu">Mostrar el menú</string>
     <string name="widget_hide_background">Ocultar fondo</string>
-    <string name="widget_due_date_underneath">La fecha de vencimiento debajo del título</string>
 </resources>

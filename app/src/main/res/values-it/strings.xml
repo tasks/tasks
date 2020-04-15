@@ -287,7 +287,6 @@
     <string name="tmrw">Domani</string>
     <string name="yest">Ieri</string>
     <string name="sync_SPr_interval_title">Sincronizzazione eseguita in background</string>
-    <string name="widget_show_due_date">Mostra scadenze</string>
     <string name="widget_show_checkboxes">Mostra caselle selezione</string>
     <string name="widget_show_header">Mostra intestazione</string>
     <string name="widget_show_settings">Mostra impostazioni</string>

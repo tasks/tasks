@@ -288,7 +288,6 @@
     <string name="tmrw">Утре</string>
     <string name="yest">Вчера</string>
     <string name="sync_SPr_interval_title">Синхронзиране във фонов режим</string>
-    <string name="widget_show_due_date">Покажи крайните дати</string>
     <string name="widget_show_checkboxes">Покажи отметки</string>
     <string name="widget_show_header">Покажи хедър</string>
     <string name="widget_show_settings">Покажи настройки</string>

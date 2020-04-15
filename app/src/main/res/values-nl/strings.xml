@@ -284,7 +284,6 @@
     <string name="tmrw">mrgn</string>
     <string name="yest">gisteren</string>
     <string name="sync_SPr_interval_title">Achtergrond synchronisatie</string>
-    <string name="widget_show_due_date">Toon einddatums</string>
     <string name="widget_show_checkboxes">Toon vinkboxjes</string>
     <string name="widget_show_header">Toon titel</string>
     <string name="widget_show_settings">Toon instellingen</string>
@@ -579,10 +578,8 @@
     <string name="settings_default">Standaardwaarde</string>
     <string name="widget_id">Widget ID: %d</string>
     <string name="widget_show_menu">Toon menu</string>
-    <string name="widget_due_date_underneath">Einddatum onder de titel</string>
     <string name="widget_empty_space_open_list">Open lijst</string>
     <string name="widget_empty_space_do_nothing">Doe niets</string>
     <string name="widget_empty_space_on_click">Als je klikt</string>
-    <string name="widget_empty_space">Lege ruimte</string>
     <string name="widget_hide_background">Verberg achtergrond</string>
 </resources>

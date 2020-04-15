@@ -212,7 +212,6 @@
     <string name="tmrw">Bsk</string>
     <string name="yest">Kmrn</string>
     <string name="sync_SPr_interval_title">Sinkronisasi latar belakang</string>
-    <string name="widget_show_due_date">Tampilkan tanggal jatuh tempo</string>
     <string name="widget_show_checkboxes">Tampilkan kotak centang</string>
     <string name="widget_show_header">Tampilkan tajuk</string>
     <string name="widget_show_settings">Tampilkan pengaturan</string>

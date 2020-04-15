@@ -302,9 +302,7 @@ File %1$s contained %2$s.\n\n
   <string name="tmrw">Tmrw</string>
   <string name="yest">Yest</string>
   <string name="sync_SPr_interval_title">Background sync</string>
-  <string name="widget_show_due_date">Show due dates</string>
   <string name="widget_show_checkboxes">Show checkboxes</string>
-  <string name="widget_due_date_underneath">Due date below title</string>
   <string name="widget_hide_background">Hide background</string>
   <string name="widget_show_header">Show header</string>
   <string name="widget_show_settings">Show settings</string>
@@ -419,6 +417,9 @@ File %1$s contained %2$s.\n\n
   <string name="widget_empty_space_on_click">On click</string>
   <string name="widget_empty_space_do_nothing">Do nothing</string>
   <string name="widget_empty_space_open_list">Open list</string>
+  <string name="widget_due_date_after_title">After title</string>
+  <string name="widget_due_date_below_title">Below title</string>
+  <string name="widget_due_date_hidden">Hidden</string>
   <string name="clear_completed_tasks_confirmation">Clear completed tasks?</string>
   <string name="copy_multiple_tasks_confirmation">%s copied</string>
   <string name="delete_multiple_tasks_confirmation">%s deleted</string>

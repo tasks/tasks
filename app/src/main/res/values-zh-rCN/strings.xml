@@ -274,7 +274,6 @@
     <string name="tmrw">明天</string>
     <string name="yest">昨天</string>
     <string name="sync_SPr_interval_title">后台同步</string>
-    <string name="widget_show_due_date">显示截止日期</string>
     <string name="widget_show_checkboxes">显示复选框</string>
     <string name="widget_show_header">显示标题</string>
     <string name="widget_show_settings">显示设置</string>
@@ -575,8 +574,6 @@
     <string name="settings_default">默认</string>
     <string name="widget_id">部件ID: %d</string>
     <string name="widget_show_menu">显示菜单</string>
-    <string name="widget_due_date_underneath">标题下方显示截止日期</string>
-    <string name="widget_empty_space">空白空间</string>
     <string name="widget_empty_space_open_list">打开列表</string>
     <string name="widget_empty_space_do_nothing">什么也不做</string>
     <string name="widget_empty_space_on_click">点击时</string>

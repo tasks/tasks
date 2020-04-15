@@ -286,7 +286,6 @@
     <string name="tmrw">Zajtra</string>
     <string name="yest">Včera</string>
     <string name="sync_SPr_interval_title">Synchronizácia na pozadí</string>
-    <string name="widget_show_due_date">Ukázať dátumy vypršania </string>
     <string name="widget_show_checkboxes">Ukázať zaškrtávacie políčka </string>
     <string name="widget_show_header">Ukázať záhlavia </string>
     <string name="widget_show_settings">Ukázať nastavenia</string>

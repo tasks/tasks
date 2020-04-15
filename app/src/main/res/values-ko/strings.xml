@@ -290,7 +290,6 @@
     <string name="tmrw">내일</string>
     <string name="yest">어제</string>
     <string name="sync_SPr_interval_title">백그라운드 동기화</string>
-    <string name="widget_show_due_date">완료 예정일 표시</string>
     <string name="widget_show_checkboxes">체크박스 표시</string>
     <string name="widget_show_header">헤더 표시</string>
     <string name="widget_show_settings">설정버튼 표시</string>

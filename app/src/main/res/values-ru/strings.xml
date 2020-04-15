@@ -306,7 +306,6 @@
     <string name="tmrw">Завтра</string>
     <string name="yest">Вчера</string>
     <string name="sync_SPr_interval_title">Фоновая синхронизация</string>
-    <string name="widget_show_due_date">Показать даты</string>
     <string name="widget_show_checkboxes">Показать кнопки для галочек</string>
     <string name="widget_show_header">Показать заголовок</string>
     <string name="widget_show_settings">Показать настройки</string>

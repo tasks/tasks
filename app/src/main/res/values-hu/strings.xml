@@ -288,7 +288,6 @@
     <string name="tmrw">Holn</string>
     <string name="yest">Tegn</string>
     <string name="sync_SPr_interval_title">Szinkronizáció a háttérben</string>
-    <string name="widget_show_due_date">Határidők megjelenítése</string>
     <string name="widget_show_checkboxes">Jelölőnégyzetek megjelenítése</string>
     <string name="widget_show_header">Fejléc megjelenítése</string>
     <string name="widget_show_settings">Beállítások megjelenítése</string>
@@ -582,5 +581,4 @@
     <string name="settings_default">Alapértelmezett</string>
     <string name="widget_id">Widget azonosító: %d</string>
     <string name="widget_show_menu">Menü mutatása</string>
-    <string name="widget_due_date_underneath">Határidő a cím alatt</string>
 </resources>

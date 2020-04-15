@@ -303,7 +303,6 @@
     <string name="tmrw">Звтр</string>
     <string name="yest">Вчр</string>
     <string name="sync_SPr_interval_title">Фонова синхронізація</string>
-    <string name="widget_show_due_date">Показувати дату виконання</string>
     <string name="widget_show_checkboxes">Показати кнопки для галочок</string>
     <string name="widget_show_header">Показати заголовок</string>
     <string name="widget_show_settings">Показати налаштування</string>

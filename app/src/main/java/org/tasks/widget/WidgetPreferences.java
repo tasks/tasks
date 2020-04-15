@@ -18,10 +18,6 @@ public class WidgetPreferences {
     this.widgetId = widgetId;
   }
 
-  boolean showDueDate() {
-    return preferences.getBoolean(getKey(R.string.p_widget_show_due_date), true);
-  }
-
   boolean showHeader() {
     return preferences.getBoolean(getKey(R.string.p_widget_show_header), true);
   }
@@ -50,8 +46,11 @@ public class WidgetPreferences {
     return preferences.getBoolean(getKey(R.string.p_widget_show_full_description), false);
   }
 
-  boolean dueDateBelowTitle() {
-    return preferences.getBoolean(getKey(R.string.p_widget_due_date_underneath), false);
+  public int getDueDatePosition() {
+    int defaultValue =
+        preferences.getBoolean(getKey(R.string.p_widget_show_due_date), true) ? 0 : 2;
+    return preferences.getIntegerFromString(
+        getKey(R.string.p_widget_due_date_position), defaultValue);
   }
 
   int getWidgetSpacing() {

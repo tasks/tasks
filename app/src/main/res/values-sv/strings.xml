@@ -197,7 +197,6 @@
     <string name="tmrw">Imorgon</string>
     <string name="yest">Igår</string>
     <string name="sync_SPr_interval_title">Bakgrundssynkronisering</string>
-    <string name="widget_show_due_date">Visa förfallodatum</string>
     <string name="widget_show_checkboxes">Visa kryssrutor</string>
     <string name="widget_show_header">Visa rubrik</string>
     <string name="widget_show_settings">Visa ikon för inställningar</string>

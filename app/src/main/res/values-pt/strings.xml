@@ -272,7 +272,6 @@
     <string name="tmrw">Amanhã</string>
     <string name="yest">Ontem</string>
     <string name="sync_SPr_interval_title">Sincronização em segundo plano</string>
-    <string name="widget_show_due_date">Mostrar datas limite</string>
     <string name="widget_show_checkboxes">Mostrar caixas de seleção</string>
     <string name="widget_show_header">Mostrar cabeçalho</string>
     <string name="widget_show_settings">Definições:</string>

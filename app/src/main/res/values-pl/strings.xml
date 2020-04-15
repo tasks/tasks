@@ -300,7 +300,6 @@
     <string name="tmrw">jtr</string>
     <string name="yest">wcz</string>
     <string name="sync_SPr_interval_title">Synchronizacja w tle</string>
-    <string name="widget_show_due_date">Pokaż terminy</string>
     <string name="widget_show_checkboxes">Pokaż przyciski wyboru</string>
     <string name="widget_show_header">Pokaż nagłówek</string>
     <string name="widget_show_settings">Pokaż ustawienia</string>

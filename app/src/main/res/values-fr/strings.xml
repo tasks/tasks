@@ -274,7 +274,6 @@
     <string name="tmrw">Demain</string>
     <string name="yest">Hier</string>
     <string name="sync_SPr_interval_title">Synchro. en arrière-plan</string>
-    <string name="widget_show_due_date">Montrer les dates d\'échéance</string>
     <string name="widget_show_checkboxes">Montrer les cases à cocher</string>
     <string name="widget_show_header">Montrer l\'en-tête</string>
     <string name="widget_show_settings">Voir les paramètres</string>
@@ -579,10 +578,8 @@
     <string name="settings_default">Par défaut</string>
     <string name="widget_id">ID du widget: %d</string>
     <string name="widget_show_menu">Afficher le menu</string>
-    <string name="widget_due_date_underneath">Date d\'échéance sous le titre</string>
     <string name="widget_empty_space_open_list">Liste ouverte</string>
     <string name="widget_empty_space_do_nothing">Ne rien faire</string>
-    <string name="widget_empty_space">Espace vide</string>
     <string name="widget_hide_background">Cacher fond</string>
     <string name="widget_empty_space_on_click">Sur clic</string>
 </resources>

@@ -47,6 +47,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
   private final int indentPadding;
 
   private boolean showDueDates;
+  private boolean bottomDueDate;
   private boolean showCheckboxes;
   private float textSize;
   private float dueDateTextSize;
@@ -200,10 +201,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
       }
       int horizontalPadding = (int) context.getResources().getDimension(R.dimen.widget_padding);
       int verticalPadding = widgetPreferences.getWidgetSpacing();
-      int textBottomPadding =
-          showDueDates && task.hasDueDate() && widgetPreferences.dueDateBelowTitle()
-              ? 0
-              : verticalPadding;
+      int textBottomPadding = bottomDueDate && task.hasDueDate() ? 0 : verticalPadding;
       row.setViewPadding(R.id.widget_complete_box, horizontalPadding, verticalPadding, horizontalPadding, verticalPadding);
       if (showCheckboxes) {
         row.setViewVisibility(R.id.widget_complete_box, View.VISIBLE);
@@ -267,7 +265,6 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
   }
 
   private void formatDueDate(RemoteViews row, Task task) {
-    boolean bottomDueDate = widgetPreferences.dueDateBelowTitle();
     int dueDateRes = bottomDueDate ? R.id.widget_due_bottom : R.id.widget_due_end;
     row.setViewVisibility(bottomDueDate ? R.id.widget_due_end : R.id.widget_due_bottom, View.GONE);
     if (task.hasDueDate()) {
@@ -291,7 +288,9 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         ContextCompat.getColor(context, isDark ? R.color.white_87 : R.color.black_87);
     textColorSecondary =
         ContextCompat.getColor(context, isDark ? R.color.white_60 : R.color.black_60);
-    showDueDates = widgetPreferences.showDueDate();
+    int dueDatePosition = widgetPreferences.getDueDatePosition();
+    showDueDates = dueDatePosition != 2;
+    bottomDueDate = dueDatePosition == 1;
     showCheckboxes = widgetPreferences.showCheckboxes();
     textSize = widgetPreferences.getFontSize();
     dueDateTextSize = Math.max(10, textSize - 2);

@@ -285,7 +285,6 @@
     <string name="tmrw">Ryt</string>
     <string name="yest">Vakar</string>
     <string name="sync_SPr_interval_title">Foninis sinchronizavimas</string>
-    <string name="widget_show_due_date">Rodyti pabaigos terminus</string>
     <string name="widget_show_checkboxes">Rodyti žymimus kvadratėlius</string>
     <string name="widget_show_header">Rodyti antraštę</string>
     <string name="widget_show_settings">Rodyti nustatymus</string>

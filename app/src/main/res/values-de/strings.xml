@@ -283,7 +283,6 @@
     <string name="tmrw">Morg.</string>
     <string name="yest">Gest.</string>
     <string name="sync_SPr_interval_title">Hintergrund-Synchronisierung</string>
-    <string name="widget_show_due_date">Zeige Fälligkeitsdatum</string>
     <string name="widget_show_checkboxes">Checkboxen anzeigen</string>
     <string name="widget_show_header">Kopf anzeigen</string>
     <string name="widget_show_settings">Einstellungen anzeigen</string>

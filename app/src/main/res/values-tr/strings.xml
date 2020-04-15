@@ -291,7 +291,6 @@
     <string name="tmrw">Yarın</string>
     <string name="yest">Dün</string>
     <string name="sync_SPr_interval_title">Arka planda eşzamanla</string>
-    <string name="widget_show_due_date">Bitiş tarihlerini göster</string>
     <string name="widget_show_checkboxes">Onay kutularını göster</string>
     <string name="widget_show_header">Başlığı göster</string>
     <string name="widget_show_settings">Ayarları göster</string>

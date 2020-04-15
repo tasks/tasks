@@ -275,7 +275,6 @@
     <string name="tmrw">Huominen</string>
     <string name="yest">Eilinen</string>
     <string name="sync_SPr_interval_title">Tausta synkronointi</string>
-    <string name="widget_show_due_date">Näytä määräpäivät</string>
     <string name="widget_show_checkboxes">Näytä valintaruudut</string>
     <string name="widget_show_header">Näytä otsikot</string>
     <string name="widget_show_settings">Näytä asetukset</string>
