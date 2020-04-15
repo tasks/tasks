@@ -539,4 +539,18 @@
     <string name="invalid_username_or_password">Ugyldig brukernavn eller passord</string>
     <string name="theme_system_default">Systemforvalg</string>
     <string name="back">Tilbake</string>
+    <string name="widget_due_date_underneath">Tidsfristdato under tittel</string>
+    <string name="widget_hide_background">Skjul bakgrunn</string>
+    <string name="select_all">Velg alt</string>
+    <string name="share">Del</string>
+    <string name="compact">Kompakt</string>
+    <string name="settings_default">Forvalg</string>
+    <string name="widget_id">Miniprograms-ID: %d</string>
+    <string name="color_wheel">Fargehjul</string>
+    <string name="widget_empty_space_open_list">Åpne liste</string>
+    <string name="widget_empty_space_do_nothing">Ikke gjør noe</string>
+    <string name="widget_empty_space_on_click">Ved klikk</string>
+    <string name="widget_empty_space">Tomrom</string>
+    <string name="menu_discard_changes">Forkast endringer</string>
+    <string name="widget_show_menu">Vis meny</string>
 </resources>
