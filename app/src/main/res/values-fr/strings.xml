@@ -584,4 +584,5 @@
     <string name="widget_empty_space_do_nothing">Ne rien faire</string>
     <string name="widget_empty_space">Espace vide</string>
     <string name="widget_hide_background">Cacher fond</string>
+    <string name="widget_empty_space_on_click">Sur clic</string>
 </resources>
