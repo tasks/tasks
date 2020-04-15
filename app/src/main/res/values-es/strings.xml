@@ -580,4 +580,14 @@
     <string name="share">Compartir</string>
     <string name="select_all">Seleccionar todo</string>
     <string name="hide_check_button">Ocultar botón de verificación</string>
+    <string name="compact">Compacto</string>
+    <string name="settings_default">Predefinido</string>
+    <string name="widget_id">Widget ID: %d</string>
+    <string name="widget_empty_space_open_list">Lista abierta</string>
+    <string name="widget_empty_space_do_nothing">No hagas nada</string>
+    <string name="widget_empty_space_on_click">Al hacer clic</string>
+    <string name="widget_empty_space">Espacio vacío</string>
+    <string name="widget_show_menu">Mostrar el menú</string>
+    <string name="widget_hide_background">Ocultar fondo</string>
+    <string name="widget_due_date_underneath">La fecha de vencimiento debajo del título</string>
 </resources>
