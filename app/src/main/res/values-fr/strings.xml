@@ -580,4 +580,8 @@
     <string name="widget_id">ID du widget: %d</string>
     <string name="widget_show_menu">Afficher le menu</string>
     <string name="widget_due_date_underneath">Date d\'échéance sous le titre</string>
+    <string name="widget_empty_space_open_list">Liste ouverte</string>
+    <string name="widget_empty_space_do_nothing">Ne rien faire</string>
+    <string name="widget_empty_space">Espace vide</string>
+    <string name="widget_hide_background">Cacher fond</string>
 </resources>
