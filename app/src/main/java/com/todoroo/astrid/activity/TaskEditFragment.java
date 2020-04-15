@@ -169,9 +169,8 @@ public final class TaskEditFragment extends InjectingFragment
     toolbar.setOnMenuItemClickListener(this);
     themeColor.apply(binding.collapsingtoolbarlayout, toolbar);
     EditText title = binding.title;
-    title.setTextKeepState(model.getTitle());
+    title.setText(model.getTitle());
     title.setHorizontallyScrolling(false);
-    title.setLines(1);
     title.setTextColor(themeColor.getColorOnPrimary());
     title.setHintTextColor(themeColor.getHintOnPrimary());
     title.setMaxLines(5);

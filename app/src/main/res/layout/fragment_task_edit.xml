@@ -36,7 +36,6 @@
               android:layout_gravity="top"
               android:background="@null"
               android:gravity="start"
-              android:freezesText="true"
               android:textAppearance="?attr/textAppearanceHeadline5"
               android:hint="@string/TEA_title_hint"
               android:imeOptions="flagNoExtractUi"
