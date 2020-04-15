@@ -218,8 +218,14 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         row.setViewPadding(R.id.widget_description, horizontalPadding, 0, horizontalPadding, textBottomPadding);
       }
 
-      int dividerColor = ContextCompat.getColor(context, theme == 0 ? R.color.black_12 : R.color.white_12);
-      row.setImageViewBitmap(R.id.divider, getSolidBackground(dividerColor));
+      if (widgetPreferences.showDividers()) {
+        int dividerColor =
+            ContextCompat.getColor(context, theme == 0 ? R.color.black_12 : R.color.white_12);
+        row.setViewVisibility(R.id.divider, View.VISIBLE);
+        row.setImageViewBitmap(R.id.divider, getSolidBackground(dividerColor));
+      } else {
+        row.setViewVisibility(R.id.divider, View.GONE);
+      }
 
       row.setInt(
           R.id.widget_row, "setLayoutDirection", Locale.getInstance(context).getDirectionality());

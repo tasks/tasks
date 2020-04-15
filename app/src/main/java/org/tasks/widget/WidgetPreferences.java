@@ -46,6 +46,10 @@ public class WidgetPreferences {
     return preferences.getBoolean(getKey(R.string.p_widget_show_full_description), false);
   }
 
+  boolean showDividers() {
+    return preferences.getBoolean(getKey(R.string.p_widget_show_dividers), true);
+  }
+
   public int getDueDatePosition() {
     int defaultValue =
         preferences.getBoolean(getKey(R.string.p_widget_show_due_date), true) ? 0 : 2;
