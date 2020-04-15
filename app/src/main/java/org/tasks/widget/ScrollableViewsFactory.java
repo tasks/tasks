@@ -225,6 +225,32 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         row.setViewVisibility(R.id.divider, View.GONE);
       }
 
+      if (taskContainer.hasChildren()) {
+        Intent toggleSubtasks = new Intent(WidgetClickActivity.TOGGLE_SUBTASKS);
+        toggleSubtasks.putExtra(WidgetClickActivity.EXTRA_TASK, task);
+        toggleSubtasks.putExtra(WidgetClickActivity.EXTRA_COLLAPSED, !taskContainer.isCollapsed());
+        row.setOnClickFillInIntent(R.id.subtask_button, toggleSubtasks);
+        row.setInt(
+            R.id.subtask_button,
+            "setBackgroundResource",
+            theme == 0 ? R.drawable.widget_chip_light : R.drawable.widget_chip_dark);
+        row.setTextColor(R.id.subtask_text, textColorSecondary);
+        row.setTextViewText(
+            R.id.subtask_text,
+            context
+                .getResources()
+                .getQuantityString(
+                    R.plurals.subtask_count, taskContainer.children, taskContainer.children));
+        row.setImageViewResource(
+            R.id.subtask_icon,
+            taskContainer.isCollapsed()
+                ? R.drawable.ic_keyboard_arrow_up_black_18dp
+                : R.drawable.ic_keyboard_arrow_down_black_18dp);
+        row.setInt(R.id.subtask_icon, "setColorFilter", textColorSecondary);
+        row.setViewVisibility(R.id.subtask_button, View.VISIBLE);
+      } else {
+        row.setViewVisibility(R.id.subtask_button, View.GONE);
+      }
       row.setInt(
           R.id.widget_row, "setLayoutDirection", Locale.getInstance(context).getDirectionality());
 

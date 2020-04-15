@@ -3,9 +3,11 @@ package org.tasks.widget;
 import android.content.Intent;
 import android.os.Bundle;
 import com.google.common.base.Strings;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskCompleter;
 import javax.inject.Inject;
+import org.tasks.LocalBroadcastManager;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.intents.TaskIntents;
@@ -14,10 +16,14 @@ public class WidgetClickActivity extends InjectingAppCompatActivity {
 
   public static final String COMPLETE_TASK = "COMPLETE_TASK";
   public static final String EDIT_TASK = "EDIT_TASK";
+  public static final String TOGGLE_SUBTASKS = "TOGGLE_SUBTASKS";
   public static final String EXTRA_FILTER = "extra_filter";
   public static final String EXTRA_TASK = "extra_task"; // $NON-NLS-1$
+  public static final String EXTRA_COLLAPSED = "extra_collapsed";
 
   @Inject TaskCompleter taskCompleter;
+  @Inject TaskDao taskDao;
+  @Inject LocalBroadcastManager localBroadcastManager;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +49,10 @@ public class WidgetClickActivity extends InjectingAppCompatActivity {
                 this,
                 intent.getParcelableExtra(EXTRA_FILTER),
                 intent.getParcelableExtra(EXTRA_TASK)));
+        break;
+      case TOGGLE_SUBTASKS:
+        taskDao.setCollapsed(task.getId(), intent.getBooleanExtra(EXTRA_COLLAPSED, false));
+        localBroadcastManager.broadcastRefresh();
         break;
     }
 

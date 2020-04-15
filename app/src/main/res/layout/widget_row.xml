@@ -13,7 +13,8 @@
     android:id="@+id/start_padding"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_alignParentStart="true"/>
+    android:layout_alignParentStart="true"
+    tools:ignore="ContentDescription" />
 
   <ImageView
     android:id="@+id/widget_complete_box"
@@ -30,7 +31,8 @@
     android:layout_alignStart="@id/widget_text"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/widget_padding"/>
+    android:paddingTop="@dimen/widget_padding"
+    tools:ignore="ContentDescription" />
 
   <TextView
     android:id="@+id/widget_due_end"
@@ -69,6 +71,7 @@
     android:layout_height="wrap_content"
     android:layout_below="@id/widget_text"
     android:layout_alignStart="@id/widget_text"
+    android:paddingTop="2dp"
     android:paddingStart="0dp"
     android:paddingEnd="@dimen/widget_padding"
     android:maxLines="2"
@@ -90,19 +93,58 @@
     android:textSize="14sp"
     tools:text="Tomorrow" />
 
+  <LinearLayout
+    android:id="@+id/subtask_button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/widget_due_bottom"
+    android:layout_marginTop="2dp"
+    android:layout_alignStart="@id/widget_text"
+    android:background="@drawable/widget_chip_light"
+    android:orientation="horizontal"
+    tools:background="@drawable/widget_chip_light">
+
+    <ImageView
+      android:id="@+id/subtask_icon"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:paddingStart="5dp"
+      android:paddingEnd="0dp"
+      android:layout_gravity="center_vertical"
+      tools:src="@drawable/ic_keyboard_arrow_up_black_18dp"
+      tools:tint="@color/icon_tint_light_alpha" />
+
+    <TextView
+      android:id="@+id/subtask_text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:textSize="14sp"
+      android:maxLines="1"
+      android:ellipsize="end"
+      android:paddingTop="2dp"
+      android:paddingBottom="2dp"
+      android:paddingStart="0dp"
+      android:paddingEnd="8dp"
+      tools:text="4 subtasks"/>
+
+  </LinearLayout>
+
   <ImageView
     android:id="@+id/bottom_padding"
     android:layout_below="@id/subtask_button"
     android:layout_alignStart="@id/widget_text"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/widget_padding" />
+    android:paddingTop="@dimen/widget_padding"
+    tools:ignore="ContentDescription" />
 
   <ImageView
     android:id="@+id/divider"
     android:layout_alignParentBottom="true"
     android:layout_width="match_parent"
     android:scaleType="fitXY"
-    android:layout_height=".5dp" />
+    android:layout_height=".5dp"
+    tools:ignore="ContentDescription" />
 
 </RelativeLayout>
