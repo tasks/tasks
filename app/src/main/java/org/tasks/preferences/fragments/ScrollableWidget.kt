@@ -4,10 +4,8 @@ import android.app.Activity
 import android.appwidget.AppWidgetManager
 import android.content.Intent
 import android.os.Bundle
-import androidx.preference.ListPreference
-import androidx.preference.Preference
-import androidx.preference.SeekBarPreference
-import androidx.preference.SwitchPreferenceCompat
+import androidx.preference.*
+import com.google.common.primitives.Ints.max
 import com.todoroo.astrid.api.Filter
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
@@ -59,9 +57,22 @@ class ScrollableWidget : InjectingPreferenceFragment() {
         appWidgetId = arguments!!.getInt(EXTRA_WIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID)
         widgetPreferences = WidgetPreferences(context, preferences, appWidgetId)
 
-        setupSlider(R.string.p_widget_header_opacity, 100)
-        setupSlider(R.string.p_widget_opacity, 100)
-        setupSlider(R.string.p_widget_empty_space_opacity, 100)
+        val row = setupSlider(R.string.p_widget_opacity, 100)
+        val header = setupSlider(R.string.p_widget_header_opacity, row.value)
+        val footer = setupSlider(R.string.p_widget_empty_space_opacity, row.value)
+
+        val opacity = findPreference(R.string.opacity) as SeekBarPreference
+        opacity.value = max(header.value, row.value, footer.value)
+        if (header.value != row.value || header.value != footer.value) {
+            (findPreference(R.string.preferences_advanced) as PreferenceCategory).initialExpandedChildrenCount = 4
+        }
+        opacity.setOnPreferenceChangeListener { _, newValue ->
+            header.value = newValue as Int
+            row.value = newValue
+            footer.value = newValue
+            true
+        }
+
         setupSlider(R.string.p_widget_font_size, 16)
         val showDueDate = setupCheckbox(R.string.p_widget_show_due_date)
         setupCheckbox(R.string.p_widget_due_date_underneath, false).dependency = showDueDate.key
@@ -76,6 +87,7 @@ class ScrollableWidget : InjectingPreferenceFragment() {
         showSettings.dependency = showHeader.key
         val showMenu = setupCheckbox(R.string.p_widget_show_menu)
         showMenu.dependency = showHeader.key
+        header.dependency = showHeader.key
 
         findPreference(R.string.p_widget_filter)
             .setOnPreferenceClickListener {
