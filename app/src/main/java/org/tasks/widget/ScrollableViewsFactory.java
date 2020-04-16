@@ -145,6 +145,14 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
       RemoteViews row = new RemoteViews(BuildConfig.APPLICATION_ID, R.layout.widget_row);
 
+      if (task.isHidden()) {
+        textColorTitle = textColorSecondary;
+        row.setViewVisibility(R.id.hidden_icon, View.VISIBLE);
+        row.setInt(R.id.hidden_icon, "setColorFilter", textColorSecondary);
+      } else {
+        row.setViewVisibility(R.id.hidden_icon, View.GONE);
+      }
+
       if (task.isCompleted()) {
         textColorTitle = textColorSecondary;
         row.setInt(
