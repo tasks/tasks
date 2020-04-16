@@ -45,6 +45,8 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
   private LiveData<PagedList<TaskContainer>> internal;
 
   public void setFilter(@NonNull Filter filter) {
+    boolean manualSort =
+        preferences.showSubtasks() || (filter.supportsManualSort() && preferences.isManualSort());
     setFilter(filter, manualSort);
   }
 
