@@ -25,7 +25,7 @@ public final class AstridTaskAdapter extends TaskAdapter {
   private final Map<String, ArrayList<String>> chainedCompletions =
       Collections.synchronizedMap(new HashMap<>());
 
-  public AstridTaskAdapter(
+  AstridTaskAdapter(
       TaskListMetadata list, Filter filter, SubtasksFilterUpdater updater, TaskDao taskDao) {
     this.list = list;
     this.filter = filter;

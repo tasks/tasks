@@ -195,7 +195,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     return Math.round(indent * getShiftSize());
   }
 
-  void bindView(TaskContainer task, Filter filter, boolean hideSubtasks) {
+  void bindView(TaskContainer task, Filter filter) {
     this.task = task;
     this.indent = task.indent;
 
@@ -204,7 +204,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     setupTitleAndCheckbox();
     setupDueDate();
     if (preferences.getBoolean(R.string.p_show_list_indicators, true)) {
-      setupChips(filter, hideSubtasks);
+      setupChips(filter);
     }
     if (preferences.getBoolean(R.string.p_show_description, true)) {
       description.setText(task.getNotes());
@@ -260,8 +260,8 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     }
   }
 
-  private void setupChips(Filter filter, boolean hideSubtaskChip) {
-    List<Chip> chips = chipProvider.getChips(filter, indent > 0, hideSubtaskChip, task);
+  private void setupChips(Filter filter) {
+    List<Chip> chips = chipProvider.getChips(filter, indent > 0, task);
     if (chips.isEmpty()) {
       chipGroup.setVisibility(View.GONE);
     } else {

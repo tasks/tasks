@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.ListUpdateCallback;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.todoroo.astrid.activity.TaskListFragment;
+import com.todoroo.astrid.adapter.AstridTaskAdapter;
+import com.todoroo.astrid.adapter.GoogleTaskManualSortAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
@@ -48,7 +50,7 @@ public abstract class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewH
   public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
     TaskContainer task = getItem(position);
     if (task != null) {
-      holder.bindView(task, taskList.getFilter(), adapter.supportsManualSorting());
+      holder.bindView(task, taskList.getFilter());
       holder.setMoving(false);
       int indent = adapter.getIndent(task);
       task.setIndent(indent);

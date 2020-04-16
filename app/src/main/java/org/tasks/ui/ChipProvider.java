@@ -102,15 +102,11 @@ public class ChipProvider {
     return chip;
   }
 
-  public List<Chip> getChips(
-      Filter filter,
-      boolean isSubtask,
-      boolean hideSubtaskChip,
-      TaskContainer task) {
+  public List<Chip> getChips(Filter filter, boolean isSubtask, TaskContainer task) {
     assertMainThread();
 
     List<Chip> chips = new ArrayList<>();
-    if (!hideSubtaskChip && task.hasChildren()) {
+    if (task.hasChildren()) {
       chips.add(newSubtaskChip(task, !showText));
     }
     if (task.hasLocation() && !(filter instanceof PlaceFilter)) {
