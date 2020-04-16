@@ -72,6 +72,9 @@ public class ViewHolder extends RecyclerView.ViewHolder {
   @BindView(R.id.chip_group)
   ChipGroup chipGroup;
 
+  @BindView(R.id.hidden_icon)
+  View hiddenIcon;
+
   private int indent;
   private boolean selected;
   private boolean moving;
@@ -122,7 +125,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
       description.setEllipsize(null);
     }
 
-    setTopPadding(rowPadding, nameView, completeBox, dueDate);
+    setTopPadding(rowPadding, nameView, completeBox, dueDate, hiddenIcon);
     setBottomPadding(rowPadding, completeBox, dueDate);
 
     nameView.setTextSize(fontSize);
@@ -197,8 +200,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     this.indent = task.indent;
 
     nameView.setText(task.getTitle());
-    TextViewCompat.setCompoundDrawablesRelativeWithIntrinsicBounds(
-        nameView, task.isHidden() ? R.drawable.ic_outline_visibility_off_24px : 0, 0, 0, 0);
+    hiddenIcon.setVisibility(task.isHidden() ? View.VISIBLE : View.GONE);
     setupTitleAndCheckbox();
     setupDueDate();
     if (preferences.getBoolean(R.string.p_show_list_indicators, true)) {

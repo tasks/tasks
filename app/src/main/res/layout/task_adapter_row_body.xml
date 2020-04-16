@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/rowBody"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
@@ -17,7 +18,8 @@
       android:layout_alignParentTop="true"
       android:layout_alignParentStart="true"
       android:paddingStart="@dimen/keyline_first"
-      android:paddingEnd="@dimen/keyline_second"/>
+      android:paddingEnd="@dimen/keyline_second"
+      tools:src="@drawable/ic_outline_check_box_outline_blank_24px" />
 
     <TextView
       android:id="@+id/due_date"
@@ -30,13 +32,25 @@
       android:paddingEnd="@dimen/half_keyline_first"
       android:ellipsize="end"
       android:singleLine="true"
-      android:textSize="14sp"/>
+      android:textSize="14sp"
+      tools:text="Tmrrw" />
+
+    <ImageView
+      android:id="@+id/hidden_icon"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_toEndOf="@id/completeBox"
+      android:paddingEnd="2dp"
+      android:paddingStart="0dp"
+      android:src="@drawable/ic_outline_visibility_off_24px"
+      android:tint="@color/icon_tint_with_alpha"
+      android:contentDescription="@string/widget_due_date_hidden" />
 
     <TextView
       android:id="@+id/title"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_toEndOf="@id/completeBox"
+      android:layout_toEndOf="@id/hidden_icon"
       android:layout_toStartOf="@id/due_date"
       android:paddingStart="0dp"
       android:paddingEnd="@dimen/half_keyline_first"
@@ -48,34 +62,37 @@
       android:textColor="?android:attr/textColorPrimary"
       android:textSize="@dimen/task_edit_text_size"
       android:drawablePadding="2dp"
-      app:drawableTint="@color/icon_tint_with_alpha"/>
+      app:drawableTint="@color/icon_tint_with_alpha"
+      tools:text="Task title"
+      tools:textColor="@color/text_primary" />
 
-  <TextView
-    android:id="@+id/description"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/title"
-    android:layout_marginTop="@dimen/task_list_item_spacing"
-    android:paddingStart="@dimen/keyline_content_inset"
-    android:paddingEnd="@dimen/keyline_first"
-    android:ellipsize="end"
-    android:gravity="start"
-    android:maxLines="2"
-    android:textAlignment="viewStart"
-    android:textColor="?android:textColorSecondary"
-    android:textSize="@dimen/task_edit_text_size"
-    android:visibility="gone"/>
+    <TextView
+      android:id="@+id/description"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/title"
+      android:layout_marginTop="@dimen/task_list_item_spacing"
+      android:paddingStart="@dimen/keyline_content_inset"
+      android:paddingEnd="@dimen/keyline_first"
+      android:ellipsize="end"
+      android:gravity="start"
+      android:maxLines="2"
+      android:textAlignment="viewStart"
+      android:textColor="?android:textColorSecondary"
+      android:textSize="@dimen/task_edit_text_size"
+      android:visibility="gone"
+      tools:text="Task description" />
 
-  <com.google.android.material.chip.ChipGroup
-    android:id="@+id/chip_group"
-    android:layout_below="@id/description"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/task_list_item_spacing"
-    android:layout_marginStart="@dimen/keyline_content_inset"
-    android:layout_marginEnd="@dimen/keyline_first"
-    android:visibility="gone"
-    app:chipSpacingHorizontal="@dimen/chip_spacing"
-    app:chipSpacingVertical="@dimen/chip_spacing"/>
+    <com.google.android.material.chip.ChipGroup
+      android:id="@+id/chip_group"
+      android:layout_below="@id/description"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/task_list_item_spacing"
+      android:layout_marginStart="@dimen/keyline_content_inset"
+      android:layout_marginEnd="@dimen/keyline_first"
+      android:visibility="gone"
+      app:chipSpacingHorizontal="@dimen/chip_spacing"
+      app:chipSpacingVertical="@dimen/chip_spacing" />
 
 </RelativeLayout>
