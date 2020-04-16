@@ -587,4 +587,12 @@
     <string name="widget_empty_space_on_click">Al hacer clic</string>
     <string name="widget_show_menu">Mostrar el menú</string>
     <string name="widget_hide_background">Ocultar fondo</string>
+    <string name="widget_due_date_hidden">Oculto</string>
+    <string name="widget_due_date_below_title">Debajo del título</string>
+    <string name="widget_due_date_after_title">Después del título</string>
+    <string name="widget_footer_settings">Configuración del pie de página</string>
+    <string name="opacity_footer">Opacidad del pie de página</string>
+    <string name="opacity_row">Opacidad de la fila</string>
+    <string name="opacity_header">Opacidad del encabezado</string>
+    <string name="widget_show_dividers">Mostrar los divisores</string>
 </resources>
