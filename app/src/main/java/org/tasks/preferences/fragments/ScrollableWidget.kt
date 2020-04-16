@@ -59,7 +59,7 @@ class ScrollableWidget : InjectingPreferenceFragment() {
 
         val row = setupSlider(R.string.p_widget_opacity, 100)
         val header = setupSlider(R.string.p_widget_header_opacity, row.value)
-        val footer = setupSlider(R.string.p_widget_empty_space_opacity, row.value)
+        val footer = setupSlider(R.string.p_widget_footer_opacity, row.value)
 
         val opacity = findPreference(R.string.opacity) as SeekBarPreference
         opacity.value = max(header.value, row.value, footer.value)

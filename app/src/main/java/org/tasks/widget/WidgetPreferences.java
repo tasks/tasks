@@ -90,23 +90,29 @@ public class WidgetPreferences {
   }
 
   int getHeaderOpacity() {
-    return getAlphaValue(R.string.p_widget_header_opacity);
+    int headerOpacity = preferences.getInt(getKey(R.string.p_widget_header_opacity), -1);
+    return headerOpacity >= 0 && headerOpacity <= 100
+        ? getAlphaValue(headerOpacity)
+        : getRowOpacity();
+  }
+
+  int getFooterOpacity() {
+    int footerOpacity = preferences.getInt(getKey(R.string.p_widget_footer_opacity), -1);
+    return footerOpacity >= 0 && footerOpacity <= 100
+        ? getAlphaValue(footerOpacity)
+        : getRowOpacity();
   }
 
   int getRowOpacity() {
-    return getAlphaValue(R.string.p_widget_opacity);
-  }
-
-  int getEmptySpaceOpacity() {
-    return getAlphaValue(R.string.p_widget_empty_space_opacity);
+    return getAlphaValue(preferences.getInt(getKey(R.string.p_widget_opacity), 100));
   }
 
   boolean openOnEmptySpaceClick() {
     return preferences.getIntegerFromString(getKey(R.string.p_widget_empty_space_click), 0) == 1;
   }
 
-  private int getAlphaValue(int resId) {
-    return (int) ((preferences.getInt(getKey(resId), 100) / 100.0) * 255.0);
+  private int getAlphaValue(int percentage) {
+    return (int) (percentage / 100.0 * 255.0);
   }
 
   public void setColor(int color) {

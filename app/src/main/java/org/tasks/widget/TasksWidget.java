@@ -100,7 +100,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
     remoteViews.setInt(
         R.id.empty_view,
         "setBackgroundColor",
-        ColorUtils.setAlphaComponent(bgColor, widgetPreferences.getEmptySpaceOpacity()));
+        ColorUtils.setAlphaComponent(bgColor, widgetPreferences.getFooterOpacity()));
 
     Filter filter = defaultFilterProvider.getFilterFromPreference(filterId);
     remoteViews.setTextViewText(R.id.widget_title, filter.listingTitle);
