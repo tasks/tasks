@@ -582,4 +582,12 @@
     <string name="widget_empty_space_do_nothing">Ne rien faire</string>
     <string name="widget_hide_background">Cacher fond</string>
     <string name="widget_empty_space_on_click">Sur clic</string>
+    <string name="widget_due_date_hidden">Caché</string>
+    <string name="widget_due_date_below_title">Sous le titre</string>
+    <string name="widget_due_date_after_title">Après le titre</string>
+    <string name="widget_footer_settings">Paramètres du pied de page</string>
+    <string name="opacity_footer">Opacité du pied de page</string>
+    <string name="opacity_row">Opacité des lignes</string>
+    <string name="opacity_header">Opacité de l\'en-tête</string>
+    <string name="widget_show_dividers">Afficher les séparateurs</string>
 </resources>
