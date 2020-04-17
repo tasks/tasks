@@ -582,4 +582,12 @@
     <string name="widget_empty_space_do_nothing">Doe niets</string>
     <string name="widget_empty_space_on_click">Als je klikt</string>
     <string name="widget_hide_background">Verberg achtergrond</string>
+    <string name="widget_due_date_hidden">Verborgen</string>
+    <string name="widget_due_date_below_title">Onder titel</string>
+    <string name="widget_due_date_after_title">Na titel</string>
+    <string name="opacity_footer">Voet ondoorzichtigheid</string>
+    <string name="opacity_row">Rij ondoorzichtigheid</string>
+    <string name="opacity_header">Kop ondoorzichtigheid</string>
+    <string name="widget_footer_settings">Voet instellingen</string>
+    <string name="widget_show_dividers">Toon scheidingen</string>
 </resources>
