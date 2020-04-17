@@ -54,7 +54,7 @@
       android:layout_toEndOf="@id/widget_change_list"
       android:layout_toStartOf="@id/widget_reconfigure"
       android:ellipsize="end"
-      tools:text="Today"
+      tools:text="@string/BFE_Active"
       android:gravity="start|center_vertical"
       android:maxLines="2"
       android:textAlignment="viewStart"

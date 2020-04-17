@@ -46,6 +46,8 @@ import org.tasks.data.UserActivityDao;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
+import org.tasks.widget.AppWidgetManager;
+import org.tasks.widget.WidgetPreferences;
 
 public class Upgrader {
 
@@ -62,6 +64,7 @@ public class Upgrader {
   public static final int V8_2 = 675;
   private static final int V8_5 = 700;
   private static final int V8_8 = 717;
+  private static final int V8_10 = 735;
   private final Context context;
   private final Preferences preferences;
   private final Tracker tracker;
@@ -76,6 +79,7 @@ public class Upgrader {
   private final TaskDao taskDao;
   private final LocationDao locationDao;
   private final iCalendar iCal;
+  private final AppWidgetManager widgetManager;
 
   @Inject
   public Upgrader(
@@ -92,7 +96,8 @@ public class Upgrader {
       CaldavDao caldavDao,
       TaskDao taskDao,
       LocationDao locationDao,
-      iCalendar iCal) {
+      iCalendar iCal,
+      AppWidgetManager widgetManager) {
     this.context = context;
     this.preferences = preferences;
     this.tracker = tracker;
@@ -107,6 +112,7 @@ public class Upgrader {
     this.taskDao = taskDao;
     this.locationDao = locationDao;
     this.iCal = iCal;
+    this.widgetManager = widgetManager;
   }
 
   public void upgrade(int from, int to) {
@@ -127,6 +133,7 @@ public class Upgrader {
         preferences.setBoolean(R.string.p_linkify_task_edit, true);
         preferences.setBoolean(R.string.p_auto_dismiss_datetime_edit_screen, true);
       });
+      run(from, V8_10, this::migrateWidgets);
     }
     preferences.setCurrentVersion(to);
   }
@@ -135,6 +142,13 @@ public class Upgrader {
     if (from < version) {
       runnable.run();
       preferences.setCurrentVersion(version);
+    }
+  }
+
+  private void migrateWidgets() {
+    for (int widgetId : widgetManager.getWidgetIds()) {
+      WidgetPreferences widgetPreferences = new WidgetPreferences(context, preferences, widgetId);
+      widgetPreferences.maintainExistingConfiguration();
     }
   }
 

@@ -51,8 +51,7 @@ public class WidgetPreferences {
   }
 
   public int getDueDatePosition() {
-    int defaultValue = getBoolean(R.string.p_widget_show_due_date, true) ? 0 : 2;
-    return getIntegerFromString(R.string.p_widget_due_date_position, defaultValue);
+    return getIntegerFromString(R.string.p_widget_due_date_position, 0);
   }
 
   int getWidgetSpacing() {
@@ -92,29 +91,23 @@ public class WidgetPreferences {
   }
 
   int getHeaderOpacity() {
-    int headerOpacity = getInt(R.string.p_widget_header_opacity, -1);
-    return headerOpacity >= 0 && headerOpacity <= 100
-        ? getAlphaValue(headerOpacity)
-        : getRowOpacity();
+    return getAlphaValue(R.string.p_widget_header_opacity);
   }
 
   int getFooterOpacity() {
-    int footerOpacity = getInt(R.string.p_widget_footer_opacity, -1);
-    return footerOpacity >= 0 && footerOpacity <= 100
-        ? getAlphaValue(footerOpacity)
-        : getRowOpacity();
+    return getAlphaValue(R.string.p_widget_footer_opacity);
   }
 
   int getRowOpacity() {
-    return getAlphaValue(getInt(R.string.p_widget_opacity, 100));
+    return getAlphaValue(R.string.p_widget_opacity);
   }
 
   boolean openOnEmptySpaceClick() {
     return getIntegerFromString(R.string.p_widget_empty_space_click, 0) == 1;
   }
 
-  private int getAlphaValue(int percentage) {
-    return (int) (percentage / 100.0 * 255.0);
+  private int getAlphaValue(int resId) {
+    return (int) (getInt(resId, 100) / 100.0 * 255.0);
   }
 
   public void setTheme(int index) {
@@ -147,5 +140,25 @@ public class WidgetPreferences {
 
   private void setInt(int resId, int value) {
     preferences.setInt(getKey(resId), value);
+  }
+
+  private void setBoolean(int resId, boolean value) {
+    preferences.setBoolean(getKey(resId), value);
+  }
+
+  private void setString(int resId, String value) {
+    preferences.setString(getKey(resId), value);
+  }
+
+  public void maintainExistingConfiguration() {
+    int rowOpacity = getInt(R.string.p_widget_opacity, 100);
+    setInt(R.string.p_widget_header_opacity, rowOpacity);
+    setInt(R.string.p_widget_footer_opacity, rowOpacity);
+    boolean showDueDate = getBoolean(R.string.p_widget_show_due_date, true);
+    setString(R.string.p_widget_due_date_position, showDueDate ? "1" : "2"); // below or hidden
+    setBoolean(R.string.p_widget_show_dividers, false); // no dividers
+    setBoolean(R.string.p_widget_show_menu, false); // no menu
+    setString(R.string.p_widget_spacing, "1"); // compact
+    setBoolean(R.string.p_widget_show_description, false); // no description
   }
 }
