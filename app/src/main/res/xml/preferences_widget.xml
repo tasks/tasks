@@ -128,10 +128,10 @@
 
     <ListPreference
       android:defaultValue="0"
-      android:key="@string/p_widget_empty_space_click"
+      android:key="@string/p_widget_footer_click"
       android:entryValues="@array/widget_empty_click_values"
       android:entries="@array/widget_empty_click_titles"
-      android:title="@string/widget_empty_space_on_click"
+      android:title="@string/widget_on_click"
       android:summary="%s" />
 
   </PreferenceCategory>

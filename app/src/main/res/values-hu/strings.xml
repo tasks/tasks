@@ -584,9 +584,9 @@
     <string name="widget_due_date_hidden">Elrejtve</string>
     <string name="widget_due_date_below_title">Cím alatt</string>
     <string name="widget_due_date_after_title">Cím után</string>
-    <string name="widget_empty_space_open_list">Lista megnyitása</string>
-    <string name="widget_empty_space_do_nothing">Nincs művelet</string>
-    <string name="widget_empty_space_on_click">Kattintásra</string>
+    <string name="widget_open_list">Lista megnyitása</string>
+    <string name="widget_do_nothing">Nincs művelet</string>
+    <string name="widget_on_click">Kattintásra</string>
     <string name="widget_footer_settings">Lábléc beállításai</string>
     <string name="opacity_footer">Lábléc átlátszóság</string>
     <string name="opacity_row">Sor átlátszóság</string>

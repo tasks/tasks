@@ -545,9 +545,9 @@
     <string name="settings_default">Forvalg</string>
     <string name="widget_id">Miniprograms-ID: %d</string>
     <string name="color_wheel">Fargehjul</string>
-    <string name="widget_empty_space_open_list">Åpne liste</string>
-    <string name="widget_empty_space_do_nothing">Ikke gjør noe</string>
-    <string name="widget_empty_space_on_click">Ved klikk</string>
+    <string name="widget_open_list">Åpne liste</string>
+    <string name="widget_do_nothing">Ikke gjør noe</string>
+    <string name="widget_on_click">Ved klikk</string>
     <string name="menu_discard_changes">Forkast endringer</string>
     <string name="widget_show_menu">Vis meny</string>
 </resources>

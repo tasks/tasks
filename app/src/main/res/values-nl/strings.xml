@@ -578,9 +578,9 @@
     <string name="settings_default">Standaardwaarde</string>
     <string name="widget_id">Widget ID: %d</string>
     <string name="widget_show_menu">Toon menu</string>
-    <string name="widget_empty_space_open_list">Open lijst</string>
-    <string name="widget_empty_space_do_nothing">Doe niets</string>
-    <string name="widget_empty_space_on_click">Als je klikt</string>
+    <string name="widget_open_list">Open lijst</string>
+    <string name="widget_do_nothing">Doe niets</string>
+    <string name="widget_on_click">Als je klikt</string>
     <string name="widget_hide_background">Verberg achtergrond</string>
     <string name="widget_due_date_hidden">Verborgen</string>
     <string name="widget_due_date_below_title">Onder titel</string>

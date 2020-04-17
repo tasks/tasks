@@ -578,10 +578,10 @@
     <string name="settings_default">Par défaut</string>
     <string name="widget_id">ID du widget: %d</string>
     <string name="widget_show_menu">Afficher le menu</string>
-    <string name="widget_empty_space_open_list">Liste ouverte</string>
-    <string name="widget_empty_space_do_nothing">Ne rien faire</string>
+    <string name="widget_open_list">Liste ouverte</string>
+    <string name="widget_do_nothing">Ne rien faire</string>
     <string name="widget_hide_background">Cacher fond</string>
-    <string name="widget_empty_space_on_click">Sur clic</string>
+    <string name="widget_on_click">Sur clic</string>
     <string name="widget_due_date_hidden">Caché</string>
     <string name="widget_due_date_below_title">Sous le titre</string>
     <string name="widget_due_date_after_title">Après le titre</string>

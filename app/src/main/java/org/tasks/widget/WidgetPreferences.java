@@ -102,8 +102,8 @@ public class WidgetPreferences {
     return getAlphaValue(R.string.p_widget_opacity);
   }
 
-  boolean openOnEmptySpaceClick() {
-    return getIntegerFromString(R.string.p_widget_empty_space_click, 0) == 1;
+  boolean openOnFooterClick() {
+    return getIntegerFromString(R.string.p_widget_footer_click, 0) == 1;
   }
 
   private int getAlphaValue(int resId) {

@@ -574,10 +574,10 @@
     <string name="select_all">Alles auswählen</string>
     <string name="share">Teilen</string>
     <string name="hide_check_button">Abschließen-Schaltfläche ausblenden</string>
-    <string name="widget_empty_space_on_click">Beim Klicken</string>
+    <string name="widget_on_click">Beim Klicken</string>
     <string name="widget_footer_settings">Fußzeilen-Einstellungen</string>
     <string name="widget_show_dividers">Trenner anzeigen</string>
-    <string name="widget_empty_space_do_nothing">Nichts tun</string>
+    <string name="widget_do_nothing">Nichts tun</string>
     <string name="opacity_footer">Transparenz Fußzeile</string>
     <string name="opacity_row">Transparenz Zeile</string>
     <string name="opacity_header">Transparenz Kopfzeile</string>
@@ -588,6 +588,6 @@
     <string name="widget_due_date_hidden">Ausgeblendet</string>
     <string name="widget_due_date_after_title">Hinter dem Titel</string>
     <string name="widget_due_date_below_title">Unter dem Titel</string>
-    <string name="widget_empty_space_open_list">Liste öffnen</string>
+    <string name="widget_open_list">Liste öffnen</string>
     <string name="widget_show_menu">Menü anzeigen</string>
 </resources>

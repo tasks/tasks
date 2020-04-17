@@ -110,7 +110,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
     remoteViews.setOnClickPendingIntent(R.id.widget_change_list, getChooseListIntent(context, filter, id));
     remoteViews.setOnClickPendingIntent(
         R.id.widget_reconfigure, getWidgetConfigIntent(context, id));
-    if (widgetPreferences.openOnEmptySpaceClick()) {
+    if (widgetPreferences.openOnFooterClick()) {
       remoteViews.setOnClickPendingIntent(R.id.empty_view, getOpenListIntent(context, filter, id));
     } else {
       remoteViews.setOnClickPendingIntent(R.id.empty_view, null);

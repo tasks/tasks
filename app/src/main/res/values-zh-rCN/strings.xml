@@ -574,8 +574,8 @@
     <string name="settings_default">默认</string>
     <string name="widget_id">部件ID: %d</string>
     <string name="widget_show_menu">显示菜单</string>
-    <string name="widget_empty_space_open_list">打开列表</string>
-    <string name="widget_empty_space_do_nothing">什么也不做</string>
-    <string name="widget_empty_space_on_click">点击时</string>
+    <string name="widget_open_list">打开列表</string>
+    <string name="widget_do_nothing">什么也不做</string>
+    <string name="widget_on_click">点击时</string>
     <string name="widget_hide_background">隐藏背景</string>
 </resources>
