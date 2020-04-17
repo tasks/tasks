@@ -415,9 +415,11 @@ File %1$s contained %2$s.\n\n
   <string name="widget_header_settings">Header settings</string>
   <string name="widget_row_settings">Row settings</string>
   <string name="widget_footer_settings">Footer settings</string>
+  <string name="widget_footer">Footer</string>
   <string name="widget_on_click">On click</string>
   <string name="widget_do_nothing">Do nothing</string>
   <string name="widget_open_list">Open list</string>
+  <string name="widget_due_date_reschedule">Reschedule task</string>
   <string name="widget_due_date_after_title">After title</string>
   <string name="widget_due_date_below_title">Below title</string>
   <string name="widget_due_date_hidden">Hidden</string>
@@ -588,8 +590,12 @@ File %1$s contained %2$s.\n\n
   <string name="shortcut_pick_time">Pick time</string>
   <string name="shortcut_pick_date">Pick date</string>
   <string name="auto_dismiss_datetime">Autoclose date time picker</string>
-  <string name="auto_dismiss_datetime_list">Autoclose from list screen</string>
-  <string name="auto_dismiss_datetime_edit">Autoclose from edit screen</string>
+  <string name="auto_dismiss_datetime_list">Task list</string>
+  <string name="auto_dismiss_datetime_list_summary">Autoclose when picking from task list</string>
+  <string name="auto_dismiss_datetime_edit">Task edit</string>
+  <string name="auto_dismiss_datetime_edit_summary">Autoclose when picking from task edit</string>
+  <string name="auto_dismiss_datetime_widget">Widget</string>
+  <string name="auto_dismiss_datetime_widget_summary">Autoclose when picking from widget</string>
   <string name="auto_dismiss_datetime_summary">Close date time picker after selecting a date or time</string>
   <string name="calendar_event_created">Calendar event created for %s</string>
   <string name="select_all">Select all</string>

@@ -652,18 +652,6 @@ public final class TaskListFragment extends InjectingFragment
           finishActionMode();
         }
         break;
-      case REQUEST_DUE_DATE:
-        if (resultCode == RESULT_OK) {
-          long taskId = data.getLongExtra(DateTimePicker.EXTRA_TASK, 0L);
-          Task task = taskDao.fetch(taskId);
-          long dueDate = data.getLongExtra(DateTimePicker.EXTRA_TIMESTAMP, 0L);
-          if (newDateTime(dueDate).isAfterNow()) {
-            notificationManager.cancel(task.getId());
-          }
-          task.setDueDateAdjustingHideUntil(dueDate);
-          taskDao.save(task);
-        }
-        break;
       default:
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -815,8 +803,6 @@ public final class TaskListFragment extends InjectingFragment
     FragmentManager fragmentManager = getParentFragmentManager();
     if (fragmentManager.findFragmentByTag(FRAG_TAG_DATE_TIME_PICKER) == null) {
       DateTimePicker.Companion.newDateTimePicker(
-              this,
-              REQUEST_DUE_DATE,
               task.getId(),
               task.getDueDate(),
               preferences.getBoolean(R.string.p_auto_dismiss_datetime_list_screen, false))

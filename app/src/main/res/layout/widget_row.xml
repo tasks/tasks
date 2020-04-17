@@ -40,14 +40,13 @@
     android:layout_height="wrap_content"
     android:layout_alignBaseline="@id/widget_text"
     android:layout_alignParentEnd="true"
-    android:paddingStart="0dp"
-    android:paddingEnd="@dimen/widget_padding"
     android:ellipsize="end"
     android:gravity="start|center_vertical"
     android:singleLine="true"
     android:textAlignment="viewStart"
     android:textSize="14sp"
-    tools:text="Tomorrow" />
+    tools:text="Tomorrow"
+    tools:paddingEnd="@dimen/widget_padding"/>
 
   <ImageView
     android:id="@+id/hidden_icon"

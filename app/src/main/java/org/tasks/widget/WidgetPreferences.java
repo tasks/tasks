@@ -106,6 +106,10 @@ public class WidgetPreferences {
     return getIntegerFromString(R.string.p_widget_footer_click, 0) == 1;
   }
 
+  boolean rescheduleOnDueDateClick() {
+    return getIntegerFromString(R.string.p_widget_due_date_click, 0) == 0;
+  }
+
   private int getAlphaValue(int resId) {
     return (int) (getInt(resId, 100) / 100.0 * 255.0);
   }

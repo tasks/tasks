@@ -21,6 +21,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow
 import com.todoroo.andlib.utility.DateUtilities
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import org.tasks.R
 import org.tasks.databinding.DialogDateTimePickerBinding
@@ -30,7 +31,9 @@ import org.tasks.dialogs.MyTimePickerDialog.newTimePicker
 import org.tasks.injection.DialogFragmentComponent
 import org.tasks.injection.InjectingBottomSheetDialogFragment
 import org.tasks.locale.Locale
+import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.Preferences
+import org.tasks.themes.Theme
 import org.tasks.time.DateTime
 import org.threeten.bp.format.FormatStyle
 import javax.inject.Inject
@@ -40,6 +43,9 @@ class DateTimePicker : InjectingBottomSheetDialogFragment() {
     @Inject lateinit var activity: Activity
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var locale: Locale
+    @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var notificationManager: NotificationManager
+    @Inject lateinit var theme: Theme
 
     lateinit var binding: DialogDateTimePickerBinding
     private var customDate: DateTime? = null
@@ -52,6 +58,11 @@ class DateTimePicker : InjectingBottomSheetDialogFragment() {
     private var afternoon = 46801000
     private var evening = 61201000
     private var night = 72001000
+    private var onDismissHandler: OnDismissHandler? = null
+
+    interface OnDismissHandler {
+        fun onDismiss()
+    }
 
     companion object {
         const val EXTRA_TIMESTAMP = "extra_timestamp"
@@ -63,9 +74,18 @@ class DateTimePicker : InjectingBottomSheetDialogFragment() {
         private const val FRAG_TAG_TIME_PICKER = "frag_tag_time_picker"
         private const val FRAG_TAG_DATE_PICKER = "frag_tag_date_picker"
 
-        fun newDateTimePicker(target: Fragment, rc: Int, task: Long, current: Long, autoClose: Boolean): DateTimePicker {
+        fun newDateTimePicker(task: Long, current: Long, autoClose: Boolean): DateTimePicker {
             val bundle = Bundle()
             bundle.putLong(EXTRA_TASK, task)
+            bundle.putLong(EXTRA_TIMESTAMP, current)
+            bundle.putBoolean(EXTRA_AUTO_CLOSE, autoClose)
+            val fragment = DateTimePicker()
+            fragment.arguments = bundle
+            return fragment
+        }
+
+        fun newDateTimePicker(target: Fragment, rc: Int, current: Long, autoClose: Boolean): DateTimePicker {
+            val bundle = Bundle()
             bundle.putLong(EXTRA_TIMESTAMP, current)
             bundle.putBoolean(EXTRA_AUTO_CLOSE, autoClose)
             val fragment = DateTimePicker()
@@ -76,7 +96,7 @@ class DateTimePicker : InjectingBottomSheetDialogFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DialogDateTimePickerBinding.inflate(inflater)
+        binding = DialogDateTimePickerBinding.inflate(theme.getLayoutInflater(context))
         if (AndroidUtilities.preMarshmallow()) {
             binding.shortcuts.pickDateButton.visibility = View.VISIBLE
         }
@@ -108,6 +128,14 @@ class DateTimePicker : InjectingBottomSheetDialogFragment() {
         selected = if (timestamp > 0) DateTime(timestamp) else null
 
         return binding.root
+    }
+
+    override fun onAttach(activity: Activity) {
+        super.onAttach(activity)
+
+        if (activity is OnDismissHandler) {
+            onDismissHandler = activity
+        }
     }
 
     private fun closeAutomatically(): Boolean = arguments?.getBoolean(EXTRA_AUTO_CLOSE) ?: false
@@ -222,11 +250,29 @@ class DateTimePicker : InjectingBottomSheetDialogFragment() {
     }
 
     private fun sendSelected() {
-        val intent = Intent()
-        intent.putExtra(EXTRA_TIMESTAMP, selected?.millis ?: 0)
-        intent.putExtra(EXTRA_TASK, arguments?.getLong(EXTRA_TASK) ?: 0)
-        targetFragment?.onActivityResult(targetRequestCode, RESULT_OK, intent)
+        val taskId = arguments?.getLong(EXTRA_TASK) ?: 0
+        val dueDate = selected?.millis ?: 0
+        if (dueDate != arguments?.getLong(EXTRA_TIMESTAMP)) {
+            if (taskId > 0) {
+                val task: Task = taskDao.fetch(taskId)
+                if (newDateTime(dueDate).isAfterNow) {
+                    notificationManager.cancel(task.getId())
+                }
+                task.setDueDateAdjustingHideUntil(dueDate)
+                taskDao.save(task)
+            } else {
+                val intent = Intent()
+                intent.putExtra(EXTRA_TIMESTAMP, dueDate)
+                targetFragment?.onActivityResult(targetRequestCode, RESULT_OK, intent)
+            }
+        }
         dismiss()
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+
+        onDismissHandler?.onDismiss()
     }
 
     override fun onCancel(dialog: DialogInterface) = sendSelected()
@@ -259,7 +305,7 @@ class DateTimePicker : InjectingBottomSheetDialogFragment() {
                 .findViewById<CoordinatorLayout>(com.google.android.material.R.id.coordinator)
         val containerLayout =
                 dialog.findViewById<FrameLayout>(com.google.android.material.R.id.container)
-        val buttons = dialog.layoutInflater.inflate(R.layout.dialog_date_time_picker_buttons, null)
+        val buttons = theme.getLayoutInflater(context).inflate(R.layout.dialog_date_time_picker_buttons, null)
         buttons.findViewById<View>(R.id.cancel_button).setOnClickListener { dismiss() }
         buttons.findViewById<View>(R.id.ok_button).setOnClickListener { sendSelected() }
         buttons.layoutParams = FrameLayout.LayoutParams(

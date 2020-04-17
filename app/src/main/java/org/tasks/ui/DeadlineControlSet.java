@@ -79,7 +79,6 @@ public class DeadlineControlSet extends TaskEditControlFragment {
       DateTimePicker.Companion.newDateTimePicker(
           this,
           REQUEST_DATE,
-          0,
           getDueDateTime(),
           preferences.getBoolean(R.string.p_auto_dismiss_datetime_edit_screen, false))
           .show(fragmentManager, FRAG_TAG_DATE_PICKER);

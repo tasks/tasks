@@ -37,12 +37,20 @@
         <SwitchPreferenceCompat
           android:defaultValue="false"
           android:key="@string/p_auto_dismiss_datetime_list_screen"
-          android:title="@string/auto_dismiss_datetime_list" />
+          android:title="@string/auto_dismiss_datetime_list"
+          android:summary="@string/auto_dismiss_datetime_list_summary" />
 
         <SwitchPreferenceCompat
           android:defaultValue="false"
           android:key="@string/p_auto_dismiss_datetime_edit_screen"
-          android:title="@string/auto_dismiss_datetime_edit" />
+          android:title="@string/auto_dismiss_datetime_edit"
+          android:summary="@string/auto_dismiss_datetime_edit_summary" />
+
+        <SwitchPreferenceCompat
+          android:defaultValue="false"
+          android:key="@string/p_auto_dismiss_datetime_widget"
+          android:title="@string/auto_dismiss_datetime_widget"
+          android:summary="@string/auto_dismiss_datetime_widget_summary" />
 
     </PreferenceCategory>
 

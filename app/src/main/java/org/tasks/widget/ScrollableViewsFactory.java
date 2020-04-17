@@ -211,12 +211,19 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
       int hPad = (int) context.getResources().getDimension(R.dimen.widget_padding);
       int vPad = widgetPreferences.getWidgetSpacing();
       row.setViewPadding(R.id.widget_complete_box, hPad, vPad, hPad, vPad);
+      row.setViewPadding(R.id.widget_due_end, hPad, vPad, hPad, vPad);
       if (showCheckboxes) {
         row.setViewVisibility(R.id.widget_complete_box, View.VISIBLE);
         Intent completeIntent = new Intent(WidgetClickActivity.COMPLETE_TASK);
         completeIntent.putExtra(WidgetClickActivity.EXTRA_TASK, task);
         row.setOnClickFillInIntent(R.id.widget_complete_box, completeIntent);
         row.setViewPadding(R.id.start_padding, 0, 0, 0, 0);
+        row.setInt(
+            R.id.widget_complete_box,
+            "setBackgroundResource",
+            theme == 0
+                ? R.drawable.widget_ripple_circle_light
+                : R.drawable.widget_ripple_circle_dark);
       } else {
         row.setViewVisibility(R.id.widget_complete_box, View.GONE);
         row.setViewPadding(R.id.start_padding, hPad, 0, 0, 0);
@@ -306,6 +313,9 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     int dueDateRes = bottomDueDate ? R.id.widget_due_bottom : R.id.widget_due_end;
     row.setViewVisibility(bottomDueDate ? R.id.widget_due_end : R.id.widget_due_bottom, View.GONE);
     if (task.hasDueDate()) {
+      if (!bottomDueDate) {
+        row.setViewPadding(R.id.widget_text, 0, 0, 0, 0);
+      }
       row.setViewVisibility(dueDateRes, View.VISIBLE);
       row.setTextViewText(
           dueDateRes,
@@ -317,6 +327,17 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
       row.setFloat(dueDateRes, "setTextSize", dueDateTextSize);
     } else {
       row.setViewVisibility(dueDateRes, View.GONE);
+    }
+    if (widgetPreferences.rescheduleOnDueDateClick()) {
+      row.setInt(
+          dueDateRes,
+          "setBackgroundResource",
+          widgetPreferences.getThemeIndex() == 0
+              ? R.drawable.widget_ripple_circle_light
+              : R.drawable.widget_ripple_circle_dark);
+      Intent intent = new Intent(WidgetClickActivity.RESCHEDULE_TASK);
+      intent.putExtra(WidgetClickActivity.EXTRA_TASK, task);
+      row.setOnClickFillInIntent(dueDateRes, intent);
     }
   }
 
