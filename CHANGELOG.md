@@ -1,13 +1,14 @@
 Change Log
 ---
 =======
-### 8.10 (2020-04-16)
+### 8.10 (2020-04-17)
 
 * New widget features
   * Menu button to quickly change list
   * Expand and collapse subtasks
   * Access widget settings from main app preferences
   * Show description
+  * Show hidden task indicators
 * New widget settings
   * Row spacing: default, compact, none
   * Due date: after title, below title, or hidden
@@ -24,7 +25,7 @@ Change Log
   * Basque - @osoitz
   * Dutch - @fvbommel
   * French - @FlorianLeChat
-  * German - Joey Meigele
+  * German - Joey Meigele, marmo
   * Hungarian - kaciokos
   * Norwegian Bokmål - @comradekingu
   * Russian - @tolstovka
