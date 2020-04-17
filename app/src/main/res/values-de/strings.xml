@@ -338,7 +338,7 @@
     <string name="show_hidden">Ausgeblendete anzeigen</string>
     <string name="show_completed">Erledigte anzeigen</string>
     <string name="reverse">Rückgangig</string>
-    <string name="no_application_found">Keine Anwendung konnte den Anhang öffnen</string>
+    <string name="no_application_found">Keine Anwendung zum Öffnen des Anhangs gefunden</string>
     <string name="add_attachment">Anhang hinzufügen</string>
     <string name="take_a_picture">Bild aufnehmen</string>
     <string name="pick_from_gallery">Aus Galerie wählen</string>
