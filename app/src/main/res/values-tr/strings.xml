@@ -579,4 +579,20 @@
     <string name="hide_check_button">Denetim düğmesini gizle</string>
     <string name="share">Paylaş</string>
     <string name="select_all">Tümünü seç</string>
+    <string name="compact">Sıkı</string>
+    <string name="settings_default">Öntanımlı</string>
+    <string name="widget_id">Widget kimliği: %d</string>
+    <string name="widget_due_date_hidden">Gizli</string>
+    <string name="widget_due_date_below_title">Başlığın altında</string>
+    <string name="widget_due_date_after_title">Başlıktan sonra</string>
+    <string name="widget_open_list">Listeyi aç</string>
+    <string name="widget_do_nothing">Bir şey yapma</string>
+    <string name="widget_on_click">Tıkladığında</string>
+    <string name="widget_footer_settings">Alt bölüm ayarları</string>
+    <string name="opacity_footer">Alt bölüm opaklığı</string>
+    <string name="opacity_row">Satır opaklığı</string>
+    <string name="opacity_header">Başlık opaklığı</string>
+    <string name="widget_show_dividers">Ayırıcıları göster</string>
+    <string name="widget_show_menu">Menüyü göster</string>
+    <string name="widget_hide_background">Arka planı gizle</string>
 </resources>
