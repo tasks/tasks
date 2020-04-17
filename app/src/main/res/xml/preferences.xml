@@ -33,6 +33,7 @@
     app:title="@string/backup_BPr_header" />
 
   <Preference
+    android:key="@string/widget_settings"
     app:fragment="org.tasks.preferences.fragments.Widgets"
     app:icon="@drawable/ic_widgets_24px"
     app:title="@string/widget_settings" />
