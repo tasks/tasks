@@ -338,7 +338,7 @@
     <string name="show_hidden">Ausgeblendete anzeigen</string>
     <string name="show_completed">Erledigte anzeigen</string>
     <string name="reverse">Rückgangig</string>
-    <string name="no_application_found">Keine Anwendung zum Öffnen des Anhangs gefunden</string>
+    <string name="no_application_found">Keine Anwendung konnte den Anhang öffnen</string>
     <string name="add_attachment">Anhang hinzufügen</string>
     <string name="take_a_picture">Bild aufnehmen</string>
     <string name="pick_from_gallery">Aus Galerie wählen</string>
@@ -573,7 +573,7 @@
     <string name="calendar_event_created">Termin im Kalender erstellt für %s</string>
     <string name="select_all">Alles auswählen</string>
     <string name="share">Teilen</string>
-    <string name="hide_check_button">Schaltfläche zum Überprüfen ausblenden</string>
+    <string name="hide_check_button">Abschließen-Schaltfläche ausblenden</string>
     <string name="widget_empty_space_on_click">Beim Klicken</string>
     <string name="widget_footer_settings">Fußzeilen-Einstellungen</string>
     <string name="widget_show_dividers">Trenner anzeigen</string>
