@@ -19,46 +19,44 @@ public class WidgetPreferences {
   }
 
   boolean showHeader() {
-    return preferences.getBoolean(getKey(R.string.p_widget_show_header), true);
+    return getBoolean(R.string.p_widget_show_header, true);
   }
 
   boolean showCheckboxes() {
-    return preferences.getBoolean(getKey(R.string.p_widget_show_checkboxes), true);
+    return getBoolean(R.string.p_widget_show_checkboxes, true);
   }
 
   boolean showSettings() {
-    return preferences.getBoolean(getKey(R.string.p_widget_show_settings), true);
+    return getBoolean(R.string.p_widget_show_settings, true);
   }
 
   boolean showMenu() {
-    return preferences.getBoolean(getKey(R.string.p_widget_show_menu), true);
+    return getBoolean(R.string.p_widget_show_menu, true);
   }
 
   boolean showFullTaskTitle() {
-    return preferences.getBoolean(getKey(R.string.p_widget_show_full_task_title), false);
+    return getBoolean(R.string.p_widget_show_full_task_title, false);
   }
 
   boolean showDescription() {
-    return preferences.getBoolean(getKey(R.string.p_widget_show_description), true);
+    return getBoolean(R.string.p_widget_show_description, true);
   }
 
   boolean showFullDescription() {
-    return preferences.getBoolean(getKey(R.string.p_widget_show_full_description), false);
+    return getBoolean(R.string.p_widget_show_full_description, false);
   }
 
   boolean showDividers() {
-    return preferences.getBoolean(getKey(R.string.p_widget_show_dividers), true);
+    return getBoolean(R.string.p_widget_show_dividers, true);
   }
 
   public int getDueDatePosition() {
-    int defaultValue =
-        preferences.getBoolean(getKey(R.string.p_widget_show_due_date), true) ? 0 : 2;
-    return preferences.getIntegerFromString(
-        getKey(R.string.p_widget_due_date_position), defaultValue);
+    int defaultValue = getBoolean(R.string.p_widget_show_due_date, true) ? 0 : 2;
+    return getIntegerFromString(R.string.p_widget_due_date_position, defaultValue);
   }
 
   int getWidgetSpacing() {
-    int spacing = preferences.getIntegerFromString(getKey(R.string.p_widget_spacing), 0);
+    int spacing = getIntegerFromString(R.string.p_widget_spacing, 0);
     if (spacing == 2) {
       return 0;
     }
@@ -67,60 +65,60 @@ public class WidgetPreferences {
   }
 
   int getFontSize() {
-    return preferences.getInt(getKey(R.string.p_widget_font_size), 16);
+    return getInt(R.string.p_widget_font_size, 16);
   }
 
   public String getFilterId() {
-    return preferences.getStringValue(getKey(R.string.p_widget_filter));
+    return getString(R.string.p_widget_filter);
   }
 
   public int getThemeIndex() {
-    return preferences.getInt(getKey(R.string.p_widget_theme), 0);
+    return getInt(R.string.p_widget_theme, 0);
   }
 
   public int getColor() {
-    int color = preferences.getInt(getKey(R.string.p_widget_color_v2), 0);
+    int color = getInt(R.string.p_widget_color_v2, 0);
     if (color != 0) {
       return color;
     }
-    int index = preferences.getInt(getKey(R.string.p_widget_color), -1);
+    int index = getInt(R.string.p_widget_color, -1);
     color = ContextCompat.getColor(context, Upgrader.getLegacyColor(index, R.color.blue_500));
-    preferences.setInt(getKey(R.string.p_widget_color_v2), color);
+    setInt(R.string.p_widget_color_v2, color);
     return color;
   }
 
+  public void setColor(int color) {
+    setInt(R.string.p_widget_color_v2, color);
+  }
+
   int getHeaderOpacity() {
-    int headerOpacity = preferences.getInt(getKey(R.string.p_widget_header_opacity), -1);
+    int headerOpacity = getInt(R.string.p_widget_header_opacity, -1);
     return headerOpacity >= 0 && headerOpacity <= 100
         ? getAlphaValue(headerOpacity)
         : getRowOpacity();
   }
 
   int getFooterOpacity() {
-    int footerOpacity = preferences.getInt(getKey(R.string.p_widget_footer_opacity), -1);
+    int footerOpacity = getInt(R.string.p_widget_footer_opacity, -1);
     return footerOpacity >= 0 && footerOpacity <= 100
         ? getAlphaValue(footerOpacity)
         : getRowOpacity();
   }
 
   int getRowOpacity() {
-    return getAlphaValue(preferences.getInt(getKey(R.string.p_widget_opacity), 100));
+    return getAlphaValue(getInt(R.string.p_widget_opacity, 100));
   }
 
   boolean openOnEmptySpaceClick() {
-    return preferences.getIntegerFromString(getKey(R.string.p_widget_empty_space_click), 0) == 1;
+    return getIntegerFromString(R.string.p_widget_empty_space_click, 0) == 1;
   }
 
   private int getAlphaValue(int percentage) {
     return (int) (percentage / 100.0 * 255.0);
   }
 
-  public void setColor(int color) {
-    preferences.setInt(getKey(R.string.p_widget_color_v2), color);
-  }
-
   public void setTheme(int index) {
-    preferences.setInt(getKey(R.string.p_widget_theme), index);
+    setInt(R.string.p_widget_theme, index);
   }
 
   public String getKey(int resId) {
@@ -129,5 +127,25 @@ public class WidgetPreferences {
 
   public void setFilter(String filterPreferenceValue) {
     preferences.setString(getKey(R.string.p_widget_filter), filterPreferenceValue);
+  }
+
+  private int getInt(int resId, int defValue) {
+    return preferences.getInt(getKey(resId), defValue);
+  }
+
+  private int getIntegerFromString(int resId, int defValue) {
+    return preferences.getIntegerFromString(getKey(resId), defValue);
+  }
+
+  private boolean getBoolean(int resId, boolean defValue) {
+    return preferences.getBoolean(getKey(resId), defValue);
+  }
+
+  private String getString(int resId) {
+    return preferences.getStringValue(getKey(resId));
+  }
+
+  private void setInt(int resId, int value) {
+    preferences.setInt(getKey(resId), value);
   }
 }
