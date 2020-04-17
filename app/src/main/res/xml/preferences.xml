@@ -23,6 +23,11 @@
     app:title="@string/task_defaults" />
 
   <Preference
+    app:fragment="org.tasks.preferences.fragments.DateAndTime"
+    app:icon="@drawable/ic_outline_schedule_24px"
+    app:title="@string/date_and_time" />
+
+  <Preference
     app:fragment="org.tasks.preferences.fragments.NavigationDrawer"
     app:icon="@drawable/ic_outline_menu_24px"
     app:title="@string/navigation_drawer" />

@@ -13,6 +13,7 @@ import org.tasks.fragments.CommentBarFragment;
 import org.tasks.preferences.fragments.Advanced;
 import org.tasks.preferences.fragments.Backups;
 import org.tasks.preferences.fragments.DashClock;
+import org.tasks.preferences.fragments.DateAndTime;
 import org.tasks.preferences.fragments.Debug;
 import org.tasks.preferences.fragments.HelpAndFeedback;
 import org.tasks.preferences.fragments.LookAndFeel;
@@ -103,4 +104,6 @@ public interface FragmentComponent {
   void inject(NavigationDrawer navigationDrawer);
 
   void inject(Widgets widgets);
+
+  void inject(DateAndTime dateAndTime);
 }

@@ -79,12 +79,6 @@
 
     <SwitchPreferenceCompat
       android:defaultValue="false"
-      android:key="@string/p_auto_dismiss_datetime_list_screen"
-      android:title="@string/auto_dismiss_datetime"
-      android:summary="@string/auto_dismiss_datetime_summary" />
-
-    <SwitchPreferenceCompat
-      android:defaultValue="false"
       android:key="@string/p_linkify_task_list"
       android:summary="@string/linkify_description"
       android:title="@string/linkify" />
@@ -132,12 +126,6 @@
 
     <SwitchPreferenceCompat
       android:defaultValue="false"
-      android:key="@string/p_auto_dismiss_datetime_edit_screen"
-      android:title="@string/auto_dismiss_datetime"
-      android:summary="@string/auto_dismiss_datetime_summary" />
-
-    <SwitchPreferenceCompat
-      android:defaultValue="false"
       android:key="@string/p_linkify_task_edit"
       android:summary="@string/linkify_description"
       android:title="@string/linkify" />
@@ -156,36 +144,6 @@
       android:defaultValue="false"
       android:key="@string/p_show_task_edit_comments"
       android:title="@string/EPr_show_task_edit_comments" />
-
-  </PreferenceCategory>
-
-  <PreferenceCategory android:title="@string/date_and_time">
-
-    <ListPreference
-      android:defaultValue="0"
-      android:entryValues="@array/day_of_week_values"
-      android:key="@string/p_start_of_week"
-      android:title="@string/start_of_week" />
-
-    <org.tasks.ui.TimePreference
-      android:defaultValue="@integer/default_morning"
-      android:key="@string/p_date_shortcut_morning"
-      android:title="@string/date_shortcut_morning" />
-
-    <org.tasks.ui.TimePreference
-      android:defaultValue="@integer/default_afternoon"
-      android:key="@string/p_date_shortcut_afternoon"
-      android:title="@string/date_shortcut_afternoon" />
-
-    <org.tasks.ui.TimePreference
-      android:defaultValue="@integer/default_evening"
-      android:key="@string/p_date_shortcut_evening"
-      android:title="@string/date_shortcut_evening" />
-
-    <org.tasks.ui.TimePreference
-      android:defaultValue="@integer/default_night"
-      android:key="@string/p_date_shortcut_night"
-      android:title="@string/date_shortcut_night" />
 
   </PreferenceCategory>
 
