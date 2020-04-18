@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/widget_row"
+  android:background="@drawable/widget_ripple_light"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  tools:background="@android:color/white">
+
+  <ImageView
+    android:id="@+id/widget_complete_box"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentTop="true"
+    android:padding="@dimen/widget_padding"
+    android:background="@drawable/widget_ripple_circle_light"
+    tools:src="@drawable/ic_outline_check_box_outline_blank_24px"
+    tools:tint="@color/grey_500"/>
+
+  <ImageView
+    android:id="@+id/top_padding"
+    android:layout_alignParentTop="true"
+    android:layout_alignStart="@id/widget_text"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/widget_padding"
+    tools:ignore="ContentDescription" />
+
+  <TextView
+    android:id="@+id/widget_due_end"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignBaseline="@id/widget_text"
+    android:layout_alignParentEnd="true"
+    android:ellipsize="end"
+    android:gravity="start|center_vertical"
+    android:singleLine="true"
+    android:textAlignment="viewStart"
+    android:textSize="14sp"
+    android:background="@drawable/widget_ripple_circle_light"
+    tools:text="Tomorrow"
+    tools:paddingEnd="@dimen/widget_padding"
+    tools:textColor="@color/black_60"/>
+
+  <ImageView
+    android:id="@+id/hidden_icon"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_toEndOf="@id/widget_complete_box"
+    android:layout_below="@id/top_padding"
+    android:paddingStart="0dp"
+    android:paddingEnd="2dp"
+    android:visibility="gone"
+    android:src="@drawable/ic_outline_visibility_off_24px"
+    android:alpha="@dimen/alpha_disabled"
+    tools:visibility="visible"/>
+
+  <TextView
+    android:id="@+id/widget_text"
+    android:layout_toEndOf="@id/hidden_icon"
+    android:layout_toStartOf="@id/widget_due_end"
+    android:layout_below="@id/top_padding"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingEnd="@dimen/widget_padding"
+    android:paddingStart="0dp"
+    android:gravity="start|center_vertical"
+    android:maxLines="1"
+    android:ellipsize="end"
+    android:textAlignment="viewStart"
+    android:textSize="16sp"
+    tools:text="Task title"
+    tools:textColor="@color/black_87"/>
+
+  <TextView
+    android:id="@+id/widget_description"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/widget_text"
+    android:layout_toEndOf="@id/widget_complete_box"
+    android:paddingTop="2dp"
+    android:paddingStart="0dp"
+    android:paddingEnd="@dimen/widget_padding"
+    android:maxLines="2"
+    android:ellipsize="end"
+    android:textAlignment="viewStart"
+    android:textSize="16sp"
+    android:textColor="@color/black_60"
+    tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tristique magna mauris, vel vulputate elit varius sit amet. Etiam sed nisl diam. Aenean vulputate ex nec ex condimentum commodo. Nunc faucibus augue in lacus tincidunt pretium. Donec mollis ex a ipsum semper, faucibus viverra turpis consequat. Donec id suscipit est. Duis a consectetur justo. Nunc in diam urna." />
+
+  <TextView
+    android:id="@+id/widget_due_bottom"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/widget_description"
+    android:layout_toEndOf="@id/widget_complete_box"
+    android:ellipsize="end"
+    android:gravity="start|center_vertical"
+    android:singleLine="true"
+    android:textAlignment="viewStart"
+    android:textSize="14sp"
+    android:background="@drawable/widget_ripple_circle_light"
+    tools:text="Tomorrow"
+    tools:textColor="@color/black_60"/>
+
+  <LinearLayout
+    android:id="@+id/subtask_button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/widget_due_bottom"
+    android:layout_marginTop="2dp"
+    android:layout_toEndOf="@id/widget_complete_box"
+    android:background="@drawable/widget_chip_light"
+    android:orientation="horizontal"
+    android:visibility="gone"
+    tools:visibility="visible">
+
+    <ImageView
+      android:id="@+id/subtask_icon"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:paddingStart="5dp"
+      android:paddingEnd="0dp"
+      android:layout_gravity="center_vertical"
+      android:alpha="@dimen/alpha_disabled"
+      tools:src="@drawable/ic_keyboard_arrow_up_black_18dp" />
+
+    <TextView
+      android:id="@+id/subtask_text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:textSize="14sp"
+      android:maxLines="1"
+      android:ellipsize="end"
+      android:paddingTop="2dp"
+      android:paddingBottom="2dp"
+      android:paddingStart="0dp"
+      android:paddingEnd="8dp"
+      android:textColor="@color/black_60"
+      tools:text="4 subtasks"/>
+
+  </LinearLayout>
+
+  <ImageView
+    android:id="@+id/bottom_padding"
+    android:layout_below="@id/subtask_button"
+    android:layout_alignStart="@id/widget_text"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/widget_padding"
+    tools:ignore="ContentDescription" />
+
+  <ImageView
+    android:id="@+id/divider"
+    android:layout_alignParentBottom="true"
+    android:layout_width="match_parent"
+    android:scaleType="fitXY"
+    android:layout_height=".5dp"
+    android:background="@color/black_12"
+    tools:ignore="ContentDescription" />
+
+</RelativeLayout>
