@@ -555,7 +555,7 @@
     <string name="desaturate_colors_summary_on">Farben werden bei dunklen Designs entsättigt</string>
     <string name="desaturate_colors_summary_off">Farben werden bei dunklen Designs nicht entsättigt</string>
     <string name="places">Orte</string>
-    <string name="place_settings">Einstellungen für Orte</string>
+    <string name="place_settings">Ortseinstellungen</string>
     <string name="navigation_drawer">Navigationsmenü</string>
     <string name="hide_unused_tags">Nicht verwendete Schlagwörter ausblenden</string>
     <string name="hide_unused_places">Nicht verwendete Orte ausblenden</string>
