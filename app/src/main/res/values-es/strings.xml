@@ -595,4 +595,12 @@
     <string name="opacity_row">Opacidad de la fila</string>
     <string name="opacity_header">Opacidad del encabezado</string>
     <string name="widget_show_dividers">Mostrar los divisores</string>
+    <string name="auto_dismiss_datetime_widget_summary">Autocierre al seleccionar el widget</string>
+    <string name="auto_dismiss_datetime_widget">Widget</string>
+    <string name="auto_dismiss_datetime_edit_summary">Cierre automático al seleccionar la edición de tareas</string>
+    <string name="auto_dismiss_datetime_edit">Edición de tareas</string>
+    <string name="auto_dismiss_datetime_list_summary">Cierre automático al seleccionar de la lista de tareas</string>
+    <string name="auto_dismiss_datetime_list">Lista de tareas</string>
+    <string name="widget_due_date_reschedule">Reprogramar tarea</string>
+    <string name="widget_footer">Pie de página</string>
 </resources>
