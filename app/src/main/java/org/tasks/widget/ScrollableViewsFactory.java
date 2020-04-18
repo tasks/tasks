@@ -13,7 +13,6 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
-import androidx.annotation.ColorInt;
 import androidx.core.content.ContextCompat;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
@@ -42,10 +41,10 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
   private final Locale locale;
   private final SubtasksHelper subtasksHelper;
   private final Preferences preferences;
-  private final WidgetPreferences widgetPreferences;
   private final Context context;
   private final int indentPadding;
 
+  private boolean isDark;
   private boolean showDueDates;
   private boolean bottomDueDate;
   private boolean showCheckboxes;
@@ -54,6 +53,13 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
   private Filter filter;
   private int textColorPrimary;
   private int textColorSecondary;
+  private boolean showFullTaskTitle;
+  private boolean showDescription;
+  private boolean showFullDescription;
+  private Bitmap divider;
+  private int vPad;
+  private int hPad;
+  private boolean handleDueDateClick;
 
   private List<TaskContainer> tasks = new ArrayList<>();
 
@@ -74,7 +80,6 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     this.defaultFilterProvider = defaultFilterProvider;
     this.checkBoxProvider = checkBoxProvider;
     this.locale = locale;
-    widgetPreferences = new WidgetPreferences(context, preferences, widgetId);
     DisplayMetrics metrics = context.getResources().getDisplayMetrics();
     indentPadding = (int)(20 * metrics.density);
     updateSettings();
@@ -172,21 +177,14 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         }
       }
 
-      row.setInt(
-          R.id.widget_text,
-          "setMaxLines",
-          widgetPreferences.showFullTaskTitle() ? Integer.MAX_VALUE : 1);
+      row.setInt(R.id.widget_text, "setMaxLines", showFullTaskTitle ? Integer.MAX_VALUE : 1);
 
-      boolean showDescription = task.hasNotes() && widgetPreferences.showDescription();
-
-      if (showDescription) {
+      if (showDescription && task.hasNotes()) {
         row.setTextViewText(R.id.widget_description, task.getNotes());
         row.setViewVisibility(R.id.widget_description, View.VISIBLE);
         row.setTextColor(R.id.widget_description, textColorSecondary);
         row.setInt(
-            R.id.widget_description,
-            "setMaxLines",
-            widgetPreferences.showFullDescription() ? Integer.MAX_VALUE : 2);
+            R.id.widget_description, "setMaxLines", showFullDescription ? Integer.MAX_VALUE : 2);
       } else {
         row.setViewVisibility(R.id.widget_description, View.GONE);
       }
@@ -200,16 +198,13 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
       editIntent.putExtra(WidgetClickActivity.EXTRA_TASK, task);
       row.setOnClickFillInIntent(R.id.widget_row, editIntent);
 
-      int theme = widgetPreferences.getThemeIndex();
       if (atLeastLollipop()) {
         row.setInt(
             R.id.widget_row,
             "setBackgroundResource",
-            theme == 0 ? R.drawable.widget_ripple_light : R.drawable.widget_ripple_dark);
+            isDark ? R.drawable.widget_ripple_dark : R.drawable.widget_ripple_light);
       }
 
-      int hPad = (int) context.getResources().getDimension(R.dimen.widget_padding);
-      int vPad = widgetPreferences.getWidgetSpacing();
       row.setViewPadding(R.id.widget_complete_box, hPad, vPad, hPad, vPad);
       row.setViewPadding(R.id.widget_due_end, hPad, vPad, hPad, vPad);
       if (showCheckboxes) {
@@ -221,9 +216,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         row.setInt(
             R.id.widget_complete_box,
             "setBackgroundResource",
-            theme == 0
-                ? R.drawable.widget_ripple_circle_light
-                : R.drawable.widget_ripple_circle_dark);
+            isDark ? R.drawable.widget_ripple_circle_dark : R.drawable.widget_ripple_circle_light);
       } else {
         row.setViewVisibility(R.id.widget_complete_box, View.GONE);
         row.setViewPadding(R.id.start_padding, hPad, 0, 0, 0);
@@ -231,13 +224,11 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
       row.setViewPadding(R.id.top_padding, 0, vPad, 0, 0);
       row.setViewPadding(R.id.bottom_padding, 0, vPad, 0, 0);
 
-      if (widgetPreferences.showDividers()) {
-        int dividerColor =
-            ContextCompat.getColor(context, theme == 0 ? R.color.black_12 : R.color.white_12);
-        row.setViewVisibility(R.id.divider, View.VISIBLE);
-        row.setImageViewBitmap(R.id.divider, getSolidBackground(dividerColor));
-      } else {
+      if (divider == null) {
         row.setViewVisibility(R.id.divider, View.GONE);
+      } else {
+        row.setViewVisibility(R.id.divider, View.VISIBLE);
+        row.setImageViewBitmap(R.id.divider, divider);
       }
 
       if (taskContainer.hasChildren()) {
@@ -248,7 +239,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         row.setInt(
             R.id.subtask_button,
             "setBackgroundResource",
-            theme == 0 ? R.drawable.widget_chip_light : R.drawable.widget_chip_dark);
+            isDark ? R.drawable.widget_chip_dark : R.drawable.widget_chip_light);
         row.setTextColor(R.id.subtask_text, textColorSecondary);
         row.setTextViewText(
             R.id.subtask_text,
@@ -284,12 +275,6 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     return null;
   }
 
-  private static Bitmap getSolidBackground(@ColorInt int bgColor) {
-    Bitmap bitmap = Bitmap.createBitmap(2, 2, Bitmap.Config.ARGB_8888); // Create a Bitmap
-    new Canvas(bitmap).drawColor(bgColor); // Set the color
-    return bitmap;
-  }
-
   private TaskContainer getTask(int position) {
     return position < tasks.size() ? tasks.get(position) : null;
   }
@@ -313,9 +298,9 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     int dueDateRes = bottomDueDate ? R.id.widget_due_bottom : R.id.widget_due_end;
     row.setViewVisibility(bottomDueDate ? R.id.widget_due_end : R.id.widget_due_bottom, View.GONE);
     if (task.hasDueDate()) {
-      if (!bottomDueDate) {
-        row.setViewPadding(R.id.widget_text, 0, 0, 0, 0);
-      }
+//      if (!bottomDueDate) {
+//        row.setViewPadding(R.id.widget_text, 0, 0, 0, 0);
+//      }
       row.setViewVisibility(dueDateRes, View.VISIBLE);
       row.setTextViewText(
           dueDateRes,
@@ -328,13 +313,11 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     } else {
       row.setViewVisibility(dueDateRes, View.GONE);
     }
-    if (widgetPreferences.rescheduleOnDueDateClick()) {
+    if (handleDueDateClick) {
       row.setInt(
           dueDateRes,
           "setBackgroundResource",
-          widgetPreferences.getThemeIndex() == 0
-              ? R.drawable.widget_ripple_circle_light
-              : R.drawable.widget_ripple_circle_dark);
+          isDark ? R.drawable.widget_ripple_circle_dark : R.drawable.widget_ripple_circle_light);
       Intent intent = new Intent(WidgetClickActivity.RESCHEDULE_TASK);
       intent.putExtra(WidgetClickActivity.EXTRA_TASK, task);
       row.setOnClickFillInIntent(dueDateRes, intent);
@@ -342,7 +325,14 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
   }
 
   private void updateSettings() {
-    boolean isDark = widgetPreferences.getThemeIndex() > 0;
+    WidgetPreferences widgetPreferences = new WidgetPreferences(context, preferences, widgetId);
+    vPad = widgetPreferences.getWidgetSpacing();
+    hPad = (int) context.getResources().getDimension(R.dimen.widget_padding);
+    handleDueDateClick = widgetPreferences.rescheduleOnDueDateClick();
+    showFullTaskTitle = widgetPreferences.showFullTaskTitle();
+    showDescription = widgetPreferences.showDescription();
+    showFullDescription = widgetPreferences.showFullDescription();
+    isDark = widgetPreferences.getThemeIndex() > 0;
     textColorPrimary =
         ContextCompat.getColor(context, isDark ? R.color.white_87 : R.color.black_87);
     textColorSecondary =
@@ -354,5 +344,12 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     textSize = widgetPreferences.getFontSize();
     dueDateTextSize = Math.max(10, textSize - 2);
     filter = defaultFilterProvider.getFilterFromPreference(widgetPreferences.getFilterId());
+    if (widgetPreferences.showDividers()) {
+      divider = Bitmap.createBitmap(2, 2, Bitmap.Config.ARGB_8888); // Create a Bitmap
+      int bgColor = ContextCompat.getColor(context, isDark ? R.color.white_12 : R.color.black_12);
+      new Canvas(divider).drawColor(bgColor); // Set the color
+    } else {
+      divider = null;
+    }
   }
 }
