@@ -593,4 +593,12 @@
     <string name="opacity_header">Fejléc átlátszóság</string>
     <string name="widget_show_dividers">Elválasztók megjelenítése</string>
     <string name="widget_hide_background">Háttér elrejtése</string>
+    <string name="auto_dismiss_datetime_widget_summary">Automatikus bezárás a Widgetről történő választáskor</string>
+    <string name="auto_dismiss_datetime_widget">Widget</string>
+    <string name="auto_dismiss_datetime_edit_summary">Automatikus bezárás a feladat szerkesztő ablakból történő választáskor</string>
+    <string name="auto_dismiss_datetime_edit">Feladat szerkesztés</string>
+    <string name="auto_dismiss_datetime_list_summary">Automatikus bezárás a feladat listáról történő választáskor</string>
+    <string name="auto_dismiss_datetime_list">Feladat lista</string>
+    <string name="widget_due_date_reschedule">Task újraütemezése</string>
+    <string name="widget_footer">Lábléc</string>
 </resources>
