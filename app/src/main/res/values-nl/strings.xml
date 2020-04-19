@@ -78,7 +78,7 @@
     <string name="EPr_edit_screen_options">Scherm opties bewerken</string>
     <string name="EPr_beastMode_reset">Standaardinstellingen herstellen</string>
     <string name="EPr_fullTask_title">Laat volledige taak titel zien</string>
-    <string name="EPr_show_task_edit_comments">Toon opmerkingen in taak bewerken</string>
+    <string name="EPr_show_task_edit_comments">Toon opmerkingen in bewerkscherm</string>
     <string name="task_list_options">Takenlijst opties</string>
     <string name="EPr_cal_end_or_start_at_due_time">Agenda-item tijd</string>
     <string name="EPr_cal_end_at_due_time">Agenda-item op tijd afronden</string>
@@ -590,4 +590,12 @@
     <string name="opacity_header">Kop ondoorzichtigheid</string>
     <string name="widget_footer_settings">Voet instellingen</string>
     <string name="widget_show_dividers">Toon scheidingen</string>
+    <string name="auto_dismiss_datetime_list_summary">Automatisch sluiten bij kiezen vanuit takenlijst</string>
+    <string name="auto_dismiss_datetime_edit_summary">Automatisch sluiten bij kiezen vanuit bewerkscherm</string>
+    <string name="auto_dismiss_datetime_widget_summary">Automatisch sluiten bij kiezen vanuit widget</string>
+    <string name="auto_dismiss_datetime_widget">Widget</string>
+    <string name="auto_dismiss_datetime_edit">Bewerkscherm</string>
+    <string name="auto_dismiss_datetime_list">Takenlijst</string>
+    <string name="widget_due_date_reschedule">Taak opnieuw inplannen</string>
+    <string name="widget_footer">Voet</string>
 </resources>
