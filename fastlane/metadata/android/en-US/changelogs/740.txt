@@ -1,0 +1,17 @@
+* New widget features
+  - Menu button to quickly change list
+  - Expand/collapse subtasks
+  - Access widget settings from main app preferences
+  - Show description
+* New widget settings
+  - Row spacing: default, compact, none
+  - Due date: after title, below title, or hidden
+  - Configure header, row, and footer opacity
+  - Configure footer click behavior
+  - Show full task title
+  - Show full description
+  - Hide dividers
+* Improve widget touch targets
+* Expand/collapse Google Task subtasks in 'My order' mode
+
+Full release notes: https://tasks.org/changelog

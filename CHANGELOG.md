@@ -1,11 +1,12 @@
 Change Log
 ---
 =======
-### 8.10 (2020-04-17)
+### 8.10 (2020-04-20)
 
 * New widget features
   * Menu button to quickly change list
   * Expand and collapse subtasks
+  * Click on due date to reschedule
   * Access widget settings from main app preferences
   * Show description
   * Show hidden task indicators
@@ -29,7 +30,7 @@ Change Log
   * Hungarian - kaciokos
   * Norwegian Bokmål - @comradekingu
   * Russian - @tolstovka
-  * Simplified Chinese - @sr093906
+  * Simplified Chinese - @sr093906, ERDwaYbR
   * Spanish - @FlorianLeChat
   * Turkish - etc
   * Ukrainian - @tolstovka
