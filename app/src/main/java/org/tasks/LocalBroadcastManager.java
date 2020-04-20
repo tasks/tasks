@@ -77,6 +77,6 @@ public class LocalBroadcastManager {
   }
 
   public void reconfigureWidget(int appWidgetId) {
-    appWidgetManager.reconfigureWidget(appWidgetId);
+    appWidgetManager.reconfigureWidgets(appWidgetId);
   }
 }

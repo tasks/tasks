@@ -29,6 +29,7 @@ import org.tasks.scheduling.CalendarNotificationIntentService;
 import org.tasks.scheduling.NotificationSchedulerIntentService;
 import org.tasks.scheduling.RefreshScheduler;
 import org.tasks.themes.ThemeBase;
+import org.tasks.widget.AppWidgetManager;
 import timber.log.Timber;
 
 public class Tasks extends InjectingApplication implements Configuration.Provider {
@@ -43,6 +44,7 @@ public class Tasks extends InjectingApplication implements Configuration.Provide
   @Inject Lazy<RefreshScheduler> refreshScheduler;
   @Inject Lazy<GeofenceApi> geofenceApi;
   @Inject Lazy<BillingClient> billingClient;
+  @Inject Lazy<AppWidgetManager> appWidgetManager;
 
   @Override
   public void onCreate() {
@@ -88,6 +90,7 @@ public class Tasks extends InjectingApplication implements Configuration.Provide
     geofenceApi.get().registerAll();
     FileHelper.delete(context, preferences.getCacheDirectory());
     billingClient.get().queryPurchases();
+    appWidgetManager.get().reconfigureWidgets();
   }
 
   @Override

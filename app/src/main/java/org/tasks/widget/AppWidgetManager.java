@@ -22,10 +22,12 @@ public class AppWidgetManager {
     appWidgetManager.notifyAppWidgetViewDataChanged(getWidgetIds(), R.id.list_view);
   }
 
-  public void reconfigureWidget(int appWidgetId) {
+  public void reconfigureWidgets(int... appWidgetIds) {
     Intent intent = new Intent(context, TasksWidget.class);
     intent.setAction(android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-    intent.putExtra(android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[] { appWidgetId });
+    intent.putExtra(
+        android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_IDS,
+        appWidgetIds.length == 0 ? getWidgetIds() : appWidgetIds);
     context.sendBroadcast(intent);
     updateWidgets();
   }
