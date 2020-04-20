@@ -595,4 +595,12 @@
     <string name="widget_show_dividers">Ayırıcıları göster</string>
     <string name="widget_show_menu">Menüyü göster</string>
     <string name="widget_hide_background">Arka planı gizle</string>
+    <string name="auto_dismiss_datetime_edit">Görev düzenleme</string>
+    <string name="widget_due_date_reschedule">Görevi yeniden zamanla</string>
+    <string name="auto_dismiss_datetime_widget_summary">Widget\'tan seçerken kendiliğinden kapat</string>
+    <string name="auto_dismiss_datetime_widget">Widget</string>
+    <string name="auto_dismiss_datetime_edit_summary">Görev düzenlemeden seçerken kendiliğinden kapat</string>
+    <string name="auto_dismiss_datetime_list_summary">Görev listesinden seçerken kendiliğinden kapat</string>
+    <string name="auto_dismiss_datetime_list">Görev listesi</string>
+    <string name="widget_footer">Alt bölüm</string>
 </resources>
