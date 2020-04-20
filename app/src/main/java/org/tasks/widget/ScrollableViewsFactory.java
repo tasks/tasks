@@ -281,11 +281,6 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
   private List<String> getQuery(
       Filter filter, boolean includeGoogleSubtasks, boolean includeCaldavSubtasks) {
-    AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-    RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.scrollable_widget);
-    rv.setTextViewText(R.id.widget_title, filter.listingTitle);
-    rv.setInt(R.id.widget, "setLayoutDirection", Locale.getInstance(context).getDirectionality());
-    appWidgetManager.partiallyUpdateAppWidget(widgetId, rv);
     List<String> queries =
         TaskListQuery.getQuery(
             preferences, filter, includeGoogleSubtasks, includeCaldavSubtasks);
