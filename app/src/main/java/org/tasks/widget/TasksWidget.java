@@ -6,7 +6,6 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -47,25 +46,18 @@ public class TasksWidget extends InjectingAppWidgetProvider {
 
   @Override
   public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-    try {
-      super.onUpdate(context, appWidgetManager, appWidgetIds);
-
-      ComponentName thisWidget = new ComponentName(context, TasksWidget.class);
-      int[] ids = appWidgetManager.getAppWidgetIds(thisWidget);
-      for (int id : ids) {
+    for (int id : appWidgetIds) {
+      try {
         appWidgetManager.updateAppWidget(id, createScrollableWidget(context, id));
+      } catch (Exception e) {
+        Timber.e(e);
       }
-    } catch (Exception e) {
-      Timber.e(e);
     }
   }
 
   private RemoteViews createScrollableWidget(Context context, int id) {
     WidgetPreferences widgetPreferences = new WidgetPreferences(context, preferences, id);
     String filterId = widgetPreferences.getFilterId();
-    Intent rvIntent = new Intent(context, ScrollableWidgetUpdateService.class);
-    rvIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, id);
-    rvIntent.setData(Uri.parse(rvIntent.toUri(Intent.URI_INTENT_SCHEME)));
     ThemeColor color = new ThemeColor(context, widgetPreferences.getColor());
     RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.scrollable_widget);
     remoteViews.setInt(R.id.widget, "setLayoutDirection", locale.getDirectionality());
@@ -104,7 +96,14 @@ public class TasksWidget extends InjectingAppWidgetProvider {
 
     Filter filter = defaultFilterProvider.getFilterFromPreference(filterId);
     remoteViews.setTextViewText(R.id.widget_title, filter.listingTitle);
-    remoteViews.setRemoteAdapter(R.id.list_view, rvIntent);
+
+    Uri cacheBuster = Uri.parse("tasks://widget/" + System.currentTimeMillis());
+    remoteViews.setRemoteAdapter(
+        R.id.list_view,
+        new Intent(context, ScrollableWidgetUpdateService.class)
+            .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, id)
+            .setData(cacheBuster));
+
     setRipple(
         remoteViews, color, R.id.widget_button, R.id.widget_change_list, R.id.widget_reconfigure);
     remoteViews.setOnClickPendingIntent(R.id.widget_title, getOpenListIntent(context, filter, id));
