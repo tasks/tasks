@@ -351,6 +351,10 @@ public class ThemeColor implements Pickable {
     return hintOnPrimary;
   }
 
+  public boolean isDark() {
+    return isDark;
+  }
+
   public void apply(Toolbar toolbar) {
     toolbar.setBackgroundColor(getPrimaryColor());
     toolbar.setNavigationIcon(colorDrawable(toolbar.getNavigationIcon(), colorOnPrimary));

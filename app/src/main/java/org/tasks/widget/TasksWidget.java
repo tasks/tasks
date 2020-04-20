@@ -105,6 +105,8 @@ public class TasksWidget extends InjectingAppWidgetProvider {
     Filter filter = defaultFilterProvider.getFilterFromPreference(filterId);
     remoteViews.setTextViewText(R.id.widget_title, filter.listingTitle);
     remoteViews.setRemoteAdapter(R.id.list_view, rvIntent);
+    setRipple(
+        remoteViews, color, R.id.widget_button, R.id.widget_change_list, R.id.widget_reconfigure);
     remoteViews.setOnClickPendingIntent(R.id.widget_title, getOpenListIntent(context, filter, id));
     remoteViews.setOnClickPendingIntent(R.id.widget_button, getNewTaskIntent(context, filter, id));
     remoteViews.setOnClickPendingIntent(R.id.widget_change_list, getChooseListIntent(context, filter, id));
@@ -117,6 +119,16 @@ public class TasksWidget extends InjectingAppWidgetProvider {
     }
     remoteViews.setPendingIntentTemplate(R.id.list_view, getPendingIntentTemplate(context));
     return remoteViews;
+  }
+
+  private void setRipple(RemoteViews rv, ThemeColor color, int... views) {
+    int drawableRes =
+        color.isDark()
+            ? R.drawable.widget_ripple_circle_light
+            : R.drawable.widget_ripple_circle_dark;
+    for (int view : views) {
+      rv.setInt(view, "setBackgroundResource", drawableRes);
+    }
   }
 
   private @ColorInt int getBackgroundColor(int themeIndex) {
