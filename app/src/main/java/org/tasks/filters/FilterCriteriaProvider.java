@@ -14,6 +14,7 @@ import com.todoroo.astrid.api.CustomFilterCriterion;
 import com.todoroo.astrid.api.MultipleSelectCriterion;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.api.TextInputCriterion;
+import com.todoroo.astrid.core.CustomFilterActivity.CriterionInstance;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Task.Priority;
@@ -35,13 +36,14 @@ import org.tasks.injection.ForApplication;
 
 public class FilterCriteriaProvider {
 
-  private static final String IDENTIFIER_TITLE = "title"; // $NON-NLS-1$
-  private static final String IDENTIFIER_IMPORTANCE = "importance"; // $NON-NLS-1$
-  private static final String IDENTIFIER_DUEDATE = "dueDate"; // $NON-NLS-1$
-  private static final String IDENTIFIER_GTASKS = "gtaskslist"; // $NON-NLS-1$
-  private static final String IDENTIFIER_CALDAV = "caldavlist"; // $NON-NLS-1$
-  private static final String IDENTIFIER_TAG_IS = "tag_is"; // $NON-NLS-1$
-  private static final String IDENTIFIER_TAG_CONTAINS = "tag_contains"; // $NON-NLS-1$
+  private static final String IDENTIFIER_UNIVERSE = "active";
+  private static final String IDENTIFIER_TITLE = "title";
+  private static final String IDENTIFIER_IMPORTANCE = "importance";
+  private static final String IDENTIFIER_DUEDATE = "dueDate";
+  private static final String IDENTIFIER_GTASKS = "gtaskslist";
+  private static final String IDENTIFIER_CALDAV = "caldavlist";
+  private static final String IDENTIFIER_TAG_IS = "tag_is";
+  private static final String IDENTIFIER_TAG_CONTAINS = "tag_contains";
 
   private final Context context;
   private final TagDataDao tagDataDao;
@@ -61,6 +63,41 @@ public class FilterCriteriaProvider {
     r = context.getResources();
     this.googleTaskListDao = googleTaskListDao;
     this.caldavDao = caldavDao;
+  }
+
+  public CustomFilterCriterion getFilterCriteria(String identifier) {
+    switch (identifier) {
+      case IDENTIFIER_UNIVERSE:
+        return getStartingUniverse();
+      case IDENTIFIER_TITLE:
+        return getTaskTitleContainsFilter();
+      case IDENTIFIER_IMPORTANCE:
+        return getPriorityFilter();
+      case IDENTIFIER_DUEDATE:
+        return getDueDateFilter();
+      case IDENTIFIER_GTASKS:
+        return getGtasksFilterCriteria();
+      case IDENTIFIER_CALDAV:
+        return getCaldavFilterCriteria();
+      case IDENTIFIER_TAG_IS:
+        return getTagFilter();
+      case IDENTIFIER_TAG_CONTAINS:
+        return getTagNameContainsFilter();
+      default:
+        throw new RuntimeException("Unknown identifier: " + identifier);
+    }
+  }
+
+  public CustomFilterCriterion getStartingUniverse() {
+    return new MultipleSelectCriterion(
+        IDENTIFIER_UNIVERSE,
+        context.getString(R.string.CFA_universe_all),
+        null,
+        null,
+        null,
+        null,
+        null,
+        null);
   }
 
   public List<CustomFilterCriterion> getAll() {

@@ -9,6 +9,7 @@ package com.todoroo.astrid.api;
 import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
+import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -83,5 +84,31 @@ public class MultipleSelectCriterion extends CustomFilterCriterion implements Pa
     dest.writeStringArray(entryTitles);
     dest.writeStringArray(entryValues);
     writeToParcel(dest);
+  }
+
+  @Override
+  public String toString() {
+    return "MultipleSelectCriterion{"
+        + "entryTitles="
+        + Arrays.toString(entryTitles)
+        + ", entryValues="
+        + Arrays.toString(entryValues)
+        + ", valuesForNewTasks="
+        + valuesForNewTasks
+        + ", identifier='"
+        + identifier
+        + '\''
+        + ", text='"
+        + text
+        + '\''
+        + ", sql='"
+        + sql
+        + '\''
+        + ", name='"
+        + name
+        + '\''
+        + ", icon="
+        + icon
+        + '}';
   }
 }

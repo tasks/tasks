@@ -79,4 +79,32 @@ public class TextInputCriterion extends CustomFilterCriterion implements Parcela
     dest.writeString(hint);
     writeToParcel(dest);
   }
+
+  @Override
+  public String toString() {
+    return "TextInputCriterion{"
+        + "hint='"
+        + hint
+        + '\''
+        + ", prompt='"
+        + prompt
+        + '\''
+        + ", valuesForNewTasks="
+        + valuesForNewTasks
+        + ", identifier='"
+        + identifier
+        + '\''
+        + ", text='"
+        + text
+        + '\''
+        + ", sql='"
+        + sql
+        + '\''
+        + ", name='"
+        + name
+        + '\''
+        + ", icon="
+        + icon
+        + '}';
+  }
 }

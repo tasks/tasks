@@ -20,7 +20,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import com.todoroo.astrid.api.MultipleSelectCriterion;
 import com.todoroo.astrid.api.TextInputCriterion;
-import com.todoroo.astrid.core.CustomFilterActivity.CriterionInstance;
 import java.util.List;
 import org.tasks.R;
 import org.tasks.dialogs.AlertDialogBuilder;
