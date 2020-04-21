@@ -6,6 +6,9 @@
 
 package com.todoroo.astrid.core;
 
+import static com.todoroo.astrid.core.CriterionInstance.escape;
+import static java.util.Arrays.asList;
+
 import android.content.DialogInterface;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -18,22 +21,33 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import com.google.common.base.Joiner;
+import com.todoroo.andlib.sql.UnaryCriterion;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.MultipleSelectCriterion;
 import com.todoroo.astrid.api.TextInputCriterion;
+import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
+import com.todoroo.astrid.data.Task;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import org.tasks.R;
+import org.tasks.activities.FilterSettingsActivity;
 import org.tasks.dialogs.AlertDialogBuilder;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.locale.Locale;
+import timber.log.Timber;
 
 /**
  * Adapter for AddOns
  *
  * @author Tim Su <tim@todoroo.com>
  */
-class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
+public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
 
-  private final CustomFilterActivity activity;
+  private final FilterSettingsActivity activity;
   private final DialogBuilder dialogBuilder;
   private final LayoutInflater inflater;
   private final Locale locale;
@@ -60,8 +74,8 @@ class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
 
   // --- view event handling
 
-  CustomFilterAdapter(
-      CustomFilterActivity activity,
+  public CustomFilterAdapter(
+      FilterSettingsActivity activity,
       DialogBuilder dialogBuilder,
       List<CriterionInstance> objects,
       Locale locale) {
@@ -72,7 +86,7 @@ class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
     inflater = activity.getLayoutInflater();
   }
 
-  void onCreateContextMenu(ContextMenu menu, View v) {
+  public void onCreateContextMenu(ContextMenu menu, View v) {
     // view holder
     ViewHolder viewHolder = (ViewHolder) v.getTag();
     if (viewHolder == null || viewHolder.item.type == CriterionInstance.TYPE_UNIVERSE) {
@@ -85,7 +99,7 @@ class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
 
     MenuItem item =
         menu.add(
-            CustomFilterActivity.MENU_GROUP_CONTEXT_TYPE,
+            FilterSettingsActivity.MENU_GROUP_CONTEXT_TYPE,
             CriterionInstance.TYPE_INTERSECT,
             index,
             activity.getString(
@@ -93,7 +107,7 @@ class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
     item.setChecked(viewHolder.item.type == CriterionInstance.TYPE_INTERSECT);
     item =
         menu.add(
-            CustomFilterActivity.MENU_GROUP_CONTEXT_TYPE,
+            FilterSettingsActivity.MENU_GROUP_CONTEXT_TYPE,
             CriterionInstance.TYPE_ADD,
             index,
             activity.getString(
@@ -102,19 +116,19 @@ class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
 
     item =
         menu.add(
-            CustomFilterActivity.MENU_GROUP_CONTEXT_TYPE,
+            FilterSettingsActivity.MENU_GROUP_CONTEXT_TYPE,
             CriterionInstance.TYPE_SUBTRACT,
             index,
             activity.getString(
                 R.string.CFA_context_chain, activity.getString(R.string.CFA_type_subtract)));
     item.setChecked(viewHolder.item.type == CriterionInstance.TYPE_SUBTRACT);
-    menu.setGroupCheckable(CustomFilterActivity.MENU_GROUP_CONTEXT_TYPE, true, true);
+    menu.setGroupCheckable(FilterSettingsActivity.MENU_GROUP_CONTEXT_TYPE, true, true);
 
-    menu.add(CustomFilterActivity.MENU_GROUP_CONTEXT_DELETE, 0, index, R.string.CFA_context_delete);
+    menu.add(FilterSettingsActivity.MENU_GROUP_CONTEXT_DELETE, 0, index, R.string.CFA_context_delete);
   }
 
   /** Show options menu for the given criterioninstance */
-  void showOptionsFor(final CriterionInstance item, final Runnable onComplete) {
+  public void showOptionsFor(final CriterionInstance item, final Runnable onComplete) {
     AlertDialogBuilder dialog = dialogBuilder.newDialog(item.criterion.name);
 
     if (item.criterion instanceof MultipleSelectCriterion) {
@@ -203,6 +217,80 @@ class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
 
     viewHolder.name.setText(title);
     viewHolder.filterCount.setText(locale.formatNumber(item.end));
+  }
+
+  private String getValue(CriterionInstance instance) {
+    String value = instance.getValueFromCriterion();
+    if (value == null && instance.criterion.sql != null && instance.criterion.sql.contains("?")) {
+      value = "";
+    }
+    return value;
+  }
+
+  public String getSql() {
+    StringBuilder sql = new StringBuilder(" WHERE ");
+    for (int i = 0; i < getCount(); i++) {
+      CriterionInstance instance = getItem(i);
+      String value = getValue(instance);
+
+      switch (instance.type) {
+        case CriterionInstance.TYPE_ADD:
+          sql.append("OR ");
+          break;
+        case CriterionInstance.TYPE_SUBTRACT:
+          sql.append("AND NOT ");
+          break;
+        case CriterionInstance.TYPE_INTERSECT:
+          sql.append("AND ");
+          break;
+      }
+
+      // special code for all tasks universe
+      if (instance.type == CriterionInstance.TYPE_UNIVERSE || instance.criterion.sql == null) {
+        sql.append(TaskCriteria.activeAndVisible()).append(' ');
+      } else {
+        String subSql = instance.criterion.sql.replace("?", UnaryCriterion.sanitize(value));
+        sql.append(Task.ID).append(" IN (").append(subSql).append(") ");
+      }
+    }
+    return sql.toString();
+  }
+
+  public Map<String, Object> getValues() {
+    Map<String, Object> values = new HashMap<>();
+    for (int i = 0; i < getCount(); i++) {
+      CriterionInstance instance = getItem(i);
+      String value = getValue(instance);
+
+      if (instance.criterion.valuesForNewTasks != null
+          && instance.type == CriterionInstance.TYPE_INTERSECT) {
+        for (Entry<String, Object> entry : instance.criterion.valuesForNewTasks.entrySet()) {
+          values.put(
+              entry.getKey().replace("?", value), entry.getValue().toString().replace("?", value));
+        }
+      }
+    }
+    return values;
+  }
+
+  public String getCriterion() {
+    List<String> rows = new ArrayList<>();
+    for (int i = 0; i < getCount(); i++) {
+      CriterionInstance item = getItem(i);
+      // criterion|entry|text|type|sql
+      String row =
+          Joiner.on(AndroidUtilities.SERIALIZATION_SEPARATOR)
+              .join(
+                  asList(
+                      escape(item.criterion.identifier),
+                      escape(item.getValueFromCriterion()),
+                      escape(item.criterion.text),
+                      item.type,
+                      item.criterion.sql == null ? "" : item.criterion.sql));
+      Timber.d("%s -> %s", item, row);
+      rows.add(row);
+    }
+    return Joiner.on("\n").join(rows);
   }
 
   private static class ViewHolder {

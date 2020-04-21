@@ -284,15 +284,6 @@
       android:taskAffinity=""
       android:theme="@style/TranslucentDialog"/>
 
-    <!-- tags -->
-
-    <!-- custom filters -->
-    <activity
-      android:name="com.todoroo.astrid.core.CustomFilterActivity"
-      android:theme="@style/Tasks"/>
-
-    <!-- actfm -->
-
     <activity android:name=".activities.TagSettingsActivity"/>
 
     <activity android:name=".activities.FilterSettingsActivity"/>

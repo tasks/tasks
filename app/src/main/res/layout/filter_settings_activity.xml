@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:orientation="vertical">
+  xmlns:app="http://schemas.android.com/apk/res-auto">
 
-  <include layout="@layout/toolbar"/>
-
-  <ScrollView
-    android:layout_width="fill_parent"
+  <include layout="@layout/toolbar"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="top">
+    android:layout_alignParentTop="true"/>
+
+  <androidx.core.widget.NestedScrollView
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@id/toolbar"
+    android:fillViewport="true">
 
     <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="match_parent"
       android:descendantFocusability="beforeDescendants"
       android:focusableInTouchMode="true"
       android:orientation="vertical">
@@ -37,8 +41,37 @@
 
       <include layout="@layout/list_settings_icon"/>
 
+      <!-- help text -->
+      <TextView
+        style="@style/TextAppearance"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="5dp"
+        android:paddingEnd="0dp"
+        android:gravity="center"
+        android:text="@string/CFA_help"/>
+
+      <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="#00000000"
+        android:scrollbars="vertical"
+        android:nestedScrollingEnabled="true"/>
+
     </LinearLayout>
 
-  </ScrollView>
+  </androidx.core.widget.NestedScrollView>
 
-</LinearLayout>
+  <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+    android:id="@+id/fab"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/keyline_first"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentEnd="true"
+    android:text="@string/CFA_button_add"
+    app:icon="@drawable/ic_outline_add_24px"
+    app:borderWidth="0dp"/>
+
+</RelativeLayout>

@@ -4,7 +4,6 @@ import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.activity.ShareLinkActivity;
 import com.todoroo.astrid.activity.TaskEditActivity;
-import com.todoroo.astrid.core.CustomFilterActivity;
 import com.todoroo.astrid.gcal.CalendarReminderActivity;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import dagger.Subcomponent;
@@ -55,8 +54,6 @@ public interface ActivityComponent {
   void inject(TaskerSettingsActivity taskerSettingsActivity);
 
   void inject(DashClockSettings dashClockSettings);
-
-  void inject(CustomFilterActivity customFilterActivity);
 
   void inject(CalendarReminderActivity calendarReminderActivity);
 

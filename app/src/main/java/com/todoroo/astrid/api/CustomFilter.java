@@ -60,6 +60,14 @@ public class CustomFilter extends Filter {
     return id;
   }
 
+  public String getCriterion() {
+    return criterion;
+  }
+
+  public void setCriterion(String criterion) {
+    this.criterion = criterion;
+  }
+
   /** {@inheritDoc} */
   @Override
   public void writeToParcel(Parcel dest, int flags) {
