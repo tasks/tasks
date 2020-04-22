@@ -5,43 +5,43 @@
     <string name="backup_BPr_header">Còpies de seguretat</string>
     <string name="backup_BAc_import">Importa tasques</string>
     <string name="backup_BAc_export">Exporta tasques</string>
-    <string name="export_toast_no_tasks">Sense tasques que exportar</string>
-    <string name="import_summary_title">Resum de Restauració</string>
+    <string name="export_toast_no_tasks">Sense tasques per exportar</string>
+    <string name="import_summary_title">Resum de la restauració</string>
     <string name="import_progress_read">S\'està llegint la tasca %d</string>
-    <string name="read_permission_label">Permís de l\'Tasks</string>
+    <string name="read_permission_label">Permís del Tasks</string>
     <string name="DLG_delete_this_task_question">Voleu suprimir aquesta tasca?</string>
     <string name="DLG_hour_minutes">Temps (hores : minuts)</string>
     <string name="DLG_undo">Desfés</string>
-    <string name="WID_dateButtonUnset">Prem per establir</string>
-    <string name="TLA_menu_sort">Ordenació i subtasques</string>
+    <string name="WID_dateButtonUnset">Premeu per a establir</string>
+    <string name="TLA_menu_sort">Ordena</string>
     <string name="TLA_menu_search">Cerca</string>
-    <string name="TLA_menu_settings">Paràmetres</string>
+    <string name="TLA_menu_settings">Configuració</string>
     <string name="TAd_actionEditTask">Edita</string>
-    <string name="SSD_sort_auto">Classificació intel·ligent Tasks</string>
+    <string name="SSD_sort_auto">Ordenació intel·ligent</string>
     <string name="SSD_sort_alpha">Per títol</string>
     <string name="SSD_sort_due">Per data de venciment</string>
-    <string name="SSD_sort_importance">Per importància</string>
-    <string name="SSD_sort_modified">Per darrera modificació</string>
+    <string name="SSD_sort_importance">Per prioritat</string>
+    <string name="SSD_sort_modified">Per última modificació</string>
     <string name="FLA_search_filter">Coincidència \'%s\'</string>
-    <string name="TEA_title_hint">Resum de la tasca</string>
-    <string name="TEA_importance_label">Importància</string>
-    <string name="TEA_no_date">Sense venciment</string>
-    <string name="TEA_hideUntil_label">Mostra la tasca</string>
-    <string name="TEA_note_label">Notes</string>
-    <string name="TEA_estimatedDuration_label">Quant temps us portarà?</string>
-    <string name="TEA_elapsedDuration_label">Temps que ja s\'ha invertit en la Tasca</string>
-    <string name="TEA_no_time">cap hora</string>
-    <string name="due_date">Al finalitzar la data límit</string>
+    <string name="TEA_title_hint">Nom de la tasca</string>
+    <string name="TEA_importance_label">Prioritat</string>
+    <string name="TEA_no_date">Sense data</string>
+    <string name="TEA_hideUntil_label">Amaga fins al</string>
+    <string name="TEA_note_label">Descripció</string>
+    <string name="TEA_estimatedDuration_label">Quant de temps us portarà\?</string>
+    <string name="TEA_elapsedDuration_label">Temps que ja s\'hi ha invertit</string>
+    <string name="TEA_no_time">Sense temps</string>
+    <string name="due_date">Data de venciment</string>
     <string name="day_before_due">El dia abans del venciment</string>
     <string name="week_before_due">La setmana abans del venciment</string>
     <string name="TEA_control_when">Quan</string>
-    <string name="TEA_control_importance">Importància</string>
-    <string name="TEA_control_notes">Notes</string>
+    <string name="TEA_control_importance">Prioritat</string>
+    <string name="TEA_control_notes">Descripció</string>
     <string name="TEA_control_files">Fitxers</string>
     <string name="TEA_control_reminders">Recordatoris</string>
     <string name="TEA_control_timer">Controls de temporització</string>
     <string name="TEA_control_hidden_section">----Oculta-ho sempre----</string>
-    <string name="TEA_load_more">Carrega més…</string>
+    <string name="TEA_load_more">Carrega\'n més…</string>
     <string name="EPr_beastMode_reset">Restableix els valors predeterminats</string>
     <string name="EPr_fullTask_title">Mostra el títol sencer de la tasca</string>
     <string name="EPr_manage_delete_completed_gcal_message">Segur que voleu suprimir els esdeveniments de calendari de les tasques completades?</string>
@@ -105,22 +105,35 @@
     <string name="led_notification">Led de notificació</string>
     <string name="enter_filter_name">Introdueixi el nom del filtre</string>
     <string name="export_toast">Recolzades %1$s de %2$s.</string>
-    <string name="import_summary_message">El fitxer %1$s contenia %2$s.
+    <string name="import_summary_message">El fitxer %1$s contenia %2$s. 
 \n 
-\n %3$s importades
-\n %4$s ja existien
+\n %3$s importades 
+\n %4$s ja existien 
 \n %5$s tenien errors
 \n</string>
-    <string name="discard_confirmation">Estàs segur que vols descartar els canvis\?</string>
-    <string name="keep_editing">Continuar editant</string>
+    <string name="discard_confirmation">Esteu segur que voleu descartar els canvis\?</string>
+    <string name="keep_editing">Continua l\'edició</string>
     <string name="TLA_no_items">No hi ha cap tasca aquí.</string>
-    <string name="action_call">Trucar</string>
-    <string name="action_open">Obrir</string>
-    <string name="FLA_new_filter">Crear un nou filtre</string>
-    <string name="TEA_hideUntil_display">Amagar fins %s</string>
-    <string name="save">Desar</string>
+    <string name="action_call">Truca</string>
+    <string name="action_open">Obre</string>
+    <string name="FLA_new_filter">Crea un filtre</string>
+    <string name="TEA_hideUntil_display">Amaga fins %s</string>
+    <string name="save">Desa</string>
     <string name="TEA_timer_est">Est. %s</string>
     <string name="SSD_sort_my_order">La meva comanda</string>
-    <string name="TEA_add_subtask">Afegir subtasca</string>
+    <string name="TEA_add_subtask">Afegeix una subtasca</string>
     <string name="display_name">Mostra el nom</string>
+    <string name="CRA_ignore_this">Ignora només aquest esdeveniment</string>
+    <string name="CRA_ignore_all">Ignora tots els esdeveniments</string>
+    <string name="CRA_title">Us cal una llista de reunions\?</string>
+    <string name="CRA_ignore">Ignora</string>
+    <string name="TEA_control_location">Ubicació</string>
+    <string name="TEA_control_gcal">Agenda</string>
+    <string name="TEA_control_repeat">Repeteix</string>
+    <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">la setmana abans del venciment</string>
+    <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">el dia abans del venciment</string>
+    <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">hora de venciment</string>
+    <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">data de venciment</string>
+    <string name="due_time">Data de venciment</string>
+    <string name="TEA_timer_elap">Transcorregut %s</string>
 </resources>
