@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="actfm_picture_clear">Neteja la selecció d\'imatge</string>
+    <string name="actfm_picture_clear">Elimina d\'imatge</string>
     <string name="TVA_add_comment">Afegiu un comentari…</string>
     <string name="backup_BPr_header">Còpies de seguretat</string>
     <string name="backup_BAc_import">Importa tasques</string>
@@ -124,5 +124,5 @@
     <string name="TEA_timer_est">Est. %s</string>
     <string name="SSD_sort_my_order">La meva comanda</string>
     <string name="TEA_add_subtask">Afegir subtasca</string>
-    <string name="display_name">Mostrar el nom</string>
+    <string name="display_name">Mostra el nom</string>
 </resources>
