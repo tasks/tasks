@@ -19,7 +19,6 @@
     <string name="TEA_control_notes">บันทึกย่อ</string>
     <string name="BFE_Active">แผนงานตอนนี้</string>
     <string name="BFE_Recent">เพิ่งถูกแก้ไข</string>
-    <string name="CFA_universe_all">แผนงานตอนนี้</string>
     <string name="CFA_type_add">หรือ</string>
     <string name="CFA_type_subtract">ไม่ใช่</string>
     <string name="CFA_type_intersect">รวมถึง</string>

@@ -56,6 +56,10 @@ public class CustomFilter extends Filter {
     return filter;
   }
 
+  public void setId(long id) {
+    this.id = id;
+  }
+
   public long getId() {
     return id;
   }

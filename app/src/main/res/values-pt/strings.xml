@@ -108,13 +108,11 @@
     <string name="at_deadline_or_overdue">Na data limite ou ultrapassada</string>
     <string name="BFE_Active">Minhas tarefas</string>
     <string name="BFE_Recent">Alteradas recentemente</string>
-    <string name="CFA_universe_all">Tarefas ativas</string>
     <string name="CFA_type_add">ou</string>
     <string name="CFA_type_subtract">não</string>
     <string name="CFA_type_intersect">também</string>
     <string name="CFA_context_chain">%s tem critérios</string>
     <string name="CFA_context_delete">Eliminar linha</string>
-    <string name="CFA_help">Clique longo nos itens para mais opções</string>
     <string name="CFA_button_add">Adicionar critério</string>
     <string name="CFC_dueBefore_text">Data limite: ?</string>
     <string name="CFC_dueBefore_name">Data limite…</string>

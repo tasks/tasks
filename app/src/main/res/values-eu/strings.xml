@@ -127,13 +127,11 @@
     <string name="default_location_reminder_on_arrival_or_departure">Ateratzean eta heltzean</string>
     <string name="BFE_Active">Nire zereginak</string>
     <string name="BFE_Recent">Aldatutako azkenak</string>
-    <string name="CFA_universe_all">Zeregin aktiboak</string>
     <string name="CFA_type_add">edo</string>
     <string name="CFA_type_subtract">ez</string>
     <string name="CFA_type_intersect">baita</string>
     <string name="CFA_context_chain">%s irizpidea du</string>
     <string name="CFA_context_delete">Ezabatu errenkada</string>
-    <string name="CFA_help">Sakatu luze elementuetan aukera gehiagorako</string>
     <string name="CFA_button_add">Gehitu irizpidea</string>
     <string name="CFC_dueBefore_text">Epemuga: \?</string>
     <string name="CFC_dueBefore_name">Epemuga…</string>

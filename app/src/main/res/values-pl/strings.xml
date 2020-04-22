@@ -120,13 +120,11 @@
     <string name="default_location_reminder_on_arrival_or_departure">Po przybyciu i przy wyruszeniu</string>
     <string name="BFE_Active">Moje zadania</string>
     <string name="BFE_Recent">Niedawno zmodyfikowane</string>
-    <string name="CFA_universe_all">Aktywne zadania</string>
     <string name="CFA_type_add">lub</string>
     <string name="CFA_type_subtract">nie</string>
     <string name="CFA_type_intersect">także</string>
     <string name="CFA_context_chain">%s zawiera kryteria</string>
     <string name="CFA_context_delete">Usuń kryterium</string>
-    <string name="CFA_help">Przytrzymaj dłużej na obiekcie dla dodatkowych opcji</string>
     <string name="CFA_button_add">Dodaj kryterium</string>
     <string name="CFC_dueBefore_text">Termin wykonania: ?</string>
     <string name="CFC_dueBefore_name">Termin wykonania…</string>

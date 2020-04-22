@@ -1,64 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/row"
   android:layout_width="fill_parent"
   android:layout_height="55dip"
-  android:paddingStart="4dip"
-  android:paddingEnd="6dip"
   android:background="?attr/selectableItemBackground"
   android:orientation="horizontal">
 
-  <TextView
-    android:id="@+id/filter_count"
-    android:layout_width="wrap_content"
-    android:layout_height="fill_parent"
-    android:layout_alignParentEnd="true"
-    android:paddingStart="5dp"
-    android:paddingEnd="5dp"
-    android:gravity="center_vertical|end"/>
+    <View
+      android:id="@+id/divider"
+      style="@style/horizontal_divider"
+      android:visibility="gone"
+      android:layout_alignParentTop="true" />
 
-  <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="fill_parent"
-    android:layout_alignParentStart="true"
-    android:layout_toStartOf="@id/filter_count"
-    android:gravity="center_vertical|start"
-    android:orientation="horizontal">
-
-    <!-- filter intersection type icon -->
-    <ImageView
-      android:id="@+id/type"
-      android:layout_width="32dip"
+    <TextView
+      android:id="@+id/filter_count"
+      android:layout_width="wrap_content"
       android:layout_height="fill_parent"
-      android:paddingStart="5dp"
-      android:paddingEnd="5dp"
-      android:scaleType="center"/>
+      android:layout_alignParentEnd="true"
+      android:padding="@dimen/keyline_first"
+      android:gravity="center_vertical|end" />
 
-    <!-- filter icon -->
     <ImageView
       android:id="@+id/icon"
-      android:layout_width="32dip"
-      android:layout_height="fill_parent"
-      android:paddingStart="5dp"
-      android:paddingEnd="5dp"
-      android:visibility="gone"/>
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentStart="true"
+      android:tint="@color/icon_tint_with_alpha"
+      android:padding="@dimen/keyline_first"
+      android:src="@drawable/ic_outline_add_24px"
+      android:scaleType="center" />
 
-    <!-- filter text -->
     <TextView
       android:id="@+id/name"
       style="@style/TextAppearance"
+      android:layout_toEndOf="@id/icon"
+      android:layout_toStartOf="@id/filter_count"
       android:layout_width="fill_parent"
       android:layout_height="fill_parent"
-      android:paddingStart="5dp"
-      android:paddingEnd="5dp"
+      android:paddingStart="@dimen/keyline_first"
+      android:paddingEnd="@dimen/keyline_first"
       android:gravity="start|center_vertical"
       android:textAlignment="viewStart"
-      android:textSize="18sp"/>
-
-  </LinearLayout>
+      android:textSize="18sp" />
 
 </RelativeLayout>

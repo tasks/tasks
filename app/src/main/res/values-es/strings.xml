@@ -124,13 +124,11 @@
     <string name="default_location_reminder_on_arrival_or_departure">A la salida y llegada</string>
     <string name="BFE_Active">Mis Tareas</string>
     <string name="BFE_Recent">Recién modificadas</string>
-    <string name="CFA_universe_all">Tareas activas</string>
     <string name="CFA_type_add">o</string>
     <string name="CFA_type_subtract">no</string>
     <string name="CFA_type_intersect">también</string>
     <string name="CFA_context_chain">%s cumple el criterio</string>
     <string name="CFA_context_delete">Eliminar Fila</string>
-    <string name="CFA_help">Mantén pulsado sobre los elementos para opciones adicionales</string>
     <string name="CFA_button_add">Añadir Criterio</string>
     <string name="CFC_dueBefore_text">Vence el: ?</string>
     <string name="CFC_dueBefore_name">Vence el…</string>

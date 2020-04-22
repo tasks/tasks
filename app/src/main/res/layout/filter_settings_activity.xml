@@ -41,23 +41,21 @@
 
       <include layout="@layout/list_settings_icon"/>
 
-      <!-- help text -->
       <TextView
-        style="@style/TextAppearance"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingStart="5dp"
-        android:paddingEnd="0dp"
-        android:gravity="center"
-        android:text="@string/CFA_help"/>
+        android:textColor="?attr/colorSecondary"
+        android:text="@string/custom_filter_criteria"
+        android:padding="@dimen/keyline_first"
+        style="@style/TextAppearance.AppCompat.Body2" />
 
-      <ListView
-        android:id="@+id/list"
+      <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:cacheColorHint="#00000000"
-        android:scrollbars="vertical"
-        android:nestedScrollingEnabled="true"/>
+        android:paddingBottom="@dimen/task_list_footer_height"
+        android:clipToPadding="false"
+        android:nestedScrollingEnabled="false"/>
 
     </LinearLayout>
 

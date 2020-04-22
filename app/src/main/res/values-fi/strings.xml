@@ -110,13 +110,11 @@
     <string name="at_deadline_or_overdue">Määräpäivänä tai yliajalla</string>
     <string name="BFE_Active">Omat tehtävät</string>
     <string name="BFE_Recent">Äskettäin muokattu</string>
-    <string name="CFA_universe_all">Tasks aktiivinen</string>
     <string name="CFA_type_add">tai</string>
     <string name="CFA_type_subtract">ei</string>
     <string name="CFA_type_intersect">myös</string>
     <string name="CFA_context_chain">%s on perusteet</string>
     <string name="CFA_context_delete">Poista rivi</string>
-    <string name="CFA_help">Pitkä painallus lisäoptioita varten</string>
     <string name="CFA_button_add">Lisää kriteeri</string>
     <string name="CFC_dueBefore_text">Mennessä: ?</string>
     <string name="CFC_dueBefore_name">Mennessä…</string>

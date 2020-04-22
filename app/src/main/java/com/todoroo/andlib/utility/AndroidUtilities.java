@@ -206,6 +206,7 @@ public class AndroidUtilities {
         InputMethodManager inputMethodManager =
             (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(currentFocus.getWindowToken(), 0);
+        currentFocus.clearFocus();
       }
     } catch (Exception e) {
       Timber.e(e);

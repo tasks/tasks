@@ -50,13 +50,11 @@
     <string name="dont_hide">No amagis</string>
     <string name="BFE_Active">Tasques actives</string>
     <string name="BFE_Recent">Modificades fa poc</string>
-    <string name="CFA_universe_all">Tasques actives</string>
     <string name="CFA_type_add">o</string>
     <string name="CFA_type_subtract">no</string>
     <string name="CFA_type_intersect">també</string>
     <string name="CFA_context_chain">%s té criteris</string>
     <string name="CFA_context_delete">Suprimeix la fila</string>
-    <string name="CFA_help">Aquesta pantalla li permet crear nous filtres. Afegeix criteris fent servir el botó de sota, premi breu o llarg per ajustar-los, i després premi \"Veure\"!</string>
     <string name="CFA_button_add">Afegeix criteris</string>
     <string name="CFC_dueBefore_text">Vençuda per: ?</string>
     <string name="CFC_dueBefore_name">Venciment per…</string>

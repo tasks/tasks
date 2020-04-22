@@ -113,13 +113,11 @@
     <string name="at_deadline_or_overdue">截止期限或过期时</string>
     <string name="BFE_Active">我的任务</string>
     <string name="BFE_Recent">最近修改过的</string>
-    <string name="CFA_universe_all">进行中的任务</string>
     <string name="CFA_type_add">或</string>
     <string name="CFA_type_subtract">非</string>
     <string name="CFA_type_intersect">且</string>
     <string name="CFA_context_chain">%s 含条件</string>
     <string name="CFA_context_delete">删除行</string>
-    <string name="CFA_help">长按项目来添加选项</string>
     <string name="CFA_button_add">添加条件</string>
     <string name="CFC_dueBefore_text">期限: ?</string>
     <string name="CFC_dueBefore_name">何时到期…</string>

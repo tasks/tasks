@@ -132,13 +132,11 @@ File %1$s contained %2$s.\n\n
   <string name="default_location_reminder_on_arrival_or_departure">On arrival and departure</string>
   <string name="BFE_Active">My Tasks</string>
   <string name="BFE_Recent">Recently modified</string>
-  <string name="CFA_universe_all">Active Tasks</string>
   <string name="CFA_type_add">or</string>
   <string name="CFA_type_subtract">not</string>
   <string name="CFA_type_intersect">also</string>
   <string name="CFA_context_chain">%s has criteria</string>
   <string name="CFA_context_delete">Delete Row</string>
-  <string name="CFA_help">Long press on items for additional options</string>
   <string name="CFA_button_add">Add Criteria</string>
   <string name="CFC_dueBefore_text">Due By: ?</string>
   <string name="CFC_dueBefore_name">Due By…</string>
@@ -604,4 +602,9 @@ File %1$s contained %2$s.\n\n
   <string name="widget_id">Widget ID: %d</string>
   <string name="settings_default">Default</string>
   <string name="compact">Compact</string>
+  <string name="choose_new_criteria">Choose new criteria</string>
+  <string name="custom_filter_criteria">Filter criteria</string>
+  <string name="custom_filter_and">AND</string>
+  <string name="custom_filter_or">OR</string>
+  <string name="custom_filter_not">NOT</string>
 </resources>

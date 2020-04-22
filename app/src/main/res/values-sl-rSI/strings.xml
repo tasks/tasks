@@ -92,13 +92,11 @@
     <string name="at_deadline_or_overdue">Ob dospelosti ali potem</string>
     <string name="BFE_Active">Moji Opravki</string>
     <string name="BFE_Recent">Nedavno spremenjeno</string>
-    <string name="CFA_universe_all">Aktivni Opravki</string>
     <string name="CFA_type_add">na dan</string>
     <string name="CFA_type_subtract">ne</string>
     <string name="CFA_type_intersect">tudi</string>
     <string name="CFA_context_chain">%s ima merila</string>
     <string name="CFA_context_delete">Zbriši vrstico</string>
-    <string name="CFA_help">Dolg dotik na predmetih s seznama za dodatne možnosti </string>
     <string name="CFA_button_add">Dodaj merila</string>
     <string name="CFC_dueBefore_text">Opraviti do: ?</string>
     <string name="CFC_dueBefore_name">Opraviti do:</string>

@@ -88,11 +88,9 @@
     <string name="no_reminders">Tidak ada pengingat</string>
     <string name="BFE_Active">Tugas Saya</string>
     <string name="BFE_Recent">Baru-baru ini diubah</string>
-    <string name="CFA_universe_all">Tugas Aktif</string>
     <string name="CFA_type_add">atau</string>
     <string name="CFA_context_chain">%s memiliki kriteria</string>
     <string name="CFA_context_delete">Hapus Baris</string>
-    <string name="CFA_help">Tekan lama pada item untuk opsi tambahan</string>
     <string name="CFA_button_add">Tambah Kriteria</string>
     <string name="next_month">Bulan Depan</string>
     <string name="CFC_importance_name">Prioritas…</string>

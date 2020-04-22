@@ -120,13 +120,11 @@
     <string name="default_location_reminder_on_arrival_or_departure">Pri príchode aj pri odchode</string>
     <string name="BFE_Active">Moje Úlohy</string>
     <string name="BFE_Recent">Naposledy upravené</string>
-    <string name="CFA_universe_all">Aktívne Úlohy</string>
     <string name="CFA_type_add">alebo</string>
     <string name="CFA_type_subtract">nie</string>
     <string name="CFA_type_intersect">tiež</string>
     <string name="CFA_context_chain">%s má kritériá</string>
     <string name="CFA_context_delete">Zmazať riadok</string>
-    <string name="CFA_help">Dlhšie stlačte na položku pre viac možnosti</string>
     <string name="CFA_button_add">Pridať kritériá</string>
     <string name="CFC_dueBefore_text">Podľa termínu: ?</string>
     <string name="CFC_dueBefore_name">Podľa termínu…</string>

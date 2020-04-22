@@ -90,7 +90,7 @@ public class FilterCriteriaProvider {
   public CustomFilterCriterion getStartingUniverse() {
     return new MultipleSelectCriterion(
         IDENTIFIER_UNIVERSE,
-        context.getString(R.string.CFA_universe_all),
+        context.getString(R.string.BFE_Active),
         null,
         null,
         null,

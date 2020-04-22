@@ -122,13 +122,11 @@
     <string name="default_location_reminder_on_arrival_or_departure">Su arrivo e partenza</string>
     <string name="BFE_Active">Le mie attività</string>
     <string name="BFE_Recent">Modificate di recente</string>
-    <string name="CFA_universe_all">Attività in corso</string>
     <string name="CFA_type_add">o</string>
     <string name="CFA_type_subtract">non</string>
     <string name="CFA_type_intersect">anche</string>
     <string name="CFA_context_chain">%s ha dei criteri</string>
     <string name="CFA_context_delete">Cancella Riga</string>
-    <string name="CFA_help">Tenere premuto sulla voce per le opzioni aggiuntive</string>
     <string name="CFA_button_add">Aggiungi Criteri</string>
     <string name="CFC_dueBefore_text">Entro: ?</string>
     <string name="CFC_dueBefore_name">Entro…</string>

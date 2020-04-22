@@ -79,12 +79,10 @@
     <string name="at_deadline_or_overdue">در روز موعد یا پس از موعود</string>
     <string name="BFE_Active">وظایف من</string>
     <string name="BFE_Recent">اخیرا ویرایش شده</string>
-    <string name="CFA_universe_all">وظایف فعال</string>
     <string name="CFA_type_add">يا</string>
     <string name="CFA_type_subtract">نه</string>
     <string name="CFA_type_intersect">همچنین</string>
     <string name="CFA_context_delete">حذف سطر</string>
-    <string name="CFA_help">لمس طولانی روی انتخاب برای گزینه های بیشتر</string>
     <string name="CFA_button_add">اضافه کردن محتوا</string>
     <string name="CFC_dueBefore_name">موعود بر اساس</string>
     <string name="no_due_date">بدون موعود</string>

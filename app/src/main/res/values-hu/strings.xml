@@ -123,13 +123,11 @@
     <string name="default_location_reminder_on_arrival_or_departure">Megérkezéskor és elinduláskor</string>
     <string name="BFE_Active">Saját Feladatok</string>
     <string name="BFE_Recent">Nemrég módosítva</string>
-    <string name="CFA_universe_all">Aktív feladatok</string>
     <string name="CFA_type_add">vagy</string>
     <string name="CFA_type_subtract">nem</string>
     <string name="CFA_type_intersect">is</string>
     <string name="CFA_context_chain">%s rendelkezik kritériummal</string>
     <string name="CFA_context_delete">Sor törlése</string>
-    <string name="CFA_help">Érintsd meg hosszan az elemet további lehetőségekért</string>
     <string name="CFA_button_add">Kritérium hozzáadása</string>
     <string name="CFC_dueBefore_text">Határidő: ?</string>
     <string name="CFC_dueBefore_name">Határidő…</string>

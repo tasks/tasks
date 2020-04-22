@@ -49,12 +49,10 @@
     <string name="dont_hide">Ikke skjul</string>
     <string name="BFE_Active">Mine oppgaver</string>
     <string name="BFE_Recent">Nylig endret</string>
-    <string name="CFA_universe_all">Aktive oppgaver</string>
     <string name="CFA_type_add">eller</string>
     <string name="CFA_type_intersect">også</string>
     <string name="CFA_context_chain">%s har kriterier</string>
     <string name="CFA_context_delete">Slett rad</string>
-    <string name="CFA_help">Lang-trykk på elementer for ytterligere valg</string>
     <string name="CFA_button_add">Legg til kriterium</string>
     <string name="CFC_dueBefore_text">Frist til: ?</string>
     <string name="CFC_dueBefore_name">Frist til…</string>

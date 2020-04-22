@@ -127,13 +127,11 @@
     <string name="default_location_reminder_on_arrival_or_departure">ברגע ההגעה והעזיבה</string>
     <string name="BFE_Active">המשימות שלי</string>
     <string name="BFE_Recent">עודכנו לאחרונה</string>
-    <string name="CFA_universe_all">משימות פעילות</string>
     <string name="CFA_type_add">או</string>
     <string name="CFA_type_subtract">לא</string>
     <string name="CFA_type_intersect">וגם</string>
     <string name="CFA_context_chain">%s כולל קריטריונים</string>
     <string name="CFA_context_delete">מחק שורה</string>
-    <string name="CFA_help">לחיצה ארוכה על פריטים כדי לקבל אפשרויות נוספות</string>
     <string name="CFA_button_add">הוסף קריטריון</string>
     <string name="CFC_dueBefore_text">תאריך יעד לפי: ?</string>
     <string name="CFC_dueBefore_name">מועד יעד…</string>

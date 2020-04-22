@@ -95,13 +95,11 @@
     <string name="at_deadline_or_overdue">在截止期限或過期時</string>
     <string name="BFE_Active">我的工作</string>
     <string name="BFE_Recent">最近修改過</string>
-    <string name="CFA_universe_all">進行中的工作</string>
     <string name="CFA_type_add">或</string>
     <string name="CFA_type_subtract">非</string>
     <string name="CFA_type_intersect">也</string>
     <string name="CFA_context_chain">%s 含條件</string>
     <string name="CFA_context_delete">刪除列</string>
-    <string name="CFA_help">長按開啟額外選項</string>
     <string name="CFA_button_add">加入條件</string>
     <string name="CFC_dueBefore_text">期限: ?</string>
     <string name="CFC_dueBefore_name">期限…</string>

@@ -125,13 +125,11 @@
     <string name="default_location_reminder_on_arrival_or_departure">Varışta ve kalkışta</string>
     <string name="BFE_Active">Görevlerim</string>
     <string name="BFE_Recent">Yakında değiştirilenler</string>
-    <string name="CFA_universe_all">Etkin Görevler</string>
     <string name="CFA_type_add">veya</string>
     <string name="CFA_type_subtract">değil</string>
     <string name="CFA_type_intersect">ayrıca</string>
     <string name="CFA_context_chain">%s ölçütüne sahip</string>
     <string name="CFA_context_delete">Satırı Sil</string>
-    <string name="CFA_help">Ek seçenekler için ögelere uzun basın</string>
     <string name="CFA_button_add">Ölçüt Ekle</string>
     <string name="CFC_dueBefore_text">Bitiş: \?</string>
     <string name="CFC_dueBefore_name">Bitiş…</string>

@@ -60,12 +60,10 @@
     <string name="dont_hide">لا تُخبئ</string>
     <string name="BFE_Active">مهامي</string>
     <string name="BFE_Recent">ما تم تعديله مؤخرا</string>
-    <string name="CFA_universe_all">مهام نشطة</string>
     <string name="CFA_type_add">أو</string>
     <string name="CFA_type_subtract">ليس</string>
     <string name="CFA_type_intersect">أيضا</string>
     <string name="CFA_context_delete">حذف الصف</string>
-    <string name="CFA_help">ضغط مطول على الموضوع من أجل خيارات إضافية</string>
     <string name="CFA_button_add">إضافة معايير</string>
     <string name="CFC_dueBefore_text">مستحق بحسب :?</string>
     <string name="next_month">الشهر القادم</string>

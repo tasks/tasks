@@ -106,13 +106,11 @@
     <string name="at_deadline_or_overdue">En la fecha de vencimiento o ya vencida</string>
     <string name="BFE_Active">Mis Tareas</string>
     <string name="BFE_Recent">Recién modificadas</string>
-    <string name="CFA_universe_all">Tareas activas</string>
     <string name="CFA_type_add">ou</string>
     <string name="CFA_type_subtract">non</string>
     <string name="CFA_type_intersect">tamén</string>
     <string name="CFA_context_chain">%s cumpre o criterio</string>
     <string name="CFA_context_delete">Eliminar Fila</string>
-    <string name="CFA_help">Mantén pulsado sobre os elementos para opcións adicionáis</string>
     <string name="CFA_button_add">Engadir Criterio</string>
     <string name="CFC_dueBefore_text">Vence o: ?</string>
     <string name="CFC_dueBefore_name">Vence el…</string>

@@ -120,13 +120,11 @@
     <string name="default_location_reminder_on_arrival_or_departure">Atvykus ir išvykstant</string>
     <string name="BFE_Active">Mano užduotys</string>
     <string name="BFE_Recent">Neseniai redaguoti</string>
-    <string name="CFA_universe_all">Aktyvios užduotys</string>
     <string name="CFA_type_add">arba</string>
     <string name="CFA_type_subtract">ne</string>
     <string name="CFA_type_intersect">taip pat</string>
     <string name="CFA_context_chain">%s turi kriterijų</string>
     <string name="CFA_context_delete">Ištrinti eilutę</string>
-    <string name="CFA_help">Ilgas paspaudimas ant elemento papildomoms opcijoms</string>
     <string name="CFA_button_add">Pridėti kriterijų</string>
     <string name="CFC_dueBefore_text">Pabaigos terminas pagal: ?</string>
     <string name="CFC_dueBefore_name">Terminas pagal…</string>

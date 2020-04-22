@@ -7,30 +7,39 @@
 package org.tasks.activities;
 
 import static android.text.TextUtils.isEmpty;
+import static com.google.common.collect.Lists.transform;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ListView;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
+import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.UnaryCriterion;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.CustomFilterCriterion;
+import com.todoroo.astrid.api.MultipleSelectCriterion;
 import com.todoroo.astrid.api.PermaSql;
+import com.todoroo.astrid.api.TextInputCriterion;
 import com.todoroo.astrid.core.CriterionInstance;
 import com.todoroo.astrid.core.CustomFilterAdapter;
 import com.todoroo.astrid.dao.Database;
@@ -42,19 +51,15 @@ import java.util.Map;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.data.FilterDao;
+import org.tasks.dialogs.AlertDialogBuilder;
 import org.tasks.filters.FilterCriteriaProvider;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.locale.Locale;
 
 public class FilterSettingsActivity extends BaseListSettingsActivity {
 
-  public static final int MENU_GROUP_CONTEXT_TYPE = 1;
-  public static final int MENU_GROUP_CONTEXT_DELETE = 2;
-  private static final int MENU_GROUP_FILTER = 0;
-
   public static final String TOKEN_FILTER = "token_filter";
   public static final String EXTRA_CRITERIA = "extra_criteria";
-
   @Inject FilterDao filterDao;
   @Inject Locale locale;
   @Inject Database database;
@@ -66,8 +71,8 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
   @BindView(R.id.name_layout)
   TextInputLayout nameLayout;
 
-  @BindView(R.id.list)
-  ListView listView; // TODO: convert to recycler view
+  @BindView(R.id.recycler_view)
+  RecyclerView recyclerView;
 
   @BindView(R.id.fab)
   ExtendedFloatingActionButton fab;
@@ -105,40 +110,138 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
       instance.type = CriterionInstance.TYPE_UNIVERSE;
       criteria.add(instance);
     }
-    adapter = new CustomFilterAdapter(this, dialogBuilder, criteria, locale);
-    fab.setExtended(adapter.getCount() <= 1);
-    listView.setAdapter(adapter);
+    adapter = new CustomFilterAdapter(criteria, locale, this::onClick);
+    recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    recyclerView.setAdapter(adapter);
+
+    fab.setExtended(adapter.getItemCount() <= 1);
 
     updateList();
-
-    setUpListeners();
 
     updateTheme();
   }
 
+  private void onClick(CriterionInstance criterionInstance) {
+    View view =
+        getLayoutInflater().inflate(R.layout.dialog_custom_filter_row_edit, recyclerView, false);
+    MaterialButtonToggleGroup group = view.findViewById(R.id.button_toggle);
+    int selected = getSelected(criterionInstance);
+    group.check(selected);
+    AlertDialog d = dialogBuilder
+        .newDialog(criterionInstance.getTitleFromCriterion())
+        .setView(view)
+        .setNegativeButton(android.R.string.cancel, null)
+        .setPositiveButton(
+            android.R.string.ok,
+            (dialog, which) -> {
+              criterionInstance.type = getType(group.getCheckedButtonId());
+              updateList();
+            })
+        .show();
+    view.findViewById(R.id.delete).setOnClickListener(v -> {
+      d.dismiss();
+      adapter.remove(criterionInstance);
+      updateList();
+    });
+    view.findViewById(R.id.reconfigure).setOnClickListener(v -> {
+      d.dismiss();
+      addCriteria(criterionInstance);
+    });
+  }
+
+  private int getSelected(CriterionInstance instance) {
+    switch (instance.type) {
+      case CriterionInstance.TYPE_ADD:
+        return R.id.button_or;
+      case CriterionInstance.TYPE_INTERSECT:
+        return R.id.button_and;
+      case CriterionInstance.TYPE_SUBTRACT:
+        return R.id.button_not;
+      default:
+        throw new RuntimeException();
+    }
+  }
+
+  private int getType(int selected) {
+    switch (selected) {
+      case R.id.button_and:
+        return CriterionInstance.TYPE_INTERSECT;
+      case R.id.button_or:
+        return CriterionInstance.TYPE_ADD;
+      case R.id.button_not:
+        return CriterionInstance.TYPE_SUBTRACT;
+      default:
+        throw new RuntimeException();
+    }
+  }
+
   @OnClick(R.id.fab)
   void addCriteria() {
-    listView.showContextMenu();
+    addCriteria(null);
     fab.shrink();
   }
 
-  private void setUpListeners() {
-    listView.setOnCreateContextMenuListener(
-        (menu, v, menuInfo) -> {
-          if (menu.hasVisibleItems()) {
-            /* If it has items already, then the user did not click on the "Add Criteria" button, but instead
-              long held on a row in the list view, which caused CustomFilterAdapter.onCreateContextMenu
-              to be invoked before this onCreateContextMenu method was invoked.
-            */
-            return;
-          }
+  private void addCriteria(@Nullable CriterionInstance replace) {
+    AndroidUtilities.hideKeyboard(this);
 
-          int i = 0;
-          for (CustomFilterCriterion item : filterCriteriaProvider.getAll()) {
-            menu.add(MENU_GROUP_FILTER, i, 0, item.name);
-            i++;
-          }
-        });
+    List<CustomFilterCriterion> all = filterCriteriaProvider.getAll();
+    List<String> names = transform(all, CustomFilterCriterion::getName);
+    dialogBuilder.newDialog()
+        .setItems(names, (dialog, which) -> {
+          CriterionInstance instance = new CriterionInstance();
+          instance.criterion = all.get(which);
+          showOptionsFor(instance, () -> {
+            if (replace == null) {
+              adapter.add(instance);
+            } else {
+              adapter.replace(replace, instance);
+            }
+            updateList();
+          });
+          dialog.dismiss();
+        })
+        .show();
+  }
+
+  /** Show options menu for the given criterioninstance */
+  public void showOptionsFor(final CriterionInstance item, final Runnable onComplete) {
+    AlertDialogBuilder dialog = dialogBuilder.newDialog(item.criterion.name);
+
+    if (item.criterion instanceof MultipleSelectCriterion) {
+      MultipleSelectCriterion multiSelectCriterion = (MultipleSelectCriterion) item.criterion;
+      final String[] titles = multiSelectCriterion.entryTitles;
+      DialogInterface.OnClickListener listener =
+          (click, which) -> {
+            item.selectedIndex = which;
+            if (onComplete != null) {
+              onComplete.run();
+            }
+          };
+      dialog.setItems(titles, listener);
+    } else if (item.criterion instanceof TextInputCriterion) {
+      TextInputCriterion textInCriterion = (TextInputCriterion) item.criterion;
+      FrameLayout frameLayout = new FrameLayout(this);
+      frameLayout.setPadding(10, 0, 10, 0);
+      final EditText editText = new EditText(this);
+      editText.setText(item.selectedText);
+      editText.setHint(textInCriterion.hint);
+      frameLayout.addView(
+          editText,
+          new FrameLayout.LayoutParams(
+              FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT));
+      dialog
+          .setView(frameLayout)
+          .setPositiveButton(
+              android.R.string.ok,
+              (dialogInterface, which) -> {
+                item.selectedText = editText.getText().toString();
+                if (onComplete != null) {
+                  onComplete.run();
+                }
+              });
+    }
+
+    dialog.show();
   }
 
   @Override
@@ -187,7 +290,7 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
         filter.valuesForNewTasks.put(entry.getKey(), entry.getValue());
       }
       filter.setCriterion(adapter.getCriterion());
-      filterDao.insertOrUpdate(filter.toStoreObject());
+      filter.setId(filterDao.insertOrUpdate(filter.toStoreObject()));
       setResult(
           RESULT_OK,
           new Intent(TaskListFragment.ACTION_RELOAD).putExtra(MainActivity.OPEN_FILTER, filter));
@@ -226,54 +329,8 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
   protected void delete() {
     filterDao.delete(filter.getId());
     setResult(
-        RESULT_OK,
-        new Intent(TaskListFragment.ACTION_DELETED).putExtra(TOKEN_FILTER, filter));
+        RESULT_OK, new Intent(TaskListFragment.ACTION_DELETED).putExtra(TOKEN_FILTER, filter));
     finish();
-  }
-
-  @Override
-  public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-    if (menu.size() > 0) {
-      menu.clear();
-    }
-
-    // view holder
-    if (v.getTag() != null) {
-      adapter.onCreateContextMenu(menu, v);
-    }
-  }
-
-  @Override
-  public boolean onContextItemSelected(android.view.MenuItem item) {
-    if (item.getGroupId() == MENU_GROUP_FILTER) {
-      // give an initial value for the row before adding it
-      CustomFilterCriterion criterion = filterCriteriaProvider.getAll().get(item.getItemId());
-      final CriterionInstance instance = new CriterionInstance();
-      instance.criterion = criterion;
-      adapter.showOptionsFor(
-          instance,
-          () -> {
-            adapter.add(instance);
-            updateList();
-          });
-      return true;
-    }
-
-    // item type context item
-    else if (item.getGroupId() == MENU_GROUP_CONTEXT_TYPE) {
-      CriterionInstance instance = adapter.getItem(item.getOrder());
-      instance.type = item.getItemId();
-      updateList();
-    }
-
-    // delete context item
-    else if (item.getGroupId() == MENU_GROUP_CONTEXT_DELETE) {
-      CriterionInstance instance = adapter.getItem(item.getOrder());
-      adapter.remove(instance);
-      updateList();
-    }
-
-    return super.onContextItemSelected(item);
   }
 
   public void updateList() {
@@ -283,8 +340,7 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
         new StringBuilder(Query.select(new CountProperty()).from(Task.TABLE).toString())
             .append(" WHERE ");
 
-    for (int i = 0; i < adapter.getCount(); i++) {
-      CriterionInstance instance = adapter.getItem(i);
+    for (CriterionInstance instance : adapter.getItems()) {
       String value = instance.getValueFromCriterion();
       if (value == null && instance.criterion.sql != null && instance.criterion.sql.contains("?")) {
         value = "";
@@ -311,23 +367,19 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
         sql.append(Task.ID).append(" IN (").append(subSql).append(") ");
       }
 
-      Cursor cursor = database.query(sql.toString(), null);
-      try {
+      try (Cursor cursor = database.query(sql.toString(), null)) {
         cursor.moveToNext();
         instance.start = last == -1 ? cursor.getInt(0) : last;
         instance.end = cursor.getInt(0);
         last = instance.end;
         max = Math.max(max, last);
-      } finally {
-        cursor.close();
       }
     }
 
-    for (int i = 0; i < adapter.getCount(); i++) {
-      CriterionInstance instance = adapter.getItem(i);
+    for (CriterionInstance instance : adapter.getItems()) {
       instance.max = max;
     }
 
-    adapter.notifyDataSetInvalidated();
+    adapter.notifyDataSetChanged();
   }
 }

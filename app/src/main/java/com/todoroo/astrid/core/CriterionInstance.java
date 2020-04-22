@@ -3,6 +3,7 @@ package com.todoroo.astrid.core;
 import static com.google.common.collect.Lists.transform;
 import static java.util.Arrays.asList;
 
+import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -63,10 +64,10 @@ public class CriterionInstance {
   public CustomFilterCriterion criterion;
 
   /** which of the entries is selected (MultipleSelect) */
-  int selectedIndex = -1;
+  public int selectedIndex = -1;
 
   /** text of selection (TextInput) */
-  String selectedText = null;
+  public String selectedText = null;
 
   /** type of join */
   public int type = TYPE_INTERSECT;
@@ -77,7 +78,7 @@ public class CriterionInstance {
 
   public int max;
 
-  String getTitleFromCriterion() {
+  public String getTitleFromCriterion() {
     if (criterion instanceof MultipleSelectCriterion) {
       if (selectedIndex >= 0
           && ((MultipleSelectCriterion) criterion).entryTitles != null
@@ -133,7 +134,19 @@ public class CriterionInstance {
         + '}';
   }
 
-  public static String escape(String item) {
+  String serialize() {
+    // criterion|entry|text|type|sql
+    return Joiner.on(AndroidUtilities.SERIALIZATION_SEPARATOR)
+        .join(
+            asList(
+                escape(criterion.identifier),
+                escape(getValueFromCriterion()),
+                escape(criterion.text),
+                type,
+                criterion.sql == null ? "" : criterion.sql));
+  }
+
+  private static String escape(String item) {
     if (item == null) {
       return ""; // $NON-NLS-1$
     }

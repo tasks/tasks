@@ -57,6 +57,11 @@ public abstract class CustomFilterCriterion implements Parcelable {
 
   // --- parcelable utilities
 
+
+  public String getName() {
+    return name;
+  }
+
   /** Utility method to write to parcel */
   void writeToParcel(Parcel dest) {
     dest.writeString(identifier);

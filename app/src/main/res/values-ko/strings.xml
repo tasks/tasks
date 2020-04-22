@@ -124,13 +124,11 @@
     <string name="default_location_reminder_on_arrival_or_departure">도착 및 출발 시</string>
     <string name="BFE_Active">나의 할일</string>
     <string name="BFE_Recent">최근에 수정한 할일</string>
-    <string name="CFA_universe_all">실행중인 할일</string>
     <string name="CFA_type_add">또는</string>
     <string name="CFA_type_subtract">제외</string>
     <string name="CFA_type_intersect">또한</string>
     <string name="CFA_context_chain">%s 은 기준이 있습니다</string>
     <string name="CFA_context_delete">가로줄 삭제</string>
-    <string name="CFA_help">추가로 설정하려면 항목에서 길게 누르기</string>
     <string name="CFA_button_add">기준 추가</string>
     <string name="CFC_dueBefore_text">마감일: ?</string>
     <string name="CFC_dueBefore_name">마감일…</string>

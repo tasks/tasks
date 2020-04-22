@@ -11,7 +11,6 @@
     <string name="CFA_type_intersect">ook</string>
     <string name="CFA_context_chain">%s het kriteria</string>
     <string name="CFA_context_delete">Verwyder ry</string>
-    <string name="CFA_help">Hou in op items vir addisionele opsies</string>
     <string name="CFA_button_add">Voeg kriteria by</string>
     <string name="CFC_dueBefore_text">Verskuldig teen: ? </string>
     <string name="CFC_importance_text">Prioriteit ten minste ?</string>

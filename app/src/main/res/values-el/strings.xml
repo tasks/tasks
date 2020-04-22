@@ -95,7 +95,6 @@
     <string name="CFA_type_intersect">επίσης</string>
     <string name="CFA_context_chain">%s έχει κριτήρια</string>
     <string name="CFA_context_delete">Διαγραφή σειράς</string>
-    <string name="CFA_help">Αργό πάτημα σε αντικείμενα για επιπλέον επιλογές</string>
     <string name="CFA_button_add">Προσθέστε κριτήριο</string>
     <string name="CFC_dueBefore_text">Λήγει στίς: ?</string>
     <string name="CFC_dueBefore_name">Λήγει στίς…</string>

@@ -123,13 +123,11 @@
     <string name="default_location_reminder_on_arrival_or_departure">По прибуттю та відправці</string>
     <string name="BFE_Active">Мої завдання</string>
     <string name="BFE_Recent">Недавно змінені</string>
-    <string name="CFA_universe_all">Активні завдання</string>
     <string name="CFA_type_add">або</string>
     <string name="CFA_type_subtract">ні</string>
     <string name="CFA_type_intersect">також</string>
     <string name="CFA_context_chain">%s має критерії</string>
     <string name="CFA_context_delete">Видалити рядок</string>
-    <string name="CFA_help">Довгий тап на пункт для додаткових опцій</string>
     <string name="CFA_button_add">Додати критерій</string>
     <string name="CFC_dueBefore_text">Кінцевий термін: ?</string>
     <string name="CFC_dueBefore_name">Кінцевий термін…</string>
