@@ -8,9 +8,7 @@ import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Handler
-import android.widget.Toast
 import androidx.annotation.StringRes
-import androidx.preference.ListPreference
 import androidx.preference.Preference
 import com.google.common.base.Strings
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop
@@ -25,7 +23,6 @@ import org.tasks.dialogs.ColorPalettePicker
 import org.tasks.dialogs.ColorPalettePicker.Companion.newColorPalette
 import org.tasks.dialogs.ColorPickerAdapter
 import org.tasks.dialogs.ColorWheelPicker
-import org.tasks.dialogs.MyTimePickerDialog.newTimePicker
 import org.tasks.dialogs.ThemePickerDialog
 import org.tasks.dialogs.ThemePickerDialog.Companion.newThemePickerDialog
 import org.tasks.gtasks.PlayServices
@@ -41,14 +38,10 @@ import org.tasks.themes.ThemeBase.DEFAULT_BASE_THEME
 import org.tasks.themes.ThemeBase.EXTRA_THEME_OVERRIDE
 import org.tasks.themes.ThemeColor
 import org.tasks.themes.ThemeColor.getLauncherColor
-import org.tasks.time.DateTime
 import org.tasks.ui.ChipProvider
 import org.tasks.ui.NavigationDrawerFragment.REQUEST_PURCHASE
 import org.tasks.ui.SingleCheckedArrayAdapter
-import org.tasks.ui.TimePreference
 import org.tasks.ui.Toaster
-import org.threeten.bp.DayOfWeek
-import org.threeten.bp.format.TextStyle
 import javax.inject.Inject
 
 private const val REQUEST_THEME_PICKER = 10001
@@ -177,7 +170,7 @@ class LookAndFeel : InjectingPreferenceFragment() {
     private fun setupLocationPickers() {
         val choices =
             listOf(getString(R.string.map_provider_mapbox), getString(R.string.map_provider_google))
-        val singleCheckedArrayAdapter = SingleCheckedArrayAdapter(context!!, choices, themeAccent)
+        val singleCheckedArrayAdapter = SingleCheckedArrayAdapter(requireContext(), choices, themeAccent)
         val mapProviderPreference = findPreference(R.string.p_map_provider)
         mapProviderPreference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             dialogBuilder
@@ -351,7 +344,7 @@ class LookAndFeel : InjectingPreferenceFragment() {
         val packageManager: PackageManager? = context?.packageManager
         for (i in ThemeColor.LAUNCHERS.indices) {
             val componentName = ComponentName(
-                context!!,
+                requireContext(),
                 "com.todoroo.astrid.activity.TaskListActivity" + ThemeColor.LAUNCHERS[i]
             )
             packageManager?.setComponentEnabledSetting(

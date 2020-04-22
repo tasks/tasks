@@ -48,7 +48,7 @@ abstract class InjectingPreferenceFragment : PreferenceFragmentCompat() {
     final override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(getPreferenceXml(), rootKey)
 
-        tintIcons(preferenceScreen, ContextCompat.getColor(context!!, R.color.icon_tint_with_alpha))
+        tintIcons(preferenceScreen, ContextCompat.getColor(requireContext(), R.color.icon_tint_with_alpha))
 
         setupPreferences(savedInstanceState)
     }
@@ -76,7 +76,7 @@ abstract class InjectingPreferenceFragment : PreferenceFragmentCompat() {
 
     protected fun tintColorPreference(resId: Int, tint: Int) {
         val pref = findPreference(resId)
-        pref.icon = DrawableUtil.getWrapped(context!!, R.drawable.color_picker)
+        pref.icon = DrawableUtil.getWrapped(requireContext(), R.drawable.color_picker)
         DrawableUtil.setTint(pref.icon, tint)
     }
 
@@ -117,7 +117,7 @@ abstract class InjectingPreferenceFragment : PreferenceFragmentCompat() {
     abstract fun setupPreferences(savedInstanceState: Bundle?)
 
     protected fun recreate() {
-        activity!!.recreate()
+        requireActivity().recreate()
     }
 
     protected fun findPreference(@StringRes prefId: Int): Preference {

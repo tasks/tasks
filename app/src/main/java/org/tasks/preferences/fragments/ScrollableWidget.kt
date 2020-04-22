@@ -54,7 +54,7 @@ class ScrollableWidget : InjectingPreferenceFragment() {
     override fun getPreferenceXml() = R.xml.preferences_widget
 
     override fun setupPreferences(savedInstanceState: Bundle?) {
-        appWidgetId = arguments!!.getInt(EXTRA_WIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID)
+        appWidgetId = requireArguments().getInt(EXTRA_WIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID)
         widgetPreferences = WidgetPreferences(context, preferences, appWidgetId)
 
         val row = setupSlider(R.string.p_widget_opacity, 100)

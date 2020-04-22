@@ -57,13 +57,13 @@ class ThemePickerDialog : InjectingDialogFragment() {
     override fun inject(component: DialogFragmentComponent) = component.inject(this)
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        selected = savedInstanceState?.getInt(EXTRA_SELECTED) ?: arguments!!.getInt(EXTRA_SELECTED)
+        selected = savedInstanceState?.getInt(EXTRA_SELECTED) ?: requireArguments().getInt(EXTRA_SELECTED)
         val widget = arguments?.getBoolean(EXTRA_WIDGET) ?: false
         val themes = resources.getStringArray(
             if (widget) R.array.widget_themes else R.array.base_theme_names
         )
 
-        adapter = object : ArrayAdapter<String>(activity!!, R.layout.simple_list_item_single_choice, themes) {
+        adapter = object : ArrayAdapter<String>(requireActivity(), R.layout.simple_list_item_single_choice, themes) {
             override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
                 val view = super.getView(position, convertView, parent)
                 val textColor = if (isAvailable(position)) {
@@ -79,7 +79,7 @@ class ThemePickerDialog : InjectingDialogFragment() {
 
         dialog = dialogBuilder.newDialog()
                 .setTitle(R.string.theme)
-                .setSingleChoiceItems(adapter, arguments!!.getInt(EXTRA_SELECTED)) { _, which ->
+                .setSingleChoiceItems(adapter, requireArguments().getInt(EXTRA_SELECTED)) { _, which ->
                     selected = which
                     if (available()) {
                         deliverResult()

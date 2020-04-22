@@ -144,7 +144,7 @@ class Notifications : InjectingPreferenceFragment() {
 
     private fun checkBatteryOptimizations() {
         if (atLeastMarshmallow()) {
-            val powerManager = context!!.getSystemService(POWER_SERVICE) as PowerManager
+            val powerManager = requireContext().getSystemService(POWER_SERVICE) as PowerManager
             findPreference(R.string.disable_battery_optimizations).isVisible =
                 !powerManager.isIgnoringBatteryOptimizations(getString(R.string.app_package))
         }

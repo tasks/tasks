@@ -124,7 +124,7 @@ class DateTimePicker : InjectingBottomSheetDialogFragment() {
             }
         }
         val timestamp = savedInstanceState?.getLong(EXTRA_SELECTED)
-                ?: arguments!!.getLong(EXTRA_TIMESTAMP)
+                ?: requireArguments().getLong(EXTRA_TIMESTAMP)
         selected = if (timestamp > 0) DateTime(timestamp) else null
 
         return binding.root

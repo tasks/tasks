@@ -100,7 +100,7 @@ class Advanced : InjectingPreferenceFragment() {
             if (resultCode == Activity.RESULT_OK) {
                 val uri = data!!.data!!
                 if (AndroidUtilities.atLeastLollipop()) {
-                    context!!.contentResolver
+                    requireContext().contentResolver
                         .takePersistableUriPermission(
                             uri,
                             Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
@@ -231,7 +231,7 @@ class Advanced : InjectingPreferenceFragment() {
             .newDialog()
             .setMessage(R.string.EPr_delete_task_data_warning)
             .setPositiveButton(R.string.EPr_delete_task_data) { _, _ ->
-                context!!.deleteDatabase(database.name)
+                requireContext().deleteDatabase(database.name)
                 exitProcess(0)
             }
             .setNegativeButton(android.R.string.cancel, null)

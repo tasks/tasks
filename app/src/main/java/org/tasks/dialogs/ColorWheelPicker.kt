@@ -49,7 +49,7 @@ class ColorWheelPicker : InjectingDialogFragment() {
     override fun inject(component: DialogFragmentComponent) = component.inject(this)
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        selected = savedInstanceState?.getInt(EXTRA_SELECTED) ?: arguments!!.getInt(EXTRA_SELECTED, 0)
+        selected = savedInstanceState?.getInt(EXTRA_SELECTED) ?: requireArguments().getInt(EXTRA_SELECTED, 0)
 
         val button = if (inventory.purchasedThemes()) android.R.string.ok else R.string.button_subscribe
         val builder = ColorPickerDialogBuilder

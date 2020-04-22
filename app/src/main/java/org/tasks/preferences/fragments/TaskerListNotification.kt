@@ -72,7 +72,7 @@ class TaskerListNotification : InjectingPreferenceFragment() {
         } else if (requestCode == REQUEST_SUBSCRIPTION) {
             if (!inventory.purchasedTasker()) {
                 cancelled = true
-                activity!!.finish()
+                requireActivity().finish()
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)

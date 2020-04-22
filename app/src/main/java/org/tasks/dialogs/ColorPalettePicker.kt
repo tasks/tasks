@@ -79,12 +79,12 @@ class ColorPalettePicker : InjectingDialogFragment() {
         val inflater = LayoutInflater.from(context)
         val view = inflater.inflate(R.layout.dialog_icon_picker, null)
         ButterKnife.bind(this, view)
-        palette = arguments!!.getSerializable(EXTRA_PALETTE) as Palette
+        palette = requireArguments().getSerializable(EXTRA_PALETTE) as Palette
         colors = when (palette) {
             Palette.COLORS -> colorProvider.getThemeColors()
             Palette.ACCENTS -> colorProvider.getAccentColors()
             Palette.LAUNCHERS -> ThemeColor.LAUNCHER_COLORS.map { color ->
-                ThemeColor(context, ContextCompat.getColor(context!!, color))
+                ThemeColor(context, ContextCompat.getColor(requireContext(), color))
             }
             Palette.WIDGET -> colorProvider.getWidgetColors()
         }
@@ -111,7 +111,7 @@ class ColorPalettePicker : InjectingDialogFragment() {
             builder.setNegativeButton(android.R.string.cancel, null)
         } else {
             builder.setPositiveButton(R.string.button_subscribe) { _: DialogInterface?, _: Int ->
-                context?.startActivity(Intent(context!!, PurchaseActivity::class.java))
+                context?.startActivity(Intent(requireContext(), PurchaseActivity::class.java))
             }
         }
         return builder.show()
