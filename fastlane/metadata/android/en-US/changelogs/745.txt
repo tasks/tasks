@@ -1,0 +1,8 @@
+* Edit existing custom filters
+* Drag and drop to rearrange filter criteria
+* Swipe to delete filter criteria
+* Tap on filter criteria to choose filter operator
+* Offer additional built-in filters
+* Update translations
+
+Full release notes: https://tasks.org/changelog

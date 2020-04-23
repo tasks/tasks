@@ -1,6 +1,15 @@
 Change Log
 ---
 =======
+### 8.11 (2020-04-23)
+
+* Edit existing custom filters
+* Drag and drop to rearrange filter criteria
+* Swipe to delete filter criteria
+* Tap on filter criteria to choose filter operator
+* Offer additional built-in filters
+* Update translations
+
 ### 8.10 (2020-04-20)
 
 * New widget features
