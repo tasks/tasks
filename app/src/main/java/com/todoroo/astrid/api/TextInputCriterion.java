@@ -6,7 +6,6 @@
 
 package com.todoroo.astrid.api;
 
-import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -49,14 +48,12 @@ public class TextInputCriterion extends CustomFilterCriterion implements Parcela
       String sql,
       String prompt,
       String hint,
-      Bitmap icon,
       String name) {
     this.identifier = identifier;
     this.text = title;
     this.sql = sql;
     this.prompt = prompt;
     this.hint = hint;
-    this.icon = icon;
     this.name = name;
   }
 
@@ -103,8 +100,6 @@ public class TextInputCriterion extends CustomFilterCriterion implements Parcela
         + ", name='"
         + name
         + '\''
-        + ", icon="
-        + icon
         + '}';
   }
 }

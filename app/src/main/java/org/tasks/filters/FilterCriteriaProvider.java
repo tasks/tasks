@@ -95,7 +95,6 @@ public class FilterCriteriaProvider {
         null,
         null,
         null,
-        null,
         null);
   }
 
@@ -135,7 +134,6 @@ public class FilterCriteriaProvider {
         values,
         tagNames,
         tagNames,
-        null,
         context.getString(R.string.CFC_tag_name));
   }
 
@@ -152,7 +150,6 @@ public class FilterCriteriaProvider {
             .toString(),
         context.getString(R.string.CFC_tag_contains_name),
         "",
-        null,
         context.getString(R.string.CFC_tag_contains_name));
   }
 
@@ -183,7 +180,6 @@ public class FilterCriteriaProvider {
         values,
         r.getStringArray(R.array.CFC_dueBefore_entries),
         entryValues,
-        null,
         r.getString(R.string.CFC_dueBefore_name));
   }
 
@@ -208,7 +204,6 @@ public class FilterCriteriaProvider {
         values,
         entries,
         entryValues,
-        null,
         r.getString(R.string.CFC_importance_name));
   }
 
@@ -222,7 +217,6 @@ public class FilterCriteriaProvider {
             .toString(),
         r.getString(R.string.CFC_title_contains_name),
         "",
-        null,
         r.getString(R.string.CFC_title_contains_name));
   }
 
@@ -252,7 +246,6 @@ public class FilterCriteriaProvider {
         values,
         listNames,
         listIds,
-        null,
         context.getString(R.string.CFC_gtasks_list_name));
   }
 
@@ -281,7 +274,6 @@ public class FilterCriteriaProvider {
         values,
         names,
         ids,
-        null,
         context.getString(R.string.CFC_caldav_list_name));
   }
 }

@@ -6,7 +6,6 @@
 
 package com.todoroo.astrid.api;
 
-import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 import java.util.HashMap;
@@ -52,8 +51,6 @@ public abstract class CustomFilterCriterion implements Parcelable {
   public String sql;
   /** Criteria name. This is displayed when users are selecting a criteria */
   public String name;
-  /** Icon for this criteria. Can be null for no bitmap */
-  Bitmap icon;
 
   // --- parcelable utilities
 
@@ -68,7 +65,6 @@ public abstract class CustomFilterCriterion implements Parcelable {
     dest.writeString(text);
     dest.writeString(sql);
     dest.writeMap(valuesForNewTasks);
-    dest.writeParcelable(icon, 0);
     dest.writeString(name);
   }
 
@@ -78,7 +74,6 @@ public abstract class CustomFilterCriterion implements Parcelable {
     text = source.readString();
     sql = source.readString();
     source.readMap(valuesForNewTasks, getClass().getClassLoader());
-    icon = source.readParcelable(Bitmap.class.getClassLoader());
     name = source.readString();
   }
 }

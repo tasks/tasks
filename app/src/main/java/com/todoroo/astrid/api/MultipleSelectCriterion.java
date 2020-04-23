@@ -6,7 +6,6 @@
 
 package com.todoroo.astrid.api;
 
-import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 import java.util.Arrays;
@@ -52,7 +51,6 @@ public class MultipleSelectCriterion extends CustomFilterCriterion implements Pa
       Map<String, Object> valuesForNewTasks,
       String[] entryTitles,
       String[] entryValues,
-      Bitmap icon,
       String name) {
     this.identifier = identifier;
     this.text = title;
@@ -62,7 +60,6 @@ public class MultipleSelectCriterion extends CustomFilterCriterion implements Pa
     }
     this.entryTitles = entryTitles;
     this.entryValues = entryValues;
-    this.icon = icon;
     this.name = name;
   }
 
@@ -107,8 +104,6 @@ public class MultipleSelectCriterion extends CustomFilterCriterion implements Pa
         + ", name='"
         + name
         + '\''
-        + ", icon="
-        + icon
         + '}';
   }
 }
