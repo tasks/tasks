@@ -596,4 +596,9 @@
     <string name="auto_dismiss_datetime_list">Aufgabenliste</string>
     <string name="widget_due_date_reschedule">Aufgabe verlegen</string>
     <string name="widget_footer">Fußzeile</string>
+    <string name="custom_filter_and">UND</string>
+    <string name="custom_filter_not">NICHT</string>
+    <string name="custom_filter_or">ODER</string>
+    <string name="custom_filter_criteria">Filterkriterien</string>
+    <string name="choose_new_criteria">Neue Kriterien auswählen</string>
 </resources>
