@@ -136,7 +136,7 @@
     <string name="CFC_importance_name">Priorità…</string>
     <string name="CFC_tag_text">Etichetta: ?</string>
     <string name="CFC_tag_name">Etichetta…</string>
-    <string name="CFC_tag_contains_name">L\'etichetta contiene</string>
+    <string name="CFC_tag_contains_name">L\'etichetta contiene…</string>
     <string name="CFC_tag_contains_text">L\'etichetta contiene: ?</string>
     <string name="CFC_title_contains_name">Il titolo contiene…</string>
     <string name="CFC_title_contains_text">Il titolo contiene: ?</string>
@@ -167,7 +167,7 @@
     <string name="random_reminder_month">ogni mese</string>
     <string name="random_reminder_two_months">ogni due mesi</string>
     <string name="rmd_NoA_done">Completata</string>
-    <string name="rmd_NoA_snooze">Rimanda…</string>
+    <string name="rmd_NoA_snooze">Rimanda</string>
     <string name="snooze_all">Posticipa tutti</string>
     <string name="rmd_EPr_quiet_hours_start_title">Ora inizio silenzio</string>
     <string name="rmd_EPr_quiet_hours_end_title">Ora fine silenzio</string>
@@ -217,7 +217,7 @@
         <item quantity="other">ore</item>
     </plurals>
     <plurals name="repeat_n_hours">
-        <item quantity="one">%d ore</item>
+        <item quantity="one">%d ora</item>
         <item quantity="other">%d ore</item>
     </plurals>
     <plurals name="repeat_days">
@@ -446,7 +446,7 @@
     <string name="pro_dashclock_extension">Estensione Dashclock</string>
     <string name="requires_pro_subscription">Richiede versione pro</string>
     <string name="logout">Esci</string>
-    <string name="logout_warning">Esco da %s? Tutti i dati dell\'account saranno cancellati dal dispositivo.</string>
+    <string name="logout_warning">Esco da %s\? Tutti i dati dell\'account saranno cancellati dal dispositivo</string>
     <string name="cannot_access_account">Impossibile accedere all\'account</string>
     <string name="reinitialize_account">Reinizializza</string>
     <string name="action_create_new_task">Crea nuova attività</string>
@@ -479,7 +479,7 @@
     <string name="desaturate_colors">Riduci saturazione colori</string>
     <string name="etesync_encryption_description">Ricorda la password di cifratura che hai scelto, non può essere recuperata!</string>
     <string name="button_upgrade">Aumenta importo abbonamento</string>
-    <string name="button_downgrade">"Diminuisci importo abbonamento "</string>
+    <string name="button_downgrade">Diminuisci importo abbonamento</string>
     <string name="reenter_encryption_password">Conferma password di cifratura</string>
     <string name="encryption_password">Password di cifratura</string>
     <string name="encryption_password_wrong">Password di cifratura sbagliata</string>
@@ -560,7 +560,7 @@
     <string name="show_subtasks">Mostra sotto-attività</string>
     <string name="subtasks_multilevel_google_task">Google Tasks non supporta sotto-attività su più livelli</string>
     <string name="expand_subtasks">Espandi sotto-attività</string>
-    <string name="caldav_account_repeating_tasks">"Lascia che il server  programmi le attività ricorrenti"</string>
+    <string name="caldav_account_repeating_tasks">Lascia che il server programmi le attività ricorrenti</string>
     <string name="annually">Annuale</string>
     <string name="monthly">Mensile</string>
     <string name="google_tasks_add_to_top">Nuove attività in cima alla lista</string>
@@ -574,4 +574,10 @@
     <string name="chip_appearance">Aspetto chip</string>
     <string name="chip_style">Stile chip</string>
     <string name="chips">Chips</string>
+    <string name="custom_filter_not">NON</string>
+    <string name="custom_filter_or">O</string>
+    <string name="custom_filter_and">E</string>
+    <string name="choose_new_criteria">Scegli nuovi criteri</string>
+    <string name="widget_show_menu">Mostra il menu</string>
+    <string name="widget_hide_background">Nascondi lo sfondo</string>
 </resources>
