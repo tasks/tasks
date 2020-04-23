@@ -1,7 +1,5 @@
 package com.todoroo.astrid.api;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.mapToSerializedString;
-
 import android.os.Parcel;
 import android.os.Parcelable;
 import androidx.annotation.NonNull;
@@ -32,28 +30,14 @@ public class CustomFilter extends Filter {
 
   public CustomFilter(org.tasks.data.Filter filter) {
     super(filter.getTitle(), filter.getSql(), filter.getValuesAsMap());
-    this.id = filter.getId();
-    this.criterion = filter.getCriterion();
-    this.tint = filter.getColor();
-    this.icon = filter.getIcon();
+    id = filter.getId();
+    criterion = filter.getCriterion();
+    tint = filter.getColor();
+    icon = filter.getIcon();
   }
 
   private CustomFilter(Parcel parcel) {
     readFromParcel(parcel);
-  }
-
-  public org.tasks.data.Filter toStoreObject() {
-    org.tasks.data.Filter filter = new org.tasks.data.Filter();
-    filter.setId(id);
-    filter.setTitle(listingTitle);
-    filter.setSql(sqlQuery);
-    filter.setIcon(icon);
-    filter.setColor(tint);
-    if (valuesForNewTasks != null && valuesForNewTasks.size() > 0) {
-      filter.setValues(mapToSerializedString(valuesForNewTasks));
-    }
-    filter.setCriterion(criterion);
-    return filter;
   }
 
   public void setId(long id) {

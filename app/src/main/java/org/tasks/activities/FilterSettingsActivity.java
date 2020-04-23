@@ -8,7 +8,9 @@ package org.tasks.activities;
 
 import static android.text.TextUtils.isEmpty;
 import static com.google.common.collect.Iterables.find;
+import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
+import static com.todoroo.andlib.utility.AndroidUtilities.mapToSerializedString;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -30,6 +32,7 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.common.base.Joiner;
+import com.google.common.base.Strings;
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.UnaryCriterion;
@@ -47,7 +50,6 @@ import com.todoroo.astrid.core.CustomFilterItemTouchHelper;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,11 +90,6 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     filter = getIntent().getParcelableExtra(TOKEN_FILTER);
-    if (filter == null) {
-      org.tasks.data.Filter f = new org.tasks.data.Filter();
-      f.setSql("");
-      this.filter = new CustomFilter(f);
-    }
 
     super.onCreate(savedInstanceState);
 
@@ -102,23 +99,24 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
       name.setText(filter.listingTitle);
     }
 
-    criteria =
-        new ArrayList<>(
-            CriterionInstance.fromString(
-                filterCriteriaProvider,
-                savedInstanceState == null
-                    ? filter.getCriterion()
-                    : savedInstanceState.getString(EXTRA_CRITERIA)));
-    if (criteria.isEmpty()) {
+    if (savedInstanceState != null) {
+      criteria =
+          CriterionInstance.fromString(
+              filterCriteriaProvider, savedInstanceState.getString(EXTRA_CRITERIA));
+    } else if (filter != null) {
+      criteria = CriterionInstance.fromString(filterCriteriaProvider, filter.getCriterion());
+    } else {
       CriterionInstance instance = new CriterionInstance();
       instance.criterion = filterCriteriaProvider.getStartingUniverse();
       instance.type = CriterionInstance.TYPE_UNIVERSE;
-      criteria.add(instance);
+      criteria = newArrayList(instance);
     }
+
     adapter = new CustomFilterAdapter(criteria, locale, this::onClick);
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
     recyclerView.setAdapter(adapter);
-    new ItemTouchHelper(new CustomFilterItemTouchHelper(this, this::onMove, this::onDelete, this::updateList))
+    new ItemTouchHelper(
+            new CustomFilterItemTouchHelper(this, this::onMove, this::onDelete, this::updateList))
         .attachToRecyclerView(recyclerView);
 
     fab.setExtended(isNew() || adapter.getItemCount() <= 1);
@@ -256,7 +254,7 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
 
   @Override
   protected boolean isNew() {
-    return filter.getId() == 0;
+    return filter == null;
   }
 
   @Override
@@ -284,19 +282,23 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
     }
 
     if (hasChanges()) {
-      filter.listingTitle = newName;
-      filter.tint = selectedColor;
-      filter.icon = selectedIcon;
-      filter.sqlQuery = getSql();
-      filter.valuesForNewTasks.clear();
-      for (Map.Entry<String, Object> entry : getValues().entrySet()) {
-        filter.valuesForNewTasks.put(entry.getKey(), entry.getValue());
+      org.tasks.data.Filter f = new org.tasks.data.Filter();
+      f.setTitle(newName);
+      f.setColor(selectedColor);
+      f.setIcon(selectedIcon);
+      f.setValues(mapToSerializedString(getValues()));
+      f.setCriterion(getCriterion());
+      f.setSql(getSql());
+      if (isNew()) {
+        f.setId(filterDao.insert(f));
+      } else {
+        f.setId(filter.getId());
+        filterDao.update(f);
       }
-      filter.setCriterion(getCriterion());
-      filter.setId(filterDao.insertOrUpdate(filter.toStoreObject()));
       setResult(
           RESULT_OK,
-          new Intent(TaskListFragment.ACTION_RELOAD).putExtra(MainActivity.OPEN_FILTER, filter));
+          new Intent(TaskListFragment.ACTION_RELOAD)
+              .putExtra(MainActivity.OPEN_FILTER, new CustomFilter(f)));
     }
 
     finish();
@@ -308,12 +310,18 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
 
   @Override
   protected boolean hasChanges() {
-    return !(getNewName().equals(filter.listingTitle)
-        && selectedColor == filter.tint
-        && selectedIcon == filter.icon
-        && getSql().equals(filter.sqlQuery)
-        && getValues().equals(filter.valuesForNewTasks)
-        && getCriterion().equals(filter.getCriterion()));
+    if (isNew()) {
+      return !Strings.isNullOrEmpty(getNewName())
+          || selectedColor != 0
+          || selectedIcon != -1
+          || criteria.size() > 1;
+    }
+    return !getNewName().equals(filter.listingTitle)
+        || selectedColor != filter.tint
+        || selectedIcon != filter.icon
+        || !getCriterion().equals(filter.getCriterion())
+        || !getValues().equals(filter.valuesForNewTasks)
+        || !getSql().equals(filter.getOriginalSqlQuery());
   }
 
   @Override

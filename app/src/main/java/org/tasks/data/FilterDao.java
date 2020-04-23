@@ -19,11 +19,8 @@ public interface FilterDao {
   @Query("SELECT * FROM filters WHERE title = :title COLLATE NOCASE LIMIT 1")
   Filter getByName(String title);
 
-  @Insert(onConflict = OnConflictStrategy.REPLACE)
-  long insertOrUpdate(Filter storeObject);
-
   @Insert
-  void insert(Filter filter);
+  long insert(Filter filter);
 
   @Query("SELECT * FROM filters")
   List<Filter> getFilters();
