@@ -118,10 +118,9 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
       criteria.add(instance);
     }
     adapter = new CustomFilterAdapter(criteria, locale, this::onClick);
-
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
     recyclerView.setAdapter(adapter);
-    new ItemTouchHelper(new CustomFilterItemTouchHelper(this::onMove, this::updateList))
+    new ItemTouchHelper(new CustomFilterItemTouchHelper(this, this::onMove, this::onDelete, this::updateList))
         .attachToRecyclerView(recyclerView);
 
     fab.setExtended(isNew() || adapter.getItemCount() <= 1);
@@ -129,6 +128,11 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
     updateList();
 
     updateTheme();
+  }
+
+  private void onDelete(int index) {
+    criteria.remove(index);
+    updateList();
   }
 
   private void onMove(int from, int to) {
@@ -156,11 +160,6 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
               updateList();
             })
         .show();
-    view.findViewById(R.id.delete).setOnClickListener(v -> {
-      d.dismiss();
-      criteria.remove(criterionInstance);
-      updateList();
-    });
     view.findViewById(R.id.reconfigure).setOnClickListener(v -> {
       d.dismiss();
       addCriteria(criterionInstance);

@@ -45,9 +45,4 @@
       style="@style/TagSettingsRow"
       android:text="@string/choose_new_criteria" />
 
-    <TextView
-      android:id="@+id/delete"
-      style="@style/TagSettingsRow"
-      android:text="@string/delete" />
-
 </LinearLayout>
