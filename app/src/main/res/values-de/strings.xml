@@ -600,5 +600,4 @@
     <string name="custom_filter_not">NICHT</string>
     <string name="custom_filter_or">ODER</string>
     <string name="custom_filter_criteria">Filterkriterien</string>
-    <string name="choose_new_criteria">Neue Kriterien auswählen</string>
 </resources>

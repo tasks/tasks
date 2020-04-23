@@ -19,8 +19,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -149,7 +147,7 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
     MaterialButtonToggleGroup group = view.findViewById(R.id.button_toggle);
     int selected = getSelected(criterionInstance);
     group.check(selected);
-    AlertDialog d = dialogBuilder
+    dialogBuilder
         .newDialog(criterionInstance.getTitleFromCriterion())
         .setView(view)
         .setNegativeButton(android.R.string.cancel, null)
@@ -160,10 +158,6 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
               updateList();
             })
         .show();
-    view.findViewById(R.id.reconfigure).setOnClickListener(v -> {
-      d.dismiss();
-      addCriteria(criterionInstance);
-    });
   }
 
   private int getSelected(CriterionInstance instance) {
@@ -194,12 +188,8 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
 
   @OnClick(R.id.fab)
   void addCriteria() {
-    addCriteria(null);
-    fab.shrink();
-  }
-
-  private void addCriteria(@Nullable CriterionInstance replace) {
     AndroidUtilities.hideKeyboard(this);
+    fab.shrink();
 
     List<CustomFilterCriterion> all = filterCriteriaProvider.getAll();
     List<String> names = transform(all, CustomFilterCriterion::getName);
@@ -208,11 +198,7 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
           CriterionInstance instance = new CriterionInstance();
           instance.criterion = all.get(which);
           showOptionsFor(instance, () -> {
-            if (replace == null) {
-              criteria.add(instance);
-            } else {
-              criteria.set(criteria.indexOf(replace), instance);
-            }
+            criteria.add(instance);
             updateList();
           });
           dialog.dismiss();

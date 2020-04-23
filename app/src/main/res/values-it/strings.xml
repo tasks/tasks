@@ -577,7 +577,6 @@
     <string name="custom_filter_not">NON</string>
     <string name="custom_filter_or">O</string>
     <string name="custom_filter_and">E</string>
-    <string name="choose_new_criteria">Scegli nuovi criteri</string>
     <string name="widget_show_menu">Mostra il menu</string>
     <string name="widget_hide_background">Nascondi lo sfondo</string>
 </resources>

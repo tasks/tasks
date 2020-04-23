@@ -38,11 +38,4 @@
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
-    <TextView
-      android:id="@+id/reconfigure"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      style="@style/TagSettingsRow"
-      android:text="@string/choose_new_criteria" />
-
 </LinearLayout>
