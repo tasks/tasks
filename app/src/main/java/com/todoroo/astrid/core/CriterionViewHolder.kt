@@ -1,5 +1,6 @@
 package com.todoroo.astrid.core
 
+import android.content.Context
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -10,8 +11,14 @@ import butterknife.OnClick
 import org.tasks.Callback
 import org.tasks.R
 import org.tasks.locale.Locale
+import org.tasks.preferences.ResourceResolver
 
-class CriterionViewHolder(itemView: View, private val locale: Locale, private val onClick: Callback<String>) : RecyclerView.ViewHolder(itemView) {
+class CriterionViewHolder(
+        private val context: Context,
+        itemView: View,
+        private val locale: Locale,
+        private val onClick: Callback<String>)
+    : RecyclerView.ViewHolder(itemView) {
 
     @BindView(R.id.divider)
     lateinit var divider: View
@@ -67,4 +74,13 @@ class CriterionViewHolder(itemView: View, private val locale: Locale, private va
 
     @OnClick(R.id.row)
     fun onClick() = this.onClick.call(criterion.id)
+
+    fun setMoving(moving: Boolean) {
+        if (moving) {
+            row.setBackgroundColor(ResourceResolver.getData(context, R.attr.colorControlHighlight))
+        } else {
+            row.setBackgroundResource(ResourceResolver.getResourceId(context, R.attr.selectableItemBackground))
+            row.background.jumpToCurrentState()
+        }
+    }
 }

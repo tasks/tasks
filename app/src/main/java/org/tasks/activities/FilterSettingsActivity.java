@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -44,6 +45,7 @@ import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.api.TextInputCriterion;
 import com.todoroo.astrid.core.CriterionInstance;
 import com.todoroo.astrid.core.CustomFilterAdapter;
+import com.todoroo.astrid.core.CustomFilterItemTouchHelper;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
@@ -116,14 +118,23 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
       criteria.add(instance);
     }
     adapter = new CustomFilterAdapter(criteria, locale, this::onClick);
+
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
     recyclerView.setAdapter(adapter);
+    new ItemTouchHelper(new CustomFilterItemTouchHelper(this::onMove, this::updateList))
+        .attachToRecyclerView(recyclerView);
 
     fab.setExtended(isNew() || adapter.getItemCount() <= 1);
 
     updateList();
 
     updateTheme();
+  }
+
+  private void onMove(int from, int to) {
+    CriterionInstance criterion = criteria.remove(from);
+    criteria.add(to, criterion);
+    adapter.notifyItemMoved(from, to);
   }
 
   private void onClick(String replaceId) {
