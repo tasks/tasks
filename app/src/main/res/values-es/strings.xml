@@ -604,4 +604,19 @@
     <string name="custom_filter_or">O</string>
     <string name="custom_filter_and">Y</string>
     <string name="custom_filter_criteria">Criterios de filtro</string>
+    <string name="filter_eisenhower_box_4">Eisenhower caja 4</string>
+    <string name="filter_eisenhower_box_3">Eisenhower caja 3</string>
+    <string name="filter_eisenhower_box_2">Eisenhower caja 2</string>
+    <string name="filter_eisenhower_box_1">Eisenhower caja 1</string>
+    <string name="filter_no_priority">Sin prioridad</string>
+    <string name="filter_low_priority">Baja prioridad</string>
+    <string name="filter_medium_priority">Prioridad media</string>
+    <string name="filter_high_priority">Alta prioridad</string>
+    <string name="add_filter">Añade filtro</string>
+    <string name="add_tags">Añade etiquetas</string>
+    <string name="filter_no_tags">Ninguna etiqueta</string>
+    <string name="filter_after_today">Despues de hoy</string>
+    <string name="filter_any_due_date">Cualquier fecha de vencimiento</string>
+    <string name="filter_today_only">Hoy sólo</string>
+    <string name="filter_overdue">Atrasado</string>
 </resources>
