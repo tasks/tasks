@@ -248,7 +248,6 @@
     <string name="repeat_snackbar">%1$s uudelleenajastettu %2$s</string>
     <string name="new_tag">Luo uusi tunniste</string>
     <string name="new_list">Luo uusi lista</string>
-    <string name="tag_FEx_untagged">Määrittelemätön</string>
     <string name="delete_tag_confirmation">Poista %s?</string>
     <string name="TPl_notification">Ajastus aktiivinen %s!</string>
     <string name="TFE_workingOn">Tehtävät ajoitettu</string>

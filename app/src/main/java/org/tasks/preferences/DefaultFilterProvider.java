@@ -4,10 +4,8 @@ import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.todoroo.astrid.core.BuiltInFilterExposer.getMyTasksFilter;
 import static com.todoroo.astrid.core.BuiltInFilterExposer.getRecentlyModifiedFilter;
 import static com.todoroo.astrid.core.BuiltInFilterExposer.getTodayFilter;
-import static com.todoroo.astrid.core.BuiltInFilterExposer.getUncategorizedFilter;
 import static com.todoroo.astrid.core.BuiltInFilterExposer.isRecentlyModifiedFilter;
 import static com.todoroo.astrid.core.BuiltInFilterExposer.isTodayFilter;
-import static com.todoroo.astrid.core.BuiltInFilterExposer.isUncategorizedFilter;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -203,10 +201,10 @@ public class DefaultFilterProvider {
     switch (id) {
       case FILTER_TODAY:
         return getTodayFilter(resources);
-      case FILTER_UNCATEGORIZED:
-        return getUncategorizedFilter(resources);
       case FILTER_RECENTLY_MODIFIED:
         return getRecentlyModifiedFilter(resources);
+      case FILTER_UNCATEGORIZED:
+        break;
     }
     return getMyTasksFilter(resources);
   }
@@ -214,8 +212,6 @@ public class DefaultFilterProvider {
   private int getBuiltInFilterId(Filter filter) {
     if (isTodayFilter(context, filter)) {
       return FILTER_TODAY;
-    } else if (isUncategorizedFilter(context, filter)) {
-      return FILTER_UNCATEGORIZED;
     } else if (isRecentlyModifiedFilter(context, filter)) {
       return FILTER_RECENTLY_MODIFIED;
     }

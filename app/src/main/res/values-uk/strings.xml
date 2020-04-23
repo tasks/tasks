@@ -275,7 +275,6 @@
     <string name="repeat_snackbar">%1$s перенесено на %2$s</string>
     <string name="new_tag">Створити новий тег</string>
     <string name="new_list">Новий список</string>
-    <string name="tag_FEx_untagged">Без категорії</string>
     <string name="delete_tag_confirmation">Видалити %s?</string>
     <string name="TPl_notification">Таймери діють протягом %s!</string>
     <string name="TFE_workingOn">Завдання з таймером</string>

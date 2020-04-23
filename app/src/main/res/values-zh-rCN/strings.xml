@@ -248,7 +248,6 @@
     <string name="repeat_snackbar">%1$s 重新安排在 %2$s</string>
     <string name="new_tag">新建标签</string>
     <string name="new_list">新建列表</string>
-    <string name="tag_FEx_untagged">未分类</string>
     <string name="delete_tag_confirmation">删除 %s？</string>
     <string name="TPl_notification">秒表启动了 %s！</string>
     <string name="TFE_workingOn">任务已开始计时</string>

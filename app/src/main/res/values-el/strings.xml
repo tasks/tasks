@@ -140,7 +140,6 @@
     <string name="default_random_reminder_bi_monthly">διμηνιαία</string>
     <string name="repeat_forever">Επανάληψη επ\'αορίστου</string>
     <string name="repeat_until">Επανάληψη μέχρι %s</string>
-    <string name="tag_FEx_untagged">Μη κατηγοριοποιημένο</string>
     <string name="TPl_notification">Χρονοδιακόπτες ενεργοί για %s!</string>
     <string name="TFE_workingOn">Καθήκοντα με χρονικό όριο</string>
     <string name="TEA_timer_controls">Χρονοδιακόπτης</string>

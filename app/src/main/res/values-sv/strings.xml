@@ -171,7 +171,6 @@
     <string name="repeat_snackbar">%1$s omplanerat till %2$s</string>
     <string name="new_tag">Skapa en ny ettikett</string>
     <string name="new_list">Skapa en ny lista</string>
-    <string name="tag_FEx_untagged">Ingen ettikett</string>
     <string name="delete_tag_confirmation">Ta bort %s?</string>
     <string name="TPl_notification">Tidtagarur aktivt för %s!</string>
     <string name="TFE_workingOn">Uppgifter med tidtagning</string>

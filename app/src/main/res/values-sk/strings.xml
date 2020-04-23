@@ -259,7 +259,6 @@
     <string name="repeat_snackbar">%1$s preložené na %2$s</string>
     <string name="new_tag">Vytvoriť nový štítok</string>
     <string name="new_list">Vytvoriť nový zoznam</string>
-    <string name="tag_FEx_untagged">Nezaradené</string>
     <string name="delete_tag_confirmation">Zmazať %s?</string>
     <string name="TPl_notification">Stopky aktívne pre %s!</string>
     <string name="TFE_workingOn">Naplánované Úlohy </string>

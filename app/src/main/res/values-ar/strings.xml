@@ -97,7 +97,6 @@
     <string name="default_random_reminder_monthly">شهري</string>
     <string name="default_random_reminder_bi_monthly">مرتين في الشهر</string>
     <string name="repeat_forever">تكرار دائم</string>
-    <string name="tag_FEx_untagged">غير مصنف</string>
     <string name="TEA_timer_controls">مؤقت</string>
     <string name="TEA_timer_comment_started">بدء هذه المهمة:</string>
     <string name="TEA_timer_comment_spent">الوقت المنقضي</string>

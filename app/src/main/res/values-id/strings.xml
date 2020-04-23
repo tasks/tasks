@@ -197,7 +197,6 @@
     <string name="repeat_number_of_times">Ulangi beberapa kali</string>
     <string name="new_tag">Buat tag baru</string>
     <string name="new_list">Buat daftar baru</string>
-    <string name="tag_FEx_untagged">Tak berkategori</string>
     <string name="delete_tag_confirmation">Hapus %s\?</string>
     <string name="delete_task">Hapus tugas</string>
     <plurals name="Ntasks">

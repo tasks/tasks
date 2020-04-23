@@ -258,7 +258,6 @@
     <string name="repeat_snackbar">%1$s perplanuotas šiai datai: %2$s</string>
     <string name="new_tag">Sukurti naują etiketę</string>
     <string name="new_list">Sukurti naują sąrašą</string>
-    <string name="tag_FEx_untagged">Nekategorizuotos</string>
     <string name="delete_tag_confirmation">Ištrinti %s?</string>
     <string name="TPl_notification">Laikmatis yra aktyvus: %s!</string>
     <string name="TFE_workingOn">Tasks jau veikia</string>

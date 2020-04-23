@@ -76,7 +76,6 @@
     <string name="rmd_EPr_defaultRemind_title">Notificacions al Atzar</string>
     <string name="repeat_forever">Repeteix indefinidament</string>
     <string name="repeat_until">Repeteix fins %s</string>
-    <string name="tag_FEx_untagged">A cap llista</string>
     <string name="TPl_notification">Temporitzadors actius per %s!</string>
     <string name="TFE_workingOn">Tasques sent cronometrades</string>
     <string name="TEA_timer_comment_started">inici d\'aquesta tasca:</string>

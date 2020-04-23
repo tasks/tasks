@@ -103,7 +103,6 @@
     </plurals>
     <string name="repeat_forever">Gjenta for alltid</string>
     <string name="repeat_until">Gjenta til %s</string>
-    <string name="tag_FEx_untagged">Ukategorisert</string>
     <string name="TPl_notification">Aktive tidtakere for %s.</string>
     <string name="TFE_workingOn">Oppgaver med tidtaker</string>
     <string name="TEA_timer_controls">Nedtelling</string>

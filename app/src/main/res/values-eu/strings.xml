@@ -266,7 +266,6 @@
     <string name="repeat_snackbar">"%1$s  %2$s-rako programatuta"</string>
     <string name="new_tag">Sortu etiketa berria</string>
     <string name="new_list">Sortu zerrenda berria</string>
-    <string name="tag_FEx_untagged">Kategoria gabe</string>
     <string name="delete_tag_confirmation">Ezabatu %s\?</string>
     <string name="TPl_notification">Kronometro aktiboak: %s !</string>
     <string name="TFE_workingOn">Kronometratutako zereginak</string>

@@ -137,7 +137,7 @@ public class FilterCriteriaProvider {
         context.getString(R.string.CFC_tag_name));
   }
 
-  private CustomFilterCriterion getTagNameContainsFilter() {
+  public CustomFilterCriterion getTagNameContainsFilter() {
     return new TextInputCriterion(
         IDENTIFIER_TAG_CONTAINS,
         context.getString(R.string.CFC_tag_contains_text),
@@ -153,7 +153,7 @@ public class FilterCriteriaProvider {
         context.getString(R.string.CFC_tag_contains_name));
   }
 
-  private CustomFilterCriterion getDueDateFilter() {
+  public CustomFilterCriterion getDueDateFilter() {
     String[] entryValues =
         new String[] {
           "0",
@@ -183,7 +183,7 @@ public class FilterCriteriaProvider {
         r.getString(R.string.CFC_dueBefore_name));
   }
 
-  private CustomFilterCriterion getPriorityFilter() {
+  public CustomFilterCriterion getPriorityFilter() {
     String[] entryValues =
         new String[] {
           Integer.toString(Priority.HIGH),

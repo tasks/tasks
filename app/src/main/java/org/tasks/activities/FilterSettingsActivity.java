@@ -31,7 +31,6 @@ import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.sql.Query;
@@ -65,6 +64,7 @@ import org.tasks.locale.Locale;
 public class FilterSettingsActivity extends BaseListSettingsActivity {
 
   public static final String TOKEN_FILTER = "token_filter";
+  public static final String EXTRA_TITLE = "extra_title";
   public static final String EXTRA_CRITERIA = "extra_criteria";
   @Inject FilterDao filterDao;
   @Inject Locale locale;
@@ -105,6 +105,11 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
               filterCriteriaProvider, savedInstanceState.getString(EXTRA_CRITERIA));
     } else if (filter != null) {
       criteria = CriterionInstance.fromString(filterCriteriaProvider, filter.getCriterion());
+    } else if (getIntent().hasExtra(EXTRA_CRITERIA)) {
+      name.setText(getIntent().getStringExtra(EXTRA_TITLE));
+      criteria =
+          CriterionInstance.fromString(
+              filterCriteriaProvider, getIntent().getStringExtra(EXTRA_CRITERIA));
     } else {
       CriterionInstance instance = new CriterionInstance();
       instance.criterion = filterCriteriaProvider.getStartingUniverse();
@@ -249,7 +254,7 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
   protected void onSaveInstanceState(Bundle outState) {
     super.onSaveInstanceState(outState);
 
-    outState.putString(EXTRA_CRITERIA, getCriterion());
+    outState.putString(EXTRA_CRITERIA, CriterionInstance.serialize(criteria));
   }
 
   @Override
@@ -287,7 +292,7 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
       f.setColor(selectedColor);
       f.setIcon(selectedIcon);
       f.setValues(mapToSerializedString(getValues()));
-      f.setCriterion(getCriterion());
+      f.setCriterion(CriterionInstance.serialize(criteria));
       f.setSql(getSql());
       if (isNew()) {
         f.setId(filterDao.insert(f));
@@ -319,7 +324,7 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
     return !getNewName().equals(filter.listingTitle)
         || selectedColor != filter.tint
         || selectedIcon != filter.icon
-        || !getCriterion().equals(filter.getCriterion())
+        || !CriterionInstance.serialize(criteria).equals(filter.getCriterion())
         || !getValues().equals(filter.valuesForNewTasks)
         || !getSql().equals(filter.getOriginalSqlQuery());
   }
@@ -428,10 +433,6 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
       }
     }
     return sql.toString();
-  }
-
-  public String getCriterion() {
-    return Joiner.on("\n").join(transform(criteria, CriterionInstance::serialize));
   }
 
   public Map<String, Object> getValues() {

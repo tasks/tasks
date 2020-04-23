@@ -21,12 +21,6 @@
           android:key="@string/p_show_recently_modified_filter"
           android:title="@string/BFE_Recent" />
 
-        <SwitchPreferenceCompat
-          android:defaultValue="true"
-          android:dependency="@string/p_filters_enabled"
-          android:key="@string/p_show_not_in_list_filter"
-          android:title="@string/tag_FEx_untagged" />
-
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/tags">

@@ -33,7 +33,6 @@ import javax.inject.Inject;
 import org.tasks.BuildConfig;
 import org.tasks.Function;
 import org.tasks.R;
-import org.tasks.activities.FilterSettingsActivity;
 import org.tasks.activities.GoogleTaskListSettingsActivity;
 import org.tasks.activities.TagSettingsActivity;
 import org.tasks.billing.Inventory;
@@ -138,10 +137,9 @@ public class FilterProvider {
     if (navigationDrawer && !preferences.getBoolean(R.string.p_collapse_filters, false)) {
       items.add(
           new NavigationDrawerAction(
-              context.getString(R.string.FLA_new_filter),
+              context.getString(R.string.add_filter),
               R.drawable.ic_outline_add_24px,
-              new Intent(context, FilterSettingsActivity.class),
-              NavigationDrawerFragment.REQUEST_NEW_LIST));
+              NavigationDrawerFragment.REQUEST_NEW_FILTER));
     }
   }
 

@@ -17,9 +17,6 @@ object CustomIcons {
     val ALL_INBOX = 4
 
     @kotlin.jvm.JvmStatic
-    val LABEL_OFF = 5
-
-    @kotlin.jvm.JvmStatic
     val HISTORY = 6
 
     @kotlin.jvm.JvmStatic
@@ -34,7 +31,7 @@ object CustomIcons {
         FILTER to R.drawable.ic_outline_filter_list_24px,
         CLOUD to R.drawable.ic_outline_cloud_24px,
         ALL_INBOX to R.drawable.ic_outline_all_inbox_24px,
-        LABEL_OFF to R.drawable.ic_outline_label_off_24px,
+        5 to R.drawable.ic_outline_label_off_24px,
         HISTORY to R.drawable.ic_outline_history_24px,
         TODAY to R.drawable.ic_outline_today_24px,
         1000 to R.drawable.ic_outline_flag_24px,

@@ -261,7 +261,6 @@
     <string name="repeat_snackbar">%1$s újraütemezve ekkorra: %2$s</string>
     <string name="new_tag">Új címke létrehozása</string>
     <string name="new_list">Új lista létrehozása</string>
-    <string name="tag_FEx_untagged">Kategória nélküli</string>
     <string name="delete_tag_confirmation">%s törlése?</string>
     <string name="TPl_notification">Időzítők aktiválva eddig: %s!</string>
     <string name="TFE_workingOn">Időzített Feladatok</string>

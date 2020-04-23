@@ -257,7 +257,6 @@
     <string name="repeat_snackbar">%1$s neu geplant für %2$s</string>
     <string name="new_tag">Neues Schlagwort erstellen</string>
     <string name="new_list">Neue Liste erstellen</string>
-    <string name="tag_FEx_untagged">Nicht kategorisiert</string>
     <string name="delete_tag_confirmation">%s löschen?</string>
     <string name="TPl_notification">Timer ist aktiv für %s!</string>
     <string name="TFE_workingOn">Zeitlich festgelegte Aufgaben</string>

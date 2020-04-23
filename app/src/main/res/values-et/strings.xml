@@ -146,7 +146,6 @@
     <string name="repeat_until">Korda kuni %s</string>
     <string name="repeat_number_of_times">Korda määratud arv kordi</string>
     <string name="new_list">Loo uus nimekiri</string>
-    <string name="tag_FEx_untagged">Liigitamata</string>
     <string name="TEA_timer_controls">Taimer</string>
     <string name="delete_task">Kustuta ülesanne</string>
     <string name="voice_command_added_task">Lisatud ülesanne</string>

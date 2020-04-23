@@ -294,7 +294,6 @@
     <string name="repeat_snackbar">%1$s תזמן מחדש משימה חוזרת זו ל־%2$s</string>
     <string name="new_tag">יצירת תגית חדשה</string>
     <string name="new_list">יצירת רשימה חדשה</string>
-    <string name="tag_FEx_untagged">ללא קיטלוג</string>
     <string name="delete_tag_confirmation">מחק %s?</string>
     <string name="TPl_notification">הופעל קוצב זמן עבור %s משימות!</string>
     <string name="TFE_workingOn">משימות עם הערכת זמן</string>

@@ -247,7 +247,6 @@
     <string name="repeat_snackbar">%1$s replanifiée à %2$s</string>
     <string name="new_tag">Créer un nouveau tag</string>
     <string name="new_list">Créer une nouvelle liste</string>
-    <string name="tag_FEx_untagged">Non classé</string>
     <string name="delete_tag_confirmation">Supprimer %s \?</string>
     <string name="TPl_notification">Chronomètre actif pour %s !</string>
     <string name="TFE_workingOn">Tâches chronométrées</string>

@@ -11,6 +11,7 @@ import org.tasks.dialogs.ExportTasksDialog;
 import org.tasks.dialogs.GeofenceDialog;
 import org.tasks.dialogs.IconPickerDialog;
 import org.tasks.dialogs.ImportTasksDialog;
+import org.tasks.dialogs.NewFilterDialog;
 import org.tasks.dialogs.RecordAudioDialog;
 import org.tasks.dialogs.SortDialog;
 import org.tasks.dialogs.ThemePickerDialog;
@@ -58,4 +59,6 @@ public interface DialogFragmentComponent {
   void inject(ColorPalettePicker colorPalettePicker);
 
   void inject(DateTimePicker dateTimePicker);
+
+  void inject(NewFilterDialog newFilterDialog);
 }

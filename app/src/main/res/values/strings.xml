@@ -275,7 +275,6 @@ File %1$s contained %2$s.\n\n
   <string name="repeat_snackbar">%1$s rescheduled for %2$s</string>
   <string name="new_tag">Create new tag</string>
   <string name="new_list">Create new list</string>
-  <string name="tag_FEx_untagged">Uncategorized</string>
   <string name="delete_tag_confirmation">Delete %s?</string>
   <string name="TPl_notification">Timers Active for %s!</string>
   <string name="TFE_workingOn">Tasks Being Timed</string>
@@ -606,4 +605,19 @@ File %1$s contained %2$s.\n\n
   <string name="custom_filter_and">AND</string>
   <string name="custom_filter_or">OR</string>
   <string name="custom_filter_not">NOT</string>
+  <string name="filter_overdue">Overdue</string>
+  <string name="filter_today_only">Today only</string>
+  <string name="filter_any_due_date">Any due date</string>
+  <string name="filter_after_today">After today</string>
+  <string name="filter_no_tags">No tags</string>
+  <string name="add_tags">Add tags</string>
+  <string name="add_filter">Add filter</string>
+  <string name="filter_high_priority">High priority</string>
+  <string name="filter_medium_priority">Medium priority</string>
+  <string name="filter_low_priority">Low priority</string>
+  <string name="filter_no_priority">No priority</string>
+  <string name="filter_eisenhower_box_1">Eisenhower box 1</string>
+  <string name="filter_eisenhower_box_2">Eisenhower box 2</string>
+  <string name="filter_eisenhower_box_3">Eisenhower box 3</string>
+  <string name="filter_eisenhower_box_4">Eisenhower box 4</string>
 </resources>

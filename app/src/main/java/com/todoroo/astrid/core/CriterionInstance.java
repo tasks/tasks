@@ -208,7 +208,11 @@ public class CriterionInstance {
         + '}';
   }
 
-  public String serialize() {
+  public static String serialize(List<CriterionInstance> criterion) {
+    return Joiner.on("\n").join(transform(criterion, CriterionInstance::serialize));
+  }
+
+  private String serialize() {
     // criterion|entry|text|type|sql
     return Joiner.on(AndroidUtilities.SERIALIZATION_SEPARATOR)
         .join(

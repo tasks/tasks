@@ -57,7 +57,6 @@
   <string name="p_filters_enabled">drawer_filters_enabled</string>
   <string name="p_show_today_filter">p_show_today_f</string>
   <string name="p_show_recently_modified_filter">p_show_recently_modified_f</string>
-  <string name="p_show_not_in_list_filter">p_show_no_list_f</string>
 
   <string name="p_tags_enabled">drawer_tags_enabled</string>
   <string name="p_tags_hide_unused">drawer_tags_hide_unused</string>

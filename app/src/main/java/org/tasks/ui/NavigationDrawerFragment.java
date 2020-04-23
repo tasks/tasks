@@ -38,6 +38,7 @@ import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.billing.PurchaseActivity;
+import org.tasks.dialogs.NewFilterDialog;
 import org.tasks.filters.FilterProvider;
 import org.tasks.filters.NavigationDrawerAction;
 import org.tasks.injection.FragmentComponent;
@@ -52,6 +53,8 @@ public class NavigationDrawerFragment extends InjectingFragment {
   public static final int REQUEST_PURCHASE = 10102;
   public static final int REQUEST_DONATE = 10103;
   public static final int REQUEST_NEW_PLACE = 10104;
+  public static final int REQUEST_NEW_FILTER = 101015;
+  private static final String FRAG_TAG_NEW_FILTER = "frag_tag_new_filter";
 
   private final RefreshReceiver refreshReceiver = new RefreshReceiver();
   @Inject LocalBroadcastManager localBroadcastManager;
@@ -118,6 +121,9 @@ public class NavigationDrawerFragment extends InjectingFragment {
                 startActivity(new Intent(getContext(), PurchaseActivity.class));
               } else if (action.requestCode == REQUEST_DONATE) {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://tasks.org/donate")));
+              } else if (action.requestCode == REQUEST_NEW_FILTER) {
+                NewFilterDialog.Companion.newFilterDialog()
+                    .show(getParentFragmentManager(), FRAG_TAG_NEW_FILTER);
               } else {
                 getActivity().startActivityForResult(action.intent, action.requestCode);
               }

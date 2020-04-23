@@ -15,7 +15,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="start"
-    android:hint="@string/tag_FEx_untagged"
+    android:hint="@string/add_tags"
     android:textAlignment="viewStart"/>
 
   <com.google.android.material.chip.ChipGroup

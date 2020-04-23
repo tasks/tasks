@@ -264,7 +264,6 @@
     <string name="repeat_snackbar">%1$s, %2$s için yeniden zamanlandı</string>
     <string name="new_tag">Yeni etiket oluştur</string>
     <string name="new_list">Yeni liste oluştur</string>
-    <string name="tag_FEx_untagged">Kategorilendirilmemiş</string>
     <string name="delete_tag_confirmation">%s silinsin mi?</string>
     <string name="TPl_notification">%s için kronometre etkin!</string>
     <string name="TFE_workingOn">Zaman Ölçümü Olan Görevler</string>

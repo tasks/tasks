@@ -9,8 +9,6 @@ package com.todoroo.astrid.core;
 import android.content.Context;
 import android.content.res.Resources;
 import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Field;
-import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.Filter;
@@ -23,7 +21,6 @@ import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.data.Tag;
 import org.tasks.filters.RecentlyModifiedFilter;
 import org.tasks.filters.SortableFilter;
 import org.tasks.injection.ForApplication;
@@ -72,27 +69,12 @@ public final class BuiltInFilterExposer {
     return new RecentlyModifiedFilter(r.getString(R.string.BFE_Recent));
   }
 
-  public static Filter getUncategorizedFilter(Resources r) {
-    return new Filter(
-        r.getString(R.string.tag_FEx_untagged),
-        new QueryTemplate()
-            .where(
-                Criterion.and(
-                    Criterion.not(
-                        Task.UUID.in(Query.select(Field.field("task_uid")).from(Tag.TABLE))),
-                    TaskCriteria.activeAndVisible())));
-  }
-
   public static boolean isInbox(Context context, Filter filter) {
     return filter != null && filter.equals(getMyTasksFilter(context.getResources()));
   }
 
   public static boolean isTodayFilter(Context context, Filter filter) {
     return filter != null && filter.equals(getTodayFilter(context.getResources()));
-  }
-
-  public static boolean isUncategorizedFilter(Context context, Filter filter) {
-    return filter != null && filter.equals(getUncategorizedFilter(context.getResources()));
   }
 
   public static boolean isRecentlyModifiedFilter(Context context, Filter filter) {
@@ -107,9 +89,7 @@ public final class BuiltInFilterExposer {
 
   public List<Filter> getFilters() {
     Resources r = context.getResources();
-    // core filters
     List<Filter> filters = new ArrayList<>();
-
     if (preferences.getBoolean(R.string.p_show_today_filter, true)) {
       Filter todayFilter = getTodayFilter(r);
       todayFilter.icon = CustomIcons.getTODAY();
@@ -120,12 +100,6 @@ public final class BuiltInFilterExposer {
       recentlyModifiedFilter.icon = CustomIcons.getHISTORY();
       filters.add(recentlyModifiedFilter);
     }
-    if (preferences.getBoolean(R.string.p_show_not_in_list_filter, true)) {
-      Filter uncategorizedFilter = getUncategorizedFilter(r);
-      uncategorizedFilter.icon = CustomIcons.getLABEL_OFF();
-      filters.add(uncategorizedFilter);
-    }
-    // transmit filter list
     return filters;
   }
 }

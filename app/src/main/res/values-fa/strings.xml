@@ -152,7 +152,6 @@
     <string name="repeat_until">تکرار تا %s</string>
     <string name="new_tag">ایجاد تگ جدید</string>
     <string name="new_list">ایجاد لیست جدید</string>
-    <string name="tag_FEx_untagged">دسته بندی نشده</string>
     <string name="TFE_workingOn">وظایف زمانبندی شده</string>
     <string name="TEA_timer_controls">تایمر</string>
     <string name="TEA_timer_comment_started">این وظیفه شروع شده:</string>

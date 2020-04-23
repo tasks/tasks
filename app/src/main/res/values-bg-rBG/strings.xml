@@ -261,7 +261,6 @@
     <string name="repeat_snackbar">%1$s е насрочено за %2$s</string>
     <string name="new_tag">Нов таг</string>
     <string name="new_list">Създаване на нов списък</string>
-    <string name="tag_FEx_untagged">Без категория</string>
     <string name="delete_tag_confirmation">Изтрий %s?</string>
     <string name="TPl_notification">Таймерите са Активни за %s!</string>
     <string name="TFE_workingOn">Tasks за отмерване на време</string>

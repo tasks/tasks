@@ -152,7 +152,6 @@
     <string name="repeat_until">重複到 %s</string>
     <string name="new_tag">新增標籤</string>
     <string name="new_list">新增清單</string>
-    <string name="tag_FEx_untagged">未分類</string>
     <string name="TPl_notification">秒錶啟動了 %s！</string>
     <string name="TFE_workingOn">任務工作已開始計時</string>
     <string name="TEA_timer_controls">定時器</string>
