@@ -11,7 +11,7 @@ import org.tasks.Callback
 import org.tasks.R
 import org.tasks.locale.Locale
 
-class CriterionViewHolder(itemView: View, private val locale: Locale, private val onClick: Callback<CriterionInstance>) : RecyclerView.ViewHolder(itemView) {
+class CriterionViewHolder(itemView: View, private val locale: Locale, private val onClick: Callback<String>) : RecyclerView.ViewHolder(itemView) {
 
     @BindView(R.id.divider)
     lateinit var divider: View
@@ -66,5 +66,5 @@ class CriterionViewHolder(itemView: View, private val locale: Locale, private va
     }
 
     @OnClick(R.id.row)
-    fun onClick() = this.onClick.call(criterion)
+    fun onClick() = this.onClick.call(criterion.id)
 }

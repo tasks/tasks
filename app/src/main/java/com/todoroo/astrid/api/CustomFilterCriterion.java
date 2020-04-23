@@ -11,11 +11,6 @@ import android.os.Parcelable;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * CustomFilterCriteria allow users to build a custom filter by chaining together criteria
- *
- * @author Tim Su <tim@todoroo.com>
- */
 public abstract class CustomFilterCriterion implements Parcelable {
 
   /**
@@ -54,7 +49,6 @@ public abstract class CustomFilterCriterion implements Parcelable {
 
   // --- parcelable utilities
 
-
   public String getName() {
     return name;
   }
@@ -75,5 +69,43 @@ public abstract class CustomFilterCriterion implements Parcelable {
     sql = source.readString();
     source.readMap(valuesForNewTasks, getClass().getClassLoader());
     name = source.readString();
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof CustomFilterCriterion)) {
+      return false;
+    }
+
+    CustomFilterCriterion that = (CustomFilterCriterion) o;
+
+    if (valuesForNewTasks != null
+        ? !valuesForNewTasks.equals(that.valuesForNewTasks)
+        : that.valuesForNewTasks != null) {
+      return false;
+    }
+    if (identifier != null ? !identifier.equals(that.identifier) : that.identifier != null) {
+      return false;
+    }
+    if (text != null ? !text.equals(that.text) : that.text != null) {
+      return false;
+    }
+    if (sql != null ? !sql.equals(that.sql) : that.sql != null) {
+      return false;
+    }
+    return name != null ? name.equals(that.name) : that.name == null;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = valuesForNewTasks != null ? valuesForNewTasks.hashCode() : 0;
+    result = 31 * result + (identifier != null ? identifier.hashCode() : 0);
+    result = 31 * result + (text != null ? text.hashCode() : 0);
+    result = 31 * result + (sql != null ? sql.hashCode() : 0);
+    result = 31 * result + (name != null ? name.hashCode() : 0);
+    return result;
   }
 }

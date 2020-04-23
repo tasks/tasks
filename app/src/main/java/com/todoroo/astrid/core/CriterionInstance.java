@@ -10,6 +10,7 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.CustomFilterCriterion;
 import com.todoroo.astrid.api.MultipleSelectCriterion;
 import com.todoroo.astrid.api.TextInputCriterion;
+import com.todoroo.astrid.helper.UUIDHelper;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -22,6 +23,27 @@ public class CriterionInstance {
   public static final int TYPE_SUBTRACT = 1;
   public static final int TYPE_INTERSECT = 2;
   public static final int TYPE_UNIVERSE = 3;
+  public CustomFilterCriterion criterion;
+  public int selectedIndex = -1;
+  public String selectedText = null;
+  public int type = TYPE_INTERSECT;
+  public int end;
+  public int start;
+  public int max;
+  private String id = UUIDHelper.newUUID();
+
+  public CriterionInstance() {}
+
+  public CriterionInstance(CriterionInstance other) {
+    id = other.id;
+    criterion = other.criterion;
+    selectedIndex = other.selectedIndex;
+    selectedText = other.selectedText;
+    type = other.type;
+    end = other.end;
+    start = other.start;
+    max = other.max;
+  }
 
   public static List<CriterionInstance> fromString(
       FilterCriteriaProvider provider, String criterion) {
@@ -30,7 +52,6 @@ public class CriterionInstance {
     }
     List<CriterionInstance> entries = new ArrayList<>();
     for (String row : criterion.split("\n")) {
-      CriterionInstance entry = new CriterionInstance();
       List<String> split =
           transform(
               Splitter.on(AndroidUtilities.SERIALIZATION_SEPARATOR).splitToList(row),
@@ -40,6 +61,7 @@ public class CriterionInstance {
         return Collections.emptyList();
       }
 
+      CriterionInstance entry = new CriterionInstance();
       entry.criterion = provider.getFilterCriteria(split.get(0));
       String value = split.get(1);
       if (entry.criterion instanceof TextInputCriterion) {
@@ -60,23 +82,25 @@ public class CriterionInstance {
     return entries;
   }
 
-  /** criteria for this instance */
-  public CustomFilterCriterion criterion;
+  private static String escape(String item) {
+    if (item == null) {
+      return ""; // $NON-NLS-1$
+    }
+    return item.replace(
+        AndroidUtilities.SERIALIZATION_SEPARATOR, AndroidUtilities.SEPARATOR_ESCAPE);
+  }
 
-  /** which of the entries is selected (MultipleSelect) */
-  public int selectedIndex = -1;
+  private static String unescape(String item) {
+    if (Strings.isNullOrEmpty(item)) {
+      return "";
+    }
+    return item.replace(
+        AndroidUtilities.SEPARATOR_ESCAPE, AndroidUtilities.SERIALIZATION_SEPARATOR);
+  }
 
-  /** text of selection (TextInput) */
-  public String selectedText = null;
-
-  /** type of join */
-  public int type = TYPE_INTERSECT;
-
-  public int end;
-  /** statistics for filter count */
-  public int start;
-
-  public int max;
+  public String getId() {
+    return id;
+  }
 
   public String getTitleFromCriterion() {
     if (criterion instanceof MultipleSelectCriterion) {
@@ -114,6 +138,56 @@ public class CriterionInstance {
   }
 
   @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof CriterionInstance)) {
+      return false;
+    }
+
+    CriterionInstance that = (CriterionInstance) o;
+
+    if (selectedIndex != that.selectedIndex) {
+      return false;
+    }
+    if (type != that.type) {
+      return false;
+    }
+    if (end != that.end) {
+      return false;
+    }
+    if (start != that.start) {
+      return false;
+    }
+    if (max != that.max) {
+      return false;
+    }
+    if (id != null ? !id.equals(that.id) : that.id != null) {
+      return false;
+    }
+    if (criterion != null ? !criterion.equals(that.criterion) : that.criterion != null) {
+      return false;
+    }
+    return selectedText != null
+        ? selectedText.equals(that.selectedText)
+        : that.selectedText == null;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = id != null ? id.hashCode() : 0;
+    result = 31 * result + (criterion != null ? criterion.hashCode() : 0);
+    result = 31 * result + selectedIndex;
+    result = 31 * result + (selectedText != null ? selectedText.hashCode() : 0);
+    result = 31 * result + type;
+    result = 31 * result + end;
+    result = 31 * result + start;
+    result = 31 * result + max;
+    return result;
+  }
+
+  @Override
   public String toString() {
     return "CriterionInstance{"
         + "criterion="
@@ -134,7 +208,7 @@ public class CriterionInstance {
         + '}';
   }
 
-  String serialize() {
+  public String serialize() {
     // criterion|entry|text|type|sql
     return Joiner.on(AndroidUtilities.SERIALIZATION_SEPARATOR)
         .join(
@@ -144,21 +218,5 @@ public class CriterionInstance {
                 escape(criterion.text),
                 type,
                 criterion.sql == null ? "" : criterion.sql));
-  }
-
-  private static String escape(String item) {
-    if (item == null) {
-      return ""; // $NON-NLS-1$
-    }
-    return item.replace(
-        AndroidUtilities.SERIALIZATION_SEPARATOR, AndroidUtilities.SEPARATOR_ESCAPE);
-  }
-
-  private static String unescape(String item) {
-    if (Strings.isNullOrEmpty(item)) {
-      return "";
-    }
-    return item.replace(
-        AndroidUtilities.SEPARATOR_ESCAPE, AndroidUtilities.SERIALIZATION_SEPARATOR);
   }
 }

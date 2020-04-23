@@ -7,6 +7,7 @@
 package org.tasks.activities;
 
 import static android.text.TextUtils.isEmpty;
+import static com.google.common.collect.Iterables.find;
 import static com.google.common.collect.Lists.transform;
 
 import android.content.Context;
@@ -29,6 +30,7 @@ import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.common.base.Joiner;
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.UnaryCriterion;
@@ -46,8 +48,10 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.data.FilterDao;
@@ -64,6 +68,7 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
   @Inject Locale locale;
   @Inject Database database;
   @Inject FilterCriteriaProvider filterCriteriaProvider;
+  List<CriterionInstance> criteria;
 
   @BindView(R.id.name)
   TextInputEditText name;
@@ -97,7 +102,7 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
       name.setText(filter.listingTitle);
     }
 
-    List<CriterionInstance> criteria =
+    criteria =
         new ArrayList<>(
             CriterionInstance.fromString(
                 filterCriteriaProvider,
@@ -114,14 +119,16 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
     recyclerView.setAdapter(adapter);
 
-    fab.setExtended(adapter.getItemCount() <= 1);
+    fab.setExtended(isNew() || adapter.getItemCount() <= 1);
 
     updateList();
 
     updateTheme();
   }
 
-  private void onClick(CriterionInstance criterionInstance) {
+  private void onClick(String replaceId) {
+    CriterionInstance criterionInstance = find(criteria, c -> c.getId().equals(replaceId));
+
     View view =
         getLayoutInflater().inflate(R.layout.dialog_custom_filter_row_edit, recyclerView, false);
     MaterialButtonToggleGroup group = view.findViewById(R.id.button_toggle);
@@ -140,7 +147,7 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
         .show();
     view.findViewById(R.id.delete).setOnClickListener(v -> {
       d.dismiss();
-      adapter.remove(criterionInstance);
+      criteria.remove(criterionInstance);
       updateList();
     });
     view.findViewById(R.id.reconfigure).setOnClickListener(v -> {
@@ -192,9 +199,9 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
           instance.criterion = all.get(which);
           showOptionsFor(instance, () -> {
             if (replace == null) {
-              adapter.add(instance);
+              criteria.add(instance);
             } else {
-              adapter.replace(replace, instance);
+              criteria.set(criteria.indexOf(replace), instance);
             }
             updateList();
           });
@@ -248,7 +255,7 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
   protected void onSaveInstanceState(Bundle outState) {
     super.onSaveInstanceState(outState);
 
-    outState.putString(EXTRA_CRITERIA, adapter.getCriterion());
+    outState.putString(EXTRA_CRITERIA, getCriterion());
   }
 
   @Override
@@ -284,12 +291,12 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
       filter.listingTitle = newName;
       filter.tint = selectedColor;
       filter.icon = selectedIcon;
-      filter.sqlQuery = adapter.getSql();
+      filter.sqlQuery = getSql();
       filter.valuesForNewTasks.clear();
-      for (Map.Entry<String, Object> entry : adapter.getValues().entrySet()) {
+      for (Map.Entry<String, Object> entry : getValues().entrySet()) {
         filter.valuesForNewTasks.put(entry.getKey(), entry.getValue());
       }
-      filter.setCriterion(adapter.getCriterion());
+      filter.setCriterion(getCriterion());
       filter.setId(filterDao.insertOrUpdate(filter.toStoreObject()));
       setResult(
           RESULT_OK,
@@ -308,9 +315,9 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
     return !(getNewName().equals(filter.listingTitle)
         && selectedColor == filter.tint
         && selectedIcon == filter.icon
-        && adapter.getSql().equals(filter.sqlQuery)
-        && adapter.getValues().equals(filter.valuesForNewTasks)
-        && adapter.getCriterion().equals(filter.getCriterion()));
+        && getSql().equals(filter.sqlQuery)
+        && getValues().equals(filter.valuesForNewTasks)
+        && getCriterion().equals(filter.getCriterion()));
   }
 
   @Override
@@ -340,7 +347,7 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
         new StringBuilder(Query.select(new CountProperty()).from(Task.TABLE).toString())
             .append(" WHERE ");
 
-    for (CriterionInstance instance : adapter.getItems()) {
+    for (CriterionInstance instance : criteria) {
       String value = instance.getValueFromCriterion();
       if (value == null && instance.criterion.sql != null && instance.criterion.sql.contains("?")) {
         value = "";
@@ -376,10 +383,66 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
       }
     }
 
-    for (CriterionInstance instance : adapter.getItems()) {
+    for (CriterionInstance instance : criteria) {
       instance.max = max;
     }
 
-    adapter.notifyDataSetChanged();
+    adapter.submitList(criteria);
+  }
+
+  private String getValue(CriterionInstance instance) {
+    String value = instance.getValueFromCriterion();
+    if (value == null && instance.criterion.sql != null && instance.criterion.sql.contains("?")) {
+      value = "";
+    }
+    return value;
+  }
+
+  public String getSql() {
+    StringBuilder sql = new StringBuilder(" WHERE ");
+    for (CriterionInstance instance : criteria) {
+      String value = getValue(instance);
+
+      switch (instance.type) {
+        case CriterionInstance.TYPE_ADD:
+          sql.append("OR ");
+          break;
+        case CriterionInstance.TYPE_SUBTRACT:
+          sql.append("AND NOT ");
+          break;
+        case CriterionInstance.TYPE_INTERSECT:
+          sql.append("AND ");
+          break;
+      }
+
+      // special code for all tasks universe
+      if (instance.type == CriterionInstance.TYPE_UNIVERSE || instance.criterion.sql == null) {
+        sql.append(TaskCriteria.activeAndVisible()).append(' ');
+      } else {
+        String subSql = instance.criterion.sql.replace("?", UnaryCriterion.sanitize(value));
+        sql.append(Task.ID).append(" IN (").append(subSql).append(") ");
+      }
+    }
+    return sql.toString();
+  }
+
+  public String getCriterion() {
+    return Joiner.on("\n").join(transform(criteria, CriterionInstance::serialize));
+  }
+
+  public Map<String, Object> getValues() {
+    Map<String, Object> values = new HashMap<>();
+    for (CriterionInstance instance : criteria) {
+      String value = getValue(instance);
+
+      if (instance.criterion.valuesForNewTasks != null
+          && instance.type == CriterionInstance.TYPE_INTERSECT) {
+        for (Entry<String, Object> entry : instance.criterion.valuesForNewTasks.entrySet()) {
+          values.put(
+              entry.getKey().replace("?", value), entry.getValue().toString().replace("?", value));
+        }
+      }
+    }
+    return values;
   }
 }
