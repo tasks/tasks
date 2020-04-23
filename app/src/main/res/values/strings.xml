@@ -602,7 +602,6 @@ File %1$s contained %2$s.\n\n
   <string name="widget_id">Widget ID: %d</string>
   <string name="settings_default">Default</string>
   <string name="compact">Compact</string>
-  <string name="choose_new_criteria">Choose new criteria</string>
   <string name="custom_filter_criteria">Filter criteria</string>
   <string name="custom_filter_and">AND</string>
   <string name="custom_filter_or">OR</string>
