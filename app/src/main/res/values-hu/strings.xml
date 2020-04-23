@@ -599,4 +599,9 @@
     <string name="auto_dismiss_datetime_list">Feladat lista</string>
     <string name="widget_due_date_reschedule">Task újraütemezése</string>
     <string name="widget_footer">Lábléc</string>
+    <string name="custom_filter_not">NEM</string>
+    <string name="custom_filter_or">VAGY</string>
+    <string name="custom_filter_and">ÉS</string>
+    <string name="custom_filter_criteria">Szűrő feltétel</string>
+    <string name="choose_new_criteria">Új feltétel kiválasztása</string>
 </resources>
