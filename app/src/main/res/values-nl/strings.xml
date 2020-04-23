@@ -596,4 +596,9 @@
     <string name="auto_dismiss_datetime_list">Takenlijst</string>
     <string name="widget_due_date_reschedule">Taak opnieuw inplannen</string>
     <string name="widget_footer">Voet</string>
+    <string name="custom_filter_not">NIET</string>
+    <string name="custom_filter_or">OF</string>
+    <string name="custom_filter_and">EN</string>
+    <string name="custom_filter_criteria">Filter criteria</string>
+    <string name="choose_new_criteria">Kies nieuwe criteria</string>
 </resources>
