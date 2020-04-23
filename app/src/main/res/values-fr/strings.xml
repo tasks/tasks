@@ -599,4 +599,19 @@
     <string name="custom_filter_not">NON</string>
     <string name="custom_filter_or">OU</string>
     <string name="custom_filter_and">ET</string>
+    <string name="filter_eisenhower_box_4">Boîte Eisenhower 4</string>
+    <string name="filter_eisenhower_box_3">Boîte Eisenhower 3</string>
+    <string name="filter_eisenhower_box_2">Boîte Eisenhower 2</string>
+    <string name="filter_eisenhower_box_1">Boîte Eisenhower 1</string>
+    <string name="filter_no_priority">Aucune priorité</string>
+    <string name="filter_low_priority">Priorité basse</string>
+    <string name="filter_medium_priority">Priorité moyenne</string>
+    <string name="filter_high_priority">Haute priorité</string>
+    <string name="add_filter">Ajouter un filtre</string>
+    <string name="add_tags">Ajouter des balises</string>
+    <string name="filter_no_tags">Pas d’étiquettes</string>
+    <string name="filter_after_today">Après aujourd\'hui</string>
+    <string name="filter_any_due_date">Toute date d\'échéance</string>
+    <string name="filter_today_only">Aujourd\'hui seulement</string>
+    <string name="filter_overdue">En retard</string>
 </resources>
