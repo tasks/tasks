@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="actfm_picture_clear">Odstrániť obrázok</string>
     <string name="TVA_add_comment">Pridať poznámku…</string>
@@ -472,4 +472,7 @@
     <string name="third_party_licenses">Licencie tretích strán</string>
     <string name="changelog">Zoznam zmien</string>
     <string name="version_string">Verzia %s</string>
+    <string name="EPr_temp_show_completed_tasks">Dočasne Zobraziť úlohy po dokončení</string>
+    <string name="TEA_add_subtask">Pridať podúlohu</string>
+    <string name="SSD_sort_my_order">Vlastné poradie</string>
 </resources>
