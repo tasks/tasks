@@ -601,4 +601,9 @@
     <string name="auto_dismiss_datetime_list">Lista de tareas</string>
     <string name="widget_due_date_reschedule">Reprogramar tarea</string>
     <string name="widget_footer">Pie de página</string>
+    <string name="custom_filter_not">NO</string>
+    <string name="custom_filter_or">O</string>
+    <string name="custom_filter_and">Y</string>
+    <string name="custom_filter_criteria">Criterios de filtro</string>
+    <string name="choose_new_criteria">Elija los nuevos criterios</string>
 </resources>
