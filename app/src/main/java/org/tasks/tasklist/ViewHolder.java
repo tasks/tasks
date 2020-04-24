@@ -1,6 +1,5 @@
 package org.tasks.tasklist;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static com.todoroo.andlib.utility.DateUtilities.getRelativeDateTime;
 
 import android.annotation.SuppressLint;
@@ -12,7 +11,6 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.TextView;
 import androidx.core.content.ContextCompat;
-import androidx.core.widget.TextViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -178,13 +176,9 @@ public class ViewHolder extends RecyclerView.ViewHolder {
   public void setIndent(int indent) {
     this.indent = indent;
     int indentSize = getIndentSize(indent);
-    if (atLeastLollipop()) {
-      MarginLayoutParams layoutParams = (MarginLayoutParams) row.getLayoutParams();
-      layoutParams.setMarginStart(indentSize);
-      row.setLayoutParams(layoutParams);
-    } else {
-      rowBody.setPadding(indentSize, rowBody.getPaddingTop(), 0, rowBody.getPaddingBottom());
-    }
+    MarginLayoutParams layoutParams = (MarginLayoutParams) row.getLayoutParams();
+    layoutParams.setMarginStart(indentSize);
+    row.setLayoutParams(layoutParams);
   }
 
   float getShiftSize() {

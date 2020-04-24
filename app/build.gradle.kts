@@ -40,7 +40,6 @@ android {
         versionName = "8.11"
         targetSdkVersion(Versions.targetSdk)
         minSdkVersion(Versions.minSdk)
-        multiDexEnabled = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         kapt {
@@ -160,7 +159,6 @@ dependencies {
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}")
     implementation("io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:2.0.0")
-    implementation("androidx.multidex:multidex:2.0.1")
     implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
     implementation("com.google.code.gson:gson:2.8.6")
     implementation("com.google.android.material:material:1.1.0")

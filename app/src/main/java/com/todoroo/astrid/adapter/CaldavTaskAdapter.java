@@ -1,8 +1,5 @@
 package com.todoroo.astrid.adapter;
 
-import static android.os.Build.VERSION_CODES.LOLLIPOP;
-
-import androidx.annotation.RequiresApi;
 import com.todoroo.astrid.dao.TaskDao;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.CaldavTask;
@@ -10,7 +7,6 @@ import org.tasks.data.SubsetCaldav;
 import org.tasks.data.TaskContainer;
 import org.tasks.tasklist.ViewHolder;
 
-@RequiresApi(api = LOLLIPOP)
 public final class CaldavTaskAdapter extends TaskAdapter {
 
   private final TaskDao taskDao;

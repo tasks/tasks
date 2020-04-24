@@ -1,10 +1,6 @@
 package com.todoroo.astrid.adapter;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.preLollipop;
-
 import android.app.Activity;
-import android.content.res.ColorStateList;
-import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.CheckedTextView;
 import android.widget.ImageView;
@@ -12,7 +8,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -79,21 +74,6 @@ public class FilterViewHolder extends RecyclerView.ViewHolder {
 
     if (navigationDrawer) {
       text.setCheckMarkDrawable(null);
-    } else if (preLollipop()) {
-      ColorStateList tintList =
-          new ColorStateList(
-              new int[][] {
-                new int[] {-android.R.attr.state_checked}, new int[] {android.R.attr.state_checked}
-              },
-              new int[] {
-                ResourcesCompat.getColor(
-                    activity.getResources(), android.R.color.transparent, null),
-                accent.getAccentColor()
-              });
-      Drawable original = ContextCompat.getDrawable(activity, R.drawable.ic_outline_done_24px);
-      Drawable wrapped = DrawableCompat.wrap(original.mutate());
-      DrawableCompat.setTintList(wrapped, tintList);
-      text.setCheckMarkDrawable(wrapped);
     }
   }
 

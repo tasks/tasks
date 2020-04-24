@@ -35,13 +35,7 @@ public class DialogBuilder {
   }
 
   ProgressDialog newProgressDialog() {
-    ProgressDialog progressDialog = new ProgressDialog(activity);
-    if (AndroidUtilities.preLollipop()) {
-      ColorDrawable background =
-          new ColorDrawable(activity.getResources().getColor(android.R.color.transparent));
-      progressDialog.getWindow().setBackgroundDrawable(background);
-    }
-    return progressDialog;
+    return new ProgressDialog(activity);
   }
 
   public ProgressDialog newProgressDialog(int messageId) {

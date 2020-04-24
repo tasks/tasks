@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
-import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.dao.Database
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskDeleter
@@ -99,13 +98,11 @@ class Advanced : InjectingPreferenceFragment() {
         if (requestCode == REQUEST_CODE_FILES_DIR) {
             if (resultCode == Activity.RESULT_OK) {
                 val uri = data!!.data!!
-                if (AndroidUtilities.atLeastLollipop()) {
-                    requireContext().contentResolver
-                        .takePersistableUriPermission(
-                            uri,
-                            Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-                        )
-                }
+                requireContext().contentResolver
+                    .takePersistableUriPermission(
+                        uri,
+                        Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                    )
                 preferences.setUri(R.string.p_attachment_dir, uri)
                 updateAttachmentDirectory()
             }

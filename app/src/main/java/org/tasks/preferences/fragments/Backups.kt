@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.google.api.services.drive.DriveScopes
-import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity
 import org.tasks.PermissionUtil
 import org.tasks.R
@@ -82,13 +81,11 @@ class Backups : InjectingPreferenceFragment() {
         if (requestCode == REQUEST_CODE_BACKUP_DIR) {
             if (resultCode == RESULT_OK && data != null) {
                 val uri = data.data!!
-                if (AndroidUtilities.atLeastLollipop()) {
-                    context?.contentResolver
-                        ?.takePersistableUriPermission(
-                            uri,
-                            Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-                        )
-                }
+                context?.contentResolver
+                    ?.takePersistableUriPermission(
+                        uri,
+                        Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                    )
                 preferences.setUri(R.string.p_backup_dir, uri)
                 updateBackupDirectory()
             }

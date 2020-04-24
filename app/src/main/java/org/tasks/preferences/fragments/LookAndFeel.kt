@@ -11,7 +11,6 @@ import android.os.Handler
 import androidx.annotation.StringRes
 import androidx.preference.Preference
 import com.google.common.base.Strings
-import com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop
 import com.todoroo.astrid.api.Filter
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
@@ -125,8 +124,6 @@ class LookAndFeel : InjectingPreferenceFragment() {
             dialog.show(parentFragmentManager, FRAG_TAG_LOCALE_PICKER)
             false
         }
-
-        requires(R.string.task_list_options, atLeastLollipop(), R.string.p_show_subtasks)
 
         @Suppress("ConstantConditionIf")
         if (BuildConfig.FLAVOR != "googleplay") {

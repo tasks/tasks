@@ -134,20 +134,12 @@ public class AndroidUtilities {
     return (int) (dp * displayMetrics.density + 0.5f);
   }
 
-  public static boolean preLollipop() {
-    return !atLeastLollipop();
-  }
-
   public static boolean preMarshmallow() {
     return !atLeastMarshmallow();
   }
 
   public static boolean preOreo() {
     return !atLeastOreo();
-  }
-
-  public static boolean atLeastLollipop() {
-    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
   }
 
   public static boolean atLeastMarshmallow() {

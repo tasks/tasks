@@ -1,12 +1,9 @@
 package org.tasks.dialogs;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -113,11 +110,7 @@ public class SortDialog extends InjectingDialogFragment {
   private void enableReverse() {
     if (manualEnabled) {
       Button reverse = alertDialog.getButton(DialogInterface.BUTTON_NEUTRAL);
-      if (atLeastLollipop()) {
-        reverse.setEnabled(selectedIndex != 0);
-      } else {
-        reverse.setVisibility(selectedIndex == 0 ? View.GONE : View.VISIBLE);
-      }
+      reverse.setEnabled(selectedIndex != 0);
     }
   }
 

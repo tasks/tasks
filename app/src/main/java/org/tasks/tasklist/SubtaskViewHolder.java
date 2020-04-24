@@ -1,7 +1,5 @@
 package org.tasks.tasklist;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
-
 import android.graphics.Paint;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -123,13 +121,9 @@ public class SubtaskViewHolder extends RecyclerView.ViewHolder {
 
   private void setIndent(int indent) {
     int indentSize = getIndentSize(indent);
-    if (atLeastLollipop()) {
-      MarginLayoutParams layoutParams = (MarginLayoutParams) rowBody.getLayoutParams();
-      layoutParams.setMarginStart(indentSize);
-      rowBody.setLayoutParams(layoutParams);
-    } else {
-      rowBody.setPadding(indentSize, rowBody.getPaddingTop(), 0, rowBody.getPaddingBottom());
-    }
+    MarginLayoutParams layoutParams = (MarginLayoutParams) rowBody.getLayoutParams();
+    layoutParams.setMarginStart(indentSize);
+    rowBody.setLayoutParams(layoutParams);
   }
 
   public interface Callbacks {

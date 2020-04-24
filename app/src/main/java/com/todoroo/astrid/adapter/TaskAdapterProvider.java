@@ -1,7 +1,5 @@
 package com.todoroo.astrid.adapter;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
-
 import android.content.Context;
 import android.text.TextUtils;
 import com.todoroo.astrid.api.CaldavFilter;
@@ -79,7 +77,7 @@ public class TaskAdapterProvider {
       CaldavFilter caldavFilter = (CaldavFilter) filter;
       CaldavCalendar calendar = caldavDao.getCalendarByUuid(caldavFilter.getUuid());
       if (calendar != null) {
-        return atLeastLollipop() ? new CaldavTaskAdapter(taskDao, caldavDao) : new TaskAdapter();
+        return new CaldavTaskAdapter(taskDao, caldavDao);
       }
     } else {
       return subtasksHelper.shouldUseSubtasksFragmentForFilter(filter)

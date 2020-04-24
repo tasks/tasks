@@ -11,7 +11,6 @@ import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.sql.SqlConstants.COUNT;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static com.todoroo.andlib.utility.DateUtilities.now;
 import static org.tasks.db.DbUtils.batch;
 
@@ -144,8 +143,8 @@ public abstract class TaskDao {
   @Transaction
   public List<TaskContainer> fetchTasks(QueryCallback callback) {
     long start = BuildConfig.DEBUG ? now() : 0;
-    boolean includeGoogleSubtasks = atLeastLollipop() && hasGoogleTaskSubtasks();
-    boolean includeCaldavSubtasks = atLeastLollipop() && hasSubtasks();
+    boolean includeGoogleSubtasks = hasGoogleTaskSubtasks();
+    boolean includeCaldavSubtasks = hasSubtasks();
     List<String> queries = callback.getQueries(includeGoogleSubtasks, includeCaldavSubtasks);
     SupportSQLiteDatabase db = database.getOpenHelper().getWritableDatabase();
     int last = queries.size() - 1;
@@ -220,12 +219,6 @@ public abstract class TaskDao {
     return getChildren(Collections.singletonList(id));
   }
 
-  public List<Long> getChildren(List<Long> ids) {
-    return atLeastLollipop()
-        ? getChildrenRecursive(ids)
-        : Collections.emptyList();
-  }
-
   @Query(
       "WITH RECURSIVE "
           + " recursive_tasks (task) AS ( "
@@ -239,7 +232,7 @@ public abstract class TaskDao {
           + "  ON recursive_tasks.task = tasks.parent"
           + " WHERE tasks.deleted = 0)"
           + "SELECT task FROM recursive_tasks")
-  abstract List<Long> getChildrenRecursive(List<Long> ids);
+  public abstract List<Long> getChildren(List<Long> ids);
 
   public List<Long> findChildrenInList(List<Long> ids) {
     List<Long> result = newArrayList(ids);

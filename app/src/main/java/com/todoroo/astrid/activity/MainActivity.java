@@ -8,7 +8,6 @@ package com.todoroo.astrid.activity;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastNougat;
 import static com.todoroo.astrid.activity.TaskEditFragment.newTaskEditFragment;
 import static com.todoroo.astrid.activity.TaskListFragment.newTaskListFragment;
@@ -528,9 +527,7 @@ public class MainActivity extends InjectingAppCompatActivity
   public void onSupportActionModeFinished(@NonNull ActionMode mode) {
     super.onSupportActionModeFinished(mode);
 
-    if (atLeastLollipop()) {
-      getWindow().setStatusBarColor(0);
-    }
+    getWindow().setStatusBarColor(0);
   }
 
   private void finishActionMode() {

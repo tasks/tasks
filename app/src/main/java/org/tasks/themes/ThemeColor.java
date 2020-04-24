@@ -1,6 +1,5 @@
 package org.tasks.themes;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
 
@@ -243,15 +242,11 @@ public class ThemeColor implements Pickable {
   }
 
   public void setStatusBarColor(Activity activity) {
-    if (atLeastLollipop()) {
-      activity.getWindow().setStatusBarColor(colorPrimaryVariant);
-    }
+    activity.getWindow().setStatusBarColor(colorPrimaryVariant);
   }
 
   public void setStatusBarColor(DrawerLayout drawerLayout) {
-    if (atLeastLollipop()) {
-      drawerLayout.setStatusBarBackgroundColor(colorPrimaryVariant);
-    }
+    drawerLayout.setStatusBarBackgroundColor(colorPrimaryVariant);
     if (atLeastMarshmallow()) {
       int systemUiVisibility = applyLightStatusBarFlag(drawerLayout.getSystemUiVisibility());
       drawerLayout.setSystemUiVisibility(systemUiVisibility);
@@ -281,9 +276,7 @@ public class ThemeColor implements Pickable {
   }
 
   public void applyToNavigationBar(Activity activity) {
-    if (atLeastLollipop()) {
-      activity.getWindow().setNavigationBarColor(getPrimaryColor());
-    }
+    activity.getWindow().setNavigationBarColor(getPrimaryColor());
 
     if (atLeastOreo()) {
       View decorView = activity.getWindow().getDecorView();
@@ -311,10 +304,8 @@ public class ThemeColor implements Pickable {
   }
 
   public void applyTaskDescription(Activity activity, String description) {
-    if (atLeastLollipop()) {
-      activity.setTaskDescription(
-          new ActivityManager.TaskDescription(description, null, getPrimaryColor()));
-    }
+    activity.setTaskDescription(
+        new ActivityManager.TaskDescription(description, null, getPrimaryColor()));
   }
 
   @Override

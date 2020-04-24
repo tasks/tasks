@@ -1,8 +1,6 @@
 package org.tasks.ui;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.assertNotMainThread;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
-import static com.todoroo.andlib.utility.AndroidUtilities.preLollipop;
 import static org.tasks.LocalBroadcastManager.REFRESH;
 import static org.tasks.LocalBroadcastManager.REFRESH_LIST;
 
@@ -17,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.drawerlayout.widget.DrawerLayout.SimpleDrawerListener;
 import androidx.fragment.app.FragmentActivity;
@@ -91,10 +88,8 @@ public class NavigationDrawerFragment extends InjectingFragment {
       @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
     recyclerView = layout.findViewById(R.id.recycler_view);
-    if (atLeastLollipop()) {
-      ((ScrimInsetsFrameLayout) layout.findViewById(R.id.scrim_layout))
-          .setOnInsetsCallback(insets -> recyclerView.setPadding(0, insets.top, 0, 0));
-    }
+    ((ScrimInsetsFrameLayout) layout.findViewById(R.id.scrim_layout))
+        .setOnInsetsCallback(insets -> recyclerView.setPadding(0, insets.top, 0, 0));
     return layout;
   }
 
@@ -148,11 +143,6 @@ public class NavigationDrawerFragment extends InjectingFragment {
   public void setUp(DrawerLayout drawerLayout) {
     mFragmentContainerView = getActivity().findViewById(FRAGMENT_NAVIGATION_DRAWER);
     mDrawerLayout = drawerLayout;
-
-    if (preLollipop()) {
-      // set a custom shadow that overlays the main content when the drawer opens
-      mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-    }
   }
 
   public void setSelected(Filter selected) {

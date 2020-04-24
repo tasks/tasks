@@ -62,7 +62,7 @@ public class ViewHolderFactory {
     return new ViewHolder(
         (Activity) context,
         (ViewGroup)
-            LayoutInflater.from(context).inflate(R.layout.task_adapter_row_simple, parent, false),
+            LayoutInflater.from(context).inflate(R.layout.task_adapter_row, parent, false),
         preferences,
         fontSize,
         chipProvider,

@@ -4,8 +4,6 @@ import static android.content.ContentResolver.SCHEME_CONTENT;
 import static android.provider.DocumentsContract.EXTRA_INITIAL_URI;
 import static androidx.core.content.FileProvider.getUriForFile;
 import static com.google.common.collect.Iterables.any;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
-import static com.todoroo.andlib.utility.AndroidUtilities.preLollipop;
 import static com.todoroo.astrid.utility.Constants.FILE_PROVIDER_AUTHORITY;
 
 import android.annotation.TargetApi;
@@ -14,7 +12,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -60,24 +57,22 @@ public class FileHelper {
   }
 
   public static void newDirectoryPicker(Fragment fragment, int rc, @Nullable Uri initial) {
-    if (atLeastLollipop()) {
-      Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
-      intent.addFlags(
-          Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION
-              | Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-              | Intent.FLAG_GRANT_READ_URI_PERMISSION
-              | Intent.FLAG_GRANT_PREFIX_URI_PERMISSION);
-      intent.putExtra("android.content.extra.SHOW_ADVANCED", true);
-      intent.putExtra("android.content.extra.FANCY", true);
-      intent.putExtra("android.content.extra.SHOW_FILESIZE", true);
-      setInitialUri(fragment.getContext(), intent, initial);
-      fragment.startActivityForResult(intent, rc);
-    }
+    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+    intent.addFlags(
+        Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION
+            | Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+            | Intent.FLAG_GRANT_READ_URI_PERMISSION
+            | Intent.FLAG_GRANT_PREFIX_URI_PERMISSION);
+    intent.putExtra("android.content.extra.SHOW_ADVANCED", true);
+    intent.putExtra("android.content.extra.FANCY", true);
+    intent.putExtra("android.content.extra.SHOW_FILESIZE", true);
+    setInitialUri(fragment.getContext(), intent, initial);
+    fragment.startActivityForResult(intent, rc);
   }
 
   @TargetApi(Build.VERSION_CODES.O)
   private static void setInitialUri(Context context, Intent intent, Uri uri) {
-    if (uri == null || preLollipop() || !uri.getScheme().equals(SCHEME_CONTENT)) {
+    if (uri == null || !uri.getScheme().equals(SCHEME_CONTENT)) {
       return;
     }
 
@@ -174,7 +169,7 @@ public class FileHelper {
     }
     Uri share = getUriForFile(context, FILE_PROVIDER_AUTHORITY, new File(uri.getPath()));
     intent.setDataAndType(share, mimeType);
-    grantReadPermissions(context, intent, share);
+    grantReadPermissions(intent);
     PackageManager packageManager = context.getPackageManager();
     if (intent.resolveActivity(packageManager) != null) {
       context.startActivity(intent);
@@ -183,19 +178,8 @@ public class FileHelper {
     }
   }
 
-  private static void grantReadPermissions(Context context, Intent intent, Uri uri) {
-    if (atLeastLollipop()) {
-      intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-    } else {
-      List<ResolveInfo> resolveInfoList =
-          context
-              .getPackageManager()
-              .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
-      for (ResolveInfo resolveInfo : resolveInfoList) {
-        context.grantUriPermission(
-            resolveInfo.activityInfo.packageName, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-      }
-    }
+  private static void grantReadPermissions(Intent intent) {
+    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
   }
 
   public static Uri newFile(

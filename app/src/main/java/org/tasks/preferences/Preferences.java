@@ -5,7 +5,6 @@ import static androidx.preference.PreferenceManager.setDefaultValues;
 import static com.google.common.collect.Iterables.filter;
 import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Sets.newHashSet;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static java.util.Collections.emptySet;
 
 import android.content.ContentResolver;
@@ -13,7 +12,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Binder;
@@ -525,7 +523,7 @@ public class Preferences {
   }
 
   public boolean showSubtasks() {
-    return atLeastLollipop() && getBoolean(R.string.p_show_subtasks, false);
+    return getBoolean(R.string.p_show_subtasks, false);
   }
 
   public int getThemeBase() {

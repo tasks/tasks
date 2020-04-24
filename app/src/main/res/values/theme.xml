@@ -24,7 +24,10 @@
     <item name="mdtp_theme_dark">@bool/is_dark</item>
   </style>
 
-  <style name="Tasks" parent="TasksBase"/>
+  <style name="Tasks" parent="TasksBase">
+    <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    <item name="android:statusBarColor">@android:color/transparent</item>
+  </style>
 
   <style name="TasksDialogAlert" parent="DayNightAlert">
     <item name="android:textColorPrimary">@color/text_primary</item>

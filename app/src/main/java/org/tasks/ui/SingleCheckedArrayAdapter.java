@@ -1,9 +1,6 @@
 package org.tasks.ui;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.preLollipop;
-
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,20 +13,16 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import java.util.List;
 import org.tasks.R;
-import org.tasks.themes.ThemeAccent;
 
 public class SingleCheckedArrayAdapter extends ArrayAdapter<String> {
 
   @NonNull private final Context context;
-  private final ThemeAccent accent;
   private final int alpha;
   private final int tint;
 
-  public SingleCheckedArrayAdapter(
-      @NonNull Context context, @NonNull List<String> items, ThemeAccent accent) {
+  public SingleCheckedArrayAdapter(@NonNull Context context, @NonNull List<String> items) {
     super(context, R.layout.simple_list_item_single_checkmark, items);
     this.context = context;
-    this.accent = accent;
     this.alpha =
         (int) (255 * ResourcesCompat.getFloat(context.getResources(), R.dimen.alpha_secondary));
     this.tint = ContextCompat.getColor(context, R.color.icon_tint);
@@ -39,21 +32,6 @@ public class SingleCheckedArrayAdapter extends ArrayAdapter<String> {
   @Override
   public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
     CheckedTextView view = (CheckedTextView) super.getView(position, convertView, parent);
-    if (preLollipop()) {
-      ColorStateList tintList =
-          new ColorStateList(
-              new int[][] {
-                new int[] {-android.R.attr.state_checked}, new int[] {android.R.attr.state_checked}
-              },
-              new int[] {
-                ResourcesCompat.getColor(context.getResources(), android.R.color.transparent, null),
-                accent.getAccentColor()
-              });
-      Drawable original = ContextCompat.getDrawable(context, R.drawable.ic_outline_done_24px);
-      Drawable wrapped = DrawableCompat.wrap(original.mutate());
-      DrawableCompat.setTintList(wrapped, tintList);
-      view.setCheckMarkDrawable(wrapped);
-    }
     int drawable = getDrawable();
     if (drawable > 0) {
       Drawable original = ContextCompat.getDrawable(context, drawable);

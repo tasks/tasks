@@ -1,16 +1,8 @@
 package org.tasks.tags;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static org.tasks.preferences.ResourceResolver.getData;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -126,18 +118,8 @@ public class CheckBoxTriStates extends AppCompatCheckBox {
     int color = state == State.UNCHECKED
         ? getResources().getColor(R.color.icon_tint)
         : getData(getContext(), R.attr.colorAccent);
-    if (atLeastLollipop()) {
-      drawable = original.mutate();
-      DrawableCompat.setTint(drawable, color);
-    } else {
-      Bitmap bitmap = ((BitmapDrawable) original).getBitmap();
-      Paint paint = new Paint();
-      paint.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN));
-      Bitmap bitmapResult = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Config.ARGB_8888);
-      Canvas canvas = new Canvas(bitmapResult);
-      canvas.drawBitmap(bitmap, 0, 0, paint);
-      drawable = new BitmapDrawable(getContext().getResources(), bitmapResult);
-    }
+    drawable = original.mutate();
+    DrawableCompat.setTint(drawable, color);
     drawable.setAlpha(alpha);
     setButtonDrawable(drawable);
   }
