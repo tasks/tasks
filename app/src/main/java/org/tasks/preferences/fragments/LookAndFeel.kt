@@ -167,7 +167,7 @@ class LookAndFeel : InjectingPreferenceFragment() {
     private fun setupLocationPickers() {
         val choices =
             listOf(getString(R.string.map_provider_mapbox), getString(R.string.map_provider_google))
-        val singleCheckedArrayAdapter = SingleCheckedArrayAdapter(requireContext(), choices, themeAccent)
+        val singleCheckedArrayAdapter = SingleCheckedArrayAdapter(requireContext(), choices)
         val mapProviderPreference = findPreference(R.string.p_map_provider)
         mapProviderPreference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             dialogBuilder

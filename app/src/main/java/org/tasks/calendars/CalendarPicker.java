@@ -56,7 +56,7 @@ public class CalendarPicker extends InjectingDialogFragment {
     theme.applyToContext(getActivity());
 
     adapter =
-        new SingleCheckedArrayAdapter(getActivity(), calendarNames, theme.getThemeAccent()) {
+        new SingleCheckedArrayAdapter(getActivity(), calendarNames) {
           @Override
           protected int getDrawable() {
             return R.drawable.ic_outline_event_24px;

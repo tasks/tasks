@@ -26,7 +26,6 @@ import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.InjectingDialogFragment;
-import org.tasks.themes.Theme;
 import org.tasks.ui.SingleCheckedArrayAdapter;
 import timber.log.Timber;
 
@@ -39,7 +38,6 @@ public class BasicRecurrenceDialog extends InjectingDialogFragment {
   @Inject @ForActivity Context context;
   @Inject DialogBuilder dialogBuilder;
   @Inject RepeatRuleToString repeatRuleToString;
-  @Inject Theme theme;
 
   public static BasicRecurrenceDialog newBasicRecurrenceDialog(
       RepeatControlSet target, RRule rrule, long dueDate) {
@@ -74,7 +72,7 @@ public class BasicRecurrenceDialog extends InjectingDialogFragment {
     List<String> repeatOptions =
         newArrayList(context.getResources().getStringArray(R.array.repeat_options));
     SingleCheckedArrayAdapter adapter =
-        new SingleCheckedArrayAdapter(context, repeatOptions, theme.getThemeAccent());
+        new SingleCheckedArrayAdapter(context, repeatOptions);
     int selected = 0;
     if (customPicked) {
       adapter.insert(repeatRuleToString.toString(rrule), 0);
