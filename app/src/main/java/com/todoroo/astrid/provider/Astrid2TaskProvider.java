@@ -6,8 +6,6 @@
 
 package com.todoroo.astrid.provider;
 
-import static androidx.core.content.ContextCompat.getColor;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.UriMatcher;
@@ -191,7 +189,7 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
   }
 
   private static int getPriorityColor(Context context, int priority) {
-    return getColor(context, getPriorityResId(priority));
+    return context.getColor(getPriorityResId(priority));
   }
 
   @ColorRes private static int getPriorityResId(int priority) {

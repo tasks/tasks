@@ -6,9 +6,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static org.tasks.db.DbUtils.batch;
 
 import android.content.Context;
-import android.os.Environment;
 import androidx.annotation.ColorRes;
-import androidx.core.content.ContextCompat;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableListMultimap;
@@ -22,7 +20,6 @@ import java.util.List;
 import javax.inject.Inject;
 import net.fortuna.ical4j.model.property.Geo;
 import org.tasks.R;
-import org.tasks.analytics.Tracker;
 import org.tasks.caldav.iCalendar;
 import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
@@ -174,7 +171,7 @@ public class Upgrader {
 
   public static int getAndroidColor(Context context, int index) {
     int legacyColor = getLegacyColor(index, 0);
-    return legacyColor == 0 ? 0 : ContextCompat.getColor(context, legacyColor);
+    return legacyColor == 0 ? 0 : context.getColor(legacyColor);
   }
 
   public static @ColorRes int getLegacyColor(int index, int def) {

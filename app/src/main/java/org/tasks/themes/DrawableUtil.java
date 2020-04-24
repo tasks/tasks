@@ -5,13 +5,12 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.widget.TextView;
 import androidx.annotation.DrawableRes;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import org.jetbrains.annotations.NotNull;
 
 public class DrawableUtil {
   public static Drawable getWrapped(Context context, @DrawableRes int resId) {
-    return wrap(ContextCompat.getDrawable(context, resId));
+    return wrap(context.getDrawable(resId));
   }
 
   public static void setLeftDrawable(Context context, TextView tv, @DrawableRes int resId) {

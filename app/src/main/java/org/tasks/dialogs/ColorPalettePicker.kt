@@ -8,7 +8,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.LayoutInflater
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
@@ -84,7 +83,7 @@ class ColorPalettePicker : InjectingDialogFragment() {
             Palette.COLORS -> colorProvider.getThemeColors()
             Palette.ACCENTS -> colorProvider.getAccentColors()
             Palette.LAUNCHERS -> ThemeColor.LAUNCHER_COLORS.map { color ->
-                ThemeColor(context, ContextCompat.getColor(requireContext(), color))
+                ThemeColor(context, requireContext().getColor(color))
             }
             Palette.WIDGET -> colorProvider.getWidgetColors()
         }

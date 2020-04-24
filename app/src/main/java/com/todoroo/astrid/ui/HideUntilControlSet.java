@@ -6,7 +6,6 @@
 
 package com.todoroo.astrid.ui;
 
-import static androidx.core.content.ContextCompat.getColor;
 import static com.todoroo.astrid.data.Task.HIDE_UNTIL_DAY_BEFORE;
 import static com.todoroo.astrid.data.Task.HIDE_UNTIL_DUE;
 import static com.todoroo.astrid.data.Task.HIDE_UNTIL_NONE;
@@ -121,11 +120,11 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
             if (value.setting == Task.HIDE_UNTIL_NONE) {
               clearButton.setVisibility(View.GONE);
               tv.setText(value.labelDisplay);
-              tv.setTextColor(getColor(context, R.color.text_tertiary));
+              tv.setTextColor(context.getColor(R.color.text_tertiary));
             } else {
               String display = value.labelDisplay;
               tv.setText(getString(R.string.TEA_hideUntil_display, display));
-              tv.setTextColor(getColor(context, R.color.text_primary));
+              tv.setTextColor(context.getColor(R.color.text_primary));
             }
             return tv;
           }

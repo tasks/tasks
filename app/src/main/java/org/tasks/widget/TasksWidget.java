@@ -12,7 +12,6 @@ import android.net.Uri;
 import android.view.View;
 import android.widget.RemoteViews;
 import androidx.annotation.ColorInt;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
 import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.api.Filter;
@@ -139,7 +138,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
     } else {
       background = android.R.color.white;
     }
-    return ContextCompat.getColor(context, background);
+    return context.getColor(background);
   }
 
   private PendingIntent getPendingIntentTemplate(Context context) {

@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import androidx.core.content.ContextCompat;
 import at.bitfire.dav4jvm.exception.HttpException;
 import butterknife.BindView;
 import butterknife.OnTextChanged;
@@ -174,11 +173,11 @@ public abstract class BaseCaldavCalendarSettingsActivity extends BaseListSetting
   private void showSnackbar(String message) {
     Snackbar snackbar =
         Snackbar.make(root, message, 8000)
-            .setTextColor(ContextCompat.getColor(this, R.color.snackbar_text_color))
-            .setActionTextColor(ContextCompat.getColor(this, R.color.snackbar_action_color));
+            .setTextColor(getColor(R.color.snackbar_text_color))
+            .setActionTextColor(getColor(R.color.snackbar_action_color));
     snackbar
         .getView()
-        .setBackgroundColor(ContextCompat.getColor(this, R.color.snackbar_background));
+        .setBackgroundColor(getColor(R.color.snackbar_background));
     snackbar.show();
   }
 

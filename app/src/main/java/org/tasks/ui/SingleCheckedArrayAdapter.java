@@ -8,7 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckedTextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import java.util.List;
@@ -25,7 +24,7 @@ public class SingleCheckedArrayAdapter extends ArrayAdapter<String> {
     this.context = context;
     this.alpha =
         (int) (255 * ResourcesCompat.getFloat(context.getResources(), R.dimen.alpha_secondary));
-    this.tint = ContextCompat.getColor(context, R.color.icon_tint);
+    this.tint = context.getColor(R.color.icon_tint);
   }
 
   @NonNull
@@ -34,7 +33,7 @@ public class SingleCheckedArrayAdapter extends ArrayAdapter<String> {
     CheckedTextView view = (CheckedTextView) super.getView(position, convertView, parent);
     int drawable = getDrawable();
     if (drawable > 0) {
-      Drawable original = ContextCompat.getDrawable(context, drawable);
+      Drawable original = context.getDrawable(drawable);
       Drawable wrapped = DrawableCompat.wrap(original.mutate());
       int color = getDrawableColor(position);
       if (color == 0) {

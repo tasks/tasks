@@ -12,7 +12,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -91,7 +90,7 @@ public class BeastModePreferences extends ThemedInjectingAppCompatActivity
     ButterKnife.bind(this);
 
     toolbar.setNavigationIcon(
-        ContextCompat.getDrawable(this, R.drawable.ic_outline_arrow_back_24px));
+        getDrawable(R.drawable.ic_outline_arrow_back_24px));
     toolbar.setNavigationOnClickListener(v -> finish());
     toolbar.inflateMenu(R.menu.beast_mode);
     toolbar.setOnMenuItemClickListener(this);

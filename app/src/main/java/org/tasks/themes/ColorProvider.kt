@@ -2,7 +2,6 @@ package org.tasks.themes
 
 import android.content.Context
 import androidx.annotation.ColorInt
-import androidx.core.content.ContextCompat
 import org.tasks.R
 import org.tasks.injection.ForActivity
 import org.tasks.preferences.Preferences
@@ -96,7 +95,7 @@ class ColorProvider @Inject constructor(@ForActivity private val context: Contex
     })
 
     fun getThemeColors(adjust: Boolean = true) = ThemeColor.COLORS.map { c ->
-        getThemeColor(ContextCompat.getColor(context, c), adjust)
+        getThemeColor(context.getColor(c), adjust)
     }
 
     fun getWidgetColors() = getThemeColors(false)

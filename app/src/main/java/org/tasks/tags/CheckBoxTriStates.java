@@ -113,10 +113,10 @@ public class CheckBoxTriStates extends AppCompatCheckBox {
         alpha = this.alpha;
         break;
     }
-    Drawable original = getResources().getDrawable(btnDrawable);
+    Drawable original = getContext().getDrawable(btnDrawable);
     Drawable drawable;
     int color = state == State.UNCHECKED
-        ? getResources().getColor(R.color.icon_tint)
+        ? getContext().getColor(R.color.icon_tint)
         : getData(getContext(), R.attr.colorAccent);
     drawable = original.mutate();
     DrawableCompat.setTint(drawable, color);

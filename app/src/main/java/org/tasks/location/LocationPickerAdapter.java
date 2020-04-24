@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.DiffUtil.ItemCallback;
 import androidx.recyclerview.widget.ListAdapter;
@@ -70,7 +69,7 @@ public class LocationPickerAdapter extends ListAdapter<PlaceUsage, PlaceViewHold
         return color.getPrimaryColor();
       }
     }
-    return ContextCompat.getColor(context, R.color.text_primary);
+    return context.getColor(R.color.text_primary);
   }
 
   private int getIcon(int index) {

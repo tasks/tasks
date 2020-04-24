@@ -6,7 +6,6 @@
 
 package com.todoroo.astrid.repeats;
 
-import static androidx.core.content.ContextCompat.getColor;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.ical.values.Frequency.MONTHLY;
 import static org.tasks.repeats.BasicRecurrenceDialog.newBasicRecurrenceDialog;
@@ -25,7 +24,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import butterknife.BindView;
 import butterknife.OnItemSelected;
@@ -158,9 +156,9 @@ public class RepeatControlSet extends TaskEditControlFragment {
         };
     Drawable drawable =
         DrawableCompat.wrap(
-            ContextCompat.getDrawable(context, R.drawable.textfield_underline_black));
+            context.getDrawable(R.drawable.textfield_underline_black));
     drawable.mutate();
-    DrawableCompat.setTint(drawable, getColor(context, R.color.text_primary));
+    DrawableCompat.setTint(drawable, context.getColor(R.color.text_primary));
     typeSpinner.setBackgroundDrawable(drawable);
     typeSpinner.setAdapter(typeAdapter);
     typeSpinner.setSelection(repeatAfterCompletion ? TYPE_COMPLETION_DATE : TYPE_DUE_DATE);

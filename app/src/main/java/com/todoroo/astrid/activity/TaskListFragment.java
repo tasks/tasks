@@ -7,13 +7,11 @@
 package com.todoroo.astrid.activity;
 
 import static android.app.Activity.RESULT_OK;
-import static androidx.core.content.ContextCompat.getColor;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
 import static org.tasks.activities.RemoteListPicker.newRemoteListSupportPicker;
 import static org.tasks.caldav.CaldavCalendarSettingsActivity.EXTRA_CALDAV_CALENDAR;
-import static org.tasks.date.DateTimeUtils.newDateTime;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -539,9 +537,9 @@ public final class TaskListFragment extends InjectingFragment
   private Snackbar makeSnackbar(String text) {
     Snackbar snackbar =
         Snackbar.make(coordinatorLayout, text, 8000)
-            .setTextColor(getColor(context, R.color.snackbar_text_color))
-            .setActionTextColor(getColor(context, R.color.snackbar_action_color));
-    snackbar.getView().setBackgroundColor(getColor(context, R.color.snackbar_background));
+            .setTextColor(context.getColor(R.color.snackbar_text_color))
+            .setActionTextColor(context.getColor(R.color.snackbar_action_color));
+    snackbar.getView().setBackgroundColor(context.getColor(R.color.snackbar_background));
     return snackbar;
   }
 

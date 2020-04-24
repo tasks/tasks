@@ -10,7 +10,6 @@ import static com.google.common.collect.Lists.newArrayList;
 import static java.util.Collections.emptyList;
 
 import android.content.Context;
-import android.content.res.Resources;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.api.Filter;
@@ -38,10 +37,9 @@ public final class TimerFilterExposer {
   }
 
   public static Filter createFilter(Context context) {
-    Resources r = context.getResources();
     Filter filter =
         new Filter(
-            r.getString(R.string.TFE_workingOn),
+            context.getString(R.string.TFE_workingOn),
             new QueryTemplate()
                 .where(Criterion.and(Task.TIMER_START.gt(0), Task.DELETION_DATE.eq(0))));
     filter.icon = R.drawable.ic_outline_timer_24px;

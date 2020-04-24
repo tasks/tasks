@@ -1,6 +1,5 @@
 package org.tasks.repeats;
 
-import static androidx.core.content.ContextCompat.getColor;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.ical.values.Frequency.DAILY;
 import static com.google.ical.values.Frequency.HOURLY;
@@ -289,7 +288,7 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
             },
             new int[] {
               ResourceResolver.getData(context, R.attr.colorOnSecondary),
-              getColor(context, R.color.text_primary)
+              context.getColor(R.color.text_primary)
             });
     int inset = (int) context.getResources().getDimension(R.dimen.week_button_inset);
     int accentColor = ResourceResolver.getData(context, R.attr.colorAccent);
@@ -301,7 +300,7 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
 
       GradientDrawable ovalDrawable =
           (GradientDrawable)
-              context.getResources().getDrawable(R.drawable.week_day_button_oval).mutate();
+              context.getDrawable(R.drawable.week_day_button_oval).mutate();
       ovalDrawable.setColor(accentColor);
       LayerDrawable layerDrawable = new LayerDrawable(new Drawable[] {ovalDrawable});
       layerDrawable.setLayerInset(0, inset, inset, inset, inset);

@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.TextView;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -223,12 +222,11 @@ public class ViewHolder extends RecyclerView.ViewHolder {
 
   private void setupTitleAndCheckbox() {
     if (task.isCompleted()) {
-      nameView.setTextColor(ContextCompat.getColor(context, R.color.text_tertiary));
+      nameView.setTextColor(context.getColor(R.color.text_tertiary));
       nameView.setPaintFlags(nameView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
     } else {
       nameView.setTextColor(
-          ContextCompat.getColor(
-              context, task.isHidden() ? R.color.text_tertiary : R.color.text_primary));
+          context.getColor(task.isHidden() ? R.color.text_tertiary : R.color.text_primary));
       nameView.setPaintFlags(nameView.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
     }
 

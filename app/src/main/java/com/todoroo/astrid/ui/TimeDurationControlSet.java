@@ -7,7 +7,6 @@
 package com.todoroo.astrid.ui;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -43,9 +42,8 @@ public class TimeDurationControlSet implements OnNNumberPickedListener, View.OnC
 
     timeDuration = timeDurationInSeconds;
 
-    Resources r = context.getResources();
     if (timeDurationInSeconds == 0) {
-      timeButton.setText(r.getString(R.string.WID_dateButtonUnset));
+      timeButton.setText(context.getString(R.string.WID_dateButtonUnset));
       return;
     }
 
@@ -69,7 +67,7 @@ public class TimeDurationControlSet implements OnNNumberPickedListener, View.OnC
           new NNumberPickerDialog(
               context,
               this,
-              context.getResources().getString(R.string.DLG_hour_minutes),
+              context.getString(R.string.DLG_hour_minutes),
               new int[] {0, 0},
               new int[] {1, 5},
               new int[] {0, 0},

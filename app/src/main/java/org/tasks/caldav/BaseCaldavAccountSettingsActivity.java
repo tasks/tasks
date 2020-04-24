@@ -14,7 +14,6 @@ import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import at.bitfire.dav4jvm.exception.HttpException;
 import butterknife.ButterKnife;
 import butterknife.OnFocusChange;
@@ -94,7 +93,7 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
 
     toolbar.setTitle(
         caldavAccount == null ? getString(R.string.add_account) : caldavAccount.getName());
-    toolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_outline_save_24px));
+    toolbar.setNavigationIcon(getDrawable(R.drawable.ic_outline_save_24px));
     toolbar.setNavigationOnClickListener(v -> save());
     toolbar.inflateMenu(R.menu.menu_caldav_account_settings);
     toolbar.setOnMenuItemClickListener(this);
@@ -299,11 +298,11 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
   private Snackbar newSnackbar(String message) {
     Snackbar snackbar =
         Snackbar.make(binding.rootLayout, message, 8000)
-            .setTextColor(ContextCompat.getColor(this, R.color.snackbar_text_color))
-            .setActionTextColor(ContextCompat.getColor(this, R.color.snackbar_action_color));
+            .setTextColor(getColor(R.color.snackbar_text_color))
+            .setActionTextColor(getColor(R.color.snackbar_action_color));
     snackbar
         .getView()
-        .setBackgroundColor(ContextCompat.getColor(this, R.color.snackbar_background));
+        .setBackgroundColor(getColor(R.color.snackbar_background));
     return snackbar;
   }
 

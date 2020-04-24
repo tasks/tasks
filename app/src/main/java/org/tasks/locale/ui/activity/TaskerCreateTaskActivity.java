@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import javax.inject.Inject;
 import net.dinglisch.android.tasker.TaskerPlugin;
 import org.tasks.LocalBroadcastManager;
@@ -35,7 +34,7 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
 
     Toolbar toolbar = binding.toolbar.toolbar;
     toolbar.setTitle(R.string.tasker_create_task);
-    toolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_outline_save_24px));
+    toolbar.setNavigationIcon(getDrawable(R.drawable.ic_outline_save_24px));
     toolbar.setNavigationOnClickListener(v -> save());
     toolbar.setOnMenuItemClickListener(this);
     toolbar.inflateMenu(R.menu.menu_tasker_create_task);

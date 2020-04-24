@@ -224,7 +224,7 @@ public class Preferences {
   }
 
   public @Nullable String getStringValue(int keyResource) {
-    return prefs.getString(context.getResources().getString(keyResource), null);
+    return prefs.getString(context.getString(keyResource), null);
   }
 
   public boolean isStringValueSet(int keyResource) {

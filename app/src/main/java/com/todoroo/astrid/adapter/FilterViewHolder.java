@@ -7,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -112,7 +111,7 @@ public class FilterViewHolder extends RecyclerView.ViewHolder {
         return color.getPrimaryColor();
       }
     }
-    return ContextCompat.getColor(activity, R.color.text_primary);
+    return activity.getColor(R.color.text_primary);
   }
 
   private int getIcon(FilterListItem filter) {

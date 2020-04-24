@@ -3,7 +3,6 @@ package com.todoroo.astrid.core
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.drawable.ColorDrawable
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import org.tasks.Callback
@@ -47,7 +46,7 @@ class CustomFilterItemTouchHelper(
 
     override fun onChildDraw(c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean) {
         val itemView = viewHolder.itemView
-        val background = ColorDrawable(ContextCompat.getColor(context, R.color.overdue))
+        val background = ColorDrawable(context.getColor(R.color.overdue))
         if (dX > 0) {
             background.setBounds(0, itemView.top, itemView.left + dX.toInt(), itemView.bottom)
         } else if (dX < 0) {

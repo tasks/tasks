@@ -36,7 +36,7 @@ class Debug : InjectingPreferenceFragment() {
         }
 
         findPreference(R.string.debug_reset_ssl).setOnPreferenceClickListener {
-            resetCertificates(context!!)
+            resetCertificates(requireContext())
             toaster.longToast("SSL certificates reset")
             false
         }

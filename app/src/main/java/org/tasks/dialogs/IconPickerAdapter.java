@@ -5,7 +5,6 @@ import static org.tasks.preferences.ResourceResolver.getData;
 import android.app.Activity;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.DiffUtil.ItemCallback;
 import androidx.recyclerview.widget.ListAdapter;
@@ -46,7 +45,7 @@ class IconPickerAdapter extends ListAdapter<Integer, IconPickerHolder> {
     if (icon != null) {
       int tint = index == current
           ? getData(activity, R.attr.colorAccent)
-          : ContextCompat.getColor(activity, R.color.icon_tint);
+          : activity.getColor(R.color.icon_tint);
       boolean available = index < 1000 || inventory.hasPro();
       float alpha =
           ResourcesCompat.getFloat(

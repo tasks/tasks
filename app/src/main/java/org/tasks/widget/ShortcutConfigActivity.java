@@ -10,7 +10,6 @@ import android.os.Parcelable;
 import android.view.View;
 import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -71,7 +70,7 @@ public class ShortcutConfigActivity extends ThemedInjectingAppCompatActivity
     ButterKnife.bind(this);
 
     toolbar.setTitle(R.string.FSA_label);
-    toolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_outline_save_24px));
+    toolbar.setNavigationIcon(getDrawable(R.drawable.ic_outline_save_24px));
     toolbar.setNavigationOnClickListener(v -> save());
 
     if (icicle == null) {

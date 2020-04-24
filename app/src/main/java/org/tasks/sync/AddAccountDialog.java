@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import org.tasks.R;
@@ -46,7 +45,7 @@ public class AddAccountDialog {
             icon.setImageDrawable(DrawableUtil.getWrapped(getContext(), icons[position]));
             if (position == 1) {
               DrawableCompat.setTint(
-                  icon.getDrawable(), ContextCompat.getColor(getContext(), R.color.icon_tint));
+                  icon.getDrawable(), getContext().getColor(R.color.icon_tint));
             }
             return view;
           }

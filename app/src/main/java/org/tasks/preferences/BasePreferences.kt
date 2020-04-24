@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -44,7 +43,7 @@ abstract class BasePreferences : ThemedInjectingAppCompatActivity(),
             }
         }
         toolbar.navigationIcon =
-            ContextCompat.getDrawable(this, R.drawable.ic_outline_arrow_back_24px)
+            getDrawable(R.drawable.ic_outline_arrow_back_24px)
         toolbar.setNavigationOnClickListener { onBackPressed() }
         toolbar.setOnMenuItemClickListener(this)
         themeColor.apply(toolbar)

@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import org.tasks.R
 import org.tasks.billing.Inventory
@@ -72,7 +71,7 @@ class ThemePickerDialog : InjectingDialogFragment() {
                     R.color.text_tertiary
                 }
                 val text: TextView = view.findViewById(R.id.text1)
-                text.setTextColor(ContextCompat.getColor(context, textColor))
+                text.setTextColor(context.getColor(textColor))
                 return view
             }
         }

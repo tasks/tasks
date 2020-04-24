@@ -5,7 +5,6 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import androidx.annotation.StringRes
-import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -48,7 +47,7 @@ abstract class InjectingPreferenceFragment : PreferenceFragmentCompat() {
     final override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(getPreferenceXml(), rootKey)
 
-        tintIcons(preferenceScreen, ContextCompat.getColor(requireContext(), R.color.icon_tint_with_alpha))
+        tintIcons(preferenceScreen, requireContext().getColor(R.color.icon_tint_with_alpha))
 
         setupPreferences(savedInstanceState)
     }

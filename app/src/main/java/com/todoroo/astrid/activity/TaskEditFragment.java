@@ -33,7 +33,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.appbar.AppBarLayout;
@@ -135,7 +134,7 @@ public final class TaskEditFragment extends InjectingFragment
     ThemeColor themeColor = arguments.getParcelable(EXTRA_THEME);
 
     Toolbar toolbar = binding.toolbar;
-    toolbar.setNavigationIcon(ContextCompat.getDrawable(context, R.drawable.ic_outline_save_24px));
+    toolbar.setNavigationIcon(context.getDrawable(R.drawable.ic_outline_save_24px));
     toolbar.setNavigationOnClickListener(v -> save());
 
     boolean backButtonSavesTask = preferences.backButtonSavesTask();

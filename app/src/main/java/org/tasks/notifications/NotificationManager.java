@@ -310,7 +310,7 @@ public class NotificationManager {
     snoozeIntent.putExtra(SnoozeActivity.EXTRA_TASK_IDS, taskIds);
     builder.addAction(
         R.drawable.ic_snooze_white_24dp,
-        context.getResources().getString(R.string.snooze_all),
+        context.getString(R.string.snooze_all),
         PendingIntent.getActivity(context, 0, snoozeIntent, PendingIntent.FLAG_CANCEL_CURRENT));
 
     notify(NotificationManager.SUMMARY_NOTIFICATION_ID, builder, notify, nonStop, fiveTimes);
@@ -407,7 +407,7 @@ public class NotificationManager {
     NotificationCompat.Action completeAction =
         new NotificationCompat.Action.Builder(
                 R.drawable.ic_check_white_24dp,
-                context.getResources().getString(R.string.rmd_NoA_done),
+                context.getString(R.string.rmd_NoA_done),
                 completePendingIntent)
             .build();
 
@@ -443,7 +443,7 @@ public class NotificationManager {
         .addAction(completeAction)
         .addAction(
             R.drawable.ic_snooze_white_24dp,
-            context.getResources().getString(R.string.rmd_NoA_snooze),
+            context.getString(R.string.rmd_NoA_snooze),
             snoozePendingIntent)
         .extend(wearableExtender);
   }

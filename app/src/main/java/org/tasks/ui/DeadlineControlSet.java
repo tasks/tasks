@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import butterknife.BindView;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -165,7 +164,7 @@ public class DeadlineControlSet extends TaskEditControlFragment {
 
   private void setTextColor(boolean overdue) {
     dueDate.setTextColor(
-        ContextCompat.getColor(context, overdue ? R.color.overdue : R.color.text_primary));
+        context.getColor(overdue ? R.color.overdue : R.color.text_primary));
   }
 
   public interface DueDateChangeListener {

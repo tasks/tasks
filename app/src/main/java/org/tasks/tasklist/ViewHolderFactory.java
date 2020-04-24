@@ -1,6 +1,5 @@
 package org.tasks.tasklist;
 
-import static androidx.core.content.ContextCompat.getColor;
 import static com.todoroo.andlib.utility.AndroidUtilities.convertDpToPixels;
 import static org.tasks.preferences.ResourceResolver.getData;
 import static org.tasks.preferences.ResourceResolver.getResourceId;
@@ -50,7 +49,7 @@ public class ViewHolderFactory {
     this.preferences = preferences;
     this.linkify = linkify;
     textColorSecondary = getData(context, android.R.attr.textColorSecondary);
-    textColorOverdue = getColor(context, R.color.overdue);
+    textColorOverdue = context.getColor(R.color.overdue);
     background = getResourceId(context, R.attr.selectableItemBackground);
     selectedColor = getData(context, R.attr.colorControlHighlight);
     fontSize = preferences.getFontSize();

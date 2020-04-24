@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import at.bitfire.dav4jvm.exception.HttpException;
 import butterknife.ButterKnife;
@@ -70,7 +69,7 @@ public class EncryptionSettingsActivity extends ThemedInjectingAppCompatActivity
     Toolbar toolbar = binding.toolbar.toolbar;
     toolbar.setTitle(
         caldavAccount == null ? getString(R.string.add_account) : caldavAccount.getName());
-    toolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_outline_save_24px));
+    toolbar.setNavigationIcon(getDrawable(R.drawable.ic_outline_save_24px));
     toolbar.setNavigationOnClickListener(v -> save());
     toolbar.inflateMenu(R.menu.menu_etesync_encryption_settings);
     toolbar.setOnMenuItemClickListener(this);
@@ -177,11 +176,11 @@ public class EncryptionSettingsActivity extends ThemedInjectingAppCompatActivity
   private Snackbar newSnackbar(String message) {
     Snackbar snackbar =
         Snackbar.make(binding.rootLayout, message, 8000)
-            .setTextColor(ContextCompat.getColor(this, R.color.snackbar_text_color))
-            .setActionTextColor(ContextCompat.getColor(this, R.color.snackbar_action_color));
+            .setTextColor(getColor(R.color.snackbar_text_color))
+            .setActionTextColor(getColor(R.color.snackbar_action_color));
     snackbar
         .getView()
-        .setBackgroundColor(ContextCompat.getColor(this, R.color.snackbar_background));
+        .setBackgroundColor(getColor(R.color.snackbar_background));
     return snackbar;
   }
 

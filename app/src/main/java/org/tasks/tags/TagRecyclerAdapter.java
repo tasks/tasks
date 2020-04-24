@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.AsyncListDiffer;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
@@ -67,7 +66,7 @@ class TagRecyclerAdapter extends RecyclerView.Adapter<TagPickerViewHolder> {
         return themeColor.getPrimaryColor();
       }
     }
-    return ContextCompat.getColor(context, R.color.icon_tint_with_alpha);
+    return context.getColor(R.color.icon_tint_with_alpha);
   }
 
   private @Nullable Integer getIcon(TagData tagData) {

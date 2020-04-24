@@ -18,7 +18,6 @@ import android.view.View;
 import androidx.annotation.ColorInt;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
 import androidx.core.os.ParcelCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -186,11 +185,11 @@ public class ThemeColor implements Pickable {
     double contrast = ColorUtils.calculateContrast(WHITE, colorPrimary);
     isDark = contrast < 3;
     if (isDark) {
-      colorOnPrimary = context.getResources().getColor(R.color.black_87);
-      hintOnPrimary = context.getResources().getColor(R.color.black_60);
+      colorOnPrimary = context.getColor(R.color.black_87);
+      hintOnPrimary = context.getColor(R.color.black_60);
     } else {
       colorOnPrimary = WHITE;
-      hintOnPrimary = context.getResources().getColor(R.color.white_60);
+      hintOnPrimary = context.getColor(R.color.white_60);
     }
   }
 
@@ -204,7 +203,7 @@ public class ThemeColor implements Pickable {
   }
 
   public static ThemeColor getLauncherColor(Context context, int index) {
-    return new ThemeColor(context, ContextCompat.getColor(context, LAUNCHER_COLORS[index]));
+    return new ThemeColor(context, context.getColor(LAUNCHER_COLORS[index]));
   }
 
   private static void colorMenu(Menu menu, int color) {

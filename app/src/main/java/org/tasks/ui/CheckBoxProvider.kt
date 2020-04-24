@@ -5,7 +5,6 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import androidx.annotation.DrawableRes
-import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.todoroo.astrid.data.Task
 import org.tasks.R
@@ -34,7 +33,7 @@ class CheckBoxProvider @Inject constructor(@ForActivity private val context: Con
     }
 
     private fun getDrawable(@DrawableRes resId: Int, priority: Int): Drawable {
-        val original = ContextCompat.getDrawable(context, resId)
+        val original = context.getDrawable(resId)
         val wrapped = DrawableCompat.wrap(original!!.mutate())
         DrawableCompat.setTint(wrapped, colorProvider.getPriorityColor(priority))
         return wrapped

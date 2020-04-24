@@ -1,7 +1,5 @@
 package org.tasks.widget;
 
-import static androidx.core.content.ContextCompat.getColor;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -10,7 +8,6 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
-import androidx.core.content.ContextCompat;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
@@ -171,7 +168,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         row.setViewVisibility(R.id.widget_due_bottom, View.GONE);
         row.setViewVisibility(R.id.widget_due_end, View.GONE);
         if (task.hasDueDate() && task.isOverdue()) {
-          textColorTitle = getColor(context, R.color.overdue);
+          textColorTitle = context.getColor(R.color.overdue);
         }
       }
       if (showFullTaskTitle) {
@@ -281,7 +278,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
               context, task.getDueDate(), locale.getLocale(), FormatStyle.MEDIUM));
       row.setTextColor(
           dueDateRes,
-          task.isOverdue() ? getColor(context, R.color.overdue) : textColorSecondary);
+          task.isOverdue() ? context.getColor(R.color.overdue) : textColorSecondary);
       row.setFloat(dueDateRes, "setTextSize", dueDateTextSize);
       if (handleDueDateClick) {
         row.setOnClickFillInIntent(
@@ -306,9 +303,9 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     showFullDescription = widgetPreferences.showFullDescription();
     isDark = widgetPreferences.getThemeIndex() > 0;
     textColorPrimary =
-        ContextCompat.getColor(context, isDark ? R.color.white_87 : R.color.black_87);
+        context.getColor(isDark ? R.color.white_87 : R.color.black_87);
     textColorSecondary =
-        ContextCompat.getColor(context, isDark ? R.color.white_60 : R.color.black_60);
+        context.getColor(isDark ? R.color.white_60 : R.color.black_60);
     int dueDatePosition = widgetPreferences.getDueDatePosition();
     showDueDates = dueDatePosition != 2;
     endDueDate = dueDatePosition != 1;
