@@ -599,4 +599,19 @@
     <string name="custom_filter_or">OF</string>
     <string name="custom_filter_and">EN</string>
     <string name="custom_filter_criteria">Filter criteria</string>
+    <string name="filter_eisenhower_box_4">Eisenhower box 4</string>
+    <string name="filter_eisenhower_box_3">Eisenhower box 3</string>
+    <string name="filter_eisenhower_box_2">Eisenhower box 2</string>
+    <string name="filter_eisenhower_box_1">Eisenhower box 1</string>
+    <string name="filter_no_priority">Geen prioriteit</string>
+    <string name="filter_low_priority">Lage prioriteit</string>
+    <string name="filter_medium_priority">Gemiddelde prioriteit</string>
+    <string name="filter_high_priority">Hoge prioriteit</string>
+    <string name="add_filter">Voeg filter toe</string>
+    <string name="add_tags">Voeg label toe</string>
+    <string name="filter_no_tags">Zonder label</string>
+    <string name="filter_after_today">Na vandaag</string>
+    <string name="filter_any_due_date">Alle eindtijden</string>
+    <string name="filter_today_only">Alleen vandaag</string>
+    <string name="filter_overdue">Te laat</string>
 </resources>
