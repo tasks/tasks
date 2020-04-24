@@ -18,15 +18,12 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.todoroo.andlib.utility.AndroidUtilities
-import com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import org.tasks.R
 import org.tasks.databinding.DialogDateTimePickerBinding
 import org.tasks.date.DateTimeUtils.newDateTime
-import org.tasks.dialogs.MyDatePickerDialog.newDatePicker
 import org.tasks.dialogs.MyTimePickerDialog.newTimePicker
 import org.tasks.injection.DialogFragmentComponent
 import org.tasks.injection.InjectingBottomSheetDialogFragment
@@ -70,9 +67,7 @@ class DateTimePicker : InjectingBottomSheetDialogFragment() {
         private const val EXTRA_AUTO_CLOSE = "extra_auto_close"
         private const val EXTRA_SELECTED = "extra_selected"
         private const val REQUEST_TIME = 10101
-        private const val REQUEST_DATE = 10102
         private const val FRAG_TAG_TIME_PICKER = "frag_tag_time_picker"
-        private const val FRAG_TAG_DATE_PICKER = "frag_tag_date_picker"
 
         fun newDateTimePicker(task: Long, current: Long, autoClose: Boolean): DateTimePicker {
             val bundle = Bundle()
@@ -97,9 +92,6 @@ class DateTimePicker : InjectingBottomSheetDialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DialogDateTimePickerBinding.inflate(theme.getLayoutInflater(context))
-        if (AndroidUtilities.preMarshmallow()) {
-            binding.shortcuts.pickDateButton.visibility = View.VISIBLE
-        }
         morning = preferences.dateShortcutMorning + 1000
         afternoon = preferences.dateShortcutAfternoon + 1000
         evening = preferences.dateShortcutEvening + 1000
@@ -111,17 +103,15 @@ class DateTimePicker : InjectingBottomSheetDialogFragment() {
         ButterKnife.bind(this, binding.root)
         binding.shortcuts.nextWeekButton.text =
                 getString(R.string.next, DateUtilities.getWeekdayShort(newDateTime().plusWeeks(1), locale.locale))
-        if (atLeastMarshmallow()) {
-            binding.calendarView.setOnDateChangeListener { _, y, m, d ->
-                selected = DateTime(y, m + 1, d, selected?.hourOfDay ?: 0, selected?.minuteOfHour
-                        ?: 0, selected?.secondOfMinute ?: 0)
-                returnDate(selected!!.millis)
-                refreshButtons()
-            }
-            val firstDayOfWeek = preferences.firstDayOfWeek
-            if (firstDayOfWeek in 1..7) {
-                binding.calendarView.firstDayOfWeek = firstDayOfWeek
-            }
+        binding.calendarView.setOnDateChangeListener { _, y, m, d ->
+            selected = DateTime(y, m + 1, d, selected?.hourOfDay ?: 0, selected?.minuteOfHour
+                    ?: 0, selected?.secondOfMinute ?: 0)
+            returnDate(selected!!.millis)
+            refreshButtons()
+        }
+        val firstDayOfWeek = preferences.firstDayOfWeek
+        if (firstDayOfWeek in 1..7) {
+            binding.calendarView.firstDayOfWeek = firstDayOfWeek
         }
         val timestamp = savedInstanceState?.getLong(EXTRA_SELECTED)
                 ?: requireArguments().getLong(EXTRA_TIMESTAMP)
@@ -176,7 +166,7 @@ class DateTimePicker : InjectingBottomSheetDialogFragment() {
         } else {
             binding.shortcuts.timeGroup.check(R.id.no_time)
         }
-        if (atLeastMarshmallow() && selected != null) {
+        if (selected != null) {
             binding.calendarView.setDate(selected!!.millis, true, true)
         }
     }
@@ -218,12 +208,6 @@ class DateTimePicker : InjectingBottomSheetDialogFragment() {
     fun pickTime() {
         newTimePicker(this, REQUEST_TIME, selected?.millis ?: today.noon().millis)
                 .show(parentFragmentManager, FRAG_TAG_TIME_PICKER)
-    }
-
-    @OnClick(R.id.pick_date_button)
-    fun pickDate() {
-        newDatePicker(this, REQUEST_DATE, selected?.millis ?: today.millis)
-                .show(parentFragmentManager, FRAG_TAG_DATE_PICKER)
     }
 
     private fun returnSelectedTime(millisOfDay: Int) {
@@ -333,13 +317,6 @@ class DateTimePicker : InjectingBottomSheetDialogFragment() {
             if (resultCode == RESULT_OK) {
                 val timestamp = data!!.getLongExtra(MyTimePickerDialog.EXTRA_TIMESTAMP, today.millis)
                 returnSelectedTime(newDateTime(timestamp).millisOfDay + 1000)
-            } else {
-                refreshButtons()
-            }
-        } else if (requestCode == REQUEST_DATE) {
-            if (resultCode == RESULT_OK) {
-                val timestamp = data!!.getLongExtra(MyDatePickerDialog.EXTRA_TIMESTAMP, today.millis)
-                returnDate(timestamp)
             } else {
                 refreshButtons()
             }

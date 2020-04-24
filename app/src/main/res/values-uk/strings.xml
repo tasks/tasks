@@ -559,7 +559,6 @@
     <string name="calendar_event_created">В календарі створено подію для %s</string>
     <string name="auto_dismiss_datetime_summary">Закривати вибір дати та часу після встановлення дати чи часу</string>
     <string name="auto_dismiss_datetime">Автоматично закривати вибір дати та часу</string>
-    <string name="shortcut_pick_date">Оберіть дату</string>
     <string name="shortcut_pick_time">Оберіть час</string>
     <string name="no_time">Без часу</string>
     <string name="no_date">Без дати</string>

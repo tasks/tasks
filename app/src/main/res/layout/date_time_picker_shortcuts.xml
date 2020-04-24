@@ -52,24 +52,13 @@
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/tomorrow_button" />
         <com.google.android.material.button.MaterialButton
-          android:id="@+id/pick_date_button"
-          style="@style/DateTimeShortcuts"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="@string/shortcut_pick_date"
-          android:visibility="gone"
-          app:icon="@drawable/ic_outline_today_24px"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/next_week_button" />
-        <com.google.android.material.button.MaterialButton
           android:id="@+id/no_date_button"
           style="@style/DateTimeShortcuts"
           android:text="@string/no_date"
           app:icon="@drawable/ic_outline_not_interested_24px"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/pick_date_button" />
+          app:layout_constraintTop_toBottomOf="@+id/next_week_button" />
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
     <androidx.constraintlayout.widget.Guideline

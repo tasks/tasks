@@ -29,10 +29,11 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.GCMParameterSpec;
 import javax.inject.Inject;
+import org.tasks.injection.ApplicationScope;
 import timber.log.Timber;
 
-@RequiresApi(api = VERSION_CODES.M)
-public class KeyStoreEncryption implements Encryption {
+@ApplicationScope
+public class KeyStoreEncryption {
 
   private static final String ANDROID_KEYSTORE = "AndroidKeyStore";
   private static final String ALIAS = "passwords";
@@ -52,7 +53,6 @@ public class KeyStoreEncryption implements Encryption {
     }
   }
 
-  @Override
   public String encrypt(String text) {
     byte[] iv = new byte[GCM_IV_LENGTH];
     new SecureRandom().nextBytes(iv);
@@ -69,7 +69,6 @@ public class KeyStoreEncryption implements Encryption {
     }
   }
 
-  @Override
   public String decrypt(String text) {
     if (Strings.isNullOrEmpty(text)) {
       return null;

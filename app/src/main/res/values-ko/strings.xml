@@ -528,7 +528,6 @@
     <string name="select_all">모두 선택</string>
     <string name="no_time">마감시간 없음</string>
     <string name="no_date">마감일 없음</string>
-    <string name="shortcut_pick_date">날짜 선택</string>
     <string name="shortcut_pick_time">시간 선택</string>
     <string name="chip_appearance_icon_only">아이콘만</string>
     <string name="chip_appearance_text_only">글자만</string>

@@ -1,7 +1,5 @@
 package org.tasks.scheduling;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
-
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -23,11 +21,7 @@ public class AlarmManager {
 
   @SuppressLint("NewApi")
   public void wakeup(long time, PendingIntent pendingIntent) {
-    if (atLeastMarshmallow()) {
-      alarmManager.setExactAndAllowWhileIdle(
-          android.app.AlarmManager.RTC_WAKEUP, time, pendingIntent);
-    } else {
-      alarmManager.setExact(android.app.AlarmManager.RTC_WAKEUP, time, pendingIntent);
-    }
+    alarmManager.setExactAndAllowWhileIdle(
+        android.app.AlarmManager.RTC_WAKEUP, time, pendingIntent);
   }
 }

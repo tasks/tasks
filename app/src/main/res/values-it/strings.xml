@@ -488,7 +488,6 @@
     <string name="calendar_event_created">Creato evento nel calendario per %s</string>
     <string name="auto_dismiss_datetime_summary">Chiudi selezionatore data e ora dopo averne selezionato una</string>
     <string name="auto_dismiss_datetime">Chiudi automaticamente selezionatore data e ora</string>
-    <string name="shortcut_pick_date">Scegli una data</string>
     <string name="shortcut_pick_time">Scegli un\'ora</string>
     <string name="no_time">Senza ora</string>
     <string name="no_date">Senza data</string>

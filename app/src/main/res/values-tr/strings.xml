@@ -567,7 +567,6 @@
     <string name="shortcut_pick_time">Zaman seç</string>
     <string name="no_time">Zaman yok</string>
     <string name="calendar_event_created">%s için takvim olayı oluşturuldu</string>
-    <string name="shortcut_pick_date">Tarih seç</string>
     <string name="no_date">Tarih yok</string>
     <string name="chip_appearance_icon_only">Yalnızca simge</string>
     <string name="chip_appearance_text_only">Yalnızca metin</string>

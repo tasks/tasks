@@ -22,8 +22,7 @@
           android:id="@+id/calendar_view"
           android:layout_below="@id/shortcuts"
           android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:visibility="@integer/calendar_view_visible"/>
+          android:layout_height="wrap_content"/>
 
     </RelativeLayout>
 

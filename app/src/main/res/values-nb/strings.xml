@@ -556,7 +556,6 @@
     <string name="custom_filter_or">ELLER</string>
     <string name="custom_filter_and">OG</string>
     <string name="auto_dismiss_datetime_widget">Miniprogram</string>
-    <string name="shortcut_pick_date">Velg dato</string>
     <string name="shortcut_pick_time">Velg tidspunkt</string>
     <string name="no_time">Ingen tid</string>
     <string name="no_date">Ingen dato</string>

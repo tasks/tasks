@@ -586,7 +586,6 @@ File %1$s contained %2$s.\n\n
   <string name="no_date">No date</string>
   <string name="no_time">No time</string>
   <string name="shortcut_pick_time">Pick time</string>
-  <string name="shortcut_pick_date">Pick date</string>
   <string name="auto_dismiss_datetime">Autoclose date time picker</string>
   <string name="auto_dismiss_datetime_list">Task list</string>
   <string name="auto_dismiss_datetime_list_summary">Autoclose when picking from task list</string>

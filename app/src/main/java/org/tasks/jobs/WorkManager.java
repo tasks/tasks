@@ -1,6 +1,5 @@
 package org.tasks.jobs;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
 import static com.todoroo.andlib.utility.DateUtilities.now;
 import static io.reactivex.Single.just;
@@ -200,11 +199,7 @@ public class WorkManager {
       }
     } else {
       PendingIntent pendingIntent = getNotificationPendingIntent();
-      if (atLeastMarshmallow()) {
-        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, time, pendingIntent);
-      } else {
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, time, pendingIntent);
-      }
+      alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, time, pendingIntent);
     }
   }
 

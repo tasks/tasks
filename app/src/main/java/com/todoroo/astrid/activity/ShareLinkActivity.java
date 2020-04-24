@@ -3,7 +3,6 @@ package com.todoroo.astrid.activity;
 import static android.content.Intent.ACTION_SEND;
 import static android.content.Intent.ACTION_SEND_MULTIPLE;
 import static com.google.common.collect.Lists.newArrayList;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
 import static org.tasks.files.FileHelper.copyToUri;
 import static org.tasks.files.FileHelper.getFilename;
 import static org.tasks.intents.TaskIntents.getTaskListIntent;
@@ -68,7 +67,7 @@ public final class ShareLinkActivity extends InjectingAppCompatActivity {
     Intent intent = getIntent();
     String action = intent.getAction();
 
-    if (atLeastMarshmallow() && Intent.ACTION_PROCESS_TEXT.equals(action)) {
+    if (Intent.ACTION_PROCESS_TEXT.equals(action)) {
       CharSequence text = intent.getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT);
       if (text != null) {
         Task task = taskCreator.createWithValues(text.toString());

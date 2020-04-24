@@ -28,7 +28,7 @@ import org.tasks.data.CaldavAccount;
 import org.tasks.databinding.ActivityEtesyncEncryptionSettingsBinding;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
-import org.tasks.security.Encryption;
+import org.tasks.security.KeyStoreEncryption;
 import org.tasks.ui.DisplayableException;
 import timber.log.Timber;
 
@@ -40,7 +40,7 @@ public class EncryptionSettingsActivity extends ThemedInjectingAppCompatActivity
   public static final String EXTRA_DERIVED_KEY = "extra_derived_key";
 
   @Inject EteSyncClient client;
-  @Inject Encryption encryption;
+  @Inject KeyStoreEncryption encryption;
 
   private ActivityEtesyncEncryptionSettingsBinding binding;
   private UserInfo userInfo;

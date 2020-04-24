@@ -12,7 +12,6 @@ import android.speech.tts.TextToSpeech
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.todoroo.andlib.utility.AndroidUtilities
-import com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.voice.VoiceOutputAssistant
 import org.tasks.LocalBroadcastManager
@@ -143,11 +142,9 @@ class Notifications : InjectingPreferenceFragment() {
     }
 
     private fun checkBatteryOptimizations() {
-        if (atLeastMarshmallow()) {
-            val powerManager = requireContext().getSystemService(POWER_SERVICE) as PowerManager
-            findPreference(R.string.disable_battery_optimizations).isVisible =
-                !powerManager.isIgnoringBatteryOptimizations(getString(R.string.app_package))
-        }
+        val powerManager = requireContext().getSystemService(POWER_SERVICE) as PowerManager
+        findPreference(R.string.disable_battery_optimizations).isVisible =
+            !powerManager.isIgnoringBatteryOptimizations(getString(R.string.app_package))
     }
 
     override fun onDestroy() {

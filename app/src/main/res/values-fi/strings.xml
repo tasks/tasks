@@ -414,7 +414,6 @@
     <string name="calendar_event_created">Kalenterimerkintä luotu %s varten</string>
     <string name="auto_dismiss_datetime_summary">Päivämäärän ja kellonajan valitsimet sulkeutuvat itsestään valittuasi aika</string>
     <string name="auto_dismiss_datetime">Sulje päivän ja ajan valitsin itsestään</string>
-    <string name="shortcut_pick_date">Aseta päivämäärä</string>
     <string name="shortcut_pick_time">Aseta kellonaika</string>
     <string name="no_time">Ei kellonaikaa</string>
     <string name="no_date">Ei päivämäärää</string>

@@ -555,7 +555,6 @@
     <string name="add_place">添加地点</string>
     <string name="auto_dismiss_datetime_summary">在选择一个日期或时间后关闭日期时间选择器</string>
     <string name="auto_dismiss_datetime">自动关闭日期时间选择器</string>
-    <string name="shortcut_pick_date">挑选日期</string>
     <string name="shortcut_pick_time">挑选时间</string>
     <string name="no_time">无时间</string>
     <string name="no_date">无日期</string>

@@ -36,7 +36,7 @@ import org.tasks.data.CaldavDao;
 import org.tasks.databinding.ActivityCaldavAccountSettingsBinding;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
-import org.tasks.security.Encryption;
+import org.tasks.security.KeyStoreEncryption;
 import org.tasks.ui.DisplayableException;
 import timber.log.Timber;
 
@@ -46,7 +46,7 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
   public static final String EXTRA_CALDAV_DATA = "caldavData"; // $NON-NLS-1$
   protected static final String PASSWORD_MASK = "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022";
   @Inject protected CaldavDao caldavDao;
-  @Inject protected Encryption encryption;
+  @Inject protected KeyStoreEncryption encryption;
   @Inject DialogBuilder dialogBuilder;
   @Inject TaskDeleter taskDeleter;
   @Inject Inventory inventory;

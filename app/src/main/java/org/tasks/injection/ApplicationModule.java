@@ -1,7 +1,5 @@
 package org.tasks.injection;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
-
 import android.content.Context;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao;
@@ -28,9 +26,6 @@ import org.tasks.locale.Locale;
 import org.tasks.location.Geocoder;
 import org.tasks.location.MapboxGeocoder;
 import org.tasks.notifications.NotificationDao;
-import org.tasks.security.Encryption;
-import org.tasks.security.KeyStoreEncryption;
-import org.tasks.security.NoEncryption;
 
 @Module
 class ApplicationModule {
@@ -136,12 +131,6 @@ class ApplicationModule {
   @ApplicationScope
   DeletionDao getDeletionDao(Database database) {
     return database.getDeletionDao();
-  }
-
-  @Provides
-  @ApplicationScope
-  public Encryption getEncryption() {
-    return atLeastMarshmallow() ? new KeyStoreEncryption() : new NoEncryption();
   }
 
   @Provides

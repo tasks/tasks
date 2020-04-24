@@ -45,7 +45,7 @@ import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
-import org.tasks.security.Encryption;
+import org.tasks.security.KeyStoreEncryption;
 import org.tasks.ui.DisplayableException;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -54,7 +54,7 @@ import timber.log.Timber;
 
 public class CaldavClient {
 
-  private final Encryption encryption;
+  private final KeyStoreEncryption encryption;
   private final Preferences preferences;
   private final DebugNetworkInterceptor interceptor;
   private final OkHttpClient httpClient;
@@ -66,7 +66,7 @@ public class CaldavClient {
   @Inject
   CaldavClient(
       @ForApplication Context context,
-      Encryption encryption,
+      KeyStoreEncryption encryption,
       Preferences preferences,
       DebugNetworkInterceptor interceptor) {
     this.context = context;
@@ -80,7 +80,7 @@ public class CaldavClient {
 
   private CaldavClient(
       Context context,
-      Encryption encryption,
+      KeyStoreEncryption encryption,
       Preferences preferences,
       DebugNetworkInterceptor interceptor,
       String url,

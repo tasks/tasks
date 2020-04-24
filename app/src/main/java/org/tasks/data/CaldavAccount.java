@@ -9,7 +9,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
-import org.tasks.security.Encryption;
+import org.tasks.security.KeyStoreEncryption;
 
 @Entity(tableName = "caldav_accounts")
 public class CaldavAccount implements Parcelable {
@@ -129,7 +129,7 @@ public class CaldavAccount implements Parcelable {
     this.password = password;
   }
 
-  public String getPassword(Encryption encryption) {
+  public String getPassword(KeyStoreEncryption encryption) {
     return encryption.decrypt(password);
   }
 
@@ -141,7 +141,7 @@ public class CaldavAccount implements Parcelable {
     this.encryptionKey = encryptionKey;
   }
 
-  public String getEncryptionPassword(Encryption encryption) {
+  public String getEncryptionPassword(KeyStoreEncryption encryption) {
     return encryption.decrypt(encryptionKey);
   }
 

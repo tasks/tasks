@@ -46,7 +46,7 @@ import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
-import org.tasks.security.Encryption;
+import org.tasks.security.KeyStoreEncryption;
 import timber.log.Timber;
 
 public class EteSyncClient {
@@ -55,7 +55,7 @@ public class EteSyncClient {
   private static final int MAX_FETCH = 50;
   private static final int MAX_PUSH = 30;
 
-  private final Encryption encryption;
+  private final KeyStoreEncryption encryption;
   private final Preferences preferences;
   private final DebugNetworkInterceptor interceptor;
   private final String username;
@@ -70,7 +70,7 @@ public class EteSyncClient {
   @Inject
   public EteSyncClient(
       @ForApplication Context context,
-      Encryption encryption,
+      KeyStoreEncryption encryption,
       Preferences preferences,
       DebugNetworkInterceptor interceptor) {
     this.context = context;
@@ -87,7 +87,7 @@ public class EteSyncClient {
 
   private EteSyncClient(
       Context context,
-      Encryption encryption,
+      KeyStoreEncryption encryption,
       Preferences preferences,
       DebugNetworkInterceptor interceptor,
       String url,

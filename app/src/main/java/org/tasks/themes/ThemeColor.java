@@ -1,6 +1,5 @@
 package org.tasks.themes;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
 
 import android.app.Activity;
@@ -247,10 +246,8 @@ public class ThemeColor implements Pickable {
 
   public void setStatusBarColor(DrawerLayout drawerLayout) {
     drawerLayout.setStatusBarBackgroundColor(colorPrimaryVariant);
-    if (atLeastMarshmallow()) {
-      int systemUiVisibility = applyLightStatusBarFlag(drawerLayout.getSystemUiVisibility());
-      drawerLayout.setSystemUiVisibility(systemUiVisibility);
-    }
+    int systemUiVisibility = applyLightStatusBarFlag(drawerLayout.getSystemUiVisibility());
+    drawerLayout.setSystemUiVisibility(systemUiVisibility);
   }
 
   public void setStatusBarColor(CollapsingToolbarLayout layout) {
@@ -268,11 +265,9 @@ public class ThemeColor implements Pickable {
   }
 
   public void applyToStatusBarIcons(Activity activity) {
-    if (atLeastMarshmallow()) {
-      View decorView = activity.getWindow().getDecorView();
-      int systemUiVisibility = applyLightStatusBarFlag(decorView.getSystemUiVisibility());
-      decorView.setSystemUiVisibility(systemUiVisibility);
-    }
+    View decorView = activity.getWindow().getDecorView();
+    int systemUiVisibility = applyLightStatusBarFlag(decorView.getSystemUiVisibility());
+    decorView.setSystemUiVisibility(systemUiVisibility);
   }
 
   public void applyToNavigationBar(Activity activity) {
@@ -285,7 +280,6 @@ public class ThemeColor implements Pickable {
     }
   }
 
-  @RequiresApi(api = VERSION_CODES.M)
   private int applyLightStatusBarFlag(int flag) {
     return isDark
         ? flag | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
