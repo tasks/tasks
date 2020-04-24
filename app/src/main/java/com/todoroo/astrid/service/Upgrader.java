@@ -51,7 +51,6 @@ import org.tasks.widget.WidgetPreferences;
 
 public class Upgrader {
 
-  private static final int V4_8_0 = 380;
   private static final int V4_9_5 = 434;
   private static final int V5_3_0 = 491;
   private static final int V6_0_beta_1 = 522;
@@ -67,7 +66,6 @@ public class Upgrader {
   private static final int V8_10 = 735;
   private final Context context;
   private final Preferences preferences;
-  private final Tracker tracker;
   private final TagDataDao tagDataDao;
   private final TagDao tagDao;
   private final FilterDao filterDao;
@@ -85,7 +83,6 @@ public class Upgrader {
   public Upgrader(
       @ForApplication Context context,
       Preferences preferences,
-      Tracker tracker,
       TagDataDao tagDataDao,
       TagDao tagDao,
       FilterDao filterDao,
@@ -100,7 +97,6 @@ public class Upgrader {
       AppWidgetManager widgetManager) {
     this.context = context;
     this.preferences = preferences;
-    this.tracker = tracker;
     this.tagDataDao = tagDataDao;
     this.tagDao = tagDao;
     this.filterDao = filterDao;
@@ -117,7 +113,6 @@ public class Upgrader {
 
   public void upgrade(int from, int to) {
     if (from > 0) {
-      run(from, V4_8_0, this::performMarshmallowMigration);
       run(from, V4_9_5, this::removeDuplicateTags);
       run(from, V5_3_0, this::migrateFilters);
       run(from, V6_0_beta_1, this::migrateDefaultSyncList);
@@ -263,23 +258,6 @@ public class Upgrader {
       }
     }
     batch(tasksWithTags, taskDao::touch);
-  }
-
-  private void performMarshmallowMigration() {
-    try {
-      // preserve pre-marshmallow default backup location
-      if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-        if (!preferences.isStringValueSet(R.string.p_backup_dir)) {
-          String directory = String.format("%s/astrid", Environment.getExternalStorageDirectory());
-          File file = new File(directory);
-          if (file.exists() && file.isDirectory()) {
-            preferences.setString(R.string.p_backup_dir, directory);
-          }
-        }
-      }
-    } catch (Exception e) {
-      tracker.reportException(e);
-    }
   }
 
   private void removeDuplicateTags() {
