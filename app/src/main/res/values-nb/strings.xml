@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="backup_BPr_header">Sikkerhetskopier</string>
-    <string name="backup_BAc_import">Importer oppgaver</string>
-    <string name="backup_BAc_export">Eksporter oppgaver</string>
+    <string name="backup_BAc_import">Importer gjøremål</string>
+    <string name="backup_BAc_export">Eksporter gjøremål</string>
     <string name="export_toast">%1$s av %2$s sikkerhetskopiert.</string>
-    <string name="export_toast_no_tasks">Ingen oppgaver å eksportere.</string>
+    <string name="export_toast_no_tasks">Ingen gjøremål å eksportere.</string>
     <string name="import_summary_title">Gjennopprettingssammendrag</string>
     <string name="import_summary_message">Filen %1$s inneholder %2$s.
 \n
@@ -12,9 +12,9 @@
 \n %4$s finnes allerede
 \n %5$s inneholdt feil
 \n</string>
-    <string name="import_progress_read">Leser oppgave %d…</string>
+    <string name="import_progress_read">Leser gjøremål %d…</string>
     <string name="read_permission_label">Tasks-tillatelse</string>
-    <string name="DLG_delete_this_task_question">Slett denne oppgaven?</string>
+    <string name="DLG_delete_this_task_question">Slett dette gjøremålet\?</string>
     <string name="DLG_hour_minutes">Tid (timer : minutter)</string>
     <string name="WID_dateButtonUnset">Klikk for å sette</string>
     <string name="TLA_menu_sort">Sorter</string>
@@ -26,7 +26,7 @@
     <string name="SSD_sort_importance">Etter prioritet</string>
     <string name="SSD_sort_modified">Etter endringstidspunkt</string>
     <string name="FLA_search_filter">Jamfører med \'%s\'</string>
-    <string name="TEA_title_hint">Oppgavenavn</string>
+    <string name="TEA_title_hint">Gjøremålsnavn</string>
     <string name="TEA_importance_label">Prioritet</string>
     <string name="TEA_hideUntil_label">Skjul frem til</string>
     <string name="TEA_hideUntil_display">Skjul frem til: %s</string>
@@ -47,7 +47,7 @@
     <string name="EPr_default_hideUntil_title">Forvalgt skjuling til</string>
     <string name="EPr_default_reminders_title">Forvalgte påminnelser</string>
     <string name="dont_hide">Ikke skjul</string>
-    <string name="BFE_Active">Mine oppgaver</string>
+    <string name="BFE_Active">Mine gjøremål</string>
     <string name="BFE_Recent">Nylig endret</string>
     <string name="CFA_type_add">eller</string>
     <string name="CFA_type_intersect">også</string>
@@ -60,10 +60,10 @@
     <string name="CFC_importance_name">Prioritet…</string>
     <string name="CFC_title_contains_name">Tittel inneholder…</string>
     <string name="CFC_title_contains_text">Tittel inneholder: ?</string>
-    <string name="gcal_TEA_error">Klarte ikke å legge oppgave til i kalender.</string>
+    <string name="gcal_TEA_error">Klarte ikke å legge gjøremål til i kalender.</string>
     <string name="gcal_TEA_showCalendar_label">Åpne kalenderhendelse</string>
     <string name="gcal_completed_title">%s (fullført)</string>
-    <string name="CFC_gtasks_list_text">I liste: ?</string>
+    <string name="CFC_gtasks_list_text">I liste: \?</string>
     <string name="gtasks_GTA_clear_completed">Fjern fullførte</string>
     <string name="gtasks_GLA_errorIOAuth">Kunne ikke kommunisere med Google-tjenerne. Prøv igjen senere.</string>
     <string name="rmd_NoA_done">Utført</string>
@@ -104,18 +104,18 @@
     <string name="repeat_forever">Gjenta for alltid</string>
     <string name="repeat_until">Gjenta til %s</string>
     <string name="TPl_notification">Aktive tidtakere for %s.</string>
-    <string name="TFE_workingOn">Oppgaver med tidtaker</string>
+    <string name="TFE_workingOn">Gjøremål med tidtaker</string>
     <string name="TEA_timer_controls">Nedtelling</string>
-    <string name="TEA_timer_comment_started">startet denne oppgaven:</string>
+    <string name="TEA_timer_comment_started">startet dette gjøremålet:</string>
     <string name="TEA_timer_comment_spent">Tid brukt:</string>
-    <string name="voice_create_prompt">Snakk for å skape en oppgave</string>
+    <string name="voice_create_prompt">Snakk for å opprette et gjøremål</string>
     <string name="EPr_voiceInputEnabled_title">Taleinndata</string>
     <string name="EPr_voiceRemindersEnabled_title">Talepåminnelser</string>
-    <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks vil lese opp oppgaver ved påminnelse</string>
-    <string name="delete_task">Slett oppgave</string>
+    <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks vil lese opp gjøremål ved påminnelse</string>
+    <string name="delete_task">Slett gjøremål</string>
     <plurals name="Ntasks">
-        <item quantity="one">én oppgave</item>
-        <item quantity="other">%d oppgaver</item>
+        <item quantity="one">ett gjøremål</item>
+        <item quantity="other">%d gjøremål</item>
     </plurals>
     <string name="today">I dag</string>
     <string name="tomorrow">I morgen</string>
@@ -137,7 +137,7 @@
     <string name="tag_already_exists">Etiketten finnes allerede</string>
     <string name="opacity">Ugjennomsiktighet</string>
     <string name="language">Språk</string>
-    <string name="restart_required">Tasks må startes om for at endringene skal ta effekt</string>
+    <string name="restart_required">Start Tasks om igjen for å ta i bruk endringene</string>
     <string name="restart_now">Restart nå</string>
     <string name="restart_later">Senere</string>
     <string name="settings_localization">Lokalisering</string>
@@ -166,7 +166,7 @@
     <string name="discard_confirmation">Er du sikker på at du vil forkaste dine endringer\?</string>
     <string name="keep_editing">Fortsett å redigere</string>
     <string name="DLG_undo">Angre</string>
-    <string name="TLA_no_items">Det er ingen oppgaver her.</string>
+    <string name="TLA_no_items">Det er ingen gjøremål her.</string>
     <string name="TLA_menu_search">Søk</string>
     <string name="action_call">Ring</string>
     <string name="action_open">Åpne</string>
@@ -188,41 +188,41 @@
     <string name="TEA_load_more">Last inn mer…</string>
     <string name="CRA_ignore">Ignorer</string>
     <string name="CRA_title">Trenger du en møteliste\?</string>
-    <string name="CRA_ignore_body">Du har ignorert flere kalenderhendelser. Skal Tasks slutte å påminne deg om dem\?</string>
+    <string name="CRA_ignore_body">Du har ignorert flere kalenderhendelser. Skal Tasks slutte å minne deg om dem\?</string>
     <string name="CRA_ignore_all">Ignorer alle hendelser</string>
     <string name="CRA_ignore_this">Kun ignorer denne hendelsen</string>
     <string name="CRA_speech_bubble_start">Ser ut til at %s starter snart. Ønsker du å opprette en gjøremålsliste\?</string>
     <string name="CRA_speech_bubble_end">Ser ut til at du akkurat fullførte %s. Ønsker du å opprette en gjøremålsliste\?</string>
     <string name="CRA_postpone">Kanskje etterpå</string>
     <string name="CRA_calendar_reminders_pref_title">Kalenderassistent</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks påminner deg om kommende kalenderhendelser og formaner forberedelse</string>
+    <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks minner deg om kommende kalenderhendelser og formaner forberedelse</string>
     <string name="CRA_default_list_name">Gjøremål: %s</string>
     <string name="none">Ingen</string>
     <string name="EPr_filters_to_show_title">Filter å vise</string>
     <string name="EPr_edit_screen_options">Rediger skjermvalg</string>
     <string name="EPr_beastMode_reset">Tilbakestill til forvalg</string>
-    <string name="EPr_fullTask_title">Vis full oppgavetittel</string>
-    <string name="EPr_show_task_edit_comments">Vis kommentarer i oppgaveredigering</string>
+    <string name="EPr_fullTask_title">Vis full gjøremålstittel</string>
+    <string name="EPr_show_task_edit_comments">Vis kommentarer i gjøremålsredigering</string>
     <string name="task_list_options">Gjøremålslistevalg</string>
     <string name="EPr_cal_end_or_start_at_due_time">Kalenderhendelsestid</string>
     <string name="EPr_cal_end_at_due_time">Sluttfør kalenderhendelser ved tidsfrist</string>
     <string name="EPr_cal_start_at_due_time">Start kalenderhendelser ved tidsfrist</string>
-    <string name="EPr_manage_purge_deleted">Tøm slettede oppgaver</string>
-    <string name="EPr_manage_purge_deleted_message">Ønsker du virkelig å tømme alle dine slettede oppgaver\?
-\n
+    <string name="EPr_manage_purge_deleted">Tøm slettede gjøremål</string>
+    <string name="EPr_manage_purge_deleted_message">Ønsker du virkelig å fjerne alle dine slettede gjøremål\? 
+\n 
 \nDe vil bli slettet permanent.</string>
-    <string name="EPr_manage_purge_deleted_status">Fjernet %d oppgaver.</string>
+    <string name="EPr_manage_purge_deleted_status">Fjernet %d gjøremål.</string>
     <string name="EPr_reset_preferences">Tilbakestill innstillinger</string>
     <string name="EPr_reset_preferences_warning">Innstillinger tilbakestilt til forvalgte verdier</string>
-    <string name="EPr_delete_task_data">Slett oppgavedata</string>
-    <string name="EPr_delete_task_data_warning">Alle oppgaver vil bli slettet permanent</string>
-    <string name="EPr_manage_delete_completed_gcal">Slett kalenderhendelser for fullførte oppgaver</string>
-    <string name="EPr_manage_delete_completed_gcal_message">Ønsker du virkelig å slette alle dine hendelser for fullførte oppgaver\?</string>
+    <string name="EPr_delete_task_data">Slett gjøremålsdata</string>
+    <string name="EPr_delete_task_data_warning">Alle gjøremål vil bli slettet for godt</string>
+    <string name="EPr_manage_delete_completed_gcal">Slett kalenderhendelser for fullførte gjøremål</string>
+    <string name="EPr_manage_delete_completed_gcal_message">Ønsker du virkelig å slette alle dine hendelser for fullførte gjøremål\?</string>
     <string name="EPr_manage_delete_completed_gcal_status">Slettet %d kalenderhendelser.</string>
-    <string name="EPr_manage_delete_all_gcal">Slett alle kalenderhendelser for oppgaver</string>
-    <string name="EPr_manage_delete_all_gcal_message">Ønsker du virkelig å slette alle dine hendelser for oppgaver\?</string>
+    <string name="EPr_manage_delete_all_gcal">Slett alle kalenderhendelser for gjøremål</string>
+    <string name="EPr_manage_delete_all_gcal_message">Ønsker du virkelig å slette alle dine hendelser for gjøremål\?</string>
     <string name="EPr_manage_delete_all_gcal_status">Slettet %d kalenderhendelser.</string>
-    <string name="task_defaults">Oppgaveforvalg</string>
+    <string name="task_defaults">Gjøremålsforvalg</string>
     <string name="EPr_default_location_reminder_title">Forvalgte stedspåminnelser</string>
     <string name="EPr_default_location_radius">Forvalgt radius</string>
     <string name="EPr_default_reminders_mode_title">Forvalgt ringe/vibrasjonstype</string>
@@ -251,7 +251,7 @@
     <string name="CFC_caldav_list_name">I CalDAV-liste…</string>
     <string name="gtasks_GLA_authenticating">Identitetsbekrefter…</string>
     <string name="gtasks_GPr_header">Google Tasks</string>
-    <string name="gtasks_error_accountNotFound">Kontoen %s ble ikke funnet, logg ut og inn igjen fra Google Task-innstillingene.</string>
+    <string name="gtasks_error_accountNotFound">Kontoen %s ble ikke funnet, logg ut og inn igjen fra Google Tasks-innstillingene.</string>
     <string name="premium_record_audio">Spill inn en anmerkning</string>
     <string name="premium_remove_file_confirm">Er du sikker\? Kan ikke angres</string>
     <string name="audio_recording_title">Spiller inn lyd</string>
@@ -267,7 +267,7 @@
     <string name="random_reminder_two_months">om to måneder</string>
     <string name="snooze_all">Slumre alle</string>
     <string name="rmd_EPr_rmd_time_title">Forvalgt påminnelse</string>
-    <string name="rmd_EPr_rmd_time_desc">Merknader for oppgaver uten tidsfrister vil vises %s</string>
+    <string name="rmd_EPr_rmd_time_desc">Merknader for gjøremål uten tidsfrister vil vises %s</string>
     <string name="default_random_reminder_disabled">Avskrudd</string>
     <string name="default_random_reminder_hourly">Hver time</string>
     <string name="default_random_reminder_daily">Daglig</string>
@@ -289,8 +289,8 @@
     <string name="repeat_monthly">GJENTA MÅNEDLIG</string>
     <string name="repeat_yearly">GJENTA ÅRLIG</string>
     <plurals name="task_count">
-        <item quantity="one">%d oppgave</item>
-        <item quantity="other">%d oppgaver</item>
+        <item quantity="one">%d gjøremål</item>
+        <item quantity="other">%d gjøremål</item>
     </plurals>
     <plurals name="repeat_times">
         <item quantity="one">gang</item>
@@ -324,8 +324,8 @@
     <string name="new_tag">Opprett en ny etikett</string>
     <string name="new_list">Opprett en ny liste</string>
     <string name="delete_tag_confirmation">Slett %s\?</string>
-    <string name="TEA_timer_comment_stopped">stoppet arbeid med denne oppgaven:</string>
-    <string name="voice_command_added_task">La til oppgave</string>
+    <string name="TEA_timer_comment_stopped">stoppet arbeid med dette gjøremålet:</string>
+    <string name="voice_command_added_task">La til gjøremål</string>
     <string name="next">Neste %s</string>
     <string name="tmrw">Imrgn</string>
     <string name="yest">Igår</string>
@@ -388,7 +388,7 @@
     <string name="url_host_name_required">Vertsnavn kreves</string>
     <string name="url_invalid_scheme">Må begynne med http(s)://</string>
     <string name="no_title">(Ingen tittel)</string>
-    <string name="back_button_saves_task">Tilbakeknapp lagrer oppgave</string>
+    <string name="back_button_saves_task">Tilbakeknapp lagrer gjøremål</string>
     <string name="default_list">Forvalgt liste</string>
     <string name="default_sync">Forvalgt synkronisering</string>
     <string name="filter">Filter</string>
@@ -406,11 +406,11 @@
     <string name="widget_settings">Miniprogramsinnstillinger</string>
     <string name="widget_header_settings">Hodeinnstillinger</string>
     <string name="widget_row_settings">Radinnstillinger</string>
-    <string name="clear_completed_tasks_confirmation">Tøm fullførte oppgaver\?</string>
+    <string name="clear_completed_tasks_confirmation">Tøm fullførte gjøremål\?</string>
     <string name="copy_multiple_tasks_confirmation">%s kopiert</string>
     <string name="delete_multiple_tasks_confirmation">%s slettet</string>
-    <string name="delete_selected_tasks">Slett valgte oppgaver\?</string>
-    <string name="copy_selected_tasks">Kopier valget oppgaver\?</string>
+    <string name="delete_selected_tasks">Slett valgte gjøremål\?</string>
+    <string name="copy_selected_tasks">Kopier valgte gjøremål\?</string>
     <string name="date_and_time">Dato og tid</string>
     <string name="start_of_week">Ukestart</string>
     <string name="use_locale_default">Bruk forvalgt lokalitet</string>
@@ -428,7 +428,7 @@
     <string name="list_separator_with_space">", "</string>
     <string name="dont_add_to_calendar">Ikke legg til i kalender</string>
     <string name="default_calendar">Forvalgt kalender</string>
-    <string name="badges_description">Vis oppgaveantall i Task-oppstarterikonet. Ikke alle oppstartere støtter merker.</string>
+    <string name="badges_description">Vis gjøremålsantall i Task-oppstarterikonet. Ikke alle oppstartere støtter merker.</string>
     <string name="repeat_monthly_same_day_each_month">på samme dag hver måned</string>
     <string name="dont_sync">Ikke synkroniser</string>
     <string name="repeat_monthly_every_day_of_nth_week">hver %1$s %2$s</string>
@@ -438,7 +438,7 @@
     <string name="repeat_monthly_third_week">tredje</string>
     <string name="repeat_monthly_fourth_week">fjerde</string>
     <string name="repeat_monthly_last_week">siste</string>
-    <string name="tasker_create_task">Opprett oppgave</string>
+    <string name="tasker_create_task">Opprett gjøremål</string>
     <string name="tasker_list_notification">Listemerknad</string>
     <string name="help">Hjelp</string>
     <string name="caldav_home_set_not_found">Fant ikke CalDAV-\"home set\"</string>
@@ -457,7 +457,7 @@
     <string name="logout_warning">Logg ut av %s\? All data for denne kontoen vil bli fjernet fra din enhet.</string>
     <string name="cannot_access_account">Får ikke tilgang til konto</string>
     <string name="reinitialize_account">Last inn på ny</string>
-    <string name="action_create_new_task">Opprett ny oppgave</string>
+    <string name="action_create_new_task">Opprett nytt gjøremål</string>
     <string name="show_description">Vis beskrivelse</string>
     <string name="show_full_description">Vis full beskrivelse</string>
     <string name="linkify">Vis lenker</string>
@@ -483,7 +483,7 @@
     <string name="changelog">Endringslogg</string>
     <string name="version_string">Versjon %s</string>
     <string name="invalid_backup_file">Ugyldig sikkerhetskopifil</string>
-    <string name="google_tasks_add_to_top">Nye oppgaver øverst</string>
+    <string name="google_tasks_add_to_top">Nye gjøremål øverst</string>
     <string name="icon">Ikon</string>
     <string name="manage_subscription_summary">Oppgrader, nedgrader eller avbryt ditt abonnement</string>
     <string name="button_current_subscription">Nåværende abonnement</string>
@@ -501,17 +501,17 @@
     <string name="EPr_temp_completed_tasks_showing">Gjøremål vil midlertidig forbli synlige i listen etter fullførelse</string>
     <string name="EPr_temp_completed_tasks_not_showing">Gjøremål vil fjernes umiddelbart fra listen etter fullførelse</string>
     <plurals name="subtask_count">
-        <item quantity="one">%d underoppgave</item>
-        <item quantity="other">%d underoppgaver</item>
+        <item quantity="one">%d gjøremålssteg</item>
+        <item quantity="other">%d gjøremålssteg</item>
     </plurals>
-    <string name="expand_subtasks">Utvid underoppgaver</string>
-    <string name="collapse_subtasks">Fold sammen underoppgaver</string>
+    <string name="expand_subtasks">Utvid gjøremålssteg</string>
+    <string name="collapse_subtasks">Fold sammen gjøremålssteg</string>
     <string name="enter_title_hint">Skriv inn tittel</string>
-    <string name="TEA_add_subtask">Legg til underoppgave</string>
-    <string name="subtasks">Underoppgaver</string>
-    <string name="subtasks_multilevel_google_task">Underoppgaver med flere nivå støttes ikke av Google Tasks</string>
-    <string name="show_subtasks">Vis underoppgaver</string>
-    <string name="show_subtasks_summary">Visning av underoppgaver påvirker ytelsen</string>
+    <string name="TEA_add_subtask">Legg til gjøremålssteg</string>
+    <string name="subtasks">Gjøremålssteg</string>
+    <string name="subtasks_multilevel_google_task">Gjøremålssteg med flere nivåer støttes ikke av Google Tasks</string>
+    <string name="show_subtasks">Vis gjøremålssteg</string>
+    <string name="show_subtasks_summary">Visning av gjøremålssteg påvirker ytelsen</string>
     <string name="no_application_found_link">Mangler program for håndtering av lenke</string>
     <string name="enter_tag_name">Skriv inn etikettnavn</string>
     <string name="create_new_tag">Opprett «%s»</string>
@@ -577,4 +577,48 @@
     <string name="opacity_row">Rad-dekkevne</string>
     <string name="opacity_header">Topptekst-dekkevne</string>
     <string name="widget_show_dividers">Vis inndelere</string>
+    <string name="filter_overdue">Forsinket</string>
+    <string name="custom_filter_criteria">Filterkriterium</string>
+    <string name="hide_check_button">Skjul bekreftelsesknapp</string>
+    <string name="calendar_event_created">Kalenderhendelse opprettet for %s</string>
+    <string name="auto_dismiss_datetime_summary">Lukk datovelger etter å ha valgt dato eller tid</string>
+    <string name="auto_dismiss_datetime_widget_summary">Lukk automatisk når valgt fra miniprogram</string>
+    <string name="auto_dismiss_datetime">Lukk datovelger automatisk</string>
+    <string name="hide_unused_places">Skjul ubrukte steder</string>
+    <string name="hide_unused_tags">Skjul ubrukte etiketter</string>
+    <string name="navigation_drawer">Navigasjonsskuff</string>
+    <string name="desaturate_colors_summary_off">Farger vil ikke miste metning i mørke drakter</string>
+    <string name="desaturate_colors_summary_on">Farger vil miste metning i mørke drakter</string>
+    <string name="desaturate_colors">Gi farger mindre metning</string>
+    <string name="chip_appearance">Flisutseende</string>
+    <string name="chips">Flis</string>
+    <string name="chip_style_outlined">Disposisjon</string>
+    <string name="chip_style">Flisstil</string>
+    <string name="upgrade_blurb_2">Jeg har brukt tusenvis av timer på Tasks, og jeg offentliggjør alle kildekoden på nett gratis. For å kunne støtte mitt arbeide krever noen funksjoner abonnement.</string>
+    <string name="upgrade_blurb_1">Hei, jeg heter Alex. Jeg er den uavhengige utvikleren bak Tasks</string>
+    <string name="caldav_account_description">Krever en konto med en CalDAV-tjenestetilbyder, eller en selvdrevet tjener. Finn en tjenestetilbyder ved å besøke tasks.org/caldav</string>
+    <string name="chip_style_filled">Fylt</string>
+    <string name="upgrade_blurb_3">Velg vilkårlig pris nedenfor for å starte din gratisperiode. Du kan avbryte når som helst.</string>
+    <string name="wearable_notifications_summary">Vis merknader på din ikledbare</string>
+    <string name="wearable_notifications">Ikledbare merknader</string>
+    <string name="filter_eisenhower_box_4">Boolsk logikkboks 4</string>
+    <string name="filter_eisenhower_box_3">Boolsk logikkboks 3</string>
+    <string name="filter_eisenhower_box_2">Boolsk logikkboks 2</string>
+    <string name="filter_eisenhower_box_1">Boolsk logikkboks 1</string>
+    <string name="add_filter">Legg til filter</string>
+    <string name="add_tags">Legg til etiketter</string>
+    <string name="filter_no_tags">Ingen etiketter</string>
+    <string name="filter_after_today">Fra i morgen av</string>
+    <string name="filter_any_due_date">Alle tidsfristdatoer</string>
+    <string name="filter_today_only">Kun i dag</string>
+    <string name="etesync_selection_description">Fri programvare, ende-til-ende-kryptert synkronisering</string>
+    <string name="caldav_selection_description">Synkronisering basert på åpne internettstandarder</string>
+    <string name="widget_due_date_reschedule">Endre gjøremålstidspunkt</string>
+    <string name="sort_created">Etter opprettelsestid</string>
+    <string name="auto_dismiss_datetime_list">Gjøremålsliste</string>
+    <string name="auto_dismiss_datetime_list_summary">Lukk automatisk når valgt fra gjøremålsliste</string>
+    <string name="auto_dismiss_datetime_edit_summary">Lukk automatisk når valgt fra gjøremålsredigering</string>
+    <string name="auto_dismiss_datetime_edit">Gjøremålsredigering</string>
+    <string name="place_settings">Stedsinnstillinger</string>
+    <string name="places">Steder</string>
 </resources>
