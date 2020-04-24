@@ -602,4 +602,19 @@
     <string name="custom_filter_or">VAGY</string>
     <string name="custom_filter_and">ÉS</string>
     <string name="custom_filter_criteria">Szűrő feltétel</string>
+    <string name="filter_eisenhower_box_4">Eisenhower doboz 4</string>
+    <string name="filter_eisenhower_box_3">Eisenhower doboz 3</string>
+    <string name="filter_eisenhower_box_2">Eisenhower doboz 2</string>
+    <string name="filter_eisenhower_box_1">Eisenhower doboz 1</string>
+    <string name="filter_no_priority">Nincs prioritás</string>
+    <string name="filter_low_priority">Alacsony prioritás</string>
+    <string name="filter_medium_priority">Közepes prioritás</string>
+    <string name="filter_high_priority">Magas prioritás</string>
+    <string name="add_filter">Filter hozzáadása</string>
+    <string name="add_tags">Címke hozzáadása</string>
+    <string name="filter_no_tags">Címke nélkül</string>
+    <string name="filter_after_today">Mától</string>
+    <string name="filter_any_due_date">Tetszőleges határidő</string>
+    <string name="filter_today_only">Csak ma</string>
+    <string name="filter_overdue">Határidőn túli</string>
 </resources>
