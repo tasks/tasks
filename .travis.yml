@@ -7,7 +7,7 @@ env:
     - BUILD_TOOLS=29.0.2
     - ADB_INSTALL_TIMEOUT=10
   matrix:
-    - EMULATOR_API=21 ANDROID_ABI=armeabi-v7a
+    - EMULATOR_API=23 ANDROID_ABI=armeabi-v7a
 android:
   components:
     - tools # https://github.com/travis-ci/travis-ci/issues/5049
@@ -21,7 +21,6 @@ android:
     - extra-google-m2repository
 
 before_install:
-  - yes | sdkmanager "platforms;android-28" # ical4android
   - echo no | android create avd --force -n test -t android-$EMULATOR_API --abi $ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
   - ./.wait_for_emulator.sh
