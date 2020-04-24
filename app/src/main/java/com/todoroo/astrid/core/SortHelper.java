@@ -28,6 +28,8 @@ public class SortHelper {
   public static final int SORT_DUE = 2;
   public static final int SORT_IMPORTANCE = 3;
   public static final int SORT_MODIFIED = 4;
+  public static final int SORT_CREATED = 5;
+
   private static final String ADJUSTED_DUE_DATE =
       "(CASE WHEN (dueDate / 1000) % 60 > 0 THEN dueDate ELSE (dueDate + 43140000) END)";
   private static final Order ORDER_TITLE = Order.asc(Functions.upper(Task.TITLE));
@@ -89,6 +91,9 @@ public class SortHelper {
       case SORT_MODIFIED:
         order = Order.desc(Task.MODIFICATION_DATE);
         break;
+      case SORT_CREATED:
+        order = Order.desc(Task.CREATION_DATE);
+        break;
       default:
         order =
             Order.asc(
@@ -127,6 +132,9 @@ public class SortHelper {
       case SORT_MODIFIED:
         select = "tasks.modified AS sort_modified";
         break;
+      case SORT_CREATED:
+        select = "tasks.created AS sort_created";
+        break;
       default:
         select ="(CASE WHEN (tasks.dueDate=0) "
                     + // if no due date
@@ -157,6 +165,9 @@ public class SortHelper {
       case SORT_MODIFIED:
         order = Order.desc("sort_modified");
         break;
+      case SORT_CREATED:
+        order = Order.desc("sort_created");
+        break;
       default:
         order = Order.asc("sort_smart");
     }
@@ -170,6 +181,4 @@ public class SortHelper {
 
     return order;
   }
-
-
 }

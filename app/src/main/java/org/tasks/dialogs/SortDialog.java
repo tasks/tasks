@@ -65,6 +65,7 @@ public class SortDialog extends InjectingDialogFragment {
     items.add(getString(R.string.SSD_sort_importance));
     items.add(getString(R.string.SSD_sort_alpha));
     items.add(getString(R.string.SSD_sort_modified));
+    items.add(getString(R.string.sort_created));
 
     if (manualEnabled) {
       if (preferences.isManualSort()) {
@@ -146,6 +147,8 @@ public class SortDialog extends InjectingDialogFragment {
         return 4;
       case SortHelper.SORT_MODIFIED:
         return 5;
+      case SortHelper.SORT_CREATED:
+        return 6;
     }
 
     Timber.e("Invalid sort mode: %s", sortMode);
@@ -164,6 +167,8 @@ public class SortDialog extends InjectingDialogFragment {
         return SortHelper.SORT_ALPHA;
       case 5:
         return SortHelper.SORT_MODIFIED;
+      case 6:
+        return SortHelper.SORT_CREATED;
     }
 
     Timber.e("Invalid sort mode: %s", index);

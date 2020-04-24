@@ -64,6 +64,7 @@ public class Task implements Parcelable {
   public static final LongProperty DUE_DATE = new LongProperty(TABLE, "dueDate");
   public static final LongProperty HIDE_UNTIL = new LongProperty(TABLE, "hideUntil");
   public static final LongProperty MODIFICATION_DATE = new LongProperty(TABLE, "modified");
+  public static final LongProperty CREATION_DATE = new LongProperty(TABLE, "created");
   public static final LongProperty COMPLETION_DATE = new LongProperty(TABLE, "completed");
   public static final LongProperty DELETION_DATE = new LongProperty(TABLE, "deleted");
   public static final StringProperty NOTES = new StringProperty(TABLE, "notes");
