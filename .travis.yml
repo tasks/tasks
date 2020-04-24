@@ -7,13 +7,12 @@ env:
     - BUILD_TOOLS=29.0.2
     - ADB_INSTALL_TIMEOUT=10
   matrix:
-    - EMULATOR_API=23 ANDROID_ABI=armeabi-v7a
+    - EMULATOR_API=$TARGET_API ANDROID_ABI=armeabi-v7a
 android:
   components:
     - tools # https://github.com/travis-ci/travis-ci/issues/5049
     - tools # https://github.com/travis-ci/travis-ci/issues/6040
     - android-$TARGET_API
-    - android-$EMULATOR_API
     - sys-img-$ANDROID_ABI-android-$EMULATOR_API
     - platform-tools
     - build-tools-$BUILD_TOOLS
