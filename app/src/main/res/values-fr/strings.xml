@@ -613,4 +613,5 @@
     <string name="filter_any_due_date">Toute date d\'échéance</string>
     <string name="filter_today_only">Aujourd\'hui seulement</string>
     <string name="filter_overdue">En retard</string>
+    <string name="sort_created">Par date de création</string>
 </resources>
