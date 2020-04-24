@@ -169,7 +169,12 @@ class DateAndTime : InjectingPreferenceFragment(), Preference.OnPreferenceChange
         return arrayOf(
             getString(R.string.use_locale_default),
             getWeekdayDisplayName(DayOfWeek.SUNDAY),
-            getWeekdayDisplayName(DayOfWeek.MONDAY)
+            getWeekdayDisplayName(DayOfWeek.MONDAY),
+            getWeekdayDisplayName(DayOfWeek.TUESDAY),
+            getWeekdayDisplayName(DayOfWeek.WEDNESDAY),
+            getWeekdayDisplayName(DayOfWeek.THURSDAY),
+            getWeekdayDisplayName(DayOfWeek.FRIDAY),
+            getWeekdayDisplayName(DayOfWeek.SATURDAY)
         )
     }
 }
