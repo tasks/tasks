@@ -6,7 +6,6 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastQ;
 import android.Manifest.permission;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import androidx.core.app.ActivityCompat;
 import javax.inject.Inject;
 import org.tasks.injection.ForApplication;
 import timber.log.Timber;
@@ -40,8 +39,7 @@ public class PermissionChecker {
 
   private boolean checkPermissions(String... permissions) {
     for (String permission : permissions) {
-      if (ActivityCompat.checkSelfPermission(context, permission)
-          != PackageManager.PERMISSION_GRANTED) {
+      if (context.checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
         Timber.w("Request for %s denied", permission);
         return false;
       }

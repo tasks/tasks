@@ -5,12 +5,10 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.widget.TextView;
 import androidx.annotation.DrawableRes;
-import androidx.core.graphics.drawable.DrawableCompat;
-import org.jetbrains.annotations.NotNull;
 
 public class DrawableUtil {
   public static Drawable getWrapped(Context context, @DrawableRes int resId) {
-    return wrap(context.getDrawable(resId));
+    return context.getDrawable(resId).mutate();
   }
 
   public static void setLeftDrawable(Context context, TextView tv, @DrawableRes int resId) {
@@ -27,13 +25,8 @@ public class DrawableUtil {
     return tv.getCompoundDrawablesRelative()[0];
   }
 
-  public static Drawable wrap(@NotNull Drawable icon) {
-    return DrawableCompat.wrap(icon.mutate());
-  }
-
   public static void setTint(Drawable drawable, int tint) {
-    DrawableCompat.setTint(
-        drawable instanceof LayerDrawable ? ((LayerDrawable) drawable).getDrawable(0) : drawable,
-        tint);
+    (drawable instanceof LayerDrawable ? ((LayerDrawable) drawable).getDrawable(0) : drawable)
+        .setTint(tint);
   }
 }

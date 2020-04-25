@@ -11,7 +11,6 @@ import android.widget.CompoundButton;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
 import org.tasks.R;
 
 public class CheckBoxTriStates extends AppCompatCheckBox {
@@ -119,7 +118,7 @@ public class CheckBoxTriStates extends AppCompatCheckBox {
         ? getContext().getColor(R.color.icon_tint)
         : getData(getContext(), R.attr.colorAccent);
     drawable = original.mutate();
-    DrawableCompat.setTint(drawable, color);
+    drawable.setTint(color);
     drawable.setAlpha(alpha);
     setButtonDrawable(drawable);
   }

@@ -38,7 +38,6 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.view.ViewCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemSelected;
@@ -314,7 +313,7 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
       int paddingTop = weekButton.getPaddingTop();
       int paddingLeft = weekButton.getPaddingLeft();
       int paddingRight = weekButton.getPaddingRight();
-      ViewCompat.setBackground(weekButton, stateListDrawable);
+      weekButton.setBackground(stateListDrawable);
       weekButton.setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
 
       int dayOfWeek = dayOfWeekCalendar.get(Calendar.DAY_OF_WEEK);

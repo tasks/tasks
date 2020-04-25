@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.DiffUtil.ItemCallback;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -111,7 +110,7 @@ public class LocationPickerAdapter extends ListAdapter<PlaceUsage, PlaceViewHold
       String address = place.getDisplayAddress();
       Drawable wrapped = DrawableUtil.getWrapped(itemView.getContext(), icon);
       this.icon.setImageDrawable(wrapped);
-      DrawableCompat.setTint(this.icon.getDrawable(), color);
+      this.icon.getDrawable().setTint(color);
       this.name.setText(name);
       if (Strings.isNullOrEmpty(address) || address.equals(name)) {
         this.address.setVisibility(View.GONE);

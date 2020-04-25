@@ -1,7 +1,6 @@
 package org.tasks.preferences;
 
 import android.app.Activity;
-import androidx.core.app.ActivityCompat;
 import javax.inject.Inject;
 
 public class ActivityPermissionRequestor extends PermissionRequestor {
@@ -17,6 +16,6 @@ public class ActivityPermissionRequestor extends PermissionRequestor {
 
   @Override
   protected void requestPermissions(int rc, String... permissions) {
-    ActivityCompat.requestPermissions(activity, permissions, rc);
+    activity.requestPermissions(permissions, rc);
   }
 }

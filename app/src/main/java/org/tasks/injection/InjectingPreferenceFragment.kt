@@ -32,8 +32,8 @@ abstract class InjectingPreferenceFragment : PreferenceFragmentCompat() {
                 }
             } else {
                 if (pref.icon != null) {
-                    pref.icon = DrawableUtil.wrap(pref.icon)
-                    DrawableCompat.setTint(pref.icon, color)
+                    pref.icon = pref.icon.mutate()
+                    pref.icon.setTint(color)
                 }
             }
         }

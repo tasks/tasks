@@ -7,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -89,7 +88,7 @@ public class FilterViewHolder extends RecyclerView.ViewHolder {
 
     int icon = getIcon(filter);
     this.icon.setImageDrawable(DrawableUtil.getWrapped(activity, icon));
-    DrawableCompat.setTint(this.icon.getDrawable(), getColor(filter));
+    this.icon.getDrawable().setTint(getColor(filter));
     text.setText(filter.listingTitle);
 
     if (count == null || count == 0) {

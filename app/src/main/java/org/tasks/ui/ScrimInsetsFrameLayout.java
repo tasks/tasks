@@ -23,7 +23,6 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
-import androidx.core.view.ViewCompat;
 import org.tasks.R;
 
 /**
@@ -68,7 +67,7 @@ public class ScrimInsetsFrameLayout extends FrameLayout {
   protected boolean fitSystemWindows(Rect insets) {
     mInsets = new Rect(insets);
     setWillNotDraw(mInsetForeground == null);
-    ViewCompat.postInvalidateOnAnimation(this);
+    postInvalidateOnAnimation();
     if (mOnInsetsCallback != null) {
       mOnInsetsCallback.onInsetsChanged(insets);
     }

@@ -24,7 +24,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.graphics.drawable.DrawableCompat;
 import butterknife.BindView;
 import butterknife.OnItemSelected;
 import com.google.common.base.Strings;
@@ -154,11 +153,8 @@ public class RepeatControlSet extends TaskEditControlFragment {
             return tv;
           }
         };
-    Drawable drawable =
-        DrawableCompat.wrap(
-            context.getDrawable(R.drawable.textfield_underline_black));
-    drawable.mutate();
-    DrawableCompat.setTint(drawable, context.getColor(R.color.text_primary));
+    Drawable drawable = context.getDrawable(R.drawable.textfield_underline_black).mutate();
+    drawable.setTint(context.getColor(R.color.text_primary));
     typeSpinner.setBackgroundDrawable(drawable);
     typeSpinner.setAdapter(typeAdapter);
     typeSpinner.setSelection(repeatAfterCompletion ? TYPE_COMPLETION_DATE : TYPE_DUE_DATE);

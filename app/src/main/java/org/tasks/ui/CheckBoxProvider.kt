@@ -34,8 +34,8 @@ class CheckBoxProvider @Inject constructor(@ForActivity private val context: Con
 
     private fun getDrawable(@DrawableRes resId: Int, priority: Int): Drawable {
         val original = context.getDrawable(resId)
-        val wrapped = DrawableCompat.wrap(original!!.mutate())
-        DrawableCompat.setTint(wrapped, colorProvider.getPriorityColor(priority))
+        val wrapped = original!!.mutate()
+        wrapped.setTint(colorProvider.getPriorityColor(priority))
         return wrapped
     }
 

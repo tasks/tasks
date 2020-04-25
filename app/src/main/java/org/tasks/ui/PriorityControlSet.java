@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatRadioButton;
-import androidx.core.widget.CompoundButtonCompat;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.todoroo.astrid.data.Task;
@@ -111,8 +110,7 @@ public class PriorityControlSet extends TaskEditControlFragment {
 
   private void tintRadioButton(AppCompatRadioButton radioButton, int priority) {
     int color = colorProvider.getPriorityColor(priority, true);
-    CompoundButtonCompat.setButtonTintList(
-        radioButton,
+    radioButton.setButtonTintList(
         new ColorStateList(
             new int[][] {
               new int[] {-android.R.attr.state_checked}, new int[] {android.R.attr.state_checked}

@@ -4,11 +4,11 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.text.TextUtils;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.ViewParent;
 import androidx.annotation.Nullable;
-import androidx.core.text.TextUtilsCompat;
 import androidx.preference.PreferenceManager;
 import com.google.common.base.Strings;
 import java.io.Serializable;
@@ -42,10 +42,10 @@ public class Locale implements Serializable {
       appLocale = deviceLocale;
     }
 
-    appDirectionality = TextUtilsCompat.getLayoutDirectionFromLocale(appLocale);
+    appDirectionality = TextUtils.getLayoutDirectionFromLocale(appLocale);
     appDirectionalityMark =
         appDirectionality == View.LAYOUT_DIRECTION_RTL ? RIGHT_TO_LEFT_MARK : LEFT_TO_RIGHT_MARK;
-    int deviceDirectionality = TextUtilsCompat.getLayoutDirectionFromLocale(deviceLocale);
+    int deviceDirectionality = TextUtils.getLayoutDirectionFromLocale(deviceLocale);
     hasUserOverrides =
         !(deviceLocale.equals(appLocale) && appDirectionality == deviceDirectionality);
   }

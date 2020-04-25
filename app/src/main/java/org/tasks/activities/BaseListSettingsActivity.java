@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener;
-import androidx.core.graphics.drawable.DrawableCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -168,18 +167,16 @@ public abstract class BaseListSettingsActivity extends ThemedInjectingAppCompatA
     if (selectedColor == 0) {
       themeColor = this.themeColor;
       DrawableUtil.setLeftDrawable(this, color, R.drawable.ic_outline_not_interested_24px);
-      DrawableCompat.setTint(
-          getLeftDrawable(color), getColor(R.color.icon_tint_with_alpha));
+      getLeftDrawable(color).setTint(getColor(R.color.icon_tint_with_alpha));
       clear.setVisibility(View.GONE);
     } else {
       themeColor = colorProvider.getThemeColor(selectedColor, true);
       DrawableUtil.setLeftDrawable(this, color, R.drawable.color_picker);
       Drawable leftDrawable = getLeftDrawable(color);
-      DrawableCompat.setTint(
-          leftDrawable instanceof LayerDrawable
+      (leftDrawable instanceof LayerDrawable
               ? ((LayerDrawable) leftDrawable).getDrawable(0)
-              : leftDrawable,
-          themeColor.getPrimaryColor());
+              : leftDrawable)
+          .setTint(themeColor.getPrimaryColor());
       clear.setVisibility(View.VISIBLE);
     }
     themeColor.apply(toolbar);
@@ -189,7 +186,6 @@ public abstract class BaseListSettingsActivity extends ThemedInjectingAppCompatA
       icon = CustomIcons.getIconResId(CustomIcons.getCLOUD());
     }
     DrawableUtil.setLeftDrawable(this, this.icon, icon);
-    DrawableCompat.setTint(
-        getLeftDrawable(this.icon), getColor(R.color.icon_tint_with_alpha));
+    getLeftDrawable(this.icon).setTint(getColor(R.color.icon_tint_with_alpha));
   }
 }

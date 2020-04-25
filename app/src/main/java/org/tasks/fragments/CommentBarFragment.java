@@ -20,7 +20,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
-import androidx.core.graphics.drawable.DrawableCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -223,10 +222,8 @@ public class CommentBarFragment extends TaskEditControlFragment {
   private void resetPictureButton() {
     TypedValue typedValue = new TypedValue();
     getActivity().getTheme().resolveAttribute(R.attr.colorOnPrimary, typedValue, true);
-    Drawable drawable =
-        DrawableCompat.wrap(getContext().getDrawable(R.drawable.ic_outline_photo_camera_24px));
-    drawable.mutate();
-    DrawableCompat.setTint(drawable, typedValue.data);
+    Drawable drawable = getContext().getDrawable(R.drawable.ic_outline_photo_camera_24px).mutate();
+    drawable.setTint(typedValue.data);
     pictureButton.setImageDrawable(drawable);
   }
 
