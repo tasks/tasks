@@ -513,8 +513,6 @@
     <string name="collapse_subtasks">Sbalit podúkoly</string>
     <string name="subtasks_multilevel_google_task">Úkoly Google nepodporují víceúrovňové podúkoly</string>
     <string name="enter_title_hint">Zadejte název</string>
-    <string name="show_subtasks">Zobrazovat podúkoly</string>
-    <string name="show_subtasks_summary">Zobrazování podúkolů zpomalí aplikaci</string>
     <string name="enter_tag_name">Zadejte název štítku</string>
     <string name="create_new_tag">Vytvořit \"%s\"</string>
     <string name="choose_synchronization_service">Zvolte službu</string>

@@ -519,8 +519,6 @@
     <string name="subtasks">Podzadania</string>
     <string name="subtasks_multilevel_google_task">Wielopoziomowe podzadania nie są obsługiwane przez Google Tasks</string>
     <string name="enter_title_hint">Wprowadź tytuł</string>
-    <string name="show_subtasks">Pokaż podzadania</string>
-    <string name="show_subtasks_summary">Wyświetlanie podzadań spowoduje obniżenie wydajności aplikacji</string>
     <string name="no_application_found_link">Nie znaleziono aplikacji do otwarcia linku</string>
     <string name="enter_tag_name">Wprowadź nazwę tagu</string>
     <string name="create_new_tag">Stwórz \"%s\"</string>

@@ -110,7 +110,7 @@ public class SubtaskControlSet extends TaskEditControlFragment implements Callba
     recyclerAdapter = new SubtasksRecyclerAdapter(activity, chipProvider, checkBoxProvider, this);
     if (task.getId() > 0) {
       recyclerAdapter.submitList(viewModel.getValue());
-      viewModel.setFilter(new Filter("subtasks", getQueryTemplate(task)), true);
+      viewModel.setFilter(new Filter("subtasks", getQueryTemplate(task)));
       ((DefaultItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
       recyclerView.setLayoutManager(new LinearLayoutManager(activity));
       recyclerView.setNestedScrollingEnabled(false);

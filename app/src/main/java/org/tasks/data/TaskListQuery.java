@@ -72,14 +72,12 @@ public class TaskListQuery {
   public static List<String> getQuery(
       Preferences preferences,
       com.todoroo.astrid.api.Filter filter,
-      boolean includeGoogleTaskSubtasks,
-      boolean includeCaldavSubtasks) {
+      SubtaskInfo subtasks) {
     if (filter.supportSubtasks()
-        && (includeGoogleTaskSubtasks || includeCaldavSubtasks)
+        && subtasks.usesSubtasks()
         && preferences.showSubtasks()
         && !(preferences.isManualSort() && filter.supportsManualSort())) {
-      return getRecursiveQuery(
-          filter, preferences, includeGoogleTaskSubtasks, includeCaldavSubtasks);
+      return getRecursiveQuery(filter, preferences, subtasks);
     } else {
       return getNonRecursiveQuery(filter, preferences);
     }
@@ -88,8 +86,7 @@ public class TaskListQuery {
   private static List<String> getRecursiveQuery(
       com.todoroo.astrid.api.Filter filter,
       Preferences preferences,
-      boolean includeGoogleTaskSubtasks,
-      boolean includeCaldavSubtasks) {
+      SubtaskInfo subtasks) {
     List<Field> fields = newArrayList(FIELDS);
     fields.add(TAG_QUERY);
     fields.add(INDENT);
@@ -141,9 +138,9 @@ public class TaskListQuery {
           .where(TaskCriteria.activeAndVisible());
     } else {
       parentQuery = PermaSql.replacePlaceholdersForQuery(filter.getSqlQuery());
-      if (includeGoogleTaskSubtasks && includeCaldavSubtasks) {
+      if (subtasks.hasGoogleSubtasks && subtasks.hasSubtasks) {
         addGoogleAndCaldavSubtasks(subtaskQuery);
-      } else if (includeGoogleTaskSubtasks) {
+      } else if (subtasks.hasGoogleSubtasks) {
         addGoogleSubtasks(subtaskQuery);
       } else {
         addCaldavSubtasks(subtaskQuery);

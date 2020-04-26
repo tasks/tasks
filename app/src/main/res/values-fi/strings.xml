@@ -443,8 +443,6 @@
     <string name="choose_synchronization_service">Valitse alusta</string>
     <string name="create_new_tag">Luo \"%s\"</string>
     <string name="enter_tag_name">Anna tunnisteen nimi</string>
-    <string name="show_subtasks_summary">Alitehtävien esittäminen alentaa sovelluksen toimintatehokkuutta</string>
-    <string name="show_subtasks">Näytä alitehtävät</string>
     <string name="enter_title_hint">Syötä otsikko</string>
     <string name="subtasks_multilevel_google_task">Google Tasks ei tue monitasoisia alitehtäviä</string>
     <string name="collapse_subtasks">Pienennä alitehtävät</string>

@@ -510,8 +510,6 @@
     <string name="subtasks">Azpi-zereginak</string>
     <string name="subtasks_multilevel_google_task">Google Tasks-ek ez ditu hainbat mailako azpi-zereginak onartzen</string>
     <string name="enter_title_hint">Sartu izenburua</string>
-    <string name="show_subtasks">Erakutsi azpi-zereginak</string>
-    <string name="show_subtasks_summary">Azpi-zereginak erakusteak errendimendua kaltetu dezake</string>
     <string name="no_application_found_link">Ez dago aplikaziorik esteka kudeatzeko</string>
     <string name="enter_tag_name">Sartu etiketaren izena</string>
     <string name="create_new_tag">Sortu \"%s\"</string>

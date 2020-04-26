@@ -3,6 +3,7 @@ package org.tasks.ui;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertNotMainThread;
 import static com.todoroo.andlib.utility.DateUtilities.now;
+import static io.reactivex.Single.fromCallable;
 import static org.tasks.data.TaskListQuery.getQuery;
 
 import androidx.annotation.NonNull;
@@ -26,6 +27,7 @@ import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.BuildConfig;
+import org.tasks.data.SubtaskInfo;
 import org.tasks.data.TaskContainer;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
@@ -40,25 +42,18 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
   @Inject TaskDao taskDao;
   private MutableLiveData<List<TaskContainer>> tasks = new MutableLiveData<>();
   private Filter filter;
-  private boolean manualSort;
+  private boolean manualSortFilter;
   private final CompositeDisposable disposable = new CompositeDisposable();
   private LiveData<PagedList<TaskContainer>> internal;
 
   public void setFilter(@NonNull Filter filter) {
-    boolean manualSort =
-        preferences.showSubtasks() || (filter.supportsManualSort() && preferences.isManualSort());
-    setFilter(filter, manualSort);
-  }
-
-  public void setFilter(@NonNull Filter filter, boolean manualSort) {
     if (!filter.equals(this.filter)
-        || !filter.getSqlQuery().equals(this.filter.getSqlQuery())
-        || this.manualSort != manualSort) {
+        || !filter.getSqlQuery().equals(this.filter.getSqlQuery())) {
       this.filter = filter;
-      this.manualSort = manualSort;
       tasks = new MutableLiveData<>();
       invalidate();
     }
+    manualSortFilter = filter.supportsManualSort() && preferences.isManualSort();
   }
 
   public void observe(LifecycleOwner owner, Observer<List<TaskContainer>> observer) {
@@ -85,53 +80,61 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
       return;
     }
 
-    if (manualSort) {
-      disposable.add(
-          Single.fromCallable(
-                  () ->
-                      taskDao.fetchTasks(
-                          ((includeGoogleSubtasks, includeCaldavSubtasks) ->
-                              getQuery(
-                                  preferences,
-                                  filter,
-                                  includeGoogleSubtasks,
-                                  includeCaldavSubtasks))))
-              .subscribeOn(Schedulers.io())
-              .observeOn(AndroidSchedulers.mainThread())
-              .subscribe(tasks::postValue, Timber::e));
-    } else {
-      List<String> queries = getQuery(preferences, filter, false, false);
-      if (BuildConfig.DEBUG && queries.size() != 1) {
-        throw new RuntimeException("Invalid queries");
-      }
-      SimpleSQLiteQuery query = new SimpleSQLiteQuery(queries.get(0));
-      Timber.d("paged query: %s", query.getSql());
-      Factory<Integer, TaskContainer> factory = taskDao.getTaskFactory(query);
-      LivePagedListBuilder<Integer, TaskContainer> builder =
-          new LivePagedListBuilder<>(factory, PAGED_LIST_CONFIG);
-      List<TaskContainer> current = tasks.getValue();
-      if (current instanceof PagedList) {
-        Object lastKey = ((PagedList<TaskContainer>) current).getLastKey();
-        if (lastKey instanceof Integer) {
-          builder.setInitialLoadKey((Integer) lastKey);
-        }
-      }
-      if (BuildConfig.DEBUG) {
-        builder.setFetchExecutor(
-            command ->
-                Completable.fromAction(
-                        () -> {
-                          assertNotMainThread();
-                          long start = now();
-                          command.run();
-                          Timber.d("*** paged list execution took %sms", now() - start);
-                        })
-                    .subscribeOn(Schedulers.io())
-                    .subscribe());
-      }
-      internal = builder.build();
-      internal.observeForever(this);
+    disposable.add(
+        Single.fromCallable(taskDao::getSubtaskInfo)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                subtasks -> {
+                  if (manualSortFilter || (subtasks.usesSubtasks() && preferences.showSubtasks())) {
+                    performNonPagedQuery(subtasks);
+                  } else {
+                    performPagedListQuery();
+                  }
+                },
+                Timber::e));
+  }
+
+  private void performNonPagedQuery(SubtaskInfo subtasks) {
+    disposable.add(
+        fromCallable(() -> taskDao.fetchTasks(s -> getQuery(preferences, filter, s), subtasks))
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(tasks::postValue, Timber::e));
+  }
+
+  private void performPagedListQuery() {
+    List<String> queries = getQuery(preferences, filter, new SubtaskInfo());
+    if (BuildConfig.DEBUG && queries.size() != 1) {
+      throw new RuntimeException("Invalid queries");
     }
+    SimpleSQLiteQuery query = new SimpleSQLiteQuery(queries.get(0));
+    Timber.d("paged query: %s", query.getSql());
+    Factory<Integer, TaskContainer> factory = taskDao.getTaskFactory(query);
+    LivePagedListBuilder<Integer, TaskContainer> builder =
+        new LivePagedListBuilder<>(factory, PAGED_LIST_CONFIG);
+    List<TaskContainer> current = tasks.getValue();
+    if (current instanceof PagedList) {
+      Object lastKey = ((PagedList<TaskContainer>) current).getLastKey();
+      if (lastKey instanceof Integer) {
+        builder.setInitialLoadKey((Integer) lastKey);
+      }
+    }
+    if (BuildConfig.DEBUG) {
+      builder.setFetchExecutor(
+          command ->
+              Completable.fromAction(
+                  () -> {
+                    assertNotMainThread();
+                    long start = now();
+                    command.run();
+                    Timber.d("*** paged list execution took %sms", now() - start);
+                  })
+                  .subscribeOn(Schedulers.io())
+                  .subscribe());
+    }
+    internal = builder.build();
+    internal.observeForever(this);
   }
 
   @Override

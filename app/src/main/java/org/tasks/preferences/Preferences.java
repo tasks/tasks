@@ -523,7 +523,11 @@ public class Preferences {
   }
 
   public boolean showSubtasks() {
-    return getBoolean(R.string.p_show_subtasks, false);
+    return !disableSubtasks();
+  }
+
+  public boolean disableSubtasks() {
+    return getBoolean(R.string.p_disable_subtasks, false);
   }
 
   public int getThemeBase() {

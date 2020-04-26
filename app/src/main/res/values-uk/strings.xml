@@ -541,8 +541,6 @@
     <string name="choose_synchronization_service">Обрати платформу</string>
     <string name="create_new_tag">Створити \"%s\"</string>
     <string name="enter_tag_name">Введіть назву тега</string>
-    <string name="show_subtasks_summary">Відображення підзавдань погіршить швидкість роботи додатку</string>
-    <string name="show_subtasks">Показати підзавдання</string>
     <string name="enter_title_hint">Введіть назву</string>
     <string name="subtasks_multilevel_google_task">Багаторівневі підзадачі не підтримуються Google Tasks</string>
     <string name="collapse_subtasks">Згорнути підзавдання</string>

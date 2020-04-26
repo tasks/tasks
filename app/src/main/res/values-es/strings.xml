@@ -508,8 +508,6 @@
     <string name="subtasks">Subtareas</string>
     <string name="subtasks_multilevel_google_task">Subtareas multinivel no compatibles con Google Tasks</string>
     <string name="enter_title_hint">Introducir título</string>
-    <string name="show_subtasks">Mostrar subtareas</string>
-    <string name="show_subtasks_summary">La visualización de subtareas degradará el rendimiento de la aplicación</string>
     <string name="no_application_found_link">Ninguna aplicación podría manejar el enlace</string>
     <string name="enter_tag_name">Introduzca el nombre de la etiqueta</string>
     <string name="create_new_tag">Crear \"%s\"</string>

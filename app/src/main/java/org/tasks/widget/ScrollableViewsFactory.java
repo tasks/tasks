@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.tasks.BuildConfig;
 import org.tasks.R;
+import org.tasks.data.SubtaskInfo;
 import org.tasks.data.TaskContainer;
 import org.tasks.data.TaskListQuery;
 import org.tasks.locale.Locale;
@@ -86,10 +87,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
   @Override
   public void onDataSetChanged() {
     updateSettings();
-    tasks =
-        taskDao.fetchTasks(
-            (includeGoogleSubtasks, includeCaldavSubtasks) ->
-                getQuery(filter, includeGoogleSubtasks, includeCaldavSubtasks));
+    tasks = taskDao.fetchTasks(subtasks -> getQuery(filter, subtasks));
   }
 
   @Override
@@ -251,11 +249,8 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     return position < tasks.size() ? tasks.get(position) : null;
   }
 
-  private List<String> getQuery(
-      Filter filter, boolean includeGoogleSubtasks, boolean includeCaldavSubtasks) {
-    List<String> queries =
-        TaskListQuery.getQuery(
-            preferences, filter, includeGoogleSubtasks, includeCaldavSubtasks);
+  private List<String> getQuery(Filter filter, SubtaskInfo subtasks) {
+    List<String> queries = TaskListQuery.getQuery(preferences, filter, subtasks);
     int last = queries.size() - 1;
     queries.set(last, subtasksHelper.applySubtasksToWidgetFilter(filter, queries.get(last)));
     return queries;

@@ -508,8 +508,6 @@
     <string name="subtasks">Alt görevler</string>
     <string name="subtasks_multilevel_google_task">Google Tasks, çoklu düzey alt görevleri desteklemez</string>
     <string name="enter_title_hint">Başlık girin</string>
-    <string name="show_subtasks">Alt görevleri göster</string>
-    <string name="show_subtasks_summary">Alt görevleri göstermek uygulama performansını düşürür</string>
     <string name="no_application_found_link">Bağlantıyı işleyecek uygulama yok</string>
     <string name="enter_tag_name">Etiket adı girin</string>
     <string name="create_new_tag">\"%s\" oluştur</string>

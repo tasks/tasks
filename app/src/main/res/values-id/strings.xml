@@ -413,8 +413,6 @@
     <string name="expand_subtasks" />
     <string name="subtasks_multilevel_google_task">Subtugas multi-level tidak didukung oleh Google Tasks</string>
     <string name="enter_title_hint">Masukkan judul</string>
-    <string name="show_subtasks">Tampilkan subtugas</string>
-    <string name="show_subtasks_summary">Menampilkan subtugas akan mengurangi performa aplikasi</string>
     <string name="enter_tag_name">Masukkan nama tag</string>
     <string name="create_new_tag">Buat \"%s\"</string>
     <string name="this_feature_requires_a_subscription">Fitur ini membutuhkan anda berlangganan versi pro</string>

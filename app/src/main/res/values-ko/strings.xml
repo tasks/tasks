@@ -505,8 +505,6 @@
     <string name="subtasks">하위하일</string>
     <string name="subtasks_multilevel_google_task">Google Tasks는 다단계 하위할일을 지원하지 않습니다</string>
     <string name="enter_title_hint">제목 입력</string>
-    <string name="show_subtasks">하위할일 보이기</string>
-    <string name="show_subtasks_summary">하위할일을 표시하면 앱 성능이 떨어집니다</string>
     <string name="no_application_found_link">링크를 처리할 앱이 없습니다</string>
     <string name="enter_tag_name">태그 이름 입력</string>
     <string name="create_new_tag">\"%s\" 생성</string>

@@ -36,6 +36,7 @@ import java.util.Collections;
 import java.util.List;
 import org.tasks.BuildConfig;
 import org.tasks.data.Place;
+import org.tasks.data.SubtaskInfo;
 import org.tasks.data.TaskContainer;
 import org.tasks.data.TaskListQuery;
 import org.tasks.jobs.WorkManager;
@@ -142,10 +143,13 @@ public abstract class TaskDao {
 
   @Transaction
   public List<TaskContainer> fetchTasks(QueryCallback callback) {
+    return fetchTasks(callback, getSubtaskInfo());
+  }
+
+  @Transaction
+  public List<TaskContainer> fetchTasks(QueryCallback callback, SubtaskInfo subtasks) {
     long start = BuildConfig.DEBUG ? now() : 0;
-    boolean includeGoogleSubtasks = hasGoogleTaskSubtasks();
-    boolean includeCaldavSubtasks = hasSubtasks();
-    List<String> queries = callback.getQueries(includeGoogleSubtasks, includeCaldavSubtasks);
+    List<String> queries = callback.getQueries(subtasks);
     SupportSQLiteDatabase db = database.getOpenHelper().getWritableDatabase();
     int last = queries.size() - 1;
     for (int i = 0 ; i < last ; i++) {
@@ -157,10 +161,7 @@ public abstract class TaskDao {
   }
 
   public List<TaskContainer> fetchTasks(Preferences preferences, Filter filter) {
-    return fetchTasks(
-        (includeGoogleTaskSubtasks, includeCaldavSubtasks) ->
-            TaskListQuery.getQuery(
-                preferences, filter, includeGoogleTaskSubtasks, includeCaldavSubtasks));
+    return fetchTasks(subtasks -> TaskListQuery.getQuery(preferences, filter, subtasks));
   }
 
   @RawQuery
@@ -169,14 +170,12 @@ public abstract class TaskDao {
   @RawQuery
   abstract int count(SimpleSQLiteQuery query);
 
-  @Query("SELECT EXISTS(SELECT 1 FROM tasks WHERE parent > 0 AND deleted = 0)")
-  abstract boolean hasSubtasks();
-
   @Query(
-      "SELECT EXISTS(SELECT 1 FROM google_tasks "
-          + "INNER JOIN tasks ON gt_task = _id "
-          + "WHERE deleted = 0 AND gt_parent > 0 AND gt_deleted = 0)")
-  abstract boolean hasGoogleTaskSubtasks();
+      "SELECT EXISTS(SELECT 1 FROM tasks WHERE parent > 0 AND deleted = 0) AS hasSubtasks,"
+          + "EXISTS(SELECT 1 FROM google_tasks "
+          + "  INNER JOIN tasks ON gt_task = _id "
+          + " WHERE deleted = 0 AND gt_parent > 0 AND gt_deleted = 0) AS hasGoogleSubtasks")
+  public abstract SubtaskInfo getSubtaskInfo();
 
   @RawQuery(observedEntities = {Place.class})
   public abstract DataSource.Factory<Integer, TaskContainer> getTaskFactory(
@@ -339,6 +338,6 @@ public abstract class TaskDao {
   }
 
   public interface QueryCallback {
-    List<String> getQueries(boolean includeGoogleTaskSubtasks, boolean includeCaldavSubtasks);
+    List<String> getQueries(SubtaskInfo subtasks);
   }
 }

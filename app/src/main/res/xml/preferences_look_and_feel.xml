@@ -52,9 +52,9 @@
 
     <SwitchPreferenceCompat
       android:defaultValue="false"
-      android:key="@string/p_show_subtasks"
-      android:summary="@string/show_subtasks_summary"
-      android:title="@string/show_subtasks" />
+      android:key="@string/p_disable_subtasks"
+      android:summary="@string/disable_subtasks_summary"
+      android:title="@string/disable_subtasks" />
 
     <SwitchPreferenceCompat
       android:defaultValue="false"

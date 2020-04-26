@@ -510,8 +510,6 @@
     <string name="TEA_add_subtask">Legg til gjøremålssteg</string>
     <string name="subtasks">Gjøremålssteg</string>
     <string name="subtasks_multilevel_google_task">Gjøremålssteg med flere nivåer støttes ikke av Google Tasks</string>
-    <string name="show_subtasks">Vis gjøremålssteg</string>
-    <string name="show_subtasks_summary">Visning av gjøremålssteg påvirker ytelsen</string>
     <string name="no_application_found_link">Mangler program for håndtering av lenke</string>
     <string name="enter_tag_name">Skriv inn etikettnavn</string>
     <string name="create_new_tag">Opprett «%s»</string>

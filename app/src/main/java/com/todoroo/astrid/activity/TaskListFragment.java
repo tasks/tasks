@@ -41,6 +41,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.util.Pair;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.paging.PagedList;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -138,7 +139,6 @@ public final class TaskListFragment extends InjectingFragment
   private static final int REQUEST_LIST_SETTINGS = 10101;
   private static final int REQUEST_MOVE_TASKS = 10103;
   private static final int REQUEST_TAG_TASKS = 10106;
-  private static final int REQUEST_DUE_DATE = 10107;
 
   private static final int SEARCH_DEBOUNCE_TIMEOUT = 300;
   private final RefreshReceiver refreshReceiver = new RefreshReceiver();
@@ -286,34 +286,15 @@ public final class TaskListFragment extends InjectingFragment
       searchQuery = savedInstanceState.getString(EXTRA_SEARCH);
     }
 
-    boolean dragAndDrop = taskAdapter.supportsManualSorting() || preferences.showSubtasks();
-    taskListViewModel.setFilter(
-        searchQuery == null ? filter : createSearchFilter(searchQuery), dragAndDrop);
+    taskListViewModel.setFilter(searchQuery == null ? filter : createSearchFilter(searchQuery));
 
-    recyclerAdapter =
-        dragAndDrop
-            ? new DragAndDropRecyclerAdapter(
-                taskAdapter,
-                recyclerView,
-                viewHolderFactory,
-                this,
-                taskListViewModel.getValue(),
-                taskDao)
-            : new PagedListRecyclerAdapter(
-                taskAdapter,
-                recyclerView,
-                viewHolderFactory,
-                this,
-                taskListViewModel.getValue(),
-                taskDao);
-    taskAdapter.setHelper(recyclerAdapter);
     ((DefaultItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
     recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
     taskListViewModel.observe(
         this,
         list -> {
-          recyclerAdapter.submitList(list);
+          submitList(list);
 
           if (list.isEmpty()) {
             swipeRefreshLayout.setVisibility(View.GONE);
@@ -323,8 +304,6 @@ public final class TaskListFragment extends InjectingFragment
             emptyRefreshLayout.setVisibility(View.GONE);
           }
         });
-
-    recyclerView.setAdapter(recyclerAdapter);
 
     setupRefresh(swipeRefreshLayout);
     setupRefresh(emptyRefreshLayout);
@@ -336,6 +315,30 @@ public final class TaskListFragment extends InjectingFragment
     setupMenu();
 
     return parent;
+  }
+
+  private void submitList(List<TaskContainer> tasks) {
+    if (tasks instanceof PagedList) {
+      if (!(recyclerAdapter instanceof PagedListRecyclerAdapter)) {
+        setAdapter(
+            new PagedListRecyclerAdapter(
+                taskAdapter, recyclerView, viewHolderFactory, this, tasks, taskDao));
+        return;
+      }
+    } else if (!(recyclerAdapter instanceof DragAndDropRecyclerAdapter)) {
+      setAdapter(
+          new DragAndDropRecyclerAdapter(
+              taskAdapter, recyclerView, viewHolderFactory, this, tasks, taskDao));
+      return;
+    }
+
+    recyclerAdapter.submitList(tasks);
+  }
+
+  private void setAdapter(TaskListRecyclerAdapter adapter) {
+    recyclerAdapter = adapter;
+    recyclerView.setAdapter(adapter);
+    taskAdapter.setHelper(adapter);
   }
 
   private void setupMenu() {
@@ -364,7 +367,7 @@ public final class TaskListFragment extends InjectingFragment
       sortMenu.setEnabled(false);
       sortMenu.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
     }
-    if (!preferences.showSubtasks()
+    if (preferences.disableSubtasks()
         || !filter.supportSubtasks()
         || taskAdapter.supportsManualSorting()) {
       menu.findItem(R.id.menu_collapse_subtasks).setVisible(false);
