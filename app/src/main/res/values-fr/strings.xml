@@ -612,4 +612,6 @@
     <string name="filter_today_only">Aujourd\'hui seulement</string>
     <string name="filter_overdue">En retard</string>
     <string name="sort_created">Par date de création</string>
+    <string name="disable_subtasks_summary">La désactivation des sous-tâches peut améliorer les performances de l\'application</string>
+    <string name="disable_subtasks">Désactiver les sous-tâches</string>
 </resources>
