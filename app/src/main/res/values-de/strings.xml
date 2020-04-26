@@ -5,7 +5,7 @@
     <string name="enter_filter_name">Filtername eingeben</string>
     <string name="backup_BAc_import">Aufgaben importieren</string>
     <string name="backup_BAc_export">Aufgaben exportieren</string>
-    <string name="export_toast">%1$s bis %2$s gesichert.</string>
+    <string name="export_toast">%1$s nach %2$s gesichert.</string>
     <string name="export_toast_no_tasks">Keine Aufgaben zu exportieren.</string>
     <string name="import_summary_title">Zusammenfassung wiederherstellen</string>
     <string name="import_summary_message">Datei %1$s enthielt %2$s Aufgaben.\n\n %3$s wurden importiert,\n %4$s waren schon vorhanden (übersprungen)\n %5$s waren fehlerhaft\n</string>
