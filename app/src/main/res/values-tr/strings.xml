@@ -118,7 +118,7 @@
     <string name="next_week">Gelecek Hafta</string>
     <string name="dont_hide">Gizleme</string>
     <string name="at_deadline">Son tarihte</string>
-    <string name="at_deadline_or_overdue">Son tarihte ya da aşıldığında</string>
+    <string name="at_deadline_or_overdue">Son tarihte ya da geciktiğinde</string>
     <string name="no_reminders">Hatırlatma yok</string>
     <string name="default_location_reminder_on_arrival">Varışta</string>
     <string name="default_location_reminder_on_departure">Kalkışta</string>
@@ -599,4 +599,24 @@
     <string name="auto_dismiss_datetime_list_summary">Görev listesinden seçerken kendiliğinden kapat</string>
     <string name="auto_dismiss_datetime_list">Görev listesi</string>
     <string name="widget_footer">Alt bölüm</string>
+    <string name="filter_overdue">Geciken</string>
+    <string name="filter_any_due_date">Herhangi bitiş tarihi</string>
+    <string name="filter_eisenhower_box_4">Eisenhower kutusu 4</string>
+    <string name="filter_eisenhower_box_3">Eisenhower kutusu 3</string>
+    <string name="filter_eisenhower_box_2">Eisenhower kutusu 2</string>
+    <string name="filter_eisenhower_box_1">Eisenhower kutusu 1</string>
+    <string name="filter_no_priority">Önceliksiz</string>
+    <string name="filter_low_priority">Düşük öncelik</string>
+    <string name="filter_medium_priority">Orta öncelik</string>
+    <string name="filter_high_priority">Yüksek öncelik</string>
+    <string name="add_filter">Süzgeç ekle</string>
+    <string name="add_tags">Etiket ekle</string>
+    <string name="filter_no_tags">Etiket yok</string>
+    <string name="filter_after_today">Bugünden sonra</string>
+    <string name="filter_today_only">Yalnızca bugün</string>
+    <string name="custom_filter_not">DEĞİL</string>
+    <string name="custom_filter_or">VEYA</string>
+    <string name="custom_filter_and">VE</string>
+    <string name="custom_filter_criteria">Süzme ölçütü</string>
+    <string name="sort_created">Oluşturulma zamanına göre</string>
 </resources>
