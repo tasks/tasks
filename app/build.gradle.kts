@@ -21,10 +21,6 @@ android {
         }
     }
 
-    dexOptions {
-        javaMaxHeapSize = "4g"
-    }
-
     lintOptions {
         setLintConfig(file("lint.xml"))
         textOutput("stdout")
