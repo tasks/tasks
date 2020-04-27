@@ -1,6 +1,23 @@
 Change Log
 ---
 =======
+### 9.0 (2020-04-28)
+
+* Collapsible subtasks enabled by default
+* Show subtask chip even if list chips are disabled
+* Indent subtasks in 'Share' output
+* Don't trigger location reminders for snoozed or hidden tasks
+* Minimum supported version is now Android 6.0
+* Update translations
+  * Basque - @osoitz
+  * Dutch - @fvbommel
+  * French - @FlorianLeChat
+  * German - Jeannette L, Martin
+  * Hungarian - kaciokos
+  * Norwegian Bokmål - @comradekingu
+  * Spanish - @FlorianLeChat
+  * Turkish - etc
+
 ### 8.11 (2020-04-27)
 
 * Edit existing custom filters
