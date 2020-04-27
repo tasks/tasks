@@ -7,11 +7,13 @@
 package com.todoroo.astrid.activity;
 
 import static android.app.Activity.RESULT_OK;
+import static com.google.common.base.Strings.padStart;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
 import static org.tasks.activities.RemoteListPicker.newRemoteListSupportPicker;
 import static org.tasks.caldav.CaldavCalendarSettingsActivity.EXTRA_CALDAV_CALENDAR;
+import static org.tasks.db.DbUtils.collect;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -58,6 +60,7 @@ import com.todoroo.astrid.adapter.TaskAdapterProvider;
 import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
+import com.todoroo.astrid.api.IdListFilter;
 import com.todoroo.astrid.api.SearchFilter;
 import com.todoroo.astrid.api.TagFilter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
@@ -488,7 +491,7 @@ public final class TaskListFragment extends InjectingFragment
         ((PlaceFilter) filter).openMap(context);
         return true;
       case R.id.menu_share:
-        send(transform(taskDao.fetchTasks(preferences, filter), TaskContainer::getTask));
+        send(taskDao.fetchTasks(preferences, filter));
         return true;
       default:
         return onOptionsItemSelected(item);
@@ -752,7 +755,10 @@ public final class TaskListFragment extends InjectingFragment
         recyclerAdapter.notifyDataSetChanged();
         return true;
       case R.id.menu_share:
-        send(taskDao.fetch(taskAdapter.getSelected()));
+        send(
+            collect(
+                taskAdapter.getSelected(),
+                ids -> taskDao.fetchTasks(preferences, new IdListFilter(ids))));
         return true;
       case R.id.delete:
         dialogBuilder
@@ -775,13 +781,17 @@ public final class TaskListFragment extends InjectingFragment
     }
   }
 
-  private void send(List<Task> tasks) {
+  private void send(List<TaskContainer> tasks) {
     Intent intent = new Intent(Intent.ACTION_SEND);
     String output =
         Joiner.on("\n")
             .join(
                 transform(
-                    tasks, t -> String.format("%s %s", t.isCompleted() ? "☑" : "☐", t.getTitle())));
+                    tasks, t -> {
+                      String checkbox = t.isCompleted() ? "☑" : "☐";
+                      checkbox = padStart(checkbox, 1 + t.getIndent() * 3, ' ');
+                      return String.format("%s %s", checkbox, t.getTitle());
+                    }));
     intent.putExtra(Intent.EXTRA_SUBJECT, filter.listingTitle);
     intent.putExtra(Intent.EXTRA_TEXT, output);
     intent.setType("text/plain");

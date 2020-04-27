@@ -10,6 +10,9 @@ import static com.todoroo.andlib.sql.SqlConstants.LEFT_PARENTHESIS;
 import static com.todoroo.andlib.sql.SqlConstants.RIGHT_PARENTHESIS;
 import static com.todoroo.andlib.sql.SqlConstants.SPACE;
 
+import com.google.common.base.Joiner;
+import java.util.List;
+
 public class Field extends DBObject<Field> {
 
   protected Field(String expression) {
@@ -59,6 +62,22 @@ public class Field extends DBObject<Field> {
             .append(SPACE)
             .append(LEFT_PARENTHESIS)
             .append(query)
+            .append(RIGHT_PARENTHESIS);
+      }
+    };
+  }
+
+  public <T> Criterion in(List<T> entries) {
+    final Field field = this;
+    return new Criterion(Operator.in) {
+      @Override
+      protected void populate(StringBuilder sb) {
+        sb.append(field)
+            .append(SPACE)
+            .append(Operator.in)
+            .append(SPACE)
+            .append(LEFT_PARENTHESIS)
+            .append(Joiner.on(",").join(entries))
             .append(RIGHT_PARENTHESIS);
       }
     };
