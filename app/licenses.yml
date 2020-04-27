@@ -495,11 +495,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: http://tools.android.com
-- artifact: io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:+
-  name: sectionedrecyclerviewadapter
-  copyrightHolder: Gustavo Pagani
-  license: MIT License
-  licenseUrl: http://www.opensource.org/licenses/mit-license.php
 - artifact: org.jetbrains.kotlin:kotlin-stdlib:+
   name: org.jetbrains.kotlin:kotlin-stdlib
   copyrightHolder: JetBrains s.r.o.

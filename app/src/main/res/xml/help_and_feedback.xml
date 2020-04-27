@@ -47,7 +47,7 @@
     android:title="@string/third_party_licenses"
     app:icon="@drawable/ic_outline_gavel_24px">
     <intent
-      android:targetClass="org.tasks.preferences.AttributionActivity"
+      android:targetClass="org.tasks.activities.attribution.AttributionActivity"
       android:targetPackage="@string/app_package" />
   </Preference>
 

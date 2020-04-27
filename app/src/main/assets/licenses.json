@@ -1153,19 +1153,6 @@
     },
     {
       "artifactId": {
-        "name": "sectionedrecyclerviewadapter",
-        "group": "io.github.luizgrp.sectionedrecyclerviewadapter",
-        "version": "+"
-      },
-      "copyrightHolder": "Gustavo Pagani",
-      "copyrightStatement": "Copyright &copy; Gustavo Pagani. All rights reserved.",
-      "license": "MIT License",
-      "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
-      "normalizedLicense": "mit",
-      "libraryName": "sectionedrecyclerviewadapter"
-    },
-    {
-      "artifactId": {
         "name": "kotlin-stdlib",
         "group": "org.jetbrains.kotlin",
         "version": "+"

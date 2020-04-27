@@ -482,7 +482,7 @@
       android:taskAffinity=""
       android:theme="@style/TranslucentDialog"/>
 
-    <activity android:name=".preferences.AttributionActivity"/>
+    <activity android:name=".activities.attribution.AttributionActivity"/>
 
     <activity android:name=".tags.TagPickerActivity" />
 

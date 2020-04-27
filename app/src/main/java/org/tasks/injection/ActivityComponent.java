@@ -25,7 +25,7 @@ import org.tasks.etesync.EteSyncCalendarSettingsActivity;
 import org.tasks.locale.ui.activity.TaskerCreateTaskActivity;
 import org.tasks.locale.ui.activity.TaskerSettingsActivity;
 import org.tasks.location.LocationPickerActivity;
-import org.tasks.preferences.AttributionActivity;
+import org.tasks.activities.attribution.AttributionActivity;
 import org.tasks.preferences.HelpAndFeedback;
 import org.tasks.preferences.MainPreferences;
 import org.tasks.preferences.ManageSpaceActivity;
