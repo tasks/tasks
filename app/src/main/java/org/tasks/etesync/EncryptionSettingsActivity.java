@@ -72,7 +72,7 @@ public class EncryptionSettingsActivity extends ThemedInjectingAppCompatActivity
         caldavAccount == null ? getString(R.string.add_account) : caldavAccount.getName());
     toolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_outline_save_24px));
     toolbar.setNavigationOnClickListener(v -> save());
-    toolbar.inflateMenu(R.menu.menu_etesync_encryption_settings);
+    toolbar.inflateMenu(R.menu.menu_help);
     toolbar.setOnMenuItemClickListener(this);
     themeColor.apply(toolbar);
 
@@ -213,7 +213,7 @@ public class EncryptionSettingsActivity extends ThemedInjectingAppCompatActivity
 
   @Override
   public boolean onMenuItemClick(MenuItem item) {
-    if (item.getItemId() == R.id.help) {
+    if (item.getItemId() == R.id.menu_help) {
       startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://tasks.org/etesync")));
       return true;
     } else {
