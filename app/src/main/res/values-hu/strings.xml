@@ -615,4 +615,6 @@
     <string name="filter_today_only">Csak ma</string>
     <string name="filter_overdue">Határidőn túli</string>
     <string name="sort_created">Létrehozás ideje alapján</string>
+    <string name="disable_subtasks_summary">A részfeladatok letiltása növelheti az app sebességét</string>
+    <string name="disable_subtasks">Részfeladatok letiltása</string>
 </resources>
