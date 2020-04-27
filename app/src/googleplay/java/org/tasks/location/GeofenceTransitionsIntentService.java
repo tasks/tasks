@@ -2,6 +2,7 @@ package org.tasks.location;
 
 import static com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER;
 import static com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_EXIT;
+import static com.todoroo.andlib.utility.DateUtilities.now;
 import static com.todoroo.astrid.reminders.ReminderService.TYPE_GEOFENCE_ENTER;
 import static com.todoroo.astrid.reminders.ReminderService.TYPE_GEOFENCE_EXIT;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
@@ -65,8 +66,8 @@ public class GeofenceTransitionsIntentService extends InjectingJobIntentService 
         return;
       }
       List<Geofence> geofences = arrival
-          ? locationDao.getArrivalGeofences(place.getUid())
-          : locationDao.getDepartureGeofences(place.getUid());
+          ? locationDao.getArrivalGeofences(place.getUid(), now())
+          : locationDao.getDepartureGeofences(place.getUid(), now());
       notifier.triggerNotifications(
           Lists.transform(geofences, g -> toNotification(place, g, arrival)));
     } catch (Exception e) {

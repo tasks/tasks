@@ -2,10 +2,12 @@ package org.tasks.data
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.natpryce.makeiteasy.MakeItEasy.with
+import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.dao.TaskDao
 import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.tasks.Freeze
 import org.tasks.caldav.GeoUtils.toLikeString
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.injection.InjectingTestCase
@@ -106,6 +108,56 @@ class LocationDaoTest : InjectingTestCase() {
         locationDao.insert(newGeofence(with(TASK, 1), with(PLACE, place.uid), with(ARRIVAL, true)))
 
         assertNull(locationDao.getGeofencesByPlace(place.uid))
+    }
+
+    @Test
+    fun ignoreArrivalForSnoozedTask() {
+        Freeze.freezeAt(now()).thawAfter {
+            val place = newPlace()
+            locationDao.insert(place)
+            taskDao.createNew(newTask(with(ID, 1), with(SNOOZE_TIME, newDateTime().plusMinutes(15))))
+            locationDao.insert(newGeofence(with(TASK, 1), with(PLACE, place.uid), with(ARRIVAL, true)))
+
+            assertTrue(locationDao.getArrivalGeofences(place.uid, now()).isEmpty())
+        }
+    }
+
+    @Test
+    fun ignoreDepartureForSnoozedTask() {
+        Freeze.freezeAt(now()).thawAfter {
+            val place = newPlace()
+            locationDao.insert(place)
+            taskDao.createNew(newTask(with(ID, 1), with(SNOOZE_TIME, newDateTime().plusMinutes(15))))
+            locationDao.insert(newGeofence(with(TASK, 1), with(PLACE, place.uid), with(DEPARTURE, true)))
+
+            assertTrue(locationDao.getDepartureGeofences(place.uid, now()).isEmpty())
+        }
+    }
+
+    @Test
+    fun getArrivalWithElapsedSnooze() {
+        Freeze.freezeAt(now()).thawAfter {
+            val place = newPlace()
+            locationDao.insert(place)
+            taskDao.createNew(newTask(with(ID, 1), with(SNOOZE_TIME, newDateTime().minusMinutes(15))))
+            val geofence = newGeofence(with(TASK, 1), with(PLACE, place.uid), with(ARRIVAL, true))
+            geofence.id = locationDao.insert(geofence)
+
+            assertEquals(listOf(geofence), locationDao.getArrivalGeofences(place.uid, now()))
+        }
+    }
+
+    @Test
+    fun getDepartureWithElapsedSnooze() {
+        Freeze.freezeAt(now()).thawAfter {
+            val place = newPlace()
+            locationDao.insert(place)
+            taskDao.createNew(newTask(with(ID, 1), with(SNOOZE_TIME, newDateTime().minusMinutes(15))))
+            val geofence = newGeofence(with(TASK, 1), with(PLACE, place.uid), with(DEPARTURE, true))
+            geofence.id = locationDao.insert(geofence)
+
+            assertEquals(listOf(geofence), locationDao.getDepartureGeofences(place.uid, now()))
+        }
     }
 
     override fun inject(component: TestComponent) = component.inject(this)

@@ -43,14 +43,14 @@ public interface LocationDao {
   @Query(
       "SELECT geofences.* FROM geofences"
           + " INNER JOIN tasks ON tasks._id = geofences.task"
-          + " WHERE place = :place AND arrival = 1 AND tasks.completed = 0 AND tasks.deleted = 0")
-  List<Geofence> getArrivalGeofences(String place);
+          + " WHERE place = :place AND arrival = 1 AND tasks.completed = 0 AND tasks.deleted = 0 AND tasks.snoozeTime < :now")
+  List<Geofence> getArrivalGeofences(String place, long now);
 
   @Query(
       "SELECT geofences.* FROM geofences"
           + " INNER JOIN tasks ON tasks._id = geofences.task"
-          + " WHERE place = :place AND departure = 1 AND tasks.completed = 0 AND tasks.deleted = 0")
-  List<Geofence> getDepartureGeofences(String place);
+          + " WHERE place = :place AND departure = 1 AND tasks.completed = 0 AND tasks.deleted = 0 AND tasks.snoozeTime < :now")
+  List<Geofence> getDepartureGeofences(String place, long now);
 
   @Query(
       "SELECT * FROM geofences"
