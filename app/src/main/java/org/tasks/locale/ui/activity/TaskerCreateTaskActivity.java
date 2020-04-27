@@ -37,7 +37,7 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
     toolbar.setNavigationIcon(getDrawable(R.drawable.ic_outline_save_24px));
     toolbar.setNavigationOnClickListener(v -> save());
     toolbar.setOnMenuItemClickListener(this);
-    toolbar.inflateMenu(R.menu.menu_tasker_create_task);
+    toolbar.inflateMenu(R.menu.menu_help);
     themeColor.apply(toolbar);
 
     if (savedInstanceState != null) {

@@ -3,6 +3,8 @@
 * Swipe to delete filter criteria
 * Tap on filter criteria to choose filter operator
 * Offer additional built-in filters
+* Add sort by creation time
+* Choose any day as start of week
 * Update translations
 
 Full release notes: https://tasks.org/changelog

@@ -16,7 +16,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -126,6 +128,10 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
 
     fab.setExtended(isNew() || adapter.getItemCount() <= 1);
 
+    if (isNew()) {
+      toolbar.inflateMenu(R.menu.menu_help);
+    }
+
     updateList();
 
     updateTheme();
@@ -160,6 +166,7 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
               criterionInstance.type = getType(group.getCheckedButtonId());
               updateList();
             })
+        .setNeutralButton(R.string.help,(v, which) -> help())
         .show();
   }
 
@@ -347,6 +354,20 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
     setResult(
         RESULT_OK, new Intent(TaskListFragment.ACTION_DELETED).putExtra(TOKEN_FILTER, filter));
     finish();
+  }
+
+  @Override
+  public boolean onMenuItemClick(MenuItem item) {
+    if (item.getItemId() == R.id.menu_help) {
+      help();
+      return true;
+    } else {
+      return super.onMenuItemClick(item);
+    }
+  }
+
+  private void help() {
+    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://tasks.org/filters")));
   }
 
   public void updateList() {

@@ -377,7 +377,7 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
   @Override
   public boolean onMenuItemClick(MenuItem item) {
     switch (item.getItemId()) {
-      case R.id.help:
+      case R.id.menu_help:
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getHelpUrl())));
         break;
       case R.id.remove:
