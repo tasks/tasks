@@ -196,9 +196,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     hiddenIcon.setVisibility(task.isHidden() ? View.VISIBLE : View.GONE);
     setupTitleAndCheckbox();
     setupDueDate();
-    if (preferences.getBoolean(R.string.p_show_list_indicators, true)) {
-      setupChips(filter);
-    }
+    setupChips(filter);
     if (preferences.getBoolean(R.string.p_show_description, true)) {
       description.setText(task.getNotes());
       description.setVisibility(task.hasNotes() ? View.VISIBLE : View.GONE);

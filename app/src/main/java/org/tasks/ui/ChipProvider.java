@@ -42,6 +42,7 @@ public class ChipProvider {
   private final Inventory inventory;
   private final int iconAlpha;
   private final ChipListCache lists;
+  private final Preferences preferences;
   private final ColorProvider colorProvider;
   private final Locale locale;
   private final Ordering<TagFilter> orderByName =
@@ -68,6 +69,7 @@ public class ChipProvider {
     iconAlpha =
         (int) (255 * ResourcesCompat.getFloat(activity.getResources(), R.dimen.alpha_secondary));
     this.lists = lists;
+    this.preferences = preferences;
     this.colorProvider = colorProvider;
     this.locale = locale;
 
@@ -109,31 +111,33 @@ public class ChipProvider {
     if (task.hasChildren()) {
       chips.add(newSubtaskChip(task, !showText));
     }
-    if (task.hasLocation() && !(filter instanceof PlaceFilter)) {
-      Location location = task.getLocation();
-      chips.add(newChip(new PlaceFilter(location.getPlace()), R.drawable.ic_outline_place_24px));
-    }
-    if (!isSubtask) {
-      if (!Strings.isNullOrEmpty(task.getGoogleTaskList()) && !(filter instanceof GtasksFilter)) {
-        chips.add(
-            newChip(
-                lists.getGoogleTaskList(task.getGoogleTaskList()),
-                R.drawable.ic_outline_cloud_24px));
-      } else if (!Strings.isNullOrEmpty(task.getCaldav()) && !(filter instanceof CaldavFilter)) {
-        chips.add(
-            newChip(lists.getCaldavList(task.getCaldav()), R.drawable.ic_outline_cloud_24px));
+    if (preferences.getBoolean(R.string.p_show_list_indicators, true)) {
+      if (task.hasLocation() && !(filter instanceof PlaceFilter)) {
+        Location location = task.getLocation();
+        chips.add(newChip(new PlaceFilter(location.getPlace()), R.drawable.ic_outline_place_24px));
       }
-    }
-    String tagString = task.getTagsString();
-    if (!Strings.isNullOrEmpty(tagString)) {
-      Set<String> tags = newHashSet(tagString.split(","));
-      if (filter instanceof TagFilter) {
-        tags.remove(((TagFilter) filter).getUuid());
+      if (!isSubtask) {
+        if (!Strings.isNullOrEmpty(task.getGoogleTaskList()) && !(filter instanceof GtasksFilter)) {
+          chips.add(
+              newChip(
+                  lists.getGoogleTaskList(task.getGoogleTaskList()),
+                  R.drawable.ic_outline_cloud_24px));
+        } else if (!Strings.isNullOrEmpty(task.getCaldav()) && !(filter instanceof CaldavFilter)) {
+          chips.add(
+              newChip(lists.getCaldavList(task.getCaldav()), R.drawable.ic_outline_cloud_24px));
+        }
       }
-      chips.addAll(
-          transform(
-              orderByName.sortedCopy(filter(transform(tags, lists::getTag), Predicates.notNull())),
-              tag -> newChip(tag, R.drawable.ic_outline_label_24px)));
+      String tagString = task.getTagsString();
+      if (!Strings.isNullOrEmpty(tagString)) {
+        Set<String> tags = newHashSet(tagString.split(","));
+        if (filter instanceof TagFilter) {
+          tags.remove(((TagFilter) filter).getUuid());
+        }
+        chips.addAll(
+            transform(
+                orderByName.sortedCopy(filter(transform(tags, lists::getTag), Predicates.notNull())),
+                tag -> newChip(tag, R.drawable.ic_outline_label_24px)));
+      }
     }
 
     removeIf(chips, Predicates.isNull());
