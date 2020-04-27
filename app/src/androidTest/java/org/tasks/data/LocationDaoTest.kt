@@ -4,6 +4,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.data.Task
 import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -153,6 +154,68 @@ class LocationDaoTest : InjectingTestCase() {
             val place = newPlace()
             locationDao.insert(place)
             taskDao.createNew(newTask(with(ID, 1), with(SNOOZE_TIME, newDateTime().minusMinutes(15))))
+            val geofence = newGeofence(with(TASK, 1), with(PLACE, place.uid), with(DEPARTURE, true))
+            geofence.id = locationDao.insert(geofence)
+
+            assertEquals(listOf(geofence), locationDao.getDepartureGeofences(place.uid, now()))
+        }
+    }
+
+    @Test
+    fun ignoreArrivalForHiddenTask() {
+        Freeze.freezeAt(now()).thawAfter {
+            val place = newPlace()
+            locationDao.insert(place)
+            taskDao.createNew(newTask(
+                    with(ID, 1),
+                    with(DUE_TIME, newDateTime().plusMinutes(15)),
+                    with(HIDE_TYPE, Task.HIDE_UNTIL_DUE_TIME)))
+            locationDao.insert(newGeofence(with(TASK, 1), with(PLACE, place.uid), with(ARRIVAL, true)))
+
+            assertTrue(locationDao.getArrivalGeofences(place.uid, now()).isEmpty())
+        }
+    }
+
+    @Test
+    fun ignoreDepartureForHiddenTask() {
+        Freeze.freezeAt(now()).thawAfter {
+            val place = newPlace()
+            locationDao.insert(place)
+            taskDao.createNew(newTask(
+                    with(ID, 1),
+                    with(DUE_TIME, newDateTime().plusMinutes(15)),
+                    with(HIDE_TYPE, Task.HIDE_UNTIL_DUE_TIME)))
+            locationDao.insert(newGeofence(with(TASK, 1), with(PLACE, place.uid), with(DEPARTURE, true)))
+
+            assertTrue(locationDao.getDepartureGeofences(place.uid, now()).isEmpty())
+        }
+    }
+
+    @Test
+    fun getArrivalWithElapsedHideUntil() {
+        Freeze.freezeAt(now()).thawAfter {
+            val place = newPlace()
+            locationDao.insert(place)
+            taskDao.createNew(newTask(
+                    with(ID, 1),
+                    with(DUE_TIME, newDateTime().minusMinutes(15)),
+                    with(HIDE_TYPE, Task.HIDE_UNTIL_DUE_TIME)))
+            val geofence = newGeofence(with(TASK, 1), with(PLACE, place.uid), with(ARRIVAL, true))
+            geofence.id = locationDao.insert(geofence)
+
+            assertEquals(listOf(geofence), locationDao.getArrivalGeofences(place.uid, now()))
+        }
+    }
+
+    @Test
+    fun getDepartureWithElapsedHideUntil() {
+        Freeze.freezeAt(now()).thawAfter {
+            val place = newPlace()
+            locationDao.insert(place)
+            taskDao.createNew(newTask(
+                    with(ID, 1),
+                    with(DUE_TIME, newDateTime().minusMinutes(15)),
+                    with(HIDE_TYPE, Task.HIDE_UNTIL_DUE_TIME)))
             val geofence = newGeofence(with(TASK, 1), with(PLACE, place.uid), with(DEPARTURE, true))
             geofence.id = locationDao.insert(geofence)
 
