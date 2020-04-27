@@ -1,14 +1,28 @@
 Change Log
 ---
 =======
-### 8.11 (2020-04-23)
+### 8.11 (2020-04-27)
 
 * Edit existing custom filters
 * Drag and drop to rearrange filter criteria
 * Swipe to delete filter criteria
 * Tap on filter criteria to choose filter operator
 * Offer additional built-in filters
+* Add sort by creation time
+* Choose any day as start of week
 * Update translations
+  * Catalan - @jmontane
+  * Dutch - @fvbommel
+  * Finnish - Jeannette L
+  * French - @FlorianLeChat, Jeannette L
+  * German - Jeannette L
+  * Hungarian - kaciokos
+  * Italian - Jeannette L
+  * Polish - @alex-ter
+  * Russian - @alex-ter
+  * Simplified Chinese - @sr093906
+  * Slovak - Atilla Farkas
+  * Spanish - @FlorianLeChat
 
 ### 8.10 (2020-04-20)
 
