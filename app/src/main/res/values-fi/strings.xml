@@ -552,4 +552,5 @@
     <string name="widget_show_menu">Näytä valikko</string>
     <string name="widget_hide_background">Piilota tausta</string>
     <string name="CFC_caldav_list_name">CalDAV lista…</string>
+    <string name="sort_created">Luontiajan mukaan</string>
 </resources>
