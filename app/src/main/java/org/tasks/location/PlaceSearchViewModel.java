@@ -1,6 +1,7 @@
 package org.tasks.location;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
+import static org.tasks.Strings.isNullOrEmpty;
 
 import android.os.Bundle;
 import androidx.annotation.Nullable;
@@ -8,7 +9,6 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
-import com.google.common.base.Strings;
 import java.util.Collections;
 import java.util.List;
 import org.tasks.Event;
@@ -47,7 +47,7 @@ public class PlaceSearchViewModel extends ViewModel {
   public void query(String query, @Nullable MapPosition bias) {
     assertMainThread();
 
-    if (Strings.isNullOrEmpty(query)) {
+    if (isNullOrEmpty(query)) {
       searchResults.postValue(Collections.emptyList());
     } else {
       searchProvider.search(query, bias, searchResults::setValue, this::setError);

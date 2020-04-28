@@ -1,12 +1,11 @@
 package org.tasks.security;
 
+import static org.tasks.Strings.isNullOrEmpty;
+
 import android.annotation.SuppressLint;
-import android.os.Build.VERSION_CODES;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.util.Base64;
-import androidx.annotation.RequiresApi;
-import com.google.common.base.Strings;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -70,7 +69,7 @@ public class KeyStoreEncryption {
   }
 
   public String decrypt(String text) {
-    if (Strings.isNullOrEmpty(text)) {
+    if (isNullOrEmpty(text)) {
       return null;
     }
 

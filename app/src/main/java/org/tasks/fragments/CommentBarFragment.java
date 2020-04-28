@@ -1,5 +1,6 @@
 package org.tasks.fragments;
 
+import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.files.ImageHelper.sampleBitmap;
 
 import android.app.Activity;
@@ -25,7 +26,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnEditorAction;
 import butterknife.OnTextChanged;
-import com.google.common.base.Strings;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.data.Task;
 import java.util.ArrayList;
@@ -129,7 +129,7 @@ public class CommentBarFragment extends TaskEditControlFragment {
   @OnTextChanged(R.id.commentField)
   void onTextChanged(CharSequence s) {
     commentButton.setVisibility(
-        pendingCommentPicture == null && Strings.isNullOrEmpty(s.toString())
+        pendingCommentPicture == null && isNullOrEmpty(s.toString())
             ? View.GONE
             : View.VISIBLE);
   }

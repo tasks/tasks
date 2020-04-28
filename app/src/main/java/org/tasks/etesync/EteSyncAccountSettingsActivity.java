@@ -1,6 +1,7 @@
 package org.tasks.etesync;
 
 import static com.todoroo.astrid.data.Task.NO_ID;
+import static org.tasks.Strings.isNullOrEmpty;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +16,6 @@ import com.etesync.journalmanager.Crypto.CryptoManager;
 import com.etesync.journalmanager.Exceptions.IntegrityException;
 import com.etesync.journalmanager.Exceptions.VersionTooNewException;
 import com.etesync.journalmanager.UserInfoManager.UserInfo;
-import com.google.common.base.Strings;
 import com.todoroo.astrid.helper.UUIDHelper;
 import io.reactivex.Completable;
 import io.reactivex.schedulers.Schedulers;
@@ -112,7 +112,7 @@ public class EteSyncAccountSettingsActivity extends BaseCaldavAccountSettingsAct
 
   private boolean testUserInfo(UserInfo userInfo) {
     String encryptionKey = caldavAccount.getEncryptionPassword(encryption);
-    if (userInfo != null && !Strings.isNullOrEmpty(encryptionKey)) {
+    if (userInfo != null && !isNullOrEmpty(encryptionKey)) {
       try {
         CryptoManager cryptoManager =
             new CryptoManager(userInfo.getVersion(), encryptionKey, "userInfo");
@@ -136,7 +136,7 @@ public class EteSyncAccountSettingsActivity extends BaseCaldavAccountSettingsAct
 
   @Override
   protected boolean needsValidation() {
-    return super.needsValidation() || Strings.isNullOrEmpty(caldavAccount.getEncryptionKey());
+    return super.needsValidation() || isNullOrEmpty(caldavAccount.getEncryptionKey());
   }
 
   @Override
@@ -163,7 +163,7 @@ public class EteSyncAccountSettingsActivity extends BaseCaldavAccountSettingsAct
   @Override
   protected String getNewURL() {
     String url = super.getNewURL();
-    return Strings.isNullOrEmpty(url) ? getString(R.string.etesync_url) : url;
+    return isNullOrEmpty(url) ? getString(R.string.etesync_url) : url;
   }
 
   @Override

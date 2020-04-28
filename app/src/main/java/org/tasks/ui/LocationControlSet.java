@@ -4,6 +4,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 import static com.todoroo.astrid.data.SyncFlags.FORCE_CALDAV_SYNC;
 import static org.tasks.PermissionUtil.verifyPermissions;
+import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.dialogs.GeofenceDialog.newGeofenceDialog;
 import static org.tasks.location.LocationPickerActivity.EXTRA_PLACE;
 
@@ -25,7 +26,6 @@ import androidx.annotation.Nullable;
 import androidx.core.util.Pair;
 import butterknife.BindView;
 import butterknife.OnClick;
-import com.google.common.base.Strings;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
 import java.util.ArrayList;
@@ -130,7 +130,7 @@ public class LocationControlSet extends TaskEditControlFragment {
               : R.drawable.ic_outline_notifications_off_24px);
       String name = this.location.getDisplayName();
       String address = this.location.getDisplayAddress();
-      if (!Strings.isNullOrEmpty(address) && !address.equals(name)) {
+      if (!isNullOrEmpty(address) && !address.equals(name)) {
         locationAddress.setText(address);
         locationAddress.setVisibility(View.VISIBLE);
       } else {
@@ -156,10 +156,10 @@ public class LocationControlSet extends TaskEditControlFragment {
     } else {
       List<Pair<Integer, Runnable>> options = new ArrayList<>();
       options.add(Pair.create(R.string.open_map, () -> location.open(getActivity())));
-      if (!Strings.isNullOrEmpty(location.getPhone())) {
+      if (!isNullOrEmpty(location.getPhone())) {
         options.add(Pair.create(R.string.action_call, this::call));
       }
-      if (!Strings.isNullOrEmpty(location.getUrl())) {
+      if (!isNullOrEmpty(location.getUrl())) {
         options.add(Pair.create(R.string.visit_website, this::openWebsite));
       }
       options.add(Pair.create(R.string.choose_new_location, this::chooseLocation));

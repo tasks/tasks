@@ -1,6 +1,7 @@
 package org.tasks.ui;
 
 import static com.todoroo.andlib.utility.DateUtilities.now;
+import static org.tasks.Strings.isNullOrEmpty;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -23,7 +24,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.OnClick;
-import com.google.common.base.Strings;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.QueryTemplate;
@@ -158,7 +158,7 @@ public class SubtaskControlSet extends TaskEditControlFragment implements Callba
   @Override
   public void apply(Task task) {
     for (Task subtask: getNewSubtasks()) {
-      if (Strings.isNullOrEmpty(subtask.getTitle())) {
+      if (isNullOrEmpty(subtask.getTitle())) {
         continue;
       }
       subtask.setCompletionDate(task.getCompletionDate());

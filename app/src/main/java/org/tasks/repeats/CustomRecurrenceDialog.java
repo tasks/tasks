@@ -8,6 +8,7 @@ import static com.google.ical.values.Frequency.MONTHLY;
 import static com.google.ical.values.Frequency.WEEKLY;
 import static com.google.ical.values.Frequency.YEARLY;
 import static java.util.Arrays.asList;
+import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.dialogs.MyDatePickerDialog.newDatePicker;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
@@ -42,7 +43,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemSelected;
 import butterknife.OnTextChanged;
-import com.google.common.base.Strings;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.google.ical.values.Weekday;
@@ -168,7 +168,7 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
             ? arguments.getString(EXTRA_RRULE)
             : savedInstanceState.getString(EXTRA_RRULE);
     try {
-      if (!Strings.isNullOrEmpty(rule)) {
+      if (!isNullOrEmpty(rule)) {
         rrule = new RRule(rule);
       }
     } catch (Exception e) {

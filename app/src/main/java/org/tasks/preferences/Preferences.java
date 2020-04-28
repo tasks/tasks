@@ -6,6 +6,7 @@ import static com.google.common.collect.Iterables.filter;
 import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Sets.newHashSet;
 import static java.util.Collections.emptySet;
+import static org.tasks.Strings.isNullOrEmpty;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -19,7 +20,6 @@ import android.text.TextUtils;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.documentfile.provider.DocumentFile;
-import com.google.common.base.Strings;
 import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.SortHelper;
@@ -264,7 +264,7 @@ public class Preferences {
 
   private Uri getUri(int key) {
     String uri = getStringValue(key);
-    return Strings.isNullOrEmpty(uri) ? null : Uri.parse(uri);
+    return isNullOrEmpty(uri) ? null : Uri.parse(uri);
   }
 
   public void setUri(int key, java.net.URI uri) {

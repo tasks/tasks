@@ -1,5 +1,6 @@
 package org.tasks.widget;
 
+import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.themes.ThemeColor.getLauncherColor;
 
 import android.app.Activity;
@@ -16,7 +17,6 @@ import butterknife.OnClick;
 import butterknife.OnFocusChange;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.common.base.Strings;
 import com.todoroo.astrid.api.Filter;
 import javax.inject.Inject;
 import org.tasks.R;
@@ -130,7 +130,7 @@ public class ShortcutConfigActivity extends ThemedInjectingAppCompatActivity
   }
 
   private void updateFilterAndTheme() {
-    if (Strings.isNullOrEmpty(getShortcutName()) && selectedFilter != null) {
+    if (isNullOrEmpty(getShortcutName()) && selectedFilter != null) {
       shortcutName.setText(selectedFilter.listingTitle);
     }
     if (selectedFilter != null) {

@@ -8,6 +8,7 @@ package com.todoroo.astrid.data;
 
 import static com.todoroo.astrid.data.SyncFlags.SUPPRESS_SYNC;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
+import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
 import android.content.ContentValues;
@@ -22,7 +23,6 @@ import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import com.google.common.base.Objects;
-import com.google.common.base.Strings;
 import com.google.ical.values.RRule;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
@@ -337,7 +337,7 @@ public class Task implements Parcelable {
   }
 
   public String getUuid() {
-    return Strings.isNullOrEmpty(remoteId) ? NO_UUID : remoteId;
+    return isNullOrEmpty(remoteId) ? NO_UUID : remoteId;
   }
 
   public void setUuid(String uuid) {
@@ -453,7 +453,7 @@ public class Task implements Parcelable {
   }
 
   public boolean isRecurring() {
-    return !Strings.isNullOrEmpty(recurrence);
+    return !isNullOrEmpty(recurrence);
   }
 
   public String getRecurrence() {

@@ -1,6 +1,7 @@
 package org.tasks.data;
 
 import static com.mapbox.api.geocoding.v5.GeocodingCriteria.TYPE_ADDRESS;
+import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.data.Place.TABLE_NAME;
 
 import android.content.Context;
@@ -18,7 +19,6 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
-import com.google.common.base.Strings;
 import com.mapbox.api.geocoding.v5.models.CarmenFeature;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
@@ -255,10 +255,10 @@ public class Place implements Serializable, Parcelable {
   }
 
   public String getDisplayName() {
-    if (!Strings.isNullOrEmpty(name) && !COORDS.matcher(name).matches()) {
+    if (!isNullOrEmpty(name) && !COORDS.matcher(name).matches()) {
       return name;
     }
-    if (!Strings.isNullOrEmpty(address)) {
+    if (!isNullOrEmpty(address)) {
       return address;
     }
     return String.format(
@@ -266,7 +266,7 @@ public class Place implements Serializable, Parcelable {
   }
 
   public String getDisplayAddress() {
-    return Strings.isNullOrEmpty(address) ? null : address.replace(String.format("%s, ", name), "");
+    return isNullOrEmpty(address) ? null : address.replace(String.format("%s, ", name), "");
   }
 
   public void open(Context context) {

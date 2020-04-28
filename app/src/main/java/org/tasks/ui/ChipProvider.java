@@ -5,6 +5,7 @@ import static com.google.common.collect.Collections2.transform;
 import static com.google.common.collect.Iterables.removeIf;
 import static com.google.common.collect.Sets.newHashSet;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
+import static org.tasks.Strings.isNullOrEmpty;
 
 import android.app.Activity;
 import android.content.res.ColorStateList;
@@ -14,7 +15,6 @@ import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
 import com.google.android.material.chip.Chip;
 import com.google.common.base.Predicates;
-import com.google.common.base.Strings;
 import com.google.common.collect.Ordering;
 import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
@@ -117,18 +117,18 @@ public class ChipProvider {
         chips.add(newChip(new PlaceFilter(location.getPlace()), R.drawable.ic_outline_place_24px));
       }
       if (!isSubtask) {
-        if (!Strings.isNullOrEmpty(task.getGoogleTaskList()) && !(filter instanceof GtasksFilter)) {
+        if (!isNullOrEmpty(task.getGoogleTaskList()) && !(filter instanceof GtasksFilter)) {
           chips.add(
               newChip(
                   lists.getGoogleTaskList(task.getGoogleTaskList()),
                   R.drawable.ic_outline_cloud_24px));
-        } else if (!Strings.isNullOrEmpty(task.getCaldav()) && !(filter instanceof CaldavFilter)) {
+        } else if (!isNullOrEmpty(task.getCaldav()) && !(filter instanceof CaldavFilter)) {
           chips.add(
               newChip(lists.getCaldavList(task.getCaldav()), R.drawable.ic_outline_cloud_24px));
         }
       }
       String tagString = task.getTagsString();
-      if (!Strings.isNullOrEmpty(tagString)) {
+      if (!isNullOrEmpty(tagString)) {
         Set<String> tags = newHashSet(tagString.split(","));
         if (filter instanceof TagFilter) {
           tags.remove(((TagFilter) filter).getUuid());

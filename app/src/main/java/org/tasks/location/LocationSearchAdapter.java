@@ -1,5 +1,7 @@
 package org.tasks.location;
 
+import static org.tasks.Strings.isNullOrEmpty;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +16,6 @@ import androidx.recyclerview.widget.DiffUtil.ItemCallback;
 import androidx.recyclerview.widget.ListUpdateCallback;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
-import com.google.common.base.Strings;
 import java.util.List;
 import org.tasks.R;
 
@@ -117,7 +118,7 @@ class LocationSearchAdapter extends RecyclerView.Adapter<ViewHolder>
       CharSequence address = prediction.getAddress();
       this.name.setText(name);
       if (address == null
-          || Strings.isNullOrEmpty(address.toString())
+          || isNullOrEmpty(address.toString())
           || address.toString().equals(name.toString())) {
         this.address.setVisibility(View.GONE);
       } else {

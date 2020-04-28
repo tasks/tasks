@@ -5,6 +5,7 @@ import static android.provider.DocumentsContract.EXTRA_INITIAL_URI;
 import static androidx.core.content.FileProvider.getUriForFile;
 import static com.google.common.collect.Iterables.any;
 import static com.todoroo.astrid.utility.Constants.FILE_PROVIDER_AUTHORITY;
+import static org.tasks.Strings.isNullOrEmpty;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -21,7 +22,6 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.documentfile.provider.DocumentFile;
 import androidx.fragment.app.Fragment;
-import com.google.common.base.Strings;
 import com.google.common.io.ByteStreams;
 import com.google.common.io.Files;
 import java.io.File;
@@ -135,13 +135,13 @@ public class FileHelper {
     if (uri.getScheme().equals(ContentResolver.SCHEME_CONTENT)) {
       String mimeType = context.getContentResolver().getType(uri);
       String extension = MimeTypeMap.getSingleton().getExtensionFromMimeType(mimeType);
-      if (!Strings.isNullOrEmpty(extension)) {
+      if (!isNullOrEmpty(extension)) {
         return extension;
       }
     }
 
     String extension = MimeTypeMap.getFileExtensionFromUrl(uri.getPath());
-    if (!Strings.isNullOrEmpty(extension)) {
+    if (!isNullOrEmpty(extension)) {
       return extension;
     }
 
@@ -150,7 +150,7 @@ public class FileHelper {
 
   public static String getMimeType(Context context, Uri uri) {
     String mimeType = context.getContentResolver().getType(uri);
-    if (!Strings.isNullOrEmpty(mimeType)) {
+    if (!isNullOrEmpty(mimeType)) {
       return mimeType;
     }
     String extension = getExtension(context, uri);

@@ -11,6 +11,7 @@ import static com.google.common.collect.Iterables.find;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.utility.AndroidUtilities.mapToSerializedString;
+import static org.tasks.Strings.isNullOrEmpty;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -33,7 +34,6 @@ import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.common.base.Strings;
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.UnaryCriterion;
@@ -323,7 +323,7 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
   @Override
   protected boolean hasChanges() {
     if (isNew()) {
-      return !Strings.isNullOrEmpty(getNewName())
+      return !isNullOrEmpty(getNewName())
           || selectedColor != 0
           || selectedIcon != -1
           || criteria.size() > 1;

@@ -1,5 +1,7 @@
 package org.tasks.location;
 
+import static org.tasks.Strings.isNullOrEmpty;
+
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -11,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil.ItemCallback;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
-import com.google.common.base.Strings;
 import org.tasks.R;
 import org.tasks.billing.Inventory;
 import org.tasks.data.Place;
@@ -112,7 +113,7 @@ public class LocationPickerAdapter extends ListAdapter<PlaceUsage, PlaceViewHold
       this.icon.setImageDrawable(wrapped);
       this.icon.getDrawable().setTint(color);
       this.name.setText(name);
-      if (Strings.isNullOrEmpty(address) || address.equals(name)) {
+      if (isNullOrEmpty(address) || address.equals(name)) {
         this.address.setVisibility(View.GONE);
       } else {
         this.address.setText(address);

@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.SwitchPreferenceCompat
-import com.google.common.base.Strings
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
@@ -14,6 +13,7 @@ import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity
 import com.todoroo.astrid.service.TaskDeleter
 import org.tasks.R
+import org.tasks.Strings.isNullOrEmpty
 import org.tasks.activities.RemoteListPicker
 import org.tasks.caldav.CaldavAccountSettingsActivity
 import org.tasks.data.CaldavAccount
@@ -135,7 +135,7 @@ class Synchronization : InjectingPreferenceFragment() {
             val preference = Preference(context)
             preference.title = account
             val error = googleTaskAccount.error
-            if (Strings.isNullOrEmpty(error)) {
+            if (isNullOrEmpty(error)) {
                 preference.setSummary(R.string.gtasks_GPr_header)
             } else {
                 preference.summary = error
@@ -173,7 +173,7 @@ class Synchronization : InjectingPreferenceFragment() {
             val preference = Preference(context)
             preference.title = account.name
             val error = account.error
-            if (Strings.isNullOrEmpty(error)) {
+            if (isNullOrEmpty(error)) {
                 preference.setSummary(
                     if (account.isCaldavAccount) R.string.caldav else R.string.etesync
                 )

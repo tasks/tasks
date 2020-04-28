@@ -3,7 +3,6 @@ package org.tasks.activities
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
 import butterknife.BindView
 import butterknife.OnTextChanged
 import com.google.android.material.textfield.TextInputEditText
@@ -11,6 +10,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
 import org.tasks.R
+import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.LocationDao
 import org.tasks.data.Place
 import org.tasks.filters.PlaceFilter
@@ -72,7 +72,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
     override fun save() {
         val newName: String = name.text.toString()
 
-        if (TextUtils.isEmpty(newName)) {
+        if (isNullOrEmpty(newName)) {
             nameLayout.error = getString(R.string.name_cannot_be_empty)
             return
         }

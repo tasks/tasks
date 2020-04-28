@@ -2,6 +2,7 @@ package org.tasks.caldav;
 
 import static android.text.TextUtils.isEmpty;
 import static com.todoroo.astrid.data.Task.NO_ID;
+import static org.tasks.Strings.isNullOrEmpty;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,7 +21,6 @@ import butterknife.OnFocusChange;
 import butterknife.OnTextChanged;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.common.base.Strings;
 import com.todoroo.astrid.service.TaskDeleter;
 import java.net.ConnectException;
 import java.net.IDN;
@@ -173,7 +173,7 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
 
   protected String getNewName() {
     String name = binding.name.getText().toString().trim();
-    return Strings.isNullOrEmpty(name) ? getNewUsername() : name;
+    return isNullOrEmpty(name) ? getNewUsername() : name;
   }
 
   protected String getNewURL() {

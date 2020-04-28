@@ -1,7 +1,7 @@
 package org.tasks.ui;
 
-import static com.google.common.base.Strings.isNullOrEmpty;
 import static org.tasks.PermissionUtil.verifyPermissions;
+import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.calendars.CalendarPicker.newCalendarPicker;
 
 import android.app.Activity;
@@ -22,7 +22,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.OnClick;
-import com.google.common.base.Strings;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
 import javax.inject.Inject;
@@ -84,7 +83,7 @@ public class CalendarControlSet extends TaskEditControlFragment {
       calendarId = savedInstanceState.getString(EXTRA_ID);
     } else if (task.isNew() && canAccessCalendars) {
       calendarId = preferences.getDefaultCalendar();
-      if (!Strings.isNullOrEmpty(calendarId)) {
+      if (!isNullOrEmpty(calendarId)) {
         try {
           AndroidCalendar defaultCalendar = calendarProvider.getCalendar(calendarId);
           if (defaultCalendar == null) {
@@ -219,7 +218,7 @@ public class CalendarControlSet extends TaskEditControlFragment {
 
   @Override
   protected void onRowClick() {
-    if (Strings.isNullOrEmpty(eventUri)) {
+    if (isNullOrEmpty(eventUri)) {
       newCalendarPicker(this, REQUEST_CODE_PICK_CALENDAR, getCalendarName())
           .show(getParentFragmentManager(), FRAG_TAG_CALENDAR_PICKER);
     } else {
@@ -302,7 +301,7 @@ public class CalendarControlSet extends TaskEditControlFragment {
   }
 
   private void refreshDisplayView() {
-    if (!Strings.isNullOrEmpty(eventUri)) {
+    if (!isNullOrEmpty(eventUri)) {
       calendar.setText(R.string.gcal_TEA_showCalendar_label);
       cancelButton.setVisibility(View.VISIBLE);
     } else if (calendarId != null) {

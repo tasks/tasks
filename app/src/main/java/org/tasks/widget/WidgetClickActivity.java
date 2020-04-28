@@ -1,9 +1,10 @@
 package org.tasks.widget;
 
+import static org.tasks.Strings.isNullOrEmpty;
+
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.FragmentManager;
-import com.google.common.base.Strings;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskCompleter;
@@ -41,7 +42,7 @@ public class WidgetClickActivity extends InjectingAppCompatActivity
 
     String action = intent.getAction();
 
-    if (Strings.isNullOrEmpty(action)) {
+    if (isNullOrEmpty(action)) {
       return;
     }
 

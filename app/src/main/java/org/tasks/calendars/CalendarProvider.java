@@ -1,6 +1,7 @@
 package org.tasks.calendars;
 
 import static android.provider.BaseColumns._ID;
+import static org.tasks.Strings.isNullOrEmpty;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -8,7 +9,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.CalendarContract;
 import androidx.annotation.Nullable;
-import com.google.common.base.Strings;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -43,7 +43,7 @@ public class CalendarProvider {
 
   @Nullable
   public AndroidCalendar getCalendar(String id) {
-    if (Strings.isNullOrEmpty(id)) {
+    if (isNullOrEmpty(id)) {
       return null;
     }
     List<AndroidCalendar> calendars =

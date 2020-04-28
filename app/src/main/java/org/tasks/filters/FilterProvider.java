@@ -1,6 +1,5 @@
 package org.tasks.filters;
 
-import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.collect.Iterables.concat;
 import static com.google.common.collect.Iterables.filter;
 import static com.google.common.collect.Lists.newArrayList;
@@ -8,6 +7,7 @@ import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertNotMainThread;
 import static com.todoroo.andlib.utility.DateUtilities.now;
 import static java.util.Collections.emptyList;
+import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.caldav.CaldavCalendarSettingsActivity.EXTRA_CALDAV_ACCOUNT;
 import static org.tasks.ui.NavigationDrawerFragment.REQUEST_DONATE;
 import static org.tasks.ui.NavigationDrawerFragment.REQUEST_PURCHASE;

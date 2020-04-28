@@ -3,10 +3,10 @@ package org.tasks.caldav;
 import static com.todoroo.andlib.utility.DateUtilities.now;
 import static com.todoroo.astrid.data.Task.URGENCY_SPECIFIC_DAY;
 import static com.todoroo.astrid.data.Task.URGENCY_SPECIFIC_DAY_TIME;
+import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
 import at.bitfire.ical4android.DateUtils;
-import com.google.common.base.Strings;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Task.Priority;
 import java.text.DateFormat;
@@ -106,7 +106,7 @@ public class CaldavConverter {
   public static at.bitfire.ical4android.Task toCaldav(CaldavTask caldavTask, Task task) {
     at.bitfire.ical4android.Task remote = null;
     try {
-      if (!Strings.isNullOrEmpty(caldavTask.getVtodo())) {
+      if (!isNullOrEmpty(caldavTask.getVtodo())) {
         remote = iCalendar.Companion.fromVtodo(caldavTask.getVtodo());
       }
     } catch (Exception e) {

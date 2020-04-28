@@ -1,10 +1,10 @@
 package org.tasks.makers;
 
 import static com.natpryce.makeiteasy.Property.newProperty;
+import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 import static org.tasks.makers.Maker.make;
 
-import com.google.common.base.Strings;
 import com.google.ical.values.RRule;
 import com.natpryce.makeiteasy.Instantiator;
 import com.natpryce.makeiteasy.Property;
@@ -36,7 +36,7 @@ public class TaskMaker {
         Task task = new Task();
 
         String title = lookup.valueOf(TITLE, (String) null);
-        if (!Strings.isNullOrEmpty(title)) {
+        if (!isNullOrEmpty(title)) {
           task.setTitle(title);
         }
 

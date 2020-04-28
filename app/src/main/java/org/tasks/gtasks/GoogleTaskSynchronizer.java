@@ -1,6 +1,7 @@
 package org.tasks.gtasks;
 
 import static com.google.common.collect.Lists.transform;
+import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
 import android.content.Context;
@@ -10,7 +11,6 @@ import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
 import com.google.api.services.tasks.model.Tasks;
-import com.google.common.base.Strings;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
@@ -58,10 +58,10 @@ public class GoogleTaskSynchronizer {
 
   private static final Comparator<com.google.api.services.tasks.model.Task> PARENTS_FIRST =
       (o1, o2) -> {
-        if (Strings.isNullOrEmpty(o1.getParent())) {
-          return Strings.isNullOrEmpty(o2.getParent()) ? 0 : -1;
+        if (isNullOrEmpty(o1.getParent())) {
+          return isNullOrEmpty(o2.getParent()) ? 0 : -1;
         } else {
-          return Strings.isNullOrEmpty(o2.getParent()) ? 1 : 0;
+          return isNullOrEmpty(o2.getParent()) ? 1 : 0;
         }
       };
 
@@ -187,7 +187,7 @@ public class GoogleTaskSynchronizer {
         gtaskLists.addAll(items);
       }
       nextPageToken = remoteLists.getNextPageToken();
-    } while (!Strings.isNullOrEmpty(nextPageToken));
+    } while (!isNullOrEmpty(nextPageToken));
     gtasksListService.updateLists(account, gtaskLists);
     Filter defaultRemoteList = defaultFilterProvider.getDefaultRemoteList();
     if (defaultRemoteList instanceof GtasksFilter) {
@@ -199,7 +199,7 @@ public class GoogleTaskSynchronizer {
     }
     for (GoogleTaskList list :
         googleTaskListDao.getByRemoteId(transform(gtaskLists, TaskList::getId))) {
-      if (Strings.isNullOrEmpty(list.getRemoteId())) {
+      if (isNullOrEmpty(list.getRemoteId())) {
         tracker.reportException(new RuntimeException("Empty remote id"));
         continue;
       }
@@ -236,7 +236,7 @@ public class GoogleTaskSynchronizer {
         tasks.addAll(items);
       }
       nextPageToken = taskList.getNextPageToken();
-    } while (!Strings.isNullOrEmpty(nextPageToken));
+    } while (!isNullOrEmpty(nextPageToken));
     return tasks;
   }
 
@@ -271,9 +271,9 @@ public class GoogleTaskSynchronizer {
             ? ((GtasksFilter) defaultRemoteList).getRemoteId()
             : DEFAULT_LIST;
 
-    if (Strings.isNullOrEmpty(gtasksMetadata.getRemoteId())) { // Create case
+    if (isNullOrEmpty(gtasksMetadata.getRemoteId())) { // Create case
       String selectedList = gtasksMetadata.getListId();
-      if (!Strings.isNullOrEmpty(selectedList)) {
+      if (!isNullOrEmpty(selectedList)) {
         listId = selectedList;
       }
       newlyCreated = true;
@@ -314,7 +314,7 @@ public class GoogleTaskSynchronizer {
       String localParent = parent > 0 ? googleTaskDao.getRemoteId(parent) : null;
       String previous =
           googleTaskDao.getPrevious(
-              listId, Strings.isNullOrEmpty(localParent) ? 0 : parent, gtasksMetadata.getOrder());
+              listId, isNullOrEmpty(localParent) ? 0 : parent, gtasksMetadata.getOrder());
 
       com.google.api.services.tasks.model.Task created;
       try {
@@ -342,7 +342,7 @@ public class GoogleTaskSynchronizer {
             String previous =
                 googleTaskDao.getPrevious(
                     listId,
-                    Strings.isNullOrEmpty(localParent) ? 0 : parent,
+                    isNullOrEmpty(localParent) ? 0 : parent,
                     gtasksMetadata.getOrder());
 
             com.google.api.services.tasks.model.Task result =
@@ -350,7 +350,7 @@ public class GoogleTaskSynchronizer {
             gtasksMetadata.setRemoteOrder(Long.parseLong(result.getPosition()));
             gtasksMetadata.setRemoteParent(result.getParent());
             gtasksMetadata.setParent(
-                Strings.isNullOrEmpty(result.getParent())
+                isNullOrEmpty(result.getParent())
                     ? 0
                     : googleTaskDao.getTask(result.getParent()));
           } catch (GoogleJsonResponseException e) {
@@ -404,7 +404,7 @@ public class GoogleTaskSynchronizer {
         tasks.addAll(items);
       }
       nextPageToken = taskList.getNextPageToken();
-    } while (!Strings.isNullOrEmpty(nextPageToken));
+    } while (!isNullOrEmpty(nextPageToken));
 
     Collections.sort(tasks, PARENTS_FIRST);
 
@@ -442,7 +442,7 @@ public class GoogleTaskSynchronizer {
         googleTask.setRemoteOrder(Long.parseLong(gtask.getPosition()));
         googleTask.setRemoteParent(gtask.getParent());
         googleTask.setParent(
-            Strings.isNullOrEmpty(gtask.getParent())
+            isNullOrEmpty(gtask.getParent())
                 ? 0
                 : googleTaskDao.getTask(gtask.getParent()));
         googleTask.setRemoteId(gtask.getId());
@@ -472,9 +472,9 @@ public class GoogleTaskSynchronizer {
   }
 
   static String getTruncatedValue(@Nullable String currentValue, @Nullable String newValue, int maxLength) {
-    return Strings.isNullOrEmpty(newValue)
+    return isNullOrEmpty(newValue)
             || newValue.length() < maxLength
-            || Strings.isNullOrEmpty(currentValue)
+            || isNullOrEmpty(currentValue)
             || !currentValue.startsWith(newValue)
         ? newValue
         : currentValue;

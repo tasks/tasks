@@ -1,5 +1,7 @@
 package org.tasks.locale;
 
+import static org.tasks.Strings.isNullOrEmpty;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -10,7 +12,6 @@ import android.view.View;
 import android.view.ViewParent;
 import androidx.annotation.Nullable;
 import androidx.preference.PreferenceManager;
-import com.google.common.base.Strings;
 import java.io.Serializable;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -73,7 +74,7 @@ public class Locale implements Serializable {
   }
 
   private static java.util.Locale localeFromString(String locale) {
-    if (Strings.isNullOrEmpty(locale)) {
+    if (isNullOrEmpty(locale)) {
       return null;
     }
 

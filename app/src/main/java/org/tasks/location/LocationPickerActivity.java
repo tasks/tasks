@@ -4,6 +4,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.utility.AndroidUtilities.hideKeyboard;
 import static org.tasks.PermissionUtil.verifyPermissions;
+import static org.tasks.Strings.isNullOrEmpty;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -33,7 +34,6 @@ import butterknife.OnClick;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.AppBarLayout.Behavior;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.google.common.base.Strings;
 import com.mapbox.android.core.location.LocationEngineCallback;
 import com.mapbox.android.core.location.LocationEngineProvider;
 import com.mapbox.android.core.location.LocationEngineResult;
@@ -361,7 +361,7 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
 
   private void handleError(Event<String> error) {
     String message = error.getIfUnhandled();
-    if (!Strings.isNullOrEmpty(message)) {
+    if (!isNullOrEmpty(message)) {
       toaster.longToast(message);
     }
   }

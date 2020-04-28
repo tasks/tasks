@@ -2,6 +2,7 @@ package org.tasks.jobs;
 
 import static com.google.common.collect.Iterables.skip;
 import static com.google.common.collect.Lists.newArrayList;
+import static org.tasks.Strings.isNullOrEmpty;
 
 import android.content.Context;
 import android.net.Uri;
@@ -10,7 +11,6 @@ import androidx.work.Data;
 import androidx.work.WorkerParameters;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.services.drive.model.File;
-import com.google.common.base.Strings;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
@@ -95,7 +95,7 @@ public class DriveUploader extends InjectingWorker {
   private File getFolder() throws IOException {
     String folderId = preferences.getStringValue(R.string.p_google_drive_backup_folder);
     File file = null;
-    if (!Strings.isNullOrEmpty(folderId)) {
+    if (!isNullOrEmpty(folderId)) {
       try {
         file = drive.getFile(folderId);
       } catch (GoogleJsonResponseException e) {

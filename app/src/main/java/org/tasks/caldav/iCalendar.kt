@@ -3,7 +3,6 @@ package org.tasks.caldav
 import at.bitfire.ical4android.Task
 import at.bitfire.ical4android.Task.Companion.tasksFromReader
 import com.google.common.base.Predicate
-import com.google.common.base.Strings
 import com.google.common.collect.Iterables
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets.difference
@@ -16,6 +15,7 @@ import net.fortuna.ical4j.model.Parameter
 import net.fortuna.ical4j.model.parameter.RelType
 import net.fortuna.ical4j.model.property.Geo
 import net.fortuna.ical4j.model.property.RelatedTo
+import org.tasks.Strings.isNullOrEmpty
 import org.tasks.caldav.GeoUtils.equalish
 import org.tasks.caldav.GeoUtils.toGeo
 import org.tasks.caldav.GeoUtils.toLikeString
@@ -65,7 +65,7 @@ class iCalendar @Inject constructor(
 
         fun setParent(remote: Task, value: String?) {
             val relatedTo = remote.relatedTo
-            if (Strings.isNullOrEmpty(value)) {
+            if (isNullOrEmpty(value)) {
                 Iterables.removeIf(relatedTo, IS_PARENT)
             } else {
                 val parent = Iterables.tryFind(relatedTo, IS_PARENT)
@@ -121,7 +121,7 @@ class iCalendar @Inject constructor(
         val categories = remoteModel.categories
         categories.clear()
         categories.addAll(Lists.transform(tagDataDao.getTagDataForTask(task.getId())) { obj: TagData? -> obj!!.name })
-        if (Strings.isNullOrEmpty(caldavTask.remoteId)) {
+        if (isNullOrEmpty(caldavTask.remoteId)) {
             val caldavUid = UUIDHelper.newUUID()
             caldavTask.remoteId = caldavUid
             remoteModel.uid = caldavUid

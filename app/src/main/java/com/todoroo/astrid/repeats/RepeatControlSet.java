@@ -8,6 +8,7 @@ package com.todoroo.astrid.repeats;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.ical.values.Frequency.MONTHLY;
+import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.repeats.BasicRecurrenceDialog.newBasicRecurrenceDialog;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
@@ -26,7 +27,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.OnItemSelected;
-import com.google.common.base.Strings;
 import com.google.ical.values.RRule;
 import com.google.ical.values.WeekdayNum;
 import com.todoroo.astrid.data.Task;
@@ -123,7 +123,7 @@ public class RepeatControlSet extends TaskEditControlFragment {
     } else {
       String recurrence = savedInstanceState.getString(EXTRA_RECURRENCE);
       dueDate = savedInstanceState.getLong(EXTRA_DUE_DATE);
-      if (Strings.isNullOrEmpty(recurrence)) {
+      if (isNullOrEmpty(recurrence)) {
         rrule = null;
       } else {
         try {

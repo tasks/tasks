@@ -11,6 +11,7 @@ import static com.google.common.collect.Iterables.filter;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertNotMainThread;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastQ;
 import static com.todoroo.andlib.utility.DateUtilities.now;
+import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 import static org.tasks.files.FileHelper.copyToUri;
 
@@ -36,7 +37,6 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.common.base.Strings;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
@@ -150,7 +150,7 @@ public final class TaskEditFragment extends InjectingFragment
         model.isNew() ? MenuItem.SHOW_AS_ACTION_IF_ROOM : MenuItem.SHOW_AS_ACTION_NEVER);
 
     if (savedInstanceState == null) {
-      showKeyboard = model.isNew() && Strings.isNullOrEmpty(model.getTitle());
+      showKeyboard = model.isNew() && isNullOrEmpty(model.getTitle());
       completed = model.isCompleted();
     } else {
       completed = savedInstanceState.getBoolean(EXTRA_COMPLETED);
@@ -298,7 +298,7 @@ public final class TaskEditFragment extends InjectingFragment
       boolean isNewTask = model.isNew();
       TaskListFragment taskListFragment = ((MainActivity) getActivity()).getTaskListFragment();
       String title = getTitle();
-      model.setTitle(Strings.isNullOrEmpty(title) ? getString(R.string.no_title) : title);
+      model.setTitle(isNullOrEmpty(title) ? getString(R.string.no_title) : title);
       if (completed != model.isCompleted()) {
         model.setCompletionDate(completed ? now() : 0);
       }
@@ -324,7 +324,7 @@ public final class TaskEditFragment extends InjectingFragment
 
                 if (isNewTask) {
                   taskListFragment.onTaskCreated(model.getUuid());
-                  if (!Strings.isNullOrEmpty(model.getCalendarURI())) {
+                  if (!isNullOrEmpty(model.getCalendarURI())) {
                     taskListFragment.makeSnackbar(R.string.calendar_event_created, model.getTitle())
                         .setAction(R.string.action_open, v -> {
                           String uri = model.getCalendarURI();
@@ -371,7 +371,7 @@ public final class TaskEditFragment extends InjectingFragment
     String newTitle = getTitle();
     if (!newTitle.equals(model.getTitle())
         || (!model.isNew() && completed != model.isCompleted())
-        || (model.isNew() && !Strings.isNullOrEmpty(newTitle))) {
+        || (model.isNew() && !isNullOrEmpty(newTitle))) {
       return true;
     }
 

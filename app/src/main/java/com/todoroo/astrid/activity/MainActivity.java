@@ -6,11 +6,11 @@
 
 package com.todoroo.astrid.activity;
 
-import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastNougat;
 import static com.todoroo.astrid.activity.TaskEditFragment.newTaskEditFragment;
 import static com.todoroo.astrid.activity.TaskListFragment.newTaskListFragment;
+import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.location.LocationPickerActivity.EXTRA_PLACE;
 import static org.tasks.tasklist.ActionUtils.applySupportActionModeColor;
 import static org.tasks.ui.NavigationDrawerFragment.REQUEST_NEW_LIST;

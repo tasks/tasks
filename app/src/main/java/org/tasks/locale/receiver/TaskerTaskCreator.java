@@ -1,6 +1,6 @@
 package org.tasks.locale.receiver;
 
-import static com.google.common.base.Strings.isNullOrEmpty;
+import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 import com.todoroo.astrid.dao.TaskDao;

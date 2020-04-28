@@ -2,6 +2,7 @@ package org.tasks.calendars;
 
 import static com.google.common.collect.Lists.transform;
 import static org.tasks.PermissionUtil.verifyPermissions;
+import static org.tasks.Strings.isNullOrEmpty;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -12,7 +13,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import com.google.common.base.Strings;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -104,7 +104,7 @@ public class CalendarPicker extends InjectingDialogFragment {
       calendarNames.addAll(transform(calendars, AndroidCalendar::getName));
       Bundle arguments = getArguments();
       String selected = arguments.getString(EXTRA_SELECTED);
-      int selectedIndex = Strings.isNullOrEmpty(selected) ? 0 : calendarNames.indexOf(selected);
+      int selectedIndex = isNullOrEmpty(selected) ? 0 : calendarNames.indexOf(selected);
       adapter.notifyDataSetChanged();
       listView.setItemChecked(selectedIndex, true);
       listView.setSelection(selectedIndex);

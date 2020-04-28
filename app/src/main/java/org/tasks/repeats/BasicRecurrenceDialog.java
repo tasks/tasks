@@ -7,6 +7,7 @@ import static com.google.ical.values.Frequency.MINUTELY;
 import static com.google.ical.values.Frequency.MONTHLY;
 import static com.google.ical.values.Frequency.WEEKLY;
 import static com.google.ical.values.Frequency.YEARLY;
+import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.repeats.CustomRecurrenceDialog.newCustomRecurrenceDialog;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
@@ -15,7 +16,6 @@ import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.google.common.base.Strings;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.todoroo.astrid.repeats.RepeatControlSet;
@@ -60,7 +60,7 @@ public class BasicRecurrenceDialog extends InjectingDialogFragment {
     String rule = arguments.getString(EXTRA_RRULE);
     RRule parsed = null;
     try {
-      if (!Strings.isNullOrEmpty(rule)) {
+      if (!isNullOrEmpty(rule)) {
         parsed = new RRule(rule);
       }
     } catch (Exception e) {

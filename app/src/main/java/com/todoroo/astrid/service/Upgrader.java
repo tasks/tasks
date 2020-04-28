@@ -1,13 +1,12 @@
 package com.todoroo.astrid.service;
 
-import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Lists.newArrayList;
+import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.db.DbUtils.batch;
 
 import android.content.Context;
 import androidx.annotation.ColorRes;
-import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.ListMultimap;
@@ -236,7 +235,7 @@ public class Upgrader {
         continue;
       }
       task.setRemoteParent(iCalendar.Companion.getParent(remoteTask));
-      if (!Strings.isNullOrEmpty(task.getRemoteParent())) {
+      if (!isNullOrEmpty(task.getRemoteParent())) {
         updated.add(task);
       }
     }
@@ -335,7 +334,7 @@ public class Upgrader {
 
   private void migrateUriPreference(int pref) {
     String path = preferences.getStringValue(pref);
-    if (Strings.isNullOrEmpty(path)) {
+    if (isNullOrEmpty(path)) {
       return;
     }
     File file = new File(path);

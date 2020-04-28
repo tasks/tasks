@@ -10,11 +10,11 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.annotation.StringRes
 import androidx.preference.Preference
-import com.google.common.base.Strings
 import com.todoroo.astrid.api.Filter
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
+import org.tasks.Strings.isNullOrEmpty
 import org.tasks.activities.FilterSelectionActivity
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
@@ -316,7 +316,7 @@ class LookAndFeel : InjectingPreferenceFragment() {
                 val newValue: Locale =
                     data!!.getSerializableExtra(LocalePickerDialog.EXTRA_LOCALE) as Locale
                 val override: String? = newValue.languageOverride
-                if (Strings.isNullOrEmpty(override)) {
+                if (isNullOrEmpty(override)) {
                     preferences.remove(R.string.p_language)
                 } else {
                     preferences.setString(R.string.p_language, override)

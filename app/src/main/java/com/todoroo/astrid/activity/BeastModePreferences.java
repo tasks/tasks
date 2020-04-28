@@ -7,6 +7,7 @@
 package com.todoroo.astrid.activity;
 
 import static java.util.Arrays.asList;
+import static org.tasks.Strings.isNullOrEmpty;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -16,7 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.google.common.base.Strings;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -127,7 +127,7 @@ public class BeastModePreferences extends ThemedInjectingAppCompatActivity
     }
     String oldValue = preferences.getStringValue(BEAST_MODE_ORDER_PREF);
     String newValue = newSetting.toString();
-    if (Strings.isNullOrEmpty(oldValue) || !oldValue.equals(newValue)) {
+    if (isNullOrEmpty(oldValue) || !oldValue.equals(newValue)) {
       preferences.setString(BEAST_MODE_ORDER_PREF, newSetting.toString());
       setResult(RESULT_OK);
     }

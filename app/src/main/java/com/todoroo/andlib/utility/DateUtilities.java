@@ -6,13 +6,13 @@
 
 package com.todoroo.andlib.utility;
 
+import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 import android.content.Context;
 import android.text.format.DateFormat;
 import androidx.annotation.Nullable;
-import com.google.common.base.Strings;
 import com.todoroo.astrid.data.Task;
 import org.tasks.BuildConfig;
 import org.tasks.R;
@@ -91,7 +91,7 @@ public class DateUtilities {
   public static String getRelativeDateTime(
       Context context, long date, java.util.Locale locale, FormatStyle style) {
     String day = getRelativeDay(context, date, locale, isAbbreviated(style));
-    if (!Strings.isNullOrEmpty(day)) {
+    if (!isNullOrEmpty(day)) {
       if (Task.hasDueTime(date)) {
         String time = getTimeString(context, newDateTime(date));
         return newDateTime().startOfDay().equals(newDateTime(date).startOfDay()) ? time : String.format("%s %s", day, time);
@@ -114,7 +114,7 @@ public class DateUtilities {
       java.util.Locale locale,
       FormatStyle style) {
     String relativeDay = getRelativeDay(context, date, locale, isAbbreviated(style));
-    return Strings.isNullOrEmpty(relativeDay)
+    return isNullOrEmpty(relativeDay)
         ? getFullDate(newDateTime(date), locale, style)
         : relativeDay;
   }

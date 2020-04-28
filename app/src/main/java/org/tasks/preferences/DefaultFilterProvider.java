@@ -1,15 +1,14 @@
 package org.tasks.preferences;
 
-import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.todoroo.astrid.core.BuiltInFilterExposer.getMyTasksFilter;
 import static com.todoroo.astrid.core.BuiltInFilterExposer.getRecentlyModifiedFilter;
 import static com.todoroo.astrid.core.BuiltInFilterExposer.getTodayFilter;
 import static com.todoroo.astrid.core.BuiltInFilterExposer.isRecentlyModifiedFilter;
 import static com.todoroo.astrid.core.BuiltInFilterExposer.isTodayFilter;
+import static org.tasks.Strings.isNullOrEmpty;
 
 import android.content.Context;
 import android.content.res.Resources;
-import com.google.common.base.Strings;
 import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.Filter;
@@ -153,7 +152,7 @@ public class DefaultFilterProvider {
 
   private void setFilterPreference(Filter filter, int prefId) {
     String filterPreferenceValue = getFilterPreferenceValue(filter);
-    if (!Strings.isNullOrEmpty(filterPreferenceValue)) {
+    if (!isNullOrEmpty(filterPreferenceValue)) {
       preferences.setString(prefId, filterPreferenceValue);
     }
   }

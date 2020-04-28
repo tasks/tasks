@@ -3,6 +3,7 @@ package com.todoroo.astrid.activity;
 import static android.content.Intent.ACTION_SEND;
 import static android.content.Intent.ACTION_SEND_MULTIPLE;
 import static com.google.common.collect.Lists.newArrayList;
+import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.files.FileHelper.copyToUri;
 import static org.tasks.files.FileHelper.getFilename;
 import static org.tasks.intents.TaskIntents.getTaskListIntent;
@@ -12,7 +13,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import androidx.core.app.TaskStackBuilder;
-import com.google.common.base.Strings;
 import com.google.common.io.Files;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskCreator;
@@ -97,10 +97,10 @@ public final class ShareLinkActivity extends InjectingAppCompatActivity {
   private ArrayList<Uri> copyAttachment(Intent intent) {
     Uri uri = intent.getParcelableExtra(Intent.EXTRA_STREAM);
     String filename = getFilename(context, uri);
-    if (Strings.isNullOrEmpty(filename)) {
+    if (isNullOrEmpty(filename)) {
       String subject = intent.getStringExtra(Intent.EXTRA_SUBJECT);
       filename =
-          Strings.isNullOrEmpty(subject)
+          isNullOrEmpty(subject)
               ? uri.getLastPathSegment()
               : subject.substring(0, Math.min(subject.length(), FileHelper.MAX_FILENAME_LENGTH));
     }

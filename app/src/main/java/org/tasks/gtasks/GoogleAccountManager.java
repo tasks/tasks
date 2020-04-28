@@ -4,6 +4,7 @@ import static com.google.common.collect.Iterables.tryFind;
 import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertNotMainThread;
 import static java.util.Arrays.asList;
+import static org.tasks.Strings.isNullOrEmpty;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -16,7 +17,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.tasks.TasksScopes;
-import com.google.common.base.Strings;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -56,7 +56,7 @@ public class GoogleAccountManager {
   }
 
   public Account getAccount(String name) {
-    if (Strings.isNullOrEmpty(name)) {
+    if (isNullOrEmpty(name)) {
       return null;
     }
 
@@ -81,7 +81,7 @@ public class GoogleAccountManager {
     try {
       String token =
           accountManager.blockingGetAuthToken(account, "oauth2:" + scope, !alreadyNotified);
-      preferences.setAlreadyNotified(name, scope, Strings.isNullOrEmpty(token));
+      preferences.setAlreadyNotified(name, scope, isNullOrEmpty(token));
       return token;
     } catch (AuthenticatorException | IOException | OperationCanceledException e) {
       Timber.e(e);

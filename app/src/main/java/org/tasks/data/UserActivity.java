@@ -1,5 +1,7 @@
 package org.tasks.data;
 
+import static org.tasks.Strings.isNullOrEmpty;
+
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -7,7 +9,6 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
-import com.google.common.base.Strings;
 import com.todoroo.astrid.data.Task;
 import java.io.File;
 import org.json.JSONException;
@@ -78,7 +79,7 @@ public class UserActivity implements Parcelable {
 
   private static Uri getLegacyPictureUri(String value) {
     try {
-      if (Strings.isNullOrEmpty(value)) {
+      if (isNullOrEmpty(value)) {
         return null;
       }
       if (value.contains("uri") || value.contains("path")) {
@@ -151,7 +152,7 @@ public class UserActivity implements Parcelable {
   }
 
   public Uri getPictureUri() {
-    return Strings.isNullOrEmpty(picture) ? null : Uri.parse(picture);
+    return isNullOrEmpty(picture) ? null : Uri.parse(picture);
   }
 
   public void convertPictureUri() {

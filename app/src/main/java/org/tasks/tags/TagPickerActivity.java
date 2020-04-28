@@ -1,5 +1,7 @@
 package org.tasks.tags;
 
+import static org.tasks.Strings.isNullOrEmpty;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -10,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnTextChanged;
-import com.google.common.base.Strings;
 import java.util.ArrayList;
 import javax.inject.Inject;
 import org.tasks.R;
@@ -98,7 +99,7 @@ public class TagPickerActivity extends ThemedInjectingAppCompatActivity {
 
   @Override
   public void onBackPressed() {
-    if (Strings.isNullOrEmpty(viewModel.getText())) {
+    if (isNullOrEmpty(viewModel.getText())) {
       Intent data = new Intent();
       data.putExtra(EXTRA_TASKS, taskIds);
       data.putParcelableArrayListExtra(EXTRA_PARTIALLY_SELECTED, viewModel.getPartiallySelected());

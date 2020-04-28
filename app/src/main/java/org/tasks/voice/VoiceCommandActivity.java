@@ -1,10 +1,11 @@
 package org.tasks.voice;
 
+import static org.tasks.Strings.isNullOrEmpty;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
-import com.google.common.base.Strings;
 import com.todoroo.astrid.service.TaskCreator;
 import javax.inject.Inject;
 import org.tasks.R;
@@ -25,7 +26,7 @@ public class VoiceCommandActivity extends InjectingAppCompatActivity {
 
     if ("com.google.android.gm.action.AUTO_SEND".equals(intent.getAction())) {
       final String text = intent.getStringExtra(Intent.EXTRA_TEXT);
-      if (!Strings.isNullOrEmpty(text)) {
+      if (!isNullOrEmpty(text)) {
         taskCreator.basicQuickAddTask(text);
         Toast.makeText(context, getString(R.string.voice_command_added_task), Toast.LENGTH_LONG)
             .show();

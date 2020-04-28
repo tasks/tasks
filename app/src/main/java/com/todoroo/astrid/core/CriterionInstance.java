@@ -2,10 +2,10 @@ package com.todoroo.astrid.core;
 
 import static com.google.common.collect.Lists.transform;
 import static java.util.Arrays.asList;
+import static org.tasks.Strings.isNullOrEmpty;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
-import com.google.common.base.Strings;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.CustomFilterCriterion;
 import com.todoroo.astrid.api.MultipleSelectCriterion;
@@ -47,7 +47,7 @@ public class CriterionInstance {
 
   public static List<CriterionInstance> fromString(
       FilterCriteriaProvider provider, String criterion) {
-    if (Strings.isNullOrEmpty(criterion)) {
+    if (isNullOrEmpty(criterion)) {
       return Collections.emptyList();
     }
     List<CriterionInstance> entries = new ArrayList<>();
@@ -91,7 +91,7 @@ public class CriterionInstance {
   }
 
   private static String unescape(String item) {
-    if (Strings.isNullOrEmpty(item)) {
+    if (isNullOrEmpty(item)) {
       return "";
     }
     return item.replace(

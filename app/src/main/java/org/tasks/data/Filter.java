@@ -1,9 +1,10 @@
 package org.tasks.data;
 
+import static org.tasks.Strings.isNullOrEmpty;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import com.google.common.base.Strings;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import java.util.Map;
 import org.tasks.themes.CustomIcons;
@@ -63,7 +64,7 @@ public class Filter {
   }
 
   public Map<String, Object> getValuesAsMap() {
-    return Strings.isNullOrEmpty(values) ? null : AndroidUtilities.mapFromSerializedString(values);
+    return isNullOrEmpty(values) ? null : AndroidUtilities.mapFromSerializedString(values);
   }
 
   public void setValues(String values) {

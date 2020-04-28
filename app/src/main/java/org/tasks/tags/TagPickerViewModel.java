@@ -2,13 +2,13 @@ package org.tasks.tags;
 
 import static com.google.common.collect.Iterables.any;
 import static com.google.common.collect.Lists.newArrayList;
+import static org.tasks.Strings.isNullOrEmpty;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
-import com.google.common.base.Strings;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -69,7 +69,7 @@ public class TagPickerViewModel extends ViewModel {
   }
 
   private void onUpdate(List<TagData> results) {
-    if (!Strings.isNullOrEmpty(text) && !any(results, t -> text.equalsIgnoreCase(t.getName()))) {
+    if (!isNullOrEmpty(text) && !any(results, t -> text.equalsIgnoreCase(t.getName()))) {
       results.add(0, new TagData(text));
     }
     tags.setValue(results);

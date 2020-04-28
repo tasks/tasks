@@ -1,12 +1,12 @@
 package org.tasks.caldav;
 
-import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.collect.Iterables.filter;
 import static com.google.common.collect.Iterables.partition;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 import static com.google.common.collect.Sets.difference;
 import static com.google.common.collect.Sets.newHashSet;
+import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 import android.content.Context;
@@ -26,7 +26,6 @@ import at.bitfire.dav4jvm.property.GetCTag;
 import at.bitfire.dav4jvm.property.GetETag;
 import at.bitfire.dav4jvm.property.SyncToken;
 import at.bitfire.ical4android.ICalendar;
-import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.todoroo.astrid.dao.TaskDao;
@@ -167,7 +166,7 @@ public class CaldavSynchronizer {
     account.setError(message);
     caldavDao.update(account);
     localBroadcastManager.broadcastRefreshList();
-    if (!Strings.isNullOrEmpty(message)) {
+    if (!isNullOrEmpty(message)) {
       Timber.e(message);
     }
   }
@@ -280,7 +279,7 @@ public class CaldavSynchronizer {
   private boolean deleteRemoteResource(
       OkHttpClient httpClient, HttpUrl httpUrl, CaldavTask caldavTask) {
     try {
-      if (!Strings.isNullOrEmpty(caldavTask.getObject())) {
+      if (!isNullOrEmpty(caldavTask.getObject())) {
         DavResource remote =
             new DavResource(
                 httpClient, httpUrl.newBuilder().addPathSegment(caldavTask.getObject()).build());

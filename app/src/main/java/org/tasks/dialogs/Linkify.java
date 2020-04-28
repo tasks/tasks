@@ -1,6 +1,7 @@
 package org.tasks.dialogs;
 
 import static java.util.Arrays.asList;
+import static org.tasks.Strings.isNullOrEmpty;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +12,6 @@ import android.text.SpannableStringBuilder;
 import android.text.style.URLSpan;
 import android.view.View;
 import android.widget.TextView;
-import com.google.common.base.Strings;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import javax.inject.Inject;
@@ -82,7 +82,7 @@ public class Linkify {
       String url = getURL();
       Uri uri = Uri.parse(url);
       String scheme = uri.getScheme();
-      if (Strings.isNullOrEmpty(scheme)) {
+      if (isNullOrEmpty(scheme)) {
         scheme = "";
       }
       switch (scheme) {

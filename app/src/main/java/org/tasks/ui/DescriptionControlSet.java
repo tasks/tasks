@@ -1,6 +1,6 @@
 package org.tasks.ui;
 
-import static com.google.common.base.Strings.isNullOrEmpty;
+import static org.tasks.Strings.isNullOrEmpty;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

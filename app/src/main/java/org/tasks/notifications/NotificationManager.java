@@ -14,6 +14,7 @@ import static com.todoroo.astrid.reminders.ReminderService.TYPE_GEOFENCE_ENTER;
 import static com.todoroo.astrid.reminders.ReminderService.TYPE_GEOFENCE_EXIT;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
+import static org.tasks.Strings.isNullOrEmpty;
 
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;
@@ -23,7 +24,6 @@ import android.text.TextUtils;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import com.google.common.base.Joiner;
-import com.google.common.base.Strings;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -392,7 +392,7 @@ public class NotificationManager {
                     : R.string.location_departed,
                 place.getDisplayName()));
       }
-    } else if (!Strings.isNullOrEmpty(taskDescription)) {
+    } else if (!isNullOrEmpty(taskDescription)) {
       builder
           .setContentText(taskDescription)
           .setStyle(new NotificationCompat.BigTextStyle().bigText(taskDescription));

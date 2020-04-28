@@ -1,11 +1,11 @@
 package org.tasks.etesync;
 
-import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.collect.FluentIterable.from;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
 import static com.google.common.collect.Sets.newHashSet;
 import static java.util.Collections.emptySet;
+import static org.tasks.Strings.isNullOrEmpty;
 
 import android.content.Context;
 import androidx.core.util.Pair;
@@ -22,7 +22,6 @@ import com.etesync.journalmanager.UserInfoManager.UserInfo;
 import com.etesync.journalmanager.model.CollectionInfo;
 import com.etesync.journalmanager.model.SyncEntry;
 import com.etesync.journalmanager.model.SyncEntry.Actions;
-import com.google.common.base.Strings;
 import com.google.common.collect.Iterables;
 import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.TaskDeleter;
@@ -151,7 +150,7 @@ public class EteSynchronizer {
     account.setError(message);
     caldavDao.update(account);
     localBroadcastManager.broadcastRefreshList();
-    if (!Strings.isNullOrEmpty(message)) {
+    if (!isNullOrEmpty(message)) {
       Timber.e(message);
     }
   }
@@ -167,7 +166,7 @@ public class EteSynchronizer {
     }
 
     String remoteCtag = journal.getLastUid();
-    if (Strings.isNullOrEmpty(remoteCtag) || !remoteCtag.equals(caldavCalendar.getCtag())) {
+    if (isNullOrEmpty(remoteCtag) || !remoteCtag.equals(caldavCalendar.getCtag())) {
       Timber.v("Applying remote changes");
       client.getSyncEntries(
           userInfo,
@@ -181,14 +180,14 @@ public class EteSynchronizer {
     List<SyncEntry> changes = new ArrayList<>();
     for (CaldavTask task : caldavDao.getDeleted(caldavCalendar.getUuid())) {
       String vtodo = task.getVtodo();
-      if (!Strings.isNullOrEmpty(vtodo)) {
+      if (!isNullOrEmpty(vtodo)) {
         changes.add(new SyncEntry(vtodo, Actions.DELETE));
       }
     }
 
     for (CaldavTaskContainer task : localChanges.values()) {
       String vtodo = task.getVtodo();
-      boolean existingTask = !Strings.isNullOrEmpty(vtodo);
+      boolean existingTask = !isNullOrEmpty(vtodo);
 
       if (task.isDeleted()) {
         if (existingTask) {
@@ -206,7 +205,7 @@ public class EteSynchronizer {
     CryptoManager crypto = client.getCrypto(userInfo, journal);
     List<Pair<Entry, SyncEntry>> updates = new ArrayList<>();
     JournalEntryManager.Entry previous =
-        Strings.isNullOrEmpty(remoteCtag) ? null : Entry.getFakeWithUid(remoteCtag);
+        isNullOrEmpty(remoteCtag) ? null : Entry.getFakeWithUid(remoteCtag);
 
     for (SyncEntry syncEntry : changes) {
       Entry entry = new Entry();
