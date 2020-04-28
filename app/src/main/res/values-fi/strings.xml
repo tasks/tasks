@@ -539,4 +539,17 @@
     <string name="action_open">Avaa</string>
     <string name="action_call">Soita</string>
     <string name="display_name">Näytetään nimellä</string>
+    <string name="filter_eisenhower_box_4">Eisenhowerin matriisi 4</string>
+    <string name="filter_eisenhower_box_3">Eisenhowerin matriisi 3</string>
+    <string name="filter_eisenhower_box_2">Eisenhowerin matriisi 2</string>
+    <string name="filter_eisenhower_box_1">Eisenhowerin matriisi 1</string>
+    <string name="add_tags">Lisää tunniste</string>
+    <string name="filter_any_due_date">Mikä tahansa määräpäivä</string>
+    <string name="settings_default">Oletusarvo</string>
+    <string name="hide_check_button">Piilota valinta painike</string>
+    <string name="share">Jaa</string>
+    <string name="select_all">Valitse kaikki</string>
+    <string name="widget_show_menu">Näytä valikko</string>
+    <string name="widget_hide_background">Piilota tausta</string>
+    <string name="CFC_caldav_list_name">CalDAV lista…</string>
 </resources>
