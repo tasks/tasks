@@ -166,20 +166,6 @@
     },
     {
       "artifactId": {
-        "name": "j2objc-annotations",
-        "group": "com.google.j2objc",
-        "version": "+"
-      },
-      "copyrightHolder": "Google Inc.",
-      "copyrightStatement": "Copyright &copy; Google Inc. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "url": "https://github.com/google/j2objc/",
-      "libraryName": "J2ObjC Annotations"
-    },
-    {
-      "artifactId": {
         "name": "room-common",
         "group": "androidx.room",
         "version": "+"
@@ -205,20 +191,6 @@
       "normalizedLicense": "apache2",
       "url": "https://developer.android.com/topic/libraries/architecture/index.html",
       "libraryName": "Android Room-Runtime"
-    },
-    {
-      "artifactId": {
-        "name": "jsr305",
-        "group": "com.google.code.findbugs",
-        "version": "+"
-      },
-      "copyrightHolder": "FindBugs Project",
-      "copyrightStatement": "Copyright &copy; FindBugs Project. All rights reserved.",
-      "license": "BSD 2-Clause",
-      "licenseUrl": "https://opensource.org/licenses/BSD-2-Clause",
-      "normalizedLicense": "bsd_2_clauses",
-      "url": "http://findbugs.sourceforge.net/",
-      "libraryName": "FindBugs-jsr305"
     },
     {
       "artifactId": {
@@ -747,20 +719,6 @@
       "normalizedLicense": "apache2",
       "url": "http://developer.android.com/tools/extras/support-library.html",
       "libraryName": "Android Support RecyclerView v7"
-    },
-    {
-      "artifactId": {
-        "name": "jcip-annotations",
-        "group": "net.jcip",
-        "version": "+"
-      },
-      "copyrightHolder": "Stephen Connolly",
-      "copyrightStatement": "Copyright &copy; Stephen Connolly. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "url": "http://jcip.net/",
-      "libraryName": "Java Concurrency in Practice book annotations"
     },
     {
       "artifactId": {
@@ -1397,19 +1355,6 @@
     },
     {
       "artifactId": {
-        "name": "error_prone_annotations",
-        "group": "com.google.errorprone",
-        "version": "+"
-      },
-      "copyrightHolder": "The Error Prone Authors",
-      "copyrightStatement": "Copyright &copy; The Error Prone Authors. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "libraryName": "error-prone annotations"
-    },
-    {
-      "artifactId": {
         "name": "opencensus-api",
         "group": "io.opencensus",
         "version": "+"
@@ -1434,20 +1379,6 @@
       "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
       "normalizedLicense": "apache2",
       "libraryName": "Guava InternalFutureFailureAccess and InternalFutures"
-    },
-    {
-      "artifactId": {
-        "name": "checker-compat-qual",
-        "group": "org.checkerframework",
-        "version": "+"
-      },
-      "copyrightHolder": "The Checker Framework Developers",
-      "copyrightStatement": "Copyright &copy; The Checker Framework Developers. All rights reserved.",
-      "license": "GNU General Public License, Version 2.0 + classpath exception",
-      "licenseUrl": "http://www.gnu.org/software/classpath/license.html",
-      "normalizedLicense": "gpl2",
-      "url": "https://checkerframework.org",
-      "libraryName": "Checker Qual"
     },
     {
       "artifactId": {

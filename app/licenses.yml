@@ -67,12 +67,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://developer.android.com/topic/libraries/architecture/index.html
-- artifact: com.google.j2objc:j2objc-annotations:+
-  name: J2ObjC Annotations
-  copyrightHolder: Google Inc.
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: https://github.com/google/j2objc/
 - artifact: androidx.room:room-common:+
   name: Android Room-Common
   copyrightHolder: Android Open Source Project
@@ -85,13 +79,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://developer.android.com/topic/libraries/architecture/index.html
-- artifact: com.google.code.findbugs:jsr305:+
-  name: FindBugs-jsr305
-  copyrightHolder: FindBugs Project
-  license: BSD 2-Clause
-  licenseUrl: https://opensource.org/licenses/BSD-2-Clause
-  url: http://findbugs.sourceforge.net/
-  forceGenerate: true
 - artifact: com.google.code.gson:gson:+
   name: Gson
   copyrightHolder: Google Inc.
@@ -322,12 +309,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: http://developer.android.com/tools/extras/support-library.html
-- artifact: net.jcip:jcip-annotations:+
-  name: Java Concurrency in Practice book annotations
-  copyrightHolder: Stephen Connolly
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: http://jcip.net/
 - artifact: androidx.collection:collection:+
   name: Android Support Library collections
   copyrightHolder: Android Open Source Project
@@ -595,11 +576,6 @@
   copyrightHolder: The Guava Authors
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-- artifact: com.google.errorprone:error_prone_annotations:+
-  name: error-prone annotations
-  copyrightHolder: The Error Prone Authors
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
 - artifact: io.opencensus:opencensus-api:+
   name: OpenCensus API
   copyrightHolder: OpenCensus Authors
@@ -611,12 +587,6 @@
   copyrightHolder: The Guava Authors
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-- artifact: org.checkerframework:checker-compat-qual:+
-  name: Checker Qual
-  copyrightHolder: The Checker Framework Developers
-  license: GNU General Public License, Version 2.0 + classpath exception
-  licenseUrl: http://www.gnu.org/software/classpath/license.html
-  url: https://checkerframework.org
 - artifact: io.opencensus:opencensus-contrib-http-util:+
   name: OpenCensus contrib-http-util
   copyrightHolder: OpenCensus Authors

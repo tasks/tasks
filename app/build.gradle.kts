@@ -121,6 +121,10 @@ configurations.all {
     exclude(group = "com.google.guava", module = "guava-jdk5")
     exclude(group = "org.apache.httpcomponents", module = "httpclient")
     exclude(group = "com.google.http-client", module = "google-http-client-apache")
+    exclude(group = "org.checkerframework")
+    exclude(group = "com.google.code.findbugs")
+    exclude(group = "com.google.errorprone")
+    exclude(group = "com.google.j2objc")
     resolutionStrategy {
         force("com.squareup.okhttp3:okhttp:" + Versions.okhttp)
     }
@@ -163,10 +167,11 @@ dependencies {
     implementation("androidx.preference:preference:1.1.1")
     implementation("com.jakewharton.timber:timber:4.7.1")
     implementation("com.jakewharton.threetenabp:threetenabp:1.2.3")
-    implementation("com.google.guava:guava:27.1-android")
     implementation("com.jakewharton:process-phoenix:2.0.0")
     implementation("com.google.android.apps.dashclock:dashclock-api:2.0.0")
-    implementation("com.twofortyfouram:android-plugin-api-for-locale:1.0.2")
+    implementation("com.twofortyfouram:android-plugin-api-for-locale:1.0.2") {
+        isTransitive = false
+    }
     implementation("com.rubiconproject.oss:jchronic:0.2.6") {
         isTransitive = false
     }
