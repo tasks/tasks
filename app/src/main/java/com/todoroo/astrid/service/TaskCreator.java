@@ -2,10 +2,10 @@ package com.todoroo.astrid.service;
 
 import static com.todoroo.andlib.utility.DateUtilities.now;
 import static com.todoroo.astrid.helper.UUIDHelper.newUUID;
+import static org.tasks.Strings.isNullOrEmpty;
 
 import android.content.ContentValues;
 import android.net.Uri;
-import android.text.TextUtils;
 import androidx.annotation.Nullable;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.CaldavFilter;
@@ -84,9 +84,9 @@ public class TaskCreator {
 
     boolean gcalCreateEventEnabled =
         preferences.isDefaultCalendarSet() && task.hasDueDate(); // $NON-NLS-1$
-    if (!TextUtils.isEmpty(task.getTitle())
+    if (!isNullOrEmpty(task.getTitle())
         && gcalCreateEventEnabled
-        && TextUtils.isEmpty(task.getCalendarURI())) {
+        && isNullOrEmpty(task.getCalendarURI())) {
       Uri calendarUri = gcalHelper.createTaskEvent(task, new ContentValues());
       task.setCalendarUri(calendarUri.toString());
     }

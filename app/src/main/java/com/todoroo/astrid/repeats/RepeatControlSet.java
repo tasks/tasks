@@ -15,7 +15,6 @@ import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -235,7 +234,7 @@ public class RepeatControlSet extends TaskEditControlFragment {
     }
     copy.setUntil(null);
     String result = copy.toIcal();
-    if (repeatAfterCompletion && !TextUtils.isEmpty(result)) {
+    if (repeatAfterCompletion && !isNullOrEmpty(result)) {
       result += ";FROM=COMPLETION"; // $NON-NLS-1$
     }
 

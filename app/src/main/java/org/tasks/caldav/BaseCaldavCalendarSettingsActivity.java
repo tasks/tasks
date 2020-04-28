@@ -1,6 +1,6 @@
 package org.tasks.caldav;
 
-import static android.text.TextUtils.isEmpty;
+import static org.tasks.Strings.isNullOrEmpty;
 
 import android.content.Context;
 import android.content.Intent;
@@ -114,7 +114,7 @@ public abstract class BaseCaldavCalendarSettingsActivity extends BaseListSetting
 
     String name = getNewName();
 
-    if (isEmpty(name)) {
+    if (isNullOrEmpty(name)) {
       nameLayout.setError(getString(R.string.name_cannot_be_empty));
       return;
     }
@@ -211,7 +211,7 @@ public abstract class BaseCaldavCalendarSettingsActivity extends BaseListSetting
   @Override
   protected boolean hasChanges() {
     return caldavCalendar == null
-        ? !isEmpty(getNewName()) || selectedColor != 0 || selectedIcon != -1
+        ? !isNullOrEmpty(getNewName()) || selectedColor != 0 || selectedIcon != -1
         : nameChanged() || iconChanged() || colorChanged();
   }
 

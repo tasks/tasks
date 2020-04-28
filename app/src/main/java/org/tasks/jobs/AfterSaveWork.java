@@ -1,13 +1,13 @@
 package org.tasks.jobs;
 
 import static com.todoroo.astrid.dao.TaskDao.TRANS_SUPPRESS_REFRESH;
+import static org.tasks.Strings.isNullOrEmpty;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.net.Uri;
 import android.provider.CalendarContract;
-import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.work.Data;
 import androidx.work.Data.Builder;
@@ -129,7 +129,7 @@ public class AfterSaveWork extends InjectingWorker {
 
   private void updateCalendarTitle(Task task) {
     String calendarUri = task.getCalendarURI();
-    if (!TextUtils.isEmpty(calendarUri)) {
+    if (!isNullOrEmpty(calendarUri)) {
       try {
         // change title of calendar event
         ContentResolver cr = context.getContentResolver();

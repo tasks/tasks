@@ -16,7 +16,6 @@ import android.content.pm.PackageManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Binder;
-import android.text.TextUtils;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.documentfile.provider.DocumentFile;
@@ -228,7 +227,7 @@ public class Preferences {
   }
 
   public boolean isStringValueSet(int keyResource) {
-    return !TextUtils.isEmpty(getStringValue(keyResource));
+    return !isNullOrEmpty(getStringValue(keyResource));
   }
 
   public int getDefaultReminders() {

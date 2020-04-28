@@ -1,9 +1,9 @@
 package com.todoroo.astrid.subtasks;
 
+import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.db.QueryUtils.showHidden;
 
 import android.content.Context;
-import android.text.TextUtils;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
@@ -52,7 +52,7 @@ public class SubtasksHelper {
         serializedTree.split("[\\[\\],\\s]"); // Split on [ ] , or whitespace chars
     for (String idString : digitsOnly) {
       try {
-        if (!TextUtils.isEmpty(idString)) {
+        if (!isNullOrEmpty(idString)) {
           ids.add(Long.parseLong(idString));
         }
       } catch (NumberFormatException e) {
@@ -66,7 +66,7 @@ public class SubtasksHelper {
     ArrayList<String> ids = new ArrayList<>();
     String[] values = serializedTree.split("[\\[\\],\"\\s]"); // Split on [ ] , or whitespace chars
     for (String idString : values) {
-      if (!TextUtils.isEmpty(idString)) {
+      if (!isNullOrEmpty(idString)) {
         ids.add(idString);
       }
     }

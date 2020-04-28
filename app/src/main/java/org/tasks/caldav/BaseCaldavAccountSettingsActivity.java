@@ -1,6 +1,5 @@
 package org.tasks.caldav;
 
-import static android.text.TextUtils.isEmpty;
 import static com.todoroo.astrid.data.Task.NO_ID;
 import static org.tasks.Strings.isNullOrEmpty;
 
@@ -8,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.text.util.Linkify;
 import android.view.MenuItem;
 import android.view.View;
@@ -82,7 +82,7 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
         binding.name.setText(caldavAccount.getName());
         binding.url.setText(caldavAccount.getUrl());
         binding.user.setText(caldavAccount.getUsername());
-        if (!isEmpty(caldavAccount.getPassword())) {
+        if (!isNullOrEmpty(caldavAccount.getPassword())) {
           binding.password.setText(PASSWORD_MASK);
         }
         binding.repeat.setChecked(caldavAccount.isSuppressRepeatingTasks());
@@ -165,7 +165,7 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
         binding.password.setText("");
       }
     } else {
-      if (isEmpty(binding.password.getText()) && caldavAccount != null) {
+      if (TextUtils.isEmpty(binding.password.getText()) && caldavAccount != null) {
         binding.password.setText(PASSWORD_MASK);
       }
     }
@@ -201,7 +201,7 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
 
     boolean failed = false;
 
-    if (isEmpty(url)) {
+    if (isNullOrEmpty(url)) {
       binding.urlLayout.setError(getString(R.string.url_required));
       failed = true;
     } else {
@@ -209,7 +209,7 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
       String scheme = baseURL.getScheme();
       if ("https".equalsIgnoreCase(scheme) || "http".equalsIgnoreCase(scheme)) {
         String host = baseURL.getHost();
-        if (isEmpty(host)) {
+        if (isNullOrEmpty(host)) {
           binding.urlLayout.setError(getString(R.string.url_host_name_required));
           failed = true;
         } else {
@@ -233,12 +233,12 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
       }
     }
 
-    if (isEmpty(username)) {
+    if (isNullOrEmpty(username)) {
       binding.userLayout.setError(getString(R.string.username_required));
       failed = true;
     }
 
-    if (isEmpty(password)) {
+    if (isNullOrEmpty(password)) {
       binding.passwordLayout.setError(getString(R.string.password_required));
       failed = true;
     }
@@ -308,10 +308,10 @@ public abstract class BaseCaldavAccountSettingsActivity extends ThemedInjectingA
 
   private boolean hasChanges() {
     if (caldavAccount == null) {
-      return !isEmpty(binding.name.getText().toString().trim())
-          || !isEmpty(getNewPassword())
-          || !isEmpty(binding.url.getText().toString().trim())
-          || !isEmpty(getNewUsername())
+      return !isNullOrEmpty(binding.name.getText().toString().trim())
+          || !isNullOrEmpty(getNewPassword())
+          || !isNullOrEmpty(binding.url.getText().toString().trim())
+          || !isNullOrEmpty(getNewUsername())
           || binding.repeat.isChecked();
     }
     return needsValidation()

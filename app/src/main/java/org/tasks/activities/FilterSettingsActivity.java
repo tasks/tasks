@@ -6,7 +6,6 @@
 
 package org.tasks.activities;
 
-import static android.text.TextUtils.isEmpty;
 import static com.google.common.collect.Iterables.find;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
@@ -288,7 +287,7 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
   protected void save() {
     String newName = getNewName();
 
-    if (isEmpty(newName)) {
+    if (isNullOrEmpty(newName)) {
       nameLayout.setError(getString(R.string.name_cannot_be_empty));
       return;
     }

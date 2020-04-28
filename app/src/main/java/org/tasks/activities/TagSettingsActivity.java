@@ -6,7 +6,7 @@
 
 package org.tasks.activities;
 
-import static android.text.TextUtils.isEmpty;
+import static org.tasks.Strings.isNullOrEmpty;
 
 import android.content.Context;
 import android.content.Intent;
@@ -63,7 +63,7 @@ public class TagSettingsActivity extends BaseListSettingsActivity {
     name.setText(tagData.getName());
 
     String autopopulateName = getIntent().getStringExtra(TOKEN_AUTOPOPULATE_NAME);
-    if (!isEmpty(autopopulateName)) {
+    if (!isNullOrEmpty(autopopulateName)) {
       name.setText(autopopulateName);
       getIntent().removeExtra(TOKEN_AUTOPOPULATE_NAME);
     } else if (isNewTag) {
@@ -108,7 +108,7 @@ public class TagSettingsActivity extends BaseListSettingsActivity {
   protected void save() {
     String newName = getNewName();
 
-    if (isEmpty(newName)) {
+    if (isNullOrEmpty(newName)) {
       nameLayout.setError(getString(R.string.name_cannot_be_empty));
       return;
     }
@@ -142,7 +142,7 @@ public class TagSettingsActivity extends BaseListSettingsActivity {
   @Override
   protected boolean hasChanges() {
     if (isNewTag) {
-      return selectedColor >= 0 || selectedIcon >= 0 || !isEmpty(getNewName());
+      return selectedColor >= 0 || selectedIcon >= 0 || !isNullOrEmpty(getNewName());
     }
     return !(selectedColor == tagData.getColor()
         && selectedIcon == tagData.getIcon()

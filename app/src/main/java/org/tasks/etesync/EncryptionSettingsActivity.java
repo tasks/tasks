@@ -1,6 +1,6 @@
 package org.tasks.etesync;
 
-import static android.text.TextUtils.isEmpty;
+import static org.tasks.Strings.isNullOrEmpty;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -111,7 +111,7 @@ public class EncryptionSettingsActivity extends ThemedInjectingAppCompatActivity
     String encryptionPassword = getNewEncryptionPassword();
     String derivedKey = caldavAccount.getEncryptionPassword(encryption);
 
-    if (isEmpty(encryptionPassword) && isEmpty(derivedKey)) {
+    if (isNullOrEmpty(encryptionPassword) && isNullOrEmpty(derivedKey)) {
       binding.encryptionPasswordLayout.setError(getString(R.string.encryption_password_required));
       return;
     }
@@ -125,7 +125,7 @@ public class EncryptionSettingsActivity extends ThemedInjectingAppCompatActivity
     }
 
     String key =
-        isEmpty(encryptionPassword)
+        isNullOrEmpty(encryptionPassword)
             ? derivedKey
             : Crypto.deriveKey(caldavAccount.getUsername(), encryptionPassword);
     CryptoManager cryptoManager;

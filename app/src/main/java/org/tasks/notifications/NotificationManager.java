@@ -20,7 +20,6 @@ import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.text.TextUtils;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import com.google.common.base.Joiner;
@@ -332,7 +331,7 @@ public class NotificationManager {
     }
 
     // new task edit in progress
-    if (TextUtils.isEmpty(task.getTitle())) {
+    if (isNullOrEmpty(task.getTitle())) {
       return null;
     }
 

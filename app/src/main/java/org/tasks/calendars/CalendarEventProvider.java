@@ -1,13 +1,13 @@
 package org.tasks.calendars;
 
 import static android.provider.BaseColumns._ID;
+import static org.tasks.Strings.isNullOrEmpty;
 
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.CalendarContract;
-import android.text.TextUtils;
 import androidx.annotation.Nullable;
 import com.todoroo.astrid.data.Task;
 import java.util.ArrayList;
@@ -71,7 +71,7 @@ public class CalendarEventProvider {
   }
 
   private void deleteEvent(String eventUri) {
-    if (!TextUtils.isEmpty(eventUri)) {
+    if (!isNullOrEmpty(eventUri)) {
       deleteEvent(Uri.parse(eventUri));
     }
   }

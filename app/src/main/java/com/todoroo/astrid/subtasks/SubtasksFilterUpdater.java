@@ -1,8 +1,8 @@
 package com.todoroo.astrid.subtasks;
 
+import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.db.QueryUtils.showHiddenAndCompleted;
 
-import android.text.TextUtils;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
@@ -110,7 +110,7 @@ public class SubtasksFilterUpdater {
       return "[]"; // $NON-NLS-1$
     }
     String order = list.getTaskIds();
-    if (TextUtils.isEmpty(order) || "null".equals(order)) // $NON-NLS-1$
+    if (isNullOrEmpty(order) || "null".equals(order)) // $NON-NLS-1$
     {
       order = "[]"; // $NON-NLS-1$
     }

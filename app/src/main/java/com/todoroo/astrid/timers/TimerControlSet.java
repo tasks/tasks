@@ -6,11 +6,12 @@
 
 package com.todoroo.astrid.timers;
 
+import static org.tasks.Strings.isNullOrEmpty;
+
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -196,11 +197,11 @@ public class TimerControlSet extends TaskEditControlFragment {
 
     String toDisplay;
 
-    if (!TextUtils.isEmpty(est) && !TextUtils.isEmpty(elap)) {
+    if (!isNullOrEmpty(est) && !isNullOrEmpty(elap)) {
       toDisplay = est + ", " + elap; // $NON-NLS-1$
-    } else if (!TextUtils.isEmpty(est)) {
+    } else if (!isNullOrEmpty(est)) {
       toDisplay = est;
-    } else if (!TextUtils.isEmpty(elap)) {
+    } else if (!isNullOrEmpty(elap)) {
       toDisplay = elap;
     } else {
       toDisplay = null;

@@ -5,7 +5,6 @@ import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
 import android.content.Context;
-import android.text.TextUtils;
 import androidx.annotation.Nullable;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.services.tasks.model.TaskList;
@@ -286,7 +285,7 @@ public class GoogleTaskSynchronizer {
     // If task was newly created but without a title, don't sync--we're in the middle of
     // creating a task which may end up being cancelled. Also don't sync new but already
     // deleted tasks
-    if (newlyCreated && (TextUtils.isEmpty(task.getTitle()) || task.getDeletionDate() > 0)) {
+    if (newlyCreated && (isNullOrEmpty(task.getTitle()) || task.getDeletionDate() > 0)) {
       return;
     }
 
@@ -481,7 +480,7 @@ public class GoogleTaskSynchronizer {
   }
 
   private void write(Task task, GoogleTask googleTask) {
-    if (!(TextUtils.isEmpty(task.getTitle()) && TextUtils.isEmpty(task.getNotes()))) {
+    if (!(isNullOrEmpty(task.getTitle()) && isNullOrEmpty(task.getNotes()))) {
       task.suppressSync();
       task.suppressRefresh();
       if (task.isNew()) {

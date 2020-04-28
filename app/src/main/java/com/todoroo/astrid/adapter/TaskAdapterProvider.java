@@ -1,7 +1,8 @@
 package com.todoroo.astrid.adapter;
 
+import static org.tasks.Strings.isNullOrEmpty;
+
 import android.content.Context;
-import android.text.TextUtils;
 import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
@@ -119,13 +120,13 @@ public class TaskAdapterProvider {
       filterId = TaskListMetadata.FILTER_ID_TODAY;
       prefId = SubtasksFilterUpdater.TODAY_TASKS_ORDER;
     }
-    if (TextUtils.isEmpty(filterId)) {
+    if (isNullOrEmpty(filterId)) {
       return null;
     }
     TaskListMetadata list = taskListMetadataDao.fetchByTagOrFilter(filterId);
     if (list == null) {
       String defaultOrder = preferences.getStringValue(prefId);
-      if (TextUtils.isEmpty(defaultOrder)) {
+      if (isNullOrEmpty(defaultOrder)) {
         defaultOrder = "[]"; // $NON-NLS-1$
       }
       defaultOrder = SubtasksHelper.convertTreeToRemoteIds(taskDao, defaultOrder);

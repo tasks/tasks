@@ -10,7 +10,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -205,7 +204,7 @@ public class CommentBarFragment extends TaskEditControlFragment {
 
   private void addComment(String message) {
     // Allow for users to just add picture
-    if (TextUtils.isEmpty(message)) {
+    if (isNullOrEmpty(message)) {
       message = " ";
     }
     Uri picture = pendingCommentPicture;

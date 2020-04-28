@@ -1,9 +1,9 @@
 package org.tasks.caldav;
 
-import static android.text.TextUtils.isEmpty;
 import static at.bitfire.dav4jvm.XmlUtils.NS_CALDAV;
 import static at.bitfire.dav4jvm.XmlUtils.NS_CARDDAV;
 import static at.bitfire.dav4jvm.XmlUtils.NS_WEBDAV;
+import static org.tasks.Strings.isNullOrEmpty;
 
 import android.content.Context;
 import at.bitfire.cert4android.CustomCertManager;
@@ -148,7 +148,7 @@ public class CaldavClient {
       CurrentUserPrincipal currentUserPrincipal = response.get(CurrentUserPrincipal.class);
       if (currentUserPrincipal != null) {
         String href = currentUserPrincipal.getHref();
-        if (!isEmpty(href)) {
+        if (!isNullOrEmpty(href)) {
           return href;
         }
       }
@@ -170,7 +170,7 @@ public class CaldavClient {
       throw new DisplayableException(R.string.caldav_home_set_not_found);
     }
     String homeSet = hrefs.get(0);
-    if (isEmpty(homeSet)) {
+    if (isNullOrEmpty(homeSet)) {
       throw new DisplayableException(R.string.caldav_home_set_not_found);
     }
     return davResource.getLocation().resolve(homeSet).toString();
@@ -192,7 +192,7 @@ public class CaldavClient {
       principal = tryFindPrincipal("");
     }
     return forUrl(
-            (isEmpty(principal) ? this.httpUrl : httpUrl.resolve(principal)).toString(),
+            (isNullOrEmpty(principal) ? this.httpUrl : httpUrl.resolve(principal)).toString(),
             basicDigestAuthHandler.getUsername(),
             basicDigestAuthHandler.getPassword())
         .findHomeset();

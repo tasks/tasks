@@ -1,6 +1,6 @@
 package org.tasks.activities;
 
-import static android.text.TextUtils.isEmpty;
+import static org.tasks.Strings.isNullOrEmpty;
 
 import android.content.Context;
 import android.content.Intent;
@@ -129,7 +129,7 @@ public class GoogleTaskListSettingsActivity extends BaseListSettingsActivity {
 
     String newName = getNewName();
 
-    if (isEmpty(newName)) {
+    if (isNullOrEmpty(newName)) {
       Toast.makeText(this, R.string.name_cannot_be_empty, Toast.LENGTH_LONG).show();
       return;
     }
@@ -193,7 +193,7 @@ public class GoogleTaskListSettingsActivity extends BaseListSettingsActivity {
   @Override
   protected boolean hasChanges() {
     if (isNewList) {
-      return selectedColor >= 0 || !isEmpty(getNewName());
+      return selectedColor >= 0 || !isNullOrEmpty(getNewName());
     }
     return colorChanged() || nameChanged() || iconChanged();
   }

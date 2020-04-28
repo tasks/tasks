@@ -6,12 +6,13 @@
 
 package com.todoroo.astrid.gcal;
 
+import static org.tasks.Strings.isNullOrEmpty;
+
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.net.Uri;
 import android.provider.CalendarContract;
-import android.text.TextUtils;
 import android.text.format.Time;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao;
@@ -53,7 +54,7 @@ public class GCalHelper {
 
   private String getTaskEventUri(Task task) {
     String uri;
-    if (!TextUtils.isEmpty(task.getCalendarURI())) {
+    if (!isNullOrEmpty(task.getCalendarURI())) {
       uri = task.getCalendarURI();
     } else {
       task = taskDao.fetch(task.getId());
@@ -93,7 +94,7 @@ public class GCalHelper {
 
     String eventuri = getTaskEventUri(task);
 
-    if (!TextUtils.isEmpty(eventuri) && deleteEventIfExists) {
+    if (!isNullOrEmpty(eventuri) && deleteEventIfExists) {
       calendarEventProvider.deleteEvent(task);
     }
 
@@ -103,10 +104,10 @@ public class GCalHelper {
       values.put(CalendarContract.Events.HAS_ALARM, 0);
       boolean valuesContainCalendarId =
           (values.containsKey(CalendarContract.Events.CALENDAR_ID)
-              && !TextUtils.isEmpty(values.getAsString(CalendarContract.Events.CALENDAR_ID)));
+              && !isNullOrEmpty(values.getAsString(CalendarContract.Events.CALENDAR_ID)));
       if (!valuesContainCalendarId) {
         String calendarId = preferences.getDefaultCalendar();
-        if (!TextUtils.isEmpty(calendarId)) {
+        if (!isNullOrEmpty(calendarId)) {
           values.put(CalendarContract.Events.CALENDAR_ID, calendarId);
         }
       }
@@ -128,7 +129,7 @@ public class GCalHelper {
 
   public void rescheduleRepeatingTask(Task task) {
     String taskUri = getTaskEventUri(task);
-    if (TextUtils.isEmpty(taskUri)) {
+    if (isNullOrEmpty(taskUri)) {
       return;
     }
 

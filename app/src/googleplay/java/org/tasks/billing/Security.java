@@ -16,7 +16,8 @@
 
 package org.tasks.billing;
 
-import android.text.TextUtils;
+import static org.tasks.Strings.isNullOrEmpty;
+
 import android.util.Base64;
 import com.android.billingclient.util.BillingHelper;
 import java.io.IOException;
@@ -49,9 +50,9 @@ class Security {
    */
   static boolean verifyPurchase(String base64PublicKey, String signedData, String signature)
       throws IOException {
-    if (TextUtils.isEmpty(signedData)
-        || TextUtils.isEmpty(base64PublicKey)
-        || TextUtils.isEmpty(signature)) {
+    if (isNullOrEmpty(signedData)
+        || isNullOrEmpty(base64PublicKey)
+        || isNullOrEmpty(signature)) {
       BillingHelper.logWarn(TAG, "Purchase verification failed: missing data.");
       return false;
     }

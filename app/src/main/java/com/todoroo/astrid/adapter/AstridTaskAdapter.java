@@ -1,6 +1,7 @@
 package com.todoroo.astrid.adapter;
 
-import android.text.TextUtils;
+import static org.tasks.Strings.isNullOrEmpty;
+
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
@@ -123,7 +124,7 @@ public final class AstridTaskAdapter extends TaskAdapter {
 
       boolean madeChanges = false;
       for (Task t : tasks) {
-        if (!TextUtils.isEmpty(t.getRecurrence())) {
+        if (!isNullOrEmpty(t.getRecurrence())) {
           updater.moveToParentOf(t.getUuid(), itemId);
           madeChanges = true;
         }

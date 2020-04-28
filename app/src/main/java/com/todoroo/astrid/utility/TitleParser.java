@@ -6,7 +6,8 @@
 
 package com.todoroo.astrid.utility;
 
-import android.text.TextUtils;
+import static org.tasks.Strings.isNullOrEmpty;
+
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.mdimension.jchronic.AstridChronic;
@@ -369,7 +370,7 @@ public class TitleParser {
 
     if (cal
         != null) { // if at least one of the above has been called, write to task. else do nothing.
-      if (!TextUtils.isEmpty(inputText)) {
+      if (!isNullOrEmpty(inputText)) {
         task.setTitle(inputText);
       }
       if (containsSpecificTime) {

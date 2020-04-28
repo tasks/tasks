@@ -14,7 +14,6 @@ import static org.tasks.date.DateTimeUtils.newDateTime;
 import android.content.ContentValues;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.text.TextUtils;
 import androidx.annotation.IntDef;
 import androidx.core.os.ParcelCompat;
 import androidx.room.ColumnInfo;
@@ -325,7 +324,7 @@ public class Task implements Parcelable {
   }
 
   public static boolean isUuidEmpty(String uuid) {
-    return NO_UUID.equals(uuid) || TextUtils.isEmpty(uuid);
+    return NO_UUID.equals(uuid) || isNullOrEmpty(uuid);
   }
 
   public long getId() {
@@ -569,7 +568,7 @@ public class Task implements Parcelable {
   }
 
   public boolean hasNotes() {
-    return !TextUtils.isEmpty(notes);
+    return !isNullOrEmpty(notes);
   }
 
   public Long getModificationDate() {

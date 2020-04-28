@@ -6,7 +6,8 @@
 
 package com.todoroo.andlib.data;
 
-import android.text.TextUtils;
+import static org.tasks.Strings.isNullOrEmpty;
+
 import com.todoroo.andlib.sql.Field;
 
 /**
@@ -56,7 +57,7 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
   /** Return a clone of this property */
   Property<TYPE> cloneAs(String tableAlias, String columnAlias) {
     Table aliasedTable = this.table;
-    if (!TextUtils.isEmpty(tableAlias)) {
+    if (!isNullOrEmpty(tableAlias)) {
       aliasedTable = table.as(tableAlias);
     }
 
@@ -65,7 +66,7 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
           this.getClass()
               .getConstructor(Table.class, String.class)
               .newInstance(aliasedTable, this.name);
-      if (!TextUtils.isEmpty(columnAlias)) {
+      if (!isNullOrEmpty(columnAlias)) {
         return (Property<TYPE>) newInstance.as(columnAlias);
       }
       return newInstance;
