@@ -617,4 +617,6 @@
     <string name="custom_filter_and">VE</string>
     <string name="custom_filter_criteria">Süzme ölçütü</string>
     <string name="sort_created">Oluşturulma zamanına göre</string>
+    <string name="disable_subtasks_summary">Alt görevleri devre dışı bırakmak uygulama performansını iyileştirebilir</string>
+    <string name="disable_subtasks">Alt görevleri devre dışı bırak</string>
 </resources>
