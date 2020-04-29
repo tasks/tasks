@@ -21,7 +21,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import java.util.List;
 import org.tasks.BuildConfig;
-import org.tasks.analytics.Tracker;
+import org.tasks.analytics.Firebase;
 import org.tasks.injection.ForApplication;
 import timber.log.Timber;
 
@@ -31,14 +31,14 @@ public class BillingClientImpl implements BillingClient, PurchasesUpdatedListene
   public static final String TYPE_SUBS = SkuType.SUBS;
 
   private final Inventory inventory;
-  private final Tracker tracker;
+  private final Firebase firebase;
   private com.android.billingclient.api.BillingClient billingClient;
   private boolean connected;
   private OnPurchasesUpdated onPurchasesUpdated;
 
-  public BillingClientImpl(@ForApplication Context context, Inventory inventory, Tracker tracker) {
+  public BillingClientImpl(@ForApplication Context context, Inventory inventory, Firebase firebase) {
     this.inventory = inventory;
-    this.tracker = tracker;
+    this.firebase = firebase;
     billingClient =
         com.android.billingclient.api.BillingClient.newBuilder(context).setListener(this).build();
   }
@@ -143,7 +143,7 @@ public class BillingClientImpl implements BillingClient, PurchasesUpdatedListene
                 .join(
                     Iterables.transform(purchases, com.android.billingclient.api.Purchase::getSku));
     Timber.i("onPurchasesUpdated(%s, %s)", BillingResponseToString(resultCode), skus);
-    tracker.reportIabResult(resultCode, skus);
+    firebase.reportIabResult(resultCode, skus);
   }
 
   private void add(List<com.android.billingclient.api.Purchase> purchases) {

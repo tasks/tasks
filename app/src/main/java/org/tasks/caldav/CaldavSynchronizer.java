@@ -50,7 +50,7 @@ import okhttp3.RequestBody;
 import org.tasks.BuildConfig;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
-import org.tasks.analytics.Tracker;
+import org.tasks.analytics.Firebase;
 import org.tasks.billing.Inventory;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
@@ -71,7 +71,7 @@ public class CaldavSynchronizer {
   private final LocalBroadcastManager localBroadcastManager;
   private final TaskDeleter taskDeleter;
   private final Inventory inventory;
-  private final Tracker tracker;
+  private final Firebase firebase;
   private final CaldavClient client;
   private final iCalendar iCal;
   private final Context context;
@@ -84,7 +84,7 @@ public class CaldavSynchronizer {
       LocalBroadcastManager localBroadcastManager,
       TaskDeleter taskDeleter,
       Inventory inventory,
-      Tracker tracker,
+      Firebase firebase,
       CaldavClient client,
       iCalendar iCal) {
     this.context = context;
@@ -93,7 +93,7 @@ public class CaldavSynchronizer {
     this.localBroadcastManager = localBroadcastManager;
     this.taskDeleter = taskDeleter;
     this.inventory = inventory;
-    this.tracker = tracker;
+    this.firebase = firebase;
     this.client = client;
     this.iCal = iCal;
   }
@@ -121,7 +121,7 @@ public class CaldavSynchronizer {
     } catch (IOException | DavException e) {
       setError(account, e.getMessage());
       if (!(e instanceof HttpException) || ((HttpException) e).getCode() < 500) {
-        tracker.reportException(e);
+        firebase.reportException(e);
       }
     }
   }

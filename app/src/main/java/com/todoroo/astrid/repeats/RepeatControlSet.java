@@ -35,7 +35,7 @@ import java.util.Arrays;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.analytics.Tracker;
+import org.tasks.analytics.Firebase;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
@@ -63,7 +63,7 @@ public class RepeatControlSet extends TaskEditControlFragment {
   @Inject DialogBuilder dialogBuilder;
   @Inject @ForActivity Context context;
   @Inject Theme theme;
-  @Inject Tracker tracker;
+  @Inject Firebase firebase;
   @Inject RepeatRuleToString repeatRuleToString;
 
   @BindView(R.id.display_row_edit)

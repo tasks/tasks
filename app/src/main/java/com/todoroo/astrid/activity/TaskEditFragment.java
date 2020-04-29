@@ -52,7 +52,7 @@ import io.reactivex.schedulers.Schedulers;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.analytics.Tracker;
+import org.tasks.analytics.Firebase;
 import org.tasks.data.UserActivity;
 import org.tasks.data.UserActivityDao;
 import org.tasks.databinding.FragmentTaskEditBinding;
@@ -85,7 +85,7 @@ public final class TaskEditFragment extends InjectingFragment
   @Inject TaskEditControlSetFragmentManager taskEditControlSetFragmentManager;
   @Inject CommentsController commentsController;
   @Inject Preferences preferences;
-  @Inject Tracker tracker;
+  @Inject Firebase firebase;
   @Inject TimerPlugin timerPlugin;
   @Inject Linkify linkify;
 
@@ -382,7 +382,7 @@ public final class TaskEditFragment extends InjectingFragment
         }
       }
     } catch (Exception e) {
-      tracker.reportException(e);
+      firebase.reportException(e);
     }
     return false;
   }

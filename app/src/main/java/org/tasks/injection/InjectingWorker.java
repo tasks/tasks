@@ -5,12 +5,12 @@ import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 import javax.inject.Inject;
-import org.tasks.analytics.Tracker;
+import org.tasks.analytics.Firebase;
 import timber.log.Timber;
 
 public abstract class InjectingWorker extends Worker {
 
-  @Inject Tracker tracker;
+  @Inject Firebase firebase;
 
   public InjectingWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
     super(context, workerParams);
@@ -26,7 +26,7 @@ public abstract class InjectingWorker extends Worker {
     try {
       return run();
     } catch (Exception e) {
-      tracker.reportException(e);
+      firebase.reportException(e);
       return Result.failure();
     }
   }

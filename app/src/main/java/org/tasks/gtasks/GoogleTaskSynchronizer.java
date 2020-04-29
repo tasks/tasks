@@ -35,7 +35,7 @@ import javax.inject.Inject;
 import javax.net.ssl.SSLException;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
-import org.tasks.analytics.Tracker;
+import org.tasks.analytics.Firebase;
 import org.tasks.billing.Inventory;
 import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskAccount;
@@ -69,7 +69,7 @@ public class GoogleTaskSynchronizer {
   private final GtasksListService gtasksListService;
   private final Preferences preferences;
   private final TaskDao taskDao;
-  private final Tracker tracker;
+  private final Firebase firebase;
   private final GoogleTaskDao googleTaskDao;
   private final TaskCreator taskCreator;
   private final DefaultFilterProvider defaultFilterProvider;
@@ -87,7 +87,7 @@ public class GoogleTaskSynchronizer {
       GtasksListService gtasksListService,
       Preferences preferences,
       TaskDao taskDao,
-      Tracker tracker,
+      Firebase firebase,
       GoogleTaskDao googleTaskDao,
       TaskCreator taskCreator,
       DefaultFilterProvider defaultFilterProvider,
@@ -102,7 +102,7 @@ public class GoogleTaskSynchronizer {
     this.gtasksListService = gtasksListService;
     this.preferences = preferences;
     this.taskDao = taskDao;
-    this.tracker = tracker;
+    this.firebase = firebase;
     this.googleTaskDao = googleTaskDao;
     this.taskCreator = taskCreator;
     this.defaultFilterProvider = defaultFilterProvider;
@@ -150,11 +150,11 @@ public class GoogleTaskSynchronizer {
       if (e.getStatusCode() == 401) {
         Timber.e(e);
       } else {
-        tracker.reportException(e);
+        firebase.reportException(e);
       }
     } catch (Exception e) {
       account.setError(e.getMessage());
-      tracker.reportException(e);
+      firebase.reportException(e);
     } finally {
       googleTaskListDao.update(account);
       localBroadcastManager.broadcastRefreshList();
@@ -199,7 +199,7 @@ public class GoogleTaskSynchronizer {
     for (GoogleTaskList list :
         googleTaskListDao.getByRemoteId(transform(gtaskLists, TaskList::getId))) {
       if (isNullOrEmpty(list.getRemoteId())) {
-        tracker.reportException(new RuntimeException("Empty remote id"));
+        firebase.reportException(new RuntimeException("Empty remote id"));
         continue;
       }
       fetchAndApplyRemoteChanges(gtasksInvoker, list);
@@ -392,7 +392,7 @@ public class GoogleTaskSynchronizer {
         taskList =
             gtasksInvoker.getAllGtasksFromListId(listId, lastSyncDate + 1000L, nextPageToken);
       } catch (HttpNotFoundException e) {
-        tracker.reportException(e);
+        firebase.reportException(e);
         return;
       }
       if (taskList == null) {

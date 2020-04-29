@@ -26,7 +26,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.analytics.Tracker;
+import org.tasks.analytics.Firebase;
 import org.tasks.calendars.AndroidCalendar;
 import org.tasks.calendars.CalendarEventProvider;
 import org.tasks.calendars.CalendarPicker;
@@ -64,7 +64,7 @@ public class CalendarControlSet extends TaskEditControlFragment {
   @Inject @ForActivity Context context;
   @Inject PermissionChecker permissionChecker;
   @Inject FragmentPermissionRequestor permissionRequestor;
-  @Inject Tracker tracker;
+  @Inject Firebase firebase;
   @Inject DialogBuilder dialogBuilder;
   @Inject ThemeBase themeBase;
   @Inject CalendarEventProvider calendarEventProvider;
@@ -91,7 +91,7 @@ public class CalendarControlSet extends TaskEditControlFragment {
           }
         } catch (Exception e) {
           Timber.e(e);
-          tracker.reportException(e);
+          firebase.reportException(e);
           calendarId = null;
         }
       }

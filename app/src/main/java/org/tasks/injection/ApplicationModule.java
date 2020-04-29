@@ -5,7 +5,7 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao;
 import dagger.Module;
 import dagger.Provides;
-import org.tasks.analytics.Tracker;
+import org.tasks.analytics.Firebase;
 import org.tasks.billing.BillingClient;
 import org.tasks.billing.BillingClientImpl;
 import org.tasks.billing.Inventory;
@@ -134,8 +134,8 @@ class ApplicationModule {
   }
 
   @Provides
-  BillingClient getBillingClient(Inventory inventory, Tracker tracker) {
-    return new BillingClientImpl(context, inventory, tracker);
+  BillingClient getBillingClient(Inventory inventory, Firebase firebase) {
+    return new BillingClientImpl(context, inventory, firebase);
   }
 
   @Provides

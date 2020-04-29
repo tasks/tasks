@@ -10,12 +10,12 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.analytics.Tracker;
+import org.tasks.analytics.Firebase;
 import org.tasks.notifications.NotificationManager;
 
 public abstract class InjectingService extends Service {
 
-  @Inject Tracker tracker;
+  @Inject Firebase firebase;
 
   private CompositeDisposable disposables;
 
@@ -41,7 +41,7 @@ public abstract class InjectingService extends Service {
             .subscribe(
                 () -> done(startId),
                 t -> {
-                  tracker.reportException(t);
+                  firebase.reportException(t);
                   done(startId);
                 }));
 

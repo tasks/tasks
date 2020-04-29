@@ -14,7 +14,7 @@ import com.todoroo.astrid.data.Task;
 import java.text.ParseException;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.analytics.Tracker;
+import org.tasks.analytics.Firebase;
 import org.tasks.locale.Locale;
 import org.threeten.bp.format.FormatStyle;
 import timber.log.Timber;
@@ -22,15 +22,15 @@ import timber.log.Timber;
 public class RepeatConfirmationReceiver extends BroadcastReceiver {
 
   private final Activity activity;
-  private final Tracker tracker;
+  private final Firebase firebase;
   private final TaskDao taskDao;
   private final Locale locale;
 
   @Inject
   public RepeatConfirmationReceiver(
-      Activity activity, Tracker tracker, TaskDao taskDao, Locale locale) {
+      Activity activity, Firebase firebase, TaskDao taskDao, Locale locale) {
     this.activity = activity;
-    this.tracker = tracker;
+    this.firebase = firebase;
     this.taskDao = taskDao;
     this.locale = locale;
   }
@@ -55,7 +55,7 @@ public class RepeatConfirmationReceiver extends BroadcastReceiver {
       try {
         showSnackbar(taskListFragment, task, oldDueDate, newDueDate);
       } catch (Exception e) {
-        tracker.reportException(e);
+        firebase.reportException(e);
       }
     }
   }

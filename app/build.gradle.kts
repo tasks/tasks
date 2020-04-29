@@ -191,7 +191,7 @@ dependencies {
     implementation("com.github.QuadFlask:colorpicker:0.0.15")
 
     googleplayImplementation("com.crashlytics.sdk.android:crashlytics:${Versions.crashlytics}")
-    googleplayImplementation("com.google.firebase:firebase-analytics:${Versions.firebase}")
+    googleplayImplementation("com.google.firebase:firebase-analytics:${Versions.analytics}")
     googleplayImplementation("com.google.android.gms:play-services-location:17.0.0")
     googleplayImplementation("com.google.android.gms:play-services-maps:17.0.0")
     googleplayImplementation("com.google.android.libraries.places:places:2.2.0")
