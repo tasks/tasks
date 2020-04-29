@@ -8,7 +8,6 @@ package com.todoroo.astrid.activity;
 
 import static android.app.Activity.RESULT_OK;
 import static com.google.common.base.Strings.padStart;
-import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
 import static org.tasks.activities.RemoteListPicker.newRemoteListSupportPicker;
@@ -736,9 +735,9 @@ public final class TaskListFragment extends InjectingFragment
         intent.putExtra(TagPickerActivity.EXTRA_TASKS, selected);
         intent.putParcelableArrayListExtra(
             TagPickerActivity.EXTRA_PARTIALLY_SELECTED,
-            newArrayList(tagDataDao.getByUuid(tags.first)));
+            new ArrayList<>(tagDataDao.getByUuid(tags.first)));
         intent.putParcelableArrayListExtra(
-            TagPickerActivity.EXTRA_SELECTED, newArrayList(tagDataDao.getByUuid(tags.second)));
+            TagPickerActivity.EXTRA_SELECTED, new ArrayList<>(tagDataDao.getByUuid(tags.second)));
         startActivityForResult(intent, REQUEST_TAG_TASKS);
         return true;
       case R.id.move_tasks:

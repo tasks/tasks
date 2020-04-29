@@ -6,7 +6,6 @@
 
 package com.todoroo.astrid.adapter;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.primitives.Longs.asList;
 
 import com.todoroo.astrid.data.Task;
@@ -41,7 +40,7 @@ public class TaskAdapter {
   }
 
   public ArrayList<Long> getSelected() {
-    return newArrayList(selected);
+    return new ArrayList<>(selected);
   }
 
   public void setSelected(long... ids) {

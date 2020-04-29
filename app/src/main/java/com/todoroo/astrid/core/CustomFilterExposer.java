@@ -6,11 +6,11 @@
 
 package com.todoroo.astrid.core;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 
 import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.Filter;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
@@ -27,7 +27,7 @@ public final class CustomFilterExposer {
   }
 
   public List<Filter> getFilters() {
-    List<Filter> filters = newArrayList(transform(filterDao.getFilters(), this::load));
+    List<Filter> filters = new ArrayList<>(transform(filterDao.getFilters(), this::load));
     Collections.sort(filters, new AlphanumComparator<>(AlphanumComparator.FILTER));
     return filters;
   }

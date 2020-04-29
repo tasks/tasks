@@ -3,7 +3,6 @@ package org.tasks.data;
 import static com.google.common.collect.FluentIterable.concat;
 import static com.google.common.collect.FluentIterable.from;
 import static com.google.common.collect.Iterables.transform;
-import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 import static com.google.common.collect.Sets.difference;
 import static com.google.common.collect.Sets.newHashSet;
@@ -22,6 +21,7 @@ import com.google.common.collect.Collections2;
 import com.google.common.collect.Iterables;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.UUIDHelper;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -124,7 +124,7 @@ public abstract class TagDataDao {
         insert(transform(added, td -> new Tag(task, td)));
       }
     }
-    return newArrayList(modified);
+    return new ArrayList<>(modified);
   }
 
   @Transaction

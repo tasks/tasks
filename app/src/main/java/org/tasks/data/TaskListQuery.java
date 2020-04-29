@@ -21,6 +21,7 @@ import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
+import java.util.ArrayList;
 import java.util.List;
 import org.tasks.preferences.Preferences;
 
@@ -87,7 +88,7 @@ public class TaskListQuery {
       com.todoroo.astrid.api.Filter filter,
       Preferences preferences,
       SubtaskInfo subtasks) {
-    List<Field> fields = newArrayList(FIELDS);
+    List<Field> fields = new ArrayList<>(FIELDS);
     fields.add(TAG_QUERY);
     fields.add(INDENT);
     fields.add(CHILDREN);
@@ -180,7 +181,7 @@ public class TaskListQuery {
   }
 
   private static List<String> getNonRecursiveQuery(Filter filter, Preferences preferences) {
-    List<Field> fields = newArrayList(FIELDS);
+    List<Field> fields = new ArrayList<>(FIELDS);
     fields.add(TAGS);
 
     if (filter instanceof GtasksFilter && preferences.isManualSort()) {

@@ -1,6 +1,5 @@
 package org.tasks.db;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.partition;
 
 import com.google.common.base.Function;
@@ -16,7 +15,7 @@ public class DbUtils {
 
   public static <F, T> List<T> collect(Collection<F> items, Function<List<F>, List<T>> func) {
     if (items.size() < MAX_SQLITE_ARGS) {
-      return func.apply(items instanceof List ? (List<F>) items : newArrayList(items));
+      return func.apply(items instanceof List ? (List<F>) items : new ArrayList<>(items));
     }
     List<T> result = new ArrayList<>();
     batch(items, b -> result.addAll(func.apply(b)));

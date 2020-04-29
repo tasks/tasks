@@ -307,9 +307,11 @@ public class FilterProvider {
   }
 
   private List<Filter> getFilters() {
-    ArrayList<Filter> filters = new ArrayList<>();
-    filters.addAll(builtInFilterExposer.getFilters());
-    filters.addAll(timerFilterExposer.getFilters());
+    ArrayList<Filter> filters = new ArrayList<>(builtInFilterExposer.getFilters());
+    Filter filter = timerFilterExposer.getFilters();
+    if (filter != null) {
+      filters.add(filter);
+    }
     filters.addAll(customFilterExposer.getFilters());
     return filters;
   }
@@ -322,7 +324,7 @@ public class FilterProvider {
           account,
           account.isCollapsed()
               ? emptyList()
-              : newArrayList(
+              : new ArrayList<>(
                   transform(
                       googleTaskListDao.getGoogleTaskFilters(account.getAccount(), now()),
                       GoogleTaskFilters::toGtasksFilter)));
@@ -341,7 +343,7 @@ public class FilterProvider {
           account,
           account.isCollapsed()
               ? emptyList()
-              : newArrayList(
+              : new ArrayList<>(
                   transform(
                       caldavDao.getCaldavFilters(account.getUuid(), now()),
                       CaldavFilters::toCaldavFilter)));

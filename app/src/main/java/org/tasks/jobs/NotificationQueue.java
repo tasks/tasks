@@ -8,6 +8,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.TreeMultimap;
 import com.google.common.primitives.Ints;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
@@ -67,7 +68,7 @@ public class NotificationQueue {
   }
 
   synchronized List<? extends NotificationQueueEntry> getOverdueJobs() {
-    List<NotificationQueueEntry> result = newArrayList();
+    List<NotificationQueueEntry> result = new ArrayList<>();
     long cutoff = new DateTime().startOfMinute().plusMinutes(1).getMillis();
     for (Long key : jobs.keySet().headSet(cutoff)) {
       result.addAll(jobs.get(key));

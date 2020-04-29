@@ -1,6 +1,5 @@
 package org.tasks.location;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.utility.AndroidUtilities.hideKeyboard;
 import static org.tasks.PermissionUtil.verifyPermissions;
@@ -387,7 +386,7 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
 
   private void updateMarkers() {
     if (map != null) {
-      map.setMarkers(newArrayList(transform(places, PlaceUsage::getPlace)));
+      map.setMarkers(transform(places, PlaceUsage::getPlace));
     }
   }
 

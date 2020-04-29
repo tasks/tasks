@@ -6,7 +6,6 @@
 
 package com.todoroo.astrid.adapter;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
 
 import android.app.Activity;
@@ -143,7 +142,7 @@ public class FilterAdapter extends BaseAdapter {
 
   private ArrayList<FilterListItem> getItems() {
     assertMainThread();
-    return newArrayList(items);
+    return new ArrayList<>(items);
   }
 
   @NonNull

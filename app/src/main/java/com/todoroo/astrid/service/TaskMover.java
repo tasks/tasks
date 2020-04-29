@@ -65,7 +65,7 @@ public class TaskMover {
   }
 
   public void move(List<Long> tasks, Filter selectedList) {
-    tasks = newArrayList(tasks);
+    tasks = new ArrayList<>(tasks);
     tasks.removeAll(googleTaskDao.findChildrenInList(tasks));
     tasks.removeAll(taskDao.findChildrenInList(tasks));
     taskDao.setParent(0, null, tasks);

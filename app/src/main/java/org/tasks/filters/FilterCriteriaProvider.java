@@ -1,7 +1,6 @@
 package org.tasks.filters;
 
 import static com.google.common.collect.Iterables.transform;
-import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Sets.newLinkedHashSet;
 
 import android.content.Context;
@@ -17,6 +16,7 @@ import com.todoroo.astrid.api.TextInputCriterion;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Task.Priority;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -99,7 +99,7 @@ public class FilterCriteriaProvider {
   }
 
   public List<CustomFilterCriterion> getAll() {
-    List<CustomFilterCriterion> result = newArrayList();
+    List<CustomFilterCriterion> result = new ArrayList<>();
 
     result.add(getTagFilter());
     result.add(getTagNameContainsFilter());

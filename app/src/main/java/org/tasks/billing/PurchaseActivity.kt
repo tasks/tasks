@@ -14,7 +14,6 @@ import butterknife.OnClick
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.common.collect.ContiguousSet
 import com.google.common.collect.DiscreteDomain
-import com.google.common.collect.Lists
 import com.google.common.collect.Range
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
@@ -149,7 +148,7 @@ class PurchaseActivity : ThemedInjectingAppCompatActivity(), OnPurchasesUpdated,
         updateSubscribeButton()
         setWaitScreen(false)
         adapter.submitList(
-                Lists.newArrayList(ContiguousSet.create(Range.closed(1, 10), DiscreteDomain.integers())))
+                ArrayList(ContiguousSet.create(Range.closed(1, 10), DiscreteDomain.integers())))
         binding.recyclerView.layoutManager = IconLayoutManager(this)
         binding.recyclerView.adapter = adapter
     }

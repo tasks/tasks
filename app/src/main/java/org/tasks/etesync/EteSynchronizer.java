@@ -1,7 +1,6 @@
 package org.tasks.etesync;
 
 import static com.google.common.collect.FluentIterable.from;
-import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
 import static com.google.common.collect.Sets.newHashSet;
 import static java.util.Collections.emptySet;
@@ -113,7 +112,7 @@ public class EteSynchronizer {
     Set<String> uids = newHashSet(Iterables.transform(resources.values(), CollectionInfo::getUid));
     Timber.d("Found uids: %s", uids);
     for (CaldavCalendar calendar :
-        caldavDao.findDeletedCalendars(account.getUuid(), newArrayList(uids))) {
+        caldavDao.findDeletedCalendars(account.getUuid(), new ArrayList<>(uids))) {
       taskDeleter.delete(calendar);
     }
 

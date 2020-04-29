@@ -6,17 +6,14 @@
 
 package com.todoroo.astrid.timers;
 
-import static com.google.common.collect.Lists.newArrayList;
-import static java.util.Collections.emptyList;
-
 import android.content.Context;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import java.util.List;
 import javax.inject.Inject;
+import org.jetbrains.annotations.Nullable;
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
 
@@ -36,7 +33,7 @@ public final class TimerFilterExposer {
     this.taskDao = taskDao;
   }
 
-  public static Filter createFilter(Context context) {
+  static Filter createFilter(Context context) {
     Filter filter =
         new Filter(
             context.getString(R.string.TFE_workingOn),
@@ -46,11 +43,7 @@ public final class TimerFilterExposer {
     return filter;
   }
 
-  public List<Filter> getFilters() {
-    if (taskDao.activeTimers() == 0) {
-      return emptyList();
-    }
-
-    return newArrayList(createFilter(context));
+  public @Nullable Filter getFilters() {
+    return taskDao.activeTimers() == 0 ? null : createFilter(context);
   }
 }

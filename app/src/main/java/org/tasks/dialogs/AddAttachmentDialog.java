@@ -1,6 +1,5 @@
 package org.tasks.dialogs;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static org.tasks.dialogs.RecordAudioDialog.newRecordAudioDialog;
 import static org.tasks.files.FileHelper.newFilePickerIntent;
 
@@ -11,6 +10,7 @@ import android.os.Bundle;
 import android.provider.MediaStore.Images.Media;
 import androidx.annotation.NonNull;
 import com.todoroo.astrid.files.FilesControlSet;
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
@@ -45,8 +45,8 @@ public class AddAttachmentDialog extends InjectingDialogFragment {
   @NonNull
   @Override
   public Dialog onCreateDialog(Bundle savedInstanceState) {
-    List<String> entries = newArrayList();
-    final List<Runnable> actions = newArrayList();
+    List<String> entries = new ArrayList<>();
+    final List<Runnable> actions = new ArrayList<>();
     if (device.hasCamera()) {
       entries.add(getString(R.string.take_a_picture));
       actions.add(this::takePicture);

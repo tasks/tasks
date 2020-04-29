@@ -8,7 +8,6 @@ package com.todoroo.astrid.dao;
 
 import static com.google.common.collect.Iterables.filter;
 import static com.google.common.collect.Iterables.transform;
-import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.sql.SqlConstants.COUNT;
 import static com.todoroo.andlib.utility.DateUtilities.now;
@@ -32,6 +31,7 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.UUIDHelper;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import org.tasks.BuildConfig;
@@ -234,7 +234,7 @@ public abstract class TaskDao {
   public abstract List<Long> getChildren(List<Long> ids);
 
   public List<Long> findChildrenInList(List<Long> ids) {
-    List<Long> result = newArrayList(ids);
+    List<Long> result = new ArrayList<>(ids);
     result.retainAll(getChildren(ids));
     return result;
   }

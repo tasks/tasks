@@ -1,7 +1,6 @@
 package org.tasks.tags;
 
 import static com.google.common.collect.Iterables.any;
-import static com.google.common.collect.Lists.newArrayList;
 import static org.tasks.Strings.isNullOrEmpty;
 
 import androidx.annotation.Nullable;
@@ -46,11 +45,11 @@ public class TagPickerViewModel extends ViewModel {
   }
 
   public ArrayList<TagData> getSelected() {
-    return newArrayList(selected);
+    return new ArrayList<>(selected);
   }
 
   ArrayList<TagData> getPartiallySelected() {
-    return newArrayList(partiallySelected);
+    return new ArrayList<>(partiallySelected);
   }
 
   public String getText() {

@@ -1,7 +1,6 @@
 package com.todoroo.astrid.service;
 
 import static com.google.common.collect.Iterables.transform;
-import static com.google.common.collect.Lists.newArrayList;
 import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.db.DbUtils.batch;
 
@@ -15,6 +14,7 @@ import com.google.common.collect.Multimaps;
 import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.dao.TaskDao;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import net.fortuna.ical4j.model.property.Geo;
@@ -227,7 +227,7 @@ public class Upgrader {
   }
 
   private void applyCaldavSubtasks() {
-    List<CaldavTask> updated = newArrayList();
+    List<CaldavTask> updated = new ArrayList<>();
 
     for (CaldavTask task : transform(caldavDao.getTasks(), CaldavTaskContainer::getCaldavTask)) {
       at.bitfire.ical4android.Task remoteTask = iCalendar.Companion.fromVtodo(task.getVtodo());

@@ -1,6 +1,5 @@
 package org.tasks.ui;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 import static com.todoroo.astrid.data.SyncFlags.FORCE_CALDAV_SYNC;
 import static org.tasks.PermissionUtil.verifyPermissions;
@@ -167,7 +166,7 @@ public class LocationControlSet extends TaskEditControlFragment {
       dialogBuilder
           .newDialog(location.getDisplayName())
           .setItems(
-              newArrayList(transform(options, o -> getString(o.first))),
+              new ArrayList<>(transform(options, o -> getString(o.first))),
               (dialog, which) -> options.get(which).second.run())
           .show();
     }

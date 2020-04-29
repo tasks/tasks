@@ -251,7 +251,7 @@ public class NotificationManager {
       cancelSummaryNotification();
       return;
     }
-    ArrayList<Long> taskIds = newArrayList(transform(tasks, Task::getId));
+    ArrayList<Long> taskIds = new ArrayList<>(transform(tasks, Task::getId));
     Filter filter =
         new Filter(
             context.getString(R.string.notifications),
@@ -263,8 +263,8 @@ public class NotificationManager {
         context.getResources().getQuantityString(R.plurals.task_count, taskCount, taskCount);
     NotificationCompat.InboxStyle style =
         new NotificationCompat.InboxStyle().setBigContentTitle(summaryTitle);
-    List<String> titles = newArrayList();
-    List<String> ticker = newArrayList();
+    List<String> titles = new ArrayList<>();
+    List<String> ticker = new ArrayList<>();
     for (Task task : tasks) {
       String title = task.getTitle();
       style.addLine(title);

@@ -6,6 +6,7 @@ import static com.todoroo.andlib.utility.DateUtilities.now;
 import com.google.common.collect.Iterables;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
@@ -35,7 +36,7 @@ public class TaskCompleter {
   public void setComplete(Task item, boolean completed) {
     long completionDate = completed ? now() : 0L;
     setComplete(Collections.singletonList(item), completionDate);
-    List<Task> tasks = newArrayList(googleTaskDao.getChildTasks(item.getId()));
+    List<Task> tasks = new ArrayList<>(googleTaskDao.getChildTasks(item.getId()));
     List<Long> caldavChildren = taskDao.getChildren(item.getId());
     if (!caldavChildren.isEmpty()) {
       tasks.addAll(taskDao.fetch(caldavChildren));

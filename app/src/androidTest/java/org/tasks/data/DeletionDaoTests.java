@@ -30,13 +30,13 @@ public class DeletionDaoTests extends InjectingTestCase {
   @Test
   public void deleting1000DoesntCrash() {
     deletionDao.delete(
-        newArrayList(ContiguousSet.create(Range.closed(1L, 1000L), DiscreteDomain.longs())));
+        new ArrayList<>(ContiguousSet.create(Range.closed(1L, 1000L), DiscreteDomain.longs())));
   }
 
   @Test
   public void marking998ForDeletionDoesntCrash() {
     deletionDao.markDeleted(
-        newArrayList(ContiguousSet.create(Range.closed(1L, 1000L), DiscreteDomain.longs())));
+        new ArrayList<>(ContiguousSet.create(Range.closed(1L, 1000L), DiscreteDomain.longs())));
   }
 
   @Test

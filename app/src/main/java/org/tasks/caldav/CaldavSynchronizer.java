@@ -133,7 +133,7 @@ public class CaldavSynchronizer {
     Set<String> urls = newHashSet(transform(resources, c -> c.getHref().toString()));
     Timber.d("Found calendars: %s", urls);
     for (CaldavCalendar calendar :
-        caldavDao.findDeletedCalendars(account.getUuid(), newArrayList(urls))) {
+        caldavDao.findDeletedCalendars(account.getUuid(), new ArrayList<>(urls))) {
       taskDeleter.delete(calendar);
     }
     for (Response resource : resources) {
@@ -242,7 +242,7 @@ public class CaldavSynchronizer {
     }
 
     List<String> deleted =
-        newArrayList(
+        new ArrayList<>(
             difference(
                 newHashSet(caldavDao.getObjects(caldavCalendar.getUuid())),
                 newHashSet(remoteObjects)));
