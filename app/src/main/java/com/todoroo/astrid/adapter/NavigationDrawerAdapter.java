@@ -35,14 +35,11 @@ import org.tasks.filters.NavigationDrawerSubheader;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.ColorProvider;
-import org.tasks.themes.Theme;
-import org.tasks.themes.ThemeAccent;
 
 public class NavigationDrawerAdapter extends RecyclerView.Adapter<ViewHolder> {
 
   private static final String TOKEN_SELECTED = "token_selected";
   private final Activity activity;
-  private final ThemeAccent accent;
   private final Locale locale;
   private final Inventory inventory;
   private final ColorProvider colorProvider;
@@ -50,7 +47,6 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<ViewHolder> {
   private final GoogleTaskDao googleTaskDao;
   private final CaldavDao caldavDao;
   private final LocalBroadcastManager localBroadcastManager;
-  private final LayoutInflater inflater;
   private OnClick onClick;
   private Filter selected = null;
 
@@ -59,7 +55,6 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<ViewHolder> {
   @Inject
   public NavigationDrawerAdapter(
       Activity activity,
-      Theme theme,
       Locale locale,
       Inventory inventory,
       ColorProvider colorProvider,
@@ -68,7 +63,6 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<ViewHolder> {
       CaldavDao caldavDao,
       LocalBroadcastManager localBroadcastManager) {
     this.activity = activity;
-    this.accent = theme.getThemeAccent();
     this.locale = locale;
     this.inventory = inventory;
     this.colorProvider = colorProvider;
@@ -76,7 +70,6 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<ViewHolder> {
     this.googleTaskDao = googleTaskDao;
     this.caldavDao = caldavDao;
     this.localBroadcastManager = localBroadcastManager;
-    this.inflater = theme.getLayoutInflater(activity);
 
     differ = new AsyncListDiffer<>(this, new DiffCallback());
   }
@@ -112,10 +105,10 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<ViewHolder> {
   @Override
   public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     Type type = Type.values()[viewType];
-    View view = inflater.inflate(type.layout, parent, false);
+    View view = LayoutInflater.from(parent.getContext()).inflate(type.layout, parent, false);
     if (type == ITEM) {
       return new FilterViewHolder(
-          view, accent, true, locale, activity, inventory, colorProvider, this::onClickFilter);
+          view, true, locale, activity, inventory, colorProvider, this::onClickFilter);
     } else if (type == SUBHEADER) {
       return new SubheaderViewHolder(
           view, activity, preferences, googleTaskDao, caldavDao, localBroadcastManager);

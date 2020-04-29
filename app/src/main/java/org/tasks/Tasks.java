@@ -50,9 +50,11 @@ public class Tasks extends InjectingApplication implements Configuration.Provide
   public void onCreate() {
     super.onCreate();
 
-    if (!buildSetup.setup() || ProcessPhoenix.isPhoenixProcess(this)) {
+    if (ProcessPhoenix.isPhoenixProcess(this)) {
       return;
     }
+
+    buildSetup.setup();
 
     upgrade();
 

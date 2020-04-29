@@ -22,7 +22,6 @@ import org.tasks.locale.Locale;
 import org.tasks.themes.ColorProvider;
 import org.tasks.themes.CustomIcons;
 import org.tasks.themes.DrawableUtil;
-import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeColor;
 
 public class FilterViewHolder extends RecyclerView.ViewHolder {
@@ -51,7 +50,6 @@ public class FilterViewHolder extends RecyclerView.ViewHolder {
 
   FilterViewHolder(
       @NonNull View itemView,
-      ThemeAccent accent,
       boolean navigationDrawer,
       Locale locale,
       Activity activity,

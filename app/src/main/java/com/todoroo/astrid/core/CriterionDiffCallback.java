@@ -3,7 +3,7 @@ package com.todoroo.astrid.core;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 
-public class CriterionDiffCallback extends DiffUtil.ItemCallback<CriterionInstance> {
+class CriterionDiffCallback extends DiffUtil.ItemCallback<CriterionInstance> {
 
   @Override
   public boolean areItemsTheSame(

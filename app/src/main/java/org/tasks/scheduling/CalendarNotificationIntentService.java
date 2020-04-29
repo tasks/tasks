@@ -73,11 +73,6 @@ public class CalendarNotificationIntentService extends RecurringIntervalIntentSe
   }
 
   @Override
-  String getLastRunPreference() {
-    return null;
-  }
-
-  @Override
   protected void inject(ServiceComponent component) {
     component.inject(this);
   }

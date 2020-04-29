@@ -29,7 +29,7 @@ class BuildSetup {
     this.preferences = preferences;
   }
 
-  public boolean setup() {
+  public void setup() {
     Timber.plant(new Timber.DebugTree());
     Application application = (Application) context.getApplicationContext();
     SoLoader.init(application, false);
@@ -62,6 +62,5 @@ class BuildSetup {
               .penaltyLog()
               .build());
     }
-    return true;
   }
 }

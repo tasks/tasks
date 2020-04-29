@@ -226,10 +226,6 @@ public class Preferences {
     return prefs.getString(context.getString(keyResource), null);
   }
 
-  public boolean isStringValueSet(int keyResource) {
-    return !isNullOrEmpty(getStringValue(keyResource));
-  }
-
   public int getDefaultReminders() {
     return getIntegerFromString(
         R.string.p_default_reminders_key, Task.NOTIFY_AT_DEADLINE | Task.NOTIFY_AFTER_DEADLINE);

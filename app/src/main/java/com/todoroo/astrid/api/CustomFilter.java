@@ -40,20 +40,12 @@ public class CustomFilter extends Filter {
     readFromParcel(parcel);
   }
 
-  public void setId(long id) {
-    this.id = id;
-  }
-
   public long getId() {
     return id;
   }
 
   public String getCriterion() {
     return criterion;
-  }
-
-  public void setCriterion(String criterion) {
-    this.criterion = criterion;
   }
 
   /** {@inheritDoc} */

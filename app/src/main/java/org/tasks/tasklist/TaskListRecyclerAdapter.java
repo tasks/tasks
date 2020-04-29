@@ -9,8 +9,6 @@ import androidx.recyclerview.widget.ListUpdateCallback;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.todoroo.astrid.activity.TaskListFragment;
-import com.todoroo.astrid.adapter.AstridTaskAdapter;
-import com.todoroo.astrid.adapter.GoogleTaskManualSortAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;

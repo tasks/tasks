@@ -47,6 +47,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 @SuppressLint("LogNotTimber")
+@SuppressWarnings("JavadocReference")
 public class TaskerPlugin {
 
   /** @see Setting#hostSupportsOnFireVariableReplacement(Bundle) */

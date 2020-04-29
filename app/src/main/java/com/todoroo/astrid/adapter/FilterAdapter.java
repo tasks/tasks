@@ -30,8 +30,6 @@ import org.tasks.filters.NavigationDrawerSubheader;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.ColorProvider;
-import org.tasks.themes.Theme;
-import org.tasks.themes.ThemeAccent;
 
 public class FilterAdapter extends BaseAdapter {
 
@@ -39,7 +37,6 @@ public class FilterAdapter extends BaseAdapter {
   private static final String TOKEN_SELECTED = "token_selected";
   private static final int VIEW_TYPE_COUNT = FilterListItem.Type.values().length;
   private final Activity activity;
-  private final ThemeAccent accent;
   private final Locale locale;
   private final Inventory inventory;
   private final ColorProvider colorProvider;
@@ -47,14 +44,12 @@ public class FilterAdapter extends BaseAdapter {
   private final GoogleTaskDao googleTaskDao;
   private final CaldavDao caldavDao;
   private final LocalBroadcastManager localBroadcastManager;
-  private final LayoutInflater inflater;
   private Filter selected = null;
   private List<FilterListItem> items = new ArrayList<>();
 
   @Inject
   public FilterAdapter(
       Activity activity,
-      Theme theme,
       Locale locale,
       Inventory inventory,
       ColorProvider colorProvider,
@@ -63,7 +58,6 @@ public class FilterAdapter extends BaseAdapter {
       CaldavDao caldavDao,
       LocalBroadcastManager localBroadcastManager) {
     this.activity = activity;
-    this.accent = theme.getThemeAccent();
     this.locale = locale;
     this.inventory = inventory;
     this.colorProvider = colorProvider;
@@ -71,7 +65,6 @@ public class FilterAdapter extends BaseAdapter {
     this.googleTaskDao = googleTaskDao;
     this.caldavDao = caldavDao;
     this.localBroadcastManager = localBroadcastManager;
-    this.inflater = theme.getLayoutInflater(activity);
   }
 
   public void save(Bundle outState) {
@@ -111,13 +104,14 @@ public class FilterAdapter extends BaseAdapter {
   /** Create or reuse a view */
   private View newView(View convertView, ViewGroup parent, FilterListItem.Type viewType) {
     if (convertView == null) {
-      convertView = inflater.inflate(viewType.layout, parent, false);
+      convertView =
+          LayoutInflater.from(parent.getContext()).inflate(viewType.layout, parent, false);
       ViewHolder viewHolder;
       switch (viewType) {
         case ITEM:
           viewHolder =
               new FilterViewHolder(
-                  convertView, accent, false, locale, activity, inventory, colorProvider, null);
+                  convertView, false, locale, activity, inventory, colorProvider, null);
           break;
         case SEPARATOR:
           viewHolder = new FilterViewHolder(convertView);

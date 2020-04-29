@@ -22,7 +22,7 @@ class CustomFilterItemTouchHelper(
         super.onSelectedChanged(viewHolder, actionState)
 
         if (actionState == ItemTouchHelper.ACTION_STATE_DRAG) {
-            (viewHolder as CriterionViewHolder).setMoving(true);
+            (viewHolder as CriterionViewHolder).setMoving(true)
         }
     }
 
@@ -32,7 +32,7 @@ class CustomFilterItemTouchHelper(
         if (toPosition == 0) {
             return false
         }
-        onMove.call(src.adapterPosition, toPosition);
+        onMove.call(src.adapterPosition, toPosition)
         return true
     }
 
@@ -54,7 +54,7 @@ class CustomFilterItemTouchHelper(
         }
         background.draw(c)
 
-        super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+        super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
     }
 
     override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {

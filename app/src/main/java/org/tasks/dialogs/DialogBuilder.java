@@ -2,8 +2,6 @@ package org.tasks.dialogs;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.graphics.drawable.ColorDrawable;
-import com.todoroo.andlib.utility.AndroidUtilities;
 import javax.inject.Inject;
 import org.tasks.locale.Locale;
 

@@ -71,7 +71,7 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
   @Inject Locale locale;
   @Inject Database database;
   @Inject FilterCriteriaProvider filterCriteriaProvider;
-  List<CriterionInstance> criteria;
+  private List<CriterionInstance> criteria;
 
   @BindView(R.id.name)
   TextInputEditText name;
@@ -216,7 +216,7 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
   }
 
   /** Show options menu for the given criterioninstance */
-  public void showOptionsFor(final CriterionInstance item, final Runnable onComplete) {
+  private void showOptionsFor(final CriterionInstance item, final Runnable onComplete) {
     AlertDialogBuilder dialog = dialogBuilder.newDialog(item.criterion.name);
 
     if (item.criterion instanceof MultipleSelectCriterion) {
@@ -369,7 +369,7 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://tasks.org/filters")));
   }
 
-  public void updateList() {
+  private void updateList() {
     int max = 0, last = -1;
 
     StringBuilder sql =
@@ -427,7 +427,7 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
     return value;
   }
 
-  public String getSql() {
+  private String getSql() {
     StringBuilder sql = new StringBuilder(" WHERE ");
     for (CriterionInstance instance : criteria) {
       String value = getValue(instance);
@@ -455,7 +455,7 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
     return sql.toString();
   }
 
-  public Map<String, Object> getValues() {
+  private Map<String, Object> getValues() {
     Map<String, Object> values = new HashMap<>();
     for (CriterionInstance instance : criteria) {
       String value = getValue(instance);

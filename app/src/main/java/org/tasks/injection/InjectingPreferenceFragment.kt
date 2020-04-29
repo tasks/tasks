@@ -5,7 +5,6 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import androidx.annotation.StringRes
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceGroup
@@ -77,12 +76,6 @@ abstract class InjectingPreferenceFragment : PreferenceFragmentCompat() {
         val pref = findPreference(resId)
         pref.icon = DrawableUtil.getWrapped(requireContext(), R.drawable.color_picker)
         DrawableUtil.setTint(pref.icon, tint)
-    }
-
-    protected fun requires(@StringRes prefGroup: Int, check: Boolean, vararg resIds: Int) {
-        if (!check) {
-            remove(findPreference(prefGroup) as PreferenceGroup, resIds)
-        }
     }
 
     protected fun requires(check: Boolean, vararg resIds: Int) {

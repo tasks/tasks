@@ -9,9 +9,8 @@ public class BuildSetup {
   @Inject
   public BuildSetup() {}
 
-  public boolean setup() {
+  public void setup() {
     Timber.plant(new ErrorReportingTree());
-    return true;
   }
 
   private static class ErrorReportingTree extends Timber.Tree {

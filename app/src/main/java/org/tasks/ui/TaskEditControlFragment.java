@@ -70,7 +70,7 @@ public abstract class TaskEditControlFragment extends InjectingFragment {
     return false;
   }
 
-  protected boolean isNew() {
+  boolean isNew() {
     return isNew;
   }
 }

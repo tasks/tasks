@@ -5,7 +5,6 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import androidx.annotation.DrawableRes
-import androidx.core.graphics.drawable.DrawableCompat
 import com.todoroo.astrid.data.Task
 import org.tasks.R
 import org.tasks.injection.ForActivity
