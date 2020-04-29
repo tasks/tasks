@@ -16,6 +16,7 @@ import com.google.ical.values.Weekday;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Objects;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 import org.tasks.locale.Locale;
@@ -372,23 +373,16 @@ public class DateTime {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof DateTime)) {
       return false;
     }
-
     DateTime dateTime = (DateTime) o;
-
-    if (timestamp != dateTime.timestamp) {
-      return false;
-    }
-    return !(timeZone != null ? !timeZone.equals(dateTime.timeZone) : dateTime.timeZone != null);
+    return timestamp == dateTime.timestamp && Objects.equals(timeZone, dateTime.timeZone);
   }
 
   @Override
   public int hashCode() {
-    int result = timeZone != null ? timeZone.hashCode() : 0;
-    result = 31 * result + (int) (timestamp ^ (timestamp >>> 32));
-    return result;
+    return Objects.hash(timeZone, timestamp);
   }
 
   public String toString(String format) {

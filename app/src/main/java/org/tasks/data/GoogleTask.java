@@ -7,6 +7,7 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Table;
+import java.util.Objects;
 
 @Entity(
     tableName = "google_tasks",
@@ -169,61 +170,28 @@ public class GoogleTask {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof GoogleTask)) {
       return false;
     }
-
     GoogleTask that = (GoogleTask) o;
-
-    if (id != that.id) {
-      return false;
-    }
-    if (task != that.task) {
-      return false;
-    }
-    if (parent != that.parent) {
-      return false;
-    }
-    if (moved != that.moved) {
-      return false;
-    }
-    if (order != that.order) {
-      return false;
-    }
-    if (remoteOrder != that.remoteOrder) {
-      return false;
-    }
-    if (lastSync != that.lastSync) {
-      return false;
-    }
-    if (deleted != that.deleted) {
-      return false;
-    }
-    if (remoteId != null ? !remoteId.equals(that.remoteId) : that.remoteId != null) {
-      return false;
-    }
-    if (listId != null ? !listId.equals(that.listId) : that.listId != null) {
-      return false;
-    }
-    return remoteParent != null
-        ? remoteParent.equals(that.remoteParent)
-        : that.remoteParent == null;
+    return id == that.id
+        && task == that.task
+        && parent == that.parent
+        && moved == that.moved
+        && order == that.order
+        && remoteOrder == that.remoteOrder
+        && lastSync == that.lastSync
+        && deleted == that.deleted
+        && Objects.equals(remoteId, that.remoteId)
+        && Objects.equals(listId, that.listId)
+        && Objects.equals(remoteParent, that.remoteParent);
   }
 
   @Override
   public int hashCode() {
-    int result = (int) (id ^ (id >>> 32));
-    result = 31 * result + (int) (task ^ (task >>> 32));
-    result = 31 * result + (remoteId != null ? remoteId.hashCode() : 0);
-    result = 31 * result + (listId != null ? listId.hashCode() : 0);
-    result = 31 * result + (int) (parent ^ (parent >>> 32));
-    result = 31 * result + (moved ? 1 : 0);
-    result = 31 * result + (int) (order ^ (order >>> 32));
-    result = 31 * result + (remoteParent != null ? remoteParent.hashCode() : 0);
-    result = 31 * result + (int) (remoteOrder ^ (remoteOrder >>> 32));
-    result = 31 * result + (int) (lastSync ^ (lastSync >>> 32));
-    result = 31 * result + (int) (deleted ^ (deleted >>> 32));
-    return result;
+    return Objects
+        .hash(id, task, remoteId, listId, parent, remoteParent, moved, order, remoteOrder, lastSync,
+            deleted);
   }
 
   @Override

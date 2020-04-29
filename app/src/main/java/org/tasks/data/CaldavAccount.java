@@ -9,6 +9,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+import java.util.Objects;
 import org.tasks.security.KeyStoreEncryption;
 
 @Entity(tableName = "caldav_accounts")
@@ -228,58 +229,25 @@ public class CaldavAccount implements Parcelable {
     if (!(o instanceof CaldavAccount)) {
       return false;
     }
-
     CaldavAccount that = (CaldavAccount) o;
-
-    if (id != that.id) {
-      return false;
-    }
-    if (suppressRepeatingTasks != that.suppressRepeatingTasks) {
-      return false;
-    }
-    if (accountType != that.accountType) {
-      return false;
-    }
-    if (collapsed != that.collapsed) {
-      return false;
-    }
-    if (uuid != null ? !uuid.equals(that.uuid) : that.uuid != null) {
-      return false;
-    }
-    if (name != null ? !name.equals(that.name) : that.name != null) {
-      return false;
-    }
-    if (url != null ? !url.equals(that.url) : that.url != null) {
-      return false;
-    }
-    if (username != null ? !username.equals(that.username) : that.username != null) {
-      return false;
-    }
-    if (password != null ? !password.equals(that.password) : that.password != null) {
-      return false;
-    }
-    if (error != null ? !error.equals(that.error) : that.error != null) {
-      return false;
-    }
-    return encryptionKey != null
-        ? encryptionKey.equals(that.encryptionKey)
-        : that.encryptionKey == null;
+    return id == that.id
+        && suppressRepeatingTasks == that.suppressRepeatingTasks
+        && accountType == that.accountType
+        && collapsed == that.collapsed
+        && Objects.equals(uuid, that.uuid)
+        && Objects.equals(name, that.name)
+        && Objects.equals(url, that.url)
+        && Objects.equals(username, that.username)
+        && Objects.equals(password, that.password)
+        && Objects.equals(error, that.error)
+        && Objects.equals(encryptionKey, that.encryptionKey);
   }
 
   @Override
   public int hashCode() {
-    int result = (int) (id ^ (id >>> 32));
-    result = 31 * result + (uuid != null ? uuid.hashCode() : 0);
-    result = 31 * result + (name != null ? name.hashCode() : 0);
-    result = 31 * result + (url != null ? url.hashCode() : 0);
-    result = 31 * result + (username != null ? username.hashCode() : 0);
-    result = 31 * result + (password != null ? password.hashCode() : 0);
-    result = 31 * result + (error != null ? error.hashCode() : 0);
-    result = 31 * result + (suppressRepeatingTasks ? 1 : 0);
-    result = 31 * result + (encryptionKey != null ? encryptionKey.hashCode() : 0);
-    result = 31 * result + accountType;
-    result = 31 * result + (collapsed ? 1 : 0);
-    return result;
+    return Objects
+        .hash(id, uuid, name, url, username, password, error, suppressRepeatingTasks, encryptionKey,
+            accountType, collapsed);
   }
 
   @Override

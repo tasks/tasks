@@ -2,6 +2,7 @@ package org.tasks.filters;
 
 import androidx.room.Embedded;
 import com.todoroo.astrid.api.CaldavFilter;
+import java.util.Objects;
 import org.tasks.data.CaldavCalendar;
 
 public class CaldavFilters {
@@ -22,22 +23,13 @@ public class CaldavFilters {
     if (!(o instanceof CaldavFilters)) {
       return false;
     }
-
     CaldavFilters that = (CaldavFilters) o;
-
-    if (count != that.count) {
-      return false;
-    }
-    return caldavCalendar != null
-        ? caldavCalendar.equals(that.caldavCalendar)
-        : that.caldavCalendar == null;
+    return count == that.count && Objects.equals(caldavCalendar, that.caldavCalendar);
   }
 
   @Override
   public int hashCode() {
-    int result = caldavCalendar != null ? caldavCalendar.hashCode() : 0;
-    result = 31 * result + count;
-    return result;
+    return Objects.hash(caldavCalendar, count);
   }
 
   @Override

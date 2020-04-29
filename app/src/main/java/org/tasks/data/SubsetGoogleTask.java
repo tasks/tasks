@@ -1,5 +1,7 @@
 package org.tasks.data;
 
+import java.util.Objects;
+
 public class SubsetGoogleTask {
 
   public long gt_id;
@@ -43,28 +45,16 @@ public class SubsetGoogleTask {
     if (!(o instanceof SubsetGoogleTask)) {
       return false;
     }
-
     SubsetGoogleTask that = (SubsetGoogleTask) o;
-
-    if (gt_id != that.gt_id) {
-      return false;
-    }
-    if (gt_parent != that.gt_parent) {
-      return false;
-    }
-    if (gt_order != that.gt_order) {
-      return false;
-    }
-    return gt_list_id != null ? gt_list_id.equals(that.gt_list_id) : that.gt_list_id == null;
+    return gt_id == that.gt_id
+        && gt_parent == that.gt_parent
+        && gt_order == that.gt_order
+        && Objects.equals(gt_list_id, that.gt_list_id);
   }
 
   @Override
   public int hashCode() {
-    int result = (int) (gt_id ^ (gt_id >>> 32));
-    result = 31 * result + (int) (gt_parent ^ (gt_parent >>> 32));
-    result = 31 * result + (gt_list_id != null ? gt_list_id.hashCode() : 0);
-    result = 31 * result + (int) (gt_order ^ (gt_order >>> 32));
-    return result;
+    return Objects.hash(gt_id, gt_parent, gt_list_id, gt_order);
   }
 
   @Override

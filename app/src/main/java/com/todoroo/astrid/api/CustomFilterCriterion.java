@@ -10,6 +10,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public abstract class CustomFilterCriterion implements Parcelable {
 
@@ -79,33 +80,16 @@ public abstract class CustomFilterCriterion implements Parcelable {
     if (!(o instanceof CustomFilterCriterion)) {
       return false;
     }
-
     CustomFilterCriterion that = (CustomFilterCriterion) o;
-
-    if (valuesForNewTasks != null
-        ? !valuesForNewTasks.equals(that.valuesForNewTasks)
-        : that.valuesForNewTasks != null) {
-      return false;
-    }
-    if (identifier != null ? !identifier.equals(that.identifier) : that.identifier != null) {
-      return false;
-    }
-    if (text != null ? !text.equals(that.text) : that.text != null) {
-      return false;
-    }
-    if (sql != null ? !sql.equals(that.sql) : that.sql != null) {
-      return false;
-    }
-    return name != null ? name.equals(that.name) : that.name == null;
+    return Objects.equals(valuesForNewTasks, that.valuesForNewTasks)
+        && Objects.equals(identifier, that.identifier)
+        && Objects.equals(text, that.text)
+        && Objects.equals(sql, that.sql)
+        && Objects.equals(name, that.name);
   }
 
   @Override
   public int hashCode() {
-    int result = valuesForNewTasks != null ? valuesForNewTasks.hashCode() : 0;
-    result = 31 * result + (identifier != null ? identifier.hashCode() : 0);
-    result = 31 * result + (text != null ? text.hashCode() : 0);
-    result = 31 * result + (sql != null ? sql.hashCode() : 0);
-    result = 31 * result + (name != null ? name.hashCode() : 0);
-    return result;
+    return Objects.hash(valuesForNewTasks, identifier, text, sql, name);
   }
 }

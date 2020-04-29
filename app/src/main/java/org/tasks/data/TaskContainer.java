@@ -2,6 +2,7 @@ package org.tasks.data;
 
 import androidx.room.Embedded;
 import com.todoroo.astrid.data.Task;
+import java.util.Objects;
 
 public class TaskContainer {
   @Embedded public Task task;
@@ -90,59 +91,28 @@ public class TaskContainer {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof TaskContainer)) {
       return false;
     }
-
     TaskContainer that = (TaskContainer) o;
-
-    if (children != that.children) {
-      return false;
-    }
-    if (siblings != that.siblings) {
-      return false;
-    }
-    if (primarySort != that.primarySort) {
-      return false;
-    }
-    if (secondarySort != that.secondarySort) {
-      return false;
-    }
-    if (indent != that.indent) {
-      return false;
-    }
-    if (targetIndent != that.targetIndent) {
-      return false;
-    }
-    if (task != null ? !task.equals(that.task) : that.task != null) {
-      return false;
-    }
-    if (googletask != null ? !googletask.equals(that.googletask) : that.googletask != null) {
-      return false;
-    }
-    if (caldavTask != null ? !caldavTask.equals(that.caldavTask) : that.caldavTask != null) {
-      return false;
-    }
-    if (location != null ? !location.equals(that.location) : that.location != null) {
-      return false;
-    }
-    return tags != null ? tags.equals(that.tags) : that.tags == null;
+    return children == that.children
+        && siblings == that.siblings
+        && primarySort == that.primarySort
+        && secondarySort == that.secondarySort
+        && indent == that.indent
+        && targetIndent == that.targetIndent
+        && Objects.equals(task, that.task)
+        && Objects.equals(googletask, that.googletask)
+        && Objects.equals(caldavTask, that.caldavTask)
+        && Objects.equals(location, that.location)
+        && Objects.equals(tags, that.tags);
   }
 
   @Override
   public int hashCode() {
-    int result = task != null ? task.hashCode() : 0;
-    result = 31 * result + (googletask != null ? googletask.hashCode() : 0);
-    result = 31 * result + (caldavTask != null ? caldavTask.hashCode() : 0);
-    result = 31 * result + (location != null ? location.hashCode() : 0);
-    result = 31 * result + (tags != null ? tags.hashCode() : 0);
-    result = 31 * result + children;
-    result = 31 * result + siblings;
-    result = 31 * result + (int) (primarySort ^ (primarySort >>> 32));
-    result = 31 * result + (int) (secondarySort ^ (secondarySort >>> 32));
-    result = 31 * result + indent;
-    result = 31 * result + targetIndent;
-    return result;
+    return Objects
+        .hash(task, googletask, caldavTask, location, tags, children, siblings, primarySort,
+            secondarySort, indent, targetIndent);
   }
 
   @Override

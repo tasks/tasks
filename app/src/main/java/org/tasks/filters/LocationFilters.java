@@ -1,6 +1,7 @@
 package org.tasks.filters;
 
 import androidx.room.Embedded;
+import java.util.Objects;
 import org.tasks.data.Place;
 
 public class LocationFilters {
@@ -21,20 +22,13 @@ public class LocationFilters {
     if (!(o instanceof LocationFilters)) {
       return false;
     }
-
     LocationFilters that = (LocationFilters) o;
-
-    if (count != that.count) {
-      return false;
-    }
-    return place != null ? place.equals(that.place) : that.place == null;
+    return count == that.count && Objects.equals(place, that.place);
   }
 
   @Override
   public int hashCode() {
-    int result = place != null ? place.hashCode() : 0;
-    result = 31 * result + count;
-    return result;
+    return Objects.hash(place, count);
   }
 
   @Override

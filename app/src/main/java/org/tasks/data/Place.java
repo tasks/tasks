@@ -25,6 +25,7 @@ import com.todoroo.andlib.data.Table;
 import com.todoroo.astrid.helper.UUIDHelper;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import net.fortuna.ical4j.model.property.Geo;
@@ -300,56 +301,22 @@ public class Place implements Serializable, Parcelable {
     if (!(o instanceof Place)) {
       return false;
     }
-
     Place place = (Place) o;
-
-    if (id != place.id) {
-      return false;
-    }
-    if (Double.compare(place.latitude, latitude) != 0) {
-      return false;
-    }
-    if (Double.compare(place.longitude, longitude) != 0) {
-      return false;
-    }
-    if (color != place.color) {
-      return false;
-    }
-    if (icon != place.icon) {
-      return false;
-    }
-    if (uid != null ? !uid.equals(place.uid) : place.uid != null) {
-      return false;
-    }
-    if (name != null ? !name.equals(place.name) : place.name != null) {
-      return false;
-    }
-    if (address != null ? !address.equals(place.address) : place.address != null) {
-      return false;
-    }
-    if (phone != null ? !phone.equals(place.phone) : place.phone != null) {
-      return false;
-    }
-    return url != null ? url.equals(place.url) : place.url == null;
+    return id == place.id
+        && Double.compare(place.latitude, latitude) == 0
+        && Double.compare(place.longitude, longitude) == 0
+        && color == place.color
+        && icon == place.icon
+        && Objects.equals(uid, place.uid)
+        && Objects.equals(name, place.name)
+        && Objects.equals(address, place.address)
+        && Objects.equals(phone, place.phone)
+        && Objects.equals(url, place.url);
   }
 
   @Override
   public int hashCode() {
-    int result;
-    long temp;
-    result = (int) (id ^ (id >>> 32));
-    result = 31 * result + (uid != null ? uid.hashCode() : 0);
-    result = 31 * result + (name != null ? name.hashCode() : 0);
-    result = 31 * result + (address != null ? address.hashCode() : 0);
-    result = 31 * result + (phone != null ? phone.hashCode() : 0);
-    result = 31 * result + (url != null ? url.hashCode() : 0);
-    temp = Double.doubleToLongBits(latitude);
-    result = 31 * result + (int) (temp ^ (temp >>> 32));
-    temp = Double.doubleToLongBits(longitude);
-    result = 31 * result + (int) (temp ^ (temp >>> 32));
-    result = 31 * result + color;
-    result = 31 * result + icon;
-    return result;
+    return Objects.hash(id, uid, name, address, phone, url, latitude, longitude, color, icon);
   }
 
   @Override

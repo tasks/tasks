@@ -8,6 +8,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+import java.util.Objects;
 import org.tasks.themes.CustomIcons;
 
 @Entity(tableName = "caldav_lists")
@@ -160,44 +161,20 @@ public final class CaldavCalendar implements Parcelable {
     if (!(o instanceof CaldavCalendar)) {
       return false;
     }
-
     CaldavCalendar that = (CaldavCalendar) o;
-
-    if (id != that.id) {
-      return false;
-    }
-    if (color != that.color) {
-      return false;
-    }
-    if (account != null ? !account.equals(that.account) : that.account != null) {
-      return false;
-    }
-    if (uuid != null ? !uuid.equals(that.uuid) : that.uuid != null) {
-      return false;
-    }
-    if (name != null ? !name.equals(that.name) : that.name != null) {
-      return false;
-    }
-    if (ctag != null ? !ctag.equals(that.ctag) : that.ctag != null) {
-      return false;
-    }
-    if (url != null ? !url.equals(that.url) : that.url != null) {
-      return false;
-    }
-    return icon != null ? icon.equals(that.icon) : that.icon == null;
+    return id == that.id
+        && color == that.color
+        && Objects.equals(account, that.account)
+        && Objects.equals(uuid, that.uuid)
+        && Objects.equals(name, that.name)
+        && Objects.equals(ctag, that.ctag)
+        && Objects.equals(url, that.url)
+        && Objects.equals(icon, that.icon);
   }
 
   @Override
   public int hashCode() {
-    int result = (int) (id ^ (id >>> 32));
-    result = 31 * result + (account != null ? account.hashCode() : 0);
-    result = 31 * result + (uuid != null ? uuid.hashCode() : 0);
-    result = 31 * result + (name != null ? name.hashCode() : 0);
-    result = 31 * result + color;
-    result = 31 * result + (ctag != null ? ctag.hashCode() : 0);
-    result = 31 * result + (url != null ? url.hashCode() : 0);
-    result = 31 * result + (icon != null ? icon.hashCode() : 0);
-    return result;
+    return Objects.hash(id, account, uuid, name, color, ctag, url, icon);
   }
 
   @Override

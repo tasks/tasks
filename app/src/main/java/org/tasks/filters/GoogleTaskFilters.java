@@ -2,6 +2,7 @@ package org.tasks.filters;
 
 import androidx.room.Embedded;
 import com.todoroo.astrid.api.GtasksFilter;
+import java.util.Objects;
 import org.tasks.data.GoogleTaskList;
 
 public class GoogleTaskFilters {
@@ -22,22 +23,13 @@ public class GoogleTaskFilters {
     if (!(o instanceof GoogleTaskFilters)) {
       return false;
     }
-
     GoogleTaskFilters that = (GoogleTaskFilters) o;
-
-    if (count != that.count) {
-      return false;
-    }
-    return googleTaskList != null
-        ? googleTaskList.equals(that.googleTaskList)
-        : that.googleTaskList == null;
+    return count == that.count && Objects.equals(googleTaskList, that.googleTaskList);
   }
 
   @Override
   public int hashCode() {
-    int result = googleTaskList != null ? googleTaskList.hashCode() : 0;
-    result = 31 * result + count;
-    return result;
+    return Objects.hash(googleTaskList, count);
   }
 
   @Override

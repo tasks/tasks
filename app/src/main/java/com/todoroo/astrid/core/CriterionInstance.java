@@ -14,6 +14,7 @@ import com.todoroo.astrid.helper.UUIDHelper;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import org.tasks.filters.FilterCriteriaProvider;
 import timber.log.Timber;
 
@@ -145,46 +146,20 @@ public class CriterionInstance {
     if (!(o instanceof CriterionInstance)) {
       return false;
     }
-
     CriterionInstance that = (CriterionInstance) o;
-
-    if (selectedIndex != that.selectedIndex) {
-      return false;
-    }
-    if (type != that.type) {
-      return false;
-    }
-    if (end != that.end) {
-      return false;
-    }
-    if (start != that.start) {
-      return false;
-    }
-    if (max != that.max) {
-      return false;
-    }
-    if (id != null ? !id.equals(that.id) : that.id != null) {
-      return false;
-    }
-    if (criterion != null ? !criterion.equals(that.criterion) : that.criterion != null) {
-      return false;
-    }
-    return selectedText != null
-        ? selectedText.equals(that.selectedText)
-        : that.selectedText == null;
+    return selectedIndex == that.selectedIndex
+        && type == that.type
+        && end == that.end
+        && start == that.start
+        && max == that.max
+        && Objects.equals(criterion, that.criterion)
+        && Objects.equals(selectedText, that.selectedText)
+        && Objects.equals(id, that.id);
   }
 
   @Override
   public int hashCode() {
-    int result = id != null ? id.hashCode() : 0;
-    result = 31 * result + (criterion != null ? criterion.hashCode() : 0);
-    result = 31 * result + selectedIndex;
-    result = 31 * result + (selectedText != null ? selectedText.hashCode() : 0);
-    result = 31 * result + type;
-    result = 31 * result + end;
-    result = 31 * result + start;
-    result = 31 * result + max;
-    return result;
+    return Objects.hash(criterion, selectedIndex, selectedText, type, end, start, max, id);
   }
 
   @Override

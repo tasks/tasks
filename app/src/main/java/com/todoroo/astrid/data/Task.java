@@ -21,7 +21,6 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
-import com.google.common.base.Objects;
 import com.google.ical.values.RRule;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
@@ -33,6 +32,7 @@ import com.todoroo.astrid.dao.TaskDao;
 import java.lang.annotation.Retention;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 import org.tasks.backup.XmlReader;
 import org.tasks.data.Tag;
 import org.tasks.time.DateTime;
@@ -757,72 +757,26 @@ public class Task implements Parcelable {
       return false;
     }
 
-    if (id != null ? !id.equals(task.id) : task.id != null) {
-      return false;
-    }
-    if (title != null ? !title.equals(task.title) : task.title != null) {
-      return false;
-    }
-    if (priority != null ? !priority.equals(task.priority) : task.priority != null) {
-      return false;
-    }
-    if (dueDate != null ? !dueDate.equals(task.dueDate) : task.dueDate != null) {
-      return false;
-    }
-    if (hideUntil != null ? !hideUntil.equals(task.hideUntil) : task.hideUntil != null) {
-      return false;
-    }
-    if (created != null ? !created.equals(task.created) : task.created != null) {
-      return false;
-    }
-    if (modified != null ? !modified.equals(task.modified) : task.modified != null) {
-      return false;
-    }
-    if (completed != null ? !completed.equals(task.completed) : task.completed != null) {
-      return false;
-    }
-    if (deleted != null ? !deleted.equals(task.deleted) : task.deleted != null) {
-      return false;
-    }
-    if (notes != null ? !notes.equals(task.notes) : task.notes != null) {
-      return false;
-    }
-    if (estimatedSeconds != null
-        ? !estimatedSeconds.equals(task.estimatedSeconds)
-        : task.estimatedSeconds != null) {
-      return false;
-    }
-    if (elapsedSeconds != null
-        ? !elapsedSeconds.equals(task.elapsedSeconds)
-        : task.elapsedSeconds != null) {
-      return false;
-    }
-    if (notificationFlags != null
-        ? !notificationFlags.equals(task.notificationFlags)
-        : task.notificationFlags != null) {
-      return false;
-    }
-    if (notifications != null
-        ? !notifications.equals(task.notifications)
-        : task.notifications != null) {
-      return false;
-    }
-    if (recurrence != null ? !recurrence.equals(task.recurrence) : task.recurrence != null) {
-      return false;
-    }
-    if (repeatUntil != null ? !repeatUntil.equals(task.repeatUntil) : task.repeatUntil != null) {
-      return false;
-    }
-    if (calendarUri != null ? !calendarUri.equals(task.calendarUri) : task.calendarUri != null) {
-      return false;
-    }
-    if (parent != task.parent) {
-      return false;
-    }
-    if (!Objects.equal(parentUuid, task.parentUuid)) {
-      return false;
-    }
-    return remoteId != null ? remoteId.equals(task.remoteId) : task.remoteId == null;
+    return Objects.equals(id, task.id)
+        && Objects.equals(title, task.title)
+        && Objects.equals(priority, task.priority)
+        && Objects.equals(dueDate, task.dueDate)
+        && Objects.equals(hideUntil, task.hideUntil)
+        && Objects.equals(created, task.created)
+        && Objects.equals(modified, task.modified)
+        && Objects.equals(completed, task.completed)
+        && Objects.equals(deleted, task.deleted)
+        && Objects.equals(notes, task.notes)
+        && Objects.equals(estimatedSeconds, task.estimatedSeconds)
+        && Objects.equals(elapsedSeconds, task.elapsedSeconds)
+        && Objects.equals(notificationFlags, task.notificationFlags)
+        && Objects.equals(notifications, task.notifications)
+        && Objects.equals(recurrence, task.recurrence)
+        && Objects.equals(repeatUntil, task.repeatUntil)
+        && Objects.equals(calendarUri, task.calendarUri)
+        && parent == task.parent
+        && Objects.equals(parentUuid, task.parentUuid)
+        && Objects.equals(remoteId, task.remoteId);
   }
 
   public boolean googleTaskUpToDate(Task original) {
@@ -833,22 +787,12 @@ public class Task implements Parcelable {
       return false;
     }
 
-    if (title != null ? !title.equals(original.title) : original.title != null) {
-      return false;
-    }
-    if (dueDate != null ? !dueDate.equals(original.dueDate) : original.dueDate != null) {
-      return false;
-    }
-    if (completed != null ? !completed.equals(original.completed) : original.completed != null) {
-      return false;
-    }
-    if (deleted != null ? !deleted.equals(original.deleted) : original.deleted != null) {
-      return false;
-    }
-    if (parent != original.parent) {
-      return false;
-    }
-    return notes != null ? notes.equals(original.notes) : original.notes == null;
+    return Objects.equals(title, original.title)
+        && Objects.equals(dueDate, original.dueDate)
+        && Objects.equals(completed, original.completed)
+        && Objects.equals(deleted, original.deleted)
+        && parent == original.parent
+        && Objects.equals(notes, original.notes);
   }
 
   public boolean caldavUpToDate(Task original) {
@@ -859,35 +803,15 @@ public class Task implements Parcelable {
       return false;
     }
 
-    if (title != null ? !title.equals(original.title) : original.title != null) {
-      return false;
-    }
-    if (priority != null ? !priority.equals(original.priority) : original.priority != null) {
-      return false;
-    }
-    if (dueDate != null ? !dueDate.equals(original.dueDate) : original.dueDate != null) {
-      return false;
-    }
-    if (completed != null ? !completed.equals(original.completed) : original.completed != null) {
-      return false;
-    }
-    if (deleted != null ? !deleted.equals(original.deleted) : original.deleted != null) {
-      return false;
-    }
-    if (notes != null ? !notes.equals(original.notes) : original.notes != null) {
-      return false;
-    }
-    if (recurrence != null
-        ? !recurrence.equals(original.recurrence)
-        : original.recurrence != null) {
-      return false;
-    }
-    if (parent != original.parent) {
-      return false;
-    }
-    return repeatUntil != null
-        ? repeatUntil.equals(original.repeatUntil)
-        : original.repeatUntil == null;
+    return Objects.equals(title, original.title)
+        && Objects.equals(priority, original.priority)
+        && Objects.equals(dueDate, original.dueDate)
+        && Objects.equals(completed, original.completed)
+        && Objects.equals(deleted, original.deleted)
+        && Objects.equals(notes, original.notes)
+        && Objects.equals(recurrence, original.recurrence)
+        && parent == original.parent
+        && Objects.equals(repeatUntil, original.repeatUntil);
   }
 
   public boolean isSaved() {
@@ -946,118 +870,41 @@ public class Task implements Parcelable {
     if (!(o instanceof Task)) {
       return false;
     }
-
     Task task = (Task) o;
-
-    if (collapsed != task.collapsed) {
-      return false;
-    }
-    if (parent != task.parent) {
-      return false;
-    }
-    if (id != null ? !id.equals(task.id) : task.id != null) {
-      return false;
-    }
-    if (title != null ? !title.equals(task.title) : task.title != null) {
-      return false;
-    }
-    if (priority != null ? !priority.equals(task.priority) : task.priority != null) {
-      return false;
-    }
-    if (dueDate != null ? !dueDate.equals(task.dueDate) : task.dueDate != null) {
-      return false;
-    }
-    if (hideUntil != null ? !hideUntil.equals(task.hideUntil) : task.hideUntil != null) {
-      return false;
-    }
-    if (created != null ? !created.equals(task.created) : task.created != null) {
-      return false;
-    }
-    if (modified != null ? !modified.equals(task.modified) : task.modified != null) {
-      return false;
-    }
-    if (completed != null ? !completed.equals(task.completed) : task.completed != null) {
-      return false;
-    }
-    if (deleted != null ? !deleted.equals(task.deleted) : task.deleted != null) {
-      return false;
-    }
-    if (notes != null ? !notes.equals(task.notes) : task.notes != null) {
-      return false;
-    }
-    if (estimatedSeconds != null ? !estimatedSeconds.equals(task.estimatedSeconds)
-        : task.estimatedSeconds != null) {
-      return false;
-    }
-    if (elapsedSeconds != null ? !elapsedSeconds.equals(task.elapsedSeconds)
-        : task.elapsedSeconds != null) {
-      return false;
-    }
-    if (timerStart != null ? !timerStart.equals(task.timerStart) : task.timerStart != null) {
-      return false;
-    }
-    if (notificationFlags != null ? !notificationFlags.equals(task.notificationFlags)
-        : task.notificationFlags != null) {
-      return false;
-    }
-    if (notifications != null ? !notifications.equals(task.notifications)
-        : task.notifications != null) {
-      return false;
-    }
-    if (lastNotified != null ? !lastNotified.equals(task.lastNotified)
-        : task.lastNotified != null) {
-      return false;
-    }
-    if (snoozeTime != null ? !snoozeTime.equals(task.snoozeTime) : task.snoozeTime != null) {
-      return false;
-    }
-    if (recurrence != null ? !recurrence.equals(task.recurrence) : task.recurrence != null) {
-      return false;
-    }
-    if (repeatUntil != null ? !repeatUntil.equals(task.repeatUntil) : task.repeatUntil != null) {
-      return false;
-    }
-    if (calendarUri != null ? !calendarUri.equals(task.calendarUri) : task.calendarUri != null) {
-      return false;
-    }
-    if (remoteId != null ? !remoteId.equals(task.remoteId) : task.remoteId != null) {
-      return false;
-    }
-    if (parentUuid != null ? !parentUuid.equals(task.parentUuid) : task.parentUuid != null) {
-      return false;
-    }
-    return transitoryData != null ? transitoryData.equals(task.transitoryData)
-        : task.transitoryData == null;
+    return collapsed == task.collapsed
+        && parent == task.parent
+        && Objects.equals(id, task.id)
+        && Objects.equals(title, task.title)
+        && Objects.equals(priority, task.priority)
+        && Objects.equals(dueDate, task.dueDate)
+        && Objects.equals(hideUntil, task.hideUntil)
+        && Objects.equals(created, task.created)
+        && Objects.equals(modified, task.modified)
+        && Objects.equals(completed, task.completed)
+        && Objects.equals(deleted, task.deleted)
+        && Objects.equals(notes, task.notes)
+        && Objects.equals(estimatedSeconds, task.estimatedSeconds)
+        && Objects.equals(elapsedSeconds, task.elapsedSeconds)
+        && Objects.equals(timerStart, task.timerStart)
+        && Objects.equals(notificationFlags, task.notificationFlags)
+        && Objects.equals(notifications, task.notifications)
+        && Objects.equals(lastNotified, task.lastNotified)
+        && Objects.equals(snoozeTime, task.snoozeTime)
+        && Objects.equals(recurrence, task.recurrence)
+        && Objects.equals(repeatUntil, task.repeatUntil)
+        && Objects.equals(calendarUri, task.calendarUri)
+        && Objects.equals(remoteId, task.remoteId)
+        && Objects.equals(parentUuid, task.parentUuid)
+        && Objects.equals(transitoryData, task.transitoryData);
   }
 
   @Override
   public int hashCode() {
-    int result = id != null ? id.hashCode() : 0;
-    result = 31 * result + (title != null ? title.hashCode() : 0);
-    result = 31 * result + (priority != null ? priority.hashCode() : 0);
-    result = 31 * result + (dueDate != null ? dueDate.hashCode() : 0);
-    result = 31 * result + (hideUntil != null ? hideUntil.hashCode() : 0);
-    result = 31 * result + (created != null ? created.hashCode() : 0);
-    result = 31 * result + (modified != null ? modified.hashCode() : 0);
-    result = 31 * result + (completed != null ? completed.hashCode() : 0);
-    result = 31 * result + (deleted != null ? deleted.hashCode() : 0);
-    result = 31 * result + (notes != null ? notes.hashCode() : 0);
-    result = 31 * result + (estimatedSeconds != null ? estimatedSeconds.hashCode() : 0);
-    result = 31 * result + (elapsedSeconds != null ? elapsedSeconds.hashCode() : 0);
-    result = 31 * result + (timerStart != null ? timerStart.hashCode() : 0);
-    result = 31 * result + (notificationFlags != null ? notificationFlags.hashCode() : 0);
-    result = 31 * result + (notifications != null ? notifications.hashCode() : 0);
-    result = 31 * result + (lastNotified != null ? lastNotified.hashCode() : 0);
-    result = 31 * result + (snoozeTime != null ? snoozeTime.hashCode() : 0);
-    result = 31 * result + (recurrence != null ? recurrence.hashCode() : 0);
-    result = 31 * result + (repeatUntil != null ? repeatUntil.hashCode() : 0);
-    result = 31 * result + (calendarUri != null ? calendarUri.hashCode() : 0);
-    result = 31 * result + (remoteId != null ? remoteId.hashCode() : 0);
-    result = 31 * result + (collapsed ? 1 : 0);
-    result = 31 * result + (int) (parent ^ (parent >>> 32));
-    result = 31 * result + (parentUuid != null ? parentUuid.hashCode() : 0);
-    result = 31 * result + (transitoryData != null ? transitoryData.hashCode() : 0);
-    return result;
+    return Objects
+        .hash(id, title, priority, dueDate, hideUntil, created, modified, completed, deleted, notes,
+            estimatedSeconds, elapsedSeconds, timerStart, notificationFlags, notifications,
+            lastNotified, snoozeTime, recurrence, repeatUntil, calendarUri, remoteId, collapsed,
+            parent, parentUuid, transitoryData);
   }
 
   @Retention(SOURCE)

@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.room.Embedded;
 import androidx.room.Ignore;
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Location implements Serializable, Parcelable {
 
@@ -94,23 +95,16 @@ public class Location implements Serializable, Parcelable {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof Location)) {
       return false;
     }
-
     Location location = (Location) o;
-
-    if (geofence != null ? !geofence.equals(location.geofence) : location.geofence != null) {
-      return false;
-    }
-    return place != null ? place.equals(location.place) : location.place == null;
+    return Objects.equals(geofence, location.geofence) && Objects.equals(place, location.place);
   }
 
   @Override
   public int hashCode() {
-    int result = geofence != null ? geofence.hashCode() : 0;
-    result = 31 * result + (place != null ? place.hashCode() : 0);
-    return result;
+    return Objects.hash(geofence, place);
   }
 
   @Override

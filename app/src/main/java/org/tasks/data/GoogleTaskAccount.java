@@ -7,6 +7,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+import java.util.Objects;
 
 @Entity(tableName = "google_task_accounts")
 public class GoogleTaskAccount implements Parcelable {
@@ -103,32 +104,17 @@ public class GoogleTaskAccount implements Parcelable {
     if (!(o instanceof GoogleTaskAccount)) {
       return false;
     }
-
     GoogleTaskAccount that = (GoogleTaskAccount) o;
-
-    if (id != that.id) {
-      return false;
-    }
-    if (collapsed != that.collapsed) {
-      return false;
-    }
-    if (account != null ? !account.equals(that.account) : that.account != null) {
-      return false;
-    }
-    if (error != null ? !error.equals(that.error) : that.error != null) {
-      return false;
-    }
-    return etag != null ? etag.equals(that.etag) : that.etag == null;
+    return id == that.id
+        && collapsed == that.collapsed
+        && Objects.equals(account, that.account)
+        && Objects.equals(error, that.error)
+        && Objects.equals(etag, that.etag);
   }
 
   @Override
   public int hashCode() {
-    int result = (int) (id ^ (id >>> 32));
-    result = 31 * result + (account != null ? account.hashCode() : 0);
-    result = 31 * result + (error != null ? error.hashCode() : 0);
-    result = 31 * result + (etag != null ? etag.hashCode() : 0);
-    result = 31 * result + (collapsed ? 1 : 0);
-    return result;
+    return Objects.hash(id, account, error, etag, collapsed);
   }
 
   @Override

@@ -2,6 +2,7 @@ package org.tasks.filters;
 
 import androidx.room.Embedded;
 import com.todoroo.astrid.api.TagFilter;
+import java.util.Objects;
 import org.tasks.data.TagData;
 
 public class TagFilters {
@@ -22,20 +23,13 @@ public class TagFilters {
     if (!(o instanceof TagFilters)) {
       return false;
     }
-
     TagFilters that = (TagFilters) o;
-
-    if (count != that.count) {
-      return false;
-    }
-    return tagData != null ? tagData.equals(that.tagData) : that.tagData == null;
+    return count == that.count && Objects.equals(tagData, that.tagData);
   }
 
   @Override
   public int hashCode() {
-    int result = tagData != null ? tagData.hashCode() : 0;
-    result = 31 * result + count;
-    return result;
+    return Objects.hash(tagData, count);
   }
 
   @Override

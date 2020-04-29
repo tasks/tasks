@@ -9,6 +9,8 @@ package com.todoroo.andlib.sql;
 import static com.todoroo.andlib.sql.SqlConstants.AS;
 import static com.todoroo.andlib.sql.SqlConstants.SPACE;
 
+import java.util.Objects;
+
 public abstract class DBObject<T extends DBObject<?>> implements Cloneable {
 
   protected final String expression;
@@ -37,29 +39,16 @@ public abstract class DBObject<T extends DBObject<?>> implements Cloneable {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof DBObject)) {
       return false;
     }
-
     DBObject<?> dbObject = (DBObject<?>) o;
-
-    if (alias != null ? !alias.equals(dbObject.alias) : dbObject.alias != null) {
-      return false;
-    }
-    if (expression != null
-        ? !expression.equals(dbObject.expression)
-        : dbObject.expression != null) {
-      return false;
-    }
-
-    return true;
+    return Objects.equals(expression, dbObject.expression) && Objects.equals(alias, dbObject.alias);
   }
 
   @Override
   public int hashCode() {
-    int result = alias != null ? alias.hashCode() : 0;
-    result = 31 * result + (expression != null ? expression.hashCode() : 0);
-    return result;
+    return Objects.hash(expression, alias);
   }
 
   @Override

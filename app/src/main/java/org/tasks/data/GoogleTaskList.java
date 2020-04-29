@@ -6,6 +6,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+import java.util.Objects;
 import org.tasks.themes.CustomIcons;
 
 @Entity(tableName = "google_task_lists")
@@ -152,44 +153,20 @@ public class GoogleTaskList implements Parcelable {
     if (!(o instanceof GoogleTaskList)) {
       return false;
     }
-
     GoogleTaskList that = (GoogleTaskList) o;
-
-    if (id != that.id) {
-      return false;
-    }
-    if (remoteOrder != that.remoteOrder) {
-      return false;
-    }
-    if (lastSync != that.lastSync) {
-      return false;
-    }
-    if (account != null ? !account.equals(that.account) : that.account != null) {
-      return false;
-    }
-    if (remoteId != null ? !remoteId.equals(that.remoteId) : that.remoteId != null) {
-      return false;
-    }
-    if (title != null ? !title.equals(that.title) : that.title != null) {
-      return false;
-    }
-    if (color != null ? !color.equals(that.color) : that.color != null) {
-      return false;
-    }
-    return icon != null ? icon.equals(that.icon) : that.icon == null;
+    return id == that.id
+        && remoteOrder == that.remoteOrder
+        && lastSync == that.lastSync
+        && Objects.equals(account, that.account)
+        && Objects.equals(remoteId, that.remoteId)
+        && Objects.equals(title, that.title)
+        && Objects.equals(color, that.color)
+        && Objects.equals(icon, that.icon);
   }
 
   @Override
   public int hashCode() {
-    int result = (int) (id ^ (id >>> 32));
-    result = 31 * result + (account != null ? account.hashCode() : 0);
-    result = 31 * result + (remoteId != null ? remoteId.hashCode() : 0);
-    result = 31 * result + (title != null ? title.hashCode() : 0);
-    result = 31 * result + remoteOrder;
-    result = 31 * result + (int) (lastSync ^ (lastSync >>> 32));
-    result = 31 * result + (color != null ? color.hashCode() : 0);
-    result = 31 * result + (icon != null ? icon.hashCode() : 0);
-    return result;
+    return Objects.hash(id, account, remoteId, title, remoteOrder, lastSync, color, icon);
   }
 
   @Override

@@ -7,6 +7,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import java.util.Map;
+import java.util.Objects;
 import org.tasks.themes.CustomIcons;
 
 @Entity(tableName = "filters")
@@ -103,40 +104,19 @@ public class Filter {
     if (!(o instanceof Filter)) {
       return false;
     }
-
     Filter filter = (Filter) o;
-
-    if (id != filter.id) {
-      return false;
-    }
-    if (title != null ? !title.equals(filter.title) : filter.title != null) {
-      return false;
-    }
-    if (sql != null ? !sql.equals(filter.sql) : filter.sql != null) {
-      return false;
-    }
-    if (values != null ? !values.equals(filter.values) : filter.values != null) {
-      return false;
-    }
-    if (criterion != null ? !criterion.equals(filter.criterion) : filter.criterion != null) {
-      return false;
-    }
-    if (color != null ? !color.equals(filter.color) : filter.color != null) {
-      return false;
-    }
-    return icon != null ? icon.equals(filter.icon) : filter.icon == null;
+    return id == filter.id
+        && Objects.equals(title, filter.title)
+        && Objects.equals(sql, filter.sql)
+        && Objects.equals(values, filter.values)
+        && Objects.equals(criterion, filter.criterion)
+        && Objects.equals(color, filter.color)
+        && Objects.equals(icon, filter.icon);
   }
 
   @Override
   public int hashCode() {
-    int result = (int) (id ^ (id >>> 32));
-    result = 31 * result + (title != null ? title.hashCode() : 0);
-    result = 31 * result + (sql != null ? sql.hashCode() : 0);
-    result = 31 * result + (values != null ? values.hashCode() : 0);
-    result = 31 * result + (criterion != null ? criterion.hashCode() : 0);
-    result = 31 * result + (color != null ? color.hashCode() : 0);
-    result = 31 * result + (icon != null ? icon.hashCode() : 0);
-    return result;
+    return Objects.hash(id, title, sql, values, criterion, color, icon);
   }
 
   @Override

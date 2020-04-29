@@ -3,7 +3,7 @@ package com.todoroo.astrid.api;
 import android.os.Parcel;
 import android.os.Parcelable;
 import androidx.annotation.NonNull;
-import com.google.common.base.Objects;
+import java.util.Objects;
 import org.tasks.R;
 
 public class CustomFilter extends Filter {
@@ -84,6 +84,6 @@ public class CustomFilter extends Filter {
   @Override
   public boolean areContentsTheSame(@NonNull FilterListItem other) {
     return super.areContentsTheSame(other)
-        && Objects.equal(criterion, ((CustomFilter) other).criterion);
+        && Objects.equals(criterion, ((CustomFilter) other).criterion);
   }
 }

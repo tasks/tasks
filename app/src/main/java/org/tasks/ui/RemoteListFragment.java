@@ -14,7 +14,6 @@ import androidx.annotation.Nullable;
 import butterknife.BindView;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
-import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableList;
 import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
@@ -22,6 +21,7 @@ import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.service.TaskMover;
+import java.util.Objects;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.activities.RemoteListPicker;
@@ -185,7 +185,7 @@ public class RemoteListFragment extends TaskEditControlFragment {
   }
 
   private boolean hasChanges() {
-    return !Objects.equal(selectedList, originalList);
+    return !Objects.equals(selectedList, originalList);
   }
 
   @Override

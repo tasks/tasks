@@ -13,6 +13,7 @@ import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
 import java.io.Serializable;
+import java.util.Objects;
 import org.tasks.R;
 import org.tasks.preferences.Preferences;
 
@@ -156,39 +157,21 @@ public class Geofence implements Serializable, Parcelable {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof Geofence)) {
       return false;
     }
-
-    Geofence location = (Geofence) o;
-
-    if (id != location.id) {
-      return false;
-    }
-    if (task != location.task) {
-      return false;
-    }
-    if (radius != location.radius) {
-      return false;
-    }
-    if (arrival != location.arrival) {
-      return false;
-    }
-    if (departure != location.departure) {
-      return false;
-    }
-    return place != null ? place.equals(location.place) : location.place == null;
+    Geofence geofence = (Geofence) o;
+    return id == geofence.id
+        && task == geofence.task
+        && radius == geofence.radius
+        && arrival == geofence.arrival
+        && departure == geofence.departure
+        && Objects.equals(place, geofence.place);
   }
 
   @Override
   public int hashCode() {
-    int result = (int) (id ^ (id >>> 32));
-    result = 31 * result + (int) (task ^ (task >>> 32));
-    result = 31 * result + (place != null ? place.hashCode() : 0);
-    result = 31 * result + radius;
-    result = 31 * result + (arrival ? 1 : 0);
-    result = 31 * result + (departure ? 1 : 0);
-    return result;
+    return Objects.hash(id, task, place, radius, arrival, departure);
   }
 
   @Override

@@ -15,6 +15,7 @@ import androidx.preference.PreferenceManager;
 import java.io.Serializable;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.util.Objects;
 import org.tasks.R;
 
 public class Locale implements Serializable {
@@ -159,20 +160,23 @@ public class Locale implements Serializable {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof Locale)) {
       return false;
     }
-
     Locale locale = (Locale) o;
-
-    return languageOverride != null
-        ? languageOverride.equals(locale.languageOverride)
-        : locale.languageOverride == null;
+    return appDirectionality == locale.appDirectionality
+        && appDirectionalityMark == locale.appDirectionalityMark
+        && hasUserOverrides == locale.hasUserOverrides
+        && Objects.equals(deviceLocale, locale.deviceLocale)
+        && Objects.equals(appLocale, locale.appLocale)
+        && Objects.equals(languageOverride, locale.languageOverride);
   }
 
   @Override
   public int hashCode() {
-    return languageOverride != null ? languageOverride.hashCode() : 0;
+    return Objects
+        .hash(deviceLocale, appLocale, appDirectionality, appDirectionalityMark, languageOverride,
+            hasUserOverrides);
   }
 
   @Override

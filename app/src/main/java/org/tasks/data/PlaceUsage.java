@@ -1,6 +1,7 @@
 package org.tasks.data;
 
 import androidx.room.Embedded;
+import java.util.Objects;
 
 public class PlaceUsage {
   @Embedded public Place place;
@@ -23,23 +24,16 @@ public class PlaceUsage {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof PlaceUsage)) {
       return false;
     }
-
     PlaceUsage that = (PlaceUsage) o;
-
-    if (count != that.count) {
-      return false;
-    }
-    return place != null ? place.equals(that.place) : that.place == null;
+    return count == that.count && Objects.equals(place, that.place);
   }
 
   @Override
   public int hashCode() {
-    int result = place != null ? place.hashCode() : 0;
-    result = 31 * result + count;
-    return result;
+    return Objects.hash(place, count);
   }
 
   @Override

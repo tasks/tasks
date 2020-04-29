@@ -8,6 +8,7 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import com.todoroo.astrid.data.Task;
+import java.util.Objects;
 import org.tasks.backup.XmlReader;
 import org.tasks.themes.CustomIcons;
 
@@ -143,38 +144,18 @@ public final class TagData implements Parcelable {
     if (!(o instanceof TagData)) {
       return false;
     }
-
     TagData tagData = (TagData) o;
-
-    if (id != null ? !id.equals(tagData.id) : tagData.id != null) {
-      return false;
-    }
-    if (remoteId != null ? !remoteId.equals(tagData.remoteId) : tagData.remoteId != null) {
-      return false;
-    }
-    if (name != null ? !name.equals(tagData.name) : tagData.name != null) {
-      return false;
-    }
-    if (color != null ? !color.equals(tagData.color) : tagData.color != null) {
-      return false;
-    }
-    if (tagOrdering != null
-        ? !tagOrdering.equals(tagData.tagOrdering)
-        : tagData.tagOrdering != null) {
-      return false;
-    }
-    return icon != null ? icon.equals(tagData.icon) : tagData.icon == null;
+    return Objects.equals(id, tagData.id)
+        && Objects.equals(remoteId, tagData.remoteId)
+        && Objects.equals(name, tagData.name)
+        && Objects.equals(color, tagData.color)
+        && Objects.equals(tagOrdering, tagData.tagOrdering)
+        && Objects.equals(icon, tagData.icon);
   }
 
   @Override
   public int hashCode() {
-    int result = id != null ? id.hashCode() : 0;
-    result = 31 * result + (remoteId != null ? remoteId.hashCode() : 0);
-    result = 31 * result + (name != null ? name.hashCode() : 0);
-    result = 31 * result + (color != null ? color.hashCode() : 0);
-    result = 31 * result + (tagOrdering != null ? tagOrdering.hashCode() : 0);
-    result = 31 * result + (icon != null ? icon.hashCode() : 0);
-    return result;
+    return Objects.hash(id, remoteId, name, color, tagOrdering, icon);
   }
 
   @Override
