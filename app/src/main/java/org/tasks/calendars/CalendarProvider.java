@@ -58,9 +58,7 @@ public class CalendarProvider {
     }
 
     List<AndroidCalendar> calendars = new ArrayList<>();
-    Cursor cursor = null;
-    try {
-      cursor = contentResolver.query(uri, COLUMNS, selection, null, SORT);
+    try (Cursor cursor = contentResolver.query(uri, COLUMNS, selection, null, SORT)) {
       if (cursor != null && cursor.getCount() > 0) {
         int idColumn = cursor.getColumnIndex(_ID);
         int nameColumn = cursor.getColumnIndex(CalendarContract.Calendars.CALENDAR_DISPLAY_NAME);
@@ -75,10 +73,6 @@ public class CalendarProvider {
       }
     } catch (Exception e) {
       Timber.e(e);
-    } finally {
-      if (cursor != null) {
-        cursor.close();
-      }
     }
     return calendars;
   }

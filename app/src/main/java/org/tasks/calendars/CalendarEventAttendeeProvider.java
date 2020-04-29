@@ -34,16 +34,13 @@ class CalendarEventAttendeeProvider {
     }
 
     List<AndroidCalendarEventAttendee> attendees = new ArrayList<>();
-    Cursor cursor = null;
-    try {
-      //noinspection ResourceType
-      cursor =
-          contentResolver.query(
-              CalendarContract.Attendees.CONTENT_URI,
-              COLUMNS,
-              CalendarContract.Attendees.EVENT_ID + " = ? ",
-              new String[] {Long.toString(id)},
-              null);
+    try (Cursor cursor =
+        contentResolver.query(
+            CalendarContract.Attendees.CONTENT_URI,
+            COLUMNS,
+            CalendarContract.Attendees.EVENT_ID + " = ? ",
+            new String[] {Long.toString(id)},
+            null)) {
       if (cursor != null && cursor.getCount() > 0) {
         int emailIndex = cursor.getColumnIndexOrThrow(CalendarContract.Attendees.ATTENDEE_EMAIL);
         int nameIndex = cursor.getColumnIndexOrThrow(CalendarContract.Attendees.ATTENDEE_NAME);
@@ -55,10 +52,6 @@ class CalendarEventAttendeeProvider {
       }
     } catch (Exception e) {
       Timber.e(e);
-    } finally {
-      if (cursor != null) {
-        cursor.close();
-      }
     }
     return attendees;
   }

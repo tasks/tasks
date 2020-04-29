@@ -237,14 +237,13 @@ public class CalendarControlSet extends TaskEditControlFragment {
     ContentResolver cr = getActivity().getContentResolver();
     Uri uri = Uri.parse(eventUri);
     Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-    Cursor cursor =
+    try (Cursor cursor =
         cr.query(
             uri,
             new String[] {CalendarContract.Events.DTSTART, CalendarContract.Events.DTEND},
             null,
             null,
-            null);
-    try {
+            null)) {
       if (cursor.getCount() == 0) {
         // event no longer exists
         Toast.makeText(context, R.string.calendar_event_not_found, Toast.LENGTH_SHORT).show();
@@ -259,8 +258,6 @@ public class CalendarControlSet extends TaskEditControlFragment {
     } catch (Exception e) {
       Timber.e(e);
       Toast.makeText(getActivity(), R.string.gcal_TEA_error, Toast.LENGTH_LONG).show();
-    } finally {
-      cursor.close();
     }
   }
 
@@ -321,15 +318,12 @@ public class CalendarControlSet extends TaskEditControlFragment {
     try {
       Uri uri = Uri.parse(eventUri);
       ContentResolver contentResolver = context.getContentResolver();
-      Cursor cursor =
+      try (Cursor cursor =
           contentResolver.query(
-              uri, new String[] {CalendarContract.Events.DTSTART}, null, null, null);
-      try {
+              uri, new String[] {CalendarContract.Events.DTSTART}, null, null, null)) {
         if (cursor.getCount() != 0) {
           return true;
         }
-      } finally {
-        cursor.close();
       }
     } catch (Exception e) {
       Timber.e(e, "%s: %s", eventUri, e.getMessage());

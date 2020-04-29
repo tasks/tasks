@@ -96,9 +96,7 @@ public class CalendarEventProvider {
     }
 
     List<AndroidCalendarEvent> events = new ArrayList<>();
-    Cursor cursor = null;
-    try {
-      cursor = contentResolver.query(uri, COLUMNS, selection, selectionArgs, null);
+    try (Cursor cursor = contentResolver.query(uri, COLUMNS, selection, selectionArgs, null)) {
       if (cursor != null && cursor.getCount() > 0) {
         int idIndex = cursor.getColumnIndex(_ID);
         int startIndex = cursor.getColumnIndexOrThrow(CalendarContract.Events.DTSTART);
@@ -119,10 +117,6 @@ public class CalendarEventProvider {
       }
     } catch (Exception e) {
       Timber.e(e);
-    } finally {
-      if (cursor != null) {
-        cursor.close();
-      }
     }
     return events;
   }
