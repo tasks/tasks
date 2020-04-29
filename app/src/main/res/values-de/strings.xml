@@ -602,4 +602,8 @@
     <string name="filter_high_priority">Hohe Priorität</string>
     <string name="add_filter">Filter hinzufügen</string>
     <string name="filter_today_only">Nur heute</string>
+    <string name="sort_created">Nach Erstellungszeit</string>
+    <string name="filter_after_today">"Nach heute "</string>
+    <string name="filter_overdue">Überfällig</string>
+    <string name="disable_subtasks">Unteraufgaben deaktivieren</string>
 </resources>
