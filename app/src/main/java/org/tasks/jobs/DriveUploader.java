@@ -21,7 +21,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.net.ssl.SSLException;
 import org.tasks.R;
-import org.tasks.analytics.Firebase;
 import org.tasks.drive.DriveInvoker;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingWorker;
@@ -40,7 +39,6 @@ public class DriveUploader extends InjectingWorker {
   @Inject @ForApplication Context context;
   @Inject DriveInvoker drive;
   @Inject Preferences preferences;
-  @Inject Firebase firebase;
 
   public DriveUploader(@NonNull Context context, @NonNull WorkerParameters workerParams) {
     super(context, workerParams);

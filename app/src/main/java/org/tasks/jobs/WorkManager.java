@@ -55,6 +55,7 @@ public class WorkManager {
   private static final String TAG_MIDNIGHT_REFRESH = "tag_midnight_refresh";
   private static final String TAG_SYNC = "tag_sync";
   private static final String TAG_BACKGROUND_SYNC = "tag_background_sync";
+  private static final String TAG_REMOTE_CONFIG = "tag_remote_config";
 
   private final Context context;
   private final Preferences preferences;
@@ -209,6 +210,18 @@ public class WorkManager {
         TAG_BACKUP,
         BackupWork.class,
         Math.min(newDateTime(lastBackup).plusDays(1).getMillis(), midnight()));
+  }
+
+  public void scheduleConfigRefresh() {
+    workManager.enqueueUniquePeriodicWork(
+        TAG_REMOTE_CONFIG,
+        ExistingPeriodicWorkPolicy.KEEP,
+        new PeriodicWorkRequest.Builder(
+                RemoteConfigWork.class, RemoteConfigWork.WORK_INTERVAL_HOURS, TimeUnit.HOURS)
+            .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 1, TimeUnit.MINUTES)
+            .setConstraints(
+                new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
+            .build());
   }
 
   public void scheduleDriveUpload(Uri uri, boolean purge) {

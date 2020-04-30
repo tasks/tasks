@@ -89,6 +89,7 @@ public class Tasks extends InjectingApplication implements Configuration.Provide
     workManager.get().updateBackgroundSync();
     workManager.get().scheduleMidnightRefresh();
     workManager.get().scheduleBackup();
+    workManager.get().scheduleConfigRefresh();
     geofenceApi.get().registerAll();
     FileHelper.delete(context, preferences.getCacheDirectory());
     billingClient.get().queryPurchases();

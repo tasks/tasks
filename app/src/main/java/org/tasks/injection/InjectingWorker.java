@@ -10,7 +10,7 @@ import timber.log.Timber;
 
 public abstract class InjectingWorker extends Worker {
 
-  @Inject Firebase firebase;
+  @Inject protected Firebase firebase;
 
   public InjectingWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
     super(context, workerParams);

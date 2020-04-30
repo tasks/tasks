@@ -7,6 +7,7 @@ import org.tasks.jobs.CleanupWork;
 import org.tasks.jobs.DriveUploader;
 import org.tasks.jobs.MidnightRefreshWork;
 import org.tasks.jobs.RefreshWork;
+import org.tasks.jobs.RemoteConfigWork;
 import org.tasks.jobs.ReverseGeocodeWork;
 import org.tasks.jobs.SyncWork;
 
@@ -28,4 +29,6 @@ public interface JobComponent {
   void inject(DriveUploader driveUploader);
 
   void inject(ReverseGeocodeWork reverseGeocodeWork);
+
+  void inject(RemoteConfigWork remoteConfigWork);
 }

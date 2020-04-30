@@ -3,7 +3,6 @@ package org.tasks.jobs
 import android.content.Context
 import androidx.work.WorkerParameters
 import org.tasks.LocalBroadcastManager
-import org.tasks.analytics.Firebase
 import org.tasks.data.LocationDao
 import org.tasks.injection.InjectingWorker
 import org.tasks.injection.JobComponent
@@ -21,7 +20,6 @@ class ReverseGeocodeWork(context: Context, workerParams: WorkerParameters) : Inj
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var geocoder: Geocoder
     @Inject lateinit var locationDao: LocationDao
-    @Inject lateinit var firebase: Firebase
 
     public override fun run(): Result {
         val id = inputData.getLong(PLACE_ID, 0)

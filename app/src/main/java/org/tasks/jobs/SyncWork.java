@@ -10,7 +10,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
-import org.tasks.analytics.Firebase;
 import org.tasks.caldav.CaldavSynchronizer;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavDao;
@@ -32,7 +31,6 @@ public class SyncWork extends InjectingWorker {
   @Inject GoogleTaskSynchronizer googleTaskSynchronizer;
   @Inject LocalBroadcastManager localBroadcastManager;
   @Inject Preferences preferences;
-  @Inject Firebase firebase;
   @Inject CaldavDao caldavDao;
   @Inject GoogleTaskListDao googleTaskListDao;
   @Inject SyncAdapters syncAdapters;
