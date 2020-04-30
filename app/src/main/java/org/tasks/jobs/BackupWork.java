@@ -22,7 +22,6 @@ import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.backup.TasksJsonExporter;
-import org.tasks.drive.DriveInvoker;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.JobComponent;
 import org.tasks.preferences.Preferences;
@@ -42,7 +41,6 @@ public class BackupWork extends RepeatingWorker {
   @Inject TasksJsonExporter tasksJsonExporter;
   @Inject Preferences preferences;
   @Inject WorkManager workManager;
-  @Inject DriveInvoker drive;
 
   public BackupWork(@NonNull Context context, @NonNull WorkerParameters workerParams) {
     super(context, workerParams);
