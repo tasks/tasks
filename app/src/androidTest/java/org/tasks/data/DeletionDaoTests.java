@@ -1,6 +1,5 @@
 package org.tasks.data;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static com.natpryce.makeiteasy.MakeItEasy.with;
 import static java.util.Collections.singletonList;
 import static junit.framework.TestCase.assertTrue;
@@ -14,6 +13,7 @@ import com.google.common.collect.DiscreteDomain;
 import com.google.common.collect.Range;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
+import java.util.ArrayList;
 import javax.inject.Inject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
