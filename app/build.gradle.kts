@@ -153,7 +153,7 @@ dependencies {
 
     debugImplementation("com.facebook.flipper:flipper:${Versions.flipper}")
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${Versions.flipper}")
-    debugImplementation("com.facebook.soloader:soloader:0.8.2")
+    debugImplementation("com.facebook.soloader:soloader:0.9.0")
 
     debugImplementation("com.squareup.leakcanary:leakcanary-android:${Versions.leakcanary}")
 
@@ -166,7 +166,7 @@ dependencies {
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")
     implementation("androidx.preference:preference:1.1.1")
     implementation("com.jakewharton.timber:timber:4.7.1")
-    implementation("com.jakewharton.threetenabp:threetenabp:1.2.3")
+    implementation("com.jakewharton.threetenabp:threetenabp:1.2.4")
     implementation("com.jakewharton:process-phoenix:2.0.0")
     implementation("com.google.android.apps.dashclock:dashclock-api:2.0.0")
     implementation("com.twofortyfouram:android-plugin-api-for-locale:1.0.2") {
@@ -181,7 +181,7 @@ dependencies {
     implementation("com.wdullaer:materialdatetimepicker:4.2.3")
     implementation("me.leolin:ShortcutBadger:1.1.22@aar")
     implementation("com.google.apis:google-api-services-tasks:v1-rev20200129-1.30.9")
-    implementation("com.google.apis:google-api-services-drive:v3-rev20200306-1.30.9")
+    implementation("com.google.apis:google-api-services-drive:v3-rev20200326-1.30.9")
     implementation("com.google.api-client:google-api-client-android:1.30.9")
     implementation("com.google.auth:google-auth-library-oauth2-http:0.20.0")
     implementation("androidx.work:work-runtime:${Versions.work}")

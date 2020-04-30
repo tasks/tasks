@@ -1,5 +1,5 @@
 object Versions {
-    const val kotlin = "1.3.71"
+    const val kotlin = "1.3.72"
     const val targetSdk = 29
     const val minSdk = 23
     const val dagger = "2.27"
@@ -10,5 +10,5 @@ object Versions {
     const val crashlytics = "2.10.1"
     const val firebase = "17.4.0"
     const val okhttp = "3.12.10" // 3.13 minSdk is 21
-    const val flipper = "0.39.0"
+    const val flipper = "0.40.0"
 }
