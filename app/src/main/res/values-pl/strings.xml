@@ -608,4 +608,26 @@
     <string name="widget_show_dividers">Pokaż przegródki</string>
     <string name="widget_show_menu">Pokaż menu</string>
     <string name="widget_hide_background">Ukryj tło</string>
+    <string name="filter_eisenhower_box_4">Matryca Eisenhowera 4</string>
+    <string name="filter_eisenhower_box_3">Matryca Eisenhowera 3</string>
+    <string name="filter_eisenhower_box_2">Matryca Eisenhowera 2</string>
+    <string name="filter_eisenhower_box_1">Matryca Eisenhowera 1</string>
+    <string name="filter_no_priority">Bez priorytetu</string>
+    <string name="filter_low_priority">Niski priorytet</string>
+    <string name="filter_medium_priority">Średni priorytet</string>
+    <string name="filter_high_priority">Wysoki priorytet</string>
+    <string name="add_filter">Dodaj filtr</string>
+    <string name="add_tags">Dodaj tagi</string>
+    <string name="filter_no_tags">Brak tagów</string>
+    <string name="filter_after_today">Po dniu dzisiejszym</string>
+    <string name="filter_any_due_date">Dowolna data ukończenia</string>
+    <string name="filter_today_only">Tylko dzisiejsze</string>
+    <string name="filter_overdue">Przeterminowane</string>
+    <string name="custom_filter_not">NIE</string>
+    <string name="custom_filter_or">LUB</string>
+    <string name="custom_filter_and">ORAZ</string>
+    <string name="custom_filter_criteria">Kryteria filtrowania</string>
+    <string name="disable_subtasks_summary">Wyłączenie podzadań może zwiększyć wydajność aplikacji</string>
+    <string name="disable_subtasks">Wyłącz podzadania</string>
+    <string name="sort_created">Wg. czasu stworzenia</string>
 </resources>
