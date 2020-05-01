@@ -483,7 +483,7 @@ Change Log
 ### 6.8 (2019-07-30)
 
 * Name your own subscription price! Upgrade, downgrade, or cancel at any time
-* Choose icons for lists (requires [subscription](http://tasks.org/subscribe))
+* Choose icons for lists (requires [subscription](https://tasks.org/subscribe))
 * Choose color for custom filters
 * Performance improvements
 * Allow duplicate CalDAV list names
@@ -855,9 +855,9 @@ Change Log
 
 ### 6.0 (2018-04-23)
 
-* Change to [annual subscription](http://tasks.org/subscribe) pricing
-* [CalDAV synchronization](http://tasks.org/caldav)
-* Sync with [multiple Google Task accounts](http://tasks.org/docs/google_tasks_intro.html)
+* Change to [annual subscription](https://tasks.org/subscribe) pricing
+* [CalDAV synchronization](https://tasks.org/caldav)
+* Sync with [multiple Google Task accounts](https://tasks.org/docs/google_tasks_intro.html)
 * Default theme changed to blue
 * Display Google Task and CalDAV chips on task list
 * Display sync error icon in navigation drawer

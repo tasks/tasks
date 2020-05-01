@@ -115,7 +115,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
               if (action.requestCode == REQUEST_PURCHASE) {
                 startActivity(new Intent(getContext(), PurchaseActivity.class));
               } else if (action.requestCode == REQUEST_DONATE) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://tasks.org/donate")));
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://tasks.org/donate")));
               } else if (action.requestCode == REQUEST_NEW_FILTER) {
                 NewFilterDialog.Companion.newFilterDialog()
                     .show(getParentFragmentManager(), FRAG_TAG_NEW_FILTER);

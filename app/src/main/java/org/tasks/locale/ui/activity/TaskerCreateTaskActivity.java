@@ -133,7 +133,7 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
   public boolean onMenuItemClick(MenuItem item) {
     if (item.getItemId() == R.id.menu_help) {
       startActivity(
-          new Intent(Intent.ACTION_VIEW).setData(Uri.parse("http://tasks.org/help/tasker")));
+          new Intent(Intent.ACTION_VIEW).setData(Uri.parse("https://tasks.org/help/tasker")));
       return true;
     }
     return onOptionsItemSelected(item);

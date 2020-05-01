@@ -213,7 +213,7 @@ public class EncryptionSettingsActivity extends ThemedInjectingAppCompatActivity
   @Override
   public boolean onMenuItemClick(MenuItem item) {
     if (item.getItemId() == R.id.menu_help) {
-      startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://tasks.org/etesync")));
+      startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://tasks.org/etesync")));
       return true;
     } else {
       return onOptionsItemSelected(item);

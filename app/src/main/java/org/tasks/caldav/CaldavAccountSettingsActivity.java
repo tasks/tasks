@@ -97,7 +97,7 @@ public class CaldavAccountSettingsActivity extends BaseCaldavAccountSettingsActi
 
   @Override
   protected String getHelpUrl() {
-    return "http://tasks.org/caldav";
+    return "https://tasks.org/caldav";
   }
 
   @Override

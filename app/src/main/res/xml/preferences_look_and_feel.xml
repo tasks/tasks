@@ -176,7 +176,7 @@
       app:icon="@drawable/ic_open_in_new_24px">
       <intent
         android:action="android.intent.action.VIEW"
-        android:data="http://tasks.org/translations" />
+        android:data="https://tasks.org/translations" />
     </Preference>
 
   </PreferenceCategory>

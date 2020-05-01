@@ -173,7 +173,7 @@ public class EteSyncAccountSettingsActivity extends BaseCaldavAccountSettingsAct
 
   @Override
   protected String getHelpUrl() {
-    return "http://tasks.org/etesync";
+    return "https://tasks.org/etesync";
   }
 
   @Override
