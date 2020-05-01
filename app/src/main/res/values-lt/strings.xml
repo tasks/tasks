@@ -469,7 +469,6 @@
     <string name="open_map">Atidaryti žemėlapį</string>
     <string name="choose_new_location">Pasirinkti naują vietą</string>
     <string name="third_party_licenses">Trečiųjų šališ licenzijos</string>
-    <string name="changelog">Pakeitimų sąrašas</string>
     <string name="version_string">Versija %s</string>
     <string name="invalid_backup_file">Blogas atsarginės kopijos failas</string>
     <string name="google_tasks_add_to_top">Naujos užduotys viršuje</string>

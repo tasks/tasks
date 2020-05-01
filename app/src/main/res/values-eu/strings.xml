@@ -480,7 +480,6 @@
     <string name="open_map">Ireki mapa</string>
     <string name="choose_new_location">Hautatu kokaleku berria</string>
     <string name="third_party_licenses">Hirugarrengoen lizentziak</string>
-    <string name="changelog">Aldaketa egunkaria</string>
     <string name="version_string">%s bertsioa</string>
     <string name="invalid_backup_file">Baliogabeko babes-kopia fitxategia</string>
     <string name="google_tasks_add_to_top">Zeregin berriak goialdean</string>

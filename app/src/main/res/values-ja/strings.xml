@@ -470,7 +470,6 @@
     <string name="open_map">地図を開く</string>
     <string name="choose_new_location">新しい場所を選択</string>
     <string name="third_party_licenses">サードパーティライセンス</string>
-    <string name="changelog">変更履歴</string>
     <string name="version_string">バージョン %s</string>
     <string name="invalid_backup_file">バックアップファイルが無効です</string>
     <string name="google_tasks_add_to_top">新しいタスクを上に</string>

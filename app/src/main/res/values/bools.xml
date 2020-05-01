@@ -3,4 +3,5 @@
   <bool name="two_pane_layout">false</bool>
   <bool name="default_bundle_notifications">false</bool>
   <bool name="is_dark">false</bool>
+  <bool name="whats_new_action">false</bool>
 </resources>

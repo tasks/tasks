@@ -477,7 +477,6 @@
     <string name="open_map">지도 열기</string>
     <string name="choose_new_location">새 위치 선택</string>
     <string name="third_party_licenses">타사 라이센스</string>
-    <string name="changelog">변경이력</string>
     <string name="version_string">버전 %s</string>
     <string name="invalid_backup_file">부적합한 백업 파일</string>
     <string name="google_tasks_add_to_top">새 할일을 가장 위로</string>

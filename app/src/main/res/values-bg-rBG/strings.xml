@@ -472,7 +472,6 @@
     <string name="open_map">Отворете картата</string>
     <string name="choose_new_location">Изберете ново местоположение</string>
     <string name="third_party_licenses">Лицензи на трети страни</string>
-    <string name="changelog">Дневник на промените</string>
     <string name="version_string">Версия %s</string>
     <string name="invalid_backup_file">Невалиден резервен файл</string>
     <string name="google_tasks_add_to_top">Нови задачи отгоре</string>

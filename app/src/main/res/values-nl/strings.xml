@@ -462,7 +462,6 @@
     <string name="open_map">Open kaart</string>
     <string name="choose_new_location">Kies nieuwe locatie</string>
     <string name="third_party_licenses">Third-party licensies</string>
-    <string name="changelog">Wijzigingenlijst</string>
     <string name="version_string">Versie %s</string>
     <string name="invalid_backup_file">Ongeldig backup bestand</string>
     <string name="google_tasks_add_to_top">Nieuwe taken bovenaan</string>

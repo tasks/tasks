@@ -454,7 +454,6 @@
     <string name="google_tasks_add_to_top">Uudet tehtävät huipulla</string>
     <string name="invalid_backup_file">Epäsopiva varmuuskopiotiedosto</string>
     <string name="version_string">Versio %s</string>
-    <string name="changelog">Muutosloki</string>
     <string name="third_party_licenses">Kolmannen osapuolen lisenssit</string>
     <string name="choose_new_location">Valitse uusi sijainti</string>
     <string name="open_map">Avaa kartta</string>

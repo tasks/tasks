@@ -484,7 +484,6 @@
     <string name="map_provider">Поставщик системы карт</string>
     <string name="map_search_provider">Поставщик системы поиска</string>
     <string name="missing_permissions">Отсутствующие разрешения</string>
-    <string name="changelog">Список изменений</string>
     <string name="version_string">Версия %s</string>
     <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="open_map">Открыть карту</string>

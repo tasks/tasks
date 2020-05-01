@@ -501,7 +501,6 @@
     <string name="open_map">Otevřít mapu</string>
     <string name="choose_new_location">Vybrat novou polohu</string>
     <string name="third_party_licenses">Licence třetích stran</string>
-    <string name="changelog">Seznam změn</string>
     <string name="version_string">Verze %s</string>
     <string name="invalid_backup_file">Neplatný soubor zálohy</string>
     <string name="google_tasks_add_to_top">Nové úkoly na vrchu</string>

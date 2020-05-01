@@ -45,4 +45,5 @@
 
   <dimen name="icon_picker_size">48dp</dimen>
   <dimen name="list_item_spacing">8dp</dimen>
+  <dimen name="whats_new_height">150dp</dimen>
 </resources>

@@ -481,7 +481,6 @@
     <string name="open_map">Otwórz mapę</string>
     <string name="choose_new_location">Wybierz nową lokalizację</string>
     <string name="third_party_licenses">Licencje innych podmiotów</string>
-    <string name="changelog">Lista zmian</string>
     <string name="version_string">Wersja %s</string>
     <string name="CFC_tag_text">Tag; \?</string>
     <string name="location_radius_meters">%s m</string>

@@ -47,6 +47,7 @@ import org.tasks.billing.Inventory;
 import org.tasks.data.Place;
 import org.tasks.databinding.TaskListActivityBinding;
 import org.tasks.dialogs.SortDialog;
+import org.tasks.dialogs.WhatsNewDialog;
 import org.tasks.filters.PlaceFilter;
 import org.tasks.fragments.CommentBarFragment;
 import org.tasks.gtasks.PlayServices;
@@ -82,6 +83,7 @@ public class MainActivity extends InjectingAppCompatActivity
   public static final String CREATE_TASK = "open_task"; // $NON-NLS-1$
   public static final String OPEN_TASK = "open_new_task"; // $NON-NLS-1$
   private static final String FRAG_TAG_TASK_LIST = "frag_tag_task_list";
+  private static final String FRAG_TAG_WHATS_NEW = "frag_tag_whats_new";
   private static final String EXTRA_FILTER = "extra_filter";
 
   @Inject Preferences preferences;
@@ -350,6 +352,16 @@ public class MainActivity extends InjectingAppCompatActivity
     }
 
     disposables = new CompositeDisposable(playServices.check(this));
+
+    if (preferences.getBoolean(R.string.p_just_updated, false)) {
+      if (preferences.getBoolean(R.string.p_show_whats_new, true)) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if (fragmentManager.findFragmentByTag(FRAG_TAG_WHATS_NEW) == null) {
+          new WhatsNewDialog().show(fragmentManager, FRAG_TAG_WHATS_NEW);
+        }
+      }
+      preferences.setBoolean(R.string.p_just_updated, false);
+    }
   }
 
   @Override

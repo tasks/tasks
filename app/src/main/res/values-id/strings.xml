@@ -404,7 +404,6 @@
     <string name="open_map">Buka peta</string>
     <string name="choose_new_location">Pilih lokasi baru</string>
     <string name="third_party_licenses">Lisensi pihak ketiga</string>
-    <string name="changelog">Catatan perubahan</string>
     <string name="version_string">Versi %s</string>
     <string name="invalid_backup_file">Berkas cadangan tidak valid</string>
     <string name="google_tasks_add_to_top">Tugas baru di atas</string>

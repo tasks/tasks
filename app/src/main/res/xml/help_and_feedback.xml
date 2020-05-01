@@ -3,6 +3,11 @@
   xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <Preference
+    android:key="@string/whats_new"
+    android:title="@string/whats_new"
+    app:icon="@drawable/ic_outline_new_releases_24px"/>
+
+  <Preference
     android:title="@string/documentation"
     app:icon="@drawable/ic_outline_help_outline_24px">
     <intent
@@ -25,18 +30,9 @@
   </Preference>
 
   <Preference
-    android:key="@string/changelog"
-    android:title="@string/changelog"
-    app:allowDividerAbove="true"
-    app:icon="@drawable/ic_track_changes_24px">
-    <intent
-      android:action="android.intent.action.VIEW"
-      android:data="https://tasks.org/changelog" />
-  </Preference>
-
-  <Preference
     android:summary="@string/license_summary"
     android:title="@string/source_code"
+    app:allowDividerAbove="true"
     app:icon="@drawable/ic_octocat">
     <intent
       android:action="android.intent.action.VIEW"

@@ -488,7 +488,6 @@
     <string name="open_map">Відкрити карту</string>
     <string name="choose_new_location">Обрати нове місце</string>
     <string name="third_party_licenses">Ліцензії третіх сторін</string>
-    <string name="changelog">Історія змін</string>
     <string name="version_string">Версія %s</string>
     <string name="invalid_backup_file">Невірний формат файлу резервної копії</string>
     <string name="google_tasks_add_to_top">Нові завдання зверху</string>

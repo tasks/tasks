@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="changelog">
+        <item>Display What\'s New after updates</item>
+        <item>Collapsible subtasks enabled by default</item>
+        <item>Show subtask chip even if list chips are disabled</item>
+        <item>Ignore location reminders for hidden or snoozed tasks</item>
+        <item>Indent subtasks in \'Share\' output</item>
+        <item>Minimum supported version is now Android 6.0</item>
+        <item>Update translations</item>
+    </string-array>
+</resources>

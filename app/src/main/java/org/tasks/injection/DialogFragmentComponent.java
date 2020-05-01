@@ -15,6 +15,7 @@ import org.tasks.dialogs.NewFilterDialog;
 import org.tasks.dialogs.RecordAudioDialog;
 import org.tasks.dialogs.SortDialog;
 import org.tasks.dialogs.ThemePickerDialog;
+import org.tasks.dialogs.WhatsNewDialog;
 import org.tasks.locale.LocalePickerDialog;
 import org.tasks.reminders.NotificationDialog;
 import org.tasks.reminders.SnoozeDialog;
@@ -61,4 +62,6 @@ public interface DialogFragmentComponent {
   void inject(DateTimePicker dateTimePicker);
 
   void inject(NewFilterDialog newFilterDialog);
+
+  void inject(WhatsNewDialog whatsNewDialog);
 }

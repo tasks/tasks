@@ -473,7 +473,6 @@
     <string name="open_map">Térkép megnyitása</string>
     <string name="choose_new_location">Új hely kiválasztása</string>
     <string name="third_party_licenses">Harmadik fél licenszei</string>
-    <string name="changelog">Változások</string>
     <string name="version_string">Verzió %s</string>
     <string name="invalid_backup_file">Érvénytelen mentési file</string>
     <string name="google_tasks_add_to_top">Az új feladatok felül</string>

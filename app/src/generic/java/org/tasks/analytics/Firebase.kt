@@ -7,4 +7,6 @@ class Firebase @Inject constructor() {
     fun reportException(t: Throwable) = Timber.e(t)
 
     fun updateRemoteConfig() {}
+
+    fun noChurn() = true
 }

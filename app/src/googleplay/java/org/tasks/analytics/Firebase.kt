@@ -8,6 +8,7 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import io.fabric.sdk.android.Fabric
+import org.tasks.R
 import org.tasks.billing.BillingClientImpl
 import org.tasks.injection.ApplicationScope
 import org.tasks.injection.ForApplication
@@ -50,6 +51,8 @@ class Firebase @Inject constructor(@ForApplication context: Context?, preference
         }
     }
 
+    fun noChurn(): Boolean = remoteConfig?.getBoolean("no_churn") ?: false
+
     init {
         if (enabled) {
             analytics = FirebaseAnalytics.getInstance(context!!)
@@ -60,6 +63,7 @@ class Firebase @Inject constructor(@ForApplication context: Context?, preference
                 minimumFetchIntervalInSeconds =
                         TimeUnit.HOURS.toSeconds(WorkManager.REMOTE_CONFIG_INTERVAL_HOURS)
             })
+            remoteConfig?.setDefaultsAsync(R.xml.remote_config_defaults)
         }
     }
 }

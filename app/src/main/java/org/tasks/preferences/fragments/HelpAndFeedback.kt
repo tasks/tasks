@@ -3,13 +3,17 @@ package org.tasks.preferences.fragments
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import androidx.fragment.app.FragmentManager
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.billing.BillingClient
 import org.tasks.billing.Inventory
+import org.tasks.dialogs.WhatsNewDialog
 import org.tasks.injection.FragmentComponent
 import org.tasks.injection.InjectingPreferenceFragment
 import javax.inject.Inject
+
+private val FRAG_TAG_WHATS_NEW = "frag_tag_whats_new"
 
 class HelpAndFeedback : InjectingPreferenceFragment() {
 
@@ -19,8 +23,15 @@ class HelpAndFeedback : InjectingPreferenceFragment() {
     override fun getPreferenceXml() = R.xml.help_and_feedback
 
     override fun setupPreferences(savedInstanceState: Bundle?) {
-        findPreference(R.string.changelog).summary =
-            getString(R.string.version_string, BuildConfig.VERSION_NAME)
+        val whatsNew = findPreference(R.string.whats_new)
+        whatsNew.summary = getString(R.string.version_string, BuildConfig.VERSION_NAME)
+        whatsNew.setOnPreferenceClickListener {
+            val fragmentManager: FragmentManager = parentFragmentManager
+            if (fragmentManager.findFragmentByTag(FRAG_TAG_WHATS_NEW) == null) {
+                WhatsNewDialog().show(fragmentManager, FRAG_TAG_WHATS_NEW)
+            }
+            true
+        }
 
         findPreference(R.string.contact_developer)
             .setOnPreferenceClickListener {

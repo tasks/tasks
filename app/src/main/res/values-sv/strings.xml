@@ -473,7 +473,6 @@
     <string name="open_map">Öppna karta</string>
     <string name="choose_new_location">Välj ny plats</string>
     <string name="third_party_licenses">Licenser från tredje part</string>
-    <string name="changelog">Ändringslogg</string>
     <string name="version_string">Version %s</string>
     <string name="invalid_backup_file">Ogiltig säkerhetskopia</string>
     <string name="google_tasks_add_to_top">Nya uppgifter överst</string>

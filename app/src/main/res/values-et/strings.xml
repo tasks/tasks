@@ -282,7 +282,6 @@
     <string name="missing_permissions">Puuduvad õigused</string>
     <string name="open_map">Ava kaart</string>
     <string name="choose_new_location">Vali uus asukoht</string>
-    <string name="changelog">Muudatuste nimekiri</string>
     <string name="version_string">Versioon %s</string>
     <string name="invalid_backup_file">Vigane varukoopia fail</string>
     <string name="google_tasks_add_to_top">Uued ülesanded üleval</string>

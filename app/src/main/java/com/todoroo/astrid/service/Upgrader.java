@@ -125,6 +125,7 @@ public class Upgrader {
         preferences.setBoolean(R.string.p_auto_dismiss_datetime_edit_screen, true);
       });
       run(from, V8_10, this::migrateWidgets);
+      preferences.setBoolean(R.string.p_just_updated, true);
     }
     preferences.setCurrentVersion(to);
   }
