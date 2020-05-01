@@ -1,8 +1,8 @@
+* Show What's New after update
 * Collapsible subtasks enabled by default
+* 20 new icons
 * Show subtask chip even if list chips are disabled
 * Indent subtasks in 'Share' output
 * Don't trigger location reminders for snoozed or hidden tasks
 * Minimum supported version is now Android 6.0
 * Update translations
-
-Full release notes: https://tasks.org/changelog

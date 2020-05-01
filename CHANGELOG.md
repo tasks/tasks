@@ -1,9 +1,11 @@
 Change Log
 ---
 =======
-### 9.0 (2020-04-28)
+### 9.0 (2020-05-01)
 
+* Show What's New after update
 * Collapsible subtasks enabled by default
+* 20 new icons
 * Show subtask chip even if list chips are disabled
 * Indent subtasks in 'Share' output
 * Don't trigger location reminders for snoozed or hidden tasks
@@ -11,10 +13,14 @@ Change Log
 * Update translations
   * Basque - @osoitz
   * Dutch - @fvbommel
+  * Finnish - Rami Lehtinen
   * French - @FlorianLeChat
-  * German - Jeannette L, Martin
+  * German - Jeannette L, Martin, @sklueber
   * Hungarian - kaciokos
   * Norwegian Bokmål - @comradekingu
+  * Polish - @alex-ter
+  * Russian - @alex-ter
+  * Simplified Chinese - @sr093906
   * Spanish - @FlorianLeChat
   * Turkish - etc
 
