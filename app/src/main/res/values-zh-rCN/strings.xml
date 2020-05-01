@@ -592,4 +592,22 @@
     <string name="custom_filter_or">或</string>
     <string name="custom_filter_and">和</string>
     <string name="custom_filter_criteria">过滤条件</string>
+    <string name="filter_eisenhower_box_4">艾森豪威尔象限 4</string>
+    <string name="filter_eisenhower_box_3">艾森豪威尔象限 3</string>
+    <string name="filter_eisenhower_box_2">艾森豪威尔象限 2</string>
+    <string name="filter_eisenhower_box_1">艾森豪威尔象限 1</string>
+    <string name="filter_no_priority">无优先级</string>
+    <string name="filter_low_priority">低优先级</string>
+    <string name="filter_medium_priority">中等优先级</string>
+    <string name="filter_high_priority">高优先级</string>
+    <string name="add_filter">添加过滤器</string>
+    <string name="add_tags">添加标签</string>
+    <string name="filter_no_tags">无标签</string>
+    <string name="filter_after_today">今日以后</string>
+    <string name="filter_any_due_date">任何到期日</string>
+    <string name="filter_today_only">仅今日</string>
+    <string name="filter_overdue">到期</string>
+    <string name="disable_subtasks_summary">禁用子任务可能改善应用性能</string>
+    <string name="disable_subtasks">禁用子任务</string>
+    <string name="sort_created">按创建时间</string>
 </resources>
