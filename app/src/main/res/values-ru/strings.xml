@@ -614,4 +614,26 @@
     <string name="widget_show_dividers">Показать разделители</string>
     <string name="widget_show_menu">Показать меню</string>
     <string name="widget_hide_background">Спрятать фон</string>
+    <string name="filter_eisenhower_box_4">Матрица Эйзенхауера 4</string>
+    <string name="filter_eisenhower_box_3">Матрица Эйзенхауера 3</string>
+    <string name="filter_eisenhower_box_2">Матрица Эйзенхауера 2</string>
+    <string name="filter_eisenhower_box_1">Матрица Эйзенхауера 1</string>
+    <string name="filter_no_priority">Без приоритета</string>
+    <string name="filter_low_priority">Низкий приоритет</string>
+    <string name="filter_medium_priority">Средний приоритет</string>
+    <string name="filter_high_priority">Высокий приоритет</string>
+    <string name="add_filter">Добавить фильтр</string>
+    <string name="add_tags">Добавить теги</string>
+    <string name="filter_no_tags">Без тегов</string>
+    <string name="filter_after_today">После сегодняшнего дня</string>
+    <string name="filter_any_due_date">Любая дата выполнения</string>
+    <string name="filter_today_only">Только сегодняшние</string>
+    <string name="filter_overdue">Просроченные</string>
+    <string name="custom_filter_not">НЕ</string>
+    <string name="custom_filter_or">ИЛИ</string>
+    <string name="custom_filter_and">И</string>
+    <string name="custom_filter_criteria">Критерии фильтрации</string>
+    <string name="disable_subtasks_summary">Отключение подзадач может повысить производительность приложения</string>
+    <string name="disable_subtasks">Отключить подзадачи</string>
+    <string name="sort_created">По времени создания</string>
 </resources>
