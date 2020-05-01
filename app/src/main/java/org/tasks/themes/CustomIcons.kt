@@ -167,14 +167,34 @@ object CustomIcons {
         1130 to R.drawable.ic_check_black_24dp,
         1131 to R.drawable.ic_undo_24px,
         1132 to R.drawable.ic_next_week_24px,
-        1133 to R.drawable.ic_local_cafe_24px,
+        1133 to R.drawable.ic_local_cafe_24px, // duplicate
         1134 to R.drawable.ic_nights_stay_24px,
         1135 to R.drawable.ic_single_bed_24px,
         1136 to R.drawable.ic_weather_sunset,
         1137 to R.drawable.ic_calendar_today_24px,
         1138 to R.drawable.ic_select_all_24px,
         1139 to R.drawable.ic_widgets_24px,
-        1140 to R.drawable.ic_call_split_24px
+        1140 to R.drawable.ic_call_split_24px,
+        1141 to R.drawable.ic_ac_unit_24px,
+        1142 to R.drawable.ic_airport_shuttle_24px,
+        1143 to R.drawable.ic_apartment_24px,
+        1144 to R.drawable.ic_bathtub_24px,
+        1145 to R.drawable.ic_casino_24px,
+        1146 to R.drawable.ic_child_care_24px,
+        1147 to R.drawable.ic_pool_24px,
+        1148 to R.drawable.ic_house_24px,
+        1149 to R.drawable.ic_storefront_24px,
+        1150 to R.drawable.ic_poll_24px,
+        1151 to R.drawable.ic_emoji_transportation_24px,
+        1152 to R.drawable.ic_emoji_objects_24px,
+        1153 to R.drawable.ic_emoji_nature_24px,
+        1154 to R.drawable.ic_emoji_food_beverage_24px,
+        1155 to R.drawable.ic_emoji_events_24px,
+        1156 to R.drawable.ic_deck_24px,
+        1157 to R.drawable.ic_fireplace_24px,
+        1158 to R.drawable.ic_outdoor_grill_24px,
+        1159 to R.drawable.ic_thumb_up_24px,
+        1160 to R.drawable.ic_thumb_down_24px
     )
 
     @kotlin.jvm.JvmStatic
