@@ -125,15 +125,12 @@ configurations.all {
     exclude(group = "com.google.code.findbugs")
     exclude(group = "com.google.errorprone")
     exclude(group = "com.google.j2objc")
-    resolutionStrategy {
-        force("com.squareup.okhttp3:okhttp:" + Versions.okhttp)
-    }
 }
 
 val googleplayImplementation by configurations
 
 dependencies {
-    implementation("com.gitlab.bitfireAT:dav4jvm:1.0.1")
+    implementation("com.gitlab.bitfireAT:dav4jvm:2.0")
     implementation("com.gitlab.bitfireAT:ical4android:1.0") {
         exclude(group = "org.threeten", module = "threetenbp")
     }

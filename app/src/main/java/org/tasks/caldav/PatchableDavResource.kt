@@ -3,10 +3,7 @@ package org.tasks.caldav
 import at.bitfire.dav4jvm.DavResource
 import at.bitfire.dav4jvm.DavResource.Companion.MAX_REDIRECTS
 import at.bitfire.dav4jvm.exception.*
-import okhttp3.HttpUrl
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.RequestBody
+import okhttp3.*
 import okhttp3.Response
 import java.io.IOException
 import java.net.HttpURLConnection
@@ -40,7 +37,7 @@ class PatchableDavResource(client: OkHttpClient, url: HttpUrl) : DavResource(cli
      * @throws HttpException in case of an HTTP error
      */
     private fun checkStatus(response: Response) =
-            checkStatus(response.code(), response.message(), response)
+            checkStatus(response.code, response.message, response)
 
     /**
      * Checks the status from an HTTP response and throws an exception in case of an error.
