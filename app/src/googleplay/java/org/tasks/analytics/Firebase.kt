@@ -11,9 +11,10 @@ import io.fabric.sdk.android.Fabric
 import org.tasks.billing.BillingClientImpl
 import org.tasks.injection.ApplicationScope
 import org.tasks.injection.ForApplication
-import org.tasks.jobs.RemoteConfigWork
+import org.tasks.jobs.WorkManager
 import org.tasks.preferences.Preferences
 import timber.log.Timber
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @ApplicationScope
@@ -56,7 +57,8 @@ class Firebase @Inject constructor(@ForApplication context: Context?, preference
             Fabric.with(context, Crashlytics())
             remoteConfig = FirebaseRemoteConfig.getInstance()
             remoteConfig?.setConfigSettingsAsync(remoteConfigSettings {
-                minimumFetchIntervalInSeconds = RemoteConfigWork.WORK_INTERVAL_HOURS
+                minimumFetchIntervalInSeconds =
+                        TimeUnit.HOURS.toSeconds(WorkManager.REMOTE_CONFIG_INTERVAL_HOURS)
             })
         }
     }

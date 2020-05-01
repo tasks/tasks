@@ -49,6 +49,7 @@ import timber.log.Timber;
 @ApplicationScope
 public class WorkManager {
 
+  public static final long REMOTE_CONFIG_INTERVAL_HOURS = BuildConfig.DEBUG ? 1 : 12;
   private static final int MAX_CLEANUP_LENGTH = 500;
   private static final String TAG_BACKUP = "tag_backup";
   private static final String TAG_REFRESH = "tag_refresh";
@@ -217,7 +218,7 @@ public class WorkManager {
         TAG_REMOTE_CONFIG,
         ExistingPeriodicWorkPolicy.KEEP,
         new PeriodicWorkRequest.Builder(
-                RemoteConfigWork.class, RemoteConfigWork.WORK_INTERVAL_HOURS, TimeUnit.HOURS)
+                RemoteConfigWork.class, REMOTE_CONFIG_INTERVAL_HOURS, TimeUnit.HOURS)
             .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 1, TimeUnit.MINUTES)
             .setConstraints(
                 new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
