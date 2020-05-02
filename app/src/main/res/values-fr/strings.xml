@@ -613,4 +613,11 @@
     <string name="sort_created">Par date de création</string>
     <string name="disable_subtasks_summary">La désactivation des sous-tâches peut améliorer les performances de l\'application</string>
     <string name="disable_subtasks">Désactiver les sous-tâches</string>
+    <string name="got_it">J\'ai compris !</string>
+    <string name="no_thanks">Non, merci</string>
+    <string name="support_development_subscribe">Déverrouillez des fonctionnalités supplémentaires et supportez les logiciels open source</string>
+    <string name="tell_me_how_im_doing">S’ll vous plaît, dites-moi comment je vais</string>
+    <string name="enjoying_tasks">Vous aimez les Tasks \?</string>
+    <string name="whats_new_in_version">Quoi de neuf dans la version %s</string>
+    <string name="whats_new">Quoi de neuf</string>
 </resources>
