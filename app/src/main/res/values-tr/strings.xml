@@ -618,4 +618,11 @@
     <string name="sort_created">Oluşturulma zamanına göre</string>
     <string name="disable_subtasks_summary">Alt görevleri devre dışı bırakmak uygulama performansını iyileştirebilir</string>
     <string name="disable_subtasks">Alt görevleri devre dışı bırak</string>
+    <string name="tell_me_how_im_doing">Lütfen nasıl yaptığımı anlat</string>
+    <string name="got_it">Anladım!</string>
+    <string name="no_thanks">Teşekkürler</string>
+    <string name="support_development_subscribe">Ek özellikleri açın ve açık kaynaklı yazılımı destekleyin</string>
+    <string name="enjoying_tasks">Tasks\'ı Beğeniyor Musunuz\?</string>
+    <string name="whats_new_in_version">%s Sürümündeki Yenilikler</string>
+    <string name="whats_new">Yenilikler</string>
 </resources>
