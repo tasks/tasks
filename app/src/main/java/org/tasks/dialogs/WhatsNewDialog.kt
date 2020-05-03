@@ -1,6 +1,7 @@
 package org.tasks.dialogs
 
 import android.app.Dialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -34,6 +35,9 @@ class WhatsNewDialog : InjectingDialogFragment() {
     @BindView(R.id.action_button) lateinit var actionButton: MaterialButton
     @BindView(R.id.dismiss_button) lateinit var dismissButton: MaterialButton
 
+    private var displayedRate = false
+    private var displayedSubscribe = false
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val view: View = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_whats_new, null)
         ButterKnife.bind(this, view)
@@ -48,9 +52,11 @@ class WhatsNewDialog : InjectingDialogFragment() {
             actionButton.text = getString(R.string.TLA_menu_donate)
             actionButton.setOnClickListener { onDonateClick() }
         } else if (firebase.noChurn() && !preferences.getBoolean(R.string.p_clicked_rate, false)) {
+            displayedRate = true
             actionButton.text = getString(R.string.rate_tasks)
             actionButton.setOnClickListener { onRateClick() }
         } else if (firebase.noChurn() && !inventory.hasPro()) {
+            displayedSubscribe = true
             actionText.text = getString(R.string.support_development_subscribe)
             actionButton.text = getString(R.string.button_subscribe)
             actionButton.setOnClickListener { onSubscribeClick() }
@@ -71,11 +77,13 @@ class WhatsNewDialog : InjectingDialogFragment() {
     }
 
     private fun onSubscribeClick() {
+        logClick(true)
         dismiss()
         startActivity(Intent(context, PurchaseActivity::class.java))
     }
 
     private fun onRateClick() {
+        logClick(true)
         preferences.setBoolean(R.string.p_clicked_rate, true)
         dismiss()
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.market_url))))
@@ -86,8 +94,26 @@ class WhatsNewDialog : InjectingDialogFragment() {
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://tasks.org/donate")))
     }
 
+    override fun onCancel(dialog: DialogInterface) {
+        logClick(false)
+        super.onCancel(dialog)
+    }
+
     @OnClick(R.id.dismiss_button)
-    fun onDismissClick() = dismiss()
+    fun onDismissClick() {
+        logClick(false)
+        dismiss()
+    }
+
+    private fun logClick(click: Boolean) {
+        firebase.logEvent(
+                R.string.event_whats_new,
+                Pair(R.string.param_click, click),
+                Pair(R.string.param_whats_new_display_rate, displayedRate),
+                Pair(R.string.param_whats_new_display_subscribe, displayedSubscribe),
+                Pair(R.string.param_user_pro, inventory.hasPro()),
+                Pair(R.string.param_user_no_churn, firebase.noChurn()))
+    }
 
     override fun inject(component: DialogFragmentComponent) = component.inject(this)
 }
