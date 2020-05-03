@@ -1,7 +1,7 @@
 Change Log
 ---
 =======
-### 9.0 (2020-05-01)
+### 9.0 (2020-05-03)
 
 * Show What's New after update
 * Collapsible subtasks enabled by default
