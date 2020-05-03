@@ -9,4 +9,6 @@ class Firebase @Inject constructor() {
     fun updateRemoteConfig() {}
 
     fun noChurn() = true
+
+    fun logEvent(event: Int, vararg params: Pair<Int, Boolean>) {}
 }
