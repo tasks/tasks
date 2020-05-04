@@ -620,4 +620,5 @@
     <string name="enjoying_tasks">Vous aimez les Tasks \?</string>
     <string name="whats_new_in_version">Quoi de neuf dans la version %s</string>
     <string name="whats_new">Quoi de neuf</string>
+    <string name="action_new_task">Nouvelle tâche</string>
 </resources>
