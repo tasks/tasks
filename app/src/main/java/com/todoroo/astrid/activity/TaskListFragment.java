@@ -84,6 +84,7 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
+import org.tasks.ShortcutManager;
 import org.tasks.activities.FilterSettingsActivity;
 import org.tasks.activities.GoogleTaskListSettingsActivity;
 import org.tasks.activities.PlaceSettingsActivity;
@@ -165,6 +166,7 @@ public final class TaskListFragment extends InjectingFragment
   @Inject ThemeColor defaultThemeColor;
   @Inject ColorProvider colorProvider;
   @Inject NotificationManager notificationManager;
+  @Inject ShortcutManager shortcutManager;
 
   @BindView(R.id.swipe_layout)
   SwipeRefreshLayout swipeRefreshLayout;
@@ -508,6 +510,7 @@ public final class TaskListFragment extends InjectingFragment
 
   @OnClick(R.id.fab)
   void createNewTask() {
+    shortcutManager.reportShortcutUsed(ShortcutManager.SHORTCUT_NEW_TASK);
     onTaskListItemClicked(addTask(""));
   }
 
