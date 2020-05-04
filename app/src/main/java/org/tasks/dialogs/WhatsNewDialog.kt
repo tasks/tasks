@@ -46,25 +46,33 @@ class WhatsNewDialog : InjectingDialogFragment() {
         val text = "$entries\n\nVisit https://tasks.org/changelog for more info"
         changelog.text = text
 
-        @Suppress("ConstantConditionIf")
-        if (BuildConfig.FLAVOR == "generic") {
-            actionText.text = getString(R.string.upgrade_blurb_4)
-            actionButton.text = getString(R.string.TLA_menu_donate)
-            actionButton.setOnClickListener { onDonateClick() }
-        } else if (firebase.noChurn() && !preferences.getBoolean(R.string.p_clicked_rate, false)) {
-            displayedRate = true
-            actionButton.text = getString(R.string.rate_tasks)
-            actionButton.setOnClickListener { onRateClick() }
-        } else if (firebase.noChurn() && !inventory.hasPro()) {
-            displayedSubscribe = true
-            actionText.text = getString(R.string.support_development_subscribe)
-            actionButton.text = getString(R.string.button_subscribe)
-            actionButton.setOnClickListener { onSubscribeClick() }
-        } else {
-            actionQuestion.visibility = View.GONE
-            actionText.visibility = View.GONE
-            actionButton.visibility = View.GONE
-            dismissButton.text = getString(R.string.got_it)
+        val begForRating = (inventory.hasPro() || firebase.noChurn())
+                && !preferences.getBoolean(R.string.p_clicked_rate, false)
+        val begForSubscription = firebase.noChurn() && !inventory.hasPro()
+
+        when {
+            BuildConfig.FLAVOR == "generic" -> {
+                actionText.text = getString(R.string.upgrade_blurb_4)
+                actionButton.text = getString(R.string.TLA_menu_donate)
+                actionButton.setOnClickListener { onDonateClick() }
+            }
+            begForRating -> {
+                displayedRate = true
+                actionButton.text = getString(R.string.rate_tasks)
+                actionButton.setOnClickListener { onRateClick() }
+            }
+            begForSubscription -> {
+                displayedSubscribe = true
+                actionText.text = getString(R.string.support_development_subscribe)
+                actionButton.text = getString(R.string.button_subscribe)
+                actionButton.setOnClickListener { onSubscribeClick() }
+            }
+            else -> {
+                actionQuestion.visibility = View.GONE
+                actionText.visibility = View.GONE
+                actionButton.visibility = View.GONE
+                dismissButton.text = getString(R.string.got_it)
+            }
         }
 
         if (!resources.getBoolean(R.bool.whats_new_action)) {
