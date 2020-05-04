@@ -1,6 +1,15 @@
 Change Log
 ---
 =======
+### 9.1 (2020-05-04)
+
+* 'New task' launcher shortcut (Android 7.1+)
+* Add option to disable subtask chip on widget
+* Update translations
+  * French - @FlorianLeChat
+  * German - marmo
+  * Spanish - @FlorianLeChat
+
 ### 9.0 (2020-05-03)
 
 * Show What's New after update

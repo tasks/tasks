@@ -1,0 +1,3 @@
+* 'New task' launcher shortcut (Android 7.1+)
+* Add option to disable subtask chip on widget
+* Update translations
