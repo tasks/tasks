@@ -55,6 +55,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
   private int hPad;
   private boolean handleDueDateClick;
   private boolean showDividers;
+  private boolean showSubtasks;
   private boolean isRtl;
 
   private List<TaskContainer> tasks = new ArrayList<>();
@@ -186,7 +187,6 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         row.setViewVisibility(R.id.widget_description, View.GONE);
       }
 
-
       row.setOnClickFillInIntent(
           R.id.widget_row,
           new Intent(WidgetClickActivity.EDIT_TASK)
@@ -211,7 +211,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         row.setViewVisibility(R.id.divider, View.GONE);
       }
 
-      if (taskContainer.hasChildren()) {
+      if (showSubtasks && taskContainer.hasChildren()) {
         row.setOnClickFillInIntent(
             R.id.subtask_button,
             new Intent(WidgetClickActivity.TOGGLE_SUBTASKS)
@@ -309,6 +309,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     dueDateTextSize = Math.max(10, textSize - 2);
     filter = defaultFilterProvider.getFilterFromPreference(widgetPreferences.getFilterId());
     showDividers = widgetPreferences.showDividers();
+    showSubtasks = widgetPreferences.showSubtasks();
     isRtl = locale.getDirectionality() == View.LAYOUT_DIRECTION_RTL;
   }
 }

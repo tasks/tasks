@@ -124,6 +124,17 @@
 
   </PreferenceCategory>
 
+  <PreferenceCategory
+    android:key="@string/chips"
+    android:title="@string/chips">
+
+    <SwitchPreferenceCompat
+      android:defaultValue="true"
+      android:key="@string/p_widget_show_subtasks"
+      android:title="@string/subtasks" />
+
+  </PreferenceCategory>
+
   <PreferenceCategory android:title="@string/widget_on_click">
 
     <ListPreference

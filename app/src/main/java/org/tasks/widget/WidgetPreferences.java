@@ -49,6 +49,10 @@ public class WidgetPreferences {
     return getBoolean(R.string.p_widget_show_dividers, true);
   }
 
+  boolean showSubtasks() {
+    return getBoolean(R.string.p_widget_show_subtasks, true);
+  }
+
   public int getDueDatePosition() {
     return getIntegerFromString(R.string.p_widget_due_date_position, 0);
   }
