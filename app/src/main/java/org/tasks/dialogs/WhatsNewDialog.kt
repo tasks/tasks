@@ -46,8 +46,8 @@ class WhatsNewDialog : InjectingDialogFragment() {
         val text = "$entries\n\nVisit https://tasks.org/changelog for more info"
         changelog.text = text
 
-        val begForRating = (inventory.hasPro() || firebase.noChurn())
-                && !preferences.getBoolean(R.string.p_clicked_rate, false)
+        val begForRating = !preferences.getBoolean(R.string.p_clicked_rate, false)
+                && (inventory.purchasedThemes() || firebase.noChurn())
         val begForSubscription = firebase.noChurn() && !inventory.hasPro()
 
         when {
