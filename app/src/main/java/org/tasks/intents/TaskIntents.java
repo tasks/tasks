@@ -14,6 +14,13 @@ public class TaskIntents {
     return getEditTaskIntent(context, null, task);
   }
 
+  public static Intent getNewTaskIntent(Context context) {
+    Intent intent = TaskIntents.getTaskListIntent(context, null);
+    intent.putExtra(MainActivity.CREATE_TASK, 0L);
+    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    return intent;
+  }
+
   public static Intent getEditTaskIntent(Context context, @Nullable Filter filter, Task task) {
     Intent intent = getTaskListIntent(context, filter);
     intent.putExtra(MainActivity.OPEN_TASK, task);

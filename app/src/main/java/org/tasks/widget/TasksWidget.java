@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.RemoteViews;
 import androidx.annotation.ColorInt;
 import androidx.core.graphics.ColorUtils;
-import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import javax.inject.Inject;
@@ -154,9 +153,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
   }
 
   private PendingIntent getNewTaskIntent(Context context, Filter filter, int widgetId) {
-    Intent intent = TaskIntents.getTaskListIntent(context, filter);
-    intent.putExtra(MainActivity.CREATE_TASK, 0L);
-    intent.setFlags(flags);
+    Intent intent = TaskIntents.getNewTaskIntent(context);
     intent.setAction("new_task");
     return PendingIntent.getActivity(context, widgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
   }
