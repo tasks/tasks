@@ -616,4 +616,7 @@
     <string name="filter_eisenhower_box_3">Eisenhower-Quadrant III</string>
     <string name="filter_eisenhower_box_2">Eisenhower-Quadrant II</string>
     <string name="filter_eisenhower_box_1">Eisenhower-Quadrant I</string>
+    <string name="got_it">Verstanden!</string>
+    <string name="no_thanks">Nein, danke</string>
+    <string name="action_new_task">Neue Aufgabe</string>
 </resources>
