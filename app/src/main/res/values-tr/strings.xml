@@ -625,4 +625,5 @@
     <string name="enjoying_tasks">Tasks\'ı Beğeniyor Musunuz\?</string>
     <string name="whats_new_in_version">%s Sürümündeki Yenilikler</string>
     <string name="whats_new">Yenilikler</string>
+    <string name="action_new_task">Yeni görev</string>
 </resources>
