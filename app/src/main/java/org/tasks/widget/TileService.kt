@@ -7,5 +7,5 @@ import org.tasks.intents.TaskIntents
 
 @RequiresApi(api = VERSION_CODES.N)
 class TileService : TileService() {
-    override fun onClick() = startActivityAndCollapse(TaskIntents.getNewTaskIntent(applicationContext))
+    override fun onClick() = startActivityAndCollapse(TaskIntents.getNewTaskIntent(this))
 }
