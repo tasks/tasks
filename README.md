@@ -19,7 +19,6 @@ Please visit [tasks.org](https://tasks.org) for end user documentation and suppo
 
 #### To get started with development:
 1. [Fork](https://help.github.com/articles/fork-a-repo/) and [clone](https://help.github.com/articles/cloning-a-repository/) the repository
-    * command line users: clone with `--recurse-submodules` or run `git submodule update --init` after cloning
 2. Install and launch [Android Studio](https://developer.android.com/studio/index.html)
 3. Select `File > Open`, select the Tasks directory, and accept prompts to install missing SDK components
 
