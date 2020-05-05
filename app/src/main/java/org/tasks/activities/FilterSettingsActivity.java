@@ -173,25 +173,21 @@ public class FilterSettingsActivity extends BaseListSettingsActivity {
     switch (instance.type) {
       case CriterionInstance.TYPE_ADD:
         return R.id.button_or;
-      case CriterionInstance.TYPE_INTERSECT:
-        return R.id.button_and;
       case CriterionInstance.TYPE_SUBTRACT:
         return R.id.button_not;
       default:
-        throw new RuntimeException();
+        return R.id.button_and;
     }
   }
 
   private int getType(int selected) {
     switch (selected) {
-      case R.id.button_and:
-        return CriterionInstance.TYPE_INTERSECT;
       case R.id.button_or:
         return CriterionInstance.TYPE_ADD;
       case R.id.button_not:
         return CriterionInstance.TYPE_SUBTRACT;
       default:
-        throw new RuntimeException();
+        return CriterionInstance.TYPE_INTERSECT;
     }
   }
 
