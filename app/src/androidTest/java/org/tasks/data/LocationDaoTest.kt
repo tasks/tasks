@@ -49,7 +49,7 @@ class LocationDaoTest : InjectingTestCase() {
     @Test
     fun getPlaceWithMorePrecision() {
         locationDao.insert(newPlace(with(LATITUDE, 36.246944), with(LONGITUDE, -116.816944)))
-        locationDao.places.forEach { println(it) }
+        locationDao.getPlaces().forEach { println(it) }
         val place = locationDao.findPlace(36.2469.toLikeString(), (-116.8169).toLikeString())
         assertEquals(36.246944, place?.latitude)
         assertEquals(-116.816944, place?.longitude)
@@ -74,7 +74,7 @@ class LocationDaoTest : InjectingTestCase() {
 
         val geofence = locationDao.getGeofencesByPlace(place.uid)
 
-        assertTrue(geofence.arrival)
+        assertTrue(geofence!!.arrival)
         assertFalse(geofence.departure)
     }
 
@@ -87,7 +87,7 @@ class LocationDaoTest : InjectingTestCase() {
 
         val geofence = locationDao.getGeofencesByPlace(place.uid)
 
-        assertFalse(geofence.arrival)
+        assertFalse(geofence!!.arrival)
         assertTrue(geofence.departure)
     }
 

@@ -129,7 +129,7 @@ class Synchronization : InjectingPreferenceFragment() {
     }
 
     private fun addGoogleTasksAccounts(category: PreferenceCategory): Boolean {
-        val accounts: List<GoogleTaskAccount> = googleTaskListDao.accounts
+        val accounts: List<GoogleTaskAccount> = googleTaskListDao.getAccounts()
         for (googleTaskAccount in accounts) {
             val account = googleTaskAccount.account
             val preference = Preference(context)
@@ -168,7 +168,7 @@ class Synchronization : InjectingPreferenceFragment() {
     }
 
     private fun addCaldavAccounts(category: PreferenceCategory): Boolean {
-        val accounts: List<CaldavAccount> = caldavDao.accounts
+        val accounts: List<CaldavAccount> = caldavDao.getAccounts()
         for (account in accounts) {
             val preference = Preference(context)
             preference.title = account.name
