@@ -1,0 +1,125 @@
+package org.tasks.data
+
+import android.os.Parcel
+import android.os.Parcelable
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
+import org.tasks.themes.CustomIcons.CLOUD
+
+@Entity(tableName = "google_task_lists")
+class GoogleTaskList : Parcelable {
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "gtl_id")
+    @Transient
+    var id: Long = 0
+
+    @ColumnInfo(name = "gtl_account")
+    var account: String? = null
+
+    @ColumnInfo(name = "gtl_remote_id")
+    var remoteId: String? = null
+
+    @ColumnInfo(name = "gtl_title")
+    var title: String? = null
+
+    @ColumnInfo(name = "gtl_remote_order")
+    var remoteOrder = 0
+
+    @ColumnInfo(name = "gtl_last_sync")
+    var lastSync: Long = 0
+
+    @ColumnInfo(name = "gtl_color")
+    private var color: Int? = null
+
+    @ColumnInfo(name = "gtl_icon")
+    private var icon: Int? = -1
+
+    constructor()
+
+    @Ignore
+    constructor(parcel: Parcel) {
+        id = parcel.readLong()
+        account = parcel.readString()
+        remoteId = parcel.readString()
+        title = parcel.readString()
+        remoteOrder = parcel.readInt()
+        lastSync = parcel.readLong()
+        color = parcel.readInt()
+        icon = parcel.readInt()
+    }
+
+    fun getColor(): Int? {
+        return (if (color == null) 0 else color)!!
+    }
+
+    fun setColor(color: Int?) {
+        this.color = color
+    }
+
+    fun getIcon(): Int? {
+        return (if (icon == null) CLOUD else icon!!)
+    }
+
+    fun setIcon(icon: Int?) {
+        this.icon = icon
+    }
+
+    override fun describeContents() = 0
+
+    override fun writeToParcel(parcel: Parcel, i: Int) {
+        parcel.writeLong(id)
+        parcel.writeString(account)
+        parcel.writeString(remoteId)
+        parcel.writeString(title)
+        parcel.writeInt(remoteOrder)
+        parcel.writeLong(lastSync)
+        parcel.writeInt(getColor()!!)
+        parcel.writeInt(getIcon()!!)
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is GoogleTaskList) return false
+
+        if (id != other.id) return false
+        if (account != other.account) return false
+        if (remoteId != other.remoteId) return false
+        if (title != other.title) return false
+        if (remoteOrder != other.remoteOrder) return false
+        if (lastSync != other.lastSync) return false
+        if (color != other.color) return false
+        if (icon != other.icon) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        result = 31 * result + (account?.hashCode() ?: 0)
+        result = 31 * result + (remoteId?.hashCode() ?: 0)
+        result = 31 * result + (title?.hashCode() ?: 0)
+        result = 31 * result + remoteOrder
+        result = 31 * result + lastSync.hashCode()
+        result = 31 * result + (color ?: 0)
+        result = 31 * result + (icon ?: 0)
+        return result
+    }
+
+    override fun toString(): String {
+        return "GoogleTaskList(id=$id, account=$account, remoteId=$remoteId, title=$title, remoteOrder=$remoteOrder, lastSync=$lastSync, color=$color, icon=$icon)"
+    }
+
+    companion object {
+        @JvmField val CREATOR: Parcelable.Creator<GoogleTaskList> = object : Parcelable.Creator<GoogleTaskList> {
+            override fun createFromParcel(parcel: Parcel): GoogleTaskList? {
+                return GoogleTaskList(parcel)
+            }
+
+            override fun newArray(size: Int): Array<GoogleTaskList?> {
+                return arrayOfNulls(size)
+            }
+        }
+    }
+}

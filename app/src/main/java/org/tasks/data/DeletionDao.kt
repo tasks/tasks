@@ -59,7 +59,7 @@ abstract class DeletionDao {
 
     @Transaction
     open fun delete(googleTaskList: GoogleTaskList): List<Long> {
-        val tasks = getActiveGoogleTasks(googleTaskList.remoteId)
+        val tasks = getActiveGoogleTasks(googleTaskList.remoteId!!)
         delete(tasks)
         deleteGoogleTaskList(googleTaskList)
         return tasks
@@ -74,7 +74,7 @@ abstract class DeletionDao {
     @Transaction
     open fun delete(googleTaskAccount: GoogleTaskAccount): List<Long> {
         val deleted = ArrayList<Long>()
-        for (list in getLists(googleTaskAccount.account)) {
+        for (list in getLists(googleTaskAccount.account!!)) {
             deleted.addAll(delete(list))
         }
         deleteGoogleTaskAccount(googleTaskAccount)

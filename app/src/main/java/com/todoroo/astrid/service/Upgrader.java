@@ -249,9 +249,9 @@ public class Upgrader {
     List<Long> tasksWithTags = caldavDao.getTasksWithTags();
     for (CaldavTaskContainer container : caldavDao.getTasks()) {
       at.bitfire.ical4android.Task remoteTask =
-          iCalendar.Companion.fromVtodo(container.caldavTask.getVtodo());
+          iCalendar.Companion.fromVtodo(container.getVtodo());
       if (remoteTask != null) {
-        tagDao.insert(container.task, iCal.getTags(remoteTask.getCategories()));
+        tagDao.insert(container.getTask(), iCal.getTags(remoteTask.getCategories()));
       }
     }
     batch(tasksWithTags, taskDao::touch);

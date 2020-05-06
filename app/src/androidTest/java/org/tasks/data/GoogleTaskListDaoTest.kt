@@ -24,7 +24,7 @@ class GoogleTaskListDaoTest : InjectingTestCase() {
         account.account = "user@gmail.com"
         googleTaskListDao.insert(account)
 
-        assertTrue(googleTaskListDao.getGoogleTaskFilters(account.account, now()).isEmpty())
+        assertTrue(googleTaskListDao.getGoogleTaskFilters(account.account!!, now()).isEmpty())
     }
 
     @Test

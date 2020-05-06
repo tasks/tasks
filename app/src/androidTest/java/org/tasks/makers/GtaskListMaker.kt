@@ -25,7 +25,7 @@ object GtaskListMaker {
         list.title = lookup.valueOf(NAME, "Default")
         list.remoteOrder = lookup.valueOf(ORDER, 0)
         list.lastSync = lookup.valueOf(LAST_SYNC, 0L)
-        list.color = lookup.valueOf(COLOR, 0)
+        list.setColor(lookup.valueOf(COLOR, 0))
         list
     }
 

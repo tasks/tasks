@@ -73,10 +73,10 @@ public class GeofenceApi {
 
   private com.google.android.gms.location.Geofence toGoogleGeofence(MergedGeofence geofence) {
     int transitionTypes = 0;
-    if (geofence.isArrival()) {
+    if (geofence.getArrival()) {
       transitionTypes |= GeofencingRequest.INITIAL_TRIGGER_ENTER;
     }
-    if (geofence.isDeparture()) {
+    if (geofence.getDeparture()) {
       transitionTypes |= GeofencingRequest.INITIAL_TRIGGER_EXIT;
     }
     return new com.google.android.gms.location.Geofence.Builder()

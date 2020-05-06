@@ -77,10 +77,10 @@ public class GeofenceTransitionsIntentService extends InjectingJobIntentService 
 
   private Notification toNotification(Place place, Geofence geofence, boolean arrival) {
     Notification notification = new Notification();
-    notification.taskId = geofence.getTask();
-    notification.type = arrival ? TYPE_GEOFENCE_ENTER : TYPE_GEOFENCE_EXIT;
-    notification.timestamp = currentTimeMillis();
-    notification.location = place.getId();
+    notification.setTaskId(geofence.getTask());
+    notification.setType(arrival ? TYPE_GEOFENCE_ENTER : TYPE_GEOFENCE_EXIT);
+    notification.setTimestamp(currentTimeMillis());
+    notification.setLocation(place.getId());
     return notification;
   }
 

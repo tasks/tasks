@@ -14,7 +14,7 @@ object GoogleTaskListMaker {
         val list = GoogleTaskList()
         list.remoteId = lookup.valueOf(REMOTE_ID, "1234")
         list.account = lookup.valueOf(ACCOUNT, null as String?)
-        list.color = 0
+        list.setColor(0)
         list
     }
 

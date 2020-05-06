@@ -29,9 +29,9 @@ public class ReminderEntry implements NotificationQueueEntry {
   @Override
   public Notification toNotification() {
     Notification notification = new Notification();
-    notification.taskId = taskId;
-    notification.type = type;
-    notification.timestamp = currentTimeMillis();
+    notification.setTaskId(taskId);
+    notification.setType(type);
+    notification.setTimestamp(currentTimeMillis());
     return notification;
   }
 

@@ -109,11 +109,11 @@ public class Notifier {
     boolean ringNonstop = false;
     for (int i = 0; i < entries.size(); i++) {
       org.tasks.notifications.Notification entry = entries.get(i);
-      Task task = taskDao.fetch(entry.taskId);
+      Task task = taskDao.fetch(entry.getTaskId());
       if (task == null) {
         continue;
       }
-      if (entry.type != ReminderService.TYPE_RANDOM) {
+      if (entry.getType() != ReminderService.TYPE_RANDOM) {
         ringFiveTimes |= task.isNotifyModeFive();
         ringNonstop |= task.isNotifyModeNonstop();
       }

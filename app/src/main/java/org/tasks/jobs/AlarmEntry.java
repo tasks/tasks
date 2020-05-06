@@ -34,9 +34,9 @@ public class AlarmEntry implements NotificationQueueEntry {
   @Override
   public Notification toNotification() {
     Notification notification = new Notification();
-    notification.taskId = taskId;
-    notification.type = ReminderService.TYPE_ALARM;
-    notification.timestamp = currentTimeMillis();
+    notification.setTaskId(taskId);
+    notification.setType(ReminderService.TYPE_ALARM);
+    notification.setTimestamp(currentTimeMillis());
     return notification;
   }
 

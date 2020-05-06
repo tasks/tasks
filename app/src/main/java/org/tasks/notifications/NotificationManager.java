@@ -126,7 +126,7 @@ public class NotificationManager {
     List<Notification> notifications = notificationDao.getAllOrdered();
     if (cancelExisting) {
       for (Notification notification : notifications) {
-        notificationManagerCompat.cancel((int) notification.taskId);
+        notificationManagerCompat.cancel((int) notification.getTaskId());
       }
     }
 
@@ -180,19 +180,19 @@ public class NotificationManager {
     for (Notification notification : notifications) {
       NotificationCompat.Builder builder = getTaskNotification(notification);
       if (builder == null) {
-        notificationManagerCompat.cancel((int) notification.taskId);
-        notificationDao.delete(notification.taskId);
+        notificationManagerCompat.cancel((int) notification.getTaskId());
+        notificationDao.delete(notification.getTaskId());
       } else {
         builder
             .setGroup(
                 useGroupKey
                     ? GROUP_KEY
-                    : (atLeastNougat() ? Long.toString(notification.taskId) : null))
+                    : (atLeastNougat() ? Long.toString(notification.getTaskId()) : null))
             .setGroupAlertBehavior(
                 alert
                     ? NotificationCompat.GROUP_ALERT_CHILDREN
                     : NotificationCompat.GROUP_ALERT_SUMMARY);
-        notify(notification.taskId, builder, alert, nonstop, fiveTimes);
+        notify(notification.getTaskId(), builder, alert, nonstop, fiveTimes);
         alert = false;
       }
     }
@@ -272,7 +272,7 @@ public class NotificationManager {
       maxPriority = Math.min(maxPriority, task.getPriority());
     }
     for (Notification notification : newNotifications) {
-      Task task = tryFind(tasks, t -> t.getId() == notification.taskId).orNull();
+      Task task = tryFind(tasks, t -> t.getId() == notification.getTaskId()).orNull();
       if (task == null) {
         continue;
       }
@@ -316,9 +316,9 @@ public class NotificationManager {
   }
 
   public NotificationCompat.Builder getTaskNotification(Notification notification) {
-    long id = notification.taskId;
-    int type = notification.type;
-    long when = notification.timestamp;
+    long id = notification.getTaskId();
+    int type = notification.getType();
+    long when = notification.getTimestamp();
     Task task = taskDao.fetch(id);
     if (task == null) {
       Timber.e("Could not find %s", id);
@@ -382,7 +382,7 @@ public class NotificationManager {
         PendingIntent.getActivity(context, (int) id, intent, PendingIntent.FLAG_UPDATE_CURRENT));
 
     if (type == TYPE_GEOFENCE_ENTER || type == TYPE_GEOFENCE_EXIT) {
-      Place place = locationDao.getPlace(notification.location);
+      Place place = locationDao.getPlace(notification.getLocation());
       if (place != null) {
         builder.setContentText(
             context.getString(

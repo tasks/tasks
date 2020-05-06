@@ -64,7 +64,7 @@ class CaldavDaoTests : InjectingTestCase() {
         val caldavAccount = CaldavAccount()
         caldavAccount.uuid = UUIDHelper.newUUID()
         caldavDao.insert(caldavAccount)
-        assertTrue(caldavDao.getCaldavFilters(caldavAccount.uuid, DateUtilities.now()).isEmpty())
+        assertTrue(caldavDao.getCaldavFilters(caldavAccount.uuid!!, DateUtilities.now()).isEmpty())
     }
 
     override fun inject(component: TestComponent) = component.inject(this)
