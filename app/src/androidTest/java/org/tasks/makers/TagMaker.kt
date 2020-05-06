@@ -11,9 +11,9 @@ import org.tasks.data.TagData
 import org.tasks.makers.Maker.make
 
 object TagMaker {
-    @JvmField val TAGDATA: Property<Tag, TagData?> = newProperty()
-    @JvmField val TASK: Property<Tag, Task?> = newProperty()
-    @JvmField val TAGUID: Property<Tag, String?> = newProperty()
+    val TAGDATA: Property<Tag, TagData?> = newProperty()
+    val TASK: Property<Tag, Task?> = newProperty()
+    val TAGUID: Property<Tag, String?> = newProperty()
 
     private val instantiator = Instantiator { lookup: PropertyLookup<Tag> ->
         val tag = Tag()
@@ -29,7 +29,6 @@ object TagMaker {
         tag
     }
 
-    @JvmStatic
     fun newTag(vararg properties: PropertyValue<in Tag?, *>): Tag {
         return make(instantiator, *properties)
     }

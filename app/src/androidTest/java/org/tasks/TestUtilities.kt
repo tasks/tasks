@@ -13,7 +13,7 @@ import java.io.StringReader
 
 object TestUtilities {
     private var mockitoInitialized = false
-    @JvmStatic
+
     fun initializeMockito(context: Context) {
         if (!mockitoInitialized) {
             // for mockito: https://code.google.com/p/dexmaker/issues/detail?id=2
@@ -22,12 +22,10 @@ object TestUtilities {
         }
     }
 
-    @JvmStatic
     fun newPreferences(context: Context?): Preferences {
         return Preferences(context, "test_preferences")
     }
 
-    @JvmStatic
     fun vtodo(path: String): Task {
         val task = Task()
         CaldavConverter.apply(task, fromResource(path))

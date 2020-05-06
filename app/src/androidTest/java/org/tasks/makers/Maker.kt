@@ -5,7 +5,6 @@ import com.natpryce.makeiteasy.MakeItEasy
 import com.natpryce.makeiteasy.PropertyValue
 
 internal object Maker {
-    @JvmStatic
     fun <T> make(instantiator: Instantiator<T>, vararg properties: PropertyValue<in T, *>?): T {
         return MakeItEasy.make(MakeItEasy.a(instantiator, *properties))
     }

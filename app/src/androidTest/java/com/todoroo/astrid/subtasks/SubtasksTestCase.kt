@@ -44,7 +44,6 @@ abstract class SubtasksTestCase : InjectingTestCase() {
    * E
    * F
    */
-        @JvmField
         val DEFAULT_SERIALIZED_TREE = "[-1, [1, 2, [3, 4]], 5, 6]".replace("\\s".toRegex(), "")
     }
 }

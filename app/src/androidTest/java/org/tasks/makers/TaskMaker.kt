@@ -13,22 +13,22 @@ import org.tasks.makers.Maker.make
 import org.tasks.time.DateTime
 
 object TaskMaker {
-    @JvmField val ID: Property<Task, Long> = newProperty()
-    @JvmField val DUE_DATE: Property<Task, DateTime?> = newProperty()
-    @JvmField val DUE_TIME: Property<Task, DateTime?> = newProperty()
-    @JvmField val REMINDER_LAST: Property<Task, DateTime?> = newProperty()
-    @JvmField val RANDOM_REMINDER_PERIOD: Property<Task, Long> = newProperty()
-    @JvmField val HIDE_TYPE: Property<Task, Int> = newProperty()
-    @JvmField val REMINDERS: Property<Task, Int> = newProperty()
-    @JvmField val CREATION_TIME: Property<Task, DateTime> = newProperty()
-    @JvmField val COMPLETION_TIME: Property<Task, DateTime> = newProperty()
-    @JvmField val DELETION_TIME: Property<Task, DateTime?> = newProperty()
-    @JvmField val SNOOZE_TIME: Property<Task, DateTime?> = newProperty()
-    @JvmField val RRULE: Property<Task, RRule?> = newProperty()
-    @JvmField val AFTER_COMPLETE: Property<Task, Boolean> = newProperty()
+    val ID: Property<Task, Long> = newProperty()
+    val DUE_DATE: Property<Task, DateTime?> = newProperty()
+    val DUE_TIME: Property<Task, DateTime?> = newProperty()
+    val REMINDER_LAST: Property<Task, DateTime?> = newProperty()
+    val RANDOM_REMINDER_PERIOD: Property<Task, Long> = newProperty()
+    val HIDE_TYPE: Property<Task, Int> = newProperty()
+    val REMINDERS: Property<Task, Int> = newProperty()
+    val CREATION_TIME: Property<Task, DateTime> = newProperty()
+    val COMPLETION_TIME: Property<Task, DateTime> = newProperty()
+    val DELETION_TIME: Property<Task, DateTime?> = newProperty()
+    val SNOOZE_TIME: Property<Task, DateTime?> = newProperty()
+    val RRULE: Property<Task, RRule?> = newProperty()
+    val AFTER_COMPLETE: Property<Task, Boolean> = newProperty()
     private val TITLE: Property<Task, String?> = newProperty()
     private val PRIORITY: Property<Task, Int> = newProperty()
-    @JvmField val PARENT: Property<Task, Long> = newProperty()
+    val PARENT: Property<Task, Long> = newProperty()
 
     private val instantiator = Instantiator { lookup: PropertyLookup<Task> ->
         val task = Task()
@@ -90,7 +90,6 @@ object TaskMaker {
         task
     }
 
-    @JvmStatic
     fun newTask(vararg properties: PropertyValue<in Task?, *>): Task {
         return make(instantiator, *properties)
     }

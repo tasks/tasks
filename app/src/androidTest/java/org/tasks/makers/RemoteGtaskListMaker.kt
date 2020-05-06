@@ -11,8 +11,8 @@ import org.tasks.makers.Maker.make
 import org.tasks.time.DateTimeUtils
 
 object RemoteGtaskListMaker {
-    @JvmField val REMOTE_ID: Property<TaskList, String> = newProperty()
-    @JvmField val NAME: Property<TaskList, String> = newProperty()
+    val REMOTE_ID: Property<TaskList, String> = newProperty()
+    val NAME: Property<TaskList, String> = newProperty()
 
     private val instantiator = Instantiator { lookup: PropertyLookup<TaskList> ->
         TaskList()
@@ -21,7 +21,6 @@ object RemoteGtaskListMaker {
                 .setUpdated(DateTime(DateTimeUtils.currentTimeMillis()))
     }
 
-    @JvmStatic
     fun newRemoteList(vararg properties: PropertyValue<in TaskList?, *>): TaskList {
         return make(instantiator, *properties)
     }

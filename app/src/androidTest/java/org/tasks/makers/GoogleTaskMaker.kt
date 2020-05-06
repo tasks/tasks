@@ -9,11 +9,11 @@ import org.tasks.data.GoogleTask
 import org.tasks.makers.Maker.make
 
 object GoogleTaskMaker {
-    @JvmField val LIST: Property<GoogleTask, String> = newProperty()
+    val LIST: Property<GoogleTask, String> = newProperty()
     val ORDER: Property<GoogleTask, Int> = newProperty()
-    @JvmField val REMOTE_ID: Property<GoogleTask, String> = newProperty()
-    @JvmField val TASK: Property<GoogleTask, Int> = newProperty()
-    @JvmField val PARENT: Property<GoogleTask, Long> = newProperty()
+    val REMOTE_ID: Property<GoogleTask, String> = newProperty()
+    val TASK: Property<GoogleTask, Int> = newProperty()
+    val PARENT: Property<GoogleTask, Long> = newProperty()
 
     private val instantiator = Instantiator<GoogleTask> {
         val task = GoogleTask()
@@ -25,7 +25,6 @@ object GoogleTaskMaker {
         task
     }
 
-    @JvmStatic
     fun newGoogleTask(vararg properties: PropertyValue<in GoogleTask?, *>): GoogleTask {
         return make(instantiator, *properties)
     }

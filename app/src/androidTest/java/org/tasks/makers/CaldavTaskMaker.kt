@@ -8,10 +8,10 @@ import org.tasks.data.CaldavTask
 import org.tasks.makers.Maker.make
 
 object CaldavTaskMaker {
-    @JvmField val CALENDAR: Property<CaldavTask, String> = newProperty()
-    @JvmField val TASK: Property<CaldavTask, Long> = newProperty()
-    @JvmField val REMOTE_ID: Property<CaldavTask, String?> = newProperty()
-    @JvmField val REMOTE_PARENT: Property<CaldavTask, String?> = newProperty()
+    val CALENDAR: Property<CaldavTask, String> = newProperty()
+    val TASK: Property<CaldavTask, Long> = newProperty()
+    val REMOTE_ID: Property<CaldavTask, String?> = newProperty()
+    val REMOTE_PARENT: Property<CaldavTask, String?> = newProperty()
 
     private val instantiator = Instantiator<CaldavTask> {
         val task = CaldavTask(it.valueOf(TASK, 1L), it.valueOf(CALENDAR, "calendar"))
@@ -20,7 +20,6 @@ object CaldavTaskMaker {
         task
     }
 
-    @JvmStatic
     fun newCaldavTask(vararg properties: PropertyValue<in CaldavTask?, *>): CaldavTask {
         return make(instantiator, *properties)
     }

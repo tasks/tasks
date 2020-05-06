@@ -9,11 +9,11 @@ import org.tasks.data.GoogleTaskList
 import org.tasks.makers.Maker.make
 
 object GtaskListMaker {
-    @JvmField val ID: Property<GoogleTaskList, Long> = newProperty()
+    val ID: Property<GoogleTaskList, Long> = newProperty()
     val ACCOUNT: Property<GoogleTaskList, String> = newProperty()
-    @JvmField val REMOTE_ID: Property<GoogleTaskList, String> = newProperty()
+    val REMOTE_ID: Property<GoogleTaskList, String> = newProperty()
     val LAST_SYNC: Property<GoogleTaskList, Long> = newProperty()
-    @JvmField val NAME: Property<GoogleTaskList, String> = newProperty()
+    val NAME: Property<GoogleTaskList, String> = newProperty()
     private val ORDER: Property<GoogleTaskList, Int> = newProperty()
     private val COLOR: Property<GoogleTaskList, Int> = newProperty()
 
@@ -29,7 +29,6 @@ object GtaskListMaker {
         list
     }
 
-    @JvmStatic
     fun newGtaskList(vararg properties: PropertyValue<in GoogleTaskList?, *>): GoogleTaskList {
         return make(instantiator, *properties)
     }
