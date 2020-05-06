@@ -15,7 +15,7 @@
     <string name="DLG_hour_minutes">Čas (hodin : minut)</string>
     <string name="DLG_undo">Vrátit změny</string>
     <string name="WID_dateButtonUnset">Klikni pro nastavení</string>
-    <string name="TLA_no_items">Tady nejsou žádné úkoly.</string>
+    <string name="TLA_no_items">Zde nejsou žádné úkoly.</string>
     <string name="TLA_menu_sort">Třídit</string>
     <string name="TLA_menu_search">Hledat</string>
     <string name="TLA_menu_settings">Nastavení</string>
@@ -186,7 +186,7 @@
     <string name="sound">Zvuk</string>
     <string name="vibrations">Vibrace</string>
     <string name="quiet_hours">Nerušit od</string>
-    <string name="backup_directory">Adresář záloh</string>
+    <string name="backup_directory">Složka se zálohami</string>
     <string name="miscellaneous">Jiné</string>
     <string name="synchronization">Synchronizace</string>
     <string name="enabled">Povolit</string>
@@ -216,7 +216,7 @@
     <string name="show_hidden">Zobrazit skryté</string>
     <string name="show_completed">Zobrazit dokončené</string>
     <string name="reverse">Obrácené třídění</string>
-    <string name="no_application_found">K otevření přílohy nebyla nalezena aplikace</string>
+    <string name="no_application_found">Žádná aplikace k otevření přílohy</string>
     <string name="add_attachment">Přidat přílohu</string>
     <string name="privacy_policy">Zásady ochrany osobních údajů</string>
     <string name="send_anonymous_statistics">Vylepšit Úkoly</string>
@@ -463,7 +463,7 @@
     <string name="button_downgrade">Snížit odběr</string>
     <string name="button_upgrade">Zvýšit odběr</string>
     <string name="button_unsubscribe">Zrušit odběr</string>
-    <string name="no_application_found_link">Pro odkaz nebyla nalezena žádná aplikace</string>
+    <string name="no_application_found_link">Žádná aplikace k otevření odkazu</string>
     <string name="encryption_password_required">Zadejte heslo pro šifrování</string>
     <string name="encryption_password">Heslo pro šifrování</string>
     <string name="passwords_do_not_match">Hesla se neshodují</string>
@@ -486,7 +486,7 @@
     <string name="linkify">Zvýraznit odkazy</string>
     <string name="linkify_description">Na webové odkazy, adresy a telefonní čísla bude možné kliknout</string>
     <string name="subtasks">Podúkoly</string>
-    <string name="display_name">Zobrazované jméno</string>
+    <string name="display_name">Název</string>
     <string name="date_shortcut_hour">Za hodinu</string>
     <string name="list_settings">Nastavení seznamu</string>
     <string name="repeats_plural_on_number_of_times">Opakuje se každý %1$s v %2$s, ještě %3$d %4$s</string>
@@ -533,4 +533,8 @@
     <string name="disable_battery_optimizations">Vypnout optimalizace baterie</string>
     <string name="more_settings">Daší nastavení</string>
     <string name="more_notification_settings_summary">Zvuk upozornění, vibrace, atd.</string>
+    <string name="menu_discard_changes">Zahodit změny</string>
+    <string name="widget_show_menu">Zobrazit menu</string>
+    <string name="widget_hide_background">Nezobrazovat pozadí</string>
+    <string name="sort_created">Podle času vytvoření</string>
 </resources>
