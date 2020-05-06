@@ -21,7 +21,13 @@ import org.tasks.makers.GeofenceMaker.newGeofence
 import org.tasks.makers.PlaceMaker.LATITUDE
 import org.tasks.makers.PlaceMaker.LONGITUDE
 import org.tasks.makers.PlaceMaker.newPlace
-import org.tasks.makers.TaskMaker.*
+import org.tasks.makers.TaskMaker.COMPLETION_TIME
+import org.tasks.makers.TaskMaker.DELETION_TIME
+import org.tasks.makers.TaskMaker.DUE_TIME
+import org.tasks.makers.TaskMaker.HIDE_TYPE
+import org.tasks.makers.TaskMaker.ID
+import org.tasks.makers.TaskMaker.SNOOZE_TIME
+import org.tasks.makers.TaskMaker.newTask
 import javax.inject.Inject
 
 @RunWith(AndroidJUnit4::class)

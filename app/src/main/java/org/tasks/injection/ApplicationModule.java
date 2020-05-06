@@ -28,7 +28,7 @@ import org.tasks.location.MapboxGeocoder;
 import org.tasks.notifications.NotificationDao;
 
 @Module
-class ApplicationModule {
+public class ApplicationModule {
 
   private final Context context;
 

@@ -1,0 +1,32 @@
+package org.tasks.makers
+
+import com.natpryce.makeiteasy.Instantiator
+import com.natpryce.makeiteasy.Property
+import com.natpryce.makeiteasy.Property.newProperty
+import com.natpryce.makeiteasy.PropertyValue
+import com.todoroo.astrid.helper.UUIDHelper
+import org.tasks.data.GoogleTask
+import org.tasks.makers.Maker.make
+
+object GoogleTaskMaker {
+    @JvmField val LIST: Property<GoogleTask, String> = newProperty()
+    val ORDER: Property<GoogleTask, Int> = newProperty()
+    @JvmField val REMOTE_ID: Property<GoogleTask, String> = newProperty()
+    @JvmField val TASK: Property<GoogleTask, Int> = newProperty()
+    @JvmField val PARENT: Property<GoogleTask, Long> = newProperty()
+
+    private val instantiator = Instantiator<GoogleTask> {
+        val task = GoogleTask()
+        task.listId = it.valueOf(LIST, "1")
+        task.order = it.valueOf(ORDER, 0).toLong()
+        task.remoteId = it.valueOf(REMOTE_ID, UUIDHelper.newUUID())
+        task.task = it.valueOf(TASK, 1).toLong()
+        task.parent = it.valueOf(PARENT, 0L)
+        task
+    }
+
+    @JvmStatic
+    fun newGoogleTask(vararg properties: PropertyValue<in GoogleTask?, *>): GoogleTask {
+        return make(instantiator, *properties)
+    }
+}

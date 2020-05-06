@@ -2,7 +2,7 @@ package org.tasks.jobs;
 
 import org.tasks.notifications.Notification;
 
-interface NotificationQueueEntry {
+public interface NotificationQueueEntry {
 
   long getId();
 
