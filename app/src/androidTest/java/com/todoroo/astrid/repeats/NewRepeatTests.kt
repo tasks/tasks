@@ -5,10 +5,16 @@ import com.google.ical.values.Frequency
 import com.google.ical.values.RRule
 import com.google.ical.values.Weekday
 import com.google.ical.values.WeekdayNum
+import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.astrid.data.Task
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.tasks.makers.TaskMaker.AFTER_COMPLETE
+import org.tasks.makers.TaskMaker.COMPLETION_TIME
+import org.tasks.makers.TaskMaker.DUE_TIME
+import org.tasks.makers.TaskMaker.RRULE
+import org.tasks.makers.TaskMaker.newTask
 import org.tasks.time.DateTime
 import java.text.ParseException
 
@@ -222,57 +228,45 @@ class NewRepeatTests {
     }
 
     private fun newFromDue(frequency: Frequency, interval: Int, dueDateTime: DateTime): Task {
-        return object : Task() {
-            init {
-                recurrence = getRecurrenceRule(frequency, interval, false)
-                dueDate = dueDateTime.millis
-            }
-        }
+        return newTask(
+                with(RRULE, getRecurrenceRule(frequency, interval)),
+                with(AFTER_COMPLETE, false),
+                with(DUE_TIME, dueDateTime))
     }
 
     private fun newWeeklyFromDue(interval: Int, dueDateTime: DateTime, vararg weekdays: WeekdayNum): Task {
-        return object : Task() {
-            init {
-                recurrence = getRecurrenceRule(Frequency.WEEKLY, interval, false, *weekdays)
-                dueDate = dueDateTime.millis
-            }
-        }
+        return newTask(
+                with(RRULE, getRecurrenceRule(Frequency.WEEKLY, interval, *weekdays)),
+                with(AFTER_COMPLETE, false),
+                with(DUE_TIME, dueDateTime))
     }
 
     private fun newFromCompleted(
             frequency: Frequency, interval: Int, dueDateTime: DateTime, completionDate: DateTime): Task {
-        return object : Task() {
-            init {
-                recurrence = getRecurrenceRule(frequency, interval, true)
-                dueDate = dueDateTime.millis
-                this.completionDate = completionDate.millis
-            }
-        }
+        return newTask(
+                with(RRULE, getRecurrenceRule(frequency, interval)),
+                with(AFTER_COMPLETE, true),
+                with(DUE_TIME, dueDateTime),
+                with(COMPLETION_TIME, completionDate))
     }
 
     private fun newWeeklyFromCompleted(
             interval: Int, dueDateTime: DateTime, completionDate: DateTime, vararg weekdays: WeekdayNum): Task {
-        return object : Task() {
-            init {
-                recurrence = getRecurrenceRule(Frequency.WEEKLY, interval, true, *weekdays)
-                dueDate = dueDateTime.millis
-                this.completionDate = completionDate.millis
-            }
-        }
+        return newTask(
+                with(RRULE, getRecurrenceRule(Frequency.WEEKLY, interval, *weekdays)),
+                with(AFTER_COMPLETE, true),
+                with(DUE_TIME, dueDateTime),
+                with(COMPLETION_TIME, completionDate))
     }
 
     private fun getRecurrenceRule(
-            frequency: Frequency, interval: Int, fromCompletion: Boolean, vararg weekdays: WeekdayNum): String {
+            frequency: Frequency, interval: Int, vararg weekdays: WeekdayNum): RRule {
         val rrule = RRule()
         rrule.freq = frequency
         rrule.interval = interval
         if (weekdays.isNotEmpty()) {
             rrule.byDay = listOf(*weekdays)
         }
-        var result = rrule.toIcal()
-        if (fromCompletion) {
-            result += ";FROM=COMPLETION"
-        }
-        return result
+        return rrule
     }
 }

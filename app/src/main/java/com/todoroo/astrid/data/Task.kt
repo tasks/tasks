@@ -24,7 +24,7 @@ import java.util.*
         indices = [
             Index(name = "t_rid", value = ["remoteId"], unique = true),
             Index(name = "active_and_visible", value = ["completed", "deleted", "hideUntil"])])
-open class Task : Parcelable {
+class Task : Parcelable {
     /** ID  */
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
