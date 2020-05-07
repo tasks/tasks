@@ -8,7 +8,7 @@ class MergedGeofence {
     var departure = false
     var radius = 0
 
-    val uid: String
+    val uid: String?
         get() = place.uid
 
     val latitude: Double

@@ -50,7 +50,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
         if (savedInstanceState == null) {
             name.setText(place.displayName)
             selectedColor = place.color
-            selectedIcon = place.icon
+            selectedIcon = place.getIcon()!!
         }
 
         map.init(supportFragmentManager, this, theme.themeBase.isDarkTheme(this))
@@ -62,7 +62,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
 
     override fun hasChanges() = name.text.toString() != place.displayName
                     || selectedColor != place.color
-                    || selectedIcon != place.icon
+                    || selectedIcon != place.getIcon()!!
 
     @OnTextChanged(R.id.name)
     fun onNameChanged() {
@@ -79,7 +79,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
 
         place.name = newName
         place.color = selectedColor
-        place.icon = selectedIcon
+        place.setIcon(selectedIcon)
         locationDao.update(place)
         setResult(
                 Activity.RESULT_OK,
@@ -90,12 +90,12 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
 
     override fun isNew() = false
 
-    override fun getToolbarTitle(): String {
+    override fun getToolbarTitle(): String? {
         return place.address ?: place.displayName
     }
 
     override fun delete() {
-        locationDao.deleteGeofencesByPlace(place.uid)
+        locationDao.deleteGeofencesByPlace(place.uid!!)
         locationDao.delete(place)
         setResult(Activity.RESULT_OK, Intent(TaskListFragment.ACTION_DELETED))
         finish()

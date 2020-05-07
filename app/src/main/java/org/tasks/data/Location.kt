@@ -37,10 +37,10 @@ class Location : Serializable, Parcelable {
     val radius: Int
         get() = geofence.radius
 
-    val phone: String
+    val phone: String?
         get() = place.phone
 
-    val url: String
+    val url: String?
         get() = place.url
 
     val isArrival: Boolean
@@ -49,10 +49,10 @@ class Location : Serializable, Parcelable {
     val isDeparture: Boolean
         get() = geofence.isDeparture
 
-    val displayName: String
+    val displayName: String?
         get() = place.displayName
 
-    val displayAddress: String
+    val displayAddress: String?
         get() = place.displayAddress
 
     fun open(context: Context?) {
