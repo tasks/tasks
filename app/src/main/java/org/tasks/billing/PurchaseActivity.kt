@@ -51,7 +51,7 @@ class PurchaseActivity : ThemedInjectingAppCompatActivity(), OnPurchasesUpdated,
         setContentView(binding.root)
         ButterKnife.bind(this)
 
-        adapter = PurchaseAdapter(this, theme, locale, ::onPriceChanged)
+        adapter = PurchaseAdapter(this, tasksTheme, locale, ::onPriceChanged)
 
         if (savedInstanceState != null) {
             binding.buttons.check(

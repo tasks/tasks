@@ -53,7 +53,6 @@ public abstract class BaseListSettingsActivity extends ThemedInjectingAppCompatA
   @BindView(R.id.toolbar)
   Toolbar toolbar;
 
-  @Inject ThemeColor themeColor;
   @Inject DialogBuilder dialogBuilder;
   @Inject ColorProvider colorProvider;
 
