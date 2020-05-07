@@ -47,7 +47,7 @@ class TaskAttachment {
     }
 
     fun convertPathUri() {
-        setUri(Uri.fromFile(File(uri)).toString())
+        setUri(Uri.fromFile(File(uri!!)).toString())
     }
 
     fun parseUri(): Uri? {

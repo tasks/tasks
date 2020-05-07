@@ -348,7 +348,7 @@
   <string name="subscription_help_url">https://tasks.org/subscribe</string>
   <string name="p_disable_subtasks">disable_subtasks</string>
   <string name="p_wearable_notifications">wearable_notifications</string>
-  <string name="p_notified_oauth_error">notified_oauth_error_%s_%s</string>
+  <string name="p_notified_oauth_error">notified_oauth_error_%1$s_%2$s</string>
   <string name="p_chip_style">chip_style</string>
   <string name="p_chip_appearance">chip_appearance</string>
   <string name="p_desaturate_colors">desaturate_colors</string>

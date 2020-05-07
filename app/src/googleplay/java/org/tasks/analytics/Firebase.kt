@@ -69,7 +69,7 @@ class Firebase @Inject constructor(@ForApplication val context: Context, prefere
 
     init {
         if (enabled) {
-            analytics = FirebaseAnalytics.getInstance(context!!)
+            analytics = FirebaseAnalytics.getInstance(context)
             analytics?.setAnalyticsCollectionEnabled(true)
             Fabric.with(context, Crashlytics())
             remoteConfig = FirebaseRemoteConfig.getInstance()
