@@ -59,11 +59,11 @@ class GtasksMetadataServiceTest : InjectingTestCase() {
         val task = Task()
         task.title = "cats"
         taskDao.createNew(task)
-        val metadata = GoogleTask(task.id!!, "")
+        val metadata = GoogleTask(task.id, "")
         if (id != null) {
             metadata.remoteId = id
         }
-        metadata.task = task.id!!
+        metadata.task = task.id
         googleTaskDao.insert(metadata)
         return task
     }

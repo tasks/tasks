@@ -18,6 +18,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.repeats.RepeatTaskHelper;
 import com.todoroo.astrid.timers.TimerPlugin;
+import java.util.Objects;
 import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
@@ -89,9 +90,9 @@ public class AfterSaveWork extends InjectingWorker {
     reminderService.scheduleAlarm(task);
 
     boolean completionDateModified =
-        !task.getCompletionDate().equals(data.getLong(EXTRA_ORIG_COMPLETED, 0));
+        !Objects.equals(task.getCompletionDate(), data.getLong(EXTRA_ORIG_COMPLETED, 0));
     boolean deletionDateModified =
-        !task.getDeletionDate().equals(data.getLong(EXTRA_ORIG_DELETED, 0));
+        !Objects.equals(task.getDeletionDate(), data.getLong(EXTRA_ORIG_DELETED, 0));
 
     boolean justCompleted = completionDateModified && task.isCompleted();
     boolean justDeleted = deletionDateModified && task.isDeleted();

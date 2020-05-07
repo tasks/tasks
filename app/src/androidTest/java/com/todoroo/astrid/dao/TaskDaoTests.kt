@@ -35,7 +35,7 @@ class TaskDaoTests : InjectingTestCase() {
         task.title = "happy"
         taskDao.createNew(task)
         assertEquals(1, taskDao.getAll().size)
-        val happyId = task.id!!
+        val happyId = task.id
         assertNotSame(Task.NO_ID, happyId)
         task = taskDao.fetch(happyId)!!
         assertEquals("happy", task.title)
@@ -47,7 +47,7 @@ class TaskDaoTests : InjectingTestCase() {
         assertEquals(2, taskDao.getAll().size)
 
         // rename sad to melancholy
-        val sadId = task.id!!
+        val sadId = task.id
         assertNotSame(Task.NO_ID, sadId)
         task.title = "melancholy"
         taskDao.save(task)

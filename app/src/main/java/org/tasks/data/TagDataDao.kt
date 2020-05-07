@@ -89,14 +89,14 @@ abstract class TagDataDao {
         val modified = HashSet<Long>()
         val keep = partiallySelected.plus(selected).map { it.remoteId!! }
         for (sublist in tasks.chunked(DbUtils.MAX_SQLITE_ARGS - keep.size)) {
-            val tags = tagsToDelete(sublist.map { it.id!! }, keep)
+            val tags = tagsToDelete(sublist.map(Task::id), keep)
             deleteTags(tags)
             modified.addAll(tags.map(Tag::task))
         }
         for (task in tasks) {
-            val added = selected subtract getTagDataForTask(task.id!!)
+            val added = selected subtract getTagDataForTask(task.id)
             if (added.isNotEmpty()) {
-                modified.add(task.id!!)
+                modified.add(task.id)
                 insert(added.map { Tag(task, it) })
             }
         }

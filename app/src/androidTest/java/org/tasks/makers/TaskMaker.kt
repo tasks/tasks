@@ -34,7 +34,7 @@ object TaskMaker {
         val task = Task()
         val title = lookup.valueOf(TITLE, null as String?)
         if (!Strings.isNullOrEmpty(title)) {
-            task.title = title
+            task.title = title!!
         }
         val id = lookup.valueOf(ID, Task.NO_ID)
         if (id != Task.NO_ID) {

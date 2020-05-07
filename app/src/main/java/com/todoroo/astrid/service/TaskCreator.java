@@ -88,7 +88,7 @@ public class TaskCreator {
         && gcalCreateEventEnabled
         && isNullOrEmpty(task.getCalendarURI())) {
       Uri calendarUri = gcalHelper.createTaskEvent(task, new ContentValues());
-      task.setCalendarUri(calendarUri.toString());
+      task.setCalendarURI(calendarUri.toString());
     }
 
     createTags(task);

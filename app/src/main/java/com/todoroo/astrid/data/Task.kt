@@ -29,76 +29,76 @@ class Task : Parcelable {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
     @Transient
-    var id: Long? = NO_ID
+    var id = NO_ID
 
     /** Name of Task  */
     @ColumnInfo(name = "title")
-    var title: String? = ""
+    var title: String? = null
 
     @ColumnInfo(name = "importance")
-    var priority: Int? = Priority.NONE
+    var priority = Priority.NONE
 
     /** Unixtime Task is due, 0 if not set  */
     @ColumnInfo(name = "dueDate")
-    var dueDate: Long? = 0L
+    var dueDate = 0L
 
     /** Unixtime Task should be hidden until, 0 if not set  */
     @ColumnInfo(name = "hideUntil")
-    var hideUntil: Long? = 0L
+    var hideUntil = 0L
 
     /** Unixtime Task was created  */
     @ColumnInfo(name = "created")
-    var creationDate: Long? = 0L
+    var creationDate = 0L
 
     /** Unixtime Task was last touched  */
     @ColumnInfo(name = "modified")
-    var modificationDate: Long? = 0L
+    var modificationDate = 0L
 
     /** Unixtime Task was completed. 0 means active  */
     @ColumnInfo(name = "completed")
-    var completionDate: Long? = 0L
+    var completionDate = 0L
 
     /** Unixtime Task was deleted. 0 means not deleted  */
     @ColumnInfo(name = "deleted")
-    var deletionDate: Long? = 0L
+    var deletionDate = 0L
 
     // --- data access boilerplate
     @ColumnInfo(name = "notes")
-    var notes: String? = ""
+    var notes: String? = null
 
     @ColumnInfo(name = "estimatedSeconds")
-    var estimatedSeconds: Int? = 0
+    var estimatedSeconds = 0
 
     @ColumnInfo(name = "elapsedSeconds")
-    var elapsedSeconds: Int? = 0
+    var elapsedSeconds = 0
 
     @ColumnInfo(name = "timerStart")
-    var timerStart: Long? = 0L
+    var timerStart = 0L
 
     /** Flags for when to send reminders  */
     @ColumnInfo(name = "notificationFlags")
-    var reminderFlags: Int? = 0
+    var reminderFlags = 0
 
     /** Reminder period, in milliseconds. 0 means disabled  */
     @ColumnInfo(name = "notifications")
-    var reminderPeriod: Long? = 0L
-    // --- parcelable helpers
+    var reminderPeriod = 0L
+
     /** Unixtime the last reminder was triggered  */
     @ColumnInfo(name = "lastNotified")
-    var reminderLast: Long? = 0L
-    // --- data access methods
+    var reminderLast = 0L
+
     /** Unixtime snooze is set (0 -> no snooze)  */
     @ColumnInfo(name = "snoozeTime")
-    var reminderSnooze: Long? = 0L
+    var reminderSnooze = 0L
 
     @ColumnInfo(name = "recurrence")
-    var recurrence: String? = ""
+    var recurrence: String? = null
 
     @ColumnInfo(name = "repeatUntil")
-    var repeatUntil: Long? = 0L
+    var repeatUntil = 0L
 
     @ColumnInfo(name = "calendarUri")
-    var calendarURI: String? = ""
+    var calendarURI: String? = null
 
     /** Remote id  */
     @ColumnInfo(name = "remoteId")
@@ -109,7 +109,7 @@ class Task : Parcelable {
 
     @ColumnInfo(name = "parent")
     @Transient
-    var parent: Long = 0
+    var parent = 0L
 
     @ColumnInfo(name = "parent_uuid")
     var parentUuid: String? = null
@@ -166,35 +166,35 @@ class Task : Parcelable {
         repeatUntil = parcel.readLong()
         timerStart = parcel.readLong()
         title = parcel.readString()
-        remoteId = parcel.readString()
+        remoteId = parcel.readString() ?: NO_UUID
         transitoryData = parcel.readHashMap(ContentValues::class.java.classLoader) as HashMap<String, Any>?
         isCollapsed = ParcelCompat.readBoolean(parcel)
         parent = parcel.readLong()
         parentUuid = parcel.readString()
     }
 
-    var uuid: String?
-        get() = if (Strings.isNullOrEmpty(remoteId)) NO_UUID else remoteId
+    var uuid: String
+        get() = if (Strings.isNullOrEmpty(remoteId)) NO_UUID else remoteId!!
         set(uuid) {
             remoteId = uuid
         }
 
     /** Checks whether task is done. Requires COMPLETION_DATE  */
     val isCompleted
-        get() = completionDate!! > 0
+        get() = completionDate > 0
 
     /** Checks whether task is deleted. Will return false if DELETION_DATE not read  */
     val isDeleted
-        get() = deletionDate!! > 0
+        get() = deletionDate > 0
 
     /** Checks whether task is hidden. Requires HIDDEN_UNTIL  */
     val isHidden
-        get() = hideUntil!! > DateUtilities.now()
+        get() = hideUntil > DateUtilities.now()
 
-    fun hasHideUntilDate() = hideUntil!! > 0
+    fun hasHideUntilDate() = hideUntil > 0
 
     /** Checks whether task is done. Requires DUE_DATE  */
-    fun hasDueDate() = dueDate!! > 0
+    fun hasDueDate() = dueDate > 0
 
     /**
      * Create hide until for this task.
@@ -205,9 +205,9 @@ class Task : Parcelable {
     fun createHideUntil(setting: Int, customDate: Long): Long {
         val date: Long = when (setting) {
             HIDE_UNTIL_NONE -> return 0
-            HIDE_UNTIL_DUE, HIDE_UNTIL_DUE_TIME -> dueDate!!
-            HIDE_UNTIL_DAY_BEFORE -> dueDate!! - DateUtilities.ONE_DAY
-            HIDE_UNTIL_WEEK_BEFORE -> dueDate!! - DateUtilities.ONE_WEEK
+            HIDE_UNTIL_DUE, HIDE_UNTIL_DUE_TIME -> dueDate
+            HIDE_UNTIL_DAY_BEFORE -> dueDate - DateUtilities.ONE_DAY
+            HIDE_UNTIL_WEEK_BEFORE -> dueDate - DateUtilities.ONE_WEEK
             HIDE_UNTIL_SPECIFIC_DAY, HIDE_UNTIL_SPECIFIC_DAY_TIME -> customDate
             else -> throw IllegalArgumentException("Unknown setting $setting")
         }
@@ -224,25 +224,25 @@ class Task : Parcelable {
     }
 
     /** Checks whether this due date has a due time or only a date  */
-    fun hasDueTime(): Boolean = hasDueDate() && hasDueTime(dueDate!!)
+    fun hasDueTime(): Boolean = hasDueDate() && hasDueTime(dueDate)
 
     val isOverdue: Boolean
         get() {
             val dueDate = dueDate
             val compareTo = if (hasDueTime()) DateUtilities.now() else DateTimeUtils.newDateTime().startOfDay().millis
-            return dueDate!! < compareTo && !isCompleted
+            return dueDate < compareTo && !isCompleted
         }
 
-    fun repeatAfterCompletion(): Boolean = recurrence!!.contains("FROM=COMPLETION")
+    fun repeatAfterCompletion(): Boolean = recurrence?.contains("FROM=COMPLETION") ?: false
 
-    fun sanitizedRecurrence(): String = getRecurrenceWithoutFrom().replace("BYDAY=;".toRegex(), "") // $NON-NLS-1$//$NON-NLS-2$
+    fun sanitizedRecurrence(): String? = getRecurrenceWithoutFrom()?.replace("BYDAY=;".toRegex(), "") // $NON-NLS-1$//$NON-NLS-2$
 
-    fun getRecurrenceWithoutFrom(): String = recurrence!!.replace(";?FROM=[^;]*".toRegex(), "")
+    fun getRecurrenceWithoutFrom(): String? = recurrence?.replace(";?FROM=[^;]*".toRegex(), "")
 
     fun setDueDateAdjustingHideUntil(newDueDate: Long) {
-        if (dueDate!! > 0) {
-            if (hideUntil!! > 0) {
-                hideUntil = if (newDueDate > 0) hideUntil!! + newDueDate - dueDate!! else 0
+        if (dueDate > 0) {
+            if (hideUntil > 0) {
+                hideUntil = if (newDueDate > 0) hideUntil + newDueDate - dueDate else 0
             }
         }
         dueDate = newDueDate
@@ -259,10 +259,6 @@ class Task : Parcelable {
         return !Strings.isNullOrEmpty(notes)
     }
 
-    fun setCalendarUri(calendarUri: String?) {
-        calendarURI = calendarUri
-    }
-
     val isNotifyModeNonstop: Boolean
         get() = isReminderFlagSet(NOTIFY_MODE_NONSTOP)
 
@@ -276,7 +272,7 @@ class Task : Parcelable {
         get() = isReminderFlagSet(NOTIFY_AT_DEADLINE)
 
     private fun isReminderFlagSet(flag: Int): Boolean {
-        return reminderFlags!! and flag > 0
+        return reminderFlags and flag > 0
     }
 
     val isNew: Boolean
@@ -288,24 +284,24 @@ class Task : Parcelable {
     /** {@inheritDoc}  */
     override fun writeToParcel(dest: Parcel, flags: Int) {
         dest.writeString(calendarURI)
-        dest.writeLong(completionDate!!)
-        dest.writeLong(creationDate!!)
-        dest.writeLong(deletionDate!!)
-        dest.writeLong(dueDate!!)
-        dest.writeInt(elapsedSeconds!!)
-        dest.writeInt(estimatedSeconds!!)
-        dest.writeLong(hideUntil!!)
-        dest.writeLong(id!!)
-        dest.writeInt(priority!!)
-        dest.writeLong(modificationDate!!)
+        dest.writeLong(completionDate)
+        dest.writeLong(creationDate)
+        dest.writeLong(deletionDate)
+        dest.writeLong(dueDate)
+        dest.writeInt(elapsedSeconds)
+        dest.writeInt(estimatedSeconds)
+        dest.writeLong(hideUntil)
+        dest.writeLong(id)
+        dest.writeInt(priority)
+        dest.writeLong(modificationDate)
         dest.writeString(notes)
         dest.writeString(recurrence)
-        dest.writeInt(reminderFlags!!)
-        dest.writeLong(reminderLast!!)
-        dest.writeLong(reminderPeriod!!)
-        dest.writeLong(reminderSnooze!!)
-        dest.writeLong(repeatUntil!!)
-        dest.writeLong(timerStart!!)
+        dest.writeInt(reminderFlags)
+        dest.writeLong(reminderLast)
+        dest.writeLong(reminderPeriod)
+        dest.writeLong(reminderSnooze)
+        dest.writeLong(repeatUntil)
+        dest.writeLong(timerStart)
         dest.writeString(title)
         dest.writeString(remoteId)
         dest.writeMap(transitoryData as Map<*, *>?)
@@ -419,16 +415,13 @@ class Task : Parcelable {
         return trans != null
     }
 
-    override fun toString(): String {
-        return "Task(id=$id, title=$title, dueDate=$dueDate, hideUntil=$hideUntil, creationDate=$creationDate, modificationDate=$modificationDate, completionDate=$completionDate, deletionDate=$deletionDate, notes=$notes, estimatedSeconds=$estimatedSeconds, elapsedSeconds=$elapsedSeconds, timerStart=$timerStart, reminderFlags=$reminderFlags, reminderPeriod=$reminderPeriod, reminderLast=$reminderLast, reminderSnooze=$reminderSnooze, recurrence=$recurrence, repeatUntil=$repeatUntil, calendarURI=$calendarURI, remoteId=$remoteId, isCollapsed=$isCollapsed, parent=$parent, parentUuid=$parentUuid, transitoryData=$transitoryData)"
-    }
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Task) return false
 
         if (id != other.id) return false
         if (title != other.title) return false
+        if (priority != other.priority) return false
         if (dueDate != other.dueDate) return false
         if (hideUntil != other.hideUntil) return false
         if (creationDate != other.creationDate) return false
@@ -456,8 +449,9 @@ class Task : Parcelable {
     }
 
     override fun hashCode(): Int {
-        var result = id?.hashCode() ?: 0
+        var result = id.hashCode()
         result = 31 * result + (title?.hashCode() ?: 0)
+        result = 31 * result + priority
         result = 31 * result + dueDate.hashCode()
         result = 31 * result + hideUntil.hashCode()
         result = 31 * result + creationDate.hashCode()
@@ -465,22 +459,26 @@ class Task : Parcelable {
         result = 31 * result + completionDate.hashCode()
         result = 31 * result + deletionDate.hashCode()
         result = 31 * result + (notes?.hashCode() ?: 0)
-        result = 31 * result + estimatedSeconds!!
-        result = 31 * result + elapsedSeconds!!
+        result = 31 * result + estimatedSeconds
+        result = 31 * result + elapsedSeconds
         result = 31 * result + timerStart.hashCode()
-        result = 31 * result + reminderFlags!!
+        result = 31 * result + reminderFlags
         result = 31 * result + reminderPeriod.hashCode()
         result = 31 * result + reminderLast.hashCode()
         result = 31 * result + reminderSnooze.hashCode()
         result = 31 * result + (recurrence?.hashCode() ?: 0)
         result = 31 * result + repeatUntil.hashCode()
         result = 31 * result + (calendarURI?.hashCode() ?: 0)
-        result = 31 * result + (remoteId?.hashCode() ?: 0)
+        result = 31 * result + remoteId.hashCode()
         result = 31 * result + isCollapsed.hashCode()
         result = 31 * result + parent.hashCode()
         result = 31 * result + (parentUuid?.hashCode() ?: 0)
         result = 31 * result + (transitoryData?.hashCode() ?: 0)
         return result
+    }
+
+    override fun toString(): String {
+        return "Task(id=$id, title=$title, priority=$priority, dueDate=$dueDate, hideUntil=$hideUntil, creationDate=$creationDate, modificationDate=$modificationDate, completionDate=$completionDate, deletionDate=$deletionDate, notes=$notes, estimatedSeconds=$estimatedSeconds, elapsedSeconds=$elapsedSeconds, timerStart=$timerStart, reminderFlags=$reminderFlags, reminderPeriod=$reminderPeriod, reminderLast=$reminderLast, reminderSnooze=$reminderSnooze, recurrence=$recurrence, repeatUntil=$repeatUntil, calendarURI=$calendarURI, remoteId='$remoteId', isCollapsed=$isCollapsed, parent=$parent, parentUuid=$parentUuid, transitoryData=$transitoryData)"
     }
 
     @Retention(AnnotationRetention.SOURCE)

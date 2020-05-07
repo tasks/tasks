@@ -75,7 +75,7 @@ public class TaskDuplicator {
     clone.setCreationDate(now());
     clone.setModificationDate(now());
     clone.setCompletionDate(0L);
-    clone.setCalendarUri("");
+    clone.setCalendarURI("");
     clone.setUuid(null);
     clone.suppressSync();
     clone.suppressRefresh();

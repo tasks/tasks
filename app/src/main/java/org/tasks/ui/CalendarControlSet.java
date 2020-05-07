@@ -147,7 +147,7 @@ public class CalendarControlSet extends TaskEditControlFragment {
       if (eventUri == null) {
         calendarEventProvider.deleteEvent(task);
       } else if (!calendarEntryExists(task.getCalendarURI())) {
-        task.setCalendarUri("");
+        task.setCalendarURI("");
       }
     }
 
@@ -175,7 +175,7 @@ public class CalendarControlSet extends TaskEditControlFragment {
         values.put(CalendarContract.Events.CALENDAR_ID, calendarId);
         Uri uri = gcalHelper.createTaskEvent(task, values);
         if (uri != null) {
-          task.setCalendarUri(uri.toString());
+          task.setCalendarURI(uri.toString());
         }
       } catch (Exception e) {
         Timber.e(e);

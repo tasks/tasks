@@ -16,6 +16,7 @@ import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.PermaSql
 import com.todoroo.astrid.data.Task
+import com.todoroo.astrid.data.Task.Companion.NO_ID
 import com.todoroo.astrid.helper.UUIDHelper
 import org.tasks.BuildConfig
 import org.tasks.data.Place
@@ -225,7 +226,7 @@ abstract class TaskDao(private val database: Database) {
      * success.
      */
     @JvmOverloads
-    fun save(task: Task, original: Task? = fetch(task.id!!)) {
+    fun save(task: Task, original: Task? = fetch(task.id)) {
         if (!task.insignificantChange(original)) {
             task.modificationDate = DateUtilities.now()
         }
@@ -241,11 +242,11 @@ abstract class TaskDao(private val database: Database) {
     abstract fun update(task: Task): Int
 
     fun createNew(task: Task) {
-        task.id = null
+        task.id = NO_ID
         if (task.creationDate == 0L) {
             task.creationDate = DateUtilities.now()
         }
-        if (Task.isUuidEmpty(task.remoteId!!)) {
+        if (Task.isUuidEmpty(task.remoteId)) {
             task.remoteId = UUIDHelper.newUUID()
         }
         val insert = insert(task)

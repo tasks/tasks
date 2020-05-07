@@ -66,7 +66,7 @@ public class CalendarEventProvider {
 
   public void deleteEvent(Task task) {
     String uri = task.getCalendarURI();
-    task.setCalendarUri("");
+    task.setCalendarURI("");
     deleteEvent(uri);
   }
 

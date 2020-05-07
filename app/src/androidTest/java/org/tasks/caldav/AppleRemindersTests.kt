@@ -39,7 +39,7 @@ class AppleRemindersTests {
     fun readCreationDate() {
         assertEquals(
                 DateTime(2018, 4, 16, 17, 24, 10).millis,
-                vtodo("apple/basic_no_due_date.txt").creationDate as Long)
+                vtodo("apple/basic_no_due_date.txt").creationDate)
     }
 
     @Test
@@ -53,7 +53,7 @@ class AppleRemindersTests {
     fun completed() {
         assertEquals(
                 DateTime(2018, 4, 17, 13, 43, 2).millis,
-                vtodo("apple/basic_completed.txt").completionDate as Long)
+                vtodo("apple/basic_completed.txt").completionDate)
     }
 
     @Test

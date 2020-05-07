@@ -36,8 +36,8 @@ class CaldavDaoTests : InjectingTestCase() {
             tagDataDao.createNew(two)
             tagDao.insert(newTag(with(TASK, task), with(TAGDATA, one)))
             tagDao.insert(newTag(with(TASK, task), with(TAGDATA, two)))
-            caldavDao.insert(CaldavTask(task.id!!, "calendar"))
-            assertEquals(listOf(task.id!!), caldavDao.getTasksWithTags())
+            caldavDao.insert(CaldavTask(task.id, "calendar"))
+            assertEquals(listOf(task.id), caldavDao.getTasksWithTags())
         }
 
     @Test
@@ -55,7 +55,7 @@ class CaldavDaoTests : InjectingTestCase() {
         val task = newTask(with(ID, 1L))
         taskDao.createNew(task)
         tagDataDao.createNew(newTagData())
-        caldavDao.insert(CaldavTask(task.id!!, "calendar"))
+        caldavDao.insert(CaldavTask(task.id, "calendar"))
         assertTrue(caldavDao.getTasksWithTags().isEmpty())
     }
 

@@ -14,14 +14,14 @@ import javax.inject.Inject
 
 class CheckBoxProvider @Inject constructor(@param:ForActivity private val context: Context, private val colorProvider: ColorProvider) {
 
-    fun getCheckBox(task: Task) = getCheckBox(task.isCompleted, task.isRecurring, task.priority!!)
+    fun getCheckBox(task: Task) = getCheckBox(task.isCompleted, task.isRecurring, task.priority)
 
     fun getCheckBox(complete: Boolean, repeating: Boolean, priority: Int) =
             getDrawable(getDrawableRes(complete, repeating), priority)
 
     fun getWidgetCheckBox(task: Task): Bitmap {
         val wrapped = DrawableUtil.getWrapped(context, getDrawableRes(task.isCompleted, task.isRecurring))
-        DrawableUtil.setTint(wrapped, colorProvider.getPriorityColor(task.priority!!, false))
+        DrawableUtil.setTint(wrapped, colorProvider.getPriorityColor(task.priority, false))
         return convertToBitmap(wrapped)
     }
 

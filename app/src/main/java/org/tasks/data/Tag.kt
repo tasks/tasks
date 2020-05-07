@@ -34,7 +34,7 @@ class Tag {
     constructor(task: Task, tagData: TagData) : this(task, tagData.name, tagData.remoteId)
 
     @Ignore
-    constructor(task: Task, name: String?, tagUid: String?) : this(task.id!!, task.uuid, name, tagUid)
+    constructor(task: Task, name: String?, tagUid: String?) : this(task.id, task.uuid, name, tagUid)
 
     @Ignore
     constructor(taskId: Long, taskUid: String?, name: String?, tagUid: String?) {

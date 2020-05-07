@@ -35,6 +35,7 @@ import java.util.Arrays;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
+import org.tasks.Strings;
 import org.tasks.analytics.Firebase;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForActivity;
@@ -113,11 +114,16 @@ public class RepeatControlSet extends TaskEditControlFragment {
       if (dueDate <= 0) {
         dueDate = currentTimeMillis();
       }
-      try {
-        rrule = new RRule(task.getRecurrenceWithoutFrom());
-        rrule.setUntil(new DateTime(task.getRepeatUntil()).toDateValue());
-      } catch (ParseException e) {
+      String recurrenceWithoutFrom = task.getRecurrenceWithoutFrom();
+      if (Strings.isNullOrEmpty(recurrenceWithoutFrom)) {
         rrule = null;
+      } else {
+        try {
+          rrule = new RRule(recurrenceWithoutFrom);
+          rrule.setUntil(new DateTime(task.getRepeatUntil()).toDateValue());
+        } catch (ParseException e) {
+          rrule = null;
+        }
       }
     } else {
       String recurrence = savedInstanceState.getString(EXTRA_RECURRENCE);

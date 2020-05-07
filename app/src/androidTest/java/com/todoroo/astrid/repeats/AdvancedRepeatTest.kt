@@ -206,7 +206,7 @@ class AdvancedRepeatTest {
     }
 
     private fun assertDueDate(actual: Long, expectedWhich: Int, expectedDayOfWeek: Int) {
-        val expected = getDate(task!!.dueDate!!, expectedWhich, expectedDayOfWeek)
+        val expected = getDate(task!!.dueDate, expectedWhich, expectedDayOfWeek)
         assertEquals(expected, actual)
     }
 

@@ -78,7 +78,7 @@ public class GCalHelper {
     if (preferences.isDefaultCalendarSet()) {
       Uri calendarUri = createTaskEvent(t, new ContentValues(), deleteEventIfExists);
       if (calendarUri != null) {
-        t.setCalendarUri(calendarUri.toString());
+        t.setCalendarURI(calendarUri.toString());
       }
     }
   }
@@ -137,14 +137,14 @@ public class GCalHelper {
 
     AndroidCalendarEvent event = calendarEventProvider.getEvent(eventUri);
     if (event == null) {
-      task.setCalendarUri("");
+      task.setCalendarURI("");
       return;
     }
     ContentValues cv = new ContentValues();
     cv.put(CalendarContract.Events.CALENDAR_ID, event.getCalendarId());
 
     Uri uri = createTaskEvent(task, cv, false);
-    task.setCalendarUri(uri.toString());
+    task.setCalendarURI(uri.toString());
   }
 
   public void createStartAndEndDate(Task task, ContentValues values) {

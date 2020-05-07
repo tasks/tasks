@@ -164,7 +164,7 @@ class GoogleTaskDaoTests : InjectingTestCase() {
     private fun insert(googleTask: GoogleTask, top: Boolean) {
         val task = newTask()
         taskDao.createNew(task)
-        googleTask.task = task.id!!
+        googleTask.task = task.id
         googleTaskDao.insertAndShift(googleTask, top)
     }
 

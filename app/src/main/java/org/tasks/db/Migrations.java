@@ -411,6 +411,23 @@ public class Migrations {
         }
       };
 
+  private static final Migration MIGRATION_73_74 =
+      new Migration(73, 74) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+          database.execSQL("ALTER TABLE `tasks` RENAME TO `tasks-temp`");
+          database.execSQL("DROP INDEX `t_rid`");
+          database.execSQL("DROP INDEX `active_and_visible`");
+          database.execSQL("CREATE TABLE IF NOT EXISTS `tasks` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `importance` INTEGER NOT NULL, `dueDate` INTEGER NOT NULL, `hideUntil` INTEGER NOT NULL, `created` INTEGER NOT NULL, `modified` INTEGER NOT NULL, `completed` INTEGER NOT NULL, `deleted` INTEGER NOT NULL, `notes` TEXT, `estimatedSeconds` INTEGER NOT NULL, `elapsedSeconds` INTEGER NOT NULL, `timerStart` INTEGER NOT NULL, `notificationFlags` INTEGER NOT NULL, `notifications` INTEGER NOT NULL, `lastNotified` INTEGER NOT NULL, `snoozeTime` INTEGER NOT NULL, `recurrence` TEXT, `repeatUntil` INTEGER NOT NULL, `calendarUri` TEXT, `remoteId` TEXT, `collapsed` INTEGER NOT NULL, `parent` INTEGER NOT NULL, `parent_uuid` TEXT)");
+          database.execSQL(
+              "INSERT INTO `tasks` (`_id`, `title`, `importance`, `dueDate`, `hideUntil`, `created`, `modified`, `completed`, `deleted`, `notes`, `estimatedSeconds`, `elapsedSeconds`, `timerStart`, `notificationFlags`, `notifications`, `lastNotified`, `snoozeTime`, `recurrence`, `repeatUntil`, `calendarUri`, `remoteId`, `collapsed`, `parent`, `parent_uuid`) "
+                  + "SELECT `_id`, `title`, IFNULL(`importance`, 3), IFNULL(`dueDate`, 0), IFNULL(`hideUntil`, 0), IFNULL(`created`, 0), IFNULL(`modified`, 0), IFNULL(`completed`, 0), IFNULL(`deleted`, 0), `notes`, IFNULL(`estimatedSeconds`, 0), IFNULL(`elapsedSeconds`, 0), IFNULL(`timerStart`, 0), IFNULL(`notificationFlags`, 0), IFNULL(`notifications`, 0), IFNULL(`lastNotified`, 0), IFNULL(`snoozeTime`, 0), `recurrence`, IFNULL(`repeatUntil`, 0), `calendarUri`, `remoteId`, `collapsed`, IFNULL(`parent`, 0), `parent_uuid` FROM `tasks-temp`");
+          database.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS `t_rid` ON `tasks` (`remoteId`)");
+          database.execSQL("CREATE INDEX IF NOT EXISTS `active_and_visible` ON `tasks` (`completed`, `deleted`, `hideUntil`)");
+          database.execSQL("DROP TABLE `tasks-temp`");
+        }
+      };
+
   public static final Migration[] MIGRATIONS =
       new Migration[] {
         MIGRATION_35_36,
@@ -441,7 +458,8 @@ public class Migrations {
         MIGRATION_69_70,
         MIGRATION_70_71,
         MIGRATION_71_72,
-        MIGRATION_72_73
+        MIGRATION_72_73,
+        MIGRATION_73_74
       };
 
   private static Migration NOOP(int from, int to) {

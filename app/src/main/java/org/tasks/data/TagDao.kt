@@ -34,7 +34,7 @@ abstract class TagDao {
 
     @Transaction
     open fun applyTags(task: Task, tagDataDao: TagDataDao, current: List<TagData>): Boolean {
-        val taskId = task.id!!
+        val taskId = task.id
         val existing = HashSet(tagDataDao.getTagDataForTask(taskId))
         val selected = HashSet<TagData>(current)
         val added = selected subtract existing
