@@ -51,7 +51,7 @@ class BackupServiceTests : InjectingTestCase() {
 
         // make a temporary task
         val task = Task()
-        task.setTitle("helicopter")
+        task.title = "helicopter"
         taskDao.createNew(task)
     }
 

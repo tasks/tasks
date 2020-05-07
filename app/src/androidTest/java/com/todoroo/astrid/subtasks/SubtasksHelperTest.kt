@@ -22,7 +22,7 @@ class SubtasksHelperTest : SubtasksTestCase() {
 
     private fun createTask(title: String, uuid: String) {
         val t = Task()
-        t.setTitle(title)
+        t.title = title
         t.uuid = uuid
         taskDao.createNew(t)
     }

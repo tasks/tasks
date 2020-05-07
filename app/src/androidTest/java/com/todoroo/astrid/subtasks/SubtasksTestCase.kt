@@ -29,7 +29,7 @@ abstract class SubtasksTestCase : InjectingTestCase() {
     fun expectParentAndPosition(task: Task, parent: Task?, positionInParent: Int) {
         val parentId = if (parent == null) "-1" else parent.uuid
         val n = updater.findNodeForTask(task.uuid)
-        assertNotNull("No node found for task " + task.getTitle(), n)
+        assertNotNull("No node found for task " + task.title, n)
         assertEquals("Parent mismatch", parentId, n.parent.uuid)
         assertEquals("Position mismatch", positionInParent, n.parent.children.indexOf(n))
     }

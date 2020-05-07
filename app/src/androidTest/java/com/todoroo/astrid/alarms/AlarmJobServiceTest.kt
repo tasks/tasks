@@ -43,7 +43,7 @@ class AlarmJobServiceTest : InjectingTestCase() {
         val task = newTask()
         taskDao.createNew(task)
         val alarmTime = DateTime(2017, 9, 24, 19, 57)
-        val alarm = Alarm(task.getId(), alarmTime.millis)
+        val alarm = Alarm(task.id!!, alarmTime.millis)
         alarm.id = alarmDao.insert(alarm)
         alarmService.scheduleAllAlarms()
         Mockito.verify(jobs).add(AlarmEntry(alarm))
@@ -54,7 +54,7 @@ class AlarmJobServiceTest : InjectingTestCase() {
         val alarmTime = DateTime(2017, 9, 24, 19, 57)
         val task = newTask(with(REMINDER_LAST, alarmTime.endOfMinute()))
         taskDao.createNew(task)
-        alarmDao.insert(Alarm(task.getId(), alarmTime.millis))
+        alarmDao.insert(Alarm(task.id!!, alarmTime.millis))
         alarmService.scheduleAllAlarms()
     }
 

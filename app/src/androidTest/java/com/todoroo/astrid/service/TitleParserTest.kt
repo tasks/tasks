@@ -45,7 +45,7 @@ class TitleParserTest : InjectingTestCase() {
         val nothing = Task()
         assertFalse(task.hasDueTime())
         assertFalse(task.hasDueDate())
-        assertEquals(task.getRecurrence(), nothing.getRecurrence())
+        assertEquals(task.recurrence, nothing.recurrence)
     }
 
     /** Tests correct date is parsed  */
@@ -68,7 +68,7 @@ class TitleParserTest : InjectingTestCase() {
         for (i in 0..22) {
             val testTitle = "Jog on " + titleMonthStrings[i] + " 12."
             val task = insertTitleAddTask(testTitle)
-            val date = DateTimeUtils.newDateTime(task.getDueDate())
+            val date = DateTimeUtils.newDateTime(task.dueDate!!)
             assertEquals(date.monthOfYear, i / 2 + 1)
             assertEquals(date.dayOfMonth, 12)
         }
@@ -79,7 +79,7 @@ class TitleParserTest : InjectingTestCase() {
         for (i in 1..12) {
             val testTitle = "Jog on $i/12/13"
             val task = insertTitleAddTask(testTitle)
-            val date = DateTimeUtils.newDateTime(task.getDueDate())
+            val date = DateTimeUtils.newDateTime(task.dueDate!!)
             assertEquals(date.monthOfYear, i)
             assertEquals(date.dayOfMonth, 12)
             assertEquals(date.year, 2013)
@@ -90,7 +90,7 @@ class TitleParserTest : InjectingTestCase() {
     fun testArmyTime() {
         val testTitle = "Jog on 23:21."
         val task = insertTitleAddTask(testTitle)
-        val date = DateTimeUtils.newDateTime(task.getDueDate())
+        val date = DateTimeUtils.newDateTime(task.dueDate!!)
         assertEquals(date.hourOfDay, 23)
         assertEquals(date.minuteOfHour, 21)
     }
@@ -99,7 +99,7 @@ class TitleParserTest : InjectingTestCase() {
     fun test_AM_PM() {
         val testTitle = "Jog at 8:33 PM."
         val task = insertTitleAddTask(testTitle)
-        val date = DateTimeUtils.newDateTime(task.getDueDate())
+        val date = DateTimeUtils.newDateTime(task.dueDate!!)
         assertEquals(date.hourOfDay, 20)
         assertEquals(date.minuteOfHour, 33)
     }
@@ -108,7 +108,7 @@ class TitleParserTest : InjectingTestCase() {
     fun test_at_hour() {
         val testTitle = "Jog at 8 PM."
         val task = insertTitleAddTask(testTitle)
-        val date = DateTimeUtils.newDateTime(task.getDueDate())
+        val date = DateTimeUtils.newDateTime(task.dueDate!!)
         assertEquals(date.hourOfDay, 20)
         assertEquals(date.minuteOfHour, 0)
     }
@@ -117,7 +117,7 @@ class TitleParserTest : InjectingTestCase() {
     fun test_oclock_AM() {
         val testTitle = "Jog at 8 o'clock AM."
         val task = insertTitleAddTask(testTitle)
-        val date = DateTimeUtils.newDateTime(task.getDueDate())
+        val date = DateTimeUtils.newDateTime(task.dueDate!!)
         assertEquals(date.hourOfDay, 8)
         assertEquals(date.minuteOfHour, 0)
     }
@@ -127,7 +127,7 @@ class TitleParserTest : InjectingTestCase() {
         val testTitles = arrayOf("Jog 8 AM", "Jog 8 o'clock AM", "at 8:00 AM")
         for (testTitle in testTitles) {
             val task = insertTitleAddTask(testTitle)
-            val date = DateTimeUtils.newDateTime(task.getDueDate())
+            val date = DateTimeUtils.newDateTime(task.dueDate!!)
             assertEquals(date.hourOfDay, 8)
             assertEquals(date.minuteOfHour, 0)
         }
@@ -140,7 +140,7 @@ class TitleParserTest : InjectingTestCase() {
         )
         for (testTitle in testTitles) {
             val task = insertTitleAddTask(testTitle)
-            val date = DateTimeUtils.newDateTime(task.getDueDate())
+            val date = DateTimeUtils.newDateTime(task.dueDate!!)
             assertEquals(date.hourOfDay, 12)
             assertEquals(date.minuteOfHour, 30)
         }
@@ -156,12 +156,12 @@ class TitleParserTest : InjectingTestCase() {
         val today = Calendar.getInstance()
         var title = "Jog today"
         var task = taskCreator.createWithValues(title)
-        var date = DateTimeUtils.newDateTime(task.getDueDate())
+        var date = DateTimeUtils.newDateTime(task.dueDate!!)
         assertEquals(date.dayOfWeek, today[Calendar.DAY_OF_WEEK])
         // Calendar starts 1-6, date.getDay() starts at 0
         title = "Jog tomorrow"
         task = taskCreator.createWithValues(title)
-        date = DateTimeUtils.newDateTime(task.getDueDate())
+        date = DateTimeUtils.newDateTime(task.dueDate!!)
         assertEquals(date.dayOfWeek % 7, (today[Calendar.DAY_OF_WEEK] + 1) % 7)
         val days = arrayOf(
                 "sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday")
@@ -169,11 +169,11 @@ class TitleParserTest : InjectingTestCase() {
         for (i in 1..6) {
             title = "Jog " + days[i]
             task = taskCreator.createWithValues(title)
-            date = DateTimeUtils.newDateTime(task.getDueDate())
+            date = DateTimeUtils.newDateTime(task.dueDate!!)
             assertEquals(date.dayOfWeek, i + 1)
             title = "Jog " + abrevDays[i]
             task = taskCreator.createWithValues(title)
-            date = DateTimeUtils.newDateTime(task.getDueDate())
+            date = DateTimeUtils.newDateTime(task.dueDate!!)
             assertEquals(date.dayOfWeek, i + 1)
         }
     }
@@ -186,12 +186,12 @@ class TitleParserTest : InjectingTestCase() {
         for (acceptedString in acceptedStrings) {
             val title = "Jog $acceptedString"
             val task = taskCreator.createWithValues(title)
-            assertEquals(task.getPriority() as Int, Task.Priority.NONE)
+            assertEquals(task.priority, Task.Priority.NONE)
         }
         for (acceptedString in acceptedStrings) {
             val title = "$acceptedString jog"
             val task = taskCreator.createWithValues(title)
-            assertNotSame(task.getPriority(), Task.Priority.NONE)
+            assertNotSame(task.priority, Task.Priority.NONE)
         }
     }
 
@@ -203,20 +203,20 @@ class TitleParserTest : InjectingTestCase() {
         for (acceptedStringAtEnd in acceptedStringsAtEnd) {
             task = taskCreator.basicQuickAddTask(
                     "Jog $acceptedStringAtEnd") // test at end of task. should set importance.
-            assertEquals(task.getPriority() as Int, Task.Priority.LOW)
+            assertEquals(task.priority, Task.Priority.LOW)
         }
         for (acceptedStringAtEnd in acceptedStringsAtEnd) {
             task = taskCreator.basicQuickAddTask(acceptedStringAtEnd
                     + " jog") // test at beginning of task. should not set importance.
-            assertEquals(task.getPriority() as Int, Task.Priority.LOW)
+            assertEquals(task.priority, Task.Priority.LOW)
         }
         for (acceptedStringAnywhere in acceptedStringsAnywhere) {
             task = taskCreator.basicQuickAddTask(
                     "Jog $acceptedStringAnywhere") // test at end of task. should set importance.
-            assertEquals(task.getPriority() as Int, Task.Priority.LOW)
+            assertEquals(task.priority, Task.Priority.LOW)
             task = taskCreator.basicQuickAddTask(
                     "$acceptedStringAnywhere jog") // test at beginning of task. should set importance.
-            assertEquals(task.getPriority() as Int, Task.Priority.LOW)
+            assertEquals(task.priority, Task.Priority.LOW)
         }
     }
 
@@ -227,18 +227,18 @@ class TitleParserTest : InjectingTestCase() {
         for (acceptedStringAtEnd in acceptedStringsAtEnd) {
             var title = "Jog $acceptedStringAtEnd"
             var task = taskCreator.createWithValues(title)
-            assertEquals(task.getPriority() as Int, Task.Priority.MEDIUM)
+            assertEquals(task.priority, Task.Priority.MEDIUM)
             title = "$acceptedStringAtEnd jog"
             task = taskCreator.createWithValues(title)
-            assertNotSame(task.getPriority(), Task.Priority.MEDIUM)
+            assertNotSame(task.priority, Task.Priority.MEDIUM)
         }
         for (acceptedStringAnywhere in acceptedStringsAnywhere) {
             var title = "Jog $acceptedStringAnywhere"
             var task = taskCreator.createWithValues(title)
-            assertEquals(task.getPriority() as Int, Task.Priority.MEDIUM)
+            assertEquals(task.priority, Task.Priority.MEDIUM)
             title = "$acceptedStringAnywhere jog"
             task = taskCreator.createWithValues(title)
-            assertEquals(task.getPriority() as Int, Task.Priority.MEDIUM)
+            assertEquals(task.priority, Task.Priority.MEDIUM)
         }
     }
 
@@ -255,18 +255,18 @@ class TitleParserTest : InjectingTestCase() {
         for (acceptedStringAtEnd in acceptedStringsAtEnd) {
             var title = "Jog $acceptedStringAtEnd"
             var task = taskCreator.createWithValues(title)
-            assertEquals(task.getPriority() as Int, Task.Priority.HIGH)
+            assertEquals(task.priority, Task.Priority.HIGH)
             title = "$acceptedStringAtEnd jog"
             task = taskCreator.createWithValues(title)
-            assertNotSame(task.getPriority(), Task.Priority.HIGH)
+            assertNotSame(task.priority, Task.Priority.HIGH)
         }
         for (acceptedStringAnywhere in acceptedStringsAnywhere) {
             var title = "Jog $acceptedStringAnywhere"
             var task = taskCreator.createWithValues(title)
-            assertEquals(task.getPriority() as Int, Task.Priority.HIGH)
+            assertEquals(task.priority, Task.Priority.HIGH)
             title = "$acceptedStringAnywhere jog"
             task = taskCreator.createWithValues(title)
-            assertEquals(task.getPriority() as Int, Task.Priority.HIGH)
+            assertEquals(task.priority, Task.Priority.HIGH)
         }
     }
     // ----------------Priority end----------------//
@@ -279,19 +279,19 @@ class TitleParserTest : InjectingTestCase() {
         val rrule = RRule()
         rrule.freq = Frequency.DAILY
         rrule.interval = 1
-        assertEquals(task.getRecurrence(), rrule.toIcal())
+        assertEquals(task.recurrence, rrule.toIcal())
         assertFalse(task.hasDueTime())
         assertFalse(task.hasDueDate())
         title = "Jog every day"
         task = taskCreator.createWithValues(title)
-        assertEquals(task.getRecurrence(), rrule.toIcal())
+        assertEquals(task.recurrence, rrule.toIcal())
         assertFalse(task.hasDueTime())
         assertFalse(task.hasDueDate())
         for (i in 1..12) {
             title = "Jog every $i days."
             rrule.interval = i
             task = taskCreator.createWithValues(title)
-            assertEquals(task.getRecurrence(), rrule.toIcal())
+            assertEquals(task.recurrence, rrule.toIcal())
             assertFalse(task.hasDueTime())
             assertFalse(task.hasDueDate())
         }
@@ -305,19 +305,19 @@ class TitleParserTest : InjectingTestCase() {
         val rrule = RRule()
         rrule.freq = Frequency.WEEKLY
         rrule.interval = 1
-        assertEquals(task.getRecurrence(), rrule.toIcal())
+        assertEquals(task.recurrence, rrule.toIcal())
         assertFalse(task.hasDueTime())
         assertFalse(task.hasDueDate())
         title = "Jog every week"
         task = taskCreator.createWithValues(title)
-        assertEquals(task.getRecurrence(), rrule.toIcal())
+        assertEquals(task.recurrence, rrule.toIcal())
         assertFalse(task.hasDueTime())
         assertFalse(task.hasDueDate())
         for (i in 1..12) {
             title = "Jog every $i weeks"
             rrule.interval = i
             task = taskCreator.createWithValues(title)
-            assertEquals(task.getRecurrence(), rrule.toIcal())
+            assertEquals(task.recurrence, rrule.toIcal())
             assertFalse(task.hasDueTime())
             assertFalse(task.hasDueDate())
         }
@@ -331,19 +331,19 @@ class TitleParserTest : InjectingTestCase() {
         val rrule = RRule()
         rrule.freq = Frequency.MONTHLY
         rrule.interval = 1
-        assertEquals(task.getRecurrence(), rrule.toIcal())
+        assertEquals(task.recurrence, rrule.toIcal())
         assertFalse(task.hasDueTime())
         assertFalse(task.hasDueDate())
         title = "Jog every month"
         task = taskCreator.createWithValues(title)
-        assertEquals(task.getRecurrence(), rrule.toIcal())
+        assertEquals(task.recurrence, rrule.toIcal())
         assertFalse(task.hasDueTime())
         assertFalse(task.hasDueDate())
         for (i in 1..12) {
             title = "Jog every $i months"
             rrule.interval = i
             task = taskCreator.createWithValues(title)
-            assertEquals(task.getRecurrence(), rrule.toIcal())
+            assertEquals(task.recurrence, rrule.toIcal())
             assertFalse(task.hasDueTime())
             assertFalse(task.hasDueDate())
         }
@@ -356,17 +356,17 @@ class TitleParserTest : InjectingTestCase() {
         val rrule = RRule()
         rrule.freq = Frequency.DAILY
         rrule.interval = 1
-        assertEquals(task.getRecurrence(), rrule.toIcal())
+        assertEquals(task.recurrence, rrule.toIcal())
         assertTrue(task.hasDueDate())
         title = "Jog every day starting from today"
         task = taskCreator.createWithValues(title)
-        assertEquals(task.getRecurrence(), rrule.toIcal())
+        assertEquals(task.recurrence, rrule.toIcal())
         assertTrue(task.hasDueDate())
         for (i in 1..12) {
             title = "Jog every $i days starting from today"
             rrule.interval = i
             task = taskCreator.createWithValues(title)
-            assertEquals(task.getRecurrence(), rrule.toIcal())
+            assertEquals(task.recurrence, rrule.toIcal())
             assertTrue(task.hasDueDate())
         }
     }
@@ -378,17 +378,17 @@ class TitleParserTest : InjectingTestCase() {
         val rrule = RRule()
         rrule.freq = Frequency.WEEKLY
         rrule.interval = 1
-        assertEquals(task.getRecurrence(), rrule.toIcal())
+        assertEquals(task.recurrence, rrule.toIcal())
         assertTrue(task.hasDueDate())
         title = "Jog every week starting from today"
         task = taskCreator.createWithValues(title)
-        assertEquals(task.getRecurrence(), rrule.toIcal())
+        assertEquals(task.recurrence, rrule.toIcal())
         assertTrue(task.hasDueDate())
         for (i in 1..12) {
             title = "Jog every $i weeks starting from today"
             rrule.interval = i
             task = taskCreator.createWithValues(title)
-            assertEquals(task.getRecurrence(), rrule.toIcal())
+            assertEquals(task.recurrence, rrule.toIcal())
             assertTrue(task.hasDueDate())
         }
     }
@@ -401,7 +401,7 @@ class TitleParserTest : InjectingTestCase() {
         var task: Task
         for (acceptedString in acceptedStrings) {
             task = Task()
-            task.setTitle("Jog $acceptedString") // test at end of task. should set importance.
+            task.title = "Jog $acceptedString" // test at end of task. should set importance.
             val tags = ArrayList<String>()
             TitleParser.listHelper(tagDataDao, task, tags)
             val tag = TitleParser.trimParenthesis(acceptedString)
@@ -418,7 +418,7 @@ class TitleParserTest : InjectingTestCase() {
         var task: Task
         for (acceptedString in acceptedStrings) {
             task = Task()
-            task.setTitle("Jog $acceptedString") // test at end of task. should set importance.
+            task.title = "Jog $acceptedString" // test at end of task. should set importance.
             val tags = ArrayList<String>()
             TitleParser.listHelper(tagDataDao, task, tags)
             val tag = TitleParser.trimParenthesis(acceptedString)

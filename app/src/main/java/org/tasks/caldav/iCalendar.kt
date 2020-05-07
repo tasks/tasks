@@ -114,7 +114,7 @@ class iCalendar @Inject constructor(
         val remoteModel = CaldavConverter.toCaldav(caldavTask, task)
         val categories = remoteModel.categories
         categories.clear()
-        categories.addAll(tagDataDao.getTagDataForTask(task.getId()).map { it.name!! })
+        categories.addAll(tagDataDao.getTagDataForTask(task.id!!).map { it.name!! })
         if (isNullOrEmpty(caldavTask.remoteId)) {
             val caldavUid = UUIDHelper.newUUID()
             caldavTask.remoteId = caldavUid
@@ -122,7 +122,7 @@ class iCalendar @Inject constructor(
         } else {
             remoteModel.uid = caldavTask.remoteId
         }
-        val location = locationDao.getGeofences(task.getId())
+        val location = locationDao.getGeofences(task.id!!)
         val localGeo = toGeo(location)
         if (localGeo == null || !localGeo.equalish(remoteModel.geoPosition)) {
             remoteModel.geoPosition = localGeo
@@ -145,7 +145,7 @@ class iCalendar @Inject constructor(
         if (existing == null) {
             task = taskCreator.createWithValues("")
             taskDao.createNew(task)
-            caldavTask = CaldavTask(task.getId(), calendar.uuid, remote.uid, obj)
+            caldavTask = CaldavTask(task.id!!, calendar.uuid, remote.uid, obj)
         } else {
             task = taskDao.fetch(existing.task)!!
             caldavTask = existing
@@ -153,12 +153,12 @@ class iCalendar @Inject constructor(
         CaldavConverter.apply(task, remote)
         val geo = remote.geoPosition
         if (geo == null) {
-            locationDao.getActiveGeofences(task.getId()).forEach {
+            locationDao.getActiveGeofences(task.id!!).forEach {
                 locationDao.delete(it.geofence)
                 geofenceApi.update(it.place)
             }
         } else {
-            setPlace(task.getId(), geo)
+            setPlace(task.id!!, geo)
         }
         tagDao.applyTags(task, tagDataDao, getTags(remote.categories))
         task.suppressSync()

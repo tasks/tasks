@@ -46,7 +46,7 @@ class SubtasksMovingTest : SubtasksTestCase() {
 
     private fun createTask(title: String): Task {
         val task = Task()
-        task.setTitle(title)
+        task.title = title
         taskDao.createNew(task)
         return task
     }

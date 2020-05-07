@@ -52,18 +52,18 @@ class GtasksMetadataServiceTest : InjectingTestCase() {
 
     // --- helpers
     private fun whenSearchForMetadata() {
-        metadata = googleTaskDao.getByTaskId(task!!.getId())
+        metadata = googleTaskDao.getByTaskId(task!!.id!!)
     }
 
     private fun taskWithMetadata(id: String?): Task {
         val task = Task()
-        task.setTitle("cats")
+        task.title = "cats"
         taskDao.createNew(task)
-        val metadata = GoogleTask(task.getId(), "")
+        val metadata = GoogleTask(task.id!!, "")
         if (id != null) {
             metadata.remoteId = id
         }
-        metadata.task = task.getId()
+        metadata.task = task.id!!
         googleTaskDao.insert(metadata)
         return task
     }
@@ -74,7 +74,7 @@ class GtasksMetadataServiceTest : InjectingTestCase() {
 
     private fun taskWithoutMetadata(): Task {
         val task = Task()
-        task.setTitle("dogs")
+        task.title = "dogs"
         taskDao.createNew(task)
         return task
     }

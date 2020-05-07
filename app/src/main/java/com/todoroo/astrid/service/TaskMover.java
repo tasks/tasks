@@ -189,7 +189,7 @@ public class TaskMover {
       tasks.put(id, new CaldavTask(id, listId));
       for (Task child : taskDao.fetchChildren(task.getId())) {
         CaldavTask newTask = new CaldavTask(child.getId(), listId);
-        newTask.setRemoteParent(tasks.get(child.parent).getRemoteId());
+        newTask.setRemoteParent(tasks.get(child.getParent()).getRemoteId());
         tasks.put(child.getId(), newTask);
       }
       caldavDao.insert(tasks.values());

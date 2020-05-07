@@ -34,23 +34,23 @@ object TaskMaker {
         val task = Task()
         val title = lookup.valueOf(TITLE, null as String?)
         if (!Strings.isNullOrEmpty(title)) {
-            task.setTitle(title)
+            task.title = title
         }
         val id = lookup.valueOf(ID, Task.NO_ID)
         if (id != Task.NO_ID) {
-            task.setId(id)
+            task.id = id
         }
         val priority = lookup.valueOf(PRIORITY, -1)
         if (priority >= 0) {
-            task.setPriority(priority)
+            task.priority = priority
         }
         val dueDate = lookup.valueOf(DUE_DATE, null as DateTime?)
         if (dueDate != null) {
-            task.setDueDate(Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate.millis))
+            task.dueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate.millis)
         }
         val dueTime = lookup.valueOf(DUE_TIME, null as DateTime?)
         if (dueTime != null) {
-            task.setDueDate(Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, dueTime.millis))
+            task.dueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, dueTime.millis)
         }
         val completionTime = lookup.valueOf(COMPLETION_TIME, null as DateTime?)
         if (completionTime != null) {
@@ -66,7 +66,7 @@ object TaskMaker {
         }
         val hideType = lookup.valueOf(HIDE_TYPE, -1)
         if (hideType >= 0) {
-            task.setHideUntil(task.createHideUntil(hideType, 0))
+            task.hideUntil = task.createHideUntil(hideType, 0)
         }
         val reminderFlags = lookup.valueOf(REMINDERS, -1)
         if (reminderFlags >= 0) {
@@ -86,7 +86,7 @@ object TaskMaker {
         }
         val creationTime = lookup.valueOf(CREATION_TIME, DateTimeUtils.newDateTime())
         task.creationDate = creationTime.millis
-        task.setParent(lookup.valueOf(PARENT, 0L))
+        task.parent = lookup.valueOf(PARENT, 0L)
         task
     }
 

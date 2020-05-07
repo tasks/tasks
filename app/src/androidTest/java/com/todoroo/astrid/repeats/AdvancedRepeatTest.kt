@@ -45,7 +45,7 @@ class AdvancedRepeatTest {
         // test specific day & time
         val dayWithTime = Task.createDueDate(
                 Task.URGENCY_SPECIFIC_DAY_TIME, DateTime(2010, 8, 1, 10, 4, 0).millis)
-        task!!.setDueDate(dayWithTime)
+        task!!.dueDate = dayWithTime
         val nextDayWithTime = dayWithTime + DateUtilities.ONE_DAY
         nextDueDate = RepeatTaskHelper.computeNextDueDate(task, rrule!!.toIcal(), false)
         assertDateTimeEquals(nextDayWithTime, nextDueDate)
@@ -60,7 +60,7 @@ class AdvancedRepeatTest {
         // test specific day & time
         val dayWithTime = Task.createDueDate(
                 Task.URGENCY_SPECIFIC_DAY_TIME, DateTime(2010, 8, 1, 10, 4, 0).millis)
-        task!!.setDueDate(dayWithTime)
+        task!!.dueDate = dayWithTime
         val todayWithTime = DateTimeUtils.newDateTime().withHourOfDay(10).withMinuteOfHour(4).withSecondOfMinute(1)
         var nextDayWithTimeLong = todayWithTime.millis
         nextDayWithTimeLong += DateUtilities.ONE_DAY
@@ -206,7 +206,7 @@ class AdvancedRepeatTest {
     }
 
     private fun assertDueDate(actual: Long, expectedWhich: Int, expectedDayOfWeek: Int) {
-        val expected = getDate(task!!.getDueDate(), expectedWhich, expectedDayOfWeek)
+        val expected = getDate(task!!.dueDate!!, expectedWhich, expectedDayOfWeek)
         assertEquals(expected, actual)
     }
 
@@ -220,7 +220,7 @@ class AdvancedRepeatTest {
 
     private fun setTaskDueDate(which: Int, day: Int) {
         val time = getDate(DateUtilities.now(), which, day)
-        task!!.setDueDate(time)
+        task!!.dueDate = time
     }
 
     private fun getDate(start: Long, which: Int, dayOfWeek: Int): Long {

@@ -18,8 +18,8 @@ object TagMaker {
     private val instantiator = Instantiator { lookup: PropertyLookup<Tag> ->
         val tag = Tag()
         val task = lookup.valueOf(TASK, null as Task?)!!
-        tag.task = task.getId()
-        tag.setTaskUid(task.uuid)
+        tag.task = task.id!!
+        tag.setTaskUid(task.uuid!!)
         tag.tagUid = lookup.valueOf(TAGUID, null as String?)
         val tagData = lookup.valueOf(TAGDATA, null as TagData?)
         if (tagData != null) {

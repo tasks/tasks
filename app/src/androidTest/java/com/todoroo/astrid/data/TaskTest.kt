@@ -79,7 +79,7 @@ class TaskTest {
     @Test
     fun testTaskHasDueTime() {
         val task = Task()
-        task.setDueDate(1388516076000L)
+        task.dueDate = 1388516076000L
         assertTrue(task.hasDueTime())
         assertTrue(task.hasDueDate())
     }
@@ -87,7 +87,7 @@ class TaskTest {
     @Test
     fun testTaskHasDueDate() {
         val task = Task()
-        task.setDueDate(1388469600000L)
+        task.dueDate = 1388469600000L
         assertFalse(task.hasDueTime())
         assertTrue(task.hasDueDate())
     }
@@ -148,7 +148,7 @@ class TaskTest {
         val now = org.tasks.time.DateTimeUtils.currentTimeMillis()
         freezeAt(now) {
             val task = Task()
-            task.setHideUntil(now)
+            task.hideUntil = now
             assertFalse(task.isHidden)
         }
     }
@@ -158,7 +158,7 @@ class TaskTest {
         val now = org.tasks.time.DateTimeUtils.currentTimeMillis()
         freezeAt(now) {
             val task = Task()
-            task.setHideUntil(now + 1)
+            task.hideUntil = now + 1
             assertTrue(task.isHidden)
         }
     }
@@ -180,7 +180,7 @@ class TaskTest {
         val now = org.tasks.time.DateTimeUtils.currentTimeMillis()
         freezeAt(now) {
             val task = Task()
-            task.setDueDate(now)
+            task.dueDate = now
             assertFalse(task.isOverdue)
         }
     }
@@ -190,7 +190,7 @@ class TaskTest {
         val dueDate = org.tasks.time.DateTimeUtils.currentTimeMillis()
         freezeAt(dueDate + 1) {
             val task = Task()
-            task.setDueDate(dueDate)
+            task.dueDate = dueDate
             assertTrue(task.isOverdue)
         }
     }
@@ -200,7 +200,7 @@ class TaskTest {
         val dueDate = DateTime().startOfDay()
         freezeAt(dueDate.plusHours(12).minusMillis(1)) {
             val task = Task()
-            task.setDueDate(dueDate.millis)
+            task.dueDate = dueDate.millis
             assertFalse(task.hasDueTime())
             assertFalse(task.isOverdue)
         }
@@ -211,7 +211,7 @@ class TaskTest {
         val dueDate = DateTime().startOfDay()
         freezeAt(dueDate.plusHours(12)) {
             val task = Task()
-            task.setDueDate(dueDate.millis)
+            task.dueDate = dueDate.millis
             assertFalse(task.hasDueTime())
             assertFalse(task.isOverdue)
         }
@@ -222,7 +222,7 @@ class TaskTest {
         val dueDate = DateTime().startOfDay()
         freezeAt(dueDate.plusDays(1)) {
             val task = Task()
-            task.setDueDate(dueDate.millis)
+            task.dueDate = dueDate.millis
             assertFalse(task.hasDueTime())
             assertTrue(task.isOverdue)
         }

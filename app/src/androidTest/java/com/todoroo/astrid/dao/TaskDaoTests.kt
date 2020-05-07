@@ -32,32 +32,32 @@ class TaskDaoTests : InjectingTestCase() {
 
         // create task "happy"
         var task = Task()
-        task.setTitle("happy")
+        task.title = "happy"
         taskDao.createNew(task)
         assertEquals(1, taskDao.getAll().size)
-        val happyId = task.getId()
+        val happyId = task.id!!
         assertNotSame(Task.NO_ID, happyId)
         task = taskDao.fetch(happyId)!!
-        assertEquals("happy", task.getTitle())
+        assertEquals("happy", task.title)
 
         // create task "sad"
         task = Task()
-        task.setTitle("sad")
+        task.title = "sad"
         taskDao.createNew(task)
         assertEquals(2, taskDao.getAll().size)
 
         // rename sad to melancholy
-        val sadId = task.getId()
+        val sadId = task.id!!
         assertNotSame(Task.NO_ID, sadId)
-        task.setTitle("melancholy")
+        task.title = "melancholy"
         taskDao.save(task)
         assertEquals(2, taskDao.getAll().size)
 
         // check state
         task = taskDao.fetch(happyId)!!
-        assertEquals("happy", task.getTitle())
+        assertEquals("happy", task.title)
         task = taskDao.fetch(sadId)!!
-        assertEquals("melancholy", task.getTitle())
+        assertEquals("melancholy", task.title)
     }
 
     /** Test various task fetch conditions  */
@@ -65,33 +65,33 @@ class TaskDaoTests : InjectingTestCase() {
     fun testTaskConditions() {
         // create normal task
         var task = Task()
-        task.setTitle("normal")
+        task.title = "normal"
         taskDao.createNew(task)
 
         // create blank task
         task = Task()
-        task.setTitle("")
+        task.title = ""
         taskDao.createNew(task)
 
         // create hidden task
         task = Task()
-        task.setTitle("hidden")
-        task.setHideUntil(DateUtilities.now() + 10000)
+        task.title = "hidden"
+        task.hideUntil = DateUtilities.now() + 10000
         taskDao.createNew(task)
 
         // create task with deadlines
         task = Task()
-        task.setTitle("deadlineInFuture")
-        task.setDueDate(DateUtilities.now() + 10000)
+        task.title = "deadlineInFuture"
+        task.dueDate = DateUtilities.now() + 10000
         taskDao.createNew(task)
         task = Task()
-        task.setTitle("deadlineInPast")
-        task.setDueDate(DateUtilities.now() - 10000)
+        task.title = "deadlineInPast"
+        task.dueDate = DateUtilities.now() - 10000
         taskDao.createNew(task)
 
         // create completed task
         task = Task()
-        task.setTitle("completed")
+        task.title = "completed"
         task.completionDate = DateUtilities.now() - 10000
         taskDao.createNew(task)
 
@@ -109,7 +109,7 @@ class TaskDaoTests : InjectingTestCase() {
 
         // create task "happy"
         val task = Task()
-        task.setTitle("happy")
+        task.title = "happy"
         taskDao.createNew(task)
         assertEquals(1, taskDao.getAll().size)
 
@@ -123,8 +123,8 @@ class TaskDaoTests : InjectingTestCase() {
     fun testSaveWithoutCreate() {
         // try to save task "happy"
         val task = Task()
-        task.setTitle("happy")
-        task.setId(1L)
+        task.title = "happy"
+        task.id = 1L
         taskDao.save(task)
         assertEquals(0, taskDao.getAll().size)
     }

@@ -225,7 +225,7 @@ abstract class TaskDao(private val database: Database) {
      * success.
      */
     @JvmOverloads
-    fun save(task: Task, original: Task? = fetch(task.getId())) {
+    fun save(task: Task, original: Task? = fetch(task.id!!)) {
         if (!task.insignificantChange(original)) {
             task.modificationDate = DateUtilities.now()
         }
@@ -239,16 +239,17 @@ abstract class TaskDao(private val database: Database) {
 
     @Update
     abstract fun update(task: Task): Int
+
     fun createNew(task: Task) {
         task.id = null
-        if (task.created == 0L) {
-            task.created = DateUtilities.now()
+        if (task.creationDate == 0L) {
+            task.creationDate = DateUtilities.now()
         }
-        if (Task.isUuidEmpty(task.remoteId)) {
+        if (Task.isUuidEmpty(task.remoteId!!)) {
             task.remoteId = UUIDHelper.newUUID()
         }
         val insert = insert(task)
-        task.setId(insert)
+        task.id = insert
     }
 
     @Query("SELECT * FROM tasks "

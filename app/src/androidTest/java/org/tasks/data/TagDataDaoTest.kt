@@ -73,7 +73,7 @@ class TagDataDaoTest : InjectingTestCase() {
         tagDataDao.createNew(tagTwo)
         tagDao.insert(newTag(with(TAGDATA, tagOne), with(TASK, taskOne)))
         tagDao.insert(newTag(with(TAGDATA, tagTwo), with(TASK, taskTwo)))
-        assertEquals(listOf(tagOne), tagDataDao.getTagDataForTask(taskOne.getId()))
+        assertEquals(listOf(tagOne), tagDataDao.getTagDataForTask(taskOne.id!!))
     }
 
     @Test

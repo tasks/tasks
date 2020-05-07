@@ -18,29 +18,29 @@ class GoogleTaskSynchronizerTest {
     @Test
     fun testMergeDate() {
         val local = newTask(with(DUE_DATE, DateTime(2016, 3, 12)))
-        GoogleTaskSynchronizer.mergeDates(newTask(with(DUE_DATE, DateTime(2016, 3, 11))).getDueDate(), local)
-        assertEquals(DateTime(2016, 3, 11, 12, 0).millis, local.getDueDate().toLong())
+        GoogleTaskSynchronizer.mergeDates(newTask(with(DUE_DATE, DateTime(2016, 3, 11))).dueDate!!, local)
+        assertEquals(DateTime(2016, 3, 11, 12, 0).millis, local.dueDate)
     }
 
     @Test
     fun testMergeTime() {
         val local = newTask(with(DUE_TIME, DateTime(2016, 3, 11, 13, 30)))
-        GoogleTaskSynchronizer.mergeDates(newTask(with(DUE_DATE, DateTime(2016, 3, 11))).getDueDate(), local)
-        assertEquals(DateTime(2016, 3, 11, 13, 30, 1).millis, local.getDueDate().toLong())
+        GoogleTaskSynchronizer.mergeDates(newTask(with(DUE_DATE, DateTime(2016, 3, 11))).dueDate!!, local)
+        assertEquals(DateTime(2016, 3, 11, 13, 30, 1).millis, local.dueDate)
     }
 
     @Test
     fun testDueDateAdjustHideBackwards() {
         val local = newTask(with(DUE_DATE, DateTime(2016, 3, 12)), with(HIDE_TYPE, Task.HIDE_UNTIL_DUE))
-        GoogleTaskSynchronizer.mergeDates(newTask(with(DUE_DATE, DateTime(2016, 3, 11))).getDueDate(), local)
-        assertEquals(DateTime(2016, 3, 11).millis, local.getHideUntil().toLong())
+        GoogleTaskSynchronizer.mergeDates(newTask(with(DUE_DATE, DateTime(2016, 3, 11))).dueDate!!, local)
+        assertEquals(DateTime(2016, 3, 11).millis, local.hideUntil)
     }
 
     @Test
     fun testDueDateAdjustHideForwards() {
         val local = newTask(with(DUE_DATE, DateTime(2016, 3, 12)), with(HIDE_TYPE, Task.HIDE_UNTIL_DUE))
-        GoogleTaskSynchronizer.mergeDates(newTask(with(DUE_DATE, DateTime(2016, 3, 14))).getDueDate(), local)
-        assertEquals(DateTime(2016, 3, 14).millis, local.getHideUntil().toLong())
+        GoogleTaskSynchronizer.mergeDates(newTask(with(DUE_DATE, DateTime(2016, 3, 14))).dueDate!!, local)
+        assertEquals(DateTime(2016, 3, 14).millis, local.hideUntil)
     }
 
     @Test
@@ -48,9 +48,9 @@ class GoogleTaskSynchronizerTest {
         val local = newTask(
                 with(DUE_TIME, DateTime(2016, 3, 12, 13, 30)),
                 with(HIDE_TYPE, Task.HIDE_UNTIL_DUE_TIME))
-        GoogleTaskSynchronizer.mergeDates(newTask(with(DUE_DATE, DateTime(2016, 3, 11))).getDueDate(), local)
+        GoogleTaskSynchronizer.mergeDates(newTask(with(DUE_DATE, DateTime(2016, 3, 11))).dueDate!!, local)
         assertEquals(
-                DateTime(2016, 3, 11, 13, 30, 1).millis, local.getHideUntil().toLong())
+                DateTime(2016, 3, 11, 13, 30, 1).millis, local.hideUntil)
     }
 
     @Test
@@ -58,16 +58,16 @@ class GoogleTaskSynchronizerTest {
         val local = newTask(
                 with(DUE_TIME, DateTime(2016, 3, 12, 13, 30)),
                 with(HIDE_TYPE, Task.HIDE_UNTIL_DUE_TIME))
-        GoogleTaskSynchronizer.mergeDates(newTask(with(DUE_DATE, DateTime(2016, 3, 14))).getDueDate(), local)
+        GoogleTaskSynchronizer.mergeDates(newTask(with(DUE_DATE, DateTime(2016, 3, 14))).dueDate!!, local)
         assertEquals(
-                DateTime(2016, 3, 14, 13, 30, 1).millis, local.getHideUntil().toLong())
+                DateTime(2016, 3, 14, 13, 30, 1).millis, local.hideUntil)
     }
 
     @Test
     fun testDueDateClearHide() {
         val local = newTask(with(DUE_DATE, DateTime(2016, 3, 12)), with(HIDE_TYPE, Task.HIDE_UNTIL_DUE))
-        GoogleTaskSynchronizer.mergeDates(newTask().getDueDate(), local)
-        assertEquals(0, local.getHideUntil().toLong())
+        GoogleTaskSynchronizer.mergeDates(newTask().dueDate!!, local)
+        assertEquals(0L, local.hideUntil)
     }
 
     @Test
@@ -75,8 +75,8 @@ class GoogleTaskSynchronizerTest {
         val local = newTask(
                 with(DUE_TIME, DateTime(2016, 3, 12, 13, 30)),
                 with(HIDE_TYPE, Task.HIDE_UNTIL_DUE_TIME))
-        GoogleTaskSynchronizer.mergeDates(newTask().getDueDate(), local)
-        assertEquals(0, local.getHideUntil().toLong())
+        GoogleTaskSynchronizer.mergeDates(newTask().dueDate!!, local)
+        assertEquals(0L, local.hideUntil)
     }
 
     @Test

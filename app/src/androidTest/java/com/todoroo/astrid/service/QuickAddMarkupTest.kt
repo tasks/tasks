@@ -79,17 +79,17 @@ class QuickAddMarkupTest : InjectingTestCase() {
     }
 
     private fun assertTitleBecomes(title: String) {
-        assertEquals(title, task!!.getTitle())
+        assertEquals(title, task!!.title)
     }
 
     private fun whenTitleIs(title: String) {
         task = Task()
-        task!!.setTitle(title)
+        task!!.title = title
         tags.clear()
         TitleParser.parse(tagDataDao, task, tags)
     }
 
     private fun assertPriority(priority: Int) {
-        assertEquals(priority, task!!.getPriority() as Int)
+        assertEquals(priority, task!!.priority)
     }
 }

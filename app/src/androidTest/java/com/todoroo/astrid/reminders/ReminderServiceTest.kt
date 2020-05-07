@@ -80,7 +80,7 @@ class ReminderServiceTest : InjectingTestCase() {
         service.scheduleAlarm(task)
         val order = Mockito.inOrder(jobs)
         order.verify(jobs).cancelReminder(1)
-        order.verify(jobs).add(ReminderEntry(1, task.getDueDate(), ReminderService.TYPE_DUE))
+        order.verify(jobs).add(ReminderEntry(1, task.dueDate!!, ReminderService.TYPE_DUE))
     }
 
     @Test
@@ -92,7 +92,7 @@ class ReminderServiceTest : InjectingTestCase() {
         service.scheduleAlarm(task)
         val order = Mockito.inOrder(jobs)
         order.verify(jobs).cancelReminder(1)
-        order.verify(jobs).add(ReminderEntry(1, task.getDueDate(), ReminderService.TYPE_DUE))
+        order.verify(jobs).add(ReminderEntry(1, task.dueDate!!, ReminderService.TYPE_DUE))
     }
 
     @Test
@@ -154,7 +154,7 @@ class ReminderServiceTest : InjectingTestCase() {
         service.scheduleAlarm(task)
         val order = Mockito.inOrder(jobs)
         order.verify(jobs).cancelReminder(1)
-        order.verify(jobs).add(ReminderEntry(1, task.getDueDate(), ReminderService.TYPE_DUE))
+        order.verify(jobs).add(ReminderEntry(1, task.dueDate!!, ReminderService.TYPE_DUE))
     }
 
     @Test
@@ -171,7 +171,7 @@ class ReminderServiceTest : InjectingTestCase() {
         order.verify(jobs).cancelReminder(1)
         order
                 .verify(jobs)
-                .add(ReminderEntry(1, task.reminderSnooze, ReminderService.TYPE_SNOOZE))
+                .add(ReminderEntry(1, task.reminderSnooze!!, ReminderService.TYPE_SNOOZE))
     }
 
     @Test

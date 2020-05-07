@@ -14,8 +14,8 @@ open class NewSyncTestCase : InjectingTestCase() {
 
     fun createTask(): Task {
         val task = Task()
-        task.setTitle(SYNC_TASK_TITLE)
-        task.setPriority(SYNC_TASK_IMPORTANCE)
+        task.title = SYNC_TASK_TITLE
+        task.priority = SYNC_TASK_IMPORTANCE
         taskDao.createNew(task)
         return task
     }

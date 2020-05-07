@@ -27,12 +27,12 @@ class AppleRemindersTests {
 
     @Test
     fun readTitle() {
-        assertEquals("Test title", vtodo("apple/basic_no_due_date.txt").getTitle())
+        assertEquals("Test title", vtodo("apple/basic_no_due_date.txt").title)
     }
 
     @Test
     fun readDescription() {
-        assertEquals("Test description", vtodo("apple/basic_no_due_date.txt").getNotes())
+        assertEquals("Test description", vtodo("apple/basic_no_due_date.txt").notes)
     }
 
     @Test
@@ -46,7 +46,7 @@ class AppleRemindersTests {
     fun readDueDate() {
         assertEquals(
                 DateTime(2018, 4, 16, 18, 0, 1, 0).millis,
-                vtodo("apple/basic_due_date.txt").getDueDate() as Long)
+                vtodo("apple/basic_due_date.txt").dueDate)
     }
 
     @Test
@@ -58,26 +58,26 @@ class AppleRemindersTests {
 
     @Test
     fun repeatDaily() {
-        assertEquals("RRULE:FREQ=DAILY;INTERVAL=1", vtodo("apple/repeat_daily.txt").getRecurrence())
+        assertEquals("RRULE:FREQ=DAILY;INTERVAL=1", vtodo("apple/repeat_daily.txt").recurrence)
     }
 
     @Test
     fun noPriority() {
-        assertEquals(Task.Priority.NONE, vtodo("apple/priority_none.txt").getPriority() as Int)
+        assertEquals(Task.Priority.NONE, vtodo("apple/priority_none.txt").priority)
     }
 
     @Test
     fun lowPriority() {
-        assertEquals(Task.Priority.LOW, vtodo("apple/priority_low.txt").getPriority() as Int)
+        assertEquals(Task.Priority.LOW, vtodo("apple/priority_low.txt").priority)
     }
 
     @Test
     fun mediumPriority() {
-        assertEquals(Task.Priority.MEDIUM, vtodo("apple/priority_medium.txt").getPriority() as Int)
+        assertEquals(Task.Priority.MEDIUM, vtodo("apple/priority_medium.txt").priority)
     }
 
     @Test
     fun highPriority() {
-        assertEquals(Task.Priority.HIGH, vtodo("apple/priority_high.txt").getPriority() as Int)
+        assertEquals(Task.Priority.HIGH, vtodo("apple/priority_high.txt").priority)
     }
 }

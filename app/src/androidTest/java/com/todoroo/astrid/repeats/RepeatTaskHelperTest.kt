@@ -90,7 +90,7 @@ class RepeatTaskHelperTest : InjectingTestCase() {
                 with(RRULE, RRule("RRULE:FREQ=MINUTELY;COUNT=2;INTERVAL=30")))
         repeatAndVerify(
                 task, DateTime(2017, 10, 4, 13, 30, 1), DateTime(2017, 10, 4, 14, 0, 1))
-        assertEquals(1, RRule(task.recurrenceWithoutFrom).count)
+        assertEquals(1, RRule(task.getRecurrenceWithoutFrom()).count)
     }
 
     @Test

@@ -33,20 +33,20 @@ class DeletionDaoTests : InjectingTestCase() {
     fun markDeletedUpdatesModificationTime() {
         var task = newTask(MakeItEasy.with(CREATION_TIME, DateTime().minusMinutes(1)))
         taskDao.createNew(task)
-        deletionDao.markDeleted(listOf(task.getId()))
-        task = taskDao.fetch(task.getId())!!
-        assertTrue(task.modificationDate > task.creationDate)
-        assertTrue(task.modificationDate < DateTimeUtils.currentTimeMillis())
+        deletionDao.markDeleted(listOf(task.id!!))
+        task = taskDao.fetch(task.id!!)!!
+        assertTrue(task.modificationDate!! > task.creationDate!!)
+        assertTrue(task.modificationDate!! < DateTimeUtils.currentTimeMillis())
     }
 
     @Test
     fun markDeletedUpdatesDeletionTime() {
         var task = newTask(MakeItEasy.with(CREATION_TIME, DateTime().minusMinutes(1)))
         taskDao.createNew(task)
-        deletionDao.markDeleted(listOf(task.getId()))
-        task = taskDao.fetch(task.getId())!!
-        assertTrue(task.deletionDate > task.creationDate)
-        assertTrue(task.deletionDate < DateTimeUtils.currentTimeMillis())
+        deletionDao.markDeleted(listOf(task.id!!))
+        task = taskDao.fetch(task.id!!)!!
+        assertTrue(task.deletionDate!! > task.creationDate!!)
+        assertTrue(task.deletionDate!! < DateTimeUtils.currentTimeMillis())
     }
 
     override fun inject(component: TestComponent) = component.inject(this)

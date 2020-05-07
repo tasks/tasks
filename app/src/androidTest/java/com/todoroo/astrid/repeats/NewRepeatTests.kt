@@ -224,8 +224,8 @@ class NewRepeatTests {
     private fun newFromDue(frequency: Frequency, interval: Int, dueDateTime: DateTime): Task {
         return object : Task() {
             init {
-                setRecurrence(getRecurrenceRule(frequency, interval, false))
-                setDueDate(dueDateTime.millis)
+                recurrence = getRecurrenceRule(frequency, interval, false)
+                dueDate = dueDateTime.millis
             }
         }
     }
@@ -233,8 +233,8 @@ class NewRepeatTests {
     private fun newWeeklyFromDue(interval: Int, dueDateTime: DateTime, vararg weekdays: WeekdayNum): Task {
         return object : Task() {
             init {
-                setRecurrence(getRecurrenceRule(Frequency.WEEKLY, interval, false, *weekdays))
-                setDueDate(dueDateTime.millis)
+                recurrence = getRecurrenceRule(Frequency.WEEKLY, interval, false, *weekdays)
+                dueDate = dueDateTime.millis
             }
         }
     }
@@ -243,9 +243,9 @@ class NewRepeatTests {
             frequency: Frequency, interval: Int, dueDateTime: DateTime, completionDate: DateTime): Task {
         return object : Task() {
             init {
-                setRecurrence(getRecurrenceRule(frequency, interval, true))
-                setDueDate(dueDateTime.millis)
-                setCompletionDate(completionDate.millis)
+                recurrence = getRecurrenceRule(frequency, interval, true)
+                dueDate = dueDateTime.millis
+                this.completionDate = completionDate.millis
             }
         }
     }
@@ -254,9 +254,9 @@ class NewRepeatTests {
             interval: Int, dueDateTime: DateTime, completionDate: DateTime, vararg weekdays: WeekdayNum): Task {
         return object : Task() {
             init {
-                setRecurrence(getRecurrenceRule(Frequency.WEEKLY, interval, true, *weekdays))
-                setDueDate(dueDateTime.millis)
-                setCompletionDate(completionDate.millis)
+                recurrence = getRecurrenceRule(Frequency.WEEKLY, interval, true, *weekdays)
+                dueDate = dueDateTime.millis
+                this.completionDate = completionDate.millis
             }
         }
     }
