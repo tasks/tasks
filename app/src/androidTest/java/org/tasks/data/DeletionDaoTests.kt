@@ -34,7 +34,7 @@ class DeletionDaoTests : InjectingTestCase() {
         var task = newTask(MakeItEasy.with(CREATION_TIME, DateTime().minusMinutes(1)))
         taskDao.createNew(task)
         deletionDao.markDeleted(listOf(task.getId()))
-        task = taskDao.fetch(task.getId())
+        task = taskDao.fetch(task.getId())!!
         assertTrue(task.modificationDate > task.creationDate)
         assertTrue(task.modificationDate < DateTimeUtils.currentTimeMillis())
     }
@@ -44,7 +44,7 @@ class DeletionDaoTests : InjectingTestCase() {
         var task = newTask(MakeItEasy.with(CREATION_TIME, DateTime().minusMinutes(1)))
         taskDao.createNew(task)
         deletionDao.markDeleted(listOf(task.getId()))
-        task = taskDao.fetch(task.getId())
+        task = taskDao.fetch(task.getId())!!
         assertTrue(task.deletionDate > task.creationDate)
         assertTrue(task.deletionDate < DateTimeUtils.currentTimeMillis())
     }

@@ -28,35 +28,35 @@ class TaskDaoTests : InjectingTestCase() {
     /** Test basic task creation, fetch, and save  */
     @Test
     fun testTaskCreation() {
-        assertEquals(0, taskDao.all.size)
+        assertEquals(0, taskDao.getAll().size)
 
         // create task "happy"
         var task = Task()
         task.setTitle("happy")
         taskDao.createNew(task)
-        assertEquals(1, taskDao.all.size)
+        assertEquals(1, taskDao.getAll().size)
         val happyId = task.getId()
         assertNotSame(Task.NO_ID, happyId)
-        task = taskDao.fetch(happyId)
+        task = taskDao.fetch(happyId)!!
         assertEquals("happy", task.getTitle())
 
         // create task "sad"
         task = Task()
         task.setTitle("sad")
         taskDao.createNew(task)
-        assertEquals(2, taskDao.all.size)
+        assertEquals(2, taskDao.getAll().size)
 
         // rename sad to melancholy
         val sadId = task.getId()
         assertNotSame(Task.NO_ID, sadId)
         task.setTitle("melancholy")
         taskDao.save(task)
-        assertEquals(2, taskDao.all.size)
+        assertEquals(2, taskDao.getAll().size)
 
         // check state
-        task = taskDao.fetch(happyId)
+        task = taskDao.fetch(happyId)!!
         assertEquals("happy", task.getTitle())
-        task = taskDao.fetch(sadId)
+        task = taskDao.fetch(sadId)!!
         assertEquals("melancholy", task.getTitle())
     }
 
@@ -96,26 +96,26 @@ class TaskDaoTests : InjectingTestCase() {
         taskDao.createNew(task)
 
         // check is active
-        assertEquals(5, taskDao.activeTasks.size)
+        assertEquals(5, taskDao.getActiveTasks().size)
 
         // check is visible
-        assertEquals(5, taskDao.visibleTasks.size)
+        assertEquals(5, taskDao.getActiveTasks().size)
     }
 
     /** Test task deletion  */
     @Test
     fun testTDeletion() {
-        assertEquals(0, taskDao.all.size)
+        assertEquals(0, taskDao.getAll().size)
 
         // create task "happy"
         val task = Task()
         task.setTitle("happy")
         taskDao.createNew(task)
-        assertEquals(1, taskDao.all.size)
+        assertEquals(1, taskDao.getAll().size)
 
         // delete
         taskDeleter.delete(task)
-        assertEquals(0, taskDao.all.size)
+        assertEquals(0, taskDao.getAll().size)
     }
 
     /** Test save without prior create doesn't work  */
@@ -126,18 +126,18 @@ class TaskDaoTests : InjectingTestCase() {
         task.setTitle("happy")
         task.setId(1L)
         taskDao.save(task)
-        assertEquals(0, taskDao.all.size)
+        assertEquals(0, taskDao.getAll().size)
     }
 
     /** Test passing invalid task indices to various things  */
     @Test
     fun testInvalidIndex() {
-        assertEquals(0, taskDao.all.size)
+        assertEquals(0, taskDao.getAll().size)
         assertNull(taskDao.fetch(1))
         taskDeleter.delete(listOf(1L))
 
         // make sure db still works
-        assertEquals(0, taskDao.all.size)
+        assertEquals(0, taskDao.getAll().size)
     }
 
     @Test

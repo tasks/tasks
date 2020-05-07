@@ -179,7 +179,7 @@ class Advanced : InjectingPreferenceFragment() {
                 performAction(
                     R.string.EPr_manage_delete_completed_gcal_status,
                     Callable {
-                        calendarEventProvider.deleteEvents(taskDao.completedCalendarEvents)
+                        calendarEventProvider.deleteEvents(taskDao.getCompletedCalendarEvents())
                         taskDao.clearCompletedCalendarEvents()
                     })
             }
@@ -195,7 +195,7 @@ class Advanced : InjectingPreferenceFragment() {
                 performAction(
                     R.string.EPr_manage_delete_all_gcal_status,
                     Callable {
-                        calendarEventProvider.deleteEvents(taskDao.allCalendarEvents)
+                        calendarEventProvider.deleteEvents(taskDao.getAllCalendarEvents())
                         taskDao.clearAllCalendarEvents()
                     })
             }

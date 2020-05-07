@@ -105,7 +105,7 @@ class iCalendar @Inject constructor(
         if (categories.isEmpty()) {
             return emptyList()
         }
-        val tags = tagDataDao.getTags(categories)
+        val tags = tagDataDao.getTags(categories).toMutableList()
         val existing = Lists.transform(tags) { obj: TagData? -> obj!!.name }
         val toCreate = difference(newHashSet(categories), newHashSet(existing))
         for (name in toCreate) {
@@ -153,7 +153,7 @@ class iCalendar @Inject constructor(
             taskDao.createNew(task)
             caldavTask = CaldavTask(task.getId(), calendar.uuid, remote.uid, obj)
         } else {
-            task = taskDao.fetch(existing.task)
+            task = taskDao.fetch(existing.task)!!
             caldavTask = existing
         }
         CaldavConverter.apply(task, remote)

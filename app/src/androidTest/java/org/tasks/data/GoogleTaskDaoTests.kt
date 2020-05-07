@@ -105,9 +105,9 @@ class GoogleTaskDaoTests : InjectingTestCase() {
         googleTaskDao.insertAndShift(newGoogleTask(with(REMOTE_ID, "3")), false)
         val two = getByRemoteId("2")
         googleTaskDao.move(two, 0, 0)
-        assertEquals(0, googleTaskDao.getByRemoteId("2").order)
-        assertEquals(1, googleTaskDao.getByRemoteId("1").order)
-        assertEquals(2, googleTaskDao.getByRemoteId("3").order)
+        assertEquals(0, googleTaskDao.getByRemoteId("2")!!.order)
+        assertEquals(1, googleTaskDao.getByRemoteId("1")!!.order)
+        assertEquals(2, googleTaskDao.getByRemoteId("3")!!.order)
     }
 
     @Test
@@ -117,9 +117,9 @@ class GoogleTaskDaoTests : InjectingTestCase() {
         googleTaskDao.insertAndShift(newGoogleTask(with(REMOTE_ID, "3")), false)
         val one = getByRemoteId("1")
         googleTaskDao.move(one, 0, 1)
-        assertEquals(0, googleTaskDao.getByRemoteId("2").order)
-        assertEquals(1, googleTaskDao.getByRemoteId("1").order)
-        assertEquals(2, googleTaskDao.getByRemoteId("3").order)
+        assertEquals(0, googleTaskDao.getByRemoteId("2")!!.order)
+        assertEquals(1, googleTaskDao.getByRemoteId("1")!!.order)
+        assertEquals(2, googleTaskDao.getByRemoteId("3")!!.order)
     }
 
     @Test
@@ -129,9 +129,9 @@ class GoogleTaskDaoTests : InjectingTestCase() {
         googleTaskDao.insertAndShift(newGoogleTask(with(REMOTE_ID, "3")), false)
         val three = getByRemoteId("3")
         googleTaskDao.move(three, 0, 0)
-        assertEquals(0, googleTaskDao.getByRemoteId("3").order)
-        assertEquals(1, googleTaskDao.getByRemoteId("1").order)
-        assertEquals(2, googleTaskDao.getByRemoteId("2").order)
+        assertEquals(0, googleTaskDao.getByRemoteId("3")!!.order)
+        assertEquals(1, googleTaskDao.getByRemoteId("1")!!.order)
+        assertEquals(2, googleTaskDao.getByRemoteId("2")!!.order)
     }
 
     @Test
@@ -141,9 +141,9 @@ class GoogleTaskDaoTests : InjectingTestCase() {
         googleTaskDao.insertAndShift(newGoogleTask(with(REMOTE_ID, "3")), false)
         val one = getByRemoteId("1")
         googleTaskDao.move(one, 0, 2)
-        assertEquals(0, googleTaskDao.getByRemoteId("2").order)
-        assertEquals(1, googleTaskDao.getByRemoteId("3").order)
-        assertEquals(2, googleTaskDao.getByRemoteId("1").order)
+        assertEquals(0, googleTaskDao.getByRemoteId("2")!!.order)
+        assertEquals(1, googleTaskDao.getByRemoteId("3")!!.order)
+        assertEquals(2, googleTaskDao.getByRemoteId("1")!!.order)
     }
 
     @Test
@@ -169,7 +169,7 @@ class GoogleTaskDaoTests : InjectingTestCase() {
     }
 
     private fun getByRemoteId(remoteId: String): SubsetGoogleTask {
-        val googleTask = googleTaskDao.getByRemoteId(remoteId)
+        val googleTask = googleTaskDao.getByRemoteId(remoteId)!!
         val result = SubsetGoogleTask()
         result.gt_id = googleTask.id
         result.gt_list_id = googleTask.listId
