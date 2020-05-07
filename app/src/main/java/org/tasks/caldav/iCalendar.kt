@@ -2,11 +2,7 @@ package org.tasks.caldav
 
 import at.bitfire.ical4android.Task
 import at.bitfire.ical4android.Task.Companion.tasksFromReader
-import com.google.common.base.Predicate
 import com.google.common.collect.Iterables
-import com.google.common.collect.Lists
-import com.google.common.collect.Sets.difference
-import com.google.common.collect.Sets.newHashSet
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.helper.UUIDHelper
@@ -41,7 +37,7 @@ class iCalendar @Inject constructor(
         private val caldavDao: CaldavDao) {
 
     companion object {
-        private val IS_PARENT = Predicate { r: RelatedTo? ->
+        private val IS_PARENT: (RelatedTo?) -> Boolean = { r: RelatedTo? ->
             r!!.parameters.isEmpty || r.getParameter(Parameter.RELTYPE) === RelType.PARENT
         }
 
@@ -58,9 +54,7 @@ class iCalendar @Inject constructor(
         }
 
         fun getParent(remote: Task): String? {
-            val relatedTo = remote.relatedTo
-            val parent = Iterables.tryFind(relatedTo, IS_PARENT)
-            return if (parent.isPresent) parent.get().value else null
+            return remote.relatedTo.find(IS_PARENT)?.value
         }
 
         fun setParent(remote: Task, value: String?) {
@@ -68,9 +62,9 @@ class iCalendar @Inject constructor(
             if (isNullOrEmpty(value)) {
                 Iterables.removeIf(relatedTo, IS_PARENT)
             } else {
-                val parent = Iterables.tryFind(relatedTo, IS_PARENT)
-                if (parent.isPresent) {
-                    parent.get().value = value
+                val parent = relatedTo.find(IS_PARENT)
+                if (parent != null) {
+                    parent.value = value
                 } else {
                     relatedTo.add(RelatedTo(value))
                 }
@@ -106,8 +100,8 @@ class iCalendar @Inject constructor(
             return emptyList()
         }
         val tags = tagDataDao.getTags(categories).toMutableList()
-        val existing = Lists.transform(tags) { obj: TagData? -> obj!!.name }
-        val toCreate = difference(newHashSet(categories), newHashSet(existing))
+        val existing = tags.map(TagData::name)
+        val toCreate = categories subtract existing
         for (name in toCreate) {
             val tag = TagData(name)
             tagDataDao.createNew(tag)
@@ -120,7 +114,7 @@ class iCalendar @Inject constructor(
         val remoteModel = CaldavConverter.toCaldav(caldavTask, task)
         val categories = remoteModel.categories
         categories.clear()
-        categories.addAll(Lists.transform(tagDataDao.getTagDataForTask(task.getId())) { obj: TagData? -> obj!!.name })
+        categories.addAll(tagDataDao.getTagDataForTask(task.getId()).map { it.name!! })
         if (isNullOrEmpty(caldavTask.remoteId)) {
             val caldavUid = UUIDHelper.newUUID()
             caldavTask.remoteId = caldavUid

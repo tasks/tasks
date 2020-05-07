@@ -5,7 +5,6 @@ import android.appwidget.AppWidgetManager
 import android.content.Intent
 import android.os.Bundle
 import androidx.preference.*
-import com.google.common.primitives.Ints.max
 import com.todoroo.astrid.api.Filter
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
@@ -62,7 +61,7 @@ class ScrollableWidget : InjectingPreferenceFragment() {
         val footer = setupSlider(R.string.p_widget_footer_opacity, row.value)
 
         val opacity = findPreference(R.string.opacity) as SeekBarPreference
-        opacity.value = max(header.value, row.value, footer.value)
+        opacity.value = maxOf(header.value, row.value, footer.value)
         if (header.value != row.value || header.value != footer.value) {
             (findPreference(R.string.preferences_advanced) as PreferenceCategory).initialExpandedChildrenCount = 4
         }

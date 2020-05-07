@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.preference.Preference
 import at.bitfire.cert4android.CustomCertManager.Companion.resetCertificates
-import com.google.common.primitives.Ints
 import org.tasks.R
 import org.tasks.billing.BillingClient
 import org.tasks.billing.Inventory
@@ -22,7 +21,7 @@ class Debug : InjectingPreferenceFragment() {
     override fun getPreferenceXml() = R.xml.preferences_debug
 
     override fun setupPreferences(savedInstanceState: Bundle?) {
-        for (pref in Ints.asList(
+        for (pref in listOf(
             R.string.p_leakcanary,
             R.string.p_flipper,
             R.string.p_strict_mode_vm,

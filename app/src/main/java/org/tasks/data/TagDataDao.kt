@@ -3,7 +3,6 @@ package org.tasks.data
 import androidx.core.util.Pair
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.google.common.collect.Iterables
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.helper.UUIDHelper
 import org.tasks.db.DbUtils
@@ -89,7 +88,7 @@ abstract class TagDataDao {
             tasks: List<Task>, partiallySelected: List<TagData>, selected: List<TagData>): List<Long> {
         val modified = HashSet<Long>()
         val keep = partiallySelected.plus(selected).map { it.remoteId!! }
-        for (sublist in Iterables.partition(tasks, DbUtils.MAX_SQLITE_ARGS - keep.size)) {
+        for (sublist in tasks.chunked(DbUtils.MAX_SQLITE_ARGS - keep.size)) {
             val tags = tagsToDelete(sublist.map(Task::id), keep)
             deleteTags(tags)
             modified.addAll(tags.map(Tag::task))

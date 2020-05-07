@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
-import com.google.common.base.Joiner
 import com.google.common.collect.Multimaps
 import org.tasks.R
 import org.tasks.activities.attribution.AttributionViewModel.LibraryAttribution
@@ -58,7 +57,7 @@ class AttributionActivity : ThemedInjectingAppCompatActivity() {
         val byCopyrightHolder = Multimaps.index(attributions) { lib -> lib!!.copyrightHolder }
         return byCopyrightHolder.keySet().sorted().map {
             val libraries = byCopyrightHolder[it].map { a -> "\u2022 " + a.libraryName }
-            AttributionRow(it, Joiner.on("\n").join(libraries.toList().sorted()))
+            AttributionRow(it, libraries.sorted().joinToString("\n"))
         }
     }
 
