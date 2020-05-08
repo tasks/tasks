@@ -13,5 +13,5 @@ abstract class InjectingApplication : Application() {
         inject(component)
     }
 
-    protected abstract fun inject(component: ApplicationComponent?)
+    protected abstract fun inject(component: ApplicationComponent)
 }

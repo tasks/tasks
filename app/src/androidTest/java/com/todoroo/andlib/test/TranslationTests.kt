@@ -12,7 +12,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.tasks.Callback
 import org.tasks.R.string
 import java.util.*
 
@@ -25,10 +24,10 @@ import java.util.*
 @RunWith(AndroidJUnit4::class)
 class TranslationTests {
     /** Loop through each locale and call runnable  */
-    private fun forEachLocale(callback: Callback<Resources>) {
+    private fun forEachLocale(callback: (Resources) -> Unit) {
         val locales = Locale.getAvailableLocales()
         for (locale in locales) {
-            callback.call(getResourcesForLocale(locale))
+            callback.invoke(getResourcesForLocale(locale))
         }
     }
 
@@ -86,28 +85,27 @@ class TranslationTests {
                 failures.append(String.format("error opening %s: %s\n", name, e.message))
             }
         }
-        forEachLocale(
-                Callback<Resources> { r: Resources ->
-                    val locale = r.configuration.locale
-                    for (i in strings.indices) {
-                        try {
-                            if (strings[i] == string.abc_shareactionprovider_share_with_application) {
-                                continue
-                            }
-                            val string = r.getString(strings[i])
-                            val newFS = FormatStringData(string)
-                            if (!newFS.matches(formatStrings[i])) {
-                                val name = r.getResourceName(strings[i])
-                                failures.append(String.format(
-                                        "%s (%s): %s != %s\n", name, locale.toString(), newFS, formatStrings[i]))
-                            }
-                        } catch (e: Exception) {
-                            val name = r.getResourceName(strings[i])
-                            failures.append(String.format(
-                                    "%s: error opening %s: %s\n", locale.toString(), name, e.message))
-                        }
+        forEachLocale { r: Resources ->
+            val locale = r.configuration.locale
+            for (i in strings.indices) {
+                try {
+                    if (strings[i] == string.abc_shareactionprovider_share_with_application) {
+                        continue
                     }
-                })
+                    val string = r.getString(strings[i])
+                    val newFS = FormatStringData(string)
+                    if (!newFS.matches(formatStrings[i])) {
+                        val name = r.getResourceName(strings[i])
+                        failures.append(String.format(
+                                "%s (%s): %s != %s\n", name, locale.toString(), newFS, formatStrings[i]))
+                    }
+                } catch (e: Exception) {
+                    val name = r.getResourceName(strings[i])
+                    failures.append(String.format(
+                            "%s: error opening %s: %s\n", locale.toString(), name, e.message))
+                }
+            }
+        }
         assertEquals(failures.toString(), 0, errorCount(failures))
     }
 
@@ -125,14 +123,13 @@ class TranslationTests {
     @Test
     fun testSpecialStringsMatch() {
         val failures = StringBuilder()
-        forEachLocale(
-                Callback<Resources> { r: Resources ->
-                    contains(r, string.CFC_tag_text, failures, "?")
-                    contains(r, string.CFC_title_contains_text, failures, "?")
-                    contains(r, string.CFC_dueBefore_text, failures, "?")
-                    contains(r, string.CFC_tag_contains_text, failures, "?")
-                    contains(r, string.CFC_gtasks_list_text, failures, "?")
-                })
+        forEachLocale { r: Resources ->
+            contains(r, string.CFC_tag_text, failures, "?")
+            contains(r, string.CFC_title_contains_text, failures, "?")
+            contains(r, string.CFC_dueBefore_text, failures, "?")
+            contains(r, string.CFC_tag_contains_text, failures, "?")
+            contains(r, string.CFC_gtasks_list_text, failures, "?")
+        }
         assertEquals(failures.toString(), 0, failures.toString().replace("[^\n]".toRegex(), "").length)
     }
 

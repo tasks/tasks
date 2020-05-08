@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
-import org.tasks.Callback
 import org.tasks.R
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
@@ -88,10 +87,7 @@ class ColorPalettePicker : InjectingDialogFragment() {
             Palette.WIDGET -> colorProvider.getWidgetColors()
         }
 
-        val iconPickerAdapter = ColorPickerAdapter(
-            context as Activity,
-            inventory,
-            Callback { index: Int -> onSelected(index) })
+        val iconPickerAdapter = ColorPickerAdapter(context as Activity, inventory, this::onSelected)
         recyclerView.layoutManager = IconLayoutManager(context)
         recyclerView.adapter = iconPickerAdapter
         iconPickerAdapter.submitList(colors)

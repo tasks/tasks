@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @ApplicationScope
-class Firebase @Inject constructor(@ForApplication val context: Context, preferences: Preferences) {
+class Firebase @Inject constructor(@param:ForApplication val context: Context, preferences: Preferences) {
 
     private var enabled: Boolean = preferences.isTrackingEnabled
     private var analytics: FirebaseAnalytics? = null

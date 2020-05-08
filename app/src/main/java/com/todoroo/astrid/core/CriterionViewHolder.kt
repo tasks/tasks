@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
-import org.tasks.Callback
 import org.tasks.R
 import org.tasks.locale.Locale
 import org.tasks.preferences.ResourceResolver
@@ -17,7 +16,7 @@ class CriterionViewHolder(
         private val context: Context,
         itemView: View,
         private val locale: Locale,
-        private val onClick: Callback<String>)
+        private val onClick: (String) -> Unit)
     : RecyclerView.ViewHolder(itemView) {
 
     @BindView(R.id.divider)
@@ -73,7 +72,7 @@ class CriterionViewHolder(
     }
 
     @OnClick(R.id.row)
-    fun onClick() = this.onClick.call(criterion.id)
+    fun onClick() = this.onClick.invoke(criterion.id)
 
     fun setMoving(moving: Boolean) {
         if (moving) {

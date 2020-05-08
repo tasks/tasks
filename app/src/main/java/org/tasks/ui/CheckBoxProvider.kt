@@ -12,7 +12,7 @@ import org.tasks.themes.ColorProvider
 import org.tasks.themes.DrawableUtil
 import javax.inject.Inject
 
-class CheckBoxProvider @Inject constructor(@ForActivity private val context: Context, private val colorProvider: ColorProvider) {
+class CheckBoxProvider @Inject constructor(@param:ForActivity private val context: Context, private val colorProvider: ColorProvider) {
 
     fun getCheckBox(task: Task) = getCheckBox(task.isCompleted, task.isRecurring, task.priority!!)
 

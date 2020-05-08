@@ -18,7 +18,7 @@ import timber.log.Timber
 import timber.log.Timber.DebugTree
 import javax.inject.Inject
 
-internal class BuildSetup @Inject constructor(@ForApplication private val context: Context, private val preferences: Preferences) {
+class BuildSetup @Inject constructor(@param:ForApplication private val context: Context, private val preferences: Preferences) {
     fun setup() {
         Timber.plant(DebugTree())
         SoLoader.init(context, false)

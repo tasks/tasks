@@ -5,15 +5,13 @@ import android.graphics.Canvas
 import android.graphics.drawable.ColorDrawable
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import org.tasks.Callback
-import org.tasks.Callback2
 import org.tasks.R
 
 class CustomFilterItemTouchHelper(
         private val context: Context,
-        private val onMove: Callback2<Int, Int>,
-        private val onDelete: Callback<Int>,
-        private val onClear: Runnable) : ItemTouchHelper.Callback() {
+        private val onMove: (Int, Int) -> Unit,
+        private val onDelete: (Int) -> Unit,
+        private val onClear: () -> Unit) : ItemTouchHelper.Callback() {
     override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
         return if (viewHolder.adapterPosition > 0) makeMovementFlags(ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) else 0
     }
@@ -32,7 +30,7 @@ class CustomFilterItemTouchHelper(
         if (toPosition == 0) {
             return false
         }
-        onMove.call(src.adapterPosition, toPosition)
+        onMove.invoke(src.adapterPosition, toPosition)
         return true
     }
 
@@ -62,10 +60,10 @@ class CustomFilterItemTouchHelper(
 
         (viewHolder as CriterionViewHolder).setMoving(false)
 
-        onClear.run()
+        onClear.invoke()
     }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-        onDelete.call(viewHolder.adapterPosition)
+        onDelete.invoke(viewHolder.adapterPosition)
     }
 }

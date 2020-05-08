@@ -7,7 +7,7 @@ import org.tasks.injection.ForActivity
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
 
-class ColorProvider @Inject constructor(@ForActivity private val context: Context, preferences: Preferences) {
+class ColorProvider @Inject constructor(@param:ForActivity private val context: Context, preferences: Preferences) {
 
     companion object {
         const val BLUE_500 = -14575885

@@ -14,19 +14,20 @@ import androidx.recyclerview.widget.ListUpdateCallback;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.common.collect.ImmutableList;
 import java.util.List;
-import org.tasks.Callback;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 import org.tasks.R;
 import org.tasks.locale.Locale;
 
 public class CustomFilterAdapter extends RecyclerView.Adapter<CriterionViewHolder> implements
     ListUpdateCallback {
 
-  private final Callback<String> onClick;
+  private final Function1<String, Unit> onClick;
   private final Locale locale;
   private final AsyncListDiffer<CriterionInstance> differ;
 
   public CustomFilterAdapter(
-      List<CriterionInstance> objects, Locale locale, Callback<String> onClick) {
+      List<CriterionInstance> objects, Locale locale, Function1<String, Unit> onClick) {
     this.locale = locale;
     this.onClick = onClick;
     differ = new AsyncListDiffer<>(this, new AsyncDifferConfig.Builder<>(new CriterionDiffCallback()).build());

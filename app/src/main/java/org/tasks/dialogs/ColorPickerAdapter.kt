@@ -4,7 +4,6 @@ import android.app.Activity
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import org.tasks.Callback
 import org.tasks.R
 import org.tasks.billing.Inventory
 import org.tasks.dialogs.ColorPalettePicker.Pickable
@@ -12,7 +11,7 @@ import org.tasks.dialogs.ColorPalettePicker.Pickable
 class ColorPickerAdapter(
     private val activity: Activity,
     private val inventory: Inventory,
-    private val onSelected: Callback<Int>
+    private val onSelected: (Int) -> Unit
 ) : ListAdapter<Pickable, IconPickerHolder>(DiffCallback()) {
 
     enum class Palette {
