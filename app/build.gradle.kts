@@ -197,7 +197,7 @@ dependencies {
 
     kaptAndroidTest("com.google.dagger:dagger-compiler:${Versions.dagger}")
     kaptAndroidTest("com.jakewharton:butterknife-compiler:${Versions.butterknife}")
-    androidTestImplementation("com.google.dexmaker:dexmaker-mockito:1.2")
+    androidTestImplementation("org.mockito:mockito-android:3.3.3")
     androidTestImplementation("com.natpryce:make-it-easy:4.0.1")
     androidTestImplementation("androidx.test:runner:1.2.0")
     androidTestImplementation("androidx.test:rules:1.2.0")

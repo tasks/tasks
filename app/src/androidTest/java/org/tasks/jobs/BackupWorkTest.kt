@@ -46,7 +46,7 @@ class BackupWorkTest {
     companion object {
         private fun newFile(lastModified: DateTime): File {
             val result = Mockito.mock(File::class.java)
-            Mockito.stub(result.lastModified()).toReturn(lastModified.millis)
+            Mockito.`when`(result.lastModified()).thenReturn(lastModified.millis)
             return result
         }
     }
