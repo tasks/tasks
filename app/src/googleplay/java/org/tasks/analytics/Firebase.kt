@@ -26,7 +26,7 @@ class Firebase @Inject constructor(@param:ForApplication val context: Context, p
     private var analytics: FirebaseAnalytics? = null
     private var remoteConfig: FirebaseRemoteConfig? = null
 
-    fun reportException(t: Throwable?) {
+    fun reportException(t: Throwable) {
         Timber.e(t)
         if (enabled) {
             Crashlytics.logException(t)

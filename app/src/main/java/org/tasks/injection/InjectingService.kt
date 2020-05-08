@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 abstract class InjectingService : Service() {
     @Inject lateinit var firebase: Firebase
-    private var disposables: CompositeDisposable? = null
+    private lateinit var disposables: CompositeDisposable
 
     override fun onCreate() {
         super.onCreate()
@@ -26,14 +26,12 @@ abstract class InjectingService : Service() {
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         startForeground()
-        disposables!!.add(
+        disposables.add(
                 Completable.fromAction { doWork() }
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                { done(startId) }
-                        ) { t: Throwable? ->
-                            firebase!!.reportException(t)
+                        .subscribe({ done(startId) }) { t: Throwable ->
+                            firebase.reportException(t)
                             done(startId)
                         })
         return START_NOT_STICKY
@@ -47,7 +45,7 @@ abstract class InjectingService : Service() {
     override fun onDestroy() {
         super.onDestroy()
         stopForeground(true)
-        disposables!!.dispose()
+        disposables.dispose()
     }
 
     private fun startForeground() {
