@@ -775,24 +775,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://github.com/mapbox/mapbox-java
-- artifact: com.facebook.soloader:soloader:+
-  name: soloader
-  copyrightHolder: Facebook, Inc. and its affiliates.
-  license: The Apache Software License, Version 2.0
-  licenseUrl: https://github.com/facebook/soloader/blob/master/LICENSE
-  url: https://github.com/facebook/soloader
-- artifact: com.facebook.soloader:annotation:+
-  name: annotation
-  copyrightHolder: Facebook, Inc. and its affiliates.
-  license: The Apache Software License, Version 2.0
-  licenseUrl: https://github.com/facebook/soloader/blob/master/LICENSE
-  url: https://github.com/facebook/soloader
-- artifact: com.facebook.soloader:nativeloader:+
-  name: nativeloader
-  copyrightHolder: Facebook, Inc. and its affiliates.
-  license: The Apache Software License, Version 2.0
-  licenseUrl: https://github.com/facebook/soloader/blob/master/LICENSE
-  url: https://github.com/facebook/soloader
 - artifact: com.mapbox.mapboxsdk:mapbox-android-accounts:+
   name: mapbox-android-accounts
   copyrightHolder: Mapbox

@@ -8,8 +8,8 @@ object Versions {
     const val leakcanary = "2.2"
     const val room = "2.2.5"
     const val crashlytics = "2.10.1"
-    const val analytics = "17.4.0"
+    const val analytics = "17.4.1"
     const val remote_config = "19.1.4"
     const val okhttp = "4.6.0"
-    const val flipper = "0.40.0"
+    const val flipper = "0.41.0"
 }

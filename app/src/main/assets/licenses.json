@@ -1820,48 +1820,6 @@
     },
     {
       "artifactId": {
-        "name": "soloader",
-        "group": "com.facebook.soloader",
-        "version": "+"
-      },
-      "copyrightHolder": "Facebook, Inc. and its affiliates.",
-      "copyrightStatement": "Copyright &copy; Facebook, Inc. and its affiliates. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "https://github.com/facebook/soloader/blob/master/LICENSE",
-      "normalizedLicense": "apache2",
-      "url": "https://github.com/facebook/soloader",
-      "libraryName": "soloader"
-    },
-    {
-      "artifactId": {
-        "name": "annotation",
-        "group": "com.facebook.soloader",
-        "version": "+"
-      },
-      "copyrightHolder": "Facebook, Inc. and its affiliates.",
-      "copyrightStatement": "Copyright &copy; Facebook, Inc. and its affiliates. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "https://github.com/facebook/soloader/blob/master/LICENSE",
-      "normalizedLicense": "apache2",
-      "url": "https://github.com/facebook/soloader",
-      "libraryName": "annotation"
-    },
-    {
-      "artifactId": {
-        "name": "nativeloader",
-        "group": "com.facebook.soloader",
-        "version": "+"
-      },
-      "copyrightHolder": "Facebook, Inc. and its affiliates.",
-      "copyrightStatement": "Copyright &copy; Facebook, Inc. and its affiliates. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "https://github.com/facebook/soloader/blob/master/LICENSE",
-      "normalizedLicense": "apache2",
-      "url": "https://github.com/facebook/soloader",
-      "libraryName": "nativeloader"
-    },
-    {
-      "artifactId": {
         "name": "mapbox-android-accounts",
         "group": "com.mapbox.mapboxsdk",
         "version": "+"
