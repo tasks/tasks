@@ -50,6 +50,23 @@ public class Field extends DBObject<Field> {
     return UnaryCriterion.like(this, value);
   }
 
+  public Criterion in(final Query query) {
+    final Field field = this;
+    return new Criterion(Operator.in) {
+
+      @Override
+      protected void populate(StringBuilder sb) {
+        sb.append(field)
+            .append(SPACE)
+            .append(Operator.in)
+            .append(SPACE)
+            .append(LEFT_PARENTHESIS)
+            .append(query)
+            .append(RIGHT_PARENTHESIS);
+      }
+    };
+  }
+
   public <T> Criterion in(List<T> entries) {
     final Field field = this;
     return new Criterion(Operator.in) {
