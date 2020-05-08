@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="changelog">
-        <item>Add \'New task\' launcher shortcut (Android 7.1+)</item>
-        <item>Add option to disable subtask chip on widget</item>
+        <item>\'New task\' Quick Settings Tile (Android 7+)</item>
+        <item>Search results match place names and addresses, caldav list names, google task list names, and comments</item>
+        <item>Fix duplicated search results</item>
+        <item>Significant internal changes! Please report bugs to support@tasks.org</item>
         <item>Update translations</item>
     </string-array>
 </resources>

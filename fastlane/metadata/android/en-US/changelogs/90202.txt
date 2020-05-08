@@ -1,0 +1,5 @@
+* 'New task' quick settings tile (Android 7+)
+* Search results match place names and addresses, caldav list names, google task list names, and comments
+* Fix duplicated search results
+* Significant internal changes! Please report bugs to support@tasks.org
+* Update translations

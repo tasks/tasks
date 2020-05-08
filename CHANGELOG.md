@@ -1,6 +1,22 @@
 Change Log
 ---
 =======
+### 9.2 (2020-05-13)
+
+* 'New task' quick settings tile (Android 7+)
+* Search results match place names and addresses, caldav list names, google task list names, and comments
+* Fix duplicated search results
+* Began migrating codebase to Kotlin
+* Update translations
+  * Czech - @vitSkalicky, Radek Řehořek
+  * Dutch - @fvbommel
+  * Finnish - Rami Lehtinen
+  * German - @sklueber
+  * Hebrew - @avipars, @Lishaysokol
+  * Hungarian - kaciokos
+  * Simplified Chinese - @sr093906
+  * Turkish - etc
+
 ### 9.1 (2020-05-04)
 
 * 'New task' launcher shortcut (Android 7.1+)
