@@ -15,7 +15,7 @@ Please visit [tasks.org](https://tasks.org) for end user documentation and suppo
 [![PayPal donate button](https://img.shields.io/badge/paypal-donate-yellow.svg?logo=paypal)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=alex@tasks.org)
 [![Liberapay donate button](https://img.shields.io/liberapay/receives/tasks.svg?logo=liberapay)](https://liberapay.com/tasks/donate)
 
-[![Build Status](https://travis-ci.org/tasks/tasks.svg?branch=master)](https://travis-ci.org/tasks/tasks) [![weblate](https://hosted.weblate.org/widgets/tasks/-/android/svg-badge.svg)](https://hosted.weblate.org/engage/tasks/?utm_source=widget) [![codecov](https://codecov.io/gh/tasks/tasks/branch/master/graph/badge.svg)](https://codecov.io/gh/tasks/tasks)
+[![Build Status](https://travis-ci.org/tasks/tasks.svg?branch=master)](https://travis-ci.org/tasks/tasks) [![weblate](https://hosted.weblate.org/widgets/tasks/-/android/svg-badge.svg)](https://hosted.weblate.org/engage/tasks/?utm_source=widget) [![codecov](https://codecov.io/gh/tasks/tasks/branch/master/graph/badge.svg)](https://codecov.io/gh/tasks/tasks) [![codebeat badge](https://codebeat.co/badges/6f2274f0-1bd3-4d6b-9151-d336c5545d05)](https://codebeat.co/projects/github-com-tasks-tasks-master)
 
 #### To get started with development:
 1. [Fork](https://help.github.com/articles/fork-a-repo/) and [clone](https://help.github.com/articles/cloning-a-repository/) the repository
