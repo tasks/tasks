@@ -183,6 +183,8 @@ class Place : Serializable, Parcelable {
         const val TABLE_NAME = "places"
         @JvmField val TABLE = Table(TABLE_NAME)
         @JvmField val UID = StringProperty(TABLE, "uid")
+        @JvmField val NAME = StringProperty(TABLE, "name")
+        @JvmField val ADDRESS = StringProperty(TABLE, "address")
         @JvmField val CREATOR: Parcelable.Creator<Place> = object : Parcelable.Creator<Place> {
             override fun createFromParcel(source: Parcel): Place? {
                 return Place(source)

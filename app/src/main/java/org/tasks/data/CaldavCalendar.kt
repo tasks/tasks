@@ -6,6 +6,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import com.todoroo.andlib.data.Property
+import com.todoroo.andlib.data.Table
 import com.todoroo.astrid.data.Task
 import org.tasks.themes.CustomIcons.CLOUD
 
@@ -110,6 +112,9 @@ class CaldavCalendar : Parcelable {
     }
 
     companion object {
+        @JvmField val TABLE = Table("caldav_lists")
+        @JvmField val UUID = Property.StringProperty(TABLE, "cdl_uuid")
+        @JvmField val NAME = Property.StringProperty(TABLE, "cdl_name")
         @JvmField val CREATOR: Parcelable.Creator<CaldavCalendar> = object : Parcelable.Creator<CaldavCalendar> {
             override fun createFromParcel(source: Parcel): CaldavCalendar? {
                 return CaldavCalendar(source)

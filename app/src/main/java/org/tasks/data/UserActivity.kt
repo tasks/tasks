@@ -7,6 +7,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import com.todoroo.andlib.data.Property
+import com.todoroo.andlib.data.Table
 import com.todoroo.astrid.data.Task
 import org.json.JSONException
 import org.json.JSONObject
@@ -85,6 +87,9 @@ class UserActivity : Parcelable {
     }
 
     companion object {
+        @JvmField val TABLE = Table("userActivity")
+        @JvmField val TASK = Property.StringProperty(TABLE, "target_id")
+        @JvmField val MESSAGE = Property.StringProperty(TABLE, "message")
         @JvmField val CREATOR: Parcelable.Creator<UserActivity> = object : Parcelable.Creator<UserActivity> {
             override fun createFromParcel(source: Parcel): UserActivity? {
                 return UserActivity(source)

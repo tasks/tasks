@@ -6,6 +6,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import com.todoroo.andlib.data.Property
+import com.todoroo.andlib.data.Table
 import org.tasks.themes.CustomIcons.CLOUD
 
 @Entity(tableName = "google_task_lists")
@@ -112,6 +114,9 @@ class GoogleTaskList : Parcelable {
     }
 
     companion object {
+        @JvmField val TABLE = Table("google_task_lists")
+        @JvmField val REMOTE_ID = Property.StringProperty(TABLE, "gtl_remote_id")
+        @JvmField val NAME = Property.StringProperty(TABLE, "gtl_title")
         @JvmField val CREATOR: Parcelable.Creator<GoogleTaskList> = object : Parcelable.Creator<GoogleTaskList> {
             override fun createFromParcel(parcel: Parcel): GoogleTaskList? {
                 return GoogleTaskList(parcel)
