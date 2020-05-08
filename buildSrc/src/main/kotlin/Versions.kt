@@ -5,7 +5,7 @@ object Versions {
     const val dagger = "2.27"
     const val butterknife = "10.2.1"
     const val work = "2.3.4"
-    const val leakcanary = "2.2"
+    const val leakcanary = "2.3"
     const val room = "2.2.5"
     const val crashlytics = "2.10.1"
     const val analytics = "17.4.1"
