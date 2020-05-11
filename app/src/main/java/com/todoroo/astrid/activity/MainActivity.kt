@@ -200,7 +200,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         } else {
             val existing = taskListFragment
             openTaskListFragment(
-                    if (existing == null || existing.filter !== filter) TaskListFragment.newTaskListFragment(applicationContext, filter) else existing,
+                    if (existing == null || existing.getFilter() !== filter) TaskListFragment.newTaskListFragment(applicationContext, filter) else existing,
                     false)
             openTask(filter)
         }
@@ -237,7 +237,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
 
     private fun openTaskListFragment(taskListFragment: TaskListFragment, force: Boolean) {
         AndroidUtilities.assertMainThread()
-        val newFilter = taskListFragment.filter
+        val newFilter = taskListFragment.getFilter()
         if (filter != null && !force
                 && filter!!.areItemsTheSame(newFilter)
                 && filter!!.areContentsTheSame(newFilter)) {
