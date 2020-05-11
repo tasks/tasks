@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="actfm_picture_clear">Odebrat obrázek</string>
-    <string name="TVA_add_comment">Přidej comment…</string>
+    <string name="TVA_add_comment">Přidej komentář…</string>
     <string name="backup_BPr_header">Zálohy</string>
     <string name="backup_BAc_import">Importovat úkoly</string>
     <string name="backup_BAc_export">Exportovat úkoly</string>
@@ -40,9 +40,9 @@
     <string name="TEA_timer_elap">Uplynutí %s</string>
     <string name="TEA_no_time">Bez času</string>
     <string name="due_date">Dne dokončení</string>
-    <string name="due_time">Času dokončení</string>
-    <string name="day_before_due">Dne před dokončením</string>
-    <string name="week_before_due">Týdne před dokončením</string>
+    <string name="due_time">Čas dokončení</string>
+    <string name="day_before_due">Den před termínem</string>
+    <string name="week_before_due">Týden před termínem</string>
     <string name="TEA_control_when">Kdy</string>
     <string name="TEA_control_repeat">Opakovat</string>
     <string name="TEA_control_gcal">Kalendář</string>
@@ -62,7 +62,7 @@
     <string name="CRA_speech_bubble_end">Vypadá to, že jste právě skončil s %s. Chcete vytvořit seznam pro akční položky?</string>
     <string name="CRA_postpone">Možná později</string>
     <string name="CRA_calendar_reminders_pref_title">Asistent pro kalendář</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks vám připomenou nadcházející události v kalendáři a vyzvou vás, abyste se na ně připravili.</string>
+    <string name="CRA_calendar_reminders_pref_desc_enabled">Aplikace Tasks vám připomene nadcházející události v kalendáři a vyzve vás, abyste se na ně připravili</string>
     <string name="none">Žádný</string>
     <string name="EPr_filters_to_show_title">Filtry pro zobrazení</string>
     <string name="EPr_edit_screen_options">Možnosti úprav zobrazení</string>
@@ -112,7 +112,7 @@
     <string name="CFC_dueBefore_name">Podle termínu…</string>
     <string name="no_due_date">Žádný termín</string>
     <string name="next_month">Příští měsíc</string>
-    <string name="CFC_importance_text">Alespoň důležitost?</string>
+    <string name="CFC_importance_text">Minimální důležitost\?</string>
     <string name="CFC_importance_name">Důležitost…</string>
     <string name="CFC_tag_name">Štítek…</string>
     <string name="CFC_title_contains_name">Název obsahuje…</string>
@@ -247,16 +247,16 @@
     <string name="keep_editing">Pokračovat v úpravách</string>
     <string name="action_call">Zavolat</string>
     <string name="action_open">Otevřít</string>
-    <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">dne dokončení</string>
-    <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">času dokončení</string>
-    <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">dne před dokončením</string>
-    <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">týdne před dokončením</string>
+    <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">termín dokončení</string>
+    <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">čas dokončení</string>
+    <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">den před termínem</string>
+    <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">týden před termínem</string>
     <string name="TEA_control_location">Poloha</string>
     <string name="task_defaults">Výchozí nastavení úkolu</string>
     <string name="no_reminders">Žádná připomenutí</string>
     <string name="SSD_sort_my_order">Vlastní pořadí</string>
     <string name="TEA_add_subtask">Přidat podúkol</string>
-    <string name="EPr_default_location_reminder_title">Výchozí připomenutí podle podlohy</string>
+    <string name="EPr_default_location_reminder_title">Výchozí připomenutí podle polohy</string>
     <string name="EPr_default_location_radius">Výchozí přesnost</string>
     <string name="default_location_reminder_on_arrival">Při příchodu</string>
     <string name="default_location_reminder_on_departure">Při odchodu</string>
@@ -367,7 +367,7 @@
     <string name="repeat_snackbar">Úkol %1$s byl znovu naplánován na %2$s</string>
     <string name="new_list">Vytvořit nový seznam</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Aplikace bude nahlas číst název úkolu při upozornění</string>
-    <string name="attachment_directory">Adresář příloh</string>
+    <string name="attachment_directory">Složka pro přílohy</string>
     <string name="google_drive_backup">Kopírovat na Disk Google</string>
     <string name="row_spacing">Řádkování</string>
     <string name="customize_edit_screen">Přizpůsobit upravovací obrazovku</string>
@@ -435,8 +435,8 @@
     <string name="repeats_plural_on_until">Opakuje se každý %1$s v %2$s až do %3$s</string>
     <string name="dont_add_to_calendar">Nepřidat do kalendáře</string>
     <string name="default_calendar">Výchozí kalendář</string>
-    <string name="badges_description">Ukazuje počet úkolů u ikony aplikace na domovské obrazovce. Některé domovské obrazovky tuto funkci nepodporují.</string>
-    <string name="bundle_notifications_summary">Spojuje několik upozornění do jednoho</string>
+    <string name="badges_description">Zobrazit počet úkolů u ikony Tasks. Některé spouštěče tuto funkci nepodporují.</string>
+    <string name="bundle_notifications_summary">Seskupit několik upozornění do jednoho</string>
     <string name="repeat_monthly_same_day_each_month">ve stejný den každý měsíc</string>
     <string name="dont_sync">Nesynchronizovat</string>
     <string name="repeat_monthly_every_day_of_nth_week">každý %1$s %2$s</string>
@@ -477,7 +477,7 @@
     <string name="this_feature_requires_a_subscription">Tato funkce vyžaduje odběr</string>
     <string name="CFC_caldav_list_name">V CalDAV seznamu…</string>
     <string name="repeat_minutely">OPAKOVAT KAŽDOU MINUTU</string>
-    <string name="repeat_number_of_times">Opakovat daný počet opakování</string>
+    <string name="repeat_number_of_times">Opakovat několikrát</string>
     <string name="when_overdue">Po termínu</string>
     <string name="logout_warning">Odhlásit se z %s\? Všechna data daného účtu budou odstraněna z tohoto zařízení</string>
     <string name="cannot_access_account">Nepodařilo se připojit k účtu</string>
@@ -538,4 +538,6 @@
     <string name="widget_show_menu">Zobrazit menu</string>
     <string name="widget_hide_background">Nezobrazovat pozadí</string>
     <string name="sort_created">Podle času vytvoření</string>
+    <string name="delete_multiple_tasks_confirmation">%s smazáno</string>
+    <string name="copy_multiple_tasks_confirmation">%s zkopírováno</string>
 </resources>
