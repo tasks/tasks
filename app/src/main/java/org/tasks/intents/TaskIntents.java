@@ -14,8 +14,8 @@ public class TaskIntents {
     return getEditTaskIntent(context, null, task);
   }
 
-  public static Intent getNewTaskIntent(Context context) {
-    Intent intent = TaskIntents.getTaskListIntent(context, null);
+  public static Intent getNewTaskIntent(Context context, @Nullable Filter filter) {
+    Intent intent = TaskIntents.getTaskListIntent(context, filter);
     intent.putExtra(MainActivity.CREATE_TASK, 0L);
     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
     return intent;
