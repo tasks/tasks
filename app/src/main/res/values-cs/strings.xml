@@ -85,7 +85,7 @@
     <string name="EPr_manage_delete_completed_gcal_status">Smazáno %d událostí z kalendáře!</string>
     <string name="EPr_manage_delete_all_gcal">Smazat v kalendáři všechny upomínky z úkolů</string>
     <string name="EPr_manage_delete_all_gcal_message">Opravdu chcete odstranit všechny události z úkolů?</string>
-    <string name="EPr_manage_delete_all_gcal_status">Smazány %d upomínky v kalendáři</string>
+    <string name="EPr_manage_delete_all_gcal_status">Smazáno %d událostí v kalendáři!</string>
     <string name="EPr_default_urgency_title">Výchozí termín dokončení</string>
     <string name="EPr_default_importance_title">Výchozí důležitost</string>
     <string name="EPr_default_hideUntil_title">Výchozí Skrýt do</string>
@@ -122,7 +122,7 @@
     <string name="delete_calendar_event_confirmation">Smazat událost v kalendáři?</string>
     <string name="gcal_completed_title">%s (dokončeno)</string>
     <string name="CFC_gtasks_list_text">V seznamu: ?</string>
-    <string name="CFC_gtasks_list_name">V seznamu Google úkolů</string>
+    <string name="CFC_gtasks_list_name">V seznamu Google úkolů...</string>
     <string name="gtasks_GTA_clear_completed">Smazat hotové</string>
     <string name="gtasks_GLA_authenticating">Ověřuje se…</string>
     <string name="gtasks_GLA_errorIOAuth">Nastali problémy při komunikaci se servery Google. Zkuste to prosím později.</string>
@@ -138,8 +138,8 @@
     <string name="random_reminder_two_weeks">za dva týdny</string>
     <string name="random_reminder_month">měsíc</string>
     <string name="random_reminder_two_months">za dva měsíce</string>
-    <string name="rmd_NoA_done">Dokončeno!</string>
-    <string name="rmd_NoA_snooze">Později…</string>
+    <string name="rmd_NoA_done">Dokončeno</string>
+    <string name="rmd_NoA_snooze">Odložit</string>
     <string name="rmd_EPr_quiet_hours_start_title">Nerušit od</string>
     <string name="rmd_EPr_quiet_hours_end_title">Nerušit do</string>
     <string name="rmd_EPr_rmd_time_title">Výchozí upomínka</string>
@@ -169,6 +169,7 @@
     <string name="voice_command_added_task">Přidán úkol</string>
     <plurals name="Ntasks">
         <item quantity="one">1 úkol</item>
+        <item quantity="few">%d úkoly</item>
         <item quantity="other">%d úkolů</item>
     </plurals>
     <string name="today">Dnes</string>
