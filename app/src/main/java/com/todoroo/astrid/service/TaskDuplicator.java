@@ -2,6 +2,7 @@ package com.todoroo.astrid.service;
 
 import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.utility.DateUtilities.now;
+import static com.todoroo.astrid.data.Task.NO_UUID;
 
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
@@ -76,7 +77,7 @@ public class TaskDuplicator {
     clone.setModificationDate(now());
     clone.setCompletionDate(0L);
     clone.setCalendarURI("");
-    clone.setUuid(null);
+    clone.setUuid(NO_UUID);
     clone.suppressSync();
     clone.suppressRefresh();
     taskDao.createNew(clone);
