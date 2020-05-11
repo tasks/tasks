@@ -49,7 +49,7 @@ class Location : Serializable, Parcelable {
     val isDeparture: Boolean
         get() = geofence.isDeparture
 
-    val displayName: String?
+    val displayName: String
         get() = place.displayName
 
     val displayAddress: String?

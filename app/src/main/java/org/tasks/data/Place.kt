@@ -94,13 +94,13 @@ class Place : Serializable, Parcelable {
         this.icon = icon
     }
 
-    val displayName: String?
+    val displayName: String
         get() {
             if (!Strings.isNullOrEmpty(name) && !COORDS.matcher(name!!).matches()) {
-                return name
+                return name!!
             }
             return if (!Strings.isNullOrEmpty(address)) {
-                address
+                address!!
             } else {
                 "${formatCoordinate(latitude, true)} ${formatCoordinate(longitude, false)}"
             }
