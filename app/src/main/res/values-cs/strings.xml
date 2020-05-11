@@ -25,7 +25,7 @@
     <string name="SSD_sort_due">Podle data ukončení</string>
     <string name="SSD_sort_importance">Podle důležitosti</string>
     <string name="SSD_sort_modified">Podle naposled upraveného</string>
-    <string name="FLA_search_filter">Hledanému \'%s\' odpovídá:</string>
+    <string name="FLA_search_filter">Hledanému \'%s\' odpovídá</string>
     <string name="FLA_new_filter">Vytvořit nový filtr</string>
     <string name="TEA_title_hint">Souhrn úkolu</string>
     <string name="TEA_importance_label">Důležitost</string>
@@ -122,7 +122,7 @@
     <string name="delete_calendar_event_confirmation">Smazat událost v kalendáři?</string>
     <string name="gcal_completed_title">%s (dokončeno)</string>
     <string name="CFC_gtasks_list_text">V seznamu: ?</string>
-    <string name="CFC_gtasks_list_name">V seznamu Google úkolů...</string>
+    <string name="CFC_gtasks_list_name">V seznamu Google úkolů…</string>
     <string name="gtasks_GTA_clear_completed">Smazat hotové</string>
     <string name="gtasks_GLA_authenticating">Ověřuje se…</string>
     <string name="gtasks_GLA_errorIOAuth">Nastali problémy při komunikaci se servery Google. Zkuste to prosím později.</string>
