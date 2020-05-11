@@ -257,7 +257,7 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
     }
 
     override fun openSubtask(task: Task) {
-        (activity as MainActivity).taskListFragment.onTaskListItemClicked(task)
+        (activity as MainActivity).taskListFragment?.onTaskListItemClicked(task)
     }
 
     override fun toggleSubtask(taskId: Long, collapsed: Boolean) {

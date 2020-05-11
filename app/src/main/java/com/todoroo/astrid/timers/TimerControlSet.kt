@@ -57,7 +57,7 @@ class TimerControlSet : TaskEditControlFragment() {
     private var timerStarted: Long = 0
     private var dialog: AlertDialog? = null
     private lateinit var dialogView: View
-    private var callback: TimerControlSetCallback? = null
+    private lateinit var callback: TimerControlSetCallback
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -118,13 +118,13 @@ class TimerControlSet : TaskEditControlFragment() {
     @OnClick(R.id.timer_container)
     fun timerClicked() {
         if (timerActive()) {
-            val task = callback!!.stopTimer()
+            val task = callback.stopTimer()
             elapsed.setTimeDuration(task.elapsedSeconds)
             timerStarted = 0
             chronometer.stop()
             refreshDisplayView()
         } else {
-            val task = callback!!.startTimer()
+            val task = callback.startTimer()
             timerStarted = task.timerStart
             chronometer.start()
         }
