@@ -35,10 +35,9 @@ import javax.inject.Inject
 
 @RunWith(AndroidJUnit4::class)
 class ReminderServiceTest : InjectingTestCase() {
-    @Inject
-    lateinit var preferences: Preferences
-    @Inject
-    lateinit var taskDao: TaskDao
+    @Inject lateinit var preferences: Preferences
+    @Inject lateinit var taskDao: TaskDao
+
     private lateinit var service: ReminderService
     private lateinit var random: Random
     private lateinit var jobs: NotificationQueue

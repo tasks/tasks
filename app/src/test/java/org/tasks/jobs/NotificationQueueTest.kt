@@ -6,7 +6,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.mockito.AdditionalAnswers
-import org.mockito.Matchers
+import org.mockito.ArgumentMatchers
 import org.mockito.Mockito
 import org.tasks.Freeze.Companion.freezeAt
 import org.tasks.preferences.Preferences
@@ -22,7 +22,7 @@ class NotificationQueueTest {
     @Before
     fun before() {
         preferences = Mockito.mock(Preferences::class.java)
-        Mockito.`when`(preferences.adjustForQuietHours(Matchers.anyLong())).then(AdditionalAnswers.returnsFirstArg<Any>())
+        Mockito.`when`(preferences.adjustForQuietHours(ArgumentMatchers.anyLong())).then(AdditionalAnswers.returnsFirstArg<Any>())
         workManager = Mockito.mock(WorkManager::class.java)
         queue = NotificationQueue(preferences, workManager)
     }
@@ -142,13 +142,13 @@ class NotificationQueueTest {
 
     @Test
     fun nextScheduledTimeIsZeroWhenQueueIsEmpty() {
-        Mockito.`when`(preferences.adjustForQuietHours(Matchers.anyLong())).thenReturn(1234L)
+        Mockito.`when`(preferences.adjustForQuietHours(ArgumentMatchers.anyLong())).thenReturn(1234L)
         assertEquals(0, queue.nextScheduledTime())
     }
 
     @Test
     fun adjustNextScheduledTimeForQuietHours() {
-        Mockito.`when`(preferences.adjustForQuietHours(Matchers.anyLong())).thenReturn(1234L)
+        Mockito.`when`(preferences.adjustForQuietHours(ArgumentMatchers.anyLong())).thenReturn(1234L)
         queue.add(ReminderEntry(1, 1, 1))
         Mockito.verify(workManager).scheduleNotification(1234)
     }
@@ -203,7 +203,7 @@ class NotificationQueueTest {
         freezeAt(now) {
             queue.remove(queue.overdueJobs)
         }
-        assertEquals(listOf(ReminderEntry(2, now + ONE_MINUTE, ReminderService.TYPE_DUE)), queue.jobs)
+        assertEquals(listOf(ReminderEntry(2, now + ONE_MINUTE, ReminderService.TYPE_DUE)), queue.getJobs())
     }
 
     @Test
@@ -217,7 +217,7 @@ class NotificationQueueTest {
             queue.remove(queue.overdueJobs)
         }
         assertEquals(
-                listOf(ReminderEntry(3, now + 2 * ONE_MINUTE, ReminderService.TYPE_DUE)), queue.jobs)
+                listOf(ReminderEntry(3, now + 2 * ONE_MINUTE, ReminderService.TYPE_DUE)), queue.getJobs())
     }
 
     @Test
@@ -257,7 +257,7 @@ class NotificationQueueTest {
             queue.remove(overdueJobs)
             assertEquals(
                     listOf(ReminderEntry(3, due.plusMinutes(1).millis, ReminderService.TYPE_DUE)),
-                    queue.jobs)
+                    queue.getJobs())
         }
     }
 

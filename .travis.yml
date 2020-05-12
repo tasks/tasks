@@ -83,7 +83,8 @@ install:
 
 script:
   - ./gradlew :app:lintGoogleplayRelease
-  - ./gradlew -Pcoverage :app:jacocoTestGoogleplayDebugUnitTestReport :app:createGoogleplayDebugAndroidTestCoverageReport
+  - ./gradlew :app:jacocoTestReport
+  - ./gradlew -Pcoverage :app:createGoogleplayDebugAndroidTestCoverageReport
 
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock

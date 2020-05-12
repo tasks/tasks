@@ -160,6 +160,7 @@ dependencies {
     debugImplementation("com.squareup.leakcanary:leakcanary-android:${Versions.leakcanary}")
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}")
+    implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:0.3.2")
     implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
     implementation("com.google.code.gson:gson:2.8.6")
     implementation("com.google.android.material:material:1.1.0")
