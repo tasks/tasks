@@ -154,8 +154,8 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
             val subtasks = ArrayList<Task>()
             val children = newSubtaskContainer.childCount
             for (i in 0 until children) {
-                val view = newSubtaskContainer.getChildAt(i)
-                val title = view.findViewById<EditText>(R.id.title)
+                val view = newSubtaskContainer.getChildAt(i) as ViewGroup
+                val title = view.getChildAt(2) as EditText
                 val completed: CheckableImageView = view.findViewById(R.id.completeBox)
                 val subtask = taskCreator.createWithValues(title.text.toString())
                 if (completed.isChecked) {
@@ -194,8 +194,8 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
         val view = LayoutInflater.from(activity)
                 .inflate(R.layout.editable_subtask_adapter_row_body, newSubtaskContainer, false) as ViewGroup
         view.findViewById<View>(R.id.clear).setOnClickListener { newSubtaskContainer.removeView(view) }
-        val editText = view.findViewById<EditText>(R.id.title)
-        editText.setTextKeepState(task.title)
+        val editText = view.getChildAt(2) as EditText
+        editText.setText(task.title)
         editText.setHorizontallyScrolling(false)
         editText.setLines(1)
         editText.maxLines = Int.MAX_VALUE
