@@ -171,7 +171,7 @@ class PurchaseActivity : ThemedInjectingAppCompatActivity(), OnPurchasesUpdated,
                     && adapter.selected == currentSubscription!!.subscriptionPrice
 
     private fun isUpgrade() = if (isMonthly() == currentSubscription!!.isMonthly) {
-        currentSubscription!!.subscriptionPrice < adapter.selected
+        currentSubscription!!.subscriptionPrice!! < adapter.selected
     } else {
         isMonthly()
     }

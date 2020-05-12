@@ -12,16 +12,6 @@ import java.io.InputStreamReader
 import java.io.StringReader
 
 object TestUtilities {
-    private var mockitoInitialized = false
-
-    fun initializeMockito(context: Context) {
-        if (!mockitoInitialized) {
-            // for mockito: https://code.google.com/p/dexmaker/issues/detail?id=2
-            System.setProperty("dexmaker.dexcache", context.cacheDir.toString())
-            mockitoInitialized = true
-        }
-    }
-
     fun newPreferences(context: Context?): Preferences {
         return Preferences(context, "test_preferences")
     }

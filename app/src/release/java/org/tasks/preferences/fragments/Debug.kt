@@ -8,8 +8,7 @@ class Debug : InjectingPreferenceFragment() {
 
     override fun getPreferenceXml() = 0
 
-    override fun setupPreferences(savedInstanceState: Bundle?) {
-    }
+    override fun setupPreferences(savedInstanceState: Bundle?) {}
 
-    override fun inject(component: FragmentComponent) = component.inject(this)
+    override fun inject(component: FragmentComponent) {}
 }

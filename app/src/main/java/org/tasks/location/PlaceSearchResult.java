@@ -3,7 +3,7 @@ package org.tasks.location;
 import java.util.Objects;
 import org.tasks.data.Place;
 
-class PlaceSearchResult {
+public class PlaceSearchResult {
 
   private final String id;
   private final String name;
