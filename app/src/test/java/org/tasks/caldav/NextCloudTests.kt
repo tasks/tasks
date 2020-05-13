@@ -1,17 +1,14 @@
 package org.tasks.caldav
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.todoroo.astrid.data.Task
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.tasks.TestUtilities.vtodo
 import org.tasks.time.DateTime
 import java.util.*
 
-@RunWith(AndroidJUnit4::class)
 class NextCloudTests {
     private val defaultTimeZone = TimeZone.getDefault()
 

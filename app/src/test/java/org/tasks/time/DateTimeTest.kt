@@ -1,14 +1,11 @@
 package org.tasks.time
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Assert.*
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.tasks.Freeze
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-@RunWith(AndroidJUnit4::class)
 class DateTimeTest {
     @Test
     fun testGetMillisOfDay() {

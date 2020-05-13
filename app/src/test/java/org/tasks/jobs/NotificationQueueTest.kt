@@ -1,12 +1,10 @@
 package org.tasks.jobs
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.todoroo.astrid.reminders.ReminderService
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.mockito.AdditionalAnswers
 import org.mockito.Matchers
 import org.mockito.Mockito
@@ -16,7 +14,6 @@ import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils
 import java.util.concurrent.TimeUnit
 
-@RunWith(AndroidJUnit4::class)
 class NotificationQueueTest {
     private lateinit var queue: NotificationQueue
     private lateinit var workManager: WorkManager

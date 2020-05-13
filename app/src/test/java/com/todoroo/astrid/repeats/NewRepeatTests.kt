@@ -1,6 +1,5 @@
 package com.todoroo.astrid.repeats
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.ical.values.Frequency
 import com.google.ical.values.RRule
 import com.google.ical.values.Weekday
@@ -9,7 +8,6 @@ import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.astrid.data.Task
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.tasks.makers.TaskMaker.AFTER_COMPLETE
 import org.tasks.makers.TaskMaker.COMPLETION_TIME
 import org.tasks.makers.TaskMaker.DUE_TIME
@@ -18,7 +16,6 @@ import org.tasks.makers.TaskMaker.newTask
 import org.tasks.time.DateTime
 import java.text.ParseException
 
-@RunWith(AndroidJUnit4::class)
 class NewRepeatTests {
     @Test
     @Throws(ParseException::class)

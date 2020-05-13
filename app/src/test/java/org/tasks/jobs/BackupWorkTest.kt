@@ -1,15 +1,12 @@
 package org.tasks.jobs
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Assert.*
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.mockito.Mockito
 import org.tasks.date.DateTimeUtils
 import org.tasks.time.DateTime
 import java.io.File
 
-@RunWith(AndroidJUnit4::class)
 class BackupWorkTest {
     @Test
     fun filterExcludesXmlFiles() {

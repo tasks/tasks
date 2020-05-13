@@ -1,15 +1,12 @@
 package org.tasks.caldav
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import net.fortuna.ical4j.model.property.Geo
 import org.junit.Assert.*
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.tasks.caldav.GeoUtils.equalish
 import org.tasks.caldav.GeoUtils.latitudeLike
 import org.tasks.caldav.GeoUtils.longitudeLike
 
-@RunWith(AndroidJUnit4::class)
 class GeoUtilsTest {
     @Test
     fun getLatitudeLike() =

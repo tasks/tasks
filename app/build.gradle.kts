@@ -6,6 +6,7 @@ plugins {
     kotlin("kapt")
     id("com.cookpad.android.plugin.license-tools") version "1.2.2"
     id("com.github.ben-manes.versions") version "0.28.0"
+    id("jacoco-android")
 }
 
 repositories {
@@ -15,6 +16,10 @@ repositories {
 }
 
 android {
+    val commonTest = "src/commonTest/java"
+    sourceSets["test"].java.srcDir(commonTest)
+    sourceSets["androidTest"].java.srcDirs("src/androidTest/java", commonTest)
+
     bundle {
         language {
             enableSplit = false
@@ -197,12 +202,17 @@ dependencies {
 
     kaptAndroidTest("com.google.dagger:dagger-compiler:${Versions.dagger}")
     kaptAndroidTest("com.jakewharton:butterknife-compiler:${Versions.butterknife}")
-    androidTestImplementation("org.mockito:mockito-android:3.3.3")
-    androidTestImplementation("com.natpryce:make-it-easy:4.0.1")
-    androidTestImplementation("androidx.test:runner:1.2.0")
-    androidTestImplementation("androidx.test:rules:1.2.0")
+    androidTestImplementation("org.mockito:mockito-android:${Versions.mockito}")
+    androidTestImplementation("com.natpryce:make-it-easy:${Versions.make_it_easy}")
+    androidTestImplementation("androidx.test:runner:${Versions.androidx_test}")
+    androidTestImplementation("androidx.test:rules:${Versions.androidx_test}")
     androidTestImplementation("androidx.test.ext:junit:1.1.1")
     androidTestImplementation("androidx.annotation:annotation:1.1.0")
+
+    testImplementation("junit:junit:4.13")
+    testImplementation("com.natpryce:make-it-easy:${Versions.make_it_easy}")
+    testImplementation("androidx.test:core:${Versions.androidx_test}")
+    testImplementation("org.mockito:mockito-core:${Versions.mockito}")
 }
 
 apply(mapOf("plugin" to "com.google.gms.google-services"))

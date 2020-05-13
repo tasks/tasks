@@ -1,16 +1,13 @@
 package com.todoroo.astrid.gtasks.api
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.api.client.util.DateTime
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 import java.util.*
 
-@RunWith(AndroidJUnit4::class)
 class GtasksApiUtilitiesTest {
     @Before
     fun setUp() {

@@ -1,18 +1,15 @@
 package com.todoroo.astrid.data
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.tasks.Freeze
 import org.tasks.Freeze.Companion.freezeAt
 import org.tasks.date.DateTimeUtils
 import org.tasks.time.DateTime
 import java.util.*
 
-@RunWith(AndroidJUnit4::class)
 class TaskTest {
     @Before
     fun setUp() {

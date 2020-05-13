@@ -12,7 +12,6 @@ import java.security.NoSuchAlgorithmException
 @RunWith(AndroidJUnit4::class)
 class CaldavClientTest {
     @Test
-    @Throws(NoSuchAlgorithmException::class, KeyManagementException::class)
     fun dontCrashOnSpaceInUrl() {
         val context = ApplicationProvider.getApplicationContext<Context>()
         CaldavClient(context, null, newPreferences(context), null)

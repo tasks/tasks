@@ -1,15 +1,12 @@
 package org.tasks.caldav
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.After
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.tasks.TestUtilities.vtodo
 import java.util.*
 
-@RunWith(AndroidJUnit4::class)
 class SynologyTests {
     private val defaultTimeZone = TimeZone.getDefault()
 

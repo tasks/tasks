@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.repeats
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.ical.values.Frequency
 import com.google.ical.values.RRule
 import com.google.ical.values.Weekday
@@ -15,15 +14,14 @@ import com.todoroo.astrid.data.Task
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.tasks.date.DateTimeUtils
 import org.tasks.time.DateTime
+import org.tasks.time.DateTimeUtils.printTimestamp
 import java.text.ParseException
 import java.util.*
 import kotlin.math.abs
 import kotlin.math.min
 
-@RunWith(AndroidJUnit4::class)
 class AdvancedRepeatTest {
     private var task: Task? = null
     private var nextDueDate: Long = 0
@@ -239,8 +237,9 @@ class AdvancedRepeatTest {
         private const val PREV = -1
         private const val THIS = 1
         private const val NEXT = 2
+
         fun assertDateTimeEquals(date: Long, other: Long) {
-            assertEquals("Expected: " + DateTimeUtils.newDateTime(date) + ", Actual: " + DateTimeUtils.newDateTime(other), date, other)
+            assertEquals("Expected: ${printTimestamp(date)}, Actual: ${printTimestamp(other)}", date, other)
         }
     }
 }
