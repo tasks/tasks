@@ -1,6 +1,5 @@
 package org.tasks.caldav;
 
-import android.content.Context;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
@@ -8,17 +7,13 @@ import com.todoroo.astrid.helper.UUIDHelper;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.data.CaldavAccount;
-import org.tasks.gtasks.PlayServices;
 import org.tasks.injection.ActivityComponent;
-import org.tasks.injection.ForApplication;
 import timber.log.Timber;
 
 public class CaldavAccountSettingsActivity extends BaseCaldavAccountSettingsActivity
     implements Toolbar.OnMenuItemClickListener {
 
-  @Inject @ForApplication Context context;
   @Inject CaldavClient client;
-  @Inject PlayServices playServices;
 
   private AddCaldavAccountViewModel addCaldavAccountViewModel;
   private UpdateCaldavAccountViewModel updateCaldavAccountViewModel;
@@ -76,7 +71,7 @@ public class CaldavAccountSettingsActivity extends BaseCaldavAccountSettingsActi
 
   @Override
   protected void addAccount(String url, String username, String password) {
-    addCaldavAccountViewModel.addAccount(playServices, context, client, url, username, password);
+    addCaldavAccountViewModel.addAccount(client, url, username, password);
   }
 
   @Override

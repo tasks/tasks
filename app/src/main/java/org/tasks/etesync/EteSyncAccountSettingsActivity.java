@@ -3,7 +3,6 @@ package org.tasks.etesync;
 import static com.todoroo.astrid.data.Task.NO_ID;
 import static org.tasks.Strings.isNullOrEmpty;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -23,9 +22,7 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.caldav.BaseCaldavAccountSettingsActivity;
 import org.tasks.data.CaldavAccount;
-import org.tasks.gtasks.PlayServices;
 import org.tasks.injection.ActivityComponent;
-import org.tasks.injection.ForApplication;
 import timber.log.Timber;
 
 public class EteSyncAccountSettingsActivity extends BaseCaldavAccountSettingsActivity
@@ -33,8 +30,6 @@ public class EteSyncAccountSettingsActivity extends BaseCaldavAccountSettingsAct
 
   private static final int REQUEST_ENCRYPTION_PASSWORD = 10101;
 
-  @Inject @ForApplication Context context;
-  @Inject PlayServices playServices;
   @Inject EteSyncClient eteSyncClient;
 
   private AddEteSyncAccountViewModel addAccountViewModel;
@@ -141,7 +136,7 @@ public class EteSyncAccountSettingsActivity extends BaseCaldavAccountSettingsAct
 
   @Override
   protected void addAccount(String url, String username, String password) {
-    addAccountViewModel.addAccount(playServices, context, eteSyncClient, url, username, password);
+    addAccountViewModel.addAccount(eteSyncClient, url, username, password);
   }
 
   @Override

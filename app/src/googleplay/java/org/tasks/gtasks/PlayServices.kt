@@ -5,9 +5,6 @@ import android.content.Context
 import android.widget.Toast
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException
-import com.google.android.gms.common.GooglePlayServicesRepairableException
-import com.google.android.gms.security.ProviderInstaller
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -77,16 +74,6 @@ class PlayServices @Inject constructor(
 
     private val result: Int
         get() = preferences.getInt(R.string.play_services_available, -1)
-
-    fun updateSecurityProvider(context: Context?) {
-        try {
-            ProviderInstaller.installIfNeeded(context)
-        } catch (e: GooglePlayServicesRepairableException) {
-            Timber.e(e)
-        } catch (e: GooglePlayServicesNotAvailableException) {
-            Timber.e(e)
-        }
-    }
 
     companion object {
         private const val REQUEST_RESOLUTION = 10000

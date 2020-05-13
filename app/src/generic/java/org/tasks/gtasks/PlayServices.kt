@@ -1,7 +1,6 @@
 package org.tasks.gtasks
 
 import android.app.Activity
-import android.content.Context
 import com.todoroo.astrid.activity.MainActivity
 import io.reactivex.disposables.Disposable
 import io.reactivex.disposables.Disposables
@@ -23,6 +22,4 @@ class PlayServices @Inject constructor() {
     fun check(mainActivity: MainActivity?): Disposable {
         return Disposables.empty()
     }
-
-    fun updateSecurityProvider(context: Context?) {}
 }
