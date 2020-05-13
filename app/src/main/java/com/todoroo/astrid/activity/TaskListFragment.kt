@@ -386,12 +386,12 @@ class TaskListFragment : InjectingFragment(), OnRefreshListener, Toolbar.OnMenuI
                 true
             }
             R.id.menu_expand_subtasks -> {
-                taskDao.setCollapsed(taskListViewModel.value, false)
+                taskDao.setCollapsed(preferences, filter, false)
                 localBroadcastManager.broadcastRefresh()
                 true
             }
             R.id.menu_collapse_subtasks -> {
-                taskDao.setCollapsed(taskListViewModel.value, true)
+                taskDao.setCollapsed(preferences, filter, true)
                 localBroadcastManager.broadcastRefresh()
                 true
             }

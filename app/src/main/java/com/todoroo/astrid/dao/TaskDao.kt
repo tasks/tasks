@@ -210,8 +210,11 @@ abstract class TaskDao(private val database: Database) {
     abstract fun setCollapsed(id: Long, collapsed: Boolean)
 
     @Transaction
-    open fun setCollapsed(tasks: List<TaskContainer>, collapsed: Boolean) {
-        DbUtils.batch(tasks.filter(TaskContainer::hasChildren).map(TaskContainer::getId)) {
+    open fun setCollapsed(preferences: Preferences, filter: Filter, collapsed: Boolean) {
+        val tasks = fetchTasks(preferences, filter)
+                .filter(TaskContainer::hasChildren)
+                .map(TaskContainer::getId)
+        DbUtils.batch(tasks) {
             collapse(it, collapsed)
         }
     }
