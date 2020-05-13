@@ -575,7 +575,7 @@
     <string name="custom_filter_criteria">קריטריוני סינון</string>
     <string name="compact">קומפקטי</string>
     <string name="settings_default">ברירת מחדל</string>
-    <string name="widget_id">מזהה יישומון: d%</string>
+    <string name="widget_id">מזהה יישומון: %d</string>
     <string name="hide_check_button">הסתר את כפתור הסימון</string>
     <string name="share">שיתוף</string>
     <string name="auto_dismiss_datetime_widget">יישומון</string>
