@@ -67,11 +67,11 @@ class CaldavAccount : Parcelable {
     }
 
     fun getPassword(encryption: KeyStoreEncryption): String {
-        return encryption.decrypt(password)
+        return encryption.decrypt(password) ?: ""
     }
 
     fun getEncryptionPassword(encryption: KeyStoreEncryption): String {
-        return encryption.decrypt(encryptionKey)
+        return encryption.decrypt(encryptionKey) ?: ""
     }
 
     val isCaldavAccount: Boolean
