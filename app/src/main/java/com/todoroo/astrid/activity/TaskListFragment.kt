@@ -182,7 +182,7 @@ class TaskListFragment : InjectingFragment(), OnRefreshListener, Toolbar.OnMenuI
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        val selectedTaskIds: List<Long> = taskAdapter.selected
+        val selectedTaskIds: List<Long> = taskAdapter.getSelected()
         outState.putLongArray(EXTRA_SELECTED_TASK_IDS, selectedTaskIds.toLongArray())
         outState.putString(EXTRA_SEARCH, searchQuery)
     }
@@ -492,7 +492,7 @@ class TaskListFragment : InjectingFragment(), OnRefreshListener, Toolbar.OnMenuI
         loadTaskListContent()
     }
 
-    fun onTaskCreated(uuid: String?) {
+    fun onTaskCreated(uuid: String) {
         taskAdapter.onTaskCreated(uuid)
     }
 
@@ -522,7 +522,7 @@ class TaskListFragment : InjectingFragment(), OnRefreshListener, Toolbar.OnMenuI
             }
             REQUEST_MOVE_TASKS -> if (resultCode == Activity.RESULT_OK) {
                 taskMover.move(
-                        taskAdapter.selected,
+                        taskAdapter.getSelected(),
                         data!!.getParcelableExtra(RemoteListPicker.EXTRA_SELECTED_FILTER))
                 finishActionMode()
             }
@@ -605,7 +605,7 @@ class TaskListFragment : InjectingFragment(), OnRefreshListener, Toolbar.OnMenuI
     }
 
     override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
-        val selected = taskAdapter.selected
+        val selected = taskAdapter.getSelected()
         return when (item.itemId) {
             R.id.edit_tags -> {
                 val tags = tagDataDao.getTagSelections(selected)
@@ -632,10 +632,9 @@ class TaskListFragment : InjectingFragment(), OnRefreshListener, Toolbar.OnMenuI
                 true
             }
             R.id.menu_share -> {
-                send(
-                        DbUtils.collect(
-                                taskAdapter.selected
-                        ) { ids: List<Long?>? -> taskDao.fetchTasks(preferences, IdListFilter(ids)) })
+                DbUtils
+                        .collect(selected) { taskDao.fetchTasks(preferences, IdListFilter(it)) }
+                        .apply(this::send)
                 true
             }
             R.id.delete -> {

@@ -1,0 +1,97 @@
+package com.todoroo.astrid.adapter
+
+import com.todoroo.andlib.utility.DateUtilities
+import com.todoroo.astrid.api.Filter
+import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.data.Task
+import com.todoroo.astrid.subtasks.SubtasksFilterUpdater
+import org.tasks.Strings.isNullOrEmpty
+import org.tasks.data.TaskContainer
+import org.tasks.data.TaskListMetadata
+import org.tasks.tasklist.ViewHolder
+import timber.log.Timber
+import java.util.*
+import kotlin.math.abs
+
+class AstridTaskAdapter internal constructor(
+        private val list: TaskListMetadata,
+        private val filter: Filter,
+        private val updater: SubtasksFilterUpdater,
+        private val taskDao: TaskDao) : TaskAdapter() {
+
+    private val chainedCompletions = Collections.synchronizedMap(HashMap<String, ArrayList<String>>())
+
+    override fun getIndent(task: TaskContainer) = updater.getIndentForTask(task.uuid)
+
+    override fun canMove(source: ViewHolder, target: ViewHolder) = !updater.isDescendantOf(target.task.uuid, source.task.uuid)
+
+    override fun maxIndent(previousPosition: Int, task: TaskContainer): Int {
+        val previous = getTask(previousPosition)
+        return updater.getIndentForTask(previous.uuid) + 1
+    }
+
+    override fun supportsParentingOrManualSort() = true
+
+    override fun supportsManualSorting() = true
+
+    override fun moved(from: Int, to: Int, indent: Int) {
+        val source = getTask(from)
+        val targetTaskId = source.uuid
+        try {
+            if (to >= count) {
+                updater.moveTo(list, filter, targetTaskId, "-1") // $NON-NLS-1$
+            } else {
+                val destinationTaskId = getItemUuid(to)
+                updater.moveTo(list, filter, targetTaskId, destinationTaskId)
+            }
+            val currentIndent = updater.getIndentForTask(targetTaskId)
+            val delta = indent - currentIndent
+            for (i in 0 until abs(delta)) {
+                updater.indent(list, filter, targetTaskId, delta)
+            }
+        } catch (e: Exception) {
+            Timber.e(e)
+        }
+    }
+
+    override fun onTaskCreated(uuid: String) = updater.onCreateTask(list, filter, uuid)
+
+    override fun onTaskDeleted(task: Task) = updater.onDeleteTask(list, filter, task.uuid)
+
+    override fun onCompletedTask(task: TaskContainer, newState: Boolean) {
+        val itemId = task.uuid
+        val completionDate = if (newState) DateUtilities.now() else 0
+        if (!newState) {
+            val chained = chainedCompletions[itemId]
+            if (chained != null) {
+                for (taskId in chained) {
+                    taskDao.setCompletionDate(taskId, completionDate)
+                }
+            }
+            return
+        }
+        val chained = ArrayList<String>()
+        updater.applyToDescendants(itemId) { node: SubtasksFilterUpdater.Node ->
+            val uuid = node.uuid
+            taskDao.setCompletionDate(uuid, completionDate)
+            chained.add(node.uuid)
+        }
+        if (chained.size > 0) {
+            // move recurring items to item parent
+            val tasks = taskDao.getRecurringTasks(chained)
+            var madeChanges = false
+            for (t in tasks) {
+                if (!isNullOrEmpty(t.recurrence)) {
+                    updater.moveToParentOf(t.uuid, itemId)
+                    madeChanges = true
+                }
+            }
+            if (madeChanges) {
+                updater.writeSerialization(list, updater.serializeTree())
+            }
+            chainedCompletions[itemId] = chained
+        }
+    }
+
+    override fun supportsHiddenTasks() = false
+}
