@@ -3,11 +3,10 @@ package com.todoroo.astrid.alarms
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.astrid.dao.TaskDao
-import org.junit.After
-import org.junit.Before
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito
 import org.tasks.data.Alarm
 import org.tasks.data.AlarmDao
 import org.tasks.injection.InjectingTestCase
@@ -23,20 +22,8 @@ import javax.inject.Inject
 class AlarmJobServiceTest : InjectingTestCase() {
     @Inject lateinit var alarmDao: AlarmDao
     @Inject lateinit var taskDao: TaskDao
-
-    lateinit var alarmService: AlarmService
-    lateinit var jobs: NotificationQueue
-
-    @Before
-    fun before() {
-        jobs = Mockito.mock(NotificationQueue::class.java)
-        alarmService = AlarmService(alarmDao, jobs)
-    }
-
-    @After
-    fun after() {
-        Mockito.verifyNoMoreInteractions(jobs)
-    }
+    @Inject lateinit var jobs: NotificationQueue
+    @Inject lateinit var alarmService: AlarmService
 
     @Test
     fun scheduleAlarm() {
@@ -46,7 +33,8 @@ class AlarmJobServiceTest : InjectingTestCase() {
         val alarm = Alarm(task.id, alarmTime.millis)
         alarm.id = alarmDao.insert(alarm)
         alarmService.scheduleAllAlarms()
-        Mockito.verify(jobs).add(AlarmEntry(alarm))
+
+        assertEquals(listOf(AlarmEntry(alarm)), jobs.getJobs())
     }
 
     @Test
@@ -56,6 +44,8 @@ class AlarmJobServiceTest : InjectingTestCase() {
         taskDao.createNew(task)
         alarmDao.insert(Alarm(task.id, alarmTime.millis))
         alarmService.scheduleAllAlarms()
+
+        assertTrue(jobs.getJobs().isEmpty())
     }
 
     override fun inject(component: TestComponent) = component.inject(this)

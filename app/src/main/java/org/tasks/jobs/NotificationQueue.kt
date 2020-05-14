@@ -80,6 +80,8 @@ class NotificationQueue @Inject constructor(private val preferences: Preferences
 
     fun getJobs() = jobs.values().toImmutableList()
 
+    fun isEmpty() = jobs.isEmpty
+
     @Synchronized
     fun remove(entries: List<NotificationQueueEntry>): Boolean {
         var success = true

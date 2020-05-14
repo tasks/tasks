@@ -5,10 +5,10 @@ import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
-import org.junit.After
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito
 import org.tasks.Freeze
 import org.tasks.R
 import org.tasks.date.DateTimeUtils
@@ -37,23 +37,16 @@ import javax.inject.Inject
 class ReminderServiceTest : InjectingTestCase() {
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var jobs: NotificationQueue
 
     private lateinit var service: ReminderService
-    private lateinit var random: Random
-    private lateinit var jobs: NotificationQueue
+    private lateinit var random: RandomStub
 
     override fun setUp() {
         super.setUp()
-        jobs = Mockito.mock(NotificationQueue::class.java)
-        random = Mockito.mock(Random::class.java)
-        Mockito.`when`(random.nextFloat()).thenReturn(1.0f)
+        random = RandomStub()
         preferences.clear()
         service = ReminderService(preferences, jobs, random, taskDao)
-    }
-
-    @After
-    fun after() {
-        Mockito.verifyNoMoreInteractions(jobs)
     }
 
     override fun inject(component: TestComponent) = component.inject(this)
@@ -61,13 +54,15 @@ class ReminderServiceTest : InjectingTestCase() {
     @Test
     fun dontScheduleDueDateReminderWhenFlagNotSet() {
         service.scheduleAlarm(newTask(with(ID, 1L), with(DUE_TIME, DateTimeUtils.newDateTime())))
-        Mockito.verify(jobs).cancelReminder(1)
+
+        assertTrue(jobs.isEmpty())
     }
 
     @Test
     fun dontScheduleDueDateReminderWhenTimeNotSet() {
         service.scheduleAlarm(newTask(with(ID, 1L), with(REMINDERS, Task.NOTIFY_AT_DEADLINE)))
-        Mockito.verify(jobs).cancelReminder(1)
+
+        assertTrue(jobs.isEmpty())
     }
 
     @Test
@@ -76,10 +71,10 @@ class ReminderServiceTest : InjectingTestCase() {
                 with(ID, 1L),
                 with(DUE_TIME, DateTimeUtils.newDateTime().minusDays(1)),
                 with(REMINDERS, Task.NOTIFY_AT_DEADLINE))
+
         service.scheduleAlarm(task)
-        val order = Mockito.inOrder(jobs)
-        order.verify(jobs).cancelReminder(1)
-        order.verify(jobs).add(ReminderEntry(1, task.dueDate, ReminderService.TYPE_DUE))
+
+        verify(ReminderEntry(1, task.dueDate, ReminderService.TYPE_DUE))
     }
 
     @Test
@@ -88,24 +83,20 @@ class ReminderServiceTest : InjectingTestCase() {
                 with(ID, 1L),
                 with(DUE_TIME, DateTimeUtils.newDateTime().plusDays(1)),
                 with(REMINDERS, Task.NOTIFY_AT_DEADLINE))
+
         service.scheduleAlarm(task)
-        val order = Mockito.inOrder(jobs)
-        order.verify(jobs).cancelReminder(1)
-        order.verify(jobs).add(ReminderEntry(1, task.dueDate, ReminderService.TYPE_DUE))
+
+        verify(ReminderEntry(1, task.dueDate, ReminderService.TYPE_DUE))
     }
 
     @Test
     fun scheduleReminderAtDefaultDueTime() {
         val now = DateTimeUtils.newDateTime()
         val task = newTask(with(ID, 1L), with(DUE_DATE, now), with(REMINDERS, Task.NOTIFY_AT_DEADLINE))
+
         service.scheduleAlarm(task)
-        val order = Mockito.inOrder(jobs)
-        order.verify(jobs).cancelReminder(1)
-        order
-                .verify(jobs)
-                .add(
-                        ReminderEntry(
-                                1, now.startOfDay().withHourOfDay(18).millis, ReminderService.TYPE_DUE))
+
+        verify(ReminderEntry(1, now.startOfDay().withHourOfDay(18).millis, ReminderService.TYPE_DUE))
     }
 
     @Test
@@ -115,8 +106,10 @@ class ReminderServiceTest : InjectingTestCase() {
                 with(DUE_TIME, DateTimeUtils.newDateTime().plusDays(1)),
                 with(COMPLETION_TIME, DateTimeUtils.newDateTime()),
                 with(REMINDERS, Task.NOTIFY_AT_DEADLINE))
+
         service.scheduleAlarm(task)
-        Mockito.verify(jobs).cancelReminder(1)
+
+        assertTrue(jobs.isEmpty())
     }
 
     @Test
@@ -126,8 +119,10 @@ class ReminderServiceTest : InjectingTestCase() {
                 with(DUE_TIME, DateTimeUtils.newDateTime().plusDays(1)),
                 with(DELETION_TIME, DateTimeUtils.newDateTime()),
                 with(REMINDERS, Task.NOTIFY_AT_DEADLINE))
+
         service.scheduleAlarm(task)
-        Mockito.verify(jobs).cancelReminder(1)
+
+        assertTrue(jobs.isEmpty())
     }
 
     @Test
@@ -138,8 +133,10 @@ class ReminderServiceTest : InjectingTestCase() {
                 with(DUE_TIME, now),
                 with(REMINDER_LAST, now.plusSeconds(1)),
                 with(REMINDERS, Task.NOTIFY_AT_DEADLINE))
+
         service.scheduleAlarm(task)
-        Mockito.verify(jobs).cancelReminder(1)
+
+        assertTrue(jobs.isEmpty())
     }
 
     @Test
@@ -150,10 +147,10 @@ class ReminderServiceTest : InjectingTestCase() {
                 with(SNOOZE_TIME, DateTimeUtils.newDateTime().minusMinutes(5)),
                 with(REMINDER_LAST, DateTimeUtils.newDateTime().minusMinutes(4)),
                 with(REMINDERS, Task.NOTIFY_AT_DEADLINE))
+
         service.scheduleAlarm(task)
-        val order = Mockito.inOrder(jobs)
-        order.verify(jobs).cancelReminder(1)
-        order.verify(jobs).add(ReminderEntry(1, task.dueDate, ReminderService.TYPE_DUE))
+
+        verify(ReminderEntry(1, task.dueDate, ReminderService.TYPE_DUE))
     }
 
     @Test
@@ -165,78 +162,63 @@ class ReminderServiceTest : InjectingTestCase() {
                 with(SNOOZE_TIME, dueDate.minusMinutes(4)),
                 with(REMINDER_LAST, dueDate.minusMinutes(5)),
                 with(REMINDERS, Task.NOTIFY_AT_DEADLINE))
+
         service.scheduleAlarm(task)
-        val order = Mockito.inOrder(jobs)
-        order.verify(jobs).cancelReminder(1)
-        order
-                .verify(jobs)
-                .add(ReminderEntry(1, task.reminderSnooze, ReminderService.TYPE_SNOOZE))
+
+        verify(ReminderEntry(1, task.reminderSnooze, ReminderService.TYPE_SNOOZE))
     }
 
     @Test
     fun scheduleInitialRandomReminder() {
+        random.seed = 0.3865f
+
         Freeze.freezeClock {
             val now = DateTimeUtils.newDateTime()
-            Mockito.`when`(random.nextFloat()).thenReturn(0.3865f)
             val task = newTask(
                     with(ID, 1L),
                     with(REMINDER_LAST, null as DateTime?),
                     with(CREATION_TIME, now.minusDays(1)),
                     with(RANDOM_REMINDER_PERIOD, DateUtilities.ONE_WEEK))
+
             service.scheduleAlarm(task)
-            val order = Mockito.inOrder(jobs)
-            order.verify(jobs).cancelReminder(1)
-            order
-                    .verify(jobs)
-                    .add(
-                            ReminderEntry(
-                                    1L,
-                                    now.minusDays(1).millis + 584206592,
-                                    ReminderService.TYPE_RANDOM))
+
+            verify(ReminderEntry(1L, now.minusDays(1).millis + 584206592, ReminderService.TYPE_RANDOM))
         }
     }
 
     @Test
     fun scheduleNextRandomReminder() {
+        random.seed = 0.3865f
+
         Freeze.freezeClock {
             val now = DateTimeUtils.newDateTime()
-            Mockito.`when`(random.nextFloat()).thenReturn(0.3865f)
             val task = newTask(
                     with(ID, 1L),
                     with(REMINDER_LAST, now.minusDays(1)),
                     with(CREATION_TIME, now.minusDays(30)),
                     with(RANDOM_REMINDER_PERIOD, DateUtilities.ONE_WEEK))
+
             service.scheduleAlarm(task)
-            val order = Mockito.inOrder(jobs)
-            order.verify(jobs).cancelReminder(1)
-            order
-                    .verify(jobs)
-                    .add(
-                            ReminderEntry(
-                                    1L,
-                                    now.minusDays(1).millis + 584206592,
-                                    ReminderService.TYPE_RANDOM))
+
+            verify(ReminderEntry(1L, now.minusDays(1).millis + 584206592, ReminderService.TYPE_RANDOM))
         }
     }
 
     @Test
     fun scheduleOverdueRandomReminder() {
+        random.seed = 0.3865f
+
         Freeze.freezeClock {
             val now = DateTimeUtils.newDateTime()
-            Mockito.`when`(random.nextFloat()).thenReturn(0.3865f)
             val task = newTask(
                     with(ID, 1L),
                     with(REMINDER_LAST, now.minusDays(14)),
                     with(CREATION_TIME, now.minusDays(30)),
                     with(RANDOM_REMINDER_PERIOD, DateUtilities.ONE_WEEK))
+
             service.scheduleAlarm(task)
-            val order = Mockito.inOrder(jobs)
-            order.verify(jobs).cancelReminder(1)
-            order
-                    .verify(jobs)
-                    .add(
-                            ReminderEntry(
-                                    1L, now.millis + 10148400, ReminderService.TYPE_RANDOM))
+
+            verify(ReminderEntry(1L, now.millis + 10148400, ReminderService.TYPE_RANDOM))
         }
     }
 
@@ -247,16 +229,10 @@ class ReminderServiceTest : InjectingTestCase() {
                 with(DUE_TIME, DateTime(2017, 9, 22, 15, 30)),
                 with(REMINDER_LAST, null as DateTime?),
                 with(REMINDERS, Task.NOTIFY_AFTER_DEADLINE))
+
         service.scheduleAlarm(task)
-        val order = Mockito.inOrder(jobs)
-        order.verify(jobs).cancelReminder(1)
-        order
-                .verify(jobs)
-                .add(
-                        ReminderEntry(
-                                1L,
-                                DateTime(2017, 9, 23, 15, 30, 1, 0).millis,
-                                ReminderService.TYPE_OVERDUE))
+
+        verify(ReminderEntry(1L, DateTime(2017, 9, 23, 15, 30, 1, 0).millis, ReminderService.TYPE_OVERDUE))
     }
 
     @Test
@@ -266,16 +242,10 @@ class ReminderServiceTest : InjectingTestCase() {
                 with(DUE_TIME, DateTime(2017, 9, 22, 15, 30)),
                 with(REMINDER_LAST, DateTime(2017, 9, 24, 12, 0)),
                 with(REMINDERS, Task.NOTIFY_AFTER_DEADLINE))
+
         service.scheduleAlarm(task)
-        val order = Mockito.inOrder(jobs)
-        order.verify(jobs).cancelReminder(1)
-        order
-                .verify(jobs)
-                .add(
-                        ReminderEntry(
-                                1L,
-                                DateTime(2017, 9, 24, 15, 30, 1, 0).millis,
-                                ReminderService.TYPE_OVERDUE))
+
+        verify(ReminderEntry(1L, DateTime(2017, 9, 24, 15, 30, 1, 0).millis, ReminderService.TYPE_OVERDUE))
     }
 
     @Test
@@ -285,16 +255,10 @@ class ReminderServiceTest : InjectingTestCase() {
                 with(DUE_TIME, DateTime(2017, 9, 22, 12, 30)),
                 with(REMINDER_LAST, DateTime(2017, 9, 24, 15, 0)),
                 with(REMINDERS, Task.NOTIFY_AFTER_DEADLINE))
+
         service.scheduleAlarm(task)
-        val order = Mockito.inOrder(jobs)
-        order.verify(jobs).cancelReminder(1)
-        order
-                .verify(jobs)
-                .add(
-                        ReminderEntry(
-                                1L,
-                                DateTime(2017, 9, 25, 12, 30, 1, 0).millis,
-                                ReminderService.TYPE_OVERDUE))
+
+        verify(ReminderEntry(1L, DateTime(2017, 9, 25, 12, 30, 1, 0).millis, ReminderService.TYPE_OVERDUE))
     }
 
     @Test
@@ -305,16 +269,10 @@ class ReminderServiceTest : InjectingTestCase() {
                 with(DUE_DATE, DateTime(2017, 9, 22)),
                 with(REMINDER_LAST, DateTime(2017, 9, 23, 12, 17, 59, 999)),
                 with(REMINDERS, Task.NOTIFY_AFTER_DEADLINE))
+
         service.scheduleAlarm(task)
-        val order = Mockito.inOrder(jobs)
-        order.verify(jobs).cancelReminder(1)
-        order
-                .verify(jobs)
-                .add(
-                        ReminderEntry(
-                                1L,
-                                DateTime(2017, 9, 23, 15, 0, 0, 0).millis,
-                                ReminderService.TYPE_OVERDUE))
+
+        verify(ReminderEntry(1L, DateTime(2017, 9, 23, 15, 0, 0, 0).millis, ReminderService.TYPE_OVERDUE))
     }
 
     @Test
@@ -324,16 +282,10 @@ class ReminderServiceTest : InjectingTestCase() {
                 with(DUE_TIME, DateTime(2017, 9, 22, 15, 30)),
                 with(REMINDER_LAST, DateTime(2017, 9, 23, 15, 30, 59, 999)),
                 with(REMINDERS, Task.NOTIFY_AFTER_DEADLINE))
+
         service.scheduleAlarm(task)
-        val order = Mockito.inOrder(jobs)
-        order.verify(jobs).cancelReminder(1)
-        order
-                .verify(jobs)
-                .add(
-                        ReminderEntry(
-                                1L,
-                                DateTime(2017, 9, 24, 15, 30, 1, 0).millis,
-                                ReminderService.TYPE_OVERDUE))
+
+        verify(ReminderEntry(1L, DateTime(2017, 9, 24, 15, 30, 1, 0).millis, ReminderService.TYPE_OVERDUE))
     }
 
     @Test
@@ -343,16 +295,10 @@ class ReminderServiceTest : InjectingTestCase() {
                 with(DUE_TIME, DateTime(2017, 9, 22, 15, 30)),
                 with(REMINDER_LAST, DateTime(2017, 9, 23, 12, 17, 59, 999)),
                 with(REMINDERS, Task.NOTIFY_AFTER_DEADLINE))
+
         service.scheduleAlarm(task)
-        val order = Mockito.inOrder(jobs)
-        order.verify(jobs).cancelReminder(1)
-        order
-                .verify(jobs)
-                .add(
-                        ReminderEntry(
-                                1L,
-                                DateTime(2017, 9, 23, 15, 30, 1, 0).millis,
-                                ReminderService.TYPE_OVERDUE))
+
+        verify(ReminderEntry(1L, DateTime(2017, 9, 23, 15, 30, 1, 0).millis, ReminderService.TYPE_OVERDUE))
     }
 
     @Test
@@ -364,11 +310,17 @@ class ReminderServiceTest : InjectingTestCase() {
                 with(SNOOZE_TIME, now.plusMonths(12)),
                 with(REMINDERS, Task.NOTIFY_AT_DEADLINE or Task.NOTIFY_AFTER_DEADLINE),
                 with(RANDOM_REMINDER_PERIOD, DateUtilities.ONE_HOUR))
+
         service.scheduleAlarm(task)
-        val order = Mockito.inOrder(jobs)
-        order.verify(jobs).cancelReminder(1)
-        order
-                .verify(jobs)
-                .add(ReminderEntry(1, now.plusMonths(12).millis, ReminderService.TYPE_SNOOZE))
+
+        verify(ReminderEntry(1, now.plusMonths(12).millis, ReminderService.TYPE_SNOOZE))
+    }
+
+    private fun verify(vararg reminders: ReminderEntry) = assertEquals(reminders.toList(), jobs.getJobs())
+
+    internal class RandomStub : Random() {
+        var seed = 1.0f
+
+        override fun nextFloat() = seed
     }
 }
