@@ -52,11 +52,11 @@ abstract class CaldavDao {
     abstract fun update(caldavTask: CaldavTask)
 
     fun update(caldavTask: SubsetCaldav) {
-        update(caldavTask.id, caldavTask.remoteParent)
+        update(caldavTask.cd_id, caldavTask.cd_remote_parent)
     }
 
     @Query("UPDATE caldav_tasks SET cd_remote_parent = :remoteParent WHERE cd_id = :id")
-    abstract fun update(id: Long, remoteParent: String)
+    abstract fun update(id: Long, remoteParent: String?)
 
     @Update
     abstract fun update(tasks: Iterable<CaldavTask>)

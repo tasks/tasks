@@ -6,6 +6,7 @@ import com.natpryce.makeiteasy.Property
 import com.natpryce.makeiteasy.Property.newProperty
 import com.natpryce.makeiteasy.PropertyLookup
 import com.natpryce.makeiteasy.PropertyValue
+import com.todoroo.astrid.data.Task.Companion.NO_ID
 import org.tasks.data.TaskContainer
 import org.tasks.makers.Maker.make
 import org.tasks.makers.TaskMaker.newTask
@@ -17,8 +18,9 @@ object TaskContainerMaker {
     private val instantiator = Instantiator { lookup: PropertyLookup<TaskContainer> ->
         val container = TaskContainer()
         val parent = lookup.valueOf(PARENT, null as TaskContainer?)
+        val taskId = lookup.valueOf(ID, NO_ID)
         container.task = newTask(
-                with(TaskMaker.ID, lookup.valueOf(ID, 1L)),
+                with(TaskMaker.ID, taskId),
                 with(TaskMaker.PARENT, parent?.id ?: 0L))
         container.indent = parent?.indent?.plus(1) ?: 0
         container

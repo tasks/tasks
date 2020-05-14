@@ -24,8 +24,12 @@ class CaldavTaskAdapter internal constructor(private val taskDao: TaskDao, priva
             newParent = 0
         } else if (previous != null) {
             when {
-                indent == previous.getIndent() -> newParent = previous.parent
-                indent > previous.getIndent() -> newParent = previous.id
+                indent == previous.getIndent() -> {
+                    newParent = previous.parent
+                }
+                indent > previous.getIndent() -> {
+                    newParent = previous.id
+                }
                 indent < previous.getIndent() -> {
                     newParent = previous.parent
                     var currentIndex = to
@@ -45,21 +49,21 @@ class CaldavTaskAdapter internal constructor(private val taskDao: TaskDao, priva
             return
         }
         changeParent(task, newParent)
-        taskDao.touch(task.id)
     }
 
     private fun changeParent(task: TaskContainer, newParent: Long) {
         val caldavTask = task.getCaldavTask()
         if (newParent == 0L) {
-            caldavTask.remoteParent = ""
+            caldavTask.cd_remote_parent = ""
             task.parent = 0
         } else {
             val parentTask = caldavDao.getTask(newParent) ?: return
-            caldavTask.remoteParent = parentTask.remoteId
+            caldavTask.cd_remote_parent = parentTask.remoteId
             task.parent = newParent
         }
         caldavDao.update(caldavTask)
-        taskDao.save(task.getTask())
+        taskDao.save(task.getTask(), null)
+        taskDao.touch(task.id)
     }
 
     private fun taskIsChild(source: TaskContainer, destinationIndex: Int): Boolean {

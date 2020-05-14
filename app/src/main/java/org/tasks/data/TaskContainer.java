@@ -26,7 +26,7 @@ public class TaskContainer {
   }
 
   public String getCaldav() {
-    return caldavTask == null ? null : caldavTask.getCalendar();
+    return caldavTask == null ? null : caldavTask.getCd_calendar();
   }
 
   public String getNotes() {
