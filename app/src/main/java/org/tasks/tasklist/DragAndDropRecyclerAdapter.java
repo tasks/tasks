@@ -159,7 +159,7 @@ public class DragAndDropRecyclerAdapter extends TaskListRecyclerAdapter {
       int fromPosition = src.getAdapterPosition();
       int toPosition = target.getAdapterPosition();
       ViewHolder source = (ViewHolder) src;
-      if (!adapter.canMove(source, (ViewHolder) target)) {
+      if (!adapter.canMove(source.task, fromPosition, ((ViewHolder) target).task, toPosition)) {
         return false;
       }
       if (from == -1) {

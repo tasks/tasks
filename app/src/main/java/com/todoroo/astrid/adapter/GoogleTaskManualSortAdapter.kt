@@ -4,18 +4,14 @@ import com.todoroo.astrid.dao.TaskDao
 import org.tasks.BuildConfig
 import org.tasks.data.GoogleTaskDao
 import org.tasks.data.TaskContainer
-import org.tasks.tasklist.ViewHolder
 
 open class GoogleTaskManualSortAdapter internal constructor(val taskDao: TaskDao, val googleTaskDao: GoogleTaskDao) : TaskAdapter() {
 
-    override fun canMove(sourceVh: ViewHolder, targetVh: ViewHolder): Boolean {
-        val source = sourceVh.task
-        val to = targetVh.adapterPosition
+    override fun canMove(source: TaskContainer, from: Int, target: TaskContainer, to: Int): Boolean {
         if (!source.hasChildren() || to <= 0 || to >= count - 1) {
             return true
         }
-        val target = targetVh.task
-        return if (sourceVh.adapterPosition < to) {
+        return if (from < to) {
             if (target.hasChildren()) {
                 return false
             }

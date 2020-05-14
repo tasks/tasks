@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
+import com.todoroo.astrid.adapter.TaskAdapterDataSource;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 
@@ -20,7 +21,7 @@ import org.tasks.tasklist.ViewHolder.ViewHolderCallbacks;
 import java.util.List;
 
 public abstract class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
-    implements ViewHolderCallbacks, ListUpdateCallback {
+    implements ViewHolderCallbacks, ListUpdateCallback, TaskAdapterDataSource {
 
   private final TaskAdapter adapter;
   private final TaskListFragment taskList;

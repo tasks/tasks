@@ -7,19 +7,17 @@ package com.todoroo.astrid.adapter
 
 import com.todoroo.astrid.data.Task
 import org.tasks.data.TaskContainer
-import org.tasks.tasklist.TaskListRecyclerAdapter
-import org.tasks.tasklist.ViewHolder
 import java.util.*
 
 open class TaskAdapter {
     private val selected = HashSet<Long>()
-    private lateinit var helper: TaskListRecyclerAdapter
+    private lateinit var dataSource: TaskAdapterDataSource
 
     val count: Int
-        get() = helper.itemCount
+        get() = dataSource.itemCount
 
-    fun setHelper(helper: TaskListRecyclerAdapter) {
-        this.helper = helper
+    fun setDataSource(dataSource: TaskAdapterDataSource) {
+        this.dataSource = dataSource
     }
 
     val numSelected: Int
@@ -38,7 +36,7 @@ open class TaskAdapter {
 
     open fun getIndent(task: TaskContainer): Int = task.getIndent()
 
-    open fun canMove(source: ViewHolder, target: ViewHolder): Boolean = false
+    open fun canMove(source: TaskContainer, from: Int, target: TaskContainer, to: Int): Boolean = false
 
     open fun maxIndent(previousPosition: Int, task: TaskContainer): Int = 0
 
@@ -61,7 +59,7 @@ open class TaskAdapter {
 
     open fun moved(from: Int, to: Int, indent: Int) {}
 
-    fun getTask(position: Int): TaskContainer = helper.getItem(position)
+    fun getTask(position: Int): TaskContainer = dataSource.getItem(position)
 
     fun getItemUuid(position: Int): String = getTask(position).uuid
 

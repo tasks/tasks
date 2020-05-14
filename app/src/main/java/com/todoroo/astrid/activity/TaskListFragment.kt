@@ -246,7 +246,7 @@ class TaskListFragment : InjectingFragment(), OnRefreshListener, Toolbar.OnMenuI
     private fun setAdapter(adapter: TaskListRecyclerAdapter) {
         recyclerAdapter = adapter
         recyclerView.adapter = adapter
-        taskAdapter.setHelper(adapter)
+        taskAdapter.setDataSource(adapter)
     }
 
     private fun setupMenu() {

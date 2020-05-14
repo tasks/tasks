@@ -3,14 +3,9 @@ package com.todoroo.astrid.adapter
 import com.todoroo.astrid.dao.TaskDao
 import org.tasks.data.CaldavDao
 import org.tasks.data.TaskContainer
-import org.tasks.tasklist.ViewHolder
 
 class CaldavTaskAdapter internal constructor(private val taskDao: TaskDao, private val caldavDao: CaldavDao) : TaskAdapter() {
-    override fun canMove(sourceVh: ViewHolder, targetVh: ViewHolder): Boolean {
-        val source = sourceVh.task
-        val to = targetVh.adapterPosition
-        return !taskIsChild(source, to)
-    }
+    override fun canMove(source: TaskContainer, from: Int, target: TaskContainer, to: Int) = !taskIsChild(source, to)
 
     override fun maxIndent(previousPosition: Int, task: TaskContainer): Int {
         val previous = getTask(previousPosition)

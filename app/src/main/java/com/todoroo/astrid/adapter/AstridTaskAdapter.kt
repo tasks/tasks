@@ -8,7 +8,6 @@ import com.todoroo.astrid.subtasks.SubtasksFilterUpdater
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskListMetadata
-import org.tasks.tasklist.ViewHolder
 import timber.log.Timber
 import java.util.*
 import kotlin.math.abs
@@ -23,7 +22,7 @@ class AstridTaskAdapter internal constructor(
 
     override fun getIndent(task: TaskContainer) = updater.getIndentForTask(task.uuid)
 
-    override fun canMove(source: ViewHolder, target: ViewHolder) = !updater.isDescendantOf(target.task.uuid, source.task.uuid)
+    override fun canMove(source: TaskContainer, from: Int, target: TaskContainer, to: Int) = !updater.isDescendantOf(target.uuid, source.uuid)
 
     override fun maxIndent(previousPosition: Int, task: TaskContainer): Int {
         val previous = getTask(previousPosition)
