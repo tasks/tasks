@@ -46,7 +46,7 @@
     <string name="TEA_estimatedDuration_label">Ne kadar sürecek?</string>
     <string name="TEA_elapsedDuration_label">Önceden geçirilen zaman</string>
     <string name="save">Kaydet</string>
-    <string name="TEA_timer_est">Kal. %s</string>
+    <string name="TEA_timer_est">Kalan %s</string>
     <string name="TEA_timer_elap">Geçen %s</string>
     <string name="TEA_no_time">Zaman yok</string>
     <string name="due_date">Bitiş tarihi</string>
