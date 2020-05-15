@@ -7,6 +7,7 @@ import com.natpryce.makeiteasy.Property.newProperty
 import com.natpryce.makeiteasy.PropertyLookup
 import com.natpryce.makeiteasy.PropertyValue
 import com.todoroo.astrid.data.Task
+import com.todoroo.astrid.data.Task.Companion.NO_UUID
 import org.tasks.Strings
 import org.tasks.date.DateTimeUtils
 import org.tasks.makers.Maker.make
@@ -29,6 +30,7 @@ object TaskMaker {
     private val TITLE: Property<Task, String?> = newProperty()
     private val PRIORITY: Property<Task, Int> = newProperty()
     val PARENT: Property<Task, Long> = newProperty()
+    val UUID: Property<Task, String> = newProperty()
 
     private val instantiator = Instantiator { lookup: PropertyLookup<Task> ->
         val task = Task()
@@ -84,6 +86,7 @@ object TaskMaker {
         if (rrule != null) {
             task.setRecurrence(rrule, lookup.valueOf(AFTER_COMPLETE, false))
         }
+        task.uuid = lookup.valueOf(UUID, NO_UUID)
         val creationTime = lookup.valueOf(CREATION_TIME, DateTimeUtils.newDateTime())
         task.creationDate = creationTime.millis
         task.parent = lookup.valueOf(PARENT, 0L)

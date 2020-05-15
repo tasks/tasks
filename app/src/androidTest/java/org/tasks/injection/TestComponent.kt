@@ -42,4 +42,5 @@ interface TestComponent : ApplicationComponent {
     fun inject(tests: LocationDaoTest)
     fun inject(tests: GoogleTaskListDaoTest)
     fun inject(tests: CaldavTaskAdapterTest)
+    fun inject(tests: ManualGoogleTaskQueryTest)
 }

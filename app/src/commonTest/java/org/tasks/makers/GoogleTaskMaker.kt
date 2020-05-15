@@ -10,17 +10,17 @@ import org.tasks.makers.Maker.make
 
 object GoogleTaskMaker {
     val LIST: Property<GoogleTask, String> = newProperty()
-    val ORDER: Property<GoogleTask, Int> = newProperty()
+    val ORDER: Property<GoogleTask, Long> = newProperty()
     val REMOTE_ID: Property<GoogleTask, String> = newProperty()
-    val TASK: Property<GoogleTask, Int> = newProperty()
+    val TASK: Property<GoogleTask, Long> = newProperty()
     val PARENT: Property<GoogleTask, Long> = newProperty()
 
     private val instantiator = Instantiator<GoogleTask> {
         val task = GoogleTask()
         task.listId = it.valueOf(LIST, "1")
-        task.order = it.valueOf(ORDER, 0).toLong()
+        task.order = it.valueOf(ORDER, 0)
         task.remoteId = it.valueOf(REMOTE_ID, UUIDHelper.newUUID())
-        task.task = it.valueOf(TASK, 1).toLong()
+        task.task = it.valueOf(TASK, 1)
         task.parent = it.valueOf(PARENT, 0L)
         task
     }
