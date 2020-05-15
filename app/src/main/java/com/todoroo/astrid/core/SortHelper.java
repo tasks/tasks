@@ -30,6 +30,7 @@ public class SortHelper {
   public static final int SORT_MODIFIED = 4;
   public static final int SORT_CREATED = 5;
   public static final int SORT_GTASKS = 6;
+  public static final int SORT_CALDAV = 7;
 
   private static final String ADJUSTED_DUE_DATE =
       "(CASE WHEN (dueDate / 1000) % 60 > 0 THEN dueDate ELSE (dueDate + 43140000) END)";
@@ -139,6 +140,9 @@ public class SortHelper {
       case SORT_GTASKS:
         select = "google_tasks.gt_order AS sort_manual";
         break;
+      case SORT_CALDAV:
+        select = "caldav_tasks.cd_order AS sort_manual";
+        break;
       default:
         select ="(CASE WHEN (tasks.dueDate=0) "
                     + // if no due date
@@ -173,6 +177,7 @@ public class SortHelper {
         order = Order.desc("sort_created");
         break;
       case SORT_GTASKS:
+      case SORT_CALDAV:
         order = Order.asc("sort_manual");
         break;
       default:

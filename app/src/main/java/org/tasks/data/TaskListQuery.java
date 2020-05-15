@@ -73,7 +73,7 @@ public class TaskListQuery {
       Preferences preferences, com.todoroo.astrid.api.Filter filter, SubtaskInfo subtasks) {
 
     if (filter.supportsManualSort() && preferences.isManualSort()) {
-      return subtasks.usesSubtasks() && filter instanceof GtasksFilter
+      return filter instanceof GtasksFilter || filter instanceof CaldavFilter
           ? getRecursiveQuery(filter, preferences, subtasks)
           : getNonRecursiveQuery(filter, preferences);
     }
@@ -118,6 +118,9 @@ public class TaskListQuery {
               .toString();
       subtaskQuery
           .join(Join.inner(RECURSIVE, Task.PARENT.eq(RECURSIVE_TASK)))
+          .join(
+              Join.inner(CaldavTask.TABLE,
+                  Criterion.and(CaldavTask.TASK.eq(Task.ID), CaldavTask.DELETED.eq(0))))
           .where(TaskCriteria.activeAndVisible());
     } else if (filter instanceof GtasksFilter) {
       GoogleTaskList list = ((GtasksFilter) filter).getList();
@@ -158,11 +161,18 @@ public class TaskListQuery {
 
     boolean manualSort = preferences.isManualSort();
     boolean manualGtasks = manualSort && filter instanceof GtasksFilter;
+    boolean manualCaldav = manualSort && filter instanceof CaldavFilter;
     int sortMode;
+    String sortField;
     if (manualGtasks) {
       sortMode = SortHelper.SORT_GTASKS;
+      sortField = "google_tasks.gt_order";
+    } else if (manualCaldav) {
+      sortMode = SortHelper.SORT_CALDAV;
+      sortField = "caldav_tasks.cd_order";
     } else {
       sortMode = preferences.getSortMode();
+      sortField = "NULL";
     }
     boolean reverseSort = preferences.isReverseSort() && sortMode != SortHelper.SORT_GTASKS;
     String sortSelect = SortHelper.orderSelectForSortTypeRecursive(sortMode);
@@ -171,14 +181,12 @@ public class TaskListQuery {
             + "WITH RECURSIVE recursive_tasks (task, parent, collapsed, hidden, indent, title, sortField, primary_sort, secondary_sort) AS (\n"
             + " SELECT tasks._id, 0 as parent, tasks.collapsed as collapsed, 0 as hidden, 0 AS sort_indent, UPPER(tasks.title) AS sort_title, "
             + sortSelect
-            + (manualGtasks ? ", google_tasks.gt_order as primary_sort" : ", NULL as primary_sort")
-            + ", NULL as secondary_sort"
+            + ", " + sortField + " as primary_sort, NULL as secondarySort"
             + " FROM tasks\n"
             + parentQuery
             + "\nUNION ALL SELECT tasks._id, recursive_tasks.task as parent, tasks.collapsed as collapsed, CASE WHEN recursive_tasks.collapsed > 0 OR recursive_tasks.hidden > 0 THEN 1 ELSE 0 END as hidden, recursive_tasks.indent+1 AS sort_indent, UPPER(tasks.title) AS sort_title, "
             + sortSelect
-            + ", recursive_tasks.primary_sort as primary_sort"
-            + (manualGtasks ? ", google_tasks.gt_order as secondary_sort" : ", NULL as secondary_sort")
+            + ", recursive_tasks.primary_sort as primary_sort, " + sortField + " as secondary_sort"
             + " FROM tasks\n"
             + subtaskQuery
             + "\nORDER BY sort_indent DESC, "

@@ -157,6 +157,7 @@ class iCalendar @Inject constructor(
         }
         CaldavConverter.apply(task, remote)
         caldavTask.remoteOrder = remote.order
+        caldavTask.order = caldavTask.remoteOrder // TODO: remove me
         val geo = remote.geoPosition
         if (geo == null) {
             locationDao.getActiveGeofences(task.id).forEach {

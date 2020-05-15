@@ -90,6 +90,11 @@ public class CaldavFilter extends Filter {
   }
 
   @Override
+  public boolean supportsManualSort() {
+    return true;
+  }
+
+  @Override
   public int getMenu() {
     return R.menu.menu_caldav_list_fragment;
   }
