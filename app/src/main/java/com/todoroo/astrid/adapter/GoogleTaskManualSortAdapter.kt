@@ -8,23 +8,20 @@ import org.tasks.data.TaskContainer
 open class GoogleTaskManualSortAdapter internal constructor(val taskDao: TaskDao, val googleTaskDao: GoogleTaskDao) : TaskAdapter() {
 
     override fun canMove(source: TaskContainer, from: Int, target: TaskContainer, to: Int): Boolean {
-        if (!source.hasChildren() || to <= 0 || to >= count - 1) {
-            return true
-        }
-        return if (from < to) {
-            if (target.hasChildren()) {
-                return false
+        return if (!source.hasChildren() || to <= 0 || to >= count - 1) {
+            true
+        } else if (from < to) {
+            when {
+                target.hasChildren() -> false
+                target.hasParent() -> !getTask(to + 1).hasParent()
+                else -> true
             }
-            if (target.hasParent()) {
-                target.isLastSubtask
-            } else true
         } else {
-            if (target.hasChildren()) {
-                return true
+            when {
+                target.hasChildren() -> true
+                target.hasParent() -> target.parent == source.id && target.secondarySort == 0L
+                else -> true
             }
-            if (target.hasParent()) {
-                target.parent == source.id && target.secondarySort == 0L
-            } else true
         }
     }
 

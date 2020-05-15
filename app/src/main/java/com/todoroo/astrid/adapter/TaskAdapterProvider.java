@@ -72,7 +72,9 @@ public class TaskAdapterProvider {
       GtasksFilter gtasksFilter = (GtasksFilter) filter;
       GoogleTaskList list = gtasksListService.getList(gtasksFilter.getStoreId());
       if (list != null) {
-        return createGoogleTaskAdapter(gtasksFilter);
+        return preferences.isManualSort()
+            ? new GoogleTaskManualSortAdapter(taskDao, googleTaskDao)
+            : new GoogleTaskAdapter(taskDao, googleTaskDao, preferences.addGoogleTasksToTop());
       }
     } else if (filter instanceof CaldavFilter) {
       CaldavFilter caldavFilter = (CaldavFilter) filter;
@@ -100,14 +102,6 @@ public class TaskAdapterProvider {
     SubtasksFilterUpdater updater = new SubtasksFilterUpdater(taskListMetadataDao, taskDao);
     updater.initialize(list, filter);
     return new AstridTaskAdapter(list, filter, updater, taskDao);
-  }
-
-  private TaskAdapter createGoogleTaskAdapter(GtasksFilter filter) {
-    if (preferences.isManualSort()) {
-      filter.setFilterQueryOverride(GtasksFilter.toManualOrder(filter.getSqlQuery()));
-      return new GoogleTaskManualSortAdapter(taskDao, googleTaskDao);
-    }
-    return new GoogleTaskAdapter(taskDao, googleTaskDao, preferences.addGoogleTasksToTop());
   }
 
   private TaskAdapter createManualFilterTaskAdapter(Filter filter) {

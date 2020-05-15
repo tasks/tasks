@@ -29,6 +29,7 @@ public class SortHelper {
   public static final int SORT_IMPORTANCE = 3;
   public static final int SORT_MODIFIED = 4;
   public static final int SORT_CREATED = 5;
+  public static final int SORT_GTASKS = 6;
 
   private static final String ADJUSTED_DUE_DATE =
       "(CASE WHEN (dueDate / 1000) % 60 > 0 THEN dueDate ELSE (dueDate + 43140000) END)";
@@ -135,6 +136,9 @@ public class SortHelper {
       case SORT_CREATED:
         select = "tasks.created AS sort_created";
         break;
+      case SORT_GTASKS:
+        select = "google_tasks.gt_order AS sort_manual";
+        break;
       default:
         select ="(CASE WHEN (tasks.dueDate=0) "
                     + // if no due date
@@ -150,9 +154,9 @@ public class SortHelper {
     return select;
   }
 
-  public static Order orderForSortTypeRecursive(Preferences preferences) {
+  public static Order orderForSortTypeRecursive(int sortMode, boolean reverse) {
     Order order;
-    switch (preferences.getSortMode()) {
+    switch (sortMode) {
       case SORT_ALPHA:
         order = Order.asc("sort_title");
         break;
@@ -168,14 +172,17 @@ public class SortHelper {
       case SORT_CREATED:
         order = Order.desc("sort_created");
         break;
+      case SORT_GTASKS:
+        order = Order.asc("sort_manual");
+        break;
       default:
         order = Order.asc("sort_smart");
     }
-    if (preferences.getSortMode() != SORT_ALPHA) {
+    if (sortMode != SORT_ALPHA) {
       order.addSecondaryExpression(Order.asc("sort_title"));
     }
 
-    if (preferences.isReverseSort()) {
+    if (reverse) {
       order = order.reverse();
     }
 

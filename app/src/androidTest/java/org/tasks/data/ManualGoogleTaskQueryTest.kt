@@ -6,6 +6,7 @@ import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.helper.UUIDHelper
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -31,13 +32,11 @@ class ManualGoogleTaskQueryTest : InjectingTestCase() {
     @Inject lateinit var googleTaskDao: GoogleTaskDao
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var preferences: Preferences
-    private lateinit var filter: GtasksFilter
+    private val filter: GtasksFilter = GtasksFilter(newGoogleTaskList(with(REMOTE_ID, "1234")))
 
     @Before
     override fun setUp() {
         super.setUp()
-        filter = GtasksFilter(newGoogleTaskList(with(REMOTE_ID, "1234")))
-        filter.setFilterQueryOverride(GtasksFilter.toManualOrder(filter.getSqlQuery()))
         preferences.clear()
         preferences.setBoolean(R.string.p_manual_sort, true)
     }
@@ -86,6 +85,17 @@ class ManualGoogleTaskQueryTest : InjectingTestCase() {
         assertEquals(0, subtasks[0].secondarySort)
         assertEquals(0, subtasks[1].secondarySort)
         assertEquals(1, subtasks[2].secondarySort)
+    }
+
+    @Test
+    fun ignoreDisableSubtasksPreference() {
+        preferences.setBoolean(R.string.p_disable_subtasks, true)
+        newTask(1, 0, 0)
+        newTask(2, 0, 1)
+
+        val parent = query()[0]
+
+        assertTrue(parent.hasChildren())
     }
 
     private fun newTask(id: Long, order: Long, parent: Long = 0) {

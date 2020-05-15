@@ -50,7 +50,6 @@ public class TaskListQuery {
   private static final Field PLACE = field("places.*");
   private static final Field CALDAV = field(CALDAV_METADATA_JOIN + ".*");
   private static final Field CHILDREN = field("children");
-  private static final Field SIBLINGS = field("siblings");
   private static final Field PRIMARY_SORT = field("primary_sort").as("primarySort");
   private static final Field SECONDARY_SORT = field("secondary_sort").as("secondarySort");
   private static final Field INDENT = field("indent");
@@ -71,13 +70,15 @@ public class TaskListQuery {
   private static final List<Field> FIELDS = ImmutableList.of(TASKS, GTASK, CALDAV, GEOFENCE, PLACE);
 
   public static List<String> getQuery(
-      Preferences preferences,
-      com.todoroo.astrid.api.Filter filter,
-      SubtaskInfo subtasks) {
-    if (filter.supportSubtasks()
-        && subtasks.usesSubtasks()
-        && preferences.showSubtasks()
-        && !(preferences.isManualSort() && filter.supportsManualSort())) {
+      Preferences preferences, com.todoroo.astrid.api.Filter filter, SubtaskInfo subtasks) {
+
+    if (filter.supportsManualSort() && preferences.isManualSort()) {
+      return subtasks.usesSubtasks() && filter instanceof GtasksFilter
+          ? getRecursiveQuery(filter, preferences, subtasks)
+          : getNonRecursiveQuery(filter, preferences);
+    }
+
+    if (filter.supportSubtasks() && subtasks.usesSubtasks() && preferences.showSubtasks()) {
       return getRecursiveQuery(filter, preferences, subtasks);
     } else {
       return getNonRecursiveQuery(filter, preferences);
@@ -92,6 +93,8 @@ public class TaskListQuery {
     fields.add(TAG_QUERY);
     fields.add(INDENT);
     fields.add(CHILDREN);
+    fields.add(PRIMARY_SORT);
+    fields.add(SECONDARY_SORT);
 
     String joinedQuery =
         Join.inner(RECURSIVE, Task.ID.eq(RECURSIVE_TASK))
@@ -153,20 +156,33 @@ public class TaskListQuery {
     }
     joinedQuery += where;
 
-    String sortSelect = SortHelper.orderSelectForSortTypeRecursive(preferences.getSortMode());
+    boolean manualSort = preferences.isManualSort();
+    boolean manualGtasks = manualSort && filter instanceof GtasksFilter;
+    int sortMode;
+    if (manualGtasks) {
+      sortMode = SortHelper.SORT_GTASKS;
+    } else {
+      sortMode = preferences.getSortMode();
+    }
+    boolean reverseSort = preferences.isReverseSort() && sortMode != SortHelper.SORT_GTASKS;
+    String sortSelect = SortHelper.orderSelectForSortTypeRecursive(sortMode);
     String withClause =
         "CREATE TEMPORARY TABLE `recursive_tasks` AS\n"
-            + "WITH RECURSIVE recursive_tasks (task, parent, collapsed, hidden, indent, title, sortField) AS (\n"
+            + "WITH RECURSIVE recursive_tasks (task, parent, collapsed, hidden, indent, title, sortField, primary_sort, secondary_sort) AS (\n"
             + " SELECT tasks._id, 0 as parent, tasks.collapsed as collapsed, 0 as hidden, 0 AS sort_indent, UPPER(tasks.title) AS sort_title, "
             + sortSelect
+            + (manualGtasks ? ", google_tasks.gt_order as primary_sort" : ", NULL as primary_sort")
+            + ", NULL as secondary_sort"
             + " FROM tasks\n"
             + parentQuery
             + "\nUNION ALL SELECT tasks._id, recursive_tasks.task as parent, tasks.collapsed as collapsed, CASE WHEN recursive_tasks.collapsed > 0 OR recursive_tasks.hidden > 0 THEN 1 ELSE 0 END as hidden, recursive_tasks.indent+1 AS sort_indent, UPPER(tasks.title) AS sort_title, "
             + sortSelect
+            + ", recursive_tasks.primary_sort as primary_sort"
+            + (manualGtasks ? ", google_tasks.gt_order as secondary_sort" : ", NULL as secondary_sort")
             + " FROM tasks\n"
             + subtaskQuery
             + "\nORDER BY sort_indent DESC, "
-            + SortHelper.orderForSortTypeRecursive(preferences)
+            + SortHelper.orderForSortTypeRecursive(sortMode, reverseSort)
             + ") SELECT * FROM recursive_tasks";
 
     return newArrayList(
@@ -184,13 +200,6 @@ public class TaskListQuery {
     List<Field> fields = new ArrayList<>(FIELDS);
     fields.add(TAGS);
 
-    if (filter instanceof GtasksFilter && preferences.isManualSort()) {
-      fields.add(INDENT);
-      fields.add(CHILDREN);
-      fields.add(SIBLINGS);
-      fields.add(PRIMARY_SORT);
-      fields.add(SECONDARY_SORT);
-    }
     // TODO: For now, we'll modify the query to join and include the things like tag data here.
     // Eventually, we might consider restructuring things so that this query is constructed
     // elsewhere.

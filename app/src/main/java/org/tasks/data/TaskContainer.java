@@ -11,7 +11,6 @@ public class TaskContainer {
   @Embedded public Location location;
   public String tags;
   public int children;
-  public int siblings;
   public long primarySort;
   public long secondarySort;
   public int indent;
@@ -96,7 +95,6 @@ public class TaskContainer {
     }
     TaskContainer that = (TaskContainer) o;
     return children == that.children
-        && siblings == that.siblings
         && primarySort == that.primarySort
         && secondarySort == that.secondarySort
         && indent == that.indent
@@ -111,7 +109,7 @@ public class TaskContainer {
   @Override
   public int hashCode() {
     return Objects
-        .hash(task, googletask, caldavTask, location, tags, children, siblings, primarySort,
+        .hash(task, googletask, caldavTask, location, tags, children, primarySort,
             secondarySort, indent, targetIndent);
   }
 
@@ -131,8 +129,6 @@ public class TaskContainer {
         + '\''
         + ", children="
         + children
-        + ", siblings="
-        + siblings
         + ", primarySort="
         + primarySort
         + ", secondarySort="
@@ -172,10 +168,6 @@ public class TaskContainer {
 
   public boolean hasChildren() {
     return children > 0;
-  }
-
-  public boolean isLastSubtask() {
-    return secondarySort == siblings - 1;
   }
 
   public SubsetGoogleTask getGoogleTask() {

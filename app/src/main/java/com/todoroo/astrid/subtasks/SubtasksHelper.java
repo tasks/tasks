@@ -4,6 +4,7 @@ import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.db.QueryUtils.showHidden;
 
 import android.content.Context;
+import androidx.annotation.NonNull;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
@@ -125,30 +126,27 @@ public class SubtasksHelper {
     return map;
   }
 
-  public boolean shouldUseSubtasksFragmentForFilter(Filter filter) {
-    return preferences.isManualSort() && filter != null && filter.supportsManualSort();
+  public boolean shouldUseSubtasksFragmentForFilter(@NonNull Filter filter) {
+    return filter.supportsManualSort()
+        && preferences.isManualSort()
+        && !(filter instanceof GtasksFilter);
   }
 
   public String applySubtasksToWidgetFilter(Filter filter, String query) {
     if (shouldUseSubtasksFragmentForFilter(filter)) {
-
-      if (filter instanceof GtasksFilter) {
-        query = GtasksFilter.toManualOrder(query);
-      } else {
-        TagData tagData = tagDataDao.getTagByName(filter.listingTitle);
-        TaskListMetadata tlm = null;
-        if (tagData != null) {
-          tlm = taskListMetadataDao.fetchByTagOrFilter(tagData.getRemoteId());
-        } else if (BuiltInFilterExposer.isInbox(context, filter)) {
-          tlm = taskListMetadataDao.fetchByTagOrFilter(TaskListMetadata.FILTER_ID_ALL);
-        } else if (BuiltInFilterExposer.isTodayFilter(context, filter)) {
-          tlm = taskListMetadataDao.fetchByTagOrFilter(TaskListMetadata.FILTER_ID_TODAY);
-        }
-
-        query = query.replaceAll("ORDER BY .*", "");
-        query = query + String.format(" ORDER BY %s", getOrderString(tagData, tlm));
-        query = showHidden(query);
+      TagData tagData = tagDataDao.getTagByName(filter.listingTitle);
+      TaskListMetadata tlm = null;
+      if (tagData != null) {
+        tlm = taskListMetadataDao.fetchByTagOrFilter(tagData.getRemoteId());
+      } else if (BuiltInFilterExposer.isInbox(context, filter)) {
+        tlm = taskListMetadataDao.fetchByTagOrFilter(TaskListMetadata.FILTER_ID_ALL);
+      } else if (BuiltInFilterExposer.isTodayFilter(context, filter)) {
+        tlm = taskListMetadataDao.fetchByTagOrFilter(TaskListMetadata.FILTER_ID_TODAY);
       }
+
+      query = query.replaceAll("ORDER BY .*", "");
+      query = query + String.format(" ORDER BY %s", getOrderString(tagData, tlm));
+      query = showHidden(query);
 
       filter.setFilterQueryOverride(query);
     }
