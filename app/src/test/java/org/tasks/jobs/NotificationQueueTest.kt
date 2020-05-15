@@ -49,11 +49,11 @@ class NotificationQueueTest {
     fun alarmAndReminderSameTimeDifferentId() {
         val now = DateTimeUtils.currentTimeMillis()
         queue.add(AlarmEntry(1, 2, now))
-        queue.add(ReminderEntry(1, now + 1000, ReminderService.TYPE_DUE))
+        queue.add(ReminderEntry(1, now, ReminderService.TYPE_DUE))
         Mockito.verify(workManager).scheduleNotification(now)
         freezeAt(now) {
             assertEquals(
-                    setOf(AlarmEntry(1, 2, now), ReminderEntry(1, now + 1000, ReminderService.TYPE_DUE)),
+                    setOf(AlarmEntry(1, 2, now), ReminderEntry(1, now, ReminderService.TYPE_DUE)),
                     queue.overdueJobs.toSet())
         }
     }
