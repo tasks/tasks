@@ -169,7 +169,7 @@ public class TaskListQuery {
       sortField = "google_tasks.gt_order";
     } else if (manualCaldav) {
       sortMode = SortHelper.SORT_CALDAV;
-      sortField = "caldav_tasks.cd_order";
+      sortField = SortHelper.CALDAV_ORDER_COLUMN;
     } else {
       sortMode = preferences.getSortMode();
       sortField = "NULL";

@@ -32,6 +32,8 @@ public class SortHelper {
   public static final int SORT_GTASKS = 6;
   public static final int SORT_CALDAV = 7;
 
+  public static final String CALDAV_ORDER_COLUMN = "IFNULL(caldav_tasks.cd_order, (tasks.created - 978307200000) / 1000)";
+
   private static final String ADJUSTED_DUE_DATE =
       "(CASE WHEN (dueDate / 1000) % 60 > 0 THEN dueDate ELSE (dueDate + 43140000) END)";
   private static final Order ORDER_TITLE = Order.asc(Functions.upper(Task.TITLE));
@@ -141,7 +143,7 @@ public class SortHelper {
         select = "google_tasks.gt_order AS sort_manual";
         break;
       case SORT_CALDAV:
-        select = "caldav_tasks.cd_order AS sort_manual";
+        select = CALDAV_ORDER_COLUMN + " AS sort_manual";
         break;
       default:
         select ="(CASE WHEN (tasks.dueDate=0) "
