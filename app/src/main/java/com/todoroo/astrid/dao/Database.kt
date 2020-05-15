@@ -7,7 +7,26 @@ import org.tasks.data.*
 import org.tasks.notifications.Notification
 import org.tasks.notifications.NotificationDao
 
-@Database(entities = [Notification::class, TagData::class, UserActivity::class, TaskAttachment::class, TaskListMetadata::class, Task::class, Alarm::class, Place::class, Geofence::class, Tag::class, GoogleTask::class, Filter::class, GoogleTaskList::class, CaldavCalendar::class, CaldavTask::class, CaldavAccount::class, GoogleTaskAccount::class], version = 74)
+@Database(
+        entities = [
+            Notification::class,
+            TagData::class,
+            UserActivity::class,
+            TaskAttachment::class,
+            TaskListMetadata::class,
+            Task::class,
+            Alarm::class,
+            Place::class,
+            Geofence::class,
+            Tag::class,
+            GoogleTask::class,
+            Filter::class,
+            GoogleTaskList::class,
+            CaldavCalendar::class,
+            CaldavTask::class,
+            CaldavAccount::class,
+            GoogleTaskAccount::class],
+        version = 75)
 abstract class Database : RoomDatabase() {
     abstract fun notificationDao(): NotificationDao
     abstract val tagDataDao: TagDataDao

@@ -37,8 +37,8 @@ android {
     defaultConfig {
         testApplicationId = "org.tasks.test"
         applicationId = "org.tasks"
-        versionCode = 90202
-        versionName = "9.2"
+        versionCode = 90300
+        versionName = "9.3"
         targetSdkVersion(Versions.targetSdk)
         minSdkVersion(Versions.minSdk)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

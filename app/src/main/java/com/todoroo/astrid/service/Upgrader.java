@@ -60,6 +60,7 @@ public class Upgrader {
   private static final int V8_5 = 700;
   private static final int V8_8 = 717;
   private static final int V8_10 = 735;
+  private static final int V9_3 = 90300;
   private final Context context;
   private final Preferences preferences;
   private final TagDataDao tagDataDao;
@@ -125,6 +126,7 @@ public class Upgrader {
         preferences.setBoolean(R.string.p_auto_dismiss_datetime_edit_screen, true);
       });
       run(from, V8_10, this::migrateWidgets);
+      run(from, V9_3, this::applyCaldavOrder);
       preferences.setBoolean(R.string.p_just_updated, true);
     }
     preferences.setCurrentVersion(to);
@@ -198,6 +200,22 @@ public class Upgrader {
       case 19: return R.color.grey_500;
       case 20: return R.color.white_100;
       default: return def;
+    }
+  }
+
+  private void applyCaldavOrder() {
+    for (CaldavTask task : transform(caldavDao.getTasks(), CaldavTaskContainer::getCaldavTask)) {
+      at.bitfire.ical4android.Task remoteTask = iCalendar.Companion.fromVtodo(task.getVtodo());
+      if (remoteTask == null) {
+        continue;
+      }
+
+      Long order = iCalendar.Companion.getOrder(remoteTask);
+      if (order != null) {
+        task.setOrder(order);
+        task.setRemoteOrder(order);
+        caldavDao.update(task);
+      }
     }
   }
 

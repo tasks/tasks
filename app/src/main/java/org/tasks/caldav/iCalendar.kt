@@ -70,6 +70,11 @@ class iCalendar @Inject constructor(
                 }
             }
         }
+
+        val Task.order: Long?
+            get() = unknownProperties
+                    .find { it.name?.equals("x-apple-sort-order", true) == true }
+                    .let { it?.value?.toLong() }
     }
 
     fun setPlace(taskId: Long, geo: Geo) {
@@ -151,6 +156,7 @@ class iCalendar @Inject constructor(
             caldavTask = existing
         }
         CaldavConverter.apply(task, remote)
+        caldavTask.remoteOrder = remote.order
         val geo = remote.geoPosition
         if (geo == null) {
             locationDao.getActiveGeofences(task.id).forEach {
