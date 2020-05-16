@@ -10,6 +10,7 @@ import static org.tasks.db.QueryUtils.showCompleted;
 import static org.tasks.db.QueryUtils.showHidden;
 import static org.tasks.db.QueryUtils.showRecentlyCompleted;
 
+import android.annotation.SuppressLint;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.astrid.data.Task;
@@ -32,7 +33,10 @@ public class SortHelper {
   public static final int SORT_GTASKS = 6;
   public static final int SORT_CALDAV = 7;
 
-  public static final String CALDAV_ORDER_COLUMN = "IFNULL(caldav_tasks.cd_order, (tasks.created - 978307200000) / 1000)";
+  private static long APPLE_EPOCH = 978307200000L; // 1/1/2001 GMT
+  @SuppressLint("DefaultLocale")
+  public static final String CALDAV_ORDER_COLUMN =
+      String.format("IFNULL(caldav_tasks.cd_order, (tasks.created - %d) / 1000)", APPLE_EPOCH);
 
   private static final String ADJUSTED_DUE_DATE =
       "(CASE WHEN (dueDate / 1000) % 60 > 0 THEN dueDate ELSE (dueDate + 43140000) END)";
