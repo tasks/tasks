@@ -2,6 +2,7 @@ package com.todoroo.astrid.adapter
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.natpryce.makeiteasy.MakeItEasy.with
+import com.natpryce.makeiteasy.PropertyValue
 import com.todoroo.astrid.dao.TaskDao
 import org.junit.Assert.*
 import org.junit.Before
@@ -41,18 +42,17 @@ class CaldavTaskAdapterTest : InjectingTestCase() {
 
     @Test
     fun canMoveTask() {
-        add(
-                newTaskContainer(),
-                newTaskContainer())
+        addTask()
+        addTask()
 
         assertTrue(adapter.canMove(tasks[0], 0, tasks[1], 1))
     }
 
     @Test
     fun cantMoveTaskToChildPosition() {
-        add(newTaskContainer())
-        add(newTaskContainer(with(PARENT, tasks[0])),
-                newTaskContainer(with(PARENT, tasks[0])))
+        addTask()
+        addTask(with(PARENT, tasks[0]))
+        addTask(with(PARENT, tasks[0]))
 
         assertFalse(adapter.canMove(tasks[0], 0, tasks[1], 1))
         assertFalse(adapter.canMove(tasks[0], 0, tasks[2], 2))
@@ -60,17 +60,17 @@ class CaldavTaskAdapterTest : InjectingTestCase() {
 
     @Test
     fun canMoveChildAboveParent() {
-        add(newTaskContainer())
-        add(newTaskContainer(with(PARENT, tasks[0])))
+        addTask()
+        addTask(with(PARENT, tasks[0]))
 
         assertTrue(adapter.canMove(tasks[1], 1, tasks[0], 0))
     }
 
     @Test
     fun canMoveChildBetweenSiblings() {
-        add(newTaskContainer())
-        add(newTaskContainer(with(PARENT, tasks[0])),
-                newTaskContainer(with(PARENT, tasks[0])))
+        addTask()
+        addTask(with(PARENT, tasks[0]))
+        addTask(with(PARENT, tasks[0]))
 
         assertTrue(adapter.canMove(tasks[1], 1, tasks[2], 2))
         assertTrue(adapter.canMove(tasks[2], 2, tasks[1], 1))
@@ -78,25 +78,66 @@ class CaldavTaskAdapterTest : InjectingTestCase() {
 
     @Test
     fun maxIndentNoChildren() {
-        add(newTaskContainer(),
-                newTaskContainer())
+        addTask()
+        addTask()
 
         assertEquals(1, adapter.maxIndent(0, tasks[1]))
     }
 
     @Test
     fun maxIndentMultiLevelSubtask() {
-        add(newTaskContainer())
-        add(newTaskContainer(with(PARENT, tasks[0])),
-                newTaskContainer())
+        addTask()
+        addTask(with(PARENT, tasks[0]))
+        addTask()
 
+        assertEquals(1, adapter.maxIndent(0, tasks[1]))
         assertEquals(2, adapter.maxIndent(1, tasks[2]))
     }
 
     @Test
+    fun minIndentInMiddleOfSubtasks() {
+        addTask()
+        addTask(with(PARENT, tasks[0]))
+        addTask(with(PARENT, tasks[0]))
+
+        assertEquals(1, adapter.minIndent(2, tasks[1]))
+    }
+
+    @Test
+    fun minIndentAtEndOfSubtasks() {
+        addTask()
+        addTask(with(PARENT, tasks[0]))
+        addTask(with(PARENT, tasks[0]))
+        addTask()
+
+        assertEquals(0, adapter.minIndent(3, tasks[2]))
+    }
+
+    @Test
+    fun minIndentAtEndOfMultiLevelSubtask() {
+        addTask()
+        addTask(with(PARENT, tasks[0]))
+        addTask(with(PARENT, tasks[1]))
+        addTask()
+
+        assertEquals(0, adapter.minIndent(2, tasks[1]))
+    }
+    
+    @Test
+    fun minIndentInMiddleOfMultiLevelSubtasks() {
+        addTask()
+        addTask(with(PARENT, tasks[0]))
+        addTask(with(PARENT, tasks[1]))
+        addTask(with(PARENT, tasks[0]))
+        addTask()
+
+        assertEquals(1, adapter.minIndent(3, tasks[2]))
+    }
+
+    @Test
     fun movingTaskToNewParentSetsId() {
-        add(newTaskContainer(),
-                newTaskContainer())
+        addTask()
+        addTask()
 
         adapter.moved(1, 1, 1)
 
@@ -105,8 +146,8 @@ class CaldavTaskAdapterTest : InjectingTestCase() {
 
     @Test
     fun movingTaskToNewParentSetsRemoteId() {
-        add(newTaskContainer(),
-                newTaskContainer())
+        addTask()
+        addTask()
 
         adapter.moved(1, 1, 1)
 
@@ -118,8 +159,8 @@ class CaldavTaskAdapterTest : InjectingTestCase() {
 
     @Test
     fun unindentingTaskRemovesParent() {
-        add(newTaskContainer())
-        add(newTaskContainer(with(PARENT, tasks[0])))
+        addTask()
+        addTask(with(PARENT, tasks[0]))
 
         adapter.moved(1, 1, 0)
 
@@ -129,9 +170,9 @@ class CaldavTaskAdapterTest : InjectingTestCase() {
 
     @Test
     fun moveSubtaskUpToParent() {
-        add(newTaskContainer())
-        add(newTaskContainer(with(PARENT, tasks[0])))
-        add(newTaskContainer(with(PARENT, tasks[1])))
+        addTask()
+        addTask(with(PARENT, tasks[0]))
+        addTask(with(PARENT, tasks[1]))
 
         adapter.moved(2, 2, 1)
 
@@ -140,28 +181,27 @@ class CaldavTaskAdapterTest : InjectingTestCase() {
 
     @Test
     fun moveSubtaskUpToGrandparent() {
-        add(newTaskContainer())
-        add(newTaskContainer(with(PARENT, tasks[0])))
-        add(newTaskContainer(with(PARENT, tasks[1])))
-        add(newTaskContainer(with(PARENT, tasks[2])))
+        addTask()
+        addTask(with(PARENT, tasks[0]))
+        addTask(with(PARENT, tasks[1]))
+        addTask(with(PARENT, tasks[2]))
 
         adapter.moved(3, 3, 1)
 
         assertEquals(tasks[0].id, taskDao.fetch(tasks[3].id)!!.parent)
     }
 
-    private fun add(vararg tasks: TaskContainer) {
-        this.tasks.addAll(tasks)
-        tasks.forEach {
-            val task = it.task
-            taskDao.createNew(task)
-            val caldavTask = CaldavTask(it.id, "calendar")
-            if (task.parent > 0) {
-                caldavTask.remoteParent = caldavDao.getRemoteIdForTask(task.parent)
-            }
-            caldavTask.id = caldavDao.insert(caldavTask)
-            it.caldavTask = caldavTask.toSubset()
+    private fun addTask(vararg properties: PropertyValue<in TaskContainer?, *>) {
+        val t = newTaskContainer(*properties)
+        tasks.add(t)
+        val task = t.task
+        taskDao.createNew(task)
+        val caldavTask = CaldavTask(t.id, "calendar")
+        if (task.parent > 0) {
+            caldavTask.remoteParent = caldavDao.getRemoteIdForTask(task.parent)
         }
+        caldavTask.id = caldavDao.insert(caldavTask)
+        t.caldavTask = caldavTask.toSubset()
     }
 
     private fun CaldavTask.toSubset(): SubsetCaldav {

@@ -9,7 +9,14 @@ open class CaldavManualSortTaskAdapter internal constructor(private val taskDao:
 
     override fun maxIndent(previousPosition: Int, task: TaskContainer) = getTask(previousPosition).getIndent() + 1
 
-    override fun minIndent(nextPosition: Int, task: TaskContainer) = 0
+    override fun minIndent(nextPosition: Int, task: TaskContainer): Int {
+        (nextPosition until count).forEach {
+            if (!taskIsChild(task, it)) {
+                return getTask(it).indent
+            }
+        }
+        return 0
+    }
 
     override fun supportsParentingOrManualSort() = true
 
