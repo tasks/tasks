@@ -89,6 +89,7 @@ object TaskMaker {
         task.uuid = lookup.valueOf(UUID, NO_UUID)
         val creationTime = lookup.valueOf(CREATION_TIME, DateTimeUtils.newDateTime())
         task.creationDate = creationTime.millis
+        task.modificationDate = creationTime.millis
         task.parent = lookup.valueOf(PARENT, 0L)
         task
     }

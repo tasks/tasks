@@ -33,7 +33,7 @@ public class SortHelper {
   public static final int SORT_GTASKS = 6;
   public static final int SORT_CALDAV = 7;
 
-  private static long APPLE_EPOCH = 978307200000L; // 1/1/2001 GMT
+  public static final long APPLE_EPOCH = 978307200000L; // 1/1/2001 GMT
   @SuppressLint("DefaultLocale")
   public static final String CALDAV_ORDER_COLUMN =
       String.format("IFNULL(caldav_tasks.cd_order, (tasks.created - %d) / 1000)", APPLE_EPOCH);

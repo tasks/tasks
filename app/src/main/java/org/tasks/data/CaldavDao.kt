@@ -2,6 +2,8 @@ package org.tasks.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.todoroo.andlib.utility.DateUtilities.now
+import com.todoroo.astrid.core.SortHelper.APPLE_EPOCH
 import io.reactivex.Single
 import org.tasks.db.DbUtils
 import org.tasks.filters.CaldavFilters
@@ -164,4 +166,29 @@ abstract class CaldavDao {
             + "    AND caldav_tasks.cd_deleted = 0), 0)"
             + "WHERE _id IN (SELECT _id FROM tasks INNER JOIN caldav_tasks ON _id = cd_task WHERE cd_deleted = 0 AND cd_calendar = :calendar)")
     abstract fun updateParents(calendar: String)
+
+    @Transaction
+    open fun shiftDown(calendar: String, parent: Long, from: Long, to: Long? = null) {
+        val updated = ArrayList<CaldavTask>()
+        val tasks = getTasksToShift(calendar, parent, from, to)
+        for (i in tasks.indices) {
+            val task = tasks[i]
+            val current = from + i
+            if (task.sortOrder == current) {
+                val caldavTask = task.caldavTask
+                caldavTask.order = current + 1
+                updated.add(caldavTask)
+            } else if (task.sortOrder > current) {
+                break
+            }
+        }
+        update(updated)
+        touchInternal(updated.map(CaldavTask::task))
+    }
+
+    @Query("UPDATE tasks SET modified = :modificationTime WHERE _id in (:ids)")
+    internal abstract fun touchInternal(ids: List<Long>, modificationTime: Long = now())
+
+    @Query("SELECT task.*, caldav_task.*, IFNULL(cd_order, (created - $APPLE_EPOCH) / 1000) AS primary_sort FROM caldav_tasks AS caldav_task INNER JOIN tasks AS task ON _id = cd_task WHERE cd_calendar = :calendar AND parent = :parent AND cd_deleted = 0 AND deleted = 0 AND primary_sort >= :from AND primary_sort < IFNULL(:to, ${Long.MAX_VALUE}) ORDER BY primary_sort")
+    internal abstract fun getTasksToShift(calendar: String, parent: Long, from: Long, to: Long?): List<CaldavTaskContainer>
 }

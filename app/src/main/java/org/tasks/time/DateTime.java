@@ -1,5 +1,6 @@
 package org.tasks.time;
 
+import static com.todoroo.astrid.core.SortHelper.APPLE_EPOCH;
 import static java.util.Calendar.FRIDAY;
 import static java.util.Calendar.MONDAY;
 import static java.util.Calendar.SATURDAY;
@@ -338,6 +339,10 @@ public class DateTime {
 
   public LocalDateTime toLocalDateTime() {
     return timestamp == 0 ? null : LocalDateTime.of(getYear(), getMonthOfYear(), getDayOfMonth(), getHourOfDay(), getMinuteOfHour());
+  }
+
+  public long toAppleEpoch() {
+    return (timestamp - APPLE_EPOCH) / 1000;
   }
 
   public int getDayOfWeekInMonth() {
