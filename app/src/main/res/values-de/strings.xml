@@ -44,11 +44,11 @@
     <string name="TEA_timer_elap">%s verstrichen</string>
     <string name="TEA_no_time">Ohne Uhrzeit</string>
     <string name="due_date">Fälligkeitsdatum</string>
-    <string name="due_time">Fälligkeits-Uhrzeit</string>
+    <string name="due_time">Fälligkeitsuhrzeit</string>
     <string name="day_before_due">Tag vor Fälligkeitsdatum</string>
     <string name="week_before_due">Woche vor Fälligkeitsdatum</string>
     <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">Fälligkeitsdatum</string>
-    <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">Fälligkeits-Uhrzeit</string>
+    <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">Fälligkeitsuhrzeit</string>
     <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">Tag vor Fälligkeitsdatum</string>
     <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">Woche vor Fälligkeitsdatum</string>
     <string name="TEA_control_when">Wann</string>
@@ -81,8 +81,8 @@
     <string name="EPr_show_task_edit_comments">Kommentare bei Aufgabeneingabe anzeigen </string>
     <string name="task_list_options">Aufgabenlisten-Optionen</string>
     <string name="EPr_cal_end_or_start_at_due_time">Zeitpunkt Kalenderereignis</string>
-    <string name="EPr_cal_end_at_due_time">Kalendereintrag endet zur Fälligkeits-Uhrzeit</string>
-    <string name="EPr_cal_start_at_due_time">Kalendereintrag startet zur Fälligkeits-Uhrzeit</string>
+    <string name="EPr_cal_end_at_due_time">Kalendereintrag endet zur Fälligkeitsuhrzeit</string>
+    <string name="EPr_cal_start_at_due_time">Kalendereintrag startet zur Fälligkeitsuhrzeit</string>
     <string name="EPr_manage_purge_deleted">Gelöschte Aufgaben endgültig löschen</string>
     <string name="EPr_manage_purge_deleted_message">Willst du wirklich alle gelöschten Aufgaben bereinigen?\n\nDiese Aufgaben werden für immer gelöscht bleiben!</string>
     <string name="EPr_manage_purge_deleted_status">%d Aufgaben bereinigt!</string>
@@ -168,7 +168,7 @@
     <string name="rmd_EPr_quiet_hours_start_title">Beginn der Ruhezeit</string>
     <string name="rmd_EPr_quiet_hours_end_title">Ende der Ruhezeit</string>
     <string name="rmd_EPr_rmd_time_title">Standarderinnerung</string>
-    <string name="rmd_EPr_rmd_time_desc">Benachrichtigungen für Aufgaben ohne Fälligkeits-Uhrzeit werden um %s angezeigt</string>
+    <string name="rmd_EPr_rmd_time_desc">Benachrichtigungen für Aufgaben ohne Fälligkeitsuhrzeit werden um %s angezeigt</string>
     <string name="persistent_notifications">Hartnäckige Benachrichtigungen</string>
     <string name="persistent_notifications_description">Hartnäckige Benachrichtigungen können nicht einfach gelöscht werden</string>
     <string name="rmd_EPr_defaultRemind_title">Zufällige Erinnerungen</string>
@@ -390,7 +390,7 @@
     <string name="bundle_notifications">Benachrichtigungen zusammenfassen</string>
     <string name="badges">Benachrichtigungspunkte</string>
     <string name="list">Liste</string>
-    <string name="repeats_from">Wiederholung bis</string>
+    <string name="repeats_from">Wiederholt sich nach</string>
     <string name="repeats_single">Wiederhole %s</string>
     <string name="repeats_single_on">Wiederhole %1$s am %2$s</string>
     <string name="repeats_single_until">Wiederhole %1$s bis %2$s</string>
@@ -513,7 +513,7 @@
     <string name="help_and_feedback">Hilfe &amp; Feedback</string>
     <string name="theme_system_default">Systemstandard</string>
     <string name="enter_tag_name">Schlagwort eingeben</string>
-    <string name="create_new_tag">\"%s\" erstellen</string>
+    <string name="create_new_tag">„%s“ erstellen</string>
     <string name="choose_synchronization_service">Einen Dienst wählen</string>
     <string name="google_tasks_selection_description">Einfacher Dienst zur Synchronisation mit Ihrem Google-Konto</string>
     <string name="caldav_selection_description">Synchronisation basierend auf offenen Internetstandards</string>
