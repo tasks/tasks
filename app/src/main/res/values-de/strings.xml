@@ -411,7 +411,7 @@
     <string name="repeats_plural_on_number_of_times">Wiederhole alle %1$s am %2$s, genau %3$d %4$s</string>
     <string name="dont_add_to_calendar">Nicht im Kalender eintragen</string>
     <string name="default_calendar">Standardkalender</string>
-    <string name="badges_description">Zeige einen Aufgabenzähler am Tasks\' Launcher-Symbol an. Nicht alle Launcher unterstützen Benachrichtigungspunkte.</string>
+    <string name="badges_description">Anzeige eines Aufgabenzählers am Tasks Launcher Icon. Nicht alle Launcher unterstützen Badges.</string>
     <string name="bundle_notifications_summary">Mehrere Benachrichtigungen in einer zusammenfassen</string>
     <string name="repeat_monthly_same_day_each_month">am selben Tag jeden Monats</string>
     <string name="dont_sync">Nicht synchronisieren</string>
@@ -513,12 +513,12 @@
     <string name="help_and_feedback">Hilfe &amp; Feedback</string>
     <string name="theme_system_default">Systemstandard</string>
     <string name="enter_tag_name">Schlagwort eingeben</string>
-    <string name="create_new_tag">Erstelle \"%s\"</string>
+    <string name="create_new_tag">\"%s\" erstellen</string>
     <string name="choose_synchronization_service">Einen Dienst wählen</string>
     <string name="google_tasks_selection_description">Einfacher Dienst zur Synchronisation mit Ihrem Google-Konto</string>
     <string name="caldav_selection_description">Synchronisation basierend auf offenen Internetstandards</string>
     <string name="etesync_selection_description">Quelloffene, Ende-zu-Ende verschlüsselte Synchronisation</string>
-    <string name="show_advanced_settings">Zeige erweiterte Einstellungen</string>
+    <string name="show_advanced_settings">Erweiterte Einstellungen anzeigen</string>
     <string name="caldav_account_description">Erfordert ein Konto bei einem CalDAV-Dienstanbieter oder einem selbst gehosteten Server. Finden Sie einen Dienstanbieter, indem Sie tasks.org/caldav besuchen</string>
     <string name="etesync_account_description">Erfordert ein Konto bei EteSync.com oder einem selbst gehosteten Server</string>
     <string name="etesync_encryption_description">Merken Sie sich das von Ihnen gewählte Passwort! Es kann nicht wiederhergestellt werden.</string>
