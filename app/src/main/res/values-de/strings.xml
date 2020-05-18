@@ -63,12 +63,12 @@
     <string name="TEA_control_hidden_section">----Immer Verbergen----</string>
     <string name="TEA_load_more">Weitere laden …</string>
     <string name="CRA_ignore">Ablehnen</string>
-    <string name="CRA_title">Willst Du eine Besprechungsliste erstellen?</string>
+    <string name="CRA_title">Willst du eine Besprechungsliste erstellen\?</string>
     <string name="CRA_ignore_body">Sie haben mehrere Kalenderereignisse ignoriert. Soll Tasks nicht mehr danach fragen\?</string>
     <string name="CRA_ignore_all">Alle Termine ablehnen</string>
     <string name="CRA_ignore_this">Nur diesen Termin ablehnen</string>
     <string name="CRA_speech_bubble_start">Vergiss nicht, dass %s bald startet. Willst du eine Liste mit Aufgaben erstellen?</string>
-    <string name="CRA_speech_bubble_end">Hast Du gerade %s beendet? Willst du noch eine Liste mit Aufgaben erstellen?</string>
+    <string name="CRA_speech_bubble_end">Hast du gerade %s beendet\? Willst du noch eine Liste mit Aufgaben erstellen\?</string>
     <string name="CRA_postpone">Vielleicht später</string>
     <string name="CRA_calendar_reminders_pref_title">Kalender-Assistent</string>
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks wird Sie an zukünftige Kalenderereignisse erinnern und Sie auf die Vorbereitung hinweisen</string>
@@ -91,10 +91,10 @@
     <string name="EPr_delete_task_data">Aufgabendaten löschen</string>
     <string name="EPr_delete_task_data_warning">Alle Aufgaben werden dauerhaft gelöscht</string>
     <string name="EPr_manage_delete_completed_gcal">Lösche Kalendereinträge von erledigten Aufgaben</string>
-    <string name="EPr_manage_delete_completed_gcal_message">Möchtest du wirklich alle deine Kalendereinträge von erledigen Aufgaben löschen?</string>
+    <string name="EPr_manage_delete_completed_gcal_message">Möchtest du wirklich alle deine Kalendereinträge von erledigten Aufgaben löschen\?</string>
     <string name="EPr_manage_delete_completed_gcal_status">%d Kalendereinträge gelöscht!</string>
     <string name="EPr_manage_delete_all_gcal">Lösche alle Kalendereinträge von Aufgaben</string>
-    <string name="EPr_manage_delete_all_gcal_message">Möchtest du wirklich alle Kalendereintrage von Aufgaben löschen?</string>
+    <string name="EPr_manage_delete_all_gcal_message">Möchtest du wirklich alle Kalendereinträge für Aufgaben löschen\?</string>
     <string name="EPr_manage_delete_all_gcal_status">%d Kalendereinträge gelöscht!</string>
     <string name="task_defaults">Standardwerte für Aufgaben</string>
     <string name="EPr_default_urgency_title">Standard-Fälligkeitsdatum</string>
