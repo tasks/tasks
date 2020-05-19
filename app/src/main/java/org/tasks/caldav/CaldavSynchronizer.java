@@ -26,7 +26,6 @@ import at.bitfire.dav4jvm.property.GetCTag;
 import at.bitfire.dav4jvm.property.GetETag;
 import at.bitfire.dav4jvm.property.SyncToken;
 import at.bitfire.ical4android.ICalendar;
-import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
@@ -197,11 +196,9 @@ public class CaldavSynchronizer {
     ResponseList members = new ResponseList(HrefRelation.MEMBER);
     davCalendar.calendarQuery("VTODO", null, null, members);
 
-    Set<String> remoteObjects = newHashSet(transform(members, Response::hrefName));
-
     Iterable<Response> changed =
         filter(
-            ImmutableSet.copyOf(members),
+            members,
             vCard -> {
               GetETag eTag = vCard.get(GetETag.class);
               if (eTag == null || isNullOrEmpty(eTag.getETag())) {
@@ -245,7 +242,7 @@ public class CaldavSynchronizer {
         new ArrayList<>(
             difference(
                 newHashSet(caldavDao.getObjects(caldavCalendar.getUuid())),
-                newHashSet(remoteObjects)));
+                newHashSet(transform(members, Response::hrefName))));
     if (deleted.size() > 0) {
       Timber.d("DELETED %s", deleted);
       taskDeleter.delete(caldavDao.getTasks(caldavCalendar.getUuid(), deleted));
