@@ -2,7 +2,6 @@ package org.tasks.caldav
 
 import at.bitfire.ical4android.Task
 import at.bitfire.ical4android.Task.Companion.tasksFromReader
-import com.google.common.collect.Iterables
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.helper.UUIDHelper
@@ -37,7 +36,7 @@ class iCalendar @Inject constructor(
         private val caldavDao: CaldavDao) {
 
     companion object {
-        private val IS_PARENT: (RelatedTo?) -> Boolean = { r: RelatedTo? ->
+        private val IS_PARENT = { r: RelatedTo? ->
             r!!.parameters.isEmpty || r.getParameter(Parameter.RELTYPE) === RelType.PARENT
         }
 
@@ -60,7 +59,7 @@ class iCalendar @Inject constructor(
         fun setParent(remote: Task, value: String?) {
             val relatedTo = remote.relatedTo
             if (isNullOrEmpty(value)) {
-                Iterables.removeIf(relatedTo, IS_PARENT)
+                relatedTo.removeAll(relatedTo.filter(IS_PARENT))
             } else {
                 val parent = relatedTo.find(IS_PARENT)
                 if (parent != null) {
