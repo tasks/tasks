@@ -53,12 +53,15 @@ abstract class CaldavDao {
     @Update
     abstract fun update(caldavTask: CaldavTask)
 
-    fun update(caldavTask: SubsetCaldav) {
+    fun updateParent(caldavTask: SubsetCaldav) {
         update(caldavTask.cd_id, caldavTask.cd_remote_parent)
     }
 
+    @Query("UPDATE caldav_tasks SET cd_order = :position WHERE cd_id = :id")
+    internal abstract fun update(id: Long, position: Long)
+
     @Query("UPDATE caldav_tasks SET cd_remote_parent = :remoteParent WHERE cd_id = :id")
-    abstract fun update(id: Long, remoteParent: String?)
+    internal abstract fun update(id: Long, remoteParent: String?)
 
     @Update
     abstract fun update(tasks: Iterable<CaldavTask>)
@@ -166,6 +169,20 @@ abstract class CaldavDao {
             + "    AND caldav_tasks.cd_deleted = 0), 0)"
             + "WHERE _id IN (SELECT _id FROM tasks INNER JOIN caldav_tasks ON _id = cd_task WHERE cd_deleted = 0 AND cd_calendar = :calendar)")
     abstract fun updateParents(calendar: String)
+
+    @Transaction
+    open fun move(task: TaskContainer, newParent: Long, newPosition: Long) {
+        val previousParent = task.parent
+        val caldavTask = task.caldavTask
+        val previousPosition = task.caldavSortOrder
+        if (newParent == previousParent && newPosition < previousPosition) {
+            shiftDown(task.caldav, newParent, newPosition, previousPosition)
+        } else {
+            shiftDown(task.caldav, newParent, newPosition)
+        }
+        caldavTask.cd_order = newPosition
+        update(caldavTask.cd_id, caldavTask.cd_order)
+    }
 
     @Transaction
     open fun shiftDown(calendar: String, parent: Long, from: Long, to: Long? = null) {

@@ -433,8 +433,6 @@ public class Migrations {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
           database.execSQL("ALTER TABLE `caldav_tasks` ADD COLUMN `cd_order` INTEGER");
-          database.execSQL("ALTER TABLE `caldav_tasks` ADD COLUMN `cd_remote_order` INTEGER");
-          database.execSQL("ALTER TABLE `caldav_tasks` ADD COLUMN `cd_moved` INTEGER NOT NULL DEFAULT 0");
         }
       };
 

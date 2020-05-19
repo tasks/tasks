@@ -213,7 +213,6 @@ public class Upgrader {
       Long order = iCalendar.Companion.getOrder(remoteTask);
       if (order != null) {
         task.setOrder(order);
-        task.setRemoteOrder(order);
         caldavDao.update(task);
       }
     }

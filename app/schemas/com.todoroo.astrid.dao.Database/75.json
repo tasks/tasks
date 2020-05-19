@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 75,
-    "identityHash": "4a32edd266822b077c230270a019d9b3",
+    "identityHash": "ff70ddcfc863c0ebc97522480d78d23d",
     "entities": [
       {
         "tableName": "notification",
@@ -935,7 +935,7 @@
       },
       {
         "tableName": "caldav_tasks",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cd_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cd_task` INTEGER NOT NULL, `cd_calendar` TEXT, `cd_object` TEXT, `cd_remote_id` TEXT, `cd_etag` TEXT, `cd_last_sync` INTEGER NOT NULL, `cd_deleted` INTEGER NOT NULL, `cd_vtodo` TEXT, `cd_remote_parent` TEXT, `cd_order` INTEGER, `cd_remote_order` INTEGER, `cd_moved` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cd_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cd_task` INTEGER NOT NULL, `cd_calendar` TEXT, `cd_object` TEXT, `cd_remote_id` TEXT, `cd_etag` TEXT, `cd_last_sync` INTEGER NOT NULL, `cd_deleted` INTEGER NOT NULL, `cd_vtodo` TEXT, `cd_remote_parent` TEXT, `cd_order` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
@@ -1002,18 +1002,6 @@
             "columnName": "cd_order",
             "affinity": "INTEGER",
             "notNull": false
-          },
-          {
-            "fieldPath": "remoteOrder",
-            "columnName": "cd_remote_order",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "moved",
-            "columnName": "cd_moved",
-            "affinity": "INTEGER",
-            "notNull": true
           }
         ],
         "primaryKey": {
@@ -1162,7 +1150,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4a32edd266822b077c230270a019d9b3')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ff70ddcfc863c0ebc97522480d78d23d')"
     ]
   }
 }

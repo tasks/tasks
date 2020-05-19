@@ -25,33 +25,47 @@ open class CaldavManualSortTaskAdapter internal constructor(private val taskDao:
     override fun moved(from: Int, to: Int, indent: Int) {
         val task = getTask(from)
         val previous = if (to > 0) getTask(to - 1) else null
-        var newParent = task.parent
-        if (indent == 0) {
-            newParent = 0
-        } else if (previous != null) {
-            when {
-                indent == previous.getIndent() -> newParent = previous.parent
-                indent > previous.getIndent() -> newParent = previous.id
-                indent < previous.getIndent() -> {
-                    newParent = previous.parent
-                    var currentIndex = to
-                    for (i in 0 until previous.getIndent() - indent) {
-                        var thisParent = newParent
-                        while (newParent == thisParent) {
-                            thisParent = getTask(--currentIndex).parent
-                        }
-                        newParent = thisParent
-                    }
-                }
-            }
-        }
+        val newParent = findNewParent(indent, to)
 
-        // If nothing is changing, return
-        if (newParent == task.parent) {
+        if (newParent == task.parent && from == to) {
             return
         }
-        changeParent(task, newParent)
+
+        if (newParent != task.parent) {
+            changeParent(task, newParent)
+        }
+        if (from != to) {
+            val newPosition = when {
+                previous == null -> 1
+                indent > previous.getIndent() -> 1
+                indent == previous.getIndent() -> previous.caldavSortOrder + 1
+                else -> getTask((to - 1 downTo 0).find { getTask(it).indent == indent }!!).caldavSortOrder + 1
+            }
+            caldavDao.move(task, newParent, newPosition)
+        }
+
         taskDao.touch(task.id)
+    }
+
+    internal fun findNewParent(indent: Int, to: Int): Long {
+        val previous = if (to > 0) getTask(to - 1) else null
+        return when {
+            indent == 0 || previous == null -> 0
+            indent == previous.getIndent() -> previous.parent
+            indent > previous.getIndent() -> previous.id
+            else -> {
+                var newParent = previous.parent
+                var currentIndex = to
+                for (i in 0 until previous.getIndent() - indent) {
+                    var thisParent = newParent
+                    while (newParent == thisParent) {
+                        thisParent = getTask(--currentIndex).parent
+                    }
+                    newParent = thisParent
+                }
+                newParent
+            }
+        }
     }
 
     internal fun changeParent(task: TaskContainer, newParent: Long) {
@@ -64,9 +78,8 @@ open class CaldavManualSortTaskAdapter internal constructor(private val taskDao:
             caldavTask.cd_remote_parent = parentTask.remoteId
             task.parent = newParent
         }
-        caldavDao.update(caldavTask)
+        caldavDao.updateParent(caldavTask)
         taskDao.save(task.getTask(), null)
-        taskDao.touch(task.id)
     }
 
     private fun taskIsChild(source: TaskContainer, destinationIndex: Int): Boolean {

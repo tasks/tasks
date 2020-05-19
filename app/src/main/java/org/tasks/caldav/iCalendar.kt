@@ -7,9 +7,11 @@ import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.helper.UUIDHelper
 import com.todoroo.astrid.service.TaskCreator
 import net.fortuna.ical4j.model.Parameter
+import net.fortuna.ical4j.model.Property
 import net.fortuna.ical4j.model.parameter.RelType
 import net.fortuna.ical4j.model.property.Geo
 import net.fortuna.ical4j.model.property.RelatedTo
+import net.fortuna.ical4j.model.property.XProperty
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.caldav.GeoUtils.equalish
 import org.tasks.caldav.GeoUtils.toGeo
@@ -36,8 +38,14 @@ class iCalendar @Inject constructor(
         private val caldavDao: CaldavDao) {
 
     companion object {
+        private const val APPLE_SORT_ORDER = "X-APPLE-SORT-ORDER"
+
         private val IS_PARENT = { r: RelatedTo? ->
             r!!.parameters.isEmpty || r.getParameter(Parameter.RELTYPE) === RelType.PARENT
+        }
+
+        private val IS_APPLE_SORT_ORDER = { x: Property? ->
+            x?.name.equals(APPLE_SORT_ORDER, true)
         }
 
         fun fromVtodo(vtodo: String): Task? {
@@ -70,10 +78,24 @@ class iCalendar @Inject constructor(
             }
         }
 
-        val Task.order: Long?
+        var Task.order: Long?
             get() = unknownProperties
-                    .find { it.name?.equals("x-apple-sort-order", true) == true }
-                    .let { it?.value?.toLong() }
+                    .find { it.name?.equals(APPLE_SORT_ORDER, true) == true }
+                    .let { it?.value?.toLongOrNull() }
+            set(order) {
+                if (order == null) {
+                    unknownProperties.removeAll(unknownProperties.filter(IS_APPLE_SORT_ORDER))
+                } else {
+                    val existingOrder = unknownProperties
+                            .find { it.name?.equals(APPLE_SORT_ORDER, true) == true }
+
+                    if (existingOrder != null) {
+                        existingOrder.value = order.toString()
+                    } else {
+                        unknownProperties.add(XProperty(APPLE_SORT_ORDER, order.toString()))
+                    }
+                }
+            }
     }
 
     fun setPlace(taskId: Long, geo: Geo) {
@@ -116,6 +138,7 @@ class iCalendar @Inject constructor(
 
     fun toVtodo(caldavTask: CaldavTask, task: com.todoroo.astrid.data.Task): ByteArray {
         val remoteModel = CaldavConverter.toCaldav(caldavTask, task)
+        remoteModel.order = caldavTask.order
         val categories = remoteModel.categories
         categories.clear()
         categories.addAll(tagDataDao.getTagDataForTask(task.id).map { it.name!! })
@@ -155,8 +178,7 @@ class iCalendar @Inject constructor(
             caldavTask = existing
         }
         CaldavConverter.apply(task, remote)
-        caldavTask.remoteOrder = remote.order
-        caldavTask.order = caldavTask.remoteOrder // TODO: remove me
+        caldavTask.order = remote.order
         val geo = remote.geoPosition
         if (geo == null) {
             locationDao.getActiveGeofences(task.id).forEach {

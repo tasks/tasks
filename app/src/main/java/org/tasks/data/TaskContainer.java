@@ -197,4 +197,8 @@ public class TaskContainer {
   public boolean isCollapsed() {
     return task.isCollapsed();
   }
+
+  public long getCaldavSortOrder() {
+    return indent == 0 ? primarySort : secondarySort;
+  }
 }
