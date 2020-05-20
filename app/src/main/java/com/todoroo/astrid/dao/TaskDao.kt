@@ -125,7 +125,7 @@ abstract class TaskDao(private val database: Database) {
             db.execSQL(queries[i])
         }
         val result = fetchTasks(SimpleSQLiteQuery(queries[last]))
-        Timber.v("%sms: %s", DateUtilities.now() - start, queries.joinToString(";"))
+        Timber.v("%sms: %s", DateUtilities.now() - start, queries.joinToString(";\n"))
         return result
     }
 
