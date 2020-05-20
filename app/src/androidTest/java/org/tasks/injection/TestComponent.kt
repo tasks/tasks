@@ -1,5 +1,6 @@
 package org.tasks.injection
 
+import com.todoroo.astrid.adapter.CaldavManualSortTaskAdapterTest
 import com.todoroo.astrid.adapter.CaldavTaskAdapterTest
 import com.todoroo.astrid.alarms.AlarmJobServiceTest
 import com.todoroo.astrid.dao.TaskDaoTests
@@ -44,4 +45,5 @@ interface TestComponent : ApplicationComponent {
     fun inject(tests: CaldavTaskAdapterTest)
     fun inject(tests: ManualGoogleTaskQueryTest)
     fun inject(tests: CaldavDaoShiftTests)
+    fun inject(tests: CaldavManualSortTaskAdapterTest)
 }
