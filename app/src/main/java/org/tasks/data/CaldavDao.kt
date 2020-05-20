@@ -58,7 +58,7 @@ abstract class CaldavDao {
     }
 
     @Query("UPDATE caldav_tasks SET cd_order = :position WHERE cd_id = :id")
-    internal abstract fun update(id: Long, position: Long)
+    internal abstract fun update(id: Long, position: Long?)
 
     @Query("UPDATE caldav_tasks SET cd_remote_parent = :remoteParent WHERE cd_id = :id")
     internal abstract fun update(id: Long, remoteParent: String?)
@@ -171,14 +171,16 @@ abstract class CaldavDao {
     abstract fun updateParents(calendar: String)
 
     @Transaction
-    open fun move(task: TaskContainer, newParent: Long, newPosition: Long) {
+    open fun move(task: TaskContainer, newParent: Long, newPosition: Long?) {
         val previousParent = task.parent
         val caldavTask = task.caldavTask
         val previousPosition = task.caldavSortOrder
-        if (newParent == previousParent && newPosition < previousPosition) {
-            shiftDown(task.caldav, newParent, newPosition, previousPosition)
-        } else {
-            shiftDown(task.caldav, newParent, newPosition)
+        if (newPosition != null) {
+            if (newParent == previousParent && newPosition < previousPosition) {
+                shiftDown(task.caldav, newParent, newPosition, previousPosition)
+            } else {
+                shiftDown(task.caldav, newParent, newPosition)
+            }
         }
         caldavTask.cd_order = newPosition
         update(caldavTask.cd_id, caldavTask.cd_order)

@@ -4,7 +4,7 @@ class SubsetCaldav {
     var cd_id: Long = 0
     var cd_calendar: String? = null
     var cd_remote_parent: String? = null
-    var cd_order: Long = 0
+    var cd_order: Long? = null
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

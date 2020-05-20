@@ -21,10 +21,10 @@ open class CaldavTaskAdapter internal constructor(private val taskDao: TaskDao, 
     override fun supportsParentingOrManualSort() = true
 
     override fun moved(from: Int, to: Int, indent: Int) {
-        findNewParent(getTask(from), indent, to)
+        changeParent(getTask(from), indent, to)
     }
 
-    internal fun findNewParent(task: TaskContainer, indent: Int, to: Int): Long {
+    internal fun changeParent(task: TaskContainer, indent: Int, to: Int): Long {
         val previous = if (to > 0) getTask(to - 1) else null
         val newParent = when {
             indent == 0 || previous == null -> 0

@@ -23,6 +23,7 @@ import org.tasks.makers.CaldavTaskMaker.REMOTE_PARENT
 import org.tasks.makers.CaldavTaskMaker.TASK
 import org.tasks.makers.CaldavTaskMaker.newCaldavTask
 import org.tasks.makers.TaskMaker.CREATION_TIME
+import org.tasks.makers.TaskMaker.PARENT
 import org.tasks.makers.TaskMaker.newTask
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTime
@@ -73,7 +74,7 @@ class CaldavManualSortTaskAdapterTest : InjectingTestCase() {
 
         move(1, 0)
 
-        checkOrder(1, 1)
+        checkOrder(created.minusSeconds(1), 1)
         checkOrder(null, 0)
     }
 
@@ -157,6 +158,57 @@ class CaldavManualSortTaskAdapterTest : InjectingTestCase() {
         checkOrder(null, 3)
     }
 
+    @Test
+    fun moveToNewSubtask() {
+        val created = DateTime(2020, 5, 17, 9, 53, 17)
+        addTask(with(CREATION_TIME, created))
+        addTask(with(CREATION_TIME, created.plusSeconds(2)))
+
+        move(1, 1, 1)
+
+        checkOrder(null, 0)
+        checkOrder(null, 1)
+    }
+
+    @Test
+    fun moveToTopOfExistingSubtasks() {
+        val created = DateTime(2020, 5, 17, 9, 53, 17)
+        val parent = addTask(with(CREATION_TIME, created))
+        addTask(with(CREATION_TIME, created.plusSeconds(5)), with(PARENT, parent))
+        addTask(with(CREATION_TIME, created.plusSeconds(2)))
+
+        move(2, 1, 1)
+
+        checkOrder(null, 0)
+        checkOrder(created.plusSeconds(4), 2)
+        checkOrder(null, 1)
+    }
+
+    @Test
+    fun indentingChangesParent() {
+        val created = DateTime(2020, 5, 17, 9, 53, 17)
+        addTask(with(CREATION_TIME, created))
+        addTask(with(CREATION_TIME, created.plusSeconds(2)))
+
+        move(1, 1, 1)
+
+        assertEquals(tasks[0].id, tasks[1].parent)
+    }
+
+    @Test
+    fun deindentLastMultiLevelSubtask() {
+        val created = DateTime(2020, 5, 17, 9, 53, 17)
+        val grandparent = addTask(with(CREATION_TIME, created))
+        val parent = addTask(with(CREATION_TIME, created.plusSeconds(5)), with(PARENT, grandparent))
+        addTask(with(CREATION_TIME, created.plusSeconds(1)), with(PARENT, parent))
+        addTask(with(CREATION_TIME, created.plusSeconds(2)), with(PARENT, parent))
+
+        move(3, 3, 1)
+
+        assertEquals(grandparent, tasks[3].parent)
+        checkOrder(created.plusSeconds(6), 3)
+    }
+
     private fun move(from: Int, to: Int, indent: Int = 0) {
         tasks.addAll(taskDao.fetchTasks { getQuery(preferences, filter, it) })
         val adjustedTo = if (from < to) to + 1 else to // match DragAndDropRecyclerAdapter behavior
@@ -174,7 +226,7 @@ class CaldavManualSortTaskAdapterTest : InjectingTestCase() {
         }
     }
 
-    private fun addTask(vararg properties: PropertyValue<in Task?, *>) {
+    private fun addTask(vararg properties: PropertyValue<in Task?, *>): Long {
         val task = newTask(*properties)
         taskDao.createNew(task)
         val remoteParent = if (task.parent > 0) caldavDao.getRemoteIdForTask(task.parent) else null
@@ -183,6 +235,7 @@ class CaldavManualSortTaskAdapterTest : InjectingTestCase() {
                         with(TASK, task.id),
                         with(CALENDAR, "1234"),
                         with(REMOTE_PARENT, remoteParent)))
+        return task.id
     }
 
     override fun inject(component: TestComponent) = component.inject(this)

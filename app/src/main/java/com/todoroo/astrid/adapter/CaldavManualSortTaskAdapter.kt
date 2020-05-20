@@ -8,22 +8,24 @@ class CaldavManualSortTaskAdapter internal constructor(private val taskDao: Task
 
     override fun moved(from: Int, to: Int, indent: Int) {
         val task = getTask(from)
-        val previous = if (to > 0) getTask(to - 1) else null
-        val newParent = findNewParent(task, indent, to)
+        val oldParent = task.parent
+        val newParent = changeParent(task, indent, to)
 
-        if (from == to) {
+        if (oldParent == newParent && from == to) {
             return
         }
 
-        if (from != to) {
-            val newPosition = when {
-                previous == null -> 1
-                indent > previous.getIndent() -> 1
-                indent == previous.getIndent() -> previous.caldavSortOrder + 1
-                else -> getTask((to - 1 downTo 0).find { getTask(it).indent == indent }!!).caldavSortOrder + 1
-            }
-            caldavDao.move(task, newParent, newPosition)
+        val previous = if (to > 0) getTask(to - 1) else null
+        val next = if (to < count) getTask(to) else null
+
+        val newPosition = when {
+            previous == null -> next!!.caldavSortOrder - 1
+            indent > previous.getIndent() && next?.indent == indent -> next.caldavSortOrder - 1
+            indent > previous.getIndent() -> null
+            indent == previous.getIndent() -> previous.caldavSortOrder + 1
+            else -> getTask((to - 1 downTo 0).find { getTask(it).indent == indent }!!).caldavSortOrder + 1
         }
+        caldavDao.move(task, newParent, newPosition)
 
         taskDao.touch(task.id)
     }

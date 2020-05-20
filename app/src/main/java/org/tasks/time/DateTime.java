@@ -252,6 +252,10 @@ public class DateTime {
     return add(Calendar.SECOND, seconds);
   }
 
+  public DateTime minusSeconds(int seconds) {
+    return subtract(Calendar.SECOND, seconds);
+  }
+
   public DateTime minusDays(int days) {
     return subtract(Calendar.DATE, days);
   }
