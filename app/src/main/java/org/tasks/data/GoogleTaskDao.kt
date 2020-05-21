@@ -2,7 +2,6 @@ package org.tasks.data
 
 import androidx.room.*
 import com.todoroo.astrid.data.Task
-import timber.log.Timber
 
 @Dao
 abstract class GoogleTaskDao {
@@ -167,13 +166,13 @@ abstract class GoogleTaskDao {
         for (task in orderedTasks) {
             if (task.parent > 0) {
                 if (task.order != subtasks) {
-                    Timber.e("Subtask violation expected %s but was %s", subtasks, task.order)
+                    throw IllegalStateException("Subtask violation, expected $subtasks but was ${task.order}")
                 }
                 subtasks++
             } else {
                 subtasks = 0
                 if (task.order != parent) {
-                    Timber.e("Parent violation expected %s but was %s", parent, task.order)
+                    throw IllegalStateException("Parent violation, expected $parent but was ${task.order}")
                 }
                 parent++
             }
