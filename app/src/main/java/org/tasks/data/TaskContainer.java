@@ -80,6 +80,10 @@ public class TaskContainer {
     return indent;
   }
 
+  public long getCreationDate() {
+    return task.getCreationDate();
+  }
+
   public void setIndent(int indent) {
     this.indent = indent;
     targetIndent = indent;

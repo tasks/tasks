@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.core.SortHelper.APPLE_EPOCH
+import com.todoroo.astrid.data.Task
 import io.reactivex.Single
+import org.tasks.date.DateTimeUtils.toAppleEpoch
 import org.tasks.db.DbUtils
 import org.tasks.filters.CaldavFilters
 
@@ -44,6 +46,29 @@ abstract class CaldavDao {
     @Update
     abstract fun update(caldavCalendar: CaldavCalendar)
 
+    @Transaction
+    open fun insert(task: Task, caldavTask: CaldavTask, addToTop: Boolean): Long {
+        if (caldavTask.order != null) {
+            return insert(caldavTask)
+        }
+        if (addToTop) {
+            caldavTask.order = findFirstTask(caldavTask.calendar!!, task.parent)
+                    ?.takeIf { task.creationDate.toAppleEpoch() >= it }
+                    ?.minus(1)
+        } else {
+            caldavTask.order = findLastTask(caldavTask.calendar!!, task.parent)
+                    ?.takeIf { task.creationDate.toAppleEpoch() <= it }
+                    ?.plus(1)
+        }
+        return insert(caldavTask)
+    }
+
+    @Query("SELECT MIN(IFNULL(cd_order, (created - $APPLE_EPOCH) / 1000)) FROM caldav_tasks INNER JOIN tasks ON _id = cd_task WHERE cd_calendar = :calendar AND cd_deleted = 0 AND deleted = 0 AND parent = :parent")
+    internal abstract fun findFirstTask(calendar: String, parent: Long): Long?
+
+    @Query("SELECT MAX(IFNULL(cd_order, (created - $APPLE_EPOCH) / 1000)) FROM caldav_tasks INNER JOIN tasks ON _id = cd_task WHERE cd_calendar = :calendar AND cd_deleted = 0 AND deleted = 0 AND parent = :parent")
+    internal abstract fun findLastTask(calendar: String, parent: Long): Long?
+
     @Insert
     abstract fun insert(caldavTask: CaldavTask): Long
 
@@ -52,10 +77,6 @@ abstract class CaldavDao {
 
     @Update
     abstract fun update(caldavTask: CaldavTask)
-
-    fun updateParent(caldavTask: SubsetCaldav) {
-        update(caldavTask.cd_id, caldavTask.cd_remote_parent)
-    }
 
     @Query("UPDATE caldav_tasks SET cd_order = :position WHERE cd_id = :id")
     internal abstract fun update(id: Long, position: Long?)

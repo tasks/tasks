@@ -88,14 +88,14 @@ public class TaskDuplicator {
     }
 
     GoogleTask googleTask = googleTaskDao.getByTaskId(originalId);
+    boolean addToTop = preferences.addTasksToTop();
     if (googleTask != null) {
-      googleTaskDao.insertAndShift(
-          new GoogleTask(clone.getId(), googleTask.getListId()), preferences.addGoogleTasksToTop());
+      googleTaskDao.insertAndShift(new GoogleTask(clone.getId(), googleTask.getListId()), addToTop);
     }
 
     CaldavTask caldavTask = caldavDao.getTask(originalId);
     if (caldavTask != null) {
-      caldavDao.insert(new CaldavTask(clone.getId(), caldavTask.getCalendar()));
+      caldavDao.insert(clone, new CaldavTask(clone.getId(), caldavTask.getCalendar()), addToTop);
     }
 
     for (Geofence g : locationDao.getGeofencesForTask(originalId)) {

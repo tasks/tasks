@@ -175,7 +175,7 @@ abstract class TaskDao(private val database: Database) {
     abstract fun updateParentUids(tasks: List<Long>)
 
     @Query("UPDATE tasks SET parent = :parent, parent_uuid = :parentUuid WHERE _id IN (:children)")
-    abstract fun setParent(parent: Long, parentUuid: String, children: List<Long>)
+    abstract fun setParent(parent: Long, parentUuid: String?, children: List<Long>)
 
     @Transaction
     open fun fetchChildren(id: Long): List<Task> {

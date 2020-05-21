@@ -40,7 +40,6 @@ import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.*
 import org.tasks.injection.FragmentComponent
 import org.tasks.locale.Locale
-import org.tasks.preferences.Preferences
 import org.tasks.tasklist.SubtaskViewHolder
 import org.tasks.tasklist.SubtasksRecyclerAdapter
 import java.util.*
@@ -59,7 +58,6 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var googleTaskDao: GoogleTaskDao
     @Inject lateinit var toaster: Toaster
-    @Inject lateinit var preferences: Preferences
     @Inject lateinit var taskCreator: TaskCreator
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var taskDao: TaskDao
@@ -127,14 +125,14 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
                     val googleTask = GoogleTask(subtask.id, (remoteList as GtasksFilter).remoteId)
                     googleTask.parent = task.id
                     googleTask.isMoved = true
-                    googleTaskDao.insertAndShift(googleTask, preferences.addGoogleTasksToTop())
+                    googleTaskDao.insertAndShift(googleTask, false)
                 }
                 is CaldavFilter -> {
                     val caldavTask = CaldavTask(subtask.id, (remoteList as CaldavFilter).uuid)
                     subtask.parent = task.id
                     caldavTask.remoteParent = caldavDao.getRemoteIdForTask(task.id)
                     taskDao.save(subtask)
-                    caldavDao.insert(caldavTask)
+                    caldavDao.insert(subtask, caldavTask, false)
                 }
                 else -> {
                     subtask.parent = task.id

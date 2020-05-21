@@ -9,6 +9,12 @@
           android:title="@string/default_sync"
           app:isPreferenceVisible="false" />
 
+  <SwitchPreferenceCompat
+    android:defaultValue="true"
+    android:key="@string/p_add_to_top"
+    android:title="@string/google_tasks_add_to_top"
+    app:isPreferenceVisible="false"/>
+
   <PreferenceCategory
     android:key="@string/accounts"
     android:title="@string/accounts"
@@ -23,11 +29,6 @@
     android:key="@string/gtasks_GPr_header"
     android:title="@string/gtasks_GPr_header"
     app:isPreferenceVisible="false">
-
-    <SwitchPreferenceCompat
-      android:defaultValue="true"
-      android:key="@string/p_google_tasks_add_to_top"
-      android:title="@string/google_tasks_add_to_top" />
 
     <SwitchPreferenceCompat
       android:key="@string/google_tasks_position_hack"

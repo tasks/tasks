@@ -74,7 +74,7 @@ public class TaskAdapterProvider {
       if (list != null) {
         return preferences.isManualSort()
             ? new GoogleTaskManualSortAdapter(taskDao, googleTaskDao)
-            : new GoogleTaskAdapter(taskDao, googleTaskDao, preferences.addGoogleTasksToTop());
+            : new GoogleTaskAdapter(taskDao, googleTaskDao, preferences.addTasksToTop());
       }
     } else if (filter instanceof CaldavFilter) {
       CaldavFilter caldavFilter = (CaldavFilter) filter;
@@ -82,7 +82,7 @@ public class TaskAdapterProvider {
       if (calendar != null) {
         return preferences.isManualSort()
             ? new CaldavManualSortTaskAdapter(taskDao, caldavDao)
-            : new CaldavTaskAdapter(taskDao, caldavDao);
+            : new CaldavTaskAdapter(taskDao, caldavDao, preferences.addTasksToTop());
       }
     } else {
       return subtasksHelper.shouldUseSubtasksFragmentForFilter(filter)

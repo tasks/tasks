@@ -218,11 +218,11 @@ class Synchronization : InjectingPreferenceFragment() {
         val hasGoogleAccounts: Boolean = addGoogleTasksAccounts(synchronizationPreferences)
         val hasCaldavAccounts = addCaldavAccounts(synchronizationPreferences)
         findPreference(R.string.gtasks_GPr_header).isVisible = hasGoogleAccounts
-        findPreference(R.string.accounts).isVisible = hasGoogleAccounts || hasCaldavAccounts
-        findPreference(R.string.sync_SPr_interval_title).isVisible =
-            hasGoogleAccounts || hasCaldavAccounts
-        findPreference(R.string.p_default_remote_list).isVisible =
-            hasGoogleAccounts || hasCaldavAccounts
+        val syncEnabled = hasGoogleAccounts || hasCaldavAccounts
+        findPreference(R.string.accounts).isVisible = syncEnabled
+        findPreference(R.string.sync_SPr_interval_title).isVisible = syncEnabled
+        findPreference(R.string.p_default_remote_list).isVisible = syncEnabled
+        findPreference(R.string.p_add_to_top).isVisible = syncEnabled
     }
 
     private fun updateRemoteListSummary() {

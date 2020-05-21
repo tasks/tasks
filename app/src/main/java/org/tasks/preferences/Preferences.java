@@ -64,8 +64,8 @@ public class Preferences {
     return context.getPackageName() + "_preferences";
   }
 
-  public boolean addGoogleTasksToTop() {
-    return getBoolean(R.string.p_google_tasks_add_to_top, true);
+  public boolean addTasksToTop() {
+    return getBoolean(R.string.p_add_to_top, true);
   }
 
   public boolean backButtonSavesTask() {

@@ -3,7 +3,6 @@ package com.todoroo.astrid.service;
 import static com.google.common.collect.FluentIterable.from;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
-import static com.google.common.collect.Maps.newHashMap;
 import static com.todoroo.andlib.utility.DateUtilities.now;
 import static java.util.Collections.emptyList;
 
@@ -14,6 +13,7 @@ import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
@@ -110,7 +110,7 @@ public class TaskMover {
 
     if (selected instanceof GtasksFilter) {
       String listId = ((GtasksFilter) selected).getRemoteId();
-      googleTaskDao.insertAndShift(new GoogleTask(id, listId), preferences.addGoogleTasksToTop());
+      googleTaskDao.insertAndShift(new GoogleTask(id, listId), preferences.addTasksToTop());
       if (!children.isEmpty()) {
         googleTaskDao.insert(
             transform(
@@ -125,7 +125,7 @@ public class TaskMover {
     } else if (selected instanceof CaldavFilter) {
       String listId = ((CaldavFilter) selected).getUuid();
       CaldavTask newParent = new CaldavTask(id, listId);
-      caldavDao.insert(newParent);
+      caldavDao.insert(task, newParent, preferences.addTasksToTop());
       caldavDao.insert(
           transform(
               childIds,
@@ -161,7 +161,7 @@ public class TaskMover {
       CaldavTask newParent =
           new CaldavTask(id1, listId, caldavTask.getRemoteId(), caldavTask.getObject());
       newParent.setVtodo(caldavTask.getVtodo());
-      caldavDao.insert(newParent);
+      caldavDao.insert(task, newParent, preferences.addTasksToTop());
       caldavDao.insert(
           transform(
               children,
@@ -185,13 +185,15 @@ public class TaskMover {
     } else if (selected instanceof CaldavFilter) {
       long id = task.getId();
       String listId = ((CaldavFilter) selected).getUuid();
-      Map<Long, CaldavTask> tasks = newHashMap();
-      tasks.put(id, new CaldavTask(id, listId));
+      Map<Long, CaldavTask> tasks = new HashMap<>();
+      CaldavTask root = new CaldavTask(id, listId);
       for (Task child : taskDao.fetchChildren(task.getId())) {
         CaldavTask newTask = new CaldavTask(child.getId(), listId);
-        newTask.setRemoteParent(tasks.get(child.getParent()).getRemoteId());
+        long parent = child.getParent();
+        newTask.setRemoteParent((parent == id ? root : tasks.get(parent)).getRemoteId());
         tasks.put(child.getId(), newTask);
       }
+      caldavDao.insert(task, root, preferences.addTasksToTop());
       caldavDao.insert(tasks.values());
     }
   }
@@ -199,7 +201,7 @@ public class TaskMover {
   private void moveToGoogleTasks(long id, List<Long> children, GtasksFilter filter) {
     taskDao.setParent(0, null, children);
     String listId = filter.getRemoteId();
-    googleTaskDao.insertAndShift(new GoogleTask(id, listId), preferences.addGoogleTasksToTop());
+    googleTaskDao.insertAndShift(new GoogleTask(id, listId), preferences.addTasksToTop());
     List<GoogleTask> newChildren = new ArrayList<>();
     for (int i = 0; i < children.size(); i++) {
       GoogleTask newChild = new GoogleTask(children.get(i), listId);
