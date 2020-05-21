@@ -39,7 +39,7 @@ public class SubtasksRecyclerAdapter extends RecyclerView.Adapter<SubtaskViewHol
     this.callbacks = callbacks;
     differ =
         new AsyncListDiffer<>(
-            this, new AsyncDifferConfig.Builder<>(new SubtaskDiffCallback()).build());
+            this, new AsyncDifferConfig.Builder<>(new ItemCallback()).build());
     metrics = activity.getResources().getDisplayMetrics();
   }
 
