@@ -121,7 +121,9 @@ public class EteSyncClient {
             .followSslRedirects(true)
             .sslSocketFactory(sslContext.getSocketFactory(), customCertManager)
             .hostnameVerifier(hostnameVerifier)
-            .readTimeout(30, TimeUnit.SECONDS);
+            .connectTimeout(15, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(120, TimeUnit.SECONDS);
     if (preferences.isFlipperEnabled()) {
       interceptor.add(builder);
     }
