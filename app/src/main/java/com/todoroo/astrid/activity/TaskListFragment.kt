@@ -237,7 +237,7 @@ class TaskListFragment : InjectingFragment(), OnRefreshListener, Toolbar.OnMenuI
         } else if (recyclerAdapter !is DragAndDropRecyclerAdapter) {
             setAdapter(
                     DragAndDropRecyclerAdapter(
-                            taskAdapter, recyclerView, viewHolderFactory, this, tasks, taskDao))
+                            taskAdapter, recyclerView, viewHolderFactory, this, tasks as MutableList, taskDao))
             return
         }
         recyclerAdapter!!.submitList(tasks)

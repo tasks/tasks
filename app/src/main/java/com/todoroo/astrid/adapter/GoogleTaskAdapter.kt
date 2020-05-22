@@ -34,7 +34,6 @@ open class GoogleTaskAdapter internal constructor(private val taskDao: TaskDao, 
     override fun moved(from: Int, to: Int, indent: Int) {
         val task = getTask(from)
         val googleTask = task.googleTask
-        val previous = if (to > 0) getTask(to - 1) else null
         if (indent == 0) {
             if (googleTask.indent == 0) {
                 return
@@ -42,6 +41,7 @@ open class GoogleTaskAdapter internal constructor(private val taskDao: TaskDao, 
             googleTaskDao.move(
                     googleTask, 0, if (newTasksOnTop) 0 else googleTaskDao.getBottom(googleTask.listId, 0))
         } else {
+            val previous = if (to > 0) getTask(to - 1) else null
             val newParent = if (previous!!.hasParent()) previous.parent else previous.id
             if (googleTask.parent == newParent) {
                 return

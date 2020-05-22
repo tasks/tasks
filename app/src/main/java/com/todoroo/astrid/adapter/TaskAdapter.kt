@@ -14,7 +14,7 @@ open class TaskAdapter {
     private lateinit var dataSource: TaskAdapterDataSource
 
     val count: Int
-        get() = dataSource.itemCount
+        get() = dataSource.getItemCount()
 
     fun setDataSource(dataSource: TaskAdapterDataSource) {
         this.dataSource = dataSource

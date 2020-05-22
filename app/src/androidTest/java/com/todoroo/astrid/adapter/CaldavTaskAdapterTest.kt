@@ -36,7 +36,7 @@ class CaldavTaskAdapterTest : InjectingTestCase() {
         adapter.setDataSource(object : TaskAdapterDataSource {
             override fun getItem(position: Int) = tasks[position]
 
-            override val itemCount get() = tasks.size
+            override fun getItemCount() = tasks.size
         })
     }
 
