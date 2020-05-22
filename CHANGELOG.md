@@ -1,6 +1,14 @@
 Change Log
 ---
 =======
+### 9.3 (2020-05-22)
+
+* Add manual sorting support for CalDAV and EteSync
+* Update translations
+  * Finnish - Rami Lehtinen
+  * German - @franconian
+  * Turkish - mahmut özcan
+
 ### 9.2 (2020-05-13)
 
 * 'New task' quick settings tile (Android 7+)

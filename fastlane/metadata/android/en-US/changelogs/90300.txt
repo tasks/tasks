@@ -1,0 +1,2 @@
+* Add manual sorting support for CalDAV and EteSync
+* Update translations
