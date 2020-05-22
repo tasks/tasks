@@ -103,7 +103,7 @@ internal object TaskListQueryRecursive {
             ) SELECT * FROM recursive_tasks
         """.trimIndent()
 
-        return listOf(
+        return mutableListOf(
                 "DROP TABLE IF EXISTS `temp`.`recursive_tasks`",
                 SortHelper.adjustQueryForFlags(preferences, withClause),
                 "CREATE INDEX `r_tasks` ON `recursive_tasks` (`task`)",

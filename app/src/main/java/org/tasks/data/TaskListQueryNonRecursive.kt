@@ -32,7 +32,7 @@ internal object TaskListQueryNonRecursive {
         } else {
             "$query GROUP BY ${Task.ID}"
         }
-        return listOf(
+        return mutableListOf(
                 Query.select(*FIELDS)
                         .withQueryTemplate(PermaSql.replacePlaceholdersForQuery(groupedQuery))
                         .from(Task.TABLE)

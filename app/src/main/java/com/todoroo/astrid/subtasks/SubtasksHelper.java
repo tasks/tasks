@@ -1,7 +1,7 @@
 package com.todoroo.astrid.subtasks;
 
 import static org.tasks.Strings.isNullOrEmpty;
-import static org.tasks.db.QueryUtils.showHidden;
+import static org.tasks.db.QueryUtils.showHiddenAndCompleted;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
@@ -146,7 +146,7 @@ public class SubtasksHelper {
 
       query = query.replaceAll("ORDER BY .*", "");
       query = query + String.format(" ORDER BY %s", getOrderString(tagData, tlm));
-      query = showHidden(query);
+      query = showHiddenAndCompleted(query);
 
       filter.setFilterQueryOverride(query);
     }
