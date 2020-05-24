@@ -642,4 +642,5 @@
     <string name="enjoying_tasks">Нравится Tasks\?</string>
     <string name="whats_new_in_version">Что нового в версии %s</string>
     <string name="whats_new">Что нового</string>
+    <string name="action_new_task">Новая задача</string>
 </resources>
