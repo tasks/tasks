@@ -27,7 +27,7 @@ class DragAndDropRecyclerAdapter(
         private val taskList: TaskListFragment,
         private var list: MutableList<TaskContainer>,
         taskDao: TaskDao) : TaskListRecyclerAdapter(adapter, viewHolderFactory, taskList, taskDao) {
-    private val publishSubject = PublishSubject.create<List<TaskContainer>>()
+    private val publishSubject = PublishSubject.create<MutableList<TaskContainer>>()
     private val disposables = CompositeDisposable()
     private val updates: Queue<Pair<MutableList<TaskContainer>, DiffUtil.DiffResult>> = LinkedList()
     private var dragging = false
@@ -35,12 +35,12 @@ class DragAndDropRecyclerAdapter(
 
     override fun getItem(position: Int) = list[position]
 
-    override fun submitList(list: List<TaskContainer>) = publishSubject.onNext(list)
+    override fun submitList(list: List<TaskContainer>) = publishSubject.onNext(list as MutableList<TaskContainer>)
 
     private fun calculateDiff(
             last: Pair<MutableList<TaskContainer>, DiffUtil.DiffResult>, next: MutableList<TaskContainer>): Pair<MutableList<TaskContainer>, DiffUtil.DiffResult> {
         AndroidUtilities.assertNotMainThread()
-        val cb = DiffCallback(last.first, next, adapter)
+        val cb = DiffCallback(last.first!!, next, adapter)
         val result = DiffUtil.calculateDiff(cb, next.size < LONG_LIST_SIZE)
         return Pair.create(next, result)
     }
@@ -149,7 +149,7 @@ class DragAndDropRecyclerAdapter(
                     }
                     if (targetIndent < minIndent) {
                         task.targetIndent = minIndent
-                    } else task.targetIndent = Math.min(targetIndent, maxIndent)
+                    } else task.targetIndent = min(targetIndent, maxIndent)
                 }
                 dX = (task.targetIndent - task.getIndent()) * shiftSize
             }
