@@ -78,10 +78,10 @@ class DragAndDropRecyclerAdapter(
             super.onSelectedChanged(viewHolder, actionState)
             if (actionState == ItemTouchHelper.ACTION_STATE_DRAG) {
                 taskList.startActionMode()
-                (viewHolder as ViewHolder?)!!.isMoving = true
+                (viewHolder as TaskViewHolder?)!!.isMoving = true
                 dragging = true
                 val position = viewHolder!!.adapterPosition
-                updateIndents(viewHolder as ViewHolder?, position, position)
+                updateIndents(viewHolder as TaskViewHolder?, position, position)
             }
         }
 
@@ -98,8 +98,8 @@ class DragAndDropRecyclerAdapter(
             taskList.finishActionMode()
             val fromPosition = src.adapterPosition
             val toPosition = target.adapterPosition
-            val source = src as ViewHolder
-            if (!adapter.canMove(source.task, fromPosition, (target as ViewHolder).task, toPosition)) {
+            val source = src as TaskViewHolder
+            if (!adapter.canMove(source.task, fromPosition, (target as TaskViewHolder).task, toPosition)) {
                 return false
             }
             if (from == -1) {
@@ -112,7 +112,7 @@ class DragAndDropRecyclerAdapter(
             return true
         }
 
-        private fun updateIndents(source: ViewHolder?, from: Int, to: Int) {
+        private fun updateIndents(source: TaskViewHolder?, from: Int, to: Int) {
             val task = source!!.task
             source.minIndent = if (to == 0 || to == itemCount - 1) 0 else adapter.minIndent(if (from <= to) to + 1 else to, task)
             source.maxIndent = if (to == 0) 0 else adapter.maxIndent(if (from >= to) to - 1 else to, task)
@@ -127,7 +127,7 @@ class DragAndDropRecyclerAdapter(
                 actionState: Int,
                 isCurrentlyActive: Boolean) {
             var dX = dXOrig
-            val vh = viewHolder as ViewHolder
+            val vh = viewHolder as TaskViewHolder
             val task = vh.task
             val shiftSize = vh.shiftSize
             if (actionState == ItemTouchHelper.ACTION_STATE_DRAG) {
@@ -159,7 +159,7 @@ class DragAndDropRecyclerAdapter(
         override fun clearView(
                 recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
             super.clearView(recyclerView, viewHolder)
-            val vh = viewHolder as ViewHolder
+            val vh = viewHolder as TaskViewHolder
             vh.isMoving = false
             dragging = false
             drainQueue()

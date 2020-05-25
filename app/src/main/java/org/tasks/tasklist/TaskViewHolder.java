@@ -30,7 +30,7 @@ import org.tasks.ui.CheckBoxProvider;
 import org.tasks.ui.ChipProvider;
 import org.threeten.bp.format.FormatStyle;
 
-public class ViewHolder extends RecyclerView.ViewHolder {
+public class TaskViewHolder extends RecyclerView.ViewHolder {
 
   private final Activity context;
   private final Preferences preferences;
@@ -78,7 +78,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
   private int minIndent;
   private int maxIndent;
 
-  ViewHolder(
+  TaskViewHolder(
       Activity context,
       ViewGroup view,
       Preferences preferences,
@@ -336,13 +336,13 @@ public class ViewHolder extends RecyclerView.ViewHolder {
 
     void onCompletedTask(TaskContainer task, boolean newState);
 
-    void onClick(ViewHolder viewHolder);
+    void onClick(TaskViewHolder taskViewHolder);
 
     void onClick(Filter filter);
 
     void toggleSubtasks(TaskContainer task, boolean collapsed);
 
-    boolean onLongPress(ViewHolder viewHolder);
+    boolean onLongPress(TaskViewHolder taskViewHolder);
 
     void onChangeDueDate(TaskContainer task);
   }

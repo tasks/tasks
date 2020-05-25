@@ -10,19 +10,19 @@ import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.dao.TaskDao
 import org.tasks.data.TaskContainer
 import org.tasks.intents.TaskIntents
-import org.tasks.tasklist.ViewHolder.ViewHolderCallbacks
+import org.tasks.tasklist.TaskViewHolder.ViewHolderCallbacks
 
 abstract class TaskListRecyclerAdapter internal constructor(
         private val adapter: TaskAdapter,
         private val viewHolderFactory: ViewHolderFactory,
         private val taskList: TaskListFragment,
-        private val taskDao: TaskDao) : RecyclerView.Adapter<ViewHolder>(), ViewHolderCallbacks, ListUpdateCallback, TaskAdapterDataSource {
+        private val taskDao: TaskDao) : RecyclerView.Adapter<TaskViewHolder>(), ViewHolderCallbacks, ListUpdateCallback, TaskAdapterDataSource {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         return viewHolderFactory.newViewHolder(parent, this)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val task = getItem(position)
         if (task != null) {
             holder.bindView(task, taskList.getFilter())
@@ -39,11 +39,11 @@ abstract class TaskListRecyclerAdapter internal constructor(
         taskList.loadTaskListContent()
     }
 
-    override fun onClick(viewHolder: ViewHolder) {
+    override fun onClick(taskViewHolder: TaskViewHolder) {
         if (taskList.isActionModeActive) {
-            toggle(viewHolder)
+            toggle(taskViewHolder)
         } else {
-            taskList.onTaskListItemClicked(viewHolder.task.getTask())
+            taskList.onTaskListItemClicked(taskViewHolder.task.getTask())
         }
     }
 
@@ -54,12 +54,12 @@ abstract class TaskListRecyclerAdapter internal constructor(
         }
     }
 
-    override fun onLongPress(viewHolder: ViewHolder): Boolean {
+    override fun onLongPress(taskViewHolder: TaskViewHolder): Boolean {
         if (!dragAndDropEnabled()) {
             taskList.startActionMode()
         }
-        if (taskList.isActionModeActive && !viewHolder.isMoving) {
-            toggle(viewHolder)
+        if (taskList.isActionModeActive && !taskViewHolder.isMoving) {
+            toggle(taskViewHolder)
         }
         return true
     }
@@ -73,9 +73,9 @@ abstract class TaskListRecyclerAdapter internal constructor(
         taskList.broadcastRefresh()
     }
 
-    fun toggle(viewHolder: ViewHolder) {
-        adapter.toggleSelection(viewHolder.task)
-        notifyItemChanged(viewHolder.adapterPosition)
+    fun toggle(taskViewHolder: TaskViewHolder) {
+        adapter.toggleSelection(taskViewHolder.task)
+        notifyItemChanged(taskViewHolder.adapterPosition)
         if (adapter.getSelected().isEmpty()) {
             taskList.finishActionMode()
         } else {

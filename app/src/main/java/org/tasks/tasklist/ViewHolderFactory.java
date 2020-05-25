@@ -57,8 +57,8 @@ public class ViewHolderFactory {
     rowPadding = convertDpToPixels(metrics, preferences.getInt(R.string.p_rowPadding, 16));
   }
 
-  ViewHolder newViewHolder(ViewGroup parent, ViewHolder.ViewHolderCallbacks callbacks) {
-    return new ViewHolder(
+  TaskViewHolder newViewHolder(ViewGroup parent, TaskViewHolder.ViewHolderCallbacks callbacks) {
+    return new TaskViewHolder(
         (Activity) context,
         (ViewGroup)
             LayoutInflater.from(context).inflate(R.layout.task_adapter_row, parent, false),
