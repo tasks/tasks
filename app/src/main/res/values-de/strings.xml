@@ -2,7 +2,7 @@
 <resources>
     <string name="actfm_picture_clear">Bild entfernen</string>
     <string name="TVA_add_comment">Kommentar hinzufügen …</string>
-    <string name="enter_filter_name">Filtername eingeben</string>
+    <string name="enter_filter_name">Filternamen eingeben</string>
     <string name="backup_BAc_import">Aufgaben importieren</string>
     <string name="backup_BAc_export">Aufgaben exportieren</string>
     <string name="export_toast">%1$s nach %2$s gesichert.</string>
@@ -33,9 +33,9 @@
     <string name="FLA_new_filter">Neuen Filter erstellen</string>
     <string name="TEA_title_hint">Aufgabenname</string>
     <string name="TEA_importance_label">Priorität</string>
-    <string name="TEA_no_date">Kein Datum</string>
-    <string name="TEA_hideUntil_label">Verbergen bis</string>
-    <string name="TEA_hideUntil_display">Verbergen bis %s</string>
+    <string name="TEA_no_date">Ohne Datum</string>
+    <string name="TEA_hideUntil_label">Ausblenden bis</string>
+    <string name="TEA_hideUntil_display">Ausblenden bis %s</string>
     <string name="TEA_note_label">Beschreibung</string>
     <string name="TEA_estimatedDuration_label">Wie lange wird es dauern?</string>
     <string name="TEA_elapsedDuration_label">Zeit, die schon für die Aufgabe gebraucht wurde</string>
@@ -45,12 +45,12 @@
     <string name="TEA_no_time">Ohne Uhrzeit</string>
     <string name="due_date">Fälligkeitsdatum</string>
     <string name="due_time">Fälligkeitsuhrzeit</string>
-    <string name="day_before_due">Tag vor Fälligkeitsdatum</string>
-    <string name="week_before_due">Woche vor Fälligkeitsdatum</string>
+    <string name="day_before_due">Tag vor Fälligkeit</string>
+    <string name="week_before_due">Woche vor Fälligkeit</string>
     <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">Fälligkeitsdatum</string>
     <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">Fälligkeitsuhrzeit</string>
-    <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">Tag vor Fälligkeitsdatum</string>
-    <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">Woche vor Fälligkeitsdatum</string>
+    <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">Tag vor Fälligkeit</string>
+    <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">Woche vor Fälligkeit</string>
     <string name="TEA_control_when">Wann</string>
     <string name="TEA_control_repeat">Wiederholen</string>
     <string name="TEA_control_gcal">Kalender</string>
@@ -60,18 +60,18 @@
     <string name="TEA_control_files">Dateien</string>
     <string name="TEA_control_reminders">Erinnerungen</string>
     <string name="TEA_control_timer">Timer-Einstellungen</string>
-    <string name="TEA_control_hidden_section">----Immer Verbergen----</string>
+    <string name="TEA_control_hidden_section">----Immer Ausblenden----</string>
     <string name="TEA_load_more">Weitere laden …</string>
     <string name="CRA_ignore">Ablehnen</string>
-    <string name="CRA_title">Willst du eine Besprechungsliste erstellen\?</string>
-    <string name="CRA_ignore_body">Sie haben mehrere Kalenderereignisse ignoriert. Soll Tasks nicht mehr danach fragen\?</string>
+    <string name="CRA_title">Wollen Sie eine Besprechungsliste erstellen\?</string>
+    <string name="CRA_ignore_body">Sie haben mehrere Kalendereinträge ignoriert. Soll Tasks nicht mehr danach fragen\?</string>
     <string name="CRA_ignore_all">Alle Termine ablehnen</string>
     <string name="CRA_ignore_this">Nur diesen Termin ablehnen</string>
-    <string name="CRA_speech_bubble_start">Vergiss nicht, dass %s bald startet. Willst du eine Liste mit Aufgaben erstellen?</string>
-    <string name="CRA_speech_bubble_end">Hast du gerade %s beendet\? Willst du noch eine Liste mit Aufgaben erstellen\?</string>
+    <string name="CRA_speech_bubble_start">Denken Sie daran, dass %s bald beginnt. Wollen Sie eine Liste mit Aufgaben erstellen\?</string>
+    <string name="CRA_speech_bubble_end">Haben Sie %s gerade abgeschlossen\? Wollen Sie noch eine Liste mit Aufgaben erstellen\?</string>
     <string name="CRA_postpone">Vielleicht später</string>
     <string name="CRA_calendar_reminders_pref_title">Kalender-Assistent</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks wird Sie an zukünftige Kalenderereignisse erinnern und Sie auf die Vorbereitung hinweisen</string>
+    <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks wird Sie an zukünftige Kalendereinträge erinnern und Sie auf die Vorbereitung hinweisen</string>
     <string name="CRA_default_list_name">Einzelaufgaben: %s</string>
     <string name="none">Keine</string>
     <string name="EPr_filters_to_show_title">Angezeigte Filter</string>
@@ -80,26 +80,28 @@
     <string name="EPr_fullTask_title">Gesamten Aufgabentitel anzeigen</string>
     <string name="EPr_show_task_edit_comments">Kommentare bei Aufgabeneingabe anzeigen </string>
     <string name="task_list_options">Aufgabenlisten-Optionen</string>
-    <string name="EPr_cal_end_or_start_at_due_time">Zeitpunkt Kalenderereignis</string>
+    <string name="EPr_cal_end_or_start_at_due_time">Zeitpunkt für Kalendereintrag</string>
     <string name="EPr_cal_end_at_due_time">Kalendereintrag endet zur Fälligkeitsuhrzeit</string>
     <string name="EPr_cal_start_at_due_time">Kalendereintrag startet zur Fälligkeitsuhrzeit</string>
     <string name="EPr_manage_purge_deleted">Gelöschte Aufgaben endgültig löschen</string>
-    <string name="EPr_manage_purge_deleted_message">Willst du wirklich alle gelöschten Aufgaben bereinigen?\n\nDiese Aufgaben werden für immer gelöscht bleiben!</string>
+    <string name="EPr_manage_purge_deleted_message">Wollen Sie wirklich alle gelöschten Aufgaben bereinigen\?
+\n
+\nDiese Aufgaben werden für immer gelöscht bleiben!</string>
     <string name="EPr_manage_purge_deleted_status">%d Aufgaben bereinigt!</string>
     <string name="EPr_reset_preferences">Auf Voreinstellungen zurücksetzen</string>
     <string name="EPr_reset_preferences_warning">Die Voreinstellungen werden auf Standardwerte zurückgesetzt</string>
     <string name="EPr_delete_task_data">Aufgabendaten löschen</string>
     <string name="EPr_delete_task_data_warning">Alle Aufgaben werden dauerhaft gelöscht</string>
     <string name="EPr_manage_delete_completed_gcal">Kalendereinträge für erledigte Aufgaben löschen</string>
-    <string name="EPr_manage_delete_completed_gcal_message">Möchtest du wirklich alle deine Kalendereinträge von erledigten Aufgaben löschen\?</string>
+    <string name="EPr_manage_delete_completed_gcal_message">Möchten Sie wirklich alle Ihre Kalendereinträge mit erledigten Aufgaben löschen\?</string>
     <string name="EPr_manage_delete_completed_gcal_status">%d Kalendereinträge gelöscht!</string>
-    <string name="EPr_manage_delete_all_gcal">Lösche alle Kalendereinträge von Aufgaben</string>
-    <string name="EPr_manage_delete_all_gcal_message">Möchtest du wirklich alle Kalendereinträge für Aufgaben löschen\?</string>
+    <string name="EPr_manage_delete_all_gcal">Alle Kalendereinträge für Aufgaben löschen</string>
+    <string name="EPr_manage_delete_all_gcal_message">Möchten Sie wirklich alle Kalendereinträge für Aufgaben löschen\?</string>
     <string name="EPr_manage_delete_all_gcal_status">%d Kalendereinträge gelöscht!</string>
     <string name="task_defaults">Standardwerte für Aufgaben</string>
-    <string name="EPr_default_urgency_title">Standard-Fälligkeitsdatum</string>
+    <string name="EPr_default_urgency_title">Terminvorauswahl</string>
     <string name="EPr_default_importance_title">Standard-Priorität</string>
-    <string name="EPr_default_hideUntil_title">Standardmäßig verstecken bis</string>
+    <string name="EPr_default_hideUntil_title">Standardmäßig ausblenden bis</string>
     <string name="EPr_default_reminders_title">Standarderinnerungen</string>
     <string name="EPr_default_location_reminder_title">Ortsbasierte Standarderinnerungen</string>
     <string name="EPr_default_location_radius">Standardradius</string>
@@ -107,12 +109,12 @@
     <string name="priority_high">Hoch</string>
     <string name="priority_medium">Mittel</string>
     <string name="priority_low">Niedrig</string>
-    <string name="no_deadline">Kein Fälligkeitsdatum</string>
+    <string name="no_deadline">Ohne Termin</string>
     <string name="day_after_tomorrow">Übermorgen</string>
     <string name="next_week">Nächste Woche</string>
-    <string name="dont_hide">Nicht verstecken</string>
-    <string name="at_deadline">Am Fälligkeitsdatum</string>
-    <string name="at_deadline_or_overdue">Am Fälligkeitsdatum oder wenn überfällig</string>
+    <string name="dont_hide">Nicht ausblenden</string>
+    <string name="at_deadline">Zum Termin</string>
+    <string name="at_deadline_or_overdue">Zum Termin oder wenn überfällig</string>
     <string name="no_reminders">Keine Erinnerungen</string>
     <string name="default_location_reminder_on_arrival">Bei Ankunft</string>
     <string name="default_location_reminder_on_departure">Bei Abreise</string>
@@ -147,7 +149,7 @@
     <string name="CFC_caldav_list_name">In CalDAV-Liste…</string>
     <string name="gtasks_GTA_clear_completed">Erledigte Aufgaben entfernen</string>
     <string name="gtasks_GLA_authenticating">Authentifizierung…</string>
-    <string name="gtasks_GLA_errorIOAuth">Entschuldigung, während der Kommunikation mit den Google-Servern ist ein Problem aufgetreten. Bitte versuchen Sie es später noch einmal.</string>
+    <string name="gtasks_GLA_errorIOAuth">Leider ist während der Kommunikation mit den Google-Servern ein Problem aufgetreten. Bitte versuchen Sie es später noch einmal.</string>
     <string name="gtasks_error_accountNotFound">Konto %s nicht gefunden. Bitte ausloggen und erneut über die Einstellungen von Google Tasks einloggen .</string>
     <string name="premium_record_audio">Notiz aufzeichnen</string>
     <string name="premium_remove_file_confirm">Sind Sie sicher? Das kann nicht rückgängig gemacht werden</string>
@@ -197,8 +199,8 @@
         <item quantity="other">%d Aufgaben</item>
     </plurals>
     <plurals name="repeat_times">
-        <item quantity="one">mal</item>
-        <item quantity="other">mal</item>
+        <item quantity="one">Mal</item>
+        <item quantity="other">Mal</item>
     </plurals>
     <plurals name="repeat_minutes">
         <item quantity="one">Minute</item>
@@ -253,7 +255,7 @@
     <string name="repeat_forever">Endlos wiederholen</string>
     <string name="repeat_until">Wiederholen bis %s</string>
     <string name="repeat_number_of_times">N-mal wiederholen</string>
-    <string name="repeat_occurs">Tritt ein</string>
+    <string name="repeat_occurs">Erscheint</string>
     <string name="repeat_snackbar">%1$s neu geplant für %2$s</string>
     <string name="new_tag">Neues Schlagwort erstellen</string>
     <string name="new_list">Neue Liste erstellen</string>
@@ -277,8 +279,8 @@
     <string name="tomorrow">Morgen</string>
     <string name="next">Nächster %s</string>
     <string name="yesterday">Gestern</string>
-    <string name="tmrw">Morg.</string>
-    <string name="yest">Gest.</string>
+    <string name="tmrw">Morgen</string>
+    <string name="yest">Gestern</string>
     <string name="sync_SPr_interval_title">Hintergrund-Synchronisierung</string>
     <string name="widget_show_checkboxes">Checkboxen anzeigen</string>
     <string name="widget_show_header">Kopf anzeigen</string>
@@ -300,7 +302,7 @@
     <string name="source_code">Quelltext</string>
     <string name="translations">Zur Übersetzung beitragen</string>
     <string name="contact_developer">Entwickler kontaktieren</string>
-    <string name="rate_tasks">Bewerte Tasks</string>
+    <string name="rate_tasks">Bewerten Sie Tasks</string>
     <string name="quiet_hours_summary">Keine Erinnerungen während der Ruhezeit</string>
     <string name="TLA_menu_donate">Spenden</string>
     <string name="add_reminder">Erinnerung hinzufügen</string>
@@ -438,7 +440,7 @@
     <string name="pro_dashclock_extension">Dashclock-Erweiterung</string>
     <string name="requires_pro_subscription">Pro-Freischaltung benötigt</string>
     <string name="logout">Abmelden</string>
-    <string name="logout_warning">Von %s abmelden\? Das wird alle Daten dieses Kontos von deinem Gerät löschen</string>
+    <string name="logout_warning">Von %s abmelden\? Das wird alle Daten dieses Kontos von Ihrem Gerät löschen</string>
     <string name="cannot_access_account">Zugriff auf Konto fehlgeschlagen</string>
     <string name="reinitialize_account">Neu initialisieren</string>
     <string name="action_create_new_task">Neue Aufgabe erstellen</string>
@@ -484,7 +486,7 @@
     <string name="button_downgrade">Abonnement herabstufen</string>
     <string name="button_upgrade">Abonnement hochstufen</string>
     <string name="button_unsubscribe">Abonnement kündigen</string>
-    <string name="name_your_price">Nenne deinen Preis</string>
+    <string name="name_your_price">Nennen Sie Ihren Preis</string>
     <string name="monthly">monatlich</string>
     <string name="annually">jährlich</string>
     <string name="SSD_sort_my_order">Manuelle Sortierung</string>
@@ -563,7 +565,7 @@
     <string name="no_date">Kein Datum</string>
     <string name="auto_dismiss_datetime_summary">Nach Auswahl eines Datums oder einer Uhrzeit den Auswahldialog automatisch schließen</string>
     <string name="auto_dismiss_datetime">Datums- und Zeitauswahl automatisch schließen</string>
-    <string name="calendar_event_created">Termin im Kalender erstellt für %s</string>
+    <string name="calendar_event_created">Kalendereintrag für %s erstellt</string>
     <string name="select_all">Alles auswählen</string>
     <string name="share">Teilen</string>
     <string name="hide_check_button">Erledigt-Schaltfläche ausblenden</string>
@@ -609,7 +611,7 @@
     <string name="filter_no_tags">Keine Schlagwörter</string>
     <string name="disable_subtasks_summary">Teilaufgaben zu deaktivieren kann die App-Performance verbessern</string>
     <string name="filter_any_due_date">Beliebiges Fälligkeitsdatum</string>
-    <string name="enjoying_tasks">Gefällt dir Tasks\?</string>
+    <string name="enjoying_tasks">Gefällt Ihnen Tasks\?</string>
     <string name="whats_new_in_version">Änderungen in Version %s</string>
     <string name="whats_new">Was gibt\'s Neues</string>
     <string name="filter_eisenhower_box_4">Eisenhower-Quadrant IV</string>
