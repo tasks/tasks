@@ -35,11 +35,6 @@ internal object TaskListQueryRecursive {
                     .join(Join.inner(RECURSIVE, GoogleTask.PARENT.eq(RECURSIVE_TASK)))
                     .join(Join.inner(GoogleTask.TABLE, Criterion.and(GoogleTask.TASK.eq(Task.ID), GoogleTask.DELETED.eq(0))))
                     .where(activeAndVisible())
-    private val CALDAV_SUBTASKS =
-            QueryTemplate()
-                    .join(Join.inner(RECURSIVE, Task.PARENT.eq(RECURSIVE_TASK)))
-                    .join(Join.inner(CaldavTask.TABLE, Criterion.and(CaldavTask.TASK.eq(Task.ID), CaldavTask.DELETED.eq(0))))
-                    .where(activeAndVisible())
     private val GOOGLE_AND_CALDAV_SUBTASKS =
             QueryTemplate()
                     .join(Join.inner(RECURSIVE, Criterion.or(GoogleTask.PARENT.eq(RECURSIVE_TASK), Task.PARENT.eq(RECURSIVE_TASK))))
@@ -55,7 +50,10 @@ internal object TaskListQueryRecursive {
         when (filter) {
             is CaldavFilter -> {
                 parentQuery = newCaldavQuery(filter)
-                subtaskQuery = CALDAV_SUBTASKS
+                subtaskQuery = QueryTemplate()
+                        .join(Join.inner(RECURSIVE, Task.PARENT.eq(RECURSIVE_TASK)))
+                        .join(Join.inner(CaldavTask.TABLE, Criterion.and(CaldavTask.TASK.eq(Task.ID), CaldavTask.DELETED.eq(0))))
+                        .where(activeAndVisible())
             }
             is GtasksFilter -> {
                 parentQuery = newGoogleTaskQuery(filter)
@@ -66,7 +64,9 @@ internal object TaskListQueryRecursive {
                 subtaskQuery = when {
                     subtasks.hasGoogleSubtasks && subtasks.hasSubtasks -> GOOGLE_AND_CALDAV_SUBTASKS
                     subtasks.hasGoogleSubtasks -> GOOGLE_SUBTASKS
-                    else -> CALDAV_SUBTASKS
+                    else -> QueryTemplate()
+                            .join(Join.inner(RECURSIVE, Task.PARENT.eq(RECURSIVE_TASK)))
+                            .where(activeAndVisible())
                 }
                 joinedQuery += " LEFT JOIN (SELECT task, max(indent) AS max_indent FROM recursive_tasks GROUP BY task) AS recursive_indents ON recursive_indents.task = tasks._id "
                 where += " AND indent = max_indent "

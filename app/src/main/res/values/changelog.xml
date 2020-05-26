@@ -2,6 +2,7 @@
 <resources>
     <string-array name="changelog">
         <item>Add manual sorting support for CalDAV and EteSync. Compatible with Nextcloud Tasks and Apple Reminders</item>
+        <item>Fix offline subtasks</item>
         <item>Update translations</item>
     </string-array>
 </resources>

@@ -1,6 +1,10 @@
 Change Log
 ---
 =======
+### 9.3.1 (2020-05-26)
+
+* Fix offline subtasks
+
 ### 9.3 (2020-05-22)
 
 * Add manual sorting support for CalDAV and EteSync
