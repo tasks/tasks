@@ -618,4 +618,6 @@
     <string name="auto_dismiss_datetime_edit">Gjøremålsredigering</string>
     <string name="place_settings">Stedsinnstillinger</string>
     <string name="places">Steder</string>
+    <string name="got_it">Skjønner.</string>
+    <string name="no_thanks">Nei takk</string>
 </resources>
