@@ -39,6 +39,7 @@ class OfflineSubtaskTest : InjectingTestCase() {
     @Before
     override fun setUp() {
         super.setUp()
+        preferences.clear()
         tasks.clear()
         adapter = TaskAdapter()
         adapter.setDataSource(dataSource)

@@ -21,7 +21,7 @@ class TaskTest : InjectingTestCase() {
         Freeze.freezeClock {
             val task = Task()
             taskDao.createNew(task)
-            assertEquals(DateTimeUtils.currentTimeMillis(), task.creationDate as Long)
+            assertEquals(DateTimeUtils.currentTimeMillis(), task.creationDate)
         }
     }
 

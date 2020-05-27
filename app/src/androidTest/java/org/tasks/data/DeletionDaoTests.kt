@@ -35,8 +35,8 @@ class DeletionDaoTests : InjectingTestCase() {
         taskDao.createNew(task)
         deletionDao.markDeleted(listOf(task.id))
         task = taskDao.fetch(task.id)!!
-        assertTrue(task.modificationDate!! > task.creationDate!!)
-        assertTrue(task.modificationDate!! < DateTimeUtils.currentTimeMillis())
+        assertTrue(task.modificationDate > task.creationDate)
+        assertTrue(task.modificationDate < DateTimeUtils.currentTimeMillis())
     }
 
     @Test
@@ -45,8 +45,8 @@ class DeletionDaoTests : InjectingTestCase() {
         taskDao.createNew(task)
         deletionDao.markDeleted(listOf(task.id))
         task = taskDao.fetch(task.id)!!
-        assertTrue(task.deletionDate!! > task.creationDate!!)
-        assertTrue(task.deletionDate!! < DateTimeUtils.currentTimeMillis())
+        assertTrue(task.deletionDate > task.creationDate)
+        assertTrue(task.deletionDate < DateTimeUtils.currentTimeMillis())
     }
 
     override fun inject(component: TestComponent) = component.inject(this)

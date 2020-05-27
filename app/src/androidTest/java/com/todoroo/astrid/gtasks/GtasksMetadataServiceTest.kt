@@ -52,7 +52,7 @@ class GtasksMetadataServiceTest : InjectingTestCase() {
 
     // --- helpers
     private fun whenSearchForMetadata() {
-        metadata = googleTaskDao.getByTaskId(task!!.id!!)
+        metadata = googleTaskDao.getByTaskId(task!!.id)
     }
 
     private fun taskWithMetadata(id: String?): Task {
