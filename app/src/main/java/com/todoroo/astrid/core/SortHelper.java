@@ -11,6 +11,7 @@ import static org.tasks.db.QueryUtils.showHidden;
 import static org.tasks.db.QueryUtils.showRecentlyCompleted;
 
 import android.annotation.SuppressLint;
+import androidx.annotation.Nullable;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.astrid.data.Task;
@@ -120,6 +121,21 @@ public class SortHelper {
     }
 
     return order;
+  }
+
+  public static @Nullable String getSortGroup(int sortType) {
+    switch (sortType) {
+      case SORT_DUE:
+        return "tasks.dueDate";
+      case SORT_IMPORTANCE:
+        return "tasks.importance";
+      case SORT_MODIFIED:
+        return "tasks.modified";
+      case SORT_CREATED:
+        return "tasks.created";
+      default:
+        return null;
+    }
   }
 
   public static String orderSelectForSortTypeRecursive(int sortType) {

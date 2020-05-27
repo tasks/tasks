@@ -10,22 +10,24 @@ import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.dao.TaskDao
 import org.tasks.data.TaskContainer
 import org.tasks.intents.TaskIntents
+import org.tasks.preferences.Preferences
 import org.tasks.tasklist.TaskViewHolder.ViewHolderCallbacks
 
 abstract class TaskListRecyclerAdapter internal constructor(
         private val adapter: TaskAdapter,
-        private val viewHolderFactory: ViewHolderFactory,
+        internal val viewHolderFactory: ViewHolderFactory,
         private val taskList: TaskListFragment,
-        private val taskDao: TaskDao) : RecyclerView.Adapter<TaskViewHolder>(), ViewHolderCallbacks, ListUpdateCallback, TaskAdapterDataSource {
+        private val taskDao: TaskDao,
+        internal val preferences: Preferences)
+    : RecyclerView.Adapter<RecyclerView.ViewHolder>(), ViewHolderCallbacks, ListUpdateCallback, TaskAdapterDataSource {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
-        return viewHolderFactory.newViewHolder(parent, this)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder = viewHolderFactory.newViewHolder(parent, this)
 
-    override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val sortMode = preferences.sortMode
         val task = getItem(position)
         if (task != null) {
-            holder.bindView(task, taskList.getFilter())
+            (holder as TaskViewHolder).bindView(task, taskList.getFilter(), sortMode)
             holder.isMoving = false
             val indent = adapter.getIndent(task)
             task.setIndent(indent)
@@ -84,8 +86,6 @@ abstract class TaskListRecyclerAdapter internal constructor(
     }
 
     protected abstract fun dragAndDropEnabled(): Boolean
-
-    abstract override fun getItem(position: Int): TaskContainer
 
     abstract fun submitList(list: List<TaskContainer>)
 

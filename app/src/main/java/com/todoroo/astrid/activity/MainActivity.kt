@@ -404,6 +404,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
     }
 
     override fun sortChanged(reload: Boolean) {
+        taskListFragment?.clearCollapsed()
         localBroadcastManager.broadcastRefresh()
         if (reload) {
             openTaskListFragment(filter, true)

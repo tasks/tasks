@@ -25,6 +25,10 @@ class ApplicationModule(@get:Provides @get:ForApplication val context: Context) 
 
     @Provides
     @ApplicationScope
+    fun getJavaLocale(locale: Locale): java.util.Locale = locale.locale
+
+    @Provides
+    @ApplicationScope
     fun getNotificationDao(db: Database): NotificationDao = db.notificationDao()
 
     @Provides

@@ -167,7 +167,7 @@ class TaskListFragment : InjectingFragment(), OnRefreshListener, Toolbar.OnMenuI
         if (savedInstanceState != null) {
             val longArray = savedInstanceState.getLongArray(EXTRA_SELECTED_TASK_IDS)
             if (longArray?.isNotEmpty() == true) {
-                taskAdapter.setSelected(*longArray)
+                taskAdapter.setSelected(longArray.toList())
                 startActionMode()
             }
         }
@@ -185,6 +185,7 @@ class TaskListFragment : InjectingFragment(), OnRefreshListener, Toolbar.OnMenuI
         val selectedTaskIds: List<Long> = taskAdapter.getSelected()
         outState.putLongArray(EXTRA_SELECTED_TASK_IDS, selectedTaskIds.toLongArray())
         outState.putString(EXTRA_SEARCH, searchQuery)
+        outState.putLongArray(EXTRA_COLLAPSED, taskAdapter.getCollapsed().toLongArray())
     }
 
     override fun onCreateView(
@@ -197,6 +198,7 @@ class TaskListFragment : InjectingFragment(), OnRefreshListener, Toolbar.OnMenuI
 
         // set up list adapters
         taskAdapter = taskAdapterProvider.createTaskAdapter(filter)
+        taskAdapter.setCollapsed(savedInstanceState?.getLongArray(EXTRA_COLLAPSED))
         taskListViewModel = ViewModelProvider(requireActivity()).get(TaskListViewModel::class.java)
         if (savedInstanceState != null) {
             searchQuery = savedInstanceState.getString(EXTRA_SEARCH)
@@ -231,13 +233,13 @@ class TaskListFragment : InjectingFragment(), OnRefreshListener, Toolbar.OnMenuI
             if (recyclerAdapter !is PagedListRecyclerAdapter) {
                 setAdapter(
                         PagedListRecyclerAdapter(
-                                taskAdapter, recyclerView, viewHolderFactory, this, tasks, taskDao))
+                                taskAdapter, recyclerView, viewHolderFactory, this, tasks, taskDao, preferences))
                 return
             }
         } else if (recyclerAdapter !is DragAndDropRecyclerAdapter) {
             setAdapter(
                     DragAndDropRecyclerAdapter(
-                            taskAdapter, recyclerView, viewHolderFactory, this, tasks as MutableList, taskDao))
+                            taskAdapter, recyclerView, viewHolderFactory, this, tasks as MutableList, taskDao, preferences))
             return
         }
         recyclerAdapter!!.submitList(tasks)
@@ -740,6 +742,8 @@ class TaskListFragment : InjectingFragment(), OnRefreshListener, Toolbar.OnMenuI
         makeSnackbar(R.string.copy_multiple_tasks_confirmation, duplicates.size.toString()).show()
     }
 
+    fun clearCollapsed() = taskAdapter.clearCollapsed()
+
     companion object {
         const val TAGS_METADATA_JOIN = "for_tags" // $NON-NLS-1$
         const val GTASK_METADATA_JOIN = "googletask" // $NON-NLS-1$
@@ -748,6 +752,7 @@ class TaskListFragment : InjectingFragment(), OnRefreshListener, Toolbar.OnMenuI
         const val ACTION_DELETED = "action_deleted"
         private const val EXTRA_SELECTED_TASK_IDS = "extra_selected_task_ids"
         private const val EXTRA_SEARCH = "extra_search"
+        private const val EXTRA_COLLAPSED = "extra_collapsed"
         private const val VOICE_RECOGNITION_REQUEST_CODE = 1234
         private const val EXTRA_FILTER = "extra_filter"
         private const val FRAG_TAG_REMOTE_LIST_PICKER = "frag_tag_remote_list_picker"

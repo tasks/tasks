@@ -8,6 +8,7 @@ import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.adapter.TaskAdapter
 import com.todoroo.astrid.dao.TaskDao
 import org.tasks.data.TaskContainer
+import org.tasks.preferences.Preferences
 
 class PagedListRecyclerAdapter(
         adapter: TaskAdapter,
@@ -15,7 +16,8 @@ class PagedListRecyclerAdapter(
         viewHolderFactory: ViewHolderFactory,
         taskList: TaskListFragment,
         list: List<TaskContainer>,
-        taskDao: TaskDao) : TaskListRecyclerAdapter(adapter, viewHolderFactory, taskList, taskDao) {
+        taskDao: TaskDao,
+        preferences: Preferences) : TaskListRecyclerAdapter(adapter, viewHolderFactory, taskList, taskDao, preferences) {
 
     private val differ: AsyncPagedListDiffer<TaskContainer> =
             AsyncPagedListDiffer(this, AsyncDifferConfig.Builder(ItemCallback()).build())
@@ -33,6 +35,8 @@ class PagedListRecyclerAdapter(
     override fun dragAndDropEnabled() = false
 
     override fun getItemCount() = differ.itemCount
+
+    override fun getTaskCount() = itemCount
 
     init {
         if (list is PagedList<*>) {

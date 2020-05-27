@@ -12,6 +12,9 @@ open class CaldavTaskAdapter internal constructor(private val taskDao: TaskDao, 
 
     override fun minIndent(nextPosition: Int, task: TaskContainer): Int {
         (nextPosition until count).forEach {
+            if (isHeader(it)) {
+                return 0
+            }
             if (!taskIsChild(task, it)) {
                 return getTask(it).indent
             }
@@ -79,6 +82,9 @@ open class CaldavTaskAdapter internal constructor(private val taskDao: TaskDao, 
 
     private fun taskIsChild(source: TaskContainer, destinationIndex: Int): Boolean {
         (destinationIndex downTo 0).forEach {
+            if (isHeader(it)) {
+                return false
+            }
             when (getTask(it).parent) {
                 0L -> return false
                 source.parent -> return false

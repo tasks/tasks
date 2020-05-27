@@ -1,6 +1,8 @@
 package org.tasks.tasklist;
 
 import static com.todoroo.andlib.utility.DateUtilities.getRelativeDateTime;
+import static com.todoroo.andlib.utility.DateUtilities.getTimeString;
+import static org.tasks.date.DateTimeUtils.newDateTime;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -18,13 +20,14 @@ import butterknife.OnLongClick;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.service.TaskCompleter;
 import com.todoroo.astrid.ui.CheckableImageView;
 import java.util.List;
+import java.util.Locale;
 import org.tasks.R;
 import org.tasks.data.TaskContainer;
 import org.tasks.dialogs.Linkify;
-import org.tasks.locale.Locale;
 import org.tasks.preferences.Preferences;
 import org.tasks.ui.CheckBoxProvider;
 import org.tasks.ui.ChipProvider;
@@ -42,6 +45,7 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
   private final int selectedColor;
   private final int rowPadding;
   private final Linkify linkify;
+  private final Locale locale;
   private final CheckBoxProvider checkBoxProvider;
   private final int textColorOverdue;
   private final ChipProvider chipProvider;
@@ -93,7 +97,8 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
       int background,
       int selectedColor,
       int rowPadding,
-      Linkify linkify) {
+      Linkify linkify,
+      Locale locale) {
     super(view);
     this.context = context;
     this.preferences = preferences;
@@ -108,6 +113,7 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
     this.selectedColor = selectedColor;
     this.rowPadding = rowPadding;
     this.linkify = linkify;
+    this.locale = locale;
     ButterKnife.bind(this, view);
 
     if (preferences.getBoolean(R.string.p_fullTaskTitle, false)) {
@@ -188,14 +194,14 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
     return Math.round(indent * getShiftSize());
   }
 
-  void bindView(TaskContainer task, Filter filter) {
+  void bindView(TaskContainer task, Filter filter, int sortMode) {
     this.task = task;
     this.indent = task.indent;
 
     nameView.setText(task.getTitle());
     hiddenIcon.setVisibility(task.isHidden() ? View.VISIBLE : View.GONE);
     setupTitleAndCheckbox();
-    setupDueDate();
+    setupDueDate(sortMode);
     setupChips(filter);
     if (preferences.getBoolean(R.string.p_show_description, true)) {
       description.setText(task.getNotes());
@@ -233,16 +239,20 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
     completeBox.invalidate();
   }
 
-  private void setupDueDate() {
+  private void setupDueDate(int sortMode) {
     if (task.hasDueDate()) {
       if (task.isOverdue()) {
         dueDate.setTextColor(textColorOverdue);
       } else {
         dueDate.setTextColor(textColorSecondary);
       }
-      String dateValue =
-          getRelativeDateTime(
-              context, task.getDueDate(), Locale.getInstance().getLocale(), FormatStyle.MEDIUM);
+      String dateValue;
+      if (sortMode == SortHelper.SORT_DUE && task.sortGroup != null && newDateTime(task.sortGroup).startOfDay().equals(newDateTime(task.getDueDate()).startOfDay())) {
+        dateValue =
+            task.hasDueTime() ? getTimeString(context, newDateTime(task.getDueDate())) : null;
+      } else {
+        dateValue = getRelativeDateTime(context, task.getDueDate(), locale, FormatStyle.MEDIUM);
+      }
       dueDate.setText(dateValue);
       dueDate.setVisibility(View.VISIBLE);
     } else {
@@ -332,7 +342,7 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
     return maxIndent;
   }
 
-  interface ViewHolderCallbacks {
+  public interface ViewHolderCallbacks {
 
     void onCompletedTask(TaskContainer task, boolean newState);
 

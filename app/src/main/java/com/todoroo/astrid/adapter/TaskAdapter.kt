@@ -11,10 +11,11 @@ import java.util.*
 
 open class TaskAdapter {
     private val selected = HashSet<Long>()
+    private val collapsed = HashSet<Long>()
     private lateinit var dataSource: TaskAdapterDataSource
 
     val count: Int
-        get() = dataSource.getItemCount()
+        get() = dataSource.getTaskCount()
 
     fun setDataSource(dataSource: TaskAdapterDataSource) {
         this.dataSource = dataSource
@@ -25,14 +26,21 @@ open class TaskAdapter {
 
     fun getSelected(): ArrayList<Long> = ArrayList(selected)
 
-    fun setSelected(vararg ids: Long) = setSelected(ids.toList())
-
     fun setSelected(ids: Collection<Long>) {
-        selected.clear()
+        clearSelections()
         selected.addAll(ids)
     }
 
     fun clearSelections() = selected.clear()
+
+    fun getCollapsed(): ArrayList<Long> = ArrayList(collapsed)
+
+    fun setCollapsed(groups: LongArray?) {
+        clearCollapsed()
+        groups?.toList()?.let(collapsed::addAll)
+    }
+
+    fun clearCollapsed() = collapsed.clear()
 
     open fun getIndent(task: TaskContainer): Int = task.getIndent()
 
@@ -53,11 +61,21 @@ open class TaskAdapter {
         }
     }
 
+    fun toggleCollapsed(group: Long) {
+        if (collapsed.contains(group)) {
+            collapsed.remove(group)
+        } else {
+            collapsed.add(group)
+        }
+    }
+
     open fun supportsParentingOrManualSort(): Boolean = false
 
     open fun supportsManualSorting(): Boolean = false
 
     open fun moved(from: Int, to: Int, indent: Int) {}
+
+    fun isHeader(position: Int): Boolean = dataSource.isHeader(position)
 
     fun getTask(position: Int): TaskContainer = dataSource.getItem(position)
 

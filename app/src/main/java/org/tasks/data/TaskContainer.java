@@ -11,6 +11,7 @@ public class TaskContainer {
   @Embedded public Location location;
   public String tags;
   public int children;
+  public Long sortGroup;
   public long primarySort;
   public long secondarySort;
   public int indent;
@@ -50,6 +51,10 @@ public class TaskContainer {
 
   public boolean hasDueDate() {
     return task.hasDueDate();
+  }
+
+  public boolean hasDueTime() {
+    return task.hasDueTime();
   }
 
   public boolean isOverdue() {
@@ -107,14 +112,24 @@ public class TaskContainer {
         && Objects.equals(googletask, that.googletask)
         && Objects.equals(caldavTask, that.caldavTask)
         && Objects.equals(location, that.location)
-        && Objects.equals(tags, that.tags);
+        && Objects.equals(tags, that.tags)
+        && Objects.equals(sortGroup, that.sortGroup);
   }
 
   @Override
   public int hashCode() {
-    return Objects
-        .hash(task, googletask, caldavTask, location, tags, children, primarySort,
-            secondarySort, indent, targetIndent);
+    return Objects.hash(
+        task,
+        googletask,
+        caldavTask,
+        location,
+        tags,
+        children,
+        sortGroup,
+        primarySort,
+        secondarySort,
+        indent,
+        targetIndent);
   }
 
   @Override
@@ -133,6 +148,8 @@ public class TaskContainer {
         + '\''
         + ", children="
         + children
+        + ", sortGroup="
+        + sortGroup
         + ", primarySort="
         + primarySort
         + ", secondarySort="

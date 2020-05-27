@@ -2,21 +2,32 @@ package org.tasks.tasklist
 
 import androidx.recyclerview.widget.DiffUtil
 import com.todoroo.astrid.adapter.TaskAdapter
-import org.tasks.data.TaskContainer
 
-internal class DiffCallback(private val old: List<TaskContainer>, private val new: List<TaskContainer>, @Deprecated("") private val adapter: TaskAdapter) : DiffUtil.Callback() {
+internal class DiffCallback(private val old: SectionedDataSource, private val new: SectionedDataSource, @Deprecated("") private val adapter: TaskAdapter) : DiffUtil.Callback() {
 
     override fun getOldListSize() = old.size
 
     override fun getNewListSize() = new.size
 
     override fun areItemsTheSame(oldPosition: Int, newPosition: Int): Boolean {
-        return old[oldPosition].id == new[newPosition].id
+        val wasHeader = old.isHeader(oldPosition)
+        val isHeader = new.isHeader(newPosition)
+        if (wasHeader != isHeader) {
+            return false
+        }
+        return if (isHeader) {
+            old.sortMode == new.sortMode && old.getHeaderValue(oldPosition) == new.getHeaderValue(newPosition)
+        } else {
+            old.getItem(oldPosition).id == new.getItem(newPosition).id
+        }
     }
 
     override fun areContentsTheSame(oldPosition: Int, newPosition: Int): Boolean {
-        val oldItem = old[oldPosition]
-        val newItem = new[newPosition]
+        if (new.isHeader(newPosition)) {
+            return old.getSection(oldPosition).collapsed == new.getSection(newPosition).collapsed
+        }
+        val oldItem = old.getItem(oldPosition)
+        val newItem = new.getItem(newPosition)
         return oldItem == newItem && oldItem.getIndent() == adapter.getIndent(newItem)
     }
 }

@@ -22,6 +22,7 @@ internal object TaskListQueryRecursive {
             TaskListQuery.FIELDS.plus(listOf(
                     field("(${Query.select(field("group_concat(distinct(tag_uid))")).from(Tag.TABLE).where(Task.ID.eq(Tag.TASK))} GROUP BY ${Tag.TASK})").`as`("tags"),
                     field("indent"),
+                    field("sort_group").`as`("sortGroup"),
                     field("children"),
                     field("primary_sort").`as`("primarySort"),
                     field("secondary_sort").`as`("secondarySort"))).toTypedArray()
@@ -94,10 +95,10 @@ internal object TaskListQueryRecursive {
         val sortSelect = SortHelper.orderSelectForSortTypeRecursive(sortMode)
         val withClause ="""
             CREATE TEMPORARY TABLE `recursive_tasks` AS
-            WITH RECURSIVE recursive_tasks (task, parent, collapsed, hidden, indent, title, sortField, primary_sort, secondary_sort) AS (
-                SELECT tasks._id, 0 as parent, tasks.collapsed as collapsed, 0 as hidden, 0 AS sort_indent, UPPER(tasks.title) AS sort_title, $sortSelect, $sortField as primary_sort, NULL as secondarySort FROM tasks
+            WITH RECURSIVE recursive_tasks (task, parent, collapsed, hidden, indent, title, sortField, primary_sort, secondary_sort, sort_group) AS (
+                SELECT tasks._id, 0 as parent, tasks.collapsed as collapsed, 0 as hidden, 0 AS sort_indent, UPPER(tasks.title) AS sort_title, $sortSelect, $sortField as primary_sort, NULL as secondarySort, ${SortHelper.getSortGroup(sortMode)} FROM tasks
                 $parentQuery
-                UNION ALL SELECT tasks._id, recursive_tasks.task as parent, tasks.collapsed as collapsed, CASE WHEN recursive_tasks.collapsed > 0 OR recursive_tasks.hidden > 0 THEN 1 ELSE 0 END as hidden, recursive_tasks.indent+1 AS sort_indent, UPPER(tasks.title) AS sort_title, $sortSelect, recursive_tasks.primary_sort as primary_sort, $sortField as secondary_sort FROM tasks
+                UNION ALL SELECT tasks._id, recursive_tasks.task as parent, tasks.collapsed as collapsed, CASE WHEN recursive_tasks.collapsed > 0 OR recursive_tasks.hidden > 0 THEN 1 ELSE 0 END as hidden, recursive_tasks.indent+1 AS sort_indent, UPPER(tasks.title) AS sort_title, $sortSelect, recursive_tasks.primary_sort as primary_sort, $sortField as secondary_sort, recursive_tasks.sort_group FROM tasks
                 $subtaskQuery
                 ORDER BY sort_indent DESC, ${SortHelper.orderForSortTypeRecursive(sortMode, reverseSort)}
             ) SELECT * FROM recursive_tasks
