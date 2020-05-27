@@ -294,9 +294,12 @@ File %1$s contained %2$s.\n\n
     <item quantity="other">%d tasks</item>
   </plurals>
   <string name="today">Today</string>
+  <string name="today_lowercase">today</string>
   <string name="tomorrow">Tomorrow</string>
+  <string name="tomorrow_lowercase">tomorrow</string>
   <string name="next">Next %s</string>
   <string name="yesterday">Yesterday</string>
+  <string name="yesterday_lowercase">yesterday</string>
   <string name="tmrw">Tmrw</string>
   <string name="yest">Yest</string>
   <string name="sync_SPr_interval_title">Background sync</string>

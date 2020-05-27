@@ -90,7 +90,12 @@ public class DateUtilities {
 
   public static String getRelativeDateTime(
       Context context, long date, java.util.Locale locale, FormatStyle style) {
-    String day = getRelativeDay(context, date, locale, isAbbreviated(style));
+    return getRelativeDateTime(context, date, locale, style, false);
+  }
+
+  public static String getRelativeDateTime(
+      Context context, long date, java.util.Locale locale, FormatStyle style, boolean lowercase) {
+    String day = getRelativeDay(context, date, locale, isAbbreviated(style), lowercase);
     if (!isNullOrEmpty(day)) {
       if (Task.hasDueTime(date)) {
         String time = getTimeString(context, newDateTime(date));
@@ -113,7 +118,16 @@ public class DateUtilities {
       long date,
       java.util.Locale locale,
       FormatStyle style) {
-    String relativeDay = getRelativeDay(context, date, locale, isAbbreviated(style));
+    return getRelativeDay(context, date, locale, style, false);
+  }
+
+  public static String getRelativeDay(
+      Context context,
+      long date,
+      java.util.Locale locale,
+      FormatStyle style,
+      boolean lowercase) {
+    String relativeDay = getRelativeDay(context, date, locale, isAbbreviated(style), lowercase);
     return isNullOrEmpty(relativeDay)
         ? getFullDate(newDateTime(date), locale, style)
         : relativeDay;
@@ -139,20 +153,26 @@ public class DateUtilities {
     return date.replaceAll("(?: de |, |/| )?" + year + "(?:年|년 | г\\.)?", "");
   }
 
-  private static @Nullable String getRelativeDay(Context context, long date, java.util.Locale locale, boolean abbreviated) {
+  private static @Nullable String getRelativeDay(Context context, long date, java.util.Locale locale, boolean abbreviated, boolean lowercase) {
     DateTime startOfToday = newDateTime().startOfDay();
     DateTime startOfDate = newDateTime(date).startOfDay();
 
     if (startOfToday.equals(startOfDate)) {
-      return context.getString(R.string.today);
+      return context.getString(lowercase ? R.string.today_lowercase : R.string.today);
     }
 
     if (startOfToday.plusDays(1).equals(startOfDate)) {
-      return context.getString(abbreviated ? R.string.tmrw : R.string.tomorrow);
+      return context.getString(
+          abbreviated
+              ? R.string.tmrw
+              : lowercase ? R.string.tomorrow_lowercase : R.string.tomorrow);
     }
 
     if (startOfDate.plusDays(1).equals(startOfToday)) {
-      return context.getString(abbreviated ? R.string.yest : R.string.yesterday);
+      return context.getString(
+          abbreviated
+              ? R.string.yest
+              : lowercase ? R.string.yesterday_lowercase : R.string.yesterday);
     }
 
     if (Math.abs(startOfToday.getMillis() - startOfDate.getMillis()) <= DateUtilities.ONE_DAY * 6) {

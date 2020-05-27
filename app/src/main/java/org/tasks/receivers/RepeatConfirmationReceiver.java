@@ -67,7 +67,7 @@ public class RepeatConfirmationReceiver extends BroadcastReceiver {
       final long newDueDate) {
     String dueDateString =
         DateUtilities.getRelativeDateTime(
-            activity, newDueDate, locale.getLocale(), FormatStyle.LONG);
+            activity, newDueDate, locale.getLocale(), FormatStyle.LONG, true);
     taskListFragment
         .makeSnackbar(R.string.repeat_snackbar, task.getTitle(), dueDateString)
         .setAction(

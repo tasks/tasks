@@ -519,7 +519,7 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
           getString(
               R.string.repeat_until,
               DateUtilities.getRelativeDateTime(
-                  context, repeatUntil, locale.getLocale(), FormatStyle.MEDIUM)));
+                  context, repeatUntil, locale.getLocale(), FormatStyle.MEDIUM, true)));
       repeatTimes.setVisibility(View.GONE);
       repeatTimesText.setVisibility(View.GONE);
     } else if (count > 0) {
