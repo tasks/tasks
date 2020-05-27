@@ -619,11 +619,14 @@
     <string name="disable_subtasks_summary">La desactivación de subtareas puede mejorar el rendimiento de la aplicación</string>
     <string name="disable_subtasks">Desactivar subtareas</string>
     <string name="got_it">¡Entendido!</string>
-    <string name="no_thanks">Ningún gracias</string>
+    <string name="no_thanks">No gracias</string>
     <string name="support_development_subscribe">Desbloquea características adicionales y soporta software de código abierto</string>
     <string name="tell_me_how_im_doing">Por favor, dime cómo estoy</string>
     <string name="enjoying_tasks">¿Disfrutando Tasks\?</string>
     <string name="whats_new_in_version">Qué hay de nuevo en la versión %s</string>
     <string name="whats_new">Qué hay de nuevo</string>
     <string name="action_new_task">Nueva tarea</string>
+    <string name="yesterday_lowercase">ayer</string>
+    <string name="tomorrow_lowercase">mañana</string>
+    <string name="today_lowercase">hoy</string>
 </resources>
