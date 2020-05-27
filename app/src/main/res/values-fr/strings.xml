@@ -624,4 +624,6 @@
     <string name="yesterday_lowercase">hier</string>
     <string name="tomorrow_lowercase">demain</string>
     <string name="today_lowercase">aujourd\'hui</string>
+    <string name="sort_modified_group">Modifié %s</string>
+    <string name="sort_created_group">Créé %s</string>
 </resources>
