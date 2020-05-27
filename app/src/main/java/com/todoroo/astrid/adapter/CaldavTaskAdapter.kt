@@ -24,16 +24,18 @@ open class CaldavTaskAdapter internal constructor(private val taskDao: TaskDao, 
     override fun moved(from: Int, to: Int, indent: Int) {
         val task = getTask(from)
         val newParent = changeParent(task, indent, to)
-        val newPosition = if (newTasksOnTop) {
-            caldavDao.findFirstTask(task.caldav, newParent)
-                    ?.takeIf { task.creationDate.toAppleEpoch() >= it}
-                    ?.minus(1)
-        } else {
-            caldavDao.findLastTask(task.caldav, newParent)
-                    ?.takeIf { task.creationDate.toAppleEpoch() <= it }
-                    ?.plus(1)
+        if (newParent != task.parent) {
+            val newPosition = if (newTasksOnTop) {
+                caldavDao.findFirstTask(task.caldav, newParent)
+                        ?.takeIf { task.creationDate.toAppleEpoch() >= it}
+                        ?.minus(1)
+            } else {
+                caldavDao.findLastTask(task.caldav, newParent)
+                        ?.takeIf { task.creationDate.toAppleEpoch() <= it }
+                        ?.plus(1)
+            }
+            caldavDao.update(task.caldavTask.cd_id, newPosition)
         }
-        caldavDao.update(task.caldavTask.cd_id, newPosition)
     }
 
     internal fun changeParent(task: TaskContainer, indent: Int, to: Int): Long {
