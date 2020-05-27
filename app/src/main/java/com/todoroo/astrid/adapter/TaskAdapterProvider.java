@@ -63,10 +63,8 @@ public class TaskAdapterProvider {
     if (filter instanceof TagFilter) {
       TagFilter tagFilter = (TagFilter) filter;
       TagData tagData = tagDataDao.getByUuid(tagFilter.getUuid());
-      if (tagData != null) {
-        return preferences.isManualSort()
-            ? createManualTagTaskAdapter(tagFilter)
-            : new TaskAdapter();
+      if (tagData != null && preferences.isManualSort()) {
+        return createManualTagTaskAdapter(tagFilter);
       }
     } else if (filter instanceof GtasksFilter) {
       GtasksFilter gtasksFilter = (GtasksFilter) filter;
@@ -84,10 +82,8 @@ public class TaskAdapterProvider {
             ? new CaldavManualSortTaskAdapter(taskDao, caldavDao)
             : new CaldavTaskAdapter(taskDao, caldavDao, preferences.addTasksToTop());
       }
-    } else {
-      return subtasksHelper.shouldUseSubtasksFragmentForFilter(filter)
-          ? createManualFilterTaskAdapter(filter)
-          : new TaskAdapter();
+    } else if (subtasksHelper.shouldUseSubtasksFragmentForFilter(filter)) {
+      return createManualFilterTaskAdapter(filter);
     }
     return new TaskAdapter();
   }
