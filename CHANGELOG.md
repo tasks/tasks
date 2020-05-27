@@ -1,6 +1,18 @@
 Change Log
 ---
 =======
+### 9.4 (2020-05-27)
+
+* Add collapsible group headers when sorting by due date, priority, created, or modified
+* Update translations
+  * Basque - @osoitz
+  * Bengali - @Oymate
+  * French - @FlorianLeChat
+  * German - @franconian
+  * Norwegian Bokmål - @comradekingu
+  * Russian - @Eninspace
+  * Spanish - @FlorianLeChat
+
 ### 9.3.1 (2020-05-26)
 
 * Fix offline subtasks

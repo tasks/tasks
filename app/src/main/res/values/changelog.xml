@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="changelog">
-        <item>Add manual sorting support for CalDAV and EteSync. Compatible with Nextcloud Tasks and Apple Reminders</item>
-        <item>Fix offline subtasks</item>
+        <item>Add collapsible group headers when sorting by due date, priority, created, or modified</item>
         <item>Update translations</item>
     </string-array>
 </resources>
