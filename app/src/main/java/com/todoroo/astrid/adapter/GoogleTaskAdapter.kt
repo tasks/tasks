@@ -53,7 +53,7 @@ open class GoogleTaskAdapter internal constructor(private val taskDao: TaskDao, 
         }
         taskDao.touch(task.id)
         if (BuildConfig.DEBUG) {
-            googleTaskDao.validateSorting(task.googleTaskList)
+            googleTaskDao.validateSorting(task.googleTaskList!!)
         }
     }
 }

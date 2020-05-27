@@ -198,9 +198,9 @@ abstract class CaldavDao {
         val previousPosition = task.caldavSortOrder
         if (newPosition != null) {
             if (newParent == previousParent && newPosition < previousPosition) {
-                shiftDown(task.caldav, newParent, newPosition, previousPosition)
+                shiftDown(task.caldav!!, newParent, newPosition, previousPosition)
             } else {
-                shiftDown(task.caldav, newParent, newPosition)
+                shiftDown(task.caldav!!, newParent, newPosition)
             }
         }
         caldavTask.cd_order = newPosition

@@ -29,11 +29,11 @@ open class CaldavTaskAdapter internal constructor(private val taskDao: TaskDao, 
         val newParent = changeParent(task, indent, to)
         if (newParent != task.parent) {
             val newPosition = if (newTasksOnTop) {
-                caldavDao.findFirstTask(task.caldav, newParent)
+                caldavDao.findFirstTask(task.caldav!!, newParent)
                         ?.takeIf { task.creationDate.toAppleEpoch() >= it}
                         ?.minus(1)
             } else {
-                caldavDao.findLastTask(task.caldav, newParent)
+                caldavDao.findLastTask(task.caldav!!, newParent)
                         ?.takeIf { task.creationDate.toAppleEpoch() <= it }
                         ?.plus(1)
             }

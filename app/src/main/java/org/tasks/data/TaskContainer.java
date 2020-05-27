@@ -1,5 +1,6 @@
 package org.tasks.data;
 
+import androidx.annotation.Nullable;
 import androidx.room.Embedded;
 import com.todoroo.astrid.data.Task;
 import java.util.Objects;
@@ -21,12 +22,20 @@ public class TaskContainer {
     return tags;
   }
 
-  public String getGoogleTaskList() {
-    return googletask == null ? null : googletask.getListId();
+  public @Nullable String getGoogleTaskList() {
+    return isGoogleTask() ? googletask.getListId() : null;
   }
 
-  public String getCaldav() {
-    return caldavTask == null ? null : caldavTask.getCd_calendar();
+  public boolean isGoogleTask() {
+    return googletask != null;
+  }
+
+  public @Nullable String getCaldav() {
+    return isCaldavTask() ? caldavTask.getCd_calendar() : null;
+  }
+
+  public boolean isCaldavTask() {
+    return caldavTask != null;
   }
 
   public String getNotes() {
