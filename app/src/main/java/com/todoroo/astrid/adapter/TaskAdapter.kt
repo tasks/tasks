@@ -8,6 +8,7 @@ package com.todoroo.astrid.adapter
 import com.todoroo.astrid.data.Task
 import org.tasks.data.TaskContainer
 import java.util.*
+import kotlin.collections.HashSet
 
 open class TaskAdapter {
     private val selected = HashSet<Long>()
@@ -33,7 +34,7 @@ open class TaskAdapter {
 
     fun clearSelections() = selected.clear()
 
-    fun getCollapsed(): ArrayList<Long> = ArrayList(collapsed)
+    fun getCollapsed(): MutableSet<Long> = HashSet(collapsed)
 
     fun setCollapsed(groups: LongArray?) {
         clearCollapsed()

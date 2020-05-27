@@ -28,7 +28,7 @@ class DragAndDropRecyclerAdapter(
         private val recyclerView: RecyclerView,
         viewHolderFactory: ViewHolderFactory,
         private val taskList: TaskListFragment,
-        tasks: MutableList<TaskContainer>,
+        tasks: List<TaskContainer>,
         taskDao: TaskDao,
         preferences: Preferences) : TaskListRecyclerAdapter(adapter, viewHolderFactory, taskList, taskDao, preferences) {
     private var list: SectionedDataSource
@@ -69,7 +69,7 @@ class DragAndDropRecyclerAdapter(
 
     override fun submitList(list: List<TaskContainer>) {
         disposables.add(
-                Single.fromCallable { SectionedDataSource(list as MutableList, disableHeaders, preferences.sortMode, adapter.getCollapsed().toMutableSet()) }
+                Single.fromCallable { SectionedDataSource(list, disableHeaders, preferences.sortMode, adapter.getCollapsed()) }
                         .subscribeOn(Schedulers.computation())
                         .subscribe(publishSubject::onNext))
     }
