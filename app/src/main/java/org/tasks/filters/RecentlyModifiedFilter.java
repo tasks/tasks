@@ -51,7 +51,7 @@ public class RecentlyModifiedFilter extends Filter {
   }
 
   @Override
-  public boolean supportSubtasks() {
+  public boolean supportsSubtasks() {
     return false;
   }
 

@@ -42,7 +42,7 @@ object TaskListQuery {
                 getNonRecursiveQuery(filter, preferences)
             }
         }
-        return if (filter.supportSubtasks() && subtasks.usesSubtasks() && preferences.showSubtasks()) {
+        return if (filter.supportsSubtasks() && subtasks.usesSubtasks() && preferences.showSubtasks()) {
             getRecursiveQuery(filter, preferences, subtasks)
         } else {
             getNonRecursiveQuery(filter, preferences)

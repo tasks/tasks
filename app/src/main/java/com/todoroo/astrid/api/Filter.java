@@ -189,7 +189,7 @@ public class Filter extends FilterListItem {
     return true;
   }
 
-  public boolean supportSubtasks() {
+  public boolean supportsSubtasks() {
     return true;
   }
 
