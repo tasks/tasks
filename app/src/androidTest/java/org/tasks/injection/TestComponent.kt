@@ -1,9 +1,6 @@
 package org.tasks.injection
 
-import com.todoroo.astrid.adapter.CaldavManualSortTaskAdapterTest
-import com.todoroo.astrid.adapter.CaldavTaskAdapterTest
-import com.todoroo.astrid.adapter.GoogleTaskManualSortAdapterTest
-import com.todoroo.astrid.adapter.OfflineSubtaskTest
+import com.todoroo.astrid.adapter.*
 import com.todoroo.astrid.alarms.AlarmJobServiceTest
 import com.todoroo.astrid.dao.TaskDaoTests
 import com.todoroo.astrid.gtasks.GtasksListServiceTest
@@ -50,4 +47,5 @@ interface TestComponent : ApplicationComponent {
     fun inject(tests: CaldavManualSortTaskAdapterTest)
     fun inject(tests: GoogleTaskManualSortAdapterTest)
     fun inject(tests: OfflineSubtaskTest)
+    fun inject(tests: NonRecursiveQueryTest)
 }
