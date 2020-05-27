@@ -620,4 +620,10 @@
     <string name="places">Steder</string>
     <string name="got_it">Skjønner.</string>
     <string name="no_thanks">Nei takk</string>
+    <string name="tell_me_how_im_doing">Fortell meg hvordan jeg ligger an</string>
+    <string name="sort_modified_group">Endret %s</string>
+    <string name="sort_created_group">Opprettet %s</string>
+    <string name="yesterday_lowercase">i går</string>
+    <string name="tomorrow_lowercase">i morgen</string>
+    <string name="today_lowercase">i dag</string>
 </resources>
