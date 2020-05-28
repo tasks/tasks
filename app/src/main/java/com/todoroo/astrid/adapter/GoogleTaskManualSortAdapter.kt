@@ -4,7 +4,9 @@ import com.todoroo.astrid.dao.TaskDao
 import org.tasks.BuildConfig
 import org.tasks.data.GoogleTaskDao
 
-class GoogleTaskManualSortAdapter internal constructor(val taskDao: TaskDao, val googleTaskDao: GoogleTaskDao) : GoogleTaskAdapter(taskDao, googleTaskDao, false) {
+class GoogleTaskManualSortAdapter internal constructor(val taskDao: TaskDao, val googleTaskDao: GoogleTaskDao) : TaskAdapter() {
+
+    override fun supportsParentingOrManualSort() = true
 
     override fun supportsManualSorting() = true
 

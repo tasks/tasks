@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import androidx.core.util.Pair
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.ItemTouchHelper.*
+import androidx.recyclerview.widget.ItemTouchHelper.Callback.makeMovementFlags
 import androidx.recyclerview.widget.ListUpdateCallback
 import androidx.recyclerview.widget.RecyclerView
 import com.todoroo.andlib.utility.AndroidUtilities
@@ -113,7 +115,7 @@ class DragAndDropRecyclerAdapter(
         private var to = -1
         override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
             super.onSelectedChanged(viewHolder, actionState)
-            if (actionState == ItemTouchHelper.ACTION_STATE_DRAG) {
+            if (actionState == ACTION_STATE_DRAG) {
                 taskList.startActionMode()
                 (viewHolder as TaskViewHolder?)!!.isMoving = true
                 dragging = true
@@ -123,12 +125,11 @@ class DragAndDropRecyclerAdapter(
         }
 
         override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
-            return if (adapter.isHeader(viewHolder.adapterPosition)) {
-                makeMovementFlags(0, 0)
-            } else if (adapter.supportsParentingOrManualSort() && adapter.numSelected == 0) {
-                makeMovementFlags(ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT, 0)
-            } else {
-                makeMovementFlags(0, 0)
+            return when {
+                !dragAndDropEnabled() -> NO_MOVEMENT
+                adapter.isHeader(viewHolder.adapterPosition) -> NO_MOVEMENT
+                adapter.numSelected > 0 -> NO_MOVEMENT
+                else -> ALLOW_DRAGGING
             }
         }
 
@@ -177,7 +178,7 @@ class DragAndDropRecyclerAdapter(
             val vh = viewHolder as TaskViewHolder
             val task = vh.task
             val shiftSize = vh.shiftSize
-            if (actionState == ItemTouchHelper.ACTION_STATE_DRAG) {
+            if (actionState == ACTION_STATE_DRAG) {
                 val currentIndent = viewHolder.indent
                 val maxIndent = vh.maxIndent
                 val minIndent = vh.minIndent
@@ -255,6 +256,8 @@ class DragAndDropRecyclerAdapter(
 
     companion object {
         private const val LONG_LIST_SIZE = 500
+        private val NO_MOVEMENT = makeMovementFlags(0, 0)
+        private val ALLOW_DRAGGING =  makeMovementFlags(UP or DOWN or LEFT or RIGHT, 0)
     }
 
     init {

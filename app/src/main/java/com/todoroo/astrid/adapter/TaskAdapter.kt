@@ -45,11 +45,52 @@ open class TaskAdapter {
 
     open fun getIndent(task: TaskContainer): Int = task.getIndent()
 
-    open fun canMove(source: TaskContainer, from: Int, target: TaskContainer, to: Int): Boolean = false
+    open fun canMove(source: TaskContainer, from: Int, target: TaskContainer, to: Int): Boolean {
+        if (target.isGoogleTask) {
+            return if (!source.hasChildren() || to <= 0 || to >= count - 1) {
+                true
+            } else if (from < to) {
+                when {
+                    target.hasChildren() -> false
+                    target.hasParent() -> !getTask(to + 1).hasParent()
+                    else -> true
+                }
+            } else {
+                when {
+                    target.hasChildren() -> true
+                    target.hasParent() -> target.parent == source.id && target.secondarySort == 0L
+                    else -> true
+                }
+            }
+        } else {
+            return !taskIsChild(source, to)
+        }
+    }
 
-    open fun maxIndent(previousPosition: Int, task: TaskContainer): Int = 0
+    open fun maxIndent(previousPosition: Int, task: TaskContainer): Int {
+        val previous = getTask(previousPosition)
+        return if (previous.isGoogleTask) {
+            if (task.hasChildren()) 0 else 1
+        } else {
+            previous.indent + 1
+        }
+    }
 
-    open fun minIndent(nextPosition: Int, task: TaskContainer): Int = 0
+    fun minIndent(nextPosition: Int, task: TaskContainer): Int {
+        (nextPosition until count).forEach {
+            if (isHeader(it)) {
+                return 0
+            }
+            val next = getTask(it)
+            if (next.isGoogleTask) {
+                return if (task.hasChildren() || !next.hasParent()) 0 else 1
+            }
+            if (!taskIsChild(task, it)) {
+                return next.indent
+            }
+        }
+        return 0
+    }
 
     fun isSelected(task: TaskContainer): Boolean = selected.contains(task.id)
 
@@ -89,4 +130,31 @@ open class TaskAdapter {
     open fun onTaskDeleted(task: Task) {}
 
     open fun supportsHiddenTasks(): Boolean = true
+
+    private fun taskIsChild(source: TaskContainer, destinationIndex: Int): Boolean {
+        (destinationIndex downTo 0).forEach {
+            if (isHeader(it)) {
+                return false
+            }
+            when (getTask(it).parent) {
+                0L -> return false
+                source.parent -> return false
+                source.id -> return true
+            }
+        }
+        return false
+    }
+
+    internal fun findParent(indent: Int, to: Int): TaskContainer? {
+        if (indent == 0 || to == 0) {
+            return null
+        }
+        for (i in to - 1 downTo 0) {
+            val previous = getTask(i)
+            if (indent > previous.getIndent()) {
+                return previous
+            }
+        }
+        return null
+    }
 }
