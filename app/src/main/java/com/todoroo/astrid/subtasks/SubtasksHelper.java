@@ -6,7 +6,7 @@ import static org.tasks.db.QueryUtils.showHiddenAndCompleted;
 import android.content.Context;
 import androidx.annotation.NonNull;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.GtasksFilter;
+import com.todoroo.astrid.api.TagFilter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
@@ -20,6 +20,7 @@ import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
 import org.tasks.data.TaskListMetadata;
 import org.tasks.data.TaskListMetadataDao;
+import org.tasks.filters.SortableFilter;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
@@ -127,9 +128,8 @@ public class SubtasksHelper {
   }
 
   public boolean shouldUseSubtasksFragmentForFilter(@NonNull Filter filter) {
-    return filter.supportsManualSort()
-        && preferences.isManualSort()
-        && !(filter instanceof GtasksFilter);
+    return preferences.isManualSort()
+        && (filter instanceof SortableFilter || filter instanceof TagFilter);
   }
 
   public String applySubtasksToWidgetFilter(Filter filter, String query) {
@@ -143,12 +143,12 @@ public class SubtasksHelper {
       } else if (BuiltInFilterExposer.isTodayFilter(context, filter)) {
         tlm = taskListMetadataDao.fetchByTagOrFilter(TaskListMetadata.FILTER_ID_TODAY);
       }
-
-      query = query.replaceAll("ORDER BY .*", "");
-      query = query + String.format(" ORDER BY %s", getOrderString(tagData, tlm));
-      query = showHiddenAndCompleted(query);
-
-      filter.setFilterQueryOverride(query);
+      if (tlm != null) {
+        query = query.replaceAll("ORDER BY .*", "");
+        query = query + String.format(" ORDER BY %s", getOrderString(tagData, tlm));
+        query = showHiddenAndCompleted(query);
+        filter.setFilterQueryOverride(query);
+      }
     }
     return query;
   }
