@@ -125,11 +125,10 @@ public class FilterCriteriaProvider {
     return new MultipleSelectCriterion(
         IDENTIFIER_TAG_IS,
         context.getString(R.string.CFC_tag_text),
-        Query.select(Field.field("task"))
+        Query.select(Tag.TASK)
             .from(Tag.TABLE)
-            .join(Join.inner(Task.TABLE, Field.field("task").eq(Task.ID)))
-            .where(
-                Criterion.and(TaskDao.TaskCriteria.activeAndVisible(), Field.field("name").eq("?")))
+            .join(Join.inner(Task.TABLE, Tag.TASK.eq(Task.ID)))
+            .where(Criterion.and(TaskDao.TaskCriteria.activeAndVisible(), Tag.NAME.eq("?")))
             .toString(),
         values,
         tagNames,
@@ -141,12 +140,10 @@ public class FilterCriteriaProvider {
     return new TextInputCriterion(
         IDENTIFIER_TAG_CONTAINS,
         context.getString(R.string.CFC_tag_contains_text),
-        Query.select(Field.field("task"))
+        Query.select(Tag.TASK)
             .from(Tag.TABLE)
-            .join(Join.inner(Task.TABLE, Field.field("task").eq(Task.ID)))
-            .where(
-                Criterion.and(
-                    TaskDao.TaskCriteria.activeAndVisible(), Field.field("name").like("%?%")))
+            .join(Join.inner(Task.TABLE, Tag.TASK.eq(Task.ID)))
+            .where(Criterion.and(TaskDao.TaskCriteria.activeAndVisible(), Tag.NAME.like("%?%")))
             .toString(),
         context.getString(R.string.CFC_tag_contains_name),
         "",
@@ -236,12 +233,14 @@ public class FilterCriteriaProvider {
     return new MultipleSelectCriterion(
         IDENTIFIER_GTASKS,
         context.getString(R.string.CFC_gtasks_list_text),
-        Query.select(Field.field("gt_task"))
+        Query.select(GoogleTask.TASK)
             .from(GoogleTask.TABLE)
-            .join(Join.inner(Task.TABLE, Field.field("gt_task").eq(Task.ID)))
+            .join(Join.inner(Task.TABLE, GoogleTask.TASK.eq(Task.ID)))
             .where(
                 Criterion.and(
-                    TaskDao.TaskCriteria.activeAndVisible(), Field.field("gt_list_id").eq("?")))
+                    TaskDao.TaskCriteria.activeAndVisible(),
+                    GoogleTask.DELETED.eq(0),
+                    GoogleTask.LIST.eq("?")))
             .toString(),
         values,
         listNames,
@@ -264,12 +263,14 @@ public class FilterCriteriaProvider {
     return new MultipleSelectCriterion(
         IDENTIFIER_CALDAV,
         context.getString(R.string.CFC_gtasks_list_text),
-        Query.select(Field.field("cd_task"))
+        Query.select(CaldavTask.TASK)
             .from(CaldavTask.TABLE)
-            .join(Join.inner(Task.TABLE, Field.field("cd_task").eq(Task.ID)))
+            .join(Join.inner(Task.TABLE, CaldavTask.TASK.eq(Task.ID)))
             .where(
                 Criterion.and(
-                    TaskDao.TaskCriteria.activeAndVisible(), Field.field("cd_calendar").eq("?")))
+                    TaskDao.TaskCriteria.activeAndVisible(),
+                    CaldavTask.DELETED.eq(0),
+                    CaldavTask.CALENDAR.eq("?")))
             .toString(),
         values,
         names,
