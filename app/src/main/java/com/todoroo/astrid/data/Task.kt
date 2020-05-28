@@ -347,7 +347,8 @@ class Task : Parcelable {
                 && dueDate == original.dueDate
                 && completionDate == original.completionDate
                 && deletionDate == original.deletionDate
-                && parent == original.parent && notes == original.notes
+                && parent == original.parent
+                && notes == original.notes
     }
 
     fun caldavUpToDate(original: Task?): Boolean {
@@ -363,7 +364,8 @@ class Task : Parcelable {
                 && deletionDate == original.deletionDate
                 && notes == original.notes
                 && recurrence == original.recurrence
-                && parent == original.parent && repeatUntil == original.repeatUntil
+                && parent == original.parent
+                && repeatUntil == original.repeatUntil
     }
 
     val isSaved: Boolean

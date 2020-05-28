@@ -1,11 +1,18 @@
 package com.todoroo.astrid.adapter
 
 import com.todoroo.astrid.dao.TaskDao
+import org.tasks.LocalBroadcastManager
 import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskDao
 import org.tasks.data.TaskContainer
 
-class CaldavManualSortTaskAdapter internal constructor(googleTaskDao: GoogleTaskDao, private val caldavDao: CaldavDao, private val taskDao: TaskDao) : TaskAdapter(false, googleTaskDao, caldavDao, taskDao) {
+class CaldavManualSortTaskAdapter internal constructor(
+        googleTaskDao: GoogleTaskDao,
+        private val caldavDao: CaldavDao,
+        private val taskDao: TaskDao,
+        private val localBroadcastManager: LocalBroadcastManager)
+    : TaskAdapter(false, googleTaskDao, caldavDao, taskDao, localBroadcastManager) {
+
     override fun supportsManualSorting() = true
 
     override fun moved(from: Int, to: Int, indent: Int) {
@@ -28,8 +35,8 @@ class CaldavManualSortTaskAdapter internal constructor(googleTaskDao: GoogleTask
             else -> getTask((to - 1 downTo 0).find { getTask(it).indent == indent }!!).caldavSortOrder + 1
         }
         caldavDao.move(task, newParent, newPosition)
-
         taskDao.touch(task.id)
+        localBroadcastManager.broadcastRefresh()
     }
 
     private fun changeParent(task: TaskContainer, indent: Int, to: Int): Long {

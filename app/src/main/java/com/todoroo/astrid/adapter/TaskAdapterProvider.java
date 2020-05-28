@@ -13,6 +13,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 import javax.inject.Inject;
+import org.tasks.LocalBroadcastManager;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.TagData;
@@ -30,6 +31,7 @@ public class TaskAdapterProvider {
   private final GoogleTaskDao googleTaskDao;
   private final CaldavDao caldavDao;
   private final SubtasksHelper subtasksHelper;
+  private final LocalBroadcastManager localBroadcastManager;
 
   @Inject
   public TaskAdapterProvider(
@@ -39,7 +41,8 @@ public class TaskAdapterProvider {
       TaskDao taskDao,
       GoogleTaskDao googleTaskDao,
       CaldavDao caldavDao,
-      SubtasksHelper subtasksHelper) {
+      SubtasksHelper subtasksHelper,
+      LocalBroadcastManager localBroadcastManager) {
     this.context = context;
     this.preferences = preferences;
     this.taskListMetadataDao = taskListMetadataDao;
@@ -47,6 +50,7 @@ public class TaskAdapterProvider {
     this.googleTaskDao = googleTaskDao;
     this.caldavDao = caldavDao;
     this.subtasksHelper = subtasksHelper;
+    this.localBroadcastManager = localBroadcastManager;
   }
 
   public TaskAdapter createTaskAdapter(Filter filter) {
@@ -54,14 +58,14 @@ public class TaskAdapterProvider {
       if (filter instanceof TagFilter) {
         return createManualTagTaskAdapter((TagFilter) filter);
       } else if (filter instanceof GtasksFilter) {
-        return new GoogleTaskManualSortAdapter(googleTaskDao, caldavDao, taskDao);
+        return new GoogleTaskManualSortAdapter(googleTaskDao, caldavDao, taskDao, localBroadcastManager);
       } else if (filter instanceof CaldavFilter) {
-        return new CaldavManualSortTaskAdapter(googleTaskDao, caldavDao, taskDao);
+        return new CaldavManualSortTaskAdapter(googleTaskDao, caldavDao, taskDao, localBroadcastManager);
       } else if (subtasksHelper.shouldUseSubtasksFragmentForFilter(filter)) {
         return createManualFilterTaskAdapter(filter);
       }
     }
-    return new TaskAdapter(preferences.addTasksToTop(), googleTaskDao, caldavDao, taskDao);
+    return new TaskAdapter(preferences.addTasksToTop(), googleTaskDao, caldavDao, taskDao, localBroadcastManager);
   }
 
   private TaskAdapter createManualTagTaskAdapter(TagFilter filter) {
@@ -75,7 +79,7 @@ public class TaskAdapterProvider {
     }
     SubtasksFilterUpdater updater = new SubtasksFilterUpdater(taskListMetadataDao, taskDao);
     updater.initialize(list, filter);
-    return new AstridTaskAdapter(list, filter, updater, googleTaskDao, caldavDao, taskDao);
+    return new AstridTaskAdapter(list, filter, updater, googleTaskDao, caldavDao, taskDao, localBroadcastManager);
   }
 
   private TaskAdapter createManualFilterTaskAdapter(Filter filter) {
@@ -105,6 +109,6 @@ public class TaskAdapterProvider {
     }
     SubtasksFilterUpdater updater = new SubtasksFilterUpdater(taskListMetadataDao, taskDao);
     updater.initialize(list, filter);
-    return new AstridTaskAdapter(list, filter, updater, googleTaskDao, caldavDao, taskDao);
+    return new AstridTaskAdapter(list, filter, updater, googleTaskDao, caldavDao, taskDao, localBroadcastManager);
   }
 }

@@ -2,10 +2,16 @@ package com.todoroo.astrid.adapter
 
 import com.todoroo.astrid.dao.TaskDao
 import org.tasks.BuildConfig
+import org.tasks.LocalBroadcastManager
 import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskDao
 
-class GoogleTaskManualSortAdapter internal constructor(private val googleTaskDao: GoogleTaskDao, caldavDao: CaldavDao, private val taskDao: TaskDao) : TaskAdapter(false, googleTaskDao, caldavDao, taskDao) {
+class GoogleTaskManualSortAdapter internal constructor(
+        private val googleTaskDao: GoogleTaskDao,
+        caldavDao: CaldavDao,
+        private val taskDao: TaskDao,
+        private val localBroadcastManager: LocalBroadcastManager)
+    : TaskAdapter(false, googleTaskDao, caldavDao, taskDao, localBroadcastManager) {
 
     override fun supportsManualSorting() = true
 
@@ -31,6 +37,7 @@ class GoogleTaskManualSortAdapter internal constructor(private val googleTaskDao
             }
         }
         taskDao.touch(task.id)
+        localBroadcastManager.broadcastRefresh()
         if (BuildConfig.DEBUG) {
             googleTaskDao.validateSorting(task.googleTaskList!!)
         }
