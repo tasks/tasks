@@ -624,4 +624,9 @@
     <string name="whats_new_in_version">Újdonságok a %s verzióban</string>
     <string name="whats_new">Újdonságok</string>
     <string name="action_new_task">Új feladat</string>
+    <string name="sort_modified_group">%s módosítva</string>
+    <string name="sort_created_group">%s létrehozva</string>
+    <string name="yesterday_lowercase">tegnap</string>
+    <string name="tomorrow_lowercase">holnap</string>
+    <string name="today_lowercase">ma</string>
 </resources>
