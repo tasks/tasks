@@ -9,6 +9,7 @@ import io.reactivex.Single
 import org.tasks.date.DateTimeUtils.toAppleEpoch
 import org.tasks.db.DbUtils
 import org.tasks.filters.CaldavFilters
+import org.tasks.time.DateTimeUtils.currentTimeMillis
 
 @Dao
 abstract class CaldavDao {
@@ -94,7 +95,7 @@ abstract class CaldavDao {
     abstract fun getDeleted(calendar: String): List<CaldavTask>
 
     @Query("UPDATE caldav_tasks SET cd_deleted = :now WHERE cd_task IN (:tasks)")
-    abstract fun markDeleted(now: Long, tasks: List<Long>)
+    abstract fun markDeleted(tasks: List<Long>, now: Long = currentTimeMillis())
 
     @Query("SELECT * FROM caldav_tasks WHERE cd_task = :taskId AND cd_deleted = 0 LIMIT 1")
     abstract fun getTask(taskId: Long): CaldavTask?

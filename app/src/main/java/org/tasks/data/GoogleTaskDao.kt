@@ -2,6 +2,7 @@ package org.tasks.data
 
 import androidx.room.*
 import com.todoroo.astrid.data.Task
+import org.tasks.time.DateTimeUtils.currentTimeMillis
 
 @Dao
 abstract class GoogleTaskDao {
@@ -70,7 +71,7 @@ abstract class GoogleTaskDao {
     abstract fun update(id: Long, parent: Long, order: Long)
 
     @Query("UPDATE google_tasks SET gt_deleted = :now WHERE gt_task = :task OR gt_parent = :task")
-    abstract fun markDeleted(now: Long, task: Long)
+    abstract fun markDeleted(task: Long, now: Long = currentTimeMillis())
 
     @Delete
     abstract fun delete(deleted: GoogleTask)

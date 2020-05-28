@@ -106,7 +106,7 @@ public class TaskMover {
     long id = googleTask.getTask();
     List<GoogleTask> children = googleTaskDao.getChildren(id);
     List<Long> childIds = from(children).transform(GoogleTask::getTask).toList();
-    googleTaskDao.markDeleted(now(), id);
+    googleTaskDao.markDeleted(id, now());
 
     if (selected instanceof GtasksFilter) {
       String listId = ((GtasksFilter) selected).getRemoteId();
@@ -153,7 +153,7 @@ public class TaskMover {
       children = caldavDao.getTasks(childIds);
       toDelete.addAll(childIds);
     }
-    caldavDao.markDeleted(now(), toDelete);
+    caldavDao.markDeleted(toDelete, now());
 
     if (selected instanceof CaldavFilter) {
       long id1 = caldavTask.getTask();
