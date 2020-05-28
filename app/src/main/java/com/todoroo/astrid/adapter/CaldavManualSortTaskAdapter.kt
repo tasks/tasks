@@ -2,8 +2,10 @@ package com.todoroo.astrid.adapter
 
 import com.todoroo.astrid.dao.TaskDao
 import org.tasks.data.CaldavDao
+import org.tasks.data.GoogleTaskDao
+import org.tasks.data.TaskContainer
 
-class CaldavManualSortTaskAdapter internal constructor(private val taskDao: TaskDao, private val caldavDao: CaldavDao) : CaldavTaskAdapter(taskDao, caldavDao) {
+class CaldavManualSortTaskAdapter internal constructor(googleTaskDao: GoogleTaskDao, private val caldavDao: CaldavDao, private val taskDao: TaskDao) : TaskAdapter(false, googleTaskDao, caldavDao, taskDao) {
     override fun supportsManualSorting() = true
 
     override fun moved(from: Int, to: Int, indent: Int) {
@@ -28,5 +30,27 @@ class CaldavManualSortTaskAdapter internal constructor(private val taskDao: Task
         caldavDao.move(task, newParent, newPosition)
 
         taskDao.touch(task.id)
+    }
+
+    private fun changeParent(task: TaskContainer, indent: Int, to: Int): Long {
+        val newParent = findParent(indent, to)?.id ?: 0
+        if (task.parent != newParent) {
+            changeParent(task, newParent)
+        }
+        return newParent
+    }
+
+    private fun changeParent(task: TaskContainer, newParent: Long) {
+        val caldavTask = task.getCaldavTask()
+        if (newParent == 0L) {
+            caldavTask.cd_remote_parent = ""
+            task.parent = 0
+        } else {
+            val parentTask = caldavDao.getTask(newParent) ?: return
+            caldavTask.cd_remote_parent = parentTask.remoteId
+            task.parent = newParent
+        }
+        caldavDao.update(caldavTask.cd_id, caldavTask.cd_remote_parent)
+        taskDao.save(task.getTask(), null)
     }
 }

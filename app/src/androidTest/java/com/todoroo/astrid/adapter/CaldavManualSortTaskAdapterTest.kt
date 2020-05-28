@@ -14,6 +14,7 @@ import org.junit.runner.RunWith
 import org.tasks.R
 import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavDao
+import org.tasks.data.GoogleTaskDao
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskListQuery.getQuery
 import org.tasks.injection.InjectingTestCase
@@ -31,6 +32,7 @@ import javax.inject.Inject
 
 @RunWith(AndroidJUnit4::class)
 class CaldavManualSortTaskAdapterTest : InjectingTestCase() {
+    @Inject lateinit var googleTaskDao: GoogleTaskDao
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var preferences: Preferences
@@ -50,7 +52,7 @@ class CaldavManualSortTaskAdapterTest : InjectingTestCase() {
         preferences.clear()
         preferences.setBoolean(R.string.p_manual_sort, true)
         tasks.clear()
-        adapter = CaldavManualSortTaskAdapter(taskDao, caldavDao)
+        adapter = CaldavManualSortTaskAdapter(googleTaskDao, caldavDao, taskDao)
         adapter.setDataSource(dataSource)
     }
 

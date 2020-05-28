@@ -2,11 +2,10 @@ package com.todoroo.astrid.adapter
 
 import com.todoroo.astrid.dao.TaskDao
 import org.tasks.BuildConfig
+import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskDao
 
-class GoogleTaskManualSortAdapter internal constructor(val taskDao: TaskDao, val googleTaskDao: GoogleTaskDao) : TaskAdapter() {
-
-    override fun supportsParentingOrManualSort() = true
+class GoogleTaskManualSortAdapter internal constructor(private val googleTaskDao: GoogleTaskDao, caldavDao: CaldavDao, private val taskDao: TaskDao) : TaskAdapter(false, googleTaskDao, caldavDao, taskDao) {
 
     override fun supportsManualSorting() = true
 

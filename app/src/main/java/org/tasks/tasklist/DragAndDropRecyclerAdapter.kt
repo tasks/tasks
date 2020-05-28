@@ -39,6 +39,7 @@ class DragAndDropRecyclerAdapter(
     private val updates: Queue<Pair<SectionedDataSource, DiffUtil.DiffResult>> = LinkedList()
     private var dragging = false
     private val disableHeaders: Boolean
+    private val itemTouchHelper: ItemTouchHelper
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val viewType = getItemViewType(position)
@@ -63,7 +64,7 @@ class DragAndDropRecyclerAdapter(
         taskList.loadTaskListContent()
     }
 
-    override fun dragAndDropEnabled() = adapter.supportsParentingOrManualSort()
+    override fun dragAndDropEnabled() = taskList.getFilter().supportsSubtasks()
 
     override fun isHeader(position: Int): Boolean = list.isHeader(position)
 
@@ -104,7 +105,10 @@ class DragAndDropRecyclerAdapter(
         recyclerView.layoutManager!!.onRestoreInstanceState(recyclerViewState)
     }
 
-    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) = disposables.dispose()
+    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
+        itemTouchHelper.attachToRecyclerView(null)
+        disposables.dispose()
+    }
 
     override fun getTaskCount() = list.taskCount
 
@@ -263,7 +267,8 @@ class DragAndDropRecyclerAdapter(
     init {
         val filter = taskList.getFilter()
         disableHeaders = !filter.supportsSorting() || preferences.isManualSort && filter.supportsManualSort()
-        ItemTouchHelper(ItemTouchHelperCallback()).attachToRecyclerView(recyclerView)
+        itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback())
+        itemTouchHelper.attachToRecyclerView(recyclerView)
         list = SectionedDataSource(tasks, disableHeaders, preferences.sortMode, adapter.getCollapsed().toMutableSet())
         val initial = Pair.create<SectionedDataSource, DiffUtil.DiffResult>(list, null)
         disposables.add(publishSubject

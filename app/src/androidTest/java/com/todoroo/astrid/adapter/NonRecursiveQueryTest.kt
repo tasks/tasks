@@ -13,6 +13,8 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.tasks.R
+import org.tasks.data.CaldavDao
+import org.tasks.data.GoogleTaskDao
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskListQuery.getQuery
 import org.tasks.injection.InjectingTestCase
@@ -25,6 +27,8 @@ import javax.inject.Inject
 @RunWith(AndroidJUnit4::class)
 class NonRecursiveQueryTest : InjectingTestCase() {
 
+    @Inject lateinit var googleTaskDao: GoogleTaskDao
+    @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var preferences: Preferences
 
@@ -43,7 +47,7 @@ class NonRecursiveQueryTest : InjectingTestCase() {
         preferences.clear()
         preferences.setBoolean(R.string.p_disable_subtasks, true)
         tasks.clear()
-        adapter = TaskAdapter()
+        adapter = TaskAdapter(false, googleTaskDao, caldavDao, taskDao)
         adapter.setDataSource(dataSource)
     }
 

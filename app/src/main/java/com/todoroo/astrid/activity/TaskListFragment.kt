@@ -710,9 +710,7 @@ class TaskListFragment : InjectingFragment(), OnRefreshListener, Toolbar.OnMenuI
         if (mode == null) {
             mode = (activity as AppCompatActivity).startSupportActionMode(this)
             updateModeTitle()
-            if (taskAdapter.supportsParentingOrManualSort()) {
-                Flags.set(Flags.TLFP_NO_INTERCEPT_TOUCH)
-            }
+            Flags.set(Flags.TLFP_NO_INTERCEPT_TOUCH)
         }
     }
 

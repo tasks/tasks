@@ -6,6 +6,8 @@ import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater
 import org.tasks.Strings.isNullOrEmpty
+import org.tasks.data.CaldavDao
+import org.tasks.data.GoogleTaskDao
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskListMetadata
 import timber.log.Timber
@@ -16,7 +18,9 @@ class AstridTaskAdapter internal constructor(
         private val list: TaskListMetadata,
         private val filter: Filter,
         private val updater: SubtasksFilterUpdater,
-        private val taskDao: TaskDao) : TaskAdapter() {
+        googleTaskDao: GoogleTaskDao,
+        caldavDao: CaldavDao,
+        private val taskDao: TaskDao) : TaskAdapter(false, googleTaskDao, caldavDao, taskDao) {
 
     private val chainedCompletions = Collections.synchronizedMap(HashMap<String, ArrayList<String>>())
 
@@ -28,8 +32,6 @@ class AstridTaskAdapter internal constructor(
         val previous = getTask(previousPosition)
         return updater.getIndentForTask(previous.uuid) + 1
     }
-
-    override fun supportsParentingOrManualSort() = true
 
     override fun supportsManualSorting() = true
 

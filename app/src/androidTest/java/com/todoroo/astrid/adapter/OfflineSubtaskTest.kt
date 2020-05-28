@@ -12,6 +12,8 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.tasks.data.CaldavDao
+import org.tasks.data.GoogleTaskDao
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskListQuery.getQuery
 import org.tasks.injection.InjectingTestCase
@@ -24,6 +26,8 @@ import javax.inject.Inject
 @RunWith(AndroidJUnit4::class)
 class OfflineSubtaskTest : InjectingTestCase() {
 
+    @Inject lateinit var googleTaskDao: GoogleTaskDao
+    @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var preferences: Preferences
 
@@ -41,7 +45,7 @@ class OfflineSubtaskTest : InjectingTestCase() {
         super.setUp()
         preferences.clear()
         tasks.clear()
-        adapter = TaskAdapter()
+        adapter = TaskAdapter(false, googleTaskDao, caldavDao, taskDao)
         adapter.setDataSource(dataSource)
     }
 

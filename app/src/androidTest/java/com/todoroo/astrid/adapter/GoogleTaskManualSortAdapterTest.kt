@@ -11,6 +11,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.tasks.R
+import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskDao
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskListQuery.getQuery
@@ -31,6 +32,7 @@ import javax.inject.Inject
 class GoogleTaskManualSortAdapterTest : InjectingTestCase() {
 
     @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var googleTaskDao: GoogleTaskDao
     @Inject lateinit var preferences: Preferences
 
@@ -411,7 +413,7 @@ class GoogleTaskManualSortAdapterTest : InjectingTestCase() {
         preferences.clear()
         preferences.setBoolean(R.string.p_manual_sort, true)
         tasks.clear()
-        adapter = GoogleTaskManualSortAdapter(taskDao, googleTaskDao)
+        adapter = GoogleTaskManualSortAdapter(googleTaskDao, caldavDao, taskDao)
         adapter.setDataSource(dataSource)
     }
 

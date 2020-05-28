@@ -7,7 +7,7 @@ import org.tasks.time.DateTimeUtils.currentTimeMillis
 @Dao
 abstract class GoogleTaskDao {
     @Insert
-    abstract fun insert(task: GoogleTask)
+    abstract fun insert(task: GoogleTask): Long
 
     @Insert
     abstract fun insert(tasks: Iterable<GoogleTask>)
@@ -20,7 +20,7 @@ abstract class GoogleTaskDao {
         } else {
             task.order = getBottom(task.listId!!, task.parent)
         }
-        insert(task)
+        task.id = insert(task)
     }
 
     @Query("UPDATE google_tasks SET gt_order = gt_order + 1 WHERE gt_list_id = :listId AND gt_parent = :parent AND gt_order >= :position")

@@ -10,16 +10,12 @@ import com.todoroo.astrid.api.TagFilter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 import javax.inject.Inject;
-import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.GoogleTaskDao;
-import org.tasks.data.GoogleTaskList;
 import org.tasks.data.TagData;
-import org.tasks.data.TagDataDao;
 import org.tasks.data.TaskListMetadata;
 import org.tasks.data.TaskListMetadataDao;
 import org.tasks.injection.ForApplication;
@@ -29,10 +25,8 @@ public class TaskAdapterProvider {
 
   private final Context context;
   private final Preferences preferences;
-  private final TagDataDao tagDataDao;
   private final TaskListMetadataDao taskListMetadataDao;
   private final TaskDao taskDao;
-  private final GtasksListService gtasksListService;
   private final GoogleTaskDao googleTaskDao;
   private final CaldavDao caldavDao;
   private final SubtasksHelper subtasksHelper;
@@ -41,51 +35,33 @@ public class TaskAdapterProvider {
   public TaskAdapterProvider(
       @ForApplication Context context,
       Preferences preferences,
-      TagDataDao tagDataDao,
       TaskListMetadataDao taskListMetadataDao,
       TaskDao taskDao,
-      GtasksListService gtasksListService,
       GoogleTaskDao googleTaskDao,
       CaldavDao caldavDao,
       SubtasksHelper subtasksHelper) {
     this.context = context;
     this.preferences = preferences;
-    this.tagDataDao = tagDataDao;
     this.taskListMetadataDao = taskListMetadataDao;
     this.taskDao = taskDao;
-    this.gtasksListService = gtasksListService;
     this.googleTaskDao = googleTaskDao;
     this.caldavDao = caldavDao;
     this.subtasksHelper = subtasksHelper;
   }
 
   public TaskAdapter createTaskAdapter(Filter filter) {
-    if (filter instanceof TagFilter) {
-      TagFilter tagFilter = (TagFilter) filter;
-      TagData tagData = tagDataDao.getByUuid(tagFilter.getUuid());
-      if (tagData != null && preferences.isManualSort()) {
-        return createManualTagTaskAdapter(tagFilter);
+    if (preferences.isManualSort()) {
+      if (filter instanceof TagFilter) {
+        return createManualTagTaskAdapter((TagFilter) filter);
+      } else if (filter instanceof GtasksFilter) {
+        return new GoogleTaskManualSortAdapter(googleTaskDao, caldavDao, taskDao);
+      } else if (filter instanceof CaldavFilter) {
+        return new CaldavManualSortTaskAdapter(googleTaskDao, caldavDao, taskDao);
+      } else if (subtasksHelper.shouldUseSubtasksFragmentForFilter(filter)) {
+        return createManualFilterTaskAdapter(filter);
       }
-    } else if (filter instanceof GtasksFilter) {
-      GtasksFilter gtasksFilter = (GtasksFilter) filter;
-      GoogleTaskList list = gtasksListService.getList(gtasksFilter.getStoreId());
-      if (list != null) {
-        return preferences.isManualSort()
-            ? new GoogleTaskManualSortAdapter(taskDao, googleTaskDao)
-            : new GoogleTaskAdapter(taskDao, googleTaskDao, preferences.addTasksToTop());
-      }
-    } else if (filter instanceof CaldavFilter) {
-      CaldavFilter caldavFilter = (CaldavFilter) filter;
-      CaldavCalendar calendar = caldavDao.getCalendarByUuid(caldavFilter.getUuid());
-      if (calendar != null) {
-        return preferences.isManualSort()
-            ? new CaldavManualSortTaskAdapter(taskDao, caldavDao)
-            : new CaldavTaskAdapter(taskDao, caldavDao, preferences.addTasksToTop());
-      }
-    } else if (subtasksHelper.shouldUseSubtasksFragmentForFilter(filter)) {
-      return createManualFilterTaskAdapter(filter);
     }
-    return new TaskAdapter();
+    return new TaskAdapter(preferences.addTasksToTop(), googleTaskDao, caldavDao, taskDao);
   }
 
   private TaskAdapter createManualTagTaskAdapter(TagFilter filter) {
@@ -99,7 +75,7 @@ public class TaskAdapterProvider {
     }
     SubtasksFilterUpdater updater = new SubtasksFilterUpdater(taskListMetadataDao, taskDao);
     updater.initialize(list, filter);
-    return new AstridTaskAdapter(list, filter, updater, taskDao);
+    return new AstridTaskAdapter(list, filter, updater, googleTaskDao, caldavDao, taskDao);
   }
 
   private TaskAdapter createManualFilterTaskAdapter(Filter filter) {
@@ -129,6 +105,6 @@ public class TaskAdapterProvider {
     }
     SubtasksFilterUpdater updater = new SubtasksFilterUpdater(taskListMetadataDao, taskDao);
     updater.initialize(list, filter);
-    return new AstridTaskAdapter(list, filter, updater, taskDao);
+    return new AstridTaskAdapter(list, filter, updater, googleTaskDao, caldavDao, taskDao);
   }
 }
