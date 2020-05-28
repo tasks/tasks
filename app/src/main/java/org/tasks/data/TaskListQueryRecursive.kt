@@ -36,11 +36,10 @@ internal object TaskListQueryRecursive {
                     .join(Join.inner(RECURSIVE, GoogleTask.PARENT.eq(RECURSIVE_TASK)))
                     .join(Join.inner(GoogleTask.TABLE, Criterion.and(GoogleTask.TASK.eq(Task.ID), GoogleTask.DELETED.eq(0))))
                     .where(activeAndVisible())
-    private val GOOGLE_AND_CALDAV_SUBTASKS =
+    private val ALL_SUBTASKS =
             QueryTemplate()
                     .join(Join.inner(RECURSIVE, Criterion.or(GoogleTask.PARENT.eq(RECURSIVE_TASK), Task.PARENT.eq(RECURSIVE_TASK))))
                     .join(Join.left(GoogleTask.TABLE, Criterion.and(GoogleTask.TASK.eq(Task.ID), GoogleTask.DELETED.eq(0))))
-                    .join(Join.left(CaldavTask.TABLE, Criterion.and(CaldavTask.TASK.eq(Task.ID), CaldavTask.DELETED.eq(0))))
                     .where(activeAndVisible())
 
     fun getRecursiveQuery(filter: Filter, preferences: Preferences, subtasks: SubtaskInfo): List<String> {
@@ -63,7 +62,7 @@ internal object TaskListQueryRecursive {
             else -> {
                 parentQuery = PermaSql.replacePlaceholdersForQuery(filter.getSqlQuery())
                 subtaskQuery = when {
-                    subtasks.hasGoogleSubtasks && subtasks.hasSubtasks -> GOOGLE_AND_CALDAV_SUBTASKS
+                    subtasks.hasGoogleSubtasks && subtasks.hasSubtasks -> ALL_SUBTASKS
                     subtasks.hasGoogleSubtasks -> GOOGLE_SUBTASKS
                     else -> QueryTemplate()
                             .join(Join.inner(RECURSIVE, Task.PARENT.eq(RECURSIVE_TASK)))
