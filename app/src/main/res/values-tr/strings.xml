@@ -626,4 +626,9 @@
     <string name="whats_new_in_version">%s Sürümündeki Yenilikler</string>
     <string name="whats_new">Yenilikler</string>
     <string name="action_new_task">Yeni görev</string>
+    <string name="sort_created_group">Oluşturulma %s</string>
+    <string name="sort_modified_group">Düzenlenme %s</string>
+    <string name="yesterday_lowercase">dün</string>
+    <string name="tomorrow_lowercase">yarın</string>
+    <string name="today_lowercase">bugün</string>
 </resources>
