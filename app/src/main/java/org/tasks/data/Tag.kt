@@ -1,8 +1,7 @@
 package org.tasks.data
 
 import androidx.room.*
-import com.todoroo.andlib.data.Property.LongProperty
-import com.todoroo.andlib.data.Property.StringProperty
+import com.todoroo.andlib.data.Property
 import com.todoroo.andlib.data.Table
 import com.todoroo.astrid.data.Task
 import org.tasks.backup.XmlReader
@@ -62,8 +61,8 @@ class Tag {
     companion object {
         const val KEY = "tags-tag" // $NON-NLS-1$
         @JvmField val TABLE = Table("tags")
-        @JvmField val TASK = LongProperty(TABLE, "task")
-        @JvmField val TAG_UID = StringProperty(TABLE, "tag_uid")
-        @JvmField val NAME = StringProperty(TABLE, "name")
+        @JvmField val TASK = TABLE.column("task")
+        @JvmField val TAG_UID = TABLE.column("tag_uid")
+        @JvmField val NAME = TABLE.column("name")
     }
 }

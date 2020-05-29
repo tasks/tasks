@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.todoroo.andlib.data.Property.LongProperty
+import com.todoroo.andlib.data.Property
 import com.todoroo.andlib.data.Table
 
 @Entity(tableName = Notification.TABLE_NAME, indices = [Index(value = ["task"], unique = true)])
@@ -32,6 +32,6 @@ class Notification {
     companion object {
         const val TABLE_NAME = "notification"
         @JvmField val TABLE = Table(TABLE_NAME)
-        @JvmField val TASK = LongProperty(TABLE, "task")
+        @JvmField val TASK = TABLE.column("task")
     }
 }

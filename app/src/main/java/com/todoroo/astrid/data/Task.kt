@@ -7,7 +7,7 @@ import androidx.annotation.IntDef
 import androidx.core.os.ParcelCompat
 import androidx.room.*
 import com.google.ical.values.RRule
-import com.todoroo.andlib.data.Property.*
+import com.todoroo.andlib.data.Property
 import com.todoroo.andlib.data.Table
 import com.todoroo.andlib.sql.Field
 import com.todoroo.andlib.utility.DateUtilities
@@ -502,22 +502,22 @@ class Task : Parcelable {
         const val NO_ID: Long = 0
 
         // --- properties
-        @JvmField val ID = LongProperty(TABLE, "_id")
-        @JvmField val TITLE = StringProperty(TABLE, "title")
-        @JvmField val IMPORTANCE = IntegerProperty(TABLE, "importance")
-        @JvmField val DUE_DATE = LongProperty(TABLE, "dueDate")
-        @JvmField val HIDE_UNTIL = LongProperty(TABLE, "hideUntil")
-        @JvmField val MODIFICATION_DATE = LongProperty(TABLE, "modified")
-        @JvmField val CREATION_DATE = LongProperty(TABLE, "created")
-        @JvmField val COMPLETION_DATE = LongProperty(TABLE, "completed")
-        @JvmField val DELETION_DATE = LongProperty(TABLE, "deleted")
-        @JvmField val NOTES = StringProperty(TABLE, "notes")
-        @JvmField val TIMER_START = LongProperty(TABLE, "timerStart")
-        @JvmField val PARENT = LongProperty(TABLE, "parent")
+        @JvmField val ID = TABLE.column("_id")
+        @JvmField val TITLE = TABLE.column("title")
+        @JvmField val IMPORTANCE = TABLE.column("importance")
+        @JvmField val DUE_DATE = TABLE.column("dueDate")
+        @JvmField val HIDE_UNTIL = TABLE.column("hideUntil")
+        @JvmField val MODIFICATION_DATE = TABLE.column("modified")
+        @JvmField val CREATION_DATE = TABLE.column("created")
+        @JvmField val COMPLETION_DATE = TABLE.column("completed")
+        @JvmField val DELETION_DATE = TABLE.column("deleted")
+        @JvmField val NOTES = TABLE.column("notes")
+        @JvmField val TIMER_START = TABLE.column("timerStart")
+        @JvmField val PARENT = TABLE.column("parent")
 
         /** constant value for no uuid  */
         const val NO_UUID = "0" // $NON-NLS-1$
-        @JvmField val UUID = StringProperty(TABLE, "remoteId")
+        @JvmField val UUID = TABLE.column("remoteId")
 
         /** whether to send a reminder at deadline  */
         const val NOTIFY_AT_DEADLINE = 1 shl 1

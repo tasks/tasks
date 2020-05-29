@@ -11,7 +11,6 @@ import androidx.sqlite.db.SimpleSQLiteQuery
 import com.todoroo.andlib.sql.Criterion
 import com.todoroo.andlib.sql.Field
 import com.todoroo.andlib.sql.Functions
-import com.todoroo.andlib.sql.SqlConstants
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.PermaSql
@@ -263,7 +262,7 @@ abstract class TaskDao(private val database: Database) {
     abstract fun getAstrid2TaskProviderTasks(): List<Task>
 
     fun count(filter: Filter): Int {
-        val query = getQuery(filter.sqlQuery, SqlConstants.COUNT)
+        val query = getQuery(filter.sqlQuery, Field.COUNT)
         val start = if (BuildConfig.DEBUG) DateUtilities.now() else 0
         val count = count(query)
         Timber.v("%sms: %s", DateUtilities.now() - start, query.sql)

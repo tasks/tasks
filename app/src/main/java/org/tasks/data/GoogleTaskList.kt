@@ -115,8 +115,8 @@ class GoogleTaskList : Parcelable {
 
     companion object {
         @JvmField val TABLE = Table("google_task_lists")
-        @JvmField val REMOTE_ID = Property.StringProperty(TABLE, "gtl_remote_id")
-        @JvmField val NAME = Property.StringProperty(TABLE, "gtl_title")
+        @JvmField val REMOTE_ID = TABLE.column("gtl_remote_id")
+        @JvmField val NAME = TABLE.column("gtl_title")
         @JvmField val CREATOR: Parcelable.Creator<GoogleTaskList> = object : Parcelable.Creator<GoogleTaskList> {
             override fun createFromParcel(parcel: Parcel): GoogleTaskList? {
                 return GoogleTaskList(parcel)

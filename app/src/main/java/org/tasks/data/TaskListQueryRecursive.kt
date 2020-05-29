@@ -2,7 +2,7 @@ package org.tasks.data
 
 import com.todoroo.andlib.data.Table
 import com.todoroo.andlib.sql.Criterion
-import com.todoroo.andlib.sql.Field.field
+import com.todoroo.andlib.sql.Field.Companion.field
 import com.todoroo.andlib.sql.Join
 import com.todoroo.andlib.sql.Query
 import com.todoroo.andlib.sql.QueryTemplate

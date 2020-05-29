@@ -1,6 +1,7 @@
 package org.tasks.data
 
 import androidx.room.*
+import com.todoroo.andlib.data.Property
 import com.todoroo.andlib.data.Property.*
 import com.todoroo.andlib.data.Table
 
@@ -97,9 +98,9 @@ class GoogleTask {
     companion object {
         const val KEY = "gtasks"
         @JvmField val TABLE = Table("google_tasks")
-        @JvmField val PARENT = IntegerProperty(TABLE, "gt_parent")
-        @JvmField val TASK = IntegerProperty(TABLE, "gt_task")
-        @JvmField val DELETED = LongProperty(TABLE, "gt_deleted")
-        @JvmField val LIST = StringProperty(TABLE, "gt_list_id")
+        @JvmField val PARENT = TABLE.column("gt_parent")
+        @JvmField val TASK = TABLE.column("gt_task")
+        @JvmField val DELETED = TABLE.column("gt_deleted")
+        @JvmField val LIST = TABLE.column("gt_list_id")
     }
 }

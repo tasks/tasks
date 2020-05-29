@@ -88,8 +88,8 @@ class UserActivity : Parcelable {
 
     companion object {
         @JvmField val TABLE = Table("userActivity")
-        @JvmField val TASK = Property.StringProperty(TABLE, "target_id")
-        @JvmField val MESSAGE = Property.StringProperty(TABLE, "message")
+        @JvmField val TASK = TABLE.column("target_id")
+        @JvmField val MESSAGE = TABLE.column("message")
         @JvmField val CREATOR: Parcelable.Creator<UserActivity> = object : Parcelable.Creator<UserActivity> {
             override fun createFromParcel(source: Parcel): UserActivity? {
                 return UserActivity(source)

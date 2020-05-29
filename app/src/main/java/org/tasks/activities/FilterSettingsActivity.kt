@@ -20,7 +20,7 @@ import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.todoroo.andlib.data.Property.CountProperty
+import com.todoroo.andlib.sql.Field
 import com.todoroo.andlib.sql.Query
 import com.todoroo.andlib.sql.UnaryCriterion
 import com.todoroo.andlib.utility.AndroidUtilities
@@ -301,7 +301,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
     private fun updateList() {
         var max = 0
         var last = -1
-        val sql = StringBuilder(Query.select(CountProperty()).from(Task.TABLE).toString())
+        val sql = StringBuilder(Query.select(Field.COUNT).from(Task.TABLE).toString())
                 .append(" WHERE ")
         for (instance in criteria) {
             var value = instance.valueFromCriterion
@@ -360,7 +360,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
                 if (instance.type == CriterionInstance.TYPE_UNIVERSE || instance.criterion.sql == null) {
                     sql.append(activeAndVisible()).append(' ')
                 } else {
-                    val subSql = instance.criterion.sql.replace("?", UnaryCriterion.sanitize(value))
+                    val subSql = instance.criterion.sql.replace("?", UnaryCriterion.sanitize(value!!))
                     sql.append(Task.ID).append(" IN (").append(subSql).append(") ")
                 }
             }

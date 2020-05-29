@@ -3,8 +3,7 @@ package org.tasks.data
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.*
-import com.todoroo.andlib.data.Property.LongProperty
-import com.todoroo.andlib.data.Property.StringProperty
+import com.todoroo.andlib.data.Property
 import com.todoroo.andlib.data.Table
 import org.tasks.R
 import org.tasks.preferences.Preferences
@@ -119,8 +118,8 @@ class Geofence : Serializable, Parcelable {
     companion object {
         const val TABLE_NAME = "geofences"
         @JvmField val TABLE = Table(TABLE_NAME)
-        @JvmField val TASK = LongProperty(TABLE, "task")
-        @JvmField val PLACE = StringProperty(TABLE, "place")
+        @JvmField val TASK = TABLE.column("task")
+        @JvmField val PLACE = TABLE.column("place")
         @JvmField val CREATOR: Parcelable.Creator<Geofence> = object : Parcelable.Creator<Geofence> {
             override fun createFromParcel(source: Parcel): Geofence? {
                 return Geofence(source)

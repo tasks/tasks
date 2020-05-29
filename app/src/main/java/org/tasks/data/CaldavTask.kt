@@ -1,6 +1,7 @@
 package org.tasks.data
 
 import androidx.room.*
+import com.todoroo.andlib.data.Property
 import com.todoroo.andlib.data.Property.*
 import com.todoroo.andlib.data.Table
 import com.todoroo.astrid.helper.UUIDHelper
@@ -71,8 +72,8 @@ class CaldavTask {
     companion object {
         const val KEY = "caldav"
         @JvmField val TABLE = Table("caldav_tasks")
-        @JvmField val TASK = IntegerProperty(TABLE, "cd_task")
-        @JvmField val DELETED = LongProperty(TABLE, "cd_deleted")
-        @JvmField val CALENDAR = StringProperty(TABLE, "cd_calendar")
+        @JvmField val TASK = TABLE.column("cd_task")
+        @JvmField val DELETED = TABLE.column("cd_deleted")
+        @JvmField val CALENDAR = TABLE.column("cd_calendar")
     }
 }

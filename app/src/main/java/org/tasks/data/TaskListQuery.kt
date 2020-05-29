@@ -1,7 +1,7 @@
 package org.tasks.data
 
 import com.todoroo.andlib.sql.Criterion
-import com.todoroo.andlib.sql.Field.field
+import com.todoroo.andlib.sql.Field.Companion.field
 import com.todoroo.andlib.sql.Join
 import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.api.CaldavFilter

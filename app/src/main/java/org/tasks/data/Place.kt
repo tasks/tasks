@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.room.*
 import com.mapbox.api.geocoding.v5.GeocodingCriteria
 import com.mapbox.api.geocoding.v5.models.CarmenFeature
-import com.todoroo.andlib.data.Property.StringProperty
+import com.todoroo.andlib.data.Property
 import com.todoroo.andlib.data.Table
 import com.todoroo.astrid.helper.UUIDHelper
 import net.fortuna.ical4j.model.property.Geo
@@ -182,9 +182,9 @@ class Place : Serializable, Parcelable {
         const val KEY = "place"
         const val TABLE_NAME = "places"
         @JvmField val TABLE = Table(TABLE_NAME)
-        @JvmField val UID = StringProperty(TABLE, "uid")
-        @JvmField val NAME = StringProperty(TABLE, "name")
-        @JvmField val ADDRESS = StringProperty(TABLE, "address")
+        @JvmField val UID = TABLE.column("uid")
+        @JvmField val NAME = TABLE.column("name")
+        @JvmField val ADDRESS = TABLE.column("address")
         @JvmField val CREATOR: Parcelable.Creator<Place> = object : Parcelable.Creator<Place> {
             override fun createFromParcel(source: Parcel): Place? {
                 return Place(source)

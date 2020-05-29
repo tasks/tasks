@@ -1,6 +1,5 @@
 package org.tasks.data
 
-import com.todoroo.andlib.data.Property.StringProperty
 import com.todoroo.andlib.sql.Field
 import com.todoroo.andlib.sql.Join
 import com.todoroo.andlib.sql.Query
@@ -18,10 +17,8 @@ internal object TaskListQueryNonRecursive {
         ${TaskListQuery.JOINS}
     """.trimIndent()
     private val TAGS =
-            StringProperty(
-                    null,
-                    "group_concat(distinct(${TaskListFragment.TAGS_METADATA_JOIN}.tag_uid))")
-            .`as`("tags")
+            Field.field("group_concat(distinct(${TaskListFragment.TAGS_METADATA_JOIN}.tag_uid))")
+                    .`as`("tags")
     private val FIELDS = TaskListQuery.FIELDS.plus(TAGS).toTypedArray()
 
     fun getNonRecursiveQuery(filter: Filter, preferences: Preferences): List<String> {

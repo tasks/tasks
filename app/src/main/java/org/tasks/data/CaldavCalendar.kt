@@ -113,8 +113,8 @@ class CaldavCalendar : Parcelable {
 
     companion object {
         @JvmField val TABLE = Table("caldav_lists")
-        @JvmField val UUID = Property.StringProperty(TABLE, "cdl_uuid")
-        @JvmField val NAME = Property.StringProperty(TABLE, "cdl_name")
+        @JvmField val UUID = TABLE.column("cdl_uuid")
+        @JvmField val NAME = TABLE.column("cdl_name")
         @JvmField val CREATOR: Parcelable.Creator<CaldavCalendar> = object : Parcelable.Creator<CaldavCalendar> {
             override fun createFromParcel(source: Parcel): CaldavCalendar? {
                 return CaldavCalendar(source)
