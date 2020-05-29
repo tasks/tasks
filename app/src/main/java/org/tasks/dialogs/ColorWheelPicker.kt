@@ -16,7 +16,7 @@ import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
 import org.tasks.injection.DialogFragmentComponent
 import org.tasks.injection.InjectingDialogFragment
-import org.tasks.ui.NavigationDrawerFragment.REQUEST_PURCHASE
+import org.tasks.ui.NavigationDrawerFragment.Companion.REQUEST_PURCHASE
 import javax.inject.Inject
 
 private const val REQUEST_PURCHASE = 10010

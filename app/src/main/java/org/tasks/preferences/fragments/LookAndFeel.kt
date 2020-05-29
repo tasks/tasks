@@ -38,7 +38,7 @@ import org.tasks.themes.ThemeBase.EXTRA_THEME_OVERRIDE
 import org.tasks.themes.ThemeColor
 import org.tasks.themes.ThemeColor.getLauncherColor
 import org.tasks.ui.ChipProvider
-import org.tasks.ui.NavigationDrawerFragment.REQUEST_PURCHASE
+import org.tasks.ui.NavigationDrawerFragment.Companion.REQUEST_PURCHASE
 import org.tasks.ui.SingleCheckedArrayAdapter
 import org.tasks.ui.Toaster
 import javax.inject.Inject
