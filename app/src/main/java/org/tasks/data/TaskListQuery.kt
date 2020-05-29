@@ -8,7 +8,7 @@ import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.data.Task
-import okhttp3.internal.immutableListOf
+import kotlinx.collections.immutable.persistentListOf
 import org.tasks.data.TaskListQueryNonRecursive.getNonRecursiveQuery
 import org.tasks.data.TaskListQueryRecursive.getRecursiveQuery
 import org.tasks.preferences.Preferences
@@ -26,7 +26,7 @@ object TaskListQuery {
         ${Join.left(Geofence.TABLE, Geofence.TASK.eq(Task.ID))}
         ${Join.left(Place.TABLE, Place.UID.eq(Geofence.PLACE))}
     """.trimIndent()
-    val FIELDS = immutableListOf(
+    val FIELDS = persistentListOf(
             field("tasks.*"),
             field("${TaskListFragment.GTASK_METADATA_JOIN}.*"),
             field("${TaskListFragment.CALDAV_METADATA_JOIN}.*"),

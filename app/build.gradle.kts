@@ -70,8 +70,13 @@ android {
     }
 
     compileOptions {
+        coreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 
     @Suppress("LocalVariableName")
@@ -132,6 +137,7 @@ configurations.all {
 val googleplayImplementation by configurations
 
 dependencies {
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.0.5")
     implementation("com.gitlab.bitfireAT:dav4jvm:2.1")
     implementation("com.gitlab.bitfireAT:ical4android:1.0") {
         exclude(group = "org.threeten", module = "threetenbp")
