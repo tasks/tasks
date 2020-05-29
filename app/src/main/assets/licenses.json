@@ -1778,20 +1778,6 @@
     },
     {
       "artifactId": {
-        "name": "okio",
-        "group": "com.squareup.okio",
-        "version": "+"
-      },
-      "copyrightHolder": "Square, Inc.",
-      "copyrightStatement": "Copyright &copy; Square, Inc. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "url": "https://github.com/square/okio/",
-      "libraryName": "Okio"
-    },
-    {
-      "artifactId": {
         "name": "mapbox-sdk-directions-refresh-models",
         "group": "com.mapbox.mapboxsdk",
         "version": "+"
