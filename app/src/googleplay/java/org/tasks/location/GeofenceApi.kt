@@ -1,5 +1,6 @@
 package org.tasks.location
 
+import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
@@ -25,6 +26,7 @@ class GeofenceApi @Inject constructor(
 
     fun update(place: String) = locationDao.getPlace(place).apply(this::update)
 
+    @SuppressLint("MissingPermission")
     fun update(place: Place?) {
         if (place == null || !permissionChecker.canAccessLocation()) {
             return
