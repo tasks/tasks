@@ -12,6 +12,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskDao
@@ -31,6 +32,7 @@ class NonRecursiveQueryTest : InjectingTestCase() {
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var preferences: Preferences
+    @Inject lateinit var localBroadcastManager: LocalBroadcastManager
 
     private lateinit var adapter: TaskAdapter
     private val tasks = ArrayList<TaskContainer>()
@@ -47,7 +49,7 @@ class NonRecursiveQueryTest : InjectingTestCase() {
         preferences.clear()
         preferences.setBoolean(R.string.p_disable_subtasks, true)
         tasks.clear()
-        adapter = TaskAdapter(false, googleTaskDao, caldavDao, taskDao)
+        adapter = TaskAdapter(false, googleTaskDao, caldavDao, taskDao, localBroadcastManager)
         adapter.setDataSource(dataSource)
     }
 

@@ -8,6 +8,7 @@ import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.tasks.LocalBroadcastManager
 import org.tasks.data.*
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.TestComponent
@@ -21,6 +22,7 @@ class CaldavTaskAdapterTest : InjectingTestCase() {
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var googleTaskDao: GoogleTaskDao
+    @Inject lateinit var localBroadcastManager: LocalBroadcastManager
 
     private lateinit var adapter: TaskAdapter
     private val tasks = ArrayList<TaskContainer>()
@@ -30,7 +32,7 @@ class CaldavTaskAdapterTest : InjectingTestCase() {
         super.setUp()
 
         tasks.clear()
-        adapter = TaskAdapter(false, googleTaskDao, caldavDao, taskDao)
+        adapter = TaskAdapter(false, googleTaskDao, caldavDao, taskDao, localBroadcastManager)
         adapter.setDataSource(object : TaskAdapterDataSource {
             override fun getItem(position: Int) = tasks[position]
 

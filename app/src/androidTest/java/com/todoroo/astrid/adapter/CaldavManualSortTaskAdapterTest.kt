@@ -11,6 +11,7 @@ import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavDao
@@ -36,6 +37,7 @@ class CaldavManualSortTaskAdapterTest : InjectingTestCase() {
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var preferences: Preferences
+    @Inject lateinit var localBroadcastManager: LocalBroadcastManager
 
     private lateinit var adapter: CaldavManualSortTaskAdapter
     private val tasks = ArrayList<TaskContainer>()
@@ -52,7 +54,7 @@ class CaldavManualSortTaskAdapterTest : InjectingTestCase() {
         preferences.clear()
         preferences.setBoolean(R.string.p_manual_sort, true)
         tasks.clear()
-        adapter = CaldavManualSortTaskAdapter(googleTaskDao, caldavDao, taskDao)
+        adapter = CaldavManualSortTaskAdapter(googleTaskDao, caldavDao, taskDao, localBroadcastManager)
         adapter.setDataSource(dataSource)
     }
 

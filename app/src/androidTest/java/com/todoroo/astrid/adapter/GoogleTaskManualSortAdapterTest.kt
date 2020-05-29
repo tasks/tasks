@@ -10,6 +10,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskDao
@@ -35,6 +36,7 @@ class GoogleTaskManualSortAdapterTest : InjectingTestCase() {
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var googleTaskDao: GoogleTaskDao
     @Inject lateinit var preferences: Preferences
+    @Inject lateinit var localBroadcastManager: LocalBroadcastManager
 
     private lateinit var adapter: GoogleTaskManualSortAdapter
     private val tasks = ArrayList<TaskContainer>()
@@ -413,7 +415,7 @@ class GoogleTaskManualSortAdapterTest : InjectingTestCase() {
         preferences.clear()
         preferences.setBoolean(R.string.p_manual_sort, true)
         tasks.clear()
-        adapter = GoogleTaskManualSortAdapter(googleTaskDao, caldavDao, taskDao)
+        adapter = GoogleTaskManualSortAdapter(googleTaskDao, caldavDao, taskDao, localBroadcastManager)
         adapter.setDataSource(dataSource)
     }
 

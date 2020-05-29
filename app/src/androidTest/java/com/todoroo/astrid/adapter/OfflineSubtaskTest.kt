@@ -12,6 +12,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.tasks.LocalBroadcastManager
 import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskDao
 import org.tasks.data.TaskContainer
@@ -30,6 +31,7 @@ class OfflineSubtaskTest : InjectingTestCase() {
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var preferences: Preferences
+    @Inject lateinit var localBroadcastManager: LocalBroadcastManager
 
     private lateinit var adapter: TaskAdapter
     private val tasks = ArrayList<TaskContainer>()
@@ -45,7 +47,7 @@ class OfflineSubtaskTest : InjectingTestCase() {
         super.setUp()
         preferences.clear()
         tasks.clear()
-        adapter = TaskAdapter(false, googleTaskDao, caldavDao, taskDao)
+        adapter = TaskAdapter(false, googleTaskDao, caldavDao, taskDao, localBroadcastManager)
         adapter.setDataSource(dataSource)
     }
 
