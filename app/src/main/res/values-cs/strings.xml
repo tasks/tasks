@@ -90,7 +90,7 @@
     <string name="EPr_default_importance_title">Výchozí důležitost</string>
     <string name="EPr_default_hideUntil_title">Výchozí Skrýt do</string>
     <string name="EPr_default_reminders_title">Výchozí připomenutí</string>
-    <string name="EPr_default_reminders_mode_title">Výchozí vyzvánění / vybrace</string>
+    <string name="EPr_default_reminders_mode_title">Výchozí vyzvánění / vibrace</string>
     <string name="priority_high">Vysoký</string>
     <string name="priority_medium">Střední</string>
     <string name="priority_low">Nízký</string>
@@ -149,7 +149,7 @@
     <string name="default_random_reminder_hourly">každou hodinu</string>
     <string name="default_random_reminder_daily">denně</string>
     <string name="default_random_reminder_weekly">týdně</string>
-    <string name="default_random_reminder_bi_weekly">každých ctrnáct dní</string>
+    <string name="default_random_reminder_bi_weekly">Každých čtrnáct dní</string>
     <string name="default_random_reminder_monthly">měsíčně</string>
     <string name="default_random_reminder_bi_monthly">každý druhý měsíc</string>
     <string name="repeat_forever">Opakovat stále</string>
