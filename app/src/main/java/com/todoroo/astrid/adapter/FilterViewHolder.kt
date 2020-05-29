@@ -75,8 +75,10 @@ class FilterViewHolder : RecyclerView.ViewHolder {
             size.text = locale!!.formatNumber(count)
             size.visibility = View.VISIBLE
         }
-        row.setOnClickListener {
-            onClick?.invoke(filter)
+        if (onClick != null) {
+            row.setOnClickListener {
+                onClick?.invoke(filter)
+            }
         }
     }
 
