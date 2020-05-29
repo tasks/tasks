@@ -83,7 +83,7 @@ install:
 
 script:
   - ./gradlew :app:lintGoogleplayRelease
-  - ./gradlew :app:jacocoTestReport
+  - ./gradlew :app:jacocoTestReportGoogleplayDebug
   - ./gradlew -Pcoverage :app:createGoogleplayDebugAndroidTestCoverageReport
 
 before_cache:

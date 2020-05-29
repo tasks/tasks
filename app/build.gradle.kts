@@ -6,7 +6,7 @@ plugins {
     kotlin("kapt")
     id("com.cookpad.android.plugin.license-tools") version "1.2.2"
     id("com.github.ben-manes.versions") version "0.28.0"
-    id("jacoco-android")
+    id("com.vanniktech.android.junit.jacoco") version "0.16.0"
 }
 
 repositories {
@@ -26,8 +26,13 @@ android {
         }
     }
 
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
+    }
+
     lintOptions {
-        setLintConfig(file("lint.xml"))
+        lintConfig = file("lint.xml")
         textOutput("stdout")
         textReport = true
     }
@@ -102,14 +107,6 @@ android {
         create("googleplay") {
             setDimension("store")
         }
-    }
-
-    viewBinding {
-        isEnabled = true
-    }
-
-    dataBinding {
-        isEnabled = true
     }
 
     packagingOptions {
