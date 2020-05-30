@@ -16,7 +16,7 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.analytics.Firebase;
 import org.tasks.locale.Locale;
-import org.threeten.bp.format.FormatStyle;
+import java.time.format.FormatStyle;
 import timber.log.Timber;
 
 public class RepeatConfirmationReceiver extends BroadcastReceiver {

@@ -14,8 +14,8 @@ import org.tasks.locale.Locale
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTime
 import org.tasks.ui.TimePreference
-import org.threeten.bp.DayOfWeek
-import org.threeten.bp.format.TextStyle
+import java.time.DayOfWeek
+import java.time.format.TextStyle
 import javax.inject.Inject
 
 private const val REQUEST_MORNING = 10007

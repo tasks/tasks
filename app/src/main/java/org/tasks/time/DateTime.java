@@ -21,8 +21,8 @@ import java.util.Objects;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 import org.tasks.locale.Locale;
-import org.threeten.bp.LocalDate;
-import org.threeten.bp.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class DateTime {
 

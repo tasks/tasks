@@ -18,9 +18,9 @@ import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.locale.Locale;
 import org.tasks.time.DateTime;
-import org.threeten.bp.format.DateTimeFormatter;
-import org.threeten.bp.format.FormatStyle;
-import org.threeten.bp.format.TextStyle;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.time.format.TextStyle;
 
 public class DateUtilities {
 

@@ -10,9 +10,9 @@ import com.todoroo.astrid.service.TaskCreator;
 import javax.inject.Inject;
 import org.tasks.locale.bundle.TaskCreationBundle;
 import org.tasks.time.DateTime;
-import org.threeten.bp.LocalDate;
-import org.threeten.bp.LocalTime;
-import org.threeten.bp.format.DateTimeFormatter;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import timber.log.Timber;
 
 class TaskerTaskCreator {

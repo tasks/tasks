@@ -64,7 +64,7 @@ import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.ResourceResolver;
 import org.tasks.time.DateTime;
-import org.threeten.bp.format.FormatStyle;
+import java.time.format.FormatStyle;
 import timber.log.Timber;
 
 public class CustomRecurrenceDialog extends InjectingDialogFragment {

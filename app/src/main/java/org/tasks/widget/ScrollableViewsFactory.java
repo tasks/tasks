@@ -24,7 +24,7 @@ import org.tasks.locale.Locale;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import org.tasks.ui.CheckBoxProvider;
-import org.threeten.bp.format.FormatStyle;
+import java.time.format.FormatStyle;
 import timber.log.Timber;
 
 class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {

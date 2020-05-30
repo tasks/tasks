@@ -31,7 +31,7 @@ import org.tasks.dialogs.Linkify;
 import org.tasks.preferences.Preferences;
 import org.tasks.ui.CheckBoxProvider;
 import org.tasks.ui.ChipProvider;
-import org.threeten.bp.format.FormatStyle;
+import java.time.format.FormatStyle;
 
 public class TaskViewHolder extends RecyclerView.ViewHolder {
 

@@ -22,7 +22,7 @@ import org.tasks.injection.FragmentComponent
 import org.tasks.locale.Locale
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTime
-import org.threeten.bp.format.FormatStyle
+import java.time.format.FormatStyle
 import javax.inject.Inject
 
 class DeadlineControlSet : TaskEditControlFragment() {

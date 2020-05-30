@@ -583,20 +583,6 @@
     },
     {
       "artifactId": {
-        "name": "threetenbp",
-        "group": "org.threeten",
-        "version": "+"
-      },
-      "copyrightHolder": "Stephen Colebourne & Michael Nascimento Santos",
-      "copyrightStatement": "Copyright &copy; Stephen Colebourne & Michael Nascimento Santos. All rights reserved.",
-      "license": "BSD 3-Clause",
-      "licenseUrl": "https://opensource.org/licenses/BSD-3-Clause",
-      "normalizedLicense": "bsd_3_clauses",
-      "url": "https://www.threeten.org/threetenbp",
-      "libraryName": "ThreeTen backport"
-    },
-    {
-      "artifactId": {
         "name": "swiperefreshlayout",
         "group": "androidx.swiperefreshlayout",
         "version": "+"
@@ -943,20 +929,6 @@
       "normalizedLicense": "bsd_2_clauses",
       "url": "https://github.com/mapbox/mapbox-gestures-android",
       "libraryName": "Mapbox Android Gestures Library"
-    },
-    {
-      "artifactId": {
-        "name": "threetenabp",
-        "group": "com.jakewharton.threetenabp",
-        "version": "+"
-      },
-      "copyrightHolder": "Jake Wharton",
-      "copyrightStatement": "Copyright &copy; Jake Wharton. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "url": "https://github.com/JakeWharton/ThreeTenABP/",
-      "libraryName": "ThreeTenAbp"
     },
     {
       "artifactId": {
@@ -1817,6 +1789,43 @@
       "normalizedLicense": "Mapbox Terms of Service",
       "url": "https://github.com/mapbox/mapbox-accounts-android",
       "libraryName": "mapbox-android-accounts"
+    },
+    {
+      "artifactId": {
+        "name": "android-mail",
+        "group": "com.sun.mail",
+        "version": "+"
+      },
+      "copyrightHolder": "Oracle and/or its affiliates",
+      "copyrightStatement": "Copyright &copy; Oracle and/or its affiliates. All rights reserved.",
+      "license": "Eclipse Public License, Version 2.0",
+      "normalizedLicense": "Eclipse Public License, Version 2.0",
+      "libraryName": "android-mail"
+    },
+    {
+      "artifactId": {
+        "name": "commons-io",
+        "group": "commons-io",
+        "version": "+"
+      },
+      "copyrightHolder": "The Apache Software Foundation",
+      "copyrightStatement": "Copyright &copy; The Apache Software Foundation. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "normalizedLicense": "apache2",
+      "url": "http://commons.apache.org/proper/commons-io/",
+      "libraryName": "commons-io"
+    },
+    {
+      "artifactId": {
+        "name": "android-activation",
+        "group": "com.sun.mail",
+        "version": "+"
+      },
+      "copyrightHolder": "Oracle and/or its affiliates",
+      "copyrightStatement": "Copyright &copy; Oracle and/or its affiliates. All rights reserved.",
+      "license": "Eclipse Public License, Version 2.0",
+      "normalizedLicense": "Eclipse Public License, Version 2.0",
+      "libraryName": "android-activation"
     }
   ]
 }

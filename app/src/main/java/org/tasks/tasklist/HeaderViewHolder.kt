@@ -10,7 +10,7 @@ import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.core.SortHelper
 import org.tasks.R
 import org.tasks.date.DateTimeUtils.newDateTime
-import org.threeten.bp.format.FormatStyle
+import java.time.format.FormatStyle
 import java.util.*
 
 class HeaderViewHolder(

@@ -7,7 +7,6 @@ import android.util.Log
 import androidx.core.app.JobIntentService
 import androidx.work.Configuration
 import com.jakewharton.processphoenix.ProcessPhoenix
-import com.jakewharton.threetenabp.AndroidThreeTen
 import com.todoroo.astrid.service.Upgrader
 import dagger.Lazy
 import io.reactivex.Completable
@@ -51,7 +50,6 @@ class Tasks : InjectingApplication(), Configuration.Provider {
         }
         buildSetup.setup()
         upgrade()
-        AndroidThreeTen.init(this)
         preferences.isSyncOngoing = false
         ThemeBase.getThemeBase(preferences, inventory, null).setDefaultNightMode()
         localBroadcastManager.registerRefreshReceiver(RefreshBroadcastReceiver())

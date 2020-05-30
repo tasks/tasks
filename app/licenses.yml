@@ -249,12 +249,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://github.com/ReactiveX/RxAndroid
-- artifact: org.threeten:threetenbp:+
-  name: ThreeTen backport
-  copyrightHolder: Stephen Colebourne & Michael Nascimento Santos
-  license: BSD 3-Clause
-  licenseUrl: https://opensource.org/licenses/BSD-3-Clause
-  url: https://www.threeten.org/threetenbp
 - artifact: androidx.swiperefreshlayout:swiperefreshlayout:+
   name: Android Support Library Custom View
   copyrightHolder: Android Open Source Project
@@ -407,12 +401,6 @@
   licenseUrl: https://opensource.org/licenses/BSD-2-Clause
   url: https://github.com/mapbox/mapbox-gestures-android
   forceGenerate: true
-- artifact: com.jakewharton.threetenabp:threetenabp:+
-  name: ThreeTenAbp
-  copyrightHolder: Jake Wharton
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: https://github.com/JakeWharton/ThreeTenABP/
 - artifact: androidx.lifecycle:lifecycle-process:+
   name: Android Lifecycle Process
   copyrightHolder: Android Open Source Project
@@ -775,3 +763,16 @@
   license: Mapbox Terms of Service
   licenseUrl: https://www.mapbox.com/tos/
   url: https://github.com/mapbox/mapbox-accounts-android
+- artifact: com.sun.mail:android-mail:+
+  name: android-mail
+  copyrightHolder: Oracle and/or its affiliates
+  license: Eclipse Public License, Version 2.0
+- artifact: commons-io:commons-io:+
+  name: commons-io
+  copyrightHolder: The Apache Software Foundation
+  license: The Apache Software License, Version 2.0
+  url: http://commons.apache.org/proper/commons-io/
+- artifact: com.sun.mail:android-activation:+
+  name: android-activation
+  copyrightHolder: Oracle and/or its affiliates
+  license: Eclipse Public License, Version 2.0

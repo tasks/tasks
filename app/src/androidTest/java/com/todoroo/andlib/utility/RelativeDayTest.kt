@@ -9,7 +9,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.tasks.Freeze
 import org.tasks.time.DateTime
-import org.threeten.bp.format.FormatStyle
+import java.time.format.FormatStyle
 import java.util.*
 
 @RunWith(AndroidJUnit4::class)
