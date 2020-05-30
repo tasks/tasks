@@ -636,4 +636,10 @@
     <string name="enjoying_tasks">Podoba Ci się Tasks\?</string>
     <string name="whats_new_in_version">Co nowego w wersji %s</string>
     <string name="whats_new">Co nowego</string>
+    <string name="sort_modified_group">Zmienione %s</string>
+    <string name="sort_created_group">Stworzone %s</string>
+    <string name="action_new_task">Nowe zadanie</string>
+    <string name="yesterday_lowercase">wczoraj</string>
+    <string name="tomorrow_lowercase">jutro</string>
+    <string name="today_lowercase">dzisiaj</string>
 </resources>
