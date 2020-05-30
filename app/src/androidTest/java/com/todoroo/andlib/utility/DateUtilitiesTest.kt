@@ -115,7 +115,7 @@ class DateUtilitiesTest {
     fun getRelativeFullDateTime() {
         freezeAt(DateTime(2018, 1, 1)) {
             assertEquals(
-                    "Sunday, January 14 1:43 PM",
+                    "Sunday, January 14 at 1:43 PM",
                     DateUtilities.getRelativeDateTime(
                             ApplicationProvider.getApplicationContext(),
                             DateTime(2018, 1, 14, 13, 43, 1).millis,
@@ -128,7 +128,7 @@ class DateUtilitiesTest {
     fun getRelativeFullDateTimeWithYear() {
         freezeAt(DateTime(2017, 12, 12)) {
             assertEquals(
-                    "Sunday, January 14, 2018 11:50 AM",
+                    "Sunday, January 14, 2018 at 11:50 AM",
                     DateUtilities.getRelativeDateTime(
                             ApplicationProvider.getApplicationContext(),
                             DateTime(2018, 1, 14, 11, 50, 1).millis,
@@ -271,7 +271,7 @@ class DateUtilitiesTest {
     fun frenchDateTimeWithYear() {
         freezeAt(DateTime(2017, 12, 12)) {
             assertEquals(
-                    "dimanche 14 janvier 2018 13:45",
+                    "dimanche 14 janvier 2018 à 13:45",
                     DateUtilities.getRelativeDateTime(
                             ApplicationProvider.getApplicationContext(),
                             DateTime(2018, 1, 14, 13, 45, 1).millis,
@@ -284,7 +284,7 @@ class DateUtilitiesTest {
     fun indiaDateTimeWithYear() {
         freezeAt(DateTime(2017, 12, 12)) {
             assertEquals(
-                    "रविवार, 14 जनवरी 2018 1:45 pm",
+                    "रविवार, 14 जनवरी 2018 को 1:45 pm",
                     DateUtilities.getRelativeDateTime(
                             ApplicationProvider.getApplicationContext(),
                             DateTime(2018, 1, 14, 13, 45, 1).millis,
@@ -297,7 +297,7 @@ class DateUtilitiesTest {
     fun russiaDateTimeNoYear() {
         freezeAt(DateTime(2018, 12, 12)) {
             assertEquals(
-                    "воскресенье, 14 января 13:45",
+                    "воскресенье, 14 января, 13:45",
                     DateUtilities.getRelativeDateTime(
                             ApplicationProvider.getApplicationContext(),
                             DateTime(2018, 1, 14, 13, 45, 1).millis,
@@ -310,7 +310,7 @@ class DateUtilitiesTest {
     fun russiaDateTimeWithYear() {
         freezeAt(DateTime(2017, 12, 12)) {
             assertEquals(
-                    "воскресенье, 14 января 2018 г. 13:45",
+                    "воскресенье, 14 января 2018 г., 13:45",
                     DateUtilities.getRelativeDateTime(
                             ApplicationProvider.getApplicationContext(),
                             DateTime(2018, 1, 14, 13, 45, 1).millis,
@@ -349,7 +349,7 @@ class DateUtilitiesTest {
     fun spainDateTimeNoYear() {
         freezeAt(DateTime(2018, 12, 12)) {
             assertEquals(
-                    "domingo, 14 de enero 13:45",
+                    "domingo, 14 de enero, 13:45",
                     DateUtilities.getRelativeDateTime(
                             ApplicationProvider.getApplicationContext(),
                             DateTime(2018, 1, 14, 13, 45, 1).millis,
@@ -362,7 +362,7 @@ class DateUtilitiesTest {
     fun spainDateTimeWithYear() {
         freezeAt(DateTime(2017, 12, 12)) {
             assertEquals(
-                    "domingo, 14 de enero de 2018 13:45",
+                    "domingo, 14 de enero de 2018, 13:45",
                     DateUtilities.getRelativeDateTime(
                             ApplicationProvider.getApplicationContext(),
                             DateTime(2018, 1, 14, 13, 45, 1).millis,
@@ -375,7 +375,7 @@ class DateUtilitiesTest {
     fun hebrewDateTimeNoYear() {
         freezeAt(DateTime(2018, 12, 12)) {
             assertEquals(
-                    "יום ראשון, 14 בינואר 13:45",
+                    "יום ראשון, 14 בינואר בשעה 13:45",
                     DateUtilities.getRelativeDateTime(
                             ApplicationProvider.getApplicationContext(),
                             DateTime(2018, 1, 14, 13, 45, 1).millis,
@@ -388,7 +388,7 @@ class DateUtilitiesTest {
     fun hebrewDateTimeWithYear() {
         freezeAt(DateTime(2017, 12, 12)) {
             assertEquals(
-                    "יום ראשון, 14 בינואר 2018 13:45",
+                    "יום ראשון, 14 בינואר 2018 בשעה 13:45",
                     DateUtilities.getRelativeDateTime(
                             ApplicationProvider.getApplicationContext(),
                             DateTime(2018, 1, 14, 13, 45, 1).millis,
