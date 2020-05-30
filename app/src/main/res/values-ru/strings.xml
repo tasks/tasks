@@ -643,4 +643,9 @@
     <string name="whats_new_in_version">Что нового в версии %s</string>
     <string name="whats_new">Что нового</string>
     <string name="action_new_task">Новая задача</string>
+    <string name="sort_modified_group">Модифицировано %s</string>
+    <string name="sort_created_group">Создано %s</string>
+    <string name="yesterday_lowercase">вчера</string>
+    <string name="tomorrow_lowercase">завтра</string>
+    <string name="today_lowercase">сегодня</string>
 </resources>
