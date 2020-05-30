@@ -9,6 +9,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.tasks.Freeze.Companion.freezeAt
@@ -114,8 +115,8 @@ class DateUtilitiesTest {
     @Test
     fun getRelativeFullDateTime() {
         freezeAt(DateTime(2018, 1, 1)) {
-            assertEquals(
-                    "Sunday, January 14 at 1:43 PM",
+            assertMatches(
+                    "Sunday, January 14( at)? 1:43 PM",
                     DateUtilities.getRelativeDateTime(
                             ApplicationProvider.getApplicationContext(),
                             DateTime(2018, 1, 14, 13, 43, 1).millis,
@@ -127,8 +128,8 @@ class DateUtilitiesTest {
     @Test
     fun getRelativeFullDateTimeWithYear() {
         freezeAt(DateTime(2017, 12, 12)) {
-            assertEquals(
-                    "Sunday, January 14, 2018 at 11:50 AM",
+            assertMatches(
+                    "Sunday, January 14, 2018( at)? 11:50 AM",
                     DateUtilities.getRelativeDateTime(
                             ApplicationProvider.getApplicationContext(),
                             DateTime(2018, 1, 14, 11, 50, 1).millis,
@@ -270,8 +271,8 @@ class DateUtilitiesTest {
     @Test
     fun frenchDateTimeWithYear() {
         freezeAt(DateTime(2017, 12, 12)) {
-            assertEquals(
-                    "dimanche 14 janvier 2018 à 13:45",
+            assertMatches(
+                    "dimanche 14 janvier 2018( à)? 13:45",
                     DateUtilities.getRelativeDateTime(
                             ApplicationProvider.getApplicationContext(),
                             DateTime(2018, 1, 14, 13, 45, 1).millis,
@@ -283,8 +284,8 @@ class DateUtilitiesTest {
     @Test
     fun indiaDateTimeWithYear() {
         freezeAt(DateTime(2017, 12, 12)) {
-            assertEquals(
-                    "रविवार, 14 जनवरी 2018 को 1:45 pm",
+            assertMatches(
+                    "रविवार, 14 जनवरी 2018( को)? 1:45 pm",
                     DateUtilities.getRelativeDateTime(
                             ApplicationProvider.getApplicationContext(),
                             DateTime(2018, 1, 14, 13, 45, 1).millis,
@@ -296,8 +297,8 @@ class DateUtilitiesTest {
     @Test
     fun russiaDateTimeNoYear() {
         freezeAt(DateTime(2018, 12, 12)) {
-            assertEquals(
-                    "воскресенье, 14 января, 13:45",
+            assertMatches(
+                    "воскресенье, 14 января,? 13:45",
                     DateUtilities.getRelativeDateTime(
                             ApplicationProvider.getApplicationContext(),
                             DateTime(2018, 1, 14, 13, 45, 1).millis,
@@ -309,8 +310,8 @@ class DateUtilitiesTest {
     @Test
     fun russiaDateTimeWithYear() {
         freezeAt(DateTime(2017, 12, 12)) {
-            assertEquals(
-                    "воскресенье, 14 января 2018 г., 13:45",
+            assertMatches(
+                    "воскресенье, 14 января 2018 г.,? 13:45",
                     DateUtilities.getRelativeDateTime(
                             ApplicationProvider.getApplicationContext(),
                             DateTime(2018, 1, 14, 13, 45, 1).millis,
@@ -348,8 +349,8 @@ class DateUtilitiesTest {
     @Test
     fun spainDateTimeNoYear() {
         freezeAt(DateTime(2018, 12, 12)) {
-            assertEquals(
-                    "domingo, 14 de enero, 13:45",
+            assertMatches(
+                    "domingo, 14 de enero,? 13:45",
                     DateUtilities.getRelativeDateTime(
                             ApplicationProvider.getApplicationContext(),
                             DateTime(2018, 1, 14, 13, 45, 1).millis,
@@ -361,8 +362,8 @@ class DateUtilitiesTest {
     @Test
     fun spainDateTimeWithYear() {
         freezeAt(DateTime(2017, 12, 12)) {
-            assertEquals(
-                    "domingo, 14 de enero de 2018, 13:45",
+            assertMatches(
+                    "domingo, 14 de enero de 2018,? 13:45",
                     DateUtilities.getRelativeDateTime(
                             ApplicationProvider.getApplicationContext(),
                             DateTime(2018, 1, 14, 13, 45, 1).millis,
@@ -374,8 +375,8 @@ class DateUtilitiesTest {
     @Test
     fun hebrewDateTimeNoYear() {
         freezeAt(DateTime(2018, 12, 12)) {
-            assertEquals(
-                    "יום ראשון, 14 בינואר בשעה 13:45",
+            assertMatches(
+                    "יום ראשון, 14 בינואר( בשעה)? 13:45",
                     DateUtilities.getRelativeDateTime(
                             ApplicationProvider.getApplicationContext(),
                             DateTime(2018, 1, 14, 13, 45, 1).millis,
@@ -387,8 +388,9 @@ class DateUtilitiesTest {
     @Test
     fun hebrewDateTimeWithYear() {
         freezeAt(DateTime(2017, 12, 12)) {
-            assertEquals(
-                    "יום ראשון, 14 בינואר 2018 בשעה 13:45",
+
+            assertMatches(
+                    "יום ראשון, 14 בינואר 2018( בשעה)? 13:45",
                     DateUtilities.getRelativeDateTime(
                             ApplicationProvider.getApplicationContext(),
                             DateTime(2018, 1, 14, 13, 45, 1).millis,
@@ -396,4 +398,6 @@ class DateUtilitiesTest {
                             FormatStyle.FULL))
         }
     }
+
+    private fun assertMatches(regex: String, actual: String) = assertTrue(actual.matches(Regex(regex)))
 }
