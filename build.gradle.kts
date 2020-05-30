@@ -15,6 +15,6 @@ buildscript {
 }
 
 tasks.getByName<Wrapper>("wrapper") {
-    gradleVersion = "5.6.4"
+    gradleVersion = "6.1.1"
     distributionType = Wrapper.DistributionType.ALL
 }
