@@ -617,4 +617,9 @@
     <string name="whats_new_in_version">%s 版本的新变化</string>
     <string name="whats_new">更新日志</string>
     <string name="action_new_task">新任务</string>
+    <string name="sort_modified_group">修改 %s</string>
+    <string name="sort_created_group">创建%s</string>
+    <string name="yesterday_lowercase">昨日</string>
+    <string name="tomorrow_lowercase">明日</string>
+    <string name="today_lowercase">今日</string>
 </resources>
