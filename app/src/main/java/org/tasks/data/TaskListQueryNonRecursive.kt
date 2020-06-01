@@ -1,7 +1,7 @@
 package org.tasks.data
 
 import com.todoroo.andlib.data.Property.StringProperty
-import com.todoroo.andlib.sql.Field
+import com.todoroo.andlib.sql.Field.field
 import com.todoroo.andlib.sql.Join
 import com.todoroo.andlib.sql.Query
 import com.todoroo.astrid.activity.TaskListFragment
@@ -12,7 +12,7 @@ import com.todoroo.astrid.data.Task
 import org.tasks.preferences.Preferences
 
 internal object TaskListQueryNonRecursive {
-    private val JOIN_TAGS = Task.ID.eq(Field.field("${TaskListFragment.TAGS_METADATA_JOIN}.task"))
+    private val JOIN_TAGS = Task.ID.eq(field("${TaskListFragment.TAGS_METADATA_JOIN}.task"))
     private val JOINS = """
         ${Join.left(Tag.TABLE.`as`(TaskListFragment.TAGS_METADATA_JOIN), JOIN_TAGS)}
         ${TaskListQuery.JOINS}
@@ -26,14 +26,16 @@ internal object TaskListQueryNonRecursive {
 
     fun getNonRecursiveQuery(filter: Filter, preferences: Preferences): List<String> {
         val joinedQuery = JOINS + filter.getSqlQuery()
-        val query = SortHelper.adjustQueryForFlagsAndSort(preferences, joinedQuery, preferences.sortMode)
+        val sortMode = preferences.sortMode
+        val sortGroup = field(SortHelper.getSortGroup(sortMode) ?: "NULL").`as`("sortGroup")
+        val query = SortHelper.adjustQueryForFlagsAndSort(preferences, joinedQuery, sortMode)
         val groupedQuery = if (query.contains("ORDER BY")) {
             query.replace("ORDER BY", "GROUP BY ${Task.ID} ORDER BY")
         } else {
             "$query GROUP BY ${Task.ID}"
         }
         return mutableListOf(
-                Query.select(*FIELDS)
+                Query.select(*FIELDS.plus(sortGroup))
                         .withQueryTemplate(PermaSql.replacePlaceholdersForQuery(groupedQuery))
                         .from(Task.TABLE)
                         .toString())
