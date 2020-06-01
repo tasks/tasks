@@ -177,9 +177,9 @@ class RepeatControlSet : TaskEditControlFragment() {
     override fun controlId() = TAG
 
     override fun hasChanges(original: Task): Boolean {
-        return (recurrenceValue != original.recurrence
-                || original.repeatUntil
-                != if (rrule == null) 0 else DateTime.from(rrule!!.until).millis)
+        val repeatUntil = rrule?.let { DateTime.from(it.until).millis } ?: 0
+        return recurrenceValue != original.recurrence.orEmpty()
+                || original.repeatUntil != repeatUntil
     }
 
     override fun apply(task: Task) {
