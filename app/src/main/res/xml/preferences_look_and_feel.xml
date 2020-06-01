@@ -52,12 +52,6 @@
 
     <SwitchPreferenceCompat
       android:defaultValue="false"
-      android:key="@string/p_disable_subtasks"
-      android:summary="@string/disable_subtasks_summary"
-      android:title="@string/disable_subtasks" />
-
-    <SwitchPreferenceCompat
-      android:defaultValue="false"
       android:key="@string/p_fullTaskTitle"
       android:title="@string/EPr_fullTask_title" />
 

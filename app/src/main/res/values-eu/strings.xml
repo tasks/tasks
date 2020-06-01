@@ -602,8 +602,6 @@
     <string name="auto_dismiss_datetime_edit">Zereginaren edizioa</string>
     <string name="auto_dismiss_datetime_list_summary">Itxi automatikoki zereginen zerrendatik hautatzean</string>
     <string name="auto_dismiss_datetime_list">Zereginen zerrenda</string>
-    <string name="disable_subtasks_summary">Azpi-zereginak desgaitzeak aplikazioaren errendimendua hobetu dezake</string>
-    <string name="disable_subtasks">Desgaitu azpi-zereginak</string>
     <string name="widget_due_date_hidden">Ezkutatuta</string>
     <string name="widget_due_date_below_title">Izenburuaren azpian</string>
     <string name="widget_due_date_after_title">Izenburua eta gero</string>

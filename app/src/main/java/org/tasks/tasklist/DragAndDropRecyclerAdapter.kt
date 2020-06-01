@@ -68,7 +68,7 @@ class DragAndDropRecyclerAdapter(
 
     override fun isHeader(position: Int): Boolean = list.isHeader(position)
 
-    override fun getItem(position: Int): TaskContainer = list.getItem(position)
+    override fun getItem(position: Int) = list.getItem(position)
 
     override fun submitList(list: List<TaskContainer>) {
         disposables.add(

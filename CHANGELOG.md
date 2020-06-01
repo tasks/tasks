@@ -1,6 +1,11 @@
 Change Log
 ---
 =======
+### 9.4.1 (2020-06-01)
+
+* Add 'Tasks settings > Advanced > Improve performance' toggle
+* Bug fixes
+
 ### 9.4 (2020-05-27)
 
 * Add collapsible group headers when sorting by due date, priority, created, or modified

@@ -626,8 +626,6 @@
     <string name="custom_filter_or">LUB</string>
     <string name="custom_filter_and">ORAZ</string>
     <string name="custom_filter_criteria">Kryteria filtrowania</string>
-    <string name="disable_subtasks_summary">Wyłączenie podzadań może zwiększyć wydajność aplikacji</string>
-    <string name="disable_subtasks">Wyłącz podzadania</string>
     <string name="sort_created">Wg. czasu stworzenia</string>
     <string name="got_it">Rozumiem!</string>
     <string name="no_thanks">Nie, dziękuję</string>

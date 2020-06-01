@@ -611,8 +611,6 @@
     <string name="filter_today_only">Alleen vandaag</string>
     <string name="filter_overdue">Te laat</string>
     <string name="sort_created">Op aanmaaktijd</string>
-    <string name="disable_subtasks_summary">Het uitschakelen van deeltaken kan de snelheid van de app verbeteren</string>
-    <string name="disable_subtasks">Deeltaken uitschakelen</string>
     <string name="support_development_subscribe">Ontgrendel extra mogelijkheden en ondersteun open source software</string>
     <string name="got_it">Begrepen!</string>
     <string name="whats_new">Nieuws</string>

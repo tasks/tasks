@@ -600,8 +600,6 @@
     <string name="wearable_notifications">Puettavan laitteen ilmoitukset</string>
     <string name="preferences_advanced">Kehittyneet</string>
     <string name="caldav_account_description">Vaatii palveluntuottajan tai itsehallinnoidun CalDAV tilin. Tutustu palveluntarjoajiin osoitteessa tasks.org/caldav</string>
-    <string name="disable_subtasks_summary">Alatehtävien poisto käytöstä voi parantaa ohjelman suorituskykyä</string>
-    <string name="disable_subtasks">Poista alatehtävät käytöstä</string>
     <string name="whats_new">Päivitykset</string>
     <string name="location_departed">Lähdit paikasta %s</string>
     <string name="location_arrived">Saavuit paikkaan %s</string>

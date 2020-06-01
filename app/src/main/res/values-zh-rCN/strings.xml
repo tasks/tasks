@@ -606,8 +606,6 @@
     <string name="filter_any_due_date">任何到期日</string>
     <string name="filter_today_only">仅今日</string>
     <string name="filter_overdue">到期</string>
-    <string name="disable_subtasks_summary">禁用子任务可能改善应用性能</string>
-    <string name="disable_subtasks">禁用子任务</string>
     <string name="sort_created">按创建时间</string>
     <string name="got_it">知道了！</string>
     <string name="no_thanks">不，谢谢</string>
