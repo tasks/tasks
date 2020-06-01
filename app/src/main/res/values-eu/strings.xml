@@ -626,8 +626,8 @@
     <string name="whats_new_in_version">Zer dago berri %s bertsioan</string>
     <string name="whats_new">Zer dago berri</string>
     <string name="action_new_task">Zeregin berria</string>
-    <string name="sort_modified_group">Aldaketa %d</string>
-    <string name="sort_created_group">Sorrera %d</string>
+    <string name="sort_modified_group">Aldaketa %s</string>
+    <string name="sort_created_group">Sorrera %s</string>
     <string name="yesterday_lowercase">atzo</string>
     <string name="tomorrow_lowercase">bihar</string>
     <string name="today_lowercase">gaur</string>
