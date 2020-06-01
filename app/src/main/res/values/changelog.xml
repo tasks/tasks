@@ -2,6 +2,8 @@
 <resources>
     <string-array name="changelog">
         <item>Add collapsible group headers when sorting by due date, priority, created, or modified</item>
+        <item>Add \'Tasks settings > Advanced > Improve performance\' toggle</item>
+        <item>Bug fixes</item>
         <item>Update translations</item>
     </string-array>
 </resources>
