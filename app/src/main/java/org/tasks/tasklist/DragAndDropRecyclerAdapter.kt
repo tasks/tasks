@@ -51,6 +51,9 @@ class DragAndDropRecyclerAdapter(
         }
     }
 
+    override val sortMode: Int
+        get() = list.sortMode
+
     override fun getItemViewType(position: Int) = if (list.isHeader(position)) 1 else 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder = if (viewType == 1) {
@@ -67,6 +70,8 @@ class DragAndDropRecyclerAdapter(
     override fun dragAndDropEnabled() = taskList.getFilter().supportsSubtasks()
 
     override fun isHeader(position: Int): Boolean = list.isHeader(position)
+
+    override fun nearestHeader(position: Int) = list.getNearestHeader(position)
 
     override fun getItem(position: Int) = list.getItem(position)
 

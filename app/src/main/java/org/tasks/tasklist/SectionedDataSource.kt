@@ -108,4 +108,10 @@ class SectionedDataSource constructor(tasks: List<TaskContainer>, disableHeaders
         val new = AdapterSection(newFirstPosition, old.value, newSectionedPosition, old.collapsed)
         sections.append(new.sectionedPosition, new)
     }
+
+    tailrec fun getNearestHeader(sectionedPosition: Int): Long = if (isHeader(sectionedPosition)) {
+        getHeaderValue(sectionedPosition)
+    } else {
+        getNearestHeader(sectionedPosition - 1)
+    }
 }

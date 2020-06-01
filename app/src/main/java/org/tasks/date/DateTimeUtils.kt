@@ -23,4 +23,6 @@ object DateTimeUtils {
     fun newDateTime(timestamp: Long): DateTime = DateTime(timestamp)
 
     fun Long.toAppleEpoch(): Long = DateTime(this).toAppleEpoch()
+
+    fun Long.toDateTime(): DateTime = DateTime(this)
 }

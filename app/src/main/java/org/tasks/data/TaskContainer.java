@@ -231,4 +231,8 @@ public class TaskContainer {
   public long getCaldavSortOrder() {
     return indent == 0 ? primarySort : secondarySort;
   }
+
+  public int getPriority() {
+    return task.getPriority();
+  }
 }

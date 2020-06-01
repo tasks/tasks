@@ -8,4 +8,8 @@ interface TaskAdapterDataSource {
     fun getTaskCount(): Int
 
     fun isHeader(position: Int): Boolean = false
+
+    fun nearestHeader(position: Int): Long = -1
+
+    val sortMode: Int get() = -1
 }

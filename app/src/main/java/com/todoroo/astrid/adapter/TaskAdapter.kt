@@ -5,12 +5,15 @@
  */
 package com.todoroo.astrid.adapter
 
+import com.todoroo.astrid.core.SortHelper.SORT_DUE
+import com.todoroo.astrid.core.SortHelper.SORT_IMPORTANCE
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.*
 import org.tasks.date.DateTimeUtils.toAppleEpoch
+import org.tasks.date.DateTimeUtils.toDateTime
 import java.util.*
 import kotlin.collections.HashSet
 
@@ -127,6 +130,9 @@ open class TaskAdapter(
         val task = getTask(from)
         val newParent = findParent(indent, to)
         if (newParent?.id ?: 0 == task.parent) {
+            if (indent == 0) {
+                changeSortGroup(task, if (from < to) to - 1 else to)
+            }
             return
         } else if (newParent != null) {
             when {
@@ -141,7 +147,10 @@ open class TaskAdapter(
             }
         }
         when {
-            newParent == null -> moveToTopLevel(task)
+            newParent == null -> {
+                moveToTopLevel(task)
+                changeSortGroup(task, if (from < to) to - 1 else to)
+            }
             newParent.isGoogleTask -> changeGoogleTaskParent(task, newParent)
             newParent.isCaldavTask -> changeCaldavParent(task, newParent)
             else -> changeLocalParent(task, newParent)
@@ -189,10 +198,38 @@ open class TaskAdapter(
         return null
     }
 
-    private fun moveToTopLevel(task: TaskContainer) = when {
-        task.isGoogleTask -> changeGoogleTaskParent(task, null)
-        task.isCaldavTask -> changeCaldavParent(task, null)
-        else -> changeLocalParent(task, null)
+    private fun changeSortGroup(task: TaskContainer, pos: Int) {
+        when(dataSource.sortMode) {
+            SORT_IMPORTANCE -> {
+                val newPriority = dataSource.nearestHeader(if (pos == 0) 1 else pos).toInt()
+                if (newPriority != task.priority) {
+                    val t = task.getTask()
+                    t.priority = newPriority
+                    taskDao.save(t)
+                }
+            }
+            SORT_DUE -> applyDate(task.task, dataSource.nearestHeader(if (pos == 0) 1 else pos))
+        }
+    }
+
+    private fun applyDate(task: Task, date: Long) {
+        val original = task.dueDate
+        task.dueDate = if (date == 0L) {
+            0L
+        } else {
+            date.toDateTime().withMillisOfDay(task.dueDate.toDateTime().millisOfDay).millis
+        }
+        if (original != task.dueDate) {
+            taskDao.save(task)
+        }
+    }
+
+    private fun moveToTopLevel(task: TaskContainer) {
+        when {
+            task.isGoogleTask -> changeGoogleTaskParent(task, null)
+            task.isCaldavTask -> changeCaldavParent(task, null)
+            else -> changeLocalParent(task, null)
+        }
     }
 
     private fun changeLocalParent(task: TaskContainer, newParent: TaskContainer?) {
