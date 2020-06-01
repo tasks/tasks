@@ -2,6 +2,12 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto">
 
+  <SwitchPreferenceCompat
+    android:defaultValue="false"
+    android:key="@string/p_disable_subtasks"
+    android:summary="@string/improve_performance_summary"
+    android:title="@string/improve_performance" />
+
   <Preference
     android:icon="@drawable/ic_outline_attachment_24px"
     android:key="@string/p_attachment_dir"

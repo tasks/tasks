@@ -539,8 +539,6 @@
         <item quantity="many">מעט</item>
         <item quantity="other">אחר</item>
     </plurals>
-    <string name="disable_subtasks_summary">ביטול תתי משימות עשוי לשפר ביצועים</string>
-    <string name="disable_subtasks">ביטול תתי משימות</string>
     <string name="enter_title_hint">הזן כותרת</string>
     <string name="collapse_subtasks">כיווץ תתי משימות</string>
     <string name="expand_subtasks">הרחבת תתי משימות</string>

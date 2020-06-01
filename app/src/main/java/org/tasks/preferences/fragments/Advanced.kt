@@ -13,6 +13,7 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import org.tasks.LocalBroadcastManager
 import org.tasks.PermissionUtil
 import org.tasks.R
 import org.tasks.calendars.CalendarEventProvider
@@ -41,6 +42,7 @@ class Advanced : InjectingPreferenceFragment() {
     @Inject lateinit var toaster: Toaster
     @Inject lateinit var permissionRequester: FragmentPermissionRequestor
     @Inject lateinit var permissionChecker: PermissionChecker
+    @Inject lateinit var localBroadcastManager: LocalBroadcastManager
 
     private lateinit var disposables: CompositeDisposable
     private lateinit var calendarReminderPreference: SwitchPreferenceCompat
@@ -48,6 +50,12 @@ class Advanced : InjectingPreferenceFragment() {
     override fun getPreferenceXml() = R.xml.preferences_advanced
 
     override fun setupPreferences(savedInstanceState: Bundle?) {
+        findPreference(R.string.p_disable_subtasks)
+                .setOnPreferenceChangeListener { _: Preference?, _: Any? ->
+                    localBroadcastManager.broadcastRefresh()
+                    true
+                }
+
         findPreference(R.string.EPr_manage_purge_deleted)
             .setOnPreferenceClickListener {
                 purgeDeletedTasks()
