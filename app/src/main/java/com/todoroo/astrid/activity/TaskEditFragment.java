@@ -177,13 +177,13 @@ public final class TaskEditFragment extends InjectingFragment
       binding.fab.setVisibility(View.INVISIBLE);
     } else if (completed) {
       title.setPaintFlags(title.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-      binding.fab.setImageResource(R.drawable.ic_undo_24px);
+      binding.fab.setImageResource(R.drawable.ic_outline_check_box_outline_blank_24px);
     }
     binding.fab.setOnClickListener(v -> {
       if (completed) {
         completed = false;
         title.setPaintFlags(title.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
-        binding.fab.setImageResource(R.drawable.ic_check_black_24dp);
+        binding.fab.setImageResource(R.drawable.ic_outline_check_box_24px);
       } else {
         completed = true;
         save();
