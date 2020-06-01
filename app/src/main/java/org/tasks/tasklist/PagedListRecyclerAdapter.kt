@@ -22,7 +22,7 @@ class PagedListRecyclerAdapter(
     private val differ: AsyncPagedListDiffer<TaskContainer> =
             AsyncPagedListDiffer(this, AsyncDifferConfig.Builder(ItemCallback()).build())
 
-    override fun getItem(position: Int) = differ.getItem(position)!!
+    override fun getItem(position: Int) = differ.getItem(position)
 
     override fun submitList(list: List<TaskContainer>) = differ.submitList(list as PagedList<TaskContainer>)
 

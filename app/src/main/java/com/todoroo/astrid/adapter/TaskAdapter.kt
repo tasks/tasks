@@ -78,7 +78,7 @@ open class TaskAdapter {
 
     fun isHeader(position: Int): Boolean = dataSource.isHeader(position)
 
-    fun getTask(position: Int): TaskContainer = dataSource.getItem(position)
+    fun getTask(position: Int): TaskContainer = dataSource.getItem(position)!!
 
     fun getItemUuid(position: Int): String = getTask(position).uuid
 
