@@ -1,6 +1,27 @@
 Change Log
 ---
 =======
+### 9.5 (2020-06-01)
+
+* Drag and drop to change subtasks in all list types
+* Drag and drop to reprioritize or reschedule tasks while sorting by due date
+  or priority
+* Update translations
+  * Basque - @osoitz
+  * Czech - Radek Řehořek
+  * Dutch - @fvbommel
+  * Finnish - Rami Lehtinen
+  * French - @FlorianLeChat
+  * German - @sklueber
+  * Hungarian - kaciokos
+  * Korean - @Sunjae Choi
+  * Norwegian Bokmål - @comradekingu
+  * Polish - @alex-ter
+  * Russian - @alex-ter
+  * Simplified Chinese - @sr093906
+  * Spanish - @FlorianLeChat
+  * Turkish - etc, Oğuz Ersen
+
 ### 9.4.1 (2020-06-01)
 
 * Add 'Tasks settings > Advanced > Improve performance' toggle

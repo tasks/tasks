@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="changelog">
-        <item>Add collapsible group headers when sorting by due date, priority, created, or modified</item>
-        <item>Add \'Tasks settings > Advanced > Improve performance\' toggle</item>
-        <item>Bug fixes</item>
+        <item>Drag and drop to change subtasks in all list types</item>
+        <item>Drag and drop to reprioritize or reschedule tasks while sorting by due date or priority</item>
         <item>Update translations</item>
     </string-array>
 </resources>
