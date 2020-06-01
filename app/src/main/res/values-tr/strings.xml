@@ -350,8 +350,8 @@
     <string name="pick_from_gallery">Galeriden seç</string>
     <string name="pick_from_storage">Depolamadan seç</string>
     <string name="privacy_policy">Gizlilik politikası</string>
-    <string name="send_anonymous_statistics">Task\'ı İyileştir</string>
-    <string name="send_anonymous_statistics_summary">Tasks\'ı iyileştirmeye yardımcı olmak için anonim kullanım istatistiklerini ve kilitlenme raporlarını gönderin. Hiçbir kişisel veri toplanmayacak.</string>
+    <string name="send_anonymous_statistics">Tasks\'ı İyileştir</string>
+    <string name="send_anonymous_statistics_summary">Tasks\'ı iyileştirmeye yardımcı olmak için anonim kullanım istatistiklerini ve çökme raporlarını gönderin. Hiçbir kişisel veri toplanmayacak.</string>
     <string name="tag_already_exists">Etiket zaten var</string>
     <string name="name_cannot_be_empty">Ad boş olamaz</string>
     <string name="username_required">Kullanıcı adı gerekli</string>
