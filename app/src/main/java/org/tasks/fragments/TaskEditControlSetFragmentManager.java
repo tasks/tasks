@@ -87,6 +87,7 @@ public class TaskEditControlSetFragmentManager {
     String hideAlwaysTrigger = context.getString(R.string.TEA_ctrl_hide_section_pref);
     for (numRows = 0; numRows < displayOrder.size(); numRows++) {
       if (displayOrder.get(numRows).equals(hideAlwaysTrigger)) {
+        displayOrder.remove(numRows);
         break;
       }
     }
@@ -116,7 +117,7 @@ public class TaskEditControlSetFragmentManager {
 
     List<TaskEditControlFragment> fragments = new ArrayList<>();
     FragmentManager fragmentManager = taskEditFragment.getChildFragmentManager();
-    for (int i = 0; i < numRows; i++) {
+    for (int i = 0; i < displayOrder.size(); i++) {
       String tag = displayOrder.get(i);
       TaskEditControlFragment fragment =
           (TaskEditControlFragment) fragmentManager.findFragmentByTag(tag);
@@ -163,5 +164,9 @@ public class TaskEditControlSetFragmentManager {
       default:
         throw new RuntimeException("Unsupported fragment");
     }
+  }
+
+  public int getVisibleSize() {
+    return numRows;
   }
 }

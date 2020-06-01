@@ -219,7 +219,7 @@ public final class TaskEditFragment extends InjectingFragment
     FragmentManager fragmentManager = getChildFragmentManager();
     List<TaskEditControlFragment> taskEditControlFragments =
         taskEditControlSetFragmentManager.getOrCreateFragments(this, model);
-
+    int visibleSize = taskEditControlSetFragmentManager.getVisibleSize();
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
     for (int i = 0; i < taskEditControlFragments.size(); i++) {
       TaskEditControlFragment taskEditControlFragment = taskEditControlFragments.get(i);
@@ -228,10 +228,13 @@ public final class TaskEditFragment extends InjectingFragment
           TaskEditControlSetFragmentManager.TASK_EDIT_CONTROL_FRAGMENT_ROWS[i],
           taskEditControlFragment,
           tag);
+      if (i >= visibleSize) {
+        fragmentTransaction.hide(taskEditControlFragment);
+      }
     }
     fragmentTransaction.commit();
 
-    for (int i = taskEditControlFragments.size() - 1; i > 0; i--) {
+    for (int i = visibleSize - 1; i > 0; i--) {
       binding.controlSets.addView(inflater.inflate(R.layout.task_edit_row_divider, binding.controlSets, false), i);
     }
 
