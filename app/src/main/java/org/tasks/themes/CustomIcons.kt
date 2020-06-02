@@ -6,7 +6,6 @@ object CustomIcons {
 
     const val LABEL = 1
     const val FILTER = 2
-    const val CLOUD = 3
     const val ALL_INBOX = 4
     const val HISTORY = 6
     const val TODAY = 7
@@ -17,7 +16,7 @@ object CustomIcons {
     var ICONS = mapOf(
         LABEL to R.drawable.ic_outline_label_24px,
         FILTER to R.drawable.ic_outline_filter_list_24px,
-        CLOUD to R.drawable.ic_outline_cloud_24px,
+        3 to R.drawable.ic_outline_cloud_24px,
         ALL_INBOX to R.drawable.ic_outline_all_inbox_24px,
         5 to R.drawable.ic_outline_label_off_24px,
         HISTORY to R.drawable.ic_outline_history_24px,

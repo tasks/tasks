@@ -101,8 +101,8 @@ class FilterViewHolder : RecyclerView.ViewHolder {
         }
         return when (filter) {
             is TagFilter -> R.drawable.ic_outline_label_24px
-            is GtasksFilter -> R.drawable.ic_outline_cloud_24px
-            is CaldavFilter -> R.drawable.ic_outline_cloud_24px
+            is GtasksFilter -> R.drawable.ic_list_24px
+            is CaldavFilter -> R.drawable.ic_list_24px
             is CustomFilter -> R.drawable.ic_outline_filter_list_24px
             is PlaceFilter -> R.drawable.ic_outline_place_24px
             else -> filter.icon

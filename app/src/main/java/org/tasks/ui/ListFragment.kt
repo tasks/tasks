@@ -114,7 +114,7 @@ class ListFragment : TaskEditControlFragment() {
         get() = R.layout.control_set_remote_list
 
     override val icon: Int
-        get() = R.drawable.ic_outline_cloud_24px
+        get() = R.drawable.ic_list_24px
 
     override fun controlId() = TAG
 
@@ -178,7 +178,7 @@ class ListFragment : TaskEditControlFragment() {
             textView.visibility = View.GONE
             chipGroup.visibility = View.VISIBLE
             chipGroup.removeAllViews()
-            val chip = chipProvider.newChip(selectedList, R.drawable.ic_outline_cloud_24px, true, true)
+            val chip = chipProvider.newChip(selectedList, R.drawable.ic_list_24px, true, true)
             chip.isCloseIconVisible = true
             chip.setOnClickListener { openPicker() }
             chip.setOnCloseIconClickListener { setSelected(null) }

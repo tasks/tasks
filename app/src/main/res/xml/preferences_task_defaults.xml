@@ -3,7 +3,7 @@
   xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <Preference
-    android:icon="@drawable/ic_outline_cloud_24px"
+    android:icon="@drawable/ic_list_24px"
     android:key="@string/p_default_remote_list"
     android:title="@string/default_sync"
     app:allowDividerAbove="true" />

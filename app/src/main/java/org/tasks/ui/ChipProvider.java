@@ -121,10 +121,10 @@ public class ChipProvider {
           chips.add(
               newChip(
                   lists.getGoogleTaskList(task.getGoogleTaskList()),
-                  R.drawable.ic_outline_cloud_24px));
+                  R.drawable.ic_list_24px));
         } else if (!isNullOrEmpty(task.getCaldav()) && !(filter instanceof CaldavFilter)) {
           chips.add(
-              newChip(lists.getCaldavList(task.getCaldav()), R.drawable.ic_outline_cloud_24px));
+              newChip(lists.getCaldavList(task.getCaldav()), R.drawable.ic_list_24px));
         }
       }
       String tagString = task.getTagsString();

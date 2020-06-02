@@ -182,7 +182,7 @@ public abstract class BaseListSettingsActivity extends ThemedInjectingAppCompatA
     themeColor.applyToSystemBars(this);
     Integer icon = CustomIcons.getIconResId(selectedIcon);
     if (icon == null) {
-      icon = CustomIcons.getIconResId(CustomIcons.CLOUD);
+      icon = CustomIcons.getIconResId(CustomIcons.LIST);
     }
     DrawableUtil.setLeftDrawable(this, this.icon, icon);
     getLeftDrawable(this.icon).setTint(getColor(R.color.icon_tint_with_alpha));

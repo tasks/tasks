@@ -6,10 +6,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import com.todoroo.andlib.data.Property
 import com.todoroo.andlib.data.Table
 import com.todoroo.astrid.data.Task
-import org.tasks.themes.CustomIcons.CLOUD
+import org.tasks.themes.CustomIcons.LIST
 
 @Entity(tableName = "caldav_lists")
 class CaldavCalendar : Parcelable {
@@ -59,7 +58,7 @@ class CaldavCalendar : Parcelable {
     }
 
     fun getIcon(): Int? {
-        return (if (icon == null) CLOUD else icon!!)
+        return (if (icon == null) LIST else icon!!)
     }
 
     fun setIcon(icon: Int?) {
