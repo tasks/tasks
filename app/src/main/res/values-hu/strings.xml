@@ -626,4 +626,5 @@
     <string name="yesterday_lowercase">tegnap</string>
     <string name="tomorrow_lowercase">holnap</string>
     <string name="today_lowercase">ma</string>
+    <string name="improve_performance">Teljesítmény növelése</string>
 </resources>
