@@ -52,7 +52,7 @@ class DashClock : InjectingPreferenceFragment() {
 
     private fun refreshPreferences() {
         val filter = defaultFilterProvider.getFilterFromPreference(R.string.p_dashclock_filter)
-        findPreference(R.string.p_dashclock_filter).summary = filter.listingTitle
+        findPreference(R.string.p_dashclock_filter).summary = filter?.listingTitle
     }
 
     override fun inject(component: FragmentComponent) = component.inject(this)

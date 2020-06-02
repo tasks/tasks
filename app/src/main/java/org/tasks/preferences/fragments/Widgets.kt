@@ -33,7 +33,7 @@ class Widgets : InjectingPreferenceFragment() {
             val widgetPrefs = WidgetPreferences(context, preferences, it)
             val pref = Preference(context)
             val filter = defaultFilterProvider.getFilterFromPreference(widgetPrefs.filterId)
-            pref.title = filter.listingTitle
+            pref.title = filter?.listingTitle
             pref.summary = getString(R.string.widget_id, it)
             val intent = Intent(context, WidgetConfigActivity::class.java)
             intent.putExtra(android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID, it)

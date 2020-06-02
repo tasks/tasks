@@ -248,7 +248,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         }
         filter = newFilter
         navigationDrawer.setSelected(filter)
-        defaultFilterProvider.setLastViewedFilter(filter)
+        defaultFilterProvider.lastViewedFilter = filter
         applyTheme()
         val fragmentManager = supportFragmentManager
         fragmentManager

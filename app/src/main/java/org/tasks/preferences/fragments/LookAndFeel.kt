@@ -97,8 +97,8 @@ class LookAndFeel : InjectingPreferenceFragment() {
         }
 
         val defaultList = findPreference(R.string.p_default_list)
-        val filter: Filter = defaultFilterProvider.defaultFilter
-        defaultList.summary = filter.listingTitle
+        val filter: Filter? = defaultFilterProvider.defaultFilter
+        defaultList.summary = filter?.listingTitle
         defaultList.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             val intent = Intent(context, FilterSelectionActivity::class.java)
             intent.putExtra(
