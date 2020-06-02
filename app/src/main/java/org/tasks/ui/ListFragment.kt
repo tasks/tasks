@@ -25,7 +25,7 @@ import org.tasks.injection.FragmentComponent
 import org.tasks.preferences.DefaultFilterProvider
 import javax.inject.Inject
 
-class RemoteListFragment : TaskEditControlFragment() {
+class ListFragment : TaskEditControlFragment() {
     @BindView(R.id.dont_sync)
     lateinit var textView: TextView
 
@@ -44,7 +44,7 @@ class RemoteListFragment : TaskEditControlFragment() {
     private lateinit var callback: OnListChanged
 
     interface OnListChanged {
-        fun onListchanged(filter: Filter?)
+        fun onListChanged(filter: Filter?)
     }
 
     override fun onAttach(activity: Activity) {
@@ -97,7 +97,7 @@ class RemoteListFragment : TaskEditControlFragment() {
     private fun setSelected(filter: Filter?) {
         selectedList = filter
         refreshView()
-        callback.onListchanged(filter)
+        callback.onListChanged(filter)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

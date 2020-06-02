@@ -57,7 +57,7 @@ import org.tasks.themes.ThemeColor
 import org.tasks.ui.DeadlineControlSet.DueDateChangeListener
 import org.tasks.ui.EmptyTaskEditFragment.Companion.newEmptyTaskEditFragment
 import org.tasks.ui.NavigationDrawerFragment
-import org.tasks.ui.RemoteListFragment.OnListChanged
+import org.tasks.ui.ListFragment.OnListChanged
 import org.tasks.ui.TaskListViewModel
 import javax.inject.Inject
 
@@ -434,7 +434,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         taskEditFragment!!.onDueDateChanged(dateTime)
     }
 
-    override fun onListchanged(filter: Filter?) {
+    override fun onListChanged(filter: Filter?) {
         taskEditFragment!!.onRemoteListChanged(filter)
     }
 

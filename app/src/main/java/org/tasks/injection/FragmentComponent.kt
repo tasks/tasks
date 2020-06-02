@@ -29,7 +29,7 @@ interface FragmentComponent {
     fun inject(fragment: DescriptionControlSet)
     fun inject(fragment: CalendarControlSet)
     fun inject(fragment: TaskListFragment)
-    fun inject(fragment: RemoteListFragment)
+    fun inject(fragment: ListFragment)
     fun inject(fragment: LocationControlSet)
     fun inject(fragment: SubtaskControlSet)
     fun inject(fragment: TaskListViewModel)

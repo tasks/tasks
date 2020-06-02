@@ -26,7 +26,7 @@ import org.tasks.ui.DeadlineControlSet;
 import org.tasks.ui.DescriptionControlSet;
 import org.tasks.ui.LocationControlSet;
 import org.tasks.ui.PriorityControlSet;
-import org.tasks.ui.RemoteListFragment;
+import org.tasks.ui.ListFragment;
 import org.tasks.ui.SubtaskControlSet;
 import org.tasks.ui.TaskEditControlFragment;
 
@@ -64,7 +64,7 @@ public class TaskEditControlSetFragmentManager {
         TagsControlSet.TAG,
         RepeatControlSet.TAG,
         CommentBarFragment.TAG,
-        RemoteListFragment.TAG,
+        ListFragment.TAG,
         SubtaskControlSet.TAG
       };
 
@@ -157,8 +157,8 @@ public class TaskEditControlSetFragmentManager {
         return new RepeatControlSet();
       case CommentBarFragment.TAG:
         return new CommentBarFragment();
-      case RemoteListFragment.TAG:
-        return new RemoteListFragment();
+      case ListFragment.TAG:
+        return new ListFragment();
       case SubtaskControlSet.TAG:
         return new SubtaskControlSet();
       default:
