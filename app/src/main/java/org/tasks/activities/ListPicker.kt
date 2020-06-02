@@ -22,14 +22,14 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.filters.FilterProvider
-import org.tasks.gtasks.RemoteListSelectionHandler
+import org.tasks.gtasks.ListSelectionHandler
 import org.tasks.injection.DialogFragmentComponent
 import org.tasks.injection.InjectingDialogFragment
 import org.tasks.sync.AddAccountDialog
 import org.tasks.sync.SyncAdapters
 import javax.inject.Inject
 
-class ListPicker : InjectingDialogFragment(), RemoteListSelectionHandler {
+class ListPicker : InjectingDialogFragment(), ListSelectionHandler {
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var filterAdapter: FilterAdapter
     @Inject lateinit var filterProvider: FilterProvider
@@ -72,11 +72,11 @@ class ListPicker : InjectingDialogFragment(), RemoteListSelectionHandler {
 
     override fun addAccount() = AddAccountDialog.showAddAccountDialog(activity, dialogBuilder)
 
-    override fun selectedList(filter: Filter) {
+    override fun selectedList(list: Filter?) {
         targetFragment!!.onActivityResult(
                 targetRequestCode,
                 Activity.RESULT_OK,
-                Intent().putExtra(EXTRA_SELECTED_FILTER, filter))
+                Intent().putExtra(EXTRA_SELECTED_FILTER, list))
     }
 
     private fun refresh() {
@@ -114,7 +114,7 @@ class ListPicker : InjectingDialogFragment(), RemoteListSelectionHandler {
                 filterAdapter: FilterAdapter,
                 dialogBuilder: DialogBuilder,
                 syncAdapters: SyncAdapters,
-                handler: RemoteListSelectionHandler): AlertDialog {
+                handler: ListSelectionHandler): AlertDialog {
             val builder = dialogBuilder
                     .newDialog()
                     .setNegativeButton(android.R.string.cancel, null)
