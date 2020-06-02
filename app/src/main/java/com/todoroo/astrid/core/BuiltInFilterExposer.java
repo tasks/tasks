@@ -83,7 +83,7 @@ public final class BuiltInFilterExposer {
 
   public Filter getMyTasksFilter() {
     Filter myTasksFilter = getMyTasksFilter(context.getResources());
-    myTasksFilter.icon = CustomIcons.getALL_INBOX();
+    myTasksFilter.icon = CustomIcons.ALL_INBOX;
     return myTasksFilter;
   }
 
@@ -92,12 +92,12 @@ public final class BuiltInFilterExposer {
     List<Filter> filters = new ArrayList<>();
     if (preferences.getBoolean(R.string.p_show_today_filter, true)) {
       Filter todayFilter = getTodayFilter(r);
-      todayFilter.icon = CustomIcons.getTODAY();
+      todayFilter.icon = CustomIcons.TODAY;
       filters.add(todayFilter);
     }
     if (preferences.getBoolean(R.string.p_show_recently_modified_filter, true)) {
       Filter recentlyModifiedFilter = getRecentlyModifiedFilter(r);
-      recentlyModifiedFilter.icon = CustomIcons.getHISTORY();
+      recentlyModifiedFilter.icon = CustomIcons.HISTORY;
       filters.add(recentlyModifiedFilter);
     }
     return filters;

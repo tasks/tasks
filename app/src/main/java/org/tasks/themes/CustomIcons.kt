@@ -4,28 +4,16 @@ import org.tasks.R
 
 object CustomIcons {
 
-    @kotlin.jvm.JvmStatic
-    val LABEL = 1
+    const val LABEL = 1
+    const val FILTER = 2
+    const val CLOUD = 3
+    const val ALL_INBOX = 4
+    const val HISTORY = 6
+    const val TODAY = 7
+    const val LIST = 8
+    const val PLACE = 1050
 
-    @kotlin.jvm.JvmStatic
-    val FILTER = 2
-
-    @kotlin.jvm.JvmStatic
-    val CLOUD = 3
-
-    @kotlin.jvm.JvmStatic
-    val ALL_INBOX = 4
-
-    @kotlin.jvm.JvmStatic
-    val HISTORY = 6
-
-    @kotlin.jvm.JvmStatic
-    val TODAY = 7
-
-    @kotlin.jvm.JvmStatic
-    val PLACE = 1050
-
-    @kotlin.jvm.JvmField
+    @JvmStatic
     var ICONS = mapOf(
         LABEL to R.drawable.ic_outline_label_24px,
         FILTER to R.drawable.ic_outline_filter_list_24px,
@@ -34,6 +22,7 @@ object CustomIcons {
         5 to R.drawable.ic_outline_label_off_24px,
         HISTORY to R.drawable.ic_outline_history_24px,
         TODAY to R.drawable.ic_outline_today_24px,
+        LIST to R.drawable.ic_list_24px,
         1000 to R.drawable.ic_outline_flag_24px,
         1062 to R.drawable.ic_outline_home_24px,
         1041 to R.drawable.ic_outline_work_outline_24px,
@@ -197,12 +186,12 @@ object CustomIcons {
         1160 to R.drawable.ic_thumb_down_24px
     )
 
-    @kotlin.jvm.JvmStatic
+    @JvmStatic
     fun getIconList() = ICONS.keys.toList()
 
-    @kotlin.jvm.JvmStatic
+    @JvmStatic
     fun getIconResId(index: Int) = ICONS[index]
 
-    @kotlin.jvm.JvmStatic
+    @JvmStatic
     fun getIndex(position: Int) = getIconList()[position]
 }
