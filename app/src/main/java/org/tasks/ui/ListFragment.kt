@@ -16,7 +16,7 @@ import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.gtasks.GtasksListService
 import com.todoroo.astrid.service.TaskMover
 import org.tasks.R
-import org.tasks.activities.RemoteListPicker
+import org.tasks.activities.ListPicker
 import org.tasks.data.CaldavDao
 import org.tasks.data.CaldavTask
 import org.tasks.data.GoogleTask
@@ -126,7 +126,7 @@ class ListFragment : TaskEditControlFragment() {
         get() = true
 
     private fun openPicker() {
-        RemoteListPicker.newRemoteListSupportPicker(selectedList, this, REQUEST_CODE_SELECT_LIST)
+        ListPicker.newListPicker(selectedList, this, REQUEST_CODE_SELECT_LIST)
                 .show(parentFragmentManager, FRAG_TAG_GOOGLE_TASK_LIST_SELECTION)
     }
 
@@ -153,7 +153,7 @@ class ListFragment : TaskEditControlFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_CODE_SELECT_LIST) {
             if (resultCode == Activity.RESULT_OK) {
-                setList(data?.getParcelableExtra(RemoteListPicker.EXTRA_SELECTED_FILTER))
+                setList(data?.getParcelableExtra(ListPicker.EXTRA_SELECTED_FILTER))
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)

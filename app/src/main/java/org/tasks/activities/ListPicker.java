@@ -30,7 +30,7 @@ import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.sync.AddAccountDialog;
 import org.tasks.sync.SyncAdapters;
 
-public class RemoteListPicker extends InjectingDialogFragment
+public class ListPicker extends InjectingDialogFragment
     implements RemoteListSelectionHandler {
 
   public static final String EXTRA_SELECTED_FILTER = "extra_selected_filter";
@@ -50,9 +50,9 @@ public class RemoteListPicker extends InjectingDialogFragment
     }
   };
 
-  public static RemoteListPicker newRemoteListSupportPicker(
+  public static ListPicker newListPicker(
       Filter selected, Fragment targetFragment, int requestCode) {
-    RemoteListPicker dialog = new RemoteListPicker();
+    ListPicker dialog = new ListPicker();
     Bundle arguments = new Bundle();
     arguments.putParcelable(EXTRA_SELECTED_FILTER, selected);
     dialog.setArguments(arguments);
@@ -60,9 +60,8 @@ public class RemoteListPicker extends InjectingDialogFragment
     return dialog;
   }
 
-  public static RemoteListPicker newRemoteListSupportPicker(
-      Fragment targetFragment, int requestCode) {
-    RemoteListPicker dialog = new RemoteListPicker();
+  public static ListPicker newListPicker(Fragment targetFragment, int requestCode) {
+    ListPicker dialog = new ListPicker();
     Bundle arguments = new Bundle();
     arguments.putBoolean(EXTRA_NO_SELECTION, true);
     dialog.setArguments(arguments);

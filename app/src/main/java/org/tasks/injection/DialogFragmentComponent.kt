@@ -1,7 +1,7 @@
 package org.tasks.injection
 
 import dagger.Subcomponent
-import org.tasks.activities.RemoteListPicker
+import org.tasks.activities.ListPicker
 import org.tasks.calendars.CalendarPicker
 import org.tasks.dialogs.*
 import org.tasks.locale.LocalePickerDialog
@@ -12,7 +12,7 @@ import org.tasks.repeats.CustomRecurrenceDialog
 
 @Subcomponent(modules = [DialogFragmentModule::class])
 interface DialogFragmentComponent {
-    fun inject(dialogFragment: RemoteListPicker)
+    fun inject(dialogFragment: ListPicker)
     fun inject(dialogFragment: NotificationDialog)
     fun inject(dialogFragment: CalendarPicker)
     fun inject(dialogFragment: AddAttachmentDialog)

@@ -525,7 +525,7 @@ class TaskListFragment : InjectingFragment(), OnRefreshListener, Toolbar.OnMenuI
             REQUEST_MOVE_TASKS -> if (resultCode == Activity.RESULT_OK) {
                 taskMover.move(
                         taskAdapter.getSelected(),
-                        data!!.getParcelableExtra(RemoteListPicker.EXTRA_SELECTED_FILTER))
+                        data!!.getParcelableExtra(ListPicker.EXTRA_SELECTED_FILTER))
                 finishActionMode()
             }
             REQUEST_LIST_SETTINGS -> if (resultCode == Activity.RESULT_OK) {
@@ -623,7 +623,7 @@ class TaskListFragment : InjectingFragment(), OnRefreshListener, Toolbar.OnMenuI
             }
             R.id.move_tasks -> {
                 val singleFilter = taskMover.getSingleFilter(selected)
-                (if (singleFilter == null) RemoteListPicker.newRemoteListSupportPicker(this, REQUEST_MOVE_TASKS) else RemoteListPicker.newRemoteListSupportPicker(singleFilter, this, REQUEST_MOVE_TASKS))
+                (if (singleFilter == null) ListPicker.newListPicker(this, REQUEST_MOVE_TASKS) else ListPicker.newListPicker(singleFilter, this, REQUEST_MOVE_TASKS))
                         .show(parentFragmentManager, FRAG_TAG_REMOTE_LIST_PICKER)
                 true
             }

@@ -8,7 +8,7 @@ import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
 import org.tasks.R
-import org.tasks.activities.RemoteListPicker
+import org.tasks.activities.ListPicker
 import org.tasks.calendars.CalendarPicker
 import org.tasks.calendars.CalendarPicker.newCalendarPicker
 import org.tasks.calendars.CalendarProvider
@@ -46,7 +46,7 @@ class TaskDefaults : InjectingPreferenceFragment() {
 
         findPreference(R.string.p_default_remote_list)
             .setOnPreferenceClickListener {
-                RemoteListPicker.newRemoteListSupportPicker(
+                ListPicker.newListPicker(
                     defaultFilterProvider.defaultRemoteList,
                     this,
                     REQUEST_REMOTE_LIST
@@ -61,7 +61,7 @@ class TaskDefaults : InjectingPreferenceFragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_REMOTE_LIST) {
-            val list: Filter? = data!!.getParcelableExtra(RemoteListPicker.EXTRA_SELECTED_FILTER)
+            val list: Filter? = data!!.getParcelableExtra(ListPicker.EXTRA_SELECTED_FILTER)
             if (list == null) {
                 preferences.setString(R.string.p_default_remote_list, null)
             } else if (list is GtasksFilter || list is CaldavFilter) {
