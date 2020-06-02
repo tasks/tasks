@@ -624,4 +624,6 @@
     <string name="yesterday_lowercase">gisteren</string>
     <string name="tomorrow_lowercase">morgen</string>
     <string name="today_lowercase">vandaag</string>
+    <string name="improve_performance_summary">Zet sorteergroepen en inklapbare subtaken uit om prestaties te verbeteren</string>
+    <string name="improve_performance">Verbeter prestaties</string>
 </resources>
