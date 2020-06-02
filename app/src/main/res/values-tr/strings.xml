@@ -362,7 +362,6 @@
     <string name="no_title">(Başlıksız)</string>
     <string name="back_button_saves_task">Geri düğmesi görevi kaydeder</string>
     <string name="default_list">Öntanımlı liste</string>
-    <string name="default_sync">Öntanımlı eşzamanlama</string>
     <string name="filter">Süzgeç</string>
     <string name="opacity">Şeffaflık</string>
     <string name="theme">Gövde</string>

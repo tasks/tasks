@@ -371,7 +371,6 @@
     <string name="no_title">(Bez tytułu)</string>
     <string name="back_button_saves_task">Przycisk Cofnij zapisuje zadanie</string>
     <string name="default_list">Domyślna lista</string>
-    <string name="default_sync">Domyślnie synchronizuj</string>
     <string name="filter">Filtr</string>
     <string name="opacity">Nieprzezroczystość</string>
     <string name="theme">Motyw</string>

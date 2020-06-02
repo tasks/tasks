@@ -360,7 +360,6 @@
     <string name="no_title">(Без заглавие)</string>
     <string name="back_button_saves_task">Бутон \"Назад\" запазва задачата</string>
     <string name="default_list">Списък по подразбиране</string>
-    <string name="default_sync">Синхронизация по подразбиране</string>
     <string name="filter">Филтър</string>
     <string name="opacity">Непрозрачност</string>
     <string name="theme">Тема</string>

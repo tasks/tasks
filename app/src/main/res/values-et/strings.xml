@@ -225,7 +225,6 @@
     <string name="no_title">(Pealkirjata)</string>
     <string name="back_button_saves_task">Tagasi nupp salvestab ülesande</string>
     <string name="default_list">Vaikimisi nimekiri</string>
-    <string name="default_sync">Vaikimisi sünkroonimine</string>
     <string name="filter">Filter</string>
     <string name="opacity">Läbipaistvus</string>
     <string name="theme">Teema</string>

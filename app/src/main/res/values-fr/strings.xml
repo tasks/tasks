@@ -342,7 +342,6 @@
     <string name="no_title">(Sans titre)</string>
     <string name="back_button_saves_task">Faire un retour-arrière sauvegarde la tâche</string>
     <string name="default_list">Liste par défaut</string>
-    <string name="default_sync">Synchronisation par défaut</string>
     <string name="filter">Filtre</string>
     <string name="opacity">Transparence</string>
     <string name="theme">Thème</string>

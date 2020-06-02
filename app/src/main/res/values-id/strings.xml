@@ -275,7 +275,6 @@
     <string name="no_title">(Tanpa judul)</string>
     <string name="back_button_saves_task">Tombol kembali menyimpan tugas</string>
     <string name="default_list">Daftar default</string>
-    <string name="default_sync">Sinkronisasi default</string>
     <string name="filter">Filter</string>
     <string name="opacity">Opasitas</string>
     <string name="theme">Tema</string>

@@ -359,7 +359,6 @@
     <string name="no_title">(Név nélkül)</string>
     <string name="back_button_saves_task">A vissza gomb elmenti a feladatot</string>
     <string name="default_list">Alapértelmezett lista</string>
-    <string name="default_sync">Alapértelmezett szinkronizáció</string>
     <string name="filter">Szűrő</string>
     <string name="opacity">Átlátszóság</string>
     <string name="theme">Téma</string>

@@ -5,8 +5,7 @@
   <Preference
     android:icon="@drawable/ic_list_24px"
     android:key="@string/p_default_remote_list"
-    android:title="@string/default_sync"
-    app:allowDividerAbove="true" />
+    android:title="@string/default_list" />
 
   <ListPreference
     android:defaultValue="2"

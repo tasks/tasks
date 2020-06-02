@@ -355,7 +355,6 @@
     <string name="no_title">(kein Titel)</string>
     <string name="back_button_saves_task">Zurück-Button speichert die Aufgabe</string>
     <string name="default_list">Standard-Liste</string>
-    <string name="default_sync">Standardsynchronisation</string>
     <string name="opacity">Deckkraft</string>
     <string name="color">Farbe</string>
     <string name="accent">Akzent</string>

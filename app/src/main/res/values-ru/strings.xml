@@ -378,7 +378,6 @@
     <string name="no_title">(Без заголовка)</string>
     <string name="back_button_saves_task">Кнопка «Назад» сохраняет задачу</string>
     <string name="default_list">Список по умолчанию</string>
-    <string name="default_sync">Синхронизация по умолчанию</string>
     <string name="filter">Фильтр</string>
     <string name="opacity">Непрозрачность</string>
     <string name="theme">Цветовая тема</string>

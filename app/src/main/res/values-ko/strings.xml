@@ -360,7 +360,6 @@
     <string name="no_title">(제목 없음)</string>
     <string name="back_button_saves_task">뒤로가기 버튼으로 할일 저장</string>
     <string name="default_list">기본 목록</string>
-    <string name="default_sync">기본 동기화</string>
     <string name="filter">필터</string>
     <string name="opacity">불투명도</string>
     <string name="theme">테마</string>

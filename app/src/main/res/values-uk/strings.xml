@@ -375,7 +375,6 @@
     <string name="no_title">(без назви)</string>
     <string name="back_button_saves_task">Зберігати завдання кнопкою Назад</string>
     <string name="default_list">Типовий список</string>
-    <string name="default_sync">Синхронізація за замовчуванням</string>
     <string name="filter">Фільтр</string>
     <string name="opacity">Прозорість</string>
     <string name="theme">Тема</string>

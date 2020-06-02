@@ -353,7 +353,6 @@
     <string name="no_title">(geen titel)</string>
     <string name="back_button_saves_task">Terug knop slaat taak op</string>
     <string name="default_list">Standaard lijst</string>
-    <string name="default_sync">Standaard synchronisatie</string>
     <string name="opacity">Transparantie</string>
     <string name="theme">Thema</string>
     <string name="color">Kleur</string>

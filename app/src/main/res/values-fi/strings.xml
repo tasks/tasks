@@ -337,7 +337,6 @@
     <string name="no_title">(Ei nimikettä)</string>
     <string name="back_button_saves_task">Takaisin -painike tallentaa tehtävän</string>
     <string name="default_list">Oletuslista</string>
-    <string name="default_sync">Oletus synkronointi</string>
     <string name="filter">Suodatin</string>
     <string name="opacity">Läpinäkyvyys</string>
     <string name="theme">Teema</string>

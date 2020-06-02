@@ -390,7 +390,6 @@
     <string name="no_title">(Ingen tittel)</string>
     <string name="back_button_saves_task">Tilbakeknapp lagrer gjøremål</string>
     <string name="default_list">Forvalgt liste</string>
-    <string name="default_sync">Forvalgt synkronisering</string>
     <string name="filter">Filter</string>
     <string name="theme">Drakt</string>
     <string name="color">Farge</string>

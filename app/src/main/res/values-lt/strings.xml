@@ -356,7 +356,6 @@
     <string name="no_title">(Be pavadinimo)</string>
     <string name="back_button_saves_task">Mygtukas \"Atgal\" išsaugo pakitimus</string>
     <string name="default_list">Numatytasis sąrašas</string>
-    <string name="default_sync">Numatytoji sinchronizacija</string>
     <string name="filter">Filtras</string>
     <string name="opacity">Permatomumas</string>
     <string name="theme">Tema</string>

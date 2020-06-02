@@ -395,7 +395,6 @@
     <string name="no_title">(אין כותרת)</string>
     <string name="back_button_saves_task">כפתור \"חזרה\" שומר שינויים במשימה</string>
     <string name="default_list">רשימת ברירת מחדל</string>
-    <string name="default_sync">סנכרון ברירת מחדל</string>
     <string name="filter">סינון</string>
     <string name="opacity">אטימות</string>
     <string name="theme">ערכת נושא</string>
