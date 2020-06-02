@@ -27,12 +27,24 @@
     android:summaryOff="@string/desaturate_colors_summary_off" />
 
   <PreferenceCategory
-    android:key="@string/task_list_options"
-    android:title="@string/task_list_options">
+    android:title="@string/on_launch">
+
+    <SwitchPreferenceCompat
+      android:defaultValue="true"
+      android:key="@string/p_open_last_viewed_list"
+      android:disableDependentsState="true"
+      android:title="@string/open_last_viewed_list" />
 
     <Preference
       android:key="@string/p_default_list"
-      android:title="@string/default_list" />
+      android:title="@string/widget_open_list"
+      android:dependency="@string/p_open_last_viewed_list" />
+
+  </PreferenceCategory>
+
+  <PreferenceCategory
+    android:key="@string/task_list_options"
+    android:title="@string/task_list_options">
 
     <SeekBarPreference
       android:defaultValue="16"

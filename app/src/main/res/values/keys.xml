@@ -281,6 +281,8 @@
   <string name="p_collect_statistics">collect_statistics</string>
   <string name="p_back_button_saves_task">back_button_saves_task</string>
 
+  <string name="p_open_last_viewed_list">open_last_viewed_list</string>
+  <string name="p_last_viewed_list">last_viewed_list</string>
   <string name="p_default_list">default_list</string>
 
   <string name="p_badges_enabled">badges_enabled</string>

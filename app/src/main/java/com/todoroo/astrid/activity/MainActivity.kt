@@ -33,7 +33,6 @@ import io.reactivex.schedulers.Schedulers
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
-import org.tasks.Strings.isNullOrEmpty
 import org.tasks.activities.TagSettingsActivity
 import org.tasks.billing.Inventory
 import org.tasks.data.Place
@@ -56,8 +55,8 @@ import org.tasks.themes.Theme
 import org.tasks.themes.ThemeColor
 import org.tasks.ui.DeadlineControlSet.DueDateChangeListener
 import org.tasks.ui.EmptyTaskEditFragment.Companion.newEmptyTaskEditFragment
-import org.tasks.ui.NavigationDrawerFragment
 import org.tasks.ui.ListFragment.OnListChanged
+import org.tasks.ui.NavigationDrawerFragment
 import org.tasks.ui.TaskListViewModel
 import javax.inject.Inject
 
@@ -182,7 +181,11 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
                     Single.fromCallable {
                         val filter = intent.getStringExtra(LOAD_FILTER)
                         intent.removeExtra(LOAD_FILTER)
-                        if (isNullOrEmpty(filter)) defaultFilterProvider.defaultFilter else defaultFilterProvider.getFilterFromPreference(filter)
+                        if (filter.isNullOrBlank()) {
+                            defaultFilterProvider.startupFilter
+                        } else {
+                            defaultFilterProvider.getFilterFromPreference(filter)
+                        }
                     }
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
@@ -245,6 +248,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         }
         filter = newFilter
         navigationDrawer.setSelected(filter)
+        defaultFilterProvider.setLastViewedFilter(filter)
         applyTheme()
         val fragmentManager = supportFragmentManager
         fragmentManager

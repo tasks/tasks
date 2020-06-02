@@ -94,6 +94,10 @@ public class DefaultFilterProvider {
     setFilterPreference(filter, R.string.p_default_list);
   }
 
+  public void setLastViewedFilter(Filter filter) {
+    setFilterPreference(filter, R.string.p_last_viewed_list);
+  }
+
   public Filter getDefaultRemoteList() {
     return getFilterFromPreference(
         preferences.getStringValue(R.string.p_default_remote_list), null);
@@ -101,6 +105,13 @@ public class DefaultFilterProvider {
 
   public void setDefaultRemoteList(Filter filter) {
     setFilterPreference(filter, R.string.p_default_remote_list);
+  }
+
+  public Filter getStartupFilter() {
+    return getFilterFromPreference(
+        preferences.getBoolean(R.string.p_open_last_viewed_list, true)
+            ? R.string.p_last_viewed_list
+            : R.string.p_default_list);
   }
 
   public Filter getFilterFromPreference(int resId) {

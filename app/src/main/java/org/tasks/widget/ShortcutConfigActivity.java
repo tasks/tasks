@@ -74,7 +74,7 @@ public class ShortcutConfigActivity extends ThemedInjectingAppCompatActivity
     toolbar.setNavigationOnClickListener(v -> save());
 
     if (icicle == null) {
-      selectedFilter = defaultFilterProvider.getDefaultFilter();
+      selectedFilter = defaultFilterProvider.getStartupFilter();
       selectedTheme = 7;
     } else {
       selectedFilter = icicle.getParcelable(EXTRA_FILTER);
