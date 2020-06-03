@@ -84,9 +84,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">Kalendoriaus įvykio laikas</string>
     <string name="EPr_cal_end_at_due_time">Baigti kalendoriaus įvykius atėjus terminui</string>
     <string name="EPr_cal_start_at_due_time">Baigti kalendoriaus įvykius atėjus terminui</string>
-    <string name="EPr_manage_purge_deleted">Išvalyti ištrintas užduotis</string>
-    <string name="EPr_manage_purge_deleted_message">Ar tikrai norite išvalyti visas ištrintas užduotis?\n\nŠios užduotys pradings negrįžtamai!</string>
-    <string name="EPr_manage_purge_deleted_status">Išvalyta %d užduočių!</string>
     <string name="EPr_reset_preferences">Ištrinti nustatymus</string>
     <string name="EPr_reset_preferences_warning">Nustatymai bus pakeisti į gamyklinius</string>
     <string name="EPr_delete_task_data">Ištrinti užduoties(-čių) duomenis</string>

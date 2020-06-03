@@ -49,12 +49,6 @@ public class TaskDeleter {
     this.preferences = preferences;
   }
 
-  public int purgeDeleted() {
-    List<Long> deleted = deletionDao.getDeleted();
-    deletionDao.delete(deleted);
-    return deleted.size();
-  }
-
   public void markDeleted(Task item) {
     markDeleted(ImmutableList.of(item.getId()));
   }

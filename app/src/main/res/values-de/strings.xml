@@ -83,11 +83,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">Zeitpunkt für Kalendereintrag</string>
     <string name="EPr_cal_end_at_due_time">Kalendereintrag endet zur Fälligkeitsuhrzeit</string>
     <string name="EPr_cal_start_at_due_time">Kalendereintrag startet zur Fälligkeitsuhrzeit</string>
-    <string name="EPr_manage_purge_deleted">Gelöschte Aufgaben endgültig löschen</string>
-    <string name="EPr_manage_purge_deleted_message">Wollen Sie wirklich alle gelöschten Aufgaben bereinigen\?
-\n
-\nDiese Aufgaben werden für immer gelöscht bleiben!</string>
-    <string name="EPr_manage_purge_deleted_status">%d Aufgaben bereinigt!</string>
     <string name="EPr_reset_preferences">Auf Voreinstellungen zurücksetzen</string>
     <string name="EPr_reset_preferences_warning">Die Voreinstellungen werden auf Standardwerte zurückgesetzt</string>
     <string name="EPr_delete_task_data">Aufgabendaten löschen</string>

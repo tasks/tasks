@@ -87,9 +87,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">Време на събитие в календара</string>
     <string name="EPr_cal_end_at_due_time">Приключване на събития в календара на крайния срок</string>
     <string name="EPr_cal_start_at_due_time">Започване на събития в календара на крайния срок</string>
-    <string name="EPr_manage_purge_deleted">Изчистване на изтритите задачи</string>
-    <string name="EPr_manage_purge_deleted_message">Наистина ли искате да изчистите всичките си приключени задачи?\n\nТези задачи ще изчезнат завинаги!</string>
-    <string name="EPr_manage_purge_deleted_status">Изчистени %d задачи!</string>
     <string name="EPr_reset_preferences">Анулиране на настройки</string>
     <string name="EPr_reset_preferences_warning">Настройките ще бъдат възстановени до стойности по подразбиране</string>
     <string name="EPr_delete_task_data">Изтриване на данните</string>

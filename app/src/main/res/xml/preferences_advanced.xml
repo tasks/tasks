@@ -37,16 +37,12 @@
     android:title="@string/EPr_manage_delete_all_gcal" />
 
   <Preference
-    android:icon="@drawable/ic_outline_delete_24px"
-    android:key="@string/EPr_manage_purge_deleted"
-    android:title="@string/EPr_manage_purge_deleted"
-    app:allowDividerAbove="true" />
-
-  <Preference
     android:key="@string/EPr_reset_preferences"
+    app:allowDividerAbove="true"
     android:title="@string/EPr_reset_preferences" />
 
   <Preference
+    android:icon="@drawable/ic_outline_delete_24px"
     android:key="@string/EPr_delete_task_data"
     android:title="@string/EPr_delete_task_data" />
 

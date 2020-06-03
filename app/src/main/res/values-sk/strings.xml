@@ -84,9 +84,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">Čas udalosti kalendára</string>
     <string name="EPr_cal_end_at_due_time">Ukončiť udalosť kalendára v danom čase</string>
     <string name="EPr_cal_start_at_due_time">Začať udalosti  kalendár v danom čase</string>
-    <string name="EPr_manage_purge_deleted">Trvalo odstrániť zmazané úlohy</string>
-    <string name="EPr_manage_purge_deleted_message">Naozaj chceš odstrániť všetky svoje zmazané úlohy? \n\nTieto úlohy budú zmazané navždy!</string>
-    <string name="EPr_manage_purge_deleted_status">Odstránených %d úloh</string>
     <string name="EPr_reset_preferences">Vlastnosti znovu nastavenia</string>
     <string name="EPr_reset_preferences_warning">Nastavenia budú obnovené na predvolené</string>
     <string name="EPr_delete_task_data">Zmazať údaje úlohy</string>

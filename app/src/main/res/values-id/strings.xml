@@ -61,11 +61,6 @@
     <string name="EPr_show_task_edit_comments">Tampilkan komentar di penyunting tugas</string>
     <string name="task_list_options">Opsi daftar tugas</string>
     <string name="EPr_cal_end_or_start_at_due_time">Waktu acara kalender</string>
-    <string name="EPr_manage_purge_deleted">Buang tugas yang dihapus</string>
-    <string name="EPr_manage_purge_deleted_message">Apakah anda benar-benar ingin membuang tugas yang dihapus\?
-\n 
-\nTugas ini tidak akan bisa dipulihkan!</string>
-    <string name="EPr_manage_purge_deleted_status">Membuang %d tugas!</string>
     <string name="EPr_reset_preferences">Setel ulang preferensi</string>
     <string name="EPr_reset_preferences_warning">Preferensi akan disetel ulang ke nilai bawaannya</string>
     <string name="EPr_delete_task_data">Hapus data tugas</string>

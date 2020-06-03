@@ -97,9 +97,6 @@ File %1$s contained %2$s.\n\n
   <string name="EPr_temp_show_completed_tasks">Temporarily show tasks upon completion</string>
   <string name="EPr_temp_completed_tasks_showing">Tasks will remain temporarily visible in the list after completion</string>
   <string name="EPr_temp_completed_tasks_not_showing">Tasks will immediately disappear from the list after completion</string>
-  <string name="EPr_manage_purge_deleted">Purge deleted tasks</string>
-  <string name="EPr_manage_purge_deleted_message">Do you really want to purge all your deleted tasks?\n\nThese tasks will be gone forever!</string>
-  <string name="EPr_manage_purge_deleted_status">Purged %d tasks!</string>
   <string name="EPr_reset_preferences">Reset preferences</string>
   <string name="EPr_reset_preferences_warning">Preferences will be reset to default values</string>
   <string name="EPr_delete_task_data">Delete task data</string>

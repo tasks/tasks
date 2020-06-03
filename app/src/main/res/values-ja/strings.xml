@@ -84,9 +84,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">カレンダーイベント時間</string>
     <string name="EPr_cal_end_at_due_time">カレンダーイベント終了時間</string>
     <string name="EPr_cal_start_at_due_time">カレンダーイベント開始時間</string>
-    <string name="EPr_manage_purge_deleted">削除済のタスクを消去</string>
-    <string name="EPr_manage_purge_deleted_message">削除済のタスクをすべて消去してもよろしいですか?\n\nこれらのタスクは永久になくなります!</string>
-    <string name="EPr_manage_purge_deleted_status">%d タスクを消去しました!</string>
     <string name="EPr_reset_preferences">プリファレンスをリセット</string>
     <string name="EPr_reset_preferences_warning">プリファレンスがデフォルトの値にリセットされます</string>
     <string name="EPr_delete_task_data">タスクデータを削除</string>

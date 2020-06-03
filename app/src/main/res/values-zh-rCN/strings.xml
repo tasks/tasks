@@ -83,9 +83,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">日历事件时间</string>
     <string name="EPr_cal_end_at_due_time">在截止时结束日历事件</string>
     <string name="EPr_cal_start_at_due_time">在截止时开始日历事件</string>
-    <string name="EPr_manage_purge_deleted">清除已删除的任务</string>
-    <string name="EPr_manage_purge_deleted_message">真的要清除所有已删除的任务吗？\n\n这些任务将会被彻底永久删除！</string>
-    <string name="EPr_manage_purge_deleted_status">清除了 %d 个任务！</string>
     <string name="EPr_reset_preferences">重置偏好设置</string>
     <string name="EPr_reset_preferences_warning">偏好设置将重置为默认值</string>
     <string name="EPr_delete_task_data">删除任务数据</string>

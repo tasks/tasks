@@ -89,11 +89,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">משך אירוע יומן</string>
     <string name="EPr_cal_end_at_due_time">סיים את אירועי היומן במועד היעד</string>
     <string name="EPr_cal_start_at_due_time">התחל את מאורעות היומן במועד היעד</string>
-    <string name="EPr_manage_purge_deleted">מחק לצמיתות משימות שנמחקו</string>
-    <string name="EPr_manage_purge_deleted_message">למחוק לצמיתות את כל המשימות שנמחקו\?
-\n
-\nמשימות אלו תאבדנה לעד!</string>
-    <string name="EPr_manage_purge_deleted_status">%d משימות אֻיְּנוּ!</string>
     <string name="EPr_reset_preferences">איפוס מאפיינים</string>
     <string name="EPr_reset_preferences_warning">המאפיינים ישוחזרו לברירת מחדל</string>
     <string name="EPr_delete_task_data">מחיקת מידע של משימה</string>

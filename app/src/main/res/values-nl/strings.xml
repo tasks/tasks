@@ -83,9 +83,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">Agenda-item tijd</string>
     <string name="EPr_cal_end_at_due_time">Agenda-item op tijd afronden</string>
     <string name="EPr_cal_start_at_due_time">Agenda-item op tijd starten</string>
-    <string name="EPr_manage_purge_deleted">Verwijderde taken opruimen</string>
-    <string name="EPr_manage_purge_deleted_message">Alle verwijderde taken werkelijk opschonen?\n\nDeze taken zijn dan definitief verwijderd!</string>
-    <string name="EPr_manage_purge_deleted_status">%d verwijderde taken opgeruimd!</string>
     <string name="EPr_reset_preferences">Reset Instellingen</string>
     <string name="EPr_reset_preferences_warning">Instellingen worden gereset naar de standaard waardes</string>
     <string name="EPr_delete_task_data">Verwijder taak data</string>

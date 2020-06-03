@@ -80,9 +80,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">Kalenteritapahtuman aika</string>
     <string name="EPr_cal_end_at_due_time">Lopeta kalenteritapahtuma määräaikana</string>
     <string name="EPr_cal_start_at_due_time">Aloita kalenteritapahtumat määräaikana</string>
-    <string name="EPr_manage_purge_deleted">Hävitä poistetut tehtävät</string>
-    <string name="EPr_manage_purge_deleted_message">Haluatko todella tyhjentää kaikki poistetut tehtävät?\n\n Nämä tehtävät häviävät lopullisesti!</string>
-    <string name="EPr_manage_purge_deleted_status">Tyhjennettu %d tehtävää!</string>
     <string name="EPr_reset_preferences">Nollaa asetukset</string>
     <string name="EPr_reset_preferences_warning">Asetukset palautetaan oletusarvoihin</string>
     <string name="EPr_delete_task_data">Poista tehtävän tiedot</string>

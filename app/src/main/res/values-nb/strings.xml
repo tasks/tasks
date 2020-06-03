@@ -207,11 +207,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">Kalenderhendelsestid</string>
     <string name="EPr_cal_end_at_due_time">Sluttfør kalenderhendelser ved tidsfrist</string>
     <string name="EPr_cal_start_at_due_time">Start kalenderhendelser ved tidsfrist</string>
-    <string name="EPr_manage_purge_deleted">Tøm slettede gjøremål</string>
-    <string name="EPr_manage_purge_deleted_message">Ønsker du virkelig å fjerne alle dine slettede gjøremål\? 
-\n 
-\nDe vil bli slettet permanent.</string>
-    <string name="EPr_manage_purge_deleted_status">Fjernet %d gjøremål.</string>
     <string name="EPr_reset_preferences">Tilbakestill innstillinger</string>
     <string name="EPr_reset_preferences_warning">Innstillinger tilbakestilt til forvalgte verdier</string>
     <string name="EPr_delete_task_data">Slett gjøremålsdata</string>

@@ -73,9 +73,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">Čas události v kalendáři</string>
     <string name="EPr_cal_end_at_due_time">Událost v kalendáři končí splněním úkolu</string>
     <string name="EPr_cal_start_at_due_time">Událost v kalendáři začíná splněním úkolu</string>
-    <string name="EPr_manage_purge_deleted">Vymazat smazané úkoly</string>
-    <string name="EPr_manage_purge_deleted_message">Opravdu chcete vymazat vaše smazané úkoly?\n\nTyto úkoly budou vymazány navždy!</string>
-    <string name="EPr_manage_purge_deleted_status">Vymyzáno %d úkolů!</string>
     <string name="EPr_reset_preferences">Obnovit nastavení</string>
     <string name="EPr_reset_preferences_warning">Předvolby budou obnoveny na výchozí hodnoty</string>
     <string name="EPr_delete_task_data">Smazat úkol</string>

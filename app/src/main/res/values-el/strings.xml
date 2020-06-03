@@ -70,9 +70,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">Ώρα γεγονότος ημερολογίου</string>
     <string name="EPr_cal_end_at_due_time">Τερματισμός γεγονότων ημερολογίου στην ώρα λήξης τους</string>
     <string name="EPr_cal_start_at_due_time">Εκκίνηση γεγονότων ημερολογίου στην ώρα λήξης τους</string>
-    <string name="EPr_manage_purge_deleted">Εκκαθάριση διεγραμμένων εργασιών</string>
-    <string name="EPr_manage_purge_deleted_message">Θέλετε πραγματικά να καθαρίσετε όλες τις διαγραμμένες εργασίες;\n\nΑυτές οι εργασίες θα χαθούν για πάντα!</string>
-    <string name="EPr_manage_purge_deleted_status">Εκκαθαρίστηκαν %d εργασίες!</string>
     <string name="EPr_manage_delete_completed_gcal">Διαγραφή των γεγονότων ημερολογίου για ολοκληρωμένες εργασίες</string>
     <string name="EPr_manage_delete_completed_gcal_message">Σίγουρα θέλεις τη διαγραφή όλων των γεγονότων για τις ολοκληρωμένες εργασίες;</string>
     <string name="EPr_manage_delete_completed_gcal_status">Διαγράφτηκαν %d γεγονότα ημερολογίου!</string>

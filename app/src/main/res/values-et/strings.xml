@@ -63,8 +63,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">Kalendri sündmuse aeg</string>
     <string name="EPr_cal_end_at_due_time">Lõpeta kalendri sündmus tähtajal</string>
     <string name="EPr_cal_start_at_due_time">Alusta kalendri sündmust tähtajal</string>
-    <string name="EPr_manage_purge_deleted">Eemalda kustutatud ülesanded</string>
-    <string name="EPr_manage_purge_deleted_status">Eemaldati %d ülesannet!</string>
     <string name="EPr_reset_preferences">Taasta eelistused</string>
     <string name="EPr_reset_preferences_warning">Taastatakse eelistuste vaikeväärtused</string>
     <string name="EPr_delete_task_data">Kustuta ülesande andmed</string>

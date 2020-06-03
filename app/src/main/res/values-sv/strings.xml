@@ -77,9 +77,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">Tid för kalenderhändelse</string>
     <string name="EPr_cal_end_at_due_time">Avsluta kalenderhändelser vid förfallotid</string>
     <string name="EPr_cal_start_at_due_time">Påbörja kalenderhändelser vid förfallotid</string>
-    <string name="EPr_manage_purge_deleted">Rensa bort raderade uppgifter</string>
-    <string name="EPr_manage_purge_deleted_message">Vill du verkligen rensa bort alla dina raderade uppgifter?\n\nDe här uppgifterna kommer att tas bort för alltid!</string>
-    <string name="EPr_manage_purge_deleted_status">%d uppgifter bortrensade!</string>
     <string name="EPr_reset_preferences">Återställ standardinställningar</string>
     <string name="EPr_reset_preferences_warning">Detta återställer alla inställningar till standardinställningarna</string>
     <string name="EPr_delete_task_data">Radera alla uppfiter</string>

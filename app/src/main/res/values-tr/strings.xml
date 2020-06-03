@@ -89,9 +89,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">Takvim etkinlik zamanı</string>
     <string name="EPr_cal_end_at_due_time">Takvim etkinliklerini bitiş zamanında bitir</string>
     <string name="EPr_cal_start_at_due_time">Takvim etkinliklerini bitiş zamanında başlat</string>
-    <string name="EPr_manage_purge_deleted">Silinen görevleri temizle</string>
-    <string name="EPr_manage_purge_deleted_message">Tüm silinen görevleri temizlemek istediğiniz emin misiniz?\n\nBu görevler tümüyle silinecek!</string>
-    <string name="EPr_manage_purge_deleted_status">%d görev temizlendi!</string>
     <string name="EPr_reset_preferences">Tercihleri sıfırla</string>
     <string name="EPr_reset_preferences_warning">Tercihler öntanımlı değerlere sıfırlanacaktır</string>
     <string name="EPr_delete_task_data">Görev verilerini sil</string>

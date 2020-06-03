@@ -84,11 +84,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">Orario eventi del calendario</string>
     <string name="EPr_cal_end_at_due_time">Calendario eventi fino alla scadenza</string>
     <string name="EPr_cal_start_at_due_time">Calendario eventi dalla scadenza</string>
-    <string name="EPr_manage_purge_deleted">Elimina definitivamente le attività cancellate</string>
-    <string name="EPr_manage_purge_deleted_message">Sicuro di voler eliminare definitivamente le attività cancellate\?
-\n
-\nQueste attività saranno perse per sempre!</string>
-    <string name="EPr_manage_purge_deleted_status">Attività %d eliminata definitivamente!</string>
     <string name="EPr_reset_preferences">Ripristina preferenze</string>
     <string name="EPr_reset_preferences_warning">Le preferenze saranno riportate al valore predefinito</string>
     <string name="EPr_delete_task_data">Elimina dati attività</string>

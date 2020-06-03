@@ -85,9 +85,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">Hora do evento do calendário</string>
     <string name="EPr_cal_end_at_due_time">Finalizar eventos do calendário no horário de vencimento</string>
     <string name="EPr_cal_start_at_due_time">Iniciar eventos do calendário no horário de vencimento</string>
-    <string name="EPr_manage_purge_deleted">Limpar tarefas excluídas</string>
-    <string name="EPr_manage_purge_deleted_message">Você realmente deseja limpar todas as suas tarefas excluídas?\n\nEstas tarefas irão desaparecer para sempre!</string>
-    <string name="EPr_manage_purge_deleted_status">%d tarefas removidas!</string>
     <string name="EPr_reset_preferences">Restaurar preferências</string>
     <string name="EPr_reset_preferences_warning">As preferências serão restauradas para os valores padrões</string>
     <string name="EPr_delete_task_data">Limpar todos os dados</string>

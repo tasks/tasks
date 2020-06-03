@@ -87,9 +87,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">Час події в календарі</string>
     <string name="EPr_cal_end_at_due_time">Завершення календарної події при настанні терміну</string>
     <string name="EPr_cal_start_at_due_time">Початок календарної події при настанні терміну</string>
-    <string name="EPr_manage_purge_deleted">Очистити видалені завдання</string>
-    <string name="EPr_manage_purge_deleted_message">Ви дійсно хочете очистити всі видалені завдання?\n\nЦя операція незворотна!</string>
-    <string name="EPr_manage_purge_deleted_status">Очищено %d завдань!</string>
     <string name="EPr_reset_preferences">Скинути налаштування</string>
     <string name="EPr_reset_preferences_warning">Налаштування буде скинуто в стандартні значення</string>
     <string name="EPr_delete_task_data">Видалити данні завдання</string>

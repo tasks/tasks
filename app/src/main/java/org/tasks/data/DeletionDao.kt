@@ -9,9 +9,6 @@ import java.util.*
 
 @Dao
 abstract class DeletionDao {
-    @Query("SELECT _id FROM tasks WHERE deleted > 0")
-    abstract fun getDeleted(): List<Long>
-
     @Query("DELETE FROM caldav_tasks WHERE cd_task IN(:ids)")
     abstract fun deleteCaldavTasks(ids: List<Long>)
 

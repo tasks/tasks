@@ -38,7 +38,6 @@ class Advanced : InjectingPreferenceFragment() {
     @Inject lateinit var database: Database
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var calendarEventProvider: CalendarEventProvider
-    @Inject lateinit var taskDeleter: TaskDeleter
     @Inject lateinit var toaster: Toaster
     @Inject lateinit var permissionRequester: FragmentPermissionRequestor
     @Inject lateinit var permissionChecker: PermissionChecker
@@ -55,12 +54,6 @@ class Advanced : InjectingPreferenceFragment() {
                     localBroadcastManager.broadcastRefresh()
                     true
                 }
-
-        findPreference(R.string.EPr_manage_purge_deleted)
-            .setOnPreferenceClickListener {
-                purgeDeletedTasks()
-                false
-            }
 
         findPreference(R.string.EPr_manage_delete_completed_gcal)
             .setOnPreferenceClickListener {
@@ -164,19 +157,6 @@ class Advanced : InjectingPreferenceFragment() {
     private fun updateAttachmentDirectory() {
         findPreference(R.string.p_attachment_dir).summary =
             FileHelper.uri2String(preferences.attachmentsDirectory)
-    }
-
-    private fun purgeDeletedTasks() {
-        dialogBuilder
-            .newDialog()
-            .setMessage(R.string.EPr_manage_purge_deleted_message)
-            .setPositiveButton(android.R.string.ok) { _, _ ->
-                performAction(
-                    R.string.EPr_manage_purge_deleted_status,
-                    Callable { taskDeleter.purgeDeleted() })
-            }
-            .setNegativeButton(android.R.string.cancel, null)
-            .show()
     }
 
     private fun deleteCompletedEvents() {

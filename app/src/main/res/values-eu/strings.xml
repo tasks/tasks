@@ -89,11 +89,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">Egutegiko gertaeraren ordua</string>
     <string name="EPr_cal_end_at_due_time">Amaitu egutegiko gertaerak epemuga-orduan</string>
     <string name="EPr_cal_start_at_due_time">Hasi egutegiko gertaerak epemuga-orduan</string>
-    <string name="EPr_manage_purge_deleted">Purgatu ezabatutako zereginak</string>
-    <string name="EPr_manage_purge_deleted_message">Ziur ezabatutako zereginak purgatu nahi dituzula\?
-\n 
-\nZeregin hauek behin betiko desagertuko dira!</string>
-    <string name="EPr_manage_purge_deleted_status">%d zeregin purgatuta!</string>
     <string name="EPr_reset_preferences">Berrezarri hobespenak</string>
     <string name="EPr_reset_preferences_warning">Hobespenak lehenetsitakoetara berrezarriko dira</string>
     <string name="EPr_delete_task_data">Ezabatu zereginaren datuak</string>

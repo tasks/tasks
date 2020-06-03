@@ -87,9 +87,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">Naptáresemény időzítése</string>
     <string name="EPr_cal_end_at_due_time">Naptáresemények befejezése határidőkor</string>
     <string name="EPr_cal_start_at_due_time">Naptáresemények kezdése határidőkor</string>
-    <string name="EPr_manage_purge_deleted">Törölt feladatok elvetése</string>
-    <string name="EPr_manage_purge_deleted_message">Biztosan el akarja vetni az összes törölt feladatot?\n\nEzek a feladatok többé nem lesznek visszaállíthatóak!</string>
-    <string name="EPr_manage_purge_deleted_status">%d feladat elvetve!</string>
     <string name="EPr_reset_preferences">Beállítások alapértékre állítása</string>
     <string name="EPr_reset_preferences_warning">A beállítások visszaállnak alapértékre</string>
     <string name="EPr_delete_task_data">Feladat adatok törlése</string>
