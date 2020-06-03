@@ -8,7 +8,6 @@ import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.todoroo.astrid.dao.Database
 import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.service.TaskDeleter
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -28,7 +27,6 @@ import org.tasks.scheduling.CalendarNotificationIntentService
 import org.tasks.ui.Toaster
 import java.util.concurrent.Callable
 import javax.inject.Inject
-import kotlin.system.exitProcess
 
 private const val REQUEST_CODE_FILES_DIR = 10000
 

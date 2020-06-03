@@ -547,12 +547,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://github.com/JakeWharton/butterknife/
-- artifact: com.jakewharton:process-phoenix:+
-  name: Process Phoenix
-  copyrightHolder: Jake Wharton
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: https://github.com/JakeWharton/ProcessPhoenix/
 - artifact: io.grpc:grpc-context:+
   name: io.grpc:grpc-context
   copyrightHolder: The gRPC Authors

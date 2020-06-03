@@ -6,7 +6,6 @@ import android.content.Intent
 import android.util.Log
 import androidx.core.app.JobIntentService
 import androidx.work.Configuration
-import com.jakewharton.processphoenix.ProcessPhoenix
 import com.todoroo.astrid.service.Upgrader
 import dagger.Lazy
 import io.reactivex.Completable
@@ -45,9 +44,6 @@ class Tasks : InjectingApplication(), Configuration.Provider {
     
     override fun onCreate() {
         super.onCreate()
-        if (ProcessPhoenix.isPhoenixProcess(this)) {
-            return
-        }
         buildSetup.setup()
         upgrade()
         preferences.isSyncOngoing = false

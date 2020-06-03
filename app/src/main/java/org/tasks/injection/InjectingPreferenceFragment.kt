@@ -1,16 +1,12 @@
 package org.tasks.injection
 
 import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceGroup
 import androidx.preference.PreferenceScreen
-import com.jakewharton.processphoenix.ProcessPhoenix
-import com.todoroo.astrid.activity.MainActivity
-import com.todoroo.astrid.api.Filter
 import org.tasks.R
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.preferences.Device
@@ -68,9 +64,7 @@ abstract class InjectingPreferenceFragment : PreferenceFragmentCompat() {
     }
 
     protected fun restart() {
-        val nextIntent = Intent(context, MainActivity::class.java)
-        nextIntent.putExtra(MainActivity.OPEN_FILTER, null as Filter?)
-        ProcessPhoenix.triggerRebirth(context, nextIntent)
+        kotlin.system.exitProcess(0)
     }
 
     protected fun tintColorPreference(resId: Int, tint: Int) {
