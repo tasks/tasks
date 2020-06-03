@@ -38,7 +38,7 @@ public class SortableFilter extends Filter {
   private SortableFilter() {}
 
   @Override
-  public boolean supportsManualSort() {
+  public boolean supportsAstridSorting() {
     return true;
   }
 }

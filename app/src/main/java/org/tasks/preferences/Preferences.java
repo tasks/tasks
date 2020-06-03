@@ -514,6 +514,10 @@ public class Preferences {
     return getBoolean(R.string.p_manual_sort, false);
   }
 
+  public boolean isAstridSort() {
+    return getBoolean(R.string.p_astrid_sort_enabled, false) && getBoolean(R.string.p_astrid_sort, false);
+  }
+
   public boolean isReverseSort() {
     return getBoolean(R.string.p_reverse_sort, false);
   }

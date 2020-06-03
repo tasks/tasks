@@ -8,6 +8,12 @@
     android:summary="@string/improve_performance_summary"
     android:title="@string/improve_performance" />
 
+  <SwitchPreferenceCompat
+    android:defaultValue="false"
+    android:key="@string/p_astrid_sort_enabled"
+    android:title="@string/astrid_sort_order"
+    android:summary="@string/astrid_sort_order_summary" />
+
   <Preference
     android:icon="@drawable/ic_outline_attachment_24px"
     android:key="@string/p_attachment_dir"

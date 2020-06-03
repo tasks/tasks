@@ -59,7 +59,10 @@ class Upgrader @Inject constructor(
             run(from, V8_8) { preferences.setBoolean(R.string.p_linkify_task_edit, true) }
             run(from, V8_10) { migrateWidgets() }
             run(from, V9_3) { applyCaldavOrder() }
-            run(from, V9_6) { taskMover.migrateLocalTasks() }
+            run(from, V9_6) {
+                preferences.setBoolean(R.string.p_astrid_sort_enabled, true)
+                taskMover.migrateLocalTasks()
+            }
             preferences.setBoolean(R.string.p_just_updated, true)
         }
         preferences.setCurrentVersion(to)

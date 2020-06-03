@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.SortHelper;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,18 +21,21 @@ import timber.log.Timber;
 public class SortDialog extends InjectingDialogFragment {
 
   private static final String EXTRA_MANUAL_ENABLED = "extra_manual_enabled";
+  private static final String EXTRA_ASTRID_ENABLED = "extra_astrid_enabled";
   private static final String EXTRA_SELECTED_INDEX = "extra_selected_index";
   @Inject Preferences preferences;
   @Inject DialogBuilder dialogBuilder;
   private boolean manualEnabled;
+  private boolean astridEnabled;
   private int selectedIndex;
   private AlertDialog alertDialog;
   private SortDialogCallback callback;
 
-  public static SortDialog newSortDialog(boolean manualEnabled) {
+  public static SortDialog newSortDialog(Filter filter) {
     SortDialog sortDialog = new SortDialog();
     Bundle args = new Bundle();
-    args.putBoolean(EXTRA_MANUAL_ENABLED, manualEnabled);
+    args.putBoolean(EXTRA_MANUAL_ENABLED, filter.supportsManualSort());
+    args.putBoolean(EXTRA_ASTRID_ENABLED, filter.supportsAstridSorting());
     sortDialog.setArguments(args);
     return sortDialog;
   }
@@ -43,9 +47,9 @@ public class SortDialog extends InjectingDialogFragment {
 
     Bundle arguments = getArguments();
     manualEnabled = arguments.getBoolean(EXTRA_MANUAL_ENABLED);
+    astridEnabled = arguments.getBoolean(EXTRA_ASTRID_ENABLED) && preferences.getBoolean(R.string.p_astrid_sort_enabled, false);
 
     if (savedInstanceState != null) {
-      manualEnabled = savedInstanceState.getBoolean(EXTRA_MANUAL_ENABLED);
       selectedIndex = savedInstanceState.getInt(EXTRA_SELECTED_INDEX);
     } else {
       selectedIndex = getIndex(preferences.getSortMode());
@@ -55,6 +59,8 @@ public class SortDialog extends InjectingDialogFragment {
 
     if (manualEnabled) {
       items.add(getString(R.string.SSD_sort_my_order));
+    } else if (astridEnabled) {
+      items.add(getString(R.string.astrid_sort_order));
     }
 
     items.add(getString(R.string.SSD_sort_auto));
@@ -66,6 +72,10 @@ public class SortDialog extends InjectingDialogFragment {
 
     if (manualEnabled) {
       if (preferences.isManualSort()) {
+        selectedIndex = 0;
+      }
+    } else if (astridEnabled) {
+      if (preferences.isAstridSort()) {
         selectedIndex = 0;
       }
     } else {
@@ -103,7 +113,6 @@ public class SortDialog extends InjectingDialogFragment {
   public void onSaveInstanceState(Bundle outState) {
     super.onSaveInstanceState(outState);
 
-    outState.putBoolean(EXTRA_MANUAL_ENABLED, manualEnabled);
     outState.putInt(EXTRA_SELECTED_INDEX, selectedIndex);
   }
 
@@ -118,14 +127,17 @@ public class SortDialog extends InjectingDialogFragment {
     preferences.setBoolean(R.string.p_reverse_sort, reverse);
 
     boolean wasManual = preferences.isManualSort();
+    boolean wasAstrid = preferences.isAstridSort();
     boolean isManual = manualEnabled && selectedIndex == 0;
+    boolean isAstrid = astridEnabled && selectedIndex == 0;
     preferences.setBoolean(R.string.p_manual_sort, isManual);
+    preferences.setBoolean(R.string.p_astrid_sort, isAstrid);
 
-    if (!isManual) {
-      preferences.setSortMode(getSortMode(manualEnabled ? selectedIndex : selectedIndex + 1));
+    if (!isManual && !isAstrid) {
+      preferences.setSortMode(getSortMode(manualEnabled || astridEnabled ? selectedIndex : selectedIndex + 1));
     }
 
-    callback.sortChanged(wasManual != isManual);
+    callback.sortChanged(wasManual != isManual || wasAstrid != isAstrid);
   }
 
   private int getIndex(int sortMode) {
@@ -174,7 +186,6 @@ public class SortDialog extends InjectingDialogFragment {
   }
 
   public interface SortDialogCallback {
-
     void sortChanged(boolean reload);
   }
 }

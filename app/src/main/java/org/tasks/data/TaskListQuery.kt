@@ -4,9 +4,7 @@ import com.todoroo.andlib.sql.Criterion
 import com.todoroo.andlib.sql.Field.Companion.field
 import com.todoroo.andlib.sql.Join
 import com.todoroo.astrid.activity.TaskListFragment
-import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.data.Task
 import kotlinx.collections.immutable.persistentListOf
 import org.tasks.data.TaskListQueryNonRecursive.getNonRecursiveQuery
@@ -35,14 +33,11 @@ object TaskListQuery {
 
     @JvmStatic
     fun getQuery(preferences: Preferences, filter: Filter, subtasks: SubtaskInfo): List<String> {
-        if (filter.supportsManualSort() && preferences.isManualSort) {
-            return if (filter is GtasksFilter || filter is CaldavFilter) {
-                getRecursiveQuery(filter, preferences, subtasks)
-            } else {
-                getNonRecursiveQuery(filter, preferences)
-            }
-        }
-        return if (filter.supportsSubtasks() && subtasks.usesSubtasks() && preferences.showSubtasks()) {
+        return if (filter.supportsManualSort() && preferences.isManualSort) {
+            getRecursiveQuery(filter, preferences, subtasks)
+        } else if (filter.supportsAstridSorting() && preferences.isAstridSort) {
+            getNonRecursiveQuery(filter, preferences)
+        } else if (filter.supportsSubtasks() && subtasks.usesSubtasks() && preferences.showSubtasks()) {
             getRecursiveQuery(filter, preferences, subtasks)
         } else {
             getNonRecursiveQuery(filter, preferences)

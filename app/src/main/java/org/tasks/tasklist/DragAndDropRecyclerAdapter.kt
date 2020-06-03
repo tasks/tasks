@@ -271,7 +271,9 @@ class DragAndDropRecyclerAdapter(
 
     init {
         val filter = taskList.getFilter()
-        disableHeaders = !filter.supportsSorting() || preferences.isManualSort && filter.supportsManualSort()
+        disableHeaders = !filter.supportsSorting()
+                || (filter.supportsManualSort() && preferences.isManualSort)
+                || (filter.supportsAstridSorting() && preferences.isAstridSort)
         itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback())
         itemTouchHelper.attachToRecyclerView(recyclerView)
         list = SectionedDataSource(tasks, disableHeaders, preferences.sortMode, adapter.getCollapsed().toMutableSet())

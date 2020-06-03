@@ -33,6 +33,8 @@ File %1$s contained %2$s.\n\n
   <string name="action_call">Call</string>
   <string name="action_open">Open</string>
   <string name="SSD_sort_my_order">My order</string>
+  <string name="astrid_sort_order">Astrid manual sorting</string>
+  <string name="astrid_sort_order_summary">Enable Astrid\'s manual sort mode for \'My Tasks\', \'Today\', and tags. This sort mode will be replaced by \'My order\' in a future update</string>
   <string name="SSD_sort_auto">Smart sort</string>
   <string name="SSD_sort_alpha">By title</string>
   <string name="SSD_sort_due">By due date</string>

@@ -82,7 +82,7 @@ public class TagFilter extends Filter {
   }
 
   @Override
-  public boolean supportsManualSort() {
+  public boolean supportsAstridSorting() {
     return true;
   }
 

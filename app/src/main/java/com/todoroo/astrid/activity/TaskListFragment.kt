@@ -323,7 +323,7 @@ class TaskListFragment : InjectingFragment(), OnRefreshListener, Toolbar.OnMenuI
                 true
             }
             R.id.menu_sort -> {
-                SortDialog.newSortDialog(filter.supportsManualSort())
+                SortDialog.newSortDialog(filter)
                         .show(childFragmentManager, FRAG_TAG_SORT_DIALOG)
                 true
             }

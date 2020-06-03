@@ -53,7 +53,9 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
       tasks = new MutableLiveData<>();
       invalidate();
     }
-    manualSortFilter = filter.supportsManualSort() && preferences.isManualSort();
+    manualSortFilter =
+        (filter.supportsManualSort() && preferences.isManualSort())
+            || (filter.supportsAstridSorting() && preferences.isAstridSort());
   }
 
   public void observe(LifecycleOwner owner, Observer<List<TaskContainer>> observer) {

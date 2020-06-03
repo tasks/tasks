@@ -181,6 +181,10 @@ public class Filter extends FilterListItem {
     source.readMap(valuesForNewTasks, getClass().getClassLoader());
   }
 
+  public boolean supportsAstridSorting() {
+    return false;
+  }
+
   public boolean supportsManualSort() {
     return false;
   }

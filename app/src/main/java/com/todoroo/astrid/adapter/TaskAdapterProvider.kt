@@ -27,20 +27,23 @@ class TaskAdapterProvider @Inject constructor(
         private val taskDao: TaskDao,
         private val googleTaskDao: GoogleTaskDao,
         private val caldavDao: CaldavDao,
-        private val subtasksHelper: SubtasksHelper,
         private val localBroadcastManager: LocalBroadcastManager) {
     fun createTaskAdapter(filter: Filter): TaskAdapter {
-        if (preferences.isManualSort) {
-            when {
-                filter is TagFilter -> return createManualTagTaskAdapter(filter)
-                filter is GtasksFilter -> return GoogleTaskManualSortAdapter(googleTaskDao, caldavDao, taskDao, localBroadcastManager)
-                filter is CaldavFilter -> return CaldavManualSortTaskAdapter(googleTaskDao, caldavDao, taskDao, localBroadcastManager)
-                subtasksHelper.shouldUseSubtasksFragmentForFilter(filter) -> {
+        if (filter.supportsAstridSorting() && preferences.isAstridSort) {
+            when (filter) {
+                is TagFilter -> return createManualTagTaskAdapter(filter)
+                else -> {
                     val adapter = createManualFilterTaskAdapter(filter)
                     if (adapter != null) {
                         return adapter
                     }
                 }
+            }
+        }
+        if (filter.supportsManualSort() && preferences.isManualSort) {
+            when (filter) {
+                is GtasksFilter -> return GoogleTaskManualSortAdapter(googleTaskDao, caldavDao, taskDao, localBroadcastManager)
+                is CaldavFilter -> return CaldavManualSortTaskAdapter(googleTaskDao, caldavDao, taskDao, localBroadcastManager)
             }
         }
         return TaskAdapter(preferences.addTasksToTop(), googleTaskDao, caldavDao, taskDao, localBroadcastManager)

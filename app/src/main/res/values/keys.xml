@@ -246,6 +246,8 @@
   <string name="p_temporarily_show_completed_tasks">temporarily_show_completed_tasks</string>
   <string name="p_reverse_sort">reverse_sort</string>
   <string name="p_manual_sort">manual_sort</string>
+  <string name="p_astrid_sort">astrid_sort</string>
+  <string name="p_astrid_sort_enabled">astrid_sort_enabled</string>
 
   <string-array name="TEA_control_sets_prefs">
     <item>@string/TEA_ctrl_when_pref</item>
