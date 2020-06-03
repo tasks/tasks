@@ -53,10 +53,7 @@ class Upgrader @Inject constructor(
             run(from, V7_0) { applyCaldavSubtasks() }
             run(from, V8_2) { migrateColors() }
             run(from, V8_5) { applyCaldavGeo() }
-            run(from, V8_8) {
-                preferences.setBoolean(R.string.p_linkify_task_edit, true)
-                preferences.setBoolean(R.string.p_auto_dismiss_datetime_edit_screen, true)
-            }
+            run(from, V8_8) { preferences.setBoolean(R.string.p_linkify_task_edit, true) }
             run(from, V8_10) { migrateWidgets() }
             run(from, V9_3) { applyCaldavOrder() }
             preferences.setBoolean(R.string.p_just_updated, true)
