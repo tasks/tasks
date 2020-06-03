@@ -247,7 +247,9 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
         dueDate.setTextColor(textColorSecondary);
       }
       String dateValue;
-      if (sortMode == SortHelper.SORT_DUE && task.sortGroup != null && newDateTime(task.sortGroup).startOfDay().equals(newDateTime(task.getDueDate()).startOfDay())) {
+      if (sortMode == SortHelper.SORT_DUE
+          && task.sortGroup != null
+          && !preferences.getBoolean(R.string.p_disable_subtasks, false)) {
         dateValue =
             task.hasDueTime() ? getTimeString(context, newDateTime(task.getDueDate())) : null;
       } else {
