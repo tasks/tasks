@@ -2,6 +2,12 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto">
 
+  <SwitchPreferenceCompat
+    android:icon="@drawable/ic_vertical_align_top_24px"
+    android:defaultValue="true"
+    android:key="@string/p_add_to_top"
+    android:title="@string/google_tasks_add_to_top" />
+
   <Preference
     android:icon="@drawable/ic_list_24px"
     android:key="@string/p_default_remote_list"

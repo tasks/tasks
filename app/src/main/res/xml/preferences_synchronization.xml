@@ -3,12 +3,6 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:key="@string/preference_screen">
 
-  <SwitchPreferenceCompat
-    android:defaultValue="true"
-    android:key="@string/p_add_to_top"
-    android:title="@string/google_tasks_add_to_top"
-    app:isPreferenceVisible="false"/>
-
   <PreferenceCategory
     android:key="@string/accounts"
     android:title="@string/accounts"

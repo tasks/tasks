@@ -191,7 +191,6 @@ class Synchronization : InjectingPreferenceFragment() {
         val syncEnabled = hasGoogleAccounts || hasCaldavAccounts
         findPreference(R.string.accounts).isVisible = syncEnabled
         findPreference(R.string.sync_SPr_interval_title).isVisible = syncEnabled
-        findPreference(R.string.p_add_to_top).isVisible = syncEnabled
     }
 
     override fun inject(component: FragmentComponent) = component.inject(this)
