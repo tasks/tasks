@@ -1,11 +1,12 @@
 Change Log
 ---
 =======
-### 9.5 (2020-06-01)
+### 9.5 (2020-06-03)
 
 * Drag and drop to change subtasks in all list types
 * Drag and drop to reprioritize or reschedule tasks while sorting by due date
   or priority
+* Bug fixes
 * Update translations
   * Basque - @osoitz
   * Czech - Radek Řehořek

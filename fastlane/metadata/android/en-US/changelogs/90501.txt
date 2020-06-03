@@ -1,4 +1,5 @@
 * Drag and drop to change subtasks in all list types
 * Drag and drop to reprioritize or reschedule tasks while sorting by due date
   or priority
+* Bug fixes
 * Update translations
