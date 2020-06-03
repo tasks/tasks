@@ -19,21 +19,16 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import org.tasks.LocalBroadcastManager
-import org.tasks.R
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.filters.FilterProvider
-import org.tasks.gtasks.ListSelectionHandler
 import org.tasks.injection.DialogFragmentComponent
 import org.tasks.injection.InjectingDialogFragment
-import org.tasks.sync.AddAccountDialog
-import org.tasks.sync.SyncAdapters
 import javax.inject.Inject
 
-class ListPicker : InjectingDialogFragment(), ListSelectionHandler {
+class ListPicker : InjectingDialogFragment() {
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var filterAdapter: FilterAdapter
     @Inject lateinit var filterProvider: FilterProvider
-    @Inject lateinit var syncAdapters: SyncAdapters
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
 
     private var disposables: CompositeDisposable? = null
@@ -47,7 +42,7 @@ class ListPicker : InjectingDialogFragment(), ListSelectionHandler {
         if (savedInstanceState != null) {
             filterAdapter.restore(savedInstanceState)
         }
-        return createDialog(filterAdapter, dialogBuilder, syncAdapters, this)
+        return createDialog(filterAdapter, dialogBuilder, this::selectedList)
     }
 
     override fun onResume() {
@@ -70,9 +65,7 @@ class ListPicker : InjectingDialogFragment(), ListSelectionHandler {
 
     override fun inject(component: DialogFragmentComponent) = component.inject(this)
 
-    override fun addAccount() = AddAccountDialog.showAddAccountDialog(activity, dialogBuilder)
-
-    override fun selectedList(list: Filter?) {
+    private fun selectedList(list: Filter?) {
         targetFragment!!.onActivityResult(
                 targetRequestCode,
                 Activity.RESULT_OK,
@@ -113,8 +106,7 @@ class ListPicker : InjectingDialogFragment(), ListSelectionHandler {
         private fun createDialog(
                 filterAdapter: FilterAdapter,
                 dialogBuilder: DialogBuilder,
-                syncAdapters: SyncAdapters,
-                handler: ListSelectionHandler): AlertDialog {
+                handler: (Filter?) -> Unit): AlertDialog {
             val builder = dialogBuilder
                     .newDialog()
                     .setNegativeButton(android.R.string.cancel, null)
@@ -123,18 +115,15 @@ class ListPicker : InjectingDialogFragment(), ListSelectionHandler {
                             -1
                     ) { dialog: DialogInterface, which: Int ->
                         if (which == 0) {
-                            handler.selectedList(null)
+                            handler.invoke(null)
                         } else {
                             val item = filterAdapter.getItem(which)
                             if (item is GtasksFilter || item is CaldavFilter) {
-                                handler.selectedList(item as Filter)
+                                handler.invoke(item as Filter)
                             }
                         }
                         dialog.dismiss()
                     }
-            if (!syncAdapters.isSyncEnabled) {
-                builder.setNeutralButton(R.string.add_account) { _, _ -> handler.addAccount() }
-            }
             return builder.show()
         }
     }
