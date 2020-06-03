@@ -1,7 +1,6 @@
 package org.tasks.injection
 
 import android.app.Activity
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import androidx.annotation.StringRes
@@ -63,13 +62,15 @@ abstract class InjectingPreferenceFragment : PreferenceFragmentCompat() {
         dialogBuilder
             .newDialog()
             .setMessage(R.string.restart_required)
-            .setPositiveButton(R.string.restart_now) { _: DialogInterface?, _: Int ->
-                val nextIntent = Intent(context, MainActivity::class.java)
-                nextIntent.putExtra(MainActivity.OPEN_FILTER, null as Filter?)
-                ProcessPhoenix.triggerRebirth(context, nextIntent)
-            }
+            .setPositiveButton(R.string.restart_now) { _, _ -> restart() }
             .setNegativeButton(R.string.restart_later, null)
             .show()
+    }
+
+    protected fun restart() {
+        val nextIntent = Intent(context, MainActivity::class.java)
+        nextIntent.putExtra(MainActivity.OPEN_FILTER, null as Filter?)
+        ProcessPhoenix.triggerRebirth(context, nextIntent)
     }
 
     protected fun tintColorPreference(resId: Int, tint: Int) {

@@ -8,6 +8,7 @@ import static com.google.common.collect.Sets.newHashSet;
 import static java.util.Collections.emptySet;
 import static org.tasks.Strings.isNullOrEmpty;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -197,18 +198,22 @@ public class Preferences {
     return firstDayOfWeek < 1 || firstDayOfWeek > 7 ? 0 : firstDayOfWeek;
   }
 
+  @SuppressLint("ApplySharedPref")
   public void clear() {
-    prefs.edit().clear().apply();
+    prefs.edit().clear().commit();
   }
 
   public void setDefaults() {
     setDefaultValues(context, R.xml.preferences, true);
-    setDefaultValues(context, R.xml.preferences_task_defaults, true);
-    setDefaultValues(context, R.xml.preferences_synchronization, true);
-    setDefaultValues(context, R.xml.preferences_notifications, true);
     setDefaultValues(context, R.xml.preferences_look_and_feel, true);
+    setDefaultValues(context, R.xml.preferences_notifications, true);
+    setDefaultValues(context, R.xml.preferences_synchronization, true);
+    setDefaultValues(context, R.xml.preferences_task_defaults, true);
+    setDefaultValues(context, R.xml.preferences_date_and_time, true);
+    setDefaultValues(context, R.xml.preferences_navigation_drawer, true);
     setDefaultValues(context, R.xml.preferences_backups, true);
     setDefaultValues(context, R.xml.preferences_advanced, true);
+    setDefaultValues(context, R.xml.help_and_feedback, true);
 
     BeastModePreferences.setDefaultOrder(this, context);
   }

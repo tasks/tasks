@@ -205,7 +205,7 @@ class Advanced : InjectingPreferenceFragment() {
             .setMessage(R.string.EPr_reset_preferences_warning)
             .setPositiveButton(R.string.EPr_reset_preferences) { _, _ ->
                 preferences.reset()
-                exitProcess(0)
+                restart()
             }
             .setNegativeButton(android.R.string.cancel, null)
             .show()
@@ -217,7 +217,7 @@ class Advanced : InjectingPreferenceFragment() {
             .setMessage(R.string.EPr_delete_task_data_warning)
             .setPositiveButton(R.string.EPr_delete_task_data) { _, _ ->
                 requireContext().deleteDatabase(database.name)
-                exitProcess(0)
+                restart()
             }
             .setNegativeButton(android.R.string.cancel, null)
             .show()
