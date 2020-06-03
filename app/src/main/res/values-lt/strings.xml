@@ -415,7 +415,6 @@
     <string name="badges_description">Rodyti užduočių kiekį Tasks paleidimo piktogramoje. Ne visos sistemos palaiko šią funkciją.</string>
     <string name="bundle_notifications_summary">Sujungti kelis pranešimus į vieną pranešimą</string>
     <string name="repeat_monthly_same_day_each_month">Tą pačią mėnesio dieną</string>
-    <string name="dont_sync">Nesinchronizuoti</string>
     <string name="repeat_monthly_every_day_of_nth_week">Kiekvieną %1$s %2$s</string>
     <string name="repeat_monthly_on_every_day_of_nth_week">Kiekvieną %1$s %2$s</string>
     <string name="repeat_monthly_first_week">pirmą</string>

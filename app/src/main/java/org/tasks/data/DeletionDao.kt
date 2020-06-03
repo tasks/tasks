@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Transaction
+import org.tasks.data.CaldavDao.Companion.LOCAL
 import org.tasks.db.DbUtils
 import java.util.*
 
@@ -97,6 +98,9 @@ abstract class DeletionDao {
 
     @Delete
     abstract fun deleteCaldavAccount(caldavAccount: CaldavAccount)
+
+    @Query("DELETE FROM tasks WHERE _id IN (SELECT _id FROM tasks INNER JOIN caldav_tasks ON _id = cd_task INNER JOIN caldav_lists ON cdl_uuid = cd_calendar WHERE cdl_account = '$LOCAL' AND deleted > 0)")
+    abstract fun purgeDeleted()
 
     @Transaction
     open fun delete(caldavAccount: CaldavAccount): List<Long> {

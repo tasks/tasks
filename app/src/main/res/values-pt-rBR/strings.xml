@@ -416,7 +416,6 @@
     <string name="badges_description">Mostrar a contagem de tarefas no ícone do Tasks no launcher. Nem todos os launchers suportam emblemas.</string>
     <string name="bundle_notifications_summary">Combinar múltiplas notificações em uma única notificação</string>
     <string name="repeat_monthly_same_day_each_month">no mesmo dia cada mês</string>
-    <string name="dont_sync">Não sincronizar</string>
     <string name="repeat_monthly_every_day_of_nth_week">todo %1$s %2$s</string>
     <string name="repeat_monthly_on_every_day_of_nth_week">em todo %1$s %2$s</string>
     <string name="repeat_monthly_first_week">primeiro</string>

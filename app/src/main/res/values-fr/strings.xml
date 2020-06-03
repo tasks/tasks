@@ -400,7 +400,6 @@
     <string name="badges_description">Afficher un compteur de tâche sur l\'icône du lanceur de Tasks. Certains lanceurs ne supportent pas les badges.</string>
     <string name="bundle_notifications_summary">Combiner plusieurs notifications en une seule</string>
     <string name="repeat_monthly_same_day_each_month">le même jour chaque mois</string>
-    <string name="dont_sync">Ne pas synchroniser</string>
     <string name="repeat_monthly_every_day_of_nth_week">tous les %1$s %2$s</string>
     <string name="repeat_monthly_on_every_day_of_nth_week">tous les %1$s %2$s</string>
     <string name="repeat_monthly_first_week">première</string>

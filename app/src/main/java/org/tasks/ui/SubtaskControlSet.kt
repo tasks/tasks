@@ -136,7 +136,6 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
                 }
                 else -> {
                     subtask.parent = task.id
-                    subtask.parentUuid = task.uuid
                     taskDao.save(subtask)
                 }
             }

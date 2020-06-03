@@ -8,6 +8,10 @@ import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.todoroo.astrid.data.Task
+import org.tasks.activities.BaseListSettingsActivity
+import org.tasks.caldav.CaldavCalendarSettingsActivity
+import org.tasks.caldav.LocalListSettingsActivity
+import org.tasks.etesync.EteSyncCalendarSettingsActivity
 import org.tasks.security.KeyStoreEncryption
 
 @Entity(tableName = "caldav_accounts")
@@ -80,6 +84,12 @@ class CaldavAccount : Parcelable {
     val isEteSyncAccount: Boolean
         get() = accountType == TYPE_ETESYNC
 
+    fun listSettingsClass(): Class<out BaseListSettingsActivity> = when(accountType) {
+        TYPE_ETESYNC -> EteSyncCalendarSettingsActivity::class.java
+        TYPE_LOCAL -> LocalListSettingsActivity::class.java
+        else -> CaldavCalendarSettingsActivity::class.java
+    }
+
     override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
@@ -137,6 +147,8 @@ class CaldavAccount : Parcelable {
     companion object {
         private const val TYPE_CALDAV = 0
         const val TYPE_ETESYNC = 1
+        const val TYPE_LOCAL = 2
+
         @JvmField val CREATOR: Parcelable.Creator<CaldavAccount> = object : Parcelable.Creator<CaldavAccount> {
             override fun createFromParcel(source: Parcel): CaldavAccount? {
                 return CaldavAccount(source)

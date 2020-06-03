@@ -7,6 +7,7 @@ import com.todoroo.astrid.alarms.AlarmService;
 import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.timers.TimerPlugin;
 import javax.inject.Inject;
+import org.tasks.data.DeletionDao;
 import org.tasks.data.Geofence;
 import org.tasks.data.LocationDao;
 import org.tasks.data.TaskAttachment;
@@ -32,6 +33,7 @@ public class CleanupWork extends InjectingWorker {
   @Inject TaskAttachmentDao taskAttachmentDao;
   @Inject UserActivityDao userActivityDao;
   @Inject LocationDao locationDao;
+  @Inject DeletionDao deletionDao;
 
   public CleanupWork(@NonNull Context context, @NonNull WorkerParameters workerParams) {
     super(context, workerParams);
@@ -64,6 +66,7 @@ public class CleanupWork extends InjectingWorker {
       }
     }
     timerPlugin.updateNotifications();
+    deletionDao.purgeDeleted();
     return Result.success();
   }
 

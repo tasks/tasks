@@ -391,7 +391,6 @@
     <string name="badges_description">Näytä tehtävien lukumäärä Tasksin käynnistyskuvakkeessa. Kaikki käynnistimet eivät tue merkkejä.</string>
     <string name="bundle_notifications_summary">Yhdistä useita ilmoituksia yhdeksi</string>
     <string name="repeat_monthly_same_day_each_month">sama päivä joka kuukausi</string>
-    <string name="dont_sync">Älä synkronoi</string>
     <string name="repeat_monthly_every_day_of_nth_week">joka %1$s %2$s</string>
     <string name="repeat_monthly_on_every_day_of_nth_week">jokaisella %1$s %2$s</string>
     <string name="repeat_monthly_first_week">ensimmäinen</string>

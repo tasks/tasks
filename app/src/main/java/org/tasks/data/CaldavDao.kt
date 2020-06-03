@@ -1,11 +1,13 @@
 package org.tasks.data
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.core.SortHelper.APPLE_EPOCH
 import com.todoroo.astrid.data.Task
-import io.reactivex.Single
+import com.todoroo.astrid.helper.UUIDHelper
+import org.tasks.R
 import org.tasks.date.DateTimeUtils.toAppleEpoch
 import org.tasks.db.DbUtils
 import org.tasks.filters.CaldavFilters
@@ -19,11 +21,14 @@ abstract class CaldavDao {
     @Query("SELECT * FROM caldav_lists WHERE cdl_uuid = :uuid LIMIT 1")
     abstract fun getCalendarByUuid(uuid: String): CaldavCalendar?
 
+    @Query("SELECT * FROM caldav_lists WHERE cdl_account = :uuid")
+    abstract fun getCalendarsByAccount(uuid: String): List<CaldavCalendar>
+
     @Query("SELECT * FROM caldav_accounts WHERE cda_uuid = :uuid LIMIT 1")
     abstract fun getAccountByUuid(uuid: String): CaldavAccount?
 
-    @Query("SELECT COUNT(*) FROM caldav_accounts")
-    abstract fun accountCount(): Single<Int>
+    @Query("SELECT COUNT(*) FROM caldav_accounts WHERE cda_account_type != 2")
+    abstract fun accountCount(): Int
 
     @Query("SELECT * FROM caldav_accounts ORDER BY cda_account_type, UPPER(cda_name)")
     abstract fun getAccounts(): List<CaldavAccount>
@@ -239,4 +244,30 @@ abstract class CaldavDao {
 
     @Query("SELECT task.*, caldav_task.*, IFNULL(cd_order, (created - $APPLE_EPOCH) / 1000) AS primary_sort FROM caldav_tasks AS caldav_task INNER JOIN tasks AS task ON _id = cd_task WHERE cd_calendar = :calendar AND parent = :parent AND cd_deleted = 0 AND deleted = 0 AND primary_sort >= :from AND primary_sort < IFNULL(:to, ${Long.MAX_VALUE}) ORDER BY primary_sort")
     internal abstract fun getTasksToShift(calendar: String, parent: Long, from: Long, to: Long?): List<CaldavTaskContainer>
+
+    fun setupLocalAccount(context: Context): CaldavCalendar {
+        val account = getAccountByUuid(LOCAL) ?: createLocalAccount()
+        return getCalendarsByAccount(account.uuid!!).getOrElse(0) {
+            createLocalList(context, account)
+        }
+    }
+
+    private fun createLocalAccount(): CaldavAccount {
+        val account = CaldavAccount()
+        account.accountType = CaldavAccount.TYPE_LOCAL
+        account.uuid = LOCAL
+        account.id = insert(account)
+        return account
+    }
+
+    private fun createLocalList(context: Context, account: CaldavAccount): CaldavCalendar {
+        val list = CaldavCalendar(context.getString(R.string.default_list), UUIDHelper.newUUID())
+        list.account = account.uuid
+        insert(list)
+        return list
+    }
+
+    companion object {
+        const val LOCAL = "local"
+    }
 }

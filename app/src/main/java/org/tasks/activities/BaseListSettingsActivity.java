@@ -51,7 +51,7 @@ public abstract class BaseListSettingsActivity extends ThemedInjectingAppCompatA
   TextView icon;
 
   @BindView(R.id.toolbar)
-  Toolbar toolbar;
+  protected Toolbar toolbar;
 
   @Inject DialogBuilder dialogBuilder;
   @Inject ColorProvider colorProvider;

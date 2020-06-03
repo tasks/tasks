@@ -415,7 +415,6 @@
     <string name="badges_description">Zobraziť počet úloh na ikone spustenia Úloh. Niektoré spúšťače nepodporujú odznaky.</string>
     <string name="bundle_notifications_summary">Zlúč viaceré upozornenia do jedného</string>
     <string name="repeat_monthly_same_day_each_month">v ten istý deň v každom mesiaci</string>
-    <string name="dont_sync">Nesynchronizovať </string>
     <string name="repeat_monthly_every_day_of_nth_week">každý %1$s %2$s</string>
     <string name="repeat_monthly_on_every_day_of_nth_week">na každý %1$s %2$s</string>
     <string name="repeat_monthly_first_week">prvý</string>

@@ -421,7 +421,6 @@
     <string name="badges_description">Tasks başlatıcı simgesinde görev sayısı göster. Tüm başlatıcılar rozetleri desteklemez.</string>
     <string name="bundle_notifications_summary">Birden çok bildirimi tek bildirime birleştir</string>
     <string name="repeat_monthly_same_day_each_month">her ayın aynı gününde</string>
-    <string name="dont_sync">Eşzamanlama yapma</string>
     <string name="repeat_monthly_every_day_of_nth_week">her %1$s %2$s</string>
     <string name="repeat_monthly_on_every_day_of_nth_week">her %1$s %2$s</string>
     <string name="repeat_monthly_first_week">birinci</string>

@@ -6,7 +6,8 @@ import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.utility.DateUtilities.now;
 import static java.util.Collections.emptyList;
 
-import androidx.annotation.Nullable;
+import android.content.Context;
+import androidx.annotation.NonNull;
 import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
@@ -17,15 +18,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
+import org.tasks.BuildConfig;
 import org.tasks.LocalBroadcastManager;
+import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.CaldavTask;
 import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskListDao;
+import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 
 public class TaskMover {
+
+  private final Context context;
   private final TaskDao taskDao;
   private final CaldavDao caldavDao;
   private final GoogleTaskDao googleTaskDao;
@@ -35,12 +41,14 @@ public class TaskMover {
 
   @Inject
   public TaskMover(
+      @ForApplication Context context,
       TaskDao taskDao,
       CaldavDao caldavDao,
       GoogleTaskDao googleTaskDao,
       GoogleTaskListDao googleTaskListDao,
       Preferences preferences,
       LocalBroadcastManager localBroadcastManager) {
+    this.context = context;
     this.taskDao = taskDao;
     this.caldavDao = caldavDao;
     this.googleTaskDao = googleTaskDao;
@@ -64,11 +72,11 @@ public class TaskMover {
     return null;
   }
 
-  public void move(List<Long> tasks, Filter selectedList) {
+  public void move(List<Long> tasks, @NonNull Filter selectedList) {
     tasks = new ArrayList<>(tasks);
     tasks.removeAll(googleTaskDao.findChildrenInList(tasks));
     tasks.removeAll(taskDao.findChildrenInList(tasks));
-    taskDao.setParent(0, null, tasks);
+    taskDao.setParent(0, tasks);
     for (Task task : taskDao.fetch(tasks)) {
       performMove(task, selectedList);
     }
@@ -79,7 +87,12 @@ public class TaskMover {
     localBroadcastManager.broadcastRefresh();
   }
 
-  private void performMove(Task task, @Nullable Filter selectedList) {
+  public void migrateLocalTasks() {
+    CaldavCalendar list = caldavDao.setupLocalAccount(context);
+    move(taskDao.getLocalTasks(), new CaldavFilter(list));
+  }
+
+  private void performMove(Task task, @NonNull Filter selectedList) {
     long id = task.getId();
 
     GoogleTask googleTask = googleTaskDao.getByTaskId(id);
@@ -97,7 +110,7 @@ public class TaskMover {
     moveLocalTask(task, selectedList);
   }
 
-  private void moveGoogleTask(Task task, GoogleTask googleTask, Filter selected) {
+  private void moveGoogleTask(Task task, GoogleTask googleTask, @NonNull Filter selected) {
     if (selected instanceof GtasksFilter
         && googleTask.getListId().equals(((GtasksFilter) selected).getRemoteId())) {
       return;
@@ -134,12 +147,12 @@ public class TaskMover {
                 newChild.setRemoteParent(newParent.getRemoteId());
                 return newChild;
               }));
-    } else {
-      taskDao.setParent(task.getId(), task.getUuid(), childIds);
+    } else if (BuildConfig.DEBUG) {
+      throw new IllegalArgumentException();
     }
   }
 
-  private void moveCaldavTask(Task task, CaldavTask caldavTask, Filter selected) {
+  private void moveCaldavTask(Task task, CaldavTask caldavTask, @NonNull Filter selected) {
     if (selected instanceof CaldavFilter
         && caldavTask.getCalendar().equals(((CaldavFilter) selected).getUuid())) {
       return;
@@ -174,12 +187,12 @@ public class TaskMover {
               }));
     } else if (selected instanceof GtasksFilter) {
       moveToGoogleTasks(id, childIds, (GtasksFilter) selected);
-    } else {
-      taskDao.updateParentUids(from(children).transform(CaldavTask::getTask).toList());
+    } else if (BuildConfig.DEBUG) {
+      throw new IllegalArgumentException();
     }
   }
 
-  private void moveLocalTask(Task task, @Nullable Filter selected) {
+  private void moveLocalTask(Task task, @NonNull Filter selected) {
     if (selected instanceof GtasksFilter) {
       moveToGoogleTasks(task.getId(), taskDao.getChildren(task.getId()), (GtasksFilter) selected);
     } else if (selected instanceof CaldavFilter) {
@@ -195,11 +208,13 @@ public class TaskMover {
       }
       caldavDao.insert(task, root, preferences.addTasksToTop());
       caldavDao.insert(tasks.values());
+    } else if (BuildConfig.DEBUG) {
+      throw new IllegalArgumentException();
     }
   }
 
   private void moveToGoogleTasks(long id, List<Long> children, GtasksFilter filter) {
-    taskDao.setParent(0, null, children);
+    taskDao.setParent(0, children);
     String listId = filter.getRemoteId();
     googleTaskDao.insertAndShift(new GoogleTask(id, listId), preferences.addTasksToTop());
     List<GoogleTask> newChildren = new ArrayList<>();

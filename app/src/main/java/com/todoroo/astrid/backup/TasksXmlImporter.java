@@ -17,6 +17,7 @@ import android.text.TextUtils;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.TaskMover;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -55,6 +56,7 @@ public class TasksXmlImporter {
   private final AlarmDao alarmDao;
   private final TagDao tagDao;
   private final GoogleTaskDao googleTaskDao;
+  private final TaskMover taskMover;
   private final LocationDao locationDao;
   private Activity activity;
   private Handler handler;
@@ -75,7 +77,8 @@ public class TasksXmlImporter {
       LocalBroadcastManager localBroadcastManager,
       AlarmDao alarmDao,
       TagDao tagDao,
-      GoogleTaskDao googleTaskDao) {
+      GoogleTaskDao googleTaskDao,
+      TaskMover taskMover) {
     this.tagDataDao = tagDataDao;
     this.userActivityDao = userActivityDao;
     this.dialogBuilder = dialogBuilder;
@@ -85,6 +88,7 @@ public class TasksXmlImporter {
     this.alarmDao = alarmDao;
     this.tagDao = tagDao;
     this.googleTaskDao = googleTaskDao;
+    this.taskMover = taskMover;
   }
 
   private void setProgressMessage(final String message) {
@@ -102,6 +106,7 @@ public class TasksXmlImporter {
             () -> {
               try {
                 performImport();
+                taskMover.migrateLocalTasks();
               } catch (IOException | XmlPullParserException e) {
                 Timber.e(e);
               }

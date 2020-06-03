@@ -46,6 +46,6 @@ public class SyncAdapters {
   }
 
   public boolean isCaldavSyncEnabled() {
-    return caldavDao.getAccounts().size() > 0;
+    return caldavDao.accountCount() > 0;
   }
 }

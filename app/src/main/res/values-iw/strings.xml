@@ -453,7 +453,6 @@
     <string name="badges_description">הצג מספר משימות על סמליל משגר Tasks. לא כל המשגרים תומכים בתגים.</string>
     <string name="bundle_notifications_summary">שלב מספר התראות בהתראה אחת</string>
     <string name="repeat_monthly_same_day_each_month">באותו היום בכל חודש</string>
-    <string name="dont_sync">ללא סנכרון</string>
     <string name="repeat_monthly_every_day_of_nth_week">בכל %1$s %2$s</string>
     <string name="repeat_monthly_on_every_day_of_nth_week">בכל %1$s %2$s</string>
     <string name="repeat_monthly_first_week">ראשון</string>

@@ -410,7 +410,6 @@
     <string name="badges_description">Anzeige eines Aufgabenzählers am Tasks Launcher Icon. Nicht alle Launcher unterstützen Badges.</string>
     <string name="bundle_notifications_summary">Mehrere Benachrichtigungen in einer zusammenfassen</string>
     <string name="repeat_monthly_same_day_each_month">am selben Tag jeden Monats</string>
-    <string name="dont_sync">Nicht synchronisieren</string>
     <string name="repeat_monthly_every_day_of_nth_week">jeden %1$s %2$s</string>
     <string name="repeat_monthly_on_every_day_of_nth_week">an jedem %1$s %2$s</string>
     <string name="repeat_monthly_first_week">ersten</string>

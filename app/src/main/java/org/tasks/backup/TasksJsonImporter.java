@@ -14,6 +14,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.TaskMover;
 import com.todoroo.astrid.service.Upgrader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -64,6 +65,7 @@ public class TasksJsonImporter {
   private final TaskAttachmentDao taskAttachmentDao;
   private final CaldavDao caldavDao;
   private final Preferences preferences;
+  private final TaskMover taskMover;
   private final LocationDao locationDao;
 
   private final ImportResult result = new ImportResult();
@@ -82,7 +84,8 @@ public class TasksJsonImporter {
       FilterDao filterDao,
       TaskAttachmentDao taskAttachmentDao,
       CaldavDao caldavDao,
-      Preferences preferences) {
+      Preferences preferences,
+      TaskMover taskMover) {
     this.tagDataDao = tagDataDao;
     this.userActivityDao = userActivityDao;
     this.taskDao = taskDao;
@@ -96,6 +99,7 @@ public class TasksJsonImporter {
     this.taskAttachmentDao = taskAttachmentDao;
     this.caldavDao = caldavDao;
     this.preferences = preferences;
+    this.taskMover = taskMover;
   }
 
   private void setProgressMessage(
@@ -235,7 +239,6 @@ public class TasksJsonImporter {
 
       googleTaskDao.updateParents();
       caldavDao.updateParents();
-      taskDao.updateParents();
 
       for (Entry<String, Integer> entry : backupContainer.getIntPrefs().entrySet()) {
         if (P_CURRENT_VERSION.equals(entry.getKey())) {
@@ -258,6 +261,9 @@ public class TasksJsonImporter {
         preferences.setInt(
             R.string.p_theme_color,
             Upgrader.getAndroidColor(context, themeIndex));
+      }
+      if (version < Upgrader.V9_6) {
+        taskMover.migrateLocalTasks();
       }
 
       reader.close();

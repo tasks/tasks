@@ -16,9 +16,8 @@ import org.tasks.activities.GoogleTaskListSettingsActivity
 import org.tasks.activities.TagSettingsActivity
 import org.tasks.billing.Inventory
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
-import org.tasks.caldav.CaldavCalendarSettingsActivity
 import org.tasks.data.*
-import org.tasks.etesync.EteSyncCalendarSettingsActivity
+import org.tasks.data.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType
 import org.tasks.injection.ForApplication
 import org.tasks.location.LocationPickerActivity
@@ -41,13 +40,10 @@ class FilterProvider @Inject constructor(
         private val preferences: Preferences,
         private val locationDao: LocationDao) {
 
-    val remoteListPickerItems: List<FilterListItem>
+    val listPickerItems: List<FilterListItem>
         get() {
             AndroidUtilities.assertNotMainThread()
             val items: MutableList<FilterListItem> = ArrayList()
-            val item = Filter(context.getString(R.string.dont_sync), null)
-            item.icon = R.drawable.ic_outline_cloud_off_24px
-            items.add(item)
             for ((account, value) in googleTaskFilters) {
                 items.addAll(
                         getSubmenu(
@@ -173,6 +169,9 @@ class FilterProvider @Inject constructor(
             }
         }
         for ((account, value) in caldavFilters) {
+            if (account.accountType == TYPE_LOCAL && !preferences.getBoolean(R.string.p_lists_enabled, true)) {
+                continue
+            }
             items.addAll(
                     getSubmenu(
                             account.name,
@@ -187,9 +186,7 @@ class FilterProvider @Inject constructor(
                         NavigationDrawerAction(
                                 context.getString(R.string.new_list),
                                 R.drawable.ic_outline_add_24px,
-                                Intent(
-                                        context,
-                                        if (account.isCaldavAccount) CaldavCalendarSettingsActivity::class.java else EteSyncCalendarSettingsActivity::class.java)
+                                Intent(context, account.listSettingsClass())
                                         .putExtra(BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_ACCOUNT, account),
                                 NavigationDrawerFragment.REQUEST_NEW_LIST))
             }
@@ -261,6 +258,9 @@ class FilterProvider @Inject constructor(
             val accounts = caldavDao.getAccounts()
             val filters = LinkedHashMap<CaldavAccount, List<Filter>>()
             for (account in accounts) {
+                if (account.accountType == TYPE_LOCAL) {
+                    account.name = context.getString(R.string.lists)
+                }
                 filters[account] = if (account.isCollapsed) {
                     emptyList()
                 } else {

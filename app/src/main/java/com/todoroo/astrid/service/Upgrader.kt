@@ -38,10 +38,13 @@ class Upgrader @Inject constructor(
         private val taskDao: TaskDao,
         private val locationDao: LocationDao,
         private val iCal: iCalendar,
-        private val widgetManager: AppWidgetManager) {
+        private val widgetManager: AppWidgetManager,
+        private val taskMover: TaskMover) {
 
     fun upgrade(from: Int, to: Int) {
-        if (from > 0) {
+        if (from == 0) {
+            caldavDao.setupLocalAccount(context)
+        } else {
             run(from, V4_9_5) { removeDuplicateTags() }
             run(from, V5_3_0) { migrateFilters() }
             run(from, V6_0_beta_1) { migrateDefaultSyncList() }
@@ -56,6 +59,7 @@ class Upgrader @Inject constructor(
             run(from, V8_8) { preferences.setBoolean(R.string.p_linkify_task_edit, true) }
             run(from, V8_10) { migrateWidgets() }
             run(from, V9_3) { applyCaldavOrder() }
+            run(from, V9_6) { taskMover.migrateLocalTasks() }
             preferences.setBoolean(R.string.p_just_updated, true)
         }
         preferences.setCurrentVersion(to)
@@ -297,6 +301,7 @@ class Upgrader @Inject constructor(
         private const val V8_8 = 717
         private const val V8_10 = 735
         private const val V9_3 = 90300
+        const val V9_6 = 90600
 
         @JvmStatic
         fun getAndroidColor(context: Context, index: Int): Int {

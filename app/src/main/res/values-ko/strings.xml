@@ -418,7 +418,6 @@
     <string name="badges_description">Tasks 앱 아이콘 위에 할일 개수를 표시합니다. 모든 런처가 배지 기능을 지원하지는 않습니다. </string>
     <string name="bundle_notifications_summary">상태바에 알림이 여러 개 있을 경우 하나로 모아서 표시합니다</string>
     <string name="repeat_monthly_same_day_each_month">매월 같은 날에</string>
-    <string name="dont_sync">동기화하지 않음</string>
     <string name="repeat_monthly_every_day_of_nth_week">매 %1$s %2$s</string>
     <string name="repeat_monthly_on_every_day_of_nth_week">매 %1$s %2$s 마다</string>
     <string name="repeat_monthly_first_week">첫번째</string>

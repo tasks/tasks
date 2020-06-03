@@ -418,7 +418,6 @@
     <string name="badges_description">Mostrar número de tareas en icono de Task. No todos los launchers lo soportan.</string>
     <string name="bundle_notifications_summary">Combinar múltiples notificaciones en una sola</string>
     <string name="repeat_monthly_same_day_each_month">el mismo día cada mes</string>
-    <string name="dont_sync">No sincronizar</string>
     <string name="repeat_monthly_every_day_of_nth_week">cada %1$s %2$s</string>
     <string name="repeat_monthly_on_every_day_of_nth_week">cada %1$s %2$s</string>
     <string name="repeat_monthly_first_week">primer</string>

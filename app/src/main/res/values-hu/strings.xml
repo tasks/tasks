@@ -419,7 +419,6 @@
     <string name="badges_description">Feladatok számának megjelenítése a Tasks ikonon. Nem minden launcher által támogatott funkció.</string>
     <string name="bundle_notifications_summary">Több értesítés összevonása eggyé</string>
     <string name="repeat_monthly_same_day_each_month">minden hónap egyazon napján</string>
-    <string name="dont_sync">Szinkronizáció kikapcsolva</string>
     <string name="repeat_monthly_every_day_of_nth_week">minden %1$s %2$s</string>
     <string name="repeat_monthly_on_every_day_of_nth_week">minden %1$s %2$s</string>
     <string name="repeat_monthly_first_week">első</string>

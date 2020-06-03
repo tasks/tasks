@@ -465,7 +465,6 @@ File %1$s contained %2$s.\n\n
   <string name="badges_description">Display a task count on Tasks\' launcher icon. Not all launchers support badges.</string>
   <string name="bundle_notifications_summary">Combine multiple notifications into one</string>
   <string name="repeat_monthly_same_day_each_month">on the same day each month</string>
-  <string name="dont_sync">Don\'t sync</string>
   <string name="repeat_monthly_every_day_of_nth_week">every %1$s %2$s</string>
   <string name="repeat_monthly_on_every_day_of_nth_week">on every %1$s %2$s</string>
   <string name="repeat_monthly_first_week">first</string>
@@ -630,4 +629,5 @@ File %1$s contained %2$s.\n\n
   <string name="sort_modified_group">Modified %s</string>
   <string name="on_launch">On launch</string>
   <string name="open_last_viewed_list">Open last viewed list</string>
+  <string name="lists">Lists</string>
 </resources>

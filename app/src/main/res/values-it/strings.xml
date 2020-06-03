@@ -415,7 +415,6 @@
     <string name="badges_description">Mostra contatore di notifiche sull\'icona di Task. Non tutti i launcher lo supportano.</string>
     <string name="bundle_notifications_summary">Combina diverse notifiche in una sola</string>
     <string name="repeat_monthly_same_day_each_month">lo stesso giorno di ogni mese</string>
-    <string name="dont_sync">Non sincronizzare</string>
     <string name="repeat_monthly_every_day_of_nth_week">ogni %1$s %2$s</string>
     <string name="repeat_monthly_on_every_day_of_nth_week">ogni %1$s %2$s</string>
     <string name="repeat_monthly_first_week">primo</string>

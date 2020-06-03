@@ -153,7 +153,6 @@ open class TaskAdapter(
             }
             newParent.isGoogleTask -> changeGoogleTaskParent(task, newParent)
             newParent.isCaldavTask -> changeCaldavParent(task, newParent)
-            else -> changeLocalParent(task, newParent)
         }
     }
 
@@ -228,15 +227,7 @@ open class TaskAdapter(
         when {
             task.isGoogleTask -> changeGoogleTaskParent(task, null)
             task.isCaldavTask -> changeCaldavParent(task, null)
-            else -> changeLocalParent(task, null)
         }
-    }
-
-    private fun changeLocalParent(task: TaskContainer, newParent: TaskContainer?) {
-        val t = task.getTask()
-        t.parent = newParent?.id ?: 0
-        t.parentUuid = newParent?.uuid
-        taskDao.save(t, null)
     }
 
     private fun changeGoogleTaskParent(task: TaskContainer, newParent: TaskContainer?) {
@@ -292,7 +283,7 @@ open class TaskAdapter(
         } else {
             caldavDao.update(caldavTask)
         }
-        taskDao.setParent(newParentId, null, listOf(task.id))
+        taskDao.setParent(newParentId, listOf(task.id))
         taskDao.touch(task.id)
         localBroadcastManager.broadcastRefresh()
     }

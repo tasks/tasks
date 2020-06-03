@@ -239,63 +239,6 @@ class TaskMoverTest : InjectingTestCase() {
     }
 
     @Test
-    fun dontSyncGoogleTask() {
-        createTasks(1)
-        googleTaskDao.insert(newGoogleTask(with(TASK, 1), with(LIST, "1")))
-        dontSync(1)
-        assertNull(googleTaskDao.getByTaskId(1))
-        assertFalse(taskDao.fetch(1)!!.isDeleted)
-    }
-
-    @Test
-    fun dontSyncCaldavTask() {
-        createTasks(1)
-        caldavDao.insert(newCaldavTask(with(CaldavTaskMaker.TASK, 1L), with(CALENDAR, "1")))
-        dontSync(1)
-        assertNull(caldavDao.getTask(1))
-        assertFalse(taskDao.fetch(1)!!.isDeleted)
-    }
-
-    @Test
-    fun dontSyncGoogleTaskWithSubtasks() {
-        createTasks(1, 2)
-        googleTaskDao.insert(newGoogleTask(with(TASK, 1), with(LIST, "1")))
-        googleTaskDao.insert(newGoogleTask(with(TASK, 2), with(LIST, "1"), with(PARENT, 1L)))
-        dontSync(1)
-        assertNull(googleTaskDao.getByTaskId(2))
-        val task = taskDao.fetch(2)!!
-        assertFalse(task.isDeleted)
-        assertEquals(1, task.parent)
-        assertEquals(taskDao.fetch(1)!!.uuid, task.parentUuid)
-    }
-
-    @Test
-    fun dontSyncCaldavWithSubtasks() {
-        createTasks(1)
-        createSubtask(2, 1)
-        createSubtask(3, 2)
-        caldavDao.insert(
-                listOf(
-                        newCaldavTask(
-                                with(CaldavTaskMaker.TASK, 1L), with(CALENDAR, "1"), with(REMOTE_ID, "a")),
-                        newCaldavTask(
-                                with(CaldavTaskMaker.TASK, 2L),
-                                with(CALENDAR, "1"),
-                                with(REMOTE_ID, "b"),
-                                with(REMOTE_PARENT, "a")),
-                        newCaldavTask(
-                                with(CaldavTaskMaker.TASK, 3L),
-                                with(CALENDAR, "1"),
-                                with(REMOTE_PARENT, "b"))))
-        dontSync(1)
-        assertNull(caldavDao.getTask(3))
-        val task = taskDao.fetch(3)!!
-        assertFalse(task.isDeleted)
-        assertEquals(2, task.parent)
-        assertEquals(taskDao.fetch(2)!!.uuid, task.parentUuid)
-    }
-
-    @Test
     fun moveToSameGoogleTaskListIsNoop() {
         createTasks(1)
         googleTaskDao.insert(newGoogleTask(with(TASK, 1), with(LIST, "1")))
@@ -354,10 +297,6 @@ class TaskMoverTest : InjectingTestCase() {
 
     private fun moveToCaldavList(calendar: String, vararg tasks: Long) {
         taskMover.move(tasks.toList(), CaldavFilter(CaldavCalendar("", calendar)))
-    }
-
-    private fun dontSync(task: Long) {
-        taskMover.move(listOf(task), null)
     }
 
     override fun inject(component: TestComponent) = component.inject(this)

@@ -189,7 +189,6 @@ public class TaskContainer {
     } else {
       task.setParent(parent);
     }
-    task.setParentUuid(null);
   }
 
   public boolean hasParent() {

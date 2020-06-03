@@ -416,7 +416,6 @@
     <string name="badges_description">Tasks ランチャーアイコンにタスク数を表示します。 すべてのランチャーがバッジをサポートしているわけではありません。</string>
     <string name="bundle_notifications_summary">複数の通知を1つの通知にまとめる</string>
     <string name="repeat_monthly_same_day_each_month">毎月同じ日に</string>
-    <string name="dont_sync">同期しない</string>
     <string name="repeat_monthly_every_day_of_nth_week">%1$s %2$s ごと</string>
     <string name="repeat_monthly_on_every_day_of_nth_week">%1$s %2$s ごとに</string>
     <string name="repeat_monthly_first_week">第一週</string>

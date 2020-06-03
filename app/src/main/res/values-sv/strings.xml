@@ -419,7 +419,6 @@
     <string name="badges_description">Visa en en summering av uppgifter på Tasks ikon med ett märke. Inte alla hemskärmsappar stödjer märken.</string>
     <string name="bundle_notifications_summary">Kombinera flera aviseringar i ett enda meddelande</string>
     <string name="repeat_monthly_same_day_each_month">samma dag varje månad</string>
-    <string name="dont_sync">Synkronisera inte</string>
     <string name="repeat_monthly_every_day_of_nth_week">varje %1$s %2$s</string>
     <string name="repeat_monthly_on_every_day_of_nth_week">på varje %1$s %2$s</string>
     <string name="repeat_monthly_first_week">första</string>

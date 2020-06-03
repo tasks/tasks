@@ -301,6 +301,10 @@
       android:theme="@style/Tasks"/>
 
     <activity
+      android:name=".caldav.LocalListSettingsActivity"
+      android:theme="@style/Tasks"/>
+
+    <activity
       android:name=".activities.PlaceSettingsActivity"
       android:theme="@style/Tasks" />
 

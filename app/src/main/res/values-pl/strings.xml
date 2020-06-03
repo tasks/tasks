@@ -430,7 +430,6 @@
     <string name="badges_description">Wyświetl liczbę zadań na ikonie Tasks. Nie wszystkie launchery to wspierają.</string>
     <string name="bundle_notifications_summary">Wyświetlaj wiele powiadomień jako jedno</string>
     <string name="repeat_monthly_same_day_each_month">tego samego dnia każdego miesiąca</string>
-    <string name="dont_sync">Nie synchronizowane</string>
     <string name="repeat_monthly_every_day_of_nth_week">każdy %1$s %2$s</string>
     <string name="repeat_monthly_on_every_day_of_nth_week">co każde %1$s %2$s</string>
     <string name="repeat_monthly_first_week">pierwszy</string>

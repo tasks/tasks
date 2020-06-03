@@ -41,8 +41,8 @@ class DefaultFilterProvider @Inject constructor(
         get() = getFilterFromPreference(R.string.p_last_viewed_list)
         set(filter) = setFilterPreference(filter, R.string.p_last_viewed_list)
 
-    var defaultRemoteList: Filter?
-        get() = getFilterFromPreference(R.string.p_default_remote_list)
+    var defaultRemoteList: Filter
+        get() = getFilterFromPreference(R.string.p_default_remote_list) ?: getAnyList()
         set(filter) = setFilterPreference(filter, R.string.p_default_remote_list)
 
     val startupFilter: Filter?
@@ -59,6 +59,14 @@ class DefaultFilterProvider @Inject constructor(
 
     fun getFilterFromPreference(prefString: String?): Filter? =
             getFilterFromPreference(prefString, getMyTasksFilter(context.resources))
+
+    private fun getAnyList(): Filter {
+        val filter = googleTaskListDao.getAllLists().getOrNull(0)
+                ?.let { GtasksFilter(it) }
+                ?: CaldavFilter(caldavDao.getCalendars()[0])
+        defaultFilter = filter
+        return filter
+    }
 
     private fun getFilterFromPreference(preferenceValue: String?, def: Filter?): Filter? {
         if (!isNullOrEmpty(preferenceValue)) {

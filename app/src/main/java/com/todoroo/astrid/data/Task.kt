@@ -7,7 +7,6 @@ import androidx.annotation.IntDef
 import androidx.core.os.ParcelCompat
 import androidx.room.*
 import com.google.ical.values.RRule
-import com.todoroo.andlib.data.Property
 import com.todoroo.andlib.data.Table
 import com.todoroo.andlib.sql.Field
 import com.todoroo.andlib.utility.DateUtilities
@@ -111,6 +110,7 @@ class Task : Parcelable {
     @Transient
     var parent = 0L
 
+    @Deprecated(message = "no longer used")
     @ColumnInfo(name = "parent_uuid")
     var parentUuid: String? = null
 
@@ -170,7 +170,6 @@ class Task : Parcelable {
         transitoryData = parcel.readHashMap(ContentValues::class.java.classLoader) as HashMap<String, Any>?
         isCollapsed = ParcelCompat.readBoolean(parcel)
         parent = parcel.readLong()
-        parentUuid = parcel.readString()
     }
 
     var uuid: String
@@ -307,7 +306,6 @@ class Task : Parcelable {
         dest.writeMap(transitoryData as Map<*, *>?)
         ParcelCompat.writeBoolean(dest, isCollapsed)
         dest.writeLong(parent)
-        dest.writeString(parentUuid)
     }
 
     fun insignificantChange(task: Task?): Boolean {
@@ -333,7 +331,7 @@ class Task : Parcelable {
                 && recurrence == task.recurrence
                 && repeatUntil == task.repeatUntil
                 && calendarURI == task.calendarURI
-                && parent == task.parent && parentUuid == task.parentUuid
+                && parent == task.parent
                 && remoteId == task.remoteId
     }
 
@@ -444,7 +442,6 @@ class Task : Parcelable {
         if (remoteId != other.remoteId) return false
         if (isCollapsed != other.isCollapsed) return false
         if (parent != other.parent) return false
-        if (parentUuid != other.parentUuid) return false
         if (transitoryData != other.transitoryData) return false
 
         return true
@@ -474,13 +471,12 @@ class Task : Parcelable {
         result = 31 * result + remoteId.hashCode()
         result = 31 * result + isCollapsed.hashCode()
         result = 31 * result + parent.hashCode()
-        result = 31 * result + (parentUuid?.hashCode() ?: 0)
         result = 31 * result + (transitoryData?.hashCode() ?: 0)
         return result
     }
 
     override fun toString(): String {
-        return "Task(id=$id, title=$title, priority=$priority, dueDate=$dueDate, hideUntil=$hideUntil, creationDate=$creationDate, modificationDate=$modificationDate, completionDate=$completionDate, deletionDate=$deletionDate, notes=$notes, estimatedSeconds=$estimatedSeconds, elapsedSeconds=$elapsedSeconds, timerStart=$timerStart, reminderFlags=$reminderFlags, reminderPeriod=$reminderPeriod, reminderLast=$reminderLast, reminderSnooze=$reminderSnooze, recurrence=$recurrence, repeatUntil=$repeatUntil, calendarURI=$calendarURI, remoteId='$remoteId', isCollapsed=$isCollapsed, parent=$parent, parentUuid=$parentUuid, transitoryData=$transitoryData)"
+        return "Task(id=$id, title=$title, priority=$priority, dueDate=$dueDate, hideUntil=$hideUntil, creationDate=$creationDate, modificationDate=$modificationDate, completionDate=$completionDate, deletionDate=$deletionDate, notes=$notes, estimatedSeconds=$estimatedSeconds, elapsedSeconds=$elapsedSeconds, timerStart=$timerStart, reminderFlags=$reminderFlags, reminderPeriod=$reminderPeriod, reminderLast=$reminderLast, reminderSnooze=$reminderSnooze, recurrence=$recurrence, repeatUntil=$repeatUntil, calendarURI=$calendarURI, remoteId='$remoteId', isCollapsed=$isCollapsed, parent=$parent, transitoryData=$transitoryData)"
     }
 
     @Retention(AnnotationRetention.SOURCE)

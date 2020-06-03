@@ -424,7 +424,6 @@
     <string name="default_calendar">Forvalgt kalender</string>
     <string name="badges_description">Vis gjøremålsantall i Task-oppstarterikonet. Ikke alle oppstartere støtter merker.</string>
     <string name="repeat_monthly_same_day_each_month">på samme dag hver måned</string>
-    <string name="dont_sync">Ikke synkroniser</string>
     <string name="repeat_monthly_every_day_of_nth_week">hver %1$s %2$s</string>
     <string name="repeat_monthly_on_every_day_of_nth_week">hver %1$s %2$s</string>
     <string name="repeat_monthly_first_week">første</string>

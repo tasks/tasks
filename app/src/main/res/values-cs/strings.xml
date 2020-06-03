@@ -434,7 +434,6 @@
     <string name="badges_description">Zobrazit počet úkolů u ikony Tasks. Některé spouštěče tuto funkci nepodporují.</string>
     <string name="bundle_notifications_summary">Seskupit několik upozornění do jednoho</string>
     <string name="repeat_monthly_same_day_each_month">ve stejný den každý měsíc</string>
-    <string name="dont_sync">Nesynchronizovat</string>
     <string name="repeat_monthly_every_day_of_nth_week">každý %1$s %2$s</string>
     <string name="repeat_monthly_first_week">první</string>
     <string name="repeat_monthly_second_week">druhý</string>

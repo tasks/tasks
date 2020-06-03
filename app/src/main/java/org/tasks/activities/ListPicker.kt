@@ -65,7 +65,7 @@ class ListPicker : InjectingDialogFragment() {
 
     override fun inject(component: DialogFragmentComponent) = component.inject(this)
 
-    private fun selectedList(list: Filter?) {
+    private fun selectedList(list: Filter) {
         targetFragment!!.onActivityResult(
                 targetRequestCode,
                 Activity.RESULT_OK,
@@ -75,7 +75,7 @@ class ListPicker : InjectingDialogFragment() {
     private fun refresh() {
         val noSelection = requireArguments().getBoolean(EXTRA_NO_SELECTION, false)
         val selected: Filter? = if (noSelection) null else arguments?.getParcelable(EXTRA_SELECTED_FILTER)
-        disposables!!.add(Single.fromCallable(filterProvider::remoteListPickerItems)
+        disposables!!.add(Single.fromCallable(filterProvider::listPickerItems)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { items: List<FilterListItem>? -> filterAdapter.setData(items!!, selected) })
@@ -106,21 +106,14 @@ class ListPicker : InjectingDialogFragment() {
         private fun createDialog(
                 filterAdapter: FilterAdapter,
                 dialogBuilder: DialogBuilder,
-                handler: (Filter?) -> Unit): AlertDialog {
+                handler: (Filter) -> Unit): AlertDialog {
             val builder = dialogBuilder
                     .newDialog()
                     .setNegativeButton(android.R.string.cancel, null)
-                    .setSingleChoiceItems(
-                            filterAdapter,
-                            -1
-                    ) { dialog: DialogInterface, which: Int ->
-                        if (which == 0) {
-                            handler.invoke(null)
-                        } else {
-                            val item = filterAdapter.getItem(which)
-                            if (item is GtasksFilter || item is CaldavFilter) {
-                                handler.invoke(item as Filter)
-                            }
+                    .setSingleChoiceItems(filterAdapter,-1) { dialog: DialogInterface, which: Int ->
+                        val item = filterAdapter.getItem(which)
+                        if (item is GtasksFilter || item is CaldavFilter) {
+                            handler.invoke(item as Filter)
                         }
                         dialog.dismiss()
                     }

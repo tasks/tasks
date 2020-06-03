@@ -13,6 +13,7 @@ import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.caldav.CaldavAccountSettingsActivity
 import org.tasks.data.CaldavAccount
+import org.tasks.data.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskAccount
 import org.tasks.data.GoogleTaskListDao
@@ -138,7 +139,9 @@ class Synchronization : InjectingPreferenceFragment() {
     }
 
     private fun addCaldavAccounts(category: PreferenceCategory): Boolean {
-        val accounts: List<CaldavAccount> = caldavDao.getAccounts()
+        val accounts: List<CaldavAccount> = caldavDao.getAccounts().filter {
+            it.accountType != TYPE_LOCAL
+        }
         for (account in accounts) {
             val preference = Preference(context)
             preference.title = account.name

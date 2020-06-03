@@ -18,9 +18,9 @@ import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
 
-private const val FRAG_TAG_REMOTE_LIST_SELECTION = "frag_tag_remote_list_selection"
+private const val FRAG_TAG_DEFAULT_LIST_SELECTION = "frag_tag_default_list_selection"
 private const val FRAG_TAG_CALENDAR_PICKER = "frag_tag_calendar_picker"
-private const val REQUEST_REMOTE_LIST = 10010
+private const val REQUEST_DEFAULT_LIST = 10010
 private const val REQUEST_CALENDAR_SELECTION = 10011
 
 class TaskDefaults : InjectingPreferenceFragment() {
@@ -47,11 +47,10 @@ class TaskDefaults : InjectingPreferenceFragment() {
         findPreference(R.string.p_default_remote_list)
             .setOnPreferenceClickListener {
                 ListPicker.newListPicker(
-                    defaultFilterProvider.defaultRemoteList,
-                    this,
-                    REQUEST_REMOTE_LIST
-                )
-                    .show(parentFragmentManager, FRAG_TAG_REMOTE_LIST_SELECTION)
+                        defaultFilterProvider.defaultRemoteList,
+                        this,
+                        REQUEST_DEFAULT_LIST)
+                    .show(parentFragmentManager, FRAG_TAG_DEFAULT_LIST_SELECTION)
                 false
             }
         updateRemoteListSummary()
@@ -60,11 +59,9 @@ class TaskDefaults : InjectingPreferenceFragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_REMOTE_LIST) {
+        if (requestCode == REQUEST_DEFAULT_LIST) {
             val list: Filter? = data!!.getParcelableExtra(ListPicker.EXTRA_SELECTED_FILTER)
-            if (list == null) {
-                preferences.setString(R.string.p_default_remote_list, null)
-            } else if (list is GtasksFilter || list is CaldavFilter) {
+            if (list is GtasksFilter || list is CaldavFilter) {
                 defaultFilterProvider.defaultRemoteList = list
             } else {
                 throw RuntimeException("Unhandled filter type")
@@ -91,9 +88,7 @@ class TaskDefaults : InjectingPreferenceFragment() {
 
     private fun updateRemoteListSummary() {
         val defaultFilter = defaultFilterProvider.defaultRemoteList
-        findPreference(R.string.p_default_remote_list).summary =
-            if (defaultFilter == null) getString(R.string.dont_sync)
-            else defaultFilter.listingTitle
+        findPreference(R.string.p_default_remote_list).summary = defaultFilter.listingTitle
     }
 
     override fun inject(component: FragmentComponent) = component.inject(this)

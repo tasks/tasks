@@ -34,7 +34,7 @@ public abstract class BaseCaldavCalendarSettingsActivity extends BaseListSetting
   public static final String EXTRA_CALDAV_CALENDAR = "extra_caldav_calendar";
   public static final String EXTRA_CALDAV_ACCOUNT = "extra_caldav_account";
 
-  @Inject CaldavDao caldavDao;
+  @Inject protected CaldavDao caldavDao;
   @Inject TaskDeleter taskDeleter;
 
   @BindView(R.id.root_layout)

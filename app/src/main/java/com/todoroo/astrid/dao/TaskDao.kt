@@ -162,19 +162,8 @@ abstract class TaskDao(private val database: Database) {
     @Query("UPDATE tasks SET modified = strftime('%s','now')*1000 WHERE _id in (:ids)")
     abstract fun touchInternal(ids: List<Long>)
 
-    @Query("UPDATE tasks SET parent = IFNULL(("
-            + " SELECT parent._id FROM tasks AS parent"
-            + " WHERE parent.remoteId = tasks.parent_uuid AND parent.deleted = 0), 0)"
-            + "WHERE parent_uuid IS NOT NULL AND parent_uuid != ''")
-    abstract fun updateParents()
-
-    @Query("UPDATE tasks SET parent_uuid = "
-            + "  (SELECT parent.remoteId FROM tasks AS parent WHERE parent._id = tasks.parent)"
-            + "  WHERE parent > 0 AND _id IN (:tasks)")
-    abstract fun updateParentUids(tasks: List<Long>)
-
-    @Query("UPDATE tasks SET parent = :parent, parent_uuid = :parentUuid WHERE _id IN (:children)")
-    abstract fun setParent(parent: Long, parentUuid: String?, children: List<Long>)
+    @Query("UPDATE tasks SET parent = :parent WHERE _id IN (:children)")
+    abstract fun setParent(parent: Long, children: List<Long>)
 
     @Transaction
     open fun fetchChildren(id: Long): List<Task> {
@@ -280,6 +269,9 @@ abstract class TaskDao(private val database: Database) {
         Timber.v("%sms: %s", DateUtilities.now() - start, query.sql)
         return tasks.map(TaskContainer::getTask)
     }
+
+    @Query("SELECT _id FROM tasks LEFT JOIN google_tasks ON _id = gt_task AND gt_deleted = 0 LEFT JOIN caldav_tasks ON _id = cd_task AND cd_deleted = 0 WHERE gt_id IS NULL AND cd_id IS NULL AND parent = 0")
+    abstract fun getLocalTasks(): List<Long>
 
     /** Generates SQL clauses  */
     object TaskCriteria {

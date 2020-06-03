@@ -434,7 +434,6 @@
     <string name="badges_description">Відображати кількість задач на іконці запуску Tasks. Не всі лаунчери підтримують такі значки.</string>
     <string name="bundle_notifications_summary">Згрупувати декілька сповіщень в одне</string>
     <string name="repeat_monthly_same_day_each_month">того ж дня щомісяця</string>
-    <string name="dont_sync">Не синхронізувати</string>
     <string name="repeat_monthly_every_day_of_nth_week">що %1$s %2$s</string>
     <string name="repeat_monthly_on_every_day_of_nth_week">що %1$s %2$s</string>
     <string name="repeat_monthly_first_week">перший(а)</string>

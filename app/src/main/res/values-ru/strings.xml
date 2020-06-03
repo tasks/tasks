@@ -436,7 +436,6 @@
     <string name="badges_description">Отображать количество задач на иконке приложения. Не все лаунчеры это поддерживают.</string>
     <string name="bundle_notifications_summary">Группировать несколько уведомлений в одно общее</string>
     <string name="repeat_monthly_same_day_each_month">в тот же день ежемесячно</string>
-    <string name="dont_sync">Не синхронизировать</string>
     <string name="repeat_monthly_every_day_of_nth_week">каждый %1$s %2$s</string>
     <string name="repeat_monthly_on_every_day_of_nth_week">в каждый %1$s %2$s</string>
     <string name="repeat_monthly_first_week">первая</string>

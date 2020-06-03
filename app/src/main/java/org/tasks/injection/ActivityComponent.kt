@@ -12,6 +12,7 @@ import org.tasks.activities.attribution.AttributionActivity
 import org.tasks.billing.PurchaseActivity
 import org.tasks.caldav.CaldavAccountSettingsActivity
 import org.tasks.caldav.CaldavCalendarSettingsActivity
+import org.tasks.caldav.LocalListSettingsActivity
 import org.tasks.dashclock.DashClockSettings
 import org.tasks.drive.DriveLoginActivity
 import org.tasks.etesync.EncryptionSettingsActivity
@@ -75,4 +76,5 @@ interface ActivityComponent {
     fun inject(activity: ManageSpaceActivity)
     fun inject(activity: SyncPreferences)
     fun inject(activity: PlaceSettingsActivity)
+    fun inject(activity: LocalListSettingsActivity)
 }

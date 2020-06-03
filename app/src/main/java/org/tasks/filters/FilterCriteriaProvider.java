@@ -109,9 +109,7 @@ public class FilterCriteriaProvider {
     if (!googleTaskListDao.getAccounts().isEmpty()) {
       result.add(getGtasksFilterCriteria());
     }
-    if (!caldavDao.getAccounts().isEmpty()) {
-      result.add(getCaldavFilterCriteria());
-    }
+    result.add(getCaldavFilterCriteria());
     return result;
   }
 

@@ -31,6 +31,7 @@ import androidx.work.PeriodicWorkRequest;
 import androidx.work.Worker;
 import com.google.common.primitives.Longs;
 import com.todoroo.astrid.data.Task;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import java.util.Random;
@@ -155,7 +156,7 @@ public class WorkManager {
     (forceAccountPresent == null
             ? zip(
                 googleTaskListDao.accountCount(),
-                caldavDao.accountCount(),
+                Single.fromCallable(caldavDao::accountCount),
                 (googleCount, caldavCount) -> googleCount > 0 || caldavCount > 0)
             : just(forceAccountPresent))
         .subscribeOn(Schedulers.io())

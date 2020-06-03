@@ -424,7 +424,6 @@
     <string name="badges_description">Bistaratu zeregin kopurua abiarazleko Tasks ikonoan. Abiarazle guztiek ez dituzte dominak onartzen.</string>
     <string name="bundle_notifications_summary">Taldekatu hainbat jakinarazpen batean</string>
     <string name="repeat_monthly_same_day_each_month">egun berean hilero</string>
-    <string name="dont_sync">Ez sinkronizatu</string>
     <string name="repeat_monthly_every_day_of_nth_week">%1$s %2$s bakoitzean</string>
     <string name="repeat_monthly_on_every_day_of_nth_week">%1$s %2$s bakoitzean</string>
     <string name="repeat_monthly_first_week">lehen</string>

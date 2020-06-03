@@ -402,7 +402,6 @@
     <string name="badges_description">在Tasks启动图标上显示任务计数。不是所有的启动器都支持角标。</string>
     <string name="bundle_notifications_summary">将多个通知合并为一个通知</string>
     <string name="repeat_monthly_same_day_each_month">在每月的同一天</string>
-    <string name="dont_sync">不同步</string>
     <string name="repeat_monthly_every_day_of_nth_week">每 %1$s %2$s</string>
     <string name="repeat_monthly_on_every_day_of_nth_week">在每 %1$s 个 %2$s</string>
     <string name="repeat_monthly_first_week">第一个</string>

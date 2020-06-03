@@ -254,7 +254,6 @@
     <string name="calendar_settings">Kalendri seaded</string>
     <string name="bundle_notifications">Koonda teavitused</string>
     <string name="list">Nimekiri</string>
-    <string name="dont_sync">Ära sünkrooni</string>
     <string name="repeat_monthly_first_week">esimene</string>
     <string name="repeat_monthly_second_week">teine</string>
     <string name="repeat_monthly_third_week">kolmas</string>

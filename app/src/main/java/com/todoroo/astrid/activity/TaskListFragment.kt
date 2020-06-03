@@ -55,7 +55,6 @@ import org.tasks.R
 import org.tasks.ShortcutManager
 import org.tasks.activities.*
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
-import org.tasks.caldav.CaldavCalendarSettingsActivity
 import org.tasks.data.CaldavDao
 import org.tasks.data.TagDataDao
 import org.tasks.data.TaskContainer
@@ -63,7 +62,6 @@ import org.tasks.db.DbUtils
 import org.tasks.dialogs.DateTimePicker.Companion.newDateTimePicker
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.SortDialog
-import org.tasks.etesync.EteSyncCalendarSettingsActivity
 import org.tasks.filters.PlaceFilter
 import org.tasks.injection.FragmentComponent
 import org.tasks.injection.InjectingFragment
@@ -360,9 +358,7 @@ class TaskListFragment : InjectingFragment(), OnRefreshListener, Toolbar.OnMenuI
             R.id.menu_caldav_list_fragment -> {
                 val calendar = (filter as CaldavFilter).calendar
                 val account = caldavDao.getAccountByUuid(calendar.account!!)
-                val caldavSettings = Intent(
-                        activity,
-                        if (account!!.isCaldavAccount) CaldavCalendarSettingsActivity::class.java else EteSyncCalendarSettingsActivity::class.java)
+                val caldavSettings = Intent(activity, account!!.listSettingsClass())
                 caldavSettings.putExtra(BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_CALENDAR, calendar)
                 startActivityForResult(caldavSettings, REQUEST_LIST_SETTINGS)
                 true

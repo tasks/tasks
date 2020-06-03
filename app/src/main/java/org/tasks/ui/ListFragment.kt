@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import butterknife.BindView
 import com.google.android.material.chip.ChipGroup
 import com.todoroo.astrid.api.CaldavFilter
@@ -26,9 +25,6 @@ import org.tasks.preferences.DefaultFilterProvider
 import javax.inject.Inject
 
 class ListFragment : TaskEditControlFragment() {
-    @BindView(R.id.dont_sync)
-    lateinit var textView: TextView
-
     @BindView(R.id.chip_group)
     lateinit var chipGroup: ChipGroup
 
@@ -39,8 +35,8 @@ class ListFragment : TaskEditControlFragment() {
     @Inject lateinit var taskMover: TaskMover
     @Inject lateinit var chipProvider: ChipProvider
     
-    private var originalList: Filter? = null
-    private var selectedList: Filter? = null
+    private lateinit var originalList: Filter
+    private lateinit var selectedList: Filter
     private lateinit var callback: OnListChanged
 
     interface OnListChanged {
@@ -56,8 +52,8 @@ class ListFragment : TaskEditControlFragment() {
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
         if (savedInstanceState != null) {
-            originalList = savedInstanceState.getParcelable(EXTRA_ORIGINAL_LIST)
-            setSelected(savedInstanceState.getParcelable(EXTRA_SELECTED_LIST))
+            originalList = savedInstanceState.getParcelable(EXTRA_ORIGINAL_LIST)!!
+            setSelected(savedInstanceState.getParcelable(EXTRA_SELECTED_LIST)!!)
         } else {
             if (task.isNew) {
                 if (task.hasTransitory(GoogleTask.KEY)) {
@@ -94,7 +90,7 @@ class ListFragment : TaskEditControlFragment() {
         return view
     }
 
-    private fun setSelected(filter: Filter?) {
+    private fun setSelected(filter: Filter) {
         selectedList = filter
         refreshView()
         callback.onListChanged(filter)
@@ -102,12 +98,8 @@ class ListFragment : TaskEditControlFragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        if (originalList != null) {
-            outState.putParcelable(EXTRA_ORIGINAL_LIST, originalList)
-        }
-        if (selectedList != null) {
-            outState.putParcelable(EXTRA_SELECTED_LIST, selectedList)
-        }
+        outState.putParcelable(EXTRA_ORIGINAL_LIST, originalList)
+        outState.putParcelable(EXTRA_SELECTED_LIST, selectedList)
     }
 
     override val layout: Int
@@ -135,7 +127,6 @@ class ListFragment : TaskEditControlFragment() {
     override fun apply(task: Task) {
         if (isNew || hasChanges()) {
             task.parent = 0
-            task.parentUuid = null
             taskMover.move(listOf(task.id), selectedList)
         }
     }
@@ -153,17 +144,17 @@ class ListFragment : TaskEditControlFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_CODE_SELECT_LIST) {
             if (resultCode == Activity.RESULT_OK) {
-                setList(data?.getParcelableExtra(ListPicker.EXTRA_SELECTED_FILTER))
+                data?.getParcelableExtra<Filter>(ListPicker.EXTRA_SELECTED_FILTER)?.let {
+                    setList(it)
+                }
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
     }
 
-    private fun setList(list: Filter?) {
-        if (list == null) {
-            setSelected(null)
-        } else if (list is GtasksFilter || list is CaldavFilter) {
+    private fun setList(list: Filter) {
+        if (list is GtasksFilter || list is CaldavFilter) {
             setSelected(list)
         } else {
             throw RuntimeException("Unhandled filter type")
@@ -171,19 +162,10 @@ class ListFragment : TaskEditControlFragment() {
     }
 
     private fun refreshView() {
-        if (selectedList == null) {
-            textView.visibility = View.VISIBLE
-            chipGroup.visibility = View.GONE
-        } else {
-            textView.visibility = View.GONE
-            chipGroup.visibility = View.VISIBLE
-            chipGroup.removeAllViews()
-            val chip = chipProvider.newChip(selectedList, R.drawable.ic_list_24px, true, true)
-            chip.isCloseIconVisible = true
-            chip.setOnClickListener { openPicker() }
-            chip.setOnCloseIconClickListener { setSelected(null) }
-            chipGroup.addView(chip)
-        }
+        chipGroup.removeAllViews()
+        val chip = chipProvider.newChip(selectedList, R.drawable.ic_list_24px, true, true)
+        chip.setOnClickListener { openPicker() }
+        chipGroup.addView(chip)
     }
 
     companion object {
