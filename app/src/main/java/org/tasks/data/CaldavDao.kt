@@ -25,7 +25,7 @@ abstract class CaldavDao {
     @Query("SELECT COUNT(*) FROM caldav_accounts")
     abstract fun accountCount(): Single<Int>
 
-    @Query("SELECT * FROM caldav_accounts ORDER BY UPPER(cda_name) ASC")
+    @Query("SELECT * FROM caldav_accounts ORDER BY cda_account_type, UPPER(cda_name)")
     abstract fun getAccounts(): List<CaldavAccount>
 
     @Query("UPDATE caldav_accounts SET cda_collapsed = :collapsed WHERE cda_id = :id")
