@@ -197,7 +197,7 @@ class Upgrader @Inject constructor(
         if (isNullOrEmpty(defaultGoogleTaskList)) {
             // TODO: look up default list
         } else {
-            val googleTaskList = googleTaskListDao.getByRemoteId(defaultGoogleTaskList)
+            val googleTaskList = googleTaskListDao.getByRemoteId(defaultGoogleTaskList!!)
             if (googleTaskList != null) {
                 defaultFilterProvider.defaultRemoteList = GtasksFilter(googleTaskList)
             }
