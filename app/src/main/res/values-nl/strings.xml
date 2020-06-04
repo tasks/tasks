@@ -621,4 +621,9 @@
     <string name="today_lowercase">vandaag</string>
     <string name="improve_performance_summary">Zet sorteergroepen en inklapbare subtaken uit om prestaties te verbeteren</string>
     <string name="improve_performance">Verbeter prestaties</string>
+    <string name="astrid_sort_order_summary">Zet Astrid\'s handmatige sorteermodus aan voor \'Mijn taken\', \'Vandaag\', en labels. Deze sorteermodus zal in een toekomstige update vervangen worden door \'Mijn volgorde\'</string>
+    <string name="astrid_sort_order">Astrid\'s handmatig sorteren</string>
+    <string name="on_launch">Bij het starten</string>
+    <string name="lists">Lijsten</string>
+    <string name="open_last_viewed_list">Open de laatst bekeken lijst</string>
 </resources>
