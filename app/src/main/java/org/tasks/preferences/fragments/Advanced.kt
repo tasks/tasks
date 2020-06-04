@@ -47,7 +47,7 @@ class Advanced : InjectingPreferenceFragment() {
     override fun getPreferenceXml() = R.xml.preferences_advanced
 
     override fun setupPreferences(savedInstanceState: Bundle?) {
-        findPreference(R.string.p_disable_subtasks)
+        findPreference(R.string.p_use_paged_queries)
                 .setOnPreferenceChangeListener { _: Preference?, _: Any? ->
                     localBroadcastManager.broadcastRefresh()
                     true

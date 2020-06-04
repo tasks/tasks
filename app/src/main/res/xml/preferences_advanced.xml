@@ -4,7 +4,7 @@
 
   <SwitchPreferenceCompat
     android:defaultValue="false"
-    android:key="@string/p_disable_subtasks"
+    android:key="@string/p_use_paged_queries"
     android:summary="@string/improve_performance_summary"
     android:title="@string/improve_performance" />
 

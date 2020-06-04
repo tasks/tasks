@@ -88,7 +88,7 @@ public class TaskListViewModel extends ViewModel implements Observer<PagedList<T
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 subtasks -> {
-                  if (manualSortFilter || preferences.showSubtasks()) {
+                  if (manualSortFilter || !preferences.usePagedQueries()) {
                     performNonPagedQuery(subtasks);
                   } else {
                     performPagedListQuery();

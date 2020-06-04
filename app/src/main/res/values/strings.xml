@@ -539,6 +539,7 @@ File %1$s contained %2$s.\n\n
   <string name="enter_title_hint">Enter title</string>
   <string name="improve_performance">Improve performance</string>
   <string name="improve_performance_summary">Disable sort groups and collapsible subtasks to improve app performance</string>
+  <string name="disable_sort_groups">Disable sort groups</string>
   <string name="enter_tag_name">Enter tag name</string>
   <string name="create_new_tag">Create \"%s\"</string>
   <string name="choose_synchronization_service">Select a platform</string>

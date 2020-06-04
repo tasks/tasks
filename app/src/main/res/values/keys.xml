@@ -351,7 +351,8 @@
   <string name="google_tasks_position_hack">Custom order synchronization fix</string>
   <string name="google_tasks_position_hack_summary">Always perform a full synchronization to workaround https://issuetracker.google.com/issues/132432317</string>
   <string name="subscription_help_url">https://tasks.org/subscribe</string>
-  <string name="p_disable_subtasks">disable_subtasks</string>
+  <string name="p_use_paged_queries">disable_subtasks</string>
+  <string name="p_disable_sort_groups">disable_sort_groups</string>
   <string name="p_wearable_notifications">wearable_notifications</string>
   <string name="p_notified_oauth_error">notified_oauth_error_%1$s_%2$s</string>
   <string name="p_chip_style">chip_style</string>

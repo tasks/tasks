@@ -47,7 +47,7 @@ class NonRecursiveQueryTest : InjectingTestCase() {
     override fun setUp() {
         super.setUp()
         preferences.clear()
-        preferences.setBoolean(R.string.p_disable_subtasks, true)
+        preferences.setBoolean(R.string.p_use_paged_queries, true)
         tasks.clear()
         adapter = TaskAdapter(false, googleTaskDao, caldavDao, taskDao, localBroadcastManager)
         adapter.setDataSource(dataSource)

@@ -191,7 +191,7 @@ class TaskViewHolder internal constructor(
             } else {
                 dueDate.setTextColor(textColorSecondary)
             }
-            val dateValue: String? = if (sortMode == SortHelper.SORT_DUE && task.sortGroup != null && !preferences.getBoolean(R.string.p_disable_subtasks, false)) {
+            val dateValue: String? = if (sortMode == SortHelper.SORT_DUE && task.sortGroup != null && preferences.showGroupHeaders()) {
                 if (task.hasDueTime()) DateUtilities.getTimeString(context, newDateTime(task.dueDate)) else null
             } else {
                 DateUtilities.getRelativeDateTime(context, task.dueDate, locale, FormatStyle.MEDIUM)

@@ -89,7 +89,7 @@ class ManualGoogleTaskQueryTest : InjectingTestCase() {
 
     @Test
     fun ignoreDisableSubtasksPreference() {
-        preferences.setBoolean(R.string.p_disable_subtasks, true)
+        preferences.setBoolean(R.string.p_use_paged_queries, true)
         newTask(1, 0, 0)
         newTask(2, 0, 1)
 

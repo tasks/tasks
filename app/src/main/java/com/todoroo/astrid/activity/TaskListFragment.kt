@@ -275,7 +275,7 @@ class TaskListFragment : InjectingFragment(), OnRefreshListener, Toolbar.OnMenuI
             sortMenu.isEnabled = false
             sortMenu.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
         }
-        if (preferences.disableSubtasks()
+        if (preferences.usePagedQueries()
                 || !filter.supportsSubtasks()
                 || taskAdapter.supportsAstridSorting()) {
             menu.findItem(R.id.menu_collapse_subtasks).isVisible = false

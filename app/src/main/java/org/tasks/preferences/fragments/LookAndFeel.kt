@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.annotation.StringRes
 import androidx.preference.Preference
+import androidx.preference.SwitchPreferenceCompat
 import com.todoroo.astrid.api.Filter
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
@@ -93,6 +94,13 @@ class LookAndFeel : InjectingPreferenceFragment() {
             if (context?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) {
                 activity?.recreate()
             }
+            true
+        }
+
+        val sortGroups = findPreference(R.string.p_disable_sort_groups) as SwitchPreferenceCompat
+        sortGroups.isChecked = sortGroups.isChecked or preferences.usePagedQueries()
+        findPreference(R.string.p_use_paged_queries).setOnPreferenceChangeListener { _, value ->
+            sortGroups.isChecked = value as Boolean
             true
         }
 

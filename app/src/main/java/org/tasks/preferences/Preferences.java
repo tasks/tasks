@@ -526,14 +526,6 @@ public class Preferences {
     return getIntegerFromString(R.string.p_default_importance_key, Priority.LOW);
   }
 
-  public boolean showSubtasks() {
-    return !disableSubtasks();
-  }
-
-  public boolean disableSubtasks() {
-    return getBoolean(R.string.p_disable_subtasks, false);
-  }
-
   public int getThemeBase() {
     return getInt(R.string.p_theme, ThemeBase.DEFAULT_BASE_THEME);
   }
@@ -548,5 +540,13 @@ public class Preferences {
 
   public int getDefaultThemeColor() {
     return getInt(R.string.p_theme_color, ColorProvider.BLUE_500);
+  }
+
+  public boolean usePagedQueries() {
+    return getBoolean(R.string.p_use_paged_queries, false);
+  }
+
+  public boolean showGroupHeaders() {
+    return !usePagedQueries() && !getBoolean(R.string.p_disable_sort_groups, false);
   }
 }
