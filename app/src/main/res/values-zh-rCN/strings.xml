@@ -135,7 +135,6 @@
     <string name="gcal_completed_title">%s (已完成)</string>
     <string name="CFC_gtasks_list_text">列表内容: ?</string>
     <string name="CFC_gtasks_list_name">在GTasks列表…</string>
-    <string name="CFC_caldav_list_name">在 CalDAV 列表…</string>
     <string name="gtasks_GTA_clear_completed">清除已完成项</string>
     <string name="gtasks_GLA_authenticating">验证中…</string>
     <string name="gtasks_GLA_errorIOAuth">对不起，我们在与 Google 服务器通讯时遇到了问题。请稍后再尝试。</string>

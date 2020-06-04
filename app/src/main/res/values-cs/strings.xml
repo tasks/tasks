@@ -470,7 +470,6 @@
     <string name="requires_pro_subscription">Vyžaduje PRO předplatné</string>
     <string name="logout">Odhlásit se</string>
     <string name="this_feature_requires_a_subscription">Tato funkce vyžaduje odběr</string>
-    <string name="CFC_caldav_list_name">V CalDAV seznamu…</string>
     <string name="repeat_minutely">OPAKOVAT KAŽDOU MINUTU</string>
     <string name="repeat_number_of_times">Opakovat několikrát</string>
     <string name="when_overdue">Po termínu</string>

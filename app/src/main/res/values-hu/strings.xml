@@ -145,7 +145,6 @@
     <string name="gcal_completed_title">%s (befejezve)</string>
     <string name="CFC_gtasks_list_text">Listában: ?</string>
     <string name="CFC_gtasks_list_name">Ebben a GTasks listában…</string>
-    <string name="CFC_caldav_list_name">A CalDAV listában…</string>
     <string name="gtasks_GTA_clear_completed">Elvégzettek törlése</string>
     <string name="gtasks_GLA_authenticating">Azonosítás…</string>
     <string name="gtasks_GLA_errorIOAuth">Sajnáljuk, de hiba történt a Google szervereivel való kommunikálás során. Próbáld újra később.</string>

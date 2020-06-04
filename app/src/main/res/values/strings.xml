@@ -157,7 +157,7 @@ File %1$s contained %2$s.\n\n
   <string name="gcal_completed_title">%s (completed)</string>
   <string name="CFC_gtasks_list_text">In List: ?</string>
   <string name="CFC_gtasks_list_name">In GTasks List…</string>
-  <string name="CFC_caldav_list_name">In CalDAV list…</string>
+  <string name="CFC_list_name">In list…</string>
   <string name="gtasks_GTA_clear_completed">Clear Completed</string>
   <string name="gtasks_GLA_authenticating">Authenticating…</string>
   <string name="gtasks_GLA_errorIOAuth">Sorry, we had trouble communicating with Google servers. Please try again later.</string>

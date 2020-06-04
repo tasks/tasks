@@ -285,7 +285,6 @@
     <string name="default_location_reminder_on_arrival">Vid ankomst</string>
     <string name="default_location_reminder_on_departure">Vid avgång</string>
     <string name="default_location_reminder_on_arrival_or_departure">Vid ankomst och avgång</string>
-    <string name="CFC_caldav_list_name">I CalDAV-lista…</string>
     <string name="snooze_all">Snooza alla</string>
     <string name="repeat_every">Varje</string>
     <string name="repeat_option_does_not_repeat">Repeteras inte</string>

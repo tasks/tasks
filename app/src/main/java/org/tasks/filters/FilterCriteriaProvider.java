@@ -273,6 +273,6 @@ public class FilterCriteriaProvider {
         values,
         names,
         ids,
-        context.getString(R.string.CFC_caldav_list_name));
+        context.getString(R.string.CFC_list_name));
   }
 }

@@ -145,7 +145,6 @@
     <string name="gcal_completed_title">%s (завершено)</string>
     <string name="CFC_gtasks_list_text">В списку: ?</string>
     <string name="CFC_gtasks_list_name">В GTasks списку…</string>
-    <string name="CFC_caldav_list_name">В CalDAV списку…</string>
     <string name="gtasks_GTA_clear_completed">Очистити завершені</string>
     <string name="gtasks_GLA_authenticating">Автентифікація…</string>
     <string name="gtasks_GLA_errorIOAuth">Вибачте, проблеми при зверненні до серверів Google. Будь ласка, спробуйте пізніше.</string>

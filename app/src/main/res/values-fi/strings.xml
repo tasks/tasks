@@ -544,7 +544,6 @@
     <string name="select_all">Valitse kaikki</string>
     <string name="widget_show_menu">Näytä valikko</string>
     <string name="widget_hide_background">Piilota tausta</string>
-    <string name="CFC_caldav_list_name">CalDAV lista…</string>
     <string name="sort_created">Luontiajan mukaan</string>
     <string name="widget_show_dividers">Näytä jakajat</string>
     <string name="got_it">Selvä!</string>

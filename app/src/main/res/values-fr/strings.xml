@@ -139,7 +139,6 @@
     <string name="gcal_completed_title">%s (complété)</string>
     <string name="CFC_gtasks_list_text">Dans la liste : ?</string>
     <string name="CFC_gtasks_list_name">Dans la liste GTasks…</string>
-    <string name="CFC_caldav_list_name">Dans la liste CalDAV…</string>
     <string name="gtasks_GTA_clear_completed">Effacer les tâches terminés</string>
     <string name="gtasks_GLA_authenticating">Authentification en cours…</string>
     <string name="gtasks_GLA_errorIOAuth">Erreur de communication avec les serveurs Google. Veuillez essayer plus tard.</string>
