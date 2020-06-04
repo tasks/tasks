@@ -19,7 +19,6 @@ import com.todoroo.astrid.utility.TitleParser;
 import java.util.ArrayList;
 import java.util.Map;
 import javax.inject.Inject;
-import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.CaldavTask;
@@ -109,8 +108,6 @@ public class TaskCreator {
       } else if (remoteList instanceof CaldavFilter) {
         caldavDao.insert(
             task, new CaldavTask(task.getId(), ((CaldavFilter) remoteList).getUuid()), addToTop);
-      } else if (BuildConfig.DEBUG) {
-        throw new IllegalStateException();
       }
     }
 
