@@ -617,4 +617,9 @@
     <string name="today_lowercase">今日</string>
     <string name="improve_performance_summary">禁用排序组和可折叠子任务以改善应用程序性能</string>
     <string name="improve_performance">改善性能</string>
+    <string name="lists">列表</string>
+    <string name="open_last_viewed_list">打开上次查看的列表</string>
+    <string name="on_launch">启动时</string>
+    <string name="astrid_sort_order_summary">为“我的任务”，“今天”和标签启用Astrid的手动排序模式。 在以后的更新中，此排序模式将被“我的顺序”代替</string>
+    <string name="astrid_sort_order">Astrid手动排序</string>
 </resources>
