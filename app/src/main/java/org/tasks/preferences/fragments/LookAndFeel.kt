@@ -98,7 +98,7 @@ class LookAndFeel : InjectingPreferenceFragment() {
         }
 
         val sortGroups = findPreference(R.string.p_disable_sort_groups) as SwitchPreferenceCompat
-        sortGroups.isChecked = sortGroups.isChecked or preferences.usePagedQueries()
+        sortGroups.isChecked = sortGroups.isChecked || preferences.usePagedQueries()
         findPreference(R.string.p_use_paged_queries).setOnPreferenceChangeListener { _, value ->
             sortGroups.isChecked = value as Boolean
             true
