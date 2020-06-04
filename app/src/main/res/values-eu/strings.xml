@@ -624,4 +624,9 @@
     <string name="yesterday_lowercase">atzo</string>
     <string name="tomorrow_lowercase">bihar</string>
     <string name="today_lowercase">gaur</string>
+    <string name="lists">Zerrendak</string>
+    <string name="open_last_viewed_list">Ireki ikusitako azkenen zerrenda</string>
+    <string name="on_launch">Abioan</string>
+    <string name="improve_performance">Hobetu errendimendua</string>
+    <string name="astrid_sort_order">Eskuzko Astrid ordenatzea</string>
 </resources>
