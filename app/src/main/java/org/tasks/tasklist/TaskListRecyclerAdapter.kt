@@ -28,11 +28,11 @@ abstract class TaskListRecyclerAdapter internal constructor(
         val task = getItem(position)
         if (task != null) {
             (holder as TaskViewHolder).bindView(task, taskList.getFilter(), sortMode)
-            holder.isMoving = false
+            holder.moving = false
             val indent = adapter.getIndent(task)
             task.setIndent(indent)
             holder.indent = indent
-            holder.setSelected(adapter.isSelected(task))
+            holder.selected = adapter.isSelected(task)
         }
     }
 
@@ -60,7 +60,7 @@ abstract class TaskListRecyclerAdapter internal constructor(
         if (!dragAndDropEnabled()) {
             taskList.startActionMode()
         }
-        if (taskList.isActionModeActive && !taskViewHolder.isMoving) {
+        if (taskList.isActionModeActive && !taskViewHolder.moving) {
             toggle(taskViewHolder)
         }
         return true

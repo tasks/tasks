@@ -126,7 +126,7 @@ class DragAndDropRecyclerAdapter(
             super.onSelectedChanged(viewHolder, actionState)
             if (actionState == ACTION_STATE_DRAG) {
                 taskList.startActionMode()
-                (viewHolder as TaskViewHolder?)!!.isMoving = true
+                (viewHolder as TaskViewHolder?)!!.moving = true
                 dragging = true
                 val position = viewHolder!!.adapterPosition
                 updateIndents(viewHolder as TaskViewHolder?, position, position)
@@ -155,7 +155,7 @@ class DragAndDropRecyclerAdapter(
                 return false
             }
             if (from == -1) {
-                source.setSelected(false)
+                source.selected = false
                 from = fromPosition
             }
             to = toPosition
@@ -201,7 +201,7 @@ class DragAndDropRecyclerAdapter(
                     if (targetIndent != task.getIndent()) {
                         if (from == -1) {
                             taskList.finishActionMode()
-                            vh.setSelected(false)
+                            vh.selected = false
                         }
                     }
                     if (targetIndent < minIndent) {
@@ -217,7 +217,7 @@ class DragAndDropRecyclerAdapter(
                 recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
             super.clearView(recyclerView, viewHolder)
             val vh = viewHolder as TaskViewHolder
-            vh.isMoving = false
+            vh.moving = false
             dragging = false
             drainQueue()
             if (taskList.isActionModeActive) {

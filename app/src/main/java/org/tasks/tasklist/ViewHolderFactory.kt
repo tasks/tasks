@@ -41,7 +41,7 @@ class ViewHolderFactory @Inject constructor(
                     LayoutInflater.from(context).inflate(R.layout.task_adapter_header, parent, false),
                     callback)
 
-    fun newViewHolder(parent: ViewGroup?, callbacks: ViewHolderCallbacks?) =
+    fun newViewHolder(parent: ViewGroup?, callbacks: ViewHolderCallbacks) =
             TaskViewHolder(
                     context as Activity,
                     LayoutInflater.from(context).inflate(R.layout.task_adapter_row, parent, false) as ViewGroup,
