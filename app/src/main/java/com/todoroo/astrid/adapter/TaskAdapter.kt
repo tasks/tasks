@@ -124,7 +124,7 @@ open class TaskAdapter(
         }
     }
 
-    open fun supportsManualSorting(): Boolean = false
+    open fun supportsAstridSorting(): Boolean = false
 
     open fun moved(from: Int, to: Int, indent: Int) {
         val task = getTask(from)

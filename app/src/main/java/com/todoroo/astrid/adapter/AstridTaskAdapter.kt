@@ -36,7 +36,7 @@ class AstridTaskAdapter internal constructor(
         return updater.getIndentForTask(previous.uuid) + 1
     }
 
-    override fun supportsManualSorting() = true
+    override fun supportsAstridSorting() = true
 
     override fun moved(from: Int, to: Int, indent: Int) {
         val source = getTask(from)

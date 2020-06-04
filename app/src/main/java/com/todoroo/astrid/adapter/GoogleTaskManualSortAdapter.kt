@@ -13,8 +13,6 @@ class GoogleTaskManualSortAdapter internal constructor(
         private val localBroadcastManager: LocalBroadcastManager)
     : TaskAdapter(false, googleTaskDao, caldavDao, taskDao, localBroadcastManager) {
 
-    override fun supportsManualSorting() = true
-
     override fun moved(from: Int, to: Int, indent: Int) {
         val task = getTask(from)
         val googleTask = task.googleTask

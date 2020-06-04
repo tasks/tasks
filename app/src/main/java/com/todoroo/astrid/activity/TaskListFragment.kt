@@ -277,7 +277,7 @@ class TaskListFragment : InjectingFragment(), OnRefreshListener, Toolbar.OnMenuI
         }
         if (preferences.disableSubtasks()
                 || !filter.supportsSubtasks()
-                || taskAdapter.supportsManualSorting()) {
+                || taskAdapter.supportsAstridSorting()) {
             menu.findItem(R.id.menu_collapse_subtasks).isVisible = false
             menu.findItem(R.id.menu_expand_subtasks).isVisible = false
         }
