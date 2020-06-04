@@ -10,7 +10,7 @@ import java.nio.file.Files
 import java.nio.file.Paths
 
 object TestUtilities {
-    fun newPreferences(context: Context?): Preferences {
+    fun newPreferences(context: Context): Preferences {
         return Preferences(context, "test_preferences")
     }
 
