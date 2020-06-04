@@ -628,4 +628,7 @@
     <string name="improve_performance">Mejorar el rendimiento</string>
     <string name="open_last_viewed_list">Última lista vista abierta</string>
     <string name="on_launch">En lanzador</string>
+    <string name="lists">Listas</string>
+    <string name="astrid_sort_order_summary">Habilite el modo de ordenación manual de Astrid para \'Mis tareas\', \'Hoy\' y las etiquetas. Este modo de ordenación será reemplazado por \'Mi pedido\' en una futura actualización</string>
+    <string name="astrid_sort_order">Clasificación manual de Astrid</string>
 </resources>
