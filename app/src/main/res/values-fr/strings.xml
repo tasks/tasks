@@ -431,7 +431,6 @@
     <string name="show_full_description">Montrer la description complète</string>
     <string name="linkify">Afficher les liens</string>
     <string name="linkify_description">Ajouter des liens vers des sites Web, des adresses et des numéros de téléphone</string>
-    <string name="show_list_indicators">Afficher la liste des puces</string>
     <string name="location_remind_arrival">Rappel à l\'arrivée</string>
     <string name="location_remind_departure">Rappel au départ</string>
     <string name="visit_website">Visiter le site internet</string>

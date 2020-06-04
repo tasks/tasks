@@ -446,7 +446,6 @@
     <string name="show_full_description">Rodyti pilną aprašymą</string>
     <string name="linkify">Rodyti nuorodas</string>
     <string name="linkify_description">Pridėti nuorodas į puslapius, adresus ir telefono numerius</string>
-    <string name="show_list_indicators">Rodyti sąrašą lustų</string>
     <string name="location_remind_arrival">Priminti atvykus</string>
     <string name="location_remind_departure">Priminti išvykstant</string>
     <string name="visit_website">Aplankyti svetainę</string>

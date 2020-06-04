@@ -385,7 +385,6 @@
     <string name="show_full_description">Tampilkan keseluruhan deskripsi</string>
     <string name="linkify">Tampilkan tautan</string>
     <string name="linkify_description">Menambahkan tautan ke situs web, alamat, dan nomor telepon</string>
-    <string name="show_list_indicators">Tampilkan indikator daftar</string>
     <string name="visit_website">Kunjungi situs web</string>
     <string name="choose_a_location">Pilih lokasi</string>
     <string name="pick_this_location">Pilih lokasi ini</string>

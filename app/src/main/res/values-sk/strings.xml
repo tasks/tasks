@@ -446,7 +446,6 @@
     <string name="show_full_description">Ukázať plný popis</string>
     <string name="linkify">Ukázať prepojenia</string>
     <string name="linkify_description">Pridať prepojenia do stránok, adries a telefónnych čísel</string>
-    <string name="show_list_indicators">Ukázať zoznamy</string>
     <string name="location_remind_arrival">Pripomenúť pri príchode</string>
     <string name="location_remind_departure">Pripomenúť pri odchode</string>
     <string name="visit_website">Navštíviť stránky</string>

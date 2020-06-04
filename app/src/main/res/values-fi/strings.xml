@@ -404,7 +404,6 @@
     <string name="add_place">Lisää paikka</string>
     <string name="hide_unused_places">Piilota käyttämättömät paikat</string>
     <string name="hide_unused_tags">Piilota käyttämättömät tunnistimet</string>
-    <string name="show_list_indicators">Näytä lisätietolaput listassa</string>
     <string name="reinitialize_account">Uudelleenalustus</string>
     <string name="calendar_event_created">Kalenterimerkintä luotu %s varten</string>
     <string name="auto_dismiss_datetime_summary">Päivämäärän ja kellonajan valitsimet sulkeutuvat itsestään valittuasi ajan</string>

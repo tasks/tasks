@@ -484,7 +484,6 @@
     <string name="show_full_description">הצג תיאור מלא</string>
     <string name="linkify">הצג קישורים</string>
     <string name="linkify_description">הוסף קישורים לאתרים, כתובות, ומספרי טלפון</string>
-    <string name="show_list_indicators">הצג שבבי רשימה</string>
     <string name="location_remind_arrival">הזכר ברגע ההגעה</string>
     <string name="location_remind_departure">הזכר ברגע העזיבה</string>
     <string name="visit_website">מעבר לאתר האינטרנט</string>

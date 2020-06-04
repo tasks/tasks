@@ -455,7 +455,6 @@
     <string name="show_full_description">Vis full beskrivelse</string>
     <string name="linkify">Vis lenker</string>
     <string name="linkify_description">Legg til lenker til nettsider, adresser, og telefonnumre</string>
-    <string name="show_list_indicators">Vis listeindikatorer</string>
     <string name="location_remind_arrival">Påminn ved ankomst</string>
     <string name="location_remind_departure">Påminn ved avgang</string>
     <string name="visit_website">Besøk nettside</string>

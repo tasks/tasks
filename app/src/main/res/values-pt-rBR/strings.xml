@@ -447,7 +447,6 @@
     <string name="show_full_description">Mostrar descrição completa</string>
     <string name="linkify">Mostrar links</string>
     <string name="linkify_description">Adicionar links para websites, endereços e números de telefone</string>
-    <string name="show_list_indicators">Mostrar fichas de listas</string>
     <string name="location_remind_arrival">Lembrar ao chegar</string>
     <string name="location_remind_departure">Lembrar ao sair</string>
     <string name="visit_website">Visitar website</string>

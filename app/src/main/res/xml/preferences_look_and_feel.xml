@@ -79,11 +79,6 @@
       android:title="@string/show_full_description" />
 
     <SwitchPreferenceCompat
-      android:defaultValue="true"
-      android:key="@string/p_show_list_indicators"
-      android:title="@string/show_list_indicators" />
-
-    <SwitchPreferenceCompat
       android:defaultValue="false"
       android:key="@string/p_linkify_task_list"
       android:summary="@string/linkify_description"
@@ -129,6 +124,26 @@
         android:entryValues="@array/chip_appearance_values"
         android:key="@string/p_chip_appearance"
         android:title="@string/chip_appearance" />
+
+      <SwitchPreferenceCompat
+        android:defaultValue="true"
+        android:key="@string/p_subtask_chips"
+        android:title="@string/subtasks" />
+
+      <SwitchPreferenceCompat
+        android:defaultValue="true"
+        android:key="@string/p_place_chips"
+        android:title="@string/places" />
+
+      <SwitchPreferenceCompat
+        android:defaultValue="true"
+        android:key="@string/p_list_chips"
+        android:title="@string/lists" />
+
+      <SwitchPreferenceCompat
+        android:defaultValue="true"
+        android:key="@string/p_tag_chips"
+        android:title="@string/tags" />
 
     </PreferenceCategory>
 

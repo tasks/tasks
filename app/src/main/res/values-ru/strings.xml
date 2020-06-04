@@ -491,7 +491,6 @@
     <string name="url">URL</string>
     <string name="error_adding_account">Ошибка: %s</string>
     <string name="list_separator_with_space">", "</string>
-    <string name="show_list_indicators">Показать списки</string>
     <string name="building_notifications">Генерация уведомлений</string>
     <string name="manage_subscription_summary">Повысить, понизить уровень подписки или отменить ее</string>
     <string name="button_downgrade">Понизить уровень подписки</string>

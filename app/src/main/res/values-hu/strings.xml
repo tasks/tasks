@@ -450,7 +450,6 @@
     <string name="show_full_description">Teljes leírás megjelenítése</string>
     <string name="linkify">Linkek megjelenítése</string>
     <string name="linkify_description">Weboldalakra, címekre és telefonszámokra mutató linkek hozzáadása</string>
-    <string name="show_list_indicators">Listajelölők megjelenítése</string>
     <string name="location_remind_arrival">Induláskor emlékeztet</string>
     <string name="location_remind_departure">Érkezéskor emlékeztet</string>
     <string name="visit_website">Weboldal megnyitása</string>

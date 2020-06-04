@@ -446,7 +446,6 @@
     <string name="show_full_description">Mostra la descrizione completa</string>
     <string name="linkify">Mostra link</string>
     <string name="linkify_description">Aggiungi link a siti web, indirizzi, numeri telefonici</string>
-    <string name="show_list_indicators">Mostra lista chip</string>
     <string name="location_remind_arrival">Ricorda all\'arrivo</string>
     <string name="location_remind_departure">Ricorda alla partenza</string>
     <string name="visit_website">Visita sito web</string>

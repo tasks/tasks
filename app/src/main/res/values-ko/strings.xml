@@ -448,7 +448,6 @@
     <string name="show_full_description">전체 설명 보기</string>
     <string name="linkify">링크 보기</string>
     <string name="linkify_description">웹사이트, 주소, 전화번호에 링크 걸기</string>
-    <string name="show_list_indicators">칩 보기</string>
     <string name="location_remind_arrival">도착 시 알림</string>
     <string name="location_remind_departure">출발 시 알림</string>
     <string name="location_arrived">%s 에 도착</string>

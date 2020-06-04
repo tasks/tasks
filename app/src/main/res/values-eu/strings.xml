@@ -455,7 +455,6 @@
     <string name="show_full_description">Erakutsi deskripzio osoa</string>
     <string name="linkify">Erakutsi estekak</string>
     <string name="linkify_description">Gehitu web-estekak, helbideak, eta telefono zenbakiak</string>
-    <string name="show_list_indicators">Erakutsi zerrenda-buletak</string>
     <string name="location_remind_arrival">Gogorarazi heltzerakoan</string>
     <string name="location_remind_departure">Gogorarazi ateratzerakoan</string>
     <string name="visit_website">Bisitatu webgunea</string>

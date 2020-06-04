@@ -449,7 +449,6 @@
     <string name="show_full_description">Покажи пълното описание</string>
     <string name="linkify">Покажи линкове</string>
     <string name="linkify_description">Добавете връзки към уебсайтове, адреси и телефонни номера</string>
-    <string name="show_list_indicators">Показване на индикатори в списъци</string>
     <string name="location_remind_arrival">Напомни при пристигане</string>
     <string name="location_remind_departure">Напомни при заминаване</string>
     <string name="visit_website">Посетете уебсайта</string>

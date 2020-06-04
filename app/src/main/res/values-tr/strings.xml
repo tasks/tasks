@@ -452,7 +452,6 @@
     <string name="show_full_description">Tam açıklamayı göster</string>
     <string name="linkify">Bağlantıları göster</string>
     <string name="linkify_description">Web sitelerine, adreslere ve telefon numaralarına bağlantı ekle</string>
-    <string name="show_list_indicators">Liste yongalarını göster</string>
     <string name="location_remind_arrival">Varışta hatırlat</string>
     <string name="location_remind_departure">Kalkışta hatırlat</string>
     <string name="visit_website">Web siteyi ziyaret et</string>

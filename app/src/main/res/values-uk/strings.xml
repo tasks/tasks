@@ -465,7 +465,6 @@
     <string name="show_full_description">Показувати повний опис</string>
     <string name="linkify">Показувати посилання</string>
     <string name="linkify_description">Виділяти посилання на веб-сайти, адреси та телефони</string>
-    <string name="show_list_indicators">Відображати індикатори списків</string>
     <string name="location_remind_arrival">Нагадати по прибуттю</string>
     <string name="location_remind_departure">Нагадати при відправці</string>
     <string name="visit_website">Відвідати сторінку</string>

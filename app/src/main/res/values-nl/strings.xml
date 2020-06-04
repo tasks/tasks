@@ -439,7 +439,6 @@
     <string name="show_full_description">Toon volledige beschrijving</string>
     <string name="linkify">Toon links</string>
     <string name="linkify_description">Voeg links toe nar websites, adressen en telefoonnummers</string>
-    <string name="show_list_indicators">Toon lijst-fiches</string>
     <string name="location_remind_arrival">Herinner bij aankomst</string>
     <string name="location_remind_departure">Herinner bij vertrek</string>
     <string name="visit_website">Bezoek website</string>

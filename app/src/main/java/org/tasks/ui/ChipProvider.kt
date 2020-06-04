@@ -63,33 +63,31 @@ class ChipProvider @Inject constructor(
     fun getChips(filter: Filter?, isSubtask: Boolean, task: TaskContainer): List<Chip> {
         AndroidUtilities.assertMainThread()
         val chips = ArrayList<Chip>()
-        if (task.hasChildren()) {
+        if (task.hasChildren() && preferences.showSubtaskChip) {
             chips.add(newSubtaskChip(task, !showText))
         }
-        if (preferences.getBoolean(R.string.p_show_list_indicators, true)) {
-            if (task.hasLocation() && filter !is PlaceFilter) {
-                val location = task.getLocation()
-                newChip(PlaceFilter(location.place), R.drawable.ic_outline_place_24px)?.let(chips::add)
+        if (task.hasLocation() && filter !is PlaceFilter && preferences.showPlaceChip) {
+            val location = task.getLocation()
+            newChip(PlaceFilter(location.place), R.drawable.ic_outline_place_24px)?.let(chips::add)
+        }
+        if (!isSubtask && preferences.showListChip) {
+            if (!isNullOrEmpty(task.googleTaskList) && filter !is GtasksFilter) {
+                newChip(lists.getGoogleTaskList(task.googleTaskList), R.drawable.ic_list_24px)
+                        ?.let(chips::add)
+            } else if (!isNullOrEmpty(task.caldav) && filter !is CaldavFilter) {
+                newChip(lists.getCaldavList(task.caldav), R.drawable.ic_list_24px)?.let(chips::add)
             }
-            if (!isSubtask) {
-                if (!isNullOrEmpty(task.googleTaskList) && filter !is GtasksFilter) {
-                    newChip(lists.getGoogleTaskList(task.googleTaskList), R.drawable.ic_list_24px)
-                            ?.let(chips::add)
-                } else if (!isNullOrEmpty(task.caldav) && filter !is CaldavFilter) {
-                    newChip(lists.getCaldavList(task.caldav), R.drawable.ic_list_24px)?.let(chips::add)
-                }
+        }
+        val tagString = task.tagsString
+        if (!isNullOrEmpty(tagString) && preferences.showTagChip) {
+            val tags = tagString.split(",").toHashSet()
+            if (filter is TagFilter) {
+                tags.remove(filter.uuid)
             }
-            val tagString = task.tagsString
-            if (!isNullOrEmpty(tagString)) {
-                val tags = tagString.split(",").toHashSet()
-                if (filter is TagFilter) {
-                    tags.remove(filter.uuid)
-                }
-                tags.mapNotNull(lists::getTag)
-                        .sortedBy(TagFilter::listingTitle)
-                        .map { newChip(it, R.drawable.ic_outline_label_24px)!! }
-                        .let(chips::addAll)
-            }
+            tags.mapNotNull(lists::getTag)
+                    .sortedBy(TagFilter::listingTitle)
+                    .map { newChip(it, R.drawable.ic_outline_label_24px)!! }
+                    .let(chips::addAll)
         }
         return chips
     }

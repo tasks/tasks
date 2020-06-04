@@ -450,7 +450,6 @@
     <string name="show_full_description">Visa fullständig beskrivning</string>
     <string name="linkify">Visa länkar</string>
     <string name="linkify_description">Lägg till länkar till webbplatser, adresser och telefonnummer</string>
-    <string name="show_list_indicators">Visa listindikatörer</string>
     <string name="location_remind_arrival">Påminn vid ankomst</string>
     <string name="location_remind_departure">Påminn om avgång</string>
     <string name="visit_website">Besök hemsida</string>

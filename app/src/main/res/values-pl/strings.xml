@@ -484,7 +484,6 @@
     <string name="list_separator_with_space">", "</string>
     <string name="caldav_home_set_not_found">Nie znaleziono zestawu domowego</string>
     <string name="pro_dashclock_extension">Rozszerzenie do Dashclock</string>
-    <string name="show_list_indicators">Pokaż listy</string>
     <string name="invalid_backup_file">Nieprawidłowy plik kopii zapasowej</string>
     <string name="google_tasks_add_to_top">Nowe zadania na górze</string>
     <string name="icon">Ikona</string>

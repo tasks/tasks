@@ -447,7 +447,6 @@
     <string name="show_full_description">すべての説明を表示</string>
     <string name="linkify">リンクを表示</string>
     <string name="linkify_description">ウェブサイト、住所、電話番号へのリンクを追加</string>
-    <string name="show_list_indicators">リストチップを表示</string>
     <string name="location_remind_arrival">到着時に通知する</string>
     <string name="location_remind_departure">出発時に通知する</string>
     <string name="visit_website">Webサイトを参照</string>
