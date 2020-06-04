@@ -629,4 +629,5 @@
     <string name="lists">Listas</string>
     <string name="astrid_sort_order_summary">Habilite el modo de ordenación manual de Astrid para \'Mis tareas\', \'Hoy\' y las etiquetas. Este modo de ordenación será reemplazado por \'Mi pedido\' en una futura actualización</string>
     <string name="astrid_sort_order">Clasificación manual de Astrid</string>
+    <string name="disable_sort_groups">Deshabilitar ordenar los grupos</string>
 </resources>
