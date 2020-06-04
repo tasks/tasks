@@ -623,4 +623,7 @@
     <string name="improve_performance">Améliorer les performances</string>
     <string name="open_last_viewed_list">Ouvrir la dernière liste consultée</string>
     <string name="on_launch">Au lancement</string>
+    <string name="lists">Listes</string>
+    <string name="astrid_sort_order_summary">Activez le mode de tri manuel d’Astrid pour \'Mes tâches\', \'Aujourd\'hui\', et les tags. Ce mode tri sera remplacé par \'Mon ordre\' dans une future mise à jour</string>
+    <string name="astrid_sort_order">Tri manuel Astrid</string>
 </resources>
