@@ -107,7 +107,6 @@ android {
     productFlavors {
         create("generic") {
             setDimension("store")
-            proguardFile("generic.pro")
         }
         create("googleplay") {
             setDimension("store")
