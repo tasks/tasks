@@ -158,6 +158,7 @@ class Preferences @JvmOverloads constructor(private val context: Context, name: 
 
     @SuppressLint("ApplySharedPref")
     fun clear() {
+        publicPrefs.edit().clear().commit()
         prefs.edit().clear().commit()
     }
 
