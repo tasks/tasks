@@ -286,7 +286,7 @@
 
   <string name="p_open_last_viewed_list">open_last_viewed_list</string>
   <string name="p_last_viewed_list">last_viewed_list</string>
-  <string name="p_default_list">default_list</string>
+  <string name="p_default_open_filter">default_list</string>
 
   <string name="p_badges_enabled">badges_enabled</string>
   <string name="p_badge_list">badge_list</string>
@@ -321,7 +321,7 @@
   <string name="p_widget_due_date_position">widget-due-date-position-</string>
   <string name="p_widget_spacing">widget-spacing-</string>
   <string name="p_dashclock_filter">dashclock_filter</string>
-  <string name="p_default_remote_list">default_remote_list</string>
+  <string name="p_default_list">default_remote_list</string>
 
   <string name="debug">Debug</string>
   <string name="p_start_of_week">start_of_week</string>

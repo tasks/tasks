@@ -104,14 +104,14 @@ class LookAndFeel : InjectingPreferenceFragment() {
             true
         }
 
-        val defaultList = findPreference(R.string.p_default_list)
-        val filter: Filter? = defaultFilterProvider.defaultFilter
-        defaultList.summary = filter?.listingTitle
+        val defaultList = findPreference(R.string.p_default_open_filter)
+        val filter = defaultFilterProvider.defaultOpenFilter
+        defaultList.summary = filter.listingTitle
         defaultList.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             val intent = Intent(context, FilterSelectionActivity::class.java)
             intent.putExtra(
                 FilterSelectionActivity.EXTRA_FILTER,
-                defaultFilterProvider.defaultFilter
+                defaultFilterProvider.defaultOpenFilter
             )
             intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true)
             startActivityForResult(intent, REQUEST_DEFAULT_LIST)
@@ -309,8 +309,8 @@ class LookAndFeel : InjectingPreferenceFragment() {
             if (resultCode == RESULT_OK) {
                 val filter: Filter =
                     data!!.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER)!!
-                defaultFilterProvider.defaultFilter = filter
-                findPreference(R.string.p_default_list).summary = filter.listingTitle
+                defaultFilterProvider.defaultOpenFilter = filter
+                findPreference(R.string.p_default_open_filter).summary = filter.listingTitle
                 localBroadcastManager.broadcastRefresh()
             }
         } else if (requestCode == REQUEST_LOCALE) {

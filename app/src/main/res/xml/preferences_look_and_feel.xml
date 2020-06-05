@@ -36,7 +36,7 @@
       android:title="@string/open_last_viewed_list" />
 
     <Preference
-      android:key="@string/p_default_list"
+      android:key="@string/p_default_open_filter"
       android:title="@string/widget_open_list"
       android:dependency="@string/p_open_last_viewed_list" />
 

@@ -101,7 +101,7 @@ public class TaskCreator {
       caldavDao.insert(
           task, new CaldavTask(task.getId(), task.getTransitory(CaldavTask.KEY)), addToTop);
     } else {
-      Filter remoteList = defaultFilterProvider.getDefaultRemoteList();
+      Filter remoteList = defaultFilterProvider.getDefaultList();
       if (remoteList instanceof GtasksFilter) {
         googleTaskDao.insertAndShift(
             new GoogleTask(task.getId(), ((GtasksFilter) remoteList).getRemoteId()), addToTop);

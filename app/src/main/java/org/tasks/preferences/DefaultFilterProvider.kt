@@ -25,65 +25,61 @@ class DefaultFilterProvider @Inject constructor(
         private val caldavDao: CaldavDao,
         private val locationDao: LocationDao) {
 
-    var dashclockFilter: Filter?
+    var dashclockFilter: Filter
         get() = getFilterFromPreference(R.string.p_dashclock_filter)
         set(filter) = setFilterPreference(filter, R.string.p_dashclock_filter)
 
-    var badgeFilter: Filter?
+    var badgeFilter: Filter
         get() = getFilterFromPreference(R.string.p_badge_list)
         set(filter) = setFilterPreference(filter, R.string.p_badge_list)
 
-    var defaultFilter: Filter?
-        get() = getFilterFromPreference(R.string.p_default_list)
-        set(filter) = setFilterPreference(filter, R.string.p_default_list)
+    var defaultOpenFilter: Filter
+        get() = getFilterFromPreference(R.string.p_default_open_filter)
+        set(filter) = setFilterPreference(filter, R.string.p_default_open_filter)
 
-    var lastViewedFilter: Filter?
+    var lastViewedFilter: Filter
         get() = getFilterFromPreference(R.string.p_last_viewed_list)
         set(filter) = setFilterPreference(filter, R.string.p_last_viewed_list)
 
-    var defaultRemoteList: Filter
-        get() = getFilterFromPreference(R.string.p_default_remote_list) ?: getAnyList()
-        set(filter) = setFilterPreference(filter, R.string.p_default_remote_list)
+    var defaultList: Filter
+        get() = getFilterFromPreference(R.string.p_default_list, getAnyList())
+        set(filter) = setFilterPreference(filter, R.string.p_default_list)
 
-    val startupFilter: Filter?
+    val startupFilter: Filter
         get() {
             return if (preferences.getBoolean(R.string.p_open_last_viewed_list, true)) {
                 lastViewedFilter
             } else {
-                defaultFilter
+                defaultOpenFilter
             }
         }
 
-    fun getFilterFromPreference(resId: Int): Filter? =
+    fun getFilterFromPreference(resId: Int): Filter =
             getFilterFromPreference(preferences.getStringValue(resId))
 
-    fun getFilterFromPreference(prefString: String?): Filter? =
+    fun getFilterFromPreference(prefString: String?): Filter =
             getFilterFromPreference(prefString, getMyTasksFilter(context.resources))
 
     private fun getAnyList(): Filter {
         val filter = googleTaskListDao.getAllLists().getOrNull(0)
                 ?.let { GtasksFilter(it) }
                 ?: CaldavFilter(caldavDao.getCalendars()[0])
-        defaultFilter = filter
+        defaultList = filter
         return filter
     }
 
-    private fun getFilterFromPreference(preferenceValue: String?, def: Filter?): Filter? {
-        if (!isNullOrEmpty(preferenceValue)) {
-            try {
-                val filter = loadFilter(preferenceValue)
-                if (filter != null) {
-                    return filter
-                }
-            } catch (e: Exception) {
-                Timber.e(e)
-            }
-        }
-        return def
+    private fun getFilterFromPreference(resId: Int, def: Filter) =
+            getFilterFromPreference(preferences.getStringValue(resId), def)
+
+    private fun getFilterFromPreference(preferenceValue: String?, def: Filter) = try {
+        preferenceValue?.let(this::loadFilter) ?: def
+    } catch (e: Exception) {
+        Timber.e(e)
+        def
     }
 
-    private fun loadFilter(preferenceValue: String?): Filter? {
-        val split = preferenceValue!!.split(":".toRegex()).toTypedArray()
+    private fun loadFilter(preferenceValue: String): Filter? {
+        val split = preferenceValue.split(":")
         return when (split[0].toInt()) {
             TYPE_FILTER -> getBuiltInFilter(split[1].toInt())
             TYPE_CUSTOM_FILTER -> customFilterExposer.getFilter(split[1].toLong())
@@ -98,10 +94,10 @@ class DefaultFilterProvider @Inject constructor(
         }
     }
 
-    private fun setFilterPreference(filter: Filter?, prefId: Int) =
+    private fun setFilterPreference(filter: Filter, prefId: Int) =
             getFilterPreferenceValue(filter).let { preferences.setString(prefId, it) }
 
-    fun getFilterPreferenceValue(filter: Filter?): String? = when (val filterType = getFilterType(filter)) {
+    fun getFilterPreferenceValue(filter: Filter): String? = when (val filterType = getFilterType(filter)) {
         TYPE_FILTER -> getFilterPreference(filterType, getBuiltInFilterId(filter))
         TYPE_CUSTOM_FILTER -> getFilterPreference(filterType, (filter as CustomFilter).id)
         TYPE_TAG -> getFilterPreference(filterType, (filter as TagFilter).uuid)
@@ -113,7 +109,7 @@ class DefaultFilterProvider @Inject constructor(
 
     private fun <T> getFilterPreference(type: Int, value: T) = "$type:$value"
 
-    private fun getFilterType(filter: Filter?) = when (filter) {
+    private fun getFilterType(filter: Filter) = when (filter) {
         is TagFilter -> TYPE_TAG
         is GtasksFilter -> TYPE_GOOGLE_TASKS
         is CustomFilter -> TYPE_CUSTOM_FILTER
@@ -128,7 +124,7 @@ class DefaultFilterProvider @Inject constructor(
         else -> getMyTasksFilter(context.resources)
     }
 
-    private fun getBuiltInFilterId(filter: Filter?): Int {
+    private fun getBuiltInFilterId(filter: Filter): Int {
         if (BuiltInFilterExposer.isTodayFilter(context, filter)) {
             return FILTER_TODAY
         } else if (BuiltInFilterExposer.isRecentlyModifiedFilter(context, filter)) {

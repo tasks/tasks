@@ -33,7 +33,7 @@ class TaskerListNotification : InjectingPreferenceFragment() {
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
     @Inject lateinit var inventory: Inventory
 
-    var filter: Filter? = null
+    lateinit var filter: Filter
     var cancelled: Boolean = false
 
     override fun getPreferenceXml() = R.xml.preferences_tasker
@@ -42,7 +42,7 @@ class TaskerListNotification : InjectingPreferenceFragment() {
         filter = if (savedInstanceState == null) {
             defaultFilterProvider.getFilterFromPreference(arguments?.getString(EXTRA_FILTER))
         } else {
-            savedInstanceState.getParcelable(EXTRA_FILTER)
+            savedInstanceState.getParcelable(EXTRA_FILTER)!!
         }
 
         refreshPreferences()
@@ -66,7 +66,7 @@ class TaskerListNotification : InjectingPreferenceFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_SELECT_FILTER) {
             if (resultCode == RESULT_OK) {
-                filter = data!!.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER)
+                filter = data!!.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER)!!
                 refreshPreferences()
             }
         } else if (requestCode == REQUEST_SUBSCRIPTION) {
@@ -86,18 +86,13 @@ class TaskerListNotification : InjectingPreferenceFragment() {
     }
 
     private fun refreshPreferences() {
-        findPreference(R.string.filter).summary = filter?.listingTitle
+        findPreference(R.string.filter).summary = filter.listingTitle
     }
 
-    fun getResultBlurb(): String? {
-        return filter?.listingTitle
-    }
+    fun getResultBlurb(): String? = filter.listingTitle
 
-    fun getBundle(): Bundle {
-        return ListNotificationBundle.generateBundle(
-            defaultFilterProvider.getFilterPreferenceValue(filter)
-        )
-    }
+    fun getBundle(): Bundle =
+            ListNotificationBundle.generateBundle(defaultFilterProvider.getFilterPreferenceValue(filter))
 
     override fun inject(component: FragmentComponent) = component.inject(this)
 }

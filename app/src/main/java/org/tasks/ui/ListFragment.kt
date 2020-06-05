@@ -35,7 +35,7 @@ class ListFragment : TaskEditControlFragment() {
     @Inject lateinit var taskMover: TaskMover
     @Inject lateinit var chipProvider: ChipProvider
     
-    private lateinit var originalList: Filter
+    private var originalList: Filter? = null
     private lateinit var selectedList: Filter
     private lateinit var callback: OnListChanged
 
@@ -52,7 +52,7 @@ class ListFragment : TaskEditControlFragment() {
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
         if (savedInstanceState != null) {
-            originalList = savedInstanceState.getParcelable(EXTRA_ORIGINAL_LIST)!!
+            originalList = savedInstanceState.getParcelable(EXTRA_ORIGINAL_LIST)
             setSelected(savedInstanceState.getParcelable(EXTRA_SELECTED_LIST)!!)
         } else {
             if (task.isNew) {
@@ -67,8 +67,6 @@ class ListFragment : TaskEditControlFragment() {
                     if (caldav != null) {
                         originalList = CaldavFilter(caldav)
                     }
-                } else {
-                    originalList = defaultFilterProvider.defaultRemoteList
                 }
             } else {
                 val googleTask = googleTaskDao.getByTaskId(task.id)
@@ -85,7 +83,7 @@ class ListFragment : TaskEditControlFragment() {
                     }
                 }
             }
-            setSelected(originalList)
+            setSelected(originalList ?: defaultFilterProvider.defaultList)
         }
         return view
     }
@@ -110,17 +108,14 @@ class ListFragment : TaskEditControlFragment() {
 
     override fun controlId() = TAG
 
-    override fun onRowClick() {
-        openPicker()
-    }
+    override fun onRowClick() = openPicker()
 
     override val isClickable: Boolean
         get() = true
 
-    private fun openPicker() {
-        ListPicker.newListPicker(selectedList, this, REQUEST_CODE_SELECT_LIST)
-                .show(parentFragmentManager, FRAG_TAG_GOOGLE_TASK_LIST_SELECTION)
-    }
+    private fun openPicker() =
+            ListPicker.newListPicker(selectedList, this, REQUEST_CODE_SELECT_LIST)
+                    .show(parentFragmentManager, FRAG_TAG_GOOGLE_TASK_LIST_SELECTION)
 
     override fun requiresId() = true
 
@@ -131,13 +126,9 @@ class ListFragment : TaskEditControlFragment() {
         }
     }
 
-    override fun hasChanges(original: Task): Boolean {
-        return hasChanges()
-    }
+    override fun hasChanges(original: Task) = hasChanges()
 
-    private fun hasChanges(): Boolean {
-        return selectedList != originalList
-    }
+    private fun hasChanges() = selectedList != originalList
 
     override fun inject(component: FragmentComponent) = component.inject(this)
 

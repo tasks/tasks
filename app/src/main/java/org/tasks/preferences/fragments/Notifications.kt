@@ -76,7 +76,7 @@ class Notifications : InjectingPreferenceFragment() {
 
         val badgePreference: Preference = findPreference(R.string.p_badge_list)
         val filter = defaultFilterProvider.badgeFilter
-        badgePreference.summary = filter?.listingTitle
+        badgePreference.summary = filter.listingTitle
         badgePreference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             val intent = Intent(context, FilterSelectionActivity::class.java)
             intent.putExtra(

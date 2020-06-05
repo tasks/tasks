@@ -44,10 +44,10 @@ class TaskDefaults : InjectingPreferenceFragment() {
         defaultCalendarPref.summary = defaultCalendarName
             ?: getString(R.string.dont_add_to_calendar)
 
-        findPreference(R.string.p_default_remote_list)
+        findPreference(R.string.p_default_list)
             .setOnPreferenceClickListener {
                 ListPicker.newListPicker(
-                        defaultFilterProvider.defaultRemoteList,
+                        defaultFilterProvider.defaultList,
                         this,
                         REQUEST_DEFAULT_LIST)
                     .show(parentFragmentManager, FRAG_TAG_DEFAULT_LIST_SELECTION)
@@ -62,7 +62,7 @@ class TaskDefaults : InjectingPreferenceFragment() {
         if (requestCode == REQUEST_DEFAULT_LIST) {
             val list: Filter? = data!!.getParcelableExtra(ListPicker.EXTRA_SELECTED_FILTER)
             if (list is GtasksFilter || list is CaldavFilter) {
-                defaultFilterProvider.defaultRemoteList = list
+                defaultFilterProvider.defaultList = list
             } else {
                 throw RuntimeException("Unhandled filter type")
             }
@@ -87,8 +87,8 @@ class TaskDefaults : InjectingPreferenceFragment() {
     }
 
     private fun updateRemoteListSummary() {
-        val defaultFilter = defaultFilterProvider.defaultRemoteList
-        findPreference(R.string.p_default_remote_list).summary = defaultFilter.listingTitle
+        val defaultFilter = defaultFilterProvider.defaultList
+        findPreference(R.string.p_default_list).summary = defaultFilter.listingTitle
     }
 
     override fun inject(component: FragmentComponent) = component.inject(this)
