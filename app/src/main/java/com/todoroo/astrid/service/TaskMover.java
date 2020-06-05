@@ -88,7 +88,7 @@ public class TaskMover {
   }
 
   public void migrateLocalTasks() {
-    CaldavCalendar list = caldavDao.setupLocalAccount(context);
+    CaldavCalendar list = caldavDao.getLocalList(context);
     move(taskDao.getLocalTasks(), new CaldavFilter(list));
   }
 

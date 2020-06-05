@@ -255,7 +255,9 @@ class FilterProvider @Inject constructor(
 
     private val caldavFilters: Set<Map.Entry<CaldavAccount, List<Filter>>>
         get() {
-            val accounts = caldavDao.getAccounts()
+            val accounts = caldavDao.getAccounts().ifEmpty {
+                listOf(caldavDao.setupLocalAccount(context))
+            }
             val filters = LinkedHashMap<CaldavAccount, List<Filter>>()
             for (account in accounts) {
                 if (account.accountType == TYPE_LOCAL) {

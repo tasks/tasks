@@ -245,27 +245,26 @@ abstract class CaldavDao {
     @Query("SELECT task.*, caldav_task.*, IFNULL(cd_order, (created - $APPLE_EPOCH) / 1000) AS primary_sort FROM caldav_tasks AS caldav_task INNER JOIN tasks AS task ON _id = cd_task WHERE cd_calendar = :calendar AND parent = :parent AND cd_deleted = 0 AND deleted = 0 AND primary_sort >= :from AND primary_sort < IFNULL(:to, ${Long.MAX_VALUE}) ORDER BY primary_sort")
     internal abstract fun getTasksToShift(calendar: String, parent: Long, from: Long, to: Long?): List<CaldavTaskContainer>
 
-    fun setupLocalAccount(context: Context): CaldavCalendar {
-        val account = getAccountByUuid(LOCAL) ?: createLocalAccount()
-        return getCalendarsByAccount(account.uuid!!).getOrElse(0) {
-            createLocalList(context, account)
-        }
-    }
-
-    private fun createLocalAccount(): CaldavAccount {
-        val account = CaldavAccount()
-        account.accountType = CaldavAccount.TYPE_LOCAL
-        account.uuid = LOCAL
-        account.id = insert(account)
+    fun setupLocalAccount(context: Context): CaldavAccount {
+        val account = getLocalAccount()
+        getLocalList(context, account)
         return account
     }
 
-    private fun createLocalList(context: Context, account: CaldavAccount): CaldavCalendar {
-        val list = CaldavCalendar(context.getString(R.string.default_list), UUIDHelper.newUUID())
-        list.account = account.uuid
-        insert(list)
-        return list
+    fun getLocalList(context: Context) = getLocalList(context, getLocalAccount())
+
+    private fun getLocalAccount() = getAccountByUuid(LOCAL) ?: CaldavAccount().apply {
+        accountType = CaldavAccount.TYPE_LOCAL
+        uuid = LOCAL
+        id = insert(this)
     }
+
+    private fun getLocalList(context: Context, account: CaldavAccount): CaldavCalendar =
+            getCalendarsByAccount(account.uuid!!).getOrNull(0)
+                    ?: CaldavCalendar(context.getString(R.string.default_list), UUIDHelper.newUUID()).apply {
+                        this.account = account.uuid
+                        insert(this)
+                    }
 
     companion object {
         const val LOCAL = "local"

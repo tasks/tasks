@@ -42,9 +42,7 @@ class Upgrader @Inject constructor(
         private val taskMover: TaskMover) {
 
     fun upgrade(from: Int, to: Int) {
-        if (from == 0) {
-            caldavDao.setupLocalAccount(context)
-        } else {
+        if (from > 0) {
             run(from, V4_9_5) { removeDuplicateTags() }
             run(from, V5_3_0) { migrateFilters() }
             run(from, V6_0_beta_1) { migrateDefaultSyncList() }
