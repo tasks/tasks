@@ -14,7 +14,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import butterknife.BindView
 import com.google.android.material.chip.ChipGroup
-import com.google.common.collect.Ordering
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.data.Task
 import org.tasks.R
@@ -34,12 +33,6 @@ import javax.inject.Inject
  * @author Tim Su <tim></tim>@todoroo.com>
  */
 class TagsControlSet : TaskEditControlFragment() {
-    private val orderByName: Ordering<TagData> = object : Ordering<TagData>() {
-        override fun compare(left: TagData?, right: TagData?): Int {
-            return left!!.name!!.compareTo(right!!.name!!)
-        }
-    }
-
     @Inject lateinit var tagDao: TagDao
     @Inject lateinit var tagDataDao: TagDataDao
     @Inject lateinit var chipProvider: ChipProvider
@@ -112,10 +105,7 @@ class TagsControlSet : TaskEditControlFragment() {
             tagsDisplay.visibility = View.GONE
             chipGroup.visibility = View.VISIBLE
             chipGroup.removeAllViews()
-            for (tagData in orderByName.sortedCopy(selectedTags)) {
-                if (tagData == null) {
-                    continue
-                }
+            for (tagData in selectedTags.sortedBy(TagData::name)) {
                 val chip = chipProvider.newClosableChip(tagData)
                 chipProvider.apply(chip, tagData)
                 chip.setOnClickListener { onRowClick() }
