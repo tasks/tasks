@@ -213,11 +213,11 @@ open class TaskAdapter(
 
     private fun applyDate(task: Task, date: Long) {
         val original = task.dueDate
-        task.dueDate = if (date == 0L) {
+        task.setDueDateAdjustingHideUntil(if (date == 0L) {
             0L
         } else {
             date.toDateTime().withMillisOfDay(task.dueDate.toDateTime().millisOfDay).millis
-        }
+        })
         if (original != task.dueDate) {
             taskDao.save(task)
         }
