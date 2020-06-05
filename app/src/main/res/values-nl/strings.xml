@@ -624,4 +624,6 @@
     <string name="on_launch">Bij het starten</string>
     <string name="lists">Lijsten</string>
     <string name="open_last_viewed_list">Open de laatst bekeken lijst</string>
+    <string name="disable_sort_groups">Sorteergroepen uitzetten</string>
+    <string name="CFC_list_name">In lijst…</string>
 </resources>
