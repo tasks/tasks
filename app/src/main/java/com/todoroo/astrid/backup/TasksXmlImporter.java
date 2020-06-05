@@ -24,6 +24,7 @@ import java.io.InputStreamReader;
 import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
+import org.tasks.analytics.Firebase;
 import org.tasks.backup.XmlReader;
 import org.tasks.data.Alarm;
 import org.tasks.data.AlarmDao;
@@ -57,6 +58,7 @@ public class TasksXmlImporter {
   private final TagDao tagDao;
   private final GoogleTaskDao googleTaskDao;
   private final TaskMover taskMover;
+  private final Firebase firebase;
   private final LocationDao locationDao;
   private Activity activity;
   private Handler handler;
@@ -78,7 +80,8 @@ public class TasksXmlImporter {
       AlarmDao alarmDao,
       TagDao tagDao,
       GoogleTaskDao googleTaskDao,
-      TaskMover taskMover) {
+      TaskMover taskMover,
+      Firebase firebase) {
     this.tagDataDao = tagDataDao;
     this.userActivityDao = userActivityDao;
     this.dialogBuilder = dialogBuilder;
@@ -89,6 +92,7 @@ public class TasksXmlImporter {
     this.tagDao = tagDao;
     this.googleTaskDao = googleTaskDao;
     this.taskMover = taskMover;
+    this.firebase = firebase;
   }
 
   private void setProgressMessage(final String message) {
@@ -107,8 +111,10 @@ public class TasksXmlImporter {
               try {
                 performImport();
                 taskMover.migrateLocalTasks();
+                //noinspection unchecked
+                firebase.logEvent(R.string.event_xml_import);
               } catch (IOException | XmlPullParserException e) {
-                Timber.e(e);
+                firebase.reportException(e);
               }
             })
         .start();
