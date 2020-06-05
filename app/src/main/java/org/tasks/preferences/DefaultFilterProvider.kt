@@ -42,7 +42,7 @@ class DefaultFilterProvider @Inject constructor(
         set(filter) = setFilterPreference(filter, R.string.p_last_viewed_list)
 
     var defaultList: Filter
-        get() = getFilterFromPreference(R.string.p_default_list, getAnyList())
+        get() = getFilterFromPreference(preferences.getStringValue(R.string.p_default_list), null) ?: getAnyList()
         set(filter) = setFilterPreference(filter, R.string.p_default_list)
 
     val startupFilter: Filter
@@ -58,7 +58,7 @@ class DefaultFilterProvider @Inject constructor(
             getFilterFromPreference(preferences.getStringValue(resId))
 
     fun getFilterFromPreference(prefString: String?): Filter =
-            getFilterFromPreference(prefString, getMyTasksFilter(context.resources))
+            getFilterFromPreference(prefString, getMyTasksFilter(context.resources))!!
 
     private fun getAnyList(): Filter {
         val filter = googleTaskListDao.getAllLists().getOrNull(0)?.let(::GtasksFilter)
@@ -67,10 +67,7 @@ class DefaultFilterProvider @Inject constructor(
         return filter
     }
 
-    private fun getFilterFromPreference(resId: Int, def: Filter) =
-            getFilterFromPreference(preferences.getStringValue(resId), def)
-
-    private fun getFilterFromPreference(preferenceValue: String?, def: Filter) = try {
+    private fun getFilterFromPreference(preferenceValue: String?, def: Filter?) = try {
         preferenceValue?.let(this::loadFilter) ?: def
     } catch (e: Exception) {
         Timber.e(e)
