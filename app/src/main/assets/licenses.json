@@ -611,19 +611,6 @@
     },
     {
       "artifactId": {
-        "name": "google-api-client-android",
-        "group": "com.google.api-client",
-        "version": "+"
-      },
-      "copyrightHolder": "Google Inc.",
-      "copyrightStatement": "Copyright &copy; Google Inc. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "libraryName": "Android Platform Extensions to the Google APIs Client Library for Java."
-    },
-    {
-      "artifactId": {
         "name": "lifecycle-extensions",
         "group": "androidx.lifecycle",
         "version": "+"
@@ -1121,19 +1108,6 @@
       "normalizedLicense": "mit",
       "url": "http://www.slf4j.org",
       "libraryName": "SLF4J JDK14 Binding"
-    },
-    {
-      "artifactId": {
-        "name": "google-http-client-android",
-        "group": "com.google.http-client",
-        "version": "+"
-      },
-      "copyrightHolder": "Google Inc.",
-      "copyrightStatement": "Copyright &copy; Google Inc. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "libraryName": "Android Platform Extensions to the Google HTTP Client Library for Java."
     },
     {
       "artifactId": {

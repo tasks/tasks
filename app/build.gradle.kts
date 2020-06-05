@@ -184,7 +184,6 @@ dependencies {
     implementation("me.leolin:ShortcutBadger:1.1.22@aar")
     implementation("com.google.apis:google-api-services-tasks:v1-rev20200129-1.30.9")
     implementation("com.google.apis:google-api-services-drive:v3-rev20200413-1.30.9")
-    implementation("com.google.api-client:google-api-client-android:1.30.9")
     implementation("com.google.auth:google-auth-library-oauth2-http:0.20.0")
     implementation("androidx.work:work-runtime:${Versions.work}")
     implementation("com.mapbox.mapboxsdk:mapbox-android-sdk:9.2.1")

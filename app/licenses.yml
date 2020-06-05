@@ -261,11 +261,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: http://developer.android.com/tools/extras/support-library.html
-- artifact: com.google.api-client:google-api-client-android:+
-  name: Android Platform Extensions to the Google APIs Client Library for Java.
-  copyrightHolder: Google Inc.
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
 - artifact: androidx.lifecycle:lifecycle-extensions:+
   name: Android Lifecycle Extensions
   copyrightHolder: Android Open Source Project
@@ -481,11 +476,6 @@
   license: MIT License
   licenseUrl: http://www.opensource.org/licenses/mit-license.php
   url: http://www.slf4j.org
-- artifact: com.google.http-client:google-http-client-android:+
-  name: Android Platform Extensions to the Google HTTP Client Library for Java.
-  copyrightHolder: Google Inc.
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
 - artifact: com.squareup.okhttp3:okhttp:+
   name: OkHttp
   copyrightHolder: Square, Inc.
@@ -575,12 +565,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://github.com/census-instrumentation/opencensus-java
-- artifact: org.ogce:xpp3:+
-  skip: true
-- artifact: junit:junit:+
-  skip: true
-- artifact: jakarta-regexp:jakarta-regexp:+
-  skip: true
 - artifact: androidx.core:core-ktx:+
   name: Core Kotlin Extensions
   copyrightHolder: Android Open Source Project
