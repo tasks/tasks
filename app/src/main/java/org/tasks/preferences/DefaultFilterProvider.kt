@@ -61,9 +61,8 @@ class DefaultFilterProvider @Inject constructor(
             getFilterFromPreference(prefString, getMyTasksFilter(context.resources))
 
     private fun getAnyList(): Filter {
-        val filter = googleTaskListDao.getAllLists().getOrNull(0)
-                ?.let { GtasksFilter(it) }
-                ?: CaldavFilter(caldavDao.getCalendars()[0])
+        val filter = googleTaskListDao.getAllLists().getOrNull(0)?.let(::GtasksFilter)
+                ?: caldavDao.getCalendars().getOrElse(0) { caldavDao.getLocalList(context) }.let(::CaldavFilter)
         defaultList = filter
         return filter
     }
