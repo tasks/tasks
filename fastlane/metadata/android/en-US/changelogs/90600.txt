@@ -1,0 +1,11 @@
+* Add support for offline lists. Offline lists support manual ordering and infinite-depth subtasks
+* Rename 'My order' to 'Astrid manual sorting' for 'My Tasks', 'Today', and tags
+* Add '⚙ > Look and feel > Disable sort groups'
+* Add '⚙ > Look and feel > Open last viewed list'
+* Add '⚙ > Look and feel > Chips' toggles for subtasks, places, lists, and tags
+* Add '⚙ > Navigation drawer > Lists'
+* Add '⚙ > Task defaults > Default list'
+* Add '⚙ > Task defaults > New tasks on top'
+* Add '⚙ > Advanced > Astrid manual sorting'
+* Fix preference reset button
+* Update translations

@@ -1,6 +1,28 @@
 Change Log
 ---
 =======
+### 9.6 (2020-06-05)
+
+* Add support for offline lists. Offline lists support manual ordering and infinite-depth subtasks
+* Rename 'My order' to 'Astrid manual sorting' for 'My Tasks', 'Today', and tags
+* Add '⚙ > Look and feel > Disable sort groups'
+* Add '⚙ > Look and feel > Open last viewed list'
+* Add '⚙ > Look and feel > Chips' toggles for subtasks, places, lists, and tags
+* Add '⚙ > Navigation drawer > Lists'
+* Add '⚙ > Task defaults > Default list'
+* Add '⚙ > Task defaults > New tasks on top'
+* Add '⚙ > Advanced > Astrid manual sorting'
+* Fix preference reset button
+* Update translations
+  * Basque - @osoitz
+  * Czech - @vitSkalicky
+  * Dutch - @fvbommel
+  * French - @FlorianLeChat
+  * Hungarian - kaciokos
+  * Simplified Chinese - @sr093906
+  * Spanish - @FlorianLeChat
+  * Turkish - etc
+
 ### 9.5 (2020-06-03)
 
 * Drag and drop to change subtasks in all list types
