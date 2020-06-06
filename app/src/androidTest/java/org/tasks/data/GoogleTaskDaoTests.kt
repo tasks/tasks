@@ -150,7 +150,7 @@ class GoogleTaskDaoTests : InjectingTestCase() {
     fun findChildrenInList() {
         googleTaskDao.insert(newGoogleTask(with(TASK, 1), with(LIST, "1")))
         googleTaskDao.insert(newGoogleTask(with(TASK, 2), with(LIST, "1"), with(PARENT, 1L)))
-        assertEquals(listOf(2L), googleTaskDao.findChildrenInList(listOf(1, 2)))
+        assertEquals(listOf(2L), googleTaskDao.getChildren(listOf(1L, 2L)))
     }
 
     private fun insertTop(googleTask: GoogleTask) {

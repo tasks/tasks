@@ -29,7 +29,6 @@ import org.tasks.jobs.WorkManager
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils.currentTimeMillis
 import timber.log.Timber
-import java.util.*
 
 @Dao
 abstract class TaskDao(private val database: Database) {
@@ -193,12 +192,6 @@ abstract class TaskDao(private val database: Database) {
             + " WHERE tasks.deleted = 0)"
             + "SELECT task FROM recursive_tasks")
     abstract fun getChildren(ids: List<Long>): List<Long>
-
-    fun findChildrenInList(ids: List<Long>): List<Long> {
-        val result = ArrayList(ids)
-        result.retainAll(getChildren(ids))
-        return result
-    }
 
     @Query("UPDATE tasks SET collapsed = :collapsed WHERE _id = :id")
     abstract fun setCollapsed(id: Long, collapsed: Boolean)

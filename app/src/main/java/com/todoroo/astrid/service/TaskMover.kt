@@ -10,6 +10,7 @@ import com.todoroo.astrid.data.Task
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.*
+import org.tasks.db.DbUtilsKt.dbchunk
 import org.tasks.injection.ForApplication
 import org.tasks.preferences.Preferences
 import java.util.*
@@ -39,11 +40,12 @@ class TaskMover @Inject constructor(
         return null
     }
 
-    fun move(tasks: List<Long>, selectedList: Filter) {
-        var tasks = tasks
-        tasks = ArrayList(tasks)
-        tasks.removeAll(googleTaskDao.findChildrenInList(tasks))
-        tasks.removeAll(taskDao.findChildrenInList(tasks))
+    fun move(ids: List<Long>, selectedList: Filter) {
+        val tasks = ArrayList(ids)
+        ids.dbchunk().forEach {
+            tasks.removeAll(googleTaskDao.getChildren(it))
+            tasks.removeAll(taskDao.getChildren(it))
+        }
         taskDao.setParent(0, tasks)
         for (task in taskDao.fetch(tasks)) {
             performMove(task, selectedList)

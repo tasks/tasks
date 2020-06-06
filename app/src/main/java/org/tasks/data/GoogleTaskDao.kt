@@ -88,14 +88,11 @@ abstract class GoogleTaskDao {
     @Query("SELECT DISTINCT gt_list_id FROM google_tasks WHERE gt_deleted = 0 AND gt_task IN (:tasks)")
     abstract fun getLists(tasks: List<Long>): List<String>
 
-    @Query("SELECT gt_task FROM google_tasks WHERE gt_parent IN (:ids)")
+    @Query("SELECT gt_task FROM google_tasks WHERE gt_parent IN (:ids) AND gt_deleted = 0")
     abstract fun getChildren(ids: List<Long>): List<Long>
 
     @Query("SELECT tasks.* FROM tasks JOIN google_tasks ON tasks._id = gt_task WHERE gt_parent = :taskId")
     abstract fun getChildTasks(taskId: Long): List<Task>
-
-    @Query("SELECT gt_task FROM google_tasks WHERE gt_task IN (:taskIds) AND gt_parent IN (:taskIds) AND gt_deleted = 0")
-    abstract fun findChildrenInList(taskIds: List<Long>): List<Long>
 
     @Query("SELECT * FROM google_tasks WHERE gt_parent = :id AND gt_deleted = 0")
     abstract fun getChildren(id: Long): List<GoogleTask>

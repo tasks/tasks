@@ -144,7 +144,7 @@ class TaskDaoTests : InjectingTestCase() {
     fun findChildrenInList() {
         taskDao.createNew(newTask(with(ID, 1L)))
         taskDao.createNew(newTask(with(ID, 2L), with(PARENT, 1L)))
-        assertEquals(listOf(2L), taskDao.findChildrenInList(listOf(1, 2)))
+        assertEquals(listOf(2L), taskDao.getChildren(listOf(1L, 2L)))
     }
 
     @Test
@@ -152,7 +152,7 @@ class TaskDaoTests : InjectingTestCase() {
         taskDao.createNew(newTask(with(ID, 1L)))
         taskDao.createNew(newTask(with(ID, 2L), with(PARENT, 1L)))
         taskDao.createNew(newTask(with(ID, 3L), with(PARENT, 2L)))
-        assertEquals(listOf(2L, 3L), taskDao.findChildrenInList(listOf(1, 2, 3)))
+        assertEquals(listOf(2L, 3L, 3L), taskDao.getChildren(listOf(1L, 2L, 3L)))
     }
 
     @Test
@@ -160,7 +160,7 @@ class TaskDaoTests : InjectingTestCase() {
         taskDao.createNew(newTask(with(ID, 1L)))
         taskDao.createNew(newTask(with(ID, 2L), with(PARENT, 1L)))
         taskDao.createNew(newTask(with(ID, 3L), with(PARENT, 2L)))
-        assertEquals(listOf(3L), taskDao.findChildrenInList(listOf(1, 3)))
+        assertEquals(listOf(2L, 3L), taskDao.getChildren(listOf(1L, 3L)))
     }
 
     override fun inject(component: TestComponent) = component.inject(this)
