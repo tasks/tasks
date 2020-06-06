@@ -83,7 +83,7 @@
     <string name="task_list_options">Opzioni elenco attività</string>
     <string name="EPr_cal_end_or_start_at_due_time">Orario eventi del calendario</string>
     <string name="EPr_cal_end_at_due_time">Interrompi eventi del calendario alla scadenza</string>
-    <string name="EPr_cal_start_at_due_time">Calendario eventi dalla scadenza</string>
+    <string name="EPr_cal_start_at_due_time">Inizia eventi del calendario alla scadenza</string>
     <string name="EPr_reset_preferences">Ripristina preferenze</string>
     <string name="EPr_reset_preferences_warning">Le preferenze saranno riportate al valore predefinito</string>
     <string name="EPr_delete_task_data">Elimina dati attività</string>
