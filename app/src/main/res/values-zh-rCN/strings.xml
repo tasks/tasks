@@ -620,4 +620,6 @@
     <string name="on_launch">启动时</string>
     <string name="astrid_sort_order_summary">为“我的任务”，“今天”和标签启用Astrid的手动排序模式。 在以后的更新中，此排序模式将被“我的顺序”代替</string>
     <string name="astrid_sort_order">Astrid手动排序</string>
+    <string name="disable_sort_groups">禁用组别排序</string>
+    <string name="CFC_list_name">在列表…</string>
 </resources>
