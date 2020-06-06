@@ -565,4 +565,6 @@
     <string name="custom_filter_and">E</string>
     <string name="widget_show_menu">Mostra il menu</string>
     <string name="widget_hide_background">Nascondi lo sfondo</string>
+    <string name="action_new_task">Nuova attività</string>
+    <string name="add_tags">Aggiungi etichetta</string>
 </resources>
