@@ -23,8 +23,11 @@ import org.tasks.data.SubtaskInfo
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskListQuery
 import org.tasks.db.DbUtils
+import org.tasks.db.DbUtilsKt.chunkedMap
+import org.tasks.db.DbUtilsKt.eachChunk
 import org.tasks.jobs.WorkManager
 import org.tasks.preferences.Preferences
+import org.tasks.time.DateTimeUtils.currentTimeMillis
 import timber.log.Timber
 import java.util.*
 
@@ -46,8 +49,10 @@ abstract class TaskDao(private val database: Database) {
     @Query("SELECT * FROM tasks WHERE _id = :id LIMIT 1")
     abstract fun fetch(id: Long): Task?
 
-    @Query("SELECT * FROM tasks WHERE _id IN (:taskIds)")
-    abstract fun fetch(taskIds: List<Long>): List<Task>
+    fun fetch(ids: List<Long>): List<Task> = ids.chunkedMap(this::fetchInternal)
+
+    @Query("SELECT * FROM tasks WHERE _id IN (:ids)")
+    internal abstract fun fetchInternal(ids: List<Long>): List<Task>
 
     @Query("SELECT COUNT(1) FROM tasks WHERE timerStart > 0 AND deleted = 0")
     abstract fun activeTimers(): Int
@@ -150,20 +155,21 @@ abstract class TaskDao(private val database: Database) {
     abstract fun getTaskFactory(
             query: SimpleSQLiteQuery): DataSource.Factory<Int, TaskContainer>
 
-    fun touch(id: Long) {
-        touch(listOf(id))
-    }
+    fun touch(id: Long) = touch(listOf(id))
 
     fun touch(ids: List<Long>) {
-        touchInternal(ids)
+        ids.eachChunk { touchInternal(it) }
         workManager.sync(false)
     }
 
-    @Query("UPDATE tasks SET modified = strftime('%s','now')*1000 WHERE _id in (:ids)")
-    abstract fun touchInternal(ids: List<Long>)
+    @Query("UPDATE tasks SET modified = :now WHERE _id in (:ids)")
+    abstract fun touchInternal(ids: List<Long>, now: Long = currentTimeMillis())
+
+    fun setParent(parent: Long, tasks: List<Long>) =
+            tasks.eachChunk { setParentInternal(parent, it) }
 
     @Query("UPDATE tasks SET parent = :parent WHERE _id IN (:children)")
-    abstract fun setParent(parent: Long, children: List<Long>)
+    internal abstract fun setParentInternal(parent: Long, children: List<Long>)
 
     @Transaction
     open fun fetchChildren(id: Long): List<Task> {
