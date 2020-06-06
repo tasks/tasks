@@ -1,7 +1,7 @@
 Change Log
 ---
 =======
-### 9.6 (2020-06-05)
+### 9.6 (2020-06-06)
 
 * Add support for offline lists. Offline lists support manual ordering and infinite-depth subtasks
 * Rename 'My order' to 'Astrid manual sorting' for 'My Tasks', 'Today', and tags
