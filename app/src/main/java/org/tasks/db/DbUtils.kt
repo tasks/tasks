@@ -1,7 +1,9 @@
 package org.tasks.db
 
-object DbUtilsKt {
-    fun <T> Iterable<T>.dbchunk(): List<List<T>> = chunked(DbUtils.MAX_SQLITE_ARGS)
+object DbUtils {
+    const val MAX_SQLITE_ARGS = 990
+
+    fun <T> Iterable<T>.dbchunk(): List<List<T>> = chunked(MAX_SQLITE_ARGS)
 
     fun <T> Iterable<T>.eachChunk(action: (List<T>) -> Unit) = dbchunk().forEach(action)
 

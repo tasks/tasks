@@ -58,7 +58,7 @@ import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.data.CaldavDao
 import org.tasks.data.TagDataDao
 import org.tasks.data.TaskContainer
-import org.tasks.db.DbUtils
+import org.tasks.db.DbUtils.chunkedMap
 import org.tasks.dialogs.DateTimePicker.Companion.newDateTimePicker
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.SortDialog
@@ -630,8 +630,7 @@ class TaskListFragment : InjectingFragment(), OnRefreshListener, Toolbar.OnMenuI
                 true
             }
             R.id.menu_share -> {
-                DbUtils
-                        .collect(selected) { taskDao.fetchTasks(preferences, IdListFilter(it)) }
+                selected.chunkedMap { taskDao.fetchTasks(preferences, IdListFilter(it)) }
                         .apply(this::send)
                 true
             }

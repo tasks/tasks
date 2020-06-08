@@ -6,7 +6,7 @@ import com.todoroo.astrid.data.Task
 import kotlinx.collections.immutable.persistentListOf
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.*
-import org.tasks.db.DbUtils
+import org.tasks.db.DbUtils.chunkedMap
 import org.tasks.db.QueryUtils
 import org.tasks.jobs.WorkManager
 import org.tasks.preferences.Preferences
@@ -25,13 +25,13 @@ class TaskDeleter @Inject constructor(
 
     fun markDeleted(taskIds: List<Long>): List<Task> {
         val ids: MutableSet<Long> = HashSet(taskIds)
-        ids.addAll(DbUtils.collect(taskIds) { googleTaskDao.getChildren(it!!) })
-        ids.addAll(DbUtils.collect(taskIds) { taskDao.getChildren(it!!) })
+        ids.addAll(taskIds.chunkedMap(googleTaskDao::getChildren))
+        ids.addAll(taskIds.chunkedMap(taskDao::getChildren))
         deletionDao.markDeleted(ids)
         workManager.cleanup(ids)
         workManager.sync(false)
         localBroadcastManager.broadcastRefresh()
-        return DbUtils.collect(ids) { taskDao.fetch(it!!) }
+        return ids.chunkedMap(taskDao::fetch)
     }
 
     fun clearCompleted(filter: Filter): Int {

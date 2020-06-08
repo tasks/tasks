@@ -5,7 +5,7 @@ import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Transaction
 import org.tasks.data.CaldavDao.Companion.LOCAL
-import org.tasks.db.DbUtils
+import org.tasks.db.DbUtils.eachChunk
 import java.util.*
 
 @Dao
@@ -30,7 +30,7 @@ abstract class DeletionDao {
 
     @Transaction
     open fun delete(ids: List<Long>) {
-        DbUtils.batch(ids) {
+        ids.eachChunk {
             deleteAlarms(it)
             deleteGeofences(it)
             deleteTags(it)
@@ -46,7 +46,7 @@ abstract class DeletionDao {
     abstract fun markDeletedInternal(ids: List<Long>)
 
     fun markDeleted(ids: Iterable<Long>) {
-        DbUtils.batch(ids, this::markDeletedInternal)
+        ids.eachChunk(this::markDeletedInternal)
     }
 
     @Query("SELECT gt_task FROM google_tasks WHERE gt_deleted = 0 AND gt_list_id = :listId")

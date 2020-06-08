@@ -10,7 +10,7 @@ import com.todoroo.astrid.data.Task
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.*
-import org.tasks.db.DbUtilsKt.dbchunk
+import org.tasks.db.DbUtils.dbchunk
 import org.tasks.injection.ForApplication
 import org.tasks.preferences.Preferences
 import java.util.*

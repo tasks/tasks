@@ -9,7 +9,7 @@ import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.helper.UUIDHelper
 import org.tasks.R
 import org.tasks.date.DateTimeUtils.toAppleEpoch
-import org.tasks.db.DbUtils
+import org.tasks.db.DbUtils.chunkedMap
 import org.tasks.filters.CaldavFilters
 import org.tasks.time.DateTimeUtils.currentTimeMillis
 
@@ -148,9 +148,8 @@ abstract class CaldavDao {
     @Query("SELECT cd_object FROM caldav_tasks WHERE cd_calendar = :calendar")
     abstract fun getObjects(calendar: String): List<String>
 
-    fun getTasks(calendar: String, objects: List<String>): List<Long> {
-        return DbUtils.collect(objects) { getTasksInternal(calendar, it!!) }
-    }
+    fun getTasks(calendar: String, objects: List<String>): List<Long> =
+            objects.chunkedMap { getTasksInternal(calendar, it) }
 
     @Query("SELECT cd_task FROM caldav_tasks WHERE cd_calendar = :calendar AND cd_object IN (:objects)")
     abstract fun getTasksInternal(calendar: String, objects: List<String>): List<Long>

@@ -22,9 +22,8 @@ import org.tasks.data.Place
 import org.tasks.data.SubtaskInfo
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskListQuery
-import org.tasks.db.DbUtils
-import org.tasks.db.DbUtilsKt.chunkedMap
-import org.tasks.db.DbUtilsKt.eachChunk
+import org.tasks.db.DbUtils.chunkedMap
+import org.tasks.db.DbUtils.eachChunk
 import org.tasks.jobs.WorkManager
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils.currentTimeMillis
@@ -198,12 +197,10 @@ abstract class TaskDao(private val database: Database) {
 
     @Transaction
     open fun setCollapsed(preferences: Preferences, filter: Filter, collapsed: Boolean) {
-        val tasks = fetchTasks(preferences, filter)
+        fetchTasks(preferences, filter)
                 .filter(TaskContainer::hasChildren)
                 .map(TaskContainer::getId)
-        DbUtils.batch(tasks) {
-            collapse(it, collapsed)
-        }
+                .eachChunk { collapse(it, collapsed) }
     }
 
     @Query("UPDATE tasks SET collapsed = :collapsed WHERE _id IN (:ids)")

@@ -14,7 +14,6 @@ import org.tasks.caldav.iCalendar.Companion.fromVtodo
 import org.tasks.caldav.iCalendar.Companion.getParent
 import org.tasks.caldav.iCalendar.Companion.order
 import org.tasks.data.*
-import org.tasks.db.DbUtils
 import org.tasks.injection.ForApplication
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
@@ -132,7 +131,7 @@ class Upgrader @Inject constructor(
             val geo = remoteTask.geoPosition ?: continue
             iCal.setPlace(taskId, geo)
         }
-        DbUtils.batch(tasksWithLocations) { ids: List<Long>? -> taskDao.touch(ids!!) }
+        taskDao.touch(tasksWithLocations)
     }
 
     private fun applyCaldavSubtasks() {
@@ -156,7 +155,7 @@ class Upgrader @Inject constructor(
                 tagDao.insert(container.task, iCal.getTags(remoteTask.categories))
             }
         }
-        DbUtils.batch(tasksWithTags) { ids: List<Long> -> taskDao.touch(ids) }
+        taskDao.touch(tasksWithTags)
     }
 
     private fun removeDuplicateTags() {
