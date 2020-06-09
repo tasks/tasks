@@ -92,8 +92,7 @@ class FilterProvider @Inject constructor(
         if (preferences.getBoolean(R.string.p_tags_hide_unused, false)) {
             filters = filters.filter { it.count > 0 }
         }
-        val tags = filters.map(TagFilters::toTagFilter)
-        Collections.sort(tags, AlphanumComparator(AlphanumComparator.FILTER))
+        val tags = filters.map(TagFilters::toTagFilter).sortedWith(AlphanumComparator.FILTER)
         items.addAll(
                 getSubmenu(
                         context.getString(R.string.tags),
@@ -232,7 +231,7 @@ class FilterProvider @Inject constructor(
             }
             filters.addAll(filterDao.getFilters()
                     .map(::CustomFilter)
-                    .sortedWith(AlphanumComparator(AlphanumComparator.FILTER)))
+                    .sortedWith(AlphanumComparator.FILTER))
             return filters
         }
 
@@ -247,10 +246,8 @@ class FilterProvider @Inject constructor(
                     googleTaskListDao
                             .getGoogleTaskFilters(account.account!!, DateUtilities.now())
                             .map(GoogleTaskFilters::toGtasksFilter)
+                            .sortedWith(AlphanumComparator.FILTER)
                 }
-            }
-            for ((_, value) in filters) {
-                Collections.sort(value, AlphanumComparator(AlphanumComparator.FILTER))
             }
             return filters.entries
         }
@@ -271,10 +268,8 @@ class FilterProvider @Inject constructor(
                     caldavDao
                             .getCaldavFilters(account.uuid!!, DateUtilities.now())
                             .map(CaldavFilters::toCaldavFilter)
+                            .sortedWith(AlphanumComparator.FILTER)
                 }
-            }
-            for ((_, value) in filters) {
-                Collections.sort(value, AlphanumComparator(AlphanumComparator.FILTER))
             }
             return filters.entries
         }
