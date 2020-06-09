@@ -120,7 +120,7 @@ public class FilterSelectionActivity extends InjectingAppCompatActivity {
 
   private void refresh() {
     disposables.add(
-        Single.fromCallable(() -> filterProvider.getItems(false))
+        Single.fromCallable(() -> filterProvider.getFilterPickerItems())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(items -> filterAdapter.setData(items, selected)));

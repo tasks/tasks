@@ -152,7 +152,7 @@ class NavigationDrawerFragment : InjectingFragment() {
     }
 
     private fun updateFilters() =
-            Single.fromCallable { filterProvider.getItems(true) }
+            Single.fromCallable { filterProvider.navDrawerItems }
                 .map { items: List<FilterListItem> -> refreshFilterCount(items) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

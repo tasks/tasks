@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import io.reactivex.Single
 import org.tasks.filters.LocationFilters
+import org.tasks.time.DateTimeUtils.currentTimeMillis
 
 @Dao
 interface LocationDao {
@@ -107,5 +108,5 @@ interface LocationDao {
             + " LEFT JOIN tasks ON geofences.task = tasks._id AND tasks.completed = 0 AND tasks.deleted = 0 AND tasks.hideUntil < :now"
             + " GROUP BY places.uid"
             + " ORDER BY name COLLATE NOCASE ASC")
-    fun getPlaceFilters(now: Long): List<LocationFilters>
+    fun getPlaceFilters(now: Long = currentTimeMillis()): List<LocationFilters>
 }

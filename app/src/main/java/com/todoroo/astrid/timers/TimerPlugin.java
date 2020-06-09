@@ -13,6 +13,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import androidx.core.app.NotificationCompat;
+import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
@@ -86,7 +88,7 @@ public class TimerPlugin {
     if (count == 0) {
       notificationManager.cancel(Constants.NOTIFICATION_TIMER);
     } else {
-      Filter filter = TimerFilterExposer.createFilter(context);
+      Filter filter = createFilter(context);
       Intent notifyIntent = TaskIntents.getTaskListIntent(context, filter);
       notifyIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
       PendingIntent pendingIntent =
@@ -108,5 +110,15 @@ public class TimerPlugin {
               .setOngoing(true);
       notificationManager.notify(Constants.NOTIFICATION_TIMER, builder, false, false, false);
     }
+  }
+
+  public static Filter createFilter(Context context) {
+    Filter filter =
+        new Filter(
+            context.getString(R.string.TFE_workingOn),
+            new QueryTemplate()
+                .where(Criterion.and(Task.TIMER_START.gt(0), Task.DELETION_DATE.eq(0))));
+    filter.icon = R.drawable.ic_outline_timer_24px;
+    return filter;
   }
 }

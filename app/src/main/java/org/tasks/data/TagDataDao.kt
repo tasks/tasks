@@ -8,6 +8,7 @@ import com.todoroo.astrid.helper.UUIDHelper
 import org.tasks.db.DbUtils
 import org.tasks.filters.AlphanumComparator
 import org.tasks.filters.TagFilters
+import org.tasks.time.DateTimeUtils.currentTimeMillis
 import java.util.*
 import kotlin.collections.HashSet
 
@@ -146,5 +147,5 @@ abstract class TagDataDao {
             + " LEFT JOIN tasks ON tags.task = tasks._id AND tasks.deleted = 0 AND tasks.completed = 0 AND tasks.hideUntil < :now"
             + " WHERE tagdata.name IS NOT NULL AND tagdata.name != ''"
             + " GROUP BY tagdata.remoteId")
-    abstract fun getTagFilters(now: Long): List<TagFilters>
+    abstract fun getTagFilters(now: Long = currentTimeMillis()): List<TagFilters>
 }
