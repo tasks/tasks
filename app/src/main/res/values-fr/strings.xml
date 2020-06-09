@@ -554,8 +554,8 @@
     <string name="shortcut_pick_time">Choisissez l\'heure</string>
     <string name="no_time">Aucune heure</string>
     <string name="no_date">Aucune date</string>
-    <string name="auto_dismiss_datetime_summary">Fermer le sélecteur de date et d\'heure après avoir sélectionné une date ou une heure</string>
-    <string name="auto_dismiss_datetime">Fermer automatiquement le sélecteur de date et d\'heure</string>
+    <string name="auto_dismiss_datetime_summary">Ferme le sélecteur de date et d\'heure après la sélection d\'une date ou d une heure</string>
+    <string name="auto_dismiss_datetime">Fermeture automatique du sélecteur de date et d\'heure</string>
     <string name="calendar_event_created">Calendrier de l\'événement créé pour %s</string>
     <string name="share">Partager</string>
     <string name="select_all">Tout sélectionner</string>
@@ -576,11 +576,11 @@
     <string name="opacity_row">Opacité des lignes</string>
     <string name="opacity_header">Opacité de l\'en-tête</string>
     <string name="widget_show_dividers">Afficher les séparateurs</string>
-    <string name="auto_dismiss_datetime_widget_summary">Fermeture automatique lors de la sélection d\'un widget</string>
+    <string name="auto_dismiss_datetime_widget_summary">Fermeture automatique lors de la sélection depuis un widget</string>
     <string name="auto_dismiss_datetime_widget">Widget</string>
-    <string name="auto_dismiss_datetime_edit_summary">Fermeture automatique lors de la sélection d\'une tâche</string>
-    <string name="auto_dismiss_datetime_edit">Édition de la tâche</string>
-    <string name="auto_dismiss_datetime_list_summary">Fermeture automatique lors de la sélection d\'une liste de tâches</string>
+    <string name="auto_dismiss_datetime_edit_summary">Fermeture automatique lors de la sélection depuis l\'édition d\'une tâche</string>
+    <string name="auto_dismiss_datetime_edit">Édition d\'une tâche</string>
+    <string name="auto_dismiss_datetime_list_summary">Fermeture automatique lors de la sélection depuis la liste des tâches</string>
     <string name="auto_dismiss_datetime_list">Liste des tâches</string>
     <string name="widget_due_date_reschedule">Reprogrammer la tâche</string>
     <string name="widget_footer">Pied de page</string>
