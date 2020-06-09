@@ -4,10 +4,10 @@ import android.content.Context
 import android.content.Intent
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
+import com.todoroo.astrid.api.CustomFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.FilterListItem
 import com.todoroo.astrid.core.BuiltInFilterExposer
-import com.todoroo.astrid.core.CustomFilterExposer
 import com.todoroo.astrid.timers.TimerFilterExposer
 import org.tasks.BuildConfig
 import org.tasks.R
@@ -33,7 +33,7 @@ class FilterProvider @Inject constructor(
         private val inventory: Inventory,
         private val builtInFilterExposer: BuiltInFilterExposer,
         private val timerFilterExposer: TimerFilterExposer,
-        private val customFilterExposer: CustomFilterExposer,
+        private val filterDao: FilterDao,
         private val tagDataDao: TagDataDao,
         private val googleTaskListDao: GoogleTaskListDao,
         private val caldavDao: CaldavDao,
@@ -230,7 +230,9 @@ class FilterProvider @Inject constructor(
             if (filter != null) {
                 filters.add(filter)
             }
-            filters.addAll(customFilterExposer.filters)
+            filters.addAll(filterDao.getFilters()
+                    .map(::CustomFilter)
+                    .sortedWith(AlphanumComparator(AlphanumComparator.FILTER)))
             return filters
         }
 

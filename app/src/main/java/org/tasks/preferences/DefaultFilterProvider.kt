@@ -2,15 +2,12 @@ package org.tasks.preferences
 
 import android.content.Context
 import com.todoroo.astrid.api.*
+import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.core.BuiltInFilterExposer
 import com.todoroo.astrid.core.BuiltInFilterExposer.getMyTasksFilter
-import com.todoroo.astrid.core.CustomFilterExposer
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
-import org.tasks.data.CaldavDao
-import org.tasks.data.GoogleTaskListDao
-import org.tasks.data.LocationDao
-import org.tasks.data.TagDataDao
+import org.tasks.data.*
 import org.tasks.filters.PlaceFilter
 import org.tasks.injection.ForApplication
 import timber.log.Timber
@@ -19,7 +16,7 @@ import javax.inject.Inject
 class DefaultFilterProvider @Inject constructor(
         @param:ForApplication private val context: Context,
         private val preferences: Preferences,
-        private val customFilterExposer: CustomFilterExposer,
+        private val filterDao: FilterDao,
         private val tagDataDao: TagDataDao,
         private val googleTaskListDao: GoogleTaskListDao,
         private val caldavDao: CaldavDao,
@@ -78,7 +75,7 @@ class DefaultFilterProvider @Inject constructor(
         val split = preferenceValue.split(":")
         return when (split[0].toInt()) {
             TYPE_FILTER -> getBuiltInFilter(split[1].toInt())
-            TYPE_CUSTOM_FILTER -> customFilterExposer.getFilter(split[1].toLong())
+            TYPE_CUSTOM_FILTER -> filterDao.getById(split[1].toLong())?.let(::CustomFilter)
             TYPE_TAG -> {
                 val tag = tagDataDao.getByUuid(split[1])
                 if (tag == null || isNullOrEmpty(tag.name)) null else TagFilter(tag)

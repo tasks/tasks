@@ -28,7 +28,7 @@ public class CustomFilter extends Filter {
   private long id;
   private String criterion;
 
-  public CustomFilter(org.tasks.data.Filter filter) {
+  public CustomFilter(@NonNull org.tasks.data.Filter filter) {
     super(filter.getTitle(), filter.getSql(), filter.getValuesAsMap());
     id = filter.getId();
     criterion = filter.getCriterion();
