@@ -175,7 +175,7 @@ abstract class CaldavDao {
             + " LEFT JOIN tasks ON caldav_tasks.cd_task = tasks._id AND tasks.deleted = 0 AND tasks.completed = 0 AND tasks.hideUntil < :now AND cd_deleted = 0"
             + " WHERE caldav_lists.cdl_account = :uuid"
             + " GROUP BY caldav_lists.cdl_uuid")
-    abstract fun getCaldavFilters(uuid: String, now: Long): List<CaldavFilters>
+    abstract fun getCaldavFilters(uuid: String, now: Long = currentTimeMillis()): List<CaldavFilters>
 
     @Query("SELECT tasks._id FROM tasks "
             + "INNER JOIN tags ON tags.task = tasks._id "

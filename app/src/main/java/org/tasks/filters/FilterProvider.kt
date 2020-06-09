@@ -244,7 +244,7 @@ class FilterProvider @Inject constructor(
                     emptyList()
                 } else {
                     googleTaskListDao
-                            .getGoogleTaskFilters(account.account!!, DateUtilities.now())
+                            .getGoogleTaskFilters(account.account!!)
                             .map(GoogleTaskFilters::toGtasksFilter)
                             .sortedWith(AlphanumComparator.FILTER)
                 }
@@ -266,7 +266,7 @@ class FilterProvider @Inject constructor(
                     emptyList()
                 } else {
                     caldavDao
-                            .getCaldavFilters(account.uuid!!, DateUtilities.now())
+                            .getCaldavFilters(account.uuid!!)
                             .map(CaldavFilters::toCaldavFilter)
                             .sortedWith(AlphanumComparator.FILTER)
                 }

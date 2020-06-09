@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import io.reactivex.Single
 import org.tasks.filters.GoogleTaskFilters
+import org.tasks.time.DateTimeUtils.currentTimeMillis
 
 @Dao
 interface GoogleTaskListDao {
@@ -61,5 +62,5 @@ interface GoogleTaskListDao {
             + " LEFT JOIN tasks ON google_tasks.gt_task = tasks._id AND tasks.deleted = 0 AND tasks.completed = 0 AND tasks.hideUntil < :now AND gt_deleted = 0"
             + " WHERE google_task_lists.gtl_account = :account"
             + " GROUP BY google_task_lists.gtl_remote_id")
-    fun getGoogleTaskFilters(account: String, now: Long): List<GoogleTaskFilters>
+    fun getGoogleTaskFilters(account: String, now: Long = currentTimeMillis()): List<GoogleTaskFilters>
 }

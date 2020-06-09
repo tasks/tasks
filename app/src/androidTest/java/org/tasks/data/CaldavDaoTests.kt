@@ -130,7 +130,7 @@ class CaldavDaoTests : InjectingTestCase() {
         val caldavAccount = CaldavAccount()
         caldavAccount.uuid = UUIDHelper.newUUID()
         caldavDao.insert(caldavAccount)
-        assertTrue(caldavDao.getCaldavFilters(caldavAccount.uuid!!, DateUtilities.now()).isEmpty())
+        assertTrue(caldavDao.getCaldavFilters(caldavAccount.uuid!!).isEmpty())
     }
 
     private fun checkOrder(dateTime: DateTime, task: Long) = checkOrder(dateTime.toAppleEpoch(), task)
