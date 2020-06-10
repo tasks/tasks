@@ -17,7 +17,15 @@ import org.tasks.themes.ColorProvider
 import org.tasks.themes.CustomIcons.getIconResId
 import org.tasks.themes.DrawableUtil
 
-class FilterViewHolder : RecyclerView.ViewHolder {
+class FilterViewHolder internal constructor(
+        itemView: View,
+        private val navigationDrawer: Boolean,
+        private val locale: Locale,
+        private val activity: Activity,
+        private val inventory: Inventory,
+        private val colorProvider: ColorProvider,
+        private val onClick: ((FilterListItem?) -> Unit)?) : RecyclerView.ViewHolder(itemView) {
+
     @BindView(R.id.row)
     lateinit var row: View
 
@@ -30,34 +38,12 @@ class FilterViewHolder : RecyclerView.ViewHolder {
     @BindView(R.id.size)
     lateinit var size: TextView
 
-    private var onClick: ((FilterListItem?) -> Unit)? = null
-    private var navigationDrawer = false
-    private var locale: Locale? = null
-    private var activity: Activity? = null
-    private var inventory: Inventory? = null
-    private var colorProvider: ColorProvider? = null
-
-    internal constructor(
-            itemView: View,
-            navigationDrawer: Boolean,
-            locale: Locale,
-            activity: Activity,
-            inventory: Inventory,
-            colorProvider: ColorProvider,
-            onClick: ((FilterListItem?) -> Unit)?) : super(itemView) {
-        this.inventory = inventory
-        this.colorProvider = colorProvider
+    init {
         ButterKnife.bind(this, itemView)
-        this.navigationDrawer = navigationDrawer
-        this.locale = locale
-        this.activity = activity
-        this.onClick = onClick
         if (navigationDrawer) {
             text.checkMarkDrawable = null
         }
     }
-
-    internal constructor(itemView: View) : super(itemView)
 
     fun bind(filter: FilterListItem, selected: Boolean, count: Int?) {
         if (navigationDrawer) {
@@ -72,28 +58,28 @@ class FilterViewHolder : RecyclerView.ViewHolder {
         if (count == null || count == 0) {
             size.visibility = View.GONE
         } else {
-            size.text = locale!!.formatNumber(count)
+            size.text = locale.formatNumber(count)
             size.visibility = View.VISIBLE
         }
         if (onClick != null) {
             row.setOnClickListener {
-                onClick?.invoke(filter)
+                onClick.invoke(filter)
             }
         }
     }
 
     private fun getColor(filter: FilterListItem): Int {
         if (filter.tint != 0) {
-            val color = colorProvider!!.getThemeColor(filter.tint, true)
-            if (color.isFree || inventory!!.purchasedThemes()) {
+            val color = colorProvider.getThemeColor(filter.tint, true)
+            if (color.isFree || inventory.purchasedThemes()) {
                 return color.primaryColor
             }
         }
-        return activity!!.getColor(R.color.text_primary)
+        return activity.getColor(R.color.text_primary)
     }
 
     private fun getIcon(filter: FilterListItem): Int {
-        if (filter.icon < 1000 || inventory!!.hasPro()) {
+        if (filter.icon < 1000 || inventory.hasPro()) {
             val icon = getIconResId(filter.icon)
             if (icon != null) {
                 return icon

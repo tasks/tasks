@@ -69,7 +69,7 @@ class NavigationDrawerAdapter @Inject constructor(
                         view, true, locale, activity, inventory, colorProvider) { filter: FilterListItem? -> onClickFilter(filter) }
             FilterListItem.Type.SUBHEADER -> SubheaderViewHolder(
                         view, activity, preferences, googleTaskDao, caldavDao, localBroadcastManager)
-            else -> FilterViewHolder(view)
+            else -> SeparatorViewHolder(view)
         }
     }
 

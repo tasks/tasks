@@ -77,7 +77,7 @@ class FilterAdapter @Inject constructor(
             newView.tag = when (viewType) {
                 ITEM -> FilterViewHolder(
                         newView, false, locale, activity, inventory, colorProvider, null)
-                SEPARATOR -> FilterViewHolder(newView)
+                SEPARATOR -> SeparatorViewHolder(newView)
                 SUBHEADER -> SubheaderViewHolder(
                         newView,
                         activity,
