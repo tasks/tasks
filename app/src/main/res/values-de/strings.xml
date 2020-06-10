@@ -623,4 +623,6 @@
     <string name="improve_performance">Performance verbessern</string>
     <string name="CFC_list_name">In der Liste…</string>
     <string name="astrid_sort_order">Manuelle Sortierung nach Astrid</string>
+    <string name="sort_modified_group">%s bearbeitet</string>
+    <string name="sort_created_group">%s erstellt</string>
 </resources>
