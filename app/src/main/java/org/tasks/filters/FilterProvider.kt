@@ -171,68 +171,63 @@ class FilterProvider @Inject constructor(
                         0))
 
     private fun googleTaskFilters(showCreate: Boolean = true): List<FilterListItem> =
-            googleTaskListDao
-                    .getAccounts()
-                    .flatMap {
-                        listOf(
-                                NavigationDrawerSubheader(
-                                        it.account,
-                                        it.error?.isNotBlank() ?: false,
-                                        it.isCollapsed,
-                                        SubheaderType.GOOGLE_TASKS,
-                                        it.id))
-                                .plusAllIf(!it.isCollapsed) {
-                                    googleTaskListDao
-                                            .getGoogleTaskFilters(it.account!!)
-                                            .map(GoogleTaskFilters::toGtasksFilter)
-                                            .sortedWith(AlphanumComparator.FILTER)
-                                }
-                                .plusIf(showCreate && !it.isCollapsed) {
-                                    NavigationDrawerAction(
-                                            context.getString(R.string.new_list),
-                                            R.drawable.ic_outline_add_24px,
-                                            Intent(context, GoogleTaskListSettingsActivity::class.java)
-                                                    .putExtra(GoogleTaskListSettingsActivity.EXTRA_ACCOUNT, it),
-                                            NavigationDrawerFragment.REQUEST_NEW_LIST)
-                                }
+            googleTaskListDao.getAccounts().flatMap { googleTaskFilter(it, showCreate) }
+
+    private fun googleTaskFilter(account: GoogleTaskAccount, showCreate: Boolean): List<FilterListItem> =
+            listOf(
+                    NavigationDrawerSubheader(
+                            account.account,
+                            account.error?.isNotBlank() ?: false,
+                            account.isCollapsed,
+                            SubheaderType.GOOGLE_TASKS,
+                            account.id))
+                    .apply { if (account.isCollapsed) return this }
+                    .plus(googleTaskListDao
+                                .getGoogleTaskFilters(account.account!!)
+                                .map(GoogleTaskFilters::toGtasksFilter)
+                                .sortedWith(AlphanumComparator.FILTER))
+                    .plusIf(showCreate) {
+                        NavigationDrawerAction(
+                                context.getString(R.string.new_list),
+                                R.drawable.ic_outline_add_24px,
+                                Intent(context, GoogleTaskListSettingsActivity::class.java)
+                                        .putExtra(GoogleTaskListSettingsActivity.EXTRA_ACCOUNT, account),
+                                NavigationDrawerFragment.REQUEST_NEW_LIST)
                     }
 
     private fun caldavFilters(showCreate: Boolean = true): List<FilterListItem> =
             caldavDao.getAccounts()
                     .ifEmpty { listOf(caldavDao.setupLocalAccount(context)) }
                     .filter { it.accountType != TYPE_LOCAL || preferences.getBoolean(R.string.p_lists_enabled, true) }
-                    .flatMap {
-                        listOf(
-                                NavigationDrawerSubheader(
-                                        if (it.accountType == TYPE_LOCAL) {
-                                            context.getString(R.string.lists)
-                                        } else {
-                                            it.name
-                                        },
-                                        it.error?.isNotBlank() ?: false,
-                                        it.isCollapsed,
-                                        SubheaderType.CALDAV,
-                                        it.id))
-                                .plusAllIf(!it.isCollapsed) {
-                                    caldavDao
-                                            .getCaldavFilters(it.uuid!!)
-                                            .map(CaldavFilters::toCaldavFilter)
-                                            .sortedWith(AlphanumComparator.FILTER)
-                                }
-                                .plusIf(showCreate && !it.isCollapsed) {
-                                    NavigationDrawerAction(
-                                            context.getString(R.string.new_list),
-                                            R.drawable.ic_outline_add_24px,
-                                            Intent(context, it.listSettingsClass())
-                                                    .putExtra(BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_ACCOUNT, it),
-                                            NavigationDrawerFragment.REQUEST_NEW_LIST)
-                                }
+                    .flatMap { caldavFilter(it, showCreate) }
+
+    private fun caldavFilter(account: CaldavAccount, showCreate: Boolean): List<FilterListItem> =
+            listOf(
+                    NavigationDrawerSubheader(
+                            if (account.accountType == TYPE_LOCAL) {
+                                context.getString(R.string.lists)
+                            } else {
+                                account.name
+                            },
+                            account.error?.isNotBlank() ?: false,
+                            account.isCollapsed,
+                            SubheaderType.CALDAV,
+                            account.id))
+                    .apply { if (account.isCollapsed) return this }
+                    .plus(caldavDao
+                                .getCaldavFilters(account.uuid!!)
+                                .map(CaldavFilters::toCaldavFilter)
+                                .sortedWith(AlphanumComparator.FILTER))
+                    .plusIf(showCreate) {
+                        NavigationDrawerAction(
+                                context.getString(R.string.new_list),
+                                R.drawable.ic_outline_add_24px,
+                                Intent(context, account.listSettingsClass())
+                                        .putExtra(BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_ACCOUNT, account),
+                                NavigationDrawerFragment.REQUEST_NEW_LIST)
                     }
 
     companion object {
-        private fun <T> Collection<T>.plusAllIf(predicate: Boolean, item: () -> Iterable<T>): List<T> =
-                plus(if (predicate) item.invoke() else emptyList())
-
         private fun <T> Collection<T>.plusIf(predicate: Boolean, item: () -> T): List<T> =
                 if (predicate) plus(item.invoke()) else this.toList()
 
