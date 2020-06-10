@@ -35,6 +35,8 @@ public class SnoozeDialog extends InjectingDialogFragment {
     DateTime night = now.withMillisOfDay(preferences.getDateShortcutNight());
     DateTime tomorrowMorning = morning.plusDays(1);
     DateTime tomorrowAfternoon = afternoon.plusDays(1);
+    DateTime tomorrowEvening = evening.plusDays(1);
+    DateTime tomorrowNight = night.plusDays(1);
 
     DateTime hourCutoff = new DateTime().plusMinutes(75);
 
@@ -46,19 +48,34 @@ public class SnoozeDialog extends InjectingDialogFragment {
     if (morning.isAfter(hourCutoff)) {
       snoozeOptions.add(new SnoozeOption(R.string.date_shortcut_morning, morning));
       snoozeOptions.add(new SnoozeOption(R.string.date_shortcut_afternoon, afternoon));
+      snoozeOptions.add(new SnoozeOption(R.string.date_shortcut_evening, evening));
+      snoozeOptions.add(new SnoozeOption(R.string.date_shortcut_night, night));
     } else if (afternoon.isAfter(hourCutoff)) {
       snoozeOptions.add(new SnoozeOption(R.string.date_shortcut_afternoon, afternoon));
       snoozeOptions.add(new SnoozeOption(R.string.date_shortcut_evening, evening));
+      snoozeOptions.add(new SnoozeOption(R.string.date_shortcut_night, night));
+      snoozeOptions.add(new SnoozeOption(R.string.date_shortcut_tomorrow_morning, tomorrowMorning));
     } else if (evening.isAfter(hourCutoff)) {
       snoozeOptions.add(new SnoozeOption(R.string.date_shortcut_evening, evening));
       snoozeOptions.add(new SnoozeOption(R.string.date_shortcut_night, night));
+      snoozeOptions.add(new SnoozeOption(R.string.date_shortcut_tomorrow_morning, tomorrowMorning));
+      snoozeOptions.add(
+          new SnoozeOption(R.string.date_shortcut_tomorrow_afternoon, tomorrowAfternoon));
     } else if (night.isAfter(hourCutoff)) {
       snoozeOptions.add(new SnoozeOption(R.string.date_shortcut_night, night));
       snoozeOptions.add(new SnoozeOption(R.string.date_shortcut_tomorrow_morning, tomorrowMorning));
+      snoozeOptions.add(
+          new SnoozeOption(R.string.date_shortcut_tomorrow_afternoon, tomorrowAfternoon));
+      snoozeOptions.add(
+          new SnoozeOption(R.string.date_shortcut_tomorrow_evening, tomorrowEvening));
     } else {
       snoozeOptions.add(new SnoozeOption(R.string.date_shortcut_tomorrow_morning, tomorrowMorning));
       snoozeOptions.add(
           new SnoozeOption(R.string.date_shortcut_tomorrow_afternoon, tomorrowAfternoon));
+      snoozeOptions.add(
+          new SnoozeOption(R.string.date_shortcut_tomorrow_evening, tomorrowEvening));
+      snoozeOptions.add(
+          new SnoozeOption(R.string.date_shortcut_tomorrow_night, tomorrowNight));
     }
 
     return snoozeOptions;
