@@ -31,4 +31,7 @@ interface FilterDao {
 
     @Query("UPDATE filters SET f_order = $NO_ORDER")
     fun resetOrders()
+
+    @Query("UPDATE filters SET f_order = :order WHERE _id = :id")
+    fun setOrder(id: Long, order: Int)
 }

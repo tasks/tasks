@@ -152,4 +152,7 @@ abstract class TagDataDao {
 
     @Query("UPDATE tagdata SET td_order = $NO_ORDER")
     abstract fun resetOrders()
+
+    @Query("UPDATE tagdata SET td_order = :order WHERE _id = :id")
+    abstract fun setOrder(id: Long, order: Int)
 }

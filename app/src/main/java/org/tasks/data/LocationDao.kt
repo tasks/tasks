@@ -113,4 +113,7 @@ interface LocationDao {
 
     @Query("UPDATE places SET place_order = $NO_ORDER")
     fun resetOrders()
+
+    @Query("UPDATE places SET place_order = :order WHERE place_id = :id")
+    fun setOrder(id: Long, order: Int)
 }

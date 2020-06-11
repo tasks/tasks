@@ -67,4 +67,7 @@ interface GoogleTaskListDao {
 
     @Query("UPDATE google_task_lists SET gtl_remote_order = $NO_ORDER")
     fun resetOrders()
+
+    @Query("UPDATE google_task_lists SET gtl_remote_order = :order WHERE gtl_id = :id")
+    fun setOrder(id: Long, order: Int)
 }

@@ -248,6 +248,9 @@ abstract class CaldavDao {
     @Query("UPDATE caldav_lists SET cdl_order = $NO_ORDER")
     abstract fun resetOrders()
 
+    @Query("UPDATE caldav_lists SET cdl_order = :order WHERE cdl_id = :id")
+    abstract fun setOrder(id: Long, order: Int)
+
     fun setupLocalAccount(context: Context): CaldavAccount {
         val account = getLocalAccount()
         getLocalList(context, account)
