@@ -626,4 +626,6 @@
     <string name="astrid_sort_order">Tri manuel Astrid</string>
     <string name="disable_sort_groups">Désactiver les groupes de tri</string>
     <string name="CFC_list_name">Dans la liste…</string>
+    <string name="date_shortcut_tomorrow_evening">Demain matin</string>
+    <string name="date_shortcut_tomorrow_night">Demain soir</string>
 </resources>
