@@ -45,7 +45,7 @@ public class NavigationDrawerAction extends FilterListItem {
 
   @Override
   public Type getItemType() {
-    return Type.ITEM;
+    return Type.ACTION;
   }
 
   /** {@inheritDoc} */

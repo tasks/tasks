@@ -66,9 +66,10 @@ class NavigationDrawerAdapter @Inject constructor(
         val view = LayoutInflater.from(parent.context).inflate(type.layout, parent, false)
         return when (type) {
             FilterListItem.Type.ITEM -> FilterViewHolder(
-                        view, true, locale, activity, inventory, colorProvider) { filter: FilterListItem? -> onClickFilter(filter) }
+                        view, true, locale, activity, inventory, colorProvider) { onClickFilter(it) }
             FilterListItem.Type.SUBHEADER -> SubheaderViewHolder(
                         view, activity, preferences, googleTaskDao, caldavDao, localBroadcastManager)
+            FilterListItem.Type.ACTION -> ActionViewHolder(activity, view) { onClickFilter(it) }
             else -> SeparatorViewHolder(view)
         }
     }
@@ -77,11 +78,13 @@ class NavigationDrawerAdapter @Inject constructor(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
-        val type = item.itemType
-        if (type == FilterListItem.Type.ITEM) {
-            (holder as FilterViewHolder).bind(item, item == selected, max(item.count, 0))
-        } else if (type == FilterListItem.Type.SUBHEADER) {
-            (holder as SubheaderViewHolder).bind((item as NavigationDrawerSubheader))
+        when (item.itemType) {
+            FilterListItem.Type.ITEM ->
+                (holder as FilterViewHolder).bind(item, item == selected, max(item.count, 0))
+            FilterListItem.Type.ACTION -> (holder as ActionViewHolder).bind(item)
+            FilterListItem.Type.SUBHEADER ->
+                (holder as SubheaderViewHolder).bind((item as NavigationDrawerSubheader))
+            else -> {}
         }
     }
 

@@ -79,6 +79,7 @@ public abstract class FilterListItem implements Parcelable {
 
   public enum Type {
     ITEM(R.layout.filter_adapter_row),
+    ACTION(R.layout.filter_adapter_action),
     SUBHEADER(R.layout.filter_adapter_subheader),
     SEPARATOR(R.layout.filter_adapter_separator);
 

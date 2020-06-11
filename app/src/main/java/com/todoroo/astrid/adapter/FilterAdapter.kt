@@ -77,6 +77,7 @@ class FilterAdapter @Inject constructor(
             newView.tag = when (viewType) {
                 ITEM -> FilterViewHolder(
                         newView, false, locale, activity, inventory, colorProvider, null)
+                ACTION -> ActionViewHolder(activity, newView, null)
                 SEPARATOR -> SeparatorViewHolder(newView)
                 SUBHEADER -> SubheaderViewHolder(
                         newView,
@@ -101,6 +102,7 @@ class FilterAdapter @Inject constructor(
         val viewHolder = view.tag as RecyclerView.ViewHolder
         when (item.itemType) {
             ITEM -> (viewHolder as FilterViewHolder).bind(item, item == selected, 0)
+            ACTION -> (viewHolder as ActionViewHolder).bind(item)
             SUBHEADER -> (viewHolder as SubheaderViewHolder).bind((item as NavigationDrawerSubheader))
             else -> {}
         }
