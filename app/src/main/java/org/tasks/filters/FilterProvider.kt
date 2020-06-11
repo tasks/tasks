@@ -2,12 +2,11 @@ package org.tasks.filters
 
 import android.content.Context
 import android.content.Intent
-import com.todoroo.andlib.utility.AndroidUtilities
+import com.todoroo.andlib.utility.AndroidUtilities.assertNotMainThread
 import com.todoroo.astrid.api.CustomFilter
+import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.FilterListItem
 import com.todoroo.astrid.core.BuiltInFilterExposer
-import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.timers.TimerPlugin
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.activities.GoogleTaskListSettingsActivity
@@ -29,7 +28,6 @@ class FilterProvider @Inject constructor(
         @param:ForApplication private val context: Context,
         private val inventory: Inventory,
         private val builtInFilterExposer: BuiltInFilterExposer,
-        private val taskDao: TaskDao,
         private val filterDao: FilterDao,
         private val tagDataDao: TagDataDao,
         private val googleTaskListDao: GoogleTaskListDao,
@@ -38,27 +36,15 @@ class FilterProvider @Inject constructor(
         private val locationDao: LocationDao) {
 
     val listPickerItems: List<FilterListItem>
-        get() {
-            AndroidUtilities.assertNotMainThread()
-            return googleTaskFilters(false).plus(caldavFilters(false))
-        }
+        get() = googleTaskFilters(false).plus(caldavFilters(false))
 
     val navDrawerItems: List<FilterListItem>
-        get() {
-            AndroidUtilities.assertNotMainThread()
-            return arrayListOf(builtInFilterExposer.myTasksFilter)
-                    .plus(getAllFilters(true))
-                    .plus(navDrawerFooter)
-        }
+        get() = getAllFilters().plus(navDrawerFooter)
 
     val filterPickerItems: List<FilterListItem>
-        get() {
-            AndroidUtilities.assertNotMainThread()
-            return arrayListOf(builtInFilterExposer.myTasksFilter)
-                    .plus(getAllFilters(false))
-        }
+        get() = getAllFilters(showCreate = false)
 
-    private fun addFilters(showCreate: Boolean): List<FilterListItem> =
+    private fun addFilters(showCreate: Boolean, showBuiltIn: Boolean): List<FilterListItem> =
             if (!preferences.getBoolean(R.string.p_filters_enabled, true)) {
                 emptyList()
             } else {
@@ -71,9 +57,10 @@ class FilterProvider @Inject constructor(
                                 SubheaderType.PREFERENCE,
                                 R.string.p_collapse_filters.toLong()))
                         .apply { if (collapsed) return this }
-                        .plus(builtInFilterExposer.filters)
-                        .plusIf(taskDao.activeTimers() > 0) { TimerPlugin.createFilter(context) }
-                        .plus(filterDao.getFilters().map(::CustomFilter).sortedWith(AlphanumComparator.FILTER))
+                        .plusAllIf(showBuiltIn) {
+                            builtInFilterExposer.filters
+                        }
+                        .plus(filterDao.getFilters().map(::CustomFilter).sort())
                         .plusIf(showCreate) {
                             NavigationDrawerAction(
                                     context.getString(R.string.add_filter),
@@ -100,7 +87,7 @@ class FilterProvider @Inject constructor(
                                         it.count > 0
                                     }
                                     .map(TagFilters::toTagFilter)
-                                    .sortedWith(AlphanumComparator.FILTER))
+                                    .sort())
                         .plusIf(showCreate) {
                             NavigationDrawerAction(
                                     context.getString(R.string.new_tag),
@@ -128,7 +115,7 @@ class FilterProvider @Inject constructor(
                                         it.count > 0
                                     }
                                     .map(LocationFilters::toLocationFilter)
-                                    .sortedWith(AlphanumComparator.FILTER))
+                                    .sort())
                         .plusIf(showCreate) {
                             NavigationDrawerAction(
                                     context.getString(R.string.add_place),
@@ -138,12 +125,19 @@ class FilterProvider @Inject constructor(
                         }
             }
 
-    private fun getAllFilters(showCreate: Boolean): List<FilterListItem> =
-            addFilters(showCreate)
+    private fun getAllFilters(showCreate: Boolean = true, showBuiltIn: Boolean = true): List<FilterListItem> =
+            if (showBuiltIn) {
+                arrayListOf(builtInFilterExposer.myTasksFilter)
+            } else {
+                ArrayList<FilterListItem>()
+            }
+                    .asSequence()
+                    .plus(addFilters(showCreate, showBuiltIn))
                     .plus(addTags(showCreate))
                     .plus(addPlaces(showCreate))
                     .plus(googleTaskFilters(showCreate))
                     .plus(caldavFilters(showCreate))
+                    .toList()
 
     private val navDrawerFooter: List<FilterListItem>
         get() = listOf(NavigationDrawerSeparator())
@@ -170,8 +164,11 @@ class FilterProvider @Inject constructor(
                         Intent(context, HelpAndFeedback::class.java),
                         0))
 
-    private fun googleTaskFilters(showCreate: Boolean = true): List<FilterListItem> =
-            googleTaskListDao.getAccounts().flatMap { googleTaskFilter(it, showCreate) }
+    private fun googleTaskFilters(showCreate: Boolean = true): List<FilterListItem> {
+        assertNotMainThread()
+        return googleTaskListDao.getAccounts().flatMap { googleTaskFilter(it, showCreate) }
+    }
+
 
     private fun googleTaskFilter(account: GoogleTaskAccount, showCreate: Boolean): List<FilterListItem> =
             listOf(
@@ -185,7 +182,7 @@ class FilterProvider @Inject constructor(
                     .plus(googleTaskListDao
                                 .getGoogleTaskFilters(account.account!!)
                                 .map(GoogleTaskFilters::toGtasksFilter)
-                                .sortedWith(AlphanumComparator.FILTER))
+                                .sort())
                     .plusIf(showCreate) {
                         NavigationDrawerAction(
                                 context.getString(R.string.new_list),
@@ -217,7 +214,7 @@ class FilterProvider @Inject constructor(
                     .plus(caldavDao
                                 .getCaldavFilters(account.uuid!!)
                                 .map(CaldavFilters::toCaldavFilter)
-                                .sortedWith(AlphanumComparator.FILTER))
+                                .sort())
                     .plusIf(showCreate) {
                         NavigationDrawerAction(
                                 context.getString(R.string.new_list),
@@ -228,7 +225,20 @@ class FilterProvider @Inject constructor(
                     }
 
     companion object {
-        private fun <T> Collection<T>.plusIf(predicate: Boolean, item: () -> T): List<T> =
+        private val COMPARATOR = Comparator<Filter> { f1, f2 ->
+            when {
+                f1.order < f2.order -> -1
+                f1.order > f2.order -> 1
+                else -> AlphanumComparator.FILTER.compare(f1, f2)
+            }
+        }
+
+        private fun List<Filter>.sort(): List<Filter> = sortedWith(COMPARATOR)
+
+        private fun <T> Collection<T>.plusAllIf(predicate: Boolean, item: () -> Iterable<T>): List<T> =
+                plus(if (predicate) item.invoke() else emptyList())
+
+        private fun <T> Iterable<T>.plusIf(predicate: Boolean, item: () -> T): List<T> =
                 if (predicate) plus(item.invoke()) else this.toList()
 
         private fun <T> Iterable<T>.filterIf(predicate: Boolean, predicate2: (T) -> Boolean): List<T> =

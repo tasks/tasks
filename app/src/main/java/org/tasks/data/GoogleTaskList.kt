@@ -7,6 +7,7 @@ import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.todoroo.andlib.data.Table
+import com.todoroo.astrid.api.FilterListItem.NO_ORDER
 import org.tasks.themes.CustomIcons.LIST
 
 @Entity(tableName = "google_task_lists")
@@ -26,7 +27,7 @@ class GoogleTaskList : Parcelable {
     var title: String? = null
 
     @ColumnInfo(name = "gtl_remote_order")
-    var order = 0
+    var order = NO_ORDER
 
     @ColumnInfo(name = "gtl_last_sync")
     var lastSync: Long = 0

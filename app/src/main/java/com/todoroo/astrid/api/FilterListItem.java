@@ -20,13 +20,15 @@ import org.tasks.R;
  */
 public abstract class FilterListItem implements Parcelable {
 
+  public static final int NO_ORDER = -1;
+
   /** Title of this item displayed on the Filters page */
   public String listingTitle = null;
 
   public int icon = -1;
   public int tint = 0;
   public int count = -1;
-  public int order = 0;
+  public int order = NO_ORDER;
 
   public abstract Type getItemType();
 

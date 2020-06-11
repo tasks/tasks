@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.todoroo.andlib.utility.AndroidUtilities
+import com.todoroo.astrid.api.FilterListItem.NO_ORDER
 import org.tasks.Strings
 import org.tasks.themes.CustomIcons.FILTER
 
@@ -33,7 +34,7 @@ class Filter {
     private var icon: Int? = -1
 
     @ColumnInfo(name = "f_order")
-    var order = 0
+    var order = NO_ORDER
 
     fun getSql(): String {
         // TODO: replace dirty hack for missing column

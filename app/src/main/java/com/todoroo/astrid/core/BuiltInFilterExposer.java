@@ -13,8 +13,10 @@ import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.PermaSql;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.timers.TimerPlugin;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,12 +37,15 @@ import org.tasks.themes.CustomIcons;
 public final class BuiltInFilterExposer {
 
   private final Preferences preferences;
+  private final TaskDao taskDao;
   private final Context context;
 
   @Inject
-  public BuiltInFilterExposer(@ForApplication Context context, Preferences preferences) {
+  public BuiltInFilterExposer(
+      @ForApplication Context context, Preferences preferences, TaskDao taskDao) {
     this.context = context;
     this.preferences = preferences;
+    this.taskDao = taskDao;
   }
 
   /** Build inbox filter */
@@ -99,6 +104,9 @@ public final class BuiltInFilterExposer {
       Filter recentlyModifiedFilter = getRecentlyModifiedFilter(r);
       recentlyModifiedFilter.icon = CustomIcons.HISTORY;
       filters.add(recentlyModifiedFilter);
+    }
+    if (taskDao.activeTimers() > 0) {
+      filters.add(TimerPlugin.createFilter(context));
     }
     return filters;
   }

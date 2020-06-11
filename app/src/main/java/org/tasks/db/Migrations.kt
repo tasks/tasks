@@ -3,6 +3,7 @@ package org.tasks.db
 import android.database.sqlite.SQLiteException
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.todoroo.astrid.api.FilterListItem.NO_ORDER
 import timber.log.Timber
 
 object Migrations {
@@ -349,10 +350,10 @@ object Migrations {
 
     private val MIGRATION_75_76: Migration = object : Migration(75, 76) {
         override fun migrate(database: SupportSQLiteDatabase) {
-            database.execSQL("ALTER TABLE `tagdata` ADD COLUMN `td_order` INTEGER NOT NULL DEFAULT 0")
-            database.execSQL("ALTER TABLE `caldav_lists` ADD COLUMN `cdl_order` INTEGER NOT NULL DEFAULT 0")
-            database.execSQL("ALTER TABLE `filters` ADD COLUMN `f_order` INTEGER NOT NULL DEFAULT 0")
-            database.execSQL("ALTER TABLE `places` ADD COLUMN `place_order` INTEGER NOT NULL DEFAULT 0")
+            database.execSQL("ALTER TABLE `tagdata` ADD COLUMN `td_order` INTEGER NOT NULL DEFAULT $NO_ORDER")
+            database.execSQL("ALTER TABLE `caldav_lists` ADD COLUMN `cdl_order` INTEGER NOT NULL DEFAULT $NO_ORDER")
+            database.execSQL("ALTER TABLE `filters` ADD COLUMN `f_order` INTEGER NOT NULL DEFAULT $NO_ORDER")
+            database.execSQL("ALTER TABLE `places` ADD COLUMN `place_order` INTEGER NOT NULL DEFAULT $NO_ORDER")
         }
     }
 

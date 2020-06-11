@@ -7,6 +7,7 @@ import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.todoroo.andlib.data.Table
+import com.todoroo.astrid.api.FilterListItem.NO_ORDER
 import com.todoroo.astrid.data.Task
 import org.tasks.themes.CustomIcons.LIST
 
@@ -38,7 +39,7 @@ class CaldavCalendar : Parcelable {
     private var icon: Int? = -1
 
     @ColumnInfo(name = "cdl_order")
-    var order = 0
+    var order = NO_ORDER
 
     constructor()
 

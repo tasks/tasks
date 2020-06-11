@@ -11,6 +11,7 @@ import androidx.room.*
 import com.mapbox.api.geocoding.v5.GeocodingCriteria
 import com.mapbox.api.geocoding.v5.models.CarmenFeature
 import com.todoroo.andlib.data.Table
+import com.todoroo.astrid.api.FilterListItem.NO_ORDER
 import com.todoroo.astrid.helper.UUIDHelper
 import net.fortuna.ical4j.model.property.Geo
 import org.tasks.R
@@ -56,7 +57,7 @@ class Place : Serializable, Parcelable {
     private var icon = -1
 
     @ColumnInfo(name = "place_order")
-    var order = 0
+    var order = NO_ORDER
 
     constructor()
 
