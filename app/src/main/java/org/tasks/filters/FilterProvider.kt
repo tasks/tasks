@@ -11,6 +11,7 @@ import com.todoroo.astrid.core.BuiltInFilterExposer
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.activities.GoogleTaskListSettingsActivity
+import org.tasks.activities.NavigationDrawerCustomization
 import org.tasks.activities.TagSettingsActivity
 import org.tasks.billing.Inventory
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
@@ -44,6 +45,9 @@ class FilterProvider @Inject constructor(
 
     val filterPickerItems: List<FilterListItem>
         get() = getAllFilters(showCreate = false)
+
+    val drawerCustomizationItems: List<FilterListItem>
+        get() = getAllFilters(showBuiltIn = false)
 
     private fun addFilters(showCreate: Boolean, showBuiltIn: Boolean): List<FilterListItem> =
             if (!preferences.getBoolean(R.string.p_filters_enabled, true)) {
@@ -154,6 +158,11 @@ class FilterProvider @Inject constructor(
                             R.drawable.ic_outline_attach_money_24px,
                             NavigationDrawerFragment.REQUEST_PURCHASE)
                 }
+                .plus(NavigationDrawerAction(
+                        context.getString(R.string.manage_lists),
+                        R.drawable.ic_outline_edit_24px,
+                        Intent(context, NavigationDrawerCustomization::class.java),
+                        0))
                 .plus(NavigationDrawerAction(
                         context.getString(R.string.TLA_menu_settings),
                         R.drawable.ic_outline_settings_24px,

@@ -244,8 +244,11 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
             if (isNew) {
                 f.id = filterDao.insert(f)
             } else {
-                f.id = filter!!.id
-                filterDao.update(f)
+                filter?.let {
+                    f.id = it.id
+                    f.order = it.order
+                    filterDao.update(f)
+                }
             }
             setResult(
                     Activity.RESULT_OK,

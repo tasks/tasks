@@ -2,23 +2,18 @@ package org.tasks.tasklist
 
 import android.graphics.Canvas
 import android.view.ViewGroup
-import androidx.core.util.Pair
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ItemTouchHelper.*
 import androidx.recyclerview.widget.ItemTouchHelper.Callback.makeMovementFlags
-import androidx.recyclerview.widget.ListUpdateCallback
 import androidx.recyclerview.widget.RecyclerView
-import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.adapter.TaskAdapter
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.utility.Flags
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
+import org.tasks.activities.DragAndDropDiffer
 import org.tasks.data.TaskContainer
 import org.tasks.preferences.Preferences
 import java.util.*
@@ -32,19 +27,26 @@ class DragAndDropRecyclerAdapter(
         private val taskList: TaskListFragment,
         tasks: List<TaskContainer>,
         taskDao: TaskDao,
-        preferences: Preferences) : TaskListRecyclerAdapter(adapter, viewHolderFactory, taskList, taskDao, preferences) {
-    private var list: SectionedDataSource
-    private val publishSubject = PublishSubject.create<SectionedDataSource>()
-    private val disposables = CompositeDisposable()
-    private val updates: Queue<Pair<SectionedDataSource, DiffUtil.DiffResult>> = LinkedList()
-    private var dragging = false
-    private val disableHeaders: Boolean
-    private val itemTouchHelper: ItemTouchHelper
+        preferences: Preferences) : TaskListRecyclerAdapter(adapter, viewHolderFactory, taskList, taskDao, preferences), DragAndDropDiffer<TaskContainer, SectionedDataSource> {
+    private val disableHeaders = taskList.getFilter().let {
+        !it.supportsSorting()
+                || !preferences.showGroupHeaders()
+                || (it.supportsManualSort() && preferences.isManualSort)
+                || (it.supportsAstridSorting() && preferences.isAstridSort)
+    }
+    private val itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback()).apply {
+        attachToRecyclerView(recyclerView)
+    }
+    override val publishSubject = PublishSubject.create<SectionedDataSource>()
+    override val disposables = CompositeDisposable()
+    override val updates: Queue<Pair<SectionedDataSource, DiffUtil.DiffResult?>> = LinkedList()
+    override var dragging = false
+    override var items = initializeDiffer(tasks)
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val viewType = getItemViewType(position)
         if (viewType == 1) {
-            val headerSection = list.getSection(position)
+            val headerSection = items.getSection(position)
             (holder as HeaderViewHolder).bind(taskList.getFilter(), preferences.sortMode, headerSection)
         } else {
             super.onBindViewHolder(holder, position)
@@ -52,9 +54,11 @@ class DragAndDropRecyclerAdapter(
     }
 
     override val sortMode: Int
-        get() = list.sortMode
+        get() = items.sortMode
 
-    override fun getItemViewType(position: Int) = if (list.isHeader(position)) 1 else 0
+    override fun getItemViewType(position: Int) = if (items.isHeader(position)) 1 else 0
+
+    override fun submitList(list: List<TaskContainer>) = super.submitList(list)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder = if (viewType == 1) {
         viewHolderFactory.newHeaderViewHolder(parent, this::toggleGroup)
@@ -69,44 +73,21 @@ class DragAndDropRecyclerAdapter(
 
     override fun dragAndDropEnabled() = taskList.getFilter().supportsSubtasks()
 
-    override fun isHeader(position: Int): Boolean = list.isHeader(position)
+    override fun isHeader(position: Int): Boolean = items.isHeader(position)
 
-    override fun nearestHeader(position: Int) = list.getNearestHeader(position)
+    override fun nearestHeader(position: Int) = items.getNearestHeader(position)
 
-    override fun getItem(position: Int) = list.getItem(position)
+    override fun getItem(position: Int) = items.getItem(position)
 
-    override fun submitList(list: List<TaskContainer>) {
-        disposables.add(
-                Single.fromCallable { SectionedDataSource(list, disableHeaders, preferences.sortMode, adapter.getCollapsed()) }
-                        .subscribeOn(Schedulers.computation())
-                        .subscribe(publishSubject::onNext))
-    }
+    override fun transform(list: List<TaskContainer>): SectionedDataSource =
+            SectionedDataSource(list, disableHeaders, preferences.sortMode, adapter.getCollapsed())
 
-    private fun calculateDiff(
-            last: Pair<SectionedDataSource, DiffUtil.DiffResult>, next: SectionedDataSource): Pair<SectionedDataSource, DiffUtil.DiffResult> {
-        AndroidUtilities.assertNotMainThread()
-        val cb = DiffCallback(last.first!!, next, adapter)
-        val result = DiffUtil.calculateDiff(cb, next.size < LONG_LIST_SIZE)
-        return Pair.create(next, result)
-    }
+    override fun diff(last: SectionedDataSource, next: SectionedDataSource) =
+            DiffUtil.calculateDiff(DiffCallback(last, next, adapter), next.size < LONG_LIST_SIZE)
 
-    private fun applyDiff(update: Pair<SectionedDataSource, DiffUtil.DiffResult>) {
-        AndroidUtilities.assertMainThread()
-        updates.add(update)
-        if (!dragging) {
-            drainQueue()
-        }
-    }
-
-    private fun drainQueue() {
-        AndroidUtilities.assertMainThread()
+    override fun drainQueue() {
         val recyclerViewState = recyclerView.layoutManager!!.onSaveInstanceState()
-        var update = updates.poll()
-        while (update != null) {
-            list = update.first!!
-            update.second!!.dispatchUpdatesTo((this as ListUpdateCallback))
-            update = updates.poll()
-        }
+        super.drainQueue()
         recyclerView.layoutManager!!.onRestoreInstanceState(recyclerViewState)
     }
 
@@ -115,9 +96,9 @@ class DragAndDropRecyclerAdapter(
         disposables.dispose()
     }
 
-    override fun getTaskCount() = list.taskCount
+    override fun getTaskCount() = items.taskCount
 
-    override fun getItemCount() = list.size
+    override fun getItemCount() = items.size
 
     private inner class ItemTouchHelperCallback : ItemTouchHelper.Callback() {
         private var from = -1
@@ -162,7 +143,7 @@ class DragAndDropRecyclerAdapter(
             notifyItemMoved(fromPosition, toPosition)
             if (isHeader) {
                 val offset = if (fromPosition < toPosition) -1 else 1
-                list.moveSection(toPosition, offset)
+                items.moveSection(toPosition, offset)
             }
             updateIndents(source, from, to)
             return true
@@ -257,8 +238,8 @@ class DragAndDropRecyclerAdapter(
                 from
             }
             adapter.moved(from, to, indent)
-            val task: TaskContainer = list.removeAt(from)
-            list.add(if (from < to) to - 1 else to, task)
+            val task: TaskContainer = items.removeAt(from)
+            items.add(if (from < to) to - 1 else to, task)
             taskList.loadTaskListContent()
         }
     }
@@ -267,25 +248,5 @@ class DragAndDropRecyclerAdapter(
         private const val LONG_LIST_SIZE = 500
         private val NO_MOVEMENT = makeMovementFlags(0, 0)
         private val ALLOW_DRAGGING =  makeMovementFlags(UP or DOWN or LEFT or RIGHT, 0)
-    }
-
-    init {
-        val filter = taskList.getFilter()
-        disableHeaders = !filter.supportsSorting()
-                || !preferences.showGroupHeaders()
-                || (filter.supportsManualSort() && preferences.isManualSort)
-                || (filter.supportsAstridSorting() && preferences.isAstridSort)
-        itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback())
-        itemTouchHelper.attachToRecyclerView(recyclerView)
-        list = SectionedDataSource(tasks, disableHeaders, preferences.sortMode, adapter.getCollapsed().toMutableSet())
-        val initial = Pair.create<SectionedDataSource, DiffUtil.DiffResult>(list, null)
-        disposables.add(publishSubject
-                .observeOn(Schedulers.computation())
-                .scan(initial, { last: Pair<SectionedDataSource, DiffUtil.DiffResult>, next: SectionedDataSource ->
-                    calculateDiff(last, next)
-                })
-                .skip(1)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { update: Pair<SectionedDataSource, DiffUtil.DiffResult> -> applyDiff(update) })
     }
 }

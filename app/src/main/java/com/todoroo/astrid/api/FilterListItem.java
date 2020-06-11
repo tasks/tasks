@@ -73,7 +73,8 @@ public abstract class FilterListItem implements Parcelable {
     return Objects.equals(listingTitle, other.listingTitle)
         && icon == other.icon
         && tint == other.tint
-        && count == other.count;
+        && count == other.count
+        && order == other.order;
   }
 
   @Override

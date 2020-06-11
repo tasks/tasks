@@ -71,6 +71,10 @@ public class GtasksFilter extends Filter {
     return list.getId();
   }
 
+  public String getAccount() {
+    return list.getAccount();
+  }
+
   public GoogleTaskList getList() {
     return list;
   }

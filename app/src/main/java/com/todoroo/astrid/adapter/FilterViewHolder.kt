@@ -38,6 +38,8 @@ class FilterViewHolder internal constructor(
     @BindView(R.id.size)
     lateinit var size: TextView
 
+    lateinit var filter: FilterListItem
+
     init {
         ButterKnife.bind(this, itemView)
         if (navigationDrawer) {
@@ -45,7 +47,12 @@ class FilterViewHolder internal constructor(
         }
     }
 
+    fun setMoving(moving: Boolean) {
+        itemView.isSelected = moving
+    }
+
     fun bind(filter: FilterListItem, selected: Boolean, count: Int?) {
+        this.filter = filter
         if (navigationDrawer) {
             itemView.isSelected = selected
         } else {

@@ -77,4 +77,5 @@ interface ActivityComponent {
     fun inject(activity: SyncPreferences)
     fun inject(activity: PlaceSettingsActivity)
     fun inject(activity: LocalListSettingsActivity)
+    fun inject(activity: NavigationDrawerCustomization)
 }

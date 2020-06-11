@@ -6,8 +6,7 @@
   android:id="@+id/subheader_row"
   android:background="?attr/selectableItemBackground"
   android:focusable="true"
-  android:layout_height="wrap_content"
-  android:orientation="vertical">
+  android:layout_height="wrap_content">
 
     <View
       android:id="@+id/divider"
@@ -45,15 +44,12 @@
       android:fontFamily="@string/font_fontFamily_medium"
       android:layout_alignParentStart="true"
       android:layout_below="@id/divider"
-      android:paddingTop="16dp"
-      android:paddingBottom="16dp"
       android:gravity="start|center_vertical"
       android:drawableTint="@color/icon_tint_with_alpha"
       android:singleLine="true"
       android:textAlignment="viewStart"
       android:textSize="14sp"
-      android:paddingStart="@dimen/keyline_first"
-      android:paddingEnd="@dimen/keyline_first"
+      android:padding="@dimen/keyline_first"
       tools:ignore="UnusedAttribute" />
 
 </RelativeLayout>

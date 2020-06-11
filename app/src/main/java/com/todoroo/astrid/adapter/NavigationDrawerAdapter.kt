@@ -9,12 +9,14 @@ import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.FilterListItem
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.subjects.PublishSubject
 import org.tasks.LocalBroadcastManager
+import org.tasks.activities.DragAndDropDiffer
 import org.tasks.billing.Inventory
 import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskDao
@@ -22,6 +24,7 @@ import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.locale.Locale
 import org.tasks.preferences.Preferences
 import org.tasks.themes.ColorProvider
+import java.util.*
 import javax.inject.Inject
 import kotlin.math.max
 
@@ -34,11 +37,15 @@ class NavigationDrawerAdapter @Inject constructor(
         private val googleTaskDao: GoogleTaskDao,
         private val caldavDao: CaldavDao,
         private val localBroadcastManager: LocalBroadcastManager)
-    : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    : RecyclerView.Adapter<RecyclerView.ViewHolder>(), DragAndDropDiffer<FilterListItem, MutableList<FilterListItem>> {
 
     private lateinit var onClick: (FilterListItem?) -> Unit
     private var selected: Filter? = null
-    private val differ = AsyncListDiffer(this, DiffCallback())
+    override val disposables = CompositeDisposable()
+    override val publishSubject = PublishSubject.create<MutableList<FilterListItem>>()
+    override val updates: Queue<Pair<MutableList<FilterListItem>, DiffUtil.DiffResult?>> = LinkedList()
+    override var items = initializeDiffer(ArrayList())
+    override var dragging = false
 
     fun setOnClick(onClick: (FilterListItem?) -> Unit) {
         this.onClick = onClick
@@ -54,7 +61,7 @@ class NavigationDrawerAdapter @Inject constructor(
 
     override fun getItemId(position: Int) = position.toLong()
 
-    override fun getItemCount() = differ.currentList.size
+    override fun getItemCount() = items.size
 
     fun setSelected(selected: Filter?) {
         this.selected = selected
@@ -90,17 +97,38 @@ class NavigationDrawerAdapter @Inject constructor(
 
     override fun getItemViewType(position: Int) = getItem(position).itemType.ordinal
 
-    private fun getItem(position: Int) = differ.currentList[position]
+    private fun getItem(position: Int) = items[position]
 
-    fun submitList(filterListItems: List<FilterListItem>) = differ.submitList(filterListItems)
+    override fun transform(list: List<FilterListItem>) = list.toMutableList()
 
-    private class DiffCallback : DiffUtil.ItemCallback<FilterListItem>() {
-        override fun areItemsTheSame(old: FilterListItem, new: FilterListItem) = old.areItemsTheSame(new)
+    override fun diff(last: MutableList<FilterListItem>, next: MutableList<FilterListItem>) =
+            DiffUtil.calculateDiff(DiffCallback(last, next))
 
-        override fun areContentsTheSame(old: FilterListItem, new: FilterListItem) = old.areContentsTheSame(new)
+    private class DiffCallback(val old: List<FilterListItem>, val new: List<FilterListItem>) : DiffUtil.Callback() {
+        override fun getOldListSize() = old.size
+
+        override fun getNewListSize() = new.size
+
+        override fun areItemsTheSame(oldPosition: Int, newPosition: Int) =
+            old[oldPosition].areItemsTheSame(new[newPosition])
+
+        override fun areContentsTheSame(oldPosition: Int, newPosition: Int) =
+            old[oldPosition].areContentsTheSame(new[newPosition])
     }
 
     companion object {
         private const val TOKEN_SELECTED = "token_selected"
     }
+
+    override fun onChanged(position: Int, count: Int, payload: Any?) =
+            notifyItemRangeChanged(position, count, payload)
+
+    override fun onMoved(fromPosition: Int, toPosition: Int) =
+            notifyItemMoved(fromPosition, toPosition)
+
+    override fun onInserted(position: Int, count: Int) =
+            notifyItemRangeInserted(position, count)
+
+    override fun onRemoved(position: Int, count: Int) =
+            notifyItemRangeRemoved(position, count)
 }

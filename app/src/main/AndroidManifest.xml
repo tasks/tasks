@@ -284,6 +284,8 @@
       android:taskAffinity=""
       android:theme="@style/TranslucentDialog"/>
 
+    <activity android:name=".activities.NavigationDrawerCustomization" />
+
     <activity android:name=".activities.TagSettingsActivity"/>
 
     <activity android:name=".activities.FilterSettingsActivity"/>

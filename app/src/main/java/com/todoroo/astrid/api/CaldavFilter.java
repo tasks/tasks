@@ -74,6 +74,10 @@ public class CaldavFilter extends Filter {
     return calendar.getUuid();
   }
 
+  public String getAccount() {
+    return calendar.getAccount();
+  }
+
   public CaldavCalendar getCalendar() {
     return calendar;
   }
