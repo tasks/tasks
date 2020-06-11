@@ -6,6 +6,7 @@ import com.todoroo.andlib.utility.AndroidUtilities.assertNotMainThread
 import com.todoroo.astrid.api.CustomFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.FilterListItem
+import com.todoroo.astrid.api.FilterListItem.NO_ORDER
 import com.todoroo.astrid.core.BuiltInFilterExposer
 import org.tasks.BuildConfig
 import org.tasks.R
@@ -169,7 +170,6 @@ class FilterProvider @Inject constructor(
         return googleTaskListDao.getAccounts().flatMap { googleTaskFilter(it, showCreate) }
     }
 
-
     private fun googleTaskFilter(account: GoogleTaskAccount, showCreate: Boolean): List<FilterListItem> =
             listOf(
                     NavigationDrawerSubheader(
@@ -227,13 +227,21 @@ class FilterProvider @Inject constructor(
     companion object {
         private val COMPARATOR = Comparator<Filter> { f1, f2 ->
             when {
+                f1.order == NO_ORDER && f2.order == NO_ORDER -> f1.id.compareTo(f2.id)
+                f1.order == NO_ORDER -> 1
+                f2.order == NO_ORDER -> -1
                 f1.order < f2.order -> -1
                 f1.order > f2.order -> 1
                 else -> AlphanumComparator.FILTER.compare(f1, f2)
             }
         }
 
-        private fun List<Filter>.sort(): List<Filter> = sortedWith(COMPARATOR)
+        private fun List<Filter>.sort(): List<Filter> =
+                if (all { it.order == NO_ORDER }) {
+                    sortedWith(AlphanumComparator.FILTER)
+                } else {
+                    sortedWith(COMPARATOR)
+                }
 
         private fun <T> Collection<T>.plusAllIf(predicate: Boolean, item: () -> Iterable<T>): List<T> =
                 plus(if (predicate) item.invoke() else emptyList())
