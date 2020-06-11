@@ -37,6 +37,9 @@ class CaldavCalendar : Parcelable {
     @ColumnInfo(name = "cdl_icon")
     private var icon: Int? = -1
 
+    @ColumnInfo(name = "cdl_order")
+    var order = 0
+
     constructor()
 
     @Ignore
@@ -55,6 +58,7 @@ class CaldavCalendar : Parcelable {
         ctag = source.readString()
         url = source.readString()
         icon = source.readInt()
+        order = source.readInt()
     }
 
     fun getIcon(): Int? {
@@ -76,6 +80,7 @@ class CaldavCalendar : Parcelable {
         dest.writeString(ctag)
         dest.writeString(url)
         dest.writeInt(getIcon()!!)
+        dest.writeInt(order)
     }
 
     override fun equals(other: Any?): Boolean {
@@ -90,6 +95,7 @@ class CaldavCalendar : Parcelable {
         if (ctag != other.ctag) return false
         if (url != other.url) return false
         if (icon != other.icon) return false
+        if (order != other.order) return false
 
         return true
     }
@@ -103,11 +109,12 @@ class CaldavCalendar : Parcelable {
         result = 31 * result + (ctag?.hashCode() ?: 0)
         result = 31 * result + (url?.hashCode() ?: 0)
         result = 31 * result + (icon ?: 0)
+        result = 31 * result + order
         return result
     }
 
     override fun toString(): String {
-        return "CaldavCalendar(id=$id, account=$account, uuid=$uuid, name=$name, color=$color, ctag=$ctag, url=$url, icon=$icon)"
+        return "CaldavCalendar(id=$id, account=$account, uuid=$uuid, name=$name, color=$color, ctag=$ctag, url=$url, icon=$icon, order=$order)"
     }
 
     companion object {

@@ -33,6 +33,9 @@ class TagData : Parcelable {
     @ColumnInfo(name = "td_icon")
     private var icon: Int? = -1
 
+    @ColumnInfo(name = "td_order")
+    var order = 0
+
     @Ignore
     constructor(name: String?) {
         this.name = name
@@ -57,6 +60,7 @@ class TagData : Parcelable {
         color = parcel.readInt()
         tagOrdering = parcel.readString()
         icon = parcel.readInt()
+        order = parcel.readInt()
     }
 
     fun getColor(): Int? {
@@ -84,6 +88,7 @@ class TagData : Parcelable {
         dest.writeInt(color!!)
         dest.writeString(tagOrdering)
         dest.writeInt(getIcon()!!)
+        dest.writeInt(order)
     }
 
     override fun equals(other: Any?): Boolean {
@@ -96,6 +101,7 @@ class TagData : Parcelable {
         if (color != other.color) return false
         if (tagOrdering != other.tagOrdering) return false
         if (icon != other.icon) return false
+        if (order != other.order) return false
 
         return true
     }
@@ -107,11 +113,12 @@ class TagData : Parcelable {
         result = 31 * result + (color ?: 0)
         result = 31 * result + (tagOrdering?.hashCode() ?: 0)
         result = 31 * result + (icon ?: 0)
+        result = 31 * result + order
         return result
     }
 
     override fun toString(): String {
-        return "TagData(id=$id, remoteId=$remoteId, name=$name, color=$color, tagOrdering=$tagOrdering, icon=$icon)"
+        return "TagData(id=$id, remoteId=$remoteId, name=$name, color=$color, tagOrdering=$tagOrdering, icon=$icon, order=$order)"
     }
 
     companion object {

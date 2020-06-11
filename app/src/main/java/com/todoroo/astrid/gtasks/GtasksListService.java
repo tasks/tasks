@@ -78,7 +78,6 @@ public class GtasksListService {
       }
 
       local.setTitle(title);
-      local.setRemoteOrder(i);
       googleTaskListDao.insertOrReplace(local);
       previousLists.remove(local.getId());
     }

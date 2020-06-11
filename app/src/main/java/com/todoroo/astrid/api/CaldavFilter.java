@@ -47,6 +47,7 @@ public class CaldavFilter extends Filter {
     this.calendar = calendar;
     tint = calendar.getColor();
     icon = calendar.getIcon();
+    order = calendar.getOrder();
   }
 
   private static QueryTemplate queryTemplate(CaldavCalendar caldavCalendar) {

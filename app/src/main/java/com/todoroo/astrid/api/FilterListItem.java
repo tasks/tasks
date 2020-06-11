@@ -26,6 +26,7 @@ public abstract class FilterListItem implements Parcelable {
   public int icon = -1;
   public int tint = 0;
   public int count = -1;
+  public int order = 0;
 
   public abstract Type getItemType();
 
@@ -41,6 +42,7 @@ public abstract class FilterListItem implements Parcelable {
     dest.writeInt(icon);
     dest.writeInt(tint);
     dest.writeInt(count);
+    dest.writeInt(order);
   }
 
   // --- parcelable helpers
@@ -51,6 +53,7 @@ public abstract class FilterListItem implements Parcelable {
     icon = source.readInt();
     tint = source.readInt();
     count = source.readInt();
+    order = source.readInt();
   }
 
   public abstract boolean areItemsTheSame(@NonNull FilterListItem other);
@@ -59,7 +62,8 @@ public abstract class FilterListItem implements Parcelable {
     return Objects.equals(listingTitle, other.listingTitle)
         && icon == other.icon
         && tint == other.tint
-        && count == other.count;
+        && count == other.count
+        && order == other.order;
   }
 
   @Override
@@ -74,6 +78,8 @@ public abstract class FilterListItem implements Parcelable {
         + tint
         + ", count="
         + count
+        + ", order="
+        + order
         + '}';
   }
 

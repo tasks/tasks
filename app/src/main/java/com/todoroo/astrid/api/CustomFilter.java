@@ -34,6 +34,7 @@ public class CustomFilter extends Filter {
     criterion = filter.getCriterion();
     tint = filter.getColor();
     icon = filter.getIcon();
+    order = filter.getOrder();
   }
 
   private CustomFilter(Parcel parcel) {

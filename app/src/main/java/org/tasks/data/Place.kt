@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.room.*
 import com.mapbox.api.geocoding.v5.GeocodingCriteria
 import com.mapbox.api.geocoding.v5.models.CarmenFeature
-import com.todoroo.andlib.data.Property
 import com.todoroo.andlib.data.Table
 import com.todoroo.astrid.helper.UUIDHelper
 import net.fortuna.ical4j.model.property.Geo
@@ -56,6 +55,9 @@ class Place : Serializable, Parcelable {
     @ColumnInfo(name = "place_icon")
     private var icon = -1
 
+    @ColumnInfo(name = "place_order")
+    var order = 0
+
     constructor()
 
     @Ignore
@@ -70,6 +72,7 @@ class Place : Serializable, Parcelable {
         longitude = o.longitude
         color = o.color
         icon = o.icon
+        order = o.order
     }
 
     @Ignore
@@ -84,6 +87,7 @@ class Place : Serializable, Parcelable {
         longitude = parcel.readDouble()
         color = parcel.readInt()
         icon = parcel.readInt()
+        order = parcel.readInt()
     }
 
     fun getIcon(): Int? {
@@ -140,6 +144,7 @@ class Place : Serializable, Parcelable {
         out.writeDouble(longitude)
         out.writeInt(color)
         out.writeInt(icon)
+        out.writeInt(order)
     }
 
     override fun equals(other: Any?): Boolean {
@@ -156,6 +161,7 @@ class Place : Serializable, Parcelable {
         if (longitude != other.longitude) return false
         if (color != other.color) return false
         if (icon != other.icon) return false
+        if (order != other.order) return false
 
         return true
     }
@@ -171,11 +177,12 @@ class Place : Serializable, Parcelable {
         result = 31 * result + longitude.hashCode()
         result = 31 * result + color
         result = 31 * result + icon
+        result = 31 * result + order
         return result
     }
 
     override fun toString(): String {
-        return "Place(id=$id, uid=$uid, name=$name, address=$address, phone=$phone, url=$url, latitude=$latitude, longitude=$longitude, color=$color, icon=$icon)"
+        return "Place(id=$id, uid=$uid, name=$name, address=$address, phone=$phone, url=$url, latitude=$latitude, longitude=$longitude, color=$color, icon=$icon, order=$order)"
     }
 
     companion object {

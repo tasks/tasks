@@ -26,7 +26,7 @@ class GoogleTaskList : Parcelable {
     var title: String? = null
 
     @ColumnInfo(name = "gtl_remote_order")
-    var remoteOrder = 0
+    var order = 0
 
     @ColumnInfo(name = "gtl_last_sync")
     var lastSync: Long = 0
@@ -45,7 +45,7 @@ class GoogleTaskList : Parcelable {
         account = parcel.readString()
         remoteId = parcel.readString()
         title = parcel.readString()
-        remoteOrder = parcel.readInt()
+        order = parcel.readInt()
         lastSync = parcel.readLong()
         color = parcel.readInt()
         icon = parcel.readInt()
@@ -74,7 +74,7 @@ class GoogleTaskList : Parcelable {
         parcel.writeString(account)
         parcel.writeString(remoteId)
         parcel.writeString(title)
-        parcel.writeInt(remoteOrder)
+        parcel.writeInt(order)
         parcel.writeLong(lastSync)
         parcel.writeInt(getColor()!!)
         parcel.writeInt(getIcon()!!)
@@ -88,7 +88,7 @@ class GoogleTaskList : Parcelable {
         if (account != other.account) return false
         if (remoteId != other.remoteId) return false
         if (title != other.title) return false
-        if (remoteOrder != other.remoteOrder) return false
+        if (order != other.order) return false
         if (lastSync != other.lastSync) return false
         if (color != other.color) return false
         if (icon != other.icon) return false
@@ -101,7 +101,7 @@ class GoogleTaskList : Parcelable {
         result = 31 * result + (account?.hashCode() ?: 0)
         result = 31 * result + (remoteId?.hashCode() ?: 0)
         result = 31 * result + (title?.hashCode() ?: 0)
-        result = 31 * result + remoteOrder
+        result = 31 * result + order
         result = 31 * result + lastSync.hashCode()
         result = 31 * result + (color ?: 0)
         result = 31 * result + (icon ?: 0)
@@ -109,7 +109,7 @@ class GoogleTaskList : Parcelable {
     }
 
     override fun toString(): String {
-        return "GoogleTaskList(id=$id, account=$account, remoteId=$remoteId, title=$title, remoteOrder=$remoteOrder, lastSync=$lastSync, color=$color, icon=$icon)"
+        return "GoogleTaskList(id=$id, account=$account, remoteId=$remoteId, title=$title, remoteOrder=$order, lastSync=$lastSync, color=$color, icon=$icon)"
     }
 
     companion object {

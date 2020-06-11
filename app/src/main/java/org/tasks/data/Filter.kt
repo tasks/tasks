@@ -32,6 +32,9 @@ class Filter {
     @ColumnInfo(name = "f_icon")
     private var icon: Int? = -1
 
+    @ColumnInfo(name = "f_order")
+    var order = 0
+
     fun getSql(): String {
         // TODO: replace dirty hack for missing column
         return sql!!.replace("tasks.userId=0", "1")
@@ -71,6 +74,7 @@ class Filter {
         if (criterion != other.criterion) return false
         if (color != other.color) return false
         if (icon != other.icon) return false
+        if (order != other.order) return false
 
         return true
     }
@@ -83,10 +87,11 @@ class Filter {
         result = 31 * result + (criterion?.hashCode() ?: 0)
         result = 31 * result + (color ?: 0)
         result = 31 * result + (icon ?: 0)
+        result = 31 * result + order
         return result
     }
 
     override fun toString(): String {
-        return "Filter(id=$id, title=$title, sql=$sql, values=$values, criterion=$criterion, color=$color, icon=$icon)"
+        return "Filter(id=$id, title=$title, sql=$sql, values=$values, criterion=$criterion, color=$color, icon=$icon, order=$order)"
     }
 }

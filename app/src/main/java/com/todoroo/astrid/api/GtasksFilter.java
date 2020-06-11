@@ -47,6 +47,7 @@ public class GtasksFilter extends Filter {
     this.list = list;
     tint = list.getColor();
     icon = list.getIcon();
+    order = list.getOrder();
   }
 
   private static QueryTemplate getQueryTemplate(GoogleTaskList list) {

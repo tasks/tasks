@@ -347,6 +347,15 @@ object Migrations {
         }
     }
 
+    private val MIGRATION_75_76: Migration = object : Migration(75, 76) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            database.execSQL("ALTER TABLE `tagdata` ADD COLUMN `td_order` INTEGER NOT NULL DEFAULT 0")
+            database.execSQL("ALTER TABLE `caldav_lists` ADD COLUMN `cdl_order` INTEGER NOT NULL DEFAULT 0")
+            database.execSQL("ALTER TABLE `filters` ADD COLUMN `f_order` INTEGER NOT NULL DEFAULT 0")
+            database.execSQL("ALTER TABLE `places` ADD COLUMN `place_order` INTEGER NOT NULL DEFAULT 0")
+        }
+    }
+
     val MIGRATIONS = arrayOf(
             MIGRATION_35_36,
             MIGRATION_36_37,
@@ -378,7 +387,8 @@ object Migrations {
             MIGRATION_71_72,
             MIGRATION_72_73,
             MIGRATION_73_74,
-            MIGRATION_74_75
+            MIGRATION_74_75,
+            MIGRATION_75_76
     )
 
     private fun noop(from: Int, to: Int): Migration {

@@ -61,6 +61,7 @@ public class PlaceFilter extends Filter {
     this.place = place;
     tint = place.getColor();
     icon = place.getIcon();
+    order = place.getOrder();
   }
 
   public Place getPlace() {

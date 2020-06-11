@@ -46,6 +46,7 @@ public class TagFilter extends Filter {
     this.tagData = tagData;
     tint = tagData.getColor();
     icon = tagData.getIcon();
+    order = tagData.getOrder();
   }
 
   private static QueryTemplate queryTemplate(String uuid) {
