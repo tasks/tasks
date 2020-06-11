@@ -25,7 +25,6 @@ public class CustomFilter extends Filter {
         }
       };
 
-  private long id;
   private String criterion;
 
   public CustomFilter(@NonNull org.tasks.data.Filter filter) {
@@ -41,10 +40,6 @@ public class CustomFilter extends Filter {
     readFromParcel(parcel);
   }
 
-  public long getId() {
-    return id;
-  }
-
   public String getCriterion() {
     return criterion;
   }
@@ -53,25 +48,18 @@ public class CustomFilter extends Filter {
   @Override
   public void writeToParcel(Parcel dest, int flags) {
     super.writeToParcel(dest, flags);
-    dest.writeLong(id);
     dest.writeString(criterion);
   }
 
   @Override
   protected void readFromParcel(Parcel source) {
     super.readFromParcel(source);
-    id = source.readLong();
     criterion = source.readString();
   }
 
   @Override
   public int getMenu() {
     return getId() > 0 ? R.menu.menu_custom_filter : 0;
-  }
-
-  @Override
-  public boolean areItemsTheSame(@NonNull FilterListItem other) {
-    return other instanceof CustomFilter && id == ((CustomFilter) other).id;
   }
 
   @Override

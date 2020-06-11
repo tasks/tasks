@@ -44,6 +44,7 @@ public class TagFilter extends Filter {
   public TagFilter(TagData tagData) {
     super(tagData.getName(), queryTemplate(tagData.getRemoteId()), getValuesForNewTask(tagData));
     this.tagData = tagData;
+    id = tagData.getId();
     tint = tagData.getColor();
     icon = tagData.getIcon();
     order = tagData.getOrder();
@@ -90,12 +91,6 @@ public class TagFilter extends Filter {
   @Override
   public int getMenu() {
     return R.menu.menu_tag_view_fragment;
-  }
-
-  @Override
-  public boolean areItemsTheSame(@NonNull FilterListItem other) {
-    return other instanceof TagFilter
-        && tagData.getRemoteId().equals(((TagFilter) other).getUuid());
   }
 
   @Override

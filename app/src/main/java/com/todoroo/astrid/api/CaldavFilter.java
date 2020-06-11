@@ -45,6 +45,7 @@ public class CaldavFilter extends Filter {
   public CaldavFilter(CaldavCalendar calendar) {
     super(calendar.getName(), queryTemplate(calendar), getValuesForNewTask(calendar));
     this.calendar = calendar;
+    id = calendar.getId();
     tint = calendar.getColor();
     icon = calendar.getIcon();
     order = calendar.getOrder();
@@ -98,12 +99,6 @@ public class CaldavFilter extends Filter {
   @Override
   public int getMenu() {
     return R.menu.menu_caldav_list_fragment;
-  }
-
-  @Override
-  public boolean areItemsTheSame(@NonNull FilterListItem other) {
-    return other instanceof CaldavFilter
-        && calendar.getUuid().equals(((CaldavFilter) other).getUuid());
   }
 
   @Override

@@ -45,6 +45,7 @@ public class GtasksFilter extends Filter {
   public GtasksFilter(GoogleTaskList list) {
     super(list.getTitle(), getQueryTemplate(list), getValuesForNewTasks(list));
     this.list = list;
+    id = list.getId();
     tint = list.getColor();
     icon = list.getIcon();
     order = list.getOrder();
@@ -99,12 +100,6 @@ public class GtasksFilter extends Filter {
   @Override
   public int getMenu() {
     return R.menu.menu_gtasks_list_fragment;
-  }
-
-  @Override
-  public boolean areItemsTheSame(@NonNull FilterListItem other) {
-    return other instanceof GtasksFilter
-        && list.getRemoteId().equals(((GtasksFilter) other).list.getRemoteId());
   }
 
   @Override

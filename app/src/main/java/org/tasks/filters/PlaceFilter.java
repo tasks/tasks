@@ -59,6 +59,7 @@ public class PlaceFilter extends Filter {
   public PlaceFilter(Place place) {
     super(place.getDisplayName(), queryTemplate(place), getValuesForNewTask(place));
     this.place = place;
+    id = place.getId();
     tint = place.getColor();
     icon = place.getIcon();
     order = place.getOrder();
@@ -93,12 +94,6 @@ public class PlaceFilter extends Filter {
   @Override
   public int getMenu() {
     return R.menu.menu_location_list_fragment;
-  }
-
-  @Override
-  public boolean areItemsTheSame(@NonNull FilterListItem other) {
-    return other instanceof PlaceFilter
-        && place.getUid().equals(((PlaceFilter) other).getPlace().getUid());
   }
 
   @Override

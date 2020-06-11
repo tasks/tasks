@@ -25,6 +25,7 @@ public abstract class FilterListItem implements Parcelable {
   /** Title of this item displayed on the Filters page */
   public String listingTitle = null;
 
+  public long id = 0;
   public int icon = -1;
   public int tint = 0;
   public int count = -1;
@@ -45,6 +46,7 @@ public abstract class FilterListItem implements Parcelable {
     dest.writeInt(tint);
     dest.writeInt(count);
     dest.writeInt(order);
+    dest.writeLong(id);
   }
 
   // --- parcelable helpers
@@ -56,16 +58,22 @@ public abstract class FilterListItem implements Parcelable {
     tint = source.readInt();
     count = source.readInt();
     order = source.readInt();
+    id = source.readLong();
   }
 
-  public abstract boolean areItemsTheSame(@NonNull FilterListItem other);
+  public long getId() {
+    return id;
+  }
+
+  public boolean areItemsTheSame(@NonNull FilterListItem other) {
+    return getClass().equals(other.getClass()) && id == other.id;
+  }
 
   public boolean areContentsTheSame(@NonNull FilterListItem other) {
     return Objects.equals(listingTitle, other.listingTitle)
         && icon == other.icon
         && tint == other.tint
-        && count == other.count
-        && order == other.order;
+        && count == other.count;
   }
 
   @Override
@@ -74,6 +82,8 @@ public abstract class FilterListItem implements Parcelable {
         + "listingTitle='"
         + listingTitle
         + '\''
+        + ", id="
+        + id
         + ", icon="
         + icon
         + ", tint="
