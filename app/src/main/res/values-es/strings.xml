@@ -631,4 +631,6 @@
     <string name="astrid_sort_order">Clasificación manual de Astrid</string>
     <string name="disable_sort_groups">Deshabilitar ordenar los grupos</string>
     <string name="CFC_list_name">En la lista…</string>
+    <string name="date_shortcut_tomorrow_night">Mañana por la noche</string>
+    <string name="date_shortcut_tomorrow_evening">Mañana por la tarde</string>
 </resources>
