@@ -622,4 +622,6 @@
     <string name="astrid_sort_order">Astrid手动排序</string>
     <string name="disable_sort_groups">禁用组别排序</string>
     <string name="CFC_list_name">在列表…</string>
+    <string name="date_shortcut_tomorrow_night">明天晚上</string>
+    <string name="date_shortcut_tomorrow_evening">明天傍晚</string>
 </resources>
