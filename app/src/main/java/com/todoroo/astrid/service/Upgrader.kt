@@ -65,6 +65,7 @@ class Upgrader @Inject constructor(
                 preferences.setBoolean(R.string.p_astrid_sort_enabled, true)
                 taskMover.migrateLocalTasks()
             }
+            run(from, V9_7) { googleTaskListDao.resetOrders() }
             preferences.setBoolean(R.string.p_just_updated, true)
         }
         preferences.setCurrentVersion(to)
@@ -307,6 +308,7 @@ class Upgrader @Inject constructor(
         private const val V8_10 = 735
         private const val V9_3 = 90300
         const val V9_6 = 90600
+        const val V9_7 = 90700
 
         @JvmStatic
         fun getAndroidColor(context: Context, index: Int): Int {

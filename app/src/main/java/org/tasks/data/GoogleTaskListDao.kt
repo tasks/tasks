@@ -2,6 +2,7 @@ package org.tasks.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.todoroo.astrid.api.FilterListItem.NO_ORDER
 import io.reactivex.Single
 import org.tasks.filters.GoogleTaskFilters
 import org.tasks.time.DateTimeUtils.currentTimeMillis
@@ -63,4 +64,7 @@ interface GoogleTaskListDao {
             + " WHERE google_task_lists.gtl_account = :account"
             + " GROUP BY google_task_lists.gtl_remote_id")
     fun getGoogleTaskFilters(account: String, now: Long = currentTimeMillis()): List<GoogleTaskFilters>
+
+    @Query("UPDATE google_task_lists SET gtl_remote_order = $NO_ORDER")
+    fun resetOrders()
 }

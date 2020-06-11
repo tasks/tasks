@@ -2,6 +2,7 @@ package org.tasks.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.todoroo.astrid.api.FilterListItem.NO_ORDER
 import io.reactivex.Single
 import org.tasks.filters.LocationFilters
 import org.tasks.time.DateTimeUtils.currentTimeMillis
@@ -109,4 +110,7 @@ interface LocationDao {
             + " GROUP BY places.uid"
             + " ORDER BY name COLLATE NOCASE ASC")
     fun getPlaceFilters(now: Long = currentTimeMillis()): List<LocationFilters>
+
+    @Query("UPDATE places SET place_order = $NO_ORDER")
+    fun resetOrders()
 }

@@ -3,6 +3,7 @@ package org.tasks.data
 import androidx.core.util.Pair
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.todoroo.astrid.api.FilterListItem.NO_ORDER
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.helper.UUIDHelper
 import org.tasks.db.DbUtils
@@ -148,4 +149,7 @@ abstract class TagDataDao {
             + " WHERE tagdata.name IS NOT NULL AND tagdata.name != ''"
             + " GROUP BY tagdata.remoteId")
     abstract fun getTagFilters(now: Long = currentTimeMillis()): List<TagFilters>
+
+    @Query("UPDATE tagdata SET td_order = $NO_ORDER")
+    abstract fun resetOrders()
 }

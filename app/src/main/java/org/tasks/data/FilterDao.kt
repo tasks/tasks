@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import com.todoroo.astrid.api.FilterListItem.NO_ORDER
 
 @Dao
 interface FilterDao {
@@ -27,4 +28,7 @@ interface FilterDao {
 
     @Query("SELECT * FROM filters")
     fun getAll(): List<Filter>
+
+    @Query("UPDATE filters SET f_order = $NO_ORDER")
+    fun resetOrders()
 }

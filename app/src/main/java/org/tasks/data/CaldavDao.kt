@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.todoroo.andlib.utility.DateUtilities.now
+import com.todoroo.astrid.api.FilterListItem.NO_ORDER
 import com.todoroo.astrid.core.SortHelper.APPLE_EPOCH
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.helper.UUIDHelper
@@ -243,6 +244,9 @@ abstract class CaldavDao {
 
     @Query("SELECT task.*, caldav_task.*, IFNULL(cd_order, (created - $APPLE_EPOCH) / 1000) AS primary_sort FROM caldav_tasks AS caldav_task INNER JOIN tasks AS task ON _id = cd_task WHERE cd_calendar = :calendar AND parent = :parent AND cd_deleted = 0 AND deleted = 0 AND primary_sort >= :from AND primary_sort < IFNULL(:to, ${Long.MAX_VALUE}) ORDER BY primary_sort")
     internal abstract fun getTasksToShift(calendar: String, parent: Long, from: Long, to: Long?): List<CaldavTaskContainer>
+
+    @Query("UPDATE caldav_lists SET cdl_order = $NO_ORDER")
+    abstract fun resetOrders()
 
     fun setupLocalAccount(context: Context): CaldavAccount {
         val account = getLocalAccount()
