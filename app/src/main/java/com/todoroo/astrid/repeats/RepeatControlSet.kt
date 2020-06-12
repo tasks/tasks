@@ -5,6 +5,7 @@
  */
 package com.todoroo.astrid.repeats
 
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -24,7 +25,6 @@ import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
 import org.tasks.dialogs.DialogBuilder
-import org.tasks.injection.ForActivity
 import org.tasks.injection.FragmentComponent
 import org.tasks.repeats.BasicRecurrenceDialog
 import org.tasks.repeats.RepeatRuleToString
@@ -45,7 +45,7 @@ import javax.inject.Inject
 class RepeatControlSet : TaskEditControlFragment() {
     private val repeatTypes: MutableList<String> = ArrayList()
 
-    @Inject @ForActivity lateinit var activity: Context
+    @Inject lateinit var activity: Activity
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var theme: Theme
     @Inject lateinit var firebase: Firebase

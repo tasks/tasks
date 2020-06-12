@@ -3,11 +3,11 @@ package org.tasks.ui;
 import static android.widget.Toast.LENGTH_LONG;
 import static org.tasks.Strings.isNullOrEmpty;
 
+import android.app.Activity;
 import android.content.Context;
 import android.widget.Toast;
 import androidx.annotation.StringRes;
 import javax.inject.Inject;
-import org.tasks.injection.ForActivity;
 import org.tasks.locale.Locale;
 
 public class Toaster {
@@ -16,7 +16,7 @@ public class Toaster {
   private final Locale locale;
 
   @Inject
-  public Toaster(@ForActivity Context context, Locale locale) {
+  public Toaster(Activity context, Locale locale) {
     this.context = context;
     this.locale = locale;
   }

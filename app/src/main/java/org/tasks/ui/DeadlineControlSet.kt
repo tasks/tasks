@@ -17,7 +17,6 @@ import org.tasks.R
 import org.tasks.date.DateTimeUtils
 import org.tasks.dialogs.DateTimePicker
 import org.tasks.dialogs.DateTimePicker.Companion.newDateTimePicker
-import org.tasks.injection.ForActivity
 import org.tasks.injection.FragmentComponent
 import org.tasks.locale.Locale
 import org.tasks.preferences.Preferences
@@ -26,7 +25,7 @@ import java.time.format.FormatStyle
 import javax.inject.Inject
 
 class DeadlineControlSet : TaskEditControlFragment() {
-    @Inject @ForActivity lateinit var activity: Context
+    @Inject lateinit var activity: Activity
     @Inject lateinit var locale: Locale
     @Inject lateinit var preferences: Preferences
 

@@ -59,7 +59,6 @@ import org.tasks.databinding.FragmentTaskEditBinding;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.Linkify;
 import org.tasks.fragments.TaskEditControlSetFragmentManager;
-import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.notifications.NotificationManager;
@@ -81,7 +80,7 @@ public final class TaskEditFragment extends InjectingFragment
   @Inject TaskDeleter taskDeleter;
   @Inject NotificationManager notificationManager;
   @Inject DialogBuilder dialogBuilder;
-  @Inject @ForActivity Context context;
+  @Inject Activity context;
   @Inject TaskEditControlSetFragmentManager taskEditControlSetFragmentManager;
   @Inject CommentsController commentsController;
   @Inject Preferences preferences;

@@ -2,7 +2,6 @@ package org.tasks.dialogs;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +17,6 @@ import org.tasks.R;
 import org.tasks.billing.Inventory;
 import org.tasks.billing.PurchaseActivity;
 import org.tasks.injection.DialogFragmentComponent;
-import org.tasks.injection.ForActivity;
 import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.themes.CustomIcons;
 
@@ -30,7 +28,7 @@ public class IconPickerDialog extends InjectingDialogFragment {
   RecyclerView recyclerView;
 
   @Inject DialogBuilder dialogBuilder;
-  @Inject @ForActivity Context context;
+  @Inject Activity context;
   @Inject Inventory inventory;
   private IconPickerCallback callback;
 

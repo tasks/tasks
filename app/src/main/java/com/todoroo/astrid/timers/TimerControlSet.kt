@@ -27,7 +27,6 @@ import com.todoroo.astrid.ui.TimeDurationControlSet
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.dialogs.DialogBuilder
-import org.tasks.injection.ForActivity
 import org.tasks.injection.FragmentComponent
 import org.tasks.themes.Theme
 import org.tasks.ui.TaskEditControlFragment
@@ -39,7 +38,7 @@ import javax.inject.Inject
  * @author Tim Su <tim></tim>@todoroo.com>
  */
 class TimerControlSet : TaskEditControlFragment() {
-    @Inject @ForActivity lateinit var activity: Context
+    @Inject lateinit var activity: Activity
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var theme: Theme
     

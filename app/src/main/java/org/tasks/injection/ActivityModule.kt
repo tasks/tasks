@@ -1,7 +1,6 @@
 package org.tasks.injection
 
 import android.app.Activity
-import android.content.Context
 import dagger.Module
 import dagger.Provides
 import org.tasks.R
@@ -14,11 +13,6 @@ import org.tasks.themes.ThemeColor
 
 @Module
 class ActivityModule(@get:Provides val activity: Activity) {
-
-    @get:ForActivity
-    @get:Provides
-    val activityContext: Context
-        get() = activity
 
     @Provides
     @ActivityScope

@@ -3,6 +3,7 @@ package org.tasks.dialogs;
 import static java.util.Arrays.asList;
 import static org.tasks.Strings.isNullOrEmpty;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -16,7 +17,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.injection.ForActivity;
 
 public class Linkify {
 
@@ -24,7 +24,7 @@ public class Linkify {
   private final DialogBuilder dialogBuilder;
 
   @Inject
-  public Linkify(@ForActivity Context context, DialogBuilder dialogBuilder) {
+  public Linkify(Activity context, DialogBuilder dialogBuilder) {
     this.context = context;
     this.dialogBuilder = dialogBuilder;
   }

@@ -28,7 +28,6 @@ import org.tasks.data.Alarm
 import org.tasks.date.DateTimeUtils
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.MyTimePickerDialog
-import org.tasks.injection.ForActivity
 import org.tasks.injection.FragmentComponent
 import org.tasks.locale.Locale
 import org.tasks.ui.TaskEditControlFragment
@@ -44,7 +43,7 @@ import javax.inject.Inject
 class ReminderControlSet : TaskEditControlFragment() {
     private val alarms: MutableSet<Long> = LinkedHashSet()
 
-    @Inject @ForActivity lateinit var activity: Context
+    @Inject lateinit var activity: Activity
     @Inject lateinit var alarmService: AlarmService
     @Inject lateinit var locale: Locale
     @Inject lateinit var dialogBuilder: DialogBuilder
