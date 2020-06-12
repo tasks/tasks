@@ -628,4 +628,6 @@
     <string name="CFC_list_name">Dans la liste…</string>
     <string name="date_shortcut_tomorrow_evening">Demain matin</string>
     <string name="date_shortcut_tomorrow_night">Demain soir</string>
+    <string name="reset_sort_order">Réinitialiser l’ordre de tri</string>
+    <string name="manage_lists">Gérer les listes</string>
 </resources>
