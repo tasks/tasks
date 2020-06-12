@@ -5,6 +5,7 @@ import com.natpryce.makeiteasy.Property
 import com.natpryce.makeiteasy.Property.newProperty
 import com.natpryce.makeiteasy.PropertyLookup
 import com.natpryce.makeiteasy.PropertyValue
+import com.todoroo.astrid.api.FilterListItem.NO_ORDER
 import org.tasks.data.GoogleTaskList
 import org.tasks.makers.Maker.make
 
@@ -23,7 +24,7 @@ object GtaskListMaker {
         list.account = lookup.valueOf(ACCOUNT, "account")
         list.remoteId = lookup.valueOf(REMOTE_ID, "1")
         list.title = lookup.valueOf(NAME, "Default")
-        list.order = lookup.valueOf(ORDER, 0)
+        list.order = lookup.valueOf(ORDER, NO_ORDER)
         list.lastSync = lookup.valueOf(LAST_SYNC, 0L)
         list.setColor(lookup.valueOf(COLOR, 0))
         list
