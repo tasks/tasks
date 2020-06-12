@@ -6,6 +6,7 @@
 
 package com.todoroo.astrid.core;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
 import com.todoroo.andlib.sql.Criterion;
@@ -25,7 +26,6 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.filters.RecentlyModifiedFilter;
 import org.tasks.filters.SortableFilter;
-import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.CustomIcons;
 
@@ -42,7 +42,7 @@ public final class BuiltInFilterExposer {
 
   @Inject
   public BuiltInFilterExposer(
-      @ForApplication Context context, Preferences preferences, TaskDao taskDao) {
+      Application context, Preferences preferences, TaskDao taskDao) {
     this.context = context;
     this.preferences = preferences;
     this.taskDao = taskDao;

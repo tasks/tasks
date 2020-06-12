@@ -1,5 +1,6 @@
 package com.todoroo.astrid.gtasks.api;
 
+import android.app.Application;
 import android.content.Context;
 import androidx.annotation.Nullable;
 import com.google.api.client.http.HttpRequest;
@@ -18,7 +19,6 @@ import javax.inject.Inject;
 import org.tasks.BuildConfig;
 import org.tasks.DebugNetworkInterceptor;
 import org.tasks.gtasks.GoogleAccountManager;
-import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
@@ -40,7 +40,7 @@ public class GtasksInvoker {
 
   @Inject
   public GtasksInvoker(
-      @ForApplication Context context,
+      Application context,
       GoogleAccountManager googleAccountManager,
       Preferences preferences,
       DebugNetworkInterceptor interceptor) {

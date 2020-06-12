@@ -1,5 +1,6 @@
 package org.tasks.scheduling;
 
+import android.app.Application;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -13,7 +14,6 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.calendars.AndroidCalendarEvent;
 import org.tasks.calendars.CalendarEventProvider;
-import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingJobIntentService;
 import org.tasks.injection.ServiceComponent;
 import org.tasks.preferences.Preferences;
@@ -26,7 +26,7 @@ public class CalendarNotificationIntentService extends RecurringIntervalIntentSe
   private static final String URI_PREFIX = "cal-reminder";
   @Inject Preferences preferences;
   @Inject CalendarEventProvider calendarEventProvider;
-  @Inject @ForApplication Context context;
+  @Inject Application context;
   @Inject AlarmManager alarmManager;
 
   public static void enqueueWork(Context context) {

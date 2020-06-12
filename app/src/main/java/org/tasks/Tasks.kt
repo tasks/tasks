@@ -1,5 +1,6 @@
 package org.tasks
 
+import android.app.Application
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -14,7 +15,6 @@ import org.tasks.billing.BillingClient
 import org.tasks.billing.Inventory
 import org.tasks.files.FileHelper
 import org.tasks.injection.ApplicationComponent
-import org.tasks.injection.ForApplication
 import org.tasks.injection.InjectingApplication
 import org.tasks.injection.InjectingJobIntentService
 import org.tasks.jobs.WorkManager
@@ -30,7 +30,6 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class Tasks : InjectingApplication(), Configuration.Provider {
-    @Inject @ForApplication lateinit var context: Context
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var buildSetup: BuildSetup
     @Inject lateinit var inventory: Inventory
@@ -65,15 +64,15 @@ class Tasks : InjectingApplication(), Configuration.Provider {
     }
 
     private fun doInBackground() {
-        NotificationSchedulerIntentService.enqueueWork(context, false)
-        CalendarNotificationIntentService.enqueueWork(context)
+        NotificationSchedulerIntentService.enqueueWork(this, false)
+        CalendarNotificationIntentService.enqueueWork(this)
         refreshScheduler.get().scheduleAll()
         workManager.get().updateBackgroundSync()
         workManager.get().scheduleMidnightRefresh()
         workManager.get().scheduleBackup()
         workManager.get().scheduleConfigRefresh()
         geofenceApi.get().registerAll()
-        FileHelper.delete(context, preferences.cacheDirectory)
+        FileHelper.delete(this, preferences.cacheDirectory)
         billingClient.get().queryPurchases()
         appWidgetManager.get().reconfigureWidgets()
     }

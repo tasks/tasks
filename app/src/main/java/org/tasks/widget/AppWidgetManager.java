@@ -1,11 +1,11 @@
 package org.tasks.widget;
 
+import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.injection.ForApplication;
 
 public class AppWidgetManager {
 
@@ -13,7 +13,7 @@ public class AppWidgetManager {
   private final Context context;
 
   @Inject
-  public AppWidgetManager(@ForApplication Context context) {
+  public AppWidgetManager(Application context) {
     this.context = context;
     appWidgetManager = android.appwidget.AppWidgetManager.getInstance(context);
   }

@@ -1,6 +1,7 @@
 package org.tasks.gtasks
 
 import android.app.Activity
+import android.app.Application
 import android.content.Context
 import android.widget.Toast
 import com.google.android.gms.common.ConnectionResult
@@ -13,13 +14,12 @@ import io.reactivex.schedulers.Schedulers
 import org.tasks.R
 import org.tasks.data.GoogleTaskListDao
 import org.tasks.data.LocationDao
-import org.tasks.injection.ForApplication
 import org.tasks.preferences.Preferences
 import timber.log.Timber
 import javax.inject.Inject
 
 class PlayServices @Inject constructor(
-        @param:ForApplication private val context: Context,
+        private val context: Application,
         private val preferences: Preferences,
         private val googleTaskListDao: GoogleTaskListDao,
         private val locationDao: LocationDao) {

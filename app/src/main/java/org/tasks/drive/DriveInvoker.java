@@ -2,6 +2,7 @@ package org.tasks.drive;
 
 import static com.todoroo.andlib.utility.DateUtilities.now;
 
+import android.app.Application;
 import android.content.Context;
 import android.net.Uri;
 import com.google.api.client.http.HttpResponse;
@@ -23,7 +24,6 @@ import org.tasks.BuildConfig;
 import org.tasks.DebugNetworkInterceptor;
 import org.tasks.R;
 import org.tasks.files.FileHelper;
-import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
@@ -39,7 +39,7 @@ public class DriveInvoker {
 
   @Inject
   public DriveInvoker(
-      @ForApplication Context context,
+      Application context,
       Preferences preferences,
       HttpCredentialsAdapter credentialsAdapter,
       DebugNetworkInterceptor interceptor) {

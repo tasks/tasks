@@ -1,13 +1,12 @@
 package org.tasks.locale.receiver;
 
-import android.content.Context;
+import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import com.todoroo.astrid.api.Filter;
 import javax.inject.Inject;
 import org.tasks.Notifier;
-import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingJobIntentService;
 import org.tasks.injection.ServiceComponent;
 import org.tasks.locale.bundle.ListNotificationBundle;
@@ -17,7 +16,7 @@ import timber.log.Timber;
 
 public class TaskerIntentService extends InjectingJobIntentService {
 
-  @Inject @ForApplication Context context;
+  @Inject Application context;
   @Inject Notifier notifier;
   @Inject DefaultFilterProvider defaultFilterProvider;
   @Inject TaskerTaskCreator taskerTaskCreator;

@@ -1,5 +1,6 @@
 package org.tasks
 
+import android.app.Application
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
@@ -10,7 +11,6 @@ import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.reminders.ReminderService
 import com.todoroo.astrid.voice.VoiceOutputAssistant
-import org.tasks.injection.ForApplication
 import org.tasks.notifications.AudioManager
 import org.tasks.notifications.Notification
 import org.tasks.notifications.NotificationManager
@@ -24,7 +24,7 @@ import javax.inject.Inject
 import kotlin.math.min
 
 class Notifier @Inject constructor(
-        @param:ForApplication private val context: Context,
+        private val context: Application,
         private val taskDao: TaskDao,
         private val notificationManager: NotificationManager,
         private val telephonyManager: TelephonyManager,

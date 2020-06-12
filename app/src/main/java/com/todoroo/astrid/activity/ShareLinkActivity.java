@@ -8,6 +8,7 @@ import static org.tasks.files.FileHelper.copyToUri;
 import static org.tasks.files.FileHelper.getFilename;
 import static org.tasks.intents.TaskIntents.getTaskListIntent;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -21,7 +22,6 @@ import javax.inject.Inject;
 import org.tasks.data.TaskAttachment;
 import org.tasks.files.FileHelper;
 import org.tasks.injection.ActivityComponent;
-import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
@@ -32,7 +32,7 @@ import timber.log.Timber;
  */
 public final class ShareLinkActivity extends InjectingAppCompatActivity {
 
-  @Inject @ForApplication Context context;
+  @Inject Application context;
   @Inject TaskCreator taskCreator;
   @Inject Preferences preferences;
 

@@ -1,12 +1,11 @@
 package org.tasks;
 
+import android.app.Application;
 import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import com.todoroo.astrid.api.AstridApiConstants;
 import javax.inject.Inject;
-import org.tasks.injection.ForApplication;
 import org.tasks.widget.AppWidgetManager;
 
 public class LocalBroadcastManager {
@@ -20,7 +19,7 @@ public class LocalBroadcastManager {
   private final AppWidgetManager appWidgetManager;
 
   @Inject
-  public LocalBroadcastManager(@ForApplication Context context, AppWidgetManager appWidgetManager) {
+  public LocalBroadcastManager(Application context, AppWidgetManager appWidgetManager) {
     this.appWidgetManager = appWidgetManager;
     localBroadcastManager =
         androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(context);

@@ -3,6 +3,7 @@ package org.tasks.filters;
 import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Sets.newLinkedHashSet;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
 import com.todoroo.andlib.sql.Criterion;
@@ -31,7 +32,6 @@ import org.tasks.data.GoogleTaskListDao;
 import org.tasks.data.Tag;
 import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
-import org.tasks.injection.ForApplication;
 
 public class FilterCriteriaProvider {
 
@@ -52,7 +52,7 @@ public class FilterCriteriaProvider {
 
   @Inject
   public FilterCriteriaProvider(
-      @ForApplication Context context,
+      Application context,
       TagDataDao tagDataDao,
       GoogleTaskListDao googleTaskListDao,
       CaldavDao caldavDao) {

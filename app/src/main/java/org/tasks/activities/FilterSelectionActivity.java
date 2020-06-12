@@ -1,5 +1,6 @@
 package org.tasks.activities;
 
+import android.app.Application;
 import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -17,7 +18,6 @@ import org.tasks.LocalBroadcastManager;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.filters.FilterProvider;
 import org.tasks.injection.ActivityComponent;
-import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
@@ -31,7 +31,7 @@ public class FilterSelectionActivity extends InjectingAppCompatActivity {
   private static final String EXTRA_FILTER_SQL = "extra_filter_query";
   private static final String EXTRA_FILTER_VALUES = "extra_filter_values";
 
-  @Inject @ForApplication Context context;
+  @Inject Application context;
   @Inject DialogBuilder dialogBuilder;
   @Inject FilterAdapter filterAdapter;
   @Inject FilterProvider filterProvider;

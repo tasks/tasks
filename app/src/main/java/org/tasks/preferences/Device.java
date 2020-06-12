@@ -2,6 +2,7 @@ package org.tasks.preferences;
 
 import static java.util.Arrays.asList;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -14,7 +15,6 @@ import java.util.List;
 import javax.inject.Inject;
 import org.tasks.BuildConfig;
 import org.tasks.R;
-import org.tasks.injection.ForApplication;
 import org.tasks.locale.Locale;
 import timber.log.Timber;
 
@@ -24,7 +24,7 @@ public class Device {
   private final Locale locale;
 
   @Inject
-  public Device(@ForApplication Context context, Locale locale) {
+  public Device(Application context, Locale locale) {
     this.context = context;
     this.locale = locale;
   }

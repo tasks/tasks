@@ -1,6 +1,6 @@
 package org.tasks.injection
 
-import android.content.Context
+import android.app.Application
 import com.todoroo.astrid.dao.Database
 import com.todoroo.astrid.dao.TaskDao
 import dagger.Module
@@ -17,7 +17,7 @@ import org.tasks.location.MapboxGeocoder
 import org.tasks.notifications.NotificationDao
 
 @Module
-class ApplicationModule(@get:Provides @get:ForApplication val context: Context) {
+class ApplicationModule(@get:Provides val context: Application) {
 
     @get:Provides
     val locale: Locale

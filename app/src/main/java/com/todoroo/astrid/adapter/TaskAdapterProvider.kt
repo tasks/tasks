@@ -1,5 +1,6 @@
 package com.todoroo.astrid.adapter
 
+import android.app.Application
 import android.content.Context
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
@@ -16,12 +17,11 @@ import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskDao
 import org.tasks.data.TaskListMetadata
 import org.tasks.data.TaskListMetadataDao
-import org.tasks.injection.ForApplication
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
 
 class TaskAdapterProvider @Inject constructor(
-        @param:ForApplication private val context: Context,
+        private val context: Application,
         private val preferences: Preferences,
         private val taskListMetadataDao: TaskListMetadataDao,
         private val taskDao: TaskDao,

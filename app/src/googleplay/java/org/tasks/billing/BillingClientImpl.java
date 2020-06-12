@@ -4,7 +4,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.todoroo.andlib.utility.AndroidUtilities.assertMainThread;
 
 import android.app.Activity;
-import android.content.Context;
+import android.app.Application;
 import androidx.annotation.Nullable;
 import com.android.billingclient.api.BillingClient.BillingResponse;
 import com.android.billingclient.api.BillingClient.FeatureType;
@@ -22,7 +22,6 @@ import io.reactivex.schedulers.Schedulers;
 import java.util.List;
 import org.tasks.BuildConfig;
 import org.tasks.analytics.Firebase;
-import org.tasks.injection.ForApplication;
 import timber.log.Timber;
 
 @SuppressWarnings("all")
@@ -36,7 +35,7 @@ public class BillingClientImpl implements BillingClient, PurchasesUpdatedListene
   private boolean connected;
   private OnPurchasesUpdated onPurchasesUpdated;
 
-  public BillingClientImpl(@ForApplication Context context, Inventory inventory, Firebase firebase) {
+  public BillingClientImpl(Application context, Inventory inventory, Firebase firebase) {
     this.inventory = inventory;
     this.firebase = firebase;
     billingClient =

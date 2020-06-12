@@ -1,6 +1,6 @@
 package org.tasks.injection
 
-import android.content.Context
+import android.app.Application
 import dagger.Module
 import dagger.Provides
 import org.tasks.location.MapFragment
@@ -12,13 +12,13 @@ import org.tasks.location.PlaceSearchProvider
 class LocationModule {
     @Provides
     @ActivityScope
-    fun getPlaceSearchProvider(@ForApplication context: Context): PlaceSearchProvider {
+    fun getPlaceSearchProvider(context: Application): PlaceSearchProvider {
         return MapboxSearchProvider(context)
     }
 
     @Provides
     @ActivityScope
-    fun getMapFragment(@ForApplication context: Context): MapFragment {
+    fun getMapFragment(context: Application): MapFragment {
         return MapboxMapFragment(context)
     }
 }

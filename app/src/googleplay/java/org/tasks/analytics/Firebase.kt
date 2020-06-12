@@ -1,5 +1,6 @@
 package org.tasks.analytics
 
+import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import androidx.annotation.StringRes
@@ -12,7 +13,6 @@ import io.fabric.sdk.android.Fabric
 import org.tasks.R
 import org.tasks.billing.BillingClientImpl
 import org.tasks.injection.ApplicationScope
-import org.tasks.injection.ForApplication
 import org.tasks.jobs.WorkManager
 import org.tasks.preferences.Preferences
 import timber.log.Timber
@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @ApplicationScope
-class Firebase @Inject constructor(@param:ForApplication val context: Context, preferences: Preferences) {
+class Firebase @Inject constructor(val context: Application, preferences: Preferences) {
 
     private var enabled: Boolean = preferences.isTrackingEnabled
     private var analytics: FirebaseAnalytics? = null

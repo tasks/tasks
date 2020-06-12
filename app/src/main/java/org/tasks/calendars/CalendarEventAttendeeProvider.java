@@ -1,14 +1,13 @@
 package org.tasks.calendars;
 
+import android.app.Application;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.database.Cursor;
 import android.provider.CalendarContract;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
-import org.tasks.injection.ForApplication;
 import org.tasks.preferences.PermissionChecker;
 import timber.log.Timber;
 
@@ -23,7 +22,7 @@ class CalendarEventAttendeeProvider {
 
   @Inject
   public CalendarEventAttendeeProvider(
-      @ForApplication Context context, PermissionChecker permissionChecker) {
+      Application context, PermissionChecker permissionChecker) {
     this.permissionChecker = permissionChecker;
     contentResolver = context.getContentResolver();
   }

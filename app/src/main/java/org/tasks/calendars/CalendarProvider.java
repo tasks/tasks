@@ -3,8 +3,8 @@ package org.tasks.calendars;
 import static android.provider.BaseColumns._ID;
 import static org.tasks.Strings.isNullOrEmpty;
 
+import android.app.Application;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.CalendarContract;
@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
-import org.tasks.injection.ForApplication;
 import org.tasks.preferences.PermissionChecker;
 import timber.log.Timber;
 
@@ -32,7 +31,7 @@ public class CalendarProvider {
   private final ContentResolver contentResolver;
 
   @Inject
-  public CalendarProvider(@ForApplication Context context, PermissionChecker permissionChecker) {
+  public CalendarProvider(Application context, PermissionChecker permissionChecker) {
     this.permissionChecker = permissionChecker;
     contentResolver = context.getContentResolver();
   }

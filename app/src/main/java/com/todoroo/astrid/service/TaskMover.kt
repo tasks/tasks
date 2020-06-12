@@ -1,5 +1,6 @@
 package com.todoroo.astrid.service
 
+import android.app.Application
 import android.content.Context
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.CaldavFilter
@@ -11,13 +12,12 @@ import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.*
 import org.tasks.db.DbUtils.dbchunk
-import org.tasks.injection.ForApplication
 import org.tasks.preferences.Preferences
 import java.util.*
 import javax.inject.Inject
 
 class TaskMover @Inject constructor(
-        @param:ForApplication private val context: Context,
+        private val context: Application,
         private val taskDao: TaskDao,
         private val caldavDao: CaldavDao,
         private val googleTaskDao: GoogleTaskDao,

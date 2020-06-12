@@ -8,9 +8,9 @@ package com.todoroo.astrid.gcal;
 
 import static org.tasks.Strings.isNullOrEmpty;
 
+import android.app.Application;
 import android.content.ContentResolver;
 import android.content.ContentValues;
-import android.content.Context;
 import android.net.Uri;
 import android.provider.CalendarContract;
 import android.text.format.Time;
@@ -22,7 +22,6 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.calendars.AndroidCalendarEvent;
 import org.tasks.calendars.CalendarEventProvider;
-import org.tasks.injection.ForApplication;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
@@ -40,7 +39,7 @@ public class GCalHelper {
 
   @Inject
   public GCalHelper(
-      @ForApplication Context context,
+      Application context,
       TaskDao taskDao,
       Preferences preferences,
       PermissionChecker permissionChecker,

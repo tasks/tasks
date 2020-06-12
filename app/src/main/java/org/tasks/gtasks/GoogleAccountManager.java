@@ -12,7 +12,7 @@ import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
+import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import com.google.api.services.drive.DriveScopes;
@@ -25,7 +25,6 @@ import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.injection.ForApplication;
 import org.tasks.play.AuthResultHandler;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.Preferences;
@@ -39,7 +38,7 @@ public class GoogleAccountManager {
 
   @Inject
   public GoogleAccountManager(
-      @ForApplication Context context, PermissionChecker permissionChecker, Preferences preferences) {
+      Application context, PermissionChecker permissionChecker, Preferences preferences) {
     this.permissionChecker = permissionChecker;
     accountManager = android.accounts.AccountManager.get(context);
     this.preferences = preferences;

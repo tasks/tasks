@@ -6,6 +6,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.todoroo.andlib.utility.DateUtilities.now;
 import static java.util.Collections.emptyList;
 
+import android.app.Application;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
@@ -22,7 +23,6 @@ import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.backup.TasksJsonExporter;
-import org.tasks.injection.ForApplication;
 import org.tasks.injection.JobComponent;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
@@ -37,7 +37,7 @@ public class BackupWork extends RepeatingWorker {
       (f1, f2) -> Long.compare(f2.lastModified(), f1.lastModified());
   private static final Comparator<DocumentFile> DOCUMENT_FILE_COMPARATOR =
       (d1, d2) -> Long.compare(d2.lastModified(), d1.lastModified());
-  @Inject @ForApplication Context context;
+  @Inject Application context;
   @Inject TasksJsonExporter tasksJsonExporter;
   @Inject Preferences preferences;
   @Inject WorkManager workManager;

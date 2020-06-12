@@ -4,6 +4,7 @@ import static com.google.common.collect.Lists.transform;
 import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
+import android.app.Application;
 import android.content.Context;
 import androidx.annotation.Nullable;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
@@ -42,7 +43,6 @@ import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
-import org.tasks.injection.ForApplication;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.Preferences;
@@ -82,7 +82,7 @@ public class GoogleTaskSynchronizer {
 
   @Inject
   public GoogleTaskSynchronizer(
-      @ForApplication Context context,
+      Application context,
       GoogleTaskListDao googleTaskListDao,
       GtasksListService gtasksListService,
       Preferences preferences,

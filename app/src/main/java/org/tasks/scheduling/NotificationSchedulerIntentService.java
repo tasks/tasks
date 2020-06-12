@@ -7,6 +7,7 @@ import static org.tasks.notifications.NotificationManager.NOTIFICATION_CHANNEL_T
 import static org.tasks.notifications.NotificationManager.NOTIFICATION_CHANNEL_TIMERS;
 
 import android.annotation.TargetApi;
+import android.app.Application;
 import android.app.NotificationChannel;
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +17,6 @@ import com.todoroo.astrid.alarms.AlarmService;
 import com.todoroo.astrid.reminders.ReminderService;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingJobIntentService;
 import org.tasks.injection.ServiceComponent;
 import org.tasks.jobs.NotificationQueue;
@@ -27,7 +27,7 @@ public class NotificationSchedulerIntentService extends InjectingJobIntentServic
 
   private static final String EXTRA_CANCEL_EXISTING_NOTIFICATIONS =
       "extra_cancel_existing_notifications";
-  @Inject @ForApplication Context context;
+  @Inject Application context;
   @Inject AlarmService alarmService;
   @Inject ReminderService reminderService;
   @Inject NotificationQueue notificationQueue;

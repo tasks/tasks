@@ -3,6 +3,7 @@ package org.tasks.etesync;
 import static com.google.common.collect.Lists.partition;
 import static com.google.common.collect.Lists.transform;
 
+import android.app.Application;
 import android.content.Context;
 import androidx.annotation.Nullable;
 import androidx.core.util.Pair;
@@ -44,7 +45,6 @@ import org.tasks.DebugNetworkInterceptor;
 import org.tasks.caldav.MemoryCookieStore;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
-import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 import org.tasks.security.KeyStoreEncryption;
 import timber.log.Timber;
@@ -69,7 +69,7 @@ public class EteSyncClient {
 
   @Inject
   public EteSyncClient(
-      @ForApplication Context context,
+      Application context,
       KeyStoreEncryption encryption,
       Preferences preferences,
       DebugNetworkInterceptor interceptor) {

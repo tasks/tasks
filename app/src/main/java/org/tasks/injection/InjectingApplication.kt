@@ -1,15 +1,13 @@
 package org.tasks.injection
 
 import android.app.Application
-import org.tasks.locale.Locale
 
 abstract class InjectingApplication : Application() {
     lateinit var component: ApplicationComponent
 
     override fun onCreate() {
         super.onCreate()
-        val context = Locale.getInstance(this).createConfigurationContext(applicationContext)
-        component = Dagger.Companion[context].applicationComponent
+        component = Dagger.Companion[this].applicationComponent
         inject(component)
     }
 

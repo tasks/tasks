@@ -4,6 +4,7 @@ import static com.google.common.collect.Iterables.skip;
 import static com.google.common.collect.Lists.newArrayList;
 import static org.tasks.Strings.isNullOrEmpty;
 
+import android.app.Application;
 import android.content.Context;
 import android.net.Uri;
 import androidx.annotation.NonNull;
@@ -22,7 +23,6 @@ import javax.inject.Inject;
 import javax.net.ssl.SSLException;
 import org.tasks.R;
 import org.tasks.drive.DriveInvoker;
-import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingWorker;
 import org.tasks.injection.JobComponent;
 import org.tasks.preferences.Preferences;
@@ -36,7 +36,7 @@ public class DriveUploader extends InjectingWorker {
   private static final Comparator<File> DRIVE_FILE_COMPARATOR =
       (f1, f2) -> Long.compare(f2.getModifiedTime().getValue(), f1.getModifiedTime().getValue());
 
-  @Inject @ForApplication Context context;
+  @Inject Application context;
   @Inject DriveInvoker drive;
   @Inject Preferences preferences;
 

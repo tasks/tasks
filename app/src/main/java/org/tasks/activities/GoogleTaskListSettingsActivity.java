@@ -2,6 +2,7 @@ package org.tasks.activities;
 
 import static org.tasks.Strings.isNullOrEmpty;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,14 +26,13 @@ import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
 import org.tasks.injection.ActivityComponent;
-import org.tasks.injection.ForApplication;
 import timber.log.Timber;
 
 public class GoogleTaskListSettingsActivity extends BaseListSettingsActivity {
 
   public static final String EXTRA_ACCOUNT = "extra_account";
   public static final String EXTRA_STORE_DATA = "extra_store_data";
-  @Inject @ForApplication Context context;
+  @Inject Application context;
   @Inject GoogleTaskListDao googleTaskListDao;
   @Inject GtasksListService gtasksListService;
   @Inject TaskDeleter taskDeleter;
