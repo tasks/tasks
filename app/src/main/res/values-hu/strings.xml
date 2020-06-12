@@ -629,4 +629,6 @@
     <string name="astrid_sort_order">Astrid egyéni sorbarendezés</string>
     <string name="disable_sort_groups">Sorbarendezési csoportok letiltása</string>
     <string name="CFC_list_name">Ebben a listában…</string>
+    <string name="date_shortcut_tomorrow_night">Holnap éjszaka</string>
+    <string name="date_shortcut_tomorrow_evening">Holnap este</string>
 </resources>
