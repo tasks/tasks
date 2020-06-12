@@ -316,8 +316,8 @@
     <string name="date_shortcut_afternoon">Middag</string>
     <string name="date_shortcut_evening">Namiddag</string>
     <string name="date_shortcut_night">Avond</string>
-    <string name="date_shortcut_tomorrow_morning">Morgen ochtend</string>
-    <string name="date_shortcut_tomorrow_afternoon">Morgen middag</string>
+    <string name="date_shortcut_tomorrow_morning">Morgenochtend</string>
+    <string name="date_shortcut_tomorrow_afternoon">Morgenmiddag</string>
     <string name="date_shortcut_must_come_before">%1$s moet voor %2$s komen</string>
     <string name="date_shortcut_must_come_after">%1$s moet na %2$s komen</string>
     <string name="discard_changes">Negeer veranderingen?</string>
@@ -626,4 +626,6 @@
     <string name="open_last_viewed_list">Open de laatst bekeken lijst</string>
     <string name="disable_sort_groups">Sorteergroepen uitzetten</string>
     <string name="CFC_list_name">In lijst…</string>
+    <string name="date_shortcut_tomorrow_night">Morgennacht</string>
+    <string name="date_shortcut_tomorrow_evening">Morgenavond</string>
 </resources>
