@@ -1,0 +1,5 @@
+* Added '☰ > Manage lists'
+  * Drag and drop to rearrange the drawer
+  * Tap to edit or delete a list
+* Display 2 additional snooze options - @rangzen
+* Update translations

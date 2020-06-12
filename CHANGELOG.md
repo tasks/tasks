@@ -1,6 +1,23 @@
 Change Log
 ---
 =======
+### 9.7 (2020-06-12)
+
+* Added '☰ > Manage lists'
+  * Drag and drop to rearrange the drawer
+  * Tap to edit or delete a list
+* Display 2 additional snooze options - @rangzen
+* Update translations
+  * Dutch - @fvbommel
+  * Finnish - Rami Lehtinen
+  * French - @FlorianLeChat, @NathanBnm, @rangzen
+  * German - @franconian, @sklueber
+  * Hungarian - kaciokos
+  * Italian - @Fabioah, @ppasserini
+  * Simplified Chinese - @sr093906
+  * Spanish - @FlorianLeChat
+  * Turkish - etc
+
 ### 9.6 (2020-06-06)
 
 * Add support for offline lists. Offline lists support manual ordering and infinite-depth subtasks

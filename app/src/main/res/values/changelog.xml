@@ -1,16 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="changelog">
-        <item>Add support for offline lists. Offline lists support manual ordering and infinite-depth subtasks</item>
-        <item>Rename \'My order\' to \'Astrid manual sorting\' for \'My Tasks\', \'Today\', and tags</item>
-        <item>Add \'⚙ > Look and feel > Disable sort groups\'</item>
-        <item>Add \'⚙ > Look and feel > Open last viewed list\'</item>
-        <item>Add \'⚙ > Look and feel > Chips\' toggles for subtasks, places, lists, and tags</item>
-        <item>Add \'⚙ > Navigation drawer > Lists\'</item>
-        <item>Add \'⚙ > Task defaults > Default list\'</item>
-        <item>Add \'⚙ > Task defaults > New tasks on top\'</item>
-        <item>Add \'⚙ > Advanced > Astrid manual sorting\'</item>
-        <item>Fix preference reset button</item>
+        <item>Added \'☰ > Manage lists\'\n\t- Drag and drop to rearrange the drawer\n\t- Tap to edit or delete a list</item>
+        <item>Display 2 additional snooze options - @rangzen</item>
         <item>Update translations</item>
     </string-array>
 </resources>
