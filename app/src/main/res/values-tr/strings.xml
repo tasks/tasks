@@ -631,4 +631,8 @@
     <string name="CFC_list_name">Listede…</string>
     <string name="astrid_sort_order_summary">\'Görevlerim\', \'Bugün\' ve etiketler için elle sıralama kipini etkinleştirir. Bu sıralama kipi, gelecek güncellemede \'Düzenim\' ile değiştirlecek</string>
     <string name="astrid_sort_order">Astrid elle sıralama</string>
+    <string name="reset_sort_order">Sıra düzenini sıfırla</string>
+    <string name="date_shortcut_tomorrow_night">Yarın gece</string>
+    <string name="date_shortcut_tomorrow_evening">Yarın akşam</string>
+    <string name="manage_lists">Listeleri yönet</string>
 </resources>
