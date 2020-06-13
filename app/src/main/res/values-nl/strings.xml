@@ -628,4 +628,6 @@
     <string name="CFC_list_name">In lijst…</string>
     <string name="date_shortcut_tomorrow_night">Morgennacht</string>
     <string name="date_shortcut_tomorrow_evening">Morgenavond</string>
+    <string name="manage_lists">Beheer lijsten</string>
+    <string name="reset_sort_order">Sorteervolgorde resetten</string>
 </resources>
