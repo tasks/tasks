@@ -617,4 +617,13 @@
     <string name="yesterday_lowercase">i går</string>
     <string name="tomorrow_lowercase">i morgen</string>
     <string name="today_lowercase">i dag</string>
+    <string name="reset_sort_order">Tilbakestill sorteringsrekkefølge</string>
+    <string name="lists">Lister</string>
+    <string name="on_launch">Ved programoppstart</string>
+    <string name="whats_new_in_version">Hva er nytt i versjon %s</string>
+    <string name="enjoying_tasks">Liker du Tasks\?</string>
+    <string name="improve_performance">Forbedret ytelse</string>
+    <string name="whats_new">Hva er nytt</string>
+    <string name="CFC_list_name">På listen…</string>
+    <string name="manage_lists">Håndter lister</string>
 </resources>
