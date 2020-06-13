@@ -1,6 +1,5 @@
 package org.tasks
 
-import android.app.Application
 import android.content.Context
 import com.facebook.flipper.android.AndroidFlipperClient
 import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
@@ -8,10 +7,11 @@ import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
 import com.google.api.client.http.HttpRequest
 import com.google.api.client.http.HttpResponse
 import okhttp3.OkHttpClient
+import org.tasks.injection.ApplicationContext
 import java.io.IOException
 import javax.inject.Inject
 
-class DebugNetworkInterceptor @Inject constructor(private val context: Application) {
+class DebugNetworkInterceptor @Inject constructor(@param:ApplicationContext private val context: Context) {
     fun add(builder: OkHttpClient.Builder) {
         builder.addNetworkInterceptor(FlipperOkhttpInterceptor(getNetworkPlugin(context)))
     }

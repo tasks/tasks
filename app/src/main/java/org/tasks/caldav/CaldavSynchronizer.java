@@ -9,7 +9,6 @@ import static com.google.common.collect.Sets.newHashSet;
 import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
-import android.app.Application;
 import android.content.Context;
 import androidx.annotation.Nullable;
 import at.bitfire.dav4jvm.DavCalendar;
@@ -56,6 +55,7 @@ import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.CaldavTask;
+import org.tasks.injection.ApplicationContext;
 import timber.log.Timber;
 
 public class CaldavSynchronizer {
@@ -77,7 +77,7 @@ public class CaldavSynchronizer {
 
   @Inject
   public CaldavSynchronizer(
-      Application context,
+      @ApplicationContext Context context,
       CaldavDao caldavDao,
       TaskDao taskDao,
       LocalBroadcastManager localBroadcastManager,

@@ -2,7 +2,7 @@ package org.tasks.voice;
 
 import static org.tasks.Strings.isNullOrEmpty;
 
-import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -10,12 +10,13 @@ import com.todoroo.astrid.service.TaskCreator;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.injection.ActivityComponent;
+import org.tasks.injection.ApplicationContext;
 import org.tasks.injection.InjectingAppCompatActivity;
 
 public class VoiceCommandActivity extends InjectingAppCompatActivity {
 
   @Inject TaskCreator taskCreator;
-  @Inject Application context;
+  @Inject @ApplicationContext Context context;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {

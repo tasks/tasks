@@ -1,8 +1,9 @@
 package org.tasks.preferences
 
 import android.content.Context
+import org.tasks.injection.ApplicationContext
 
-class PermissivePermissionChecker(context: Application) : PermissionChecker(context) {
+class PermissivePermissionChecker(@ApplicationContext context: Context) : PermissionChecker(context) {
     override fun canAccessCalendars() = true
 
     override fun canAccessAccounts() = true

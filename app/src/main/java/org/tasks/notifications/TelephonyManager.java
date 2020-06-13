@@ -1,15 +1,15 @@
 package org.tasks.notifications;
 
-import android.app.Application;
 import android.content.Context;
 import javax.inject.Inject;
+import org.tasks.injection.ApplicationContext;
 
 public class TelephonyManager {
 
   private final android.telephony.TelephonyManager telephonyManager;
 
   @Inject
-  public TelephonyManager(Application context) {
+  public TelephonyManager(@ApplicationContext Context context) {
     telephonyManager =
         (android.telephony.TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
   }

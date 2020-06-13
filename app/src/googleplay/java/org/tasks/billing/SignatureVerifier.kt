@@ -1,13 +1,13 @@
 package org.tasks.billing
 
-import android.app.Application
 import android.content.Context
 import org.tasks.R
+import org.tasks.injection.ApplicationContext
 import timber.log.Timber
 import java.io.IOException
 import javax.inject.Inject
 
-internal class SignatureVerifier @Inject constructor(context: Application) {
+internal class SignatureVerifier @Inject constructor(@ApplicationContext context: Context) {
     private val billingKey: String = context.getString(R.string.gp_key)
 
     fun verifySignature(purchase: Purchase): Boolean {

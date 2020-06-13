@@ -1,15 +1,13 @@
 package org.tasks.themes
 
-import android.app.Activity
 import android.content.Context
 import androidx.annotation.ColorInt
 import org.tasks.R
+import org.tasks.injection.ActivityContext
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
 
-class ColorProvider constructor(private val context: Context, preferences: Preferences) {
-
-    @Inject constructor(activity: Activity, preferences: Preferences): this(activity as Context, preferences)
+class ColorProvider @Inject constructor(@param:ActivityContext private val context: Context, preferences: Preferences) {
 
     companion object {
         const val BLUE_500 = -14575885

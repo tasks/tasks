@@ -17,7 +17,6 @@ import static java.util.Collections.singletonList;
 import static org.tasks.Strings.isNullOrEmpty;
 
 import android.annotation.SuppressLint;
-import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -44,6 +43,7 @@ import org.tasks.R;
 import org.tasks.data.LocationDao;
 import org.tasks.data.Place;
 import org.tasks.injection.ApplicationScope;
+import org.tasks.injection.ApplicationContext;
 import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.Preferences;
 import org.tasks.receivers.CompleteTaskReceiver;
@@ -80,7 +80,7 @@ public class NotificationManager {
 
   @Inject
   public NotificationManager(
-      Application context,
+      @ApplicationContext Context context,
       Preferences preferences,
       NotificationDao notificationDao,
       TaskDao taskDao,

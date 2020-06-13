@@ -3,7 +3,6 @@ package com.todoroo.astrid.subtasks;
 import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.db.QueryUtils.showHiddenAndCompleted;
 
-import android.app.Application;
 import android.content.Context;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
@@ -19,6 +18,7 @@ import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
 import org.tasks.data.TaskListMetadata;
 import org.tasks.data.TaskListMetadataDao;
+import org.tasks.injection.ApplicationContext;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
@@ -32,7 +32,7 @@ public class SubtasksHelper {
 
   @Inject
   public SubtasksHelper(
-      Application context,
+      @ApplicationContext Context context,
       Preferences preferences,
       TaskDao taskDao,
       TagDataDao tagDataDao,

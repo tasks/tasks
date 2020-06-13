@@ -1,6 +1,6 @@
 package org.tasks.injection
 
-import android.app.Application
+import android.content.Context
 import dagger.Module
 import dagger.Provides
 import org.tasks.billing.Inventory
@@ -13,7 +13,7 @@ internal class LocationModule {
     @Provides
     @ActivityScope
     fun getPlaceSearchProvider(
-            context: Application,
+            @ApplicationContext context: Context,
             preferences: Preferences,
             playServices: PlayServices,
             inventory: Inventory): PlaceSearchProvider {
@@ -28,7 +28,7 @@ internal class LocationModule {
 
     @Provides
     @ActivityScope
-    fun getMapFragment(context: Application, preferences: Preferences): MapFragment {
+    fun getMapFragment(@ApplicationContext context: Context, preferences: Preferences): MapFragment {
         return if (preferences.useGoogleMaps()) {
             GoogleMapFragment(context)
         } else {

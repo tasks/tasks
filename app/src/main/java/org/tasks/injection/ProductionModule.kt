@@ -1,6 +1,6 @@
 package org.tasks.injection
 
-import android.app.Application
+import android.content.Context
 import androidx.room.Room
 import com.todoroo.astrid.dao.Database
 import dagger.Module
@@ -12,7 +12,7 @@ import org.tasks.preferences.Preferences
 internal class ProductionModule {
     @Provides
     @ApplicationScope
-    fun getAppDatabase(context: Application): Database {
+    fun getAppDatabase(@ApplicationContext context: Context): Database {
         return Room.databaseBuilder(context, Database::class.java, Database.NAME)
                 .allowMainThreadQueries() // TODO: remove me
                 .addMigrations(*Migrations.MIGRATIONS)
@@ -20,7 +20,7 @@ internal class ProductionModule {
     }
 
     @Provides
-    fun getPreferences(context: Application): Preferences {
+    fun getPreferences(@ApplicationContext context: Context): Preferences {
         return Preferences(context)
     }
 }

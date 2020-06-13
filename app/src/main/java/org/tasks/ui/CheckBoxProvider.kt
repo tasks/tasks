@@ -1,6 +1,5 @@
 package org.tasks.ui
 
-import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -8,13 +7,12 @@ import android.graphics.drawable.Drawable
 import androidx.annotation.DrawableRes
 import com.todoroo.astrid.data.Task
 import org.tasks.R
+import org.tasks.injection.ActivityContext
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.DrawableUtil
 import javax.inject.Inject
 
-class CheckBoxProvider constructor(private val context: Context, private val colorProvider: ColorProvider) {
-
-    @Inject constructor(context: Activity, colorProvider: ColorProvider): this(context as Context, colorProvider)
+class CheckBoxProvider @Inject constructor(@param:ActivityContext private val context: Context, private val colorProvider: ColorProvider) {
 
     fun getCheckBox(task: Task) = getCheckBox(task.isCompleted, task.isRecurring, task.priority)
 

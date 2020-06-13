@@ -1,6 +1,5 @@
 package com.todoroo.astrid.voice;
 
-import android.app.Application;
 import android.content.Context;
 import android.media.AudioManager;
 import android.speech.tts.TextToSpeech;
@@ -9,6 +8,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.UUID;
 import javax.inject.Inject;
+import org.tasks.injection.ApplicationContext;
 import timber.log.Timber;
 
 /** @author Arne Jans */
@@ -21,7 +21,7 @@ public class VoiceOutputAssistant implements OnInitListener {
   private String lastTextToSpeak;
 
   @Inject
-  public VoiceOutputAssistant(Application context) {
+  public VoiceOutputAssistant(@ApplicationContext Context context) {
     this.context = context;
   }
 

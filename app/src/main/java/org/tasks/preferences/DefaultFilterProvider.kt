@@ -1,6 +1,5 @@
 package org.tasks.preferences
 
-import android.app.Application
 import android.content.Context
 import com.todoroo.astrid.api.*
 import com.todoroo.astrid.api.Filter
@@ -10,11 +9,12 @@ import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.*
 import org.tasks.filters.PlaceFilter
+import org.tasks.injection.ApplicationContext
 import timber.log.Timber
 import javax.inject.Inject
 
 class DefaultFilterProvider @Inject constructor(
-        private val context: Application,
+        @param:ApplicationContext private val context: Context,
         private val preferences: Preferences,
         private val filterDao: FilterDao,
         private val tagDataDao: TagDataDao,

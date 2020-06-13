@@ -6,7 +6,6 @@ import static com.google.common.collect.Sets.newHashSet;
 import static java.util.Collections.emptySet;
 import static org.tasks.Strings.isNullOrEmpty;
 
-import android.app.Application;
 import android.content.Context;
 import androidx.core.util.Pair;
 import at.bitfire.ical4android.ICalendar;
@@ -43,6 +42,7 @@ import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.CaldavTask;
 import org.tasks.data.CaldavTaskContainer;
+import org.tasks.injection.ApplicationContext;
 import timber.log.Timber;
 
 public class EteSynchronizer {
@@ -62,7 +62,7 @@ public class EteSynchronizer {
 
   @Inject
   public EteSynchronizer(
-      Application context,
+      @ApplicationContext Context context,
       CaldavDao caldavDao,
       LocalBroadcastManager localBroadcastManager,
       TaskDeleter taskDeleter,

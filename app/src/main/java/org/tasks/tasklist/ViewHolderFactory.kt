@@ -9,6 +9,7 @@ import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.service.TaskCompleter
 import org.tasks.R
 import org.tasks.dialogs.Linkify
+import org.tasks.injection.ActivityContext
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.ResourceResolver
 import org.tasks.tasklist.TaskViewHolder.ViewHolderCallbacks
@@ -18,7 +19,7 @@ import java.util.*
 import javax.inject.Inject
 
 class ViewHolderFactory @Inject constructor(
-        private val context: Activity,
+        @param:ActivityContext private val context: Context,
         private val preferences: Preferences,
         private val chipProvider: ChipProvider,
         private val checkBoxProvider: CheckBoxProvider,

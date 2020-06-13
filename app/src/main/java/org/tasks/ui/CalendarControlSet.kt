@@ -24,6 +24,7 @@ import org.tasks.calendars.CalendarEventProvider
 import org.tasks.calendars.CalendarPicker
 import org.tasks.calendars.CalendarProvider
 import org.tasks.dialogs.DialogBuilder
+import org.tasks.injection.ActivityContext
 import org.tasks.injection.FragmentComponent
 import org.tasks.preferences.FragmentPermissionRequestor
 import org.tasks.preferences.PermissionChecker
@@ -39,7 +40,7 @@ class CalendarControlSet : TaskEditControlFragment() {
     @BindView(R.id.calendar_display_which)
     lateinit var calendar: TextView
 
-    @Inject lateinit var activity: Activity
+    @Inject @ActivityContext lateinit var activity: Context
     @Inject lateinit var gcalHelper: GCalHelper
     @Inject lateinit var calendarProvider: CalendarProvider
     @Inject lateinit var preferences: Preferences

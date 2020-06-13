@@ -1,17 +1,17 @@
 package org.tasks.scheduling;
 
 import android.annotation.SuppressLint;
-import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Context;
 import javax.inject.Inject;
+import org.tasks.injection.ApplicationContext;
 
 public class AlarmManager {
 
   private final android.app.AlarmManager alarmManager;
 
   @Inject
-  public AlarmManager(Application context) {
+  public AlarmManager(@ApplicationContext Context context) {
     alarmManager = (android.app.AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
   }
 

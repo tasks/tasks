@@ -3,8 +3,8 @@ package org.tasks.dialogs;
 import static org.tasks.dialogs.RecordAudioDialog.newRecordAudioDialog;
 import static org.tasks.files.FileHelper.newFilePickerIntent;
 
-import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore.Images.Media;
@@ -16,6 +16,7 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.activities.CameraActivity;
 import org.tasks.injection.DialogFragmentComponent;
+import org.tasks.injection.ActivityContext;
 import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.preferences.Device;
 
@@ -26,7 +27,7 @@ public class AddAttachmentDialog extends InjectingDialogFragment {
   public static final int REQUEST_STORAGE = 12122;
   public static final int REQUEST_AUDIO = 12123;
   private static final String FRAG_TAG_RECORD_AUDIO = "frag_tag_record_audio";
-  @Inject Activity context;
+  @Inject @ActivityContext Context context;
   @Inject DialogBuilder dialogBuilder;
   @Inject Device device;
 

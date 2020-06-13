@@ -14,19 +14,19 @@ import org.tasks.preferences.Preferences
 class TestModule {
     @Provides
     @ApplicationScope
-    fun getDatabase(context: Application): Database {
+    fun getDatabase(@ApplicationContext context: Context): Database {
         return Room.inMemoryDatabaseBuilder(context, Database::class.java)
                 .fallbackToDestructiveMigration()
                 .build()
     }
 
     @Provides
-    fun getPermissionChecker(context: Application): PermissionChecker {
+    fun getPermissionChecker(@ApplicationContext context: Context): PermissionChecker {
         return PermissivePermissionChecker(context)
     }
 
     @Provides
-    fun getPreferences(context: Application): Preferences {
+    fun getPreferences(@ApplicationContext context: Context): Preferences {
         return TestUtilities.newPreferences(context)
     }
 }

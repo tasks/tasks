@@ -4,7 +4,6 @@ import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
-import android.app.Application;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
@@ -20,6 +19,7 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.injection.BroadcastComponent;
+import org.tasks.injection.ApplicationContext;
 import org.tasks.injection.InjectingAppWidgetProvider;
 import org.tasks.intents.TaskIntents;
 import org.tasks.locale.Locale;
@@ -35,7 +35,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
   @Inject DefaultFilterProvider defaultFilterProvider;
   @Inject Locale locale;
   @Inject TaskDao taskDao;
-  @Inject Application context;
+  @Inject @ApplicationContext Context context;
 
   @Override
   protected void inject(BroadcastComponent component) {

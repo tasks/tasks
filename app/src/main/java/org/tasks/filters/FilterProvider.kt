@@ -1,6 +1,5 @@
 package org.tasks.filters
 
-import android.app.Application
 import android.content.Context
 import android.content.Intent
 import com.todoroo.andlib.utility.AndroidUtilities.assertNotMainThread
@@ -19,6 +18,7 @@ import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.data.*
 import org.tasks.data.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType
+import org.tasks.injection.ApplicationContext
 import org.tasks.location.LocationPickerActivity
 import org.tasks.preferences.HelpAndFeedback
 import org.tasks.preferences.MainPreferences
@@ -27,7 +27,7 @@ import org.tasks.ui.NavigationDrawerFragment
 import javax.inject.Inject
 
 class FilterProvider @Inject constructor(
-        private val context: Application,
+        @param:ApplicationContext private val context: Context,
         private val inventory: Inventory,
         private val builtInFilterExposer: BuiltInFilterExposer,
         private val filterDao: FilterDao,

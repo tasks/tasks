@@ -3,6 +3,7 @@ package org.tasks.dialogs;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import org.tasks.R;
 import org.tasks.backup.TasksJsonImporter;
 import org.tasks.backup.TasksJsonImporter.ImportResult;
 import org.tasks.injection.DialogFragmentComponent;
+import org.tasks.injection.ActivityContext;
 import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.ui.Toaster;
 
@@ -25,7 +27,7 @@ public class ImportTasksDialog extends InjectingDialogFragment {
   @Inject TasksXmlImporter xmlImporter;
   @Inject TasksJsonImporter jsonImporter;
   @Inject DialogBuilder dialogBuilder;
-  @Inject Activity context;
+  @Inject @ActivityContext Context context;
   @Inject Toaster toaster;
 
   public static ImportTasksDialog newImportTasksDialog(Uri data, String extension) {

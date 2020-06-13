@@ -5,7 +5,6 @@ import static at.bitfire.dav4jvm.XmlUtils.NS_CARDDAV;
 import static at.bitfire.dav4jvm.XmlUtils.NS_WEBDAV;
 import static org.tasks.Strings.isNullOrEmpty;
 
-import android.app.Application;
 import android.content.Context;
 import at.bitfire.cert4android.CustomCertManager;
 import at.bitfire.cert4android.CustomCertManager.CustomHostnameVerifier;
@@ -44,6 +43,7 @@ import org.tasks.DebugNetworkInterceptor;
 import org.tasks.R;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
+import org.tasks.injection.ApplicationContext;
 import org.tasks.preferences.Preferences;
 import org.tasks.security.KeyStoreEncryption;
 import org.tasks.ui.DisplayableException;
@@ -65,7 +65,7 @@ public class CaldavClient {
 
   @Inject
   CaldavClient(
-      Application context,
+      @ApplicationContext Context context,
       KeyStoreEncryption encryption,
       Preferences preferences,
       DebugNetworkInterceptor interceptor) {

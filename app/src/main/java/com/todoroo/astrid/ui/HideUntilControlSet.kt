@@ -22,6 +22,7 @@ import org.tasks.R
 import org.tasks.activities.DateAndTimePickerActivity
 import org.tasks.date.DateTimeUtils
 import org.tasks.dialogs.MyTimePickerDialog
+import org.tasks.injection.ActivityContext
 import org.tasks.injection.FragmentComponent
 import org.tasks.locale.Locale
 import org.tasks.preferences.Preferences
@@ -39,7 +40,7 @@ import javax.inject.Inject
 class HideUntilControlSet : TaskEditControlFragment(), OnItemSelectedListener {
     private val spinnerItems: MutableList<HideUntilValue> = ArrayList()
 
-    @Inject lateinit var activity: Activity
+    @Inject @ActivityContext lateinit var activity: Context
     @Inject lateinit var themeBase: ThemeBase
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var locale: Locale

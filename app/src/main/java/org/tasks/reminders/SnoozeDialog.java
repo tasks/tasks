@@ -2,8 +2,8 @@ package org.tasks.reminders;
 
 import static com.todoroo.andlib.utility.DateUtilities.getTimeString;
 
-import android.app.Application;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.DialogFragmentComponent;
+import org.tasks.injection.ApplicationContext;
 import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.preferences.Preferences;
 import org.tasks.time.DateTime;
@@ -21,7 +22,7 @@ public class SnoozeDialog extends InjectingDialogFragment {
 
   private final List<String> items = new ArrayList<>();
   @Inject Preferences preferences;
-  @Inject Application context;
+  @Inject @ApplicationContext Context context;
   @Inject DialogBuilder dialogBuilder;
   private SnoozeCallback snoozeCallback;
   private DialogInterface.OnCancelListener onCancelListener;

@@ -2,7 +2,6 @@ package org.tasks.jobs
 
 import android.annotation.SuppressLint
 import android.app.AlarmManager
-import android.app.Application
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
@@ -24,6 +23,7 @@ import org.tasks.data.Place
 import org.tasks.date.DateTimeUtils.midnight
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.injection.ApplicationScope
+import org.tasks.injection.ApplicationContext
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils
 import timber.log.Timber
@@ -34,7 +34,7 @@ import kotlin.math.max
 
 @ApplicationScope
 class WorkManager @Inject constructor(
-        private val context: Application,
+        @param:ApplicationContext private val context: Context,
         private val preferences: Preferences,
         private val googleTaskListDao: GoogleTaskListDao,
         private val caldavDao: CaldavDao) {

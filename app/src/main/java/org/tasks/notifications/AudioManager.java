@@ -1,15 +1,15 @@
 package org.tasks.notifications;
 
-import android.app.Application;
 import android.content.Context;
 import javax.inject.Inject;
+import org.tasks.injection.ApplicationContext;
 
 public class AudioManager {
 
   private final android.media.AudioManager audioManager;
 
   @Inject
-  public AudioManager(Application context) {
+  public AudioManager(@ApplicationContext Context context) {
     audioManager = (android.media.AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
   }
 

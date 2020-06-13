@@ -1,7 +1,6 @@
 package org.tasks.location
 
 import android.annotation.SuppressLint
-import android.app.Application
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
@@ -11,12 +10,13 @@ import com.google.android.gms.location.LocationServices
 import org.tasks.data.LocationDao
 import org.tasks.data.MergedGeofence
 import org.tasks.data.Place
+import org.tasks.injection.ApplicationContext
 import org.tasks.preferences.PermissionChecker
 import timber.log.Timber
 import javax.inject.Inject
 
 class GeofenceApi @Inject constructor(
-        private val context: Application,
+        @param:ApplicationContext private val context: Context,
         private val permissionChecker: PermissionChecker,
         private val locationDao: LocationDao) {
 

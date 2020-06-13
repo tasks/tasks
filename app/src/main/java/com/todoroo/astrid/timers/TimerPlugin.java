@@ -8,7 +8,6 @@ package com.todoroo.astrid.timers;
 
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
-import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -25,6 +24,7 @@ import io.reactivex.Completable;
 import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
 import org.tasks.R;
+import org.tasks.injection.ApplicationContext;
 import org.tasks.intents.TaskIntents;
 import org.tasks.notifications.NotificationManager;
 
@@ -36,7 +36,7 @@ public class TimerPlugin {
 
   @Inject
   public TimerPlugin(
-      Application context,
+      @ApplicationContext Context context,
       NotificationManager notificationManager,
       TaskDao taskDao) {
     this.context = context;

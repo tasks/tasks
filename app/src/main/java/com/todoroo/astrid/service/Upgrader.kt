@@ -1,6 +1,5 @@
 package com.todoroo.astrid.service
 
-import android.app.Application
 import android.content.Context
 import androidx.annotation.ColorRes
 import com.google.common.collect.ImmutableListMultimap
@@ -15,6 +14,7 @@ import org.tasks.caldav.iCalendar.Companion.fromVtodo
 import org.tasks.caldav.iCalendar.Companion.getParent
 import org.tasks.caldav.iCalendar.Companion.order
 import org.tasks.data.*
+import org.tasks.injection.ApplicationContext
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.widget.AppWidgetManager
@@ -24,7 +24,7 @@ import java.util.*
 import javax.inject.Inject
 
 class Upgrader @Inject constructor(
-        private val context: Application,
+        @param:ApplicationContext private val context: Context,
         private val preferences: Preferences,
         private val tagDataDao: TagDataDao,
         private val tagDao: TagDao,

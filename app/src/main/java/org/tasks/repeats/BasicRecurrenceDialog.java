@@ -11,8 +11,8 @@ import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.repeats.CustomRecurrenceDialog.newCustomRecurrenceDialog;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
-import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,6 +24,7 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.DialogFragmentComponent;
+import org.tasks.injection.ActivityContext;
 import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.ui.SingleCheckedArrayAdapter;
 import timber.log.Timber;
@@ -34,7 +35,7 @@ public class BasicRecurrenceDialog extends InjectingDialogFragment {
   private static final String EXTRA_DATE = "extra_date";
   private static final String FRAG_TAG_CUSTOM_RECURRENCE = "frag_tag_custom_recurrence";
 
-  @Inject Activity context;
+  @Inject @ActivityContext Context context;
   @Inject DialogBuilder dialogBuilder;
   @Inject RepeatRuleToString repeatRuleToString;
 

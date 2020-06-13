@@ -1,6 +1,6 @@
 package org.tasks.fragments;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import androidx.fragment.app.FragmentManager;
 import com.todoroo.astrid.activity.BeastModePreferences;
@@ -19,13 +19,14 @@ import java.util.Map;
 import javax.inject.Inject;
 import org.tasks.BuildConfig;
 import org.tasks.R;
+import org.tasks.injection.ActivityContext;
 import org.tasks.preferences.Preferences;
 import org.tasks.ui.CalendarControlSet;
 import org.tasks.ui.DeadlineControlSet;
 import org.tasks.ui.DescriptionControlSet;
-import org.tasks.ui.ListFragment;
 import org.tasks.ui.LocationControlSet;
 import org.tasks.ui.PriorityControlSet;
+import org.tasks.ui.ListFragment;
 import org.tasks.ui.SubtaskControlSet;
 import org.tasks.ui.TaskEditControlFragment;
 
@@ -80,7 +81,7 @@ public class TaskEditControlSetFragmentManager {
   private int numRows;
 
   @Inject
-  public TaskEditControlSetFragmentManager(Activity context, Preferences preferences) {
+  public TaskEditControlSetFragmentManager(@ActivityContext Context context, Preferences preferences) {
     displayOrder = BeastModePreferences.constructOrderedControlList(preferences, context);
     displayOrder.add(0, context.getString(CommentBarFragment.TAG));
     String hideAlwaysTrigger = context.getString(R.string.TEA_ctrl_hide_section_pref);

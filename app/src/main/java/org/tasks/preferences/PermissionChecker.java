@@ -4,10 +4,10 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastQ;
 
 import android.Manifest.permission;
-import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import javax.inject.Inject;
+import org.tasks.injection.ApplicationContext;
 import timber.log.Timber;
 
 public class PermissionChecker {
@@ -15,7 +15,7 @@ public class PermissionChecker {
   private final Context context;
 
   @Inject
-  PermissionChecker(Application context) {
+  PermissionChecker(@ApplicationContext Context context) {
     this.context = context;
   }
 

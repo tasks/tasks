@@ -3,7 +3,6 @@ package org.tasks.repeats;
 import static com.google.ical.values.Frequency.MONTHLY;
 import static com.google.ical.values.Frequency.WEEKLY;
 
-import android.app.Application;
 import android.content.Context;
 import com.google.common.base.Joiner;
 import com.google.ical.values.Frequency;
@@ -18,6 +17,7 @@ import java.util.Calendar;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
+import org.tasks.injection.ApplicationContext;
 import org.tasks.locale.Locale;
 import org.tasks.time.DateTime;
 
@@ -28,7 +28,7 @@ public class RepeatRuleToString {
   private final List<Weekday> weekdays = Arrays.asList(Weekday.values());
 
   @Inject
-  public RepeatRuleToString(Application context, Locale locale) {
+  public RepeatRuleToString(@ApplicationContext Context context, Locale locale) {
     this.context = context;
     this.locale = locale;
   }

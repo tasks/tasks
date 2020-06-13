@@ -25,6 +25,7 @@ import org.tasks.data.TaskAttachmentDao
 import org.tasks.dialogs.AddAttachmentDialog
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.files.FileHelper
+import org.tasks.injection.ActivityContext
 import org.tasks.injection.FragmentComponent
 import org.tasks.preferences.Preferences
 import org.tasks.ui.TaskEditControlFragment
@@ -32,7 +33,7 @@ import java.util.*
 import javax.inject.Inject
 
 class FilesControlSet : TaskEditControlFragment() {
-    @Inject lateinit var activity: Activity
+    @Inject @ActivityContext lateinit var activity: Context
     @Inject lateinit var taskAttachmentDao: TaskAttachmentDao
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var preferences: Preferences

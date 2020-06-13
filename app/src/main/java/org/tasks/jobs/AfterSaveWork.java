@@ -3,7 +3,6 @@ package org.tasks.jobs;
 import static com.todoroo.astrid.dao.TaskDao.TRANS_SUPPRESS_REFRESH;
 import static org.tasks.Strings.isNullOrEmpty;
 
-import android.app.Application;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -25,6 +24,7 @@ import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavDao;
+import org.tasks.injection.ApplicationContext;
 import org.tasks.injection.InjectingWorker;
 import org.tasks.injection.JobComponent;
 import org.tasks.location.GeofenceApi;
@@ -43,7 +43,7 @@ public class AfterSaveWork extends InjectingWorker {
   private static final String EXTRA_SUPPRESS_REFRESH = "extra_suppress_refresh";
 
   @Inject RepeatTaskHelper repeatTaskHelper;
-  @Inject Application context;
+  @Inject @ApplicationContext Context context;
   @Inject NotificationManager notificationManager;
   @Inject GeofenceApi geofenceApi;
   @Inject TimerPlugin timerPlugin;

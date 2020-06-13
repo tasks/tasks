@@ -14,6 +14,7 @@ import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -49,7 +50,6 @@ import com.google.ical.values.WeekdayNum;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import java.text.DateFormatSymbols;
-import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -59,10 +59,12 @@ import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.MyDatePickerDialog;
 import org.tasks.injection.DialogFragmentComponent;
+import org.tasks.injection.ActivityContext;
 import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.ResourceResolver;
 import org.tasks.time.DateTime;
+import java.time.format.FormatStyle;
 import timber.log.Timber;
 
 public class CustomRecurrenceDialog extends InjectingDialogFragment {
@@ -74,7 +76,7 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
   private static final String FRAG_TAG_DATE_PICKER = "frag_tag_date_picker";
   private static final int REQUEST_PICK_DATE = 505;
   private final List<String> repeatUntilOptions = new ArrayList<>();
-  @Inject Activity context;
+  @Inject @ActivityContext Context context;
   @Inject DialogBuilder dialogBuilder;
   @Inject Locale locale;
 
