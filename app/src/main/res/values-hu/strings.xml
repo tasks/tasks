@@ -631,4 +631,6 @@
     <string name="CFC_list_name">Ebben a listában…</string>
     <string name="date_shortcut_tomorrow_night">Holnap éjszaka</string>
     <string name="date_shortcut_tomorrow_evening">Holnap este</string>
+    <string name="reset_sort_order">Sorbarendezés visszaállítása</string>
+    <string name="manage_lists">Listák kezelése</string>
 </resources>
