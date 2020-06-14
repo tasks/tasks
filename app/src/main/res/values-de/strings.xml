@@ -316,7 +316,7 @@
     <string name="date_shortcut_afternoon">Nachmittag</string>
     <string name="date_shortcut_evening">Abend</string>
     <string name="date_shortcut_night">Nacht</string>
-    <string name="date_shortcut_tomorrow_morning">Morgenfrüh</string>
+    <string name="date_shortcut_tomorrow_morning">morgen Früh</string>
     <string name="date_shortcut_tomorrow_afternoon">morgen Nachmittag</string>
     <string name="date_shortcut_must_come_before">%1$s muss vor %2$s kommen</string>
     <string name="date_shortcut_must_come_after">%1$s muss nach %2$s kommen</string>
@@ -625,4 +625,8 @@
     <string name="astrid_sort_order">Manuelle Sortierung nach Astrid</string>
     <string name="sort_modified_group">%s bearbeitet</string>
     <string name="sort_created_group">%s erstellt</string>
+    <string name="date_shortcut_tomorrow_night">morgen Nacht</string>
+    <string name="date_shortcut_tomorrow_evening">morgen Abend</string>
+    <string name="reset_sort_order">Sortierung zurücksetzen</string>
+    <string name="manage_lists">Listen verwalten</string>
 </resources>
