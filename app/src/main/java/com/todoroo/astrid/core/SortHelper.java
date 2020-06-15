@@ -114,7 +114,8 @@ public class SortHelper {
                     + ADJUSTED_DUE_DATE
                     + ") END) "
                     + // else due time
-                    "+ 172800000 * importance"); // add 2 days * importance
+					// add slightly less than 2 days * importance to give due date priority over importance in case of tie
+                    "- 1 + 172799999 * importance");
     }
     if (sortType != SORT_ALPHA) {
       order.addSecondaryExpression(ORDER_TITLE);
@@ -174,7 +175,8 @@ public class SortHelper {
                     + ADJUSTED_DUE_DATE.replace("dueDate", "tasks.dueDate")
                     + ") END) "
                     + // else due time
-                    "+ 172800000 * tasks.importance AS sort_smart"; // add 2 days * importance
+					  // add slightly less than 2 days * importance to give due date priority over importance in case of tie
+                    "- 1 + 172799999 * tasks.importance AS sort_smart"; 
     }
 
     return select;
