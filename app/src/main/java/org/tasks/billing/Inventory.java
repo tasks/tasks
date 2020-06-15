@@ -3,14 +3,14 @@ package org.tasks.billing;
 import java.util.HashMap;
 import java.util.Map;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import org.tasks.BuildConfig;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
-import org.tasks.injection.ApplicationScope;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
-@ApplicationScope
+@Singleton
 public class Inventory {
 
   private static final String SKU_VIP = "vip";

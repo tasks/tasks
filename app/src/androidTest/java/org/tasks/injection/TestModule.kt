@@ -9,11 +9,12 @@ import org.tasks.TestUtilities
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.PermissivePermissionChecker
 import org.tasks.preferences.Preferences
+import javax.inject.Singleton
 
 @Module(includes = [ApplicationModule::class])
 class TestModule {
     @Provides
-    @ApplicationScope
+    @Singleton
     fun getDatabase(@ApplicationContext context: Context): Database {
         return Room.inMemoryDatabaseBuilder(context, Database::class.java)
                 .fallbackToDestructiveMigration()

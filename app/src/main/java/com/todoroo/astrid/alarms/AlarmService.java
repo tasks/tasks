@@ -10,9 +10,9 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import org.tasks.data.Alarm;
 import org.tasks.data.AlarmDao;
-import org.tasks.injection.ApplicationScope;
 import org.tasks.jobs.AlarmEntry;
 import org.tasks.jobs.NotificationQueue;
 
@@ -21,7 +21,7 @@ import org.tasks.jobs.NotificationQueue;
  *
  * @author Tim Su <tim@todoroo.com>
  */
-@ApplicationScope
+@Singleton
 public class AlarmService {
 
   private static final long NO_ALARM = Long.MAX_VALUE;

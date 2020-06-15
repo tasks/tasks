@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
@@ -15,9 +16,8 @@ import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
 import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
-import org.tasks.injection.ApplicationScope;
 
-@ApplicationScope
+@Singleton
 public class ChipListCache {
 
   private final Map<String, GtasksFilter> googleTaskLists = new HashMap<>();

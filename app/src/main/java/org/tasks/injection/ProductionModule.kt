@@ -7,11 +7,12 @@ import dagger.Module
 import dagger.Provides
 import org.tasks.db.Migrations
 import org.tasks.preferences.Preferences
+import javax.inject.Singleton
 
 @Module(includes = [ApplicationModule::class])
 internal class ProductionModule {
     @Provides
-    @ApplicationScope
+    @Singleton
     fun getAppDatabase(@ApplicationContext context: Context): Database {
         return Room.databaseBuilder(context, Database::class.java, Database.NAME)
                 .allowMainThreadQueries() // TODO: remove me

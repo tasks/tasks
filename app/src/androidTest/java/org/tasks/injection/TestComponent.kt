@@ -17,8 +17,9 @@ import com.todoroo.astrid.sync.NewSyncTestCase
 import dagger.Component
 import org.tasks.data.*
 import org.tasks.jobs.BackupServiceTests
+import javax.inject.Singleton
 
-@ApplicationScope
+@Singleton
 @Component(modules = [TestModule::class])
 interface TestComponent : ApplicationComponent {
     fun inject(tests: GtasksListServiceTest)

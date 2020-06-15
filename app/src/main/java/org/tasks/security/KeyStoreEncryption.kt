@@ -5,7 +5,6 @@ import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import android.util.Base64
 import org.tasks.Strings.isNullOrEmpty
-import org.tasks.injection.ApplicationScope
 import timber.log.Timber
 import java.nio.charset.StandardCharsets
 import java.security.KeyStore
@@ -14,8 +13,9 @@ import java.util.*
 import javax.crypto.*
 import javax.crypto.spec.GCMParameterSpec
 import javax.inject.Inject
+import javax.inject.Singleton
 
-@ApplicationScope
+@Singleton
 class KeyStoreEncryption @Inject constructor() {
 
     private val keyStore: KeyStore = KeyStore.getInstance(ANDROID_KEYSTORE)

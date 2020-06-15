@@ -4,13 +4,13 @@ import com.google.common.collect.Ordering
 import com.google.common.collect.TreeMultimap
 import com.google.common.primitives.Ints
 import kotlinx.collections.immutable.toImmutableList
-import org.tasks.injection.ApplicationScope
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTime
 import java.util.*
 import javax.inject.Inject
+import javax.inject.Singleton
 
-@ApplicationScope
+@Singleton
 class NotificationQueue @Inject constructor(private val preferences: Preferences, private val workManager: WorkManager) {
     private val jobs = TreeMultimap.create(Ordering.natural<Long>(), Comparator { l: NotificationQueueEntry, r: NotificationQueueEntry -> Ints.compare(l.hashCode(), r.hashCode()) })
 

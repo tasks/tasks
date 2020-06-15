@@ -22,7 +22,6 @@ import org.tasks.data.GoogleTaskListDao
 import org.tasks.data.Place
 import org.tasks.date.DateTimeUtils.midnight
 import org.tasks.date.DateTimeUtils.newDateTime
-import org.tasks.injection.ApplicationScope
 import org.tasks.injection.ApplicationContext
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils
@@ -30,9 +29,10 @@ import timber.log.Timber
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+import javax.inject.Singleton
 import kotlin.math.max
 
-@ApplicationScope
+@Singleton
 class WorkManager @Inject constructor(
         @param:ApplicationContext private val context: Context,
         private val preferences: Preferences,

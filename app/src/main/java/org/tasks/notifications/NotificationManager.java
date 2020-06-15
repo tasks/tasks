@@ -38,11 +38,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.data.LocationDao;
 import org.tasks.data.Place;
-import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.ApplicationContext;
 import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.Preferences;
@@ -55,7 +55,7 @@ import org.tasks.themes.ColorProvider;
 import org.tasks.time.DateTime;
 import timber.log.Timber;
 
-@ApplicationScope
+@Singleton
 public class NotificationManager {
 
   public static final String NOTIFICATION_CHANNEL_DEFAULT = "notifications";

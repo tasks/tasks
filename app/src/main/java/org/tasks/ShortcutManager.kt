@@ -3,11 +3,11 @@ package org.tasks
 import android.content.Context
 import android.content.pm.ShortcutManager
 import com.todoroo.andlib.utility.AndroidUtilities
-import org.tasks.injection.ApplicationScope
 import org.tasks.injection.ApplicationContext
 import javax.inject.Inject
+import javax.inject.Singleton
 
-@ApplicationScope
+@Singleton
 class ShortcutManager @Inject constructor(@ApplicationContext context: Context) {
     private val shortcutManager: ShortcutManager? = if (AndroidUtilities.atLeastNougatMR1()) {
         context.getSystemService(ShortcutManager::class.java)

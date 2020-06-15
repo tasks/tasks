@@ -10,12 +10,12 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import org.tasks.R;
-import org.tasks.injection.ApplicationScope;
 import org.tasks.jobs.WorkManager;
 import org.tasks.preferences.Preferences;
 
-@ApplicationScope
+@Singleton
 public class RefreshScheduler {
 
   private final Preferences preferences;

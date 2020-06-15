@@ -11,15 +11,15 @@ import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import io.fabric.sdk.android.Fabric
 import org.tasks.R
 import org.tasks.billing.BillingClientImpl
-import org.tasks.injection.ApplicationScope
 import org.tasks.injection.ApplicationContext
 import org.tasks.jobs.WorkManager
 import org.tasks.preferences.Preferences
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+import javax.inject.Singleton
 
-@ApplicationScope
+@Singleton
 class Firebase @Inject constructor(@param:ApplicationContext val context: Context, preferences: Preferences) {
 
     private var enabled: Boolean = preferences.isTrackingEnabled

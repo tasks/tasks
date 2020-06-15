@@ -15,6 +15,7 @@ import org.tasks.locale.Locale
 import org.tasks.location.Geocoder
 import org.tasks.location.MapboxGeocoder
 import org.tasks.notifications.NotificationDao
+import javax.inject.Singleton
 
 @Module
 class ApplicationModule(@get:Provides @get:ApplicationContext val context: Context) {
@@ -24,59 +25,59 @@ class ApplicationModule(@get:Provides @get:ApplicationContext val context: Conte
         get() = Locale.getInstance(context)
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun getJavaLocale(locale: Locale): java.util.Locale = locale.locale
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun getNotificationDao(db: Database): NotificationDao = db.notificationDao()
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun getTagDataDao(db: Database): TagDataDao = db.tagDataDao
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun getUserActivityDao(db: Database): UserActivityDao = db.userActivityDao
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun getTaskAttachmentDao(db: Database): TaskAttachmentDao = db.taskAttachmentDao
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun getTaskListMetadataDao(db: Database): TaskListMetadataDao = db.taskListMetadataDao
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun getGoogleTaskDao(db: Database): GoogleTaskDao = db.googleTaskDao
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun getAlarmDao(db: Database): AlarmDao = db.alarmDao
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun getGeofenceDao(db: Database): LocationDao = db.locationDao
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun getTagDao(db: Database): TagDao = db.tagDao
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun getFilterDao(db: Database): FilterDao = db.filterDao
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun getGoogleTaskListDao(db: Database): GoogleTaskListDao = db.googleTaskListDao
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun getCaldavDao(db: Database): CaldavDao = db.caldavDao
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun getTaskDao(db: Database, workManager: WorkManager): TaskDao {
         val taskDao = db.taskDao
         taskDao.initialize(workManager)
@@ -84,7 +85,7 @@ class ApplicationModule(@get:Provides @get:ApplicationContext val context: Conte
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun getDeletionDao(db: Database): DeletionDao = db.deletionDao
 
     @Provides

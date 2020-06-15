@@ -14,14 +14,14 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import java.util.List;
 import javax.inject.Inject;
-import org.tasks.injection.ApplicationScope;
+import javax.inject.Singleton;
 import org.tasks.jobs.NotificationQueue;
 import org.tasks.jobs.ReminderEntry;
 import org.tasks.preferences.Preferences;
 import org.tasks.reminders.Random;
 import org.tasks.time.DateTime;
 
-@ApplicationScope
+@Singleton
 public final class ReminderService {
 
   public static final int TYPE_DUE = 0;

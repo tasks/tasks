@@ -5,8 +5,9 @@ import org.tasks.Tasks
 import org.tasks.backup.TasksBackupAgent
 import org.tasks.dashclock.DashClockExtension
 import org.tasks.widget.ScrollableWidgetUpdateService
+import javax.inject.Singleton
 
-@ApplicationScope
+@Singleton
 @Component(modules = [ApplicationModule::class, ProductionModule::class])
 interface ApplicationComponent {
     operator fun plus(module: ActivityModule): ActivityComponent
