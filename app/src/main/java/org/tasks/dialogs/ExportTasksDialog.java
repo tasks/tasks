@@ -6,7 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import javax.inject.Inject;
 import org.tasks.backup.TasksJsonExporter;
-import org.tasks.injection.DialogFragmentComponent;
+import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingDialogFragment;
 
 public class ExportTasksDialog extends InjectingDialogFragment {
@@ -35,7 +35,7 @@ public class ExportTasksDialog extends InjectingDialogFragment {
   }
 
   @Override
-  protected void inject(DialogFragmentComponent component) {
+  protected void inject(FragmentComponent component) {
     component.inject(this);
   }
 }

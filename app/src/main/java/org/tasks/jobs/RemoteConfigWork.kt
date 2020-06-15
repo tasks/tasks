@@ -2,8 +2,8 @@ package org.tasks.jobs
 
 import android.content.Context
 import androidx.work.WorkerParameters
+import org.tasks.injection.ApplicationComponent
 import org.tasks.injection.InjectingWorker
-import org.tasks.injection.JobComponent
 
 class RemoteConfigWork(context: Context, workerParams: WorkerParameters) : InjectingWorker(context, workerParams) {
     override fun run(): Result {
@@ -11,5 +11,5 @@ class RemoteConfigWork(context: Context, workerParams: WorkerParameters) : Injec
         return Result.success()
     }
 
-    override fun inject(component: JobComponent) = component.inject(this)
+    override fun inject(component: ApplicationComponent) = component.inject(this)
 }

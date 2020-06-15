@@ -15,7 +15,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import org.tasks.R
 import org.tasks.billing.Inventory
-import org.tasks.injection.DialogFragmentComponent
+import org.tasks.injection.FragmentComponent
 import org.tasks.injection.InjectingDialogFragment
 import org.tasks.themes.ThemeAccent
 import org.tasks.themes.ThemeBase
@@ -53,7 +53,7 @@ class ThemePickerDialog : InjectingDialogFragment() {
     var dialog: AlertDialog? = null
     var selected = -1
 
-    override fun inject(component: DialogFragmentComponent) = component.inject(this)
+    override fun inject(component: FragmentComponent) = component.inject(this)
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         selected = savedInstanceState?.getInt(EXTRA_SELECTED) ?: requireArguments().getInt(EXTRA_SELECTED)

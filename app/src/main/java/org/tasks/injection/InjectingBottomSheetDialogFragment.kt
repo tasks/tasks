@@ -8,10 +8,10 @@ abstract class InjectingBottomSheetDialogFragment : BottomSheetDialogFragment() 
     override fun onAttach(activity: Activity) {
         super.onAttach(activity)
         if (!injected) {
-            inject((activity as InjectingActivity).component.plus(DialogFragmentModule(this)))
+            inject((activity as InjectingActivity).component.plus(FragmentModule(this)))
             injected = true
         }
     }
 
-    protected abstract fun inject(component: DialogFragmentComponent)
+    protected abstract fun inject(component: FragmentComponent)
 }

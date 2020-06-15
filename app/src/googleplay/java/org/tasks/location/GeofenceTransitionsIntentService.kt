@@ -10,8 +10,8 @@ import com.todoroo.astrid.reminders.ReminderService
 import org.tasks.Notifier
 import org.tasks.data.LocationDao
 import org.tasks.data.Place
+import org.tasks.injection.ApplicationComponent
 import org.tasks.injection.InjectingJobIntentService
-import org.tasks.injection.ServiceComponent
 import org.tasks.notifications.Notification
 import org.tasks.time.DateTimeUtils
 import timber.log.Timber
@@ -69,7 +69,7 @@ class GeofenceTransitionsIntentService : InjectingJobIntentService() {
         return notification
     }
 
-    override fun inject(component: ServiceComponent) = component.inject(this)
+    override fun inject(component: ApplicationComponent) = component.inject(this)
 
     class Broadcast : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {

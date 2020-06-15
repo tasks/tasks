@@ -6,11 +6,8 @@ import android.content.Intent
 
 abstract class InjectingBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
-        inject(
-                (context.applicationContext as InjectingApplication)
-                        .component
-                        .plus(BroadcastModule()))
+        inject((context.applicationContext as InjectingApplication).component)
     }
 
-    protected abstract fun inject(component: BroadcastComponent)
+    protected abstract fun inject(component: ApplicationComponent)
 }

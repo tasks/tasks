@@ -12,8 +12,7 @@ abstract class InjectingWorker(context: Context, workerParams: WorkerParameters)
 
     override fun doWork(): Result {
         Timber.d("%s.doWork()", javaClass.simpleName)
-        val component = (applicationContext as InjectingApplication).component.plus(WorkModule())
-        inject(component)
+        inject((applicationContext as InjectingApplication).component)
         return try {
             run()
         } catch (e: Exception) {
@@ -24,5 +23,5 @@ abstract class InjectingWorker(context: Context, workerParams: WorkerParameters)
 
     protected abstract fun run(): Result
 
-    protected abstract fun inject(component: JobComponent)
+    protected abstract fun inject(component: ApplicationComponent)
 }

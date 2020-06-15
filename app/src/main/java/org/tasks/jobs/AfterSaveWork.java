@@ -24,9 +24,9 @@ import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavDao;
+import org.tasks.injection.ApplicationComponent;
 import org.tasks.injection.ApplicationContext;
 import org.tasks.injection.InjectingWorker;
-import org.tasks.injection.JobComponent;
 import org.tasks.location.GeofenceApi;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.scheduling.RefreshScheduler;
@@ -146,7 +146,7 @@ public class AfterSaveWork extends InjectingWorker {
   }
 
   @Override
-  protected void inject(JobComponent component) {
+  protected void inject(ApplicationComponent component) {
     component.inject(this);
   }
 }

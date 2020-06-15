@@ -7,9 +7,9 @@ import androidx.annotation.NonNull;
 import com.todoroo.astrid.api.Filter;
 import javax.inject.Inject;
 import org.tasks.Notifier;
+import org.tasks.injection.ApplicationComponent;
 import org.tasks.injection.ApplicationContext;
 import org.tasks.injection.InjectingJobIntentService;
-import org.tasks.injection.ServiceComponent;
 import org.tasks.locale.bundle.ListNotificationBundle;
 import org.tasks.locale.bundle.TaskCreationBundle;
 import org.tasks.preferences.DefaultFilterProvider;
@@ -44,7 +44,7 @@ public class TaskerIntentService extends InjectingJobIntentService {
   }
 
   @Override
-  protected void inject(ServiceComponent component) {
+  protected void inject(ApplicationComponent component) {
     component.inject(this);
   }
 }

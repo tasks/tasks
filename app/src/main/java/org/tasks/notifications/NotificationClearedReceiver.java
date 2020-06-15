@@ -3,7 +3,7 @@ package org.tasks.notifications;
 import android.content.Context;
 import android.content.Intent;
 import javax.inject.Inject;
-import org.tasks.injection.BroadcastComponent;
+import org.tasks.injection.ApplicationComponent;
 import org.tasks.injection.InjectingBroadcastReceiver;
 import timber.log.Timber;
 
@@ -21,7 +21,7 @@ public class NotificationClearedReceiver extends InjectingBroadcastReceiver {
   }
 
   @Override
-  protected void inject(BroadcastComponent component) {
+  protected void inject(ApplicationComponent component) {
     component.inject(this);
   }
 }

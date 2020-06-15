@@ -10,7 +10,7 @@ import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.injection.DialogFragmentComponent;
+import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingDialogFragment;
 
 public class NotificationDialog extends InjectingDialogFragment {
@@ -20,7 +20,7 @@ public class NotificationDialog extends InjectingDialogFragment {
   private NotificationHandler handler;
 
   @Override
-  protected void inject(DialogFragmentComponent component) {
+  protected void inject(FragmentComponent component) {
     component.inject(this);
   }
 

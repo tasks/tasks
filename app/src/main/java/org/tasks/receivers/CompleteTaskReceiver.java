@@ -6,7 +6,7 @@ import com.todoroo.astrid.service.TaskCompleter;
 import io.reactivex.Completable;
 import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
-import org.tasks.injection.BroadcastComponent;
+import org.tasks.injection.ApplicationComponent;
 import org.tasks.injection.InjectingBroadcastReceiver;
 import timber.log.Timber;
 
@@ -28,7 +28,7 @@ public class CompleteTaskReceiver extends InjectingBroadcastReceiver {
   }
 
   @Override
-  protected void inject(BroadcastComponent component) {
+  protected void inject(ApplicationComponent component) {
     component.inject(this);
   }
 }

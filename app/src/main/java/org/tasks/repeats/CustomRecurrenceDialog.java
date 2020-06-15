@@ -50,6 +50,7 @@ import com.google.ical.values.WeekdayNum;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import java.text.DateFormatSymbols;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -58,13 +59,12 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.MyDatePickerDialog;
-import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.ActivityContext;
+import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.ResourceResolver;
 import org.tasks.time.DateTime;
-import java.time.format.FormatStyle;
 import timber.log.Timber;
 
 public class CustomRecurrenceDialog extends InjectingDialogFragment {
@@ -553,7 +553,7 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
   }
 
   @Override
-  protected void inject(DialogFragmentComponent component) {
+  protected void inject(FragmentComponent component) {
     component.inject(this);
   }
 }

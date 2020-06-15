@@ -2,7 +2,7 @@ package org.tasks.receivers;
 
 import android.content.Context;
 import android.content.Intent;
-import org.tasks.injection.BroadcastComponent;
+import org.tasks.injection.ApplicationComponent;
 import org.tasks.injection.InjectingBroadcastReceiver;
 import timber.log.Timber;
 
@@ -20,7 +20,7 @@ public class BootCompletedReceiver extends InjectingBroadcastReceiver {
   }
 
   @Override
-  protected void inject(BroadcastComponent component) {
+  protected void inject(ApplicationComponent component) {
     component.inject(this);
   }
 }

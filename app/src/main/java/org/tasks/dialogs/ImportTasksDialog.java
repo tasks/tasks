@@ -14,8 +14,8 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.backup.TasksJsonImporter;
 import org.tasks.backup.TasksJsonImporter.ImportResult;
-import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.ActivityContext;
+import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.ui.Toaster;
 
@@ -92,7 +92,7 @@ public class ImportTasksDialog extends InjectingDialogFragment {
   }
 
   @Override
-  protected void inject(DialogFragmentComponent component) {
+  protected void inject(FragmentComponent component) {
     component.inject(this);
   }
 }

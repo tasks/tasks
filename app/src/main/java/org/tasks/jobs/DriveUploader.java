@@ -22,9 +22,9 @@ import javax.inject.Inject;
 import javax.net.ssl.SSLException;
 import org.tasks.R;
 import org.tasks.drive.DriveInvoker;
+import org.tasks.injection.ApplicationComponent;
 import org.tasks.injection.ApplicationContext;
 import org.tasks.injection.InjectingWorker;
-import org.tasks.injection.JobComponent;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
@@ -107,7 +107,7 @@ public class DriveUploader extends InjectingWorker {
   }
 
   @Override
-  protected void inject(JobComponent component) {
+  protected void inject(ApplicationComponent component) {
     component.inject(this);
   }
 }

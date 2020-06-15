@@ -21,7 +21,7 @@ import io.reactivex.schedulers.Schedulers
 import org.tasks.LocalBroadcastManager
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.filters.FilterProvider
-import org.tasks.injection.DialogFragmentComponent
+import org.tasks.injection.FragmentComponent
 import org.tasks.injection.InjectingDialogFragment
 import javax.inject.Inject
 
@@ -63,7 +63,7 @@ class ListPicker : InjectingDialogFragment() {
         filterAdapter.save(outState)
     }
 
-    override fun inject(component: DialogFragmentComponent) = component.inject(this)
+    override fun inject(component: FragmentComponent) = component.inject(this)
 
     private fun selectedList(list: Filter) {
         targetFragment!!.onActivityResult(

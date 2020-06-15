@@ -8,9 +8,9 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
 import javax.inject.Inject;
 import org.tasks.R;
+import org.tasks.injection.ApplicationComponent;
 import org.tasks.injection.ApplicationContext;
 import org.tasks.injection.InjectingJobIntentService;
-import org.tasks.injection.ServiceComponent;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 
@@ -32,7 +32,7 @@ public class RefreshReceiver extends InjectingJobIntentService {
   }
 
   @Override
-  protected void inject(ServiceComponent component) {
+  protected void inject(ApplicationComponent component) {
     component.inject(this);
   }
 }

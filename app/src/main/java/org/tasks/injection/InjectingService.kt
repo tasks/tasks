@@ -21,7 +21,7 @@ abstract class InjectingService : Service() {
         super.onCreate()
         startForeground()
         disposables = CompositeDisposable()
-        inject((application as InjectingApplication).component.plus(ServiceModule()))
+        inject((application as InjectingApplication).component)
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
@@ -67,5 +67,5 @@ abstract class InjectingService : Service() {
 
     protected open fun scheduleNext() {}
     protected abstract fun doWork()
-    protected abstract fun inject(component: ServiceComponent)
+    protected abstract fun inject(component: ApplicationComponent)
 }

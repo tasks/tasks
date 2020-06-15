@@ -20,8 +20,8 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.data.Geofence;
 import org.tasks.data.Location;
-import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.ActivityContext;
+import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.PermissionChecker;
@@ -125,7 +125,7 @@ public class GeofenceDialog extends InjectingDialogFragment {
   }
 
   @Override
-  protected void inject(DialogFragmentComponent component) {
+  protected void inject(FragmentComponent component) {
     component.inject(this);
   }
 }

@@ -9,7 +9,7 @@ import com.todoroo.astrid.core.CriterionInstance.*
 import org.tasks.R
 import org.tasks.activities.FilterSettingsActivity
 import org.tasks.filters.FilterCriteriaProvider
-import org.tasks.injection.DialogFragmentComponent
+import org.tasks.injection.FragmentComponent
 import org.tasks.injection.InjectingDialogFragment
 import org.tasks.ui.NavigationDrawerFragment
 import javax.inject.Inject
@@ -133,5 +133,5 @@ class NewFilterDialog : InjectingDialogFragment() {
         return criterion
     }
 
-    override fun inject(component: DialogFragmentComponent) = component.inject(this)
+    override fun inject(component: FragmentComponent) = component.inject(this)
 }

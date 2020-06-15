@@ -15,8 +15,8 @@ import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.activities.CameraActivity;
-import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.ActivityContext;
+import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.preferences.Device;
 
@@ -38,7 +38,7 @@ public class AddAttachmentDialog extends InjectingDialogFragment {
   }
 
   @Override
-  protected void inject(DialogFragmentComponent component) {
+  protected void inject(FragmentComponent component) {
     component.inject(this);
   }
 

@@ -12,8 +12,8 @@ import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.ApplicationContext;
+import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.preferences.Preferences;
 import org.tasks.time.DateTime;
@@ -143,7 +143,7 @@ public class SnoozeDialog extends InjectingDialogFragment {
   }
 
   @Override
-  protected void inject(DialogFragmentComponent component) {
+  protected void inject(FragmentComponent component) {
     component.inject(this);
   }
 }

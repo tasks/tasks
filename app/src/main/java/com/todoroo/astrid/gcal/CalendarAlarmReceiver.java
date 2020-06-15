@@ -14,7 +14,7 @@ import org.tasks.calendars.AndroidCalendarEvent;
 import org.tasks.calendars.AndroidCalendarEventAttendee;
 import org.tasks.calendars.CalendarEventProvider;
 import org.tasks.gtasks.GoogleAccountManager;
-import org.tasks.injection.BroadcastComponent;
+import org.tasks.injection.ApplicationComponent;
 import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.preferences.Preferences;
 import org.tasks.scheduling.CalendarNotificationIntentService;
@@ -64,7 +64,7 @@ public class CalendarAlarmReceiver extends InjectingBroadcastReceiver {
   }
 
   @Override
-  protected void inject(BroadcastComponent component) {
+  protected void inject(ApplicationComponent component) {
     component.inject(this);
   }
 

@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.work.WorkerParameters;
 import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
-import org.tasks.injection.JobComponent;
+import org.tasks.injection.ApplicationComponent;
 
 public class MidnightRefreshWork extends RepeatingWorker {
 
@@ -28,7 +28,7 @@ public class MidnightRefreshWork extends RepeatingWorker {
   }
 
   @Override
-  protected void inject(JobComponent component) {
+  protected void inject(ApplicationComponent component) {
     component.inject(this);
   }
 }

@@ -22,8 +22,8 @@ import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.backup.TasksJsonExporter;
+import org.tasks.injection.ApplicationComponent;
 import org.tasks.injection.ApplicationContext;
-import org.tasks.injection.JobComponent;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
@@ -80,7 +80,7 @@ public class BackupWork extends RepeatingWorker {
   }
 
   @Override
-  protected void inject(JobComponent component) {
+  protected void inject(ApplicationComponent component) {
     component.inject(this);
   }
 

@@ -15,8 +15,8 @@ import org.tasks.data.TaskAttachmentDao;
 import org.tasks.data.UserActivity;
 import org.tasks.data.UserActivityDao;
 import org.tasks.files.FileHelper;
+import org.tasks.injection.ApplicationComponent;
 import org.tasks.injection.InjectingWorker;
-import org.tasks.injection.JobComponent;
 import org.tasks.location.GeofenceApi;
 import org.tasks.notifications.NotificationManager;
 import timber.log.Timber;
@@ -71,7 +71,7 @@ public class CleanupWork extends InjectingWorker {
   }
 
   @Override
-  protected void inject(JobComponent component) {
+  protected void inject(ApplicationComponent component) {
     component.inject(this);
   }
 }

@@ -7,7 +7,7 @@ import timber.log.Timber
 abstract class InjectingJobIntentService : JobIntentService() {
     override fun onHandleWork(intent: Intent) {
         inject(
-                (application as InjectingApplication).component.plus(ServiceModule()))
+                (application as InjectingApplication).component)
         try {
             doWork(intent)
         } catch (e: Exception) {
@@ -16,7 +16,7 @@ abstract class InjectingJobIntentService : JobIntentService() {
     }
 
     protected abstract fun doWork(intent: Intent)
-    protected abstract fun inject(component: ServiceComponent)
+    protected abstract fun inject(component: ApplicationComponent)
 
     companion object {
         const val JOB_ID_GEOFENCE_TRANSITION = 1081

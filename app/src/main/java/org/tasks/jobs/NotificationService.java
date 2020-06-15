@@ -10,8 +10,8 @@ import java.util.List;
 import javax.inject.Inject;
 import org.tasks.Notifier;
 import org.tasks.R;
+import org.tasks.injection.ApplicationComponent;
 import org.tasks.injection.InjectingService;
-import org.tasks.injection.ServiceComponent;
 import org.tasks.preferences.Preferences;
 
 public class NotificationService extends InjectingService {
@@ -55,7 +55,7 @@ public class NotificationService extends InjectingService {
   }
 
   @Override
-  protected void inject(ServiceComponent component) {
+  protected void inject(ApplicationComponent component) {
     component.inject(this);
   }
 }

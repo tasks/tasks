@@ -17,8 +17,8 @@ import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskListDao;
 import org.tasks.etesync.EteSynchronizer;
 import org.tasks.gtasks.GoogleTaskSynchronizer;
+import org.tasks.injection.ApplicationComponent;
 import org.tasks.injection.InjectingWorker;
-import org.tasks.injection.JobComponent;
 import org.tasks.preferences.Preferences;
 import org.tasks.sync.SyncAdapters;
 
@@ -88,7 +88,7 @@ public class SyncWork extends InjectingWorker {
   }
 
   @Override
-  protected void inject(JobComponent component) {
+  protected void inject(ApplicationComponent component) {
     component.inject(this);
   }
 }

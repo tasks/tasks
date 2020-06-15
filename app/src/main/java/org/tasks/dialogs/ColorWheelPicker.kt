@@ -14,7 +14,7 @@ import com.flask.colorpicker.builder.ColorPickerDialogBuilder
 import org.tasks.R
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
-import org.tasks.injection.DialogFragmentComponent
+import org.tasks.injection.FragmentComponent
 import org.tasks.injection.InjectingDialogFragment
 import org.tasks.ui.NavigationDrawerFragment.Companion.REQUEST_PURCHASE
 import javax.inject.Inject
@@ -46,7 +46,7 @@ class ColorWheelPicker : InjectingDialogFragment() {
     var selected = -1
     var callback: ColorPickedCallback? = null
 
-    override fun inject(component: DialogFragmentComponent) = component.inject(this)
+    override fun inject(component: FragmentComponent) = component.inject(this)
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         selected = savedInstanceState?.getInt(EXTRA_SELECTED) ?: requireArguments().getInt(EXTRA_SELECTED, 0)

@@ -17,7 +17,7 @@ import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
 import org.tasks.dialogs.ColorPickerAdapter.Palette
 import org.tasks.dialogs.ColorWheelPicker.Companion.newColorWheel
-import org.tasks.injection.DialogFragmentComponent
+import org.tasks.injection.FragmentComponent
 import org.tasks.injection.InjectingDialogFragment
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.ThemeColor
@@ -134,5 +134,5 @@ class ColorPalettePicker : InjectingDialogFragment() {
         }
     }
 
-    override fun inject(component: DialogFragmentComponent) = component.inject(this)
+    override fun inject(component: FragmentComponent) = component.inject(this)
 }

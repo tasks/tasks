@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.work.WorkerParameters
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.LocationDao
+import org.tasks.injection.ApplicationComponent
 import org.tasks.injection.InjectingWorker
-import org.tasks.injection.JobComponent
 import org.tasks.location.Geocoder
 import timber.log.Timber
 import java.io.IOException
@@ -46,5 +46,5 @@ class ReverseGeocodeWork(context: Context, workerParams: WorkerParameters) : Inj
         }
     }
 
-    override fun inject(component: JobComponent) = component.inject(this)
+    override fun inject(component: ApplicationComponent) = component.inject(this)
 }

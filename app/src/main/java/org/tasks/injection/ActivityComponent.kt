@@ -36,7 +36,6 @@ import org.tasks.widget.WidgetConfigActivity
 @Subcomponent(modules = [ActivityModule::class, LocationModule::class])
 interface ActivityComponent {
     operator fun plus(module: FragmentModule): FragmentComponent
-    operator fun plus(dialogFragmentModule: DialogFragmentModule): DialogFragmentComponent
     fun inject(activity: GtasksLoginActivity)
     fun inject(activity: TaskerSettingsActivity)
     fun inject(activity: DashClockSettings)

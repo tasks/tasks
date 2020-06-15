@@ -25,7 +25,7 @@ import org.tasks.R
 import org.tasks.databinding.DialogDateTimePickerBinding
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.dialogs.MyTimePickerDialog.newTimePicker
-import org.tasks.injection.DialogFragmentComponent
+import org.tasks.injection.FragmentComponent
 import org.tasks.injection.InjectingBottomSheetDialogFragment
 import org.tasks.locale.Locale
 import org.tasks.notifications.NotificationManager
@@ -325,5 +325,5 @@ class DateTimePicker : InjectingBottomSheetDialogFragment() {
         }
     }
 
-    override fun inject(component: DialogFragmentComponent) = component.inject(this)
+    override fun inject(component: FragmentComponent) = component.inject(this)
 }

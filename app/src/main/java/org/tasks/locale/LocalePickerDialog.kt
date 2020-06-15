@@ -6,7 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import org.tasks.R
 import org.tasks.dialogs.DialogBuilder
-import org.tasks.injection.DialogFragmentComponent
+import org.tasks.injection.FragmentComponent
 import org.tasks.injection.InjectingDialogFragment
 import java.util.*
 import javax.inject.Inject
@@ -34,7 +34,7 @@ class LocalePickerDialog : InjectingDialogFragment() {
                 .show()
     }
 
-    override fun inject(component: DialogFragmentComponent) = component.inject(this)
+    override fun inject(component: FragmentComponent) = component.inject(this)
 
     companion object {
         const val EXTRA_LOCALE = "extra_locale"

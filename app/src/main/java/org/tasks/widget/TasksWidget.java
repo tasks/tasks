@@ -18,7 +18,7 @@ import com.todoroo.astrid.dao.TaskDao;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.activities.FilterSelectionActivity;
-import org.tasks.injection.BroadcastComponent;
+import org.tasks.injection.ApplicationComponent;
 import org.tasks.injection.ApplicationContext;
 import org.tasks.injection.InjectingAppWidgetProvider;
 import org.tasks.intents.TaskIntents;
@@ -38,7 +38,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
   @Inject @ApplicationContext Context context;
 
   @Override
-  protected void inject(BroadcastComponent component) {
+  protected void inject(ApplicationComponent component) {
     component.inject(this);
   }
 

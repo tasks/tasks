@@ -28,7 +28,7 @@ import org.tasks.R;
 import org.tasks.data.TagDao;
 import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
-import org.tasks.injection.ContentProviderComponent;
+import org.tasks.injection.ApplicationComponent;
 import org.tasks.injection.InjectingContentProvider;
 import timber.log.Timber;
 
@@ -115,7 +115,7 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
   }
 
   @Override
-  protected void inject(ContentProviderComponent component) {
+  protected void inject(ApplicationComponent component) {
     component.inject(this);
   }
 

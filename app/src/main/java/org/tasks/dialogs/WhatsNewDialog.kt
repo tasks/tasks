@@ -17,7 +17,7 @@ import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
-import org.tasks.injection.DialogFragmentComponent
+import org.tasks.injection.FragmentComponent
 import org.tasks.injection.InjectingDialogFragment
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
@@ -123,5 +123,5 @@ class WhatsNewDialog : InjectingDialogFragment() {
                 Pair(R.string.param_user_no_churn, firebase.noChurn()))
     }
 
-    override fun inject(component: DialogFragmentComponent) = component.inject(this)
+    override fun inject(component: FragmentComponent) = component.inject(this)
 }

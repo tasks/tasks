@@ -22,7 +22,7 @@ import com.todoroo.astrid.voice.AACRecorder;
 import java.io.IOException;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.injection.DialogFragmentComponent;
+import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.preferences.FragmentPermissionRequestor;
 import org.tasks.preferences.PermissionChecker;
@@ -96,7 +96,7 @@ public class RecordAudioDialog extends InjectingDialogFragment
   }
 
   @Override
-  protected void inject(DialogFragmentComponent component) {
+  protected void inject(FragmentComponent component) {
     component.inject(this);
   }
 
