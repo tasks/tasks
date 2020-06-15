@@ -21,17 +21,17 @@ class ActivityModule(@get:Provides val activity: Activity) {
         get() = activity
 
     @Provides
-    @ActivityScope
+    @ActivityScoped
     fun getThemeBase(preferences: Preferences, inventory: Inventory): ThemeBase
             = ThemeBase.getThemeBase(preferences, inventory, activity.intent)
 
     @Provides
-    @ActivityScope
+    @ActivityScoped
     fun getThemeColor(colorProvider: ColorProvider, preferences: Preferences): ThemeColor
             = colorProvider.getThemeColor(preferences.defaultThemeColor, true)
 
     @Provides
-    @ActivityScope
+    @ActivityScoped
     fun getThemeAccent(colorProvider: ColorProvider, preferences: Preferences): ThemeAccent
             = colorProvider.getThemeAccent(preferences.getInt(R.string.p_theme_accent, 1))
 }

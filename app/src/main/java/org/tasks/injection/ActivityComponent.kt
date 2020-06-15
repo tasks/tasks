@@ -32,7 +32,7 @@ import org.tasks.widget.ShortcutConfigActivity
 import org.tasks.widget.WidgetClickActivity
 import org.tasks.widget.WidgetConfigActivity
 
-@ActivityScope
+@ActivityScoped
 @Subcomponent(modules = [ActivityModule::class, LocationModule::class])
 interface ActivityComponent {
     operator fun plus(module: FragmentModule): FragmentComponent

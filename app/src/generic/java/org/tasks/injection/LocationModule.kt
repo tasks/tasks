@@ -11,13 +11,13 @@ import org.tasks.location.PlaceSearchProvider
 @Module
 class LocationModule {
     @Provides
-    @ActivityScope
+    @ActivityScoped
     fun getPlaceSearchProvider(@ApplicationContext context: Context): PlaceSearchProvider {
         return MapboxSearchProvider(context)
     }
 
     @Provides
-    @ActivityScope
+    @ActivityScoped
     fun getMapFragment(@ApplicationContext context: Context): MapFragment {
         return MapboxMapFragment(context)
     }

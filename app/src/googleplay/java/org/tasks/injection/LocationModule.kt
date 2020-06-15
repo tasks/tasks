@@ -11,7 +11,7 @@ import org.tasks.preferences.Preferences
 @Module
 internal class LocationModule {
     @Provides
-    @ActivityScope
+    @ActivityScoped
     fun getPlaceSearchProvider(
             @ApplicationContext context: Context,
             preferences: Preferences,
@@ -27,7 +27,7 @@ internal class LocationModule {
     }
 
     @Provides
-    @ActivityScope
+    @ActivityScoped
     fun getMapFragment(@ApplicationContext context: Context, preferences: Preferences): MapFragment {
         return if (preferences.useGoogleMaps()) {
             GoogleMapFragment(context)
