@@ -215,7 +215,7 @@
     <item>@string/TEA_control_importance</item>
     <item>@string/TEA_control_location</item>
     <item>@string/tags</item>
-    <item>@string/synchronization</item>
+    <item>@string/lists</item>
     <item>@string/subtasks</item>
     <item>@string/TEA_control_reminders</item>
     <item>@string/TEA_control_files</item>
