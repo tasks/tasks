@@ -166,7 +166,7 @@ class WorkManager @Inject constructor(
                                     Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
                             .build())
 
-    fun scheduleDriveUpload(uri: Uri?, purge: Boolean) {
+    fun scheduleDriveUpload(uri: Uri, purge: Boolean) {
         if (!preferences.getBoolean(R.string.p_google_drive_backup, false)) {
             return
         }
