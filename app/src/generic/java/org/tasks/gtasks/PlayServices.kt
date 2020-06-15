@@ -6,6 +6,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.disposables.Disposables
 import javax.inject.Inject
 
+@Suppress("UNUSED_PARAMETER")
 class PlayServices @Inject constructor() {
     val isPlayServicesAvailable: Boolean
         get() = false

@@ -1,5 +1,6 @@
 package org.tasks.billing
 
+@Suppress("UNUSED_PARAMETER")
 class Purchase(json: String?) {
     val sku: String?
         get() = null

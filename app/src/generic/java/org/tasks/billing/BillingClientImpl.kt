@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import org.tasks.analytics.Firebase
 
+@Suppress("UNUSED_PARAMETER")
 class BillingClientImpl(context: Context?, inventory: Inventory?, firebase: Firebase?) : BillingClient {
     override fun queryPurchases() {}
     override fun initiatePurchaseFlow(
