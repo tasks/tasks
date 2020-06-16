@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="actfm_picture_clear">Deseleziona Immagine</string>
+    <string name="actfm_picture_clear">Deseleziona immagine</string>
     <string name="TVA_add_comment">Aggiungi un commento…</string>
     <string name="enter_filter_name">Inserisci il nome del filtro</string>
     <string name="backup_BPr_header">Backup</string>
@@ -19,13 +19,13 @@
     <string name="DLG_undo">Annulla l\'ultima azione</string>
     <string name="WID_dateButtonUnset">Clicca per Impostare</string>
     <string name="TLA_no_items">Qui non ci sono attività.</string>
-    <string name="TLA_menu_sort">Ordine</string>
+    <string name="TLA_menu_sort">Ordinamento</string>
     <string name="TLA_menu_search">Cerca</string>
     <string name="TLA_menu_settings">Impostazioni</string>
     <string name="TAd_actionEditTask">Modifica</string>
     <string name="action_call">Chiama</string>
     <string name="action_open">Apri</string>
-    <string name="SSD_sort_auto">Ordinamento Intelligente</string>
+    <string name="SSD_sort_auto">Intelligente</string>
     <string name="SSD_sort_alpha">Per titolo</string>
     <string name="SSD_sort_due">Per scadenza</string>
     <string name="SSD_sort_importance">Per priorità</string>
@@ -61,8 +61,8 @@
     <string name="TEA_control_files">File</string>
     <string name="TEA_control_reminders">Promemoria</string>
     <string name="TEA_control_timer">Regolazioni Tempo</string>
-    <string name="TEA_control_hidden_section">----Nascondi Sempre----</string>
-    <string name="TEA_load_more">Caricane altri…</string>
+    <string name="TEA_control_hidden_section">----Nascondi sempre----</string>
+    <string name="TEA_load_more">Caricane altre…</string>
     <string name="CRA_ignore">Ignora</string>
     <string name="CRA_title">Hai bisogno di una lista per le riunioni?</string>
     <string name="CRA_ignore_body">Hai ignorato numerosi eventi del calendario. Vuoi che Tasks smetta di notificarteli\?</string>
@@ -78,7 +78,7 @@
     <string name="EPr_filters_to_show_title">Filtri da visualizzare</string>
     <string name="EPr_edit_screen_options">Modifica opzioni schermo</string>
     <string name="EPr_beastMode_reset">Ripristina predefiniti</string>
-    <string name="EPr_fullTask_title">Visualizza titolo completo dell\'attività</string>
+    <string name="EPr_fullTask_title">Visualizza il titolo completo</string>
     <string name="EPr_show_task_edit_comments">Mostra i commenti in modifica attività</string>
     <string name="task_list_options">Opzioni elenco attività</string>
     <string name="EPr_cal_end_or_start_at_due_time">Orario eventi del calendario</string>
@@ -433,7 +433,7 @@
     <string name="button_subscribe">Sottoscrivi</string>
     <string name="button_more_info">Più informazioni</string>
     <string name="about">A riguardo</string>
-    <string name="license_summary">Tasks è un software gratuito e open-source, rilasciato sotto licenza GNU General Public License v3.0</string>
+    <string name="license_summary">Tasks è un software libero ed open-source, rilasciato sotto licenza GNU General Public License v3.0</string>
     <string name="pro_dashclock_extension">Estensione Dashclock</string>
     <string name="requires_pro_subscription">Richiede versione premium</string>
     <string name="logout">Esci</string>
@@ -461,10 +461,10 @@
     <string name="location_permission_required_location">Per trovare la tua posizione sono richiesti i permessi di localizzazione</string>
     <string name="open_map">Apri mappa</string>
     <string name="choose_new_location">Scegli nuova posizione</string>
-    <string name="display_name">Visualizza nome</string>
+    <string name="display_name">Nome visualizzato</string>
     <string name="EPr_temp_completed_tasks_showing">Le attività rimarranno temporaneamente visibili nella lista dopo il completamento</string>
     <string name="TEA_add_subtask">Aggiungi attività secondaria</string>
-    <string name="SSD_sort_my_order">Ordine personalizzato</string>
+    <string name="SSD_sort_my_order">Personalizzato</string>
     <string name="EPr_temp_completed_tasks_not_showing">Le attività spariranno immediatamente dalla lista dopo il completamento</string>
     <string name="desaturate_colors">Riduci saturazione colori</string>
     <string name="etesync_encryption_description">Ricorda la password di cifratura che hai scelto, non può essere recuperata!</string>
@@ -528,7 +528,7 @@
     <string name="this_feature_requires_a_subscription">Questa funzione richiede un abbonamento</string>
     <string name="button_unsubscribe">Annulla abbonamento</string>
     <string name="button_restore_subscription">Ripristina abbonamento</string>
-    <string name="manage_subscription_summary">Passa alla versione premium, a quella di base o cancella il tuo abbonamento</string>
+    <string name="manage_subscription_summary">Passa alla versione premium, a quella base o cancella il tuo abbonamento</string>
     <string name="button_current_subscription">Abbonamento attuale</string>
     <string name="help_and_feedback">Aiuto &amp; feedback</string>
     <string name="url">URL</string>
@@ -542,7 +542,7 @@
         <item quantity="one">%d attività secondaria</item>
         <item quantity="other">%d attività secondarie</item>
     </plurals>
-    <string name="EPr_temp_show_completed_tasks">Mostra temporaneamente le attività al completamento</string>
+    <string name="EPr_temp_show_completed_tasks">Mostra, temporaneamente, le attività dopo il completamento</string>
     <string name="create_new_tag">Crea \"%s\"</string>
     <string name="subtasks_multilevel_google_task">Google Tasks non supporta più livelli di attività secondarie</string>
     <string name="expand_subtasks">Espandi attività secondarie</string>
@@ -627,4 +627,8 @@
     <string name="filter_today_only">Solo oggi</string>
     <string name="sort_created">Per data di creazione</string>
     <string name="astrid_sort_order">Ordinamento manuale Astrid</string>
+    <string name="reset_sort_order">Ripristina ordinamento</string>
+    <string name="date_shortcut_tomorrow_night">Domani notte</string>
+    <string name="date_shortcut_tomorrow_evening">Domani sera</string>
+    <string name="manage_lists">Gestisci liste</string>
 </resources>
