@@ -630,4 +630,9 @@
     <string name="disable_sort_groups">Desgaitu taldeak ordenatzea</string>
     <string name="improve_performance_summary">Desgaitu taldeak ordenatzea eta azpi-zeregin tolesgarriak aplikazioaren errendimendua hobetzeko</string>
     <string name="astrid_sort_order_summary">Gaitu Astrid-eko eskuzko ordenatze modua \'Nire zereginak\', \'Gaur\', eta etiketentzako. Ordenatze modu honek \'Nire ordena\'-rekin ordezkatuko da etorkizuneko bertsio batean</string>
+    <string name="reset_sort_order">Berrezarri ordenatze irizpidea</string>
+    <string name="date_shortcut_tomorrow_night">Bihar gauez</string>
+    <string name="date_shortcut_tomorrow_evening">Bihar arratsaldez</string>
+    <string name="CFC_list_name">Zerrendan…</string>
+    <string name="manage_lists">Kudeatu zerrendak</string>
 </resources>
