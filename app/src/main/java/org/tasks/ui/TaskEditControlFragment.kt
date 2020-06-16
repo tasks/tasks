@@ -7,12 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import androidx.fragment.app.Fragment
 import butterknife.ButterKnife
 import com.todoroo.astrid.data.Task
 import org.tasks.R
-import org.tasks.injection.InjectingFragment
 
-abstract class TaskEditControlFragment : InjectingFragment() {
+abstract class TaskEditControlFragment : Fragment() {
     protected lateinit var task: Task
 
     var isNew = false

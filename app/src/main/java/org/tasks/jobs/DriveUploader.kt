@@ -2,15 +2,16 @@ package org.tasks.jobs
 
 import android.content.Context
 import android.net.Uri
+import androidx.hilt.Assisted
+import androidx.hilt.work.WorkerInject
 import androidx.work.Data
 import androidx.work.WorkerParameters
 import com.google.api.client.googleapis.json.GoogleJsonResponseException
 import com.google.api.services.drive.model.File
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
+import org.tasks.analytics.Firebase
 import org.tasks.drive.DriveInvoker
-import org.tasks.injection.ApplicationComponent
-import org.tasks.injection.ApplicationContext
 import org.tasks.injection.InjectingWorker
 import org.tasks.preferences.Preferences
 import timber.log.Timber
@@ -19,13 +20,14 @@ import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import java.util.*
-import javax.inject.Inject
 import javax.net.ssl.SSLException
 
-class DriveUploader(context: Context, workerParams: WorkerParameters) : InjectingWorker(context, workerParams) {
-    @Inject @ApplicationContext lateinit var context: Context
-    @Inject lateinit var drive: DriveInvoker
-    @Inject lateinit var preferences: Preferences
+class DriveUploader @WorkerInject constructor(
+        @Assisted context: Context,
+        @Assisted workerParams: WorkerParameters,
+        firebase: Firebase,
+        private val drive: DriveInvoker,
+        private val preferences: Preferences) : InjectingWorker(context, workerParams, firebase) {
 
     override fun run(): Result {
         val inputData = inputData
@@ -83,8 +85,6 @@ class DriveUploader(context: Context, workerParams: WorkerParameters) : Injectin
             }
             return if (file == null || file.trashed) drive.createFolder(FOLDER_NAME) else file
         }
-
-    override fun inject(component: ApplicationComponent) = component.inject(this)
 
     companion object {
         private const val FOLDER_NAME = "Tasks Backups"

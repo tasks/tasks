@@ -10,11 +10,11 @@ import android.os.Build;
 import android.provider.MediaStore;
 import android.speech.RecognizerIntent;
 import com.google.common.base.Joiner;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.BuildConfig;
 import org.tasks.R;
-import org.tasks.injection.ApplicationContext;
 import org.tasks.locale.Locale;
 import timber.log.Timber;
 

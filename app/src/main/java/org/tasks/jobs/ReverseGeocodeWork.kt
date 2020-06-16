@@ -1,25 +1,28 @@
 package org.tasks.jobs
 
 import android.content.Context
+import androidx.hilt.Assisted
+import androidx.hilt.work.WorkerInject
 import androidx.work.WorkerParameters
 import org.tasks.LocalBroadcastManager
+import org.tasks.analytics.Firebase
 import org.tasks.data.LocationDao
-import org.tasks.injection.ApplicationComponent
 import org.tasks.injection.InjectingWorker
 import org.tasks.location.Geocoder
 import timber.log.Timber
 import java.io.IOException
-import javax.inject.Inject
 
-class ReverseGeocodeWork(context: Context, workerParams: WorkerParameters) : InjectingWorker(context, workerParams) {
+class ReverseGeocodeWork @WorkerInject constructor(
+        @Assisted context: Context,
+        @Assisted workerParams: WorkerParameters,
+        firebase: Firebase,
+        private val localBroadcastManager: LocalBroadcastManager,
+        private val geocoder: Geocoder,
+        private val locationDao: LocationDao) : InjectingWorker(context, workerParams, firebase) {
 
     companion object {
         const val PLACE_ID = "place_id"
     }
-
-    @Inject lateinit var localBroadcastManager: LocalBroadcastManager
-    @Inject lateinit var geocoder: Geocoder
-    @Inject lateinit var locationDao: LocationDao
 
     public override fun run(): Result {
         val id = inputData.getLong(PLACE_ID, 0)
@@ -45,6 +48,4 @@ class ReverseGeocodeWork(context: Context, workerParams: WorkerParameters) : Inj
             Result.failure()
         }
     }
-
-    override fun inject(component: ApplicationComponent) = component.inject(this)
 }

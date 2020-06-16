@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import com.todoroo.andlib.utility.DateUtilities;
+import dagger.hilt.android.AndroidEntryPoint;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.BuildConfig;
@@ -14,12 +15,12 @@ import org.tasks.calendars.AndroidCalendarEvent;
 import org.tasks.calendars.AndroidCalendarEventAttendee;
 import org.tasks.calendars.CalendarEventProvider;
 import org.tasks.gtasks.GoogleAccountManager;
-import org.tasks.injection.ApplicationComponent;
 import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.preferences.Preferences;
 import org.tasks.scheduling.CalendarNotificationIntentService;
 import timber.log.Timber;
 
+@AndroidEntryPoint
 public class CalendarAlarmReceiver extends InjectingBroadcastReceiver {
 
   public static final int REQUEST_CODE_CAL_REMINDER = 100;
@@ -61,11 +62,6 @@ public class CalendarAlarmReceiver extends InjectingBroadcastReceiver {
       // Some cursor read failed, or badly formed uri
       Timber.e(e);
     }
-  }
-
-  @Override
-  protected void inject(ApplicationComponent component) {
-    component.inject(this);
   }
 
   private void showCalReminder(Context context, final long eventId, final boolean fromPostpone) {

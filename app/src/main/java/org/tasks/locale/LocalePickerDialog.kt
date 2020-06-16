@@ -4,14 +4,15 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import androidx.fragment.app.DialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.dialogs.DialogBuilder
-import org.tasks.injection.FragmentComponent
-import org.tasks.injection.InjectingDialogFragment
 import java.util.*
 import javax.inject.Inject
 
-class LocalePickerDialog : InjectingDialogFragment() {
+@AndroidEntryPoint
+class LocalePickerDialog : DialogFragment() {
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var locale: Locale
 
@@ -33,8 +34,6 @@ class LocalePickerDialog : InjectingDialogFragment() {
                 .setNegativeButton(android.R.string.cancel, null)
                 .show()
     }
-
-    override fun inject(component: FragmentComponent) = component.inject(this)
 
     companion object {
         const val EXTRA_LOCALE = "extra_locale"

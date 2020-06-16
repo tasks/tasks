@@ -10,6 +10,7 @@ import com.google.ical.values.RRule;
 import com.google.ical.values.Weekday;
 import com.google.ical.values.WeekdayNum;
 import com.todoroo.andlib.utility.DateUtilities;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,7 +18,6 @@ import java.util.Calendar;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.injection.ApplicationContext;
 import org.tasks.locale.Locale;
 import org.tasks.time.DateTime;
 

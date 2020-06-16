@@ -1,8 +1,8 @@
 package org.tasks.billing
 
 import android.content.Context
+import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
-import org.tasks.injection.ApplicationContext
 import timber.log.Timber
 import java.io.IOException
 import javax.inject.Inject

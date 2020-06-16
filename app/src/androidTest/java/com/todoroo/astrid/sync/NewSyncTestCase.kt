@@ -5,7 +5,6 @@ import com.todoroo.astrid.data.Task
 import org.tasks.data.TagData
 import org.tasks.data.TagDataDao
 import org.tasks.injection.InjectingTestCase
-import org.tasks.injection.TestComponent
 import javax.inject.Inject
 
 open class NewSyncTestCase : InjectingTestCase() {
@@ -26,8 +25,6 @@ open class NewSyncTestCase : InjectingTestCase() {
         tagDataDao.createNew(tag)
         return tag
     }
-
-    override fun inject(component: TestComponent) = component.inject(this)
 
     companion object {
         private const val SYNC_TASK_TITLE = "new title"

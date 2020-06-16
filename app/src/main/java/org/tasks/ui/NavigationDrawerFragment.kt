@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.drawerlayout.widget.DrawerLayout.SimpleDrawerListener
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +21,7 @@ import com.todoroo.astrid.adapter.NavigationDrawerAdapter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.FilterListItem
 import com.todoroo.astrid.dao.TaskDao
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -30,12 +32,11 @@ import org.tasks.billing.PurchaseActivity
 import org.tasks.dialogs.NewFilterDialog.Companion.newFilterDialog
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.NavigationDrawerAction
-import org.tasks.injection.FragmentComponent
-import org.tasks.injection.InjectingFragment
 import org.tasks.intents.TaskIntents
 import javax.inject.Inject
 
-class NavigationDrawerFragment : InjectingFragment() {
+@AndroidEntryPoint
+class NavigationDrawerFragment : Fragment() {
     private val refreshReceiver = RefreshReceiver()
 
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
@@ -128,8 +129,6 @@ class NavigationDrawerFragment : InjectingFragment() {
         super.onStop()
         disposables?.dispose()
     }
-
-    override fun inject(component: FragmentComponent) = component.inject(this)
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)

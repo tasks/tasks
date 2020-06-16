@@ -12,12 +12,12 @@ import androidx.appcompat.widget.Toolbar
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.google.android.material.button.MaterialButtonToggleGroup
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.databinding.ActivityPurchaseBinding
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.IconLayoutManager
-import org.tasks.injection.ActivityComponent
 import org.tasks.injection.ThemedInjectingAppCompatActivity
 import org.tasks.locale.Locale
 import timber.log.Timber
@@ -26,6 +26,7 @@ import javax.inject.Inject
 private const val EXTRA_MONTHLY = "extra_monthly"
 private const val EXTRA_PRICE = "extra_price"
 
+@AndroidEntryPoint
 class PurchaseActivity : ThemedInjectingAppCompatActivity(), OnPurchasesUpdated, Toolbar.OnMenuItemClickListener {
 
     @Inject lateinit var inventory: Inventory
@@ -127,10 +128,6 @@ class PurchaseActivity : ThemedInjectingAppCompatActivity(), OnPurchasesUpdated,
     override fun onStop() {
         super.onStop()
         localBroadcastManager.unregisterReceiver(purchaseReceiver)
-    }
-
-    override fun inject(component: ActivityComponent) {
-        component.inject(this)
     }
 
     private fun setup() {

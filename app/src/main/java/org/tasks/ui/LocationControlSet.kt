@@ -19,6 +19,7 @@ import butterknife.OnClick
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.data.SyncFlags
 import com.todoroo.astrid.data.Task
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.PermissionUtil.verifyPermissions
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
@@ -28,13 +29,13 @@ import org.tasks.data.LocationDao
 import org.tasks.data.Place
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.GeofenceDialog
-import org.tasks.injection.FragmentComponent
 import org.tasks.location.GeofenceApi
 import org.tasks.location.LocationPickerActivity
 import org.tasks.preferences.*
 import java.util.*
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class LocationControlSet : TaskEditControlFragment() {
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var dialogBuilder: DialogBuilder
@@ -269,8 +270,6 @@ class LocationControlSet : TaskEditControlFragment() {
             super.onActivityResult(requestCode, resultCode, data)
         }
     }
-
-    override fun inject(component: FragmentComponent) = component.inject(this)
 
     companion object {
         const val TAG = R.string.TEA_ctrl_locations_pref

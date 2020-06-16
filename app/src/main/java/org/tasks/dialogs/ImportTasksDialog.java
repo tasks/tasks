@@ -3,23 +3,22 @@ package org.tasks.dialogs;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import androidx.fragment.app.DialogFragment;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.backup.TasksXmlImporter;
+import dagger.hilt.android.AndroidEntryPoint;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.backup.TasksJsonImporter;
 import org.tasks.backup.TasksJsonImporter.ImportResult;
-import org.tasks.injection.ActivityContext;
-import org.tasks.injection.FragmentComponent;
-import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.ui.Toaster;
 
-public class ImportTasksDialog extends InjectingDialogFragment {
+@AndroidEntryPoint
+public class ImportTasksDialog extends DialogFragment {
 
   private static final String EXTRA_URI = "extra_uri";
   private static final String EXTRA_EXTENSION = "extra_extension";
@@ -27,7 +26,7 @@ public class ImportTasksDialog extends InjectingDialogFragment {
   @Inject TasksXmlImporter xmlImporter;
   @Inject TasksJsonImporter jsonImporter;
   @Inject DialogBuilder dialogBuilder;
-  @Inject @ActivityContext Context context;
+  @Inject Activity context;
   @Inject Toaster toaster;
 
   public static ImportTasksDialog newImportTasksDialog(Uri data, String extension) {
@@ -89,10 +88,5 @@ public class ImportTasksDialog extends InjectingDialogFragment {
                 r.getQuantityString(R.plurals.Ntasks, 0, 0)))
         .setPositiveButton(android.R.string.ok, (dialog, id) -> dialog.dismiss())
         .show();
-  }
-
-  @Override
-  protected void inject(FragmentComponent component) {
-    component.inject(this);
   }
 }

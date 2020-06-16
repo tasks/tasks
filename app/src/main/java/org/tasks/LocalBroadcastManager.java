@@ -5,8 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import com.todoroo.astrid.api.AstridApiConstants;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import javax.inject.Inject;
-import org.tasks.injection.ApplicationContext;
 import org.tasks.widget.AppWidgetManager;
 
 public class LocalBroadcastManager {

@@ -1,8 +1,6 @@
 package org.tasks.data
 
 import androidx.room.*
-import com.todoroo.andlib.data.Property
-import com.todoroo.andlib.data.Property.*
 import com.todoroo.andlib.data.Table
 import com.todoroo.astrid.helper.UUIDHelper
 

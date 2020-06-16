@@ -13,13 +13,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import com.todoroo.andlib.utility.DialogUtilities;
+import dagger.hilt.android.AndroidEntryPoint;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskListDao;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.gtasks.GoogleAccountManager;
-import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.play.AuthResultHandler;
 import org.tasks.preferences.ActivityPermissionRequestor;
@@ -31,6 +31,7 @@ import org.tasks.preferences.PermissionRequestor;
  *
  * @author Sam Bosley
  */
+@AndroidEntryPoint
 public class GtasksLoginActivity extends InjectingAppCompatActivity {
 
   public static final String EXTRA_ERROR = "extra_error";
@@ -47,11 +48,6 @@ public class GtasksLoginActivity extends InjectingAppCompatActivity {
     if (permissionRequestor.requestAccountPermissions()) {
       chooseAccount();
     }
-  }
-
-  @Override
-  public void inject(ActivityComponent component) {
-    component.inject(this);
   }
 
   private void chooseAccount() {

@@ -7,9 +7,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.service.TaskCompleter
+import dagger.hilt.android.qualifiers.ActivityContext
 import org.tasks.R
 import org.tasks.dialogs.Linkify
-import org.tasks.injection.ActivityContext
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.ResourceResolver
 import org.tasks.tasklist.TaskViewHolder.ViewHolderCallbacks

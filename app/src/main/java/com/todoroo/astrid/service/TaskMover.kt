@@ -7,11 +7,11 @@ import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
+import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.*
 import org.tasks.db.DbUtils.dbchunk
-import org.tasks.injection.ApplicationContext
 import org.tasks.preferences.Preferences
 import java.util.*
 import javax.inject.Inject

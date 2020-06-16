@@ -21,6 +21,7 @@ import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.api.HttpNotFoundException;
 import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskDeleter;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import java.io.EOFException;
 import java.io.IOException;
 import java.net.HttpRetryException;
@@ -42,7 +43,6 @@ import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
-import org.tasks.injection.ApplicationContext;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.Preferences;
@@ -191,7 +191,7 @@ public class GoogleTaskSynchronizer {
     Filter defaultRemoteList = defaultFilterProvider.getDefaultList();
     if (defaultRemoteList instanceof GtasksFilter) {
       GoogleTaskList list =
-          gtasksListService.getList(((GtasksFilter) defaultRemoteList).getRemoteId());
+          googleTaskListDao.getByRemoteId(((GtasksFilter) defaultRemoteList).getRemoteId());
       if (list == null) {
         preferences.setString(R.string.p_default_list, null);
       }

@@ -3,8 +3,8 @@ package org.tasks.preferences.fragments
 import android.content.Intent
 import android.os.Bundle
 import androidx.preference.Preference
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
-import org.tasks.injection.FragmentComponent
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
@@ -13,7 +13,7 @@ import org.tasks.widget.WidgetConfigActivity
 import org.tasks.widget.WidgetPreferences
 import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class Widgets : InjectingPreferenceFragment() {
 
     @Inject lateinit var preferences: Preferences
@@ -45,6 +45,4 @@ class Widgets : InjectingPreferenceFragment() {
             preferenceScreen.addPreference(pref)
         }
     }
-
-    override fun inject(component: FragmentComponent) = component.inject(this)
 }

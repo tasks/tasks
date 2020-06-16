@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import androidx.appcompat.widget.Toolbar;
+import dagger.hilt.android.AndroidEntryPoint;
 import javax.inject.Inject;
 import net.dinglisch.android.tasker.TaskerPlugin;
 import org.tasks.LocalBroadcastManager;
@@ -12,9 +13,9 @@ import org.tasks.R;
 import org.tasks.billing.Inventory;
 import org.tasks.billing.PurchaseActivity;
 import org.tasks.databinding.ActivityTaskerCreateBinding;
-import org.tasks.injection.ActivityComponent;
 import org.tasks.locale.bundle.TaskCreationBundle;
 
+@AndroidEntryPoint
 public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCompatActivity
     implements Toolbar.OnMenuItemClickListener {
 
@@ -26,7 +27,7 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
   private Bundle previousBundle;
 
   @Override
-  public void onCreate(final Bundle savedInstanceState) {
+  protected void onCreate(final Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
     binding = ActivityTaskerCreateBinding.inflate(getLayoutInflater());
@@ -122,11 +123,6 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
   protected void onSaveInstanceState(Bundle outState) {
     super.onSaveInstanceState(outState);
     outState.putParcelable(TaskCreationBundle.EXTRA_BUNDLE, previousBundle);
-  }
-
-  @Override
-  public void inject(ActivityComponent component) {
-    component.inject(this);
   }
 
   @Override

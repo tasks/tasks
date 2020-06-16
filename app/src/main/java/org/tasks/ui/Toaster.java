@@ -6,8 +6,8 @@ import static org.tasks.Strings.isNullOrEmpty;
 import android.content.Context;
 import android.widget.Toast;
 import androidx.annotation.StringRes;
+import dagger.hilt.android.qualifiers.ActivityContext;
 import javax.inject.Inject;
-import org.tasks.injection.ActivityContext;
 import org.tasks.locale.Locale;
 
 public class Toaster {

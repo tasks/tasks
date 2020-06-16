@@ -3,23 +3,22 @@ package org.tasks.dialogs
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import androidx.fragment.app.DialogFragment
 import com.todoroo.astrid.api.CustomFilterCriterion
 import com.todoroo.astrid.core.CriterionInstance
 import com.todoroo.astrid.core.CriterionInstance.*
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.activities.FilterSettingsActivity
 import org.tasks.filters.FilterCriteriaProvider
-import org.tasks.injection.FragmentComponent
-import org.tasks.injection.InjectingDialogFragment
 import org.tasks.ui.NavigationDrawerFragment
 import javax.inject.Inject
 
-class NewFilterDialog : InjectingDialogFragment() {
+@AndroidEntryPoint
+class NewFilterDialog : DialogFragment() {
 
-    @Inject
-    lateinit var dialogBuilder: DialogBuilder
-    @Inject
-    lateinit var provider: FilterCriteriaProvider
+    @Inject lateinit var dialogBuilder: DialogBuilder
+    @Inject lateinit var provider: FilterCriteriaProvider
 
     companion object {
         fun newFilterDialog(): NewFilterDialog = NewFilterDialog()
@@ -132,6 +131,4 @@ class NewFilterDialog : InjectingDialogFragment() {
         criterion.type = type
         return criterion
     }
-
-    override fun inject(component: FragmentComponent) = component.inject(this)
 }

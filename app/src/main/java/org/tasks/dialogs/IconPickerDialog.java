@@ -2,7 +2,6 @@ package org.tasks.dialogs;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,19 +9,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.hilt.android.AndroidEntryPoint;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.billing.Inventory;
 import org.tasks.billing.PurchaseActivity;
-import org.tasks.injection.ActivityContext;
-import org.tasks.injection.FragmentComponent;
-import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.themes.CustomIcons;
 
-public class IconPickerDialog extends InjectingDialogFragment {
+@AndroidEntryPoint
+public class IconPickerDialog extends DialogFragment {
 
   private static final String EXTRA_CURRENT = "extra_current";
 
@@ -30,7 +29,7 @@ public class IconPickerDialog extends InjectingDialogFragment {
   RecyclerView recyclerView;
 
   @Inject DialogBuilder dialogBuilder;
-  @Inject @ActivityContext Context context;
+  @Inject Activity context;
   @Inject Inventory inventory;
   private IconPickerCallback callback;
 
@@ -79,11 +78,6 @@ public class IconPickerDialog extends InjectingDialogFragment {
 
   private void onSelected(int index) {
     callback.onSelected(getDialog(), index);
-  }
-
-  @Override
-  protected void inject(FragmentComponent component) {
-    component.inject(this);
   }
 
   public interface IconPickerCallback {

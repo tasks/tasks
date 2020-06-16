@@ -17,6 +17,7 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.timers.TimerPlugin;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +26,6 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.filters.RecentlyModifiedFilter;
 import org.tasks.filters.SortableFilter;
-import org.tasks.injection.ApplicationContext;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.CustomIcons;
 

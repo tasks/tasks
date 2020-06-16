@@ -12,21 +12,22 @@ import android.widget.ListView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import dagger.hilt.android.AndroidEntryPoint;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.injection.FragmentComponent;
-import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.preferences.FragmentPermissionRequestor;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.PermissionRequestor;
 import org.tasks.themes.Theme;
 import org.tasks.ui.SingleCheckedArrayAdapter;
 
-public class CalendarPicker extends InjectingDialogFragment {
+@AndroidEntryPoint
+public class CalendarPicker extends DialogFragment {
 
   public static final String EXTRA_CALENDAR_ID = "extra_calendar_id";
   public static final String EXTRA_CALENDAR_NAME = "extra_calendar_name";
@@ -123,10 +124,5 @@ public class CalendarPicker extends InjectingDialogFragment {
     } else {
       super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
-  }
-
-  @Override
-  protected void inject(FragmentComponent component) {
-    component.inject(this);
   }
 }

@@ -8,17 +8,18 @@ import android.net.Uri;
 import androidx.core.app.JobIntentService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.gcal.CalendarAlarmReceiver;
+import dagger.hilt.android.AndroidEntryPoint;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.calendars.AndroidCalendarEvent;
 import org.tasks.calendars.CalendarEventProvider;
-import org.tasks.injection.ApplicationComponent;
-import org.tasks.injection.ApplicationContext;
 import org.tasks.injection.InjectingJobIntentService;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
+@AndroidEntryPoint
 public class CalendarNotificationIntentService extends RecurringIntervalIntentService {
 
   public static final String URI_PREFIX_POSTPONE = "cal-postpone";
@@ -70,11 +71,6 @@ public class CalendarNotificationIntentService extends RecurringIntervalIntentSe
     return preferences.getBoolean(R.string.p_calendar_reminders, false)
         ? TimeUnit.HOURS.toMillis(12)
         : 0;
-  }
-
-  @Override
-  protected void inject(ApplicationComponent component) {
-    component.inject(this);
   }
 
   public static class Broadcast extends BroadcastReceiver {

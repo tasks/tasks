@@ -1,23 +1,25 @@
 package org.tasks
 
+import android.app.Application
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
 import androidx.core.app.JobIntentService
+import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
 import com.todoroo.astrid.service.Upgrader
 import dagger.Lazy
+import dagger.hilt.android.HiltAndroidApp
+import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Completable
 import io.reactivex.schedulers.Schedulers
 import org.tasks.billing.BillingClient
 import org.tasks.billing.Inventory
 import org.tasks.files.FileHelper
-import org.tasks.injection.ApplicationComponent
-import org.tasks.injection.ApplicationContext
-import org.tasks.injection.InjectingApplication
 import org.tasks.injection.InjectingJobIntentService
 import org.tasks.jobs.WorkManager
+import org.tasks.locale.Locale
 import org.tasks.location.GeofenceApi
 import org.tasks.preferences.Preferences
 import org.tasks.receivers.RefreshReceiver
@@ -29,7 +31,8 @@ import org.tasks.widget.AppWidgetManager
 import timber.log.Timber
 import javax.inject.Inject
 
-class Tasks : InjectingApplication(), Configuration.Provider {
+@HiltAndroidApp
+class Tasks : Application(), Configuration.Provider {
     @Inject @ApplicationContext lateinit var context: Context
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var buildSetup: BuildSetup
@@ -41,6 +44,7 @@ class Tasks : InjectingApplication(), Configuration.Provider {
     @Inject lateinit var geofenceApi: Lazy<GeofenceApi>
     @Inject lateinit var billingClient: Lazy<BillingClient>
     @Inject lateinit var appWidgetManager: Lazy<AppWidgetManager>
+    @Inject lateinit var workerFactory: HiltWorkerFactory
     
     override fun onCreate() {
         super.onCreate()
@@ -49,6 +53,7 @@ class Tasks : InjectingApplication(), Configuration.Provider {
         preferences.isSyncOngoing = false
         ThemeBase.getThemeBase(preferences, inventory, null).setDefaultNightMode()
         localBroadcastManager.registerRefreshReceiver(RefreshBroadcastReceiver())
+        Locale.getInstance(this).createConfigurationContext(applicationContext)
         Completable.fromAction { doInBackground() }.subscribeOn(Schedulers.io()).subscribe()
     }
 
@@ -78,10 +83,9 @@ class Tasks : InjectingApplication(), Configuration.Provider {
         appWidgetManager.get().reconfigureWidgets()
     }
 
-    override fun inject(component: ApplicationComponent) = component.inject(this)
-
     override fun getWorkManagerConfiguration(): Configuration {
         return Configuration.Builder()
+                .setWorkerFactory(workerFactory)
                 .setMinimumLoggingLevel(if (BuildConfig.DEBUG) Log.DEBUG else Log.INFO)
                 .build()
     }

@@ -8,6 +8,8 @@ import android.os.Bundle;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
+import dagger.hilt.android.AndroidEntryPoint;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -16,13 +18,12 @@ import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.filters.FilterProvider;
-import org.tasks.injection.ActivityComponent;
-import org.tasks.injection.ApplicationContext;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import org.tasks.widget.WidgetPreferences;
 
+@AndroidEntryPoint
 public class FilterSelectionActivity extends InjectingAppCompatActivity {
 
   public static final String EXTRA_RETURN_FILTER = "extra_include_filter";
@@ -124,10 +125,5 @@ public class FilterSelectionActivity extends InjectingAppCompatActivity {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(items -> filterAdapter.setData(items, selected)));
-  }
-
-  @Override
-  public void inject(ActivityComponent component) {
-    component.inject(this);
   }
 }

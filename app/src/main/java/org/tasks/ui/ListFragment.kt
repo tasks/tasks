@@ -12,23 +12,20 @@ import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.data.Task
-import com.todoroo.astrid.gtasks.GtasksListService
 import com.todoroo.astrid.service.TaskMover
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.activities.ListPicker
-import org.tasks.data.CaldavDao
-import org.tasks.data.CaldavTask
-import org.tasks.data.GoogleTask
-import org.tasks.data.GoogleTaskDao
-import org.tasks.injection.FragmentComponent
+import org.tasks.data.*
 import org.tasks.preferences.DefaultFilterProvider
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class ListFragment : TaskEditControlFragment() {
     @BindView(R.id.chip_group)
     lateinit var chipGroup: ChipGroup
 
-    @Inject lateinit var gtasksListService: GtasksListService
+    @Inject lateinit var googleTaskListDao: GoogleTaskListDao
     @Inject lateinit var googleTaskDao: GoogleTaskDao
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
@@ -58,7 +55,7 @@ class ListFragment : TaskEditControlFragment() {
             if (task.isNew) {
                 if (task.hasTransitory(GoogleTask.KEY)) {
                     val listId = task.getTransitory<String>(GoogleTask.KEY)!!
-                    val googleTaskList = gtasksListService.getList(listId)
+                    val googleTaskList = googleTaskListDao.getByRemoteId(listId)
                     if (googleTaskList != null) {
                         originalList = GtasksFilter(googleTaskList)
                     }
@@ -72,7 +69,7 @@ class ListFragment : TaskEditControlFragment() {
                 val googleTask = googleTaskDao.getByTaskId(task.id)
                 val caldavTask = caldavDao.getTask(task.id)
                 if (googleTask != null) {
-                    val googleTaskList = gtasksListService.getList(googleTask.listId)
+                    val googleTaskList = googleTaskListDao.getByRemoteId(googleTask.listId!!)
                     if (googleTaskList != null) {
                         originalList = GtasksFilter(googleTaskList)
                     }
@@ -129,8 +126,6 @@ class ListFragment : TaskEditControlFragment() {
     override fun hasChanges(original: Task) = hasChanges()
 
     private fun hasChanges() = selectedList != originalList
-
-    override fun inject(component: FragmentComponent) = component.inject(this)
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_CODE_SELECT_LIST) {

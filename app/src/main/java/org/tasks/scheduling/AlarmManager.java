@@ -3,8 +3,8 @@ package org.tasks.scheduling;
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import javax.inject.Inject;
-import org.tasks.injection.ApplicationContext;
 
 public class AlarmManager {
 

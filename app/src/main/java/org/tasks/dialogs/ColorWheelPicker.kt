@@ -8,20 +8,21 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import com.flask.colorpicker.ColorPickerView
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
-import org.tasks.injection.FragmentComponent
-import org.tasks.injection.InjectingDialogFragment
 import org.tasks.ui.NavigationDrawerFragment.Companion.REQUEST_PURCHASE
 import javax.inject.Inject
 
 private const val REQUEST_PURCHASE = 10010
 
-class ColorWheelPicker : InjectingDialogFragment() {
+@AndroidEntryPoint
+class ColorWheelPicker : DialogFragment() {
 
     companion object {
         const val EXTRA_SELECTED = "extra_selected"
@@ -45,8 +46,6 @@ class ColorWheelPicker : InjectingDialogFragment() {
     var dialog: AlertDialog? = null
     var selected = -1
     var callback: ColorPickedCallback? = null
-
-    override fun inject(component: FragmentComponent) = component.inject(this)
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         selected = savedInstanceState?.getInt(EXTRA_SELECTED) ?: requireArguments().getInt(EXTRA_SELECTED, 0)

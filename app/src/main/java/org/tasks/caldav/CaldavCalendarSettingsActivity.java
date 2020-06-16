@@ -2,12 +2,13 @@ package org.tasks.caldav;
 
 import android.os.Bundle;
 import androidx.lifecycle.ViewModelProvider;
+import dagger.hilt.android.AndroidEntryPoint;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
-import org.tasks.injection.ActivityComponent;
 
+@AndroidEntryPoint
 public class CaldavCalendarSettingsActivity extends BaseCaldavCalendarSettingsActivity {
 
   @Inject CaldavClient client;
@@ -33,11 +34,6 @@ public class CaldavCalendarSettingsActivity extends BaseCaldavCalendarSettingsAc
     createCalendarViewModel.observe(this, this::createSuccessful, this::requestFailed);
     deleteCalendarViewModel.observe(this, this::onDeleted, this::requestFailed);
     updateCalendarViewModel.observe(this, ignored -> updateCalendar(), this::requestFailed);
-  }
-
-  @Override
-  public void inject(ActivityComponent component) {
-    component.inject(this);
   }
 
   @Override

@@ -24,6 +24,7 @@ import com.etesync.journalmanager.model.SyncEntry.Actions;
 import com.google.common.collect.Iterables;
 import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.TaskDeleter;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -42,7 +43,6 @@ import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.CaldavTask;
 import org.tasks.data.CaldavTaskContainer;
-import org.tasks.injection.ApplicationContext;
 import timber.log.Timber;
 
 public class EteSynchronizer {

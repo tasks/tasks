@@ -6,17 +6,18 @@ import android.os.Bundle;
 import androidx.fragment.app.FragmentManager;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.reminders.ReminderService;
+import dagger.hilt.android.AndroidEntryPoint;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.dialogs.MyTimePickerDialog;
-import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.themes.ThemeAccent;
 import org.tasks.time.DateTime;
 
+@AndroidEntryPoint
 public class SnoozeActivity extends InjectingAppCompatActivity
     implements SnoozeCallback, DialogInterface.OnCancelListener {
 
@@ -40,11 +41,6 @@ public class SnoozeActivity extends InjectingAppCompatActivity
     themeAccent.applyStyle(getTheme());
 
     setup(getIntent(), savedInstanceState);
-  }
-
-  @Override
-  public void inject(ActivityComponent component) {
-    component.inject(this);
   }
 
   @Override

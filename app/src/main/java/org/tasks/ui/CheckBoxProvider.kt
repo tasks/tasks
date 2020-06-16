@@ -6,8 +6,8 @@ import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import androidx.annotation.DrawableRes
 import com.todoroo.astrid.data.Task
+import dagger.hilt.android.qualifiers.ActivityContext
 import org.tasks.R
-import org.tasks.injection.ActivityContext
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.DrawableUtil
 import javax.inject.Inject

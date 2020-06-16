@@ -3,9 +3,9 @@ package org.tasks.widget;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.injection.ApplicationContext;
 
 public class AppWidgetManager {
 

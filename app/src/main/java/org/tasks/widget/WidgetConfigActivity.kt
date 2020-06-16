@@ -3,11 +3,12 @@ package org.tasks.widget
 import android.appwidget.AppWidgetManager
 import android.content.Intent
 import android.os.Bundle
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
-import org.tasks.injection.ActivityComponent
 import org.tasks.preferences.BasePreferences
 import org.tasks.preferences.fragments.ScrollableWidget.Companion.newScrollableWidget
 
+@AndroidEntryPoint
 class WidgetConfigActivity : BasePreferences() {
 
     private var appWidgetId: Int = 0
@@ -32,6 +33,4 @@ class WidgetConfigActivity : BasePreferences() {
     override fun getRootTitle() = R.string.widget_settings
 
     override fun getRootPreference() = newScrollableWidget(appWidgetId)
-
-    override fun inject(component: ActivityComponent) = component.inject(this)
 }

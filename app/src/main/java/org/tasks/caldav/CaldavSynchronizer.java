@@ -31,6 +31,7 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.TaskDeleter;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
@@ -55,7 +56,6 @@ import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.CaldavTask;
-import org.tasks.injection.ApplicationContext;
 import timber.log.Timber;
 
 public class CaldavSynchronizer {

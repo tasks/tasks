@@ -1,26 +1,18 @@
 package org.tasks.receivers;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import org.tasks.injection.ApplicationComponent;
-import org.tasks.injection.InjectingBroadcastReceiver;
 import timber.log.Timber;
 
-public class BootCompletedReceiver extends InjectingBroadcastReceiver {
+public class BootCompletedReceiver extends BroadcastReceiver {
 
   @Override
   public void onReceive(Context context, Intent intent) {
-    super.onReceive(context, intent);
-
     if (!Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
       return;
     }
 
     Timber.d("onReceive(context, %s)", intent);
-  }
-
-  @Override
-  protected void inject(ApplicationComponent component) {
-    component.inject(this);
   }
 }

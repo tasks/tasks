@@ -4,17 +4,18 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.FragmentManager
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.billing.BillingClient
 import org.tasks.billing.Inventory
 import org.tasks.dialogs.WhatsNewDialog
-import org.tasks.injection.FragmentComponent
 import org.tasks.injection.InjectingPreferenceFragment
 import javax.inject.Inject
 
-private val FRAG_TAG_WHATS_NEW = "frag_tag_whats_new"
+private const val FRAG_TAG_WHATS_NEW = "frag_tag_whats_new"
 
+@AndroidEntryPoint
 class HelpAndFeedback : InjectingPreferenceFragment() {
 
     @Inject lateinit var billingClient: BillingClient
@@ -75,8 +76,6 @@ class HelpAndFeedback : InjectingPreferenceFragment() {
             )
         }
     }
-
-    override fun inject(component: FragmentComponent) = component.inject(this)
 
     override fun getMenu() = 0
 }

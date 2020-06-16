@@ -2,16 +2,16 @@ package com.todoroo.astrid.adapter
 
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.natpryce.makeiteasy.PropertyValue
 import com.todoroo.astrid.core.BuiltInFilterExposer
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
+import dagger.hilt.android.testing.HiltAndroidTest
+import dagger.hilt.android.testing.UninstallModules
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.data.CaldavDao
@@ -19,15 +19,15 @@ import org.tasks.data.GoogleTaskDao
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskListQuery.getQuery
 import org.tasks.injection.InjectingTestCase
-import org.tasks.injection.TestComponent
+import org.tasks.injection.ProductionModule
 import org.tasks.makers.TaskMaker.PARENT
 import org.tasks.makers.TaskMaker.newTask
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
 
-@RunWith(AndroidJUnit4::class)
+@UninstallModules(ProductionModule::class)
+@HiltAndroidTest
 class NonRecursiveQueryTest : InjectingTestCase() {
-
     @Inject lateinit var googleTaskDao: GoogleTaskDao
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var taskDao: TaskDao
@@ -74,6 +74,4 @@ class NonRecursiveQueryTest : InjectingTestCase() {
     private fun query() {
         tasks.addAll(taskDao.fetchTasks { getQuery(preferences, filter, it) })
     }
-
-    override fun inject(component: TestComponent) = component.inject(this)
 }

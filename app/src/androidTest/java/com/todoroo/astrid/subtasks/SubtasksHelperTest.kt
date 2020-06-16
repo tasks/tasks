@@ -1,16 +1,18 @@
 package com.todoroo.astrid.subtasks
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.todoroo.astrid.data.Task
+import dagger.hilt.android.testing.HiltAndroidTest
+import dagger.hilt.android.testing.UninstallModules
 import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.tasks.data.TaskListMetadata
-import org.tasks.injection.TestComponent
+import org.tasks.injection.ProductionModule
 
-@RunWith(AndroidJUnit4::class)
+@UninstallModules(ProductionModule::class)
+@HiltAndroidTest
 class SubtasksHelperTest : SubtasksTestCase() {
-    
+    @Before
     override fun setUp() {
         super.setUp()
         createTasks()
@@ -52,8 +54,6 @@ class SubtasksHelperTest : SubtasksTestCase() {
                 .replace("\\s".toRegex(), "")
         assertEquals(EXPECTED_REMOTE, mapped)
     }
-
-    override fun inject(component: TestComponent) = component.inject(this)
 
     companion object {
         private val EXPECTED_ORDER = arrayOf("-1", "1", "2", "3", "4", "5", "6")

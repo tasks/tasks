@@ -9,10 +9,10 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.MainActivity;
+import dagger.hilt.android.AndroidEntryPoint;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.preferences.MainPreferences;
 import org.tasks.preferences.Preferences;
@@ -20,6 +20,7 @@ import org.tasks.scheduling.AlarmManager;
 import org.tasks.scheduling.CalendarNotificationIntentService;
 import org.tasks.themes.ThemeAccent;
 
+@AndroidEntryPoint
 public class CalendarReminderActivity extends ThemedInjectingAppCompatActivity {
 
   public static final String TOKEN_EVENT_ID = "eventId";
@@ -95,11 +96,6 @@ public class CalendarReminderActivity extends ThemedInjectingAppCompatActivity {
     setupUi();
 
     addListeners();
-  }
-
-  @Override
-  public void inject(ActivityComponent component) {
-    component.inject(this);
   }
 
   private void setupUi() {

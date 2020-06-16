@@ -1,22 +1,24 @@
 package org.tasks.jobs
 
 import android.content.Context
+import androidx.hilt.Assisted
+import androidx.hilt.work.WorkerInject
 import androidx.work.WorkerParameters
 import org.tasks.LocalBroadcastManager
-import org.tasks.injection.ApplicationComponent
+import org.tasks.analytics.Firebase
 import org.tasks.scheduling.RefreshScheduler
-import javax.inject.Inject
 
-class RefreshWork(context: Context, workerParams: WorkerParameters) : RepeatingWorker(context, workerParams) {
-    @Inject lateinit var refreshScheduler: RefreshScheduler
-    @Inject lateinit var localBroadcastManager: LocalBroadcastManager
+class RefreshWork @WorkerInject constructor(
+        @Assisted context: Context,
+        @Assisted workerParams: WorkerParameters,
+        firebase: Firebase,
+        private val refreshScheduler: RefreshScheduler,
+        private val localBroadcastManager: LocalBroadcastManager) : RepeatingWorker(context, workerParams, firebase) {
 
     public override fun run(): Result {
         localBroadcastManager.broadcastRefresh()
         return Result.success()
     }
-
-    override fun inject(component: ApplicationComponent) = component.inject(this)
 
     override fun scheduleNext() = refreshScheduler.scheduleNext()
 }

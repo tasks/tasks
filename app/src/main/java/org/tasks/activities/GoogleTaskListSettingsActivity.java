@@ -19,15 +19,16 @@ import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.service.TaskDeleter;
+import dagger.hilt.android.AndroidEntryPoint;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
-import org.tasks.injection.ActivityComponent;
-import org.tasks.injection.ApplicationContext;
 import timber.log.Timber;
 
+@AndroidEntryPoint
 public class GoogleTaskListSettingsActivity extends BaseListSettingsActivity {
 
   public static final String EXTRA_ACCOUNT = "extra_account";
@@ -114,11 +115,6 @@ public class GoogleTaskListSettingsActivity extends BaseListSettingsActivity {
 
   private boolean requestInProgress() {
     return progressView.getVisibility() == View.VISIBLE;
-  }
-
-  @Override
-  public void inject(ActivityComponent component) {
-    component.inject(this);
   }
 
   @Override

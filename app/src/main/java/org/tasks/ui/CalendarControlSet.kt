@@ -2,7 +2,6 @@ package org.tasks.ui
 
 import android.app.Activity
 import android.content.ContentValues
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -16,6 +15,7 @@ import butterknife.BindView
 import butterknife.OnClick
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.gcal.GCalHelper
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.PermissionUtil.verifyPermissions
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
@@ -24,8 +24,6 @@ import org.tasks.calendars.CalendarEventProvider
 import org.tasks.calendars.CalendarPicker
 import org.tasks.calendars.CalendarProvider
 import org.tasks.dialogs.DialogBuilder
-import org.tasks.injection.ActivityContext
-import org.tasks.injection.FragmentComponent
 import org.tasks.preferences.FragmentPermissionRequestor
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
@@ -33,6 +31,7 @@ import org.tasks.themes.ThemeBase
 import timber.log.Timber
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class CalendarControlSet : TaskEditControlFragment() {
     @BindView(R.id.clear)
     lateinit var cancelButton: View
@@ -40,7 +39,7 @@ class CalendarControlSet : TaskEditControlFragment() {
     @BindView(R.id.calendar_display_which)
     lateinit var calendar: TextView
 
-    @Inject @ActivityContext lateinit var activity: Context
+    @Inject lateinit var activity: Activity
     @Inject lateinit var gcalHelper: GCalHelper
     @Inject lateinit var calendarProvider: CalendarProvider
     @Inject lateinit var preferences: Preferences
@@ -284,8 +283,6 @@ class CalendarControlSet : TaskEditControlFragment() {
         }
         return false
     }
-
-    override fun inject(component: FragmentComponent) = component.inject(this)
 
     companion object {
         const val TAG = R.string.TEA_ctrl_gcal

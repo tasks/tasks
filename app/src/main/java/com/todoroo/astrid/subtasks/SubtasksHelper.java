@@ -9,6 +9,7 @@ import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater.Node;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +19,6 @@ import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
 import org.tasks.data.TaskListMetadata;
 import org.tasks.data.TaskListMetadataDao;
-import org.tasks.injection.ApplicationContext;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 

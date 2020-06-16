@@ -1,14 +1,18 @@
 package org.tasks.jobs
 
 import android.content.Context
+import androidx.hilt.Assisted
+import androidx.hilt.work.WorkerInject
 import androidx.work.WorkerParameters
 import org.tasks.LocalBroadcastManager
-import org.tasks.injection.ApplicationComponent
-import javax.inject.Inject
+import org.tasks.analytics.Firebase
 
-class MidnightRefreshWork(context: Context, workerParams: WorkerParameters) : RepeatingWorker(context, workerParams) {
-    @Inject lateinit var workManager: WorkManager
-    @Inject lateinit var localBroadcastManager: LocalBroadcastManager
+class MidnightRefreshWork @WorkerInject constructor(
+        @Assisted context: Context,
+        @Assisted workerParams: WorkerParameters,
+        firebase: Firebase,
+        private val workManager: WorkManager,
+        private val localBroadcastManager: LocalBroadcastManager) : RepeatingWorker(context, workerParams, firebase) {
 
     override fun run(): Result {
         localBroadcastManager.broadcastRefresh()
@@ -16,6 +20,4 @@ class MidnightRefreshWork(context: Context, workerParams: WorkerParameters) : Re
     }
 
     override fun scheduleNext() = workManager.scheduleMidnightRefresh()
-
-    override fun inject(component: ApplicationComponent) = component.inject(this)
 }

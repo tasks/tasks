@@ -6,9 +6,9 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.preference.ListPreference
 import androidx.preference.Preference
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.dialogs.MyTimePickerDialog.newTimePicker
-import org.tasks.injection.FragmentComponent
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.locale.Locale
 import org.tasks.preferences.Preferences
@@ -23,6 +23,7 @@ private const val REQUEST_AFTERNOON = 10008
 private const val REQUEST_EVENING = 10009
 private const val REQUEST_NIGHT = 10010
 
+@AndroidEntryPoint
 class DateAndTime : InjectingPreferenceFragment(), Preference.OnPreferenceChangeListener {
 
     @Inject lateinit var preferences: Preferences
@@ -64,8 +65,6 @@ class DateAndTime : InjectingPreferenceFragment(), Preference.OnPreferenceChange
             super.onActivityResult(requestCode, resultCode, data)
         }
     }
-
-    override fun inject(component: FragmentComponent) = component.inject(this)
 
     private fun initializeTimePreference(preference: TimePreference, requestCode: Int) {
         preference.onPreferenceChangeListener = this

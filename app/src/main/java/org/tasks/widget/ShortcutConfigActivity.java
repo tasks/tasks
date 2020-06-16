@@ -16,20 +16,20 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnFocusChange;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.todoroo.astrid.api.Filter;
+import dagger.hilt.android.AndroidEntryPoint;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.dialogs.ColorPalettePicker;
 import org.tasks.dialogs.ColorPickerAdapter.Palette;
-import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.themes.DrawableUtil;
 import org.tasks.themes.ThemeColor;
 
+@AndroidEntryPoint
 public class ShortcutConfigActivity extends ThemedInjectingAppCompatActivity
     implements ColorPalettePicker.ColorPickedCallback {
 
@@ -42,9 +42,6 @@ public class ShortcutConfigActivity extends ThemedInjectingAppCompatActivity
 
   @BindView(R.id.toolbar)
   Toolbar toolbar;
-
-  @BindView(R.id.shortcut_list_layout)
-  TextInputLayout shortcutListLayout;
 
   @BindView(R.id.shortcut_list)
   TextInputEditText shortcutList;
@@ -169,11 +166,6 @@ public class ShortcutConfigActivity extends ThemedInjectingAppCompatActivity
     intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon);
     setResult(RESULT_OK, intent);
     finish();
-  }
-
-  @Override
-  public void inject(ActivityComponent component) {
-    component.inject(this);
   }
 
   @Override

@@ -8,15 +8,16 @@ import androidx.fragment.app.FragmentManager;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskCompleter;
+import dagger.hilt.android.AndroidEntryPoint;
 import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.dialogs.DateTimePicker;
-import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.Preferences;
 
+@AndroidEntryPoint
 public class WidgetClickActivity extends InjectingAppCompatActivity
     implements DateTimePicker.OnDismissHandler {
 
@@ -77,11 +78,6 @@ public class WidgetClickActivity extends InjectingAppCompatActivity
         }
         break;
     }
-  }
-
-  @Override
-  public void inject(ActivityComponent component) {
-    component.inject(this);
   }
 
   @Override

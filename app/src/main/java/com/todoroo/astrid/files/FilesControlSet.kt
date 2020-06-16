@@ -7,7 +7,6 @@ package com.todoroo.astrid.files
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -19,21 +18,21 @@ import android.widget.TextView
 import butterknife.BindView
 import butterknife.OnClick
 import com.todoroo.astrid.data.Task
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.data.TaskAttachment
 import org.tasks.data.TaskAttachmentDao
 import org.tasks.dialogs.AddAttachmentDialog
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.files.FileHelper
-import org.tasks.injection.ActivityContext
-import org.tasks.injection.FragmentComponent
 import org.tasks.preferences.Preferences
 import org.tasks.ui.TaskEditControlFragment
 import java.util.*
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class FilesControlSet : TaskEditControlFragment() {
-    @Inject @ActivityContext lateinit var activity: Context
+    @Inject lateinit var activity: Activity
     @Inject lateinit var taskAttachmentDao: TaskAttachmentDao
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var preferences: Preferences
@@ -127,8 +126,6 @@ class FilesControlSet : TaskEditControlFragment() {
                     .show()
         }
     }
-
-    override fun inject(component: FragmentComponent) = component.inject(this)
 
     @SuppressLint("NewApi")
     private fun showFile(m: TaskAttachment) {

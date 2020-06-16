@@ -4,11 +4,11 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.UUID;
 import javax.inject.Inject;
-import org.tasks.injection.ApplicationContext;
 import timber.log.Timber;
 
 /** @author Arne Jans */

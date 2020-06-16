@@ -7,14 +7,15 @@ import android.os.Bundle;
 import android.widget.RemoteViewsService;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
+import dagger.hilt.android.AndroidEntryPoint;
 import javax.inject.Inject;
-import org.tasks.injection.InjectingApplication;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.ColorProvider;
 import org.tasks.ui.CheckBoxProvider;
 
+@AndroidEntryPoint
 public class ScrollableWidgetUpdateService extends RemoteViewsService {
 
   @Inject TaskDao taskDao;
@@ -22,13 +23,6 @@ public class ScrollableWidgetUpdateService extends RemoteViewsService {
   @Inject SubtasksHelper subtasksHelper;
   @Inject DefaultFilterProvider defaultFilterProvider;
   @Inject Locale locale;
-
-  @Override
-  public void onCreate() {
-    super.onCreate();
-
-    ((InjectingApplication) getApplication()).getComponent().inject(this);
-  }
 
   @Override
   public void onStart(Intent intent, int startId) {

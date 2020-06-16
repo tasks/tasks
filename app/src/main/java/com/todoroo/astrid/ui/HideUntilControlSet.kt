@@ -6,7 +6,6 @@
 package com.todoroo.astrid.ui
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,12 +17,11 @@ import butterknife.BindView
 import butterknife.OnClick
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.data.Task
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.activities.DateAndTimePickerActivity
 import org.tasks.date.DateTimeUtils
 import org.tasks.dialogs.MyTimePickerDialog
-import org.tasks.injection.ActivityContext
-import org.tasks.injection.FragmentComponent
 import org.tasks.locale.Locale
 import org.tasks.preferences.Preferences
 import org.tasks.themes.ThemeBase
@@ -37,10 +35,11 @@ import javax.inject.Inject
  *
  * @author Tim Su <tim></tim>@todoroo.com>
  */
+@AndroidEntryPoint
 class HideUntilControlSet : TaskEditControlFragment(), OnItemSelectedListener {
     private val spinnerItems: MutableList<HideUntilValue> = ArrayList()
 
-    @Inject @ActivityContext lateinit var activity: Context
+    @Inject lateinit var activity: Activity
     @Inject lateinit var themeBase: ThemeBase
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var locale: Locale
@@ -179,10 +178,6 @@ class HideUntilControlSet : TaskEditControlFragment(), OnItemSelectedListener {
         super.onSaveInstanceState(outState)
         outState.putLong(EXTRA_CUSTOM, existingDate)
         outState.putInt(EXTRA_SELECTION, selection)
-    }
-
-    override fun inject(component: FragmentComponent) {
-        component.inject(this)
     }
 
     private fun updateSpinnerOptions(specificDate: Long) {

@@ -4,12 +4,13 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
+import dagger.hilt.android.AndroidEntryPoint;
 import javax.inject.Inject;
 import org.tasks.backup.TasksJsonExporter;
-import org.tasks.injection.FragmentComponent;
-import org.tasks.injection.InjectingDialogFragment;
 
-public class ExportTasksDialog extends InjectingDialogFragment {
+@AndroidEntryPoint
+public class ExportTasksDialog extends DialogFragment {
 
   @Inject DialogBuilder dialogBuilder;
   @Inject TasksJsonExporter tasksJsonExporter;
@@ -32,10 +33,5 @@ public class ExportTasksDialog extends InjectingDialogFragment {
     tasksJsonExporter.exportTasks(
         getActivity(), TasksJsonExporter.ExportType.EXPORT_TYPE_MANUAL, progressDialog);
     return progressDialog;
-  }
-
-  @Override
-  protected void inject(FragmentComponent component) {
-    component.inject(this);
   }
 }

@@ -6,8 +6,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.tasks.TestUtilities.newPreferences
-import java.security.KeyManagementException
-import java.security.NoSuchAlgorithmException
 
 @RunWith(AndroidJUnit4::class)
 class CaldavClientTest {

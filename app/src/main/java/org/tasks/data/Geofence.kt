@@ -3,7 +3,6 @@ package org.tasks.data
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.*
-import com.todoroo.andlib.data.Property
 import com.todoroo.andlib.data.Table
 import org.tasks.R
 import org.tasks.preferences.Preferences

@@ -4,11 +4,11 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
 import com.todoroo.astrid.api.Filter
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.activities.FilterSelectionActivity
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
-import org.tasks.injection.FragmentComponent
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.locale.bundle.ListNotificationBundle
 import org.tasks.preferences.DefaultFilterProvider
@@ -18,6 +18,7 @@ const val EXTRA_FILTER = "extra_filter"
 private const val REQUEST_SELECT_FILTER = 10124
 private const val REQUEST_SUBSCRIPTION = 10125
 
+@AndroidEntryPoint
 class TaskerListNotification : InjectingPreferenceFragment() {
 
     companion object {
@@ -93,6 +94,4 @@ class TaskerListNotification : InjectingPreferenceFragment() {
 
     fun getBundle(): Bundle =
             ListNotificationBundle.generateBundle(defaultFilterProvider.getFilterPreferenceValue(filter))
-
-    override fun inject(component: FragmentComponent) = component.inject(this)
 }

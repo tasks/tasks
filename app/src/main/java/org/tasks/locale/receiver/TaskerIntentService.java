@@ -1,23 +1,21 @@
 package org.tasks.locale.receiver;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import com.todoroo.astrid.api.Filter;
+import dagger.hilt.android.AndroidEntryPoint;
 import javax.inject.Inject;
 import org.tasks.Notifier;
-import org.tasks.injection.ApplicationComponent;
-import org.tasks.injection.ApplicationContext;
 import org.tasks.injection.InjectingJobIntentService;
 import org.tasks.locale.bundle.ListNotificationBundle;
 import org.tasks.locale.bundle.TaskCreationBundle;
 import org.tasks.preferences.DefaultFilterProvider;
 import timber.log.Timber;
 
+@AndroidEntryPoint
 public class TaskerIntentService extends InjectingJobIntentService {
 
-  @Inject @ApplicationContext Context context;
   @Inject Notifier notifier;
   @Inject DefaultFilterProvider defaultFilterProvider;
   @Inject TaskerTaskCreator taskerTaskCreator;
@@ -41,10 +39,5 @@ public class TaskerIntentService extends InjectingJobIntentService {
     } else {
       Timber.e("Invalid bundle: %s", bundle);
     }
-  }
-
-  @Override
-  protected void inject(ApplicationComponent component) {
-    component.inject(this);
   }
 }

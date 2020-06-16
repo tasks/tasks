@@ -4,7 +4,6 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.todoroo.andlib.data.Property
 import com.todoroo.andlib.data.Table
 
 @Entity(tableName = Notification.TABLE_NAME, indices = [Index(value = ["task"], unique = true)])

@@ -1,13 +1,16 @@
 package com.todoroo.astrid.sync
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.todoroo.astrid.data.Task
+import dagger.hilt.android.testing.HiltAndroidTest
+import dagger.hilt.android.testing.UninstallModules
 import org.junit.Assert.assertNotEquals
 import org.junit.Test
-import org.junit.runner.RunWith
+import org.tasks.injection.ProductionModule
 
-@RunWith(AndroidJUnit4::class)
+@UninstallModules(ProductionModule::class)
+@HiltAndroidTest
 class SyncModelTest : NewSyncTestCase() {
+
     @Test
     fun testCreateTaskMakesUuid() {
         val task = createTask()

@@ -3,12 +3,17 @@ package org.tasks.injection
 import android.content.Context
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.android.scopes.ActivityScoped
 import org.tasks.billing.Inventory
 import org.tasks.gtasks.PlayServices
 import org.tasks.location.*
 import org.tasks.preferences.Preferences
 
 @Module
+@InstallIn(ActivityComponent::class)
 internal class LocationModule {
     @Provides
     @ActivityScoped

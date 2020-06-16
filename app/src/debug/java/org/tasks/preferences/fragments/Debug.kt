@@ -4,14 +4,15 @@ import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.preference.Preference
 import at.bitfire.cert4android.CustomCertManager.Companion.resetCertificates
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.billing.BillingClient
 import org.tasks.billing.Inventory
-import org.tasks.injection.FragmentComponent
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.ui.Toaster
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class Debug : InjectingPreferenceFragment() {
 
     @Inject lateinit var inventory: Inventory
@@ -60,6 +61,4 @@ class Debug : InjectingPreferenceFragment() {
             }
         }
     }
-
-    override fun inject(component: FragmentComponent) = component.inject(this)
 }

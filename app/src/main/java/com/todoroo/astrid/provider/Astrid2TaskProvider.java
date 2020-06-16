@@ -6,6 +6,7 @@
 
 package com.todoroo.astrid.provider;
 
+import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.UriMatcher;
@@ -17,19 +18,19 @@ import androidx.annotation.NonNull;
 import com.google.common.base.Joiner;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import dagger.Lazy;
+import dagger.hilt.EntryPoint;
+import dagger.hilt.InstallIn;
+import dagger.hilt.android.EntryPointAccessors;
+import dagger.hilt.android.components.ApplicationComponent;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
-import javax.inject.Inject;
 import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.data.TagDao;
 import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
-import org.tasks.injection.ApplicationComponent;
-import org.tasks.injection.InjectingContentProvider;
 import timber.log.Timber;
 
 /**
@@ -40,7 +41,15 @@ import timber.log.Timber;
  *
  * @author Tim Su <tim@todoroo.com>
  */
-public class Astrid2TaskProvider extends InjectingContentProvider {
+public class Astrid2TaskProvider extends ContentProvider {
+
+  @EntryPoint
+  @InstallIn(ApplicationComponent.class)
+  interface Astrid2TaskProviderEntryPoint {
+    TagDataDao getTagDataDao();
+    TaskDao getTaskDao();
+    TagDao getTagDao();
+  }
 
   private static final String AUTHORITY = BuildConfig.APPLICATION_ID + ".tasksprovider";
 
@@ -81,10 +90,6 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
     URI_MATCHER.addURI(AUTHORITY, "tags", URI_TAGS);
   }
 
-  @Inject Lazy<TagDataDao> tagDataDao;
-  @Inject Lazy<TaskDao> taskDao;
-  @Inject Lazy<TagDao> tagDao;
-
   public static void notifyDatabaseModification(Context context) {
     try {
       context.getContentResolver().notifyChange(CONTENT_URI, null);
@@ -110,13 +115,12 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
 
   @Override
   public boolean onCreate() {
-    super.onCreate();
-    return false;
+    return true;
   }
 
-  @Override
-  protected void inject(ApplicationComponent component) {
-    component.inject(this);
+  private Astrid2TaskProviderEntryPoint hilt() {
+    return EntryPointAccessors.fromApplication(
+        getContext().getApplicationContext(), Astrid2TaskProviderEntryPoint.class);
   }
 
   /**
@@ -125,7 +129,7 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
    * @return two-column cursor: tag id (string) and tag name
    */
   private Cursor getTags() {
-    List<TagData> tags = tagDataDao.get().tagDataOrderedByName();
+    List<TagData> tags = hilt().getTagDataDao().tagDataOrderedByName();
 
     MatrixCursor ret = new MatrixCursor(TAGS_FIELD_LIST);
 
@@ -170,7 +174,7 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
    */
   private Cursor getTasks() {
     MatrixCursor ret = new MatrixCursor(TASK_FIELD_LIST);
-    List<Task> tasks = taskDao.get().getAstrid2TaskProviderTasks();
+    List<Task> tasks = hilt().getTaskDao().getAstrid2TaskProviderTasks();
     for (Task task : tasks) {
       String taskTags = getTagsAsString(task.getId(), TAG_SEPARATOR);
 
@@ -233,6 +237,6 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
    * @return empty string if no tags, otherwise string
    */
   private String getTagsAsString(long taskId, String separator) {
-    return Joiner.on(separator).join(tagDao.get().getTagNames(taskId));
+    return Joiner.on(separator).join(hilt().getTagDao().getTagNames(taskId));
   }
 }

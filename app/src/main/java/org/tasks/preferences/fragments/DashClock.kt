@@ -4,16 +4,17 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import com.todoroo.astrid.api.Filter
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.activities.FilterSelectionActivity
-import org.tasks.injection.FragmentComponent
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.preferences.DefaultFilterProvider
 import javax.inject.Inject
 
 private const val REQUEST_SELECT_FILTER = 1005
 
+@AndroidEntryPoint
 class DashClock : InjectingPreferenceFragment() {
 
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
@@ -54,6 +55,4 @@ class DashClock : InjectingPreferenceFragment() {
         val filter = defaultFilterProvider.getFilterFromPreference(R.string.p_dashclock_filter)
         findPreference(R.string.p_dashclock_filter).summary = filter?.listingTitle
     }
-
-    override fun inject(component: FragmentComponent) = component.inject(this)
 }

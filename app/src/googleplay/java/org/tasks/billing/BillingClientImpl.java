@@ -16,13 +16,13 @@ import com.android.billingclient.api.Purchase.PurchasesResult;
 import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Iterables;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import java.util.List;
 import org.tasks.BuildConfig;
 import org.tasks.analytics.Firebase;
-import org.tasks.injection.ApplicationContext;
 import timber.log.Timber;
 
 @SuppressWarnings("all")

@@ -1,12 +1,13 @@
 package org.tasks.caldav
 
 import android.os.Bundle
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavDao
-import org.tasks.injection.ActivityComponent
 
+@AndroidEntryPoint
 class LocalListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
 
     override fun getLayout() = R.layout.activity_caldav_calendar_settings
@@ -16,8 +17,6 @@ class LocalListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
 
         toolbar.menu.findItem(R.id.delete)?.isVisible = caldavDao.getCalendarsByAccount(CaldavDao.LOCAL).size > 1
     }
-
-    override fun inject(component: ActivityComponent) = component.inject(this)
 
     override fun createCalendar(caldavAccount: CaldavAccount, name: String, color: Int) =
             createSuccessful(null)

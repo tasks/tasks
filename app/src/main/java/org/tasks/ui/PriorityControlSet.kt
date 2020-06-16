@@ -9,11 +9,12 @@ import androidx.appcompat.widget.AppCompatRadioButton
 import butterknife.BindView
 import butterknife.OnClick
 import com.todoroo.astrid.data.Task
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
-import org.tasks.injection.FragmentComponent
 import org.tasks.themes.ColorProvider
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class PriorityControlSet : TaskEditControlFragment() {
     @Inject lateinit var colorProvider: ColorProvider
 
@@ -31,8 +32,6 @@ class PriorityControlSet : TaskEditControlFragment() {
 
     @Task.Priority
     private var priority = 0
-
-    override fun inject(component: FragmentComponent) = component.inject(this)
 
     @OnClick(R.id.priority_high, R.id.priority_medium, R.id.priority_low, R.id.priority_none)
     fun onPriorityChanged() {

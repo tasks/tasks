@@ -5,6 +5,7 @@ import android.content.Context
 import android.widget.Toast
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
+import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -13,7 +14,6 @@ import io.reactivex.schedulers.Schedulers
 import org.tasks.R
 import org.tasks.data.GoogleTaskListDao
 import org.tasks.data.LocationDao
-import org.tasks.injection.ApplicationContext
 import org.tasks.preferences.Preferences
 import timber.log.Timber
 import javax.inject.Inject

@@ -34,10 +34,6 @@ public class GtasksListService {
     this.localBroadcastManager = localBroadcastManager;
   }
 
-  public GoogleTaskList getList(long id) {
-    return googleTaskListDao.getById(id);
-  }
-
   /**
    * Reads in remote list information and updates local list objects.
    *
@@ -88,9 +84,5 @@ public class GtasksListService {
     }
 
     localBroadcastManager.broadcastRefreshList();
-  }
-
-  public GoogleTaskList getList(String listId) {
-    return googleTaskListDao.getByRemoteId(listId);
   }
 }

@@ -1,5 +1,6 @@
 package org.tasks.ui
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
@@ -19,11 +20,10 @@ import org.tasks.data.TaskContainer
 import org.tasks.data.TaskListQuery.getQuery
 import org.tasks.preferences.Preferences
 import timber.log.Timber
-import javax.inject.Inject
 
-class TaskListViewModel : ViewModel(), Observer<PagedList<TaskContainer>> {
-    @Inject lateinit var preferences: Preferences
-    @Inject lateinit var taskDao: TaskDao
+class TaskListViewModel @ViewModelInject constructor(
+        private val preferences: Preferences,
+        private val taskDao: TaskDao) : ViewModel(), Observer<PagedList<TaskContainer>> {
 
     private var tasks = MutableLiveData<List<TaskContainer>>()
     private var filter: Filter? = null

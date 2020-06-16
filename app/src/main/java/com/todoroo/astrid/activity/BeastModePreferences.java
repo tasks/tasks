@@ -17,16 +17,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.hilt.android.AndroidEntryPoint;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.preferences.Preferences;
 import org.tasks.preferences.beast.BeastModeRecyclerAdapter;
 
+@AndroidEntryPoint
 public class BeastModePreferences extends ThemedInjectingAppCompatActivity
     implements Toolbar.OnMenuItemClickListener {
 
@@ -100,11 +101,6 @@ public class BeastModePreferences extends ThemedInjectingAppCompatActivity
     recyclerView.setHasFixedSize(true);
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
     adapter.applyToRecyclerView(recyclerView);
-  }
-
-  @Override
-  public void inject(ActivityComponent component) {
-    component.inject(this);
   }
 
   @Override

@@ -14,15 +14,16 @@ import android.os.Build;
 import androidx.core.app.JobIntentService;
 import com.todoroo.astrid.alarms.AlarmService;
 import com.todoroo.astrid.reminders.ReminderService;
+import dagger.hilt.android.AndroidEntryPoint;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.injection.ApplicationComponent;
-import org.tasks.injection.ApplicationContext;
 import org.tasks.injection.InjectingJobIntentService;
 import org.tasks.jobs.NotificationQueue;
 import org.tasks.notifications.NotificationManager;
 import timber.log.Timber;
 
+@AndroidEntryPoint
 public class NotificationSchedulerIntentService extends InjectingJobIntentService {
 
   private static final String EXTRA_CANCEL_EXISTING_NOTIFICATIONS =
@@ -91,10 +92,5 @@ public class NotificationSchedulerIntentService extends InjectingJobIntentServic
     notificationChannel.setBypassDnd(alert);
     notificationChannel.setShowBadge(alert);
     return notificationChannel;
-  }
-
-  @Override
-  protected void inject(ApplicationComponent component) {
-    component.inject(this);
   }
 }

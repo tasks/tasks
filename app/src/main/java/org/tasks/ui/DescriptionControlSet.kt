@@ -8,13 +8,14 @@ import android.widget.EditText
 import butterknife.BindView
 import butterknife.OnTextChanged
 import com.todoroo.astrid.data.Task
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.dialogs.Linkify
-import org.tasks.injection.FragmentComponent
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class DescriptionControlSet : TaskEditControlFragment() {
     @Inject lateinit var linkify: Linkify
     @Inject lateinit var preferences: Preferences
@@ -66,8 +67,6 @@ class DescriptionControlSet : TaskEditControlFragment() {
     override fun hasChanges(original: Task): Boolean {
         return !if (isNullOrEmpty(description)) isNullOrEmpty(original.notes) else description == stripCarriageReturns(original.notes)
     }
-
-    override fun inject(component: FragmentComponent) = component.inject(this)
 
     companion object {
         const val TAG = R.string.TEA_ctrl_notes_pref

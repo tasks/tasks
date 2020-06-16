@@ -5,35 +5,36 @@
  */
 package com.todoroo.astrid.service
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.ical.values.Frequency
 import com.google.ical.values.RRule
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.utility.TitleParser
+import dagger.hilt.android.testing.HiltAndroidTest
+import dagger.hilt.android.testing.UninstallModules
 import org.junit.Assert.*
+import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.tasks.R
 import org.tasks.data.TagDataDao
 import org.tasks.date.DateTimeUtils
 import org.tasks.injection.InjectingTestCase
-import org.tasks.injection.TestComponent
+import org.tasks.injection.ProductionModule
 import org.tasks.preferences.Preferences
 import java.util.*
 import javax.inject.Inject
 
-@RunWith(AndroidJUnit4::class)
+@UninstallModules(ProductionModule::class)
+@HiltAndroidTest
 class TitleParserTest : InjectingTestCase() {
     @Inject lateinit var tagDataDao: TagDataDao
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var taskCreator: TaskCreator
-    
+
+    @Before
     override fun setUp() {
         super.setUp()
         preferences.setStringFromInteger(R.string.p_default_urgency_key, 0)
     }
-
-    override fun inject(component: TestComponent) = component.inject(this)
 
     /**
      * test that completing a task w/ no regular expressions creates a simple task with no date, no

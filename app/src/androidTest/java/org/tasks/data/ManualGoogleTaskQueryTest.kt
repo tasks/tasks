@@ -1,18 +1,18 @@
 package org.tasks.data
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.helper.UUIDHelper
+import dagger.hilt.android.testing.HiltAndroidTest
+import dagger.hilt.android.testing.UninstallModules
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.tasks.R
 import org.tasks.injection.InjectingTestCase
-import org.tasks.injection.TestComponent
+import org.tasks.injection.ProductionModule
 import org.tasks.makers.GoogleTaskListMaker.REMOTE_ID
 import org.tasks.makers.GoogleTaskListMaker.newGoogleTaskList
 import org.tasks.makers.GoogleTaskMaker.LIST
@@ -26,9 +26,9 @@ import org.tasks.makers.TaskMaker.UUID
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
 
-@RunWith(AndroidJUnit4::class)
+@UninstallModules(ProductionModule::class)
+@HiltAndroidTest
 class ManualGoogleTaskQueryTest : InjectingTestCase() {
-
     @Inject lateinit var googleTaskDao: GoogleTaskDao
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var preferences: Preferences
@@ -106,6 +106,4 @@ class ManualGoogleTaskQueryTest : InjectingTestCase() {
     private fun query(): List<TaskContainer> = taskDao.fetchTasks {
         TaskListQuery.getQuery(preferences, filter, it)
     }
-
-    override fun inject(component: TestComponent) = component.inject(this)
 }

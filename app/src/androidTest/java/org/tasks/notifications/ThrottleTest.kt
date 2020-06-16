@@ -7,7 +7,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito
 import org.tasks.Freeze
-import org.tasks.notifications.Throttle
 import org.tasks.time.DateTimeUtils
 
 @RunWith(AndroidJUnit4::class)

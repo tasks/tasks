@@ -12,6 +12,7 @@ import androidx.annotation.StringRes
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.todoroo.astrid.api.Filter
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
@@ -26,7 +27,6 @@ import org.tasks.dialogs.ColorWheelPicker
 import org.tasks.dialogs.ThemePickerDialog
 import org.tasks.dialogs.ThemePickerDialog.Companion.newThemePickerDialog
 import org.tasks.gtasks.PlayServices
-import org.tasks.injection.FragmentComponent
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.locale.Locale
 import org.tasks.locale.LocalePickerDialog
@@ -54,6 +54,7 @@ private const val FRAG_TAG_LOCALE_PICKER = "frag_tag_locale_picker"
 private const val FRAG_TAG_THEME_PICKER = "frag_tag_theme_picker"
 private const val FRAG_TAG_COLOR_PICKER = "frag_tag_color_picker"
 
+@AndroidEntryPoint
 class LookAndFeel : InjectingPreferenceFragment() {
 
     @Inject lateinit var themeBase: ThemeBase
@@ -352,10 +353,6 @@ class LookAndFeel : InjectingPreferenceFragment() {
                 PackageManager.DONT_KILL_APP
             )
         }
-    }
-
-    override fun inject(component: FragmentComponent) {
-        component.inject(this)
     }
 
     private fun setupColorPreference(

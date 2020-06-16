@@ -7,10 +7,10 @@ import android.content.Intent
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingRequest
 import com.google.android.gms.location.LocationServices
+import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.data.LocationDao
 import org.tasks.data.MergedGeofence
 import org.tasks.data.Place
-import org.tasks.injection.ApplicationContext
 import org.tasks.preferences.PermissionChecker
 import timber.log.Timber
 import javax.inject.Inject

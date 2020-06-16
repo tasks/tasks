@@ -16,6 +16,7 @@ import com.todoroo.astrid.adapter.FilterViewHolder
 import com.todoroo.astrid.adapter.NavigationDrawerAdapter
 import com.todoroo.astrid.api.*
 import com.todoroo.astrid.api.FilterListItem.Type.ITEM
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -29,12 +30,12 @@ import org.tasks.dialogs.NewFilterDialog.Companion.newFilterDialog
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.NavigationDrawerAction
 import org.tasks.filters.PlaceFilter
-import org.tasks.injection.ActivityComponent
 import org.tasks.injection.ThemedInjectingAppCompatActivity
 import org.tasks.preferences.Preferences
 import org.tasks.ui.NavigationDrawerFragment.Companion.REQUEST_NEW_FILTER
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolbar.OnMenuItemClickListener {
 
     @Inject lateinit var filterProvider: FilterProvider
@@ -143,8 +144,6 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
             }
         }
     }
-
-    override fun inject(component: ActivityComponent) = component.inject(this)
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         return if (item.itemId == R.id.reset_sort) {

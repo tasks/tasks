@@ -1,7 +1,6 @@
 package org.tasks.ui
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,20 +12,20 @@ import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.data.Task.Companion.createDueDate
 import com.todoroo.astrid.data.Task.Companion.hasDueTime
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.date.DateTimeUtils
 import org.tasks.dialogs.DateTimePicker
 import org.tasks.dialogs.DateTimePicker.Companion.newDateTimePicker
-import org.tasks.injection.ActivityContext
-import org.tasks.injection.FragmentComponent
 import org.tasks.locale.Locale
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTime
 import java.time.format.FormatStyle
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class DeadlineControlSet : TaskEditControlFragment() {
-    @Inject @ActivityContext lateinit var activity: Context
+    @Inject lateinit var activity: Activity
     @Inject lateinit var locale: Locale
     @Inject lateinit var preferences: Preferences
 
@@ -40,8 +39,6 @@ class DeadlineControlSet : TaskEditControlFragment() {
         super.onAttach(activity)
         callback = activity as DueDateChangeListener
     }
-
-    override fun inject(component: FragmentComponent) = component.inject(this)
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

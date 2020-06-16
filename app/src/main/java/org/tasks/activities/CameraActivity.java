@@ -8,15 +8,16 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import androidx.core.content.FileProvider;
 import com.todoroo.astrid.utility.Constants;
+import dagger.hilt.android.AndroidEntryPoint;
 import java.io.File;
 import java.io.IOException;
 import javax.inject.Inject;
 import org.tasks.files.FileHelper;
-import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.Preferences;
 import org.tasks.time.DateTime;
 
+@AndroidEntryPoint
 public class CameraActivity extends InjectingAppCompatActivity {
 
   private static final int REQUEST_CODE_CAMERA = 75;
@@ -55,11 +56,6 @@ public class CameraActivity extends InjectingAppCompatActivity {
       intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
       startActivityForResult(intent, REQUEST_CODE_CAMERA);
     }
-  }
-
-  @Override
-  public void inject(ActivityComponent component) {
-    component.inject(this);
   }
 
   @Override

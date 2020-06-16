@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Chronometer;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import butterknife.BindView;
@@ -19,19 +20,18 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.voice.AACRecorder;
+import dagger.hilt.android.AndroidEntryPoint;
 import java.io.IOException;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.injection.FragmentComponent;
-import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.preferences.FragmentPermissionRequestor;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.PermissionRequestor;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.Theme;
 
-public class RecordAudioDialog extends InjectingDialogFragment
-    implements AACRecorder.AACRecorderCallbacks {
+@AndroidEntryPoint
+public class RecordAudioDialog extends DialogFragment implements AACRecorder.AACRecorderCallbacks {
 
   @Inject Preferences preferences;
   @Inject DialogBuilder dialogBuilder;
@@ -93,11 +93,6 @@ public class RecordAudioDialog extends InjectingDialogFragment
   void stopRecording() {
     recorder.stopRecording();
     timer.stop();
-  }
-
-  @Override
-  protected void inject(FragmentComponent component) {
-    component.inject(this);
   }
 
   @Override

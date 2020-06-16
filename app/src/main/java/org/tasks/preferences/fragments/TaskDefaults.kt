@@ -7,12 +7,12 @@ import androidx.preference.Preference
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.activities.ListPicker
 import org.tasks.calendars.CalendarPicker
 import org.tasks.calendars.CalendarPicker.newCalendarPicker
 import org.tasks.calendars.CalendarProvider
-import org.tasks.injection.FragmentComponent
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
@@ -23,6 +23,7 @@ private const val FRAG_TAG_CALENDAR_PICKER = "frag_tag_calendar_picker"
 private const val REQUEST_DEFAULT_LIST = 10010
 private const val REQUEST_CALENDAR_SELECTION = 10011
 
+@AndroidEntryPoint
 class TaskDefaults : InjectingPreferenceFragment() {
 
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
@@ -90,6 +91,4 @@ class TaskDefaults : InjectingPreferenceFragment() {
         val defaultFilter = defaultFilterProvider.defaultList
         findPreference(R.string.p_default_list).summary = defaultFilter.listingTitle
     }
-
-    override fun inject(component: FragmentComponent) = component.inject(this)
 }

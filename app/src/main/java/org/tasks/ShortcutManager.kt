@@ -3,7 +3,7 @@ package org.tasks
 import android.content.Context
 import android.content.pm.ShortcutManager
 import com.todoroo.andlib.utility.AndroidUtilities
-import org.tasks.injection.ApplicationContext
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 

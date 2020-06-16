@@ -8,15 +8,16 @@ import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
+import dagger.hilt.android.AndroidEntryPoint;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
-import org.tasks.injection.InjectingApplication;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
+@AndroidEntryPoint
 public class DashClockExtension extends com.google.android.apps.dashclock.api.DashClockExtension {
 
   @Inject DefaultFilterProvider defaultFilterProvider;
@@ -35,8 +36,6 @@ public class DashClockExtension extends com.google.android.apps.dashclock.api.Da
   @Override
   public void onCreate() {
     super.onCreate();
-
-    ((InjectingApplication) getApplication()).getComponent().inject(this);
 
     localBroadcastManager.registerRefreshReceiver(refreshReceiver);
   }

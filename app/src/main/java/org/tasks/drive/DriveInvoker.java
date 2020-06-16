@@ -15,6 +15,7 @@ import com.google.api.services.drive.DriveRequest;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
 import com.todoroo.astrid.gtasks.api.HttpCredentialsAdapter;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
@@ -23,7 +24,6 @@ import org.tasks.BuildConfig;
 import org.tasks.DebugNetworkInterceptor;
 import org.tasks.R;
 import org.tasks.files.FileHelper;
-import org.tasks.injection.ApplicationContext;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 

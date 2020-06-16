@@ -11,8 +11,8 @@ import com.facebook.flipper.plugins.inspector.InspectorFlipperPlugin
 import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
 import com.facebook.flipper.plugins.sharedpreferences.SharedPreferencesFlipperPlugin
 import com.facebook.soloader.SoLoader
+import dagger.hilt.android.qualifiers.ApplicationContext
 import leakcanary.AppWatcher
-import org.tasks.injection.ApplicationContext
 import org.tasks.preferences.Preferences
 import timber.log.Timber
 import timber.log.Timber.DebugTree

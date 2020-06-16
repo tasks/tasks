@@ -10,11 +10,11 @@ import android.net.Uri;
 import android.provider.CalendarContract;
 import androidx.annotation.Nullable;
 import com.todoroo.astrid.data.Task;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
-import org.tasks.injection.ApplicationContext;
 import org.tasks.preferences.PermissionChecker;
 import timber.log.Timber;
 

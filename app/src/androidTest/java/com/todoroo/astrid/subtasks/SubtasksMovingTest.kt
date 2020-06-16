@@ -1,13 +1,15 @@
 package com.todoroo.astrid.subtasks
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.todoroo.astrid.data.Task
+import dagger.hilt.android.testing.HiltAndroidTest
+import dagger.hilt.android.testing.UninstallModules
+import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.tasks.data.TaskListMetadata
-import org.tasks.injection.TestComponent
+import org.tasks.injection.ProductionModule
 
-@RunWith(AndroidJUnit4::class)
+@UninstallModules(ProductionModule::class)
+@HiltAndroidTest
 class SubtasksMovingTest : SubtasksTestCase() {
     private lateinit var A: Task
     private lateinit var B: Task
@@ -16,6 +18,7 @@ class SubtasksMovingTest : SubtasksTestCase() {
     private lateinit var E: Task
     private lateinit var F: Task
 
+    @Before
     override fun setUp() {
         super.setUp()
         createTasks()
@@ -32,8 +35,6 @@ class SubtasksMovingTest : SubtasksTestCase() {
         expectParentAndPosition(E, null, 1)
         expectParentAndPosition(F, null, 2)
     }
-
-    override fun inject(component: TestComponent) = component.inject(this)
 
     private fun createTasks() {
         A = createTask("A")

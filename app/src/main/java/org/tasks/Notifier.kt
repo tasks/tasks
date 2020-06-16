@@ -10,7 +10,7 @@ import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.reminders.ReminderService
 import com.todoroo.astrid.voice.VoiceOutputAssistant
-import org.tasks.injection.ApplicationContext
+import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.notifications.AudioManager
 import org.tasks.notifications.Notification
 import org.tasks.notifications.NotificationManager

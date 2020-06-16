@@ -16,6 +16,7 @@ import com.todoroo.astrid.api.TextInputCriterion;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Task.Priority;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +32,6 @@ import org.tasks.data.GoogleTaskListDao;
 import org.tasks.data.Tag;
 import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
-import org.tasks.injection.ApplicationContext;
 
 public class FilterCriteriaProvider {
 

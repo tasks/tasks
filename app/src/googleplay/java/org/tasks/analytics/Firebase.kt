@@ -8,10 +8,10 @@ import com.crashlytics.android.Crashlytics
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
+import dagger.hilt.android.qualifiers.ApplicationContext
 import io.fabric.sdk.android.Fabric
 import org.tasks.R
 import org.tasks.billing.BillingClientImpl
-import org.tasks.injection.ApplicationContext
 import org.tasks.jobs.WorkManager
 import org.tasks.preferences.Preferences
 import timber.log.Timber

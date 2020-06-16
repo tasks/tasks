@@ -7,6 +7,7 @@ plugins {
     id("com.cookpad.android.plugin.license-tools") version "1.2.2"
     id("com.github.ben-manes.versions") version "0.28.0"
     id("com.vanniktech.android.junit.jacoco") version "0.16.0"
+    id("dagger.hilt.android.plugin")
 }
 
 repositories {
@@ -47,7 +48,7 @@ android {
         versionName = "9.7"
         targetSdkVersion(Versions.targetSdk)
         minSdkVersion(Versions.minSdk)
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "org.tasks.TestRunner"
 
         kapt {
             arguments {
@@ -142,8 +143,11 @@ dependencies {
     implementation("com.gitlab.bitfireAT:ical4android:a675c7194b")
     implementation("com.gitlab.bitfireAT:cert4android:1488e39a66")
 
-    kapt("com.google.dagger:dagger-compiler:${Versions.dagger}")
-    implementation("com.google.dagger:dagger:${Versions.dagger}")
+    implementation("com.google.dagger:hilt-android:${Versions.hilt}")
+    kapt("com.google.dagger:hilt-android-compiler:${Versions.hilt}")
+    kapt("androidx.hilt:hilt-compiler:${Versions.hilt_androidx}")
+    implementation("androidx.hilt:hilt-work:${Versions.hilt_androidx}")
+    implementation("androidx.hilt:hilt-lifecycle-viewmodel:${Versions.hilt_androidx}")
 
     implementation("androidx.room:room-rxjava2:${Versions.room}")
     kapt("androidx.room:room-compiler:${Versions.room}")
@@ -199,7 +203,9 @@ dependencies {
     googleplayImplementation("com.google.android.libraries.places:places:2.2.0")
     googleplayImplementation("com.android.billingclient:billing:1.2.2")
 
-    kaptAndroidTest("com.google.dagger:dagger-compiler:${Versions.dagger}")
+    androidTestImplementation("com.google.dagger:hilt-android-testing:${Versions.hilt}")
+    kaptAndroidTest("com.google.dagger:hilt-android-compiler:${Versions.hilt}")
+    kaptAndroidTest("androidx.hilt:hilt-compiler:${Versions.hilt_androidx}")
     kaptAndroidTest("com.jakewharton:butterknife-compiler:${Versions.butterknife}")
     androidTestImplementation("org.mockito:mockito-android:${Versions.mockito}")
     androidTestImplementation("com.natpryce:make-it-easy:${Versions.make_it_easy}")

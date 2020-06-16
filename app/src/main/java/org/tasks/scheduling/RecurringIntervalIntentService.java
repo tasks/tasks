@@ -8,12 +8,10 @@ import android.content.BroadcastReceiver;
 import android.content.Intent;
 import javax.inject.Inject;
 import org.tasks.injection.InjectingJobIntentService;
-import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
 public abstract class RecurringIntervalIntentService extends InjectingJobIntentService {
 
-  @Inject Preferences preferences;
   @Inject AlarmManager alarmManager;
 
   @Override

@@ -1,16 +1,16 @@
 package com.todoroo.astrid.alarms
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.astrid.dao.TaskDao
+import dagger.hilt.android.testing.HiltAndroidTest
+import dagger.hilt.android.testing.UninstallModules
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.tasks.data.Alarm
 import org.tasks.data.AlarmDao
 import org.tasks.injection.InjectingTestCase
-import org.tasks.injection.TestComponent
+import org.tasks.injection.ProductionModule
 import org.tasks.jobs.AlarmEntry
 import org.tasks.jobs.NotificationQueue
 import org.tasks.makers.TaskMaker.REMINDER_LAST
@@ -18,7 +18,8 @@ import org.tasks.makers.TaskMaker.newTask
 import org.tasks.time.DateTime
 import javax.inject.Inject
 
-@RunWith(AndroidJUnit4::class)
+@UninstallModules(ProductionModule::class)
+@HiltAndroidTest
 class AlarmJobServiceTest : InjectingTestCase() {
     @Inject lateinit var alarmDao: AlarmDao
     @Inject lateinit var taskDao: TaskDao
@@ -47,6 +48,4 @@ class AlarmJobServiceTest : InjectingTestCase() {
 
         assertTrue(jobs.getJobs().isEmpty())
     }
-
-    override fun inject(component: TestComponent) = component.inject(this)
 }

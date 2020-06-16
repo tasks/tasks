@@ -5,6 +5,9 @@ import com.todoroo.astrid.dao.Database
 import com.todoroo.astrid.dao.TaskDao
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.analytics.Firebase
 import org.tasks.billing.BillingClient
 import org.tasks.billing.BillingClientImpl
@@ -18,11 +21,11 @@ import org.tasks.notifications.NotificationDao
 import javax.inject.Singleton
 
 @Module
-class ApplicationModule(@get:Provides @get:ApplicationContext val context: Context) {
+@InstallIn(ApplicationComponent::class)
+class ApplicationModule {
 
-    @get:Provides
-    val locale: Locale
-        get() = Locale.getInstance(context)
+    @Provides
+    fun getLocale(@ApplicationContext context: Context): Locale = Locale.getInstance(context)
 
     @Provides
     @Singleton
@@ -89,10 +92,9 @@ class ApplicationModule(@get:Provides @get:ApplicationContext val context: Conte
     fun getDeletionDao(db: Database): DeletionDao = db.deletionDao
 
     @Provides
-    fun getBillingClient(inventory: Inventory, firebase: Firebase): BillingClient
+    fun getBillingClient(@ApplicationContext context: Context, inventory: Inventory, firebase: Firebase): BillingClient
             = BillingClientImpl(context, inventory, firebase)
 
-    @get:Provides
-    val geocoder: Geocoder
-        get() = MapboxGeocoder(context)
+    @Provides
+    fun getGeocoder(@ApplicationContext context: Context): Geocoder = MapboxGeocoder(context)
 }

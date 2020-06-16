@@ -7,16 +7,17 @@ import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingEvent
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.reminders.ReminderService
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.Notifier
 import org.tasks.data.LocationDao
 import org.tasks.data.Place
-import org.tasks.injection.ApplicationComponent
 import org.tasks.injection.InjectingJobIntentService
 import org.tasks.notifications.Notification
 import org.tasks.time.DateTimeUtils
 import timber.log.Timber
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class GeofenceTransitionsIntentService : InjectingJobIntentService() {
     @Inject lateinit var locationDao: LocationDao
     @Inject lateinit var notifier: Notifier
@@ -68,8 +69,6 @@ class GeofenceTransitionsIntentService : InjectingJobIntentService() {
         notification.location = place.id
         return notification
     }
-
-    override fun inject(component: ApplicationComponent) = component.inject(this)
 
     class Broadcast : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {

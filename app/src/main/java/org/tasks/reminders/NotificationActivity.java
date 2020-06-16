@@ -6,12 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.FragmentManager;
 import com.todoroo.astrid.dao.TaskDao;
+import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
-import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.intents.TaskIntents;
 import org.tasks.notifications.NotificationManager;
@@ -19,6 +19,7 @@ import org.tasks.receivers.CompleteTaskReceiver;
 import org.tasks.themes.ThemeAccent;
 import timber.log.Timber;
 
+@AndroidEntryPoint
 public class NotificationActivity extends InjectingAppCompatActivity
     implements NotificationDialog.NotificationHandler {
 
@@ -39,11 +40,6 @@ public class NotificationActivity extends InjectingAppCompatActivity
     themeAccent.applyStyle(getTheme());
 
     setup(getIntent());
-  }
-
-  @Override
-  public void inject(ActivityComponent component) {
-    component.inject(this);
   }
 
   @Override

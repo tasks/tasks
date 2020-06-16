@@ -1,19 +1,19 @@
 package com.todoroo.astrid.service
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.dao.TaskDao
+import dagger.hilt.android.testing.HiltAndroidTest
+import dagger.hilt.android.testing.UninstallModules
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskDao
 import org.tasks.injection.InjectingTestCase
-import org.tasks.injection.TestComponent
+import org.tasks.injection.ProductionModule
 import org.tasks.jobs.WorkManager
 import org.tasks.makers.CaldavTaskMaker
 import org.tasks.makers.CaldavTaskMaker.CALENDAR
@@ -31,7 +31,8 @@ import org.tasks.makers.TaskMaker.ID
 import org.tasks.makers.TaskMaker.newTask
 import javax.inject.Inject
 
-@RunWith(AndroidJUnit4::class)
+@UninstallModules(ProductionModule::class)
+@HiltAndroidTest
 class TaskMoverTest : InjectingTestCase() {
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var googleTaskDao: GoogleTaskDao
@@ -298,6 +299,4 @@ class TaskMoverTest : InjectingTestCase() {
     private fun moveToCaldavList(calendar: String, vararg tasks: Long) {
         taskMover.move(tasks.toList(), CaldavFilter(CaldavCalendar("", calendar)))
     }
-
-    override fun inject(component: TestComponent) = component.inject(this)
 }

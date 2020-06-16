@@ -20,11 +20,11 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.utility.Constants;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import io.reactivex.Completable;
 import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.injection.ApplicationContext;
 import org.tasks.intents.TaskIntents;
 import org.tasks.notifications.NotificationManager;
 

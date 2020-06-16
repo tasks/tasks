@@ -6,14 +6,15 @@ import static com.todoroo.andlib.utility.AndroidUtilities.assertNotMainThread;
 import android.content.Intent;
 import android.os.IBinder;
 import androidx.annotation.Nullable;
+import dagger.hilt.android.AndroidEntryPoint;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.Notifier;
 import org.tasks.R;
-import org.tasks.injection.ApplicationComponent;
 import org.tasks.injection.InjectingService;
 import org.tasks.preferences.Preferences;
 
+@AndroidEntryPoint
 public class NotificationService extends InjectingService {
 
   @Inject Preferences preferences;
@@ -52,10 +53,5 @@ public class NotificationService extends InjectingService {
   @Override
   protected void scheduleNext() {
     notificationQueue.scheduleNext();
-  }
-
-  @Override
-  protected void inject(ApplicationComponent component) {
-    component.inject(this);
   }
 }

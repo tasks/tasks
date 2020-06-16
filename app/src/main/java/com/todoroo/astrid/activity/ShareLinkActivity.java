@@ -16,12 +16,12 @@ import androidx.core.app.TaskStackBuilder;
 import com.google.common.io.Files;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskCreator;
+import dagger.hilt.android.AndroidEntryPoint;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import java.util.ArrayList;
 import javax.inject.Inject;
 import org.tasks.data.TaskAttachment;
 import org.tasks.files.FileHelper;
-import org.tasks.injection.ActivityComponent;
-import org.tasks.injection.ApplicationContext;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
@@ -30,6 +30,7 @@ import timber.log.Timber;
  * @author joshuagross
  *     <p>Create a new task based on incoming links from the "share" menu
  */
+@AndroidEntryPoint
 public final class ShareLinkActivity extends InjectingAppCompatActivity {
 
   @Inject @ApplicationContext Context context;
@@ -47,11 +48,6 @@ public final class ShareLinkActivity extends InjectingAppCompatActivity {
     super.onCreate(savedInstanceState);
 
     readIntent();
-  }
-
-  @Override
-  public void inject(ActivityComponent component) {
-    component.inject(this);
   }
 
   @Override

@@ -6,7 +6,6 @@
 package com.todoroo.astrid.timers
 
 import android.app.Activity
-import android.content.Context
 import android.os.Bundle
 import android.os.SystemClock
 import android.text.format.DateFormat
@@ -24,11 +23,10 @@ import butterknife.OnClick
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.ui.TimeDurationControlSet
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.dialogs.DialogBuilder
-import org.tasks.injection.ActivityContext
-import org.tasks.injection.FragmentComponent
 import org.tasks.themes.Theme
 import org.tasks.ui.TaskEditControlFragment
 import javax.inject.Inject
@@ -38,8 +36,9 @@ import javax.inject.Inject
  *
  * @author Tim Su <tim></tim>@todoroo.com>
  */
+@AndroidEntryPoint
 class TimerControlSet : TaskEditControlFragment() {
-    @Inject @ActivityContext lateinit var activity: Context
+    @Inject lateinit var activity: Activity
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var theme: Theme
     
@@ -86,8 +85,6 @@ class TimerControlSet : TaskEditControlFragment() {
         super.onAttach(activity)
         callback = activity as TimerControlSetCallback
     }
-
-    override fun inject(component: FragmentComponent) = component.inject(this)
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)

@@ -20,17 +20,18 @@ import com.etesync.journalmanager.Exceptions.IntegrityException;
 import com.etesync.journalmanager.Exceptions.VersionTooNewException;
 import com.etesync.journalmanager.UserInfoManager.UserInfo;
 import com.google.android.material.snackbar.Snackbar;
+import dagger.hilt.android.AndroidEntryPoint;
 import java.net.ConnectException;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.data.CaldavAccount;
 import org.tasks.databinding.ActivityEtesyncEncryptionSettingsBinding;
-import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.security.KeyStoreEncryption;
 import org.tasks.ui.DisplayableException;
 import timber.log.Timber;
 
+@AndroidEntryPoint
 public class EncryptionSettingsActivity extends ThemedInjectingAppCompatActivity
     implements OnMenuItemClickListener {
 
@@ -203,11 +204,6 @@ public class EncryptionSettingsActivity extends ThemedInjectingAppCompatActivity
     if (!requestInProgress()) {
       super.finish();
     }
-  }
-
-  @Override
-  public void inject(ActivityComponent component) {
-    component.inject(this);
   }
 
   @Override

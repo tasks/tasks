@@ -1,12 +1,13 @@
 package org.tasks.locale.ui.activity
 
 import android.os.Bundle
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
-import org.tasks.injection.ActivityComponent
 import org.tasks.locale.bundle.ListNotificationBundle
 import org.tasks.preferences.fragments.TaskerListNotification
 import org.tasks.preferences.fragments.TaskerListNotification.Companion.newTaskerListNotification
 
+@AndroidEntryPoint
 class TaskerSettingsActivity : AbstractFragmentPluginPreference() {
 
     var filter: String? = null
@@ -33,8 +34,6 @@ class TaskerSettingsActivity : AbstractFragmentPluginPreference() {
     override fun getRootTitle() = R.string.tasker_list_notification
 
     override fun getRootPreference() = newTaskerListNotification(filter)
-
-    override fun inject(component: ActivityComponent) = component.inject(this)
 
     private fun getFragment() =
         supportFragmentManager.findFragmentById(R.id.settings) as TaskerListNotification

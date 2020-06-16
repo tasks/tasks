@@ -36,6 +36,7 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.mapbox.android.core.location.LocationEngineCallback;
 import com.mapbox.android.core.location.LocationEngineProvider;
 import com.mapbox.android.core.location.LocationEngineResult;
+import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -54,7 +55,6 @@ import org.tasks.data.LocationDao;
 import org.tasks.data.Place;
 import org.tasks.data.PlaceUsage;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.location.LocationPickerAdapter.OnLocationPicked;
 import org.tasks.location.LocationSearchAdapter.OnPredictionPicked;
@@ -68,6 +68,7 @@ import org.tasks.themes.ThemeColor;
 import org.tasks.ui.Toaster;
 import timber.log.Timber;
 
+@AndroidEntryPoint
 public class LocationPickerActivity extends InjectingAppCompatActivity
     implements OnMenuItemClickListener,
         MapFragmentCallback,
@@ -130,6 +131,7 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    theme.applyTheme(this);
     setContentView(R.layout.activity_location_picker);
     ButterKnife.bind(this);
 
@@ -412,12 +414,6 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
     outState.putParcelable(EXTRA_MAP_POSITION, map.getMapPosition());
     outState.putInt(EXTRA_APPBAR_OFFSET, offset);
     viewModel.saveState(outState);
-  }
-
-  @Override
-  public void inject(ActivityComponent component) {
-    component.inject(this);
-    theme.applyTheme(this);
   }
 
   @Override

@@ -12,18 +12,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnTextChanged;
+import dagger.hilt.android.AndroidEntryPoint;
 import java.util.ArrayList;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.billing.Inventory;
 import org.tasks.data.TagData;
-import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.tags.CheckBoxTriStates.State;
 import org.tasks.themes.ColorProvider;
 import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeColor;
 
+@AndroidEntryPoint
 public class TagPickerActivity extends ThemedInjectingAppCompatActivity {
 
   public static final String EXTRA_SELECTED = "extra_tags";
@@ -49,7 +50,7 @@ public class TagPickerActivity extends ThemedInjectingAppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
+    viewModel = new ViewModelProvider(this).get(TagPickerViewModel.class);
     Intent intent = getIntent();
     taskIds = (ArrayList<Long>) intent.getSerializableExtra(EXTRA_TASKS);
     if (savedInstanceState == null) {
@@ -113,12 +114,5 @@ public class TagPickerActivity extends ThemedInjectingAppCompatActivity {
 
   private void clear() {
     editText.setText("");
-  }
-
-  @Override
-  public void inject(ActivityComponent component) {
-    component.inject(this);
-    viewModel = new ViewModelProvider(this).get(TagPickerViewModel.class);
-    component.inject(viewModel);
   }
 }

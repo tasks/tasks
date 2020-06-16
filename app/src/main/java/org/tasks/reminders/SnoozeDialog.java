@@ -7,18 +7,19 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
+import dagger.hilt.android.AndroidEntryPoint;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.injection.ApplicationContext;
-import org.tasks.injection.FragmentComponent;
-import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.preferences.Preferences;
 import org.tasks.time.DateTime;
 
-public class SnoozeDialog extends InjectingDialogFragment {
+@AndroidEntryPoint
+public class SnoozeDialog extends DialogFragment {
 
   private final List<String> items = new ArrayList<>();
   @Inject Preferences preferences;
@@ -140,10 +141,5 @@ public class SnoozeDialog extends InjectingDialogFragment {
 
   public void setOnCancelListener(DialogInterface.OnCancelListener onCancelListener) {
     this.onCancelListener = onCancelListener;
-  }
-
-  @Override
-  protected void inject(FragmentComponent component) {
-    component.inject(this);
   }
 }

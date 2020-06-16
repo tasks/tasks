@@ -6,23 +6,19 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
+import dagger.hilt.android.AndroidEntryPoint;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.injection.FragmentComponent;
-import org.tasks.injection.InjectingDialogFragment;
 
-public class NotificationDialog extends InjectingDialogFragment {
+@AndroidEntryPoint
+public class NotificationDialog extends DialogFragment {
 
   @Inject DialogBuilder dialogBuilder;
   private String title;
   private NotificationHandler handler;
-
-  @Override
-  protected void inject(FragmentComponent component) {
-    component.inject(this);
-  }
 
   @NonNull
   @Override

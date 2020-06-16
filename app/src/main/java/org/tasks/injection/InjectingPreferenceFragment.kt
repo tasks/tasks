@@ -1,6 +1,5 @@
 package org.tasks.injection
 
-import android.app.Activity
 import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.preference.Preference
@@ -36,22 +35,12 @@ abstract class InjectingPreferenceFragment : PreferenceFragmentCompat() {
     @Inject lateinit var device: Device
     @Inject lateinit var dialogBuilder: DialogBuilder
 
-    private var injected = false
-
     final override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(getPreferenceXml(), rootKey)
 
         tintIcons(preferenceScreen, requireContext().getColor(R.color.icon_tint_with_alpha))
 
         setupPreferences(savedInstanceState)
-    }
-
-    override fun onAttach(activity: Activity) {
-        super.onAttach(activity)
-        if (!injected) {
-            inject((activity as InjectingActivity).component.plus(FragmentModule(this)))
-            injected = true
-        }
     }
 
     protected open fun showRestartDialog() {
@@ -110,6 +99,4 @@ abstract class InjectingPreferenceFragment : PreferenceFragmentCompat() {
     protected fun findPreference(@StringRes prefId: Int): Preference {
         return findPreference(getString(prefId))!!
     }
-
-    protected abstract fun inject(component: FragmentComponent)
 }

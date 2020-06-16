@@ -34,17 +34,18 @@ import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskCompleter
 import com.todoroo.astrid.service.TaskCreator
 import com.todoroo.astrid.ui.CheckableImageView
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.*
-import org.tasks.injection.FragmentComponent
 import org.tasks.locale.Locale
 import org.tasks.tasklist.SubtaskViewHolder
 import org.tasks.tasklist.SubtasksRecyclerAdapter
 import java.util.*
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks {
     @JvmField
     @BindView(R.id.recycler_view)
@@ -71,12 +72,6 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
     private var googleTask: GoogleTask? = null
     private lateinit var recyclerAdapter: SubtasksRecyclerAdapter
     
-    override fun inject(component: FragmentComponent) {
-        component.inject(this)
-        viewModel = ViewModelProvider(this).get(TaskListViewModel::class.java)
-        component.inject(viewModel)
-    }
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelableArrayList(EXTRA_NEW_SUBTASKS, newSubtasks)
@@ -85,6 +80,7 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
+        viewModel = ViewModelProvider(this).get(TaskListViewModel::class.java)
         if (savedInstanceState != null) {
             for (task in savedInstanceState.getParcelableArrayList<Task>(EXTRA_NEW_SUBTASKS)!!) {
                 addSubtask(task)

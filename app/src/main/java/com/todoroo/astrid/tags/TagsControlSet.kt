@@ -16,11 +16,11 @@ import butterknife.BindView
 import com.google.android.material.chip.ChipGroup
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.data.Task
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.data.TagDao
 import org.tasks.data.TagData
 import org.tasks.data.TagDataDao
-import org.tasks.injection.FragmentComponent
 import org.tasks.tags.TagPickerActivity
 import org.tasks.ui.ChipProvider
 import org.tasks.ui.TaskEditControlFragment
@@ -32,6 +32,7 @@ import javax.inject.Inject
  *
  * @author Tim Su <tim></tim>@todoroo.com>
  */
+@AndroidEntryPoint
 class TagsControlSet : TaskEditControlFragment() {
     @Inject lateinit var tagDao: TagDao
     @Inject lateinit var tagDataDao: TagDataDao
@@ -128,8 +129,6 @@ class TagsControlSet : TaskEditControlFragment() {
             super.onActivityResult(requestCode, resultCode, data)
         }
     }
-
-    override fun inject(component: FragmentComponent) = component.inject(this)
 
     override fun requiresId() = true
 

@@ -18,15 +18,15 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.databinding.DialogDateTimePickerBinding
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.dialogs.MyTimePickerDialog.newTimePicker
-import org.tasks.injection.FragmentComponent
-import org.tasks.injection.InjectingBottomSheetDialogFragment
 import org.tasks.locale.Locale
 import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.Preferences
@@ -35,7 +35,8 @@ import org.tasks.time.DateTime
 import java.time.format.FormatStyle
 import javax.inject.Inject
 
-class DateTimePicker : InjectingBottomSheetDialogFragment() {
+@AndroidEntryPoint
+class DateTimePicker : BottomSheetDialogFragment() {
 
     @Inject lateinit var activity: Activity
     @Inject lateinit var preferences: Preferences
@@ -324,6 +325,4 @@ class DateTimePicker : InjectingBottomSheetDialogFragment() {
             super.onActivityResult(requestCode, resultCode, data)
         }
     }
-
-    override fun inject(component: FragmentComponent) = component.inject(this)
 }

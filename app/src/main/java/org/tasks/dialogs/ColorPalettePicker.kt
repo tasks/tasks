@@ -8,22 +8,23 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.LayoutInflater
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
 import org.tasks.dialogs.ColorPickerAdapter.Palette
 import org.tasks.dialogs.ColorWheelPicker.Companion.newColorWheel
-import org.tasks.injection.FragmentComponent
-import org.tasks.injection.InjectingDialogFragment
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.ThemeColor
 import javax.inject.Inject
 
-class ColorPalettePicker : InjectingDialogFragment() {
+@AndroidEntryPoint
+class ColorPalettePicker : DialogFragment() {
 
     companion object {
         private const val FRAG_TAG_COLOR_PICKER = "frag_tag_color_picker"
@@ -87,7 +88,7 @@ class ColorPalettePicker : InjectingDialogFragment() {
             Palette.WIDGET -> colorProvider.getWidgetColors()
         }
 
-        val iconPickerAdapter = ColorPickerAdapter(context as Activity, inventory, this::onSelected)
+        val iconPickerAdapter = ColorPickerAdapter(requireActivity(), inventory, this::onSelected)
         recyclerView.layoutManager = IconLayoutManager(context)
         recyclerView.adapter = iconPickerAdapter
         iconPickerAdapter.submitList(colors)
@@ -133,6 +134,4 @@ class ColorPalettePicker : InjectingDialogFragment() {
             targetFragment?.onActivityResult(targetRequestCode, RESULT_OK, data)
         }
     }
-
-    override fun inject(component: FragmentComponent) = component.inject(this)
 }

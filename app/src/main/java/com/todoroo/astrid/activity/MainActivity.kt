@@ -17,7 +17,6 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.view.ActionMode
 import androidx.drawerlayout.widget.DrawerLayout.SimpleDrawerListener
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.ViewModelProvider
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.activity.TaskEditFragment.TaskEditFragmentCallbackHandler
 import com.todoroo.astrid.activity.TaskListFragment.TaskListFragmentCallbackHandler
@@ -26,6 +25,7 @@ import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskCreator
 import com.todoroo.astrid.timers.TimerControlSet.TimerControlSetCallback
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -42,7 +42,6 @@ import org.tasks.dialogs.WhatsNewDialog
 import org.tasks.filters.PlaceFilter
 import org.tasks.fragments.CommentBarFragment.CommentBarFragmentCallback
 import org.tasks.gtasks.PlayServices
-import org.tasks.injection.ActivityComponent
 import org.tasks.injection.InjectingAppCompatActivity
 import org.tasks.intents.TaskIntents
 import org.tasks.location.LocationPickerActivity
@@ -57,9 +56,9 @@ import org.tasks.ui.DeadlineControlSet.DueDateChangeListener
 import org.tasks.ui.EmptyTaskEditFragment.Companion.newEmptyTaskEditFragment
 import org.tasks.ui.ListFragment.OnListChanged
 import org.tasks.ui.NavigationDrawerFragment
-import org.tasks.ui.TaskListViewModel
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandler, OnListChanged, TimerControlSetCallback, DueDateChangeListener, TaskEditFragmentCallbackHandler, CommentBarFragmentCallback, SortDialogCallback {
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var repeatConfirmationReceiver: RepeatConfirmationReceiver
@@ -83,8 +82,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val viewModel = ViewModelProvider(this).get(TaskListViewModel::class.java)
-        component.inject(viewModel)
+        theme.applyTheme(this)
         currentNightMode = nightMode
         currentPro = inventory.hasPro()
         binding = TaskListActivityBinding.inflate(layoutInflater)
@@ -300,11 +298,6 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
 
     private val nightMode: Int
         get() = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
-
-    override fun inject(component: ActivityComponent) {
-        component.inject(this)
-        theme.applyTheme(this)
-    }
 
     override fun onPause() {
         super.onPause()

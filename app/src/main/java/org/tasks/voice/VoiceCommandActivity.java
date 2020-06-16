@@ -7,12 +7,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 import com.todoroo.astrid.service.TaskCreator;
+import dagger.hilt.android.AndroidEntryPoint;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.injection.ActivityComponent;
-import org.tasks.injection.ApplicationContext;
 import org.tasks.injection.InjectingAppCompatActivity;
 
+@AndroidEntryPoint
 public class VoiceCommandActivity extends InjectingAppCompatActivity {
 
   @Inject TaskCreator taskCreator;
@@ -33,10 +34,5 @@ public class VoiceCommandActivity extends InjectingAppCompatActivity {
       }
       finish();
     }
-  }
-
-  @Override
-  public void inject(ActivityComponent component) {
-    component.inject(this);
   }
 }

@@ -33,10 +33,6 @@ public class SubsetGoogleTask {
     gt_order = order;
   }
 
-  public int getIndent() {
-    return gt_parent > 0 ? 1 : 0;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {

@@ -9,6 +9,7 @@ import androidx.preference.SwitchPreferenceCompat
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity
 import com.todoroo.astrid.service.TaskDeleter
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.caldav.CaldavAccountSettingsActivity
@@ -18,7 +19,6 @@ import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskAccount
 import org.tasks.data.GoogleTaskListDao
 import org.tasks.etesync.EteSyncAccountSettingsActivity
-import org.tasks.injection.FragmentComponent
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.jobs.WorkManager
 import org.tasks.preferences.Preferences
@@ -29,6 +29,7 @@ import javax.inject.Inject
 const val REQUEST_CALDAV_SETTINGS = 10013
 const val REQUEST_GOOGLE_TASKS = 10014
 
+@AndroidEntryPoint
 class Synchronization : InjectingPreferenceFragment() {
 
     @Inject lateinit var workManager: WorkManager
@@ -195,6 +196,4 @@ class Synchronization : InjectingPreferenceFragment() {
         findPreference(R.string.accounts).isVisible = syncEnabled
         findPreference(R.string.sync_SPr_interval_title).isVisible = syncEnabled
     }
-
-    override fun inject(component: FragmentComponent) = component.inject(this)
 }

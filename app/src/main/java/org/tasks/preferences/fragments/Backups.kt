@@ -7,6 +7,7 @@ import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.google.api.services.drive.DriveScopes
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.PermissionUtil
 import org.tasks.R
 import org.tasks.dialogs.ExportTasksDialog
@@ -14,7 +15,6 @@ import org.tasks.dialogs.ImportTasksDialog
 import org.tasks.drive.DriveLoginActivity
 import org.tasks.files.FileHelper
 import org.tasks.gtasks.GoogleAccountManager
-import org.tasks.injection.FragmentComponent
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.preferences.FragmentPermissionRequestor
 import org.tasks.preferences.PermissionRequestor
@@ -28,6 +28,7 @@ private const val REQUEST_PICKER = 10003
 private const val FRAG_TAG_EXPORT_TASKS = "frag_tag_export_tasks"
 private const val FRAG_TAG_IMPORT_TASKS = "frag_tag_import_tasks"
 
+@AndroidEntryPoint
 class Backups : InjectingPreferenceFragment() {
 
     @Inject lateinit var preferences: Preferences
@@ -162,6 +163,4 @@ class Backups : InjectingPreferenceFragment() {
         findPreference(R.string.p_backup_dir).summary =
             FileHelper.uri2String(preferences.backupDirectory)
     }
-
-    override fun inject(component: FragmentComponent) = component.inject(this)
 }

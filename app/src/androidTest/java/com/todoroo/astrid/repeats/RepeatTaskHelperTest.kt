@@ -1,23 +1,23 @@
 package com.todoroo.astrid.repeats
 
 import android.annotation.SuppressLint
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.ical.values.RRule
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.gcal.GCalHelper
+import dagger.hilt.android.testing.HiltAndroidTest
+import dagger.hilt.android.testing.UninstallModules
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.mockito.InOrder
 import org.mockito.Mockito
 import org.tasks.LocalBroadcastManager
 import org.tasks.injection.InjectingTestCase
-import org.tasks.injection.TestComponent
+import org.tasks.injection.ProductionModule
 import org.tasks.makers.TaskMaker.AFTER_COMPLETE
 import org.tasks.makers.TaskMaker.COMPLETION_TIME
 import org.tasks.makers.TaskMaker.DUE_TIME
@@ -29,7 +29,8 @@ import java.text.ParseException
 import javax.inject.Inject
 
 @SuppressLint("NewApi")
-@RunWith(AndroidJUnit4::class)
+@UninstallModules(ProductionModule::class)
+@HiltAndroidTest
 class RepeatTaskHelperTest : InjectingTestCase() {
     @Inject lateinit var taskDao: TaskDao
     private lateinit var localBroadcastManager: LocalBroadcastManager
@@ -188,6 +189,4 @@ class RepeatTaskHelperTest : InjectingTestCase() {
         mocks.verify(alarmService).rescheduleAlarms(1, oldDueDate.millis, newDueDate.millis)
         mocks.verify(localBroadcastManager).broadcastRepeat(1, oldDueDate.millis, newDueDate.millis)
     }
-
-    override fun inject(component: TestComponent) = component.inject(this)
 }

@@ -6,6 +6,7 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
+import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,12 +16,11 @@ import androidx.annotation.ColorInt;
 import androidx.core.graphics.ColorUtils;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
+import dagger.hilt.android.AndroidEntryPoint;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.activities.FilterSelectionActivity;
-import org.tasks.injection.ApplicationComponent;
-import org.tasks.injection.ApplicationContext;
-import org.tasks.injection.InjectingAppWidgetProvider;
 import org.tasks.intents.TaskIntents;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.DefaultFilterProvider;
@@ -28,7 +28,8 @@ import org.tasks.preferences.Preferences;
 import org.tasks.themes.ThemeColor;
 import timber.log.Timber;
 
-public class TasksWidget extends InjectingAppWidgetProvider {
+@AndroidEntryPoint
+public class TasksWidget extends AppWidgetProvider {
 
   private static final int flags = FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TOP;
   @Inject Preferences preferences;
@@ -36,11 +37,6 @@ public class TasksWidget extends InjectingAppWidgetProvider {
   @Inject Locale locale;
   @Inject TaskDao taskDao;
   @Inject @ApplicationContext Context context;
-
-  @Override
-  protected void inject(ApplicationComponent component) {
-    component.inject(this);
-  }
 
   @Override
   public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {

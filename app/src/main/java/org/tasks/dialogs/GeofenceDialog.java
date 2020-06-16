@@ -2,8 +2,8 @@ package org.tasks.dialogs;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,21 +13,21 @@ import android.view.View;
 import android.widget.Switch;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.android.material.slider.Slider;
+import dagger.hilt.android.AndroidEntryPoint;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.data.Geofence;
 import org.tasks.data.Location;
-import org.tasks.injection.ActivityContext;
-import org.tasks.injection.FragmentComponent;
-import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.ui.Toaster;
 
-public class GeofenceDialog extends InjectingDialogFragment {
+@AndroidEntryPoint
+public class GeofenceDialog extends DialogFragment {
 
   public static final String EXTRA_GEOFENCE = "extra_geofence";
   private static final String EXTRA_ORIGINAL = "extra_original";
@@ -35,7 +35,7 @@ public class GeofenceDialog extends InjectingDialogFragment {
   private static final int MAX_RADIUS = 1000;
 
   @Inject DialogBuilder dialogBuilder;
-  @Inject @ActivityContext Context context;
+  @Inject Activity context;
   @Inject Locale locale;
   @Inject PermissionChecker permissionChecker;
   @Inject Toaster toaster;
@@ -122,10 +122,5 @@ public class GeofenceDialog extends InjectingDialogFragment {
     if (!permissionChecker.canAccessLocation()) {
       dismiss();
     }
-  }
-
-  @Override
-  protected void inject(FragmentComponent component) {
-    component.inject(this);
   }
 }

@@ -6,21 +6,31 @@ import android.app.backup.FileBackupHelper;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import com.todoroo.astrid.backup.BackupConstants;
+import dagger.hilt.EntryPoint;
+import dagger.hilt.InstallIn;
+import dagger.hilt.android.EntryPointAccessors;
+import dagger.hilt.android.components.ApplicationComponent;
 import java.io.File;
 import java.io.IOException;
-import javax.inject.Inject;
-import org.tasks.injection.InjectingApplication;
 import timber.log.Timber;
 
 public class TasksBackupAgent extends BackupAgentHelper {
 
+  @EntryPoint
+  @InstallIn(ApplicationComponent.class)
+  interface TasksBackupAgentEntryPoint {
+    TasksJsonImporter getTasksJsonImporter();
+  }
+
   private static final String BACKUP_KEY = "backup";
 
-  @Inject TasksJsonImporter importer;
+  private TasksJsonImporter importer;
 
   @Override
   public void onCreate() {
-    ((InjectingApplication) getApplicationContext()).getComponent().inject(this);
+    TasksBackupAgentEntryPoint hilt =
+        EntryPointAccessors.fromApplication(getApplicationContext(), TasksBackupAgentEntryPoint.class);
+    importer = hilt.getTasksJsonImporter();
 
     addHelper(BACKUP_KEY, new FileBackupHelper(this, BackupConstants.INTERNAL_BACKUP));
   }

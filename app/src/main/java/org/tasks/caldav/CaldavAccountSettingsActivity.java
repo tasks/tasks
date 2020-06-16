@@ -4,12 +4,13 @@ import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 import com.todoroo.astrid.helper.UUIDHelper;
+import dagger.hilt.android.AndroidEntryPoint;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.data.CaldavAccount;
-import org.tasks.injection.ActivityComponent;
 import timber.log.Timber;
 
+@AndroidEntryPoint
 public class CaldavAccountSettingsActivity extends BaseCaldavAccountSettingsActivity
     implements Toolbar.OnMenuItemClickListener {
 
@@ -93,10 +94,5 @@ public class CaldavAccountSettingsActivity extends BaseCaldavAccountSettingsActi
   @Override
   protected String getHelpUrl() {
     return "https://tasks.org/caldav";
-  }
-
-  @Override
-  public void inject(ActivityComponent component) {
-    component.inject(this);
   }
 }

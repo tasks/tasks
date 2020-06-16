@@ -1,14 +1,12 @@
 package org.tasks.preferences.fragments
 
 import android.os.Bundle
-import org.tasks.injection.FragmentComponent
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.injection.InjectingPreferenceFragment
 
+@AndroidEntryPoint
 class Debug : InjectingPreferenceFragment() {
-
     override fun getPreferenceXml() = 0
 
     override fun setupPreferences(savedInstanceState: Bundle?) {}
-
-    override fun inject(component: FragmentComponent) {}
 }

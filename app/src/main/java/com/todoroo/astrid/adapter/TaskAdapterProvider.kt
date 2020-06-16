@@ -10,13 +10,13 @@ import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task.Companion.isUuidEmpty
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater
 import com.todoroo.astrid.subtasks.SubtasksHelper
+import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskDao
 import org.tasks.data.TaskListMetadata
 import org.tasks.data.TaskListMetadataDao
-import org.tasks.injection.ApplicationContext
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
 

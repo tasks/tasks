@@ -6,8 +6,8 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastQ;
 import android.Manifest.permission;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import javax.inject.Inject;
-import org.tasks.injection.ApplicationContext;
 import timber.log.Timber;
 
 public class PermissionChecker {

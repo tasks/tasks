@@ -33,17 +33,18 @@ import com.todoroo.astrid.core.CustomFilterItemTouchHelper
 import com.todoroo.astrid.dao.Database
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria.activeAndVisible
 import com.todoroo.astrid.data.Task
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.Strings
 import org.tasks.data.Filter
 import org.tasks.data.FilterDao
 import org.tasks.filters.FilterCriteriaProvider
-import org.tasks.injection.ActivityComponent
 import org.tasks.locale.Locale
 import java.util.*
 import javax.inject.Inject
 import kotlin.math.max
 
+@AndroidEntryPoint
 class FilterSettingsActivity : BaseListSettingsActivity() {
     @Inject lateinit var filterDao: FilterDao
     @Inject lateinit var locale: Locale
@@ -224,8 +225,6 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
     fun onTextChanged() {
         nameLayout.error = null
     }
-
-    override fun inject(component: ActivityComponent) = component.inject(this)
 
     override fun save() {
         val newName = newName

@@ -12,17 +12,18 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.billing.Inventory
-import org.tasks.injection.FragmentComponent
-import org.tasks.injection.InjectingDialogFragment
 import org.tasks.themes.ThemeAccent
 import org.tasks.themes.ThemeBase
 import org.tasks.themes.ThemeBase.EXTRA_THEME_OVERRIDE
 import javax.inject.Inject
 
-class ThemePickerDialog : InjectingDialogFragment() {
+@AndroidEntryPoint
+class ThemePickerDialog : DialogFragment() {
 
     companion object {
         const val EXTRA_SELECTED = "extra_selected"
@@ -52,8 +53,6 @@ class ThemePickerDialog : InjectingDialogFragment() {
     var adapter: ArrayAdapter<String>? = null
     var dialog: AlertDialog? = null
     var selected = -1
-
-    override fun inject(component: FragmentComponent) = component.inject(this)
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         selected = savedInstanceState?.getInt(EXTRA_SELECTED) ?: requireArguments().getInt(EXTRA_SELECTED)

@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.preference.*
 import com.todoroo.astrid.api.Filter
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.activities.FilterSelectionActivity
@@ -14,7 +15,6 @@ import org.tasks.dialogs.ColorPalettePicker.Companion.newColorPalette
 import org.tasks.dialogs.ColorPickerAdapter.Palette
 import org.tasks.dialogs.ColorWheelPicker
 import org.tasks.dialogs.ThemePickerDialog.Companion.newThemePickerDialog
-import org.tasks.injection.FragmentComponent
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.locale.Locale
 import org.tasks.preferences.DefaultFilterProvider
@@ -28,6 +28,7 @@ private const val REQUEST_COLOR_SELECTION = 1007
 
 const val EXTRA_WIDGET_ID = "extra_widget_id"
 
+@AndroidEntryPoint
 class ScrollableWidget : InjectingPreferenceFragment() {
 
     companion object {
@@ -195,6 +196,4 @@ class ScrollableWidget : InjectingPreferenceFragment() {
         preference.value = preferences.getStringValue(key) ?: defaultValue
         return preference
     }
-
-    override fun inject(component: FragmentComponent) = component.inject(this)
 }

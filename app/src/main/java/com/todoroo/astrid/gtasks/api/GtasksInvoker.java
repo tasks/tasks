@@ -13,12 +13,12 @@ import com.google.api.services.tasks.TasksScopes;
 import com.google.api.services.tasks.model.Task;
 import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import java.io.IOException;
 import javax.inject.Inject;
 import org.tasks.BuildConfig;
 import org.tasks.DebugNetworkInterceptor;
 import org.tasks.gtasks.GoogleAccountManager;
-import org.tasks.injection.ApplicationContext;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 

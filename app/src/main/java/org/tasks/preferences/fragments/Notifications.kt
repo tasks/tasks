@@ -14,11 +14,11 @@ import androidx.preference.SwitchPreferenceCompat
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.voice.VoiceOutputAssistant
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.activities.FilterSelectionActivity
 import org.tasks.dialogs.MyTimePickerDialog.newTimePicker
-import org.tasks.injection.FragmentComponent
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
@@ -36,6 +36,7 @@ private const val REQUEST_BADGE_LIST = 10004
 private const val REQUEST_CODE_ALERT_RINGTONE = 10005
 private const val REQUEST_CODE_TTS_CHECK = 10006
 
+@AndroidEntryPoint
 class Notifications : InjectingPreferenceFragment() {
 
     @Inject lateinit var preferences: Preferences
@@ -151,10 +152,6 @@ class Notifications : InjectingPreferenceFragment() {
         super.onDestroy()
 
         voiceOutputAssistant.shutdown()
-    }
-
-    override fun inject(component: FragmentComponent) {
-        component.inject(this)
     }
 
     private fun rescheduleNotificationsOnChange(cancelExisting: Boolean, vararg resIds: Int) {

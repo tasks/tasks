@@ -1,7 +1,7 @@
 package org.tasks.preferences
 
 import android.content.Context
-import org.tasks.injection.ApplicationContext
+import dagger.hilt.android.qualifiers.ApplicationContext
 
 class PermissivePermissionChecker(@ApplicationContext context: Context) : PermissionChecker(context) {
     override fun canAccessCalendars() = true

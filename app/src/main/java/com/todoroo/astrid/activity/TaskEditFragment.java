@@ -34,6 +34,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.appbar.AppBarLayout;
@@ -46,6 +47,7 @@ import com.todoroo.astrid.notes.CommentsController;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.timers.TimerPlugin;
+import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -59,16 +61,14 @@ import org.tasks.databinding.FragmentTaskEditBinding;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.Linkify;
 import org.tasks.fragments.TaskEditControlSetFragmentManager;
-import org.tasks.injection.ActivityContext;
-import org.tasks.injection.FragmentComponent;
-import org.tasks.injection.InjectingFragment;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.ThemeColor;
 import org.tasks.ui.SubtaskControlSet;
 import org.tasks.ui.TaskEditControlFragment;
 
-public final class TaskEditFragment extends InjectingFragment
+@AndroidEntryPoint
+public final class TaskEditFragment extends Fragment
     implements Toolbar.OnMenuItemClickListener {
 
   static final String TAG_TASKEDIT_FRAGMENT = "taskedit_fragment";
@@ -81,7 +81,7 @@ public final class TaskEditFragment extends InjectingFragment
   @Inject TaskDeleter taskDeleter;
   @Inject NotificationManager notificationManager;
   @Inject DialogBuilder dialogBuilder;
-  @Inject @ActivityContext Context context;
+  @Inject Activity context;
   @Inject TaskEditControlSetFragmentManager taskEditControlSetFragmentManager;
   @Inject CommentsController commentsController;
   @Inject Preferences preferences;
@@ -116,11 +116,6 @@ public final class TaskEditFragment extends InjectingFragment
     super.onSaveInstanceState(outState);
 
     outState.putBoolean(EXTRA_COMPLETED, completed);
-  }
-
-  @Override
-  protected void inject(FragmentComponent component) {
-    component.inject(this);
   }
 
   @Override

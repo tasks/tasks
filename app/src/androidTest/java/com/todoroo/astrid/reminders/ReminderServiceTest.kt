@@ -1,19 +1,20 @@
 package com.todoroo.astrid.reminders
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
+import dagger.hilt.android.testing.HiltAndroidTest
+import dagger.hilt.android.testing.UninstallModules
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
+import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.tasks.Freeze
 import org.tasks.R
 import org.tasks.date.DateTimeUtils
 import org.tasks.injection.InjectingTestCase
-import org.tasks.injection.TestComponent
+import org.tasks.injection.ProductionModule
 import org.tasks.jobs.NotificationQueue
 import org.tasks.jobs.ReminderEntry
 import org.tasks.makers.TaskMaker.COMPLETION_TIME
@@ -33,7 +34,8 @@ import org.tasks.time.DateTime
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-@RunWith(AndroidJUnit4::class)
+@UninstallModules(ProductionModule::class)
+@HiltAndroidTest
 class ReminderServiceTest : InjectingTestCase() {
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var taskDao: TaskDao
@@ -42,14 +44,13 @@ class ReminderServiceTest : InjectingTestCase() {
     private lateinit var service: ReminderService
     private lateinit var random: RandomStub
 
+    @Before
     override fun setUp() {
         super.setUp()
         random = RandomStub()
         preferences.clear()
         service = ReminderService(preferences, jobs, random, taskDao)
     }
-
-    override fun inject(component: TestComponent) = component.inject(this)
 
     @Test
     fun dontScheduleDueDateReminderWhenFlagNotSet() {

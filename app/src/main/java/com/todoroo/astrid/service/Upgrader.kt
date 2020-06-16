@@ -7,6 +7,7 @@ import com.google.common.collect.ListMultimap
 import com.google.common.collect.Multimaps
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.dao.TaskDao
+import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.caldav.iCalendar
@@ -14,7 +15,6 @@ import org.tasks.caldav.iCalendar.Companion.fromVtodo
 import org.tasks.caldav.iCalendar.Companion.getParent
 import org.tasks.caldav.iCalendar.Companion.order
 import org.tasks.data.*
-import org.tasks.injection.ApplicationContext
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.widget.AppWidgetManager

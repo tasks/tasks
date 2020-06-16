@@ -11,31 +11,31 @@ import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.repeats.CustomRecurrenceDialog.newCustomRecurrenceDialog;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
+import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.todoroo.astrid.repeats.RepeatControlSet;
+import dagger.hilt.android.AndroidEntryPoint;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.injection.ActivityContext;
-import org.tasks.injection.FragmentComponent;
-import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.ui.SingleCheckedArrayAdapter;
 import timber.log.Timber;
 
-public class BasicRecurrenceDialog extends InjectingDialogFragment {
+@AndroidEntryPoint
+public class BasicRecurrenceDialog extends DialogFragment {
 
   private static final String EXTRA_RRULE = "extra_rrule";
   private static final String EXTRA_DATE = "extra_date";
   private static final String FRAG_TAG_CUSTOM_RECURRENCE = "frag_tag_custom_recurrence";
 
-  @Inject @ActivityContext Context context;
+  @Inject Activity context;
   @Inject DialogBuilder dialogBuilder;
   @Inject RepeatRuleToString repeatRuleToString;
 
@@ -157,10 +157,5 @@ public class BasicRecurrenceDialog extends InjectingDialogFragment {
         || rrule.getUntil() != null
         || rrule.getInterval() != 1
         || rrule.getCount() != 0;
-  }
-
-  @Override
-  protected void inject(FragmentComponent component) {
-    component.inject(this);
   }
 }

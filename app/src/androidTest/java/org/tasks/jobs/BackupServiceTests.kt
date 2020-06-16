@@ -7,31 +7,34 @@ package org.tasks.jobs
 
 import android.net.Uri
 import androidx.test.InstrumentationRegistry
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
+import dagger.hilt.android.testing.HiltAndroidTest
+import dagger.hilt.android.testing.UninstallModules
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
+import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.tasks.R
 import org.tasks.backup.TasksJsonExporter
 import org.tasks.backup.TasksJsonExporter.ExportType
 import org.tasks.injection.InjectingTestCase
-import org.tasks.injection.TestComponent
+import org.tasks.injection.ProductionModule
 import org.tasks.preferences.Preferences
 import java.io.File
 import java.io.IOException
 import javax.inject.Inject
 
-@RunWith(AndroidJUnit4::class)
+@UninstallModules(ProductionModule::class)
+@HiltAndroidTest
 class BackupServiceTests : InjectingTestCase() {
     @Inject lateinit var jsonExporter: TasksJsonExporter
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var preferences: Preferences
     private lateinit var temporaryDirectory: File
-    
+
+    @Before
     override fun setUp() {
         super.setUp()
         temporaryDirectory = try {
@@ -55,8 +58,6 @@ class BackupServiceTests : InjectingTestCase() {
         taskDao.createNew(task)
     }
 
-    override fun inject(component: TestComponent) = component.inject(this)
-
     @After
     fun tearDown() {
         for (file in temporaryDirectory.listFiles()!!) {
@@ -73,6 +74,6 @@ class BackupServiceTests : InjectingTestCase() {
         // assert file created
         val files = temporaryDirectory.listFiles()
         assertEquals(1, files!!.size)
-        assertTrue(files[0].name.matches(Regex(BackupWork.BACKUP_FILE_NAME_REGEX)))
+        assertTrue(files[0].name.matches(BackupWork.BACKUP_FILE_NAME_REGEX))
     }
 }

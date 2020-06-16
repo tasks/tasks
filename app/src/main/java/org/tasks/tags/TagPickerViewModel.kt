@@ -1,5 +1,6 @@
 package org.tasks.tags
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -13,14 +14,10 @@ import org.tasks.data.TagData
 import org.tasks.data.TagDataDao
 import org.tasks.tags.CheckBoxTriStates.State
 import java.util.*
-import javax.inject.Inject
 
-class TagPickerViewModel : ViewModel() {
+class TagPickerViewModel @ViewModelInject constructor(private val tagDataDao: TagDataDao) : ViewModel() {
     private val tags = MutableLiveData<List<TagData>>()
     private val disposables = CompositeDisposable()
-
-    @Inject lateinit var tagDataDao: TagDataDao
-
     private val selected: MutableSet<TagData> = HashSet()
     private val partiallySelected: MutableSet<TagData> = HashSet()
     var text: String? = null

@@ -4,11 +4,11 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.CalendarContract;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
-import org.tasks.injection.ApplicationContext;
 import org.tasks.preferences.PermissionChecker;
 import timber.log.Timber;
 

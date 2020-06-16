@@ -1,15 +1,15 @@
 package org.tasks.data
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.astrid.dao.TaskDao
+import dagger.hilt.android.testing.HiltAndroidTest
+import dagger.hilt.android.testing.UninstallModules
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.tasks.injection.InjectingTestCase
-import org.tasks.injection.TestComponent
+import org.tasks.injection.ProductionModule
 import org.tasks.makers.GoogleTaskMaker.LIST
 import org.tasks.makers.GoogleTaskMaker.PARENT
 import org.tasks.makers.GoogleTaskMaker.REMOTE_ID
@@ -19,7 +19,8 @@ import org.tasks.makers.GtaskListMaker.newGtaskList
 import org.tasks.makers.TaskMaker.newTask
 import javax.inject.Inject
 
-@RunWith(AndroidJUnit4::class)
+@UninstallModules(ProductionModule::class)
+@HiltAndroidTest
 class GoogleTaskDaoTests : InjectingTestCase() {
     @Inject lateinit var googleTaskListDao: GoogleTaskListDao
     @Inject lateinit var googleTaskDao: GoogleTaskDao
@@ -177,6 +178,4 @@ class GoogleTaskDaoTests : InjectingTestCase() {
         result.gt_parent = googleTask.parent
         return result
     }
-
-    override fun inject(component: TestComponent) = component.inject(this)
 }

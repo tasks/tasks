@@ -17,12 +17,12 @@ import android.widget.LinearLayout
 import butterknife.*
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.data.Task
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.activities.CameraActivity
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.files.ImageHelper
-import org.tasks.injection.FragmentComponent
 import org.tasks.preferences.Device
 import org.tasks.preferences.Preferences
 import org.tasks.themes.ThemeColor
@@ -30,6 +30,7 @@ import org.tasks.ui.TaskEditControlFragment
 import java.util.*
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class CommentBarFragment : TaskEditControlFragment() {
     @Inject lateinit var activity: Activity
     @Inject lateinit var dialogBuilder: DialogBuilder
@@ -56,8 +57,6 @@ class CommentBarFragment : TaskEditControlFragment() {
         super.onAttach(activity)
         callback = activity as CommentBarFragmentCallback
     }
-
-    override fun inject(component: FragmentComponent) = component.inject(this)
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

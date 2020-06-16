@@ -5,26 +5,25 @@
  */
 package com.todoroo.astrid.service
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.utility.TitleParser
+import dagger.hilt.android.testing.HiltAndroidTest
+import dagger.hilt.android.testing.UninstallModules
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.tasks.data.TagDataDao
 import org.tasks.injection.InjectingTestCase
-import org.tasks.injection.TestComponent
+import org.tasks.injection.ProductionModule
 import java.util.*
 import javax.inject.Inject
 
-@RunWith(AndroidJUnit4::class)
+@UninstallModules(ProductionModule::class)
+@HiltAndroidTest
 class QuickAddMarkupTest : InjectingTestCase() {
     private val tags = ArrayList<String>()
     @Inject lateinit var tagDataDao: TagDataDao
     
     private var task: Task? = null
-    
-    override fun inject(component: TestComponent) = component.inject(this)
 
     @Test
     fun testTags() {

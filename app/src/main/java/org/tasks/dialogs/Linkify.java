@@ -12,11 +12,11 @@ import android.text.SpannableStringBuilder;
 import android.text.style.URLSpan;
 import android.view.View;
 import android.widget.TextView;
+import dagger.hilt.android.qualifiers.ActivityContext;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.injection.ActivityContext;
 
 public class Linkify {
 

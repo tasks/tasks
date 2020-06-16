@@ -7,18 +7,19 @@ import android.os.Bundle;
 import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.SortHelper;
+import dagger.hilt.android.AndroidEntryPoint;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.injection.FragmentComponent;
-import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
-public class SortDialog extends InjectingDialogFragment {
+@AndroidEntryPoint
+public class SortDialog extends DialogFragment {
 
   private static final String EXTRA_MANUAL_ENABLED = "extra_manual_enabled";
   private static final String EXTRA_ASTRID_ENABLED = "extra_astrid_enabled";
@@ -178,11 +179,6 @@ public class SortDialog extends InjectingDialogFragment {
 
     Timber.e("Invalid sort mode: %s", index);
     return SortHelper.SORT_ALPHA;
-  }
-
-  @Override
-  protected void inject(FragmentComponent component) {
-    component.inject(this);
   }
 
   public interface SortDialogCallback {

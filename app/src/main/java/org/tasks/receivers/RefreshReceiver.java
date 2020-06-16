@@ -6,14 +6,15 @@ import androidx.annotation.NonNull;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
+import dagger.hilt.android.AndroidEntryPoint;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.injection.ApplicationComponent;
-import org.tasks.injection.ApplicationContext;
 import org.tasks.injection.InjectingJobIntentService;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 
+@AndroidEntryPoint
 public class RefreshReceiver extends InjectingJobIntentService {
 
   @Inject @ApplicationContext Context context;
@@ -29,10 +30,5 @@ public class RefreshReceiver extends InjectingJobIntentService {
     }
 
     Astrid2TaskProvider.notifyDatabaseModification(context);
-  }
-
-  @Override
-  protected void inject(ApplicationComponent component) {
-    component.inject(this);
   }
 }

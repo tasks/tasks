@@ -8,21 +8,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
+import androidx.fragment.app.DialogFragment
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.google.android.material.button.MaterialButton
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
-import org.tasks.injection.FragmentComponent
-import org.tasks.injection.InjectingDialogFragment
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
 
-class WhatsNewDialog : InjectingDialogFragment() {
+@AndroidEntryPoint
+class WhatsNewDialog : DialogFragment() {
 
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var firebase: Firebase
@@ -122,6 +123,4 @@ class WhatsNewDialog : InjectingDialogFragment() {
                 Pair(R.string.param_user_pro, inventory.hasPro()),
                 Pair(R.string.param_user_no_churn, firebase.noChurn()))
     }
-
-    override fun inject(component: FragmentComponent) = component.inject(this)
 }

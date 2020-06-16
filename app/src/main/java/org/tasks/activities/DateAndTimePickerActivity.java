@@ -7,15 +7,16 @@ import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import dagger.hilt.android.AndroidEntryPoint;
 import javax.inject.Inject;
 import org.tasks.dialogs.MyDatePickerDialog;
 import org.tasks.dialogs.MyTimePickerDialog;
-import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.ThemeAccent;
 import org.tasks.time.DateTime;
 
+@AndroidEntryPoint
 public class DateAndTimePickerActivity extends InjectingAppCompatActivity
     implements MyDatePickerDialog.DatePickerCallback, MyTimePickerDialog.TimePickerCallback {
 
@@ -49,11 +50,6 @@ public class DateAndTimePickerActivity extends InjectingAppCompatActivity
       newDatePicker(null, 0, initial.getMillis())
           .show(getSupportFragmentManager(), FRAG_TAG_DATE_PICKER);
     }
-  }
-
-  @Override
-  public void inject(ActivityComponent component) {
-    component.inject(this);
   }
 
   @Override

@@ -5,28 +5,27 @@
  */
 package com.todoroo.astrid.gtasks
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
+import dagger.hilt.android.testing.HiltAndroidTest
+import dagger.hilt.android.testing.UninstallModules
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.tasks.data.GoogleTask
 import org.tasks.data.GoogleTaskDao
 import org.tasks.injection.InjectingTestCase
-import org.tasks.injection.TestComponent
+import org.tasks.injection.ProductionModule
 import javax.inject.Inject
 
-@RunWith(AndroidJUnit4::class)
+@UninstallModules(ProductionModule::class)
+@HiltAndroidTest
 class GtasksMetadataServiceTest : InjectingTestCase() {
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var googleTaskDao: GoogleTaskDao
     
     private var task: Task? = null
     private var metadata: GoogleTask? = null
-    
-    override fun inject(component: TestComponent) = component.inject(this)
 
     @Test
     fun testMetadataFound() {

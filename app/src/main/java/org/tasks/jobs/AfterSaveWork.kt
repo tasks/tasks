@@ -4,6 +4,8 @@ import android.content.ContentValues
 import android.content.Context
 import android.net.Uri
 import android.provider.CalendarContract
+import androidx.hilt.Assisted
+import androidx.hilt.work.WorkerInject
 import androidx.work.Data
 import androidx.work.WorkerParameters
 import com.todoroo.astrid.dao.TaskDao
@@ -15,30 +17,30 @@ import com.todoroo.astrid.timers.TimerPlugin
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
+import org.tasks.analytics.Firebase
 import org.tasks.data.CaldavDao
-import org.tasks.injection.ApplicationComponent
-import org.tasks.injection.ApplicationContext
 import org.tasks.injection.InjectingWorker
 import org.tasks.location.GeofenceApi
 import org.tasks.notifications.NotificationManager
 import org.tasks.scheduling.RefreshScheduler
 import org.tasks.sync.SyncAdapters
 import timber.log.Timber
-import javax.inject.Inject
 
-class AfterSaveWork(context: Context, workerParams: WorkerParameters) : InjectingWorker(context, workerParams) {
-    @Inject lateinit var repeatTaskHelper: RepeatTaskHelper
-    @Inject @ApplicationContext lateinit var context: Context
-    @Inject lateinit var notificationManager: NotificationManager
-    @Inject lateinit var geofenceApi: GeofenceApi
-    @Inject lateinit var timerPlugin: TimerPlugin
-    @Inject lateinit var reminderService: ReminderService
-    @Inject lateinit var refreshScheduler: RefreshScheduler
-    @Inject lateinit var localBroadcastManager: LocalBroadcastManager
-    @Inject lateinit var taskDao: TaskDao
-    @Inject lateinit var syncAdapters: SyncAdapters
-    @Inject lateinit var workManager: WorkManager
-    @Inject lateinit var caldavDao: CaldavDao
+class AfterSaveWork @WorkerInject constructor(
+        @Assisted context: Context,
+        @Assisted workerParams: WorkerParameters,
+        firebase: Firebase,
+        private val repeatTaskHelper: RepeatTaskHelper,
+        private val notificationManager: NotificationManager,
+        private val geofenceApi: GeofenceApi,
+        private val timerPlugin: TimerPlugin,
+        private val reminderService: ReminderService,
+        private val refreshScheduler: RefreshScheduler,
+        private val localBroadcastManager: LocalBroadcastManager,
+        private val taskDao: TaskDao,
+        private val syncAdapters: SyncAdapters,
+        private val workManager: WorkManager,
+        private val caldavDao: CaldavDao) : InjectingWorker(context, workerParams, firebase) {
 
     override fun run(): Result {
         val data = inputData
@@ -95,10 +97,6 @@ class AfterSaveWork(context: Context, workerParams: WorkerParameters) : Injectin
                 Timber.e(e)
             }
         }
-    }
-
-    override fun inject(component: ApplicationComponent) {
-        component.inject(this)
     }
 
     companion object {

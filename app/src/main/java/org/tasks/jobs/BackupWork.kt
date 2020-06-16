@@ -3,24 +3,26 @@ package org.tasks.jobs
 import android.content.ContentResolver
 import android.content.Context
 import androidx.documentfile.provider.DocumentFile
+import androidx.hilt.Assisted
+import androidx.hilt.work.WorkerInject
 import androidx.work.WorkerParameters
 import com.todoroo.andlib.utility.DateUtilities
 import org.tasks.R
+import org.tasks.analytics.Firebase
 import org.tasks.backup.TasksJsonExporter
-import org.tasks.injection.ApplicationComponent
-import org.tasks.injection.ApplicationContext
 import org.tasks.preferences.Preferences
 import timber.log.Timber
 import java.io.File
 import java.io.FileFilter
 import java.util.*
-import javax.inject.Inject
 
-class BackupWork(context: Context, workerParams: WorkerParameters) : RepeatingWorker(context, workerParams) {
-    @Inject @ApplicationContext lateinit var context: Context
-    @Inject lateinit var tasksJsonExporter: TasksJsonExporter
-    @Inject lateinit var preferences: Preferences
-    @Inject lateinit var workManager: WorkManager
+class BackupWork @WorkerInject constructor(
+        @Assisted context: Context,
+        @Assisted workerParams: WorkerParameters,
+        firebase: Firebase,
+        private val tasksJsonExporter: TasksJsonExporter,
+        private val preferences: Preferences,
+        private val workManager: WorkManager) : RepeatingWorker(context, workerParams, firebase) {
     
     override fun run(): Result {
         preferences.setLong(R.string.p_last_backup, DateUtilities.now())
@@ -29,8 +31,6 @@ class BackupWork(context: Context, workerParams: WorkerParameters) : RepeatingWo
     }
 
     override fun scheduleNext() = workManager.scheduleBackup()
-
-    override fun inject(component: ApplicationComponent) = component.inject(this)
 
     private fun startBackup(context: Context?) {
         try {

@@ -19,6 +19,7 @@ import androidx.appcompat.view.ActionMode
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagedList
@@ -44,6 +45,7 @@ import com.todoroo.astrid.service.TaskDuplicator
 import com.todoroo.astrid.service.TaskMover
 import com.todoroo.astrid.timers.TimerPlugin
 import com.todoroo.astrid.utility.Flags
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -63,8 +65,6 @@ import org.tasks.dialogs.DateTimePicker.Companion.newDateTimePicker
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.SortDialog
 import org.tasks.filters.PlaceFilter
-import org.tasks.injection.FragmentComponent
-import org.tasks.injection.InjectingFragment
 import org.tasks.intents.TaskIntents
 import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.Device
@@ -84,7 +84,8 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import kotlin.math.max
 
-class TaskListFragment : InjectingFragment(), OnRefreshListener, Toolbar.OnMenuItemClickListener, MenuItem.OnActionExpandListener, SearchView.OnQueryTextListener, ActionMode.Callback {
+@AndroidEntryPoint
+class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickListener, MenuItem.OnActionExpandListener, SearchView.OnQueryTextListener, ActionMode.Callback {
     private val refreshReceiver = RefreshReceiver()
     private var disposables: CompositeDisposable? = null
 
@@ -175,8 +176,6 @@ class TaskListFragment : InjectingFragment(), OnRefreshListener, Toolbar.OnMenuI
         super.onAttach(activity)
         callbacks = activity as TaskListFragmentCallbackHandler
     }
-
-    public override fun inject(component: FragmentComponent) = component.inject(this)
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)

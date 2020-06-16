@@ -2,8 +2,8 @@ package org.tasks.themes
 
 import android.content.Context
 import androidx.annotation.ColorInt
+import dagger.hilt.android.qualifiers.ActivityContext
 import org.tasks.R
-import org.tasks.injection.ActivityContext
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
 

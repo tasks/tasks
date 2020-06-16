@@ -14,7 +14,6 @@ import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -39,6 +38,7 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemSelected;
@@ -49,6 +49,7 @@ import com.google.ical.values.Weekday;
 import com.google.ical.values.WeekdayNum;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.repeats.RepeatControlSet;
+import dagger.hilt.android.AndroidEntryPoint;
 import java.text.DateFormatSymbols;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
@@ -59,15 +60,13 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.MyDatePickerDialog;
-import org.tasks.injection.ActivityContext;
-import org.tasks.injection.FragmentComponent;
-import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.ResourceResolver;
 import org.tasks.time.DateTime;
 import timber.log.Timber;
 
-public class CustomRecurrenceDialog extends InjectingDialogFragment {
+@AndroidEntryPoint
+public class CustomRecurrenceDialog extends DialogFragment {
 
   private static final List<Frequency> FREQUENCIES =
       asList(MINUTELY, HOURLY, DAILY, WEEKLY, MONTHLY, YEARLY);
@@ -76,7 +75,7 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
   private static final String FRAG_TAG_DATE_PICKER = "frag_tag_date_picker";
   private static final int REQUEST_PICK_DATE = 505;
   private final List<String> repeatUntilOptions = new ArrayList<>();
-  @Inject @ActivityContext Context context;
+  @Inject Activity context;
   @Inject DialogBuilder dialogBuilder;
   @Inject Locale locale;
 
@@ -550,10 +549,5 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
       updateRepeatUntilOptions();
     }
     super.onActivityResult(requestCode, resultCode, data);
-  }
-
-  @Override
-  protected void inject(FragmentComponent component) {
-    component.inject(this);
   }
 }

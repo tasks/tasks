@@ -20,13 +20,14 @@ import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.TagFilter;
 import com.todoroo.astrid.helper.UUIDHelper;
+import dagger.hilt.android.AndroidEntryPoint;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.data.TagDao;
 import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
-import org.tasks.injection.ActivityComponent;
 
+@AndroidEntryPoint
 public class TagSettingsActivity extends BaseListSettingsActivity {
 
   public static final String TOKEN_AUTOPOPULATE_NAME = "autopopulateName"; // $NON-NLS-1$
@@ -88,11 +89,6 @@ public class TagSettingsActivity extends BaseListSettingsActivity {
   @OnTextChanged(R.id.name)
   void onTextChanged() {
     nameLayout.setError(null);
-  }
-
-  @Override
-  public void inject(ActivityComponent component) {
-    component.inject(this);
   }
 
   private String getNewName() {

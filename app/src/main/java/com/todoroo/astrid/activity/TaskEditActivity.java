@@ -2,15 +2,16 @@ package com.todoroo.astrid.activity;
 
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.service.TaskCreator;
+import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
-import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.intents.TaskIntents;
 
+@AndroidEntryPoint
 public class TaskEditActivity extends InjectingAppCompatActivity {
 
   private static final String TOKEN_ID = "id";
@@ -48,10 +49,5 @@ public class TaskEditActivity extends InjectingAppCompatActivity {
     super.onPause();
 
     disposables.dispose();
-  }
-
-  @Override
-  public void inject(ActivityComponent component) {
-    component.inject(this);
   }
 }

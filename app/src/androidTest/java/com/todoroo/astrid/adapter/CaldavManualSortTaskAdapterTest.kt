@@ -1,16 +1,16 @@
 package com.todoroo.astrid.adapter
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.natpryce.makeiteasy.PropertyValue
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
+import dagger.hilt.android.testing.HiltAndroidTest
+import dagger.hilt.android.testing.UninstallModules
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.data.CaldavCalendar
@@ -19,7 +19,7 @@ import org.tasks.data.GoogleTaskDao
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskListQuery.getQuery
 import org.tasks.injection.InjectingTestCase
-import org.tasks.injection.TestComponent
+import org.tasks.injection.ProductionModule
 import org.tasks.makers.CaldavTaskMaker.CALENDAR
 import org.tasks.makers.CaldavTaskMaker.REMOTE_PARENT
 import org.tasks.makers.CaldavTaskMaker.TASK
@@ -31,7 +31,8 @@ import org.tasks.preferences.Preferences
 import org.tasks.time.DateTime
 import javax.inject.Inject
 
-@RunWith(AndroidJUnit4::class)
+@UninstallModules(ProductionModule::class)
+@HiltAndroidTest
 class CaldavManualSortTaskAdapterTest : InjectingTestCase() {
     @Inject lateinit var googleTaskDao: GoogleTaskDao
     @Inject lateinit var taskDao: TaskDao
@@ -241,6 +242,4 @@ class CaldavManualSortTaskAdapterTest : InjectingTestCase() {
                         with(REMOTE_PARENT, remoteParent)))
         return task.id
     }
-
-    override fun inject(component: TestComponent) = component.inject(this)
 }

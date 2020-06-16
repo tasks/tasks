@@ -8,13 +8,14 @@ import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.google.common.collect.Multimaps
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.activities.attribution.AttributionViewModel.LibraryAttribution
-import org.tasks.injection.ActivityComponent
 import org.tasks.injection.ThemedInjectingAppCompatActivity
 import timber.log.Timber
 import java.util.*
 
+@AndroidEntryPoint
 class AttributionActivity : ThemedInjectingAppCompatActivity() {
     @BindView(R.id.toolbar)
     lateinit var toolbar: Toolbar
@@ -60,6 +61,4 @@ class AttributionActivity : ThemedInjectingAppCompatActivity() {
             AttributionRow(it, libraries.sorted().joinToString("\n"))
         }
     }
-
-    override fun inject(component: ActivityComponent) = component.inject(this)
 }

@@ -4,15 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.todoroo.astrid.api.Filter
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.databinding.FragmentTaskEditEmptyBinding
-import org.tasks.injection.FragmentComponent
-import org.tasks.injection.InjectingFragment
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.ThemeColor
 import javax.inject.Inject
 
-class EmptyTaskEditFragment : InjectingFragment() {
+@AndroidEntryPoint
+class EmptyTaskEditFragment : Fragment() {
 
     @Inject lateinit var themeColor: ThemeColor
     @Inject lateinit var colorProvider: ColorProvider
@@ -46,6 +47,4 @@ class EmptyTaskEditFragment : InjectingFragment() {
 
         return binding.root
     }
-
-    override fun inject(component: FragmentComponent) = component.inject(this)
 }

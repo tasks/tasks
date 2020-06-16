@@ -8,12 +8,14 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import com.todoroo.astrid.adapter.FilterAdapter
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.FilterListItem
 import com.todoroo.astrid.api.GtasksFilter
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -21,11 +23,10 @@ import io.reactivex.schedulers.Schedulers
 import org.tasks.LocalBroadcastManager
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.filters.FilterProvider
-import org.tasks.injection.FragmentComponent
-import org.tasks.injection.InjectingDialogFragment
 import javax.inject.Inject
 
-class ListPicker : InjectingDialogFragment() {
+@AndroidEntryPoint
+class ListPicker : DialogFragment() {
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var filterAdapter: FilterAdapter
     @Inject lateinit var filterProvider: FilterProvider
@@ -62,8 +63,6 @@ class ListPicker : InjectingDialogFragment() {
         super.onSaveInstanceState(outState)
         filterAdapter.save(outState)
     }
-
-    override fun inject(component: FragmentComponent) = component.inject(this)
 
     private fun selectedList(list: Filter) {
         targetFragment!!.onActivityResult(

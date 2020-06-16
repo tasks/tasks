@@ -9,15 +9,16 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.LocationDao
 import org.tasks.data.Place
 import org.tasks.filters.PlaceFilter
-import org.tasks.injection.ActivityComponent
 import org.tasks.location.MapFragment
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmentCallback {
 
     companion object {
@@ -100,8 +101,6 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
         setResult(Activity.RESULT_OK, Intent(TaskListFragment.ACTION_DELETED))
         finish()
     }
-
-    override fun inject(component: ActivityComponent) = component.inject(this)
 
     override fun onMapReady(mapFragment: MapFragment?) {
         map = mapFragment!!

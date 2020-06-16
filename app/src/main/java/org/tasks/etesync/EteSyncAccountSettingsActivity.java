@@ -16,15 +16,16 @@ import com.etesync.journalmanager.Exceptions.IntegrityException;
 import com.etesync.journalmanager.Exceptions.VersionTooNewException;
 import com.etesync.journalmanager.UserInfoManager.UserInfo;
 import com.todoroo.astrid.helper.UUIDHelper;
+import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.Completable;
 import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.caldav.BaseCaldavAccountSettingsActivity;
 import org.tasks.data.CaldavAccount;
-import org.tasks.injection.ActivityComponent;
 import timber.log.Timber;
 
+@AndroidEntryPoint
 public class EteSyncAccountSettingsActivity extends BaseCaldavAccountSettingsActivity
     implements Toolbar.OnMenuItemClickListener {
 
@@ -169,11 +170,6 @@ public class EteSyncAccountSettingsActivity extends BaseCaldavAccountSettingsAct
   @Override
   protected String getHelpUrl() {
     return "https://tasks.org/etesync";
-  }
-
-  @Override
-  public void inject(ActivityComponent component) {
-    component.inject(this);
   }
 
   @Override

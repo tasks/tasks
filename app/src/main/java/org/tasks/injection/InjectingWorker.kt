@@ -5,14 +5,14 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import org.tasks.analytics.Firebase
 import timber.log.Timber
-import javax.inject.Inject
 
-abstract class InjectingWorker(context: Context, workerParams: WorkerParameters) : Worker(context, workerParams) {
-    @Inject lateinit var firebase: Firebase
+abstract class InjectingWorker(
+        internal val context: Context,
+        workerParams: WorkerParameters,
+        internal val firebase: Firebase) : Worker(context, workerParams) {
 
     override fun doWork(): Result {
         Timber.d("%s.doWork()", javaClass.simpleName)
-        inject((applicationContext as InjectingApplication).component)
         return try {
             run()
         } catch (e: Exception) {
@@ -22,6 +22,4 @@ abstract class InjectingWorker(context: Context, workerParams: WorkerParameters)
     }
 
     protected abstract fun run(): Result
-
-    protected abstract fun inject(component: ApplicationComponent)
 }

@@ -20,7 +20,7 @@ public abstract class AbstractFragmentPluginAppCompatActivity
   }
 
   @Override
-  public void onCreate(final Bundle savedInstanceState) {
+  protected void onCreate(final Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
     if (isLocalePluginIntent(getIntent())) {

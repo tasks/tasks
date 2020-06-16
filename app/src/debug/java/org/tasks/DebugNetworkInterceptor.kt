@@ -6,8 +6,8 @@ import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
 import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
 import com.google.api.client.http.HttpRequest
 import com.google.api.client.http.HttpResponse
+import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.OkHttpClient
-import org.tasks.injection.ApplicationContext
 import java.io.IOException
 import javax.inject.Inject
 

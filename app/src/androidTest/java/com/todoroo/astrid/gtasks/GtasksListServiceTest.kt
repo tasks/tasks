@@ -1,18 +1,19 @@
 package com.todoroo.astrid.gtasks
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.api.services.tasks.model.TaskList
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.astrid.service.TaskDeleter
+import dagger.hilt.android.testing.HiltAndroidTest
+import dagger.hilt.android.testing.UninstallModules
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
+import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.GoogleTaskAccount
 import org.tasks.data.GoogleTaskListDao
 import org.tasks.injection.InjectingTestCase
-import org.tasks.injection.TestComponent
+import org.tasks.injection.ProductionModule
 import org.tasks.makers.GtaskListMaker.ID
 import org.tasks.makers.GtaskListMaker.NAME
 import org.tasks.makers.GtaskListMaker.REMOTE_ID
@@ -21,7 +22,8 @@ import org.tasks.makers.RemoteGtaskListMaker
 import org.tasks.makers.RemoteGtaskListMaker.newRemoteList
 import javax.inject.Inject
 
-@RunWith(AndroidJUnit4::class)
+@UninstallModules(ProductionModule::class)
+@HiltAndroidTest
 class GtasksListServiceTest : InjectingTestCase() {
     @Inject lateinit var taskDeleter: TaskDeleter
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
@@ -29,12 +31,11 @@ class GtasksListServiceTest : InjectingTestCase() {
 
     private lateinit var gtasksListService: GtasksListService
 
+    @Before
     override fun setUp() {
         super.setUp()
         gtasksListService = GtasksListService(googleTaskListDao, taskDeleter, localBroadcastManager)
     }
-
-    override fun inject(component: TestComponent) = component.inject(this)
 
     @Test
     fun testCreateNewList() {
@@ -50,12 +51,12 @@ class GtasksListServiceTest : InjectingTestCase() {
     fun testGetListByRemoteId() {
         val list = newGtaskList(with(REMOTE_ID, "1"))
         list.id = googleTaskListDao.insertOrReplace(list)
-        assertEquals(list, gtasksListService.getList("1"))
+        assertEquals(list, googleTaskListDao.getByRemoteId("1"))
     }
 
     @Test
     fun testGetListReturnsNullWhenNotFound() {
-        assertNull(gtasksListService.getList("1"))
+        assertNull(googleTaskListDao.getByRemoteId("1"))
     }
 
     @Test
@@ -81,7 +82,7 @@ class GtasksListServiceTest : InjectingTestCase() {
     @Test
     fun testNewListLastSyncIsZero() {
         setLists(TaskList().setId("1"))
-        assertEquals(0L, gtasksListService.getList("1").lastSync)
+        assertEquals(0L, googleTaskListDao.getByRemoteId("1")!!.lastSync)
     }
 
     private fun setLists(vararg list: TaskList) {
