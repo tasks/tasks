@@ -345,7 +345,7 @@
     <string name="password_required">Passwort benötigt</string>
     <string name="url_required">URL benötigt</string>
     <string name="url_host_name_required">Hostname erforderlich</string>
-    <string name="url_invalid_scheme">Muss mit \"http(s)://\" beginnen</string>
+    <string name="url_invalid_scheme">Muss mit „http(s)://“ beginnen</string>
     <string name="no_title">(kein Titel)</string>
     <string name="back_button_saves_task">Zurück-Button speichert die Aufgabe</string>
     <string name="default_list">Standard-Liste</string>
@@ -387,11 +387,11 @@
     <string name="list">Liste</string>
     <string name="repeats_from">Wiederholt sich nach</string>
     <string name="repeats_single">Wiederholt sich %s</string>
-    <string name="repeats_single_on">Wiederholt sich %1$s am %2$s</string>
+    <string name="repeats_single_on">Wiederholt sich %1$s %2$s</string>
     <string name="repeats_single_until">Wiederholt sich %1$s bis %2$s</string>
     <string name="repeats_single_number_of_times">Wiederholt sich %1$s, genau %2$d %3$s</string>
-    <string name="repeats_single_on_until">Wiederholt sich %1$s am %2$s, bis %3$s</string>
-    <string name="repeats_single_on_number_of_times">Wiederholt sich %1$s am %2$s, genau %3$d %4$s</string>
+    <string name="repeats_single_on_until">Wiederholt sich %1$s %2$s, bis %3$s</string>
+    <string name="repeats_single_on_number_of_times">Wiederholt sich %1$s %2$s, genau %3$d %4$s</string>
     <string name="repeats_minutely">minütlich</string>
     <string name="repeats_hourly">stündlich</string>
     <string name="repeats_daily">täglich</string>
@@ -408,7 +408,7 @@
     <string name="default_calendar">Standardkalender</string>
     <string name="badges_description">Anzeige eines Aufgabenzählers am Tasks Launcher Icon. Nicht alle Launcher unterstützen Badges.</string>
     <string name="bundle_notifications_summary">Mehrere Benachrichtigungen in einer zusammenfassen</string>
-    <string name="repeat_monthly_same_day_each_month">am selben Tag jeden Monats</string>
+    <string name="repeat_monthly_same_day_each_month">am selben Tag des Monats</string>
     <string name="repeat_monthly_every_day_of_nth_week">jeden %1$s %2$s</string>
     <string name="repeat_monthly_on_every_day_of_nth_week">an jedem %1$s %2$s</string>
     <string name="repeat_monthly_first_week">ersten</string>
@@ -615,7 +615,7 @@
     <string name="tomorrow_lowercase">morgen</string>
     <string name="today_lowercase">heute</string>
     <string name="astrid_sort_order_summary">Astrids manuelle Sortiermethode für \'Meine Aufgaben\', \'Heute\' und Schlagworte aktivieren. Diese Sortiermethode wird in einer zukünftigen Version \'Meine Sortierung\' ersetzen</string>
-    <string name="open_last_viewed_list">Zuletzt betrachtete List öffnen</string>
+    <string name="open_last_viewed_list">Zuletzt betrachtete Liste öffnen</string>
     <string name="improve_performance_summary">Gruppensortierung und einklappbare Unteraufgaben deaktivieren, um die App-Leistung zu verbessern</string>
     <string name="lists">Listen</string>
     <string name="on_launch">Beim Start</string>
