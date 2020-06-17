@@ -75,7 +75,7 @@
     <string name="EPr_cal_start_at_due_time">Událost v kalendáři začíná splněním úkolu</string>
     <string name="EPr_reset_preferences">Obnovit nastavení</string>
     <string name="EPr_reset_preferences_warning">Předvolby budou obnoveny na výchozí hodnoty</string>
-    <string name="EPr_delete_task_data">Smazat úkol</string>
+    <string name="EPr_delete_task_data">Smazat všechna data úkolů</string>
     <string name="EPr_delete_task_data_warning">Všechny úkoly budou trvale odstraněny</string>
     <string name="EPr_manage_delete_completed_gcal">Smazat události v kalendáři pro hotové úkoly</string>
     <string name="EPr_manage_delete_completed_gcal_message">Opravdu chcete smazat všechny události pro dokončené úkoly?</string>
@@ -556,7 +556,7 @@
     <string name="desaturate_colors_summary_on">"Barvy budou jemnější u tmavých motivů vzhledu "</string>
     <string name="desaturate_colors">Zjemnit barvy</string>
     <string name="chip_style_filled">Vyplněný</string>
-    <string name="chip_style_outlined">Ohraničený</string>
+    <string name="chip_style_outlined">Jen obrys</string>
     <string name="action_new_task">Nový úkol</string>
     <string name="caldav_home_set_not_found">Domovská sada nenalezena</string>
     <string name="list_separator_with_space">", "</string>
@@ -579,4 +579,17 @@
     <string name="widget_footer">Zápatí</string>
     <string name="widget_footer_settings">Nastavení zápatí</string>
     <string name="widget_show_dividers">Zobrazovat oddělovače</string>
+    <string name="improve_performance">Optimalizovat výkon</string>
+    <string name="whats_new">Co je nového</string>
+    <string name="pick_this_location">Vybrat toto místo</string>
+    <string name="choose_a_location">Vybrat místo</string>
+    <string name="visit_website">Navštívit webovou stránku</string>
+    <string name="location_remind_departure">Upomínka při odchodu</string>
+    <string name="location_remind_arrival">Upomínka při příchodu</string>
+    <string name="date_shortcut_tomorrow_night">Zítra v noci</string>
+    <string name="date_shortcut_tomorrow_evening">Zítra večer</string>
+    <string name="CFC_list_name">V seznamu…</string>
+    <string name="astrid_sort_order_summary">Zapněte Astrid ruční třídění pro \"Moje úkoly\", \" Dnes\" a štítky. Tento režim třidění bude v budoucnu nahrazen režimem \"Vlastní pořadí\"</string>
+    <string name="astrid_sort_order">Astrid ruční řazení</string>
+    <string name="manage_lists">Spravovat seznamy</string>
 </resources>
