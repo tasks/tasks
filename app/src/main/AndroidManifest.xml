@@ -82,12 +82,17 @@
 
   <!-- ============================================== Exported Permissions = -->
 
-  <!-- for v2 tasks provider -->
+  <permission-group
+    android:description="@string/read_permission_label"
+    android:icon="@drawable/ic_check_white_24dp"
+    android:label="@string/app_name"
+    android:name="org.tasks.permission-group" />
+
   <permission
-    android:description="@string/read_permission_desc"
+    android:description="@string/permission_read_tasks"
     android:label="@string/read_permission_label"
     android:name="${applicationId}.permission.READ_TASKS"
-    android:permissionGroup="android.permission-group.MESSAGES"
+    android:permissionGroup="org.tasks.permission-group"
     android:protectionLevel="dangerous"/>
 
   <!-- ========================================================== Metadata = -->
@@ -247,8 +252,6 @@
     <provider
       android:authorities="${applicationId}.tasksprovider"
       android:exported="true"
-      android:grantUriPermissions="true"
-      android:multiprocess="true"
       android:name="com.todoroo.astrid.provider.Astrid2TaskProvider"
       android:readPermission="${applicationId}.permission.READ_TASKS"/>
 
