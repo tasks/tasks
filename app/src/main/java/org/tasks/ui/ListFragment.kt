@@ -80,7 +80,10 @@ class ListFragment : TaskEditControlFragment() {
                     }
                 }
             }
-            setSelected(originalList ?: defaultFilterProvider.defaultList)
+            if (originalList == null) {
+                originalList = defaultFilterProvider.defaultList
+            }
+            setSelected(originalList!!)
         }
         return view
     }
