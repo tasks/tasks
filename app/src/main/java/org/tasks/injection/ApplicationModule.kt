@@ -92,6 +92,10 @@ class ApplicationModule {
     fun getDeletionDao(db: Database): DeletionDao = db.deletionDao
 
     @Provides
+    @Singleton
+    fun getContentProviderDao(db: Database): ContentProviderDao = db.contentProviderDao
+
+    @Provides
     fun getBillingClient(@ApplicationContext context: Context, inventory: Inventory, firebase: Firebase): BillingClient
             = BillingClientImpl(context, inventory, firebase)
 

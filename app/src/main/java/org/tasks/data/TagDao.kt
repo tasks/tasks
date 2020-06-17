@@ -17,9 +17,6 @@ abstract class TagDao {
     @Query("DELETE FROM tags WHERE task = :taskId AND tag_uid in (:tagUids)")
     abstract fun deleteTags(taskId: Long, tagUids: List<String>)
 
-    @Query("SELECT name FROM tags WHERE task = :taskId ORDER BY UPPER(name) ASC")
-    abstract fun getTagNames(taskId: Long): List<String>
-
     @Query("SELECT * FROM tags WHERE tag_uid = :tagUid")
     abstract fun getByTagUid(tagUid: String): List<Tag>
 

@@ -240,12 +240,6 @@ abstract class TaskDao(private val database: Database) {
         task.id = insert
     }
 
-    @Query("SELECT * FROM tasks "
-            + "WHERE completed = 0 AND deleted = 0 AND hideUntil < (strftime('%s','now')*1000) "
-            + "ORDER BY (CASE WHEN (dueDate=0) THEN (strftime('%s','now')*1000)*2 ELSE ((CASE WHEN (dueDate / 1000) % 60 > 0 THEN dueDate ELSE (dueDate + 43140000) END)) END) + 172800000 * importance ASC "
-            + "LIMIT 100")
-    abstract fun getAstrid2TaskProviderTasks(): List<Task>
-
     fun count(filter: Filter): Int {
         val query = getQuery(filter.sqlQuery, Field.COUNT)
         val start = if (BuildConfig.DEBUG) DateUtilities.now() else 0

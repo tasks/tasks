@@ -13,7 +13,6 @@ import android.database.Cursor
 import android.database.MatrixCursor
 import android.net.Uri
 import androidx.annotation.ColorRes
-import com.todoroo.astrid.dao.TaskDao
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.android.EntryPointAccessors
@@ -21,8 +20,7 @@ import dagger.hilt.android.components.ApplicationComponent
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.analytics.Firebase
-import org.tasks.data.TagDao
-import org.tasks.data.TagDataDao
+import org.tasks.data.ContentProviderDao
 import timber.log.Timber
 import java.math.BigInteger
 import java.security.MessageDigest
@@ -41,9 +39,7 @@ class Astrid2TaskProvider : ContentProvider() {
     @EntryPoint
     @InstallIn(ApplicationComponent::class)
     interface Astrid2TaskProviderEntryPoint {
-        val tagDataDao: TagDataDao
-        val taskDao: TaskDao
-        val tagDao: TagDao
+        val contentProviderDao: ContentProviderDao
         val firebase: Firebase
     }
 
@@ -121,7 +117,7 @@ class Astrid2TaskProvider : ContentProvider() {
      */
     private val tags: Cursor
         get() {
-            val tags = hilt().tagDataDao.tagDataOrderedByName()
+            val tags = hilt().contentProviderDao.tagDataOrderedByName()
             val ret = MatrixCursor(TAGS_FIELD_LIST)
             for (tag in tags) {
                 val values = arrayOfNulls<Any>(2)
@@ -163,7 +159,7 @@ class Astrid2TaskProvider : ContentProvider() {
         get() {
             val hilt = hilt()
             hilt.firebase.logEvent(R.string.event_query_legacy_content_provider)
-            val tasks = hilt.taskDao.getAstrid2TaskProviderTasks()
+            val tasks = hilt.contentProviderDao.getAstrid2TaskProviderTasks()
             val ret = MatrixCursor(TASK_FIELD_LIST)
             for (task in tasks) {
                 val taskTags = getTagsAsString(task.id, TAG_SEPARATOR)
@@ -204,5 +200,5 @@ class Astrid2TaskProvider : ContentProvider() {
      * @return empty string if no tags, otherwise string
      */
     private fun getTagsAsString(taskId: Long, separator: String) =
-            hilt().tagDao.getTagNames(taskId).joinToString(separator)
+            hilt().contentProviderDao.getTagNames(taskId).joinToString(separator)
 }
