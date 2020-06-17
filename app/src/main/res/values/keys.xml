@@ -379,4 +379,5 @@
   <string name="param_user_pro">user_pro</string>
   <string name="param_click">click</string>
   <string name="event_xml_import">xml_import</string>
+  <string name="event_query_legacy_content_provider">query_astrid2taskprovider</string>
 </resources>

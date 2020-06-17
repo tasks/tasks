@@ -28,6 +28,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import org.tasks.BuildConfig;
 import org.tasks.R;
+import org.tasks.analytics.Firebase;
 import org.tasks.data.TagDao;
 import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
@@ -49,6 +50,7 @@ public class Astrid2TaskProvider extends ContentProvider {
     TagDataDao getTagDataDao();
     TaskDao getTaskDao();
     TagDao getTagDao();
+    Firebase getFirebase();
   }
 
   private static final String AUTHORITY = BuildConfig.APPLICATION_ID + ".tasksprovider";
@@ -173,8 +175,10 @@ public class Astrid2TaskProvider extends ContentProvider {
    * @return cursor as described above
    */
   private Cursor getTasks() {
+    Astrid2TaskProviderEntryPoint hilt = hilt();
+    hilt.getFirebase().logEvent(R.string.event_query_legacy_content_provider);
+    List<Task> tasks = hilt.getTaskDao().getAstrid2TaskProviderTasks();
     MatrixCursor ret = new MatrixCursor(TASK_FIELD_LIST);
-    List<Task> tasks = hilt().getTaskDao().getAstrid2TaskProviderTasks();
     for (Task task : tasks) {
       String taskTags = getTagsAsString(task.getId(), TAG_SEPARATOR);
 
