@@ -247,7 +247,7 @@
       tools:node="remove" />
 
     <provider
-      android:authorities="${applicationId};${applicationId}.tasksprovider"
+      android:authorities="${applicationId}.tasksprovider"
       android:exported="true"
       android:grantUriPermissions="true"
       android:multiprocess="true"
