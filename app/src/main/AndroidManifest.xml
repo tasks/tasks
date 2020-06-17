@@ -88,7 +88,7 @@
     android:label="@string/read_permission_label"
     android:name="${applicationId}.permission.READ_TASKS"
     android:permissionGroup="android.permission-group.MESSAGES"
-    android:protectionLevel="normal"/>
+    android:protectionLevel="dangerous"/>
 
   <!-- ========================================================== Metadata = -->
 
