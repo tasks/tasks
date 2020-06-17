@@ -45,7 +45,7 @@ public class Astrid2TaskProvider extends ContentProvider {
 
   @EntryPoint
   @InstallIn(ApplicationComponent.class)
-  interface Astrid2TaskProviderEntryPoint {
+  public interface Astrid2TaskProviderEntryPoint {
     TagDataDao getTagDataDao();
     TaskDao getTaskDao();
     TagDao getTagDao();
