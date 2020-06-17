@@ -13,6 +13,7 @@ import org.tasks.R;
 import org.tasks.injection.InjectingJobIntentService;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
+import timber.log.Timber;
 
 @AndroidEntryPoint
 public class RefreshReceiver extends InjectingJobIntentService {
@@ -29,6 +30,10 @@ public class RefreshReceiver extends InjectingJobIntentService {
       ShortcutBadger.applyCount(context, taskDao.count(badgeFilter));
     }
 
-    Astrid2TaskProvider.notifyDatabaseModification(context);
+    try {
+      context.getContentResolver().notifyChange(Astrid2TaskProvider.CONTENT_URI, null);
+    } catch (Exception e) {
+      Timber.e(e);
+    }
   }
 }

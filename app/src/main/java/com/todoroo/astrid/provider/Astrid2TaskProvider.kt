@@ -45,7 +45,7 @@ class Astrid2TaskProvider : ContentProvider() {
 
     companion object {
         private const val AUTHORITY = BuildConfig.APPLICATION_ID + ".tasksprovider"
-        private val CONTENT_URI = Uri.parse("content://$AUTHORITY")
+        @JvmField val CONTENT_URI: Uri = Uri.parse("content://$AUTHORITY")
         private val URI_MATCHER = UriMatcher(UriMatcher.NO_MATCH)
         private const val NAME = "name"
         private const val IMPORTANCE_COLOR = "importance_color"
@@ -68,14 +68,6 @@ class Astrid2TaskProvider : ContentProvider() {
         private const val URI_TASKS = 0
         private const val URI_TAGS = 1
         private const val TAG_SEPARATOR = "|"
-        @JvmStatic
-        fun notifyDatabaseModification(context: Context) {
-            try {
-                context.contentResolver.notifyChange(CONTENT_URI, null)
-            } catch (e: Exception) {
-                Timber.e(e)
-            }
-        }
 
         private fun getPriorityColor(context: Context?, priority: Int): Int {
             return context!!.getColor(getPriorityResId(priority))
