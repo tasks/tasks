@@ -19,7 +19,7 @@ import timber.log.Timber
 import java.util.*
 
 @Entity(
-        tableName = "tasks",
+        tableName = Task.TABLE_NAME,
         indices = [
             Index(name = "t_rid", value = ["remoteId"], unique = true),
             Index(name = "active_and_visible", value = ["completed", "deleted", "hideUntil"])])
@@ -491,10 +491,11 @@ class Task : Parcelable {
     }
 
     companion object {
+        const val TABLE_NAME = "tasks"
         // --- table and uri
         /** table for this model  */
-        @JvmField val TABLE = Table("tasks")
-        @JvmField val FIELDS = Field.field("tasks.*")
+        @JvmField val TABLE = Table(TABLE_NAME)
+        @JvmField val FIELDS = Field.field("$TABLE_NAME.*")
         const val NO_ID: Long = 0
 
         // --- properties

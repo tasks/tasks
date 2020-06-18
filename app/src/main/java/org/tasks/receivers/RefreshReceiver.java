@@ -1,5 +1,6 @@
 package org.tasks.receivers;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import org.tasks.R;
 import org.tasks.injection.InjectingJobIntentService;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
+import org.tasks.provider.TasksContentProvider;
 import timber.log.Timber;
 
 @AndroidEntryPoint
@@ -31,7 +33,9 @@ public class RefreshReceiver extends InjectingJobIntentService {
     }
 
     try {
-      context.getContentResolver().notifyChange(Astrid2TaskProvider.CONTENT_URI, null);
+      ContentResolver cr = context.getContentResolver();
+      cr.notifyChange(TasksContentProvider.CONTENT_URI, null);
+      cr.notifyChange(Astrid2TaskProvider.CONTENT_URI, null);
     } catch (Exception e) {
       Timber.e(e);
     }

@@ -161,6 +161,16 @@
       android:name=".activities.CameraActivity"
       android:theme="@style/TranslucentDialog"/>
 
+    <activity android:name=".activities.UriHandler">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <data
+          android:scheme="content"
+          android:host="${applicationId}" />
+      </intent-filter>
+    </activity>
+
     <activity android:name="com.todoroo.astrid.activity.TaskEditActivity">
       <intent-filter tools:ignore="AppLinkUrlError">
         <action android:name="android.intent.action.VIEW"/>
@@ -253,6 +263,12 @@
       android:authorities="${applicationId}.tasksprovider"
       android:exported="true"
       android:name="com.todoroo.astrid.provider.Astrid2TaskProvider"
+      android:readPermission="${applicationId}.permission.READ_TASKS"/>
+
+    <provider
+      android:authorities="${applicationId}"
+      android:exported="true"
+      android:name="org.tasks.provider.TasksContentProvider"
       android:readPermission="${applicationId}.permission.READ_TASKS"/>
 
     <provider
