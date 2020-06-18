@@ -18,6 +18,7 @@ import org.tasks.security.KeyStoreEncryption
 class CaldavAccount : Parcelable {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "cda_id")
+    @Transient
     var id: Long = 0
 
     @ColumnInfo(name = "cda_uuid")

@@ -1,6 +1,10 @@
 Change Log
 ---
 =======
+### 9.7.1 (2020-06-18)
+
+* Fix crash on backup import
+
 ### 9.7 (2020-06-12)
 
 * Added '☰ > Manage lists'

@@ -15,6 +15,7 @@ import org.tasks.themes.CustomIcons.LIST
 class CaldavCalendar : Parcelable {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "cdl_id")
+    @Transient
     var id: Long = 0
 
     @ColumnInfo(name = "cdl_account")
