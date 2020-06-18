@@ -37,13 +37,6 @@ class UriHandler : AppCompatActivity() {
                 } else {
                     startActivity(TaskIntents.getNewTaskIntent(this, null))
                 }
-                val intent = if (id > 0) {
-                    val task = taskDao.fetch(id)
-                    TaskIntents.getEditTaskIntent(this, task)
-                } else {
-                    TaskIntents.getNewTaskIntent(this, null)
-                }
-                startActivity(intent)
             }
             else -> {
                 Timber.w("Invalid uri: ${intent.data}")
