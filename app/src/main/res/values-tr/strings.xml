@@ -346,7 +346,7 @@
     <string name="pick_from_gallery">Galeriden seç</string>
     <string name="pick_from_storage">Depolamadan seç</string>
     <string name="privacy_policy">Gizlilik politikası</string>
-    <string name="send_anonymous_statistics">Tasks\'ı İyileştir</string>
+    <string name="send_anonymous_statistics">Tasks\'ı iyileştir</string>
     <string name="send_anonymous_statistics_summary">Tasks\'ı iyileştirmeye yardımcı olmak için anonim kullanım istatistiklerini ve çökme raporlarını gönderin. Hiçbir kişisel veri toplanmayacak.</string>
     <string name="tag_already_exists">Etiket zaten var</string>
     <string name="name_cannot_be_empty">Ad boş olamaz</string>
@@ -617,8 +617,8 @@
     <string name="whats_new_in_version">%s Sürümündeki Yenilikler</string>
     <string name="whats_new">Yenilikler</string>
     <string name="action_new_task">Yeni görev</string>
-    <string name="sort_created_group">Oluşturulma %s</string>
-    <string name="sort_modified_group">Düzenlenme %s</string>
+    <string name="sort_created_group">%s oluşturulan</string>
+    <string name="sort_modified_group">%s değiştirilen</string>
     <string name="yesterday_lowercase">dün</string>
     <string name="tomorrow_lowercase">yarın</string>
     <string name="today_lowercase">bugün</string>
