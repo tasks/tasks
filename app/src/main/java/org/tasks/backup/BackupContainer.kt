@@ -13,6 +13,7 @@ class BackupContainer(
         val googleTaskLists: List<GoogleTaskList>?,
         val caldavAccounts: List<CaldavAccount>?,
         val caldavCalendars: List<CaldavCalendar>?,
+        val taskListMetadata: List<TaskListMetadata>?,
         val intPrefs: Map<String, Int>?,
         val longPrefs: Map<String, Long>?,
         val stringPrefs: Map<String, String>?,

@@ -44,7 +44,8 @@ class TasksJsonExporter @Inject constructor(
         private val googleTaskListDao: GoogleTaskListDao,
         private val taskAttachmentDao: TaskAttachmentDao,
         private val caldavDao: CaldavDao,
-        private val workManager: WorkManager) {
+        private val workManager: WorkManager,
+        private val taskListMetadataDao: TaskListMetadataDao) {
 
     private var context: Context? = null
     private var exportCount = 0
@@ -136,6 +137,7 @@ class TasksJsonExporter @Inject constructor(
                 googleTaskListDao.getAllLists(),
                 caldavDao.getAccounts(),
                 caldavDao.getCalendars(),
+                taskListMetadataDao.getAll(),
                 preferences.getPrefs(Int::class.java),
                 preferences.getPrefs(Long::class.java),
                 preferences.getPrefs(String::class.java),

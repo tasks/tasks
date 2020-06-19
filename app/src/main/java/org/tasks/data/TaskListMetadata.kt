@@ -16,6 +16,7 @@ class TaskListMetadata {
     @ColumnInfo(name = "_id")
     var id: Long? = null
 
+    @Deprecated("not used")
     @ColumnInfo(name = "remoteId")
     var remoteId: String? = Task.NO_UUID
 

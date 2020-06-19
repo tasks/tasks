@@ -10,6 +10,9 @@ abstract class TaskListMetadataDao {
     @Query("SELECT * from task_list_metadata where tag_uuid = :tagUuid OR filter = :tagUuid LIMIT 1")
     abstract fun fetchByTagOrFilter(tagUuid: String): TaskListMetadata?
 
+    @Query("SELECT * FROM task_list_metadata")
+    abstract fun getAll(): List<TaskListMetadata>
+
     @Update
     abstract fun update(taskListMetadata: TaskListMetadata)
 

@@ -36,7 +36,8 @@ class TasksJsonImporter @Inject constructor(
         private val taskAttachmentDao: TaskAttachmentDao,
         private val caldavDao: CaldavDao,
         private val preferences: Preferences,
-        private val taskMover: TaskMover) {
+        private val taskMover: TaskMover,
+        private val taskListMetadataDao: TaskListMetadataDao) {
 
     private val result = ImportResult()
 
@@ -100,6 +101,12 @@ class TasksJsonImporter @Inject constructor(
                 calendar.color = themeToColor(context, version, calendar.color)
                 if (caldavDao.getCalendarByUuid(calendar.uuid!!) == null) {
                     caldavDao.insert(calendar)
+                }
+            }
+            backupContainer.taskListMetadata?.forEach { tlm ->
+                val id = tlm.filter.takeIf { it?.isNotBlank() == true } ?: tlm.tagUuid!!
+                if (taskListMetadataDao.fetchByTagOrFilter(id) == null) {
+                    taskListMetadataDao.insert(tlm)
                 }
             }
             backupContainer.tasks?.forEach { backup ->
