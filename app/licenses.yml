@@ -775,13 +775,13 @@
 - artifact: com.google.dagger:hilt-android:+
   name: hilt-android
   copyrightHolder: The Dagger Authors
-  license: Apache 2.0
+  license: The Apache Software License, Version 2.0
   licenseUrl: https://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://github.com/google/dagger
 - artifact: com.google.dagger:dagger-lint-aar:+
   name: dagger-lint-aar
   copyrightHolder: The Dagger Authors
-  license: Apache 2.0
+  license: The Apache Software License, Version 2.0
   licenseUrl: https://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://github.com/google/dagger
 - artifact: javax.annotation:jsr250-api:+
