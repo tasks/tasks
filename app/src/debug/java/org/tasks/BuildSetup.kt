@@ -1,6 +1,6 @@
 package org.tasks
 
-import android.content.Context
+import android.app.Application
 import android.os.StrictMode
 import android.os.StrictMode.VmPolicy
 import com.facebook.flipper.android.AndroidFlipperClient
@@ -11,19 +11,22 @@ import com.facebook.flipper.plugins.inspector.InspectorFlipperPlugin
 import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
 import com.facebook.flipper.plugins.sharedpreferences.SharedPreferencesFlipperPlugin
 import com.facebook.soloader.SoLoader
-import dagger.hilt.android.qualifiers.ApplicationContext
 import leakcanary.AppWatcher
 import org.tasks.preferences.Preferences
 import timber.log.Timber
 import timber.log.Timber.DebugTree
 import javax.inject.Inject
 
-class BuildSetup @Inject constructor(@param:ApplicationContext private val context: Context, private val preferences: Preferences) {
+class BuildSetup @Inject constructor(
+        private val context: Application,
+        private val preferences: Preferences) {
+
     fun setup() {
         Timber.plant(DebugTree())
         SoLoader.init(context, false)
-        val leakCanaryEnabled = preferences.getBoolean(R.string.p_leakcanary, false)
-        AppWatcher.config = AppWatcher.config.copy(enabled = leakCanaryEnabled)
+        if (preferences.getBoolean(R.string.p_leakcanary, false)) {
+            AppWatcher.manualInstall(context)
+        }
         if (preferences.getBoolean(R.string.p_flipper, false) && FlipperUtils.shouldEnableFlipper(context)) {
             val client = AndroidFlipperClient.getInstance(context)
             client.addPlugin(InspectorFlipperPlugin(context, DescriptorMapping.withDefaults()))
