@@ -4,6 +4,7 @@
         <item>Added \'☰ > Manage lists\'\n\t- Drag and drop to rearrange the drawer\n\t- Tap to edit or delete a list</item>
         <item>Display 2 additional snooze options - @rangzen</item>
         <item>Fix crash on backup import</item>
+        <item>Fix CalDAV/EteSync subtask move bug</item>
         <item>Update translations</item>
     </string-array>
 </resources>

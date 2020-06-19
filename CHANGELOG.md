@@ -1,9 +1,10 @@
 Change Log
 ---
 =======
-### 9.7.1 (2020-06-18)
+### 9.7.1 (2020-06-19)
 
 * Fix crash on backup import
+* Fix CalDAV/EteSync subtask move bug
 
 ### 9.7 (2020-06-12)
 
