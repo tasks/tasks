@@ -754,3 +754,39 @@
   name: android-activation
   copyrightHolder: Oracle and/or its affiliates
   license: Eclipse Public License, Version 2.0
+- artifact: androidx.hilt:hilt-work:+
+  name: hilt-work
+  copyrightHolder: Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/topic/libraries/architecture/index.html
+- artifact: androidx.hilt:hilt-lifecycle-viewmodel:+
+  name: hilt-lifecycle-viewmodel
+  copyrightHolder: Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/topic/libraries/architecture/index.html
+- artifact: androidx.hilt:hilt-common:+
+  name: hilt-common
+  copyrightHolder: Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/topic/libraries/architecture/index.html
+- artifact: com.google.dagger:hilt-android:+
+  name: hilt-android
+  copyrightHolder: The Dagger Authors
+  license: Apache 2.0
+  licenseUrl: https://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://github.com/google/dagger
+- artifact: com.google.dagger:dagger-lint-aar:+
+  name: dagger-lint-aar
+  copyrightHolder: The Dagger Authors
+  license: Apache 2.0
+  licenseUrl: https://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://github.com/google/dagger
+- artifact: javax.annotation:jsr250-api:+
+  name: jsr250-api
+  copyrightHolder: Sun Microsystems, Inc
+  license: COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0
+  licenseUrl: https://glassfish.dev.java.net/public/CDDLv1.0.html
+  url: http://jcp.org/aboutJava/communityprocess/final/jsr250/index.html

@@ -1786,6 +1786,90 @@
       "license": "Eclipse Public License, Version 2.0",
       "normalizedLicense": "Eclipse Public License, Version 2.0",
       "libraryName": "android-activation"
+    },
+    {
+      "artifactId": {
+        "name": "hilt-work",
+        "group": "androidx.hilt",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://developer.android.com/topic/libraries/architecture/index.html",
+      "libraryName": "hilt-work"
+    },
+    {
+      "artifactId": {
+        "name": "hilt-lifecycle-viewmodel",
+        "group": "androidx.hilt",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://developer.android.com/topic/libraries/architecture/index.html",
+      "libraryName": "hilt-lifecycle-viewmodel"
+    },
+    {
+      "artifactId": {
+        "name": "hilt-common",
+        "group": "androidx.hilt",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://developer.android.com/topic/libraries/architecture/index.html",
+      "libraryName": "hilt-common"
+    },
+    {
+      "artifactId": {
+        "name": "hilt-android",
+        "group": "com.google.dagger",
+        "version": "+"
+      },
+      "copyrightHolder": "The Dagger Authors",
+      "copyrightStatement": "Copyright &copy; The Dagger Authors. All rights reserved.",
+      "license": "Apache 2.0",
+      "licenseUrl": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://github.com/google/dagger",
+      "libraryName": "hilt-android"
+    },
+    {
+      "artifactId": {
+        "name": "dagger-lint-aar",
+        "group": "com.google.dagger",
+        "version": "+"
+      },
+      "copyrightHolder": "The Dagger Authors",
+      "copyrightStatement": "Copyright &copy; The Dagger Authors. All rights reserved.",
+      "license": "Apache 2.0",
+      "licenseUrl": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://github.com/google/dagger",
+      "libraryName": "dagger-lint-aar"
+    },
+    {
+      "artifactId": {
+        "name": "jsr250-api",
+        "group": "javax.annotation",
+        "version": "+"
+      },
+      "copyrightHolder": "Sun Microsystems, Inc",
+      "copyrightStatement": "Copyright &copy; Sun Microsystems, Inc. All rights reserved.",
+      "license": "COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0",
+      "licenseUrl": "https://glassfish.dev.java.net/public/CDDLv1.0.html",
+      "normalizedLicense": "cddl1",
+      "url": "http://jcp.org/aboutJava/communityprocess/final/jsr250/index.html",
+      "libraryName": "jsr250-api"
     }
   ]
 }
