@@ -84,10 +84,12 @@ abstract class TaskDao(private val database: Database) {
             + "ORDER BY CASE WHEN gt_parent = 0 THEN 0 ELSE 1 END, gt_order ASC")
     abstract fun getGoogleTasksToPush(account: String): List<Task>
 
-    @Query("SELECT tasks.* FROM tasks "
-            + "LEFT JOIN caldav_tasks ON tasks._id = caldav_tasks.cd_task "
-            + "WHERE caldav_tasks.cd_calendar = :calendar "
-            + "AND tasks.modified > caldav_tasks.cd_last_sync")
+    @Query("""
+        SELECT tasks.*
+        FROM tasks
+                 INNER JOIN caldav_tasks ON tasks._id = caldav_tasks.cd_task
+        WHERE caldav_tasks.cd_calendar = :calendar
+          AND (tasks.modified > caldav_tasks.cd_last_sync OR caldav_tasks.cd_last_sync = 0)""")
     abstract fun getCaldavTasksToPush(calendar: String): List<Task>
 
     @Query("SELECT * FROM TASKS "
