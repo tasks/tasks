@@ -38,7 +38,7 @@ class RepeatRuleToStringTest {
     @Test
     fun useLocaleForDays() {
         assertEquals(
-                "Wiederholt sich wöchentlich am Sa., So.",
+                "Wiederholt sich wöchentlich Sa., So.",
                 toString("de", "RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=SA,SU"))
     }
 
