@@ -82,9 +82,12 @@ public class ImportTasksDialog extends DialogFragment {
             context.getString(
                 R.string.import_summary_message,
                 "",
-                r.getQuantityString(R.plurals.Ntasks, result.taskCount, result.taskCount),
-                r.getQuantityString(R.plurals.Ntasks, result.importCount, result.importCount),
-                r.getQuantityString(R.plurals.Ntasks, result.skipCount, result.skipCount),
+                r.getQuantityString(R.plurals.Ntasks, result.getTaskCount(), result.getTaskCount()),
+                r.getQuantityString(
+                    R.plurals.Ntasks,
+                    result.getImportCount(),
+                    result.getImportCount()),
+                r.getQuantityString(R.plurals.Ntasks, result.getSkipCount(), result.getSkipCount()),
                 r.getQuantityString(R.plurals.Ntasks, 0, 0)))
         .setPositiveButton(android.R.string.ok, (dialog, id) -> dialog.dismiss())
         .show();
