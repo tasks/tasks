@@ -633,4 +633,5 @@
     <string name="date_shortcut_tomorrow_evening">Holnap este</string>
     <string name="reset_sort_order">Sorbarendezés visszaállítása</string>
     <string name="manage_lists">Listák kezelése</string>
+    <string name="permission_read_tasks">Teljes hozzáférés a Tasks adatbázishoz</string>
 </resources>
