@@ -78,7 +78,7 @@
     <string name="EPr_filters_to_show_title">Filtri da visualizzare</string>
     <string name="EPr_edit_screen_options">Modifica opzioni schermo</string>
     <string name="EPr_beastMode_reset">Ripristina predefiniti</string>
-    <string name="EPr_fullTask_title">Visualizza il titolo completo</string>
+    <string name="EPr_fullTask_title">Mostra il titolo completo</string>
     <string name="EPr_show_task_edit_comments">Mostra i commenti in modifica attività</string>
     <string name="task_list_options">Opzioni elenco attività</string>
     <string name="EPr_cal_end_or_start_at_due_time">Orario eventi del calendario</string>
@@ -261,7 +261,7 @@
     <string name="TEA_timer_comment_started">attività iniziata:</string>
     <string name="TEA_timer_comment_stopped">attività terminata:</string>
     <string name="TEA_timer_comment_spent">Tempo speso:</string>
-    <string name="voice_create_prompt">Parla per creare un\'attività</string>
+    <string name="voice_create_prompt">Dettami il nome dell\'attività</string>
     <string name="EPr_voiceInputEnabled_title">Voce</string>
     <string name="EPr_voiceRemindersEnabled_title">Promemoria vocali</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks pronuncerà il nome dell\'attività durante i promemoria</string>
@@ -278,7 +278,7 @@
     <string name="tmrw">Domani</string>
     <string name="yest">Ieri</string>
     <string name="sync_SPr_interval_title">Sincronizza in background</string>
-    <string name="widget_show_checkboxes">Mostra caselle selezione</string>
+    <string name="widget_show_checkboxes">Mostra le caselle di selezione</string>
     <string name="widget_show_header">Mostra intestazione</string>
     <string name="widget_show_settings">Mostra impostazioni</string>
     <string name="notifications">Notifiche</string>
@@ -298,7 +298,7 @@
     <string name="source_code">Codice sorgente</string>
     <string name="translations">Contribuisci alla traduzione</string>
     <string name="contact_developer">Contatta lo sviluppatore</string>
-    <string name="rate_tasks">Attività</string>
+    <string name="rate_tasks">Valuta Tasks</string>
     <string name="quiet_hours_summary">Nessuna notifica durante le ore di quiete</string>
     <string name="TLA_menu_donate">Dona</string>
     <string name="add_reminder">Aggiungi promemoria</string>
@@ -411,7 +411,7 @@
     <string name="repeats_plural_on_number_of_times">Ripetuta ogni %1$s il %2$s, cade il %3$d %4$s</string>
     <string name="dont_add_to_calendar">Non  aggiungere al calendario</string>
     <string name="default_calendar">Calendario predefinito</string>
-    <string name="badges_description">Mostra contatore di notifiche sull\'icona di Task. Non tutti i launcher lo supportano.</string>
+    <string name="badges_description">Mostra contatore di notifiche sull\'icona di Task. Non tutti i launcher supportano i badge.</string>
     <string name="bundle_notifications_summary">Combina diverse notifiche in una sola</string>
     <string name="repeat_monthly_same_day_each_month">lo stesso giorno di ogni mese</string>
     <string name="repeat_monthly_every_day_of_nth_week">ogni %1$s %2$s</string>
@@ -443,7 +443,7 @@
     <string name="action_create_new_task">Crea nuova attività</string>
     <string name="show_description">Mostra la descrizione</string>
     <string name="show_full_description">Mostra la descrizione completa</string>
-    <string name="linkify">Mostra link</string>
+    <string name="linkify">Evidenzia link</string>
     <string name="linkify_description">Aggiungi link a siti web, indirizzi e numeri telefonici</string>
     <string name="location_remind_arrival">Ricorda all\'arrivo</string>
     <string name="location_remind_departure">Ricorda alla partenza</string>
@@ -631,4 +631,5 @@
     <string name="date_shortcut_tomorrow_night">Domani notte</string>
     <string name="date_shortcut_tomorrow_evening">Domani sera</string>
     <string name="manage_lists">Gestisci liste</string>
+    <string name="permission_read_tasks">Accesso completo al database di Tasks</string>
 </resources>
