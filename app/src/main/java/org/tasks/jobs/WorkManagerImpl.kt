@@ -108,7 +108,7 @@ class WorkManagerImpl constructor(
         val onlyOnWifi = forceOnlyOnUnmetered
                 ?: preferences.getBoolean(R.string.p_background_sync_unmetered_only, false)
         (if (forceAccountPresent == null) Single.zip(
-                googleTaskListDao.accountCount(),
+                Single.fromCallable { googleTaskListDao.accountCount() },
                 Single.fromCallable { caldavDao.accountCount() },
                 BiFunction { googleCount: Int, caldavCount: Int -> googleCount > 0 || caldavCount > 0 }) else Single.just(forceAccountPresent))
                 .subscribeOn(Schedulers.io())

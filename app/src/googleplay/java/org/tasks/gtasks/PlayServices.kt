@@ -9,10 +9,8 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.functions.Function3
 import io.reactivex.schedulers.Schedulers
 import org.tasks.R
-import org.tasks.data.GoogleTaskListDao
 import org.tasks.data.LocationDao
 import org.tasks.preferences.Preferences
 import timber.log.Timber
@@ -21,17 +19,12 @@ import javax.inject.Inject
 class PlayServices @Inject constructor(
         @param:ApplicationContext private val context: Context,
         private val preferences: Preferences,
-        private val googleTaskListDao: GoogleTaskListDao,
         private val locationDao: LocationDao) {
 
     fun check(activity: Activity?): Disposable {
-        return Single.zip(
-                googleTaskListDao.accountCount(),
-                locationDao.geofenceCount(),
-                Single.fromCallable { preferences.getBoolean(R.string.p_google_drive_backup, false) },
-                Function3 { gtaskCount: Int, geofenceCount: Int, gdrive: Boolean -> gtaskCount > 0 || geofenceCount > 0 || gdrive })
+        return Single.fromCallable(locationDao::geofenceCount)
+                .map { it == 0 || refreshAndCheck() }
                 .subscribeOn(Schedulers.io())
-                .map { !it || refreshAndCheck() }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { success: Boolean ->
                     if (!success && !preferences.getBoolean(R.string.warned_play_services, false)) {

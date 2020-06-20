@@ -3,14 +3,13 @@ package org.tasks.data
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.todoroo.astrid.api.FilterListItem.NO_ORDER
-import io.reactivex.Single
 import org.tasks.filters.GoogleTaskFilters
 import org.tasks.time.DateTimeUtils.currentTimeMillis
 
 @Dao
 interface GoogleTaskListDao {
     @Query("SELECT COUNT(*) FROM google_task_accounts")
-    fun accountCount(): Single<Int>
+    fun accountCount(): Int
 
     @Query("SELECT * FROM google_task_accounts")
     fun getAccounts(): List<GoogleTaskAccount>

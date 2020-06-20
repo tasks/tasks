@@ -63,7 +63,7 @@ interface LocationDao {
     fun getActiveGeofences(): List<Location>
 
     @Query("SELECT COUNT(*) FROM geofences")
-    fun geofenceCount(): Single<Int>
+    fun geofenceCount(): Int
 
     @Delete
     fun delete(location: Geofence)
