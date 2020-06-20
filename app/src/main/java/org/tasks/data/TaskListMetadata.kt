@@ -14,6 +14,7 @@ import com.todoroo.astrid.data.Task
 class TaskListMetadata {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
+    @Transient
     var id: Long? = null
 
     @Deprecated("not used")
