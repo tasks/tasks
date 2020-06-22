@@ -43,8 +43,8 @@ android {
     defaultConfig {
         testApplicationId = "org.tasks.test"
         applicationId = "org.tasks"
-        versionCode = 90702
-        versionName = "9.7.1"
+        versionCode = 90703
+        versionName = "9.7.2"
         targetSdkVersion(Versions.targetSdk)
         minSdkVersion(Versions.minSdk)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -134,6 +134,7 @@ configurations.all {
     exclude(group = "com.google.j2objc")
 }
 
+val genericImplementation by configurations
 val googleplayImplementation by configurations
 
 dependencies {
@@ -186,11 +187,14 @@ dependencies {
     implementation("com.google.apis:google-api-services-drive:v3-rev20200413-1.30.9")
     implementation("com.google.auth:google-auth-library-oauth2-http:0.20.0")
     implementation("androidx.work:work-runtime:${Versions.work}")
-    implementation("com.mapbox.mapboxsdk:mapbox-android-sdk:9.2.1")
     implementation("com.mapbox.mapboxsdk:mapbox-sdk-services:5.2.1")
     implementation("com.etesync:journalmanager:1.1.0")
     implementation("com.github.QuadFlask:colorpicker:0.0.15")
 
+    // https://github.com/mapbox/mapbox-gl-native-android/issues/316
+    genericImplementation("com.mapbox.mapboxsdk:mapbox-android-sdk:7.4.1")
+
+    googleplayImplementation("com.mapbox.mapboxsdk:mapbox-android-sdk:9.2.1")
     googleplayImplementation("com.crashlytics.sdk.android:crashlytics:${Versions.crashlytics}")
     googleplayImplementation("com.google.firebase:firebase-analytics:${Versions.analytics}")
     googleplayImplementation("com.google.firebase:firebase-config-ktx:${Versions.remote_config}")
