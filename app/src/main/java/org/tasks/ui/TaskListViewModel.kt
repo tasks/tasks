@@ -88,7 +88,7 @@ class TaskListViewModel @ViewModelInject constructor(
         Timber.d("paged query: %s", query.sql)
         val factory = taskDao.getTaskFactory(query)
         val builder = LivePagedListBuilder(factory, PAGED_LIST_CONFIG)
-        val current = tasks.value!!
+        val current = tasks.value
         if (current is PagedList<*>) {
             val lastKey = (current as PagedList<TaskContainer>).lastKey
             if (lastKey is Int) {
