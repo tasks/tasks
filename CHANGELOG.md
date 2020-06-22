@@ -1,6 +1,10 @@
 Change Log
 ---
 =======
+### 9.7.2 (2020-06-22)
+
+* Downgrade Mapbox SDK to remove non-free library (F-Droid only)
+
 ### 9.7.1 (2020-06-19)
 
 * Fix crash on backup import
