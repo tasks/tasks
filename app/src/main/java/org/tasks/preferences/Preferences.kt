@@ -416,10 +416,6 @@ class Preferences @JvmOverloads constructor(private val context: Context, name: 
             setBoolean(R.string.p_sync_ongoing, value)
         }
 
-    fun useGoogleMaps(): Boolean {
-        return getInt(R.string.p_map_provider, 0) == 1
-    }
-
     fun useGooglePlaces(): Boolean {
         return getInt(R.string.p_place_provider, 0) == 1
     }

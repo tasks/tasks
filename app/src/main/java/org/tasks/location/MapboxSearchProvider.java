@@ -9,7 +9,6 @@ import com.mapbox.api.geocoding.v5.MapboxGeocoding;
 import com.mapbox.api.geocoding.v5.models.CarmenFeature;
 import com.mapbox.api.geocoding.v5.models.GeocodingResponse;
 import com.mapbox.geojson.Point;
-import com.mapbox.mapboxsdk.Mapbox;
 import java.util.ArrayList;
 import java.util.List;
 import org.tasks.Callback;
@@ -46,7 +45,6 @@ public class MapboxSearchProvider implements PlaceSearchProvider {
       Callback<String> onError) {
     if (builder == null) {
       String token = context.getString(R.string.mapbox_key);
-      Mapbox.getInstance(context, token);
       builder = MapboxGeocoding.builder().autocomplete(true).accessToken(token);
       if (bias != null) {
         builder.proximity(Point.fromLngLat(bias.getLongitude(), bias.getLatitude()));

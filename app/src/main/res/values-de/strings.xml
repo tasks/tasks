@@ -449,7 +449,6 @@
     <string name="choose_a_location">Ort auswählen</string>
     <string name="pick_this_location">Diesen Ort auswählen</string>
     <string name="or_choose_a_location">Oder Ort auswählen</string>
-    <string name="map_provider">Kartendienst</string>
     <string name="map_search_provider">Suchanbieter</string>
     <string name="missing_permissions">Fehlende Berechtigungen</string>
     <string name="location_permission_required_geofence">Standortberechtigung wird für ortsbasierte Erinnerungen benötigt</string>

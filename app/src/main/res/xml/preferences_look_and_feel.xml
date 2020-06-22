@@ -188,11 +188,6 @@
 
     <Preference
       android:defaultValue="-1"
-      android:key="@string/p_map_provider"
-      android:title="@string/map_provider" />
-
-    <Preference
-      android:defaultValue="-1"
       android:key="@string/p_place_provider"
       android:title="@string/map_search_provider" />
 

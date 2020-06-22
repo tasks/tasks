@@ -33,11 +33,6 @@ internal class LocationModule {
 
     @Provides
     @ActivityScoped
-    fun getMapFragment(@ApplicationContext context: Context, preferences: Preferences): MapFragment {
-        return if (preferences.useGoogleMaps()) {
+    fun getMapFragment(@ApplicationContext context: Context): MapFragment =
             GoogleMapFragment(context)
-        } else {
-            MapboxMapFragment(context)
-        }
-    }
 }

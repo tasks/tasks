@@ -16,6 +16,7 @@
     android:paddingBottom="@dimen/keyline_first"
     android:paddingStart="@dimen/keyline_content_inset"
     android:paddingEnd="@dimen/keyline_second"
+    android:tint="@color/icon_tint_with_alpha"
     android:src="@drawable/mapbox_logo_icon"/>
 
 </LinearLayout>

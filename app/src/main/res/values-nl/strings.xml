@@ -447,7 +447,6 @@
     <string name="choose_a_location">Kies een locatie</string>
     <string name="pick_this_location">Selecteer deze locatie</string>
     <string name="or_choose_a_location">Of kies een locatie</string>
-    <string name="map_provider">Kaart aanbieder</string>
     <string name="map_search_provider">Zoek aanbieder</string>
     <string name="missing_permissions">Missende rechten</string>
     <string name="location_permission_required_geofence">Locatie rechten zijn nodig voor locatie herinneringen</string>

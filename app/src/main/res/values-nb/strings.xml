@@ -463,7 +463,6 @@
     <string name="choose_a_location">Velg et sted</string>
     <string name="pick_this_location">Velg dette stedet</string>
     <string name="or_choose_a_location">Eller velg et sted</string>
-    <string name="map_provider">Karttilbyder</string>
     <string name="map_search_provider">Søketilbyder</string>
     <string name="missing_permissions">Manglende tilganger</string>
     <string name="location_permission_required_geofence">Plasseringstilganger trengs for stedspåminnelser</string>

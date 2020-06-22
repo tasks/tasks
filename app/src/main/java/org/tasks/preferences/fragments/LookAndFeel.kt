@@ -171,32 +171,6 @@ class LookAndFeel : InjectingPreferenceFragment() {
         val choices =
             listOf(getString(R.string.map_provider_mapbox), getString(R.string.map_provider_google))
         val singleCheckedArrayAdapter = SingleCheckedArrayAdapter(requireContext(), choices)
-        val mapProviderPreference = findPreference(R.string.p_map_provider)
-        mapProviderPreference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            dialogBuilder
-                .newDialog()
-                .setSingleChoiceItems(
-                    singleCheckedArrayAdapter,
-                    getMapProvider()
-                ) { dialog: DialogInterface, which: Int ->
-                    if (which == 1) {
-                        if (!playServices.refreshAndCheck()) {
-                            playServices.resolve(activity)
-                            dialog.dismiss()
-                            return@setSingleChoiceItems
-                        }
-                    }
-                    preferences.setInt(R.string.p_map_provider, which)
-                    mapProviderPreference.summary = choices[which]
-                    dialog.dismiss()
-                }
-                .setNegativeButton(android.R.string.cancel, null)
-                .show()
-            false
-        }
-        val mapProvider: Int = getMapProvider()
-        mapProviderPreference.summary =
-            if (mapProvider == -1) getString(R.string.none) else choices[mapProvider]
 
         val placeProviderPreference = findPreference(R.string.p_place_provider)
         placeProviderPreference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
@@ -233,13 +207,6 @@ class LookAndFeel : InjectingPreferenceFragment() {
     private fun getPlaceProvider(): Int {
         return if (playServices.isPlayServicesAvailable && inventory.hasPro()) preferences.getInt(
             R.string.p_place_provider,
-            0
-        ) else 0
-    }
-
-    private fun getMapProvider(): Int {
-        return if (playServices.isPlayServicesAvailable) preferences.getInt(
-            R.string.p_map_provider,
             0
         ) else 0
     }

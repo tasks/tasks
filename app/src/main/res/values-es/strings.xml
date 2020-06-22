@@ -457,7 +457,6 @@
     <string name="choose_a_location">Escoger ubicación</string>
     <string name="pick_this_location">Seleccionar esta ubicación</string>
     <string name="or_choose_a_location">O elija una ubicación</string>
-    <string name="map_provider">Proveedor de mapas</string>
     <string name="map_search_provider">Proveedor de búsquedas</string>
     <string name="missing_permissions">Permisos ausentes</string>
     <string name="location_permission_required_geofence">Son necesarios permisos de ubicación para los recordatorios de ubicación</string>

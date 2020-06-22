@@ -388,7 +388,6 @@
     <string name="choose_a_location">Pilih lokasi</string>
     <string name="pick_this_location">Pilih lokasi ini</string>
     <string name="or_choose_a_location">Atau cari lokasi</string>
-    <string name="map_provider">Penyedia peta</string>
     <string name="map_search_provider">Penyedia pencarian</string>
     <string name="location_permission_required_geofence">Membutuhkan izin akses lokasi untuk pengingat lokasi</string>
     <string name="location_permission_required_location">Membutuhkan izin akses lokasi untuk menentukan lokasi anda saat ini</string>

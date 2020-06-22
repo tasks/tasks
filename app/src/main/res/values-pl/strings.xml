@@ -467,7 +467,6 @@
     <string name="choose_a_location">Wybierz lokalizację</string>
     <string name="pick_this_location">Ustaw wybraną lokalizację</string>
     <string name="or_choose_a_location">Lub wybierz lokalizację</string>
-    <string name="map_provider">Dostawca map</string>
     <string name="map_search_provider">Silnik wyszukiwania</string>
     <string name="missing_permissions">Brakujące uprawnienia</string>
     <string name="location_permission_required_geofence">Uprawnienia lokalizacji są wymagane do powiadomień o lokalizacji</string>

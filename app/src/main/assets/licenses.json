@@ -249,20 +249,6 @@
     },
     {
       "artifactId": {
-        "name": "mapbox-sdk-turf",
-        "group": "com.mapbox.mapboxsdk",
-        "version": "+"
-      },
-      "copyrightHolder": "Mapbox",
-      "copyrightStatement": "Copyright &copy; Mapbox. All rights reserved.",
-      "license": "MIT License",
-      "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
-      "normalizedLicense": "mit",
-      "url": "https://github.com/mapbox/mapbox-java",
-      "libraryName": "Mapbox services-turf"
-    },
-    {
-      "artifactId": {
         "name": "viewpager",
         "group": "androidx.viewpager",
         "version": "+"
@@ -316,20 +302,6 @@
       "normalizedLicense": "apache2",
       "url": "http://commons.apache.org/proper/commons-codec/",
       "libraryName": "Apache Commons Codec"
-    },
-    {
-      "artifactId": {
-        "name": "mapbox-android-sdk",
-        "group": "com.mapbox.mapboxsdk",
-        "version": "+"
-      },
-      "copyrightHolder": "Mapbox",
-      "copyrightStatement": "Copyright &copy; Mapbox. All rights reserved.",
-      "license": "BSD 2-Clause",
-      "licenseUrl": "https://opensource.org/licenses/BSD-2-Clause",
-      "normalizedLicense": "bsd_2_clauses",
-      "url": "https://github.com/mapbox/mapbox-gl-native",
-      "libraryName": "Mapbox Maps SDK for Android"
     },
     {
       "artifactId": {
@@ -499,20 +471,6 @@
     },
     {
       "artifactId": {
-        "name": "mapbox-android-telemetry",
-        "group": "com.mapbox.mapboxsdk",
-        "version": "+"
-      },
-      "copyrightHolder": "Mapbox",
-      "copyrightStatement": "Copyright &copy; Mapbox. All rights reserved.",
-      "license": "BSD 2-Clause",
-      "licenseUrl": "https://opensource.org/licenses/BSD-2-Clause",
-      "normalizedLicense": "bsd_2_clauses",
-      "url": "https://github.com/mapbox/mapbox-events-android",
-      "libraryName": "Mapbox Android Telemetry Library"
-    },
-    {
-      "artifactId": {
         "name": "loader",
         "group": "androidx.loader",
         "version": "+"
@@ -597,20 +555,6 @@
     },
     {
       "artifactId": {
-        "name": "documentfile",
-        "group": "androidx.documentfile",
-        "version": "+"
-      },
-      "copyrightHolder": "Android Open Source Project",
-      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "url": "http://developer.android.com/tools/extras/support-library.html",
-      "libraryName": "Android Support Library Document File"
-    },
-    {
-      "artifactId": {
         "name": "lifecycle-extensions",
         "group": "androidx.lifecycle",
         "version": "+"
@@ -622,20 +566,6 @@
       "normalizedLicense": "apache2",
       "url": "https://developer.android.com/topic/libraries/architecture/index.html",
       "libraryName": "Android Lifecycle Extensions"
-    },
-    {
-      "artifactId": {
-        "name": "legacy-support-core-utils",
-        "group": "androidx.legacy",
-        "version": "+"
-      },
-      "copyrightHolder": "Android Open Source Project",
-      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "url": "http://developer.android.com/tools/extras/support-library.html",
-      "libraryName": "Android Support Library core utils"
     },
     {
       "artifactId": {
@@ -737,20 +667,6 @@
     },
     {
       "artifactId": {
-        "name": "print",
-        "group": "androidx.print",
-        "version": "+"
-      },
-      "copyrightHolder": "Android Open Source Project",
-      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "url": "http://developer.android.com/tools/extras/support-library.html",
-      "libraryName": "Android Support Library Print"
-    },
-    {
-      "artifactId": {
         "name": "jchronic",
         "group": "com.rubiconproject.oss",
         "version": "+"
@@ -790,20 +706,6 @@
       "normalizedLicense": "apache2",
       "url": "http://developer.android.com/tools/extras/support-library.html",
       "libraryName": "Material Components for Android"
-    },
-    {
-      "artifactId": {
-        "name": "localbroadcastmanager",
-        "group": "androidx.localbroadcastmanager",
-        "version": "+"
-      },
-      "copyrightHolder": "Android Open Source Project",
-      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "url": "http://developer.android.com/tools/extras/support-library.html",
-      "libraryName": "Android Support Library Local Broadcast Manager"
     },
     {
       "artifactId": {
@@ -902,20 +804,6 @@
       "normalizedLicense": "mit",
       "url": "https://github.com/mapbox/mapbox-java",
       "libraryName": "Mapbox services-core"
-    },
-    {
-      "artifactId": {
-        "name": "mapbox-android-gestures",
-        "group": "com.mapbox.mapboxsdk",
-        "version": "+"
-      },
-      "copyrightHolder": "Mapbox",
-      "copyrightStatement": "Copyright &copy; Mapbox. All rights reserved.",
-      "license": "BSD 2-Clause",
-      "licenseUrl": "https://opensource.org/licenses/BSD-2-Clause",
-      "normalizedLicense": "bsd_2_clauses",
-      "url": "https://github.com/mapbox/mapbox-gestures-android",
-      "libraryName": "Mapbox Android Gestures Library"
     },
     {
       "artifactId": {
@@ -1721,20 +1609,6 @@
       "normalizedLicense": "apache2",
       "url": "https://github.com/mapbox/mapbox-java",
       "libraryName": "mapbox-sdk-directions-models"
-    },
-    {
-      "artifactId": {
-        "name": "mapbox-android-accounts",
-        "group": "com.mapbox.mapboxsdk",
-        "version": "+"
-      },
-      "copyrightHolder": "Mapbox",
-      "copyrightStatement": "Copyright &copy; Mapbox. All rights reserved.",
-      "license": "Mapbox Terms of Service",
-      "licenseUrl": "https://www.mapbox.com/tos/",
-      "normalizedLicense": "Mapbox Terms of Service",
-      "url": "https://github.com/mapbox/mapbox-accounts-android",
-      "libraryName": "mapbox-android-accounts"
     },
     {
       "artifactId": {

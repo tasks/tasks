@@ -455,7 +455,6 @@
     <string name="choose_a_location">場所を選択</string>
     <string name="pick_this_location">この場所を選択</string>
     <string name="or_choose_a_location">または場所を選ぶ</string>
-    <string name="map_provider">地図プロバイダー</string>
     <string name="map_search_provider">プロバイダーを検索</string>
     <string name="missing_permissions">アクセス許可がありません</string>
     <string name="location_permission_required_geofence">場所リマインダーには位置のアクセス許可が必要です</string>
