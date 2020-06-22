@@ -358,7 +358,7 @@
     <string name="url_invalid_scheme">https:// batekin hasi behar da</string>
     <string name="no_title">(Izenbururik ez)</string>
     <string name="back_button_saves_task">Atzera botoiak zeregina gordetzen du</string>
-    <string name="default_list">Lehenetsitako zerrenda</string>
+    <string name="default_list">Zerrenda nagusia</string>
     <string name="filter">Iragazkia</string>
     <string name="opacity">Opakutasuna</string>
     <string name="theme">Azala</string>
