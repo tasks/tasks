@@ -85,4 +85,26 @@
     <string name="enter_filter_name">வடிகட்டிய பெயரை உள்ளிடவும்</string>
     <string name="TVA_add_comment">ஒரு கருத்தைச் சேர்க்கவும்…</string>
     <string name="actfm_picture_clear">தெளிவான படம்</string>
+    <string name="save">சேமி</string>
+    <string name="TEA_elapsedDuration_label">ஏற்கனவே செலவழித்த நேரம்</string>
+    <string name="TEA_estimatedDuration_label">இது எவ்வளவு நேரம் எடுக்கும்\?</string>
+    <string name="TEA_note_label">விவரிப்பு</string>
+    <string name="TEA_no_date">தேதி இல்லை</string>
+    <string name="TEA_importance_label">முன்னுரிமை</string>
+    <string name="TEA_title_hint">வேலை பெயர்</string>
+    <string name="action_open">திற</string>
+    <string name="action_call">அழைப்பு</string>
+    <string name="TAd_actionEditTask">தொகு</string>
+    <string name="TLA_menu_settings">அமைப்புகள்</string>
+    <string name="TLA_menu_search">தேடு</string>
+    <string name="TLA_menu_sort">வரிசைப்படுத்து</string>
+    <string name="TLA_no_items">இங்கு எந்த வேலைகளும் இல்லை.</string>
+    <string name="DLG_undo">பின்வாங்கு</string>
+    <string name="DLG_hour_minutes">நேரம் (மணி : நிமிடங்கள்)</string>
+    <string name="DLG_delete_this_task_question">இந்த வேலையை நீக்கலாமா\?</string>
+    <string name="read_permission_label">வேலைகள் அனுமதி</string>
+    <string name="export_toast_no_tasks">ஏற்றுமதி செய்ய எந்த வேலைகளும் இல்லை.</string>
+    <string name="backup_BAc_export">வேலைகளை ஏற்றுமதி செய்</string>
+    <string name="backup_BAc_import">வேலைகளை இறக்குமதி செய்</string>
+    <string name="display_name">பெயர்</string>
 </resources>
