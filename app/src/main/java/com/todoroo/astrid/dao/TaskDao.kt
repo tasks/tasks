@@ -11,12 +11,14 @@ import androidx.sqlite.db.SimpleSQLiteQuery
 import com.todoroo.andlib.sql.Criterion
 import com.todoroo.andlib.sql.Field
 import com.todoroo.andlib.sql.Functions
+import com.todoroo.andlib.utility.AndroidUtilities.assertNotMainThread
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.PermaSql
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.data.Task.Companion.NO_ID
 import com.todoroo.astrid.helper.UUIDHelper
+import kotlinx.coroutines.runBlocking
 import org.tasks.BuildConfig
 import org.tasks.data.Place
 import org.tasks.data.SubtaskInfo
@@ -116,11 +118,15 @@ abstract class TaskDao(private val database: Database) {
 
     @Transaction
     open fun fetchTasks(callback: (SubtaskInfo) -> List<String>): List<TaskContainer> {
-        return fetchTasks(callback, getSubtaskInfo())
+        return runBlocking {
+            fetchTasks(callback, getSubtaskInfo())
+        }
     }
 
     @Transaction
     open fun fetchTasks(callback: (SubtaskInfo) -> List<String>, subtasks: SubtaskInfo): List<TaskContainer> {
+        assertNotMainThread()
+
         val start = if (BuildConfig.DEBUG) DateUtilities.now() else 0
         val queries = callback.invoke(subtasks)
         val db = database.openHelper.writableDatabase
@@ -145,11 +151,16 @@ abstract class TaskDao(private val database: Database) {
     @RawQuery
     abstract fun count(query: SimpleSQLiteQuery): Int
 
-    @Query("SELECT EXISTS(SELECT 1 FROM tasks WHERE parent > 0 AND deleted = 0) AS hasSubtasks,"
-            + "EXISTS(SELECT 1 FROM google_tasks "
-            + "  INNER JOIN tasks ON gt_task = _id "
-            + " WHERE deleted = 0 AND gt_parent > 0 AND gt_deleted = 0) AS hasGoogleSubtasks")
-    abstract fun getSubtaskInfo(): SubtaskInfo
+    @Query("""
+SELECT EXISTS(SELECT 1 FROM tasks WHERE parent > 0 AND deleted = 0) AS hasSubtasks,
+       EXISTS(SELECT 1
+              FROM google_tasks
+                       INNER JOIN tasks ON gt_task = _id
+              WHERE deleted = 0
+                AND gt_parent > 0
+                AND gt_deleted = 0)                                 AS hasGoogleSubtasks
+    """)
+    abstract suspend fun getSubtaskInfo(): SubtaskInfo
 
     @RawQuery(observedEntities = [Place::class])
     abstract fun getTaskFactory(

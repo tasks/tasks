@@ -1300,20 +1300,6 @@
     },
     {
       "artifactId": {
-        "name": "kotlinx-coroutines-core-common",
-        "group": "org.jetbrains.kotlinx",
-        "version": "+"
-      },
-      "copyrightHolder": "JetBrains s.r.o.",
-      "copyrightStatement": "Copyright &copy; JetBrains s.r.o. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "url": "https://github.com/Kotlin/kotlinx.coroutines",
-      "libraryName": "kotlinx-coroutines-core-common"
-    },
-    {
-      "artifactId": {
         "name": "conscrypt-android",
         "group": "org.conscrypt",
         "version": "+"
@@ -1730,6 +1716,20 @@
       "normalizedLicense": "cddl1",
       "url": "http://jcp.org/aboutJava/communityprocess/final/jsr250/index.html",
       "libraryName": "jsr250-api"
+    },
+    {
+      "artifactId": {
+        "name": "room-ktx",
+        "group": "androidx.room",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://developer.android.com/topic/libraries/architecture/index.html",
+      "libraryName": "room-ktx"
     }
   ]
 }

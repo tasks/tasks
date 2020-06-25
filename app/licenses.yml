@@ -549,12 +549,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://developer.android.com/topic/libraries/architecture/index.html
-- artifact: org.jetbrains.kotlinx:kotlinx-coroutines-core-common:+
-  name: kotlinx-coroutines-core-common
-  copyrightHolder: JetBrains s.r.o.
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: https://github.com/Kotlin/kotlinx.coroutines
 - artifact: org.conscrypt:conscrypt-android:+
   name: org.conscrypt:conscrypt-android
   copyrightHolder: Android Open Source Project
@@ -726,3 +720,9 @@
   license: COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0
   licenseUrl: https://glassfish.dev.java.net/public/CDDLv1.0.html
   url: http://jcp.org/aboutJava/communityprocess/final/jsr250/index.html
+- artifact: androidx.room:room-ktx:+
+  name: room-ktx
+  copyrightHolder: Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/topic/libraries/architecture/index.html

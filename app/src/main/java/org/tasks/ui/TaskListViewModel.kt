@@ -9,11 +9,9 @@ import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.dao.TaskDao
-import io.reactivex.Completable
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.tasks.BuildConfig
 import org.tasks.data.SubtaskInfo
 import org.tasks.data.TaskContainer
@@ -28,7 +26,6 @@ class TaskListViewModel @ViewModelInject constructor(
     private var tasks = MutableLiveData<List<TaskContainer>>()
     private var filter: Filter? = null
     private var manualSortFilter = false
-    private val disposable = CompositeDisposable()
     private var internal: LiveData<PagedList<TaskContainer>>? = null
 
     fun setFilter(filter: Filter) {
@@ -58,26 +55,27 @@ class TaskListViewModel @ViewModelInject constructor(
         if (filter == null) {
             return
         }
-        disposable.add(
-                Single.fromCallable { taskDao.getSubtaskInfo() }
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                { subtasks: SubtaskInfo ->
-                                    if (manualSortFilter || !preferences.usePagedQueries()) {
-                                        performNonPagedQuery(subtasks)
-                                    } else {
-                                        performPagedListQuery()
-                                    }
-                                }) { t: Throwable? -> Timber.e(t) })
+        try {
+            viewModelScope.launch {
+                val subtasks = taskDao.getSubtaskInfo()
+                if (manualSortFilter || !preferences.usePagedQueries()) {
+                    performNonPagedQuery(subtasks)
+                } else {
+                    performPagedListQuery()
+                }
+            }
+        } catch (e: Exception) {
+            Timber.e(e)
+        }
     }
 
-    private fun performNonPagedQuery(subtasks: SubtaskInfo) =
-            disposable.add(
-                    Single.fromCallable { taskDao.fetchTasks({ s: SubtaskInfo? -> getQuery(preferences, filter!!, s!!) }, subtasks) }
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe({ value: List<TaskContainer> -> tasks.postValue(value) }) { t: Throwable? -> Timber.e(t) })
+    private suspend fun performNonPagedQuery(subtasks: SubtaskInfo) {
+        tasks.value = withContext(Dispatchers.IO) {
+            taskDao.fetchTasks(
+                    { s: SubtaskInfo? -> getQuery(preferences, filter!!, s!!) },
+                    subtasks)
+        }
+    }
 
     private fun performPagedListQuery() {
         val queries = getQuery(preferences, filter!!, SubtaskInfo())
@@ -97,14 +95,11 @@ class TaskListViewModel @ViewModelInject constructor(
         }
         if (BuildConfig.DEBUG) {
             builder.setFetchExecutor { command: Runnable ->
-                Completable.fromAction {
-                    AndroidUtilities.assertNotMainThread()
+                viewModelScope.launch(Dispatchers.IO) {
                     val start = DateUtilities.now()
                     command.run()
                     Timber.d("*** paged list execution took %sms", DateUtilities.now() - start)
                 }
-                        .subscribeOn(Schedulers.io())
-                        .subscribe()
             }
         }
         internal = builder.build()
@@ -112,7 +107,6 @@ class TaskListViewModel @ViewModelInject constructor(
     }
 
     override fun onCleared() {
-        disposable.dispose()
         removeObserver()
     }
 
