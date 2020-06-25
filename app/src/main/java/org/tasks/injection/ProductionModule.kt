@@ -8,6 +8,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import org.tasks.BuildConfig
+import org.tasks.R
 import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskListDao
 import org.tasks.db.Migrations
@@ -21,11 +23,13 @@ import javax.inject.Singleton
 internal class ProductionModule {
     @Provides
     @Singleton
-    fun getAppDatabase(@ApplicationContext context: Context): Database {
-        return Room.databaseBuilder(context, Database::class.java, Database.NAME)
-                .allowMainThreadQueries() // TODO: remove me
+    fun getAppDatabase(@ApplicationContext context: Context, preferences: Preferences): Database {
+        val builder = Room.databaseBuilder(context, Database::class.java, Database.NAME)
                 .addMigrations(*Migrations.MIGRATIONS)
-                .build()
+        if (!BuildConfig.DEBUG || preferences.getBoolean(R.string.p_debug_main_queries, true)) {
+            builder.allowMainThreadQueries()
+        }
+        return builder.build()
     }
 
     @Provides
