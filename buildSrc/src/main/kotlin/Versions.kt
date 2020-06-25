@@ -16,4 +16,5 @@ object Versions {
     const val make_it_easy = "4.0.1"
     const val hilt = "2.28-alpha"
     const val hilt_androidx = "1.0.0-alpha01"
+    const val lifecycle = "2.2.0"
 }

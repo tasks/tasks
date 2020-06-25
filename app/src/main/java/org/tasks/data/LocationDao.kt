@@ -3,7 +3,6 @@ package org.tasks.data
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.todoroo.astrid.api.FilterListItem.NO_ORDER
-import io.reactivex.Single
 import org.tasks.filters.LocationFilters
 import org.tasks.time.DateTimeUtils.currentTimeMillis
 
@@ -63,7 +62,7 @@ interface LocationDao {
     fun getActiveGeofences(): List<Location>
 
     @Query("SELECT COUNT(*) FROM geofences")
-    fun geofenceCount(): Int
+    suspend fun geofenceCount(): Int
 
     @Delete
     fun delete(location: Geofence)

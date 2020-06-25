@@ -17,6 +17,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.view.ActionMode
 import androidx.drawerlayout.widget.DrawerLayout.SimpleDrawerListener
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.lifecycleScope
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.activity.TaskEditFragment.TaskEditFragmentCallbackHandler
 import com.todoroo.astrid.activity.TaskListFragment.TaskListFragmentCallbackHandler
@@ -279,7 +280,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         }
         localBroadcastManager.registerRepeatReceiver(repeatConfirmationReceiver)
         check(!(BuildConfig.DEBUG && disposables != null && !disposables!!.isDisposed))
-        disposables = CompositeDisposable(playServices.check(this))
+        disposables = CompositeDisposable()
         if (preferences.getBoolean(R.string.p_just_updated, false)) {
             if (preferences.getBoolean(R.string.p_show_whats_new, true)) {
                 val fragmentManager = supportFragmentManager
@@ -433,6 +434,12 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
 
     override fun onListChanged(filter: Filter?) {
         taskEditFragment!!.onRemoteListChanged(filter)
+    }
+
+    init {
+        lifecycleScope.launchWhenResumed {
+            playServices.check(this@MainActivity)
+        }
     }
 
     companion object {

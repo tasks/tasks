@@ -6,10 +6,6 @@ import android.widget.Toast
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import dagger.hilt.android.qualifiers.ApplicationContext
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import org.tasks.R
 import org.tasks.data.LocationDao
 import org.tasks.preferences.Preferences
@@ -21,17 +17,12 @@ class PlayServices @Inject constructor(
         private val preferences: Preferences,
         private val locationDao: LocationDao) {
 
-    fun check(activity: Activity?): Disposable {
-        return Single.fromCallable(locationDao::geofenceCount)
-                .map { it == 0 || refreshAndCheck() }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { success: Boolean ->
-                    if (!success && !preferences.getBoolean(R.string.warned_play_services, false)) {
-                        preferences.setBoolean(R.string.warned_play_services, true)
-                        resolve(activity)
-                    }
-                }
+    suspend fun check(activity: Activity?) {
+        val playServicesAvailable = locationDao.geofenceCount() == 0 || refreshAndCheck()
+        if (!playServicesAvailable && !preferences.getBoolean(R.string.warned_play_services, false)) {
+            preferences.setBoolean(R.string.warned_play_services, true)
+            resolve(activity)
+        }
     }
 
     fun refreshAndCheck(): Boolean {

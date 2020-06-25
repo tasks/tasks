@@ -150,10 +150,10 @@ dependencies {
     implementation("androidx.hilt:hilt-work:${Versions.hilt_androidx}")
     implementation("androidx.hilt:hilt-lifecycle-viewmodel:${Versions.hilt_androidx}")
 
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle}")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}")
     implementation("androidx.room:room-ktx:${Versions.room}")
     kapt("androidx.room:room-compiler:${Versions.room}")
-    implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
     implementation("androidx.paging:paging-runtime:2.1.2")
 
