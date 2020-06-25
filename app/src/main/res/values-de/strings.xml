@@ -385,7 +385,7 @@
     <string name="bundle_notifications">Benachrichtigungen zusammenfassen</string>
     <string name="badges">Benachrichtigungspunkte</string>
     <string name="list">Liste</string>
-    <string name="repeats_from">Wiederholt sich nach</string>
+    <string name="repeats_from">Wiederholt sich ab</string>
     <string name="repeats_single">Wiederholt sich %s</string>
     <string name="repeats_single_on">Wiederholt sich %1$s %2$s</string>
     <string name="repeats_single_until">Wiederholt sich %1$s bis %2$s</string>
