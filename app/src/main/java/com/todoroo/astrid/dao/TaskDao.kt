@@ -46,8 +46,12 @@ abstract class TaskDao(private val database: Database) {
     @Query("SELECT * FROM tasks WHERE completed = 0 AND deleted = 0 AND (hideUntil > :now OR dueDate > :now)")
     abstract fun needsRefresh(now: Long): List<Task>
 
+    fun fetchBlocking(id: Long) = runBlocking {
+        fetch(id)
+    }
+
     @Query("SELECT * FROM tasks WHERE _id = :id LIMIT 1")
-    abstract fun fetch(id: Long): Task?
+    abstract suspend fun fetch(id: Long): Task?
 
     fun fetch(ids: List<Long>): List<Task> = ids.chunkedMap(this::fetchInternal)
 
@@ -226,7 +230,7 @@ SELECT EXISTS(SELECT 1 FROM tasks WHERE parent > 0 AND deleted = 0) AS hasSubtas
      * success.
      */
     @JvmOverloads
-    fun save(task: Task, original: Task? = fetch(task.id)) {
+    fun save(task: Task, original: Task? = fetchBlocking(task.id)) {
         if (!task.insignificantChange(original)) {
             task.modificationDate = DateUtilities.now()
         }

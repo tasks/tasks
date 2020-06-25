@@ -50,7 +50,7 @@ public class RepeatConfirmationReceiver extends BroadcastReceiver {
     if (taskId > 0) {
       long oldDueDate = intent.getLongExtra(AstridApiConstants.EXTRAS_OLD_DUE_DATE, 0);
       long newDueDate = intent.getLongExtra(AstridApiConstants.EXTRAS_NEW_DUE_DATE, 0);
-      Task task = taskDao.fetch(taskId);
+      Task task = taskDao.fetchBlocking(taskId);
 
       try {
         showSnackbar(taskListFragment, task, oldDueDate, newDueDate);

@@ -319,7 +319,7 @@ public class NotificationManager {
     long id = notification.getTaskId();
     int type = notification.getType();
     long when = notification.getTimestamp();
-    Task task = taskDao.fetch(id);
+    Task task = taskDao.fetchBlocking(id);
     if (task == null) {
       Timber.e("Could not find %s", id);
       return null;

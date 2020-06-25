@@ -45,7 +45,7 @@ class AfterSaveWork @WorkerInject constructor(
     override fun run(): Result {
         val data = inputData
         val taskId = data.getLong(EXTRA_ID, -1)
-        val task = taskDao.fetch(taskId)
+        val task = taskDao.fetchBlocking(taskId)
         if (task == null) {
             Timber.e("Missing saved task")
             return Result.failure()

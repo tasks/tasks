@@ -122,7 +122,7 @@ class TaskMoverTest : InjectingTestCase() {
         assertEquals(3, deleted.size.toLong())
         val task = caldavDao.getTask(3)
         assertEquals("2", task!!.calendar)
-        assertEquals(2, taskDao.fetch(3)!!.parent)
+        assertEquals(2, taskDao.fetchBlocking(3)!!.parent)
     }
 
     @Test
@@ -133,7 +133,7 @@ class TaskMoverTest : InjectingTestCase() {
         moveToCaldavList("1", 1)
         val task = caldavDao.getTask(2)
         assertEquals("1", task!!.calendar)
-        assertEquals(1, taskDao.fetch(2)!!.parent)
+        assertEquals(1, taskDao.fetchBlocking(2)!!.parent)
     }
 
     @Test
@@ -143,7 +143,7 @@ class TaskMoverTest : InjectingTestCase() {
         createSubtask(3, 2)
         moveToGoogleTasks("1", 1)
         assertEquals(1, googleTaskDao.getByTaskId(3)!!.parent)
-        assertEquals(0, taskDao.fetch(3)!!.parent)
+        assertEquals(0, taskDao.fetchBlocking(3)!!.parent)
     }
 
     @Test
@@ -151,7 +151,7 @@ class TaskMoverTest : InjectingTestCase() {
         createTasks(1)
         createSubtask(2, 1)
         moveToGoogleTasks("1", 2)
-        assertEquals(0, taskDao.fetch(2)!!.parent)
+        assertEquals(0, taskDao.fetchBlocking(2)!!.parent)
     }
 
     @Test
@@ -159,7 +159,7 @@ class TaskMoverTest : InjectingTestCase() {
         createTasks(1)
         createSubtask(2, 1)
         moveToCaldavList("1", 2)
-        assertEquals(0, taskDao.fetch(2)!!.parent)
+        assertEquals(0, taskDao.fetchBlocking(2)!!.parent)
     }
 
     @Test
@@ -210,7 +210,7 @@ class TaskMoverTest : InjectingTestCase() {
                                 with(REMOTE_PARENT, "a"))))
         moveToCaldavList("2", 2)
         assertEquals("2", caldavDao.getTask(2)!!.calendar)
-        assertEquals(0, taskDao.fetch(2)!!.parent)
+        assertEquals(0, taskDao.fetchBlocking(2)!!.parent)
     }
 
     @Test
@@ -236,7 +236,7 @@ class TaskMoverTest : InjectingTestCase() {
         createSubtask(3, 2)
         moveToCaldavList("1", 1)
         assertEquals("1", caldavDao.getTask(3)!!.calendar)
-        assertEquals(2, taskDao.fetch(3)!!.parent)
+        assertEquals(2, taskDao.fetchBlocking(3)!!.parent)
     }
 
     @Test

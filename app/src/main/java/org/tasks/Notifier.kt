@@ -74,7 +74,7 @@ class Notifier @Inject constructor(
         var ringFiveTimes = false
         var ringNonstop = false
         for (entry in entries.takeLast(NotificationManager.MAX_NOTIFICATIONS)) {
-            val task = taskDao.fetch(entry.taskId) ?: continue
+            val task = taskDao.fetchBlocking(entry.taskId) ?: continue
             if (entry.type != ReminderService.TYPE_RANDOM) {
                 ringFiveTimes = ringFiveTimes or task.isNotifyModeFive
                 ringNonstop = ringNonstop or task.isNotifyModeNonstop

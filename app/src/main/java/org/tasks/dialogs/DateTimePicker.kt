@@ -239,7 +239,7 @@ class DateTimePicker : BottomSheetDialogFragment() {
         val dueDate = selected?.millis ?: 0
         if (dueDate != arguments?.getLong(EXTRA_TIMESTAMP)) {
             if (taskId > 0) {
-                val task: Task = taskDao.fetch(taskId)!!
+                val task: Task = taskDao.fetchBlocking(taskId)!!
                 if (newDateTime(dueDate).isAfterNow) {
                     notificationManager.cancel(task.id)
                 }

@@ -174,7 +174,7 @@ class iCalendar @Inject constructor(
             taskDao.createNew(task)
             caldavTask = CaldavTask(task.id, calendar.uuid, remote.uid, obj)
         } else {
-            task = taskDao.fetch(existing.task)!!
+            task = taskDao.fetchBlocking(existing.task)!!
             caldavTask = existing
         }
         CaldavConverter.apply(task, remote)

@@ -12,7 +12,7 @@ class TaskCompleter @Inject internal constructor(
         private val googleTaskDao: GoogleTaskDao) {
 
     fun setComplete(taskId: Long) =
-            taskDao.fetch(taskId)?.let { setComplete(it, true) }
+            taskDao.fetchBlocking(taskId)?.let { setComplete(it, true) }
                     ?: Timber.e("Could not find task $taskId")
 
     fun setComplete(item: Task, completed: Boolean) {

@@ -317,7 +317,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
             openTask(task)
         } else {
             disposables!!.add(
-                    Single.fromCallable { taskDao.fetch(task.id) }
+                    Single.fromCallable { taskDao.fetchBlocking(task.id) }
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe { t: Task? -> this.openTask(t) })

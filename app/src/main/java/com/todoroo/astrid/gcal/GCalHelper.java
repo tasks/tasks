@@ -57,7 +57,7 @@ public class GCalHelper {
     if (!isNullOrEmpty(task.getCalendarURI())) {
       uri = task.getCalendarURI();
     } else {
-      task = taskDao.fetch(task.getId());
+      task = taskDao.fetchBlocking(task.getId());
       if (task == null) {
         return null;
       }

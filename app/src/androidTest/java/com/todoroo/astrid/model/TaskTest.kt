@@ -30,7 +30,7 @@ class TaskTest : InjectingTestCase() {
     fun testReadTaskFromDb() {
         val task = Task()
         taskDao.createNew(task)
-        val fromDb = taskDao.fetch(task.id)
+        val fromDb = taskDao.fetchBlocking(task.id)
         assertEquals(task, fromDb)
     }
 }

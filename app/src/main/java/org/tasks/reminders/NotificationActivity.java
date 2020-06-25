@@ -86,7 +86,7 @@ public class NotificationActivity extends InjectingAppCompatActivity
   public void edit() {
     notificationManager.cancel(taskId);
     disposables.add(
-        Single.fromCallable(() -> taskDao.fetch(taskId))
+        Single.fromCallable(() -> taskDao.fetchBlocking(taskId))
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(

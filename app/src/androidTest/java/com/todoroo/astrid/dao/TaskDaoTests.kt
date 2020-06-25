@@ -39,7 +39,7 @@ class TaskDaoTests : InjectingTestCase() {
         assertEquals(1, taskDao.getAll().size)
         val happyId = task.id
         assertNotSame(Task.NO_ID, happyId)
-        task = taskDao.fetch(happyId)!!
+        task = taskDao.fetchBlocking(happyId)!!
         assertEquals("happy", task.title)
 
         // create task "sad"
@@ -56,9 +56,9 @@ class TaskDaoTests : InjectingTestCase() {
         assertEquals(2, taskDao.getAll().size)
 
         // check state
-        task = taskDao.fetch(happyId)!!
+        task = taskDao.fetchBlocking(happyId)!!
         assertEquals("happy", task.title)
-        task = taskDao.fetch(sadId)!!
+        task = taskDao.fetchBlocking(sadId)!!
         assertEquals("melancholy", task.title)
     }
 
@@ -135,7 +135,7 @@ class TaskDaoTests : InjectingTestCase() {
     @Test
     fun testInvalidIndex() {
         assertEquals(0, taskDao.getAll().size)
-        assertNull(taskDao.fetch(1))
+        assertNull(taskDao.fetchBlocking(1))
         taskDeleter.delete(listOf(1L))
 
         // make sure db still works

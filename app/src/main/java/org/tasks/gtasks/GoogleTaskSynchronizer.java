@@ -414,7 +414,7 @@ public class GoogleTaskSynchronizer {
       if (googleTask == null) {
         googleTask = new GoogleTask(0, "");
       } else if (googleTask.getTask() > 0) {
-        task = taskDao.fetch(googleTask.getTask());
+        task = taskDao.fetchBlocking(googleTask.getTask());
       }
       com.google.api.client.util.DateTime updated = gtask.getUpdated();
       if (updated != null) {

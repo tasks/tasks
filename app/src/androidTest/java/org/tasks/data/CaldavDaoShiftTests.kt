@@ -112,7 +112,7 @@ class CaldavDaoShiftTests : InjectingTestCase() {
     fun ignoreDeletedTasksWhenShiftingDown() {
         val created = DateTime(2020, 5, 17, 9, 53, 17)
         addTask(with(CREATED, created))
-        taskDao.update(taskDao.fetch(tasks[0].id).apply { this?.deletionDate = now() }!!)
+        taskDao.update(taskDao.fetchBlocking(tasks[0].id).apply { this?.deletionDate = now() }!!)
 
         caldavDao.shiftDown("calendar", 0, created.toAppleEpoch())
 
@@ -129,8 +129,8 @@ class CaldavDaoShiftTests : InjectingTestCase() {
             caldavDao.shiftDown("calendar", 0, created.toAppleEpoch())
         }
 
-        assertEquals(created.plusMinutes(1).millis, taskDao.fetch(tasks[0].id)!!.modificationDate)
-        assertEquals(created.plusMinutes(1).millis, taskDao.fetch(tasks[1].id)!!.modificationDate)
+        assertEquals(created.plusMinutes(1).millis, taskDao.fetchBlocking(tasks[0].id)!!.modificationDate)
+        assertEquals(created.plusMinutes(1).millis, taskDao.fetchBlocking(tasks[1].id)!!.modificationDate)
     }
 
     private fun checkOrder(dateTime: DateTime?, task: TaskContainer) {

@@ -40,7 +40,7 @@ class DeletionDaoTests : InjectingTestCase() {
         var task = newTask(with(CREATION_TIME, DateTime().minusMinutes(1)))
         taskDao.createNew(task)
         deletionDao.markDeleted(listOf(task.id))
-        task = taskDao.fetch(task.id)!!
+        task = taskDao.fetchBlocking(task.id)!!
         assertTrue(task.modificationDate > task.creationDate)
         assertTrue(task.modificationDate < DateTimeUtils.currentTimeMillis())
     }
@@ -50,7 +50,7 @@ class DeletionDaoTests : InjectingTestCase() {
         var task = newTask(with(CREATION_TIME, DateTime().minusMinutes(1)))
         taskDao.createNew(task)
         deletionDao.markDeleted(listOf(task.id))
-        task = taskDao.fetch(task.id)!!
+        task = taskDao.fetchBlocking(task.id)!!
         assertTrue(task.deletionDate > task.creationDate)
         assertTrue(task.deletionDate < DateTimeUtils.currentTimeMillis())
     }
@@ -64,7 +64,7 @@ class DeletionDaoTests : InjectingTestCase() {
 
         deletionDao.purgeDeleted()
 
-        assertNull(taskDao.fetch(task.id))
+        assertNull(taskDao.fetchBlocking(task.id))
     }
 
     @Test
@@ -76,7 +76,7 @@ class DeletionDaoTests : InjectingTestCase() {
 
         deletionDao.purgeDeleted()
 
-        assertNotNull(taskDao.fetch(task.id))
+        assertNotNull(taskDao.fetchBlocking(task.id))
     }
 
     @Test
@@ -88,6 +88,6 @@ class DeletionDaoTests : InjectingTestCase() {
 
         deletionDao.purgeDeleted()
 
-        assertNotNull(taskDao.fetch(task.id))
+        assertNotNull(taskDao.fetchBlocking(task.id))
     }
 }

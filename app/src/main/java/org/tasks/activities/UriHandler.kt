@@ -27,7 +27,7 @@ class UriHandler : AppCompatActivity() {
             URI_OPEN_TASK -> {
                 val id = intent.data?.lastPathSegment?.toLongOrNull() ?: 0
                 if (id > 0) {
-                    Single.fromCallable { Optional.ofNullable(taskDao.fetch(id))}
+                    Single.fromCallable { Optional.ofNullable(taskDao.fetchBlocking(id))}
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .doAfterTerminate(this::finish)

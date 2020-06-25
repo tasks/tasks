@@ -141,7 +141,7 @@ class CaldavTaskAdapterTest : InjectingTestCase() {
 
         adapter.moved(1, 1, 1)
 
-        assertEquals(tasks[0].id, taskDao.fetch(tasks[1].id)!!.parent)
+        assertEquals(tasks[0].id, taskDao.fetchBlocking(tasks[1].id)!!.parent)
     }
 
     @Test
@@ -165,7 +165,7 @@ class CaldavTaskAdapterTest : InjectingTestCase() {
         adapter.moved(1, 1, 0)
 
         assertTrue(caldavDao.getTask(tasks[1].id)!!.remoteParent.isNullOrBlank())
-        assertEquals(0, taskDao.fetch(tasks[1].id)!!.parent)
+        assertEquals(0, taskDao.fetchBlocking(tasks[1].id)!!.parent)
     }
 
     @Test
@@ -176,7 +176,7 @@ class CaldavTaskAdapterTest : InjectingTestCase() {
 
         adapter.moved(2, 2, 1)
 
-        assertEquals(tasks[0].id, taskDao.fetch(tasks[2].id)!!.parent)
+        assertEquals(tasks[0].id, taskDao.fetchBlocking(tasks[2].id)!!.parent)
     }
 
     @Test
@@ -188,7 +188,7 @@ class CaldavTaskAdapterTest : InjectingTestCase() {
 
         adapter.moved(3, 3, 1)
 
-        assertEquals(tasks[0].id, taskDao.fetch(tasks[3].id)!!.parent)
+        assertEquals(tasks[0].id, taskDao.fetchBlocking(tasks[3].id)!!.parent)
     }
 
     private fun addTask(vararg properties: PropertyValue<in TaskContainer?, *>) {
