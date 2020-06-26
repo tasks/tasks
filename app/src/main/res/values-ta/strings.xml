@@ -177,4 +177,11 @@
     <string name="default_location_reminder_on_departure">புறப்படும் போது</string>
     <string name="default_location_reminder_on_arrival">வந்தவுடன்</string>
     <string name="EPr_default_reminders_mode_title">இயல்புநிலை வளையம் / அதிர்வு வகை</string>
+    <string name="gcal_TEA_error">வேலையை நாட்காட்டியில் சேர்க்க முடியவில்லை!</string>
+    <string name="CFA_type_intersect">மேலும்</string>
+    <string name="CFA_type_add">அல்லது</string>
+    <string name="BFE_Recent">சமீபத்தில் மாற்றியவை</string>
+    <string name="BFE_Active">என் வேலைகள்</string>
+    <string name="TEA_hideUntil_display">%s வரை மூடு</string>
+    <string name="import_progress_read">%d... வேலையை படிக்கிறது</string>
 </resources>
