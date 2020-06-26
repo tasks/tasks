@@ -122,9 +122,9 @@
     <string name="CFA_context_chain">%s hat Kriterien</string>
     <string name="CFA_context_delete">Zeile löschen</string>
     <string name="CFA_button_add">Kriterium hinzufügen</string>
-    <string name="CFC_dueBefore_text">Fällig am: ?</string>
-    <string name="CFC_dueBefore_name">Fällig am …</string>
-    <string name="no_due_date">Kein Fälligkeitsdatum</string>
+    <string name="CFC_dueBefore_text">Fällig: \?</string>
+    <string name="CFC_dueBefore_name">Fällig …</string>
+    <string name="no_due_date">Ohne Fälligkeitsdatum</string>
     <string name="next_month">Nächster Monat</string>
     <string name="CFC_importance_text">Mindestpriorität ?</string>
     <string name="CFC_importance_name">Priorität…</string>
@@ -594,7 +594,7 @@
     <string name="add_filter">Filter hinzufügen</string>
     <string name="filter_today_only">Nur heute</string>
     <string name="sort_created">Nach Erstellungszeit</string>
-    <string name="filter_after_today">"Nach heute "</string>
+    <string name="filter_after_today">Ab morgen</string>
     <string name="filter_overdue">Überfällig</string>
     <string name="add_tags">Schlagwörter hinzufügen</string>
     <string name="filter_no_tags">Keine Schlagwörter</string>
