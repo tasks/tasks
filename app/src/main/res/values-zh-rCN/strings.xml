@@ -153,7 +153,7 @@
     <string name="random_reminder_month">一个月</string>
     <string name="random_reminder_two_months">两个月内</string>
     <string name="rmd_NoA_done">已完成</string>
-    <string name="rmd_NoA_snooze">晚点提醒…</string>
+    <string name="rmd_NoA_snooze">延后</string>
     <string name="snooze_all">全都稍后提醒</string>
     <string name="rmd_EPr_quiet_hours_start_title">静音开始时间</string>
     <string name="rmd_EPr_quiet_hours_end_title">静音时间结束</string>
@@ -504,7 +504,7 @@
     <string name="passwords_do_not_match">密码不匹配</string>
     <string name="reenter_encryption_password">确认加密密码</string>
     <string name="show_advanced_settings">显示高级设置</string>
-    <string name="caldav_account_description">需要一个CalDAV服务供应商账户或一个自托管服务器。访问tasks.org/caldav寻找服务供应商。</string>
+    <string name="caldav_account_description">需要一个 CalDAV 服务供应商账户或一个自托管服务器。访问 tasks.org/caldav 寻找服务供应商</string>
     <string name="etesync_account_description">需要一个EteSync.com账户或一个自托管服务器</string>
     <string name="etesync_encryption_description">记住你挑选的密码，它不能被恢复！</string>
     <string name="encryption_password_wrong">错误的加密密码</string>
