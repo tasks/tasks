@@ -1,2 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="no_reminders">நினைவூட்டல்கள் இல்லை</string>
+    <string name="at_deadline_or_overdue">காலக்கெடு அல்லது தாமதமாக</string>
+    <string name="at_deadline">காலக்கெடுவில்</string>
+    <string name="dont_hide">மறைக்க வேண்டாம்</string>
+    <string name="next_week">அடுத்த வாரம்</string>
+    <string name="day_after_tomorrow">நாளை மறுநாள்</string>
+    <string name="no_deadline">காலக்கெடு இல்லை</string>
+    <string name="priority_low">குறைந்த</string>
+    <string name="priority_medium">நடுத்தரமான</string>
+    <string name="priority_high">உயரமான</string>
+    <string name="EPr_default_location_radius">இயல்புநிலை ஆரம்</string>
+    <string name="EPr_default_location_reminder_title">இயல்புநிலை இருப்பிட நினைவூட்டல்கள்</string>
+    <string name="EPr_default_reminders_title">இயல்புநிலை நினைவூட்டல்கள்</string>
+    <string name="EPr_default_hideUntil_title">இயல்புநிலை வரை மறை</string>
+    <string name="EPr_default_importance_title">இயல்புநிலை முன்னுரிமை</string>
+    <string name="EPr_default_urgency_title">இயல்புநிலை காலக்கெடு</string>
+    <string name="task_defaults">பணி இயல்புநிலை</string>
+    <string name="EPr_manage_delete_all_gcal_message">பணிகளுக்காக உங்கள் எல்லா நிகழ்வுகளையும் நீக்க விரும்புகிறீர்களா\?</string>
+    <string name="EPr_manage_delete_all_gcal">பணிகளுக்கான அனைத்து நாள்காட்டி நிகழ்வுகளையும் நீக்கு</string>
+    <string name="EPr_manage_delete_completed_gcal_message">பூர்த்தி செய்யப்பட்ட பணிகளுக்காக உங்கள் எல்லா நிகழ்வுகளையும் நீக்க விரும்புகிறீர்களா\?</string>
+    <string name="EPr_manage_delete_completed_gcal">பூர்த்தி செய்யப்பட்ட பணிகளுக்கு நாள்காட்டி நிகழ்வுகளை நீக்கு</string>
+    <string name="EPr_delete_task_data_warning">அனைத்து பணிகளும் நிரந்தரமாக நீக்கப்படும்</string>
+    <string name="EPr_delete_task_data">பணி தரவை நீக்கு</string>
+    <string name="EPr_reset_preferences_warning">முன்னுரிமைகள் இயல்புநிலை மதிப்புகளுக்கு மீட்டமைக்கப்படும்</string>
+    <string name="EPr_reset_preferences">விருப்பங்களை மீட்டமைக்கவும்</string>
+    <string name="EPr_temp_completed_tasks_not_showing">பணிகள் முடிந்ததும் பட்டியலில் இருந்து உடனடியாக மறைந்துவிடும்</string>
+    <string name="EPr_temp_completed_tasks_showing">பணிகள் முடிந்தபின் பட்டியலில் தற்காலிகமாகத் தெரியும்</string>
+    <string name="EPr_temp_show_completed_tasks">பணிகள் முடிந்ததும் தற்காலிகமாகக் காட்டு</string>
+    <string name="EPr_cal_start_at_due_time">சரியான நேரத்தில் நாள்காட்டி நிகழ்வுகளைத் தொடங்கவும்</string>
+    <string name="EPr_cal_end_at_due_time">நாள்காட்டி நிகழ்வுகளை உரிய நேரத்தில் முடிக்கவும்</string>
+    <string name="EPr_cal_end_or_start_at_due_time">நாள்காட்டி நிகழ்வு நேரம்</string>
+    <string name="task_list_options">பணி பட்டியல் விருப்பங்கள்</string>
+    <string name="EPr_show_task_edit_comments">பணி திருத்தத்தில் கருத்துகளைக் காட்டு</string>
+    <string name="EPr_fullTask_title">முழு பணி தலைப்பைக் காட்டு</string>
+    <string name="EPr_beastMode_reset">இயல்புநிலைக்கு மீட்டமை</string>
+    <string name="EPr_edit_screen_options">திரை விருப்பங்களைத் திருத்து</string>
+    <string name="EPr_filters_to_show_title">காண்பிக்க வடிப்பான்கள்</string>
+    <string name="none">எதுவுமில்லை</string>
+    <string name="CRA_calendar_reminders_pref_title">நாள்காட்டி உதவியாளர்</string>
+    <string name="CRA_postpone">ஒருவேளை பின்னர்</string>
+    <string name="CRA_ignore_this">இந்த நிகழ்வை மட்டும் புறக்கணிக்கவும்</string>
+    <string name="CRA_ignore_all">எல்லா நிகழ்வுகளையும் புறக்கணிக்கவும்</string>
+    <string name="CRA_ignore_body">பல காலண்டர் நிகழ்வுகளை நீங்கள் புறக்கணித்துவிட்டீர்கள். பணிகள் அவற்றைப் பற்றி உங்களிடம் கேட்பதை நிறுத்த வேண்டுமா\?</string>
+    <string name="CRA_title">சந்திப்பு பட்டியல் வேண்டுமா\?</string>
+    <string name="CRA_ignore">புறக்கணிக்கவும்</string>
+    <string name="TEA_load_more">அதிகமாய் ஏற்று…</string>
+    <string name="TEA_control_hidden_section">---- எப்போதும் மறை ----</string>
+    <string name="TEA_control_timer">டைமர் கட்டுப்பாடுகள்</string>
+    <string name="TEA_control_reminders">நினைவூட்டல்கள்</string>
+    <string name="TEA_control_files">கோப்புகள்</string>
+    <string name="TEA_control_notes">விளக்கம்</string>
+    <string name="TEA_control_location">இடம்</string>
+    <string name="TEA_control_importance">முன்னுரிமை</string>
+    <string name="TEA_control_gcal">நாள்காட்டி</string>
+    <string name="TEA_control_repeat">மீண்டும் செய்யவும்</string>
+    <string name="TEA_control_when">எப்பொழுது</string>
+    <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">வாரத்திற்கு முன்</string>
+    <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">செலுத்த வேண்டிய நாள் முன்</string>
+    <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">உரிய நேரத்தில்</string>
+    <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">உரிய தேதி</string>
+    <string name="week_before_due">செலுத்த வேண்டிய வாரம் முன்</string>
+    <string name="day_before_due">செலுத்த வேண்டிய நாள் முன்</string>
+    <string name="due_time">உரிய தேதி</string>
+    <string name="due_date">உரிய தேதி</string>
+    <string name="TEA_no_time">நேரம் இல்லை</string>
+    <string name="TEA_hideUntil_label">வரைக்கும் மறை</string>
+    <string name="TEA_add_subtask">துணை பணி சேர்க்கவும்</string>
+    <string name="FLA_new_filter">புதிய வடிப்பானை உருவாக்கவும்</string>
+    <string name="sort_created">படைப்பு நேரம் மூலம்</string>
+    <string name="SSD_sort_modified">கடைசியாக மாற்றியமைக்கப்பட்டது</string>
+    <string name="SSD_sort_importance">முன்னுரிமையால்</string>
+    <string name="SSD_sort_due">உரிய தேதிக்குள்</string>
+    <string name="SSD_sort_alpha">தலைப்பு மூலம்</string>
+    <string name="SSD_sort_auto">ஸ்மார்ட் வகை</string>
+    <string name="astrid_sort_order">ஆஸ்ட்ரிட் கையேடு வரிசையாக்கம்</string>
+    <string name="SSD_sort_my_order">எனது ஆர்டர்</string>
+    <string name="manage_lists">பட்டியல்களை நிர்வகிக்கவும்</string>
+    <string name="WID_dateButtonUnset">கிளிக் செய்து அமைக்கவும்</string>
+    <string name="keep_editing">திருத்துவதைத் தொடருங்கள்</string>
+    <string name="discard_confirmation">உங்கள் மாற்றங்களை நிராகரிக்க விரும்புகிறீர்களா\?</string>
+    <string name="import_summary_title">சுருக்கத்தை மீட்டமை</string>
+    <string name="backup_BPr_header">காப்புப்பிரதிகள்</string>
+    <string name="enter_filter_name">வடிகட்டிய பெயரை உள்ளிடவும்</string>
+    <string name="TVA_add_comment">ஒரு கருத்தைச் சேர்க்கவும்…</string>
+    <string name="actfm_picture_clear">தெளிவான படம்</string>
+</resources>
