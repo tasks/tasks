@@ -25,7 +25,7 @@ import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.Geofence
 import org.tasks.data.Location
-import org.tasks.data.LocationDao
+import org.tasks.data.LocationDaoBlocking
 import org.tasks.data.Place
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.GeofenceDialog
@@ -40,7 +40,7 @@ class LocationControlSet : TaskEditControlFragment() {
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var geofenceApi: GeofenceApi
-    @Inject lateinit var locationDao: LocationDao
+    @Inject lateinit var locationDao: LocationDaoBlocking
     @Inject lateinit var device: Device
     @Inject lateinit var permissionRequestor: FragmentPermissionRequestor
     @Inject lateinit var permissionChecker: PermissionChecker

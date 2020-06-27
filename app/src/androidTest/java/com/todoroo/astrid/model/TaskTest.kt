@@ -1,6 +1,6 @@
 package com.todoroo.astrid.model
 
-import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.dao.TaskDaoBlocking
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
@@ -15,7 +15,7 @@ import javax.inject.Inject
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class TaskTest : InjectingTestCase() {
-    @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var taskDao: TaskDaoBlocking
 
     @Test
     fun testSavedTaskHasCreationDate() {

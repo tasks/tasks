@@ -294,7 +294,7 @@ SELECT EXISTS(SELECT 1 FROM tasks WHERE parent > 0 AND deleted = 0) AS hasSubtas
 
     companion object {
         const val TRANS_SUPPRESS_REFRESH = "suppress-refresh"
-        private fun getQuery(queryTemplate: String, vararg fields: Field): SimpleSQLiteQuery {
+        fun getQuery(queryTemplate: String, vararg fields: Field): SimpleSQLiteQuery {
             return SimpleSQLiteQuery(
                     com.todoroo.andlib.sql.Query.select(*fields)
                             .withQueryTemplate(PermaSql.replacePlaceholdersForQuery(queryTemplate))

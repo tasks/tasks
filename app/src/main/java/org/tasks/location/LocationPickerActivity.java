@@ -51,7 +51,7 @@ import org.tasks.R;
 import org.tasks.activities.PlaceSettingsActivity;
 import org.tasks.billing.Inventory;
 import org.tasks.caldav.GeoUtils;
-import org.tasks.data.LocationDao;
+import org.tasks.data.LocationDaoBlocking;
 import org.tasks.data.Place;
 import org.tasks.data.PlaceUsage;
 import org.tasks.dialogs.DialogBuilder;
@@ -108,7 +108,7 @@ public class LocationPickerActivity extends InjectingAppCompatActivity
 
   @Inject Theme theme;
   @Inject Toaster toaster;
-  @Inject LocationDao locationDao;
+  @Inject LocationDaoBlocking locationDao;
   @Inject PlaceSearchProvider searchProvider;
   @Inject PermissionChecker permissionChecker;
   @Inject ActivityPermissionRequestor permissionRequestor;

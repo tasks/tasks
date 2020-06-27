@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.RemoteViewsService;
-import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskDaoBlocking;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 import dagger.hilt.android.AndroidEntryPoint;
 import javax.inject.Inject;
@@ -18,7 +18,7 @@ import org.tasks.ui.CheckBoxProvider;
 @AndroidEntryPoint
 public class ScrollableWidgetUpdateService extends RemoteViewsService {
 
-  @Inject TaskDao taskDao;
+  @Inject TaskDaoBlocking taskDao;
   @Inject Preferences preferences;
   @Inject SubtasksHelper subtasksHelper;
   @Inject DefaultFilterProvider defaultFilterProvider;

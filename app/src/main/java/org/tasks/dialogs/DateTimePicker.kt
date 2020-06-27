@@ -20,7 +20,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.dao.TaskDaoBlocking
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
@@ -41,7 +41,7 @@ class DateTimePicker : BottomSheetDialogFragment() {
     @Inject lateinit var activity: Activity
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var locale: Locale
-    @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var taskDao: TaskDaoBlocking
     @Inject lateinit var notificationManager: NotificationManager
     @Inject lateinit var theme: Theme
 

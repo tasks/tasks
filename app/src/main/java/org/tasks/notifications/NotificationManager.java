@@ -27,7 +27,7 @@ import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskDaoBlocking;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.ReminderService;
 import dagger.hilt.android.qualifiers.ApplicationContext;
@@ -42,7 +42,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
-import org.tasks.data.LocationDao;
+import org.tasks.data.LocationDaoBlocking;
 import org.tasks.data.Place;
 import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.Preferences;
@@ -70,9 +70,9 @@ public class NotificationManager {
   private final NotificationManagerCompat notificationManagerCompat;
   private final ColorProvider colorProvider;
   private final LocalBroadcastManager localBroadcastManager;
-  private final LocationDao locationDao;
-  private final NotificationDao notificationDao;
-  private final TaskDao taskDao;
+  private final LocationDaoBlocking locationDao;
+  private final NotificationDaoBlocking notificationDao;
+  private final TaskDaoBlocking taskDao;
   private final Context context;
   private final Preferences preferences;
   private final Throttle throttle = new Throttle(NOTIFICATIONS_PER_SECOND);
@@ -82,9 +82,9 @@ public class NotificationManager {
   public NotificationManager(
       @ApplicationContext Context context,
       Preferences preferences,
-      NotificationDao notificationDao,
-      TaskDao taskDao,
-      LocationDao locationDao,
+      NotificationDaoBlocking notificationDao,
+      TaskDaoBlocking taskDao,
+      LocationDaoBlocking locationDao,
       LocalBroadcastManager localBroadcastManager) {
     this.context = context;
     this.preferences = preferences;

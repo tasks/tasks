@@ -2,7 +2,7 @@ package org.tasks.data
 
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.astrid.api.GtasksFilter
-import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.dao.TaskDaoBlocking
 import com.todoroo.astrid.helper.UUIDHelper
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
@@ -29,8 +29,8 @@ import javax.inject.Inject
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class ManualGoogleTaskQueryTest : InjectingTestCase() {
-    @Inject lateinit var googleTaskDao: GoogleTaskDao
-    @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var googleTaskDao: GoogleTaskDaoBlocking
+    @Inject lateinit var taskDao: TaskDaoBlocking
     @Inject lateinit var preferences: Preferences
     private val filter: GtasksFilter = GtasksFilter(newGoogleTaskList(with(REMOTE_ID, "1234")))
 

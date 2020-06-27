@@ -22,7 +22,7 @@ import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.activity.TaskEditFragment.TaskEditFragmentCallbackHandler
 import com.todoroo.astrid.activity.TaskListFragment.TaskListFragmentCallbackHandler
 import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.dao.TaskDaoBlocking
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskCreator
 import com.todoroo.astrid.timers.TimerControlSet.TimerControlSetCallback
@@ -65,7 +65,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
     @Inject lateinit var repeatConfirmationReceiver: RepeatConfirmationReceiver
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
     @Inject lateinit var theme: Theme
-    @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var taskDao: TaskDaoBlocking
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var taskCreator: TaskCreator
     @Inject lateinit var playServices: PlayServices

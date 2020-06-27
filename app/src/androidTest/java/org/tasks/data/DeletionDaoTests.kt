@@ -1,7 +1,7 @@
 package org.tasks.data
 
 import com.natpryce.makeiteasy.MakeItEasy.with
-import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.dao.TaskDaoBlocking
 import com.todoroo.astrid.helper.UUIDHelper
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
@@ -21,9 +21,9 @@ import javax.inject.Inject
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class DeletionDaoTests : InjectingTestCase() {
-    @Inject lateinit var taskDao: TaskDao
-    @Inject lateinit var deletionDao: DeletionDao
-    @Inject lateinit var caldavDao: CaldavDao
+    @Inject lateinit var taskDao: TaskDaoBlocking
+    @Inject lateinit var deletionDao: DeletionDaoBlocking
+    @Inject lateinit var caldavDao: CaldavDaoBlocking
 
     @Test
     fun deleting1000DoesntCrash() {

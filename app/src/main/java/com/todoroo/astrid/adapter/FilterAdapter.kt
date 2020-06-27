@@ -18,8 +18,8 @@ import com.todoroo.astrid.api.FilterListItem
 import com.todoroo.astrid.api.FilterListItem.Type.*
 import org.tasks.LocalBroadcastManager
 import org.tasks.billing.Inventory
-import org.tasks.data.CaldavDao
-import org.tasks.data.GoogleTaskDao
+import org.tasks.data.CaldavDaoBlocking
+import org.tasks.data.GoogleTaskDaoBlocking
 import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.locale.Locale
 import org.tasks.preferences.Preferences
@@ -33,8 +33,8 @@ class FilterAdapter @Inject constructor(
         private val inventory: Inventory,
         private val colorProvider: ColorProvider,
         private val preferences: Preferences,
-        private val googleTaskDao: GoogleTaskDao,
-        private val caldavDao: CaldavDao,
+        private val googleTaskDao: GoogleTaskDaoBlocking,
+        private val caldavDao: CaldavDaoBlocking,
         private val localBroadcastManager: LocalBroadcastManager) : BaseAdapter() {
     private var selected: Filter? = null
     private var items: List<FilterListItem> = ArrayList()

@@ -37,7 +37,7 @@ import com.todoroo.astrid.adapter.TaskAdapter
 import com.todoroo.astrid.adapter.TaskAdapterProvider
 import com.todoroo.astrid.api.*
 import com.todoroo.astrid.core.BuiltInFilterExposer
-import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.dao.TaskDaoBlocking
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskCreator
 import com.todoroo.astrid.service.TaskDeleter
@@ -57,8 +57,8 @@ import org.tasks.R
 import org.tasks.ShortcutManager
 import org.tasks.activities.*
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
-import org.tasks.data.CaldavDao
-import org.tasks.data.TagDataDao
+import org.tasks.data.CaldavDaoBlocking
+import org.tasks.data.TagDataDaoBlocking
 import org.tasks.data.TaskContainer
 import org.tasks.db.DbUtils.chunkedMap
 import org.tasks.dialogs.DateTimePicker.Companion.newDateTimePicker
@@ -101,10 +101,10 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     @Inject lateinit var taskMover: TaskMover
     @Inject lateinit var toaster: Toaster
     @Inject lateinit var taskAdapterProvider: TaskAdapterProvider
-    @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var taskDao: TaskDaoBlocking
     @Inject lateinit var taskDuplicator: TaskDuplicator
-    @Inject lateinit var tagDataDao: TagDataDao
-    @Inject lateinit var caldavDao: CaldavDao
+    @Inject lateinit var tagDataDao: TagDataDaoBlocking
+    @Inject lateinit var caldavDao: CaldavDaoBlocking
     @Inject lateinit var defaultThemeColor: ThemeColor
     @Inject lateinit var colorProvider: ColorProvider
     @Inject lateinit var notificationManager: NotificationManager

@@ -6,7 +6,7 @@ import android.content.Intent;
 import com.google.android.apps.dashclock.api.ExtensionData;
 import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskDaoBlocking;
 import com.todoroo.astrid.data.Task;
 import dagger.hilt.android.AndroidEntryPoint;
 import java.util.List;
@@ -21,7 +21,7 @@ import timber.log.Timber;
 public class DashClockExtension extends com.google.android.apps.dashclock.api.DashClockExtension {
 
   @Inject DefaultFilterProvider defaultFilterProvider;
-  @Inject TaskDao taskDao;
+  @Inject TaskDaoBlocking taskDao;
   @Inject Preferences preferences;
   @Inject LocalBroadcastManager localBroadcastManager;
 

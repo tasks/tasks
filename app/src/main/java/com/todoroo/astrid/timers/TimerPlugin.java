@@ -17,7 +17,7 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskDaoBlocking;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.utility.Constants;
 import dagger.hilt.android.qualifiers.ApplicationContext;
@@ -32,13 +32,13 @@ public class TimerPlugin {
 
   private final Context context;
   private final NotificationManager notificationManager;
-  private final TaskDao taskDao;
+  private final TaskDaoBlocking taskDao;
 
   @Inject
   public TimerPlugin(
       @ApplicationContext Context context,
       NotificationManager notificationManager,
-      TaskDao taskDao) {
+      TaskDaoBlocking taskDao) {
     this.context = context;
     this.notificationManager = notificationManager;
     this.taskDao = taskDao;

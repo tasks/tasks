@@ -7,7 +7,7 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
-import org.tasks.data.LocationDao
+import org.tasks.data.LocationDaoBlocking
 import org.tasks.preferences.Preferences
 import timber.log.Timber
 import javax.inject.Inject
@@ -15,7 +15,7 @@ import javax.inject.Inject
 class PlayServices @Inject constructor(
         @param:ApplicationContext private val context: Context,
         private val preferences: Preferences,
-        private val locationDao: LocationDao) {
+        private val locationDao: LocationDaoBlocking) {
 
     suspend fun check(activity: Activity?) {
         val playServicesAvailable = locationDao.geofenceCount() == 0 || refreshAndCheck()

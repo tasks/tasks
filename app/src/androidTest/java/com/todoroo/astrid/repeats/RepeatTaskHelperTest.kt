@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import com.google.ical.values.RRule
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.astrid.alarms.AlarmService
-import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.dao.TaskDaoBlocking
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.gcal.GCalHelper
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -32,7 +32,7 @@ import javax.inject.Inject
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class RepeatTaskHelperTest : InjectingTestCase() {
-    @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var taskDao: TaskDaoBlocking
     private lateinit var localBroadcastManager: LocalBroadcastManager
     private lateinit var alarmService: AlarmService
     private lateinit var gCalHelper: GCalHelper
@@ -40,7 +40,9 @@ class RepeatTaskHelperTest : InjectingTestCase() {
     private lateinit var mocks: InOrder
 
     @Before
-    fun before() {
+    override fun setUp() {
+        super.setUp()
+
         alarmService = Mockito.mock(AlarmService::class.java)
         gCalHelper = Mockito.mock(GCalHelper::class.java)
         localBroadcastManager = Mockito.mock(LocalBroadcastManager::class.java)

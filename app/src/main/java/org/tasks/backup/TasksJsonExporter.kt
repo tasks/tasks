@@ -12,7 +12,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.todoroo.andlib.utility.DialogUtilities
 import com.todoroo.astrid.backup.BackupConstants
-import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.dao.TaskDaoBlocking
 import com.todoroo.astrid.data.Task
 import org.tasks.BuildConfig
 import org.tasks.R
@@ -32,20 +32,20 @@ import java.util.*
 import javax.inject.Inject
 
 class TasksJsonExporter @Inject constructor(
-        private val tagDataDao: TagDataDao,
-        private val taskDao: TaskDao,
-        private val userActivityDao: UserActivityDao,
+        private val tagDataDao: TagDataDaoBlocking,
+        private val taskDao: TaskDaoBlocking,
+        private val userActivityDao: UserActivityDaoBlocking,
         private val preferences: Preferences,
-        private val alarmDao: AlarmDao,
-        private val locationDao: LocationDao,
-        private val tagDao: TagDao,
-        private val googleTaskDao: GoogleTaskDao,
-        private val filterDao: FilterDao,
-        private val googleTaskListDao: GoogleTaskListDao,
-        private val taskAttachmentDao: TaskAttachmentDao,
-        private val caldavDao: CaldavDao,
+        private val alarmDao: AlarmDaoBlocking,
+        private val locationDao: LocationDaoBlocking,
+        private val tagDao: TagDaoBlocking,
+        private val googleTaskDao: GoogleTaskDaoBlocking,
+        private val filterDao: FilterDaoBlocking,
+        private val googleTaskListDao: GoogleTaskListDaoBlocking,
+        private val taskAttachmentDao: TaskAttachmentDaoBlocking,
+        private val caldavDao: CaldavDaoBlocking,
         private val workManager: WorkManager,
-        private val taskListMetadataDao: TaskListMetadataDao) {
+        private val taskListMetadataDao: TaskListMetadataDaoBlocking) {
 
     private var context: Context? = null
     private var exportCount = 0

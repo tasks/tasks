@@ -5,7 +5,7 @@
  */
 package com.todoroo.astrid.gtasks
 
-import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.dao.TaskDaoBlocking
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
@@ -13,7 +13,7 @@ import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Test
 import org.tasks.data.GoogleTask
-import org.tasks.data.GoogleTaskDao
+import org.tasks.data.GoogleTaskDaoBlocking
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import javax.inject.Inject
@@ -21,8 +21,8 @@ import javax.inject.Inject
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class GtasksMetadataServiceTest : InjectingTestCase() {
-    @Inject lateinit var taskDao: TaskDao
-    @Inject lateinit var googleTaskDao: GoogleTaskDao
+    @Inject lateinit var taskDao: TaskDaoBlocking
+    @Inject lateinit var googleTaskDao: GoogleTaskDaoBlocking
     
     private var task: Task? = null
     private var metadata: GoogleTask? = null

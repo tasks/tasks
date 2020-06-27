@@ -16,11 +16,11 @@ import javax.inject.Inject
 class DefaultFilterProvider @Inject constructor(
         @param:ApplicationContext private val context: Context,
         private val preferences: Preferences,
-        private val filterDao: FilterDao,
-        private val tagDataDao: TagDataDao,
-        private val googleTaskListDao: GoogleTaskListDao,
-        private val caldavDao: CaldavDao,
-        private val locationDao: LocationDao) {
+        private val filterDao: FilterDaoBlocking,
+        private val tagDataDao: TagDataDaoBlocking,
+        private val googleTaskListDao: GoogleTaskListDaoBlocking,
+        private val caldavDao: CaldavDaoBlocking,
+        private val locationDao: LocationDaoBlocking) {
 
     var dashclockFilter: Filter
         get() = getFilterFromPreference(R.string.p_dashclock_filter)

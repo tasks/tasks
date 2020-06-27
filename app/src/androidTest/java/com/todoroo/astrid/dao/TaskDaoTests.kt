@@ -24,7 +24,7 @@ import javax.inject.Inject
 @HiltAndroidTest
 class TaskDaoTests : InjectingTestCase() {
 
-    @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var taskDao: TaskDaoBlocking
     @Inject lateinit var taskDeleter: TaskDeleter
 
     /** Test basic task creation, fetch, and save  */

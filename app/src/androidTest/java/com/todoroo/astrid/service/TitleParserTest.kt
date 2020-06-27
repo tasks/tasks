@@ -15,7 +15,7 @@ import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.tasks.R
-import org.tasks.data.TagDataDao
+import org.tasks.data.TagDataDaoBlocking
 import org.tasks.date.DateTimeUtils
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
@@ -26,7 +26,7 @@ import javax.inject.Inject
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class TitleParserTest : InjectingTestCase() {
-    @Inject lateinit var tagDataDao: TagDataDao
+    @Inject lateinit var tagDataDao: TagDataDaoBlocking
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var taskCreator: TaskCreator
 

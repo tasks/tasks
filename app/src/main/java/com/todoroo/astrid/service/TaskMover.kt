@@ -5,7 +5,7 @@ import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
-import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.dao.TaskDaoBlocking
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig
@@ -18,10 +18,10 @@ import javax.inject.Inject
 
 class TaskMover @Inject constructor(
         @param:ApplicationContext private val context: Context,
-        private val taskDao: TaskDao,
-        private val caldavDao: CaldavDao,
-        private val googleTaskDao: GoogleTaskDao,
-        private val googleTaskListDao: GoogleTaskListDao,
+        private val taskDao: TaskDaoBlocking,
+        private val caldavDao: CaldavDaoBlocking,
+        private val googleTaskDao: GoogleTaskDaoBlocking,
+        private val googleTaskListDao: GoogleTaskListDaoBlocking,
         private val preferences: Preferences,
         private val localBroadcastManager: LocalBroadcastManager) {
 

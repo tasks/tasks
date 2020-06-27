@@ -5,7 +5,7 @@ import static org.tasks.Strings.isNullOrEmpty;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.FragmentManager;
-import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskDaoBlocking;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskCompleter;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -31,7 +31,7 @@ public class WidgetClickActivity extends InjectingAppCompatActivity
   private static final String FRAG_TAG_DATE_TIME_PICKER = "frag_tag_date_time_picker";
 
   @Inject TaskCompleter taskCompleter;
-  @Inject TaskDao taskDao;
+  @Inject TaskDaoBlocking taskDao;
   @Inject LocalBroadcastManager localBroadcastManager;
   @Inject Preferences preferences;
 

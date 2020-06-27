@@ -2,7 +2,7 @@ package com.todoroo.astrid.reminders
 
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.dao.TaskDaoBlocking
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
@@ -38,7 +38,7 @@ import javax.inject.Inject
 @HiltAndroidTest
 class ReminderServiceTest : InjectingTestCase() {
     @Inject lateinit var preferences: Preferences
-    @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var taskDao: TaskDaoBlocking
     @Inject lateinit var jobs: NotificationQueue
 
     private lateinit var service: ReminderService

@@ -5,7 +5,7 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.FragmentManager;
-import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskDaoBlocking;
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -27,7 +27,7 @@ public class NotificationActivity extends InjectingAppCompatActivity
   public static final String EXTRA_TASK_ID = "extra_task_id";
   private static final String FRAG_TAG_NOTIFICATION_FRAGMENT = "frag_tag_notification_fragment";
   @Inject NotificationManager notificationManager;
-  @Inject TaskDao taskDao;
+  @Inject TaskDaoBlocking taskDao;
   @Inject ThemeAccent themeAccent;
 
   private long taskId;

@@ -8,7 +8,7 @@ import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingRequest
 import com.google.android.gms.location.LocationServices
 import dagger.hilt.android.qualifiers.ApplicationContext
-import org.tasks.data.LocationDao
+import org.tasks.data.LocationDaoBlocking
 import org.tasks.data.MergedGeofence
 import org.tasks.data.Place
 import org.tasks.preferences.PermissionChecker
@@ -18,7 +18,7 @@ import javax.inject.Inject
 class GeofenceApi @Inject constructor(
         @param:ApplicationContext private val context: Context,
         private val permissionChecker: PermissionChecker,
-        private val locationDao: LocationDao) {
+        private val locationDao: LocationDaoBlocking) {
 
     fun registerAll() = locationDao.getPlacesWithGeofences().forEach(this::update)
 

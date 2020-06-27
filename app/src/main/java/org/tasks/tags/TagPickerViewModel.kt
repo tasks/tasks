@@ -11,11 +11,11 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.TagData
-import org.tasks.data.TagDataDao
+import org.tasks.data.TagDataDaoBlocking
 import org.tasks.tags.CheckBoxTriStates.State
 import java.util.*
 
-class TagPickerViewModel @ViewModelInject constructor(private val tagDataDao: TagDataDao) : ViewModel() {
+class TagPickerViewModel @ViewModelInject constructor(private val tagDataDao: TagDataDaoBlocking) : ViewModel() {
     private val tags = MutableLiveData<List<TagData>>()
     private val disposables = CompositeDisposable()
     private val selected: MutableSet<TagData> = HashSet()

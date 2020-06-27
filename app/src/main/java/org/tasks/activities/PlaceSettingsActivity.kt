@@ -12,7 +12,7 @@ import com.todoroo.astrid.activity.TaskListFragment
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
-import org.tasks.data.LocationDao
+import org.tasks.data.LocationDaoBlocking
 import org.tasks.data.Place
 import org.tasks.filters.PlaceFilter
 import org.tasks.location.MapFragment
@@ -28,7 +28,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
     @BindView(R.id.name) lateinit var name: TextInputEditText
     @BindView(R.id.name_layout) lateinit var nameLayout: TextInputLayout
 
-    @Inject lateinit var locationDao: LocationDao
+    @Inject lateinit var locationDao: LocationDaoBlocking
     @Inject lateinit var map: MapFragment
 
     private lateinit var place: Place

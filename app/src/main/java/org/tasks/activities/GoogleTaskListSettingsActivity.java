@@ -25,7 +25,7 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskList;
-import org.tasks.data.GoogleTaskListDao;
+import org.tasks.data.GoogleTaskListDaoBlocking;
 import timber.log.Timber;
 
 @AndroidEntryPoint
@@ -34,7 +34,7 @@ public class GoogleTaskListSettingsActivity extends BaseListSettingsActivity {
   public static final String EXTRA_ACCOUNT = "extra_account";
   public static final String EXTRA_STORE_DATA = "extra_store_data";
   @Inject @ApplicationContext Context context;
-  @Inject GoogleTaskListDao googleTaskListDao;
+  @Inject GoogleTaskListDaoBlocking googleTaskListDao;
   @Inject GtasksListService gtasksListService;
   @Inject TaskDeleter taskDeleter;
   @Inject GtasksInvoker gtasksInvoker;

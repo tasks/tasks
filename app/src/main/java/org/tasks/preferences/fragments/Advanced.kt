@@ -7,7 +7,7 @@ import androidx.annotation.StringRes
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.todoroo.astrid.dao.Database
-import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.dao.TaskDaoBlocking
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -35,7 +35,7 @@ class Advanced : InjectingPreferenceFragment() {
 
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var database: Database
-    @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var taskDao: TaskDaoBlocking
     @Inject lateinit var calendarEventProvider: CalendarEventProvider
     @Inject lateinit var toaster: Toaster
     @Inject lateinit var permissionRequester: FragmentPermissionRequestor

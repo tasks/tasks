@@ -9,7 +9,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskDaoBlocking;
 import com.todoroo.astrid.data.Task;
 import java.text.ParseException;
 import javax.inject.Inject;
@@ -23,12 +23,12 @@ public class RepeatConfirmationReceiver extends BroadcastReceiver {
 
   private final Activity activity;
   private final Firebase firebase;
-  private final TaskDao taskDao;
+  private final TaskDaoBlocking taskDao;
   private final Locale locale;
 
   @Inject
   public RepeatConfirmationReceiver(
-      Activity activity, Firebase firebase, TaskDao taskDao, Locale locale) {
+      Activity activity, Firebase firebase, TaskDaoBlocking taskDao, Locale locale) {
     this.activity = activity;
     this.firebase = firebase;
     this.taskDao = taskDao;

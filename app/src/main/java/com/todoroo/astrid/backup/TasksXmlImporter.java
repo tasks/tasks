@@ -15,7 +15,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.text.TextUtils;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskDaoBlocking;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskMover;
 import java.io.IOException;
@@ -27,18 +27,18 @@ import org.tasks.R;
 import org.tasks.analytics.Firebase;
 import org.tasks.backup.XmlReader;
 import org.tasks.data.Alarm;
-import org.tasks.data.AlarmDao;
+import org.tasks.data.AlarmDaoBlocking;
 import org.tasks.data.Geofence;
 import org.tasks.data.GoogleTask;
-import org.tasks.data.GoogleTaskDao;
-import org.tasks.data.LocationDao;
+import org.tasks.data.GoogleTaskDaoBlocking;
+import org.tasks.data.LocationDaoBlocking;
 import org.tasks.data.Place;
 import org.tasks.data.Tag;
-import org.tasks.data.TagDao;
+import org.tasks.data.TagDaoBlocking;
 import org.tasks.data.TagData;
-import org.tasks.data.TagDataDao;
+import org.tasks.data.TagDataDaoBlocking;
 import org.tasks.data.UserActivity;
-import org.tasks.data.UserActivityDao;
+import org.tasks.data.UserActivityDaoBlocking;
 import org.tasks.dialogs.DialogBuilder;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -49,17 +49,17 @@ public class TasksXmlImporter {
 
   private static final String FORMAT2 = "2"; // $NON-NLS-1$
   private static final String FORMAT3 = "3"; // $NON-NLS-1$
-  private final TagDataDao tagDataDao;
-  private final UserActivityDao userActivityDao;
+  private final TagDataDaoBlocking tagDataDao;
+  private final UserActivityDaoBlocking userActivityDao;
   private final DialogBuilder dialogBuilder;
-  private final TaskDao taskDao;
+  private final TaskDaoBlocking taskDao;
   private final LocalBroadcastManager localBroadcastManager;
-  private final AlarmDao alarmDao;
-  private final TagDao tagDao;
-  private final GoogleTaskDao googleTaskDao;
+  private final AlarmDaoBlocking alarmDao;
+  private final TagDaoBlocking tagDao;
+  private final GoogleTaskDaoBlocking googleTaskDao;
   private final TaskMover taskMover;
   private final Firebase firebase;
-  private final LocationDao locationDao;
+  private final LocationDaoBlocking locationDao;
   private Activity activity;
   private Handler handler;
   private int taskCount;
@@ -71,15 +71,15 @@ public class TasksXmlImporter {
 
   @Inject
   public TasksXmlImporter(
-      TagDataDao tagDataDao,
-      UserActivityDao userActivityDao,
+      TagDataDaoBlocking tagDataDao,
+      UserActivityDaoBlocking userActivityDao,
       DialogBuilder dialogBuilder,
-      TaskDao taskDao,
-      LocationDao locationDao,
+      TaskDaoBlocking taskDao,
+      LocationDaoBlocking locationDao,
       LocalBroadcastManager localBroadcastManager,
-      AlarmDao alarmDao,
-      TagDao tagDao,
-      GoogleTaskDao googleTaskDao,
+      AlarmDaoBlocking alarmDao,
+      TagDaoBlocking tagDao,
+      GoogleTaskDaoBlocking googleTaskDao,
       TaskMover taskMover,
       Firebase firebase) {
     this.tagDataDao = tagDataDao;

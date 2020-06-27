@@ -10,7 +10,7 @@ import static com.google.common.collect.Lists.transform;
 
 import androidx.annotation.Nullable;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskDaoBlocking;
 import com.todoroo.astrid.data.Task;
 import java.util.List;
 import javax.inject.Inject;
@@ -36,15 +36,15 @@ public final class ReminderService {
 
   private final NotificationQueue jobs;
   private final Random random;
-  private final TaskDao taskDao;
+  private final TaskDaoBlocking taskDao;
   private final Preferences preferences;
 
   @Inject
-  ReminderService(Preferences preferences, NotificationQueue notificationQueue, TaskDao taskDao) {
+  ReminderService(Preferences preferences, NotificationQueue notificationQueue, TaskDaoBlocking taskDao) {
     this(preferences, notificationQueue, new Random(), taskDao);
   }
 
-  ReminderService(Preferences preferences, NotificationQueue jobs, Random random, TaskDao taskDao) {
+  ReminderService(Preferences preferences, NotificationQueue jobs, Random random, TaskDaoBlocking taskDao) {
     this.preferences = preferences;
     this.jobs = jobs;
     this.random = random;

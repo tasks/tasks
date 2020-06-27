@@ -41,7 +41,7 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskDaoBlocking;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.notes.CommentsController;
 import com.todoroo.astrid.repeats.RepeatControlSet;
@@ -56,7 +56,7 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.analytics.Firebase;
 import org.tasks.data.UserActivity;
-import org.tasks.data.UserActivityDao;
+import org.tasks.data.UserActivityDaoBlocking;
 import org.tasks.databinding.FragmentTaskEditBinding;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.Linkify;
@@ -76,8 +76,8 @@ public final class TaskEditFragment extends Fragment
   private static final String EXTRA_THEME = "extra_theme";
   private static final String EXTRA_COMPLETED = "extra_completed";
 
-  @Inject TaskDao taskDao;
-  @Inject UserActivityDao userActivityDao;
+  @Inject TaskDaoBlocking taskDao;
+  @Inject UserActivityDaoBlocking userActivityDao;
   @Inject TaskDeleter taskDeleter;
   @Inject NotificationManager notificationManager;
   @Inject DialogBuilder dialogBuilder;

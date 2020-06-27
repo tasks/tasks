@@ -21,7 +21,7 @@ import com.todoroo.astrid.data.Task
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.data.TaskAttachment
-import org.tasks.data.TaskAttachmentDao
+import org.tasks.data.TaskAttachmentDaoBlocking
 import org.tasks.dialogs.AddAttachmentDialog
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.files.FileHelper
@@ -33,7 +33,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class FilesControlSet : TaskEditControlFragment() {
     @Inject lateinit var activity: Activity
-    @Inject lateinit var taskAttachmentDao: TaskAttachmentDao
+    @Inject lateinit var taskAttachmentDao: TaskAttachmentDaoBlocking
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var preferences: Preferences
     

@@ -42,11 +42,11 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
     @Inject lateinit var adapter: NavigationDrawerAdapter
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var preferences: Preferences
-    @Inject lateinit var tagDataDao: TagDataDao
-    @Inject lateinit var googleTaskListDao: GoogleTaskListDao
-    @Inject lateinit var filterDao: FilterDao
-    @Inject lateinit var caldavDao: CaldavDao
-    @Inject lateinit var locationDao: LocationDao
+    @Inject lateinit var tagDataDao: TagDataDaoBlocking
+    @Inject lateinit var googleTaskListDao: GoogleTaskListDaoBlocking
+    @Inject lateinit var filterDao: FilterDaoBlocking
+    @Inject lateinit var caldavDao: CaldavDaoBlocking
+    @Inject lateinit var locationDao: LocationDaoBlocking
 
     private lateinit var binding: ActivityTagOrganizerBinding
     private lateinit var toolbar: Toolbar

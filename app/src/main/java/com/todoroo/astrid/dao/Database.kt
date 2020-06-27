@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.todoroo.astrid.data.Task
 import org.tasks.data.*
 import org.tasks.notifications.Notification
-import org.tasks.notifications.NotificationDao
+import org.tasks.notifications.NotificationDaoBlocking
 
 @Database(
         entities = [
@@ -28,21 +28,21 @@ import org.tasks.notifications.NotificationDao
             GoogleTaskAccount::class],
         version = 76)
 abstract class Database : RoomDatabase() {
-    abstract fun notificationDao(): NotificationDao
-    abstract val tagDataDao: TagDataDao
-    abstract val userActivityDao: UserActivityDao
-    abstract val taskAttachmentDao: TaskAttachmentDao
-    abstract val taskListMetadataDao: TaskListMetadataDao
-    abstract val alarmDao: AlarmDao
-    abstract val locationDao: LocationDao
-    abstract val tagDao: TagDao
-    abstract val googleTaskDao: GoogleTaskDao
-    abstract val filterDao: FilterDao
-    abstract val googleTaskListDao: GoogleTaskListDao
-    abstract val taskDao: TaskDao
-    abstract val caldavDao: CaldavDao
-    abstract val deletionDao: DeletionDao
-    abstract val contentProviderDao: ContentProviderDao
+    abstract fun notificationDao(): NotificationDaoBlocking
+    abstract val tagDataDao: TagDataDaoBlocking
+    abstract val userActivityDao: UserActivityDaoBlocking
+    abstract val taskAttachmentDao: TaskAttachmentDaoBlocking
+    abstract val taskListMetadataDao: TaskListMetadataDaoBlocking
+    abstract val alarmDao: AlarmDaoBlocking
+    abstract val locationDao: LocationDaoBlocking
+    abstract val tagDao: TagDaoBlocking
+    abstract val googleTaskDao: GoogleTaskDaoBlocking
+    abstract val filterDao: FilterDaoBlocking
+    abstract val googleTaskListDao: GoogleTaskListDaoBlocking
+    abstract val taskDao: TaskDaoBlocking
+    abstract val caldavDao: CaldavDaoBlocking
+    abstract val deletionDao: DeletionDaoBlocking
+    abstract val contentProviderDao: ContentProviderDaoBlocking
 
     /** @return human-readable database name for debugging
      */

@@ -15,9 +15,9 @@ import org.tasks.Strings.isNullOrEmpty
 import org.tasks.caldav.CaldavAccountSettingsActivity
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavAccount.Companion.TYPE_LOCAL
-import org.tasks.data.CaldavDao
+import org.tasks.data.CaldavDaoBlocking
 import org.tasks.data.GoogleTaskAccount
-import org.tasks.data.GoogleTaskListDao
+import org.tasks.data.GoogleTaskListDaoBlocking
 import org.tasks.etesync.EteSyncAccountSettingsActivity
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.jobs.WorkManager
@@ -35,8 +35,8 @@ class Synchronization : InjectingPreferenceFragment() {
     @Inject lateinit var workManager: WorkManager
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var toaster: Toaster
-    @Inject lateinit var caldavDao: CaldavDao
-    @Inject lateinit var googleTaskListDao: GoogleTaskListDao
+    @Inject lateinit var caldavDao: CaldavDaoBlocking
+    @Inject lateinit var googleTaskListDao: GoogleTaskListDaoBlocking
     @Inject lateinit var taskDeleter: TaskDeleter
 
     override fun getPreferenceXml() = R.xml.preferences_synchronization

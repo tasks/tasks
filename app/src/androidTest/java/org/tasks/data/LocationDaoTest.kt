@@ -2,7 +2,7 @@ package org.tasks.data
 
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.andlib.utility.DateUtilities.now
-import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.dao.TaskDaoBlocking
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
@@ -33,8 +33,8 @@ import javax.inject.Inject
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class LocationDaoTest : InjectingTestCase() {
-    @Inject lateinit var locationDao: LocationDao
-    @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var locationDao: LocationDaoBlocking
+    @Inject lateinit var taskDao: TaskDaoBlocking
 
     @Test
     fun getExistingPlace() {

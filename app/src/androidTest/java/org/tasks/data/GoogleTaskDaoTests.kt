@@ -1,7 +1,7 @@
 package org.tasks.data
 
 import com.natpryce.makeiteasy.MakeItEasy.with
-import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.dao.TaskDaoBlocking
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import org.junit.Assert.assertEquals
@@ -22,9 +22,9 @@ import javax.inject.Inject
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class GoogleTaskDaoTests : InjectingTestCase() {
-    @Inject lateinit var googleTaskListDao: GoogleTaskListDao
-    @Inject lateinit var googleTaskDao: GoogleTaskDao
-    @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var googleTaskListDao: GoogleTaskListDaoBlocking
+    @Inject lateinit var googleTaskDao: GoogleTaskDaoBlocking
+    @Inject lateinit var taskDao: TaskDaoBlocking
 
     @Before
     override fun setUp() {

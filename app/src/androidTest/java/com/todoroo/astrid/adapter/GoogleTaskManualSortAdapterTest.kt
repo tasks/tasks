@@ -3,7 +3,7 @@ package com.todoroo.astrid.adapter
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.natpryce.makeiteasy.PropertyValue
 import com.todoroo.astrid.api.GtasksFilter
-import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.dao.TaskDaoBlocking
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
@@ -12,8 +12,8 @@ import org.junit.Before
 import org.junit.Test
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
-import org.tasks.data.CaldavDao
-import org.tasks.data.GoogleTaskDao
+import org.tasks.data.CaldavDaoBlocking
+import org.tasks.data.GoogleTaskDaoBlocking
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskListQuery.getQuery
 import org.tasks.injection.InjectingTestCase
@@ -32,9 +32,9 @@ import javax.inject.Inject
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class GoogleTaskManualSortAdapterTest : InjectingTestCase() {
-    @Inject lateinit var taskDao: TaskDao
-    @Inject lateinit var caldavDao: CaldavDao
-    @Inject lateinit var googleTaskDao: GoogleTaskDao
+    @Inject lateinit var taskDao: TaskDaoBlocking
+    @Inject lateinit var caldavDao: CaldavDaoBlocking
+    @Inject lateinit var googleTaskDao: GoogleTaskDaoBlocking
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
 

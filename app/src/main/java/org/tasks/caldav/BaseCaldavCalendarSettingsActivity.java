@@ -26,7 +26,7 @@ import org.tasks.R;
 import org.tasks.activities.BaseListSettingsActivity;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
-import org.tasks.data.CaldavDao;
+import org.tasks.data.CaldavDaoBlocking;
 import org.tasks.ui.DisplayableException;
 
 public abstract class BaseCaldavCalendarSettingsActivity extends BaseListSettingsActivity {
@@ -34,7 +34,7 @@ public abstract class BaseCaldavCalendarSettingsActivity extends BaseListSetting
   public static final String EXTRA_CALDAV_CALENDAR = "extra_caldav_calendar";
   public static final String EXTRA_CALDAV_ACCOUNT = "extra_caldav_account";
 
-  @Inject protected CaldavDao caldavDao;
+  @Inject protected CaldavDaoBlocking caldavDao;
   @Inject TaskDeleter taskDeleter;
 
   @BindView(R.id.root_layout)

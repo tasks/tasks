@@ -4,7 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.FragmentManager;
-import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskDaoBlocking;
 import com.todoroo.astrid.reminders.ReminderService;
 import dagger.hilt.android.AndroidEntryPoint;
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class SnoozeActivity extends InjectingAppCompatActivity
   private static final int REQUEST_DATE_TIME = 10101;
   private final List<Long> taskIds = new ArrayList<>();
   @Inject NotificationManager notificationManager;
-  @Inject TaskDao taskDao;
+  @Inject TaskDaoBlocking taskDao;
   @Inject ReminderService reminderService;
   @Inject ThemeAccent themeAccent;
   private boolean pickingDateTime;

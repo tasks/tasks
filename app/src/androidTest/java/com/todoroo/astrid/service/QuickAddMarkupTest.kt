@@ -11,7 +11,7 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.tasks.data.TagDataDao
+import org.tasks.data.TagDataDaoBlocking
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import java.util.*
@@ -21,7 +21,7 @@ import javax.inject.Inject
 @HiltAndroidTest
 class QuickAddMarkupTest : InjectingTestCase() {
     private val tags = ArrayList<String>()
-    @Inject lateinit var tagDataDao: TagDataDao
+    @Inject lateinit var tagDataDao: TagDataDaoBlocking
     
     private var task: Task? = null
 

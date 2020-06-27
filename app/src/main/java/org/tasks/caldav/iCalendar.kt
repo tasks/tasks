@@ -3,7 +3,7 @@ package org.tasks.caldav
 import at.bitfire.ical4android.Task
 import at.bitfire.ical4android.Task.Companion.tasksFromReader
 import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.dao.TaskDaoBlocking
 import com.todoroo.astrid.helper.UUIDHelper
 import com.todoroo.astrid.service.TaskCreator
 import net.fortuna.ical4j.model.Parameter
@@ -27,15 +27,15 @@ import javax.inject.Inject
 
 @Suppress("ClassName")
 class iCalendar @Inject constructor(
-        private val tagDataDao: TagDataDao,
+        private val tagDataDao: TagDataDaoBlocking,
         private val preferences: Preferences,
-        private val locationDao: LocationDao,
+        private val locationDao: LocationDaoBlocking,
         private val workManager: WorkManager,
         private val geofenceApi: GeofenceApi,
         private val taskCreator: TaskCreator,
-        private val tagDao: TagDao,
-        private val taskDao: TaskDao,
-        private val caldavDao: CaldavDao) {
+        private val tagDao: TagDaoBlocking,
+        private val taskDao: TaskDaoBlocking,
+        private val caldavDao: CaldavDaoBlocking) {
 
     companion object {
         private const val APPLE_SORT_ORDER = "X-APPLE-SORT-ORDER"

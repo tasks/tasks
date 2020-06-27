@@ -6,27 +6,27 @@ import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.api.TagFilter
 import com.todoroo.astrid.core.BuiltInFilterExposer
-import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.dao.TaskDaoBlocking
 import com.todoroo.astrid.data.Task.Companion.isUuidEmpty
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater
 import com.todoroo.astrid.subtasks.SubtasksHelper
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.Strings.isNullOrEmpty
-import org.tasks.data.CaldavDao
-import org.tasks.data.GoogleTaskDao
+import org.tasks.data.CaldavDaoBlocking
+import org.tasks.data.GoogleTaskDaoBlocking
 import org.tasks.data.TaskListMetadata
-import org.tasks.data.TaskListMetadataDao
+import org.tasks.data.TaskListMetadataDaoBlocking
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
 
 class TaskAdapterProvider @Inject constructor(
         @param:ApplicationContext private val context: Context,
         private val preferences: Preferences,
-        private val taskListMetadataDao: TaskListMetadataDao,
-        private val taskDao: TaskDao,
-        private val googleTaskDao: GoogleTaskDao,
-        private val caldavDao: CaldavDao,
+        private val taskListMetadataDao: TaskListMetadataDaoBlocking,
+        private val taskDao: TaskDaoBlocking,
+        private val googleTaskDao: GoogleTaskDaoBlocking,
+        private val caldavDao: CaldavDaoBlocking,
         private val localBroadcastManager: LocalBroadcastManager) {
     fun createTaskAdapter(filter: Filter): TaskAdapter {
         if (filter.supportsAstridSorting() && preferences.isAstridSort) {

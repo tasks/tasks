@@ -7,7 +7,7 @@ package com.todoroo.astrid.adapter
 
 import com.todoroo.astrid.core.SortHelper.SORT_DUE
 import com.todoroo.astrid.core.SortHelper.SORT_IMPORTANCE
-import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.dao.TaskDaoBlocking
 import com.todoroo.astrid.data.Task
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
@@ -19,9 +19,9 @@ import kotlin.collections.HashSet
 
 open class TaskAdapter(
         private val newTasksOnTop: Boolean,
-        private val googleTaskDao: GoogleTaskDao,
-        private val caldavDao: CaldavDao,
-        private val taskDao: TaskDao,
+        private val googleTaskDao: GoogleTaskDaoBlocking,
+        private val caldavDao: CaldavDaoBlocking,
+        private val taskDao: TaskDaoBlocking,
         private val localBroadcastManager: LocalBroadcastManager) {
 
     private val selected = HashSet<Long>()

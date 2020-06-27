@@ -6,7 +6,7 @@ import com.google.common.collect.ImmutableListMultimap
 import com.google.common.collect.ListMultimap
 import com.google.common.collect.Multimaps
 import com.todoroo.astrid.api.GtasksFilter
-import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.dao.TaskDaoBlocking
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
@@ -26,16 +26,16 @@ import javax.inject.Inject
 class Upgrader @Inject constructor(
         @param:ApplicationContext private val context: Context,
         private val preferences: Preferences,
-        private val tagDataDao: TagDataDao,
-        private val tagDao: TagDao,
-        private val filterDao: FilterDao,
+        private val tagDataDao: TagDataDaoBlocking,
+        private val tagDao: TagDaoBlocking,
+        private val filterDao: FilterDaoBlocking,
         private val defaultFilterProvider: DefaultFilterProvider,
-        private val googleTaskListDao: GoogleTaskListDao,
-        private val userActivityDao: UserActivityDao,
-        private val taskAttachmentDao: TaskAttachmentDao,
-        private val caldavDao: CaldavDao,
-        private val taskDao: TaskDao,
-        private val locationDao: LocationDao,
+        private val googleTaskListDao: GoogleTaskListDaoBlocking,
+        private val userActivityDao: UserActivityDaoBlocking,
+        private val taskAttachmentDao: TaskAttachmentDaoBlocking,
+        private val caldavDao: CaldavDaoBlocking,
+        private val taskDao: TaskDaoBlocking,
+        private val locationDao: LocationDaoBlocking,
         private val iCal: iCalendar,
         private val widgetManager: AppWidgetManager,
         private val taskMover: TaskMover) {

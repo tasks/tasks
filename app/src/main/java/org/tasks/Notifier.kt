@@ -7,7 +7,7 @@ import androidx.core.app.NotificationCompat
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.dao.TaskDaoBlocking
 import com.todoroo.astrid.reminders.ReminderService
 import com.todoroo.astrid.voice.VoiceOutputAssistant
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -25,7 +25,7 @@ import kotlin.math.min
 
 class Notifier @Inject constructor(
         @param:ApplicationContext private val context: Context,
-        private val taskDao: TaskDao,
+        private val taskDao: TaskDaoBlocking,
         private val notificationManager: NotificationManager,
         private val telephonyManager: TelephonyManager,
         private val audioManager: AudioManager,

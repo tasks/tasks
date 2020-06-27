@@ -25,9 +25,9 @@ class ListFragment : TaskEditControlFragment() {
     @BindView(R.id.chip_group)
     lateinit var chipGroup: ChipGroup
 
-    @Inject lateinit var googleTaskListDao: GoogleTaskListDao
-    @Inject lateinit var googleTaskDao: GoogleTaskDao
-    @Inject lateinit var caldavDao: CaldavDao
+    @Inject lateinit var googleTaskListDao: GoogleTaskListDaoBlocking
+    @Inject lateinit var googleTaskDao: GoogleTaskDaoBlocking
+    @Inject lateinit var caldavDao: CaldavDaoBlocking
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
     @Inject lateinit var taskMover: TaskMover
     @Inject lateinit var chipProvider: ChipProvider

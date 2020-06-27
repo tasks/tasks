@@ -21,12 +21,12 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.tasks.data.TagDataDao;
+import org.tasks.data.TagDataDaoBlocking;
 import timber.log.Timber;
 
 public class TitleParser {
 
-  public static void parse(TagDataDao tagDataDao, Task task, ArrayList<String> tags) {
+  public static void parse(TagDataDaoBlocking tagDataDao, Task task, ArrayList<String> tags) {
     repeatHelper(task);
     listHelper(
         tagDataDao,
@@ -46,7 +46,7 @@ public class TitleParser {
     return pattern;
   }
 
-  public static void listHelper(TagDataDao tagDataDao, Task task, ArrayList<String> tags) {
+  public static void listHelper(TagDataDaoBlocking tagDataDao, Task task, ArrayList<String> tags) {
     String inputText = task.getTitle();
     Pattern tagPattern = Pattern.compile("(\\s|^)#(\\(.*\\)|[^\\s]+)");
     Pattern contextPattern = Pattern.compile("(\\s|^)@(\\(.*\\)|[^\\s]+)");

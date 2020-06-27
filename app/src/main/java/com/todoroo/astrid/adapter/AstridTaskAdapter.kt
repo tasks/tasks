@@ -2,13 +2,13 @@ package com.todoroo.astrid.adapter
 
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.dao.TaskDaoBlocking
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater
 import org.tasks.LocalBroadcastManager
 import org.tasks.Strings.isNullOrEmpty
-import org.tasks.data.CaldavDao
-import org.tasks.data.GoogleTaskDao
+import org.tasks.data.CaldavDaoBlocking
+import org.tasks.data.GoogleTaskDaoBlocking
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskListMetadata
 import timber.log.Timber
@@ -19,9 +19,9 @@ class AstridTaskAdapter internal constructor(
         private val list: TaskListMetadata,
         private val filter: Filter,
         private val updater: SubtasksFilterUpdater,
-        googleTaskDao: GoogleTaskDao,
-        caldavDao: CaldavDao,
-        private val taskDao: TaskDao,
+        googleTaskDao: GoogleTaskDaoBlocking,
+        caldavDao: CaldavDaoBlocking,
+        private val taskDao: TaskDaoBlocking,
         private val localBroadcastManager: LocalBroadcastManager)
     : TaskAdapter(false, googleTaskDao, caldavDao, taskDao, localBroadcastManager) {
 

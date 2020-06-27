@@ -1,15 +1,15 @@
 package com.todoroo.astrid.adapter
 
-import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.dao.TaskDaoBlocking
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
-import org.tasks.data.CaldavDao
-import org.tasks.data.GoogleTaskDao
+import org.tasks.data.CaldavDaoBlocking
+import org.tasks.data.GoogleTaskDaoBlocking
 
 class GoogleTaskManualSortAdapter internal constructor(
-        private val googleTaskDao: GoogleTaskDao,
-        caldavDao: CaldavDao,
-        private val taskDao: TaskDao,
+        private val googleTaskDao: GoogleTaskDaoBlocking,
+        caldavDao: CaldavDaoBlocking,
+        private val taskDao: TaskDaoBlocking,
         private val localBroadcastManager: LocalBroadcastManager)
     : TaskAdapter(false, googleTaskDao, caldavDao, taskDao, localBroadcastManager) {
 

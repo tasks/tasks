@@ -11,11 +11,11 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.data.CaldavCalendar;
-import org.tasks.data.CaldavDao;
+import org.tasks.data.CaldavDaoBlocking;
 import org.tasks.data.GoogleTaskList;
-import org.tasks.data.GoogleTaskListDao;
+import org.tasks.data.GoogleTaskListDaoBlocking;
 import org.tasks.data.TagData;
-import org.tasks.data.TagDataDao;
+import org.tasks.data.TagDataDaoBlocking;
 
 @Singleton
 public class ChipListCache {
@@ -27,9 +27,9 @@ public class ChipListCache {
 
   @Inject
   ChipListCache(
-      GoogleTaskListDao googleTaskListDao,
-      CaldavDao caldavDao,
-      TagDataDao tagDataDao,
+      GoogleTaskListDaoBlocking googleTaskListDao,
+      CaldavDaoBlocking caldavDao,
+      TagDataDaoBlocking tagDataDao,
       LocalBroadcastManager localBroadcastManager) {
     this.localBroadcastManager = localBroadcastManager;
 

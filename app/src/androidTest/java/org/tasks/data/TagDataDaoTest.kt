@@ -1,7 +1,7 @@
 package org.tasks.data
 
 import com.natpryce.makeiteasy.MakeItEasy.with
-import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.dao.TaskDaoBlocking
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import org.junit.Assert.assertEquals
@@ -22,9 +22,9 @@ import javax.inject.Inject
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class TagDataDaoTest : InjectingTestCase() {
-    @Inject lateinit var taskDao: TaskDao
-    @Inject lateinit var tagDao: TagDao
-    @Inject lateinit var tagDataDao: TagDataDao
+    @Inject lateinit var taskDao: TaskDaoBlocking
+    @Inject lateinit var tagDao: TagDaoBlocking
+    @Inject lateinit var tagDataDao: TagDataDaoBlocking
 
     @Test
     fun tagDataOrderedByNameIgnoresNullNames() {

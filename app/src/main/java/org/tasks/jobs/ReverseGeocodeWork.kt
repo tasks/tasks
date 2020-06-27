@@ -6,7 +6,7 @@ import androidx.hilt.work.WorkerInject
 import androidx.work.WorkerParameters
 import org.tasks.LocalBroadcastManager
 import org.tasks.analytics.Firebase
-import org.tasks.data.LocationDao
+import org.tasks.data.LocationDaoBlocking
 import org.tasks.injection.InjectingWorker
 import org.tasks.location.Geocoder
 import timber.log.Timber
@@ -18,7 +18,7 @@ class ReverseGeocodeWork @WorkerInject constructor(
         firebase: Firebase,
         private val localBroadcastManager: LocalBroadcastManager,
         private val geocoder: Geocoder,
-        private val locationDao: LocationDao) : InjectingWorker(context, workerParams, firebase) {
+        private val locationDao: LocationDaoBlocking) : InjectingWorker(context, workerParams, firebase) {
 
     companion object {
         const val PLACE_ID = "place_id"

@@ -13,7 +13,7 @@ import com.google.api.services.tasks.model.Tasks;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
-import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskDaoBlocking;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
@@ -40,9 +40,9 @@ import org.tasks.analytics.Firebase;
 import org.tasks.billing.Inventory;
 import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskAccount;
-import org.tasks.data.GoogleTaskDao;
+import org.tasks.data.GoogleTaskDaoBlocking;
 import org.tasks.data.GoogleTaskList;
-import org.tasks.data.GoogleTaskListDao;
+import org.tasks.data.GoogleTaskListDaoBlocking;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.Preferences;
@@ -65,12 +65,12 @@ public class GoogleTaskSynchronizer {
       };
 
   private final Context context;
-  private final GoogleTaskListDao googleTaskListDao;
+  private final GoogleTaskListDaoBlocking googleTaskListDao;
   private final GtasksListService gtasksListService;
   private final Preferences preferences;
-  private final TaskDao taskDao;
+  private final TaskDaoBlocking taskDao;
   private final Firebase firebase;
-  private final GoogleTaskDao googleTaskDao;
+  private final GoogleTaskDaoBlocking googleTaskDao;
   private final TaskCreator taskCreator;
   private final DefaultFilterProvider defaultFilterProvider;
   private final PermissionChecker permissionChecker;
@@ -83,12 +83,12 @@ public class GoogleTaskSynchronizer {
   @Inject
   public GoogleTaskSynchronizer(
       @ApplicationContext Context context,
-      GoogleTaskListDao googleTaskListDao,
+      GoogleTaskListDaoBlocking googleTaskListDao,
       GtasksListService gtasksListService,
       Preferences preferences,
-      TaskDao taskDao,
+      TaskDaoBlocking taskDao,
       Firebase firebase,
-      GoogleTaskDao googleTaskDao,
+      GoogleTaskDaoBlocking googleTaskDao,
       TaskCreator taskCreator,
       DefaultFilterProvider defaultFilterProvider,
       PermissionChecker permissionChecker,

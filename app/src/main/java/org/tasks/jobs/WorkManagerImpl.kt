@@ -16,8 +16,8 @@ import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import org.tasks.BuildConfig
 import org.tasks.R
-import org.tasks.data.CaldavDao
-import org.tasks.data.GoogleTaskListDao
+import org.tasks.data.CaldavDaoBlocking
+import org.tasks.data.GoogleTaskListDaoBlocking
 import org.tasks.data.Place
 import org.tasks.date.DateTimeUtils.midnight
 import org.tasks.date.DateTimeUtils.newDateTime
@@ -39,8 +39,8 @@ import kotlin.math.max
 class WorkManagerImpl constructor(
         private val context: Context,
         private val preferences: Preferences,
-        private val googleTaskListDao: GoogleTaskListDao,
-        private val caldavDao: CaldavDao): WorkManager {
+        private val googleTaskListDao: GoogleTaskListDaoBlocking,
+        private val caldavDao: CaldavDaoBlocking): WorkManager {
 
     private val alarmManager: AlarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
     private val workManager = androidx.work.WorkManager.getInstance(context)

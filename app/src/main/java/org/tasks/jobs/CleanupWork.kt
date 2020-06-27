@@ -8,10 +8,10 @@ import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.reminders.ReminderService
 import com.todoroo.astrid.timers.TimerPlugin
 import org.tasks.analytics.Firebase
-import org.tasks.data.DeletionDao
-import org.tasks.data.LocationDao
-import org.tasks.data.TaskAttachmentDao
-import org.tasks.data.UserActivityDao
+import org.tasks.data.DeletionDaoBlocking
+import org.tasks.data.LocationDaoBlocking
+import org.tasks.data.TaskAttachmentDaoBlocking
+import org.tasks.data.UserActivityDaoBlocking
 import org.tasks.files.FileHelper
 import org.tasks.injection.InjectingWorker
 import org.tasks.location.GeofenceApi
@@ -27,10 +27,10 @@ class CleanupWork @WorkerInject constructor(
         private val timerPlugin: TimerPlugin,
         private val reminderService: ReminderService,
         private val alarmService: AlarmService,
-        private val taskAttachmentDao: TaskAttachmentDao,
-        private val userActivityDao: UserActivityDao,
-        private val locationDao: LocationDao,
-        private val deletionDao: DeletionDao) : InjectingWorker(context, workerParams, firebase) {
+        private val taskAttachmentDao: TaskAttachmentDaoBlocking,
+        private val userActivityDao: UserActivityDaoBlocking,
+        private val locationDao: LocationDaoBlocking,
+        private val deletionDao: DeletionDaoBlocking) : InjectingWorker(context, workerParams, firebase) {
 
     public override fun run(): Result {
         val tasks = inputData.getLongArray(EXTRA_TASK_IDS)

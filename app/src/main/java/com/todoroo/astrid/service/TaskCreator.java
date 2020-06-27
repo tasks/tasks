@@ -12,7 +12,7 @@ import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.api.PermaSql;
-import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskDaoBlocking;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.utility.TitleParser;
@@ -20,17 +20,17 @@ import java.util.ArrayList;
 import java.util.Map;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.data.CaldavDao;
+import org.tasks.data.CaldavDaoBlocking;
 import org.tasks.data.CaldavTask;
 import org.tasks.data.Geofence;
 import org.tasks.data.GoogleTask;
-import org.tasks.data.GoogleTaskDao;
-import org.tasks.data.LocationDao;
+import org.tasks.data.GoogleTaskDaoBlocking;
+import org.tasks.data.LocationDaoBlocking;
 import org.tasks.data.Place;
 import org.tasks.data.Tag;
-import org.tasks.data.TagDao;
+import org.tasks.data.TagDaoBlocking;
 import org.tasks.data.TagData;
-import org.tasks.data.TagDataDao;
+import org.tasks.data.TagDataDaoBlocking;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
@@ -39,25 +39,25 @@ public class TaskCreator {
 
   private final GCalHelper gcalHelper;
   private final Preferences preferences;
-  private final TagDao tagDao;
-  private final GoogleTaskDao googleTaskDao;
+  private final TagDaoBlocking tagDao;
+  private final GoogleTaskDaoBlocking googleTaskDao;
   private final DefaultFilterProvider defaultFilterProvider;
-  private final CaldavDao caldavDao;
-  private final LocationDao locationDao;
-  private final TagDataDao tagDataDao;
-  private final TaskDao taskDao;
+  private final CaldavDaoBlocking caldavDao;
+  private final LocationDaoBlocking locationDao;
+  private final TagDataDaoBlocking tagDataDao;
+  private final TaskDaoBlocking taskDao;
 
   @Inject
   public TaskCreator(
       GCalHelper gcalHelper,
       Preferences preferences,
-      TagDataDao tagDataDao,
-      TaskDao taskDao,
-      TagDao tagDao,
-      GoogleTaskDao googleTaskDao,
+      TagDataDaoBlocking tagDataDao,
+      TaskDaoBlocking taskDao,
+      TagDaoBlocking tagDao,
+      GoogleTaskDaoBlocking googleTaskDao,
       DefaultFilterProvider defaultFilterProvider,
-      CaldavDao caldavDao,
-      LocationDao locationDao) {
+      CaldavDaoBlocking caldavDao,
+      LocationDaoBlocking locationDao) {
     this.gcalHelper = gcalHelper;
     this.preferences = preferences;
     this.tagDataDao = tagDataDao;

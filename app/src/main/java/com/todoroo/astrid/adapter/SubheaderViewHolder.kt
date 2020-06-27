@@ -11,8 +11,8 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
-import org.tasks.data.CaldavDao
-import org.tasks.data.GoogleTaskDao
+import org.tasks.data.CaldavDaoBlocking
+import org.tasks.data.GoogleTaskDaoBlocking
 import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType
 import org.tasks.preferences.Preferences
@@ -23,8 +23,8 @@ internal class SubheaderViewHolder(
         itemView: View,
         activity: Activity,
         private val preferences: Preferences,
-        private val googleTaskDao: GoogleTaskDao,
-        private val caldavDao: CaldavDao,
+        private val googleTaskDao: GoogleTaskDaoBlocking,
+        private val caldavDao: CaldavDaoBlocking,
         private val localBroadcastManager: LocalBroadcastManager)
     : RecyclerView.ViewHolder(itemView) {
 

@@ -6,7 +6,7 @@ import static org.tasks.db.QueryUtils.showHiddenAndCompleted;
 import android.content.Context;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
-import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskDaoBlocking;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater.Node;
 import dagger.hilt.android.qualifiers.ApplicationContext;
@@ -16,9 +16,9 @@ import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
 import org.tasks.data.TagData;
-import org.tasks.data.TagDataDao;
+import org.tasks.data.TagDataDaoBlocking;
 import org.tasks.data.TaskListMetadata;
-import org.tasks.data.TaskListMetadataDao;
+import org.tasks.data.TaskListMetadataDaoBlocking;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
@@ -26,17 +26,17 @@ public class SubtasksHelper {
 
   private final Context context;
   private final Preferences preferences;
-  private final TaskDao taskDao;
-  private final TagDataDao tagDataDao;
-  private final TaskListMetadataDao taskListMetadataDao;
+  private final TaskDaoBlocking taskDao;
+  private final TagDataDaoBlocking tagDataDao;
+  private final TaskListMetadataDaoBlocking taskListMetadataDao;
 
   @Inject
   public SubtasksHelper(
       @ApplicationContext Context context,
       Preferences preferences,
-      TaskDao taskDao,
-      TagDataDao tagDataDao,
-      TaskListMetadataDao taskListMetadataDao) {
+      TaskDaoBlocking taskDao,
+      TagDataDaoBlocking tagDataDao,
+      TaskListMetadataDaoBlocking taskListMetadataDao) {
     this.context = context;
     this.preferences = preferences;
     this.taskDao = taskDao;
@@ -73,7 +73,7 @@ public class SubtasksHelper {
   }
 
   /** Takes a subtasks string containing local ids and remaps it to one containing UUIDs */
-  public static String convertTreeToRemoteIds(TaskDao taskDao, String localTree) {
+  public static String convertTreeToRemoteIds(TaskDaoBlocking taskDao, String localTree) {
     List<Long> localIds = getIdList(localTree);
     Map<Long, String> idMap = getIdMap(taskDao, localIds);
     idMap.put(-1L, "-1"); // $NON-NLS-1$
@@ -115,7 +115,7 @@ public class SubtasksHelper {
         });
   }
 
-  private static Map<Long, String> getIdMap(TaskDao taskDao, List<Long> keys) {
+  private static Map<Long, String> getIdMap(TaskDaoBlocking taskDao, List<Long> keys) {
     List<Task> tasks = taskDao.fetch(keys);
     Map<Long, String> map = new HashMap<>();
     for (Task task : tasks) {

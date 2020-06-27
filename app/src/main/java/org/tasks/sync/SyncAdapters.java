@@ -4,19 +4,19 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
-import org.tasks.data.CaldavDao;
-import org.tasks.data.GoogleTaskListDao;
+import org.tasks.data.CaldavDaoBlocking;
+import org.tasks.data.GoogleTaskListDaoBlocking;
 import org.tasks.jobs.WorkManager;
 
 public class SyncAdapters {
 
   private final WorkManager workManager;
-  private final CaldavDao caldavDao;
-  private final GoogleTaskListDao googleTaskListDao;
+  private final CaldavDaoBlocking caldavDao;
+  private final GoogleTaskListDaoBlocking googleTaskListDao;
 
   @Inject
   public SyncAdapters(
-      WorkManager workManager, CaldavDao caldavDao, GoogleTaskListDao googleTaskListDao) {
+      WorkManager workManager, CaldavDaoBlocking caldavDao, GoogleTaskListDaoBlocking googleTaskListDao) {
     this.workManager = workManager;
     this.caldavDao = caldavDao;
     this.googleTaskListDao = googleTaskListDao;

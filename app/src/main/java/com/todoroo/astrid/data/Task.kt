@@ -11,6 +11,7 @@ import com.todoroo.andlib.data.Table
 import com.todoroo.andlib.sql.Field
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.dao.TaskDaoBlocking
 import org.tasks.Strings
 import org.tasks.backup.XmlReader
 import org.tasks.data.Tag

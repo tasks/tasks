@@ -15,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.PermissionUtil.verifyPermissions
 import org.tasks.R
 import org.tasks.data.GoogleTaskAccount
-import org.tasks.data.GoogleTaskListDao
+import org.tasks.data.GoogleTaskListDaoBlocking
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.gtasks.GoogleAccountManager
 import org.tasks.injection.InjectingAppCompatActivity
@@ -34,7 +34,7 @@ import javax.inject.Inject
 class GtasksLoginActivity : InjectingAppCompatActivity() {
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var googleAccountManager: GoogleAccountManager
-    @Inject lateinit var googleTaskListDao: GoogleTaskListDao
+    @Inject lateinit var googleTaskListDao: GoogleTaskListDaoBlocking
     @Inject lateinit var permissionRequestor: ActivityPermissionRequestor
 
     override fun onCreate(savedInstanceState: Bundle?) {

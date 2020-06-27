@@ -15,7 +15,7 @@ import javax.inject.Inject
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class GoogleTaskListDaoTest : InjectingTestCase() {
-    @Inject lateinit var googleTaskListDao: GoogleTaskListDao
+    @Inject lateinit var googleTaskListDao: GoogleTaskListDaoBlocking
 
     @Test
     fun noResultsForEmptyAccount() {

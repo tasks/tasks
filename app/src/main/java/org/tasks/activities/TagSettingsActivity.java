@@ -23,9 +23,9 @@ import com.todoroo.astrid.helper.UUIDHelper;
 import dagger.hilt.android.AndroidEntryPoint;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.data.TagDao;
+import org.tasks.data.TagDaoBlocking;
 import org.tasks.data.TagData;
-import org.tasks.data.TagDataDao;
+import org.tasks.data.TagDataDaoBlocking;
 
 @AndroidEntryPoint
 public class TagSettingsActivity extends BaseListSettingsActivity {
@@ -33,8 +33,8 @@ public class TagSettingsActivity extends BaseListSettingsActivity {
   public static final String TOKEN_AUTOPOPULATE_NAME = "autopopulateName"; // $NON-NLS-1$
   public static final String EXTRA_TAG_DATA = "tagData"; // $NON-NLS-1$
   private static final String EXTRA_TAG_UUID = "uuid"; // $NON-NLS-1$
-  @Inject TagDataDao tagDataDao;
-  @Inject TagDao tagDao;
+  @Inject TagDataDaoBlocking tagDataDao;
+  @Inject TagDaoBlocking tagDao;
 
   @BindView(R.id.name)
   TextInputEditText name;

@@ -28,7 +28,7 @@ import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
-import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.dao.TaskDaoBlocking
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria.activeAndVisible
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskCompleter
@@ -57,11 +57,11 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
     @Inject lateinit var activity: Activity
     @Inject lateinit var taskCompleter: TaskCompleter
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
-    @Inject lateinit var googleTaskDao: GoogleTaskDao
+    @Inject lateinit var googleTaskDao: GoogleTaskDaoBlocking
     @Inject lateinit var toaster: Toaster
     @Inject lateinit var taskCreator: TaskCreator
-    @Inject lateinit var caldavDao: CaldavDao
-    @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var caldavDao: CaldavDaoBlocking
+    @Inject lateinit var taskDao: TaskDaoBlocking
     @Inject lateinit var locale: Locale
     @Inject lateinit var checkBoxProvider: CheckBoxProvider
     @Inject lateinit var chipProvider: ChipProvider

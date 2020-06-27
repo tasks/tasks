@@ -30,7 +30,7 @@ abstract class TagDao {
     abstract fun delete(tags: List<Tag>)
 
     @Transaction
-    open fun applyTags(task: Task, tagDataDao: TagDataDao, current: List<TagData>): Boolean {
+    open fun applyTags(task: Task, tagDataDao: TagDataDaoBlocking, current: List<TagData>): Boolean {
         val taskId = task.id
         val existing = HashSet(tagDataDao.getTagDataForTask(taskId))
         val selected = HashSet<TagData>(current)

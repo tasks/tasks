@@ -7,7 +7,7 @@ import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.adapter.TaskAdapter
 import com.todoroo.astrid.adapter.TaskAdapterDataSource
 import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.dao.TaskDaoBlocking
 import org.tasks.data.TaskContainer
 import org.tasks.intents.TaskIntents
 import org.tasks.preferences.Preferences
@@ -17,7 +17,7 @@ abstract class TaskListRecyclerAdapter internal constructor(
         private val adapter: TaskAdapter,
         internal val viewHolderFactory: ViewHolderFactory,
         private val taskList: TaskListFragment,
-        private val taskDao: TaskDao,
+        private val taskDao: TaskDaoBlocking,
         internal val preferences: Preferences)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>(), ViewHolderCallbacks, ListUpdateCallback, TaskAdapterDataSource {
 

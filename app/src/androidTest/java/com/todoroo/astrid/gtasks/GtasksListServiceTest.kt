@@ -11,7 +11,7 @@ import org.junit.Before
 import org.junit.Test
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.GoogleTaskAccount
-import org.tasks.data.GoogleTaskListDao
+import org.tasks.data.GoogleTaskListDaoBlocking
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import org.tasks.makers.GtaskListMaker.ID
@@ -27,7 +27,7 @@ import javax.inject.Inject
 class GtasksListServiceTest : InjectingTestCase() {
     @Inject lateinit var taskDeleter: TaskDeleter
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
-    @Inject lateinit var googleTaskListDao: GoogleTaskListDao
+    @Inject lateinit var googleTaskListDao: GoogleTaskListDaoBlocking
 
     private lateinit var gtasksListService: GtasksListService
 

@@ -27,7 +27,7 @@ import at.bitfire.dav4jvm.property.GetETag;
 import at.bitfire.dav4jvm.property.SyncToken;
 import at.bitfire.ical4android.ICalendar;
 import com.google.common.collect.Iterables;
-import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskDaoBlocking;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.TaskDeleter;
@@ -54,7 +54,7 @@ import org.tasks.analytics.Firebase;
 import org.tasks.billing.Inventory;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
-import org.tasks.data.CaldavDao;
+import org.tasks.data.CaldavDaoBlocking;
 import org.tasks.data.CaldavTask;
 import timber.log.Timber;
 
@@ -65,8 +65,8 @@ public class CaldavSynchronizer {
         new ProdId("+//IDN tasks.org//android-" + BuildConfig.VERSION_CODE + "//EN"));
   }
 
-  private final CaldavDao caldavDao;
-  private final TaskDao taskDao;
+  private final CaldavDaoBlocking caldavDao;
+  private final TaskDaoBlocking taskDao;
   private final LocalBroadcastManager localBroadcastManager;
   private final TaskDeleter taskDeleter;
   private final Inventory inventory;
@@ -78,8 +78,8 @@ public class CaldavSynchronizer {
   @Inject
   public CaldavSynchronizer(
       @ApplicationContext Context context,
-      CaldavDao caldavDao,
-      TaskDao taskDao,
+      CaldavDaoBlocking caldavDao,
+      TaskDaoBlocking taskDao,
       LocalBroadcastManager localBroadcastManager,
       TaskDeleter taskDeleter,
       Inventory inventory,

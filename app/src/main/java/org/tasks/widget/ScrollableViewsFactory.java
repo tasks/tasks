@@ -10,7 +10,7 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskDaoBlocking;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ import timber.log.Timber;
 class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
   private final int widgetId;
-  private final TaskDao taskDao;
+  private final TaskDaoBlocking taskDao;
   private final DefaultFilterProvider defaultFilterProvider;
   private final CheckBoxProvider checkBoxProvider;
   private final Locale locale;
@@ -65,7 +65,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
       Preferences preferences,
       Context context,
       int widgetId,
-      TaskDao taskDao,
+      TaskDaoBlocking taskDao,
       DefaultFilterProvider defaultFilterProvider,
       CheckBoxProvider checkBoxProvider,
       Locale locale) {

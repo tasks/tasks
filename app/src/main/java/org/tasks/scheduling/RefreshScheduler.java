@@ -4,7 +4,7 @@ import static com.todoroo.andlib.utility.DateUtilities.ONE_MINUTE;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 import com.google.common.collect.ImmutableList;
-import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskDaoBlocking;
 import com.todoroo.astrid.data.Task;
 import java.util.List;
 import java.util.SortedSet;
@@ -20,11 +20,11 @@ public class RefreshScheduler {
 
   private final Preferences preferences;
   private final WorkManager workManager;
-  private final TaskDao taskDao;
+  private final TaskDaoBlocking taskDao;
   private final SortedSet<Long> jobs = new TreeSet<>();
 
   @Inject
-  RefreshScheduler(Preferences preferences, WorkManager workManager, TaskDao taskDao) {
+  RefreshScheduler(Preferences preferences, WorkManager workManager, TaskDaoBlocking taskDao) {
     this.preferences = preferences;
     this.workManager = workManager;
     this.taskDao = taskDao;

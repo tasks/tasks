@@ -18,9 +18,9 @@ import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
-import org.tasks.data.TagDao
+import org.tasks.data.TagDaoBlocking
 import org.tasks.data.TagData
-import org.tasks.data.TagDataDao
+import org.tasks.data.TagDataDaoBlocking
 import org.tasks.tags.TagPickerActivity
 import org.tasks.ui.ChipProvider
 import org.tasks.ui.TaskEditControlFragment
@@ -34,8 +34,8 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class TagsControlSet : TaskEditControlFragment() {
-    @Inject lateinit var tagDao: TagDao
-    @Inject lateinit var tagDataDao: TagDataDao
+    @Inject lateinit var tagDao: TagDaoBlocking
+    @Inject lateinit var tagDataDao: TagDataDaoBlocking
     @Inject lateinit var chipProvider: ChipProvider
     
     @BindView(R.id.no_tags)

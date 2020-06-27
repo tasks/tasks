@@ -1,15 +1,15 @@
 package com.todoroo.astrid.service
 
 import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.dao.TaskDaoBlocking
 import com.todoroo.astrid.data.Task
-import org.tasks.data.GoogleTaskDao
+import org.tasks.data.GoogleTaskDaoBlocking
 import timber.log.Timber
 import javax.inject.Inject
 
 class TaskCompleter @Inject internal constructor(
-        private val taskDao: TaskDao,
-        private val googleTaskDao: GoogleTaskDao) {
+        private val taskDao: TaskDaoBlocking,
+        private val googleTaskDao: GoogleTaskDaoBlocking) {
 
     fun setComplete(taskId: Long) =
             taskDao.fetchBlocking(taskId)?.let { setComplete(it, true) }

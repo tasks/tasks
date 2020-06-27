@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.ItemTouchHelper.Callback.makeMovementFlags
 import androidx.recyclerview.widget.RecyclerView
 import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.adapter.TaskAdapter
-import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.dao.TaskDaoBlocking
 import com.todoroo.astrid.utility.Flags
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
@@ -26,7 +26,7 @@ class DragAndDropRecyclerAdapter(
         viewHolderFactory: ViewHolderFactory,
         private val taskList: TaskListFragment,
         tasks: List<TaskContainer>,
-        taskDao: TaskDao,
+        taskDao: TaskDaoBlocking,
         preferences: Preferences) : TaskListRecyclerAdapter(adapter, viewHolderFactory, taskList, taskDao, preferences), DragAndDropDiffer<TaskContainer, SectionedDataSource> {
     private val disableHeaders = taskList.getFilter().let {
         !it.supportsSorting()

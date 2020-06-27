@@ -20,7 +20,7 @@ import com.google.ical.values.RRule;
 import com.google.ical.values.WeekdayNum;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.alarms.AlarmService;
-import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskDaoBlocking;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
 import java.text.ParseException;
@@ -38,7 +38,7 @@ public class RepeatTaskHelper {
   private static final Comparator<WeekdayNum> weekdayCompare =
       (object1, object2) -> object1.wday.javaDayNum - object2.wday.javaDayNum;
   private final GCalHelper gcalHelper;
-  private final TaskDao taskDao;
+  private final TaskDaoBlocking taskDao;
   private final LocalBroadcastManager localBroadcastManager;
   private final AlarmService alarmService;
 
@@ -46,7 +46,7 @@ public class RepeatTaskHelper {
   public RepeatTaskHelper(
       GCalHelper gcalHelper,
       AlarmService alarmService,
-      TaskDao taskDao,
+      TaskDaoBlocking taskDao,
       LocalBroadcastManager localBroadcastManager) {
     this.gcalHelper = gcalHelper;
     this.taskDao = taskDao;

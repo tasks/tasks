@@ -13,7 +13,7 @@ import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.PermaSql;
-import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskDaoBlocking;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.timers.TimerPlugin;
@@ -37,12 +37,12 @@ import org.tasks.themes.CustomIcons;
 public final class BuiltInFilterExposer {
 
   private final Preferences preferences;
-  private final TaskDao taskDao;
+  private final TaskDaoBlocking taskDao;
   private final Context context;
 
   @Inject
   public BuiltInFilterExposer(
-      @ApplicationContext Context context, Preferences preferences, TaskDao taskDao) {
+      @ApplicationContext Context context, Preferences preferences, TaskDaoBlocking taskDao) {
     this.context = context;
     this.preferences = preferences;
     this.taskDao = taskDao;

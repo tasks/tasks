@@ -1,7 +1,7 @@
 package com.todoroo.astrid.service
 
 import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.dao.TaskDaoBlocking
 import com.todoroo.astrid.data.Task
 import kotlinx.collections.immutable.persistentListOf
 import org.tasks.LocalBroadcastManager
@@ -14,11 +14,11 @@ import java.util.*
 import javax.inject.Inject
 
 class TaskDeleter @Inject constructor(
-        private val deletionDao: DeletionDao,
+        private val deletionDao: DeletionDaoBlocking,
         private val workManager: WorkManager,
-        private val taskDao: TaskDao,
+        private val taskDao: TaskDaoBlocking,
         private val localBroadcastManager: LocalBroadcastManager,
-        private val googleTaskDao: GoogleTaskDao,
+        private val googleTaskDao: GoogleTaskDaoBlocking,
         private val preferences: Preferences) {
 
     fun markDeleted(item: Task) = markDeleted(persistentListOf(item.id))

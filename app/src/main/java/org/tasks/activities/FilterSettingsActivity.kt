@@ -37,7 +37,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.Strings
 import org.tasks.data.Filter
-import org.tasks.data.FilterDao
+import org.tasks.data.FilterDaoBlocking
 import org.tasks.filters.FilterCriteriaProvider
 import org.tasks.locale.Locale
 import java.util.*
@@ -46,7 +46,7 @@ import kotlin.math.max
 
 @AndroidEntryPoint
 class FilterSettingsActivity : BaseListSettingsActivity() {
-    @Inject lateinit var filterDao: FilterDao
+    @Inject lateinit var filterDao: FilterDaoBlocking
     @Inject lateinit var locale: Locale
     @Inject lateinit var database: Database
     @Inject lateinit var filterCriteriaProvider: FilterCriteriaProvider

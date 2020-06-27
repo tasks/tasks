@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.RecyclerView
 import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.adapter.TaskAdapter
-import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.dao.TaskDaoBlocking
 import org.tasks.data.TaskContainer
 import org.tasks.preferences.Preferences
 
@@ -16,7 +16,7 @@ class PagedListRecyclerAdapter(
         viewHolderFactory: ViewHolderFactory,
         taskList: TaskListFragment,
         list: List<TaskContainer>,
-        taskDao: TaskDao,
+        taskDao: TaskDaoBlocking,
         preferences: Preferences) : TaskListRecyclerAdapter(adapter, viewHolderFactory, taskList, taskDao, preferences) {
 
     private val differ: AsyncPagedListDiffer<TaskContainer> =

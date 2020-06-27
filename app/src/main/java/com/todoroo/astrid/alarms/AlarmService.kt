@@ -6,7 +6,7 @@
 package com.todoroo.astrid.alarms
 
 import org.tasks.data.Alarm
-import org.tasks.data.AlarmDao
+import org.tasks.data.AlarmDaoBlocking
 import org.tasks.jobs.AlarmEntry
 import org.tasks.jobs.NotificationQueue
 import java.util.*
@@ -20,7 +20,7 @@ import javax.inject.Singleton
  */
 @Singleton
 class AlarmService @Inject constructor(
-        private val alarmDao: AlarmDao,
+        private val alarmDao: AlarmDaoBlocking,
         private val jobs: NotificationQueue) {
 
     fun rescheduleAlarms(taskId: Long, oldDueDate: Long, newDueDate: Long) {

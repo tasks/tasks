@@ -20,7 +20,7 @@ import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.adapter.NavigationDrawerAdapter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.FilterListItem
-import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.dao.TaskDaoBlocking
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -42,7 +42,7 @@ class NavigationDrawerFragment : Fragment() {
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var adapter: NavigationDrawerAdapter
     @Inject lateinit var filterProvider: FilterProvider
-    @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var taskDao: TaskDaoBlocking
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var mDrawerLayout: DrawerLayout

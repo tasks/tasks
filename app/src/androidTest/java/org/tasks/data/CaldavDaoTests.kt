@@ -1,7 +1,7 @@
 package org.tasks.data
 
 import com.natpryce.makeiteasy.MakeItEasy.with
-import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.dao.TaskDaoBlocking
 import com.todoroo.astrid.helper.UUIDHelper
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
@@ -22,10 +22,10 @@ import javax.inject.Inject
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class CaldavDaoTests : InjectingTestCase() {
-    @Inject lateinit var taskDao: TaskDao
-    @Inject lateinit var tagDao: TagDao
-    @Inject lateinit var tagDataDao: TagDataDao
-    @Inject lateinit var caldavDao: CaldavDao
+    @Inject lateinit var taskDao: TaskDaoBlocking
+    @Inject lateinit var tagDao: TagDaoBlocking
+    @Inject lateinit var tagDataDao: TagDataDaoBlocking
+    @Inject lateinit var caldavDao: CaldavDaoBlocking
 
     @Test
     fun insertNewTaskAtTopOfEmptyList() {

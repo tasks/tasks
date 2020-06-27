@@ -15,7 +15,7 @@ import android.net.Uri;
 import android.provider.CalendarContract;
 import android.text.format.Time;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskDaoBlocking;
 import com.todoroo.astrid.data.Task;
 import dagger.hilt.android.qualifiers.ApplicationContext;
 import java.util.TimeZone;
@@ -32,7 +32,7 @@ public class GCalHelper {
   /** If task has no estimated time, how early to set a task in calendar (seconds) */
   private static final long DEFAULT_CAL_TIME = DateUtilities.ONE_HOUR;
 
-  private final TaskDao taskDao;
+  private final TaskDaoBlocking taskDao;
   private final Preferences preferences;
   private final PermissionChecker permissionChecker;
   private final CalendarEventProvider calendarEventProvider;
@@ -41,7 +41,7 @@ public class GCalHelper {
   @Inject
   public GCalHelper(
       @ApplicationContext Context context,
-      TaskDao taskDao,
+      TaskDaoBlocking taskDao,
       Preferences preferences,
       PermissionChecker permissionChecker,
       CalendarEventProvider calendarEventProvider) {

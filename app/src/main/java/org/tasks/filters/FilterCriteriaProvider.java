@@ -24,14 +24,14 @@ import java.util.Map;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.data.CaldavCalendar;
-import org.tasks.data.CaldavDao;
+import org.tasks.data.CaldavDaoBlocking;
 import org.tasks.data.CaldavTask;
 import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskList;
-import org.tasks.data.GoogleTaskListDao;
+import org.tasks.data.GoogleTaskListDaoBlocking;
 import org.tasks.data.Tag;
 import org.tasks.data.TagData;
-import org.tasks.data.TagDataDao;
+import org.tasks.data.TagDataDaoBlocking;
 
 public class FilterCriteriaProvider {
 
@@ -45,17 +45,17 @@ public class FilterCriteriaProvider {
   private static final String IDENTIFIER_TAG_CONTAINS = "tag_contains";
 
   private final Context context;
-  private final TagDataDao tagDataDao;
+  private final TagDataDaoBlocking tagDataDao;
   private final Resources r;
-  private final GoogleTaskListDao googleTaskListDao;
-  private final CaldavDao caldavDao;
+  private final GoogleTaskListDaoBlocking googleTaskListDao;
+  private final CaldavDaoBlocking caldavDao;
 
   @Inject
   public FilterCriteriaProvider(
       @ApplicationContext Context context,
-      TagDataDao tagDataDao,
-      GoogleTaskListDao googleTaskListDao,
-      CaldavDao caldavDao) {
+      TagDataDaoBlocking tagDataDao,
+      GoogleTaskListDaoBlocking googleTaskListDao,
+      CaldavDaoBlocking caldavDao) {
     this.context = context;
     this.tagDataDao = tagDataDao;
 

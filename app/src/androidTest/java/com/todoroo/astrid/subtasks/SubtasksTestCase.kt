@@ -3,11 +3,11 @@ package com.todoroo.astrid.subtasks
 import androidx.test.InstrumentationRegistry
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.core.BuiltInFilterExposer
-import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.dao.TaskDaoBlocking
 import com.todoroo.astrid.data.Task
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
-import org.tasks.data.TaskListMetadataDao
+import org.tasks.data.TaskListMetadataDaoBlocking
 import org.tasks.injection.InjectingTestCase
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
@@ -15,8 +15,8 @@ import javax.inject.Inject
 abstract class SubtasksTestCase : InjectingTestCase() {
     lateinit var updater: SubtasksFilterUpdater
     lateinit var filter: Filter
-    @Inject lateinit var taskListMetadataDao: TaskListMetadataDao
-    @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var taskListMetadataDao: TaskListMetadataDaoBlocking
+    @Inject lateinit var taskDao: TaskDaoBlocking
     @Inject lateinit var preferences: Preferences
     
     override fun setUp() {

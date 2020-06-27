@@ -15,7 +15,7 @@ import android.widget.RemoteViews;
 import androidx.annotation.ColorInt;
 import androidx.core.graphics.ColorUtils;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskDaoBlocking;
 import dagger.hilt.android.AndroidEntryPoint;
 import dagger.hilt.android.qualifiers.ApplicationContext;
 import javax.inject.Inject;
@@ -35,7 +35,7 @@ public class TasksWidget extends AppWidgetProvider {
   @Inject Preferences preferences;
   @Inject DefaultFilterProvider defaultFilterProvider;
   @Inject Locale locale;
-  @Inject TaskDao taskDao;
+  @Inject TaskDaoBlocking taskDao;
   @Inject @ApplicationContext Context context;
 
   @Override

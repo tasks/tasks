@@ -3,7 +3,7 @@ package org.tasks.locale.receiver;
 import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
-import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskDaoBlocking;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Task.Priority;
 import com.todoroo.astrid.service.TaskCreator;
@@ -21,10 +21,10 @@ class TaskerTaskCreator {
   private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ISO_LOCAL_TIME;
 
   private final TaskCreator taskCreator;
-  private final TaskDao taskDao;
+  private final TaskDaoBlocking taskDao;
 
   @Inject
-  TaskerTaskCreator(TaskCreator taskCreator, TaskDao taskDao) {
+  TaskerTaskCreator(TaskCreator taskCreator, TaskDaoBlocking taskDao) {
     this.taskCreator = taskCreator;
     this.taskDao = taskDao;
   }

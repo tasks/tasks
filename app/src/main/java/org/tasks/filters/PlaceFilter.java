@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 import androidx.annotation.NonNull;
-
 import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;

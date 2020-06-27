@@ -1,6 +1,6 @@
 package com.todoroo.astrid.activity;
 
-import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskDaoBlocking;
 import com.todoroo.astrid.service.TaskCreator;
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.Single;
@@ -17,7 +17,7 @@ public class TaskEditActivity extends InjectingAppCompatActivity {
   private static final String TOKEN_ID = "id";
 
   @Inject TaskCreator taskCreator;
-  @Inject TaskDao taskDao;
+  @Inject TaskDaoBlocking taskDao;
   private CompositeDisposable disposables;
 
   @Override

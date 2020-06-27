@@ -15,18 +15,18 @@ import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskList;
-import org.tasks.data.GoogleTaskListDao;
+import org.tasks.data.GoogleTaskListDaoBlocking;
 import timber.log.Timber;
 
 public class GtasksListService {
 
-  private final GoogleTaskListDao googleTaskListDao;
+  private final GoogleTaskListDaoBlocking googleTaskListDao;
   private final TaskDeleter taskDeleter;
   private final LocalBroadcastManager localBroadcastManager;
 
   @Inject
   public GtasksListService(
-      GoogleTaskListDao googleTaskListDao,
+      GoogleTaskListDaoBlocking googleTaskListDao,
       TaskDeleter taskDeleter,
       LocalBroadcastManager localBroadcastManager) {
     this.googleTaskListDao = googleTaskListDao;

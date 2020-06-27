@@ -20,7 +20,7 @@ import dagger.hilt.android.components.ApplicationComponent
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.analytics.Firebase
-import org.tasks.data.ContentProviderDao
+import org.tasks.data.ContentProviderDaoBlocking
 import timber.log.Timber
 import java.math.BigInteger
 import java.security.MessageDigest
@@ -39,7 +39,7 @@ class Astrid2TaskProvider : ContentProvider() {
     @EntryPoint
     @InstallIn(ApplicationComponent::class)
     interface Astrid2TaskProviderEntryPoint {
-        val contentProviderDao: ContentProviderDao
+        val contentProviderDao: ContentProviderDaoBlocking
         val firebase: Firebase
     }
 

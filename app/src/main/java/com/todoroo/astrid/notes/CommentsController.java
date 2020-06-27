@@ -24,14 +24,14 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.data.UserActivity;
-import org.tasks.data.UserActivityDao;
+import org.tasks.data.UserActivityDaoBlocking;
 import org.tasks.files.FileHelper;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.Preferences;
 
 public class CommentsController {
 
-  private final UserActivityDao userActivityDao;
+  private final UserActivityDaoBlocking userActivityDao;
   private final ArrayList<UserActivity> items = new ArrayList<>();
   private final Activity activity;
   private final Preferences preferences;
@@ -43,7 +43,7 @@ public class CommentsController {
 
   @Inject
   public CommentsController(
-      UserActivityDao userActivityDao, Activity activity, Preferences preferences, Locale locale) {
+      UserActivityDaoBlocking userActivityDao, Activity activity, Preferences preferences, Locale locale) {
     this.userActivityDao = userActivityDao;
     this.activity = activity;
     this.preferences = preferences;

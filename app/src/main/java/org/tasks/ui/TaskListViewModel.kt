@@ -8,7 +8,7 @@ import androidx.sqlite.db.SimpleSQLiteQuery
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.dao.TaskDaoBlocking
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -21,7 +21,7 @@ import timber.log.Timber
 
 class TaskListViewModel @ViewModelInject constructor(
         private val preferences: Preferences,
-        private val taskDao: TaskDao) : ViewModel(), Observer<PagedList<TaskContainer>> {
+        private val taskDao: TaskDaoBlocking) : ViewModel(), Observer<PagedList<TaskContainer>> {
 
     private var tasks = MutableLiveData<List<TaskContainer>>()
     private var filter: Filter? = null

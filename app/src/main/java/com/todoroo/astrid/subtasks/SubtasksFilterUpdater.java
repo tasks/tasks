@@ -4,7 +4,7 @@ import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.db.QueryUtils.showHiddenAndCompleted;
 
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskDaoBlocking;
 import com.todoroo.astrid.data.Task;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,7 +15,7 @@ import javax.inject.Inject;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.tasks.data.TaskListMetadata;
-import org.tasks.data.TaskListMetadataDao;
+import org.tasks.data.TaskListMetadataDaoBlocking;
 import timber.log.Timber;
 
 public class SubtasksFilterUpdater {
@@ -23,13 +23,13 @@ public class SubtasksFilterUpdater {
   public static final String ACTIVE_TASKS_ORDER = "active_tasks_order"; // $NON-NLS-1$
   public static final String TODAY_TASKS_ORDER = "today_tasks_order"; // $NON-NLS-1$
 
-  private final TaskListMetadataDao taskListMetadataDao;
-  private final TaskDao taskDao;
+  private final TaskListMetadataDaoBlocking taskListMetadataDao;
+  private final TaskDaoBlocking taskDao;
   private final HashMap<String, Node> idToNode = new HashMap<>();
   private Node treeRoot;
 
   @Inject
-  public SubtasksFilterUpdater(TaskListMetadataDao taskListMetadataDao, TaskDao taskDao) {
+  public SubtasksFilterUpdater(TaskListMetadataDaoBlocking taskListMetadataDao, TaskDaoBlocking taskDao) {
     this.taskDao = taskDao;
     this.taskListMetadataDao = taskListMetadataDao;
   }

@@ -40,7 +40,7 @@ import org.tasks.billing.Inventory;
 import org.tasks.caldav.iCalendar;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
-import org.tasks.data.CaldavDao;
+import org.tasks.data.CaldavDaoBlocking;
 import org.tasks.data.CaldavTask;
 import org.tasks.data.CaldavTaskContainer;
 import timber.log.Timber;
@@ -52,7 +52,7 @@ public class EteSynchronizer {
         new ProdId("+//IDN tasks.org//android-" + BuildConfig.VERSION_CODE + "//EN"));
   }
 
-  private final CaldavDao caldavDao;
+  private final CaldavDaoBlocking caldavDao;
   private final LocalBroadcastManager localBroadcastManager;
   private final TaskDeleter taskDeleter;
   private final Inventory inventory;
@@ -63,7 +63,7 @@ public class EteSynchronizer {
   @Inject
   public EteSynchronizer(
       @ApplicationContext Context context,
-      CaldavDao caldavDao,
+      CaldavDaoBlocking caldavDao,
       LocalBroadcastManager localBroadcastManager,
       TaskDeleter taskDeleter,
       Inventory inventory,

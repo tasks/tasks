@@ -4,7 +4,7 @@ import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.utility.DateUtilities.now;
 import static com.todoroo.astrid.data.Task.NO_UUID;
 
-import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskDaoBlocking;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
 import java.util.ArrayList;
@@ -12,43 +12,43 @@ import java.util.List;
 import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.data.Alarm;
-import org.tasks.data.AlarmDao;
-import org.tasks.data.CaldavDao;
+import org.tasks.data.AlarmDaoBlocking;
+import org.tasks.data.CaldavDaoBlocking;
 import org.tasks.data.CaldavTask;
 import org.tasks.data.Geofence;
 import org.tasks.data.GoogleTask;
-import org.tasks.data.GoogleTaskDao;
-import org.tasks.data.LocationDao;
+import org.tasks.data.GoogleTaskDaoBlocking;
+import org.tasks.data.LocationDaoBlocking;
 import org.tasks.data.Tag;
-import org.tasks.data.TagDao;
+import org.tasks.data.TagDaoBlocking;
 import org.tasks.data.TagData;
-import org.tasks.data.TagDataDao;
+import org.tasks.data.TagDataDaoBlocking;
 import org.tasks.preferences.Preferences;
 
 public class TaskDuplicator {
 
   private final GCalHelper gcalHelper;
-  private final TaskDao taskDao;
-  private final TagDao tagDao;
-  private final TagDataDao tagDataDao;
-  private final GoogleTaskDao googleTaskDao;
-  private final CaldavDao caldavDao;
-  private final LocationDao locationDao;
-  private final AlarmDao alarmDao;
+  private final TaskDaoBlocking taskDao;
+  private final TagDaoBlocking tagDao;
+  private final TagDataDaoBlocking tagDataDao;
+  private final GoogleTaskDaoBlocking googleTaskDao;
+  private final CaldavDaoBlocking caldavDao;
+  private final LocationDaoBlocking locationDao;
+  private final AlarmDaoBlocking alarmDao;
   private final Preferences preferences;
   private final LocalBroadcastManager localBroadcastManager;
 
   @Inject
   public TaskDuplicator(
       GCalHelper gcalHelper,
-      TaskDao taskDao,
+      TaskDaoBlocking taskDao,
       LocalBroadcastManager localBroadcastManager,
-      TagDao tagDao,
-      TagDataDao tagDataDao,
-      GoogleTaskDao googleTaskDao,
-      CaldavDao caldavDao,
-      LocationDao locationDao,
-      AlarmDao alarmDao,
+      TagDaoBlocking tagDao,
+      TagDataDaoBlocking tagDataDao,
+      GoogleTaskDaoBlocking googleTaskDao,
+      CaldavDaoBlocking caldavDao,
+      LocationDaoBlocking locationDao,
+      AlarmDaoBlocking alarmDao,
       Preferences preferences) {
     this.gcalHelper = gcalHelper;
     this.taskDao = taskDao;
