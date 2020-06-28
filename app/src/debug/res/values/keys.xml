@@ -14,6 +14,4 @@
   <string name="debug_tasker">debug_tasker</string>
   <string name="debug_reset_ssl">Reset SSL certificates</string>
   <string name="debug_main_queries">Allow queries on main thread</string>
-
-  <string name="p_debug_main_queries">debug_main_queries</string>
 </resources>
