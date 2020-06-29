@@ -8,9 +8,7 @@ package com.todoroo.astrid.tags
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import butterknife.BindView
 import com.google.android.material.chip.ChipGroup
@@ -18,9 +16,9 @@ import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
-import org.tasks.data.TagDaoBlocking
+import org.tasks.data.TagDao
 import org.tasks.data.TagData
-import org.tasks.data.TagDataDaoBlocking
+import org.tasks.data.TagDataDao
 import org.tasks.tags.TagPickerActivity
 import org.tasks.ui.ChipProvider
 import org.tasks.ui.TaskEditControlFragment
@@ -34,8 +32,8 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class TagsControlSet : TaskEditControlFragment() {
-    @Inject lateinit var tagDao: TagDaoBlocking
-    @Inject lateinit var tagDataDao: TagDataDaoBlocking
+    @Inject lateinit var tagDao: TagDao
+    @Inject lateinit var tagDataDao: TagDataDao
     @Inject lateinit var chipProvider: ChipProvider
     
     @BindView(R.id.no_tags)
@@ -46,23 +44,21 @@ class TagsControlSet : TaskEditControlFragment() {
     
     private lateinit var originalTags: ArrayList<TagData>
     private lateinit var selectedTags: ArrayList<TagData>
-    
-    override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = super.onCreateView(inflater, container, savedInstanceState)
-        if (savedInstanceState != null) {
-            selectedTags = savedInstanceState.getParcelableArrayList(EXTRA_SELECTED_TAGS)!!
-            originalTags = savedInstanceState.getParcelableArrayList(EXTRA_ORIGINAL_TAGS)!!
-        } else {
+
+    override suspend fun createView(savedInstanceState: Bundle?) {
+        if (savedInstanceState == null) {
             originalTags = ArrayList(if (task.isNew) {
-                task.tags.mapNotNull(tagDataDao::getTagByName)
+                task.tags.mapNotNull { tagDataDao.getTagByName(it) }
             } else {
                 tagDataDao.getTagDataForTask(task.id)
             })
             selectedTags = ArrayList(originalTags)
+            refreshDisplayView()
+        } else {
+            selectedTags = savedInstanceState.getParcelableArrayList(EXTRA_SELECTED_TAGS)!!
+            originalTags = savedInstanceState.getParcelableArrayList(EXTRA_ORIGINAL_TAGS)!!
+            refreshDisplayView()
         }
-        refreshDisplayView()
-        return view
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

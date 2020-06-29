@@ -7,6 +7,7 @@ import androidx.work.WorkerParameters
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.reminders.ReminderService
 import com.todoroo.astrid.timers.TimerPlugin
+import kotlinx.coroutines.runBlocking
 import org.tasks.analytics.Firebase
 import org.tasks.data.DeletionDaoBlocking
 import org.tasks.data.LocationDaoBlocking
@@ -39,7 +40,9 @@ class CleanupWork @WorkerInject constructor(
             return Result.failure()
         }
         tasks.forEach { task ->
-            alarmService.cancelAlarms(task)
+            runBlocking {
+                alarmService.cancelAlarms(task)
+            }
             reminderService.cancelReminder(task)
             notificationManager.cancel(task)
             locationDao.getGeofencesForTask(task).forEach {

@@ -7,7 +7,6 @@ package com.todoroo.astrid.repeats
 
 import android.app.Activity
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
@@ -87,9 +86,7 @@ class RepeatControlSet : TaskEditControlFragment() {
         }
     }
 
-    override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = super.onCreateView(inflater, container, savedInstanceState)
+    override suspend fun createView(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
             repeatAfterCompletion = task.repeatAfterCompletion()
             dueDate = task.dueDate
@@ -129,7 +126,7 @@ class RepeatControlSet : TaskEditControlFragment() {
                 if (parent is AdapterView<*>) {
                     selectedItemPosition = parent.selectedItemPosition
                 }
-                val tv = inflater.inflate(android.R.layout.simple_spinner_item, parent, false) as TextView
+                val tv = activity.layoutInflater.inflate(android.R.layout.simple_spinner_item, parent, false) as TextView
                 tv.setPadding(0, 0, 0, 0)
                 tv.text = repeatTypes[selectedItemPosition]
                 return tv
@@ -141,7 +138,6 @@ class RepeatControlSet : TaskEditControlFragment() {
         typeSpinner.adapter = typeAdapter
         typeSpinner.setSelection(if (repeatAfterCompletion) TYPE_COMPLETION_DATE else TYPE_DUE_DATE)
         refreshDisplayView()
-        return view
     }
 
     @OnItemSelected(R.id.repeatType)

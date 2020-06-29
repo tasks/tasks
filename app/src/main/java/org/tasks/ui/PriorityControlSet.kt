@@ -38,9 +38,7 @@ class PriorityControlSet : TaskEditControlFragment() {
         priority = getPriority()
     }
 
-    override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = super.onCreateView(inflater, container, savedInstanceState)
+    override suspend fun createView(savedInstanceState: Bundle?) {
         priority = savedInstanceState?.getInt(EXTRA_PRIORITY) ?: task.priority
         when (priority) {
             0 -> priorityHigh.isChecked = true
@@ -52,7 +50,6 @@ class PriorityControlSet : TaskEditControlFragment() {
         tintRadioButton(priorityMedium, 1)
         tintRadioButton(priorityLow, 2)
         tintRadioButton(priorityNone, 3)
-        return view
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

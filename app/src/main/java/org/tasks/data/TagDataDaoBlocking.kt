@@ -9,7 +9,7 @@ import org.tasks.time.DateTimeUtils.currentTimeMillis
 import javax.inject.Inject
 
 @Deprecated("use coroutines")
-class TagDataDaoBlocking @Inject constructor(private val dao: TagDataDao) {
+class TagDataDaoBlocking @Inject constructor(val dao: TagDataDao) {
     fun subscribeToTags(): LiveData<List<TagData>> {
         return dao.subscribeToTags()
     }

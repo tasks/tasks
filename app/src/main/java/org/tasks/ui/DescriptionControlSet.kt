@@ -1,9 +1,6 @@
 package org.tasks.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.EditText
 import butterknife.BindView
 import butterknife.OnTextChanged
@@ -24,10 +21,8 @@ class DescriptionControlSet : TaskEditControlFragment() {
     lateinit var editText: EditText
     
     private var description: String? = null
-    
-    override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = super.onCreateView(inflater, container, savedInstanceState)
+
+    override suspend fun createView(savedInstanceState: Bundle?) {
         description = if (savedInstanceState == null) {
             stripCarriageReturns(task.notes)
         } else {
@@ -39,7 +34,6 @@ class DescriptionControlSet : TaskEditControlFragment() {
         if (preferences.getBoolean(R.string.p_linkify_task_edit, false)) {
             linkify.linkify(editText)
         }
-        return view
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

@@ -16,12 +16,14 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.StringRes
+import androidx.lifecycle.lifecycleScope
 import butterknife.BindView
 import butterknife.OnClick
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.activities.DateAndTimePickerActivity
 import org.tasks.data.Alarm
@@ -61,10 +63,8 @@ class ReminderControlSet : TaskEditControlFragment() {
     private var randomControlSet: RandomReminderControlSet? = null
     private var whenDue = false
     private var whenOverdue = false
-    
-    override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = super.onCreateView(inflater, container, savedInstanceState)
+
+    override suspend fun createView(savedInstanceState: Bundle?) {
         mode.paintFlags = mode.paintFlags or Paint.UNDERLINE_TEXT_FLAG
         taskId = task.id
         if (savedInstanceState == null) {
@@ -76,10 +76,9 @@ class ReminderControlSet : TaskEditControlFragment() {
             randomReminder = savedInstanceState.getLong(EXTRA_RANDOM_REMINDER)
             setup(savedInstanceState.getLongArray(EXTRA_ALARMS)!!.toList())
         }
-        return view
     }
 
-    private fun currentAlarms(): List<Long> {
+    private suspend fun currentAlarms(): List<Long> {
         return if (taskId == Task.NO_ID) {
             emptyList()
         } else {

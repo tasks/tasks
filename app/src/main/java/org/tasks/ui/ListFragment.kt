@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import butterknife.BindView
 import com.google.android.material.chip.ChipGroup
 import com.todoroo.astrid.api.CaldavFilter
@@ -14,6 +15,7 @@ import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskMover
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.activities.ListPicker
 import org.tasks.data.*
@@ -25,9 +27,9 @@ class ListFragment : TaskEditControlFragment() {
     @BindView(R.id.chip_group)
     lateinit var chipGroup: ChipGroup
 
-    @Inject lateinit var googleTaskListDao: GoogleTaskListDaoBlocking
-    @Inject lateinit var googleTaskDao: GoogleTaskDaoBlocking
-    @Inject lateinit var caldavDao: CaldavDaoBlocking
+    @Inject lateinit var googleTaskListDao: GoogleTaskListDao
+    @Inject lateinit var googleTaskDao: GoogleTaskDao
+    @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
     @Inject lateinit var taskMover: TaskMover
     @Inject lateinit var chipProvider: ChipProvider
@@ -45,13 +47,8 @@ class ListFragment : TaskEditControlFragment() {
         callback = activity as OnListChanged
     }
 
-    override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = super.onCreateView(inflater, container, savedInstanceState)
-        if (savedInstanceState != null) {
-            originalList = savedInstanceState.getParcelable(EXTRA_ORIGINAL_LIST)
-            setSelected(savedInstanceState.getParcelable(EXTRA_SELECTED_LIST)!!)
-        } else {
+    override suspend fun createView(savedInstanceState: Bundle?) {
+        if (savedInstanceState == null) {
             if (task.isNew) {
                 if (task.hasTransitory(GoogleTask.KEY)) {
                     val listId = task.getTransitory<String>(GoogleTask.KEY)!!
@@ -84,8 +81,10 @@ class ListFragment : TaskEditControlFragment() {
                 originalList = defaultFilterProvider.defaultList
             }
             setSelected(originalList!!)
+        } else {
+            originalList = savedInstanceState.getParcelable(EXTRA_ORIGINAL_LIST)
+            setSelected(savedInstanceState.getParcelable(EXTRA_SELECTED_LIST)!!)
         }
-        return view
     }
 
     private fun setSelected(filter: Filter) {

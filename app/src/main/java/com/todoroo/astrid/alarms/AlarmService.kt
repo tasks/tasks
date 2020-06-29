@@ -5,8 +5,9 @@
  */
 package com.todoroo.astrid.alarms
 
+import kotlinx.coroutines.runBlocking
 import org.tasks.data.Alarm
-import org.tasks.data.AlarmDaoBlocking
+import org.tasks.data.AlarmDao
 import org.tasks.jobs.AlarmEntry
 import org.tasks.jobs.NotificationQueue
 import java.util.*
@@ -20,12 +21,13 @@ import javax.inject.Singleton
  */
 @Singleton
 class AlarmService @Inject constructor(
-        private val alarmDao: AlarmDaoBlocking,
+        private val alarmDao: AlarmDao,
         private val jobs: NotificationQueue) {
 
-    fun rescheduleAlarms(taskId: Long, oldDueDate: Long, newDueDate: Long) {
+    // TODO: remove runBlocking
+    fun rescheduleAlarms(taskId: Long, oldDueDate: Long, newDueDate: Long) = runBlocking {
         if (newDueDate <= 0 || newDueDate <= oldDueDate) {
-            return
+            return@runBlocking
         }
         val alarms: MutableSet<Long> = LinkedHashSet()
         for (alarm in getAlarms(taskId)) {
@@ -36,7 +38,7 @@ class AlarmService @Inject constructor(
         }
     }
 
-    fun getAlarms(taskId: Long): List<Alarm> {
+    suspend fun getAlarms(taskId: Long): List<Alarm> {
         return alarmDao.getAlarms(taskId)
     }
 
@@ -45,7 +47,7 @@ class AlarmService @Inject constructor(
      *
      * @return true if data was changed
      */
-    fun synchronizeAlarms(taskId: Long, timestamps: MutableSet<Long>): Boolean {
+    suspend fun synchronizeAlarms(taskId: Long, timestamps: MutableSet<Long>): Boolean {
         var changed = false
         for (item in alarmDao.getAlarms(taskId)) {
             if (!timestamps.remove(item.time)) {
@@ -64,25 +66,25 @@ class AlarmService @Inject constructor(
         return changed
     }
 
-    private fun getActiveAlarmsForTask(taskId: Long): List<Alarm> {
+    private suspend fun getActiveAlarmsForTask(taskId: Long): List<Alarm> {
         return alarmDao.getActiveAlarms(taskId)
     }
 
-    /** Schedules all alarms  */
-    fun scheduleAllAlarms() {
+    // TODO: remove runBlocking
+    fun scheduleAllAlarms() = runBlocking {
         for (alarm in alarmDao.getActiveAlarms()) {
             scheduleAlarm(alarm)
         }
     }
 
-    fun cancelAlarms(taskId: Long) {
+    suspend fun cancelAlarms(taskId: Long) {
         for (alarm in getActiveAlarmsForTask(taskId)) {
             jobs.cancelAlarm(alarm.id)
         }
     }
 
     /** Schedules alarms for a single task  */
-    private fun scheduleAlarms(taskId: Long) {
+    private suspend fun scheduleAlarms(taskId: Long) {
         for (alarm in getActiveAlarmsForTask(taskId)) {
             scheduleAlarm(alarm)
         }

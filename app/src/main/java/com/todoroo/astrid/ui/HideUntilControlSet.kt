@@ -8,7 +8,6 @@ package com.todoroo.astrid.ui
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
@@ -71,9 +70,7 @@ class HideUntilControlSet : TaskEditControlFragment(), OnItemSelectedListener {
     override val isClickable: Boolean
         get() = true
 
-    override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = super.onCreateView(inflater, container, savedInstanceState)
+    override suspend fun createView(savedInstanceState: Bundle?) {
         adapter = object : HiddenTopArrayAdapter<HideUntilValue>(
                 activity, android.R.layout.simple_spinner_item, spinnerItems) {
             override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -81,7 +78,7 @@ class HideUntilControlSet : TaskEditControlFragment(), OnItemSelectedListener {
                 if (parent is AdapterView<*>) {
                     selectedItemPosition = parent.selectedItemPosition
                 }
-                val tv = inflater.inflate(android.R.layout.simple_spinner_item, parent, false) as TextView
+                val tv = activity.layoutInflater.inflate(android.R.layout.simple_spinner_item, parent, false) as TextView
                 tv.setPadding(0, 0, 0, 0)
                 val value = getItem(selectedItemPosition)
                 if (value!!.setting == Task.HIDE_UNTIL_NONE) {
@@ -139,7 +136,6 @@ class HideUntilControlSet : TaskEditControlFragment(), OnItemSelectedListener {
         spinner.setSelection(selection)
         spinner.onItemSelectedListener = this
         refreshDisplayView()
-        return view
     }
 
     override val layout: Int

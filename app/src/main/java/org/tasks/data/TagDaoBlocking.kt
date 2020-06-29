@@ -39,7 +39,7 @@ class TagDaoBlocking @Inject constructor(private val dao: TagDao) {
     }
 
     fun applyTags(task: Task, tagDataDao: TagDataDaoBlocking, current: List<TagData>): Boolean = runBlocking {
-        dao.applyTags(task, tagDataDao, current)
+        dao.applyTags(task, tagDataDao.dao, current)
     }
 
     fun insert(task: Task, tags: Collection<TagData>) = runBlocking {

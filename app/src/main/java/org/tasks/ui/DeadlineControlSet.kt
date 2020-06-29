@@ -3,9 +3,6 @@ package org.tasks.ui
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import butterknife.BindView
 import com.todoroo.andlib.utility.DateUtilities
@@ -40,12 +37,9 @@ class DeadlineControlSet : TaskEditControlFragment() {
         callback = activity as DueDateChangeListener
     }
 
-    override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = super.onCreateView(inflater, container, savedInstanceState)
+    override suspend fun createView(savedInstanceState: Bundle?) {
         date = savedInstanceState?.getLong(EXTRA_DATE) ?: task.dueDate
         refreshDisplayView()
-        return view
     }
 
     override fun onRowClick() {

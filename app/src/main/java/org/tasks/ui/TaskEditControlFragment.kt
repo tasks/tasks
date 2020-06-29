@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import butterknife.ButterKnife
 import com.todoroo.astrid.data.Task
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.tasks.R
 
@@ -30,8 +32,15 @@ abstract class TaskEditControlFragment : Fragment() {
             content.setOnClickListener { onRowClick() }
         }
         ButterKnife.bind(this, view)
+
+        lifecycleScope.launch {
+            createView(savedInstanceState)
+        }
+
         return view
     }
+
+    protected abstract suspend fun createView(savedInstanceState: Bundle?)
 
     override fun onAttach(activity: Activity) {
         super.onAttach(activity)

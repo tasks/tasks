@@ -62,6 +62,10 @@ class CommentBarFragment : TaskEditControlFragment() {
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(layout, container, false)
         ButterKnife.bind(this, view)
+        return view
+    }
+
+    override suspend fun createView(savedInstanceState: Bundle?) {
         if (savedInstanceState != null) {
             val uri = savedInstanceState.getString(EXTRA_PICTURE)
             if (uri != null) {
@@ -77,7 +81,6 @@ class CommentBarFragment : TaskEditControlFragment() {
         }
         commentBar.setBackgroundColor(themeColor.primaryColor)
         resetPictureButton()
-        return view
     }
 
     override val layout: Int

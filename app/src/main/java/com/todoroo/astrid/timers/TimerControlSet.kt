@@ -10,9 +10,7 @@ import android.os.Bundle
 import android.os.SystemClock
 import android.text.format.DateFormat
 import android.text.format.DateUtils
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Chronometer
 import android.widget.Chronometer.OnChronometerTickListener
 import android.widget.ImageView
@@ -58,9 +56,7 @@ class TimerControlSet : TaskEditControlFragment() {
     private lateinit var dialogView: View
     private lateinit var callback: TimerControlSetCallback
 
-    override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = super.onCreateView(inflater, container, savedInstanceState)
+    override suspend fun createView(savedInstanceState: Bundle?) {
         val elapsedSeconds: Int
         val estimatedSeconds: Int
         if (savedInstanceState == null) {
@@ -72,13 +68,12 @@ class TimerControlSet : TaskEditControlFragment() {
             elapsedSeconds = savedInstanceState.getInt(EXTRA_ELAPSED)
             estimatedSeconds = savedInstanceState.getInt(EXTRA_ESTIMATED)
         }
-        dialogView = inflater.inflate(R.layout.control_set_timers_dialog, null)
+        dialogView = activity.layoutInflater.inflate(R.layout.control_set_timers_dialog, null)
         estimated = TimeDurationControlSet(activity, dialogView, R.id.estimatedDuration, theme)
         elapsed = TimeDurationControlSet(activity, dialogView, R.id.elapsedDuration, theme)
         estimated.setTimeDuration(estimatedSeconds)
         elapsed.setTimeDuration(elapsedSeconds)
         refresh()
-        return view
     }
 
     override fun onAttach(activity: Activity) {

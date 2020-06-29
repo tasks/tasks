@@ -10,18 +10,20 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
 import butterknife.BindView
 import butterknife.OnClick
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.tasks.R
 import org.tasks.data.TaskAttachment
-import org.tasks.data.TaskAttachmentDaoBlocking
+import org.tasks.data.TaskAttachmentDao
 import org.tasks.dialogs.AddAttachmentDialog
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.files.FileHelper
@@ -33,7 +35,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class FilesControlSet : TaskEditControlFragment() {
     @Inject lateinit var activity: Activity
-    @Inject lateinit var taskAttachmentDao: TaskAttachmentDaoBlocking
+    @Inject lateinit var taskAttachmentDao: TaskAttachmentDao
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var preferences: Preferences
     
@@ -44,14 +46,9 @@ class FilesControlSet : TaskEditControlFragment() {
     lateinit var addAttachment: TextView
     
     private var taskUuid: String? = null
-    
-    override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = super.onCreateView(inflater, container, savedInstanceState)
+
+    override suspend fun createView(savedInstanceState: Bundle?) {
         taskUuid = task.uuid
-        for (attachment in taskAttachmentDao.getAttachments(taskUuid!!)) {
-            addAttachment(attachment)
-        }
         if (savedInstanceState == null) {
             if (task.hasTransitory(TaskAttachment.KEY)) {
                 for (uri in (task.getTransitory<ArrayList<Uri>>(TaskAttachment.KEY))!!) {
@@ -59,7 +56,10 @@ class FilesControlSet : TaskEditControlFragment() {
                 }
             }
         }
-        return view
+
+        taskAttachmentDao
+                .getAttachments(task.uuid)
+                .forEach { addAttachment(it) }
     }
 
     @OnClick(R.id.add_attachment)
@@ -118,9 +118,13 @@ class FilesControlSet : TaskEditControlFragment() {
             dialogBuilder
                     .newDialog(R.string.premium_remove_file_confirm)
                     .setPositiveButton(android.R.string.ok) { _, _ ->
-                        taskAttachmentDao.delete(taskAttachment)
-                        FileHelper.delete(context, taskAttachment.parseUri())
-                        attachmentContainer.removeView(fileRow)
+                        lifecycleScope.launch {
+                            withContext(NonCancellable) {
+                                taskAttachmentDao.delete(taskAttachment)
+                                FileHelper.delete(context, taskAttachment.parseUri())
+                            }
+                            attachmentContainer.removeView(fileRow)
+                        }
                     }
                     .setNegativeButton(android.R.string.cancel, null)
                     .show()
@@ -138,8 +142,10 @@ class FilesControlSet : TaskEditControlFragment() {
 
     private fun newAttachment(output: Uri) {
         val attachment = TaskAttachment(taskUuid!!, output, FileHelper.getFilename(context, output)!!)
-        taskAttachmentDao.createNew(attachment)
-        addAttachment(attachment)
+        lifecycleScope.launch {
+            taskAttachmentDao.createNew(attachment)
+            addAttachment(attachment)
+        }
     }
 
     companion object {

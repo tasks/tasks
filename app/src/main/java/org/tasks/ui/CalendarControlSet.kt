@@ -52,10 +52,8 @@ class CalendarControlSet : TaskEditControlFragment() {
     
     private var calendarId: String? = null
     private var eventUri: String? = null
-    
-    override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = super.onCreateView(inflater, container, savedInstanceState)
+
+    override suspend fun createView(savedInstanceState: Bundle?) {
         val canAccessCalendars = permissionChecker.canAccessCalendars()
         if (savedInstanceState != null) {
             eventUri = savedInstanceState.getString(EXTRA_URI)
@@ -81,7 +79,6 @@ class CalendarControlSet : TaskEditControlFragment() {
             eventUri = null
         }
         refreshDisplayView()
-        return view
     }
 
     override val layout: Int

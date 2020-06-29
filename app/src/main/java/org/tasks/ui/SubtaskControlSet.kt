@@ -15,6 +15,7 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,13 +29,14 @@ import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria.activeAndVisible
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskCompleter
 import com.todoroo.astrid.service.TaskCreator
 import com.todoroo.astrid.ui.CheckableImageView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
@@ -57,11 +59,11 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
     @Inject lateinit var activity: Activity
     @Inject lateinit var taskCompleter: TaskCompleter
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
-    @Inject lateinit var googleTaskDao: GoogleTaskDaoBlocking
+    @Inject lateinit var googleTaskDao: GoogleTaskDao
     @Inject lateinit var toaster: Toaster
     @Inject lateinit var taskCreator: TaskCreator
-    @Inject lateinit var caldavDao: CaldavDaoBlocking
-    @Inject lateinit var taskDao: TaskDaoBlocking
+    @Inject lateinit var caldavDao: CaldavDao
+    @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var locale: Locale
     @Inject lateinit var checkBoxProvider: CheckBoxProvider
     @Inject lateinit var chipProvider: ChipProvider
@@ -77,9 +79,7 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
         outState.putParcelableArrayList(EXTRA_NEW_SUBTASKS, newSubtasks)
     }
 
-    override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = super.onCreateView(inflater, container, savedInstanceState)
+    override suspend fun createView(savedInstanceState: Bundle?) {
         viewModel = ViewModelProvider(this).get(TaskListViewModel::class.java)
         if (savedInstanceState != null) {
             for (task in savedInstanceState.getParcelableArrayList<Task>(EXTRA_NEW_SUBTASKS)!!) {
@@ -96,7 +96,6 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
             viewModel.observe(this, Observer { list: List<TaskContainer?>? -> recyclerAdapter.submitList(list) })
             recyclerView!!.adapter = recyclerAdapter
         }
-        return view
     }
 
     override val layout: Int
@@ -162,8 +161,10 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
     override fun onResume() {
         super.onResume()
         localBroadcastManager.registerRefreshReceiver(refreshReceiver)
-        googleTask = googleTaskDao.getByTaskId(task.id)
-        updateUI()
+        lifecycleScope.launch {
+            googleTask = googleTaskDao.getByTaskId(task.id)
+            updateUI()
+        }
     }
 
     override fun onPause() {
@@ -254,8 +255,10 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
     }
 
     override fun toggleSubtask(taskId: Long, collapsed: Boolean) {
-        taskDao.setCollapsed(taskId, collapsed)
-        localBroadcastManager.broadcastRefresh()
+        lifecycleScope.launch {
+            taskDao.setCollapsed(taskId, collapsed)
+            localBroadcastManager.broadcastRefresh()
+        }
     }
 
     override fun complete(task: Task, completed: Boolean) {

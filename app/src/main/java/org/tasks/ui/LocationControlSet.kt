@@ -14,18 +14,20 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.util.Pair
+import androidx.lifecycle.lifecycleScope
 import butterknife.BindView
 import butterknife.OnClick
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.data.SyncFlags
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import org.tasks.PermissionUtil.verifyPermissions
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.Geofence
 import org.tasks.data.Location
-import org.tasks.data.LocationDaoBlocking
+import org.tasks.data.LocationDao
 import org.tasks.data.Place
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.GeofenceDialog
@@ -40,7 +42,7 @@ class LocationControlSet : TaskEditControlFragment() {
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var geofenceApi: GeofenceApi
-    @Inject lateinit var locationDao: LocationDaoBlocking
+    @Inject lateinit var locationDao: LocationDao
     @Inject lateinit var device: Device
     @Inject lateinit var permissionRequestor: FragmentPermissionRequestor
     @Inject lateinit var permissionChecker: PermissionChecker
@@ -56,10 +58,8 @@ class LocationControlSet : TaskEditControlFragment() {
     
     private var original: Location? = null
     private var location: Location? = null
-    
-    override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = super.onCreateView(inflater, container, savedInstanceState)
+
+    override suspend fun createView(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
             if (task.isNew) {
                 if (task.hasTransitory(Place.KEY)) {
@@ -72,13 +72,12 @@ class LocationControlSet : TaskEditControlFragment() {
                 original = locationDao.getGeofences(task.id)
             }
             if (original != null) {
-                location = Location(original!!.geofence, original!!.place)
+                setLocation(Location(original!!.geofence, original!!.place))
             }
         } else {
             original = savedInstanceState.getParcelable(EXTRA_ORIGINAL)
             location = savedInstanceState.getParcelable(EXTRA_LOCATION)
         }
-        return view
     }
 
     override fun onResume() {
