@@ -22,6 +22,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,7 +38,7 @@ import com.todoroo.astrid.adapter.TaskAdapter
 import com.todoroo.astrid.adapter.TaskAdapterProvider
 import com.todoroo.astrid.api.*
 import com.todoroo.astrid.core.BuiltInFilterExposer
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskCreator
 import com.todoroo.astrid.service.TaskDeleter
@@ -52,15 +53,16 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
+import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.ShortcutManager
 import org.tasks.activities.*
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
-import org.tasks.data.CaldavDaoBlocking
-import org.tasks.data.TagDataDaoBlocking
+import org.tasks.data.CaldavDao
+import org.tasks.data.TagDataDao
 import org.tasks.data.TaskContainer
-import org.tasks.db.DbUtils.chunkedMap
+import org.tasks.db.SuspendDbUtils.chunkedMap
 import org.tasks.dialogs.DateTimePicker.Companion.newDateTimePicker
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.SortDialog
@@ -100,10 +102,10 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     @Inject lateinit var taskMover: TaskMover
     @Inject lateinit var toaster: Toaster
     @Inject lateinit var taskAdapterProvider: TaskAdapterProvider
-    @Inject lateinit var taskDao: TaskDaoBlocking
+    @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var taskDuplicator: TaskDuplicator
-    @Inject lateinit var tagDataDao: TagDataDaoBlocking
-    @Inject lateinit var caldavDao: CaldavDaoBlocking
+    @Inject lateinit var tagDataDao: TagDataDao
+    @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var defaultThemeColor: ThemeColor
     @Inject lateinit var colorProvider: ColorProvider
     @Inject lateinit var notificationManager: NotificationManager
@@ -238,7 +240,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                             taskAdapter, recyclerView, viewHolderFactory, this, tasks, preferences))
             return
         }
-        recyclerAdapter!!.submitList(tasks)
+        recyclerAdapter?.submitList(tasks)
     }
 
     private fun setAdapter(adapter: TaskListRecyclerAdapter) {
@@ -355,10 +357,12 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             }
             R.id.menu_caldav_list_fragment -> {
                 val calendar = (filter as CaldavFilter).calendar
-                val account = caldavDao.getAccountByUuid(calendar.account!!)
-                val caldavSettings = Intent(activity, account!!.listSettingsClass())
-                caldavSettings.putExtra(BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_CALENDAR, calendar)
-                startActivityForResult(caldavSettings, REQUEST_LIST_SETTINGS)
+                lifecycleScope.launch {
+                    val account = caldavDao.getAccountByUuid(calendar.account!!)
+                    val caldavSettings = Intent(activity, account!!.listSettingsClass())
+                    caldavSettings.putExtra(BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_CALENDAR, calendar)
+                    startActivityForResult(caldavSettings, REQUEST_LIST_SETTINGS)
+                }
                 true
             }
             R.id.menu_location_settings -> {
@@ -382,13 +386,17 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 true
             }
             R.id.menu_expand_subtasks -> {
-                taskDao.setCollapsed(preferences, filter, false)
-                localBroadcastManager.broadcastRefresh()
+                lifecycleScope.launch {
+                    taskDao.setCollapsed(preferences, filter, false)
+                    localBroadcastManager.broadcastRefresh()
+                }
                 true
             }
             R.id.menu_collapse_subtasks -> {
-                taskDao.setCollapsed(preferences, filter, true)
-                localBroadcastManager.broadcastRefresh()
+                lifecycleScope.launch {
+                    taskDao.setCollapsed(preferences, filter, true)
+                    localBroadcastManager.broadcastRefresh()
+                }
                 true
             }
             R.id.menu_open_map -> {
@@ -396,7 +404,9 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 true
             }
             R.id.menu_share -> {
-                send(taskDao.fetchTasks(preferences, filter))
+                lifecycleScope.launch {
+                    send(taskDao.fetchTasks(preferences, filter))
+                }
                 true
             }
             else -> onOptionsItemSelected(item)
@@ -531,12 +541,14 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 }
             }
             REQUEST_TAG_TASKS -> if (resultCode == Activity.RESULT_OK) {
-                val modified = tagDataDao.applyTags(
-                        taskDao.fetch(
-                                data!!.getSerializableExtra(TagPickerActivity.EXTRA_TASKS) as ArrayList<Long>),
-                        data.getParcelableArrayListExtra(TagPickerActivity.EXTRA_PARTIALLY_SELECTED)!!,
-                        data.getParcelableArrayListExtra(TagPickerActivity.EXTRA_SELECTED)!!)
-                taskDao.touch(modified)
+                lifecycleScope.launch {
+                    val modified = tagDataDao.applyTags(
+                            taskDao.fetch(
+                                    data!!.getSerializableExtra(TagPickerActivity.EXTRA_TASKS) as ArrayList<Long>),
+                            data.getParcelableArrayListExtra(TagPickerActivity.EXTRA_PARTIALLY_SELECTED)!!,
+                            data.getParcelableArrayListExtra(TagPickerActivity.EXTRA_SELECTED)!!)
+                    taskDao.touch(modified)
+                }
                 finishActionMode()
             }
             else -> super.onActivityResult(requestCode, resultCode, data)
@@ -604,15 +616,17 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         val selected = taskAdapter.getSelected()
         return when (item.itemId) {
             R.id.edit_tags -> {
-                val tags = tagDataDao.getTagSelections(selected)
-                val intent = Intent(context, TagPickerActivity::class.java)
-                intent.putExtra(TagPickerActivity.EXTRA_TASKS, selected)
-                intent.putParcelableArrayListExtra(
-                        TagPickerActivity.EXTRA_PARTIALLY_SELECTED,
-                        ArrayList(tagDataDao.getByUuid(tags.first!!)))
-                intent.putParcelableArrayListExtra(
-                        TagPickerActivity.EXTRA_SELECTED, ArrayList(tagDataDao.getByUuid(tags.second!!)))
-                startActivityForResult(intent, REQUEST_TAG_TASKS)
+                lifecycleScope.launch {
+                    val tags = tagDataDao.getTagSelections(selected)
+                    val intent = Intent(context, TagPickerActivity::class.java)
+                    intent.putExtra(TagPickerActivity.EXTRA_TASKS, selected)
+                    intent.putParcelableArrayListExtra(
+                            TagPickerActivity.EXTRA_PARTIALLY_SELECTED,
+                            ArrayList(tagDataDao.getByUuid(tags.first!!)))
+                    intent.putParcelableArrayListExtra(
+                            TagPickerActivity.EXTRA_SELECTED, ArrayList(tagDataDao.getByUuid(tags.second!!)))
+                    startActivityForResult(intent, REQUEST_TAG_TASKS)
+                }
                 true
             }
             R.id.move_tasks -> {
@@ -622,14 +636,19 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 true
             }
             R.id.menu_select_all -> {
-                taskAdapter.setSelected(taskDao.fetchTasks(preferences, filter).map(TaskContainer::getId))
-                updateModeTitle()
-                recyclerAdapter!!.notifyDataSetChanged()
+                lifecycleScope.launch {
+                    taskAdapter.setSelected(taskDao.fetchTasks(preferences, filter)
+                            .map(TaskContainer::getId))
+                    updateModeTitle()
+                    recyclerAdapter?.notifyDataSetChanged()
+                }
                 true
             }
             R.id.menu_share -> {
-                selected.chunkedMap { taskDao.fetchTasks(preferences, IdListFilter(it)) }
-                        .apply(this::send)
+                lifecycleScope.launch {
+                    selected.chunkedMap { taskDao.fetchTasks(preferences, IdListFilter(it)) }
+                            .apply { send(this) }
+                }
                 true
             }
             R.id.delete -> {
@@ -670,7 +689,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         this.mode = null
         if (taskAdapter.numSelected > 0) {
             taskAdapter.clearSelections()
-            recyclerAdapter!!.notifyDataSetChanged()
+            recyclerAdapter?.notifyDataSetChanged()
         }
     }
 
@@ -770,8 +789,10 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     }
 
     override fun toggleSubtasks(task: TaskContainer, collapsed: Boolean) {
-        taskDao.setCollapsed(task.id, collapsed)
-        broadcastRefresh()
+        lifecycleScope.launch {
+            taskDao.setCollapsed(task.id, collapsed)
+            broadcastRefresh()
+        }
     }
 
     companion object {
