@@ -119,14 +119,14 @@ class ListFragment : TaskEditControlFragment() {
 
     override fun requiresId() = true
 
-    override fun apply(task: Task) {
+    override suspend fun apply(task: Task) {
         if (isNew || hasChanges()) {
             task.parent = 0
             taskMover.move(listOf(task.id), selectedList)
         }
     }
 
-    override fun hasChanges(original: Task) = hasChanges()
+    override suspend fun hasChanges(original: Task) = hasChanges()
 
     private fun hasChanges() = selectedList != originalList
 

@@ -92,7 +92,7 @@ class CalendarControlSet : TaskEditControlFragment() {
 
     override fun controlId() = TAG
 
-    override fun hasChanges(original: Task): Boolean {
+    override suspend fun hasChanges(original: Task): Boolean {
         if (!permissionChecker.canAccessCalendars()) {
             return false
         }
@@ -105,7 +105,7 @@ class CalendarControlSet : TaskEditControlFragment() {
         } else originalUri != eventUri
     }
 
-    override fun apply(task: Task) {
+    override suspend fun apply(task: Task) {
         if (!permissionChecker.canAccessCalendars()) {
             return
         }

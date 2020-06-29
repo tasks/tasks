@@ -109,7 +109,7 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
 
     override fun requiresId() = true
 
-    override fun apply(task: Task) {
+    override suspend fun apply(task: Task) {
         for (subtask in newSubtasks) {
             if (isNullOrEmpty(subtask.title)) {
                 continue
@@ -138,7 +138,7 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
         }
     }
 
-    override fun hasChanges(original: Task): Boolean {
+    override suspend fun hasChanges(original: Task): Boolean {
         return newSubtasks.isNotEmpty()
     }
 

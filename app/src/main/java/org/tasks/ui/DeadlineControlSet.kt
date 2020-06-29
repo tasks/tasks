@@ -71,11 +71,11 @@ class DeadlineControlSet : TaskEditControlFragment() {
 
     override fun controlId() = TAG
 
-    override fun hasChanges(original: Task): Boolean {
+    override suspend fun hasChanges(original: Task): Boolean {
         return original.dueDate != dueDateTime
     }
 
-    override fun apply(task: Task) {
+    override suspend fun apply(task: Task) {
         val dueDate = dueDateTime
         if (dueDate != task.dueDate) {
             task.reminderSnooze = 0L

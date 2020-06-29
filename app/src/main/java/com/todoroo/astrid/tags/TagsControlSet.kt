@@ -74,7 +74,7 @@ class TagsControlSet : TaskEditControlFragment() {
     override val layout: Int
         get() = R.layout.control_set_tags
 
-    override fun apply(task: Task) {
+    override suspend fun apply(task: Task) {
         if (tagDao.applyTags(task, tagDataDao, selectedTags)) {
             task.modificationDate = DateUtilities.now()
         }
@@ -94,7 +94,7 @@ class TagsControlSet : TaskEditControlFragment() {
 
     override fun controlId() = TAG
 
-    override fun hasChanges(original: Task): Boolean {
+    override suspend fun hasChanges(original: Task): Boolean {
         return HashSet(originalTags) != HashSet(selectedTags)
     }
 

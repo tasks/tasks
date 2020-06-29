@@ -10,6 +10,7 @@ import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import butterknife.ButterKnife
 import com.todoroo.astrid.data.Task
+import kotlinx.coroutines.runBlocking
 import org.tasks.R
 
 abstract class TaskEditControlFragment : Fragment() {
@@ -50,9 +51,19 @@ abstract class TaskEditControlFragment : Fragment() {
         return false
     }
 
-    abstract fun apply(task: Task)
+    @Deprecated("use coroutines")
+    fun applyBlocking(task: Task) = runBlocking {
+        apply(task)
+    }
 
-    open fun hasChanges(original: Task): Boolean {
+    abstract suspend fun apply(task: Task)
+
+    @Deprecated("use coroutines")
+    fun hasChangesBlocking(original: Task) = runBlocking {
+        hasChanges(original)
+    }
+
+    open suspend fun hasChanges(original: Task): Boolean {
         return false
     }
 

@@ -162,11 +162,11 @@ class HideUntilControlSet : TaskEditControlFragment(), OnItemSelectedListener {
         }
     }
 
-    override fun apply(task: Task) {
+    override suspend fun apply(task: Task) {
         task.hideUntil = getHideUntil(task)
     }
 
-    override fun hasChanges(original: Task): Boolean {
+    override suspend fun hasChanges(original: Task): Boolean {
         return original.hideUntil != getHideUntil(original)
     }
 

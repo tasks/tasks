@@ -60,11 +60,11 @@ class DescriptionControlSet : TaskEditControlFragment() {
         description = text.toString().trim { it <= ' ' }
     }
 
-    override fun apply(task: Task) {
+    override suspend fun apply(task: Task) {
         task.notes = description
     }
 
-    override fun hasChanges(original: Task): Boolean {
+    override suspend fun hasChanges(original: Task): Boolean {
         return !if (isNullOrEmpty(description)) isNullOrEmpty(original.notes) else description == stripCarriageReturns(original.notes)
     }
 

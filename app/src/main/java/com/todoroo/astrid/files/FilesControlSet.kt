@@ -75,7 +75,7 @@ class FilesControlSet : TaskEditControlFragment() {
 
     override fun controlId() = TAG
 
-    override fun apply(task: Task) {}
+    override suspend fun apply(task: Task) {}
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == AddAttachmentDialog.REQUEST_CAMERA || requestCode == AddAttachmentDialog.REQUEST_AUDIO) {

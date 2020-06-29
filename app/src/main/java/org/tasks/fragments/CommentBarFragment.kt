@@ -88,7 +88,7 @@ class CommentBarFragment : TaskEditControlFragment() {
 
     override fun controlId() = TAG
 
-    override fun apply(task: Task) {}
+    override suspend fun apply(task: Task) {}
 
     @OnTextChanged(R.id.commentField)
     fun onTextChanged(s: CharSequence) {

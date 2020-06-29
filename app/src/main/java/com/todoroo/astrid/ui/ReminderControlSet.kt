@@ -167,13 +167,13 @@ class ReminderControlSet : TaskEditControlFragment() {
         }
     }
 
-    override fun hasChanges(original: Task): Boolean {
+    override suspend fun hasChanges(original: Task): Boolean {
         return getFlags() != original.reminderFlags || randomReminderPeriod != original.reminderPeriod || HashSet(currentAlarms()) != alarms
     }
 
     override fun requiresId() = true
 
-    override fun apply(task: Task) {
+    override suspend fun apply(task: Task) {
         task.reminderFlags = getFlags()
         task.reminderPeriod = randomReminderPeriod
         if (alarmService.synchronizeAlarms(task.id, alarms)) {

@@ -202,7 +202,7 @@ class LocationControlSet : TaskEditControlFragment() {
         startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + location!!.phone)))
     }
 
-    override fun hasChanges(task: Task): Boolean {
+    override suspend fun hasChanges(task: Task): Boolean {
         if (original == null) {
             return location != null
         }
@@ -220,7 +220,7 @@ class LocationControlSet : TaskEditControlFragment() {
 
     override fun requiresId() = true
 
-    override fun apply(task: Task) {
+    override suspend fun apply(task: Task) {
         if (original == null || location == null || original!!.place != location!!.place) {
             task.putTransitory(SyncFlags.FORCE_CALDAV_SYNC, true)
         }

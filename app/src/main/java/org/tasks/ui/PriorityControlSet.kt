@@ -68,11 +68,11 @@ class PriorityControlSet : TaskEditControlFragment() {
 
     override fun controlId() = TAG
 
-    override fun apply(task: Task) {
+    override suspend fun apply(task: Task) {
         task.priority = priority
     }
 
-    override fun hasChanges(original: Task): Boolean {
+    override suspend fun hasChanges(original: Task): Boolean {
         return original.priority != priority
     }
 

@@ -136,12 +136,12 @@ class TimerControlSet : TaskEditControlFragment() {
 
     override fun controlId() = TAG
 
-    override fun hasChanges(original: Task): Boolean {
+    override suspend fun hasChanges(original: Task): Boolean {
         return (elapsed.timeDurationInSeconds != original.elapsedSeconds
                 || estimated.timeDurationInSeconds != original.estimatedSeconds)
     }
 
-    override fun apply(task: Task) {
+    override suspend fun apply(task: Task) {
         task.elapsedSeconds = elapsed.timeDurationInSeconds
         task.estimatedSeconds = estimated.timeDurationInSeconds
     }

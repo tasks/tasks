@@ -302,7 +302,7 @@ public final class TaskEditFragment extends Fragment
       }
       for (TaskEditControlFragment fragment :
           filter(fragments, not(TaskEditControlFragment::requiresId))) {
-        fragment.apply(model);
+        fragment.applyBlocking(model);
       }
 
       Completable.fromAction(
@@ -315,7 +315,7 @@ public final class TaskEditFragment extends Fragment
 
                 for (TaskEditControlFragment fragment :
                     filter(fragments, TaskEditControlFragment::requiresId)) {
-                  fragment.apply(model);
+                  fragment.applyBlocking(model);
                 }
 
                 taskDao.save(model, null);
@@ -375,7 +375,7 @@ public final class TaskEditFragment extends Fragment
 
     try {
       for (TaskEditControlFragment fragment : fragments) {
-        if (fragment.hasChanges(model)) {
+        if (fragment.hasChangesBlocking(model)) {
           return true;
         }
       }
