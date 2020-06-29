@@ -7,13 +7,13 @@ import org.tasks.time.DateTimeUtils.currentTimeMillis
 @Dao
 abstract class GoogleTaskDao {
     @Insert
-    abstract fun insert(task: GoogleTask): Long
+    abstract suspend fun insert(task: GoogleTask): Long
 
     @Insert
-    abstract fun insert(tasks: Iterable<GoogleTask>)
+    abstract suspend fun insert(tasks: Iterable<GoogleTask>)
 
     @Transaction
-    open fun insertAndShift(task: GoogleTask, top: Boolean) {
+    open suspend fun insertAndShift(task: GoogleTask, top: Boolean) {
         if (top) {
             task.order = 0
             shiftDown(task.listId!!, task.parent, 0)
@@ -24,19 +24,19 @@ abstract class GoogleTaskDao {
     }
 
     @Query("UPDATE google_tasks SET gt_order = gt_order + 1 WHERE gt_list_id = :listId AND gt_parent = :parent AND gt_order >= :position")
-    abstract fun shiftDown(listId: String, parent: Long, position: Long)
+    abstract suspend fun shiftDown(listId: String, parent: Long, position: Long)
 
     @Query("UPDATE google_tasks SET gt_order = gt_order - 1 WHERE gt_list_id = :listId AND gt_parent = :parent AND gt_order > :from AND gt_order <= :to")
-    abstract fun shiftUp(listId: String, parent: Long, from: Long, to: Long)
+    abstract suspend fun shiftUp(listId: String, parent: Long, from: Long, to: Long)
 
     @Query("UPDATE google_tasks SET gt_order = gt_order + 1 WHERE gt_list_id = :listId AND gt_parent = :parent AND gt_order < :from AND gt_order >= :to")
-    abstract fun shiftDown(listId: String, parent: Long, from: Long, to: Long)
+    abstract suspend fun shiftDown(listId: String, parent: Long, from: Long, to: Long)
 
     @Query("UPDATE google_tasks SET gt_order = gt_order - 1 WHERE gt_list_id = :listId AND gt_parent = :parent AND gt_order >= :position")
-    abstract fun shiftUp(listId: String, parent: Long, position: Long)
+    abstract suspend fun shiftUp(listId: String, parent: Long, position: Long)
 
     @Transaction
-    open fun move(task: SubsetGoogleTask, newParent: Long, newPosition: Long) {
+    open suspend fun move(task: SubsetGoogleTask, newParent: Long, newPosition: Long) {
         val previousParent = task.parent
         val previousPosition = task.order
         if (newParent == previousParent) {
@@ -55,67 +55,67 @@ abstract class GoogleTaskDao {
     }
 
     @Query("UPDATE google_task_accounts SET gta_collapsed = :collapsed WHERE gta_id = :id")
-    abstract fun setCollapsed(id: Long, collapsed: Boolean)
+    abstract suspend fun setCollapsed(id: Long, collapsed: Boolean)
 
     @Query("SELECT * FROM google_tasks WHERE gt_task = :taskId AND gt_deleted = 0 LIMIT 1")
-    abstract fun getByTaskId(taskId: Long): GoogleTask?
+    abstract suspend fun getByTaskId(taskId: Long): GoogleTask?
 
     @Update
-    abstract fun update(googleTask: GoogleTask)
+    abstract suspend fun update(googleTask: GoogleTask)
 
-    private fun update(googleTask: SubsetGoogleTask) {
+    private suspend fun update(googleTask: SubsetGoogleTask) {
         update(googleTask.id, googleTask.parent, googleTask.order)
     }
 
     @Query("UPDATE google_tasks SET gt_order = :order, gt_parent = :parent, gt_moved = 1 WHERE gt_id = :id")
-    abstract fun update(id: Long, parent: Long, order: Long)
+    abstract suspend fun update(id: Long, parent: Long, order: Long)
 
     @Query("UPDATE google_tasks SET gt_deleted = :now WHERE gt_task = :task OR gt_parent = :task")
-    abstract fun markDeleted(task: Long, now: Long = currentTimeMillis())
+    abstract suspend fun markDeleted(task: Long, now: Long = currentTimeMillis())
 
     @Delete
-    abstract fun delete(deleted: GoogleTask)
+    abstract suspend fun delete(deleted: GoogleTask)
 
     @Query("SELECT * FROM google_tasks WHERE gt_remote_id = :remoteId LIMIT 1")
-    abstract fun getByRemoteId(remoteId: String): GoogleTask?
+    abstract suspend fun getByRemoteId(remoteId: String): GoogleTask?
 
     @Query("SELECT * FROM google_tasks WHERE gt_task = :taskId AND gt_deleted > 0")
-    abstract fun getDeletedByTaskId(taskId: Long): List<GoogleTask>
+    abstract suspend fun getDeletedByTaskId(taskId: Long): List<GoogleTask>
 
     @Query("SELECT * FROM google_tasks WHERE gt_task = :taskId")
-    abstract fun getAllByTaskId(taskId: Long): List<GoogleTask>
+    abstract suspend fun getAllByTaskId(taskId: Long): List<GoogleTask>
 
     @Query("SELECT DISTINCT gt_list_id FROM google_tasks WHERE gt_deleted = 0 AND gt_task IN (:tasks)")
-    abstract fun getLists(tasks: List<Long>): List<String>
+    abstract suspend fun getLists(tasks: List<Long>): List<String>
 
     @Query("SELECT gt_task FROM google_tasks WHERE gt_parent IN (:ids) AND gt_deleted = 0")
-    abstract fun getChildren(ids: List<Long>): List<Long>
+    abstract suspend fun getChildren(ids: List<Long>): List<Long>
 
     @Query("SELECT tasks.* FROM tasks JOIN google_tasks ON tasks._id = gt_task WHERE gt_parent = :taskId")
-    abstract fun getChildTasks(taskId: Long): List<Task>
+    abstract suspend fun getChildTasks(taskId: Long): List<Task>
 
     @Query("SELECT * FROM google_tasks WHERE gt_parent = :id AND gt_deleted = 0")
-    abstract fun getChildren(id: Long): List<GoogleTask>
+    abstract suspend fun getChildren(id: Long): List<GoogleTask>
 
     @Query("SELECT IFNULL(MAX(gt_order), -1) + 1 FROM google_tasks WHERE gt_list_id = :listId AND gt_parent = :parent")
-    abstract fun getBottom(listId: String, parent: Long): Long
+    abstract suspend fun getBottom(listId: String, parent: Long): Long
 
     @Query("SELECT gt_remote_id FROM google_tasks JOIN tasks ON tasks._id = gt_task WHERE deleted = 0 AND gt_list_id = :listId AND gt_parent = :parent AND gt_order < :order AND gt_remote_id IS NOT NULL AND gt_remote_id != '' ORDER BY gt_order DESC")
-    abstract fun getPrevious(listId: String, parent: Long, order: Long): String?
+    abstract suspend fun getPrevious(listId: String, parent: Long, order: Long): String?
 
     @Query("SELECT gt_remote_id FROM google_tasks WHERE gt_task = :task")
-    abstract fun getRemoteId(task: Long): String?
+    abstract suspend fun getRemoteId(task: Long): String?
 
     @Query("SELECT gt_task FROM google_tasks WHERE gt_remote_id = :remoteId")
-    abstract fun getTask(remoteId: String): Long
+    abstract suspend fun getTask(remoteId: String): Long
 
     @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
     @Query("SELECT google_tasks.*, gt_order AS primary_sort, NULL AS secondary_sort FROM google_tasks JOIN tasks ON tasks._id = gt_task WHERE gt_parent = 0 AND gt_list_id = :listId AND tasks.deleted = 0 UNION SELECT c.*, p.gt_order AS primary_sort, c.gt_order AS secondary_sort FROM google_tasks AS c LEFT JOIN google_tasks AS p ON c.gt_parent = p.gt_task JOIN tasks ON tasks._id = c.gt_task WHERE c.gt_parent > 0 AND c.gt_list_id = :listId AND tasks.deleted = 0 ORDER BY primary_sort ASC, secondary_sort ASC")
-    abstract fun getByLocalOrder(listId: String): List<GoogleTask>
+    abstract suspend fun getByLocalOrder(listId: String): List<GoogleTask>
 
     @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
     @Query("SELECT google_tasks.*, gt_remote_order AS primary_sort, NULL AS secondary_sort FROM google_tasks JOIN tasks ON tasks._id = gt_task WHERE gt_parent = 0 AND gt_list_id = :listId AND tasks.deleted = 0 UNION SELECT c.*, p.gt_remote_order AS primary_sort, c.gt_remote_order AS secondary_sort FROM google_tasks AS c LEFT JOIN google_tasks AS p ON c.gt_parent = p.gt_task JOIN tasks ON tasks._id = c.gt_task WHERE c.gt_parent > 0 AND c.gt_list_id = :listId AND tasks.deleted = 0 ORDER BY primary_sort ASC, secondary_sort ASC")
-    abstract fun getByRemoteOrder(listId: String): List<GoogleTask>
+    abstract suspend fun getByRemoteOrder(listId: String): List<GoogleTask>
 
     @Query("UPDATE google_tasks"
             + " SET gt_parent = IFNULL(("
@@ -125,16 +125,16 @@ abstract class GoogleTaskDao {
             + "     AND p.gt_deleted = 0),"
             + " 0)"
             + " WHERE gt_moved = 0")
-    abstract fun updateParents()
+    abstract suspend fun updateParents()
 
     @Query("UPDATE google_tasks SET gt_parent = IFNULL((SELECT gt_task FROM google_tasks AS p WHERE p.gt_remote_id = google_tasks.gt_remote_parent), 0) WHERE gt_list_id = :listId AND gt_moved = 0")
-    abstract fun updateParents(listId: String)
+    abstract suspend fun updateParents(listId: String)
 
     @Query("UPDATE google_tasks SET gt_remote_parent = :parent, gt_remote_order = :position WHERE gt_remote_id = :id")
-    abstract fun updatePosition(id: String, parent: String, position: String)
+    abstract suspend fun updatePosition(id: String, parent: String, position: String)
 
     @Transaction
-    open fun reposition(listId: String) {
+    open suspend fun reposition(listId: String) {
         updateParents(listId)
         val orderedTasks = getByRemoteOrder(listId)
         var subtasks = 0L
@@ -157,7 +157,7 @@ abstract class GoogleTaskDao {
         }
     }
 
-    fun validateSorting(listId: String) {
+    suspend fun validateSorting(listId: String) {
         val orderedTasks = getByLocalOrder(listId)
         var subtasks = 0L
         var parent = 0L

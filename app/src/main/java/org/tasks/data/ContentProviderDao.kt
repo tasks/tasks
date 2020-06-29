@@ -10,7 +10,7 @@ import com.todoroo.astrid.data.Task
 @Dao
 interface ContentProviderDao {
     @Query("SELECT name FROM tags WHERE task = :taskId ORDER BY UPPER(name) ASC")
-    fun getTagNames(taskId: Long): List<String>
+    suspend fun getTagNames(taskId: Long): List<String>
 
     @Query("""
         SELECT *
@@ -25,10 +25,10 @@ interface ContentProviderDao {
                  172800000 * importance
             ASC
         LIMIT 100""")
-    fun getAstrid2TaskProviderTasks(): List<Task>
+    suspend fun getAstrid2TaskProviderTasks(): List<Task>
 
     @Query("SELECT * FROM tagdata WHERE name IS NOT NULL AND name != '' ORDER BY UPPER(name) ASC")
-    fun tagDataOrderedByName(): List<TagData>
+    suspend fun tagDataOrderedByName(): List<TagData>
 
     @Query("SELECT * FROM tasks")
     fun getTasks(): Cursor

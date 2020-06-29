@@ -8,18 +8,18 @@ import androidx.room.Update
 @Dao
 abstract class TaskListMetadataDao {
     @Query("SELECT * from task_list_metadata where tag_uuid = :tagUuid OR filter = :tagUuid LIMIT 1")
-    abstract fun fetchByTagOrFilter(tagUuid: String): TaskListMetadata?
+    abstract suspend fun fetchByTagOrFilter(tagUuid: String): TaskListMetadata?
 
     @Query("SELECT * FROM task_list_metadata")
-    abstract fun getAll(): List<TaskListMetadata>
+    abstract suspend fun getAll(): List<TaskListMetadata>
 
     @Update
-    abstract fun update(taskListMetadata: TaskListMetadata)
+    abstract suspend fun update(taskListMetadata: TaskListMetadata)
 
     @Insert
-    abstract fun insert(taskListMetadata: TaskListMetadata): Long
+    abstract suspend fun insert(taskListMetadata: TaskListMetadata): Long
 
-    fun createNew(taskListMetadata: TaskListMetadata) {
+    suspend fun createNew(taskListMetadata: TaskListMetadata) {
         taskListMetadata.id = insert(taskListMetadata)
     }
 }

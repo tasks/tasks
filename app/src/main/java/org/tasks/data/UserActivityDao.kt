@@ -8,24 +8,24 @@ import com.todoroo.astrid.helper.UUIDHelper
 @Dao
 abstract class UserActivityDao {
     @Insert
-    abstract fun insert(userActivity: UserActivity)
+    abstract suspend fun insert(userActivity: UserActivity)
 
     @Update
-    abstract fun update(userActivity: UserActivity)
+    abstract suspend fun update(userActivity: UserActivity)
 
     @Delete
-    abstract fun delete(userActivity: UserActivity)
+    abstract suspend fun delete(userActivity: UserActivity)
 
     @Query("SELECT * FROM userActivity WHERE target_id = :taskUuid ORDER BY created_at DESC ")
-    abstract fun getCommentsForTask(taskUuid: String): List<UserActivity>
+    abstract suspend fun getCommentsForTask(taskUuid: String): List<UserActivity>
 
     @Query("SELECT userActivity.* FROM userActivity INNER JOIN tasks ON tasks._id = :task WHERE target_id = tasks.remoteId")
-    abstract fun getComments(task: Long): List<UserActivity>
+    abstract suspend fun getComments(task: Long): List<UserActivity>
 
     @Query("SELECT * FROM userActivity")
-    abstract fun getComments(): List<UserActivity>
+    abstract suspend fun getComments(): List<UserActivity>
 
-    fun createNew(item: UserActivity) {
+    suspend fun createNew(item: UserActivity) {
         if (item.created == null || item.created == 0L) {
             item.created = DateUtilities.now()
         }

@@ -9,29 +9,29 @@ import com.todoroo.astrid.api.FilterListItem.NO_ORDER
 @Dao
 interface FilterDao {
     @Update
-    fun update(filter: Filter)
+    suspend fun update(filter: Filter)
 
     @Query("DELETE FROM filters WHERE _id = :id")
-    fun delete(id: Long)
+    suspend fun delete(id: Long)
 
     @Query("SELECT * FROM filters WHERE title = :title COLLATE NOCASE LIMIT 1")
-    fun getByName(title: String): Filter?
+    suspend fun getByName(title: String): Filter?
 
     @Insert
-    fun insert(filter: Filter): Long
+    suspend fun insert(filter: Filter): Long
 
     @Query("SELECT * FROM filters")
-    fun getFilters(): List<Filter>
+    suspend fun getFilters(): List<Filter>
 
     @Query("SELECT * FROM filters WHERE _id = :id LIMIT 1")
-    fun getById(id: Long): Filter?
+    suspend fun getById(id: Long): Filter?
 
     @Query("SELECT * FROM filters")
-    fun getAll(): List<Filter>
+    suspend fun getAll(): List<Filter>
 
     @Query("UPDATE filters SET f_order = $NO_ORDER")
-    fun resetOrders()
+    suspend fun resetOrders()
 
     @Query("UPDATE filters SET f_order = :order WHERE _id = :id")
-    fun setOrder(id: Long, order: Int)
+    suspend fun setOrder(id: Long, order: Int)
 }

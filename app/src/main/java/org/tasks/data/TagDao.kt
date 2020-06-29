@@ -6,31 +6,31 @@ import com.todoroo.astrid.data.Task
 @Dao
 abstract class TagDao {
     @Query("UPDATE tags SET name = :name WHERE tag_uid = :tagUid")
-    abstract fun rename(tagUid: String, name: String)
+    abstract suspend fun rename(tagUid: String, name: String)
 
     @Insert
-    abstract fun insert(tag: Tag)
+    abstract suspend fun insert(tag: Tag)
 
     @Insert
-    abstract fun insert(tags: Iterable<Tag>)
+    abstract suspend fun insert(tags: Iterable<Tag>)
 
     @Query("DELETE FROM tags WHERE task = :taskId AND tag_uid in (:tagUids)")
-    abstract fun deleteTags(taskId: Long, tagUids: List<String>)
+    abstract suspend fun deleteTags(taskId: Long, tagUids: List<String>)
 
     @Query("SELECT * FROM tags WHERE tag_uid = :tagUid")
-    abstract fun getByTagUid(tagUid: String): List<Tag>
+    abstract suspend fun getByTagUid(tagUid: String): List<Tag>
 
     @Query("SELECT * FROM tags WHERE task = :taskId")
-    abstract fun getTagsForTask(taskId: Long): List<Tag>
+    abstract suspend fun getTagsForTask(taskId: Long): List<Tag>
 
     @Query("SELECT * FROM tags WHERE task = :taskId AND tag_uid = :tagUid")
-    abstract fun getTagByTaskAndTagUid(taskId: Long, tagUid: String): Tag?
+    abstract suspend fun getTagByTaskAndTagUid(taskId: Long, tagUid: String): Tag?
 
     @Delete
-    abstract fun delete(tags: List<Tag>)
+    abstract suspend fun delete(tags: List<Tag>)
 
     @Transaction
-    open fun applyTags(task: Task, tagDataDao: TagDataDaoBlocking, current: List<TagData>): Boolean {
+    open suspend fun applyTags(task: Task, tagDataDao: TagDataDaoBlocking, current: List<TagData>): Boolean {
         val taskId = task.id
         val existing = HashSet(tagDataDao.getTagDataForTask(taskId))
         val selected = HashSet<TagData>(current)
@@ -41,7 +41,7 @@ abstract class TagDao {
         return removed.isNotEmpty() || added.isNotEmpty()
     }
 
-    fun insert(task: Task, tags: Collection<TagData>) {
+    suspend fun insert(task: Task, tags: Collection<TagData>) {
         if (!tags.isEmpty()) {
             insert(tags.map { Tag(task, it) })
         }
