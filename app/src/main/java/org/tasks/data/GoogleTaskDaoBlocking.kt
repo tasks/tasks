@@ -19,22 +19,6 @@ class GoogleTaskDaoBlocking @Inject constructor(private val dao: GoogleTaskDao) 
         dao.insertAndShift(task, top)
     }
 
-    fun shiftDown(listId: String, parent: Long, position: Long) = runBlocking {
-        dao.shiftDown(listId, parent, position)
-    }
-
-    fun shiftUp(listId: String, parent: Long, from: Long, to: Long) = runBlocking {
-        dao.shiftUp(listId, parent, from, to)
-    }
-
-    fun shiftDown(listId: String, parent: Long, from: Long, to: Long) = runBlocking {
-        dao.shiftDown(listId, parent, from, to)
-    }
-
-    fun shiftUp(listId: String, parent: Long, position: Long) = runBlocking {
-        dao.shiftUp(listId, parent, position)
-    }
-
     fun move(task: SubsetGoogleTask, newParent: Long, newPosition: Long) = runBlocking {
         dao.move(task, newParent, newPosition)
     }
@@ -109,10 +93,6 @@ class GoogleTaskDaoBlocking @Inject constructor(private val dao: GoogleTaskDao) 
 
     fun getByLocalOrder(listId: String): List<GoogleTask> = runBlocking {
         dao.getByLocalOrder(listId)
-    }
-
-    fun getByRemoteOrder(listId: String): List<GoogleTask> = runBlocking {
-        dao.getByRemoteOrder(listId)
     }
 
     fun updateParents() = runBlocking {

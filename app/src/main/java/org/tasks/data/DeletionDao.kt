@@ -11,22 +11,22 @@ import java.util.*
 @Dao
 abstract class DeletionDao {
     @Query("DELETE FROM caldav_tasks WHERE cd_task IN(:ids)")
-    abstract suspend fun deleteCaldavTasks(ids: List<Long>)
+    internal abstract suspend fun deleteCaldavTasks(ids: List<Long>)
 
     @Query("DELETE FROM google_tasks WHERE gt_task IN(:ids)")
-    abstract suspend fun deleteGoogleTasks(ids: List<Long>)
+    internal abstract suspend fun deleteGoogleTasks(ids: List<Long>)
 
     @Query("DELETE FROM tags WHERE task IN(:ids)")
     abstract suspend fun deleteTags(ids: List<Long>)
 
     @Query("DELETE FROM geofences WHERE task IN(:ids)")
-    abstract suspend fun deleteGeofences(ids: List<Long>)
+    internal abstract suspend fun deleteGeofences(ids: List<Long>)
 
     @Query("DELETE FROM alarms WHERE task IN(:ids)")
-    abstract suspend fun deleteAlarms(ids: List<Long>)
+    internal abstract suspend fun deleteAlarms(ids: List<Long>)
 
     @Query("DELETE FROM tasks WHERE _id IN(:ids)")
-    abstract suspend fun deleteTasks(ids: List<Long>)
+    internal abstract suspend fun deleteTasks(ids: List<Long>)
 
     @Transaction
     open suspend fun delete(ids: List<Long>) {
@@ -43,17 +43,17 @@ abstract class DeletionDao {
     @Query("UPDATE tasks "
             + "SET modified = (strftime('%s','now')*1000), deleted = (strftime('%s','now')*1000)"
             + "WHERE _id IN(:ids)")
-    abstract suspend fun markDeletedInternal(ids: List<Long>)
+    internal abstract suspend fun markDeletedInternal(ids: List<Long>)
 
     suspend fun markDeleted(ids: Iterable<Long>) {
         ids.eachChunk(this::markDeletedInternal)
     }
 
     @Query("SELECT gt_task FROM google_tasks WHERE gt_deleted = 0 AND gt_list_id = :listId")
-    abstract suspend fun getActiveGoogleTasks(listId: String): List<Long>
+    internal abstract suspend fun getActiveGoogleTasks(listId: String): List<Long>
 
     @Delete
-    abstract suspend fun deleteGoogleTaskList(googleTaskList: GoogleTaskList)
+    internal abstract suspend fun deleteGoogleTaskList(googleTaskList: GoogleTaskList)
 
     @Transaction
     open suspend fun delete(googleTaskList: GoogleTaskList): List<Long> {
@@ -64,7 +64,7 @@ abstract class DeletionDao {
     }
 
     @Delete
-    abstract suspend fun deleteGoogleTaskAccount(googleTaskAccount: GoogleTaskAccount)
+    internal abstract suspend fun deleteGoogleTaskAccount(googleTaskAccount: GoogleTaskAccount)
 
     @Query("SELECT * FROM google_task_lists WHERE gtl_account = :account ORDER BY gtl_title ASC")
     abstract suspend fun getLists(account: String): List<GoogleTaskList>
@@ -80,10 +80,10 @@ abstract class DeletionDao {
     }
 
     @Query("SELECT cd_task FROM caldav_tasks WHERE cd_calendar = :calendar AND cd_deleted = 0")
-    abstract suspend fun getActiveCaldavTasks(calendar: String): List<Long>
+    internal abstract suspend fun getActiveCaldavTasks(calendar: String): List<Long>
 
     @Delete
-    abstract suspend fun deleteCaldavCalendar(caldavCalendar: CaldavCalendar)
+    internal abstract suspend fun deleteCaldavCalendar(caldavCalendar: CaldavCalendar)
 
     @Transaction
     open suspend fun delete(caldavCalendar: CaldavCalendar): List<Long> {
@@ -97,7 +97,7 @@ abstract class DeletionDao {
     abstract suspend fun getCalendars(account: String): List<CaldavCalendar>
 
     @Delete
-    abstract suspend fun deleteCaldavAccount(caldavAccount: CaldavAccount)
+    internal abstract suspend fun deleteCaldavAccount(caldavAccount: CaldavAccount)
 
     @Query("DELETE FROM tasks WHERE _id IN (SELECT _id FROM tasks INNER JOIN caldav_tasks ON _id = cd_task INNER JOIN caldav_lists ON cdl_uuid = cd_calendar WHERE cdl_account = '$LOCAL' AND deleted > 0)")
     abstract suspend fun purgeDeleted()

@@ -48,7 +48,7 @@ abstract class CaldavDao {
     }
 
     @Insert
-    abstract suspend fun insertInternal(caldavCalendar: CaldavCalendar): Long
+    internal abstract suspend fun insertInternal(caldavCalendar: CaldavCalendar): Long
 
     @Update
     abstract suspend fun update(caldavCalendar: CaldavCalendar)
@@ -153,7 +153,7 @@ abstract class CaldavDao {
             objects.chunkedMap { getTasksInternal(calendar, it) }
 
     @Query("SELECT cd_task FROM caldav_tasks WHERE cd_calendar = :calendar AND cd_object IN (:objects)")
-    abstract suspend fun getTasksInternal(calendar: String, objects: List<String>): List<Long>
+    internal abstract suspend fun getTasksInternal(calendar: String, objects: List<String>): List<Long>
 
     @Query("SELECT * FROM caldav_lists WHERE cdl_account = :account AND cdl_url NOT IN (:urls)")
     abstract suspend fun findDeletedCalendars(account: String, urls: List<String>): List<CaldavCalendar>

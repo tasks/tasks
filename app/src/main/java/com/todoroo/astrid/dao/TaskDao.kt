@@ -40,7 +40,7 @@ abstract class TaskDao(private val database: Database) {
     }
 
     @Query("SELECT * FROM tasks WHERE completed = 0 AND deleted = 0 AND (hideUntil > :now OR dueDate > :now)")
-    abstract suspend fun needsRefresh(now: Long = DateUtilities.now()): List<Task>
+    internal abstract suspend fun needsRefresh(now: Long = DateUtilities.now()): List<Task>
 
     suspend fun fetchBlocking(id: Long) = runBlocking {
         fetch(id)
@@ -65,9 +65,6 @@ abstract class TaskDao(private val database: Database) {
 
     @Query("SELECT * FROM tasks WHERE completed = 0 AND deleted = 0")
     abstract suspend fun getActiveTasks(): List<Task>
-
-    @Query("SELECT * FROM tasks WHERE hideUntil < (strftime('%s','now')*1000)")
-    abstract suspend fun getVisibleTasks(): List<Task>
 
     @Query("SELECT * FROM tasks WHERE remoteId IN (:remoteIds) "
             + "AND recurrence IS NOT NULL AND LENGTH(recurrence) > 0")
@@ -171,7 +168,7 @@ SELECT EXISTS(SELECT 1 FROM tasks WHERE parent > 0 AND deleted = 0) AS hasSubtas
     }
 
     @Query("UPDATE tasks SET modified = :now WHERE _id in (:ids)")
-    abstract suspend fun touchInternal(ids: List<Long>, now: Long = currentTimeMillis())
+    internal abstract suspend fun touchInternal(ids: List<Long>, now: Long = currentTimeMillis())
 
     suspend fun setParent(parent: Long, tasks: List<Long>) =
             tasks.eachChunk { setParentInternal(parent, it) }
@@ -214,7 +211,7 @@ SELECT EXISTS(SELECT 1 FROM tasks WHERE parent > 0 AND deleted = 0) AS hasSubtas
     }
 
     @Query("UPDATE tasks SET collapsed = :collapsed WHERE _id IN (:ids)")
-    abstract suspend fun collapse(ids: List<Long>, collapsed: Boolean)
+    internal abstract suspend fun collapse(ids: List<Long>, collapsed: Boolean)
 
     // --- save
     // TODO: get rid of this super-hack

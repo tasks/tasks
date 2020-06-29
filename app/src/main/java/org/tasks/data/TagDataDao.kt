@@ -51,13 +51,13 @@ abstract class TagDataDao {
     abstract suspend fun tagDataOrderedByName(): List<TagData>
 
     @Delete
-    abstract suspend fun deleteTagData(tagData: TagData)
+    internal abstract suspend fun deleteTagData(tagData: TagData)
 
     @Query("DELETE FROM tags WHERE tag_uid = :tagUid")
     abstract suspend fun deleteTags(tagUid: String)
 
     @Query("SELECT * FROM tags WHERE task IN (:tasks) AND tag_uid NOT IN (:tagsToKeep)")
-    abstract suspend fun tagsToDelete(tasks: List<Long>, tagsToKeep: List<String>): List<Tag>
+    internal abstract suspend fun tagsToDelete(tasks: List<Long>, tagsToKeep: List<String>): List<Tag>
     
     suspend fun getTagSelections(tasks: List<Long>): Pair<Set<String>, Set<String>> {
         val allTags = getAllTags(tasks)
@@ -83,7 +83,7 @@ abstract class TagDataDao {
             + " LEFT JOIN tags ON tags.task = tasks._id"
             + " WHERE tasks._id IN (:tasks)"
             + " GROUP BY tasks._id")
-    abstract suspend fun getAllTags(tasks: List<Long>): List<String>
+    internal abstract suspend fun getAllTags(tasks: List<Long>): List<String>
 
     @Transaction
     open suspend fun applyTags(

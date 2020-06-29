@@ -42,24 +42,12 @@ class TagDataDaoBlocking @Inject constructor(private val dao: TagDataDao) {
         dao.tagDataOrderedByName()
     }
 
-    fun deleteTagData(tagData: TagData) = runBlocking {
-        dao.deleteTagData(tagData)
-    }
-
     fun deleteTags(tagUid: String) = runBlocking {
         dao.deleteTags(tagUid)
     }
 
-    fun tagsToDelete(tasks: List<Long>, tagsToKeep: List<String>): List<Tag> = runBlocking {
-        dao.tagsToDelete(tasks, tagsToKeep)
-    }
-
     fun getTagSelections(tasks: List<Long>): Pair<Set<String>, Set<String>> = runBlocking {
         dao.getTagSelections(tasks)
-    }
-
-    fun getAllTags(tasks: List<Long>): List<String> = runBlocking {
-        dao.getAllTags(tasks)
     }
 
     fun applyTags(tasks: List<Task>, partiallySelected: List<TagData>, selected: List<TagData>): List<Long> = runBlocking {

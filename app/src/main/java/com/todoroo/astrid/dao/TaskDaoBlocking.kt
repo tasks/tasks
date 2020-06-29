@@ -13,17 +13,12 @@ import kotlinx.coroutines.runBlocking
 import org.tasks.data.SubtaskInfo
 import org.tasks.data.TaskContainer
 import org.tasks.preferences.Preferences
-import org.tasks.time.DateTimeUtils.currentTimeMillis
 import javax.inject.Inject
 
 @Deprecated("use coroutines")
 class TaskDaoBlocking @Inject constructor(private val dao: TaskDao) {
     fun needsRefresh(): List<Task> = runBlocking {
         dao.needsRefresh()
-    }
-
-    fun needsRefresh(now: Long): List<Task> = runBlocking {
-        dao.needsRefresh(now)
     }
 
     fun fetchBlocking(id: Long) = runBlocking {
@@ -36,10 +31,6 @@ class TaskDaoBlocking @Inject constructor(private val dao: TaskDao) {
 
     fun fetch(ids: List<Long>): List<Task> = runBlocking {
         dao.fetch(ids)
-    }
-
-    internal fun fetchInternal(ids: List<Long>): List<Task> = runBlocking {
-        dao.fetchInternal(ids)
     }
 
     fun activeTimers(): Int = runBlocking {
@@ -56,10 +47,6 @@ class TaskDaoBlocking @Inject constructor(private val dao: TaskDao) {
 
     fun getActiveTasks(): List<Task> = runBlocking {
         dao.getActiveTasks()
-    }
-
-    fun getVisibleTasks(): List<Task> = runBlocking {
-        dao.getVisibleTasks()
     }
 
     fun getRecurringTasks(remoteIds: List<String>): List<Task> = runBlocking {
@@ -142,16 +129,8 @@ class TaskDaoBlocking @Inject constructor(private val dao: TaskDao) {
         dao.touch(ids)
     }
 
-    fun touchInternal(ids: List<Long>, now: Long = currentTimeMillis()) = runBlocking {
-        dao.touchInternal(ids, now)
-    }
-
     fun setParent(parent: Long, tasks: List<Long>) = runBlocking {
         dao.setParent(parent, tasks)
-    }
-
-    internal fun setParentInternal(parent: Long, children: List<Long>) = runBlocking {
-        dao.setParentInternal(parent, children)
     }
 
     fun fetchChildren(id: Long): List<Task> = runBlocking {
@@ -172,10 +151,6 @@ class TaskDaoBlocking @Inject constructor(private val dao: TaskDao) {
 
     fun setCollapsed(preferences: Preferences, filter: Filter, collapsed: Boolean) = runBlocking {
         dao.setCollapsed(preferences, filter, collapsed)
-    }
-
-    fun collapse(ids: List<Long>, collapsed: Boolean) = runBlocking {
-        dao.collapse(ids, collapsed)
     }
 
     fun save(task: Task) = runBlocking {

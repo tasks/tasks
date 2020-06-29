@@ -2,7 +2,6 @@ package org.tasks.data
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.data.Task
 import kotlinx.coroutines.runBlocking
 import org.tasks.filters.CaldavFilters
@@ -49,10 +48,6 @@ class CaldavDaoBlocking @Inject constructor(private val dao: CaldavDao) {
 
     fun insert(caldavCalendar: CaldavCalendar) = runBlocking {
         dao.insert(caldavCalendar)
-    }
-
-    fun insertInternal(caldavCalendar: CaldavCalendar): Long = runBlocking {
-        dao.insertInternal(caldavCalendar)
     }
 
     fun update(caldavCalendar: CaldavCalendar) = runBlocking {
@@ -163,10 +158,6 @@ class CaldavDaoBlocking @Inject constructor(private val dao: CaldavDao) {
         dao.getTasks(calendar, objects)
     }
 
-    fun getTasksInternal(calendar: String, objects: List<String>): List<Long> = runBlocking {
-        dao.getTasksInternal(calendar, objects)
-    }
-
     fun findDeletedCalendars(account: String, urls: List<String>): List<CaldavCalendar> = runBlocking {
         dao.findDeletedCalendars(account, urls)
     }
@@ -205,14 +196,6 @@ class CaldavDaoBlocking @Inject constructor(private val dao: CaldavDao) {
 
     fun shiftDown(calendar: String, parent: Long, from: Long, to: Long? = null) = runBlocking {
         dao.shiftDown(calendar, parent, from, to)
-    }
-
-    internal fun touchInternal(ids: List<Long>, modificationTime: Long = now()) = runBlocking {
-        dao.touchInternal(ids, modificationTime)
-    }
-
-    internal fun getTasksToShift(calendar: String, parent: Long, from: Long, to: Long?): List<CaldavTaskContainer> = runBlocking {
-        dao.getTasksToShift(calendar, parent, from, to)
     }
 
     fun resetOrders() = runBlocking {

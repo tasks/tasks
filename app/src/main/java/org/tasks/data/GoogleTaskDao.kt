@@ -24,16 +24,16 @@ abstract class GoogleTaskDao {
     }
 
     @Query("UPDATE google_tasks SET gt_order = gt_order + 1 WHERE gt_list_id = :listId AND gt_parent = :parent AND gt_order >= :position")
-    abstract suspend fun shiftDown(listId: String, parent: Long, position: Long)
+    internal abstract suspend fun shiftDown(listId: String, parent: Long, position: Long)
 
     @Query("UPDATE google_tasks SET gt_order = gt_order - 1 WHERE gt_list_id = :listId AND gt_parent = :parent AND gt_order > :from AND gt_order <= :to")
-    abstract suspend fun shiftUp(listId: String, parent: Long, from: Long, to: Long)
+    internal abstract suspend fun shiftUp(listId: String, parent: Long, from: Long, to: Long)
 
     @Query("UPDATE google_tasks SET gt_order = gt_order + 1 WHERE gt_list_id = :listId AND gt_parent = :parent AND gt_order < :from AND gt_order >= :to")
-    abstract suspend fun shiftDown(listId: String, parent: Long, from: Long, to: Long)
+    internal abstract suspend fun shiftDown(listId: String, parent: Long, from: Long, to: Long)
 
     @Query("UPDATE google_tasks SET gt_order = gt_order - 1 WHERE gt_list_id = :listId AND gt_parent = :parent AND gt_order >= :position")
-    abstract suspend fun shiftUp(listId: String, parent: Long, position: Long)
+    internal abstract suspend fun shiftUp(listId: String, parent: Long, position: Long)
 
     @Transaction
     open suspend fun move(task: SubsetGoogleTask, newParent: Long, newPosition: Long) {
@@ -115,7 +115,7 @@ abstract class GoogleTaskDao {
 
     @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
     @Query("SELECT google_tasks.*, gt_remote_order AS primary_sort, NULL AS secondary_sort FROM google_tasks JOIN tasks ON tasks._id = gt_task WHERE gt_parent = 0 AND gt_list_id = :listId AND tasks.deleted = 0 UNION SELECT c.*, p.gt_remote_order AS primary_sort, c.gt_remote_order AS secondary_sort FROM google_tasks AS c LEFT JOIN google_tasks AS p ON c.gt_parent = p.gt_task JOIN tasks ON tasks._id = c.gt_task WHERE c.gt_parent > 0 AND c.gt_list_id = :listId AND tasks.deleted = 0 ORDER BY primary_sort ASC, secondary_sort ASC")
-    abstract suspend fun getByRemoteOrder(listId: String): List<GoogleTask>
+    internal abstract suspend fun getByRemoteOrder(listId: String): List<GoogleTask>
 
     @Query("UPDATE google_tasks"
             + " SET gt_parent = IFNULL(("
