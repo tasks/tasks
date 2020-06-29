@@ -22,16 +22,12 @@ import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.activity.TaskEditFragment.TaskEditFragmentCallbackHandler
 import com.todoroo.astrid.activity.TaskListFragment.TaskListFragmentCallbackHandler
 import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskCreator
 import com.todoroo.astrid.timers.TimerControlSet.TimerControlSetCallback
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
-import org.tasks.BuildConfig
+import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.activities.TagSettingsActivity
@@ -65,13 +61,12 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
     @Inject lateinit var repeatConfirmationReceiver: RepeatConfirmationReceiver
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
     @Inject lateinit var theme: Theme
-    @Inject lateinit var taskDao: TaskDaoBlocking
+    @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var taskCreator: TaskCreator
     @Inject lateinit var playServices: PlayServices
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var colorProvider: ColorProvider
-    private var disposables: CompositeDisposable? = null
     private lateinit var navigationDrawer: NavigationDrawerFragment
     private var currentNightMode = 0
     private var currentPro = false
@@ -176,23 +171,18 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
             tef.save()
         }
         if (loadFilter || !openFilter && filter == null) {
-            disposables!!.add(
-                    Single.fromCallable {
-                        val filter = intent.getStringExtra(LOAD_FILTER)
-                        intent.removeExtra(LOAD_FILTER)
-                        if (filter.isNullOrBlank()) {
-                            defaultFilterProvider.startupFilter
-                        } else {
-                            defaultFilterProvider.getFilterFromPreference(filter)
-                        }
-                    }
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe { filter: Filter? ->
-                                clearUi()
-                                openTaskListFragment(filter)
-                                openTask(filter)
-                            })
+            lifecycleScope.launch {
+                val filterString = intent.getStringExtra(LOAD_FILTER)
+                intent.removeExtra(LOAD_FILTER)
+                val filter = if (filterString.isNullOrBlank()) {
+                    defaultFilterProvider.getStartupFilter()
+                } else {
+                    defaultFilterProvider.getFilterFromPreference(filterString)
+                }
+                clearUi()
+                openTaskListFragment(filter)
+                openTask(filter)
+            }
         } else if (openFilter) {
             val filter: Filter? = intent.getParcelableExtra(OPEN_FILTER)
             intent.removeExtra(OPEN_FILTER)
@@ -279,8 +269,6 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
             return
         }
         localBroadcastManager.registerRepeatReceiver(repeatConfirmationReceiver)
-        check(!(BuildConfig.DEBUG && disposables != null && !disposables!!.isDisposed))
-        disposables = CompositeDisposable()
         if (preferences.getBoolean(R.string.p_just_updated, false)) {
             if (preferences.getBoolean(R.string.p_show_whats_new, true)) {
                 val fragmentManager = supportFragmentManager
@@ -303,7 +291,6 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
     override fun onPause() {
         super.onPause()
         localBroadcastManager.unregisterReceiver(repeatConfirmationReceiver)
-        disposables?.dispose()
     }
 
     override fun onTaskListItemClicked(task: Task?) {
@@ -317,11 +304,9 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         if (task.isNew) {
             openTask(task)
         } else {
-            disposables!!.add(
-                    Single.fromCallable { taskDao.fetchBlocking(task.id) }
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe { t: Task? -> this.openTask(t) })
+            lifecycleScope.launch {
+                openTask(taskDao.fetch(task.id))
+            }
         }
     }
 

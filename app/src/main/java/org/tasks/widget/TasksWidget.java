@@ -88,7 +88,7 @@ public class TasksWidget extends AppWidgetProvider {
         "setBackgroundColor",
         ColorUtils.setAlphaComponent(bgColor, widgetPreferences.getFooterOpacity()));
 
-    Filter filter = defaultFilterProvider.getFilterFromPreference(filterId);
+    Filter filter = defaultFilterProvider.getFilterFromPreferenceBlocking(filterId);
     remoteViews.setTextViewText(R.id.widget_title, filter.listingTitle);
 
     Uri cacheBuster = Uri.parse("tasks://widget/" + System.currentTimeMillis());

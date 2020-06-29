@@ -171,7 +171,7 @@ class ScrollableWidget : InjectingPreferenceFragment() {
     }
 
     private fun getFilter(): Filter? {
-        return defaultFilterProvider.getFilterFromPreference(widgetPreferences.filterId)
+        return defaultFilterProvider.getFilterFromPreferenceBlocking(widgetPreferences.filterId)
     }
 
     private fun setupSlider(resId: Int, defValue: Int): SeekBarPreference {

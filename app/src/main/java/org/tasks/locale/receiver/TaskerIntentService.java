@@ -31,7 +31,7 @@ public class TaskerIntentService extends InjectingJobIntentService {
 
     if (ListNotificationBundle.isBundleValid(bundle)) {
       Filter filter =
-          defaultFilterProvider.getFilterFromPreference(
+          defaultFilterProvider.getFilterFromPreferenceBlocking(
               bundle.getString(ListNotificationBundle.BUNDLE_EXTRA_STRING_FILTER));
       notifier.triggerFilterNotification(filter);
     } else if (TaskCreationBundle.isBundleValid(bundle)) {

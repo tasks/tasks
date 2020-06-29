@@ -54,7 +54,7 @@ public class DashClockExtension extends com.google.android.apps.dashclock.api.Da
 
   private void refresh() {
     final String filterPreference = preferences.getStringValue(R.string.p_dashclock_filter);
-    Filter filter = defaultFilterProvider.getFilterFromPreference(filterPreference);
+    Filter filter = defaultFilterProvider.getFilterFromPreferenceBlocking(filterPreference);
 
     int count = taskDao.count(filter);
 

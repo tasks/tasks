@@ -25,10 +25,6 @@ class FilterDaoBlocking @Inject constructor(private val dao: FilterDao) {
         dao.getFilters()
     }
 
-    fun getById(id: Long): Filter? = runBlocking {
-        dao.getById(id)
-    }
-
     fun getAll(): List<Filter> = runBlocking {
         dao.getAll()
     }

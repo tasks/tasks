@@ -6,6 +6,7 @@ import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.core.BuiltInFilterExposer
 import com.todoroo.astrid.core.BuiltInFilterExposer.getMyTasksFilter
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.*
@@ -16,62 +17,88 @@ import javax.inject.Inject
 class DefaultFilterProvider @Inject constructor(
         @param:ApplicationContext private val context: Context,
         private val preferences: Preferences,
-        private val filterDao: FilterDaoBlocking,
-        private val tagDataDao: TagDataDaoBlocking,
-        private val googleTaskListDao: GoogleTaskListDaoBlocking,
-        private val caldavDao: CaldavDaoBlocking,
-        private val locationDao: LocationDaoBlocking) {
+        private val filterDao: FilterDao,
+        private val tagDataDao: TagDataDao,
+        private val googleTaskListDao: GoogleTaskListDao,
+        private val caldavDao: CaldavDao,
+        private val locationDao: LocationDao) {
 
+    @Deprecated("use coroutines")
     var dashclockFilter: Filter
-        get() = getFilterFromPreference(R.string.p_dashclock_filter)
+        get() = runBlocking { getFilterFromPreference(R.string.p_dashclock_filter) }
         set(filter) = setFilterPreference(filter, R.string.p_dashclock_filter)
 
+    @Deprecated("use coroutines")
     var badgeFilter: Filter
-        get() = getFilterFromPreference(R.string.p_badge_list)
+        get() = runBlocking { getFilterFromPreference(R.string.p_badge_list) }
         set(filter) = setFilterPreference(filter, R.string.p_badge_list)
 
+    @Deprecated("use coroutines")
     var defaultOpenFilter: Filter
-        get() = getFilterFromPreference(R.string.p_default_open_filter)
+        get() = runBlocking { getDefaultOpenFilter() }
         set(filter) = setFilterPreference(filter, R.string.p_default_open_filter)
 
+    @Deprecated("use coroutines")
     var lastViewedFilter: Filter
-        get() = getFilterFromPreference(R.string.p_last_viewed_list)
+        get() = runBlocking { getFilterFromPreference(R.string.p_last_viewed_list) }
         set(filter) = setFilterPreference(filter, R.string.p_last_viewed_list)
 
+    @Deprecated("use coroutines")
     var defaultList: Filter
-        get() = getFilterFromPreference(preferences.getStringValue(R.string.p_default_list), null) ?: getAnyList()
+        get() = runBlocking { getDefaultList() }
         set(filter) = setFilterPreference(filter, R.string.p_default_list)
 
+    @Deprecated("use coroutines")
     val startupFilter: Filter
-        get() {
-            return if (preferences.getBoolean(R.string.p_open_last_viewed_list, true)) {
-                lastViewedFilter
-            } else {
-                defaultOpenFilter
-            }
-        }
+        get() = runBlocking { getStartupFilter() }
 
-    fun getFilterFromPreference(resId: Int): Filter =
+    suspend fun getDefaultList() =
+            getFilterFromPreference(preferences.getStringValue(R.string.p_default_list), null)
+                    ?: getAnyList()
+
+    suspend fun getLastViewedFilter() = getFilterFromPreference(R.string.p_last_viewed_list)
+
+    suspend fun getDefaultOpenFilter() = getFilterFromPreference(R.string.p_default_open_filter)
+
+    suspend fun getStartupFilter(): Filter {
+        return if (preferences.getBoolean(R.string.p_open_last_viewed_list, true)) {
+            getLastViewedFilter()
+        } else {
+            getDefaultOpenFilter()
+        }
+    }
+
+    @Deprecated("use coroutines")
+    fun getFilterFromPreferenceBlocking(resId: Int) = runBlocking {
+        getFilterFromPreference(resId)
+    }
+
+    @Deprecated("use coroutines")
+    fun getFilterFromPreferenceBlocking(prefString: String?) = runBlocking {
+        getFilterFromPreference(prefString)
+    }
+
+    suspend fun getFilterFromPreference(resId: Int): Filter =
             getFilterFromPreference(preferences.getStringValue(resId))
 
-    fun getFilterFromPreference(prefString: String?): Filter =
+    suspend fun getFilterFromPreference(prefString: String?): Filter =
             getFilterFromPreference(prefString, getMyTasksFilter(context.resources))!!
 
-    private fun getAnyList(): Filter {
+    private suspend fun getAnyList(): Filter {
         val filter = googleTaskListDao.getAllLists().getOrNull(0)?.let(::GtasksFilter)
                 ?: caldavDao.getCalendars().getOrElse(0) { caldavDao.getLocalList(context) }.let(::CaldavFilter)
         defaultList = filter
         return filter
     }
 
-    private fun getFilterFromPreference(preferenceValue: String?, def: Filter?) = try {
-        preferenceValue?.let(this::loadFilter) ?: def
+    private suspend fun getFilterFromPreference(preferenceValue: String?, def: Filter?) = try {
+        preferenceValue?.let { loadFilter(it) } ?: def
     } catch (e: Exception) {
         Timber.e(e)
         def
     }
 
-    private fun loadFilter(preferenceValue: String): Filter? {
+    private suspend fun loadFilter(preferenceValue: String): Filter? {
         val split = preferenceValue.split(":")
         return when (split[0].toInt()) {
             TYPE_FILTER -> getBuiltInFilter(split[1].toInt())

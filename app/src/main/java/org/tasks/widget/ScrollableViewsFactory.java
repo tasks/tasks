@@ -307,7 +307,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     showCheckboxes = widgetPreferences.showCheckboxes();
     textSize = widgetPreferences.getFontSize();
     dueDateTextSize = Math.max(10, textSize - 2);
-    filter = defaultFilterProvider.getFilterFromPreference(widgetPreferences.getFilterId());
+    filter = defaultFilterProvider.getFilterFromPreferenceBlocking(widgetPreferences.getFilterId());
     showDividers = widgetPreferences.showDividers();
     showSubtasks = widgetPreferences.showSubtasks();
     isRtl = locale.getDirectionality() == View.LAYOUT_DIRECTION_RTL;

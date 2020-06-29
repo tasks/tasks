@@ -32,7 +32,7 @@ class Widgets : InjectingPreferenceFragment() {
         appWidgetManager.widgetIds.forEach {
             val widgetPrefs = WidgetPreferences(context, preferences, it)
             val pref = Preference(context)
-            val filter = defaultFilterProvider.getFilterFromPreference(widgetPrefs.filterId)
+            val filter = defaultFilterProvider.getFilterFromPreferenceBlocking(widgetPrefs.filterId)
             pref.title = filter?.listingTitle
             pref.summary = getString(R.string.widget_id, it)
             val intent = Intent(context, WidgetConfigActivity::class.java)

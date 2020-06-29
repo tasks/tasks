@@ -41,7 +41,7 @@ class TaskerListNotification : InjectingPreferenceFragment() {
 
     override fun setupPreferences(savedInstanceState: Bundle?) {
         filter = if (savedInstanceState == null) {
-            defaultFilterProvider.getFilterFromPreference(arguments?.getString(EXTRA_FILTER))
+            defaultFilterProvider.getFilterFromPreferenceBlocking(arguments?.getString(EXTRA_FILTER))
         } else {
             savedInstanceState.getParcelable(EXTRA_FILTER)!!
         }
