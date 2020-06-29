@@ -1,31 +1,31 @@
 package org.tasks.data
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import kotlinx.coroutines.runBlocking
+import javax.inject.Inject
 
-@Dao
-interface AlarmDaoBlocking {
-    @Query("SELECT alarms.* FROM alarms INNER JOIN tasks ON tasks._id = alarms.task "
-            + "WHERE tasks.completed = 0 AND tasks.deleted = 0 AND tasks.lastNotified < alarms.time "
-            + "ORDER BY time ASC")
-    fun getActiveAlarms(): List<Alarm>
+@Deprecated("use coroutines")
+class AlarmDaoBlocking @Inject constructor(private val dao: AlarmDao) {
+    fun getActiveAlarms(): List<Alarm> = runBlocking {
+        dao.getActiveAlarms()
+    }
 
-    @Query("SELECT alarms.* FROM alarms INNER JOIN tasks ON tasks._id = alarms.task "
-            + "WHERE tasks._id = :taskId AND tasks.completed = 0 AND tasks.deleted = 0 AND tasks.lastNotified < alarms.time "
-            + "ORDER BY time ASC")
-    fun getActiveAlarms(taskId: Long): List<Alarm>
+    fun getActiveAlarms(taskId: Long): List<Alarm> = runBlocking {
+        dao.getActiveAlarms(taskId)
+    }
 
-    @Query("SELECT * FROM alarms WHERE task = :taskId ORDER BY time ASC")
-    fun getAlarms(taskId: Long): List<Alarm>
+    fun getAlarms(taskId: Long): List<Alarm> = runBlocking {
+        dao.getAlarms(taskId)
+    }
 
-    @Delete
-    fun delete(alarm: Alarm)
+    fun delete(alarm: Alarm) = runBlocking {
+        dao.delete(alarm)
+    }
 
-    @Insert
-    fun insert(alarm: Alarm): Long
+    fun insert(alarm: Alarm): Long = runBlocking {
+        dao.insert(alarm)
+    }
 
-    @Insert
-    fun insert(alarms: Iterable<Alarm>)
+    fun insert(alarms: Iterable<Alarm>) = runBlocking {
+        dao.insert(alarms)
+    }
 }

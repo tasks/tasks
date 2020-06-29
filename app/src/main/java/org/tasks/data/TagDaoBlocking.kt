@@ -1,49 +1,48 @@
 package org.tasks.data
 
-import androidx.room.*
 import com.todoroo.astrid.data.Task
+import kotlinx.coroutines.runBlocking
+import javax.inject.Inject
 
-@Dao
-abstract class TagDaoBlocking {
-    @Query("UPDATE tags SET name = :name WHERE tag_uid = :tagUid")
-    abstract fun rename(tagUid: String, name: String)
-
-    @Insert
-    abstract fun insert(tag: Tag)
-
-    @Insert
-    abstract fun insert(tags: Iterable<Tag>)
-
-    @Query("DELETE FROM tags WHERE task = :taskId AND tag_uid in (:tagUids)")
-    abstract fun deleteTags(taskId: Long, tagUids: List<String>)
-
-    @Query("SELECT * FROM tags WHERE tag_uid = :tagUid")
-    abstract fun getByTagUid(tagUid: String): List<Tag>
-
-    @Query("SELECT * FROM tags WHERE task = :taskId")
-    abstract fun getTagsForTask(taskId: Long): List<Tag>
-
-    @Query("SELECT * FROM tags WHERE task = :taskId AND tag_uid = :tagUid")
-    abstract fun getTagByTaskAndTagUid(taskId: Long, tagUid: String): Tag?
-
-    @Delete
-    abstract fun delete(tags: List<Tag>)
-
-    @Transaction
-    open fun applyTags(task: Task, tagDataDao: TagDataDaoBlocking, current: List<TagData>): Boolean {
-        val taskId = task.id
-        val existing = HashSet(tagDataDao.getTagDataForTask(taskId))
-        val selected = HashSet<TagData>(current)
-        val added = selected subtract existing
-        val removed = existing subtract selected
-        deleteTags(taskId, removed.map { td -> td.remoteId!! })
-        insert(task, added)
-        return removed.isNotEmpty() || added.isNotEmpty()
+@Deprecated("use coroutines")
+class TagDaoBlocking @Inject constructor(private val dao: TagDao) {
+    fun rename(tagUid: String, name: String) = runBlocking {
+        dao.rename(tagUid, name)
     }
 
-    fun insert(task: Task, tags: Collection<TagData>) {
-        if (!tags.isEmpty()) {
-            insert(tags.map { Tag(task, it) })
-        }
+    fun insert(tag: Tag) = runBlocking {
+        dao.insert(tag)
+    }
+
+    fun insert(tags: Iterable<Tag>) = runBlocking {
+        dao.insert(tags)
+    }
+
+    fun deleteTags(taskId: Long, tagUids: List<String>) = runBlocking {
+        dao.deleteTags(taskId, tagUids)
+    }
+
+    fun getByTagUid(tagUid: String): List<Tag> = runBlocking {
+        dao.getByTagUid(tagUid)
+    }
+
+    fun getTagsForTask(taskId: Long): List<Tag> = runBlocking {
+        dao.getTagsForTask(taskId)
+    }
+
+    fun getTagByTaskAndTagUid(taskId: Long, tagUid: String): Tag? = runBlocking {
+        dao.getTagByTaskAndTagUid(taskId, tagUid)
+    }
+
+    fun delete(tags: List<Tag>) = runBlocking {
+        dao.delete(tags)
+    }
+
+    fun applyTags(task: Task, tagDataDao: TagDataDaoBlocking, current: List<TagData>): Boolean = runBlocking {
+        dao.applyTags(task, tagDataDao, current)
+    }
+
+    fun insert(task: Task, tags: Collection<TagData>) = runBlocking {
+        dao.insert(task, tags)
     }
 }

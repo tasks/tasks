@@ -3,10 +3,12 @@ package com.todoroo.astrid.service
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.GtasksFilter
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.dao.TaskDaoBlocking
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.tasks.data.CaldavCalendar
@@ -34,6 +36,7 @@ import javax.inject.Inject
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class TaskMoverTest : InjectingTestCase() {
+    @Inject lateinit var taskDaoAsync: TaskDao
     @Inject lateinit var taskDao: TaskDaoBlocking
     @Inject lateinit var googleTaskDao: GoogleTaskDaoBlocking
     @Inject lateinit var workManager: WorkManager
@@ -43,7 +46,7 @@ class TaskMoverTest : InjectingTestCase() {
     @Before
     override fun setUp() {
         super.setUp()
-        taskDao.initialize(workManager)
+        taskDaoAsync.initialize(workManager)
     }
 
     @Test

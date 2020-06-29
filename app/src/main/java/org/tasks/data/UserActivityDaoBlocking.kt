@@ -1,37 +1,35 @@
 package org.tasks.data
 
-import androidx.room.*
-import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.astrid.data.Task
-import com.todoroo.astrid.helper.UUIDHelper
+import kotlinx.coroutines.runBlocking
+import javax.inject.Inject
 
-@Dao
-abstract class UserActivityDaoBlocking {
-    @Insert
-    abstract fun insert(userActivity: UserActivity)
+@Deprecated("use coroutines")
+class UserActivityDaoBlocking @Inject constructor(private val dao: UserActivityDao) {
+    fun insert(userActivity: UserActivity) = runBlocking {
+        dao.insert(userActivity)
+    }
 
-    @Update
-    abstract fun update(userActivity: UserActivity)
+    fun update(userActivity: UserActivity) = runBlocking {
+        dao.update(userActivity)
+    }
 
-    @Delete
-    abstract fun delete(userActivity: UserActivity)
+    fun delete(userActivity: UserActivity) = runBlocking {
+        dao.delete(userActivity)
+    }
 
-    @Query("SELECT * FROM userActivity WHERE target_id = :taskUuid ORDER BY created_at DESC ")
-    abstract fun getCommentsForTask(taskUuid: String): List<UserActivity>
+    fun getCommentsForTask(taskUuid: String): List<UserActivity> = runBlocking {
+        dao.getCommentsForTask(taskUuid)
+    }
 
-    @Query("SELECT userActivity.* FROM userActivity INNER JOIN tasks ON tasks._id = :task WHERE target_id = tasks.remoteId")
-    abstract fun getComments(task: Long): List<UserActivity>
+    fun getComments(task: Long): List<UserActivity> = runBlocking {
+        dao.getComments(task)
+    }
 
-    @Query("SELECT * FROM userActivity")
-    abstract fun getComments(): List<UserActivity>
+    fun getComments(): List<UserActivity> = runBlocking {
+        dao.getComments()
+    }
 
-    fun createNew(item: UserActivity) {
-        if (item.created == null || item.created == 0L) {
-            item.created = DateUtilities.now()
-        }
-        if (Task.isUuidEmpty(item.remoteId)) {
-            item.remoteId = UUIDHelper.newUUID()
-        }
-        insert(item)
+    fun createNew(item: UserActivity) = runBlocking {
+        dao.createNew(item)
     }
 }

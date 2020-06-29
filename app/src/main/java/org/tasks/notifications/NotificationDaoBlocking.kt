@@ -1,27 +1,31 @@
 package org.tasks.notifications
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import kotlinx.coroutines.runBlocking
+import javax.inject.Inject
 
-@Dao
-interface NotificationDaoBlocking {
-    @Query("SELECT task FROM notification")
-    fun getAll(): List<Long>
+@Deprecated("use coroutines")
+class NotificationDaoBlocking @Inject constructor(private val dao: NotificationDao) {
+    fun getAll(): List<Long> = runBlocking {
+        dao.getAll()
+    }
 
-    @Query("SELECT * FROM notification ORDER BY timestamp DESC")
-    fun getAllOrdered(): List<Notification>
+    fun getAllOrdered(): List<Notification> = runBlocking {
+        dao.getAllOrdered()
+    }
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(notifications: List<Notification>)
+    fun insertAll(notifications: List<Notification>) = runBlocking {
+        dao.insertAll(notifications)
+    }
 
-    @Query("DELETE FROM notification WHERE task = :taskId")
-    fun delete(taskId: Long)
+    fun delete(taskId: Long) = runBlocking {
+        dao.delete(taskId)
+    }
 
-    @Query("DELETE FROM notification WHERE task IN(:taskIds)")
-    fun deleteAll(taskIds: List<Long>)
+    fun deleteAll(taskIds: List<Long>) = runBlocking {
+        dao.deleteAll(taskIds)
+    }
 
-    @Query("SELECT MAX(timestamp) FROM notification")
-    fun latestTimestamp(): Long
+    fun latestTimestamp(): Long = runBlocking {
+        dao.latestTimestamp()
+    }
 }

@@ -1,37 +1,43 @@
 package org.tasks.data
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
-import com.todoroo.astrid.api.FilterListItem.NO_ORDER
+import kotlinx.coroutines.runBlocking
+import javax.inject.Inject
 
-@Dao
-interface FilterDaoBlocking {
-    @Update
-    fun update(filter: Filter)
+@Deprecated("use coroutines")
+class FilterDaoBlocking @Inject constructor(private val dao: FilterDao) {
+    fun update(filter: Filter) = runBlocking {
+        dao.update(filter)
+    }
 
-    @Query("DELETE FROM filters WHERE _id = :id")
-    fun delete(id: Long)
+    fun delete(id: Long) = runBlocking {
+        dao.delete(id)
+    }
 
-    @Query("SELECT * FROM filters WHERE title = :title COLLATE NOCASE LIMIT 1")
-    fun getByName(title: String): Filter?
+    fun getByName(title: String): Filter? = runBlocking {
+        dao.getByName(title)
+    }
 
-    @Insert
-    fun insert(filter: Filter): Long
+    fun insert(filter: Filter): Long = runBlocking {
+        dao.insert(filter)
+    }
 
-    @Query("SELECT * FROM filters")
-    fun getFilters(): List<Filter>
+    fun getFilters(): List<Filter> = runBlocking {
+        dao.getFilters()
+    }
 
-    @Query("SELECT * FROM filters WHERE _id = :id LIMIT 1")
-    fun getById(id: Long): Filter?
+    fun getById(id: Long): Filter? = runBlocking {
+        dao.getById(id)
+    }
 
-    @Query("SELECT * FROM filters")
-    fun getAll(): List<Filter>
+    fun getAll(): List<Filter> = runBlocking {
+        dao.getAll()
+    }
 
-    @Query("UPDATE filters SET f_order = $NO_ORDER")
-    fun resetOrders()
+    fun resetOrders() = runBlocking {
+        dao.resetOrders()
+    }
 
-    @Query("UPDATE filters SET f_order = :order WHERE _id = :id")
-    fun setOrder(id: Long, order: Int)
+    fun setOrder(id: Long, order: Int) = runBlocking {
+        dao.setOrder(id, order)
+    }
 }

@@ -1,25 +1,27 @@
 package org.tasks.data
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import kotlinx.coroutines.runBlocking
+import javax.inject.Inject
 
-@Dao
-abstract class TaskListMetadataDaoBlocking {
-    @Query("SELECT * from task_list_metadata where tag_uuid = :tagUuid OR filter = :tagUuid LIMIT 1")
-    abstract fun fetchByTagOrFilter(tagUuid: String): TaskListMetadata?
+@Deprecated("use coroutines")
+class TaskListMetadataDaoBlocking @Inject constructor(private val dao: TaskListMetadataDao) {
+    fun fetchByTagOrFilter(tagUuid: String): TaskListMetadata? = runBlocking {
+        dao.fetchByTagOrFilter(tagUuid)
+    }
 
-    @Query("SELECT * FROM task_list_metadata")
-    abstract fun getAll(): List<TaskListMetadata>
+    fun getAll(): List<TaskListMetadata> = runBlocking {
+        dao.getAll()
+    }
 
-    @Update
-    abstract fun update(taskListMetadata: TaskListMetadata)
+    fun update(taskListMetadata: TaskListMetadata) = runBlocking {
+        dao.update(taskListMetadata)
+    }
 
-    @Insert
-    abstract fun insert(taskListMetadata: TaskListMetadata): Long
+    fun insert(taskListMetadata: TaskListMetadata): Long = runBlocking {
+        dao.insert(taskListMetadata)
+    }
 
-    fun createNew(taskListMetadata: TaskListMetadata) {
-        taskListMetadata.id = insert(taskListMetadata)
+    fun createNew(taskListMetadata: TaskListMetadata) = runBlocking {
+        dao.createNew(taskListMetadata)
     }
 }

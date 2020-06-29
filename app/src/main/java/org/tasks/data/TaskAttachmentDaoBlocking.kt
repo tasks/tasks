@@ -1,33 +1,35 @@
 package org.tasks.data
 
-import androidx.room.*
-import com.todoroo.astrid.data.Task
-import com.todoroo.astrid.helper.UUIDHelper
+import kotlinx.coroutines.runBlocking
+import javax.inject.Inject
 
-@Dao
-abstract class TaskAttachmentDaoBlocking {
-    @Query("SELECT * FROM task_attachments WHERE task_id = :taskUuid")
-    abstract fun getAttachments(taskUuid: String): List<TaskAttachment>
+@Deprecated("use coroutines")
+class TaskAttachmentDaoBlocking @Inject constructor(private val dao: TaskAttachmentDao) {
+    fun getAttachments(taskUuid: String): List<TaskAttachment> = runBlocking {
+        dao.getAttachments(taskUuid)
+    }
 
-    @Query("SELECT task_attachments.* FROM task_attachments INNER JOIN tasks ON tasks._id = :task WHERE task_id = tasks.remoteId")
-    abstract fun getAttachments(task: Long): List<TaskAttachment>
+    fun getAttachments(task: Long): List<TaskAttachment> = runBlocking {
+        dao.getAttachments(task)
+    }
 
-    @Query("SELECT * FROM task_attachments")
-    abstract fun getAttachments(): List<TaskAttachment>
+    fun getAttachments(): List<TaskAttachment> = runBlocking {
+        dao.getAttachments()
+    }
 
-    @Delete
-    abstract fun delete(taskAttachment: TaskAttachment)
+    fun delete(taskAttachment: TaskAttachment) = runBlocking {
+        dao.delete(taskAttachment)
+    }
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insert(attachment: TaskAttachment)
+    fun insert(attachment: TaskAttachment) = runBlocking {
+        dao.insert(attachment)
+    }
 
-    @Update
-    abstract fun update(attachment: TaskAttachment)
+    fun update(attachment: TaskAttachment) = runBlocking {
+        dao.update(attachment)
+    }
 
-    fun createNew(attachment: TaskAttachment) {
-        if (Task.isUuidEmpty(attachment.remoteId)) {
-            attachment.remoteId = UUIDHelper.newUUID()
-        }
-        insert(attachment)
+    fun createNew(attachment: TaskAttachment) = runBlocking {
+        dao.createNew(attachment)
     }
 }

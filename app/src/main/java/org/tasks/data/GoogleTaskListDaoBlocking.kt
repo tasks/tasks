@@ -1,72 +1,86 @@
 package org.tasks.data
 
 import androidx.lifecycle.LiveData
-import androidx.room.*
-import com.todoroo.astrid.api.FilterListItem.NO_ORDER
+import kotlinx.coroutines.runBlocking
 import org.tasks.filters.GoogleTaskFilters
 import org.tasks.time.DateTimeUtils.currentTimeMillis
+import javax.inject.Inject
 
-@Dao
-interface GoogleTaskListDaoBlocking {
-    @Query("SELECT COUNT(*) FROM google_task_accounts")
-    fun accountCount(): Int
+@Deprecated("use coroutines")
+class GoogleTaskListDaoBlocking @Inject constructor(private val dao: GoogleTaskListDao) {
+    fun accountCount(): Int = runBlocking {
+        dao.accountCount()
+    }
 
-    @Query("SELECT * FROM google_task_accounts")
-    fun getAccounts(): List<GoogleTaskAccount>
+    fun getAccounts(): List<GoogleTaskAccount> = runBlocking {
+        dao.getAccounts()
+    }
 
-    @Query("SELECT * FROM google_task_accounts WHERE gta_account = :account COLLATE NOCASE LIMIT 1")
-    fun getAccount(account: String): GoogleTaskAccount?
+    fun getAccount(account: String): GoogleTaskAccount? = runBlocking {
+        dao.getAccount(account)
+    }
 
-    @Query("SELECT * FROM google_task_lists WHERE gtl_id = :id")
-    fun getById(id: Long): GoogleTaskList?
+    fun getById(id: Long): GoogleTaskList? = runBlocking {
+        dao.getById(id)
+    }
 
-    @Query("SELECT * FROM google_task_lists WHERE gtl_account = :account ORDER BY gtl_title ASC")
-    fun getLists(account: String): List<GoogleTaskList>
+    fun getLists(account: String): List<GoogleTaskList> = runBlocking {
+        dao.getLists(account)
+    }
 
-    @Query("SELECT * FROM google_task_lists WHERE gtl_remote_id = :remoteId LIMIT 1")
-    fun getByRemoteId(remoteId: String): GoogleTaskList?
+    fun getByRemoteId(remoteId: String): GoogleTaskList? = runBlocking {
+        dao.getByRemoteId(remoteId)
+    }
 
-    @Query("SELECT * FROM google_task_lists WHERE gtl_remote_id IN (:remoteIds)")
-    fun getByRemoteId(remoteIds: List<String>): List<GoogleTaskList>
+    fun getByRemoteId(remoteIds: List<String>): List<GoogleTaskList> = runBlocking {
+        dao.getByRemoteId(remoteIds)
+    }
 
-    @Query("SELECT * FROM google_task_lists")
-    fun subscribeToLists(): LiveData<List<GoogleTaskList>>
+    fun subscribeToLists(): LiveData<List<GoogleTaskList>> {
+        return dao.subscribeToLists()
+    }
 
-    @Query("SELECT * FROM google_task_lists WHERE gtl_remote_id = :remoteId AND IFNULL(gtl_account, '') = ''")
-    fun findExistingList(remoteId: String): GoogleTaskList?
+    fun findExistingList(remoteId: String): GoogleTaskList? = runBlocking {
+        dao.findExistingList(remoteId)
+    }
 
-    @Query("SELECT * FROM google_task_lists")
-    fun getAllLists(): List<GoogleTaskList>
+    fun getAllLists(): List<GoogleTaskList> = runBlocking {
+        dao.getAllLists()
+    }
 
-    @Query("UPDATE google_task_lists SET gtl_last_sync = 0 WHERE gtl_account = :account")
-    fun resetLastSync(account: String)
+    fun resetLastSync(account: String) = runBlocking {
+        dao.resetLastSync(account)
+    }
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertOrReplace(googleTaskList: GoogleTaskList): Long
+    fun insertOrReplace(googleTaskList: GoogleTaskList): Long = runBlocking {
+        dao.insertOrReplace(googleTaskList)
+    }
 
-    @Insert
-    fun insert(googleTaskList: GoogleTaskList): Long
+    fun insert(googleTaskList: GoogleTaskList): Long = runBlocking {
+        dao.insert(googleTaskList)
+    }
 
-    @Insert
-    fun insert(googleTaskAccount: GoogleTaskAccount)
+    fun insert(googleTaskAccount: GoogleTaskAccount) = runBlocking {
+        dao.insert(googleTaskAccount)
+    }
 
-    @Update
-    fun update(account: GoogleTaskAccount)
+    fun update(account: GoogleTaskAccount) = runBlocking {
+        dao.update(account)
+    }
 
-    @Update
-    fun update(list: GoogleTaskList)
+    fun update(list: GoogleTaskList) = runBlocking {
+        dao.update(list)
+    }
 
-    @Query("SELECT google_task_lists.*, COUNT(tasks._id) AS count"
-            + " FROM google_task_lists "
-            + " LEFT JOIN google_tasks ON google_tasks.gt_list_id = google_task_lists.gtl_remote_id"
-            + " LEFT JOIN tasks ON google_tasks.gt_task = tasks._id AND tasks.deleted = 0 AND tasks.completed = 0 AND tasks.hideUntil < :now AND gt_deleted = 0"
-            + " WHERE google_task_lists.gtl_account = :account"
-            + " GROUP BY google_task_lists.gtl_remote_id")
-    fun getGoogleTaskFilters(account: String, now: Long = currentTimeMillis()): List<GoogleTaskFilters>
+    fun getGoogleTaskFilters(account: String, now: Long = currentTimeMillis()): List<GoogleTaskFilters> = runBlocking {
+        dao.getGoogleTaskFilters(account, now)
+    }
 
-    @Query("UPDATE google_task_lists SET gtl_remote_order = $NO_ORDER")
-    fun resetOrders()
+    fun resetOrders() = runBlocking {
+        dao.resetOrders()
+    }
 
-    @Query("UPDATE google_task_lists SET gtl_remote_order = :order WHERE gtl_id = :id")
-    fun setOrder(id: Long, order: Int)
+    fun setOrder(id: Long, order: Int) = runBlocking {
+        dao.setOrder(id, order)
+    }
 }

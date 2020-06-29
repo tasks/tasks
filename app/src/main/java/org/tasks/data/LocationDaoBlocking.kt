@@ -1,118 +1,114 @@
 package org.tasks.data
 
 import androidx.lifecycle.LiveData
-import androidx.room.*
-import com.todoroo.astrid.api.FilterListItem.NO_ORDER
+import kotlinx.coroutines.runBlocking
 import org.tasks.filters.LocationFilters
 import org.tasks.time.DateTimeUtils.currentTimeMillis
+import javax.inject.Inject
 
-@Dao
-interface LocationDaoBlocking {
-    @Query("SELECT places.*"
-            + " FROM places"
-            + " INNER JOIN geofences ON geofences.place = places.uid"
-            + " INNER JOIN tasks ON geofences.task = tasks._id"
-            + " WHERE tasks.completed = 0 AND tasks.deleted = 0"
-            + " AND (geofences.arrival > 0 OR geofences.departure > 0)"
-            + " GROUP BY places.uid")
-    fun getPlacesWithGeofences(): List<Place>
+@Deprecated("use coroutines")
+class LocationDaoBlocking @Inject constructor(private val dao: LocationDao) {
+    fun getPlacesWithGeofences(): List<Place> = runBlocking {
+        dao.getPlacesWithGeofences()
+    }
 
-    @Query("SELECT places.*,"
-            + " max(geofences.arrival) as arrival,"
-            + " max(geofences.departure) as departure,"
-            + " min(geofences.radius) as radius"
-            + " FROM places"
-            + " INNER JOIN geofences ON geofences.place = places.uid"
-            + " INNER JOIN tasks ON tasks._id = geofences.task"
-            + " WHERE place = :uid AND tasks.completed = 0 AND tasks.deleted = 0"
-            + " AND (geofences.arrival > 0 OR geofences.departure > 0)"
-            + " GROUP BY places.uid")
-    fun getGeofencesByPlace(uid: String): MergedGeofence?
+    fun getGeofencesByPlace(uid: String): MergedGeofence? = runBlocking {
+        dao.getGeofencesByPlace(uid)
+    }
 
-    @Query("DELETE FROM geofences WHERE place = :place")
-    fun deleteGeofencesByPlace(place: String)
+    fun deleteGeofencesByPlace(place: String) = runBlocking {
+        dao.deleteGeofencesByPlace(place)
+    }
 
-    @Query("SELECT geofences.* FROM geofences"
-            + " INNER JOIN tasks ON tasks._id = geofences.task"
-            + " WHERE place = :place AND arrival = 1 AND tasks.completed = 0"
-            + " AND tasks.deleted = 0 AND tasks.snoozeTime < :now AND tasks.hideUntil < :now")
-    fun getArrivalGeofences(place: String, now: Long): List<Geofence>
+    fun getArrivalGeofences(place: String, now: Long): List<Geofence> = runBlocking {
+        dao.getArrivalGeofences(place, now)
+    }
 
-    @Query("SELECT geofences.* FROM geofences"
-            + " INNER JOIN tasks ON tasks._id = geofences.task"
-            + " WHERE place = :place AND departure = 1 AND tasks.completed = 0"
-            + " AND tasks.deleted = 0 AND tasks.snoozeTime < :now AND tasks.hideUntil < :now")
-    fun getDepartureGeofences(place: String, now: Long): List<Geofence>
+    fun getDepartureGeofences(place: String, now: Long): List<Geofence> = runBlocking {
+        dao.getDepartureGeofences(place, now)
+    }
 
-    @Query("SELECT * FROM geofences"
-            + " INNER JOIN places ON geofences.place = places.uid"
-            + " WHERE task = :taskId ORDER BY name ASC LIMIT 1")
-    fun getGeofences(taskId: Long): Location?
+    fun getGeofences(taskId: Long): Location? = runBlocking {
+        dao.getGeofences(taskId)
+    }
 
-    @Query("SELECT geofences.*, places.* FROM geofences INNER JOIN places ON geofences.place = places.uid INNER JOIN tasks ON tasks._id = geofences.task WHERE tasks._id = :taskId AND tasks.deleted = 0 AND tasks.completed = 0")
-    fun getActiveGeofences(taskId: Long): List<Location>
+    fun getActiveGeofences(taskId: Long): List<Location> = runBlocking {
+        dao.getActiveGeofences(taskId)
+    }
 
-    @Query("SELECT places.*"
-            + " FROM places"
-            + " INNER JOIN geofences ON geofences.place = places.uid"
-            + " WHERE geofences.task = :taskId")
-    fun getPlaceForTask(taskId: Long): Place?
+    fun getPlaceForTask(taskId: Long): Place? = runBlocking {
+        dao.getPlaceForTask(taskId)
+    }
 
-    @Query("SELECT geofences.*, places.* FROM geofences INNER JOIN places ON geofences.place = places.uid INNER JOIN tasks ON tasks._id = geofences.task WHERE tasks.deleted = 0 AND tasks.completed = 0")
-    fun getActiveGeofences(): List<Location>
+    fun getActiveGeofences(): List<Location> = runBlocking {
+        dao.getActiveGeofences()
+    }
 
-    @Query("SELECT COUNT(*) FROM geofences")
-    suspend fun geofenceCount(): Int
+    suspend fun geofenceCount(): Int {
+        return dao.geofenceCount()
+    }
 
-    @Delete
-    fun delete(location: Geofence)
+    fun delete(location: Geofence) = runBlocking {
+        dao.delete(location)
+    }
 
-    @Delete
-    fun delete(place: Place)
+    fun delete(place: Place) = runBlocking {
+        dao.delete(place)
+    }
 
-    @Insert
-    fun insert(location: Geofence): Long
+    fun insert(location: Geofence): Long = runBlocking {
+        dao.insert(location)
+    }
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(place: Place): Long
+    fun insert(place: Place): Long = runBlocking {
+        dao.insert(place)
+    }
 
-    @Update
-    fun update(place: Place)
+    fun update(place: Place) = runBlocking {
+        dao.update(place)
+    }
 
-    @Update
-    fun update(geofence: Geofence)
+    fun update(geofence: Geofence) = runBlocking {
+        dao.update(geofence)
+    }
 
-    @Query("SELECT * FROM places WHERE uid = :uid LIMIT 1")
-    fun getByUid(uid: String): Place?
+    fun getByUid(uid: String): Place? = runBlocking {
+        dao.getByUid(uid)
+    }
 
-    @Query("SELECT * FROM geofences WHERE task = :taskId")
-    fun getGeofencesForTask(taskId: Long): List<Geofence>
+    fun getGeofencesForTask(taskId: Long): List<Geofence> = runBlocking {
+        dao.getGeofencesForTask(taskId)
+    }
 
-    @Query("SELECT * FROM places")
-    fun getPlaces(): List<Place>
+    fun getPlaces(): List<Place> = runBlocking {
+        dao.getPlaces()
+    }
 
-    @Query("SELECT * FROM places WHERE place_id = :id")
-    fun getPlace(id: Long): Place?
+    fun getPlace(id: Long): Place? = runBlocking {
+        dao.getPlace(id)
+    }
 
-    @Query("SELECT * FROM places WHERE uid = :uid")
-    fun getPlace(uid: String): Place?
+    fun getPlace(uid: String): Place? = runBlocking {
+        dao.getPlace(uid)
+    }
 
-    @Query("SELECT places.*, IFNULL(COUNT(geofence_id),0) AS count FROM places LEFT OUTER JOIN geofences ON geofences.place = places.uid GROUP BY uid ORDER BY COUNT(geofence_id) DESC")
-    fun getPlaceUsage(): LiveData<List<PlaceUsage>>
+    fun getPlaceUsage(): LiveData<List<PlaceUsage>> {
+        return dao.getPlaceUsage()
+    }
 
-    @Query("SELECT * FROM places WHERE latitude LIKE :latitude AND longitude LIKE :longitude")
-    fun findPlace(latitude: String, longitude: String): Place?
+    fun findPlace(latitude: String, longitude: String): Place? = runBlocking {
+        dao.findPlace(latitude, longitude)
+    }
 
-    @Query("SELECT places.*, COUNT(tasks._id) AS count FROM places "
-            + " LEFT JOIN geofences ON geofences.place = places.uid "
-            + " LEFT JOIN tasks ON geofences.task = tasks._id AND tasks.completed = 0 AND tasks.deleted = 0 AND tasks.hideUntil < :now"
-            + " GROUP BY places.uid"
-            + " ORDER BY name COLLATE NOCASE ASC")
-    fun getPlaceFilters(now: Long = currentTimeMillis()): List<LocationFilters>
+    fun getPlaceFilters(now: Long = currentTimeMillis()): List<LocationFilters> = runBlocking {
+        dao.getPlaceFilters(now)
+    }
 
-    @Query("UPDATE places SET place_order = $NO_ORDER")
-    fun resetOrders()
+    fun resetOrders() = runBlocking {
+        dao.resetOrders()
+    }
 
-    @Query("UPDATE places SET place_order = :order WHERE place_id = :id")
-    fun setOrder(id: Long, order: Int)
+    fun setOrder(id: Long, order: Int) = runBlocking {
+        dao.setOrder(id, order)
+    }
 }
