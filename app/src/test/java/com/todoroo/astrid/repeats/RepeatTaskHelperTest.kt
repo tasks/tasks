@@ -7,8 +7,6 @@ import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.dao.TaskDaoBlocking
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.gcal.GCalHelper
-import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.UninstallModules
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -16,8 +14,6 @@ import org.junit.Test
 import org.mockito.InOrder
 import org.mockito.Mockito
 import org.tasks.LocalBroadcastManager
-import org.tasks.injection.InjectingTestCase
-import org.tasks.injection.ProductionModule
 import org.tasks.makers.TaskMaker.AFTER_COMPLETE
 import org.tasks.makers.TaskMaker.COMPLETION_TIME
 import org.tasks.makers.TaskMaker.DUE_TIME
@@ -26,13 +22,10 @@ import org.tasks.makers.TaskMaker.RRULE
 import org.tasks.makers.TaskMaker.newTask
 import org.tasks.time.DateTime
 import java.text.ParseException
-import javax.inject.Inject
 
 @SuppressLint("NewApi")
-@UninstallModules(ProductionModule::class)
-@HiltAndroidTest
-class RepeatTaskHelperTest : InjectingTestCase() {
-    @Inject lateinit var taskDao: TaskDaoBlocking
+class RepeatTaskHelperTest {
+    private lateinit var taskDao: TaskDaoBlocking
     private lateinit var localBroadcastManager: LocalBroadcastManager
     private lateinit var alarmService: AlarmService
     private lateinit var gCalHelper: GCalHelper
@@ -40,9 +33,8 @@ class RepeatTaskHelperTest : InjectingTestCase() {
     private lateinit var mocks: InOrder
 
     @Before
-    override fun setUp() {
-        super.setUp()
-
+    fun setUp() {
+        taskDao = Mockito.mock(TaskDaoBlocking::class.java)
         alarmService = Mockito.mock(AlarmService::class.java)
         gCalHelper = Mockito.mock(GCalHelper::class.java)
         localBroadcastManager = Mockito.mock(LocalBroadcastManager::class.java)
