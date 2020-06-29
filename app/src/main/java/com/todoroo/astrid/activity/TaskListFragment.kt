@@ -71,10 +71,7 @@ import org.tasks.preferences.Device
 import org.tasks.preferences.Preferences
 import org.tasks.sync.SyncAdapters
 import org.tasks.tags.TagPickerActivity
-import org.tasks.tasklist.DragAndDropRecyclerAdapter
-import org.tasks.tasklist.PagedListRecyclerAdapter
-import org.tasks.tasklist.TaskListRecyclerAdapter
-import org.tasks.tasklist.ViewHolderFactory
+import org.tasks.tasklist.*
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.ThemeColor
 import org.tasks.ui.TaskListViewModel
@@ -85,7 +82,9 @@ import javax.inject.Inject
 import kotlin.math.max
 
 @AndroidEntryPoint
-class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickListener, MenuItem.OnActionExpandListener, SearchView.OnQueryTextListener, ActionMode.Callback {
+class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickListener,
+        MenuItem.OnActionExpandListener, SearchView.OnQueryTextListener, ActionMode.Callback,
+        TaskViewHolder.ViewHolderCallbacks {
     private val refreshReceiver = RefreshReceiver()
     private var disposables: CompositeDisposable? = null
 
@@ -230,13 +229,13 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             if (recyclerAdapter !is PagedListRecyclerAdapter) {
                 setAdapter(
                         PagedListRecyclerAdapter(
-                                taskAdapter, recyclerView, viewHolderFactory, this, tasks, taskDao, preferences))
+                                taskAdapter, recyclerView, viewHolderFactory, this, tasks, preferences))
                 return
             }
         } else if (recyclerAdapter !is DragAndDropRecyclerAdapter) {
             setAdapter(
                     DragAndDropRecyclerAdapter(
-                            taskAdapter, recyclerView, viewHolderFactory, this, tasks, taskDao, preferences))
+                            taskAdapter, recyclerView, viewHolderFactory, this, tasks, preferences))
             return
         }
         recyclerAdapter!!.submitList(tasks)
@@ -735,6 +734,45 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     }
 
     fun clearCollapsed() = taskAdapter.clearCollapsed()
+
+    override fun onCompletedTask(task: TaskContainer, newState: Boolean) {
+        taskAdapter.onCompletedTask(task, newState)
+        loadTaskListContent()
+    }
+
+    override fun onClick(taskViewHolder: TaskViewHolder) {
+        if (isActionModeActive) {
+            recyclerAdapter?.toggle(taskViewHolder)
+        } else {
+            onTaskListItemClicked(taskViewHolder.task.getTask())
+        }
+    }
+
+    override fun onClick(filter: Filter) {
+        if (!isActionModeActive) {
+            val context = activity
+            context?.startActivity(TaskIntents.getTaskListIntent(context, filter))
+        }
+    }
+
+    override fun onLongPress(taskViewHolder: TaskViewHolder): Boolean {
+        if (recyclerAdapter?.dragAndDropEnabled() != true) {
+            startActionMode()
+        }
+        if (isActionModeActive && !taskViewHolder.moving) {
+            recyclerAdapter?.toggle(taskViewHolder)
+        }
+        return true
+    }
+
+    override fun onChangeDueDate(task: TaskContainer) {
+        showDateTimePicker(task)
+    }
+
+    override fun toggleSubtasks(task: TaskContainer, collapsed: Boolean) {
+        taskDao.setCollapsed(task.id, collapsed)
+        broadcastRefresh()
+    }
 
     companion object {
         const val TAGS_METADATA_JOIN = "for_tags" // $NON-NLS-1$
