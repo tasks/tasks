@@ -131,7 +131,7 @@ abstract class GoogleTaskDao {
     abstract suspend fun updateParents(listId: String)
 
     @Query("UPDATE google_tasks SET gt_remote_parent = :parent, gt_remote_order = :position WHERE gt_remote_id = :id")
-    abstract suspend fun updatePosition(id: String, parent: String, position: String)
+    abstract suspend fun updatePosition(id: String, parent: String?, position: String)
 
     @Transaction
     open suspend fun reposition(listId: String) {

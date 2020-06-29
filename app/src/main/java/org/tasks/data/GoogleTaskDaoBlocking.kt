@@ -103,7 +103,7 @@ class GoogleTaskDaoBlocking @Inject constructor(private val dao: GoogleTaskDao) 
         dao.updateParents(listId)
     }
 
-    fun updatePosition(id: String, parent: String, position: String) = runBlocking {
+    fun updatePosition(id: String, parent: String?, position: String) = runBlocking {
         dao.updatePosition(id, parent, position)
     }
 
