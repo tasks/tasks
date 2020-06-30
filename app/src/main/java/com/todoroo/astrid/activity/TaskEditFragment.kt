@@ -21,29 +21,28 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.Toolbar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.Behavior.DragCallback
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
-import com.google.common.base.Predicates
-import com.google.common.collect.Iterables
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.notes.CommentsController
 import com.todoroo.astrid.repeats.RepeatControlSet
 import com.todoroo.astrid.service.TaskDeleter
 import com.todoroo.astrid.timers.TimerPlugin
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.Completable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
 import org.tasks.data.UserActivity
-import org.tasks.data.UserActivityDaoBlocking
+import org.tasks.data.UserActivityDao
 import org.tasks.databinding.FragmentTaskEditBinding
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.dialogs.DialogBuilder
@@ -60,8 +59,8 @@ import kotlin.math.abs
 
 @AndroidEntryPoint
 class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
-    @Inject lateinit var taskDao: TaskDaoBlocking
-    @Inject lateinit var userActivityDao: UserActivityDaoBlocking
+    @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var userActivityDao: UserActivityDao
     @Inject lateinit var taskDeleter: TaskDeleter
     @Inject lateinit var notificationManager: NotificationManager
     @Inject lateinit var dialogBuilder: DialogBuilder
@@ -239,31 +238,27 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     /** Save task model from values in UI components  */
     fun save() {
         val fragments = taskEditControlSetFragmentManager.getFragmentsInPersistOrder(childFragmentManager)
-        if (hasChanges(fragments)) {
-            val isNewTask = model.isNew
-            val taskListFragment = (activity as MainActivity?)!!.taskListFragment
-            val title = title
-            model.title = if (isNullOrEmpty(title)) getString(R.string.no_title) else title
-            if (completed != model.isCompleted) {
-                model.completionDate = if (completed) DateUtilities.now() else 0
-            }
-            for (fragment in Iterables.filter(fragments, Predicates.not { obj: TaskEditControlFragment? -> obj!!.requiresId() })) {
-                fragment.applyBlocking(model)
-            }
-            Completable.fromAction {
-                AndroidUtilities.assertNotMainThread()
+        lifecycleScope.launch(NonCancellable) {
+            if (hasChanges(fragments)) {
+                val isNewTask = model.isNew
+                val taskListFragment = (activity as MainActivity?)!!.taskListFragment
+                val title = title
+                model.title = if (isNullOrEmpty(title)) getString(R.string.no_title) else title
+                if (completed != model.isCompleted) {
+                    model.completionDate = if (completed) DateUtilities.now() else 0
+                }
+                val partition = fragments.partition { it.requiresId() }
+                partition.second.forEach { it.apply(model) }
                 if (isNewTask) {
                     taskDao.createNew(model)
                 }
-                for (fragment in Iterables.filter(fragments) { obj: TaskEditControlFragment? -> obj!!.requiresId() }) {
-                    fragment.applyBlocking(model)
-                }
+                partition.first.forEach { it.apply(model) }
                 taskDao.save(model, null)
                 if (isNewTask) {
                     taskListFragment!!.onTaskCreated(model.uuid)
                     if (!isNullOrEmpty(model.calendarURI)) {
                         taskListFragment.makeSnackbar(R.string.calendar_event_created, model.title)
-                                .setAction(R.string.action_open) { v: View? ->
+                                .setAction(R.string.action_open) {
                                     val uri = model.calendarURI
                                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
                                     taskListFragment.startActivity(intent)
@@ -271,13 +266,10 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
                                 .show()
                     }
                 }
+                callback!!.removeTaskEditFragment()
+            } else {
+                discard()
             }
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe()
-            callback!!.removeTaskEditFragment()
-        } else {
-            discard()
         }
     }
 
@@ -299,7 +291,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     private val title: String
         get() = binding.title.text.toString().trim { it <= ' ' }
 
-    private fun hasChanges(fragments: List<TaskEditControlFragment>): Boolean {
+    private suspend fun hasChanges(fragments: List<TaskEditControlFragment>): Boolean {
         val newTitle = title
         if (newTitle != model.title
                 || !model.isNew && completed != model.isCompleted
@@ -307,11 +299,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
             return true
         }
         try {
-            for (fragment in fragments) {
-                if (fragment.hasChangesBlocking(model)) {
-                    return true
-                }
-            }
+            return fragments.any { it.hasChanges(model) }
         } catch (e: Exception) {
             firebase.reportException(e)
         }
@@ -324,15 +312,17 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
    * ======================================================================
    */
     fun discardButtonClick() {
-        if (hasChanges(
-                        taskEditControlSetFragmentManager.getFragmentsInPersistOrder(childFragmentManager))) {
-            dialogBuilder
-                    .newDialog(R.string.discard_confirmation)
-                    .setPositiveButton(R.string.keep_editing, null)
-                    .setNegativeButton(R.string.discard) { _, _ -> discard() }
-                    .show()
-        } else {
-            discard()
+        val fragments = taskEditControlSetFragmentManager.getFragmentsInPersistOrder(childFragmentManager)
+        lifecycleScope.launch {
+            if (hasChanges(fragments)) {
+                dialogBuilder
+                        .newDialog(R.string.discard_confirmation)
+                        .setPositiveButton(R.string.keep_editing, null)
+                        .setNegativeButton(R.string.discard) { _, _ -> discard() }
+                        .show()
+            } else {
+                discard()
+            }
         }
     }
 
@@ -378,8 +368,12 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         userActivity.message = message
         userActivity.targetId = model.uuid
         userActivity.created = DateUtilities.now()
-        userActivityDao.createNew(userActivity)
-        commentsController.reloadView()
+        lifecycleScope.launch {
+            withContext(NonCancellable) {
+                userActivityDao.createNew(userActivity)
+            }
+            commentsController.reloadView()
+        }
     }
 
     interface TaskEditFragmentCallbackHandler {

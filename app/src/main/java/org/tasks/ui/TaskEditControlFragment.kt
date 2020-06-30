@@ -60,17 +60,7 @@ abstract class TaskEditControlFragment : Fragment() {
         return false
     }
 
-    @Deprecated("use coroutines")
-    fun applyBlocking(task: Task) = runBlocking {
-        apply(task)
-    }
-
     abstract suspend fun apply(task: Task)
-
-    @Deprecated("use coroutines")
-    fun hasChangesBlocking(original: Task) = runBlocking {
-        hasChanges(original)
-    }
 
     open suspend fun hasChanges(original: Task): Boolean {
         return false
