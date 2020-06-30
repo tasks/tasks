@@ -8,7 +8,8 @@
   android:paddingEnd="@dimen/keyline_first"
   android:gravity="center_vertical"
   android:minHeight="50dp"
-  android:orientation="horizontal">
+  android:orientation="horizontal"
+  android:visibility="gone" >
 
   <ImageView
     android:id="@+id/picture"
