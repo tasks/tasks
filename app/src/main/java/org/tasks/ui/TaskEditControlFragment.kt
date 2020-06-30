@@ -12,7 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import butterknife.ButterKnife
 import com.todoroo.astrid.data.Task
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import org.tasks.R
 
 abstract class TaskEditControlFragment : Fragment() {
@@ -40,7 +39,7 @@ abstract class TaskEditControlFragment : Fragment() {
         return view
     }
 
-    protected abstract suspend fun createView(savedInstanceState: Bundle?)
+    protected abstract fun createView(savedInstanceState: Bundle?)
 
     override fun onAttach(activity: Activity) {
         super.onAttach(activity)

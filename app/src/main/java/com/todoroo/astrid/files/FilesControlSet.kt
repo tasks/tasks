@@ -47,7 +47,7 @@ class FilesControlSet : TaskEditControlFragment() {
     
     private var taskUuid: String? = null
 
-    override suspend fun createView(savedInstanceState: Bundle?) {
+    override fun createView(savedInstanceState: Bundle?) {
         taskUuid = task.uuid
         if (savedInstanceState == null) {
             if (task.hasTransitory(TaskAttachment.KEY)) {
@@ -57,9 +57,11 @@ class FilesControlSet : TaskEditControlFragment() {
             }
         }
 
-        taskAttachmentDao
-                .getAttachments(task.uuid)
-                .forEach { addAttachment(it) }
+        lifecycleScope.launch {
+            taskAttachmentDao
+                    .getAttachments(task.uuid)
+                    .forEach { addAttachment(it) }
+        }
     }
 
     @OnClick(R.id.add_attachment)

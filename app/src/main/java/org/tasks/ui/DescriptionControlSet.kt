@@ -22,7 +22,7 @@ class DescriptionControlSet : TaskEditControlFragment() {
     
     private var description: String? = null
 
-    override suspend fun createView(savedInstanceState: Bundle?) {
+    override fun createView(savedInstanceState: Bundle?) {
         description = if (savedInstanceState == null) {
             stripCarriageReturns(task.notes)
         } else {

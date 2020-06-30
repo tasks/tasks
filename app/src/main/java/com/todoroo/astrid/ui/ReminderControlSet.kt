@@ -10,9 +10,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.StringRes
@@ -64,18 +62,17 @@ class ReminderControlSet : TaskEditControlFragment() {
     private var whenDue = false
     private var whenOverdue = false
 
-    override suspend fun createView(savedInstanceState: Bundle?) {
+    override fun createView(savedInstanceState: Bundle?) {
         mode.paintFlags = mode.paintFlags or Paint.UNDERLINE_TEXT_FLAG
         taskId = task.id
         if (savedInstanceState == null) {
             flags = task.reminderFlags
             randomReminder = task.reminderPeriod
-            setup(currentAlarms())
         } else {
             flags = savedInstanceState.getInt(EXTRA_FLAGS)
             randomReminder = savedInstanceState.getLong(EXTRA_RANDOM_REMINDER)
-            setup(savedInstanceState.getLongArray(EXTRA_ALARMS)!!.toList())
         }
+        setup(savedInstanceState)
     }
 
     private suspend fun currentAlarms(): List<Long> {
@@ -149,7 +146,7 @@ class ReminderControlSet : TaskEditControlFragment() {
         return TAG
     }
 
-    private fun setup(alarms: List<Long>) {
+    private fun setup(savedInstanceState: Bundle?) {
         setValue(flags)
         alertContainer.removeAllViews()
         if (whenDue) {
@@ -161,8 +158,12 @@ class ReminderControlSet : TaskEditControlFragment() {
         if (randomReminder > 0) {
             addRandomReminder(randomReminder)
         }
-        for (timestamp in alarms) {
-            addAlarmRow(timestamp)
+        if (savedInstanceState == null) {
+            lifecycleScope.launch {
+                currentAlarms().forEach { addAlarmRow(it) }
+            }
+        } else {
+            savedInstanceState.getLongArray(EXTRA_ALARMS)?.forEach { addAlarmRow(it) }
         }
     }
 

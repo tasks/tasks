@@ -19,6 +19,7 @@ import androidx.drawerlayout.widget.DrawerLayout.SimpleDrawerListener
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
 import com.todoroo.andlib.utility.AndroidUtilities
+import com.todoroo.astrid.activity.TaskEditFragment.Companion.newTaskEditFragment
 import com.todoroo.astrid.activity.TaskEditFragment.TaskEditFragmentCallbackHandler
 import com.todoroo.astrid.activity.TaskListFragment.TaskListFragmentCallbackHandler
 import com.todoroo.astrid.api.Filter
@@ -27,12 +28,15 @@ import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskCreator
 import com.todoroo.astrid.timers.TimerControlSet.TimerControlSetCallback
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.activities.TagSettingsActivity
 import org.tasks.billing.Inventory
+import org.tasks.data.LocationDao
 import org.tasks.data.Place
+import org.tasks.data.TagDataDao
 import org.tasks.databinding.TaskListActivityBinding
 import org.tasks.dialogs.SortDialog.SortDialogCallback
 import org.tasks.dialogs.WhatsNewDialog
@@ -67,6 +71,9 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
     @Inject lateinit var playServices: PlayServices
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var colorProvider: ColorProvider
+    @Inject lateinit var locationDao: LocationDao
+    @Inject lateinit var tagDataDao: TagDataDao
+
     private lateinit var navigationDrawer: NavigationDrawerFragment
     private var currentNightMode = 0
     private var currentPro = false
@@ -230,7 +237,8 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
     private fun openTaskListFragment(taskListFragment: TaskListFragment, force: Boolean) {
         AndroidUtilities.assertMainThread()
         val newFilter = taskListFragment.getFilter()
-        if (filter != null && !force
+        if (filter != null
+                && !force
                 && filter!!.areItemsTheSame(newFilter)
                 && filter!!.areContentsTheSame(newFilter)) {
             return
@@ -239,12 +247,11 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         navigationDrawer.setSelected(filter)
         defaultFilterProvider.lastViewedFilter = newFilter
         applyTheme()
-        val fragmentManager = supportFragmentManager
-        fragmentManager
+        supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.master, taskListFragment, FRAG_TAG_TASK_LIST)
-                .commit()
-        fragmentManager.executePendingTransactions()
+                .commitNow()
+
     }
 
     private fun applyTheme() {
@@ -301,25 +308,18 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         val taskEditFragment = taskEditFragment
         taskEditFragment?.save()
         clearUi()
-        if (task.isNew) {
-            openTask(task)
-        } else {
-            lifecycleScope.launch {
-                openTask(taskDao.fetch(task.id))
-            }
+        lifecycleScope.launch {
+            val list = async { defaultFilterProvider.getList(task) }
+            val location = async { locationDao.getLocation(task, preferences) }
+            val tags = async { tagDataDao.getTags(task) }
+            val fragment = newTaskEditFragment(
+                    task, filterColor, list.await(), location.await(), tags.await())
+            supportFragmentManager.beginTransaction()
+                    .replace(R.id.detail, fragment, TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
+                    .addToBackStack(TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
+                    .commit()
+            showDetailFragment()
         }
-    }
-
-    private fun openTask(task: Task?) {
-        supportFragmentManager
-                .beginTransaction()
-                .replace(
-                        R.id.detail,
-                        TaskEditFragment.newTaskEditFragment(task, filterColor),
-                        TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
-                .addToBackStack(TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
-                .commit()
-        showDetailFragment()
     }
 
     override fun onNavigationIconClicked() {

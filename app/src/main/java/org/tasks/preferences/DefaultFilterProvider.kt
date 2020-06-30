@@ -5,6 +5,7 @@ import com.todoroo.astrid.api.*
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.core.BuiltInFilterExposer
 import com.todoroo.astrid.core.BuiltInFilterExposer.getMyTasksFilter
+import com.todoroo.astrid.data.Task
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.runBlocking
 import org.tasks.R
@@ -21,7 +22,8 @@ class DefaultFilterProvider @Inject constructor(
         private val tagDataDao: TagDataDao,
         private val googleTaskListDao: GoogleTaskListDao,
         private val caldavDao: CaldavDao,
-        private val locationDao: LocationDao) {
+        private val locationDao: LocationDao,
+        private val googleTaskDao: GoogleTaskDao) {
 
     @Deprecated("use coroutines")
     var dashclockFilter: Filter
@@ -151,6 +153,39 @@ class DefaultFilterProvider @Inject constructor(
             return FILTER_RECENTLY_MODIFIED
         }
         return FILTER_MY_TASKS
+    }
+
+    suspend fun getList(task: Task): Filter {
+        var originalList: Filter? = null
+        if (task.isNew) {
+            if (task.hasTransitory(GoogleTask.KEY)) {
+                val listId = task.getTransitory<String>(GoogleTask.KEY)!!
+                val googleTaskList = googleTaskListDao.getByRemoteId(listId)
+                if (googleTaskList != null) {
+                    originalList = GtasksFilter(googleTaskList)
+                }
+            } else if (task.hasTransitory(CaldavTask.KEY)) {
+                val caldav = caldavDao.getCalendarByUuid(task.getTransitory(CaldavTask.KEY)!!)
+                if (caldav != null) {
+                    originalList = CaldavFilter(caldav)
+                }
+            }
+        } else {
+            val googleTask = googleTaskDao.getByTaskId(task.id)
+            val caldavTask = caldavDao.getTask(task.id)
+            if (googleTask != null) {
+                val googleTaskList = googleTaskListDao.getByRemoteId(googleTask.listId!!)
+                if (googleTaskList != null) {
+                    originalList = GtasksFilter(googleTaskList)
+                }
+            } else if (caldavTask != null) {
+                val calendarByUuid = caldavDao.getCalendarByUuid(caldavTask.calendar!!)
+                if (calendarByUuid != null) {
+                    originalList = CaldavFilter(calendarByUuid)
+                }
+            }
+        }
+        return originalList ?: getDefaultList()
     }
 
     companion object {

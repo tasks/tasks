@@ -56,7 +56,7 @@ class TimerControlSet : TaskEditControlFragment() {
     private lateinit var dialogView: View
     private lateinit var callback: TimerControlSetCallback
 
-    override suspend fun createView(savedInstanceState: Bundle?) {
+    override fun createView(savedInstanceState: Bundle?) {
         val elapsedSeconds: Int
         val estimatedSeconds: Int
         if (savedInstanceState == null) {

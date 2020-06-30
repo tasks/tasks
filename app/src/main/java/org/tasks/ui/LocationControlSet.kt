@@ -8,20 +8,17 @@ import android.os.Parcelable
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ClickableSpan
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.util.Pair
-import androidx.lifecycle.lifecycleScope
 import butterknife.BindView
 import butterknife.OnClick
 import com.todoroo.andlib.utility.DateUtilities
+import com.todoroo.astrid.activity.TaskEditFragment
 import com.todoroo.astrid.data.SyncFlags
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import org.tasks.PermissionUtil.verifyPermissions
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
@@ -59,18 +56,9 @@ class LocationControlSet : TaskEditControlFragment() {
     private var original: Location? = null
     private var location: Location? = null
 
-    override suspend fun createView(savedInstanceState: Bundle?) {
+    override fun createView(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
-            if (task.isNew) {
-                if (task.hasTransitory(Place.KEY)) {
-                    val place = locationDao.getPlace(task.getTransitory<String>(Place.KEY)!!)
-                    if (place != null) {
-                        original = Location(Geofence(place.uid, preferences), place)
-                    }
-                }
-            } else {
-                original = locationDao.getGeofences(task.id)
-            }
+            original = requireArguments().getParcelable(TaskEditFragment.EXTRA_PLACE)
             if (original != null) {
                 setLocation(Location(original!!.geofence, original!!.place))
             }

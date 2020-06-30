@@ -70,7 +70,7 @@ class HideUntilControlSet : TaskEditControlFragment(), OnItemSelectedListener {
     override val isClickable: Boolean
         get() = true
 
-    override suspend fun createView(savedInstanceState: Bundle?) {
+    override fun createView(savedInstanceState: Bundle?) {
         adapter = object : HiddenTopArrayAdapter<HideUntilValue>(
                 activity, android.R.layout.simple_spinner_item, spinnerItems) {
             override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {

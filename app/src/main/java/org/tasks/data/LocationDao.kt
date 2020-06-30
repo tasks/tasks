@@ -3,7 +3,9 @@ package org.tasks.data
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.todoroo.astrid.api.FilterListItem.NO_ORDER
+import com.todoroo.astrid.data.Task
 import org.tasks.filters.LocationFilters
+import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils.currentTimeMillis
 
 @Dao
@@ -115,4 +117,17 @@ interface LocationDao {
 
     @Query("UPDATE places SET place_order = :order WHERE place_id = :id")
     suspend fun setOrder(id: Long, order: Int)
+
+    suspend fun getLocation(task: Task, preferences: Preferences): Location? {
+        if (task.isNew) {
+            if (task.hasTransitory(Place.KEY)) {
+                getPlace(task.getTransitory<String>(Place.KEY)!!)?.let {
+                    return Location(Geofence(it.uid, preferences), it)
+                }
+            }
+        } else {
+            return getGeofences(task.id)
+        }
+        return null
+    }
 }

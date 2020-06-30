@@ -38,7 +38,7 @@ class PriorityControlSet : TaskEditControlFragment() {
         priority = getPriority()
     }
 
-    override suspend fun createView(savedInstanceState: Bundle?) {
+    override fun createView(savedInstanceState: Bundle?) {
         priority = savedInstanceState?.getInt(EXTRA_PRIORITY) ?: task.priority
         when (priority) {
             0 -> priorityHigh.isChecked = true

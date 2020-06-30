@@ -65,7 +65,7 @@ class CommentBarFragment : TaskEditControlFragment() {
         return view
     }
 
-    override suspend fun createView(savedInstanceState: Bundle?) {
+    override fun createView(savedInstanceState: Bundle?) {
         if (savedInstanceState != null) {
             val uri = savedInstanceState.getString(EXTRA_PICTURE)
             if (uri != null) {

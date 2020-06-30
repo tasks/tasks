@@ -86,7 +86,7 @@ class RepeatControlSet : TaskEditControlFragment() {
         }
     }
 
-    override suspend fun createView(savedInstanceState: Bundle?) {
+    override fun createView(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
             repeatAfterCompletion = task.repeatAfterCompletion()
             dueDate = task.dueDate

@@ -37,7 +37,7 @@ class DeadlineControlSet : TaskEditControlFragment() {
         callback = activity as DueDateChangeListener
     }
 
-    override suspend fun createView(savedInstanceState: Bundle?) {
+    override fun createView(savedInstanceState: Bundle?) {
         date = savedInstanceState?.getLong(EXTRA_DATE) ?: task.dueDate
         refreshDisplayView()
     }

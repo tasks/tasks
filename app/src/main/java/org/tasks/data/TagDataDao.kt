@@ -155,4 +155,10 @@ abstract class TagDataDao {
 
     @Query("UPDATE tagdata SET td_order = :order WHERE _id = :id")
     abstract suspend fun setOrder(id: Long, order: Int)
+
+    suspend fun getTags(task: Task) = ArrayList(if (task.isNew) {
+        task.tags.mapNotNull { getTagByName(it) }
+    } else {
+        getTagDataForTask(task.id)
+    })
 }

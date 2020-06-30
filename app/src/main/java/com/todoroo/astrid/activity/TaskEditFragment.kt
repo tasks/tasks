@@ -27,7 +27,9 @@ import com.google.android.material.appbar.AppBarLayout.Behavior.DragCallback
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
+import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
+import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.notes.CommentsController
@@ -38,9 +40,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
+import org.tasks.data.Location
+import org.tasks.data.TagData
 import org.tasks.data.UserActivity
 import org.tasks.data.UserActivityDao
 import org.tasks.databinding.FragmentTaskEditBinding
@@ -170,7 +175,8 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         commentsController.initialize(model, binding.comments)
         commentsController.reloadView()
         val fragmentManager = childFragmentManager
-        val taskEditControlFragments = taskEditControlSetFragmentManager.getOrCreateFragments(this, model)
+        val taskEditControlFragments =
+                taskEditControlSetFragmentManager.getOrCreateFragments(fragmentManager, model, arguments)
         val visibleSize = taskEditControlSetFragmentManager.visibleSize
         val fragmentTransaction = fragmentManager.beginTransaction()
         for (i in taskEditControlFragments.indices) {
@@ -384,12 +390,27 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         const val TAG_TASKEDIT_FRAGMENT = "taskedit_fragment"
         private const val EXTRA_TASK = "extra_task"
         private const val EXTRA_THEME = "extra_theme"
+        const val EXTRA_LIST = "extra_list"
+        const val EXTRA_PLACE = "extra_place"
+        const val EXTRA_TAGS = "extra_tags"
         private const val EXTRA_COMPLETED = "extra_completed"
-        fun newTaskEditFragment(task: Task?, themeColor: ThemeColor?): TaskEditFragment {
+
+        fun newTaskEditFragment(
+                task: Task,
+                themeColor: ThemeColor?,
+                filter: Filter,
+                place: Location?,
+                tags: ArrayList<TagData>): TaskEditFragment {
+            if (BuildConfig.DEBUG) {
+                require(filter is GtasksFilter || filter is CaldavFilter)
+            }
             val taskEditFragment = TaskEditFragment()
             val arguments = Bundle()
             arguments.putParcelable(EXTRA_TASK, task)
             arguments.putParcelable(EXTRA_THEME, themeColor)
+            arguments.putParcelable(EXTRA_LIST, filter)
+            arguments.putParcelable(EXTRA_PLACE, place)
+            arguments.putParcelableArrayList(EXTRA_TAGS, tags)
             taskEditFragment.arguments = arguments
             return taskEditFragment
         }

@@ -3,23 +3,17 @@ package org.tasks.ui
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.lifecycle.lifecycleScope
 import butterknife.BindView
 import com.google.android.material.chip.ChipGroup
+import com.todoroo.astrid.activity.TaskEditFragment
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskMover
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.activities.ListPicker
-import org.tasks.data.*
-import org.tasks.preferences.DefaultFilterProvider
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -27,10 +21,6 @@ class ListFragment : TaskEditControlFragment() {
     @BindView(R.id.chip_group)
     lateinit var chipGroup: ChipGroup
 
-    @Inject lateinit var googleTaskListDao: GoogleTaskListDao
-    @Inject lateinit var googleTaskDao: GoogleTaskDao
-    @Inject lateinit var caldavDao: CaldavDao
-    @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
     @Inject lateinit var taskMover: TaskMover
     @Inject lateinit var chipProvider: ChipProvider
     
@@ -47,39 +37,9 @@ class ListFragment : TaskEditControlFragment() {
         callback = activity as OnListChanged
     }
 
-    override suspend fun createView(savedInstanceState: Bundle?) {
+    override fun createView(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
-            if (task.isNew) {
-                if (task.hasTransitory(GoogleTask.KEY)) {
-                    val listId = task.getTransitory<String>(GoogleTask.KEY)!!
-                    val googleTaskList = googleTaskListDao.getByRemoteId(listId)
-                    if (googleTaskList != null) {
-                        originalList = GtasksFilter(googleTaskList)
-                    }
-                } else if (task.hasTransitory(CaldavTask.KEY)) {
-                    val caldav = caldavDao.getCalendarByUuid(task.getTransitory(CaldavTask.KEY)!!)
-                    if (caldav != null) {
-                        originalList = CaldavFilter(caldav)
-                    }
-                }
-            } else {
-                val googleTask = googleTaskDao.getByTaskId(task.id)
-                val caldavTask = caldavDao.getTask(task.id)
-                if (googleTask != null) {
-                    val googleTaskList = googleTaskListDao.getByRemoteId(googleTask.listId!!)
-                    if (googleTaskList != null) {
-                        originalList = GtasksFilter(googleTaskList)
-                    }
-                } else if (caldavTask != null) {
-                    val calendarByUuid = caldavDao.getCalendarByUuid(caldavTask.calendar!!)
-                    if (calendarByUuid != null) {
-                        originalList = CaldavFilter(calendarByUuid)
-                    }
-                }
-            }
-            if (originalList == null) {
-                originalList = defaultFilterProvider.defaultList
-            }
+            originalList = requireArguments().getParcelable(TaskEditFragment.EXTRA_LIST)!!
             setSelected(originalList!!)
         } else {
             originalList = savedInstanceState.getParcelable(EXTRA_ORIGINAL_LIST)

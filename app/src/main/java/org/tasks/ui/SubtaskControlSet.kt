@@ -79,7 +79,7 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
         outState.putParcelableArrayList(EXTRA_NEW_SUBTASKS, newSubtasks)
     }
 
-    override suspend fun createView(savedInstanceState: Bundle?) {
+    override fun createView(savedInstanceState: Bundle?) {
         viewModel = ViewModelProvider(this).get(TaskListViewModel::class.java)
         if (savedInstanceState != null) {
             for (task in savedInstanceState.getParcelableArrayList<Task>(EXTRA_NEW_SUBTASKS)!!) {

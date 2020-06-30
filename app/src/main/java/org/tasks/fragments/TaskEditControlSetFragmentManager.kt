@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.FragmentManager
 import com.todoroo.astrid.activity.BeastModePreferences
-import com.todoroo.astrid.activity.TaskEditFragment
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.files.FilesControlSet
 import com.todoroo.astrid.repeats.RepeatControlSet
@@ -34,12 +33,12 @@ class TaskEditControlSetFragmentManager @Inject constructor(
     }
 
     fun getOrCreateFragments(
-            taskEditFragment: TaskEditFragment, task: Task): List<TaskEditControlFragment> {
-        val arguments = Bundle()
+            fragmentManager: FragmentManager,
+            task: Task,
+            arguments: Bundle): List<TaskEditControlFragment> {
         arguments.putParcelable(TaskEditControlFragment.EXTRA_TASK, task)
         arguments.putBoolean(TaskEditControlFragment.EXTRA_IS_NEW, task.isNew)
         val fragments: MutableList<TaskEditControlFragment> = ArrayList()
-        val fragmentManager = taskEditFragment.childFragmentManager
         for (i in displayOrder.indices) {
             val tag = displayOrder[i]
             var fragment = fragmentManager.findFragmentByTag(tag) as TaskEditControlFragment?

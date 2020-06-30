@@ -13,6 +13,7 @@ import android.widget.TextView
 import butterknife.BindView
 import com.google.android.material.chip.ChipGroup
 import com.todoroo.andlib.utility.DateUtilities
+import com.todoroo.astrid.activity.TaskEditFragment
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
@@ -45,13 +46,9 @@ class TagsControlSet : TaskEditControlFragment() {
     private lateinit var originalTags: ArrayList<TagData>
     private lateinit var selectedTags: ArrayList<TagData>
 
-    override suspend fun createView(savedInstanceState: Bundle?) {
+    override fun createView(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
-            originalTags = ArrayList(if (task.isNew) {
-                task.tags.mapNotNull { tagDataDao.getTagByName(it) }
-            } else {
-                tagDataDao.getTagDataForTask(task.id)
-            })
+            originalTags = requireArguments().getParcelableArrayList(TaskEditFragment.EXTRA_TAGS)!!
             selectedTags = ArrayList(originalTags)
             refreshDisplayView()
         } else {
