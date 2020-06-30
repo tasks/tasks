@@ -39,7 +39,7 @@ class TaskerListNotification : InjectingPreferenceFragment() {
 
     override fun getPreferenceXml() = R.xml.preferences_tasker
 
-    override fun setupPreferences(savedInstanceState: Bundle?) {
+    override suspend fun setupPreferences(savedInstanceState: Bundle?) {
         filter = if (savedInstanceState == null) {
             defaultFilterProvider.getFilterFromPreferenceBlocking(arguments?.getString(EXTRA_FILTER))
         } else {

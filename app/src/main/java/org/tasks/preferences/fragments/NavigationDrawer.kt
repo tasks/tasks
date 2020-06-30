@@ -10,5 +10,5 @@ class NavigationDrawer : InjectingPreferenceFragment() {
 
     override fun getPreferenceXml() = R.xml.preferences_navigation_drawer
 
-    override fun setupPreferences(savedInstanceState: Bundle?) {}
+    override suspend fun setupPreferences(savedInstanceState: Bundle?) {}
 }

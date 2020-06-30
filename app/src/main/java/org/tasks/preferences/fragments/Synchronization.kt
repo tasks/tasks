@@ -3,6 +3,7 @@ package org.tasks.preferences.fragments
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.SwitchPreferenceCompat
@@ -10,14 +11,15 @@ import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.caldav.CaldavAccountSettingsActivity
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavAccount.Companion.TYPE_LOCAL
-import org.tasks.data.CaldavDaoBlocking
+import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskAccount
-import org.tasks.data.GoogleTaskListDaoBlocking
+import org.tasks.data.GoogleTaskListDao
 import org.tasks.etesync.EteSyncAccountSettingsActivity
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.jobs.WorkManager
@@ -35,21 +37,25 @@ class Synchronization : InjectingPreferenceFragment() {
     @Inject lateinit var workManager: WorkManager
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var toaster: Toaster
-    @Inject lateinit var caldavDao: CaldavDaoBlocking
-    @Inject lateinit var googleTaskListDao: GoogleTaskListDaoBlocking
+    @Inject lateinit var caldavDao: CaldavDao
+    @Inject lateinit var googleTaskListDao: GoogleTaskListDao
     @Inject lateinit var taskDeleter: TaskDeleter
 
     override fun getPreferenceXml() = R.xml.preferences_synchronization
 
-    override fun setupPreferences(savedInstanceState: Bundle?) {
+    override suspend fun setupPreferences(savedInstanceState: Bundle?) {
         findPreference(R.string.p_background_sync_unmetered_only)
             .setOnPreferenceChangeListener { _: Preference?, o: Any? ->
-                workManager.updateBackgroundSync(null, null, o as Boolean?)
+                lifecycleScope.launch {
+                    workManager.updateBackgroundSync(null, null, o as Boolean?)
+                }
                 true
             }
         findPreference(R.string.p_background_sync)
             .setOnPreferenceChangeListener { _: Preference?, o: Any? ->
-                workManager.updateBackgroundSync(null, o as Boolean?, null)
+                lifecycleScope.launch {
+                    workManager.updateBackgroundSync(null, o as Boolean?, null)
+                }
                 true
             }
 
@@ -100,7 +106,7 @@ class Synchronization : InjectingPreferenceFragment() {
         }
     }
 
-    private fun addGoogleTasksAccounts(category: PreferenceCategory): Boolean {
+    private suspend fun addGoogleTasksAccounts(category: PreferenceCategory): Boolean {
         val accounts: List<GoogleTaskAccount> = googleTaskListDao.getAccounts()
         for (googleTaskAccount in accounts) {
             val account = googleTaskAccount.account
@@ -139,7 +145,7 @@ class Synchronization : InjectingPreferenceFragment() {
         return accounts.isNotEmpty()
     }
 
-    private fun addCaldavAccounts(category: PreferenceCategory): Boolean {
+    private suspend fun addCaldavAccounts(category: PreferenceCategory): Boolean {
         val accounts: List<CaldavAccount> = caldavDao.getAccounts().filter {
             it.accountType != TYPE_LOCAL
         }
@@ -186,14 +192,15 @@ class Synchronization : InjectingPreferenceFragment() {
     }
 
     private fun refresh() {
-        val synchronizationPreferences = findPreference(R.string.accounts) as PreferenceCategory
-        synchronizationPreferences.removeAll()
-
-        val hasGoogleAccounts: Boolean = addGoogleTasksAccounts(synchronizationPreferences)
-        val hasCaldavAccounts = addCaldavAccounts(synchronizationPreferences)
-        findPreference(R.string.gtasks_GPr_header).isVisible = hasGoogleAccounts
-        val syncEnabled = hasGoogleAccounts || hasCaldavAccounts
-        findPreference(R.string.accounts).isVisible = syncEnabled
-        findPreference(R.string.sync_SPr_interval_title).isVisible = syncEnabled
+        lifecycleScope.launch {
+            val synchronizationPreferences = findPreference(R.string.accounts) as PreferenceCategory
+            synchronizationPreferences.removeAll()
+            val hasGoogleAccounts: Boolean = addGoogleTasksAccounts(synchronizationPreferences)
+            val hasCaldavAccounts = addCaldavAccounts(synchronizationPreferences)
+            findPreference(R.string.gtasks_GPr_header).isVisible = hasGoogleAccounts
+            val syncEnabled = hasGoogleAccounts || hasCaldavAccounts
+            findPreference(R.string.accounts).isVisible = syncEnabled
+            findPreference(R.string.sync_SPr_interval_title).isVisible = syncEnabled
+        }
     }
 }

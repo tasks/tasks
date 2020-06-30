@@ -46,7 +46,7 @@ class Notifications : InjectingPreferenceFragment() {
 
     override fun getPreferenceXml() = R.xml.preferences_notifications
 
-    override fun setupPreferences(savedInstanceState: Bundle?) {
+    override suspend fun setupPreferences(savedInstanceState: Bundle?) {
         rescheduleNotificationsOnChange(
             false,
             R.string.p_rmd_time,

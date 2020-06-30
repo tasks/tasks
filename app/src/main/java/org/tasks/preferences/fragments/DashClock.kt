@@ -22,7 +22,7 @@ class DashClock : InjectingPreferenceFragment() {
 
     override fun getPreferenceXml() = R.xml.preferences_dashclock
 
-    override fun setupPreferences(savedInstanceState: Bundle?) {
+    override suspend fun setupPreferences(savedInstanceState: Bundle?) {
         findPreference(R.string.p_dashclock_filter)
             .setOnPreferenceClickListener {
                 val intent = Intent(context, FilterSelectionActivity::class.java)

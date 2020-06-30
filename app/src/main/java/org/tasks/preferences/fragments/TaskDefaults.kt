@@ -34,7 +34,7 @@ class TaskDefaults : InjectingPreferenceFragment() {
 
     override fun getPreferenceXml() = R.xml.preferences_task_defaults
 
-    override fun setupPreferences(savedInstanceState: Bundle?) {
+    override suspend fun setupPreferences(savedInstanceState: Bundle?) {
         defaultCalendarPref = findPreference(R.string.gcal_p_default)
         defaultCalendarPref.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             newCalendarPicker(this, REQUEST_CALENDAR_SELECTION, getDefaultCalendarName())

@@ -21,7 +21,7 @@ class Debug : InjectingPreferenceFragment() {
 
     override fun getPreferenceXml() = R.xml.preferences_debug
 
-    override fun setupPreferences(savedInstanceState: Bundle?) {
+    override suspend fun setupPreferences(savedInstanceState: Bundle?) {
         for (pref in listOf(
             R.string.p_leakcanary,
             R.string.p_flipper,

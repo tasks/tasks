@@ -2,10 +2,12 @@ package org.tasks.injection
 
 import android.os.Bundle
 import androidx.annotation.StringRes
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceGroup
 import androidx.preference.PreferenceScreen
+import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.preferences.Device
@@ -40,7 +42,9 @@ abstract class InjectingPreferenceFragment : PreferenceFragmentCompat() {
 
         tintIcons(preferenceScreen, requireContext().getColor(R.color.icon_tint_with_alpha))
 
-        setupPreferences(savedInstanceState)
+        lifecycleScope.launch {
+            setupPreferences(savedInstanceState)
+        }
     }
 
     protected open fun showRestartDialog() {
@@ -90,7 +94,7 @@ abstract class InjectingPreferenceFragment : PreferenceFragmentCompat() {
 
     abstract fun getPreferenceXml(): Int
 
-    abstract fun setupPreferences(savedInstanceState: Bundle?)
+    abstract suspend fun setupPreferences(savedInstanceState: Bundle?)
 
     protected fun recreate() {
         requireActivity().recreate()

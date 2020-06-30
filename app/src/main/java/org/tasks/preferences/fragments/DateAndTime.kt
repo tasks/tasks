@@ -31,7 +31,7 @@ class DateAndTime : InjectingPreferenceFragment(), Preference.OnPreferenceChange
 
     override fun getPreferenceXml() = R.xml.preferences_date_and_time
 
-    override fun setupPreferences(savedInstanceState: Bundle?) {
+    override suspend fun setupPreferences(savedInstanceState: Bundle?) {
         val startOfWeekPreference: ListPreference = getStartOfWeekPreference()
         startOfWeekPreference.entries = getWeekdayEntries()
         startOfWeekPreference.onPreferenceChangeListener = this

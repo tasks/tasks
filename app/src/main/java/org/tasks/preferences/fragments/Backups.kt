@@ -38,7 +38,7 @@ class Backups : InjectingPreferenceFragment() {
 
     override fun getPreferenceXml() = R.xml.preferences_backups
 
-    override fun setupPreferences(savedInstanceState: Bundle?) {
+    override suspend fun setupPreferences(savedInstanceState: Bundle?) {
         initializeBackupDirectory()
 
         findPreference(R.string.backup_BAc_import)

@@ -71,7 +71,7 @@ class LookAndFeel : InjectingPreferenceFragment() {
 
     override fun getPreferenceXml() = R.xml.preferences_look_and_feel
 
-    override fun setupPreferences(savedInstanceState: Bundle?) {
+    override suspend fun setupPreferences(savedInstanceState: Bundle?) {
         val themePref = findPreference(R.string.p_theme)
         val themeNames = resources.getStringArray(R.array.base_theme_names)
         themePref.summary = themeNames[themeBase.index]

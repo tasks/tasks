@@ -10,14 +10,11 @@ import androidx.work.*
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.data.Task
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.BiFunction
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.runBlocking
 import org.tasks.BuildConfig
 import org.tasks.R
-import org.tasks.data.CaldavDaoBlocking
-import org.tasks.data.GoogleTaskListDaoBlocking
+import org.tasks.data.CaldavDao
+import org.tasks.data.GoogleTaskListDao
 import org.tasks.data.Place
 import org.tasks.date.DateTimeUtils.midnight
 import org.tasks.date.DateTimeUtils.newDateTime
@@ -39,8 +36,8 @@ import kotlin.math.max
 class WorkManagerImpl constructor(
         private val context: Context,
         private val preferences: Preferences,
-        private val googleTaskListDao: GoogleTaskListDaoBlocking,
-        private val caldavDao: CaldavDaoBlocking): WorkManager {
+        private val googleTaskListDao: GoogleTaskListDao,
+        private val caldavDao: CaldavDao): WorkManager {
 
     private val alarmManager: AlarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
     private val workManager = androidx.work.WorkManager.getInstance(context)
@@ -96,10 +93,12 @@ class WorkManagerImpl constructor(
                         .build())
     }
 
-    override fun updateBackgroundSync() = updateBackgroundSync(null, null, null)
+    override fun updateBackgroundSync() = runBlocking {
+        updateBackgroundSync(null, null, null)
+    }
 
     @SuppressLint("CheckResult")
-    override fun updateBackgroundSync(
+    override suspend fun updateBackgroundSync(
             forceAccountPresent: Boolean?,
             forceBackgroundEnabled: Boolean?,
             forceOnlyOnUnmetered: Boolean?) {
@@ -107,13 +106,10 @@ class WorkManagerImpl constructor(
                 ?: preferences.getBoolean(R.string.p_background_sync, true)
         val onlyOnWifi = forceOnlyOnUnmetered
                 ?: preferences.getBoolean(R.string.p_background_sync_unmetered_only, false)
-        (if (forceAccountPresent == null) Single.zip(
-                Single.fromCallable { googleTaskListDao.accountCount() },
-                Single.fromCallable { caldavDao.accountCount() },
-                BiFunction { googleCount: Int, caldavCount: Int -> googleCount > 0 || caldavCount > 0 }) else Single.just(forceAccountPresent))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { accountsPresent: Boolean -> scheduleBackgroundSync(backgroundEnabled && accountsPresent, onlyOnWifi) }
+        val accountsPresent = forceAccountPresent == true
+                || googleTaskListDao.accountCount() > 0
+                || caldavDao.accountCount() > 0
+        scheduleBackgroundSync(backgroundEnabled && accountsPresent, onlyOnWifi)
     }
 
     private fun scheduleBackgroundSync(enabled: Boolean, onlyOnUnmetered: Boolean) {

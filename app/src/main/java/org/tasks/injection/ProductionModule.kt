@@ -10,8 +10,8 @@ import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig
 import org.tasks.R
-import org.tasks.data.CaldavDaoBlocking
-import org.tasks.data.GoogleTaskListDaoBlocking
+import org.tasks.data.CaldavDao
+import org.tasks.data.GoogleTaskListDao
 import org.tasks.db.Migrations
 import org.tasks.jobs.WorkManager
 import org.tasks.jobs.WorkManagerImpl
@@ -40,8 +40,8 @@ internal class ProductionModule {
     fun getWorkManager(
             @ApplicationContext context: Context,
             preferences: Preferences,
-            googleTaskListDao: GoogleTaskListDaoBlocking,
-            caldavDao: CaldavDaoBlocking): WorkManager {
+            googleTaskListDao: GoogleTaskListDao,
+            caldavDao: CaldavDao): WorkManager {
         return WorkManagerImpl(context, preferences, googleTaskListDao, caldavDao)
     }
 }

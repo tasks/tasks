@@ -15,7 +15,7 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
 
     override fun getPreferenceXml() = R.xml.preferences
 
-    override fun setupPreferences(savedInstanceState: Bundle?) {
+    override suspend fun setupPreferences(savedInstanceState: Bundle?) {
         requires(BuildConfig.DEBUG, R.string.debug)
 
         requires(appWidgetManager.widgetIds.isNotEmpty(), R.string.widget_settings)

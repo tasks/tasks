@@ -23,7 +23,7 @@ class HelpAndFeedback : InjectingPreferenceFragment() {
 
     override fun getPreferenceXml() = R.xml.help_and_feedback
 
-    override fun setupPreferences(savedInstanceState: Bundle?) {
+    override suspend fun setupPreferences(savedInstanceState: Bundle?) {
         val whatsNew = findPreference(R.string.whats_new)
         whatsNew.summary = getString(R.string.version_string, BuildConfig.VERSION_NAME)
         whatsNew.setOnPreferenceClickListener {
