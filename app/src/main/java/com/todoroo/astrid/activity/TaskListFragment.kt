@@ -20,8 +20,8 @@ import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -126,7 +126,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     @BindView(R.id.recycler_view)
     lateinit var recyclerView: RecyclerView
     
-    private lateinit var taskListViewModel: TaskListViewModel
+    private val listViewModel: TaskListViewModel by activityViewModels()
     private lateinit var taskAdapter: TaskAdapter
     private var recyclerAdapter: TaskListRecyclerAdapter? = null
     private lateinit var filter: Filter
@@ -197,14 +197,13 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         // set up list adapters
         taskAdapter = taskAdapterProvider.createTaskAdapter(filter)
         taskAdapter.setCollapsed(savedInstanceState?.getLongArray(EXTRA_COLLAPSED))
-        taskListViewModel = ViewModelProvider(requireActivity()).get(TaskListViewModel::class.java)
         if (savedInstanceState != null) {
             searchQuery = savedInstanceState.getString(EXTRA_SEARCH)
         }
-        taskListViewModel.setFilter((if (searchQuery == null) filter else createSearchFilter(searchQuery!!)))
+        listViewModel.setFilter((if (searchQuery == null) filter else createSearchFilter(searchQuery!!)))
         (recyclerView.itemAnimator as DefaultItemAnimator).supportsChangeAnimations = false
         recyclerView.layoutManager = LinearLayoutManager(context)
-        taskListViewModel.observe(
+        listViewModel.observe(
                 this,
                 Observer { list: List<TaskContainer> ->
                     submitList(list)
@@ -298,11 +297,11 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     private fun searchByQuery(query: String?) {
         searchQuery = query?.trim { it <= ' ' } ?: ""
         if (searchQuery?.isEmpty() == true) {
-            taskListViewModel.searchByFilter(
+            listViewModel.searchByFilter(
                     BuiltInFilterExposer.getMyTasksFilter(requireContext().resources))
         } else {
             val savedFilter = createSearchFilter(searchQuery!!)
-            taskListViewModel.searchByFilter(savedFilter)
+            listViewModel.searchByFilter(savedFilter)
         }
     }
 
@@ -483,7 +482,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     }
 
     fun loadTaskListContent() {
-        taskListViewModel.invalidate()
+        listViewModel.invalidate()
     }
 
     fun getFilter(): Filter {
@@ -579,7 +578,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     }
 
     override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
-        taskListViewModel.searchByFilter(filter)
+        listViewModel.searchByFilter(filter)
         searchDisposable?.dispose()
         searchQuery = null
         setupMenu()

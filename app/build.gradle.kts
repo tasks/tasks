@@ -150,6 +150,7 @@ dependencies {
     implementation("androidx.hilt:hilt-work:${Versions.hilt_androidx}")
     implementation("androidx.hilt:hilt-lifecycle-viewmodel:${Versions.hilt_androidx}")
 
+    implementation("androidx.fragment:fragment-ktx:1.2.5")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle}")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}")
     implementation("androidx.room:room-ktx:${Versions.room}")
