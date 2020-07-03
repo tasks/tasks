@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ItemTouchHelper.*
 import androidx.recyclerview.widget.ItemTouchHelper.Callback.makeMovementFlags
@@ -17,10 +18,7 @@ import com.todoroo.astrid.adapter.NavigationDrawerAdapter
 import com.todoroo.astrid.api.*
 import com.todoroo.astrid.api.FilterListItem.Type.ITEM
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
@@ -50,7 +48,6 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
 
     private lateinit var binding: ActivityTagOrganizerBinding
     private lateinit var toolbar: Toolbar
-    private var disposables: CompositeDisposable? = null
     private val refreshReceiver = RefreshReceiver()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,32 +80,18 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
         localBroadcastManager.unregisterReceiver(refreshReceiver)
     }
 
-    override fun onStart() {
-        super.onStart()
-        disposables = CompositeDisposable()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        disposables?.dispose()
-    }
-
     override fun onResume() {
         super.onResume()
         localBroadcastManager.registerRefreshListReceiver(refreshReceiver)
         updateFilters()
     }
 
-    private fun updateFilters() =
-            disposables?.add(
-                    Single.fromCallable {
-                        filterProvider.drawerCustomizationItems.apply {
-                            forEach { f -> f.count = 0 }
-                        }
-                    }
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(adapter::submitList))
+    private fun updateFilters() = lifecycleScope.launch {
+        filterProvider
+                .drawerCustomizationItems()
+                .onEach { f -> f.count = 0 }
+                .apply(adapter::submitList)
+    }
 
     private fun onClick(item: FilterListItem?) {
         if (item is NavigationDrawerAction) {

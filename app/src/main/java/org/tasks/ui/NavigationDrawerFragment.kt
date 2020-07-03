@@ -14,18 +14,15 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.drawerlayout.widget.DrawerLayout.SimpleDrawerListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.adapter.NavigationDrawerAdapter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.FilterListItem
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.billing.PurchaseActivity
@@ -42,11 +39,10 @@ class NavigationDrawerFragment : Fragment() {
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var adapter: NavigationDrawerAdapter
     @Inject lateinit var filterProvider: FilterProvider
-    @Inject lateinit var taskDao: TaskDaoBlocking
+    @Inject lateinit var taskDao: TaskDao
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var mDrawerLayout: DrawerLayout
-    private var disposables: CompositeDisposable? = null
     private var mFragmentContainerView: View? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -120,16 +116,6 @@ class NavigationDrawerFragment : Fragment() {
         localBroadcastManager.unregisterReceiver(refreshReceiver)
     }
 
-    override fun onStart() {
-        super.onStart()
-        disposables = CompositeDisposable()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        disposables?.dispose()
-    }
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         adapter.save(outState)
@@ -147,24 +133,18 @@ class NavigationDrawerFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         localBroadcastManager.registerRefreshListReceiver(refreshReceiver)
-        disposables?.add(updateFilters())
+        updateFilters()
     }
 
-    private fun updateFilters() =
-            Single.fromCallable { filterProvider.navDrawerItems }
-                .map { items: List<FilterListItem> -> refreshFilterCount(items) }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(adapter::submitList)
-
-    private fun refreshFilterCount(items: List<FilterListItem>): List<FilterListItem> {
-        AndroidUtilities.assertNotMainThread()
-        for (item in items) {
-            if (item is Filter && item.count == -1) {
-                item.count = taskDao.count(item)
-            }
-        }
-        return items
+    private fun updateFilters() = lifecycleScope.launch {
+        filterProvider
+                .navDrawerItems()
+                .onEach {
+                    if (it is Filter && it.count == -1) {
+                        it.count = taskDao.count(it)
+                    }
+                }
+                .apply(adapter::submitList)
     }
 
     private inner class RefreshReceiver : BroadcastReceiver() {
@@ -174,7 +154,7 @@ class NavigationDrawerFragment : Fragment() {
             }
             val action = intent.action
             if (LocalBroadcastManager.REFRESH == action || LocalBroadcastManager.REFRESH_LIST == action) {
-                disposables?.add(updateFilters())
+                updateFilters()
             }
         }
     }

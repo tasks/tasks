@@ -2,7 +2,6 @@ package org.tasks.filters
 
 import android.content.Context
 import android.content.Intent
-import com.todoroo.andlib.utility.AndroidUtilities.assertNotMainThread
 import com.todoroo.astrid.api.CustomFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.FilterListItem
@@ -30,26 +29,26 @@ class FilterProvider @Inject constructor(
         @param:ApplicationContext private val context: Context,
         private val inventory: Inventory,
         private val builtInFilterExposer: BuiltInFilterExposer,
-        private val filterDao: FilterDaoBlocking,
-        private val tagDataDao: TagDataDaoBlocking,
-        private val googleTaskListDao: GoogleTaskListDaoBlocking,
-        private val caldavDao: CaldavDaoBlocking,
+        private val filterDao: FilterDao,
+        private val tagDataDao: TagDataDao,
+        private val googleTaskListDao: GoogleTaskListDao,
+        private val caldavDao: CaldavDao,
         private val preferences: Preferences,
-        private val locationDao: LocationDaoBlocking) {
+        private val locationDao: LocationDao) {
 
-    val listPickerItems: List<FilterListItem>
-        get() = googleTaskFilters(false).plus(caldavFilters(false))
+    suspend fun listPickerItems(): List<FilterListItem> =
+            googleTaskFilters(false).plus(caldavFilters(false))
 
-    val navDrawerItems: List<FilterListItem>
-        get() = getAllFilters().plus(navDrawerFooter)
+    suspend fun navDrawerItems(): List<FilterListItem> =
+            getAllFilters().plus(navDrawerFooter)
 
-    val filterPickerItems: List<FilterListItem>
-        get() = getAllFilters(showCreate = false)
+    suspend fun filterPickerItems(): List<FilterListItem> =
+            getAllFilters(showCreate = false)
 
-    val drawerCustomizationItems: List<FilterListItem>
-        get() = getAllFilters(showBuiltIn = false)
+    suspend fun drawerCustomizationItems(): List<FilterListItem> =
+            getAllFilters(showBuiltIn = false)
 
-    private fun addFilters(showCreate: Boolean, showBuiltIn: Boolean): List<FilterListItem> =
+    private suspend fun addFilters(showCreate: Boolean, showBuiltIn: Boolean): List<FilterListItem> =
             if (!preferences.getBoolean(R.string.p_filters_enabled, true)) {
                 emptyList()
             } else {
@@ -74,7 +73,7 @@ class FilterProvider @Inject constructor(
                         }
             }
 
-    private fun addTags(showCreate: Boolean): List<FilterListItem> =
+    private suspend fun addTags(showCreate: Boolean): List<FilterListItem> =
             if (!preferences.getBoolean(R.string.p_tags_enabled, true)) {
                 emptyList()
             } else {
@@ -102,7 +101,7 @@ class FilterProvider @Inject constructor(
                         }
             }
 
-    private fun addPlaces(showCreate: Boolean): List<FilterListItem> =
+    private suspend fun addPlaces(showCreate: Boolean): List<FilterListItem> =
             if (!preferences.getBoolean(R.string.p_places_enabled, true)) {
                 emptyList()
             } else {
@@ -130,7 +129,7 @@ class FilterProvider @Inject constructor(
                         }
             }
 
-    private fun getAllFilters(showCreate: Boolean = true, showBuiltIn: Boolean = true): List<FilterListItem> =
+    private suspend fun getAllFilters(showCreate: Boolean = true, showBuiltIn: Boolean = true): List<FilterListItem> =
             if (showBuiltIn) {
                 arrayListOf(builtInFilterExposer.myTasksFilter)
             } else {
@@ -174,12 +173,11 @@ class FilterProvider @Inject constructor(
                         Intent(context, HelpAndFeedback::class.java),
                         0))
 
-    private fun googleTaskFilters(showCreate: Boolean = true): List<FilterListItem> {
-        assertNotMainThread()
+    private suspend fun googleTaskFilters(showCreate: Boolean = true): List<FilterListItem> {
         return googleTaskListDao.getAccounts().flatMap { googleTaskFilter(it, showCreate) }
     }
 
-    private fun googleTaskFilter(account: GoogleTaskAccount, showCreate: Boolean): List<FilterListItem> =
+    private suspend fun googleTaskFilter(account: GoogleTaskAccount, showCreate: Boolean): List<FilterListItem> =
             listOf(
                     NavigationDrawerSubheader(
                             account.account,
@@ -201,13 +199,13 @@ class FilterProvider @Inject constructor(
                                 NavigationDrawerFragment.REQUEST_NEW_LIST)
                     }
 
-    private fun caldavFilters(showCreate: Boolean = true): List<FilterListItem> =
+    private suspend fun caldavFilters(showCreate: Boolean = true): List<FilterListItem> =
             caldavDao.getAccounts()
                     .ifEmpty { listOf(caldavDao.setupLocalAccount(context)) }
                     .filter { it.accountType != TYPE_LOCAL || preferences.getBoolean(R.string.p_lists_enabled, true) }
                     .flatMap { caldavFilter(it, showCreate) }
 
-    private fun caldavFilter(account: CaldavAccount, showCreate: Boolean): List<FilterListItem> =
+    private suspend fun caldavFilter(account: CaldavAccount, showCreate: Boolean): List<FilterListItem> =
             listOf(
                     NavigationDrawerSubheader(
                             if (account.accountType == TYPE_LOCAL) {

@@ -10,16 +10,13 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.todoroo.astrid.adapter.FilterAdapter
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.api.FilterListItem
 import com.todoroo.astrid.api.GtasksFilter
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.filters.FilterProvider
@@ -32,7 +29,6 @@ class ListPicker : DialogFragment() {
     @Inject lateinit var filterProvider: FilterProvider
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
 
-    private var disposables: CompositeDisposable? = null
     private val refreshReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             refresh()
@@ -48,7 +44,6 @@ class ListPicker : DialogFragment() {
 
     override fun onResume() {
         super.onResume()
-        disposables = CompositeDisposable()
         localBroadcastManager.registerRefreshListReceiver(refreshReceiver)
         refresh()
     }
@@ -56,7 +51,6 @@ class ListPicker : DialogFragment() {
     override fun onPause() {
         super.onPause()
         localBroadcastManager.unregisterReceiver(refreshReceiver)
-        disposables!!.dispose()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -74,10 +68,10 @@ class ListPicker : DialogFragment() {
     private fun refresh() {
         val noSelection = requireArguments().getBoolean(EXTRA_NO_SELECTION, false)
         val selected: Filter? = if (noSelection) null else arguments?.getParcelable(EXTRA_SELECTED_FILTER)
-        disposables!!.add(Single.fromCallable(filterProvider::listPickerItems)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { items: List<FilterListItem>? -> filterAdapter.setData(items!!, selected) })
+        lifecycleScope.launch {
+            val items = filterProvider.listPickerItems()
+            filterAdapter.setData(items, selected)
+        }
     }
 
     companion object {
