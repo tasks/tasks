@@ -51,28 +51,16 @@ class TimerControlSet : TaskEditControlFragment() {
     
     private lateinit var estimated: TimeDurationControlSet
     private lateinit var elapsed: TimeDurationControlSet
-    private var timerStarted: Long = 0
     private var dialog: AlertDialog? = null
     private lateinit var dialogView: View
     private lateinit var callback: TimerControlSetCallback
 
     override fun createView(savedInstanceState: Bundle?) {
-        val elapsedSeconds: Int
-        val estimatedSeconds: Int
-        if (savedInstanceState == null) {
-            timerStarted = task.timerStart
-            elapsedSeconds = task.elapsedSeconds
-            estimatedSeconds = task.estimatedSeconds
-        } else {
-            timerStarted = savedInstanceState.getLong(EXTRA_STARTED)
-            elapsedSeconds = savedInstanceState.getInt(EXTRA_ELAPSED)
-            estimatedSeconds = savedInstanceState.getInt(EXTRA_ESTIMATED)
-        }
         dialogView = activity.layoutInflater.inflate(R.layout.control_set_timers_dialog, null)
         estimated = TimeDurationControlSet(activity, dialogView, R.id.estimatedDuration, theme)
         elapsed = TimeDurationControlSet(activity, dialogView, R.id.elapsedDuration, theme)
-        estimated.setTimeDuration(estimatedSeconds)
-        elapsed.setTimeDuration(elapsedSeconds)
+        estimated.setTimeDuration(viewModel.estimatedSeconds!!)
+        elapsed.setTimeDuration(viewModel.elapsedSeconds!!)
         refresh()
     }
 
@@ -81,22 +69,12 @@ class TimerControlSet : TaskEditControlFragment() {
         callback = activity as TimerControlSetCallback
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putInt(EXTRA_ELAPSED, elapsed.timeDurationInSeconds)
-        outState.putInt(EXTRA_ESTIMATED, estimated.timeDurationInSeconds)
-        outState.putLong(EXTRA_STARTED, timerStarted)
-    }
-
     override fun onRowClick() {
         if (dialog == null) {
             dialog = buildDialog()
         }
         dialog!!.show()
     }
-
-    override val isClickable: Boolean
-        get() = true
 
     private fun buildDialog(): AlertDialog {
         return dialogBuilder
@@ -112,34 +90,24 @@ class TimerControlSet : TaskEditControlFragment() {
         if (timerActive()) {
             val task = callback.stopTimer()
             elapsed.setTimeDuration(task.elapsedSeconds)
-            timerStarted = 0
+            viewModel.timerStarted = 0
             chronometer.stop()
             refreshDisplayView()
         } else {
             val task = callback.startTimer()
-            timerStarted = task.timerStart
+            viewModel.timerStarted = task.timerStart
             chronometer.start()
         }
         updateChronometer()
     }
 
-    override val layout: Int
-        get() = R.layout.control_set_timers
+    override val layout = R.layout.control_set_timers
 
-    override val icon: Int
-        get() = R.drawable.ic_outline_timer_24px
+    override val icon = R.drawable.ic_outline_timer_24px
 
     override fun controlId() = TAG
 
-    override suspend fun hasChanges(original: Task): Boolean {
-        return (elapsed.timeDurationInSeconds != original.elapsedSeconds
-                || estimated.timeDurationInSeconds != original.estimatedSeconds)
-    }
-
-    override suspend fun apply(task: Task) {
-        task.elapsedSeconds = elapsed.timeDurationInSeconds
-        task.estimatedSeconds = estimated.timeDurationInSeconds
-    }
+    override val isClickable = true
 
     private fun refresh() {
         refreshDisplayView()
@@ -148,14 +116,18 @@ class TimerControlSet : TaskEditControlFragment() {
 
     private fun refreshDisplayView() {
         var est: String? = null
-        val estimatedSeconds = estimated.timeDurationInSeconds
-        if (estimatedSeconds > 0) {
-            est = getString(R.string.TEA_timer_est, DateUtils.formatElapsedTime(estimatedSeconds.toLong()))
+        viewModel.estimatedSeconds = estimated.timeDurationInSeconds
+        if (viewModel.estimatedSeconds!! > 0) {
+            est = getString(
+                    R.string.TEA_timer_est,
+                    DateUtils.formatElapsedTime(viewModel.estimatedSeconds!!.toLong()))
         }
         var elap: String? = null
-        val elapsedSeconds = elapsed.timeDurationInSeconds
-        if (elapsedSeconds > 0) {
-            elap = getString(R.string.TEA_timer_elap, DateUtils.formatElapsedTime(elapsedSeconds.toLong()))
+        viewModel.elapsedSeconds = elapsed.timeDurationInSeconds
+        if (viewModel.elapsedSeconds!! > 0) {
+            elap = getString(
+                    R.string.TEA_timer_elap,
+                    DateUtils.formatElapsedTime(viewModel.elapsedSeconds!!.toLong()))
         }
         val toDisplay: String?
         toDisplay = if (!isNullOrEmpty(est) && !isNullOrEmpty(elap)) {
@@ -176,7 +148,7 @@ class TimerControlSet : TaskEditControlFragment() {
         var elapsed = elapsed.timeDurationInSeconds * 1000L
         if (timerActive()) {
             chronometer.visibility = View.VISIBLE
-            elapsed += DateUtilities.now() - timerStarted
+            elapsed += DateUtilities.now() - viewModel.timerStarted
             chronometer.base = SystemClock.elapsedRealtime() - elapsed
             if (elapsed > DateUtilities.ONE_DAY) {
                 chronometer.onChronometerTickListener = OnChronometerTickListener { cArg: Chronometer ->
@@ -191,9 +163,7 @@ class TimerControlSet : TaskEditControlFragment() {
         }
     }
 
-    private fun timerActive(): Boolean {
-        return timerStarted > 0
-    }
+    private fun timerActive() = viewModel.timerStarted > 0
 
     interface TimerControlSetCallback {
         fun stopTimer(): Task
@@ -202,8 +172,5 @@ class TimerControlSet : TaskEditControlFragment() {
 
     companion object {
         const val TAG = R.string.TEA_ctrl_timer_pref
-        private const val EXTRA_STARTED = "extra_started"
-        private const val EXTRA_ESTIMATED = "extra_estimated"
-        private const val EXTRA_ELAPSED = "extra_elapsed"
     }
 }

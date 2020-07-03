@@ -502,11 +502,9 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     }
 
     private fun onTaskDelete(task: Task) {
-        val activity = activity as MainActivity?
-        if (activity != null) {
-            val tef = activity.taskEditFragment
-            if (tef != null && task.id == tef.model.id) {
-                tef.discard()
+        (activity as MainActivity?)?.taskEditFragment?.let {
+            if (task.id == it.editViewModel.task?.id) {
+                it.editViewModel.discard()
             }
         }
         timerPlugin.stopTimer(task)

@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.widget.TextView
 import butterknife.BindView
 import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.astrid.data.Task
-import com.todoroo.astrid.data.Task.Companion.createDueDate
 import com.todoroo.astrid.data.Task.Companion.hasDueTime
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
@@ -16,7 +14,6 @@ import org.tasks.dialogs.DateTimePicker
 import org.tasks.dialogs.DateTimePicker.Companion.newDateTimePicker
 import org.tasks.locale.Locale
 import org.tasks.preferences.Preferences
-import org.tasks.time.DateTime
 import java.time.format.FormatStyle
 import javax.inject.Inject
 
@@ -30,7 +27,6 @@ class DeadlineControlSet : TaskEditControlFragment() {
     lateinit var dueDate: TextView
 
     private lateinit var callback: DueDateChangeListener
-    private var date: Long = 0
 
     override fun onAttach(activity: Activity) {
         super.onAttach(activity)
@@ -38,7 +34,6 @@ class DeadlineControlSet : TaskEditControlFragment() {
     }
 
     override fun createView(savedInstanceState: Bundle?) {
-        date = savedInstanceState?.getLong(EXTRA_DATE) ?: task.dueDate
         refreshDisplayView()
     }
 
@@ -48,42 +43,25 @@ class DeadlineControlSet : TaskEditControlFragment() {
             newDateTimePicker(
                     this,
                     REQUEST_DATE,
-                    dueDateTime,
+                    viewModel.dueDate!!,
                     preferences.getBoolean(R.string.p_auto_dismiss_datetime_edit_screen, false))
                     .show(fragmentManager, FRAG_TAG_DATE_PICKER)
         }
     }
 
-    override val isClickable: Boolean
-        get() = true
+    override val isClickable = true
 
-    override val layout: Int
-        get() = R.layout.control_set_deadline
+    override val layout = R.layout.control_set_deadline
 
-    override val icon: Int
-        get() = R.drawable.ic_outline_schedule_24px
+    override val icon = R.drawable.ic_outline_schedule_24px
 
     override fun controlId() = TAG
-
-    override suspend fun hasChanges(original: Task): Boolean {
-        return original.dueDate != dueDateTime
-    }
-
-    override suspend fun apply(task: Task) {
-        val dueDate = dueDateTime
-        if (dueDate != task.dueDate) {
-            task.reminderSnooze = 0L
-        }
-        task.dueDate = dueDate
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_DATE) {
             if (resultCode == Activity.RESULT_OK) {
-                val timestamp = data!!.getLongExtra(DateTimePicker.EXTRA_TIMESTAMP, 0L)
-                val dateTime = DateTime(timestamp)
-                date = dateTime.millis
-                callback.dueDateChanged(dueDateTime)
+                viewModel.dueDate = data!!.getLongExtra(DateTimePicker.EXTRA_TIMESTAMP, 0L)
+                callback.dueDateChanged()
             }
             refreshDisplayView()
         } else {
@@ -91,24 +69,18 @@ class DeadlineControlSet : TaskEditControlFragment() {
         }
     }
 
-    private val dueDateTime: Long
-        get() = if (date == 0L) 0 else createDueDate(
-                if (hasDueTime(date)) Task.URGENCY_SPECIFIC_DAY_TIME else Task.URGENCY_SPECIFIC_DAY,
-                date)
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putLong(EXTRA_DATE, date)
-    }
-
     private fun refreshDisplayView() {
+        val date = viewModel.dueDate!!
         if (date == 0L) {
             dueDate.text = ""
             setTextColor(false)
         } else {
             dueDate.text = DateUtilities.getRelativeDateTime(activity, date, locale.locale, FormatStyle.FULL)
-            setTextColor(
-                    if (hasDueTime(date)) DateTimeUtils.newDateTime(date).isBeforeNow else DateTimeUtils.newDateTime(date).endOfDay().isBeforeNow)
+            setTextColor(if (hasDueTime(date)) {
+                DateTimeUtils.newDateTime(date).isBeforeNow
+            } else {
+                DateTimeUtils.newDateTime(date).endOfDay().isBeforeNow
+            })
         }
     }
 
@@ -118,13 +90,12 @@ class DeadlineControlSet : TaskEditControlFragment() {
     }
 
     interface DueDateChangeListener {
-        fun dueDateChanged(dateTime: Long)
+        fun dueDateChanged()
     }
 
     companion object {
         const val TAG = R.string.TEA_ctrl_when_pref
         private const val REQUEST_DATE = 504
-        private const val EXTRA_DATE = "extra_date"
         private const val FRAG_TAG_DATE_PICKER = "frag_tag_date_picker"
     }
 }

@@ -14,17 +14,13 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.StringRes
-import androidx.lifecycle.lifecycleScope
 import butterknife.BindView
 import butterknife.OnClick
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.alarms.AlarmService
-import com.todoroo.astrid.data.Task
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.activities.DateAndTimePickerActivity
-import org.tasks.data.Alarm
 import org.tasks.date.DateTimeUtils
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.MyTimePickerDialog
@@ -41,8 +37,6 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class ReminderControlSet : TaskEditControlFragment() {
-    private val alarms: MutableSet<Long> = LinkedHashSet()
-
     @Inject lateinit var activity: Activity
     @Inject lateinit var alarmService: AlarmService
     @Inject lateinit var locale: Locale
@@ -54,38 +48,35 @@ class ReminderControlSet : TaskEditControlFragment() {
     @BindView(R.id.reminder_alarm)
     lateinit var mode: TextView
     
-    private var taskId: Long = 0
-    private var flags = 0
-    private var randomReminder: Long = 0
-    private var ringMode = 0
     private var randomControlSet: RandomReminderControlSet? = null
-    private var whenDue = false
-    private var whenOverdue = false
 
     override fun createView(savedInstanceState: Bundle?) {
         mode.paintFlags = mode.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-        taskId = task.id
-        if (savedInstanceState == null) {
-            flags = task.reminderFlags
-            randomReminder = task.reminderPeriod
-        } else {
-            flags = savedInstanceState.getInt(EXTRA_FLAGS)
-            randomReminder = savedInstanceState.getLong(EXTRA_RANDOM_REMINDER)
+        when {
+            viewModel.ringNonstop!! -> setRingMode(2)
+            viewModel.ringFiveTimes!! -> setRingMode(1)
+            else -> setRingMode(0)
         }
-        setup(savedInstanceState)
-    }
-
-    private suspend fun currentAlarms(): List<Long> {
-        return if (taskId == Task.NO_ID) {
-            emptyList()
-        } else {
-            alarmService.getAlarms(taskId).map(Alarm::time)
+        if (viewModel.whenDue!!) {
+            addDue()
         }
+        if (viewModel.whenOverdue!!) {
+            addOverdue()
+        }
+        if (viewModel.reminderPeriod!! > 0) {
+            addRandomReminder(viewModel.reminderPeriod!!)
+        }
+        viewModel.selectedAlarms?.forEach(this::addAlarmRow)
     }
 
     @OnClick(R.id.reminder_alarm)
     fun onClickRingType() {
         val modes = resources.getStringArray(R.array.reminder_ring_modes)
+        val ringMode = when {
+            viewModel.ringNonstop == true -> 2
+            viewModel.ringFiveTimes == true -> 1
+            else -> 0
+        }
         dialogBuilder
                 .newDialog()
                 .setSingleChoiceItems(modes, ringMode) { dialog: DialogInterface, which: Int ->
@@ -96,7 +87,8 @@ class ReminderControlSet : TaskEditControlFragment() {
     }
 
     private fun setRingMode(ringMode: Int) {
-        this.ringMode = ringMode
+        viewModel.ringNonstop = ringMode == 2
+        viewModel.ringFiveTimes = ringMode == 1
         mode.setText(getRingModeString(ringMode))
     }
 
@@ -126,9 +118,7 @@ class ReminderControlSet : TaskEditControlFragment() {
         } else {
             dialogBuilder
                     .newDialog()
-                    .setItems(
-                            options
-                    ) { dialog: DialogInterface, which: Int ->
+                    .setItems(options) { dialog: DialogInterface, which: Int ->
                         addAlarm(options[which])
                         dialog.dismiss()
                     }
@@ -136,62 +126,19 @@ class ReminderControlSet : TaskEditControlFragment() {
         }
     }
 
-    override val layout: Int
-        get() = R.layout.control_set_reminders
+    override val layout = R.layout.control_set_reminders
 
-    override val icon: Int
-        get() = R.drawable.ic_outline_notifications_24px
+    override val icon = R.drawable.ic_outline_notifications_24px
 
-    override fun controlId(): Int {
-        return TAG
-    }
-
-    private fun setup(savedInstanceState: Bundle?) {
-        setValue(flags)
-        alertContainer.removeAllViews()
-        if (whenDue) {
-            addDue()
-        }
-        if (whenOverdue) {
-            addOverdue()
-        }
-        if (randomReminder > 0) {
-            addRandomReminder(randomReminder)
-        }
-        if (savedInstanceState == null) {
-            lifecycleScope.launch {
-                currentAlarms().forEach { addAlarmRow(it) }
-            }
-        } else {
-            savedInstanceState.getLongArray(EXTRA_ALARMS)?.forEach { addAlarmRow(it) }
-        }
-    }
-
-    override suspend fun hasChanges(original: Task): Boolean {
-        return getFlags() != original.reminderFlags || randomReminderPeriod != original.reminderPeriod || HashSet(currentAlarms()) != alarms
-    }
-
-    override fun requiresId() = true
-
-    override suspend fun apply(task: Task) {
-        task.reminderFlags = getFlags()
-        task.reminderPeriod = randomReminderPeriod
-        if (alarmService.synchronizeAlarms(task.id, alarms)) {
-            task.modificationDate = DateUtilities.now()
-        }
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putInt(EXTRA_FLAGS, getFlags())
-        outState.putLong(EXTRA_RANDOM_REMINDER, randomReminderPeriod)
-        outState.putLongArray(EXTRA_ALARMS, alarms.toLongArray())
-    }
+    override fun controlId() = TAG
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_NEW_ALARM) {
             if (resultCode == Activity.RESULT_OK) {
-                addAlarmRow(data!!.getLongExtra(MyTimePickerDialog.EXTRA_TIMESTAMP, 0L))
+                val timestamp = data!!.getLongExtra(MyTimePickerDialog.EXTRA_TIMESTAMP, 0L)
+                if (viewModel.selectedAlarms?.add(timestamp) == true) {
+                    addAlarmRow(timestamp)
+                }
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
@@ -199,30 +146,10 @@ class ReminderControlSet : TaskEditControlFragment() {
     }
 
     private fun addAlarmRow(timestamp: Long) {
-        if (alarms.add(timestamp)) {
-            addAlarmRow(DateUtilities.getLongDateStringWithTime(timestamp, locale.locale), View.OnClickListener { alarms.remove(timestamp) })
-        }
+        addAlarmRow(
+                DateUtilities.getLongDateStringWithTime(timestamp, locale.locale),
+                View.OnClickListener { viewModel.selectedAlarms?.remove(timestamp) })
     }
-
-    private fun getFlags(): Int {
-        var value = 0
-        if (whenDue) {
-            value = value or Task.NOTIFY_AT_DEADLINE
-        }
-        if (whenOverdue) {
-            value = value or Task.NOTIFY_AFTER_DEADLINE
-        }
-        value = value and (Task.NOTIFY_MODE_FIVE or Task.NOTIFY_MODE_NONSTOP).inv()
-        if (ringMode == 2) {
-            value = value or Task.NOTIFY_MODE_NONSTOP
-        } else if (ringMode == 1) {
-            value = value or Task.NOTIFY_MODE_FIVE
-        }
-        return value
-    }
-
-    private val randomReminderPeriod: Long
-        get() = if (randomControlSet == null) 0L else randomControlSet!!.reminderPeriod
 
     private fun addNewAlarm() {
         val intent = Intent(activity, DateAndTimePickerActivity::class.java)
@@ -252,10 +179,10 @@ class ReminderControlSet : TaskEditControlFragment() {
     private val options: List<String>
         get() {
             val options: MutableList<String> = ArrayList()
-            if (!whenDue) {
+            if (viewModel.whenDue != true) {
                 options.add(getString(R.string.when_due))
             }
-            if (!whenOverdue) {
+            if (viewModel.whenOverdue != true) {
                 options.add(getString(R.string.when_overdue))
             }
             if (randomControlSet == null) {
@@ -266,35 +193,29 @@ class ReminderControlSet : TaskEditControlFragment() {
         }
 
     private fun addDue() {
-        whenDue = true
-        addAlarmRow(getString(R.string.when_due), View.OnClickListener { whenDue = false })
+        viewModel.whenDue = true
+        addAlarmRow(getString(R.string.when_due), View.OnClickListener {
+            viewModel.whenDue = false
+        })
     }
 
     private fun addOverdue() {
-        whenOverdue = true
-        addAlarmRow(getString(R.string.when_overdue), View.OnClickListener { whenOverdue = false })
+        viewModel.whenOverdue = true
+        addAlarmRow(getString(R.string.when_overdue), View.OnClickListener {
+            viewModel.whenOverdue = false
+        })
     }
 
     private fun addRandomReminder(reminderPeriod: Long) {
-        val alarmRow = addAlarmRow(getString(R.string.randomly_once) + " ", View.OnClickListener { randomControlSet = null })
-        randomControlSet = RandomReminderControlSet(activity, alarmRow, reminderPeriod)
-    }
-
-    private fun setValue(flags: Int) {
-        whenDue = flags and Task.NOTIFY_AT_DEADLINE > 0
-        whenOverdue = flags and Task.NOTIFY_AFTER_DEADLINE > 0
-        when {
-            flags and Task.NOTIFY_MODE_NONSTOP > 0 -> setRingMode(2)
-            flags and Task.NOTIFY_MODE_FIVE > 0 -> setRingMode(1)
-            else -> setRingMode(0)
-        }
+        val alarmRow = addAlarmRow(getString(R.string.randomly_once) + " ", View.OnClickListener {
+            viewModel.reminderPeriod = 0
+            randomControlSet = null
+        })
+        randomControlSet = RandomReminderControlSet(activity, alarmRow, reminderPeriod, viewModel)
     }
 
     companion object {
         const val TAG = R.string.TEA_ctrl_reminders_pref
         private const val REQUEST_NEW_ALARM = 12152
-        private const val EXTRA_FLAGS = "extra_flags"
-        private const val EXTRA_RANDOM_REMINDER = "extra_random_reminder"
-        private const val EXTRA_ALARMS = "extra_alarms"
     }
 }

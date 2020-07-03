@@ -27,8 +27,8 @@ object TaskMaker {
     val SNOOZE_TIME: Property<Task, DateTime?> = newProperty()
     val RRULE: Property<Task, RRule?> = newProperty()
     val AFTER_COMPLETE: Property<Task, Boolean> = newProperty()
-    private val TITLE: Property<Task, String?> = newProperty()
-    private val PRIORITY: Property<Task, Int> = newProperty()
+    val TITLE: Property<Task, String?> = newProperty()
+    val PRIORITY: Property<Task, Int> = newProperty()
     val PARENT: Property<Task, Long> = newProperty()
     val UUID: Property<Task, String> = newProperty()
 

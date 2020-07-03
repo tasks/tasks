@@ -1,19 +1,14 @@
 package org.tasks.ui
 
 import android.app.Activity
-import android.content.ContentValues
 import android.content.Intent
 import android.net.Uri
-import android.os.Bundle
 import android.provider.CalendarContract
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import butterknife.BindView
 import butterknife.OnClick
-import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.gcal.GCalHelper
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.PermissionUtil.verifyPermissions
@@ -50,108 +45,33 @@ class CalendarControlSet : TaskEditControlFragment() {
     @Inject lateinit var themeBase: ThemeBase
     @Inject lateinit var calendarEventProvider: CalendarEventProvider
     
-    private var calendarId: String? = null
-    private var eventUri: String? = null
+    override fun onResume() {
+        super.onResume()
 
-    override fun createView(savedInstanceState: Bundle?) {
         val canAccessCalendars = permissionChecker.canAccessCalendars()
-        if (savedInstanceState != null) {
-            eventUri = savedInstanceState.getString(EXTRA_URI)
-            calendarId = savedInstanceState.getString(EXTRA_ID)
-        } else if (task.isNew && canAccessCalendars) {
-            calendarId = preferences.defaultCalendar
-            if (!isNullOrEmpty(calendarId)) {
-                try {
-                    val defaultCalendar = calendarProvider.getCalendar(calendarId)
-                    if (defaultCalendar == null) {
-                        calendarId = null
-                    }
-                } catch (e: Exception) {
-                    Timber.e(e)
-                    firebase.reportException(e)
-                    calendarId = null
-                }
+        viewModel.eventUri?.let {
+            if (canAccessCalendars && !calendarEntryExists(it)) {
+                viewModel.eventUri = null
             }
-        } else {
-            eventUri = task.calendarURI
         }
-        if (canAccessCalendars && !calendarEntryExists(eventUri)) {
-            eventUri = null
+        if (!canAccessCalendars) {
+            viewModel.selectedCalendar = null
         }
+
         refreshDisplayView()
     }
 
-    override val layout: Int
-        get() = R.layout.control_set_gcal_display
+    override val layout = R.layout.control_set_gcal_display
 
-    override val icon: Int
-        get() = R.drawable.ic_outline_event_24px
+    override val icon = R.drawable.ic_outline_event_24px
 
     override fun controlId() = TAG
 
-    override suspend fun hasChanges(original: Task): Boolean {
-        if (!permissionChecker.canAccessCalendars()) {
-            return false
-        }
-        if (!isNullOrEmpty(calendarId)) {
-            return true
-        }
-        val originalUri = original.calendarURI
-        return if (isNullOrEmpty(eventUri) && isNullOrEmpty(originalUri)) {
-            false
-        } else originalUri != eventUri
-    }
-
-    override suspend fun apply(task: Task) {
-        if (!permissionChecker.canAccessCalendars()) {
-            return
-        }
-        if (!isNullOrEmpty(task.calendarURI)) {
-            if (eventUri == null) {
-                calendarEventProvider.deleteEvent(task)
-            } else if (!calendarEntryExists(task.calendarURI)) {
-                task.calendarURI = ""
-            }
-        }
-        if (!task.hasDueDate()) {
-            return
-        }
-        if (calendarEntryExists(task.calendarURI)) {
-            val cr = activity.contentResolver
-            try {
-                val updateValues = ContentValues()
-
-                // check if we need to update the item
-                updateValues.put(CalendarContract.Events.TITLE, task.title)
-                updateValues.put(CalendarContract.Events.DESCRIPTION, task.notes)
-                gcalHelper.createStartAndEndDate(task, updateValues)
-                cr.update(Uri.parse(task.calendarURI), updateValues, null, null)
-            } catch (e: Exception) {
-                Timber.e(e, "unable-to-update-calendar: %s", task.calendarURI)
-            }
-        } else if (!isNullOrEmpty(calendarId)) {
-            try {
-                val values = ContentValues()
-                values.put(CalendarContract.Events.CALENDAR_ID, calendarId)
-                val uri = gcalHelper.createTaskEvent(task, values)
-                if (uri != null) {
-                    task.calendarURI = uri.toString()
-                }
-            } catch (e: Exception) {
-                Timber.e(e)
-            }
-        }
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putString(EXTRA_URI, eventUri)
-        outState.putString(EXTRA_ID, calendarId)
-    }
+    override val isClickable = true
 
     @OnClick(R.id.clear)
     fun clearCalendar() {
-        if (isNullOrEmpty(eventUri)) {
+        if (viewModel.eventUri.isNullOrBlank()) {
             clear()
         } else {
             dialogBuilder
@@ -167,13 +87,13 @@ class CalendarControlSet : TaskEditControlFragment() {
     }
 
     private fun clear() {
-        calendarId = null
-        eventUri = null
+        viewModel.selectedCalendar = null
+        viewModel.eventUri = null
         refreshDisplayView()
     }
 
     override fun onRowClick() {
-        if (isNullOrEmpty(eventUri)) {
+        if (viewModel.eventUri.isNullOrBlank()) {
             CalendarPicker.newCalendarPicker(this, REQUEST_CODE_PICK_CALENDAR, calendarName)
                     .show(parentFragmentManager, FRAG_TAG_CALENDAR_PICKER)
         } else {
@@ -183,12 +103,9 @@ class CalendarControlSet : TaskEditControlFragment() {
         }
     }
 
-    override val isClickable: Boolean
-        get() = true
-
     private fun openCalendarEvent() {
         val cr = activity.contentResolver
-        val uri = Uri.parse(eventUri)
+        val uri = Uri.parse(viewModel.eventUri)
         val intent = Intent(Intent.ACTION_VIEW, uri)
         try {
             cr.query(
@@ -199,7 +116,7 @@ class CalendarControlSet : TaskEditControlFragment() {
                 if (cursor!!.count == 0) {
                     // event no longer exists
                     Toast.makeText(activity, R.string.calendar_event_not_found, Toast.LENGTH_SHORT).show()
-                    eventUri = null
+                    viewModel.eventUri = null
                     refreshDisplayView()
                 } else {
                     cursor.moveToFirst()
@@ -217,7 +134,7 @@ class CalendarControlSet : TaskEditControlFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_CODE_PICK_CALENDAR) {
             if (resultCode == Activity.RESULT_OK) {
-                calendarId = data!!.getStringExtra(CalendarPicker.EXTRA_CALENDAR_ID)
+                viewModel.selectedCalendar = data!!.getStringExtra(CalendarPicker.EXTRA_CALENDAR_ID)
                 refreshDisplayView()
             }
         } else {
@@ -226,13 +143,7 @@ class CalendarControlSet : TaskEditControlFragment() {
     }
 
     private val calendarName: String?
-        get() {
-            if (calendarId == null) {
-                return null
-            }
-            val calendar = calendarProvider.getCalendar(calendarId)
-            return calendar?.name
-        }
+        get() = viewModel.selectedCalendar?.let { calendarProvider.getCalendar(it)?.name }
 
     override fun onRequestPermissionsResult(
             requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
@@ -249,14 +160,16 @@ class CalendarControlSet : TaskEditControlFragment() {
         }
     }
 
-    private fun refreshDisplayView() {
-        if (!isNullOrEmpty(eventUri)) {
+    private fun refreshDisplayView() = when {
+        viewModel.eventUri?.isNotBlank() == true -> {
             calendar.setText(R.string.gcal_TEA_showCalendar_label)
             cancelButton.visibility = View.VISIBLE
-        } else if (calendarId != null) {
+        }
+        !viewModel.selectedCalendar.isNullOrBlank() -> {
             calendar.text = calendarName
             cancelButton.visibility = View.GONE
-        } else {
+        }
+        else -> {
             calendar.text = null
             cancelButton.visibility = View.GONE
         }
@@ -287,7 +200,5 @@ class CalendarControlSet : TaskEditControlFragment() {
         private const val REQUEST_CODE_PICK_CALENDAR = 70
         private const val REQUEST_CODE_OPEN_EVENT = 71
         private const val REQUEST_CODE_CLEAR_EVENT = 72
-        private const val EXTRA_URI = "extra_uri"
-        private const val EXTRA_ID = "extra_id"
     }
 }

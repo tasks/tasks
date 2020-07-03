@@ -16,4 +16,8 @@ public class Event<T> {
     handled = true;
     return value;
   }
+
+  public T getValue() {
+    return value;
+  }
 }

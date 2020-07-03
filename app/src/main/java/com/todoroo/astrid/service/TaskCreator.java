@@ -4,7 +4,6 @@ import static com.todoroo.andlib.utility.DateUtilities.now;
 import static com.todoroo.astrid.helper.UUIDHelper.newUUID;
 import static org.tasks.Strings.isNullOrEmpty;
 
-import android.content.ContentValues;
 import android.net.Uri;
 import androidx.annotation.Nullable;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -87,7 +86,7 @@ public class TaskCreator {
     if (!isNullOrEmpty(task.getTitle())
         && gcalCreateEventEnabled
         && isNullOrEmpty(task.getCalendarURI())) {
-      Uri calendarUri = gcalHelper.createTaskEvent(task, new ContentValues());
+      Uri calendarUri = gcalHelper.createTaskEvent(task, preferences.getDefaultCalendar());
       task.setCalendarURI(calendarUri.toString());
     }
 

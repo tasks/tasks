@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import com.todoroo.astrid.data.Task
 
 @Dao
 interface AlarmDao {
@@ -28,4 +29,10 @@ interface AlarmDao {
 
     @Insert
     suspend fun insert(alarms: Iterable<Alarm>)
+
+    suspend fun getAlarms(task: Task) = ArrayList(if (task.isNew) {
+        emptyList()
+    } else {
+        getAlarms(task.id)
+    })
 }

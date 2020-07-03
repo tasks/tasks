@@ -11,7 +11,6 @@ import com.todoroo.andlib.data.Table
 import com.todoroo.andlib.sql.Field
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.dao.TaskDaoBlocking
 import org.tasks.Strings
 import org.tasks.backup.XmlReader
 import org.tasks.data.Tag
@@ -233,11 +232,11 @@ class Task : Parcelable {
             return dueDate < compareTo && !isCompleted
         }
 
-    fun repeatAfterCompletion(): Boolean = recurrence?.contains("FROM=COMPLETION") ?: false
+    fun repeatAfterCompletion(): Boolean = recurrence.isRepeatAfterCompletion()
 
     fun sanitizedRecurrence(): String? = getRecurrenceWithoutFrom()?.replace("BYDAY=;".toRegex(), "") // $NON-NLS-1$//$NON-NLS-2$
 
-    fun getRecurrenceWithoutFrom(): String? = recurrence?.replace(";?FROM=[^;]*".toRegex(), "")
+    fun getRecurrenceWithoutFrom(): String? = recurrence.withoutFrom()
 
     fun setDueDateAdjustingHideUntil(newDueDate: Long) {
         if (dueDate > 0) {
@@ -612,5 +611,9 @@ class Task : Parcelable {
         @JvmStatic fun isUuidEmpty(uuid: String?): Boolean {
             return NO_UUID == uuid || Strings.isNullOrEmpty(uuid)
         }
+
+        fun String?.isRepeatAfterCompletion() = this?.contains("FROM=COMPLETION") ?: false
+
+        fun String?.withoutFrom(): String? = this?.replace(";?FROM=[^;]*".toRegex(), "")
     }
 }

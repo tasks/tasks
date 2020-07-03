@@ -13,24 +13,23 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import com.todoroo.andlib.utility.DateUtilities
 import org.tasks.R
+import org.tasks.ui.TaskEditViewModel
 
 /**
  * Control set dealing with random reminder settings
  *
  * @author Tim Su <tim></tim>@todoroo.com>
  */
-internal class RandomReminderControlSet(context: Context, parentView: View, reminderPeriod: Long) {
-    private val hours: IntArray
-    private var selectedIndex = 0
-    val reminderPeriod: Long
-        get() {
-            val hourValue = hours[selectedIndex]
-            return hourValue * DateUtilities.ONE_HOUR
-        }
-
+internal class RandomReminderControlSet(context: Context, parentView: View, reminderPeriod: Long, vm: TaskEditViewModel) {
     init {
         val periodSpinner = parentView.findViewById<Spinner>(R.id.reminder_random_interval)
         periodSpinner.visibility = View.VISIBLE
+        // create hour array
+        val hourStrings = context.resources.getStringArray(R.array.TEA_reminder_random_hours)
+        val hours = IntArray(hourStrings.size)
+        for (i in hours.indices) {
+            hours[i] = hourStrings[i].toInt()
+        }
         // create adapter
         val adapter = ArrayAdapter(
                 context,
@@ -39,19 +38,13 @@ internal class RandomReminderControlSet(context: Context, parentView: View, remi
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         periodSpinner.adapter = adapter
         periodSpinner.onItemSelectedListener = object : OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View, position: Int, id: Long) {
-                selectedIndex = position
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                vm.reminderPeriod = hours[position] * DateUtilities.ONE_HOUR
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-        // create hour array
-        val hourStrings = context.resources.getStringArray(R.array.TEA_reminder_random_hours)
-        hours = IntArray(hourStrings.size)
-        for (i in hours.indices) {
-            hours[i] = hourStrings[i].toInt()
-        }
         var i = 0
         while (i < hours.size - 1) {
             if (hours[i] * DateUtilities.ONE_HOUR >= reminderPeriod) {

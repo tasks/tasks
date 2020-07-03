@@ -16,7 +16,6 @@ import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import butterknife.BindView
 import butterknife.OnClick
-import com.todoroo.astrid.data.Task
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
@@ -45,10 +44,8 @@ class FilesControlSet : TaskEditControlFragment() {
     @BindView(R.id.add_attachment)
     lateinit var addAttachment: TextView
     
-    private var taskUuid: String? = null
-
     override fun createView(savedInstanceState: Bundle?) {
-        taskUuid = task.uuid
+        val task = viewModel.task!!
         if (savedInstanceState == null) {
             if (task.hasTransitory(TaskAttachment.KEY)) {
                 for (uri in (task.getTransitory<ArrayList<Uri>>(TaskAttachment.KEY))!!) {
@@ -69,15 +66,11 @@ class FilesControlSet : TaskEditControlFragment() {
         AddAttachmentDialog.newAddAttachmentDialog(this).show(parentFragmentManager, FRAG_TAG_ADD_ATTACHMENT_DIALOG)
     }
 
-    override val layout: Int
-        get() = R.layout.control_set_files
+    override val layout = R.layout.control_set_files
 
-    override val icon: Int
-        get() = R.drawable.ic_outline_attachment_24px
+    override val icon = R.drawable.ic_outline_attachment_24px
 
     override fun controlId() = TAG
-
-    override suspend fun apply(task: Task) {}
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == AddAttachmentDialog.REQUEST_CAMERA || requestCode == AddAttachmentDialog.REQUEST_AUDIO) {
@@ -143,7 +136,10 @@ class FilesControlSet : TaskEditControlFragment() {
     }
 
     private fun newAttachment(output: Uri) {
-        val attachment = TaskAttachment(taskUuid!!, output, FileHelper.getFilename(context, output)!!)
+        val attachment = TaskAttachment(
+                viewModel.task!!.uuid,
+                output,
+                FileHelper.getFilename(context, output)!!)
         lifecycleScope.launch {
             taskAttachmentDao.createNew(attachment)
             addAttachment(attachment)

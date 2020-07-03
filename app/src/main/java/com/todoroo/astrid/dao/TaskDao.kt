@@ -226,6 +226,9 @@ SELECT EXISTS(SELECT 1 FROM tasks WHERE parent > 0 AND deleted = 0) AS hasSubtas
         if (!task.insignificantChange(original)) {
             task.modificationDate = DateUtilities.now()
         }
+        if (task.dueDate != original?.dueDate) {
+            task.reminderSnooze = 0
+        }
         if (update(task) == 1) {
             workManager.afterSave(task, original)
         }
@@ -244,6 +247,9 @@ SELECT EXISTS(SELECT 1 FROM tasks WHERE parent > 0 AND deleted = 0) AS hasSubtas
         }
         if (Task.isUuidEmpty(task.remoteId)) {
             task.remoteId = UUIDHelper.newUUID()
+        }
+        if (BuildConfig.DEBUG) {
+            require(task.remoteId?.isNotBlank() == true && task.remoteId != "0")
         }
         val insert = insert(task)
         task.id = insert

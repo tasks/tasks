@@ -20,7 +20,6 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.activity.TaskEditFragment.Companion.newTaskEditFragment
-import com.todoroo.astrid.activity.TaskEditFragment.TaskEditFragmentCallbackHandler
 import com.todoroo.astrid.activity.TaskListFragment.TaskListFragmentCallbackHandler
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.dao.TaskDao
@@ -28,8 +27,9 @@ import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskCreator
 import com.todoroo.astrid.timers.TimerControlSet.TimerControlSetCallback
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.async
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.activities.TagSettingsActivity
@@ -60,7 +60,7 @@ import org.tasks.ui.NavigationDrawerFragment
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandler, OnListChanged, TimerControlSetCallback, DueDateChangeListener, TaskEditFragmentCallbackHandler, CommentBarFragmentCallback, SortDialogCallback {
+class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandler, OnListChanged, TimerControlSetCallback, DueDateChangeListener, CommentBarFragmentCallback, SortDialogCallback {
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var repeatConfirmationReceiver: RepeatConfirmationReceiver
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
@@ -175,7 +175,9 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         val loadFilter = intent.hasExtra(LOAD_FILTER)
         val tef = taskEditFragment
         if (tef != null && (openFilter || loadFilter)) {
-            tef.save()
+            lifecycleScope.launch(NonCancellable) {
+                tef.save()
+            }
         }
         if (loadFilter || !openFilter && filter == null) {
             lifecycleScope.launch {
@@ -305,15 +307,15 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         if (task == null) {
             return
         }
-        val taskEditFragment = taskEditFragment
-        taskEditFragment?.save()
-        clearUi()
         lifecycleScope.launch {
-            val list = async { defaultFilterProvider.getList(task) }
-            val location = async { locationDao.getLocation(task, preferences) }
-            val tags = async { tagDataDao.getTags(task) }
-            val fragment = newTaskEditFragment(
-                    task, filterColor, list.await(), location.await(), tags.await())
+            taskEditFragment?.let {
+                it.editViewModel.cleared.removeObservers(this@MainActivity)
+                withContext(NonCancellable) {
+                    it.save()
+                }
+            }
+            clearUi()
+            val fragment = newTaskEditFragment(task, filterColor)
             supportFragmentManager.beginTransaction()
                     .replace(R.id.detail, fragment, TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
                     .addToBackStack(TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
@@ -332,14 +334,15 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
             navigationDrawer.closeDrawer()
             return
         }
-        val taskEditFragment = taskEditFragment
-        if (taskEditFragment != null) {
+        taskEditFragment?.let {
             if (preferences.backButtonSavesTask()) {
-                taskEditFragment.save()
+                lifecycleScope.launch(NonCancellable) {
+                    it.save()
+                }
             } else {
-                taskEditFragment.discardButtonClick()
+                it.discardButtonClick()
             }
-            return
+            return@onBackPressed
         }
         if (taskListFragment?.collapseSearchView() == true) {
             return
@@ -364,7 +367,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
     private val isSinglePaneLayout: Boolean
         get() = !resources.getBoolean(R.bool.two_pane_layout)
 
-    override fun removeTaskEditFragment() {
+    fun removeTaskEditFragment() {
         supportFragmentManager
                 .popBackStackImmediate(
                         TaskEditFragment.TAG_TASKEDIT_FRAGMENT, FragmentManager.POP_BACK_STACK_INCLUSIVE)
@@ -413,8 +416,8 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         actionMode = null
     }
 
-    override fun dueDateChanged(dateTime: Long) {
-        taskEditFragment!!.onDueDateChanged(dateTime)
+    override fun dueDateChanged() {
+        taskEditFragment!!.onDueDateChanged()
     }
 
     override fun onListChanged(filter: Filter?) {

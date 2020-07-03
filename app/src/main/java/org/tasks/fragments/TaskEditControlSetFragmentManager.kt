@@ -1,10 +1,8 @@
 package org.tasks.fragments
 
 import android.content.Context
-import android.os.Bundle
 import androidx.fragment.app.FragmentManager
 import com.todoroo.astrid.activity.BeastModePreferences
-import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.files.FilesControlSet
 import com.todoroo.astrid.repeats.RepeatControlSet
 import com.todoroo.astrid.tags.TagsControlSet
@@ -27,17 +25,7 @@ class TaskEditControlSetFragmentManager @Inject constructor(
     private val displayOrder: List<String>
     var visibleSize = 0
 
-    fun getFragmentsInPersistOrder(fragmentManager: FragmentManager): List<TaskEditControlFragment> {
-        return controlSetFragments.keys
-                .mapNotNull { fragmentManager.findFragmentByTag(it) as TaskEditControlFragment? }
-    }
-
-    fun getOrCreateFragments(
-            fragmentManager: FragmentManager,
-            task: Task,
-            arguments: Bundle): List<TaskEditControlFragment> {
-        arguments.putParcelable(TaskEditControlFragment.EXTRA_TASK, task)
-        arguments.putBoolean(TaskEditControlFragment.EXTRA_IS_NEW, task.isNew)
+    fun getOrCreateFragments(fragmentManager: FragmentManager): List<TaskEditControlFragment> {
         val fragments: MutableList<TaskEditControlFragment> = ArrayList()
         for (i in displayOrder.indices) {
             val tag = displayOrder[i]
@@ -45,7 +33,6 @@ class TaskEditControlSetFragmentManager @Inject constructor(
             if (fragment == null) {
                 val resId = controlSetFragments[tag]
                 fragment = createFragment(resId!!)
-                fragment.arguments = arguments
             }
             fragments.add(fragment)
         }

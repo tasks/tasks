@@ -14,21 +14,15 @@ import android.widget.TextView
 import androidx.core.util.Pair
 import butterknife.BindView
 import butterknife.OnClick
-import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.astrid.activity.TaskEditFragment
-import com.todoroo.astrid.data.SyncFlags
-import com.todoroo.astrid.data.Task
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.PermissionUtil.verifyPermissions
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.Geofence
 import org.tasks.data.Location
-import org.tasks.data.LocationDao
 import org.tasks.data.Place
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.GeofenceDialog
-import org.tasks.location.GeofenceApi
 import org.tasks.location.LocationPickerActivity
 import org.tasks.preferences.*
 import java.util.*
@@ -38,8 +32,6 @@ import javax.inject.Inject
 class LocationControlSet : TaskEditControlFragment() {
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var dialogBuilder: DialogBuilder
-    @Inject lateinit var geofenceApi: GeofenceApi
-    @Inject lateinit var locationDao: LocationDao
     @Inject lateinit var device: Device
     @Inject lateinit var permissionRequestor: FragmentPermissionRequestor
     @Inject lateinit var permissionChecker: PermissionChecker
@@ -52,33 +44,20 @@ class LocationControlSet : TaskEditControlFragment() {
 
     @BindView(R.id.geofence_options)
     lateinit var geofenceOptions: ImageView
-    
-    private var original: Location? = null
-    private var location: Location? = null
-
-    override fun createView(savedInstanceState: Bundle?) {
-        if (savedInstanceState == null) {
-            original = requireArguments().getParcelable(TaskEditFragment.EXTRA_PLACE)
-            if (original != null) {
-                setLocation(Location(original!!.geofence, original!!.place))
-            }
-        } else {
-            original = savedInstanceState.getParcelable(EXTRA_ORIGINAL)
-            location = savedInstanceState.getParcelable(EXTRA_LOCATION)
-        }
-    }
 
     override fun onResume() {
         super.onResume()
+
         updateUi()
     }
 
     private fun setLocation(location: Location?) {
-        this.location = location
+        viewModel.selectedLocation = location
         updateUi()
     }
 
     private fun updateUi() {
+        val location = viewModel.selectedLocation
         if (location == null) {
             locationName.text = ""
             geofenceOptions.visibility = View.GONE
@@ -87,9 +66,9 @@ class LocationControlSet : TaskEditControlFragment() {
             geofenceOptions.visibility = if (device.supportsGeofences()) View.VISIBLE else View.GONE
             geofenceOptions.setImageResource(
                     if (permissionChecker.canAccessLocation()
-                            && (location!!.isArrival || location!!.isDeparture)) R.drawable.ic_outline_notifications_24px else R.drawable.ic_outline_notifications_off_24px)
-            val name = location!!.displayName
-            val address = location!!.displayAddress
+                            && (location.isArrival || location.isDeparture)) R.drawable.ic_outline_notifications_24px else R.drawable.ic_outline_notifications_off_24px)
+            val name = location.displayName
+            val address = location.displayAddress
             if (!isNullOrEmpty(address) && address != name) {
                 locationAddress.text = address
                 locationAddress.visibility = View.VISIBLE
@@ -109,22 +88,23 @@ class LocationControlSet : TaskEditControlFragment() {
     }
 
     override fun onRowClick() {
+        val location = viewModel.selectedLocation
         if (location == null) {
             chooseLocation()
         } else {
             val options: MutableList<Pair<Int, () -> Unit>> = ArrayList()
-            options.add(Pair.create(R.string.open_map, { location!!.open(activity) }))
-            if (!isNullOrEmpty(location!!.phone)) {
+            options.add(Pair.create(R.string.open_map, { location.open(activity) }))
+            if (!isNullOrEmpty(location.phone)) {
                 options.add(Pair.create(R.string.action_call, { call() }))
             }
-            if (!isNullOrEmpty(location!!.url)) {
+            if (!isNullOrEmpty(location.url)) {
                 options.add(Pair.create(R.string.visit_website, { openWebsite() }))
             }
             options.add(Pair.create(R.string.choose_new_location, { chooseLocation() }))
             options.add(Pair.create(R.string.delete, { setLocation(null) }))
             val items = options.map { requireContext().getString(it.first!!) }
             dialogBuilder
-                    .newDialog(location!!.displayName)
+                    .newDialog(location.displayName)
                     .setItems(items) { _, which: Int ->
                         options[which].second!!.invoke()
                     }
@@ -132,13 +112,10 @@ class LocationControlSet : TaskEditControlFragment() {
         }
     }
 
-    override val isClickable: Boolean
-        get() = true
-
     private fun chooseLocation() {
         val intent = Intent(activity, LocationPickerActivity::class.java)
-        if (location != null) {
-            intent.putExtra(LocationPickerActivity.EXTRA_PLACE, location!!.place as Parcelable)
+        viewModel.selectedLocation?.let {
+            intent.putExtra(LocationPickerActivity.EXTRA_PLACE, it.place as Parcelable)
         }
         startActivityForResult(intent, REQUEST_LOCATION_REMINDER)
     }
@@ -168,78 +145,40 @@ class LocationControlSet : TaskEditControlFragment() {
     }
 
     private fun showGeofenceOptions() {
-        val dialog = GeofenceDialog.newGeofenceDialog(location)
+        val dialog = GeofenceDialog.newGeofenceDialog(viewModel.selectedLocation)
         dialog.setTargetFragment(this, REQUEST_GEOFENCE_DETAILS)
         dialog.show(parentFragmentManager, FRAG_TAG_LOCATION_DIALOG)
     }
 
-    override val layout: Int
-        get() = R.layout.location_row
+    override val layout = R.layout.location_row
 
-    override val icon: Int
-        get() = R.drawable.ic_outline_place_24px
+    override val icon = R.drawable.ic_outline_place_24px
 
     override fun controlId() = TAG
 
+    override val isClickable = true
+
     private fun openWebsite() {
-        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(location!!.url)))
+        viewModel.selectedLocation?.let {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.url)))
+        }
     }
 
     private fun call() {
-        startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + location!!.phone)))
-    }
-
-    override suspend fun hasChanges(task: Task): Boolean {
-        if (original == null) {
-            return location != null
+        viewModel.selectedLocation?.let {
+            startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + it.phone)))
         }
-        if (location == null) {
-            return true
-        }
-        return if (original!!.place != location!!.place) {
-            true
-        } else {
-            original!!.isDeparture != location!!.isDeparture
-                    || original!!.isArrival != location!!.isArrival
-                    || original!!.radius != location!!.radius
-        }
-    }
-
-    override fun requiresId() = true
-
-    override suspend fun apply(task: Task) {
-        if (original == null || location == null || original!!.place != location!!.place) {
-            task.putTransitory(SyncFlags.FORCE_CALDAV_SYNC, true)
-        }
-        if (original != null) {
-            locationDao.delete(original!!.geofence)
-            geofenceApi.update(original!!.place)
-        }
-        if (location != null) {
-            val place = location!!.place
-            val geofence = location!!.geofence
-            geofence.task = task.id
-            geofence.place = place.uid
-            geofence.id = locationDao.insert(geofence)
-            geofenceApi.update(place)
-        }
-        task.modificationDate = DateUtilities.now()
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putParcelable(EXTRA_ORIGINAL, original)
-        outState.putParcelable(EXTRA_LOCATION, location)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_LOCATION_REMINDER) {
             if (resultCode == Activity.RESULT_OK) {
                 val place: Place = data!!.getParcelableExtra(LocationPickerActivity.EXTRA_PLACE)!!
+                val location = viewModel.selectedLocation
                 val geofence = if (location == null) {
                     Geofence(place.uid, preferences)
                 } else {
-                    val existing = location!!.geofence
+                    val existing = location.geofence
                     Geofence(
                             place.uid,
                             existing.isArrival,
@@ -250,7 +189,7 @@ class LocationControlSet : TaskEditControlFragment() {
             }
         } else if (requestCode == REQUEST_GEOFENCE_DETAILS) {
             if (resultCode == Activity.RESULT_OK) {
-                location!!.geofence = data!!.getParcelableExtra(GeofenceDialog.EXTRA_GEOFENCE)!!
+                viewModel.selectedLocation?.geofence = data!!.getParcelableExtra(GeofenceDialog.EXTRA_GEOFENCE)!!
                 updateUi()
             }
         } else {
@@ -263,7 +202,5 @@ class LocationControlSet : TaskEditControlFragment() {
         private const val REQUEST_LOCATION_REMINDER = 12153
         private const val REQUEST_GEOFENCE_DETAILS = 12154
         private const val FRAG_TAG_LOCATION_DIALOG = "location_dialog"
-        private const val EXTRA_ORIGINAL = "extra_original_location"
-        private const val EXTRA_LOCATION = "extra_new_location"
     }
 }

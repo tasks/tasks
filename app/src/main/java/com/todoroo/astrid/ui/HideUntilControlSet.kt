@@ -67,9 +67,6 @@ class HideUntilControlSet : TaskEditControlFragment(), OnItemSelectedListener {
         spinner.performClick()
     }
 
-    override val isClickable: Boolean
-        get() = true
-
     override fun createView(savedInstanceState: Bundle?) {
         adapter = object : HiddenTopArrayAdapter<HideUntilValue>(
                 activity, android.R.layout.simple_spinner_item, spinnerItems) {
@@ -94,8 +91,8 @@ class HideUntilControlSet : TaskEditControlFragment(), OnItemSelectedListener {
             }
         }
         if (savedInstanceState == null) {
-            val dueDate = task.dueDate
-            var hideUntil = task.hideUntil
+            val dueDate = viewModel.dueDate!!
+            var hideUntil = viewModel.hideUntil!!
             val dueDay = DateTimeUtils.newDateTime(dueDate)
                     .withHourOfDay(0)
                     .withMinuteOfHour(0)
@@ -107,7 +104,7 @@ class HideUntilControlSet : TaskEditControlFragment(), OnItemSelectedListener {
             if (hideUntil <= 0) {
                 selection = 0
                 hideUntil = 0
-                if (task.isNew) {
+                if (viewModel.isNew) {
                     when (preferences.getIntegerFromString(R.string.p_default_hideUntil_key, Task.HIDE_UNTIL_NONE)) {
                         Task.HIDE_UNTIL_DUE -> selection = 1
                         Task.HIDE_UNTIL_DAY_BEFORE -> selection = 3
@@ -138,15 +135,13 @@ class HideUntilControlSet : TaskEditControlFragment(), OnItemSelectedListener {
         refreshDisplayView()
     }
 
-    override val layout: Int
-        get() = R.layout.control_set_hide
+    override val layout = R.layout.control_set_hide
 
-    override val icon: Int
-        get() = R.drawable.ic_outline_visibility_off_24px
+    override val icon = R.drawable.ic_outline_visibility_off_24px
 
-    override fun controlId(): Int {
-        return TAG
-    }
+    override fun controlId() = TAG
+
+    override val isClickable = true
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_HIDE_UNTIL) {
@@ -156,18 +151,6 @@ class HideUntilControlSet : TaskEditControlFragment(), OnItemSelectedListener {
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
-    }
-
-    override suspend fun apply(task: Task) {
-        task.hideUntil = getHideUntil(task)
-    }
-
-    override suspend fun hasChanges(original: Task): Boolean {
-        return original.hideUntil != getHideUntil(original)
-    }
-
-    private fun getHideUntil(task: Task): Long {
-        return task.createHideUntil(selectedValue!!.setting, selectedValue!!.date)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -251,6 +234,8 @@ class HideUntilControlSet : TaskEditControlFragment(), OnItemSelectedListener {
 
     private fun refreshDisplayView() {
         selectedValue = adapter.getItem(selection)
+        viewModel.hideUntil = viewModel.task
+                ?.createHideUntil(selectedValue!!.setting, selectedValue!!.date)
         clearButton.visibility = if (selectedValue!!.setting == Task.HIDE_UNTIL_NONE) View.GONE else View.VISIBLE
     }
 

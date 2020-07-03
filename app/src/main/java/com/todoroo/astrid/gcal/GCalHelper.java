@@ -83,7 +83,9 @@ public class GCalHelper {
     }
   }
 
-  public Uri createTaskEvent(Task task, ContentValues values) {
+  public Uri createTaskEvent(Task task, String calendarId) {
+    ContentValues values = new ContentValues();
+    values.put(CalendarContract.Events.CALENDAR_ID, calendarId);
     return createTaskEvent(task, values, true);
   }
 
@@ -125,6 +127,19 @@ public class GCalHelper {
     }
 
     return null;
+  }
+
+  public void updateEvent(String uri, Task task) {
+    try {
+      ContentValues updateValues = new ContentValues();
+      // check if we need to update the item
+      updateValues.put(CalendarContract.Events.TITLE, task.getTitle());
+      updateValues.put(CalendarContract.Events.DESCRIPTION, task.getNotes());
+      createStartAndEndDate(task, updateValues);
+      cr.update(Uri.parse(uri), updateValues, null, null);
+    } catch (Exception e) {
+      Timber.e(e, "Failed to update calendar: %s [%s]", uri, task);
+    }
   }
 
   public void rescheduleRepeatingTask(Task task) {

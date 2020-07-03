@@ -20,32 +20,30 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.Toolbar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.Behavior.DragCallback
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.notes.CommentsController
 import com.todoroo.astrid.repeats.RepeatControlSet
-import com.todoroo.astrid.service.TaskDeleter
 import com.todoroo.astrid.timers.TimerPlugin
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.tasks.BuildConfig
+import org.tasks.Event
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
-import org.tasks.data.Location
-import org.tasks.data.TagData
 import org.tasks.data.UserActivity
 import org.tasks.data.UserActivityDao
 import org.tasks.databinding.FragmentTaskEditBinding
@@ -59,6 +57,7 @@ import org.tasks.preferences.Preferences
 import org.tasks.themes.ThemeColor
 import org.tasks.ui.SubtaskControlSet
 import org.tasks.ui.TaskEditControlFragment
+import org.tasks.ui.TaskEditViewModel
 import javax.inject.Inject
 import kotlin.math.abs
 
@@ -66,7 +65,6 @@ import kotlin.math.abs
 class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var userActivityDao: UserActivityDao
-    @Inject lateinit var taskDeleter: TaskDeleter
     @Inject lateinit var notificationManager: NotificationManager
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var context: Activity
@@ -76,33 +74,34 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     @Inject lateinit var firebase: Firebase
     @Inject lateinit var timerPlugin: TimerPlugin
     @Inject lateinit var linkify: Linkify
-    
-    lateinit var model: Task
-    lateinit var binding: FragmentTaskEditBinding
-    private var callback: TaskEditFragmentCallbackHandler? = null
-    private var showKeyboard = false
-    private var completed = false
-    
-    override fun onAttach(activity: Activity) {
-        super.onAttach(activity)
-        callback = activity as TaskEditFragmentCallbackHandler
-    }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putBoolean(EXTRA_COMPLETED, completed)
+    val editViewModel: TaskEditViewModel by viewModels()
+    lateinit var binding: FragmentTaskEditBinding
+    private var showKeyboard = false
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        editViewModel.setup(requireArguments().getParcelable(EXTRA_TASK)!!)
+        val activity = requireActivity() as MainActivity
+        editViewModel.cleared.observe(activity, Observer<Event<Boolean>> {
+            activity.removeTaskEditFragment()
+        })
     }
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentTaskEditBinding.inflate(inflater)
         val view: View = binding.root
-        val arguments = requireArguments()
-        model = arguments.getParcelable(EXTRA_TASK)!!
-        val themeColor: ThemeColor = arguments.getParcelable(EXTRA_THEME)!!
+        val model = editViewModel.task!!
+        val themeColor: ThemeColor = requireArguments().getParcelable(EXTRA_THEME)!!
         val toolbar = binding.toolbar
         toolbar.navigationIcon = context.getDrawable(R.drawable.ic_outline_save_24px)
-        toolbar.setNavigationOnClickListener { save() }
+        toolbar.setNavigationOnClickListener {
+            lifecycleScope.launch(NonCancellable) {
+                save()
+            }
+        }
         val backButtonSavesTask = preferences.backButtonSavesTask()
         toolbar.inflateMenu(R.menu.menu_task_edit_fragment)
         val menu = toolbar.menu
@@ -116,9 +115,6 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
                 if (model.isNew) MenuItem.SHOW_AS_ACTION_IF_ROOM else MenuItem.SHOW_AS_ACTION_NEVER)
         if (savedInstanceState == null) {
             showKeyboard = model.isNew && isNullOrEmpty(model.title)
-            completed = model.isCompleted
-        } else {
-            completed = savedInstanceState.getBoolean(EXTRA_COMPLETED)
         }
         val params = binding.appbarlayout.layoutParams as CoordinatorLayout.LayoutParams
         params.behavior = AppBarLayout.Behavior()
@@ -136,20 +132,25 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         title.setTextColor(themeColor.colorOnPrimary)
         title.setHintTextColor(themeColor.hintOnPrimary)
         title.maxLines = 5
+        title.addTextChangedListener { text ->
+            editViewModel.title = text.toString().trim { it <= ' ' }
+        }
         if (model.isNew || preferences.getBoolean(R.string.p_hide_check_button, false)) {
             binding.fab.visibility = View.INVISIBLE
-        } else if (completed) {
+        } else if (editViewModel.completed!!) {
             title.paintFlags = title.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             binding.fab.setImageResource(R.drawable.ic_outline_check_box_outline_blank_24px)
         }
         binding.fab.setOnClickListener {
-            if (completed) {
-                completed = false
+            if (editViewModel.completed!!) {
+                editViewModel.completed = false
                 title.paintFlags = title.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
                 binding.fab.setImageResource(R.drawable.ic_outline_check_box_24px)
             } else {
-                completed = true
-                save()
+                editViewModel.completed = true
+                lifecycleScope.launch(NonCancellable) {
+                    save()
+                }
             }
         }
         if (AndroidUtilities.atLeastQ()) {
@@ -176,7 +177,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         commentsController.reloadView()
         val fragmentManager = childFragmentManager
         val taskEditControlFragments =
-                taskEditControlSetFragmentManager.getOrCreateFragments(fragmentManager, model, arguments)
+                taskEditControlSetFragmentManager.getOrCreateFragments(fragmentManager)
         val visibleSize = taskEditControlSetFragmentManager.visibleSize
         val fragmentTransaction = fragmentManager.beginTransaction()
         for (i in taskEditControlFragments.indices) {
@@ -199,6 +200,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
 
     override fun onResume() {
         super.onResume()
+
         if (showKeyboard) {
             binding.title.requestFocus()
             val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -219,6 +221,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     }
 
     fun stopTimer(): Task {
+        val model = editViewModel.task!!
         timerPlugin.stopTimer(model)
         val elapsedTime = DateUtils.formatElapsedTime(model.elapsedSeconds.toLong())
         addComment(String.format(
@@ -232,6 +235,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     }
 
     fun startTimer(): Task {
+        val model = editViewModel.task!!
         timerPlugin.startTimer(model)
         addComment(String.format(
                 "%s %s",
@@ -242,39 +246,21 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     }
 
     /** Save task model from values in UI components  */
-    fun save() {
-        val fragments = taskEditControlSetFragmentManager.getFragmentsInPersistOrder(childFragmentManager)
-        lifecycleScope.launch(NonCancellable) {
-            if (hasChanges(fragments)) {
-                val isNewTask = model.isNew
-                val taskListFragment = (activity as MainActivity?)!!.taskListFragment
-                val title = title
-                model.title = if (isNullOrEmpty(title)) getString(R.string.no_title) else title
-                if (completed != model.isCompleted) {
-                    model.completionDate = if (completed) DateUtilities.now() else 0
+    suspend fun save() {
+        val saved = editViewModel.save()
+        if (saved && editViewModel.isNew) {
+            (activity as MainActivity?)?.taskListFragment?.let { taskListFragment ->
+                val model = editViewModel.task!!
+                taskListFragment.onTaskCreated(model.uuid)
+                if (!isNullOrEmpty(model.calendarURI)) {
+                    taskListFragment.makeSnackbar(R.string.calendar_event_created, model.title)
+                            .setAction(R.string.action_open) {
+                                val uri = model.calendarURI
+                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+                                taskListFragment.startActivity(intent)
+                            }
+                            .show()
                 }
-                val partition = fragments.partition { it.requiresId() }
-                partition.second.forEach { it.apply(model) }
-                if (isNewTask) {
-                    taskDao.createNew(model)
-                }
-                partition.first.forEach { it.apply(model) }
-                taskDao.save(model, null)
-                if (isNewTask) {
-                    taskListFragment!!.onTaskCreated(model.uuid)
-                    if (!isNullOrEmpty(model.calendarURI)) {
-                        taskListFragment.makeSnackbar(R.string.calendar_event_created, model.title)
-                                .setAction(R.string.action_open) {
-                                    val uri = model.calendarURI
-                                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
-                                    taskListFragment.startActivity(intent)
-                                }
-                                .show()
-                    }
-                }
-                callback!!.removeTaskEditFragment()
-            } else {
-                discard()
             }
         }
     }
@@ -284,68 +270,37 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
    * =============================================== model reading / saving
    * ======================================================================
    */
-    private val repeatControlSet: RepeatControlSet
-        get() = getFragment<RepeatControlSet>(RepeatControlSet.TAG)!!
+    private val repeatControlSet: RepeatControlSet?
+        get() = getFragment<RepeatControlSet>(RepeatControlSet.TAG)
 
-    private val subtaskControlSet: SubtaskControlSet
-        get() = getFragment<SubtaskControlSet>(SubtaskControlSet.TAG)!!
+    private val subtaskControlSet: SubtaskControlSet?
+        get() = getFragment<SubtaskControlSet>(SubtaskControlSet.TAG)
 
     private fun <T : TaskEditControlFragment?> getFragment(tag: Int): T? {
         return childFragmentManager.findFragmentByTag(getString(tag)) as T?
     }
 
-    private val title: String
-        get() = binding.title.text.toString().trim { it <= ' ' }
-
-    private suspend fun hasChanges(fragments: List<TaskEditControlFragment>): Boolean {
-        val newTitle = title
-        if (newTitle != model.title
-                || !model.isNew && completed != model.isCompleted
-                || model.isNew && !isNullOrEmpty(newTitle)) {
-            return true
-        }
-        try {
-            return fragments.any { it.hasChanges(model) }
-        } catch (e: Exception) {
-            firebase.reportException(e)
-        }
-        return false
-    }
-
-    /*
+   /*
    * ======================================================================
    * ======================================================= event handlers
    * ======================================================================
    */
     fun discardButtonClick() {
-        val fragments = taskEditControlSetFragmentManager.getFragmentsInPersistOrder(childFragmentManager)
-        lifecycleScope.launch {
-            if (hasChanges(fragments)) {
-                dialogBuilder
-                        .newDialog(R.string.discard_confirmation)
-                        .setPositiveButton(R.string.keep_editing, null)
-                        .setNegativeButton(R.string.discard) { _, _ -> discard() }
-                        .show()
-            } else {
-                discard()
-            }
-        }
-    }
-
-    fun discard() {
-        if (model.isNew) {
-            timerPlugin.stopTimer(model)
-        }
-        callback!!.removeTaskEditFragment()
+       if (editViewModel.hasChanges()) {
+           dialogBuilder
+                   .newDialog(R.string.discard_confirmation)
+                   .setPositiveButton(R.string.keep_editing, null)
+                   .setNegativeButton(R.string.discard) { _, _ -> editViewModel.discard() }
+                   .show()
+       } else {
+           editViewModel.discard()
+       }
     }
 
     private fun deleteButtonClick() {
         dialogBuilder
                 .newDialog(R.string.DLG_delete_this_task_question)
-                .setPositiveButton(android.R.string.ok) { _, _ ->
-                    taskDeleter.markDeleted(model)
-                    callback!!.removeTaskEditFragment()
-                }
+                .setPositiveButton(android.R.string.ok) { _, _ -> editViewModel.delete() }
                 .setNegativeButton(android.R.string.cancel, null)
                 .show()
     }
@@ -355,17 +310,16 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
    * ========================================== UI component helper classes
    * ======================================================================
    */
-    fun onDueDateChanged(dueDate: Long) {
-        val repeatControlSet: RepeatControlSet? = repeatControlSet
-        repeatControlSet?.onDueDateChanged(dueDate)
+    fun onDueDateChanged() {
+        repeatControlSet?.onDueDateChanged()
     }
 
     fun onRemoteListChanged(filter: Filter?) {
-        val subtaskControlSet: SubtaskControlSet? = subtaskControlSet
         subtaskControlSet?.onRemoteListChanged(filter)
     }
 
     fun addComment(message: String?, picture: Uri?) {
+        val model = editViewModel.task!!
         val userActivity = UserActivity()
         if (picture != null) {
             val output = FileHelper.copyToUri(context, preferences.attachmentsDirectory, picture)
@@ -382,35 +336,16 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         }
     }
 
-    interface TaskEditFragmentCallbackHandler {
-        fun removeTaskEditFragment()
-    }
-
     companion object {
         const val TAG_TASKEDIT_FRAGMENT = "taskedit_fragment"
         private const val EXTRA_TASK = "extra_task"
         private const val EXTRA_THEME = "extra_theme"
-        const val EXTRA_LIST = "extra_list"
-        const val EXTRA_PLACE = "extra_place"
-        const val EXTRA_TAGS = "extra_tags"
-        private const val EXTRA_COMPLETED = "extra_completed"
 
-        fun newTaskEditFragment(
-                task: Task,
-                themeColor: ThemeColor?,
-                filter: Filter,
-                place: Location?,
-                tags: ArrayList<TagData>): TaskEditFragment {
-            if (BuildConfig.DEBUG) {
-                require(filter is GtasksFilter || filter is CaldavFilter)
-            }
+        fun newTaskEditFragment(task: Task, themeColor: ThemeColor?): TaskEditFragment {
             val taskEditFragment = TaskEditFragment()
             val arguments = Bundle()
             arguments.putParcelable(EXTRA_TASK, task)
             arguments.putParcelable(EXTRA_THEME, themeColor)
-            arguments.putParcelable(EXTRA_LIST, filter)
-            arguments.putParcelable(EXTRA_PLACE, place)
-            arguments.putParcelableArrayList(EXTRA_TAGS, tags)
             taskEditFragment.arguments = arguments
             return taskEditFragment
         }

@@ -83,15 +83,11 @@ class CommentBarFragment : TaskEditControlFragment() {
         resetPictureButton()
     }
 
-    override val layout: Int
-        get() = R.layout.fragment_comment_bar
+    override val layout = R.layout.fragment_comment_bar
 
-    override val icon: Int
-        get() = 0
+    override val icon = 0
 
     override fun controlId() = TAG
-
-    override suspend fun apply(task: Task) {}
 
     @OnTextChanged(R.id.commentField)
     fun onTextChanged(s: CharSequence) {
