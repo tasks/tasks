@@ -8,5 +8,5 @@ import org.tasks.injection.InjectingPreferenceFragment
 class Debug : InjectingPreferenceFragment() {
     override fun getPreferenceXml() = 0
 
-    override fun setupPreferences(savedInstanceState: Bundle?) {}
+    override suspend fun setupPreferences(savedInstanceState: Bundle?) {}
 }
