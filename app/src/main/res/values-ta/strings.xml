@@ -217,7 +217,7 @@
     <string name="custom_filter_criteria">வடிகட்டி அளவுகோல்கள்</string>
     <string name="compact">கச்சிதமான</string>
     <string name="settings_default">இயல்புநிலை</string>
-    <string name="widget_id">விட்ஜெட் ஐடி:% d</string>
+    <string name="widget_id">விட்ஜெட் ஐடி: %d</string>
     <string name="hide_check_button">சோதனை பொத்தானை மறைக்க</string>
     <string name="share">பகிர்</string>
     <string name="select_all">அனைத்தையும் தெரிவுசெய்</string>
@@ -506,7 +506,7 @@
     <string name="today">இன்று</string>
     <plurals name="Ntasks">
         <item quantity="one">1 பணி</item>
-        <item quantity="other">% d பணிகள்</item>
+        <item quantity="other">%d பணிகள்</item>
     </plurals>
     <string name="voice_command_added_task">பணி சேர்க்கப்பட்டது</string>
     <string name="delete_task">பணியை நீக்கு</string>
@@ -582,12 +582,12 @@
         <item quantity="other">நேரங்கள்</item>
     </plurals>
     <plurals name="subtask_count">
-        <item quantity="one">% d துணை பணி</item>
-        <item quantity="other">% d துணை பணிகள்</item>
+        <item quantity="one">%d துணை பணி</item>
+        <item quantity="other">%d துணை பணிகள்</item>
     </plurals>
     <plurals name="task_count">
-        <item quantity="one">% d பணி</item>
-        <item quantity="other">% d பணிகள்</item>
+        <item quantity="one">%d பணி</item>
+        <item quantity="other">%d பணிகள்</item>
     </plurals>
     <string name="CFA_context_chain">%s க்கு அளவுகோல்கள் உள்ளன</string>
     <string name="EPr_manage_delete_all_gcal_status">"%d நாள்காட்டி நிகழ்வுகள் நீக்கப்பட்டன!"</string>
