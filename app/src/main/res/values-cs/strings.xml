@@ -592,4 +592,8 @@
     <string name="astrid_sort_order">Astrid ruční řazení</string>
     <string name="manage_lists">Spravovat seznamy</string>
     <string name="CRA_default_list_name">Akční položky: %s</string>
+    <string name="open_last_viewed_list">Otevřít poslední prohlížený seznam</string>
+    <string name="on_launch">Při spuštění</string>
+    <string name="lists">Seznamy</string>
+    <string name="add_filter">Přidat filtr</string>
 </resources>
