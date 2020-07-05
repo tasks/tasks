@@ -542,7 +542,7 @@
         <item quantity="other">%d attività secondarie</item>
     </plurals>
     <string name="EPr_temp_show_completed_tasks">Mostra, temporaneamente, le attività dopo il completamento</string>
-    <string name="create_new_tag">Crea \"%s\"</string>
+    <string name="create_new_tag">Crea «%s»</string>
     <string name="subtasks_multilevel_google_task">Google Tasks non supporta più livelli di attività secondarie</string>
     <string name="expand_subtasks">Espandi attività secondarie</string>
     <string name="caldav_account_repeating_tasks">Lascia che il server programmi le attività ricorrenti</string>
@@ -567,10 +567,10 @@
     <string name="action_new_task">Nuova attività</string>
     <string name="add_tags">Aggiungi etichetta</string>
     <string name="improve_performance_summary">Disabilita i gruppi di ordinamento e le attività secondarie per migliorare le prestazioni dell\'app</string>
-    <string name="filter_eisenhower_box_4">Eisenhower box 4</string>
-    <string name="filter_eisenhower_box_3">Eisenhower box 3</string>
-    <string name="filter_eisenhower_box_2">Eisenhower box 2</string>
-    <string name="filter_eisenhower_box_1">Eisenhower box 1</string>
+    <string name="filter_eisenhower_box_4">Matrice Eisenhower 4</string>
+    <string name="filter_eisenhower_box_3">Matrice Eisenhower 3</string>
+    <string name="filter_eisenhower_box_2">Matrice Eisenhower 2</string>
+    <string name="filter_eisenhower_box_1">Matrice Eisenhower 1</string>
     <string name="filter_overdue">In ritardo</string>
     <string name="auto_dismiss_datetime_widget_summary">Chiudi automaticamente quando selezionato da widget</string>
     <string name="auto_dismiss_datetime_widget">Widget</string>
@@ -630,5 +630,5 @@
     <string name="date_shortcut_tomorrow_night">Domani notte</string>
     <string name="date_shortcut_tomorrow_evening">Domani sera</string>
     <string name="manage_lists">Gestisci liste</string>
-    <string name="permission_read_tasks">Accesso completo al database di Tasks</string>
+    <string name="permission_read_tasks">Accesso completo alla banca dati di Tasks</string>
 </resources>
