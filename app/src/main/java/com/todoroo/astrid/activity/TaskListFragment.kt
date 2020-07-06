@@ -21,6 +21,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagedList
@@ -126,7 +127,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     @BindView(R.id.recycler_view)
     lateinit var recyclerView: RecyclerView
     
-    private val listViewModel: TaskListViewModel by activityViewModels()
+    private val listViewModel: TaskListViewModel by viewModels()
     private lateinit var taskAdapter: TaskAdapter
     private var recyclerAdapter: TaskListRecyclerAdapter? = null
     private lateinit var filter: Filter

@@ -90,9 +90,6 @@ class NavigationDrawerFragment : Fragment() {
                         }
                     }
                 })
-        if (item is Filter) {
-            ViewModelProvider(requireActivity()).get(TaskListViewModel::class.java).setFilter((item as Filter?)!!)
-        }
         close()
     }
 

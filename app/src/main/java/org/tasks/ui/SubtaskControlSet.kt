@@ -15,8 +15,8 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -69,14 +69,13 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
     @Inject lateinit var checkBoxProvider: CheckBoxProvider
     @Inject lateinit var chipProvider: ChipProvider
     
-    private lateinit var listViewModel: TaskListViewModel
+    private val listViewModel: TaskListViewModel by viewModels()
     private val refreshReceiver = RefreshReceiver()
     private var remoteList: Filter? = null
     private var googleTask: GoogleTask? = null
     private lateinit var recyclerAdapter: SubtasksRecyclerAdapter
     
     override fun createView(savedInstanceState: Bundle?) {
-        listViewModel = ViewModelProvider(this).get(TaskListViewModel::class.java)
         viewModel.newSubtasks.forEach { addSubtask(it) }
         recyclerAdapter = SubtasksRecyclerAdapter(activity, chipProvider, checkBoxProvider, this)
         viewModel.task?.let {

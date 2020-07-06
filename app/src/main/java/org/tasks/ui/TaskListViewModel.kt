@@ -8,10 +8,9 @@ import androidx.sqlite.db.SimpleSQLiteQuery
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.tasks.BuildConfig
 import org.tasks.data.SubtaskInfo
 import org.tasks.data.TaskContainer
@@ -21,7 +20,7 @@ import timber.log.Timber
 
 class TaskListViewModel @ViewModelInject constructor(
         private val preferences: Preferences,
-        private val taskDao: TaskDaoBlocking) : ViewModel(), Observer<PagedList<TaskContainer>> {
+        private val taskDao: TaskDao) : ViewModel(), Observer<PagedList<TaskContainer>> {
 
     private var tasks = MutableLiveData<List<TaskContainer>>()
     private var filter: Filter? = null
@@ -70,11 +69,9 @@ class TaskListViewModel @ViewModelInject constructor(
     }
 
     private suspend fun performNonPagedQuery(subtasks: SubtaskInfo) {
-        tasks.value = withContext(Dispatchers.IO) {
-            taskDao.fetchTasks(
-                    { s: SubtaskInfo? -> getQuery(preferences, filter!!, s!!) },
-                    subtasks)
-        }
+        tasks.value = taskDao.fetchTasks(
+                { s: SubtaskInfo? -> getQuery(preferences, filter!!, s!!) },
+                subtasks)
     }
 
     private fun performPagedListQuery() {

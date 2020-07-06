@@ -120,8 +120,6 @@ abstract class TaskDao(private val database: Database) {
 
     @Transaction
     open suspend fun fetchTasks(callback: (SubtaskInfo) -> List<String>, subtasks: SubtaskInfo): List<TaskContainer> {
-        assertNotMainThread()
-
         val start = if (BuildConfig.DEBUG) DateUtilities.now() else 0
         val queries = callback.invoke(subtasks)
         val db = database.openHelper.writableDatabase
