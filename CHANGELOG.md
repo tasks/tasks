@@ -1,6 +1,10 @@
 Change Log
 ---
 =======
+### 9.7.3 (2020-07-07)
+
+* Fix Google Task bugs
+
 ### 9.7.2 (2020-06-22)
 
 * Downgrade Mapbox SDK to remove non-free library (F-Droid only)

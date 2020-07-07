@@ -1,8 +1,6 @@
 package org.tasks.data
 
 import androidx.room.*
-import com.todoroo.andlib.data.Property
-import com.todoroo.andlib.data.Property.*
 import com.todoroo.andlib.data.Table
 
 @Entity(tableName = "google_tasks",
@@ -31,6 +29,9 @@ class GoogleTask {
 
     @ColumnInfo(name = "gt_remote_parent")
     var remoteParent: String? = null
+        set(value) {
+            field = if (value?.isNotBlank() == true) value else null
+        }
 
     @ColumnInfo(name = "gt_moved")
     @Transient

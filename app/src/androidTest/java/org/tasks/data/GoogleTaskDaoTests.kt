@@ -13,6 +13,7 @@ import org.tasks.injection.TestComponent
 import org.tasks.makers.GoogleTaskMaker.LIST
 import org.tasks.makers.GoogleTaskMaker.PARENT
 import org.tasks.makers.GoogleTaskMaker.REMOTE_ID
+import org.tasks.makers.GoogleTaskMaker.REMOTE_PARENT
 import org.tasks.makers.GoogleTaskMaker.TASK
 import org.tasks.makers.GoogleTaskMaker.newGoogleTask
 import org.tasks.makers.GtaskListMaker.newGtaskList
@@ -151,6 +152,84 @@ class GoogleTaskDaoTests : InjectingTestCase() {
         googleTaskDao.insert(newGoogleTask(with(TASK, 1), with(LIST, "1")))
         googleTaskDao.insert(newGoogleTask(with(TASK, 2), with(LIST, "1"), with(PARENT, 1L)))
         assertEquals(listOf(2L), googleTaskDao.getChildren(listOf(1L, 2L)))
+    }
+
+    @Test
+    fun dontAllowEmptyParent() {
+        googleTaskDao.insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "1234")))
+
+        googleTaskDao.updatePosition("1234", "", "0")
+
+        assertNull(googleTaskDao.getByTaskId(1)!!.remoteParent)
+    }
+
+    @Test
+    fun updatePosition() {
+        googleTaskDao.insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "1234")))
+
+        googleTaskDao.updatePosition("1234", "abcd", "0")
+
+        assertEquals("abcd", googleTaskDao.getByTaskId(1)!!.remoteParent)
+    }
+
+    @Test
+    fun updateParents() {
+        googleTaskDao.insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "123")))
+        googleTaskDao.insert(newGoogleTask(with(TASK, 2), with(LIST, "1"), with(REMOTE_PARENT, "123")))
+
+        googleTaskDao.updateParents()
+
+        assertEquals(1, googleTaskDao.getByTaskId(2)!!.parent)
+    }
+
+    @Test
+    fun updateParentsByList() {
+        googleTaskDao.insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "123")))
+        googleTaskDao.insert(newGoogleTask(with(TASK, 2), with(LIST, "1"), with(REMOTE_PARENT, "123")))
+
+        googleTaskDao.updateParents("1")
+
+        assertEquals(1, googleTaskDao.getByTaskId(2)!!.parent)
+    }
+
+    @Test
+    fun updateParentsMustMatchList() {
+        googleTaskDao.insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "123")))
+        googleTaskDao.insert(newGoogleTask(with(TASK, 2), with(LIST, "2"), with(REMOTE_PARENT, "123")))
+
+        googleTaskDao.updateParents()
+
+        assertEquals(0, googleTaskDao.getByTaskId(2)!!.parent)
+    }
+
+    @Test
+    fun updateParentsByListMustMatchList() {
+        googleTaskDao.insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "123")))
+        googleTaskDao.insert(newGoogleTask(with(TASK, 2), with(LIST, "2"), with(REMOTE_PARENT, "123")))
+
+        googleTaskDao.updateParents("2")
+
+        assertEquals(0, googleTaskDao.getByTaskId(2)!!.parent)
+    }
+
+    @Test
+    fun ignoreEmptyStringWhenUpdatingParents() {
+        googleTaskDao.insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "")))
+        googleTaskDao.insert(newGoogleTask(with(TASK, 2), with(LIST, "1"), with(REMOTE_ID, ""), with(REMOTE_PARENT, "")))
+
+        googleTaskDao.updateParents()
+
+        assertEquals(0, googleTaskDao.getByTaskId(2)!!.parent)
+    }
+
+    @Test
+    fun ignoreEmptyStringWhenUpdatingParentsForList() {
+        googleTaskDao.insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "")))
+        googleTaskDao.insert(newGoogleTask(with(TASK, 2), with(LIST, "1"), with(REMOTE_ID, ""), with(REMOTE_PARENT, "")))
+
+        googleTaskDao.updateParents("1")
+
+        assertEquals(0, googleTaskDao.getByTaskId(2)!!.parent)
     }
 
     private fun insertTop(googleTask: GoogleTask) {
