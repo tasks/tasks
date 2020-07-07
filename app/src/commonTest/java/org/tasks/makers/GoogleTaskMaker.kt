@@ -14,6 +14,7 @@ object GoogleTaskMaker {
     val REMOTE_ID: Property<GoogleTask, String> = newProperty()
     val TASK: Property<GoogleTask, Long> = newProperty()
     val PARENT: Property<GoogleTask, Long> = newProperty()
+    val REMOTE_PARENT: Property<GoogleTask, String?> = newProperty()
 
     private val instantiator = Instantiator<GoogleTask> {
         val task = GoogleTask()
@@ -22,6 +23,7 @@ object GoogleTaskMaker {
         task.remoteId = it.valueOf(REMOTE_ID, UUIDHelper.newUUID())
         task.task = it.valueOf(TASK, 1)
         task.parent = it.valueOf(PARENT, 0L)
+        task.remoteParent = it.valueOf(REMOTE_PARENT, null as String?)
         task
     }
 

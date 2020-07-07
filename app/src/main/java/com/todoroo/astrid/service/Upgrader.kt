@@ -31,6 +31,7 @@ class Upgrader @Inject constructor(
         private val filterDao: FilterDaoBlocking,
         private val defaultFilterProvider: DefaultFilterProvider,
         private val googleTaskListDao: GoogleTaskListDaoBlocking,
+        private val googleTaskDao: GoogleTaskDaoBlocking,
         private val userActivityDao: UserActivityDaoBlocking,
         private val taskAttachmentDao: TaskAttachmentDaoBlocking,
         private val caldavDao: CaldavDaoBlocking,
@@ -66,6 +67,7 @@ class Upgrader @Inject constructor(
                 taskMover.migrateLocalTasks()
             }
             run(from, V9_7) { googleTaskListDao.resetOrders() }
+            run(from, V9_7_3) { googleTaskDao.updateParents() }
             preferences.setBoolean(R.string.p_just_updated, true)
         }
         preferences.setCurrentVersion(to)
@@ -309,6 +311,7 @@ class Upgrader @Inject constructor(
         private const val V9_3 = 90300
         const val V9_6 = 90600
         const val V9_7 = 90700
+        const val V9_7_3 = 90704
 
         @JvmStatic
         fun getAndroidColor(context: Context, index: Int): Int {

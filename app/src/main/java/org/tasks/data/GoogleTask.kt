@@ -29,6 +29,9 @@ class GoogleTask {
 
     @ColumnInfo(name = "gt_remote_parent")
     var remoteParent: String? = null
+        set(value) {
+            field = if (value?.isNotBlank() == true) value else null
+        }
 
     @ColumnInfo(name = "gt_moved")
     @Transient

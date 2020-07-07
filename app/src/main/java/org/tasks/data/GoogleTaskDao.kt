@@ -116,22 +116,41 @@ abstract class GoogleTaskDao {
     @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
     @Query("SELECT google_tasks.*, gt_remote_order AS primary_sort, NULL AS secondary_sort FROM google_tasks JOIN tasks ON tasks._id = gt_task WHERE gt_parent = 0 AND gt_list_id = :listId AND tasks.deleted = 0 UNION SELECT c.*, p.gt_remote_order AS primary_sort, c.gt_remote_order AS secondary_sort FROM google_tasks AS c LEFT JOIN google_tasks AS p ON c.gt_parent = p.gt_task JOIN tasks ON tasks._id = c.gt_task WHERE c.gt_parent > 0 AND c.gt_list_id = :listId AND tasks.deleted = 0 ORDER BY primary_sort ASC, secondary_sort ASC")
     internal abstract suspend fun getByRemoteOrder(listId: String): List<GoogleTask>
-
-    @Query("UPDATE google_tasks"
-            + " SET gt_parent = IFNULL(("
-            + "   SELECT gt_task FROM google_tasks AS p"
-            + "   WHERE p.gt_remote_id = google_tasks.gt_remote_parent"
-            + "     AND p.gt_list_id = google_tasks.gt_list_id "
-            + "     AND p.gt_deleted = 0),"
-            + " 0)"
-            + " WHERE gt_moved = 0")
+    
+    @Query("""
+UPDATE google_tasks
+SET gt_parent = IFNULL((SELECT gt_task
+                        FROM google_tasks AS p
+                        WHERE google_tasks.gt_remote_parent IS NOT NULL
+                          AND google_tasks.gt_remote_parent != ''
+                          AND p.gt_remote_id = google_tasks.gt_remote_parent
+                          AND p.gt_list_id = google_tasks.gt_list_id
+                          AND p.gt_deleted = 0), 0)
+WHERE gt_moved = 0
+    """)
     abstract suspend fun updateParents()
 
-    @Query("UPDATE google_tasks SET gt_parent = IFNULL((SELECT gt_task FROM google_tasks AS p WHERE p.gt_remote_id = google_tasks.gt_remote_parent), 0) WHERE gt_list_id = :listId AND gt_moved = 0")
+    @Query("""
+UPDATE google_tasks
+SET gt_parent = IFNULL((SELECT gt_task
+                        FROM google_tasks AS p
+                        WHERE google_tasks.gt_remote_parent IS NOT NULL
+                          AND google_tasks.gt_remote_parent != ''
+                          AND p.gt_remote_id = google_tasks.gt_remote_parent
+                          AND p.gt_list_id = google_tasks.gt_list_id
+                          AND p.gt_deleted = 0), 0)
+WHERE gt_list_id = :listId
+  AND gt_moved = 0
+    """)
     abstract suspend fun updateParents(listId: String)
 
-    @Query("UPDATE google_tasks SET gt_remote_parent = :parent, gt_remote_order = :position WHERE gt_remote_id = :id")
-    abstract suspend fun updatePosition(id: String, parent: String?, position: String)
+    @Query("""
+UPDATE google_tasks
+SET gt_remote_parent = CASE WHEN :parent == '' THEN NULL ELSE :parent END,
+    gt_remote_order  = :position
+WHERE gt_remote_id = :id
+    """)
+    abstract suspend fun updatePosition(id: String, parent: String, position: String)
 
     @Transaction
     open suspend fun reposition(listId: String) {

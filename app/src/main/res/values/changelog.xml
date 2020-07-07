@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="changelog">
-        <item>Downgrade Mapbox SDK to remove non-free library (F-Droid only)</item>
+        <item>Fix Google Task bugs</item>
+        <item>Join Tasks on Reddit: https://reddit.com/r/tasks</item>
     </string-array>
 </resources>
