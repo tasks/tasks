@@ -207,7 +207,9 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
     }
 
     override fun complete(task: Task, completed: Boolean) {
-        taskCompleter.setComplete(task, completed)
+        lifecycleScope.launch {
+            taskCompleter.setComplete(task, completed)
+        }
     }
 
     private inner class RefreshReceiver : BroadcastReceiver() {

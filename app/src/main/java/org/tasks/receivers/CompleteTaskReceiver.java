@@ -23,7 +23,7 @@ public class CompleteTaskReceiver extends InjectingBroadcastReceiver {
 
     long taskId = intent.getLongExtra(TASK_ID, 0);
     Timber.i("Completing %s", taskId);
-    Completable.fromAction(() -> taskCompleter.setComplete(taskId))
+    Completable.fromAction(() -> taskCompleter.setCompleteBlocking(taskId))
         .subscribeOn(Schedulers.io())
         .subscribe();
   }

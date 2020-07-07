@@ -34,7 +34,9 @@ class WidgetClickActivity : InjectingAppCompatActivity(), OnDismissHandler {
         val task: Task = intent.getParcelableExtra(EXTRA_TASK)!!
         when (action) {
             COMPLETE_TASK -> {
-                taskCompleter.setComplete(task, !task.isCompleted)
+                lifecycleScope.launch(NonCancellable) {
+                    taskCompleter.setComplete(task, !task.isCompleted)
+                }
                 finish()
             }
             EDIT_TASK -> {

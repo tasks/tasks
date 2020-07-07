@@ -6,7 +6,6 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.todoroo.andlib.utility.AndroidUtilities
-import com.todoroo.astrid.service.TaskCompleter
 import dagger.hilt.android.qualifiers.ActivityContext
 import org.tasks.R
 import org.tasks.dialogs.Linkify
@@ -23,7 +22,6 @@ class ViewHolderFactory @Inject constructor(
         private val preferences: Preferences,
         private val chipProvider: ChipProvider,
         private val checkBoxProvider: CheckBoxProvider,
-        private val taskCompleter: TaskCompleter,
         private val linkify: Linkify,
         private val locale: Locale) {
     private val textColorSecondary: Int = ResourceResolver.getData(context, android.R.attr.textColorSecondary)
@@ -51,7 +49,6 @@ class ViewHolderFactory @Inject constructor(
                     checkBoxProvider,
                     textColorOverdue,
                     textColorSecondary,
-                    taskCompleter,
                     callbacks,
                     metrics,
                     background,

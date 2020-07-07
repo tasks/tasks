@@ -16,7 +16,6 @@ import com.google.android.material.chip.ChipGroup
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.core.SortHelper
-import com.todoroo.astrid.service.TaskCompleter
 import com.todoroo.astrid.ui.CheckableImageView
 import org.tasks.R
 import org.tasks.data.TaskContainer
@@ -39,7 +38,6 @@ class TaskViewHolder internal constructor(
         private val checkBoxProvider: CheckBoxProvider,
         private val textColorOverdue: Int,
         private val textColorSecondary: Int,
-        private val taskCompleter: TaskCompleter,
         private val callback: ViewHolderCallbacks,
         private val metrics: DisplayMetrics,
         private val background: Int,
@@ -240,7 +238,6 @@ class TaskViewHolder internal constructor(
     fun onCompleteBoxClick() {
         val newState = completeBox.isChecked
         if (newState != task.isCompleted) {
-            taskCompleter.setComplete(task.getTask(), newState)
             callback.onCompletedTask(task, newState)
         }
 

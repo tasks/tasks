@@ -22,7 +22,7 @@ class TaskDaoBlocking @Inject constructor(private val dao: TaskDao) {
     }
 
     fun fetchBlocking(id: Long) = runBlocking {
-        dao.fetchBlocking(id)
+        dao.fetch(id)
     }
 
     fun fetch(id: Long): Task? = runBlocking {

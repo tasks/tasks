@@ -11,14 +11,12 @@ import androidx.sqlite.db.SimpleSQLiteQuery
 import com.todoroo.andlib.sql.Criterion
 import com.todoroo.andlib.sql.Field
 import com.todoroo.andlib.sql.Functions
-import com.todoroo.andlib.utility.AndroidUtilities.assertNotMainThread
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.PermaSql
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.data.Task.Companion.NO_ID
 import com.todoroo.astrid.helper.UUIDHelper
-import kotlinx.coroutines.runBlocking
 import org.tasks.BuildConfig
 import org.tasks.data.Place
 import org.tasks.data.SubtaskInfo
@@ -41,10 +39,6 @@ abstract class TaskDao(private val database: Database) {
 
     @Query("SELECT * FROM tasks WHERE completed = 0 AND deleted = 0 AND (hideUntil > :now OR dueDate > :now)")
     internal abstract suspend fun needsRefresh(now: Long = DateUtilities.now()): List<Task>
-
-    suspend fun fetchBlocking(id: Long) = runBlocking {
-        fetch(id)
-    }
 
     @Query("SELECT * FROM tasks WHERE _id = :id LIMIT 1")
     abstract suspend fun fetch(id: Long): Task?
@@ -218,7 +212,7 @@ SELECT EXISTS(SELECT 1 FROM tasks WHERE parent > 0 AND deleted = 0) AS hasSubtas
      * success.
      */
 
-    suspend fun save(task: Task) = save(task, fetchBlocking(task.id))
+    suspend fun save(task: Task) = save(task, fetch(task.id))
 
     suspend fun save(task: Task, original: Task?) {
         if (!task.insignificantChange(original)) {

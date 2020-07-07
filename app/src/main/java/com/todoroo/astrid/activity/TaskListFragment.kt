@@ -20,7 +20,6 @@ import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
@@ -41,10 +40,7 @@ import com.todoroo.astrid.api.*
 import com.todoroo.astrid.core.BuiltInFilterExposer
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
-import com.todoroo.astrid.service.TaskCreator
-import com.todoroo.astrid.service.TaskDeleter
-import com.todoroo.astrid.service.TaskDuplicator
-import com.todoroo.astrid.service.TaskMover
+import com.todoroo.astrid.service.*
 import com.todoroo.astrid.timers.TimerPlugin
 import com.todoroo.astrid.utility.Flags
 import dagger.hilt.android.AndroidEntryPoint
@@ -111,6 +107,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     @Inject lateinit var colorProvider: ColorProvider
     @Inject lateinit var notificationManager: NotificationManager
     @Inject lateinit var shortcutManager: ShortcutManager
+    @Inject lateinit var taskCompleter: TaskCompleter
     
     @BindView(R.id.swipe_layout)
     lateinit var swipeRefreshLayout: SwipeRefreshLayout
@@ -753,8 +750,11 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     fun clearCollapsed() = taskAdapter.clearCollapsed()
 
     override fun onCompletedTask(task: TaskContainer, newState: Boolean) {
-        taskAdapter.onCompletedTask(task, newState)
-        loadTaskListContent()
+        lifecycleScope.launch {
+            taskCompleter.setComplete(task.getTask(), newState)
+            taskAdapter.onCompletedTask(task, newState)
+            loadTaskListContent()
+        }
     }
 
     override fun onClick(taskViewHolder: TaskViewHolder) {
