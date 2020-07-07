@@ -55,6 +55,7 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.ShortcutManager
 import org.tasks.activities.*
+import org.tasks.activities.ListPicker.Companion.newListPicker
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.data.CaldavDao
 import org.tasks.data.TagDataDao
@@ -522,9 +523,11 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 }
             }
             REQUEST_MOVE_TASKS -> if (resultCode == Activity.RESULT_OK) {
-                taskMover.move(
-                        taskAdapter.getSelected(),
-                        data!!.getParcelableExtra(ListPicker.EXTRA_SELECTED_FILTER))
+                lifecycleScope.launch {
+                    taskMover.move(
+                            taskAdapter.getSelected(),
+                            data!!.getParcelableExtra(ListPicker.EXTRA_SELECTED_FILTER))
+                }
                 finishActionMode()
             }
             REQUEST_LIST_SETTINGS -> if (resultCode == Activity.RESULT_OK) {
@@ -625,9 +628,15 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 true
             }
             R.id.move_tasks -> {
-                val singleFilter = taskMover.getSingleFilter(selected)
-                (if (singleFilter == null) ListPicker.newListPicker(this, REQUEST_MOVE_TASKS) else ListPicker.newListPicker(singleFilter, this, REQUEST_MOVE_TASKS))
-                        .show(parentFragmentManager, FRAG_TAG_REMOTE_LIST_PICKER)
+                lifecycleScope.launch {
+                    val singleFilter = taskMover.getSingleFilter(selected)
+                    val fragment = if (singleFilter == null) {
+                        newListPicker(this@TaskListFragment, REQUEST_MOVE_TASKS)
+                    } else {
+                        newListPicker(singleFilter, this@TaskListFragment, REQUEST_MOVE_TASKS)
+                    }
+                    fragment.show(parentFragmentManager, FRAG_TAG_REMOTE_LIST_PICKER)
+                }
                 true
             }
             R.id.menu_select_all -> {
