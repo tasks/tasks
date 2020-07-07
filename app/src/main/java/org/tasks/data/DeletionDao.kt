@@ -17,7 +17,7 @@ abstract class DeletionDao {
     internal abstract suspend fun deleteGoogleTasks(ids: List<Long>)
 
     @Query("DELETE FROM tags WHERE task IN(:ids)")
-    abstract suspend fun deleteTags(ids: List<Long>)
+    internal abstract suspend fun deleteTags(ids: List<Long>)
 
     @Query("DELETE FROM geofences WHERE task IN(:ids)")
     internal abstract suspend fun deleteGeofences(ids: List<Long>)

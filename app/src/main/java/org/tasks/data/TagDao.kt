@@ -15,7 +15,7 @@ abstract class TagDao {
     abstract suspend fun insert(tags: Iterable<Tag>)
 
     @Query("DELETE FROM tags WHERE task = :taskId AND tag_uid in (:tagUids)")
-    abstract suspend fun deleteTags(taskId: Long, tagUids: List<String>)
+    internal abstract suspend fun deleteTags(taskId: Long, tagUids: List<String>)
 
     @Query("SELECT * FROM tags WHERE tag_uid = :tagUid")
     abstract suspend fun getByTagUid(tagUid: String): List<Tag>

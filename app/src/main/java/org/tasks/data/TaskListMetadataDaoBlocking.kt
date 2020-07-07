@@ -12,15 +12,7 @@ class TaskListMetadataDaoBlocking @Inject constructor(private val dao: TaskListM
         dao.getAll()
     }
 
-    fun update(taskListMetadata: TaskListMetadata) = runBlocking {
-        dao.update(taskListMetadata)
-    }
-
     fun insert(taskListMetadata: TaskListMetadata): Long = runBlocking {
         dao.insert(taskListMetadata)
-    }
-
-    fun createNew(taskListMetadata: TaskListMetadata) = runBlocking {
-        dao.createNew(taskListMetadata)
     }
 }

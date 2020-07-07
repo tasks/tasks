@@ -1,8 +1,6 @@
 package org.tasks.data
 
 import androidx.lifecycle.LiveData
-import org.tasks.filters.LocationFilters
-import org.tasks.time.DateTimeUtils.currentTimeMillis
 import javax.inject.Inject
 
 @Deprecated("use coroutines")
@@ -97,10 +95,6 @@ class LocationDaoBlocking @Inject constructor(private val dao: LocationDao) {
 
     fun findPlace(latitude: String, longitude: String): Place? = runBlocking {
         dao.findPlace(latitude, longitude)
-    }
-
-    fun getPlaceFilters(now: Long = currentTimeMillis()): List<LocationFilters> = runBlocking {
-        dao.getPlaceFilters(now)
     }
 
     fun resetOrders() = runBlocking {

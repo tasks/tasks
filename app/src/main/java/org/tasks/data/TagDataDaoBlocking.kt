@@ -2,9 +2,6 @@ package org.tasks.data
 
 import androidx.core.util.Pair
 import androidx.lifecycle.LiveData
-import com.todoroo.astrid.data.Task
-import org.tasks.filters.TagFilters
-import org.tasks.time.DateTimeUtils.currentTimeMillis
 import javax.inject.Inject
 
 @Deprecated("use coroutines")
@@ -33,24 +30,12 @@ class TagDataDaoBlocking @Inject constructor(val dao: TagDataDao) {
         dao.getByUuid(uuid)
     }
 
-    fun getByUuid(uuids: Collection<String>): List<TagData> = runBlocking {
-        dao.getByUuid(uuids)
-    }
-
     fun tagDataOrderedByName(): List<TagData> = runBlocking {
         dao.tagDataOrderedByName()
     }
 
-    fun deleteTags(tagUid: String) = runBlocking {
-        dao.deleteTags(tagUid)
-    }
-
     fun getTagSelections(tasks: List<Long>): Pair<Set<String>, Set<String>> = runBlocking {
         dao.getTagSelections(tasks)
-    }
-
-    fun applyTags(tasks: List<Task>, partiallySelected: List<TagData>, selected: List<TagData>): List<Long> = runBlocking {
-        dao.applyTags(tasks, partiallySelected, selected)
     }
 
     fun delete(tagData: TagData) = runBlocking {
@@ -59,10 +44,6 @@ class TagDataDaoBlocking @Inject constructor(val dao: TagDataDao) {
 
     fun delete(tagData: List<TagData>) = runBlocking {
         dao.delete(tagData)
-    }
-
-    fun deleteTags(tags: List<Tag>) = runBlocking {
-        dao.deleteTags(tags)
     }
 
     fun getTagDataForTask(id: Long): List<TagData> = runBlocking {
@@ -77,20 +58,8 @@ class TagDataDaoBlocking @Inject constructor(val dao: TagDataDao) {
         dao.update(tagData)
     }
 
-    fun insert(tag: TagData): Long = runBlocking {
-        dao.insert(tag)
-    }
-
-    fun insert(tags: Iterable<Tag>) = runBlocking {
-        dao.insert(tags)
-    }
-
     fun createNew(tag: TagData) = runBlocking {
         dao.createNew(tag)
-    }
-
-    fun getTagFilters(now: Long = currentTimeMillis()): List<TagFilters> = runBlocking {
-        dao.getTagFilters(now)
     }
 
     fun resetOrders() = runBlocking {

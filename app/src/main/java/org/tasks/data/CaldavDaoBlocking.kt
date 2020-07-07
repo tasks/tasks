@@ -1,6 +1,5 @@
 package org.tasks.data
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import com.todoroo.astrid.data.Task
 import org.tasks.filters.CaldavFilters
@@ -57,40 +56,12 @@ class CaldavDaoBlocking @Inject constructor(private val dao: CaldavDao) {
         dao.insert(task, caldavTask, addToTop)
     }
 
-    internal fun findFirstTask(calendar: String, parent: Long): Long? = runBlocking {
-        dao.findFirstTask(calendar, parent)
-    }
-
-    internal fun findLastTask(calendar: String, parent: Long): Long? = runBlocking {
-        dao.findLastTask(calendar, parent)
-    }
-
     fun insert(caldavTask: CaldavTask): Long = runBlocking {
         dao.insert(caldavTask)
     }
 
-    fun insert(tasks: Iterable<CaldavTask>) = runBlocking {
-        dao.insert(tasks)
-    }
-
     fun update(caldavTask: CaldavTask) = runBlocking {
         dao.update(caldavTask)
-    }
-
-    fun update(caldavTask: SubsetCaldav) = runBlocking {
-        dao.update(caldavTask)
-    }
-
-    internal fun update(id: Long, position: Long?, parent: String?) = runBlocking {
-        dao.update(id, position, parent)
-    }
-
-    internal fun update(id: Long, position: Long?) = runBlocking {
-        dao.update(id, position)
-    }
-
-    internal fun update(id: Long, remoteParent: String?) = runBlocking {
-        dao.update(id, remoteParent)
     }
 
     fun update(tasks: Iterable<CaldavTask>) = runBlocking {
@@ -103,10 +74,6 @@ class CaldavDaoBlocking @Inject constructor(private val dao: CaldavDao) {
 
     fun getDeleted(calendar: String): List<CaldavTask> = runBlocking {
         dao.getDeleted(calendar)
-    }
-
-    fun markDeleted(tasks: List<Long>, now: Long = currentTimeMillis()) = runBlocking {
-        dao.markDeleted(tasks, now)
     }
 
     fun getTask(taskId: Long): CaldavTask? = runBlocking {
@@ -129,10 +96,6 @@ class CaldavDaoBlocking @Inject constructor(private val dao: CaldavDao) {
         dao.getTasks(taskId)
     }
 
-    fun getTasks(taskIds: List<Long>): List<CaldavTask> = runBlocking {
-        dao.getTasks(taskIds)
-    }
-
     fun getTasks(): List<CaldavTaskContainer> = runBlocking {
         dao.getTasks()
     }
@@ -143,10 +106,6 @@ class CaldavDaoBlocking @Inject constructor(private val dao: CaldavDao) {
 
     fun getCalendars(): List<CaldavCalendar> = runBlocking {
         dao.getCalendars()
-    }
-
-    fun getCalendar(uuid: String): CaldavCalendar? = runBlocking {
-        dao.getCalendar(uuid)
     }
 
     fun getObjects(calendar: String): List<String> = runBlocking {
@@ -169,10 +128,6 @@ class CaldavDaoBlocking @Inject constructor(private val dao: CaldavDao) {
         dao.getAccountForTask(task)
     }
 
-    fun getCalendars(tasks: List<Long>): List<String> = runBlocking {
-        dao.getCalendars(tasks)
-    }
-
     fun getCaldavFilters(uuid: String, now: Long = currentTimeMillis()): List<CaldavFilters> = runBlocking {
         dao.getCaldavFilters(uuid, now)
     }
@@ -189,10 +144,6 @@ class CaldavDaoBlocking @Inject constructor(private val dao: CaldavDao) {
         dao.updateParents(calendar)
     }
 
-    fun move(task: TaskContainer, newParent: Long, newPosition: Long?) = runBlocking {
-        dao.move(task, newParent, newPosition)
-    }
-
     fun shiftDown(calendar: String, parent: Long, from: Long, to: Long? = null) = runBlocking {
         dao.shiftDown(calendar, parent, from, to)
     }
@@ -203,13 +154,5 @@ class CaldavDaoBlocking @Inject constructor(private val dao: CaldavDao) {
 
     fun setOrder(id: Long, order: Int) = runBlocking {
         dao.setOrder(id, order)
-    }
-
-    fun setupLocalAccount(context: Context): CaldavAccount = runBlocking {
-        dao.setupLocalAccount(context)
-    }
-
-    fun getLocalList(context: Context) = runBlocking {
-        dao.getLocalList(context)
     }
 }

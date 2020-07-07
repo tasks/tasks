@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.dao
 
-import androidx.paging.DataSource
-import androidx.sqlite.db.SimpleSQLiteQuery
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.data.Task
 import org.tasks.data.SubtaskInfo
@@ -22,10 +20,6 @@ class TaskDaoBlocking @Inject constructor(private val dao: TaskDao) {
     }
 
     fun fetchBlocking(id: Long) = runBlocking {
-        dao.fetch(id)
-    }
-
-    fun fetch(id: Long): Task? = runBlocking {
         dao.fetch(id)
     }
 
@@ -47,14 +41,6 @@ class TaskDaoBlocking @Inject constructor(private val dao: TaskDao) {
 
     fun getActiveTasks(): List<Task> = runBlocking {
         dao.getActiveTasks()
-    }
-
-    fun getRecurringTasks(remoteIds: List<String>): List<Task> = runBlocking {
-        dao.getRecurringTasks(remoteIds)
-    }
-
-    fun setCompletionDate(remoteId: String, completionDate: Long) = runBlocking {
-        dao.setCompletionDate(remoteId, completionDate)
     }
 
     fun snooze(taskIds: List<Long>, millis: Long) = runBlocking {
@@ -99,60 +85,16 @@ class TaskDaoBlocking @Inject constructor(private val dao: TaskDao) {
         }
     }
 
-    fun fetchTasks(callback: (SubtaskInfo) -> List<String>, subtasks: SubtaskInfo): List<TaskContainer> = runBlocking {
-        dao.fetchTasks(callback, subtasks)
-    }
-
     fun fetchTasks(preferences: Preferences, filter: Filter): List<TaskContainer> = runBlocking {
         dao.fetchTasks(preferences, filter)
-    }
-
-    fun fetchTasks(query: SimpleSQLiteQuery): List<TaskContainer> = runBlocking {
-        dao.fetchTasks(query)
-    }
-
-    fun count(query: SimpleSQLiteQuery): Int = runBlocking {
-        dao.count(query)
-    }
-
-    fun getSubtaskInfo(): SubtaskInfo = runBlocking {
-        dao.getSubtaskInfo()
-    }
-
-    fun getTaskFactory(query: SimpleSQLiteQuery): DataSource.Factory<Int, TaskContainer> {
-        return dao.getTaskFactory(query)
-    }
-
-    fun touch(id: Long) = runBlocking {
-        dao.touch(id)
     }
 
     fun touch(ids: List<Long>) = runBlocking {
         dao.touch(ids)
     }
 
-    fun setParent(parent: Long, tasks: List<Long>) = runBlocking {
-        dao.setParent(parent, tasks)
-    }
-
-    fun fetchChildren(id: Long): List<Task> = runBlocking {
-        dao.fetchChildren(id)
-    }
-
-    fun getChildren(id: Long): List<Long> = runBlocking {
-        dao.getChildren(id)
-    }
-
     fun getChildren(ids: List<Long>): List<Long> = runBlocking {
         dao.getChildren(ids)
-    }
-
-    fun setCollapsed(id: Long, collapsed: Boolean) = runBlocking {
-        dao.setCollapsed(id, collapsed)
-    }
-
-    fun setCollapsed(preferences: Preferences, filter: Filter, collapsed: Boolean) = runBlocking {
-        dao.setCollapsed(preferences, filter, collapsed)
     }
 
     fun save(task: Task) = runBlocking {
@@ -181,13 +123,5 @@ class TaskDaoBlocking @Inject constructor(private val dao: TaskDao) {
 
     fun fetchFiltered(filter: Filter): List<Task> = runBlocking {
         dao.fetchFiltered(filter)
-    }
-
-    fun fetchFiltered(queryTemplate: String): List<Task> = runBlocking {
-        dao.fetchFiltered(queryTemplate)
-    }
-
-    fun getLocalTasks(): List<Long> = runBlocking {
-        dao.getLocalTasks()
     }
 }

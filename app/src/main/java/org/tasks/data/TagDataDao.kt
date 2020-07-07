@@ -54,7 +54,7 @@ abstract class TagDataDao {
     internal abstract suspend fun deleteTagData(tagData: TagData)
 
     @Query("DELETE FROM tags WHERE tag_uid = :tagUid")
-    abstract suspend fun deleteTags(tagUid: String)
+    internal abstract suspend fun deleteTags(tagUid: String)
 
     @Query("SELECT * FROM tags WHERE task IN (:tasks) AND tag_uid NOT IN (:tagsToKeep)")
     internal abstract suspend fun tagsToDelete(tasks: List<Long>, tagsToKeep: List<String>): List<Tag>
@@ -115,7 +115,7 @@ abstract class TagDataDao {
     abstract suspend fun delete(tagData: List<TagData>)
 
     @Delete
-    abstract suspend fun deleteTags(tags: List<Tag>)
+    internal abstract suspend fun deleteTags(tags: List<Tag>)
 
     @Query("SELECT tagdata.* FROM tagdata "
             + "INNER JOIN tags ON tags.tag_uid = tagdata.remoteId "

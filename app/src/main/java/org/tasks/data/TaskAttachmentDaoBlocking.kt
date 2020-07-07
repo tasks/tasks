@@ -27,8 +27,4 @@ class TaskAttachmentDaoBlocking @Inject constructor(private val dao: TaskAttachm
     fun update(attachment: TaskAttachment) = runBlocking {
         dao.update(attachment)
     }
-
-    fun createNew(attachment: TaskAttachment) = runBlocking {
-        dao.createNew(attachment)
-    }
 }

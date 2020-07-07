@@ -7,10 +7,6 @@ import javax.inject.Inject
 
 @Deprecated("use coroutines")
 class GoogleTaskListDaoBlocking @Inject constructor(private val dao: GoogleTaskListDao) {
-    fun accountCount(): Int = runBlocking {
-        dao.accountCount()
-    }
-
     fun getAccounts(): List<GoogleTaskAccount> = runBlocking {
         dao.getAccounts()
     }

@@ -17,10 +17,6 @@ class TagDaoBlocking @Inject constructor(private val dao: TagDao) {
         dao.insert(tags)
     }
 
-    fun deleteTags(taskId: Long, tagUids: List<String>) = runBlocking {
-        dao.deleteTags(taskId, tagUids)
-    }
-
     fun getByTagUid(tagUid: String): List<Tag> = runBlocking {
         dao.getByTagUid(tagUid)
     }
