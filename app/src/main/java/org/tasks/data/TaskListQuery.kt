@@ -32,7 +32,7 @@ object TaskListQuery {
             field("places.*"))
 
     @JvmStatic
-    fun getQuery(preferences: Preferences, filter: Filter, subtasks: SubtaskInfo): List<String> {
+    fun getQuery(preferences: Preferences, filter: Filter, subtasks: SubtaskInfo): MutableList<String> {
         return if (filter.supportsManualSort() && preferences.isManualSort) {
             getRecursiveQuery(filter, preferences, subtasks)
         } else if (filter.supportsAstridSorting() && preferences.isAstridSort) {

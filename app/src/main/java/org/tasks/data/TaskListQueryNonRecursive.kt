@@ -21,7 +21,7 @@ internal object TaskListQueryNonRecursive {
                     .`as`("tags")
     private val FIELDS = TaskListQuery.FIELDS.plus(TAGS).toTypedArray()
 
-    fun getNonRecursiveQuery(filter: Filter, preferences: Preferences): List<String> {
+    fun getNonRecursiveQuery(filter: Filter, preferences: Preferences): MutableList<String> {
         val joinedQuery = JOINS + filter.getSqlQuery()
         val sortMode = preferences.sortMode
         val sortGroup = field(SortHelper.getSortGroup(sortMode) ?: "NULL").`as`("sortGroup")
