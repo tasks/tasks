@@ -313,8 +313,7 @@ class SubtasksFilterUpdater @Inject constructor(
         return serializeTree(treeRoot)
     }
 
-    class Node internal constructor(@JvmField var uuid: String, var parent: Node?, var indent: Int) {
-        @JvmField
+    class Node internal constructor(var uuid: String, var parent: Node?, var indent: Int) {
         val children = ArrayList<Node>()
     }
 
@@ -322,7 +321,6 @@ class SubtasksFilterUpdater @Inject constructor(
         const val ACTIVE_TASKS_ORDER = "active_tasks_order" // $NON-NLS-1$
         const val TODAY_TASKS_ORDER = "today_tasks_order" // $NON-NLS-1$
 
-        @JvmStatic
         fun buildOrderString(ids: Array<String>): String {
             val builder = StringBuilder()
             if (ids.isEmpty()) {
@@ -337,7 +335,6 @@ class SubtasksFilterUpdater @Inject constructor(
             return builder.toString()
         }
 
-        @JvmStatic
         fun buildTreeModel(serializedTree: String?, callback: ((Node?) -> Unit)?): Node {
             val root = Node("-1", null, -1) // $NON-NLS-1$
             try {
@@ -367,7 +364,6 @@ class SubtasksFilterUpdater @Inject constructor(
             }
         }
 
-        @JvmStatic
         fun serializeTree(root: Node?): String {
             val tree = JSONArray()
             if (root == null) {
