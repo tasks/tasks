@@ -29,14 +29,13 @@ import kotlinx.collections.immutable.ImmutableSet
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toImmutableSet
 import kotlinx.coroutines.NonCancellable
-import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
 import org.tasks.Event
 import org.tasks.R
 import org.tasks.Strings
 import org.tasks.calendars.CalendarEventProvider
 import org.tasks.data.*
 import org.tasks.location.GeofenceApi
-import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTime
@@ -58,30 +57,23 @@ class TaskEditViewModel @ViewModelInject constructor(
         private val tagDao: TagDao,
         private val tagDataDao: TagDataDao,
         private val preferences: Preferences,
-        private val defaultFilterProvider: DefaultFilterProvider,
         private val googleTaskDao: GoogleTaskDao,
         private val caldavDao: CaldavDao,
         private val taskCompleter: TaskCompleter,
-        private val alarmDao: AlarmDao,
         private val alarmService: AlarmService) : ViewModel() {
 
     val cleared = MutableLiveData<Event<Boolean>>()
 
-    fun setup(task: Task) {
+    fun setup(
+            task: Task, list: Filter, location: Location?, tags: List<TagData>, alarms: LongArray) {
         this.task = task
         isNew = task.isNew
-        runBlocking {
-            val list = async { defaultFilterProvider.getList(task) }
-            val location = async { locationDao.getLocation(task, preferences) }
-            val tags = async { tagDataDao.getTags(task) }
-            val alarms = async { alarmDao.getAlarms(task) }
-            originalList = list.await()
-            originalLocation = location.await()
-            originalTags = tags.await().toImmutableList()
-            originalAlarms = alarms.await().map { it.time }.toImmutableSet()
-            if (isNew && permissionChecker.canAccessCalendars()) {
-                originalCalendar = preferences.defaultCalendar
-            }
+        originalList = list
+        originalLocation = location
+        originalTags = tags.toImmutableList()
+        originalAlarms = alarms.toList().toImmutableSet()
+        if (isNew && permissionChecker.canAccessCalendars()) {
+            originalCalendar = preferences.defaultCalendar
         }
     }
 

@@ -17,7 +17,7 @@ import org.tasks.makers.TaskMaker.newTask
 class TitleTests : BaseTaskEditViewModelTest() {
     @Test
     fun changeTitleCausesChange() {
-        viewModel.setup(newTask())
+        setup(newTask())
 
         viewModel.title = "Test"
 
@@ -27,7 +27,7 @@ class TitleTests : BaseTaskEditViewModelTest() {
     @Test
     fun saveWithEmptyTitle() = runBlocking {
         val task = newTask()
-        viewModel.setup(task)
+        setup(task)
 
         viewModel.priority = HIGH
 
@@ -38,7 +38,7 @@ class TitleTests : BaseTaskEditViewModelTest() {
 
     @Test
     fun newTaskPrepopulatedWithTitleHasChanges() {
-        viewModel.setup(newTask(with(TaskMaker.TITLE, "some title")))
+        setup(newTask(with(TaskMaker.TITLE, "some title")))
 
         assertTrue(viewModel.hasChanges())
     }

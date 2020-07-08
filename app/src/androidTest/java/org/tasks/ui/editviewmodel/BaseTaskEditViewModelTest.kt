@@ -4,6 +4,7 @@ import android.content.Context
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.dao.Database
 import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.gcal.GCalHelper
 import com.todoroo.astrid.service.TaskCompleter
 import com.todoroo.astrid.service.TaskDeleter
@@ -14,6 +15,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.tasks.calendars.CalendarEventProvider
+import org.tasks.data.AlarmDao
+import org.tasks.data.LocationDao
+import org.tasks.data.TagDataDao
 import org.tasks.injection.InjectingTestCase
 import org.tasks.location.GeofenceApi
 import org.tasks.preferences.DefaultFilterProvider
@@ -33,9 +37,12 @@ open class BaseTaskEditViewModelTest : InjectingTestCase() {
     @Inject lateinit var taskMover: TaskMover
     @Inject lateinit var geofenceApi: GeofenceApi
     @Inject lateinit var preferences: Preferences
-    @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
     @Inject lateinit var taskCompleter: TaskCompleter
     @Inject lateinit var alarmService: AlarmService
+    @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
+    @Inject lateinit var locationDao: LocationDao
+    @Inject lateinit var tagDataDao: TagDataDao
+    @Inject lateinit var alarmDao: AlarmDao
 
     protected lateinit var viewModel: TaskEditViewModel
 
@@ -56,12 +63,20 @@ open class BaseTaskEditViewModelTest : InjectingTestCase() {
                 db.tagDao,
                 db.tagDataDao,
                 preferences,
-                defaultFilterProvider,
                 db.googleTaskDao,
                 db.caldavDao,
                 taskCompleter,
-                db.alarmDao,
                 alarmService)
+    }
+
+    protected fun setup(task: Task) = runBlocking {
+        viewModel.setup(
+                task,
+                defaultFilterProvider.getList(task),
+                locationDao.getLocation(task, preferences),
+                tagDataDao.getTags(task),
+                alarmDao.getAlarms(task).map { it.time }.toLongArray()
+        )
     }
 
     protected fun save(): Boolean = runBlocking(Dispatchers.Main) {

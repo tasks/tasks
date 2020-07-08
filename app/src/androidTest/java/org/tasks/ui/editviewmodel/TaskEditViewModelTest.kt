@@ -15,14 +15,14 @@ import org.tasks.makers.TaskMaker.newTask
 class TaskEditViewModelTest : BaseTaskEditViewModelTest() {
     @Test
     fun noChangesForNewTask() {
-        viewModel.setup(newTask())
+        setup(newTask())
 
         assertFalse(viewModel.hasChanges())
     }
 
     @Test
     fun dontSaveTaskWithoutChanges() = runBlocking {
-        viewModel.setup(newTask())
+        setup(newTask())
 
         assertFalse(save())
 
@@ -31,7 +31,7 @@ class TaskEditViewModelTest : BaseTaskEditViewModelTest() {
 
     @Test
     fun dontSaveTaskTwice() = runBlocking {
-        viewModel.setup(newTask())
+        setup(newTask())
 
         viewModel.priority = Task.Priority.HIGH
 

@@ -34,6 +34,7 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.activities.TagSettingsActivity
 import org.tasks.billing.Inventory
+import org.tasks.data.AlarmDao
 import org.tasks.data.LocationDao
 import org.tasks.data.Place
 import org.tasks.data.TagDataDao
@@ -73,6 +74,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
     @Inject lateinit var colorProvider: ColorProvider
     @Inject lateinit var locationDao: LocationDao
     @Inject lateinit var tagDataDao: TagDataDao
+    @Inject lateinit var alarmDao: AlarmDao
 
     private lateinit var navigationDrawer: NavigationDrawerFragment
     private var currentNightMode = 0
@@ -315,7 +317,13 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
                 }
             }
             clearUi()
-            val fragment = newTaskEditFragment(task, filterColor)
+            val fragment = newTaskEditFragment(
+                    task,
+                    defaultFilterProvider.getList(task),
+                    locationDao.getLocation(task, preferences),
+                    tagDataDao.getTags(task),
+                    alarmDao.getAlarms(task),
+                    filterColor)
             supportFragmentManager.beginTransaction()
                     .replace(R.id.detail, fragment, TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
                     .addToBackStack(TaskEditFragment.TAG_TASKEDIT_FRAGMENT)

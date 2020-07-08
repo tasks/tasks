@@ -15,7 +15,7 @@ class ReminderTests : BaseTaskEditViewModelTest() {
     @Test
     fun whenDueReminder() = runBlocking {
         val task = newTask()
-        viewModel.setup(task)
+        setup(task)
 
         viewModel.whenDue = true
 
@@ -27,7 +27,7 @@ class ReminderTests : BaseTaskEditViewModelTest() {
     @Test
     fun whenOverDueReminder() = runBlocking {
         val task = newTask()
-        viewModel.setup(task)
+        setup(task)
 
         viewModel.whenOverdue = true
 
@@ -39,7 +39,7 @@ class ReminderTests : BaseTaskEditViewModelTest() {
     @Test
     fun ringFiveTimes() = runBlocking {
         val task = newTask()
-        viewModel.setup(task)
+        setup(task)
 
         viewModel.ringFiveTimes = true
 
@@ -51,7 +51,7 @@ class ReminderTests : BaseTaskEditViewModelTest() {
     @Test
     fun ringNonstop() = runBlocking {
         val task = newTask()
-        viewModel.setup(task)
+        setup(task)
 
         viewModel.ringNonstop = true
 
@@ -63,7 +63,7 @@ class ReminderTests : BaseTaskEditViewModelTest() {
     @Test
     fun ringFiveTimesCantRingNonstop() = runBlocking {
         val task = newTask()
-        viewModel.setup(task)
+        setup(task)
 
         viewModel.ringNonstop = true
         viewModel.ringFiveTimes = true
@@ -77,7 +77,7 @@ class ReminderTests : BaseTaskEditViewModelTest() {
     @Test
     fun ringNonStopCantRingFiveTimes() = runBlocking {
         val task = newTask()
-        viewModel.setup(task)
+        setup(task)
 
         viewModel.ringFiveTimes = true
         viewModel.ringNonstop = true

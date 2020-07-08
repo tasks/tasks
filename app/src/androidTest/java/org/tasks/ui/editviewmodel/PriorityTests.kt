@@ -14,7 +14,7 @@ import org.tasks.makers.TaskMaker
 class PriorityTests : BaseTaskEditViewModelTest() {
     @Test
     fun changePriorityCausesChange() {
-        viewModel.setup(TaskMaker.newTask(MakeItEasy.with(TaskMaker.PRIORITY, Task.Priority.HIGH)))
+        setup(TaskMaker.newTask(MakeItEasy.with(TaskMaker.PRIORITY, Task.Priority.HIGH)))
 
         viewModel.priority = Task.Priority.MEDIUM
 
@@ -24,7 +24,7 @@ class PriorityTests : BaseTaskEditViewModelTest() {
     @Test
     fun applyPriorityChange() {
         val task = TaskMaker.newTask(MakeItEasy.with(TaskMaker.PRIORITY, Task.Priority.HIGH))
-        viewModel.setup(task)
+        setup(task)
         viewModel.priority = Task.Priority.MEDIUM
 
         save()
@@ -34,7 +34,7 @@ class PriorityTests : BaseTaskEditViewModelTest() {
 
     @Test
     fun noChangeWhenRevertingPriority() {
-        viewModel.setup(TaskMaker.newTask(MakeItEasy.with(TaskMaker.PRIORITY, Task.Priority.HIGH)))
+        setup(TaskMaker.newTask(MakeItEasy.with(TaskMaker.PRIORITY, Task.Priority.HIGH)))
 
         viewModel.priority = Task.Priority.MEDIUM
         viewModel.priority = Task.Priority.HIGH

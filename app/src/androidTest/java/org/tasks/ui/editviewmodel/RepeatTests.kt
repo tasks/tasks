@@ -17,7 +17,7 @@ class RepeatTests : BaseTaskEditViewModelTest() {
     @Test
     fun changeRepeatAfterCompletion() = runBlocking {
         val task = newTask(with(TaskMaker.RRULE, RRule("RRULE:FREQ=DAILY;INTERVAL=1")))
-        viewModel.setup(task)
+        setup(task)
 
         viewModel.repeatAfterCompletion = true
 
@@ -32,7 +32,7 @@ class RepeatTests : BaseTaskEditViewModelTest() {
     fun removeRepeatAfterCompletion() = runBlocking {
         val task = newTask()
         task.recurrence = "RRULE:FREQ=DAILY;INTERVAL=1;FROM=COMPLETION"
-        viewModel.setup(task)
+        setup(task)
 
         viewModel.repeatAfterCompletion = false
 

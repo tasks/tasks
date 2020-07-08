@@ -44,8 +44,7 @@ import org.tasks.Event
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
-import org.tasks.data.UserActivity
-import org.tasks.data.UserActivityDao
+import org.tasks.data.*
 import org.tasks.databinding.FragmentTaskEditBinding
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.dialogs.DialogBuilder
@@ -82,7 +81,13 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        editViewModel.setup(requireArguments().getParcelable(EXTRA_TASK)!!)
+        val args = requireArguments()
+        editViewModel.setup(
+                args.getParcelable(EXTRA_TASK)!!,
+                args.getParcelable(EXTRA_LIST)!!,
+                args.getParcelable(EXTRA_LOCATION),
+                args.getParcelableArrayList(EXTRA_TAGS)!!,
+                args.getLongArray(EXTRA_ALARMS)!!)
         val activity = requireActivity() as MainActivity
         editViewModel.cleared.observe(activity, Observer<Event<Boolean>> {
             activity.removeTaskEditFragment()
@@ -339,12 +344,26 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     companion object {
         const val TAG_TASKEDIT_FRAGMENT = "taskedit_fragment"
         private const val EXTRA_TASK = "extra_task"
+        private const val EXTRA_LIST = "extra_list"
+        private const val EXTRA_LOCATION = "extra_location"
+        private const val EXTRA_TAGS = "extra_tags"
+        private const val EXTRA_ALARMS = "extra_alarms"
         private const val EXTRA_THEME = "extra_theme"
 
-        fun newTaskEditFragment(task: Task, themeColor: ThemeColor?): TaskEditFragment {
+        fun newTaskEditFragment(
+                task: Task,
+                list: Filter,
+                location: Location?,
+                tags: ArrayList<TagData>,
+                alarms: ArrayList<Alarm>,
+                themeColor: ThemeColor?): TaskEditFragment {
             val taskEditFragment = TaskEditFragment()
             val arguments = Bundle()
             arguments.putParcelable(EXTRA_TASK, task)
+            arguments.putParcelable(EXTRA_LIST, list)
+            arguments.putParcelable(EXTRA_LOCATION, location)
+            arguments.putParcelableArrayList(EXTRA_TAGS, tags)
+            arguments.putLongArray(EXTRA_ALARMS, alarms.map { it.time }.toLongArray())
             arguments.putParcelable(EXTRA_THEME, themeColor)
             taskEditFragment.arguments = arguments
             return taskEditFragment
