@@ -62,7 +62,7 @@ class FilterProvider @Inject constructor(
                                 R.string.p_collapse_filters.toLong()))
                         .apply { if (collapsed) return this }
                         .plusAllIf(showBuiltIn) {
-                            builtInFilterExposer.filters
+                            builtInFilterExposer.filters()
                         }
                         .plus(filterDao.getFilters().map(::CustomFilter).sort())
                         .plusIf(showCreate) {
@@ -250,7 +250,7 @@ class FilterProvider @Inject constructor(
                     sortedWith(COMPARATOR)
                 }
 
-        private fun <T> Collection<T>.plusAllIf(predicate: Boolean, item: () -> Iterable<T>): List<T> =
+        private suspend fun <T> Collection<T>.plusAllIf(predicate: Boolean, item: suspend () -> Iterable<T>): List<T> =
                 plus(if (predicate) item.invoke() else emptyList())
 
         private fun <T> Iterable<T>.plusIf(predicate: Boolean, item: () -> T): List<T> =

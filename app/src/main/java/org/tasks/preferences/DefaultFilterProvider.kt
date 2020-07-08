@@ -4,7 +4,7 @@ import android.content.Context
 import com.todoroo.astrid.api.*
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.core.BuiltInFilterExposer
-import com.todoroo.astrid.core.BuiltInFilterExposer.getMyTasksFilter
+import com.todoroo.astrid.core.BuiltInFilterExposer.Companion.getMyTasksFilter
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
