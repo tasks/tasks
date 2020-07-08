@@ -1,19 +1,19 @@
 package com.todoroo.astrid.adapter
 
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import org.tasks.LocalBroadcastManager
-import org.tasks.data.CaldavDaoBlocking
-import org.tasks.data.GoogleTaskDaoBlocking
+import org.tasks.data.CaldavDao
+import org.tasks.data.GoogleTaskDao
 import org.tasks.data.TaskContainer
 
 class CaldavManualSortTaskAdapter internal constructor(
-        googleTaskDao: GoogleTaskDaoBlocking,
-        private val caldavDao: CaldavDaoBlocking,
-        private val taskDao: TaskDaoBlocking,
+        googleTaskDao: GoogleTaskDao,
+        private val caldavDao: CaldavDao,
+        private val taskDao: TaskDao,
         private val localBroadcastManager: LocalBroadcastManager)
     : TaskAdapter(false, googleTaskDao, caldavDao, taskDao, localBroadcastManager) {
 
-    override fun moved(from: Int, to: Int, indent: Int) {
+    override suspend fun moved(from: Int, to: Int, indent: Int) {
         val task = getTask(from)
         val oldParent = task.parent
         val newParent = changeParent(task, indent, to)
@@ -37,7 +37,7 @@ class CaldavManualSortTaskAdapter internal constructor(
         localBroadcastManager.broadcastRefresh()
     }
 
-    private fun changeParent(task: TaskContainer, indent: Int, to: Int): Long {
+    private suspend fun changeParent(task: TaskContainer, indent: Int, to: Int): Long {
         val newParent = findParent(indent, to)?.id ?: 0
         if (task.parent != newParent) {
             changeParent(task, newParent)
@@ -45,7 +45,7 @@ class CaldavManualSortTaskAdapter internal constructor(
         return newParent
     }
 
-    private fun changeParent(task: TaskContainer, newParent: Long) {
+    private suspend fun changeParent(task: TaskContainer, newParent: Long) {
         val caldavTask = task.getCaldavTask()
         if (newParent == 0L) {
             caldavTask.cd_remote_parent = ""

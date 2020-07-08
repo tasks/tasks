@@ -235,7 +235,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         } else if (recyclerAdapter !is DragAndDropRecyclerAdapter) {
             setAdapter(
                     DragAndDropRecyclerAdapter(
-                            taskAdapter, recyclerView, viewHolderFactory, this, tasks, preferences))
+                            lifecycleScope, taskAdapter, recyclerView, viewHolderFactory, this, tasks, preferences))
             return
         }
         recyclerAdapter?.submitList(tasks)
@@ -497,7 +497,9 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     }
 
     fun onTaskCreated(uuid: String) {
-        taskAdapter.onTaskCreated(uuid)
+        lifecycleScope.launch {
+            taskAdapter.onTaskCreated(uuid)
+        }
     }
 
     private fun onTaskDelete(task: Task) {
@@ -507,8 +509,10 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             }
         }
         timerPlugin.stopTimer(task)
-        taskAdapter.onTaskDeleted(task)
-        loadTaskListContent()
+        lifecycleScope.launch {
+            taskAdapter.onTaskDeleted(task)
+            loadTaskListContent()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

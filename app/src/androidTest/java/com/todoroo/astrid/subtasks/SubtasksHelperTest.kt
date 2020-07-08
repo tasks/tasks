@@ -3,6 +3,7 @@ package com.todoroo.astrid.subtasks
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -18,11 +19,13 @@ class SubtasksHelperTest : SubtasksTestCase() {
         createTasks()
         val m = TaskListMetadata()
         m.filter = TaskListMetadata.FILTER_ID_ALL
-        updater.initializeFromSerializedTree(
-                m, filter, SubtasksHelper.convertTreeToRemoteIds(taskDao, DEFAULT_SERIALIZED_TREE))
+        runBlocking {
+            updater.initializeFromSerializedTree(
+                    m, filter, SubtasksHelper.convertTreeToRemoteIds(taskDao, DEFAULT_SERIALIZED_TREE))
+        }
     }
 
-    private fun createTask(title: String, uuid: String) {
+    private fun createTask(title: String, uuid: String) = runBlocking {
         val t = Task()
         t.title = title
         t.uuid = uuid
@@ -49,7 +52,7 @@ class SubtasksHelperTest : SubtasksTestCase() {
     }
 
     @Test
-    fun testLocalToRemoteIdMapping() {
+    fun testLocalToRemoteIdMapping() = runBlocking {
         val mapped = SubtasksHelper.convertTreeToRemoteIds(taskDao, DEFAULT_SERIALIZED_TREE)
                 .replace("\\s".toRegex(), "")
         assertEquals(EXPECTED_REMOTE, mapped)

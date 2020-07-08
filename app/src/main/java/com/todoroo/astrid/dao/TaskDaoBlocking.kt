@@ -94,7 +94,9 @@ class TaskDaoBlocking @Inject constructor(private val dao: TaskDao) {
     }
 
     fun fetchTasks(callback: (SubtaskInfo) -> List<String>): List<TaskContainer> = runBlocking {
-        dao.fetchTasks(callback)
+        dao.fetchTasks {
+            callback.invoke(it)
+        }
     }
 
     fun fetchTasks(callback: (SubtaskInfo) -> List<String>, subtasks: SubtaskInfo): List<TaskContainer> = runBlocking {

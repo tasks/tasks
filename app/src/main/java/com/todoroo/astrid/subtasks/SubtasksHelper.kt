@@ -4,7 +4,7 @@ import android.content.Context
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.core.BuiltInFilterExposer.Companion.isInbox
 import com.todoroo.astrid.core.BuiltInFilterExposer.Companion.isTodayFilter
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task.Companion.isValidUuid
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater.Companion.buildOrderString
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater.Companion.buildTreeModel
@@ -12,9 +12,9 @@ import com.todoroo.astrid.subtasks.SubtasksFilterUpdater.Companion.serializeTree
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.TagData
-import org.tasks.data.TagDataDaoBlocking
+import org.tasks.data.TagDataDao
 import org.tasks.data.TaskListMetadata
-import org.tasks.data.TaskListMetadataDaoBlocking
+import org.tasks.data.TaskListMetadataDao
 import org.tasks.db.QueryUtils.showHiddenAndCompleted
 import org.tasks.preferences.Preferences
 import timber.log.Timber
@@ -24,10 +24,10 @@ import javax.inject.Inject
 class SubtasksHelper @Inject constructor(
         @param:ApplicationContext private val context: Context,
         private val preferences: Preferences,
-        private val taskDao: TaskDaoBlocking,
-        private val tagDataDao: TagDataDaoBlocking,
-        private val taskListMetadataDao: TaskListMetadataDaoBlocking) {
-    fun applySubtasksToWidgetFilter(filter: Filter, query: String): String {
+        private val taskDao: TaskDao,
+        private val tagDataDao: TagDataDao,
+        private val taskListMetadataDao: TaskListMetadataDao) {
+    suspend fun applySubtasksToWidgetFilter(filter: Filter, query: String): String {
         var query = query
         if (filter.supportsAstridSorting() && preferences.isAstridSort) {
             val tagData = tagDataDao.getTagByName(filter.listingTitle)
@@ -49,7 +49,7 @@ class SubtasksHelper @Inject constructor(
         return query
     }
 
-    private fun getOrderString(tagData: TagData?, tlm: TaskListMetadata?): String {
+    private suspend fun getOrderString(tagData: TagData?, tlm: TaskListMetadata?): String {
         val serialized: String? = when {
             tlm != null -> tlm.taskIds
             tagData != null -> convertTreeToRemoteIds(taskDao, tagData.tagOrdering)
@@ -87,7 +87,7 @@ class SubtasksHelper @Inject constructor(
         }
 
         /** Takes a subtasks string containing local ids and remaps it to one containing UUIDs  */
-        fun convertTreeToRemoteIds(taskDao: TaskDaoBlocking, localTree: String?): String {
+        suspend fun convertTreeToRemoteIds(taskDao: TaskDao, localTree: String?): String {
             val localIds = getIdList(localTree)
             val idMap = getIdMap(taskDao, localIds)
             idMap[-1L] = "-1" // $NON-NLS-1$
@@ -127,7 +127,7 @@ class SubtasksHelper @Inject constructor(
             }
         }
 
-        private fun getIdMap(taskDao: TaskDaoBlocking, keys: List<Long>): MutableMap<Long, String> {
+        private suspend fun getIdMap(taskDao: TaskDao, keys: List<Long>): MutableMap<Long, String> {
             val tasks = taskDao.fetch(keys)
             val map: MutableMap<Long, String> = HashMap()
             for (task in tasks) {

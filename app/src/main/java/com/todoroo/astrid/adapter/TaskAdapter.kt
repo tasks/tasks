@@ -7,7 +7,7 @@ package com.todoroo.astrid.adapter
 
 import com.todoroo.astrid.core.SortHelper.SORT_DUE
 import com.todoroo.astrid.core.SortHelper.SORT_IMPORTANCE
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
@@ -19,9 +19,9 @@ import kotlin.collections.HashSet
 
 open class TaskAdapter(
         private val newTasksOnTop: Boolean,
-        private val googleTaskDao: GoogleTaskDaoBlocking,
-        private val caldavDao: CaldavDaoBlocking,
-        private val taskDao: TaskDaoBlocking,
+        private val googleTaskDao: GoogleTaskDao,
+        private val caldavDao: CaldavDao,
+        private val taskDao: TaskDao,
         private val localBroadcastManager: LocalBroadcastManager) {
 
     private val selected = HashSet<Long>()
@@ -126,7 +126,7 @@ open class TaskAdapter(
 
     open fun supportsAstridSorting(): Boolean = false
 
-    open fun moved(from: Int, to: Int, indent: Int) {
+    open suspend fun moved(from: Int, to: Int, indent: Int) {
         val task = getTask(from)
         val newParent = findParent(indent, to)
         if (newParent?.id ?: 0 == task.parent) {
@@ -162,11 +162,11 @@ open class TaskAdapter(
 
     fun getItemUuid(position: Int): String = getTask(position).uuid
 
-    open fun onCompletedTask(task: TaskContainer, newState: Boolean) {}
+    open suspend fun onCompletedTask(task: TaskContainer, newState: Boolean) {}
 
-    open fun onTaskCreated(uuid: String) {}
+    open suspend fun onTaskCreated(uuid: String) {}
 
-    open fun onTaskDeleted(task: Task) {}
+    open suspend fun onTaskDeleted(task: Task) {}
 
     open fun supportsHiddenTasks(): Boolean = true
 
@@ -197,7 +197,7 @@ open class TaskAdapter(
         return null
     }
 
-    private fun changeSortGroup(task: TaskContainer, pos: Int) {
+    private suspend fun changeSortGroup(task: TaskContainer, pos: Int) {
         when(dataSource.sortMode) {
             SORT_IMPORTANCE -> {
                 val newPriority = dataSource.nearestHeader(if (pos == 0) 1 else pos).toInt()
@@ -211,7 +211,7 @@ open class TaskAdapter(
         }
     }
 
-    private fun applyDate(task: Task, date: Long) {
+    private suspend fun applyDate(task: Task, date: Long) {
         val original = task.dueDate
         task.setDueDateAdjustingHideUntil(if (date == 0L) {
             0L
@@ -223,14 +223,14 @@ open class TaskAdapter(
         }
     }
 
-    private fun moveToTopLevel(task: TaskContainer) {
+    private suspend fun moveToTopLevel(task: TaskContainer) {
         when {
             task.isGoogleTask -> changeGoogleTaskParent(task, null)
             task.isCaldavTask -> changeCaldavParent(task, null)
         }
     }
 
-    private fun changeGoogleTaskParent(task: TaskContainer, newParent: TaskContainer?) {
+    private suspend fun changeGoogleTaskParent(task: TaskContainer, newParent: TaskContainer?) {
         val list = newParent?.googleTaskList ?: task.googleTaskList!!
         if (newParent == null || task.googleTaskList == newParent.googleTaskList) {
             googleTaskDao.move(
@@ -254,7 +254,7 @@ open class TaskAdapter(
         }
     }
 
-    private fun changeCaldavParent(task: TaskContainer, newParent: TaskContainer?) {
+    private suspend fun changeCaldavParent(task: TaskContainer, newParent: TaskContainer?) {
         val list = newParent?.caldav ?: task.caldav!!
         val caldavTask = task.getCaldavTask() ?: SubsetCaldav()
         val newParentId = newParent?.id ?: 0

@@ -2,26 +2,27 @@ package com.todoroo.astrid.adapter
 
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater
 import org.tasks.LocalBroadcastManager
 import org.tasks.Strings.isNullOrEmpty
-import org.tasks.data.CaldavDaoBlocking
-import org.tasks.data.GoogleTaskDaoBlocking
+import org.tasks.data.CaldavDao
+import org.tasks.data.GoogleTaskDao
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskListMetadata
 import timber.log.Timber
 import java.util.*
 import kotlin.math.abs
 
+@Deprecated("legacy astrid manual sorting")
 class AstridTaskAdapter internal constructor(
         private val list: TaskListMetadata,
         private val filter: Filter,
         private val updater: SubtasksFilterUpdater,
-        googleTaskDao: GoogleTaskDaoBlocking,
-        caldavDao: CaldavDaoBlocking,
-        private val taskDao: TaskDaoBlocking,
+        googleTaskDao: GoogleTaskDao,
+        caldavDao: CaldavDao,
+        private val taskDao: TaskDao,
         private val localBroadcastManager: LocalBroadcastManager)
     : TaskAdapter(false, googleTaskDao, caldavDao, taskDao, localBroadcastManager) {
 
@@ -38,7 +39,7 @@ class AstridTaskAdapter internal constructor(
 
     override fun supportsAstridSorting() = true
 
-    override fun moved(from: Int, to: Int, indent: Int) {
+    override suspend fun moved(from: Int, to: Int, indent: Int) {
         val source = getTask(from)
         val targetTaskId = source.uuid
         try {
@@ -59,11 +60,11 @@ class AstridTaskAdapter internal constructor(
         }
     }
 
-    override fun onTaskCreated(uuid: String) = updater.onCreateTask(list, filter, uuid)
+    override suspend fun onTaskCreated(uuid: String) = updater.onCreateTask(list, filter, uuid)
 
-    override fun onTaskDeleted(task: Task) = updater.onDeleteTask(list, filter, task.uuid)
+    override suspend fun onTaskDeleted(task: Task) = updater.onDeleteTask(list, filter, task.uuid)
 
-    override fun onCompletedTask(task: TaskContainer, newState: Boolean) {
+    override suspend fun onCompletedTask(task: TaskContainer, newState: Boolean) {
         val itemId = task.uuid
         val completionDate = if (newState) DateUtilities.now() else 0
         if (!newState) {

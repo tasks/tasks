@@ -3,6 +3,7 @@ package com.todoroo.astrid.subtasks
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
+import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 import org.tasks.data.TaskListMetadata
@@ -24,8 +25,10 @@ class SubtasksMovingTest : SubtasksTestCase() {
         createTasks()
         val m = TaskListMetadata()
         m.filter = TaskListMetadata.FILTER_ID_ALL
-        updater.initializeFromSerializedTree(
-                m, filter, SubtasksHelper.convertTreeToRemoteIds(taskDao, DEFAULT_SERIALIZED_TREE))
+        runBlocking {
+            updater.initializeFromSerializedTree(
+                    m, filter, SubtasksHelper.convertTreeToRemoteIds(taskDao, DEFAULT_SERIALIZED_TREE))
+        }
 
         // Assert initial state is correct
         expectParentAndPosition(A, null, 0)
@@ -45,16 +48,16 @@ class SubtasksMovingTest : SubtasksTestCase() {
         F = createTask("F")
     }
 
-    private fun createTask(title: String): Task {
+    private fun createTask(title: String): Task = runBlocking {
         val task = Task()
         task.title = title
         taskDao.createNew(task)
-        return task
+        task
     }
 
-    private fun whenTriggerMoveBefore(target: Task?, before: Task?) {
-        val beforeId = if (before == null) "-1" else before.uuid
-        updater.moveTo(null, filter, target!!.uuid, beforeId)
+    private fun whenTriggerMoveBefore(target: Task?, before: Task?) = runBlocking {
+        val beforeId = before?.uuid ?: "-1"
+        updater.moveTo(TaskListMetadata(), filter, target!!.uuid, beforeId)
     }
 
     /* Starting State (see SubtasksTestCase):

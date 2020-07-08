@@ -3,10 +3,11 @@ package com.todoroo.astrid.adapter
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.natpryce.makeiteasy.PropertyValue
 import com.todoroo.astrid.api.CaldavFilter
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Before
@@ -14,8 +15,8 @@ import org.junit.Test
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.data.CaldavCalendar
-import org.tasks.data.CaldavDaoBlocking
-import org.tasks.data.GoogleTaskDaoBlocking
+import org.tasks.data.CaldavDao
+import org.tasks.data.GoogleTaskDao
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskListQuery.getQuery
 import org.tasks.injection.InjectingTestCase
@@ -34,9 +35,9 @@ import javax.inject.Inject
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class CaldavManualSortTaskAdapterTest : InjectingTestCase() {
-    @Inject lateinit var googleTaskDao: GoogleTaskDaoBlocking
-    @Inject lateinit var taskDao: TaskDaoBlocking
-    @Inject lateinit var caldavDao: CaldavDaoBlocking
+    @Inject lateinit var googleTaskDao: GoogleTaskDao
+    @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
 
@@ -214,7 +215,7 @@ class CaldavManualSortTaskAdapterTest : InjectingTestCase() {
         checkOrder(created.plusSeconds(6), 3)
     }
 
-    private fun move(from: Int, to: Int, indent: Int = 0) {
+    private fun move(from: Int, to: Int, indent: Int = 0) = runBlocking {
         tasks.addAll(taskDao.fetchTasks { getQuery(preferences, filter, it) })
         val adjustedTo = if (from < to) to + 1 else to // match DragAndDropRecyclerAdapter behavior
         adapter.moved(from, adjustedTo, indent)
@@ -222,7 +223,7 @@ class CaldavManualSortTaskAdapterTest : InjectingTestCase() {
 
     private fun checkOrder(dateTime: DateTime, index: Int) = checkOrder(dateTime.toAppleEpoch(), index)
 
-    private fun checkOrder(order: Long?, index: Int) {
+    private fun checkOrder(order: Long?, index: Int) = runBlocking {
         val sortOrder = caldavDao.getTask(adapter.getTask(index).id)!!.order
         if (order == null) {
             assertNull(sortOrder)
@@ -231,7 +232,7 @@ class CaldavManualSortTaskAdapterTest : InjectingTestCase() {
         }
     }
 
-    private fun addTask(vararg properties: PropertyValue<in Task?, *>): Long {
+    private fun addTask(vararg properties: PropertyValue<in Task?, *>): Long = runBlocking {
         val task = newTask(*properties)
         taskDao.createNew(task)
         val remoteParent = if (task.parent > 0) caldavDao.getRemoteIdForTask(task.parent) else null
@@ -240,6 +241,6 @@ class CaldavManualSortTaskAdapterTest : InjectingTestCase() {
                         with(TASK, task.id),
                         with(CALENDAR, "1234"),
                         with(REMOTE_PARENT, remoteParent)))
-        return task.id
+        task.id
     }
 }

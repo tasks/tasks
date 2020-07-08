@@ -3,17 +3,18 @@ package com.todoroo.astrid.adapter
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.natpryce.makeiteasy.PropertyValue
 import com.todoroo.astrid.api.GtasksFilter
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
-import org.tasks.data.CaldavDaoBlocking
-import org.tasks.data.GoogleTaskDaoBlocking
+import org.tasks.data.CaldavDao
+import org.tasks.data.GoogleTaskDao
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskListQuery.getQuery
 import org.tasks.injection.InjectingTestCase
@@ -32,9 +33,9 @@ import javax.inject.Inject
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class GoogleTaskManualSortAdapterTest : InjectingTestCase() {
-    @Inject lateinit var taskDao: TaskDaoBlocking
-    @Inject lateinit var caldavDao: CaldavDaoBlocking
-    @Inject lateinit var googleTaskDao: GoogleTaskDaoBlocking
+    @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var caldavDao: CaldavDao
+    @Inject lateinit var googleTaskDao: GoogleTaskDao
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
 
@@ -419,19 +420,19 @@ class GoogleTaskManualSortAdapterTest : InjectingTestCase() {
         adapter.setDataSource(dataSource)
     }
 
-    private fun move(from: Int, to: Int, indent: Int = 0) {
+    private fun move(from: Int, to: Int, indent: Int = 0) = runBlocking {
         tasks.addAll(taskDao.fetchTasks { getQuery(preferences, filter, it) })
         val adjustedTo = if (from < to) to + 1 else to
         adapter.moved(from, adjustedTo, indent)
     }
 
-    private fun checkOrder(order: Long, index: Int, parent: Long = 0) {
+    private fun checkOrder(order: Long, index: Int, parent: Long = 0) = runBlocking {
         val googleTask = googleTaskDao.getByTaskId(adapter.getTask(index).id)!!
         assertEquals(order, googleTask.order)
         assertEquals(parent, googleTask.parent)
     }
 
-    private fun addTask(vararg properties: PropertyValue<in Task?, *>): Long {
+    private fun addTask(vararg properties: PropertyValue<in Task?, *>): Long = runBlocking {
         val task = newTask(*properties)
         val parent = task.parent
         task.parent = 0
@@ -442,6 +443,6 @@ class GoogleTaskManualSortAdapterTest : InjectingTestCase() {
                         with(LIST, "1234"),
                         with(GoogleTaskMaker.PARENT, parent)),
                 false)
-        return task.id
+        task.id
     }
 }

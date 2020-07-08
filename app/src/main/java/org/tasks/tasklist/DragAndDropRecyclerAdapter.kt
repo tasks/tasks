@@ -2,6 +2,7 @@ package org.tasks.tasklist
 
 import android.graphics.Canvas
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ItemTouchHelper.*
@@ -12,6 +13,9 @@ import com.todoroo.astrid.adapter.TaskAdapter
 import com.todoroo.astrid.utility.Flags
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.tasks.activities.DragAndDropDiffer
 import org.tasks.data.TaskContainer
 import org.tasks.preferences.Preferences
@@ -20,6 +24,7 @@ import kotlin.math.max
 import kotlin.math.min
 
 class DragAndDropRecyclerAdapter(
+        private val scope: LifecycleCoroutineScope,
         private val adapter: TaskAdapter,
         private val recyclerView: RecyclerView,
         viewHolderFactory: ViewHolderFactory,
@@ -235,10 +240,14 @@ class DragAndDropRecyclerAdapter(
             } else {
                 from
             }
-            adapter.moved(from, to, indent)
-            val task: TaskContainer = items.removeAt(from)
-            items.add(if (from < to) to - 1 else to, task)
-            taskList.loadTaskListContent()
+            scope.launch {
+                withContext(NonCancellable) {
+                    adapter.moved(from, to, indent)
+                }
+                val task: TaskContainer = items.removeAt(from)
+                items.add(if (from < to) to - 1 else to, task)
+                taskList.loadTaskListContent()
+            }
         }
     }
 

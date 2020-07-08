@@ -2,9 +2,10 @@ package com.todoroo.astrid.adapter
 
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.natpryce.makeiteasy.PropertyValue
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -19,9 +20,9 @@ import javax.inject.Inject
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class CaldavTaskAdapterTest : InjectingTestCase() {
-    @Inject lateinit var taskDao: TaskDaoBlocking
-    @Inject lateinit var caldavDao: CaldavDaoBlocking
-    @Inject lateinit var googleTaskDao: GoogleTaskDaoBlocking
+    @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var caldavDao: CaldavDao
+    @Inject lateinit var googleTaskDao: GoogleTaskDao
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
 
     private lateinit var adapter: TaskAdapter
@@ -135,17 +136,17 @@ class CaldavTaskAdapterTest : InjectingTestCase() {
     }
 
     @Test
-    fun movingTaskToNewParentSetsId() {
+    fun movingTaskToNewParentSetsId() = runBlocking {
         addTask()
         addTask()
 
         adapter.moved(1, 1, 1)
 
-        assertEquals(tasks[0].id, taskDao.fetchBlocking(tasks[1].id)!!.parent)
+        assertEquals(tasks[0].id, taskDao.fetch(tasks[1].id)!!.parent)
     }
 
     @Test
-    fun movingTaskToNewParentSetsRemoteId() {
+    fun movingTaskToNewParentSetsRemoteId() = runBlocking {
         addTask()
         addTask()
 
@@ -158,29 +159,29 @@ class CaldavTaskAdapterTest : InjectingTestCase() {
     }
 
     @Test
-    fun unindentingTaskRemovesParent() {
+    fun unindentingTaskRemovesParent() = runBlocking {
         addTask()
         addTask(with(PARENT, tasks[0]))
 
         adapter.moved(1, 1, 0)
 
         assertTrue(caldavDao.getTask(tasks[1].id)!!.remoteParent.isNullOrBlank())
-        assertEquals(0, taskDao.fetchBlocking(tasks[1].id)!!.parent)
+        assertEquals(0, taskDao.fetch(tasks[1].id)!!.parent)
     }
 
     @Test
-    fun moveSubtaskUpToParent() {
+    fun moveSubtaskUpToParent() = runBlocking {
         addTask()
         addTask(with(PARENT, tasks[0]))
         addTask(with(PARENT, tasks[1]))
 
         adapter.moved(2, 2, 1)
 
-        assertEquals(tasks[0].id, taskDao.fetchBlocking(tasks[2].id)!!.parent)
+        assertEquals(tasks[0].id, taskDao.fetch(tasks[2].id)!!.parent)
     }
 
     @Test
-    fun moveSubtaskUpToGrandparent() {
+    fun moveSubtaskUpToGrandparent() = runBlocking {
         addTask()
         addTask(with(PARENT, tasks[0]))
         addTask(with(PARENT, tasks[1]))
@@ -188,10 +189,10 @@ class CaldavTaskAdapterTest : InjectingTestCase() {
 
         adapter.moved(3, 3, 1)
 
-        assertEquals(tasks[0].id, taskDao.fetchBlocking(tasks[3].id)!!.parent)
+        assertEquals(tasks[0].id, taskDao.fetch(tasks[3].id)!!.parent)
     }
 
-    private fun addTask(vararg properties: PropertyValue<in TaskContainer?, *>) {
+    private fun addTask(vararg properties: PropertyValue<in TaskContainer?, *>) = runBlocking {
         val t = newTaskContainer(*properties)
         tasks.add(t)
         val task = t.task

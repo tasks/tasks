@@ -1,22 +1,22 @@
 package com.todoroo.astrid.subtasks
 
 import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.data.Task.Companion.isValidUuid
 import org.json.JSONArray
 import org.json.JSONException
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.TaskListMetadata
-import org.tasks.data.TaskListMetadataDaoBlocking
+import org.tasks.data.TaskListMetadataDao
 import org.tasks.db.QueryUtils.showHiddenAndCompleted
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
 class SubtasksFilterUpdater @Inject constructor(
-        private val taskListMetadataDao: TaskListMetadataDaoBlocking,
-        private val taskDao: TaskDaoBlocking) {
+        private val taskListMetadataDao: TaskListMetadataDao,
+        private val taskDao: TaskDao) {
     private val idToNode = HashMap<String, Node?>()
     private var treeRoot: Node? = null
     private fun getSerializedTree(list: TaskListMetadata?): String? {
@@ -31,14 +31,14 @@ class SubtasksFilterUpdater @Inject constructor(
         return order
     }
 
-    fun writeSerialization(list: TaskListMetadata?, serialized: String?) {
+    suspend fun writeSerialization(list: TaskListMetadata?, serialized: String?) {
         if (list != null) {
             list.taskIds = serialized
             taskListMetadataDao.update(list)
         }
     }
 
-    fun initialize(list: TaskListMetadata?, filter: Filter) {
+    suspend fun initialize(list: TaskListMetadata?, filter: Filter) {
         initializeFromSerializedTree(list, filter, getSerializedTree(list))
         applyToFilter(filter)
     }
@@ -56,13 +56,13 @@ class SubtasksFilterUpdater @Inject constructor(
         return n.indent
     }
 
-    fun initializeFromSerializedTree(list: TaskListMetadata?, filter: Filter, serializedTree: String?) {
+    suspend fun initializeFromSerializedTree(list: TaskListMetadata?, filter: Filter, serializedTree: String?) {
         idToNode.clear()
         treeRoot = buildTreeModel(serializedTree) { node -> node?.let { idToNode[it.uuid] = it } }
         verifyTreeModel(list, filter)
     }
 
-    private fun verifyTreeModel(list: TaskListMetadata?, filter: Filter) {
+    private suspend fun verifyTreeModel(list: TaskListMetadata?, filter: Filter) {
         var changedThings = false
         val keySet: Set<String> = idToNode.keys
         val currentIds: MutableSet<String> = HashSet(keySet)
@@ -133,12 +133,12 @@ class SubtasksFilterUpdater @Inject constructor(
         }
     }
 
-    fun applyToDescendants(taskId: String?, visitor: (Node) -> Unit) {
+    suspend fun applyToDescendants(taskId: String?, visitor: suspend (Node) -> Unit) {
         val n = idToNode[taskId] ?: return
         applyToDescendantsHelper(n, visitor)
     }
 
-    private fun applyToDescendantsHelper(n: Node, visitor: (Node) -> Unit) {
+    private suspend fun applyToDescendantsHelper(n: Node, visitor: suspend (Node) -> Unit) {
         val children = n.children
         for (child in children) {
             visitor.invoke(child)
@@ -146,12 +146,12 @@ class SubtasksFilterUpdater @Inject constructor(
         }
     }
 
-    fun indent(list: TaskListMetadata, filter: Filter, targetTaskId: String?, delta: Int) {
+    suspend fun indent(list: TaskListMetadata, filter: Filter, targetTaskId: String?, delta: Int) {
         val node = idToNode[targetTaskId]
         indentHelper(list, filter, node, delta)
     }
 
-    private fun indentHelper(list: TaskListMetadata, filter: Filter, node: Node?, delta: Int) {
+    private suspend fun indentHelper(list: TaskListMetadata, filter: Filter, node: Node?, delta: Int) {
         if (node == null) {
             return
         }
@@ -205,7 +205,7 @@ class SubtasksFilterUpdater @Inject constructor(
         }
     }
 
-    fun moveTo(list: TaskListMetadata, filter: Filter, targetTaskId: String?, beforeTaskId: String) {
+    suspend fun moveTo(list: TaskListMetadata, filter: Filter, targetTaskId: String?, beforeTaskId: String) {
         val target = idToNode[targetTaskId] ?: return
         if ("-1" == beforeTaskId) { // $NON-NLS-1$
             moveToEndOfList(list, filter, target)
@@ -229,7 +229,7 @@ class SubtasksFilterUpdater @Inject constructor(
         setNodeIndent(toMove, toMove.parent!!.indent + 1)
     }
 
-    private fun moveHelper(list: TaskListMetadata, filter: Filter, moveThis: Node, beforeThis: Node) {
+    private suspend fun moveHelper(list: TaskListMetadata, filter: Filter, moveThis: Node, beforeThis: Node) {
         val oldParent = moveThis.parent
         val oldSiblings = oldParent!!.children
         val newParent = beforeThis.parent
@@ -269,7 +269,7 @@ class SubtasksFilterUpdater @Inject constructor(
         return false
     }
 
-    private fun moveToEndOfList(list: TaskListMetadata, filter: Filter, moveThis: Node) {
+    private suspend fun moveToEndOfList(list: TaskListMetadata, filter: Filter, moveThis: Node) {
         val parent = moveThis.parent
         parent!!.children.remove(moveThis)
         treeRoot!!.children.add(moveThis)
@@ -279,7 +279,7 @@ class SubtasksFilterUpdater @Inject constructor(
         applyToFilter(filter)
     }
 
-    fun onCreateTask(list: TaskListMetadata?, filter: Filter, uuid: String) {
+    suspend fun onCreateTask(list: TaskListMetadata?, filter: Filter, uuid: String) {
         if (idToNode.containsKey(uuid) || !isValidUuid(uuid)) {
             return
         }
@@ -290,7 +290,7 @@ class SubtasksFilterUpdater @Inject constructor(
         applyToFilter(filter)
     }
 
-    fun onDeleteTask(list: TaskListMetadata?, filter: Filter, taskId: String?) {
+    suspend fun onDeleteTask(list: TaskListMetadata?, filter: Filter, taskId: String?) {
         val task = idToNode[taskId] ?: return
         val parent = task.parent
         val siblings = parent!!.children

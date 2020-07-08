@@ -9,7 +9,7 @@ import android.widget.RemoteViews
 import android.widget.RemoteViewsService.RemoteViewsFactory
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.subtasks.SubtasksHelper
 import org.tasks.BuildConfig
@@ -17,6 +17,7 @@ import org.tasks.R
 import org.tasks.data.SubtaskInfo
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskListQuery.getQuery
+import org.tasks.data.runBlocking
 import org.tasks.locale.Locale
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
@@ -31,7 +32,7 @@ internal class ScrollableViewsFactory(
         private val preferences: Preferences,
         private val context: Context,
         private val widgetId: Int,
-        private val taskDao: TaskDaoBlocking,
+        private val taskDao: TaskDao,
         private val defaultFilterProvider: DefaultFilterProvider,
         private val checkBoxProvider: CheckBoxProvider,
         private val locale: Locale) : RemoteViewsFactory {
@@ -56,9 +57,14 @@ internal class ScrollableViewsFactory(
     private var isRtl = false
     private var tasks: List<TaskContainer> = ArrayList()
     override fun onCreate() {}
+
     override fun onDataSetChanged() {
         updateSettings()
-        tasks = taskDao.fetchTasks { subtasks: SubtaskInfo -> getQuery(filter, subtasks) }
+        tasks = runBlocking {
+            taskDao.fetchTasks {
+                subtasks: SubtaskInfo -> getQuery(filter, subtasks)
+            }
+        }
     }
 
     override fun onDestroy() {}
@@ -194,7 +200,7 @@ internal class ScrollableViewsFactory(
         return if (position < tasks.size) tasks[position] else null
     }
 
-    private fun getQuery(filter: Filter?, subtasks: SubtaskInfo): List<String> {
+    private suspend fun getQuery(filter: Filter?, subtasks: SubtaskInfo): List<String> {
         val queries = getQuery(preferences, filter!!, subtasks)
         val last = queries.size - 1
         queries[last] = subtasksHelper.applySubtasksToWidgetFilter(filter, queries[last])
