@@ -10,6 +10,8 @@ import com.todoroo.astrid.service.TaskDeleter
 import com.todoroo.astrid.service.TaskMover
 import com.todoroo.astrid.timers.TimerPlugin
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.tasks.calendars.CalendarEventProvider
 import org.tasks.injection.InjectingTestCase
@@ -60,5 +62,9 @@ open class BaseTaskEditViewModelTest : InjectingTestCase() {
                 taskCompleter,
                 db.alarmDao,
                 alarmService)
+    }
+
+    protected fun save(): Boolean = runBlocking(Dispatchers.Main) {
+        viewModel.save()
     }
 }

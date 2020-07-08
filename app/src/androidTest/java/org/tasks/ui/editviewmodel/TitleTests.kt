@@ -1,6 +1,5 @@
 package org.tasks.ui.editviewmodel
 
-import androidx.test.annotation.UiThreadTest
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.astrid.data.Task.Priority.Companion.HIGH
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -26,20 +25,18 @@ class TitleTests : BaseTaskEditViewModelTest() {
     }
 
     @Test
-    @UiThreadTest
     fun saveWithEmptyTitle() = runBlocking {
         val task = newTask()
         viewModel.setup(task)
 
         viewModel.priority = HIGH
 
-        viewModel.save()
+        save()
 
         assertEquals("(No title)", taskDao.fetch(task.id)!!.title)
     }
 
     @Test
-    @UiThreadTest
     fun newTaskPrepopulatedWithTitleHasChanges() {
         viewModel.setup(newTask(with(TaskMaker.TITLE, "some title")))
 

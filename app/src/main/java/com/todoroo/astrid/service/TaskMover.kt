@@ -8,7 +8,6 @@ import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.runBlocking
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.*
@@ -58,7 +57,6 @@ class TaskMover @Inject constructor(
         localBroadcastManager.broadcastRefresh()
     }
 
-    // TODO: remove runBlocking
     fun migrateLocalTasks() = runBlocking {
         val list = caldavDao.getLocalList(context)
         move(taskDao.getLocalTasks(), CaldavFilter(list))

@@ -1,6 +1,5 @@
 package org.tasks.ui.editviewmodel
 
-import androidx.test.annotation.UiThreadTest
 import com.google.ical.values.RRule
 import com.natpryce.makeiteasy.MakeItEasy.with
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -16,14 +15,13 @@ import org.tasks.makers.TaskMaker.newTask
 @HiltAndroidTest
 class RepeatTests : BaseTaskEditViewModelTest() {
     @Test
-    @UiThreadTest
     fun changeRepeatAfterCompletion() = runBlocking {
         val task = newTask(with(TaskMaker.RRULE, RRule("RRULE:FREQ=DAILY;INTERVAL=1")))
         viewModel.setup(task)
 
         viewModel.repeatAfterCompletion = true
 
-        viewModel.save()
+        save()
 
         assertEquals(
                 "RRULE:FREQ=DAILY;INTERVAL=1;FROM=COMPLETION",
@@ -31,7 +29,6 @@ class RepeatTests : BaseTaskEditViewModelTest() {
     }
 
     @Test
-    @UiThreadTest
     fun removeRepeatAfterCompletion() = runBlocking {
         val task = newTask()
         task.recurrence = "RRULE:FREQ=DAILY;INTERVAL=1;FROM=COMPLETION"
@@ -39,7 +36,7 @@ class RepeatTests : BaseTaskEditViewModelTest() {
 
         viewModel.repeatAfterCompletion = false
 
-        viewModel.save()
+        save()
 
         assertEquals(
                 "RRULE:FREQ=DAILY;INTERVAL=1",

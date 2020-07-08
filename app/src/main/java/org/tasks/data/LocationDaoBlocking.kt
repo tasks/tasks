@@ -1,7 +1,6 @@
 package org.tasks.data
 
 import androidx.lifecycle.LiveData
-import kotlinx.coroutines.runBlocking
 import org.tasks.filters.LocationFilters
 import org.tasks.time.DateTimeUtils.currentTimeMillis
 import javax.inject.Inject

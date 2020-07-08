@@ -1,6 +1,6 @@
 package org.tasks.notifications
 
-import kotlinx.coroutines.runBlocking
+import org.tasks.data.runBlocking
 import javax.inject.Inject
 
 @Deprecated("use coroutines")

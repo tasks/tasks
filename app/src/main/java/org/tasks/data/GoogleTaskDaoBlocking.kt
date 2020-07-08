@@ -1,7 +1,6 @@
 package org.tasks.data
 
 import com.todoroo.astrid.data.Task
-import kotlinx.coroutines.runBlocking
 import org.tasks.time.DateTimeUtils.currentTimeMillis
 import javax.inject.Inject
 

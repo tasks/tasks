@@ -3,7 +3,6 @@ package org.tasks.data
 import android.content.Context
 import androidx.lifecycle.LiveData
 import com.todoroo.astrid.data.Task
-import kotlinx.coroutines.runBlocking
 import org.tasks.filters.CaldavFilters
 import org.tasks.time.DateTimeUtils.currentTimeMillis
 import javax.inject.Inject

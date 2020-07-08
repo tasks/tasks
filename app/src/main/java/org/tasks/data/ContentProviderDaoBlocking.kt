@@ -3,7 +3,6 @@ package org.tasks.data
 import android.database.Cursor
 import androidx.sqlite.db.SupportSQLiteQuery
 import com.todoroo.astrid.data.Task
-import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @Deprecated("use coroutines")

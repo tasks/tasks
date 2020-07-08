@@ -5,9 +5,9 @@
  */
 package com.todoroo.astrid.alarms
 
-import kotlinx.coroutines.runBlocking
 import org.tasks.data.Alarm
 import org.tasks.data.AlarmDao
+import org.tasks.data.runBlocking
 import org.tasks.jobs.AlarmEntry
 import org.tasks.jobs.NotificationQueue
 import java.util.*

@@ -1,6 +1,5 @@
 package org.tasks.ui.editviewmodel
 
-import androidx.test.annotation.UiThreadTest
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
@@ -22,23 +21,21 @@ class TaskEditViewModelTest : BaseTaskEditViewModelTest() {
     }
 
     @Test
-    @UiThreadTest
     fun dontSaveTaskWithoutChanges() = runBlocking {
         viewModel.setup(newTask())
 
-        assertFalse(viewModel.save())
+        assertFalse(save())
 
         assertTrue(taskDao.getAll().isEmpty())
     }
 
     @Test
-    @UiThreadTest
     fun dontSaveTaskTwice() = runBlocking {
         viewModel.setup(newTask())
 
         viewModel.priority = Task.Priority.HIGH
 
-        assertTrue(viewModel.save())
+        assertTrue(save())
 
         assertFalse(viewModel.save())
     }

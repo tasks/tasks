@@ -9,9 +9,9 @@ import androidx.paging.DataSource
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.data.Task
-import kotlinx.coroutines.runBlocking
 import org.tasks.data.SubtaskInfo
 import org.tasks.data.TaskContainer
+import org.tasks.data.runBlocking
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
 

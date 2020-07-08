@@ -1,11 +1,9 @@
 package org.tasks.ui.editviewmodel
 
-import androidx.test.annotation.UiThreadTest
 import com.natpryce.makeiteasy.MakeItEasy
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
-import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Test
 import org.tasks.injection.ProductionModule
@@ -24,13 +22,12 @@ class PriorityTests : BaseTaskEditViewModelTest() {
     }
 
     @Test
-    @UiThreadTest
-    fun applyPriorityChange() = runBlocking {
+    fun applyPriorityChange() {
         val task = TaskMaker.newTask(MakeItEasy.with(TaskMaker.PRIORITY, Task.Priority.HIGH))
         viewModel.setup(task)
         viewModel.priority = Task.Priority.MEDIUM
 
-        viewModel.save()
+        save()
 
         Assert.assertEquals(Task.Priority.MEDIUM, task.priority)
     }

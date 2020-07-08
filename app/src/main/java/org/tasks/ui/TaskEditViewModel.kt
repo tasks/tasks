@@ -30,7 +30,6 @@ import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toImmutableSet
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.async
-import kotlinx.coroutines.runBlocking
 import org.tasks.Event
 import org.tasks.R
 import org.tasks.Strings
