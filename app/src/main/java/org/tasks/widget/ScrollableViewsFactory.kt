@@ -12,12 +12,12 @@ import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.subtasks.SubtasksHelper
+import kotlinx.coroutines.runBlocking
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.data.SubtaskInfo
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskListQuery.getQuery
-import org.tasks.data.runBlocking
 import org.tasks.locale.Locale
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
@@ -59,10 +59,10 @@ internal class ScrollableViewsFactory(
     override fun onCreate() {}
 
     override fun onDataSetChanged() {
-        updateSettings()
-        tasks = runBlocking {
-            taskDao.fetchTasks {
-                subtasks: SubtaskInfo -> getQuery(filter, subtasks)
+        runBlocking {
+            updateSettings()
+            tasks = taskDao.fetchTasks { subtasks: SubtaskInfo ->
+                getQuery(filter, subtasks)
             }
         }
     }
@@ -239,7 +239,7 @@ internal class ScrollableViewsFactory(
         }
     }
 
-    private fun updateSettings() {
+    private suspend fun updateSettings() {
         val widgetPreferences = WidgetPreferences(context, preferences, widgetId)
         vPad = widgetPreferences.widgetSpacing
         hPad = context.resources.getDimension(R.dimen.widget_padding).toInt()
@@ -256,7 +256,7 @@ internal class ScrollableViewsFactory(
         showCheckboxes = widgetPreferences.showCheckboxes()
         textSize = widgetPreferences.fontSize.toFloat()
         dueDateTextSize = max(10f, textSize - 2)
-        filter = defaultFilterProvider.getFilterFromPreferenceBlocking(widgetPreferences.filterId)
+        filter = defaultFilterProvider.getFilterFromPreference(widgetPreferences.filterId)
         showDividers = widgetPreferences.showDividers()
         showSubtasks = widgetPreferences.showSubtasks()
         isRtl = locale.directionality == View.LAYOUT_DIRECTION_RTL
@@ -265,6 +265,5 @@ internal class ScrollableViewsFactory(
     init {
         val metrics = context.resources.displayMetrics
         indentPadding = (20 * metrics.density).toInt()
-        updateSettings()
     }
 }

@@ -4,9 +4,11 @@ import android.app.Activity
 import android.appwidget.AppWidgetManager
 import android.content.Intent
 import android.os.Bundle
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.*
 import com.todoroo.astrid.api.Filter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.activities.FilterSelectionActivity
@@ -93,10 +95,12 @@ class ScrollableWidget : InjectingPreferenceFragment() {
 
         findPreference(R.string.p_widget_filter)
             .setOnPreferenceClickListener {
-                val intent = Intent(context, FilterSelectionActivity::class.java)
-                intent.putExtra(FilterSelectionActivity.EXTRA_FILTER, getFilter())
-                intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true)
-                startActivityForResult(intent, REQUEST_FILTER)
+                lifecycleScope.launch {
+                    val intent = Intent(context, FilterSelectionActivity::class.java)
+                    intent.putExtra(FilterSelectionActivity.EXTRA_FILTER, getFilter())
+                    intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true)
+                    startActivityForResult(intent, REQUEST_FILTER)
+                }
                 false
             }
 
@@ -166,12 +170,12 @@ class ScrollableWidget : InjectingPreferenceFragment() {
         tintColorPreference(R.string.p_widget_color_v2, widgetPreferences.color)
     }
 
-    private fun updateFilter() {
-        findPreference(R.string.p_widget_filter).summary = getFilter()!!.listingTitle
+    private fun updateFilter() = lifecycleScope.launch {
+        findPreference(R.string.p_widget_filter).summary = getFilter().listingTitle
     }
 
-    private fun getFilter(): Filter? {
-        return defaultFilterProvider.getFilterFromPreferenceBlocking(widgetPreferences.filterId)
+    private suspend fun getFilter(): Filter {
+        return defaultFilterProvider.getFilterFromPreference(widgetPreferences.filterId)
     }
 
     private fun setupSlider(resId: Int, defValue: Int): SeekBarPreference {
