@@ -24,34 +24,31 @@ class DefaultFilterProvider @Inject constructor(
         private val locationDao: LocationDao,
         private val googleTaskDao: GoogleTaskDao) {
 
-    @Deprecated("use coroutines")
     var dashclockFilter: Filter
-        get() = runBlocking { getFilterFromPreference(R.string.p_dashclock_filter) }
+        @Deprecated("use coroutines") get() = runBlocking { getFilterFromPreference(R.string.p_dashclock_filter) }
         set(filter) = setFilterPreference(filter, R.string.p_dashclock_filter)
 
-    @Deprecated("use coroutines")
     var badgeFilter: Filter
-        get() = runBlocking { getFilterFromPreference(R.string.p_badge_list) }
+        @Deprecated("use coroutines") get() = runBlocking { getBadgeFilter() }
         set(filter) = setFilterPreference(filter, R.string.p_badge_list)
 
-    @Deprecated("use coroutines")
     var defaultOpenFilter: Filter
-        get() = runBlocking { getDefaultOpenFilter() }
+        @Deprecated("use coroutines") get() = runBlocking { getDefaultOpenFilter() }
         set(filter) = setFilterPreference(filter, R.string.p_default_open_filter)
 
-    @Deprecated("use coroutines")
     var lastViewedFilter: Filter
-        get() = runBlocking { getFilterFromPreference(R.string.p_last_viewed_list) }
+        @Deprecated("use coroutines") get() = runBlocking { getFilterFromPreference(R.string.p_last_viewed_list) }
         set(filter) = setFilterPreference(filter, R.string.p_last_viewed_list)
 
-    @Deprecated("use coroutines")
     var defaultList: Filter
-        get() = runBlocking { getDefaultList() }
+        @Deprecated("use coroutines") get() = runBlocking { getDefaultList() }
         set(filter) = setFilterPreference(filter, R.string.p_default_list)
 
     @Deprecated("use coroutines")
     val startupFilter: Filter
         get() = runBlocking { getStartupFilter() }
+
+    suspend fun getBadgeFilter() = getFilterFromPreference(R.string.p_badge_list)
 
     suspend fun getDefaultList() =
             getFilterFromPreference(preferences.getStringValue(R.string.p_default_list), null)

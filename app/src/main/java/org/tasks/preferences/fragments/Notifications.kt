@@ -9,12 +9,14 @@ import android.os.Bundle
 import android.os.PowerManager
 import android.provider.Settings
 import android.speech.tts.TextToSpeech
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.voice.VoiceOutputAssistant
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.activities.FilterSelectionActivity
@@ -76,15 +78,17 @@ class Notifications : InjectingPreferenceFragment() {
             }
 
         val badgePreference: Preference = findPreference(R.string.p_badge_list)
-        val filter = defaultFilterProvider.badgeFilter
+        val filter = defaultFilterProvider.getBadgeFilter()
         badgePreference.summary = filter.listingTitle
         badgePreference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            val intent = Intent(context, FilterSelectionActivity::class.java)
-            intent.putExtra(
-                FilterSelectionActivity.EXTRA_FILTER, defaultFilterProvider.badgeFilter
-            )
-            intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true)
-            startActivityForResult(intent, REQUEST_BADGE_LIST)
+            lifecycleScope.launch {
+                val intent = Intent(context, FilterSelectionActivity::class.java)
+                intent.putExtra(
+                        FilterSelectionActivity.EXTRA_FILTER, defaultFilterProvider.getBadgeFilter()
+                )
+                intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true)
+                startActivityForResult(intent, REQUEST_BADGE_LIST)
+            }
             true
         }
 
