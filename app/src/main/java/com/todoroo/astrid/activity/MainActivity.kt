@@ -27,9 +27,7 @@ import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskCreator
 import com.todoroo.astrid.timers.TimerControlSet.TimerControlSetCallback
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.activities.TagSettingsActivity
@@ -175,10 +173,11 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         val intent = intent
         val openFilter = intent.hasExtra(OPEN_FILTER)
         val loadFilter = intent.hasExtra(LOAD_FILTER)
-        val tef = taskEditFragment
-        if (tef != null && (openFilter || loadFilter)) {
-            lifecycleScope.launch(NonCancellable) {
-                tef.save()
+        if (openFilter || loadFilter) {
+            taskEditFragment?.let {
+                lifecycleScope.launch {
+                    it.save()
+                }
             }
         }
         if (loadFilter || !openFilter && filter == null) {
@@ -312,9 +311,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         lifecycleScope.launch {
             taskEditFragment?.let {
                 it.editViewModel.cleared.removeObservers(this@MainActivity)
-                withContext(NonCancellable) {
-                    it.save()
-                }
+                it.save()
             }
             clearUi()
             val fragment = newTaskEditFragment(
@@ -344,7 +341,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         }
         taskEditFragment?.let {
             if (preferences.backButtonSavesTask()) {
-                lifecycleScope.launch(NonCancellable) {
+                lifecycleScope.launch {
                     it.save()
                 }
             } else {

@@ -103,7 +103,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         val toolbar = binding.toolbar
         toolbar.navigationIcon = context.getDrawable(R.drawable.ic_outline_save_24px)
         toolbar.setNavigationOnClickListener {
-            lifecycleScope.launch(NonCancellable) {
+            lifecycleScope.launch {
                 save()
             }
         }
@@ -153,7 +153,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
                 binding.fab.setImageResource(R.drawable.ic_outline_check_box_24px)
             } else {
                 editViewModel.completed = true
-                lifecycleScope.launch(NonCancellable) {
+                lifecycleScope.launch {
                     save()
                 }
             }
@@ -251,7 +251,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     }
 
     /** Save task model from values in UI components  */
-    suspend fun save() {
+    suspend fun save() = withContext(NonCancellable) {
         val saved = editViewModel.save()
         if (saved && editViewModel.isNew) {
             (activity as MainActivity?)?.taskListFragment?.let { taskListFragment ->
