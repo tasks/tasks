@@ -139,8 +139,8 @@ val genericImplementation by configurations
 val googleplayImplementation by configurations
 
 dependencies {
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.0.5")
-    implementation("com.gitlab.bitfireAT:dav4jvm:2.1")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.0.9")
+    implementation("com.gitlab.bitfireAT:dav4jvm:2.1.1")
     implementation("com.gitlab.bitfireAT:ical4android:a675c7194b")
     implementation("com.gitlab.bitfireAT:cert4android:1488e39a66")
 
@@ -174,7 +174,7 @@ dependencies {
     implementation("com.google.android.material:material:1.1.0")
     implementation("androidx.annotation:annotation:1.1.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta4")
-    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation("androidx.preference:preference:1.1.1")
     implementation("com.jakewharton.timber:timber:4.7.1")
     implementation("com.google.android.apps.dashclock:dashclock-api:2.0.0")
@@ -190,11 +190,11 @@ dependencies {
     implementation("com.wdullaer:materialdatetimepicker:4.2.3")
     implementation("me.leolin:ShortcutBadger:1.1.22@aar")
     implementation("com.google.apis:google-api-services-tasks:v1-rev20200129-1.30.9")
-    implementation("com.google.apis:google-api-services-drive:v3-rev20200413-1.30.9")
+    implementation("com.google.apis:google-api-services-drive:v3-rev20200609-1.30.9")
     implementation("com.google.auth:google-auth-library-oauth2-http:0.20.0")
     implementation("androidx.work:work-runtime:${Versions.work}")
     implementation("com.mapbox.mapboxsdk:mapbox-android-core:3.0.0")
-    implementation("com.mapbox.mapboxsdk:mapbox-sdk-services:5.2.1")
+    implementation("com.mapbox.mapboxsdk:mapbox-sdk-services:5.3.0")
     implementation("com.etesync:journalmanager:1.1.0")
     implementation("com.github.QuadFlask:colorpicker:0.0.15")
 
@@ -206,7 +206,7 @@ dependencies {
     googleplayImplementation("com.google.firebase:firebase-config-ktx:${Versions.remote_config}")
     googleplayImplementation("com.google.android.gms:play-services-location:17.0.0")
     googleplayImplementation("com.google.android.gms:play-services-maps:17.0.0")
-    googleplayImplementation("com.google.android.libraries.places:places:2.2.0")
+    googleplayImplementation("com.google.android.libraries.places:places:2.3.0")
     googleplayImplementation("com.android.billingclient:billing:1.2.2")
 
     androidTestImplementation("com.google.dagger:hilt-android-testing:${Versions.hilt}")

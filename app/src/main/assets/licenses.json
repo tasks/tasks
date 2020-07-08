@@ -1744,6 +1744,62 @@
       "normalizedLicense": "apache2",
       "url": "https://developer.android.com/jetpack/androidx",
       "libraryName": "lifecycle-runtime-ktx"
+    },
+    {
+      "artifactId": {
+        "name": "fragment-ktx",
+        "group": "androidx.fragment",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://developer.android.com/jetpack/androidx",
+      "libraryName": "fragment-ktx"
+    },
+    {
+      "artifactId": {
+        "name": "activity-ktx",
+        "group": "androidx.activity",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://developer.android.com/jetpack/androidx",
+      "libraryName": "activity-ktx"
+    },
+    {
+      "artifactId": {
+        "name": "collection-ktx",
+        "group": "androidx.collection",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "collection-ktx"
+    },
+    {
+      "artifactId": {
+        "name": "lifecycle-livedata-core-ktx",
+        "group": "androidx.lifecycle",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://developer.android.com/jetpack/androidx",
+      "libraryName": "lifecycle-livedata-core-ktx"
     }
   ]
 }
