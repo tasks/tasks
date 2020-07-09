@@ -293,9 +293,8 @@
 
     <activity
       android:excludeFromRecents="true"
-      android:launchMode="singleTask"
       android:name=".reminders.NotificationActivity"
-      android:taskAffinity=""
+      android:taskAffinity=":notification"
       android:theme="@style/TranslucentDialog"/>
 
     <activity android:name=".activities.NavigationDrawerCustomization" />

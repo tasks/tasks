@@ -1,7 +1,5 @@
 package org.tasks.notifications;
 
-import static android.content.Intent.FLAG_ACTIVITY_MULTIPLE_TASK;
-import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static androidx.core.app.NotificationCompat.FLAG_INSISTENT;
 import static androidx.core.app.NotificationCompat.FLAG_NO_CLEAR;
 import static com.google.common.collect.Iterables.concat;
@@ -371,11 +369,7 @@ public class NotificationManager {
             .setShowWhen(true)
             .setTicker(taskTitle);
 
-    final Intent intent = new Intent(context, NotificationActivity.class);
-    intent.setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_MULTIPLE_TASK);
-    intent.setAction("NOTIFY" + id); // $NON-NLS-1$
-    intent.putExtra(NotificationActivity.EXTRA_TASK_ID, id);
-    intent.putExtra(NotificationActivity.EXTRA_TITLE, taskTitle);
+    Intent intent = NotificationActivity.newIntent(context, taskTitle, id);
     builder.setContentIntent(
         PendingIntent.getActivity(context, (int) id, intent, PendingIntent.FLAG_UPDATE_CURRENT));
 

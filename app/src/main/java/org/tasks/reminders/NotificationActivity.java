@@ -1,5 +1,6 @@
 package org.tasks.reminders;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.FragmentManager;
@@ -28,6 +29,14 @@ public class NotificationActivity extends InjectingAppCompatActivity
   @Inject TaskDaoBlocking taskDao;
   @Inject ThemeAccent themeAccent;
 
+  public static Intent newIntent(Context context, String title, long id) {
+    Intent intent = new Intent(context, NotificationActivity.class);
+    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+    intent.putExtra(NotificationActivity.EXTRA_TASK_ID, id);
+    intent.putExtra(NotificationActivity.EXTRA_TITLE, title);
+    return intent;
+  }
+
   private long taskId;
   private CompositeDisposable disposables;
 
@@ -37,17 +46,7 @@ public class NotificationActivity extends InjectingAppCompatActivity
 
     themeAccent.applyStyle(getTheme());
 
-    setup(getIntent());
-  }
-
-  @Override
-  protected void onNewIntent(Intent intent) {
-    super.onNewIntent(intent);
-
-    setup(intent);
-  }
-
-  private void setup(Intent intent) {
+    Intent intent = getIntent();
 
     taskId = intent.getLongExtra(EXTRA_TASK_ID, 0L);
 
