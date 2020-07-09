@@ -153,6 +153,7 @@
 
     <activity
       android:exported="true"
+      android:excludeFromRecents="true"
       android:name=".activities.FilterSelectionActivity"
       android:taskAffinity=""
       android:theme="@style/TranslucentDialog"/>
