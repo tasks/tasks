@@ -33,14 +33,23 @@ class UriHandler : AppCompatActivity() {
                         finish()
                     }
                 } else {
-                    startActivity(TaskIntents.getNewTaskIntent(this, null))
-                    finish()
+                    newTask()
                 }
             }
             else -> {
-                Timber.w("Invalid uri: ${intent.data}")
-                finish()
+                if (intent.type == "vnd.android.cursor.item/task") {
+                    // pure calendar widget '+'
+                    newTask()
+                } else {
+                    Timber.w("Invalid uri: ${intent.data}")
+                    finish()
+                }
             }
         }
+    }
+
+    private fun newTask() {
+        startActivity(TaskIntents.getNewTaskIntent(this, null))
+        finish()
     }
 }

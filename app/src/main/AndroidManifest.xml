@@ -169,9 +169,6 @@
           android:scheme="content"
           android:host="${applicationId}" />
       </intent-filter>
-    </activity>
-
-    <activity android:name="com.todoroo.astrid.activity.TaskEditActivity">
       <intent-filter tools:ignore="AppLinkUrlError">
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>

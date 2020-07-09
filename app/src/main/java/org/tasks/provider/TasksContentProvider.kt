@@ -74,7 +74,8 @@ class TasksContentProvider : ContentProvider() {
                 LEFT JOIN google_task_lists ON gtl_remote_id = gt_list_id
                 LEFT JOIN caldav_tasks ON cd_task = _id
                 LEFT JOIN caldav_lists ON cdl_uuid = cd_calendar"""
-        private const val AUTHORITY = BuildConfig.APPLICATION_ID;
+        private const val AUTHORITY = BuildConfig.APPLICATION_ID
+        private const val PURE_CALENDAR_WIDGET = "org.tasks.tasksprovider"
         @JvmField val CONTENT_URI: Uri = Uri.parse("content://$AUTHORITY")
         const val URI_TASKS = 1
         const val URI_OPEN_TASK = 2
@@ -87,6 +88,7 @@ class TasksContentProvider : ContentProvider() {
             addURI(AUTHORITY, "lists", URI_LISTS)
             addURI(AUTHORITY, "google_lists", URI_GOOGLE_TASK_LISTS)
             addURI(AUTHORITY, "todoagenda", URI_TODO_AGENDA)
+            addURI(PURE_CALENDAR_WIDGET, "tasks/*", URI_OPEN_TASK)
         }
     }
 }
