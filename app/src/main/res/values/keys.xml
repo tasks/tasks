@@ -330,7 +330,7 @@
   <string name="p_leakcanary">p_leakcanary</string>
   <string name="p_flipper">p_flipper</string>
   <string name="p_debug_pro">debug_pro</string>
-  <string name="p_debug_main_queries">debug_main_queries</string>
+  <string name="p_crash_main_queries">debug_crash_main_queries</string>
   <string name="warned_play_services">warned_play_services</string>
   <string name="p_background_sync_unmetered_only">background_sync_unmetered_only</string>
   <string name="p_sync_ongoing">sync_ongoing</string>

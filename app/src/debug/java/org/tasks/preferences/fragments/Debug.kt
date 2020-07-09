@@ -27,7 +27,7 @@ class Debug : InjectingPreferenceFragment() {
             R.string.p_flipper,
             R.string.p_strict_mode_vm,
             R.string.p_strict_mode_thread,
-            R.string.p_debug_main_queries
+            R.string.p_crash_main_queries
         )) {
             findPreference(pref)
                 .setOnPreferenceChangeListener { _: Preference?, _: Any? ->

@@ -12,6 +12,7 @@ import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
 import com.facebook.flipper.plugins.sharedpreferences.SharedPreferencesFlipperPlugin
 import com.facebook.soloader.SoLoader
 import leakcanary.AppWatcher
+import org.tasks.data.CRASH_ON_MAIN_THREAD
 import org.tasks.preferences.Preferences
 import timber.log.Timber
 import timber.log.Timber.DebugTree
@@ -24,6 +25,7 @@ class BuildSetup @Inject constructor(
     fun setup() {
         Timber.plant(DebugTree())
         SoLoader.init(context, false)
+        CRASH_ON_MAIN_THREAD = preferences.getBoolean(R.string.p_crash_main_queries, false)
         if (preferences.getBoolean(R.string.p_leakcanary, false)) {
             AppWatcher.manualInstall(context)
         }

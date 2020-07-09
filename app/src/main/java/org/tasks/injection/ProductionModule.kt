@@ -26,7 +26,7 @@ internal class ProductionModule {
     fun getAppDatabase(@ApplicationContext context: Context, preferences: Preferences): Database {
         val builder = Room.databaseBuilder(context, Database::class.java, Database.NAME)
                 .addMigrations(*Migrations.MIGRATIONS)
-        if (!BuildConfig.DEBUG || preferences.getBoolean(R.string.p_debug_main_queries, true)) {
+        if (!BuildConfig.DEBUG || !preferences.getBoolean(R.string.p_crash_main_queries, false)) {
             builder.allowMainThreadQueries()
         }
         return builder.build()
