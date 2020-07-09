@@ -304,9 +304,7 @@ public class NotificationManager {
                     ? NotificationCompat.GROUP_ALERT_SUMMARY
                     : NotificationCompat.GROUP_ALERT_CHILDREN);
 
-    Intent snoozeIntent = new Intent(context, SnoozeActivity.class);
-    snoozeIntent.setFlags(FLAG_ACTIVITY_NEW_TASK);
-    snoozeIntent.putExtra(SnoozeActivity.EXTRA_TASK_IDS, taskIds);
+    Intent snoozeIntent = SnoozeActivity.newIntent(context, taskIds);
     builder.addAction(
         R.drawable.ic_snooze_white_24dp,
         context.getString(R.string.snooze_all),
@@ -410,9 +408,7 @@ public class NotificationManager {
                 completePendingIntent)
             .build();
 
-    Intent snoozeIntent = new Intent(context, SnoozeActivity.class);
-    snoozeIntent.setFlags(FLAG_ACTIVITY_NEW_TASK);
-    snoozeIntent.putExtra(SnoozeActivity.EXTRA_TASK_ID, id);
+    Intent snoozeIntent = SnoozeActivity.newIntent(context, id);
     PendingIntent snoozePendingIntent =
         PendingIntent.getActivity(
             context, (int) id, snoozeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -422,10 +418,8 @@ public class NotificationManager {
     wearableExtender.addAction(completeAction);
     for (final SnoozeOption snoozeOption : SnoozeDialog.getSnoozeOptions(preferences)) {
       final long timestamp = snoozeOption.getDateTime().getMillis();
-      Intent wearableIntent = new Intent(context, SnoozeActivity.class);
-      wearableIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      Intent wearableIntent = SnoozeActivity.newIntent(context, id);
       wearableIntent.setAction(String.format("snooze-%s-%s", id, timestamp));
-      wearableIntent.putExtra(SnoozeActivity.EXTRA_TASK_ID, id);
       wearableIntent.putExtra(SnoozeActivity.EXTRA_SNOOZE_TIME, timestamp);
       PendingIntent wearablePendingIntent =
           PendingIntent.getActivity(

@@ -1,5 +1,6 @@
 package org.tasks.reminders;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import org.tasks.time.DateTime;
 public class SnoozeActivity extends InjectingAppCompatActivity
     implements SnoozeCallback, DialogInterface.OnCancelListener {
 
+  private static final int FLAGS = Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK;
   public static final String EXTRA_TASK_ID = "id";
   public static final String EXTRA_TASK_IDS = "ids";
   public static final String EXTRA_SNOOZE_TIME = "snooze_time";
@@ -34,23 +36,28 @@ public class SnoozeActivity extends InjectingAppCompatActivity
   @Inject ThemeAccent themeAccent;
   private boolean pickingDateTime;
 
+  public static Intent newIntent(Context context, Long id) {
+    Intent intent = new Intent(context, SnoozeActivity.class);
+    intent.setFlags(FLAGS);
+    intent.putExtra(SnoozeActivity.EXTRA_TASK_ID, id);
+    return intent;
+  }
+
+  public static Intent newIntent(Context context, ArrayList<Long> ids) {
+    Intent intent = new Intent(context, SnoozeActivity.class);
+    intent.setFlags(FLAGS);
+    intent.putExtra(SnoozeActivity.EXTRA_TASK_IDS, ids);
+    return intent;
+  }
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
     themeAccent.applyStyle(getTheme());
 
-    setup(getIntent(), savedInstanceState);
-  }
+    Intent intent = getIntent();
 
-  @Override
-  protected void onNewIntent(Intent intent) {
-    super.onNewIntent(intent);
-
-    setup(intent, null);
-  }
-
-  private void setup(Intent intent, Bundle savedInstanceState) {
     if (intent.hasExtra(EXTRA_TASK_ID)) {
       taskIds.add(intent.getLongExtra(EXTRA_TASK_ID, -1L));
     } else if (intent.hasExtra(EXTRA_TASK_IDS)) {

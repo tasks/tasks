@@ -1,7 +1,5 @@
 package org.tasks.reminders;
 
-import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
-
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.FragmentManager;
@@ -100,10 +98,7 @@ public class NotificationActivity extends InjectingAppCompatActivity
   @Override
   public void snooze() {
     finish();
-    Intent intent = new Intent(this, SnoozeActivity.class);
-    intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
-    intent.putExtra(SnoozeActivity.EXTRA_TASK_ID, taskId);
-    startActivity(intent);
+    startActivity(SnoozeActivity.newIntent(this, taskId));
   }
 
   @Override

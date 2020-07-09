@@ -287,9 +287,8 @@
 
     <activity
       android:excludeFromRecents="true"
-      android:launchMode="singleTask"
       android:name=".reminders.SnoozeActivity"
-      android:taskAffinity=""
+      android:taskAffinity=":snooze"
       android:theme="@style/TranslucentDialog"/>
 
     <activity
