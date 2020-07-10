@@ -102,6 +102,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
                         finishActionMode()
                     }
                 })
+        handleIntent()
     }
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -134,6 +135,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         setIntent(intent)
+        handleIntent()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -148,6 +150,9 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
 
     private fun getTaskToLoad(filter: Filter?): Task? {
         val intent = intent
+        if (intent.isFromHistory) {
+            return null
+        }
         if (intent.hasExtra(CREATE_TASK)) {
             intent.removeExtra(CREATE_TASK)
             return taskCreator.createWithValues(filter, "")
@@ -171,34 +176,33 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
 
     private fun handleIntent() {
         val intent = intent
-        val openFilter = intent.hasExtra(OPEN_FILTER)
-        val loadFilter = intent.hasExtra(LOAD_FILTER)
-        if (openFilter || loadFilter) {
+        val openFilter: Filter? =
+                if (intent.isFromHistory) null else intent.getParcelableExtra(OPEN_FILTER)
+        intent.removeExtra(OPEN_FILTER)
+        val loadFilter = if (intent.isFromHistory) null else intent.getStringExtra(LOAD_FILTER)
+        intent.removeExtra(LOAD_FILTER)
+        if (openFilter != null || loadFilter != null) {
             taskEditFragment?.let {
                 lifecycleScope.launch {
                     it.save()
                 }
             }
         }
-        if (loadFilter || !openFilter && filter == null) {
+        if (!loadFilter.isNullOrBlank() || openFilter == null && filter == null) {
             lifecycleScope.launch {
-                val filterString = intent.getStringExtra(LOAD_FILTER)
-                intent.removeExtra(LOAD_FILTER)
-                val filter = if (filterString.isNullOrBlank()) {
+                val filter = if (loadFilter.isNullOrBlank()) {
                     defaultFilterProvider.getStartupFilter()
                 } else {
-                    defaultFilterProvider.getFilterFromPreference(filterString)
+                    defaultFilterProvider.getFilterFromPreference(loadFilter)
                 }
                 clearUi()
                 openTaskListFragment(filter)
                 openTask(filter)
             }
-        } else if (openFilter) {
-            val filter: Filter? = intent.getParcelableExtra(OPEN_FILTER)
-            intent.removeExtra(OPEN_FILTER)
+        } else if (openFilter != null) {
             clearUi()
-            openTaskListFragment(filter)
-            openTask(filter)
+            openTaskListFragment(openFilter)
+            openTask(openFilter)
         } else {
             val existing = taskListFragment
             openTaskListFragment(
@@ -288,11 +292,6 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
             }
             preferences.setBoolean(R.string.p_just_updated, false)
         }
-    }
-
-    override fun onResumeFragments() {
-        super.onResumeFragments()
-        handleIntent()
     }
 
     private val nightMode: Int
@@ -445,5 +444,10 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         private const val FRAG_TAG_TASK_LIST = "frag_tag_task_list"
         private const val FRAG_TAG_WHATS_NEW = "frag_tag_whats_new"
         private const val EXTRA_FILTER = "extra_filter"
+        private const val FLAG_FROM_HISTORY
+                = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY
+
+        val Intent.isFromHistory: Boolean
+            get() = flags and (FLAG_FROM_HISTORY) == FLAG_FROM_HISTORY
     }
 }
