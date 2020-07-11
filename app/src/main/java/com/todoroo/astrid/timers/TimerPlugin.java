@@ -90,7 +90,6 @@ public class TimerPlugin {
     } else {
       Filter filter = createFilter(context);
       Intent notifyIntent = TaskIntents.getTaskListIntent(context, filter);
-      notifyIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
       PendingIntent pendingIntent =
           PendingIntent.getActivity(context, Constants.NOTIFICATION_TIMER, notifyIntent, 0);
 

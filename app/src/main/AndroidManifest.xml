@@ -191,10 +191,11 @@
     <!-- Activity launched from ShareLink menu item -->
     <!-- TODO: clearTaskOnLaunch probable cause of #275 -->
     <activity
-      android:clearTaskOnLaunch="true"
       android:icon="@mipmap/ic_launcher_blue"
       android:label="@string/action_create_new_task"
       android:name="com.todoroo.astrid.activity.ShareLinkActivity"
+      android:taskAffinity=":share"
+      android:excludeFromRecents="true"
       android:roundIcon="@mipmap/ic_launcher_blue">
       <intent-filter>
         <action android:name="android.intent.action.PROCESS_TEXT"/>

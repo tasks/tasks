@@ -126,7 +126,7 @@ public class TaskCreator {
   }
 
   public Task createWithValues(Filter filter, String title) {
-    return create(filter.valuesForNewTasks, title);
+    return create(filter == null ? null : filter.valuesForNewTasks, title);
   }
   /**
    * Create task from the given content values, saving it. This version doesn't need to start with a

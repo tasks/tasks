@@ -6,13 +6,12 @@ import static com.google.common.collect.Lists.newArrayList;
 import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.files.FileHelper.copyToUri;
 import static org.tasks.files.FileHelper.getFilename;
-import static org.tasks.intents.TaskIntents.getTaskListIntent;
+import static org.tasks.intents.TaskIntents.getEditTaskIntent;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.core.app.TaskStackBuilder;
 import com.google.common.io.Files;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskCreator;
@@ -37,29 +36,10 @@ public final class ShareLinkActivity extends InjectingAppCompatActivity {
   @Inject TaskCreator taskCreator;
   @Inject Preferences preferences;
 
-  private static TaskStackBuilder getEditTaskStack(Context context, Task task) {
-    Intent intent = getTaskListIntent(context, null);
-    intent.putExtra(MainActivity.OPEN_TASK, task);
-    return TaskStackBuilder.create(context).addNextIntent(intent);
-  }
-
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    readIntent();
-  }
-
-  @Override
-  protected void onNewIntent(Intent intent) {
-    super.onNewIntent(intent);
-
-    setIntent(intent);
-
-    readIntent();
-  }
-
-  private void readIntent() {
     Intent intent = getIntent();
     String action = intent.getAction();
 
@@ -67,7 +47,7 @@ public final class ShareLinkActivity extends InjectingAppCompatActivity {
       CharSequence text = intent.getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT);
       if (text != null) {
         Task task = taskCreator.createWithValues(text.toString());
-        getEditTaskStack(this, task).startActivities();
+        editTask(task);
       }
     } else if (ACTION_SEND.equals(action)) {
       String subject = intent.getStringExtra(Intent.EXTRA_SUBJECT);
@@ -76,18 +56,24 @@ public final class ShareLinkActivity extends InjectingAppCompatActivity {
       if (hasAttachments(intent)) {
         task.putTransitory(TaskAttachment.KEY, copyAttachment(intent));
       }
-      getEditTaskStack(this, task).startActivities();
+      editTask(task);
     } else if (ACTION_SEND_MULTIPLE.equals(action)) {
       Task task = taskCreator.createWithValues(intent.getStringExtra(Intent.EXTRA_SUBJECT));
       task.setNotes(intent.getStringExtra(Intent.EXTRA_TEXT));
       if (hasAttachments(intent)) {
         task.putTransitory(TaskAttachment.KEY, copyMultipleAttachments(intent));
       }
-      getEditTaskStack(this, task).startActivities();
+      editTask(task);
     } else {
       Timber.e("Unhandled intent: %s", intent);
     }
     finish();
+  }
+
+  private void editTask(Task task) {
+    Intent intent = getEditTaskIntent(this, null, task);
+    intent.putExtra(MainActivity.FINISH_AFFINITY, true);
+    startActivity(intent);
   }
 
   private ArrayList<Uri> copyAttachment(Intent intent) {

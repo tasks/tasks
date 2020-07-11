@@ -180,9 +180,12 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         val intent = intent
         val openFilter = intent.getFilter
         val loadFilter = intent.getFilterString
+        val openTask = !intent.isFromHistory
+                && (intent.hasExtra(OPEN_TASK) || intent.hasExtra(CREATE_TASK))
         Timber.d("""
             
             **********
+            broughtToFront: ${intent.broughtToFront}
             isFromHistory: ${intent.isFromHistory}
             flags: ${intent.flagsToString}
             OPEN_FILTER: ${openFilter?.let { "${it.listingTitle}: $it" }}
@@ -192,7 +195,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
             taskListFragment: ${taskListFragment?.getFilter()?.let { "${it.listingTitle}: $it" }}
             taskEditFragment: ${taskEditFragment?.editViewModel?.task}
             **********""")
-        if (openFilter != null || loadFilter != null) {
+        if (!openTask && (openFilter != null || !loadFilter.isNullOrBlank())) {
             taskEditFragment?.let {
                 lifecycleScope.launch {
                     it.save()
@@ -207,19 +210,49 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
                     defaultFilterProvider.getFilterFromPreference(loadFilter)
                 }
                 clearUi()
-                openTaskListFragment(filter)
-                openTask(filter)
+                if (isSinglePaneLayout) {
+                    if (openTask) {
+                        setFilter(filter)
+                        openTask(filter)
+                    } else {
+                        openTaskListFragment(filter, true)
+                    }
+                } else {
+                    openTaskListFragment(filter, true)
+                    openTask(filter)
+                }
             }
         } else if (openFilter != null) {
             clearUi()
-            openTaskListFragment(openFilter)
-            openTask(openFilter)
+            if (isSinglePaneLayout) {
+                if (openTask) {
+                    setFilter(openFilter)
+                    openTask(openFilter)
+                } else {
+                    openTaskListFragment(openFilter, true)
+                }
+            } else {
+                openTaskListFragment(openFilter, true)
+                openTask(openFilter)
+            }
         } else {
             val existing = taskListFragment
-            openTaskListFragment(
-                    if (existing == null || existing.getFilter() !== filter) TaskListFragment.newTaskListFragment(applicationContext, filter) else existing,
-                    false)
-            openTask(filter)
+            val target = if (existing == null || existing.getFilter() !== filter) {
+                TaskListFragment.newTaskListFragment(applicationContext, filter)
+            } else {
+                existing
+            }
+            if (isSinglePaneLayout) {
+                if (openTask) {
+                    setFilter(null)
+                    openTask(null)
+                } else {
+                    openTaskListFragment(filter, false)
+                }
+            } else {
+                openTaskListFragment(target, false)
+                openTask(filter)
+            }
         }
         if (intent.hasExtra(TOKEN_CREATE_NEW_LIST_NAME)) {
             val listName = intent.getStringExtra(TOKEN_CREATE_NEW_LIST_NAME)
@@ -238,14 +271,21 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
     }
 
     private fun hideDetailFragment() {
-        supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.detail, newEmptyTaskEditFragment(filter!!))
-                .commit()
+        filter?.let {
+            supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.detail, newEmptyTaskEditFragment(it))
+                    .commit()
+        }
         if (isSinglePaneLayout) {
             binding.master.visibility = View.VISIBLE
             binding.detail.visibility = View.GONE
         }
+    }
+
+    private fun setFilter(newFilter: Filter?) {
+        filter = newFilter
+        applyTheme()
     }
 
     private fun openTaskListFragment(filter: Filter?, force: Boolean = false) {
@@ -268,7 +308,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.master, taskListFragment, FRAG_TAG_TASK_LIST)
-                .commitNow()
+                .commit()
 
     }
 
@@ -318,7 +358,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         if (task == null) {
             return
         }
-        lifecycleScope.launch {
+        lifecycleScope.launchWhenResumed {
             taskEditFragment?.let {
                 it.editViewModel.cleared.removeObservers(this@MainActivity)
                 it.save()
@@ -383,12 +423,24 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         get() = !resources.getBoolean(R.bool.two_pane_layout)
 
     fun removeTaskEditFragment() {
-        supportFragmentManager
-                .popBackStackImmediate(
-                        TaskEditFragment.TAG_TASKEDIT_FRAGMENT, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-        hideDetailFragment()
-        hideKeyboard()
-        taskListFragment?.loadTaskListContent()
+        supportFragmentManager.popBackStack(
+                TaskEditFragment.TAG_TASKEDIT_FRAGMENT,
+                FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        val removeTask = intent.removeTask
+        val finishAffinity = intent.finishAffinity
+        if (finishAffinity || taskListFragment == null) {
+            finishAffinity()
+        } else {
+            if (removeTask && intent.broughtToFront) {
+                moveTaskToBack(true)
+            }
+            hideKeyboard()
+            hideDetailFragment()
+            taskListFragment?.let {
+                setFilter(it.getFilter())
+                it.loadTaskListContent()
+            }
+        }
     }
 
     private fun hideKeyboard() {
@@ -452,6 +504,8 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         const val LOAD_FILTER = "load_filter"
         const val CREATE_TASK = "open_task" // $NON-NLS-1$
         const val OPEN_TASK = "open_new_task" // $NON-NLS-1$
+        const val REMOVE_TASK = "remove_task"
+        const val FINISH_AFFINITY = "finish_affinity"
         private const val FRAG_TAG_TASK_LIST = "frag_tag_task_list"
         private const val FRAG_TAG_WHATS_NEW = "frag_tag_whats_new"
         private const val EXTRA_FILTER = "extra_filter"
@@ -478,8 +532,31 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
                 }
             }
 
+        val Intent.removeTask: Boolean
+            get() = if (isFromHistory) {
+                false
+            } else {
+                getBooleanExtra(REMOVE_TASK, false).let {
+                    removeExtra(REMOVE_TASK)
+                    it
+                }
+            }
+
+        val Intent.finishAffinity: Boolean
+            get() = if (isFromHistory) {
+                false
+            } else {
+                getBooleanExtra(FINISH_AFFINITY, false).let {
+                    removeExtra(FINISH_AFFINITY)
+                    it
+                }
+            }
+
         val Intent.isFromHistory: Boolean
             get() = flags and FLAG_FROM_HISTORY == FLAG_FROM_HISTORY
+
+        val Intent.broughtToFront: Boolean
+            get() = flags and Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT > 0
 
         val Intent.flagsToString
             get() = if (BuildConfig.DEBUG) "" else

@@ -123,7 +123,6 @@ class TasksWidget : AppWidgetProvider() {
 
     private fun getOpenListIntent(context: Context, filter: Filter, widgetId: Int): PendingIntent {
         val intent = TaskIntents.getTaskListIntent(context, filter)
-        intent.flags = flags
         intent.action = "open_list"
         return PendingIntent.getActivity(context, widgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
@@ -136,7 +135,7 @@ class TasksWidget : AppWidgetProvider() {
 
     private fun getWidgetConfigIntent(context: Context, widgetId: Int): PendingIntent {
         val intent = Intent(context, WidgetConfigActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        intent.flags = flags
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)
         intent.action = "widget_settings"
         return PendingIntent.getActivity(context, widgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT)
@@ -144,7 +143,7 @@ class TasksWidget : AppWidgetProvider() {
 
     private fun getChooseListIntent(context: Context, filter: Filter, widgetId: Int): PendingIntent {
         val intent = Intent(context, FilterSelectionActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        intent.flags = flags
         intent.putExtra(FilterSelectionActivity.EXTRA_FILTER, filter)
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)
         intent.action = "choose_list"

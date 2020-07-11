@@ -88,7 +88,7 @@ public class NotificationActivity extends InjectingAppCompatActivity
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 task -> {
-                  startActivity(TaskIntents.getEditTaskIntent(this, task));
+                  startActivity(TaskIntents.getEditTaskIntent(this, null, task));
                   finish();
                 },
                 e -> Timber.e("Task not found: %s", taskId)));

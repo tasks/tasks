@@ -85,7 +85,7 @@ public class CalendarAlarmReceiver extends InjectingBroadcastReceiver {
       intent.putExtra(CalendarReminderActivity.TOKEN_EVENT_NAME, event.getTitle());
       intent.putExtra(CalendarReminderActivity.TOKEN_EVENT_END_TIME, event.getEnd());
       intent.putExtra(CalendarReminderActivity.TOKEN_FROM_POSTPONE, fromPostpone);
-      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
       context.startActivity(intent);
     }
   }

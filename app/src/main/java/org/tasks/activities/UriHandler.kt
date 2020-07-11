@@ -28,7 +28,7 @@ class UriHandler : AppCompatActivity() {
                     lifecycleScope.launch {
                         val task = taskDao.fetch(id)
                         task?.let {
-                            startActivity(TaskIntents.getEditTaskIntent(this@UriHandler, it))
+                            startActivity(TaskIntents.getEditTaskIntent(this@UriHandler, null, it))
                         }
                         finish()
                     }
@@ -49,7 +49,9 @@ class UriHandler : AppCompatActivity() {
     }
 
     private fun newTask() {
-        startActivity(TaskIntents.getNewTaskIntent(this, null))
+        val intent = TaskIntents.getNewTaskIntent(this@UriHandler, null)
+        intent.flags = TaskIntents.FLAGS
+        startActivity(intent)
         finish()
     }
 }

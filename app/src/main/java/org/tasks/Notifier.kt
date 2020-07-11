@@ -2,15 +2,14 @@ package org.tasks
 
 import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
 import androidx.core.app.NotificationCompat
 import com.todoroo.andlib.utility.AndroidUtilities
-import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.dao.TaskDaoBlocking
 import com.todoroo.astrid.reminders.ReminderService
 import com.todoroo.astrid.voice.VoiceOutputAssistant
 import dagger.hilt.android.qualifiers.ApplicationContext
+import org.tasks.intents.TaskIntents
 import org.tasks.notifications.AudioManager
 import org.tasks.notifications.Notification
 import org.tasks.notifications.NotificationManager
@@ -40,9 +39,7 @@ class Notifier @Inject constructor(
         if (count == 0) {
             return
         }
-        val intent = Intent(context, MainActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_MULTIPLE_TASK
-        intent.putExtra(MainActivity.OPEN_FILTER, filter)
+        val intent = TaskIntents.getTaskListIntent(context, filter)
         val pendingIntent = PendingIntent.getActivity(
                 context, filter.listingTitle.hashCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT)
         val summaryTitle = context.resources.getQuantityString(R.plurals.task_count, count, count)
