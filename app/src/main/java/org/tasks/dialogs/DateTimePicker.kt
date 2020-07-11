@@ -14,15 +14,18 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.databinding.DialogDateTimePickerBinding
 import org.tasks.date.DateTimeUtils.newDateTime
@@ -41,7 +44,7 @@ class DateTimePicker : BottomSheetDialogFragment() {
     @Inject lateinit var activity: Activity
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var locale: Locale
-    @Inject lateinit var taskDao: TaskDaoBlocking
+    @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var notificationManager: NotificationManager
     @Inject lateinit var theme: Theme
 
@@ -239,12 +242,14 @@ class DateTimePicker : BottomSheetDialogFragment() {
         val dueDate = selected?.millis ?: 0
         if (dueDate != arguments?.getLong(EXTRA_TIMESTAMP)) {
             if (taskId > 0) {
-                val task: Task = taskDao.fetchBlocking(taskId)!!
-                if (newDateTime(dueDate).isAfterNow) {
-                    notificationManager.cancel(task.id)
+                lifecycleScope.launch(NonCancellable) {
+                    val task: Task = taskDao.fetch(taskId)!!
+                    if (newDateTime(dueDate).isAfterNow) {
+                        notificationManager.cancel(task.id)
+                    }
+                    task.setDueDateAdjustingHideUntil(dueDate)
+                    taskDao.save(task)
                 }
-                task.setDueDateAdjustingHideUntil(dueDate)
-                taskDao.save(task)
             } else {
                 val intent = Intent()
                 intent.putExtra(EXTRA_TIMESTAMP, dueDate)
