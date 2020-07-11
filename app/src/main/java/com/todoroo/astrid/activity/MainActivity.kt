@@ -28,6 +28,7 @@ import com.todoroo.astrid.service.TaskCreator
 import com.todoroo.astrid.timers.TimerControlSet.TimerControlSetCallback
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.activities.TagSettingsActivity
@@ -56,6 +57,7 @@ import org.tasks.ui.DeadlineControlSet.DueDateChangeListener
 import org.tasks.ui.EmptyTaskEditFragment.Companion.newEmptyTaskEditFragment
 import org.tasks.ui.ListFragment.OnListChanged
 import org.tasks.ui.NavigationDrawerFragment
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -176,11 +178,20 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
 
     private fun handleIntent() {
         val intent = intent
-        val openFilter: Filter? =
-                if (intent.isFromHistory) null else intent.getParcelableExtra(OPEN_FILTER)
-        intent.removeExtra(OPEN_FILTER)
-        val loadFilter = if (intent.isFromHistory) null else intent.getStringExtra(LOAD_FILTER)
-        intent.removeExtra(LOAD_FILTER)
+        val openFilter = intent.getFilter
+        val loadFilter = intent.getFilterString
+        Timber.d("""
+            
+            **********
+            isFromHistory: ${intent.isFromHistory}
+            flags: ${intent.flagsToString}
+            OPEN_FILTER: ${openFilter?.let { "${it.listingTitle}: $it" }}
+            LOAD_FILTER: $loadFilter
+            OPEN_TASK: ${intent.getParcelableExtra<Task>(OPEN_TASK)}
+            CREATE_TASK: ${intent.hasExtra(CREATE_TASK)}
+            taskListFragment: ${taskListFragment?.getFilter()?.let { "${it.listingTitle}: $it" }}
+            taskEditFragment: ${taskEditFragment?.editViewModel?.task}
+            **********""")
         if (openFilter != null || loadFilter != null) {
             taskEditFragment?.let {
                 lifecycleScope.launch {
@@ -447,7 +458,34 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         private const val FLAG_FROM_HISTORY
                 = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY
 
+        val Intent.getFilter: Filter?
+            get() = if (isFromHistory) {
+                null
+            } else {
+                getParcelableExtra<Filter?>(OPEN_FILTER)?.let {
+                    removeExtra(OPEN_FILTER)
+                    it
+                }
+            }
+
+        val Intent.getFilterString: String?
+            get() = if (isFromHistory) {
+                null
+            } else {
+                getStringExtra(LOAD_FILTER)?.let {
+                    removeExtra(LOAD_FILTER)
+                    it
+                }
+            }
+
         val Intent.isFromHistory: Boolean
-            get() = flags and (FLAG_FROM_HISTORY) == FLAG_FROM_HISTORY
+            get() = flags and FLAG_FROM_HISTORY == FLAG_FROM_HISTORY
+
+        val Intent.flagsToString
+            get() = if (BuildConfig.DEBUG) "" else
+                Intent::class.java.declaredFields
+                        .filter { it.name.startsWith("FLAG_") }
+                        .filter { flags or it.getInt(null) == flags }
+                        .joinToString(" | ") { it.name }
     }
 }
