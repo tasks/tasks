@@ -40,11 +40,11 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
     @Inject lateinit var adapter: NavigationDrawerAdapter
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var preferences: Preferences
-    @Inject lateinit var tagDataDao: TagDataDaoBlocking
-    @Inject lateinit var googleTaskListDao: GoogleTaskListDaoBlocking
-    @Inject lateinit var filterDao: FilterDaoBlocking
-    @Inject lateinit var caldavDao: CaldavDaoBlocking
-    @Inject lateinit var locationDao: LocationDaoBlocking
+    @Inject lateinit var tagDataDao: TagDataDao
+    @Inject lateinit var googleTaskListDao: GoogleTaskListDao
+    @Inject lateinit var filterDao: FilterDao
+    @Inject lateinit var caldavDao: CaldavDao
+    @Inject lateinit var locationDao: LocationDao
 
     private lateinit var binding: ActivityTagOrganizerBinding
     private lateinit var toolbar: Toolbar
@@ -107,10 +107,12 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
                             .putExtra(GoogleTaskListSettingsActivity.EXTRA_STORE_DATA, item.list)
                             .apply(this::startActivity)
                 is CaldavFilter ->
-                    caldavDao.getAccountByUuid(item.account)?.let {
-                        Intent(this, it.listSettingsClass())
-                                .putExtra(BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_CALENDAR, item.calendar)
-                                .apply(this::startActivity)
+                    lifecycleScope.launch {
+                        caldavDao.getAccountByUuid(item.account)?.let {
+                            Intent(this@NavigationDrawerCustomization, it.listSettingsClass())
+                                    .putExtra(BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_CALENDAR, item.calendar)
+                                    .apply { startActivity(this) }
+                        }
                     }
                 is CustomFilter ->
                     Intent(this, FilterSettingsActivity::class.java)
@@ -130,12 +132,14 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         return if (item.itemId == R.id.reset_sort) {
-            filterDao.resetOrders()
-            caldavDao.resetOrders()
-            googleTaskListDao.resetOrders()
-            tagDataDao.resetOrders()
-            locationDao.resetOrders()
-            updateFilters()
+            lifecycleScope.launch {
+                filterDao.resetOrders()
+                caldavDao.resetOrders()
+                googleTaskListDao.resetOrders()
+                tagDataDao.resetOrders()
+                locationDao.resetOrders()
+                updateFilters()
+            }
             true
         } else {
             false
@@ -201,17 +205,19 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
 
             if (from != to) {
                 viewHolder.filter.order = to
-                adapter.items
-                        .apply {
-                            removeAt(from)
-                            add(to, viewHolder.filter)
-                        }
-                        .filter(getPredicate(viewHolder.filter))
-                        .forEachIndexed { order, filter ->
-                            filter.order = order
-                            setOrder(order, filter)
-                        }
-                updateFilters()
+                lifecycleScope.launch {
+                    adapter.items
+                            .apply {
+                                removeAt(from)
+                                add(to, viewHolder.filter)
+                            }
+                            .filter(getPredicate(viewHolder.filter))
+                            .forEachIndexed { order, filter ->
+                                filter.order = order
+                                setOrder(order, filter)
+                            }
+                    updateFilters()
+                }
             }
 
             adapter.dragging = false
@@ -227,7 +233,7 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
             }
         }
 
-        private fun setOrder(order: Int, filter: FilterListItem) {
+        private suspend fun setOrder(order: Int, filter: FilterListItem) {
             when (filter) {
                 is GtasksFilter -> googleTaskListDao.setOrder(filter.list.id, order)
                 is CaldavFilter -> caldavDao.setOrder(filter.calendar.id, order)
