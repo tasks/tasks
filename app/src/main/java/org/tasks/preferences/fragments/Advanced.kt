@@ -3,16 +3,14 @@ package org.tasks.preferences.fragments
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import androidx.annotation.StringRes
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.todoroo.astrid.dao.Database
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.PermissionUtil
 import org.tasks.R
@@ -25,7 +23,6 @@ import org.tasks.preferences.PermissionRequestor
 import org.tasks.preferences.Preferences
 import org.tasks.scheduling.CalendarNotificationIntentService
 import org.tasks.ui.Toaster
-import java.util.concurrent.Callable
 import javax.inject.Inject
 
 private const val REQUEST_CODE_FILES_DIR = 10000
@@ -35,7 +32,7 @@ class Advanced : InjectingPreferenceFragment() {
 
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var database: Database
-    @Inject lateinit var taskDao: TaskDaoBlocking
+    @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var calendarEventProvider: CalendarEventProvider
     @Inject lateinit var toaster: Toaster
     @Inject lateinit var permissionRequester: FragmentPermissionRequestor
@@ -163,12 +160,10 @@ class Advanced : InjectingPreferenceFragment() {
             .newDialog()
             .setMessage(R.string.EPr_manage_delete_completed_gcal_message)
             .setPositiveButton(android.R.string.ok) { _, _ ->
-                performAction(
-                    R.string.EPr_manage_delete_completed_gcal_status,
-                    Callable {
-                        calendarEventProvider.deleteEvents(taskDao.getCompletedCalendarEvents())
-                        taskDao.clearCompletedCalendarEvents()
-                    })
+                performAction(R.string.EPr_manage_delete_completed_gcal_status) {
+                    calendarEventProvider.deleteEvents(taskDao.getCompletedCalendarEvents())
+                    taskDao.clearCompletedCalendarEvents()
+                }
             }
             .setNegativeButton(android.R.string.cancel, null)
             .show()
@@ -180,22 +175,17 @@ class Advanced : InjectingPreferenceFragment() {
             .setMessage(R.string.EPr_manage_delete_all_gcal_message)
             .setPositiveButton(android.R.string.ok) { _, _ ->
                 performAction(
-                    R.string.EPr_manage_delete_all_gcal_status,
-                    Callable {
+                    R.string.EPr_manage_delete_all_gcal_status) {
                         calendarEventProvider.deleteEvents(taskDao.getAllCalendarEvents())
                         taskDao.clearAllCalendarEvents()
-                    })
+                    }
             }
             .setNegativeButton(android.R.string.cancel, null)
             .show()
     }
 
-    private fun performAction(@StringRes message: Int, callable: Callable<Int>) {
-        disposables.add(
-            Single.fromCallable(callable)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { c: Int? -> toaster.longToastUnformatted(message, c!!) })
+    private fun performAction(message: Int, callable: suspend () -> Int) = lifecycleScope.launch {
+        toaster.longToastUnformatted(message, callable.invoke())
     }
 
     private fun resetPreferences() {

@@ -9,10 +9,12 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Handler
 import androidx.annotation.StringRes
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.todoroo.astrid.api.Filter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
@@ -106,16 +108,18 @@ class LookAndFeel : InjectingPreferenceFragment() {
         }
 
         val defaultList = findPreference(R.string.p_default_open_filter)
-        val filter = defaultFilterProvider.defaultOpenFilter
+        val filter = defaultFilterProvider.getDefaultOpenFilter()
         defaultList.summary = filter.listingTitle
         defaultList.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            val intent = Intent(context, FilterSelectionActivity::class.java)
-            intent.putExtra(
-                FilterSelectionActivity.EXTRA_FILTER,
-                defaultFilterProvider.defaultOpenFilter
-            )
-            intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true)
-            startActivityForResult(intent, REQUEST_DEFAULT_LIST)
+            lifecycleScope.launch {
+                val intent = Intent(context, FilterSelectionActivity::class.java)
+                intent.putExtra(
+                        FilterSelectionActivity.EXTRA_FILTER,
+                        defaultFilterProvider.getDefaultOpenFilter()
+                )
+                intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true)
+                startActivityForResult(intent, REQUEST_DEFAULT_LIST)
+            }
             true
         }
 
@@ -277,7 +281,7 @@ class LookAndFeel : InjectingPreferenceFragment() {
             if (resultCode == RESULT_OK) {
                 val filter: Filter =
                     data!!.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER)!!
-                defaultFilterProvider.defaultOpenFilter = filter
+                defaultFilterProvider.setDefaultOpenFilter(filter)
                 findPreference(R.string.p_default_open_filter).summary = filter.listingTitle
                 localBroadcastManager.broadcastRefresh()
             }

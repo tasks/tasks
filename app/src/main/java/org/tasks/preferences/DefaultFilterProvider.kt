@@ -32,10 +32,6 @@ class DefaultFilterProvider @Inject constructor(
         @Deprecated("use coroutines") get() = runBlocking { getBadgeFilter() }
         set(filter) = setFilterPreference(filter, R.string.p_badge_list)
 
-    var defaultOpenFilter: Filter
-        @Deprecated("use coroutines") get() = runBlocking { getDefaultOpenFilter() }
-        set(filter) = setFilterPreference(filter, R.string.p_default_open_filter)
-
     var lastViewedFilter: Filter
         @Deprecated("use coroutines") get() = runBlocking { getFilterFromPreference(R.string.p_last_viewed_list) }
         set(filter) = setFilterPreference(filter, R.string.p_last_viewed_list)
@@ -57,6 +53,9 @@ class DefaultFilterProvider @Inject constructor(
     suspend fun getLastViewedFilter() = getFilterFromPreference(R.string.p_last_viewed_list)
 
     suspend fun getDefaultOpenFilter() = getFilterFromPreference(R.string.p_default_open_filter)
+
+    fun setDefaultOpenFilter(filter: Filter) =
+            setFilterPreference(filter, R.string.p_default_open_filter)
 
     suspend fun getStartupFilter(): Filter {
         return if (preferences.getBoolean(R.string.p_open_last_viewed_list, true)) {

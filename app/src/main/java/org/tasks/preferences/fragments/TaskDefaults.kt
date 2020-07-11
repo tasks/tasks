@@ -3,11 +3,13 @@ package org.tasks.preferences.fragments
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.activities.ListPicker
 import org.tasks.calendars.CalendarPicker
@@ -47,11 +49,13 @@ class TaskDefaults : InjectingPreferenceFragment() {
 
         findPreference(R.string.p_default_list)
             .setOnPreferenceClickListener {
-                ListPicker.newListPicker(
-                        defaultFilterProvider.defaultList,
-                        this,
-                        REQUEST_DEFAULT_LIST)
-                    .show(parentFragmentManager, FRAG_TAG_DEFAULT_LIST_SELECTION)
+                lifecycleScope.launch {
+                    ListPicker.newListPicker(
+                            defaultFilterProvider.getDefaultList(),
+                            this@TaskDefaults,
+                            REQUEST_DEFAULT_LIST)
+                            .show(parentFragmentManager, FRAG_TAG_DEFAULT_LIST_SELECTION)
+                }
                 false
             }
         updateRemoteListSummary()
@@ -87,8 +91,8 @@ class TaskDefaults : InjectingPreferenceFragment() {
         return calendarProvider.getCalendar(calendarId)?.name
     }
 
-    private fun updateRemoteListSummary() {
-        val defaultFilter = defaultFilterProvider.defaultList
+    private fun updateRemoteListSummary() = lifecycleScope.launch {
+        val defaultFilter = defaultFilterProvider.getDefaultList()
         findPreference(R.string.p_default_list).summary = defaultFilter.listingTitle
     }
 }

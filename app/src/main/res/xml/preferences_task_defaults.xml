@@ -11,7 +11,8 @@
   <Preference
     android:icon="@drawable/ic_list_24px"
     android:key="@string/p_default_list"
-    android:title="@string/default_list" />
+    android:title="@string/default_list"
+    android:summary=" "/>
 
   <ListPreference
     android:defaultValue="2"
