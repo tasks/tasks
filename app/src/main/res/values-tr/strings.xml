@@ -628,7 +628,7 @@
     <string name="on_launch">Başlangıçta</string>
     <string name="disable_sort_groups">Sıra kümelerini devre dışı bırak</string>
     <string name="CFC_list_name">Listede…</string>
-    <string name="astrid_sort_order_summary">\'Görevlerim\', \'Bugün\' ve etiketler için elle sıralama kipini etkinleştirir. Bu sıralama kipi, gelecek güncellemede \'Düzenim\' ile değiştirlecek</string>
+    <string name="astrid_sort_order_summary">\'Görevlerim\', \'Bugün\' ve etiketler için elle sıralama kipini etkinleştirir. Bu sıralama kipi, gelecek güncellemede \'Düzenim\' ile değiştirilecek</string>
     <string name="astrid_sort_order">Astrid elle sıralama</string>
     <string name="reset_sort_order">Sıra düzenini sıfırla</string>
     <string name="date_shortcut_tomorrow_night">Yarın gece</string>
