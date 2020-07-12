@@ -21,7 +21,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -202,18 +201,18 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         listViewModel.setFilter((if (searchQuery == null) filter else createSearchFilter(searchQuery!!)))
         (recyclerView.itemAnimator as DefaultItemAnimator).supportsChangeAnimations = false
         recyclerView.layoutManager = LinearLayoutManager(context)
-        listViewModel.observe(
-                this,
-                Observer { list: List<TaskContainer> ->
-                    submitList(list)
-                    if (list.isEmpty()) {
-                        swipeRefreshLayout.visibility = View.GONE
-                        emptyRefreshLayout.visibility = View.VISIBLE
-                    } else {
-                        swipeRefreshLayout.visibility = View.VISIBLE
-                        emptyRefreshLayout.visibility = View.GONE
-                    }
-                })
+        listViewModel.observe(this) {
+            lifecycleScope.launch {
+                submitList(it)
+                if (it.isEmpty()) {
+                    swipeRefreshLayout.visibility = View.GONE
+                    emptyRefreshLayout.visibility = View.VISIBLE
+                } else {
+                    swipeRefreshLayout.visibility = View.VISIBLE
+                    emptyRefreshLayout.visibility = View.GONE
+                }
+            }
+        }
         setupRefresh(swipeRefreshLayout)
         setupRefresh(emptyRefreshLayout)
         toolbar.title = filter.listingTitle
@@ -224,7 +223,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         return parent
     }
 
-    private fun submitList(tasks: List<TaskContainer>) {
+    private suspend fun submitList(tasks: List<TaskContainer>) {
         if (tasks is PagedList<*>) {
             if (recyclerAdapter !is PagedListRecyclerAdapter) {
                 setAdapter(

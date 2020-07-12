@@ -61,7 +61,9 @@ class DragAndDropRecyclerAdapter(
 
     override fun getItemViewType(position: Int) = if (items.isHeader(position)) 1 else 0
 
-    override fun submitList(list: List<TaskContainer>) = super.submitList(list)
+    override suspend fun submitList(list: List<TaskContainer>) {
+        super.submitList(list)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder = if (viewType == 1) {
         viewHolderFactory.newHeaderViewHolder(parent, this::toggleGroup)

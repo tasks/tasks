@@ -22,7 +22,7 @@ class PagedListRecyclerAdapter(
 
     override fun getItem(position: Int) = differ.getItem(position)
 
-    override fun submitList(list: List<TaskContainer>) = differ.submitList(list as PagedList<TaskContainer>)
+    override suspend fun submitList(list: List<TaskContainer>) = differ.submitList(list as PagedList<TaskContainer>)
 
     override fun onMoved(fromPosition: Int, toPosition: Int) {
         val recyclerViewState = recyclerView.layoutManager!!.onSaveInstanceState()

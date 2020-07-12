@@ -13,7 +13,6 @@ import android.view.ViewGroup
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.drawerlayout.widget.DrawerLayout.SimpleDrawerListener
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -141,7 +140,7 @@ class NavigationDrawerFragment : Fragment() {
                         it.count = taskDao.count(it)
                     }
                 }
-                .apply(adapter::submitList)
+                .let { adapter.submitList(it) }
     }
 
     private inner class RefreshReceiver : BroadcastReceiver() {

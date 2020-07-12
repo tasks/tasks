@@ -3,11 +3,12 @@ package org.tasks.activities
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListUpdateCallback
 import com.todoroo.andlib.utility.AndroidUtilities
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.util.*
 
 interface DragAndDropDiffer<T, R> : ListUpdateCallback {
@@ -17,11 +18,11 @@ interface DragAndDropDiffer<T, R> : ListUpdateCallback {
     var items: R
     var dragging: Boolean
 
-    fun submitList(list: List<T>) {
-        disposables.add(
-                Single.fromCallable { transform(list) }
-                        .subscribeOn(Schedulers.computation())
-                        .subscribe(publishSubject::onNext))
+    suspend fun submitList(list: List<T>) {
+        val transform = withContext(Dispatchers.Default) {
+            transform(list)
+        }
+        publishSubject.onNext(transform)
     }
 
     fun calculateDiff(last: Pair<R, DiffUtil.DiffResult?>, next: R): Pair<R, DiffUtil.DiffResult?> {

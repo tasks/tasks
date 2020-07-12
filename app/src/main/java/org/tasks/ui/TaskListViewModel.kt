@@ -38,7 +38,7 @@ class TaskListViewModel @ViewModelInject constructor(
                 || filter.supportsAstridSorting() && preferences.isAstridSort)
     }
 
-    fun observe(owner: LifecycleOwner, observer: Observer<List<TaskContainer>>) =
+    fun observe(owner: LifecycleOwner, observer: (List<TaskContainer>) -> Unit) =
             tasks.observe(owner, observer)
 
     fun searchByFilter(filter: Filter?) {

@@ -16,7 +16,6 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -85,7 +84,9 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
                 (recyclerView.itemAnimator as DefaultItemAnimator).supportsChangeAnimations = false
                 recyclerView.layoutManager = LinearLayoutManager(activity)
                 recyclerView.isNestedScrollingEnabled = false
-                listViewModel.observe(this, Observer { list: List<TaskContainer?>? -> recyclerAdapter.submitList(list) })
+                listViewModel.observe(this) {
+                    list: List<TaskContainer?>? -> recyclerAdapter.submitList(list)
+                }
                 recyclerView.adapter = recyclerAdapter
             }
         }

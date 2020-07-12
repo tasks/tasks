@@ -44,7 +44,7 @@ abstract class TaskListRecyclerAdapter internal constructor(
 
     abstract fun dragAndDropEnabled(): Boolean
 
-    abstract fun submitList(list: List<TaskContainer>)
+    abstract suspend fun submitList(list: List<TaskContainer>)
 
     override fun onInserted(position: Int, count: Int) {
         notifyItemRangeInserted(position, count)

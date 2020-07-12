@@ -90,7 +90,7 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
         filterProvider
                 .drawerCustomizationItems()
                 .onEach { f -> f.count = 0 }
-                .apply(adapter::submitList)
+                .let { adapter.submitList(it) }
     }
 
     private fun onClick(item: FilterListItem?) {
