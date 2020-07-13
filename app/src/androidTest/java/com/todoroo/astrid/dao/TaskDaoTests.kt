@@ -11,6 +11,7 @@ import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Test
 import org.tasks.injection.InjectingTestCase
@@ -106,7 +107,7 @@ class TaskDaoTests : InjectingTestCase() {
 
     /** Test task deletion  */
     @Test
-    fun testTDeletion() {
+    fun testTDeletion() = runBlocking {
         assertEquals(0, taskDao.getAll().size)
 
         // create task "happy"
@@ -133,7 +134,7 @@ class TaskDaoTests : InjectingTestCase() {
 
     /** Test passing invalid task indices to various things  */
     @Test
-    fun testInvalidIndex() {
+    fun testInvalidIndex() = runBlocking {
         assertEquals(0, taskDao.getAll().size)
         assertNull(taskDao.fetchBlocking(1))
         taskDeleter.delete(listOf(1L))
