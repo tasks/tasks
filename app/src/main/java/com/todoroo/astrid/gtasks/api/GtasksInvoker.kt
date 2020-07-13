@@ -12,8 +12,11 @@ import com.google.api.services.tasks.model.Task
 import com.google.api.services.tasks.model.TaskList
 import com.google.api.services.tasks.model.TaskLists
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.tasks.BuildConfig
 import org.tasks.DebugNetworkInterceptor
+import org.tasks.data.runBlocking
 import org.tasks.gtasks.GoogleAccountManager
 import org.tasks.preferences.Preferences
 import timber.log.Timber
@@ -72,14 +75,13 @@ class GtasksInvoker {
     }
 
     @Throws(IOException::class)
-    fun allGtaskLists(pageToken: String?): TaskLists? {
-        return execute(service!!.tasklists().list().setMaxResults(100L).setPageToken(pageToken))
-    }
+    suspend fun allGtaskLists(pageToken: String?): TaskLists? =
+            execute(service!!.tasklists().list().setMaxResults(100L).setPageToken(pageToken))
 
     @Throws(IOException::class)
-    fun getAllGtasksFromListId(
-            listId: String?, lastSyncDate: Long, pageToken: String?): com.google.api.services.tasks.model.Tasks? {
-        return execute(
+    suspend fun getAllGtasksFromListId(
+            listId: String?, lastSyncDate: Long, pageToken: String?): com.google.api.services.tasks.model.Tasks? =
+            execute(
                 service!!
                         .tasks()
                         .list(listId)
@@ -89,12 +91,11 @@ class GtasksInvoker {
                         .setPageToken(pageToken)
                         .setUpdatedMin(
                                 GtasksApiUtilities.unixTimeToGtasksCompletionTime(lastSyncDate).toStringRfc3339()))
-    }
 
     @Throws(IOException::class)
-    fun getAllPositions(
-            listId: String?, pageToken: String?): com.google.api.services.tasks.model.Tasks {
-        return execute(
+    suspend fun getAllPositions(
+            listId: String?, pageToken: String?): com.google.api.services.tasks.model.Tasks =
+            execute(
                 service!!
                         .tasks()
                         .list(listId)
@@ -103,27 +104,28 @@ class GtasksInvoker {
                         .setShowHidden(false)
                         .setPageToken(pageToken)
                         .setFields("items(id,parent,position),nextPageToken"))!!
-    }
 
     @Throws(IOException::class)
-    fun createGtask(
-            listId: String?, task: Task?, parent: String?, previous: String?): Task? {
-        return execute(service!!.tasks().insert(listId, task).setParent(parent).setPrevious(previous))
-    }
+    suspend fun createGtask(
+            listId: String?, task: Task?, parent: String?, previous: String?): Task? =
+            execute(service!!.tasks().insert(listId, task).setParent(parent).setPrevious(previous))
 
     @Throws(IOException::class)
-    fun updateGtask(listId: String?, task: Task) {
-        execute(service!!.tasks().update(listId, task.id, task))
-    }
+    suspend fun updateGtask(listId: String?, task: Task) =
+            execute(service!!.tasks().update(listId, task.id, task))
 
     @Throws(IOException::class)
-    fun moveGtask(listId: String?, taskId: String?, parentId: String?, previousId: String?): Task? {
-        return execute(
-                service!!.tasks().move(listId, taskId).setParent(parentId).setPrevious(previousId))
-    }
+    suspend fun moveGtask(
+            listId: String?, taskId: String?, parentId: String?, previousId: String?): Task? =
+            execute(
+                    service!!
+                            .tasks()
+                            .move(listId, taskId)
+                            .setParent(parentId)
+                            .setPrevious(previousId))
 
     @Throws(IOException::class)
-    fun deleteGtaskList(listId: String?) {
+    fun deleteGtaskList(listId: String?) = runBlocking {
         try {
             execute(service!!.tasklists().delete(listId))
         } catch (ignored: HttpNotFoundException) {
@@ -131,17 +133,17 @@ class GtasksInvoker {
     }
 
     @Throws(IOException::class)
-    fun renameGtaskList(listId: String?, title: String?): TaskList? {
-        return execute(service!!.tasklists().patch(listId, TaskList().setTitle(title)))
+    fun renameGtaskList(listId: String?, title: String?): TaskList? = runBlocking {
+        execute(service!!.tasklists().patch(listId, TaskList().setTitle(title)))
     }
 
     @Throws(IOException::class)
-    fun createGtaskList(title: String?): TaskList? {
-        return execute(service!!.tasklists().insert(TaskList().setTitle(title)))
+    fun createGtaskList(title: String?): TaskList? = runBlocking {
+        execute(service!!.tasklists().insert(TaskList().setTitle(title)))
     }
 
     @Throws(IOException::class)
-    fun deleteGtask(listId: String?, taskId: String?) {
+    suspend fun deleteGtask(listId: String?, taskId: String?) {
         try {
             execute(service!!.tasks().delete(listId, taskId))
         } catch (ignored: HttpNotFoundException) {
@@ -150,36 +152,35 @@ class GtasksInvoker {
 
     @Synchronized
     @Throws(IOException::class)
-    private fun <T> execute(request: TasksRequest<T>): T? {
-        return execute(request, false)
-    }
+    private suspend fun <T> execute(request: TasksRequest<T>): T? = execute(request, false)
 
     @Synchronized
     @Throws(IOException::class)
-    private fun <T> execute(request: TasksRequest<T>, retry: Boolean): T? {
-        credentialsAdapter!!.checkToken(account, TasksScopes.TASKS)
-        val response: T?
-        response = try {
-            val httpRequest = request.buildHttpRequest()
-            Timber.d("%s", httpRequest.url)
-            if (preferences.isFlipperEnabled) {
-                interceptor.execute(httpRequest, request.responseClass)
-            } else {
-                httpRequest.execute().parseAs(request.responseClass)
+    private suspend fun <T> execute(request: TasksRequest<T>, retry: Boolean): T? =
+            withContext(Dispatchers.IO) {
+                credentialsAdapter!!.checkToken(account, TasksScopes.TASKS)
+                val response: T?
+                response = try {
+                    val httpRequest = request.buildHttpRequest()
+                    Timber.d("%s", httpRequest.url)
+                    if (preferences.isFlipperEnabled) {
+                        interceptor.execute(httpRequest, request.responseClass)
+                    } else {
+                        httpRequest.execute().parseAs(request.responseClass)
+                    }
+                } catch (e: HttpResponseException) {
+                    return@withContext if (e.statusCode == 401 && !retry) {
+                        credentialsAdapter.invalidateToken()
+                        execute(request, true)
+                    } else if (e.statusCode == 404) {
+                        throw HttpNotFoundException(e)
+                    } else {
+                        throw e
+                    }
+                }
+                Timber.d("%s response: %s", getCaller(retry), prettyPrint(response))
+                response
             }
-        } catch (e: HttpResponseException) {
-            return if (e.statusCode == 401 && !retry) {
-                credentialsAdapter.invalidateToken()
-                execute(request, true)
-            } else if (e.statusCode == 404) {
-                throw HttpNotFoundException(e)
-            } else {
-                throw e
-            }
-        }
-        Timber.d("%s response: %s", getCaller(retry), prettyPrint(response))
-        return response
-    }
 
     @Throws(IOException::class)
     private fun <T> prettyPrint(`object`: T?): Any? {

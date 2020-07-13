@@ -8,7 +8,7 @@ import com.google.api.services.tasks.model.Tasks
 import com.google.common.collect.Lists
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.GtasksFilter
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task.Companion.createDueDate
 import com.todoroo.astrid.gtasks.GtasksListService
 import com.todoroo.astrid.gtasks.api.GtasksApiUtilities
@@ -41,12 +41,12 @@ import kotlin.math.max
 
 class GoogleTaskSynchronizer @Inject constructor(
         @param:ApplicationContext private val context: Context,
-        private val googleTaskListDao: GoogleTaskListDaoBlocking,
+        private val googleTaskListDao: GoogleTaskListDao,
         private val gtasksListService: GtasksListService,
         private val preferences: Preferences,
-        private val taskDao: TaskDaoBlocking,
+        private val taskDao: TaskDao,
         private val firebase: Firebase,
-        private val googleTaskDao: GoogleTaskDaoBlocking,
+        private val googleTaskDao: GoogleTaskDao,
         private val taskCreator: TaskCreator,
         private val defaultFilterProvider: DefaultFilterProvider,
         private val permissionChecker: PermissionChecker,
@@ -55,7 +55,8 @@ class GoogleTaskSynchronizer @Inject constructor(
         private val inventory: Inventory,
         private val taskDeleter: TaskDeleter,
         private val gtasksInvoker: GtasksInvoker) {
-    fun sync(account: GoogleTaskAccount, i: Int) {
+
+    suspend fun sync(account: GoogleTaskAccount, i: Int) {
         Timber.d("%s: start sync", account)
         try {
             if (i == 0 || inventory.hasPro()) {
@@ -99,13 +100,13 @@ class GoogleTaskSynchronizer @Inject constructor(
     }
 
     @Throws(IOException::class)
-    private fun synchronize(account: GoogleTaskAccount) {
+    private suspend fun synchronize(account: GoogleTaskAccount) {
         if (!permissionChecker.canAccessAccounts()
                 || googleAccountManager.getAccount(account.account) == null) {
             account.error = context.getString(R.string.cannot_access_account)
             return
         }
-        val gtasksInvoker = gtasksInvoker.forAccount(account.account)
+        val gtasksInvoker = gtasksInvoker.forAccount(account.account!!)
         pushLocalChanges(account, gtasksInvoker)
         val gtaskLists: MutableList<TaskList> = ArrayList()
         var nextPageToken: String? = null
@@ -151,12 +152,12 @@ class GoogleTaskSynchronizer @Inject constructor(
     }
 
     @Throws(IOException::class)
-    private fun fetchPositions(
+    private suspend fun fetchPositions(
             gtasksInvoker: GtasksInvoker, listId: String): List<Task> {
         val tasks: MutableList<Task> = ArrayList()
         var nextPageToken: String? = null
         do {
-            val taskList = gtasksInvoker.getAllPositions(listId, nextPageToken) ?: break
+            val taskList = gtasksInvoker.getAllPositions(listId, nextPageToken)
             val items = taskList.items
             if (items != null) {
                 tasks.addAll(items)
@@ -167,7 +168,7 @@ class GoogleTaskSynchronizer @Inject constructor(
     }
 
     @Throws(IOException::class)
-    private fun pushLocalChanges(account: GoogleTaskAccount, gtasksInvoker: GtasksInvoker) {
+    private suspend fun pushLocalChanges(account: GoogleTaskAccount, gtasksInvoker: GtasksInvoker) {
         val tasks = taskDao.getGoogleTasksToPush(account.account!!)
         for (task in tasks) {
             pushTask(task, gtasksInvoker)
@@ -175,7 +176,7 @@ class GoogleTaskSynchronizer @Inject constructor(
     }
 
     @Throws(IOException::class)
-    private fun pushTask(task: com.todoroo.astrid.data.Task, gtasksInvoker: GtasksInvoker) {
+    private suspend fun pushTask(task: com.todoroo.astrid.data.Task, gtasksInvoker: GtasksInvoker) {
         for (deleted in googleTaskDao.getDeletedByTaskId(task.id)) {
             gtasksInvoker.deleteGtask(deleted.listId, deleted.remoteId)
             googleTaskDao.delete(deleted)
@@ -284,7 +285,7 @@ class GoogleTaskSynchronizer @Inject constructor(
 
     @Synchronized
     @Throws(IOException::class)
-    private fun fetchAndApplyRemoteChanges(
+    private suspend fun fetchAndApplyRemoteChanges(
             gtasksInvoker: GtasksInvoker, list: GoogleTaskList) {
         val listId = list.remoteId
         var lastSyncDate = list.lastSync
@@ -312,7 +313,7 @@ class GoogleTaskSynchronizer @Inject constructor(
             if (googleTask == null) {
                 googleTask = GoogleTask(0, "")
             } else if (googleTask.task > 0) {
-                task = taskDao.fetchBlocking(googleTask.task)
+                task = taskDao.fetch(googleTask.task)
             }
             val updated = gtask.updated
             if (updated != null) {
@@ -358,7 +359,7 @@ class GoogleTaskSynchronizer @Inject constructor(
         googleTaskListDao.insertOrReplace(list)
     }
 
-    private fun write(task: com.todoroo.astrid.data.Task?, googleTask: GoogleTask) {
+    private suspend fun write(task: com.todoroo.astrid.data.Task?, googleTask: GoogleTask) {
         if (!(isNullOrEmpty(task!!.title) && isNullOrEmpty(task.notes))) {
             task.suppressSync()
             task.suppressRefresh()
