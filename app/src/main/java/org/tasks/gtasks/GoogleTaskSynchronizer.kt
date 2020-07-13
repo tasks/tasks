@@ -1,0 +1,414 @@
+package org.tasks.gtasks
+
+import android.content.Context
+import com.google.api.client.googleapis.json.GoogleJsonResponseException
+import com.google.api.services.tasks.model.Task
+import com.google.api.services.tasks.model.TaskList
+import com.google.api.services.tasks.model.Tasks
+import com.google.common.collect.Lists
+import com.todoroo.andlib.utility.DateUtilities
+import com.todoroo.astrid.api.GtasksFilter
+import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.data.Task.Companion.createDueDate
+import com.todoroo.astrid.gtasks.GtasksListService
+import com.todoroo.astrid.gtasks.api.GtasksApiUtilities
+import com.todoroo.astrid.gtasks.api.GtasksInvoker
+import com.todoroo.astrid.gtasks.api.HttpNotFoundException
+import com.todoroo.astrid.service.TaskCreator
+import com.todoroo.astrid.service.TaskDeleter
+import dagger.hilt.android.qualifiers.ApplicationContext
+import org.tasks.LocalBroadcastManager
+import org.tasks.R
+import org.tasks.Strings.isNullOrEmpty
+import org.tasks.analytics.Firebase
+import org.tasks.billing.Inventory
+import org.tasks.data.*
+import org.tasks.date.DateTimeUtils.newDateTime
+import org.tasks.preferences.DefaultFilterProvider
+import org.tasks.preferences.PermissionChecker
+import org.tasks.preferences.Preferences
+import timber.log.Timber
+import java.io.EOFException
+import java.io.IOException
+import java.net.HttpRetryException
+import java.net.SocketException
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
+import java.util.*
+import javax.inject.Inject
+import javax.net.ssl.SSLException
+import kotlin.math.max
+
+class GoogleTaskSynchronizer @Inject constructor(
+        @param:ApplicationContext private val context: Context,
+        private val googleTaskListDao: GoogleTaskListDaoBlocking,
+        private val gtasksListService: GtasksListService,
+        private val preferences: Preferences,
+        private val taskDao: TaskDaoBlocking,
+        private val firebase: Firebase,
+        private val googleTaskDao: GoogleTaskDaoBlocking,
+        private val taskCreator: TaskCreator,
+        private val defaultFilterProvider: DefaultFilterProvider,
+        private val permissionChecker: PermissionChecker,
+        private val googleAccountManager: GoogleAccountManager,
+        private val localBroadcastManager: LocalBroadcastManager,
+        private val inventory: Inventory,
+        private val taskDeleter: TaskDeleter,
+        private val gtasksInvoker: GtasksInvoker) {
+    fun sync(account: GoogleTaskAccount, i: Int) {
+        Timber.d("%s: start sync", account)
+        try {
+            if (i == 0 || inventory.hasPro()) {
+                synchronize(account)
+            } else {
+                account.error = context.getString(R.string.requires_pro_subscription)
+            }
+        } catch (e: SocketTimeoutException) {
+            Timber.e(e)
+            account.error = e.message
+        } catch (e: SSLException) {
+            Timber.e(e)
+            account.error = e.message
+        } catch (e: SocketException) {
+            Timber.e(e)
+            account.error = e.message
+        } catch (e: UnknownHostException) {
+            Timber.e(e)
+            account.error = e.message
+        } catch (e: HttpRetryException) {
+            Timber.e(e)
+            account.error = e.message
+        } catch (e: EOFException) {
+            Timber.e(e)
+            account.error = e.message
+        } catch (e: GoogleJsonResponseException) {
+            account.error = e.message
+            if (e.statusCode == 401) {
+                Timber.e(e)
+            } else {
+                firebase.reportException(e)
+            }
+        } catch (e: Exception) {
+            account.error = e.message
+            firebase.reportException(e)
+        } finally {
+            googleTaskListDao.update(account)
+            localBroadcastManager.broadcastRefreshList()
+            Timber.d("%s: end sync", account)
+        }
+    }
+
+    @Throws(IOException::class)
+    private fun synchronize(account: GoogleTaskAccount) {
+        if (!permissionChecker.canAccessAccounts()
+                || googleAccountManager.getAccount(account.account) == null) {
+            account.error = context.getString(R.string.cannot_access_account)
+            return
+        }
+        val gtasksInvoker = gtasksInvoker.forAccount(account.account)
+        pushLocalChanges(account, gtasksInvoker)
+        val gtaskLists: MutableList<TaskList> = ArrayList()
+        var nextPageToken: String? = null
+        var eTag: String? = null
+        do {
+            val remoteLists = gtasksInvoker.allGtaskLists(nextPageToken) ?: break
+            eTag = remoteLists.etag
+            val items = remoteLists.items
+            if (items != null) {
+                gtaskLists.addAll(items)
+            }
+            nextPageToken = remoteLists.nextPageToken
+        } while (!isNullOrEmpty(nextPageToken))
+        gtasksListService.updateLists(account, gtaskLists)
+        val defaultRemoteList = defaultFilterProvider.defaultList
+        if (defaultRemoteList is GtasksFilter) {
+            val list = googleTaskListDao.getByRemoteId(defaultRemoteList.remoteId)
+            if (list == null) {
+                preferences.setString(R.string.p_default_list, null)
+            }
+        }
+        for (list in googleTaskListDao.getByRemoteId(Lists.transform(gtaskLists) { obj: TaskList? -> obj!!.id })) {
+            if (isNullOrEmpty(list.remoteId)) {
+                firebase.reportException(RuntimeException("Empty remote id"))
+                continue
+            }
+            fetchAndApplyRemoteChanges(gtasksInvoker, list)
+            if (!preferences.isPositionHackEnabled) {
+                googleTaskDao.reposition(list.remoteId!!)
+            }
+        }
+        if (preferences.isPositionHackEnabled) {
+            for (list in gtaskLists) {
+                val tasks = fetchPositions(gtasksInvoker, list.id)
+                for (task in tasks) {
+                    googleTaskDao.updatePosition(task.id, task.parent, task.position)
+                }
+                googleTaskDao.reposition(list.id)
+            }
+        }
+        account.etag = eTag
+        account.error = ""
+    }
+
+    @Throws(IOException::class)
+    private fun fetchPositions(
+            gtasksInvoker: GtasksInvoker, listId: String): List<Task> {
+        val tasks: MutableList<Task> = ArrayList()
+        var nextPageToken: String? = null
+        do {
+            val taskList = gtasksInvoker.getAllPositions(listId, nextPageToken) ?: break
+            val items = taskList.items
+            if (items != null) {
+                tasks.addAll(items)
+            }
+            nextPageToken = taskList.nextPageToken
+        } while (!isNullOrEmpty(nextPageToken))
+        return tasks
+    }
+
+    @Throws(IOException::class)
+    private fun pushLocalChanges(account: GoogleTaskAccount, gtasksInvoker: GtasksInvoker) {
+        val tasks = taskDao.getGoogleTasksToPush(account.account!!)
+        for (task in tasks) {
+            pushTask(task, gtasksInvoker)
+        }
+    }
+
+    @Throws(IOException::class)
+    private fun pushTask(task: com.todoroo.astrid.data.Task, gtasksInvoker: GtasksInvoker) {
+        for (deleted in googleTaskDao.getDeletedByTaskId(task.id)) {
+            gtasksInvoker.deleteGtask(deleted.listId, deleted.remoteId)
+            googleTaskDao.delete(deleted)
+        }
+        val gtasksMetadata = googleTaskDao.getByTaskId(task.id) ?: return
+        val remoteModel = Task()
+        var newlyCreated = false
+        val remoteId: String?
+        val defaultRemoteList = defaultFilterProvider.defaultList
+        var listId = if (defaultRemoteList is GtasksFilter) defaultRemoteList.remoteId else DEFAULT_LIST
+        if (isNullOrEmpty(gtasksMetadata.remoteId)) { // Create case
+            val selectedList = gtasksMetadata.listId
+            if (!isNullOrEmpty(selectedList)) {
+                listId = selectedList
+            }
+            newlyCreated = true
+        } else { // update case
+            remoteId = gtasksMetadata.remoteId
+            listId = gtasksMetadata.listId
+            remoteModel.id = remoteId
+        }
+
+        // If task was newly created but without a title, don't sync--we're in the middle of
+        // creating a task which may end up being cancelled. Also don't sync new but already
+        // deleted tasks
+        if (newlyCreated && (isNullOrEmpty(task.title) || task.deletionDate > 0)) {
+            return
+        }
+
+        // Update the remote model's changed properties
+        if (task.isDeleted) {
+            remoteModel.deleted = true
+        }
+        remoteModel.title = truncate(task.title, MAX_TITLE_LENGTH)
+        remoteModel.notes = truncate(task.notes, MAX_DESCRIPTION_LENGTH)
+        if (task.hasDueDate()) {
+            remoteModel.due = GtasksApiUtilities.unixTimeToGtasksDueDate(task.dueDate)
+        }
+        if (task.isCompleted) {
+            remoteModel.completed = GtasksApiUtilities.unixTimeToGtasksCompletionTime(task.completionDate)
+            remoteModel.status = "completed" // $NON-NLS-1$
+        } else {
+            remoteModel.completed = null
+            remoteModel.status = "needsAction" // $NON-NLS-1$
+        }
+        if (newlyCreated) {
+            val parent = gtasksMetadata.parent
+            val localParent = if (parent > 0) googleTaskDao.getRemoteId(parent) else null
+            val previous = googleTaskDao.getPrevious(
+                    listId!!, if (isNullOrEmpty(localParent)) 0 else parent, gtasksMetadata.order)
+            val created: Task?
+            created = try {
+                gtasksInvoker.createGtask(listId, remoteModel, localParent, previous)
+            } catch (e: HttpNotFoundException) {
+                gtasksInvoker.createGtask(listId, remoteModel, null, null)
+            }
+            if (created != null) {
+                // Update the metadata for the newly created task
+                gtasksMetadata.remoteId = created.id
+                gtasksMetadata.listId = listId
+                gtasksMetadata.remoteOrder = created.position.toLong()
+                gtasksMetadata.remoteParent = created.parent
+            } else {
+                return
+            }
+        } else {
+            try {
+                if (!task.isDeleted && gtasksMetadata.isMoved) {
+                    try {
+                        val parent = gtasksMetadata.parent
+                        val localParent = if (parent > 0) googleTaskDao.getRemoteId(parent) else null
+                        val previous = googleTaskDao.getPrevious(
+                                listId!!,
+                                if (isNullOrEmpty(localParent)) 0 else parent,
+                                gtasksMetadata.order)
+                        val result = gtasksInvoker.moveGtask(listId, remoteModel.id, localParent, previous)
+                        gtasksMetadata.remoteOrder = result!!.position.toLong()
+                        gtasksMetadata.remoteParent = result.parent
+                        gtasksMetadata.parent = if (isNullOrEmpty(result.parent)) 0 else googleTaskDao.getTask(result.parent)
+                    } catch (e: GoogleJsonResponseException) {
+                        if (e.statusCode == 400) {
+                            Timber.e(e)
+                        } else {
+                            throw e
+                        }
+                    }
+                }
+                // TODO: don't updateGtask if it was only moved
+                gtasksInvoker.updateGtask(listId, remoteModel)
+            } catch (e: HttpNotFoundException) {
+                googleTaskDao.delete(gtasksMetadata)
+                return
+            }
+        }
+        task.modificationDate = DateUtilities.now()
+        gtasksMetadata.isMoved = false
+        gtasksMetadata.lastSync = DateUtilities.now() + 1000L
+        if (gtasksMetadata.id == com.todoroo.astrid.data.Task.NO_ID) {
+            googleTaskDao.insert(gtasksMetadata)
+        } else {
+            googleTaskDao.update(gtasksMetadata)
+        }
+        task.suppressSync()
+        taskDao.save(task)
+    }
+
+    @Synchronized
+    @Throws(IOException::class)
+    private fun fetchAndApplyRemoteChanges(
+            gtasksInvoker: GtasksInvoker, list: GoogleTaskList) {
+        val listId = list.remoteId
+        var lastSyncDate = list.lastSync
+        val tasks: MutableList<Task> = ArrayList()
+        var nextPageToken: String? = null
+        do {
+            val taskList: Tasks = try {
+                gtasksInvoker.getAllGtasksFromListId(listId, lastSyncDate + 1000L, nextPageToken)
+            } catch (e: HttpNotFoundException) {
+                firebase.reportException(e)
+                return
+            } ?: break
+
+            val items = taskList.items
+            if (items != null) {
+                tasks.addAll(items)
+            }
+            nextPageToken = taskList.nextPageToken
+        } while (!isNullOrEmpty(nextPageToken))
+        Collections.sort(tasks, PARENTS_FIRST)
+        for (gtask in tasks) {
+            val remoteId = gtask.id
+            var googleTask = googleTaskDao.getByRemoteId(remoteId)
+            var task: com.todoroo.astrid.data.Task? = null
+            if (googleTask == null) {
+                googleTask = GoogleTask(0, "")
+            } else if (googleTask.task > 0) {
+                task = taskDao.fetchBlocking(googleTask.task)
+            }
+            val updated = gtask.updated
+            if (updated != null) {
+                lastSyncDate = max(lastSyncDate, updated.value)
+            }
+            val isDeleted = gtask.deleted
+            val isHidden = gtask.hidden
+            if (isDeleted != null && isDeleted) {
+                if (task != null) {
+                    taskDeleter.delete(task)
+                }
+                continue
+            } else if (isHidden != null && isHidden) {
+                if (task == null) {
+                    continue
+                }
+                if (task.isRecurring) {
+                    googleTask.remoteId = ""
+                } else {
+                    taskDeleter.delete(task)
+                    continue
+                }
+            } else {
+                googleTask.remoteOrder = gtask.position.toLong()
+                googleTask.remoteParent = gtask.parent
+                googleTask.parent = if (isNullOrEmpty(gtask.parent)) 0 else googleTaskDao.getTask(gtask.parent)
+                googleTask.remoteId = gtask.id
+            }
+            if (task == null) {
+                task = taskCreator.createWithValues("")
+            }
+            task!!.title = getTruncatedValue(task.title, gtask.title, MAX_TITLE_LENGTH)
+            task.creationDate = DateUtilities.now()
+            task.completionDate = GtasksApiUtilities.gtasksCompletedTimeToUnixTime(gtask.completed)
+            val dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(gtask.due)
+            mergeDates(createDueDate(com.todoroo.astrid.data.Task.URGENCY_SPECIFIC_DAY, dueDate), task)
+            task.notes = getTruncatedValue(task.notes, gtask.notes, MAX_DESCRIPTION_LENGTH)
+            googleTask.listId = listId
+            googleTask.lastSync = DateUtilities.now() + 1000L
+            write(task, googleTask)
+        }
+        list.lastSync = lastSyncDate
+        googleTaskListDao.insertOrReplace(list)
+    }
+
+    private fun write(task: com.todoroo.astrid.data.Task?, googleTask: GoogleTask) {
+        if (!(isNullOrEmpty(task!!.title) && isNullOrEmpty(task.notes))) {
+            task.suppressSync()
+            task.suppressRefresh()
+            if (task.isNew) {
+                taskDao.createNew(task)
+            }
+            taskDao.save(task)
+            googleTask.task = task.id
+            if (googleTask.id == 0L) {
+                googleTaskDao.insert(googleTask)
+            } else {
+                googleTaskDao.update(googleTask)
+            }
+        }
+    }
+
+    companion object {
+        private const val DEFAULT_LIST = "@default" // $NON-NLS-1$
+        private const val MAX_TITLE_LENGTH = 1024
+        private const val MAX_DESCRIPTION_LENGTH = 8192
+        private val PARENTS_FIRST = Comparator { o1: Task, o2: Task ->
+            if (isNullOrEmpty(o1.parent)) {
+                if (isNullOrEmpty(o2.parent)) 0 else -1
+            } else {
+                if (isNullOrEmpty(o2.parent)) 1 else 0
+            }
+        }
+
+        fun mergeDates(remoteDueDate: Long, local: com.todoroo.astrid.data.Task?) {
+            if (remoteDueDate > 0 && local!!.hasDueTime()) {
+                val oldDate = newDateTime(local.dueDate)
+                val newDate = newDateTime(remoteDueDate)
+                        .withHourOfDay(oldDate.hourOfDay)
+                        .withMinuteOfHour(oldDate.minuteOfHour)
+                        .withSecondOfMinute(oldDate.secondOfMinute)
+                local.setDueDateAdjustingHideUntil(
+                        createDueDate(com.todoroo.astrid.data.Task.URGENCY_SPECIFIC_DAY_TIME, newDate.millis))
+            } else {
+                local!!.setDueDateAdjustingHideUntil(remoteDueDate)
+            }
+        }
+
+        fun truncate(string: String?, max: Int): String? {
+            return if (string == null || string.length <= max) string else string.substring(0, max)
+        }
+
+        fun getTruncatedValue(currentValue: String?, newValue: String?, maxLength: Int): String? {
+            return if (isNullOrEmpty(newValue)
+                    || newValue!!.length < maxLength || isNullOrEmpty(currentValue)
+                    || !currentValue!!.startsWith(newValue)) newValue else currentValue
+        }
+    }
+}
