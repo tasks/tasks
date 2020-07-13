@@ -13,10 +13,6 @@ class LocationDaoBlocking @Inject constructor(private val dao: LocationDao) {
         dao.getGeofencesByPlace(uid)
     }
 
-    fun deleteGeofencesByPlace(place: String) = runBlocking {
-        dao.deleteGeofencesByPlace(place)
-    }
-
     fun getArrivalGeofences(place: String, now: Long): List<Geofence> = runBlocking {
         dao.getArrivalGeofences(place, now)
     }
@@ -25,32 +21,8 @@ class LocationDaoBlocking @Inject constructor(private val dao: LocationDao) {
         dao.getDepartureGeofences(place, now)
     }
 
-    fun getGeofences(taskId: Long): Location? = runBlocking {
-        dao.getGeofences(taskId)
-    }
-
-    fun getActiveGeofences(taskId: Long): List<Location> = runBlocking {
-        dao.getActiveGeofences(taskId)
-    }
-
     fun getPlaceForTask(taskId: Long): Place? = runBlocking {
         dao.getPlaceForTask(taskId)
-    }
-
-    fun getActiveGeofences(): List<Location> = runBlocking {
-        dao.getActiveGeofences()
-    }
-
-    suspend fun geofenceCount(): Int {
-        return dao.geofenceCount()
-    }
-
-    fun delete(location: Geofence) = runBlocking {
-        dao.delete(location)
-    }
-
-    fun delete(place: Place) = runBlocking {
-        dao.delete(place)
     }
 
     fun insert(location: Geofence): Long = runBlocking {
@@ -61,24 +33,8 @@ class LocationDaoBlocking @Inject constructor(private val dao: LocationDao) {
         dao.insert(place)
     }
 
-    fun update(place: Place) = runBlocking {
-        dao.update(place)
-    }
-
-    fun update(geofence: Geofence) = runBlocking {
-        dao.update(geofence)
-    }
-
-    fun getByUid(uid: String): Place? = runBlocking {
-        dao.getByUid(uid)
-    }
-
     fun getGeofencesForTask(taskId: Long): List<Geofence> = runBlocking {
         dao.getGeofencesForTask(taskId)
-    }
-
-    fun getPlaces(): List<Place> = runBlocking {
-        dao.getPlaces()
     }
 
     fun getPlace(id: Long): Place? = runBlocking {
@@ -95,13 +51,5 @@ class LocationDaoBlocking @Inject constructor(private val dao: LocationDao) {
 
     fun findPlace(latitude: String, longitude: String): Place? = runBlocking {
         dao.findPlace(latitude, longitude)
-    }
-
-    fun resetOrders() = runBlocking {
-        dao.resetOrders()
-    }
-
-    fun setOrder(id: Long, order: Int) = runBlocking {
-        dao.setOrder(id, order)
     }
 }

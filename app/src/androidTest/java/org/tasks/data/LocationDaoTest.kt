@@ -2,13 +2,14 @@ package org.tasks.data
 
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.andlib.utility.DateUtilities.now
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Test
-import org.tasks.Freeze
+import org.tasks.SuspendFreeze.Companion.freezeAt
 import org.tasks.caldav.GeoUtils.toLikeString
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.injection.InjectingTestCase
@@ -33,11 +34,11 @@ import javax.inject.Inject
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class LocationDaoTest : InjectingTestCase() {
-    @Inject lateinit var locationDao: LocationDaoBlocking
-    @Inject lateinit var taskDao: TaskDaoBlocking
+    @Inject lateinit var locationDao: LocationDao
+    @Inject lateinit var taskDao: TaskDao
 
     @Test
-    fun getExistingPlace() {
+    fun getExistingPlace() = runBlocking {
         locationDao.insert(newPlace(with(LATITUDE, 48.067222), with(LONGITUDE, 12.863611)))
         val place = locationDao.findPlace(48.067222.toLikeString(), 12.863611.toLikeString())
         assertEquals(48.067222, place?.latitude)
@@ -45,7 +46,7 @@ class LocationDaoTest : InjectingTestCase() {
     }
 
     @Test
-    fun getPlaceWithLessPrecision() {
+    fun getPlaceWithLessPrecision() = runBlocking {
         locationDao.insert(newPlace(with(LATITUDE, 50.7547), with(LONGITUDE, -2.2279)))
         val place = locationDao.findPlace(50.754712.toLikeString(), (-2.227945).toLikeString())
         assertEquals(50.7547, place?.latitude)
@@ -53,7 +54,7 @@ class LocationDaoTest : InjectingTestCase() {
     }
 
     @Test
-    fun getPlaceWithMorePrecision() {
+    fun getPlaceWithMorePrecision() = runBlocking {
         locationDao.insert(newPlace(with(LATITUDE, 36.246944), with(LONGITUDE, -116.816944)))
         locationDao.getPlaces().forEach { println(it) }
         val place = locationDao.findPlace(36.2469.toLikeString(), (-116.8169).toLikeString())
@@ -62,7 +63,7 @@ class LocationDaoTest : InjectingTestCase() {
     }
 
     @Test
-    fun noActiveGeofences() {
+    fun noActiveGeofences() = runBlocking {
         val place = newPlace()
         locationDao.insert(place)
         taskDao.createNew(newTask(with(ID, 1)))
@@ -72,7 +73,7 @@ class LocationDaoTest : InjectingTestCase() {
     }
 
     @Test
-    fun activeArrivalGeofence() {
+    fun activeArrivalGeofence() = runBlocking {
         val place = newPlace()
         locationDao.insert(place)
         taskDao.createNew(newTask(with(ID, 1)))
@@ -85,7 +86,7 @@ class LocationDaoTest : InjectingTestCase() {
     }
 
     @Test
-    fun activeDepartureGeofence() {
+    fun activeDepartureGeofence() = runBlocking {
         val place = newPlace()
         locationDao.insert(place)
         taskDao.createNew(newTask(with(ID, 1)))
@@ -98,7 +99,7 @@ class LocationDaoTest : InjectingTestCase() {
     }
 
     @Test
-    fun geofenceInactiveForCompletedTask() {
+    fun geofenceInactiveForCompletedTask() = runBlocking {
         val place = newPlace()
         locationDao.insert(place)
         taskDao.createNew(newTask(with(ID, 1), with(COMPLETION_TIME, newDateTime())))
@@ -108,7 +109,7 @@ class LocationDaoTest : InjectingTestCase() {
     }
 
     @Test
-    fun geofenceInactiveForDeletedTask() {
+    fun geofenceInactiveForDeletedTask() = runBlocking {
         val place = newPlace()
         locationDao.insert(place)
         taskDao.createNew(newTask(with(ID, 1), with(DELETION_TIME, newDateTime())))
@@ -118,8 +119,8 @@ class LocationDaoTest : InjectingTestCase() {
     }
 
     @Test
-    fun ignoreArrivalForSnoozedTask() {
-        Freeze.freezeAt(now()).thawAfter {
+    fun ignoreArrivalForSnoozedTask() = runBlocking {
+        freezeAt(now()).thawAfter {
             val place = newPlace()
             locationDao.insert(place)
             taskDao.createNew(newTask(with(ID, 1), with(SNOOZE_TIME, newDateTime().plusMinutes(15))))
@@ -130,8 +131,8 @@ class LocationDaoTest : InjectingTestCase() {
     }
 
     @Test
-    fun ignoreDepartureForSnoozedTask() {
-        Freeze.freezeAt(now()).thawAfter {
+    fun ignoreDepartureForSnoozedTask() = runBlocking {
+        freezeAt(now()).thawAfter {
             val place = newPlace()
             locationDao.insert(place)
             taskDao.createNew(newTask(with(ID, 1), with(SNOOZE_TIME, newDateTime().plusMinutes(15))))
@@ -142,8 +143,8 @@ class LocationDaoTest : InjectingTestCase() {
     }
 
     @Test
-    fun getArrivalWithElapsedSnooze() {
-        Freeze.freezeAt(now()).thawAfter {
+    fun getArrivalWithElapsedSnooze() = runBlocking {
+        freezeAt(now()).thawAfter {
             val place = newPlace()
             locationDao.insert(place)
             taskDao.createNew(newTask(with(ID, 1), with(SNOOZE_TIME, newDateTime().minusMinutes(15))))
@@ -155,8 +156,8 @@ class LocationDaoTest : InjectingTestCase() {
     }
 
     @Test
-    fun getDepartureWithElapsedSnooze() {
-        Freeze.freezeAt(now()).thawAfter {
+    fun getDepartureWithElapsedSnooze() = runBlocking {
+        freezeAt(now()).thawAfter {
             val place = newPlace()
             locationDao.insert(place)
             taskDao.createNew(newTask(with(ID, 1), with(SNOOZE_TIME, newDateTime().minusMinutes(15))))
@@ -168,8 +169,8 @@ class LocationDaoTest : InjectingTestCase() {
     }
 
     @Test
-    fun ignoreArrivalForHiddenTask() {
-        Freeze.freezeAt(now()).thawAfter {
+    fun ignoreArrivalForHiddenTask() = runBlocking {
+        freezeAt(now()).thawAfter {
             val place = newPlace()
             locationDao.insert(place)
             taskDao.createNew(newTask(
@@ -183,8 +184,8 @@ class LocationDaoTest : InjectingTestCase() {
     }
 
     @Test
-    fun ignoreDepartureForHiddenTask() {
-        Freeze.freezeAt(now()).thawAfter {
+    fun ignoreDepartureForHiddenTask() = runBlocking {
+        freezeAt(now()).thawAfter {
             val place = newPlace()
             locationDao.insert(place)
             taskDao.createNew(newTask(
@@ -198,8 +199,8 @@ class LocationDaoTest : InjectingTestCase() {
     }
 
     @Test
-    fun getArrivalWithElapsedHideUntil() {
-        Freeze.freezeAt(now()).thawAfter {
+    fun getArrivalWithElapsedHideUntil() = runBlocking {
+        freezeAt(now()).thawAfter {
             val place = newPlace()
             locationDao.insert(place)
             taskDao.createNew(newTask(
@@ -214,8 +215,8 @@ class LocationDaoTest : InjectingTestCase() {
     }
 
     @Test
-    fun getDepartureWithElapsedHideUntil() {
-        Freeze.freezeAt(now()).thawAfter {
+    fun getDepartureWithElapsedHideUntil() = runBlocking {
+        freezeAt(now()).thawAfter {
             val place = newPlace()
             locationDao.insert(place)
             taskDao.createNew(newTask(

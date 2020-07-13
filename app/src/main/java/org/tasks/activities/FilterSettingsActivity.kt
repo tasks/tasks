@@ -38,7 +38,6 @@ import org.tasks.R
 import org.tasks.Strings
 import org.tasks.data.Filter
 import org.tasks.data.FilterDao
-import org.tasks.data.FilterDaoBlocking
 import org.tasks.filters.FilterCriteriaProvider
 import org.tasks.locale.Locale
 import java.util.*

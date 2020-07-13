@@ -2,10 +2,11 @@ package org.tasks.data
 
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.astrid.api.GtasksFilter
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.helper.UUIDHelper
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -29,8 +30,8 @@ import javax.inject.Inject
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class ManualGoogleTaskQueryTest : InjectingTestCase() {
-    @Inject lateinit var googleTaskDao: GoogleTaskDaoBlocking
-    @Inject lateinit var taskDao: TaskDaoBlocking
+    @Inject lateinit var googleTaskDao: GoogleTaskDao
+    @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var preferences: Preferences
     private val filter: GtasksFilter = GtasksFilter(newGoogleTaskList(with(REMOTE_ID, "1234")))
 
@@ -42,7 +43,7 @@ class ManualGoogleTaskQueryTest : InjectingTestCase() {
     }
 
     @Test
-    fun setIndentOnSubtask() {
+    fun setIndentOnSubtask() = runBlocking {
         newTask(1, 0, 0)
         newTask(2, 0, 1)
 
@@ -52,7 +53,7 @@ class ManualGoogleTaskQueryTest : InjectingTestCase() {
     }
 
     @Test
-    fun setParentOnSubtask() {
+    fun setParentOnSubtask() = runBlocking {
         newTask(2, 0, 0)
         newTask(1, 0, 2)
 
@@ -62,7 +63,7 @@ class ManualGoogleTaskQueryTest : InjectingTestCase() {
     }
 
     @Test
-    fun querySetsPrimarySort() {
+    fun querySetsPrimarySort() = runBlocking {
         newTask(1, 0, 0)
         newTask(2, 1, 0)
         newTask(3, 0, 2)
@@ -75,7 +76,7 @@ class ManualGoogleTaskQueryTest : InjectingTestCase() {
     }
 
     @Test
-    fun querySetsSecondarySortOnSubtasks() {
+    fun querySetsSecondarySortOnSubtasks() = runBlocking {
         newTask(1, 0, 0)
         newTask(2, 0, 1)
         newTask(3, 1, 1)
@@ -88,7 +89,7 @@ class ManualGoogleTaskQueryTest : InjectingTestCase() {
     }
 
     @Test
-    fun ignoreDisableSubtasksPreference() {
+    fun ignoreDisableSubtasksPreference() = runBlocking {
         preferences.setBoolean(R.string.p_use_paged_queries, true)
         newTask(1, 0, 0)
         newTask(2, 0, 1)
@@ -98,12 +99,12 @@ class ManualGoogleTaskQueryTest : InjectingTestCase() {
         assertTrue(parent.hasChildren())
     }
 
-    private fun newTask(id: Long, order: Long, parent: Long = 0) {
+    private suspend fun newTask(id: Long, order: Long, parent: Long = 0) {
         taskDao.insert(TaskMaker.newTask(with(ID, id), with(UUID, UUIDHelper.newUUID())))
         googleTaskDao.insert(newGoogleTask(with(LIST, filter.list.remoteId), with(TASK, id), with(PARENT, parent), with(ORDER, order)))
     }
 
-    private fun query(): List<TaskContainer> = taskDao.fetchTasks {
+    private suspend fun query(): List<TaskContainer> = taskDao.fetchTasks {
         TaskListQuery.getQuery(preferences, filter, it)
     }
 }

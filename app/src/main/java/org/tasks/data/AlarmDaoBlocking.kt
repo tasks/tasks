@@ -8,10 +8,6 @@ class AlarmDaoBlocking @Inject constructor(private val dao: AlarmDao) {
         dao.getAlarms(taskId)
     }
 
-    fun insert(alarm: Alarm): Long = runBlocking {
-        dao.insert(alarm)
-    }
-
     fun insert(alarms: Iterable<Alarm>) = runBlocking {
         dao.insert(alarms)
     }

@@ -3,13 +3,14 @@ package org.tasks.data
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.natpryce.makeiteasy.PropertyValue
 import com.todoroo.andlib.utility.DateUtilities.now
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
-import org.tasks.Freeze.Companion.freezeAt
+import org.tasks.SuspendFreeze.Companion.freezeAt
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import org.tasks.makers.TaskContainerMaker
@@ -20,13 +21,13 @@ import javax.inject.Inject
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class CaldavDaoShiftTests : InjectingTestCase() {
-    @Inject lateinit var taskDao: TaskDaoBlocking
-    @Inject lateinit var caldavDao: CaldavDaoBlocking
+    @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var caldavDao: CaldavDao
 
     private val tasks = ArrayList<TaskContainer>()
 
     @Test
-    fun basicShiftDown() {
+    fun basicShiftDown() = runBlocking {
         val created = DateTime(2020, 5, 17, 9, 53, 17)
         addTask(with(CREATED, created))
         addTask(with(CREATED, created.plusSeconds(1)))
@@ -40,7 +41,7 @@ class CaldavDaoShiftTests : InjectingTestCase() {
     }
 
     @Test
-    fun shiftDownOnlyWhenNecessary() {
+    fun shiftDownOnlyWhenNecessary() = runBlocking {
         val created = DateTime(2020, 5, 17, 9, 53, 17)
         addTask(with(CREATED, created))
         addTask(with(CREATED, created.plusSeconds(1)))
@@ -56,7 +57,7 @@ class CaldavDaoShiftTests : InjectingTestCase() {
     }
 
     @Test
-    fun ignoreUnnecessaryShiftDown() {
+    fun ignoreUnnecessaryShiftDown() = runBlocking {
         val created = DateTime(2020, 5, 17, 9, 53, 17)
         addTask(with(CREATED, created))
         addTask(with(CREATED, created.plusSeconds(2)))
@@ -68,7 +69,7 @@ class CaldavDaoShiftTests : InjectingTestCase() {
     }
 
     @Test
-    fun ignoreOtherCalendarWhenShiftingDown() {
+    fun ignoreOtherCalendarWhenShiftingDown() = runBlocking {
         val created = DateTime(2020, 5, 17, 9, 53, 17)
         addTask("calendar1", with(CREATED, created))
         addTask("calendar2", with(CREATED, created))
@@ -80,7 +81,7 @@ class CaldavDaoShiftTests : InjectingTestCase() {
     }
 
     @Test
-    fun partialShiftDown() {
+    fun partialShiftDown() = runBlocking {
         val created = DateTime(2020, 5, 17, 9, 53, 17)
         addTask(with(CREATED, created))
         addTask(with(CREATED, created.plusSeconds(1)))
@@ -98,7 +99,7 @@ class CaldavDaoShiftTests : InjectingTestCase() {
     }
 
     @Test
-    fun ignoreMovedTasksWhenShiftingDown() {
+    fun ignoreMovedTasksWhenShiftingDown() = runBlocking {
         val created = DateTime(2020, 5, 17, 9, 53, 17)
         addTask(with(CREATED, created))
         caldavDao.update(caldavDao.getTask(tasks[0].id).apply { this?.deleted = now() }!!)
@@ -109,10 +110,10 @@ class CaldavDaoShiftTests : InjectingTestCase() {
     }
 
     @Test
-    fun ignoreDeletedTasksWhenShiftingDown() {
+    fun ignoreDeletedTasksWhenShiftingDown() = runBlocking {
         val created = DateTime(2020, 5, 17, 9, 53, 17)
         addTask(with(CREATED, created))
-        taskDao.update(taskDao.fetchBlocking(tasks[0].id).apply { this?.deletionDate = now() }!!)
+        taskDao.update(taskDao.fetch(tasks[0].id).apply { this?.deletionDate = now() }!!)
 
         caldavDao.shiftDown("calendar", 0, created.toAppleEpoch())
 
@@ -120,7 +121,7 @@ class CaldavDaoShiftTests : InjectingTestCase() {
     }
 
     @Test
-    fun touchShiftedTasks() {
+    fun touchShiftedTasks() = runBlocking {
         val created = DateTime(2020, 5, 17, 9, 53, 17)
         addTask(with(CREATED, created))
         addTask(with(CREATED, created.plusSeconds(1)))
@@ -129,11 +130,11 @@ class CaldavDaoShiftTests : InjectingTestCase() {
             caldavDao.shiftDown("calendar", 0, created.toAppleEpoch())
         }
 
-        assertEquals(created.plusMinutes(1).millis, taskDao.fetchBlocking(tasks[0].id)!!.modificationDate)
-        assertEquals(created.plusMinutes(1).millis, taskDao.fetchBlocking(tasks[1].id)!!.modificationDate)
+        assertEquals(created.plusMinutes(1).millis, taskDao.fetch(tasks[0].id)!!.modificationDate)
+        assertEquals(created.plusMinutes(1).millis, taskDao.fetch(tasks[1].id)!!.modificationDate)
     }
 
-    private fun checkOrder(dateTime: DateTime?, task: TaskContainer) {
+    private suspend fun checkOrder(dateTime: DateTime?, task: TaskContainer) {
         if (dateTime == null) {
             assertNull(caldavDao.getTask(task.id)!!.order)
         } else {
@@ -141,9 +142,9 @@ class CaldavDaoShiftTests : InjectingTestCase() {
         }
     }
 
-    private fun addTask(vararg properties: PropertyValue<in TaskContainer?, *>) = addTask("calendar", *properties)
+    private suspend fun addTask(vararg properties: PropertyValue<in TaskContainer?, *>) = addTask("calendar", *properties)
 
-    private fun addTask(calendar: String, vararg properties: PropertyValue<in TaskContainer?, *>) {
+    private suspend fun addTask(calendar: String, vararg properties: PropertyValue<in TaskContainer?, *>) {
         val t = TaskContainerMaker.newTaskContainer(*properties)
         tasks.add(t)
         val task = t.task

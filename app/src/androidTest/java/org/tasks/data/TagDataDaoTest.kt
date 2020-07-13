@@ -1,9 +1,10 @@
 package org.tasks.data
 
 import com.natpryce.makeiteasy.MakeItEasy.with
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -22,48 +23,48 @@ import javax.inject.Inject
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class TagDataDaoTest : InjectingTestCase() {
-    @Inject lateinit var taskDao: TaskDaoBlocking
-    @Inject lateinit var tagDao: TagDaoBlocking
-    @Inject lateinit var tagDataDao: TagDataDaoBlocking
+    @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var tagDao: TagDao
+    @Inject lateinit var tagDataDao: TagDataDao
 
     @Test
-    fun tagDataOrderedByNameIgnoresNullNames() {
+    fun tagDataOrderedByNameIgnoresNullNames() = runBlocking {
         tagDataDao.createNew(newTagData(with(NAME, null as String?)))
         assertTrue(tagDataDao.tagDataOrderedByName().isEmpty())
     }
 
     @Test
-    fun tagDataOrderedByNameIgnoresEmptyNames() {
+    fun tagDataOrderedByNameIgnoresEmptyNames() = runBlocking {
         tagDataDao.createNew(newTagData(with(NAME, "")))
         assertTrue(tagDataDao.tagDataOrderedByName().isEmpty())
     }
 
     @Test
-    fun getTagWithCaseForMissingTag() {
+    fun getTagWithCaseForMissingTag() = runBlocking {
         assertEquals("derp", tagDataDao.getTagWithCase("derp"))
     }
 
     @Test
-    fun getTagWithCaseFixesCase() {
+    fun getTagWithCaseFixesCase() = runBlocking {
         tagDataDao.createNew(newTagData(with(NAME, "Derp")))
         assertEquals("Derp", tagDataDao.getTagWithCase("derp"))
     }
 
     @Test
-    fun getTagsByName() {
+    fun getTagsByName() = runBlocking {
         val tagData = newTagData(with(NAME, "Derp"))
         tagDataDao.createNew(tagData)
         assertEquals(listOf(tagData), tagDataDao.getTags(listOf("Derp")))
     }
 
     @Test
-    fun getTagsByNameCaseSensitive() {
+    fun getTagsByNameCaseSensitive() = runBlocking {
         tagDataDao.createNew(newTagData(with(NAME, "Derp")))
         assertTrue(tagDataDao.getTags(listOf("derp")).isEmpty())
     }
 
     @Test
-    fun getTagDataForTask() {
+    fun getTagDataForTask() = runBlocking {
         val taskOne = newTask()
         val taskTwo = newTask()
         taskDao.createNew(taskOne)
@@ -78,14 +79,14 @@ class TagDataDaoTest : InjectingTestCase() {
     }
 
     @Test
-    fun getEmptyTagSelections() {
+    fun getEmptyTagSelections() = runBlocking {
         val selections = tagDataDao.getTagSelections(listOf(1L))
         assertTrue(selections.first!!.isEmpty())
         assertTrue(selections.second!!.isEmpty())
     }
 
     @Test
-    fun getPartialTagSelections() {
+    fun getPartialTagSelections() = runBlocking {
         newTag(1, "tag1", "tag2")
         newTag(2, "tag2", "tag3")
         assertEquals(
@@ -93,28 +94,28 @@ class TagDataDaoTest : InjectingTestCase() {
     }
 
     @Test
-    fun getEmptyPartialSelections() {
+    fun getEmptyPartialSelections() = runBlocking {
         newTag(1, "tag1")
         newTag(2, "tag1")
         assertTrue(tagDataDao.getTagSelections(listOf(1L, 2L)).first!!.isEmpty())
     }
 
     @Test
-    fun getCommonTagSelections() {
+    fun getCommonTagSelections() = runBlocking {
         newTag(1, "tag1", "tag2")
         newTag(2, "tag2", "tag3")
         assertEquals(setOf("tag2"), tagDataDao.getTagSelections(listOf(1L, 2L)).second)
     }
 
     @Test
-    fun getEmptyCommonSelections() {
+    fun getEmptyCommonSelections() = runBlocking {
         newTag(1, "tag1")
         newTag(2, "tag2")
         assertTrue(tagDataDao.getTagSelections(listOf(1L, 2L)).second!!.isEmpty())
     }
 
     @Test
-    fun getSelectionsWithNoTags() {
+    fun getSelectionsWithNoTags() = runBlocking {
         newTag(1)
         val selections = tagDataDao.getTagSelections(listOf(1L))
         assertTrue(selections.first!!.isEmpty())
@@ -122,7 +123,7 @@ class TagDataDaoTest : InjectingTestCase() {
     }
 
     @Test
-    fun noCommonSelectionsWhenOneTaskHasNoTags() {
+    fun noCommonSelectionsWhenOneTaskHasNoTags() = runBlocking {
         newTag(1, "tag1")
         newTag(2)
         val selections = tagDataDao.getTagSelections(listOf(1L, 2L))
@@ -130,7 +131,7 @@ class TagDataDaoTest : InjectingTestCase() {
         assertTrue(selections.second!!.isEmpty())
     }
 
-    private fun newTag(taskId: Long, vararg tags: String) {
+    private suspend fun newTag(taskId: Long, vararg tags: String) {
         val task = newTask(with(ID, taskId))
         taskDao.createNew(task)
         for (tag in tags) {

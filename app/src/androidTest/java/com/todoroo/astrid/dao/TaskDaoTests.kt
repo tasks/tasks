@@ -25,12 +25,12 @@ import javax.inject.Inject
 @HiltAndroidTest
 class TaskDaoTests : InjectingTestCase() {
 
-    @Inject lateinit var taskDao: TaskDaoBlocking
+    @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var taskDeleter: TaskDeleter
 
     /** Test basic task creation, fetch, and save  */
     @Test
-    fun testTaskCreation() {
+    fun testTaskCreation() = runBlocking {
         assertEquals(0, taskDao.getAll().size)
 
         // create task "happy"
@@ -40,7 +40,7 @@ class TaskDaoTests : InjectingTestCase() {
         assertEquals(1, taskDao.getAll().size)
         val happyId = task.id
         assertNotSame(Task.NO_ID, happyId)
-        task = taskDao.fetchBlocking(happyId)!!
+        task = taskDao.fetch(happyId)!!
         assertEquals("happy", task.title)
 
         // create task "sad"
@@ -57,15 +57,15 @@ class TaskDaoTests : InjectingTestCase() {
         assertEquals(2, taskDao.getAll().size)
 
         // check state
-        task = taskDao.fetchBlocking(happyId)!!
+        task = taskDao.fetch(happyId)!!
         assertEquals("happy", task.title)
-        task = taskDao.fetchBlocking(sadId)!!
+        task = taskDao.fetch(sadId)!!
         assertEquals("melancholy", task.title)
     }
 
     /** Test various task fetch conditions  */
     @Test
-    fun testTaskConditions() {
+    fun testTaskConditions() = runBlocking {
         // create normal task
         var task = Task()
         task.title = "normal"
@@ -123,7 +123,7 @@ class TaskDaoTests : InjectingTestCase() {
 
     /** Test save without prior create doesn't work  */
     @Test
-    fun testSaveWithoutCreate() {
+    fun testSaveWithoutCreate() = runBlocking {
         // try to save task "happy"
         val task = Task()
         task.title = "happy"
@@ -136,7 +136,7 @@ class TaskDaoTests : InjectingTestCase() {
     @Test
     fun testInvalidIndex() = runBlocking {
         assertEquals(0, taskDao.getAll().size)
-        assertNull(taskDao.fetchBlocking(1))
+        assertNull(taskDao.fetch(1))
         taskDeleter.delete(listOf(1L))
 
         // make sure db still works
@@ -144,14 +144,14 @@ class TaskDaoTests : InjectingTestCase() {
     }
 
     @Test
-    fun findChildrenInList() {
+    fun findChildrenInList() = runBlocking {
         taskDao.createNew(newTask(with(ID, 1L)))
         taskDao.createNew(newTask(with(ID, 2L), with(PARENT, 1L)))
         assertEquals(listOf(2L), taskDao.getChildren(listOf(1L, 2L)))
     }
 
     @Test
-    fun findRecursiveChildrenInList() {
+    fun findRecursiveChildrenInList() = runBlocking {
         taskDao.createNew(newTask(with(ID, 1L)))
         taskDao.createNew(newTask(with(ID, 2L), with(PARENT, 1L)))
         taskDao.createNew(newTask(with(ID, 3L), with(PARENT, 2L)))
@@ -159,7 +159,7 @@ class TaskDaoTests : InjectingTestCase() {
     }
 
     @Test
-    fun findRecursiveChildrenInListAfterSkippingParent() {
+    fun findRecursiveChildrenInListAfterSkippingParent() = runBlocking {
         taskDao.createNew(newTask(with(ID, 1L)))
         taskDao.createNew(newTask(with(ID, 2L), with(PARENT, 1L)))
         taskDao.createNew(newTask(with(ID, 3L), with(PARENT, 2L)))

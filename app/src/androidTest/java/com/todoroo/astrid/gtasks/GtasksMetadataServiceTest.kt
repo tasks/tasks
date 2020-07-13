@@ -5,15 +5,16 @@
  */
 package com.todoroo.astrid.gtasks
 
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Test
 import org.tasks.data.GoogleTask
-import org.tasks.data.GoogleTaskDaoBlocking
+import org.tasks.data.GoogleTaskDao
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import javax.inject.Inject
@@ -21,21 +22,21 @@ import javax.inject.Inject
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class GtasksMetadataServiceTest : InjectingTestCase() {
-    @Inject lateinit var taskDao: TaskDaoBlocking
-    @Inject lateinit var googleTaskDao: GoogleTaskDaoBlocking
+    @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var googleTaskDao: GoogleTaskDao
     
     private var task: Task? = null
     private var metadata: GoogleTask? = null
 
     @Test
-    fun testMetadataFound() {
+    fun testMetadataFound() = runBlocking {
         givenTask(taskWithMetadata(null))
         whenSearchForMetadata()
         thenExpectMetadataFound()
     }
 
     @Test
-    fun testMetadataDoesntExist() {
+    fun testMetadataDoesntExist() = runBlocking {
         givenTask(taskWithoutMetadata())
         whenSearchForMetadata()
         thenExpectNoMetadataFound()
@@ -50,11 +51,11 @@ class GtasksMetadataServiceTest : InjectingTestCase() {
     }
 
     // --- helpers
-    private fun whenSearchForMetadata() {
+    private suspend fun whenSearchForMetadata() {
         metadata = googleTaskDao.getByTaskId(task!!.id)
     }
 
-    private fun taskWithMetadata(id: String?): Task {
+    private suspend fun taskWithMetadata(id: String?): Task {
         val task = Task()
         task.title = "cats"
         taskDao.createNew(task)
@@ -71,7 +72,7 @@ class GtasksMetadataServiceTest : InjectingTestCase() {
         task = taskToTest
     }
 
-    private fun taskWithoutMetadata(): Task {
+    private suspend fun taskWithoutMetadata(): Task {
         val task = Task()
         task.title = "dogs"
         taskDao.createNew(task)

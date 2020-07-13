@@ -3,6 +3,7 @@ package org.tasks.data
 import com.natpryce.makeiteasy.MakeItEasy.with
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Test
 import org.tasks.injection.InjectingTestCase
@@ -15,10 +16,10 @@ import javax.inject.Inject
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class GoogleTaskListDaoTest : InjectingTestCase() {
-    @Inject lateinit var googleTaskListDao: GoogleTaskListDaoBlocking
+    @Inject lateinit var googleTaskListDao: GoogleTaskListDao
 
     @Test
-    fun noResultsForEmptyAccount() {
+    fun noResultsForEmptyAccount() = runBlocking {
         val account = GoogleTaskAccount()
         account.account = "user@gmail.com"
         googleTaskListDao.insert(account)
@@ -27,7 +28,7 @@ class GoogleTaskListDaoTest : InjectingTestCase() {
     }
 
     @Test
-    fun findListWithNullAccount() {
+    fun findListWithNullAccount() = runBlocking {
         val list = newGoogleTaskList(with(REMOTE_ID, "1234"), with(ACCOUNT, null as String?))
         list.id = googleTaskListDao.insert(list)
 
@@ -35,7 +36,7 @@ class GoogleTaskListDaoTest : InjectingTestCase() {
     }
 
     @Test
-    fun findListWithEmptyAccount() {
+    fun findListWithEmptyAccount() = runBlocking {
         val list = newGoogleTaskList(with(REMOTE_ID, "1234"), with(ACCOUNT, ""))
         list.id = googleTaskListDao.insert(list)
 
@@ -43,7 +44,7 @@ class GoogleTaskListDaoTest : InjectingTestCase() {
     }
 
     @Test
-    fun ignoreListWithAccount() {
+    fun ignoreListWithAccount() = runBlocking {
         val list = newGoogleTaskList(with(REMOTE_ID, "1234"), with(ACCOUNT, "user@gmail.com"))
         googleTaskListDao.insert(list)
 

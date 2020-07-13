@@ -1,10 +1,11 @@
 package org.tasks.data
 
 import com.natpryce.makeiteasy.MakeItEasy.with
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.helper.UUIDHelper
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Test
 import org.tasks.data.CaldavDao.Companion.LOCAL
@@ -21,42 +22,42 @@ import javax.inject.Inject
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class DeletionDaoTests : InjectingTestCase() {
-    @Inject lateinit var taskDao: TaskDaoBlocking
-    @Inject lateinit var deletionDao: DeletionDaoBlocking
-    @Inject lateinit var caldavDao: CaldavDaoBlocking
+    @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var deletionDao: DeletionDao
+    @Inject lateinit var caldavDao: CaldavDao
 
     @Test
-    fun deleting1000DoesntCrash() {
+    fun deleting1000DoesntCrash() = runBlocking {
         deletionDao.delete((1L..1000L).toList())
     }
 
     @Test
-    fun marking998ForDeletionDoesntCrash() {
+    fun marking998ForDeletionDoesntCrash() = runBlocking {
         deletionDao.markDeleted(1L..1000L)
     }
 
     @Test
-    fun markDeletedUpdatesModificationTime() {
+    fun markDeletedUpdatesModificationTime() = runBlocking {
         var task = newTask(with(CREATION_TIME, DateTime().minusMinutes(1)))
         taskDao.createNew(task)
         deletionDao.markDeleted(listOf(task.id))
-        task = taskDao.fetchBlocking(task.id)!!
+        task = taskDao.fetch(task.id)!!
         assertTrue(task.modificationDate > task.creationDate)
         assertTrue(task.modificationDate < DateTimeUtils.currentTimeMillis())
     }
 
     @Test
-    fun markDeletedUpdatesDeletionTime() {
+    fun markDeletedUpdatesDeletionTime() = runBlocking {
         var task = newTask(with(CREATION_TIME, DateTime().minusMinutes(1)))
         taskDao.createNew(task)
         deletionDao.markDeleted(listOf(task.id))
-        task = taskDao.fetchBlocking(task.id)!!
+        task = taskDao.fetch(task.id)!!
         assertTrue(task.deletionDate > task.creationDate)
         assertTrue(task.deletionDate < DateTimeUtils.currentTimeMillis())
     }
 
     @Test
-    fun purgeDeletedLocalTask() {
+    fun purgeDeletedLocalTask() = runBlocking {
         val task = newTask(with(DELETION_TIME, newDateTime()))
         taskDao.createNew(task)
         caldavDao.insert(CaldavCalendar("", "1234").apply { account = LOCAL })
@@ -64,11 +65,11 @@ class DeletionDaoTests : InjectingTestCase() {
 
         deletionDao.purgeDeleted()
 
-        assertNull(taskDao.fetchBlocking(task.id))
+        assertNull(taskDao.fetch(task.id))
     }
 
     @Test
-    fun dontPurgeActiveTasks() {
+    fun dontPurgeActiveTasks() = runBlocking {
         val task = newTask()
         taskDao.createNew(task)
         caldavDao.insert(CaldavCalendar("", "1234").apply { account = LOCAL })
@@ -76,11 +77,11 @@ class DeletionDaoTests : InjectingTestCase() {
 
         deletionDao.purgeDeleted()
 
-        assertNotNull(taskDao.fetchBlocking(task.id))
+        assertNotNull(taskDao.fetch(task.id))
     }
 
     @Test
-    fun dontPurgeDeletedCaldavTask() {
+    fun dontPurgeDeletedCaldavTask() = runBlocking {
         val task = newTask(with(DELETION_TIME, newDateTime()))
         taskDao.createNew(task)
         caldavDao.insert(CaldavCalendar("", "1234").apply { account = UUIDHelper.newUUID() })
@@ -88,6 +89,6 @@ class DeletionDaoTests : InjectingTestCase() {
 
         deletionDao.purgeDeleted()
 
-        assertNotNull(taskDao.fetchBlocking(task.id))
+        assertNotNull(taskDao.fetch(task.id))
     }
 }

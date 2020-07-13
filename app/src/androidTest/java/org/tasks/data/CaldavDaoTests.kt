@@ -1,10 +1,11 @@
 package org.tasks.data
 
 import com.natpryce.makeiteasy.MakeItEasy.with
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.helper.UUIDHelper
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Test
 import org.tasks.injection.InjectingTestCase
@@ -22,13 +23,13 @@ import javax.inject.Inject
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class CaldavDaoTests : InjectingTestCase() {
-    @Inject lateinit var taskDao: TaskDaoBlocking
-    @Inject lateinit var tagDao: TagDaoBlocking
-    @Inject lateinit var tagDataDao: TagDataDaoBlocking
-    @Inject lateinit var caldavDao: CaldavDaoBlocking
+    @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var tagDao: TagDao
+    @Inject lateinit var tagDataDao: TagDataDao
+    @Inject lateinit var caldavDao: CaldavDao
 
     @Test
-    fun insertNewTaskAtTopOfEmptyList() {
+    fun insertNewTaskAtTopOfEmptyList() = runBlocking {
         val task = newTask()
         taskDao.createNew(task)
         val caldavTask = CaldavTask(task.id, "calendar")
@@ -38,7 +39,7 @@ class CaldavDaoTests : InjectingTestCase() {
     }
 
     @Test
-    fun insertNewTaskAboveExistingTask() {
+    fun insertNewTaskAboveExistingTask() = runBlocking {
         val created = DateTime(2020, 5, 21, 15, 29, 16, 452)
         val first = newTask(with(CREATION_TIME, created))
         val second = newTask(with(CREATION_TIME, created.plusSeconds(1)))
@@ -53,7 +54,7 @@ class CaldavDaoTests : InjectingTestCase() {
     }
 
     @Test
-    fun insertNewTaskBelowExistingTask() {
+    fun insertNewTaskBelowExistingTask() = runBlocking {
         val created = DateTime(2020, 5, 21, 15, 29, 16, 452)
         val first = newTask(with(CREATION_TIME, created))
         val second = newTask(with(CREATION_TIME, created.plusSeconds(1)))
@@ -68,7 +69,7 @@ class CaldavDaoTests : InjectingTestCase() {
     }
 
     @Test
-    fun insertNewTaskBelowExistingTaskWithSameCreationDate() {
+    fun insertNewTaskBelowExistingTaskWithSameCreationDate() = runBlocking {
         val created = DateTime(2020, 5, 21, 15, 29, 16, 452)
         val first = newTask(with(CREATION_TIME, created))
         val second = newTask(with(CREATION_TIME, created))
@@ -83,7 +84,7 @@ class CaldavDaoTests : InjectingTestCase() {
     }
 
     @Test
-    fun insertNewTaskAtBottomOfEmptyList() {
+    fun insertNewTaskAtBottomOfEmptyList() = runBlocking {
         val task = newTask()
         taskDao.createNew(task)
         val caldavTask = CaldavTask(task.id, "calendar")
@@ -93,7 +94,7 @@ class CaldavDaoTests : InjectingTestCase() {
     }
 
     @Test
-    fun getCaldavTasksWithTags() {
+    fun getCaldavTasksWithTags() = runBlocking {
             val task = newTask(with(ID, 1L))
             taskDao.createNew(task)
             val one = newTagData()
@@ -107,7 +108,7 @@ class CaldavDaoTests : InjectingTestCase() {
         }
 
     @Test
-    fun ignoreNonCaldavTaskWithTags() {
+    fun ignoreNonCaldavTaskWithTags() = runBlocking {
         val task = newTask(with(ID, 1L))
         taskDao.createNew(task)
         val tag = newTagData()
@@ -117,7 +118,7 @@ class CaldavDaoTests : InjectingTestCase() {
     }
 
     @Test
-    fun ignoreCaldavTaskWithoutTags() {
+    fun ignoreCaldavTaskWithoutTags() = runBlocking {
         val task = newTask(with(ID, 1L))
         taskDao.createNew(task)
         tagDataDao.createNew(newTagData())
@@ -126,16 +127,16 @@ class CaldavDaoTests : InjectingTestCase() {
     }
 
     @Test
-    fun noResultsForEmptyAccounts() {
+    fun noResultsForEmptyAccounts() = runBlocking {
         val caldavAccount = CaldavAccount()
         caldavAccount.uuid = UUIDHelper.newUUID()
         caldavDao.insert(caldavAccount)
         assertTrue(caldavDao.getCaldavFilters(caldavAccount.uuid!!).isEmpty())
     }
 
-    private fun checkOrder(dateTime: DateTime, task: Long) = checkOrder(dateTime.toAppleEpoch(), task)
+    private suspend fun checkOrder(dateTime: DateTime, task: Long) = checkOrder(dateTime.toAppleEpoch(), task)
 
-    private fun checkOrder(order: Long?, task: Long) {
+    private suspend fun checkOrder(order: Long?, task: Long) {
         val sortOrder = caldavDao.getTask(task)!!.order
         if (order == null) {
             assertNull(sortOrder)

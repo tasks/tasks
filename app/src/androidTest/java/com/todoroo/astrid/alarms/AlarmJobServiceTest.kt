@@ -1,14 +1,15 @@
 package com.todoroo.astrid.alarms
 
 import com.natpryce.makeiteasy.MakeItEasy.with
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.data.Alarm
-import org.tasks.data.AlarmDaoBlocking
+import org.tasks.data.AlarmDao
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import org.tasks.jobs.AlarmEntry
@@ -21,13 +22,13 @@ import javax.inject.Inject
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class AlarmJobServiceTest : InjectingTestCase() {
-    @Inject lateinit var alarmDao: AlarmDaoBlocking
-    @Inject lateinit var taskDao: TaskDaoBlocking
+    @Inject lateinit var alarmDao: AlarmDao
+    @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var jobs: NotificationQueue
     @Inject lateinit var alarmService: AlarmService
 
     @Test
-    fun scheduleAlarm() {
+    fun scheduleAlarm() = runBlocking {
         val task = newTask()
         taskDao.createNew(task)
         val alarmTime = DateTime(2017, 9, 24, 19, 57)
@@ -39,7 +40,7 @@ class AlarmJobServiceTest : InjectingTestCase() {
     }
 
     @Test
-    fun ignoreStaleAlarm() {
+    fun ignoreStaleAlarm() = runBlocking {
         val alarmTime = DateTime(2017, 9, 24, 19, 57)
         val task = newTask(with(REMINDER_LAST, alarmTime.endOfMinute()))
         taskDao.createNew(task)
