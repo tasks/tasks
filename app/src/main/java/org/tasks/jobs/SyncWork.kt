@@ -4,10 +4,7 @@ import android.content.Context
 import androidx.hilt.Assisted
 import androidx.hilt.work.WorkerInject
 import androidx.work.WorkerParameters
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.*
 import org.tasks.LocalBroadcastManager
 import org.tasks.analytics.Firebase
 import org.tasks.caldav.CaldavSynchronizer
@@ -45,7 +42,7 @@ class SyncWork @WorkerInject constructor(
         preferences.isSyncOngoing = true
         localBroadcastManager.broadcastRefresh()
         try {
-            caldavJobs().plus(googleTaskJobs()).forEach { it.await() }
+            caldavJobs().plus(googleTaskJobs()).awaitAll()
         } catch (e: Exception) {
             firebase.reportException(e)
         } finally {
