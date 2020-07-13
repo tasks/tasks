@@ -14,7 +14,7 @@ class MidnightRefreshWork @WorkerInject constructor(
         private val workManager: WorkManager,
         private val localBroadcastManager: LocalBroadcastManager) : RepeatingWorker(context, workerParams, firebase) {
 
-    override fun run(): Result {
+    override suspend fun run(): Result {
         localBroadcastManager.broadcastRefresh()
         return Result.success()
     }

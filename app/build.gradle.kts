@@ -193,6 +193,7 @@ dependencies {
     implementation("com.google.apis:google-api-services-drive:v3-rev20200609-1.30.9")
     implementation("com.google.auth:google-auth-library-oauth2-http:0.20.0")
     implementation("androidx.work:work-runtime:${Versions.work}")
+    implementation("androidx.work:work-runtime-ktx:${Versions.work}")
     implementation("com.mapbox.mapboxsdk:mapbox-android-core:3.0.0")
     implementation("com.mapbox.mapboxsdk:mapbox-sdk-services:5.3.0")
     implementation("com.etesync:journalmanager:1.1.0")

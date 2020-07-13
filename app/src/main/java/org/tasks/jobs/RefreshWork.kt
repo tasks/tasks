@@ -15,7 +15,7 @@ class RefreshWork @WorkerInject constructor(
         private val refreshScheduler: RefreshScheduler,
         private val localBroadcastManager: LocalBroadcastManager) : RepeatingWorker(context, workerParams, firebase) {
 
-    public override fun run(): Result {
+    override suspend fun run(): Result {
         localBroadcastManager.broadcastRefresh()
         return Result.success()
     }

@@ -6,8 +6,8 @@ import androidx.hilt.work.WorkerInject
 import androidx.work.WorkerParameters
 import org.tasks.LocalBroadcastManager
 import org.tasks.analytics.Firebase
-import org.tasks.data.LocationDaoBlocking
-import org.tasks.injection.InjectingWorker
+import org.tasks.data.LocationDao
+import org.tasks.injection.BaseWorker
 import org.tasks.location.Geocoder
 import timber.log.Timber
 import java.io.IOException
@@ -18,13 +18,13 @@ class ReverseGeocodeWork @WorkerInject constructor(
         firebase: Firebase,
         private val localBroadcastManager: LocalBroadcastManager,
         private val geocoder: Geocoder,
-        private val locationDao: LocationDaoBlocking) : InjectingWorker(context, workerParams, firebase) {
+        private val locationDao: LocationDao) : BaseWorker(context, workerParams, firebase) {
 
     companion object {
         const val PLACE_ID = "place_id"
     }
 
-    public override fun run(): Result {
+    override suspend fun run(): Result {
         val id = inputData.getLong(PLACE_ID, 0)
         if (id == 0L) {
             Timber.e("Missing id")

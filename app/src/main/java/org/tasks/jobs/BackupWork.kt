@@ -24,7 +24,7 @@ class BackupWork @WorkerInject constructor(
         private val preferences: Preferences,
         private val workManager: WorkManager) : RepeatingWorker(context, workerParams, firebase) {
     
-    override fun run(): Result {
+    override suspend fun run(): Result {
         preferences.setLong(R.string.p_last_backup, DateUtilities.now())
         startBackup(context)
         return Result.success()

@@ -1,17 +1,17 @@
 package org.tasks.injection
 
 import android.content.Context
-import androidx.work.Worker
+import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import org.tasks.analytics.Firebase
 import timber.log.Timber
 
-abstract class InjectingWorker(
+abstract class BaseWorker(
         internal val context: Context,
         workerParams: WorkerParameters,
-        internal val firebase: Firebase) : Worker(context, workerParams) {
+        internal val firebase: Firebase) : CoroutineWorker(context, workerParams) {
 
-    override fun doWork(): Result {
+    override suspend fun doWork(): Result {
         Timber.d("%s.doWork()", javaClass.simpleName)
         return try {
             run()
@@ -21,5 +21,5 @@ abstract class InjectingWorker(
         }
     }
 
-    protected abstract fun run(): Result
+    protected abstract suspend fun run(): Result
 }

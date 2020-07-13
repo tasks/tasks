@@ -9,7 +9,6 @@ import androidx.hilt.work.WorkerInject
 import androidx.work.Data
 import androidx.work.WorkerParameters
 import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.dao.TaskDaoBlocking
 import com.todoroo.astrid.data.SyncFlags
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.reminders.ReminderService
@@ -19,8 +18,8 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
-import org.tasks.data.CaldavDaoBlocking
-import org.tasks.injection.InjectingWorker
+import org.tasks.data.CaldavDao
+import org.tasks.injection.BaseWorker
 import org.tasks.location.GeofenceApi
 import org.tasks.notifications.NotificationManager
 import org.tasks.scheduling.RefreshScheduler
@@ -38,15 +37,15 @@ class AfterSaveWork @WorkerInject constructor(
         private val reminderService: ReminderService,
         private val refreshScheduler: RefreshScheduler,
         private val localBroadcastManager: LocalBroadcastManager,
-        private val taskDao: TaskDaoBlocking,
+        private val taskDao: TaskDao,
         private val syncAdapters: SyncAdapters,
         private val workManager: WorkManager,
-        private val caldavDao: CaldavDaoBlocking) : InjectingWorker(context, workerParams, firebase) {
+        private val caldavDao: CaldavDao) : BaseWorker(context, workerParams, firebase) {
 
-    override fun run(): Result {
+    override suspend fun run(): Result {
         val data = inputData
         val taskId = data.getLong(EXTRA_ID, -1)
-        val task = taskDao.fetchBlocking(taskId)
+        val task = taskDao.fetch(taskId)
         if (task == null) {
             Timber.e("Missing saved task")
             return Result.failure()

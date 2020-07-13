@@ -12,7 +12,7 @@ import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
 import org.tasks.drive.DriveInvoker
-import org.tasks.injection.InjectingWorker
+import org.tasks.injection.BaseWorker
 import org.tasks.preferences.Preferences
 import timber.log.Timber
 import java.io.IOException
@@ -27,9 +27,9 @@ class DriveUploader @WorkerInject constructor(
         @Assisted workerParams: WorkerParameters,
         firebase: Firebase,
         private val drive: DriveInvoker,
-        private val preferences: Preferences) : InjectingWorker(context, workerParams, firebase) {
+        private val preferences: Preferences) : BaseWorker(context, workerParams, firebase) {
 
-    override fun run(): Result {
+    override suspend fun run(): Result {
         val inputData = inputData
         val uri = Uri.parse(inputData.getString(EXTRA_URI))
         return try {

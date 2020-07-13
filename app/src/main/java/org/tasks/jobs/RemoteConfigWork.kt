@@ -5,14 +5,14 @@ import androidx.hilt.Assisted
 import androidx.hilt.work.WorkerInject
 import androidx.work.WorkerParameters
 import org.tasks.analytics.Firebase
-import org.tasks.injection.InjectingWorker
+import org.tasks.injection.BaseWorker
 
 class RemoteConfigWork @WorkerInject constructor(
         @Assisted context: Context,
         @Assisted workerParams: WorkerParameters,
-        firebase: Firebase) : InjectingWorker(context, workerParams, firebase) {
+        firebase: Firebase) : BaseWorker(context, workerParams, firebase) {
 
-    override fun run(): Result {
+    override suspend fun run(): Result {
         firebase.updateRemoteConfig()
         return Result.success()
     }

@@ -10,7 +10,7 @@ import com.todoroo.astrid.timers.TimerPlugin
 import org.tasks.analytics.Firebase
 import org.tasks.data.*
 import org.tasks.files.FileHelper
-import org.tasks.injection.InjectingWorker
+import org.tasks.injection.BaseWorker
 import org.tasks.location.GeofenceApi
 import org.tasks.notifications.NotificationManager
 import timber.log.Timber
@@ -24,12 +24,12 @@ class CleanupWork @WorkerInject constructor(
         private val timerPlugin: TimerPlugin,
         private val reminderService: ReminderService,
         private val alarmService: AlarmService,
-        private val taskAttachmentDao: TaskAttachmentDaoBlocking,
-        private val userActivityDao: UserActivityDaoBlocking,
-        private val locationDao: LocationDaoBlocking,
-        private val deletionDao: DeletionDaoBlocking) : InjectingWorker(context, workerParams, firebase) {
+        private val taskAttachmentDao: TaskAttachmentDao,
+        private val userActivityDao: UserActivityDao,
+        private val locationDao: LocationDao,
+        private val deletionDao: DeletionDao) : BaseWorker(context, workerParams, firebase) {
 
-    public override fun run(): Result {
+    override suspend fun run(): Result {
         val tasks = inputData.getLongArray(EXTRA_TASK_IDS)
         if (tasks == null) {
             Timber.e("No task ids provided")

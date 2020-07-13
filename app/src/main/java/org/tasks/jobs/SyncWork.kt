@@ -7,11 +7,11 @@ import androidx.work.WorkerParameters
 import org.tasks.LocalBroadcastManager
 import org.tasks.analytics.Firebase
 import org.tasks.caldav.CaldavSynchronizer
-import org.tasks.data.CaldavDaoBlocking
-import org.tasks.data.GoogleTaskListDaoBlocking
+import org.tasks.data.CaldavDao
+import org.tasks.data.GoogleTaskListDao
 import org.tasks.etesync.EteSynchronizer
 import org.tasks.gtasks.GoogleTaskSynchronizer
-import org.tasks.injection.InjectingWorker
+import org.tasks.injection.BaseWorker
 import org.tasks.preferences.Preferences
 import org.tasks.sync.SyncAdapters
 import java.util.concurrent.Executors
@@ -26,11 +26,11 @@ class SyncWork @WorkerInject constructor(
         private val googleTaskSynchronizer: GoogleTaskSynchronizer,
         private val localBroadcastManager: LocalBroadcastManager,
         private val preferences: Preferences,
-        private val caldavDao: CaldavDaoBlocking,
-        private val googleTaskListDao: GoogleTaskListDaoBlocking,
-        private val syncAdapters: SyncAdapters) : InjectingWorker(context, workerParams, firebase) {
+        private val caldavDao: CaldavDao,
+        private val googleTaskListDao: GoogleTaskListDao,
+        private val syncAdapters: SyncAdapters) : BaseWorker(context, workerParams, firebase) {
     
-    public override fun run(): Result {
+    override suspend fun run(): Result {
         if (!syncAdapters.isSyncEnabled) {
             return Result.success()
         }
@@ -53,7 +53,7 @@ class SyncWork @WorkerInject constructor(
     }
 
     @Throws(InterruptedException::class)
-    private fun sync() {
+    private suspend fun sync() {
         val numThreads = Runtime.getRuntime().availableProcessors()
         val executor = Executors.newFixedThreadPool(numThreads)
         for (account in caldavDao.getAccounts()) {
