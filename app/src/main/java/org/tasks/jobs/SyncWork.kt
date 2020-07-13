@@ -4,12 +4,14 @@ import android.content.Context
 import androidx.hilt.Assisted
 import androidx.hilt.work.WorkerInject
 import androidx.work.WorkerParameters
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import org.tasks.LocalBroadcastManager
 import org.tasks.analytics.Firebase
 import org.tasks.caldav.CaldavSynchronizer
+import org.tasks.data.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskListDao
 import org.tasks.etesync.EteSynchronizer
@@ -43,7 +45,7 @@ class SyncWork @WorkerInject constructor(
         preferences.isSyncOngoing = true
         localBroadcastManager.broadcastRefresh()
         try {
-            sync()
+            caldavJobs().plus(googleTaskJobs()).forEach { it.await() }
         } catch (e: Exception) {
             firebase.reportException(e)
         } finally {
@@ -53,9 +55,9 @@ class SyncWork @WorkerInject constructor(
         return Result.success()
     }
 
-    @Throws(InterruptedException::class)
-    private suspend fun sync() = coroutineScope {
-        val deferredCaldav = caldavDao.getAccounts()
+    private suspend fun caldavJobs(): List<Deferred<Unit>> = coroutineScope {
+        caldavDao.getAccounts()
+                .filterNot { it.accountType == TYPE_LOCAL }
                 .map {
                     async(Dispatchers.IO) {
                         if (it.isCaldavAccount) {
@@ -65,16 +67,16 @@ class SyncWork @WorkerInject constructor(
                         }
                     }
                 }
-        val deferredGoogleTasks = googleTaskListDao
+    }
+
+    private suspend fun googleTaskJobs(): List<Deferred<Unit>> = coroutineScope {
+        googleTaskListDao
                 .getAccounts()
                 .mapIndexed { i, account ->
                     async(Dispatchers.IO) {
                         googleTaskSynchronizer.sync(account, i)
                     }
                 }
-        deferredCaldav
-                .plus(deferredGoogleTasks)
-                .forEach { it.await() }
     }
 
     companion object {

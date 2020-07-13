@@ -12,7 +12,7 @@ import at.bitfire.dav4jvm.exception.UnauthorizedException
 import at.bitfire.dav4jvm.property.*
 import at.bitfire.dav4jvm.property.GetETag.Companion.fromResponse
 import at.bitfire.ical4android.ICalendar.Companion.prodId
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.helper.UUIDHelper
 import com.todoroo.astrid.service.TaskDeleter
@@ -30,7 +30,7 @@ import org.tasks.billing.Inventory
 import org.tasks.caldav.iCalendar.Companion.fromVtodo
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavCalendar
-import org.tasks.data.CaldavDaoBlocking
+import org.tasks.data.CaldavDao
 import org.tasks.data.CaldavTask
 import org.tasks.time.DateTimeUtils
 import timber.log.Timber
@@ -46,8 +46,8 @@ import javax.net.ssl.SSLException
 
 class CaldavSynchronizer @Inject constructor(
         @param:ApplicationContext private val context: Context,
-        private val caldavDao: CaldavDaoBlocking,
-        private val taskDao: TaskDaoBlocking,
+        private val caldavDao: CaldavDao,
+        private val taskDao: TaskDao,
         private val localBroadcastManager: LocalBroadcastManager,
         private val taskDeleter: TaskDeleter,
         private val inventory: Inventory,
@@ -60,7 +60,7 @@ class CaldavSynchronizer @Inject constructor(
         }
     }
 
-    fun sync(account: CaldavAccount) {
+    suspend fun sync(account: CaldavAccount) {
         if (!inventory.hasPro()) {
             setError(account, context.getString(R.string.requires_pro_subscription))
             return
@@ -98,7 +98,7 @@ class CaldavSynchronizer @Inject constructor(
     }
 
     @Throws(IOException::class, DavException::class, KeyManagementException::class, NoSuchAlgorithmException::class)
-    private fun synchronize(account: CaldavAccount) {
+    private suspend fun synchronize(account: CaldavAccount) {
         val caldavClient = client.forAccount(account)
         val resources = caldavClient.calendars
         val urls = resources.map { it.href.toString() }.toHashSet()
@@ -131,7 +131,7 @@ class CaldavSynchronizer @Inject constructor(
         setError(account, "")
     }
 
-    private fun setError(account: CaldavAccount, message: String?) {
+    private suspend fun setError(account: CaldavAccount, message: String?) {
         account.error = message
         caldavDao.update(account)
         localBroadcastManager.broadcastRefreshList()
@@ -141,7 +141,7 @@ class CaldavSynchronizer @Inject constructor(
     }
 
     @Throws(DavException::class)
-    private fun sync(caldavCalendar: CaldavCalendar, resource: at.bitfire.dav4jvm.Response, httpClient: OkHttpClient) {
+    private suspend fun sync(caldavCalendar: CaldavCalendar, resource: at.bitfire.dav4jvm.Response, httpClient: OkHttpClient) {
         Timber.d("sync(%s)", caldavCalendar)
         val httpUrl = resource.href
         pushLocalChanges(caldavCalendar, httpClient, httpUrl)
@@ -210,7 +210,7 @@ class CaldavSynchronizer @Inject constructor(
         localBroadcastManager.broadcastRefresh()
     }
 
-    private fun pushLocalChanges(
+    private suspend fun pushLocalChanges(
             caldavCalendar: CaldavCalendar, httpClient: OkHttpClient, httpUrl: HttpUrl) {
         for (task in caldavDao.getDeleted(caldavCalendar.uuid!!)) {
             deleteRemoteResource(httpClient, httpUrl, task)
@@ -224,7 +224,7 @@ class CaldavSynchronizer @Inject constructor(
         }
     }
 
-    private fun deleteRemoteResource(
+    private suspend fun deleteRemoteResource(
             httpClient: OkHttpClient, httpUrl: HttpUrl, caldavTask: CaldavTask): Boolean {
         try {
             if (!isNullOrEmpty(caldavTask.`object`)) {
@@ -246,7 +246,7 @@ class CaldavSynchronizer @Inject constructor(
     }
 
     @Throws(IOException::class)
-    private fun pushTask(task: Task, httpClient: OkHttpClient, httpUrl: HttpUrl) {
+    private suspend fun pushTask(task: Task, httpClient: OkHttpClient, httpUrl: HttpUrl) {
         Timber.d("pushing %s", task)
         val caldavTask = caldavDao.getTask(task.id) ?: return
         if (task.isDeleted) {
