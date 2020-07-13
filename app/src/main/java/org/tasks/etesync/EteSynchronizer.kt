@@ -24,7 +24,7 @@ import org.tasks.caldav.iCalendar
 import org.tasks.caldav.iCalendar.Companion.fromVtodo
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavCalendar
-import org.tasks.data.CaldavDaoBlocking
+import org.tasks.data.CaldavDao
 import org.tasks.data.CaldavTaskContainer
 import timber.log.Timber
 import java.security.KeyManagementException
@@ -35,7 +35,7 @@ import kotlin.collections.HashSet
 
 class EteSynchronizer @Inject constructor(
         @param:ApplicationContext private val context: Context,
-        private val caldavDao: CaldavDaoBlocking,
+        private val caldavDao: CaldavDao,
         private val localBroadcastManager: LocalBroadcastManager,
         private val taskDeleter: TaskDeleter,
         private val inventory: Inventory,
@@ -47,7 +47,7 @@ class EteSynchronizer @Inject constructor(
         }
     }
 
-    fun sync(account: CaldavAccount) {
+    suspend fun sync(account: CaldavAccount) {
         if (!inventory.hasPro()) {
             setError(account, context.getString(R.string.requires_pro_subscription))
             return
@@ -76,7 +76,7 @@ class EteSynchronizer @Inject constructor(
     }
 
     @Throws(KeyManagementException::class, NoSuchAlgorithmException::class, Exceptions.HttpException::class, IntegrityException::class, VersionTooNewException::class)
-    private fun synchronize(account: CaldavAccount) {
+    private suspend fun synchronize(account: CaldavAccount) {
         val client = client.forAccount(account)
         val userInfo = client.userInfo
         val resources = client.getCalendars(userInfo)
@@ -107,12 +107,12 @@ class EteSynchronizer @Inject constructor(
                     localBroadcastManager.broadcastRefreshList()
                 }
             }
-            sync(client, userInfo, calendar, key)
+            sync(client, userInfo!!, calendar, key)
         }
         setError(account, "")
     }
 
-    private fun setError(account: CaldavAccount, message: String?) {
+    private suspend fun setError(account: CaldavAccount, message: String?) {
         account.error = message
         caldavDao.update(account)
         localBroadcastManager.broadcastRefreshList()
@@ -122,8 +122,11 @@ class EteSynchronizer @Inject constructor(
     }
 
     @Throws(IntegrityException::class, Exceptions.HttpException::class, VersionTooNewException::class)
-    private fun sync(
-            client: EteSyncClient, userInfo: UserInfoManager.UserInfo, caldavCalendar: CaldavCalendar, journal: Journal) {
+    private suspend fun sync(
+            client: EteSyncClient,
+            userInfo: UserInfoManager.UserInfo,
+            caldavCalendar: CaldavCalendar,
+            journal: Journal) {
         Timber.d("sync(%s)", caldavCalendar)
         val localChanges = HashMap<String?, CaldavTaskContainer>()
         for (task in caldavDao.getCaldavTasksToPush(caldavCalendar.uuid!!)) {
@@ -132,11 +135,9 @@ class EteSynchronizer @Inject constructor(
         var remoteCtag = journal.lastUid
         if (isNullOrEmpty(remoteCtag) || remoteCtag != caldavCalendar.ctag) {
             Timber.v("Applying remote changes")
-            client.getSyncEntries(
-                    userInfo,
-                    journal,
-                    caldavCalendar
-            ) { syncEntries: List<Pair<JournalEntryManager.Entry, SyncEntry>> -> applyEntries(caldavCalendar, syncEntries, localChanges.keys) }
+            client.getSyncEntries(userInfo, journal, caldavCalendar) {
+                applyEntries(caldavCalendar, it, localChanges.keys)
+            }
         } else {
             Timber.d("%s up to date", caldavCalendar.name)
         }
@@ -173,7 +174,7 @@ class EteSynchronizer @Inject constructor(
         }
         if (updates.size > 0) {
             Timber.v("Pushing local changes")
-            client.pushEntries(journal, updates.map { it.first }, remoteCtag)
+            client.pushEntries(journal, updates.mapNotNull { it.first }, remoteCtag)
             Timber.v("Applying local changes")
             applyEntries(caldavCalendar, updates, HashSet())
         }
@@ -183,7 +184,7 @@ class EteSynchronizer @Inject constructor(
         localBroadcastManager.broadcastRefresh()
     }
 
-    private fun applyEntries(
+    private suspend fun applyEntries(
             caldavCalendar: CaldavCalendar,
             syncEntries: List<Pair<JournalEntryManager.Entry, SyncEntry>>,
             dirty: MutableSet<String?>) {

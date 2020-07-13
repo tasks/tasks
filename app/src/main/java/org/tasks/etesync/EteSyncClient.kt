@@ -191,11 +191,11 @@ class EteSyncClient {
     }
 
     @Throws(IntegrityException::class, Exceptions.HttpException::class, VersionTooNewException::class)
-    fun getSyncEntries(
+    suspend fun getSyncEntries(
             userInfo: UserInfoManager.UserInfo?,
             journal: Journal,
             calendar: CaldavCalendar,
-            callback: (List<Pair<JournalEntryManager.Entry, SyncEntry>>) -> Unit) {
+            callback: suspend (List<Pair<JournalEntryManager.Entry, SyncEntry>>) -> Unit) {
         val journalEntryManager = JournalEntryManager(httpClient!!, httpUrl!!, journal.uid!!)
         val crypto = getCrypto(userInfo, journal)
         var journalEntries: List<JournalEntryManager.Entry>
