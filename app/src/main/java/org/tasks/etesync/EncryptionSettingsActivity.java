@@ -23,6 +23,7 @@ import com.google.android.material.snackbar.Snackbar;
 import dagger.hilt.android.AndroidEntryPoint;
 import java.net.ConnectException;
 import javax.inject.Inject;
+import kotlin.Unit;
 import org.tasks.R;
 import org.tasks.data.CaldavAccount;
 import org.tasks.databinding.ActivityEtesyncEncryptionSettingsBinding;
@@ -95,13 +96,14 @@ public class EncryptionSettingsActivity extends ThemedInjectingAppCompatActivity
     return binding.progressBar.progressBar.getVisibility() == View.VISIBLE;
   }
 
-  private void returnDerivedKey(String derivedKey) {
+  private Unit returnDerivedKey(String derivedKey) {
     hideProgressIndicator();
 
     Intent result = new Intent();
     result.putExtra(EXTRA_DERIVED_KEY, derivedKey);
     setResult(RESULT_OK, result);
     finish();
+    return Unit.INSTANCE;
   }
 
   private void save() {
@@ -151,7 +153,7 @@ public class EncryptionSettingsActivity extends ThemedInjectingAppCompatActivity
     }
   }
 
-  protected void requestFailed(Throwable t) {
+  protected Unit requestFailed(Throwable t) {
     hideProgressIndicator();
 
     if (t instanceof HttpException) {
@@ -164,6 +166,7 @@ public class EncryptionSettingsActivity extends ThemedInjectingAppCompatActivity
       Timber.e(t);
       showSnackbar(R.string.error_adding_account, t.getMessage());
     }
+    return Unit.INSTANCE;
   }
 
   private void showSnackbar(int resId, Object... formatArgs) {

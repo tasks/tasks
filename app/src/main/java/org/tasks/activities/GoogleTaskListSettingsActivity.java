@@ -22,6 +22,7 @@ import com.todoroo.astrid.service.TaskDeleter;
 import dagger.hilt.android.AndroidEntryPoint;
 import dagger.hilt.android.qualifiers.ApplicationContext;
 import javax.inject.Inject;
+import kotlin.Unit;
 import org.tasks.R;
 import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskList;
@@ -206,7 +207,7 @@ public class GoogleTaskListSettingsActivity extends BaseListSettingsActivity {
     return !getNewName().equals(gtasksList.getTitle());
   }
 
-  private void onListCreated(TaskList taskList) {
+  private Unit onListCreated(TaskList taskList) {
     gtasksList.setRemoteId(taskList.getId());
     gtasksList.setTitle(taskList.getTitle());
     gtasksList.setColor(selectedColor);
@@ -215,6 +216,7 @@ public class GoogleTaskListSettingsActivity extends BaseListSettingsActivity {
     setResult(
         RESULT_OK, new Intent().putExtra(MainActivity.OPEN_FILTER, new GtasksFilter(gtasksList)));
     finish();
+    return Unit.INSTANCE;
   }
 
   private void onListDeleted(boolean deleted) {
@@ -225,7 +227,7 @@ public class GoogleTaskListSettingsActivity extends BaseListSettingsActivity {
     }
   }
 
-  private void onListRenamed(TaskList taskList) {
+  private Unit onListRenamed(TaskList taskList) {
     gtasksList.setTitle(taskList.getTitle());
     gtasksList.setColor(selectedColor);
     gtasksList.setIcon(selectedIcon);
@@ -235,11 +237,13 @@ public class GoogleTaskListSettingsActivity extends BaseListSettingsActivity {
         new Intent(TaskListFragment.ACTION_RELOAD)
             .putExtra(MainActivity.OPEN_FILTER, new GtasksFilter(gtasksList)));
     finish();
+    return Unit.INSTANCE;
   }
 
-  private void requestFailed(Throwable error) {
+  private Unit requestFailed(Throwable error) {
     Timber.e(error);
     hideProgressIndicator();
     Toast.makeText(this, R.string.gtasks_GLA_errorIOAuth, Toast.LENGTH_LONG).show();
+    return Unit.INSTANCE;
   }
 }

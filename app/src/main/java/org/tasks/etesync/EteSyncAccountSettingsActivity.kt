@@ -4,10 +4,9 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
 import androidx.core.util.Pair
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import butterknife.OnCheckedChanged
 import com.etesync.journalmanager.Crypto.CryptoManager
 import com.etesync.journalmanager.Exceptions.IntegrityException
@@ -29,31 +28,28 @@ import javax.inject.Inject
 class EteSyncAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolbar.OnMenuItemClickListener {
     @Inject lateinit var eteSyncClient: EteSyncClient
 
-    private var addAccountViewModel: AddEteSyncAccountViewModel? = null
-    private var updateAccountViewModel: UpdateEteSyncAccountViewModel? = null
+    private val addAccountViewModel: AddEteSyncAccountViewModel by viewModels()
+    private val updateAccountViewModel: UpdateEteSyncAccountViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding!!.repeat.visibility = View.GONE
         binding!!.showAdvanced.visibility = View.VISIBLE
         updateUrlVisibility()
-        val provider = ViewModelProvider(this)
-        addAccountViewModel = provider.get(AddEteSyncAccountViewModel::class.java)
-        updateAccountViewModel = provider.get(UpdateEteSyncAccountViewModel::class.java)
     }
 
     override fun onResume() {
         super.onResume()
         if (!isFinishing) {
-            addAccountViewModel!!.observe(this, Observer { userInfoAndToken: Pair<UserInfoManager.UserInfo, String> -> this.addAccount(userInfoAndToken) }, Observer { t: Throwable? -> requestFailed(t!!) })
-            updateAccountViewModel!!.observe(this, Observer { userInfoAndToken: Pair<UserInfoManager.UserInfo, String> -> this.updateAccount(userInfoAndToken) }, Observer { t: Throwable? -> requestFailed(t!!) })
+            addAccountViewModel.observe(this, { addAccount(it) }, { requestFailed(it) })
+            updateAccountViewModel.observe(this, { updateAccount(it) }, { requestFailed(it) })
         }
     }
 
     override fun onPause() {
         super.onPause()
-        addAccountViewModel!!.removeObserver(this)
-        updateAccountViewModel!!.removeObserver(this)
+        addAccountViewModel.removeObserver(this)
+        updateAccountViewModel.removeObserver(this)
     }
 
     override val description: Int
@@ -121,11 +117,11 @@ class EteSyncAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
     }
 
     override fun addAccount(url: String?, username: String?, password: String?) {
-        addAccountViewModel!!.addAccount(eteSyncClient, url, username, password)
+        addAccountViewModel.addAccount(eteSyncClient, url, username, password)
     }
 
     override fun updateAccount(url: String?, username: String?, password: String?) {
-        updateAccountViewModel!!.updateAccount(
+        updateAccountViewModel.updateAccount(
                 eteSyncClient,
                 url,
                 username,

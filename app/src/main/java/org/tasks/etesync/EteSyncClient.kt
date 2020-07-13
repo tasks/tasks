@@ -74,8 +74,8 @@ class EteSyncClient {
             interceptor: DebugNetworkInterceptor,
             url: String?,
             username: String?,
-            encryptionPassword: String,
-            token: String,
+            encryptionPassword: String?,
+            token: String?,
             foreground: Boolean) {
         this.context = context
         this.encryption = encryption
@@ -119,7 +119,7 @@ class EteSyncClient {
     }
 
     @Throws(KeyManagementException::class, NoSuchAlgorithmException::class)
-    fun forUrl(url: String?, username: String?, encryptionPassword: String, token: String): EteSyncClient {
+    fun forUrl(url: String?, username: String?, encryptionPassword: String?, token: String?): EteSyncClient {
         return EteSyncClient(
                 context,
                 encryption,

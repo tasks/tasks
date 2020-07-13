@@ -2,9 +2,8 @@ package org.tasks.caldav
 
 import android.app.Activity
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.todoroo.astrid.helper.UUIDHelper
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
@@ -16,16 +15,13 @@ import javax.inject.Inject
 class CaldavAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolbar.OnMenuItemClickListener {
     @Inject lateinit var client: CaldavClient
 
-    private var addCaldavAccountViewModel: AddCaldavAccountViewModel? = null
-    private var updateCaldavAccountViewModel: UpdateCaldavAccountViewModel? = null
+    private val addCaldavAccountViewModel: AddCaldavAccountViewModel by viewModels()
+    private val updateCaldavAccountViewModel: UpdateCaldavAccountViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val provider = ViewModelProvider(this)
-        addCaldavAccountViewModel = provider.get(AddCaldavAccountViewModel::class.java)
-        updateCaldavAccountViewModel = provider.get(UpdateCaldavAccountViewModel::class.java)
-        addCaldavAccountViewModel!!.observe(this, Observer { principal: String -> this.addAccount(principal) }, Observer { t: Throwable? -> requestFailed(t!!) })
-        updateCaldavAccountViewModel!!.observe(this, Observer { principal: String? -> this.updateAccount(principal) }, Observer { t: Throwable? -> requestFailed(t!!) })
+        addCaldavAccountViewModel.observe(this, { addAccount(it) }, { requestFailed(it) })
+        updateCaldavAccountViewModel.observe(this, { updateAccount(it) }, { requestFailed(it) })
     }
 
     override val description: Int
@@ -61,11 +57,11 @@ class CaldavAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolb
     }
 
     override fun addAccount(url: String?, username: String?, password: String?) {
-        addCaldavAccountViewModel!!.addAccount(client, url, username, password)
+        addCaldavAccountViewModel.addAccount(client, url, username, password)
     }
 
     override fun updateAccount(url: String?, username: String?, password: String?) {
-        updateCaldavAccountViewModel!!.updateCaldavAccount(client, url, username, password)
+        updateCaldavAccountViewModel.updateCaldavAccount(client, url, username, password)
     }
 
     override fun updateAccount() {

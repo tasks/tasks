@@ -16,6 +16,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
+import org.tasks.caldav.BaseCaldavAccountSettingsActivity
 import org.tasks.caldav.CaldavAccountSettingsActivity
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavAccount.Companion.TYPE_LOCAL
@@ -168,7 +169,7 @@ class Synchronization : InjectingPreferenceFragment() {
                     if (account.isCaldavAccount) CaldavAccountSettingsActivity::class.java
                     else EteSyncAccountSettingsActivity::class.java
                 )
-                intent.putExtra(CaldavAccountSettingsActivity.EXTRA_CALDAV_DATA, account)
+                intent.putExtra(BaseCaldavAccountSettingsActivity.EXTRA_CALDAV_DATA, account)
                 startActivityForResult(intent, REQUEST_CALDAV_SETTINGS)
                 false
             }

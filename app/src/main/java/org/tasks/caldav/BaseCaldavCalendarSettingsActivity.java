@@ -22,6 +22,7 @@ import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.TaskDeleter;
 import java.net.ConnectException;
 import javax.inject.Inject;
+import kotlin.Unit;
 import org.tasks.R;
 import org.tasks.activities.BaseListSettingsActivity;
 import org.tasks.data.CaldavAccount;
@@ -152,7 +153,7 @@ public abstract class BaseCaldavCalendarSettingsActivity extends BaseListSetting
     return progressView.getVisibility() == View.VISIBLE;
   }
 
-  protected void requestFailed(Throwable t) {
+  protected Unit requestFailed(Throwable t) {
     hideProgressIndicator();
 
     if (t instanceof HttpException) {
@@ -164,6 +165,7 @@ public abstract class BaseCaldavCalendarSettingsActivity extends BaseListSetting
     } else {
       showSnackbar(R.string.error_adding_account, t.getMessage());
     }
+    return Unit.INSTANCE;
   }
 
   private void showSnackbar(int resId, Object... formatArgs) {
@@ -181,7 +183,7 @@ public abstract class BaseCaldavCalendarSettingsActivity extends BaseListSetting
     snackbar.show();
   }
 
-  protected void createSuccessful(String url) {
+  protected Unit createSuccessful(String url) {
     CaldavCalendar caldavCalendar = new CaldavCalendar();
     caldavCalendar.setUuid(UUIDHelper.newUUID());
     caldavCalendar.setAccount(caldavAccount.getUuid());
@@ -194,9 +196,10 @@ public abstract class BaseCaldavCalendarSettingsActivity extends BaseListSetting
         RESULT_OK,
         new Intent().putExtra(MainActivity.OPEN_FILTER, new CaldavFilter(caldavCalendar)));
     finish();
+    return Unit.INSTANCE;
   }
 
-  protected void updateCalendar() {
+  protected Unit updateCalendar() {
     caldavCalendar.setName(getNewName());
     caldavCalendar.setColor(selectedColor);
     caldavCalendar.setIcon(selectedIcon);
@@ -206,6 +209,7 @@ public abstract class BaseCaldavCalendarSettingsActivity extends BaseListSetting
         new Intent(TaskListFragment.ACTION_RELOAD)
             .putExtra(MainActivity.OPEN_FILTER, new CaldavFilter(caldavCalendar)));
     finish();
+    return Unit.INSTANCE;
   }
 
   @Override
