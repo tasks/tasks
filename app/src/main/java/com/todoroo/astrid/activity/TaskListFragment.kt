@@ -32,7 +32,9 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.google.android.material.snackbar.Snackbar
+import com.google.ical.values.RRule
 import com.todoroo.andlib.utility.AndroidUtilities
+import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.adapter.TaskAdapter
 import com.todoroo.astrid.adapter.TaskAdapterProvider
 import com.todoroo.astrid.api.*
@@ -49,12 +51,14 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.ShortcutManager
 import org.tasks.activities.*
 import org.tasks.activities.ListPicker.Companion.newListPicker
+import org.tasks.analytics.Firebase
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.data.CaldavDao
 import org.tasks.data.TagDataDao
@@ -75,6 +79,9 @@ import org.tasks.themes.ColorProvider
 import org.tasks.themes.ThemeColor
 import org.tasks.ui.TaskListViewModel
 import org.tasks.ui.Toaster
+import timber.log.Timber
+import java.text.ParseException
+import java.time.format.FormatStyle
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -85,6 +92,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         MenuItem.OnActionExpandListener, SearchView.OnQueryTextListener, ActionMode.Callback,
         TaskViewHolder.ViewHolderCallbacks {
     private val refreshReceiver = RefreshReceiver()
+    private val repeatConfirmationReceiver = RepeatConfirmationReceiver()
     private var disposables: CompositeDisposable? = null
 
     @Inject lateinit var syncAdapters: SyncAdapters
@@ -108,6 +116,8 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     @Inject lateinit var notificationManager: NotificationManager
     @Inject lateinit var shortcutManager: ShortcutManager
     @Inject lateinit var taskCompleter: TaskCompleter
+    @Inject lateinit var locale: Locale
+    @Inject lateinit var firebase: Firebase
     
     @BindView(R.id.swipe_layout)
     lateinit var swipeRefreshLayout: SwipeRefreshLayout
@@ -135,7 +145,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     private var mode: ActionMode? = null
     private lateinit var themeColor: ThemeColor
     private lateinit var callbacks: TaskListFragmentCallbackHandler
-    
+
     override fun onRefresh() {
         disposables!!.add(
                 syncAdapters
@@ -441,6 +451,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         super.onResume()
         disposables = CompositeDisposable()
         localBroadcastManager.registerRefreshReceiver(refreshReceiver)
+        localBroadcastManager.registerRepeatReceiver(repeatConfirmationReceiver)
         refresh()
     }
 
@@ -459,6 +470,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     override fun onPause() {
         super.onPause()
         disposables?.dispose()
+        localBroadcastManager.unregisterReceiver(repeatConfirmationReceiver)
         localBroadcastManager.unregisterReceiver(refreshReceiver)
     }
 
@@ -716,12 +728,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         fun onNavigationIconClicked()
     }
 
-    private inner class RefreshReceiver : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            refresh()
-        }
-    }
-
     val isActionModeActive: Boolean
         get() = mode != null
 
@@ -802,6 +808,50 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         lifecycleScope.launch {
             taskDao.setCollapsed(task.id, collapsed)
             broadcastRefresh()
+        }
+    }
+
+    private inner class RefreshReceiver : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            refresh()
+        }
+    }
+
+    private inner class RepeatConfirmationReceiver : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            val taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, 0)
+            if (taskId > 0) {
+                val oldDueDate = intent.getLongExtra(AstridApiConstants.EXTRAS_OLD_DUE_DATE, 0)
+                val newDueDate = intent.getLongExtra(AstridApiConstants.EXTRAS_NEW_DUE_DATE, 0)
+                lifecycleScope.launch {
+                    val task = taskDao.fetch(taskId)
+                    try {
+                        val dueDateString = DateUtilities.getRelativeDateTime(
+                                context, newDueDate, locale, FormatStyle.LONG, true)
+                        makeSnackbar(R.string.repeat_snackbar, task!!.title, dueDateString)
+                                .setAction(R.string.DLG_undo) {
+                                    task.setDueDateAdjustingHideUntil(oldDueDate)
+                                    task.completionDate = 0L
+                                    try {
+                                        val rrule = RRule(task.getRecurrenceWithoutFrom())
+                                        val count = rrule.count
+                                        if (count > 0) {
+                                            rrule.count = count + 1
+                                        }
+                                        task.setRecurrence(rrule, task.repeatAfterCompletion())
+                                    } catch (e: ParseException) {
+                                        Timber.e(e)
+                                    }
+                                    lifecycleScope.launch(NonCancellable) {
+                                        taskDao.save(task)
+                                    }
+                                }
+                                .show()
+                    } catch (e: Exception) {
+                        firebase.reportException(e)
+                    }
+                }
+            }
         }
     }
 

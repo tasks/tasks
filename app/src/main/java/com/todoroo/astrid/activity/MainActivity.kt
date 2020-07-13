@@ -48,7 +48,6 @@ import org.tasks.intents.TaskIntents
 import org.tasks.location.LocationPickerActivity
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
-import org.tasks.receivers.RepeatConfirmationReceiver
 import org.tasks.tasklist.ActionUtils
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.Theme
@@ -63,7 +62,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandler, OnListChanged, TimerControlSetCallback, DueDateChangeListener, CommentBarFragmentCallback, SortDialogCallback {
     @Inject lateinit var preferences: Preferences
-    @Inject lateinit var repeatConfirmationReceiver: RepeatConfirmationReceiver
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
     @Inject lateinit var theme: Theme
     @Inject lateinit var taskDao: TaskDao
@@ -333,7 +331,6 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
             recreate()
             return
         }
-        localBroadcastManager.registerRepeatReceiver(repeatConfirmationReceiver)
         if (preferences.getBoolean(R.string.p_just_updated, false)) {
             if (preferences.getBoolean(R.string.p_show_whats_new, true)) {
                 val fragmentManager = supportFragmentManager
@@ -347,11 +344,6 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
 
     private val nightMode: Int
         get() = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
-
-    override fun onPause() {
-        super.onPause()
-        localBroadcastManager.unregisterReceiver(repeatConfirmationReceiver)
-    }
 
     override fun onTaskListItemClicked(task: Task?) {
         AndroidUtilities.assertMainThread()
