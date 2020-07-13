@@ -513,7 +513,7 @@
     <string name="name_your_price">מה המחיר שלך</string>
     <string name="monthly">חודשי</string>
     <string name="annually">שנתי</string>
-    <string name="places">מקומות</string>
+    <string name="places">מיקומים</string>
     <string name="no_time">אין זמן</string>
     <string name="no_date">אין תאריך</string>
     <string name="chip_appearance_text_only">רק טקסט</string>
@@ -559,15 +559,15 @@
     <string name="filter_overdue">איחור</string>
     <string name="custom_filter_not">לא</string>
     <string name="custom_filter_or">או</string>
-    <string name="custom_filter_and">ו</string>
+    <string name="custom_filter_and">וגם</string>
     <string name="custom_filter_criteria">קריטריוני סינון</string>
     <string name="compact">קומפקטי</string>
-    <string name="settings_default">ברירת מחדל</string>
-    <string name="widget_id">מזהה יישומון: %d</string>
-    <string name="hide_check_button">הסתר את כפתור הסימון</string>
+    <string name="settings_default">בררת מחדל</string>
+    <string name="widget_id">מזהה וידג׳ט: %d</string>
+    <string name="hide_check_button">הסתרת כפתור הסימון</string>
     <string name="share">שיתוף</string>
     <string name="auto_dismiss_datetime_widget">יישומון</string>
-    <string name="shortcut_pick_time">בחר זמן</string>
+    <string name="shortcut_pick_time">בחירת זמן</string>
     <string name="chip_appearance_text_and_icon">טקסט וסמל</string>
     <string name="encryption_password_wrong">סיסמת הצפנה שגויה</string>
     <string name="encryption_password_required">דרושה סיסמת הצפנה</string>
@@ -642,4 +642,17 @@
     <string name="filter_any_due_date">כל מועד יעד</string>
     <string name="select_all">לבחור הכול</string>
     <string name="calendar_event_created">נוצר אירוע ביומן עבור %s</string>
+    <string name="place_settings">הגדרות מיקומים</string>
+    <string name="navigation_drawer">מגירת ניווט</string>
+    <string name="hide_unused_tags">הסתרת תגיות שאינן בשימוש</string>
+    <string name="hide_unused_places">הסתרת מיקומים שאינם בשימוש</string>
+    <string name="add_place">הוספת מיקום</string>
+    <string name="auto_dismiss_datetime_summary">לסגור את בוחר התאריך והשעה לאחר בחירת תאריך או שעה</string>
+    <string name="auto_dismiss_datetime_widget_summary">לסגור אוטומטית בעת בחירה מווידג׳ט</string>
+    <string name="auto_dismiss_datetime_edit">עריכת משימה</string>
+    <string name="auto_dismiss_datetime_list_summary">לסגור אוטומטית בעת בחירה מרשימת המשימות</string>
+    <string name="auto_dismiss_datetime_list">רשימת משימות</string>
+    <string name="auto_dismiss_datetime">לסגור את בוחר התאריך והשעה אוטומטית</string>
+    <string name="auto_dismiss_datetime_edit_summary">לסגור אוטומטית בעת בחירה מעריכת משימה</string>
+    <string name="on_launch">עם ההפעלה</string>
 </resources>
