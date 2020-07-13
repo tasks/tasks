@@ -191,7 +191,7 @@ class WorkManagerImpl constructor(
                     .setRequiredNetworkType(if (unmeteredOnly) NetworkType.UNMETERED else NetworkType.CONNECTED)
                     .build()
 
-    private fun enqueueUnique(key: String, c: Class<out Worker?>, time: Long) {
+    private fun enqueueUnique(key: String, c: Class<out CoroutineWorker?>, time: Long) {
         val delay = time - DateUtilities.now()
         val builder = OneTimeWorkRequest.Builder(c)
         if (delay > 0) {
