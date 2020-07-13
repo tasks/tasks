@@ -1,29 +1,29 @@
 package com.todoroo.astrid.service
 
 import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import kotlinx.collections.immutable.persistentListOf
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.*
-import org.tasks.db.DbUtils.chunkedMap
 import org.tasks.db.QueryUtils
+import org.tasks.db.SuspendDbUtils.chunkedMap
 import org.tasks.jobs.WorkManager
 import org.tasks.preferences.Preferences
 import java.util.*
 import javax.inject.Inject
 
 class TaskDeleter @Inject constructor(
-        private val deletionDao: DeletionDaoBlocking,
+        private val deletionDao: DeletionDao,
         private val workManager: WorkManager,
-        private val taskDao: TaskDaoBlocking,
+        private val taskDao: TaskDao,
         private val localBroadcastManager: LocalBroadcastManager,
-        private val googleTaskDao: GoogleTaskDaoBlocking,
+        private val googleTaskDao: GoogleTaskDao,
         private val preferences: Preferences) {
 
-    fun markDeleted(item: Task) = markDeleted(persistentListOf(item.id))
+    suspend fun markDeleted(item: Task) = markDeleted(persistentListOf(item.id))
 
-    fun markDeleted(taskIds: List<Long>): List<Task> {
+    suspend fun markDeleted(taskIds: List<Long>): List<Task> {
         val ids: MutableSet<Long> = HashSet(taskIds)
         ids.addAll(taskIds.chunkedMap(googleTaskDao::getChildren))
         ids.addAll(taskIds.chunkedMap(taskDao::getChildren))
@@ -34,7 +34,7 @@ class TaskDeleter @Inject constructor(
         return ids.chunkedMap(taskDao::fetch)
     }
 
-    fun clearCompleted(filter: Filter): Int {
+    suspend fun clearCompleted(filter: Filter): Int {
         val deleteFilter = Filter(null, null)
         deleteFilter.setFilterQueryOverride(
                 QueryUtils.removeOrder(QueryUtils.showHiddenAndCompleted(filter.originalSqlQuery)))
@@ -45,35 +45,35 @@ class TaskDeleter @Inject constructor(
         return completed.size
     }
 
-    fun delete(task: Task) = delete(task.id)
+    suspend fun delete(task: Task) = delete(task.id)
 
-    fun delete(task: Long) = delete(persistentListOf(task))
+    suspend fun delete(task: Long) = delete(persistentListOf(task))
 
-    fun delete(tasks: List<Long>) {
+    suspend fun delete(tasks: List<Long>) {
         deletionDao.delete(tasks)
         workManager.cleanup(tasks)
         localBroadcastManager.broadcastRefresh()
     }
 
-    fun delete(list: GoogleTaskList) {
+    fun delete(list: GoogleTaskList) = runBlocking {
         val tasks = deletionDao.delete(list)
         delete(tasks)
         localBroadcastManager.broadcastRefreshList()
     }
 
-    fun delete(list: GoogleTaskAccount) {
+    fun delete(list: GoogleTaskAccount) = runBlocking {
         val tasks = deletionDao.delete(list)
         delete(tasks)
         localBroadcastManager.broadcastRefreshList()
     }
 
-    fun delete(list: CaldavCalendar) {
+    fun delete(list: CaldavCalendar) = runBlocking {
         val tasks = deletionDao.delete(list)
         delete(tasks)
         localBroadcastManager.broadcastRefreshList()
     }
 
-    fun delete(list: CaldavAccount) {
+    fun delete(list: CaldavAccount) = runBlocking {
         val tasks = deletionDao.delete(list)
         delete(tasks)
         localBroadcastManager.broadcastRefreshList()

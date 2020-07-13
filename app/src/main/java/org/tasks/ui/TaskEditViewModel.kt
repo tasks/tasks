@@ -416,8 +416,8 @@ class TaskEditViewModel @ViewModelInject constructor(
         return value
     }
 
-    fun delete() {
-        task?.let(taskDeleter::markDeleted)
+    suspend fun delete() {
+        task?.let { taskDeleter.markDeleted(it) }
         discard()
     }
 

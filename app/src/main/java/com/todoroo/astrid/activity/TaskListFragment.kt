@@ -45,14 +45,13 @@ import com.todoroo.astrid.service.*
 import com.todoroo.astrid.timers.TimerPlugin
 import com.todoroo.astrid.utility.Flags
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.ShortcutManager
@@ -420,12 +419,9 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         }
     }
 
-    private fun clearCompleted() {
-        disposables!!.add(
-                Single.fromCallable { taskDeleter.clearCompleted(filter) }
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe { count: Int -> toaster.longToast(R.string.delete_multiple_tasks_confirmation, count) })
+    private fun clearCompleted() = lifecycleScope.launch {
+        val count = taskDeleter.clearCompleted(filter)
+        toaster.longToast(R.string.delete_multiple_tasks_confirmation, count)
     }
 
     @OnClick(R.id.fab)
@@ -513,17 +509,15 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         }
     }
 
-    private fun onTaskDelete(task: Task) {
+    private suspend fun onTaskDelete(task: Task) {
         (activity as MainActivity?)?.taskEditFragment?.let {
             if (task.id == it.editViewModel.task?.id) {
                 it.editViewModel.discard()
             }
         }
         timerPlugin.stopTimer(task)
-        lifecycleScope.launch {
-            taskAdapter.onTaskDeleted(task)
-            loadTaskListContent()
-        }
+        taskAdapter.onTaskDeleted(task)
+        loadTaskListContent()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -750,11 +744,13 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         }
     }
 
-    private fun deleteSelectedItems(tasks: List<Long>) {
+    private fun deleteSelectedItems(tasks: List<Long>) = lifecycleScope.launch {
         finishActionMode()
 
-        val result = taskDeleter.markDeleted(tasks)
-        result.forEach(this::onTaskDelete)
+        val result = withContext(NonCancellable) {
+            taskDeleter.markDeleted(tasks)
+        }
+        result.forEach { onTaskDelete(it) }
         makeSnackbar(R.string.delete_multiple_tasks_confirmation, result.size.toString()).show()
     }
 

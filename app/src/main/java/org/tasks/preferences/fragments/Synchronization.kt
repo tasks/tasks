@@ -11,7 +11,9 @@ import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.caldav.CaldavAccountSettingsActivity
@@ -181,8 +183,12 @@ class Synchronization : InjectingPreferenceFragment() {
             .newDialog()
             .setMessage(R.string.logout_warning, name)
             .setPositiveButton(R.string.logout) { _, _ ->
-                taskDeleter.delete(account)
-                refresh()
+                lifecycleScope.launch {
+                    withContext(NonCancellable) {
+                        taskDeleter.delete(account)
+                    }
+                    refresh()
+                }
             }
             .setNegativeButton(android.R.string.cancel, null)
             .create()
