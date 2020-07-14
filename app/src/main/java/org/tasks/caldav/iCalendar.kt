@@ -3,7 +3,7 @@ package org.tasks.caldav
 import at.bitfire.ical4android.Task
 import at.bitfire.ical4android.Task.Companion.tasksFromReader
 import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.helper.UUIDHelper
 import com.todoroo.astrid.service.TaskCreator
 import net.fortuna.ical4j.model.Parameter
@@ -27,15 +27,15 @@ import javax.inject.Inject
 
 @Suppress("ClassName")
 class iCalendar @Inject constructor(
-        private val tagDataDao: TagDataDaoBlocking,
+        private val tagDataDao: TagDataDao,
         private val preferences: Preferences,
-        private val locationDao: LocationDaoBlocking,
+        private val locationDao: LocationDao,
         private val workManager: WorkManager,
         private val geofenceApi: GeofenceApi,
         private val taskCreator: TaskCreator,
-        private val tagDao: TagDaoBlocking,
-        private val taskDao: TaskDaoBlocking,
-        private val caldavDao: CaldavDaoBlocking) {
+        private val tagDao: TagDao,
+        private val taskDao: TaskDao,
+        private val caldavDao: CaldavDao) {
 
     companion object {
         private const val APPLE_SORT_ORDER = "X-APPLE-SORT-ORDER"
@@ -98,7 +98,7 @@ class iCalendar @Inject constructor(
             }
     }
 
-    fun setPlace(taskId: Long, geo: Geo) {
+    suspend fun setPlace(taskId: Long, geo: Geo) {
         var place: Place? = locationDao.findPlace(
                 geo.latitude.toLikeString(),
                 geo.longitude.toLikeString())
@@ -121,7 +121,7 @@ class iCalendar @Inject constructor(
         geofenceApi.update(place)
     }
 
-    fun getTags(categories: List<String>): List<TagData> {
+    suspend fun getTags(categories: List<String>): List<TagData> {
         if (categories.isEmpty()) {
             return emptyList()
         }
@@ -136,7 +136,7 @@ class iCalendar @Inject constructor(
         return tags
     }
 
-    fun toVtodo(caldavTask: CaldavTask, task: com.todoroo.astrid.data.Task): ByteArray {
+    suspend fun toVtodo(caldavTask: CaldavTask, task: com.todoroo.astrid.data.Task): ByteArray {
         val remoteModel = CaldavConverter.toCaldav(caldavTask, task)
         remoteModel.order = caldavTask.order
         val categories = remoteModel.categories
@@ -160,7 +160,7 @@ class iCalendar @Inject constructor(
         return os.toByteArray()
     }
 
-    fun fromVtodo(
+    suspend fun fromVtodo(
             calendar: CaldavCalendar,
             existing: CaldavTask?,
             remote: Task,
@@ -174,7 +174,7 @@ class iCalendar @Inject constructor(
             taskDao.createNew(task)
             caldavTask = CaldavTask(task.id, calendar.uuid, remote.uid, obj)
         } else {
-            task = taskDao.fetchBlocking(existing.task)!!
+            task = taskDao.fetch(existing.task)!!
             caldavTask = existing
         }
         CaldavConverter.apply(task, remote)
