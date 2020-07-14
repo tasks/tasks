@@ -56,7 +56,7 @@ class CaldavAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolb
     override suspend fun addAccount(url: String, username: String, password: String) =
             addCaldavAccountViewModel.addAccount(url, username, password)
 
-    override suspend fun updateAccount(url: String, username: String, password: String?) =
+    override suspend fun updateAccount(url: String, username: String, password: String) =
             updateCaldavAccountViewModel.updateCaldavAccount(url, username, password)
 
     override suspend fun updateAccount() =

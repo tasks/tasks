@@ -12,10 +12,10 @@ class UpdateEteSyncAccountViewModel @ViewModelInject constructor(
         run {
             client.setForeground()
             if (isNullOrEmpty(pass)) {
-                Pair.create(client.forUrl(url, user, null, token).userInfo, token)
+                Pair.create(client.forUrl(url, user, null, token).userInfo(), token)
             } else {
                 val newToken = client.forUrl(url, user, null, null).getToken(pass)
-                Pair.create(client.forUrl(url, user, null, newToken).userInfo, newToken)
+                Pair.create(client.forUrl(url, user, null, newToken).userInfo(), newToken)
             }
         }
     }

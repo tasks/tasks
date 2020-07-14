@@ -78,7 +78,7 @@ class EteSynchronizer @Inject constructor(
     @Throws(KeyManagementException::class, NoSuchAlgorithmException::class, Exceptions.HttpException::class, IntegrityException::class, VersionTooNewException::class)
     private suspend fun synchronize(account: CaldavAccount) {
         val client = client.forAccount(account)
-        val userInfo = client.userInfo
+        val userInfo = client.userInfo()
         val resources = client.getCalendars(userInfo)
         val uids: Set<String> = resources.values.mapNotNull { it.uid }.toHashSet()
         Timber.d("Found uids: %s", uids)

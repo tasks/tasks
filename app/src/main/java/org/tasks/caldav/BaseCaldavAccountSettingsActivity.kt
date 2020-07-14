@@ -226,7 +226,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
             }
             needsValidation() -> {
                 showProgressIndicator()
-                updateAccount(url, username, password)
+                updateAccount(url, username, password!!)
             }
             hasChanges() -> {
                 updateAccount()
@@ -238,7 +238,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
     }
 
     protected abstract suspend fun addAccount(url: String, username: String, password: String)
-    protected abstract suspend fun updateAccount(url: String, username: String, password: String?)
+    protected abstract suspend fun updateAccount(url: String, username: String, password: String)
     protected abstract suspend fun updateAccount()
     protected abstract val helpUrl: String?
 

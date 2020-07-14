@@ -16,8 +16,6 @@ import com.etesync.journalmanager.UserInfoManager
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.helper.UUIDHelper
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.Completable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
@@ -121,7 +119,7 @@ class EteSyncAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
     override suspend fun addAccount(url: String, username: String, password: String) =
         addAccountViewModel.addAccount(url, username, password)
 
-    override suspend fun updateAccount(url: String, username: String, password: String?) =
+    override suspend fun updateAccount(url: String, username: String, password: String) =
         updateAccountViewModel.updateAccount(
                 url,
                 username,
@@ -170,11 +168,7 @@ class EteSyncAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
     }
 
     override suspend fun removeAccount() {
-        if (caldavAccount != null) {
-            Completable.fromAction { eteSyncClient.forAccount(caldavAccount!!).invalidateToken() }
-                    .subscribeOn(Schedulers.io())
-                    .subscribe()
-        }
+        caldavAccount?.let { eteSyncClient.forAccount(it).invalidateToken() }
         super.removeAccount()
     }
 

@@ -11,7 +11,7 @@ class AddEteSyncAccountViewModel @ViewModelInject constructor(
         run {
             client.setForeground()
             val token = client.forUrl(url, username, null, null).getToken(password)
-            Pair.create(client.forUrl(url, username, null, token!!).userInfo, token)
+            Pair.create(client.forUrl(url, username, null, token!!).userInfo(), token)
         }
     }
 }

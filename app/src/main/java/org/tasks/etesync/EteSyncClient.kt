@@ -17,6 +17,8 @@ import com.etesync.journalmanager.model.SyncEntry
 import com.etesync.journalmanager.util.TokenAuthenticator
 import com.google.common.collect.Lists
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.OkHttpClient
@@ -110,7 +112,7 @@ class EteSyncClient {
     }
 
     @Throws(NoSuchAlgorithmException::class, KeyManagementException::class)
-    fun forAccount(account: CaldavAccount): EteSyncClient {
+    suspend fun forAccount(account: CaldavAccount): EteSyncClient {
         return forUrl(
                 account.url,
                 account.username,
@@ -119,8 +121,8 @@ class EteSyncClient {
     }
 
     @Throws(KeyManagementException::class, NoSuchAlgorithmException::class)
-    fun forUrl(url: String?, username: String?, encryptionPassword: String?, token: String?): EteSyncClient {
-        return EteSyncClient(
+    suspend fun forUrl(url: String?, username: String?, encryptionPassword: String?, token: String?): EteSyncClient = withContext(Dispatchers.IO) {
+        EteSyncClient(
                 context,
                 encryption,
                 preferences,
@@ -133,16 +135,15 @@ class EteSyncClient {
     }
 
     @Throws(IOException::class, Exceptions.HttpException::class)
-    fun getToken(password: String?): String? {
-        return JournalAuthenticator(httpClient!!, httpUrl!!).getAuthToken(username!!, password!!)
+    suspend fun getToken(password: String?): String? = withContext(Dispatchers.IO) {
+        JournalAuthenticator(httpClient!!, httpUrl!!).getAuthToken(username!!, password!!)
     }
 
-    @get:Throws(Exceptions.HttpException::class)
-    val userInfo: UserInfoManager.UserInfo?
-        get() {
-            val userInfoManager = UserInfoManager(httpClient!!, httpUrl!!)
-            return userInfoManager.fetch(username!!)
-        }
+    @Throws(Exceptions.HttpException::class)
+    suspend fun userInfo(): UserInfoManager.UserInfo? = withContext(Dispatchers.IO) {
+        val userInfoManager = UserInfoManager(httpClient!!, httpUrl!!)
+        userInfoManager.fetch(username!!)
+    }
 
     @Throws(VersionTooNewException::class, IntegrityException::class)
     fun getCrypto(userInfo: UserInfoManager.UserInfo?, journal: Journal): CryptoManager {
@@ -174,7 +175,7 @@ class EteSyncClient {
     }
 
     @Throws(Exceptions.HttpException::class)
-    fun getCalendars(userInfo: UserInfoManager.UserInfo?): Map<Journal, CollectionInfo> {
+    suspend fun getCalendars(userInfo: UserInfoManager.UserInfo?): Map<Journal, CollectionInfo> = withContext(Dispatchers.IO) {
         val result: MutableMap<Journal, CollectionInfo> = HashMap()
         for (journal in journalManager!!.list()) {
             val collection = convertJournalToCollection(userInfo, journal)
@@ -187,7 +188,7 @@ class EteSyncClient {
                 }
             }
         }
-        return result
+        result
     }
 
     @Throws(IntegrityException::class, Exceptions.HttpException::class, VersionTooNewException::class)
@@ -195,7 +196,7 @@ class EteSyncClient {
             userInfo: UserInfoManager.UserInfo?,
             journal: Journal,
             calendar: CaldavCalendar,
-            callback: suspend (List<Pair<JournalEntryManager.Entry, SyncEntry>>) -> Unit) {
+            callback: suspend (List<Pair<JournalEntryManager.Entry, SyncEntry>>) -> Unit) = withContext(Dispatchers.IO) {
         val journalEntryManager = JournalEntryManager(httpClient!!, httpUrl!!, journal.uid!!)
         val crypto = getCrypto(userInfo, journal)
         var journalEntries: List<JournalEntryManager.Entry>
@@ -208,7 +209,7 @@ class EteSyncClient {
     }
 
     @Throws(Exceptions.HttpException::class)
-    fun pushEntries(journal: Journal, entries: List<JournalEntryManager.Entry>?, remoteCtag: String?) {
+    suspend fun pushEntries(journal: Journal, entries: List<JournalEntryManager.Entry>?, remoteCtag: String?) = withContext(Dispatchers.IO) {
         var remoteCtag = remoteCtag
         val journalEntryManager = JournalEntryManager(httpClient!!, httpUrl!!, journal.uid!!)
         for (partition in Lists.partition(entries!!, MAX_PUSH)) {
@@ -221,7 +222,7 @@ class EteSyncClient {
         foreground = true
     }
 
-    fun invalidateToken() {
+    suspend fun invalidateToken() = withContext(Dispatchers.IO) {
         try {
             JournalAuthenticator(httpClient!!, httpUrl!!).invalidateAuthToken(token!!)
         } catch (e: Exception) {
@@ -230,7 +231,7 @@ class EteSyncClient {
     }
 
     @Throws(VersionTooNewException::class, IntegrityException::class, Exceptions.HttpException::class)
-    fun makeCollection(name: String?, color: Int): String {
+    suspend fun makeCollection(name: String?, color: Int): String = withContext(Dispatchers.IO) {
         val uid = Journal.genUid()
         val collectionInfo = CollectionInfo()
         collectionInfo.displayName = name
@@ -240,29 +241,29 @@ class EteSyncClient {
         collectionInfo.color = if (color == 0) null else color
         val crypto = CryptoManager(collectionInfo.version, encryptionPassword!!, uid)
         journalManager!!.create(Journal(crypto, collectionInfo.toJson(), uid))
-        return uid
+        uid
     }
 
     @Throws(VersionTooNewException::class, IntegrityException::class, Exceptions.HttpException::class)
-    fun updateCollection(calendar: CaldavCalendar, name: String?, color: Int): String? {
+    suspend fun updateCollection(calendar: CaldavCalendar, name: String?, color: Int): String? = withContext(Dispatchers.IO) {
         val uid = calendar.url
         val journal = journalManager!!.fetch(uid!!)
-        val userInfo = userInfo
+        val userInfo = userInfo()
         val crypto = getCrypto(userInfo, journal)
         val collectionInfo = convertJournalToCollection(userInfo, journal)
         collectionInfo!!.displayName = name
         collectionInfo.color = if (color == 0) null else color
         journalManager.update(Journal(crypto, collectionInfo.toJson(), uid))
-        return uid
+        uid
     }
 
     @Throws(Exceptions.HttpException::class)
-    fun deleteCollection(calendar: CaldavCalendar) {
+    suspend fun deleteCollection(calendar: CaldavCalendar) = withContext(Dispatchers.IO) {
         journalManager!!.delete(Journal.fakeWithUid(calendar.url!!))
     }
 
     @Throws(Exceptions.HttpException::class, VersionTooNewException::class, IntegrityException::class, IOException::class)
-    fun createUserInfo(derivedKey: String?) {
+    suspend fun createUserInfo(derivedKey: String?) = withContext(Dispatchers.IO) {
         val cryptoManager = CryptoManager(CURRENT_VERSION, derivedKey!!, "userInfo")
         val userInfo: UserInfoManager.UserInfo = generate(cryptoManager, username!!)
         UserInfoManager(httpClient!!, httpUrl!!).create(userInfo)

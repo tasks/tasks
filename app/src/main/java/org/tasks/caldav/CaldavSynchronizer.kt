@@ -4,6 +4,7 @@ import android.content.Context
 import at.bitfire.dav4jvm.DavCalendar
 import at.bitfire.dav4jvm.DavCalendar.Companion.MIME_ICALENDAR
 import at.bitfire.dav4jvm.DavResource
+import at.bitfire.dav4jvm.Response
 import at.bitfire.dav4jvm.Response.HrefRelation
 import at.bitfire.dav4jvm.exception.DavException
 import at.bitfire.dav4jvm.exception.HttpException
@@ -100,7 +101,7 @@ class CaldavSynchronizer @Inject constructor(
     @Throws(IOException::class, DavException::class, KeyManagementException::class, NoSuchAlgorithmException::class)
     private suspend fun synchronize(account: CaldavAccount) {
         val caldavClient = client.forAccount(account)
-        val resources = caldavClient.calendars
+        val resources = caldavClient.calendars()
         val urls = resources.map { it.href.toString() }.toHashSet()
         Timber.d("Found calendars: %s", urls)
         for (calendar in caldavDao.findDeletedCalendars(account.uuid!!, ArrayList(urls))) {
@@ -126,7 +127,7 @@ class CaldavSynchronizer @Inject constructor(
                 caldavDao.update(calendar)
                 localBroadcastManager.broadcastRefreshList()
             }
-            sync(calendar, resource, caldavClient.httpClient)
+            sync(calendar, resource, caldavClient.httpClient!!)
         }
         setError(account, "")
     }
@@ -141,7 +142,10 @@ class CaldavSynchronizer @Inject constructor(
     }
 
     @Throws(DavException::class)
-    private suspend fun sync(caldavCalendar: CaldavCalendar, resource: at.bitfire.dav4jvm.Response, httpClient: OkHttpClient) {
+    private suspend fun sync(
+            caldavCalendar: CaldavCalendar,
+            resource: Response,
+            httpClient: OkHttpClient) {
         Timber.d("sync(%s)", caldavCalendar)
         val httpUrl = resource.href
         pushLocalChanges(caldavCalendar, httpClient, httpUrl)
@@ -159,9 +163,13 @@ class CaldavSynchronizer @Inject constructor(
             return
         }
         val davCalendar = DavCalendar(httpClient, httpUrl)
-        val members = ResponseList(HrefRelation.MEMBER)
-        davCalendar.calendarQuery("VTODO", null, null, members)
-        val changed = members.filter { vCard: at.bitfire.dav4jvm.Response ->
+        val members = ArrayList<Response>()
+        davCalendar.calendarQuery("VTODO", null, null) { response, relation ->
+            if (relation == HrefRelation.MEMBER) {
+                members.add(response)
+            }
+        }
+        val changed = members.filter { vCard: Response ->
             val eTag = vCard[GetETag::class.java]
             if (eTag == null || isNullOrEmpty(eTag.eTag)) {
                 return@filter false
@@ -171,8 +179,12 @@ class CaldavSynchronizer @Inject constructor(
         }
         for (items in changed.chunked(30)) {
             val urls = items.map { it.href }
-            val responses = ResponseList(HrefRelation.MEMBER)
-            davCalendar.multiget(urls, responses)
+            val responses = ArrayList<Response>()
+            davCalendar.multiget(urls) { response, relation ->
+                if (relation == HrefRelation.MEMBER) {
+                    responses.add(response)
+                }
+            }
             Timber.d("MULTI %s", urls)
             for (vCard in responses) {
                 val eTag = vCard[GetETag::class.java]
@@ -260,12 +272,12 @@ class CaldavSynchronizer @Inject constructor(
         try {
             val remote = DavResource(
                     httpClient, httpUrl.newBuilder().addPathSegment(caldavTask.`object`!!).build())
-            val response = Response()
-            remote.put(requestBody, null, false, response)
-            val getETag = fromResponse(response.get())
-            if (getETag != null && !isNullOrEmpty(getETag.eTag)) {
-                caldavTask.etag = getETag.eTag
-                caldavTask.vtodo = String(data)
+            remote.put(requestBody, null, false) {
+                val getETag = fromResponse(it)
+                if (getETag != null && !isNullOrEmpty(getETag.eTag)) {
+                    caldavTask.etag = getETag.eTag
+                    caldavTask.vtodo = String(data)
+                }
             }
         } catch (e: HttpException) {
             Timber.e(e)
