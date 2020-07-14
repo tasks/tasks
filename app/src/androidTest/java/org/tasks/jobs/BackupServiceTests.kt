@@ -7,10 +7,11 @@ package org.tasks.jobs
 
 import android.net.Uri
 import androidx.test.InstrumentationRegistry
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -30,12 +31,12 @@ import javax.inject.Inject
 @HiltAndroidTest
 class BackupServiceTests : InjectingTestCase() {
     @Inject lateinit var jsonExporter: TasksJsonExporter
-    @Inject lateinit var taskDao: TaskDaoBlocking
+    @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var preferences: Preferences
     private lateinit var temporaryDirectory: File
 
     @Before
-    override fun setUp() {
+    override fun setUp() = runBlocking {
         super.setUp()
         temporaryDirectory = try {
             File.createTempFile("backup", System.nanoTime().toString())
@@ -67,7 +68,7 @@ class BackupServiceTests : InjectingTestCase() {
     }
 
     @Test
-    fun testBackup() {
+    fun testBackup() = runBlocking {
         assertEquals(0, temporaryDirectory.list()!!.size)
         jsonExporter.exportTasks(InstrumentationRegistry.getTargetContext(), ExportType.EXPORT_TYPE_SERVICE, null)
 

@@ -12,7 +12,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.todoroo.andlib.utility.DialogUtilities
 import com.todoroo.astrid.backup.BackupConstants
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import org.tasks.BuildConfig
 import org.tasks.R
@@ -32,20 +32,20 @@ import java.util.*
 import javax.inject.Inject
 
 class TasksJsonExporter @Inject constructor(
-        private val tagDataDao: TagDataDaoBlocking,
-        private val taskDao: TaskDaoBlocking,
-        private val userActivityDao: UserActivityDaoBlocking,
+        private val tagDataDao: TagDataDao,
+        private val taskDao: TaskDao,
+        private val userActivityDao: UserActivityDao,
         private val preferences: Preferences,
-        private val alarmDao: AlarmDaoBlocking,
-        private val locationDao: LocationDaoBlocking,
-        private val tagDao: TagDaoBlocking,
-        private val googleTaskDao: GoogleTaskDaoBlocking,
-        private val filterDao: FilterDaoBlocking,
-        private val googleTaskListDao: GoogleTaskListDaoBlocking,
-        private val taskAttachmentDao: TaskAttachmentDaoBlocking,
-        private val caldavDao: CaldavDaoBlocking,
+        private val alarmDao: AlarmDao,
+        private val locationDao: LocationDao,
+        private val tagDao: TagDao,
+        private val googleTaskDao: GoogleTaskDao,
+        private val filterDao: FilterDao,
+        private val googleTaskListDao: GoogleTaskListDao,
+        private val taskAttachmentDao: TaskAttachmentDao,
+        private val caldavDao: CaldavDao,
         private val workManager: WorkManager,
-        private val taskListMetadataDao: TaskListMetadataDaoBlocking) {
+        private val taskListMetadataDao: TaskListMetadataDao) {
 
     private var context: Context? = null
     private var exportCount = 0
@@ -59,19 +59,19 @@ class TasksJsonExporter @Inject constructor(
         progressDialog?.progress = taskNumber
     }
 
-    fun exportTasks(context: Context?, exportType: ExportType, progressDialog: ProgressDialog?) {
+    suspend fun exportTasks(context: Context?, exportType: ExportType, progressDialog: ProgressDialog?) {
         this.context = context
         exportCount = 0
         this.progressDialog = progressDialog
         if (exportType == ExportType.EXPORT_TYPE_MANUAL) {
             handler = Handler()
-            Thread(Runnable { runBackup(exportType) }).start()
+            runBackup(exportType)
         } else {
             runBackup(exportType)
         }
     }
 
-    private fun runBackup(exportType: ExportType) {
+    private suspend fun runBackup(exportType: ExportType) {
         try {
             val filename = getFileName(exportType)
             val tasks = taskDao.getAll()
@@ -109,7 +109,7 @@ class TasksJsonExporter @Inject constructor(
     }
 
     @Throws(IOException::class)
-    private fun doTasksExport(os: OutputStream?, tasks: List<Task>) {
+    private suspend fun doTasksExport(os: OutputStream?, tasks: List<Task>) {
         val taskBackups: MutableList<TaskBackup> = ArrayList()
         for (task in tasks) {
             setProgress(taskBackups.size, tasks.size)

@@ -32,7 +32,7 @@ class BackupWork @WorkerInject constructor(
 
     override fun scheduleNext() = workManager.scheduleBackup()
 
-    private fun startBackup(context: Context?) {
+    private suspend fun startBackup(context: Context?) {
         try {
             deleteOldLocalBackups()
         } catch (e: Exception) {
