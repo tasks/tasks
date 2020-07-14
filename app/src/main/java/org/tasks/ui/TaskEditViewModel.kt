@@ -89,11 +89,17 @@ class TaskEditViewModel @ViewModelInject constructor(
     var dueDate: Long? = null
         get() = field ?: task?.dueDate ?: 0
         set(value) {
+            val oldDueDate = dueDate!!
             field = when {
                 value == null -> null
                 value == 0L -> 0
                 hasDueTime(value) -> createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, value)
                 else -> createDueDate(Task.URGENCY_SPECIFIC_DAY, value)
+            }
+            if (oldDueDate > 0) {
+                if (hideUntil!! > 0) {
+                    hideUntil = if (field!! > 0) hideUntil!! + field!! - oldDueDate else 0
+                }
             }
         }
 
