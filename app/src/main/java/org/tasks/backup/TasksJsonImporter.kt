@@ -6,7 +6,7 @@ import android.net.Uri
 import android.os.Handler
 import com.google.gson.Gson
 import com.google.gson.JsonObject
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskMover
 import com.todoroo.astrid.service.Upgrader
 import com.todoroo.astrid.service.Upgrader.Companion.getAndroidColor
@@ -23,21 +23,21 @@ import java.io.InputStreamReader
 import javax.inject.Inject
 
 class TasksJsonImporter @Inject constructor(
-        private val tagDataDao: TagDataDaoBlocking,
-        private val userActivityDao: UserActivityDaoBlocking,
-        private val taskDao: TaskDaoBlocking,
-        private val locationDao: LocationDaoBlocking,
+        private val tagDataDao: TagDataDao,
+        private val userActivityDao: UserActivityDao,
+        private val taskDao: TaskDao,
+        private val locationDao: LocationDao,
         private val localBroadcastManager: LocalBroadcastManager,
-        private val alarmDao: AlarmDaoBlocking,
-        private val tagDao: TagDaoBlocking,
-        private val googleTaskDao: GoogleTaskDaoBlocking,
-        private val googleTaskListDao: GoogleTaskListDaoBlocking,
-        private val filterDao: FilterDaoBlocking,
-        private val taskAttachmentDao: TaskAttachmentDaoBlocking,
-        private val caldavDao: CaldavDaoBlocking,
+        private val alarmDao: AlarmDao,
+        private val tagDao: TagDao,
+        private val googleTaskDao: GoogleTaskDao,
+        private val googleTaskListDao: GoogleTaskListDao,
+        private val filterDao: FilterDao,
+        private val taskAttachmentDao: TaskAttachmentDao,
+        private val caldavDao: CaldavDao,
         private val preferences: Preferences,
         private val taskMover: TaskMover,
-        private val taskListMetadataDao: TaskListMetadataDaoBlocking) {
+        private val taskListMetadataDao: TaskListMetadataDao) {
 
     private val result = ImportResult()
 
@@ -49,7 +49,7 @@ class TasksJsonImporter @Inject constructor(
         handler.post { progressDialog.setMessage(message) }
     }
 
-    fun importTasks(context: Context, backupFile: Uri?, progressDialog: ProgressDialog?): ImportResult {
+    suspend fun importTasks(context: Context, backupFile: Uri?, progressDialog: ProgressDialog?): ImportResult {
         val handler = Handler(context.mainLooper)
         val gson = Gson()
         val `is`: InputStream?
