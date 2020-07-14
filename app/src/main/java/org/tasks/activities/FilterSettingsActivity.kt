@@ -37,6 +37,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.Strings
 import org.tasks.data.Filter
+import org.tasks.data.FilterDao
 import org.tasks.data.FilterDaoBlocking
 import org.tasks.filters.FilterCriteriaProvider
 import org.tasks.locale.Locale
@@ -46,7 +47,7 @@ import kotlin.math.max
 
 @AndroidEntryPoint
 class FilterSettingsActivity : BaseListSettingsActivity() {
-    @Inject lateinit var filterDao: FilterDaoBlocking
+    @Inject lateinit var filterDao: FilterDao
     @Inject lateinit var locale: Locale
     @Inject lateinit var database: Database
     @Inject lateinit var filterCriteriaProvider: FilterCriteriaProvider
@@ -224,7 +225,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
         nameLayout.error = null
     }
 
-    override fun save() {
+    override suspend fun save() {
         val newName = newName
         if (Strings.isNullOrEmpty(newName)) {
             nameLayout.error = getString(R.string.name_cannot_be_empty)
@@ -277,7 +278,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
     override val layout: Int
         get() = R.layout.filter_settings_activity
 
-    override fun delete() {
+    override suspend fun delete() {
         filterDao.delete(filter!!.id)
         setResult(
                 Activity.RESULT_OK, Intent(TaskListFragment.ACTION_DELETED).putExtra(TOKEN_FILTER, filter))

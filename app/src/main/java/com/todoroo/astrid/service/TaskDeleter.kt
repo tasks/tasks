@@ -61,19 +61,19 @@ class TaskDeleter @Inject constructor(
         localBroadcastManager.broadcastRefreshList()
     }
 
-    fun delete(list: GoogleTaskAccount) = runBlocking {
+    suspend fun delete(list: GoogleTaskAccount) {
         val tasks = deletionDao.delete(list)
         delete(tasks)
         localBroadcastManager.broadcastRefreshList()
     }
 
-    fun delete(list: CaldavCalendar) = runBlocking {
+    suspend fun delete(list: CaldavCalendar) {
         val tasks = deletionDao.delete(list)
         delete(tasks)
         localBroadcastManager.broadcastRefreshList()
     }
 
-    fun delete(list: CaldavAccount) = runBlocking {
+    suspend fun delete(list: CaldavAccount) {
         val tasks = deletionDao.delete(list)
         delete(tasks)
         localBroadcastManager.broadcastRefreshList()

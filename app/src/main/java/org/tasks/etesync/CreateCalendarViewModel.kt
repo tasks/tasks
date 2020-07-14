@@ -6,7 +6,7 @@ import org.tasks.ui.CompletableViewModel
 
 class CreateCalendarViewModel @ViewModelInject constructor(
         private val client: EteSyncClient) : CompletableViewModel<String?>() {
-    fun createCalendar(account: CaldavAccount, name: String, color: Int) {
+    suspend fun createCalendar(account: CaldavAccount, name: String, color: Int) {
         run { client.forAccount(account).makeCollection(name, color) }
     }
 }

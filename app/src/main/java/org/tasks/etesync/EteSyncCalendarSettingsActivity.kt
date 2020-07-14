@@ -21,13 +21,13 @@ class EteSyncCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
         updateCalendarViewModel.observe(this, { updateCalendar() }, this::requestFailed)
     }
 
-    override fun createCalendar(caldavAccount: CaldavAccount, name: String, color: Int) =
+    override suspend fun createCalendar(caldavAccount: CaldavAccount, name: String, color: Int) =
             createCalendarViewModel.createCalendar(caldavAccount, name, color)
 
-    override fun updateNameAndColor(
+    override suspend fun updateNameAndColor(
             account: CaldavAccount, calendar: CaldavCalendar, name: String, color: Int) =
             updateCalendarViewModel.updateCalendar(account, calendar, name, color)
 
-    override fun deleteCalendar(caldavAccount: CaldavAccount, caldavCalendar: CaldavCalendar) =
+    override suspend fun deleteCalendar(caldavAccount: CaldavAccount, caldavCalendar: CaldavCalendar) =
             deleteCalendarViewModel.deleteCalendar(caldavAccount, caldavCalendar)
 }

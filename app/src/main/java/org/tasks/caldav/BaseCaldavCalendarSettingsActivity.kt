@@ -24,13 +24,14 @@ import org.tasks.Strings.isNullOrEmpty
 import org.tasks.activities.BaseListSettingsActivity
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavCalendar
-import org.tasks.data.CaldavDaoBlocking
+import org.tasks.data.CaldavDao
+import org.tasks.data.runBlocking
 import org.tasks.ui.DisplayableException
 import java.net.ConnectException
 import javax.inject.Inject
 
 abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
-    @Inject lateinit var caldavDao: CaldavDaoBlocking
+    @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var taskDeleter: TaskDeleter
 
     @BindView(R.id.root_layout)
@@ -58,7 +59,7 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
         caldavAccount = if (caldavCalendar == null) {
             intent.getParcelableExtra(EXTRA_CALDAV_ACCOUNT)!!
         } else {
-            caldavDao.getAccountByUuid(caldavCalendar!!.account!!)!!
+            runBlocking { caldavDao.getAccountByUuid(caldavCalendar!!.account!!)!! }
         }
         if (savedInstanceState == null) {
             if (caldavCalendar != null) {
@@ -86,7 +87,7 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
         nameLayout.error = null
     }
 
-    override fun save() {
+    override suspend fun save() {
         if (requestInProgress()) {
             return
         }
@@ -108,12 +109,12 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
         }
     }
 
-    protected abstract fun createCalendar(caldavAccount: CaldavAccount, name: String, color: Int)
+    protected abstract suspend fun createCalendar(caldavAccount: CaldavAccount, name: String, color: Int)
 
-    protected abstract fun updateNameAndColor(
+    protected abstract suspend fun updateNameAndColor(
             account: CaldavAccount, calendar: CaldavCalendar, name: String, color: Int)
 
-    protected abstract fun deleteCalendar(
+    protected abstract suspend fun deleteCalendar(
             caldavAccount: CaldavAccount, caldavCalendar: CaldavCalendar)
 
     private fun showProgressIndicator() {
@@ -153,7 +154,7 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
         snackbar.show()
     }
 
-    protected fun createSuccessful(url: String?) {
+    protected suspend fun createSuccessful(url: String?) {
         val caldavCalendar = CaldavCalendar()
         caldavCalendar.uuid = UUIDHelper.newUUID()
         caldavCalendar.account = caldavAccount.uuid
@@ -166,10 +167,9 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
                 Activity.RESULT_OK,
                 Intent().putExtra(MainActivity.OPEN_FILTER, CaldavFilter(caldavCalendar)))
         finish()
-        return
     }
 
-    protected fun updateCalendar() {
+    protected suspend fun updateCalendar() {
         caldavCalendar!!.name = newName
         caldavCalendar!!.color = selectedColor
         caldavCalendar!!.setIcon(selectedIcon)
@@ -179,7 +179,6 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
                 Intent(TaskListFragment.ACTION_RELOAD)
                         .putExtra(MainActivity.OPEN_FILTER, CaldavFilter(caldavCalendar)))
         finish()
-        return
     }
 
     override fun hasChanges(): Boolean {
@@ -219,12 +218,12 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
         }
     }
 
-    override fun delete() {
+    override suspend fun delete() {
         showProgressIndicator()
         deleteCalendar(caldavAccount, caldavCalendar!!)
     }
 
-    protected fun onDeleted(deleted: Boolean) {
+    protected suspend fun onDeleted(deleted: Boolean) {
         if (deleted) {
             taskDeleter.delete(caldavCalendar!!)
             setResult(Activity.RESULT_OK, Intent(TaskListFragment.ACTION_DELETED))

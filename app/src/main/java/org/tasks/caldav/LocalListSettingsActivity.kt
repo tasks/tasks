@@ -6,6 +6,7 @@ import org.tasks.R
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavDao
+import org.tasks.data.runBlocking
 
 @AndroidEntryPoint
 class LocalListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
@@ -17,16 +18,16 @@ class LocalListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
         super.onCreate(savedInstanceState)
 
         toolbar.menu.findItem(R.id.delete)?.isVisible =
-                caldavDao.getCalendarsByAccount(CaldavDao.LOCAL).size > 1
+                runBlocking { caldavDao.getCalendarsByAccount(CaldavDao.LOCAL).size > 1 }
     }
 
-    override fun createCalendar(caldavAccount: CaldavAccount, name: String, color: Int) =
+    override suspend fun createCalendar(caldavAccount: CaldavAccount, name: String, color: Int) =
             createSuccessful(null)
 
-    override fun updateNameAndColor(
+    override suspend fun updateNameAndColor(
             account: CaldavAccount, calendar: CaldavCalendar, name: String, color: Int) =
             updateCalendar()
 
-    override fun deleteCalendar(caldavAccount: CaldavAccount, caldavCalendar: CaldavCalendar) =
+    override suspend fun deleteCalendar(caldavAccount: CaldavAccount, caldavCalendar: CaldavCalendar) =
             onDeleted(true)
 }

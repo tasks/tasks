@@ -1,14 +1,8 @@
 package org.tasks.ui
 
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.observe
-import com.todoroo.andlib.utility.AndroidUtilities
-import io.reactivex.Completable
-import io.reactivex.android.schedulers.AndroidSchedulers
+import androidx.lifecycle.*
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 
 open class ActionViewModel : ViewModel() {
     private val completed = MutableLiveData<Boolean>()
@@ -20,25 +14,26 @@ open class ActionViewModel : ViewModel() {
 
     fun observe(
             lifecycleOwner: LifecycleOwner,
-            completeObserver: (Boolean) -> Unit,
+            completeObserver: suspend (Boolean) -> Any,
             errorObserver: (Throwable) -> Unit) {
-        completed.observe(lifecycleOwner, completeObserver)
+        completed.observe(lifecycleOwner) {
+            lifecycleOwner.lifecycleScope.launch {
+                completeObserver.invoke(it)
+            }
+        }
         error.observe(lifecycleOwner, errorObserver)
     }
 
-    protected fun run(action: () -> Unit) {
-        AndroidUtilities.assertMainThread()
+    protected suspend fun run(action: suspend () -> Unit) {
         if (!inProgress) {
             inProgress = true
-            disposables.add(
-                    Completable.fromAction(action)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .doFinally {
-                                AndroidUtilities.assertMainThread()
-                                inProgress = false
-                            }
-                            .subscribe({ completed.setValue(true) }) { value: Throwable -> error.setValue(value) })
+            try {
+                action.invoke()
+                completed.value = true
+            } catch (e: Exception) {
+                error.value = e
+            }
+            inProgress = false
         }
     }
 

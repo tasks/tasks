@@ -7,6 +7,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
 import androidx.core.util.Pair
+import androidx.lifecycle.lifecycleScope
 import butterknife.OnCheckedChanged
 import com.etesync.journalmanager.Crypto.CryptoManager
 import com.etesync.journalmanager.Exceptions.IntegrityException
@@ -17,6 +18,7 @@ import com.todoroo.astrid.helper.UUIDHelper
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Completable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.caldav.BaseCaldavAccountSettingsActivity
@@ -55,19 +57,19 @@ class EteSyncAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
     override val description: Int
         get() = R.string.etesync_account_description
 
-    private fun addAccount(userInfoAndToken: Pair<UserInfoManager.UserInfo, String>) {
+    private suspend fun addAccount(userInfoAndToken: Pair<UserInfoManager.UserInfo, String>) {
         caldavAccount = CaldavAccount()
         caldavAccount!!.accountType = CaldavAccount.TYPE_ETESYNC
         caldavAccount!!.uuid = UUIDHelper.newUUID()
         applyTo(caldavAccount!!, userInfoAndToken)
     }
 
-    private fun updateAccount(userInfoAndToken: Pair<UserInfoManager.UserInfo, String>) {
+    private suspend fun updateAccount(userInfoAndToken: Pair<UserInfoManager.UserInfo, String>) {
         caldavAccount!!.error = ""
         applyTo(caldavAccount!!, userInfoAndToken)
     }
 
-    private fun applyTo(account: CaldavAccount, userInfoAndToken: Pair<UserInfoManager.UserInfo, String>) {
+    private suspend fun applyTo(account: CaldavAccount, userInfoAndToken: Pair<UserInfoManager.UserInfo, String>) {
         hideProgressIndicator()
         account.name = newName
         account.url = newURL
@@ -116,19 +118,17 @@ class EteSyncAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
         return super.needsValidation() || isNullOrEmpty(caldavAccount!!.encryptionKey)
     }
 
-    override fun addAccount(url: String, username: String, password: String) {
+    override suspend fun addAccount(url: String, username: String, password: String) =
         addAccountViewModel.addAccount(url, username, password)
-    }
 
-    override fun updateAccount(url: String, username: String, password: String?) {
+    override suspend fun updateAccount(url: String, username: String, password: String?) =
         updateAccountViewModel.updateAccount(
                 url,
                 username,
                 if (PASSWORD_MASK == password) null else password,
                 caldavAccount!!.getPassword(encryption))
-    }
 
-    override fun updateAccount() {
+    override suspend fun updateAccount() {
         caldavAccount!!.name = newName
         saveAccountAndFinish()
     }
@@ -148,16 +148,18 @@ class EteSyncAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_ENCRYPTION_PASSWORD) {
             if (resultCode == Activity.RESULT_OK) {
-                val key = data!!.getStringExtra(EncryptionSettingsActivity.EXTRA_DERIVED_KEY)!!
-                caldavAccount!!.encryptionKey = encryption.encrypt(key)
-                saveAccountAndFinish()
+                lifecycleScope.launch {
+                    val key = data!!.getStringExtra(EncryptionSettingsActivity.EXTRA_DERIVED_KEY)!!
+                    caldavAccount!!.encryptionKey = encryption.encrypt(key)
+                    saveAccountAndFinish()
+                }
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
     }
 
-    private fun saveAccountAndFinish() {
+    private suspend fun saveAccountAndFinish() {
         if (caldavAccount!!.id == Task.NO_ID) {
             caldavDao.insert(caldavAccount!!)
         } else {
@@ -167,7 +169,7 @@ class EteSyncAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
         finish()
     }
 
-    override fun removeAccount() {
+    override suspend fun removeAccount() {
         if (caldavAccount != null) {
             Completable.fromAction { eteSyncClient.forAccount(caldavAccount!!).invalidateToken() }
                     .subscribeOn(Schedulers.io())

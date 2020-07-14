@@ -7,9 +7,11 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.lifecycleScope
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
+import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.dialogs.ColorPalettePicker
 import org.tasks.dialogs.ColorPalettePicker.Companion.newColorPalette
@@ -54,7 +56,7 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Ic
         }
         toolbar.title = toolbarTitle
         toolbar.navigationIcon = getDrawable(R.drawable.ic_outline_save_24px)
-        toolbar.setNavigationOnClickListener { save() }
+        toolbar.setNavigationOnClickListener { lifecycleScope.launch { save() } }
         if (!isNew) {
             toolbar.inflateMenu(R.menu.menu_tag_settings)
         }
@@ -73,10 +75,10 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Ic
 
     protected abstract val layout: Int
     protected abstract fun hasChanges(): Boolean
-    protected abstract fun save()
+    protected abstract suspend fun save()
     protected abstract val isNew: Boolean
     protected abstract val toolbarTitle: String?
-    protected abstract fun delete()
+    protected abstract suspend fun delete()
     protected open fun discard() {
         if (!hasChanges()) {
             finish()
@@ -127,7 +129,7 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Ic
     protected open fun promptDelete() {
         dialogBuilder
                 .newDialog(R.string.delete_tag_confirmation, toolbarTitle)
-                .setPositiveButton(R.string.delete) { _, _ -> delete() }
+                .setPositiveButton(R.string.delete) { _, _ -> lifecycleScope.launch { delete() } }
                 .setNegativeButton(android.R.string.cancel, null)
                 .show()
     }

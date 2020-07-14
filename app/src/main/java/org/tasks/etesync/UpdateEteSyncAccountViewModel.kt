@@ -8,7 +8,7 @@ import org.tasks.ui.CompletableViewModel
 
 class UpdateEteSyncAccountViewModel @ViewModelInject constructor(
         private val client: EteSyncClient) : CompletableViewModel<Pair<UserInfo, String>>() {
-    fun updateAccount(url: String, user: String, pass: String?, token: String) {
+    suspend fun updateAccount(url: String, user: String, pass: String?, token: String) {
         run {
             client.setForeground()
             if (isNullOrEmpty(pass)) {

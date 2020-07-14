@@ -15,7 +15,6 @@ import com.google.api.services.tasks.model.TaskList
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.api.GtasksFilter
-import com.todoroo.astrid.gtasks.GtasksListService
 import com.todoroo.astrid.gtasks.api.GtasksInvoker
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,15 +23,14 @@ import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.GoogleTaskAccount
 import org.tasks.data.GoogleTaskList
-import org.tasks.data.GoogleTaskListDaoBlocking
+import org.tasks.data.GoogleTaskListDao
 import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
     @Inject @ApplicationContext lateinit var context: Context
-    @Inject lateinit var googleTaskListDao: GoogleTaskListDaoBlocking
-    @Inject lateinit var gtasksListService: GtasksListService
+    @Inject lateinit var googleTaskListDao: GoogleTaskListDao
     @Inject lateinit var taskDeleter: TaskDeleter
     @Inject lateinit var gtasksInvoker: GtasksInvoker
 
@@ -93,7 +91,7 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
 
     private fun requestInProgress() = progressView.visibility == View.VISIBLE
 
-    override fun save() {
+    override suspend fun save() {
         if (requestInProgress()) {
             return
         }
@@ -141,7 +139,7 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
         }
     }
 
-    override fun delete() {
+    override suspend fun delete() {
         showProgressIndicator()
         deleteListViewModel.deleteList(gtasksList)
     }
@@ -167,7 +165,7 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
 
     private fun nameChanged() = newName != gtasksList.title
 
-    private fun onListCreated(taskList: TaskList) {
+    private suspend fun onListCreated(taskList: TaskList) {
         gtasksList.remoteId = taskList.id
         gtasksList.title = taskList.title
         gtasksList.setColor(selectedColor)
@@ -176,10 +174,9 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
         setResult(
                 Activity.RESULT_OK, Intent().putExtra(MainActivity.OPEN_FILTER, GtasksFilter(gtasksList)))
         finish()
-        return
     }
 
-    private fun onListDeleted(deleted: Boolean) {
+    private suspend fun onListDeleted(deleted: Boolean) {
         if (deleted) {
             taskDeleter.delete(gtasksList)
             setResult(Activity.RESULT_OK, Intent(TaskListFragment.ACTION_DELETED))
@@ -187,7 +184,7 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
         }
     }
 
-    private fun onListRenamed(taskList: TaskList) {
+    private suspend fun onListRenamed(taskList: TaskList) {
         gtasksList.title = taskList.title
         gtasksList.setColor(selectedColor)
         gtasksList.setIcon(selectedIcon)
@@ -197,7 +194,6 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
                 Intent(TaskListFragment.ACTION_RELOAD)
                         .putExtra(MainActivity.OPEN_FILTER, GtasksFilter(gtasksList)))
         finish()
-        return
     }
 
     private fun requestFailed(error: Throwable) {

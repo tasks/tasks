@@ -7,7 +7,7 @@ import org.tasks.ui.CompletableViewModel
 
 class CreateListViewModel @ViewModelInject constructor(
         private val invoker: GtasksInvoker) : CompletableViewModel<TaskList>() {
-    fun createList(account: String, name: String) {
+    suspend fun createList(account: String, name: String) {
         run { invoker.forAccount(account).createGtaskList(name)!! }
     }
 }

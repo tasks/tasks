@@ -24,7 +24,7 @@ class CaldavAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolb
     override val description: Int
         get() = R.string.caldav_account_description
 
-    private fun addAccount(principal: String) {
+    private suspend fun addAccount(principal: String) {
         hideProgressIndicator()
         Timber.d("Found principal: %s", principal)
         val newAccount = CaldavAccount()
@@ -38,7 +38,7 @@ class CaldavAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolb
         finish()
     }
 
-    private fun updateAccount(principal: String?) {
+    private suspend fun updateAccount(principal: String?) {
         hideProgressIndicator()
         caldavAccount!!.name = newName
         caldavAccount!!.url = principal
@@ -53,17 +53,14 @@ class CaldavAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolb
         finish()
     }
 
-    override fun addAccount(url: String, username: String, password: String) {
-        addCaldavAccountViewModel.addAccount(url, username, password)
-    }
+    override suspend fun addAccount(url: String, username: String, password: String) =
+            addCaldavAccountViewModel.addAccount(url, username, password)
 
-    override fun updateAccount(url: String, username: String, password: String?) {
-        updateCaldavAccountViewModel.updateCaldavAccount(url, username, password)
-    }
+    override suspend fun updateAccount(url: String, username: String, password: String?) =
+            updateCaldavAccountViewModel.updateCaldavAccount(url, username, password)
 
-    override fun updateAccount() {
-        updateAccount(caldavAccount!!.url)
-    }
+    override suspend fun updateAccount() =
+            updateAccount(caldavAccount!!.url)
 
     override val newPassword: String?
         get() {

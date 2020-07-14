@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.lifecycleScope
 import at.bitfire.dav4jvm.exception.HttpException
 import butterknife.ButterKnife
 import butterknife.OnTextChanged
@@ -19,6 +20,7 @@ import com.etesync.journalmanager.Exceptions.VersionTooNewException
 import com.etesync.journalmanager.UserInfoManager
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.CaldavAccount
@@ -57,7 +59,7 @@ class EncryptionSettingsActivity : ThemedInjectingAppCompatActivity(), Toolbar.O
         toolbar.inflateMenu(R.menu.menu_help)
         toolbar.setOnMenuItemClickListener(this)
         themeColor.apply(toolbar)
-        createUserInfoViewModel.observe(this, this::returnDerivedKey, this::requestFailed)
+        createUserInfoViewModel.observe(this, { returnDerivedKey(it) }, this::requestFailed)
         if (createUserInfoViewModel.inProgress) {
             showProgressIndicator()
         }
@@ -82,21 +84,21 @@ class EncryptionSettingsActivity : ThemedInjectingAppCompatActivity(), Toolbar.O
         return
     }
 
-    private fun save() {
+    private fun save() = lifecycleScope.launch {
         if (requestInProgress()) {
-            return
+            return@launch
         }
         val encryptionPassword = newEncryptionPassword
         val derivedKey = caldavAccount!!.getEncryptionPassword(encryption)
         if (isNullOrEmpty(encryptionPassword) && isNullOrEmpty(derivedKey)) {
             binding.encryptionPasswordLayout.error = getString(R.string.encryption_password_required)
-            return
+            return@launch
         }
         if (userInfo == null) {
             val repeatEncryptionPassword = binding.repeatEncryptionPassword.text.toString().trim { it <= ' ' }
             if (encryptionPassword != repeatEncryptionPassword) {
                 binding.repeatEncryptionPasswordLayout.error = getString(R.string.passwords_do_not_match)
-                return
+                return@launch
             }
         }
         val key = if (isNullOrEmpty(encryptionPassword)) derivedKey else deriveKey(caldavAccount!!.username!!, encryptionPassword)
@@ -106,10 +108,10 @@ class EncryptionSettingsActivity : ThemedInjectingAppCompatActivity(), Toolbar.O
             CryptoManager(version, key, "userInfo")
         } catch (e: VersionTooNewException) {
             requestFailed(e)
-            return
+            return@launch
         } catch (e: IntegrityException) {
             requestFailed(e)
-            return
+            return@launch
         }
         if (userInfo == null) {
             showProgressIndicator()

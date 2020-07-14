@@ -12,6 +12,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.lifecycleScope
 import at.bitfire.dav4jvm.exception.HttpException
 import butterknife.ButterKnife
 import butterknife.OnFocusChange
@@ -20,12 +21,13 @@ import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskDeleter
+import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
 import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavDaoBlocking
+import org.tasks.data.CaldavDao
 import org.tasks.databinding.ActivityCaldavAccountSettingsBinding
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.injection.ThemedInjectingAppCompatActivity
@@ -39,7 +41,7 @@ import java.net.URISyntaxException
 import javax.inject.Inject
 
 abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActivity(), Toolbar.OnMenuItemClickListener {
-    @Inject lateinit var caldavDao: CaldavDaoBlocking
+    @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var encryption: KeyStoreEncryption
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var taskDeleter: TaskDeleter
@@ -169,9 +171,9 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
 
     protected abstract val newPassword: String?
 
-    private fun save() {
+    private fun save() = lifecycleScope.launch {
         if (requestInProgress()) {
-            return
+            return@launch
         }
         val username = newUsername
         val url = newURL
@@ -217,7 +219,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
             failed = true
         }
         when {
-            failed -> return
+            failed -> return@launch
             caldavAccount == null -> {
                 showProgressIndicator()
                 addAccount(url, username, password!!)
@@ -235,9 +237,9 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
         }
     }
 
-    protected abstract fun addAccount(url: String, username: String, password: String)
-    protected abstract fun updateAccount(url: String, username: String, password: String?)
-    protected abstract fun updateAccount()
+    protected abstract suspend fun addAccount(url: String, username: String, password: String)
+    protected abstract suspend fun updateAccount(url: String, username: String, password: String?)
+    protected abstract suspend fun updateAccount()
     protected abstract val helpUrl: String?
 
     protected fun requestFailed(t: Throwable) {
@@ -313,12 +315,12 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
         dialogBuilder
                 .newDialog()
                 .setMessage(R.string.logout_warning, caldavAccount!!.name)
-                .setPositiveButton(R.string.remove) { _, _ -> removeAccount() }
+                .setPositiveButton(R.string.remove) { _, _ -> lifecycleScope.launch { removeAccount() } }
                 .setNegativeButton(android.R.string.cancel, null)
                 .show()
     }
 
-    protected open fun removeAccount() {
+    protected open suspend fun removeAccount() {
         taskDeleter.delete(caldavAccount!!)
         setResult(Activity.RESULT_OK)
         finish()

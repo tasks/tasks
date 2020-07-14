@@ -7,7 +7,7 @@ import org.tasks.ui.ActionViewModel
 
 class DeleteCalendarViewModel @ViewModelInject constructor(
         private val client: EteSyncClient) : ActionViewModel() {
-    fun deleteCalendar(account: CaldavAccount, calendar: CaldavCalendar) {
+    suspend fun deleteCalendar(account: CaldavAccount, calendar: CaldavCalendar) {
         run { client.forAccount(account).deleteCollection(calendar) }
     }
 }

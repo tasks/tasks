@@ -21,15 +21,15 @@ import com.todoroo.astrid.helper.UUIDHelper
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
-import org.tasks.data.TagDaoBlocking
+import org.tasks.data.TagDao
 import org.tasks.data.TagData
-import org.tasks.data.TagDataDaoBlocking
+import org.tasks.data.TagDataDao
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class TagSettingsActivity : BaseListSettingsActivity() {
-    @Inject lateinit var tagDataDao: TagDataDaoBlocking
-    @Inject lateinit var tagDao: TagDaoBlocking
+    @Inject lateinit var tagDataDao: TagDataDao
+    @Inject lateinit var tagDao: TagDao
 
     @BindView(R.id.name)
     lateinit var name: TextInputEditText
@@ -78,12 +78,12 @@ class TagSettingsActivity : BaseListSettingsActivity() {
     private val newName: String
         get() = name.text.toString().trim { it <= ' ' }
 
-    private fun clashes(newName: String): Boolean {
+    private suspend fun clashes(newName: String): Boolean {
         return ((isNewTag || !newName.equals(tagData.name, ignoreCase = true))
                 && tagDataDao.getTagByName(newName) != null)
     }
 
-    override fun save() {
+    override suspend fun save() {
         val newName = newName
         if (isNullOrEmpty(newName)) {
             nameLayout.error = getString(R.string.name_cannot_be_empty)
@@ -132,7 +132,7 @@ class TagSettingsActivity : BaseListSettingsActivity() {
     override val layout: Int
         get() = R.layout.activity_tag_settings
 
-    override fun delete() {
+    override suspend fun delete() {
         val uuid = tagData.remoteId
         tagDataDao.delete(tagData)
         setResult(

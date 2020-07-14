@@ -1,14 +1,8 @@
 package org.tasks.ui
 
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.observe
-import com.todoroo.andlib.utility.AndroidUtilities
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
+import androidx.lifecycle.*
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 
 abstract class CompletableViewModel<T> : ViewModel() {
     private val data = MutableLiveData<T>()
@@ -20,25 +14,25 @@ abstract class CompletableViewModel<T> : ViewModel() {
 
     fun observe(
             lifecycleOwner: LifecycleOwner,
-            dataObserver: (T) -> Unit,
+            dataObserver: suspend (T) -> Unit,
             errorObserver: (Throwable) -> Unit) {
-        data.observe(lifecycleOwner, dataObserver)
+        data.observe(lifecycleOwner) {
+            lifecycleOwner.lifecycleScope.launch {
+                dataObserver.invoke(it)
+            }
+        }
         error.observe(lifecycleOwner, errorObserver)
     }
 
-    protected fun run(callable: () -> T) {
-        AndroidUtilities.assertMainThread()
+    protected suspend fun run(callable: suspend () -> T) {
         if (!inProgress) {
             inProgress = true
-            disposables.add(
-                    Single.fromCallable(callable)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .doFinally {
-                                AndroidUtilities.assertMainThread()
-                                inProgress = false
-                            }
-                            .subscribe({ value: T -> data.setValue(value) }) { value: Throwable -> error.setValue(value) })
+            try {
+                data.value = callable.invoke()
+            } catch (e: Exception) {
+                error.value = e
+            }
+            inProgress = false
         }
     }
 

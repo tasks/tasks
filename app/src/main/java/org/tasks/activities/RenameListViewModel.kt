@@ -8,7 +8,7 @@ import org.tasks.ui.CompletableViewModel
 
 class RenameListViewModel @ViewModelInject constructor(
         private val invoker: GtasksInvoker) : CompletableViewModel<TaskList>() {
-    fun renameList(list: GoogleTaskList, name: String) {
+    suspend fun renameList(list: GoogleTaskList, name: String) {
         run { invoker.forAccount(list.account!!).renameGtaskList(list.remoteId, name)!! }
     }
 }
