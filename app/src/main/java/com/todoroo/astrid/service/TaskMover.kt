@@ -57,7 +57,7 @@ class TaskMover @Inject constructor(
         localBroadcastManager.broadcastRefresh()
     }
 
-    fun migrateLocalTasks() = runBlocking {
+    suspend fun migrateLocalTasks() {
         val list = caldavDao.getLocalList(context)
         move(taskDao.getLocalTasks(), CaldavFilter(list))
     }

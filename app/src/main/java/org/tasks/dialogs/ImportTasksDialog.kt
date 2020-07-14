@@ -37,19 +37,18 @@ class ImportTasksDialog : DialogFragment() {
         progressDialog.show()
         isCancelable = false
         when (extension) {
-            "json" -> {
-                val activity = requireActivity()
-                lifecycleScope.launch {
-                    val result = withContext(NonCancellable) {
-                        jsonImporter.importTasks(activity, data, progressDialog)
-                    }
-                    if (progressDialog.isShowing) {
-                        progressDialog.dismiss()
-                    }
-                    showSummary(result)
+            "json" -> lifecycleScope.launch {
+                val result = withContext(NonCancellable) {
+                    jsonImporter.importTasks(requireActivity(), data, progressDialog)
                 }
+                if (progressDialog.isShowing) {
+                    progressDialog.dismiss()
+                }
+                showSummary(result)
             }
-            "xml" -> xmlImporter.importTasks(activity, data, progressDialog)
+            "xml" -> lifecycleScope.launch {
+                xmlImporter.importTasks(activity, data, progressDialog)
+            }
             else -> throw RuntimeException("Invalid extension: $extension")
         }
         return progressDialog
