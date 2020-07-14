@@ -41,8 +41,8 @@ class EteSyncAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
     override fun onResume() {
         super.onResume()
         if (!isFinishing) {
-            addAccountViewModel.observe(this, { addAccount(it) }, { requestFailed(it) })
-            updateAccountViewModel.observe(this, { updateAccount(it) }, { requestFailed(it) })
+            addAccountViewModel.observe(this, this::addAccount, this::requestFailed)
+            updateAccountViewModel.observe(this, this::updateAccount, this::requestFailed)
         }
     }
 
@@ -116,13 +116,12 @@ class EteSyncAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
         return super.needsValidation() || isNullOrEmpty(caldavAccount!!.encryptionKey)
     }
 
-    override fun addAccount(url: String?, username: String?, password: String?) {
-        addAccountViewModel.addAccount(eteSyncClient, url, username, password)
+    override fun addAccount(url: String, username: String, password: String) {
+        addAccountViewModel.addAccount(url, username, password)
     }
 
-    override fun updateAccount(url: String?, username: String?, password: String?) {
+    override fun updateAccount(url: String, username: String, password: String?) {
         updateAccountViewModel.updateAccount(
-                eteSyncClient,
                 url,
                 username,
                 if (PASSWORD_MASK == password) null else password,

@@ -9,19 +9,16 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.data.CaldavAccount
 import timber.log.Timber
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class CaldavAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolbar.OnMenuItemClickListener {
-    @Inject lateinit var client: CaldavClient
-
     private val addCaldavAccountViewModel: AddCaldavAccountViewModel by viewModels()
     private val updateCaldavAccountViewModel: UpdateCaldavAccountViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        addCaldavAccountViewModel.observe(this, { addAccount(it) }, { requestFailed(it) })
-        updateCaldavAccountViewModel.observe(this, { updateAccount(it) }, { requestFailed(it) })
+        addCaldavAccountViewModel.observe(this, this::addAccount, this::requestFailed)
+        updateCaldavAccountViewModel.observe(this, this::updateAccount, this::requestFailed)
     }
 
     override val description: Int
@@ -56,12 +53,12 @@ class CaldavAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolb
         finish()
     }
 
-    override fun addAccount(url: String?, username: String?, password: String?) {
-        addCaldavAccountViewModel.addAccount(client, url, username, password)
+    override fun addAccount(url: String, username: String, password: String) {
+        addCaldavAccountViewModel.addAccount(url, username, password)
     }
 
-    override fun updateAccount(url: String?, username: String?, password: String?) {
-        updateCaldavAccountViewModel.updateCaldavAccount(client, url, username, password)
+    override fun updateAccount(url: String, username: String, password: String?) {
+        updateCaldavAccountViewModel.updateCaldavAccount(url, username, password)
     }
 
     override fun updateAccount() {

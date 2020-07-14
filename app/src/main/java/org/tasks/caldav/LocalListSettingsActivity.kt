@@ -10,12 +10,14 @@ import org.tasks.data.CaldavDao
 @AndroidEntryPoint
 class LocalListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
 
-    override fun getLayout() = R.layout.activity_caldav_calendar_settings
+    override val layout: Int
+        get() = R.layout.activity_caldav_calendar_settings
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        toolbar.menu.findItem(R.id.delete)?.isVisible = caldavDao.getCalendarsByAccount(CaldavDao.LOCAL).size > 1
+        toolbar.menu.findItem(R.id.delete)?.isVisible =
+                caldavDao.getCalendarsByAccount(CaldavDao.LOCAL).size > 1
     }
 
     override fun createCalendar(caldavAccount: CaldavAccount, name: String, color: Int) =

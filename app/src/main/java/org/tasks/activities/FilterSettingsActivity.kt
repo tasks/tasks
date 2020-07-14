@@ -213,13 +213,11 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
         outState.putString(EXTRA_CRITERIA, CriterionInstance.serialize(criteria))
     }
 
-    override fun isNew(): Boolean {
-        return filter == null
-    }
+    override val isNew: Boolean
+        get() = filter == null
 
-    override fun getToolbarTitle(): String {
-        return if (isNew) getString(R.string.FLA_new_filter) else filter!!.listingTitle
-    }
+    override val toolbarTitle: String?
+        get() = if (isNew) getString(R.string.FLA_new_filter) else filter!!.listingTitle
 
     @OnTextChanged(R.id.name)
     fun onTextChanged() {
@@ -276,9 +274,8 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
         super.finish()
     }
 
-    override fun getLayout(): Int {
-        return R.layout.filter_settings_activity
-    }
+    override val layout: Int
+        get() = R.layout.filter_settings_activity
 
     override fun delete() {
         filterDao.delete(filter!!.id)

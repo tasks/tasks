@@ -220,7 +220,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
             failed -> return
             caldavAccount == null -> {
                 showProgressIndicator()
-                addAccount(url, username, password)
+                addAccount(url, username, password!!)
             }
             needsValidation() -> {
                 showProgressIndicator()
@@ -235,10 +235,11 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
         }
     }
 
-    protected abstract fun addAccount(url: String?, username: String?, password: String?)
-    protected abstract fun updateAccount(url: String?, username: String?, password: String?)
+    protected abstract fun addAccount(url: String, username: String, password: String)
+    protected abstract fun updateAccount(url: String, username: String, password: String?)
     protected abstract fun updateAccount()
     protected abstract val helpUrl: String?
+
     protected fun requestFailed(t: Throwable) {
         hideProgressIndicator()
         if (t is HttpException) {

@@ -59,7 +59,8 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
         updateTheme()
     }
 
-    override fun getLayout() = R.layout.activity_location_settings
+    override val layout: Int
+        get() = R.layout.activity_location_settings
 
     override fun hasChanges() = name.text.toString() != place.displayName
                     || selectedColor != place.color
@@ -89,11 +90,11 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
         finish()
     }
 
-    override fun isNew() = false
+    override val isNew: Boolean
+        get() = false
 
-    override fun getToolbarTitle(): String? {
-        return place.address ?: place.displayName
-    }
+    override val toolbarTitle: String?
+        get() = place.address ?: place.displayName
 
     override fun delete() {
         locationDao.deleteGeofencesByPlace(place.uid!!)
