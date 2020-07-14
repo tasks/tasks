@@ -6,8 +6,9 @@ import com.google.common.collect.ImmutableListMultimap
 import com.google.common.collect.ListMultimap
 import com.google.common.collect.Multimaps
 import com.todoroo.astrid.api.GtasksFilter
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.caldav.iCalendar
@@ -26,17 +27,17 @@ import javax.inject.Inject
 class Upgrader @Inject constructor(
         @param:ApplicationContext private val context: Context,
         private val preferences: Preferences,
-        private val tagDataDao: TagDataDaoBlocking,
-        private val tagDao: TagDaoBlocking,
-        private val filterDao: FilterDaoBlocking,
+        private val tagDataDao: TagDataDao,
+        private val tagDao: TagDao,
+        private val filterDao: FilterDao,
         private val defaultFilterProvider: DefaultFilterProvider,
-        private val googleTaskListDao: GoogleTaskListDaoBlocking,
-        private val googleTaskDao: GoogleTaskDaoBlocking,
-        private val userActivityDao: UserActivityDaoBlocking,
-        private val taskAttachmentDao: TaskAttachmentDaoBlocking,
-        private val caldavDao: CaldavDaoBlocking,
-        private val taskDao: TaskDaoBlocking,
-        private val locationDao: LocationDaoBlocking,
+        private val googleTaskListDao: GoogleTaskListDao,
+        private val googleTaskDao: GoogleTaskDao,
+        private val userActivityDao: UserActivityDao,
+        private val taskAttachmentDao: TaskAttachmentDao,
+        private val caldavDao: CaldavDao,
+        private val taskDao: TaskDao,
+        private val locationDao: LocationDao,
         private val iCal: iCalendar,
         private val widgetManager: AppWidgetManager,
         private val taskMover: TaskMover) {
@@ -73,9 +74,11 @@ class Upgrader @Inject constructor(
         preferences.setCurrentVersion(to)
     }
 
-    private fun run(from: Int, version: Int, runnable: () -> Unit) {
+    private fun run(from: Int, version: Int, runnable: suspend () -> Unit) {
         if (from < version) {
-            runnable.invoke()
+            runBlocking {
+                runnable.invoke()
+            }
             preferences.setCurrentVersion(version)
         }
     }
@@ -87,7 +90,7 @@ class Upgrader @Inject constructor(
         }
     }
 
-    private fun migrateColors() {
+    private suspend fun migrateColors() {
         preferences.setInt(
                 R.string.p_theme_color, getAndroidColor(preferences.getInt(R.string.p_theme_color, 7)))
         for (calendar in caldavDao.getCalendars()) {
@@ -112,7 +115,7 @@ class Upgrader @Inject constructor(
         return getAndroidColor(context, index)
     }
 
-    private fun applyCaldavOrder() {
+    private suspend fun applyCaldavOrder() {
         for (task in caldavDao.getTasks().map(CaldavTaskContainer::caldavTask)) {
             val remoteTask = fromVtodo(task.vtodo!!) ?: continue
             val order: Long? = remoteTask.order
@@ -123,7 +126,7 @@ class Upgrader @Inject constructor(
         }
     }
 
-    private fun applyCaldavGeo() {
+    private suspend fun applyCaldavGeo() {
         val tasksWithLocations = locationDao.getActiveGeofences().map(Location::task)
         for (task in caldavDao.getTasks().map(CaldavTaskContainer::caldavTask)) {
             val taskId = task.task
@@ -137,7 +140,7 @@ class Upgrader @Inject constructor(
         taskDao.touch(tasksWithLocations)
     }
 
-    private fun applyCaldavSubtasks() {
+    private suspend fun applyCaldavSubtasks() {
         val updated: MutableList<CaldavTask> = ArrayList()
         for (task in caldavDao.getTasks().map(CaldavTaskContainer::caldavTask)) {
             val remoteTask = fromVtodo(task.vtodo!!) ?: continue
@@ -150,7 +153,7 @@ class Upgrader @Inject constructor(
         caldavDao.updateParents()
     }
 
-    private fun applyCaldavCategories() {
+    private suspend fun applyCaldavCategories() {
         val tasksWithTags: List<Long> = caldavDao.getTasksWithTags()
         for (container in caldavDao.getTasks()) {
             val remoteTask = fromVtodo(container.vtodo!!)
@@ -161,7 +164,7 @@ class Upgrader @Inject constructor(
         taskDao.touch(tasksWithTags)
     }
 
-    private fun removeDuplicateTags() {
+    private suspend fun removeDuplicateTags() {
         val tagsByUuid: ListMultimap<String, TagData> = Multimaps.index(tagDataDao.tagDataOrderedByName()) { it!!.remoteId }
         for (uuid in tagsByUuid.keySet()) {
             removeDuplicateTagData(tagsByUuid[uuid])
@@ -169,7 +172,7 @@ class Upgrader @Inject constructor(
         }
     }
 
-    private fun migrateGoogleTaskFilters() {
+    private suspend fun migrateGoogleTaskFilters() {
         for (filter in filterDao.getAll()) {
             filter.setSql(migrateGoogleTaskFilters(filter.getSql()))
             filter.criterion = migrateGoogleTaskFilters(filter.criterion)
@@ -177,7 +180,7 @@ class Upgrader @Inject constructor(
         }
     }
 
-    private fun migrateCaldavFilters() {
+    private suspend fun migrateCaldavFilters() {
         for (filter in filterDao.getAll()) {
             filter.setSql(migrateCaldavFilters(filter.getSql()))
             filter.criterion = migrateCaldavFilters(filter.criterion)
@@ -185,7 +188,7 @@ class Upgrader @Inject constructor(
         }
     }
 
-    private fun migrateFilters() {
+    private suspend fun migrateFilters() {
         for (filter in filterDao.getFilters()) {
             filter.setSql(migrateMetadata(filter.getSql()))
             filter.criterion = migrateMetadata(filter.criterion)
@@ -193,7 +196,7 @@ class Upgrader @Inject constructor(
         }
     }
 
-    private fun migrateDefaultSyncList() {
+    private suspend fun migrateDefaultSyncList() {
         val account = preferences.getStringValue("gtasks_user")
         if (isNullOrEmpty(account)) {
             return
@@ -209,7 +212,7 @@ class Upgrader @Inject constructor(
         }
     }
 
-    private fun migrateGoogleTaskAccount() {
+    private suspend fun migrateGoogleTaskAccount() {
         val account = preferences.getStringValue("gtasks_user")
         if (!isNullOrEmpty(account)) {
             val googleTaskAccount = GoogleTaskAccount()
@@ -222,7 +225,7 @@ class Upgrader @Inject constructor(
         }
     }
 
-    private fun migrateUris() {
+    private suspend fun migrateUris() {
         migrateUriPreference(R.string.p_backup_dir)
         migrateUriPreference(R.string.p_attachment_dir)
         for (userActivity in userActivityDao.getComments()) {
@@ -277,13 +280,13 @@ class Upgrader @Inject constructor(
                 .replace("AND \\(metadata\\.deleted=0\\)".toRegex(), "")
     }
 
-    private fun removeDuplicateTagData(tagData: List<TagData>) {
+    private suspend fun removeDuplicateTagData(tagData: List<TagData>) {
         if (tagData.size > 1) {
             tagDataDao.delete(tagData.subList(1, tagData.size))
         }
     }
 
-    private fun removeDuplicateTagMetadata(uuid: String) {
+    private suspend fun removeDuplicateTagMetadata(uuid: String) {
         val metadatas = tagDao.getByTagUid(uuid)
         val metadataByTask: ImmutableListMultimap<Long, Tag> = Multimaps.index(metadatas) { it!!.task }
         for (key in metadataByTask.keySet()) {
