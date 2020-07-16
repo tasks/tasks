@@ -391,7 +391,6 @@
     <string name="add_account">Hesap ekle</string>
     <string name="user">Kullanıcı</string>
     <string name="password">Parola</string>
-    <string name="calendar_settings">Takvim ayarları</string>
     <string name="notification_disable_battery_optimizations_description">Pil optimizasyonları bildirimleri geciktirebilir</string>
     <string name="bundle_notifications">Bildirimleri sepetle</string>
     <string name="badges">Rozetler</string>

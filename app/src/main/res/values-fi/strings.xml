@@ -482,7 +482,6 @@
     <string name="network_error">Yhteyttä ei saatu</string>
     <string name="help_and_feedback">Apu &amp; palaute</string>
     <string name="list_separator_with_space">", "</string>
-    <string name="calendar_settings">Kalenteriasetukset</string>
     <string name="error_adding_account">Virhe: %s</string>
     <string name="url">URL</string>
     <string name="reenter_encryption_password">Vahvista salauksen salasana</string>

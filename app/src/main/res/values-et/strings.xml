@@ -250,7 +250,6 @@
     <string name="user">Kasutaja</string>
     <string name="password">Parool</string>
     <string name="url">URL</string>
-    <string name="calendar_settings">Kalendri seaded</string>
     <string name="bundle_notifications">Koonda teavitused</string>
     <string name="list">Nimekiri</string>
     <string name="repeat_monthly_first_week">esimene</string>

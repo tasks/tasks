@@ -389,7 +389,6 @@
     <string name="add_account">Добави акаунт</string>
     <string name="user">Потребител</string>
     <string name="password">Парола</string>
-    <string name="calendar_settings">Настройки на календара</string>
     <string name="notification_disable_battery_optimizations_description">Оптимизациите на батерията могат да забавят уведомленията</string>
     <string name="bundle_notifications">Обединяване на уведомленията</string>
     <string name="badges">Значки</string>

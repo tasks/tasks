@@ -304,7 +304,6 @@
     <string name="password">Kata sandi</string>
     <string name="url">URL</string>
     <string name="error_adding_account">Galat: %s</string>
-    <string name="calendar_settings">Pengaturan kalender</string>
     <string name="notification_disable_battery_optimizations_description">Pengoptimalan baterai mungkin akan menunda notifikasi</string>
     <string name="badges">Lencana</string>
     <string name="list">Daftar</string>

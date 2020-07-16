@@ -423,7 +423,6 @@
     <string name="user">משתמש</string>
     <string name="password">סיסמא</string>
     <string name="url">כתובת URL</string>
-    <string name="calendar_settings">הגדרות יומן</string>
     <string name="notification_disable_battery_optimizations_description">חיסכון בסוללה עלול לעכב התראות</string>
     <string name="bundle_notifications">חבילת התראות</string>
     <string name="badges">תגים</string>

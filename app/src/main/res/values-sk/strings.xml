@@ -385,7 +385,6 @@
     <string name="add_account">Pridať účet</string>
     <string name="user">Užívateľ</string>
     <string name="password">Heslo</string>
-    <string name="calendar_settings">Nastavenia kalendára</string>
     <string name="notification_disable_battery_optimizations_description">Zníženie spotreby môže spôsobiť oneskorenie upozornení</string>
     <string name="bundle_notifications">Skupinové oznámenia</string>
     <string name="badges">Odznaky</string>

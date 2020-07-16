@@ -389,7 +389,6 @@
     <string name="user">Felhasználónév</string>
     <string name="password">Jelszó</string>
     <string name="url">Link</string>
-    <string name="calendar_settings">Naptár beállítások</string>
     <string name="notification_disable_battery_optimizations_description">Az akkumulátor optimalizálási funkciók késleltethetik az értesítéseket</string>
     <string name="bundle_notifications">Értesítések összevonása</string>
     <string name="badges">Szimbólumok</string>

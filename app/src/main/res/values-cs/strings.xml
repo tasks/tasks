@@ -406,7 +406,6 @@
     <string name="password">Heslo</string>
     <string name="url">URL</string>
     <string name="error_adding_account">Chyba: %s</string>
-    <string name="calendar_settings">Nastavení kalendáře</string>
     <string name="notification_disable_battery_optimizations_description">Spoření baterie může zpozdit upozornění</string>
     <string name="bundle_notifications">Seskupovat upozornění</string>
     <string name="badges">Odznaky</string>

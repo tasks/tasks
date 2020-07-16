@@ -384,8 +384,6 @@
     <string name="use_locale_default">Usa default locale</string>
     <string name="add_account">Aggiungi account</string>
     <string name="user">Utente</string>
-    <string name="calendar_settings">Impostazioni calendario
-</string>
     <string name="notification_disable_battery_optimizations_description">L\'ottimizzazione della batteria può ritardare le notifiche</string>
     <string name="bundle_notifications">Gruppo di notifiche</string>
     <string name="badges">Badge</string>

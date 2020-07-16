@@ -406,7 +406,6 @@
     <string name="add_account">Добавить учётную запись</string>
     <string name="user">Пользователь</string>
     <string name="password">Пароль</string>
-    <string name="calendar_settings">Настройки календаря</string>
     <string name="notification_disable_battery_optimizations_description">Оптимизация расхода может задерживать уведомления</string>
     <string name="bundle_notifications">Группировать уведомления</string>
     <string name="badges">Ярлыки</string>

@@ -386,7 +386,6 @@
     <string name="add_account">アカウントを追加</string>
     <string name="user">ユーザー</string>
     <string name="password">パスワード</string>
-    <string name="calendar_settings">カレンダー設定</string>
     <string name="notification_disable_battery_optimizations_description">バッテリー最適化をすると通知が遅れることがあります</string>
     <string name="bundle_notifications">バンドル通知</string>
     <string name="badges">バッジ</string>

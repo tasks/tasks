@@ -358,7 +358,6 @@
     <string name="badges">அடையாளக்குறிகள்</string>
     <string name="bundle_notifications">மூட்டை அறிவிப்புகள்</string>
     <string name="notification_disable_battery_optimizations_description">பேட்டரி மேம்படுத்தல்கள் அறிவிப்புகளை தாமதப்படுத்தக்கூடும்</string>
-    <string name="calendar_settings">நாள்காட்டி அமைப்புகள்</string>
     <string name="error_adding_account">பிழை: %s</string>
     <string name="url">URL</string>
     <string name="reenter_encryption_password">குறியாக்க கடவுச்சொல்லை உறுதிப்படுத்தவும்</string>

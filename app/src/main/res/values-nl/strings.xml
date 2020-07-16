@@ -379,7 +379,6 @@
     <string name="add_account">Account toevoegen</string>
     <string name="user">Gebruiker</string>
     <string name="password">Wachtwoord</string>
-    <string name="calendar_settings">Agenda instellingen</string>
     <string name="notification_disable_battery_optimizations_description">Batterij optimalisatie kan meldingen vertragen</string>
     <string name="bundle_notifications">Notificaties samenvoegen</string>
     <string name="badges">Sets</string>
