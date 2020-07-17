@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import butterknife.ButterKnife
 import org.tasks.R
 
@@ -17,7 +17,7 @@ abstract class TaskEditControlFragment : Fragment() {
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.control_set_template, null)
-        viewModel = ViewModelProviders.of(requireParentFragment()).get(TaskEditViewModel::class.java)
+        viewModel = ViewModelProvider(requireParentFragment()).get(TaskEditViewModel::class.java)
         val content = view.findViewById<LinearLayout>(R.id.content)
         inflater.inflate(layout, content)
         val icon = view.findViewById<ImageView>(R.id.icon)
