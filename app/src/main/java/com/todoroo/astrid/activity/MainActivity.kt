@@ -273,7 +273,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
             supportFragmentManager
                     .beginTransaction()
                     .replace(R.id.detail, newEmptyTaskEditFragment(it))
-                    .commit()
+                    .commitNow()
         }
         if (isSinglePaneLayout) {
             binding.master.visibility = View.VISIBLE
@@ -306,8 +306,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.master, taskListFragment, FRAG_TAG_TASK_LIST)
-                .commit()
-
+                .commitNow()
     }
 
     private fun applyTheme() {
