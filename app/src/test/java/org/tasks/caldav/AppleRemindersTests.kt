@@ -55,7 +55,7 @@ class AppleRemindersTests {
 
     @Test
     fun repeatDaily() {
-        assertEquals("RRULE:FREQ=DAILY;INTERVAL=1", vtodo("apple/repeat_daily.txt").recurrence)
+        assertEquals("RRULE:FREQ=DAILY", vtodo("apple/repeat_daily.txt").recurrence)
     }
 
     @Test

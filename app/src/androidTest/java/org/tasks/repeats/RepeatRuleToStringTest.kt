@@ -12,6 +12,11 @@ import java.text.ParseException
 @RunWith(AndroidJUnit4::class)
 class RepeatRuleToStringTest {
     @Test
+    fun daily() {
+        assertEquals("Repeats daily", toString("RRULE:FREQ=DAILY"))
+    }
+
+    @Test
     fun weekly() {
         assertEquals("Repeats weekly", toString("RRULE:FREQ=WEEKLY;INTERVAL=1"))
     }

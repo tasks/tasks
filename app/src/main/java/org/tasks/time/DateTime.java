@@ -15,14 +15,15 @@ import com.google.ical.values.DateValue;
 import com.google.ical.values.DateValueImpl;
 import com.google.ical.values.Weekday;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Objects;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
+import net.fortuna.ical4j.model.Date;
 import org.tasks.locale.Locale;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class DateTime {
 
@@ -93,6 +94,10 @@ public class DateTime {
       return new DateTime(dt.year(), dt.month(), dt.day(), dt.hour(), dt.minute(), dt.second());
     }
     return new DateTime(dateValue.year(), dateValue.month(), dateValue.day());
+  }
+
+  public static DateTime from(Date date) {
+    return new DateTime(date.getTime(), UTC);
   }
 
   private DateTime setTime(int hours, int minutes, int seconds, int milliseconds) {

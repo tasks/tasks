@@ -234,7 +234,7 @@ class Task : Parcelable {
 
     fun repeatAfterCompletion(): Boolean = recurrence.isRepeatAfterCompletion()
 
-    fun sanitizedRecurrence(): String? = getRecurrenceWithoutFrom()?.replace("BYDAY=;".toRegex(), "") // $NON-NLS-1$//$NON-NLS-2$
+    fun sanitizedRecurrence(): String? = getRecurrenceWithoutFrom()?.sanitizeRRule()
 
     fun getRecurrenceWithoutFrom(): String? = recurrence.withoutFrom()
 
@@ -607,6 +607,11 @@ class Task : Parcelable {
                 isUuidEmpty(uuid)
             }
         }
+
+        @JvmStatic
+        fun String?.sanitizeRRule(): String? = this
+                ?.replace("BYDAY=;", "")
+                ?.replace("COUNT=-1;", "")
 
         @JvmStatic fun isUuidEmpty(uuid: String?): Boolean {
             return NO_UUID == uuid || Strings.isNullOrEmpty(uuid)

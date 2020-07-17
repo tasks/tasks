@@ -40,7 +40,7 @@ public class RepeatRuleToString {
     int count = rrule.getCount();
     String countString =
         count > 0 ? context.getResources().getQuantityString(R.plurals.repeat_times, count) : "";
-    if (interval == 1) {
+    if (interval <= 1) {
       String frequencyString = context.getString(getSingleFrequencyResource(frequency));
       if ((frequency == WEEKLY || frequency == MONTHLY) && !rrule.getByDay().isEmpty()) {
         String dayString = getDayString(rrule);

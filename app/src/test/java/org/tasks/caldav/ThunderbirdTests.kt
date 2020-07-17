@@ -5,6 +5,7 @@ import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import org.tasks.TestUtilities.setup
 import org.tasks.TestUtilities.vtodo
 import org.tasks.time.DateTime
 import java.util.*
@@ -56,7 +57,7 @@ class ThunderbirdTests {
     @Test
     fun repeatDaily() {
         assertEquals(
-                "RRULE:FREQ=DAILY;INTERVAL=1", vtodo("thunderbird/repeat_daily.txt").recurrence)
+                "RRULE:FREQ=DAILY", vtodo("thunderbird/repeat_daily.txt").recurrence)
     }
 
     @Test
@@ -82,5 +83,21 @@ class ThunderbirdTests {
     @Test
     fun highPriority() {
         assertEquals(Task.Priority.HIGH, vtodo("thunderbird/priority_high.txt").priority)
+    }
+
+    @Test
+    fun getRepeatUntil() {
+        assertEquals(
+                DateTime(2020, 7, 31, 11, 0, 0, 0).millis,
+                vtodo("thunderbird/repeat_until_date_time.txt").repeatUntil)
+    }
+
+    @Test
+    fun dontTruncateTimeFromUntil() {
+        val (task, caldavTask) = setup("thunderbird/repeat_until_date_time.txt")
+        val remote = CaldavConverter.toCaldav(caldavTask, task)
+        assertEquals(
+                "FREQ=WEEKLY;UNTIL=20200731T160000Z;BYDAY=MO,TU,WE,TH,FR",
+                remote.rRule!!.value)
     }
 }
