@@ -50,6 +50,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.tasks.LocalBroadcastManager
@@ -92,7 +93,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         TaskViewHolder.ViewHolderCallbacks {
     private val refreshReceiver = RefreshReceiver()
     private val repeatConfirmationReceiver = RepeatConfirmationReceiver()
-    private var disposables: CompositeDisposable? = null
 
     @Inject lateinit var syncAdapters: SyncAdapters
     @Inject lateinit var taskDeleter: TaskDeleter
@@ -146,20 +146,14 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     private lateinit var callbacks: TaskListFragmentCallbackHandler
 
     override fun onRefresh() {
-        disposables!!.add(
-                syncAdapters
-                        .sync(true)
-                        .doOnSuccess { initiated: Boolean ->
-                            if (!initiated) {
-                                refresh()
-                            }
-                        }
-                        .delay(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
-                        .subscribe { initiated: Boolean ->
-                            if (initiated) {
-                                setSyncOngoing()
-                            }
-                        })
+        lifecycleScope.launch {
+            if (syncAdapters.sync(true)) {
+                delay(1000)
+                setSyncOngoing()
+            } else {
+                refresh()
+            }
+        }
     }
 
     private fun setSyncOngoing() {
@@ -445,7 +439,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
     override fun onResume() {
         super.onResume()
-        disposables = CompositeDisposable()
         localBroadcastManager.registerRefreshReceiver(refreshReceiver)
         localBroadcastManager.registerRepeatReceiver(repeatConfirmationReceiver)
         refresh()
@@ -465,7 +458,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
     override fun onPause() {
         super.onPause()
-        disposables?.dispose()
         localBroadcastManager.unregisterReceiver(repeatConfirmationReceiver)
         localBroadcastManager.unregisterReceiver(refreshReceiver)
     }
@@ -499,7 +491,9 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         for (task in tasks) {
             onTaskCreated(task.uuid)
         }
-        syncAdapters.sync()
+        lifecycleScope.launch {
+            syncAdapters.sync()
+        }
         loadTaskListContent()
     }
 

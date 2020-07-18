@@ -31,7 +31,7 @@ class SyncWork @WorkerInject constructor(
         private val syncAdapters: SyncAdapters) : BaseWorker(context, workerParams, firebase) {
     
     override suspend fun run(): Result {
-        if (!syncAdapters.isSyncEnabled) {
+        if (!syncAdapters.isSyncEnabled()) {
             return Result.success()
         }
         synchronized(LOCK) {

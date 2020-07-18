@@ -71,8 +71,8 @@ class AfterSaveWork @WorkerInject constructor(
                 timerPlugin.stopTimer(task)
             }
         }
-        if (data.getBoolean(EXTRA_PUSH_GTASKS, false) && syncAdapters.isGoogleTaskSyncEnabled
-                || data.getBoolean(EXTRA_PUSH_CALDAV, false) && syncAdapters.isCaldavSyncEnabled) {
+        if (data.getBoolean(EXTRA_PUSH_GTASKS, false) && syncAdapters.isGoogleTaskSyncEnabled()
+                || data.getBoolean(EXTRA_PUSH_CALDAV, false) && syncAdapters.isCaldavSyncEnabled()) {
             workManager.sync(false)
         }
         refreshScheduler.scheduleRefresh(task)
