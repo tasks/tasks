@@ -80,7 +80,7 @@ class Synchronization : InjectingPreferenceFragment() {
 
         findPreference(R.string.add_account)
             .setOnPreferenceClickListener {
-                AddAccountDialog.showAddAccountDialog(activity, dialogBuilder)
+                AddAccountDialog.showAddAccountDialog(requireActivity(), dialogBuilder)
                 false
             }
     }
