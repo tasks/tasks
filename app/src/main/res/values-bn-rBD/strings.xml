@@ -6,4 +6,25 @@
     <string name="enter_filter_name">ফিল্টারের নাম যোগ করুন</string>
     <string name="display_name">নাম দেখান</string>
     <string name="TVA_add_comment">মতামত যোগ করুন…</string>
+    <string name="SSD_sort_my_order">আমার তলিকা</string>
+    <string name="action_open">খোলো</string>
+    <string name="action_call">কল</string>
+    <string name="manage_lists">তালিকা পরিচালনা করো</string>
+    <string name="TAd_actionEditTask">সম্পাদনা</string>
+    <string name="TLA_menu_settings">সেটিংস</string>
+    <string name="TLA_menu_search">সার্চ</string>
+    <string name="TLA_menu_sort">সাজাও</string>
+    <string name="TLA_no_items">এখানে কোন কাজ নেই।</string>
+    <string name="WID_dateButtonUnset">ঠিক করতে ক্লিক করো</string>
+    <string name="DLG_undo">পূর্বাবস্থা</string>
+    <string name="DLG_hour_minutes">সময় (ঘন্টা : মিনিট)</string>
+    <string name="DLG_delete_this_task_question">এই কাজটি মুছবে\?</string>
+    <string name="keep_editing">সম্পাদনা করতে থাকো</string>
+    <string name="discard_confirmation">তুমি নিশ্চিত যে তুমি নিজের পরিবর্তনগুলো বাতিল করতে চাও\?</string>
+    <string name="read_permission_label">কাজের অনুমতি</string>
+    <string name="import_progress_read">%d কাজ পড়া হচ্ছে…</string>
+    <string name="import_summary_title">সারাংশ পুনরুদ্ধার করো</string>
+    <string name="export_toast_no_tasks">প্রতিবেদন তৈরির জন্য কোনো কাজ নেই।</string>
+    <string name="export_toast">%1$s থেকে %2$s-এ ব্যাকআপকৃত।</string>
+    <string name="actfm_picture_clear">স্পষ্ট ছবি</string>
 </resources>
