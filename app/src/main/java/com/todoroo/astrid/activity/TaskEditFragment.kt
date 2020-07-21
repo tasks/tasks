@@ -137,8 +137,8 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         title.setTextColor(themeColor.colorOnPrimary)
         title.setHintTextColor(themeColor.hintOnPrimary)
         title.maxLines = 5
-        title.addTextChangedListener { text ->
-            editViewModel.title = text.toString().trim { it <= ' ' }
+        title.addTextChangedListener { 
+            editViewModel.title = title.text.toString().trim { it <= ' ' }
         }
         if (model.isNew || preferences.getBoolean(R.string.p_hide_check_button, false)) {
             binding.fab.visibility = View.INVISIBLE
