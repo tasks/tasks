@@ -456,6 +456,7 @@
       android:theme="@style/Tasks"
       android:uiOptions="splitActionBarWhenNarrow"
       android:windowSoftInputMode="adjustResize"
+      android:resizeableActivity="true"
       tools:ignore="ExportedActivity">
       <intent-filter>
         <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING"/>
