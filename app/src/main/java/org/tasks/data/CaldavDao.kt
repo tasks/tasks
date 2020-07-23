@@ -8,6 +8,8 @@ import com.todoroo.astrid.api.FilterListItem.NO_ORDER
 import com.todoroo.astrid.core.SortHelper.APPLE_EPOCH
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.helper.UUIDHelper
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import org.tasks.R
 import org.tasks.date.DateTimeUtils.toAppleEpoch
 import org.tasks.db.SuspendDbUtils.chunkedMap
@@ -251,13 +253,15 @@ abstract class CaldavDao {
     @Query("UPDATE caldav_lists SET cdl_order = :order WHERE cdl_id = :id")
     abstract suspend fun setOrder(id: Long, order: Int)
 
-    suspend fun setupLocalAccount(context: Context): CaldavAccount {
+    suspend fun setupLocalAccount(context: Context): CaldavAccount = mutex.withLock {
         val account = getLocalAccount()
         getLocalList(context, account)
         return account
     }
 
-    suspend fun getLocalList(context: Context) = getLocalList(context, getLocalAccount())
+    suspend fun getLocalList(context: Context) = mutex.withLock {
+        getLocalList(context, getLocalAccount())
+    }
 
     private suspend fun getLocalAccount() = getAccountByUuid(LOCAL) ?: CaldavAccount().apply {
         accountType = CaldavAccount.TYPE_LOCAL
@@ -274,5 +278,6 @@ abstract class CaldavDao {
 
     companion object {
         const val LOCAL = "local"
+        private val mutex = Mutex()
     }
 }
