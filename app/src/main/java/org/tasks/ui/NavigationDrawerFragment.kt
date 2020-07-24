@@ -14,6 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.drawerlayout.widget.DrawerLayout.SimpleDrawerListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.todoroo.astrid.adapter.NavigationDrawerAdapter
@@ -61,6 +62,7 @@ class NavigationDrawerFragment : Fragment() {
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false)
         recyclerView = layout.findViewById(R.id.recycler_view)
+        (recyclerView.itemAnimator as DefaultItemAnimator).supportsChangeAnimations = false
         (layout.findViewById<View>(R.id.scrim_layout) as ScrimInsetsFrameLayout)
                 .setOnInsetsCallback { insets: Rect -> recyclerView.setPadding(0, insets.top, 0, 0) }
         return layout
