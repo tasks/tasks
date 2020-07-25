@@ -631,4 +631,18 @@
     <string name="yesterday_lowercase">wczoraj</string>
     <string name="tomorrow_lowercase">jutro</string>
     <string name="today_lowercase">dzisiaj</string>
+    <string name="permission_read_tasks">Pełny dostęp do bazy danych Tasks</string>
+    <string name="reset_sort_order">Resetuj porządek sortowania</string>
+    <string name="lists">Listy</string>
+    <string name="open_last_viewed_list">Otwórz ostatnio przeglądaną listę</string>
+    <string name="on_launch">Przy uruchomieniu</string>
+    <string name="disable_sort_groups">Wyłącz grupy sortowania</string>
+    <string name="improve_performance_summary">Wyłącz grupy sortowania oraz możliwość zwijania podzadań, aby zwiększyć wydajność aplikacji</string>
+    <string name="improve_performance">Popraw wydajność</string>
+    <string name="date_shortcut_tomorrow_night">Jutro w nocy</string>
+    <string name="date_shortcut_tomorrow_evening">Jutro wieczorem</string>
+    <string name="CFC_list_name">Na liście…</string>
+    <string name="astrid_sort_order_summary">Aktywuje ręczny (jak w Astrid) tryb sortowania dla \'Moich zadań\', \'Dzisiaj\' oraz tagów. Ten tryb sortowania będzie zastąpiony przez \'Ręczne\' w kolejnych aktualizacjach</string>
+    <string name="astrid_sort_order">Ręczne sortowanie (jak w Astrid)</string>
+    <string name="manage_lists">Zarządzaj listami</string>
 </resources>
