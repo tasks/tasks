@@ -4,9 +4,11 @@ import android.annotation.SuppressLint
 import com.google.ical.values.RRule
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.astrid.alarms.AlarmService
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.gcal.GCalHelper
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -23,9 +25,10 @@ import org.tasks.makers.TaskMaker.newTask
 import org.tasks.time.DateTime
 import java.text.ParseException
 
+@ExperimentalCoroutinesApi
 @SuppressLint("NewApi")
 class RepeatTaskHelperTest {
-    private lateinit var taskDao: TaskDaoBlocking
+    private lateinit var taskDao: TaskDao
     private lateinit var localBroadcastManager: LocalBroadcastManager
     private lateinit var alarmService: AlarmService
     private lateinit var gCalHelper: GCalHelper
@@ -34,7 +37,7 @@ class RepeatTaskHelperTest {
 
     @Before
     fun setUp() {
-        taskDao = Mockito.mock(TaskDaoBlocking::class.java)
+        taskDao = Mockito.mock(TaskDao::class.java)
         alarmService = Mockito.mock(AlarmService::class.java)
         gCalHelper = Mockito.mock(GCalHelper::class.java)
         localBroadcastManager = Mockito.mock(LocalBroadcastManager::class.java)
@@ -48,7 +51,7 @@ class RepeatTaskHelperTest {
     }
 
     @Test
-    fun noRepeat() {
+    fun noRepeat() = runBlockingTest {
         helper.handleRepeat(newTask(with(DUE_TIME, DateTime(2017, 10, 4, 13, 30))))
     }
 
@@ -90,7 +93,7 @@ class RepeatTaskHelperTest {
 
     @Test
     @Throws(ParseException::class)
-    fun testMinutelyLastOccurrence() {
+    fun testMinutelyLastOccurrence() = runBlockingTest {
         val task = newTask(
                 with(ID, 1L),
                 with(DUE_TIME, DateTime(2017, 10, 4, 13, 30)),
@@ -177,7 +180,7 @@ class RepeatTaskHelperTest {
                 task, DateTime(2017, 1, 31, 13, 30, 1), DateTime(2017, 2, 28, 13, 30, 1))
     }
 
-    private fun repeatAndVerify(task: Task, oldDueDate: DateTime, newDueDate: DateTime) {
+    private fun repeatAndVerify(task: Task, oldDueDate: DateTime, newDueDate: DateTime) = runBlockingTest {
         helper.handleRepeat(task)
         mocks.verify(gCalHelper).rescheduleRepeatingTask(task)
         mocks.verify(alarmService).rescheduleAlarms(1, oldDueDate.millis, newDueDate.millis)

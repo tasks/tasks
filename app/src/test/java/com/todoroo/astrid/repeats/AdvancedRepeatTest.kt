@@ -45,7 +45,7 @@ class AdvancedRepeatTest {
                 Task.URGENCY_SPECIFIC_DAY_TIME, DateTime(2010, 8, 1, 10, 4, 0).millis)
         task!!.dueDate = dayWithTime
         val nextDayWithTime = dayWithTime + DateUtilities.ONE_DAY
-        nextDueDate = RepeatTaskHelper.computeNextDueDate(task, rrule!!.toIcal(), false)
+        nextDueDate = RepeatTaskHelper.computeNextDueDate(task!!, rrule!!.toIcal(), false)
         assertDateTimeEquals(nextDayWithTime, nextDueDate)
     }
 
@@ -63,7 +63,7 @@ class AdvancedRepeatTest {
         var nextDayWithTimeLong = todayWithTime.millis
         nextDayWithTimeLong += DateUtilities.ONE_DAY
         nextDayWithTimeLong = nextDayWithTimeLong / 1000L * 1000
-        nextDueDate = RepeatTaskHelper.computeNextDueDate(task, rrule!!.toIcal(), true)
+        nextDueDate = RepeatTaskHelper.computeNextDueDate(task!!, rrule!!.toIcal(), true)
         assertDateTimeEquals(nextDayWithTimeLong, nextDueDate)
     }
 
@@ -194,7 +194,7 @@ class AdvancedRepeatTest {
 
     @Throws(ParseException::class)
     private fun computeNextDueDate(fromComplete: Boolean) {
-        nextDueDate = RepeatTaskHelper.computeNextDueDate(task, rrule!!.toIcal(), fromComplete)
+        nextDueDate = RepeatTaskHelper.computeNextDueDate(task!!, rrule!!.toIcal(), fromComplete)
     }
 
     private fun buildRRule(interval: Int, freq: Frequency, vararg weekdays: Weekday) {

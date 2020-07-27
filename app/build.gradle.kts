@@ -222,6 +222,7 @@ dependencies {
     androidTestImplementation("androidx.annotation:annotation:1.1.0")
 
     testImplementation("junit:junit:4.13")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.8")
     testImplementation("com.natpryce:make-it-easy:${Versions.make_it_easy}")
     testImplementation("androidx.test:core:${Versions.androidx_test}")
     testImplementation("org.mockito:mockito-core:${Versions.mockito}")
