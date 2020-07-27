@@ -9,7 +9,7 @@ import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.reminders.ReminderService
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.Notifier
-import org.tasks.data.LocationDaoBlocking
+import org.tasks.data.LocationDao
 import org.tasks.data.Place
 import org.tasks.injection.InjectingJobIntentService
 import org.tasks.notifications.Notification
@@ -19,10 +19,10 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class GeofenceTransitionsIntentService : InjectingJobIntentService() {
-    @Inject lateinit var locationDao: LocationDaoBlocking
+    @Inject lateinit var locationDao: LocationDao
     @Inject lateinit var notifier: Notifier
 
-    override fun doWork(intent: Intent) {
+    override suspend fun doWork(intent: Intent) {
         val geofencingEvent = GeofencingEvent.fromIntent(intent)
         if (geofencingEvent.hasError()) {
             Timber.e("geofence error code %s", geofencingEvent.errorCode)
@@ -40,7 +40,7 @@ class GeofenceTransitionsIntentService : InjectingJobIntentService() {
         }
     }
 
-    private fun triggerNotification(triggeringGeofence: Geofence, arrival: Boolean) {
+    private suspend fun triggerNotification(triggeringGeofence: Geofence, arrival: Boolean) {
         val requestId = triggeringGeofence.requestId
         try {
             val place = locationDao.getPlace(requestId)

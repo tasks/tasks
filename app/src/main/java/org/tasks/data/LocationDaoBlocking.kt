@@ -13,14 +13,6 @@ class LocationDaoBlocking @Inject constructor(private val dao: LocationDao) {
         dao.getGeofencesByPlace(uid)
     }
 
-    fun getArrivalGeofences(place: String, now: Long): List<Geofence> = runBlocking {
-        dao.getArrivalGeofences(place, now)
-    }
-
-    fun getDepartureGeofences(place: String, now: Long): List<Geofence> = runBlocking {
-        dao.getDepartureGeofences(place, now)
-    }
-
     fun getPlaceForTask(taskId: Long): Place? = runBlocking {
         dao.getPlaceForTask(taskId)
     }

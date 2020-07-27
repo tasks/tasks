@@ -2,18 +2,21 @@ package org.tasks.injection
 
 import android.content.Intent
 import androidx.core.app.JobIntentService
+import kotlinx.coroutines.runBlocking
 import timber.log.Timber
 
 abstract class InjectingJobIntentService : JobIntentService() {
     override fun onHandleWork(intent: Intent) {
-        try {
-            doWork(intent)
-        } catch (e: Exception) {
-            Timber.e(e)
+        runBlocking {
+            try {
+                doWork(intent)
+            } catch (e: Exception) {
+                Timber.e(e)
+            }
         }
     }
 
-    protected abstract fun doWork(intent: Intent)
+    protected abstract suspend fun doWork(intent: Intent)
 
     companion object {
         const val JOB_ID_GEOFENCE_TRANSITION = 1081

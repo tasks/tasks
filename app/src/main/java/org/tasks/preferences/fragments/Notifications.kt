@@ -283,7 +283,7 @@ class Notifications : InjectingPreferenceFragment() {
             if (resultCode == RESULT_OK) {
                 val filter: Filter =
                     data!!.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER)!!
-                defaultFilterProvider.badgeFilter = filter
+                defaultFilterProvider.setBadgeFilter(filter)
                 findPreference(R.string.p_badge_list).summary = filter.listingTitle
                 localBroadcastManager.broadcastRefresh()
             }

@@ -15,7 +15,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import timber.log.Timber;
 
-class TaskerTaskCreator {
+public class TaskerTaskCreator {
 
   private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ISO_LOCAL_DATE;
   private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ISO_LOCAL_TIME;

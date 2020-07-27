@@ -28,10 +28,6 @@ class DefaultFilterProvider @Inject constructor(
         @Deprecated("use coroutines") get() = runBlocking { getFilterFromPreference(R.string.p_dashclock_filter) }
         set(filter) = setFilterPreference(filter, R.string.p_dashclock_filter)
 
-    var badgeFilter: Filter
-        @Deprecated("use coroutines") get() = runBlocking { getBadgeFilter() }
-        set(filter) = setFilterPreference(filter, R.string.p_badge_list)
-
     var lastViewedFilter: Filter
         @Deprecated("use coroutines") get() = runBlocking { getFilterFromPreference(R.string.p_last_viewed_list) }
         set(filter) = setFilterPreference(filter, R.string.p_last_viewed_list)
@@ -43,6 +39,8 @@ class DefaultFilterProvider @Inject constructor(
     @Deprecated("use coroutines")
     val startupFilter: Filter
         get() = runBlocking { getStartupFilter() }
+
+    fun setBadgeFilter(filter: Filter) = setFilterPreference(filter, R.string.p_badge_list)
 
     suspend fun getBadgeFilter() = getFilterFromPreference(R.string.p_badge_list)
 
