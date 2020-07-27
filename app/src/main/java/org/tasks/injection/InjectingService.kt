@@ -4,35 +4,37 @@ import android.app.Notification
 import android.app.Service
 import android.content.Intent
 import androidx.core.app.NotificationCompat
-import io.reactivex.Completable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.notifications.NotificationManager
 import javax.inject.Inject
 
 abstract class InjectingService : Service() {
+    private val job = SupervisorJob()
+    private val scope = CoroutineScope(Dispatchers.IO + job)
+
     @Inject lateinit var firebase: Firebase
-    private lateinit var disposables: CompositeDisposable
 
     override fun onCreate() {
         super.onCreate()
         startForeground()
-        disposables = CompositeDisposable()
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         startForeground()
-        disposables.add(
-                Completable.fromAction { doWork() }
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe({ done(startId) }) { t: Throwable ->
-                            firebase.reportException(t)
-                            done(startId)
-                        })
+        scope.launch {
+            try {
+                doWork()
+            } catch (e: Exception) {
+                firebase.reportException(e)
+            } finally {
+                done(startId)
+            }
+        }
         return START_NOT_STICKY
     }
 
@@ -44,7 +46,7 @@ abstract class InjectingService : Service() {
     override fun onDestroy() {
         super.onDestroy()
         stopForeground(true)
-        disposables.dispose()
+        job.cancel()
     }
 
     private fun startForeground() {
@@ -65,5 +67,6 @@ abstract class InjectingService : Service() {
     }
 
     protected open fun scheduleNext() {}
-    protected abstract fun doWork()
+
+    protected abstract suspend fun doWork()
 }
