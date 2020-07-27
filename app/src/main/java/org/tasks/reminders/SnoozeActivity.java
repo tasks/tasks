@@ -43,10 +43,10 @@ public class SnoozeActivity extends InjectingAppCompatActivity
     return intent;
   }
 
-  public static Intent newIntent(Context context, ArrayList<Long> ids) {
+  public static Intent newIntent(Context context, List<Long> ids) {
     Intent intent = new Intent(context, SnoozeActivity.class);
     intent.setFlags(FLAGS);
-    intent.putExtra(SnoozeActivity.EXTRA_TASK_IDS, ids);
+    intent.putExtra(SnoozeActivity.EXTRA_TASK_IDS, new ArrayList(ids));
     return intent;
   }
 

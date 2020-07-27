@@ -93,11 +93,14 @@ class Notifier @Inject constructor(
                 && !ringNonstop
                 && !audioManager.notificationsMuted()
                 && telephonyManager.callStateIdle()) {
-            for (notification in notifications) {
-                AndroidUtilities.sleepDeep(2000)
-                voiceOutputAssistant.speak(
-                        notificationManager.getTaskNotification(notification).build().tickerText.toString())
-            }
+            notifications
+                    .mapNotNull {
+                        notificationManager.getTaskNotification(it)?.build()?.tickerText?.toString()
+                    }
+                    .forEach {
+                        AndroidUtilities.sleepDeep(2000)
+                        voiceOutputAssistant.speak(it)
+                    }
         }
     }
 }
