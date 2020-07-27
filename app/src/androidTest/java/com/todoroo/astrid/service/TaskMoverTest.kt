@@ -9,7 +9,6 @@ import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
-import org.junit.Before
 import org.junit.Test
 import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavDao
@@ -42,12 +41,6 @@ class TaskMoverTest : InjectingTestCase() {
     @Inject lateinit var workManager: WorkManager
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var taskMover: TaskMover
-
-    @Before
-    override fun setUp() {
-        super.setUp()
-        taskDaoAsync.initialize(workManager)
-    }
 
     @Test
     fun moveBetweenGoogleTaskLists() = runBlocking {

@@ -114,7 +114,7 @@ class AfterSaveWork @WorkerInject constructor(
                     .putBoolean(EXTRA_PUSH_GTASKS, !suppress && !current.googleTaskUpToDate(original))
                     .putBoolean(
                             EXTRA_PUSH_CALDAV, !suppress && (!current.caldavUpToDate(original) || forceCaldav))
-                    .putBoolean(EXTRA_SUPPRESS_REFRESH, current.checkTransitory(TaskDao.TRANS_SUPPRESS_REFRESH))
+                    .putBoolean(EXTRA_SUPPRESS_REFRESH, current.checkTransitory(Task.TRANS_SUPPRESS_REFRESH))
             if (original != null) {
                 builder
                         .putLong(EXTRA_ORIG_COMPLETED, original.completionDate)

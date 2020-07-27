@@ -376,7 +376,7 @@ class Task : Parcelable {
 
     @Synchronized
     fun suppressRefresh() {
-        putTransitory(TaskDao.TRANS_SUPPRESS_REFRESH, true)
+        putTransitory(TRANS_SUPPRESS_REFRESH, true)
     }
 
     @Synchronized
@@ -559,6 +559,8 @@ class Task : Parcelable {
         const val URGENCY_DAY_AFTER = 3
         const val URGENCY_NEXT_WEEK = 4
         const val URGENCY_IN_TWO_WEEKS = 5
+
+        const val TRANS_SUPPRESS_REFRESH = "suppress-refresh"
 
         /**
          * Creates due date for this task. If this due date has no time associated, we move it to the last

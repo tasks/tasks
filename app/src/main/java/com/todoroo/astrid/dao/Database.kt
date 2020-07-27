@@ -4,6 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.todoroo.astrid.data.Task
 import org.tasks.data.*
+import org.tasks.data.TaskDao
 import org.tasks.notifications.Notification
 import org.tasks.notifications.NotificationDao
 

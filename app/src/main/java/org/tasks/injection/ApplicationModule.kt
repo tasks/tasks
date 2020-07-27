@@ -2,7 +2,6 @@ package org.tasks.injection
 
 import android.content.Context
 import com.todoroo.astrid.dao.Database
-import com.todoroo.astrid.dao.TaskDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,7 +12,6 @@ import org.tasks.billing.BillingClient
 import org.tasks.billing.BillingClientImpl
 import org.tasks.billing.Inventory
 import org.tasks.data.*
-import org.tasks.jobs.WorkManager
 import org.tasks.locale.Locale
 import org.tasks.location.Geocoder
 import org.tasks.location.MapboxGeocoder
@@ -81,11 +79,7 @@ class ApplicationModule {
 
     @Provides
     @Singleton
-    fun getTaskDao(db: Database, workManager: WorkManager): TaskDao {
-        val taskDao = db.taskDao
-        taskDao.initialize(workManager)
-        return taskDao
-    }
+    fun getTaskDao(db: Database): TaskDao = db.taskDao
 
     @Provides
     @Singleton
