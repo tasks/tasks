@@ -23,8 +23,6 @@ class TaskDao @Inject constructor(
 
     suspend fun fetch(ids: List<Long>): List<Task> = taskDao.fetch(ids)
 
-    suspend fun activeTimers(): Int = taskDao.activeTimers()
-
     suspend fun fetch(remoteId: String): Task? = taskDao.fetch(remoteId)
 
     suspend fun getRecurringTasks(remoteIds: List<String>): List<Task> =

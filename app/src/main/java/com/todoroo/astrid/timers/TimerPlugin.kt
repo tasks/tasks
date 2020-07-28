@@ -12,11 +12,11 @@ import com.todoroo.andlib.sql.Criterion.Companion.and
 import com.todoroo.andlib.sql.QueryTemplate
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.utility.Constants
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
+import org.tasks.data.TaskDao
 import org.tasks.intents.TaskIntents
 import org.tasks.notifications.NotificationManager
 import org.tasks.time.DateTimeUtils
@@ -54,7 +54,7 @@ class TimerPlugin @Inject constructor(
                 task.elapsedSeconds = task.elapsedSeconds + newElapsed
             }
         }
-        taskDao.save(task)
+        taskDao.update(task)
         updateNotifications()
     }
 
