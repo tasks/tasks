@@ -5,9 +5,12 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import androidx.lifecycle.lifecycleScope
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.reminders.ReminderService
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.launch
 import org.tasks.activities.DateAndTimePickerActivity
 import org.tasks.dialogs.MyTimePickerDialog
 import org.tasks.injection.InjectingAppCompatActivity
@@ -20,7 +23,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class SnoozeActivity : InjectingAppCompatActivity(), SnoozeCallback, DialogInterface.OnCancelListener {
     @Inject lateinit var notificationManager: NotificationManager
-    @Inject lateinit var taskDao: TaskDaoBlocking
+    @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var reminderService: ReminderService
     @Inject lateinit var themeAccent: ThemeAccent
 
@@ -57,9 +60,11 @@ class SnoozeActivity : InjectingAppCompatActivity(), SnoozeCallback, DialogInter
     }
 
     override fun snoozeForTime(time: DateTime) {
-        taskDao.snooze(taskIds, time.millis)
-        reminderService.scheduleAllAlarms(taskIds)
-        notificationManager.cancel(taskIds)
+        lifecycleScope.launch(NonCancellable) {
+            taskDao.snooze(taskIds, time.millis)
+            reminderService.scheduleAllAlarms(taskIds)
+            notificationManager.cancel(taskIds)
+        }
         setResult(Activity.RESULT_OK)
         finish()
     }

@@ -3,13 +3,11 @@ package org.tasks.reminders
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.todoroo.astrid.dao.TaskDaoBlocking
-import com.todoroo.astrid.data.Task
+import androidx.lifecycle.lifecycleScope
+import com.todoroo.astrid.dao.TaskDao
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 import org.tasks.injection.InjectingAppCompatActivity
 import org.tasks.intents.TaskIntents
 import org.tasks.notifications.NotificationManager
@@ -21,7 +19,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class NotificationActivity : InjectingAppCompatActivity(), NotificationDialog.NotificationHandler {
     @Inject lateinit var notificationManager: NotificationManager
-    @Inject lateinit var taskDao: TaskDaoBlocking
+    @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var themeAccent: ThemeAccent
 
     private var taskId: Long = 0
@@ -56,17 +54,16 @@ class NotificationActivity : InjectingAppCompatActivity(), NotificationDialog.No
     }
 
     override fun edit() {
-        notificationManager.cancel(taskId)
-        disposables!!.add(
-                Single.fromCallable { taskDao.fetchBlocking(taskId) }
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                { task: Task? ->
-                                    startActivity(TaskIntents.getEditTaskIntent(this, null, task))
-                                    finish()
-                                }
-                        ) { Timber.e("Task not found: $taskId") })
+        lifecycleScope.launch {
+            notificationManager.cancel(taskId)
+            taskDao.fetch(taskId)
+                    ?.let {
+                        startActivity(
+                                TaskIntents.getEditTaskIntent(this@NotificationActivity, null, it))
+                    }
+                    ?: Timber.e("Failed to find task $taskId")
+            finish()
+        }
     }
 
     override fun snooze() {
