@@ -3,12 +3,12 @@ package org.tasks
 import android.app.PendingIntent
 import android.content.Context
 import androidx.core.app.NotificationCompat
-import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.reminders.ReminderService
 import com.todoroo.astrid.voice.VoiceOutputAssistant
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.delay
 import org.tasks.intents.TaskIntents
 import org.tasks.notifications.AudioManager
 import org.tasks.notifications.Notification
@@ -24,7 +24,7 @@ import kotlin.math.min
 
 class Notifier @Inject constructor(
         @param:ApplicationContext private val context: Context,
-        private val taskDao: TaskDaoBlocking,
+        private val taskDao: TaskDao,
         private val notificationManager: NotificationManager,
         private val telephonyManager: TelephonyManager,
         private val audioManager: AudioManager,
@@ -33,7 +33,7 @@ class Notifier @Inject constructor(
 
     private val colorProvider: ColorProvider = ColorProvider(context, preferences)
 
-    fun triggerFilterNotification(filter: Filter) {
+    suspend fun triggerFilterNotification(filter: Filter) {
         val tasks = taskDao.fetchFiltered(filter)
         val count = tasks.size
         if (count == 0) {
@@ -66,12 +66,12 @@ class Notifier @Inject constructor(
         notificationManager.notify(filter.listingTitle.hashCode().toLong(), builder, true, false, false)
     }
 
-    fun triggerNotifications(entries: List<Notification>) {
+    suspend fun triggerNotifications(entries: List<Notification>) {
         val notifications: MutableList<Notification> = ArrayList()
         var ringFiveTimes = false
         var ringNonstop = false
         for (entry in entries.takeLast(NotificationManager.MAX_NOTIFICATIONS)) {
-            val task = taskDao.fetchBlocking(entry.taskId) ?: continue
+            val task = taskDao.fetch(entry.taskId) ?: continue
             if (entry.type != ReminderService.TYPE_RANDOM) {
                 ringFiveTimes = ringFiveTimes or task.isNotifyModeFive
                 ringNonstop = ringNonstop or task.isNotifyModeNonstop
@@ -85,7 +85,7 @@ class Notifier @Inject constructor(
             return
         }
 
-        Timber.d("Triggering %s", notifications)
+        Timber.d("Triggering $notifications")
 
         notificationManager.notifyTasks(notifications, true, ringNonstop, ringFiveTimes)
 
@@ -98,7 +98,7 @@ class Notifier @Inject constructor(
                         notificationManager.getTaskNotification(it)?.build()?.tickerText?.toString()
                     }
                     .forEach {
-                        AndroidUtilities.sleepDeep(2000)
+                        delay(2000)
                         voiceOutputAssistant.speak(it)
                     }
         }

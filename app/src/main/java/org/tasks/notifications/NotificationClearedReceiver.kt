@@ -3,6 +3,7 @@ package org.tasks.notifications
 import android.content.Context
 import android.content.Intent
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.runBlocking
 import org.tasks.injection.InjectingBroadcastReceiver
 import timber.log.Timber
 import javax.inject.Inject
@@ -15,6 +16,8 @@ class NotificationClearedReceiver : InjectingBroadcastReceiver() {
         super.onReceive(context, intent)
         val notificationId = intent.getLongExtra(NotificationManager.EXTRA_NOTIFICATION_ID, -1L)
         Timber.d("cleared $notificationId")
-        notificationManager.cancel(notificationId)
+        runBlocking {
+            notificationManager.cancel(notificationId)
+        }
     }
 }

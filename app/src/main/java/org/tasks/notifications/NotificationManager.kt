@@ -11,18 +11,14 @@ import com.todoroo.andlib.sql.QueryTemplate
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.reminders.ReminderService
 import dagger.hilt.android.qualifiers.ApplicationContext
-import io.reactivex.Completable
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
-import org.tasks.data.LocationDaoBlocking
+import org.tasks.data.LocationDao
 import org.tasks.intents.TaskIntents
 import org.tasks.preferences.Preferences
 import org.tasks.receivers.CompleteTaskReceiver
@@ -41,9 +37,9 @@ import kotlin.math.min
 class NotificationManager @Inject constructor(
         @param:ApplicationContext private val context: Context,
         private val preferences: Preferences,
-        private val notificationDao: NotificationDaoBlocking,
-        private val taskDao: TaskDaoBlocking,
-        private val locationDao: LocationDaoBlocking,
+        private val notificationDao: NotificationDao,
+        private val taskDao: TaskDao,
+        private val locationDao: LocationDao,
         private val localBroadcastManager: LocalBroadcastManager) {
     private val notificationManagerCompat = NotificationManagerCompat.from(context)
     private val colorProvider = ColorProvider(context, preferences)
@@ -51,35 +47,25 @@ class NotificationManager @Inject constructor(
     private val queue = NotificationLimiter(MAX_NOTIFICATIONS)
 
     @SuppressLint("CheckResult")
-    fun cancel(id: Long) {
+    suspend fun cancel(id: Long) {
         if (id == SUMMARY_NOTIFICATION_ID.toLong()) {
-            Single.fromCallable { notificationDao.getAll() + id }
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe { ids: Iterable<Long> -> this.cancel(ids) }
+            cancel(notificationDao.getAll() + id)
         } else {
             cancel(listOf(id))
         }
     }
 
     @SuppressLint("CheckResult")
-    fun cancel(ids: Iterable<Long>) {
+    suspend fun cancel(ids: Iterable<Long>) {
         for (id in ids) {
             notificationManagerCompat.cancel(id.toInt())
             queue.remove(id)
         }
-        Completable.fromAction { notificationDao.deleteAll(ids.toList()) }
-                .subscribeOn(Schedulers.io())
-                .subscribe {
-                    notifyTasks(
-                            emptyList(),
-                            alert = false,
-                            nonstop = false,
-                            fiveTimes = false)
-                }
+        notificationDao.deleteAll(ids.toList())
+        notifyTasks(emptyList(), alert = false, nonstop = false, fiveTimes = false)
     }
 
-    fun restoreNotifications(cancelExisting: Boolean) {
+    suspend fun restoreNotifications(cancelExisting: Boolean) {
         val notifications = notificationDao.getAllOrdered()
         if (cancelExisting) {
             for (notification in notifications) {
@@ -109,8 +95,11 @@ class NotificationManager @Inject constructor(
         }
     }
 
-    fun notifyTasks(
-            newNotifications: List<Notification>, alert: Boolean, nonstop: Boolean, fiveTimes: Boolean) {
+    suspend fun notifyTasks(
+            newNotifications: List<Notification>,
+            alert: Boolean,
+            nonstop: Boolean,
+            fiveTimes: Boolean) {
         val existingNotifications = notificationDao.getAllOrdered()
         notificationDao.insertAll(newNotifications)
         val totalCount = existingNotifications.size + newNotifications.size
@@ -151,7 +140,7 @@ class NotificationManager @Inject constructor(
         localBroadcastManager.broadcastRefresh()
     }
 
-    private fun createNotifications(
+    private suspend fun createNotifications(
             notifications: List<Notification>,
             alert: Boolean,
             nonstop: Boolean,
@@ -166,7 +155,7 @@ class NotificationManager @Inject constructor(
             } else {
                 builder
                         .setGroup(
-                                if (useGroupKey) GROUP_KEY else if (AndroidUtilities.atLeastNougat()) java.lang.Long.toString(notification.taskId) else null)
+                                if (useGroupKey) GROUP_KEY else if (AndroidUtilities.atLeastNougat()) notification.taskId.toString() else null)
                         .setGroupAlertBehavior(
                                 if (alert) NotificationCompat.GROUP_ALERT_CHILDREN else NotificationCompat.GROUP_ALERT_SUMMARY)
                 notify(notification.taskId, builder, alert, nonstop, fiveTimes)
@@ -175,7 +164,7 @@ class NotificationManager @Inject constructor(
         }
     }
 
-    fun notify(
+    suspend fun notify(
             notificationId: Long,
             builder: NotificationCompat.Builder,
             alert: Boolean,
@@ -217,7 +206,7 @@ class NotificationManager @Inject constructor(
         }
     }
 
-    private fun updateSummary(
+    private suspend fun updateSummary(
             notify: Boolean, nonStop: Boolean, fiveTimes: Boolean, newNotifications: List<Notification>) {
         val tasks = taskDao.activeNotifications()
         val taskCount = tasks.size
@@ -275,11 +264,11 @@ class NotificationManager @Inject constructor(
         notify(SUMMARY_NOTIFICATION_ID.toLong(), builder, notify, nonStop, fiveTimes)
     }
 
-    fun getTaskNotification(notification: Notification): NotificationCompat.Builder? {
+    suspend fun getTaskNotification(notification: Notification): NotificationCompat.Builder? {
         val id = notification.taskId
         val type = notification.type
         val `when` = notification.timestamp
-        val task = taskDao.fetchBlocking(id)
+        val task = taskDao.fetch(id)
         if (task == null) {
             Timber.e("Could not find %s", id)
             return null

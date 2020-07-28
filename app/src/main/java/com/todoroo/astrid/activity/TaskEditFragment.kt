@@ -173,7 +173,9 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
                     }
                 })
         if (!model.isNew) {
-            notificationManager.cancel(model.id)
+            lifecycleScope.launch {
+                notificationManager.cancel(model.id)
+            }
             if (preferences.getBoolean(R.string.p_linkify_task_edit, false)) {
                 linkify.linkify(title)
             }

@@ -170,18 +170,6 @@ public class AndroidUtilities {
     return Thread.currentThread() == Looper.getMainLooper().getThread();
   }
 
-  /**
-   * Sleep, ignoring interruption. Before using this method, think carefully about why you are
-   * ignoring interruptions.
-   */
-  public static void sleepDeep(long l) {
-    try {
-      Thread.sleep(l);
-    } catch (InterruptedException e) {
-      // ignore
-    }
-  }
-
   /** Capitalize the first character */
   public static String capitalize(String string) {
     return string.substring(0, 1).toUpperCase() + string.substring(1);

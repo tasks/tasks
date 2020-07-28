@@ -55,7 +55,7 @@ class GeofenceTransitionsIntentService : InjectingJobIntentService() {
             }
             geofences
                     .map { toNotification(place, it, arrival) }
-                    .apply(notifier::triggerNotifications)
+                    .let { notifier.triggerNotifications(it) }
         } catch (e: Exception) {
             Timber.e(e, "Error triggering geofence %s: %s", requestId, e.message)
         }

@@ -28,10 +28,6 @@ class TaskDaoBlocking @Inject constructor(private val dao: TaskDao) {
         dao.activeTimers()
     }
 
-    fun activeNotifications(): List<Task> = runBlocking {
-        dao.activeNotifications()
-    }
-
     fun snooze(taskIds: List<Long>, millis: Long) = runBlocking {
         dao.snooze(taskIds, millis)
     }
