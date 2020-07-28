@@ -148,7 +148,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         navigationDrawer.closeDrawer()
     }
 
-    private fun getTaskToLoad(filter: Filter?): Task? {
+    private suspend fun getTaskToLoad(filter: Filter?): Task? {
         val intent = intent
         if (intent.isFromHistory) {
             return null
@@ -165,7 +165,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         return null
     }
 
-    private fun openTask(filter: Filter?) {
+    private fun openTask(filter: Filter?) = lifecycleScope.launch {
         val task = getTaskToLoad(filter)
         when {
             task != null -> onTaskListItemClicked(task)
@@ -344,30 +344,28 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
     private val nightMode: Int
         get() = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
 
-    override fun onTaskListItemClicked(task: Task?) {
+    override suspend fun onTaskListItemClicked(task: Task?) {
         AndroidUtilities.assertMainThread()
         if (task == null) {
             return
         }
-        lifecycleScope.launchWhenResumed {
-            taskEditFragment?.let {
-                it.editViewModel.cleared.removeObservers(this@MainActivity)
-                it.save()
-            }
-            clearUi()
-            val fragment = newTaskEditFragment(
-                    task,
-                    defaultFilterProvider.getList(task),
-                    locationDao.getLocation(task, preferences),
-                    tagDataDao.getTags(task),
-                    alarmDao.getAlarms(task),
-                    filterColor)
-            supportFragmentManager.beginTransaction()
-                    .replace(R.id.detail, fragment, TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
-                    .addToBackStack(TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
-                    .commit()
-            showDetailFragment()
+        taskEditFragment?.let {
+            it.editViewModel.cleared.removeObservers(this@MainActivity)
+            it.save()
         }
+        clearUi()
+        val fragment = newTaskEditFragment(
+                task,
+                defaultFilterProvider.getList(task),
+                locationDao.getLocation(task, preferences),
+                tagDataDao.getTags(task),
+                alarmDao.getAlarms(task),
+                filterColor)
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.detail, fragment, TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
+                .addToBackStack(TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
+                .commit()
+        showDetailFragment()
     }
 
     override fun onNavigationIconClicked() {

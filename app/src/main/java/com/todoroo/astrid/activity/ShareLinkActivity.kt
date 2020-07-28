@@ -4,12 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import androidx.lifecycle.lifecycleScope
 import com.google.common.collect.Lists
 import com.google.common.io.Files
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskCreator
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.launch
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.TaskAttachment
 import org.tasks.files.FileHelper
@@ -35,31 +37,39 @@ class ShareLinkActivity : InjectingAppCompatActivity() {
         super.onCreate(savedInstanceState)
         val intent = intent
         val action = intent.action
-        if (Intent.ACTION_PROCESS_TEXT == action) {
-            val text = intent.getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT)
-            if (text != null) {
-                val task = taskCreator.createWithValues(text.toString())
+        when {
+            Intent.ACTION_PROCESS_TEXT == action -> lifecycleScope.launch {
+                val text = intent.getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT)
+                if (text != null) {
+                    val task = taskCreator.createWithValues(text.toString())
+                    editTask(task)
+                }
+                finish()
+            }
+            Intent.ACTION_SEND == action -> lifecycleScope.launch {
+                val subject = intent.getStringExtra(Intent.EXTRA_SUBJECT)
+                val task = taskCreator.createWithValues(subject)
+                task.notes = intent.getStringExtra(Intent.EXTRA_TEXT)
+                if (hasAttachments(intent)) {
+                    task.putTransitory(TaskAttachment.KEY, copyAttachment(intent))
+                }
                 editTask(task)
+                finish()
             }
-        } else if (Intent.ACTION_SEND == action) {
-            val subject = intent.getStringExtra(Intent.EXTRA_SUBJECT)
-            val task = taskCreator.createWithValues(subject)
-            task.notes = intent.getStringExtra(Intent.EXTRA_TEXT)
-            if (hasAttachments(intent)) {
-                task.putTransitory(TaskAttachment.KEY, copyAttachment(intent))
+            Intent.ACTION_SEND_MULTIPLE == action -> lifecycleScope.launch {
+                val task = taskCreator.createWithValues(intent.getStringExtra(Intent.EXTRA_SUBJECT))
+                task.notes = intent.getStringExtra(Intent.EXTRA_TEXT)
+                if (hasAttachments(intent)) {
+                    task.putTransitory(TaskAttachment.KEY, copyMultipleAttachments(intent))
+                }
+                editTask(task)
+                finish()
             }
-            editTask(task)
-        } else if (Intent.ACTION_SEND_MULTIPLE == action) {
-            val task = taskCreator.createWithValues(intent.getStringExtra(Intent.EXTRA_SUBJECT))
-            task.notes = intent.getStringExtra(Intent.EXTRA_TEXT)
-            if (hasAttachments(intent)) {
-                task.putTransitory(TaskAttachment.KEY, copyMultipleAttachments(intent))
+            else -> {
+                Timber.e("Unhandled intent: %s", intent)
+                finish()
             }
-            editTask(task)
-        } else {
-            Timber.e("Unhandled intent: %s", intent)
         }
-        finish()
     }
 
     private fun editTask(task: Task) {

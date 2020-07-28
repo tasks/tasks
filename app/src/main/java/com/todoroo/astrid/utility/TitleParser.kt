@@ -12,14 +12,14 @@ import com.mdimension.jchronic.Chronic
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.data.Task.Companion.createDueDate
 import org.tasks.Strings.isNullOrEmpty
-import org.tasks.data.TagDataDaoBlocking
+import org.tasks.data.TagDataDao
 import timber.log.Timber
 import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 object TitleParser {
-    fun parse(tagDataDao: TagDataDaoBlocking, task: Task, tags: ArrayList<String>) {
+    suspend fun parse(tagDataDao: TagDataDao, task: Task, tags: ArrayList<String>) {
         repeatHelper(task)
         listHelper(
                 tagDataDao,
@@ -39,7 +39,7 @@ object TitleParser {
         } else pattern
     }
 
-    fun listHelper(tagDataDao: TagDataDaoBlocking, task: Task, tags: ArrayList<String>) {
+    suspend fun listHelper(tagDataDao: TagDataDao, task: Task, tags: ArrayList<String>) {
         var inputText = task.title
         val tagPattern = Pattern.compile("(\\s|^)#(\\(.*\\)|[^\\s]+)")
         val contextPattern = Pattern.compile("(\\s|^)@(\\(.*\\)|[^\\s]+)")

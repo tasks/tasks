@@ -9,9 +9,10 @@ import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.utility.TitleParser
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.tasks.data.TagDataDaoBlocking
+import org.tasks.data.TagDataDao
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import java.util.*
@@ -21,7 +22,7 @@ import javax.inject.Inject
 @HiltAndroidTest
 class QuickAddMarkupTest : InjectingTestCase() {
     private val tags = ArrayList<String>()
-    @Inject lateinit var tagDataDao: TagDataDaoBlocking
+    @Inject lateinit var tagDataDao: TagDataDao
     
     private var task: Task? = null
 
@@ -81,7 +82,7 @@ class QuickAddMarkupTest : InjectingTestCase() {
         assertEquals(title, task!!.title)
     }
 
-    private fun whenTitleIs(title: String) {
+    private fun whenTitleIs(title: String) = runBlocking {
         task = Task()
         task!!.title = title
         tags.clear()

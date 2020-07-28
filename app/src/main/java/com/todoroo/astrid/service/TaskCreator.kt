@@ -5,7 +5,7 @@ import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.api.PermaSql
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.data.Task.Companion.createDueDate
 import com.todoroo.astrid.gcal.GCalHelper
@@ -23,14 +23,15 @@ import javax.inject.Inject
 class TaskCreator @Inject constructor(
         private val gcalHelper: GCalHelper,
         private val preferences: Preferences,
-        private val tagDataDao: TagDataDaoBlocking,
-        private val taskDao: TaskDaoBlocking,
-        private val tagDao: TagDaoBlocking,
-        private val googleTaskDao: GoogleTaskDaoBlocking,
+        private val tagDataDao: TagDataDao,
+        private val taskDao: TaskDao,
+        private val tagDao: TagDao,
+        private val googleTaskDao: GoogleTaskDao,
         private val defaultFilterProvider: DefaultFilterProvider,
-        private val caldavDao: CaldavDaoBlocking,
-        private val locationDao: LocationDaoBlocking) {
-    fun basicQuickAddTask(title: String): Task {
+        private val caldavDao: CaldavDao,
+        private val locationDao: LocationDao) {
+
+    suspend fun basicQuickAddTask(title: String): Task {
         var title = title
         title = title.trim { it <= ' ' }
         val task = createWithValues(title)
@@ -51,7 +52,7 @@ class TaskCreator @Inject constructor(
             caldavDao.insert(
                     task, CaldavTask(task.id, task.getTransitory<String>(CaldavTask.KEY)), addToTop)
         } else {
-            val remoteList = defaultFilterProvider.defaultList
+            val remoteList = defaultFilterProvider.getDefaultList()
             if (remoteList is GtasksFilter) {
                 googleTaskDao.insertAndShift(
                         GoogleTask(task.id, remoteList.remoteId), addToTop)
@@ -70,11 +71,11 @@ class TaskCreator @Inject constructor(
         return task
     }
 
-    fun createWithValues(title: String?): Task {
+    suspend fun createWithValues(title: String?): Task {
         return create(null, title)
     }
 
-    fun createWithValues(filter: Filter?, title: String?): Task {
+    suspend fun createWithValues(filter: Filter?, title: String?): Task {
         return create(filter?.valuesForNewTasks, title)
     }
 
@@ -82,7 +83,7 @@ class TaskCreator @Inject constructor(
      * Create task from the given content values, saving it. This version doesn't need to start with a
      * base task model.
      */
-    private fun create(values: Map<String, Any>?, title: String?): Task {
+    private suspend fun create(values: Map<String, Any>?, title: String?): Task {
         val task = Task()
         task.creationDate = DateUtilities.now()
         task.modificationDate = DateUtilities.now()
@@ -128,7 +129,7 @@ class TaskCreator @Inject constructor(
         return task
     }
 
-    fun createTags(task: Task) {
+    suspend fun createTags(task: Task) {
         for (tag in task.tags) {
             var tagData = tagDataDao.getTagByName(tag)
             if (tagData == null) {

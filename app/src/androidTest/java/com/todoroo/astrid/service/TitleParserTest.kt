@@ -11,11 +11,12 @@ import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.utility.TitleParser
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.tasks.R
-import org.tasks.data.TagDataDaoBlocking
+import org.tasks.data.TagDataDao
 import org.tasks.date.DateTimeUtils
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
@@ -26,7 +27,7 @@ import javax.inject.Inject
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class TitleParserTest : InjectingTestCase() {
-    @Inject lateinit var tagDataDao: TagDataDaoBlocking
+    @Inject lateinit var tagDataDao: TagDataDao
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var taskCreator: TaskCreator
 
@@ -41,7 +42,7 @@ class TitleParserTest : InjectingTestCase() {
      * repeat, no lists
      */
     @Test
-    fun testNoRegexes() {
+    fun testNoRegexes() = runBlocking {
         val task = taskCreator.basicQuickAddTask("Jog")
         val nothing = Task()
         assertFalse(task.hasDueTime())
@@ -147,13 +148,13 @@ class TitleParserTest : InjectingTestCase() {
         }
     }
 
-    private fun insertTitleAddTask(title: String): Task {
-        return taskCreator.createWithValues(title)
+    private fun insertTitleAddTask(title: String): Task = runBlocking {
+        taskCreator.createWithValues(title)
     }
 
     // ----------------Days begin----------------//
     @Test
-    fun testDays() {
+    fun testDays() = runBlocking {
         val today = Calendar.getInstance()
         var title = "Jog today"
         var task = taskCreator.createWithValues(title)
@@ -182,7 +183,7 @@ class TitleParserTest : InjectingTestCase() {
     // ----------------Priority begin----------------//
     /** tests all words using priority 0  */
     @Test
-    fun testPriority0() {
+    fun testPriority0() = runBlocking {
         val acceptedStrings = arrayOf("priority 0", "least priority", "lowest priority", "bang 0")
         for (acceptedString in acceptedStrings) {
             val title = "Jog $acceptedString"
@@ -197,7 +198,7 @@ class TitleParserTest : InjectingTestCase() {
     }
 
     @Test
-    fun testPriority1() {
+    fun testPriority1() = runBlocking {
         val acceptedStringsAtEnd = arrayOf("priority 1", "low priority", "bang", "bang 1")
         val acceptedStringsAnywhere = arrayOf("!1", "!")
         var task: Task
@@ -222,7 +223,7 @@ class TitleParserTest : InjectingTestCase() {
     }
 
     @Test
-    fun testPriority2() {
+    fun testPriority2() = runBlocking {
         val acceptedStringsAtEnd = arrayOf("priority 2", "high priority", "bang bang", "bang 2")
         val acceptedStringsAnywhere = arrayOf("!2", "!!")
         for (acceptedStringAtEnd in acceptedStringsAtEnd) {
@@ -244,7 +245,7 @@ class TitleParserTest : InjectingTestCase() {
     }
 
     @Test
-    fun testPriority3() {
+    fun testPriority3() = runBlocking {
         val acceptedStringsAtEnd = arrayOf(
                 "priority 3",
                 "highest priority",
@@ -274,7 +275,7 @@ class TitleParserTest : InjectingTestCase() {
     // ----------------Repeats begin----------------//
     /** test daily repeat from due date, but with no due date set  */
     @Test
-    fun testDailyWithNoDueDate() {
+    fun testDailyWithNoDueDate() = runBlocking {
         var title = "Jog daily"
         var task = taskCreator.createWithValues(title)
         val rrule = RRule()
@@ -300,7 +301,7 @@ class TitleParserTest : InjectingTestCase() {
 
     /** test weekly repeat from due date, with no due date & time set  */
     @Test
-    fun testWeeklyWithNoDueDate() {
+    fun testWeeklyWithNoDueDate() = runBlocking {
         var title = "Jog weekly"
         var task = taskCreator.createWithValues(title)
         val rrule = RRule()
@@ -326,7 +327,7 @@ class TitleParserTest : InjectingTestCase() {
 
     /** test hourly repeat from due date, with no due date but no time  */
     @Test
-    fun testMonthlyFromNoDueDate() {
+    fun testMonthlyFromNoDueDate() = runBlocking {
         var title = "Jog monthly"
         var task = taskCreator.createWithValues(title)
         val rrule = RRule()
@@ -351,7 +352,7 @@ class TitleParserTest : InjectingTestCase() {
     }
 
     @Test
-    fun testDailyFromDueDate() {
+    fun testDailyFromDueDate() = runBlocking {
         var title = "Jog daily starting from today"
         var task = taskCreator.createWithValues(title)
         val rrule = RRule()
@@ -373,7 +374,7 @@ class TitleParserTest : InjectingTestCase() {
     }
 
     @Test
-    fun testWeeklyFromDueDate() {
+    fun testWeeklyFromDueDate() = runBlocking {
         var title = "Jog weekly starting from today"
         var task = taskCreator.createWithValues(title)
         val rrule = RRule()
@@ -397,7 +398,7 @@ class TitleParserTest : InjectingTestCase() {
     // ----------------Tags begin----------------//
     /** tests all words using priority 0  */
     @Test
-    fun testTagsPound() {
+    fun testTagsPound() = runBlocking {
         val acceptedStrings = arrayOf("#tag", "#a", "#(a cool tag)", "#(cool)")
         var task: Task
         for (acceptedString in acceptedStrings) {
@@ -414,7 +415,7 @@ class TitleParserTest : InjectingTestCase() {
 
     /** tests all words using priority 0  */
     @Test
-    fun testTagsAt() {
+    fun testTagsAt() = runBlocking {
         val acceptedStrings = arrayOf("@tag", "@a", "@(a cool tag)", "@(cool)")
         var task: Task
         for (acceptedString in acceptedStrings) {

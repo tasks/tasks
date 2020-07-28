@@ -420,11 +420,13 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
     @OnClick(R.id.fab)
     fun createNewTask() {
-        shortcutManager.reportShortcutUsed(ShortcutManager.SHORTCUT_NEW_TASK)
-        onTaskListItemClicked(addTask(""))
+        lifecycleScope.launch {
+            shortcutManager.reportShortcutUsed(ShortcutManager.SHORTCUT_NEW_TASK)
+            onTaskListItemClicked(addTask(""))
+        }
     }
 
-    private fun addTask(title: String): Task {
+    private suspend fun addTask(title: String): Task {
         return taskCreator.createWithValues(filter, title)
     }
 
@@ -517,12 +519,14 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
             VOICE_RECOGNITION_REQUEST_CODE -> if (resultCode == Activity.RESULT_OK) {
-                val match: List<String>? = data!!.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-                if (match != null && match.isNotEmpty() && match[0].isNotEmpty()) {
-                    var recognizedSpeech = match[0]
-                    recognizedSpeech = (recognizedSpeech.substring(0, 1).toUpperCase()
-                            + recognizedSpeech.substring(1).toLowerCase())
-                    onTaskListItemClicked(addTask(recognizedSpeech))
+                lifecycleScope.launch {
+                    val match: List<String>? = data!!.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+                    if (match != null && match.isNotEmpty() && match[0].isNotEmpty()) {
+                        var recognizedSpeech = match[0]
+                        recognizedSpeech = (recognizedSpeech.substring(0, 1).toUpperCase()
+                                + recognizedSpeech.substring(1).toLowerCase())
+                        onTaskListItemClicked(addTask(recognizedSpeech))
+                    }
                 }
             }
             REQUEST_MOVE_TASKS -> if (resultCode == Activity.RESULT_OK) {
@@ -560,7 +564,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         return onOptionsItemSelected(item)
     }
 
-    fun onTaskListItemClicked(task: Task?) {
+    fun onTaskListItemClicked(task: Task?) = lifecycleScope.launch {
         callbacks.onTaskListItemClicked(task)
     }
 
@@ -712,7 +716,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     }
 
     interface TaskListFragmentCallbackHandler {
-        fun onTaskListItemClicked(task: Task?)
+        suspend fun onTaskListItemClicked(task: Task?)
         fun onNavigationIconClicked()
     }
 

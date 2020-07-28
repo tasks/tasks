@@ -118,14 +118,16 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
     fun addSubtask() {
         if (isGoogleTaskChild) {
             toaster.longToast(R.string.subtasks_multilevel_google_task)
-            return
+        } else {
+            lifecycleScope.launch {
+                val task = taskCreator.createWithValues("")
+                viewModel.newSubtasks.add(task)
+                val editText = addSubtask(task)
+                editText.requestFocus()
+                val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)
+            }
         }
-        val task = taskCreator.createWithValues("")
-        viewModel.newSubtasks.add(task)
-        val editText = addSubtask(task)
-        editText.requestFocus()
-        val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)
     }
 
     private fun addSubtask(task: Task): EditText {
