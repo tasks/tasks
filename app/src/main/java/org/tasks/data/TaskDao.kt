@@ -187,8 +187,18 @@ SELECT EXISTS(SELECT 1 FROM tasks WHERE parent > 0 AND deleted = 0) AS hasSubtas
     @Insert
     abstract suspend fun insert(task: Task): Long
 
+    suspend fun update(task: Task, original: Task? = null): Boolean {
+        if (!task.insignificantChange(original)) {
+            task.modificationDate = DateUtilities.now()
+        }
+        if (task.dueDate != original?.dueDate) {
+            task.reminderSnooze = 0
+        }
+        return updateInternal(task) == 1
+    }
+
     @Update
-    abstract suspend fun update(task: Task): Int
+    internal abstract suspend fun updateInternal(task: Task): Int
 
     suspend fun createNew(task: Task) {
         task.id = NO_ID

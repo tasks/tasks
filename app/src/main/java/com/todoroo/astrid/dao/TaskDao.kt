@@ -73,13 +73,7 @@ class TaskDao @Inject constructor(
     suspend fun save(task: Task) = save(task, fetch(task.id))
 
     suspend fun save(task: Task, original: Task?) {
-        if (!task.insignificantChange(original)) {
-            task.modificationDate = DateUtilities.now()
-        }
-        if (task.dueDate != original?.dueDate) {
-            task.reminderSnooze = 0
-        }
-        if (taskDao.update(task) == 1) {
+        if (taskDao.update(task, original)) {
             workManager.afterSave(task, original)
         }
     }
