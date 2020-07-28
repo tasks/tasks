@@ -18,9 +18,9 @@ class NotificationQueue @Inject constructor(private val preferences: Preferences
     fun <T : NotificationQueueEntry> add(entry: T) = add(listOf(entry))
 
     @Synchronized
-    fun <T : NotificationQueueEntry> add(entries: Iterable<T?>) {
+    fun <T : NotificationQueueEntry> add(entries: Iterable<T>) {
         val originalFirstTime = firstTime()
-        entries.filterNotNull().forEach { jobs.put(it.time, it) }
+        entries.forEach { jobs.put(it.time, it) }
         if (originalFirstTime != firstTime()) {
             scheduleNext(true)
         }

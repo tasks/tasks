@@ -18,7 +18,6 @@ import org.tasks.preferences.Preferences
 import org.tasks.themes.ColorProvider
 import org.tasks.time.DateTimeUtils
 import timber.log.Timber
-import java.util.*
 import javax.inject.Inject
 import kotlin.math.min
 
@@ -67,20 +66,22 @@ class Notifier @Inject constructor(
     }
 
     suspend fun triggerNotifications(entries: List<Notification>) {
-        val notifications: MutableList<Notification> = ArrayList()
         var ringFiveTimes = false
         var ringNonstop = false
-        for (entry in entries.takeLast(NotificationManager.MAX_NOTIFICATIONS)) {
-            val task = taskDao.fetch(entry.taskId) ?: continue
-            if (entry.type != ReminderService.TYPE_RANDOM) {
-                ringFiveTimes = ringFiveTimes or task.isNotifyModeFive
-                ringNonstop = ringNonstop or task.isNotifyModeNonstop
-            }
-            val notification = notificationManager.getTaskNotification(entry)
-            if (notification != null) {
-                notifications.add(entry)
-            }
-        }
+        val notifications = entries
+                .filter {
+                    taskDao.fetch(it.taskId)
+                            ?.let { task ->
+                                if (it.type != ReminderService.TYPE_RANDOM) {
+                                    ringFiveTimes = ringFiveTimes or task.isNotifyModeFive
+                                    ringNonstop = ringNonstop or task.isNotifyModeNonstop
+                                }
+                                notificationManager.getTaskNotification(it) != null
+                            }
+                            ?: false
+                }
+                .takeLast(NotificationManager.MAX_NOTIFICATIONS)
+
         if (notifications.isEmpty()) {
             return
         }

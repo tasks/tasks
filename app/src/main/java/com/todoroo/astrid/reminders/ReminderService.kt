@@ -30,26 +30,18 @@ class ReminderService internal constructor(
             taskDao: TaskDao
     ) : this(preferences, notificationQueue, Random(), taskDao)
 
-    suspend fun scheduleAllAlarms(taskIds: List<Long>) {
-        taskDao
-                .fetch(taskIds)
-                .map { getReminderEntry(it) }
-                .let { jobs.add(it) }
-    }
+    suspend fun scheduleAlarm(id: Long) = scheduleAllAlarms(listOf(id))
 
-    suspend fun scheduleAllAlarms() {
-        taskDao
-                .getTasksWithReminders()
-                .map { getReminderEntry(it) }
-                .let { jobs.add(it) }
-    }
+    suspend fun scheduleAllAlarms(taskIds: List<Long>) = scheduleAlarms(taskDao.fetch(taskIds))
 
-    fun scheduleAlarm(task: Task?) {
-        val reminder = getReminderEntry(task)
-        if (reminder != null) {
-            jobs.add(reminder)
-        }
-    }
+    suspend fun scheduleAllAlarms() = scheduleAlarms(taskDao.getTasksWithReminders())
+
+    fun scheduleAlarm(task: Task) = scheduleAlarms(listOf(task))
+
+    private fun scheduleAlarms(tasks: List<Task>) =
+            tasks
+                    .mapNotNull { getReminderEntry(it) }
+                    .let { jobs.add(it) }
 
     fun cancelReminder(taskId: Long) {
         jobs.cancelReminder(taskId)

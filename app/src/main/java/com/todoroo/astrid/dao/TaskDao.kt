@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.dao
 
-import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.data.Task
 import org.tasks.data.SubtaskInfo
@@ -25,8 +24,6 @@ class TaskDao @Inject constructor(
     suspend fun fetch(ids: List<Long>): List<Task> = taskDao.fetch(ids)
 
     suspend fun activeTimers(): Int = taskDao.activeTimers()
-
-    suspend fun activeNotifications(): List<Task> = taskDao.activeNotifications()
 
     suspend fun fetch(remoteId: String): Task? = taskDao.fetch(remoteId)
 

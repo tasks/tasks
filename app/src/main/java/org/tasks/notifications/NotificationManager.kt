@@ -11,7 +11,6 @@ import com.todoroo.andlib.sql.QueryTemplate
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.reminders.ReminderService
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -19,6 +18,7 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.LocationDao
+import org.tasks.data.TaskDao
 import org.tasks.intents.TaskIntents
 import org.tasks.preferences.Preferences
 import org.tasks.receivers.CompleteTaskReceiver
@@ -40,7 +40,8 @@ class NotificationManager @Inject constructor(
         private val notificationDao: NotificationDao,
         private val taskDao: TaskDao,
         private val locationDao: LocationDao,
-        private val localBroadcastManager: LocalBroadcastManager) {
+        private val localBroadcastManager: LocalBroadcastManager,
+        private val reminderService: ReminderService) {
     private val notificationManagerCompat = NotificationManagerCompat.from(context)
     private val colorProvider = ColorProvider(context, preferences)
     private val throttle = Throttle(NOTIFICATIONS_PER_SECOND)
@@ -159,6 +160,10 @@ class NotificationManager @Inject constructor(
                         .setGroupAlertBehavior(
                                 if (alert) NotificationCompat.GROUP_ALERT_CHILDREN else NotificationCompat.GROUP_ALERT_SUMMARY)
                 notify(notification.taskId, builder, alert, nonstop, fiveTimes)
+                val reminderTime = DateTime(notification.timestamp).endOfMinute().millis
+                if (taskDao.setLastNotified(notification.taskId, reminderTime) == 1) {
+                    reminderService.scheduleAlarm(notification.taskId)
+                }
                 alert = false
             }
         }
@@ -303,12 +308,6 @@ class NotificationManager @Inject constructor(
         val taskTitle = task.title
         val taskDescription = task.notes
 
-        // update last reminder time
-        val reminderTime = DateTime(`when`).endOfMinute().millis
-        if (reminderTime != task.reminderLast) {
-            task.reminderLast = reminderTime
-            taskDao.save(task)
-        }
         val builder = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_DEFAULT)
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)
                 .setContentTitle(taskTitle)
