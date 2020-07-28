@@ -382,7 +382,7 @@ class TaskEditViewModel @ViewModelInject constructor(
         true
     } ?: false
 
-    private fun applyCalendarChanges() {
+    private suspend fun applyCalendarChanges() {
         if (!permissionChecker.canAccessCalendars()) {
             return
         }
@@ -398,7 +398,7 @@ class TaskEditViewModel @ViewModelInject constructor(
         }
         selectedCalendar?.let {
             try {
-                task?.calendarURI = gCalHelper.createTaskEvent(task, it)?.toString()
+                task?.calendarURI = gCalHelper.createTaskEvent(task!!, it)?.toString()
             } catch (e: Exception) {
                 Timber.e(e)
             }
