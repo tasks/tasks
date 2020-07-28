@@ -12,8 +12,10 @@ import com.todoroo.astrid.service.Upgrader
 import dagger.Lazy
 import dagger.hilt.android.HiltAndroidApp
 import dagger.hilt.android.qualifiers.ApplicationContext
-import io.reactivex.Completable
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import org.tasks.billing.BillingClient
 import org.tasks.billing.Inventory
 import org.tasks.files.FileHelper
@@ -33,6 +35,7 @@ import javax.inject.Inject
 
 @HiltAndroidApp
 class Tasks : Application(), Configuration.Provider {
+
     @Inject @ApplicationContext lateinit var context: Context
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var buildSetup: BuildSetup
@@ -54,7 +57,7 @@ class Tasks : Application(), Configuration.Provider {
         ThemeBase.getThemeBase(preferences, inventory, null).setDefaultNightMode()
         localBroadcastManager.registerRefreshReceiver(RefreshBroadcastReceiver())
         Locale.getInstance(this).createConfigurationContext(applicationContext)
-        Completable.fromAction { doInBackground() }.subscribeOn(Schedulers.io()).subscribe()
+        backgroundWork()
     }
 
     private fun upgrade() {
@@ -69,14 +72,16 @@ class Tasks : Application(), Configuration.Provider {
         }
     }
 
-    private fun doInBackground() {
+    private fun backgroundWork() = CoroutineScope(Dispatchers.IO + SupervisorJob()).launch {
         NotificationSchedulerIntentService.enqueueWork(context, false)
         CalendarNotificationIntentService.enqueueWork(context)
         refreshScheduler.get().scheduleAll()
-        workManager.get().updateBackgroundSync()
-        workManager.get().scheduleMidnightRefresh()
-        workManager.get().scheduleBackup()
-        workManager.get().scheduleConfigRefresh()
+        workManager.get().apply {
+            updateBackgroundSync()
+            scheduleMidnightRefresh()
+            scheduleBackup()
+            scheduleConfigRefresh()
+        }
         geofenceApi.get().registerAll()
         FileHelper.delete(context, preferences.cacheDirectory)
         billingClient.get().queryPurchases()

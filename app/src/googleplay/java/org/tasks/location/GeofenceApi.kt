@@ -8,7 +8,7 @@ import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingRequest
 import com.google.android.gms.location.LocationServices
 import dagger.hilt.android.qualifiers.ApplicationContext
-import org.tasks.data.LocationDaoBlocking
+import org.tasks.data.LocationDao
 import org.tasks.data.MergedGeofence
 import org.tasks.data.Place
 import org.tasks.preferences.PermissionChecker
@@ -18,16 +18,16 @@ import javax.inject.Inject
 class GeofenceApi @Inject constructor(
         @param:ApplicationContext private val context: Context,
         private val permissionChecker: PermissionChecker,
-        private val locationDao: LocationDaoBlocking) {
+        private val locationDao: LocationDao) {
 
-    fun registerAll() = locationDao.getPlacesWithGeofences().forEach(this::update)
+    suspend fun registerAll() = locationDao.getPlacesWithGeofences().forEach { update(it) }
 
-    fun update(taskId: Long) = locationDao.getPlaceForTask(taskId).apply(this::update)
+    suspend fun update(taskId: Long) = update(locationDao.getPlaceForTask(taskId))
 
-    fun update(place: String) = locationDao.getPlace(place).apply(this::update)
+    suspend fun update(place: String) = update(locationDao.getPlace(place))
 
     @SuppressLint("MissingPermission")
-    fun update(place: Place?) {
+    suspend fun update(place: Place?) {
         if (place == null || !permissionChecker.canAccessLocation()) {
             return
         }
@@ -63,5 +63,4 @@ class GeofenceApi @Inject constructor(
                 .setExpirationDuration(Geofence.NEVER_EXPIRE)
                 .build()
     }
-
 }
