@@ -85,7 +85,7 @@ class QuickAddMarkupTest : InjectingTestCase() {
         task = Task()
         task!!.title = title
         tags.clear()
-        TitleParser.parse(tagDataDao, task, tags)
+        TitleParser.parse(tagDataDao, task!!, tags)
     }
 
     private fun assertPriority(priority: Int) {
