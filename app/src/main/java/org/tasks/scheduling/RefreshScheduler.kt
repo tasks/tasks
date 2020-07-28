@@ -1,10 +1,10 @@
 package org.tasks.scheduling
 
 import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import kotlinx.collections.immutable.toImmutableList
 import org.tasks.R
+import org.tasks.data.TaskDao
 import org.tasks.jobs.WorkManager
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils

@@ -12,12 +12,12 @@ import com.todoroo.andlib.sql.QueryTemplate
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.PermaSql
-import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.dao.TaskDao.TaskCriteria.activeAndVisible
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.timers.TimerPlugin
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
+import org.tasks.data.TaskDao
+import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
 import org.tasks.filters.RecentlyModifiedFilter
 import org.tasks.filters.SortableFilter
 import org.tasks.preferences.Preferences

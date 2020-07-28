@@ -4,9 +4,9 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.todoroo.astrid.dao.TaskDao
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import org.tasks.data.TaskDao
 import org.tasks.intents.TaskIntents
 import org.tasks.provider.TasksContentProvider
 import org.tasks.provider.TasksContentProvider.Companion.URI_OPEN_TASK

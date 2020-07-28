@@ -46,7 +46,6 @@ import com.todoroo.astrid.timers.TimerPlugin
 import com.todoroo.astrid.utility.Flags
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.coroutines.NonCancellable

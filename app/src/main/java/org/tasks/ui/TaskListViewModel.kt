@@ -8,12 +8,12 @@ import androidx.sqlite.db.SimpleSQLiteQuery
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.dao.TaskDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.tasks.BuildConfig
 import org.tasks.data.SubtaskInfo
 import org.tasks.data.TaskContainer
+import org.tasks.data.TaskDao
 import org.tasks.data.TaskListQuery.getQuery
 import org.tasks.preferences.Preferences
 import timber.log.Timber

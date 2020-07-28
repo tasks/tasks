@@ -6,13 +6,13 @@ import androidx.annotation.NonNull;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.QueryTemplate;
-import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import java.util.HashMap;
 import java.util.Map;
 import org.tasks.R;
 import org.tasks.data.Tag;
 import org.tasks.data.TagData;
+import org.tasks.data.TaskDao;
 
 public class TagFilter extends Filter {
 

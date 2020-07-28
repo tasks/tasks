@@ -7,7 +7,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.todoroo.astrid.dao.Database
-import com.todoroo.astrid.dao.TaskDao
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.launch
@@ -15,6 +14,7 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.PermissionUtil
 import org.tasks.R
 import org.tasks.calendars.CalendarEventProvider
+import org.tasks.data.TaskDao
 import org.tasks.files.FileHelper
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.preferences.FragmentPermissionRequestor

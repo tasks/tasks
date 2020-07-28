@@ -20,12 +20,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.todoroo.astrid.adapter.NavigationDrawerAdapter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.FilterListItem
-import com.todoroo.astrid.dao.TaskDao
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.billing.PurchaseActivity
+import org.tasks.data.TaskDao
 import org.tasks.dialogs.NewFilterDialog.Companion.newFilterDialog
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.NavigationDrawerAction

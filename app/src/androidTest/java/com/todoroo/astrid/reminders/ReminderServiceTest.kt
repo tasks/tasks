@@ -2,7 +2,6 @@ package com.todoroo.astrid.reminders
 
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
@@ -12,6 +11,7 @@ import org.junit.Before
 import org.junit.Test
 import org.tasks.Freeze
 import org.tasks.R
+import org.tasks.data.TaskDao
 import org.tasks.date.DateTimeUtils
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule

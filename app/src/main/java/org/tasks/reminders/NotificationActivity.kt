@@ -4,10 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
-import com.todoroo.astrid.dao.TaskDao
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.launch
+import org.tasks.data.TaskDao
 import org.tasks.injection.InjectingAppCompatActivity
 import org.tasks.intents.TaskIntents
 import org.tasks.notifications.NotificationManager
@@ -23,7 +22,6 @@ class NotificationActivity : InjectingAppCompatActivity(), NotificationDialog.No
     @Inject lateinit var themeAccent: ThemeAccent
 
     private var taskId: Long = 0
-    private var disposables: CompositeDisposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,16 +39,6 @@ class NotificationActivity : InjectingAppCompatActivity(), NotificationDialog.No
 
     override fun dismiss() {
         finish()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        disposables = CompositeDisposable()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        disposables!!.dispose()
     }
 
     override fun edit() {

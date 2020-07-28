@@ -11,8 +11,8 @@ import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.api.PermaSql
 import com.todoroo.astrid.core.SortHelper
-import com.todoroo.astrid.dao.TaskDao.TaskCriteria.activeAndVisible
 import com.todoroo.astrid.data.Task
+import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
 import org.tasks.preferences.Preferences
 
 internal object TaskListQueryRecursive {

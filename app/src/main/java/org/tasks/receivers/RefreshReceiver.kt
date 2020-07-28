@@ -2,11 +2,11 @@ package org.tasks.receivers
 
 import android.content.Context
 import android.content.Intent
-import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.provider.Astrid2TaskProvider
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
+import org.tasks.data.TaskDao
 import org.tasks.injection.InjectingJobIntentService
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences

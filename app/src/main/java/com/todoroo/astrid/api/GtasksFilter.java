@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.QueryTemplate;
-import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +13,7 @@ import java.util.Objects;
 import org.tasks.R;
 import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskList;
+import org.tasks.data.TaskDao;
 
 public class GtasksFilter extends Filter {
 

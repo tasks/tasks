@@ -3,7 +3,6 @@ package org.tasks.data
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.natpryce.makeiteasy.PropertyValue
 import com.todoroo.andlib.utility.DateUtilities.now
-import com.todoroo.astrid.dao.TaskDao
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking

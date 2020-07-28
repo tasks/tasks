@@ -1,7 +1,6 @@
 package com.todoroo.astrid.service
 
 import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import kotlinx.collections.immutable.persistentListOf
 import org.tasks.LocalBroadcastManager

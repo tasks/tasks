@@ -5,10 +5,6 @@
  */
 package com.todoroo.astrid.dao
 
-import androidx.paging.DataSource
-import androidx.sqlite.db.SimpleSQLiteQuery
-import com.todoroo.andlib.sql.Criterion
-import com.todoroo.andlib.sql.Functions
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.data.Task
@@ -24,9 +20,6 @@ class TaskDao @Inject constructor(
         private val workManager: WorkManager,
         private val taskDao: TaskDao) {
 
-    internal suspend fun needsRefresh(now: Long = DateUtilities.now()): List<Task> =
-            taskDao.needsRefresh(now)
-
     suspend fun fetch(id: Long): Task? = taskDao.fetch(id)
 
     suspend fun fetch(ids: List<Long>): List<Task> = taskDao.fetch(ids)
@@ -37,15 +30,11 @@ class TaskDao @Inject constructor(
 
     suspend fun fetch(remoteId: String): Task? = taskDao.fetch(remoteId)
 
-    suspend fun getActiveTasks(): List<Task> = taskDao.getActiveTasks()
-
     suspend fun getRecurringTasks(remoteIds: List<String>): List<Task> =
             taskDao.getRecurringTasks(remoteIds)
 
     suspend fun setCompletionDate(remoteId: String, completionDate: Long) =
             taskDao.setCompletionDate(remoteId, completionDate)
-
-    suspend fun snooze(taskIds: List<Long>, millis: Long) = taskDao.snooze(taskIds, millis)
 
     suspend fun getGoogleTasksToPush(account: String): List<Task> =
             taskDao.getGoogleTasksToPush(account)
@@ -53,36 +42,8 @@ class TaskDao @Inject constructor(
     suspend fun getCaldavTasksToPush(calendar: String): List<Task> =
             taskDao.getCaldavTasksToPush(calendar)
 
-    suspend fun getTasksWithReminders(): List<Task> = taskDao.getTasksWithReminders()
-
-    suspend fun getAll(): List<Task> = taskDao.getAll()
-
-    suspend fun getAllCalendarEvents(): List<String> = taskDao.getAllCalendarEvents()
-
-    suspend fun clearAllCalendarEvents(): Int = taskDao.clearAllCalendarEvents()
-
-    suspend fun getCompletedCalendarEvents(): List<String> = taskDao.getCompletedCalendarEvents()
-
-    suspend fun clearCompletedCalendarEvents(): Int = taskDao.clearCompletedCalendarEvents()
-
-    suspend fun fetchTasks(callback: suspend (SubtaskInfo) -> List<String>): List<TaskContainer> =
-            taskDao.fetchTasks(callback)
-
-    suspend fun fetchTasks(callback: suspend (SubtaskInfo) -> List<String>, subtasks: SubtaskInfo): List<TaskContainer> =
-            taskDao.fetchTasks(callback, subtasks)
-
     suspend fun fetchTasks(preferences: Preferences, filter: Filter): List<TaskContainer> =
             taskDao.fetchTasks(preferences, filter)
-
-    suspend fun fetchTasks(query: SimpleSQLiteQuery): List<TaskContainer> =
-            taskDao.fetchTasks(query)
-
-    suspend fun count(query: SimpleSQLiteQuery): Int = taskDao.count(query)
-
-    suspend fun getSubtaskInfo(): SubtaskInfo = taskDao.getSubtaskInfo()
-
-    fun getTaskFactory(query: SimpleSQLiteQuery): DataSource.Factory<Int, TaskContainer> =
-            taskDao.getTaskFactory(query)
 
     suspend fun touch(id: Long) = touch(listOf(id))
 
@@ -91,13 +52,7 @@ class TaskDao @Inject constructor(
         workManager.sync(false)
     }
 
-    suspend fun setParent(parent: Long, tasks: List<Long>) =
-            tasks.eachChunk { setParentInternal(parent, it) }
-
-    private suspend fun setParentInternal(parent: Long, children: List<Long>) =
-            taskDao.setParentInternal(parent, children)
-
-    suspend fun fetchChildren(id: Long): List<Task> = taskDao.fetchChildren(id)
+    suspend fun setParent(parent: Long, tasks: List<Long>) = taskDao.setParent(parent, tasks)
 
     suspend fun getChildren(id: Long): List<Long> = taskDao.getChildren(id)
 
@@ -124,35 +79,22 @@ class TaskDao @Inject constructor(
         if (task.dueDate != original?.dueDate) {
             task.reminderSnooze = 0
         }
-        if (update(task) == 1) {
+        if (taskDao.update(task) == 1) {
             workManager.afterSave(task, original)
         }
     }
 
-    suspend fun insert(task: Task): Long = taskDao.insert(task)
-
-    suspend fun update(task: Task): Int = taskDao.update(task)
-
     suspend fun createNew(task: Task) = taskDao.createNew(task)
-
-    suspend fun count(filter: Filter): Int = taskDao.count(filter)
-
-    suspend fun fetchFiltered(filter: Filter): List<Task> = taskDao.fetchFiltered(filter)
 
     suspend fun fetchFiltered(queryTemplate: String): List<Task> =
             taskDao.fetchFiltered(queryTemplate)
 
-    suspend fun getLocalTasks(): List<Long> = taskDao.getLocalTasks()
+    internal suspend fun insert(task: Task): Long = taskDao.insert(task)
 
-    /** Generates SQL clauses  */
-    object TaskCriteria {
-        /** @return tasks that have not yet been completed or deleted
-         */
-        @JvmStatic fun activeAndVisible(): Criterion {
-            return Criterion.and(
-                    Task.COMPLETION_DATE.lte(0),
-                    Task.DELETION_DATE.lte(0),
-                    Task.HIDE_UNTIL.lte(Functions.now()))
-        }
-    }
+    internal suspend fun fetchTasks(callback: suspend (SubtaskInfo) -> List<String>): List<TaskContainer> =
+            taskDao.fetchTasks(callback)
+
+    internal suspend fun getAll(): List<Task> = taskDao.getAll()
+
+    internal suspend fun getActiveTasks(): List<Task> = taskDao.getActiveTasks()
 }

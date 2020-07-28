@@ -31,13 +31,13 @@ import com.todoroo.astrid.core.CriterionInstance
 import com.todoroo.astrid.core.CustomFilterAdapter
 import com.todoroo.astrid.core.CustomFilterItemTouchHelper
 import com.todoroo.astrid.dao.Database
-import com.todoroo.astrid.dao.TaskDao.TaskCriteria.activeAndVisible
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.Strings
 import org.tasks.data.Filter
 import org.tasks.data.FilterDao
+import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
 import org.tasks.filters.FilterCriteriaProvider
 import org.tasks.locale.Locale
 import java.util.*

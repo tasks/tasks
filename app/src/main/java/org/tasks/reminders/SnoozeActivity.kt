@@ -6,12 +6,12 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
-import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.reminders.ReminderService
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
 import org.tasks.activities.DateAndTimePickerActivity
+import org.tasks.data.TaskDao
 import org.tasks.dialogs.MyTimePickerDialog
 import org.tasks.injection.InjectingAppCompatActivity
 import org.tasks.notifications.NotificationManager

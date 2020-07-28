@@ -4,11 +4,11 @@ import android.app.PendingIntent
 import android.content.Context
 import androidx.core.app.NotificationCompat
 import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.reminders.ReminderService
 import com.todoroo.astrid.voice.VoiceOutputAssistant
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
+import org.tasks.data.TaskDao
 import org.tasks.intents.TaskIntents
 import org.tasks.notifications.AudioManager
 import org.tasks.notifications.Notification

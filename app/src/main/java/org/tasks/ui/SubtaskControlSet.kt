@@ -29,8 +29,6 @@ import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
-import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.dao.TaskDao.TaskCriteria.activeAndVisible
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskCompleter
 import com.todoroo.astrid.service.TaskCreator
@@ -39,10 +37,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
-import org.tasks.data.CaldavDao
-import org.tasks.data.GoogleTask
-import org.tasks.data.GoogleTaskDao
-import org.tasks.data.TaskContainer
+import org.tasks.data.*
+import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
 import org.tasks.locale.Locale
 import org.tasks.tasklist.SubtaskViewHolder
 import org.tasks.tasklist.SubtasksRecyclerAdapter

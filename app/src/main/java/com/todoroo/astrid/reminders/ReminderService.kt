@@ -6,8 +6,8 @@
 package com.todoroo.astrid.reminders
 
 import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
+import org.tasks.data.TaskDao
 import org.tasks.jobs.NotificationQueue
 import org.tasks.jobs.ReminderEntry
 import org.tasks.preferences.Preferences

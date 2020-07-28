@@ -9,7 +9,6 @@ import android.widget.RemoteViews
 import android.widget.RemoteViewsService.RemoteViewsFactory
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.subtasks.SubtasksHelper
 import kotlinx.coroutines.runBlocking
@@ -17,6 +16,7 @@ import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.data.SubtaskInfo
 import org.tasks.data.TaskContainer
+import org.tasks.data.TaskDao
 import org.tasks.data.TaskListQuery.getQuery
 import org.tasks.locale.Locale
 import org.tasks.preferences.DefaultFilterProvider

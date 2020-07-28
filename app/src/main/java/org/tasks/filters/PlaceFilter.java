@@ -11,13 +11,13 @@ import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
-import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import java.util.HashMap;
 import java.util.Map;
 import org.tasks.R;
 import org.tasks.data.Geofence;
 import org.tasks.data.Place;
+import org.tasks.data.TaskDao;
 
 public class PlaceFilter extends Filter {
 
