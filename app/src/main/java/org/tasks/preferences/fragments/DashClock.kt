@@ -3,8 +3,10 @@ package org.tasks.preferences.fragments
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import androidx.lifecycle.lifecycleScope
 import com.todoroo.astrid.api.Filter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.activities.FilterSelectionActivity
@@ -43,7 +45,9 @@ class DashClock : InjectingPreferenceFragment() {
                 val filter: Filter =
                     data!!.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER)!!
                 defaultFilterProvider.dashclockFilter = filter
-                refreshPreferences()
+                lifecycleScope.launch {
+                    refreshPreferences()
+                }
                 localBroadcastManager.broadcastRefresh()
             }
         } else {
@@ -51,8 +55,8 @@ class DashClock : InjectingPreferenceFragment() {
         }
     }
 
-    private fun refreshPreferences() {
-        val filter = defaultFilterProvider.getFilterFromPreferenceBlocking(R.string.p_dashclock_filter)
-        findPreference(R.string.p_dashclock_filter).summary = filter?.listingTitle
+    private suspend fun refreshPreferences() {
+        val filter = defaultFilterProvider.getFilterFromPreference(R.string.p_dashclock_filter)
+        findPreference(R.string.p_dashclock_filter).summary = filter.listingTitle
     }
 }

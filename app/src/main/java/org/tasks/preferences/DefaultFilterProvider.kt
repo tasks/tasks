@@ -64,11 +64,6 @@ class DefaultFilterProvider @Inject constructor(
     }
 
     @Deprecated("use coroutines")
-    fun getFilterFromPreferenceBlocking(resId: Int) = runBlocking {
-        getFilterFromPreference(resId)
-    }
-
-    @Deprecated("use coroutines")
     fun getFilterFromPreferenceBlocking(prefString: String?) = runBlocking {
         getFilterFromPreference(prefString)
     }
