@@ -402,11 +402,11 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
     val taskEditFragment: TaskEditFragment?
         get() = supportFragmentManager.findFragmentByTag(TaskEditFragment.TAG_TASKEDIT_FRAGMENT) as TaskEditFragment?
 
-    override fun stopTimer(): Task {
+    override suspend fun stopTimer(): Task {
         return taskEditFragment!!.stopTimer()
     }
 
-    override fun startTimer(): Task {
+    override suspend fun startTimer(): Task {
         return taskEditFragment!!.startTimer()
     }
 

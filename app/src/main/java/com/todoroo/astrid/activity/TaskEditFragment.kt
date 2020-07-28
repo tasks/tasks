@@ -225,7 +225,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         return false
     }
 
-    fun stopTimer(): Task {
+    suspend fun stopTimer(): Task {
         val model = editViewModel.task!!
         timerPlugin.stopTimer(model)
         val elapsedTime = DateUtils.formatElapsedTime(model.elapsedSeconds.toLong())
@@ -239,7 +239,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         return model
     }
 
-    fun startTimer(): Task {
+    suspend fun startTimer(): Task {
         val model = editViewModel.task!!
         timerPlugin.startTimer(model)
         addComment(String.format(
@@ -295,10 +295,10 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
            dialogBuilder
                    .newDialog(R.string.discard_confirmation)
                    .setPositiveButton(R.string.keep_editing, null)
-                   .setNegativeButton(R.string.discard) { _, _ -> editViewModel.discard() }
+                   .setNegativeButton(R.string.discard) { _, _ -> discard() }
                    .show()
        } else {
-           editViewModel.discard()
+           discard()
        }
     }
 
@@ -308,6 +308,10 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
                 .setPositiveButton(android.R.string.ok) { _, _ -> delete() }
                 .setNegativeButton(android.R.string.cancel, null)
                 .show()
+    }
+
+    private fun discard() = lifecycleScope.launch {
+        editViewModel.discard()
     }
 
     private fun delete() = lifecycleScope.launch {

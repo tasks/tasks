@@ -427,7 +427,7 @@ class TaskEditViewModel @ViewModelInject constructor(
         discard()
     }
 
-    fun discard() {
+    suspend fun discard() {
         task?.let {
             if (it.isNew) {
                 timerPlugin.stopTimer(it)

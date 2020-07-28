@@ -12,12 +12,10 @@ import com.todoroo.andlib.sql.Criterion.Companion.and
 import com.todoroo.andlib.sql.QueryTemplate
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.utility.Constants
 import dagger.hilt.android.qualifiers.ApplicationContext
-import io.reactivex.Completable
-import io.reactivex.schedulers.Schedulers
 import org.tasks.R
 import org.tasks.intents.TaskIntents
 import org.tasks.notifications.NotificationManager
@@ -27,12 +25,12 @@ import javax.inject.Inject
 class TimerPlugin @Inject constructor(
         @param:ApplicationContext private val context: Context,
         private val notificationManager: NotificationManager,
-        private val taskDao: TaskDaoBlocking) {
-    fun startTimer(task: Task?) {
+        private val taskDao: TaskDao) {
+    suspend fun startTimer(task: Task?) {
         updateTimer(task, true)
     }
 
-    fun stopTimer(task: Task?) {
+    suspend fun stopTimer(task: Task?) {
         updateTimer(task, false)
     }
 
@@ -41,7 +39,7 @@ class TimerPlugin @Inject constructor(
      *
      * @param start if true, start timer. else, stop it
      */
-    private fun updateTimer(task: Task?, start: Boolean) {
+    private suspend fun updateTimer(task: Task?, start: Boolean) {
         if (task == null) {
             return
         }
@@ -56,15 +54,11 @@ class TimerPlugin @Inject constructor(
                 task.elapsedSeconds = task.elapsedSeconds + newElapsed
             }
         }
-        Completable.fromAction {
-            taskDao.save(task)
-            updateNotifications()
-        }
-                .subscribeOn(Schedulers.io())
-                .subscribe()
+        taskDao.save(task)
+        updateNotifications()
     }
 
-    fun updateNotifications() {
+    suspend fun updateNotifications() {
         val count = taskDao.activeTimers()
         if (count == 0) {
             notificationManager.cancel(Constants.NOTIFICATION_TIMER.toLong())

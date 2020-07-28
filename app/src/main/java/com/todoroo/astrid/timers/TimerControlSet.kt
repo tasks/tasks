@@ -16,12 +16,14 @@ import android.widget.Chronometer.OnChronometerTickListener
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.lifecycleScope
 import butterknife.BindView
 import butterknife.OnClick
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.ui.TimeDurationControlSet
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.dialogs.DialogBuilder
@@ -87,18 +89,20 @@ class TimerControlSet : TaskEditControlFragment() {
 
     @OnClick(R.id.timer_container)
     fun timerClicked() {
-        if (timerActive()) {
-            val task = callback.stopTimer()
-            elapsed.setTimeDuration(task.elapsedSeconds)
-            viewModel.timerStarted = 0
-            chronometer.stop()
-            refreshDisplayView()
-        } else {
-            val task = callback.startTimer()
-            viewModel.timerStarted = task.timerStart
-            chronometer.start()
+        lifecycleScope.launch {
+            if (timerActive()) {
+                val task = callback.stopTimer()
+                elapsed.setTimeDuration(task.elapsedSeconds)
+                viewModel.timerStarted = 0
+                chronometer.stop()
+                refreshDisplayView()
+            } else {
+                val task = callback.startTimer()
+                viewModel.timerStarted = task.timerStart
+                chronometer.start()
+            }
+            updateChronometer()
         }
-        updateChronometer()
     }
 
     override val layout = R.layout.control_set_timers
@@ -166,8 +170,8 @@ class TimerControlSet : TaskEditControlFragment() {
     private fun timerActive() = viewModel.timerStarted > 0
 
     interface TimerControlSetCallback {
-        fun stopTimer(): Task
-        fun startTimer(): Task
+        suspend fun stopTimer(): Task
+        suspend fun startTimer(): Task
     }
 
     companion object {
