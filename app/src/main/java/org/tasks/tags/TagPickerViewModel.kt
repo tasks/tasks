@@ -1,23 +1,20 @@
 package org.tasks.tags
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.*
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.TagData
-import org.tasks.data.TagDataDaoBlocking
+import org.tasks.data.TagDataDao
 import org.tasks.tags.CheckBoxTriStates.State
 import java.util.*
 
-class TagPickerViewModel @ViewModelInject constructor(private val tagDataDao: TagDataDaoBlocking) : ViewModel() {
+class TagPickerViewModel @ViewModelInject constructor(
+        private val tagDataDao: TagDataDao
+) : ViewModel() {
+
     private val tags = MutableLiveData<List<TagData>>()
-    private val disposables = CompositeDisposable()
     private val selected: MutableSet<TagData> = HashSet()
     private val partiallySelected: MutableSet<TagData> = HashSet()
     var text: String? = null
@@ -37,15 +34,14 @@ class TagPickerViewModel @ViewModelInject constructor(private val tagDataDao: Ta
 
     fun getPartiallySelected() = ArrayList(partiallySelected)
 
-    fun search(text: String) {
-        if (!text.equals(this.text, ignoreCase = true)) {
-            disposables.add(
-                    Single.fromCallable { tagDataDao.searchTags(text) }
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe { results: List<TagData> -> onUpdate(results.toMutableList()) })
+    fun search(newText: String) {
+        if (!newText.equals(text, ignoreCase = true)) {
+            viewModelScope.launch {
+                val results = tagDataDao.searchTags(newText)
+                onUpdate(results.toMutableList())
+            }
         }
-        this.text = text
+        text = newText
     }
 
     private fun onUpdate(results: MutableList<TagData>) {
@@ -53,11 +49,6 @@ class TagPickerViewModel @ViewModelInject constructor(private val tagDataDao: Ta
             results.add(0, TagData(text))
         }
         tags.value = results
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        disposables.dispose()
     }
 
     fun getState(tagData: TagData): State {
@@ -71,7 +62,9 @@ class TagPickerViewModel @ViewModelInject constructor(private val tagDataDao: Ta
         var tagData = tagData
         if (tagData.id == null) {
             tagData = TagData(tagData.name)
-            tagDataDao.createNew(tagData)
+            viewModelScope.launch {
+                tagDataDao.createNew(tagData)
+            }
         }
         partiallySelected.remove(tagData)
         return if (checked) {
