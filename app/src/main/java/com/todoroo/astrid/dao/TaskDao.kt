@@ -7,17 +7,31 @@ package com.todoroo.astrid.dao
 
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.data.Task
+import com.todoroo.astrid.reminders.ReminderService
+import com.todoroo.astrid.timers.TimerPlugin
+import org.tasks.LocalBroadcastManager
 import org.tasks.data.SubtaskInfo
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskDao
 import org.tasks.db.SuspendDbUtils.eachChunk
 import org.tasks.jobs.WorkManager
+import org.tasks.location.GeofenceApi
+import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.Preferences
+import org.tasks.scheduling.RefreshScheduler
+import org.tasks.sync.SyncAdapters
 import javax.inject.Inject
 
 class TaskDao @Inject constructor(
         private val workManager: WorkManager,
-        private val taskDao: TaskDao) {
+        private val taskDao: TaskDao,
+        private val reminderService: ReminderService,
+        private val refreshScheduler: RefreshScheduler,
+        private val localBroadcastManager: LocalBroadcastManager,
+        private val notificationManager: NotificationManager,
+        private val geofenceApi: GeofenceApi,
+        private val timerPlugin: TimerPlugin,
+        private val syncAdapters: SyncAdapters) {
 
     suspend fun fetch(id: Long): Task? = taskDao.fetch(id)
 
@@ -69,7 +83,29 @@ class TaskDao @Inject constructor(
 
     suspend fun save(task: Task, original: Task?) {
         if (taskDao.update(task, original)) {
-            workManager.afterSave(task, original)
+            val completionDateModified = task.completionDate != original?.completionDate ?: 0
+            val deletionDateModified = task.deletionDate != original?.deletionDate ?: 0
+            val justCompleted = completionDateModified && task.isCompleted
+            val justDeleted = deletionDateModified && task.isDeleted
+            if (justCompleted) {
+                workManager.afterComplete(task, original)
+            }
+
+            if (justCompleted || justDeleted) {
+                notificationManager.cancel(task.id)
+                if (task.timerStart > 0) {
+                    timerPlugin.stopTimer(task)
+                }
+            }
+            if (completionDateModified || deletionDateModified) {
+                geofenceApi.update(task.id)
+            }
+            reminderService.scheduleAlarm(task)
+            refreshScheduler.scheduleRefresh(task)
+            if (!task.checkTransitory(Task.TRANS_SUPPRESS_REFRESH)) {
+                localBroadcastManager.broadcastRefresh()
+            }
+            syncAdapters.sync(task, original)
         }
     }
 

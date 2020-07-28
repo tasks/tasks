@@ -7,7 +7,7 @@ import org.tasks.data.Place
 
 interface WorkManager {
 
-    fun afterSave(current: Task, original: Task?)
+    fun afterComplete(current: Task, original: Task?)
 
     fun cleanup(ids: Iterable<Long>)
 

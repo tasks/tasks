@@ -42,10 +42,12 @@ class WorkManagerImpl constructor(
     private val alarmManager: AlarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
     private val workManager = androidx.work.WorkManager.getInstance(context)
 
-    override fun afterSave(current: Task, original: Task?) {
+    override fun afterComplete(current: Task, original: Task?) {
         workManager.enqueue(
                 OneTimeWorkRequest.Builder(AfterSaveWork::class.java)
-                        .setInputData(AfterSaveWork.getInputData(current, original))
+                        .setInputData(Data.Builder()
+                                .putLong(AfterSaveWork.EXTRA_ID, current.id)
+                                .build())
                         .build())
     }
 
