@@ -748,9 +748,11 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         makeSnackbar(R.string.delete_multiple_tasks_confirmation, result.size.toString()).show()
     }
 
-    private fun copySelectedItems(tasks: List<Long>) {
+    private fun copySelectedItems(tasks: List<Long>) = lifecycleScope.launch {
         finishActionMode()
-        val duplicates = taskDuplicator.duplicate(tasks)
+        val duplicates = withContext(NonCancellable) {
+            taskDuplicator.duplicate(tasks)
+        }
         onTaskCreated(duplicates)
         makeSnackbar(R.string.copy_multiple_tasks_confirmation, duplicates.size.toString()).show()
     }
