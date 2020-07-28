@@ -1,17 +1,17 @@
 package com.todoroo.astrid.sync
 
-import com.todoroo.astrid.dao.TaskDaoBlocking
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import org.tasks.data.TagData
-import org.tasks.data.TagDataDaoBlocking
+import org.tasks.data.TagDataDao
 import org.tasks.injection.InjectingTestCase
 import javax.inject.Inject
 
 open class NewSyncTestCase : InjectingTestCase() {
-    @Inject lateinit var taskDao: TaskDaoBlocking
-    @Inject lateinit var tagDataDao: TagDataDaoBlocking
+    @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var tagDataDao: TagDataDao
 
-    fun createTask(): Task {
+    suspend fun createTask(): Task {
         val task = Task()
         task.title = SYNC_TASK_TITLE
         task.priority = SYNC_TASK_IMPORTANCE
@@ -19,7 +19,7 @@ open class NewSyncTestCase : InjectingTestCase() {
         return task
     }
 
-    fun createTagData(): TagData {
+    suspend fun createTagData(): TagData {
         val tag = TagData()
         tag.name = "new tag"
         tagDataDao.createNew(tag)

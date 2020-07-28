@@ -3,6 +3,7 @@ package com.todoroo.astrid.sync
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertNotEquals
 import org.junit.Test
 import org.tasks.injection.ProductionModule
@@ -12,13 +13,13 @@ import org.tasks.injection.ProductionModule
 class SyncModelTest : NewSyncTestCase() {
 
     @Test
-    fun testCreateTaskMakesUuid() {
+    fun testCreateTaskMakesUuid() = runBlocking{
         val task = createTask()
         assertNotEquals(Task.NO_UUID, task.uuid)
     }
 
     @Test
-    fun testCreateTagMakesUuid() {
+    fun testCreateTagMakesUuid() = runBlocking{
         val tag = createTagData()
         assertNotEquals(Task.NO_UUID, tag.remoteId)
     }
