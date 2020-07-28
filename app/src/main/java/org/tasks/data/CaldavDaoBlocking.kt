@@ -9,10 +9,6 @@ class CaldavDaoBlocking @Inject constructor(private val dao: CaldavDao) {
         return dao.subscribeToCalendars()
     }
 
-    fun setCollapsed(id: Long, collapsed: Boolean) = runBlocking {
-        dao.setCollapsed(id, collapsed)
-    }
-
     fun getCalendars(): List<CaldavCalendar> = runBlocking {
         dao.getCalendars()
     }

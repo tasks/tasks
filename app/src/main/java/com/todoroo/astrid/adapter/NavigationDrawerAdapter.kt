@@ -9,6 +9,7 @@ import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.todoroo.astrid.api.Filter
@@ -18,8 +19,8 @@ import io.reactivex.subjects.PublishSubject
 import org.tasks.LocalBroadcastManager
 import org.tasks.activities.DragAndDropDiffer
 import org.tasks.billing.Inventory
-import org.tasks.data.CaldavDaoBlocking
-import org.tasks.data.GoogleTaskDaoBlocking
+import org.tasks.data.CaldavDao
+import org.tasks.data.GoogleTaskDao
 import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.locale.Locale
 import org.tasks.preferences.Preferences
@@ -34,8 +35,8 @@ class NavigationDrawerAdapter @Inject constructor(
         private val inventory: Inventory,
         private val colorProvider: ColorProvider,
         private val preferences: Preferences,
-        private val googleTaskDao: GoogleTaskDaoBlocking,
-        private val caldavDao: CaldavDaoBlocking,
+        private val googleTaskDao: GoogleTaskDao,
+        private val caldavDao: CaldavDao,
         private val localBroadcastManager: LocalBroadcastManager)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>(), DragAndDropDiffer<FilterListItem, MutableList<FilterListItem>> {
 
@@ -75,7 +76,12 @@ class NavigationDrawerAdapter @Inject constructor(
             FilterListItem.Type.ITEM -> FilterViewHolder(
                         view, true, locale, activity, inventory, colorProvider) { onClickFilter(it) }
             FilterListItem.Type.SUBHEADER -> SubheaderViewHolder(
-                        view, activity, preferences, googleTaskDao, caldavDao, localBroadcastManager)
+                    view,
+                    activity as AppCompatActivity,
+                    preferences,
+                    googleTaskDao,
+                    caldavDao,
+                    localBroadcastManager)
             FilterListItem.Type.ACTION -> ActionViewHolder(activity, view) { onClickFilter(it) }
             else -> SeparatorViewHolder(view)
         }
