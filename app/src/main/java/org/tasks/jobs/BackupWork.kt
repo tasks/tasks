@@ -30,7 +30,7 @@ class BackupWork @WorkerInject constructor(
         return Result.success()
     }
 
-    override fun scheduleNext() = workManager.scheduleBackup()
+    override suspend fun scheduleNext() = workManager.scheduleBackup()
 
     private suspend fun startBackup(context: Context?) {
         try {

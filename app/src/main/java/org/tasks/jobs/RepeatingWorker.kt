@@ -16,5 +16,5 @@ abstract class RepeatingWorker internal constructor(
         return result
     }
 
-    protected abstract fun scheduleNext()
+    protected abstract suspend fun scheduleNext()
 }

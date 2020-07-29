@@ -19,5 +19,5 @@ class MidnightRefreshWork @WorkerInject constructor(
         return Result.success()
     }
 
-    override fun scheduleNext() = workManager.scheduleMidnightRefresh()
+    override suspend fun scheduleNext() = workManager.scheduleMidnightRefresh()
 }

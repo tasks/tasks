@@ -20,5 +20,5 @@ class RefreshWork @WorkerInject constructor(
         return Result.success()
     }
 
-    override fun scheduleNext() = refreshScheduler.scheduleNext()
+    override suspend fun scheduleNext() = refreshScheduler.scheduleNext()
 }

@@ -28,7 +28,7 @@ class RefreshScheduler @Inject internal constructor(
     }
 
     @Synchronized
-    fun scheduleRefresh(task: Task) {
+    suspend fun scheduleRefresh(task: Task) {
         if (task.isCompleted
                 && preferences.getBoolean(R.string.p_temporarily_show_completed_tasks, false)) {
             scheduleRefresh(task.completionDate + DateUtilities.ONE_MINUTE)
@@ -41,7 +41,7 @@ class RefreshScheduler @Inject internal constructor(
     }
 
     @Synchronized
-    fun scheduleNext() {
+    suspend fun scheduleNext() {
         val lapsed = jobs.headSet(DateTimeUtils.currentTimeMillis() + 1).toImmutableList()
         jobs.removeAll(lapsed)
         if (!jobs.isEmpty()) {
@@ -49,7 +49,7 @@ class RefreshScheduler @Inject internal constructor(
         }
     }
 
-    private fun scheduleRefresh(timestamp: Long) {
+    private suspend fun scheduleRefresh(timestamp: Long) {
         val now = DateTimeUtils.currentTimeMillis()
         if (now < timestamp) {
             val upcoming = jobs.tailSet(now)

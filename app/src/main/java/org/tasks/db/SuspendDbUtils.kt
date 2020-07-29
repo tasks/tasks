@@ -1,10 +1,14 @@
 package org.tasks.db
 
+import org.tasks.db.DbUtils.MAX_SQLITE_ARGS
 import org.tasks.db.DbUtils.dbchunk
 
 object SuspendDbUtils {
     suspend fun <T> Iterable<T>.eachChunk(action: suspend (List<T>) -> Unit) =
-            dbchunk().forEach { action.invoke(it) }
+            eachChunk(MAX_SQLITE_ARGS, action)
+
+    suspend fun <T> Iterable<T>.eachChunk(size: Int, action: suspend (List<T>) -> Unit) =
+            chunked(size).forEach { action.invoke(it) }
 
     suspend fun <T, R> Iterable<T>.chunkedMap(transform: suspend (List<T>) -> Iterable<R>): List<R> =
             dbchunk().flatMap { transform.invoke(it) }

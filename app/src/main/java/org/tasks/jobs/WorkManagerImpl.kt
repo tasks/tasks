@@ -15,9 +15,9 @@ import org.tasks.R
 import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskListDao
 import org.tasks.data.Place
-import org.tasks.data.runBlocking
 import org.tasks.date.DateTimeUtils.midnight
 import org.tasks.date.DateTimeUtils.newDateTime
+import org.tasks.db.SuspendDbUtils.eachChunk
 import org.tasks.jobs.WorkManager.Companion.MAX_CLEANUP_LENGTH
 import org.tasks.jobs.WorkManager.Companion.REMOTE_CONFIG_INTERVAL_HOURS
 import org.tasks.jobs.WorkManager.Companion.TAG_BACKGROUND_SYNC
@@ -26,6 +26,7 @@ import org.tasks.jobs.WorkManager.Companion.TAG_MIDNIGHT_REFRESH
 import org.tasks.jobs.WorkManager.Companion.TAG_REFRESH
 import org.tasks.jobs.WorkManager.Companion.TAG_REMOTE_CONFIG
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC
+import org.tasks.notifications.Throttle
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils
 import timber.log.Timber
@@ -38,32 +39,42 @@ class WorkManagerImpl constructor(
         private val preferences: Preferences,
         private val googleTaskListDao: GoogleTaskListDao,
         private val caldavDao: CaldavDao): WorkManager {
-
+    private val throttle = Throttle(200, 60000, "WORK")
     private val alarmManager: AlarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
     private val workManager = androidx.work.WorkManager.getInstance(context)
 
-    override fun afterComplete(current: Task, original: Task?) {
-        workManager.enqueue(
-                OneTimeWorkRequest.Builder(AfterSaveWork::class.java)
-                        .setInputData(Data.Builder()
-                                .putLong(AfterSaveWork.EXTRA_ID, current.id)
-                                .build())
-                        .build())
+    private suspend fun enqueue(builder: WorkRequest.Builder<*, *>) {
+        throttle.run {
+            workManager.enqueue(builder.build())
+        }
     }
 
-    override fun cleanup(ids: Iterable<Long>) {
-        ids.chunked(MAX_CLEANUP_LENGTH) {
-            workManager.enqueue(
+    private suspend fun enqueue(continuation: WorkContinuation) {
+        throttle.run {
+            continuation.enqueue()
+        }
+    }
+
+    override suspend fun afterComplete(task: Task) {
+        enqueue(
+                OneTimeWorkRequest.Builder(AfterSaveWork::class.java)
+                        .setInputData(Data.Builder()
+                                .putLong(AfterSaveWork.EXTRA_ID, task.id)
+                                .build()))
+    }
+
+    override suspend fun cleanup(ids: Iterable<Long>) {
+        ids.eachChunk(MAX_CLEANUP_LENGTH) {
+            enqueue(
                     OneTimeWorkRequest.Builder(CleanupWork::class.java)
                             .setInputData(
                                     Data.Builder()
                                             .putLongArray(CleanupWork.EXTRA_TASK_IDS, it.toLongArray())
-                                            .build())
-                            .build())
+                                            .build()))
         }
     }
 
-    override fun sync(immediate: Boolean) {
+    override suspend fun sync(immediate: Boolean) {
         val constraints = Constraints.Builder()
                 .setRequiredNetworkType(
                         if (!immediate && preferences.getBoolean(R.string.p_background_sync_unmetered_only, false)) {
@@ -78,24 +89,26 @@ class WorkManagerImpl constructor(
         if (!immediate) {
             builder.setInitialDelay(1, TimeUnit.MINUTES)
         }
-        val request = builder.build()
-        workManager.beginUniqueWork(TAG_SYNC, ExistingWorkPolicy.REPLACE, request).enqueue()
+        throttle.run {
+            workManager
+                    .beginUniqueWork(TAG_SYNC, ExistingWorkPolicy.REPLACE, builder.build())
+                    .enqueue()
+        }
     }
 
-    override fun reverseGeocode(place: Place) {
+    override suspend fun reverseGeocode(place: Place) {
         if (BuildConfig.DEBUG && place.id == 0L) {
             throw RuntimeException("Missing id")
         }
-        workManager.enqueue(
+        enqueue(
                 OneTimeWorkRequest.Builder(ReverseGeocodeWork::class.java)
                         .setInputData(Data.Builder().putLong(ReverseGeocodeWork.PLACE_ID, place.id).build())
                         .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 1, TimeUnit.MINUTES)
                         .setConstraints(
-                                Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
-                        .build())
+                                Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()))
     }
 
-    override fun updateBackgroundSync() = runBlocking {
+    override suspend fun updateBackgroundSync() {
         updateBackgroundSync(null, null, null)
     }
 
@@ -114,24 +127,26 @@ class WorkManagerImpl constructor(
         scheduleBackgroundSync(backgroundEnabled && accountsPresent, onlyOnWifi)
     }
 
-    private fun scheduleBackgroundSync(enabled: Boolean, onlyOnUnmetered: Boolean) {
+    private suspend fun scheduleBackgroundSync(enabled: Boolean, onlyOnUnmetered: Boolean) {
         Timber.d("background sync enabled: %s, onlyOnUnmetered: %s", enabled, onlyOnUnmetered)
-        if (enabled) {
-            workManager.enqueueUniquePeriodicWork(
-                    TAG_BACKGROUND_SYNC,
-                    ExistingPeriodicWorkPolicy.KEEP,
-                    PeriodicWorkRequest.Builder(SyncWork::class.java, 1, TimeUnit.HOURS)
-                            .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 1, TimeUnit.MINUTES)
-                            .setConstraints(getNetworkConstraints(onlyOnUnmetered))
-                            .build())
-        } else {
-            workManager.cancelUniqueWork(TAG_BACKGROUND_SYNC)
+        throttle.run {
+            if (enabled) {
+                workManager.enqueueUniquePeriodicWork(
+                        TAG_BACKGROUND_SYNC,
+                        ExistingPeriodicWorkPolicy.KEEP,
+                        PeriodicWorkRequest.Builder(SyncWork::class.java, 1, TimeUnit.HOURS)
+                                .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 1, TimeUnit.MINUTES)
+                                .setConstraints(getNetworkConstraints(onlyOnUnmetered))
+                                .build())
+            } else {
+                workManager.cancelUniqueWork(TAG_BACKGROUND_SYNC)
+            }
         }
     }
 
-    override fun scheduleRefresh(time: Long) = enqueueUnique(TAG_REFRESH, RefreshWork::class.java, time)
+    override suspend fun scheduleRefresh(time: Long) = enqueueUnique(TAG_REFRESH, RefreshWork::class.java, time)
 
-    override fun scheduleMidnightRefresh() =
+    override suspend fun scheduleMidnightRefresh() =
             enqueueUnique(TAG_MIDNIGHT_REFRESH, MidnightRefreshWork::class.java, midnight())
 
     override fun scheduleNotification(scheduledTime: Long) {
@@ -149,29 +164,30 @@ class WorkManagerImpl constructor(
         }
     }
 
-    override fun scheduleBackup() {
-        enqueueUnique(
-                TAG_BACKUP,
-                BackupWork::class.java,
-                newDateTime(preferences.getLong(R.string.p_last_backup, 0L))
-                        .plusDays(1)
-                        .millis
-                        .coerceAtMost(midnight()))
+    override suspend fun scheduleBackup() =
+            enqueueUnique(
+                    TAG_BACKUP,
+                    BackupWork::class.java,
+                    newDateTime(preferences.getLong(R.string.p_last_backup, 0L))
+                            .plusDays(1)
+                            .millis
+                            .coerceAtMost(midnight()))
+
+    override suspend fun scheduleConfigRefresh() {
+        throttle.run {
+            workManager.enqueueUniquePeriodicWork(
+                    TAG_REMOTE_CONFIG,
+                    ExistingPeriodicWorkPolicy.KEEP,
+                    PeriodicWorkRequest.Builder(
+                            RemoteConfigWork::class.java, REMOTE_CONFIG_INTERVAL_HOURS, TimeUnit.HOURS)
+                            .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 1, TimeUnit.MINUTES)
+                            .setConstraints(
+                                    Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
+                            .build())
+        }
     }
 
-    override fun scheduleConfigRefresh() {
-        workManager.enqueueUniquePeriodicWork(
-                TAG_REMOTE_CONFIG,
-                ExistingPeriodicWorkPolicy.KEEP,
-                PeriodicWorkRequest.Builder(
-                        RemoteConfigWork::class.java, REMOTE_CONFIG_INTERVAL_HOURS, TimeUnit.HOURS)
-                        .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 1, TimeUnit.MINUTES)
-                        .setConstraints(
-                                Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
-                        .build())
-    }
-
-    override fun scheduleDriveUpload(uri: Uri, purge: Boolean) {
+    override suspend fun scheduleDriveUpload(uri: Uri, purge: Boolean) {
         if (!preferences.getBoolean(R.string.p_google_drive_backup, false)) {
             return
         }
@@ -181,7 +197,7 @@ class WorkManagerImpl constructor(
         if (purge) {
             builder.setInitialDelay(Random().nextInt(3600).toLong(), TimeUnit.SECONDS)
         }
-        workManager.enqueue(builder.build())
+        enqueue(builder)
     }
 
     private val networkConstraints: Constraints
@@ -193,14 +209,15 @@ class WorkManagerImpl constructor(
                     .setRequiredNetworkType(if (unmeteredOnly) NetworkType.UNMETERED else NetworkType.CONNECTED)
                     .build()
 
-    private fun enqueueUnique(key: String, c: Class<out CoroutineWorker?>, time: Long) {
+    @SuppressLint("EnqueueWork")
+    private suspend fun enqueueUnique(key: String, c: Class<out CoroutineWorker?>, time: Long) {
         val delay = time - DateUtilities.now()
         val builder = OneTimeWorkRequest.Builder(c)
         if (delay > 0) {
             builder.setInitialDelay(delay, TimeUnit.MILLISECONDS)
         }
         Timber.d("$key: ${DateTimeUtils.printTimestamp(time)} (${DateTimeUtils.printDuration(delay)})")
-        workManager.beginUniqueWork(key, ExistingWorkPolicy.REPLACE, builder.build()).enqueue()
+        enqueue(workManager.beginUniqueWork(key, ExistingWorkPolicy.REPLACE, builder.build()))
     }
 
     override fun cancelNotifications() {
