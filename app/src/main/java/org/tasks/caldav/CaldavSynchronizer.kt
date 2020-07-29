@@ -62,6 +62,8 @@ class CaldavSynchronizer @Inject constructor(
     }
 
     suspend fun sync(account: CaldavAccount) {
+        Thread.currentThread().contextClassLoader = context.classLoader
+
         if (!inventory.hasPro()) {
             setError(account, context.getString(R.string.requires_pro_subscription))
             return
