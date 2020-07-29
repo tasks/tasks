@@ -44,7 +44,7 @@ class NotificationManager @Inject constructor(
         private val reminderService: ReminderService) {
     private val notificationManagerCompat = NotificationManagerCompat.from(context)
     private val colorProvider = ColorProvider(context, preferences)
-    private val throttle = Throttle(NOTIFICATIONS_PER_SECOND)
+    private val throttle = Throttle(NOTIFICATIONS_PER_SECOND, tag = "NOTIFY")
     private val queue = NotificationLimiter(MAX_NOTIFICATIONS)
 
     @SuppressLint("CheckResult")
