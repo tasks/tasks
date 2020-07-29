@@ -499,7 +499,7 @@
     <string name="subtasks_multilevel_google_task">Google Tasks-ek ez ditu hainbat mailako azpi-zereginak onartzen</string>
     <string name="enter_title_hint">Sartu izenburua</string>
     <string name="no_application_found_link">Ez dago aplikaziorik esteka kudeatzeko</string>
-    <string name="enter_tag_name">Sartu etiketaren izena</string>
+    <string name="enter_tag_name">Idatzi etiketaren izena</string>
     <string name="create_new_tag">Sortu \"%s\"</string>
     <string name="encryption_password_required">Zifratze pasahitza behar da</string>
     <string name="encryption_password">Zifratze pasahitza</string>
