@@ -143,6 +143,9 @@ dependencies {
     implementation("com.gitlab.bitfireAT:dav4jvm:2.1.1")
     implementation("com.gitlab.bitfireAT:ical4android:a675c7194b")
     implementation("com.gitlab.bitfireAT:cert4android:1488e39a66")
+    implementation("com.github.dmfs.opentasks:opentasks-provider:1.2.4") {
+        exclude("com.github.dmfs.opentasks", "opentasks-contract")
+    }
 
     implementation("com.google.dagger:hilt-android:${Versions.hilt}")
     kapt("com.google.dagger:hilt-android-compiler:${Versions.hilt}")

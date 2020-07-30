@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+  <string name="opentasks_authority" tools:node="replace">org.tasks.debug.opentasks</string>
   <string name="app_name" tools:ignore="PrivateResource">Tasks Debug</string>
   <string name="app_package">org.tasks.debug</string>
   <string name="backup_api_key">AEdPqrEAAAAImTf5DbfspggWrU9h06685ONycpUVwJj1JwawQQ</string>

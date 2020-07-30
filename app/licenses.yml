@@ -762,3 +762,33 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://developer.android.com/topic/libraries/architecture/index.html
+- artifact: com.github.dmfs.opentasks:opentasks-provider:+
+  name: opentasks-provider
+  copyrightHolder: dmfs GmbH
+  license: The Apache Software License, Version 2.0
+  licenseUrl: https://api.github.com/licenses/apache-2.0
+  url: https://github.com/dmfs/opentasks
+- artifact: com.github.dmfs.opentasks:opentasks-contract:+
+  name: opentasks-contract
+  copyrightHolder: dmfs GmbH
+  license: The Apache Software License, Version 2.0
+  licenseUrl: https://api.github.com/licenses/apache-2.0
+  url: https://github.com/dmfs/opentasks
+- artifact: org.dmfs:lib-recur:+
+  name: lib-recur
+  copyrightHolder: Marten Gajda
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/license/LICENSE-2.0.txt
+  url: https://github.com/dmfs/lib-recur
+- artifact: org.dmfs:rfc5545-datetime:+
+  name: rfc5545-datetime
+  copyrightHolder: Marten Gajda
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://github.com/dmfs/rfc5545-datetime
+- artifact: org.dmfs:jems:+
+  name: jems
+  copyrightHolder: dmfs GmbH
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/license/LICENSE-2.0.txt
+  url: https://github.com/dmfs/jems

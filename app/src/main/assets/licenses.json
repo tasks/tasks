@@ -1814,6 +1814,76 @@
       "normalizedLicense": "apache2",
       "url": "https://developer.android.com/topic/libraries/architecture/index.html",
       "libraryName": "work-runtime-ktx"
+    },
+    {
+      "artifactId": {
+        "name": "opentasks-provider",
+        "group": "com.github.dmfs.opentasks",
+        "version": "+"
+      },
+      "copyrightHolder": "dmfs GmbH",
+      "copyrightStatement": "Copyright &copy; dmfs GmbH. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "https://api.github.com/licenses/apache-2.0",
+      "normalizedLicense": "apache2",
+      "url": "https://github.com/dmfs/opentasks",
+      "libraryName": "opentasks-provider"
+    },
+    {
+      "artifactId": {
+        "name": "opentasks-contract",
+        "group": "com.github.dmfs.opentasks",
+        "version": "+"
+      },
+      "copyrightHolder": "dmfs GmbH",
+      "copyrightStatement": "Copyright &copy; dmfs GmbH. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "https://api.github.com/licenses/apache-2.0",
+      "normalizedLicense": "apache2",
+      "url": "https://github.com/dmfs/opentasks",
+      "libraryName": "opentasks-contract"
+    },
+    {
+      "artifactId": {
+        "name": "lib-recur",
+        "group": "org.dmfs",
+        "version": "+"
+      },
+      "copyrightHolder": "Marten Gajda",
+      "copyrightStatement": "Copyright &copy; Marten Gajda. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/license/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://github.com/dmfs/lib-recur",
+      "libraryName": "lib-recur"
+    },
+    {
+      "artifactId": {
+        "name": "rfc5545-datetime",
+        "group": "org.dmfs",
+        "version": "+"
+      },
+      "copyrightHolder": "Marten Gajda",
+      "copyrightStatement": "Copyright &copy; Marten Gajda. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://github.com/dmfs/rfc5545-datetime",
+      "libraryName": "rfc5545-datetime"
+    },
+    {
+      "artifactId": {
+        "name": "jems",
+        "group": "org.dmfs",
+        "version": "+"
+      },
+      "copyrightHolder": "dmfs GmbH",
+      "copyrightStatement": "Copyright &copy; dmfs GmbH. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/license/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://github.com/dmfs/jems",
+      "libraryName": "jems"
     }
   ]
 }
