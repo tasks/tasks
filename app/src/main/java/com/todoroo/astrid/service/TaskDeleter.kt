@@ -9,6 +9,7 @@ import org.tasks.db.QueryUtils
 import org.tasks.db.SuspendDbUtils.chunkedMap
 import org.tasks.jobs.WorkManager
 import org.tasks.preferences.Preferences
+import org.tasks.sync.SyncAdapters
 import java.util.*
 import javax.inject.Inject
 
@@ -18,7 +19,8 @@ class TaskDeleter @Inject constructor(
         private val taskDao: TaskDao,
         private val localBroadcastManager: LocalBroadcastManager,
         private val googleTaskDao: GoogleTaskDao,
-        private val preferences: Preferences) {
+        private val preferences: Preferences,
+        private val syncAdapters: SyncAdapters) {
 
     suspend fun markDeleted(item: Task) = markDeleted(persistentListOf(item.id))
 
@@ -28,7 +30,7 @@ class TaskDeleter @Inject constructor(
         ids.addAll(taskIds.chunkedMap(taskDao::getChildren))
         deletionDao.markDeleted(ids)
         workManager.cleanup(ids)
-        workManager.sync(false)
+        syncAdapters.sync()
         localBroadcastManager.broadcastRefresh()
         return ids.chunkedMap(taskDao::fetch)
     }

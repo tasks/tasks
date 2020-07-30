@@ -33,6 +33,9 @@ abstract class CaldavDao {
     @Query("SELECT COUNT(*) FROM caldav_accounts WHERE cda_account_type != 2")
     abstract suspend fun accountCount(): Int
 
+    @Query("SELECT * FROM caldav_accounts WHERE cda_account_type = :type")
+    abstract suspend fun getAccounts(type: Int): List<CaldavAccount>
+
     @Query("SELECT * FROM caldav_accounts ORDER BY cda_account_type, UPPER(cda_name)")
     abstract suspend fun getAccounts(): List<CaldavAccount>
 
@@ -126,6 +129,16 @@ abstract class CaldavDao {
 
     @Query("SELECT * FROM caldav_tasks WHERE cd_task = :taskId")
     abstract suspend fun getTasks(taskId: Long): List<CaldavTask>
+
+    @Query("""
+SELECT EXISTS(SELECT 1
+              FROM caldav_tasks
+                       INNER JOIN caldav_lists ON cdl_uuid = cd_calendar
+                       INNER JOIN caldav_accounts ON cda_uuid = cdl_account
+              WHERE cd_task = :id
+                AND cda_account_type = :type)
+""")
+    abstract suspend fun isAccountType(id: Long, type: Int): Boolean
 
     @Query("SELECT * FROM caldav_tasks WHERE cd_task in (:taskIds) AND cd_deleted = 0")
     abstract suspend fun getTasks(taskIds: List<Long>): List<CaldavTask>

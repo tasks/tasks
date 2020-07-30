@@ -20,12 +20,16 @@ import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.db.SuspendDbUtils.eachChunk
 import org.tasks.jobs.WorkManager.Companion.MAX_CLEANUP_LENGTH
 import org.tasks.jobs.WorkManager.Companion.REMOTE_CONFIG_INTERVAL_HOURS
-import org.tasks.jobs.WorkManager.Companion.TAG_BACKGROUND_SYNC
+import org.tasks.jobs.WorkManager.Companion.TAG_BACKGROUND_SYNC_CALDAV
+import org.tasks.jobs.WorkManager.Companion.TAG_BACKGROUND_SYNC_ETESYNC
+import org.tasks.jobs.WorkManager.Companion.TAG_BACKGROUND_SYNC_GOOGLE_TASKS
 import org.tasks.jobs.WorkManager.Companion.TAG_BACKUP
 import org.tasks.jobs.WorkManager.Companion.TAG_MIDNIGHT_REFRESH
 import org.tasks.jobs.WorkManager.Companion.TAG_REFRESH
 import org.tasks.jobs.WorkManager.Companion.TAG_REMOTE_CONFIG
-import org.tasks.jobs.WorkManager.Companion.TAG_SYNC
+import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_CALDAV
+import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_ETESYNC
+import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_GOOGLE_TASKS
 import org.tasks.notifications.Throttle
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils
@@ -74,7 +78,16 @@ class WorkManagerImpl constructor(
         }
     }
 
-    override suspend fun sync(immediate: Boolean) {
+    override suspend fun googleTaskSync(immediate: Boolean) =
+            sync(immediate, TAG_SYNC_GOOGLE_TASKS, SyncGoogleTasksWork::class.java)
+
+    override suspend fun caldavSync(immediate: Boolean) =
+            sync(immediate, TAG_SYNC_CALDAV, SyncCaldavWork::class.java)
+
+    override suspend fun eteSync(immediate: Boolean) =
+            sync(immediate, TAG_SYNC_ETESYNC, SyncEteSyncWork::class.java)
+
+    private suspend fun sync(immediate: Boolean, tag: String, c: Class<out SyncWork>) {
         val constraints = Constraints.Builder()
                 .setRequiredNetworkType(
                         if (!immediate && preferences.getBoolean(R.string.p_background_sync_unmetered_only, false)) {
@@ -83,15 +96,13 @@ class WorkManagerImpl constructor(
                             NetworkType.CONNECTED
                         })
                 .build()
-        val builder = OneTimeWorkRequest.Builder(SyncWork::class.java)
-                .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 1, TimeUnit.MINUTES)
-                .setConstraints(constraints)
+        val builder = OneTimeWorkRequest.Builder(c).setConstraints(constraints)
         if (!immediate) {
             builder.setInitialDelay(1, TimeUnit.MINUTES)
         }
         throttle.run {
             workManager
-                    .beginUniqueWork(TAG_SYNC, ExistingWorkPolicy.REPLACE, builder.build())
+                    .beginUniqueWork(tag, ExistingWorkPolicy.REPLACE, builder.build())
                     .enqueue()
         }
     }
@@ -103,7 +114,6 @@ class WorkManagerImpl constructor(
         enqueue(
                 OneTimeWorkRequest.Builder(ReverseGeocodeWork::class.java)
                         .setInputData(Data.Builder().putLong(ReverseGeocodeWork.PLACE_ID, place.id).build())
-                        .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 1, TimeUnit.MINUTES)
                         .setConstraints(
                                 Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()))
     }
@@ -129,17 +139,22 @@ class WorkManagerImpl constructor(
 
     private suspend fun scheduleBackgroundSync(enabled: Boolean, onlyOnUnmetered: Boolean) {
         Timber.d("background sync enabled: %s, onlyOnUnmetered: %s", enabled, onlyOnUnmetered)
+        scheduleBackgroundSync(enabled, onlyOnUnmetered, TAG_BACKGROUND_SYNC_GOOGLE_TASKS, SyncGoogleTasksWork::class.java)
+        scheduleBackgroundSync(enabled, onlyOnUnmetered, TAG_BACKGROUND_SYNC_CALDAV, SyncCaldavWork::class.java)
+        scheduleBackgroundSync(enabled, onlyOnUnmetered, TAG_BACKGROUND_SYNC_ETESYNC, SyncEteSyncWork::class.java)
+    }
+
+    private suspend fun scheduleBackgroundSync(enabled: Boolean, onlyOnUnmetered: Boolean, tag: String, c: Class<out SyncWork>) {
         throttle.run {
             if (enabled) {
                 workManager.enqueueUniquePeriodicWork(
-                        TAG_BACKGROUND_SYNC,
+                        tag,
                         ExistingPeriodicWorkPolicy.KEEP,
-                        PeriodicWorkRequest.Builder(SyncWork::class.java, 1, TimeUnit.HOURS)
-                                .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 1, TimeUnit.MINUTES)
+                        PeriodicWorkRequest.Builder(c, 1, TimeUnit.HOURS)
                                 .setConstraints(getNetworkConstraints(onlyOnUnmetered))
                                 .build())
             } else {
-                workManager.cancelUniqueWork(TAG_BACKGROUND_SYNC)
+                workManager.cancelUniqueWork(tag)
             }
         }
     }
@@ -180,7 +195,6 @@ class WorkManagerImpl constructor(
                     ExistingPeriodicWorkPolicy.KEEP,
                     PeriodicWorkRequest.Builder(
                             RemoteConfigWork::class.java, REMOTE_CONFIG_INTERVAL_HOURS, TimeUnit.HOURS)
-                            .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 1, TimeUnit.MINUTES)
                             .setConstraints(
                                     Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
                             .build())

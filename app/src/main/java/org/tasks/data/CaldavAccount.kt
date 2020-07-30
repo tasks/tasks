@@ -146,7 +146,7 @@ class CaldavAccount : Parcelable {
     }
 
     companion object {
-        private const val TYPE_CALDAV = 0
+        const val TYPE_CALDAV = 0
         const val TYPE_ETESYNC = 1
         const val TYPE_LOCAL = 2
 

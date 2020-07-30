@@ -28,6 +28,7 @@ import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.jobs.WorkManager
 import org.tasks.preferences.Preferences
 import org.tasks.sync.AddAccountDialog
+import org.tasks.sync.SyncAdapters
 import org.tasks.ui.Toaster
 import javax.inject.Inject
 
@@ -43,6 +44,7 @@ class Synchronization : InjectingPreferenceFragment() {
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var googleTaskListDao: GoogleTaskListDao
     @Inject lateinit var taskDeleter: TaskDeleter
+    @Inject lateinit var syncAdapters: SyncAdapters
 
     override fun getPreferenceXml() = R.xml.preferences_synchronization
 
@@ -95,14 +97,14 @@ class Synchronization : InjectingPreferenceFragment() {
         if (requestCode == REQUEST_CALDAV_SETTINGS) {
             if (resultCode == Activity.RESULT_OK) {
                 lifecycleScope.launch(NonCancellable) {
-                    workManager.sync(true)
+                    syncAdapters.sync(true)
                     workManager.updateBackgroundSync()
                 }
             }
         } else if (requestCode == REQUEST_GOOGLE_TASKS) {
             if (resultCode == Activity.RESULT_OK) {
                 lifecycleScope.launch(NonCancellable) {
-                    workManager.sync(true)
+                    syncAdapters.sync(true)
                     workManager.updateBackgroundSync()
                 }
             } else if (data != null) {

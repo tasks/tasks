@@ -58,7 +58,7 @@ class TaskDao @Inject constructor(
 
     suspend fun touch(ids: List<Long>) {
         ids.eachChunk { taskDao.touch(ids) }
-        workManager.sync(false)
+        syncAdapters.sync()
     }
 
     suspend fun setParent(parent: Long, tasks: List<Long>) = taskDao.setParent(parent, tasks)

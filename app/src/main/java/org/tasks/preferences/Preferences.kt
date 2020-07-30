@@ -411,9 +411,9 @@ class Preferences @JvmOverloads constructor(private val context: Context, name: 
     }
 
     var isSyncOngoing: Boolean
-        get() = getBoolean(R.string.p_sync_ongoing, false)
+        get() = syncFlags.any { getBoolean(it, false) }
         set(value) {
-            setBoolean(R.string.p_sync_ongoing, value)
+            syncFlags.forEach { setBoolean(it, value) }
         }
 
     fun useGooglePlaces(): Boolean {
@@ -491,5 +491,9 @@ class Preferences @JvmOverloads constructor(private val context: Context, name: 
         private fun getSharedPreferencesName(context: Context): String {
             return context.packageName + "_preferences"
         }
+        private val syncFlags = listOf(
+                R.string.p_sync_ongoing_google_tasks,
+                R.string.p_sync_ongoing_caldav,
+                R.string.p_sync_ongoing_etesync)
     }
 }
