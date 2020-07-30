@@ -7,7 +7,9 @@ package com.todoroo.astrid.core
 
 import android.content.Context
 import android.content.res.Resources
+import com.todoroo.andlib.sql.Criterion
 import com.todoroo.andlib.sql.Criterion.Companion.and
+import com.todoroo.andlib.sql.Join
 import com.todoroo.andlib.sql.QueryTemplate
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.api.Filter
@@ -16,6 +18,8 @@ import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.timers.TimerPlugin
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
+import org.tasks.data.CaldavTask
+import org.tasks.data.GoogleTask
 import org.tasks.data.TaskDao
 import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
 import org.tasks.filters.RecentlyModifiedFilter
@@ -82,6 +86,33 @@ class BuiltInFilterExposer @Inject constructor(
                                             Task.DUE_DATE.gt(0),
                                             Task.DUE_DATE.lte(PermaSql.VALUE_EOD))),
                     todayValues)
+        }
+
+        fun getNoListFilter(): Filter {
+            return Filter(
+                    "No list",
+                    QueryTemplate()
+                            .join(Join.left(GoogleTask.TABLE, and(GoogleTask.TASK.eq(Task.ID), GoogleTask.DELETED.eq(0))))
+                            .join(Join.left(CaldavTask.TABLE, and(CaldavTask.TASK.eq(Task.ID), CaldavTask.DELETED.eq(0))))
+                            .where(and(
+                                    activeAndVisible(),
+                                    GoogleTask.ID.eq(null),
+                                    CaldavTask.ID.eq(null))))
+                    .apply {
+                        icon = R.drawable.ic_outline_cloud_off_24px
+                    }
+        }
+
+        fun getNoTitleFilter(): Filter {
+            return Filter(
+                    "No title",
+                    QueryTemplate()
+                            .where(and(
+                                    activeAndVisible(),
+                                    Criterion.or(Task.TITLE.eq(null), Task.TITLE.eq("")))))
+                    .apply {
+                        icon = R.drawable.ic_outline_clear_24px
+                    }
         }
 
         fun getRecentlyModifiedFilter(r: Resources) =

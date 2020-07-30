@@ -70,6 +70,7 @@ class CaldavTask {
     companion object {
         const val KEY = "caldav"
         @JvmField val TABLE = Table("caldav_tasks")
+        val ID = TABLE.column("cd_id")
         @JvmField val TASK = TABLE.column("cd_task")
         @JvmField val DELETED = TABLE.column("cd_deleted")
         @JvmField val CALENDAR = TABLE.column("cd_calendar")

@@ -48,6 +48,25 @@ class FilterProvider @Inject constructor(
     suspend fun drawerCustomizationItems(): List<FilterListItem> =
             getAllFilters(showBuiltIn = false)
 
+    private fun getDebugFilters(): List<FilterListItem> =
+            if (BuildConfig.DEBUG) {
+                val collapsed = preferences.getBoolean(R.string.p_collapse_debug, false)
+                listOf(NavigationDrawerSubheader(
+                        context.getString(R.string.debug),
+                        false,
+                        collapsed,
+                        SubheaderType.PREFERENCE,
+                        R.string.p_collapse_debug.toLong()))
+                        .apply { if (collapsed) return this }
+                        .plus(listOf(
+                                BuiltInFilterExposer.getNoListFilter(),
+                                BuiltInFilterExposer.getNoTitleFilter()
+                        ))
+
+            } else {
+                emptyList()
+            }
+
     private suspend fun addFilters(showCreate: Boolean, showBuiltIn: Boolean): List<FilterListItem> =
             if (!preferences.getBoolean(R.string.p_filters_enabled, true)) {
                 emptyList()
@@ -135,6 +154,7 @@ class FilterProvider @Inject constructor(
             } else {
                 ArrayList<FilterListItem>()
             }
+                    .plusAllIf(BuildConfig.DEBUG) { getDebugFilters() }
                     .asSequence()
                     .plus(addFilters(showCreate, showBuiltIn))
                     .plus(addTags(showCreate))

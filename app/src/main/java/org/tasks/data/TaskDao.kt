@@ -238,7 +238,15 @@ SELECT EXISTS(SELECT 1 FROM tasks WHERE parent > 0 AND deleted = 0) AS hasSubtas
         return tasks.map(TaskContainer::getTask)
     }
 
-    @Query("SELECT _id FROM tasks LEFT JOIN google_tasks ON _id = gt_task AND gt_deleted = 0 LEFT JOIN caldav_tasks ON _id = cd_task AND cd_deleted = 0 WHERE gt_id IS NULL AND cd_id IS NULL AND parent = 0")
+    @Query("""
+SELECT _id
+FROM tasks
+         LEFT JOIN google_tasks ON _id = gt_task AND gt_deleted = 0
+         LEFT JOIN caldav_tasks ON _id = cd_task AND cd_deleted = 0
+WHERE gt_id IS NULL
+  AND cd_id IS NULL
+  AND parent = 0
+    """)
     abstract suspend fun getLocalTasks(): List<Long>
 
     /** Generates SQL clauses  */

@@ -99,6 +99,7 @@ class GoogleTask {
     companion object {
         const val KEY = "gtasks"
         @JvmField val TABLE = Table("google_tasks")
+        val ID = TABLE.column("gt_id")
         @JvmField val PARENT = TABLE.column("gt_parent")
         @JvmField val TASK = TABLE.column("gt_task")
         @JvmField val DELETED = TABLE.column("gt_deleted")
