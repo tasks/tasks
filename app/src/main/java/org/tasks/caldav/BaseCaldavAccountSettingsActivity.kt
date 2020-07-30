@@ -179,6 +179,10 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
         val url = newURL
         val password = newPassword
         var failed = false
+        if (newName.isBlank()) {
+            binding!!.nameLayout.error = getString(R.string.name_cannot_be_empty)
+            failed = true
+        }
         if (isNullOrEmpty(url)) {
             binding!!.urlLayout.error = getString(R.string.url_required)
             failed = true
