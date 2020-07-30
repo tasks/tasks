@@ -22,9 +22,7 @@ interface WorkManager {
     suspend fun updateBackgroundSync()
 
     suspend fun updateBackgroundSync(
-            forceAccountPresent: Boolean?,
-            forceBackgroundEnabled: Boolean?,
-            forceOnlyOnUnmetered: Boolean?)
+            forceBackgroundEnabled: Boolean?, forceOnlyOnUnmetered: Boolean?)
 
     suspend fun scheduleRefresh(time: Long)
 

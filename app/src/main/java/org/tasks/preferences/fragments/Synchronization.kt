@@ -52,14 +52,14 @@ class Synchronization : InjectingPreferenceFragment() {
         findPreference(R.string.p_background_sync_unmetered_only)
             .setOnPreferenceChangeListener { _: Preference?, o: Any? ->
                 lifecycleScope.launch {
-                    workManager.updateBackgroundSync(null, null, o as Boolean?)
+                    workManager.updateBackgroundSync(null, o as Boolean?)
                 }
                 true
             }
         findPreference(R.string.p_background_sync)
             .setOnPreferenceChangeListener { _: Preference?, o: Any? ->
                 lifecycleScope.launch {
-                    workManager.updateBackgroundSync(null, o as Boolean?, null)
+                    workManager.updateBackgroundSync(o as Boolean?, null)
                 }
                 true
             }

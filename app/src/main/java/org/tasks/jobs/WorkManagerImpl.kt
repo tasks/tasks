@@ -12,6 +12,8 @@ import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.data.Task
 import org.tasks.BuildConfig
 import org.tasks.R
+import org.tasks.data.CaldavAccount.Companion.TYPE_CALDAV
+import org.tasks.data.CaldavAccount.Companion.TYPE_ETESYNC
 import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskListDao
 import org.tasks.data.Place
@@ -119,40 +121,43 @@ class WorkManagerImpl constructor(
     }
 
     override suspend fun updateBackgroundSync() {
-        updateBackgroundSync(null, null, null)
+        updateBackgroundSync(null, null)
     }
 
     @SuppressLint("CheckResult")
     override suspend fun updateBackgroundSync(
-            forceAccountPresent: Boolean?,
-            forceBackgroundEnabled: Boolean?,
-            forceOnlyOnUnmetered: Boolean?) {
-        val backgroundEnabled = forceBackgroundEnabled
+            forceBackgroundEnabled: Boolean?, forceOnlyOnUnmetered: Boolean?) {
+        val enabled = forceBackgroundEnabled
                 ?: preferences.getBoolean(R.string.p_background_sync, true)
-        val onlyOnWifi = forceOnlyOnUnmetered
+        val unmetered = forceOnlyOnUnmetered
                 ?: preferences.getBoolean(R.string.p_background_sync_unmetered_only, false)
-        val accountsPresent = forceAccountPresent == true
-                || googleTaskListDao.accountCount() > 0
-                || caldavDao.accountCount() > 0
-        scheduleBackgroundSync(backgroundEnabled && accountsPresent, onlyOnWifi)
+
+        scheduleBackgroundSync(
+                TAG_BACKGROUND_SYNC_GOOGLE_TASKS,
+                SyncGoogleTasksWork::class.java,
+                enabled && googleTaskListDao.accountCount() > 0,
+                unmetered)
+        scheduleBackgroundSync(
+                TAG_BACKGROUND_SYNC_CALDAV,
+                SyncCaldavWork::class.java,
+                enabled && caldavDao.getAccounts(TYPE_CALDAV).isNotEmpty(),
+                unmetered)
+        scheduleBackgroundSync(
+                TAG_BACKGROUND_SYNC_ETESYNC,
+                SyncEteSyncWork::class.java,
+                enabled && caldavDao.getAccounts(TYPE_ETESYNC).isNotEmpty(),
+                unmetered)
     }
 
-    private suspend fun scheduleBackgroundSync(enabled: Boolean, onlyOnUnmetered: Boolean) {
-        Timber.d("background sync enabled: %s, onlyOnUnmetered: %s", enabled, onlyOnUnmetered)
-        scheduleBackgroundSync(enabled, onlyOnUnmetered, TAG_BACKGROUND_SYNC_GOOGLE_TASKS, SyncGoogleTasksWork::class.java)
-        scheduleBackgroundSync(enabled, onlyOnUnmetered, TAG_BACKGROUND_SYNC_CALDAV, SyncCaldavWork::class.java)
-        scheduleBackgroundSync(enabled, onlyOnUnmetered, TAG_BACKGROUND_SYNC_ETESYNC, SyncEteSyncWork::class.java)
-    }
-
-    private suspend fun scheduleBackgroundSync(enabled: Boolean, onlyOnUnmetered: Boolean, tag: String, c: Class<out SyncWork>) {
+    private suspend fun scheduleBackgroundSync(
+            tag: String, c: Class<out SyncWork>, enabled: Boolean, unmetered: Boolean? = null) {
+        Timber.d("scheduleBackgroundSync($tag, $c, enabled = $enabled, unmetered = $unmetered)")
         throttle.run {
             if (enabled) {
+                val builder = PeriodicWorkRequest.Builder(c, 1, TimeUnit.HOURS)
+                unmetered?.let { builder.setConstraints(getNetworkConstraints(it)) }
                 workManager.enqueueUniquePeriodicWork(
-                        tag,
-                        ExistingPeriodicWorkPolicy.KEEP,
-                        PeriodicWorkRequest.Builder(c, 1, TimeUnit.HOURS)
-                                .setConstraints(getNetworkConstraints(onlyOnUnmetered))
-                                .build())
+                        tag, ExistingPeriodicWorkPolicy.KEEP, builder.build())
             } else {
                 workManager.cancelUniqueWork(tag)
             }

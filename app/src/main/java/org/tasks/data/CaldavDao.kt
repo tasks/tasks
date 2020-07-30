@@ -30,9 +30,6 @@ abstract class CaldavDao {
     @Query("SELECT * FROM caldav_accounts WHERE cda_uuid = :uuid LIMIT 1")
     abstract suspend fun getAccountByUuid(uuid: String): CaldavAccount?
 
-    @Query("SELECT COUNT(*) FROM caldav_accounts WHERE cda_account_type != 2")
-    abstract suspend fun accountCount(): Int
-
     @Query("SELECT * FROM caldav_accounts WHERE cda_account_type = :type")
     abstract suspend fun getAccounts(type: Int): List<CaldavAccount>
 

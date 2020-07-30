@@ -12,8 +12,9 @@ abstract class SyncWork constructor(
         workerParams: WorkerParameters,
         firebase: Firebase,
         private val localBroadcastManager: LocalBroadcastManager,
-        private val preferences: Preferences) : BaseWorker(context, workerParams, firebase) {
-    
+        private val preferences: Preferences
+) : BaseWorker(context, workerParams, firebase) {
+
     final override suspend fun run(): Result {
         if (!enabled()) {
             return Result.failure()
