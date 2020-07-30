@@ -210,7 +210,7 @@ class WorkManagerImpl constructor(
                     .build()
 
     @SuppressLint("EnqueueWork")
-    private suspend fun enqueueUnique(key: String, c: Class<out CoroutineWorker?>, time: Long) {
+    private suspend fun enqueueUnique(key: String, c: Class<out Worker?>, time: Long) {
         val delay = time - DateUtilities.now()
         val builder = OneTimeWorkRequest.Builder(c)
         if (delay > 0) {

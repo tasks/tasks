@@ -2,17 +2,21 @@ package org.tasks.jobs
 
 import android.content.Context
 import androidx.work.WorkerParameters
+import kotlinx.coroutines.runBlocking
 import org.tasks.analytics.Firebase
 import org.tasks.injection.BaseWorker
 
 abstract class RepeatingWorker internal constructor(
         context: Context,
         workerParams: WorkerParameters,
-        firebase: Firebase) : BaseWorker(context, workerParams, firebase) {
+        firebase: Firebase
+) : BaseWorker(context, workerParams, firebase) {
 
-    override suspend fun doWork(): Result {
+    override fun doWork(): Result {
         val result = super.doWork()
-        scheduleNext()
+        runBlocking {
+            scheduleNext()
+        }
         return result
     }
 

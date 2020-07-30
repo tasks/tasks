@@ -1,20 +1,24 @@
 package org.tasks.injection
 
 import android.content.Context
-import androidx.work.CoroutineWorker
+import androidx.work.Worker
 import androidx.work.WorkerParameters
+import kotlinx.coroutines.runBlocking
 import org.tasks.analytics.Firebase
 import timber.log.Timber
 
 abstract class BaseWorker(
         internal val context: Context,
         workerParams: WorkerParameters,
-        internal val firebase: Firebase) : CoroutineWorker(context, workerParams) {
+        internal val firebase: Firebase
+) : Worker(context, workerParams) {
 
-    override suspend fun doWork(): Result {
+    override fun doWork(): Result {
         Timber.d("%s.doWork()", javaClass.simpleName)
         return try {
-            run()
+            runBlocking {
+                run()
+            }
         } catch (e: Exception) {
             firebase.reportException(e)
             Result.failure()
