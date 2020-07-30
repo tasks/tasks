@@ -16,7 +16,6 @@ import java.util.Locale;
 import java.util.TimeZone;
 import net.fortuna.ical4j.model.Date;
 import net.fortuna.ical4j.model.DateTime;
-import net.fortuna.ical4j.model.Recur;
 import net.fortuna.ical4j.model.property.Completed;
 import net.fortuna.ical4j.model.property.DtStart;
 import net.fortuna.ical4j.model.property.Due;
@@ -48,16 +47,7 @@ public class CaldavConverter {
     local.setTitle(remote.getSummary());
     local.setNotes(remote.getDescription());
     local.setPriority(fromRemote(remote.getPriority()));
-    RRule repeatRule = remote.getRRule();
-    if (repeatRule == null) {
-      local.setRecurrence("");
-    } else {
-      Recur recur = repeatRule.getRecur();
-      Date until = recur.getUntil();
-      local.setRepeatUntil(until == null ? 0 : org.tasks.time.DateTime.from(until).getMillis());
-      local.setRecurrence(
-          "RRULE:" + Task.sanitizeRRule(recur.toString()) + (local.repeatAfterCompletion() ? ";FROM=COMPLETION" : ""));
-    }
+    local.setRecurrence(remote.getRRule());
     Due due = remote.getDue();
     if (due == null) {
       local.setDueDate(0L);

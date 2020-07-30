@@ -15,6 +15,7 @@ import org.tasks.Strings
 import org.tasks.backup.XmlReader
 import org.tasks.data.Tag
 import org.tasks.date.DateTimeUtils
+import org.tasks.time.DateTime
 import timber.log.Timber
 import java.util.*
 
@@ -252,6 +253,16 @@ class Task : Parcelable {
 
     fun setRecurrence(rrule: RRule, afterCompletion: Boolean) {
         recurrence = rrule.toIcal() + if (afterCompletion) ";FROM=COMPLETION" else ""
+    }
+
+    fun setRecurrence(rrule: net.fortuna.ical4j.model.property.RRule?) {
+        if (rrule == null) {
+            repeatUntil = 0
+            recurrence = null
+        } else {
+            repeatUntil = rrule.recur.until?.let { DateTime.from(it).millis } ?: 0
+            recurrence = "RRULE:${rrule.value.sanitizeRRule()}" + if (repeatAfterCompletion()) ";FROM=COMPLETION" else ""
+        }
     }
 
     fun hasNotes(): Boolean {

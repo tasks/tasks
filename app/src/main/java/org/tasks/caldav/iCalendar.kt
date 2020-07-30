@@ -98,7 +98,14 @@ class iCalendar @Inject constructor(
             }
     }
 
-    suspend fun setPlace(taskId: Long, geo: Geo) {
+    suspend fun setPlace(taskId: Long, geo: Geo?) {
+        if (geo == null) {
+            locationDao.getActiveGeofences(taskId).forEach {
+                locationDao.delete(it.geofence)
+                geofenceApi.update(it.place)
+            }
+            return
+        }
         var place: Place? = locationDao.findPlace(
                 geo.latitude.toLikeString(),
                 geo.longitude.toLikeString())
@@ -179,15 +186,7 @@ class iCalendar @Inject constructor(
         }
         CaldavConverter.apply(task, remote)
         caldavTask.order = remote.order
-        val geo = remote.geoPosition
-        if (geo == null) {
-            locationDao.getActiveGeofences(task.id).forEach {
-                locationDao.delete(it.geofence)
-                geofenceApi.update(it.place)
-            }
-        } else {
-            setPlace(task.id, geo)
-        }
+        setPlace(task.id, remote.geoPosition)
         tagDao.applyTags(task, tagDataDao, getTags(remote.categories))
         task.suppressSync()
         task.suppressRefresh()
