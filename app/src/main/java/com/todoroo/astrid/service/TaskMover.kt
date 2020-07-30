@@ -12,6 +12,7 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.data.*
 import org.tasks.db.DbUtils.dbchunk
 import org.tasks.preferences.Preferences
+import org.tasks.sync.SyncAdapters
 import java.util.*
 import javax.inject.Inject
 
@@ -22,7 +23,8 @@ class TaskMover @Inject constructor(
         private val googleTaskDao: GoogleTaskDao,
         private val googleTaskListDao: GoogleTaskListDao,
         private val preferences: Preferences,
-        private val localBroadcastManager: LocalBroadcastManager) {
+        private val localBroadcastManager: LocalBroadcastManager,
+        private val syncAdapters: SyncAdapters) {
 
     suspend fun getSingleFilter(tasks: List<Long>): Filter? {
         val caldavCalendars = caldavDao.getCalendars(tasks)
@@ -54,6 +56,7 @@ class TaskMover @Inject constructor(
         }
         taskDao.touch(tasks)
         localBroadcastManager.broadcastRefresh()
+        syncAdapters.sync()
     }
 
     suspend fun migrateLocalTasks() {
