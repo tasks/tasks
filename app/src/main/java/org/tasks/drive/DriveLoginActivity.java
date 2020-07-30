@@ -28,7 +28,7 @@ import org.tasks.preferences.Preferences;
 @AndroidEntryPoint
 public class DriveLoginActivity extends InjectingAppCompatActivity {
 
-  private static final String EXTRA_ERROR = "extra_error";
+  public static final String EXTRA_ERROR = "extra_error";
   private static final int RC_CHOOSE_ACCOUNT = 10988;
   @Inject DialogBuilder dialogBuilder;
   @Inject GoogleAccountManager googleAccountManager;
@@ -58,6 +58,7 @@ public class DriveLoginActivity extends InjectingAppCompatActivity {
           @Override
           public void authenticationSuccessful(String accountName) {
             preferences.setString(R.string.p_google_drive_backup_account, accountName);
+            preferences.setBoolean(R.string.p_google_drive_backup, true);
             setResult(RESULT_OK);
             DialogUtilities.dismissDialog(DriveLoginActivity.this, pd);
             finish();
@@ -65,6 +66,7 @@ public class DriveLoginActivity extends InjectingAppCompatActivity {
 
           @Override
           public void authenticationFailed(final String message) {
+            preferences.setBoolean(R.string.p_google_drive_backup, false);
             setResult(RESULT_CANCELED, new Intent().putExtra(EXTRA_ERROR, message));
             DialogUtilities.dismissDialog(DriveLoginActivity.this, pd);
             finish();

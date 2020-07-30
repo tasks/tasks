@@ -10,12 +10,16 @@ import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
+import androidx.lifecycle.lifecycleScope
 import com.todoroo.andlib.utility.DialogUtilities
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.tasks.PermissionUtil.verifyPermissions
 import org.tasks.R
 import org.tasks.data.GoogleTaskAccount
-import org.tasks.data.GoogleTaskListDaoBlocking
+import org.tasks.data.GoogleTaskListDao
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.gtasks.GoogleAccountManager
 import org.tasks.injection.InjectingAppCompatActivity
@@ -34,7 +38,7 @@ import javax.inject.Inject
 class GtasksLoginActivity : InjectingAppCompatActivity() {
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var googleAccountManager: GoogleAccountManager
-    @Inject lateinit var googleTaskListDao: GoogleTaskListDaoBlocking
+    @Inject lateinit var googleTaskListDao: GoogleTaskListDao
     @Inject lateinit var permissionRequestor: ActivityPermissionRequestor
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,19 +66,23 @@ class GtasksLoginActivity : InjectingAppCompatActivity() {
                 a,
                 object : AuthResultHandler {
                     override fun authenticationSuccessful(accountName: String) {
-                        var account = googleTaskListDao.getAccount(accountName)
-                        if (account == null) {
-                            account = GoogleTaskAccount()
-                            account.account = accountName
-                            googleTaskListDao.insert(account)
-                        } else {
-                            account.error = ""
-                            googleTaskListDao.update(account)
-                            googleTaskListDao.resetLastSync(accountName)
+                        lifecycleScope.launch {
+                            withContext(NonCancellable) {
+                                var account = googleTaskListDao.getAccount(accountName)
+                                if (account == null) {
+                                    account = GoogleTaskAccount()
+                                    account.account = accountName
+                                    googleTaskListDao.insert(account)
+                                } else {
+                                    account.error = ""
+                                    googleTaskListDao.update(account)
+                                    googleTaskListDao.resetLastSync(accountName)
+                                }
+                            }
+                            setResult(Activity.RESULT_OK)
+                            DialogUtilities.dismissDialog(this@GtasksLoginActivity, pd)
+                            finish()
                         }
-                        setResult(Activity.RESULT_OK)
-                        DialogUtilities.dismissDialog(this@GtasksLoginActivity, pd)
-                        finish()
                     }
 
                     override fun authenticationFailed(message: String) {

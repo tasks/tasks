@@ -9,10 +9,6 @@ class GoogleTaskListDaoBlocking @Inject constructor(private val dao: GoogleTaskL
         dao.getAccounts()
     }
 
-    fun getAccount(account: String): GoogleTaskAccount? = runBlocking {
-        dao.getAccount(account)
-    }
-
     fun getById(id: Long): GoogleTaskList? = runBlocking {
         dao.getById(id)
     }
@@ -37,19 +33,11 @@ class GoogleTaskListDaoBlocking @Inject constructor(private val dao: GoogleTaskL
         dao.getAllLists()
     }
 
-    fun resetLastSync(account: String) = runBlocking {
-        dao.resetLastSync(account)
-    }
-
     fun insertOrReplace(googleTaskList: GoogleTaskList): Long = runBlocking {
         dao.insertOrReplace(googleTaskList)
     }
 
     fun insert(googleTaskAccount: GoogleTaskAccount) = runBlocking {
         dao.insert(googleTaskAccount)
-    }
-
-    fun update(account: GoogleTaskAccount) = runBlocking {
-        dao.update(account)
     }
 }

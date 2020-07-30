@@ -23,7 +23,7 @@ import org.tasks.ui.Toaster
 import javax.inject.Inject
 
 private const val REQUEST_CODE_BACKUP_DIR = 10001
-private const val REQUEST_DRIVE_BACKUP = 10002
+const val REQUEST_DRIVE_BACKUP = 12002
 private const val REQUEST_PICKER = 10003
 private const val FRAG_TAG_EXPORT_TASKS = "frag_tag_export_tasks"
 private const val FRAG_TAG_IMPORT_TASKS = "frag_tag_import_tasks"
@@ -104,13 +104,6 @@ class Backups : InjectingPreferenceFragment() {
                     ImportTasksDialog.newImportTasksDialog(uri, extension)
                         .show(parentFragmentManager, FRAG_TAG_IMPORT_TASKS)
                 }
-            }
-        } else if (requestCode == REQUEST_DRIVE_BACKUP) {
-            val success = resultCode == RESULT_OK
-            preferences.setBoolean(R.string.p_google_drive_backup, success)
-            updateGoogleDriveCheckbox()
-            if (!success && data != null) {
-                toaster.longToast(data.getStringExtra(GtasksLoginActivity.EXTRA_ERROR))
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)

@@ -29,7 +29,6 @@ import org.tasks.jobs.WorkManager
 import org.tasks.preferences.Preferences
 import org.tasks.sync.AddAccountDialog
 import org.tasks.sync.SyncAdapters
-import org.tasks.ui.Toaster
 import javax.inject.Inject
 
 const val REQUEST_CALDAV_SETTINGS = 10013
@@ -40,7 +39,6 @@ class Synchronization : InjectingPreferenceFragment() {
 
     @Inject lateinit var workManager: WorkManager
     @Inject lateinit var preferences: Preferences
-    @Inject lateinit var toaster: Toaster
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var googleTaskListDao: GoogleTaskListDao
     @Inject lateinit var taskDeleter: TaskDeleter
@@ -100,15 +98,6 @@ class Synchronization : InjectingPreferenceFragment() {
                     syncAdapters.sync(true)
                     workManager.updateBackgroundSync()
                 }
-            }
-        } else if (requestCode == REQUEST_GOOGLE_TASKS) {
-            if (resultCode == Activity.RESULT_OK) {
-                lifecycleScope.launch(NonCancellable) {
-                    syncAdapters.sync(true)
-                    workManager.updateBackgroundSync()
-                }
-            } else if (data != null) {
-                toaster.longToast(data.getStringExtra(GtasksLoginActivity.EXTRA_ERROR))
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
