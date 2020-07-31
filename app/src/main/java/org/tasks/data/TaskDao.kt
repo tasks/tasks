@@ -144,7 +144,7 @@ SELECT EXISTS(SELECT 1 FROM tasks WHERE parent > 0 AND deleted = 0) AS hasSubtas
     suspend fun setParent(parent: Long, tasks: List<Long>) =
             tasks.eachChunk { setParentInternal(parent, it) }
 
-    @Query("UPDATE tasks SET parent = :parent WHERE _id IN (:children)")
+    @Query("UPDATE tasks SET parent = :parent WHERE _id IN (:children) AND _id != :parent")
     internal abstract suspend fun setParentInternal(parent: Long, children: List<Long>)
 
     @Query("UPDATE tasks SET lastNotified = :timestamp WHERE _id = :id AND lastNotified != :timestamp")
@@ -203,7 +203,7 @@ SELECT EXISTS(SELECT 1 FROM tasks WHERE parent > 0 AND deleted = 0) AS hasSubtas
     @Update
     internal abstract suspend fun updateInternal(task: Task): Int
 
-    suspend fun createNew(task: Task) {
+    suspend fun createNew(task: Task): Long {
         task.id = NO_ID
         if (task.creationDate == 0L) {
             task.creationDate = DateUtilities.now()
@@ -216,6 +216,7 @@ SELECT EXISTS(SELECT 1 FROM tasks WHERE parent > 0 AND deleted = 0) AS hasSubtas
         }
         val insert = insert(task)
         task.id = insert
+        return task.id
     }
 
     suspend fun count(filter: Filter): Int {

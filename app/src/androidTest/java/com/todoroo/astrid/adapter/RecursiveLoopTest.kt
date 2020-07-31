@@ -37,13 +37,12 @@ class RecursiveLoopTest : InjectingTestCase() {
     @Test
     @Ignore("infinite loop")
     fun handleSelfLoop() = runBlocking {
-        val id = addTask(with(DUE_DATE, newDateTime()))
-
-        taskDao.setParent(id, listOf(id))
+        addTask(with(DUE_DATE, newDateTime()), with(PARENT, 1L))
 
         val tasks = getTasks()
+
         assertEquals(1, tasks.size)
-        assertEquals(id, tasks[0].id)
+        assertEquals(1L, tasks[0].id)
     }
 
     @Test

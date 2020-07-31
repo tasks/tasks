@@ -36,27 +36,29 @@ class BackupServiceTests : InjectingTestCase() {
     private lateinit var temporaryDirectory: File
 
     @Before
-    override fun setUp() = runBlocking {
-        super.setUp()
-        temporaryDirectory = try {
-            File.createTempFile("backup", System.nanoTime().toString())
-        } catch (e: IOException) {
-            throw RuntimeException(e)
-        }
-        if (!temporaryDirectory.delete()) {
-            throw RuntimeException(
-                    "Could not delete temp file: " + temporaryDirectory.absolutePath)
-        }
-        if (!temporaryDirectory.mkdir()) {
-            throw RuntimeException(
-                    "Could not create temp directory: " + temporaryDirectory.absolutePath)
-        }
-        preferences.setUri(R.string.p_backup_dir, Uri.fromFile(temporaryDirectory))
+    override fun setUp() {
+        runBlocking {
+            super.setUp()
+            temporaryDirectory = try {
+                File.createTempFile("backup", System.nanoTime().toString())
+            } catch (e: IOException) {
+                throw RuntimeException(e)
+            }
+            if (!temporaryDirectory.delete()) {
+                throw RuntimeException(
+                        "Could not delete temp file: " + temporaryDirectory.absolutePath)
+            }
+            if (!temporaryDirectory.mkdir()) {
+                throw RuntimeException(
+                        "Could not create temp directory: " + temporaryDirectory.absolutePath)
+            }
+            preferences.setUri(R.string.p_backup_dir, Uri.fromFile(temporaryDirectory))
 
-        // make a temporary task
-        val task = Task()
-        task.title = "helicopter"
-        taskDao.createNew(task)
+            // make a temporary task
+            val task = Task()
+            task.title = "helicopter"
+            taskDao.createNew(task)
+        }
     }
 
     @After

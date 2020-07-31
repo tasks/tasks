@@ -12,11 +12,11 @@ import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Test
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
-import org.tasks.makers.TaskMaker.ID
 import org.tasks.makers.TaskMaker.PARENT
 import org.tasks.makers.TaskMaker.newTask
 import javax.inject.Inject
@@ -99,24 +99,37 @@ class TaskDaoTests : InjectingTestCase() {
 
     @Test
     fun findChildrenInList() = runBlocking {
-        taskDao.createNew(newTask(with(ID, 1L)))
-        taskDao.createNew(newTask(with(ID, 2L), with(PARENT, 1L)))
-        assertEquals(listOf(2L), taskDao.getChildren(listOf(1L, 2L)))
+        val parent = taskDao.createNew(newTask())
+        val child = taskDao.createNew(newTask(with(PARENT, parent)))
+        assertEquals(listOf(child), taskDao.getChildren(listOf(parent, child)))
     }
 
     @Test
     fun findRecursiveChildrenInList() = runBlocking {
-        taskDao.createNew(newTask(with(ID, 1L)))
-        taskDao.createNew(newTask(with(ID, 2L), with(PARENT, 1L)))
-        taskDao.createNew(newTask(with(ID, 3L), with(PARENT, 2L)))
-        assertEquals(listOf(2L, 3L, 3L), taskDao.getChildren(listOf(1L, 2L, 3L)))
+        val parent = taskDao.createNew(newTask())
+        val child = taskDao.createNew(newTask(with(PARENT, parent)))
+        val grandchild = taskDao.createNew(newTask(with(PARENT, child)))
+        assertEquals(
+                listOf(child, grandchild, grandchild),
+                taskDao.getChildren(listOf(parent, child, grandchild)))
     }
 
     @Test
     fun findRecursiveChildrenInListAfterSkippingParent() = runBlocking {
-        taskDao.createNew(newTask(with(ID, 1L)))
-        taskDao.createNew(newTask(with(ID, 2L), with(PARENT, 1L)))
-        taskDao.createNew(newTask(with(ID, 3L), with(PARENT, 2L)))
-        assertEquals(listOf(2L, 3L), taskDao.getChildren(listOf(1L, 3L)))
+        val parent = taskDao.createNew(newTask())
+        val child = taskDao.createNew(newTask(with(PARENT, parent)))
+        val grandchild = taskDao.createNew(newTask(with(PARENT, child)))
+        assertEquals(listOf(child, grandchild), taskDao.getChildren(listOf(parent, grandchild)))
+    }
+
+    @Test
+    fun dontSetParentToSelf() = runBlocking {
+        val parent = taskDao.createNew(newTask())
+        val child = taskDao.createNew(newTask())
+
+        taskDao.setParent(parent, listOf(parent, child))
+
+        assertEquals(0, taskDao.fetch(parent)!!.parent)
+        assertEquals(parent, taskDao.fetch(child)!!.parent)
     }
 }
