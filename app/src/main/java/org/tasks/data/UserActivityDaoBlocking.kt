@@ -1,5 +1,6 @@
 package org.tasks.data
 
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @Deprecated("use coroutines")

@@ -7,6 +7,7 @@ import androidx.work.WorkerParameters
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.reminders.ReminderService
 import com.todoroo.astrid.timers.TimerPlugin
+import kotlinx.coroutines.runBlocking
 import org.tasks.analytics.Firebase
 import org.tasks.data.*
 import org.tasks.files.FileHelper

@@ -7,6 +7,7 @@ import com.todoroo.astrid.core.BuiltInFilterExposer
 import com.todoroo.astrid.core.BuiltInFilterExposer.Companion.getMyTasksFilter
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.*

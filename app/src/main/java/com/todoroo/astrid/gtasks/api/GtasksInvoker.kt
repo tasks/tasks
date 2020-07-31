@@ -13,10 +13,10 @@ import com.google.api.services.tasks.model.TaskList
 import com.google.api.services.tasks.model.TaskLists
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import org.tasks.BuildConfig
 import org.tasks.DebugNetworkInterceptor
-import org.tasks.data.runBlocking
 import org.tasks.gtasks.GoogleAccountManager
 import org.tasks.preferences.Preferences
 import timber.log.Timber

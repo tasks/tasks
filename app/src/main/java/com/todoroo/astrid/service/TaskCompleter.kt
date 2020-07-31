@@ -3,8 +3,8 @@ package com.todoroo.astrid.service
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
+import kotlinx.coroutines.runBlocking
 import org.tasks.data.GoogleTaskDao
-import org.tasks.data.runBlocking
 import timber.log.Timber
 import javax.inject.Inject
 

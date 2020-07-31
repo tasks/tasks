@@ -2,11 +2,11 @@ package org.tasks.caldav
 
 import android.os.Bundle
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavDao
-import org.tasks.data.runBlocking
 
 @AndroidEntryPoint
 class LocalListSettingsActivity : BaseCaldavCalendarSettingsActivity() {

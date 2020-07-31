@@ -3,6 +3,7 @@ package com.todoroo.astrid.service
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.data.Task
 import kotlinx.collections.immutable.persistentListOf
+import kotlinx.coroutines.runBlocking
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.*
 import org.tasks.db.QueryUtils

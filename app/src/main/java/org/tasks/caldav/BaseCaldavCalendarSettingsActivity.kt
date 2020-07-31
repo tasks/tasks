@@ -19,13 +19,13 @@ import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.helper.UUIDHelper
 import com.todoroo.astrid.service.TaskDeleter
+import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.activities.BaseListSettingsActivity
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavDao
-import org.tasks.data.runBlocking
 import org.tasks.ui.DisplayableException
 import java.net.ConnectException
 import javax.inject.Inject
