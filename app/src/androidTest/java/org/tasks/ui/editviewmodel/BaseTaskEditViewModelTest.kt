@@ -27,7 +27,6 @@ import org.tasks.ui.TaskEditViewModel
 import javax.inject.Inject
 
 open class BaseTaskEditViewModelTest : InjectingTestCase() {
-    @ApplicationContext @Inject lateinit var context: Context
     @Inject lateinit var db: Database
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var taskDeleter: TaskDeleter
