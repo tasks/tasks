@@ -13,6 +13,7 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.data.SubtaskInfo
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskDao
+import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.db.SuspendDbUtils.eachChunk
 import org.tasks.jobs.WorkManager
 import org.tasks.location.GeofenceApi
@@ -96,6 +97,9 @@ class TaskDao @Inject constructor(
                 if (task.timerStart > 0) {
                     timerPlugin.stopTimer(task)
                 }
+            }
+            if (task.dueDate != original?.dueDate && newDateTime(task.dueDate).isAfterNow) {
+                notificationManager.cancel(task.id)
             }
             if (completionDateModified || deletionDateModified) {
                 geofenceApi.update(task.id)

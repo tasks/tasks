@@ -244,9 +244,6 @@ class DateTimePicker : BottomSheetDialogFragment() {
             if (taskId > 0) {
                 lifecycleScope.launch(NonCancellable) {
                     val task: Task = taskDao.fetch(taskId)!!
-                    if (newDateTime(dueDate).isAfterNow) {
-                        notificationManager.cancel(task.id)
-                    }
                     task.setDueDateAdjustingHideUntil(dueDate)
                     taskDao.save(task)
                 }
