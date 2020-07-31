@@ -9,6 +9,9 @@ import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.reminders.ReminderService
 import com.todoroo.astrid.timers.TimerPlugin
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.SubtaskInfo
 import org.tasks.data.TaskContainer
@@ -91,25 +94,28 @@ class TaskDao @Inject constructor(
             if (justCompleted && (task.isRecurring || !task.calendarURI.isNullOrBlank())) {
                 workManager.afterComplete(task)
             }
-
-            if (justCompleted || justDeleted) {
-                notificationManager.cancel(task.id)
-                if (task.timerStart > 0) {
-                    timerPlugin.stopTimer(task)
+            coroutineScope {
+                launch(Dispatchers.Default) {
+                    if (justCompleted || justDeleted) {
+                        notificationManager.cancel(task.id)
+                        if (task.timerStart > 0) {
+                            timerPlugin.stopTimer(task)
+                        }
+                    }
+                    if (task.dueDate != original?.dueDate && newDateTime(task.dueDate).isAfterNow) {
+                        notificationManager.cancel(task.id)
+                    }
+                    if (completionDateModified || deletionDateModified) {
+                        geofenceApi.update(task.id)
+                    }
+                    reminderService.scheduleAlarm(task)
+                    refreshScheduler.scheduleRefresh(task)
+                    if (!task.checkTransitory(Task.TRANS_SUPPRESS_REFRESH)) {
+                        localBroadcastManager.broadcastRefresh()
+                    }
+                    syncAdapters.sync(task, original)
                 }
             }
-            if (task.dueDate != original?.dueDate && newDateTime(task.dueDate).isAfterNow) {
-                notificationManager.cancel(task.id)
-            }
-            if (completionDateModified || deletionDateModified) {
-                geofenceApi.update(task.id)
-            }
-            reminderService.scheduleAlarm(task)
-            refreshScheduler.scheduleRefresh(task)
-            if (!task.checkTransitory(Task.TRANS_SUPPRESS_REFRESH)) {
-                localBroadcastManager.broadcastRefresh()
-            }
-            syncAdapters.sync(task, original)
         }
     }
 
