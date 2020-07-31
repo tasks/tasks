@@ -2,10 +2,8 @@ package org.tasks.preferences
 
 import android.app.Activity
 import android.content.Intent
-import androidx.lifecycle.lifecycleScope
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.drive.DriveLoginActivity
 import org.tasks.jobs.WorkManager
@@ -32,16 +30,12 @@ class MainPreferences : BasePreferences() {
         if (requestCode == REQUEST_CALDAV_SETTINGS) {
             if (resultCode == RESULT_OK) {
                 syncAdapters.sync(true)
-                lifecycleScope.launch {
-                    workManager.updateBackgroundSync()
-                }
+                workManager.updateBackgroundSync()
             }
         } else if (requestCode == REQUEST_GOOGLE_TASKS) {
             if (resultCode == Activity.RESULT_OK) {
                 syncAdapters.sync(true)
-                lifecycleScope.launch {
-                    workManager.updateBackgroundSync()
-                }
+                workManager.updateBackgroundSync()
             } else {
                 data?.getStringExtra(GtasksLoginActivity.EXTRA_ERROR)?.let { toaster.longToast(it) }
             }

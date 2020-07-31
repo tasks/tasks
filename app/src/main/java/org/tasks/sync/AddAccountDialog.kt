@@ -1,15 +1,17 @@
 package org.tasks.sync
 
-import android.app.Activity
-import android.content.DialogInterface
+import android.app.Dialog
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.DialogFragment
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity
+import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.caldav.CaldavAccountSettingsActivity
 import org.tasks.dialogs.DialogBuilder
@@ -17,19 +19,24 @@ import org.tasks.etesync.EteSyncAccountSettingsActivity
 import org.tasks.preferences.fragments.REQUEST_CALDAV_SETTINGS
 import org.tasks.preferences.fragments.REQUEST_GOOGLE_TASKS
 import org.tasks.themes.DrawableUtil
+import javax.inject.Inject
 
-object AddAccountDialog {
-    fun showAddAccountDialog(activity: Activity, dialogBuilder: DialogBuilder) {
-        val services = activity.resources.getStringArray(R.array.synchronization_services)
-        val descriptions = activity.resources.getStringArray(R.array.synchronization_services_description)
-        val typedArray = activity.resources.obtainTypedArray(R.array.synchronization_services_icons)
+@AndroidEntryPoint
+class AddAccountDialog : DialogFragment() {
+
+    @Inject lateinit var dialogBuilder: DialogBuilder
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val services = requireActivity().resources.getStringArray(R.array.synchronization_services)
+        val descriptions = requireActivity().resources.getStringArray(R.array.synchronization_services_description)
+        val typedArray = requireActivity().resources.obtainTypedArray(R.array.synchronization_services_icons)
         val icons = IntArray(typedArray.length())
         for (i in icons.indices) {
             icons[i] = typedArray.getResourceId(i, 0)
         }
         typedArray.recycle()
         val adapter: ArrayAdapter<String> = object : ArrayAdapter<String>(
-                activity, R.layout.simple_list_item_2_themed, R.id.text1, services) {
+                requireActivity(), R.layout.simple_list_item_2_themed, R.id.text1, services) {
             override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
                 val view = super.getView(position, convertView, parent)
                 view.findViewById<TextView>(R.id.text1).text = services[position]
@@ -42,32 +49,30 @@ object AddAccountDialog {
                 return view
             }
         }
-        dialogBuilder
+        return dialogBuilder
                 .newDialog()
                 .setTitle(R.string.choose_synchronization_service)
-                .setSingleChoiceItems(
-                        adapter,
-                        -1
-                ) { dialog: DialogInterface, which: Int ->
+                .setSingleChoiceItems(adapter, -1) { dialog, which ->
                     when (which) {
-                        0 -> activity.startActivityForResult(
+                        0 -> activity?.startActivityForResult(
                                 Intent(activity, GtasksLoginActivity::class.java),
                                 REQUEST_GOOGLE_TASKS)
-                        1 -> activity.startActivityForResult(
+                        1 -> activity?.startActivityForResult(
                                 Intent(activity, CaldavAccountSettingsActivity::class.java),
                                 REQUEST_CALDAV_SETTINGS)
-                        2 -> activity.startActivityForResult(
+                        2 -> activity?.startActivityForResult(
                                 Intent(activity, EteSyncAccountSettingsActivity::class.java),
                                 REQUEST_CALDAV_SETTINGS)
                     }
                     dialog.dismiss()
                 }
                 .setNeutralButton(R.string.help) { _, _ ->
-                    activity.startActivity(
-                            Intent(
-                                    Intent.ACTION_VIEW, Uri.parse(activity.getString(R.string.help_url_sync))))
+                    activity?.startActivity(Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(context?.getString(R.string.help_url_sync))))
                 }
                 .setNegativeButton(android.R.string.cancel, null)
                 .show()
     }
+
 }

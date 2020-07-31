@@ -1,6 +1,5 @@
 package org.tasks.preferences.fragments
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
@@ -33,6 +32,7 @@ import javax.inject.Inject
 
 const val REQUEST_CALDAV_SETTINGS = 10013
 const val REQUEST_GOOGLE_TASKS = 10014
+private const val FRAG_TAG_ADD_ACCOUNT = "frag_tag_add_account"
 
 @AndroidEntryPoint
 class Synchronization : InjectingPreferenceFragment() {
@@ -80,7 +80,7 @@ class Synchronization : InjectingPreferenceFragment() {
 
         findPreference(R.string.add_account)
             .setOnPreferenceClickListener {
-                AddAccountDialog.showAddAccountDialog(requireActivity(), dialogBuilder)
+                AddAccountDialog().show(parentFragmentManager, FRAG_TAG_ADD_ACCOUNT)
                 false
             }
     }
@@ -89,19 +89,6 @@ class Synchronization : InjectingPreferenceFragment() {
         super.onResume()
 
         refresh()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_CALDAV_SETTINGS) {
-            if (resultCode == Activity.RESULT_OK) {
-                syncAdapters.sync(true)
-                lifecycleScope.launch {
-                    workManager.updateBackgroundSync()
-                }
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
-        }
     }
 
     private suspend fun addGoogleTasksAccounts(category: PreferenceCategory): Boolean {
