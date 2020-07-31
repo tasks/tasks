@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 abstract class InjectingService : Service() {
     private val job = SupervisorJob()
-    private val scope = CoroutineScope(Dispatchers.IO + job)
+    private val scope = CoroutineScope(Dispatchers.Default + job)
 
     @Inject lateinit var firebase: Firebase
 

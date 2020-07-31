@@ -22,7 +22,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class DashClockExtension : DashClockExtension() {
     private val job = SupervisorJob()
-    private val scope = CoroutineScope(Dispatchers.IO + job)
+    private val scope = CoroutineScope(Dispatchers.Default + job)
 
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
     @Inject lateinit var taskDao: TaskDao
@@ -43,6 +43,7 @@ class DashClockExtension : DashClockExtension() {
     override fun onDestroy() {
         super.onDestroy()
         localBroadcastManager.unregisterReceiver(refreshReceiver)
+        job.cancel()
     }
 
     override fun onUpdateData(i: Int) {

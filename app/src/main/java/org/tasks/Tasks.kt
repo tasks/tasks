@@ -14,7 +14,6 @@ import dagger.hilt.android.HiltAndroidApp
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import org.tasks.billing.BillingClient
 import org.tasks.billing.Inventory
@@ -72,7 +71,7 @@ class Tasks : Application(), Configuration.Provider {
         }
     }
 
-    private fun backgroundWork() = CoroutineScope(Dispatchers.IO + SupervisorJob()).launch {
+    private fun backgroundWork() = CoroutineScope(Dispatchers.Default).launch {
         NotificationSchedulerIntentService.enqueueWork(context, false)
         CalendarNotificationIntentService.enqueueWork(context)
         refreshScheduler.get().scheduleAll()
