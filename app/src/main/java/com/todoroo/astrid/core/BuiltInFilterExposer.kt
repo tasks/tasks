@@ -115,6 +115,30 @@ class BuiltInFilterExposer @Inject constructor(
                     }
         }
 
+        fun getNoCreateDateFilter(): Filter {
+            return Filter(
+                    "No create time",
+                    QueryTemplate()
+                            .where(and(
+                                    activeAndVisible(),
+                                    Task.CREATION_DATE.eq(0))))
+                    .apply {
+                        icon = R.drawable.ic_outline_add_24px
+                    }
+        }
+
+        fun getNoModificationDateFilter(): Filter {
+            return Filter(
+                    "No modify time",
+                    QueryTemplate()
+                            .where(and(
+                                    activeAndVisible(),
+                                    Task.MODIFICATION_DATE.eq(0))))
+                    .apply {
+                        icon = R.drawable.ic_outline_edit_24px
+                    }
+        }
+
         fun getRecentlyModifiedFilter(r: Resources) =
                 RecentlyModifiedFilter(r.getString(R.string.BFE_Recent))
 

@@ -60,7 +60,9 @@ class FilterProvider @Inject constructor(
                         .apply { if (collapsed) return this }
                         .plus(listOf(
                                 BuiltInFilterExposer.getNoListFilter(),
-                                BuiltInFilterExposer.getNoTitleFilter()
+                                BuiltInFilterExposer.getNoTitleFilter(),
+                                BuiltInFilterExposer.getNoCreateDateFilter(),
+                                BuiltInFilterExposer.getNoModificationDateFilter()
                         ))
 
             } else {
