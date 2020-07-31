@@ -209,14 +209,14 @@ class CaldavSynchronizer @Inject constructor(
                 iCal.fromVtodo(caldavCalendar, caldavTask, remote, vtodo, fileName, eTag.eTag)
             }
         }
-        val deleted = caldavDao
+        caldavDao
                 .getObjects(caldavCalendar.uuid!!)
                 .subtract(members.map { it.hrefName() })
-                .toList()
-        if (deleted.isNotEmpty()) {
-            Timber.d("DELETED %s", deleted)
-            taskDeleter.delete(caldavDao.getTasks(caldavCalendar.uuid!!, deleted))
-        }
+                .takeIf { it.isNotEmpty() }
+                ?.let {
+                    Timber.d("DELETED $it")
+                    taskDeleter.delete(caldavDao.getTasks(caldavCalendar.uuid!!, it.toList()))
+                }
         caldavCalendar.ctag = remoteCtag
         Timber.d("UPDATE %s", caldavCalendar)
         caldavDao.update(caldavCalendar)

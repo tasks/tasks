@@ -17,22 +17,26 @@ import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.caldav.BaseCaldavAccountSettingsActivity
 import org.tasks.caldav.CaldavAccountSettingsActivity
-import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskAccount
 import org.tasks.data.GoogleTaskListDao
+import org.tasks.data.OpenTaskDao
+import org.tasks.data.OpenTaskDao.Companion.ACCOUNT_TYPE_DAVx5
+import org.tasks.data.OpenTaskDao.Companion.ACCOUNT_TYPE_ETESYNC
 import org.tasks.etesync.EteSyncAccountSettingsActivity
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.jobs.WorkManager
+import org.tasks.opentasks.OpenTaskAccountSettingsActivity
 import org.tasks.preferences.Preferences
-import org.tasks.sync.AddAccountDialog
+import org.tasks.sync.AddAccountDialog.Companion.newAccountDialog
 import org.tasks.sync.SyncAdapters
 import javax.inject.Inject
 
 const val REQUEST_CALDAV_SETTINGS = 10013
 const val REQUEST_GOOGLE_TASKS = 10014
 private const val FRAG_TAG_ADD_ACCOUNT = "frag_tag_add_account"
+private const val REQUEST_ADD_ACCOUNT = 10015
 
 @AndroidEntryPoint
 class Synchronization : InjectingPreferenceFragment() {
@@ -43,6 +47,7 @@ class Synchronization : InjectingPreferenceFragment() {
     @Inject lateinit var googleTaskListDao: GoogleTaskListDao
     @Inject lateinit var taskDeleter: TaskDeleter
     @Inject lateinit var syncAdapters: SyncAdapters
+    @Inject lateinit var openTaskDao: OpenTaskDao
 
     override fun getPreferenceXml() = R.xml.preferences_synchronization
 
@@ -80,9 +85,23 @@ class Synchronization : InjectingPreferenceFragment() {
 
         findPreference(R.string.add_account)
             .setOnPreferenceClickListener {
-                AddAccountDialog().show(parentFragmentManager, FRAG_TAG_ADD_ACCOUNT)
+                lifecycleScope.launch {
+                    val accounts = openTaskDao.accounts().filter {
+                        caldavDao.getAccountByUuid(it) == null
+                    }
+                    newAccountDialog(this@Synchronization, REQUEST_ADD_ACCOUNT, accounts)
+                            .show(parentFragmentManager, FRAG_TAG_ADD_ACCOUNT)
+                }
                 false
             }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == REQUEST_ADD_ACCOUNT) {
+            refresh()
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
     }
 
     override fun onResume() {
@@ -131,7 +150,7 @@ class Synchronization : InjectingPreferenceFragment() {
     }
 
     private suspend fun addCaldavAccounts(category: PreferenceCategory): Boolean {
-        val accounts: List<CaldavAccount> = caldavDao.getAccounts().filter {
+        val accounts = caldavDao.getAccounts().filter {
             it.accountType != TYPE_LOCAL
         }
         for (account in accounts) {
@@ -139,18 +158,27 @@ class Synchronization : InjectingPreferenceFragment() {
             preference.title = account.name
             val error = account.error
             if (isNullOrEmpty(error)) {
-                preference.setSummary(
-                    if (account.isCaldavAccount) R.string.caldav else R.string.etesync
-                )
+                preference.setSummary(when {
+                    account.isCaldavAccount -> R.string.caldav
+                    account.isEteSyncAccount
+                            || (account.isOpenTasks
+                            && account.uuid?.startsWith(ACCOUNT_TYPE_ETESYNC) == true) ->
+                        R.string.etesync
+                    account.isOpenTasks
+                            && account.uuid?.startsWith(ACCOUNT_TYPE_DAVx5) == true ->
+                        R.string.davx5
+                    else -> 0
+                })
             } else {
                 preference.summary = error
             }
             preference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                val intent = Intent(
-                    context,
-                    if (account.isCaldavAccount) CaldavAccountSettingsActivity::class.java
-                    else EteSyncAccountSettingsActivity::class.java
-                )
+                val intent = Intent(context, when {
+                    account.isCaldavAccount -> CaldavAccountSettingsActivity::class.java
+                    account.isEteSyncAccount -> EteSyncAccountSettingsActivity::class.java
+                    account.isOpenTasks -> OpenTaskAccountSettingsActivity::class.java
+                    else -> throw IllegalArgumentException("Unexpected account type: $account")
+                })
                 intent.putExtra(BaseCaldavAccountSettingsActivity.EXTRA_CALDAV_DATA, account)
                 startActivityForResult(intent, REQUEST_CALDAV_SETTINGS)
                 false

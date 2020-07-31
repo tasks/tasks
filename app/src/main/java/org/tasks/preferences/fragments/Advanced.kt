@@ -205,6 +205,10 @@ class Advanced : InjectingPreferenceFragment() {
             .newDialog()
             .setMessage(R.string.EPr_delete_task_data_warning)
             .setPositiveButton(R.string.EPr_delete_task_data) { _, _ ->
+                context?.let {
+                    it.deleteDatabase(database.name)
+                    it.deleteDatabase("tasks.db") // opentasks
+                }
                 requireContext().deleteDatabase(database.name)
                 restart()
             }

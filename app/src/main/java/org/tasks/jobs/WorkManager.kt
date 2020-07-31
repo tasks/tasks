@@ -17,6 +17,7 @@ interface WorkManager {
 
     fun eteSync(immediate: Boolean)
 
+    fun openTaskSync()
 
     fun reverseGeocode(place: Place)
 
@@ -48,9 +49,11 @@ interface WorkManager {
         const val TAG_SYNC_GOOGLE_TASKS = "tag_sync_google_tasks"
         const val TAG_SYNC_CALDAV = "tag_sync_caldav"
         const val TAG_SYNC_ETESYNC = "tag_sync_etesync"
+        const val TAG_SYNC_OPENTASK = "tag_sync_opentask"
         const val TAG_BACKGROUND_SYNC_GOOGLE_TASKS = "tag_background_sync_google_tasks"
         const val TAG_BACKGROUND_SYNC_CALDAV = "tag_background_sync_caldav"
         const val TAG_BACKGROUND_SYNC_ETESYNC = "tag_background_sync_etesync"
+        const val TAG_BACKGROUND_SYNC_OPENTASKS = "tag_background_sync_opentasks"
         const val TAG_REMOTE_CONFIG = "tag_remote_config"
     }
 }

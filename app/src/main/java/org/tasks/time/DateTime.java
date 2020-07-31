@@ -163,8 +163,16 @@ public class DateTime {
     return startOfDay().setTime(hours, minutes, seconds, millisOfDay);
   }
 
+  public long getOffset() {
+    return timeZone.getOffset(timestamp);
+  }
+
   public long getMillis() {
     return timestamp;
+  }
+
+  public TimeZone getTimeZone() {
+    return timeZone;
   }
 
   public int getMillisOfDay() {
@@ -336,6 +344,10 @@ public class DateTime {
     Calendar calendar = new GregorianCalendar(timeZone);
     calendar.setTimeInMillis(timestamp);
     return calendar;
+  }
+
+  public net.fortuna.ical4j.model.DateTime toDateTime() {
+    return timestamp == 0 ? null : new net.fortuna.ical4j.model.DateTime(timestamp);
   }
 
   public DateValue toDateValue() {

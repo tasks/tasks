@@ -30,7 +30,7 @@ abstract class TagDao {
     abstract suspend fun delete(tags: List<Tag>)
 
     @Transaction
-    open suspend fun applyTags(task: Task, tagDataDao: TagDataDao, current: List<TagData>): Boolean {
+    open suspend fun applyTags(task: Task, tagDataDao: TagDataDao, current: List<TagData>) {
         val taskId = task.id
         val existing = HashSet(tagDataDao.getTagDataForTask(taskId))
         val selected = HashSet<TagData>(current)
@@ -38,7 +38,6 @@ abstract class TagDao {
         val removed = existing subtract selected
         deleteTags(taskId, removed.map { td -> td.remoteId!! })
         insert(task, added)
-        return removed.isNotEmpty() || added.isNotEmpty()
     }
 
     suspend fun insert(task: Task, tags: Collection<TagData>) {

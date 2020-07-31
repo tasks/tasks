@@ -68,7 +68,7 @@ public class CaldavConverter {
     }
   }
 
-  private static @Priority int fromRemote(int remotePriority) {
+  public static @Priority int fromRemote(int remotePriority) {
     // https://tools.ietf.org/html/rfc5545#section-3.8.1.9
     if (remotePriority == 0) {
       return Priority.NONE;
@@ -79,7 +79,7 @@ public class CaldavConverter {
     return remotePriority < 5 ? Priority.HIGH : Priority.LOW;
   }
 
-  private static int toRemote(int remotePriority, int localPriority) {
+  public static int toRemote(int remotePriority, int localPriority) {
     if (localPriority == Priority.NONE) {
       return 0;
     }

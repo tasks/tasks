@@ -171,7 +171,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
 
     protected abstract val newPassword: String?
 
-    private fun save() = lifecycleScope.launch {
+    protected open fun save() = lifecycleScope.launch {
         if (requestInProgress()) {
             return@launch
         }
@@ -282,7 +282,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
         return snackbar
     }
 
-    private fun hasChanges(): Boolean {
+    protected open fun hasChanges(): Boolean {
         return if (caldavAccount == null) {
             (!isNullOrEmpty(binding!!.name.text.toString().trim { it <= ' ' })
                     || !isNullOrEmpty(newPassword)

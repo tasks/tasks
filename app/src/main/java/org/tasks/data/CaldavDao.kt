@@ -11,6 +11,8 @@ import com.todoroo.astrid.helper.UUIDHelper
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import org.tasks.R
+import org.tasks.data.CaldavAccount.Companion.TYPE_LOCAL
+import org.tasks.data.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.date.DateTimeUtils.toAppleEpoch
 import org.tasks.db.SuspendDbUtils.chunkedMap
 import org.tasks.filters.CaldavFilters
@@ -158,7 +160,7 @@ SELECT EXISTS(SELECT 1
     @Query("SELECT * FROM caldav_lists WHERE cdl_uuid = :uuid LIMIT 1")
     abstract suspend fun getCalendar(uuid: String): CaldavCalendar?
 
-    @Query("SELECT cd_object FROM caldav_tasks WHERE cd_calendar = :calendar")
+    @Query("SELECT cd_object FROM caldav_tasks WHERE cd_calendar = :calendar AND cd_deleted = 0")
     abstract suspend fun getObjects(calendar: String): List<String>
 
     suspend fun getTasks(calendar: String, objects: List<String>): List<Long> =
@@ -166,6 +168,14 @@ SELECT EXISTS(SELECT 1
 
     @Query("SELECT cd_task FROM caldav_tasks WHERE cd_calendar = :calendar AND cd_object IN (:objects)")
     internal abstract suspend fun getTasksInternal(calendar: String, objects: List<String>): List<Long>
+
+    @Query("""
+SELECT *
+FROM caldav_accounts
+WHERE cda_account_type = $TYPE_OPENTASKS
+  AND cda_uuid NOT IN (:accounts)        
+    """)
+    abstract suspend fun findDeletedAccounts(accounts: List<String>): List<CaldavAccount>
 
     @Query("SELECT * FROM caldav_lists WHERE cdl_account = :account AND cdl_url NOT IN (:urls)")
     abstract suspend fun findDeletedCalendars(account: String, urls: List<String>): List<CaldavCalendar>

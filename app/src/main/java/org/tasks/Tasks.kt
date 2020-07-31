@@ -22,6 +22,7 @@ import org.tasks.injection.InjectingJobIntentService
 import org.tasks.jobs.WorkManager
 import org.tasks.locale.Locale
 import org.tasks.location.GeofenceApi
+import org.tasks.opentasks.OpenTaskContentObserver
 import org.tasks.preferences.Preferences
 import org.tasks.receivers.RefreshReceiver
 import org.tasks.scheduling.CalendarNotificationIntentService
@@ -47,12 +48,14 @@ class Tasks : Application(), Configuration.Provider {
     @Inject lateinit var billingClient: Lazy<BillingClient>
     @Inject lateinit var appWidgetManager: Lazy<AppWidgetManager>
     @Inject lateinit var workerFactory: HiltWorkerFactory
+    @Inject lateinit var contentObserver: Lazy<OpenTaskContentObserver>
     
     override fun onCreate() {
         super.onCreate()
         buildSetup.setup()
         upgrade()
         preferences.isSyncOngoing = false
+        preferences.setBoolean(R.string.p_sync_ongoing_opentasks, false)
         ThemeBase.getThemeBase(preferences, inventory, null).setDefaultNightMode()
         localBroadcastManager.registerRefreshReceiver(RefreshBroadcastReceiver())
         Locale.getInstance(this).createConfigurationContext(applicationContext)
@@ -80,6 +83,7 @@ class Tasks : Application(), Configuration.Provider {
             scheduleMidnightRefresh()
             scheduleBackup()
             scheduleConfigRefresh()
+            OpenTaskContentObserver.registerObserver(context, contentObserver.get())
         }
         geofenceApi.get().registerAll()
         FileHelper.delete(context, preferences.cacheDirectory)

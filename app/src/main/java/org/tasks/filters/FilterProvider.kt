@@ -17,6 +17,7 @@ import org.tasks.billing.Inventory
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.data.*
 import org.tasks.data.CaldavAccount.Companion.TYPE_LOCAL
+import org.tasks.data.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType
 import org.tasks.location.LocationPickerActivity
 import org.tasks.preferences.HelpAndFeedback
@@ -225,7 +226,7 @@ class FilterProvider @Inject constructor(
             caldavDao.getAccounts()
                     .ifEmpty { listOf(caldavDao.setupLocalAccount(context)) }
                     .filter { it.accountType != TYPE_LOCAL || preferences.getBoolean(R.string.p_lists_enabled, true) }
-                    .flatMap { caldavFilter(it, showCreate) }
+                    .flatMap { caldavFilter(it, showCreate && it.accountType != TYPE_OPENTASKS) }
 
     private suspend fun caldavFilter(account: CaldavAccount, showCreate: Boolean): List<FilterListItem> =
             listOf(

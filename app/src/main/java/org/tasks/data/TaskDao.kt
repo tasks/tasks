@@ -68,7 +68,8 @@ abstract class TaskDao(private val database: Database) {
         FROM tasks
                  INNER JOIN caldav_tasks ON tasks._id = caldav_tasks.cd_task
         WHERE caldav_tasks.cd_calendar = :calendar
-          AND (tasks.modified > caldav_tasks.cd_last_sync OR caldav_tasks.cd_last_sync = 0)""")
+          AND (tasks.modified > caldav_tasks.cd_last_sync OR caldav_tasks.cd_last_sync = 0)
+        ORDER BY created""")
     abstract suspend fun getCaldavTasksToPush(calendar: String): List<Task>
 
     @Query("SELECT * FROM TASKS "

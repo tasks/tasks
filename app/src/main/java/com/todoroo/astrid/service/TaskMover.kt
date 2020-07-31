@@ -54,7 +54,9 @@ class TaskMover @Inject constructor(
         if (selectedList is CaldavFilter) {
             caldavDao.updateParents(selectedList.uuid)
         }
-        taskDao.touch(tasks)
+        tasks.dbchunk().forEach {
+            taskDao.touch(it)
+        }
         localBroadcastManager.broadcastRefresh()
         syncAdapters.sync()
     }

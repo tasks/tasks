@@ -12,6 +12,7 @@ import org.tasks.activities.BaseListSettingsActivity
 import org.tasks.caldav.CaldavCalendarSettingsActivity
 import org.tasks.caldav.LocalListSettingsActivity
 import org.tasks.etesync.EteSyncCalendarSettingsActivity
+import org.tasks.opentasks.OpenTasksListSettingsActivity
 import org.tasks.security.KeyStoreEncryption
 
 @Entity(tableName = "caldav_accounts")
@@ -85,9 +86,13 @@ class CaldavAccount : Parcelable {
     val isEteSyncAccount: Boolean
         get() = accountType == TYPE_ETESYNC
 
+    val isOpenTasks: Boolean
+        get() = accountType == TYPE_OPENTASKS
+
     fun listSettingsClass(): Class<out BaseListSettingsActivity> = when(accountType) {
         TYPE_ETESYNC -> EteSyncCalendarSettingsActivity::class.java
         TYPE_LOCAL -> LocalListSettingsActivity::class.java
+        TYPE_OPENTASKS -> OpenTasksListSettingsActivity::class.java
         else -> CaldavCalendarSettingsActivity::class.java
     }
 
@@ -149,6 +154,7 @@ class CaldavAccount : Parcelable {
         const val TYPE_CALDAV = 0
         const val TYPE_ETESYNC = 1
         const val TYPE_LOCAL = 2
+        const val TYPE_OPENTASKS = 3
 
         @JvmField val CREATOR: Parcelable.Creator<CaldavAccount> = object : Parcelable.Creator<CaldavAccount> {
             override fun createFromParcel(source: Parcel): CaldavAccount? {

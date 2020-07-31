@@ -1,6 +1,42 @@
 Change Log
 ---
 =======
+### 10.0 (2020-08-03)
+
+🚧 Currently in alpha 🚧
+
+* PRO: DAVx⁵ support (alpha requires custom DAVx⁵ build)
+* PRO: EteSync client support (alpha requires custom EteSync client build)
+* [ToDo Agenda](https://play.google.com/store/apps/details?id=org.andstatus.todoagenda) integration
+* Changed backstack behavior to follow Android conventions
+* Major internal changes! Please report any bugs!
+* Remove Mapbox tiles (Google Play only)
+* Added 'Astrid manual sort' information to backup file
+* Bug fixes
+* Performance improvements
+* Security improvements
+* Update translations
+  * Basque - @osoitz
+  * Bengali - @Oymate
+  * Brazilian Portuguese - Pedro Lucas Porcellis
+  * Chinese - WH Julie
+  * Czech - @vitSkalicky, Radek Řehořek
+  * Dutch - @fvbommel
+  * Finnish - J. Lavoie
+  * French - @FlorianLeChat, J. Lavoie, @sephrat
+  * German - @franconian
+  * Hebrew - @yarons, @avipars
+  * Hungarian - kaciokos
+  * Italian - @ppasserini, J. Lavoie
+  * Norwegian Bokmål - @comradekingu, Erlend Ydse
+  * Polish - @alex-ter
+  * Portuguese - @SantosSi
+  * Russian - Nikita Epifanov
+  * Simplified Chinese - @sr093906, @cccClyde
+  * Spanish - @FlorianLeChat
+  * Tamil - @balogic, @Thiya-velu
+  * Turkish - @emintufan
+
 ### 9.7.3 (2020-07-07)
 
 * Fix Google Task bugs

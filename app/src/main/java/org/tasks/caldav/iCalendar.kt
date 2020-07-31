@@ -38,7 +38,7 @@ class iCalendar @Inject constructor(
         private val caldavDao: CaldavDao) {
 
     companion object {
-        private const val APPLE_SORT_ORDER = "X-APPLE-SORT-ORDER"
+        const val APPLE_SORT_ORDER = "X-APPLE-SORT-ORDER"
 
         private val IS_PARENT = { r: RelatedTo? ->
             r!!.parameters.isEmpty || r.parameters.getParameter<RelType>(Parameter.RELTYPE) === RelType.PARENT

@@ -635,4 +635,5 @@ File %1$s contained %2$s.\n\n
   <string name="lists">Lists</string>
   <string name="reset_sort_order">Reset sort order</string>
   <string name="permission_read_tasks">Full access to Tasks database</string>
+  <string name="account_not_found">Account not found</string>
 </resources>

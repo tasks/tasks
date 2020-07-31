@@ -4,10 +4,10 @@
   These should not be translated 
 -->
 <resources>
-
   <string name="FSA_label">Tasks Shortcut</string>
   <string name="caldav">CalDAV</string>
   <string name="etesync">EteSync</string>
+  <string name="davx5">DAVx⁵</string>
   <string name="etesync_url">https://api.etesync.com</string>
   <string name="help_url_sync">https://tasks.org/sync</string>
 
@@ -336,6 +336,7 @@
   <string name="p_sync_ongoing_google_tasks">sync_ongoing_google_tasks</string>
   <string name="p_sync_ongoing_caldav">sync_ongoing_caldav</string>
   <string name="p_sync_ongoing_etesync">sync_ongoing_etesync</string>
+  <string name="p_sync_ongoing_opentasks">sync_ongoing_opentasks</string>
   <string name="p_last_backup">last_backup</string>
   <string name="p_show_description">show_description</string>
   <string name="p_show_full_description">show_full_description</string>
