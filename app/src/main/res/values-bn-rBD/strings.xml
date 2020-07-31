@@ -27,4 +27,11 @@
     <string name="export_toast_no_tasks">প্রতিবেদন তৈরির জন্য কোনো কাজ নেই।</string>
     <string name="export_toast">%1$s থেকে %2$s-এ ব্যাকআপকৃত।</string>
     <string name="actfm_picture_clear">স্পষ্ট ছবি</string>
+    <string name="astrid_sort_order">অ্যাস্ট্রিড ম্যানুয়াল বাছাই</string>
+    <string name="import_summary_message">%1$s ফাইলটিতে %2$s রয়েছে।
+\n
+\n %3$s আমদানি করা,
+\n %4$s ইতিমধ্যে বিদ্যমান
+\n %5$s এর ত্রুটি ছিল
+\n</string>
 </resources>
