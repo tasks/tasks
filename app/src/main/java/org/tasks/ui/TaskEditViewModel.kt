@@ -334,7 +334,7 @@ class TaskEditViewModel @ViewModelInject constructor(
             it.modificationDate = currentTimeMillis()
         }
 
-        if (originalTags?.toHashSet() != selectedTags?.toHashSet()) {
+        if ((isNew && selectedTags?.isNotEmpty() == true) || originalTags?.toHashSet() != selectedTags?.toHashSet()) {
             tagDao.applyTags(it, tagDataDao, selectedTags!!)
             it.modificationDate = currentTimeMillis()
         }
