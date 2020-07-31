@@ -2,7 +2,6 @@ package org.tasks.tags
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
-import androidx.lifecycle.Observer
 import kotlinx.coroutines.launch
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.TagData
@@ -20,7 +19,7 @@ class TagPickerViewModel @ViewModelInject constructor(
     var text: String? = null
         private set
 
-    fun observe(owner: LifecycleOwner, observer: Observer<List<TagData>>) =
+    fun observe(owner: LifecycleOwner, observer: (List<TagData>) -> Unit) =
             tags.observe(owner, observer)
 
     fun setSelected(selected: List<TagData>, partiallySelected: List<TagData>?) {
@@ -58,13 +57,11 @@ class TagPickerViewModel @ViewModelInject constructor(
         return if (selected.contains(tagData)) State.CHECKED else State.UNCHECKED
     }
 
-    fun toggle(tagData: TagData, checked: Boolean): State {
+    suspend fun toggle(tagData: TagData, checked: Boolean): State {
         var tagData = tagData
         if (tagData.id == null) {
             tagData = TagData(tagData.name)
-            viewModelScope.launch {
-                tagDataDao.createNew(tagData)
-            }
+            tagDataDao.createNew(tagData)
         }
         partiallySelected.remove(tagData)
         return if (checked) {

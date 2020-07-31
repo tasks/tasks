@@ -1,6 +1,7 @@
 package org.tasks.filters
 
 import com.todoroo.astrid.api.Filter
+import org.tasks.data.TagData
 import java.util.*
 
 /*
@@ -111,5 +112,6 @@ class AlphanumComparator<T>(private val getTitle: (T) -> String?) : Comparator<T
     companion object {
         @JvmField
         val FILTER = AlphanumComparator(Filter::listingTitle)
+        val TAGDATA = AlphanumComparator(TagData::name)
     }
 }
