@@ -13,9 +13,7 @@ import com.todoroo.astrid.adapter.TaskAdapter
 import com.todoroo.astrid.utility.Flags
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.tasks.activities.DragAndDropDiffer
 import org.tasks.data.TaskContainer
 import org.tasks.preferences.Preferences
@@ -215,14 +213,18 @@ class DragAndDropRecyclerAdapter(
                     if (from < to) {
                         to++
                     }
-                    vh.task.setIndent(targetIndent)
-                    vh.indent = targetIndent
-                    moved(from, to, targetIndent)
+                    scope.launch {
+                        vh.task.setIndent(targetIndent)
+                        vh.indent = targetIndent
+                        moved(from, to, targetIndent)
+                    }
                 } else if (task.getIndent() != targetIndent) {
-                    val position = vh.adapterPosition
-                    vh.task.setIndent(targetIndent)
-                    vh.indent = targetIndent
-                    moved(position, position, targetIndent)
+                    scope.launch {
+                        val position = vh.adapterPosition
+                        vh.task.setIndent(targetIndent)
+                        vh.indent = targetIndent
+                        moved(position, position, targetIndent)
+                    }
                 }
             }
             from = -1
@@ -234,7 +236,7 @@ class DragAndDropRecyclerAdapter(
             throw UnsupportedOperationException()
         }
 
-        private fun moved(fromOrig: Int, to: Int, indent: Int) {
+        private suspend fun moved(fromOrig: Int, to: Int, indent: Int) {
             val from = if (fromOrig == to) {
                 to
             } else if (fromOrig > to && isHeader(fromOrig)) {
@@ -242,14 +244,10 @@ class DragAndDropRecyclerAdapter(
             } else {
                 from
             }
-            scope.launch {
-                withContext(NonCancellable) {
-                    adapter.moved(from, to, indent)
-                }
-                val task: TaskContainer = items.removeAt(from)
-                items.add(if (from < to) to - 1 else to, task)
-                taskList.loadTaskListContent()
-            }
+            adapter.moved(from, to, indent)
+            val task: TaskContainer = items.removeAt(from)
+            items.add(if (from < to) to - 1 else to, task)
+            taskList.loadTaskListContent()
         }
     }
 
