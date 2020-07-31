@@ -3,10 +3,10 @@
     <string name="actfm_picture_clear">清除圖片</string>
     <string name="TVA_add_comment">評論…</string>
     <string name="backup_BPr_header">備份</string>
-    <string name="backup_BAc_import">匯入工作</string>
-    <string name="backup_BAc_export">匯出工作</string>
+    <string name="backup_BAc_import">匯入任務</string>
+    <string name="backup_BAc_export">匯出任務</string>
     <string name="export_toast">在%2$s備份%1$s。</string>
-    <string name="export_toast_no_tasks">沒有工作須匯出。</string>
+    <string name="export_toast_no_tasks">沒有任務須匯出。</string>
     <string name="import_summary_title">還原摘要</string>
     <string name="import_summary_message">檔案%1$s包含%2$s。
 \n
@@ -14,9 +14,9 @@
 \n %4$s已存在
 \n %5$s有問題
 \n</string>
-    <string name="import_progress_read">讀取工作%d…</string>
+    <string name="import_progress_read">讀取任務%d…</string>
     <string name="read_permission_label">Tasks權限</string>
-    <string name="DLG_delete_this_task_question">刪除工作？</string>
+    <string name="DLG_delete_this_task_question">刪除任務？</string>
     <string name="DLG_hour_minutes">時間（小時:分鐘）</string>
     <string name="DLG_undo">復原</string>
     <string name="WID_dateButtonUnset">點選</string>
@@ -212,7 +212,7 @@
     <string name="enter_filter_name">輸入過濾名稱</string>
     <string name="discard_confirmation">您要放棄更改嗎？</string>
     <string name="keep_editing">繼續編輯</string>
-    <string name="TLA_no_items">這裡沒有工作。</string>
+    <string name="TLA_no_items">這裡沒有任務。</string>
     <string name="action_open">開啟</string>
     <string name="TEA_no_date">沒有日期</string>
     <string name="save">儲存</string>
@@ -239,4 +239,7 @@
     <string name="EPr_temp_completed_tasks_showing">工作完成後短暫留在工作表</string>
     <string name="EPr_temp_completed_tasks_not_showing">工作完成後立刻從工作表刪除</string>
     <string name="TEA_add_subtask">加入副工作</string>
+    <string name="action_call">通話</string>
+    <string name="manage_lists">管理清單</string>
+    <string name="display_name">顯示名稱</string>
 </resources>
