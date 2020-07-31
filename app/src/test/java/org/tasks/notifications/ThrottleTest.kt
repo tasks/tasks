@@ -17,11 +17,11 @@ class ThrottleTest {
     @Before
     fun setUp() {
         sleep = ArrayList()
-        throttle = Throttle(3) { sleep.add(it) }
     }
 
     @Test
     fun dontThrottle() = runBlockingTest {
+        throttle = Throttle(3, scope = this) { sleep.add(it) }
         val now = DateTimeUtils.currentTimeMillis()
         runAt(now)
         runAt(now)
@@ -32,6 +32,7 @@ class ThrottleTest {
 
     @Test
     fun throttleForOneMillisecond() = runBlockingTest {
+        throttle = Throttle(3, scope = this) { sleep.add(it) }
         val now = DateTimeUtils.currentTimeMillis()
         runAt(now)
         runAt(now)
@@ -42,6 +43,7 @@ class ThrottleTest {
 
     @Test
     fun throttleForOneSecond() = runBlockingTest {
+        throttle = Throttle(3, scope = this) { sleep.add(it) }
         val now = DateTimeUtils.currentTimeMillis()
         runAt(now)
         runAt(now)
@@ -52,6 +54,7 @@ class ThrottleTest {
 
     @Test
     fun throttleMultiple() = runBlockingTest {
+        throttle = Throttle(3, scope = this) { sleep.add(it) }
         val now = DateTimeUtils.currentTimeMillis()
         runAt(now)
         runAt(now + 200)

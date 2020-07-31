@@ -7,34 +7,35 @@ import org.tasks.data.Place
 
 interface WorkManager {
 
-    suspend fun afterComplete(task: Task)
+    fun afterComplete(task: Task)
 
-    suspend fun cleanup(ids: Iterable<Long>)
+    fun cleanup(ids: Iterable<Long>)
 
-    suspend fun googleTaskSync(immediate: Boolean)
+    fun googleTaskSync(immediate: Boolean)
 
-    suspend fun caldavSync(immediate: Boolean)
+    fun caldavSync(immediate: Boolean)
 
-    suspend fun eteSync(immediate: Boolean)
+    fun eteSync(immediate: Boolean)
 
-    suspend fun reverseGeocode(place: Place)
 
-    suspend fun updateBackgroundSync()
+    fun reverseGeocode(place: Place)
 
-    suspend fun updateBackgroundSync(
+    fun updateBackgroundSync()
+
+    fun updateBackgroundSync(
             forceBackgroundEnabled: Boolean?, forceOnlyOnUnmetered: Boolean?)
 
-    suspend fun scheduleRefresh(time: Long)
+    fun scheduleRefresh(time: Long)
 
-    suspend fun scheduleMidnightRefresh()
+    fun scheduleMidnightRefresh()
 
     fun scheduleNotification(scheduledTime: Long)
 
-    suspend fun scheduleBackup()
+    fun scheduleBackup()
 
-    suspend fun scheduleConfigRefresh()
+    fun scheduleConfigRefresh()
 
-    suspend fun scheduleDriveUpload(uri: Uri, purge: Boolean)
+    fun scheduleDriveUpload(uri: Uri, purge: Boolean)
 
     fun cancelNotifications()
 
