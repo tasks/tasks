@@ -5,7 +5,6 @@ import android.content.Intent
 import androidx.lifecycle.lifecycleScope
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.drive.DriveLoginActivity
@@ -32,15 +31,15 @@ class MainPreferences : BasePreferences() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_CALDAV_SETTINGS) {
             if (resultCode == RESULT_OK) {
-                lifecycleScope.launch(NonCancellable) {
-                    syncAdapters.sync(true)
+                syncAdapters.sync(true)
+                lifecycleScope.launch {
                     workManager.updateBackgroundSync()
                 }
             }
         } else if (requestCode == REQUEST_GOOGLE_TASKS) {
             if (resultCode == Activity.RESULT_OK) {
-                lifecycleScope.launch(NonCancellable) {
-                    syncAdapters.sync(true)
+                syncAdapters.sync(true)
+                lifecycleScope.launch {
                     workManager.updateBackgroundSync()
                 }
             } else {

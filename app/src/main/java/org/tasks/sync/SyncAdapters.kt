@@ -2,8 +2,7 @@ package org.tasks.sync
 
 import com.todoroo.astrid.data.SyncFlags
 import com.todoroo.astrid.data.Task
-import kotlinx.coroutines.NonCancellable
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import org.tasks.data.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.CaldavAccount.Companion.TYPE_ETESYNC
 import org.tasks.data.CaldavDao
@@ -14,6 +13,7 @@ import org.tasks.jobs.WorkManager
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_CALDAV
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_ETESYNC
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_GOOGLE_TASKS
+import java.util.concurrent.Executors.newSingleThreadExecutor
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -23,13 +23,14 @@ class SyncAdapters @Inject constructor(
         private val caldavDao: CaldavDao,
         private val googleTaskDao: GoogleTaskDao,
         private val googleTaskListDao: GoogleTaskListDao) {
+    private val scope = CoroutineScope(newSingleThreadExecutor().asCoroutineDispatcher() + SupervisorJob())
     private val googleTasks = Debouncer(TAG_SYNC_GOOGLE_TASKS) { workManager.googleTaskSync(it) }
     private val caldav = Debouncer(TAG_SYNC_CALDAV) { workManager.caldavSync(it) }
     private val eteSync = Debouncer(TAG_SYNC_ETESYNC) { workManager.eteSync(it) }
 
-    suspend fun sync(task: Task, original: Task?) {
+    fun sync(task: Task, original: Task?) = scope.launch {
         if (task.checkTransitory(SyncFlags.SUPPRESS_SYNC)) {
-            return
+            return@launch
         }
         if (!task.googleTaskUpToDate(original)
                 && googleTaskDao.getAllByTaskId(task.id).isNotEmpty()) {
@@ -45,32 +46,33 @@ class SyncAdapters @Inject constructor(
         }
     }
 
-    suspend fun sync() {
+    fun sync() {
         sync(false)
     }
 
-    suspend fun sync(immediate: Boolean): Boolean = withContext(NonCancellable) {
-        val googleTasksEnabled = isGoogleTaskSyncEnabled()
-        if (googleTasksEnabled) {
+    fun sync(immediate: Boolean) = scope.launch {
+        val googleTasksEnabled = async { isGoogleTaskSyncEnabled() }
+        val caldavEnabled = async { isCaldavSyncEnabled() }
+        val eteSyncEnabled = async { isEteSyncEnabled() }
+
+        if (googleTasksEnabled.await()) {
             googleTasks.sync(immediate)
         }
 
-        val caldavEnabled = isCaldavSyncEnabled()
-        if (caldavEnabled) {
+        if (caldavEnabled.await()) {
             caldav.sync(immediate)
         }
 
-        val eteSyncEnabled = isEteSyncEnabled()
-        if (eteSyncEnabled) {
+        if (eteSyncEnabled.await()) {
             eteSync.sync(immediate)
         }
 
-        return@withContext googleTasksEnabled || caldavEnabled || eteSyncEnabled
     }
 
-    suspend fun isGoogleTaskSyncEnabled() = googleTaskListDao.getAccounts().isNotEmpty()
+    private suspend fun isGoogleTaskSyncEnabled() = googleTaskListDao.getAccounts().isNotEmpty()
 
-    suspend fun isCaldavSyncEnabled() = caldavDao.getAccounts(TYPE_CALDAV).isNotEmpty()
+    private suspend fun isCaldavSyncEnabled() = caldavDao.getAccounts(TYPE_CALDAV).isNotEmpty()
 
-    suspend fun isEteSyncEnabled() = caldavDao.getAccounts(TYPE_ETESYNC).isNotEmpty()
+    private suspend fun isEteSyncEnabled() = caldavDao.getAccounts(TYPE_ETESYNC).isNotEmpty()
+
 }

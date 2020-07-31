@@ -145,13 +145,10 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     private lateinit var callbacks: TaskListFragmentCallbackHandler
 
     override fun onRefresh() {
+        syncAdapters.sync(true)
         lifecycleScope.launch {
-            if (syncAdapters.sync(true)) {
-                delay(1000)
-                setSyncOngoing()
-            } else {
-                refresh()
-            }
+            delay(1000)
+            refresh()
         }
     }
 
@@ -492,9 +489,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         for (task in tasks) {
             onTaskCreated(task.uuid)
         }
-        lifecycleScope.launch {
-            syncAdapters.sync()
-        }
+        syncAdapters.sync()
         loadTaskListContent()
     }
 

@@ -94,8 +94,8 @@ class Synchronization : InjectingPreferenceFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_CALDAV_SETTINGS) {
             if (resultCode == Activity.RESULT_OK) {
-                lifecycleScope.launch(NonCancellable) {
-                    syncAdapters.sync(true)
+                syncAdapters.sync(true)
+                lifecycleScope.launch {
                     workManager.updateBackgroundSync()
                 }
             }
