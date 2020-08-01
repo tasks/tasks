@@ -13,7 +13,7 @@ import com.todoroo.astrid.adapter.TaskAdapter
 import com.todoroo.astrid.utility.Flags
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.tasks.activities.DragAndDropDiffer
 import org.tasks.data.TaskContainer
 import org.tasks.preferences.Preferences
@@ -213,18 +213,14 @@ class DragAndDropRecyclerAdapter(
                     if (from < to) {
                         to++
                     }
-                    scope.launch {
-                        vh.task.setIndent(targetIndent)
-                        vh.indent = targetIndent
-                        moved(from, to, targetIndent)
-                    }
+                    vh.task.setIndent(targetIndent)
+                    vh.indent = targetIndent
+                    moved(from, to, targetIndent)
                 } else if (task.getIndent() != targetIndent) {
-                    scope.launch {
-                        val position = vh.adapterPosition
-                        vh.task.setIndent(targetIndent)
-                        vh.indent = targetIndent
-                        moved(position, position, targetIndent)
-                    }
+                    val position = vh.adapterPosition
+                    vh.task.setIndent(targetIndent)
+                    vh.indent = targetIndent
+                    moved(position, position, targetIndent)
                 }
             }
             from = -1
@@ -236,7 +232,7 @@ class DragAndDropRecyclerAdapter(
             throw UnsupportedOperationException()
         }
 
-        private suspend fun moved(fromOrig: Int, to: Int, indent: Int) {
+        private fun moved(fromOrig: Int, to: Int, indent: Int) {
             val from = if (fromOrig == to) {
                 to
             } else if (fromOrig > to && isHeader(fromOrig)) {
@@ -244,7 +240,10 @@ class DragAndDropRecyclerAdapter(
             } else {
                 from
             }
-            adapter.moved(from, to, indent)
+            runBlocking {
+                // too much state change happens here, need to rewrite a bunch of stuff
+                adapter.moved(from, to, indent)
+            }
             val task: TaskContainer = items.removeAt(from)
             items.add(if (from < to) to - 1 else to, task)
             taskList.loadTaskListContent()
