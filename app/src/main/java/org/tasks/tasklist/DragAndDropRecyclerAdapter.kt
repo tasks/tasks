@@ -2,7 +2,6 @@ package org.tasks.tasklist
 
 import android.graphics.Canvas
 import android.view.ViewGroup
-import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ItemTouchHelper.*
@@ -13,16 +12,19 @@ import com.todoroo.astrid.adapter.TaskAdapter
 import com.todoroo.astrid.utility.Flags
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.runBlocking
 import org.tasks.activities.DragAndDropDiffer
 import org.tasks.data.TaskContainer
 import org.tasks.preferences.Preferences
 import java.util.*
+import java.util.concurrent.Executors
 import kotlin.math.max
 import kotlin.math.min
 
 class DragAndDropRecyclerAdapter(
-        private val scope: LifecycleCoroutineScope,
         private val adapter: TaskAdapter,
         private val recyclerView: RecyclerView,
         viewHolderFactory: ViewHolderFactory,
@@ -43,6 +45,8 @@ class DragAndDropRecyclerAdapter(
     override val updates: Queue<Pair<SectionedDataSource, DiffUtil.DiffResult?>> = LinkedList()
     override var dragging = false
     override var items = initializeDiffer(tasks)
+    override val scope: CoroutineScope =
+            CoroutineScope(Executors.newSingleThreadExecutor().asCoroutineDispatcher() + Job())
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val viewType = getItemViewType(position)
@@ -59,7 +63,7 @@ class DragAndDropRecyclerAdapter(
 
     override fun getItemViewType(position: Int) = if (items.isHeader(position)) 1 else 0
 
-    override suspend fun submitList(list: List<TaskContainer>) {
+    override fun submitList(list: List<TaskContainer>) {
         super.submitList(list)
     }
 
@@ -95,8 +99,8 @@ class DragAndDropRecyclerAdapter(
     }
 
     override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
+        super.dispose()
         itemTouchHelper.attachToRecyclerView(null)
-        disposables.dispose()
     }
 
     override fun getTaskCount() = items.taskCount

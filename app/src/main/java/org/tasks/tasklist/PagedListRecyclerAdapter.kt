@@ -14,15 +14,17 @@ class PagedListRecyclerAdapter(
         private val recyclerView: RecyclerView,
         viewHolderFactory: ViewHolderFactory,
         taskList: TaskListFragment,
-        list: List<TaskContainer>,
-        preferences: Preferences) : TaskListRecyclerAdapter(adapter, viewHolderFactory, taskList, preferences) {
+        list: PagedList<TaskContainer>,
+        preferences: Preferences
+) : TaskListRecyclerAdapter(adapter, viewHolderFactory, taskList, preferences) {
 
     private val differ: AsyncPagedListDiffer<TaskContainer> =
             AsyncPagedListDiffer(this, AsyncDifferConfig.Builder(ItemCallback()).build())
 
     override fun getItem(position: Int) = differ.getItem(position)
 
-    override suspend fun submitList(list: List<TaskContainer>) = differ.submitList(list as PagedList<TaskContainer>)
+    override fun submitList(list: List<TaskContainer>) =
+            differ.submitList(list as PagedList<TaskContainer>)
 
     override fun onMoved(fromPosition: Int, toPosition: Int) {
         val recyclerViewState = recyclerView.layoutManager!!.onSaveInstanceState()
@@ -37,8 +39,6 @@ class PagedListRecyclerAdapter(
     override fun getTaskCount() = itemCount
 
     init {
-        if (list is PagedList<*>) {
-            differ.submitList(list as PagedList<TaskContainer>?)
-        }
+        differ.submitList(list as PagedList<TaskContainer>?)
     }
 }

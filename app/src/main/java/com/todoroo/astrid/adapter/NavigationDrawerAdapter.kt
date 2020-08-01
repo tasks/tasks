@@ -16,6 +16,9 @@ import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.FilterListItem
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.asCoroutineDispatcher
 import org.tasks.LocalBroadcastManager
 import org.tasks.activities.DragAndDropDiffer
 import org.tasks.billing.Inventory
@@ -26,6 +29,7 @@ import org.tasks.locale.Locale
 import org.tasks.preferences.Preferences
 import org.tasks.themes.ColorProvider
 import java.util.*
+import java.util.concurrent.Executors
 import javax.inject.Inject
 import kotlin.math.max
 
@@ -47,6 +51,8 @@ class NavigationDrawerAdapter @Inject constructor(
     override val updates: Queue<Pair<MutableList<FilterListItem>, DiffUtil.DiffResult?>> = LinkedList()
     override var items = initializeDiffer(ArrayList())
     override var dragging = false
+    override val scope: CoroutineScope =
+            CoroutineScope(Executors.newSingleThreadExecutor().asCoroutineDispatcher() + Job())
 
     fun setOnClick(onClick: (FilterListItem?) -> Unit) {
         this.onClick = onClick
@@ -58,6 +64,10 @@ class NavigationDrawerAdapter @Inject constructor(
 
     fun restore(savedInstanceState: Bundle) {
         selected = savedInstanceState.getParcelable(TOKEN_SELECTED)
+    }
+
+    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
+        super.dispose()
     }
 
     override fun getItemId(position: Int) = position.toLong()

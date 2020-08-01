@@ -7,8 +7,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 import java.util.*
 
 interface DragAndDropDiffer<T, R> : ListUpdateCallback {
@@ -17,12 +18,13 @@ interface DragAndDropDiffer<T, R> : ListUpdateCallback {
     val disposables: CompositeDisposable
     var items: R
     var dragging: Boolean
+    val scope: CoroutineScope
 
-    suspend fun submitList(list: List<T>) {
-        val transform = withContext(Dispatchers.Default) {
-            transform(list)
+    fun submitList(list: List<T>) {
+        scope.launch {
+            val transform = transform(list)
+            publishSubject.onNext(transform)
         }
-        publishSubject.onNext(transform)
     }
 
     fun calculateDiff(last: Pair<R, DiffUtil.DiffResult?>, next: R): Pair<R, DiffUtil.DiffResult?> {
@@ -51,7 +53,7 @@ interface DragAndDropDiffer<T, R> : ListUpdateCallback {
     fun initializeDiffer(list: List<T>): R {
         val initial = transform(list)
         disposables.add(publishSubject
-                .observeOn(Schedulers.computation())
+                .observeOn(Schedulers.single())
                 .scan(Pair(initial, null), { last: Pair<R, DiffUtil.DiffResult?>, next: R ->
                     calculateDiff(last, next)
                 })
@@ -64,4 +66,9 @@ interface DragAndDropDiffer<T, R> : ListUpdateCallback {
     fun transform(list: List<T>): R
 
     fun diff(last: R, next: R): DiffUtil.DiffResult
+
+    fun dispose() {
+        disposables.dispose()
+        scope.cancel()
+    }
 }

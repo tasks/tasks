@@ -201,15 +201,13 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         (recyclerView.itemAnimator as DefaultItemAnimator).supportsChangeAnimations = false
         recyclerView.layoutManager = LinearLayoutManager(context)
         listViewModel.observe(this) {
-            lifecycleScope.launch {
-                submitList(it)
-                if (it.isEmpty()) {
-                    swipeRefreshLayout.visibility = View.GONE
-                    emptyRefreshLayout.visibility = View.VISIBLE
-                } else {
-                    swipeRefreshLayout.visibility = View.VISIBLE
-                    emptyRefreshLayout.visibility = View.GONE
-                }
+            submitList(it)
+            if (it.isEmpty()) {
+                swipeRefreshLayout.visibility = View.GONE
+                emptyRefreshLayout.visibility = View.VISIBLE
+            } else {
+                swipeRefreshLayout.visibility = View.VISIBLE
+                emptyRefreshLayout.visibility = View.GONE
             }
         }
         setupRefresh(swipeRefreshLayout)
@@ -222,8 +220,8 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         return parent
     }
 
-    private suspend fun submitList(tasks: List<TaskContainer>) {
-        if (tasks is PagedList<*>) {
+    private fun submitList(tasks: List<TaskContainer>) {
+        if (tasks is PagedList<TaskContainer>) {
             if (recyclerAdapter !is PagedListRecyclerAdapter) {
                 setAdapter(
                         PagedListRecyclerAdapter(
@@ -233,7 +231,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         } else if (recyclerAdapter !is DragAndDropRecyclerAdapter) {
             setAdapter(
                     DragAndDropRecyclerAdapter(
-                            lifecycleScope, taskAdapter, recyclerView, viewHolderFactory, this, tasks, preferences))
+                            taskAdapter, recyclerView, viewHolderFactory, this, tasks, preferences))
             return
         }
         recyclerAdapter?.submitList(tasks)
