@@ -213,10 +213,10 @@ open class TaskAdapter(
 
     private suspend fun applyDate(task: Task, date: Long) {
         val original = task.dueDate
-        task.setDueDateAdjustingHideUntil(if (date == 0L) {
-            0L
-        } else {
-            date.toDateTime().withMillisOfDay(task.dueDate.toDateTime().millisOfDay).millis
+        task.setDueDateAdjustingHideUntil(when {
+            date == 0L -> 0L
+            task.hasDueTime() -> date.toDateTime().withMillisOfDay(task.dueDate.toDateTime().millisOfDay).millis
+            else -> Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, date)
         })
         if (original != task.dueDate) {
             taskDao.save(task)
