@@ -44,7 +44,7 @@ android {
     defaultConfig {
         testApplicationId = "org.tasks.test"
         applicationId = "org.tasks"
-        versionCode = 100000
+        versionCode = 100002
         versionName = "10.0"
         targetSdkVersion(Versions.targetSdk)
         minSdkVersion(Versions.minSdk)
@@ -53,6 +53,7 @@ android {
         kapt {
             arguments {
                 arg("room.schemaLocation", "$projectDir/schemas")
+                arg("room.incremental", "true")
             }
         }
     }
@@ -86,7 +87,8 @@ android {
         getByName("debug") {
             val tasks_mapbox_key_debug: String? by project
             val tasks_google_key_debug: String? by project
-
+            ext["enableCrashlytics"] = false
+            ext["alwaysUpdateBuildId"] = false
             applicationIdSuffix = ".debug"
             resValue("string", "mapbox_key", tasks_mapbox_key_debug ?: "")
             resValue("string", "google_key", tasks_google_key_debug ?: "")

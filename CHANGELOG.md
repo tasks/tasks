@@ -1,12 +1,12 @@
 Change Log
 ---
 =======
-### 10.0 (2020-08-03)
+### 10.0 (2020-08-07)
 
 🚧 Currently in alpha 🚧
 
 * PRO: DAVx⁵ support (alpha requires custom DAVx⁵ build)
-* PRO: EteSync client support (alpha requires custom EteSync client build)
+* PRO: EteSync client support
 * [ToDo Agenda](https://play.google.com/store/apps/details?id=org.andstatus.todoagenda) integration
 * Changed backstack behavior to follow Android conventions
 * Major internal changes! Please report any bugs!
@@ -24,7 +24,7 @@ Change Log
   * Dutch - @fvbommel
   * Finnish - J. Lavoie
   * French - @FlorianLeChat, J. Lavoie, @sephrat
-  * German - @franconian
+  * German - @franconian, @joshxtra
   * Hebrew - @yarons, @avipars
   * Hungarian - kaciokos
   * Italian - @ppasserini, J. Lavoie
@@ -35,7 +35,7 @@ Change Log
   * Simplified Chinese - @sr093906, @cccClyde
   * Spanish - @FlorianLeChat
   * Tamil - @balogic, @Thiya-velu
-  * Turkish - @emintufan
+  * Turkish - @emintufan, Oğuz Ersen
 
 ### 9.7.3 (2020-07-07)
 
