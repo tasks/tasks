@@ -5,13 +5,14 @@ import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.GoogleTaskAccount
-import org.tasks.data.GoogleTaskListDaoBlocking
+import org.tasks.data.GoogleTaskListDao
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import org.tasks.makers.GtaskListMaker.ID
@@ -27,7 +28,7 @@ import javax.inject.Inject
 class GtasksListServiceTest : InjectingTestCase() {
     @Inject lateinit var taskDeleter: TaskDeleter
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
-    @Inject lateinit var googleTaskListDao: GoogleTaskListDaoBlocking
+    @Inject lateinit var googleTaskListDao: GoogleTaskListDao
 
     private lateinit var gtasksListService: GtasksListService
 
@@ -38,7 +39,7 @@ class GtasksListServiceTest : InjectingTestCase() {
     }
 
     @Test
-    fun testCreateNewList() {
+    fun testCreateNewList() = runBlocking {
         setLists(
                 newRemoteList(
                         with(RemoteGtaskListMaker.REMOTE_ID, "1"), with(RemoteGtaskListMaker.NAME, "Default")))
@@ -48,19 +49,19 @@ class GtasksListServiceTest : InjectingTestCase() {
     }
 
     @Test
-    fun testGetListByRemoteId() {
+    fun testGetListByRemoteId() = runBlocking {
         val list = newGtaskList(with(REMOTE_ID, "1"))
         list.id = googleTaskListDao.insertOrReplace(list)
         assertEquals(list, googleTaskListDao.getByRemoteId("1"))
     }
 
     @Test
-    fun testGetListReturnsNullWhenNotFound() {
+    fun testGetListReturnsNullWhenNotFound() = runBlocking {
         assertNull(googleTaskListDao.getByRemoteId("1"))
     }
 
     @Test
-    fun testDeleteMissingList() {
+    fun testDeleteMissingList() = runBlocking {
         googleTaskListDao.insertOrReplace(newGtaskList(with(ID, 1L), with(REMOTE_ID, "1")))
         val taskList = newRemoteList(with(RemoteGtaskListMaker.REMOTE_ID, "2"))
         setLists(taskList)
@@ -70,7 +71,7 @@ class GtasksListServiceTest : InjectingTestCase() {
     }
 
     @Test
-    fun testUpdateListName() {
+    fun testUpdateListName() = runBlocking {
         googleTaskListDao.insertOrReplace(
                 newGtaskList(with(ID, 1L), with(REMOTE_ID, "1"), with(NAME, "oldName")))
         setLists(
@@ -80,12 +81,12 @@ class GtasksListServiceTest : InjectingTestCase() {
     }
 
     @Test
-    fun testNewListLastSyncIsZero() {
+    fun testNewListLastSyncIsZero() = runBlocking {
         setLists(TaskList().setId("1"))
         assertEquals(0L, googleTaskListDao.getByRemoteId("1")!!.lastSync)
     }
 
-    private fun setLists(vararg list: TaskList) {
+    private suspend fun setLists(vararg list: TaskList) {
         val account = GoogleTaskAccount("account")
         googleTaskListDao.insert(account)
         gtasksListService.updateLists(account, listOf(*list))
