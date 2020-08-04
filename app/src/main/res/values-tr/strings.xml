@@ -634,4 +634,5 @@
     <string name="date_shortcut_tomorrow_evening">Yarın akşam</string>
     <string name="manage_lists">Listeleri yönet</string>
     <string name="permission_read_tasks">Tasks veri tabanına tam erişim</string>
+    <string name="account_not_found">Hesap bulunamadı</string>
 </resources>
