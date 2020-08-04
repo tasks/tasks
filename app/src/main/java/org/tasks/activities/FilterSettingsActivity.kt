@@ -10,6 +10,7 @@ import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.FrameLayout
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,6 +34,7 @@ import com.todoroo.astrid.core.CustomFilterItemTouchHelper
 import com.todoroo.astrid.dao.Database
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.Strings
 import org.tasks.data.Filter
@@ -76,37 +78,42 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
             name.setText(filter!!.listingTitle)
         }
         when {
-            savedInstanceState != null -> {
-                criteria = CriterionInstance.fromString(
-                        filterCriteriaProvider, savedInstanceState.getString(EXTRA_CRITERIA))
+            savedInstanceState != null -> lifecycleScope.launch {
+                setCriteria(CriterionInstance.fromString(
+                        filterCriteriaProvider, savedInstanceState.getString(EXTRA_CRITERIA)!!))
             }
-            filter != null -> {
-                criteria = CriterionInstance.fromString(filterCriteriaProvider, filter!!.criterion)
+            filter != null -> lifecycleScope.launch {
+                setCriteria(CriterionInstance.fromString(
+                        filterCriteriaProvider, filter!!.criterion))
             }
-            intent.hasExtra(EXTRA_CRITERIA) -> {
+            intent.hasExtra(EXTRA_CRITERIA) -> lifecycleScope.launch {
                 name.setText(intent.getStringExtra(EXTRA_TITLE))
-                criteria = CriterionInstance.fromString(
-                        filterCriteriaProvider, intent.getStringExtra(EXTRA_CRITERIA))
+                setCriteria(CriterionInstance.fromString(
+                        filterCriteriaProvider, intent.getStringExtra(EXTRA_CRITERIA)!!))
             }
             else -> {
                 val instance = CriterionInstance()
                 instance.criterion = filterCriteriaProvider.startingUniverse
                 instance.type = CriterionInstance.TYPE_UNIVERSE
-                criteria = mutableListOf(instance)
+                setCriteria(mutableListOf(instance))
             }
         }
-        adapter = CustomFilterAdapter(criteria, locale) { replaceId: String -> onClick(replaceId) }
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = adapter
         ItemTouchHelper(
                 CustomFilterItemTouchHelper(this, this::onMove, this::onDelete, this::updateList))
                 .attachToRecyclerView(recyclerView)
-        fab.isExtended = isNew || adapter.itemCount <= 1
         if (isNew) {
             toolbar.inflateMenu(R.menu.menu_help)
         }
-        updateList()
         updateTheme()
+    }
+
+    private fun setCriteria(criteria: List<CriterionInstance>) {
+        this.criteria = criteria.toMutableList()
+        adapter = CustomFilterAdapter(criteria, locale) { replaceId: String -> onClick(replaceId) }
+        recyclerView.adapter = adapter
+        fab.isExtended = isNew || adapter.itemCount <= 1
+        updateList()
     }
 
     private fun onDelete(index: Int) {
@@ -161,19 +168,21 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
     fun addCriteria() {
         AndroidUtilities.hideKeyboard(this)
         fab.shrink()
-        val all = filterCriteriaProvider.all
-        val names = all.map(CustomFilterCriterion::getName)
-        dialogBuilder.newDialog()
-                .setItems(names) { dialog: DialogInterface, which: Int ->
-                    val instance = CriterionInstance()
-                    instance.criterion = all[which]
-                    showOptionsFor(instance, Runnable {
-                        criteria.add(instance)
-                        updateList()
-                    })
-                    dialog.dismiss()
-                }
-                .show()
+        lifecycleScope.launch {
+            val all = filterCriteriaProvider.all()
+            val names = all.map(CustomFilterCriterion::getName)
+            dialogBuilder.newDialog()
+                    .setItems(names) { dialog: DialogInterface, which: Int ->
+                        val instance = CriterionInstance()
+                        instance.criterion = all[which]
+                        showOptionsFor(instance, Runnable {
+                            criteria.add(instance)
+                            updateList()
+                        })
+                        dialog.dismiss()
+                    }
+                    .show()
+        }
     }
 
     /** Show options menu for the given criterioninstance  */
@@ -317,7 +326,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
             if (instance.type == CriterionInstance.TYPE_UNIVERSE || instance.criterion.sql == null) {
                 sql.append(activeAndVisible()).append(' ')
             } else {
-                var subSql: String? = instance.criterion.sql.replace("?", UnaryCriterion.sanitize(value))
+                var subSql: String? = instance.criterion.sql.replace("?", UnaryCriterion.sanitize(value!!))
                 subSql = PermaSql.replacePlaceholdersForQuery(subSql)
                 sql.append(Task.ID).append(" IN (").append(subSql).append(") ")
             }

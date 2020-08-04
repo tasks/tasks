@@ -6,7 +6,10 @@ import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import com.todoroo.astrid.api.CustomFilterCriterion
 import com.todoroo.astrid.core.CriterionInstance
-import com.todoroo.astrid.core.CriterionInstance.*
+import com.todoroo.astrid.core.CriterionInstance.Companion.TYPE_INTERSECT
+import com.todoroo.astrid.core.CriterionInstance.Companion.TYPE_SUBTRACT
+import com.todoroo.astrid.core.CriterionInstance.Companion.TYPE_UNIVERSE
+import com.todoroo.astrid.core.CriterionInstance.Companion.serialize
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.activities.FilterSettingsActivity

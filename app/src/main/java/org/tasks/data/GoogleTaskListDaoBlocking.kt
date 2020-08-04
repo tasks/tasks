@@ -5,10 +5,6 @@ import javax.inject.Inject
 
 @Deprecated("use coroutines")
 class GoogleTaskListDaoBlocking @Inject constructor(private val dao: GoogleTaskListDao) {
-    fun getAccounts(): List<GoogleTaskAccount> = runBlocking {
-        dao.getAccounts()
-    }
-
     fun getById(id: Long): GoogleTaskList? = runBlocking {
         dao.getById(id)
     }
@@ -23,10 +19,6 @@ class GoogleTaskListDaoBlocking @Inject constructor(private val dao: GoogleTaskL
 
     fun findExistingList(remoteId: String): GoogleTaskList? = runBlocking {
         dao.findExistingList(remoteId)
-    }
-
-    fun getAllLists(): List<GoogleTaskList> = runBlocking {
-        dao.getAllLists()
     }
 
     fun insertOrReplace(googleTaskList: GoogleTaskList): Long = runBlocking {
