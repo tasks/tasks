@@ -1,6 +1,5 @@
 package org.tasks.data
 
-import androidx.lifecycle.LiveData
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
@@ -20,10 +19,6 @@ class GoogleTaskListDaoBlocking @Inject constructor(private val dao: GoogleTaskL
 
     fun getByRemoteId(remoteId: String): GoogleTaskList? = runBlocking {
         dao.getByRemoteId(remoteId)
-    }
-
-    fun subscribeToLists(): LiveData<List<GoogleTaskList>> {
-        return dao.subscribeToLists()
     }
 
     fun findExistingList(remoteId: String): GoogleTaskList? = runBlocking {

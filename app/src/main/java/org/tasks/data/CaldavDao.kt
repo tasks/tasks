@@ -11,9 +11,8 @@ import com.todoroo.astrid.helper.UUIDHelper
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import org.tasks.R
-import org.tasks.data.CaldavAccount.Companion.TYPE_LOCAL
-import org.tasks.data.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.date.DateTimeUtils.toAppleEpoch
+import org.tasks.db.DbUtils.dbchunk
 import org.tasks.db.SuspendDbUtils.chunkedMap
 import org.tasks.filters.CaldavFilters
 import org.tasks.time.DateTimeUtils.currentTimeMillis
@@ -169,14 +168,6 @@ SELECT EXISTS(SELECT 1
     @Query("SELECT cd_task FROM caldav_tasks WHERE cd_calendar = :calendar AND cd_object IN (:objects)")
     internal abstract suspend fun getTasksInternal(calendar: String, objects: List<String>): List<Long>
 
-    @Query("""
-SELECT *
-FROM caldav_accounts
-WHERE cda_account_type = $TYPE_OPENTASKS
-  AND cda_uuid NOT IN (:accounts)        
-    """)
-    abstract suspend fun findDeletedAccounts(accounts: List<String>): List<CaldavAccount>
-
     @Query("SELECT * FROM caldav_lists WHERE cdl_account = :account AND cdl_url NOT IN (:urls)")
     abstract suspend fun findDeletedCalendars(account: String, urls: List<String>): List<CaldavCalendar>
 
@@ -258,7 +249,10 @@ WHERE cda_account_type = $TYPE_OPENTASKS
             }
         }
         update(updated)
-        touchInternal(updated.map(CaldavTask::task))
+        updated
+                .map(CaldavTask::task)
+                .dbchunk()
+                .forEach { touchInternal(it) }
     }
 
     @Query("UPDATE tasks SET modified = :modificationTime WHERE _id in (:ids)")
