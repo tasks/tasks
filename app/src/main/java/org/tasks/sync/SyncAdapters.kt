@@ -90,7 +90,5 @@ class SyncAdapters @Inject constructor(
 
     private suspend fun isEteSyncEnabled() = caldavDao.getAccounts(TYPE_ETESYNC).isNotEmpty()
 
-    private suspend fun isOpenTaskSyncEnabled() =
-            caldavDao.getAccounts(TYPE_OPENTASKS).isNotEmpty()
-                    || openTaskDao.accountCount() > 0
+    private suspend fun isOpenTaskSyncEnabled() = caldavDao.getAccounts(TYPE_OPENTASKS).isNotEmpty()
 }

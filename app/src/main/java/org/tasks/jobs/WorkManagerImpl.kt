@@ -47,8 +47,8 @@ class WorkManagerImpl constructor(
         private val context: Context,
         private val preferences: Preferences,
         private val googleTaskListDao: GoogleTaskListDao,
-        private val caldavDao: CaldavDao,
-        private val openTaskDao: OpenTaskDao): WorkManager {
+        private val caldavDao: CaldavDao
+): WorkManager {
     private val throttle = Throttle(200, 60000, "WORK")
     private val alarmManager: AlarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
     private val workManager = androidx.work.WorkManager.getInstance(context)
@@ -151,7 +151,7 @@ class WorkManagerImpl constructor(
             scheduleBackgroundSync(
                     TAG_BACKGROUND_SYNC_OPENTASKS,
                     SyncOpenTasksWork::class.java,
-                    enabled && (caldavDao.getAccounts(TYPE_OPENTASKS).isNotEmpty() || openTaskDao.accountCount() > 0))
+                    enabled && caldavDao.getAccounts(TYPE_OPENTASKS).isNotEmpty())
         }
     }
 

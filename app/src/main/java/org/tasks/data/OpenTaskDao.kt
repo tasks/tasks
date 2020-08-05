@@ -24,9 +24,6 @@ class OpenTaskDao @Inject constructor(@ApplicationContext context: Context) {
 
     suspend fun accounts(): List<String> = getLists().map { it.account!! }.distinct()
 
-    @Deprecated("add davx5/etesync accounts manually")
-    suspend fun accountCount(): Int = accounts().size
-
     suspend fun getLists(): List<CaldavCalendar> = withContext(Dispatchers.IO) {
         val calendars = ArrayList<CaldavCalendar>()
         cr.query(
