@@ -634,4 +634,5 @@
     <string name="manage_lists">Listen verwalten</string>
     <string name="permission_read_tasks">Vollzugriff auf die Tasks-Datenbank</string>
     <string name="tell_me_how_im_doing">Erzählen Sie mir bitte, wie gut ich das mache</string>
+    <string name="account_not_found">Konto nicht gefunden</string>
 </resources>
