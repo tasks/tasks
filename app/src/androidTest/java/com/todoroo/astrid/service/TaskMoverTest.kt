@@ -89,7 +89,7 @@ class TaskMoverTest : InjectingTestCase() {
         createTasks(1)
         caldavDao.insert(newCaldavTask(with(CaldavTaskMaker.TASK, 1L), with(CALENDAR, "1")))
         moveToCaldavList("2", 1)
-        val deleted = caldavDao.getDeleted("1")
+        val deleted = caldavDao.getMoved("1")
         assertEquals(1, deleted.size.toLong())
         assertEquals(1, deleted[0].task)
         assertTrue(deleted[0].deleted > 0)
@@ -114,7 +114,7 @@ class TaskMoverTest : InjectingTestCase() {
                                 with(CALENDAR, "1"),
                                 with(REMOTE_PARENT, "b"))))
         moveToCaldavList("2", 1)
-        val deleted = caldavDao.getDeleted("1")
+        val deleted = caldavDao.getMoved("1")
         assertEquals(3, deleted.size.toLong())
         val task = caldavDao.getTask(3)
         assertEquals("2", task!!.calendar)
@@ -249,7 +249,7 @@ class TaskMoverTest : InjectingTestCase() {
         createTasks(1)
         caldavDao.insert(newCaldavTask(with(CaldavTaskMaker.TASK, 1L), with(CALENDAR, "1")))
         moveToCaldavList("1", 1)
-        assertTrue(caldavDao.getDeleted("1").isEmpty())
+        assertTrue(caldavDao.getMoved("1").isEmpty())
         assertEquals(1, caldavDao.getTasks(1).size.toLong())
     }
 

@@ -107,8 +107,11 @@ abstract class CaldavDao {
     @Delete
     abstract suspend fun delete(caldavTask: CaldavTask)
 
+    @Delete
+    abstract suspend fun delete(caldavTasks: List<CaldavTask>)
+
     @Query("SELECT * FROM caldav_tasks WHERE cd_deleted > 0 AND cd_calendar = :calendar")
-    abstract suspend fun getDeleted(calendar: String): List<CaldavTask>
+    abstract suspend fun getMoved(calendar: String): List<CaldavTask>
 
     @Query("UPDATE caldav_tasks SET cd_deleted = :now WHERE cd_task IN (:tasks)")
     abstract suspend fun markDeleted(tasks: List<Long>, now: Long = currentTimeMillis())
@@ -138,8 +141,11 @@ SELECT EXISTS(SELECT 1
 """)
     abstract suspend fun isAccountType(id: Long, type: Int): Boolean
 
+    suspend fun getTasks(taskIds: List<Long>): List<CaldavTask> =
+            taskIds.chunkedMap { getTasksInternal(it) }
+
     @Query("SELECT * FROM caldav_tasks WHERE cd_task in (:taskIds) AND cd_deleted = 0")
-    abstract suspend fun getTasks(taskIds: List<Long>): List<CaldavTask>
+    internal abstract suspend fun getTasksInternal(taskIds: List<Long>): List<CaldavTask>
 
     @Query("SELECT task.*, caldav_task.* FROM tasks AS task "
             + "INNER JOIN caldav_tasks AS caldav_task ON _id = cd_task "

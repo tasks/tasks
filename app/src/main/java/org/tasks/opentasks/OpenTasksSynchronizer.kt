@@ -1,5 +1,6 @@
 package org.tasks.opentasks
 
+import android.content.ContentProviderOperation
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
@@ -13,8 +14,6 @@ import com.todoroo.astrid.helper.UUIDHelper
 import com.todoroo.astrid.service.TaskCreator
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import net.fortuna.ical4j.model.Date
 import net.fortuna.ical4j.model.property.Geo
 import net.fortuna.ical4j.model.property.RRule
@@ -104,22 +103,38 @@ class OpenTasksSynchronizer @Inject constructor(
     private suspend fun sync(calendar: CaldavCalendar, ctag: String?, listId: Long) {
         Timber.d("SYNC $calendar")
 
-        caldavDao.getDeleted(calendar.uuid!!).forEach {
-            openTaskDao.delete(listId, it.`object`!!)
-            caldavDao.delete(it)
-        }
+        val moved = caldavDao.getMoved(calendar.uuid!!)
+        val (deleted, updated) =
+                taskDao.getCaldavTasksToPush(calendar.uuid!!).partition { it.isDeleted }
 
-        taskDao
-                .getCaldavTasksToPush(calendar.uuid!!)
-                .mapNotNull { push(it, listId) }
-                .forEach {
-                    val tags = tagDataDao.getTagDataForTask(it.task).mapNotNull(TagData::name)
-                    openTaskDao.setTags(it, tags)
-                    openTaskDao.setRemoteOrder(it)
-                    openTaskDao.updateParent(it)
-                    it.lastSync = currentTimeMillis()
+        (moved + deleted.map(Task::id).let { caldavDao.getTasks(it) })
+                .mapNotNull { it.`object` }
+                .map { openTaskDao.delete(listId, it) }
+                .let { openTaskDao.batch(it) }
+        caldavDao.delete(moved)
+        taskDeleter.delete(deleted.map { it.id })
+
+        openTaskDao.batch(updated.mapNotNull { toOperation(it, listId) })
+
+        val caldavTasks = updated.let { caldavDao.getTasks(it.map(Task::id)) }
+        openTaskDao.batch(caldavTasks.flatMap {
+            val id = openTaskDao
+                    .getId(listId, it.remoteId)
+                    ?: return@flatMap emptyList<ContentProviderOperation>()
+            val tags = tagDataDao.getTagDataForTask(it.task).mapNotNull(TagData::name)
+            val parent = openTaskDao.getId(listId, it.remoteParent)
+            openTaskDao.setTags(id, tags)
+                    .plus(openTaskDao.setRemoteOrder(id, it))
+                    .plus(openTaskDao.updateParent(id, parent))
+        })
+
+        caldavTasks
+                .takeIf { it.isNotEmpty() }
+                ?.let {
+                    val lastSync = currentTimeMillis()
+                    caldavTasks.forEach { t -> t.lastSync = lastSync }
                     caldavDao.update(it)
-                    Timber.d("SENT $it")
+                    Timber.d("SENT ${it.joinToString("\n")}")
                 }
 
         ctag?.let {
@@ -132,7 +147,9 @@ class OpenTasksSynchronizer @Inject constructor(
         val etags = openTaskDao.getEtags(listId)
         etags.forEach { (syncId, etag) ->
             val caldavTask = caldavDao.getTask(calendar.uuid!!, syncId)
-            applyChanges(calendar, listId, syncId, etag, caldavTask)
+            if (caldavTask?.etag == null || caldavTask.etag != etag) {
+                applyChanges(calendar, listId, syncId, etag, caldavTask)
+            }
         }
         removeDeleted(calendar.uuid!!, etags.map { it.first })
 
@@ -163,13 +180,8 @@ class OpenTasksSynchronizer @Inject constructor(
         }
     }
 
-    private suspend fun push(task: Task, listId: Long): CaldavTask? = withContext(Dispatchers.IO) {
-        val caldavTask = caldavDao.getTask(task.id) ?: return@withContext null
-        if (task.isDeleted) {
-            openTaskDao.delete(listId, caldavTask.`object`!!)
-            taskDeleter.delete(task)
-            return@withContext null
-        }
+    private suspend fun toOperation(task: Task, listId: Long): ContentProviderOperation? {
+        val caldavTask = caldavDao.getTask(task.id) ?: return null
         val values = ContentValues()
         values.put(Tasks._SYNC_ID, caldavTask.`object`)
         values.put(Tasks.LIST_ID, listId)
@@ -213,26 +225,17 @@ class OpenTasksSynchronizer @Inject constructor(
             values.put(Tasks.PRIORITY, toRemote(it.getInt(Tasks.PRIORITY), task.priority))
             true
         } ?: false
-        try {
+        return try {
             if (existing) {
-                val updated = cr.update(
-                        Tasks.getContentUri(openTaskDao.authority),
-                        values,
-                        "${Tasks.LIST_ID} = $listId AND ${Tasks._SYNC_ID} = '${caldavTask.`object`}'",
-                        null)
-                if (updated <= 0) {
-                    throw Exception("update failed")
-                }
+                openTaskDao.update(listId, caldavTask.`object`!!, values)
             } else {
                 values.put(Tasks._UID, caldavTask.remoteId)
                 values.put(Tasks.PRIORITY, toRemote(task.priority, task.priority))
-                cr.insert(Tasks.getContentUri(openTaskDao.authority), values)
-                        ?: throw Exception("insert returned null")
+                openTaskDao.insert(values)
             }
-            caldavTask
         } catch (e: Exception) {
             firebase.reportException(e)
-            return@withContext null
+            null
         }
     }
 
@@ -262,32 +265,30 @@ class OpenTasksSynchronizer @Inject constructor(
                 task = taskDao.fetch(existing.task)!!
                 caldavTask = existing
             }
-            if (caldavTask.etag == null || caldavTask.etag != etag) {
-                task.title = it.getString(Tasks.TITLE)
-                task.priority = CaldavConverter.fromRemote(it.getInt(Tasks.PRIORITY))
-                task.completionDate = it.getLong(Tasks.COMPLETED)
-                task.notes = it.getString(Tasks.DESCRIPTION)
-                task.modificationDate = currentTimeMillis()
-                task.creationDate = it.getLong(Tasks.CREATED).toLocal()
-                task.setDueDateAdjustingHideUntil(it.getLong(Tasks.DUE).let { due ->
-                    when {
-                        due == 0L -> 0
-                        it.getBoolean(Tasks.IS_ALLDAY) ->
-                            Task.createDueDate(URGENCY_SPECIFIC_DAY, due - DateTime(due).offset)
-                        else -> Task.createDueDate(URGENCY_SPECIFIC_DAY_TIME, due)
-                    }
-                })
-                iCalendar.setPlace(task.id, it.getString(Tasks.GEO).toGeo())
-                task.setRecurrence(it.getString(Tasks.RRULE).toRRule())
-                task.suppressSync()
-                task.suppressRefresh()
-                taskDao.save(task)
-                caldavTask.lastSync = DateUtilities.now() + 1000L
-                caldavTask.etag = etag
-            }
-            val tags = openTaskDao.getTags(caldavTask)
+            task.title = it.getString(Tasks.TITLE)
+            task.priority = CaldavConverter.fromRemote(it.getInt(Tasks.PRIORITY))
+            task.completionDate = it.getLong(Tasks.COMPLETED)
+            task.notes = it.getString(Tasks.DESCRIPTION)
+            task.modificationDate = currentTimeMillis()
+            task.creationDate = it.getLong(Tasks.CREATED).toLocal()
+            task.setDueDateAdjustingHideUntil(it.getLong(Tasks.DUE).let { due ->
+                when {
+                    due == 0L -> 0
+                    it.getBoolean(Tasks.IS_ALLDAY) ->
+                        Task.createDueDate(URGENCY_SPECIFIC_DAY, due - DateTime(due).offset)
+                    else -> Task.createDueDate(URGENCY_SPECIFIC_DAY_TIME, due)
+                }
+            })
+            iCalendar.setPlace(task.id, it.getString(Tasks.GEO).toGeo())
+            task.setRecurrence(it.getString(Tasks.RRULE).toRRule())
+            task.suppressSync()
+            task.suppressRefresh()
+            taskDao.save(task)
+            caldavTask.lastSync = DateUtilities.now() + 1000L
+            caldavTask.etag = etag
+            val tags = openTaskDao.getTags(listId, caldavTask)
             tagDao.applyTags(task, tagDataDao, iCalendar.getTags(tags))
-            caldavTask.order = openTaskDao.getRemoteOrder(caldavTask)
+            caldavTask.order = openTaskDao.getRemoteOrder(listId, caldavTask)
             caldavTask.remoteParent = openTaskDao.getParent(it.getLong(Tasks._ID))
             if (caldavTask.id == Task.NO_ID) {
                 caldavTask.id = caldavDao.insert(caldavTask)

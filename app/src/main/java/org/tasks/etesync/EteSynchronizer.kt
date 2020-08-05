@@ -144,7 +144,7 @@ class EteSynchronizer @Inject constructor(
             Timber.d("%s up to date", caldavCalendar.name)
         }
         val changes: MutableList<SyncEntry> = ArrayList()
-        for (task in caldavDao.getDeleted(caldavCalendar.uuid!!)) {
+        for (task in caldavDao.getMoved(caldavCalendar.uuid!!)) {
             val vtodo = task.vtodo
             if (!isNullOrEmpty(vtodo)) {
                 changes.add(SyncEntry(vtodo!!, SyncEntry.Actions.DELETE))

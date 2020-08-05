@@ -226,7 +226,7 @@ class CaldavSynchronizer @Inject constructor(
 
     private suspend fun pushLocalChanges(
             caldavCalendar: CaldavCalendar, httpClient: OkHttpClient, httpUrl: HttpUrl) {
-        for (task in caldavDao.getDeleted(caldavCalendar.uuid!!)) {
+        for (task in caldavDao.getMoved(caldavCalendar.uuid!!)) {
             deleteRemoteResource(httpClient, httpUrl, task)
         }
         for (task in taskDao.getCaldavTasksToPush(caldavCalendar.uuid!!)) {

@@ -1,5 +1,7 @@
 package org.tasks.data
 
+import android.content.ContentProviderOperation
+import android.content.ContentProviderOperation.*
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
@@ -21,6 +23,8 @@ class OpenTaskDao @Inject constructor(@ApplicationContext context: Context) {
 
     private val cr = context.contentResolver
     val authority = context.getString(R.string.opentasks_authority)
+    private val tasks = Tasks.getContentUri(authority)
+    private val properties = Properties.getContentUri(authority)
 
     suspend fun accounts(): List<String> = getLists().map { it.account!! }.distinct()
 
@@ -53,7 +57,7 @@ class OpenTaskDao @Inject constructor(@ApplicationContext context: Context) {
     suspend fun getEtags(listId: Long): List<Pair<String, String>> = withContext(Dispatchers.IO) {
         val items = ArrayList<Pair<String, String>>()
         cr.query(
-                Tasks.getContentUri(authority),
+                tasks,
                 arrayOf(Tasks._SYNC_ID, "version"),
                 "${Tasks.LIST_ID} = $listId",
                 null,
@@ -65,37 +69,58 @@ class OpenTaskDao @Inject constructor(@ApplicationContext context: Context) {
         items
     }
 
-    suspend fun delete(listId: Long, item: String): Int = withContext(Dispatchers.IO) {
-        cr.delete(
-                Tasks.getContentUri(authority),
-                "${Tasks.LIST_ID} = $listId AND ${Tasks._SYNC_ID} = '$item'",
-                null)
-    }
+    fun delete(listId: Long, item: String): ContentProviderOperation =
+            newDelete(tasks)
+                    .withSelection(
+                            "${Tasks.LIST_ID} = $listId AND ${Tasks._SYNC_ID} = '$item'",
+                            null)
+                    .build()
 
-    suspend fun getId(uid: String?): Long =
-            uid?.let {
-                withContext(Dispatchers.IO) {
-                    cr.query(
-                            Tasks.getContentUri(authority),
-                            arrayOf(Tasks._ID),
-                            "${Tasks._UID} = '$uid'",
-                            null,
-                            null)?.use {
-                        if (it.moveToFirst()) {
-                            it.getLong(Tasks._ID)
-                        } else {
-                            Timber.e("No task with uid=$uid")
-                            null
+    fun insert(values: ContentValues): ContentProviderOperation =
+            newInsert(tasks)
+                    .withValues(values)
+                    .build()
+
+    fun update(listId: Long, item: String, values: ContentValues): ContentProviderOperation =
+            newUpdate(tasks)
+                    .withSelection(
+                            "${Tasks.LIST_ID} = $listId AND ${Tasks._SYNC_ID} = '$item'",
+                            null)
+                    .withValues(values)
+                    .build()
+
+    suspend fun getId(listId: Long, uid: String?): Long? =
+            uid
+                    ?.takeIf { it.isNotBlank() }
+                    ?.let {
+                        withContext(Dispatchers.IO) {
+                            cr.query(
+                                    tasks,
+                                    arrayOf(Tasks._ID),
+                                    "${Tasks.LIST_ID} = $listId AND ${Tasks._UID} = '$uid'",
+                                    null,
+                                    null)?.use {
+                                if (it.moveToFirst()) {
+                                    it.getLong(Tasks._ID)
+                                } else {
+                                    null
+                                }
+                            }
                         }
                     }
-                }
-            } ?: 0L
+                    ?: Timber.e("No task with uid=$uid").let { null }
 
-    suspend fun getTags(caldavTask: CaldavTask): List<String> = withContext(Dispatchers.IO) {
-        val id = getId(caldavTask.remoteId)
+    suspend fun batch(operations: List<ContentProviderOperation>) = withContext(Dispatchers.IO) {
+        operations.chunked(OPENTASK_BATCH_LIMIT).forEach {
+            cr.applyBatch(authority, ArrayList(it))
+        }
+    }
+
+    suspend fun getTags(listId: Long, caldavTask: CaldavTask): List<String> = withContext(Dispatchers.IO) {
+        val id = getId(listId, caldavTask.remoteId)
         val tags = ArrayList<String>()
         cr.query(
-                Properties.getContentUri(authority),
+                properties,
                 arrayOf(Properties.DATA1),
                 "${Properties.TASK_ID} = $id AND ${Properties.MIMETYPE} = '${Category.CONTENT_ITEM_TYPE}'",
                 null,
@@ -107,25 +132,29 @@ class OpenTaskDao @Inject constructor(@ApplicationContext context: Context) {
         return@withContext tags
     }
 
-    suspend fun setTags(caldavTask: CaldavTask, tags: List<String>) = withContext(Dispatchers.IO) {
-        val id = getId(caldavTask.remoteId)
-        cr.delete(
-                Properties.getContentUri(authority),
-                "${Properties.TASK_ID} = $id AND ${Properties.MIMETYPE} = '${Category.CONTENT_ITEM_TYPE}'",
-                null)
-        tags.forEach {
-            cr.insert(Properties.getContentUri(authority), ContentValues().apply {
-                put(Category.MIMETYPE, Category.CONTENT_ITEM_TYPE)
-                put(Category.TASK_ID, id)
-                put(Category.CATEGORY_NAME, it)
-            })
+    fun setTags(id: Long, tags: List<String>): List<ContentProviderOperation> {
+        val delete = listOf(
+                newDelete(properties)
+                        .withSelection(
+                                "${Properties.TASK_ID} = $id AND ${Properties.MIMETYPE} = '${Category.CONTENT_ITEM_TYPE}'",
+                                null)
+                        .build())
+        val inserts = tags.map {
+            newInsert(properties)
+                    .withValues(ContentValues().apply {
+                        put(Category.MIMETYPE, Category.CONTENT_ITEM_TYPE)
+                        put(Category.TASK_ID, id)
+                        put(Category.CATEGORY_NAME, it)
+                    })
+                    .build()
         }
+        return delete + inserts
     }
 
-    suspend fun getRemoteOrder(caldavTask: CaldavTask): Long? = withContext(Dispatchers.IO) {
-        val id = getId(caldavTask.remoteId)
+    suspend fun getRemoteOrder(listId: Long, caldavTask: CaldavTask): Long? = withContext(Dispatchers.IO) {
+        val id = getId(listId, caldavTask.remoteId) ?: return@withContext null
         cr.query(
-                Properties.getContentUri(authority),
+                properties,
                 arrayOf(Properties.DATA0),
                 "${Properties.TASK_ID} = $id AND ${Properties.MIMETYPE} = '${UnknownProperty.CONTENT_ITEM_TYPE}' AND ${Properties.DATA0} LIKE '%$APPLE_SORT_ORDER%'",
                 null,
@@ -142,37 +171,53 @@ class OpenTaskDao @Inject constructor(@ApplicationContext context: Context) {
         return@withContext null
     }
 
-    suspend fun setRemoteOrder(caldavTask: CaldavTask) = withContext(Dispatchers.IO) {
-        val id = getId(caldavTask.remoteId)
-        cr.delete(
-                Properties.getContentUri(authority),
-                "${Properties.TASK_ID} = $id AND ${Properties.MIMETYPE} = '${UnknownProperty.CONTENT_ITEM_TYPE}' AND ${Properties.DATA0} LIKE '%$APPLE_SORT_ORDER%'",
-                null)
+    fun setRemoteOrder(id: Long, caldavTask: CaldavTask): List<ContentProviderOperation> {
+        val operations = ArrayList<ContentProviderOperation>()
+        operations.add(
+                newDelete(properties)
+                        .withSelection(
+                                "${Properties.TASK_ID} = $id AND ${Properties.MIMETYPE} = '${UnknownProperty.CONTENT_ITEM_TYPE}' AND ${Properties.DATA0} LIKE '%$APPLE_SORT_ORDER%'",
+                                null)
+                        .build())
         caldavTask.order?.let {
-            cr.insert(Properties.getContentUri(authority), ContentValues().apply {
-                put(Properties.MIMETYPE, UnknownProperty.CONTENT_ITEM_TYPE)
-                put(Properties.TASK_ID, id)
-                put(Properties.DATA0, UnknownProperty.toJsonString(XProperty(APPLE_SORT_ORDER, it.toString())))
-            })
+            operations.add(
+                    newInsert(properties)
+                            .withValues(ContentValues().apply {
+                                put(Properties.MIMETYPE, UnknownProperty.CONTENT_ITEM_TYPE)
+                                put(Properties.TASK_ID, id)
+                                put(Properties.DATA0, UnknownProperty.toJsonString(XProperty(APPLE_SORT_ORDER, it.toString())))
+                            })
+                            .build())
         }
+        return operations
     }
 
-    suspend fun updateParent(caldavTask: CaldavTask) = withContext(Dispatchers.IO) {
-        caldavTask.remoteParent
-                ?.takeIf { it.isNotBlank() }
-                ?.let {
-                    cr.insert(Properties.getContentUri(authority), ContentValues().apply {
-                        put(Relation.MIMETYPE, Relation.CONTENT_ITEM_TYPE)
-                        put(Relation.TASK_ID, getId(caldavTask.remoteId))
-                        put(Relation.RELATED_TYPE, Relation.RELTYPE_PARENT)
-                        put(Relation.RELATED_ID, getId(caldavTask.remoteParent))
-                    })
-                }
+    fun updateParent(id: Long, parent: Long?): List<ContentProviderOperation> {
+        val operations = ArrayList<ContentProviderOperation>()
+        operations.add(
+                newDelete(properties)
+                        .withSelection(
+                                "${Properties.TASK_ID} = $id AND ${Properties.MIMETYPE} = '${Relation.CONTENT_ITEM_TYPE}' AND ${Relation.RELATED_TYPE} = ${Relation.RELTYPE_PARENT}",
+                                null
+                        )
+                        .build())
+        parent?.let {
+            operations.add(
+                    newInsert(properties)
+                            .withValues(ContentValues().apply {
+                                put(Relation.MIMETYPE, Relation.CONTENT_ITEM_TYPE)
+                                put(Relation.TASK_ID, id)
+                                put(Relation.RELATED_TYPE, Relation.RELTYPE_PARENT)
+                                put(Relation.RELATED_ID, parent)
+                            })
+                            .build())
+        }
+        return operations
     }
 
     suspend fun getParent(id: Long): String? = withContext(Dispatchers.IO) {
         cr.query(
-                Properties.getContentUri(authority),
+                properties,
                 arrayOf(Relation.RELATED_UID),
                 "${Relation.TASK_ID} = $id AND ${Properties.MIMETYPE} = '${Relation.CONTENT_ITEM_TYPE}' AND ${Relation.RELATED_TYPE} = ${Relation.RELTYPE_PARENT}",
                 null,
@@ -186,6 +231,7 @@ class OpenTaskDao @Inject constructor(@ApplicationContext context: Context) {
     }
 
     companion object {
+        private const val OPENTASK_BATCH_LIMIT = 500
         const val ACCOUNT_TYPE_DAVx5 = "bitfire.at.davdroid"
         const val ACCOUNT_TYPE_ETESYNC = "com.etesync.syncadapter"
 
