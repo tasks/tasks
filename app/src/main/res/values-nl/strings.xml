@@ -629,4 +629,5 @@
     <string name="manage_lists">Beheer lijsten</string>
     <string name="reset_sort_order">Sorteervolgorde resetten</string>
     <string name="permission_read_tasks">Volledige toegang tot Tasks database</string>
+    <string name="account_not_found">Account niet gevonden</string>
 </resources>
