@@ -20,6 +20,7 @@ class CaldavTask {
 
     @ColumnInfo(name = "cd_object")
     var `object`: String? = null
+        get() = field ?: "$remoteId.ics"
 
     @ColumnInfo(name = "cd_remote_id")
     var remoteId: String? = null
