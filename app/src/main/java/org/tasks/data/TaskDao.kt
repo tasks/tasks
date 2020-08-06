@@ -95,23 +95,22 @@ abstract class TaskDao(private val database: Database) {
             + "WHERE completed > 0 AND calendarUri IS NOT NULL AND calendarUri != ''")
     abstract suspend fun clearCompletedCalendarEvents(): Int
 
-    @Transaction
     open suspend fun fetchTasks(callback: suspend (SubtaskInfo) -> List<String>): List<TaskContainer> {
         return fetchTasks(callback, getSubtaskInfo())
     }
 
-    @Transaction
     open suspend fun fetchTasks(callback: suspend (SubtaskInfo) -> List<String>, subtasks: SubtaskInfo): List<TaskContainer> {
-        val start = if (BuildConfig.DEBUG) DateUtilities.now() else 0
-        val queries = callback.invoke(subtasks)
-        val db = database.openHelper.writableDatabase
-        val last = queries.size - 1
-        for (i in 0 until last) {
-            db.execSQL(queries[i])
+        return database.withTransaction {
+            val start = if (BuildConfig.DEBUG) DateUtilities.now() else 0
+            val queries = callback.invoke(subtasks)
+            val last = queries.size - 1
+            for (i in 0 until last) {
+                query(SimpleSQLiteQuery(queries[i]))
+            }
+            val result = fetchTasks(SimpleSQLiteQuery(queries[last]))
+            Timber.v("%sms: %s", DateUtilities.now() - start, queries.joinToString(";\n"))
+            result
         }
-        val result = fetchTasks(SimpleSQLiteQuery(queries[last]))
-        Timber.v("%sms: %s", DateUtilities.now() - start, queries.joinToString(";\n"))
-        return result
     }
 
     suspend fun fetchTasks(preferences: Preferences, filter: Filter): List<TaskContainer> {
@@ -121,7 +120,10 @@ abstract class TaskDao(private val database: Database) {
     }
 
     @RawQuery
-    abstract suspend fun fetchTasks(query: SimpleSQLiteQuery): List<TaskContainer>
+    internal abstract suspend fun query(query: SimpleSQLiteQuery): Int
+
+    @RawQuery
+    internal abstract suspend fun fetchTasks(query: SimpleSQLiteQuery): List<TaskContainer>
 
     @RawQuery
     abstract suspend fun count(query: SimpleSQLiteQuery): Int
@@ -152,7 +154,6 @@ SELECT EXISTS(SELECT 1 FROM tasks WHERE parent > 0 AND deleted = 0) AS hasSubtas
     @Query("UPDATE tasks SET lastNotified = :timestamp WHERE _id = :id AND lastNotified != :timestamp")
     abstract suspend fun setLastNotified(id: Long, timestamp: Long): Int
 
-    @Transaction
     open suspend fun fetchChildren(id: Long): List<Task> {
         return fetch(getChildren(id))
     }
@@ -178,7 +179,6 @@ SELECT EXISTS(SELECT 1 FROM tasks WHERE parent > 0 AND deleted = 0) AS hasSubtas
     @Query("UPDATE tasks SET collapsed = :collapsed WHERE _id = :id")
     abstract suspend fun setCollapsed(id: Long, collapsed: Boolean)
 
-    @Transaction
     open suspend fun setCollapsed(preferences: Preferences, filter: Filter, collapsed: Boolean) {
         fetchTasks(preferences, filter)
                 .filter(TaskContainer::hasChildren)

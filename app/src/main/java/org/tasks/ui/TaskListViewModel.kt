@@ -55,7 +55,7 @@ class TaskListViewModel @ViewModelInject constructor(
             return
         }
         try {
-            viewModelScope.launch {
+            viewModelScope.launch(Dispatchers.Default) {
                 val subtasks = taskDao.getSubtaskInfo()
                 if (manualSortFilter || !preferences.usePagedQueries()) {
                     performNonPagedQuery(subtasks)
@@ -69,9 +69,10 @@ class TaskListViewModel @ViewModelInject constructor(
     }
 
     private suspend fun performNonPagedQuery(subtasks: SubtaskInfo) {
-        tasks.value = taskDao.fetchTasks(
-                { s: SubtaskInfo? -> getQuery(preferences, filter!!, s!!) },
-                subtasks)
+        tasks.postValue(
+                taskDao.fetchTasks(
+                        { s: SubtaskInfo? -> getQuery(preferences, filter!!, s!!) },
+                        subtasks))
     }
 
     private fun performPagedListQuery() {
