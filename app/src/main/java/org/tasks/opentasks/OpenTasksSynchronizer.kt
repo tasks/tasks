@@ -26,6 +26,7 @@ import org.tasks.caldav.CaldavConverter
 import org.tasks.caldav.CaldavConverter.toRemote
 import org.tasks.caldav.iCalendar
 import org.tasks.data.*
+import org.tasks.data.OpenTaskDao.Companion.ACCOUNT_TYPE_ETESYNC
 import org.tasks.data.OpenTaskDao.Companion.getInt
 import org.tasks.data.OpenTaskDao.Companion.getLong
 import org.tasks.data.OpenTaskDao.Companion.getString
@@ -144,9 +145,11 @@ class OpenTasksSynchronizer @Inject constructor(
             }
         }
 
+        val isEteSync = calendar.account!!.split(":")[0] == ACCOUNT_TYPE_ETESYNC
         val etags = openTaskDao.getEtags(listId)
-        etags.forEach { (syncId, etag) ->
+        etags.forEach { (syncId, syncVersion, version) ->
             val caldavTask = caldavDao.getTask(calendar.uuid!!, syncId)
+            val etag = if (isEteSync) version else syncVersion
             if (caldavTask?.etag == null || caldavTask.etag != etag) {
                 applyChanges(calendar, listId, syncId, etag, caldavTask)
             }
