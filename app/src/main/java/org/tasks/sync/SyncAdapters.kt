@@ -28,7 +28,7 @@ class SyncAdapters @Inject constructor(
     private val googleTasks = Debouncer(TAG_SYNC_GOOGLE_TASKS) { workManager.googleTaskSync(it) }
     private val caldav = Debouncer(TAG_SYNC_CALDAV) { workManager.caldavSync(it) }
     private val eteSync = Debouncer(TAG_SYNC_ETESYNC) { workManager.eteSync(it) }
-    private val opentasks = Debouncer(TAG_SYNC_OPENTASK) { workManager.openTaskSync() }
+    private val opentasks = Debouncer(TAG_SYNC_OPENTASK) { workManager.openTaskSync(it) }
 
     fun sync(task: Task, original: Task?) = scope.launch {
         if (task.checkTransitory(SyncFlags.SUPPRESS_SYNC)) {
@@ -52,7 +52,7 @@ class SyncAdapters @Inject constructor(
     }
 
     fun syncOpenTasks() = scope.launch {
-        opentasks.sync(false)
+        opentasks.sync(true)
     }
 
     fun sync() {

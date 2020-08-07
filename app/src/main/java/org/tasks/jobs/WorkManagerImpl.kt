@@ -81,8 +81,8 @@ class WorkManagerImpl constructor(
     override fun eteSync(immediate: Boolean) =
             sync(immediate, TAG_SYNC_ETESYNC, SyncEteSyncWork::class.java)
 
-    override fun openTaskSync() =
-            sync(true, TAG_SYNC_OPENTASK, SyncOpenTasksWork::class.java, false)
+    override fun openTaskSync(immediate: Boolean) =
+            sync(immediate, TAG_SYNC_OPENTASK, SyncOpenTasksWork::class.java, false)
 
     @SuppressLint("EnqueueWork")
     private fun sync(immediate: Boolean, tag: String, c: Class<out SyncWork>, requireNetwork: Boolean = true) {

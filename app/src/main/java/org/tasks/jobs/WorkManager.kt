@@ -17,7 +17,7 @@ interface WorkManager {
 
     fun eteSync(immediate: Boolean)
 
-    fun openTaskSync()
+    fun openTaskSync(immediate: Boolean)
 
     fun reverseGeocode(place: Place)
 
