@@ -55,13 +55,13 @@ class TaskListViewModel @ViewModelInject constructor(
             return
         }
         try {
-            viewModelScope.launch(Dispatchers.Default) {
-                val subtasks = taskDao.getSubtaskInfo()
-                if (manualSortFilter || !preferences.usePagedQueries()) {
+            if (manualSortFilter || !preferences.usePagedQueries()) {
+                viewModelScope.launch(Dispatchers.Default) {
+                    val subtasks = taskDao.getSubtaskInfo()
                     performNonPagedQuery(subtasks)
-                } else {
-                    performPagedListQuery()
                 }
+            } else {
+                performPagedListQuery()
             }
         } catch (e: Exception) {
             Timber.e(e)
