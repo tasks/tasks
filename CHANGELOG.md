@@ -5,7 +5,7 @@ Change Log
 
 🚧 Currently in alpha ([signup here](https://www.reddit.com/r/tasks/comments/i3onqr/100_alpha/)) 🚧
 
-* PRO: DAVx⁵ support (alpha requires [custom DAVx⁵ build]((https://www.reddit.com/r/tasks/comments/i3onqr/100_alpha/)))
+* PRO: DAVx⁵ support (alpha requires [custom DAVx⁵ build](https://www.reddit.com/r/tasks/comments/i3onqr/100_alpha/))
 * PRO: EteSync client support
 * [ToDo Agenda](https://play.google.com/store/apps/details?id=org.andstatus.todoagenda) integration
 * Changed backstack behavior to follow Android conventions
