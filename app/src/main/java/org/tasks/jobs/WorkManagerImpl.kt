@@ -17,7 +17,6 @@ import org.tasks.data.CaldavAccount.Companion.TYPE_ETESYNC
 import org.tasks.data.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskListDao
-import org.tasks.data.OpenTaskDao
 import org.tasks.data.Place
 import org.tasks.date.DateTimeUtils.midnight
 import org.tasks.date.DateTimeUtils.newDateTime

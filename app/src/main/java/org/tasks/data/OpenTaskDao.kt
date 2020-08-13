@@ -234,7 +234,7 @@ class OpenTaskDao @Inject constructor(@ApplicationContext context: Context) {
     }
 
     companion object {
-        private const val OPENTASK_BATCH_LIMIT = 500
+        private const val OPENTASK_BATCH_LIMIT = 499
         const val ACCOUNT_TYPE_DAVx5 = "bitfire.at.davdroid"
         const val ACCOUNT_TYPE_ETESYNC = "com.etesync.syncadapter"
 

@@ -103,6 +103,7 @@ class OpenTasksSynchronizer @Inject constructor(
 
     private suspend fun sync(calendar: CaldavCalendar, ctag: String?, listId: Long) {
         Timber.d("SYNC $calendar")
+        val isEteSync = calendar.account!!.split(":")[0] == ACCOUNT_TYPE_ETESYNC
 
         val moved = caldavDao.getMoved(calendar.uuid!!)
         val (deleted, updated) =
@@ -115,7 +116,7 @@ class OpenTasksSynchronizer @Inject constructor(
         caldavDao.delete(moved)
         taskDeleter.delete(deleted.map { it.id })
 
-        openTaskDao.batch(updated.mapNotNull { toOperation(it, listId) })
+        openTaskDao.batch(updated.mapNotNull { toOperation(it, listId, isEteSync) })
 
         val caldavTasks = updated.let { caldavDao.getTasks(it.map(Task::id)) }
         openTaskDao.batch(caldavTasks.flatMap {
@@ -145,7 +146,6 @@ class OpenTasksSynchronizer @Inject constructor(
             }
         }
 
-        val isEteSync = calendar.account!!.split(":")[0] == ACCOUNT_TYPE_ETESYNC
         val etags = openTaskDao.getEtags(listId)
         etags.forEach { (syncId, syncVersion, version) ->
             val caldavTask = caldavDao.getTask(calendar.uuid!!, syncId)
@@ -183,7 +183,11 @@ class OpenTasksSynchronizer @Inject constructor(
         }
     }
 
-    private suspend fun toOperation(task: Task, listId: Long): ContentProviderOperation? {
+    private suspend fun toOperation(
+            task: Task,
+            listId: Long,
+            isEteSync: Boolean
+    ): ContentProviderOperation? {
         val caldavTask = caldavDao.getTask(task.id) ?: return null
         val values = ContentValues()
         values.put(Tasks._SYNC_ID, caldavTask.`object`)
@@ -232,7 +236,7 @@ class OpenTasksSynchronizer @Inject constructor(
             if (existing) {
                 openTaskDao.update(listId, caldavTask.`object`!!, values)
             } else {
-                values.put(Tasks._UID, caldavTask.remoteId)
+                values.put(if (isEteSync) Tasks.SYNC2 else Tasks._UID, caldavTask.remoteId)
                 values.put(Tasks.PRIORITY, toRemote(task.priority, task.priority))
                 openTaskDao.insert(values)
             }
