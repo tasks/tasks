@@ -53,7 +53,9 @@ public class NotificationDialog extends DialogFragment {
   }
 
   @Override
-  public void onDismiss(DialogInterface dialog) {
+  public void onCancel(@NonNull DialogInterface dialog) {
+    super.onCancel(dialog);
+
     handler.dismiss();
   }
 
