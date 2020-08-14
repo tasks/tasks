@@ -26,7 +26,6 @@ import org.tasks.caldav.CaldavConverter
 import org.tasks.caldav.CaldavConverter.toRemote
 import org.tasks.caldav.iCalendar
 import org.tasks.data.*
-import org.tasks.data.OpenTaskDao.Companion.ACCOUNT_TYPE_ETESYNC
 import org.tasks.data.OpenTaskDao.Companion.getInt
 import org.tasks.data.OpenTaskDao.Companion.getLong
 import org.tasks.data.OpenTaskDao.Companion.getString
@@ -83,7 +82,7 @@ class OpenTasksSynchronizer @Inject constructor(
                 .forEach { taskDeleter.delete(it) }
         lists.forEach {
             val calendar = toLocalCalendar(account.uuid!!, it)
-            sync(calendar, it.ctag, it.id)
+            sync(account, calendar, it.ctag, it.id)
         }
         setError(account, null)
     }
@@ -106,9 +105,14 @@ class OpenTasksSynchronizer @Inject constructor(
         return local
     }
 
-    private suspend fun sync(calendar: CaldavCalendar, ctag: String?, listId: Long) {
+    private suspend fun sync(
+            account: CaldavAccount,
+            calendar: CaldavCalendar,
+            ctag: String?,
+            listId: Long
+    ) {
         Timber.d("SYNC $calendar")
-        val isEteSync = calendar.account!!.split(":")[0] == ACCOUNT_TYPE_ETESYNC
+        val isEteSync = account.isOpenTaskEteSync
 
         val moved = caldavDao.getMoved(calendar.uuid!!)
         val (deleted, updated) =
