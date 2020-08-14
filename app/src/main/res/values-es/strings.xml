@@ -635,4 +635,5 @@
     <string name="manage_lists">Administrar listas</string>
     <string name="permission_read_tasks">Acceso completo a la base de datos de Tasks</string>
     <string name="account_not_found">Cuenta no encontrada</string>
+    <string name="davx5_selection_description">Sincronice sus tareas con la aplicación DAVx⁵</string>
 </resources>
