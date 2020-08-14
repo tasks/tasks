@@ -11,6 +11,7 @@ import com.todoroo.astrid.data.Task
 import org.tasks.activities.BaseListSettingsActivity
 import org.tasks.caldav.CaldavCalendarSettingsActivity
 import org.tasks.caldav.LocalListSettingsActivity
+import org.tasks.data.OpenTaskDao.Companion.ACCOUNT_TYPE_ETESYNC
 import org.tasks.etesync.EteSyncCalendarSettingsActivity
 import org.tasks.opentasks.OpenTasksListSettingsActivity
 import org.tasks.security.KeyStoreEncryption
@@ -88,6 +89,9 @@ class CaldavAccount : Parcelable {
 
     val isOpenTasks: Boolean
         get() = accountType == TYPE_OPENTASKS
+
+    val isOpenTaskEteSync: Boolean
+        get() = uuid?.split(":")?.get(0) == ACCOUNT_TYPE_ETESYNC
 
     fun listSettingsClass(): Class<out BaseListSettingsActivity> = when(accountType) {
         TYPE_ETESYNC -> EteSyncCalendarSettingsActivity::class.java

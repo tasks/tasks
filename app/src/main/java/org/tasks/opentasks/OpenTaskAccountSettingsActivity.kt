@@ -19,6 +19,10 @@ class OpenTaskAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Too
         binding.userLayout.visibility = View.GONE
         binding.passwordLayout.visibility = View.GONE
         binding.urlLayout.visibility = View.GONE
+
+        if (caldavAccount!!.isOpenTaskEteSync) {
+            binding.repeat.visibility = View.GONE
+        }
     }
 
     override val description: Int
