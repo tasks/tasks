@@ -1,7 +1,7 @@
 Change Log
 ---
 =======
-### 10.0 (2020-08-09)
+### 10.0 (2020-08-14)
 
 🚧 Currently in alpha ([signup here](https://www.reddit.com/r/tasks/comments/i3onqr/100_alpha/)) 🚧
 
@@ -27,6 +27,7 @@ Change Log
   * German - @franconian, @joshxtra
   * Hebrew - @yarons, @avipars
   * Hungarian - kaciokos
+  * Interlingua - @softinterlingua
   * Italian - @ppasserini, J. Lavoie
   * Norwegian Bokmål - @comradekingu, Erlend Ydse
   * Polish - @alex-ter
