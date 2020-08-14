@@ -9,6 +9,7 @@ import android.content.Context
 import android.content.res.Resources
 import com.todoroo.andlib.sql.Criterion
 import com.todoroo.andlib.sql.Criterion.Companion.and
+import com.todoroo.andlib.sql.Criterion.Companion.or
 import com.todoroo.andlib.sql.Join
 import com.todoroo.andlib.sql.QueryTemplate
 import com.todoroo.andlib.utility.AndroidUtilities
@@ -18,9 +19,7 @@ import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.timers.TimerPlugin
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
-import org.tasks.data.CaldavTask
-import org.tasks.data.GoogleTask
-import org.tasks.data.TaskDao
+import org.tasks.data.*
 import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
 import org.tasks.filters.RecentlyModifiedFilter
 import org.tasks.filters.SortableFilter
@@ -98,6 +97,26 @@ class BuiltInFilterExposer @Inject constructor(
                                     activeAndVisible(),
                                     GoogleTask.ID.eq(null),
                                     CaldavTask.ID.eq(null))))
+                    .apply {
+                        icon = R.drawable.ic_outline_cloud_off_24px
+                    }
+        }
+
+        fun getMissingListFilter(): Filter {
+            return Filter(
+                    "Missing list",
+                    QueryTemplate()
+                            .join(Join.left(GoogleTask.TABLE, and(GoogleTask.TASK.eq(Task.ID), GoogleTask.DELETED.eq(0))))
+                            .join(Join.left(CaldavTask.TABLE, and(CaldavTask.TASK.eq(Task.ID), CaldavTask.DELETED.eq(0))))
+                            .join(Join.left(GoogleTaskList.TABLE, GoogleTaskList.REMOTE_ID.eq(GoogleTask.LIST)))
+                            .join(Join.left(CaldavCalendar.TABLE, CaldavCalendar.UUID.eq(CaldavTask.CALENDAR)))
+                            .where(and(
+                                    activeAndVisible(),
+                                    or(
+                                            and(GoogleTask.ID.gt(0), GoogleTaskList.REMOTE_ID.eq(null)),
+                                            and(CaldavTask.ID.gt(0), CaldavCalendar.UUID.eq(null))
+                                    )
+                                    )))
                     .apply {
                         icon = R.drawable.ic_outline_cloud_off_24px
                     }

@@ -62,6 +62,7 @@ class FilterProvider @Inject constructor(
                         .plus(listOf(
                                 BuiltInFilterExposer.getNoListFilter(),
                                 BuiltInFilterExposer.getNoTitleFilter(),
+                                BuiltInFilterExposer.getMissingListFilter(),
                                 BuiltInFilterExposer.getNoCreateDateFilter(),
                                 BuiltInFilterExposer.getNoModificationDateFilter()
                         ))
