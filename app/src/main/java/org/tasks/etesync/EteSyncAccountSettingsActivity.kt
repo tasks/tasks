@@ -33,8 +33,8 @@ class EteSyncAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding!!.repeat.visibility = View.GONE
-        binding!!.showAdvanced.visibility = View.VISIBLE
+        binding.repeat.visibility = View.GONE
+        binding.showAdvanced.visibility = View.VISIBLE
         updateUrlVisibility()
     }
 
@@ -109,7 +109,7 @@ class EteSyncAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
     }
 
     private fun updateUrlVisibility() {
-        binding!!.urlLayout.visibility = if (binding!!.showAdvanced.isChecked) View.VISIBLE else View.GONE
+        binding.urlLayout.visibility = if (binding.showAdvanced.isChecked) View.VISIBLE else View.GONE
     }
 
     override fun needsValidation(): Boolean {
@@ -138,7 +138,7 @@ class EteSyncAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
         }
 
     override val newPassword: String
-        get() = binding!!.password.text.toString().trim { it <= ' ' }
+        get() = binding.password.text.toString().trim { it <= ' ' }
 
     override val helpUrl: String
         get() = "https://tasks.org/etesync"

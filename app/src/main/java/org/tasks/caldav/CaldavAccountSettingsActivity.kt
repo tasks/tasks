@@ -47,7 +47,7 @@ class CaldavAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolb
         if (passwordChanged()) {
             caldavAccount!!.password = encryption.encrypt(newPassword!!)
         }
-        caldavAccount!!.isSuppressRepeatingTasks = binding!!.repeat.isChecked
+        caldavAccount!!.isSuppressRepeatingTasks = binding.repeat.isChecked
         caldavDao.update(caldavAccount!!)
         setResult(Activity.RESULT_OK)
         finish()
@@ -64,7 +64,7 @@ class CaldavAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolb
 
     override val newPassword: String?
         get() {
-            val input = binding!!.password.text.toString().trim { it <= ' ' }
+            val input = binding.password.text.toString().trim { it <= ' ' }
             return if (PASSWORD_MASK == input) encryption.decrypt(caldavAccount!!.password) else input
         }
 

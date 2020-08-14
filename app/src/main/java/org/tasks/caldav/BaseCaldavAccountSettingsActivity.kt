@@ -48,35 +48,35 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
     @Inject lateinit var inventory: Inventory
 
     protected var caldavAccount: CaldavAccount? = null
-    protected var binding: ActivityCaldavAccountSettingsBinding? = null
+    protected lateinit var binding: ActivityCaldavAccountSettingsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCaldavAccountSettingsBinding.inflate(layoutInflater)
-        setContentView(binding!!.root)
+        setContentView(binding.root)
         ButterKnife.bind(this)
         caldavAccount = if (savedInstanceState == null) intent.getParcelableExtra(EXTRA_CALDAV_DATA) else savedInstanceState.getParcelable(EXTRA_CALDAV_DATA)
         if (caldavAccount == null || caldavAccount!!.id == Task.NO_ID) {
-            binding!!.nameLayout.visibility = View.GONE
-            binding!!.description.visibility = View.VISIBLE
-            binding!!.description.setText(description)
-            Linkify.addLinks(binding!!.description, Linkify.WEB_URLS)
+            binding.nameLayout.visibility = View.GONE
+            binding.description.visibility = View.VISIBLE
+            binding.description.setText(description)
+            Linkify.addLinks(binding.description, Linkify.WEB_URLS)
         } else {
-            binding!!.nameLayout.visibility = View.VISIBLE
-            binding!!.description.visibility = View.GONE
+            binding.nameLayout.visibility = View.VISIBLE
+            binding.description.visibility = View.GONE
         }
         if (savedInstanceState == null) {
             if (caldavAccount != null) {
-                binding!!.name.setText(caldavAccount!!.name)
-                binding!!.url.setText(caldavAccount!!.url)
-                binding!!.user.setText(caldavAccount!!.username)
+                binding.name.setText(caldavAccount!!.name)
+                binding.url.setText(caldavAccount!!.url)
+                binding.user.setText(caldavAccount!!.username)
                 if (!isNullOrEmpty(caldavAccount!!.password)) {
-                    binding!!.password.setText(PASSWORD_MASK)
+                    binding.password.setText(PASSWORD_MASK)
                 }
-                binding!!.repeat.isChecked = caldavAccount!!.isSuppressRepeatingTasks
+                binding.repeat.isChecked = caldavAccount!!.isSuppressRepeatingTasks
             }
         }
-        val toolbar = binding!!.toolbar.toolbar
+        val toolbar = binding.toolbar.toolbar
         toolbar.title = if (caldavAccount == null) getString(R.string.add_account) else caldavAccount!!.name
         toolbar.navigationIcon = getDrawable(R.drawable.ic_outline_save_24px)
         toolbar.setNavigationOnClickListener { save() }
@@ -86,9 +86,9 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
         themeColor.apply(toolbar)
         if (caldavAccount == null) {
             toolbar.menu.findItem(R.id.remove).isVisible = false
-            binding!!.name.requestFocus()
+            binding.name.requestFocus()
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.showSoftInput(binding!!.name, InputMethodManager.SHOW_IMPLICIT)
+            imm.showSoftInput(binding.name, InputMethodManager.SHOW_IMPLICIT)
         }
         if (!inventory.hasPro()) {
             newSnackbar(getString(R.string.this_feature_requires_a_subscription))
@@ -109,64 +109,64 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
     }
 
     private fun showProgressIndicator() {
-        binding!!.progressBar.progressBar.visibility = View.VISIBLE
+        binding.progressBar.progressBar.visibility = View.VISIBLE
     }
 
     protected fun hideProgressIndicator() {
-        binding!!.progressBar.progressBar.visibility = View.GONE
+        binding.progressBar.progressBar.visibility = View.GONE
     }
 
     private fun requestInProgress(): Boolean {
-        return binding!!.progressBar.progressBar.visibility == View.VISIBLE
+        return binding.progressBar.progressBar.visibility == View.VISIBLE
     }
 
     @OnTextChanged(R.id.name)
     fun onNameChanged() {
-        binding!!.nameLayout.error = null
+        binding.nameLayout.error = null
     }
 
     @OnTextChanged(R.id.url)
     fun onUrlChanged() {
-        binding!!.urlLayout.error = null
+        binding.urlLayout.error = null
     }
 
     @OnTextChanged(R.id.user)
     fun onUserChanged() {
-        binding!!.userLayout.error = null
+        binding.userLayout.error = null
     }
 
     @OnTextChanged(R.id.password)
     fun onPasswordChanged() {
-        binding!!.passwordLayout.error = null
+        binding.passwordLayout.error = null
     }
 
     @OnFocusChange(R.id.password)
     fun onPasswordFocused(hasFocus: Boolean) {
         if (hasFocus) {
-            if (PASSWORD_MASK == binding!!.password.text.toString()) {
-                binding!!.password.setText("")
+            if (PASSWORD_MASK == binding.password.text.toString()) {
+                binding.password.setText("")
             }
         } else {
-            if (TextUtils.isEmpty(binding!!.password.text) && caldavAccount != null) {
-                binding!!.password.setText(PASSWORD_MASK)
+            if (TextUtils.isEmpty(binding.password.text) && caldavAccount != null) {
+                binding.password.setText(PASSWORD_MASK)
             }
         }
     }
 
     protected val newName: String
         get() {
-            val name = binding!!.name.text.toString().trim { it <= ' ' }
+            val name = binding.name.text.toString().trim { it <= ' ' }
             return if (isNullOrEmpty(name)) newUsername else name
         }
 
     protected open val newURL: String
-        get() = binding!!.url.text.toString().trim { it <= ' ' }
+        get() = binding.url.text.toString().trim { it <= ' ' }
 
     protected val newUsername: String
-        get() = binding!!.user.text.toString().trim { it <= ' ' }
+        get() = binding.user.text.toString().trim { it <= ' ' }
 
     fun passwordChanged(): Boolean {
-        return caldavAccount == null || PASSWORD_MASK != binding!!.password.text.toString().trim { it <= ' ' }
+        return caldavAccount == null || PASSWORD_MASK != binding.password.text.toString().trim { it <= ' ' }
     }
 
     protected abstract val newPassword: String?
@@ -180,11 +180,11 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
         val password = newPassword
         var failed = false
         if (newName.isBlank()) {
-            binding!!.nameLayout.error = getString(R.string.name_cannot_be_empty)
+            binding.nameLayout.error = getString(R.string.name_cannot_be_empty)
             failed = true
         }
         if (isNullOrEmpty(url)) {
-            binding!!.urlLayout.error = getString(R.string.url_required)
+            binding.urlLayout.error = getString(R.string.url_required)
             failed = true
         } else {
             val baseURL = Uri.parse(url)
@@ -192,7 +192,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
             if ("https".equals(scheme, ignoreCase = true) || "http".equals(scheme, ignoreCase = true)) {
                 var host = baseURL.host
                 if (isNullOrEmpty(host)) {
-                    binding!!.urlLayout.error = getString(R.string.url_host_name_required)
+                    binding.urlLayout.error = getString(R.string.url_host_name_required)
                     failed = true
                 } else {
                     try {
@@ -205,21 +205,21 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
                     try {
                         URI(scheme, null, host, port, path, null, null)
                     } catch (e: URISyntaxException) {
-                        binding!!.urlLayout.error = e.localizedMessage
+                        binding.urlLayout.error = e.localizedMessage
                         failed = true
                     }
                 }
             } else {
-                binding!!.urlLayout.error = getString(R.string.url_invalid_scheme)
+                binding.urlLayout.error = getString(R.string.url_invalid_scheme)
                 failed = true
             }
         }
         if (isNullOrEmpty(username)) {
-            binding!!.userLayout.error = getString(R.string.username_required)
+            binding.userLayout.error = getString(R.string.username_required)
             failed = true
         }
         if (isNullOrEmpty(password)) {
-            binding!!.passwordLayout.error = getString(R.string.password_required)
+            binding.passwordLayout.error = getString(R.string.password_required)
             failed = true
         }
         when {
@@ -273,7 +273,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
     }
 
     private fun newSnackbar(message: String?): Snackbar {
-        val snackbar = Snackbar.make(binding!!.rootLayout, message!!, 8000)
+        val snackbar = Snackbar.make(binding.rootLayout, message!!, 8000)
                 .setTextColor(getColor(R.color.snackbar_text_color))
                 .setActionTextColor(getColor(R.color.snackbar_action_color))
         snackbar
@@ -284,14 +284,14 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
 
     protected open fun hasChanges(): Boolean {
         return if (caldavAccount == null) {
-            (!isNullOrEmpty(binding!!.name.text.toString().trim { it <= ' ' })
+            (!isNullOrEmpty(binding.name.text.toString().trim { it <= ' ' })
                     || !isNullOrEmpty(newPassword)
-                    || !isNullOrEmpty(binding!!.url.text.toString().trim { it <= ' ' })
+                    || !isNullOrEmpty(binding.url.text.toString().trim { it <= ' ' })
                     || !isNullOrEmpty(newUsername)
-                    || binding!!.repeat.isChecked)
+                    || binding.repeat.isChecked)
         } else needsValidation()
                 || newName != caldavAccount!!.name
-                || binding!!.repeat.isChecked != caldavAccount!!.isSuppressRepeatingTasks
+                || binding.repeat.isChecked != caldavAccount!!.isSuppressRepeatingTasks
     }
 
     protected open fun needsValidation(): Boolean {
@@ -303,7 +303,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
     override fun finish() {
         if (!requestInProgress()) {
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(binding!!.name.windowToken, 0)
+            imm.hideSoftInputFromWindow(binding.name.windowToken, 0)
             super.finish()
         }
     }

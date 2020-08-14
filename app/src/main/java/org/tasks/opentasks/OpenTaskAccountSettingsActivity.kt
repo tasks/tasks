@@ -16,9 +16,9 @@ class OpenTaskAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Too
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding!!.userLayout.visibility = View.GONE
-        binding!!.passwordLayout.visibility = View.GONE
-        binding!!.urlLayout.visibility = View.GONE
+        binding.userLayout.visibility = View.GONE
+        binding.passwordLayout.visibility = View.GONE
+        binding.urlLayout.visibility = View.GONE
     }
 
     override val description: Int
@@ -36,7 +36,7 @@ class OpenTaskAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Too
         if (passwordChanged()) {
             caldavAccount!!.password = encryption.encrypt(newPassword!!)
         }
-        caldavAccount!!.isSuppressRepeatingTasks = binding!!.repeat.isChecked
+        caldavAccount!!.isSuppressRepeatingTasks = binding.repeat.isChecked
         caldavDao.update(caldavAccount!!)
         setResult(Activity.RESULT_OK)
         finish()
@@ -44,11 +44,11 @@ class OpenTaskAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Too
 
     override fun hasChanges() =
             newName != caldavAccount!!.name
-                    || binding!!.repeat.isChecked != caldavAccount!!.isSuppressRepeatingTasks
+                    || binding.repeat.isChecked != caldavAccount!!.isSuppressRepeatingTasks
 
     override fun save() = lifecycleScope.launch {
         if (newName.isBlank()) {
-            binding!!.nameLayout.error = getString(R.string.name_cannot_be_empty)
+            binding.nameLayout.error = getString(R.string.name_cannot_be_empty)
             return@launch
         }
         updateAccount()
