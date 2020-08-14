@@ -162,6 +162,9 @@ SELECT EXISTS(SELECT 1
     @Query("SELECT * FROM caldav_lists ORDER BY cdl_name COLLATE NOCASE")
     abstract suspend fun getCalendars(): List<CaldavCalendar>
 
+    @Query("SELECT EXISTS(SELECT 1 FROM caldav_lists WHERE cdl_url IN (:urls))")
+    abstract suspend fun anyExist(urls: List<String>): Boolean
+
     @Query("SELECT * FROM caldav_lists WHERE cdl_uuid = :uuid LIMIT 1")
     abstract suspend fun getCalendar(uuid: String): CaldavCalendar?
 

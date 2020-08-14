@@ -17,6 +17,7 @@ import org.tasks.data.CaldavAccount.Companion.TYPE_ETESYNC
 import org.tasks.data.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskListDao
+import org.tasks.data.OpenTaskDao
 import org.tasks.data.Place
 import org.tasks.date.DateTimeUtils.midnight
 import org.tasks.date.DateTimeUtils.newDateTime
@@ -46,7 +47,8 @@ class WorkManagerImpl constructor(
         private val context: Context,
         private val preferences: Preferences,
         private val googleTaskListDao: GoogleTaskListDao,
-        private val caldavDao: CaldavDao
+        private val caldavDao: CaldavDao,
+        private val openTaskDao: OpenTaskDao
 ): WorkManager {
     private val throttle = Throttle(200, 60000, "WORK")
     private val alarmManager: AlarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -150,7 +152,8 @@ class WorkManagerImpl constructor(
             scheduleBackgroundSync(
                     TAG_BACKGROUND_SYNC_OPENTASKS,
                     SyncOpenTasksWork::class.java,
-                    enabled && caldavDao.getAccounts(TYPE_OPENTASKS).isNotEmpty())
+                    caldavDao.getAccounts(TYPE_OPENTASKS).isNotEmpty()
+                            || openTaskDao.newAccounts().isNotEmpty())
         }
     }
 

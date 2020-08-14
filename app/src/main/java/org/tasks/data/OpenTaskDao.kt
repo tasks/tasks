@@ -19,14 +19,22 @@ import org.tasks.caldav.iCalendar.Companion.APPLE_SORT_ORDER
 import timber.log.Timber
 import javax.inject.Inject
 
-class OpenTaskDao @Inject constructor(@ApplicationContext context: Context) {
-
+class OpenTaskDao @Inject constructor(
+        @ApplicationContext context: Context,
+        private val caldavDao: CaldavDao
+) {
     private val cr = context.contentResolver
     val authority = context.getString(R.string.opentasks_authority)
     private val tasks = Tasks.getContentUri(authority)
     private val properties = Properties.getContentUri(authority)
 
-    suspend fun accounts(): List<String> = getLists().map { it.account!! }.distinct()
+    suspend fun newAccounts(): List<String> =
+            getListsByAccount()
+                    .newAccounts(caldavDao)
+                    .map { it.key }
+
+    suspend fun getListsByAccount(): Map<String, List<CaldavCalendar>> =
+            getLists().groupBy { it.account!! }
 
     suspend fun getLists(): List<CaldavCalendar> = withContext(Dispatchers.IO) {
         val calendars = ArrayList<CaldavCalendar>()
@@ -237,6 +245,9 @@ class OpenTaskDao @Inject constructor(@ApplicationContext context: Context) {
         private const val OPENTASK_BATCH_LIMIT = 499
         const val ACCOUNT_TYPE_DAVx5 = "bitfire.at.davdroid"
         const val ACCOUNT_TYPE_ETESYNC = "com.etesync.syncadapter"
+
+        suspend fun Map<String, List<CaldavCalendar>>.newAccounts(caldavDao: CaldavDao) =
+                filterNot { (_, lists) -> caldavDao.anyExist(lists.map { it.url!! }) }
 
         fun Cursor.getString(columnName: String): String? =
                 getString(getColumnIndex(columnName))

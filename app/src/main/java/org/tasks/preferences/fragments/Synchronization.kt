@@ -21,7 +21,6 @@ import org.tasks.data.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskAccount
 import org.tasks.data.GoogleTaskListDao
-import org.tasks.data.OpenTaskDao
 import org.tasks.data.OpenTaskDao.Companion.ACCOUNT_TYPE_DAVx5
 import org.tasks.data.OpenTaskDao.Companion.ACCOUNT_TYPE_ETESYNC
 import org.tasks.etesync.EteSyncAccountSettingsActivity
@@ -47,7 +46,6 @@ class Synchronization : InjectingPreferenceFragment() {
     @Inject lateinit var googleTaskListDao: GoogleTaskListDao
     @Inject lateinit var taskDeleter: TaskDeleter
     @Inject lateinit var syncAdapters: SyncAdapters
-    @Inject lateinit var openTaskDao: OpenTaskDao
 
     override fun getPreferenceXml() = R.xml.preferences_synchronization
 
@@ -85,13 +83,8 @@ class Synchronization : InjectingPreferenceFragment() {
 
         findPreference(R.string.add_account)
             .setOnPreferenceClickListener {
-                lifecycleScope.launch {
-                    val accounts = openTaskDao.accounts().filter {
-                        caldavDao.getAccountByUuid(it) == null
-                    }
-                    newAccountDialog(this@Synchronization, REQUEST_ADD_ACCOUNT, accounts)
-                            .show(parentFragmentManager, FRAG_TAG_ADD_ACCOUNT)
-                }
+                newAccountDialog(this@Synchronization, REQUEST_ADD_ACCOUNT)
+                        .show(parentFragmentManager, FRAG_TAG_ADD_ACCOUNT)
                 false
             }
     }

@@ -12,6 +12,7 @@ import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskListDao
+import org.tasks.data.OpenTaskDao
 import org.tasks.db.Migrations
 import org.tasks.jobs.WorkManager
 import org.tasks.jobs.WorkManagerImpl
@@ -41,7 +42,9 @@ internal class ProductionModule {
             @ApplicationContext context: Context,
             preferences: Preferences,
             googleTaskListDao: GoogleTaskListDao,
-            caldavDao: CaldavDao): WorkManager {
-        return WorkManagerImpl(context, preferences, googleTaskListDao, caldavDao)
+            caldavDao: CaldavDao,
+            openTaskDao: OpenTaskDao
+    ): WorkManager {
+        return WorkManagerImpl(context, preferences, googleTaskListDao, caldavDao, openTaskDao)
     }
 }

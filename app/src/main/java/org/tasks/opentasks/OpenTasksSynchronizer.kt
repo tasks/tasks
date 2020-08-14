@@ -30,6 +30,7 @@ import org.tasks.data.OpenTaskDao.Companion.ACCOUNT_TYPE_ETESYNC
 import org.tasks.data.OpenTaskDao.Companion.getInt
 import org.tasks.data.OpenTaskDao.Companion.getLong
 import org.tasks.data.OpenTaskDao.Companion.getString
+import org.tasks.data.OpenTaskDao.Companion.newAccounts
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils.currentTimeMillis
@@ -57,7 +58,14 @@ class OpenTasksSynchronizer @Inject constructor(
     private val cr = context.contentResolver
 
     suspend fun sync() {
-        val lists = getLists()
+        val lists = openTaskDao.getListsByAccount()
+        lists.newAccounts(caldavDao).forEach { (account, _) ->
+            caldavDao.insert(CaldavAccount().apply {
+                name = account.split(":")[1]
+                uuid = account
+                accountType = CaldavAccount.TYPE_OPENTASKS
+            })
+        }
         caldavDao.getAccounts(CaldavAccount.TYPE_OPENTASKS).forEach { account ->
             if (!lists.containsKey(account.uuid)) {
                 setError(account, context.getString(R.string.account_not_found))
@@ -68,9 +76,6 @@ class OpenTasksSynchronizer @Inject constructor(
             }
         }
     }
-
-    private suspend fun getLists(): Map<String, List<CaldavCalendar>> =
-            openTaskDao.getLists().groupBy { it.account!! }
 
     private suspend fun sync(account: CaldavAccount, lists: List<CaldavCalendar>) {
         caldavDao

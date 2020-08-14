@@ -9,6 +9,7 @@ import org.tasks.data.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskDao
 import org.tasks.data.GoogleTaskListDao
+import org.tasks.data.OpenTaskDao
 import org.tasks.jobs.WorkManager
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_CALDAV
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_ETESYNC
@@ -23,7 +24,8 @@ class SyncAdapters @Inject constructor(
         workManager: WorkManager,
         private val caldavDao: CaldavDao,
         private val googleTaskDao: GoogleTaskDao,
-        private val googleTaskListDao: GoogleTaskListDao) {
+        private val googleTaskListDao: GoogleTaskListDao,
+        private val openTaskDao: OpenTaskDao) {
     private val scope = CoroutineScope(newSingleThreadExecutor().asCoroutineDispatcher() + SupervisorJob())
     private val googleTasks = Debouncer(TAG_SYNC_GOOGLE_TASKS) { workManager.googleTaskSync(it) }
     private val caldav = Debouncer(TAG_SYNC_CALDAV) { workManager.caldavSync(it) }
@@ -88,5 +90,7 @@ class SyncAdapters @Inject constructor(
 
     private suspend fun isEteSyncEnabled() = caldavDao.getAccounts(TYPE_ETESYNC).isNotEmpty()
 
-    private suspend fun isOpenTaskSyncEnabled() = caldavDao.getAccounts(TYPE_OPENTASKS).isNotEmpty()
+    private suspend fun isOpenTaskSyncEnabled() =
+            caldavDao.getAccounts(TYPE_OPENTASKS).isNotEmpty()
+                    || openTaskDao.newAccounts().isNotEmpty()
 }

@@ -13,6 +13,7 @@ import com.todoroo.astrid.service.Upgrader.Companion.getAndroidColor
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.data.*
+import org.tasks.data.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.data.Place.Companion.newPlace
 import org.tasks.preferences.Preferences
 import timber.log.Timber
@@ -65,10 +66,11 @@ class TasksJsonImporter @Inject constructor(
             val version = input["version"].asInt
             val backupContainer = gson.fromJson(data, BackupContainer::class.java)
             backupContainer.tags?.forEach { tagData ->
-                tagData.setColor(themeToColor(context, version, tagData.getColor()!!))
-                if (tagDataDao.getByUuid(tagData.remoteId!!) == null) {
-                    tagDataDao.createNew(tagData)
+                findTagData(tagData)?.let {
+                    return@forEach
                 }
+                tagData.setColor(themeToColor(context, version, tagData.getColor()!!))
+                tagDataDao.createNew(tagData)
             }
             backupContainer.googleTaskAccounts?.forEach { googleTaskAccount ->
                 if (googleTaskListDao.getAccount(googleTaskAccount.account!!) == null) {
@@ -98,10 +100,17 @@ class TasksJsonImporter @Inject constructor(
                 }
             }
             backupContainer.caldavCalendars?.forEach { calendar ->
-                calendar.color = themeToColor(context, version, calendar.color)
-                if (caldavDao.getCalendarByUuid(calendar.uuid!!) == null) {
-                    caldavDao.insert(calendar)
+                val account = caldavDao.getAccountByUuid(calendar.account!!)!!
+                when (account.accountType) {
+                    TYPE_LOCAL -> if (caldavDao.getCalendarByUuid(calendar.uuid!!) != null) {
+                        return@forEach
+                    }
+                    else -> if (caldavDao.getCalendarByUrl(calendar.account!!, calendar.url!!) != null) {
+                        return@forEach
+                    }
                 }
+                calendar.color = themeToColor(context, version, calendar.color)
+                caldavDao.insert(calendar)
             }
             backupContainer.taskListMetadata?.forEach { tlm ->
                 val id = tlm.filter.takeIf { it?.isNotBlank() == true } ?: tlm.tagUuid!!
@@ -116,10 +125,19 @@ class TasksJsonImporter @Inject constructor(
                         progressDialog,
                         context.getString(R.string.import_progress_read, result.taskCount))
                 val task = backup.task
-                if (taskDao.fetch(task.uuid) != null) {
-                    result.skipCount++
-                    return@forEach
-                }
+                taskDao.fetch(task.uuid)
+                        ?.let {
+                            result.skipCount++
+                            return@forEach
+                        }
+                backup.caldavTasks
+                        ?.filter { it.deleted == 0L }
+                        ?.any { caldavDao.getCalendar(it.calendar!!) == null }
+                        ?.takeIf { it }
+                        ?.let {
+                            result.skipCount++
+                            return@forEach
+                        }
                 task.suppressRefresh()
                 task.suppressSync()
                 taskDao.createNew(task)
@@ -158,7 +176,9 @@ class TasksJsonImporter @Inject constructor(
                     locationDao.insert(geofence)
                 }
                 for (tag in backup.tags) {
+                    val tagData = findTagData(tag) ?: continue
                     tag.task = taskId
+                    tag.tagUid = tagData.remoteId
                     tag.setTaskUid(taskUuid)
                     tagDao.insert(tag)
                 }
@@ -213,6 +233,14 @@ class TasksJsonImporter @Inject constructor(
         localBroadcastManager.broadcastRefresh()
         return result
     }
+
+    private suspend fun findTagData(tagData: TagData) =
+            findTagData(tagData.remoteId!!, tagData.name!!)
+
+    private suspend fun findTagData(tag: Tag) = findTagData(tag.tagUid!!, tag.name!!)
+
+    private suspend fun findTagData(uid: String, name: String): TagData? =
+            tagDataDao.getByUuid(uid) ?: tagDataDao.getTagByName(name)
 
     private fun themeToColor(context: Context, version: Int, color: Int) =
             if (version < Upgrader.V8_2) getAndroidColor(context, color) else color
