@@ -10,7 +10,6 @@ import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.data.Task.Companion.URGENCY_SPECIFIC_DAY
 import com.todoroo.astrid.data.Task.Companion.URGENCY_SPECIFIC_DAY_TIME
 import com.todoroo.astrid.data.Task.Companion.sanitizeRRule
-import com.todoroo.astrid.helper.UUIDHelper
 import com.todoroo.astrid.service.TaskCreator
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -26,6 +25,7 @@ import org.tasks.caldav.CaldavConverter
 import org.tasks.caldav.CaldavConverter.toRemote
 import org.tasks.caldav.iCalendar
 import org.tasks.data.*
+import org.tasks.data.CaldavAccount.Companion.openTaskType
 import org.tasks.data.OpenTaskDao.Companion.getInt
 import org.tasks.data.OpenTaskDao.Companion.getLong
 import org.tasks.data.OpenTaskDao.Companion.getString
@@ -77,11 +77,12 @@ class OpenTasksSynchronizer @Inject constructor(
     }
 
     private suspend fun sync(account: CaldavAccount, lists: List<CaldavCalendar>) {
+        val uuid = account.uuid!!
         caldavDao
-                .findDeletedCalendars(account.uuid!!, lists.mapNotNull { it.url })
+                .findDeletedCalendars(uuid, lists.mapNotNull { it.url })
                 .forEach { taskDeleter.delete(it) }
         lists.forEach {
-            val calendar = toLocalCalendar(account.uuid!!, it)
+            val calendar = toLocalCalendar(uuid, it)
             sync(account, calendar, it.ctag, it.id)
         }
         setError(account, null)
@@ -89,7 +90,9 @@ class OpenTasksSynchronizer @Inject constructor(
 
     private suspend fun toLocalCalendar(account: String, remote: CaldavCalendar): CaldavCalendar {
         val local = caldavDao.getCalendarByUrl(account, remote.url!!) ?: CaldavCalendar().apply {
-            uuid = UUIDHelper.newUUID()
+            uuid = UUID
+                    .nameUUIDFromBytes("${account.openTaskType()}${remote.url}".toByteArray())
+                    .toString()
             url = remote.url
             this.account = account
             caldavDao.insert(this)

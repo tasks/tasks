@@ -13,7 +13,6 @@ import com.todoroo.astrid.service.Upgrader.Companion.getAndroidColor
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.data.*
-import org.tasks.data.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.data.Place.Companion.newPlace
 import org.tasks.preferences.Preferences
 import timber.log.Timber
@@ -100,17 +99,10 @@ class TasksJsonImporter @Inject constructor(
                 }
             }
             backupContainer.caldavCalendars?.forEach { calendar ->
-                val account = caldavDao.getAccountByUuid(calendar.account!!)!!
-                when (account.accountType) {
-                    TYPE_LOCAL -> if (caldavDao.getCalendarByUuid(calendar.uuid!!) != null) {
-                        return@forEach
-                    }
-                    else -> if (caldavDao.getCalendarByUrl(calendar.account!!, calendar.url!!) != null) {
-                        return@forEach
-                    }
+                if (caldavDao.getCalendarByUuid(calendar.uuid!!) == null) {
+                    calendar.color = themeToColor(context, version, calendar.color)
+                    caldavDao.insert(calendar)
                 }
-                calendar.color = themeToColor(context, version, calendar.color)
-                caldavDao.insert(calendar)
             }
             backupContainer.taskListMetadata?.forEach { tlm ->
                 val id = tlm.filter.takeIf { it?.isNotBlank() == true } ?: tlm.tagUuid!!
@@ -130,14 +122,12 @@ class TasksJsonImporter @Inject constructor(
                             result.skipCount++
                             return@forEach
                         }
-                backup.caldavTasks
-                        ?.filter { it.deleted == 0L }
-                        ?.any { caldavDao.getCalendar(it.calendar!!) == null }
-                        ?.takeIf { it }
-                        ?.let {
-                            result.skipCount++
-                            return@forEach
-                        }
+                if (true == backup.caldavTasks
+                                ?.filter { it.deleted == 0L }
+                                ?.any { caldavDao.getTask(it.calendar!!, it.`object`!!) != null }) {
+                    result.skipCount++
+                    return@forEach
+                }
                 task.suppressRefresh()
                 task.suppressSync()
                 taskDao.createNew(task)
