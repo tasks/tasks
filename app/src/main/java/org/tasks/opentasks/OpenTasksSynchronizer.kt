@@ -241,7 +241,10 @@ class OpenTasksSynchronizer @Inject constructor(
             if (existing) {
                 openTaskDao.update(listId, caldavTask.`object`!!, values)
             } else {
-                values.put(if (isEteSync) Tasks.SYNC2 else Tasks._UID, caldavTask.remoteId)
+                if (isEteSync) {
+                    values.put(Tasks.SYNC2, caldavTask.remoteId)
+                }
+                values.put(Tasks._UID, caldavTask.remoteId)
                 values.put(Tasks.PRIORITY, toRemote(task.priority, task.priority))
                 openTaskDao.insert(values)
             }
