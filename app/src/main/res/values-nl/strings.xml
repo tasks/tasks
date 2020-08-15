@@ -12,7 +12,7 @@
     <string name="import_summary_message">Bestand %1$s bevat %2$s.\n\n %3$s geïmporteerd,\n %4$s bestaan al\n %5$s had fouten\n</string>
     <string name="import_progress_read">Taak %d lezen…</string>
     <string name="read_permission_label">Taak toestemmingen</string>
-    <string name="discard_confirmation">Weet u zeker dat u de wijzigingen niet wilt opslaan?</string>
+    <string name="discard_confirmation">Weet je zeker dat u de wijzigingen niet wilt opslaan\?</string>
     <string name="keep_editing">Blijf editen</string>
     <string name="DLG_delete_this_task_question">Taak verwijderen?</string>
     <string name="DLG_hour_minutes">Tijd (uren : minuten)</string>
@@ -630,4 +630,5 @@
     <string name="reset_sort_order">Sorteervolgorde resetten</string>
     <string name="permission_read_tasks">Volledige toegang tot Tasks database</string>
     <string name="account_not_found">Account niet gevonden</string>
+    <string name="davx5_selection_description">Synchroniseer je taken met de DAVx⁵ applicatie</string>
 </resources>
