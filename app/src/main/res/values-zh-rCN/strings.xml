@@ -626,4 +626,5 @@
     <string name="manage_lists">管理列表</string>
     <string name="permission_read_tasks">对Tasks数据库的完全访问</string>
     <string name="account_not_found">未找到账户</string>
+    <string name="davx5_selection_description">用 DAVx⁵应用同步你的任务</string>
 </resources>
