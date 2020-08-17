@@ -180,6 +180,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         val loadFilter = intent.getFilterString
         val openTask = !intent.isFromHistory
                 && (intent.hasExtra(OPEN_TASK) || intent.hasExtra(CREATE_TASK))
+        val tef = taskEditFragment
         Timber.d("""
             
             **********
@@ -194,7 +195,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
             taskEditFragment: ${taskEditFragment?.editViewModel?.task}
             **********""")
         if (!openTask && (openFilter != null || !loadFilter.isNullOrBlank())) {
-            taskEditFragment?.let {
+            tef?.let {
                 lifecycleScope.launch {
                     it.save()
                 }
@@ -241,8 +242,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
                 existing
             }
             if (isSinglePaneLayout) {
-                if (openTask) {
-                    setFilter(null)
+                if (openTask || tef != null) {
                     openTask(null)
                 } else {
                     openTaskListFragment(filter, false)
