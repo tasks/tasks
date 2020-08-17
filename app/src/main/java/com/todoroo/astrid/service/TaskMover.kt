@@ -159,7 +159,7 @@ class TaskMover @Inject constructor(
                 for (child in taskDao.fetchChildren(task.id)) {
                     val newTask = CaldavTask(child.id, listId)
                     val parent = child.parent
-                    newTask.remoteParent = (if (parent == id) root else tasks[parent])!!.remoteId
+                    newTask.remoteParent = (if (parent == id) root else tasks[parent])?.remoteId
                     tasks[child.id] = newTask
                 }
                 caldavDao.insert(task, root, preferences.addTasksToTop())
