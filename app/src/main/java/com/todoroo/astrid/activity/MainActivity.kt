@@ -26,7 +26,7 @@ import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskCreator
 import com.todoroo.astrid.timers.TimerControlSet.TimerControlSetCallback
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
@@ -355,17 +355,27 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
             it.save()
         }
         clearUi()
-        val fragment = newTaskEditFragment(
-                task,
-                defaultFilterProvider.getList(task),
-                locationDao.getLocation(task, preferences),
-                tagDataDao.getTags(task),
-                alarmDao.getAlarms(task),
-                filterColor)
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.detail, fragment, TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
-                .runOnCommit(this::showDetailFragment)
-                .commitNow()
+        coroutineScope {
+            val freshTask = async { if (task.isNew) task else taskDao.fetch(task.id) ?: task }
+            val list = async { defaultFilterProvider.getList(task) }
+            val location = async { locationDao.getLocation(task, preferences) }
+            val tags = async { tagDataDao.getTags(task) }
+            val alarms = async { alarmDao.getAlarms(task) }
+            val fragment = withContext(Dispatchers.Default) {
+                newTaskEditFragment(
+                        freshTask.await(),
+                        list.await(),
+                        location.await(),
+                        tags.await(),
+                        alarms.await(),
+                        filterColor)
+            }
+            supportFragmentManager.beginTransaction()
+                    .replace(R.id.detail, fragment, TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
+                    .runOnCommit { showDetailFragment() }
+                    .commitNow()
+
+        }
     }
 
     override fun onNavigationIconClicked() {
