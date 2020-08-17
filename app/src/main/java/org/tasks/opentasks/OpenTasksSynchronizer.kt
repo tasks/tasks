@@ -159,9 +159,9 @@ class OpenTasksSynchronizer @Inject constructor(
         }
 
         val etags = openTaskDao.getEtags(listId)
-        etags.forEach { (syncId, syncVersion, version) ->
+        etags.forEach { (syncId, sync1, version) ->
             val caldavTask = caldavDao.getTask(calendar.uuid!!, syncId)
-            val etag = if (isEteSync) version else syncVersion
+            val etag = if (isEteSync) version else sync1
             if (caldavTask?.etag == null || caldavTask.etag != etag) {
                 applyChanges(calendar, listId, syncId, etag, caldavTask)
             }
@@ -265,7 +265,7 @@ class OpenTasksSynchronizer @Inject constructor(
             calendar: CaldavCalendar,
             listId: Long,
             syncId: String,
-            etag: String,
+            etag: String?,
             existing: CaldavTask?) {
         cr.query(
                 Tasks.getContentUri(openTaskDao.authority),

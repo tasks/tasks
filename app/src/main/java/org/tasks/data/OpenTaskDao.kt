@@ -62,18 +62,18 @@ class OpenTaskDao @Inject constructor(
         calendars
     }
 
-    suspend fun getEtags(listId: Long): List<Triple<String, String, String>> = withContext(Dispatchers.IO) {
-        val items = ArrayList<Triple<String, String, String>>()
+    suspend fun getEtags(listId: Long): List<Triple<String, String?, String>> = withContext(Dispatchers.IO) {
+        val items = ArrayList<Triple<String, String?, String>>()
         cr.query(
                 tasks,
-                arrayOf(Tasks._SYNC_ID, Tasks.SYNC_VERSION, "version"),
+                arrayOf(Tasks._SYNC_ID, Tasks.SYNC1, "version"),
                 "${Tasks.LIST_ID} = $listId",
                 null,
                 null)?.use {
             while (it.moveToNext()) {
                 items.add(Triple(
                         it.getString(Tasks._SYNC_ID)!!,
-                        it.getLong(Tasks.SYNC_VERSION).toString(),
+                        it.getString(Tasks.SYNC1),
                         it.getLong("version").toString()))
             }
         }
