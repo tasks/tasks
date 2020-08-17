@@ -16,7 +16,6 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.view.ActionMode
 import androidx.drawerlayout.widget.DrawerLayout.SimpleDrawerListener
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.activity.TaskEditFragment.Companion.newTaskEditFragment
@@ -243,7 +242,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
             }
             if (isSinglePaneLayout) {
                 if (openTask || tef != null) {
-                    openTask(null)
+                    openTask(filter)
                 } else {
                     openTaskListFragment(filter, false)
                 }
@@ -273,11 +272,13 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
             supportFragmentManager
                     .beginTransaction()
                     .replace(R.id.detail, newEmptyTaskEditFragment(it))
+                    .runOnCommit {
+                        if (isSinglePaneLayout) {
+                            binding.master.visibility = View.VISIBLE
+                            binding.detail.visibility = View.GONE
+                        }
+                    }
                     .commitNow()
-        }
-        if (isSinglePaneLayout) {
-            binding.master.visibility = View.VISIBLE
-            binding.detail.visibility = View.GONE
         }
     }
 
@@ -363,9 +364,8 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
                 filterColor)
         supportFragmentManager.beginTransaction()
                 .replace(R.id.detail, fragment, TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
-                .addToBackStack(TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
-                .commit()
-        showDetailFragment()
+                .runOnCommit(this::showDetailFragment)
+                .commitNow()
     }
 
     override fun onNavigationIconClicked() {
@@ -412,9 +412,6 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         get() = !resources.getBoolean(R.bool.two_pane_layout)
 
     fun removeTaskEditFragment() {
-        supportFragmentManager.popBackStack(
-                TaskEditFragment.TAG_TASKEDIT_FRAGMENT,
-                FragmentManager.POP_BACK_STACK_INCLUSIVE)
         val removeTask = intent.removeTask
         val finishAffinity = intent.finishAffinity
         if (finishAffinity || taskListFragment == null) {
