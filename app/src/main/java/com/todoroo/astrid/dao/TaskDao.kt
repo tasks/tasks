@@ -69,8 +69,6 @@ class TaskDao @Inject constructor(
 
     suspend fun getChildren(id: Long): List<Long> = taskDao.getChildren(id)
 
-    suspend fun getChildren(ids: List<Long>): List<Long> = taskDao.getChildren(ids)
-
     suspend fun setCollapsed(id: Long, collapsed: Boolean) = taskDao.setCollapsed(id, collapsed)
 
     suspend fun setCollapsed(preferences: Preferences, filter: Filter, collapsed: Boolean) =

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="changelog">
-        <item>🚧 10.0 ALPHA 4 🚧</item>
-        <item>PRO: DAVx⁵ support (alpha requires custom DAVx⁵ build)</item>
+        <item>🚧 10.0 BETA 1 🚧</item>
+        <item>PRO: DAVx⁵ support (beta requires custom DAVx⁵ build)</item>
         <item>PRO: EteSync client support</item>
         <item>ToDo Agenda integration</item>
         <item>Changed backstack behavior to follow Android conventions</item>

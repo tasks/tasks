@@ -1,11 +1,11 @@
 Change Log
 ---
 =======
-### 10.0 (2020-08-14)
+### 10.0 (2020-08-18)
 
-🚧 Currently in alpha ([signup here](https://www.reddit.com/r/tasks/comments/i3onqr/100_alpha/)) 🚧
+🚧 Currently in beta ([signup here](https://www.reddit.com/r/tasks/comments/i3onqr/100_alpha/)) 🚧
 
-* PRO: DAVx⁵ support (alpha requires [custom DAVx⁵ build](https://www.reddit.com/r/tasks/comments/i3onqr/100_alpha/))
+* PRO: DAVx⁵ support (beta requires [custom DAVx⁵ build](https://www.reddit.com/r/tasks/comments/i3onqr/100_alpha/))
 * PRO: EteSync client support
 * [ToDo Agenda](https://play.google.com/store/apps/details?id=org.andstatus.todoagenda) integration
 * Changed backstack behavior to follow Android conventions
@@ -20,6 +20,7 @@ Change Log
   * Bengali - @Oymate
   * Brazilian Portuguese - Pedro Lucas Porcellis
   * Chinese - WH Julie
+  * Chuvash - İlle
   * Czech - @vitSkalicky, Radek Řehořek
   * Dutch - @fvbommel
   * Finnish - J. Lavoie
