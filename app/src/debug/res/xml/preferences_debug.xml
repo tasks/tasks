@@ -31,6 +31,10 @@
     android:title="@string/debug_reset_ssl" />
 
   <Preference
+    android:key="@string/debug_crash_app"
+    android:title="@string/debug_crash_app" />
+
+  <Preference
     android:key="@string/debug_themes"/>
 
   <Preference

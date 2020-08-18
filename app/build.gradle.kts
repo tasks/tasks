@@ -85,11 +85,12 @@ android {
     @Suppress("LocalVariableName")
     buildTypes {
         getByName("debug") {
+            applicationIdSuffix = ".debug"
+            firebaseCrashlytics {
+                mappingFileUploadEnabled = false
+            }
             val tasks_mapbox_key_debug: String? by project
             val tasks_google_key_debug: String? by project
-            ext["enableCrashlytics"] = false
-            ext["alwaysUpdateBuildId"] = false
-            applicationIdSuffix = ".debug"
             resValue("string", "mapbox_key", tasks_mapbox_key_debug ?: "")
             resValue("string", "google_key", tasks_google_key_debug ?: "")
             isTestCoverageEnabled = project.hasProperty("coverage")
@@ -207,12 +208,16 @@ dependencies {
     // https://github.com/mapbox/mapbox-gl-native-android/issues/316
     genericImplementation("com.mapbox.mapboxsdk:mapbox-android-sdk:7.4.1")
 
-    googleplayImplementation("com.crashlytics.sdk.android:crashlytics:${Versions.crashlytics}")
+    googleplayImplementation("com.google.firebase:firebase-crashlytics:${Versions.crashlytics}")
     googleplayImplementation("com.google.firebase:firebase-analytics:${Versions.analytics}")
     googleplayImplementation("com.google.firebase:firebase-config-ktx:${Versions.remote_config}")
     googleplayImplementation("com.google.android.gms:play-services-location:17.0.0")
     googleplayImplementation("com.google.android.gms:play-services-maps:17.0.0")
+    // Remove transport-runtime and transport-backend-cct after places update
     googleplayImplementation("com.google.android.libraries.places:places:2.3.0")
+    // https://issuetracker.google.com/issues/161157921#comment6
+    googleplayImplementation("com.google.android.datatransport:transport-runtime:2.2.3")
+    googleplayImplementation("com.google.android.datatransport:transport-backend-cct:2.3.0")
     googleplayImplementation("com.android.billingclient:billing:1.2.2")
 
     androidTestImplementation("com.google.dagger:hilt-android-testing:${Versions.hilt}")
