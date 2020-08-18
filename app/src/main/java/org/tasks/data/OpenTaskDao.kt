@@ -28,10 +28,7 @@ class OpenTaskDao @Inject constructor(
     private val tasks = Tasks.getContentUri(authority)
     private val properties = Properties.getContentUri(authority)
 
-    suspend fun newAccounts(): List<String> =
-            getListsByAccount()
-                    .newAccounts(caldavDao)
-                    .map { it.key }
+    suspend fun newAccounts(): List<String> = getListsByAccount().newAccounts(caldavDao)
 
     suspend fun getListsByAccount(): Map<String, List<CaldavCalendar>> =
             getLists().groupBy { it.account!! }
@@ -248,6 +245,8 @@ class OpenTaskDao @Inject constructor(
 
         suspend fun Map<String, List<CaldavCalendar>>.newAccounts(caldavDao: CaldavDao) =
                 filterNot { (_, lists) -> caldavDao.anyExist(lists.map { it.url!! }) }
+                        .map { it.key }
+                        .distinct()
 
         fun Cursor.getString(columnName: String): String? =
                 getString(getColumnIndex(columnName))

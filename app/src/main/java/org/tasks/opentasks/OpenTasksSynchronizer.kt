@@ -58,13 +58,15 @@ class OpenTasksSynchronizer @Inject constructor(
 
     suspend fun sync() {
         val lists = openTaskDao.getListsByAccount()
-        lists.newAccounts(caldavDao).forEach { (account, _) ->
-            caldavDao.insert(CaldavAccount().apply {
-                name = account.split(":")[1]
-                uuid = account
-                accountType = CaldavAccount.TYPE_OPENTASKS
-            })
-        }
+        lists.newAccounts(caldavDao)
+                .filter { caldavDao.getAccountByUuid(it) == null }
+                .forEach {
+                    caldavDao.insert(CaldavAccount().apply {
+                        name = it.split(":")[1]
+                        uuid = it
+                        accountType = CaldavAccount.TYPE_OPENTASKS
+                    })
+                }
         caldavDao.getAccounts(CaldavAccount.TYPE_OPENTASKS).forEach { account ->
             if (!lists.containsKey(account.uuid)) {
                 setError(account, context.getString(R.string.account_not_found))
