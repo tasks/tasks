@@ -154,10 +154,6 @@ SELECT EXISTS(SELECT 1 FROM tasks WHERE parent > 0 AND deleted = 0) AS hasSubtas
     @Query("UPDATE tasks SET lastNotified = :timestamp WHERE _id = :id AND lastNotified != :timestamp")
     abstract suspend fun setLastNotified(id: Long, timestamp: Long): Int
 
-    open suspend fun fetchChildren(id: Long): List<Task> {
-        return fetch(getChildren(id))
-    }
-
     suspend fun getChildren(id: Long): List<Long> {
         return getChildren(listOf(id))
     }

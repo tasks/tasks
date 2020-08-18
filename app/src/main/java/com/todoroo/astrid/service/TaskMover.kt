@@ -156,10 +156,11 @@ class TaskMover @Inject constructor(
                 val listId = selected.uuid
                 val tasks: MutableMap<Long, CaldavTask> = HashMap()
                 val root = CaldavTask(id, listId)
-                for (child in taskDao.fetchChildren(task.id)) {
+                val children = taskDao.getChildren(id).mapNotNull { taskDao.fetch(it) }
+                for (child in children) {
                     val newTask = CaldavTask(child.id, listId)
                     val parent = child.parent
-                    newTask.remoteParent = (if (parent == id) root else tasks[parent])?.remoteId
+                    newTask.remoteParent = (if (parent == id) root else tasks[parent])!!.remoteId
                     tasks[child.id] = newTask
                 }
                 caldavDao.insert(task, root, preferences.addTasksToTop())
