@@ -158,11 +158,10 @@ class GoogleTaskSynchronizer @Inject constructor(
         var nextPageToken: String? = null
         do {
             val taskList = gtasksInvoker.getAllPositions(listId, nextPageToken)
-            val items = taskList.items
-            if (items != null) {
-                tasks.addAll(items)
+            taskList?.items?.let {
+                tasks.addAll(it)
             }
-            nextPageToken = taskList.nextPageToken
+            nextPageToken = taskList?.nextPageToken
         } while (!isNullOrEmpty(nextPageToken))
         return tasks
     }

@@ -94,7 +94,7 @@ class GtasksInvoker {
 
     @Throws(IOException::class)
     suspend fun getAllPositions(
-            listId: String?, pageToken: String?): com.google.api.services.tasks.model.Tasks =
+            listId: String?, pageToken: String?): com.google.api.services.tasks.model.Tasks? =
             execute(
                 service!!
                         .tasks()
@@ -103,7 +103,7 @@ class GtasksInvoker {
                         .setShowDeleted(false)
                         .setShowHidden(false)
                         .setPageToken(pageToken)
-                        .setFields("items(id,parent,position),nextPageToken"))!!
+                        .setFields("items(id,parent,position),nextPageToken"))
 
     @Throws(IOException::class)
     suspend fun createGtask(
