@@ -10,7 +10,7 @@ object Versions {
     const val analytics = "17.5.0"
     const val remote_config = "19.2.0"
     const val okhttp = "4.7.2"
-    const val flipper = "0.53.0"
+    const val flipper = "0.52.1"
     const val mockito = "3.3.3"
     const val androidx_test = "1.2.0"
     const val make_it_easy = "4.0.1"

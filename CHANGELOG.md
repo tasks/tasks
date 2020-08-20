@@ -1,7 +1,7 @@
 Change Log
 ---
 =======
-### 10.0 (2020-08-18)
+### 10.0 (2020-08-20)
 
 🚧 Currently in beta ([signup here](https://www.reddit.com/r/tasks/comments/i3onqr/100_alpha/)) 🚧
 
@@ -18,7 +18,7 @@ Change Log
 * Update translations
   * Basque - @osoitz
   * Bengali - @Oymate
-  * Brazilian Portuguese - Pedro Lucas Porcellis
+  * Brazilian Portuguese - Pedro Lucas Porcellis, @aevw
   * Chinese - WH Julie
   * Chuvash - İlle
   * Czech - @vitSkalicky, Radek Řehořek
@@ -36,6 +36,7 @@ Change Log
   * Russian - Nikita Epifanov
   * Simplified Chinese - @sr093906, @cccClyde
   * Spanish - @FlorianLeChat
+  * Swedish - @bittin
   * Tamil - @balogic, @Thiya-velu
   * Turkish - @emintufan, Oğuz Ersen
 
