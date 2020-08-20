@@ -72,8 +72,8 @@ internal class ScrollableViewsFactory(
         return tasks.size
     }
 
-    override fun getViewAt(position: Int): RemoteViews {
-        return buildUpdate(position)!!
+    override fun getViewAt(position: Int): RemoteViews? {
+        return buildUpdate(position)
     }
 
     override fun getLoadingView(): RemoteViews {
