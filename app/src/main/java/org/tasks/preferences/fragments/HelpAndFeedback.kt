@@ -60,12 +60,6 @@ class HelpAndFeedback : InjectingPreferenceFragment() {
                 true
             }
 
-        if (inventory.hasPro()) {
-            val findPreference = findPreference(R.string.upgrade_to_pro)
-            findPreference.title = getString(R.string.manage_subscription)
-            findPreference.summary = getString(R.string.manage_subscription_summary)
-        }
-
         @Suppress("ConstantConditionIf")
         if (BuildConfig.FLAVOR == "generic") {
             remove(
@@ -74,6 +68,16 @@ class HelpAndFeedback : InjectingPreferenceFragment() {
                 R.string.upgrade_to_pro,
                 R.string.refresh_purchases
             )
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val findPreference = findPreference(R.string.upgrade_to_pro)
+        if (inventory.hasPro()) {
+            findPreference.title = getString(R.string.manage_subscription)
+            findPreference.summary = getString(R.string.manage_subscription_summary)
         }
     }
 
