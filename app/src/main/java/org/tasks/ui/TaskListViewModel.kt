@@ -28,14 +28,13 @@ class TaskListViewModel @ViewModelInject constructor(
     private var internal: LiveData<PagedList<TaskContainer>>? = null
 
     fun setFilter(filter: Filter) {
-        if (filter != this.filter
-                || filter.getSqlQuery() != this.filter!!.getSqlQuery()) {
+        manualSortFilter = (filter.supportsManualSort() && preferences.isManualSort
+                || filter.supportsAstridSorting() && preferences.isAstridSort)
+        if (filter != this.filter || filter.getSqlQuery() != this.filter!!.getSqlQuery()) {
             this.filter = filter
             tasks = MutableLiveData()
             invalidate()
         }
-        manualSortFilter = (filter.supportsManualSort() && preferences.isManualSort
-                || filter.supportsAstridSorting() && preferences.isAstridSort)
     }
 
     fun observe(owner: LifecycleOwner, observer: (List<TaskContainer>) -> Unit) =
