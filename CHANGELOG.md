@@ -1,7 +1,7 @@
 Change Log
 ---
 =======
-### 10.0 (2020-08-20)
+### 10.0 (2020-08-21)
 
 🚧 Currently in beta ([signup here](https://www.reddit.com/r/tasks/comments/i3onqr/100_alpha/)) 🚧
 
