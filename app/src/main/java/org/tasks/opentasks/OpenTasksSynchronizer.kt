@@ -19,6 +19,7 @@ import net.fortuna.ical4j.model.property.RRule
 import org.dmfs.tasks.contract.TaskContract.Tasks
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
+import org.tasks.analytics.Constants
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.caldav.CaldavConverter
@@ -60,12 +61,23 @@ class OpenTasksSynchronizer @Inject constructor(
         val lists = openTaskDao.getListsByAccount()
         lists.newAccounts(caldavDao)
                 .filter { caldavDao.getAccountByUuid(it) == null }
-                .forEach {
-                    caldavDao.insert(CaldavAccount().apply {
+                .map {
+                    CaldavAccount().apply {
                         name = it.split(":")[1]
                         uuid = it
                         accountType = CaldavAccount.TYPE_OPENTASKS
-                    })
+                    }
+                }
+                .onEach { caldavDao.insert(it) }
+                .forEach {
+                    firebase.logEvent(
+                            R.string.event_sync_add_account,
+                            R.string.param_type to if (it.isOpenTaskEteSync) {
+                                Constants.SYNC_TYPE_ETESYNC_OT
+                            } else {
+                                Constants.SYNC_TYPE_DAVX5
+                            }
+                    )
                 }
         caldavDao.getAccounts(CaldavAccount.TYPE_OPENTASKS).forEach { account ->
             if (!lists.containsKey(account.uuid)) {

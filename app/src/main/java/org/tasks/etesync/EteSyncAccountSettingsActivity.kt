@@ -19,6 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
+import org.tasks.analytics.Constants
 import org.tasks.caldav.BaseCaldavAccountSettingsActivity
 import org.tasks.data.CaldavAccount
 import timber.log.Timber
@@ -160,6 +161,10 @@ class EteSyncAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
     private suspend fun saveAccountAndFinish() {
         if (caldavAccount!!.id == Task.NO_ID) {
             caldavDao.insert(caldavAccount!!)
+            firebase.logEvent(
+                    R.string.event_sync_add_account,
+                    R.string.param_type to Constants.SYNC_TYPE_ETESYNC
+            )
         } else {
             caldavDao.update(caldavAccount!!)
         }

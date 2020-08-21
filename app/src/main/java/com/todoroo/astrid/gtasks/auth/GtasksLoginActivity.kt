@@ -18,6 +18,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.tasks.PermissionUtil.verifyPermissions
 import org.tasks.R
+import org.tasks.analytics.Constants
+import org.tasks.analytics.Firebase
 import org.tasks.data.GoogleTaskAccount
 import org.tasks.data.GoogleTaskListDao
 import org.tasks.dialogs.DialogBuilder
@@ -40,6 +42,7 @@ class GtasksLoginActivity : InjectingAppCompatActivity() {
     @Inject lateinit var googleAccountManager: GoogleAccountManager
     @Inject lateinit var googleTaskListDao: GoogleTaskListDao
     @Inject lateinit var permissionRequestor: ActivityPermissionRequestor
+    @Inject lateinit var firebase: Firebase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,6 +76,10 @@ class GtasksLoginActivity : InjectingAppCompatActivity() {
                                     account = GoogleTaskAccount()
                                     account.account = accountName
                                     googleTaskListDao.insert(account)
+                                    firebase.logEvent(
+                                            R.string.event_sync_add_account,
+                                            R.string.param_type to Constants.SYNC_TYPE_GOOGLE_TASKS
+                                    )
                                 } else {
                                     account.error = ""
                                     googleTaskListDao.update(account)

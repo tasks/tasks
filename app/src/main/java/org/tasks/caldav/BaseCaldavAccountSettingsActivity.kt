@@ -24,6 +24,7 @@ import com.todoroo.astrid.service.TaskDeleter
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
+import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
 import org.tasks.data.CaldavAccount
@@ -46,6 +47,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var taskDeleter: TaskDeleter
     @Inject lateinit var inventory: Inventory
+    @Inject lateinit var firebase: Firebase
 
     protected var caldavAccount: CaldavAccount? = null
     protected lateinit var binding: ActivityCaldavAccountSettingsBinding

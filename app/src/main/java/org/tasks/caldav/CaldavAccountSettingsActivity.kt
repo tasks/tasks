@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar
 import com.todoroo.astrid.helper.UUIDHelper
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
+import org.tasks.analytics.Constants
 import org.tasks.data.CaldavAccount
 import timber.log.Timber
 
@@ -34,6 +35,10 @@ class CaldavAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolb
         newAccount.password = encryption.encrypt(newPassword!!)
         newAccount.uuid = UUIDHelper.newUUID()
         newAccount.id = caldavDao.insert(newAccount)
+        firebase.logEvent(
+                R.string.event_sync_add_account,
+                R.string.param_type to Constants.SYNC_TYPE_CALDAV
+        )
         setResult(Activity.RESULT_OK)
         finish()
     }
