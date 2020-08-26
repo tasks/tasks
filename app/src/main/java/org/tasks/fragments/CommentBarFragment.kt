@@ -16,7 +16,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import butterknife.*
 import com.todoroo.andlib.utility.AndroidUtilities
-import com.todoroo.astrid.data.Task
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
@@ -62,6 +61,7 @@ class CommentBarFragment : TaskEditControlFragment() {
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(layout, container, false)
         ButterKnife.bind(this, view)
+        createView(savedInstanceState)
         return view
     }
 
