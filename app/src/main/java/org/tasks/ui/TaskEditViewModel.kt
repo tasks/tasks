@@ -23,6 +23,7 @@ import com.todoroo.astrid.service.TaskCompleter
 import com.todoroo.astrid.service.TaskDeleter
 import com.todoroo.astrid.service.TaskMover
 import com.todoroo.astrid.timers.TimerPlugin
+import com.todoroo.astrid.ui.HideUntilControlSet
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.ImmutableSet
@@ -96,11 +97,6 @@ class TaskEditViewModel @ViewModelInject constructor(
                 hasDueTime(value) -> createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, value)
                 else -> createDueDate(Task.URGENCY_SPECIFIC_DAY, value)
             }
-            if (oldDueDate > 0) {
-                if (hideUntil!! > 0) {
-                    hideUntil = if (field!! > 0) hideUntil!! + field!! - oldDueDate else 0
-                }
-            }
         }
 
     var priority: Int? = null
@@ -109,8 +105,10 @@ class TaskEditViewModel @ViewModelInject constructor(
     var description: String? = null
         get() = field ?: task?.notes.stripCarriageReturns()
 
-    var hideUntil: Long? = null
-        get() = field ?: task?.hideUntil ?: 0
+    val hideUntil: Long
+        get() = task?.hideUntil ?: 0
+
+    var hideUntilValue: HideUntilControlSet.HideUntilValue? = null
 
     var recurrence: String? = null
         get() = field ?: task?.recurrence
@@ -257,7 +255,7 @@ class TaskEditViewModel @ViewModelInject constructor(
                 it.dueDate != dueDate ||
                 it.priority != priority ||
                 it.notes != description ||
-                it.hideUntil != hideUntil ||
+                it.hideUntil != it.createHideUntil(hideUntilValue!!) ||
                 if (it.recurrence.isNullOrBlank()) {
                     !recurrence.isNullOrBlank()
                 } else {
@@ -294,7 +292,7 @@ class TaskEditViewModel @ViewModelInject constructor(
         it.dueDate = dueDate!!
         it.priority = priority!!
         it.notes = description
-        it.hideUntil = hideUntil!!
+        it.hideUntil = it.createHideUntil(hideUntilValue!!)
         it.recurrence = recurrence
         it.repeatUntil = repeatUntil!!
         it.elapsedSeconds = elapsedSeconds!!

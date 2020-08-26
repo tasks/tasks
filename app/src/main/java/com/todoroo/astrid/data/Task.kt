@@ -10,7 +10,7 @@ import com.google.ical.values.RRule
 import com.todoroo.andlib.data.Table
 import com.todoroo.andlib.sql.Field
 import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.ui.HideUntilControlSet
 import org.tasks.Strings
 import org.tasks.backup.XmlReader
 import org.tasks.data.Tag
@@ -195,6 +195,9 @@ class Task : Parcelable {
 
     /** Checks whether task is done. Requires DUE_DATE  */
     fun hasDueDate() = dueDate > 0
+
+    fun createHideUntil(value: HideUntilControlSet.HideUntilValue) =
+            createHideUntil(value.setting, value.date)
 
     /**
      * Create hide until for this task.

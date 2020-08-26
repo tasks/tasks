@@ -23,7 +23,6 @@ import org.tasks.date.DateTimeUtils
 import org.tasks.dialogs.MyTimePickerDialog
 import org.tasks.locale.Locale
 import org.tasks.preferences.Preferences
-import org.tasks.themes.ThemeBase
 import org.tasks.ui.HiddenTopArrayAdapter
 import org.tasks.ui.TaskEditControlFragment
 import java.util.*
@@ -39,7 +38,6 @@ class HideUntilControlSet : TaskEditControlFragment(), OnItemSelectedListener {
     private val spinnerItems: MutableList<HideUntilValue> = ArrayList()
 
     @Inject lateinit var activity: Activity
-    @Inject lateinit var themeBase: ThemeBase
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var locale: Locale
 
@@ -52,8 +50,7 @@ class HideUntilControlSet : TaskEditControlFragment(), OnItemSelectedListener {
     private lateinit var adapter: ArrayAdapter<HideUntilValue>
     private var previousSetting = Task.HIDE_UNTIL_NONE
     private var selection = 0
-    private var existingDate = EXISTING_TIME_UNSET.toLong()
-    private var selectedValue: HideUntilValue? = null
+    private var existingDate = EXISTING_TIME_UNSET
 
     @OnClick(R.id.clear)
     fun clearHideUntil() {
@@ -183,7 +180,7 @@ class HideUntilControlSet : TaskEditControlFragment(), OnItemSelectedListener {
         } else {
             spinnerItems.add(
                     0, HideUntilValue(getString(R.string.TEA_hideUntil_label), Task.HIDE_UNTIL_NONE))
-            EXISTING_TIME_UNSET.toLong()
+            EXISTING_TIME_UNSET
         }
         adapter.notifyDataSetChanged()
     }
@@ -208,7 +205,7 @@ class HideUntilControlSet : TaskEditControlFragment(), OnItemSelectedListener {
         // ... at conclusion of dialog, update our list
         val item = adapter.getItem(position)
         if (item!!.date == SPECIFIC_DATE.toLong()) {
-            val customDate = DateTimeUtils.newDateTime(if (existingDate == EXISTING_TIME_UNSET.toLong()) DateUtilities.now() else existingDate)
+            val customDate = DateTimeUtils.newDateTime(if (existingDate == EXISTING_TIME_UNSET) DateUtilities.now() else existingDate)
                     .withSecondOfMinute(0)
             val intent = Intent(activity, DateAndTimePickerActivity::class.java)
             intent.putExtra(DateAndTimePickerActivity.EXTRA_TIMESTAMP, customDate.millis)
@@ -233,21 +230,21 @@ class HideUntilControlSet : TaskEditControlFragment(), OnItemSelectedListener {
     }
 
     private fun refreshDisplayView() {
-        selectedValue = adapter.getItem(selection)
-        viewModel.hideUntil = viewModel.task
-                ?.createHideUntil(selectedValue!!.setting, selectedValue!!.date)
-        clearButton.visibility = if (selectedValue!!.setting == Task.HIDE_UNTIL_NONE) View.GONE else View.VISIBLE
+        viewModel.hideUntilValue = adapter.getItem(selection)
+        clearButton.visibility = if (viewModel.hideUntilValue!!.setting == Task.HIDE_UNTIL_NONE) View.GONE else View.VISIBLE
     }
 
-    private class HideUntilValue @JvmOverloads internal constructor(val labelSpinner: String, val labelDisplay: String, val setting: Int, val date: Long = 0) {
-
+    class HideUntilValue internal constructor(
+            private val labelSpinner: String,
+            val labelDisplay: String,
+            val setting: Int,
+            val date: Long = 0
+    ) {
         internal constructor(label: String, setting: Int) : this(label, label, setting, 0)
 
         internal constructor(label: String, setting: Int, date: Long) : this(label, label, setting, date)
 
-        override fun toString(): String {
-            return labelSpinner
-        }
+        override fun toString() = labelSpinner
     }
 
     companion object {
@@ -255,7 +252,7 @@ class HideUntilControlSet : TaskEditControlFragment(), OnItemSelectedListener {
         private const val EXTRA_CUSTOM = "extra_custom"
         private const val EXTRA_SELECTION = "extra_selection"
         private const val SPECIFIC_DATE = -1
-        private const val EXISTING_TIME_UNSET = -2
+        private const val EXISTING_TIME_UNSET = -2L
         private const val REQUEST_HIDE_UNTIL = 11011
     }
 }
