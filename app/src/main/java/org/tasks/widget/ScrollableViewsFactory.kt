@@ -181,7 +181,7 @@ internal class ScrollableViewsFactory(
                                         R.plurals.subtask_count, taskContainer.children, taskContainer.children))
                 row.setImageViewResource(
                         R.id.subtask_icon,
-                        if (taskContainer.isCollapsed) R.drawable.ic_keyboard_arrow_up_black_18dp else R.drawable.ic_keyboard_arrow_down_black_18dp)
+                        if (taskContainer.isCollapsed) R.drawable.ic_keyboard_arrow_down_black_18dp else R.drawable.ic_keyboard_arrow_up_black_18dp)
                 row.setViewVisibility(R.id.subtask_button, View.VISIBLE)
             } else {
                 row.setViewVisibility(R.id.subtask_button, View.GONE)

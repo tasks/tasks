@@ -31,7 +31,7 @@ class HeaderViewHolder(
         } else {
             this.header.visibility = View.VISIBLE
             this.header.text = header
-            this.header.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, if (section.collapsed) R.drawable.ic_keyboard_arrow_up_black_18dp else R.drawable.ic_keyboard_arrow_down_black_18dp, 0)
+            this.header.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, if (section.collapsed) R.drawable.ic_keyboard_arrow_down_black_18dp else R.drawable.ic_keyboard_arrow_up_black_18dp, 0)
             this.header.setTextColor(
                     context.getColor(
                             if (sortMode == SortHelper.SORT_DUE && sortGroup > 0 && newDateTime(sortGroup).plusDays(1).startOfDay().isBeforeNow) R.color.overdue else R.color.text_secondary))

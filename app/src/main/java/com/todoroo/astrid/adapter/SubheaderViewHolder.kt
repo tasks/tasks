@@ -58,7 +58,7 @@ internal class SubheaderViewHolder(
         DrawableUtil.setRightDrawable(
                 itemView.context,
                 text,
-                if (subheader.isCollapsed) R.drawable.ic_keyboard_arrow_up_black_18dp else R.drawable.ic_keyboard_arrow_down_black_18dp)
+                if (subheader.isCollapsed) R.drawable.ic_keyboard_arrow_down_black_18dp else R.drawable.ic_keyboard_arrow_up_black_18dp)
     }
 
     init {

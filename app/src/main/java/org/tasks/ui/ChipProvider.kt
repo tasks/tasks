@@ -50,7 +50,7 @@ class ChipProvider @Inject constructor(
         val chip = newChip(task)
         apply(
                 chip,
-                if (task.isCollapsed) R.drawable.ic_keyboard_arrow_up_black_24dp else R.drawable.ic_keyboard_arrow_down_black_24dp,
+                if (task.isCollapsed) R.drawable.ic_keyboard_arrow_down_black_24dp else R.drawable.ic_keyboard_arrow_up_black_24dp,
                 if (compact) locale.formatNumber(task.children) else activity
                         .resources
                         .getQuantityString(R.plurals.subtask_count, task.children, task.children),
