@@ -9,7 +9,6 @@ import android.app.Activity
 import android.graphics.Color
 import android.net.Uri
 import android.text.Html
-import android.text.util.Linkify
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -23,6 +22,7 @@ import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.data.UserActivity
 import org.tasks.data.UserActivityDao
+import org.tasks.dialogs.Linkify
 import org.tasks.files.FileHelper
 import org.tasks.files.ImageHelper
 import org.tasks.locale.Locale
@@ -35,7 +35,8 @@ class CommentsController @Inject constructor(
         private val userActivityDao: UserActivityDao,
         private val activity: Activity,
         private val preferences: Preferences,
-        private val locale: Locale) {
+        private val locale: Locale,
+        private val linkify: Linkify) {
 
     private val items = ArrayList<UserActivity>()
     private var commentItems = 10
@@ -84,7 +85,7 @@ class CommentsController @Inject constructor(
         // name
         val nameView = view.findViewById<TextView>(R.id.title)
         nameView.text = Html.fromHtml(item.message)
-        Linkify.addLinks(nameView, Linkify.ALL)
+        linkify.safeLinkify(nameView, android.text.util.Linkify.ALL)
 
         // date
         val date = view.findViewById<TextView>(R.id.date)

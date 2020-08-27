@@ -6,7 +6,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
-import android.text.util.Linkify
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -31,6 +30,7 @@ import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavDao
 import org.tasks.databinding.ActivityCaldavAccountSettingsBinding
 import org.tasks.dialogs.DialogBuilder
+import org.tasks.dialogs.Linkify
 import org.tasks.injection.ThemedInjectingAppCompatActivity
 import org.tasks.security.KeyStoreEncryption
 import org.tasks.ui.DisplayableException
@@ -48,6 +48,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
     @Inject lateinit var taskDeleter: TaskDeleter
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var firebase: Firebase
+    @Inject lateinit var linkify: Linkify
 
     protected var caldavAccount: CaldavAccount? = null
     protected lateinit var binding: ActivityCaldavAccountSettingsBinding
@@ -62,7 +63,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
             binding.nameLayout.visibility = View.GONE
             binding.description.visibility = View.VISIBLE
             binding.description.setText(description)
-            Linkify.addLinks(binding.description, Linkify.WEB_URLS)
+            linkify.safeLinkify(binding.description, android.text.util.Linkify.WEB_URLS)
         } else {
             binding.nameLayout.visibility = View.VISIBLE
             binding.description.visibility = View.GONE

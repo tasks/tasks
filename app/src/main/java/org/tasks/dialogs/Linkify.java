@@ -12,11 +12,13 @@ import android.text.SpannableStringBuilder;
 import android.text.style.URLSpan;
 import android.view.View;
 import android.widget.TextView;
+import androidx.core.text.util.LinkifyCompat;
 import dagger.hilt.android.qualifiers.ActivityContext;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import javax.inject.Inject;
 import org.tasks.R;
+import timber.log.Timber;
 
 public class Linkify {
 
@@ -29,6 +31,14 @@ public class Linkify {
     this.dialogBuilder = dialogBuilder;
   }
 
+  public void safeLinkify(TextView textView, int mask) {
+    try {
+      LinkifyCompat.addLinks(textView, mask);
+    } catch (UnsatisfiedLinkError e) {
+      Timber.e(e);
+    }
+  }
+
   public void linkify(TextView textView) {
     linkify(textView, () -> {});
   }
@@ -38,7 +48,7 @@ public class Linkify {
       return;
     }
 
-    android.text.util.Linkify.addLinks(textView, android.text.util.Linkify.ALL);
+    safeLinkify(textView, android.text.util.Linkify.ALL);
 
     textView.setOnClickListener(
         v -> {
