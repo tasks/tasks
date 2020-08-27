@@ -293,6 +293,9 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
 
     private fun openTaskListFragment(taskListFragment: TaskListFragment, force: Boolean) {
         AndroidUtilities.assertMainThread()
+        if (supportFragmentManager.isDestroyed) {
+            return
+        }
         val newFilter = taskListFragment.getFilter()
         if (filter != null
                 && !force
