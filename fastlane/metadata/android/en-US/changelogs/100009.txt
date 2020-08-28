@@ -1,0 +1,8 @@
+* PRO: DAVx⁵ support (visit https://tasks.org/davx5 for more info)
+* PRO: EteSync client support
+* ToDo Agenda integration
+* Changed backstack behavior to follow Android conventions
+* Major internal changes! Please report any bugs!
+* Remove Mapbox tiles (Google Play only)
+* Added 'Astrid manual sort' information to backup file
+* Bug fixes, performance and security improvements, and translation updates
