@@ -291,6 +291,7 @@
     <string name="quiet_hours">Ruhezeit</string>
     <string name="attachment_directory">Ordner für Anhänge</string>
     <string name="backup_directory">Sicherungsordner</string>
+    <string name="backup_directory_warning">WICHTIG: Damit die Sicherung eine Deinstallation der App überlebt, müssen Sie entweder den Sicherungsordner von der Standardeinstellung (privater Ordner der App) auf einen anderen Ordner setzen, oder die erstellte Sicherungsdatei nach außerhalb des Ordners kopieren.</string>
     <string name="google_drive_backup">Nach Google Drive kopieren</string>
     <string name="miscellaneous">Verschiedenes</string>
     <string name="synchronization">Synchronisierung</string>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
   <Preference
     android:key="@string/p_backup_dir"
@@ -15,6 +16,7 @@
 
   <Preference
     android:key="@string/backup_BAc_export"
-    android:title="@string/backup_BAc_export" />
+    android:title="@string/backup_BAc_export"
+    android:summary="@string/backup_directory_warning" />
 
 </PreferenceScreen>
