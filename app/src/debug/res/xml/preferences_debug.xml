@@ -35,6 +35,10 @@
     android:title="@string/debug_crash_app" />
 
   <Preference
+    android:key="@string/debug_force_restart"
+    android:title="@string/debug_force_restart" />
+
+  <Preference
     android:key="@string/debug_themes"/>
 
   <Preference

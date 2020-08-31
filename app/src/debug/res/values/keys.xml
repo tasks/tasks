@@ -16,4 +16,5 @@
   <string name="debug_reset_ssl">Reset SSL certificates</string>
   <string name="debug_crash_app">Crash app now</string>
   <string name="debug_main_queries">Crash on violation</string>
+  <string name="debug_force_restart">Restart app</string>
 </resources>

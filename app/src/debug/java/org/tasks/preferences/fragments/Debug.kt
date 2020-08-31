@@ -42,6 +42,11 @@ class Debug : InjectingPreferenceFragment() {
             false
         }
 
+        findPreference(R.string.debug_force_restart).setOnPreferenceClickListener {
+            restart()
+            false
+        }
+
         setupIap(R.string.debug_themes, Inventory.SKU_THEMES)
         setupIap(R.string.debug_tasker, Inventory.SKU_TASKER)
 
