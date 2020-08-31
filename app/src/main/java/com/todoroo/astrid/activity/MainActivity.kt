@@ -278,7 +278,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
                             binding.detail.visibility = View.GONE
                         }
                     }
-                    .commitNow()
+                    .commit()
         }
     }
 
@@ -310,7 +310,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.master, taskListFragment, FRAG_TAG_TASK_LIST)
-                .commitNow()
+                .commitNowAllowingStateLoss()
     }
 
     private fun applyTheme() {
