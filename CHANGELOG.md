@@ -1,7 +1,7 @@
 Change Log
 ---
 =======
-### 10.0 (2020-08-28)
+### 10.0 (2020-08-31)
 
 * PRO: DAVx⁵ support (currently requires [custom DAVx⁵ build](https://tasks.org/davx5))
 * PRO: EteSync client support

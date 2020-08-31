@@ -1,4 +1,3 @@
-* PRO: DAVx⁵ support (visit https://tasks.org/davx5 for more info)
 * PRO: EteSync client support
 * ToDo Agenda integration
 * Changed backstack behavior to follow Android conventions
