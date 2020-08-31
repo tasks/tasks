@@ -90,7 +90,6 @@ class TaskEditViewModel @ViewModelInject constructor(
     var dueDate: Long? = null
         get() = field ?: task?.dueDate ?: 0
         set(value) {
-            val oldDueDate = dueDate!!
             field = when {
                 value == null -> null
                 value == 0L -> 0
@@ -255,7 +254,7 @@ class TaskEditViewModel @ViewModelInject constructor(
                 it.dueDate != dueDate ||
                 it.priority != priority ||
                 it.notes != description ||
-                it.hideUntil != it.createHideUntil(hideUntilValue!!) ||
+                it.hideUntil != it.createHideUntil(hideUntilValue) ||
                 if (it.recurrence.isNullOrBlank()) {
                     !recurrence.isNullOrBlank()
                 } else {
@@ -292,7 +291,7 @@ class TaskEditViewModel @ViewModelInject constructor(
         it.dueDate = dueDate!!
         it.priority = priority!!
         it.notes = description
-        it.hideUntil = it.createHideUntil(hideUntilValue!!)
+        it.hideUntil = it.createHideUntil(hideUntilValue)
         it.recurrence = recurrence
         it.repeatUntil = repeatUntil!!
         it.elapsedSeconds = elapsedSeconds!!

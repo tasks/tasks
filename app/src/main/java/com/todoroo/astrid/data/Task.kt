@@ -196,8 +196,8 @@ class Task : Parcelable {
     /** Checks whether task is done. Requires DUE_DATE  */
     fun hasDueDate() = dueDate > 0
 
-    fun createHideUntil(value: HideUntilControlSet.HideUntilValue) =
-            createHideUntil(value.setting, value.date)
+    fun createHideUntil(value: HideUntilControlSet.HideUntilValue?) =
+            value?.let { createHideUntil(it.setting, it.date) } ?: 0
 
     /**
      * Create hide until for this task.
