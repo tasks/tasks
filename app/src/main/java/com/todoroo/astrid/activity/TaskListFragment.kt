@@ -68,6 +68,7 @@ import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.SortDialog
 import org.tasks.filters.PlaceFilter
 import org.tasks.intents.TaskIntents
+import org.tasks.locale.Locale
 import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.Device
 import org.tasks.preferences.Preferences
@@ -308,6 +309,9 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         return when (item.itemId) {
             R.id.menu_voice_add -> {
                 val recognition = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+                locale.languageOverride?.let {
+                    recognition.putExtra(RecognizerIntent.EXTRA_LANGUAGE, it)
+                }
                 recognition.putExtra(
                         RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
                 recognition.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1)
@@ -815,7 +819,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                     val task = taskDao.fetch(taskId)
                     try {
                         val dueDateString = DateUtilities.getRelativeDateTime(
-                                context, newDueDate, locale, FormatStyle.LONG, true)
+                                context, newDueDate, locale.locale, FormatStyle.LONG, true)
                         makeSnackbar(R.string.repeat_snackbar, task!!.title, dueDateString)
                                 .setAction(R.string.DLG_undo) {
                                     task.setDueDateAdjustingHideUntil(oldDueDate)
