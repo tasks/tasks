@@ -65,6 +65,10 @@ class ShareLinkActivity : InjectingAppCompatActivity() {
                 editTask(task)
                 finish()
             }
+            Intent.ACTION_VIEW == action -> lifecycleScope.launch {
+                editTask(taskCreator.createWithValues(""))
+                finish()
+            }
             else -> {
                 Timber.e("Unhandled intent: %s", intent)
                 finish()
