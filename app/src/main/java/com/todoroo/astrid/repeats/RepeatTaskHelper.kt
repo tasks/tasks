@@ -57,6 +57,7 @@ class RepeatTaskHelper @Inject constructor(
                 rrule.count = count - 1
                 task.setRecurrence(rrule, repeatAfterCompletion)
             }
+            task.reminderLast = 0L
             task.reminderSnooze = 0L
             task.completionDate = 0L
             task.setDueDateAdjustingHideUntil(newDueDate)
