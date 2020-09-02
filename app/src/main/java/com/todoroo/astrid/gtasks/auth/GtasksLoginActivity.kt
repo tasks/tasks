@@ -92,7 +92,7 @@ class GtasksLoginActivity : InjectingAppCompatActivity() {
                         }
                     }
 
-                    override fun authenticationFailed(message: String) {
+                    override fun authenticationFailed(message: String?) {
                         setResult(Activity.RESULT_CANCELED, Intent().putExtra(EXTRA_ERROR, message))
                         DialogUtilities.dismissDialog(this@GtasksLoginActivity, pd)
                         finish()
