@@ -224,7 +224,6 @@ class NotificationManager @Inject constructor(
                 context.getString(R.string.notifications),
                 QueryTemplate()
                         .join(inner(Notification.TABLE, Task.ID.eq(Notification.TASK))))
-        val `when` = notificationDao.latestTimestamp()
         var maxPriority = 3
         val summaryTitle = context.resources.getQuantityString(R.plurals.task_count, taskCount, taskCount)
         val style = NotificationCompat.InboxStyle().setBigContentTitle(summaryTitle)
@@ -244,7 +243,6 @@ class NotificationManager @Inject constructor(
                 .setContentText(
                         titles.joinToString(context.getString(R.string.list_separator_with_space)))
                 .setShowWhen(true)
-                .setWhen(`when`)
                 .setSmallIcon(R.drawable.ic_done_all_white_24dp)
                 .setStyle(style)
                 .setColor(colorProvider.getPriorityColor(maxPriority, true))
@@ -261,6 +259,7 @@ class NotificationManager @Inject constructor(
                         ticker.joinToString(context.getString(R.string.list_separator_with_space)))
                 .setGroupAlertBehavior(
                         if (notify) NotificationCompat.GROUP_ALERT_SUMMARY else NotificationCompat.GROUP_ALERT_CHILDREN)
+        notificationDao.latestTimestamp()?.let { builder.setWhen(it) }
         val snoozeIntent = SnoozeActivity.newIntent(context, taskIds)
         builder.addAction(
                 R.drawable.ic_snooze_white_24dp,

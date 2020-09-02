@@ -23,5 +23,5 @@ interface NotificationDao {
     suspend fun deleteAll(taskIds: List<Long>)
 
     @Query("SELECT MAX(timestamp) FROM notification")
-    suspend fun latestTimestamp(): Long
+    suspend fun latestTimestamp(): Long?
 }
