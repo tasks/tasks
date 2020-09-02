@@ -376,7 +376,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
             supportFragmentManager.beginTransaction()
                     .replace(R.id.detail, fragment, TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
                     .runOnCommit { showDetailFragment() }
-                    .commitNow()
+                    .commitNowAllowingStateLoss()
 
         }
     }
