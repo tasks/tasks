@@ -104,7 +104,6 @@
     <item name="iconTint">@color/button_accent_text</item>
     <item name="android:gravity">start|center_vertical</item>
     <item name="backgroundTint">@android:color/transparent</item>
-    <item name="android:background">?attr/selectableItemBackground</item>
     <item name="rippleColor">?attr/colorSecondary</item>
   </style>
 
