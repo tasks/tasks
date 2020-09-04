@@ -74,10 +74,12 @@ class HelpAndFeedback : InjectingPreferenceFragment() {
     override fun onResume() {
         super.onResume()
 
-        val findPreference = findPreference(R.string.upgrade_to_pro)
-        if (inventory.hasPro()) {
-            findPreference.title = getString(R.string.manage_subscription)
-            findPreference.summary = getString(R.string.manage_subscription_summary)
+        if (BuildConfig.FLAVOR != "generic") {
+            val findPreference = findPreference(R.string.upgrade_to_pro)
+            if (inventory.hasPro()) {
+                findPreference.title = getString(R.string.manage_subscription)
+                findPreference.summary = getString(R.string.manage_subscription_summary)
+            }
         }
     }
 
