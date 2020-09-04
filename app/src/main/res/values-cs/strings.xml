@@ -588,11 +588,20 @@
     <string name="date_shortcut_tomorrow_evening">Zítra večer</string>
     <string name="CFC_list_name">V seznamu…</string>
     <string name="astrid_sort_order_summary">Zapněte Astrid ruční třídění pro \"Moje úkoly\", \" Dnes\" a štítky. Tento režim třidění bude v budoucnu nahrazen režimem \"Vlastní pořadí\"</string>
-    <string name="astrid_sort_order">Astrid ruční řazení</string>
+    <string name="astrid_sort_order">Astrid ruční třídění</string>
     <string name="manage_lists">Spravovat seznamy</string>
     <string name="CRA_default_list_name">Akční položky: %s</string>
     <string name="open_last_viewed_list">Otevřít poslední prohlížený seznam</string>
     <string name="on_launch">Při spuštění</string>
     <string name="lists">Seznamy</string>
     <string name="add_filter">Přidat filtr</string>
+    <string name="upgrade_blurb_3">Před zahájení používání bezplatné zkušební verze vyberte níže jakoukoli cenu předplatného. Můžete jej kdykoli zrušit.</string>
+    <string name="upgrade_blurb_2">Strávil jsem tisíce hodin prací na Tasks a bezplatně zveřejňuji veškerý zdrojový kód online. Za účelem podpory mé práce některé funkce vyžadují předplatné</string>
+    <string name="upgrade_blurb_1">Ahoj! Jmenuji se Alex. Jsem nezávislý vývojář Tasks</string>
+    <string name="color_wheel">Více barev</string>
+    <string name="invalid_username_or_password">Neplatné uživatelské jméno nebo heslo</string>
+    <string name="davx5_selection_description">Synchronizujte své úkoly pomocí aplikace DAVx⁵</string>
+    <string name="disable_sort_groups">Zakázat třídíci skupiny</string>
+    <string name="improve_performance_summary">Zakáže třídicí skupiny a rozbalitelné podúkoly a tím zlepší výkon aplikace</string>
+    <string name="building_notifications">Vytváření upozornění</string>
 </resources>
