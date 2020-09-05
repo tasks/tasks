@@ -1,6 +1,13 @@
 Change Log
 ---
 =======
+### 10.0.1 (2020-09-05)
+
+* Bug fixes
+* Translation updates
+  * Czech - @vitSkalicky
+  * Danish - @ChMunk
+
 ### 10.0 (2020-08-31)
 
 * PRO: DAVx⁵ support (currently requires [custom DAVx⁵ build](https://tasks.org/davx5))
