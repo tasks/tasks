@@ -22,6 +22,7 @@ import kotlinx.coroutines.withContext
 import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.OkHttpClient
+import okhttp3.internal.tls.OkHostnameVerifier
 import org.tasks.DebugNetworkInterceptor
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
@@ -42,7 +43,6 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.net.ssl.SSLContext
-import javax.net.ssl.TrustManager
 
 class CaldavClient {
     private val encryption: KeyStoreEncryption
@@ -84,9 +84,9 @@ class CaldavClient {
         this.interceptor = interceptor
         val customCertManager = CustomCertManager(context)
         customCertManager.appInForeground = foreground
-        val hostnameVerifier = customCertManager.hostnameVerifier(null)
+        val hostnameVerifier = customCertManager.hostnameVerifier(OkHostnameVerifier)
         val sslContext = SSLContext.getInstance("TLS")
-        sslContext.init(null, arrayOf<TrustManager>(customCertManager), null)
+        sslContext.init(null, arrayOf(customCertManager), null)
         basicDigestAuthHandler = BasicDigestAuthHandler(null, username, password)
         val builder = OkHttpClient()
                 .newBuilder()

@@ -22,6 +22,7 @@ import kotlinx.coroutines.withContext
 import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.OkHttpClient
+import okhttp3.internal.tls.OkHostnameVerifier
 import org.tasks.DebugNetworkInterceptor
 import org.tasks.caldav.MemoryCookieStore
 import org.tasks.data.CaldavAccount
@@ -36,7 +37,6 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.net.ssl.SSLContext
-import javax.net.ssl.TrustManager
 
 class EteSyncClient {
     private val encryption: KeyStoreEncryption
@@ -89,9 +89,9 @@ class EteSyncClient {
         this.foreground = foreground
         val customCertManager = CustomCertManager(context)
         customCertManager.appInForeground = foreground
-        val hostnameVerifier = customCertManager.hostnameVerifier(null)
+        val hostnameVerifier = customCertManager.hostnameVerifier(OkHostnameVerifier)
         val sslContext = SSLContext.getInstance("TLS")
-        sslContext.init(null, arrayOf<TrustManager>(customCertManager), null)
+        sslContext.init(null, arrayOf(customCertManager), null)
         val builder = OkHttpClient()
                 .newBuilder()
                 .addNetworkInterceptor(TokenAuthenticator(null, token))
