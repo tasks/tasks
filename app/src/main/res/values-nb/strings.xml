@@ -634,4 +634,6 @@
     <string name="date_shortcut_tomorrow_night">I morgen på natten</string>
     <string name="astrid_sort_order_summary">Skru på Astrids manuelle sorteringsmodus for \"Mine gjøremål\", \"I dag\", og tagger. Denne sorteringsmodusen erstattes av \"Min rekkefølge\" i en fremtidig oppdatering</string>
     <string name="astrid_sort_order">Astrids manuelle sorteringsmodus</string>
+    <string name="account_not_found">Kontoen ble ikke funnet</string>
+    <string name="davx5_selection_description">Synkroniser dine gjøremål med DAVx⁵-programmet</string>
 </resources>
