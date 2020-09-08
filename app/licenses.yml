@@ -555,12 +555,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: https://www.apache.org/licenses/LICENSE-2.0
   url: https://conscrypt.org/
-- artifact: org.jetbrains.kotlin:kotlin-stdlib-jdk8:+
-  name: org.jetbrains.kotlin:kotlin-stdlib-jdk8
-  copyrightHolder: JetBrains s.r.o.
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: https://kotlinlang.org/
 - artifact: org.jetbrains.kotlinx:kotlinx-coroutines-android:+
   name: kotlinx-coroutines-android
   copyrightHolder: JetBrains s.r.o.

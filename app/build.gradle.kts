@@ -5,7 +5,7 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("com.cookpad.android.plugin.license-tools") version "1.2.2"
-    id("com.github.ben-manes.versions") version "0.28.0"
+    id("com.github.ben-manes.versions") version "0.31.0"
     id("com.vanniktech.android.junit.jacoco") version "0.16.0"
     id("dagger.hilt.android.plugin")
 }
@@ -142,10 +142,10 @@ val genericImplementation by configurations
 val googleplayImplementation by configurations
 
 dependencies {
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.0.9")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.0.10")
     implementation("com.gitlab.bitfireAT:dav4jvm:2.1.1")
     implementation("com.gitlab.bitfireAT:ical4android:b520b3f2b2")
-    implementation("com.gitlab.bitfireAT:cert4android:1488e39a66")
+    implementation("com.gitlab.bitfireAT:cert4android:767d1f9759")
     implementation("com.github.dmfs.opentasks:opentasks-provider:1.2.4") {
         exclude("com.github.dmfs.opentasks", "opentasks-contract")
     }
@@ -174,12 +174,12 @@ dependencies {
     debugImplementation("com.squareup.leakcanary:leakcanary-android:${Versions.leakcanary}")
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}")
-    implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:0.3.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:0.3.3")
     implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
     implementation("com.google.code.gson:gson:2.8.6")
     implementation("com.google.android.material:material:1.2.1")
     implementation("androidx.annotation:annotation:1.1.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta4")
+    implementation("androidx.constraintlayout:constraintlayout:2.0.1")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation("androidx.preference:preference:1.1.1")
     implementation("com.jakewharton.timber:timber:4.7.1")
@@ -196,13 +196,13 @@ dependencies {
     implementation("com.wdullaer:materialdatetimepicker:4.2.3")
     implementation("me.leolin:ShortcutBadger:1.1.22@aar")
     implementation("com.google.apis:google-api-services-tasks:v1-rev20200516-1.30.10")
-    implementation("com.google.apis:google-api-services-drive:v3-rev20200609-1.30.9")
-    implementation("com.google.auth:google-auth-library-oauth2-http:0.20.0")
+    implementation("com.google.apis:google-api-services-drive:v3-rev20200813-1.30.10")
+    implementation("com.google.auth:google-auth-library-oauth2-http:0.21.1")
     implementation("androidx.work:work-runtime:${Versions.work}")
     implementation("androidx.work:work-runtime-ktx:${Versions.work}")
     implementation("com.mapbox.mapboxsdk:mapbox-android-core:3.0.0")
     implementation("com.mapbox.mapboxsdk:mapbox-sdk-services:5.3.0")
-    implementation("com.etesync:journalmanager:1.1.0")
+    implementation("com.etesync:journalmanager:1.1.1")
     implementation("com.github.QuadFlask:colorpicker:0.0.15")
 
     // https://github.com/mapbox/mapbox-gl-native-android/issues/316
@@ -228,11 +228,11 @@ dependencies {
     androidTestImplementation("com.natpryce:make-it-easy:${Versions.make_it_easy}")
     androidTestImplementation("androidx.test:runner:${Versions.androidx_test}")
     androidTestImplementation("androidx.test:rules:${Versions.androidx_test}")
-    androidTestImplementation("androidx.test.ext:junit:1.1.1")
+    androidTestImplementation("androidx.test.ext:junit:1.1.2")
     androidTestImplementation("androidx.annotation:annotation:1.1.0")
 
     testImplementation("junit:junit:4.13")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.8")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.9")
     testImplementation("com.natpryce:make-it-easy:${Versions.make_it_easy}")
     testImplementation("androidx.test:core:${Versions.androidx_test}")
     testImplementation("org.mockito:mockito-core:${Versions.mockito}")
