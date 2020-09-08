@@ -652,4 +652,10 @@
     <string name="manage_lists">Управление списками</string>
     <string name="account_not_found">Аккаунт не найден</string>
     <string name="davx5_selection_description">Синхронизируйте свои задачи с приложением DAVx⁵</string>
+    <string name="account">Учётная запись</string>
+    <string name="device_settings">Настройки устройства</string>
+    <string name="last_backup_never">никогда</string>
+    <string name="last_backup">Последнее резервное копирование: %s</string>
+    <string name="android_auto_backup_device_summary">Вы также должны выбрать службу резервного копирования в настройках вашего устройства. Не все устройства поддерживают резервное копирование.</string>
+    <string name="android_auto_backup">Служба резервного копирования Android</string>
 </resources>
