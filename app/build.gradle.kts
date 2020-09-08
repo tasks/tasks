@@ -195,7 +195,7 @@ dependencies {
     }
     implementation("com.wdullaer:materialdatetimepicker:4.2.3")
     implementation("me.leolin:ShortcutBadger:1.1.22@aar")
-    implementation("com.google.apis:google-api-services-tasks:v1-rev20200129-1.30.9")
+    implementation("com.google.apis:google-api-services-tasks:v1-rev20200516-1.30.10")
     implementation("com.google.apis:google-api-services-drive:v3-rev20200609-1.30.9")
     implementation("com.google.auth:google-auth-library-oauth2-http:0.20.0")
     implementation("androidx.work:work-runtime:${Versions.work}")

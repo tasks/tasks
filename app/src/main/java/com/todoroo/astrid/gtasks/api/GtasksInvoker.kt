@@ -76,7 +76,7 @@ class GtasksInvoker {
 
     @Throws(IOException::class)
     suspend fun allGtaskLists(pageToken: String?): TaskLists? =
-            execute(service!!.tasklists().list().setMaxResults(100L).setPageToken(pageToken))
+            execute(service!!.tasklists().list().setMaxResults(100).setPageToken(pageToken))
 
     @Throws(IOException::class)
     suspend fun getAllGtasksFromListId(
@@ -85,7 +85,7 @@ class GtasksInvoker {
                 service!!
                         .tasks()
                         .list(listId)
-                        .setMaxResults(100L)
+                        .setMaxResults(100)
                         .setShowDeleted(true)
                         .setShowHidden(true)
                         .setPageToken(pageToken)
@@ -99,7 +99,7 @@ class GtasksInvoker {
                 service!!
                         .tasks()
                         .list(listId)
-                        .setMaxResults(100L)
+                        .setMaxResults(100)
                         .setShowDeleted(false)
                         .setShowHidden(false)
                         .setPageToken(pageToken)

@@ -2,6 +2,7 @@ package org.tasks.gtasks
 
 import android.content.Context
 import com.google.api.client.googleapis.json.GoogleJsonResponseException
+import com.google.api.client.util.DateTime
 import com.google.api.services.tasks.model.Task
 import com.google.api.services.tasks.model.TaskList
 import com.google.api.services.tasks.model.Tasks
@@ -212,10 +213,10 @@ class GoogleTaskSynchronizer @Inject constructor(
         remoteModel.title = truncate(task.title, MAX_TITLE_LENGTH)
         remoteModel.notes = truncate(task.notes, MAX_DESCRIPTION_LENGTH)
         if (task.hasDueDate()) {
-            remoteModel.due = GtasksApiUtilities.unixTimeToGtasksDueDate(task.dueDate)
+            remoteModel.due = GtasksApiUtilities.unixTimeToGtasksDueDate(task.dueDate).toStringRfc3339()
         }
         if (task.isCompleted) {
-            remoteModel.completed = GtasksApiUtilities.unixTimeToGtasksCompletionTime(task.completionDate)
+            remoteModel.completed = GtasksApiUtilities.unixTimeToGtasksCompletionTime(task.completionDate).toStringRfc3339()
             remoteModel.status = "completed" // $NON-NLS-1$
         } else {
             remoteModel.completed = null
@@ -314,7 +315,7 @@ class GoogleTaskSynchronizer @Inject constructor(
             } else if (googleTask.task > 0) {
                 task = taskDao.fetch(googleTask.task)
             }
-            val updated = gtask.updated
+            val updated = DateTime(gtask.updated)
             if (updated != null) {
                 lastSyncDate = max(lastSyncDate, updated.value)
             }
@@ -346,8 +347,8 @@ class GoogleTaskSynchronizer @Inject constructor(
             }
             task!!.title = getTruncatedValue(task.title, gtask.title, MAX_TITLE_LENGTH)
             task.creationDate = DateUtilities.now()
-            task.completionDate = GtasksApiUtilities.gtasksCompletedTimeToUnixTime(gtask.completed)
-            val dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(gtask.due)
+            task.completionDate = GtasksApiUtilities.gtasksCompletedTimeToUnixTime(DateTime(gtask.completed))
+            val dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(DateTime(gtask.due))
             mergeDates(createDueDate(com.todoroo.astrid.data.Task.URGENCY_SPECIFIC_DAY, dueDate), task)
             task.notes = getTruncatedValue(task.notes, gtask.notes, MAX_DESCRIPTION_LENGTH)
             googleTask.listId = listId
