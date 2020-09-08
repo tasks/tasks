@@ -22,7 +22,7 @@
     <string name="SSD_sort_modified">بواسطة التعديل الأخير</string>
     <string name="TEA_title_hint">اسم المهمة</string>
     <string name="TEA_importance_label">الأولوية</string>
-    <string name="TEA_hideUntil_label">إخفاء حتى…</string>
+    <string name="TEA_hideUntil_label">إخفاء حتى</string>
     <string name="TEA_note_label">وصف</string>
     <string name="TEA_estimatedDuration_label">كم من الوقت ستأخذ؟</string>
     <string name="TEA_elapsedDuration_label">الوقت المنقضي</string>
@@ -155,4 +155,14 @@
     <string name="preferences_look_and_feel">المظهر</string>
     <string name="keep_editing">استمر في التعديل</string>
     <string name="discard_confirmation">هل أنت متأكد أنك تريد تجاهل تغييراتك؟</string>
+    <string name="language">اللغة</string>
+    <string name="restart_later">لاحقاً</string>
+    <string name="TEA_no_time">لا وقت</string>
+    <string name="TEA_no_date">لا تاريخ</string>
+    <string name="action_call">اتصل</string>
+    <string name="TLA_no_items">لا يوجد مهمات هنا.</string>
+    <string name="action_open">افتح</string>
+    <string name="no_thanks">لا شكراً</string>
+    <string name="color">اللون</string>
+    <string name="import_progress_read">قراءة المهمة %d…</string>
 </resources>
