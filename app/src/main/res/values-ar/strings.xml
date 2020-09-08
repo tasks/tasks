@@ -181,4 +181,7 @@
     <string name="on_launch">عند فتح التطبيق</string>
     <string name="desaturate_colors_summary_off">ستكون الألوان مشبعة في المظهر الداكن</string>
     <string name="desaturate_colors_summary_on">ستكون الألوان غير مشبعة في المظهر الداكن</string>
+    <string name="disable_sort_groups">تعطيل مجموعات الترتيب</string>
+    <string name="improve_performance_summary">سيتم تعطيل مجموعات الترتيب والمهام الفرعية القابلة للطي لتحسين أداء التطبيق</string>
+    <string name="improve_performance">تحسين الأداء</string>
 </resources>
