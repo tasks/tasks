@@ -373,6 +373,8 @@
   <string name="p_show_whats_new">show_whats_new</string>
   <string name="p_just_updated">just_updated</string>
   <string name="p_clicked_rate">clicked_rate</string>
+  <string name="p_backups_android_backup_enabled">backups_android_backup_enabled</string>
+  <string name="p_backups_android_backup_last">backups_android_backup_last</string>
   <string name="p_current_version">cv</string>
 
   <string name="event_whats_new">whats_new</string>

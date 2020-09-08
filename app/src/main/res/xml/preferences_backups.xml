@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <Preference
     android:key="@string/p_backup_dir"
@@ -16,5 +17,22 @@
   <Preference
     android:key="@string/backup_BAc_export"
     android:title="@string/backup_BAc_export" />
+
+  <PreferenceCategory
+    android:title="@string/android_auto_backup">
+
+    <SwitchPreferenceCompat
+      android:defaultValue="true"
+      android:key="@string/p_backups_android_backup_enabled"
+      android:title="@string/enabled" />
+
+    <Preference
+      android:title="@string/device_settings"
+      android:summary="@string/android_auto_backup_device_summary"
+      app:icon="@drawable/ic_open_in_new_24px">
+      <intent android:action="android.settings.SETTINGS" />
+    </Preference>
+
+  </PreferenceCategory>
 
 </PreferenceScreen>

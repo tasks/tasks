@@ -2,15 +2,19 @@ package org.tasks.backup
 
 import android.app.backup.BackupAgentHelper
 import android.app.backup.BackupDataInput
+import android.app.backup.BackupDataOutput
 import android.app.backup.FileBackupHelper
 import android.net.Uri
 import android.os.ParcelFileDescriptor
+import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.backup.BackupConstants
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.android.components.ApplicationComponent
 import kotlinx.coroutines.runBlocking
+import org.tasks.R
+import org.tasks.preferences.Preferences
 import timber.log.Timber
 import java.io.File
 import java.io.IOException
@@ -20,14 +24,25 @@ class TasksBackupAgent : BackupAgentHelper() {
     @InstallIn(ApplicationComponent::class)
     internal interface TasksBackupAgentEntryPoint {
         val tasksJsonImporter: TasksJsonImporter
+        val preferences: Preferences
     }
 
     private lateinit var importer: TasksJsonImporter
+    private lateinit var preferences: Preferences
+
+    private val enabled: Boolean
+        get() = preferences.getBoolean(R.string.p_backups_android_backup_enabled, true)
 
     override fun onCreate() {
-        val hilt = EntryPointAccessors.fromApplication(applicationContext, TasksBackupAgentEntryPoint::class.java)
-        importer = hilt.tasksJsonImporter
-        addHelper(BACKUP_KEY, FileBackupHelper(this, BackupConstants.INTERNAL_BACKUP))
+        EntryPointAccessors
+                .fromApplication(applicationContext, TasksBackupAgentEntryPoint::class.java)
+                .let {
+                    importer = it.tasksJsonImporter
+                    preferences = it.preferences
+                }
+        if (enabled) {
+            addHelper(BACKUP_KEY, FileBackupHelper(this, BackupConstants.INTERNAL_BACKUP))
+        }
     }
 
     @Throws(IOException::class)
@@ -41,6 +56,14 @@ class TasksBackupAgent : BackupAgentHelper() {
             }
         } else {
             Timber.w("%s not found", backup.absolutePath)
+        }
+    }
+
+    override fun onBackup(oldState: ParcelFileDescriptor?, data: BackupDataOutput?, newState: ParcelFileDescriptor?) {
+        super.onBackup(oldState, data, newState)
+
+        if (enabled) {
+            preferences.setLong(R.string.p_backups_android_backup_last, now())
         }
     }
 

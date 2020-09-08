@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.google.api.services.drive.DriveScopes
-import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity
+import com.todoroo.andlib.utility.DateUtilities
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.PermissionUtil
 import org.tasks.R
@@ -20,6 +20,7 @@ import org.tasks.preferences.FragmentPermissionRequestor
 import org.tasks.preferences.PermissionRequestor
 import org.tasks.preferences.Preferences
 import org.tasks.ui.Toaster
+import java.util.*
 import javax.inject.Inject
 
 private const val REQUEST_CODE_BACKUP_DIR = 10001
@@ -35,6 +36,7 @@ class Backups : InjectingPreferenceFragment() {
     @Inject lateinit var permissionRequestor: FragmentPermissionRequestor
     @Inject lateinit var toaster: Toaster
     @Inject lateinit var googleAccountManager: GoogleAccountManager
+    @Inject lateinit var locale: Locale
 
     override fun getPreferenceXml() = R.xml.preferences_backups
 
@@ -62,6 +64,17 @@ class Backups : InjectingPreferenceFragment() {
         super.onResume()
 
         updateGoogleDriveCheckbox()
+
+        val lastBackup = preferences.getLong(R.string.p_backups_android_backup_last, 0L)
+        findPreference(R.string.p_backups_android_backup_enabled).summary =
+                getString(
+                        R.string.last_backup,
+                        if (lastBackup == 0L) {
+                            getString(R.string.last_backup_never)
+                        } else {
+                            DateUtilities.getLongDateStringWithTime(lastBackup, locale)
+                        }
+                )
     }
 
     override fun onRequestPermissionsResult(
