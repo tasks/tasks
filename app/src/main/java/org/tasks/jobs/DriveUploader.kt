@@ -33,7 +33,7 @@ class DriveUploader @WorkerInject constructor(
         val inputData = inputData
         val uri = Uri.parse(inputData.getString(EXTRA_URI))
         return try {
-            val folder = folder
+            val folder = getFolder() ?: return Result.failure()
             preferences.setString(R.string.p_google_drive_backup_folder, folder.id)
             drive.createFile(folder.id, uri)
             if (inputData.getBoolean(EXTRA_PURGE, false)) {
@@ -69,22 +69,21 @@ class DriveUploader @WorkerInject constructor(
         }
     }
 
-    @get:Throws(IOException::class)
-    private val folder: File
-        get() {
-            val folderId = preferences.getStringValue(R.string.p_google_drive_backup_folder)
-            var file: File? = null
-            if (!isNullOrEmpty(folderId)) {
-                try {
-                    file = drive.getFile(folderId)
-                } catch (e: GoogleJsonResponseException) {
-                    if (e.statusCode != 404) {
-                        throw e
-                    }
+    @Throws(IOException::class)
+    private suspend fun getFolder(): File? {
+        val folderId = preferences.getStringValue(R.string.p_google_drive_backup_folder)
+        var file: File? = null
+        if (!isNullOrEmpty(folderId)) {
+            try {
+                file = drive.getFile(folderId)
+            } catch (e: GoogleJsonResponseException) {
+                if (e.statusCode != 404) {
+                    throw e
                 }
             }
-            return if (file == null || file.trashed) drive.createFolder(FOLDER_NAME) else file
         }
+        return if (file == null || file.trashed) drive.createFolder(FOLDER_NAME) else file
+    }
 
     companion object {
         private const val FOLDER_NAME = "Tasks Backups"
