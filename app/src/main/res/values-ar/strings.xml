@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="actfm_picture_clear">مسح الصورة</string>
     <string name="TVA_add_comment">إضافة تعليق …</string>
@@ -143,4 +143,16 @@
     <string name="opacity">التعتيم</string>
     <string name="settings_localization">تخصيص اللغة و الجهة</string>
     <string name="backup_BAc_export">تصدير المهام</string>
+    <string name="desaturate_colors">ألوان غير مشبعة</string>
+    <string name="accent">اللون الثنائي</string>
+    <string name="theme_system_default">حسب النظام</string>
+    <string name="theme_day_night">صباحي/مسائي</string>
+    <string name="theme_wallpaper">خلفية</string>
+    <string name="theme_black">اسود</string>
+    <string name="theme_dark">داكن</string>
+    <string name="theme_light">فاتح</string>
+    <string name="theme">المظهر</string>
+    <string name="preferences_look_and_feel">المظهر</string>
+    <string name="keep_editing">استمر في التعديل</string>
+    <string name="discard_confirmation">هل أنت متأكد أنك تريد تجاهل تغييراتك؟</string>
 </resources>
