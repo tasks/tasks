@@ -642,4 +642,5 @@ File %1$s contained %2$s.\n\n
   <string name="last_backup">Last backup: %s</string>
   <string name="last_backup_never">never</string>
   <string name="device_settings">Device settings</string>
+  <string name="account">Account</string>
 </resources>

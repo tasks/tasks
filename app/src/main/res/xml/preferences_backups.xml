@@ -6,10 +6,6 @@
     android:key="@string/p_backup_dir"
     android:title="@string/backup_directory" />
 
-  <SwitchPreferenceCompat
-    android:key="@string/google_drive_backup"
-    android:title="@string/google_drive_backup" />
-
   <Preference
     android:key="@string/backup_BAc_import"
     android:title="@string/backup_BAc_import" />
@@ -17,6 +13,20 @@
   <Preference
     android:key="@string/backup_BAc_export"
     android:title="@string/backup_BAc_export" />
+
+  <PreferenceCategory
+    android:title="@string/google_drive_backup">
+
+    <SwitchPreferenceCompat
+      android:key="@string/google_drive_backup"
+      android:title="@string/enabled" />
+
+    <Preference
+      android:key="@string/p_google_drive_backup_account"
+      android:title="@string/account"
+      android:summary="@string/none"/>
+
+  </PreferenceCategory>
 
   <PreferenceCategory
     android:title="@string/android_auto_backup">

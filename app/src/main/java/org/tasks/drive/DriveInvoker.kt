@@ -47,9 +47,10 @@ class DriveInvoker @Inject constructor(
     }
 
     @Throws(IOException::class)
-    suspend fun getFilesByPrefix(folderId: String?, prefix: String?): List<File> {
+    suspend fun getFilesByPrefix(folderId: String?, vararg prefix: String?): List<File> {
+        val namePredicate = prefix.joinToString(" or ") { "name contains '$it'" }
         val query = String.format(
-                "'%s' in parents and name contains '%s' and trashed = false and mimeType != '%s'",
+                "'%s' in parents and ($namePredicate) and trashed = false and mimeType != '%s'",
                 folderId, prefix, MIME_FOLDER)
         return execute(
                 service
@@ -59,6 +60,7 @@ class DriveInvoker @Inject constructor(
                         .setSpaces("drive")
                         .setFields("files(id, modifiedTime)"))
                 ?.files
+                ?.sortedWith(DRIVE_FILE_COMPARATOR)
                 ?: emptyList()
     }
 
@@ -139,5 +141,8 @@ class DriveInvoker @Inject constructor(
 
     companion object {
         private const val MIME_FOLDER = "application/vnd.google-apps.folder"
+        private val DRIVE_FILE_COMPARATOR = Comparator<File> { f1, f2 ->
+            f2.modifiedTime.value.compareTo(f1.modifiedTime.value)
+        }
     }
 }

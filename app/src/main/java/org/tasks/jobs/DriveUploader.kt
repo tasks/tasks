@@ -19,7 +19,6 @@ import java.io.IOException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
-import java.util.*
 import javax.net.ssl.SSLException
 
 class DriveUploader @WorkerInject constructor(
@@ -37,18 +36,20 @@ class DriveUploader @WorkerInject constructor(
             preferences.setString(R.string.p_google_drive_backup_folder, folder.id)
             drive.createFile(folder.id, uri)
             if (inputData.getBoolean(EXTRA_PURGE, false)) {
-                val files = drive.getFilesByPrefix(folder.id, "auto.")
-                for (file in getDeleteList(files)) {
-                    try {
-                        drive.delete(file)
-                    } catch (e: GoogleJsonResponseException) {
-                        if (e.statusCode == 404) {
-                            Timber.e(e)
-                        } else {
-                            throw e
+                drive
+                        .getFilesByPrefix(folder.id, "auto.")
+                        .drop(BackupWork.DAYS_TO_KEEP_BACKUP)
+                        .forEach {
+                            try {
+                                drive.delete(it)
+                            } catch (e: GoogleJsonResponseException) {
+                                if (e.statusCode == 404) {
+                                    Timber.e(e)
+                                } else {
+                                    throw e
+                                }
+                            }
                         }
-                    }
-                }
             }
             Result.success()
         } catch (e: SocketTimeoutException) {
@@ -89,17 +90,11 @@ class DriveUploader @WorkerInject constructor(
         private const val FOLDER_NAME = "Tasks Backups"
         private const val EXTRA_URI = "extra_uri"
         private const val EXTRA_PURGE = "extra_purge"
-        private val DRIVE_FILE_COMPARATOR = Comparator<File> { f1, f2 ->
-            f2.modifiedTime.value.compareTo(f1.modifiedTime.value)
-        }
 
         fun getInputData(uri: Uri, purge: Boolean) =
                 Data.Builder()
                     .putString(EXTRA_URI, uri.toString())
                     .putBoolean(EXTRA_PURGE, purge)
                     .build()
-
-        private fun getDeleteList(files: List<File>) =
-                files.sortedWith(DRIVE_FILE_COMPARATOR).drop(BackupWork.DAYS_TO_KEEP_BACKUP)
     }
 }
