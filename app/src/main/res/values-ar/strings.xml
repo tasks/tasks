@@ -144,7 +144,7 @@
     <string name="settings_localization">تخصيص اللغة و الجهة</string>
     <string name="backup_BAc_export">تصدير المهام</string>
     <string name="desaturate_colors">ألوان غير مشبعة</string>
-    <string name="accent">اللون الثنائي</string>
+    <string name="accent">اللون الثانوي</string>
     <string name="theme_system_default">حسب النظام</string>
     <string name="theme_day_night">صباحي/مسائي</string>
     <string name="theme_wallpaper">خلفية</string>
