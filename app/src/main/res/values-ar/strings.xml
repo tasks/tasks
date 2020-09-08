@@ -139,7 +139,7 @@
     <string name="filters">تصفيات</string>
     <string name="filter_settings">إعدادات التصفية</string>
     <string name="show_hidden">عرض المهام المخفية</string>
-    <string name="show_completed">إظهار المكتملة</string>
+    <string name="show_completed">إظهار المهام المكتملة</string>
     <string name="opacity">التعتيم</string>
     <string name="settings_localization">تخصيص اللغة و الجهة</string>
     <string name="backup_BAc_export">تصدير المهام</string>
@@ -165,4 +165,20 @@
     <string name="no_thanks">لا شكراً</string>
     <string name="color">اللون</string>
     <string name="import_progress_read">قراءة المهمة %d…</string>
+    <string name="EPr_delete_task_data_warning">سيتم حذف جميع المهام بشكل دائم</string>
+    <string name="EPr_temp_completed_tasks_not_showing">ستختفي المهام فورًا من القائمة بعد الانتهاء</string>
+    <string name="EPr_temp_completed_tasks_showing">ستظل المهام مرئية مؤقتًا في القائمة بعد الانتهاء</string>
+    <string name="EPr_temp_show_completed_tasks">عرض المهام لفترة مؤقتة عند الانتهاء</string>
+    <string name="linkify_description">أضف روابط لمواقع, عناوين, او أرقام هواتف</string>
+    <string name="show_advanced_settings">عرض الإعدادات المتقدمة</string>
+    <string name="linkify">عرض الروابط</string>
+    <string name="show_full_description">عرض الوصف الكامل</string>
+    <string name="show_description">عرض الوصف</string>
+    <string name="widget_show_menu">إظهار القائمة</string>
+    <string name="row_spacing">المسافة بين السطور</string>
+    <string name="widget_open_list">فتح قائمة معينة</string>
+    <string name="open_last_viewed_list">فتح آخر قائمة تم عرضها</string>
+    <string name="on_launch">عند فتح التطبيق</string>
+    <string name="desaturate_colors_summary_off">ستكون الألوان مشبعة في المظهر الداكن</string>
+    <string name="desaturate_colors_summary_on">ستكون الألوان غير مشبعة في المظهر الداكن</string>
 </resources>
