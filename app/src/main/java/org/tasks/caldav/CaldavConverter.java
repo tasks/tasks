@@ -109,7 +109,7 @@ public class CaldavConverter {
     remote.setDescription(task.getNotes());
     if (task.hasDueTime()) {
       net.fortuna.ical4j.model.TimeZone tz =
-          DateUtils.INSTANCE.getTzRegistry().getTimeZone(TimeZone.getDefault().getID());
+          DateUtils.INSTANCE.ical4jTimeZone(TimeZone.getDefault().getID());
       DateTime dateTime = new DateTime(tz != null
           ? task.getDueDate()
           : new org.tasks.time.DateTime(task.getDueDate()).toUTC().getMillis());

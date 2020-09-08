@@ -144,7 +144,7 @@ val googleplayImplementation by configurations
 dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.0.9")
     implementation("com.gitlab.bitfireAT:dav4jvm:2.1.1")
-    implementation("com.gitlab.bitfireAT:ical4android:a675c7194b")
+    implementation("com.gitlab.bitfireAT:ical4android:b520b3f2b2")
     implementation("com.gitlab.bitfireAT:cert4android:1488e39a66")
     implementation("com.github.dmfs.opentasks:opentasks-provider:1.2.4") {
         exclude("com.github.dmfs.opentasks", "opentasks-contract")
