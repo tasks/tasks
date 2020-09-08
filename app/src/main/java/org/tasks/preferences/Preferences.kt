@@ -308,10 +308,10 @@ class Preferences @JvmOverloads constructor(private val context: Context, name: 
     }
 
     val lastSetVersion: Int
-        get() = getInt(P_CURRENT_VERSION, 0)
+        get() = getInt(R.string.p_current_version, 0)
 
     fun setCurrentVersion(version: Int) {
-        setInt(P_CURRENT_VERSION, version)
+        setInt(R.string.p_current_version, version)
     }
 
     var sortMode: Int
@@ -486,7 +486,6 @@ class Preferences @JvmOverloads constructor(private val context: Context, name: 
     }
 
     companion object {
-        const val P_CURRENT_VERSION = "cv" // $NON-NLS-1$
         private const val PREF_SORT_SORT = "sort_sort" // $NON-NLS-1$
         private fun getSharedPreferencesName(context: Context): String {
             return context.packageName + "_preferences"

@@ -191,21 +191,23 @@ class TasksJsonImporter @Inject constructor(
             }
             googleTaskDao.updateParents()
             caldavDao.updateParents()
-            backupContainer.intPrefs?.forEach { (key, value) ->
-                if (Preferences.P_CURRENT_VERSION == key) {
-                    return@forEach
-                }
-                preferences.setInt(key, value)
-            }
-            backupContainer.longPrefs?.forEach { (key, value) ->
-                preferences.setLong(key, value)
-            }
-            backupContainer.stringPrefs?.forEach { (key, value) ->
-                preferences.setString(key, value)
-            }
-            backupContainer.boolPrefs?.forEach { (key, value) ->
-                preferences.setBoolean(key, value)
-            }
+            val ignoreKeys = ignorePrefs.map { context.getString(it) }
+            backupContainer
+                    .intPrefs
+                    ?.filterNot { (key, _) -> ignoreKeys.contains(key) }
+                    ?.forEach { (key, value) -> preferences.setInt(key, value) }
+            backupContainer
+                    .longPrefs
+                    ?.filterNot { (key, _) -> ignoreKeys.contains(key) }
+                    ?.forEach { (key, value) -> preferences.setLong(key, value) }
+            backupContainer
+                    .stringPrefs
+                    ?.filterNot { (key, _) -> ignoreKeys.contains(key) }
+                    ?.forEach { (key, value) -> preferences.setString(key, value) }
+            backupContainer
+                    .boolPrefs
+                    ?.filterNot { (key, _) -> ignoreKeys.contains(key) }
+                    ?.forEach { (key, value) -> preferences.setBoolean(key, value) }
             if (version < Upgrader.V8_2) {
                 val themeIndex = preferences.getInt(R.string.p_theme_color, 7)
                 preferences.setInt(
@@ -251,5 +253,11 @@ class TasksJsonImporter @Inject constructor(
         var radius = 0
         var arrival = false
         var departure = false
+    }
+
+    companion object {
+        private val ignorePrefs = intArrayOf(
+                R.string.p_current_version,
+        )
     }
 }

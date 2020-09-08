@@ -373,6 +373,7 @@
   <string name="p_show_whats_new">show_whats_new</string>
   <string name="p_just_updated">just_updated</string>
   <string name="p_clicked_rate">clicked_rate</string>
+  <string name="p_current_version">cv</string>
 
   <string name="event_whats_new">whats_new</string>
   <string name="param_whats_new_display_rate">display_rate</string>
