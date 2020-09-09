@@ -18,7 +18,7 @@ object RemoteGtaskListMaker {
         TaskList()
                 .setId(lookup.valueOf(REMOTE_ID, "1"))
                 .setTitle(lookup.valueOf(NAME, "Default"))
-                .setUpdated(DateTime(DateTimeUtils.currentTimeMillis()))
+                .setUpdated(DateTime(DateTimeUtils.currentTimeMillis()).toStringRfc3339())
     }
 
     fun newRemoteList(vararg properties: PropertyValue<in TaskList?, *>): TaskList {
