@@ -636,4 +636,10 @@
     <string name="permission_read_tasks">Acceso completo a la base de datos de Tasks</string>
     <string name="account_not_found">Cuenta no encontrada</string>
     <string name="davx5_selection_description">Sincronice sus tareas con la aplicación DAVx⁵</string>
+    <string name="account">Cuenta</string>
+    <string name="device_settings">Configuración del dispositivo</string>
+    <string name="last_backup_never">nunca</string>
+    <string name="last_backup">Ultima copia de seguridad: %s</string>
+    <string name="android_auto_backup_device_summary">También debe optar por el servicio de copia de seguridad a través de la configuración de su dispositivo. No todos los dispositivos proporcionan servicio de copia de seguridad.</string>
+    <string name="android_auto_backup">Servicio de copia de seguridad de Android</string>
 </resources>
