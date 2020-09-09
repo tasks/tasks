@@ -631,4 +631,10 @@
     <string name="permission_read_tasks">Volledige toegang tot Tasks database</string>
     <string name="account_not_found">Account niet gevonden</string>
     <string name="davx5_selection_description">Synchroniseer je taken met de DAVx⁵ applicatie</string>
+    <string name="account">Account</string>
+    <string name="device_settings">Apparaat instellingen</string>
+    <string name="last_backup_never">nooit</string>
+    <string name="last_backup">Laatste back-up: %s</string>
+    <string name="android_auto_backup">Android back-upservice</string>
+    <string name="android_auto_backup_device_summary">Je moet de back-upservice ook aanzetten in je apparaatinstellingen. Niet alle apparaten bieden de back-upservice aan.</string>
 </resources>
