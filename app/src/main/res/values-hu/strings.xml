@@ -634,4 +634,10 @@
     <string name="permission_read_tasks">Teljes hozzáférés a Tasks adatbázishoz</string>
     <string name="account_not_found">A fiók nem található</string>
     <string name="davx5_selection_description">Feladatok szinkronizálása DAVx⁵ alkalmazással</string>
+    <string name="account">Fiók</string>
+    <string name="device_settings">Eszköz beállítások</string>
+    <string name="last_backup_never">soha</string>
+    <string name="last_backup">Utolsó mentés: %s</string>
+    <string name="android_auto_backup_device_summary">A készüléked beállításaiban is engedélyezned kell a mentési szolgáltatást. A mentési szolgáltatás nem érhető el minden készüléken.</string>
+    <string name="android_auto_backup">Android Backup szolgáltatás</string>
 </resources>
