@@ -3,8 +3,19 @@
   xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <Preference
+    android:title="@string/documentation"
+    android:icon="@drawable/ic_open_in_new_24px">
+
+    <intent
+      android:action="android.intent.action.VIEW"
+      android:data="https://tasks.org/backups" />
+
+  </Preference>
+
+  <Preference
     android:key="@string/p_backup_dir"
-    android:title="@string/backup_directory" />
+    android:title="@string/backup_directory"
+    app:allowDividerAbove="true" />
 
   <Preference
     android:key="@string/backup_BAc_import"
@@ -15,16 +26,12 @@
     android:title="@string/backup_BAc_export" />
 
   <PreferenceCategory
-    android:title="@string/google_drive_backup">
+    android:title="@string/automatic_backups">
 
     <SwitchPreferenceCompat
-      android:key="@string/google_drive_backup"
+      android:key="@string/p_backups_enabled"
+      android:defaultValue="true"
       android:title="@string/enabled" />
-
-    <Preference
-      android:key="@string/p_google_drive_backup_account"
-      android:title="@string/account"
-      android:summary="@string/none"/>
 
   </PreferenceCategory>
 
@@ -42,6 +49,20 @@
       app:icon="@drawable/ic_open_in_new_24px">
       <intent android:action="android.settings.SETTINGS" />
     </Preference>
+
+  </PreferenceCategory>
+
+  <PreferenceCategory
+    android:title="@string/google_drive_backup">
+
+    <SwitchPreferenceCompat
+      android:key="@string/google_drive_backup"
+      android:title="@string/enabled" />
+
+    <Preference
+      android:key="@string/p_google_drive_backup_account"
+      android:title="@string/account"
+      android:summary="@string/none"/>
 
   </PreferenceCategory>
 

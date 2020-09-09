@@ -637,6 +637,7 @@ File %1$s contained %2$s.\n\n
   <string name="reset_sort_order">Reset sort order</string>
   <string name="permission_read_tasks">Full access to Tasks database</string>
   <string name="account_not_found">Account not found</string>
+  <string name="automatic_backups">Automatic backups</string>
   <string name="android_auto_backup">Android Backup Service</string>
   <string name="android_auto_backup_device_summary">You must also opt in to backup service through your device settings. Not all devices provide backup service.</string>
   <string name="last_backup">Last backup: %s</string>

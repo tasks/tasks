@@ -34,6 +34,10 @@ class BackupWork @WorkerInject constructor(
     override suspend fun scheduleNext() = workManager.scheduleBackup()
 
     private suspend fun startBackup(context: Context?) {
+        if (!preferences.getBoolean(R.string.p_backups_enabled, true)) {
+            Timber.d("Automatic backups disabled")
+            return
+        }
         try {
             deleteOldLocalBackups()
         } catch (e: Exception) {
