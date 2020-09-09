@@ -627,4 +627,10 @@
     <string name="permission_read_tasks">对Tasks数据库的完全访问</string>
     <string name="account_not_found">未找到账户</string>
     <string name="davx5_selection_description">用 DAVx⁵应用同步你的任务</string>
+    <string name="account">账户</string>
+    <string name="device_settings">设备设置</string>
+    <string name="last_backup_never">从未</string>
+    <string name="last_backup">上次备份：%s</string>
+    <string name="android_auto_backup_device_summary">您还必须通过设备设置选择备份服务。不是所有的设备都提供备份服务。</string>
+    <string name="android_auto_backup">安卓备份服务</string>
 </resources>
