@@ -12,6 +12,7 @@ import com.google.api.services.drive.DriveRequest
 import com.google.api.services.drive.DriveScopes
 import com.google.api.services.drive.model.File
 import com.todoroo.andlib.utility.DateUtilities
+import com.todoroo.astrid.backup.BackupConstants
 import com.todoroo.astrid.gtasks.api.HttpCredentialsAdapter
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
@@ -58,8 +59,9 @@ class DriveInvoker @Inject constructor(
                         .list()
                         .setQ(query)
                         .setSpaces("drive")
-                        .setFields("files(id, modifiedTime)"))
+                        .setFields("files(id, name, modifiedTime)"))
                 ?.files
+                ?.filter { BackupConstants.isBackupFile(it.name) }
                 ?.sortedWith(DRIVE_FILE_COMPARATOR)
                 ?: emptyList()
     }
@@ -142,7 +144,7 @@ class DriveInvoker @Inject constructor(
     companion object {
         private const val MIME_FOLDER = "application/vnd.google-apps.folder"
         private val DRIVE_FILE_COMPARATOR = Comparator<File> { f1, f2 ->
-            f2.modifiedTime.value.compareTo(f1.modifiedTime.value)
+            BackupConstants.getTimestamp(f2).compareTo(BackupConstants.getTimestamp(f1))
         }
     }
 }

@@ -7,6 +7,7 @@ import androidx.hilt.Assisted
 import androidx.hilt.work.WorkerInject
 import androidx.work.WorkerParameters
 import com.todoroo.andlib.utility.DateUtilities
+import com.todoroo.astrid.backup.BackupConstants
 import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.backup.TasksJsonExporter
@@ -74,7 +75,9 @@ class BackupWork @WorkerInject constructor(
         val BACKUP_FILE_NAME_REGEX = Regex("auto\\.[-\\d]+\\.json")
         private val FILENAME_FILTER = { f: String -> f.matches(BACKUP_FILE_NAME_REGEX) }
         val FILE_FILTER = FileFilter { f: File -> FILENAME_FILTER.invoke(f.name) }
-        private val BY_LAST_MODIFIED = Comparator { f1: File, f2: File -> f2.lastModified().compareTo(f1.lastModified()) }
+        private val BY_LAST_MODIFIED = { f1: File, f2: File ->
+            BackupConstants.getTimestamp(f2).compareTo(BackupConstants.getTimestamp(f1))
+        }
         private val DOCUMENT_FILE_COMPARATOR = Comparator { d1: DocumentFile, d2: DocumentFile -> d2.lastModified().compareTo(d1.lastModified()) }
 
         fun getDeleteList(fileArray: Array<File>?, keepNewest: Int) =

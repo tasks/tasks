@@ -8,6 +8,7 @@ import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.google.api.services.drive.DriveScopes
 import com.todoroo.andlib.utility.DateUtilities
+import com.todoroo.astrid.backup.BackupConstants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.PermissionUtil
@@ -88,7 +89,10 @@ class Backups : InjectingPreferenceFragment() {
                         if (files.isEmpty()) {
                             getString(R.string.last_backup_never)
                         } else {
-                            DateUtilities.getLongDateStringWithTime(files[0].modifiedTime.value, locale)
+                            DateUtilities.getLongDateStringWithTime(
+                                    BackupConstants.getTimestamp(files[0]),
+                                    locale
+                            )
                         })
             }
         }
