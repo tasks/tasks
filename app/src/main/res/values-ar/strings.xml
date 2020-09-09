@@ -45,14 +45,14 @@
     <string name="CRA_postpone">من المحتمل لاحقاً</string>
     <string name="CRA_calendar_reminders_pref_desc_enabled">المهام سوف تذكرك في الاحداث القادمة وسوف تحثك لتكون جاهزاً.</string>
     <string name="EPr_edit_screen_options">تعديل خيارات الشاشه</string>
-    <string name="EPr_beastMode_reset">الإعادة إلى الإفتراضي</string>
+    <string name="EPr_beastMode_reset">إعادة التعيين إلى الإعدادات الافتراضية</string>
     <string name="EPr_fullTask_title">إظهار عنوان المهمه</string>
     <string name="task_list_options">خيارات قائمة المهام</string>
     <string name="EPr_manage_delete_completed_gcal">حذف أحداث التقويم للمهام المُتَممه</string>
     <string name="EPr_manage_delete_all_gcal">حذف جميع نشاطات التقويم للمهام</string>
     <string name="EPr_manage_delete_all_gcal_message">هل فعلا تريد حذف جميع الأحداث للمهام ؟</string>
-    <string name="task_defaults">افتراضيات المهمه</string>
-    <string name="EPr_default_urgency_title">الموعد الأخير الإفتراضي</string>
+    <string name="task_defaults">افتراضيات المهام</string>
+    <string name="EPr_default_urgency_title">الموعد النهائي الافتراضي</string>
     <string name="EPr_default_reminders_title">منبهات افتراضية</string>
     <string name="EPr_default_reminders_mode_title">نوع رنين/اهتزاز افتراضي</string>
     <string name="day_after_tomorrow">بعد غد</string>
@@ -72,7 +72,7 @@
     <string name="gcal_TEA_showCalendar_label">إفتح أحداث التقويم</string>
     <string name="CFC_gtasks_list_text">في القائمة :?</string>
     <string name="gtasks_GTA_clear_completed">انتهاء الحذف</string>
-    <string name="gtasks_GLA_errorIOAuth">عذرا، لم نتمكن من الاتصال مع خادم قوقل. أعد المحاولة مرة أخرى لاحقا.</string>
+    <string name="gtasks_GLA_errorIOAuth">عذرا، لم نتمكن من الاتصال مع مزود الخدمة جوجل. أعد المحاولة مرة أخرى لاحقا.</string>
     <string name="gtasks_GPr_header">مهام قوقل</string>
     <string name="premium_record_audio">تسجيل ملاحظة</string>
     <string name="premium_remove_file_confirm">هل أنت متأكد؟ لن تستطيع العودة</string>
@@ -90,7 +90,7 @@
     <string name="rmd_EPr_quiet_hours_end_title">إنتهاء ساعات الهدوء</string>
     <string name="rmd_EPr_rmd_time_title">منبه افتراضي</string>
     <string name="rmd_EPr_defaultRemind_title">منبه عشوائي</string>
-    <string name="default_random_reminder_disabled">إعطال</string>
+    <string name="default_random_reminder_disabled">معطل</string>
     <string name="default_random_reminder_daily">يومي</string>
     <string name="default_random_reminder_weekly">اسبوعي</string>
     <string name="default_random_reminder_bi_weekly">مرتين في الاسبوع</string>
@@ -145,7 +145,7 @@
     <string name="backup_BAc_export">تصدير المهام</string>
     <string name="desaturate_colors">ألوان غير مشبعة</string>
     <string name="accent">اللون الثانوي</string>
-    <string name="theme_system_default">حسب النظام</string>
+    <string name="theme_system_default">افتراضيات النظام</string>
     <string name="theme_day_night">صباحي/مسائي</string>
     <string name="theme_wallpaper">خلفية</string>
     <string name="theme_black">اسود</string>
@@ -176,7 +176,7 @@
     <string name="show_description">عرض الوصف</string>
     <string name="widget_show_menu">إظهار القائمة</string>
     <string name="row_spacing">المسافة بين السطور</string>
-    <string name="widget_open_list">فتح قائمة معينة</string>
+    <string name="widget_open_list">فتح قائمة</string>
     <string name="open_last_viewed_list">فتح آخر قائمة تم عرضها</string>
     <string name="on_launch">عند فتح التطبيق</string>
     <string name="desaturate_colors_summary_off">ستكون الألوان مشبعة في المظهر الداكن</string>
@@ -184,4 +184,21 @@
     <string name="disable_sort_groups">تعطيل مجموعات الترتيب</string>
     <string name="improve_performance_summary">سيتم تعطيل مجموعات الترتيب والمهام الفرعية القابلة للطي لتحسين أداء التطبيق</string>
     <string name="improve_performance">تحسين الأداء</string>
+    <string name="default_list">القائمة الافتراضية</string>
+    <string name="google_tasks_add_to_top">اضف المهام الجديدة لاعلى القائمة</string>
+    <string name="add_account">اضف حساب</string>
+    <string name="led_notification">إشعار LED</string>
+    <string name="wearable_notifications_summary">عرض الإشعارات على الساعة الذكية</string>
+    <string name="building_notifications">توليد الإخطارات</string>
+    <string name="bundle_notifications_summary">ادمج عدة إشعارات في شعار واحد</string>
+    <string name="notification_troubleshooting_summary">انقر هنا إذا كنت تواجه مشاكل في الإشعارات</string>
+    <string name="map_search_provider">مزود الخرائط</string>
+    <string name="TEA_control_location">الموقع</string>
+    <string name="EPr_show_task_edit_comments">إظهار التعليقات في شاشة تحرير المهمة</string>
+    <string name="back_button_saves_task">الضغط على زر الرجوع يحفظ المهمة</string>
+    <string name="lists">القوائم</string>
+    <string name="manage_lists">إدارة القوائم</string>
+    <string name="places">الأماكن</string>
+    <string name="notification_disable_battery_optimizations_description">قد يؤدي تحسين البطارية إلى تأخير الإشعارات</string>
+    <string name="EPr_reset_preferences_warning">ستتم إعادة تعيين التفضيلات إلى القيم الافتراضية</string>
 </resources>
