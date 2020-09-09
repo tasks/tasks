@@ -636,4 +636,10 @@
     <string name="astrid_sort_order">Astrids manuelle sorteringsmodus</string>
     <string name="account_not_found">Kontoen ble ikke funnet</string>
     <string name="davx5_selection_description">Synkroniser dine gjøremål med DAVx⁵-programmet</string>
+    <string name="account">Konto</string>
+    <string name="device_settings">Enhetsinnstillinger</string>
+    <string name="last_backup_never">aldri</string>
+    <string name="last_backup">Siste sikkerhetskopi: %s</string>
+    <string name="android_auto_backup_device_summary">Du må også skru på sikkerhetskopieringstjenesten i dine enhetsinnstillinger. Ikke alle enheter har dette.</string>
+    <string name="android_auto_backup">Android-sikkerhetskopieringstjeneste</string>
 </resources>
