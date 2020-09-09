@@ -34,6 +34,8 @@ class Preferences @JvmOverloads constructor(private val context: Context, name: 
     private val prefs: SharedPreferences = context.getSharedPreferences(name, Context.MODE_PRIVATE)
     private val publicPrefs: SharedPreferences = context.getSharedPreferences(AstridApiConstants.PUBLIC_PREFS, Context.MODE_PRIVATE)
 
+    fun androidBackupServiceEnabled() = getBoolean(R.string.p_backups_android_backup_enabled, true)
+
     fun addTasksToTop(): Boolean {
         return getBoolean(R.string.p_add_to_top, true)
     }
