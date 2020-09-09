@@ -18,12 +18,12 @@
     app:allowDividerAbove="true" />
 
   <Preference
-    android:key="@string/backup_BAc_import"
-    android:title="@string/backup_BAc_import" />
-
-  <Preference
     android:key="@string/backup_BAc_export"
     android:title="@string/backup_BAc_export" />
+
+  <Preference
+    android:key="@string/backup_BAc_import"
+    android:title="@string/backup_BAc_import" />
 
   <PreferenceCategory
     android:title="@string/automatic_backups">

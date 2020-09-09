@@ -13,6 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.PermissionUtil
 import org.tasks.R
+import org.tasks.backup.BackupHelper
 import org.tasks.dialogs.ExportTasksDialog
 import org.tasks.dialogs.ImportTasksDialog
 import org.tasks.drive.DriveInvoker
@@ -42,6 +43,7 @@ class Backups : InjectingPreferenceFragment() {
     @Inject lateinit var googleAccountManager: GoogleAccountManager
     @Inject lateinit var locale: Locale
     @Inject lateinit var driveInvoker: DriveInvoker
+    @Inject lateinit var backupHelper: BackupHelper
 
     override fun getPreferenceXml() = R.xml.preferences_backups
 
@@ -97,14 +99,25 @@ class Backups : InjectingPreferenceFragment() {
             }
         }
 
-        val lastBackup = preferences.getLong(R.string.p_backups_android_backup_last, 0L)
+        lifecycleScope.launch {
+            findPreference(R.string.backup_BAc_export).summary =
+                    getString(
+                            R.string.last_backup,
+                            backupHelper.getLastBackup()
+                                    ?.takeIf { it > 0 }
+                                    ?.let { DateUtilities.getLongDateStringWithTime(it, locale) }
+                                    ?: getString(R.string.last_backup_never)
+                    )
+        }
+
+        val lastAndroidBackup = preferences.getLong(R.string.p_backups_android_backup_last, 0L)
         findPreference(R.string.p_backups_android_backup_enabled).summary =
                 getString(
                         R.string.last_backup,
-                        if (lastBackup == 0L) {
+                        if (lastAndroidBackup == 0L) {
                             getString(R.string.last_backup_never)
                         } else {
-                            DateUtilities.getLongDateStringWithTime(lastBackup, locale)
+                            DateUtilities.getLongDateStringWithTime(lastAndroidBackup, locale)
                         }
                 )
     }

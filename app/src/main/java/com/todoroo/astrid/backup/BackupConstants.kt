@@ -5,6 +5,7 @@
  */
 package com.todoroo.astrid.backup
 
+import androidx.documentfile.provider.DocumentFile
 import com.google.api.services.drive.model.File
 import org.tasks.time.DateTime
 import java.util.regex.Pattern
@@ -50,6 +51,10 @@ object BackupConstants {
 
     fun getTimestamp(file: File): Long {
         return getTimestampFromFilename(file.name) ?: file.modifiedTime.value
+    }
+
+    fun getTimestamp(file: DocumentFile): Long {
+        return file.name?.let { getTimestampFromFilename(it) } ?: file.lastModified()
     }
 
     private fun getTimestampFromFilename(name: String): Long? {
