@@ -4,8 +4,8 @@
     <string name="TVA_add_comment">Hozzászólás írása…</string>
     <string name="enter_filter_name">Kérem a szűrő nevét</string>
     <string name="backup_BPr_header">Mentések</string>
-    <string name="backup_BAc_import">Feladatok importálása</string>
-    <string name="backup_BAc_export">Feladatok exportálása</string>
+    <string name="backup_BAc_import">Mentés importálása</string>
+    <string name="backup_BAc_export">Mentés most</string>
     <string name="export_toast">%1$s lementve ide: %2$s.</string>
     <string name="export_toast_no_tasks">Nincsenek exportálható feladatok.</string>
     <string name="import_summary_title">Visszaállítás összesítése</string>
@@ -291,7 +291,7 @@
     <string name="quiet_hours">Csendes órák</string>
     <string name="attachment_directory">Csatolmányok mappája</string>
     <string name="backup_directory">Mentési mappa</string>
-    <string name="google_drive_backup">Másolás Google Drive-ba</string>
+    <string name="google_drive_backup">Mentés Google Drive-ba</string>
     <string name="miscellaneous">Egyéb</string>
     <string name="synchronization">Szinkronizáció</string>
     <string name="enabled">Engedélyezve</string>
@@ -637,4 +637,5 @@
     <string name="last_backup">Utolsó mentés: %s</string>
     <string name="android_auto_backup_device_summary">A készüléked beállításaiban is engedélyezned kell a mentési szolgáltatást. A mentési szolgáltatás nem érhető el minden készüléken.</string>
     <string name="android_auto_backup">Android Backup szolgáltatás</string>
+    <string name="automatic_backups">Automatikus mentések</string>
 </resources>
