@@ -46,9 +46,12 @@ class TagPickerActivity : ThemedInjectingAppCompatActivity() {
         val intent = intent
         taskIds = intent.getSerializableExtra(EXTRA_TASKS) as ArrayList<Long>?
         if (savedInstanceState == null) {
-            viewModel.setSelected(
-                    intent.getParcelableArrayListExtra(EXTRA_SELECTED),
-                    intent.getParcelableArrayListExtra(EXTRA_PARTIALLY_SELECTED))
+            intent.getParcelableArrayListExtra<TagData>(EXTRA_SELECTED)?.let {
+                viewModel.setSelected(
+                        it,
+                        intent.getParcelableArrayListExtra(EXTRA_PARTIALLY_SELECTED)
+                )
+            }
         }
         setContentView(R.layout.activity_tag_picker)
         ButterKnife.bind(this)

@@ -526,10 +526,11 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 }
             }
             REQUEST_MOVE_TASKS -> if (resultCode == Activity.RESULT_OK) {
-                lifecycleScope.launch {
-                    taskMover.move(
-                            taskAdapter.getSelected(),
-                            data!!.getParcelableExtra(ListPicker.EXTRA_SELECTED_FILTER))
+                data?.getParcelableExtra<Filter>(ListPicker.EXTRA_SELECTED_FILTER)?.let {
+                    val selected = taskAdapter.getSelected()
+                    lifecycleScope.launch {
+                        taskMover.move(selected, it)
+                    }
                 }
                 finishActionMode()
             }

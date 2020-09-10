@@ -21,6 +21,7 @@ import org.tasks.preferences.Preferences
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
+import kotlin.math.min
 
 /**
  * @author joshuagross
@@ -83,11 +84,13 @@ class ShareLinkActivity : InjectingAppCompatActivity() {
     }
 
     private fun copyAttachment(intent: Intent): ArrayList<Uri> {
-        val uri = intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM)
+        val uri = intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM) ?: return ArrayList()
         var filename = FileHelper.getFilename(context, uri)
         if (isNullOrEmpty(filename)) {
-            val subject = intent.getStringExtra(Intent.EXTRA_SUBJECT)
-            filename = if (isNullOrEmpty(subject)) uri.lastPathSegment else subject.substring(0, Math.min(subject.length, FileHelper.MAX_FILENAME_LENGTH))
+            filename = intent.getStringExtra(Intent.EXTRA_SUBJECT)
+                    ?.takeIf { it.isNotBlank() }
+                    ?.let { it.substring(0, min(it.length, FileHelper.MAX_FILENAME_LENGTH)) }
+                    ?: uri.lastPathSegment
         }
         val basename = Files.getNameWithoutExtension(filename!!)
         return Lists.newArrayList(FileHelper.copyToUri(context, preferences.attachmentsDirectory, uri, basename))
