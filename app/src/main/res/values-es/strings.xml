@@ -4,8 +4,8 @@
     <string name="TVA_add_comment">Añadir un comentario…</string>
     <string name="enter_filter_name">Introducir el nombre del filtro</string>
     <string name="backup_BPr_header">Copias de seguridad</string>
-    <string name="backup_BAc_import">Importar tareas</string>
-    <string name="backup_BAc_export">Exportar tareas</string>
+    <string name="backup_BAc_import">Importar copia de seguridad</string>
+    <string name="backup_BAc_export">Copia ahora</string>
     <string name="export_toast">Respaldadas %1$s de %2$s.</string>
     <string name="export_toast_no_tasks">No hay tareas para exportar.</string>
     <string name="import_summary_title">Resumen de restauración</string>
@@ -292,7 +292,7 @@
     <string name="quiet_hours">Horario silencioso</string>
     <string name="attachment_directory">Carpeta de datos adjuntos</string>
     <string name="backup_directory">Carpeta de copia de seguridad</string>
-    <string name="google_drive_backup">Copiar a Google Drive</string>
+    <string name="google_drive_backup">Copia de seguridad de Google Drive</string>
     <string name="miscellaneous">Miscelánea</string>
     <string name="synchronization">Sincronización</string>
     <string name="enabled">Habilitado</string>
@@ -639,4 +639,5 @@
     <string name="last_backup">Ultima copia de seguridad: %s</string>
     <string name="android_auto_backup_device_summary">También debe optar por el servicio de copia de seguridad a través de la configuración de su dispositivo. No todos los dispositivos proporcionan servicio de copia de seguridad.</string>
     <string name="android_auto_backup">Servicio de copia de seguridad de Android</string>
+    <string name="automatic_backups">Copias de respaldo automáticas</string>
 </resources>
