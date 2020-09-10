@@ -4,8 +4,8 @@
     <string name="TVA_add_comment">Ajouter un commentaire…</string>
     <string name="enter_filter_name">Entrer le nom du filtre</string>
     <string name="backup_BPr_header">Sauvegardes</string>
-    <string name="backup_BAc_import">Importer des tâches</string>
-    <string name="backup_BAc_export">Exporter des tâches</string>
+    <string name="backup_BAc_import">Importer la sauvegarde</string>
+    <string name="backup_BAc_export">Sauvegarder maintenant</string>
     <string name="export_toast">Sauvegardé %1$s dans %2$s.</string>
     <string name="export_toast_no_tasks">Pas de tâches à exporter.</string>
     <string name="import_summary_title">Résumé de la restauration</string>
@@ -275,7 +275,7 @@
     <string name="quiet_hours">Heures de repos</string>
     <string name="attachment_directory">Dossier des pièces jointes</string>
     <string name="backup_directory">Dossier de sauvegarde</string>
-    <string name="google_drive_backup">Copier sur Google Drive</string>
+    <string name="google_drive_backup">Sauvegarde de Google Drive</string>
     <string name="miscellaneous">Divers</string>
     <string name="synchronization">Synchronisation</string>
     <string name="enabled">Activé</string>
@@ -634,4 +634,5 @@
     <string name="last_backup">Dernière sauvegarde : %s</string>
     <string name="android_auto_backup_device_summary">Vous devez également vous inscrire au service de sauvegarde via les paramètres de votre appareil. Tous les appareils ne fournissent pas de service de sauvegarde.</string>
     <string name="android_auto_backup">Service de sauvegarde Android</string>
+    <string name="automatic_backups">Sauvegardes automatiques</string>
 </resources>
