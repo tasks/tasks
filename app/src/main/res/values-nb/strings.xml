@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="backup_BPr_header">Sikkerhetskopier</string>
-    <string name="backup_BAc_import">Importer gjøremål</string>
-    <string name="backup_BAc_export">Eksporter gjøremål</string>
+    <string name="backup_BAc_import">Importer sikkerhetskopi</string>
+    <string name="backup_BAc_export">Sikkerhetskopier nå</string>
     <string name="export_toast">%1$s av %2$s sikkerhetskopiert.</string>
     <string name="export_toast_no_tasks">Ingen gjøremål å eksportere.</string>
     <string name="import_summary_title">Gjennopprettingssammendrag</string>
@@ -329,7 +329,7 @@
     <string name="quiet_hours">Stilletimer</string>
     <string name="attachment_directory">Vedleggsmappe</string>
     <string name="backup_directory">Sikkerhetskopimappe</string>
-    <string name="google_drive_backup">Kopier til Google Drive</string>
+    <string name="google_drive_backup">Google Drive-sikkerhetskopi</string>
     <string name="miscellaneous">Ymse</string>
     <string name="synchronization">Synkronisering</string>
     <string name="enabled">Påskrudd</string>
@@ -639,4 +639,5 @@
     <string name="last_backup">Siste sikkerhetskopi: %s</string>
     <string name="android_auto_backup_device_summary">Du må også skru på sikkerhetskopieringstjenesten i dine enhetsinnstillinger. Ikke alle enheter har dette.</string>
     <string name="android_auto_backup">Android-sikkerhetskopieringstjeneste</string>
+    <string name="automatic_backups">Automatisk sikkerhetskopiering</string>
 </resources>
