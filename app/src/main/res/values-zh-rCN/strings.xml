@@ -4,8 +4,8 @@
     <string name="TVA_add_comment">添加一个注释…</string>
     <string name="enter_filter_name">输入过滤器名称</string>
     <string name="backup_BPr_header">备份</string>
-    <string name="backup_BAc_import">导入任务</string>
-    <string name="backup_BAc_export">导出任务</string>
+    <string name="backup_BAc_import">导入备份</string>
+    <string name="backup_BAc_export">现在备份</string>
     <string name="export_toast">已将 %1$s 备份至 %2$s。</string>
     <string name="export_toast_no_tasks">没有要导出的任务。</string>
     <string name="import_summary_title">还原摘要</string>
@@ -437,7 +437,7 @@
     <string name="default_location_reminder_on_departure">离开时</string>
     <string name="default_location_reminder_on_arrival_or_departure">抵达或离开时默认的位置提醒</string>
     <string name="gtasks_GPr_header">谷歌任务</string>
-    <string name="google_drive_backup">复制到谷歌云端硬盘</string>
+    <string name="google_drive_backup">谷歌云盘备份</string>
     <string name="add_location">添加位置</string>
     <string name="geofence_radius">半径</string>
     <string name="location_radius_meters">%s 米</string>
@@ -630,4 +630,5 @@
     <string name="last_backup">上次备份：%s</string>
     <string name="android_auto_backup_device_summary">您还必须通过设备设置选择备份服务。不是所有的设备都提供备份服务。</string>
     <string name="android_auto_backup">安卓备份服务</string>
+    <string name="automatic_backups">自动备份</string>
 </resources>
