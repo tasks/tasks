@@ -4,8 +4,8 @@
     <string name="TVA_add_comment">Добавить комментарий…</string>
     <string name="enter_filter_name">Введите имя фильтра</string>
     <string name="backup_BPr_header">Резервные копии</string>
-    <string name="backup_BAc_import">Импортировать задачи</string>
-    <string name="backup_BAc_export">Экспортировать задачи</string>
+    <string name="backup_BAc_import">Импортировать резервную копию</string>
+    <string name="backup_BAc_export">Сделать резервную копию сейчас</string>
     <string name="export_toast">Сохранено %1$s в %2$s.</string>
     <string name="export_toast_no_tasks">Нет задач для экспорта.</string>
     <string name="import_summary_title">Итог восстановления</string>
@@ -308,7 +308,7 @@
     <string name="quiet_hours">Тихие часы</string>
     <string name="attachment_directory">Папка вложений</string>
     <string name="backup_directory">Папка резервных копий</string>
-    <string name="google_drive_backup">Копировать в Google Drive</string>
+    <string name="google_drive_backup">Резервное копирование в Google Drive</string>
     <string name="miscellaneous">Прочие настройки</string>
     <string name="synchronization">Синхронизация</string>
     <string name="enabled">Включить режим</string>
@@ -655,4 +655,5 @@
     <string name="last_backup">Последнее резервное копирование: %s</string>
     <string name="android_auto_backup_device_summary">Вы также должны выбрать службу резервного копирования в настройках вашего устройства. Не все устройства поддерживают резервное копирование.</string>
     <string name="android_auto_backup">Служба резервного копирования Android</string>
+    <string name="automatic_backups">Автоматическое резервное копирование</string>
 </resources>
