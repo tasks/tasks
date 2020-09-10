@@ -4,8 +4,8 @@
     <string name="TVA_add_comment">Voeg een opmerking toe…</string>
     <string name="enter_filter_name">Vul een filter naam in</string>
     <string name="backup_BPr_header">Back-ups</string>
-    <string name="backup_BAc_import">Taken importeren</string>
-    <string name="backup_BAc_export">Taken exporteren</string>
+    <string name="backup_BAc_import">Back-up importeren</string>
+    <string name="backup_BAc_export">Back-up nu uitvoeren</string>
     <string name="export_toast">Back-up gemaakt van %1$s naar %2$s.</string>
     <string name="export_toast_no_tasks">Geen taken om te exporteren.</string>
     <string name="import_summary_title">Samenvatting herstellen</string>
@@ -286,7 +286,7 @@
     <string name="vibrations">Trillingen</string>
     <string name="quiet_hours">Rustperiode</string>
     <string name="attachment_directory">Bijlage map</string>
-    <string name="google_drive_backup">Kopieer naar Google Drive</string>
+    <string name="google_drive_backup">Back-up naar Google Drive</string>
     <string name="miscellaneous">Diversen</string>
     <string name="synchronization">Synchronisatie</string>
     <string name="enabled">Actief</string>
@@ -634,4 +634,5 @@
     <string name="last_backup">Laatste back-up: %s</string>
     <string name="android_auto_backup">Android back-upservice</string>
     <string name="android_auto_backup_device_summary">Je moet de back-upservice ook aanzetten in je apparaatinstellingen. Niet alle apparaten bieden de back-upservice aan.</string>
+    <string name="automatic_backups">Automatische back-ups</string>
 </resources>
