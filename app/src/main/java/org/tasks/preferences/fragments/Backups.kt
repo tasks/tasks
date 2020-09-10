@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
+import com.google.api.client.googleapis.json.GoogleJsonResponseException
 import com.google.api.services.drive.DriveScopes
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.backup.BackupConstants
@@ -25,6 +26,7 @@ import org.tasks.preferences.FragmentPermissionRequestor
 import org.tasks.preferences.PermissionRequestor
 import org.tasks.preferences.Preferences
 import org.tasks.ui.Toaster
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
@@ -84,8 +86,17 @@ class Backups : InjectingPreferenceFragment() {
         driveBackup.isChecked = driveAccount != null
         if (driveAccount != null) {
             lifecycleScope.launch {
-                val folder = preferences.getStringValue(R.string.p_google_drive_backup_folder)
-                val files = driveInvoker.getFilesByPrefix(folder, "auto.", "user.")
+                val files = preferences.getStringValue(R.string.p_google_drive_backup_folder)
+                        ?.takeIf { it.isNotBlank() }
+                        ?.let {
+                            try {
+                                driveInvoker.getFilesByPrefix(it, "auto.", "user.")
+                            } catch (e: GoogleJsonResponseException) {
+                                Timber.e(e)
+                                null
+                            }
+                        }
+                        ?: emptyList()
                 driveBackup.summary = getString(
                         R.string.last_backup,
                         if (files.isEmpty()) {
