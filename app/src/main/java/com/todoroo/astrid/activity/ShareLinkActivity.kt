@@ -93,7 +93,7 @@ class ShareLinkActivity : InjectingAppCompatActivity() {
                     ?: uri.lastPathSegment
         }
         val basename = Files.getNameWithoutExtension(filename!!)
-        return Lists.newArrayList(FileHelper.copyToUri(context, preferences.attachmentsDirectory, uri, basename))
+        return Lists.newArrayList(FileHelper.copyToUri(context, preferences.attachmentsDirectory!!, uri, basename))
     }
 
     private fun copyMultipleAttachments(intent: Intent): ArrayList<Uri> {
@@ -101,7 +101,7 @@ class ShareLinkActivity : InjectingAppCompatActivity() {
         val uris = intent.getParcelableArrayListExtra<Uri>(Intent.EXTRA_STREAM)
         if (uris != null) {
             for (uri in uris) {
-                result.add(FileHelper.copyToUri(context, preferences.attachmentsDirectory, uri))
+                result.add(FileHelper.copyToUri(context, preferences.attachmentsDirectory!!, uri))
             }
         }
         return result

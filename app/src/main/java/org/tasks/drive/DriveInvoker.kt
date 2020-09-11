@@ -74,7 +74,7 @@ class DriveInvoker @Inject constructor(
 
     @Throws(IOException::class)
     suspend fun createFile(folderId: String, uri: Uri?) {
-        val mime = FileHelper.getMimeType(context, uri)
+        val mime = FileHelper.getMimeType(context, uri!!)
         val metadata = File()
                 .setParents(listOf(folderId))
                 .setMimeType(mime)

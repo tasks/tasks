@@ -132,14 +132,14 @@ class FilesControlSet : TaskEditControlFragment() {
     }
 
     private fun copyToAttachmentDirectory(input: Uri?) {
-        newAttachment(FileHelper.copyToUri(context, preferences.attachmentsDirectory, input))
+        newAttachment(FileHelper.copyToUri(requireContext(), preferences.attachmentsDirectory!!, input!!))
     }
 
     private fun newAttachment(output: Uri) {
         val attachment = TaskAttachment(
                 viewModel.task!!.uuid,
                 output,
-                FileHelper.getFilename(context, output)!!)
+                FileHelper.getFilename(requireContext(), output)!!)
         lifecycleScope.launch {
             taskAttachmentDao.createNew(attachment)
             addAttachment(attachment)

@@ -162,7 +162,7 @@ class Backups : InjectingPreferenceFragment() {
         } else if (requestCode == REQUEST_PICKER) {
             if (resultCode == RESULT_OK) {
                 val uri = data!!.data
-                val extension = FileHelper.getExtension(activity, uri)
+                val extension = FileHelper.getExtension(requireContext(), uri!!)
                 if (!("json".equals(extension, ignoreCase = true) || "xml".equals(
                         extension,
                         ignoreCase = true

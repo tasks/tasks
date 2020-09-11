@@ -83,12 +83,12 @@ class TasksJsonExporter @Inject constructor(
                 doTasksExport(os, tasks)
                 os!!.close()
                 val externalStorageBackup = FileHelper.newFile(
-                        context,
-                        preferences.backupDirectory,
+                        context!!,
+                        preferences.backupDirectory!!,
                         MIME,
                         Files.getNameWithoutExtension(filename),
                         EXTENSION)
-                FileHelper.copyStream(context, internalStorageBackup, externalStorageBackup)
+                FileHelper.copyStream(context!!, internalStorageBackup, externalStorageBackup)
                 workManager.scheduleDriveUpload(externalStorageBackup, exportType == ExportType.EXPORT_TYPE_SERVICE)
                 BackupManager(context).dataChanged()
             }

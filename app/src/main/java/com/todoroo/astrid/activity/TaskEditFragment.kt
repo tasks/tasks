@@ -337,7 +337,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         val model = editViewModel.task!!
         val userActivity = UserActivity()
         if (picture != null) {
-            val output = FileHelper.copyToUri(context, preferences.attachmentsDirectory, picture)
+            val output = FileHelper.copyToUri(context, preferences.attachmentsDirectory!!, picture)
             userActivity.setPicture(output)
         }
         userActivity.message = message
