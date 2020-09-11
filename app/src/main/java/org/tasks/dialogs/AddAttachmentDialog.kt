@@ -1,0 +1,82 @@
+package org.tasks.dialogs
+
+import android.app.Activity
+import android.app.Dialog
+import android.content.Intent
+import android.os.Bundle
+import android.provider.MediaStore
+import androidx.fragment.app.DialogFragment
+import com.todoroo.astrid.files.FilesControlSet
+import dagger.hilt.android.AndroidEntryPoint
+import org.tasks.R
+import org.tasks.activities.CameraActivity
+import org.tasks.files.FileHelper.newFilePickerIntent
+import org.tasks.preferences.Device
+import java.util.*
+import javax.inject.Inject
+
+@AndroidEntryPoint
+class AddAttachmentDialog : DialogFragment() {
+    @Inject lateinit var context: Activity
+    @Inject lateinit var dialogBuilder: DialogBuilder
+    @Inject lateinit var device: Device
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val entries: MutableList<String> = ArrayList()
+        val actions: MutableList<Runnable> = ArrayList()
+        if (device.hasCamera()) {
+            entries.add(getString(R.string.take_a_picture))
+            actions.add(Runnable { takePicture() })
+        }
+        entries.add(getString(R.string.premium_record_audio))
+        actions.add(Runnable { recordNote() })
+        if (device.hasGallery()) {
+            entries.add(getString(R.string.pick_from_gallery))
+            actions.add(Runnable { pickFromGallery() })
+        }
+        entries.add(getString(R.string.pick_from_storage))
+        actions.add(Runnable { pickFromStorage() })
+        return dialogBuilder
+                .newDialog()
+                .setItems(entries) { _, which -> actions[which].run() }
+                .show()
+    }
+
+    private fun takePicture() {
+        targetFragment?.startActivityForResult(
+                Intent(context, CameraActivity::class.java),
+                REQUEST_CAMERA
+        )
+    }
+
+    private fun recordNote() {
+        RecordAudioDialog.newRecordAudioDialog(targetFragment as FilesControlSet?, REQUEST_AUDIO)
+                .show(parentFragmentManager, FRAG_TAG_RECORD_AUDIO)
+    }
+
+    private fun pickFromGallery() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
+        if (intent.resolveActivity(context.packageManager) != null) {
+            targetFragment?.startActivityForResult(intent, REQUEST_GALLERY)
+        }
+    }
+
+    private fun pickFromStorage() {
+        targetFragment?.startActivityForResult(newFilePickerIntent(activity, null), REQUEST_STORAGE)
+    }
+
+    companion object {
+        const val REQUEST_CAMERA = 12120
+        const val REQUEST_GALLERY = 12121
+        const val REQUEST_STORAGE = 12122
+        const val REQUEST_AUDIO = 12123
+        private const val FRAG_TAG_RECORD_AUDIO = "frag_tag_record_audio"
+
+        fun newAddAttachmentDialog(target: FilesControlSet?): AddAttachmentDialog {
+            val dialog = AddAttachmentDialog()
+            dialog.setTargetFragment(target, 0)
+            return dialog
+        }
+    }
+}
