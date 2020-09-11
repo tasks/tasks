@@ -66,6 +66,7 @@ import org.tasks.db.SuspendDbUtils.chunkedMap
 import org.tasks.dialogs.DateTimePicker.Companion.newDateTimePicker
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.SortDialog
+import org.tasks.extensions.safeStartActivityForResult
 import org.tasks.filters.PlaceFilter
 import org.tasks.intents.TaskIntents
 import org.tasks.locale.Locale
@@ -308,16 +309,23 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     override fun onMenuItemClick(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_voice_add -> {
-                val recognition = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-                locale.languageOverride?.let {
-                    recognition.putExtra(RecognizerIntent.EXTRA_LANGUAGE, it)
-                }
-                recognition.putExtra(
-                        RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-                recognition.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1)
-                recognition.putExtra(
-                        RecognizerIntent.EXTRA_PROMPT, getString(R.string.voice_create_prompt))
-                startActivityForResult(recognition, VOICE_RECOGNITION_REQUEST_CODE)
+                safeStartActivityForResult(
+                        Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+                            locale.languageOverride?.let {
+                                putExtra(RecognizerIntent.EXTRA_LANGUAGE, it)
+                            }
+                            putExtra(
+                                    RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                                    RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+                            )
+                            putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1)
+                            putExtra(
+                                    RecognizerIntent.EXTRA_PROMPT,
+                                    getString(R.string.voice_create_prompt)
+                            )
+                        },
+                        VOICE_RECOGNITION_REQUEST_CODE
+                )
                 true
             }
             R.id.menu_sort -> {

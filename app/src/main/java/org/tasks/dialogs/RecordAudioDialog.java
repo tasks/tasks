@@ -18,7 +18,6 @@ import androidx.lifecycle.ViewModelProvider;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.voice.AACRecorder;
 import dagger.hilt.android.AndroidEntryPoint;
 import java.io.IOException;
@@ -44,7 +43,7 @@ public class RecordAudioDialog extends DialogFragment implements AACRecorder.AAC
 
   private AACRecorder recorder;
 
-  static RecordAudioDialog newRecordAudioDialog(FilesControlSet target, int requestCode) {
+  static RecordAudioDialog newRecordAudioDialog(Fragment target, int requestCode) {
     RecordAudioDialog dialog = new RecordAudioDialog();
     dialog.setTargetFragment(target, requestCode);
     return dialog;

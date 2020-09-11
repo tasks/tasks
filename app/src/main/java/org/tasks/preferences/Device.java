@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Build;
-import android.provider.MediaStore;
 import android.speech.RecognizerIntent;
 import com.google.common.base.Joiner;
 import dagger.hilt.android.qualifiers.ApplicationContext;
@@ -30,17 +29,11 @@ public class Device {
   }
 
   public boolean hasCamera() {
-    return context
-            .getPackageManager()
-            .queryIntentActivities(new Intent(MediaStore.ACTION_IMAGE_CAPTURE), 0)
-            .size()
-        > 0;
+    return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA);
   }
 
-  public boolean hasGallery() {
-    Intent intent = new Intent(Intent.ACTION_PICK);
-    intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-    return intent.resolveActivity(context.getPackageManager()) != null;
+  public boolean hasMicrophone() {
+    return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_MICROPHONE);
   }
 
   public boolean supportsGeofences() {

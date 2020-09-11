@@ -10,6 +10,7 @@ import com.todoroo.astrid.files.FilesControlSet
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.activities.CameraActivity
+import org.tasks.extensions.safeStartActivityForResult
 import org.tasks.files.FileHelper.newFilePickerIntent
 import org.tasks.preferences.Device
 import java.util.*
@@ -28,12 +29,12 @@ class AddAttachmentDialog : DialogFragment() {
             entries.add(getString(R.string.take_a_picture))
             actions.add(Runnable { takePicture() })
         }
-        entries.add(getString(R.string.premium_record_audio))
-        actions.add(Runnable { recordNote() })
-        if (device.hasGallery()) {
-            entries.add(getString(R.string.pick_from_gallery))
-            actions.add(Runnable { pickFromGallery() })
+        if (device.hasMicrophone()) {
+            entries.add(getString(R.string.premium_record_audio))
+            actions.add(Runnable { recordNote() })
         }
+        entries.add(getString(R.string.pick_from_gallery))
+        actions.add(Runnable { pickFromGallery() })
         entries.add(getString(R.string.pick_from_storage))
         actions.add(Runnable { pickFromStorage() })
         return dialogBuilder
@@ -50,20 +51,24 @@ class AddAttachmentDialog : DialogFragment() {
     }
 
     private fun recordNote() {
-        RecordAudioDialog.newRecordAudioDialog(targetFragment as FilesControlSet?, REQUEST_AUDIO)
+        RecordAudioDialog.newRecordAudioDialog(targetFragment, REQUEST_AUDIO)
                 .show(parentFragmentManager, FRAG_TAG_RECORD_AUDIO)
     }
 
     private fun pickFromGallery() {
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
-        if (intent.resolveActivity(context.packageManager) != null) {
-            targetFragment?.startActivityForResult(intent, REQUEST_GALLERY)
-        }
+        targetFragment?.safeStartActivityForResult(
+                Intent(Intent.ACTION_PICK).apply {
+                    setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
+                },
+                REQUEST_GALLERY
+        )
     }
 
     private fun pickFromStorage() {
-        targetFragment?.startActivityForResult(newFilePickerIntent(activity, null), REQUEST_STORAGE)
+        targetFragment?.safeStartActivityForResult(
+                newFilePickerIntent(activity, null),
+                REQUEST_STORAGE
+        )
     }
 
     companion object {

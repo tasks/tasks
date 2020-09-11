@@ -10,7 +10,6 @@ import android.os.Build
 import android.provider.DocumentsContract
 import android.provider.OpenableColumns
 import android.webkit.MimeTypeMap
-import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.Fragment
@@ -18,8 +17,8 @@ import com.google.common.collect.Iterables
 import com.google.common.io.ByteStreams
 import com.google.common.io.Files
 import com.todoroo.astrid.utility.Constants
-import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
+import org.tasks.extensions.safeStartActivity
 import timber.log.Timber
 import java.io.File
 import java.io.FileNotFoundException
@@ -147,17 +146,8 @@ object FileHelper {
         }
         val share = FileProvider.getUriForFile(context, Constants.FILE_PROVIDER_AUTHORITY, File(uri.path))
         intent.setDataAndType(share, mimeType)
-        grantReadPermissions(intent)
-        val packageManager = context.packageManager
-        if (intent.resolveActivity(packageManager) != null) {
-            context.startActivity(intent)
-        } else {
-            Toast.makeText(context, R.string.no_application_found, Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun grantReadPermissions(intent: Intent) {
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        context.safeStartActivity(intent)
     }
 
     @JvmStatic

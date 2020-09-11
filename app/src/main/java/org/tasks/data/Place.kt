@@ -6,7 +6,6 @@ import android.location.Location
 import android.net.Uri
 import android.os.Parcel
 import android.os.Parcelable
-import android.widget.Toast
 import androidx.room.*
 import com.mapbox.api.geocoding.v5.GeocodingCriteria
 import com.mapbox.api.geocoding.v5.models.CarmenFeature
@@ -14,8 +13,8 @@ import com.todoroo.andlib.data.Table
 import com.todoroo.astrid.api.FilterListItem.NO_ORDER
 import com.todoroo.astrid.helper.UUIDHelper
 import net.fortuna.ical4j.model.property.Geo
-import org.tasks.R
 import org.tasks.Strings
+import org.tasks.extensions.safeStartActivity
 import org.tasks.location.MapPosition
 import org.tasks.themes.CustomIcons.PLACE
 import java.io.Serializable
@@ -115,18 +114,12 @@ class Place : Serializable, Parcelable {
         get() = if (Strings.isNullOrEmpty(address)) null else address!!.replace("$name, ", "")
 
     fun open(context: Context?) {
-        if (context == null) {
-            return
-        }
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = Uri.parse("geo:$latitude,$longitude?q=${Uri.encode(displayName)}")
-        val pm = context.packageManager
-        val resolveInfos = pm.queryIntentActivities(intent, 0)
-        if (resolveInfos.isEmpty()) {
-            Toast.makeText(context, R.string.no_application_found_link, Toast.LENGTH_SHORT).show()
-        } else {
-            context.startActivity(intent)
-        }
+        context?.safeStartActivity(
+                Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("geo:$latitude,$longitude?q=${Uri.encode(displayName)}")
+                )
+        )
     }
 
     val mapPosition: MapPosition
