@@ -288,7 +288,6 @@
     <string name="choose_new_location">புதிய இருப்பிடத்தைத் தேர்வுசெய்க</string>
     <string name="open_map">வரைபடத்தைத் திறக்கவும்</string>
     <string name="location_permission_required_location">உங்கள் தற்போதைய இருப்பிடத்தைக் கண்டுபிடிக்க இருப்பிட அனுமதிகள் தேவை</string>
-    <string name="location_permission_required_geofence">இருப்பிட நினைவூட்டல்களுக்கு இருப்பிட அனுமதிகள் தேவை</string>
     <string name="missing_permissions">அனுமதிகள் இல்லை</string>
     <string name="map_search_provider">தேடல் வழங்குநர்</string>
     <string name="or_choose_a_location">அல்லது இருப்பிடத்தைத் தேர்வுசெய்க</string>
@@ -428,8 +427,6 @@
     <string name="pick_from_gallery">கேலரியில் இருந்து எடுக்கவும்</string>
     <string name="take_a_picture">படம் எடுக்கவும்</string>
     <string name="add_attachment">இணைப்பை சேர்க்கவும்</string>
-    <string name="no_application_found_link">எந்த பயன்பாட்டையும் இணைப்பைக் கையாள முடியவில்லை</string>
-    <string name="no_application_found">எந்த பயன்பாட்டைய இணைப்பையும் திறக்க முடியவில்லை</string>
     <string name="reverse">தலைகீழ்</string>
     <string name="show_completed">நிகழ்ச்சி முடிந்தது</string>
     <string name="show_hidden">மறைக்கப்பட்டதைக் காட்டு</string>

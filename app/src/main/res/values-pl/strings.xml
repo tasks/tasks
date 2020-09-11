@@ -349,7 +349,6 @@
     <string name="show_hidden">Pokaż ukryte</string>
     <string name="show_completed">Pokaż ukończone</string>
     <string name="reverse">Odwrotnie</string>
-    <string name="no_application_found">Nie znaleziono aplikacji do otwarcia załącznika</string>
     <string name="add_attachment">Dodaj załącznik</string>
     <string name="take_a_picture">Wybierz obrazek</string>
     <string name="pick_from_gallery">Wybierz z galerii</string>
@@ -468,7 +467,6 @@
     <string name="or_choose_a_location">Lub wybierz lokalizację</string>
     <string name="map_search_provider">Silnik wyszukiwania</string>
     <string name="missing_permissions">Brakujące uprawnienia</string>
-    <string name="location_permission_required_geofence">Uprawnienia lokalizacji są wymagane do powiadomień o lokalizacji</string>
     <string name="location_permission_required_location">Uprawnienia lokalizacji są wymagane do ustalenia twojej aktualnej lokalizacji</string>
     <string name="open_map">Otwórz mapę</string>
     <string name="choose_new_location">Wybierz nową lokalizację</string>
@@ -509,7 +507,6 @@
     <string name="subtasks">Podzadania</string>
     <string name="subtasks_multilevel_google_task">Wielopoziomowe podzadania nie są obsługiwane przez Google Tasks</string>
     <string name="enter_title_hint">Wprowadź tytuł</string>
-    <string name="no_application_found_link">Nie znaleziono aplikacji do otwarcia linku</string>
     <string name="enter_tag_name">Wprowadź nazwę tagu</string>
     <string name="create_new_tag">Stwórz \"%s\"</string>
     <string name="encryption_password_required">Wymagane hasło szyfrowania</string>

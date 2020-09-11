@@ -69,9 +69,8 @@ public class GeofenceDialog extends DialogFragment {
     LayoutInflater layoutInflater = LayoutInflater.from(context);
     View view = layoutInflater.inflate(R.layout.location_details, null);
     ButterKnife.bind(this, view);
-    boolean hasLocationPermission = permissionChecker.canAccessLocation();
-    arrivalView.setChecked(hasLocationPermission && geofence.isArrival());
-    departureView.setChecked(hasLocationPermission && geofence.isDeparture());
+    arrivalView.setChecked(geofence.isArrival());
+    departureView.setChecked(geofence.isDeparture());
     slider.setLabelFormatter(
         value -> getString(R.string.location_radius_meters, locale.formatNumber(value)));
     slider.setValueTo(MAX_RADIUS);
@@ -119,7 +118,7 @@ public class GeofenceDialog extends DialogFragment {
   public void onResume() {
     super.onResume();
 
-    if (!permissionChecker.canAccessLocation()) {
+    if (!permissionChecker.canAccessBackgroundLocation()) {
       dismiss();
     }
   }

@@ -350,8 +350,6 @@
     <string name="pick_from_gallery">Vælg fra galleri</string>
     <string name="take_a_picture">Tag et billede</string>
     <string name="add_attachment">Vedhæft fil</string>
-    <string name="no_application_found_link">Der er ikke nogen app, som kan åbne linket</string>
-    <string name="no_application_found">Der er ikke nogen app, som kan åbne den vedhæftede fil</string>
     <string name="show_completed">Vis udførte</string>
     <string name="show_hidden">Vis skjulte</string>
     <string name="filter_settings">Filterindstillinger</string>
@@ -412,7 +410,6 @@
     <string name="sort_created_group">Oprettet %s</string>
     <string name="disable_battery_optimizations">Deaktiver strømsparetilstand</string>
     <string name="wearable_notifications_summary">Vis notifikationer på din wearable-enhed</string>
-    <string name="location_permission_required_geofence">Placeringstilladelse kræves for placeringspåmindelser</string>
     <string name="license_summary">Tasks er gratis, open-source software udgivet under GNU General Public License v3.0</string>
     <string name="button_upgrade">Opgrader abonnement</string>
     <string name="button_downgrade">Nedgrader abonnement</string>

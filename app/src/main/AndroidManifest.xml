@@ -85,6 +85,12 @@
 
   <!-- ============================================== Exported Permissions = -->
 
+  <queries>
+    <intent>
+      <action android:name="android.speech.action.RECOGNIZE_SPEECH"/>
+    </intent>
+  </queries>
+
   <permission-tree
     android:icon="@drawable/ic_check_white_24dp"
     android:label="@string/app_name"

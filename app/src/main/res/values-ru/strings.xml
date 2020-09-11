@@ -355,7 +355,6 @@
     <string name="show_hidden">Показать скрытые</string>
     <string name="show_completed">Показать выполненные</string>
     <string name="reverse">Наоборот</string>
-    <string name="no_application_found">Не найдено приложение для открытия прикреплённого файла</string>
     <string name="add_attachment">Прикрепить файл</string>
     <string name="take_a_picture">Сделать снимок</string>
     <string name="pick_from_gallery">Выбрать изображение из галереи</string>
@@ -503,7 +502,6 @@
     </plurals>
     <string name="TEA_add_subtask">Добавить подзадачу</string>
     <string name="subtasks">Подзадачи</string>
-    <string name="location_permission_required_geofence">Доступ к данным о геолокации нужен для напоминаний, основанных на местоположении</string>
     <string name="location_permission_required_location">Доступ к данным о геолокации нужен, чтобы определить Ваше текущее местоположение</string>
     <string name="third_party_licenses">Сторонние лицензии</string>
     <string name="google_tasks_add_to_top">Новые задачи наверху</string>
@@ -514,7 +512,6 @@
     <string name="collapse_subtasks">Свернуть подзадачи</string>
     <string name="subtasks_multilevel_google_task">Многоуровневые подзадачи не поддерживаются Google Tasks</string>
     <string name="enter_title_hint">Введите название</string>
-    <string name="no_application_found_link">Не найдено приложение для открытия ссылки</string>
     <string name="enter_tag_name">Введите имя тега</string>
     <string name="create_new_tag">Создать \"%s\"</string>
     <string name="encryption_password_required">Требуется пароль шифрования</string>

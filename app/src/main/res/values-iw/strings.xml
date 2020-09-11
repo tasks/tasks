@@ -371,7 +371,6 @@
     <string name="show_hidden">הצגת משימות נסתרות</string>
     <string name="show_completed">הצגת משימות שבוצעו</string>
     <string name="reverse">אחורה</string>
-    <string name="no_application_found">אף יישום לא יכול לפתוח קובץ מצורף זה</string>
     <string name="add_attachment">הוספ/י קובץ</string>
     <string name="take_a_picture">צלם תמונה</string>
     <string name="pick_from_gallery">בחירה מהגלריה</string>
@@ -493,7 +492,6 @@
     <string name="or_choose_a_location">או בחרו מיקום</string>
     <string name="map_search_provider">ספק חיפוש</string>
     <string name="missing_permissions">חסרות הרשאות</string>
-    <string name="location_permission_required_geofence">הרשאות מיקום נדרשות עבור תזכורות מבוססות מיקום</string>
     <string name="location_permission_required_location">הרשאות מיקום נדרשות על מנת למצוא את מיקומך הנוכחי</string>
     <string name="open_map">פתיחת מפה</string>
     <string name="choose_new_location">בחירת מיקום חדש</string>
@@ -570,7 +568,6 @@
     <string name="chip_appearance_text_and_icon">טקסט וסמל</string>
     <string name="encryption_password_wrong">סיסמת הצפנה שגויה</string>
     <string name="encryption_password_required">דרושה סיסמת הצפנה</string>
-    <string name="no_application_found_link">אין יישום שיכול לטפל בקישור</string>
     <string name="menu_discard_changes">בטל שינויים</string>
     <string name="subtasks">תתי משימות</string>
     <string name="widget_show_dividers">הצג חוצצים</string>

@@ -367,7 +367,6 @@
     <string name="copy">Kopier</string>
     <string name="move">Flytt</string>
     <string name="reverse">Omvend</string>
-    <string name="no_application_found">Fant ikke noe program til åpning av vedlegg</string>
     <string name="add_attachment">Legg til vedlegg</string>
     <string name="take_a_picture">Ta et bilde</string>
     <string name="pick_from_gallery">Velg fra galleri</string>
@@ -464,7 +463,6 @@
     <string name="or_choose_a_location">Eller velg et sted</string>
     <string name="map_search_provider">Søketilbyder</string>
     <string name="missing_permissions">Manglende tilganger</string>
-    <string name="location_permission_required_geofence">Plasseringstilganger trengs for stedspåminnelser</string>
     <string name="location_permission_required_location">Plasseringstilganger trengs for å finne ditt nåværende sted</string>
     <string name="open_map">Åpne kart</string>
     <string name="choose_new_location">Velg nytt sted</string>
@@ -498,7 +496,6 @@
     <string name="TEA_add_subtask">Legg til gjøremålssteg</string>
     <string name="subtasks">Gjøremålssteg</string>
     <string name="subtasks_multilevel_google_task">Gjøremålssteg med flere nivåer støttes ikke av Google Tasks</string>
-    <string name="no_application_found_link">Mangler program for håndtering av lenke</string>
     <string name="enter_tag_name">Skriv inn etikettnavn</string>
     <string name="create_new_tag">Opprett «%s»</string>
     <string name="encryption_password_required">Krypteringspassord kreves</string>

@@ -367,8 +367,7 @@ File %1$s contained %2$s.\n\n
   <string name="show_hidden">Show hidden</string>
   <string name="show_completed">Show completed</string>
   <string name="reverse">Reverse</string>
-  <string name="no_application_found">No app could open attachment</string>
-  <string name="no_application_found_link">No app could handle link</string>
+  <string name="no_app_found">No app could handle this request</string>
   <string name="add_attachment">Add attachment</string>
   <string name="take_a_picture">Take a picture</string>
   <string name="pick_from_gallery">Pick from gallery</string>
@@ -520,7 +519,7 @@ File %1$s contained %2$s.\n\n
   <string name="or_choose_a_location">Or choose a location</string>
   <string name="map_search_provider">Search provider</string>
   <string name="missing_permissions">Missing permissions</string>
-  <string name="location_permission_required_geofence">Location permissions are needed for location reminders</string>
+  <string name="background_location_permission_required">Location permissions are needed for location-based reminders. If you have previously denied a location permission request then you must manually grant permission through your device settings.</string>
   <string name="location_permission_required_location">Location permissions are needed to find your current location</string>
   <string name="open_map">Open map</string>
   <string name="choose_new_location">Choose new location</string>
@@ -644,4 +643,6 @@ File %1$s contained %2$s.\n\n
   <string name="last_backup_never">never</string>
   <string name="device_settings">Device settings</string>
   <string name="account">Account</string>
+  <string name="foreground_location">Foreground location</string>
+  <string name="background_location">Background location</string>
 </resources>

@@ -3,7 +3,6 @@ package org.tasks.ui
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import android.os.Bundle
 import android.os.Parcelable
 import android.text.SpannableString
 import android.text.Spanned
@@ -15,7 +14,6 @@ import androidx.core.util.Pair
 import butterknife.BindView
 import butterknife.OnClick
 import dagger.hilt.android.AndroidEntryPoint
-import org.tasks.PermissionUtil.verifyPermissions
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.Geofence
@@ -23,8 +21,12 @@ import org.tasks.data.Location
 import org.tasks.data.Place
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.GeofenceDialog
+import org.tasks.location.LocationPermissionDialog.Companion.newLocationPermissionDialog
 import org.tasks.location.LocationPickerActivity
-import org.tasks.preferences.*
+import org.tasks.preferences.Device
+import org.tasks.preferences.FragmentPermissionRequestor
+import org.tasks.preferences.PermissionChecker
+import org.tasks.preferences.Preferences
 import java.util.*
 import javax.inject.Inject
 
@@ -65,7 +67,7 @@ class LocationControlSet : TaskEditControlFragment() {
         } else {
             geofenceOptions.visibility = if (device.supportsGeofences()) View.VISIBLE else View.GONE
             geofenceOptions.setImageResource(
-                    if (permissionChecker.canAccessLocation()
+                    if (permissionChecker.canAccessBackgroundLocation()
                             && (location.isArrival || location.isDeparture)) R.drawable.ic_outline_notifications_24px else R.drawable.ic_outline_notifications_off_24px)
             val name = location.displayName
             val address = location.displayAddress
@@ -122,25 +124,11 @@ class LocationControlSet : TaskEditControlFragment() {
 
     @OnClick(R.id.geofence_options)
     fun geofenceOptions() {
-        if (permissionRequestor.requestFineLocation()) {
+        if (permissionChecker.canAccessBackgroundLocation()) {
             showGeofenceOptions()
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-            requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        if (requestCode == PermissionRequestor.REQUEST_LOCATION) {
-            if (verifyPermissions(grantResults)) {
-                showGeofenceOptions()
-            } else {
-                dialogBuilder
-                        .newDialog(R.string.missing_permissions)
-                        .setMessage(R.string.location_permission_required_geofence)
-                        .setPositiveButton(android.R.string.ok, null)
-                        .show()
-            }
         } else {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+            newLocationPermissionDialog(this, REQUEST_LOCATION_PERMISSIONS)
+                    .show(parentFragmentManager, FRAG_TAG_REQUEST_LOCATION)
         }
     }
 
@@ -171,7 +159,11 @@ class LocationControlSet : TaskEditControlFragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_LOCATION_REMINDER) {
+        if (requestCode == REQUEST_LOCATION_PERMISSIONS) {
+            if (permissionChecker.canAccessBackgroundLocation()) {
+                showGeofenceOptions()
+            }
+        } else if (requestCode == REQUEST_LOCATION_REMINDER) {
             if (resultCode == Activity.RESULT_OK) {
                 val place: Place = data!!.getParcelableExtra(LocationPickerActivity.EXTRA_PLACE)!!
                 val location = viewModel.selectedLocation
@@ -201,6 +193,8 @@ class LocationControlSet : TaskEditControlFragment() {
         const val TAG = R.string.TEA_ctrl_locations_pref
         private const val REQUEST_LOCATION_REMINDER = 12153
         private const val REQUEST_GEOFENCE_DETAILS = 12154
+        private const val REQUEST_LOCATION_PERMISSIONS = 12155
         private const val FRAG_TAG_LOCATION_DIALOG = "location_dialog"
+        private const val FRAG_TAG_REQUEST_LOCATION = "request_location"
     }
 }

@@ -331,7 +331,6 @@
     <string name="show_hidden">Toon verborgen</string>
     <string name="show_completed">Toon voltooide</string>
     <string name="reverse">Omgekeerde</string>
-    <string name="no_application_found">Geen applicatie kan de bijlage te openen</string>
     <string name="add_attachment">Bijlage toevoegen</string>
     <string name="take_a_picture">Maak een foto</string>
     <string name="pick_from_gallery">Kies uit de gallerij</string>
@@ -448,7 +447,6 @@
     <string name="or_choose_a_location">Of kies een locatie</string>
     <string name="map_search_provider">Zoek aanbieder</string>
     <string name="missing_permissions">Missende rechten</string>
-    <string name="location_permission_required_geofence">Locatie rechten zijn nodig voor locatie herinneringen</string>
     <string name="location_permission_required_location">Locatie rechten zijn nodig om je huidige locatie te vinden</string>
     <string name="open_map">Open kaart</string>
     <string name="choose_new_location">Kies nieuwe locatie</string>
@@ -493,7 +491,6 @@
     <string name="subtasks">Deeltaken</string>
     <string name="subtasks_multilevel_google_task">Deeltaken met meerdere niveau\'s worden niet ondersteund door Google Taken</string>
     <string name="enter_title_hint">Voer titel in</string>
-    <string name="no_application_found_link">Geen applicatie kan de link te openen</string>
     <string name="enter_tag_name">Voer label naam in</string>
     <string name="create_new_tag">Maak \"%s\" aan</string>
     <string name="encryption_password_required">Coderingswachtwoord vereist</string>

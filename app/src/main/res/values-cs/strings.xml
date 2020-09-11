@@ -214,7 +214,6 @@
     <string name="show_hidden">Zobrazit skryté</string>
     <string name="show_completed">Zobrazit dokončené</string>
     <string name="reverse">Obrácené pořadí</string>
-    <string name="no_application_found">Žádná aplikace k otevření přílohy</string>
     <string name="add_attachment">Přidat přílohu</string>
     <string name="privacy_policy">Zásady ochrany osobních údajů</string>
     <string name="send_anonymous_statistics">Vylepšit Tasks</string>
@@ -458,7 +457,6 @@
     <string name="button_downgrade">Snížit předplatné</string>
     <string name="button_upgrade">Zvýšit předplatné</string>
     <string name="button_unsubscribe">Zrušit předplatné</string>
-    <string name="no_application_found_link">Žádná aplikace k otevření odkazu</string>
     <string name="encryption_password_required">Zadejte heslo pro šifrování</string>
     <string name="encryption_password">Heslo pro šifrování</string>
     <string name="passwords_do_not_match">Hesla se neshodují</string>
@@ -489,7 +487,6 @@
     <string name="or_choose_a_location">Nebo vyberte místo</string>
     <string name="map_search_provider">Poskytovatel vyhledávání</string>
     <string name="missing_permissions">Chybí oprávnění</string>
-    <string name="location_permission_required_geofence">Oprávnění k přístupu k poloze je nutné pro upomínky podle polohy</string>
     <string name="location_permission_required_location">Oprávnění k přístupu k poloze je nutné pro zjištění Vaší aktuální polohy</string>
     <string name="open_map">Otevřít mapu</string>
     <string name="choose_new_location">Vybrat novou polohu</string>

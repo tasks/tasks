@@ -318,7 +318,6 @@
     <string name="show_hidden">Mostrar ocultas</string>
     <string name="show_completed">Mostrar terminadas</string>
     <string name="reverse">Reverter</string>
-    <string name="no_application_found">Nenhuma aplicação encontrada para abrir o anexo</string>
     <string name="add_attachment">Adicionar anexo</string>
     <string name="take_a_picture">Tirar uma foto</string>
     <string name="pick_from_gallery">Escolher da galeria</string>
@@ -416,7 +415,6 @@
     <string name="choose_new_location">Escolher nova localização</string>
     <string name="open_map">Abrir mapa</string>
     <string name="location_permission_required_location">Permissão de localização é necessária para encontrar a sua localização atual</string>
-    <string name="location_permission_required_geofence">Permissão de localização é necessária para lembretes de localização</string>
     <string name="missing_permissions">Permissões faltando</string>
     <string name="map_search_provider">Provedor de pesquisa</string>
     <string name="or_choose_a_location">Ou escolha uma localização</string>
@@ -590,7 +588,6 @@
     <string name="encryption_password_required">Uma palavra-passe de encriptação necessária</string>
     <string name="create_new_tag">Criar \"%s\"</string>
     <string name="enter_tag_name">Digite o nome da etiqueta</string>
-    <string name="no_application_found_link">Nenhuma aplicação consegue abrir a ligação</string>
     <string name="enter_title_hint">Digite um título</string>
     <string name="subtasks_multilevel_google_task">Sub-tarefas em multiplos níveis não suportados pelo Google Tasks</string>
     <string name="subtasks">Sub-tarefas</string>

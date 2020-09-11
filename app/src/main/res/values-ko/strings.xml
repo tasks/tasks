@@ -337,7 +337,6 @@
     <string name="show_hidden">숨겨진 할일 표시</string>
     <string name="show_completed">완료한 할일 표시</string>
     <string name="reverse">역순</string>
-    <string name="no_application_found">첨부파일을 열 수 있는 앱이 없습니다</string>
     <string name="add_attachment">첨부파일 추가</string>
     <string name="take_a_picture">사진 촬영</string>
     <string name="pick_from_gallery">갤러리에서 선택</string>
@@ -462,7 +461,6 @@
     <string name="or_choose_a_location">위치 고르기</string>
     <string name="map_search_provider">검색 제공업체</string>
     <string name="missing_permissions">권한 누락</string>
-    <string name="location_permission_required_geofence">위치 알림을 사용하려면 위치 권한이 필요합니다</string>
     <string name="location_permission_required_location">기기의 현재 위치를 확인하려면 위치 권한이 필요합니다</string>
     <string name="open_map">지도 열기</string>
     <string name="choose_new_location">새 위치 선택</string>
@@ -494,7 +492,6 @@
     <string name="subtasks">하위할일</string>
     <string name="subtasks_multilevel_google_task">Google Tasks는 다단계 하위할일을 지원하지 않습니다</string>
     <string name="enter_title_hint">제목 입력</string>
-    <string name="no_application_found_link">링크를 처리할 앱이 없습니다</string>
     <string name="enter_tag_name">태그 이름 입력</string>
     <string name="create_new_tag">\"%s\" 생성</string>
     <string name="encryption_password_required">암호화 비밀번호 필수</string>

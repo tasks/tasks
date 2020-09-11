@@ -320,7 +320,6 @@
     <string name="show_hidden">显示隐藏的任务</string>
     <string name="show_completed">显示已完成任务</string>
     <string name="reverse">反向</string>
-    <string name="no_application_found">没有能打开附件的应用</string>
     <string name="add_attachment">添加附件</string>
     <string name="take_a_picture">拍张照片</string>
     <string name="pick_from_gallery">从相册选一张</string>
@@ -454,7 +453,6 @@
     <string name="or_choose_a_location">或选择一个位置</string>
     <string name="map_search_provider">搜索引擎供应商</string>
     <string name="missing_permissions">缺少权限</string>
-    <string name="location_permission_required_geofence">位置提醒功能需要位置权限</string>
     <string name="location_permission_required_location">需要位置权限来发现您当前位置</string>
     <string name="open_map">打开地图</string>
     <string name="choose_new_location">选择新位置</string>
@@ -489,7 +487,6 @@
     <string name="subtasks">子任务</string>
     <string name="subtasks_multilevel_google_task">Google Tasks不支持多层子任务</string>
     <string name="enter_title_hint">输入标题</string>
-    <string name="no_application_found_link">没有找到能处理链接的应用</string>
     <string name="enter_tag_name">输入标签名称</string>
     <string name="create_new_tag">创建\"%s\"</string>
     <string name="encryption_password_required">需要加密密码</string>

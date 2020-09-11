@@ -27,10 +27,14 @@ public class PermissionChecker {
     return atLeastOreo() || checkPermissions(permission.GET_ACCOUNTS);
   }
 
-  public boolean canAccessLocation() {
+  public boolean canAccessForegroundLocation() {
+    return checkPermissions(permission.ACCESS_FINE_LOCATION);
+  }
+
+  public boolean canAccessBackgroundLocation() {
     return atLeastQ()
-        ? checkPermissions(permission.ACCESS_FINE_LOCATION, permission.ACCESS_BACKGROUND_LOCATION)
-        : checkPermissions(permission.ACCESS_FINE_LOCATION);
+        ? canAccessForegroundLocation() && checkPermissions(permission.ACCESS_BACKGROUND_LOCATION)
+        : canAccessForegroundLocation();
   }
 
   public boolean canAccessMic() {

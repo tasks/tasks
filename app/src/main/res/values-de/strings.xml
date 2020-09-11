@@ -336,7 +336,6 @@
     <string name="show_hidden">Ausgeblendete anzeigen</string>
     <string name="show_completed">Erledigte anzeigen</string>
     <string name="reverse">Rückwärts</string>
-    <string name="no_application_found">Keine Anwendung konnte den Anhang öffnen</string>
     <string name="add_attachment">Anhang hinzufügen</string>
     <string name="take_a_picture">Bild aufnehmen</string>
     <string name="pick_from_gallery">Aus Galerie wählen</string>
@@ -455,7 +454,6 @@
     <string name="or_choose_a_location">Oder Ort auswählen</string>
     <string name="map_search_provider">Suchanbieter</string>
     <string name="missing_permissions">Fehlende Berechtigungen</string>
-    <string name="location_permission_required_geofence">Standortberechtigung wird für ortsbasierte Erinnerungen benötigt</string>
     <string name="location_permission_required_location">Standortberechtigung wird zur Ermittlung des aktuellen Standortes benötigt</string>
     <string name="open_map">Karte öffnen</string>
     <string name="choose_new_location">Neuen Ort auswählen</string>
@@ -498,7 +496,6 @@
     <string name="subtasks">Teilaufgaben</string>
     <string name="subtasks_multilevel_google_task">Mehrstufige Teilaufgaben werden von Google Tasks nicht unterstützt</string>
     <string name="enter_title_hint">Titel eingeben</string>
-    <string name="no_application_found_link">Keine Anwendung konnte den Link verarbeiten</string>
     <string name="encryption_password_required">Verschlüsselungs-Passwort erforderlich</string>
     <string name="encryption_password">Verschlüsselungspasswort</string>
     <string name="display_name">Anzeigename</string>

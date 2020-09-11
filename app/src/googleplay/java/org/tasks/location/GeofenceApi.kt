@@ -28,7 +28,7 @@ class GeofenceApi @Inject constructor(
 
     @SuppressLint("MissingPermission")
     suspend fun update(place: Place?) {
-        if (place == null || !permissionChecker.canAccessLocation()) {
+        if (place == null || !permissionChecker.canAccessBackgroundLocation()) {
             return
         }
         val client = LocationServices.getGeofencingClient(context)

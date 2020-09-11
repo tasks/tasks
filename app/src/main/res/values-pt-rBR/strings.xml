@@ -335,7 +335,6 @@
     <string name="show_hidden">Mostrar ocultas</string>
     <string name="show_completed">Mostrar concluídas</string>
     <string name="reverse">Reverso</string>
-    <string name="no_application_found">Nenhum aplicativo encontrado para abrir o anexo</string>
     <string name="add_attachment">Adicionar anexo</string>
     <string name="take_a_picture">Tirar uma foto</string>
     <string name="pick_from_gallery">Selecionar da galeria</string>
@@ -456,7 +455,6 @@
     <string name="or_choose_a_location">Ou escolha uma localização</string>
     <string name="map_search_provider">Provedor de pesquisa</string>
     <string name="missing_permissions">Permissões faltando</string>
-    <string name="location_permission_required_geofence">Permissão de Localização é necessária para lembretes de localização</string>
     <string name="location_permission_required_location">Permissão de Localização é necessária para encontrar sua localização atual</string>
     <string name="open_map">Abrir mapa</string>
     <string name="choose_new_location">Escolher nova localização</string>
@@ -568,7 +566,6 @@
     <string name="passwords_do_not_match">Senhas não conferem</string>
     <string name="encryption_password_wrong">Senha de encriptação errada</string>
     <string name="encryption_password_required">Senha de encriptação necessária</string>
-    <string name="no_application_found_link">Nenhum aplicativo consegue abrir o link</string>
     <string name="date_shortcut_tomorrow_night">Amanhã à noite</string>
     <string name="date_shortcut_tomorrow_evening">Amanhã à tardinha</string>
     <string name="location_radius_meters">%s m</string>

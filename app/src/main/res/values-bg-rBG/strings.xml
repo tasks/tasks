@@ -338,7 +338,6 @@
     <string name="show_hidden">Покажи скрити</string>
     <string name="show_completed">Покажи завършени</string>
     <string name="reverse">Обратно</string>
-    <string name="no_application_found">Не е намерено приложение за отваряне на прикачения файл</string>
     <string name="add_attachment">Добавяне на прикачен файл</string>
     <string name="take_a_picture">Заснемане</string>
     <string name="pick_from_gallery">Изберете от галерия</string>
@@ -458,7 +457,6 @@
     <string name="or_choose_a_location">Или избери местоположение</string>
     <string name="map_search_provider">Намери доставчик</string>
     <string name="missing_permissions">Липсващи разрешения</string>
-    <string name="location_permission_required_geofence">За напомняния за местоположение са необходими разрешения за местоположението</string>
     <string name="location_permission_required_location">Необходими са разрешения за местоположение, за да откриете текущото ви местоположение</string>
     <string name="open_map">Отворете картата</string>
     <string name="choose_new_location">Изберете ново местоположение</string>

@@ -25,6 +25,6 @@ fun Fragment.safeStartActivityForResult(intent: Intent, rc: Int) {
 
 private fun toast(context: Context?) {
     context?.let {
-        Toast.makeText(it, R.string.no_application_found, Toast.LENGTH_LONG).show()
+        Toast.makeText(it, R.string.no_app_found, Toast.LENGTH_LONG).show()
     }
 }

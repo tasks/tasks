@@ -340,7 +340,6 @@
     <string name="show_hidden">Gizlenenleri göster</string>
     <string name="show_completed">Tamamlananları göster</string>
     <string name="reverse">Ters</string>
-    <string name="no_application_found">Eki açacak uygulama yok</string>
     <string name="add_attachment">Ek ekle</string>
     <string name="take_a_picture">Bir fotoğraf çek</string>
     <string name="pick_from_gallery">Galeriden seç</string>
@@ -461,7 +460,6 @@
     <string name="or_choose_a_location">Ya da konum seç</string>
     <string name="map_search_provider">Arama sağlayıcı</string>
     <string name="missing_permissions">Eksik izinler</string>
-    <string name="location_permission_required_geofence">Konum anımsatıcılar için konum izinleri gereklidir</string>
     <string name="location_permission_required_location">Geçerli konumunuzu bulmak için konum izinleri gereklidir</string>
     <string name="open_map">Haritayı aç</string>
     <string name="choose_new_location">Yeni konum seç</string>
@@ -498,7 +496,6 @@
     <string name="subtasks">Alt görevler</string>
     <string name="subtasks_multilevel_google_task">Google Tasks, çoklu düzey alt görevleri desteklemez</string>
     <string name="enter_title_hint">Başlık girin</string>
-    <string name="no_application_found_link">Bağlantıyı işleyecek uygulama yok</string>
     <string name="enter_tag_name">Etiket adı girin</string>
     <string name="create_new_tag">\"%s\" oluştur</string>
     <string name="encryption_password_required">Şifreleme parolası gerekli</string>

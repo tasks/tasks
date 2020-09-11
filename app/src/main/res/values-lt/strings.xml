@@ -334,7 +334,6 @@
     <string name="show_hidden">Rodyti paslėptus</string>
     <string name="show_completed">Rodyti užbaigtus</string>
     <string name="reverse">Atvirkščiai</string>
-    <string name="no_application_found">Nerasta programa, kuri galėtų atidaryti prisegtą failą</string>
     <string name="add_attachment">Pridėti failą</string>
     <string name="take_a_picture">Nufotografuoti</string>
     <string name="pick_from_gallery">Pasirinkti iš galerijos</string>
@@ -455,7 +454,6 @@
     <string name="or_choose_a_location">Arba pasirinkti vietą</string>
     <string name="map_search_provider">Paieškos tiekėjas</string>
     <string name="missing_permissions">Dingę leidimai</string>
-    <string name="location_permission_required_geofence">Vietos leidimai reikalingi priminimams pagal vietą</string>
     <string name="location_permission_required_location">Vietos leidimai reikalingi surasti jūsų esamą vietą</string>
     <string name="open_map">Atidaryti žemėlapį</string>
     <string name="choose_new_location">Pasirinkti naują vietą</string>

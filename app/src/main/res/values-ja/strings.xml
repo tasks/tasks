@@ -335,7 +335,6 @@
     <string name="show_hidden">非表示を表示</string>
     <string name="show_completed">完了を表示</string>
     <string name="reverse">逆順</string>
-    <string name="no_application_found">添付ファイルを開くアプリケーションが見つかりません</string>
     <string name="add_attachment">添付ファイルを追加</string>
     <string name="take_a_picture">写真を撮影</string>
     <string name="pick_from_gallery">ギャラリーから選択</string>
@@ -456,7 +455,6 @@
     <string name="or_choose_a_location">または場所を選ぶ</string>
     <string name="map_search_provider">プロバイダーを検索</string>
     <string name="missing_permissions">アクセス許可がありません</string>
-    <string name="location_permission_required_geofence">場所リマインダーには位置のアクセス許可が必要です</string>
     <string name="location_permission_required_location">現在の場所を見つけるには位置のアクセス許可が必要です</string>
     <string name="open_map">地図を開く</string>
     <string name="choose_new_location">新しい場所を選択</string>

@@ -243,7 +243,6 @@
     <string name="show_hidden">Mostrar oculto</string>
     <string name="show_completed">Mostrar completado</string>
     <string name="reverse">Invertir</string>
-    <string name="no_application_found">No se ha encontrado una aplicación para abrir el archivo adjunto</string>
     <string name="add_attachment">Adjuntar archivo</string>
     <string name="take_a_picture">Tomar fotografía</string>
     <string name="pick_from_gallery">Elegir desde la galería</string>

@@ -1,6 +1,7 @@
 package org.tasks.preferences;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastQ;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastR;
 
 import android.Manifest.permission;
 
@@ -9,7 +10,8 @@ public abstract class PermissionRequestor {
   public static final int REQUEST_CALENDAR = 51;
   public static final int REQUEST_MIC = 52;
   public static final int REQUEST_GOOGLE_ACCOUNTS = 53;
-  public static final int REQUEST_LOCATION = 54;
+  public static final int REQUEST_BACKGROUND_LOCATION = 54;
+  public static final int REQUEST_FOREGROUND_LOCATION = 55;
 
   private final PermissionChecker permissionChecker;
 
@@ -43,15 +45,28 @@ public abstract class PermissionRequestor {
     return false;
   }
 
-  public boolean requestFineLocation() {
-    if (permissionChecker.canAccessLocation()) {
+  public boolean requestForegroundLocation() {
+    if (permissionChecker.canAccessForegroundLocation()) {
       return true;
     }
-    if (atLeastQ()) {
+    requestPermissions(REQUEST_FOREGROUND_LOCATION, permission.ACCESS_FINE_LOCATION);
+    return false;
+  }
+
+  public boolean requestBackgroundLocation() {
+    if (permissionChecker.canAccessBackgroundLocation()) {
+      return true;
+    }
+    if (atLeastR()) {
+      if (requestForegroundLocation()) {
+        requestPermissions(REQUEST_BACKGROUND_LOCATION, permission.ACCESS_BACKGROUND_LOCATION);
+      }
+    } else if (atLeastQ()) {
       requestPermissions(
-          REQUEST_LOCATION, permission.ACCESS_FINE_LOCATION, permission.ACCESS_BACKGROUND_LOCATION);
+          REQUEST_BACKGROUND_LOCATION,
+          permission.ACCESS_FINE_LOCATION, permission.ACCESS_BACKGROUND_LOCATION);
     } else {
-      requestPermissions(REQUEST_LOCATION, permission.ACCESS_FINE_LOCATION);
+      requestPermissions(REQUEST_BACKGROUND_LOCATION, permission.ACCESS_FINE_LOCATION);
     }
     return false;
   }

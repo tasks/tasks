@@ -321,7 +321,6 @@
     <string name="show_hidden">Näytä piilotetut</string>
     <string name="show_completed">Näytä valmiit</string>
     <string name="reverse">Käänteinen</string>
-    <string name="no_application_found">Liitteen avaamiseen ei löydy sovellusta</string>
     <string name="add_attachment">Lisää liite</string>
     <string name="take_a_picture">Ota kuva</string>
     <string name="pick_from_gallery">Valitse galleriasta</string>
@@ -452,7 +451,6 @@
     <string name="choose_new_location">Valitse uusi sijainti</string>
     <string name="open_map">Avaa kartta</string>
     <string name="location_permission_required_location">Sijaintioikeudet tarvitaan nykysijainnin paikannukseen</string>
-    <string name="location_permission_required_geofence">Sijaintioikeudet tarvitaan sijaintipohjaisiin muistutuksiin</string>
     <string name="missing_permissions">Oikeuksia puuttuu</string>
     <string name="map_search_provider">Hauntarjoaja</string>
     <string name="or_choose_a_location">Tai valitse muu sijainti</string>
@@ -499,7 +497,6 @@
     <string name="encryption_password_required">Salauksen salasana vaaditaan</string>
     <string name="password_required">Salasana vaaditaan</string>
     <string name="username_required">Käyttäjänimi vaaditaan</string>
-    <string name="no_application_found_link">Linkin käsittelemiseen ei löydy sovellusta</string>
     <string name="move">Siirrä</string>
     <string name="menu_discard_changes">Hylkää muutokset</string>
     <string name="location_radius_meters">%s m</string>

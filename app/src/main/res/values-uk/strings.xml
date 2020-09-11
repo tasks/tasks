@@ -353,7 +353,6 @@
     <string name="show_hidden">Показати приховані</string>
     <string name="show_completed">Показати завершені</string>
     <string name="reverse">Реверс</string>
-    <string name="no_application_found">Не знайдено програми для відкриття прикріпленого файлу</string>
     <string name="add_attachment">Додати вкладення</string>
     <string name="take_a_picture">Зробити фото</string>
     <string name="pick_from_gallery">Обрати з галереї</string>
@@ -474,7 +473,6 @@
     <string name="or_choose_a_location">Або вказати інше місце</string>
     <string name="map_search_provider">Знайти провайдера</string>
     <string name="missing_permissions">Відсутні дозволи</string>
-    <string name="location_permission_required_geofence">Для нагадувань за місцем необхідний дозвіл на перегляд місцезнаходження </string>
     <string name="location_permission_required_location">Щоб визначити ваше місцезнаходження необхідний дозвіл на перегляд місцезнаходження </string>
     <string name="open_map">Відкрити карту</string>
     <string name="choose_new_location">Обрати нове місце</string>
@@ -503,7 +501,6 @@
     <string name="desaturate_colors_summary_off">Кольори не будуть ненасиченими в темних темах</string>
     <string name="desaturate_colors_summary_on">Кольори будуть ненасиченими в темних темах</string>
     <string name="theme_system_default">За системними налаштуваннями</string>
-    <string name="no_application_found_link">Не знайдено програми, щоб відкрити посилання</string>
     <plurals name="subtask_count">
         <item quantity="one">%d підзадача</item>
         <item quantity="few">%d підзадачі</item>

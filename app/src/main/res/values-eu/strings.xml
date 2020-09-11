@@ -341,7 +341,6 @@
     <string name="show_hidden">Erakutsi ezkutatutakoak</string>
     <string name="show_completed">Erakutsi burututakoak</string>
     <string name="reverse">Alderantziz</string>
-    <string name="no_application_found">Ez dago aplikaziorik eranskina irekitzeko</string>
     <string name="add_attachment">Gehitu eranskina</string>
     <string name="take_a_picture">Atera argazkia</string>
     <string name="pick_from_gallery">Hautatu galeriatik</string>
@@ -464,7 +463,6 @@
     <string name="or_choose_a_location">Edo hautatu kokaleku bat</string>
     <string name="map_search_provider">Bilatu hornitzailea</string>
     <string name="missing_permissions">Baimenak falta dira</string>
-    <string name="location_permission_required_geofence">Kokapen baimena behar da kokalekuen araberako oroigarrientzat</string>
     <string name="location_permission_required_location">Kokapen baimena behar da zure uneko kokalekua aurkitzeko</string>
     <string name="open_map">Ireki mapa</string>
     <string name="choose_new_location">Hautatu kokaleku berria</string>
@@ -498,7 +496,6 @@
     <string name="subtasks">Azpi-zereginak</string>
     <string name="subtasks_multilevel_google_task">Google Tasks-ek ez ditu hainbat mailako azpi-zereginak onartzen</string>
     <string name="enter_title_hint">Sartu izenburua</string>
-    <string name="no_application_found_link">Ez dago aplikaziorik esteka kudeatzeko</string>
     <string name="enter_tag_name">Idatzi etiketaren izena</string>
     <string name="create_new_tag">Sortu \"%s\"</string>
     <string name="encryption_password_required">Zifratze pasahitza behar da</string>

@@ -241,7 +241,6 @@
     <string name="show_hidden">Visa dolda</string>
     <string name="show_completed">Visa slutförda</string>
     <string name="reverse">Omvänt</string>
-    <string name="no_application_found">Ingen applikation hittades för att öppna bilagan</string>
     <string name="add_attachment">Bifoga filer</string>
     <string name="take_a_picture">Ta en bild</string>
     <string name="pick_from_gallery">Välj från album</string>
@@ -459,7 +458,6 @@
     <string name="or_choose_a_location">Eller Välj en plats</string>
     <string name="map_search_provider">Sökleverantör</string>
     <string name="missing_permissions">Saknar behörigheter</string>
-    <string name="location_permission_required_geofence">Läge behörigheter behövs för plats påminnelser</string>
     <string name="location_permission_required_location">Plats behörigheter behövs för att hitta din aktuella plats</string>
     <string name="open_map">Öppna karta</string>
     <string name="choose_new_location">Välj ny plats</string>

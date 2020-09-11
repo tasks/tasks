@@ -184,12 +184,12 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
     override fun onMapReady(mapFragment: MapFragment) {
         map = mapFragment
         updateMarkers()
-        if (permissionChecker.canAccessLocation()) {
+        if (permissionChecker.canAccessForegroundLocation()) {
             mapFragment.showMyLocation()
         }
         if (mapPosition != null) {
             map.movePosition(mapPosition, false)
-        } else if (permissionRequestor.requestFineLocation()) {
+        } else if (permissionChecker.canAccessForegroundLocation()) {
             moveToCurrentLocation(false)
         }
     }
@@ -215,14 +215,14 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
 
     @OnClick(R.id.current_location)
     fun onClick() {
-        if (permissionRequestor.requestFineLocation()) {
+        if (permissionRequestor.requestForegroundLocation()) {
             moveToCurrentLocation(true)
         }
     }
 
     override fun onRequestPermissionsResult(
             requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        if (requestCode == PermissionRequestor.REQUEST_LOCATION) {
+        if (requestCode == PermissionRequestor.REQUEST_FOREGROUND_LOCATION) {
             if (verifyPermissions(grantResults)) {
                 map.showMyLocation()
                 moveToCurrentLocation(true)

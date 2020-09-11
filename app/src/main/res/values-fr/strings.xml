@@ -320,7 +320,6 @@
     <string name="show_hidden">Afficher les tâches cachées</string>
     <string name="show_completed">Afficher les tâches terminées</string>
     <string name="reverse">Inverser</string>
-    <string name="no_application_found">Aucune application ne peut ouvrir la pièce jointe</string>
     <string name="add_attachment">Ajouter une pièce jointe</string>
     <string name="take_a_picture">Prendre une photo</string>
     <string name="pick_from_gallery">Choisir depuis la galerie</string>
@@ -440,7 +439,6 @@
     <string name="or_choose_a_location">Ou choisir une localisation</string>
     <string name="map_search_provider">Moteurs de recherche</string>
     <string name="missing_permissions">Permissions manquantes</string>
-    <string name="location_permission_required_geofence">La permission de la localisation est nécessaire pour les rappels de localisation</string>
     <string name="location_permission_required_location">La permission de la localisation est nécessaire pour trouver votre localisation actuelle</string>
     <string name="open_map">Ouvrir la carte</string>
     <string name="choose_new_location">Choisir une nouvelle localisation</string>
@@ -493,7 +491,6 @@
     <string name="subtasks">Sous-tâches</string>
     <string name="subtasks_multilevel_google_task">Les sous-tâches multi-niveaux ne sont pas prises en charge par Google Tasks</string>
     <string name="enter_title_hint">Entrer le titre</string>
-    <string name="no_application_found_link">Aucune application ne pouvait gérer le lien</string>
     <string name="enter_tag_name">Entrez le nom du tag</string>
     <string name="create_new_tag">Créer %s</string>
     <string name="encryption_password_required">Mot de passe de chiffrement requis</string>

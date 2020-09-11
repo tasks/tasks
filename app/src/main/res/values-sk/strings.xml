@@ -335,7 +335,6 @@
     <string name="show_hidden">Zobraziť skryté</string>
     <string name="show_completed">Zobraziť dokončené</string>
     <string name="reverse">Opačné</string>
-    <string name="no_application_found">Na otvorenie tohto súboru nebola nájdená vhodná aplikácia </string>
     <string name="add_attachment">Pridať prílohu </string>
     <string name="take_a_picture">Spraviť obrázok</string>
     <string name="pick_from_gallery">Vybrať z galérie</string>
@@ -455,7 +454,6 @@
     <string name="or_choose_a_location">Alebo vybrať polohu ručne</string>
     <string name="map_search_provider">Vyhľadávanie poskytuje</string>
     <string name="missing_permissions">Chýbajúce oprávnenia</string>
-    <string name="location_permission_required_geofence">Pre upozornenia podľa polohy sú potrebné povolenia</string>
     <string name="location_permission_required_location">Pre učenie súčasnej polohy sú potrebné povolenia</string>
     <string name="open_map">Otvoriť mapu</string>
     <string name="choose_new_location">Zvoliť novú polohu</string>
