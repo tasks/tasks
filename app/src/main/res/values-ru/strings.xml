@@ -656,4 +656,8 @@
     <string name="android_auto_backup_device_summary">Вы также должны выбрать службу резервного копирования в настройках вашего устройства. Не все устройства поддерживают резервное копирование.</string>
     <string name="android_auto_backup">Служба резервного копирования Android</string>
     <string name="automatic_backups">Автоматическое резервное копирование</string>
+    <string name="background_location">Местоположение на заднем плане</string>
+    <string name="foreground_location">Расположение на переднем плане</string>
+    <string name="background_location_permission_required">Разрешения на местоположение необходимы для напоминаний на основе местоположения. Если вы ранее отклоняли запрос разрешения на определение местоположения, вы должны вручную предоставить разрешение в настройках вашего устройства.</string>
+    <string name="no_app_found">Ни одно приложение не может обработать этот запрос</string>
 </resources>
