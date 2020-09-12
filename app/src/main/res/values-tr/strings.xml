@@ -4,8 +4,8 @@
     <string name="TVA_add_comment">Yorum gir…</string>
     <string name="enter_filter_name">Süzgeç adı girin</string>
     <string name="backup_BPr_header">Yedekler</string>
-    <string name="backup_BAc_import">Görevleri içe aktar</string>
-    <string name="backup_BAc_export">Görevleri dışa aktar</string>
+    <string name="backup_BAc_import">Yedeği içe aktar</string>
+    <string name="backup_BAc_export">Şimdi yedekle</string>
     <string name="export_toast">%1$s şuraya yedeklendi: %2$s.</string>
     <string name="export_toast_no_tasks">Dışa Aktarılacak Görev Yok.</string>
     <string name="import_summary_title">Geri Alma Özeti</string>
@@ -294,7 +294,7 @@
     <string name="quiet_hours">Sessiz saatler</string>
     <string name="attachment_directory">Ek klasörü</string>
     <string name="backup_directory">Yedekleme klasörü</string>
-    <string name="google_drive_backup">Google Drive\'a kopyala</string>
+    <string name="google_drive_backup">Google Drive yedeği</string>
     <string name="miscellaneous">Türlü</string>
     <string name="synchronization">Eşzamanlama</string>
     <string name="enabled">Etkin</string>
@@ -633,4 +633,15 @@
     <string name="permission_read_tasks">Tasks veri tabanına tam erişim</string>
     <string name="account_not_found">Hesap bulunamadı</string>
     <string name="davx5_selection_description">DAVx⁵ uygulamasıyla görevlerinizi eşitleyin</string>
+    <string name="background_location_permission_required">Konum izinleri, konum tabanlı anımsatıcılar için gereklidir. Eğer daha önce konum izni isteğini reddetiyseniz, aygıt ayarlarınızdan elle izin vermelisiniz.</string>
+    <string name="background_location">Ön plan konumu</string>
+    <string name="foreground_location">Arka plan konumu</string>
+    <string name="account">Hesap</string>
+    <string name="device_settings">Aygıt ayarları</string>
+    <string name="last_backup_never">asla</string>
+    <string name="last_backup">Son yedek: %s</string>
+    <string name="android_auto_backup_device_summary">Aygıtınızın ayarlarından yedek servisine dahil olmalısınız. Tüm aygıtlar yedekleme servisini sunmaz.</string>
+    <string name="android_auto_backup">Android Yedek Servisi</string>
+    <string name="automatic_backups">Kendiliğinden yedeklemeler</string>
+    <string name="no_app_found">Hiçbir uygulama bu isteği karşılayamadı</string>
 </resources>
