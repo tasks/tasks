@@ -635,4 +635,8 @@
     <string name="android_auto_backup_device_summary">Vous devez également vous inscrire au service de sauvegarde via les paramètres de votre appareil. Tous les appareils ne fournissent pas de service de sauvegarde.</string>
     <string name="android_auto_backup">Service de sauvegarde Android</string>
     <string name="automatic_backups">Sauvegardes automatiques</string>
+    <string name="background_location">Emplacement en arrière-plan</string>
+    <string name="foreground_location">Emplacement au premier plan</string>
+    <string name="background_location_permission_required">Les autorisations de localisation sont nécessaires pour les rappels basés sur la localisation. Si vous avez précédemment refusé une demande d\'autorisation de localisation, vous devez accorder manuellement l\'autorisation via les paramètres de votre appareil.</string>
+    <string name="no_app_found">Aucune application ne peut gérer cette demande</string>
 </resources>
