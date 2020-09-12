@@ -640,4 +640,8 @@
     <string name="android_auto_backup_device_summary">También debe optar por el servicio de copia de seguridad a través de la configuración de su dispositivo. No todos los dispositivos proporcionan servicio de copia de seguridad.</string>
     <string name="android_auto_backup">Servicio de copia de seguridad de Android</string>
     <string name="automatic_backups">Copias de respaldo automáticas</string>
+    <string name="background_location">Ubicación de fondo</string>
+    <string name="foreground_location">Ubicación en primer plano</string>
+    <string name="background_location_permission_required">Los permisos de ubicación son necesarios para los recordatorios basados en la ubicación. Si previamente ha denegado una solicitud de permiso de ubicación, debe otorgar el permiso manualmente a través de la configuración de su dispositivo.</string>
+    <string name="no_app_found">Ninguna aplicación podría manejar esta solicitud</string>
 </resources>
