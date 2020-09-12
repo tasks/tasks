@@ -4,8 +4,8 @@
     <string name="TVA_add_comment">הוספת הערה…</string>
     <string name="enter_filter_name">הזן שם מסנן</string>
     <string name="backup_BPr_header">גיבויים</string>
-    <string name="backup_BAc_import">ייבוא משימות</string>
-    <string name="backup_BAc_export">ייצוא משימות</string>
+    <string name="backup_BAc_import">ייבוא מגיבוי</string>
+    <string name="backup_BAc_export">גיבוי כעת</string>
     <string name="export_toast">בוצע גיבוי של %1$s אל %2$s.</string>
     <string name="export_toast_no_tasks">אין משימות לייצוא.</string>
     <string name="import_summary_title">סיכום פעולת השחזור</string>
@@ -324,7 +324,7 @@
     <string name="quiet_hours">שעות שקטות</string>
     <string name="attachment_directory">תיקיית קבצים מצורפים</string>
     <string name="backup_directory">תיקיית גיבוי</string>
-    <string name="google_drive_backup">העתק ל\"גוּגֶל דרָייב\"</string>
+    <string name="google_drive_backup">גיבוי Google Drive</string>
     <string name="miscellaneous">שונות</string>
     <string name="synchronization">סינכרון</string>
     <string name="enabled">אפשר</string>
@@ -665,4 +665,9 @@
     <string name="chip_style">סגנון צ׳יפ</string>
     <string name="chip_style_filled">מלא</string>
     <string name="chip_style_outlined">עם קו מתאר</string>
+    <string name="account">חשבון</string>
+    <string name="device_settings">הגדרות המכשיר</string>
+    <string name="last_backup_never">אף פעם</string>
+    <string name="last_backup">הגיבוי האחרון: %s</string>
+    <string name="automatic_backups">גיבויים אוטומטיים</string>
 </resources>
