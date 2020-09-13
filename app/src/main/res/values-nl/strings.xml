@@ -635,4 +635,8 @@
     <string name="android_auto_backup">Android back-upservice</string>
     <string name="android_auto_backup_device_summary">Je moet de back-upservice ook aanzetten in je apparaatinstellingen. Niet alle apparaten bieden de back-upservice aan.</string>
     <string name="automatic_backups">Automatische back-ups</string>
+    <string name="no_app_found">Geen app kon dit verzoek afhandelen</string>
+    <string name="background_location">Achtergrond locatie</string>
+    <string name="foreground_location">Voorgrond locatie</string>
+    <string name="background_location_permission_required">Voor locatie-gebaseerde herinneringen is een locatie-machtiging vereist. Als je al ooit een locatie-machtigingsverzoek hebt afgewezen moet je deze machtiging handmatig aanzetten in je apparaatinstellingen.</string>
 </resources>
