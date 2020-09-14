@@ -638,4 +638,8 @@
     <string name="android_auto_backup_device_summary">A készüléked beállításaiban is engedélyezned kell a mentési szolgáltatást. A mentési szolgáltatás nem érhető el minden készüléken.</string>
     <string name="android_auto_backup">Android Backup szolgáltatás</string>
     <string name="automatic_backups">Automatikus mentések</string>
+    <string name="background_location">Helymeghatározás háttérben</string>
+    <string name="foreground_location">Helymeghatározás előtérben</string>
+    <string name="background_location_permission_required">A hely emlékeztető használatához helymeghatározási jogosultság szükséges. Ha korábban megtagadta a helymeghatározási jogosultság megadását, akkor az csak a készülék beállítások között engedélyezhető újra.</string>
+    <string name="no_app_found">Nem található megfelelő alkalmazás</string>
 </resources>
