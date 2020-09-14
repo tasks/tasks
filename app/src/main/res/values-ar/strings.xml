@@ -157,7 +157,7 @@
     <string name="discard_confirmation">هل أنت متأكد أنك تريد تجاهل تغييراتك؟</string>
     <string name="language">اللغة</string>
     <string name="restart_later">لاحقاً</string>
-    <string name="TEA_no_time">دون وقت</string>
+    <string name="TEA_no_time">لا وقت</string>
     <string name="TEA_no_date">لا تاريخ</string>
     <string name="action_call">اتصل</string>
     <string name="TLA_no_items">لا يوجد مهمات هنا.</string>
