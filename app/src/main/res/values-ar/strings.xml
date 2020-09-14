@@ -135,7 +135,7 @@
     <string name="add_reminder">أضف منبه</string>
     <string name="remove">حذف</string>
     <string name="randomly">عشوائياً</string>
-    <string name="pick_a_date_and_time">اختر تاريخ و وقت</string>
+    <string name="pick_a_date_and_time">اختر التاريخ و الوقت</string>
     <string name="filters">تصفيات</string>
     <string name="filter_settings">إعدادات التصفية</string>
     <string name="show_hidden">عرض المهام المخفية</string>
@@ -157,7 +157,7 @@
     <string name="discard_confirmation">هل أنت متأكد أنك تريد تجاهل تغييراتك؟</string>
     <string name="language">اللغة</string>
     <string name="restart_later">لاحقاً</string>
-    <string name="TEA_no_time">لا وقت</string>
+    <string name="TEA_no_time">دون وقت</string>
     <string name="TEA_no_date">لا تاريخ</string>
     <string name="action_call">اتصل</string>
     <string name="TLA_no_items">لا يوجد مهمات هنا.</string>
@@ -226,4 +226,6 @@
     <string name="priority_low">منخفض</string>
     <string name="priority_medium">متوسط</string>
     <string name="priority_high">عال</string>
+    <string name="pick_a_time">اختر وقتًا</string>
+    <string name="date_and_time">التاريخ و الوقت</string>
 </resources>
