@@ -69,6 +69,11 @@ class Upgrader @Inject constructor(
             }
             run(from, V9_7) { googleTaskListDao.resetOrders() }
             run(from, V9_7_3) { googleTaskDao.updateParents() }
+            run(from, V10_0_2) {
+                filterDao.getAll()
+                        .filter { it.getSql().trim() == "WHERE" }
+                        .forEach { filterDao.delete(it) }
+            }
             preferences.setBoolean(R.string.p_just_updated, true)
         }
         preferences.setCurrentVersion(to)
@@ -315,6 +320,7 @@ class Upgrader @Inject constructor(
         const val V9_6 = 90600
         const val V9_7 = 90700
         const val V9_7_3 = 90704
+        const val V10_0_2 = 100012
 
         @JvmStatic
         fun getAndroidColor(context: Context, index: Int): Int {

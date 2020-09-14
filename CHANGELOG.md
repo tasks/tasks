@@ -1,6 +1,12 @@
 Change Log
 ---
 =======
+### 10.0.2 (2020-09-14)
+
+* Fix crash from corrupted custom filter
+* Fix crash in 'Astrid manual sorting' mode
+* Fix missing 'Calendar event created' snackbar
+
 ### 10.0.1 (2020-09-05)
 
 * Bug fixes

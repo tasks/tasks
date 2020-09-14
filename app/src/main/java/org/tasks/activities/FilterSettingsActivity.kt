@@ -91,12 +91,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
                 setCriteria(CriterionInstance.fromString(
                         filterCriteriaProvider, intent.getStringExtra(EXTRA_CRITERIA)!!))
             }
-            else -> {
-                val instance = CriterionInstance()
-                instance.criterion = filterCriteriaProvider.startingUniverse
-                instance.type = CriterionInstance.TYPE_UNIVERSE
-                setCriteria(mutableListOf(instance))
-            }
+            else -> setCriteria(universe())
         }
         recyclerView.layoutManager = LinearLayoutManager(this)
         ItemTouchHelper(
@@ -108,8 +103,15 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
         updateTheme()
     }
 
+    private fun universe() = listOf(CriterionInstance().apply {
+        criterion = filterCriteriaProvider.startingUniverse
+        type = CriterionInstance.TYPE_UNIVERSE
+    })
+
     private fun setCriteria(criteria: List<CriterionInstance>) {
-        this.criteria = criteria.toMutableList()
+        this.criteria = criteria
+                .ifEmpty { universe() }
+                .toMutableList()
         adapter = CustomFilterAdapter(criteria, locale) { replaceId: String -> onClick(replaceId) }
         recyclerView.adapter = adapter
         fab.isExtended = isNew || adapter.itemCount <= 1
@@ -246,6 +248,9 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
             f.setIcon(selectedIcon)
             f.values = AndroidUtilities.mapToSerializedString(values)
             f.criterion = CriterionInstance.serialize(criteria)
+            if (f.criterion.isNullOrBlank()) {
+                throw RuntimeException("Criterion cannot be empty")
+            }
             f.setSql(sql)
             if (isNew) {
                 f.id = filterDao.insert(f)
@@ -272,7 +277,9 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
             (!Strings.isNullOrEmpty(newName)
                     || selectedColor != 0 || selectedIcon != -1 || criteria.size > 1)
         } else newName != filter!!.listingTitle
-                || selectedColor != filter!!.tint || selectedIcon != filter!!.icon || CriterionInstance.serialize(criteria) != filter!!.criterion
+                || selectedColor != filter!!.tint
+                || selectedIcon != filter!!.icon
+                || CriterionInstance.serialize(criteria) != filter!!.criterion.trim()
                 || values != filter!!.valuesForNewTasks
                 || sql != filter!!.originalSqlQuery
     }
