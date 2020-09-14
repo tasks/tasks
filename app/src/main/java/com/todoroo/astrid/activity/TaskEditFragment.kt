@@ -254,9 +254,10 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
 
     /** Save task model from values in UI components  */
     suspend fun save() = withContext(NonCancellable) {
+        val tlf = (activity as MainActivity?)?.taskListFragment
         val saved = editViewModel.save()
         if (saved && editViewModel.isNew) {
-            (activity as MainActivity?)?.taskListFragment?.let { taskListFragment ->
+            tlf?.let { taskListFragment ->
                 val model = editViewModel.task!!
                 taskListFragment.onTaskCreated(model.uuid)
                 if (!isNullOrEmpty(model.calendarURI)) {
