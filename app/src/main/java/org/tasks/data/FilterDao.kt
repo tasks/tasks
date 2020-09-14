@@ -1,9 +1,6 @@
 package org.tasks.data
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.todoroo.astrid.api.FilterListItem.NO_ORDER
 
 @Dao
@@ -13,6 +10,9 @@ interface FilterDao {
 
     @Query("DELETE FROM filters WHERE _id = :id")
     suspend fun delete(id: Long)
+
+    @Delete
+    suspend fun delete(filter: Filter)
 
     @Query("SELECT * FROM filters WHERE title = :title COLLATE NOCASE LIMIT 1")
     suspend fun getByName(title: String): Filter?

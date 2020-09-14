@@ -1,8 +1,5 @@
 package com.todoroo.astrid.core
 
-import com.google.common.base.Joiner
-import com.google.common.base.Splitter
-import com.google.common.collect.Lists
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.api.CustomFilterCriterion
 import com.todoroo.astrid.api.MultipleSelectCriterion
@@ -72,14 +69,13 @@ class CriterionInstance {
 
     private fun serialize(): String {
         // criterion|entry|text|type|sql
-        return Joiner.on(AndroidUtilities.SERIALIZATION_SEPARATOR)
-                .join(
-                        listOf(
-                                escape(criterion.identifier),
-                                escape(valueFromCriterion),
-                                escape(criterion.text),
-                                type,
-                                if (criterion.sql == null) "" else criterion.sql))
+        return listOf(
+                escape(criterion.identifier),
+                escape(valueFromCriterion),
+                escape(criterion.text),
+                type,
+                criterion.sql ?: "")
+                .joinToString(AndroidUtilities.SERIALIZATION_SEPARATOR)
     }
 
     override fun toString(): String {
@@ -126,9 +122,10 @@ class CriterionInstance {
                 return emptyList()
             }
             val entries: MutableList<CriterionInstance> = ArrayList()
-            for (row in criterion.split("\n".toRegex()).toTypedArray()) {
-                val split = Lists.transform(
-                        Splitter.on(AndroidUtilities.SERIALIZATION_SEPARATOR).splitToList(row)) { item: String? -> unescape(item) }
+            for (row in criterion.trim().split("\n")) {
+                val split = row
+                        .split(AndroidUtilities.SERIALIZATION_SEPARATOR)
+                        .map { unescape(it) }
                 if (split.size != 4 && split.size != 5) {
                     Timber.e("invalid row: %s", row)
                     return emptyList()
@@ -141,7 +138,7 @@ class CriterionInstance {
                 } else if (entry.criterion is MultipleSelectCriterion) {
                     val multipleSelectCriterion = entry.criterion as MultipleSelectCriterion?
                     if (multipleSelectCriterion!!.entryValues != null) {
-                        entry.selectedIndex = listOf(*multipleSelectCriterion.entryValues).indexOf(value)
+                        entry.selectedIndex = multipleSelectCriterion.entryValues.indexOf(value)
                     }
                 } else {
                     Timber.d("Ignored value %s for %s", value, entry.criterion)
@@ -167,8 +164,10 @@ class CriterionInstance {
                     AndroidUtilities.SEPARATOR_ESCAPE, AndroidUtilities.SERIALIZATION_SEPARATOR)
         }
 
-        fun serialize(criterion: List<CriterionInstance>?): String {
-            return Joiner.on("\n").join(Lists.transform<CriterionInstance, String?>(criterion!!) { obj: CriterionInstance? -> obj!!.serialize() })
+        fun serialize(criterion: List<CriterionInstance>): String {
+            return criterion
+                    .joinToString("\n") { it.serialize() }
+                    .trim()
         }
     }
 }
