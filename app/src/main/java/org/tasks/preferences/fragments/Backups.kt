@@ -3,30 +3,23 @@ package org.tasks.preferences.fragments
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.activityViewModels
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
-import com.google.api.client.googleapis.json.GoogleJsonResponseException
-import com.google.api.services.drive.DriveScopes
 import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.astrid.backup.BackupConstants
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import org.tasks.PermissionUtil
 import org.tasks.R
-import org.tasks.backup.BackupHelper
 import org.tasks.dialogs.ExportTasksDialog
 import org.tasks.dialogs.ImportTasksDialog
-import org.tasks.drive.DriveInvoker
 import org.tasks.drive.DriveLoginActivity
 import org.tasks.files.FileHelper
-import org.tasks.gtasks.GoogleAccountManager
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.preferences.FragmentPermissionRequestor
 import org.tasks.preferences.PermissionRequestor
 import org.tasks.preferences.Preferences
+import org.tasks.preferences.PreferencesViewModel
 import org.tasks.ui.Toaster
-import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
@@ -42,10 +35,9 @@ class Backups : InjectingPreferenceFragment() {
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var permissionRequestor: FragmentPermissionRequestor
     @Inject lateinit var toaster: Toaster
-    @Inject lateinit var googleAccountManager: GoogleAccountManager
     @Inject lateinit var locale: Locale
-    @Inject lateinit var driveInvoker: DriveInvoker
-    @Inject lateinit var backupHelper: BackupHelper
+
+    private val viewModel: PreferencesViewModel by activityViewModels()
 
     override fun getPreferenceXml() = R.xml.preferences_backups
 
@@ -75,6 +67,40 @@ class Backups : InjectingPreferenceFragment() {
                     requestGoogleDriveLogin()
                     false
                 }
+
+        viewModel.lastBackup.observe(this, this::updateLastBackup)
+        viewModel.lastDriveBackup.observe(this, this::updateDriveBackup)
+        viewModel.lastAndroidBackup.observe(this, this::updateAndroidBackup)
+    }
+
+    private fun updateLastBackup(timestamp: Long?) {
+        findPreference(R.string.backup_BAc_export).summary =
+                getString(
+                        R.string.last_backup,
+                        timestamp
+                                ?.let { DateUtilities.getLongDateStringWithTime(it, locale) }
+                                ?: getString(R.string.last_backup_never)
+                )
+    }
+
+    private fun updateDriveBackup(timestamp: Long?) {
+        findPreference(R.string.google_drive_backup).summary =
+                getString(
+                        R.string.last_backup,
+                        timestamp
+                                ?.let { DateUtilities.getLongDateStringWithTime(it, locale) }
+                                ?: getString(R.string.last_backup_never)
+                )
+    }
+
+    private fun updateAndroidBackup(timestamp: Long?) {
+        findPreference(R.string.p_backups_android_backup_enabled).summary =
+                getString(
+                        R.string.last_backup,
+                        timestamp
+                                ?.let { DateUtilities.getLongDateStringWithTime(it, locale) }
+                                ?: getString(R.string.last_backup_never)
+                )
     }
 
     override fun onResume() {
@@ -83,54 +109,8 @@ class Backups : InjectingPreferenceFragment() {
         updateDriveAccount()
 
         val driveBackup = findPreference(R.string.google_drive_backup) as SwitchPreferenceCompat
+        val driveAccount = viewModel.driveAccount
         driveBackup.isChecked = driveAccount != null
-        if (driveAccount != null) {
-            lifecycleScope.launch {
-                val files = preferences.getStringValue(R.string.p_google_drive_backup_folder)
-                        ?.takeIf { it.isNotBlank() }
-                        ?.let {
-                            try {
-                                driveInvoker.getFilesByPrefix(it, "auto.", "user.")
-                            } catch (e: GoogleJsonResponseException) {
-                                Timber.e(e)
-                                null
-                            }
-                        }
-                        ?: emptyList()
-                driveBackup.summary = getString(
-                        R.string.last_backup,
-                        if (files.isEmpty()) {
-                            getString(R.string.last_backup_never)
-                        } else {
-                            DateUtilities.getLongDateStringWithTime(
-                                    BackupConstants.getTimestamp(files[0]),
-                                    locale
-                            )
-                        })
-            }
-        }
-
-        lifecycleScope.launch {
-            findPreference(R.string.backup_BAc_export).summary =
-                    getString(
-                            R.string.last_backup,
-                            backupHelper.getLastBackup()
-                                    ?.takeIf { it > 0 }
-                                    ?.let { DateUtilities.getLongDateStringWithTime(it, locale) }
-                                    ?: getString(R.string.last_backup_never)
-                    )
-        }
-
-        val lastAndroidBackup = preferences.getLong(R.string.p_backups_android_backup_last, 0L)
-        findPreference(R.string.p_backups_android_backup_enabled).summary =
-                getString(
-                        R.string.last_backup,
-                        if (lastAndroidBackup == 0L) {
-                            getString(R.string.last_backup_never)
-                        } else {
-                            DateUtilities.getLongDateStringWithTime(lastAndroidBackup, locale)
-                        }
-                )
     }
 
     override fun onRequestPermissionsResult(
@@ -179,16 +159,6 @@ class Backups : InjectingPreferenceFragment() {
         }
     }
 
-    private val driveAccount: String?
-        get() {
-            val account = preferences.getStringValue(R.string.p_google_drive_backup_account)
-            val enabled = !account.isNullOrBlank()
-                    && preferences.getBoolean(R.string.p_google_drive_backup, false)
-                    && googleAccountManager.canAccessAccount(account)
-                    && !preferences.alreadyNotified(account, DriveScopes.DRIVE_FILE)
-            return if (enabled) account else null
-        }
-
     private fun onGoogleDriveCheckChanged(preference: Preference, newValue: Any?) = when {
         newValue as Boolean -> {
             requestGoogleDriveLogin()
@@ -203,7 +173,7 @@ class Backups : InjectingPreferenceFragment() {
     }
 
     private fun updateDriveAccount() {
-        val account = driveAccount
+        val account = viewModel.driveAccount
         val pref = findPreference(R.string.p_google_drive_backup_account)
         pref.isEnabled = account != null
         pref.summary =
