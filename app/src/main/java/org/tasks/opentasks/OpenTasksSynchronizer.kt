@@ -80,12 +80,18 @@ class OpenTasksSynchronizer @Inject constructor(
                     )
                 }
         caldavDao.getAccounts(CaldavAccount.TYPE_OPENTASKS).forEach { account ->
-            if (!lists.containsKey(account.uuid)) {
-                setError(account, context.getString(R.string.account_not_found))
+            val uuid = account.uuid!!
+            val entries = lists[uuid]
+            if (entries == null) {
+                if (caldavDao.listCount(uuid) == 0) {
+                    taskDeleter.delete(account)
+                } else {
+                    setError(account, context.getString(R.string.account_not_found))
+                }
             } else if (!inventory.hasPro()) {
                 setError(account, context.getString(R.string.requires_pro_subscription))
             } else {
-                sync(account, lists[account.uuid]!!)
+                sync(account, entries)
             }
         }
     }
@@ -103,15 +109,22 @@ class OpenTasksSynchronizer @Inject constructor(
     }
 
     private suspend fun toLocalCalendar(account: String, remote: CaldavCalendar): CaldavCalendar {
-        val local = caldavDao.getCalendarByUrl(account, remote.url!!) ?: CaldavCalendar().apply {
-            uuid = UUID
-                    .nameUUIDFromBytes("${account.openTaskType()}${remote.url}".toByteArray())
-                    .toString()
-            url = remote.url
-            this.account = account
-            caldavDao.insert(this)
-            Timber.d("Created calendar: $this")
-        }
+        val local = caldavDao.getCalendarByUrl(account, remote.url!!)
+                ?: caldavDao.getOpenTaskCalendarByUrl(remote.url!!)?.apply {
+                    this.account = account
+                    caldavDao.update(this)
+                    Timber.d("Moved calendar: $this")
+                    localBroadcastManager.broadcastRefreshList()
+                }
+                ?: CaldavCalendar().apply {
+                    uuid = UUID
+                            .nameUUIDFromBytes("${account.openTaskType()}${remote.url}".toByteArray())
+                            .toString()
+                    url = remote.url
+                    this.account = account
+                    caldavDao.insert(this)
+                    Timber.d("Created calendar: $this")
+                }
         if (local.name != remote.name || local.color != remote.color) {
             local.color = remote.color
             local.name = remote.name
