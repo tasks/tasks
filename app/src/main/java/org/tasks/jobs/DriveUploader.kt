@@ -8,6 +8,7 @@ import androidx.work.Data
 import androidx.work.WorkerParameters
 import com.google.api.client.googleapis.json.GoogleJsonResponseException
 import com.google.api.services.drive.model.File
+import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
@@ -26,7 +27,9 @@ class DriveUploader @WorkerInject constructor(
         @Assisted workerParams: WorkerParameters,
         firebase: Firebase,
         private val drive: DriveInvoker,
-        private val preferences: Preferences) : BaseWorker(context, workerParams, firebase) {
+        private val preferences: Preferences,
+        private val localBroadcastManager: LocalBroadcastManager
+) : BaseWorker(context, workerParams, firebase) {
 
     override suspend fun run(): Result {
         val inputData = inputData
@@ -35,6 +38,7 @@ class DriveUploader @WorkerInject constructor(
             val folder = getFolder() ?: return Result.failure()
             preferences.setString(R.string.p_google_drive_backup_folder, folder.id)
             drive.createFile(folder.id, uri)
+            localBroadcastManager.broadcastPreferenceRefresh()
             if (inputData.getBoolean(EXTRA_PURGE, false)) {
                 drive
                         .getFilesByPrefix(folder.id, "auto.")

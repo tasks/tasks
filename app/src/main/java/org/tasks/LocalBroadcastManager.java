@@ -15,6 +15,7 @@ public class LocalBroadcastManager {
   public static final String REFRESH_LIST = BuildConfig.APPLICATION_ID + ".REFRESH_LIST";
   private static final String REPEAT = BuildConfig.APPLICATION_ID + ".REPEAT";
   private static final String REFRESH_PURCHASES = BuildConfig.APPLICATION_ID + ".REFRESH_PURCHASES";
+  private static final String REFRESH_PREFERENCES = BuildConfig.APPLICATION_ID + ".REFRESH_PREFERENCES";
 
   private final androidx.localbroadcastmanager.content.LocalBroadcastManager localBroadcastManager;
   private final AppWidgetManager appWidgetManager;
@@ -45,6 +46,10 @@ public class LocalBroadcastManager {
     localBroadcastManager.registerReceiver(broadcastReceiver, new IntentFilter(REFRESH_PURCHASES));
   }
 
+  public void registerPreferenceReceiver(BroadcastReceiver broadcastReceiver) {
+    localBroadcastManager.registerReceiver(broadcastReceiver, new IntentFilter(REFRESH_PREFERENCES));
+  }
+
   public void broadcastRefresh() {
     localBroadcastManager.sendBroadcast(new Intent(REFRESH));
     appWidgetManager.updateWidgets();
@@ -52,6 +57,10 @@ public class LocalBroadcastManager {
 
   public void broadcastRefreshList() {
     localBroadcastManager.sendBroadcast(new Intent(REFRESH_LIST));
+  }
+
+  public void broadcastPreferenceRefresh() {
+    localBroadcastManager.sendBroadcast(new Intent(REFRESH_PREFERENCES));
   }
 
   /**

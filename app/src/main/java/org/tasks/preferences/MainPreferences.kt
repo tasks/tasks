@@ -1,9 +1,13 @@
 package org.tasks.preferences
 
 import android.app.Activity
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import androidx.activity.viewModels
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity
 import dagger.hilt.android.AndroidEntryPoint
+import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.jobs.WorkManager
 import org.tasks.preferences.fragments.MainSettingsFragment
@@ -19,10 +23,27 @@ class MainPreferences : BasePreferences() {
     @Inject lateinit var syncAdapters: SyncAdapters
     @Inject lateinit var workManager: WorkManager
     @Inject lateinit var toaster: Toaster
+    @Inject lateinit var localBroadcastManager: LocalBroadcastManager
+
+    private val viewModel: PreferencesViewModel by viewModels()
 
     override fun getRootTitle() = R.string.TLA_menu_settings
 
     override fun getRootPreference() = MainSettingsFragment()
+
+    override fun onResume() {
+        super.onResume()
+
+        localBroadcastManager.registerPreferenceReceiver(refreshReceiver)
+
+        viewModel.updateBackups()
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        localBroadcastManager.unregisterReceiver(refreshReceiver)
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_CALDAV_SETTINGS) {
@@ -39,6 +60,12 @@ class MainPreferences : BasePreferences() {
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
+        }
+    }
+
+    private val refreshReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            viewModel.updateBackups()
         }
     }
 }

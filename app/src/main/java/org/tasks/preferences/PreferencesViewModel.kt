@@ -87,7 +87,7 @@ class PreferencesViewModel @ViewModelInject constructor(
                 .takeIf { it >= 0 }
     }
 
-    init {
+    fun updateBackups() {
         updateLocalBackup()
         updateDriveBackup()
         updateAndroidBackup()

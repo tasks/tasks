@@ -12,6 +12,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.android.components.ApplicationComponent
 import kotlinx.coroutines.runBlocking
+import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.preferences.Preferences
 import timber.log.Timber
@@ -26,6 +27,7 @@ class TasksFileBackupHelper(
     internal interface TasksFileBackupHelperEntryPoint {
         val tasksJsonImporter: TasksJsonImporter
         val preferences: Preferences
+        val localBroadcastManager: LocalBroadcastManager
     }
 
     override fun performBackup(
@@ -43,6 +45,7 @@ class TasksFileBackupHelper(
                     Timber.d("Backing up ${it.absolutePath}")
                     super.performBackup(oldState, data, newState)
                     preferences.setLong(R.string.p_backups_android_backup_last, it.lastModified())
+                    hilt.localBroadcastManager.broadcastPreferenceRefresh()
                 }
                 ?: Timber.e("$path not found")
     }
