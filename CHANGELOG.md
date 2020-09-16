@@ -1,6 +1,11 @@
 Change Log
 ---
 =======
+### 10.0.3 (2020-09-16)
+
+* Fix crash from calendar event snackbar
+* Fix crash when setting Google Maps markers
+
 ### 10.0.2 (2020-09-14)
 
 * Fix crash from corrupted custom filter
