@@ -7,7 +7,6 @@
     <string name="backup_BAc_import">Importera uppgifter</string>
     <string name="backup_BAc_export">Exportera uppgifter</string>
     <string name="export_toast">Säkerhetskopierade %1$s till %2$s.</string>
-    <string name="export_toast_no_tasks">Inga uppgifter att exportera.</string>
     <string name="import_summary_title">Återställ summering</string>
     <string name="import_summary_message">Filen %1$s innehöll %2$s.\n\n %3$s importerade,\n %4$s existerar redan\n %5$s hade fel\n</string>
     <string name="import_progress_read">Läser uppgift %d…</string>

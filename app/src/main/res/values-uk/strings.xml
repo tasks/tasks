@@ -7,7 +7,6 @@
     <string name="backup_BAc_import">Імпортувати завдання</string>
     <string name="backup_BAc_export">Експорт завдань</string>
     <string name="export_toast">Збережено %1$s в %2$s.</string>
-    <string name="export_toast_no_tasks">Відсутні завдання для експорту.</string>
     <string name="import_summary_title">Відновити підсумок</string>
     <string name="import_summary_message">Файл %1$s містить %2$s.\n\n
 %3$s імпортовано,\n

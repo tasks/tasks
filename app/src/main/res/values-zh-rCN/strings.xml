@@ -7,7 +7,6 @@
     <string name="backup_BAc_import">导入备份</string>
     <string name="backup_BAc_export">现在备份</string>
     <string name="export_toast">已将 %1$s 备份至 %2$s。</string>
-    <string name="export_toast_no_tasks">没有要导出的任务。</string>
     <string name="import_summary_title">还原摘要</string>
     <string name="import_summary_message">文件 %1$s 包含 %2$s 个任务。\n\n %3$s 个已导入,\n %4$s 个已存在\n %5$s 个存在错误\n</string>
     <string name="import_progress_read">读取任务中 %d…</string>

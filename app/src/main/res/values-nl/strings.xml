@@ -7,7 +7,6 @@
     <string name="backup_BAc_import">Back-up importeren</string>
     <string name="backup_BAc_export">Back-up nu uitvoeren</string>
     <string name="export_toast">Back-up gemaakt van %1$s naar %2$s.</string>
-    <string name="export_toast_no_tasks">Geen taken om te exporteren.</string>
     <string name="import_summary_title">Samenvatting herstellen</string>
     <string name="import_summary_message">Bestand %1$s bevat %2$s.\n\n %3$s geïmporteerd,\n %4$s bestaan al\n %5$s had fouten\n</string>
     <string name="import_progress_read">Taak %d lezen…</string>

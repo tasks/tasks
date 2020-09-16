@@ -7,7 +7,6 @@
     <string name="backup_BAc_import">Importar copia de seguridad</string>
     <string name="backup_BAc_export">Copia ahora</string>
     <string name="export_toast">Respaldadas %1$s de %2$s.</string>
-    <string name="export_toast_no_tasks">No hay tareas para exportar.</string>
     <string name="import_summary_title">Resumen de restauración</string>
     <string name="import_summary_message">El fichero %1$s contenía %2$s.
 \n

@@ -6,7 +6,6 @@
     <string name="backup_BAc_import">Importar tarefas</string>
     <string name="backup_BAc_export">Exportar tarefas</string>
     <string name="export_toast">Feito backup de %1$s para %2$s.</string>
-    <string name="export_toast_no_tasks">Nenhuma tarefa para exportar.</string>
     <string name="import_summary_title">Sumário da restauração</string>
     <string name="import_summary_message">Arquivo %1$s continha %2$s.\n\n
 %3$s importadas,\n

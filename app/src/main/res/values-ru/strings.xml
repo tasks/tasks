@@ -7,7 +7,6 @@
     <string name="backup_BAc_import">Импортировать резервную копию</string>
     <string name="backup_BAc_export">Сделать резервную копию сейчас</string>
     <string name="export_toast">Сохранено %1$s в %2$s.</string>
-    <string name="export_toast_no_tasks">Нет задач для экспорта.</string>
     <string name="import_summary_title">Итог восстановления</string>
     <string name="import_summary_message">Файл %1$s содержал %2$s.
 \n

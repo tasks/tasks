@@ -7,7 +7,6 @@
     <string name="backup_BAc_import">Inportatu zereginak</string>
     <string name="backup_BAc_export">Esportatu zereginak</string>
     <string name="export_toast">%1$s zereginen babeskopia hemen egin da: %2$s.</string>
-    <string name="export_toast_no_tasks">Ez dago zereginik esportatzeko.</string>
     <string name="import_summary_title">Berrezartzearen laburpena</string>
     <string name="import_summary_message">%1$s fitxategiak %2$s zituen.
 \n

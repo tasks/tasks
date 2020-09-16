@@ -7,7 +7,6 @@
     <string name="backup_BAc_import">ייבוא מגיבוי</string>
     <string name="backup_BAc_export">גיבוי כעת</string>
     <string name="export_toast">בוצע גיבוי של %1$s אל %2$s.</string>
-    <string name="export_toast_no_tasks">אין משימות לייצוא.</string>
     <string name="import_summary_title">סיכום פעולת השחזור</string>
     <string name="import_summary_message">הקובץ ‚%1$ הכיל %2$s.
 \n

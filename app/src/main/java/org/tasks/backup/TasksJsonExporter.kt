@@ -149,19 +149,13 @@ class TasksJsonExporter @Inject constructor(
     }
 
     private fun onFinishExport(outputFile: String) = post {
-        if (exportCount == 0) {
-            Toast.makeText(
-                    context, context!!.getString(R.string.export_toast_no_tasks), Toast.LENGTH_LONG)
-                    .show()
-        } else {
-            val text: CharSequence = String.format(
-                    context!!.getString(R.string.export_toast),
-                    context!!
-                            .resources
-                            .getQuantityString(R.plurals.Ntasks, exportCount, exportCount),
-                    outputFile)
-            Toast.makeText(context, text, Toast.LENGTH_LONG).show()
-        }
+        val text: CharSequence = String.format(
+                context!!.getString(R.string.export_toast),
+                context!!
+                        .resources
+                        .getQuantityString(R.plurals.Ntasks, exportCount, exportCount),
+                outputFile)
+        Toast.makeText(context, text, Toast.LENGTH_LONG).show()
     }
 
 

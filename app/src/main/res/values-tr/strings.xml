@@ -7,7 +7,6 @@
     <string name="backup_BAc_import">Yedeği içe aktar</string>
     <string name="backup_BAc_export">Şimdi yedekle</string>
     <string name="export_toast">%1$s şuraya yedeklendi: %2$s.</string>
-    <string name="export_toast_no_tasks">Dışa Aktarılacak Görev Yok.</string>
     <string name="import_summary_title">Geri Alma Özeti</string>
     <string name="import_summary_message">%1$s dosyası %2$s içeriyor.
 \n

@@ -6,7 +6,6 @@
     <string name="backup_BAc_import">Aufgaben importieren</string>
     <string name="backup_BAc_export">Aufgaben exportieren</string>
     <string name="export_toast">%1$s nach %2$s gesichert.</string>
-    <string name="export_toast_no_tasks">Keine Aufgaben zu exportieren.</string>
     <string name="import_summary_title">Zusammenfassung wiederherstellen</string>
     <string name="import_summary_message">Aufgaben in %1$s: %2$s.
 \n

@@ -7,7 +7,6 @@
     <string name="backup_BAc_import">Импортиране на задачи</string>
     <string name="backup_BAc_export">Експортиране на задачи</string>
     <string name="export_toast">Създадено е резервно копие %1$s на %2$s.</string>
-    <string name="export_toast_no_tasks">Няма задачи за експортиране</string>
     <string name="import_summary_title">Възстановяване на описанието</string>
     <string name="import_summary_message">Файлът %1$s съдържа %2$s.\n\n
 %3$s импортирани,\n

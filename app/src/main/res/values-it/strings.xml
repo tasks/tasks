@@ -7,7 +7,6 @@
     <string name="backup_BAc_import">Importa attività</string>
     <string name="backup_BAc_export">Esporta attività</string>
     <string name="export_toast">Backup di %1$s su %2$s eseguito.</string>
-    <string name="export_toast_no_tasks">Nessuna attività da esportare.</string>
     <string name="import_summary_title">Ripristina riepilogo</string>
     <string name="import_summary_message">Il File %1$s contiene %2$s.\n\n %3$s importati\n %4$s esiste già\n %5$s contiene errori\n</string>
     <string name="import_progress_read">Lettura attività %d…</string>

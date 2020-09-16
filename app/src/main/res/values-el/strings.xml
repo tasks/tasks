@@ -6,7 +6,6 @@
     <string name="backup_BAc_import">Εισαγωγή εργασιών</string>
     <string name="backup_BAc_export">Εξαγωγή εργασιών</string>
     <string name="export_toast">Αποθηκεύση ασφαλείας %1$s στο %2$s.</string>
-    <string name="export_toast_no_tasks">Δεν υπάρχουν εργασίες για εξαγωγή</string>
     <string name="import_summary_title">Σύνοψη επαναφοράς</string>
     <string name="import_summary_message">Αρχείο %1$s περιέχεται %2$s.\n\n
 %3$s καταχωρήθηκε,\n

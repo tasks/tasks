@@ -9,7 +9,6 @@
   <string name="backup_BAc_export">Backup now</string>
   <string name="backup_BAc_import">Import backup</string>
   <string name="export_toast">Backed up %1$s to %2$s.</string>
-  <string name="export_toast_no_tasks">No tasks to export.</string>
   <string name="import_summary_title">Restore summary</string>
   <string name="import_summary_message">
 File %1$s contained %2$s.\n\n

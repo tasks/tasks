@@ -6,7 +6,6 @@
     <string name="backup_BAc_import">Importér opgaver</string>
     <string name="backup_BAc_export">Eksportér opgaver</string>
     <string name="export_toast">Sikkerhedskopierede %1$s til %2$s.</string>
-    <string name="export_toast_no_tasks">Ingen opgaver at eksportere.</string>
     <string name="import_summary_title">Gendan opsummering</string>
     <string name="import_summary_message">Filen %1$s indeholdt %2$s.\n\n %3$s importeret,\n %4$s findes allerede\n %5$s indeholdt fejl\n</string>
     <string name="import_progress_read">Indlæser opgave %d…</string>

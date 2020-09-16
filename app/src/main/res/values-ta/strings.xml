@@ -103,7 +103,6 @@
     <string name="DLG_hour_minutes">நேரம் (மணி : நிமிடங்கள்)</string>
     <string name="DLG_delete_this_task_question">இந்த வேலையை நீக்கலாமா\?</string>
     <string name="read_permission_label">வேலைகள் அனுமதி</string>
-    <string name="export_toast_no_tasks">ஏற்றுமதி செய்ய எந்த வேலைகளும் இல்லை.</string>
     <string name="backup_BAc_export">வேலைகளை ஏற்றுமதி செய்</string>
     <string name="backup_BAc_import">வேலைகளை இறக்குமதி செய்</string>
     <string name="display_name">பெயர்</string>

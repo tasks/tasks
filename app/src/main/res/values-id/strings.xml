@@ -6,7 +6,6 @@
     <string name="backup_BAc_import">Impor tugas</string>
     <string name="backup_BAc_export">Ekspor tugas</string>
     <string name="export_toast">Cadangkan %1$s ke %2$s.</string>
-    <string name="export_toast_no_tasks">Tidak ada tugas untuk diekspor.</string>
     <string name="import_summary_title">Pulihkan ringkasan</string>
     <string name="import_progress_read">Membaca %d tugas…</string>
     <string name="discard_confirmation">Apakah anda yakin ingin membatalkan perubahan yang anda buat\?</string>

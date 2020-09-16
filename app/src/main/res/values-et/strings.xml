@@ -5,7 +5,6 @@
     <string name="backup_BPr_header">Varukoopiad</string>
     <string name="backup_BAc_import">Impordi ülesandeid</string>
     <string name="backup_BAc_export">Ekspordi ülesandeid</string>
-    <string name="export_toast_no_tasks">Pole ülesandeid, mida eksportida</string>
     <string name="read_permission_label">Ülesande õigused</string>
     <string name="discard_confirmation">Oled sa kindel, et soovid muudatustest loobuda\?</string>
     <string name="keep_editing">Jätka muutmist</string>

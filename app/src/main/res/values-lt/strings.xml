@@ -7,7 +7,6 @@
     <string name="backup_BAc_import">Importuoti užduotis</string>
     <string name="backup_BAc_export">Eksportuoti užduotis</string>
     <string name="export_toast">Rezervinė kopija padaryta %1$s iki %2$s.</string>
-    <string name="export_toast_no_tasks">Nėra eksportuojamų užduočių</string>
     <string name="import_summary_title">Atstatyti suvestinę</string>
     <string name="import_summary_message">Failas %1$s turėjo %2$s.\n\n %3$s suimportuota,\n %4$s jau egzistavo\n %5$s turėjo klaidų\n</string>
     <string name="import_progress_read">Nuskaitoma užduotis %d…</string>

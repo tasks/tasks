@@ -4,7 +4,6 @@
     <string name="backup_BAc_import">Importer sikkerhetskopi</string>
     <string name="backup_BAc_export">Sikkerhetskopier nå</string>
     <string name="export_toast">%1$s av %2$s sikkerhetskopiert.</string>
-    <string name="export_toast_no_tasks">Ingen gjøremål å eksportere.</string>
     <string name="import_summary_title">Gjennopprettingssammendrag</string>
     <string name="import_summary_message">Filen %1$s inneholder %2$s.
 \n

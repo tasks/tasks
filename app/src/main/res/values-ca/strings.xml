@@ -5,7 +5,6 @@
     <string name="backup_BPr_header">Còpies de seguretat</string>
     <string name="backup_BAc_import">Importa tasques</string>
     <string name="backup_BAc_export">Exporta tasques</string>
-    <string name="export_toast_no_tasks">Sense tasques per exportar</string>
     <string name="import_summary_title">Resum de la restauració</string>
     <string name="import_progress_read">S\'està llegint la tasca %d</string>
     <string name="read_permission_label">Permís del Tasks</string>

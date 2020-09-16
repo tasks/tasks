@@ -6,7 +6,6 @@
     <string name="backup_BPr_header">پشتیبان ها</string>
     <string name="backup_BAc_import">واردکردن وظایف</string>
     <string name="backup_BAc_export">خرجی از وظایف</string>
-    <string name="export_toast_no_tasks">خروجی از وظایف</string>
     <string name="import_summary_title">بازگرداندن خلاصه</string>
     <string name="keep_editing">ادامه ویرایش</string>
     <string name="DLG_delete_this_task_question">حذف این وظیفه</string>

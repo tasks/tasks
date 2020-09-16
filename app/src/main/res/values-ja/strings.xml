@@ -7,7 +7,6 @@
     <string name="backup_BAc_import">タスクのインポート</string>
     <string name="backup_BAc_export">タスクのエクスポート</string>
     <string name="export_toast">%1$s を %2$s にバックアップしました。</string>
-    <string name="export_toast_no_tasks">エクスポートするタスクがありません</string>
     <string name="import_summary_title">復元の概要</string>
     <string name="import_summary_message">ファイル %1$s の %2$s 中、\n\n成功: %3$s\n既に存在: %4$s\n失敗: %5$s\n</string>
     <string name="import_progress_read">タスク %d を読み込み中</string>

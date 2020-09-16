@@ -6,7 +6,6 @@
     <string name="backup_BAc_import">Uvozi opravke</string>
     <string name="backup_BAc_export">Izvozi opravke</string>
     <string name="export_toast">Varnostna kopija za %1$s shranjena v %2$s.</string>
-    <string name="export_toast_no_tasks">Ni opravkov za izvoz.</string>
     <string name="import_summary_title">Povzetek obnove</string>
     <string name="import_summary_message">Datoteka %1$s je vsebovala %2$s.\n\n
 %3$s uvožen,\n

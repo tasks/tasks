@@ -7,7 +7,6 @@
     <string name="backup_BAc_import">할일 가져오기</string>
     <string name="backup_BAc_export">할일 내보내기</string>
     <string name="export_toast">%1$s 를 %2$s 로 백업함.</string>
-    <string name="export_toast_no_tasks">내보낼 할일 없음.</string>
     <string name="import_summary_title">간편 복원</string>
     <string name="import_summary_message">파일 %1$s: %2$s 개의 일정 포함.\n\n
 %3$s 개 가져오기 성공,\n

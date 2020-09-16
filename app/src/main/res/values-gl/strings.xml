@@ -7,7 +7,6 @@
     <string name="backup_BAc_import">Importar tareas</string>
     <string name="backup_BAc_export">Exportar tareas</string>
     <string name="export_toast">Respaldadas %1$s de %2$s.</string>
-    <string name="export_toast_no_tasks">No hay tareas para exportar</string>
     <string name="import_summary_title">Resumen de restauración</string>
     <string name="import_summary_message">El fichero %1$s contenia %2$s.\n\n %3$s importadas\n %4$s ya existian\n %5$s tenian errores\n</string>
     <string name="import_progress_read">Leyendo tarea %d…</string>

@@ -4,7 +4,6 @@
     <string name="TVA_add_comment">إضافة تعليق …</string>
     <string name="backup_BPr_header">النسخ الإحتياطي</string>
     <string name="backup_BAc_import">إستيراد مهام</string>
-    <string name="export_toast_no_tasks">لا يوجد مهام للتصدير.</string>
     <string name="import_summary_title"> إستعادة المُلخَّص</string>
     <string name="read_permission_label">إذن المهام</string>
     <string name="DLG_delete_this_task_question">حذف هذه المهمه؟</string>
