@@ -444,16 +444,17 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         refresh()
     }
 
-    fun makeSnackbar(@StringRes res: Int, vararg args: Any?): Snackbar {
+    fun makeSnackbar(@StringRes res: Int, vararg args: Any?): Snackbar? {
         return makeSnackbar(getString(res, *args))
     }
 
-    private fun makeSnackbar(text: String): Snackbar {
-        val snackbar = Snackbar.make(coordinatorLayout, text, 8000)
-                .setTextColor(requireActivity().getColor(R.color.snackbar_text_color))
-                .setActionTextColor(requireActivity().getColor(R.color.snackbar_action_color))
-        snackbar.view.setBackgroundColor(requireActivity().getColor(R.color.snackbar_background))
-        return snackbar
+    private fun makeSnackbar(text: String): Snackbar? = activity?.let {
+        Snackbar.make(coordinatorLayout, text, 8000)
+                .setTextColor(it.getColor(R.color.snackbar_text_color))
+                .setActionTextColor(it.getColor(R.color.snackbar_action_color))
+                .apply {
+                    view.setBackgroundColor(it.getColor(R.color.snackbar_background))
+                }
     }
 
     override fun onPause() {
@@ -745,7 +746,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             taskDeleter.markDeleted(tasks)
         }
         result.forEach { onTaskDelete(it) }
-        makeSnackbar(R.string.delete_multiple_tasks_confirmation, result.size.toString()).show()
+        makeSnackbar(R.string.delete_multiple_tasks_confirmation, result.size.toString())?.show()
     }
 
     private fun copySelectedItems(tasks: List<Long>) = lifecycleScope.launch {
@@ -754,7 +755,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             taskDuplicator.duplicate(tasks)
         }
         onTaskCreated(duplicates)
-        makeSnackbar(R.string.copy_multiple_tasks_confirmation, duplicates.size.toString()).show()
+        makeSnackbar(R.string.copy_multiple_tasks_confirmation, duplicates.size.toString())?.show()
     }
 
     fun clearCollapsed() = taskAdapter.clearCollapsed()
@@ -821,7 +822,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                         val dueDateString = DateUtilities.getRelativeDateTime(
                                 context, newDueDate, locale.locale, FormatStyle.LONG, true)
                         makeSnackbar(R.string.repeat_snackbar, task!!.title, dueDateString)
-                                .setAction(R.string.DLG_undo) {
+                                ?.setAction(R.string.DLG_undo) {
                                     task.setDueDateAdjustingHideUntil(oldDueDate)
                                     task.completionDate = 0L
                                     try {
@@ -838,7 +839,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                                         taskDao.save(task)
                                     }
                                 }
-                                .show()
+                                ?.show()
                     } catch (e: Exception) {
                         firebase.reportException(e)
                     }

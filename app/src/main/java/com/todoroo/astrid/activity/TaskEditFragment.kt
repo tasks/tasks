@@ -262,12 +262,12 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
                 taskListFragment.onTaskCreated(model.uuid)
                 if (!isNullOrEmpty(model.calendarURI)) {
                     taskListFragment.makeSnackbar(R.string.calendar_event_created, model.title)
-                            .setAction(R.string.action_open) {
+                            ?.setAction(R.string.action_open) {
                                 val uri = model.calendarURI
                                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
                                 taskListFragment.startActivity(intent)
                             }
-                            .show()
+                            ?.show()
                 }
             }
         }
