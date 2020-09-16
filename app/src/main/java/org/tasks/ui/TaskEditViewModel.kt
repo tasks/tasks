@@ -388,6 +388,9 @@ class TaskEditViewModel @ViewModelInject constructor(
                 calendarEventProvider.deleteEvent(task)
             }
         }
+        if (task?.hasDueDate() != true) {
+            return
+        }
         eventUri?.let {
             if (!it.isBlank()) {
                 gCalHelper.updateEvent(it, task!!)
