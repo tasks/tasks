@@ -40,8 +40,7 @@ class PreferencesViewModel @ViewModelInject constructor(
             return if (enabled) account else null
         }
 
-
-    private fun updateDriveBackup() = viewModelScope.launch {
+    fun updateDriveBackup() = viewModelScope.launch {
         if (driveAccount.isNullOrBlank()) {
             lastDriveBackup.value = null
             return@launch

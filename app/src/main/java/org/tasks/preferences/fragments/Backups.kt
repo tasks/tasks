@@ -156,6 +156,12 @@ class Backups : InjectingPreferenceFragment() {
                         .show(parentFragmentManager, FRAG_TAG_IMPORT_TASKS)
                 }
             }
+        } else if (requestCode == REQUEST_DRIVE_BACKUP) {
+            if (resultCode == RESULT_OK) {
+                viewModel.updateDriveBackup()
+            } else {
+                data?.getStringExtra(DriveLoginActivity.EXTRA_ERROR)?.let { toaster.longToast(it) }
+            }
         } else if (requestCode == REQUEST_BACKUP_NOW) {
             if (resultCode == RESULT_OK) {
                 viewModel.updateLocalBackup()
