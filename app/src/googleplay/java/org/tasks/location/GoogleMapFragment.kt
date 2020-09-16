@@ -53,6 +53,9 @@ class GoogleMapFragment(private val context: Context) : MapFragment, OnMapReadyC
     }
 
     override fun setMarkers(places: List<Place>) {
+        if (map == null) {
+            return
+        }
         for (marker in markers) {
             marker.remove()
         }
