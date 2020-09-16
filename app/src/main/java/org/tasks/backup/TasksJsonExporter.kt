@@ -74,24 +74,22 @@ class TasksJsonExporter @Inject constructor(
         try {
             val filename = getFileName(exportType)
             val tasks = taskDao.getAll()
-            if (tasks.isNotEmpty()) {
-                val file = File(String.format("%s/%s", context!!.filesDir, BackupConstants.INTERNAL_BACKUP))
-                file.delete()
-                file.createNewFile()
-                val internalStorageBackup = Uri.fromFile(file)
-                val os = context!!.contentResolver.openOutputStream(internalStorageBackup)
-                doTasksExport(os, tasks)
-                os!!.close()
-                val externalStorageBackup = FileHelper.newFile(
-                        context!!,
-                        preferences.backupDirectory!!,
-                        MIME,
-                        Files.getNameWithoutExtension(filename),
-                        EXTENSION)
-                FileHelper.copyStream(context!!, internalStorageBackup, externalStorageBackup)
-                workManager.scheduleDriveUpload(externalStorageBackup, exportType == ExportType.EXPORT_TYPE_SERVICE)
-                BackupManager(context).dataChanged()
-            }
+            val file = File(String.format("%s/%s", context!!.filesDir, BackupConstants.INTERNAL_BACKUP))
+            file.delete()
+            file.createNewFile()
+            val internalStorageBackup = Uri.fromFile(file)
+            val os = context!!.contentResolver.openOutputStream(internalStorageBackup)
+            doTasksExport(os, tasks)
+            os!!.close()
+            val externalStorageBackup = FileHelper.newFile(
+                    context!!,
+                    preferences.backupDirectory!!,
+                    MIME,
+                    Files.getNameWithoutExtension(filename),
+                    EXTENSION)
+            FileHelper.copyStream(context!!, internalStorageBackup, externalStorageBackup)
+            workManager.scheduleDriveUpload(externalStorageBackup, exportType == ExportType.EXPORT_TYPE_SERVICE)
+            BackupManager(context).dataChanged()
             if (exportType == ExportType.EXPORT_TYPE_MANUAL) {
                 onFinishExport(filename)
             }
