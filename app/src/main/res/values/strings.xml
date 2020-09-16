@@ -644,4 +644,7 @@ File %1$s contained %2$s.\n\n
   <string name="account">Account</string>
   <string name="foreground_location">Foreground location</string>
   <string name="background_location">Background location</string>
+  <string name="backups_ignore_warnings">Ignore warnings</string>
+  <string name="backups_ignore_warnings_summary">Ignore backup warnings if you do not need backups or have your own backup solution</string>
+  <string name="backup_location_warning">WARNING: Files located in %s will be deleted if Tasks is uninstalled! Please choose a custom location to prevent Android from deleting your files.</string>
 </resources>

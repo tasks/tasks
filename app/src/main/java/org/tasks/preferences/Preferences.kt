@@ -36,6 +36,8 @@ class Preferences @JvmOverloads constructor(private val context: Context, name: 
 
     fun androidBackupServiceEnabled() = getBoolean(R.string.p_backups_android_backup_enabled, true)
 
+    fun showBackupWarnings() = !getBoolean(R.string.p_backups_ignore_warnings, false)
+
     fun addTasksToTop(): Boolean {
         return getBoolean(R.string.p_add_to_top, true)
     }
@@ -330,6 +332,9 @@ class Preferences @JvmOverloads constructor(private val context: Context, name: 
     val backupDirectory: Uri?
         get() = getDirectory(R.string.p_backup_dir, "backups")
 
+    val externalStorage: Uri
+        get() = root.uri
+
     val attachmentsDirectory: Uri?
         get() = getDirectory(R.string.p_attachment_dir, TaskAttachment.FILES_DIRECTORY_DEFAULT)
 
@@ -351,15 +356,17 @@ class Preferences @JvmOverloads constructor(private val context: Context, name: 
                 }
             }
         }
-        val documentFile = DocumentFile.fromFile(context.getExternalFilesDir(null)!!).createDirectory(name)
-        if (documentFile != null) {
-            return documentFile.uri
-        }
-        val file = getDefaultFileLocation(name)
-        return if (file != null) {
-            Uri.fromFile(file)
-        } else null
+        return getDefaultDirectory(name)
     }
+
+    private fun getDefaultDirectory(name: String): Uri? =
+            root
+                    .createDirectory(name)
+                    ?.uri
+                    ?: getDefaultFileLocation(name)?.let { Uri.fromFile(it) }
+
+    private val root: DocumentFile
+        get() = DocumentFile.fromFile(context.getExternalFilesDir(null)!!)
 
     private fun getDefaultFileLocation(type: String): File? {
         val externalFilesDir = context.getExternalFilesDir(null) ?: return null

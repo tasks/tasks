@@ -15,6 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.tasks.R
+import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.drive.DriveInvoker
 import org.tasks.gtasks.GoogleAccountManager
 import timber.log.Timber
@@ -30,6 +31,22 @@ class PreferencesViewModel @ViewModelInject constructor(
     val lastDriveBackup = MutableLiveData<Long?>()
     val lastAndroidBackup = MutableLiveData<Long>()
 
+    private fun isStale(timestamp: Long?) =
+            timestamp != null
+                    && preferences.showBackupWarnings()
+                    && timestamp < newDateTime().startOfDay().minusDays(2).millis
+
+    val staleLocalBackup: Boolean
+        get() = isStale(lastBackup.value)
+
+    val staleRemoteBackup: Boolean
+        get() = isStale(lastDriveBackup.value) && isStale(lastAndroidBackup.value)
+
+    val usingPrivateStorage: Boolean
+        get() = preferences.backupDirectory.let {
+            it == null || it.toString().startsWith(preferences.externalStorage.toString())
+        }
+
     val driveAccount: String?
         get() {
             val account = preferences.getStringValue(R.string.p_google_drive_backup_account)
@@ -42,7 +59,7 @@ class PreferencesViewModel @ViewModelInject constructor(
 
     fun updateDriveBackup() = viewModelScope.launch {
         if (driveAccount.isNullOrBlank()) {
-            lastDriveBackup.value = null
+            lastDriveBackup.value = -1L
             return@launch
         }
         val files = preferences.getStringValue(R.string.p_google_drive_backup_folder)
@@ -56,7 +73,7 @@ class PreferencesViewModel @ViewModelInject constructor(
                     }
                 }
                 ?: emptyList()
-        lastDriveBackup.value = files.firstOrNull()?.let { BackupConstants.getTimestamp(it) }
+        lastDriveBackup.value = files.firstOrNull()?.let { BackupConstants.getTimestamp(it) } ?: -1
     }
 
     fun updateLocalBackup() = viewModelScope.launch {
@@ -78,13 +95,12 @@ class PreferencesViewModel @ViewModelInject constructor(
                 else -> emptyList()
             }
         }
-        lastBackup.value = timestamps?.maxOrNull()
+        lastBackup.value = timestamps?.maxOrNull() ?: -1L
     }
 
     private fun updateAndroidBackup() {
         lastAndroidBackup.value = preferences
                 .getLong(R.string.p_backups_android_backup_last, -1L)
-                .takeIf { it >= 0 }
     }
 
     fun updateBackups() {

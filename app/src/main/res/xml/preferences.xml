@@ -32,7 +32,9 @@
     app:icon="@drawable/ic_outline_menu_24px"
     app:title="@string/navigation_drawer" />
 
-  <Preference
+  <org.tasks.preferences.IconPreference
+    android:key="@string/backup_BPr_header"
+    android:layout="@layout/preference_icon"
     app:fragment="org.tasks.preferences.fragments.Backups"
     app:icon="@drawable/ic_outline_sd_storage_24px"
     app:title="@string/backup_BPr_header" />

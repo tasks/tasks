@@ -43,7 +43,13 @@ class Backups : InjectingPreferenceFragment() {
     override fun getPreferenceXml() = R.xml.preferences_backups
 
     override suspend fun setupPreferences(savedInstanceState: Bundle?) {
-        initializeBackupDirectory()
+        findPreference(R.string.p_backup_dir)
+                .setOnPreferenceClickListener {
+                    FileHelper.newDirectoryPicker(
+                            this, REQUEST_CODE_BACKUP_DIR, preferences.backupDirectory
+                    )
+                    false
+                }
 
         findPreference(R.string.backup_BAc_import)
             .setOnPreferenceClickListener {
@@ -63,42 +69,73 @@ class Backups : InjectingPreferenceFragment() {
 
         findPreference(R.string.google_drive_backup)
                 .setOnPreferenceChangeListener(this@Backups::onGoogleDriveCheckChanged)
+
         findPreference(R.string.p_google_drive_backup_account)
                 .setOnPreferenceClickListener {
                     requestGoogleDriveLogin()
                     false
                 }
 
+        findPreference(R.string.p_backups_android_backup_enabled)
+                .setOnPreferenceChangeListener(this@Backups::onAndroidBackupCheckChanged)
+
+        findPreference(R.string.p_backups_ignore_warnings).setOnPreferenceChangeListener { _, newValue ->
+            if (newValue is Boolean) {
+                preferences.setBoolean(R.string.p_backups_ignore_warnings, newValue)
+                updateWarnings()
+                true
+            } else {
+                false
+            }
+        }
+
         viewModel.lastBackup.observe(this, this::updateLastBackup)
         viewModel.lastDriveBackup.observe(this, this::updateDriveBackup)
         viewModel.lastAndroidBackup.observe(this, this::updateAndroidBackup)
     }
 
-    private fun updateLastBackup(timestamp: Long?) {
+    private fun updateLastBackup(timestamp: Long? = viewModel.lastBackup.value) {
         findPreference(R.string.backup_BAc_export).summary =
                 getString(
                         R.string.last_backup,
                         timestamp
+                                ?.takeIf { it >= 0 }
                                 ?.let { DateUtilities.getLongDateStringWithTime(it, locale) }
                                 ?: getString(R.string.last_backup_never)
                 )
     }
 
-    private fun updateDriveBackup(timestamp: Long?) {
-        findPreference(R.string.google_drive_backup).summary =
+    private fun updateDriveBackup(timestamp: Long? = viewModel.lastDriveBackup.value) {
+        val pref = findPreference(R.string.google_drive_backup)
+        if (viewModel.staleRemoteBackup) {
+            pref.setIcon(R.drawable.ic_outline_error_outline_24px)
+            tintIcons(pref, requireContext().getColor(R.color.overdue))
+        } else {
+            pref.icon = null
+        }
+        pref.summary =
                 getString(
                         R.string.last_backup,
                         timestamp
+                                ?.takeIf { it >= 0 }
                                 ?.let { DateUtilities.getLongDateStringWithTime(it, locale) }
                                 ?: getString(R.string.last_backup_never)
                 )
     }
 
-    private fun updateAndroidBackup(timestamp: Long?) {
-        findPreference(R.string.p_backups_android_backup_enabled).summary =
+    private fun updateAndroidBackup(timestamp: Long? = viewModel.lastAndroidBackup.value) {
+        val pref = findPreference(R.string.p_backups_android_backup_enabled) as SwitchPreferenceCompat
+        if (viewModel.staleRemoteBackup) {
+            pref.setIcon(R.drawable.ic_outline_error_outline_24px)
+            tintIcons(pref, requireContext().getColor(R.color.overdue))
+        } else {
+            pref.icon = null
+        }
+        pref.summary =
                 getString(
                         R.string.last_backup,
                         timestamp
+                                ?.takeIf { it >= 0 }
                                 ?.let { DateUtilities.getLongDateStringWithTime(it, locale) }
                                 ?: getString(R.string.last_backup_never)
                 )
@@ -107,11 +144,19 @@ class Backups : InjectingPreferenceFragment() {
     override fun onResume() {
         super.onResume()
 
+        updateWarnings()
         updateDriveAccount()
 
         val driveBackup = findPreference(R.string.google_drive_backup) as SwitchPreferenceCompat
         val driveAccount = viewModel.driveAccount
         driveBackup.isChecked = driveAccount != null
+    }
+
+    private fun updateWarnings() {
+        updateLastBackup()
+        updateDriveBackup()
+        updateAndroidBackup()
+        updateBackupDirectory()
     }
 
     override fun onRequestPermissionsResult(
@@ -171,6 +216,14 @@ class Backups : InjectingPreferenceFragment() {
         }
     }
 
+    private fun onAndroidBackupCheckChanged(preference: Preference, newValue: Any?): Boolean {
+        if (newValue is Boolean) {
+            (preference as SwitchPreferenceCompat).isChecked = newValue
+            updateAndroidBackup()
+        }
+        return true
+    }
+
     private fun onGoogleDriveCheckChanged(preference: Preference, newValue: Any?) = when {
         newValue as Boolean -> {
             requestGoogleDriveLogin()
@@ -178,8 +231,10 @@ class Backups : InjectingPreferenceFragment() {
         }
         else -> {
             preference.summary = null
+            preference.icon = null
             preferences.setString(R.string.p_google_drive_backup_account, null)
             updateDriveAccount()
+            viewModel.updateDriveBackup()
             true
         }
     }
@@ -203,19 +258,21 @@ class Backups : InjectingPreferenceFragment() {
         }
     }
 
-    private fun initializeBackupDirectory() {
-        findPreference(R.string.p_backup_dir)
-            .setOnPreferenceClickListener {
-                FileHelper.newDirectoryPicker(
-                    this, REQUEST_CODE_BACKUP_DIR, preferences.backupDirectory
-                )
-                false
-            }
-        updateBackupDirectory()
-    }
-
     private fun updateBackupDirectory() {
-        findPreference(R.string.p_backup_dir).summary =
-            FileHelper.uri2String(preferences.backupDirectory)
+        val pref = findPreference(R.string.p_backup_dir)
+        val location = FileHelper.uri2String(preferences.backupDirectory)
+        pref.summary = location
+        if (preferences.showBackupWarnings() && viewModel.usingPrivateStorage) {
+            pref.setIcon(R.drawable.ic_outline_error_outline_24px)
+            tintIcons(pref, requireContext().getColor(R.color.overdue))
+            pref.summary = """
+                $location
+
+                ${requireContext().getString(R.string.backup_location_warning, FileHelper.uri2String(preferences.externalStorage))}
+            """.trimIndent()
+        } else {
+            pref.icon = null
+            pref.summary = location
+        }
     }
 }

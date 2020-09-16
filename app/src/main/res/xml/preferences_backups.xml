@@ -66,4 +66,15 @@
 
   </PreferenceCategory>
 
+  <PreferenceCategory
+    android:title="@string/preferences_advanced">
+
+    <SwitchPreferenceCompat
+      android:defaultValue="false"
+      android:key="@string/p_backups_ignore_warnings"
+      android:title="@string/backups_ignore_warnings"
+      android:summary="@string/backups_ignore_warnings_summary" />
+
+  </PreferenceCategory>
+
 </PreferenceScreen>
