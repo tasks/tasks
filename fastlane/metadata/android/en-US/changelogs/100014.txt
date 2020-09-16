@@ -1,2 +1,3 @@
 * Fix crash from calendar event snackbar
 * Fix crash when setting Google Maps markers
+* Fix invalid calendar entry creation

@@ -5,6 +5,7 @@ Change Log
 
 * Fix crash from calendar event snackbar
 * Fix crash when setting Google Maps markers
+* Fix invalid calendar entry creation
 
 ### 10.0.2 (2020-09-14)
 
