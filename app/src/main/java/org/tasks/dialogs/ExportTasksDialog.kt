@@ -1,9 +1,12 @@
 package org.tasks.dialogs
 
+import android.app.Activity.RESULT_OK
 import android.app.Dialog
 import android.app.ProgressDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
@@ -31,9 +34,15 @@ class ExportTasksDialog : DialogFragment() {
         return progressDialog
     }
 
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+
+        targetFragment?.onActivityResult(targetRequestCode, RESULT_OK, null)
+    }
+
     companion object {
-        fun newExportTasksDialog(): ExportTasksDialog {
-            return ExportTasksDialog()
+        fun newExportTasksDialog(target: Fragment, rc: Int) = ExportTasksDialog().apply {
+            setTargetFragment(target, rc)
         }
     }
 }

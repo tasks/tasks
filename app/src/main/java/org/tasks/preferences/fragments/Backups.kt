@@ -26,6 +26,7 @@ import javax.inject.Inject
 private const val REQUEST_CODE_BACKUP_DIR = 10001
 const val REQUEST_DRIVE_BACKUP = 12002
 private const val REQUEST_PICKER = 10003
+private const val REQUEST_BACKUP_NOW = 10004
 private const val FRAG_TAG_EXPORT_TASKS = "frag_tag_export_tasks"
 private const val FRAG_TAG_IMPORT_TASKS = "frag_tag_import_tasks"
 
@@ -55,7 +56,7 @@ class Backups : InjectingPreferenceFragment() {
 
         findPreference(R.string.backup_BAc_export)
             .setOnPreferenceClickListener {
-                ExportTasksDialog.newExportTasksDialog()
+                ExportTasksDialog.newExportTasksDialog(this, REQUEST_BACKUP_NOW)
                     .show(parentFragmentManager, FRAG_TAG_EXPORT_TASKS)
                 false
             }
@@ -138,6 +139,7 @@ class Backups : InjectingPreferenceFragment() {
                     )
                 preferences.setUri(R.string.p_backup_dir, uri)
                 updateBackupDirectory()
+                viewModel.updateLocalBackup()
             }
         } else if (requestCode == REQUEST_PICKER) {
             if (resultCode == RESULT_OK) {
@@ -153,6 +155,10 @@ class Backups : InjectingPreferenceFragment() {
                     ImportTasksDialog.newImportTasksDialog(uri, extension)
                         .show(parentFragmentManager, FRAG_TAG_IMPORT_TASKS)
                 }
+            }
+        } else if (requestCode == REQUEST_BACKUP_NOW) {
+            if (resultCode == RESULT_OK) {
+                viewModel.updateLocalBackup()
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)

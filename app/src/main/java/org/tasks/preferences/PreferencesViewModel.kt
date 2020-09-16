@@ -60,7 +60,7 @@ class PreferencesViewModel @ViewModelInject constructor(
         lastDriveBackup.value = files.firstOrNull()?.let { BackupConstants.getTimestamp(it) }
     }
 
-    private fun updateLocalBackup() = viewModelScope.launch {
+    fun updateLocalBackup() = viewModelScope.launch {
         val uri = preferences.backupDirectory
         val timestamps: List<Long>? = withContext(Dispatchers.IO) {
             when (uri?.scheme) {
