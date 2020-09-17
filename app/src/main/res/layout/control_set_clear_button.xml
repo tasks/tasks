@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/clear"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
@@ -9,4 +10,4 @@
   android:alpha="@dimen/alpha_secondary"
   android:background="?attr/selectableItemBackgroundBorderless"
   android:src="@drawable/ic_outline_clear_24px"
-  android:tint="@color/icon_tint"/>
+  app:tint="@color/icon_tint" />

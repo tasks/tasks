@@ -108,7 +108,7 @@
             android:paddingBottom="@dimen/keyline_first"
             android:contentDescription="@string/pick_this_location"
             android:src="@drawable/ic_outline_place_24px"
-            android:tint="@color/icon_tint"/>
+            app:tint="@color/icon_tint"/>
 
           <androidx.core.widget.ContentLoadingProgressBar
             android:id="@+id/loading_indicator"
@@ -183,7 +183,7 @@
           android:layout_gravity="start|center_vertical"
           android:contentDescription="@android:string/search_go"
           android:src="@drawable/ic_outline_search_24px"
-          android:tint="@color/icon_tint"/>
+          app:tint="@color/icon_tint"/>
 
         <TextView
           android:layout_width="match_parent"

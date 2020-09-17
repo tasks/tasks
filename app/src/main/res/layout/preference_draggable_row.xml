@@ -25,5 +25,5 @@
     android:layout_gravity="center_vertical|end"
     android:scaleType="center"
     android:src="@drawable/ic_outline_drag_handle_24px"
-    android:tint="@color/icon_tint"/>
+    app:tint="@color/icon_tint"/>
 </com.google.android.material.card.MaterialCardView>

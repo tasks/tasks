@@ -52,7 +52,7 @@
           android:paddingEnd="2dp"
           android:paddingStart="0dp"
           android:src="@drawable/ic_outline_visibility_off_24px"
-          android:tint="@color/icon_tint_with_alpha"
+          app:tint="@color/icon_tint_with_alpha"
           android:contentDescription="@string/widget_due_date_hidden" />
 
         <TextView

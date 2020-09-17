@@ -7,6 +7,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_marginStart="10dip"
   android:layout_marginEnd="10dip"
   android:background="@drawable/reminder_dialog_background"
@@ -36,7 +37,7 @@
       android:layout_height="25dip"
       android:scaleType="fitCenter"
       android:src="@drawable/ic_outline_clear_24px"
-      android:tint="@android:color/white"/>
+      app:tint="@android:color/white"/>
 
   </LinearLayout>
 
@@ -129,7 +130,7 @@
       android:background="@android:color/transparent"
       android:scaleType="fitCenter"
       android:src="@drawable/ic_outline_settings_24px"
-      android:tint="@android:color/white"/>
+      app:tint="@android:color/white"/>
   </RelativeLayout>
 
 

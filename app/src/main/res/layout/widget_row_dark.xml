@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/widget_row"
   android:background="@drawable/widget_ripple_dark"
   android:layout_width="match_parent"
@@ -53,7 +54,7 @@
     android:paddingEnd="2dp"
     android:visibility="gone"
     android:src="@drawable/ic_outline_visibility_off_24px"
-    android:tint="@color/icon_tint_dark_alpha"
+    app:tint="@color/icon_tint_dark_alpha"
     tools:visibility="visible"/>
 
   <TextView
@@ -123,7 +124,7 @@
       android:paddingStart="5dp"
       android:paddingEnd="0dp"
       android:layout_gravity="center_vertical"
-      android:tint="@color/icon_tint_dark_alpha"
+      app:tint="@color/icon_tint_dark_alpha"
       tools:src="@drawable/ic_keyboard_arrow_up_black_18dp" />
 
     <TextView

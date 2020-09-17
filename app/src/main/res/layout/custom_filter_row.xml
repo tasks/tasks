@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:background="@color/window_background">
@@ -30,7 +31,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_alignParentStart="true"
-          android:tint="@color/icon_tint_with_alpha"
+          app:tint="@color/icon_tint_with_alpha"
           android:padding="@dimen/keyline_first"
           android:src="@drawable/ic_outline_add_24px"
           android:scaleType="center" />

@@ -6,6 +6,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="fill_parent"
   android:layout_height="wrap_content"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:baselineAligned="false"
   android:orientation="horizontal">
 
@@ -43,7 +44,7 @@
       android:alpha="@dimen/alpha_secondary"
       android:gravity="center_vertical|center_horizontal"
       android:scaleType="centerInside"
-      android:tint="@color/icon_tint"/>
+      app:tint="@color/icon_tint"/>
 
     <Chronometer
       android:id="@+id/timer"
