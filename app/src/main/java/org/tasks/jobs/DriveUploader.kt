@@ -68,6 +68,21 @@ class DriveUploader @WorkerInject constructor(
         } catch (e: UnknownHostException) {
             Timber.e(e)
             Result.retry()
+        } catch (e: GoogleJsonResponseException) {
+            when (e.statusCode) {
+                401 -> {
+                    Timber.e(e)
+                    Result.failure()
+                }
+                503 -> {
+                    Timber.e(e)
+                    Result.retry()
+                }
+                else -> {
+                    firebase.reportException(e)
+                    Result.retry()
+                }
+            }
         } catch (e: IOException) {
             firebase.reportException(e)
             Result.failure()
