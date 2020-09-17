@@ -339,7 +339,10 @@ class GoogleTaskSynchronizer @Inject constructor(
             } else {
                 googleTask.remoteOrder = gtask.position.toLong()
                 googleTask.remoteParent = gtask.parent
-                googleTask.parent = if (isNullOrEmpty(gtask.parent)) 0 else googleTaskDao.getTask(gtask.parent)
+                googleTask.parent = gtask.parent
+                        ?.takeIf { it.isNotBlank() }
+                        ?.let { googleTaskDao.getTask(it) }
+                        ?: 0L
                 googleTask.remoteId = gtask.id
             }
             if (task == null) {
