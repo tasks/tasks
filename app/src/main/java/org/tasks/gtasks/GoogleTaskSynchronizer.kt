@@ -85,10 +85,9 @@ class GoogleTaskSynchronizer @Inject constructor(
             account.error = e.message
         } catch (e: GoogleJsonResponseException) {
             account.error = e.message
-            if (e.statusCode == 401) {
-                Timber.e(e)
-            } else {
-                firebase.reportException(e)
+            when (e.statusCode) {
+                401, 503 -> Timber.e(e)
+                else -> firebase.reportException(e)
             }
         } catch (e: Exception) {
             account.error = e.message
