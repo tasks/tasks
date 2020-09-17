@@ -57,7 +57,7 @@ object BackupConstants {
         return file.name?.let { getTimestampFromFilename(it) } ?: file.lastModified()
     }
 
-    private fun getTimestampFromFilename(name: String): Long? {
+    internal fun getTimestampFromFilename(name: String): Long? {
         return MATCHER
                 .matcher(name)
                 .takeIf { it.matches() }

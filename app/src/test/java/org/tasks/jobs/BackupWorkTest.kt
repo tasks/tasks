@@ -3,8 +3,6 @@ package org.tasks.jobs
 import org.junit.Assert.*
 import org.junit.Test
 import org.mockito.Mockito
-import org.tasks.date.DateTimeUtils
-import org.tasks.time.DateTime
 import java.io.File
 
 class BackupWorkTest {
@@ -20,9 +18,9 @@ class BackupWorkTest {
 
     @Test
     fun getDeleteKeepAllFiles() {
-        val file1 = newFile(DateTimeUtils.newDate(2018, 3, 27))
-        val file2 = newFile(DateTimeUtils.newDate(2018, 3, 28))
-        val file3 = newFile(DateTimeUtils.newDate(2018, 3, 29))
+        val file1 = newFile("auto.180327-0000.json")
+        val file2 = newFile("auto.180328-0000.json")
+        val file3 = newFile("auto.180329-0000.json")
         assertEquals(emptyList<Any>(), BackupWork.getDeleteList(arrayOf(file2, file1, file3), 7))
     }
 
@@ -33,17 +31,17 @@ class BackupWorkTest {
 
     @Test
     fun sortFiles() {
-        val file1 = newFile(DateTimeUtils.newDate(2018, 3, 27))
-        val file2 = newFile(DateTimeUtils.newDate(2018, 3, 28))
-        val file3 = newFile(DateTimeUtils.newDate(2018, 3, 29))
+        val file1 = newFile("auto.180327-0000.json")
+        val file2 = newFile("auto.180328-0000.json")
+        val file3 = newFile("auto.180329-0000.json")
         assertEquals(
                 listOf(file1), BackupWork.getDeleteList(arrayOf(file2, file1, file3), 2))
     }
 
     companion object {
-        private fun newFile(lastModified: DateTime): File {
+        private fun newFile(name: String): File {
             val result = Mockito.mock(File::class.java)
-            Mockito.`when`(result.lastModified()).thenReturn(lastModified.millis)
+            Mockito.`when`(result.name).thenReturn(name)
             return result
         }
     }
