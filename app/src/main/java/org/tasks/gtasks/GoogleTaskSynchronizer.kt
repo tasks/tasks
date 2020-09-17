@@ -347,8 +347,8 @@ class GoogleTaskSynchronizer @Inject constructor(
             }
             task!!.title = getTruncatedValue(task.title, gtask.title, MAX_TITLE_LENGTH)
             task.creationDate = DateUtilities.now()
-            task.completionDate = GtasksApiUtilities.gtasksCompletedTimeToUnixTime(DateTime(gtask.completed))
-            val dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(DateTime(gtask.due))
+            task.completionDate = GtasksApiUtilities.gtasksCompletedTimeToUnixTime(gtask.completed?.let(::DateTime))
+            val dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(gtask.due?.let(::DateTime))
             mergeDates(createDueDate(com.todoroo.astrid.data.Task.URGENCY_SPECIFIC_DAY, dueDate), task)
             task.notes = getTruncatedValue(task.notes, gtask.notes, MAX_DESCRIPTION_LENGTH)
             googleTask.listId = listId
