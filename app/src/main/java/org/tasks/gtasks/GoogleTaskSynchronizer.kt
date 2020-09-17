@@ -314,9 +314,8 @@ class GoogleTaskSynchronizer @Inject constructor(
             } else if (googleTask.task > 0) {
                 task = taskDao.fetch(googleTask.task)
             }
-            val updated = DateTime(gtask.updated)
-            if (updated != null) {
-                lastSyncDate = max(lastSyncDate, updated.value)
+            gtask.updated?.let {
+                lastSyncDate = max(lastSyncDate, DateTime(it).value)
             }
             val isDeleted = gtask.deleted
             val isHidden = gtask.hidden
