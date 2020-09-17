@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="import_summary_message">ಕಡತ %1$ಗಳು %2$ಗಳನ್ನು ಒಳಹೊಂದಿದ್ದವು.
+    <string name="import_summary_message">ಕಡತ %1$sಗಳು %2$sಗಳನ್ನು ಒಳಹೊಂದಿದ್ದವು.
 \n
-\n %3$ಗಳನ್ನು ಆಮದಿಸಲಾಗಿವೆ,
-\n %4$ಗಳು ಆಗಲೇ ಅಸ್ತಿತ್ವದಲ್ಲಿವೆ
-\n %5$ಗಳಲ್ಲಿ ದೋ಼ಷಗಳಿವೆ
+\n %3$sಗಳನ್ನು ಆಮದಿಸಲಾಗಿವೆ,
+\n %4$sಗಳು ಆಗಲೇ ಅಸ್ತಿತ್ವದಲ್ಲಿವೆ
+\n %5$sಗಳಲ್ಲಿ ದೋ಼ಷಗಳಿವೆ
 \n</string>
     <string name="import_summary_title">ಸಾರಾಂಶವನ್ನು ಪುನಃಸ್ಥಾಪಿಸು</string>
     <string name="backup_BAc_import">ಕಾದಿಟ್ಟದ್ದನ್ನು ಆಮದಿಸು</string>
