@@ -149,7 +149,7 @@ class Upgrader @Inject constructor(
         val updated: MutableList<CaldavTask> = ArrayList()
         for (task in caldavDao.getTasks().map(CaldavTaskContainer::caldavTask)) {
             val remoteTask = fromVtodo(task.vtodo!!) ?: continue
-            task.remoteParent = getParent(remoteTask)
+            task.remoteParent = remoteTask.getParent()
             if (!isNullOrEmpty(task.remoteParent)) {
                 updated.add(task)
             }

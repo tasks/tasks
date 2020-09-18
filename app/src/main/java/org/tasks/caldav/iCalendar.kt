@@ -39,9 +39,10 @@ class iCalendar @Inject constructor(
 
     companion object {
         const val APPLE_SORT_ORDER = "X-APPLE-SORT-ORDER"
-
-        private val IS_PARENT = { r: RelatedTo? ->
-            r!!.parameters.isEmpty || r.parameters.getParameter<RelType>(Parameter.RELTYPE) === RelType.PARENT
+        private val IS_PARENT = { r: RelatedTo ->
+            r.parameters.getParameter<RelType>(Parameter.RELTYPE).let {
+                it === RelType.PARENT || it == null || it.value.isNullOrBlank()
+            }
         }
 
         private val IS_APPLE_SORT_ORDER = { x: Property? ->
@@ -60,20 +61,27 @@ class iCalendar @Inject constructor(
             return null
         }
 
-        fun getParent(remote: Task): String? {
-            return remote.relatedTo.find(IS_PARENT)?.value
+        fun Task.getParents(): List<RelatedTo> = relatedTo.filter(IS_PARENT)
+
+        fun Task.getParent(): String? {
+            return relatedTo.find(IS_PARENT)?.value
         }
 
-        fun setParent(remote: Task, value: String?) {
-            val relatedTo = remote.relatedTo
-            if (isNullOrEmpty(value)) {
-                relatedTo.removeAll(relatedTo.filter(IS_PARENT))
+        fun Task.setParent(value: String?) {
+            val parents = getParents()
+            if (value.isNullOrBlank()) {
+                relatedTo.removeAll(parents)
             } else {
-                val parent = relatedTo.find(IS_PARENT)
-                if (parent != null) {
-                    parent.value = value
-                } else {
+                if (parents.isEmpty()) {
                     relatedTo.add(RelatedTo(value))
+                } else {
+                    if (parents.size > 1) {
+                        relatedTo.removeAll(parents.drop(1))
+                    }
+                    parents[0].let {
+                        it.value = value
+                        it.parameters.replace(RelType.PARENT)
+                    }
                 }
             }
         }
@@ -194,7 +202,7 @@ class iCalendar @Inject constructor(
         caldavTask.vtodo = vtodo
         caldavTask.etag = eTag
         caldavTask.lastSync = DateUtilities.now() + 1000L
-        caldavTask.remoteParent = getParent(remote)
+        caldavTask.remoteParent = remote.getParent()
         if (caldavTask.id == com.todoroo.astrid.data.Task.NO_ID) {
             caldavTask.id = caldavDao.insert(caldavTask)
             Timber.d("NEW %s", caldavTask)
