@@ -3,8 +3,8 @@
     <string name="actfm_picture_clear">Bild entfernen</string>
     <string name="TVA_add_comment">Kommentar hinzufügen …</string>
     <string name="enter_filter_name">Filternamen eingeben</string>
-    <string name="backup_BAc_import">Aufgaben importieren</string>
-    <string name="backup_BAc_export">Aufgaben exportieren</string>
+    <string name="backup_BAc_import">Sicherung importieren</string>
+    <string name="backup_BAc_export">Jetzt Sicherung machen</string>
     <string name="export_toast">%1$s nach %2$s gesichert.</string>
     <string name="import_summary_title">Zusammenfassung wiederherstellen</string>
     <string name="import_summary_message">Aufgaben in %1$s: %2$s.
@@ -290,7 +290,7 @@
     <string name="quiet_hours">Ruhezeit</string>
     <string name="attachment_directory">Ordner für Anhänge</string>
     <string name="backup_directory">Sicherungsordner</string>
-    <string name="google_drive_backup">Nach Google Drive kopieren</string>
+    <string name="google_drive_backup">Google Drive-Sicherung</string>
     <string name="miscellaneous">Verschiedenes</string>
     <string name="synchronization">Synchronisierung</string>
     <string name="enabled">Aktiviert</string>
@@ -632,4 +632,14 @@
     <string name="tell_me_how_im_doing">Erzählen Sie mir bitte, wie gut ich das mache</string>
     <string name="account_not_found">Konto nicht gefunden</string>
     <string name="davx5_selection_description">Aufgaben mit der DAVx⁵-App synchronisieren</string>
+    <string name="no_app_found">Keine App konnte diese Anfrage bearbeiten</string>
+    <string name="foreground_location">Standort im Vordergrund</string>
+    <string name="background_location">Standort im Hintergrund</string>
+    <string name="backups_ignore_warnings">Warnungen ignorieren</string>
+    <string name="automatic_backups">Automatische Sicherungen</string>
+    <string name="android_auto_backup">Android-Sicherungservice</string>
+    <string name="last_backup">Letzte Sicherung: %s</string>
+    <string name="last_backup_never">nie</string>
+    <string name="device_settings">Geräteeinstellungen</string>
+    <string name="account">Konto</string>
 </resources>
