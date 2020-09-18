@@ -8,6 +8,7 @@ import androidx.work.Data
 import androidx.work.WorkerParameters
 import com.google.api.client.googleapis.json.GoogleJsonResponseException
 import com.google.api.services.drive.model.File
+import com.todoroo.astrid.backup.BackupConstants
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
@@ -38,6 +39,12 @@ class DriveUploader @WorkerInject constructor(
             val folder = getFolder() ?: return Result.failure()
             preferences.setString(R.string.p_google_drive_backup_folder, folder.id)
             drive.createFile(folder.id, uri)
+                    ?.let {
+                        preferences.setLong(
+                                R.string.p_backups_drive_last,
+                                BackupConstants.getTimestamp(it)
+                        )
+                    }
             localBroadcastManager.broadcastPreferenceRefresh()
             if (inputData.getBoolean(EXTRA_PURGE, false)) {
                 drive

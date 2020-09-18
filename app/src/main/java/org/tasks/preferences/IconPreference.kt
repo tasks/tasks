@@ -10,16 +10,23 @@ import org.tasks.R
 
 class IconPreference(context: Context?, attrs: AttributeSet?) : Preference(context, attrs) {
 
-    var iconVisible = false
+    private var imageView: ImageView? = null
 
     override fun onBindViewHolder(holder: PreferenceViewHolder?) {
         super.onBindViewHolder(holder)
 
-        (holder?.findViewById(R.id.preference_icon) as ImageView?)?.visibility = if (iconVisible) {
-            View.VISIBLE
-        } else {
-            View.GONE
+        imageView = holder?.findViewById(R.id.preference_icon) as ImageView?
+        updateVisibility()
+    }
+
+    var iconVisible: Boolean = false
+        set(value) {
+            field = value
+            updateVisibility()
         }
+
+    private fun updateVisibility() {
+        imageView?.visibility = if (iconVisible) View.VISIBLE else View.GONE
     }
 
     init {

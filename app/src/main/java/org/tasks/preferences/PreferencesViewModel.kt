@@ -7,7 +7,6 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.api.client.googleapis.json.GoogleJsonResponseException
 import com.google.api.services.drive.DriveScopes
 import com.todoroo.astrid.backup.BackupConstants
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -62,18 +61,20 @@ class PreferencesViewModel @ViewModelInject constructor(
             lastDriveBackup.value = -1L
             return@launch
         }
-        val files = preferences.getStringValue(R.string.p_google_drive_backup_folder)
+        lastDriveBackup.value = preferences
+                .getStringValue(R.string.p_google_drive_backup_folder)
                 ?.takeIf { it.isNotBlank() }
                 ?.let {
                     try {
                         driveInvoker.getFilesByPrefix(it, "auto.", "user.")
-                    } catch (e: GoogleJsonResponseException) {
+                                .firstOrNull()
+                                ?.let(BackupConstants::getTimestamp)
+                    } catch (e: Exception) {
                         Timber.e(e)
                         null
                     }
                 }
-                ?: emptyList()
-        lastDriveBackup.value = files.firstOrNull()?.let { BackupConstants.getTimestamp(it) } ?: -1
+                ?: preferences.getLong(R.string.p_backups_drive_last, -1L)
     }
 
     fun updateLocalBackup() = viewModelScope.launch {

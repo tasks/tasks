@@ -377,6 +377,7 @@
   <string name="p_backups_ignore_warnings">backups_ignore_warnings</string>
   <string name="p_backups_android_backup_enabled">backups_android_backup_enabled</string>
   <string name="p_backups_android_backup_last">backups_android_backup_last</string>
+  <string name="p_backups_drive_last">backups_drive_last</string>
   <string name="p_current_version">cv</string>
 
   <string name="event_whats_new">whats_new</string>

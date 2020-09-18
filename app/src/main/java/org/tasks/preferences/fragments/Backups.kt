@@ -232,7 +232,8 @@ class Backups : InjectingPreferenceFragment() {
         else -> {
             preference.summary = null
             preference.icon = null
-            preferences.setString(R.string.p_google_drive_backup_account, null)
+            preferences.remove(R.string.p_backups_drive_last)
+            preferences.remove(R.string.p_google_drive_backup_account)
             updateDriveAccount()
             viewModel.updateDriveBackup()
             true

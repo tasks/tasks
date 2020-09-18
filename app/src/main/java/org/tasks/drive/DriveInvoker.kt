@@ -73,14 +73,14 @@ class DriveInvoker @Inject constructor(
     }
 
     @Throws(IOException::class)
-    suspend fun createFile(folderId: String, uri: Uri?) {
+    suspend fun createFile(folderId: String, uri: Uri?): File? {
         val mime = FileHelper.getMimeType(context, uri!!)
         val metadata = File()
                 .setParents(listOf(folderId))
                 .setMimeType(mime)
                 .setName(FileHelper.getFilename(context, uri))
         val content = InputStreamContent(mime, context.contentResolver.openInputStream(uri!!))
-        execute(service.files().create(metadata, content))
+        return execute(service.files().create(metadata, content))
     }
 
     @Synchronized
