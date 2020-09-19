@@ -67,10 +67,10 @@
     <string name="TEA_control_timer">Kronometre Denetimleri</string>
     <string name="TEA_control_hidden_section">----Sürekli Gizle----</string>
     <string name="TEA_load_more">Daha yükle…</string>
-    <string name="CRA_ignore">Yoksay</string>
+    <string name="CRA_ignore">Yok say</string>
     <string name="CRA_title">Bir toplantı listesine mi ihtiyacınız var?</string>
     <string name="CRA_ignore_body">Bir kaç tane takvim etkinliğini yok saydınız. Tasks\'in size bunlar hakkında sormayı kesmesini ister misiniz?</string>
-    <string name="CRA_ignore_all">Tüm etkinlikleri yoksay</string>
+    <string name="CRA_ignore_all">Tüm etkinlikleri yok say</string>
     <string name="CRA_ignore_this">Yalnızca bu etkinliği yok say</string>
     <string name="CRA_speech_bubble_start">%s çok yakında başlayacak gözüküyor. Bir liste hazırlamak ister misiniz?</string>
     <string name="CRA_speech_bubble_end">%s bitmiş gibi gözüküyor. Bir liste hazırlamak ister misiniz?</string>
@@ -632,7 +632,7 @@
     <string name="permission_read_tasks">Tasks veri tabanına tam erişim</string>
     <string name="account_not_found">Hesap bulunamadı</string>
     <string name="davx5_selection_description">DAVx⁵ uygulamasıyla görevlerinizi eşitleyin</string>
-    <string name="background_location_permission_required">Konum izinleri, konum tabanlı anımsatıcılar için gereklidir. Eğer daha önce konum izni isteğini reddetiyseniz, aygıt ayarlarınızdan elle izin vermelisiniz.</string>
+    <string name="background_location_permission_required">Konum izinleri, konum tabanlı anımsatıcılar için gereklidir. Eğer daha önce konum izni isteğini reddettiyseniz, aygıt ayarlarınızdan elle izin vermelisiniz.</string>
     <string name="background_location">Ön plan konumu</string>
     <string name="foreground_location">Arka plan konumu</string>
     <string name="account">Hesap</string>
@@ -643,4 +643,7 @@
     <string name="android_auto_backup">Android Yedek Servisi</string>
     <string name="automatic_backups">Kendiliğinden yedeklemeler</string>
     <string name="no_app_found">Hiçbir uygulama bu isteği karşılayamadı</string>
+    <string name="backups_ignore_warnings">Uyarıları yok say</string>
+    <string name="backups_ignore_warnings_summary">Yedeklemeye ihtiyacınız yoksa veya kendi yedekleme çözümünüz varsa yedekleme uyarılarını yok sayın</string>
+    <string name="backup_location_warning">UYARI: Tasks kaldırılırsa %s içinde bulunan dosyalar silinecektir! Android\'in dosyalarınızı silmesini önlemek için lütfen özel bir konum seçin.</string>
 </resources>
