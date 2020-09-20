@@ -22,7 +22,7 @@ Change Log
 
 ### 10.0 (2020-08-31)
 
-* PRO: DAVx⁵ support (currently requires [custom DAVx⁵ build](https://tasks.org/davx5))
+* PRO: DAVx⁵ support (requires [DAVx⁵ beta](https://tasks.org/davx5))
 * PRO: EteSync client support
 * [ToDo Agenda](https://play.google.com/store/apps/details?id=org.andstatus.todoagenda) integration
 * Changed backstack behavior to follow Android conventions
