@@ -652,7 +652,6 @@
     <string name="on_launch">עם ההפעלה</string>
     <string name="astrid_sort_order_summary">הפעלת מצב מיון ידני של אסטריד עבור ה‚משימות שלי’, ‚היום’ ותגיות. מצב מיון זה יוחלף ב‚סידור עצמאי’ בעדכונים עתידיים</string>
     <string name="astrid_sort_order">מיון אסטריד ידני</string>
-    <string name="account_not_found">החשבון לא נמצא</string>
     <string name="sort_modified_group">%s נערך</string>
     <string name="sort_created_group">%s נוצר</string>
     <string name="davx5_selection_description">סנכרון המשימות שלך עם היישומון DAVx⁵</string>

@@ -628,7 +628,6 @@
     <string name="reset_sort_order">Sorbarendezés visszaállítása</string>
     <string name="manage_lists">Listák kezelése</string>
     <string name="permission_read_tasks">Teljes hozzáférés a Tasks adatbázishoz</string>
-    <string name="account_not_found">A fiók nem található</string>
     <string name="davx5_selection_description">Feladatok szinkronizálása DAVx⁵ alkalmazással</string>
     <string name="account">Fiók</string>
     <string name="device_settings">Eszköz beállítások</string>

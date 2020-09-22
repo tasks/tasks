@@ -641,6 +641,5 @@
     <string name="astrid_sort_order_summary">Aktywuje ręczny (jak w Astrid) tryb sortowania dla \'Moich zadań\', \'Dzisiaj\' oraz tagów. Ten tryb sortowania będzie zastąpiony przez \'Ręczne\' w kolejnych aktualizacjach</string>
     <string name="astrid_sort_order">Ręczne sortowanie (jak w Astrid)</string>
     <string name="manage_lists">Zarządzaj listami</string>
-    <string name="account_not_found">Konto nie znalezione</string>
     <string name="davx5_selection_description">Synchronizuj swoje zadania z aplikacją DAVx⁵</string>
 </resources>

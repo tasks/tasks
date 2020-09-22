@@ -625,7 +625,6 @@
     <string name="manage_lists">Beheer lijsten</string>
     <string name="reset_sort_order">Sorteervolgorde resetten</string>
     <string name="permission_read_tasks">Volledige toegang tot Tasks database</string>
-    <string name="account_not_found">Account niet gevonden</string>
     <string name="davx5_selection_description">Synchroniseer je taken met de DAVx⁵ applicatie</string>
     <string name="account">Account</string>
     <string name="device_settings">Apparaat instellingen</string>

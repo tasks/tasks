@@ -626,5 +626,4 @@
     <string name="manage_lists">Gestisci liste</string>
     <string name="permission_read_tasks">Accesso completo alla banca dati di Tasks</string>
     <string name="davx5_selection_description">Sincronizza le tue attività con l\'app DAVx⁵</string>
-    <string name="account_not_found">Account non trovato</string>
 </resources>

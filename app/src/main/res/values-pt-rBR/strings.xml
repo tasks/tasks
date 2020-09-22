@@ -592,7 +592,6 @@
     <string name="manage_lists">Gerenciar Listas</string>
     <string name="backup_BPr_header">Cópia de Segurança</string>
     <string name="display_name">Mostrar nome</string>
-    <string name="account_not_found">Conta não encontrada</string>
     <string name="permission_read_tasks">Acesso completo ao base de dados do Tasks</string>
     <string name="reset_sort_order">Resetar ordenação</string>
     <string name="lists">Listas</string>

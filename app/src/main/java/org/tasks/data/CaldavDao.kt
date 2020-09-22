@@ -172,9 +172,6 @@ SELECT EXISTS(SELECT 1
     """)
     abstract suspend fun anyExist(urls: List<String>): Boolean
 
-    @Query("SELECT COUNT(*) FROM caldav_lists WHERE cdl_account = :account")
-    abstract suspend fun listCount(account: String): Int
-
     @Query("SELECT * FROM caldav_lists WHERE cdl_uuid = :uuid LIMIT 1")
     abstract suspend fun getCalendar(uuid: String): CaldavCalendar?
 
@@ -192,15 +189,6 @@ SELECT EXISTS(SELECT 1
 
     @Query("SELECT * FROM caldav_lists WHERE cdl_account = :account AND cdl_url = :url LIMIT 1")
     abstract suspend fun getCalendarByUrl(account: String, url: String): CaldavCalendar?
-
-    @Query("""
-SELECT *
-FROM caldav_lists
-         INNER JOIN caldav_accounts ON cdl_account = cda_uuid
-WHERE cda_account_type = $TYPE_OPENTASKS
-  AND cdl_url = :url
-    """)
-    abstract suspend fun getOpenTaskCalendarByUrl(url: String): CaldavCalendar?
 
     @Query("SELECT caldav_accounts.* from caldav_accounts"
             + " INNER JOIN caldav_tasks ON cd_task = :task"

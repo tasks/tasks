@@ -609,7 +609,6 @@
     <string name="network_error">Não foi possível conectar</string>
     <string name="location_radius_meters">%s m</string>
     <string name="davx5_selection_description">Sincronize a suas tarefas com a app DAVx⁵</string>
-    <string name="account_not_found">Conta não encontrada</string>
     <string name="permission_read_tasks">Acesso completo à base de dados do Tasks</string>
     <string name="reset_sort_order">Resetar ordenação</string>
     <string name="open_last_viewed_list">Abra a última lista utilizada</string>

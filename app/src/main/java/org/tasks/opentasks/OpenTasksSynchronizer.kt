@@ -80,14 +80,9 @@ class OpenTasksSynchronizer @Inject constructor(
                     )
                 }
         caldavDao.getAccounts(CaldavAccount.TYPE_OPENTASKS).forEach { account ->
-            val uuid = account.uuid!!
-            val entries = lists[uuid]
+            val entries = lists[account.uuid!!]
             if (entries == null) {
-                if (caldavDao.listCount(uuid) == 0) {
-                    taskDeleter.delete(account)
-                } else {
-                    setError(account, context.getString(R.string.account_not_found))
-                }
+                taskDeleter.delete(account)
             } else if (!inventory.hasPro()) {
                 setError(account, context.getString(R.string.requires_pro_subscription))
             } else {
@@ -110,12 +105,6 @@ class OpenTasksSynchronizer @Inject constructor(
 
     private suspend fun toLocalCalendar(account: String, remote: CaldavCalendar): CaldavCalendar {
         val local = caldavDao.getCalendarByUrl(account, remote.url!!)
-                ?: caldavDao.getOpenTaskCalendarByUrl(remote.url!!)?.apply {
-                    this.account = account
-                    caldavDao.update(this)
-                    Timber.d("Moved calendar: $this")
-                    localBroadcastManager.broadcastRefreshList()
-                }
                 ?: CaldavCalendar().apply {
                     uuid = UUID
                             .nameUUIDFromBytes("${account.openTaskType()}${remote.url}".toByteArray())
