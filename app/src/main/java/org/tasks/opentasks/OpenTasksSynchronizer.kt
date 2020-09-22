@@ -303,17 +303,13 @@ class OpenTasksSynchronizer @Inject constructor(
             if (!it.moveToFirst()) {
                 return
             }
-            val task: Task
-            val caldavTask: CaldavTask
-            if (existing == null) {
-                task = taskCreator.createWithValues("")
-                taskDao.createNew(task)
-                val remoteId = it.getString(Tasks._UID)
-                caldavTask = CaldavTask(task.id, calendar.uuid, remoteId, syncId)
-            } else {
-                task = taskDao.fetch(existing.task)!!
-                caldavTask = existing
-            }
+            val task = existing?.task
+                    ?.let { task -> taskDao.fetch(task) }
+                    ?: taskCreator
+                            .createWithValues("")
+                            .apply { taskDao.createNew(this) }
+            val caldavTask = existing
+                    ?: CaldavTask(task.id, calendar.uuid, it.getString(Tasks._UID), syncId)
             task.title = it.getString(Tasks.TITLE)
             task.priority = CaldavConverter.fromRemote(it.getInt(Tasks.PRIORITY))
             task.completionDate = it.getLong(Tasks.COMPLETED)
