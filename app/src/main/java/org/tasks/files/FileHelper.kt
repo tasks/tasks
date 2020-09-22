@@ -85,12 +85,9 @@ object FileHelper {
     }
 
     private fun delete(vararg files: File) {
-        if (files == null) {
-            return
-        }
         for (file in files) {
             if (file.isDirectory) {
-                delete(*file.listFiles())
+                file.listFiles()?.let { delete(*it) }
             } else {
                 file.delete()
             }
