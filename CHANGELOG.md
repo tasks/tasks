@@ -1,6 +1,29 @@
 Change Log
 ---
 =======
+### 10.1 BETA (2020-09-22)
+
+* Android 11 support
+* Backup improvements
+* Bug fixes
+* Update translations
+  * Arabic - @PrestoSole, @mhmdanas
+  * Armenian - @aabgaryan
+  * Czech - @nijel
+  * Dutch - @fvbommel
+  * French - @FlorianLeChat
+  * German - J. Lavoie
+  * Hebrew - @yarons, @omeritzics
+  * Hungarian - kaciokos
+  * Italian - @IvanDan
+  * Kannada - @skomshe
+  * Malayalam - @Vachan
+  * Norwegian Bokmål - @comradekingu
+  * Russian - @NikGreens
+  * Simplified Chinese - @sr093906
+  * Spanish - @FlorianLeChat, @marmonto
+  * Turkish - @emintufan, Oğuz Ersen
+
 ### 10.0.3 (2020-09-16)
 
 * Fix crash from calendar event snackbar

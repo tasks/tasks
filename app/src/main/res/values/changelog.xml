@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="changelog">
-        <item>PRO: EteSync client support</item>
-        <item>ToDo Agenda integration</item>
-        <item>Changed backstack behavior to follow Android conventions</item>
-        <item>Major internal changes! Please report any bugs!</item>
-        <item>Remove Mapbox tiles (Google Play only)</item>
-        <item>Added \'Astrid manual sort\' information to backup file</item>
+        <item>Android 11 support</item>
+        <item>Backup improvements</item>
         <item>Bug fixes</item>
-        <item>Performance improvements</item>
-        <item>Security improvements</item>
         <item>Update translations</item>
         <item>Find Tasks on Reddit: https://reddit.com/r/tasks</item>
     </string-array>
