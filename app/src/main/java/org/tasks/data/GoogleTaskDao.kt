@@ -107,7 +107,7 @@ abstract class GoogleTaskDao {
     abstract suspend fun getRemoteId(task: Long): String?
 
     @Query("SELECT gt_task FROM google_tasks WHERE gt_remote_id = :remoteId")
-    abstract suspend fun getTask(remoteId: String): Long
+    abstract suspend fun getTask(remoteId: String): Long?
 
     @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
     @Query("SELECT google_tasks.*, gt_order AS primary_sort, NULL AS secondary_sort FROM google_tasks JOIN tasks ON tasks._id = gt_task WHERE gt_parent = 0 AND gt_list_id = :listId AND tasks.deleted = 0 UNION SELECT c.*, p.gt_order AS primary_sort, c.gt_order AS secondary_sort FROM google_tasks AS c LEFT JOIN google_tasks AS p ON c.gt_parent = p.gt_task JOIN tasks ON tasks._id = c.gt_task WHERE c.gt_parent > 0 AND c.gt_list_id = :listId AND tasks.deleted = 0 ORDER BY primary_sort ASC, secondary_sort ASC")

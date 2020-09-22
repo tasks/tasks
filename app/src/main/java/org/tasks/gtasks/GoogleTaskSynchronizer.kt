@@ -236,8 +236,7 @@ class GoogleTaskSynchronizer @Inject constructor(
                 // Update the metadata for the newly created task
                 gtasksMetadata.remoteId = created.id
                 gtasksMetadata.listId = listId
-                gtasksMetadata.remoteOrder = created.position.toLong()
-                gtasksMetadata.remoteParent = created.parent
+                setOrderAndParent(gtasksMetadata, created)
             } else {
                 return
             }
@@ -251,10 +250,9 @@ class GoogleTaskSynchronizer @Inject constructor(
                                 listId!!,
                                 if (isNullOrEmpty(localParent)) 0 else parent,
                                 gtasksMetadata.order)
-                        val result = gtasksInvoker.moveGtask(listId, remoteModel.id, localParent, previous)
-                        gtasksMetadata.remoteOrder = result!!.position.toLong()
-                        gtasksMetadata.remoteParent = result.parent
-                        gtasksMetadata.parent = if (isNullOrEmpty(result.parent)) 0 else googleTaskDao.getTask(result.parent)
+                        gtasksInvoker
+                                .moveGtask(listId, remoteModel.id, localParent, previous)
+                                ?.let { setOrderAndParent(gtasksMetadata, it) }
                     } catch (e: GoogleJsonResponseException) {
                         if (e.statusCode == 400) {
                             Timber.e(e)
@@ -335,18 +333,13 @@ class GoogleTaskSynchronizer @Inject constructor(
                     continue
                 }
             } else {
-                googleTask.remoteOrder = gtask.position.toLong()
-                googleTask.remoteParent = gtask.parent
-                googleTask.parent = gtask.parent
-                        ?.takeIf { it.isNotBlank() }
-                        ?.let { googleTaskDao.getTask(it) }
-                        ?: 0L
+                setOrderAndParent(googleTask, gtask)
                 googleTask.remoteId = gtask.id
             }
             if (task == null) {
                 task = taskCreator.createWithValues("")
             }
-            task!!.title = getTruncatedValue(task.title, gtask.title, MAX_TITLE_LENGTH)
+            task.title = getTruncatedValue(task.title, gtask.title, MAX_TITLE_LENGTH)
             task.creationDate = DateUtilities.now()
             task.completionDate = GtasksApiUtilities.gtasksCompletedTimeToUnixTime(gtask.completed?.let(::DateTime))
             val dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(gtask.due?.let(::DateTime))
@@ -358,6 +351,12 @@ class GoogleTaskSynchronizer @Inject constructor(
         }
         list.lastSync = lastSyncDate
         googleTaskListDao.insertOrReplace(list)
+    }
+
+    private suspend fun setOrderAndParent(googleTask: GoogleTask, task: Task) {
+        task.position?.toLongOrNull()?.let { googleTask.remoteOrder = it }
+        googleTask.remoteParent = task.parent?.takeIf { it.isNotBlank() }
+        googleTask.parent = googleTask.remoteParent?.let { googleTaskDao.getTask(it) } ?: 0L
     }
 
     private suspend fun write(task: com.todoroo.astrid.data.Task?, googleTask: GoogleTask) {
