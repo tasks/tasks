@@ -17,6 +17,7 @@ import org.tasks.drive.DriveInvoker
 import org.tasks.injection.BaseWorker
 import org.tasks.preferences.Preferences
 import timber.log.Timber
+import java.io.FileNotFoundException
 import java.io.IOException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
@@ -75,6 +76,9 @@ class DriveUploader @WorkerInject constructor(
         } catch (e: UnknownHostException) {
             Timber.e(e)
             Result.retry()
+        } catch (e: FileNotFoundException) {
+            Timber.e(e)
+            Result.failure()
         } catch (e: GoogleJsonResponseException) {
             when (e.statusCode) {
                 401 -> {
