@@ -84,7 +84,7 @@ class PreferencesViewModel @ViewModelInject constructor(
                 ContentResolver.SCHEME_CONTENT -> {
                     DocumentFile.fromTreeUri(context, uri)
                             ?.listFiles()
-                            ?.filter { BackupConstants.isBackupFile(it.name!!) }
+                            ?.filter { BackupConstants.isBackupFile(it.name) }
                             ?.map { BackupConstants.getTimestamp(it) }
                 }
                 ContentResolver.SCHEME_FILE -> {

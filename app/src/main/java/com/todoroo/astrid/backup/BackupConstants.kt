@@ -43,7 +43,7 @@ object BackupConstants {
 
     private val MATCHER = Pattern.compile("(auto|user)\\.(\\d{2})(\\d{2})(\\d{2})-(\\d{2})(\\d{2})\\.json")
 
-    fun isBackupFile(name: String) = MATCHER.matcher(name).matches()
+    fun isBackupFile(name: String?) = name?.let { MATCHER.matcher(it).matches() } ?: false
 
     fun getTimestamp(file: java.io.File): Long {
         return getTimestampFromFilename(file.name) ?: file.lastModified()
