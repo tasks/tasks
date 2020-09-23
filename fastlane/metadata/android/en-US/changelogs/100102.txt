@@ -1,0 +1,6 @@
+* Android 11 support
+* Backup improvements
+* Swipe-to-refresh initiates DAVx5/EteSync sync
+* Show indicator when DAVx5/EteSync are synchronizing
+* Bug fixes
+* Update translations

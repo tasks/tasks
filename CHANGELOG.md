@@ -1,10 +1,12 @@
 Change Log
 ---
 =======
-### 10.1 BETA (2020-09-22)
+### 10.1 (2020-09-23)
 
 * Android 11 support
 * Backup improvements
+* Swipe-to-refresh initiates DAVx5/EteSync sync
+* Show indicator when DAVx5/EteSync are synchronizing
 * Bug fixes
 * Update translations
   * Arabic - @PrestoSole, @mhmdanas

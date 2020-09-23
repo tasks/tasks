@@ -1,4 +1,0 @@
-* Android 11 support
-* Backup improvements
-* Bug fixes
-* Update translations
