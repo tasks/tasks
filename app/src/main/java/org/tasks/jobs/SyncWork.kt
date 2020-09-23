@@ -46,5 +46,7 @@ abstract class SyncWork constructor(
 
     companion object {
         private val LOCK = Any()
+
+        const val EXTRA_IMMEDIATE = "extra_immediate"
     }
 }

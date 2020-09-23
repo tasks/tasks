@@ -1,6 +1,9 @@
 package org.tasks.jobs
 
+import android.accounts.AccountManager
+import android.content.ContentResolver
 import android.content.Context
+import android.os.Bundle
 import androidx.hilt.Assisted
 import androidx.hilt.work.WorkerInject
 import androidx.work.WorkerParameters
@@ -10,6 +13,8 @@ import org.tasks.analytics.Firebase
 import org.tasks.data.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.CaldavDao
 import org.tasks.data.OpenTaskDao
+import org.tasks.data.OpenTaskDao.Companion.ACCOUNT_TYPE_DAVx5
+import org.tasks.data.OpenTaskDao.Companion.ACCOUNT_TYPE_ETESYNC
 import org.tasks.opentasks.OpenTasksSynchronizer
 import org.tasks.preferences.Preferences
 
@@ -31,5 +36,22 @@ class SyncOpenTasksWork @WorkerInject constructor(
 
     override suspend fun doSync() {
         openTasksSynchronizer.sync()
+
+        if (inputData.getBoolean(EXTRA_IMMEDIATE, false)) {
+            AccountManager
+                    .get(context)
+                    .accounts
+                    .filter { it.type == ACCOUNT_TYPE_DAVx5 || it.type == ACCOUNT_TYPE_ETESYNC }
+                    .forEach {
+                        ContentResolver.requestSync(
+                                it,
+                                openTaskDao.authority,
+                                Bundle().apply {
+                                    putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true)
+                                    putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true)
+                                }
+                        )
+                    }
+        }
     }
 }

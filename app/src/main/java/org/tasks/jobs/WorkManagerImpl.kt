@@ -21,6 +21,7 @@ import org.tasks.data.OpenTaskDao
 import org.tasks.data.Place
 import org.tasks.date.DateTimeUtils.midnight
 import org.tasks.date.DateTimeUtils.newDateTime
+import org.tasks.jobs.SyncWork.Companion.EXTRA_IMMEDIATE
 import org.tasks.jobs.WorkManager.Companion.MAX_CLEANUP_LENGTH
 import org.tasks.jobs.WorkManager.Companion.REMOTE_CONFIG_INTERVAL_HOURS
 import org.tasks.jobs.WorkManager.Companion.TAG_BACKGROUND_SYNC_CALDAV
@@ -89,6 +90,7 @@ class WorkManagerImpl constructor(
     private fun sync(immediate: Boolean, tag: String, c: Class<out SyncWork>, requireNetwork: Boolean = true) {
         Timber.d("sync(immediate = $immediate, $tag, $c, requireNetwork = $requireNetwork)")
         val builder = OneTimeWorkRequest.Builder(c)
+                .setInputData(Data.Builder().putBoolean(EXTRA_IMMEDIATE, immediate).build())
         if (requireNetwork) {
             builder.setConstraints(Constraints.Builder()
                     .setRequiredNetworkType(
