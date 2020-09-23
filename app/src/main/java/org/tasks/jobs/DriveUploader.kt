@@ -40,12 +40,8 @@ class DriveUploader @WorkerInject constructor(
             val folder = getFolder() ?: return Result.failure()
             preferences.setString(R.string.p_google_drive_backup_folder, folder.id)
             drive.createFile(folder.id, uri)
-                    ?.let {
-                        preferences.setLong(
-                                R.string.p_backups_drive_last,
-                                BackupConstants.getTimestamp(it)
-                        )
-                    }
+                    ?.let(BackupConstants::getTimestamp)
+                    ?.let { preferences.setLong(R.string.p_backups_drive_last, it) }
             localBroadcastManager.broadcastPreferenceRefresh()
             if (inputData.getBoolean(EXTRA_PURGE, false)) {
                 drive

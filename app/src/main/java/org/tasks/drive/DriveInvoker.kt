@@ -144,7 +144,7 @@ class DriveInvoker @Inject constructor(
     companion object {
         private const val MIME_FOLDER = "application/vnd.google-apps.folder"
         private val DRIVE_FILE_COMPARATOR = Comparator<File> { f1, f2 ->
-            BackupConstants.getTimestamp(f2).compareTo(BackupConstants.getTimestamp(f1))
+            BackupConstants.getTimestamp(f2)!!.compareTo(BackupConstants.getTimestamp(f1)!!)
         }
     }
 }

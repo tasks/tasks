@@ -49,8 +49,8 @@ object BackupConstants {
         return getTimestampFromFilename(file.name) ?: file.lastModified()
     }
 
-    fun getTimestamp(file: File): Long {
-        return getTimestampFromFilename(file.name) ?: file.modifiedTime.value
+    fun getTimestamp(file: File): Long? {
+        return getTimestampFromFilename(file.name) ?: file.modifiedTime?.value
     }
 
     fun getTimestamp(file: DocumentFile): Long {
