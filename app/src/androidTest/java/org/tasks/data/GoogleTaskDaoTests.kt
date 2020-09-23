@@ -94,7 +94,7 @@ class GoogleTaskDaoTests : InjectingTestCase() {
     @Test
     fun getTaskFromRemoteId() = runBlocking {
         googleTaskDao.insert(newGoogleTask(with(REMOTE_ID, "1234"), with(TASK, 4)))
-        assertEquals(4, googleTaskDao.getTask("1234"))
+        assertEquals(4L, googleTaskDao.getTask("1234"))
     }
 
     @Test
