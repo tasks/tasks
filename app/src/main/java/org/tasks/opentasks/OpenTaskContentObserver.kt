@@ -1,19 +1,29 @@
 package org.tasks.opentasks
 
+import android.content.ContentResolver
 import android.content.Context
+import android.content.SyncStatusObserver
 import android.database.ContentObserver
 import android.net.Uri
 import android.os.Handler
 import android.os.HandlerThread
+import dagger.hilt.android.qualifiers.ApplicationContext
 import org.dmfs.tasks.contract.TaskContract.*
+import org.tasks.LocalBroadcastManager
 import org.tasks.R
+import org.tasks.preferences.Preferences
 import org.tasks.sync.SyncAdapters
 import timber.log.Timber
 import javax.inject.Inject
 
 class OpenTaskContentObserver @Inject constructor(
-        private val syncAdapters: SyncAdapters
-) : ContentObserver(getHandler()) {
+        @ApplicationContext context: Context,
+        private val syncAdapters: SyncAdapters,
+        private val preferences: Preferences,
+        private val localBroadcastManager: LocalBroadcastManager
+) : ContentObserver(getHandler()), SyncStatusObserver {
+
+    val authority = context.getString(R.string.opentasks_authority)
 
     override fun onChange(selfChange: Boolean) = onChange(selfChange, null)
 
@@ -28,17 +38,28 @@ class OpenTaskContentObserver @Inject constructor(
         syncAdapters.syncOpenTasks()
     }
 
+    override fun onStatusChanged(which: Int) {
+        val active = ContentResolver.getCurrentSyncs().any { it.authority == authority }
+        if (preferences.getBoolean(R.string.p_sync_ongoing_android, false) != active) {
+            preferences.setBoolean(R.string.p_sync_ongoing_android, active)
+            localBroadcastManager.broadcastRefresh()
+        }
+    }
+
     companion object {
         fun getHandler() = HandlerThread("OT-handler)").let {
             it.start()
             Handler(it.looper)
         }
 
-        fun registerObserver(context: Context, observer: ContentObserver) {
-            getUris(context.getString(R.string.opentasks_authority))
-                    .forEach {
-                        context.contentResolver.registerContentObserver(it, false, observer)
-                    }
+        fun registerObserver(context: Context, observer: OpenTaskContentObserver) {
+            getUris(observer.authority).forEach {
+                context.contentResolver.registerContentObserver(it, false, observer)
+            }
+            ContentResolver.addStatusChangeListener(
+                    ContentResolver.SYNC_OBSERVER_TYPE_ACTIVE,
+                    observer
+            )
         }
 
         private fun getUris(authority: String): List<Uri> =

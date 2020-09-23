@@ -502,6 +502,7 @@ class Preferences @JvmOverloads constructor(private val context: Context, name: 
         private val syncFlags = listOf(
                 R.string.p_sync_ongoing_google_tasks,
                 R.string.p_sync_ongoing_caldav,
-                R.string.p_sync_ongoing_etesync)
+                R.string.p_sync_ongoing_etesync,
+                R.string.p_sync_ongoing_android)
     }
 }

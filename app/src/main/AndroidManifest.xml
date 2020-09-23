@@ -77,6 +77,11 @@
   <uses-permission android:name="com.google.android.googleapps.permission.GOOGLE_AUTH"/>
   <uses-permission android:name="android.permission.GET_ACCOUNTS" android:maxSdkVersion="25"/>
 
+  <!-- ****************************** -->
+  <!-- Check DAVx5/EteSync sync state -->
+  <!-- ****************************** -->
+  <uses-permission android:name="android.permission.READ_SYNC_STATS" />
+
   <!-- ***************************** -->
   <!-- Exclude OpenTasks permissions -->
   <!-- ***************************** -->
