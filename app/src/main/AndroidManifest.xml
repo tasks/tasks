@@ -7,12 +7,15 @@
 
   <!-- ================================================== Used Permissions = -->
 
-  <!-- ********************************* -->
-  <!-- maps and location based reminders -->
-  <!-- ********************************* -->
+  <!-- ********************* -->
+  <!-- maps and place search -->
+  <!-- ********************* -->
   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-  <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
+  <!-- ************************ -->
+  <!-- location based reminders -->
+  <!-- ************************ -->
+  <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
   <uses-feature
     android:name="android.hardware.location"
     android:required="false"/>
@@ -38,7 +41,8 @@
   <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
 
   <!-- **************************************** -->
-  <!-- write backups and attachments to storage -->
+  <!-- this permission is no longer used, but   -->
+  <!-- remains for legacy compatibility reasons -->
   <!-- **************************************** -->
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
@@ -60,9 +64,9 @@
   <!-- *********************************** -->
   <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
-  <!-- ****************************************************** -->
-  <!-- caldav sync, google task sync, and google drive upload -->
-  <!-- ****************************************************** -->
+  <!-- ******************************************************* -->
+  <!-- google task/etesync/caldav sync and google drive upload -->
+  <!-- ******************************************************* -->
   <uses-permission android:name="android.permission.INTERNET"/>
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
@@ -72,7 +76,6 @@
   <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
   <uses-permission android:name="com.google.android.googleapps.permission.GOOGLE_AUTH"/>
   <uses-permission android:name="android.permission.GET_ACCOUNTS" android:maxSdkVersion="25"/>
-  <uses-permission android:name="android.permission.USE_CREDENTIALS" android:maxSdkVersion="22" />
 
   <!-- ***************************** -->
   <!-- Exclude OpenTasks permissions -->
