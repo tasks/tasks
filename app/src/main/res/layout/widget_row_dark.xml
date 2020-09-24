@@ -124,8 +124,9 @@
       android:paddingStart="5dp"
       android:paddingEnd="0dp"
       android:layout_gravity="center_vertical"
-      app:tint="@color/icon_tint_dark_alpha"
-      tools:src="@drawable/ic_keyboard_arrow_up_black_18dp" />
+      android:tint="@color/icon_tint_dark_alpha"
+      tools:src="@drawable/ic_keyboard_arrow_up_black_18dp"
+      tools:ignore="UseAppTint" />
 
     <TextView
       android:id="@+id/subtask_text"
