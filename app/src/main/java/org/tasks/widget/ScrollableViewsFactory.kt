@@ -35,7 +35,9 @@ internal class ScrollableViewsFactory(
         private val taskDao: TaskDao,
         private val defaultFilterProvider: DefaultFilterProvider,
         private val checkBoxProvider: CheckBoxProvider,
-        private val locale: Locale) : RemoteViewsFactory {
+        private val locale: Locale,
+        private val chipProvider: ChipProvider
+) : RemoteViewsFactory {
     private val indentPadding: Int
     private var isDark = false
     private var showDueDates = false
@@ -54,6 +56,7 @@ internal class ScrollableViewsFactory(
     private var handleDueDateClick = false
     private var showDividers = false
     private var showSubtasks = false
+    private var showLists = false
     private var isRtl = false
     private var tasks: List<TaskContainer> = ArrayList()
     override fun onCreate() {}
@@ -167,24 +170,21 @@ internal class ScrollableViewsFactory(
             if (!showDividers) {
                 row.setViewVisibility(R.id.divider, View.GONE)
             }
+            row.removeAllViews(R.id.chips)
             if (showSubtasks && taskContainer.hasChildren()) {
+                val chip = chipProvider.getSubtaskChip(taskContainer)
+                row.addView(R.id.chips, chip)
                 row.setOnClickFillInIntent(
-                        R.id.subtask_button,
+                        R.id.chip,
                         Intent(WidgetClickActivity.TOGGLE_SUBTASKS)
                                 .putExtra(WidgetClickActivity.EXTRA_TASK, task)
-                                .putExtra(WidgetClickActivity.EXTRA_COLLAPSED, !taskContainer.isCollapsed))
-                row.setTextViewText(
-                        R.id.subtask_text,
-                        context
-                                .resources
-                                .getQuantityString(
-                                        R.plurals.subtask_count, taskContainer.children, taskContainer.children))
-                row.setImageViewResource(
-                        R.id.subtask_icon,
-                        if (taskContainer.isCollapsed) R.drawable.ic_keyboard_arrow_down_black_18dp else R.drawable.ic_keyboard_arrow_up_black_18dp)
-                row.setViewVisibility(R.id.subtask_button, View.VISIBLE)
-            } else {
-                row.setViewVisibility(R.id.subtask_button, View.GONE)
+                                .putExtra(WidgetClickActivity.EXTRA_COLLAPSED, !taskContainer.isCollapsed)
+                )
+            }
+            if (!taskContainer.hasParent() && showLists) {
+                chipProvider
+                        .getListChip(filter, taskContainer)
+                        ?.let { row.addView(R.id.chips, it) }
             }
             row.setInt(R.id.widget_row, "setLayoutDirection", locale.directionality)
             val startPad = taskContainer.getIndent() * indentPadding
@@ -248,6 +248,7 @@ internal class ScrollableViewsFactory(
         showDescription = widgetPreferences.showDescription()
         showFullDescription = widgetPreferences.showFullDescription()
         isDark = widgetPreferences.themeIndex > 0
+        chipProvider.isDark = isDark
         textColorPrimary = context.getColor(if (isDark) R.color.white_87 else R.color.black_87)
         textColorSecondary = context.getColor(if (isDark) R.color.white_60 else R.color.black_60)
         val dueDatePosition = widgetPreferences.dueDatePosition
@@ -259,6 +260,7 @@ internal class ScrollableViewsFactory(
         filter = defaultFilterProvider.getFilterFromPreference(widgetPreferences.filterId)
         showDividers = widgetPreferences.showDividers()
         showSubtasks = widgetPreferences.showSubtasks()
+        showLists = widgetPreferences.showLists()
         isRtl = locale.directionality == View.LAYOUT_DIRECTION_RTL
     }
 

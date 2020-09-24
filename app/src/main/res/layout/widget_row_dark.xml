@@ -105,49 +105,17 @@
     tools:text="Tomorrow"
     tools:textColor="@color/white_60"/>
 
-  <LinearLayout
-    android:id="@+id/subtask_button"
-    android:layout_width="wrap_content"
+  <GridLayout
+    android:id="@+id/chips"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_below="@id/widget_due_bottom"
-    android:layout_marginTop="2dp"
     android:layout_toEndOf="@id/widget_complete_box"
-    android:background="@drawable/widget_chip_dark"
-    android:orientation="horizontal"
-    android:visibility="gone"
-    tools:visibility="visible">
-
-    <ImageView
-      android:id="@+id/subtask_icon"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:paddingStart="5dp"
-      android:paddingEnd="0dp"
-      android:layout_gravity="center_vertical"
-      android:tint="@color/icon_tint_dark_alpha"
-      tools:src="@drawable/ic_keyboard_arrow_up_black_18dp"
-      tools:ignore="UseAppTint" />
-
-    <TextView
-      android:id="@+id/subtask_text"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center_vertical"
-      android:textSize="14sp"
-      android:maxLines="1"
-      android:ellipsize="end"
-      android:paddingTop="2dp"
-      android:paddingBottom="2dp"
-      android:paddingStart="0dp"
-      android:paddingEnd="8dp"
-      android:textColor="@color/white_60"
-      tools:text="4 subtasks"/>
-
-  </LinearLayout>
+    android:orientation="horizontal" />
 
   <ImageView
     android:id="@+id/bottom_padding"
-    android:layout_below="@id/subtask_button"
+    android:layout_below="@id/chips"
     android:layout_alignStart="@id/widget_text"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

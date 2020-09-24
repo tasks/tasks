@@ -23,6 +23,7 @@ public class ScrollableWidgetUpdateService extends RemoteViewsService {
   @Inject SubtasksHelper subtasksHelper;
   @Inject DefaultFilterProvider defaultFilterProvider;
   @Inject Locale locale;
+  @Inject ChipProvider chipProvider;
 
   @Override
   public void onStart(Intent intent, int startId) {
@@ -52,6 +53,7 @@ public class ScrollableWidgetUpdateService extends RemoteViewsService {
         taskDao,
         defaultFilterProvider,
         new CheckBoxProvider(context, new ColorProvider(context, preferences)),
-        locale);
+        locale,
+        chipProvider);
   }
 }
