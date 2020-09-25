@@ -133,6 +133,11 @@
       android:key="@string/p_widget_show_subtasks"
       android:title="@string/subtasks" />
 
+    <SwitchPreferenceCompat
+      android:defaultValue="true"
+      android:key="@string/p_widget_show_lists"
+      android:title="@string/lists" />
+
   </PreferenceCategory>
 
   <PreferenceCategory android:title="@string/widget_on_click">
