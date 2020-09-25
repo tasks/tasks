@@ -58,6 +58,7 @@ internal class ScrollableViewsFactory(
     private var showSubtasks = false
     private var showPlaces = false
     private var showLists = false
+    private var showTags = false
     private var isRtl = false
     private var tasks: List<TaskContainer> = ArrayList()
     override fun onCreate() {}
@@ -192,6 +193,11 @@ internal class ScrollableViewsFactory(
                         .getListChip(filter, taskContainer)
                         ?.let { row.addView(R.id.chips, it) }
             }
+            if (showTags && taskContainer.tags?.isNotBlank() == true) {
+                chipProvider
+                        .getTagChips(filter, taskContainer)
+                        .forEach { row.addView(R.id.chips, it) }
+            }
             row.setInt(R.id.widget_row, "setLayoutDirection", locale.directionality)
             val startPad = taskContainer.getIndent() * indentPadding
             row.setViewPadding(R.id.widget_row, if (isRtl) 0 else startPad, 0, if (isRtl) startPad else 0, 0)
@@ -268,6 +274,7 @@ internal class ScrollableViewsFactory(
         showPlaces = widgetPreferences.showPlaces()
         showSubtasks = widgetPreferences.showSubtasks()
         showLists = widgetPreferences.showLists()
+        showTags = widgetPreferences.showTags()
         isRtl = locale.directionality == View.LAYOUT_DIRECTION_RTL
     }
 

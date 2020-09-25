@@ -5,6 +5,7 @@ import android.widget.RemoteViews
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
+import com.todoroo.astrid.api.TagFilter
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig
 import org.tasks.R
@@ -57,6 +58,17 @@ class ChipProvider @Inject constructor(
                 ?.takeIf { filter !is PlaceFilter || it.place != filter.place}
                 ?.let { return newChip(PlaceFilter(it.place), R.drawable.ic_outline_place_24px) }
         return null
+    }
+
+    fun getTagChips(filter: Filter?, task: TaskContainer): List<RemoteViews> {
+        val tags = task.tags?.split(",")?.toHashSet() ?: return emptyList()
+        if (filter is TagFilter) {
+            tags.remove(filter.uuid)
+        }
+        return tags
+                .mapNotNull(chipListCache::getTag)
+                .sortedBy(TagFilter::listingTitle)
+                .mapNotNull { newChip(it, R.drawable.ic_outline_label_24px) }
     }
 
     private fun newChip(filter: Filter?, defaultIcon: Int): RemoteViews? {

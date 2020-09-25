@@ -104,12 +104,14 @@
     tools:text="Tomorrow"
     tools:textColor="@color/black_60"/>
 
-  <GridLayout
+  <LinearLayout
     android:id="@+id/chips"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_below="@id/widget_due_bottom"
     android:layout_toEndOf="@id/widget_complete_box"
+    android:paddingStart="0dp"
+    android:paddingEnd="@dimen/widget_padding"
     android:orientation="horizontal" />
 
   <ImageView

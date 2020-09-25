@@ -61,6 +61,10 @@ public class WidgetPreferences {
     return getBoolean(R.string.p_widget_show_lists, true);
   }
 
+  boolean showTags() {
+    return getBoolean(R.string.p_widget_show_tags, true);
+  }
+
   public int getDueDatePosition() {
     return getIntegerFromString(R.string.p_widget_due_date_position, 0);
   }
