@@ -6,8 +6,12 @@ import org.tasks.data.TaskContainer
 import org.tasks.date.DateTimeUtils
 import java.util.*
 
-class SectionedDataSource constructor(tasks: List<TaskContainer>, disableHeaders: Boolean, val sortMode: Int, private val collapsed: MutableSet<Long>) {
-
+class SectionedDataSource constructor(
+        tasks: List<TaskContainer>,
+        disableHeaders: Boolean,
+        val sortMode: Int,
+        private val collapsed: MutableSet<Long>
+) {
     private val tasks = tasks.toMutableList()
 
     private val sections = if (disableHeaders) {
@@ -16,9 +20,9 @@ class SectionedDataSource constructor(tasks: List<TaskContainer>, disableHeaders
         getSections()
     }
 
-    fun getItem(position: Int): TaskContainer = tasks[sectionedPositionToPosition(position)]
+    fun getItem(position: Int): TaskContainer? = tasks.getOrNull(sectionedPositionToPosition(position))
 
-    fun getHeaderValue(position: Int): Long = sections[position]!!.value
+    fun getHeaderValue(position: Int): Long = getSection(position).value
 
     fun isHeader(position: Int) = sections[position] != null
 

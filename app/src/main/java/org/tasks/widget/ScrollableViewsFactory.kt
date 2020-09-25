@@ -89,10 +89,7 @@ internal class ScrollableViewsFactory(
         return 1
     }
 
-    override fun getItemId(position: Int): Long {
-        val task = getTask(position)
-        return task?.id ?: 0
-    }
+    override fun getItemId(position: Int) = getTask(position)?.id ?: 0
 
     override fun hasStableIds(): Boolean {
         return true
@@ -208,9 +205,7 @@ internal class ScrollableViewsFactory(
         return null
     }
 
-    private fun getTask(position: Int): TaskContainer? {
-        return if (position < tasks.size) tasks[position] else null
-    }
+    private fun getTask(position: Int): TaskContainer? = tasks.getItem(position)
 
     private suspend fun getQuery(filter: Filter?, subtasks: SubtaskInfo): List<String> {
         val queries = getQuery(preferences, filter!!, subtasks)

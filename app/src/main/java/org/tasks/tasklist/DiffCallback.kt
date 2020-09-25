@@ -18,7 +18,7 @@ internal class DiffCallback(private val old: SectionedDataSource, private val ne
         return if (isHeader) {
             old.sortMode == new.sortMode && old.getHeaderValue(oldPosition) == new.getHeaderValue(newPosition)
         } else {
-            old.getItem(oldPosition).id == new.getItem(newPosition).id
+            old.getItem(oldPosition)!!.id == new.getItem(newPosition)!!.id
         }
     }
 
@@ -26,8 +26,8 @@ internal class DiffCallback(private val old: SectionedDataSource, private val ne
         if (new.isHeader(newPosition)) {
             return old.getSection(oldPosition).collapsed == new.getSection(newPosition).collapsed
         }
-        val oldItem = old.getItem(oldPosition)
-        val newItem = new.getItem(newPosition)
+        val oldItem = old.getItem(oldPosition)!!
+        val newItem = new.getItem(newPosition)!!
         return oldItem == newItem && oldItem.getIndent() == adapter.getIndent(newItem)
     }
 }
