@@ -7,8 +7,10 @@ import android.graphics.Paint
 import android.view.View
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService.RemoteViewsFactory
+import androidx.annotation.StringRes
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
+import com.todoroo.astrid.core.SortHelper
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.subtasks.SubtasksHelper
 import kotlinx.coroutines.runBlocking
@@ -18,9 +20,11 @@ import org.tasks.data.SubtaskInfo
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskDao
 import org.tasks.data.TaskListQuery.getQuery
+import org.tasks.date.DateTimeUtils
 import org.tasks.locale.Locale
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
+import org.tasks.tasklist.SectionedDataSource
 import org.tasks.ui.CheckBoxProvider
 import timber.log.Timber
 import java.time.format.FormatStyle
@@ -55,30 +59,37 @@ internal class ScrollableViewsFactory(
     private var hPad = 0
     private var handleDueDateClick = false
     private var showDividers = false
+    private var disableGroups = false
     private var showSubtasks = false
     private var showPlaces = false
     private var showLists = false
     private var showTags = false
     private var isRtl = false
-    private var tasks: List<TaskContainer> = ArrayList()
+    private var collapsed = HashSet<Long>()
+    private var sortMode = -1
+    private var tasks = SectionedDataSource(emptyList(), false, 0, collapsed)
     override fun onCreate() {}
 
     override fun onDataSetChanged() {
         runBlocking {
             updateSettings()
-            tasks = taskDao.fetchTasks { subtasks: SubtaskInfo ->
-                getQuery(filter, subtasks)
-            }
+            tasks = SectionedDataSource(
+                    taskDao.fetchTasks { getQuery(filter, it) },
+                    disableGroups,
+                    sortMode,
+                    collapsed
+            )
         }
     }
 
     override fun onDestroy() {}
+
     override fun getCount(): Int {
         return tasks.size
     }
 
     override fun getViewAt(position: Int): RemoteViews? {
-        return buildUpdate(position)
+        return if (tasks.isHeader(position)) buildHeader(position) else buildUpdate(position)
     }
 
     override fun getLoadingView(): RemoteViews {
@@ -86,7 +97,7 @@ internal class ScrollableViewsFactory(
     }
 
     override fun getViewTypeCount(): Int {
-        return 1
+        return 2
     }
 
     override fun getItemId(position: Int) = getTask(position)?.id ?: 0
@@ -101,7 +112,75 @@ internal class ScrollableViewsFactory(
 
     private fun newRemoteView(): RemoteViews {
         return RemoteViews(
-                BuildConfig.APPLICATION_ID, if (isDark) R.layout.widget_row_dark else R.layout.widget_row_light)
+                BuildConfig.APPLICATION_ID,
+                if (isDark) R.layout.widget_row_dark else R.layout.widget_row_light
+        )
+    }
+
+    private fun buildHeader(position: Int): RemoteViews? {
+        val row = RemoteViews(
+                BuildConfig.APPLICATION_ID,
+                if (isDark) R.layout.widget_header_dark else R.layout.widget_header_light
+        )
+        val section = tasks.getSection(position)
+        val sortGroup = section.value
+        val header: String? = if (filter?.supportsSorting() == true) {
+            getHeader(sortMode, section.value)
+        } else {
+            null
+        }
+        row.setTextViewText(R.id.header, header)
+        row.setImageViewResource(R.id.arrow, if (section.collapsed) {
+            R.drawable.ic_keyboard_arrow_down_black_18dp
+        } else {
+            R.drawable.ic_keyboard_arrow_up_black_18dp
+        })
+        val color = if (sortMode == SortHelper.SORT_DUE
+                && sortGroup > 0
+                && DateTimeUtils.newDateTime(sortGroup).plusDays(1).startOfDay().isBeforeNow) {
+            context.getColor(R.color.overdue)
+        } else {
+            textColorSecondary
+        }
+        row.setTextColor(R.id.header, color)
+        if (!showDividers) {
+            row.setViewVisibility(R.id.divider, View.GONE)
+        }
+        row.setOnClickFillInIntent(
+                R.id.row,
+                Intent(WidgetClickActivity.TOGGLE_GROUP)
+                        .putExtra(WidgetClickActivity.EXTRA_WIDGET, widgetId)
+                        .putExtra(WidgetClickActivity.EXTRA_GROUP, sortGroup)
+                        .putExtra(WidgetClickActivity.EXTRA_COLLAPSED, !section.collapsed)
+        )
+        return row
+    }
+
+    private fun getHeader(sortMode: Int, group: Long): String {
+        return when {
+            sortMode == SortHelper.SORT_IMPORTANCE -> context.getString(priorityToString(group.toInt()))
+            group == 0L -> context.getString(if (sortMode == SortHelper.SORT_DUE) {
+                R.string.no_due_date
+            } else {
+                R.string.no_date
+            })
+            sortMode == SortHelper.SORT_CREATED ->
+                context.getString(R.string.sort_created_group, getDateString(group))
+            sortMode == SortHelper.SORT_MODIFIED ->
+                context.getString(R.string.sort_modified_group, getDateString(group))
+            else -> getDateString(group, false)
+        }
+    }
+
+    private fun getDateString(value: Long, lowercase: Boolean = true) =
+            DateUtilities.getRelativeDay(context, value, locale.locale, FormatStyle.FULL, lowercase)
+
+    @StringRes
+    private fun priorityToString(priority: Int) = when (priority) {
+        0 -> R.string.filter_high_priority
+        1 -> R.string.filter_medium_priority
+        2 -> R.string.filter_low_priority
+        else -> R.string.filter_no_priority
     }
 
     private fun buildUpdate(position: Int): RemoteViews? {
@@ -266,10 +345,19 @@ internal class ScrollableViewsFactory(
         dueDateTextSize = max(10f, textSize - 2)
         filter = defaultFilterProvider.getFilterFromPreference(widgetPreferences.filterId)
         showDividers = widgetPreferences.showDividers()
+        disableGroups = widgetPreferences.disableGroups()
         showPlaces = widgetPreferences.showPlaces()
         showSubtasks = widgetPreferences.showSubtasks()
         showLists = widgetPreferences.showLists()
         showTags = widgetPreferences.showTags()
+        preferences.sortMode.takeIf { it != sortMode }
+                ?.let {
+                    if (sortMode >= 0) {
+                        widgetPreferences.collapsed = HashSet()
+                    }
+                    sortMode = it
+                }
+        collapsed = widgetPreferences.collapsed
         isRtl = locale.directionality == View.LAYOUT_DIRECTION_RTL
     }
 

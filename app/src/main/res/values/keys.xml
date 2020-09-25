@@ -306,6 +306,7 @@
   <string name="p_widget_show_full_task_title">widget-show-full-task-title-</string>
   <string name="p_widget_show_dividers">widget-show-dividers-</string>
   <string name="p_widget_show_subtasks">widget-show-subtasks-</string>
+  <string name="p_widget_disable_groups">widget-disable_groups-</string>
   <string name="p_widget_show_places">widget-show-places-</string>
   <string name="p_widget_show_lists">widget-show-lists-</string>
   <string name="p_widget_show_tags">widget-show-tags-</string>
@@ -321,6 +322,7 @@
   <string name="p_widget_due_date_click">widget-due-date-click-</string>
   <string name="p_widget_due_date_position">widget-due-date-position-</string>
   <string name="p_widget_spacing">widget-spacing-</string>
+  <string name="p_widget_collapsed">widget-collapsed-</string>
   <string name="p_dashclock_filter">dashclock_filter</string>
   <string name="p_default_list">default_remote_list</string>
 

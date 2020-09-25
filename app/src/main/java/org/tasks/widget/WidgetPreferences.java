@@ -1,9 +1,14 @@
 package org.tasks.widget;
 
 import android.content.Context;
+import com.google.common.base.Joiner;
+import com.google.common.base.Splitter;
 import com.todoroo.astrid.service.Upgrader;
+import java.util.HashSet;
 import org.tasks.R;
+import org.tasks.Strings;
 import org.tasks.preferences.Preferences;
+import timber.log.Timber;
 
 public class WidgetPreferences {
 
@@ -53,6 +58,10 @@ public class WidgetPreferences {
     return getBoolean(R.string.p_widget_show_subtasks, true);
   }
 
+  boolean disableGroups() {
+    return getBoolean(R.string.p_widget_disable_groups, false);
+  }
+
   boolean showPlaces() {
     return getBoolean(R.string.p_widget_show_places, true);
   }
@@ -67,6 +76,25 @@ public class WidgetPreferences {
 
   public int getDueDatePosition() {
     return getIntegerFromString(R.string.p_widget_due_date_position, 0);
+  }
+
+  public void setCollapsed(HashSet<Long> collapsed) {
+    setString(R.string.p_widget_collapsed, Joiner.on(",").join(collapsed));
+  }
+
+  public HashSet<Long> getCollapsed() {
+    String value = getString(R.string.p_widget_collapsed);
+    HashSet<Long> collapsed = new HashSet<>();
+    if (!Strings.isNullOrEmpty(value)) {
+      for (String entry : Splitter.on(",").split(value)) {
+        try {
+          collapsed.add(Long.parseLong(entry));
+        } catch (NumberFormatException e) {
+          Timber.e(e);
+        }
+      }
+    }
+    return collapsed;
   }
 
   int getWidgetSpacing() {
@@ -138,6 +166,7 @@ public class WidgetPreferences {
   }
 
   public void setFilter(String filterPreferenceValue) {
+    setCollapsed(new HashSet<>());
     preferences.setString(getKey(R.string.p_widget_filter), filterPreferenceValue);
   }
 

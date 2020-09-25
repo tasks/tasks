@@ -31,7 +31,6 @@ class WidgetClickActivity : InjectingAppCompatActivity(), OnDismissHandler {
         if (action.isNullOrEmpty()) {
             return
         }
-        val task: Task = intent.getParcelableExtra(EXTRA_TASK)!!
         when (action) {
             COMPLETE_TASK -> {
                 lifecycleScope.launch(NonCancellable) {
@@ -64,8 +63,28 @@ class WidgetClickActivity : InjectingAppCompatActivity(), OnDismissHandler {
                             .show(fragmentManager, FRAG_TAG_DATE_TIME_PICKER)
                 }
             }
+            TOGGLE_GROUP -> {
+                val widgetPreferences = WidgetPreferences(
+                        applicationContext,
+                        preferences,
+                        intent.getIntExtra(EXTRA_WIDGET, -1)
+                )
+                val collapsed = widgetPreferences.collapsed
+                val group = intent.getLongExtra(EXTRA_GROUP, -1)
+                if (intent.getBooleanExtra(EXTRA_COLLAPSED, false)) {
+                    collapsed.add(group)
+                } else {
+                    collapsed.remove(group)
+                }
+                widgetPreferences.collapsed = collapsed
+                localBroadcastManager.broadcastRefresh()
+                finish()
+            }
         }
     }
+
+    val task: Task
+        get() = intent.getParcelableExtra(EXTRA_TASK)!!
 
     override fun onDismiss() {
         finish()
@@ -76,9 +95,12 @@ class WidgetClickActivity : InjectingAppCompatActivity(), OnDismissHandler {
         const val EDIT_TASK = "EDIT_TASK"
         const val TOGGLE_SUBTASKS = "TOGGLE_SUBTASKS"
         const val RESCHEDULE_TASK = "RESCHEDULE_TASK"
+        const val TOGGLE_GROUP = "TOGGLE_GROUP"
         const val EXTRA_FILTER = "extra_filter"
         const val EXTRA_TASK = "extra_task" // $NON-NLS-1$
         const val EXTRA_COLLAPSED = "extra_collapsed"
+        const val EXTRA_GROUP = "extra_group"
+        const val EXTRA_WIDGET = "extra_widget"
         private const val FRAG_TAG_DATE_TIME_PICKER = "frag_tag_date_time_picker"
     }
 }
