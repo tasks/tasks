@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="changelog">
-        <item>Android 11 support</item>
-        <item>Backup improvements</item>
-        <item>Swipe-to-refresh initiates DAVx5/EteSync sync</item>
-        <item>Show indicator when DAVx5/EteSync are synchronizing</item>
-        <item>Bug fixes</item>
-        <item>Update translations</item>
+        <item>Display place, list, and tag chips on widgets. You can disable chips in your widget settings</item>
         <item>Find Tasks on Reddit: https://reddit.com/r/tasks</item>
     </string-array>
 </resources>

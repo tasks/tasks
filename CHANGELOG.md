@@ -1,6 +1,11 @@
 Change Log
 ---
 =======
+### 10.2 BETA (2020-09-25)
+
+* Display list, tag, and place chips on widgets
+* Add option to disable list, tag, and place chips on widgets
+
 ### 10.1 (2020-09-23)
 
 * Android 11 support

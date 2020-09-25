@@ -1,0 +1,2 @@
+* Display list, tag, and place chips on widgets
+* Add option to disable list, tag, and place chips on widgets
