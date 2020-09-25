@@ -53,6 +53,10 @@ public class WidgetPreferences {
     return getBoolean(R.string.p_widget_show_subtasks, true);
   }
 
+  boolean showPlaces() {
+    return getBoolean(R.string.p_widget_show_places, true);
+  }
+
   boolean showLists() {
     return getBoolean(R.string.p_widget_show_lists, true);
   }

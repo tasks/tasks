@@ -56,6 +56,7 @@ internal class ScrollableViewsFactory(
     private var handleDueDateClick = false
     private var showDividers = false
     private var showSubtasks = false
+    private var showPlaces = false
     private var showLists = false
     private var isRtl = false
     private var tasks: List<TaskContainer> = ArrayList()
@@ -181,6 +182,11 @@ internal class ScrollableViewsFactory(
                                 .putExtra(WidgetClickActivity.EXTRA_COLLAPSED, !taskContainer.isCollapsed)
                 )
             }
+            if (taskContainer.hasLocation() && showPlaces) {
+                chipProvider
+                        .getPlaceChip(filter, taskContainer)
+                        ?.let { row.addView(R.id.chips, it) }
+            }
             if (!taskContainer.hasParent() && showLists) {
                 chipProvider
                         .getListChip(filter, taskContainer)
@@ -259,6 +265,7 @@ internal class ScrollableViewsFactory(
         dueDateTextSize = max(10f, textSize - 2)
         filter = defaultFilterProvider.getFilterFromPreference(widgetPreferences.filterId)
         showDividers = widgetPreferences.showDividers()
+        showPlaces = widgetPreferences.showPlaces()
         showSubtasks = widgetPreferences.showSubtasks()
         showLists = widgetPreferences.showLists()
         isRtl = locale.directionality == View.LAYOUT_DIRECTION_RTL

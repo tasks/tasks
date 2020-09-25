@@ -135,6 +135,11 @@
 
     <SwitchPreferenceCompat
       android:defaultValue="true"
+      android:key="@string/p_widget_show_places"
+      android:title="@string/places" />
+
+    <SwitchPreferenceCompat
+      android:defaultValue="true"
       android:key="@string/p_widget_show_lists"
       android:title="@string/lists" />
 

@@ -9,6 +9,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.data.TaskContainer
+import org.tasks.filters.PlaceFilter
 import org.tasks.themes.CustomIcons
 import org.tasks.ui.ChipListCache
 import javax.inject.Inject
@@ -48,6 +49,13 @@ class ChipProvider @Inject constructor(
                 ?.takeIf { filter !is CaldavFilter }
                 ?.let { newChip(chipListCache.getCaldavList(it), R.drawable.ic_list_24px) }
                 ?.let { return it }
+        return null
+    }
+
+    fun getPlaceChip(filter: Filter?, task: TaskContainer): RemoteViews? {
+        task.location
+                ?.takeIf { filter !is PlaceFilter || it.place != filter.place}
+                ?.let { return newChip(PlaceFilter(it.place), R.drawable.ic_outline_place_24px) }
         return null
     }
 

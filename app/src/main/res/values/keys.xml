@@ -306,6 +306,7 @@
   <string name="p_widget_show_full_task_title">widget-show-full-task-title-</string>
   <string name="p_widget_show_dividers">widget-show-dividers-</string>
   <string name="p_widget_show_subtasks">widget-show-subtasks-</string>
+  <string name="p_widget_show_places">widget-show-places-</string>
   <string name="p_widget_show_lists">widget-show-lists-</string>
   <string name="p_widget_show_description">widget-show-description-</string>
   <string name="p_widget_show_full_description">widget-show-full-description-</string>
