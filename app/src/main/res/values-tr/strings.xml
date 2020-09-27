@@ -68,7 +68,7 @@
     <string name="TEA_control_hidden_section">----Sürekli Gizle----</string>
     <string name="TEA_load_more">Daha yükle…</string>
     <string name="CRA_ignore">Yok say</string>
-    <string name="CRA_title">Bir toplantı listesine mi ihtiyacınız var?</string>
+    <string name="CRA_title">Toplantı listesine mi gereksiniyorsunuz\?</string>
     <string name="CRA_ignore_body">Bir kaç tane takvim etkinliğini yok saydınız. Tasks\'in size bunlar hakkında sormayı kesmesini ister misiniz?</string>
     <string name="CRA_ignore_all">Tüm etkinlikleri yok say</string>
     <string name="CRA_ignore_this">Yalnızca bu etkinliği yok say</string>
@@ -643,6 +643,6 @@
     <string name="automatic_backups">Kendiliğinden yedeklemeler</string>
     <string name="no_app_found">Hiçbir uygulama bu isteği karşılayamadı</string>
     <string name="backups_ignore_warnings">Uyarıları yok say</string>
-    <string name="backups_ignore_warnings_summary">Yedeklemeye ihtiyacınız yoksa veya kendi yedekleme çözümünüz varsa yedekleme uyarılarını yok sayın</string>
-    <string name="backup_location_warning">UYARI: Tasks kaldırılırsa %s içinde bulunan dosyalar silinecektir! Android\'in dosyalarınızı silmesini önlemek için lütfen özel bir konum seçin.</string>
+    <string name="backups_ignore_warnings_summary">Yedeklemeye gereksinmiyorsanız veya kendi yedekleme çözümünüz varsa yedekleme uyarılarını yok sayın</string>
+    <string name="backup_location_warning">UYARI: Tasks kaldırılırsa %s içinde bulunan dosyalar silinecektir! Android\'in dosyalarınızı silmesini önlemek için lütfen özel konum seçin.</string>
 </resources>
