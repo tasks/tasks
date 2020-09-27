@@ -4,8 +4,8 @@
     <string name="TVA_add_comment">Aggiungi un commento…</string>
     <string name="enter_filter_name">Inserisci il nome del filtro</string>
     <string name="backup_BPr_header">Backup</string>
-    <string name="backup_BAc_import">Importa attività</string>
-    <string name="backup_BAc_export">Esporta attività</string>
+    <string name="backup_BAc_import">Importa backup</string>
+    <string name="backup_BAc_export">Esegui backup</string>
     <string name="export_toast">Backup di %1$s su %2$s eseguito.</string>
     <string name="import_summary_title">Ripristina riepilogo</string>
     <string name="import_summary_message">Il File %1$s contiene %2$s.\n\n %3$s importati\n %4$s esiste già\n %5$s contiene errori\n</string>
@@ -287,7 +287,7 @@
     <string name="quiet_hours">Ore di quiete</string>
     <string name="attachment_directory">Cartella degli allegati</string>
     <string name="backup_directory">Cartella di Backup</string>
-    <string name="google_drive_backup">Copia su Google Drive</string>
+    <string name="google_drive_backup">Google Drive backup</string>
     <string name="miscellaneous">Miscellanea</string>
     <string name="synchronization">Sincronizzazione</string>
     <string name="enabled">Attiva</string>
@@ -626,4 +626,18 @@
     <string name="manage_lists">Gestisci liste</string>
     <string name="permission_read_tasks">Accesso completo alla banca dati di Tasks</string>
     <string name="davx5_selection_description">Sincronizza le tue attività con l\'app DAVx⁵</string>
+    <string name="backup_location_warning">ATTENZIONE: i file che si trovano in %s verranno eliminati quando si disinstallata Tasks. Si consiglia di scegliere una posizione alternativa per evitare tale evenienza.</string>
+    <string name="backups_ignore_warnings_summary">Ignorare gli avvisi di backup se non sono necessari o se si dispone di una soluzione alternativa</string>
+    <string name="backups_ignore_warnings">Ignora avvisi</string>
+    <string name="background_location">Posizione in background</string>
+    <string name="foreground_location">Posizione in primo piano</string>
+    <string name="account">Account</string>
+    <string name="device_settings">Impostazioni dispositivo</string>
+    <string name="last_backup_never">mai</string>
+    <string name="last_backup">Ultimo backup: %s</string>
+    <string name="android_auto_backup_device_summary">È inoltre necessario attivare il servizio di backup tramite le impostazioni del dispositivo. Non tutti i dispositivi forniscono tale servizio.</string>
+    <string name="android_auto_backup">Servizio di backup Android</string>
+    <string name="automatic_backups">Backup automatici</string>
+    <string name="background_location_permission_required">Sono necessari i relativi permessi per i promemoria basati sulla localizzazione. Se in precedenza è stata negata una richiesta di autorizzazione alla localizzazione, sarà necessario concedere manualmente tale autorizzazione nelle impostazioni del dispositivo.</string>
+    <string name="no_app_found">Nessuna app è in grado di gestire questa richiesta</string>
 </resources>
