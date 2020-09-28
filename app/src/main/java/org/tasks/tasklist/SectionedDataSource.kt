@@ -1,6 +1,7 @@
 package org.tasks.tasklist
 
 import android.util.SparseArray
+import androidx.core.util.forEach
 import com.todoroo.astrid.core.SortHelper
 import org.tasks.data.TaskContainer
 import org.tasks.date.DateTimeUtils
@@ -117,5 +118,11 @@ class SectionedDataSource constructor(
         getHeaderValue(sectionedPosition)
     } else {
         getNearestHeader(sectionedPosition - 1)
+    }
+
+    fun getSectionValues(): List<Long> {
+        val values = ArrayList<Long>()
+        sections.forEach { _, header -> values.add(header.value) }
+        return values
     }
 }

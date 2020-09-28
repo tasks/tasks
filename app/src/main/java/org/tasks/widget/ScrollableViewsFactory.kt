@@ -68,6 +68,8 @@ internal class ScrollableViewsFactory(
     private var collapsed = HashSet<Long>()
     private var sortMode = -1
     private var tasks = SectionedDataSource(emptyList(), false, 0, collapsed)
+    private val widgetPreferences = WidgetPreferences(context, preferences, widgetId)
+
     override fun onCreate() {}
 
     override fun onDataSetChanged() {
@@ -79,6 +81,9 @@ internal class ScrollableViewsFactory(
                     sortMode,
                     collapsed
             )
+            if (collapsed.retainAll(tasks.getSectionValues())) {
+                widgetPreferences.collapsed = collapsed
+            }
         }
     }
 
@@ -326,7 +331,6 @@ internal class ScrollableViewsFactory(
     }
 
     private suspend fun updateSettings() {
-        val widgetPreferences = WidgetPreferences(context, preferences, widgetId)
         vPad = widgetPreferences.widgetSpacing
         hPad = context.resources.getDimension(R.dimen.widget_padding).toInt()
         handleDueDateClick = widgetPreferences.rescheduleOnDueDateClick()
