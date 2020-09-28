@@ -54,8 +54,9 @@
     android:paddingEnd="2dp"
     android:visibility="gone"
     android:src="@drawable/ic_outline_visibility_off_24px"
-    app:tint="@color/icon_tint_dark_alpha"
-    tools:visibility="visible"/>
+    android:tint="@color/icon_tint_dark_alpha"
+    tools:visibility="visible"
+    tools:ignore="UseAppTint" />
 
   <TextView
     android:id="@+id/widget_text"
