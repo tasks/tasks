@@ -638,4 +638,11 @@
     <string name="android_auto_backup_device_summary">Du må også skru på sikkerhetskopieringstjenesten i dine enhetsinnstillinger. Ikke alle enheter har dette.</string>
     <string name="android_auto_backup">Android-sikkerhetskopieringstjeneste</string>
     <string name="automatic_backups">Automatisk sikkerhetskopiering</string>
+    <string name="backup_location_warning">Advarsel: Filer i %s vil bli slettet hvis Task avinstalleres. Velg en egendefinert plassering for å forhindre Android fra å slette filene dine.</string>
+    <string name="backups_ignore_warnings_summary">Ignorer sikkerhetskopieringsadvarsler hvis du ikke trenger sikkerhetskopier, eller har din egen sikkerhetskopieringsløsning</string>
+    <string name="backups_ignore_warnings">Ignorer advarsler</string>
+    <string name="background_location">Bakgrunnsposisjon</string>
+    <string name="foreground_location">Forgrunnsposisjon</string>
+    <string name="background_location_permission_required">Posisjonstilgang trengs for posisjons-baserte påminnelser. Hvis du tidligere har nektet posisjonstilgangsforespørselen, må du manuelt innvilge den i enhetsinnstillingene.</string>
+    <string name="no_app_found">Ingen programmer kunne håndtere forespørselen</string>
 </resources>
