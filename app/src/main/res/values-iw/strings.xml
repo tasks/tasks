@@ -668,4 +668,13 @@
     <string name="last_backup_never">אף פעם</string>
     <string name="last_backup">הגיבוי האחרון: %s</string>
     <string name="automatic_backups">גיבויים אוטומטיים</string>
+    <string name="backup_location_warning">אזהרה: קבצים שממוקמים תחת %s יימחקו עם הסרת Tasks! נא לבחור במיקום מותאם אישית כדי למנוע מ־Android למחוק את הקבצים שלך.</string>
+    <string name="backups_ignore_warnings_summary">התעלמות מאזהרות גיבוי אם אין לך צורך בגיבוי או שיש לך פתרון גיבוי משלך</string>
+    <string name="backups_ignore_warnings">התעלמות מאזהרות</string>
+    <string name="background_location">מיקום רקע</string>
+    <string name="foreground_location">מיקום חזית</string>
+    <string name="android_auto_backup_device_summary">עליך להירשם לשירות הגיבוי דרך הגדרות המכשיר שלך. לא כל המכשירים תומכים בשירות הגיבוי.</string>
+    <string name="android_auto_backup">שירות הגיבוי של Android</string>
+    <string name="background_location_permission_required">הרשאות מיקום נדרשות לטובת תזכורות מבוססות מיקום. אם בעבר דחית בקשת הרשאת מיקום יהיה עליך להעניק את ההרשאה ידנית דרך הגדרות המכשיר שלך.</string>
+    <string name="no_app_found">לאף יישומון אין אפשרות לטפל בבקשה הזו</string>
 </resources>
