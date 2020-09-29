@@ -619,7 +619,7 @@
     <string name="filter_any_due_date">Qualsiasi scadenza</string>
     <string name="filter_today_only">Solo oggi</string>
     <string name="sort_created">Per data di creazione</string>
-    <string name="astrid_sort_order">Ordinamento manuale Astrid</string>
+    <string name="astrid_sort_order">Astrid manuale</string>
     <string name="reset_sort_order">Ripristina ordinamento</string>
     <string name="date_shortcut_tomorrow_night">Domani notte</string>
     <string name="date_shortcut_tomorrow_evening">Domani sera</string>
