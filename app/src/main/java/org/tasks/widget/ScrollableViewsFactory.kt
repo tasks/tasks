@@ -2,6 +2,7 @@ package org.tasks.widget
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.Paint
 import android.view.View
@@ -15,6 +16,7 @@ import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.subtasks.SubtasksHelper
 import kotlinx.coroutines.runBlocking
 import org.tasks.BuildConfig
+import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.data.SubtaskInfo
 import org.tasks.data.TaskContainer
@@ -40,10 +42,10 @@ internal class ScrollableViewsFactory(
         private val defaultFilterProvider: DefaultFilterProvider,
         private val checkBoxProvider: CheckBoxProvider,
         private val locale: Locale,
-        private val chipProvider: ChipProvider
+        private val chipProvider: ChipProvider,
+        private val localBroadcastManager: LocalBroadcastManager
 ) : RemoteViewsFactory {
     private val indentPadding: Int
-    private var isDark = false
     private var showDueDates = false
     private var endDueDate = false
     private var showCheckboxes = false
@@ -69,6 +71,14 @@ internal class ScrollableViewsFactory(
     private var sortMode = -1
     private var tasks = SectionedDataSource(emptyList(), false, 0, collapsed)
     private val widgetPreferences = WidgetPreferences(context, preferences, widgetId)
+    private var isDark = checkIfDark
+
+    private val checkIfDark: Boolean
+        get() = when (widgetPreferences.themeIndex) {
+            0 -> false
+            3 -> context.isDark
+            else -> true
+        }
 
     override fun onCreate() {}
 
@@ -108,6 +118,10 @@ internal class ScrollableViewsFactory(
     override fun getItemId(position: Int) = getTask(position)?.id ?: 0
 
     override fun hasStableIds(): Boolean {
+        if (isDark != checkIfDark) {
+            isDark = !isDark
+            localBroadcastManager.reconfigureWidget(widgetId)
+        }
         return true
     }
 
@@ -337,7 +351,6 @@ internal class ScrollableViewsFactory(
         showFullTaskTitle = widgetPreferences.showFullTaskTitle()
         showDescription = widgetPreferences.showDescription()
         showFullDescription = widgetPreferences.showFullDescription()
-        isDark = widgetPreferences.themeIndex > 0
         chipProvider.isDark = isDark
         textColorPrimary = context.getColor(if (isDark) R.color.white_87 else R.color.black_87)
         textColorSecondary = context.getColor(if (isDark) R.color.white_60 else R.color.black_60)
@@ -368,5 +381,11 @@ internal class ScrollableViewsFactory(
     init {
         val metrics = context.resources.displayMetrics
         indentPadding = (20 * metrics.density).toInt()
+    }
+
+    companion object {
+        val Context.isDark: Boolean
+            get() = (Configuration.UI_MODE_NIGHT_YES ==
+                    (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK))
     }
 }

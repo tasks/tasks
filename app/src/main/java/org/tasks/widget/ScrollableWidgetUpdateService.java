@@ -8,6 +8,7 @@ import android.widget.RemoteViewsService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 import dagger.hilt.android.AndroidEntryPoint;
 import javax.inject.Inject;
+import org.tasks.LocalBroadcastManager;
 import org.tasks.data.TaskDao;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.DefaultFilterProvider;
@@ -24,6 +25,7 @@ public class ScrollableWidgetUpdateService extends RemoteViewsService {
   @Inject DefaultFilterProvider defaultFilterProvider;
   @Inject Locale locale;
   @Inject ChipProvider chipProvider;
+  @Inject LocalBroadcastManager localBroadcastManager;
 
   @Override
   public void onStart(Intent intent, int startId) {
@@ -54,6 +56,7 @@ public class ScrollableWidgetUpdateService extends RemoteViewsService {
         defaultFilterProvider,
         new CheckBoxProvider(context, new ColorProvider(context, preferences)),
         locale,
-        chipProvider);
+        chipProvider,
+        localBroadcastManager);
   }
 }

@@ -21,6 +21,7 @@ import org.tasks.locale.Locale
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.themes.ThemeColor
+import org.tasks.widget.ScrollableViewsFactory.Companion.isDark
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -111,6 +112,7 @@ class TasksWidget : AppWidgetProvider() {
         val background: Int = when (themeIndex) {
             1 -> android.R.color.black
             2 -> R.color.md_background_dark
+            3 -> if (context.isDark) R.color.md_background_dark else android.R.color.white
             else -> android.R.color.white
         }
         return context.getColor(background)

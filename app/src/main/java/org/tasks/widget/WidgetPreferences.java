@@ -115,7 +115,7 @@ public class WidgetPreferences {
   }
 
   public int getThemeIndex() {
-    return getInt(R.string.p_widget_theme, 0);
+    return getInt(R.string.p_widget_theme, 3);
   }
 
   public int getColor() {
