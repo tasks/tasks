@@ -27,6 +27,7 @@ import org.tasks.locale.Locale
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.tasklist.SectionedDataSource
+import org.tasks.time.DateTimeUtils.startOfDay
 import org.tasks.ui.CheckBoxProvider
 import timber.log.Timber
 import java.time.format.FormatStyle
@@ -223,7 +224,7 @@ internal class ScrollableViewsFactory(
             }
             row.setFloat(R.id.widget_text, "setTextSize", textSize)
             if (showDueDates) {
-                formatDueDate(row, task)
+                formatDueDate(row, taskContainer)
             } else {
                 row.setViewVisibility(R.id.widget_due_bottom, View.GONE)
                 row.setViewVisibility(R.id.widget_due_end, View.GONE)
@@ -312,7 +313,7 @@ internal class ScrollableViewsFactory(
         return queries
     }
 
-    private fun formatDueDate(row: RemoteViews, task: Task) {
+    private fun formatDueDate(row: RemoteViews, task: TaskContainer) {
         val dueDateRes = if (endDueDate) R.id.widget_due_end else R.id.widget_due_bottom
         row.setViewVisibility(if (endDueDate) R.id.widget_due_bottom else R.id.widget_due_end, View.GONE)
         val hasDueDate = task.hasDueDate()
@@ -323,10 +324,18 @@ internal class ScrollableViewsFactory(
                 row.setViewPadding(R.id.widget_due_end, hPad, vPad, hPad, vPad)
             }
             row.setViewVisibility(dueDateRes, View.VISIBLE)
-            row.setTextViewText(
-                    dueDateRes,
-                    DateUtilities.getRelativeDateTime(
-                            context, task.dueDate, locale.locale, FormatStyle.MEDIUM))
+            val text = if (filter?.supportsSorting() == true
+                    && sortMode == SortHelper.SORT_DUE
+                    && !disableGroups
+                    && task.sortGroup?.startOfDay() == task.dueDate.startOfDay()) {
+                task.takeIf { it.hasDueTime() }?.let {
+                    DateUtilities.getTimeString(context, DateTimeUtils.newDateTime(task.dueDate))
+                }
+            } else {
+                DateUtilities.getRelativeDateTime(
+                        context, task.dueDate, locale.locale, FormatStyle.MEDIUM)
+            }
+            row.setTextViewText(dueDateRes, text)
             row.setTextColor(
                     dueDateRes,
                     if (task.isOverdue) context.getColor(R.color.overdue) else textColorSecondary)
@@ -335,7 +344,7 @@ internal class ScrollableViewsFactory(
                 row.setOnClickFillInIntent(
                         dueDateRes,
                         Intent(WidgetClickActivity.RESCHEDULE_TASK)
-                                .putExtra(WidgetClickActivity.EXTRA_TASK, task))
+                                .putExtra(WidgetClickActivity.EXTRA_TASK, task.task))
             } else {
                 row.setInt(dueDateRes, "setBackgroundResource", 0)
             }
@@ -362,7 +371,11 @@ internal class ScrollableViewsFactory(
         dueDateTextSize = max(10f, textSize - 2)
         filter = defaultFilterProvider.getFilterFromPreference(widgetPreferences.filterId)
         showDividers = widgetPreferences.showDividers()
-        disableGroups = widgetPreferences.disableGroups()
+        disableGroups = widgetPreferences.disableGroups() || filter?.let {
+            !it.supportsSorting()
+                    || (it.supportsManualSort() && preferences.isManualSort)
+                    || (it.supportsAstridSorting() && preferences.isAstridSort)
+        } == true
         showPlaces = widgetPreferences.showPlaces()
         showSubtasks = widgetPreferences.showSubtasks()
         showLists = widgetPreferences.showLists()
