@@ -485,7 +485,7 @@
     <string name="astrid_sort_order_summary">Ativar ordenação manual do Astrid para \'Minhas Tarefas\', \'Hoje\', e etiquetas. Esse modo de ordenação eventualmente será substituito por \'Minha ordenação\' numa atualização futura</string>
     <string name="astrid_sort_order">Ordenação manual do Astrid</string>
     <string name="on_launch">Ao início</string>
-    <string name="improve_performance_summary">Desativa a ordenação em grupos e expansibilidade de sub-tarefas para melhorar o desempenho da aplicação</string>
+    <string name="improve_performance_summary">Desativa a ordenação em grupos e expansibilidade de sub-tarefas para melhorar o desempenho da app</string>
     <string name="improve_performance">Melhore o desempenho</string>
     <string name="sort_modified_group">Modificado %s</string>
     <string name="sort_created_group">Criado %s</string>
