@@ -2,6 +2,7 @@ package org.tasks.time
 
 import android.annotation.SuppressLint
 import org.tasks.BuildConfig
+import org.tasks.date.DateTimeUtils.newDateTime
 import java.util.*
 
 object DateTimeUtils {
@@ -37,4 +38,6 @@ object DateTimeUtils {
             millis.toString()
         }
     }
+
+    fun Long.startOfDay(): Long = newDateTime(this).startOfDay().millis
 }

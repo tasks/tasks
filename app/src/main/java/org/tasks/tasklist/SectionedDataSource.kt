@@ -5,6 +5,7 @@ import androidx.core.util.forEach
 import com.todoroo.astrid.core.SortHelper
 import org.tasks.data.TaskContainer
 import org.tasks.date.DateTimeUtils
+import org.tasks.time.DateTimeUtils.startOfDay
 import java.util.*
 
 class SectionedDataSource constructor(
@@ -63,7 +64,7 @@ class SectionedDataSource constructor(
             val header = if (sortMode == SortHelper.SORT_IMPORTANCE || sortGroup == 0L) {
                 sortGroup
             } else {
-                DateTimeUtils.newDateTime(sortGroup).startOfDay().millis
+                sortGroup.startOfDay()
             }
             val isCollapsed = collapsed.contains(header)
             if (i == 0) {
