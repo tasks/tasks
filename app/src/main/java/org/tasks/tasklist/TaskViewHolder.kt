@@ -15,13 +15,13 @@ import butterknife.OnLongClick
 import com.google.android.material.chip.ChipGroup
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.core.SortHelper
 import com.todoroo.astrid.ui.CheckableImageView
 import org.tasks.R
 import org.tasks.data.TaskContainer
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.dialogs.Linkify
 import org.tasks.preferences.Preferences
+import org.tasks.time.DateTimeUtils.startOfDay
 import org.tasks.ui.CheckBoxProvider
 import org.tasks.ui.ChipProvider
 import java.time.format.FormatStyle
@@ -135,13 +135,13 @@ class TaskViewHolder internal constructor(
 
     private fun getIndentSize(indent: Int) = (indent * shiftSize).roundToInt()
 
-    fun bindView(task: TaskContainer, filter: Filter, sortMode: Int) {
+    fun bindView(task: TaskContainer, filter: Filter, sortByDueDate: Boolean) {
         this.task = task
         indent = task.indent
         nameView.text = task.title
         hiddenIcon.visibility = if (task.isHidden) View.VISIBLE else View.GONE
         setupTitleAndCheckbox()
-        setupDueDate(sortMode)
+        setupDueDate(sortByDueDate)
         setupChips(filter)
         if (preferences.getBoolean(R.string.p_show_description, true)) {
             description.text = task.notes
@@ -182,15 +182,19 @@ class TaskViewHolder internal constructor(
         completeBox.invalidate()
     }
 
-    private fun setupDueDate(sortMode: Int) {
+    private fun setupDueDate(sortByDueDate: Boolean) {
         if (task.hasDueDate()) {
             if (task.isOverdue) {
                 dueDate.setTextColor(textColorOverdue)
             } else {
                 dueDate.setTextColor(textColorSecondary)
             }
-            val dateValue: String? = if (sortMode == SortHelper.SORT_DUE && task.sortGroup != null && preferences.showGroupHeaders()) {
-                if (task.hasDueTime()) DateUtilities.getTimeString(context, newDateTime(task.dueDate)) else null
+            val dateValue: String? = if (sortByDueDate
+                    && task.sortGroup?.startOfDay() == task.dueDate.startOfDay()
+                    && preferences.showGroupHeaders()) {
+                task.takeIf { it.hasDueTime() }?.let {
+                    DateUtilities.getTimeString(context, newDateTime(task.dueDate))
+                }
             } else {
                 DateUtilities.getRelativeDateTime(context, task.dueDate, locale, FormatStyle.MEDIUM)
             }
