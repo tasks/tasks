@@ -1,0 +1,4 @@
+* Collapsible sort groups in widget
+* Add 'System default' widget theme
+* Bug fixes
+* Update translations

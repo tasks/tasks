@@ -1,6 +1,18 @@
 Change Log
 ---
 =======
+### 10.3 BETA (2020-09-30)
+
+* Collapsible sort groups in widget
+* Add 'System default' widget theme
+* Bug fixes
+* Update translations
+  * Hebrew - @yarons
+  * Italian - @ppasserini
+  * Norwegian Bokmål - @comradekingu
+  * Portuguese - @SantosSi
+  * Turkish - @emintufan
+
 ### 10.2 (2020-09-25)
 
 * Display list, tag, and place chips on widgets

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="changelog">
-        <item>Display place, list, and tag chips on widgets. You can disable chips in your widget settings</item>
-        <item>Find Tasks on Reddit: https://reddit.com/r/tasks</item>
+        <item>Collapsible sort groups in widget</item>
+        <item>Add \'System default\' widget theme</item>
+        <item>Bug fixes</item>
+        <item>Update translations</item>
     </string-array>
 </resources>
