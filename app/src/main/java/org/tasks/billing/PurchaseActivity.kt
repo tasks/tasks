@@ -141,7 +141,7 @@ class PurchaseActivity : ThemedInjectingAppCompatActivity(), OnPurchasesUpdated,
         binding.unsubscribe.visibility = if (currentSubscription == null || currentSubscription?.isCanceled == true) View.GONE else View.VISIBLE
         updateSubscribeButton()
         setWaitScreen(false)
-        adapter.submitList((1..10).toList())
+        adapter.submitList((1..15).toList())
         binding.recyclerView.layoutManager = IconLayoutManager(this)
         binding.recyclerView.adapter = adapter
     }
