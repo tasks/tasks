@@ -6,13 +6,15 @@
   android:layout_height="wrap_content"
   android:layout_marginTop="2dp"
   android:layout_marginEnd="2dp"
-  android:orientation="horizontal">
+  android:orientation="horizontal"
+  tools:background="@color/md_background_dark">
 
     <ImageView
       android:id="@+id/chip_icon"
-      android:layout_width="20dp"
-      android:layout_height="20dp"
-      android:paddingTop="2dp"
+      android:layout_width="@dimen/chip_icon_size"
+      android:layout_height="@dimen/chip_icon_size"
+      android:layout_alignTop="@id/chip_text"
+      android:layout_alignBottom="@id/chip_text"
       android:paddingStart="5dp"
       android:paddingEnd="0dp"
       android:layout_gravity="center_vertical"
