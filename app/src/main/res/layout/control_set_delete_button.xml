@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/delete"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:layout_weight="1"
+  android:layout_alignParentEnd="true"
+  android:layout_centerInParent="true"
+  android:alpha="@dimen/alpha_secondary"
+  android:background="?attr/selectableItemBackgroundBorderless"
+  android:src="@drawable/ic_outline_delete_24px"
+    android:padding="@dimen/widget_padding"
+  app:tint="@color/icon_tint"
+  android:clickable="true"  />

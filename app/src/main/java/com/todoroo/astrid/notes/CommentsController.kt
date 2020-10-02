@@ -6,6 +6,7 @@
 package com.todoroo.astrid.notes
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.graphics.Color
 import android.net.Uri
 import android.text.Html
@@ -14,11 +15,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.data.Task
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import org.tasks.R
 import org.tasks.data.UserActivity
 import org.tasks.data.UserActivityDao
@@ -29,6 +31,7 @@ import org.tasks.locale.Locale
 import org.tasks.preferences.Preferences
 import java.util.*
 import javax.inject.Inject
+import kotlin.coroutines.coroutineContext
 import kotlin.math.min
 
 class CommentsController @Inject constructor(
@@ -94,6 +97,35 @@ class CommentsController @Inject constructor(
         // picture
         val commentPictureView = view.findViewById<ImageView>(R.id.comment_picture)
         setupImagePopupForCommentView(view, commentPictureView, item.pictureUri, activity)
+
+        // delete button
+        val deleteBtn = view.findViewById<ImageView>(R.id.delete)
+        deleteBtn.setOnClickListener(){
+            val builder = AlertDialog.Builder(commentsContainer!!.context)
+
+            // Display a message on alert dialog
+            builder.setMessage(R.string.delete_comment)
+
+            // Set a positive button and its click listener on alert dialog
+            builder.setPositiveButton(R.string.delete){dialog, which ->
+
+                (activity as AppCompatActivity).lifecycleScope.launch {
+                    withContext(NonCancellable) {
+                        userActivityDao.delete(item)
+                    }
+                    reloadView()
+                }
+            }
+
+            // Display a negative button on alert dialog
+            builder.setNegativeButton(android.R.string.cancel){dialog,which ->
+            }
+            // Finally, make the alert dialog using builder
+            val dialog: AlertDialog = builder.create()
+
+            // Display the alert dialog on app interface
+            dialog.show()
+        }
     }
 
     companion object {
