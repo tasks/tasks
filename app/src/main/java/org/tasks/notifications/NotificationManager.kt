@@ -6,12 +6,8 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import com.todoroo.andlib.sql.Join.Companion.inner
-import com.todoroo.andlib.sql.QueryTemplate
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.reminders.ReminderService
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.LocalBroadcastManager
@@ -19,6 +15,7 @@ import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.LocationDao
 import org.tasks.data.TaskDao
+import org.tasks.filters.NotificationsFilter
 import org.tasks.intents.TaskIntents
 import org.tasks.preferences.Preferences
 import org.tasks.receivers.CompleteTaskReceiver
@@ -220,10 +217,6 @@ class NotificationManager @Inject constructor(
             return
         }
         val taskIds = tasks.map { it.id }
-        val filter = Filter(
-                context.getString(R.string.notifications),
-                QueryTemplate()
-                        .join(inner(Notification.TABLE, Task.ID.eq(Notification.TASK))))
         var maxPriority = 3
         val summaryTitle = context.resources.getQuantityString(R.plurals.task_count, taskCount, taskCount)
         val style = NotificationCompat.InboxStyle().setBigContentTitle(summaryTitle)
@@ -251,7 +244,7 @@ class NotificationManager @Inject constructor(
                         PendingIntent.getActivity(
                                 context,
                                 0,
-                                TaskIntents.getTaskListIntent(context, filter),
+                                TaskIntents.getTaskListIntent(context, NotificationsFilter(context)),
                                 PendingIntent.FLAG_UPDATE_CURRENT))
                 .setGroupSummary(true)
                 .setGroup(GROUP_KEY)

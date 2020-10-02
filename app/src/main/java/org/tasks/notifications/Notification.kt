@@ -30,7 +30,7 @@ class Notification {
 
     companion object {
         const val TABLE_NAME = "notification"
-        @JvmField val TABLE = Table(TABLE_NAME)
-        @JvmField val TASK = TABLE.column("task")
+        val TABLE = Table(TABLE_NAME)
+        val TASK = TABLE.column("task")
     }
 }
