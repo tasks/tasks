@@ -1,7 +1,7 @@
 Change Log
 ---
 =======
-### 10.3 BETA (2020-09-30)
+### 10.3 (2020-10-02)
 
 * Collapsible sort groups in widget
 * Add 'System default' widget theme
