@@ -4,8 +4,8 @@
     <string name="TVA_add_comment">Dodaj komentarz…</string>
     <string name="enter_filter_name">Podaj nazwę filtra</string>
     <string name="backup_BPr_header">Kopie zapasowe</string>
-    <string name="backup_BAc_import">Importuj zadania</string>
-    <string name="backup_BAc_export">Eksportuj zadania</string>
+    <string name="backup_BAc_import">Importuj kopię zapasową</string>
+    <string name="backup_BAc_export">Utwórz kopię zapasową teraz</string>
     <string name="export_toast">Zapisano %1$s do %2$s.</string>
     <string name="import_summary_title">Podsumowanie odzyskiwania</string>
     <string name="import_summary_message">Plik %1$s zawiera %2$s.\n\n %3$s zaimportowanych,\n %4$s już istnieje\n %5$s zawiera błędy\n</string>
@@ -302,7 +302,7 @@
     <string name="quiet_hours">Ciche gdzoiny</string>
     <string name="attachment_directory">Katalog załączników</string>
     <string name="backup_directory">Katalog kopii zapasowych</string>
-    <string name="google_drive_backup">Kopiuj do Dysku Google</string>
+    <string name="google_drive_backup">Kopia zapasowa na Dysku Google</string>
     <string name="miscellaneous">Różne</string>
     <string name="synchronization">Synchronizacja</string>
     <string name="enabled">Włączone</string>
@@ -642,4 +642,18 @@
     <string name="astrid_sort_order">Ręczne sortowanie (jak w Astrid)</string>
     <string name="manage_lists">Zarządzaj listami</string>
     <string name="davx5_selection_description">Synchronizuj swoje zadania z aplikacją DAVx⁵</string>
+    <string name="backup_location_warning">OSTRZEŻENIE: Pliki znajdujące się w %s zostaną usunięte, jeśli aplikacja Tasks zostanie odinstalowana! Wybierz własną lokalizację, aby zapobiec usunięciu plików przez system Android.</string>
+    <string name="backups_ignore_warnings_summary">Ignoruj ostrzeżenia dotyczące kopii zapasowych, jeśli nie potrzebujesz kopii zapasowych lub masz własne rozwiązanie do tworzenia kopii zapasowych</string>
+    <string name="backups_ignore_warnings">Ignoruj ostrzeżenia</string>
+    <string name="background_location">Lokalizacja w tle</string>
+    <string name="foreground_location">Lokalizacja na pierwszym planie</string>
+    <string name="account">Konto</string>
+    <string name="device_settings">Ustawienia urządzenia</string>
+    <string name="last_backup_never">nigdy</string>
+    <string name="last_backup">Ostatnia kopia zapasowa: %s</string>
+    <string name="android_auto_backup_device_summary">Musisz również wyrazić zgodę na usługę tworzenia kopii zapasowych w ustawieniach urządzenia. Nie wszystkie urządzenia zapewniają usługę tworzenia kopii zapasowych.</string>
+    <string name="android_auto_backup">Usługa kopii zapasowych systemu Android</string>
+    <string name="automatic_backups">Automatyczne kopie zapasowe</string>
+    <string name="background_location_permission_required">Uprawnienia do lokalizacji są potrzebne do przypomnień opartych na lokalizacji. Jeśli wcześniej odmówiłeś pozwolenia na lokalizację, musisz ręcznie przyznać pozwolenie w ustawieniach urządzenia.</string>
+    <string name="no_app_found">Żadna aplikacja nie może obsłużyć tego żądania</string>
 </resources>
