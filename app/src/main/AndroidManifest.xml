@@ -148,7 +148,8 @@
     android:supportsRtl="true"
     android:theme="@style/Tasks"
     tools:ignore="GoogleAppIndexingWarning,UnusedAttribute"
-    android:preserveLegacyExternalStorage="true">
+    android:preserveLegacyExternalStorage="true"
+    android:hasFragileUserData="true">
 
     <meta-data
       android:name="firebase_crashlytics_collection_enabled"
