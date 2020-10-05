@@ -1,0 +1,4 @@
+#!/bin/bash
+
+dependency-tree-diff deps_googleplay.txt <( ./gradlew :app:dependencies --configuration googleplayReleaseRuntimeClasspath < /dev/null ) > deps_googleplay.txt
+dependency-tree-diff deps_fdroid.txt <( ./gradlew :app:dependencies --configuration genericReleaseRuntimeClasspath < /dev/null ) > deps_fdroid.txt

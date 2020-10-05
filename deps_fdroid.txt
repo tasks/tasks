@@ -1,0 +1,377 @@
+++--- androidx.databinding:viewbinding:4.0.1
++|    \--- androidx.annotation:annotation:1.0.0 -> 1.1.0
+++--- androidx.databinding:databinding-common:4.0.1
+++--- androidx.databinding:databinding-runtime:4.0.1
++|    +--- androidx.databinding:viewbinding:4.0.1 (*)
++|    +--- androidx.lifecycle:lifecycle-runtime:2.0.0 -> 2.2.0
++|    |    +--- androidx.lifecycle:lifecycle-common:2.2.0
++|    |    |    \--- androidx.annotation:annotation:1.1.0
++|    |    +--- androidx.arch.core:core-common:2.1.0
++|    |    |    \--- androidx.annotation:annotation:1.1.0
++|    |    \--- androidx.annotation:annotation:1.1.0
++|    +--- androidx.collection:collection:1.0.0 -> 1.1.0
++|    |    \--- androidx.annotation:annotation:1.1.0
++|    \--- androidx.databinding:databinding-common:4.0.1
+++--- androidx.databinding:databinding-adapters:4.0.1
++|    +--- androidx.databinding:databinding-common:4.0.1
++|    \--- androidx.databinding:databinding-runtime:4.0.1 (*)
+++--- com.mapbox.mapboxsdk:mapbox-android-sdk:7.4.1
++|    +--- com.mapbox.mapboxsdk:mapbox-android-telemetry:4.4.1
++|    |    +--- com.squareup.okhttp3:okhttp:3.10.0 -> 4.8.1
++|    |    |    +--- com.squareup.okio:okio:2.7.0
++|    |    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.70 -> 1.4.10
++|    |    |    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib-common:1.4.10
++|    |    |    |    |    \--- org.jetbrains:annotations:13.0 -> 16.0.1
++|    |    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.3.70 -> 1.4.10
++|    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.3.72 -> 1.4.10 (*)
++|    |    +--- com.google.code.gson:gson:2.8.2 -> 2.8.6
++|    |    +--- com.mapbox.mapboxsdk:mapbox-android-core:1.3.0 -> 3.0.0
++|    |    +--- androidx.annotation:annotation:1.0.0 -> 1.1.0
++|    |    \--- androidx.legacy:legacy-support-core-utils:1.0.0
++|    |         +--- androidx.annotation:annotation:1.0.0 -> 1.1.0
++|    |         +--- androidx.core:core:1.0.0 -> 1.3.1
++|    |         |    +--- androidx.annotation:annotation:1.1.0
++|    |         |    +--- androidx.lifecycle:lifecycle-runtime:2.0.0 -> 2.2.0 (*)
++|    |         |    +--- androidx.versionedparcelable:versionedparcelable:1.1.0
++|    |         |    |    +--- androidx.annotation:annotation:1.1.0
++|    |         |    |    \--- androidx.collection:collection:1.0.0 -> 1.1.0 (*)
++|    |         |    \--- androidx.collection:collection:1.0.0 -> 1.1.0 (*)
++|    |         +--- androidx.documentfile:documentfile:1.0.0
++|    |         |    \--- androidx.annotation:annotation:1.0.0 -> 1.1.0
++|    |         +--- androidx.loader:loader:1.0.0
++|    |         |    +--- androidx.annotation:annotation:1.0.0 -> 1.1.0
++|    |         |    +--- androidx.core:core:1.0.0 -> 1.3.1 (*)
++|    |         |    +--- androidx.lifecycle:lifecycle-livedata:2.0.0 -> 2.2.0
++|    |         |    |    +--- androidx.arch.core:core-runtime:2.1.0
++|    |         |    |    |    +--- androidx.annotation:annotation:1.1.0
++|    |         |    |    |    \--- androidx.arch.core:core-common:2.1.0 (*)
++|    |         |    |    +--- androidx.lifecycle:lifecycle-livedata-core:2.2.0
++|    |         |    |    |    +--- androidx.lifecycle:lifecycle-common:2.2.0 (*)
++|    |         |    |    |    +--- androidx.arch.core:core-common:2.1.0 (*)
++|    |         |    |    |    \--- androidx.arch.core:core-runtime:2.1.0 (*)
++|    |         |    |    \--- androidx.arch.core:core-common:2.1.0 (*)
++|    |         |    \--- androidx.lifecycle:lifecycle-viewmodel:2.0.0 -> 2.2.0
++|    |         |         \--- androidx.annotation:annotation:1.1.0
++|    |         +--- androidx.localbroadcastmanager:localbroadcastmanager:1.0.0
++|    |         |    \--- androidx.annotation:annotation:1.0.0 -> 1.1.0
++|    |         \--- androidx.print:print:1.0.0
++|    |              \--- androidx.annotation:annotation:1.0.0 -> 1.1.0
++|    +--- com.mapbox.mapboxsdk:mapbox-sdk-geojson:4.6.0 -> 5.3.0
++|    |    \--- com.google.code.gson:gson:2.8.6
++|    +--- com.mapbox.mapboxsdk:mapbox-android-gestures:0.4.2
++|    |    \--- androidx.core:core:1.0.0 -> 1.3.1 (*)
++|    +--- com.mapbox.mapboxsdk:mapbox-sdk-turf:4.6.0
++|    |    \--- com.mapbox.mapboxsdk:mapbox-sdk-geojson:4.6.0 -> 5.3.0 (*)
++|    +--- com.squareup.okhttp3:okhttp:3.12.0 -> 4.8.1 (*)
++|    +--- com.getkeepsafe.relinker:relinker:1.3.1
++|    +--- androidx.annotation:annotation:1.0.0 -> 1.1.0
++|    \--- androidx.fragment:fragment:1.0.0 -> 1.2.5
++|         +--- androidx.annotation:annotation:1.1.0
++|         +--- androidx.core:core:1.1.0 -> 1.3.1 (*)
++|         +--- androidx.collection:collection:1.1.0 (*)
++|         +--- androidx.viewpager:viewpager:1.0.0
++|         |    +--- androidx.annotation:annotation:1.0.0 -> 1.1.0
++|         |    +--- androidx.core:core:1.0.0 -> 1.3.1 (*)
++|         |    \--- androidx.customview:customview:1.0.0
++|         |         +--- androidx.annotation:annotation:1.0.0 -> 1.1.0
++|         |         \--- androidx.core:core:1.0.0 -> 1.3.1 (*)
++|         +--- androidx.loader:loader:1.0.0 (*)
++|         +--- androidx.activity:activity:1.1.0
++|         |    +--- androidx.annotation:annotation:1.1.0
++|         |    +--- androidx.core:core:1.1.0 -> 1.3.1 (*)
++|         |    +--- androidx.lifecycle:lifecycle-runtime:2.2.0 (*)
++|         |    +--- androidx.lifecycle:lifecycle-viewmodel:2.2.0 (*)
++|         |    +--- androidx.savedstate:savedstate:1.0.0
++|         |    |    +--- androidx.annotation:annotation:1.1.0
++|         |    |    +--- androidx.arch.core:core-common:2.0.1 -> 2.1.0 (*)
++|         |    |    \--- androidx.lifecycle:lifecycle-common:2.0.0 -> 2.2.0 (*)
++|         |    \--- androidx.lifecycle:lifecycle-viewmodel-savedstate:1.0.0 -> 2.2.0
++|         |         +--- androidx.annotation:annotation:1.0.0 -> 1.1.0
++|         |         +--- androidx.savedstate:savedstate:1.0.0 (*)
++|         |         +--- androidx.lifecycle:lifecycle-livedata-core:2.2.0 (*)
++|         |         \--- androidx.lifecycle:lifecycle-viewmodel:2.2.0 (*)
++|         +--- androidx.lifecycle:lifecycle-livedata-core:2.2.0 (*)
++|         +--- androidx.lifecycle:lifecycle-viewmodel:2.2.0 (*)
++|         \--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0 (*)
+++--- com.gitlab.bitfireAT:dav4jvm:2.1.1
++|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.72 -> 1.4.10 (*)
++|    \--- org.apache.commons:commons-lang3:3.9
+++--- com.gitlab.bitfireAT:ical4android:b520b3f2b2
++|    +--- org.mnode.ical4j:ical4j:3.0.19
++|    |    +--- org.slf4j:slf4j-api:1.7.25 -> 1.7.30
++|    |    +--- commons-codec:commons-codec:1.11
++|    |    +--- org.apache.commons:commons-lang3:3.8.1 -> 3.9
++|    |    \--- org.apache.commons:commons-collections4:4.1
++|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.72
++|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.3.72 -> 1.4.10 (*)
++|    +--- com.sun.mail:android-mail:1.6.5
++|    |    \--- com.sun.mail:android-activation:1.6.5
++|    +--- commons-io:commons-io:2.6
++|    +--- org.slf4j:slf4j-jdk14:1.7.30
++|    |    \--- org.slf4j:slf4j-api:1.7.30
++|    \--- androidx.core:core-ktx:1.3.1
++|         +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.71 -> 1.4.10 (*)
++|         +--- androidx.annotation:annotation:1.1.0
++|         \--- androidx.core:core:1.3.1 (*)
+++--- com.gitlab.bitfireAT:cert4android:767d1f9759
++|    +--- androidx.databinding:databinding-common:4.0.0 -> 4.0.1
++|    +--- androidx.databinding:databinding-runtime:4.0.0 -> 4.0.1 (*)
++|    +--- androidx.databinding:databinding-adapters:4.0.0 -> 4.0.1 (*)
++|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.72 (*)
++|    +--- androidx.appcompat:appcompat:1.1.0 -> 1.2.0
++|    |    +--- androidx.annotation:annotation:1.1.0
++|    |    +--- androidx.core:core:1.3.0 -> 1.3.1 (*)
++|    |    +--- androidx.cursoradapter:cursoradapter:1.0.0
++|    |    |    \--- androidx.annotation:annotation:1.0.0 -> 1.1.0
++|    |    +--- androidx.fragment:fragment:1.1.0 -> 1.2.5 (*)
++|    |    +--- androidx.appcompat:appcompat-resources:1.2.0
++|    |    |    +--- androidx.collection:collection:1.0.0 -> 1.1.0 (*)
++|    |    |    +--- androidx.annotation:annotation:1.1.0
++|    |    |    +--- androidx.core:core:1.0.1 -> 1.3.1 (*)
++|    |    |    +--- androidx.vectordrawable:vectordrawable:1.1.0
++|    |    |    |    +--- androidx.annotation:annotation:1.1.0
++|    |    |    |    +--- androidx.core:core:1.1.0 -> 1.3.1 (*)
++|    |    |    |    \--- androidx.collection:collection:1.1.0 (*)
++|    |    |    \--- androidx.vectordrawable:vectordrawable-animated:1.1.0
++|    |    |         +--- androidx.vectordrawable:vectordrawable:1.1.0 (*)
++|    |    |         +--- androidx.interpolator:interpolator:1.0.0
++|    |    |         |    \--- androidx.annotation:annotation:1.0.0 -> 1.1.0
++|    |    |         \--- androidx.collection:collection:1.1.0 (*)
++|    |    +--- androidx.drawerlayout:drawerlayout:1.0.0
++|    |    |    +--- androidx.annotation:annotation:1.0.0 -> 1.1.0
++|    |    |    +--- androidx.core:core:1.0.0 -> 1.3.1 (*)
++|    |    |    \--- androidx.customview:customview:1.0.0 (*)
++|    |    \--- androidx.collection:collection:1.0.0 -> 1.1.0 (*)
++|    +--- androidx.cardview:cardview:1.0.0
++|    |    \--- androidx.annotation:annotation:1.0.0 -> 1.1.0
++|    +--- androidx.lifecycle:lifecycle-extensions:2.2.0
++|    |    +--- androidx.lifecycle:lifecycle-runtime:2.2.0 (*)
++|    |    +--- androidx.arch.core:core-common:2.1.0 (*)
++|    |    +--- androidx.arch.core:core-runtime:2.1.0 (*)
++|    |    +--- androidx.fragment:fragment:1.2.0 -> 1.2.5 (*)
++|    |    +--- androidx.lifecycle:lifecycle-common:2.2.0 (*)
++|    |    +--- androidx.lifecycle:lifecycle-livedata:2.2.0 (*)
++|    |    +--- androidx.lifecycle:lifecycle-process:2.2.0
++|    |    |    \--- androidx.lifecycle:lifecycle-runtime:2.2.0 (*)
++|    |    +--- androidx.lifecycle:lifecycle-service:2.2.0
++|    |    |    \--- androidx.lifecycle:lifecycle-runtime:2.2.0 (*)
++|    |    \--- androidx.lifecycle:lifecycle-viewmodel:2.2.0 (*)
++|    +--- androidx.lifecycle:lifecycle-livedata:2.2.0 (*)
++|    +--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0
++|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.50 -> 1.4.10 (*)
++|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0 -> 1.3.4
++|    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.70 -> 1.4.10 (*)
++|    |    |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.4
++|    |    |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.70 -> 1.4.10 (*)
++|    |    |         \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.3.70 -> 1.4.10
++|    |    \--- androidx.lifecycle:lifecycle-viewmodel:2.2.0 (*)
++|    +--- com.google.android.material:material:1.2.0-beta01 -> 1.2.1
++|    |    +--- androidx.annotation:annotation:1.0.1 -> 1.1.0
++|    |    +--- androidx.appcompat:appcompat:1.1.0 -> 1.2.0 (*)
++|    |    +--- androidx.cardview:cardview:1.0.0 (*)
++|    |    +--- androidx.coordinatorlayout:coordinatorlayout:1.1.0
++|    |    |    +--- androidx.annotation:annotation:1.1.0
++|    |    |    +--- androidx.core:core:1.1.0 -> 1.3.1 (*)
++|    |    |    +--- androidx.customview:customview:1.0.0 (*)
++|    |    |    \--- androidx.collection:collection:1.0.0 -> 1.1.0 (*)
++|    |    +--- androidx.core:core:1.2.0 -> 1.3.1 (*)
++|    |    +--- androidx.annotation:annotation-experimental:1.0.0
++|    |    +--- androidx.fragment:fragment:1.0.0 -> 1.2.5 (*)
++|    |    +--- androidx.lifecycle:lifecycle-runtime:2.0.0 -> 2.2.0 (*)
++|    |    +--- androidx.recyclerview:recyclerview:1.0.0 -> 1.1.0
++|    |    |    +--- androidx.annotation:annotation:1.1.0
++|    |    |    +--- androidx.core:core:1.1.0 -> 1.3.1 (*)
++|    |    |    +--- androidx.customview:customview:1.0.0 (*)
++|    |    |    \--- androidx.collection:collection:1.0.0 -> 1.1.0 (*)
++|    |    +--- androidx.transition:transition:1.2.0
++|    |    |    +--- androidx.annotation:annotation:1.1.0
++|    |    |    +--- androidx.core:core:1.0.1 -> 1.3.1 (*)
++|    |    |    \--- androidx.collection:collection:1.0.0 -> 1.1.0 (*)
++|    |    +--- androidx.vectordrawable:vectordrawable:1.1.0 (*)
++|    |    \--- androidx.viewpager2:viewpager2:1.0.0
++|    |         +--- androidx.annotation:annotation:1.1.0
++|    |         +--- androidx.fragment:fragment:1.1.0 -> 1.2.5 (*)
++|    |         +--- androidx.recyclerview:recyclerview:1.1.0 (*)
++|    |         +--- androidx.core:core:1.1.0 -> 1.3.1 (*)
++|    |         \--- androidx.collection:collection:1.1.0 (*)
++|    \--- org.conscrypt:conscrypt-android:2.4.0
+++--- com.github.dmfs.opentasks:opentasks-provider:1.2.4
++|    +--- org.dmfs:rfc5545-datetime:0.2.4
++|    +--- org.dmfs:lib-recur:0.11.4
++|    |    \--- org.dmfs:rfc5545-datetime:0.2.4
++|    \--- org.dmfs:jems:1.33
+++--- com.google.dagger:hilt-android:2.28.3-alpha
++|    +--- com.google.dagger:dagger:2.28.3
++|    |    \--- javax.inject:javax.inject:1
++|    +--- com.google.dagger:dagger-lint-aar:2.28.3
++|    +--- androidx.activity:activity:1.1.0 (*)
++|    +--- androidx.annotation:annotation:1.1.0
++|    +--- androidx.fragment:fragment:1.2.0 -> 1.2.5 (*)
++|    +--- androidx.lifecycle:lifecycle-viewmodel:2.2.0 (*)
++|    +--- javax.annotation:jsr250-api:1.0
++|    \--- javax.inject:javax.inject:1
+++--- androidx.hilt:hilt-work:1.0.0-alpha02
++|    +--- androidx.annotation:annotation:1.1.0
++|    +--- androidx.hilt:hilt-common:1.0.0-alpha02
++|    |    \--- com.google.dagger:hilt-android:2.28-alpha -> 2.28.3-alpha (*)
++|    +--- androidx.work:work-runtime:2.3.4 -> 2.4.0
++|    |    +--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
++|    |    +--- androidx.lifecycle:lifecycle-livedata:2.1.0 -> 2.2.0 (*)
++|    |    +--- androidx.room:room-runtime:2.2.5
++|    |    |    +--- androidx.room:room-common:2.2.5
++|    |    |    |    \--- androidx.annotation:annotation:1.1.0
++|    |    |    +--- androidx.sqlite:sqlite-framework:2.0.1 -> 2.1.0
++|    |    |    |    +--- androidx.annotation:annotation:1.0.0 -> 1.1.0
++|    |    |    |    \--- androidx.sqlite:sqlite:[2.1.0] -> 2.1.0
++|    |    |    |         \--- androidx.annotation:annotation:1.0.0 -> 1.1.0
++|    |    |    +--- androidx.sqlite:sqlite:2.0.1 -> 2.1.0 (*)
++|    |    |    \--- androidx.arch.core:core-runtime:2.0.1 -> 2.1.0 (*)
++|    |    +--- androidx.sqlite:sqlite:2.1.0 (*)
++|    |    +--- androidx.sqlite:sqlite-framework:2.1.0 (*)
++|    |    +--- androidx.core:core:1.1.0 -> 1.3.1 (*)
++|    |    \--- androidx.lifecycle:lifecycle-service:2.1.0 -> 2.2.0 (*)
++|    \--- com.google.dagger:hilt-android:2.28-alpha -> 2.28.3-alpha (*)
+++--- androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02
++|    +--- androidx.activity:activity:1.1.0 (*)
++|    +--- androidx.annotation:annotation:1.1.0
++|    +--- androidx.hilt:hilt-common:1.0.0-alpha02 (*)
++|    +--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0 (*)
++|    \--- com.google.dagger:hilt-android:2.28-alpha -> 2.28.3-alpha (*)
+++--- androidx.fragment:fragment-ktx:1.2.5
++|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.50 -> 1.4.10 (*)
++|    +--- androidx.fragment:fragment:[1.2.5] -> 1.2.5 (*)
++|    +--- androidx.activity:activity-ktx:1.1.0
++|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.50 -> 1.4.10 (*)
++|    |    +--- androidx.activity:activity:1.1.0 (*)
++|    |    +--- androidx.core:core-ktx:1.1.0 -> 1.3.1 (*)
++|    |    +--- androidx.lifecycle:lifecycle-runtime-ktx:2.2.0
++|    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.50 -> 1.4.10 (*)
++|    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0 -> 1.3.4 (*)
++|    |    |    +--- androidx.lifecycle:lifecycle-runtime:2.2.0 (*)
++|    |    |    \--- androidx.annotation:annotation:1.0.0 -> 1.1.0
++|    |    \--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0 (*)
++|    +--- androidx.core:core-ktx:1.1.0 -> 1.3.1 (*)
++|    +--- androidx.collection:collection-ktx:1.1.0
++|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.20 -> 1.4.10 (*)
++|    |    \--- androidx.collection:collection:1.1.0 (*)
++|    +--- androidx.lifecycle:lifecycle-livedata-core-ktx:2.2.0
++|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.50 -> 1.4.10 (*)
++|    |    \--- androidx.lifecycle:lifecycle-livedata-core:2.2.0 (*)
++|    \--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0 (*)
+++--- androidx.lifecycle:lifecycle-runtime-ktx:2.2.0 (*)
+++--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0 (*)
+++--- androidx.room:room-ktx:2.2.5
++|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.41 -> 1.4.10 (*)
++|    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0 -> 1.3.4 (*)
++|    +--- androidx.room:room-common:2.2.5 (*)
++|    \--- androidx.room:room-runtime:2.2.5 (*)
+++--- io.reactivex.rxjava2:rxandroid:2.1.1
++|    \--- io.reactivex.rxjava2:rxjava:2.2.6
++|         \--- org.reactivestreams:reactive-streams:1.0.2
+++--- androidx.paging:paging-runtime:2.1.2
++|    +--- androidx.paging:paging-common:2.1.2
++|    |    +--- androidx.annotation:annotation:1.0.0 -> 1.1.0
++|    |    \--- androidx.arch.core:core-common:2.0.0 -> 2.1.0 (*)
++|    +--- androidx.arch.core:core-runtime:2.0.0 -> 2.1.0 (*)
++|    +--- androidx.lifecycle:lifecycle-runtime:2.0.0 -> 2.2.0 (*)
++|    +--- androidx.lifecycle:lifecycle-livedata:2.0.0 -> 2.2.0 (*)
++|    \--- androidx.recyclerview:recyclerview:1.0.0 -> 1.1.0 (*)
+++--- com.jakewharton:butterknife:10.2.3
++|    \--- com.jakewharton:butterknife-runtime:10.2.3
++|         +--- com.jakewharton:butterknife-annotations:10.2.3
++|         |    \--- androidx.annotation:annotation:1.0.0 -> 1.1.0
++|         \--- androidx.core:core:1.0.0 -> 1.3.1 (*)
+++--- org.jetbrains.kotlin:kotlin-stdlib:1.4.10 (*)
+++--- org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:0.3.3
++|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.4.0 -> 1.4.10 (*)
++|    \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.4.0 -> 1.4.10
+++--- com.squareup.okhttp3:okhttp:4.8.1 (*)
+++--- com.google.code.gson:gson:2.8.6
+++--- com.google.android.material:material:1.2.1 (*)
+++--- androidx.annotation:annotation:1.1.0
+++--- androidx.constraintlayout:constraintlayout:2.0.1
++|    +--- androidx.appcompat:appcompat:1.2.0 (*)
++|    +--- androidx.core:core:1.3.1 (*)
++|    \--- androidx.constraintlayout:constraintlayout-solver:2.0.1
+++--- androidx.swiperefreshlayout:swiperefreshlayout:1.1.0
++|    +--- androidx.annotation:annotation:1.1.0
++|    +--- androidx.core:core:1.1.0 -> 1.3.1 (*)
++|    \--- androidx.interpolator:interpolator:1.0.0 (*)
+++--- androidx.preference:preference:1.1.1
++|    +--- androidx.appcompat:appcompat:1.1.0 -> 1.2.0 (*)
++|    +--- androidx.core:core:1.1.0 -> 1.3.1 (*)
++|    +--- androidx.fragment:fragment:1.2.4 -> 1.2.5 (*)
++|    +--- androidx.recyclerview:recyclerview:1.0.0 -> 1.1.0 (*)
++|    +--- androidx.annotation:annotation:1.1.0
++|    \--- androidx.collection:collection:1.0.0 -> 1.1.0 (*)
+++--- com.jakewharton.timber:timber:4.7.1
++|    \--- org.jetbrains:annotations:16.0.1
+++--- com.google.android.apps.dashclock:dashclock-api:2.0.0
+++--- com.twofortyfouram:android-plugin-api-for-locale:1.0.2
+++--- com.rubiconproject.oss:jchronic:0.2.6
+++--- org.scala-saddle:google-rfc-2445:20110304
+++--- com.wdullaer:materialdatetimepicker:4.2.3
++|    +--- androidx.appcompat:appcompat:1.0.2 -> 1.2.0 (*)
++|    \--- androidx.recyclerview:recyclerview:1.0.0 -> 1.1.0 (*)
+++--- me.leolin:ShortcutBadger:1.1.22
+++--- com.google.apis:google-api-services-tasks:v1-rev20200516-1.30.10
++|    \--- com.google.api-client:google-api-client:1.30.10
++|         +--- com.google.oauth-client:google-oauth-client:1.31.0
++|         |    +--- com.google.http-client:google-http-client:1.35.0 -> 1.36.0
++|         |    |    +--- org.apache.httpcomponents:httpcore:4.4.13
++|         |    |    +--- com.google.guava:guava:29.0-android
++|         |    |    |    +--- com.google.guava:failureaccess:1.0.1
++|         |    |    |    \--- com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava
++|         |    |    +--- io.opencensus:opencensus-api:0.24.0
++|         |    |    |    \--- io.grpc:grpc-context:1.22.1
++|         |    |    \--- io.opencensus:opencensus-contrib-http-util:0.24.0
++|         |    |         +--- io.opencensus:opencensus-api:0.24.0 (*)
++|         |    |         \--- com.google.guava:guava:26.0-android -> 29.0-android (*)
++|         |    \--- com.google.guava:guava:29.0-android (*)
++|         +--- com.google.http-client:google-http-client-jackson2:1.36.0
++|         |    +--- com.google.http-client:google-http-client:1.36.0 (*)
++|         |    \--- com.fasterxml.jackson.core:jackson-core:2.11.1
++|         \--- com.google.guava:guava:29.0-android (*)
+++--- com.google.apis:google-api-services-drive:v3-rev20200813-1.30.10
++|    \--- com.google.api-client:google-api-client:1.30.10 (*)
+++--- com.google.auth:google-auth-library-oauth2-http:0.21.1
++|    +--- com.google.auto.value:auto-value-annotations:1.7.2
++|    +--- com.google.auth:google-auth-library-credentials:0.21.1
++|    +--- com.google.http-client:google-http-client:1.36.0 (*)
++|    +--- com.google.http-client:google-http-client-jackson2:1.36.0 (*)
++|    \--- com.google.guava:guava:29.0-android (*)
+++--- androidx.work:work-runtime:2.4.0 (*)
+++--- androidx.work:work-runtime-ktx:2.4.0
++|    +--- androidx.work:work-runtime:2.4.0 (*)
++|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.71 -> 1.4.10 (*)
++|    \--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.4 (*)
+++--- com.mapbox.mapboxsdk:mapbox-android-core:3.0.0
+++--- com.mapbox.mapboxsdk:mapbox-sdk-services:5.3.0
++|    +--- com.mapbox.mapboxsdk:mapbox-sdk-core:5.3.0
++|    |    +--- com.google.code.gson:gson:2.8.6
++|    |    +--- com.squareup.retrofit2:retrofit:2.7.1
++|    |    |    \--- com.squareup.okhttp3:okhttp:3.14.4 -> 4.8.1 (*)
++|    |    +--- com.squareup.retrofit2:converter-gson:2.7.1
++|    |    |    +--- com.squareup.retrofit2:retrofit:2.7.1 (*)
++|    |    |    \--- com.google.code.gson:gson:2.8.5 -> 2.8.6
++|    |    \--- com.squareup.okhttp3:logging-interceptor:3.12.7
++|    |         \--- com.squareup.okhttp3:okhttp:3.12.7 -> 4.8.1 (*)
++|    +--- com.mapbox.mapboxsdk:mapbox-sdk-geojson:5.3.0 (*)
++|    +--- com.mapbox.mapboxsdk:mapbox-sdk-directions-models:5.3.0
++|    |    +--- com.mapbox.mapboxsdk:mapbox-sdk-geojson:5.3.0 (*)
++|    |    \--- androidx.annotation:annotation:1.0.0 -> 1.1.0
++|    \--- com.mapbox.mapboxsdk:mapbox-sdk-directions-refresh-models:5.3.0
++|         +--- com.mapbox.mapboxsdk:mapbox-sdk-directions-models:5.3.0 (*)
++|         \--- androidx.annotation:annotation:1.0.0 -> 1.1.0
+++--- com.etesync:journalmanager:1.1.1
++|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.71 -> 1.3.72 (*)
++|    +--- com.madgag.spongycastle:core:1.54.0.0
++|    +--- com.madgag.spongycastle:prov:1.54.0.0
++|    |    \--- com.madgag.spongycastle:core:1.54.0.0
++|    +--- com.squareup.okhttp3:logging-interceptor:3.12.1 -> 3.12.7 (*)
++|    +--- com.google.code.gson:gson:1.7.2 -> 2.8.6
++|    +--- org.apache.commons:commons-collections4:4.1
++|    +--- org.apache.commons:commons-lang3:3.8.1 -> 3.9
++|    \--- commons-codec:commons-codec:1.7 -> 1.11
++\--- com.github.QuadFlask:colorpicker:0.0.15
++     \--- androidx.appcompat:appcompat:1.1.0 -> 1.2.0 (*)
