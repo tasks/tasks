@@ -89,10 +89,10 @@
     <string name="EPr_delete_task_data_warning">Tutte le attività saranno eliminate definitivamente</string>
     <string name="EPr_manage_delete_completed_gcal">Elimina gli eventi del calendario delle attività completate</string>
     <string name="EPr_manage_delete_completed_gcal_message">Vuoi davvero eliminare tutti gli eventi delle attività completate?</string>
-    <string name="EPr_manage_delete_completed_gcal_status">Eliminato il %d degli eventi del calendario!</string>
+    <string name="EPr_manage_delete_completed_gcal_status">Eliminato %d dagli eventi del calendario!</string>
     <string name="EPr_manage_delete_all_gcal">Elimina tutti gli eventi del calendario in programma</string>
-    <string name="EPr_manage_delete_all_gcal_message">Vuoi davvero eliminare tutti i tuoi eventi in programmi?</string>
-    <string name="EPr_manage_delete_all_gcal_status">Eliminato il %d degli eventi del calendario!</string>
+    <string name="EPr_manage_delete_all_gcal_message">Vuoi davvero eliminare tutti i tuoi eventi in programma\?</string>
+    <string name="EPr_manage_delete_all_gcal_status">Eliminato %d dagli eventi del calendario!</string>
     <string name="task_defaults">Impostazioni predef. attività</string>
     <string name="EPr_default_urgency_title">Urgenza predefinita</string>
     <string name="EPr_default_importance_title">Priorità predefinita</string>
