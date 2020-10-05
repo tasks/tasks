@@ -195,7 +195,7 @@ dependencies {
     }
     implementation("com.wdullaer:materialdatetimepicker:4.2.3")
     implementation("me.leolin:ShortcutBadger:1.1.22@aar")
-    implementation("com.google.apis:google-api-services-tasks:v1-rev20200516-1.30.10")
+    implementation("com.google.apis:google-api-services-tasks:v1-rev20200905-1.30.10")
     implementation("com.google.apis:google-api-services-drive:v3-rev20200813-1.30.10")
     implementation("com.google.auth:google-auth-library-oauth2-http:0.21.1")
     implementation("androidx.work:work-runtime:${Versions.work}")
@@ -211,7 +211,7 @@ dependencies {
     googleplayImplementation("com.google.firebase:firebase-crashlytics:${Versions.crashlytics}")
     googleplayImplementation("com.google.firebase:firebase-analytics:${Versions.analytics}")
     googleplayImplementation("com.google.firebase:firebase-config-ktx:${Versions.remote_config}")
-    googleplayImplementation("com.google.android.gms:play-services-location:17.0.0")
+    googleplayImplementation("com.google.android.gms:play-services-location:17.1.0")
     googleplayImplementation("com.google.android.gms:play-services-maps:17.0.0")
     // Remove transport-runtime and transport-backend-cct after places update
     googleplayImplementation("com.google.android.libraries.places:places:2.4.0")
