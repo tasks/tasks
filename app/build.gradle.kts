@@ -129,9 +129,7 @@ configure<CheckstyleExtension> {
 }
 
 configurations.all {
-    exclude(group = "com.google.guava", module = "guava-jdk5")
     exclude(group = "org.apache.httpcomponents", module = "httpclient")
-    exclude(group = "com.google.http-client", module = "google-http-client-apache")
     exclude(group = "org.checkerframework")
     exclude(group = "com.google.code.findbugs")
     exclude(group = "com.google.errorprone")
