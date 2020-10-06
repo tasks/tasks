@@ -1896,6 +1896,20 @@
       "normalizedLicense": "apache2",
       "url": "https://github.com/square/okio/",
       "libraryName": "okio"
+    },
+    {
+      "artifactId": {
+        "name": "hilt-core",
+        "group": "com.google.dagger",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://github.com/google/dagger",
+      "libraryName": "hilt-core"
     }
   ]
 }
