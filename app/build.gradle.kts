@@ -149,7 +149,7 @@ dependencies {
     }
 
     implementation("com.google.dagger:hilt-android:${Versions.hilt}")
-    kapt("com.google.dagger:hilt-android-compiler:${Versions.hilt}")
+    kapt("com.google.dagger:hilt-compiler:${Versions.hilt}")
     kapt("androidx.hilt:hilt-compiler:${Versions.hilt_androidx}")
     implementation("androidx.hilt:hilt-work:${Versions.hilt_androidx}")
     implementation("androidx.hilt:hilt-lifecycle-viewmodel:${Versions.hilt_androidx}")
@@ -216,7 +216,7 @@ dependencies {
     googleplayImplementation("com.android.billingclient:billing:1.2.2")
 
     androidTestImplementation("com.google.dagger:hilt-android-testing:${Versions.hilt}")
-    kaptAndroidTest("com.google.dagger:hilt-android-compiler:${Versions.hilt}")
+    kaptAndroidTest("com.google.dagger:hilt-compiler:${Versions.hilt}")
     kaptAndroidTest("androidx.hilt:hilt-compiler:${Versions.hilt_androidx}")
     kaptAndroidTest("com.jakewharton:butterknife-compiler:${Versions.butterknife}")
     androidTestImplementation("org.mockito:mockito-android:${Versions.mockito}")
