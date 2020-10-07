@@ -8,7 +8,7 @@ import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.PermaSql
 import com.todoroo.astrid.core.SortHelper
 import com.todoroo.astrid.data.Task
-import org.tasks.preferences.Preferences
+import org.tasks.preferences.QueryPreferences
 
 internal object TaskListQueryNonRecursive {
     private val JOIN_TAGS = Task.ID.eq(field("${TaskListFragment.TAGS_METADATA_JOIN}.task"))
@@ -21,7 +21,7 @@ internal object TaskListQueryNonRecursive {
                     .`as`("tags")
     private val FIELDS = TaskListQuery.FIELDS.plus(TAGS).toTypedArray()
 
-    fun getNonRecursiveQuery(filter: Filter, preferences: Preferences): MutableList<String> {
+    fun getNonRecursiveQuery(filter: Filter, preferences: QueryPreferences): MutableList<String> {
         val joinedQuery = JOINS + filter.getSqlQuery()
         val sortMode = preferences.sortMode
         val sortGroup = field(SortHelper.getSortGroup(sortMode) ?: "NULL").`as`("sortGroup")

@@ -30,7 +30,10 @@ import java.net.URI
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-class Preferences @JvmOverloads constructor(private val context: Context, name: String? = getSharedPreferencesName(context)) {
+class Preferences @JvmOverloads constructor(
+        private val context: Context,
+        name: String? = getSharedPreferencesName(context)
+) : QueryPreferences {
     private val prefs: SharedPreferences = context.getSharedPreferences(name, Context.MODE_PRIVATE)
     private val publicPrefs: SharedPreferences = context.getSharedPreferences(AstridApiConstants.PUBLIC_PREFS, Context.MODE_PRIVATE)
 
@@ -318,11 +321,22 @@ class Preferences @JvmOverloads constructor(private val context: Context, name: 
         setInt(R.string.p_current_version, version)
     }
 
-    var sortMode: Int
+    override var sortMode: Int
         get() = publicPrefs.getInt(PREF_SORT_SORT, SortHelper.SORT_AUTO)
         set(value) {
             setPublicPref(PREF_SORT_SORT, value)
         }
+
+    override var showHidden: Boolean
+        get() = getBoolean(R.string.p_show_hidden_tasks, false)
+        set(value) { setBoolean(R.string.p_show_hidden_tasks, value) }
+
+    override var showCompleted: Boolean
+        get() = getBoolean(R.string.p_show_completed_tasks, false)
+        set(value) { setBoolean(R.string.p_show_completed_tasks, value) }
+
+    override val showCompletedTemporarily: Boolean
+        get() = getBoolean(R.string.p_temporarily_show_completed_tasks, false)
 
     private fun setPublicPref(key: String, value: Int) {
         val edit = publicPrefs.edit()
@@ -444,14 +458,17 @@ class Preferences @JvmOverloads constructor(private val context: Context, name: 
     val isPositionHackEnabled: Boolean
         get() = getLong(R.string.p_google_tasks_position_hack, 0) > 0
 
-    val isManualSort: Boolean
+    override var isManualSort: Boolean
         get() = getBoolean(R.string.p_manual_sort, false)
+        set(value) { setBoolean(R.string.p_manual_sort, value) }
 
-    val isAstridSort: Boolean
+    override var isAstridSort: Boolean
         get() = getBoolean(R.string.p_astrid_sort_enabled, false) && getBoolean(R.string.p_astrid_sort, false)
+        set(value) { setBoolean(R.string.p_astrid_sort, value) }
 
-    val isReverseSort: Boolean
+    override var isReverseSort: Boolean
         get() = getBoolean(R.string.p_reverse_sort, false)
+        set(value) { setBoolean(R.string.p_reverse_sort, value) }
 
     val defaultPriority: Int
         get() = getIntegerFromString(R.string.p_default_importance_key, Task.Priority.LOW)
@@ -486,7 +503,7 @@ class Preferences @JvmOverloads constructor(private val context: Context, name: 
     val defaultThemeColor: Int
         get() = getInt(R.string.p_theme_color, ColorProvider.BLUE_500)
 
-    fun usePagedQueries(): Boolean {
+    override fun usePagedQueries(): Boolean {
         return getBoolean(R.string.p_use_paged_queries, false)
     }
 

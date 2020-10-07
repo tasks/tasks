@@ -13,7 +13,7 @@ import com.todoroo.astrid.api.PermaSql
 import com.todoroo.astrid.core.SortHelper
 import com.todoroo.astrid.data.Task
 import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
-import org.tasks.preferences.Preferences
+import org.tasks.preferences.QueryPreferences
 
 internal object TaskListQueryRecursive {
     private val RECURSIVE = Table("recursive_tasks")
@@ -42,7 +42,11 @@ internal object TaskListQueryRecursive {
                     .join(Join.left(GoogleTask.TABLE, Criterion.and(GoogleTask.TASK.eq(Task.ID), GoogleTask.DELETED.eq(0))))
                     .where(activeAndVisible())
 
-    fun getRecursiveQuery(filter: Filter, preferences: Preferences, subtasks: SubtaskInfo): MutableList<String> {
+    fun getRecursiveQuery(
+            filter: Filter,
+            preferences: QueryPreferences,
+            subtasks: SubtaskInfo
+    ): MutableList<String> {
         var joinedQuery = JOINS
         var where = " WHERE recursive_tasks.hidden = 0"
         val parentQuery: String

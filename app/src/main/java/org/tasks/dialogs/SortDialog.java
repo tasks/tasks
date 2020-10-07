@@ -16,6 +16,7 @@ import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.preferences.Preferences;
+import org.tasks.preferences.QueryPreferences;
 import timber.log.Timber;
 
 @AndroidEntryPoint
@@ -125,14 +126,14 @@ public class SortDialog extends DialogFragment {
   }
 
   private void setSelection(boolean reverse) {
-    preferences.setBoolean(R.string.p_reverse_sort, reverse);
+    preferences.setReverseSort(reverse);
 
     boolean wasManual = preferences.isManualSort();
     boolean wasAstrid = preferences.isAstridSort();
     boolean isManual = manualEnabled && selectedIndex == 0;
     boolean isAstrid = astridEnabled && selectedIndex == 0;
-    preferences.setBoolean(R.string.p_manual_sort, isManual);
-    preferences.setBoolean(R.string.p_astrid_sort, isAstrid);
+    preferences.setManualSort(isManual);
+    preferences.setAstridSort(isAstrid);
 
     if (!isManual && !isAstrid) {
       preferences.setSortMode(getSortMode(manualEnabled || astridEnabled ? selectedIndex : selectedIndex + 1));

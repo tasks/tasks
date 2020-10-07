@@ -15,8 +15,7 @@ import androidx.annotation.Nullable;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.astrid.data.Task;
-import org.tasks.R;
-import org.tasks.preferences.Preferences;
+import org.tasks.preferences.QueryPreferences;
 
 /**
  * Helpers for sorting a list of tasks
@@ -45,7 +44,7 @@ public class SortHelper {
 
   /** Takes a SQL query, and if there isn't already an order, creates an order. */
   public static String adjustQueryForFlagsAndSort(
-      Preferences preferences, String originalSql, int sort) {
+      QueryPreferences preferences, String originalSql, int sort) {
     // sort
     if (originalSql == null) {
       originalSql = "";
@@ -62,17 +61,16 @@ public class SortHelper {
     return adjustQueryForFlags(preferences, originalSql);
   }
 
-  public static String adjustQueryForFlags(
-          Preferences preferences, String originalSql) {
+  public static String adjustQueryForFlags(QueryPreferences preferences, String originalSql) {
     String adjustedSql = originalSql;
 
     // flags
-    if (preferences.getBoolean(R.string.p_show_completed_tasks, false)) {
+    if (preferences.getShowCompleted()) {
       adjustedSql = showCompleted(adjustedSql);
-    } else if (preferences.getBoolean(R.string.p_temporarily_show_completed_tasks, false)) {
+    } else if (preferences.getShowCompletedTemporarily()) {
       adjustedSql = showRecentlyCompleted(adjustedSql);
     }
-    if (preferences.getBoolean(R.string.p_show_hidden_tasks, false)) {
+    if (preferences.getShowHidden()) {
       adjustedSql = showHidden(adjustedSql);
     }
 

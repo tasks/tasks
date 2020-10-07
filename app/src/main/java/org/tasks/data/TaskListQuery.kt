@@ -9,7 +9,7 @@ import com.todoroo.astrid.data.Task
 import kotlinx.collections.immutable.persistentListOf
 import org.tasks.data.TaskListQueryNonRecursive.getNonRecursiveQuery
 import org.tasks.data.TaskListQueryRecursive.getRecursiveQuery
-import org.tasks.preferences.Preferences
+import org.tasks.preferences.QueryPreferences
 
 object TaskListQuery {
     private val JOIN_GTASK = Criterion.and(
@@ -32,7 +32,11 @@ object TaskListQuery {
             field("places.*"))
 
     @JvmStatic
-    fun getQuery(preferences: Preferences, filter: Filter, subtasks: SubtaskInfo): MutableList<String> {
+    fun getQuery(
+            preferences: QueryPreferences,
+            filter: Filter,
+            subtasks: SubtaskInfo
+    ): MutableList<String> {
         return if (filter.supportsManualSort() && preferences.isManualSort) {
             getRecursiveQuery(filter, preferences, subtasks)
         } else if (filter.supportsAstridSorting() && preferences.isAstridSort) {
