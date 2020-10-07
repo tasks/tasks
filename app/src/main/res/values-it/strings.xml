@@ -73,7 +73,7 @@
     <string name="CRA_calendar_reminders_pref_title">Assistente del calendario</string>
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks ti ricorderà di eventi del calendario imminenti e ti avviserà di prepararti</string>
     <string name="CRA_default_list_name">Azioni: %s</string>
-    <string name="none">Nessuna</string>
+    <string name="none">Nessuno</string>
     <string name="EPr_filters_to_show_title">Filtri da visualizzare</string>
     <string name="EPr_edit_screen_options">Modifica opzioni schermo</string>
     <string name="EPr_beastMode_reset">Ripristina predefiniti</string>
@@ -83,17 +83,17 @@
     <string name="EPr_cal_end_or_start_at_due_time">Orario eventi del calendario</string>
     <string name="EPr_cal_end_at_due_time">Interrompi eventi del calendario alla scadenza</string>
     <string name="EPr_cal_start_at_due_time">Inizia eventi del calendario alla scadenza</string>
-    <string name="EPr_reset_preferences">Ripristina preferenze</string>
-    <string name="EPr_reset_preferences_warning">Le preferenze saranno riportate al valore predefinito</string>
-    <string name="EPr_delete_task_data">Elimina dati attività</string>
+    <string name="EPr_reset_preferences">Ripristina impostazioni</string>
+    <string name="EPr_reset_preferences_warning">Le preferenze saranno riportate ai valori predefiniti</string>
+    <string name="EPr_delete_task_data">Elimina tutti i dati</string>
     <string name="EPr_delete_task_data_warning">Tutte le attività saranno eliminate definitivamente</string>
-    <string name="EPr_manage_delete_completed_gcal">Elimina gli eventi del calendario delle attività completate</string>
+    <string name="EPr_manage_delete_completed_gcal">Elimina gli eventi del calendario per le attività completate</string>
     <string name="EPr_manage_delete_completed_gcal_message">Vuoi davvero eliminare tutti gli eventi delle attività completate?</string>
     <string name="EPr_manage_delete_completed_gcal_status">Eliminato %d dagli eventi del calendario!</string>
-    <string name="EPr_manage_delete_all_gcal">Elimina tutti gli eventi del calendario in programma</string>
+    <string name="EPr_manage_delete_all_gcal">Elimina tutti gli eventi del calendario in Tasks</string>
     <string name="EPr_manage_delete_all_gcal_message">Vuoi davvero eliminare tutti i tuoi eventi in programma\?</string>
     <string name="EPr_manage_delete_all_gcal_status">Eliminato %d dagli eventi del calendario!</string>
-    <string name="task_defaults">Impostazioni predef. attività</string>
+    <string name="task_defaults">Impostazioni predefinite</string>
     <string name="EPr_default_urgency_title">Urgenza predefinita</string>
     <string name="EPr_default_importance_title">Priorità predefinita</string>
     <string name="EPr_default_hideUntil_title">Nascondi, per impostazione predefinita, fino a</string>
@@ -407,7 +407,7 @@
     <string name="repeats_plural_on_number_of_times">Ripetuta ogni %1$s il %2$s, cade il %3$d %4$s</string>
     <string name="dont_add_to_calendar">Non  aggiungere al calendario</string>
     <string name="default_calendar">Calendario predefinito</string>
-    <string name="badges_description">Mostra contatore di notifiche sull\'icona di Task. Non tutti i launcher supportano i badge.</string>
+    <string name="badges_description">Mostra contatore di notifiche sull\'icona di Tasks. Non tutti i launcher supportano i badge.</string>
     <string name="bundle_notifications_summary">Combina diverse notifiche in una sola</string>
     <string name="repeat_monthly_same_day_each_month">lo stesso giorno di ogni mese</string>
     <string name="repeat_monthly_every_day_of_nth_week">ogni %1$s %2$s</string>
@@ -450,7 +450,7 @@
     <string name="choose_a_location">Scegli posizione</string>
     <string name="pick_this_location">Seleziona questa posizione</string>
     <string name="or_choose_a_location">O scegli un\'altra posizione</string>
-    <string name="map_search_provider">Cerca fornitore</string>
+    <string name="map_search_provider">Seleziona fornitore</string>
     <string name="missing_permissions">Permessi mancanti</string>
     <string name="location_permission_required_location">Per trovare la tua posizione sono richiesti i permessi di localizzazione</string>
     <string name="open_map">Apri mappa</string>
@@ -492,7 +492,7 @@
     <string name="back">Indietro</string>
     <string name="upgrade_blurb_4">Il tuo supporto significa molto per me, grazie!</string>
     <string name="upgrade_blurb_3">Scegli, di seguito, un qualunque piano di abbonamento per iniziare la prova gratuita. Puoi annullarla in qualsiasi momento</string>
-    <string name="upgrade_blurb_2">Ho speso migliaia d\'ore lavorando su Tasks e pubblico tutto il codice sorgente online, gratuitamente. Per supportare il mio lavoro alcune funzioni richiedono un abbonamento</string>
+    <string name="upgrade_blurb_2">Ho dedicato a Tasks migliaia di ore di lavoro, pubblicando tutto il codice sorgente online, gratuitamente. Per supportare il mio lavoro alcune funzioni richiedono un abbonamento</string>
     <string name="upgrade_blurb_1">Ciao! Mi chiamo Alex. Sono lo sviluppatore, indipendente, di Tasks</string>
     <string name="color_wheel">Cerchio cromatico</string>
     <string name="invalid_username_or_password">Nome utente o password non validi</string>
@@ -504,11 +504,11 @@
     <string name="wearable_notifications_summary">Mostra notifiche sul tuo dispositivo indossabile</string>
     <string name="wearable_notifications">Notifiche dispositivi indossabili</string>
     <string name="accounts">Account</string>
-    <string name="documentation">Documentazione</string>
+    <string name="documentation">Documentazione (online)</string>
     <string name="preferences_advanced">Avanzate</string>
     <string name="preferences_look_and_feel">Aspetto</string>
     <string name="etesync_account_description">Richiede un account EteSync.com o un server self-hosted</string>
-    <string name="caldav_account_description">Richiede un account con un provider CalDAV o un server self-hosted. Trova un fornitore visitando tasks.org/caldav</string>
+    <string name="caldav_account_description">Richiede un account per un servizio CalDAV o un server self-hosted. Trova un fornitore visitando tasks.org/caldav</string>
     <string name="show_advanced_settings">Mostra impostazioni avanzate</string>
     <string name="etesync_selection_description">Sincronizzazione, Open Source, con crittografia end-to-end</string>
     <string name="caldav_selection_description">Sincronizzazione basata su standard aperti di internet</string>
@@ -516,7 +516,7 @@
     <string name="choose_synchronization_service">Seleziona una piattaforma</string>
     <string name="enter_tag_name">Inserisci il nome di un\'etichetta</string>
     <string name="enter_title_hint">Inserisci titolo</string>
-    <string name="collapse_subtasks">Nascondi attività secondarie</string>
+    <string name="collapse_subtasks">Comprimi attività secondarie</string>
     <string name="name_your_price">Fai tu il prezzo</string>
     <string name="third_party_licenses">Licenze di terze parti</string>
     <string name="this_feature_requires_a_subscription">Questa funzione richiede un abbonamento</string>
@@ -537,7 +537,7 @@
     </plurals>
     <string name="EPr_temp_show_completed_tasks">Mostra, temporaneamente, le attività dopo il completamento</string>
     <string name="create_new_tag">Crea «%s»</string>
-    <string name="subtasks_multilevel_google_task">Google Tasks non supporta più livelli di attività secondarie</string>
+    <string name="subtasks_multilevel_google_task">Google Tasks non supporta attività secondarie su più livelli</string>
     <string name="expand_subtasks">Espandi attività secondarie</string>
     <string name="caldav_account_repeating_tasks">Lascia che il server programmi le attività ricorrenti</string>
     <string name="annually">Annuale</string>
@@ -578,7 +578,7 @@
     <string name="widget_due_date_hidden">Nascosto</string>
     <string name="widget_due_date_below_title">Sotto il titolo</string>
     <string name="widget_due_date_after_title">Dopo il titolo</string>
-    <string name="widget_due_date_reschedule">Ripianificare l\'attività</string>
+    <string name="widget_due_date_reschedule">Pianifica di nuovo l\'attività</string>
     <string name="widget_open_list">Apri lista</string>
     <string name="widget_do_nothing">Non fare nulla</string>
     <string name="widget_on_click">Al clic</string>
@@ -624,7 +624,7 @@
     <string name="date_shortcut_tomorrow_night">Domani notte</string>
     <string name="date_shortcut_tomorrow_evening">Domani sera</string>
     <string name="manage_lists">Gestisci liste</string>
-    <string name="permission_read_tasks">Accesso completo alla banca dati di Tasks</string>
+    <string name="permission_read_tasks">Accesso completo al database di Tasks</string>
     <string name="davx5_selection_description">Sincronizza le tue attività con l\'app DAVx⁵</string>
     <string name="backup_location_warning">ATTENZIONE: i file che si trovano in %s verranno eliminati quando si disinstallata Tasks. Si consiglia di scegliere una posizione alternativa per evitare tale evenienza.</string>
     <string name="backups_ignore_warnings_summary">Ignorare gli avvisi di backup se non sono necessari o se si dispone di una soluzione alternativa</string>
@@ -635,7 +635,7 @@
     <string name="device_settings">Impostazioni dispositivo</string>
     <string name="last_backup_never">mai</string>
     <string name="last_backup">Ultimo backup: %s</string>
-    <string name="android_auto_backup_device_summary">È inoltre necessario attivare il servizio di backup tramite le impostazioni del dispositivo. Non tutti i dispositivi forniscono tale servizio.</string>
+    <string name="android_auto_backup_device_summary">E\' necessario attivare il servizio di backup tramite le impostazioni del dispositivo. Non tutti i dispositivi forniscono tale servizio.</string>
     <string name="android_auto_backup">Servizio di backup Android</string>
     <string name="automatic_backups">Backup automatici</string>
     <string name="background_location_permission_required">Sono necessari i relativi permessi per i promemoria basati sulla localizzazione. Se in precedenza è stata negata una richiesta di autorizzazione alla localizzazione, sarà necessario concedere manualmente tale autorizzazione nelle impostazioni del dispositivo.</string>
