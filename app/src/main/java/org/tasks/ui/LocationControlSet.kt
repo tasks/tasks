@@ -181,8 +181,10 @@ class LocationControlSet : TaskEditControlFragment() {
             }
         } else if (requestCode == REQUEST_GEOFENCE_DETAILS) {
             if (resultCode == Activity.RESULT_OK) {
-                viewModel.selectedLocation?.geofence = data!!.getParcelableExtra(GeofenceDialog.EXTRA_GEOFENCE)!!
-                updateUi()
+                setLocation(Location(
+                        data?.getParcelableExtra(GeofenceDialog.EXTRA_GEOFENCE) ?: return,
+                        viewModel.selectedLocation?.place ?: return
+                ))
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
