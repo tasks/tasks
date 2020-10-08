@@ -7,7 +7,9 @@ import org.tasks.data.Place
 
 interface WorkManager {
 
-    fun afterComplete(task: Task)
+    fun scheduleRepeat(task: Task)
+
+    fun updateCalendar(task: Task)
 
     fun cleanup(ids: Iterable<Long>)
 

@@ -89,8 +89,10 @@ class TaskDao @Inject constructor(
             val deletionDateModified = task.deletionDate != original?.deletionDate ?: 0
             val justCompleted = completionDateModified && task.isCompleted
             val justDeleted = deletionDateModified && task.isDeleted
-            if (justCompleted && (task.isRecurring || !task.calendarURI.isNullOrBlank())) {
-                workManager.afterComplete(task)
+            if (justCompleted && task.isRecurring) {
+                workManager.scheduleRepeat(task)
+            } else if (!task.calendarURI.isNullOrBlank()) {
+                workManager.updateCalendar(task)
             }
             coroutineScope {
                 launch(Dispatchers.Default) {

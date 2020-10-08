@@ -25,7 +25,7 @@ import java.util.*
 import javax.inject.Inject
 
 class GCalHelper @Inject constructor(
-        @ApplicationContext context: Context,
+        @ApplicationContext private val context: Context,
         private val taskDao: TaskDao,
         private val preferences: Preferences,
         private val permissionChecker: PermissionChecker,
@@ -94,11 +94,18 @@ class GCalHelper @Inject constructor(
         return null
     }
 
-    fun updateEvent(uri: String?, task: Task) {
+    fun updateEvent(task: Task) {
+        val uri = task.calendarURI ?: return
+        if (!permissionChecker.canAccessCalendars()) {
+            return
+        }
         try {
             val updateValues = ContentValues()
-            // check if we need to update the item
-            updateValues.put(CalendarContract.Events.TITLE, task.title)
+            updateValues.put(CalendarContract.Events.TITLE, if (task.isCompleted) {
+                context.getString(R.string.gcal_completed_title, task.title)
+            } else {
+                task.title
+            })
             updateValues.put(CalendarContract.Events.DESCRIPTION, task.notes)
             createStartAndEndDate(task, updateValues)
             cr.update(Uri.parse(uri), updateValues, null, null)

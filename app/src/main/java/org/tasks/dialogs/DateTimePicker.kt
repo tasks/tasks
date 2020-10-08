@@ -243,9 +243,10 @@ class DateTimePicker : BottomSheetDialogFragment() {
         if (dueDate != arguments?.getLong(EXTRA_TIMESTAMP)) {
             if (taskId > 0) {
                 lifecycleScope.launch(NonCancellable) {
-                    val task: Task = taskDao.fetch(taskId)!!
-                    task.setDueDateAdjustingHideUntil(dueDate)
-                    taskDao.save(task)
+                    taskDao.fetch(taskId)?.let {
+                        it.setDueDateAdjustingHideUntil(dueDate)
+                        taskDao.save(it)
+                    }
                 }
             } else {
                 val intent = Intent()

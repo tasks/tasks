@@ -5,30 +5,32 @@ import androidx.hilt.Assisted
 import androidx.hilt.work.WorkerInject
 import androidx.work.WorkerParameters
 import com.todoroo.astrid.gcal.GCalHelper
-import com.todoroo.astrid.repeats.RepeatTaskHelper
 import org.tasks.analytics.Firebase
-import org.tasks.data.CaldavDao
+import org.tasks.calendars.CalendarEventProvider
 import org.tasks.data.TaskDao
 import org.tasks.injection.BaseWorker
+import org.tasks.preferences.PermissionChecker
 
-class AfterSaveWork @WorkerInject constructor(
+class UpdateCalendarWork @WorkerInject constructor(
         @Assisted context: Context,
         @Assisted workerParams: WorkerParameters,
         firebase: Firebase,
-        private val repeatTaskHelper: RepeatTaskHelper,
         private val taskDao: TaskDao,
-        private val caldavDao: CaldavDao,
-        private val gCalHelper: GCalHelper
+        private val gCalHelper: GCalHelper,
+        private val calendarEventProvider: CalendarEventProvider,
+        private val permissionChecker: PermissionChecker
 ) : BaseWorker(context, workerParams, firebase) {
 
     override suspend fun run(): Result {
+        if (!permissionChecker.canAccessCalendars()) {
+            return Result.failure()
+        }
         val taskId = inputData.getLong(EXTRA_ID, -1)
         val task = taskDao.fetch(taskId) ?: return Result.failure()
-
-        gCalHelper.updateEvent(task)
-
-        if (caldavDao.getAccountForTask(taskId)?.isSuppressRepeatingTasks != true) {
-            repeatTaskHelper.handleRepeat(task)
+        if (task.hasDueDate()) {
+            gCalHelper.updateEvent(task)
+        } else {
+            calendarEventProvider.deleteEvent(task)
         }
         return Result.success()
     }

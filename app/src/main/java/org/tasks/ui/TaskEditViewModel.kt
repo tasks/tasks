@@ -380,18 +380,11 @@ class TaskEditViewModel @ViewModelInject constructor(
         if (!permissionChecker.canAccessCalendars()) {
             return
         }
-        if (eventUri == null || task?.hasDueDate() != true) {
-            if (!task?.calendarURI.isNullOrBlank()) {
-                calendarEventProvider.deleteEvent(task)
-            }
+        if (eventUri == null) {
+            calendarEventProvider.deleteEvent(task)
         }
         if (task?.hasDueDate() != true) {
             return
-        }
-        eventUri?.let {
-            if (!it.isBlank()) {
-                gCalHelper.updateEvent(it, task!!)
-            }
         }
         selectedCalendar?.let {
             try {

@@ -65,6 +65,9 @@ public class CalendarEventProvider {
   }
 
   public void deleteEvent(Task task) {
+    if (!permissionChecker.canAccessCalendars()) {
+      return;
+    }
     String uri = task.getCalendarURI();
     task.setCalendarURI("");
     deleteEvent(uri);
