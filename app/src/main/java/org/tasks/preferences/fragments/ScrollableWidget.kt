@@ -83,7 +83,7 @@ class ScrollableWidget : InjectingPreferenceFragment() {
         setupCheckbox(R.string.p_widget_show_lists)
         setupCheckbox(R.string.p_widget_show_tags)
         setupCheckbox(R.string.p_widget_show_full_task_title, false)
-        setupCheckbox(R.string.p_widget_disable_groups)
+        setupCheckbox(R.string.p_widget_disable_groups, false)
         val showDescription = setupCheckbox(R.string.p_widget_show_description, true)
         setupCheckbox(R.string.p_widget_show_full_description, false).dependency = showDescription.key
         setupList(R.string.p_widget_spacing)
