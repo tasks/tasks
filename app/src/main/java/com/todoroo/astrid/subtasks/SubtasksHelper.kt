@@ -16,28 +16,32 @@ import org.tasks.data.TagDataDao
 import org.tasks.data.TaskListMetadata
 import org.tasks.data.TaskListMetadataDao
 import org.tasks.db.QueryUtils.showHiddenAndCompleted
-import org.tasks.preferences.Preferences
+import org.tasks.preferences.QueryPreferences
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
 class SubtasksHelper @Inject constructor(
         @param:ApplicationContext private val context: Context,
-        private val preferences: Preferences,
         private val taskDao: TaskDao,
         private val tagDataDao: TagDataDao,
         private val taskListMetadataDao: TaskListMetadataDao) {
-    suspend fun applySubtasksToWidgetFilter(filter: Filter, query: String): String {
-        var query = query
+    suspend fun applySubtasksToWidgetFilter(
+            filter: Filter,
+            preferences: QueryPreferences,
+            originalQuery: String
+    ): String {
+        var query = originalQuery
         if (filter.supportsAstridSorting() && preferences.isAstridSort) {
             val tagData = tagDataDao.getTagByName(filter.listingTitle)
-            var tlm: TaskListMetadata? = null
-            if (tagData != null) {
-                tlm = taskListMetadataDao.fetchByTagOrFilter(tagData.remoteId!!)
-            } else if (isInbox(context, filter)) {
-                tlm = taskListMetadataDao.fetchByTagOrFilter(TaskListMetadata.FILTER_ID_ALL)
-            } else if (isTodayFilter(context, filter)) {
-                tlm = taskListMetadataDao.fetchByTagOrFilter(TaskListMetadata.FILTER_ID_TODAY)
+            val tlm = when {
+                tagData != null ->
+                    taskListMetadataDao.fetchByTagOrFilter(tagData.remoteId!!)
+                isInbox(context, filter) ->
+                    taskListMetadataDao.fetchByTagOrFilter(TaskListMetadata.FILTER_ID_ALL)
+                isTodayFilter(context, filter) ->
+                    taskListMetadataDao.fetchByTagOrFilter(TaskListMetadata.FILTER_ID_TODAY)
+                else -> null
             }
             if (tlm != null) {
                 query = query.replace("ORDER BY .*".toRegex(), "")

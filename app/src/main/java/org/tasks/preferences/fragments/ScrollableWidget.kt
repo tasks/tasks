@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.*
 import com.todoroo.astrid.api.Filter
+import com.todoroo.astrid.core.SortHelper.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
@@ -16,6 +17,7 @@ import org.tasks.dialogs.ColorPalettePicker
 import org.tasks.dialogs.ColorPalettePicker.Companion.newColorPalette
 import org.tasks.dialogs.ColorPickerAdapter.Palette
 import org.tasks.dialogs.ColorWheelPicker
+import org.tasks.dialogs.SortDialog.newSortDialog
 import org.tasks.dialogs.ThemePickerDialog.Companion.newThemePickerDialog
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.locale.Locale
@@ -27,6 +29,7 @@ import javax.inject.Inject
 private const val REQUEST_FILTER = 1005
 private const val REQUEST_THEME_SELECTION = 1006
 private const val REQUEST_COLOR_SELECTION = 1007
+private const val REQUEST_SORT = 1008
 
 const val EXTRA_WIDGET_ID = "extra_widget_id"
 
@@ -35,6 +38,7 @@ class ScrollableWidget : InjectingPreferenceFragment() {
 
     companion object {
         private const val FRAG_TAG_COLOR_PICKER = "frag_tag_color_picker"
+        private const val FRAG_TAG_SORT_DIALOG = "frag_tag_sort_dialog"
 
         fun newScrollableWidget(appWidgetId: Int): ScrollableWidget {
             val widget = ScrollableWidget()
@@ -84,6 +88,8 @@ class ScrollableWidget : InjectingPreferenceFragment() {
         setupCheckbox(R.string.p_widget_show_tags)
         setupCheckbox(R.string.p_widget_show_full_task_title, false)
         setupCheckbox(R.string.p_widget_disable_groups, false)
+        setupCheckbox(R.string.p_widget_show_hidden, false)
+        setupCheckbox(R.string.p_widget_show_completed, false)
         val showDescription = setupCheckbox(R.string.p_widget_show_description, true)
         setupCheckbox(R.string.p_widget_show_full_description, false).dependency = showDescription.key
         setupList(R.string.p_widget_spacing)
@@ -96,6 +102,14 @@ class ScrollableWidget : InjectingPreferenceFragment() {
         val showMenu = setupCheckbox(R.string.p_widget_show_menu)
         showMenu.dependency = showHeader.key
         header.dependency = showHeader.key
+
+        findPreference(R.string.p_widget_sort).setOnPreferenceClickListener {
+            lifecycleScope.launch {
+                newSortDialog(this@ScrollableWidget, REQUEST_SORT, getFilter(), appWidgetId)
+                        .show(parentFragmentManager, FRAG_TAG_SORT_DIALOG)
+            }
+            false
+        }
 
         findPreference(R.string.p_widget_filter)
             .setOnPreferenceClickListener {
@@ -149,10 +163,14 @@ class ScrollableWidget : InjectingPreferenceFragment() {
         } else if (requestCode == REQUEST_COLOR_SELECTION) {
             if (resultCode == Activity.RESULT_OK) {
                 widgetPreferences.color = data!!.getIntExtra(
-                    ColorWheelPicker.EXTRA_SELECTED,
-                    0
+                        ColorWheelPicker.EXTRA_SELECTED,
+                        0
                 )
                 updateColor()
+            }
+        } else if (requestCode == REQUEST_SORT) {
+            if (resultCode == Activity.RESULT_OK) {
+                updateSort()
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
@@ -176,6 +194,26 @@ class ScrollableWidget : InjectingPreferenceFragment() {
 
     private fun updateFilter() = lifecycleScope.launch {
         findPreference(R.string.p_widget_filter).summary = getFilter().listingTitle
+        updateSort()
+    }
+
+    private fun updateSort() = lifecycleScope.launch {
+        val filter = getFilter()
+        findPreference(R.string.p_widget_sort).setSummary(
+                if (filter.supportsManualSort() && widgetPreferences.isManualSort) {
+                    R.string.SSD_sort_my_order
+                } else if (filter.supportsAstridSorting() && widgetPreferences.isAstridSort) {
+                    R.string.astrid_sort_order
+                } else {
+                    when (widgetPreferences.sortMode) {
+                        SORT_DUE -> R.string.SSD_sort_due
+                        SORT_IMPORTANCE -> R.string.SSD_sort_importance
+                        SORT_ALPHA -> R.string.SSD_sort_alpha
+                        SORT_MODIFIED -> R.string.SSD_sort_modified
+                        SORT_CREATED -> R.string.sort_created
+                        else -> R.string.SSD_sort_auto
+                    }
+                })
     }
 
     private suspend fun getFilter(): Filter {

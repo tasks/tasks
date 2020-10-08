@@ -36,7 +36,7 @@ import kotlin.math.max
 
 internal class ScrollableViewsFactory(
         private val subtasksHelper: SubtasksHelper,
-        private val preferences: Preferences,
+        preferences: Preferences,
         private val context: Context,
         private val widgetId: Int,
         private val taskDao: TaskDao,
@@ -307,9 +307,10 @@ internal class ScrollableViewsFactory(
     private fun getTask(position: Int): TaskContainer? = tasks.getItem(position)
 
     private suspend fun getQuery(filter: Filter?, subtasks: SubtaskInfo): List<String> {
-        val queries = getQuery(preferences, filter!!, subtasks)
+        val queries = getQuery(widgetPreferences, filter!!, subtasks)
         val last = queries.size - 1
-        queries[last] = subtasksHelper.applySubtasksToWidgetFilter(filter, queries[last])
+        queries[last] =
+                subtasksHelper.applySubtasksToWidgetFilter(filter, widgetPreferences, queries[last])
         return queries
     }
 
@@ -373,14 +374,14 @@ internal class ScrollableViewsFactory(
         showDividers = widgetPreferences.showDividers()
         disableGroups = widgetPreferences.disableGroups() || filter?.let {
             !it.supportsSorting()
-                    || (it.supportsManualSort() && preferences.isManualSort)
-                    || (it.supportsAstridSorting() && preferences.isAstridSort)
+                    || (it.supportsManualSort() && widgetPreferences.isManualSort)
+                    || (it.supportsAstridSorting() && widgetPreferences.isAstridSort)
         } == true
         showPlaces = widgetPreferences.showPlaces()
         showSubtasks = widgetPreferences.showSubtasks()
         showLists = widgetPreferences.showLists()
         showTags = widgetPreferences.showTags()
-        preferences.sortMode.takeIf { it != sortMode }
+        widgetPreferences.sortMode.takeIf { it != sortMode }
                 ?.let {
                     if (sortMode >= 0) {
                         widgetPreferences.collapsed = HashSet()

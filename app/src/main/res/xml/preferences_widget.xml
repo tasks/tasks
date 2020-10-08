@@ -10,6 +10,18 @@
     android:key="@string/p_widget_theme"
     android:title="@string/theme" />
 
+  <Preference
+    android:key="@string/p_widget_sort"
+    android:title="@string/TLA_menu_sort" />
+
+  <SwitchPreferenceCompat
+    android:key="@string/p_widget_show_hidden"
+    android:title="@string/show_hidden" />
+
+  <SwitchPreferenceCompat
+    android:key="@string/p_widget_show_completed"
+    android:title="@string/show_completed" />
+
   <PreferenceCategory
     app:key="@string/preferences_advanced"
     app:title="@string/opacity"

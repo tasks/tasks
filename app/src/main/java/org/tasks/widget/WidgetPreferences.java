@@ -3,14 +3,16 @@ package org.tasks.widget;
 import android.content.Context;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
+import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.service.Upgrader;
 import java.util.HashSet;
 import org.tasks.R;
 import org.tasks.Strings;
+import org.tasks.preferences.QueryPreferences;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
-public class WidgetPreferences {
+public class WidgetPreferences implements QueryPreferences {
 
   private final Context context;
   private final Preferences preferences;
@@ -208,5 +210,65 @@ public class WidgetPreferences {
     setBoolean(R.string.p_widget_show_menu, false); // no menu
     setString(R.string.p_widget_spacing, "1"); // compact
     setBoolean(R.string.p_widget_show_description, false); // no description
+  }
+
+  @Override
+  public int getSortMode() {
+    return getInt(R.string.p_widget_sort, SortHelper.SORT_AUTO);
+  }
+
+  @Override
+  public boolean isManualSort() {
+    return getBoolean(R.string.p_widget_sort_manual, false);
+  }
+
+  @Override
+  public boolean isAstridSort() {
+    return getBoolean(R.string.p_widget_sort_astrid, false);
+  }
+
+  @Override
+  public boolean isReverseSort() {
+    return getBoolean(R.string.p_widget_sort_reverse, false);
+  }
+
+  @Override
+  public boolean getShowHidden() {
+    return getBoolean(R.string.p_widget_show_hidden, false);
+  }
+
+  @Override
+  public boolean getShowCompleted() {
+    return getBoolean(R.string.p_widget_show_completed, false);
+  }
+
+  @Override
+  public boolean getShowCompletedTemporarily() {
+    return preferences.getShowCompletedTemporarily();
+  }
+
+  @Override
+  public boolean usePagedQueries() {
+    return preferences.usePagedQueries();
+  }
+
+  @Override
+  public void setSortMode(int sortMode) {
+    setInt(R.string.p_widget_sort, sortMode);
+  }
+
+  @Override
+  public void setManualSort(boolean isManualSort) {
+    setBoolean(R.string.p_widget_sort_manual, isManualSort);
+  }
+
+  @Override
+  public void setAstridSort(boolean isAstridSort) {
+    setBoolean(R.string.p_widget_sort_astrid, isAstridSort);
+  }
+
+  @Override
+  public void setReverseSort(boolean isReverseSort) {
+    setBoolean(R.string.p_widget_sort_reverse, isReverseSort);
   }
 }

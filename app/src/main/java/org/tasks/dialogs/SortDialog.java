@@ -1,5 +1,7 @@
 package org.tasks.dialogs;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -8,6 +10,7 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.SortHelper;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -17,6 +20,7 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.preferences.Preferences;
 import org.tasks.preferences.QueryPreferences;
+import org.tasks.widget.WidgetPreferences;
 import timber.log.Timber;
 
 @AndroidEntryPoint
@@ -25,8 +29,12 @@ public class SortDialog extends DialogFragment {
   private static final String EXTRA_MANUAL_ENABLED = "extra_manual_enabled";
   private static final String EXTRA_ASTRID_ENABLED = "extra_astrid_enabled";
   private static final String EXTRA_SELECTED_INDEX = "extra_selected_index";
-  @Inject Preferences preferences;
+  private static final String EXTRA_WIDGET_ID = "extra_widget_id";
+
+  @Inject Preferences appPreferences;
   @Inject DialogBuilder dialogBuilder;
+
+  private QueryPreferences preferences;
   private boolean manualEnabled;
   private boolean astridEnabled;
   private int selectedIndex;
@@ -42,14 +50,26 @@ public class SortDialog extends DialogFragment {
     return sortDialog;
   }
 
+  public static SortDialog newSortDialog(Fragment target, int rc, Filter filter, int widgetId) {
+    SortDialog dialog = newSortDialog(filter);
+    dialog.setTargetFragment(target, rc);
+    dialog.getArguments().putInt(EXTRA_WIDGET_ID, widgetId);
+    return dialog;
+  }
+
   @NonNull
   @Override
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     onCreate(savedInstanceState);
 
     Bundle arguments = getArguments();
+    int widgetId = arguments.getInt(EXTRA_WIDGET_ID, -1);
+    preferences = widgetId < 0
+        ? appPreferences
+        : new WidgetPreferences(getContext(), appPreferences, widgetId);
     manualEnabled = arguments.getBoolean(EXTRA_MANUAL_ENABLED);
-    astridEnabled = arguments.getBoolean(EXTRA_ASTRID_ENABLED) && preferences.getBoolean(R.string.p_astrid_sort_enabled, false);
+    astridEnabled = arguments.getBoolean(EXTRA_ASTRID_ENABLED)
+        && appPreferences.getBoolean(R.string.p_astrid_sort_enabled, false);
 
     if (savedInstanceState != null) {
       selectedIndex = savedInstanceState.getInt(EXTRA_SELECTED_INDEX);
@@ -108,7 +128,9 @@ public class SortDialog extends DialogFragment {
   public void onAttach(Activity activity) {
     super.onAttach(activity);
 
-    callback = (SortDialogCallback) activity;
+    if (getTargetFragment() == null) {
+      callback = (SortDialogCallback) activity;
+    }
   }
 
   @Override
@@ -139,7 +161,12 @@ public class SortDialog extends DialogFragment {
       preferences.setSortMode(getSortMode(manualEnabled || astridEnabled ? selectedIndex : selectedIndex + 1));
     }
 
-    callback.sortChanged(wasManual != isManual || wasAstrid != isAstrid);
+    Fragment targetFragment = getTargetFragment();
+    if (targetFragment == null) {
+      callback.sortChanged(wasManual != isManual || wasAstrid != isAstrid);
+    } else {
+      targetFragment.onActivityResult(getTargetRequestCode(), RESULT_OK, null);
+    }
   }
 
   private int getIndex(int sortMode) {
