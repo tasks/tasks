@@ -76,6 +76,7 @@ class TaskEditViewModel @ViewModelInject constructor(
         if (isNew && permissionChecker.canAccessCalendars()) {
             originalCalendar = preferences.defaultCalendar
         }
+        eventUri = task.calendarURI
     }
 
     var task: Task? = null
@@ -166,11 +167,7 @@ class TaskEditViewModel @ViewModelInject constructor(
 
     var selectedCalendar: String? = null
 
-    var eventUri: String?
-        get() = task?.calendarURI
-        set(value) {
-            task?.calendarURI = value
-        }
+    var eventUri: String? = null
 
     var isNew: Boolean = false
         private set
