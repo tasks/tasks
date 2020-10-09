@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="changelog">
-        <item>Collapsible sort groups in widget</item>
-        <item>Add \'System default\' widget theme</item>
+        <item>New widget configuration options: sort, show hidden, show completed, and header spacing</item>
         <item>Bug fixes</item>
         <item>Update translations</item>
     </string-array>

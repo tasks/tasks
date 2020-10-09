@@ -1,0 +1,7 @@
+* New widget configuration options
+  * Sort
+  * Show hidden
+  * Show completed
+  * Header spacing
+* Bug fixes
+* Update translations

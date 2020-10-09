@@ -1,6 +1,19 @@
 Change Log
 ---
 =======
+### 10.4 (2020-10-09)
+
+* New widget configuration options
+  * Sort
+  * Show hidden
+  * Show completed
+  * Header spacing
+* Bug fixes
+* Update translations
+  * French - @FlorianLeChat, @yannicka
+  * Italian - @ppasserini
+  * Polish - @alex-ter
+
 ### 10.3 (2020-10-02)
 
 * Collapsible sort groups in widget
