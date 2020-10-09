@@ -5,7 +5,7 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("com.cookpad.android.plugin.license-tools") version "1.2.2"
-    id("com.github.ben-manes.versions") version "0.31.0"
+    id("com.github.ben-manes.versions") version "0.33.0"
     id("com.vanniktech.android.junit.jacoco") version "0.16.0"
     id("dagger.hilt.android.plugin")
 }
@@ -142,8 +142,8 @@ val googleplayImplementation by configurations
 dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.0.10")
     implementation("com.gitlab.bitfireAT:dav4jvm:2.1.1")
-    implementation("com.gitlab.bitfireAT:ical4android:b520b3f2b2")
-    implementation("com.gitlab.bitfireAT:cert4android:767d1f9759")
+    implementation("com.gitlab.bitfireAT:ical4android:ae0ed23a13")
+    implementation("com.gitlab.bitfireAT:cert4android:72cf235ad9")
     implementation("com.github.dmfs.opentasks:opentasks-provider:1.2.4") {
         exclude("com.github.dmfs.opentasks", "opentasks-contract")
     }
@@ -177,7 +177,7 @@ dependencies {
     implementation("com.google.code.gson:gson:2.8.6")
     implementation("com.google.android.material:material:1.2.1")
     implementation("androidx.annotation:annotation:1.1.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.1")
+    implementation("androidx.constraintlayout:constraintlayout:2.0.2")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation("androidx.preference:preference:1.1.1")
     implementation("com.jakewharton.timber:timber:4.7.1")

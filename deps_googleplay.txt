@@ -106,8 +106,8 @@
 +|         |    |    \--- org.jetbrains:annotations:13.0 -> 16.0.1
 +|         |    \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.3.70 -> 1.4.10
 +|         \--- org.jetbrains.kotlin:kotlin-stdlib:1.3.72 -> 1.4.10 (*)
-++--- com.google.firebase:firebase-analytics:17.5.0
-+|    +--- com.google.android.gms:play-services-measurement:17.5.0
+++--- com.google.firebase:firebase-analytics:17.6.0
++|    +--- com.google.android.gms:play-services-measurement:17.6.0
 +|    |    +--- androidx.collection:collection:1.0.0 -> 1.1.0 (*)
 +|    |    +--- androidx.legacy:legacy-support-core-utils:1.0.0
 +|    |    |    +--- androidx.annotation:annotation:1.0.0 -> 1.1.0
@@ -122,37 +122,37 @@
 +|    |    +--- com.google.android.gms:play-services-ads-identifier:17.0.0
 +|    |    |    \--- com.google.android.gms:play-services-basement:17.0.0 -> 17.3.0 (*)
 +|    |    +--- com.google.android.gms:play-services-basement:17.0.0 -> 17.3.0 (*)
-+|    |    +--- com.google.android.gms:play-services-measurement-base:[17.5.0] -> 17.5.0
++|    |    +--- com.google.android.gms:play-services-measurement-base:[17.6.0] -> 17.6.0
 +|    |    |    \--- com.google.android.gms:play-services-basement:17.0.0 -> 17.3.0 (*)
-+|    |    +--- com.google.android.gms:play-services-measurement-impl:[17.5.0] -> 17.5.0
++|    |    +--- com.google.android.gms:play-services-measurement-impl:[17.6.0] -> 17.6.0
 +|    |    |    +--- androidx.collection:collection:1.0.0 -> 1.1.0 (*)
 +|    |    |    +--- androidx.core:core:1.0.0 -> 1.3.1 (*)
 +|    |    |    +--- com.google.android.gms:play-services-ads-identifier:17.0.0 (*)
 +|    |    |    +--- com.google.android.gms:play-services-basement:17.0.0 -> 17.3.0 (*)
-+|    |    |    +--- com.google.android.gms:play-services-measurement-base:[17.5.0] -> 17.5.0 (*)
++|    |    |    +--- com.google.android.gms:play-services-measurement-base:[17.6.0] -> 17.6.0 (*)
 +|    |    |    \--- com.google.android.gms:play-services-stats:17.0.0
 +|    |    |         +--- androidx.legacy:legacy-support-core-utils:1.0.0 (*)
 +|    |    |         \--- com.google.android.gms:play-services-basement:17.0.0 -> 17.3.0 (*)
 +|    |    \--- com.google.android.gms:play-services-stats:17.0.0 (*)
-+|    +--- com.google.android.gms:play-services-measurement-api:17.5.0
++|    +--- com.google.android.gms:play-services-measurement-api:17.6.0
 +|    |    +--- com.google.android.gms:play-services-ads-identifier:17.0.0 (*)
 +|    |    +--- com.google.android.gms:play-services-basement:17.0.0 -> 17.3.0 (*)
-+|    |    +--- com.google.android.gms:play-services-measurement-base:[17.5.0] -> 17.5.0 (*)
-+|    |    +--- com.google.android.gms:play-services-measurement-impl:[17.5.0] -> 17.5.0 (*)
-+|    |    +--- com.google.android.gms:play-services-measurement-sdk-api:[17.5.0] -> 17.5.0
++|    |    +--- com.google.android.gms:play-services-measurement-base:[17.6.0] -> 17.6.0 (*)
++|    |    +--- com.google.android.gms:play-services-measurement-impl:[17.6.0] -> 17.6.0 (*)
++|    |    +--- com.google.android.gms:play-services-measurement-sdk-api:[17.6.0] -> 17.6.0
 +|    |    |    +--- com.google.android.gms:play-services-basement:17.0.0 -> 17.3.0 (*)
-+|    |    |    \--- com.google.android.gms:play-services-measurement-base:[17.5.0] -> 17.5.0 (*)
++|    |    |    \--- com.google.android.gms:play-services-measurement-base:[17.6.0] -> 17.6.0 (*)
 +|    |    +--- com.google.android.gms:play-services-tasks:17.0.0 -> 17.1.0 (*)
 +|    |    +--- com.google.firebase:firebase-common:19.3.0 -> 19.3.1 (*)
 +|    |    +--- com.google.firebase:firebase-components:16.0.0 (*)
 +|    |    +--- com.google.firebase:firebase-installations:16.3.2 -> 16.3.3 (*)
 +|    |    +--- com.google.firebase:firebase-installations-interop:16.0.0 (*)
 +|    |    \--- com.google.firebase:firebase-measurement-connector:18.0.0 (*)
-+|    \--- com.google.android.gms:play-services-measurement-sdk:17.5.0
++|    \--- com.google.android.gms:play-services-measurement-sdk:17.6.0
 +|         +--- androidx.collection:collection:1.0.0 -> 1.1.0 (*)
 +|         +--- com.google.android.gms:play-services-basement:17.0.0 -> 17.3.0 (*)
-+|         +--- com.google.android.gms:play-services-measurement-base:[17.5.0] -> 17.5.0 (*)
-+|         \--- com.google.android.gms:play-services-measurement-impl:[17.5.0] -> 17.5.0 (*)
++|         +--- com.google.android.gms:play-services-measurement-base:[17.6.0] -> 17.6.0 (*)
++|         \--- com.google.android.gms:play-services-measurement-impl:[17.6.0] -> 17.6.0 (*)
 ++--- com.google.firebase:firebase-config-ktx:19.2.0
 +|    +--- androidx.annotation:annotation:1.1.0
 +|    +--- com.google.firebase:firebase-abt:19.1.0
@@ -165,8 +165,8 @@
 +|    +--- com.google.firebase:firebase-common-ktx:19.3.0
 +|    |    +--- androidx.annotation:annotation:1.1.0
 +|    |    +--- com.google.firebase:firebase-common:19.3.0 -> 19.3.1 (*)
-+|    |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.50 -> 1.3.72
-+|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.3.72 -> 1.4.10 (*)
++|    |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.50 -> 1.4.10
++|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.4.10 (*)
 +|    +--- com.google.firebase:firebase-components:16.0.0 (*)
 +|    +--- com.google.firebase:firebase-config:19.2.0
 +|    |    +--- com.google.android.gms:play-services-tasks:17.0.2 -> 17.1.0 (*)
@@ -179,7 +179,7 @@
 +|    |    \--- com.google.protobuf:protobuf-javalite:3.11.0
 +|    +--- com.google.firebase:firebase-installations:16.3.2 -> 16.3.3 (*)
 +|    +--- com.google.firebase:firebase-installations-interop:16.0.0 (*)
-+|    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.72 (*)
++|    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.72 -> 1.4.10 (*)
 ++--- com.google.android.gms:play-services-location:17.1.0
 +|    +--- com.google.android.gms:play-services-base:17.3.0
 +|    |    +--- androidx.collection:collection:1.0.0 -> 1.1.0 (*)
@@ -255,13 +255,13 @@
 ++--- com.gitlab.bitfireAT:dav4jvm:2.1.1
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.72 -> 1.4.10 (*)
 +|    \--- org.apache.commons:commons-lang3:3.9
-++--- com.gitlab.bitfireAT:ical4android:b520b3f2b2
+++--- com.gitlab.bitfireAT:ical4android:ae0ed23a13
 +|    +--- org.mnode.ical4j:ical4j:3.0.19
 +|    |    +--- org.slf4j:slf4j-api:1.7.25 -> 1.7.30
 +|    |    +--- commons-codec:commons-codec:1.11
 +|    |    +--- org.apache.commons:commons-lang3:3.8.1 -> 3.9
 +|    |    \--- org.apache.commons:commons-collections4:4.1
-+|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.72 (*)
++|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.10 (*)
 +|    +--- com.sun.mail:android-mail:1.6.5
 +|    |    \--- com.sun.mail:android-activation:1.6.5
 +|    +--- commons-io:commons-io:2.6
@@ -271,12 +271,12 @@
 +|         +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.71 -> 1.4.10 (*)
 +|         +--- androidx.annotation:annotation:1.1.0
 +|         \--- androidx.core:core:1.3.1 (*)
-++--- com.gitlab.bitfireAT:cert4android:767d1f9759
-+|    +--- androidx.databinding:databinding-common:4.0.0 -> 4.0.2
-+|    +--- androidx.databinding:databinding-runtime:4.0.0 -> 4.0.2 (*)
-+|    +--- androidx.databinding:databinding-adapters:4.0.0 -> 4.0.2 (*)
-+|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.72 (*)
-+|    +--- androidx.appcompat:appcompat:1.1.0 -> 1.2.0 (*)
+++--- com.gitlab.bitfireAT:cert4android:72cf235ad9
++|    +--- androidx.databinding:databinding-common:4.0.1 -> 4.0.2
++|    +--- androidx.databinding:databinding-runtime:4.0.1 -> 4.0.2 (*)
++|    +--- androidx.databinding:databinding-adapters:4.0.1 -> 4.0.2 (*)
++|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.10 (*)
++|    +--- androidx.appcompat:appcompat:1.2.0 (*)
 +|    +--- androidx.cardview:cardview:1.0.0 (*)
 +|    +--- androidx.lifecycle:lifecycle-extensions:2.2.0 (*)
 +|    +--- androidx.lifecycle:lifecycle-livedata:2.2.0 (*)
@@ -288,7 +288,7 @@
 +|    |    |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.70 -> 1.4.10 (*)
 +|    |    |         \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.3.70 -> 1.4.10
 +|    |    \--- androidx.lifecycle:lifecycle-viewmodel:2.2.0 (*)
-+|    +--- com.google.android.material:material:1.2.0-beta01 -> 1.2.1
++|    +--- com.google.android.material:material:1.2.1
 +|    |    +--- androidx.annotation:annotation:1.0.1 -> 1.1.0
 +|    |    +--- androidx.appcompat:appcompat:1.1.0 -> 1.2.0 (*)
 +|    |    +--- androidx.cardview:cardview:1.0.0 (*)
@@ -411,10 +411,10 @@
 ++--- com.google.code.gson:gson:2.8.6
 ++--- com.google.android.material:material:1.2.1 (*)
 ++--- androidx.annotation:annotation:1.1.0
-++--- androidx.constraintlayout:constraintlayout:2.0.1
+++--- androidx.constraintlayout:constraintlayout:2.0.2
 +|    +--- androidx.appcompat:appcompat:1.2.0 (*)
 +|    +--- androidx.core:core:1.3.1 (*)
-+|    \--- androidx.constraintlayout:constraintlayout-solver:2.0.1
++|    \--- androidx.constraintlayout:constraintlayout-solver:2.0.2
 ++--- androidx.swiperefreshlayout:swiperefreshlayout:1.1.0
 +|    +--- androidx.annotation:annotation:1.1.0
 +|    +--- androidx.core:core:1.1.0 -> 1.3.1 (*)
@@ -487,7 +487,7 @@
 +|         +--- com.mapbox.mapboxsdk:mapbox-sdk-directions-models:5.3.0 (*)
 +|         \--- androidx.annotation:annotation:1.0.0 -> 1.1.0
 ++--- com.etesync:journalmanager:1.1.1
-+|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.71 -> 1.3.72 (*)
++|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.71 -> 1.4.10 (*)
 +|    +--- com.madgag.spongycastle:core:1.54.0.0
 +|    +--- com.madgag.spongycastle:prov:1.54.0.0
 +|    |    \--- com.madgag.spongycastle:core:1.54.0.0
