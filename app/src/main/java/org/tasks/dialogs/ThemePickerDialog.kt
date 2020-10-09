@@ -53,10 +53,11 @@ class ThemePickerDialog : DialogFragment() {
     var adapter: ArrayAdapter<String>? = null
     var dialog: AlertDialog? = null
     var selected = -1
+    var widget = false
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         selected = savedInstanceState?.getInt(EXTRA_SELECTED) ?: requireArguments().getInt(EXTRA_SELECTED)
-        val widget = arguments?.getBoolean(EXTRA_WIDGET) ?: false
+        widget = arguments?.getBoolean(EXTRA_WIDGET) ?: false
         val themes = resources.getStringArray(
             if (widget) R.array.widget_themes else R.array.base_theme_names
         )
@@ -131,5 +132,5 @@ class ThemePickerDialog : DialogFragment() {
     private fun available() = isAvailable(selected)
 
     private fun isAvailable(index: Int) =
-        inventory.purchasedThemes() || ThemeBase(index).isFree
+        inventory.purchasedThemes() || ThemeBase(index).isFree || widget
 }

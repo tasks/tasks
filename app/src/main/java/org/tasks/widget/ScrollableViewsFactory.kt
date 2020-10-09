@@ -101,6 +101,10 @@ internal class ScrollableViewsFactory(
     override fun onDestroy() {}
 
     override fun getCount(): Int {
+        if (isDark != checkIfDark) {
+            isDark = !isDark
+            localBroadcastManager.reconfigureWidget(widgetId)
+        }
         return tasks.size
     }
 
@@ -119,10 +123,6 @@ internal class ScrollableViewsFactory(
     override fun getItemId(position: Int) = getTask(position)?.id ?: 0
 
     override fun hasStableIds(): Boolean {
-        if (isDark != checkIfDark) {
-            isDark = !isDark
-            localBroadcastManager.reconfigureWidget(widgetId)
-        }
         return true
     }
 
