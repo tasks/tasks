@@ -299,7 +299,7 @@
     <string name="when_due">À l\'échéance</string>
     <string name="geofence_radius">Rayon</string>
     <string name="filters">Filtres</string>
-    <string name="date_shortcut_hour">Pour une heure</string>
+    <string name="date_shortcut_hour">Dans une heure</string>
     <string name="date_shortcut_morning">Matin</string>
     <string name="date_shortcut_afternoon">Après-midi</string>
     <string name="date_shortcut_evening">Soir</string>
