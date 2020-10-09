@@ -51,15 +51,27 @@ class TasksWidget : AppWidgetProvider() {
         if (widgetPreferences.showHeader()) {
             remoteViews.setViewVisibility(R.id.widget_header, View.VISIBLE)
             remoteViews.setViewVisibility(
-                    R.id.widget_change_list, if (widgetPreferences.showMenu()) View.VISIBLE else View.GONE)
-            val widgetTitlePadding = if (widgetPreferences.showMenu()) 0 else context.resources.getDimension(R.dimen.widget_padding).toInt()
-            remoteViews.setViewPadding(R.id.widget_title, widgetTitlePadding, 0, 0, 0)
+                    R.id.widget_change_list,
+                    if (widgetPreferences.showMenu()) View.VISIBLE else View.GONE
+            )
             remoteViews.setViewVisibility(
-                    R.id.widget_reconfigure, if (widgetPreferences.showSettings()) View.VISIBLE else View.GONE)
+                    R.id.widget_reconfigure,
+                    if (widgetPreferences.showSettings()) View.VISIBLE else View.GONE
+            )
+            remoteViews.removeAllViews(R.id.title_container)
+            remoteViews.addView(
+                    R.id.title_container,
+                    RemoteViews(context.packageName, widgetPreferences.headerLayout)
+            )
+            val widgetPadding = context.resources.getDimension(R.dimen.widget_padding).toInt()
+            val widgetTitlePadding = if (widgetPreferences.showMenu()) 0 else widgetPadding
+            val vPad = widgetPreferences.headerSpacing
+            remoteViews.setViewPadding(R.id.widget_title, widgetTitlePadding, 0, 0, 0)
             remoteViews.setInt(R.id.widget_title, "setTextColor", color.colorOnPrimary)
-            remoteViews.setInt(R.id.widget_button, "setColorFilter", color.colorOnPrimary)
-            remoteViews.setInt(R.id.widget_reconfigure, "setColorFilter", color.colorOnPrimary)
-            remoteViews.setInt(R.id.widget_change_list, "setColorFilter", color.colorOnPrimary)
+            buttons.forEach {
+                remoteViews.setInt(it, "setColorFilter", color.colorOnPrimary)
+                remoteViews.setViewPadding(it, widgetPadding, vPad, widgetPadding, vPad)
+            }
         } else {
             remoteViews.setViewVisibility(R.id.widget_header, View.GONE)
         }
@@ -154,5 +166,8 @@ class TasksWidget : AppWidgetProvider() {
 
     companion object {
         private const val flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+        private val buttons = intArrayOf(
+                R.id.widget_change_list, R.id.widget_button, R.id.widget_reconfigure
+        )
     }
 }

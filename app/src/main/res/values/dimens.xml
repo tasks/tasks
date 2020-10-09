@@ -24,6 +24,9 @@
 
   <dimen name="widget_padding_compact">6dp</dimen>
   <dimen name="widget_padding">12dp</dimen>
+  <dimen name="widget_height_default">48dp</dimen>
+  <dimen name="widget_height_compact">36dp</dimen>
+  <dimen name="widget_height_none">24dp</dimen>
   <dimen name="week_button_inset">6dp</dimen>
   <dimen name="week_button_state_on_circle_size">48dp</dimen>
 

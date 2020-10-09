@@ -100,7 +100,26 @@ public class WidgetPreferences implements QueryPreferences {
   }
 
   int getWidgetSpacing() {
-    int spacing = getIntegerFromString(R.string.p_widget_spacing, 0);
+    return getSpacing(R.string.p_widget_spacing);
+  }
+
+  int getHeaderSpacing() {
+    return getSpacing(R.string.p_widget_header_spacing);
+  }
+
+  int getHeaderLayout() {
+    switch (getIntegerFromString(R.string.p_widget_header_spacing, 0)) {
+      case 1:
+        return R.layout.widget_title_compact;
+      case 2:
+        return R.layout.widget_title_none;
+      default:
+        return R.layout.widget_title_default;
+    }
+  }
+
+  private int getSpacing(int pref) {
+    int spacing = getIntegerFromString(pref, 0);
     if (spacing == 2) {
       return 0;
     }

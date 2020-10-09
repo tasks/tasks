@@ -200,13 +200,22 @@
     <item name="android:textColor">?attr/colorSecondary</item>
   </style>
 
+  <style name="WidgetTitle" parent="TextAppearance">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_centerVertical">true</item>
+    <item name="android:ellipsize">end</item>
+    <item name="android:gravity">start|center_vertical</item>
+    <item name="android:maxLines">2</item>
+    <item name="android:textAlignment">viewStart</item>
+    <item name="android:textSize">18sp</item>
+  </style>
+
   <style name="WidgetButton">
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:layout_centerVertical">true</item>
     <item name="android:background">@android:color/transparent</item>
     <item name="android:scaleType">fitCenter</item>
-    <item name="android:padding">@dimen/widget_padding</item>
   </style>
 
 </resources>

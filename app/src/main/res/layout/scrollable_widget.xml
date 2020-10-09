@@ -8,7 +8,7 @@
   <RelativeLayout
     android:id="@+id/widget_header"
     android:layout_width="match_parent"
-    android:layout_height="48dp"
+    android:layout_height="wrap_content"
     android:orientation="horizontal">
 
     <ImageButton
@@ -34,20 +34,12 @@
       android:contentDescription="@string/widget_settings"
       tools:padding="@dimen/widget_padding"/>
 
-    <TextView
-      android:id="@+id/widget_title"
+    <FrameLayout
+      android:id="@+id/title_container"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_centerVertical="true"
+      android:layout_height="wrap_content"
       android:layout_toEndOf="@id/widget_change_list"
-      android:layout_toStartOf="@id/widget_reconfigure"
-      android:ellipsize="end"
-      android:gravity="start|center_vertical"
-      android:maxLines="2"
-      android:textAlignment="viewStart"
-      android:textSize="18sp"
-      tools:text="@string/BFE_Active"
-      tools:textColor="@android:color/black" />
+      android:layout_toStartOf="@id/widget_reconfigure" />
 
   </RelativeLayout>
 

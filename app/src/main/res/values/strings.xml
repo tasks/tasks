@@ -321,6 +321,7 @@ File %1$s contained %2$s.\n\n
   <string name="subtasks">Subtasks</string>
   <string name="enabled">Enabled</string>
   <string name="font_size">Font size</string>
+  <string name="header_spacing">Spacing</string>
   <string name="row_spacing">Row spacing</string>
   <string name="customize_edit_screen">Customize edit screen</string>
   <string name="source_code">Source code</string>

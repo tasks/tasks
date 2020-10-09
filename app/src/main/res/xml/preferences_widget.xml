@@ -74,6 +74,14 @@
       android:key="@string/p_widget_color_v2"
       android:title="@string/color" />
 
+    <ListPreference
+      android:defaultValue="0"
+      android:key="@string/p_widget_header_spacing"
+      android:entries="@array/widget_spacing_titles"
+      android:entryValues="@array/widget_spacing_values"
+      android:title="@string/header_spacing"
+      android:summary="%s" />
+
     <SwitchPreferenceCompat
       android:key="@string/p_widget_show_menu"
       android:title="@string/widget_show_menu" />
