@@ -193,7 +193,7 @@ internal class ScrollableViewsFactory(
     }
 
     private fun getDateString(value: Long, lowercase: Boolean = true) =
-            DateUtilities.getRelativeDay(context, value, locale.locale, FormatStyle.FULL, lowercase)
+            DateUtilities.getRelativeDay(context, value, locale.locale, FormatStyle.MEDIUM, lowercase)
 
     @StringRes
     private fun priorityToString(priority: Int) = when (priority) {
