@@ -645,4 +645,5 @@
     <string name="backup_location_warning">ADVERTENCIA: Los archivos ubicados en %s se eliminarán si se desinstala Tasks. Elija una ubicación personalizada para evitar que Android elimine sus archivos.</string>
     <string name="backups_ignore_warnings_summary">Ignora avisos de copia de seguridad si no necesitas copias de seguridad o tener vuestra solución de copia de seguridad propia</string>
     <string name="backups_ignore_warnings">Ignorar las advertencias</string>
+    <string name="header_spacing">Espaciamiento</string>
 </resources>
