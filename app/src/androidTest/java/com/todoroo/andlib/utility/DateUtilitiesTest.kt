@@ -126,6 +126,22 @@ class DateUtilitiesTest {
     }
 
     @Test
+    fun getRelativeDateTimeWithAlwaysDisplayFullDateOption() {
+        freezeAt(DateTime(2020, 1, 1)) {
+            assertMatches(
+                    "Thursday, January 2 at 11:50 AM",
+                    DateUtilities.getRelativeDateTime(
+                            ApplicationProvider.getApplicationContext(),
+                            DateTime(2020, 1, 2, 11, 50, 1).millis,
+                            Locale.US,
+                            FormatStyle.FULL,
+                            true,
+                            false
+                    ))
+        }
+    }
+
+    @Test
     fun getRelativeFullDateTimeWithYear() {
         freezeAt(DateTime(2017, 12, 12)) {
             assertMatches(
@@ -135,6 +151,40 @@ class DateUtilitiesTest {
                             DateTime(2018, 1, 14, 11, 50, 1).millis,
                             Locale.US,
                             FormatStyle.FULL))
+        }
+    }
+
+    @Test
+    fun getRelativeDayWithAlwaysDisplayFullDateOption() {
+        freezeAt(DateTime(2020, 1, 1)) {
+            assertEquals(
+                    "Thursday, January 2",
+                    DateUtilities.getRelativeDay(
+                            ApplicationProvider.getApplicationContext(),
+                            DateTime(2020, 1, 2, 11, 50, 1).millis,
+                            Locale.US,
+                            FormatStyle.FULL,
+                            true,
+                            true
+                    )
+            )
+        }
+    }
+
+    @Test
+    fun getRelativeDayWithoutAlwaysDisplayFullDateOption() {
+        freezeAt(DateTime(2020, 1, 1)) {
+            assertEquals(
+                    "tomorrow",
+                    DateUtilities.getRelativeDay(
+                            ApplicationProvider.getApplicationContext(),
+                            DateTime(2020, 1, 2, 11, 50, 1).millis,
+                            Locale.US,
+                            FormatStyle.FULL,
+                            false,
+                            true
+                    )
+            )
         }
     }
 
