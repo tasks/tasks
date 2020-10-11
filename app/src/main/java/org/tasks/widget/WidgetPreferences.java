@@ -267,6 +267,9 @@ public class WidgetPreferences implements QueryPreferences {
   }
 
   @Override
+  public boolean getAlwaysDisplayFullDate() { return getBoolean(R.string.p_always_display_full_date, false); }
+
+  @Override
   public boolean usePagedQueries() {
     return preferences.usePagedQueries();
   }
@@ -289,5 +292,10 @@ public class WidgetPreferences implements QueryPreferences {
   @Override
   public void setReverseSort(boolean isReverseSort) {
     setBoolean(R.string.p_widget_sort_reverse, isReverseSort);
+  }
+
+  @Override
+  public void setAlwaysDisplayFullDate(boolean noWeekday) {
+    setBoolean(R.string.p_always_display_full_date, noWeekday);
   }
 }

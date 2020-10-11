@@ -45,7 +45,7 @@ class TaskListViewModel @ViewModelInject constructor(
         invalidate()
     }
 
-    private fun removeObserver() = internal?.removeObserver(this)
+        private fun removeObserver() = internal?.removeObserver(this)
 
     fun invalidate() {
         AndroidUtilities.assertMainThread()

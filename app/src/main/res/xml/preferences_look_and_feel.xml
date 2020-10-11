@@ -79,6 +79,11 @@
       android:title="@string/show_full_description" />
 
     <SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="@string/p_always_display_full_date"
+        android:title="@string/always_display_full_date" />
+
+    <SwitchPreferenceCompat
       android:defaultValue="false"
       android:key="@string/p_linkify_task_list"
       android:summary="@string/linkify_description"

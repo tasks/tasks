@@ -15,5 +15,7 @@ interface QueryPreferences {
 
     val showCompletedTemporarily: Boolean
 
+    var alwaysDisplayFullDate: Boolean
+
     fun usePagedQueries(): Boolean
 }

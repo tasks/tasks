@@ -338,6 +338,10 @@ class Preferences @JvmOverloads constructor(
     override val showCompletedTemporarily: Boolean
         get() = getBoolean(R.string.p_temporarily_show_completed_tasks, false)
 
+    override var alwaysDisplayFullDate: Boolean
+        get() = getBoolean(R.string.p_always_display_full_date, false)
+        set(value) { setBoolean(R.string.p_always_display_full_date, value)}
+
     private fun setPublicPref(key: String, value: Int) {
         val edit = publicPrefs.edit()
         edit?.putInt(key, value)?.apply()

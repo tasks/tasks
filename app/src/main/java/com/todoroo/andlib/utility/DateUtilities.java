@@ -90,23 +90,30 @@ public class DateUtilities {
 
   public static String getRelativeDateTime(
       Context context, long date, java.util.Locale locale, FormatStyle style) {
-    return getRelativeDateTime(context, date, locale, style, false);
+    return getRelativeDateTime(context, date, locale, style, false, false);
   }
 
   public static String getRelativeDateTime(
-      Context context, long date, java.util.Locale locale, FormatStyle style, boolean lowercase) {
-    if (isWithinSixDays(date)) {
-      String day = getRelativeDay(context, date, locale, isAbbreviated(style), lowercase);
-      if (Task.hasDueTime(date)) {
-        String time = getTimeString(context, newDateTime(date));
-        return newDateTime().startOfDay().equals(newDateTime(date).startOfDay()) ? time : String.format("%s %s", day, time);
-      } else {
-        return day;
-      }
+          Context context, long date, java.util.Locale locale, FormatStyle style, boolean lowercase) {
+    return getRelativeDateTime(context, date, locale, style, false, lowercase);
+  }
+
+  public static String getRelativeDateTime(
+      Context context, long date, java.util.Locale locale, FormatStyle style, boolean alwaysDisplayFullDate, boolean lowercase) {
+
+    if(alwaysDisplayFullDate || !isWithinSixDays(date)) {
+      return Task.hasDueTime(date)
+              ? getFullDateTime(newDateTime(date), locale, style)
+              : getFullDate(newDateTime(date), locale, style);
     }
-    return Task.hasDueTime(date)
-            ? getFullDateTime(newDateTime(date), locale, style)
-            : getFullDate(newDateTime(date), locale, style);
+
+    String day = getRelativeDay(context, date, locale, isAbbreviated(style), lowercase);
+    if (Task.hasDueTime(date)) {
+      String time = getTimeString(context, newDateTime(date));
+      return newDateTime().startOfDay().equals(newDateTime(date).startOfDay()) ? time : String.format("%s %s", day, time);
+    } else {
+      return day;
+    }
   }
 
   private static boolean isAbbreviated(FormatStyle style) {
@@ -118,7 +125,7 @@ public class DateUtilities {
       long date,
       java.util.Locale locale,
       FormatStyle style) {
-    return getRelativeDay(context, date, locale, style, false);
+    return getRelativeDay(context, date, locale, style, false,false);
   }
 
   public static String getRelativeDay(
@@ -126,7 +133,11 @@ public class DateUtilities {
       long date,
       java.util.Locale locale,
       FormatStyle style,
+      boolean alwaysDisplayFullDate,
       boolean lowercase) {
+    if(alwaysDisplayFullDate) {
+      return getFullDate(newDateTime(date), locale, style);
+    }
     return isWithinSixDays(date)
         ? getRelativeDay(context, date, locale, isAbbreviated(style), lowercase)
         : getFullDate(newDateTime(date), locale, style);

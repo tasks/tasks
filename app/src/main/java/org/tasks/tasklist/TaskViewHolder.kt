@@ -196,7 +196,7 @@ class TaskViewHolder internal constructor(
                     DateUtilities.getTimeString(context, newDateTime(task.dueDate))
                 }
             } else {
-                DateUtilities.getRelativeDateTime(context, task.dueDate, locale, FormatStyle.MEDIUM)
+                DateUtilities.getRelativeDateTime(context, task.dueDate, locale, FormatStyle.MEDIUM, preferences.alwaysDisplayFullDate, false)
             }
             dueDate.text = dateValue
             dueDate.visibility = View.VISIBLE

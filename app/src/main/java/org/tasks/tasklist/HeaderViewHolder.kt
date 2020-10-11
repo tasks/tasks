@@ -22,9 +22,9 @@ class HeaderViewHolder(
     private val header: TextView = view.findViewById(R.id.header)
     private var sortGroup = -1L
 
-    fun bind(filter: Filter, sortMode: Int, section: AdapterSection) {
+    fun bind(filter: Filter, sortMode: Int, alwaysDisplayFullDate: Boolean, section: AdapterSection) {
         sortGroup = section.value
-        val header: String? = if (filter.supportsSorting()) getHeader(sortMode, sortGroup) else null
+        val header: String? = if (filter.supportsSorting()) getHeader(sortMode, alwaysDisplayFullDate, sortGroup) else null
 
         if (header == null) {
             this.header.visibility = View.GONE
@@ -38,7 +38,7 @@ class HeaderViewHolder(
         }
     }
 
-    private fun getHeader(sortMode: Int, group: Long): String {
+    private fun getHeader(sortMode: Int, alwaysDisplayFullDate: Boolean, group: Long): String {
         return when {
             sortMode == SortHelper.SORT_IMPORTANCE -> context.getString(priorityToString(group.toInt()))
             group == 0L -> context.getString(if (sortMode == SortHelper.SORT_DUE) {
@@ -47,15 +47,15 @@ class HeaderViewHolder(
                 R.string.no_date
             })
             sortMode == SortHelper.SORT_CREATED ->
-                context.getString(R.string.sort_created_group, getDateString(group))
+                context.getString(R.string.sort_created_group, getDateString(group, alwaysDisplayFullDate))
             sortMode == SortHelper.SORT_MODIFIED ->
-                context.getString(R.string.sort_modified_group, getDateString(group))
-            else -> getDateString(group, false)
+                context.getString(R.string.sort_modified_group, getDateString(group, alwaysDisplayFullDate))
+            else -> getDateString(group, alwaysDisplayFullDate)
         }
     }
 
-    private fun getDateString(value: Long, lowercase: Boolean = true) =
-            DateUtilities.getRelativeDay(context, value, locale, FormatStyle.FULL, lowercase)
+    private fun getDateString(value: Long, alwaysDisplayFullDate: Boolean, lowercase: Boolean = true) =
+            DateUtilities.getRelativeDay(context, value, locale, FormatStyle.FULL, alwaysDisplayFullDate, lowercase)
 
     @StringRes
     private fun priorityToString(priority: Int) = when (priority) {
