@@ -353,6 +353,7 @@
   <string name="p_last_backup">last_backup</string>
   <string name="p_show_description">show_description</string>
   <string name="p_show_full_description">show_full_description</string>
+  <string name="p_always_display_full_date">always_display_full_date</string>
   <string name="p_linkify_task_list">linkify_task_list</string>
   <string name="p_linkify_task_edit">linkify_task_edit</string>
   <string name="map_provider_mapbox">Mapbox</string>
