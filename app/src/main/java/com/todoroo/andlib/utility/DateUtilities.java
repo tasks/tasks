@@ -95,8 +95,8 @@ public class DateUtilities {
 
   public static String getRelativeDateTime(
       Context context, long date, java.util.Locale locale, FormatStyle style, boolean lowercase) {
-    String day = getRelativeDay(context, date, locale, isAbbreviated(style), lowercase);
-    if (!isNullOrEmpty(day)) {
+    if (isWithinSixDays(date)) {
+      String day = getRelativeDay(context, date, locale, isAbbreviated(style), lowercase);
       if (Task.hasDueTime(date)) {
         String time = getTimeString(context, newDateTime(date));
         return newDateTime().startOfDay().equals(newDateTime(date).startOfDay()) ? time : String.format("%s %s", day, time);
@@ -127,10 +127,9 @@ public class DateUtilities {
       java.util.Locale locale,
       FormatStyle style,
       boolean lowercase) {
-    String relativeDay = getRelativeDay(context, date, locale, isAbbreviated(style), lowercase);
-    return isNullOrEmpty(relativeDay)
-        ? getFullDate(newDateTime(date), locale, style)
-        : relativeDay;
+    return isWithinSixDays(date)
+        ? getRelativeDay(context, date, locale, isAbbreviated(style), lowercase)
+        : getFullDate(newDateTime(date), locale, style);
   }
 
   private static String getFullDate(DateTime date, java.util.Locale locale, FormatStyle style) {
@@ -153,7 +152,7 @@ public class DateUtilities {
     return date.replaceAll("(?: de |, |/| )?" + year + "(?:年|년 | г\\.)?", "");
   }
 
-  private static @Nullable String getRelativeDay(Context context, long date, java.util.Locale locale, boolean abbreviated, boolean lowercase) {
+   private static @Nullable String getRelativeDay(Context context, long date, java.util.Locale locale, boolean abbreviated, boolean lowercase) {
     DateTime startOfToday = newDateTime().startOfDay();
     DateTime startOfDate = newDateTime(date).startOfDay();
 
@@ -175,13 +174,16 @@ public class DateUtilities {
               : lowercase ? R.string.yesterday_lowercase : R.string.yesterday);
     }
 
-    if (Math.abs(startOfToday.getMillis() - startOfDate.getMillis()) <= DateUtilities.ONE_DAY * 6) {
-      DateTime dateTime = newDateTime(date);
-      return abbreviated
-          ? DateUtilities.getWeekdayShort(dateTime, locale)
-          : DateUtilities.getWeekday(dateTime, locale);
-
-    }
-    return null;
+    DateTime dateTime = newDateTime(date);
+    return abbreviated
+         ? DateUtilities.getWeekdayShort(dateTime, locale)
+         : DateUtilities.getWeekday(dateTime, locale);
   }
+
+  private static boolean isWithinSixDays(long date){
+    DateTime startOfToday = newDateTime().startOfDay();
+    DateTime startOfDate = newDateTime(date).startOfDay();
+    return Math.abs(startOfToday.getMillis() - startOfDate.getMillis()) <= DateUtilities.ONE_DAY * 6;
+  }
+
 }
