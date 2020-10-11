@@ -677,4 +677,5 @@
     <string name="android_auto_backup">שירות הגיבוי של Android</string>
     <string name="background_location_permission_required">הרשאות מיקום נדרשות לטובת תזכורות מבוססות מיקום. אם בעבר דחית בקשת הרשאת מיקום יהיה עליך להעניק את ההרשאה ידנית דרך הגדרות המכשיר שלך.</string>
     <string name="no_app_found">לאף יישומון אין אפשרות לטפל בבקשה הזו</string>
+    <string name="header_spacing">ריווח</string>
 </resources>
