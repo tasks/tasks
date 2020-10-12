@@ -260,7 +260,11 @@ class TaskEditViewModel @ViewModelInject constructor(
                 it.repeatAfterCompletion() != repeatAfterCompletion ||
                 it.repeatUntil != repeatUntil ||
                 originalCalendar != selectedCalendar ||
-                it.calendarURI != eventUri ||
+                if (it.calendarURI.isNullOrBlank()) {
+                    !eventUri.isNullOrBlank()
+                } else {
+                    it.calendarURI != eventUri
+                } ||
                 it.elapsedSeconds != elapsedSeconds ||
                 it.estimatedSeconds != estimatedSeconds ||
                 originalList != selectedList ||
