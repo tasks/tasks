@@ -6,6 +6,8 @@
 package com.todoroo.astrid.repeats
 
 import android.app.Activity
+import android.app.Activity.RESULT_OK
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -58,9 +60,17 @@ class RepeatControlSet : TaskEditControlFragment() {
     
     private lateinit var typeAdapter: HiddenTopArrayAdapter<String>
 
-    fun onSelected(rrule: RRule?) {
-        viewModel.rrule = rrule
-        refreshDisplayView()
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == REQUEST_RECURRENCE) {
+            if (resultCode == RESULT_OK) {
+                viewModel.rrule = data
+                        ?.getStringExtra(BasicRecurrenceDialog.EXTRA_RRULE)
+                        ?.let { RRule(it) }
+                refreshDisplayView()
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
     }
 
     fun onDueDateChanged() {
@@ -116,7 +126,8 @@ class RepeatControlSet : TaskEditControlFragment() {
         get() = viewModel.dueDate!!.let { if (it > 0) it else currentTimeMillis() }
 
     override fun onRowClick() {
-        BasicRecurrenceDialog.newBasicRecurrenceDialog(this, viewModel.rrule, dueDate)
+        BasicRecurrenceDialog.newBasicRecurrenceDialog(
+                this, REQUEST_RECURRENCE, viewModel.rrule, dueDate)
                 .show(parentFragmentManager, FRAG_TAG_BASIC_RECURRENCE)
     }
 
@@ -145,5 +156,6 @@ class RepeatControlSet : TaskEditControlFragment() {
         private const val TYPE_DUE_DATE = 1
         private const val TYPE_COMPLETION_DATE = 2
         private const val FRAG_TAG_BASIC_RECURRENCE = "frag_tag_basic_recurrence"
+        private const val REQUEST_RECURRENCE = 10000
     }
 }

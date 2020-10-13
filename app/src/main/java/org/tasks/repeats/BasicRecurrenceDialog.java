@@ -1,5 +1,6 @@
 package org.tasks.repeats;
 
+import static android.app.Activity.RESULT_OK;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.ical.values.Frequency.DAILY;
 import static com.google.ical.values.Frequency.HOURLY;
@@ -13,13 +14,14 @@ import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
-import com.todoroo.astrid.repeats.RepeatControlSet;
 import dagger.hilt.android.AndroidEntryPoint;
 import java.util.List;
 import javax.inject.Inject;
@@ -31,7 +33,7 @@ import timber.log.Timber;
 @AndroidEntryPoint
 public class BasicRecurrenceDialog extends DialogFragment {
 
-  private static final String EXTRA_RRULE = "extra_rrule";
+  public static final String EXTRA_RRULE = "extra_rrule";
   private static final String EXTRA_DATE = "extra_date";
   private static final String FRAG_TAG_CUSTOM_RECURRENCE = "frag_tag_custom_recurrence";
 
@@ -40,9 +42,9 @@ public class BasicRecurrenceDialog extends DialogFragment {
   @Inject RepeatRuleToString repeatRuleToString;
 
   public static BasicRecurrenceDialog newBasicRecurrenceDialog(
-      RepeatControlSet target, RRule rrule, long dueDate) {
+      Fragment target, int rc, RRule rrule, long dueDate) {
     BasicRecurrenceDialog dialog = new BasicRecurrenceDialog();
-    dialog.setTargetFragment(target, 0);
+    dialog.setTargetFragment(target, rc);
     Bundle arguments = new Bundle();
     if (rrule != null) {
       arguments.putString(EXTRA_RRULE, rrule.toIcal());
@@ -112,7 +114,8 @@ public class BasicRecurrenceDialog extends DialogFragment {
               if (i == 0) {
                 result = null;
               } else if (i == 5) {
-                newCustomRecurrenceDialog((RepeatControlSet) getTargetFragment(), rrule, dueDate)
+                newCustomRecurrenceDialog(
+                    getTargetFragment(), getTargetRequestCode(), rrule, dueDate)
                     .show(getParentFragmentManager(), FRAG_TAG_CUSTOM_RECURRENCE);
                 dialogInterface.dismiss();
                 return;
@@ -136,10 +139,9 @@ public class BasicRecurrenceDialog extends DialogFragment {
                 }
               }
 
-              RepeatControlSet target = (RepeatControlSet) getTargetFragment();
-              if (target != null) {
-                target.onSelected(result);
-              }
+              Intent intent = new Intent();
+              intent.putExtra(EXTRA_RRULE, result == null ? null : result.toIcal());
+              getTargetFragment().onActivityResult(getTargetRequestCode(), RESULT_OK, intent);
               dialogInterface.dismiss();
             })
         .setOnCancelListener(null)
