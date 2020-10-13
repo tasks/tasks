@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
+import com.google.ical.values.RRule
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
@@ -18,6 +19,9 @@ import org.tasks.calendars.CalendarProvider
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
+import org.tasks.repeats.BasicRecurrenceDialog
+import org.tasks.repeats.BasicRecurrenceDialog.EXTRA_RRULE
+import org.tasks.repeats.RepeatRuleToString
 import javax.inject.Inject
 
 private const val FRAG_TAG_DEFAULT_LIST_SELECTION = "frag_tag_default_list_selection"
@@ -31,6 +35,7 @@ class TaskDefaults : InjectingPreferenceFragment() {
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var calendarProvider: CalendarProvider
+    @Inject lateinit var repeatRuleToString: RepeatRuleToString
 
     private lateinit var defaultCalendarPref: Preference
 
@@ -58,7 +63,21 @@ class TaskDefaults : InjectingPreferenceFragment() {
                 }
                 false
             }
+
+        findPreference(R.string.p_default_recurrence)
+                .setOnPreferenceClickListener {
+                    val rrule: RRule? = preferences
+                            .getStringValue(R.string.p_default_recurrence)
+                            ?.takeIf { it.isNotBlank() }
+                            ?.let { RRule(it) }
+                    BasicRecurrenceDialog
+                            .newBasicRecurrenceDialog(this, REQUEST_RECURRENCE, rrule, -1)
+                            .show(parentFragmentManager, FRAG_TAG_BASIC_RECURRENCE)
+                    false
+                }
+
         updateRemoteListSummary()
+        updateRecurrence()
 
         requires(device.supportsGeofences(), R.string.p_default_location_reminder_key, R.string.p_default_location_radius)
     }
@@ -81,9 +100,24 @@ class TaskDefaults : InjectingPreferenceFragment() {
                 defaultCalendarPref.summary =
                     data.getStringExtra(CalendarPicker.EXTRA_CALENDAR_NAME)
             }
+        } else if (requestCode == REQUEST_RECURRENCE) {
+            if (resultCode == RESULT_OK) {
+                preferences.setString(
+                        R.string.p_default_recurrence,
+                        data?.getStringExtra(EXTRA_RRULE)
+                )
+                updateRecurrence()
+            }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        updateRemoteListSummary()
+        updateRecurrence()
     }
 
     private fun getDefaultCalendarName(): String? {
@@ -94,5 +128,26 @@ class TaskDefaults : InjectingPreferenceFragment() {
     private fun updateRemoteListSummary() = lifecycleScope.launch {
         val defaultFilter = defaultFilterProvider.getDefaultList()
         findPreference(R.string.p_default_list).summary = defaultFilter.listingTitle
+    }
+
+    private fun updateRecurrence() {
+        val rrule = preferences.getStringValue(R.string.p_default_recurrence)
+        findPreference(R.string.p_default_recurrence).summary =
+                rrule
+                        ?.takeIf { it.isNotBlank() }
+                        ?.let {
+                            try {
+                                repeatRuleToString.toString(RRule(it))
+                            } catch (e: Exception) {
+                                null
+                            }
+                        }
+                        ?: requireContext().getString(R.string.repeat_option_does_not_repeat)
+        findPreference(R.string.p_default_recurrence_from).isVisible = rrule?.isNotBlank() == true
+    }
+
+    companion object {
+        const val REQUEST_RECURRENCE = 10000
+        const val FRAG_TAG_BASIC_RECURRENCE = "frag_tag_basic_recurrence"
     }
 }

@@ -332,6 +332,8 @@
   <string name="p_widget_collapsed">widget-collapsed-</string>
   <string name="p_dashclock_filter">dashclock_filter</string>
   <string name="p_default_list">default_remote_list</string>
+  <string name="p_default_recurrence">default_recurrence</string>
+  <string name="p_default_recurrence_from">default_recurrence_from</string>
 
   <string name="debug">Debug</string>
   <string name="p_start_of_week">start_of_week</string>

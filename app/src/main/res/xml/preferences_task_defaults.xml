@@ -48,6 +48,20 @@
     android:summary="@string/dont_add_to_calendar"
     android:title="@string/default_calendar" />
 
+  <Preference
+    android:icon="@drawable/ic_outline_repeat_24px"
+    android:key="@string/p_default_recurrence"
+    android:title="@string/default_recurrence"
+    app:allowDividerAbove="true" />
+
+  <ListPreference
+    android:defaultValue="0"
+    android:key="@string/p_default_recurrence_from"
+    android:title="@string/repeats_from"
+    android:entries="@array/repeat_type_capitalized"
+    android:entryValues="@array/repeat_type_values"
+    android:summary="%s" />
+
   <ListPreference
     android:defaultValue="6"
     android:entries="@array/EPr_default_reminders"

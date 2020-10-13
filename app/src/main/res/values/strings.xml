@@ -268,6 +268,7 @@ File %1$s contained %2$s.\n\n
   </plurals>
   <string name="repeat_type_due">due date</string>
   <string name="repeat_type_completion">completion date</string>
+  <string name="repeat_type_completion_capitalized">Completion date</string>
   <string name="repeat_forever">Repeat forever</string>
   <string name="repeat_until">Repeat until %s</string>
   <string name="repeat_number_of_times">Repeat a number of times</string>
@@ -388,6 +389,7 @@ File %1$s contained %2$s.\n\n
   <string name="no_title">(No title)</string>
   <string name="back_button_saves_task">Back button saves task</string>
   <string name="default_list">Default list</string>
+  <string name="default_recurrence">Default recurrence</string>
   <string name="filter">Filter</string>
   <string name="opacity">Opacity</string>
   <string name="opacity_header">Header opacity</string>

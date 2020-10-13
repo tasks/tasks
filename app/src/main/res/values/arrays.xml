@@ -149,6 +149,16 @@
     <item>@string/repeat_type_completion</item>
   </string-array>
 
+  <string-array name="repeat_type_capitalized">
+    <item>@string/due_date</item>
+    <item>@string/repeat_type_completion_capitalized</item>
+  </string-array>
+
+  <string-array name="repeat_type_values">
+    <item>0</item>
+    <item>1</item>
+  </string-array>
+
   <string-array name="day_of_week_values">
     <item>0</item>
     <item>1</item>

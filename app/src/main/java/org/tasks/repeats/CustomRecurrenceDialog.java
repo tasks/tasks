@@ -141,6 +141,7 @@ public class CustomRecurrenceDialog extends DialogFragment {
   private ArrayAdapter<String> repeatUntilAdapter;
   private ToggleButton[] weekButtons;
   private RRule rrule;
+  private long dueDate;
 
   public static CustomRecurrenceDialog newCustomRecurrenceDialog(
       Fragment target, int rc, RRule rrule, long dueDate) {
@@ -162,7 +163,7 @@ public class CustomRecurrenceDialog extends DialogFragment {
     View dialogView = inflater.inflate(R.layout.control_set_repeat, null);
 
     Bundle arguments = getArguments();
-    long dueDate = arguments.getLong(EXTRA_DATE, currentTimeMillis());
+    dueDate = arguments.getLong(EXTRA_DATE, currentTimeMillis());
     String rule =
         savedInstanceState == null
             ? arguments.getString(EXTRA_RRULE)
@@ -471,7 +472,7 @@ public class CustomRecurrenceDialog extends DialogFragment {
     if (weekGroup2 != null) {
       weekGroup2.setVisibility(weekVisibility);
     }
-    monthGroup.setVisibility(frequency == MONTHLY ? View.VISIBLE : View.GONE);
+    monthGroup.setVisibility(frequency == MONTHLY && dueDate >= 0 ? View.VISIBLE : View.GONE);
     updateIntervalTextView();
   }
 
