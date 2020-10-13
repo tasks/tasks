@@ -95,7 +95,7 @@ class GCalHelper @Inject constructor(
     }
 
     fun updateEvent(task: Task) {
-        val uri = task.calendarURI ?: return
+        val uri = task.calendarURI?.takeIf { it.isNotBlank() } ?: return
         if (!permissionChecker.canAccessCalendars()) {
             return
         }
