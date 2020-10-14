@@ -248,7 +248,7 @@
         <item quantity="other">%d év</item>
     </plurals>
     <string name="repeat_type_due">határidő</string>
-    <string name="repeat_type_completion">befejezés időpontja</string>
+    <string name="repeat_type_completion">befejezés dátuma</string>
     <string name="repeat_forever">Ismétlés örökké</string>
     <string name="repeat_until">Ismétlés eddig: %s</string>
     <string name="repeat_number_of_times">Ismétlés meghatározott alkalommal</string>
@@ -643,4 +643,7 @@
     <string name="backup_location_warning">FIGYELMEZTETÉS: A %s könyvtárban tárolt file-ok a Tasks uninstallálásával törlésre kerülnek! Válassz egy másik könyvtárat, hogy az Android ne törölje a file-jaidat.</string>
     <string name="backups_ignore_warnings_summary">Mentési figyelmeztetések ignorálása, ha a mentés szükségtelen vagy más módszerrel megoldott</string>
     <string name="backups_ignore_warnings">Figyelmeztetések ignorálása</string>
+    <string name="default_recurrence">Alapértelmezett ismétlődés</string>
+    <string name="header_spacing">Szóköz</string>
+    <string name="repeat_type_completion_capitalized">Befejezés dátuma</string>
 </resources>
