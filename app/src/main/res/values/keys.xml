@@ -166,6 +166,7 @@
     <!-- hideUntil: labels that map EPr_default_hideUntil items to index in TEA_hideUntil. -->
     <item>0</item>
     <item>1</item>
+    <item>6</item>
     <item>2</item>
     <item>3</item>
   </string-array>

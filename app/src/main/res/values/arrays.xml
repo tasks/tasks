@@ -19,6 +19,7 @@
   <string-array name="EPr_default_hideUntil">
     <item>@string/dont_hide</item>
     <item>@string/due_date</item>
+    <item>@string/due_time</item>
     <item>@string/day_before_due</item>
     <item>@string/week_before_due</item>
   </string-array>
