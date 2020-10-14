@@ -637,4 +637,6 @@
     <string name="backups_ignore_warnings_summary">如果不需要备份或有自己的备份解决方案，请忽略备份警告</string>
     <string name="backups_ignore_warnings">忽略警告</string>
     <string name="header_spacing">间距</string>
+    <string name="default_recurrence">默认重复周期</string>
+    <string name="repeat_type_completion_capitalized">完成日期</string>
 </resources>
