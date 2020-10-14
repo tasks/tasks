@@ -394,6 +394,7 @@
   <string name="p_backups_android_backup_last">backups_android_backup_last</string>
   <string name="p_backups_drive_last">backups_drive_last</string>
   <string name="p_current_version">cv</string>
+  <string name="p_default_location">default_location</string>
 
   <string name="event_whats_new">whats_new</string>
   <string name="param_whats_new_display_rate">display_rate</string>

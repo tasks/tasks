@@ -104,6 +104,9 @@ class TaskCreator @Inject constructor(
                             preferences.getIntegerFromString(R.string.p_default_recurrence_from, 0) == 1)
                 }
         val setting = preferences.getIntegerFromString(R.string.p_default_hideUntil_key, Task.HIDE_UNTIL_NONE)
+        preferences.getStringValue(R.string.p_default_location)
+                ?.takeIf { it.isNotBlank() }
+                ?.let { task.putTransitory(Place.KEY, it) }
         task.hideUntil = task.createHideUntil(setting, 0)
         setDefaultReminders(preferences, task)
         val tags = ArrayList<String>()
