@@ -14,6 +14,12 @@
     android:title="@string/default_list"
     android:summary=" "/>
 
+  <Preference
+    android:icon="@drawable/ic_outline_label_24px"
+    android:key="@string/p_default_tags"
+    android:title="@string/default_tags"
+    android:summary=" "/>
+
   <ListPreference
     android:defaultValue="2"
     android:entries="@array/EPr_default_importance"

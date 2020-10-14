@@ -19,6 +19,8 @@ import org.tasks.calendars.CalendarPicker.newCalendarPicker
 import org.tasks.calendars.CalendarProvider
 import org.tasks.data.LocationDao
 import org.tasks.data.Place
+import org.tasks.data.TagData
+import org.tasks.data.TagDataDao
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.location.LocationPickerActivity
 import org.tasks.location.LocationPickerActivity.Companion.EXTRA_PLACE
@@ -28,6 +30,8 @@ import org.tasks.preferences.Preferences
 import org.tasks.repeats.BasicRecurrenceDialog
 import org.tasks.repeats.BasicRecurrenceDialog.EXTRA_RRULE
 import org.tasks.repeats.RepeatRuleToString
+import org.tasks.tags.TagPickerActivity
+import org.tasks.tags.TagPickerActivity.Companion.EXTRA_SELECTED
 import javax.inject.Inject
 
 private const val FRAG_TAG_DEFAULT_LIST_SELECTION = "frag_tag_default_list_selection"
@@ -43,6 +47,7 @@ class TaskDefaults : InjectingPreferenceFragment() {
     @Inject lateinit var calendarProvider: CalendarProvider
     @Inject lateinit var repeatRuleToString: RepeatRuleToString
     @Inject lateinit var locationDao: LocationDao
+    @Inject lateinit var tagDataDao: TagDataDao
 
     private lateinit var defaultCalendarPref: Preference
 
@@ -83,8 +88,7 @@ class TaskDefaults : InjectingPreferenceFragment() {
                     false
                 }
 
-        val defaultLocation = findPreference(R.string.p_default_location) as IconPreference
-        defaultLocation
+        findPreference(R.string.p_default_location)
                 .setOnPreferenceClickListener {
                     startActivityForResult(
                             Intent(context, LocationPickerActivity::class.java),
@@ -93,9 +97,23 @@ class TaskDefaults : InjectingPreferenceFragment() {
                     false
                 }
 
+        findPreference(R.string.p_default_tags)
+                .setOnPreferenceClickListener {
+                    lifecycleScope.launch {
+                        val intent = Intent(context, TagPickerActivity::class.java)
+                                .putParcelableArrayListExtra(
+                                        EXTRA_SELECTED,
+                                        ArrayList(defaultTags())
+                                )
+                        startActivityForResult(intent, REQUEST_TAGS)
+                    }
+                    false
+                }
+
         updateRemoteListSummary()
         updateRecurrence()
         updateDefaultLocation()
+        updateTags()
 
         requires(device.supportsGeofences(), R.string.p_default_location_reminder_key, R.string.p_default_location_radius)
     }
@@ -130,6 +148,16 @@ class TaskDefaults : InjectingPreferenceFragment() {
             if (resultCode == RESULT_OK) {
                 setDefaultLocation(data?.getParcelableExtra(EXTRA_PLACE))
             }
+        } else if (requestCode == REQUEST_TAGS) {
+            if (resultCode == RESULT_OK) {
+                preferences.setString(
+                        R.string.p_default_tags,
+                        data?.getParcelableArrayListExtra<TagData>(EXTRA_SELECTED)
+                                ?.mapNotNull { it.remoteId }
+                                ?.joinToString(",")
+                )
+                updateTags()
+            }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
@@ -146,6 +174,7 @@ class TaskDefaults : InjectingPreferenceFragment() {
         updateRemoteListSummary()
         updateRecurrence()
         updateDefaultLocation()
+        updateTags()
     }
 
     private fun getDefaultCalendarName(): String? {
@@ -176,6 +205,22 @@ class TaskDefaults : InjectingPreferenceFragment() {
         }
     }
 
+    private suspend fun defaultTags(): List<TagData> =
+            preferences.getStringValue(R.string.p_default_tags)
+                    ?.split(",")
+                    ?.let { tagDataDao.getByUuid(it) }
+                    ?.sortedBy { it.name }
+                    ?: emptyList()
+
+    private fun updateTags() = lifecycleScope.launch {
+        findPreference(R.string.p_default_tags).summary =
+                defaultTags()
+                        .mapNotNull { it.name }
+                        .takeIf { it.isNotEmpty() }
+                        ?.joinToString(", ")
+                        ?: requireContext().getString(R.string.none)
+    }
+
     private fun updateRecurrence() {
         val rrule = preferences.getStringValue(R.string.p_default_recurrence)
         findPreference(R.string.p_default_recurrence).summary =
@@ -195,6 +240,7 @@ class TaskDefaults : InjectingPreferenceFragment() {
     companion object {
         const val REQUEST_RECURRENCE = 10000
         const val REQUEST_LOCATION = 10001
+        const val REQUEST_TAGS = 10002
         const val FRAG_TAG_BASIC_RECURRENCE = "frag_tag_basic_recurrence"
     }
 }

@@ -131,6 +131,13 @@ class TaskCreator @Inject constructor(
                 }
             }
         }
+        if (tags.isEmpty()) {
+            preferences.getStringValue(R.string.p_default_tags)
+                    ?.split(",")
+                    ?.map { tagDataDao.getByUuid(it) }
+                    ?.mapNotNull { it?.name }
+                    ?.let { tags.addAll(it) }
+        }
         try {
             parse(tagDataDao, task, tags)
         } catch (e: Throwable) {

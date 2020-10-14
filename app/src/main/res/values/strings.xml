@@ -390,6 +390,7 @@ File %1$s contained %2$s.\n\n
   <string name="no_title">(No title)</string>
   <string name="back_button_saves_task">Back button saves task</string>
   <string name="default_list">Default list</string>
+  <string name="default_tags">Default tags</string>
   <string name="default_recurrence">Default recurrence</string>
   <string name="filter">Filter</string>
   <string name="opacity">Opacity</string>
