@@ -646,4 +646,6 @@
     <string name="backups_ignore_warnings_summary">Yedeklemeye gereksinmiyorsanız veya kendi yedekleme çözümünüz varsa yedekleme uyarılarını yok sayın</string>
     <string name="backup_location_warning">UYARI: Tasks kaldırılırsa %s içinde bulunan dosyalar silinecektir! Android\'in dosyalarınızı silmesini önlemek için lütfen özel konum seçin.</string>
     <string name="header_spacing">Aralık</string>
+    <string name="default_recurrence">Öntanımlı yineleme</string>
+    <string name="repeat_type_completion_capitalized">Tamamlanma tarihi</string>
 </resources>
