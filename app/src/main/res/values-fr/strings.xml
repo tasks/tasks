@@ -641,4 +641,6 @@
     <string name="backups_ignore_warnings_summary">Ignorez les avertissements de sauvegarde si vous n\'avez pas besoin de sauvegardes ou si vous disposez de votre propre solution de sauvegarde</string>
     <string name="backups_ignore_warnings">Ignorer les avertissements</string>
     <string name="header_spacing">Espacement</string>
+    <string name="default_recurrence">Récurrence par défaut</string>
+    <string name="repeat_type_completion_capitalized">Date d’achèvement</string>
 </resources>
