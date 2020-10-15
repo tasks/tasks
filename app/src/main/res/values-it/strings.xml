@@ -113,7 +113,7 @@
     <string name="no_reminders">Nessun promemoria</string>
     <string name="default_location_reminder_on_arrival">All\'arrivo</string>
     <string name="default_location_reminder_on_departure">Alla partenza</string>
-    <string name="default_location_reminder_on_arrival_or_departure">Su arrivo e partenza</string>
+    <string name="default_location_reminder_on_arrival_or_departure">All\'arrivo ed alla partenza</string>
     <string name="BFE_Active">Le mie attività</string>
     <string name="BFE_Recent">Modificate di recente</string>
     <string name="CFA_type_add">o</string>
@@ -447,9 +447,9 @@
     <string name="location_arrived">Arrivato alle %s</string>
     <string name="location_departed">Partito alle %s</string>
     <string name="building_notifications">Gestione notifiche</string>
-    <string name="choose_a_location">Scegli posizione</string>
+    <string name="choose_a_location">Scegli una posizione</string>
     <string name="pick_this_location">Seleziona questa posizione</string>
-    <string name="or_choose_a_location">O scegli un\'altra posizione</string>
+    <string name="or_choose_a_location">O scegli una posizione</string>
     <string name="map_search_provider">Seleziona fornitore</string>
     <string name="missing_permissions">Permessi mancanti</string>
     <string name="location_permission_required_location">Per trovare la tua posizione sono richiesti i permessi di localizzazione</string>
@@ -514,7 +514,7 @@
     <string name="caldav_selection_description">Sincronizzazione basata su standard aperti di internet</string>
     <string name="google_tasks_selection_description">Servizio di base sincronizzato con il tuo account Google</string>
     <string name="choose_synchronization_service">Seleziona una piattaforma</string>
-    <string name="enter_tag_name">Inserisci il nome di un\'etichetta</string>
+    <string name="enter_tag_name">Inserisci il nome dell\'etichetta</string>
     <string name="enter_title_hint">Inserisci titolo</string>
     <string name="collapse_subtasks">Comprimi attività secondarie</string>
     <string name="name_your_price">Fai tu il prezzo</string>
@@ -643,4 +643,6 @@
     <string name="header_spacing">Spaziatura</string>
     <string name="default_recurrence">Ricorrenza predefinita</string>
     <string name="repeat_type_completion_capitalized">Data completamento</string>
+    <string name="default_tags">Etichetta predefinita</string>
+    <string name="default_location">Posizione predefinita</string>
 </resources>
