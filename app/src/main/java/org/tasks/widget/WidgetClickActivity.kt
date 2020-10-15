@@ -57,9 +57,8 @@ class WidgetClickActivity : InjectingAppCompatActivity(), OnDismissHandler {
                 val fragmentManager = supportFragmentManager
                 if (fragmentManager.findFragmentByTag(FRAG_TAG_DATE_TIME_PICKER) == null) {
                     newDateTimePicker(
-                            task.id,
-                            task.dueDate,
-                            preferences.getBoolean(R.string.p_auto_dismiss_datetime_widget, false))
+                            preferences.getBoolean(R.string.p_auto_dismiss_datetime_widget, false),
+                            task)
                             .show(fragmentManager, FRAG_TAG_DATE_TIME_PICKER)
                 }
             }

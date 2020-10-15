@@ -651,4 +651,6 @@ File %1$s contained %2$s.\n\n
   <string name="backups_ignore_warnings">Ignore warnings</string>
   <string name="backups_ignore_warnings_summary">Ignore backup warnings if you do not need backups or have your own backup solution</string>
   <string name="backup_location_warning">WARNING: Files located in %s will be deleted if Tasks is uninstalled! Please choose a custom location to prevent Android from deleting your files.</string>
+  <string name="multi_select_reschedule">Reschedule</string>
+  <string name="date_picker_multiple">Multiple</string>
 </resources>

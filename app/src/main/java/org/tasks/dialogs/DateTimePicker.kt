@@ -29,12 +29,15 @@ import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.databinding.DialogDateTimePickerBinding
 import org.tasks.date.DateTimeUtils.newDateTime
+import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.dialogs.MyTimePickerDialog.newTimePicker
 import org.tasks.locale.Locale
 import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.Preferences
 import org.tasks.themes.Theme
 import org.tasks.time.DateTime
+import org.tasks.time.DateTimeUtils.millisOfDay
+import org.tasks.time.DateTimeUtils.startOfDay
 import java.time.format.FormatStyle
 import javax.inject.Inject
 
@@ -49,12 +52,13 @@ class DateTimePicker : BottomSheetDialogFragment() {
     @Inject lateinit var theme: Theme
 
     lateinit var binding: DialogDateTimePickerBinding
-    private var customDate: DateTime? = null
-    private var selected: DateTime? = null
+    private var customDate = NO_DAY
+    private var customTime = NO_TIME
+    private var selectedDay = NO_DAY
+    private var selectedTime = NO_TIME
     private val today = newDateTime().startOfDay()
     private val tomorrow = today.plusDays(1)
     private val nextWeek = today.plusDays(7)
-    private var customTime = 0
     private var morning = 32401000
     private var afternoon = 46801000
     private var evening = 61201000
@@ -66,17 +70,25 @@ class DateTimePicker : BottomSheetDialogFragment() {
     }
 
     companion object {
+        const val EXTRA_DAY = "extra_day"
+        const val EXTRA_TIME = "extra_time"
+        const val EXTRA_TASKS = "extra_tasks"
         const val EXTRA_TIMESTAMP = "extra_timestamp"
-        const val EXTRA_TASK = "extra_task"
         private const val EXTRA_AUTO_CLOSE = "extra_auto_close"
-        private const val EXTRA_SELECTED = "extra_selected"
         private const val REQUEST_TIME = 10101
         private const val FRAG_TAG_TIME_PICKER = "frag_tag_time_picker"
+        private const val NO_DAY = 0L
+        private const val NO_TIME = 0
+        private const val MULTIPLE_DAYS = -1L
+        private const val MULTIPLE_TIMES = -1
 
-        fun newDateTimePicker(task: Long, current: Long, autoClose: Boolean): DateTimePicker {
+        fun newDateTimePicker(autoClose: Boolean, vararg tasks: Task): DateTimePicker {
             val bundle = Bundle()
-            bundle.putLong(EXTRA_TASK, task)
-            bundle.putLong(EXTRA_TIMESTAMP, current)
+            bundle.putLongArray(EXTRA_TASKS, tasks.map { it.id }.toLongArray())
+            val dueDates = tasks.map { it.dueDate.startOfDay() }.toSet()
+            val dueTimes = tasks.map { it.dueDate.millisOfDay() }.toSet()
+            bundle.putLong(EXTRA_DAY, if (dueDates.size == 1) dueDates.first() else -1)
+            bundle.putInt(EXTRA_TIME, if (dueTimes.size == 1) dueTimes.first() else -1)
             bundle.putBoolean(EXTRA_AUTO_CLOSE, autoClose)
             val fragment = DateTimePicker()
             fragment.arguments = bundle
@@ -85,7 +97,8 @@ class DateTimePicker : BottomSheetDialogFragment() {
 
         fun newDateTimePicker(target: Fragment, rc: Int, current: Long, autoClose: Boolean): DateTimePicker {
             val bundle = Bundle()
-            bundle.putLong(EXTRA_TIMESTAMP, current)
+            bundle.putLong(EXTRA_DAY, current.startOfDay())
+            bundle.putInt(EXTRA_TIME, current.millisOfDay())
             bundle.putBoolean(EXTRA_AUTO_CLOSE, autoClose)
             val fragment = DateTimePicker()
             fragment.arguments = bundle
@@ -108,18 +121,15 @@ class DateTimePicker : BottomSheetDialogFragment() {
         binding.shortcuts.nextWeekButton.text =
                 getString(R.string.next, DateUtilities.getWeekdayShort(newDateTime().plusWeeks(1), locale.locale))
         binding.calendarView.setOnDateChangeListener { _, y, m, d ->
-            selected = DateTime(y, m + 1, d, selected?.hourOfDay ?: 0, selected?.minuteOfHour
-                    ?: 0, selected?.secondOfMinute ?: 0)
-            returnDate(selected!!.millis)
+            returnDate(day = DateTime(y, m + 1, d).millis)
             refreshButtons()
         }
         val firstDayOfWeek = preferences.firstDayOfWeek
         if (firstDayOfWeek in 1..7) {
             binding.calendarView.firstDayOfWeek = firstDayOfWeek
         }
-        val timestamp = savedInstanceState?.getLong(EXTRA_SELECTED)
-                ?: requireArguments().getLong(EXTRA_TIMESTAMP)
-        selected = if (timestamp > 0) DateTime(timestamp) else null
+        selectedDay = savedInstanceState?.getLong(EXTRA_DAY) ?: requireArguments().getLong(EXTRA_DAY)
+        selectedTime = savedInstanceState?.getInt(EXTRA_TIME) ?: requireArguments().getInt(EXTRA_TIME)
 
         return binding.root
     }
@@ -141,54 +151,61 @@ class DateTimePicker : BottomSheetDialogFragment() {
     }
 
     private fun refreshButtons() {
-        when (selected?.startOfDay()) {
-            null -> binding.shortcuts.dateGroup.check(R.id.no_date_button)
-            today -> binding.shortcuts.dateGroup.check(R.id.today_button)
-            tomorrow -> binding.shortcuts.dateGroup.check(R.id.tomorrow_button)
-            nextWeek -> binding.shortcuts.dateGroup.check(R.id.next_week_button)
+        when (selectedDay) {
+            0L -> binding.shortcuts.dateGroup.check(R.id.no_date_button)
+            today.millis -> binding.shortcuts.dateGroup.check(R.id.today_button)
+            tomorrow.millis -> binding.shortcuts.dateGroup.check(R.id.tomorrow_button)
+            nextWeek.millis -> binding.shortcuts.dateGroup.check(R.id.next_week_button)
             else -> {
-                customDate = selected
+                customDate = selectedDay
                 binding.shortcuts.dateGroup.check(R.id.current_date_selection)
                 binding.shortcuts.currentDateSelection.visibility = View.VISIBLE
-                binding.shortcuts.currentDateSelection.text =
-                        DateUtilities.getRelativeDay(context, selected!!.millis, locale.locale, FormatStyle.MEDIUM)
+                binding.shortcuts.currentDateSelection.text = if (customDate == MULTIPLE_DAYS) {
+                    requireContext().getString(R.string.date_picker_multiple)
+                } else {
+                    DateUtilities.getRelativeDay(context, selectedDay, locale.locale, FormatStyle.MEDIUM)
+                }
             }
         }
-        if (Task.hasDueTime(selected?.millis ?: 0)) {
-            when (selected?.millisOfDay) {
+        if (selectedTime == MULTIPLE_TIMES || Task.hasDueTime(selectedTime.toLong())) {
+            when (selectedTime) {
                 morning -> binding.shortcuts.timeGroup.check(R.id.morning_button)
                 afternoon -> binding.shortcuts.timeGroup.check(R.id.afternoon_button)
                 evening -> binding.shortcuts.timeGroup.check(R.id.evening_button)
                 night -> binding.shortcuts.timeGroup.check(R.id.night_button)
                 else -> {
-                    customTime = selected!!.millisOfDay
+                    customTime = selectedTime
                     binding.shortcuts.timeGroup.check(R.id.current_time_selection)
                     binding.shortcuts.currentTimeSelection.visibility = View.VISIBLE
-                    binding.shortcuts.currentTimeSelection.text = DateUtilities.getTimeString(context, selected)
+                    binding.shortcuts.currentTimeSelection.text = if (customTime == MULTIPLE_TIMES) {
+                        requireContext().getString(R.string.date_picker_multiple)
+                    } else {
+                        DateUtilities.getTimeString(context, today.withMillisOfDay(selectedTime))
+                    }
                 }
             }
         } else {
             binding.shortcuts.timeGroup.check(R.id.no_time)
         }
-        if (selected != null) {
-            binding.calendarView.setDate(selected!!.millis, true, true)
+        if (selectedDay > 0) {
+            binding.calendarView.setDate(selectedDay, true, true)
         }
     }
 
     @OnClick(R.id.no_date_button)
-    fun clearDate() = returnDate(0)
+    fun clearDate() = returnDate(day = 0, time = 0)
 
     @OnClick(R.id.no_time)
-    fun clearTime() = returnDate(selected?.startOfDay()?.millis ?: 0)
+    fun clearTime() = returnDate(time = 0)
 
     @OnClick(R.id.today_button)
-    fun setToday() = returnDate(today.withMillisOfDay(selected?.millisOfDay ?: 0))
+    fun setToday() = returnDate(day = today.startOfDay().millis)
 
     @OnClick(R.id.tomorrow_button)
-    fun setTomorrow() = returnDate(tomorrow.withMillisOfDay(selected?.millisOfDay ?: 0))
+    fun setTomorrow() = returnDate(day = tomorrow.startOfDay().millis)
 
     @OnClick(R.id.next_week_button)
-    fun setNextWeek() = returnDate(nextWeek.withMillisOfDay(selected?.millisOfDay ?: 0))
+    fun setNextWeek() = returnDate(day = nextWeek.startOfDay().millis)
 
     @OnClick(R.id.morning_button)
     fun setMorning() = returnSelectedTime(morning)
@@ -203,33 +220,35 @@ class DateTimePicker : BottomSheetDialogFragment() {
     fun setNight() = returnSelectedTime(night)
 
     @OnClick(R.id.current_date_selection)
-    fun currentDate() = returnDate(customDate)
+    fun currentDate() = returnDate(day = customDate)
 
     @OnClick(R.id.current_time_selection)
     fun currentTime() = returnSelectedTime(customTime)
 
     @OnClick(R.id.pick_time_button)
     fun pickTime() {
-        newTimePicker(this, REQUEST_TIME, selected?.millis ?: today.noon().millis)
+        val time = if (Task.hasDueTime(today.withMillisOfDay(selectedTime).millis)) {
+            selectedTime
+        } else {
+            today.noon().millisOfDay
+        }
+        newTimePicker(this, REQUEST_TIME, today.withMillisOfDay(time).millis)
                 .show(parentFragmentManager, FRAG_TAG_TIME_PICKER)
     }
 
     private fun returnSelectedTime(millisOfDay: Int) {
-        if (selected == null) {
-            selected = today.withMillisOfDay(millisOfDay)
-            if (selected!!.isBeforeNow) {
-                selected = selected!!.plusDays(1)
-            }
-        } else {
-            selected = selected!!.withMillisOfDay(millisOfDay)
+        val day = when {
+            selectedDay == MULTIPLE_DAYS -> MULTIPLE_DAYS
+            selectedDay > 0 -> selectedDay
+            today.withMillisOfDay(millisOfDay).isAfterNow -> today.millis
+            else -> today.plusDays(1).millis
         }
-        returnDate(selected!!.millis)
+        returnDate(day = day, time = millisOfDay)
     }
 
-    private fun returnDate(dt: DateTime? = selected) = returnDate(dt?.millis ?: 0)
-
-    private fun returnDate(date: Long? = selected?.millis) {
-        selected = if (date == null || date <= 0) null else DateTime(date)
+    private fun returnDate(day: Long = selectedDay, time: Int = selectedTime) {
+        selectedDay = day
+        selectedTime = time
         if (closeAutomatically()) {
             sendSelected()
         } else {
@@ -237,21 +256,37 @@ class DateTimePicker : BottomSheetDialogFragment() {
         }
     }
 
+    private val taskIds: LongArray
+        get() = arguments?.getLongArray(EXTRA_TASKS) ?: longArrayOf()
+
     private fun sendSelected() {
-        val taskId = arguments?.getLong(EXTRA_TASK) ?: 0
-        val dueDate = selected?.millis ?: 0
-        if (dueDate != arguments?.getLong(EXTRA_TIMESTAMP)) {
-            if (taskId > 0) {
+        if (selectedDay != arguments?.getLong(EXTRA_DAY)
+                || selectedTime != arguments?.getInt(EXTRA_TIME)) {
+            if (taskIds.isEmpty()) {
+                val intent = Intent()
+                intent.putExtra(EXTRA_TIMESTAMP, when {
+                    selectedDay == NO_DAY -> 0
+                    selectedTime == NO_TIME -> selectedDay
+                    else -> selectedDay.toDateTime().withMillisOfDay(selectedTime).millis
+                })
+                targetFragment?.onActivityResult(targetRequestCode, RESULT_OK, intent)
+            } else {
                 lifecycleScope.launch(NonCancellable) {
-                    taskDao.fetch(taskId)?.let {
-                        it.setDueDateAdjustingHideUntil(dueDate)
-                        taskDao.save(it)
+                    taskIds.forEach { taskId ->
+                        taskDao.fetch(taskId)?.let {
+                            it.setDueDateAdjustingHideUntil(when {
+                                selectedDay == MULTIPLE_DAYS ->
+                                    it.dueDate.toDateTime().withMillisOfDay(selectedTime).millis
+                                selectedDay == NO_DAY -> 0L
+                                selectedTime == MULTIPLE_TIMES ->
+                                    selectedDay.toDateTime().withMillisOfDay(it.dueDate.millisOfDay()).millis
+                                selectedTime == NO_TIME -> selectedDay
+                                else -> selectedDay.toDateTime().withMillisOfDay(selectedTime).millis
+                            })
+                            taskDao.save(it)
+                        }
                     }
                 }
-            } else {
-                val intent = Intent()
-                intent.putExtra(EXTRA_TIMESTAMP, dueDate)
-                targetFragment?.onActivityResult(targetRequestCode, RESULT_OK, intent)
             }
         }
         dismiss()
@@ -268,7 +303,8 @@ class DateTimePicker : BottomSheetDialogFragment() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        outState.putSerializable(EXTRA_SELECTED, selected?.millis)
+        outState.putLong(EXTRA_DAY, selectedDay)
+        outState.putInt(EXTRA_TIME, selectedTime)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

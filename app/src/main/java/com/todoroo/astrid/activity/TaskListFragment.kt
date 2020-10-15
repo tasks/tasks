@@ -652,6 +652,21 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 }
                 true
             }
+            R.id.reschedule -> {
+                lifecycleScope.launch {
+                    taskDao
+                            .fetch(selected)
+                            .takeIf { it.isNotEmpty() }
+                            ?.let {
+                                newDateTimePicker(
+                                        preferences.getBoolean(R.string.p_auto_dismiss_datetime_list_screen, false),
+                                        *it.toTypedArray())
+                                        .show(parentFragmentManager, FRAG_TAG_DATE_TIME_PICKER)
+                            }
+                }
+                finishActionMode()
+                true
+            }
             R.id.menu_select_all -> {
                 lifecycleScope.launch {
                     taskAdapter.setSelected(taskDao.fetchTasks(preferences, filter)
@@ -714,9 +729,8 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         val fragmentManager = parentFragmentManager
         if (fragmentManager.findFragmentByTag(FRAG_TAG_DATE_TIME_PICKER) == null) {
             newDateTimePicker(
-                    task.id,
-                    task.dueDate,
-                    preferences.getBoolean(R.string.p_auto_dismiss_datetime_list_screen, false))
+                    preferences.getBoolean(R.string.p_auto_dismiss_datetime_list_screen, false),
+                    task.task)
                     .show(fragmentManager, FRAG_TAG_DATE_TIME_PICKER)
         }
     }
