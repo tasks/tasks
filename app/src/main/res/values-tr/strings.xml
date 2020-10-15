@@ -648,4 +648,6 @@
     <string name="header_spacing">Aralık</string>
     <string name="default_recurrence">Öntanımlı yineleme</string>
     <string name="repeat_type_completion_capitalized">Tamamlanma tarihi</string>
+    <string name="default_tags">Öntanımlı etiketler</string>
+    <string name="default_location">Öntanımlı konum</string>
 </resources>
