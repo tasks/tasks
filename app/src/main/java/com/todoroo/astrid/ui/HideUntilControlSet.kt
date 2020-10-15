@@ -104,6 +104,7 @@ class HideUntilControlSet : TaskEditControlFragment(), OnItemSelectedListener {
                 if (viewModel.isNew) {
                     when (preferences.getIntegerFromString(R.string.p_default_hideUntil_key, Task.HIDE_UNTIL_NONE)) {
                         Task.HIDE_UNTIL_DUE -> selection = 1
+                        Task.HIDE_UNTIL_DUE_TIME -> selection = 2
                         Task.HIDE_UNTIL_DAY_BEFORE -> selection = 3
                         Task.HIDE_UNTIL_WEEK_BEFORE -> selection = 4
                     }

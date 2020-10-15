@@ -1,5 +1,6 @@
 package com.todoroo.astrid.service
 
+import com.google.ical.values.RRule
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
@@ -95,7 +96,17 @@ class TaskCreator @Inject constructor(
         task.dueDate = createDueDate(
                 preferences.getIntegerFromString(R.string.p_default_urgency_key, Task.URGENCY_NONE),
                 0)
+        preferences.getStringValue(R.string.p_default_recurrence)
+                ?.takeIf { it.isNotBlank() }
+                ?.let {
+                    task.setRecurrence(
+                            RRule(it),
+                            preferences.getIntegerFromString(R.string.p_default_recurrence_from, 0) == 1)
+                }
         val setting = preferences.getIntegerFromString(R.string.p_default_hideUntil_key, Task.HIDE_UNTIL_NONE)
+        preferences.getStringValue(R.string.p_default_location)
+                ?.takeIf { it.isNotBlank() }
+                ?.let { task.putTransitory(Place.KEY, it) }
         task.hideUntil = task.createHideUntil(setting, 0)
         setDefaultReminders(preferences, task)
         val tags = ArrayList<String>()
@@ -119,6 +130,13 @@ class TaskCreator @Inject constructor(
                     }
                 }
             }
+        }
+        if (tags.isEmpty()) {
+            preferences.getStringValue(R.string.p_default_tags)
+                    ?.split(",")
+                    ?.map { tagDataDao.getByUuid(it) }
+                    ?.mapNotNull { it?.name }
+                    ?.let { tags.addAll(it) }
         }
         try {
             parse(tagDataDao, task, tags)

@@ -15,7 +15,10 @@ import org.tasks.Strings
 import org.tasks.backup.XmlReader
 import org.tasks.data.Tag
 import org.tasks.date.DateTimeUtils
+import org.tasks.date.DateTimeUtils.newDateTime
+import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.time.DateTime
+import org.tasks.time.DateTimeUtils.startOfDay
 import timber.log.Timber
 import java.util.*
 
@@ -217,13 +220,12 @@ class Task : Parcelable {
         if (date <= 0) {
             return date
         }
-        var hideUntil = DateTimeUtils.newDateTime(date).withMillisOfSecond(0) // get rid of millis
-        hideUntil = if (setting != HIDE_UNTIL_SPECIFIC_DAY_TIME && setting != HIDE_UNTIL_DUE_TIME) {
-            hideUntil.withHourOfDay(0).withMinuteOfHour(0).withSecondOfMinute(0)
+        return if (setting == HIDE_UNTIL_SPECIFIC_DAY_TIME ||
+                setting == HIDE_UNTIL_DUE_TIME && hasDueTime(dueDate)) {
+            date.toDateTime().withSecondOfMinute(1).withMillisOfSecond(0).millis
         } else {
-            hideUntil.withSecondOfMinute(1)
+            date.startOfDay()
         }
-        return hideUntil.millis
     }
 
     /** Checks whether this due date has a due time or only a date  */

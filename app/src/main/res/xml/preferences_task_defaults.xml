@@ -14,6 +14,12 @@
     android:title="@string/default_list"
     android:summary=" "/>
 
+  <Preference
+    android:icon="@drawable/ic_outline_label_24px"
+    android:key="@string/p_default_tags"
+    android:title="@string/default_tags"
+    android:summary=" "/>
+
   <ListPreference
     android:defaultValue="2"
     android:entries="@array/EPr_default_importance"
@@ -48,6 +54,20 @@
     android:summary="@string/dont_add_to_calendar"
     android:title="@string/default_calendar" />
 
+  <Preference
+    android:icon="@drawable/ic_outline_repeat_24px"
+    android:key="@string/p_default_recurrence"
+    android:title="@string/default_recurrence"
+    app:allowDividerAbove="true" />
+
+  <ListPreference
+    android:defaultValue="0"
+    android:key="@string/p_default_recurrence_from"
+    android:title="@string/repeats_from"
+    android:entries="@array/repeat_type_capitalized"
+    android:entryValues="@array/repeat_type_values"
+    android:summary="%s" />
+
   <ListPreference
     android:defaultValue="6"
     android:entries="@array/EPr_default_reminders"
@@ -74,15 +94,20 @@
     android:summary="%s"
     android:title="@string/EPr_default_reminders_mode_title" />
 
+  <org.tasks.preferences.IconPreference
+    android:icon="@drawable/ic_outline_place_24px"
+    android:layout="@layout/preference_icon"
+    android:key="@string/p_default_location"
+    android:title="@string/default_location"
+    app:allowDividerAbove="true" />
+
   <ListPreference
     android:defaultValue="0"
     android:entries="@array/EPr_default_location_reminder"
     android:entryValues="@array/EPR_default_location_reminder_values"
-    android:icon="@drawable/ic_outline_place_24px"
     android:key="@string/p_default_location_reminder_key"
     android:summary="%s"
-    android:title="@string/EPr_default_location_reminder_title"
-    app:allowDividerAbove="true" />
+    android:title="@string/EPr_default_location_reminder_title" />
 
   <SeekBarPreference
     android:defaultValue="250"

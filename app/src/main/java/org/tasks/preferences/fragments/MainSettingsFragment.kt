@@ -34,12 +34,17 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
         super.onResume()
 
         updateBackupWarning()
+        updateWidgetVisibility()
+    }
+
+    private fun updateWidgetVisibility() {
+        findPreference(R.string.widget_settings).isVisible = appWidgetManager.widgetIds.isNotEmpty()
     }
 
     override suspend fun setupPreferences(savedInstanceState: Bundle?) {
         requires(BuildConfig.DEBUG, R.string.debug)
 
-        requires(appWidgetManager.widgetIds.isNotEmpty(), R.string.widget_settings)
+        updateWidgetVisibility()
     }
 
     private fun updateBackupWarning() {

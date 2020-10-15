@@ -1,5 +1,6 @@
 package org.tasks.repeats;
 
+import static android.app.Activity.RESULT_OK;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.ical.values.Frequency.DAILY;
 import static com.google.ical.values.Frequency.HOURLY;
@@ -10,6 +11,7 @@ import static com.google.ical.values.Frequency.YEARLY;
 import static java.util.Arrays.asList;
 import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.dialogs.MyDatePickerDialog.newDatePicker;
+import static org.tasks.repeats.BasicRecurrenceDialog.EXTRA_RRULE;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 import android.app.Activity;
@@ -39,6 +41,7 @@ import android.widget.ToggleButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemSelected;
@@ -48,7 +51,6 @@ import com.google.ical.values.RRule;
 import com.google.ical.values.Weekday;
 import com.google.ical.values.WeekdayNum;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.repeats.RepeatControlSet;
 import dagger.hilt.android.AndroidEntryPoint;
 import java.text.DateFormatSymbols;
 import java.time.format.FormatStyle;
@@ -70,7 +72,6 @@ public class CustomRecurrenceDialog extends DialogFragment {
 
   private static final List<Frequency> FREQUENCIES =
       asList(MINUTELY, HOURLY, DAILY, WEEKLY, MONTHLY, YEARLY);
-  private static final String EXTRA_RRULE = "extra_rrule";
   private static final String EXTRA_DATE = "extra_date";
   private static final String FRAG_TAG_DATE_PICKER = "frag_tag_date_picker";
   private static final int REQUEST_PICK_DATE = 505;
@@ -140,11 +141,12 @@ public class CustomRecurrenceDialog extends DialogFragment {
   private ArrayAdapter<String> repeatUntilAdapter;
   private ToggleButton[] weekButtons;
   private RRule rrule;
+  private long dueDate;
 
   public static CustomRecurrenceDialog newCustomRecurrenceDialog(
-      RepeatControlSet target, RRule rrule, long dueDate) {
+      Fragment target, int rc, RRule rrule, long dueDate) {
     CustomRecurrenceDialog dialog = new CustomRecurrenceDialog();
-    dialog.setTargetFragment(target, 0);
+    dialog.setTargetFragment(target, rc);
     Bundle arguments = new Bundle();
     if (rrule != null) {
       arguments.putString(EXTRA_RRULE, rrule.toIcal());
@@ -161,7 +163,7 @@ public class CustomRecurrenceDialog extends DialogFragment {
     View dialogView = inflater.inflate(R.layout.control_set_repeat, null);
 
     Bundle arguments = getArguments();
-    long dueDate = arguments.getLong(EXTRA_DATE, currentTimeMillis());
+    dueDate = arguments.getLong(EXTRA_DATE, currentTimeMillis());
     String rule =
         savedInstanceState == null
             ? arguments.getString(EXTRA_RRULE)
@@ -364,10 +366,9 @@ public class CustomRecurrenceDialog extends DialogFragment {
     } else {
       rrule.setByDay(Collections.emptyList());
     }
-    RepeatControlSet target = (RepeatControlSet) getTargetFragment();
-    if (target != null) {
-      target.onSelected(rrule);
-    }
+    Intent intent = new Intent();
+    intent.putExtra(EXTRA_RRULE, rrule.toIcal());
+    getTargetFragment().onActivityResult(getTargetRequestCode(), RESULT_OK, intent);
     dismiss();
   }
 
@@ -471,7 +472,7 @@ public class CustomRecurrenceDialog extends DialogFragment {
     if (weekGroup2 != null) {
       weekGroup2.setVisibility(weekVisibility);
     }
-    monthGroup.setVisibility(frequency == MONTHLY ? View.VISIBLE : View.GONE);
+    monthGroup.setVisibility(frequency == MONTHLY && dueDate >= 0 ? View.VISIBLE : View.GONE);
     updateIntervalTextView();
   }
 
@@ -541,7 +542,7 @@ public class CustomRecurrenceDialog extends DialogFragment {
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (requestCode == REQUEST_PICK_DATE) {
-      if (resultCode == Activity.RESULT_OK) {
+      if (resultCode == RESULT_OK) {
         rrule.setUntil(
             new DateTime(data.getLongExtra(MyDatePickerDialog.EXTRA_TIMESTAMP, 0L)).toDateValue());
         rrule.setCount(0);

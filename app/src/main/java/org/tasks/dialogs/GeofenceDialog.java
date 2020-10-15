@@ -33,6 +33,7 @@ public class GeofenceDialog extends DialogFragment {
   private static final String EXTRA_ORIGINAL = "extra_original";
   private static final int MIN_RADIUS = 75;
   private static final int MAX_RADIUS = 1000;
+  private static final int STEP = 25;
 
   @Inject DialogBuilder dialogBuilder;
   @Inject Activity context;
@@ -75,9 +76,9 @@ public class GeofenceDialog extends DialogFragment {
         value -> getString(R.string.location_radius_meters, locale.formatNumber(value)));
     slider.setValueTo(MAX_RADIUS);
     slider.setValueFrom(MIN_RADIUS);
-    slider.setStepSize(25);
+    slider.setStepSize(STEP);
     slider.setHaloRadius(0);
-    slider.setValue(geofence.getRadius());
+    slider.setValue(Math.round((geofence.getRadius() / STEP) * STEP));
     return dialogBuilder
         .newDialog(original.getDisplayName())
         .setView(view)

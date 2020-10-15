@@ -166,6 +166,7 @@
     <!-- hideUntil: labels that map EPr_default_hideUntil items to index in TEA_hideUntil. -->
     <item>0</item>
     <item>1</item>
+    <item>6</item>
     <item>2</item>
     <item>3</item>
   </string-array>
@@ -332,6 +333,9 @@
   <string name="p_widget_collapsed">widget-collapsed-</string>
   <string name="p_dashclock_filter">dashclock_filter</string>
   <string name="p_default_list">default_remote_list</string>
+  <string name="p_default_tags">default_tags</string>
+  <string name="p_default_recurrence">default_recurrence</string>
+  <string name="p_default_recurrence_from">default_recurrence_from</string>
 
   <string name="debug">Debug</string>
   <string name="p_start_of_week">start_of_week</string>
@@ -393,6 +397,7 @@
   <string name="p_backups_android_backup_last">backups_android_backup_last</string>
   <string name="p_backups_drive_last">backups_drive_last</string>
   <string name="p_current_version">cv</string>
+  <string name="p_default_location">default_location</string>
 
   <string name="event_whats_new">whats_new</string>
   <string name="param_whats_new_display_rate">display_rate</string>

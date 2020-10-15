@@ -661,4 +661,7 @@
     <string name="backup_location_warning">ВНИМАНИЕ: Файлы, расположенные в %s, будут удалены при удалении Tasks! Выберите произвольное расположение, чтобы Android не смог удалить ваши файлы.</string>
     <string name="backups_ignore_warnings_summary">Игнорировать предупреждения о резервном копировании, если вам не нужны резервные копии или у вас есть собственное решение для резервного копирования</string>
     <string name="backups_ignore_warnings">Игнорировать предупреждения</string>
+    <string name="header_spacing">Интервал</string>
+    <string name="default_recurrence">Повторение по умолчанию</string>
+    <string name="repeat_type_completion_capitalized">Дата завершения</string>
 </resources>
