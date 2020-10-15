@@ -646,4 +646,6 @@
     <string name="default_recurrence">Alapértelmezett ismétlődés</string>
     <string name="header_spacing">Szóköz</string>
     <string name="repeat_type_completion_capitalized">Befejezés dátuma</string>
+    <string name="default_tags">Alapértelmezett címkék</string>
+    <string name="default_location">Alapértelmezett hely</string>
 </resources>
