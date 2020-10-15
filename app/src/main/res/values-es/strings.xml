@@ -648,4 +648,6 @@
     <string name="header_spacing">Espaciamiento</string>
     <string name="default_recurrence">Recurrencia predeterminada</string>
     <string name="repeat_type_completion_capitalized">Fecha de finalización</string>
+    <string name="default_tags">Etiquetas predeterminadas</string>
+    <string name="default_location">Ubicación predeterminada</string>
 </resources>
