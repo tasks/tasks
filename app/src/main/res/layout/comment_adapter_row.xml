@@ -8,9 +8,9 @@
     android:id="@+id/comment_row"
     style="@style/CommentsRow"
     android:background="?attr/selectableItemBackground"
-    android:paddingRight="@dimen/widget_padding">
+    android:padding="@dimen/keyline_first">
 
-    <include layout="@layout/control_set_delete_button" />
+    <include layout="@layout/control_set_clear_button" />
 
     <LinearLayout
       xmlns:tools="http://schemas.android.com/tools"
@@ -18,7 +18,7 @@
       android:layout_height="wrap_content"
       android:layout_alignParentStart="true"
       android:layout_toStartOf="@id/delete"
-      android:padding="@dimen/keyline_first"
+      android:paddingEnd="@dimen/keyline_first"
       android:background="?attr/selectableItemBackground"
       android:orientation="vertical">
 

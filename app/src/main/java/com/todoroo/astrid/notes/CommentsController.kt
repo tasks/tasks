@@ -15,12 +15,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.data.Task
-import kotlinx.coroutines.*
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.tasks.R
 import org.tasks.data.UserActivity
 import org.tasks.data.UserActivityDao
@@ -31,7 +32,6 @@ import org.tasks.locale.Locale
 import org.tasks.preferences.Preferences
 import java.util.*
 import javax.inject.Inject
-import kotlin.coroutines.coroutineContext
 import kotlin.math.min
 
 class CommentsController @Inject constructor(
@@ -99,7 +99,7 @@ class CommentsController @Inject constructor(
         setupImagePopupForCommentView(view, commentPictureView, item.pictureUri, activity)
 
         // delete button
-        val deleteBtn = view.findViewById<ImageView>(R.id.delete)
+        val deleteBtn = view.findViewById<ImageView>(R.id.clear)
         deleteBtn.setOnClickListener(){
             val builder = AlertDialog.Builder(commentsContainer!!.context)
 
