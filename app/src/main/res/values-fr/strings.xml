@@ -310,7 +310,7 @@
     <string name="date_shortcut_must_come_after">%1$s doit venir après %2$s</string>
     <string name="discard_changes">Annuler les modifications \?</string>
     <string name="discard">Annuler</string>
-    <string name="tag_settings">Paramètres des balises</string>
+    <string name="tag_settings">Paramètres des tags</string>
     <string name="list_settings">Paramètres de la liste</string>
     <string name="delete">Supprimer</string>
     <string name="copy">Copier</string>
@@ -446,7 +446,7 @@
     <string name="google_tasks_add_to_top">Nouvelle tâche au dessus</string>
     <string name="TEA_note_label">Description</string>
     <string name="TEA_control_notes">Description</string>
-    <string name="CFC_tag_text">Catégorie : \?</string>
+    <string name="CFC_tag_text">Tag : \?</string>
     <string name="gtasks_GPr_header">Google Tasks</string>
     <plurals name="repeat_minutes">
         <item quantity="one">minute</item>
@@ -459,7 +459,7 @@
     <string name="notifications">Notifications</string>
     <string name="vibrations">Vibrations</string>
     <string name="location_radius_meters">%s m</string>
-    <string name="tags">Catégories</string>
+    <string name="tags">Tags</string>
     <string name="accent">Accent</string>
     <string name="badges">Badges</string>
     <string name="list_separator_with_space">", "</string>
@@ -538,7 +538,7 @@
     <string name="places">Lieux</string>
     <string name="place_settings">Paramètres du lieu</string>
     <string name="navigation_drawer">Tiroir de navigation</string>
-    <string name="hide_unused_tags">Cacher les étiquettes non utilisées</string>
+    <string name="hide_unused_tags">Cacher les tags non utilisés</string>
     <string name="hide_unused_places">Masquer les lieux inutilisés</string>
     <string name="add_place">Ajouter un lieu</string>
     <string name="menu_discard_changes">Annuler les modifications</string>
@@ -591,8 +591,8 @@
     <string name="filter_medium_priority">Priorité moyenne</string>
     <string name="filter_high_priority">Haute priorité</string>
     <string name="add_filter">Ajouter un filtre</string>
-    <string name="add_tags">Ajouter des balises</string>
-    <string name="filter_no_tags">Pas d’étiquettes</string>
+    <string name="add_tags">Ajouter des tags</string>
+    <string name="filter_no_tags">Pas de tags</string>
     <string name="filter_after_today">Après aujourd\'hui</string>
     <string name="filter_any_due_date">Toute date d\'échéance</string>
     <string name="filter_today_only">Aujourd\'hui seulement</string>
@@ -643,4 +643,6 @@
     <string name="header_spacing">Espacement</string>
     <string name="default_recurrence">Récurrence par défaut</string>
     <string name="repeat_type_completion_capitalized">Date d’achèvement</string>
+    <string name="default_tags">Tags par défaut</string>
+    <string name="default_location">Emplacement par défaut</string>
 </resources>
