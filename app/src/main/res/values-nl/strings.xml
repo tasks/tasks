@@ -643,4 +643,6 @@
     <string name="header_spacing">Ruimte</string>
     <string name="default_recurrence">Standaard herhaling</string>
     <string name="repeat_type_completion_capitalized">Voltooiingsdatum</string>
+    <string name="default_location">Standaard locatie</string>
+    <string name="default_tags">Standaard labels</string>
 </resources>
