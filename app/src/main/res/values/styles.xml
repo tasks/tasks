@@ -70,6 +70,12 @@
     <item name="android:editTextColor">@color/black_87</item>
   </style>
 
+  <style name="CommentsRow" >
+    <item name="android:focusable">true</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+  </style>
+
   <style name="TagSettingsRow" parent="Widget.Design.TextInputLayout">
     <item name="android:textSize">18sp</item>
     <item name="android:clickable">true</item>

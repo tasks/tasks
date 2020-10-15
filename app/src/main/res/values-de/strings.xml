@@ -82,7 +82,7 @@
     <string name="EPr_edit_screen_options">Bildschirmeinstellungen bearbeiten</string>
     <string name="EPr_beastMode_reset">Auf Standardeinstellungen zurücksetzen</string>
     <string name="EPr_fullTask_title">Aufgabentitel ganz anzeigen</string>
-    <string name="EPr_show_task_edit_comments">Kommentare bei Aufgabeneingabe anzeigen </string>
+    <string name="EPr_show_task_edit_comments">Kommentare bei Aufgabeneingabe anzeigen</string>
     <string name="task_list_options">Aufgabenlisten-Optionen</string>
     <string name="EPr_cal_end_or_start_at_due_time">Zeitpunkt für Kalendereintrag</string>
     <string name="EPr_cal_end_at_due_time">Kalendereintrag endet zur Fälligkeitsuhrzeit</string>
@@ -641,4 +641,5 @@
     <string name="last_backup_never">nie</string>
     <string name="device_settings">Geräteeinstellungen</string>
     <string name="account">Konto</string>
+    <string name="delete_comment">Kommentar löschen?</string>
 </resources>
