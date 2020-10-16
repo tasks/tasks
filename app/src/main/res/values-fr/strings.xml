@@ -645,4 +645,7 @@
     <string name="repeat_type_completion_capitalized">Date d’achèvement</string>
     <string name="default_tags">Tags par défaut</string>
     <string name="default_location">Emplacement par défaut</string>
+    <string name="delete_comment">Supprimer ce commentaire \?</string>
+    <string name="date_picker_multiple">Plusieurs</string>
+    <string name="multi_select_reschedule">Replanifier</string>
 </resources>
