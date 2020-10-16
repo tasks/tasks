@@ -4,6 +4,8 @@
   These should not be translated 
 -->
 <resources>
+  <string name="mdtp_ok">@string/ok</string>
+  <string name="mdtp_cancel">@string/cancel</string>
   <string name="FSA_label">Tasks Shortcut</string>
   <string name="caldav">CalDAV</string>
   <string name="etesync">EteSync</string>
