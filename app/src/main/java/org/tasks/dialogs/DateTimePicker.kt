@@ -272,20 +272,20 @@ class DateTimePicker : BottomSheetDialogFragment() {
                 targetFragment?.onActivityResult(targetRequestCode, RESULT_OK, intent)
             } else {
                 lifecycleScope.launch(NonCancellable) {
-                    taskIds.forEach { taskId ->
-                        taskDao.fetch(taskId)?.let {
-                            it.setDueDateAdjustingHideUntil(when {
-                                selectedDay == MULTIPLE_DAYS ->
-                                    it.dueDate.toDateTime().withMillisOfDay(selectedTime).millis
-                                selectedDay == NO_DAY -> 0L
-                                selectedTime == MULTIPLE_TIMES ->
-                                    selectedDay.toDateTime().withMillisOfDay(it.dueDate.millisOfDay()).millis
-                                selectedTime == NO_TIME -> selectedDay
-                                else -> selectedDay.toDateTime().withMillisOfDay(selectedTime).millis
-                            })
-                            taskDao.save(it)
-                        }
-                    }
+                    taskDao
+                            .fetch(taskIds.toList())
+                            .forEach {
+                                it.setDueDateAdjustingHideUntil(when {
+                                    selectedDay == MULTIPLE_DAYS ->
+                                        it.dueDate.toDateTime().withMillisOfDay(selectedTime).millis
+                                    selectedDay == NO_DAY -> 0L
+                                    selectedTime == MULTIPLE_TIMES ->
+                                        selectedDay.toDateTime().withMillisOfDay(it.dueDate.millisOfDay()).millis
+                                    selectedTime == NO_TIME -> selectedDay
+                                    else -> selectedDay.toDateTime().withMillisOfDay(selectedTime).millis
+                                })
+                                taskDao.save(it)
+                            }
                 }
             }
         }
