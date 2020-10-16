@@ -641,4 +641,7 @@
     <string name="repeat_type_completion_capitalized">完成日期</string>
     <string name="default_tags">默认标签</string>
     <string name="default_location">默认位置</string>
+    <string name="delete_comment">删除该注解？</string>
+    <string name="date_picker_multiple">多个</string>
+    <string name="multi_select_reschedule">重新计划</string>
 </resources>
