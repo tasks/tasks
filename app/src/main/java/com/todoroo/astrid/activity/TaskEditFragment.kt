@@ -308,8 +308,8 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     private fun deleteButtonClick() {
         dialogBuilder
                 .newDialog(R.string.DLG_delete_this_task_question)
-                .setPositiveButton(android.R.string.ok) { _, _ -> delete() }
-                .setNegativeButton(android.R.string.cancel, null)
+                .setPositiveButton(R.string.ok) { _, _ -> delete() }
+                .setNegativeButton(R.string.cancel, null)
                 .show()
     }
 

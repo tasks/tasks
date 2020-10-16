@@ -116,7 +116,7 @@ public class SortDialog extends DialogFragment {
                 })
             .setPositiveButton(R.string.TLA_menu_sort, (dialog, which) -> setSelection(false))
             .setNeutralButton(R.string.reverse, (dialog, which) -> setSelection(true))
-            .setNegativeButton(android.R.string.cancel, null)
+            .setNegativeButton(R.string.cancel, null)
             .show();
 
     enableReverse();

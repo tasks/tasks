@@ -181,7 +181,7 @@
           android:layout_marginStart="@dimen/card_view_margin"
           android:layout_marginEnd="@dimen/card_view_margin"
           android:layout_gravity="start|center_vertical"
-          android:contentDescription="@android:string/search_go"
+          android:contentDescription="@string/TLA_menu_search"
           android:src="@drawable/ic_outline_search_24px"
           app:tint="@color/icon_tint"/>
 
@@ -191,7 +191,7 @@
           android:layout_marginStart="64dp"
           android:layout_gravity="center_vertical"
           android:gravity="start"
-          android:text="@android:string/search_go"
+          android:text="@string/TLA_menu_search"
           android:textAlignment="viewStart"
           android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
           android:textColor="@color/text_primary"/>

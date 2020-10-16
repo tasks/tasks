@@ -49,10 +49,10 @@ class NNumberPickerDialog extends AlertDialog implements OnClickListener {
     super(context);
     mCallback = callBack;
 
-    setButton(DialogInterface.BUTTON_POSITIVE, context.getText(android.R.string.ok), this);
+    setButton(DialogInterface.BUTTON_POSITIVE, context.getText(R.string.ok), this);
     setButton(
         DialogInterface.BUTTON_NEGATIVE,
-        context.getText(android.R.string.cancel),
+        context.getText(R.string.cancel),
         (OnClickListener) null);
 
     LayoutInflater inflater =

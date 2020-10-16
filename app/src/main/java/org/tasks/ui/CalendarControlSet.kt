@@ -81,7 +81,7 @@ class CalendarControlSet : TaskEditControlFragment() {
                             clear()
                         }
                     }
-                    .setNegativeButton(android.R.string.cancel, null)
+                    .setNegativeButton(R.string.cancel, null)
                     .show()
         }
     }

@@ -133,7 +133,7 @@ class Synchronization : InjectingPreferenceFragment() {
                             logoutConfirmation(googleTaskAccount)
                         }
                     }
-                    .setNegativeButton(android.R.string.cancel, null)
+                    .setNegativeButton(R.string.cancel, null)
                     .show()
                 false
             }
@@ -194,7 +194,7 @@ class Synchronization : InjectingPreferenceFragment() {
                     refresh()
                 }
             }
-            .setNegativeButton(android.R.string.cancel, null)
+            .setNegativeButton(R.string.cancel, null)
             .create()
         alertDialog.setCanceledOnTouchOutside(false)
         alertDialog.setCancelable(false)

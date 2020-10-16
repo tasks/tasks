@@ -112,7 +112,7 @@ class FilesControlSet : TaskEditControlFragment() {
         clearFile.setOnClickListener {
             dialogBuilder
                     .newDialog(R.string.premium_remove_file_confirm)
-                    .setPositiveButton(android.R.string.ok) { _, _ ->
+                    .setPositiveButton(R.string.ok) { _, _ ->
                         lifecycleScope.launch {
                             withContext(NonCancellable) {
                                 taskAttachmentDao.delete(taskAttachment)
@@ -121,7 +121,7 @@ class FilesControlSet : TaskEditControlFragment() {
                             attachmentContainer.removeView(fileRow)
                         }
                     }
-                    .setNegativeButton(android.R.string.cancel, null)
+                    .setNegativeButton(R.string.cancel, null)
                     .show()
         }
     }

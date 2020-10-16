@@ -52,7 +52,7 @@ class LocationPermissionDialog : DialogFragment() {
 
         return dialogBuilder.newDialog(R.string.missing_permissions)
                 .setView(binding.root)
-                .setNegativeButton(android.R.string.cancel) { _, _ ->
+                .setNegativeButton(R.string.cancel) { _, _ ->
                     dismiss()
                 }
                 .setNeutralButton(R.string.TLA_menu_settings) { _, _ ->

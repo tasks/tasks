@@ -200,7 +200,7 @@ class LookAndFeel : InjectingPreferenceFragment() {
                     placeProviderPreference.summary = choices[which]
                     dialog.dismiss()
                 }
-                .setNegativeButton(android.R.string.cancel, null)
+                .setNegativeButton(R.string.cancel, null)
                 .show()
             false
         }

@@ -51,7 +51,7 @@ class NewFilterDialog : DialogFragment() {
                 .setItems(options.map { getString(it) }) { _, which ->
                     newCustomFilter(options[which])
                 }
-                .setNegativeButton(android.R.string.cancel, null)
+                .setNegativeButton(R.string.cancel, null)
                 .show()
     }
 

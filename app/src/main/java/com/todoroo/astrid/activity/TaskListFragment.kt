@@ -350,8 +350,8 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             R.id.menu_clear_completed -> {
                 dialogBuilder
                         .newDialog(R.string.clear_completed_tasks_confirmation)
-                        .setPositiveButton(android.R.string.ok) { _, _ -> clearCompleted() }
-                        .setNegativeButton(android.R.string.cancel, null)
+                        .setPositiveButton(R.string.ok) { _, _ -> clearCompleted() }
+                        .setNegativeButton(R.string.cancel, null)
                         .show()
                 true
             }
@@ -687,8 +687,8 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 dialogBuilder
                         .newDialog(R.string.delete_selected_tasks)
                         .setPositiveButton(
-                                android.R.string.ok) { _, _ -> deleteSelectedItems(selected) }
-                        .setNegativeButton(android.R.string.cancel, null)
+                                R.string.ok) { _, _ -> deleteSelectedItems(selected) }
+                        .setNegativeButton(R.string.cancel, null)
                         .show()
                 true
             }
@@ -696,8 +696,8 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 dialogBuilder
                         .newDialog(R.string.copy_selected_tasks)
                         .setPositiveButton(
-                                android.R.string.ok) { _, _ -> copySelectedItems(selected) }
-                        .setNegativeButton(android.R.string.cancel, null)
+                                R.string.ok) { _, _ -> copySelectedItems(selected) }
+                        .setNegativeButton(R.string.cancel, null)
                         .show()
                 true
             }

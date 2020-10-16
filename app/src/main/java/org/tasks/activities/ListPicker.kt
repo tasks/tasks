@@ -18,6 +18,7 @@ import com.todoroo.astrid.api.GtasksFilter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
+import org.tasks.R
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.filters.FilterProvider
 import javax.inject.Inject
@@ -102,7 +103,7 @@ class ListPicker : DialogFragment() {
                 handler: (Filter) -> Unit): AlertDialog {
             val builder = dialogBuilder
                     .newDialog()
-                    .setNegativeButton(android.R.string.cancel, null)
+                    .setNegativeButton(R.string.cancel, null)
                     .setSingleChoiceItems(filterAdapter,-1) { dialog: DialogInterface, which: Int ->
                         val item = filterAdapter.getItem(which)
                         if (item is GtasksFilter || item is CaldavFilter) {

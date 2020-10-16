@@ -75,7 +75,7 @@ class AddAccountDialog : DialogFragment() {
                             Intent.ACTION_VIEW,
                             Uri.parse(context?.getString(R.string.help_url_sync))))
                 }
-                .setNegativeButton(android.R.string.cancel, null)
+                .setNegativeButton(R.string.cancel, null)
                 .show()
     }
 

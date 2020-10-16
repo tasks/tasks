@@ -159,13 +159,13 @@ class Advanced : InjectingPreferenceFragment() {
         dialogBuilder
             .newDialog()
             .setMessage(R.string.EPr_manage_delete_completed_gcal_message)
-            .setPositiveButton(android.R.string.ok) { _, _ ->
+            .setPositiveButton(R.string.ok) { _, _ ->
                 performAction(R.string.EPr_manage_delete_completed_gcal_status) {
                     calendarEventProvider.deleteEvents(taskDao.getCompletedCalendarEvents())
                     taskDao.clearCompletedCalendarEvents()
                 }
             }
-            .setNegativeButton(android.R.string.cancel, null)
+            .setNegativeButton(R.string.cancel, null)
             .show()
     }
 
@@ -173,14 +173,14 @@ class Advanced : InjectingPreferenceFragment() {
         dialogBuilder
             .newDialog()
             .setMessage(R.string.EPr_manage_delete_all_gcal_message)
-            .setPositiveButton(android.R.string.ok) { _, _ ->
+            .setPositiveButton(R.string.ok) { _, _ ->
                 performAction(
                     R.string.EPr_manage_delete_all_gcal_status) {
                         calendarEventProvider.deleteEvents(taskDao.getAllCalendarEvents())
                         taskDao.clearAllCalendarEvents()
                     }
             }
-            .setNegativeButton(android.R.string.cancel, null)
+            .setNegativeButton(R.string.cancel, null)
             .show()
     }
 
@@ -196,7 +196,7 @@ class Advanced : InjectingPreferenceFragment() {
                 preferences.reset()
                 restart()
             }
-            .setNegativeButton(android.R.string.cancel, null)
+            .setNegativeButton(R.string.cancel, null)
             .show()
     }
 
@@ -209,7 +209,7 @@ class Advanced : InjectingPreferenceFragment() {
                 requireContext().deleteDatabase(database.name)
                 restart()
             }
-            .setNegativeButton(android.R.string.cancel, null)
+            .setNegativeButton(R.string.cancel, null)
             .show()
     }
 }

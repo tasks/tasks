@@ -48,7 +48,7 @@ public class NotificationDialog extends DialogFragment {
                   break;
               }
             })
-        .setNegativeButton(android.R.string.cancel, null)
+        .setNegativeButton(R.string.cancel, null)
         .show();
   }
 

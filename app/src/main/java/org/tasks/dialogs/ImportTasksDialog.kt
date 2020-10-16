@@ -69,7 +69,7 @@ class ImportTasksDialog : DialogFragment() {
                                         result.importCount),
                                 r.getQuantityString(R.plurals.Ntasks, result.skipCount, result.skipCount),
                                 r.getQuantityString(R.plurals.Ntasks, 0, 0)))
-                .setPositiveButton(android.R.string.ok, null)
+                .setPositiveButton(R.string.ok, null)
                 .show()
     }
 

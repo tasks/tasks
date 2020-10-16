@@ -92,7 +92,7 @@ class ThemePickerDialog : DialogFragment() {
                         }
                     }
                 }
-                .setPositiveButton(android.R.string.ok) { _, _ ->
+                .setPositiveButton(R.string.ok) { _, _ ->
                     deliverResult()
                 }
                 .show()
@@ -121,7 +121,7 @@ class ThemePickerDialog : DialogFragment() {
 
     private fun updateButton() {
         val stringRes = if (available()) {
-            android.R.string.cancel
+            R.string.cancel
         } else {
             R.string.button_subscribe
         }

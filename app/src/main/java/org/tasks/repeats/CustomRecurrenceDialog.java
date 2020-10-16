@@ -337,8 +337,8 @@ public class CustomRecurrenceDialog extends DialogFragment {
     return dialogBuilder
         .newDialog()
         .setView(dialogView)
-        .setPositiveButton(android.R.string.ok, this::onRuleSelected)
-        .setNegativeButton(android.R.string.cancel, null)
+        .setPositiveButton(R.string.ok, this::onRuleSelected)
+        .setNegativeButton(R.string.cancel, null)
         .show();
   }
 

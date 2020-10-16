@@ -118,7 +118,7 @@ class CommentsController @Inject constructor(
             }
 
             // Display a negative button on alert dialog
-            builder.setNegativeButton(android.R.string.cancel){dialog,which ->
+            builder.setNegativeButton(R.string.cancel){dialog,which ->
             }
             // Finally, make the alert dialog using builder
             val dialog: AlertDialog = builder.create()

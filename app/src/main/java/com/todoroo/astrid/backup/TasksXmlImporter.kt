@@ -125,7 +125,7 @@ class TasksXmlImporter @Inject constructor(
                                 r.getQuantityString(R.plurals.Ntasks, importCount, importCount),
                                 r.getQuantityString(R.plurals.Ntasks, skipCount, skipCount),
                                 r.getQuantityString(R.plurals.Ntasks, errorCount, errorCount)))
-                .setPositiveButton(android.R.string.ok) { dialog: DialogInterface, id: Int -> dialog.dismiss() }
+                .setPositiveButton(R.string.ok) { dialog: DialogInterface, id: Int -> dialog.dismiss() }
                 .show()
     }
 

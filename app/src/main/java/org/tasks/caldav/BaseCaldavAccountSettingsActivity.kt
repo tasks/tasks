@@ -323,7 +323,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
                 .newDialog()
                 .setMessage(R.string.logout_warning, caldavAccount!!.name)
                 .setPositiveButton(R.string.remove) { _, _ -> lifecycleScope.launch { removeAccount() } }
-                .setNegativeButton(android.R.string.cancel, null)
+                .setNegativeButton(R.string.cancel, null)
                 .show()
     }
 
@@ -343,7 +343,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
             dialogBuilder
                     .newDialog(R.string.discard_changes)
                     .setPositiveButton(R.string.discard) { _, _ -> finish() }
-                    .setNegativeButton(android.R.string.cancel, null)
+                    .setNegativeButton(R.string.cancel, null)
                     .show()
         }
     }

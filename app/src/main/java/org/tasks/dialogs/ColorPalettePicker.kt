@@ -104,7 +104,7 @@ class ColorPalettePicker : DialogFragment() {
             }
         }
         if (inventory.purchasedThemes()) {
-            builder.setNegativeButton(android.R.string.cancel, null)
+            builder.setNegativeButton(R.string.cancel, null)
         } else {
             builder.setPositiveButton(R.string.button_subscribe) { _: DialogInterface?, _: Int ->
                 context?.startActivity(Intent(requireContext(), PurchaseActivity::class.java))

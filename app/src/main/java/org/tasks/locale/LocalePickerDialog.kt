@@ -31,7 +31,7 @@ class LocalePickerDialog : DialogFragment() {
                     targetFragment!!.onActivityResult(targetRequestCode, Activity.RESULT_OK, data)
                     dialog.dismiss()
                 }
-                .setNegativeButton(android.R.string.cancel, null)
+                .setNegativeButton(R.string.cancel, null)
                 .show()
     }
 

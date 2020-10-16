@@ -50,7 +50,7 @@ class ColorWheelPicker : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         selected = savedInstanceState?.getInt(EXTRA_SELECTED) ?: requireArguments().getInt(EXTRA_SELECTED, 0)
 
-        val button = if (inventory.purchasedThemes()) android.R.string.ok else R.string.button_subscribe
+        val button = if (inventory.purchasedThemes()) R.string.ok else R.string.button_subscribe
         val builder = ColorPickerDialogBuilder
                 .with(activity)
                 .wheelType(ColorPickerView.WHEEL_TYPE.CIRCLE)
@@ -69,7 +69,7 @@ class ColorWheelPicker : DialogFragment() {
                         startActivityForResult(Intent(activity, PurchaseActivity::class.java), REQUEST_PURCHASE)
                     }
                 }
-                .setNegativeButton(android.R.string.cancel, null)
+                .setNegativeButton(R.string.cancel, null)
         if (selected != 0) {
             builder.initialColor(selected)
         }

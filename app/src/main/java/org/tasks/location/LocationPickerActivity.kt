@@ -230,7 +230,7 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
                 dialogBuilder
                         .newDialog(R.string.missing_permissions)
                         .setMessage(R.string.location_permission_required_location)
-                        .setPositiveButton(android.R.string.ok, null)
+                        .setPositiveButton(R.string.ok, null)
                         .show()
             }
         } else {

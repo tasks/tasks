@@ -60,7 +60,7 @@ public class IconPickerDialog extends DialogFragment {
     iconPickerAdapter.submitList(CustomIcons.getIconList());
 
     AlertDialogBuilder builder =
-        dialogBuilder.newDialog().setNegativeButton(android.R.string.cancel, null).setView(view);
+        dialogBuilder.newDialog().setNegativeButton(R.string.cancel, null).setView(view);
     if (!inventory.hasPro()) {
       builder.setPositiveButton(
           R.string.button_subscribe,

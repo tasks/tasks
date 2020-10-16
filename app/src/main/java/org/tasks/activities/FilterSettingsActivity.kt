@@ -140,8 +140,8 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
         dialogBuilder
                 .newDialog(criterionInstance.titleFromCriterion)
                 .setView(view)
-                .setNegativeButton(android.R.string.cancel, null)
-                .setPositiveButton(android.R.string.ok) { _, _ ->
+                .setNegativeButton(R.string.cancel, null)
+                .setPositiveButton(R.string.ok) { _, _ ->
                     criterionInstance.type = getType(group.checkedButtonId)
                     updateList()
                 }
@@ -211,7 +211,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
                             FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT))
             dialog
                     .setView(frameLayout)
-                    .setPositiveButton(android.R.string.ok) { _, _ ->
+                    .setPositiveButton(R.string.ok) { _, _ ->
                         item.selectedText = editText.text.toString()
                         onComplete?.run()
                     }

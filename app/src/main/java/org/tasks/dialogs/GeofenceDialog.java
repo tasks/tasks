@@ -82,9 +82,9 @@ public class GeofenceDialog extends DialogFragment {
     return dialogBuilder
         .newDialog(original.getDisplayName())
         .setView(view)
-        .setNegativeButton(android.R.string.cancel, null)
+        .setNegativeButton(R.string.cancel, null)
         .setOnCancelListener(this::sendResult)
-        .setPositiveButton(android.R.string.ok, this::sendResult)
+        .setPositiveButton(R.string.ok, this::sendResult)
         .create();
   }
 

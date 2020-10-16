@@ -82,7 +82,7 @@ class TimerControlSet : TaskEditControlFragment() {
         return dialogBuilder
                 .newDialog()
                 .setView(dialogView)
-                .setPositiveButton(android.R.string.ok) { _, _ -> refreshDisplayView() }
+                .setPositiveButton(R.string.ok) { _, _ -> refreshDisplayView() }
                 .setOnCancelListener { refreshDisplayView() }
                 .create()
     }

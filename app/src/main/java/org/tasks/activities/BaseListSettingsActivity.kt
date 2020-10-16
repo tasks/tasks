@@ -86,7 +86,7 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Ic
             dialogBuilder
                     .newDialog(R.string.discard_changes)
                     .setPositiveButton(R.string.discard) { _, _ -> finish() }
-                    .setNegativeButton(android.R.string.cancel, null)
+                    .setNegativeButton(R.string.cancel, null)
                     .show()
         }
     }
@@ -130,7 +130,7 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Ic
         dialogBuilder
                 .newDialog(R.string.delete_tag_confirmation, toolbarTitle)
                 .setPositiveButton(R.string.delete) { _, _ -> lifecycleScope.launch { delete() } }
-                .setNegativeButton(android.R.string.cancel, null)
+                .setNegativeButton(R.string.cancel, null)
                 .show()
     }
 

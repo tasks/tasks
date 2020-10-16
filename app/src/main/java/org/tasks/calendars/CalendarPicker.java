@@ -81,7 +81,7 @@ public class CalendarPicker extends DialogFragment {
                   data.putExtra(EXTRA_CALENDAR_NAME, calendar.getName());
                   getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, data);
                 })
-            .setNegativeButton(android.R.string.cancel, null)
+            .setNegativeButton(R.string.cancel, null)
             .show();
     listView = dialog.getListView();
     if (permissionChecker.canAccessCalendars()) {
