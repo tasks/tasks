@@ -267,7 +267,7 @@ public class WidgetPreferences implements QueryPreferences {
   }
 
   @Override
-  public boolean getAlwaysDisplayFullDate() { return getBoolean(R.string.p_always_display_full_date, false); }
+  public boolean getAlwaysDisplayFullDate() { return preferences.getAlwaysDisplayFullDate(); }
 
   @Override
   public boolean usePagedQueries() {
@@ -296,6 +296,6 @@ public class WidgetPreferences implements QueryPreferences {
 
   @Override
   public void setAlwaysDisplayFullDate(boolean noWeekday) {
-    setBoolean(R.string.p_always_display_full_date, noWeekday);
+    preferences.setAlwaysDisplayFullDate(noWeekday);
   }
 }

@@ -50,7 +50,7 @@ class HeaderViewHolder(
                 context.getString(R.string.sort_created_group, getDateString(group, alwaysDisplayFullDate))
             sortMode == SortHelper.SORT_MODIFIED ->
                 context.getString(R.string.sort_modified_group, getDateString(group, alwaysDisplayFullDate))
-            else -> getDateString(group, alwaysDisplayFullDate)
+            else -> getDateString(group, alwaysDisplayFullDate, false)
         }
     }
 

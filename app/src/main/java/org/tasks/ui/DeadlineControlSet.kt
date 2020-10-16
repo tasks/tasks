@@ -75,7 +75,14 @@ class DeadlineControlSet : TaskEditControlFragment() {
             dueDate.text = ""
             setTextColor(false)
         } else {
-            dueDate.text = DateUtilities.getRelativeDateTime(activity, date, locale.locale, FormatStyle.FULL)
+            dueDate.text = DateUtilities.getRelativeDateTime(
+                    activity,
+                    date,
+                    locale.locale,
+                    FormatStyle.FULL,
+                    preferences.alwaysDisplayFullDate,
+                    false
+            )
             setTextColor(if (hasDueTime(date)) {
                 DateTimeUtils.newDateTime(date).isBeforeNow
             } else {

@@ -73,6 +73,7 @@ internal class ScrollableViewsFactory(
     private var tasks = SectionedDataSource(emptyList(), false, 0, collapsed)
     private val widgetPreferences = WidgetPreferences(context, preferences, widgetId)
     private var isDark = checkIfDark
+    private var showFullDate = false
 
     private val checkIfDark: Boolean
         get() = when (widgetPreferences.themeIndex) {
@@ -192,8 +193,8 @@ internal class ScrollableViewsFactory(
         }
     }
 
-    private fun getDateString(value: Long, lowercase: Boolean = true, alwaysDisplayFullDate: Boolean = false) =
-            DateUtilities.getRelativeDay(context, value, locale.locale, FormatStyle.MEDIUM, alwaysDisplayFullDate, lowercase)
+    private fun getDateString(value: Long, lowercase: Boolean = true) =
+            DateUtilities.getRelativeDay(context, value, locale.locale, FormatStyle.MEDIUM, showFullDate, lowercase)
 
     @StringRes
     private fun priorityToString(priority: Int) = when (priority) {
@@ -334,7 +335,7 @@ internal class ScrollableViewsFactory(
                 }
             } else {
                 DateUtilities.getRelativeDateTime(
-                        context, task.dueDate, locale.locale, FormatStyle.MEDIUM)
+                        context, task.dueDate, locale.locale, FormatStyle.MEDIUM, showFullDate, false)
             }
             row.setTextViewText(dueDateRes, text)
             row.setTextColor(
@@ -381,6 +382,7 @@ internal class ScrollableViewsFactory(
         showSubtasks = widgetPreferences.showSubtasks()
         showLists = widgetPreferences.showLists()
         showTags = widgetPreferences.showTags()
+        showFullDate = widgetPreferences.alwaysDisplayFullDate
         widgetPreferences.sortMode.takeIf { it != sortMode }
                 ?.let {
                     if (sortMode >= 0) {
