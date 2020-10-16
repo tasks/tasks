@@ -650,4 +650,7 @@
     <string name="repeat_type_completion_capitalized">Fecha de finalización</string>
     <string name="default_tags">Etiquetas predeterminadas</string>
     <string name="default_location">Ubicación predeterminada</string>
+    <string name="delete_comment">¿Eliminar este comentario\?</string>
+    <string name="date_picker_multiple">Múltiples</string>
+    <string name="multi_select_reschedule">Reprogramar</string>
 </resources>
