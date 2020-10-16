@@ -3,6 +3,8 @@ package org.tasks.sync
 import com.todoroo.astrid.data.SyncFlags
 import com.todoroo.astrid.data.Task
 import kotlinx.coroutines.*
+import org.tasks.LocalBroadcastManager
+import org.tasks.R
 import org.tasks.data.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.CaldavAccount.Companion.TYPE_ETESYNC
 import org.tasks.data.CaldavAccount.Companion.TYPE_OPENTASKS
@@ -15,6 +17,7 @@ import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_CALDAV
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_ETESYNC
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_GOOGLE_TASKS
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_OPENTASK
+import org.tasks.preferences.Preferences
 import java.util.concurrent.Executors.newSingleThreadExecutor
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -25,12 +28,22 @@ class SyncAdapters @Inject constructor(
         private val caldavDao: CaldavDao,
         private val googleTaskDao: GoogleTaskDao,
         private val googleTaskListDao: GoogleTaskListDao,
-        private val openTaskDao: OpenTaskDao) {
+        private val openTaskDao: OpenTaskDao,
+        private val preferences: Preferences,
+        private val localBroadcastManager: LocalBroadcastManager
+) {
     private val scope = CoroutineScope(newSingleThreadExecutor().asCoroutineDispatcher() + SupervisorJob())
     private val googleTasks = Debouncer(TAG_SYNC_GOOGLE_TASKS) { workManager.googleTaskSync(it) }
     private val caldav = Debouncer(TAG_SYNC_CALDAV) { workManager.caldavSync(it) }
     private val eteSync = Debouncer(TAG_SYNC_ETESYNC) { workManager.eteSync(it) }
     private val opentasks = Debouncer(TAG_SYNC_OPENTASK) { workManager.openTaskSync(it) }
+    private val syncStatus = Debouncer("sync_status") {
+        if (preferences.getBoolean(R.string.p_sync_ongoing_android, false) != it
+                && isOpenTaskSyncEnabled()) {
+            preferences.setBoolean(R.string.p_sync_ongoing_android, it)
+            localBroadcastManager.broadcastRefresh()
+        }
+    }
 
     fun sync(task: Task, original: Task?) = scope.launch {
         if (task.checkTransitory(SyncFlags.SUPPRESS_SYNC)) {
@@ -51,6 +64,10 @@ class SyncAdapters @Inject constructor(
                 opentasks.sync(false)
             }
         }
+    }
+
+    fun setOpenTaskSyncActive(active: Boolean) = scope.launch {
+        syncStatus.sync(active)
     }
 
     fun syncOpenTasks() = scope.launch {

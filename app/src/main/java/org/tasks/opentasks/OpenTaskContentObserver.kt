@@ -9,9 +9,7 @@ import android.os.Handler
 import android.os.HandlerThread
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.dmfs.tasks.contract.TaskContract.*
-import org.tasks.LocalBroadcastManager
 import org.tasks.R
-import org.tasks.preferences.Preferences
 import org.tasks.sync.SyncAdapters
 import timber.log.Timber
 import javax.inject.Inject
@@ -19,8 +17,6 @@ import javax.inject.Inject
 class OpenTaskContentObserver @Inject constructor(
         @ApplicationContext context: Context,
         private val syncAdapters: SyncAdapters,
-        private val preferences: Preferences,
-        private val localBroadcastManager: LocalBroadcastManager
 ) : ContentObserver(getHandler()), SyncStatusObserver {
 
     val authority = context.getString(R.string.opentasks_authority)
@@ -39,11 +35,9 @@ class OpenTaskContentObserver @Inject constructor(
     }
 
     override fun onStatusChanged(which: Int) {
-        val active = ContentResolver.getCurrentSyncs().any { it.authority == authority }
-        if (preferences.getBoolean(R.string.p_sync_ongoing_android, false) != active) {
-            preferences.setBoolean(R.string.p_sync_ongoing_android, active)
-            localBroadcastManager.broadcastRefresh()
-        }
+        syncAdapters.setOpenTaskSyncActive(
+                ContentResolver.getCurrentSyncs().any { it.authority == authority }
+        )
     }
 
     companion object {
