@@ -650,4 +650,7 @@
     <string name="repeat_type_completion_capitalized">Tamamlanma tarihi</string>
     <string name="default_tags">Öntanımlı etiketler</string>
     <string name="default_location">Öntanımlı konum</string>
+    <string name="delete_comment">Bu yorum silinsin mi\?</string>
+    <string name="date_picker_multiple">Birden çok</string>
+    <string name="multi_select_reschedule">Yeniden zamanla</string>
 </resources>
