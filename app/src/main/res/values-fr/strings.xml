@@ -648,4 +648,6 @@
     <string name="delete_comment">Supprimer ce commentaire \?</string>
     <string name="date_picker_multiple">Plusieurs</string>
     <string name="multi_select_reschedule">Replanifier</string>
+    <string name="cancel">Annuler</string>
+    <string name="ok">OK</string>
 </resources>
