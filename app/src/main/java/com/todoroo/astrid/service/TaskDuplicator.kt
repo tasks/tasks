@@ -68,12 +68,14 @@ class TaskDuplicator @Inject constructor(
         }
         gcalHelper.createTaskEventIfEnabled(clone)
         taskDao.save(clone, null) // TODO: delete me
-        getDirectChildren(originalId)
-                .filter { it.parent == originalId }
-                .forEach { subtask -> clone(subtask, newId) }
+        getDirectChildren(originalId).forEach { subtask ->
+            clone(subtask, newId)
+        }
         return clone
     }
 
     private suspend fun getDirectChildren(taskId: Long): List<Task> =
-        taskDao.fetch(taskDao.getChildren(taskId)).filter { it.parent == taskId }
+        taskDao
+            .fetch(taskDao.getChildren(taskId))
+            .filter { it.parent == taskId }
 }
