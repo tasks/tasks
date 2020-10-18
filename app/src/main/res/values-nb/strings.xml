@@ -650,4 +650,5 @@
     <string name="default_tags">Forvalgte etiketter</string>
     <string name="repeat_type_completion_capitalized">Fullføringsdato</string>
     <string name="default_location">Forvalgt plassering</string>
+    <string name="delete_comment">Slett denne kommentaren\?</string>
 </resources>
