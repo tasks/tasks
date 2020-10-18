@@ -32,16 +32,19 @@ class TaskDuplicator @Inject constructor(
         return result
     }
 
-    private suspend fun clone(clone: Task): Task {
+    private suspend fun clone(clone: Task, parentId: Long = 0L): Task {
         val originalId = clone.id
-        clone.creationDate = DateUtilities.now()
-        clone.modificationDate = DateUtilities.now()
-        clone.completionDate = 0L
-        clone.calendarURI = ""
-        clone.uuid = Task.NO_UUID
-        clone.suppressSync()
-        clone.suppressRefresh()
-        taskDao.createNew(clone)
+        with(clone) {
+            creationDate = DateUtilities.now()
+            modificationDate = DateUtilities.now()
+            completionDate = 0L
+            calendarURI = ""
+            parent = parentId
+            uuid = Task.NO_UUID
+            suppressSync()
+            suppressRefresh()
+        }
+        val newId = taskDao.createNew(clone)
         val tags = tagDataDao.getTagDataForTask(originalId)
         if (tags.isNotEmpty()) {
             tagDao.insert(Lists.transform(tags) { td: TagData? -> Tag(clone, td!!) })
@@ -65,6 +68,12 @@ class TaskDuplicator @Inject constructor(
         }
         gcalHelper.createTaskEventIfEnabled(clone)
         taskDao.save(clone, null) // TODO: delete me
+        getDirectChildren(originalId)
+                .filter { it.parent == originalId }
+                .forEach { subtask -> clone(subtask, newId) }
         return clone
     }
+
+    private suspend fun getDirectChildren(taskId: Long): List<Task> =
+        taskDao.fetch(taskDao.getChildren(taskId)).filter { it.parent == taskId }
 }
