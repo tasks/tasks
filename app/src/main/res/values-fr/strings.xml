@@ -650,4 +650,5 @@
     <string name="multi_select_reschedule">Replanifier</string>
     <string name="cancel">Annuler</string>
     <string name="ok">OK</string>
+    <string name="always_display_full_date">Afficher la date complète</string>
 </resources>
