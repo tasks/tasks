@@ -648,6 +648,4 @@
     <string name="delete_comment">Eliminare questo commento\?</string>
     <string name="date_picker_multiple">Molteplici</string>
     <string name="multi_select_reschedule">Modifica pianificazione</string>
-    <string name="cancel">\@android:string/annulla</string>
-    <string name="ok">\@android:string/ok</string>
 </resources>

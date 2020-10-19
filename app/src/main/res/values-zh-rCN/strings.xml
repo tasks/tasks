@@ -644,6 +644,4 @@
     <string name="delete_comment">删除该注解？</string>
     <string name="date_picker_multiple">多个</string>
     <string name="multi_select_reschedule">重新计划</string>
-    <string name="cancel">\@android:string/取消</string>
-    <string name="ok"></string>
 </resources>
