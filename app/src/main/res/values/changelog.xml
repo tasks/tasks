@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="changelog">
-        <item>New widget configuration options: sort, show hidden, show completed, and header spacing</item>
-        <item>Bug fixes</item>
-        <item>Update translations</item>
+        <item>Multi-select rescheduling</item>
+        <item>New task default settings: tags, recurrence, location, hide until due time</item>
+        <item>Add ability to delete comments (Thanks to @Romedius!)</item>
+        <item>Add option to always display date (Thanks to @T0M0F!)</item>
+        <item>Copy subtasks when copying tasks (Thanks to @supermzn!)</item>
+        <item>Bug fixes and translation updates</item>
+        <item>Find Tasks on Reddit: https://reddit.com/r/tasks</item>
     </string-array>
 </resources>

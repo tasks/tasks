@@ -1,6 +1,30 @@
 Change Log
 ---
 =======
+### 10.5 (2020-10-19)
+
+* Multi-select rescheduling
+* New task default settings
+  * Default tags
+  * Default recurrence
+  * Default location
+  * Hide until due time
+* Add ability to delete comments (Thanks to @romedius!)
+* Add option to always display date (Thanks to @T0M0F!)
+* Copy subtasks when copying tasks (Thanks to @supermzn!)
+* Bug fixes
+* Translation updates
+  * Dutch - @fvbommel
+  * French - @FlorianLeChat
+  * Hebrew - @yarons
+  * Hungarian - kaciokos
+  * Italian - @ppasserini
+  * Norwegian Bokmål - @comradekingu
+  * Russian - Nikita Epifanov
+  * Simplified Chinese - @sr093906
+  * Spanish - @FlorianLeChat
+  * Turkish - @emintufan, Oğuz Ersen
+
 ### 10.4 (2020-10-09)
 
 * New widget configuration options

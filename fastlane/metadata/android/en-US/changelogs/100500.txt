@@ -1,0 +1,10 @@
+* Multi-select rescheduling
+* New task default settings
+  * Default tags
+  * Default recurrence
+  * Default location
+  * Hide until due time
+* Add ability to delete comments (Thanks to @Romedius!)
+* Add option to always display date (Thanks to @T0M0F!)
+* Copy subtasks when copying tasks (Thanks to @supermzn!)
+* Bug fixes and translation updates
