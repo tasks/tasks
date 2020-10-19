@@ -645,7 +645,9 @@
     <string name="repeat_type_completion_capitalized">Data completamento</string>
     <string name="default_tags">Etichetta predefinita</string>
     <string name="default_location">Posizione predefinita</string>
-    <string name="delete_comment">Elimina questo commento?</string>
+    <string name="delete_comment">Eliminare questo commento\?</string>
     <string name="date_picker_multiple">Molteplici</string>
     <string name="multi_select_reschedule">Modifica pianificazione</string>
+    <string name="cancel">\@android:string/annulla</string>
+    <string name="ok">\@android:string/ok</string>
 </resources>
