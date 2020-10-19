@@ -8,11 +8,11 @@
     <string name="backup_BAc_export">גיבוי כעת</string>
     <string name="export_toast">בוצע גיבוי של %1$s אל %2$s.</string>
     <string name="import_summary_title">סיכום פעולת השחזור</string>
-    <string name="import_summary_message">הקובץ ‚%1$ הכיל %2$s.
+    <string name="import_summary_message">הקובץ %1$s הכיל %2$s.
 \n
 \n %3$s יובאו,
-\n %4$s היו קיימות כבר,
-\nוב־%5$s היו שגיאות.
+\n %4$s היו קיימות כבר
+\nוב־%5$s היו שגיאות
 \n</string>
     <string name="import_progress_read">נקראת משימה %d…</string>
     <string name="read_permission_label">הרשאות אסטריד</string>
@@ -383,7 +383,7 @@
     <string name="password_required">נדרשת סיסמא</string>
     <string name="url_required">נדרשת כתובת</string>
     <string name="url_host_name_required">נדרש שם מארח</string>
-    <string name="url_invalid_scheme">חייב להתחיל ב-http(s)://</string>
+    <string name="url_invalid_scheme">חייב להתחיל ב־http(s)://‎</string>
     <string name="no_title">(אין כותרת)</string>
     <string name="back_button_saves_task">כפתור \"חזרה\" שומר שינויים במשימה</string>
     <string name="default_list">רשימת ברירת מחדל</string>
@@ -520,10 +520,10 @@
     <string name="create_new_tag">לייצור \"%s\"</string>
     <string name="whats_new">מה חדש</string>
     <plurals name="subtask_count">
-        <item quantity="one">אחד</item>
-        <item quantity="two">שתיים</item>
-        <item quantity="many">מעט</item>
-        <item quantity="other">אחר</item>
+        <item quantity="one">תת־משימה אחת</item>
+        <item quantity="two">שתי תת־משימות</item>
+        <item quantity="many">%d תת־משימות</item>
+        <item quantity="other">%d תת־משימות</item>
     </plurals>
     <string name="enter_title_hint">הזן כותרת</string>
     <string name="collapse_subtasks">כיווץ תתי משימות</string>
@@ -678,4 +678,13 @@
     <string name="background_location_permission_required">הרשאות מיקום נדרשות לטובת תזכורות מבוססות מיקום. אם בעבר דחית בקשת הרשאת מיקום יהיה עליך להעניק את ההרשאה ידנית דרך הגדרות המכשיר שלך.</string>
     <string name="no_app_found">לאף יישומון אין אפשרות לטפל בבקשה הזו</string>
     <string name="header_spacing">ריווח</string>
+    <string name="delete_comment">למחוק את ההערה הזאת\?</string>
+    <string name="date_picker_multiple">מגוון</string>
+    <string name="multi_select_reschedule">תזמון מחדש</string>
+    <string name="default_recurrence">מחזוריות כבררת מחדל</string>
+    <string name="default_tags">תגיות בררת מחדל</string>
+    <string name="repeat_type_completion_capitalized">תאריך השלמה</string>
+    <string name="default_location">מיקום בררת מחדל</string>
+    <string name="cancel">ביטול</string>
+    <string name="ok">אישור</string>
 </resources>
