@@ -655,4 +655,5 @@
     <string name="multi_select_reschedule">Yeniden zamanla</string>
     <string name="cancel">\@android:string/cancel</string>
     <string name="ok">\@android:string/ok</string>
+    <string name="always_display_full_date">Tam tarihi göster</string>
 </resources>
