@@ -655,4 +655,5 @@
     <string name="multi_select_reschedule">Reprogramar</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancelar</string>
+    <string name="always_display_full_date">Mostrar la fecha completa</string>
 </resources>
