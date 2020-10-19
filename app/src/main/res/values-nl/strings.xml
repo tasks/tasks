@@ -648,4 +648,6 @@
     <string name="multi_select_reschedule">Opnieuw inplannen</string>
     <string name="delete_comment">Deze opmerking verwijderen\?</string>
     <string name="date_picker_multiple">Meerdere</string>
+    <string name="cancel">Annuleren</string>
+    <string name="ok">OK</string>
 </resources>
